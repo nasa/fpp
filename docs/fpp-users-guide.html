@@ -3586,7 +3586,9 @@ A state machine definition is an
 Once you define a state machine, you can
 <a href="#Defining-Components_State-Machine-Instances">instantiate it as part of a component</a>.
 The component can then send the signals that cause the state
-transitions.</p>
+transitions.
+The component also provides the functions that are called when
+the state machine does actions and evaluates guards.</p>
 </div>
 <div class="sect2">
 <h3 id="Defining-State-Machines_Writing-a-State-Machine-Definition">9.1. Writing a State Machine Definition</h3>
@@ -3722,10 +3724,10 @@ on receiving the <code>cmdOn</code> signal in state <code>OFF</code>.</p>
 </div>
 <div class="paragraph">
 <p>In general, a state transition specifier causes a transition
-from the state <em>S</em> in which it appears to the state <em>T</em> that
+from the state <em>S</em> in which it appears to the state <em>S'</em> that
 appears after the keyword <code>enter</code>.
 We say that <em>S</em> is the <strong>source</strong> of the transition,
-and <em>T</em> is the <strong>target</strong> of the transition.</p>
+and <em>S'</em> is the <strong>target</strong> of the transition.</p>
 </div>
 <div class="paragraph">
 <p>If a state machine instance receives a signal <em>s</em>, and it is
@@ -3738,7 +3740,7 @@ or signal <code>cmdOff</code> in state <code>OFF</code>, then it takes no action
 </div>
 <div class="paragraph">
 <p><strong>Rules for defining state machines:</strong>
-State machine definitions must conform to the following rules:</p>
+Each state machine definition must conform to the following rules:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -4487,10 +4489,8 @@ The most basic choice definition consists of the following:</p>
 of a transition.</p>
 </li>
 <li>
-<p>The name of a</p>
-</li>
-<li>
-<p><a href="#Defining-State-Machines_More-on-State-Transitions_Guarded-Transitions">guard</a>
+<p>The name of a
+<a href="#Defining-State-Machines_More-on-State-Transitions_Guarded-Transitions">guard</a>
 <em>G</em>.
 The evaluation of <em>G</em> selects which branch of the choice to
 follow.</p>
@@ -5164,6 +5164,29 @@ This distinction between syntactic and flattened state transitions
 will be useful when we discuss entry and exit actions
 in the following sections.</p>
 </div>
+<div class="paragraph">
+<p><strong>Internal transitions:</strong>
+<a href="#Defining-State-Machines_More-on-State-Transitions_Internal-Transitions">Internal transitions</a> are flattened and inherited like other transitions,
+except that there is no target state.
+When a parent state <em>S</em> defines an internal transition, the following occurs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>There is one flattened transition for each leaf state that
+that is a descendant of <em>S</em>.</p>
+</li>
+<li>
+<p>The behavior of each flattened transition is to stay in <em>S</em>
+and do the actions listed in the transition.
+There is no state change, and no entry or exit actions are done.</p>
+</li>
+<li>
+<p>As usual, any of these flattened transitions may be overridden
+by behavioral polymorphism.</p>
+</li>
+</ul>
+</div>
 </div>
 <div class="sect3">
 <h4 id="Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions">9.6.3. Entry and Exit Actions</h4>
@@ -5271,9 +5294,9 @@ is an ancestor of <em>S</em><sub>1</sub>, then we say that <em>S</em><sub>1</sub
 <strong>directly related</strong> in the hierarchy tree.</p>
 </div>
 <div class="paragraph">
-<p>In this section we divide all transitions between
-directly related states into several categories, which we describe.
-In each category, the behavior that we describe follows from the general behavior
+<p>In this section we describe the behavior of transitions between
+directly related states.
+Each of the behaviors described below follows from the general behavior
 presented in the previous section.
 However, in some cases the behavior may be subtle or surprising.</p>
 </div>
@@ -14634,7 +14657,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-09 11:46:53 -0800
+Last updated 2024-11-11 11:55:05 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

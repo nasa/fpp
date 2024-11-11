@@ -43,6 +43,8 @@ Once you define a state machine, you can
 instantiate it as part of a component>>.
 The component can then send the signals that cause the state
 transitions.
+The component also provides the functions that are called when
+the state machine does actions and evaluates guards.
 
 === Writing a State Machine Definition
 
@@ -155,10 +157,10 @@ on receiving the `cmdOff` signal in state `ON`.
 on receiving the `cmdOn` signal in state `OFF`.
 
 In general, a state transition specifier causes a transition
-from the state _S_ in which it appears to the state _T_ that
+from the state _S_ in which it appears to the state _S'_ that
 appears after the keyword `enter`.
 We say that _S_ is the *source* of the transition,
-and _T_ is the *target* of the transition.
+and _S'_ is the *target* of the transition.
 
 If a state machine instance receives a signal _s_, and it is
 in a state _S_ that specifies no behavior for signal _s_
@@ -169,7 +171,7 @@ In the example above, if the state machine receives signal
 or signal `cmdOff` in state `OFF`, then it takes no action.
 
 *Rules for defining state machines:*
-State machine definitions must conform to the following rules:
+Each state machine definition must conform to the following rules:
 
 . A state machine definition and each of its members is an
 <<Writing-Comments-and-Annotations_Annotations,annotatable element>>.
@@ -836,7 +838,7 @@ The most basic choice definition consists of the following:
 of a transition.
 
 * The name of a 
-* <<Defining-State-Machines_More-on-State-Transitions_Guarded-Transitions,guard>>
+<<Defining-State-Machines_More-on-State-Transitions_Guarded-Transitions,guard>>
 _G_.
 The evaluation of _G_ selects which branch of the choice to
 follow.
@@ -1398,6 +1400,22 @@ This distinction between syntactic and flattened state transitions
 will be useful when we discuss entry and exit actions
 in the following sections.
 
+*Internal transitions:*
+<<Defining-State-Machines_More-on-State-Transitions_Internal-Transitions,
+Internal transitions>> are flattened and inherited like other transitions,
+except that there is no target state.
+When a parent state _S_ defines an internal transition, the following occurs:
+
+* There is one flattened transition for each leaf state that
+that is a descendant of _S_.
+
+* The behavior of each flattened transition is to stay in _S_
+and do the actions listed in the transition.
+There is no state change, and no entry or exit actions are done.
+
+* As usual, any of these flattened transitions may be overridden
+by behavioral polymorphism.
+
 ==== Entry and Exit Actions
 
 In previous sections on
@@ -1492,9 +1510,9 @@ If _S_~1~ is equal to S~2~, or _S_~1~ is an ancestor of S~2~, or S~2~
 is an ancestor of _S_~1~, then we say that _S_~1~ and S~2~ are
 *directly related* in the hierarchy tree.
 
-In this section we divide all transitions between
-directly related states into several categories, which we describe.
-In each category, the behavior that we describe follows from the general behavior
+In this section we describe the behavior of transitions between
+directly related states.
+Each of the behaviors described below follows from the general behavior
 presented in the previous section.
 However, in some cases the behavior may be subtle or surprising.
 
