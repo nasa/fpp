@@ -53,7 +53,7 @@ topology T2 {
   instance c3
   instance c4
 
-  connections C {
+  connections C3 {
     c1.pOut -> c2.pIn
     c3.pOut -> c4.pIn
   }
