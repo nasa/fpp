@@ -11,7 +11,7 @@ duplicate()
     compare_out duplicate
 }
 
-mutliple_tops()
+multiple_tops()
 {
   run_test "" multiple_tops && \
     compare T1 C1 && \
