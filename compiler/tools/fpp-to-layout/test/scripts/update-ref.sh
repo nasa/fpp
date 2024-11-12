@@ -23,7 +23,7 @@ move_layout_files()
   mkdir -p $topDir'LayoutRef'
   for file in ${@: 2}
     do
-      mv $topDir'Layout'/$file'.txt' $topDir'LayoutRef'/$file'.ref.txt'
+      mv $topDir'Layout'/$file'.txt' $topDir'LayoutRef'/$file'.txt'
     done
   rm -r $topDir'Layout'
 }

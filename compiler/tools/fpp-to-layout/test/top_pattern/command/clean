@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+export COMPILER_ROOT=../../../../..
+
+sh ../../scripts/clean.sh
