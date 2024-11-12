@@ -743,10 +743,10 @@ it receives a `cmdReset` signal, the following behavior occurs:
 
 ==== Internal Transitions
 
-An internal transition is like a
+An *internal transition* is like a
 <<Defining-State-Machines_More-on-State-Transitions_Self-Transitions,self transition>>,
 except that there is no exit and reentry.
-To write a self transition, you write the `on` and `do`
+To write an internal transition, you write the `on` and `do`
 parts of a transition and omit the `enter` part.
 For example, here is a device state machine with a `reset`
 action that causes an internal transition:
