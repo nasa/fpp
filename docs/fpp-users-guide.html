@@ -11760,6 +11760,17 @@ annotations back to comments.</p>
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Visualizing-Topologies">14.7. Visualizing Topologies</h3>
 <div class="paragraph">
+<p>FPP can translate the connection graphs in topology <em>T</em> to text, which can then be read
+by a companion tool called <code>fprime-layout</code>.
+<code>fprime-layout</code> reads a topology connection graph text file and produces a
+<strong>topology visualization</strong>, i.e., a graphical rendering of the topology
+in which the component instances are shapes, the ports are smaller shapes,
+and the connections are arrows between the ports.
+<code>fprime-layout</code> produces one visualization for each
+<a href="#Defining-Topologies_Connection-Graphs">connection graph</a> in the
+topology.</p>
+</div>
+<div class="paragraph">
 <p>Topology visualization is an important part of the FPP work flow:</p>
 </div>
 <div class="ulist">
@@ -11778,7 +11789,7 @@ the auto-generated connections of the pattern graph specifiers.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p><strong>Tool name:</strong> The tool for generating layout txt files is called
+<p><strong>Tool name:</strong> The tool for generating layout text files is called
 <code>fpp-to-layout</code>.</p>
 </div>
 <div class="paragraph">
@@ -11794,7 +11805,7 @@ The usual procedure for running <code>fpp-to-layout</code> is as follows:</p>
 <p><a href="#Specifying-Models-as-Files_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
 </li>
 <li>
-<p>If <em>D</em> is empty, then run <code>fpp-to-dict</code> <em>F</em>.</p>
+<p>If <em>D</em> is empty, then run <code>fpp-to-layout</code> <em>F</em>.</p>
 </li>
 <li>
 <p>Otherwise run <code>fpp-to-layout -i</code> <em>D<sub>1</sub></em> <code>,</code> &#8230;&#8203; <code>,</code> <em>D<sub>n</sub></em> <em>F</em>, where <em>D<sub>i</sub></em> are the
@@ -11810,11 +11821,11 @@ either through named files or through standard input.</p>
 <div class="paragraph">
 <p><strong>Tool behavior:</strong>
 For each topology <em>T</em> defined in the input files <em>F</em>, <code>fpp-to-layout</code> creates a directory for
-<em>T</em> <code>TLayout</code> and writes layout <code>txt</code> files for each of the connection graphs in <em>T</em>.</p>
+<em>T</em> <code>Layout</code> and writes layout text files for each of the connection graphs in <em>T</em>.</p>
 </div>
 <div class="paragraph">
 <p>The layout file format is specified in the
-<a href="https://github.com/fprime-community/fprime-layout/wiki/Topology-Input">FPL Input Format Wiki</a>.</p>
+<a href="https://github.com/fprime-community/fprime-layout/wiki/Topology-Input"><code>fprime-layout</code> wiki</a>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Options:</strong>
@@ -11830,17 +11841,6 @@ For each topology <em>T</em> defined in the input files <em>F</em>, <code>fpp-to
 </div>
 <div class="paragraph">
 <p>See the <a href="https://github.com/nasa/fpp/wiki/fpp-to-layout">FPP wiki</a> for details.</p>
-</div>
-<div class="paragraph">
-<p><code>fpp-to-layout</code> generates text files that can be read by a companion tool called
-<code>fprime-layout</code>.
-<code>fprime-layout</code> reads topology connection graph text files and produces a
-<strong>topology visualization</strong>, i.e., a graphical rendering of the topology
-in which the component instances are shapes, the ports are smaller shapes,
-and the connections are arrows between the ports.
-<code>fprime-layout</code> produces one visualization for each
-<a href="#Defining-Topologies_Connection-Graphs">connection graph</a> in the
-topology.</p>
 </div>
 <div class="paragraph">
 <p>Using <code>fprime-layout</code>, you can do the following:</p>
@@ -12753,7 +12753,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-07 11:36:16 -0800
+Last updated 2024-11-12 13:52:54 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

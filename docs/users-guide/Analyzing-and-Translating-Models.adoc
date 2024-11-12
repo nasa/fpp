@@ -1226,6 +1226,16 @@ annotations back to comments.
 
 === Visualizing Topologies
 
+FPP can translate the connection graphs in topology _T_ to text, which can then be read 
+by a companion tool called `fprime-layout`.
+`fprime-layout` reads a topology connection graph text file and produces a
+*topology visualization*, i.e., a graphical rendering of the topology
+in which the component instances are shapes, the ports are smaller shapes,
+and the connections are arrows between the ports.
+`fprime-layout` produces one visualization for each
+<<Defining-Topologies_Connection-Graphs,connection graph>> in the
+topology.
+
 Topology visualization is an important part of the FPP work flow:
 
 * It provides a graphical representation of the instances and
@@ -1237,7 +1247,7 @@ textual representation provided by the FPP source.
 FPP source, e.g., the auto-generated port numbers of the connections and
 the auto-generated connections of the pattern graph specifiers.
 
-*Tool name:* The tool for generating layout txt files is called
+*Tool name:* The tool for generating layout text files is called
 `fpp-to-layout`.
 
 *Procedure:*
@@ -1245,7 +1255,7 @@ The usual procedure for running `fpp-to-layout` is as follows:
 
 . Identify one or more files _F_ that you want to translate.
 . <<Specifying-Models-as-Files_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
-. If _D_ is empty, then run `fpp-to-dict` _F_.
+. If _D_ is empty, then run `fpp-to-layout` _F_.
 . Otherwise run `fpp-to-layout -i` _D~1~_ `,` ... `,` _D~n~_ _F_, where _D~i~_ are the
 names of the dependencies.
 
@@ -1255,10 +1265,10 @@ either through named files or through standard input.
 
 *Tool behavior:*
 For each topology _T_ defined in the input files _F_, `fpp-to-layout` creates a directory for 
-_T_ `TLayout` and writes layout `txt` files for each of the connection graphs in _T_.
+_T_ `Layout` and writes layout text files for each of the connection graphs in _T_.
 
 The layout file format is specified in the
-https://github.com/fprime-community/fprime-layout/wiki/Topology-Input[FPL Input Format Wiki].
+https://github.com/fprime-community/fprime-layout/wiki/Topology-Input[`fprime-layout` wiki].
 
 *Options:*
 `fpp-to-layout` provides the following options:
@@ -1268,17 +1278,6 @@ https://github.com/fprime-community/fprime-layout/wiki/Topology-Input[FPL Input 
 `fpp-to-cpp`>>.
 
 See the https://github.com/nasa/fpp/wiki/fpp-to-layout[FPP wiki] for details.
-
-
-`fpp-to-layout` generates text files that can be read by a companion tool called
-`fprime-layout`.
-`fprime-layout` reads topology connection graph text files and produces a
-*topology visualization*, i.e., a graphical rendering of the topology
-in which the component instances are shapes, the ports are smaller shapes,
-and the connections are arrows between the ports.
-`fprime-layout` produces one visualization for each
-<<Defining-Topologies_Connection-Graphs,connection graph>> in the
-topology.
 
 Using `fprime-layout`, you can do the following:
 
