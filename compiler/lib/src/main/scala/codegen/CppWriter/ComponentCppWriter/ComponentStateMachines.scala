@@ -26,7 +26,8 @@ case class ComponentStateMachines(
   def getFunctionMembers: List[CppDoc.Class.Member] = {
     List.concat(
       getOverflowHooks,
-      getSignalSendMember
+      getSignalSendFunctions,
+      getStateGetterFunctions
     )
   }
 
@@ -131,8 +132,8 @@ case class ComponentStateMachines(
       CppDoc.Lines.Hpp
     )
 
-  private def getSignalSendMember: List[CppDoc.Class.Member] = {
-    lazy val members = stateMachineInstances.map { smi =>
+  private def getSignalSendFunctions: List[CppDoc.Class.Member] = {
+    val members = stateMachineInstances.map { smi =>
 
       val serializeCode =
         lines(
@@ -194,9 +195,29 @@ case class ComponentStateMachines(
 
     addAccessTagAndComment(
       "PROTECTED",
-      "State machine function to push signals to the input queue",
-      guardedList (hasStateMachineInstances) (members)
+      "Functions for sending sending state machine signals to the input queue",
+      members
     )
+  }
+
+  private def getStateGetterFunctions: List[CppDoc.Class.Member] = {
+    val members = stateMachineInstances.map { smi =>
+
+      val smiName = smi.getName
+      val smName = s.writeSymbol(smi.symbol)
+      val smEnumName = s"$smName::${s.getName(smi.symbol)}_States";
+      functionClassMember( 
+        Some(s"Get the state of state machine instance $smiName"), 
+        s"${smiName}_getState",
+        Nil, 
+        CppDoc.Type(smEnumName, Some(smEnumName)), 
+        lines(s"return this->m_stateMachine_$smiName.state;"), 
+        CppDoc.Function.NonSV, 
+        CppDoc.Function.Const 
+      )
+    }
+
+    addAccessTagAndComment("PROTECTED", "State getter functions", members)
   }
 
   private def writeStateMachineUpdate: List[Line] =
