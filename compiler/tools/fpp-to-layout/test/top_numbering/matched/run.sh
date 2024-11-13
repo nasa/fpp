@@ -1,6 +1,6 @@
-numbering_general()
+numbering_matched()
 {
-  run_test "" numbering_general && \
+  run_test "" numbering_matched && \
     compare T C && \
-    compare_out numbering_general
+    compare_out numbering_matched
 }
