@@ -201,7 +201,7 @@ case class ComponentStateMachines(
   }
 
   private def getStateGetterFunction: List[CppDoc.Class.Member] = {
-    lazy val members = stateMachineInstances.map { smi =>
+    val members = stateMachineInstances.map { smi =>
 
       val smiName = smi.getName
       val smName = s.writeSymbol(smi.symbol)
@@ -217,11 +217,7 @@ case class ComponentStateMachines(
       )
     }
 
-    addAccessTagAndComment(
-      "PROTECTED",
-      "State getter functions",
-      guardedList (hasStateMachineInstances) (members)
-    )
+    addAccessTagAndComment("PROTECTED", "State getter functions", members)
   }
 
   private def writeStateMachineUpdate: List[Line] =
