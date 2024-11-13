@@ -119,6 +119,46 @@ namespace ExternalSm {
   }
 
   // ----------------------------------------------------------------------
+  // State getter functions
+  // ----------------------------------------------------------------------
+
+  ExternalSm::ActiveExternalStateMachines_S1::ActiveExternalStateMachines_S1_States ActiveExternalStateMachinesComponentBase ::
+    sm1_getState() const
+  {
+    return this->m_stateMachine_sm1.state;
+  }
+
+  ExternalSm::ActiveExternalStateMachines_S1::ActiveExternalStateMachines_S1_States ActiveExternalStateMachinesComponentBase ::
+    sm2_getState() const
+  {
+    return this->m_stateMachine_sm2.state;
+  }
+
+  ExternalSm::ActiveExternalStateMachines_S2::ActiveExternalStateMachines_S2_States ActiveExternalStateMachinesComponentBase ::
+    sm3_getState() const
+  {
+    return this->m_stateMachine_sm3.state;
+  }
+
+  ExternalSm::ActiveExternalStateMachines_S2::ActiveExternalStateMachines_S2_States ActiveExternalStateMachinesComponentBase ::
+    sm4_getState() const
+  {
+    return this->m_stateMachine_sm4.state;
+  }
+
+  ExternalSm::ActiveExternalStateMachines_S2::ActiveExternalStateMachines_S2_States ActiveExternalStateMachinesComponentBase ::
+    sm5_getState() const
+  {
+    return this->m_stateMachine_sm5.state;
+  }
+
+  ExternalSm::ActiveExternalStateMachines_S2::ActiveExternalStateMachines_S2_States ActiveExternalStateMachinesComponentBase ::
+    sm6_getState() const
+  {
+    return this->m_stateMachine_sm6.state;
+  }
+
+  // ----------------------------------------------------------------------
   // Functions for sending signals to external state machines
   // ----------------------------------------------------------------------
 
