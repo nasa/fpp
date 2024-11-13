@@ -138,22 +138,22 @@ namespace M {
       // ----------------------------------------------------------------------
 
       //! Get the state of state machine instance sm1
-      M::ActiveStateMachines_S1::State sm1_getState() const;
+      M::ActiveStateMachines_S1::ActiveStateMachines_S1_States sm1_getState() const;
 
       //! Get the state of state machine instance sm2
-      M::ActiveStateMachines_S1::State sm2_getState() const;
+      M::ActiveStateMachines_S1::ActiveStateMachines_S1_States sm2_getState() const;
 
       //! Get the state of state machine instance sm3
-      M::ActiveStateMachines_S2::State sm3_getState() const;
+      M::ActiveStateMachines_S2::ActiveStateMachines_S2_States sm3_getState() const;
 
       //! Get the state of state machine instance sm4
-      M::ActiveStateMachines_S2::State sm4_getState() const;
+      M::ActiveStateMachines_S2::ActiveStateMachines_S2_States sm4_getState() const;
 
       //! Get the state of state machine instance sm5
-      M::ActiveStateMachines_S2::State sm5_getState() const;
+      M::ActiveStateMachines_S2::ActiveStateMachines_S2_States sm5_getState() const;
 
       //! Get the state of state machine instance sm6
-      M::ActiveStateMachines_S2::State sm6_getState() const;
+      M::ActiveStateMachines_S2::ActiveStateMachines_S2_States sm6_getState() const;
 
     PRIVATE:
 

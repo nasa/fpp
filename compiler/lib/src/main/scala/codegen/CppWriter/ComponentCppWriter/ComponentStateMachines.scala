@@ -205,11 +205,12 @@ case class ComponentStateMachines(
 
       val smiName = smi.getName
       val smName = s.writeSymbol(smi.symbol)
+      val smEnumName = s"$smName::${s.getName(smi.symbol)}_States";
       functionClassMember( 
         Some(s"Get the state of state machine instance $smiName"), 
         s"${smiName}_getState",
         Nil, 
-        CppDoc.Type(s"$smName::State", Some(s"$name::$smName::State")), 
+        CppDoc.Type(smEnumName, Some(smEnumName)), 
         lines(s"return this->m_stateMachine_$smiName.state;"), 
         CppDoc.Function.NonSV, 
         CppDoc.Function.Const 

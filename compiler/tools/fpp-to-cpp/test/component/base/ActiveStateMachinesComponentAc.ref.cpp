@@ -446,37 +446,37 @@ namespace M {
   // State getter functions
   // ----------------------------------------------------------------------
 
-  ActiveStateMachines::M::ActiveStateMachines_S1::State ActiveStateMachinesComponentBase ::
+  M::ActiveStateMachines_S1::ActiveStateMachines_S1_States ActiveStateMachinesComponentBase ::
     sm1_getState() const
   {
     return this->m_stateMachine_sm1.state;
   }
 
-  ActiveStateMachines::M::ActiveStateMachines_S1::State ActiveStateMachinesComponentBase ::
+  M::ActiveStateMachines_S1::ActiveStateMachines_S1_States ActiveStateMachinesComponentBase ::
     sm2_getState() const
   {
     return this->m_stateMachine_sm2.state;
   }
 
-  ActiveStateMachines::M::ActiveStateMachines_S2::State ActiveStateMachinesComponentBase ::
+  M::ActiveStateMachines_S2::ActiveStateMachines_S2_States ActiveStateMachinesComponentBase ::
     sm3_getState() const
   {
     return this->m_stateMachine_sm3.state;
   }
 
-  ActiveStateMachines::M::ActiveStateMachines_S2::State ActiveStateMachinesComponentBase ::
+  M::ActiveStateMachines_S2::ActiveStateMachines_S2_States ActiveStateMachinesComponentBase ::
     sm4_getState() const
   {
     return this->m_stateMachine_sm4.state;
   }
 
-  ActiveStateMachines::M::ActiveStateMachines_S2::State ActiveStateMachinesComponentBase ::
+  M::ActiveStateMachines_S2::ActiveStateMachines_S2_States ActiveStateMachinesComponentBase ::
     sm5_getState() const
   {
     return this->m_stateMachine_sm5.state;
   }
 
-  ActiveStateMachines::M::ActiveStateMachines_S2::State ActiveStateMachinesComponentBase ::
+  M::ActiveStateMachines_S2::ActiveStateMachines_S2_States ActiveStateMachinesComponentBase ::
     sm6_getState() const
   {
     return this->m_stateMachine_sm6.state;
