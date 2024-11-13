@@ -92,7 +92,7 @@ namespace M {
     PROTECTED:
 
       // ----------------------------------------------------------------------
-      // State machine function to push signals to the input queue
+      // Functions for sending sending state machine signals to the input queue
       // ----------------------------------------------------------------------
 
       //! State machine base-class function for sendSignals
