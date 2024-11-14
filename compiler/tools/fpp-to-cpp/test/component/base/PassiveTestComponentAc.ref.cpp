@@ -2916,7 +2916,7 @@ void PassiveTestComponentBase ::
 // ----------------------------------------------------------------------
 
 void PassiveTestComponentBase ::
-  log_ACTIVITY_HI_EventActivityHigh()
+  log_ACTIVITY_HI_EventActivityHigh() const
 {
   // Get the time
   Fw::Time _logTime;
@@ -3112,7 +3112,7 @@ void PassiveTestComponentBase ::
   log_COMMAND_EventCommand(
       const Fw::StringBase& str1,
       const Fw::StringBase& str2
-  )
+  ) const
 {
   // Get the time
   Fw::Time _logTime;
@@ -3191,7 +3191,7 @@ void PassiveTestComponentBase ::
 }
 
 void PassiveTestComponentBase ::
-  log_DIAGNOSTIC_EventDiagnostic(E e)
+  log_DIAGNOSTIC_EventDiagnostic(E e) const
 {
   // Get the time
   Fw::Time _logTime;
@@ -3382,7 +3382,7 @@ void PassiveTestComponentBase ::
 }
 
 void PassiveTestComponentBase ::
-  log_WARNING_HI_EventWarningHigh(S s)
+  log_WARNING_HI_EventWarningHigh(S s) const
 {
   // Get the time
   Fw::Time _logTime;
