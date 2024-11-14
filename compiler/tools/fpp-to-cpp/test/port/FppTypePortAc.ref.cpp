@@ -186,7 +186,7 @@ void OutputFppTypePort ::
       A& aRef,
       const S& s,
       S& sRef
-  )
+  ) const
 {
 #if FW_PORT_TRACING == 1
   this->trace();

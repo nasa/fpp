@@ -122,7 +122,7 @@ class OutputAbsTypePort :
     void invoke(
         const T& t,
         T& tRef
-    );
+    ) const;
 
   private:
 

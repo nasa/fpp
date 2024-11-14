@@ -117,7 +117,7 @@ namespace Ports {
         const E& e,
         const A& a,
         const S& s
-    )
+    ) const
   {
 #if FW_PORT_TRACING == 1
     this->trace();

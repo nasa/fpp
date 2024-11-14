@@ -101,7 +101,7 @@ namespace M {
   }
 
   U32 OutputReturnTypePort ::
-    invoke(U32 u)
+    invoke(U32 u) const
   {
 #if FW_PORT_TRACING == 1
     this->trace();

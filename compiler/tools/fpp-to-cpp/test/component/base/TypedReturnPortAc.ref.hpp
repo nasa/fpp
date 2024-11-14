@@ -145,7 +145,7 @@ namespace Ports {
           const E& e, //!< An enum
           const A& a, //!< An array
           const S& s //!< A struct
-      );
+      ) const;
 
     private:
 

@@ -112,7 +112,7 @@ namespace Ports {
       );
 
       //! Invoke a port interface
-      U32 invoke();
+      U32 invoke() const;
 
     private:
 

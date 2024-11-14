@@ -113,7 +113,7 @@ class OutputKwdNamePort :
     );
 
     //! Invoke a port interface
-    void invoke(U32& time);
+    void invoke(U32& time) const;
 
   private:
 
