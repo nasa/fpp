@@ -3340,7 +3340,7 @@ void PassiveSerialComponentBase ::
   tlmWrite_ChannelU32Format(
       U32 arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (
@@ -3373,7 +3373,7 @@ void PassiveSerialComponentBase ::
   tlmWrite_ChannelF32Format(
       F32 arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (
@@ -3406,7 +3406,7 @@ void PassiveSerialComponentBase ::
   tlmWrite_ChannelStringFormat(
       const Fw::StringBase& arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (
@@ -3439,7 +3439,7 @@ void PassiveSerialComponentBase ::
   tlmWrite_ChannelEnum(
       const E& arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (
@@ -3472,7 +3472,7 @@ void PassiveSerialComponentBase ::
   tlmWrite_ChannelArrayFreq(
       const A& arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (
@@ -3505,7 +3505,7 @@ void PassiveSerialComponentBase ::
   tlmWrite_ChannelStructFreq(
       const S& arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (
@@ -3538,7 +3538,7 @@ void PassiveSerialComponentBase ::
   tlmWrite_ChannelU32Limits(
       U32 arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (
@@ -3571,7 +3571,7 @@ void PassiveSerialComponentBase ::
   tlmWrite_ChannelF32Limits(
       F32 arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (
@@ -3604,7 +3604,7 @@ void PassiveSerialComponentBase ::
   tlmWrite_ChannelF64(
       F64 arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (

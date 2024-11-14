@@ -1907,7 +1907,7 @@ namespace M {
       void tlmWrite_ChannelU32Format(
           U32 arg, //!< The telemetry value
           Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
-      );
+      ) const;
 
       //! Write telemetry channel ChannelF32Format
       //!
@@ -1915,7 +1915,7 @@ namespace M {
       void tlmWrite_ChannelF32Format(
           F32 arg, //!< The telemetry value
           Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
-      );
+      ) const;
 
       //! Write telemetry channel ChannelStringFormat
       //!
@@ -1923,7 +1923,7 @@ namespace M {
       void tlmWrite_ChannelStringFormat(
           const Fw::StringBase& arg, //!< The telemetry value
           Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
-      );
+      ) const;
 
       //! Write telemetry channel ChannelEnum
       //!
@@ -1931,7 +1931,7 @@ namespace M {
       void tlmWrite_ChannelEnum(
           const E& arg, //!< The telemetry value
           Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
-      );
+      ) const;
 
       //! Write telemetry channel ChannelArrayFreq
       //!
@@ -1939,7 +1939,7 @@ namespace M {
       void tlmWrite_ChannelArrayFreq(
           const A& arg, //!< The telemetry value
           Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
-      );
+      ) const;
 
       //! Write telemetry channel ChannelStructFreq
       //!
@@ -1947,7 +1947,7 @@ namespace M {
       void tlmWrite_ChannelStructFreq(
           const S& arg, //!< The telemetry value
           Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
-      );
+      ) const;
 
       //! Write telemetry channel ChannelU32Limits
       //!
@@ -1955,7 +1955,7 @@ namespace M {
       void tlmWrite_ChannelU32Limits(
           U32 arg, //!< The telemetry value
           Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
-      );
+      ) const;
 
       //! Write telemetry channel ChannelF32Limits
       //!
@@ -1963,7 +1963,7 @@ namespace M {
       void tlmWrite_ChannelF32Limits(
           F32 arg, //!< The telemetry value
           Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
-      );
+      ) const;
 
       //! Write telemetry channel ChannelF64
       //!
@@ -1971,7 +1971,7 @@ namespace M {
       void tlmWrite_ChannelF64(
           F64 arg, //!< The telemetry value
           Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
-      );
+      ) const;
 
       //! Write telemetry channel ChannelU32OnChange
       //!

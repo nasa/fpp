@@ -167,7 +167,12 @@ case class ComponentTelemetry (
             )
           ),
           CppDoc.Type("void"),
-          writeBody(channel)
+          writeBody(channel),
+          CppDoc.Function.NonSV,
+          channel.update match {
+            case Ast.SpecTlmChannel.OnChange => CppDoc.Function.NonConst
+            case _ => CppDoc.Function.Const
+          }
         )
       )
     )
