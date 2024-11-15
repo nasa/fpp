@@ -914,7 +914,7 @@ Each instance of the state machine has the following behavior:
 * The initial state is `OFF`.
 
 * On receiving the signal `cmdOn` in the `OFF` state, it
-enters the junction `ON_OR_OFF`.
+enters the choice `ON_OR_ERROR`.
 At that point, if `powerOnIsSafe` evaluates to `true`, then
 it enters then `ON` state.
 Otherwise it enters the `ERROR` state.

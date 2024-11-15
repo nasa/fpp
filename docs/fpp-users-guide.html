@@ -4577,7 +4577,7 @@ Each instance of the state machine has the following behavior:</p>
 </li>
 <li>
 <p>On receiving the signal <code>cmdOn</code> in the <code>OFF</code> state, it
-enters the junction <code>ON_OR_OFF</code>.
+enters the choice <code>ON_OR_ERROR</code>.
 At that point, if <code>powerOnIsSafe</code> evaluates to <code>true</code>, then
 it enters then <code>ON</code> state.
 Otherwise it enters the <code>ERROR</code> state.</p>
@@ -14657,7 +14657,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-14 17:33:30 -0800
+Last updated 2024-11-14 19:06:02 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
