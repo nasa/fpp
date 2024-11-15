@@ -73,7 +73,7 @@ In the following subsections, we explain how to define internal
 state machines in FPP.
 The behavior of these state machines closely follows the behavior
 described for state machines in the
-https://www.omg.org/spec/UML/2.5.1/PDF[Universal Modeling Language (UML)]. 
+https://www.omg.org/spec/UML/2.5.1/PDF[Universal Modeling Language (UML)].
 UML is a graphical language and FPP is a textual language,
 but each of the concepts in the FPP language is motivated
 by a corresponding UML concept.
@@ -150,7 +150,7 @@ There are two signals: `cmdOn` for turning the device
 on and `cmdOff` for turning the device off.
 There are two state transition specifiers:
 
-* A specifier that says to enter state `OFF` 
+* A specifier that says to enter state `OFF`
 on receiving the `cmdOff` signal in state `ON`.
 
 * A specifier that says to enter state `ON`
@@ -313,7 +313,7 @@ state machine Device {
 In this example there are four actions:
 `initialAction1`, `initialAction2`, `offOnAction`, and `onOffAction`.
 The behavior of each of these actions is specified in the {cpp}
-implementation; for example, each could emit an 
+implementation; for example, each could emit an
 <<Defining-Components_Events,F Prime event>>.
 The state machine has the following behavior:
 
@@ -498,7 +498,7 @@ Here are the rules for writing typed signals and actions:
 
 * When you do an action that has a type, a value
 compatible with that type must be available.
-For example, we can't do the `offOnAction` in the `cmdOff` transition shown 
+For example, we can't do the `offOnAction` in the `cmdOff` transition shown
 above, because no `U32`
 value is available there.
 Similarly, no action done in a
@@ -667,7 +667,7 @@ In this case the following behavior occurs:
 Note that on a self transition, the state machine exits and
 reenters _S_.
 This behavior is a special case of a more general behavior that we will
-discuss 
+discuss
 <<Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions,below>>
 in connection with state hierarchy.
 <<Defining-State-Machines_Hierarchy_Directly-Related-States,Below>>
@@ -812,7 +812,7 @@ receives a `cmdReset` signal, it does the `reset` action and
 performs no other behavior.
 
 An internal transition may have a guard.
-For example, we could define a guard `resetIsSafe` and 
+For example, we could define a guard `resetIsSafe` and
 write the internal transition as follows:
 
 [source,fpp]
@@ -837,7 +837,7 @@ The most basic choice definition consists of the following:
 * A name. Like a state name, this name can be the target
 of a transition.
 
-* The name of a 
+* The name of a
 <<Defining-State-Machines_More-on-State-Transitions_Guarded-Transitions,guard>>
 _G_.
 The evaluation of _G_ selects which branch of the choice to
@@ -984,7 +984,7 @@ machine can be complex and hard to understand.
 
 *The type associated with a choice:*
 Like initial transitions and state transitions, the
-transitions out of a choice may 
+transitions out of a choice may
 <<Defining-State-Machines_Actions_Typed-Signals-and-Actions,
 carry a value>>.
 To determine whether the transitions of a choice _C_ carry a value,
@@ -994,7 +994,7 @@ and if so what type that value has, we use the following rules:
 then transitions out of _C_ carry no value.
 
 . Otherwise if all of the transitions into _C_ carry
-a value of the same type _T_, then each of the 
+a value of the same type _T_, then each of the
 transitions out of _C_ carries a value of type _T_.
 
 . Otherwise if the incoming types can be resolved to
@@ -1090,7 +1090,7 @@ when transitions cross state boundaries.
 
 A state machine with hierarchy is called a
 *hierarchical state machine*.
-In the following subsections, we explain how to define 
+In the following subsections, we explain how to define
 hierarchical state machines in FPP.
 
 ==== Substates
@@ -1138,7 +1138,7 @@ state machine Device {
     initial enter SAFE
 
     @ The state OFF.SAFE
-    @ In this state, it is safe to turn on the device    
+    @ In this state, it is safe to turn on the device
     state SAFE {
 
       @ In the SAFE state, a cmdOff signal causes a transition to the ON state
@@ -1178,8 +1178,8 @@ way it works for <<Defining-Modules,module names>>.
 
 An instance _m_ of this state machine has the following behavior:
 
-. When _m_ starts up, it runs its initial transition specifier, just as for 
-<<Defining-State-Machines_States-Signals-and-Transitions, a state machine 
+. When _m_ starts up, it runs its initial transition specifier, just as for
+<<Defining-State-Machines_States-Signals-and-Transitions, a state machine
 without hierarchy>>.
 The state machine enters state `OFF`.
 `OFF` is a parent state, so it in turn has an initial transition
@@ -1311,7 +1311,7 @@ state machine Device {
       initial enter SAFE
 
       @ The state OFF.SAFE
-      @ In this state, it is safe to turn on the device    
+      @ In this state, it is safe to turn on the device
       state SAFE {
 
         @ In the SAFE state, a cmdOff signal causes a transition to the ON state
@@ -1338,7 +1338,7 @@ state machine Device {
 }
 ----
 
-Here we have rewritten the 
+Here we have rewritten the
 <<Defining-State-Machines_Hierarchy_Substates,
 `Device` state machine from the previous section>>
 so that all the states in that example are descendants of a single state
@@ -1364,7 +1364,7 @@ would cause an exit from and reentry to the state, which we may not want.
 
 To remedy this situation, we use behavioral polymorphism.
 In the state `DEVICE.OFF.UNSAFE`, we define an
-<<Defining-State-Machines_More-on-State-Transitions_Internal-Transitions,internal 
+<<Defining-State-Machines_More-on-State-Transitions_Internal-Transitions,internal
 transition>>
 that has an empty list of actions and so does nothing.
 This transition overrides the transition provided in the ancestor state,
@@ -1485,7 +1485,7 @@ https://github.com/nasa/fpp/wiki/Compute-Flattened-State-Transition-Map[FPP wiki
 
 *The special case of no hierarchy:*
 The general behavior described above agrees with the special-case
-behavior that we described in the section on 
+behavior that we described in the section on
 <<Defining-State-Machines_Actions_Entry-and-Exit-Actions,
 entry and exit actions for state machines without hierarchy>>.
 When a state machine _M_ has no hierarchy, a every state transition _T_
@@ -1493,7 +1493,7 @@ is a flattened transition that goes from a leaf state _L_ to a leaf
 state _S_, both of which are children of _M_ in the hierarchy tree.
 So we always exit _L_, do the actions of _T_, and enter _S_.
 
-In particular, 
+In particular,
 the general behavior agrees with the behavior that we previously
 described for
 <<Defining-State-Machines_More-on-State-Transitions_Self-Transitions,
@@ -1542,7 +1542,7 @@ a flattened transition to the ancestor _A_.
 Otherwise it represents one flattened transition
 to the ancestor _A_ for each descendant of _S_ that
 is a leaf state.
-Because of 
+Because of
 <<Defining-State-Machines_Hierarchy_Inherited-Transitions,
 behavioral polymorphism>>, any of the flattened transitions may
 be overridden.
@@ -1551,7 +1551,7 @@ be overridden.
 A *flattened transition to self* is a transition
 from a leaf state _L_ to itself.
 This is what we previously called a
-<<Defining-State-Machines_More-on-State-Transitions_Self-Transitions,self 
+<<Defining-State-Machines_More-on-State-Transitions_Self-Transitions,self
 transition>>.
 
 *Syntactic transitions to self:*
@@ -1568,7 +1568,7 @@ to one or more transitions from leaf states _L_ that are
 descendants of _S_.
 Each of these transitions is a flattened transition
 to the ancestor _S_.
-Because of 
+Because of
 <<Defining-State-Machines_Hierarchy_Inherited-Transitions,
 behavioral polymorphism>>, any of the flattened transitions may
 be overridden.
@@ -1587,7 +1587,7 @@ Consider a state transition _T_ of the form
 where _D_ is a descendant of _S_.
 We call this kind of state transition a
 *syntactic transition to a descendant*.
-By symmetry with syntactic transitions to ancestors, 
+By symmetry with syntactic transitions to ancestors,
 you might expect that the first behavior when
 making such a transition is to exit and reenter _S_.
 However, this is not what happens.
@@ -1604,7 +1604,7 @@ is a flattened transition to self, and (b) the
 flattened transitions out of the descendants of _D_
 are flattened transitions to the ancestor _D_.
 
-In either case, because of 
+In either case, because of
 <<Defining-State-Machines_Hierarchy_Inherited-Transitions,
 behavioral polymorphism>>, any of the flattened transitions may
 be overridden.
@@ -1636,7 +1636,7 @@ The dots represent omitted text needed to make the state machine valid.
 In this example, the qualified name of the choice is `S.C`.
 Inside state `S`, you can refer to the choice as `S.C` or `C`.
 Outside state `S`, you must refer to it as `S.C`.
-    
+
 *Initial transitions to choices:*
 When an initial transition _I_ goes to a choice _C_,
 _C_ and _I_ must have the same parent _P_ in the

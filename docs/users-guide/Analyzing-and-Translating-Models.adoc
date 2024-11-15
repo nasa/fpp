@@ -549,7 +549,7 @@ to _file_.
 This is similar to the `-n` option for
 <<Analyzing-and-Translating-Models_Generating-XML, `fpp-to-xml`>>.
 
-* `-s` _size_ : Specify a default string size. 
+* `-s` _size_ : Specify a default string size.
 This is similar to the `-s` option for
 <<Analyzing-and-Translating-Models_Generating-XML, `fpp-to-xml`>>.
 
@@ -559,7 +559,7 @@ To generate code for type, port, state machine, and component definitions, you
 run `fpp-to-cpp` in the same way as for
 <<Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions,
 constant definitions>>, with one exception:
-the translator ignores the `-g` option, because the include guard comes from 
+the translator ignores the `-g` option, because the include guard comes from
 the qualified name of the definition.
 For example, a component whose qualified name in FPP is `A.B.C`
 uses the name `A_B_CComponentAc_HPP` in its include guard.
@@ -570,8 +570,8 @@ The https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md[F
 Prime User's Guide] explains how to do this.
 
 For more information about the generated code for data products,
-for state machines, and for state machine instances, see the 
-https://github.com/nasa/fprime/blob/devel/docs/Design/general.md[F Prime design 
+for state machines, and for state machine instances, see the
+https://github.com/nasa/fprime/blob/devel/docs/Design/general.md[F Prime design
 documentation].
 
 ==== Component Implementation and Unit Test Code
@@ -648,7 +648,7 @@ is not generated.
 
 The `-a` option supports a feature of the F Prime CMake build system called
 `UT_AUTO_HELPERS`. With this feature enabled, you don't have to manage the
-file _C_ `TesterHelpers.cpp` as part of your unit test source files; the 
+file _C_ `TesterHelpers.cpp` as part of your unit test source files; the
 build system does it for you.
 
 ==== Topology Definitions
@@ -1287,7 +1287,7 @@ uses the ground dictionary to provide the operational
 interface to the application.
 The interface typically includes real-time commanding;
 real-time display of events and telemetry; logging of
-commands, events, and telemetry; uplink and downlink of files, including data 
+commands, events, and telemetry; uplink and downlink of files, including data
 products; and decoding of data products.
 This section explains how to generate ground dictionaries from
 FPP models.
@@ -1316,7 +1316,7 @@ For each topology _T_ defined in the input files _F_, `fpp-to-dict` writes a fil
 _T_ `TopologyDictionary.json`.
 The dictionary is specified in JavaScript Object Notation (JSON) format.
 The JSON format is specified in the
-https://github.com/nasa/fprime/blob/devel/docs/Design/fpp-json-dict.md[F Prime 
+https://github.com/nasa/fprime/blob/devel/docs/Design/fpp-json-dict.md[F Prime
 dictionary documentation].
 
 Here is a common use case:
@@ -1399,7 +1399,7 @@ https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[FPP wiki].
 *JSON format:*
 To understand this subsection, you need to know a little
 bit about case classes in Scala.
-For a primer, see 
+For a primer, see
 https://github.com/nasa/fpp/wiki/Pure-Functional-Programming-in-Scala#use-case-classes-for-pattern-matching[this wiki page].
 
 The JSON translation uses a Scala library called
@@ -1433,7 +1433,7 @@ There are a few exceptions, either because the standard translation
 does not work, or because we need special behavior for important
 cases:
 
-* We streamline the translation of the Scala Option type, translating 
+* We streamline the translation of the Scala Option type, translating
 `Some(v)` as `{ "Some" : v }` and `None` as `"None"`.
 
 * In the AST, we translate
