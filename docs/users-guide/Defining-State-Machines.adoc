@@ -183,6 +183,11 @@ In the example above, if the state machine receives signal
 `cmdOn` in state `ON`
 or signal `cmdOff` in state `OFF`, then it takes no action.
 
+Here is the example represented graphically, as a UML state
+machine:
+
+image::diagrams/state-machine/Device.png[Device state machine,200,align="center"]
+
 *Rules for defining state machines:*
 Each state machine definition must conform to the following rules:
 
@@ -346,6 +351,10 @@ Each action list is an
 <<Defining-Constants_Multiple-Definitions-and-Element-Sequences,
 element sequence>> with a comma as the optional
 terminating punctuation.
+
+Here is the graphical representation:
+
+image::diagrams/state-machine/ActionsInTransitions.png[Device state machine with actions on transitions,500,align="center"]
 
 ==== Entry and Exit Actions
 
