@@ -83,9 +83,22 @@ we focus on a subset of UML state machine behavior that is
 (1) simple and unambiguous and (2) sufficient for embedded
 applications that use F Prime.
 
+In this manual, we focus on the syntax and high-level behavior
+of FPP state machines.
+For more details about the {cpp} code generation
+for state machines, see the
+https://github.com/nasa/fprime/blob/devel/docs/Design/general.md[F Prime design
+documentation].
+
 === States, Signals, and Transitions
 
-In this section we explain the concepts of states,
+In this and the following sections, we explain how to define
+internal state machines, i.e., state machines that are fully
+specified in FPP.
+In these sections, when we say "`state machine,`"
+we mean an internal state machine.
+
+First we explain the concepts of states,
 signals, and transitions.
 These are the basic building blocks of FPP state machines.
 
@@ -187,7 +200,7 @@ initial transition specifier that names a state of
 the state machine.
 For example, if we deleted the initial transition specifier
 from the example above and passed the result through
-`fpp-check`, and error would occur.
+`fpp-check`, an error would occur.
 
 . Every state definition must be reachable from the initial
 transition specifier or from a state transition specifier.

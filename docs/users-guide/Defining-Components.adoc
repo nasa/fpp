@@ -2490,6 +2490,14 @@ active component StateMachine {
 }
 ----
 
+As discussed
+<<Defining-State-Machines_Writing-a-State-Machine-Definition,above>>, state
+machine definitions may be internal (specified in FPP) or external (specified
+by an external tool).  For more details about the {cpp} code generation for
+instances of internal state machines, see the
+https://github.com/nasa/fprime/blob/devel/docs/Design/general.md[F Prime design
+documentation].
+
 === Constants, Types, Enums, and State Machines
 
 You can write a <<Defining-Constants,constant definition>>,

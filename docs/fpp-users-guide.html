@@ -3630,11 +3630,26 @@ we focus on a subset of UML state machine behavior that is
 (1) simple and unambiguous and (2) sufficient for embedded
 applications that use F Prime.</p>
 </div>
+<div class="paragraph">
+<p>In this manual, we focus on the syntax and high-level behavior
+of FPP state machines.
+For more details about the C&#43;&#43; code generation
+for state machines, see the
+<a href="https://github.com/nasa/fprime/blob/devel/docs/Design/general.md">F Prime design
+documentation</a>.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="Defining-State-Machines_States-Signals-and-Transitions">9.2. States, Signals, and Transitions</h3>
 <div class="paragraph">
-<p>In this section we explain the concepts of states,
+<p>In this and the following sections, we explain how to define
+internal state machines, i.e., state machines that are fully
+specified in FPP.
+In these sections, when we say &#8220;state machine,&#8221;
+we mean an internal state machine.</p>
+</div>
+<div class="paragraph">
+<p>First we explain the concepts of states,
 signals, and transitions.
 These are the basic building blocks of FPP state machines.</p>
 </div>
@@ -3759,7 +3774,7 @@ initial transition specifier that names a state of
 the state machine.
 For example, if we deleted the initial transition specifier
 from the example above and passed the result through
-<code>fpp-check</code>, and error would occur.</p>
+<code>fpp-check</code>, an error would occur.</p>
 </li>
 <li>
 <p>Every state definition must be reachable from the initial
@@ -8361,6 +8376,15 @@ active component StateMachine {
 
 }</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>As discussed
+<a href="#Defining-State-Machines_Writing-a-State-Machine-Definition">above</a>, state
+machine definitions may be internal (specified in FPP) or external (specified
+by an external tool).  For more details about the C&#43;&#43; code generation for
+instances of internal state machines, see the
+<a href="https://github.com/nasa/fprime/blob/devel/docs/Design/general.md">F Prime design
+documentation</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -14657,7 +14681,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-14 19:06:02 -0800
+Last updated 2024-11-19 13:37:36 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
