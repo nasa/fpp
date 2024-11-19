@@ -12,7 +12,7 @@
 
 namespace M {
 
-  Active active1(FW_OPTIONAL_NAME("active1"));
+  M::Active active1(FW_OPTIONAL_NAME("active1"));
 
 }
 
@@ -23,13 +23,13 @@ namespace M {
 
 namespace M {
 
-  Active active3(FW_OPTIONAL_NAME("active3"));
+  M::Active active3(FW_OPTIONAL_NAME("active3"));
 
 }
 
 namespace M {
 
-  Passive passive1(FW_OPTIONAL_NAME("passive1"));
+  M::Passive passive1(FW_OPTIONAL_NAME("passive1"));
 
 }
 

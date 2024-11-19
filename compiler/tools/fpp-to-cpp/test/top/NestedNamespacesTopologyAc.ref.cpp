@@ -10,7 +10,7 @@
 // Component instances
 // ----------------------------------------------------------------------
 
-N::O::C c(FW_OPTIONAL_NAME("c"));
+M::N::O::C c(FW_OPTIONAL_NAME("c"));
 
 namespace M {
 
