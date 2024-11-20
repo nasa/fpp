@@ -841,6 +841,10 @@ state machine Device {
 }
 ----
 
+Here is the graphical representation:
+
+image::diagrams/state-machine/InternalTransitions.png[Device state machine with an internal transition,200,align="center"]
+
 In this example, when the state machine is in state `ON` and it
 receives a `cmdReset` signal, it does the `reset` action and
 performs no other behavior.
@@ -939,6 +943,10 @@ state machine Device {
 
 }
 ----
+
+Here is the graphical representation:
+
+image::diagrams/state-machine/Choices.png[Device state machine with a choice,450,align="center"]
 
 This version of the `Device` state machine has three states:
 `ON`, `OFF`, and `ERROR`.
