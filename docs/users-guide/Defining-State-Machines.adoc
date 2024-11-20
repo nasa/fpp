@@ -154,6 +154,11 @@ state machine Device {
 }
 ----
 
+Here is the example represented graphically, as a UML state
+machine:
+
+image::diagrams/state-machine/Basic.png[Device state machine,200,align="center"]
+
 This example defines a state machine `Device` that represents
 a device with on-off behavior.
 There are two states, `ON` and `OFF`.
@@ -182,11 +187,6 @@ then nothing happens.
 In the example above, if the state machine receives signal
 `cmdOn` in state `ON`
 or signal `cmdOff` in state `OFF`, then it takes no action.
-
-Here is the example represented graphically, as a UML state
-machine:
-
-image::diagrams/state-machine/Device.png[Device state machine,200,align="center"]
 
 *Rules for defining state machines:*
 Each state machine definition must conform to the following rules:
@@ -328,6 +328,10 @@ state machine Device {
 }
 ----
 
+Here is the graphical representation:
+
+image::diagrams/state-machine/ActionsInTransitions.png[Device state machine with actions on transitions,500,align="center"]
+
 In this example there are four actions:
 `initialAction1`, `initialAction2`, `offOnAction`, and `onOffAction`.
 The behavior of each of these actions is specified in the {cpp}
@@ -351,10 +355,6 @@ Each action list is an
 <<Defining-Constants_Multiple-Definitions-and-Element-Sequences,
 element sequence>> with a comma as the optional
 terminating punctuation.
-
-Here is the graphical representation:
-
-image::diagrams/state-machine/ActionsInTransitions.png[Device state machine with actions on transitions,500,align="center"]
 
 ==== Entry and Exit Actions
 
@@ -438,6 +438,10 @@ state machine Device {
 
 }
 ----
+
+Here is the graphical representation:
+
+image::diagrams/state-machine/EntryAndExitActions.png[Device state machine with entry and exit actions,500,align="center"]
 
 As with actions on transitions, each entry or exit specifier names
 a list of actions, and the actions are done in the order named.
@@ -609,6 +613,10 @@ state machine Device {
 }
 ----
 
+Here is the graphical representation:
+
+image::diagrams/state-machine/GuardedTransitions.png[Device state machine with a guarded transition,400,align="center"]
+
 In this example, there is one guard, `powerOnIsSafe`.
 The implementation of this function will return true
 if it is safe to power on the device; otherwise it will
@@ -753,6 +761,10 @@ state machine Device {
 
 }
 ----
+
+Here is the graphical representation:
+
+image::diagrams/state-machine/SelfTransitions.png[Device state machine with a self transition,400,align="center"]
 
 In this example, when the state machine is in the `ON` state and
 it receives a `cmdReset` signal, the following behavior occurs:

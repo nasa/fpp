@@ -3716,6 +3716,15 @@ state machine Device {
 </div>
 </div>
 <div class="paragraph">
+<p>Here is the example represented graphically, as a UML state
+machine:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="diagrams/state-machine/Basic.png" alt="Device state machine" width="200">
+</div>
+</div>
+<div class="paragraph">
 <p>This example defines a state machine <code>Device</code> that represents
 a device with on-off behavior.
 There are two states, <code>ON</code> and <code>OFF</code>.
@@ -3752,15 +3761,6 @@ then nothing happens.
 In the example above, if the state machine receives signal
 <code>cmdOn</code> in state <code>ON</code>
 or signal <code>cmdOff</code> in state <code>OFF</code>, then it takes no action.</p>
-</div>
-<div class="paragraph">
-<p>Here is the example represented graphically, as a UML state
-machine:</p>
-</div>
-<div class="imageblock text-center">
-<div class="content">
-<img src="diagrams/state-machine/Device.png" alt="Device state machine" width="200">
-</div>
 </div>
 <div class="paragraph">
 <p><strong>Rules for defining state machines:</strong>
@@ -3918,6 +3918,14 @@ state machine Device {
 </div>
 </div>
 <div class="paragraph">
+<p>Here is the graphical representation:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="diagrams/state-machine/ActionsInTransitions.png" alt="Device state machine with actions on transitions" width="500">
+</div>
+</div>
+<div class="paragraph">
 <p>In this example there are four actions:
 <code>initialAction1</code>, <code>initialAction2</code>, <code>offOnAction</code>, and <code>onOffAction</code>.
 The behavior of each of these actions is specified in the C&#43;&#43;
@@ -3948,14 +3956,6 @@ listed.
 Each action list is an
 <a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element sequence</a> with a comma as the optional
 terminating punctuation.</p>
-</div>
-<div class="paragraph">
-<p>Here is the graphical representation:</p>
-</div>
-<div class="imageblock text-center">
-<div class="content">
-<img src="diagrams/state-machine/ActionsInTransitions.png" alt="Device state machine with actions on transitions" width="500">
-</div>
 </div>
 </div>
 <div class="sect3">
@@ -4040,6 +4040,14 @@ state machine Device {
   }
 
 }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is the graphical representation:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="diagrams/state-machine/EntryAndExitActions.png" alt="Device state machine with entry and exit actions" width="500">
 </div>
 </div>
 <div class="paragraph">
@@ -4237,6 +4245,14 @@ state machine Device {
 </div>
 </div>
 <div class="paragraph">
+<p>Here is the graphical representation:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="diagrams/state-machine/GuardedTransitions.png" alt="Device state machine with a guarded transition" width="400">
+</div>
+</div>
+<div class="paragraph">
 <p>In this example, there is one guard, <code>powerOnIsSafe</code>.
 The implementation of this function will return true
 if it is safe to power on the device; otherwise it will
@@ -4393,6 +4409,14 @@ state machine Device {
   }
 
 }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is the graphical representation:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="diagrams/state-machine/SelfTransitions.png" alt="Device state machine with a self transition" width="400">
 </div>
 </div>
 <div class="paragraph">
@@ -14698,7 +14722,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-19 14:48:30 -0800
+Last updated 2024-11-19 20:53:42 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
