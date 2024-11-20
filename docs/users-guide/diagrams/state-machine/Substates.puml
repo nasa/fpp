@@ -9,10 +9,10 @@ state OFF {
 }
 state ON
 
-ON --> OFF : cmdOff /
-ON --> OFF.UNSAFE : cmdUnsafe /
-OFF.SAFE --> ON : cmdOn /
-OFF.SAFE --> OFF.UNSAFE : cmdUnsafe /
-OFF.UNSAFE --> OFF.SAFE : cmdSafe /
+ON --> OFF : cmdOff
+ON --> OFF.UNSAFE : cmdUnsafe
+OFF.SAFE --> ON : cmdOn
+OFF.SAFE --> OFF.UNSAFE : cmdUnsafe
+OFF.UNSAFE --> OFF.SAFE : cmdSafe
 
 @enduml

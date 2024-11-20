@@ -6,7 +6,7 @@ state OFF
 
 state ON
 
-OFF --> ON : cmdOn [ powerOnIsSafe ] /
-ON --> OFF : cmdOff /
+OFF --> ON : cmdOn [ powerOnIsSafe ]
+ON --> OFF : cmdOff
 
 @enduml

@@ -1,0 +1,22 @@
+== diagrams/state-machine
+
+This directory contains state machine diagrams for the FPP User's Guide.
+To generate the diagrams, the command `puml` must be in your path,
+and it must run Plant UML.
+See https://plantuml.com.
+
+There are two ways to generate PNG files:
+
+. Run `puml [files]`.
+
+. You can also run `redo` to generate EPS files.
+You can then use a tool like `epspdf` to convert the EPS files
+to PDF, and use a tool like Preview (on a Mac) to convert the
+PDF files to PNG.
+
+The first way is easier and it works in all cases, but it
+generates bitmapped graphics, which don't look as nice as
+vector graphics.
+The second way requires more steps, and it doesn't work
+in all cases, likely due to a bug in Plant UML.
+However, it generates vector graphics.

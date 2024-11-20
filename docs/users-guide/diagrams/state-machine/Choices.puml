@@ -7,10 +7,10 @@ state ON
 state ON_OR_ERROR <<choice>>
 state ERROR
 
-OFF --> ON_OR_ERROR : cmdOn /
+OFF --> ON_OR_ERROR : cmdOn
 ON_OR_ERROR --> ON : [ powerOnIsSafe ]
 ON_OR_ERROR --> ERROR : [ !powerOnIsSafe ]
-ON --> OFF : cmdOff /
+ON --> OFF : cmdOff
 ERROR --> OFF : cmdReset
 
 @enduml

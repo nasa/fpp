@@ -6,22 +6,22 @@ state DEVICE {
 
   [*] -> OFF
 
-  DEVICE --> UNSAFE : cmdUnsafe /
+  DEVICE --> UNSAFE : cmdUnsafe
 
   state OFF {
     [*] --> SAFE
     state SAFE {
-      SAFE --> ON : cmdOn /
+      SAFE --> ON : cmdOn
     }
     state UNSAFE {
       UNSAFE : cmdUnsafe / { }
-      UNSAFE --> SAFE : cmdSafe /
+      UNSAFE --> SAFE : cmdSafe
     }
   }
 
   state ON {
 
-    ON --> OFF : cmdOff /
+    ON --> OFF : cmdOff
 
   }
 
