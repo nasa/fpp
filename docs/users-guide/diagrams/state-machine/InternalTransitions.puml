@@ -10,7 +10,7 @@ state ON {
   ON: exit / { exitOn }
 }
 
-OFF --> ON : cmdOn
-ON --> OFF : cmdOff
+OFF --> ON : cmdOn /
+ON --> OFF : cmdOff /
 
 @enduml

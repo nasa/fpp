@@ -1205,6 +1205,10 @@ state machine Device {
 }
 ----
 
+Here is the graphical representation:
+
+image::diagrams/state-machine/Substates.png[Device state machine with substates,500,align="center"]
+
 This state machine has four states: `ON`, `OFF`, `OFF.SAFE`, and `OFF.UNSAFE`.
 The last two states are substates of `OFF`.
 Notice the following:
@@ -1379,6 +1383,10 @@ state machine Device {
 
 }
 ----
+
+Here is the graphical representation:
+
+image::diagrams/state-machine/InheritedTransitions.png[Device state machine with inherited transitions,600,align="center"]
 
 Here we have rewritten the
 <<Defining-State-Machines_Hierarchy_Substates,
