@@ -82,6 +82,7 @@ namespace FppTest {
     {
       // Do the entry actions
       this->action_a(signal);
+      // Update the state
       this->m_state = State::S;
     }
 

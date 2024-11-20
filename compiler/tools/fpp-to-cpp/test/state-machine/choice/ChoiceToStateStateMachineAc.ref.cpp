@@ -89,12 +89,14 @@ namespace FppTest {
     {
       // Do the entry actions
       this->action_enterS3(signal);
+      // Update the state
       this->m_state = State::S2_S3;
     }
 
     void ChoiceToStateStateMachineBase ::
       enter_S1(Signal signal)
     {
+      // Update the state
       this->m_state = State::S1;
     }
 

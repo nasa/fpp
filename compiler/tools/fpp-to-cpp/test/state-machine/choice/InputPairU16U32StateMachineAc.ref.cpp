@@ -96,12 +96,14 @@ namespace FppTest {
     void InputPairU16U32StateMachineBase ::
       enter_S3(Signal signal)
     {
+      // Update the state
       this->m_state = State::S3;
     }
 
     void InputPairU16U32StateMachineBase ::
       enter_S2(Signal signal)
     {
+      // Update the state
       this->m_state = State::S2;
     }
 
@@ -128,6 +130,7 @@ namespace FppTest {
     void InputPairU16U32StateMachineBase ::
       enter_S1(Signal signal)
     {
+      // Update the state
       this->m_state = State::S1;
     }
 

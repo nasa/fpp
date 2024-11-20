@@ -102,12 +102,14 @@ namespace FppTest {
     void PolymorphismStateMachineBase ::
       enter_S5(Signal signal)
     {
+      // Update the state
       this->m_state = State::S5;
     }
 
     void PolymorphismStateMachineBase ::
       enter_S4(Signal signal)
     {
+      // Update the state
       this->m_state = State::S4;
     }
 
@@ -121,12 +123,14 @@ namespace FppTest {
     void PolymorphismStateMachineBase ::
       enter_S1_S2(Signal signal)
     {
+      // Update the state
       this->m_state = State::S1_S2;
     }
 
     void PolymorphismStateMachineBase ::
       enter_S1_S3(Signal signal)
     {
+      // Update the state
       this->m_state = State::S1_S3;
     }
 

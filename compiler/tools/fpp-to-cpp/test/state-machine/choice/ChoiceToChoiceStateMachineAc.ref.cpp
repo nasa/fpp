@@ -100,18 +100,21 @@ namespace FppTest {
     void ChoiceToChoiceStateMachineBase ::
       enter_S2_S3(Signal signal)
     {
+      // Update the state
       this->m_state = State::S2_S3;
     }
 
     void ChoiceToChoiceStateMachineBase ::
       enter_S2_S4(Signal signal)
     {
+      // Update the state
       this->m_state = State::S2_S4;
     }
 
     void ChoiceToChoiceStateMachineBase ::
       enter_S1(Signal signal)
     {
+      // Update the state
       this->m_state = State::S1;
     }
 

@@ -111,6 +111,7 @@ namespace FppTest {
     {
       // Do the entry actions
       this->action_enterS2(signal);
+      // Update the state
       this->m_state = State::S1_S2;
     }
 
@@ -119,6 +120,7 @@ namespace FppTest {
     {
       // Do the entry actions
       this->action_enterS3(signal);
+      // Update the state
       this->m_state = State::S1_S3;
     }
 

@@ -101,12 +101,14 @@ namespace FppTest {
     void InternalStateMachineBase ::
       enter_S1_S2(Signal signal)
     {
+      // Update the state
       this->m_state = State::S1_S2;
     }
 
     void InternalStateMachineBase ::
       enter_S1_S3(Signal signal)
     {
+      // Update the state
       this->m_state = State::S1_S3;
     }
 

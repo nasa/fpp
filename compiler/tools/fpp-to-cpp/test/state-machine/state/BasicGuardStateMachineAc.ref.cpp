@@ -86,12 +86,14 @@ namespace FppTest {
       this->action_a(signal);
       this->action_a(signal);
       this->action_a(signal);
+      // Update the state
       this->m_state = State::T;
     }
 
     void BasicGuardStateMachineBase ::
       enter_S(Signal signal)
     {
+      // Update the state
       this->m_state = State::S;
     }
 

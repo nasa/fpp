@@ -80,18 +80,21 @@ namespace FppTest {
     void SequenceU32StateMachineBase ::
       enter_S4(Signal signal)
     {
+      // Update the state
       this->m_state = State::S4;
     }
 
     void SequenceU32StateMachineBase ::
       enter_S3(Signal signal)
     {
+      // Update the state
       this->m_state = State::S3;
     }
 
     void SequenceU32StateMachineBase ::
       enter_S2(Signal signal)
     {
+      // Update the state
       this->m_state = State::S2;
     }
 
@@ -134,6 +137,7 @@ namespace FppTest {
     void SequenceU32StateMachineBase ::
       enter_S1(Signal signal)
     {
+      // Update the state
       this->m_state = State::S1;
     }
 

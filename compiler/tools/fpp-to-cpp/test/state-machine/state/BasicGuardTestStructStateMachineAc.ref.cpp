@@ -80,12 +80,14 @@ namespace FppTest {
     void BasicGuardTestStructStateMachineBase ::
       enter_T(Signal signal)
     {
+      // Update the state
       this->m_state = State::T;
     }
 
     void BasicGuardTestStructStateMachineBase ::
       enter_S(Signal signal)
     {
+      // Update the state
       this->m_state = State::S;
     }
 

@@ -49,13 +49,13 @@ case class StateMachineEntryFns(
     val transition = initSpecifier.transition.data
     val actionSymbols = transition.actions.map(sma.getActionSymbol)
     val targetSymbol = sma.useDefMap(transition.target.id)
-    val actionPrefix = line("// Do the actions for the initial transition")
+    val actionComment = line("// Do the actions for the initial transition")
     val actionLines = actionSymbols.flatMap(writeActionCall (signalParamName) (None))
-    val enterPrefix = line("// Enter the target of the initial transition")
+    val enterComment = line("// Enter the target of the initial transition")
     val enterLines = writeEnterCall (signalParamName) (None) (targetSymbol)
     val initial = List.concat(
-      Line.addPrefixLine (actionPrefix) (actionLines),
-      Line.addPrefixLine (enterPrefix) (enterLines)
+      Line.addPrefixLine (actionComment) (actionLines),
+      Line.addPrefixLine (enterComment) (enterLines)
     )
     val member = getStateEnterFn(aNode, initial)
     member :: members
@@ -67,8 +67,12 @@ case class StateMachineEntryFns(
   ) = {
     val members = super.defStateAnnotatedNodeLeaf(mm, aNode)
     val stateSym = StateMachineSymbol.State(aNode)
-    val update = writeStateUpdate(stateSym)
-    val member = getStateEnterFn(aNode, update)
+    val updateComment = line("// Update the state")
+    val updateLines = writeStateUpdate(stateSym)
+    val member = getStateEnterFn(
+      aNode,
+      Line.addPrefixLine (updateComment) (updateLines)
+    )
     member :: members
   }
 

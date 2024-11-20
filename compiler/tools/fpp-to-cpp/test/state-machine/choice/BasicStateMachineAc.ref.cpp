@@ -78,12 +78,14 @@ namespace FppTest {
     void BasicStateMachineBase ::
       enter_S3(Signal signal)
     {
+      // Update the state
       this->m_state = State::S3;
     }
 
     void BasicStateMachineBase ::
       enter_S2(Signal signal)
     {
+      // Update the state
       this->m_state = State::S2;
     }
 
@@ -107,6 +109,7 @@ namespace FppTest {
     void BasicStateMachineBase ::
       enter_S1(Signal signal)
     {
+      // Update the state
       this->m_state = State::S1;
     }
 
