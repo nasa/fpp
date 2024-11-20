@@ -35,6 +35,7 @@ namespace FppTest {
       initBase(const FwEnumStoreType id)
     {
       this->m_id = id;
+      // Enter the initial target of the state machine
       this->enter_S1(Signal::__FPRIME_AC_INITIAL_TRANSITION);
     }
 
@@ -57,6 +58,7 @@ namespace FppTest {
     {
       switch (this->m_state) {
         case State::S1:
+          // Enter the target
           this->enter_C(Signal::s);
           break;
         case State::S2:
@@ -89,11 +91,15 @@ namespace FppTest {
       enter_C(Signal signal)
     {
       if (this->guard_g(signal)) {
+        // Do the actions for the transition
         this->action_a(signal);
+        // Enter the target
         this->enter_S2(signal);
       }
       else {
+        // Do the actions for the transition
         this->action_b(signal);
+        // Enter the target
         this->enter_S3(signal);
       }
     }
