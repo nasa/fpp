@@ -14,9 +14,14 @@ module M {
 
   }
 
-  instance active1: Active base id 0x100 \
-    at "Active.hpp" \
-    queue size 10 stack size 1024 priority 1 cpu 0
+}
+
+instance active1: M.Active base id 0x100 \
+  at "Active.hpp" \
+  queue size 10 stack size 1024 priority 1 cpu 0
+
+module M {
+
   instance active2: Active base id 0x200 \
     queue size 10 \
   {

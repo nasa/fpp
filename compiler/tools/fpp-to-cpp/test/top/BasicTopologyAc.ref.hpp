@@ -17,29 +17,22 @@
 
 namespace M {
 
-  //! active1
-  extern Active active1;
-
-}
-
-namespace M {
-
   //! active2
-  extern Active active2;
+  extern M::Active active2;
 
 }
 
 namespace M {
 
   //! active3
-  extern Active active3;
+  extern M::Active active3;
 
 }
 
 namespace M {
 
   //! passive1
-  extern Passive passive1;
+  extern M::Passive passive1;
 
 }
 
@@ -49,6 +42,9 @@ namespace M {
   extern ConcretePassive passive2;
 
 }
+
+//! active1
+extern M::Active active1;
 
 namespace M {
 
@@ -67,7 +63,7 @@ namespace M {
 
   namespace BaseIds {
     enum {
-      M_active1 = 0x100,
+      active1 = 0x100,
       M_active2 = 0x200,
       M_active3 = 0x300,
       M_passive1 = 0x300,
@@ -77,45 +73,45 @@ namespace M {
 
   namespace CPUs {
     enum {
-      M_active1 = 0,
+      active1 = 0,
     };
   }
 
   namespace InstanceIds {
     enum {
-      M_active1,
       M_active2,
       M_active3,
       M_passive1,
       M_passive2,
+      active1,
     };
   }
 
   namespace Priorities {
     enum {
-      M_active1 = 1,
+      active1 = 1,
     };
   }
 
   namespace QueueSizes {
     enum {
-      M_active1 = 10,
       M_active2 = 10,
       M_active3 = 10,
+      active1 = 10,
     };
   }
 
   namespace StackSizes {
     enum {
-      M_active1 = 1024,
+      active1 = 1024,
     };
   }
 
   namespace TaskIds {
     enum {
-      M_active1,
       M_active2,
       M_active3,
+      active1,
     };
   }
 
