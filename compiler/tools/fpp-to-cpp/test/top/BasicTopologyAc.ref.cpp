@@ -11,25 +11,19 @@
 // ----------------------------------------------------------------------
 
 namespace M {
-
-  Active active1(FW_OPTIONAL_NAME("active1"));
-
-}
-
-namespace M {
   Active active2;
 
 }
 
 namespace M {
 
-  Active active3(FW_OPTIONAL_NAME("active3"));
+  M::Active active3(FW_OPTIONAL_NAME("active3"));
 
 }
 
 namespace M {
 
-  Passive passive1(FW_OPTIONAL_NAME("passive1"));
+  M::Passive passive1(FW_OPTIONAL_NAME("passive1"));
 
 }
 
@@ -38,6 +32,8 @@ namespace M {
   ConcretePassive passive2(FW_OPTIONAL_NAME("passive2"));
 
 }
+
+M::Active active1(FW_OPTIONAL_NAME("active1"));
 
 namespace M {
 
@@ -60,11 +56,11 @@ namespace M {
   // ----------------------------------------------------------------------
 
   void initComponents(const TopologyState& state) {
-    M::active1.init(QueueSizes::M_active1, InstanceIds::M_active1);
     M::active2.initSpecial();
     M::active3.init(QueueSizes::M_active3, InstanceIds::M_active3);
     M::passive1.init(InstanceIds::M_passive1);
     M::passive2.init(InstanceIds::M_passive2);
+    active1.init(QueueSizes::active1, InstanceIds::active1);
   }
 
   void configComponents(const TopologyState& state) {
@@ -72,7 +68,7 @@ namespace M {
   }
 
   void setBaseIds() {
-    M::active1.setIdBase(BaseIds::M_active1);
+    active1.setIdBase(BaseIds::active1);
     M::active2.setIdBase(BaseIds::M_active2);
     M::active3.setIdBase(BaseIds::M_active3);
     M::passive1.setIdBase(BaseIds::M_passive1);
@@ -84,7 +80,7 @@ namespace M {
     // C1
     M::passive1.set_p_OutputPort(
         0,
-        M::active1.get_p_InputPort(0)
+        active1.get_p_InputPort(0)
     );
 
     // C2
@@ -107,12 +103,6 @@ namespace M {
   }
 
   void startTasks(const TopologyState& state) {
-    M::active1.start(
-      static_cast<Os::Task::ParamType>(Priorities::M_active1),
-      static_cast<Os::Task::ParamType>(StackSizes::M_active1),
-      static_cast<Os::Task::ParamType>(CPUs::M_active1),
-      static_cast<Os::Task::ParamType>(TaskIds::M_active1)
-    );
     M::active2.startSpecial();
     M::active3.start(
       Os::Task::TASK_DEFAULT, // Default priority
@@ -120,18 +110,24 @@ namespace M {
       Os::Task::TASK_DEFAULT, // Default CPU
       static_cast<Os::Task::ParamType>(TaskIds::M_active3)
     );
+    active1.start(
+      static_cast<Os::Task::ParamType>(Priorities::active1),
+      static_cast<Os::Task::ParamType>(StackSizes::active1),
+      static_cast<Os::Task::ParamType>(CPUs::active1),
+      static_cast<Os::Task::ParamType>(TaskIds::active1)
+    );
   }
 
   void stopTasks(const TopologyState& state) {
-    M::active1.exit();
     M::active2.stopSpecial();
     M::active3.exit();
+    active1.exit();
   }
 
   void freeThreads(const TopologyState& state) {
-    (void) M::active1.ActiveComponentBase::join();
     M::active2.freeSpecial();
     (void) M::active3.ActiveComponentBase::join();
+    (void) active1.ActiveComponentBase::join();
   }
 
   void tearDownComponents(const TopologyState& state) {
