@@ -442,6 +442,7 @@ namespace FppTest {
     // Initialize base class
     Fw::QueuedComponentBase::init(instance);
 
+    // Initialize state machine instances
     this->m_stateMachine_basic.init(SmId::basic);
     this->m_stateMachine_smChoiceBasic.init(SmId::smChoiceBasic);
     this->m_stateMachine_smChoiceBasicU32.init(SmId::smChoiceBasicU32);
@@ -475,6 +476,7 @@ namespace FppTest {
 #endif
     }
 
+    // Create the queue
     Os::Queue::Status qStat = this->createQueue(
       queueDepth,
       static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
