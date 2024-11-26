@@ -9,6 +9,7 @@ redo-ifchange defs.sh
 export FILES="
 Introduction.adoc
 Abstract-Type-Definitions.adoc
+Alias-Type-Definitions.adoc
 Array-Definitions.adoc
 Component-Definitions.adoc
 Component-Instance-Definitions.adoc

@@ -52,6 +52,7 @@ object Ast {
   object ComponentMember {
     sealed trait Node
     final case class DefAbsType(node: AstNode[Ast.DefAbsType]) extends Node
+    final case class DefAliasType(node: AstNode[Ast.DefAliasType]) extends Node
     final case class DefArray(node: AstNode[Ast.DefArray]) extends Node
     final case class DefConstant(node: AstNode[Ast.DefConstant]) extends Node
     final case class DefEnum(node: AstNode[Ast.DefEnum]) extends Node
@@ -72,6 +73,12 @@ object Ast {
 
   /** Abstract type definition */
   final case class DefAbsType(name: Ident)
+
+  /* Aliased type definition */
+  final case class DefAliasType(
+    name: Ident,
+    typeName: AstNode[TypeName]
+  )
 
   /* Array definition */
   final case class DefArray(
@@ -131,6 +138,7 @@ object Ast {
   object ModuleMember {
     sealed trait Node
     final case class DefAbsType(node: AstNode[Ast.DefAbsType]) extends Node
+    final case class DefAliasType(node: AstNode[Ast.DefAliasType]) extends Node
     final case class DefArray(node: AstNode[Ast.DefArray]) extends Node
     final case class DefComponent(node: AstNode[Ast.DefComponent]) extends Node
     final case class DefComponentInstance(node: AstNode[Ast.DefComponentInstance]) extends Node

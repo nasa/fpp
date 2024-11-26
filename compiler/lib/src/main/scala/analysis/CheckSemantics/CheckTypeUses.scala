@@ -17,6 +17,20 @@ object CheckTypeUses extends UseAnalyzer {
     visitIfNeeded(visitor)(a, aNode)
   }
 
+  override def defAliasTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]) = {
+    def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]) = {
+      for (a <- super.defAliasTypeAnnotatedNode(a, aNode))
+        yield {
+          val (_, node, _) = aNode
+          val data = node.data
+          val aliasedType = a.typeMap(data.typeName.id)
+          val t = Type.AliasType(aNode, aliasedType)
+          a.assignType(node -> t)
+        }
+    }
+    visitIfNeeded(visitor)(a, aNode)
+  }
+
   override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) =
       for (a <- super.defArrayAnnotatedNode(a, aNode))
