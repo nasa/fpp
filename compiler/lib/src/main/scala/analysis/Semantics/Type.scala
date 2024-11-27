@@ -192,7 +192,6 @@ object Type {
     node: Ast.Annotated[AstNode[Ast.DefAliasType]],
     aliasType: Type
   ) extends Type {
-
     override def getDefaultValue = Some(Value.AliasType(this))
     override def getDefNodeId = Some(node._2.id)
     override def toString = node._2.data.name
@@ -445,7 +444,9 @@ object Type {
   }
 
   /** Compute the common type for a pair of types */
-  def commonType(t1: Type, t2: Type): Option[Type] = {
+  def commonType(t1Alias: Type, t2Alias: Type): Option[Type] = {
+    val t1 = t1Alias.getUnderlyingType
+    val t2 = t2Alias.getUnderlyingType
     val pair = (t1, t2)
     type Rule = () => Option[Type]
     def selectFirstMatchIn(rules: List[Rule]): Option[Type] = rules match {

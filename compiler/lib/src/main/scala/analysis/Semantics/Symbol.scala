@@ -12,6 +12,10 @@ object Symbol {
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name
   }
+  final case class AliasType(node: Ast.Annotated[AstNode[Ast.DefAliasType]]) extends Symbol {
+    override def getNodeId = node._2.id
+    override def getUnqualifiedName = node._2.data.name
+  }
   final case class Array(node: Ast.Annotated[AstNode[Ast.DefArray]]) extends Symbol {
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name

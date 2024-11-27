@@ -149,6 +149,7 @@ object CheckTypeUses extends UseAnalyzer {
     for {
       a <- symbol match {
         case Symbol.AbsType(node) => defAbsTypeAnnotatedNode(a, node)
+        case Symbol.AliasType(node) => defAliasTypeAnnotatedNode(a, node)
         case Symbol.Array(node) => defArrayAnnotatedNode(a, node)
         case Symbol.Enum(node) => defEnumAnnotatedNode(a, node)
         case Symbol.Struct(node) => defStructAnnotatedNode(a, node)
