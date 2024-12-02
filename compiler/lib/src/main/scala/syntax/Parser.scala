@@ -23,8 +23,8 @@ object Parser extends Parsers {
   }
 
   def componentMemberNode: Parser[Ast.ComponentMember.Node] = {
+    node(defAliasType) ^^ { case n => Ast.ComponentMember.DefAliasType(n) } |
     node(defAbsType) ^^ { case n => Ast.ComponentMember.DefAbsType(n) } |
-    node(defAliasType) ^^ { case n => Ast.ComponentMember.DefAliasType(n) }
     node(defArray) ^^ { case n => Ast.ComponentMember.DefArray(n) } |
     node(defConstant) ^^ { case n => Ast.ComponentMember.DefConstant(n) } |
     node(defEnum) ^^ { case n => Ast.ComponentMember.DefEnum(n) } |
@@ -63,8 +63,8 @@ object Parser extends Parsers {
   }
 
   def defAliasType: Parser[Ast.DefAliasType] = {
-    (typeToken ~>! ident <~! equals) ~! node(typeName) ^^ {
-      case id ~ typeName => Ast.DefAliasType(id, typeName)
+    (typeToken ~> ident <~ equals) ~! node(typeName) ^^ {
+      case ident ~ typeName => Ast.DefAliasType(ident, typeName)
     }
   }
 
@@ -318,8 +318,8 @@ object Parser extends Parsers {
   }
 
   def moduleMemberNode: Parser[Ast.ModuleMember.Node] = {
-    node(defAbsType) ^^ { case n => Ast.ModuleMember.DefAbsType(n) } |
     node(defAliasType) ^^ { case n => Ast.ModuleMember.DefAliasType(n) } |
+    node(defAbsType) ^^ { case n => Ast.ModuleMember.DefAbsType(n) } |
     node(defArray) ^^ { case n => Ast.ModuleMember.DefArray(n) } |
     node(defComponent) ^^ { case n => Ast.ModuleMember.DefComponent(n) } |
     node(defComponentInstance) ^^ { case n => Ast.ModuleMember.DefComponentInstance(n) } |
