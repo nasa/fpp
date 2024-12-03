@@ -101,8 +101,8 @@ jobs:
           matrix = {
             "run": [
               {
-                "runner": "macos-12",
-                "tag": "macosx_12_0_universal2"
+                "runner": "macos-13",
+                "tag": "macosx_13_0_universal2"
               },
               {
                 "runner": "ubuntu-22.04",
