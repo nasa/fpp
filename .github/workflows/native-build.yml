@@ -101,13 +101,13 @@ jobs:
           matrix = {
             "run": [
               {
-                "runner": "macos-12",
-                "tag": "macosx_12_0_universal2"
+                "runner": "macos-13",
+                "tag": "macosx_13_0_universal2"
               },
               {
                 "runner": "ubuntu-22.04",
-                "tag": "manylinux2014_x86_64",
-                "container": "quay.io/pypa/manylinux2014_x86_64"
+                "tag": "manylinux_2_28_x86_64",
+                "container": "quay.io/pypa/manylinux_2_28_x86_64"
               }
             ]
           }
@@ -131,16 +131,6 @@ jobs:
     container:
       image:  ${{ matrix.run.container || '' }}
     steps:
-      - name: "Fix environment"
-        run: |
-          # https://github.com/actions/checkout/issues/1809
-          # https://github.blog/changelog/2024-03-07-github-actions-all-actions-will-run-on-node20-instead-of-node16-by-default/
-          #
-          # NOTE: actions/checkout et al. @v3 are deprecated - however the manylinux2014_x86_64 Docker image does not have node20
-          # which prevents from upgrading to @v4. We keep the deprecated versions (@v3) for now for lack of a better solution
-          echo "ACTIONS_RUNNER_FORCED_INTERNAL_NODE_VERSION=node16" >> $GITHUB_ENV
-          echo "ACTIONS_RUNNER_FORCE_ACTIONS_NODE_VERSION=node16" >> $GITHUB_ENV
-          echo "ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true" >> $GITHUB_ENV
       - name: "Checkout repository"
         uses: actions/checkout@v3
         with:
