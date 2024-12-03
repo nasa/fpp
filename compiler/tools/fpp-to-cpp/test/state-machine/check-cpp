@@ -2,7 +2,7 @@
 
 . ../../../../scripts/utils.sh
 
-for dir in initial junction state
+for dir in choice initial state
 do
   echo "[ $dir ]"
   (cd $dir; ./check-cpp "$@")

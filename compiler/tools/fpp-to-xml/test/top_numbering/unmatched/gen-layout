@@ -1,0 +1,18 @@
+#!/bin/sh -e
+
+cases="
+Case1
+Case2
+Case3
+Case4
+Case5
+"
+
+fpl-extract-xml TTopologyAppAi.ref.xml
+for case_name in $cases
+do
+  echo "[ $case_name ]"
+  fpl-convert-xml $case_name.xml > $case_name.txt
+  fpl-write-eps < $case_name.txt > $case_name.eps
+  epspdf $case_name.eps
+done

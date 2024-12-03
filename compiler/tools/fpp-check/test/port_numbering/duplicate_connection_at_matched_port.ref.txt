@@ -1,0 +1,13 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/duplicate_connection_at_matched_port.fpp:32.7
+      c2.pOut -> c1.pIn[0]
+      ^
+error: duplicate connection at matched port pIn[0]
+previous occurrence is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/duplicate_connection_at_matched_port.fpp:31.7
+      c2.pOut -> c1.pIn[0]
+      ^
+port matching is specified here:
+[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/duplicate_connection_at_matched_port.fpp:10.5
+    match pOut with pIn
+    ^

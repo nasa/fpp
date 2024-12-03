@@ -1,5 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/transition_graph/unreachable_junction.fpp:6.3
-  junction J { if g enter S else enter S }
-  ^
-error: junction J is unreachable

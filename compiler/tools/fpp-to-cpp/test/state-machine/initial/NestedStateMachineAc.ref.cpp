@@ -35,7 +35,9 @@ namespace FppTest {
       initBase(const FwEnumStoreType id)
     {
       this->m_id = id;
+      // Do the actions for the state machine initial transition
       this->action_a(Signal::__FPRIME_AC_INITIAL_TRANSITION);
+      // Enter the initial target of the state machine
       this->enter_S(Signal::__FPRIME_AC_INITIAL_TRANSITION);
     }
 
@@ -50,23 +52,27 @@ namespace FppTest {
     }
 
     // ----------------------------------------------------------------------
-    // State and junction entry
+    // State and choice entry
     // ----------------------------------------------------------------------
 
     void NestedStateMachineBase ::
       enter_S(Signal signal)
     {
+      // Do the entry actions
       this->action_a(signal);
       this->action_a(signal);
+      // Enter the target of the initial transition
       this->enter_S_T(signal);
     }
 
     void NestedStateMachineBase ::
       enter_S_T(Signal signal)
     {
+      // Do the entry actions
       this->action_a(signal);
       this->action_a(signal);
       this->action_a(signal);
+      // Update the state
       this->m_state = State::S_T;
     }
 

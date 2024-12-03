@@ -35,8 +35,8 @@ trait StateMachineUseAnalyzer
     use: Name.Unqualified
   ): Result = default(sma)
 
-  /** A use of a state definition or junction definition */
-  def stateOrJunctionUse(
+  /** A use of a state definition or choice definition */
+  def stateOrChoiceUse(
     sma: StateMachineAnalysis,
     node: AstNode[Ast.QualIdent],
     use: Name.Qualified
@@ -46,9 +46,9 @@ trait StateMachineUseAnalyzer
   // Implementation using StateMachineAnalysisVisitor
   // ----------------------------------------------------------------------
 
-  override def defJunctionAnnotatedNode(
+  override def defChoiceAnnotatedNode(
     sma: StateMachineAnalysis,
-    aNode: Ast.Annotated[AstNode[Ast.DefJunction]]
+    aNode: Ast.Annotated[AstNode[Ast.DefChoice]]
   ) = {
     val data = aNode._2.data
     for {
@@ -97,7 +97,7 @@ trait StateMachineUseAnalyzer
   ): Result =
     for {
       sma <- actions(sma, e.actions)
-      sma <- qualIdentNode(stateOrJunctionUse)(sma, e.target)
+      sma <- qualIdentNode(stateOrChoiceUse)(sma, e.target)
     }
     yield sma
 

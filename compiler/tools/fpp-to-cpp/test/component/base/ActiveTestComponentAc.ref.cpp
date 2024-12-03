@@ -967,6 +967,7 @@ namespace M {
 #endif
     }
 
+    // Create the queue
     Os::Queue::Status qStat = this->createQueue(
       queueDepth,
       static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
@@ -4478,7 +4479,7 @@ namespace M {
   // ----------------------------------------------------------------------
 
   void ActiveTestComponentBase ::
-    log_ACTIVITY_HI_EventActivityHigh()
+    log_ACTIVITY_HI_EventActivityHigh() const
   {
     // Get the time
     Fw::Time _logTime;
@@ -4674,7 +4675,7 @@ namespace M {
     log_COMMAND_EventCommand(
         const Fw::StringBase& str1,
         const Fw::StringBase& str2
-    )
+    ) const
   {
     // Get the time
     Fw::Time _logTime;
@@ -4753,7 +4754,7 @@ namespace M {
   }
 
   void ActiveTestComponentBase ::
-    log_DIAGNOSTIC_EventDiagnostic(E e)
+    log_DIAGNOSTIC_EventDiagnostic(E e) const
   {
     // Get the time
     Fw::Time _logTime;
@@ -4944,7 +4945,7 @@ namespace M {
   }
 
   void ActiveTestComponentBase ::
-    log_WARNING_HI_EventWarningHigh(S s)
+    log_WARNING_HI_EventWarningHigh(S s) const
   {
     // Get the time
     Fw::Time _logTime;
@@ -5134,7 +5135,7 @@ namespace M {
     tlmWrite_ChannelU32Format(
         U32 arg,
         Fw::Time _tlmTime
-    )
+    ) const
   {
     if (this->m_tlmOut_OutputPort[0].isConnected()) {
       if (
@@ -5167,7 +5168,7 @@ namespace M {
     tlmWrite_ChannelF32Format(
         F32 arg,
         Fw::Time _tlmTime
-    )
+    ) const
   {
     if (this->m_tlmOut_OutputPort[0].isConnected()) {
       if (
@@ -5200,7 +5201,7 @@ namespace M {
     tlmWrite_ChannelStringFormat(
         const Fw::StringBase& arg,
         Fw::Time _tlmTime
-    )
+    ) const
   {
     if (this->m_tlmOut_OutputPort[0].isConnected()) {
       if (
@@ -5233,7 +5234,7 @@ namespace M {
     tlmWrite_ChannelEnum(
         const E& arg,
         Fw::Time _tlmTime
-    )
+    ) const
   {
     if (this->m_tlmOut_OutputPort[0].isConnected()) {
       if (
@@ -5266,7 +5267,7 @@ namespace M {
     tlmWrite_ChannelArrayFreq(
         const A& arg,
         Fw::Time _tlmTime
-    )
+    ) const
   {
     if (this->m_tlmOut_OutputPort[0].isConnected()) {
       if (
@@ -5299,7 +5300,7 @@ namespace M {
     tlmWrite_ChannelStructFreq(
         const S& arg,
         Fw::Time _tlmTime
-    )
+    ) const
   {
     if (this->m_tlmOut_OutputPort[0].isConnected()) {
       if (
@@ -5332,7 +5333,7 @@ namespace M {
     tlmWrite_ChannelU32Limits(
         U32 arg,
         Fw::Time _tlmTime
-    )
+    ) const
   {
     if (this->m_tlmOut_OutputPort[0].isConnected()) {
       if (
@@ -5365,7 +5366,7 @@ namespace M {
     tlmWrite_ChannelF32Limits(
         F32 arg,
         Fw::Time _tlmTime
-    )
+    ) const
   {
     if (this->m_tlmOut_OutputPort[0].isConnected()) {
       if (
@@ -5398,7 +5399,7 @@ namespace M {
     tlmWrite_ChannelF64(
         F64 arg,
         Fw::Time _tlmTime
-    )
+    ) const
   {
     if (this->m_tlmOut_OutputPort[0].isConnected()) {
       if (

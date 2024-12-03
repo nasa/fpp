@@ -19,6 +19,7 @@ syn keyword fppKeyword at
 syn keyword fppKeyword base
 syn keyword fppKeyword block
 syn keyword fppKeyword change
+syn keyword fppKeyword choice
 syn keyword fppKeyword command
 syn keyword fppKeyword component
 syn keyword fppKeyword connections
@@ -52,7 +53,6 @@ syn keyword fppKeyword initial
 syn keyword fppKeyword input
 syn keyword fppKeyword instance
 syn keyword fppKeyword internal
-syn keyword fppKeyword junction
 syn keyword fppKeyword locate
 syn keyword fppKeyword low
 syn keyword fppKeyword machine
@@ -96,6 +96,7 @@ syn keyword fppKeyword time
 syn keyword fppKeyword topology
 syn keyword fppKeyword true
 syn keyword fppKeyword type
+syn keyword fppKeyword unmatched
 syn keyword fppKeyword update
 syn keyword fppKeyword warning
 syn keyword fppKeyword with

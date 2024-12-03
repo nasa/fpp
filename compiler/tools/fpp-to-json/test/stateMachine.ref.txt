@@ -322,7 +322,7 @@
                                           "AstNode" : {
                                             "data" : {
                                               "Unqualified" : {
-                                                "name" : "J"
+                                                "name" : "C"
                                               }
                                             },
                                             "id" : 17
@@ -343,14 +343,14 @@
                       ],
                       [
                         [
-                          "Junction J"
+                          "Choice C"
                         ],
                         {
-                          "DefJunction" : {
+                          "DefChoice" : {
                             "node" : {
                               "AstNode" : {
                                 "data" : {
-                                  "name" : "J",
+                                  "name" : "C",
                                   "guard" : {
                                     "AstNode" : {
                                       "data" : "g1",
@@ -549,14 +549,14 @@
                                     ],
                                     [
                                       [
-                                        "Junction J"
+                                        "Choice C"
                                       ],
                                       {
-                                        "DefJunction" : {
+                                        "DefChoice" : {
                                           "node" : {
                                             "AstNode" : {
                                               "data" : {
-                                                "name" : "J",
+                                                "name" : "C",
                                                 "guard" : {
                                                   "AstNode" : {
                                                     "data" : "g1",
@@ -710,7 +710,7 @@
                                                             "AstNode" : {
                                                               "data" : {
                                                                 "Unqualified" : {
-                                                                  "name" : "J"
+                                                                  "name" : "C"
                                                                 }
                                                               },
                                                               "id" : 195
@@ -1096,37 +1096,37 @@
   },
   "20" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "44.19",
+    "pos" : "44.17",
     "includingLoc" : "None"
   },
   "21" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "44.28",
+    "pos" : "44.26",
     "includingLoc" : "None"
   },
   "22" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "44.28",
+    "pos" : "44.26",
     "includingLoc" : "None"
   },
   "23" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "44.22",
+    "pos" : "44.20",
     "includingLoc" : "None"
   },
   "24" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "44.42",
+    "pos" : "44.40",
     "includingLoc" : "None"
   },
   "25" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "44.42",
+    "pos" : "44.40",
     "includingLoc" : "None"
   },
   "26" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "44.36",
+    "pos" : "44.34",
     "includingLoc" : "None"
   },
   "27" : {
@@ -1201,62 +1201,62 @@
   },
   "41" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.21",
+    "pos" : "59.19",
     "includingLoc" : "None"
   },
   "42" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.29",
+    "pos" : "59.27",
     "includingLoc" : "None"
   },
   "43" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.33",
+    "pos" : "59.31",
     "includingLoc" : "None"
   },
   "44" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.44",
+    "pos" : "59.42",
     "includingLoc" : "None"
   },
   "45" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.44",
+    "pos" : "59.42",
     "includingLoc" : "None"
   },
   "46" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.24",
+    "pos" : "59.22",
     "includingLoc" : "None"
   },
   "47" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.57",
+    "pos" : "59.55",
     "includingLoc" : "None"
   },
   "48" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.61",
+    "pos" : "59.59",
     "includingLoc" : "None"
   },
   "49" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.72",
+    "pos" : "59.70",
     "includingLoc" : "None"
   },
   "50" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.75",
+    "pos" : "59.73",
     "includingLoc" : "None"
   },
   "51" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.72",
+    "pos" : "59.70",
     "includingLoc" : "None"
   },
   "52" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.52",
+    "pos" : "59.50",
     "includingLoc" : "None"
   },
   "53" : {
@@ -1541,62 +1541,62 @@
   },
   "109" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.21",
+    "pos" : "59.19",
     "includingLoc" : "None"
   },
   "110" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.29",
+    "pos" : "59.27",
     "includingLoc" : "None"
   },
   "111" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.33",
+    "pos" : "59.31",
     "includingLoc" : "None"
   },
   "112" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.44",
+    "pos" : "59.42",
     "includingLoc" : "None"
   },
   "113" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.44",
+    "pos" : "59.42",
     "includingLoc" : "None"
   },
   "114" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.24",
+    "pos" : "59.22",
     "includingLoc" : "None"
   },
   "115" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.57",
+    "pos" : "59.55",
     "includingLoc" : "None"
   },
   "116" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.61",
+    "pos" : "59.59",
     "includingLoc" : "None"
   },
   "117" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.72",
+    "pos" : "59.70",
     "includingLoc" : "None"
   },
   "118" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.75",
+    "pos" : "59.73",
     "includingLoc" : "None"
   },
   "119" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.72",
+    "pos" : "59.70",
     "includingLoc" : "None"
   },
   "120" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.52",
+    "pos" : "59.50",
     "includingLoc" : "None"
   },
   "121" : {
@@ -1881,62 +1881,62 @@
   },
   "177" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.21",
+    "pos" : "59.19",
     "includingLoc" : "None"
   },
   "178" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.29",
+    "pos" : "59.27",
     "includingLoc" : "None"
   },
   "179" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.33",
+    "pos" : "59.31",
     "includingLoc" : "None"
   },
   "180" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.44",
+    "pos" : "59.42",
     "includingLoc" : "None"
   },
   "181" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.44",
+    "pos" : "59.42",
     "includingLoc" : "None"
   },
   "182" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.24",
+    "pos" : "59.22",
     "includingLoc" : "None"
   },
   "183" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.57",
+    "pos" : "59.55",
     "includingLoc" : "None"
   },
   "184" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.61",
+    "pos" : "59.59",
     "includingLoc" : "None"
   },
   "185" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.72",
+    "pos" : "59.70",
     "includingLoc" : "None"
   },
   "186" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.75",
+    "pos" : "59.73",
     "includingLoc" : "None"
   },
   "187" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.72",
+    "pos" : "59.70",
     "includingLoc" : "None"
   },
   "188" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.52",
+    "pos" : "59.50",
     "includingLoc" : "None"
   },
   "189" : {

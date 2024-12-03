@@ -31,8 +31,8 @@ case class StateMachineAnalysis(
   signalTransitionMap: StateMachineAnalysis.SignalTransitionMap = Map(),
   /** The flattened state transtiion map */
   flattenedStateTransitionMap: StateMachineAnalysis.SignalStateTransitionMap = Map(),
-  /** The flattened junction transtiion map */
-  flattenedJunctionTransitionMap: StateMachineAnalysis.TransitionExprMap = Map()
+  /** The flattened choice transtiion map */
+  flattenedChoiceTransitionMap: StateMachineAnalysis.TransitionExprMap = Map()
 ) {
 
   /** Gets the list of parent states, highest first */
@@ -54,9 +54,9 @@ case class StateMachineAnalysis(
   /** Gets the qualified name of a symbol */
   val getQualifiedName = Analysis.getQualifiedNameFromMap (parentStateMap)
 
-  /** Gets the common type of two typed elements at a junction */
-  def commonTypeAtJunction(
-    te: StateMachineTypedElement.Junction,
+  /** Gets the common type of two typed elements at a choice */
+  def commonTypeAtChoice(
+    te: StateMachineTypedElement.Choice,
     te1: StateMachineTypedElement,
     to1: Option[Type],
     te2: StateMachineTypedElement
@@ -65,7 +65,7 @@ case class StateMachineAnalysis(
     TypeOption.commonType(to1, to2) match {
       case Some(to) => Right(to)
       case None => Left(
-        SemanticError.StateMachine.JunctionTypeMismatch(
+        SemanticError.StateMachine.ChoiceTypeMismatch(
           Locations.get(te.getNodeId),
           Locations.get(te1.getNodeId),
           TypeOption.show(to1),
@@ -128,13 +128,13 @@ case class StateMachineAnalysis(
     signalSym
   }
 
-  // Get a state or junction from a qualified identifier node
-  def getStateOrJunction(soj: AstNode[Ast.QualIdent]):
-  StateOrJunction =
-    useDefMap(soj.id) match {
-      case state: StateMachineSymbol.State => StateOrJunction.State(state)
-      case junction: StateMachineSymbol.Junction => StateOrJunction.Junction(junction)
-      case _ => throw new InternalError("expected state or junction")
+  // Get a state or choice from a qualified identifier node
+  def getStateOrChoice(soc: AstNode[Ast.QualIdent]):
+  StateOrChoice =
+    useDefMap(soc.id) match {
+      case state: StateMachineSymbol.State => StateOrChoice.State(state)
+      case choice: StateMachineSymbol.Choice => StateOrChoice.Choice(choice)
+      case _ => throw new InternalError("expected state or choice")
     }
 
 }

@@ -497,13 +497,17 @@ case class PortCppWriter (
         "invoke",
         functionParams,
         CppDoc.Type(returnType),
-        lines(
-          s"""|#if FW_PORT_TRACING == 1
-              |this->trace();
-              |#endif
-              |"""
-        ) ++
+        List.concat(
+          lines(
+            s"""|#if FW_PORT_TRACING == 1
+                |this->trace();
+                |#endif
+                |"""
+          ),
           invokeBody
+        ),
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const
       )
     )
   }

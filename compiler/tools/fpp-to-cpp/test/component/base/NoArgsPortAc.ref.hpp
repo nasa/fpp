@@ -113,7 +113,7 @@ namespace Ports {
       );
 
       //! Invoke a port interface
-      void invoke();
+      void invoke() const;
 
     private:
 

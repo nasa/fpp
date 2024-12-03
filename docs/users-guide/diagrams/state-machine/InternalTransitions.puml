@@ -1,0 +1,16 @@
+@startuml
+
+[*] --> OFF
+
+state OFF
+
+state ON {
+  ON: entry / { enterOn }
+  ON: cmdReset / { reset }
+  ON: exit / { exitOn }
+}
+
+OFF --> ON : cmdOn
+ON --> OFF : cmdOff
+
+@enduml

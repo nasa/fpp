@@ -40,18 +40,18 @@
 
 (defconst fpp-mode-keywords
   '("action" "active" "activity" "always"  "assert"
-    "at" "base" "block" "change" "command"
+    "at" "base" "block" "change" "choice" "command"
     "connections" "cpu" "default" "diagnostic" "do"
     "drop" "else" "entry" "event" "exit"
     "false" "fatal" "format" "get" "guard"
     "guarded" "health" "high" "hook" "id" "if" "import"
-    "include" "initial" "input" "internal" "junction"
+    "include" "initial" "input" "internal"
     "locate" "low" "match"  "on"  "opcode" "orange"
     "output" "param" "passive" "phase"  "priority"
     "private" "queue"  "queued" "raw" "recv" "red"
     "ref" "reg" "resp" "save" "signal" "serial" "set" "severity"
     "size" "stack" "sync" "telemetry" "text" "throttle"
-    "time" "true"  "update" "enter" "warning" "with"
+    "time" "true" "unmatched" "update" "enter" "warning" "with"
     "yellow")
   "All non-definition keywords for FPP.")
 

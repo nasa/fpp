@@ -40,10 +40,10 @@ state machine M {
   @ Initial transition
   initial do {
                a1
-             } enter J
+             } enter C
 
-  @ Junction J
-  junction J {
+  @ Choice C
+  choice C {
     if g1 enter S1 \
     else enter S2
   }
@@ -70,8 +70,8 @@ state machine M {
                  a2
                } enter S3
 
-    @ Junction J
-    junction J {
+    @ Choice C
+    choice C {
       if g1 do {
                  a1
                  a2
@@ -88,7 +88,7 @@ state machine M {
     @ Transition to S1
     on s1 if g1 do {
                      a1
-                   } enter J
+                   } enter C
 
     on s2 if g1 enter S1
 

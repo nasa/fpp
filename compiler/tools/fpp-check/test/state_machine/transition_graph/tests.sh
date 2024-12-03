@@ -1,6 +1,6 @@
 tests="
+choice_cycle
 cycle_ok
-junction_cycle
-unreachable_junction
+unreachable_choice
 unreachable_state
 "

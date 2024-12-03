@@ -646,6 +646,7 @@ void ActiveEventsComponentBase ::
 #endif
   }
 
+  // Create the queue
   Os::Queue::Status qStat = this->createQueue(
     queueDepth,
     static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
@@ -2335,7 +2336,7 @@ F32 ActiveEventsComponentBase ::
 // ----------------------------------------------------------------------
 
 void ActiveEventsComponentBase ::
-  log_ACTIVITY_HI_EventActivityHigh()
+  log_ACTIVITY_HI_EventActivityHigh() const
 {
   // Get the time
   Fw::Time _logTime;
@@ -2531,7 +2532,7 @@ void ActiveEventsComponentBase ::
   log_COMMAND_EventCommand(
       const Fw::StringBase& str1,
       const Fw::StringBase& str2
-  )
+  ) const
 {
   // Get the time
   Fw::Time _logTime;
@@ -2610,7 +2611,7 @@ void ActiveEventsComponentBase ::
 }
 
 void ActiveEventsComponentBase ::
-  log_DIAGNOSTIC_EventDiagnostic(E e)
+  log_DIAGNOSTIC_EventDiagnostic(E e) const
 {
   // Get the time
   Fw::Time _logTime;
@@ -2801,7 +2802,7 @@ void ActiveEventsComponentBase ::
 }
 
 void ActiveEventsComponentBase ::
-  log_WARNING_HI_EventWarningHigh(S s)
+  log_WARNING_HI_EventWarningHigh(S s) const
 {
   // Get the time
   Fw::Time _logTime;

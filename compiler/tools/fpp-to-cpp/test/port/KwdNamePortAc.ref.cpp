@@ -142,7 +142,7 @@ void OutputKwdNamePort ::
 }
 
 void OutputKwdNamePort ::
-  invoke(U32& time)
+  invoke(U32& time) const
 {
 #if FW_PORT_TRACING == 1
   this->trace();

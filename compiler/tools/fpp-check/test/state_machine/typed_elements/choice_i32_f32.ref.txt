@@ -1,0 +1,13 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/typed_elements/choice_i32_f32.fpp:8.5
+    choice C { if g enter T else enter T }
+    ^
+error: type mismatch at choice
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/typed_elements/choice_i32_f32.fpp:9.5
+    on s1 enter C
+    ^
+type of transition is I32
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/typed_elements/choice_i32_f32.fpp:10.5
+    on s2 enter C
+    ^
+type of transition is F32

@@ -149,8 +149,8 @@ abstract class StateMachineCppWriterUtils(
   {
     val functionName = getEnterFunctionName(sym)
     val typeOpt = sym match {
-      case StateMachineSymbol.Junction(aNode) =>
-        val te = StateMachineTypedElement.Junction(aNode)
+      case StateMachineSymbol.Choice(aNode) =>
+        val te = StateMachineTypedElement.Choice(aNode)
         sma.typeOptionMap(te)
       case _ => None
     }
@@ -207,15 +207,20 @@ abstract class StateMachineCppWriterUtils(
     (valueArgOpt: Option[String])
     (transition: Transition): List[Line] =
   {
+    val actionComment = line("// Do the actions for the transition")
     val actionLines = transition.getActions.flatMap(
       writeActionCall (signalArg) (valueArgOpt)
     )
+    val entryComment = line("// Enter the target")
     val entryLines = transition.getTargetOpt match {
       case Some(target) =>
         writeEnterCall (signalArg) (valueArgOpt) (target.getSymbol)
       case None => Nil
     }
-    List.concat(actionLines, entryLines)
+    List.concat(
+      Line.addPrefixLine (actionComment) (actionLines),
+      Line.addPrefixLine (entryComment) (entryLines)
+    )
   }
 
 }

@@ -13,7 +13,7 @@ object CheckTransitionGraph {
     for {
       sma <- ConstructTransitionGraph.defStateMachineAnnotatedNode(sma, aNode)
       _ <- CheckTGReachability.stateMachineAnalysis(sma)
-      _ <- CheckJunctionCycles.stateMachineAnalysis(sma)
+      _ <- CheckChoiceCycles.stateMachineAnalysis(sma)
     }
     yield sma.copy(
       reverseTransitionGraph = sma.transitionGraph.getReverseGraph

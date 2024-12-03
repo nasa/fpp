@@ -369,6 +369,8 @@ translated to {cpp} files.
 |Array _A_ in component _C_|_C_ `_` _A_ `ArrayAc.{hpp,cpp}`
 |Enum _E_ outside any component|_E_ `EnumAc.{hpp,cpp}`
 |Enum _E_ in component _C_|_C_ `_` _E_ `EnumAc.{hpp,cpp}`
+|State machine _M_ outside any component|_M_ `StateMachineAc.{hpp,cpp}`
+|State machine _M_ in component _C_|_C_ `_` _M_ `StateMachineAc.{hpp,cpp}`
 |Struct _S_ outside any component|_S_ `SerializableAc.{hpp,cpp}`
 |Struct _S_ in component _C_|_C_ `_` _S_ `SerializableAc.{hpp,cpp}`
 |Port _P_|_P_ `PortAc.{hpp,cpp}`
@@ -547,67 +549,34 @@ to _file_.
 This is similar to the `-n` option for
 <<Analyzing-and-Translating-Models_Generating-XML, `fpp-to-xml`>>.
 
-* `-s` _size_ : Specify a default string size. 
+* `-s` _size_ : Specify a default string size.
 This is similar to the `-s` option for
 <<Analyzing-and-Translating-Models_Generating-XML, `fpp-to-xml`>>.
 
-==== Topology Definitions
+==== Types, Ports, State Machines, and Components
 
-`fpp-to-cpp` also extracts <<Defining-Topologies,topology definitions>>
-from the source files.
-For each topology _T_ defined in the source files, `fpp-to-cpp`
-writes files _T_ `TopologyAc.hpp` and _T_ `TopologyAc.cpp`.
-These files define two public functions:
-`setup` for setting up the topology, and
-`teardown`, for tearing down the topology.
-The function definitions come from the definition of _T_ and
-from the
-<<Defining-Component-Instances_Init-Specifiers, init specifiers>>
-for the component instances used in _T_.
-You can call these functions from a handwritten `main`
-function.
-We will explain how to write this `main` function in the
-section on
-<<Writing-C-Plus-Plus-Implementations_Implementing-Deployments,
-implementing deployments>>.
-
-As an example, you can do the following:
-
-* On the command line, run `fpp-to-cpp -p $PWD`.
-
-* Copy the text of the <<Defining-Topologies_A-Simple-Example,
-simple topology example>> and paste it into the terminal.
-
-* Press return, control-D, and return.
-
-* Examine the generated files `SimpleTopologyAc.hpp`
-and `SimpleTopologyAc.cpp`.
-
-You can examine the files `RefTopologyAc.hpp` and `RefTopologyAc.cpp`
-in the F Prime repository.
-Currently these files are checked in at `Ref/Top`.
-Once we have integrated FPP with CMake, these files will be auto-generated
-by CMake and will be located at `Ref/build-fprime-automatic-native/F-Prime/Ref/Top`.
-
-*Options:*
-When translating topologies,
-the `-d`, `-n`, and `-p` options work in the same way as for
+To generate code for type, port, state machine, and component definitions, you
+run `fpp-to-cpp` in the same way as for
 <<Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions,
-translating constant definitions>>.
-The `-g` option is ignored, because
-the include guard prefix comes from the name of the topology.
+constant definitions>>, with one exception:
+the translator ignores the `-g` option, because the include guard comes from
+the qualified name of the definition.
+For example, a component whose qualified name in FPP is `A.B.C`
+uses the name `A_B_CComponentAc_HPP` in its include guard.
 
-==== Types, Ports, and Components
-
-{cpp} code generation for types, ports, and components works similarly
-to the corresponding code generation from XML.
+Once you generate {cpp} code for these definitions, you can use it to
+write a flight software implementation.
 The https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md[F
-Prime User's Guide] describes how to use this generated code
-to write flight software implementations.
+Prime User's Guide] explains how to do this.
+
+For more information about the generated code for data products,
+for state machines, and for state machine instances, see the
+https://github.com/nasa/fprime/blob/devel/docs/Design/general.md[F Prime design
+documentation].
 
 ==== Component Implementation and Unit Test Code
 
-`fpp-to-cpp` has options `-t` and `-u` for generating component "templates" or
+`fpp-to-cpp` has options `-t` and `-u` for generating component "`templates`" or
 partial implementations and for generating unit test code.
 Here we cover the mechanics of using these options.
 For more information on implementing and testing components in F Prime, see
@@ -679,8 +648,54 @@ is not generated.
 
 The `-a` option supports a feature of the F Prime CMake build system called
 `UT_AUTO_HELPERS`. With this feature enabled, you don't have to manage the
-file _C_ `TesterHelpers.cpp` as part of your unit test source files; the 
+file _C_ `TesterHelpers.cpp` as part of your unit test source files; the
 build system does it for you.
+
+==== Topology Definitions
+
+`fpp-to-cpp` also extracts <<Defining-Topologies,topology definitions>>
+from the source files.
+For each topology _T_ defined in the source files, `fpp-to-cpp`
+writes files _T_ `TopologyAc.hpp` and _T_ `TopologyAc.cpp`.
+These files define two public functions:
+`setup` for setting up the topology, and
+`teardown`, for tearing down the topology.
+The function definitions come from the definition of _T_ and
+from the
+<<Defining-Component-Instances_Init-Specifiers, init specifiers>>
+for the component instances used in _T_.
+You can call these functions from a handwritten `main`
+function.
+We will explain how to write this `main` function in the
+section on
+<<Writing-C-Plus-Plus-Implementations_Implementing-Deployments,
+implementing deployments>>.
+
+As an example, you can do the following:
+
+* On the command line, run `fpp-to-cpp -p $PWD`.
+
+* Copy the text of the <<Defining-Topologies_A-Simple-Example,
+simple topology example>> and paste it into the terminal.
+
+* Press return, control-D, and return.
+
+* Examine the generated files `SimpleTopologyAc.hpp`
+and `SimpleTopologyAc.cpp`.
+
+You can examine the files `RefTopologyAc.hpp` and `RefTopologyAc.cpp`
+in the F Prime repository.
+Currently these files are checked in at `Ref/Top`.
+Once we have integrated FPP with CMake, these files will be auto-generated
+by CMake and will be located at `Ref/build-fprime-automatic-native/F-Prime/Ref/Top`.
+
+*Options:*
+When translating topologies,
+the `-d`, `-n`, and `-p` options work in the same way as for
+<<Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions,
+translating constant definitions>>.
+The `-g` option is ignored, because
+the include guard prefix comes from the name of the topology.
 
 === Identifying Generated Files
 
@@ -1272,7 +1287,7 @@ uses the ground dictionary to provide the operational
 interface to the application.
 The interface typically includes real-time commanding;
 real-time display of events and telemetry; logging of
-commands, events, and telemetry; uplink and downlink of files, including data 
+commands, events, and telemetry; uplink and downlink of files, including data
 products; and decoding of data products.
 This section explains how to generate ground dictionaries from
 FPP models.
@@ -1301,7 +1316,7 @@ For each topology _T_ defined in the input files _F_, `fpp-to-dict` writes a fil
 _T_ `TopologyDictionary.json`.
 The dictionary is specified in JavaScript Object Notation (JSON) format.
 The JSON format is specified in the
-https://github.com/nasa/fprime/blob/devel/docs/Design/fpp-json-dict.md[F Prime 
+https://github.com/nasa/fprime/blob/devel/docs/Design/fpp-json-dict.md[F Prime
 dictionary documentation].
 
 Here is a common use case:
@@ -1384,7 +1399,7 @@ https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[FPP wiki].
 *JSON format:*
 To understand this subsection, you need to know a little
 bit about case classes in Scala.
-For a primer, see 
+For a primer, see
 https://github.com/nasa/fpp/wiki/Pure-Functional-Programming-in-Scala#use-case-classes-for-pattern-matching[this wiki page].
 
 The JSON translation uses a Scala library called
@@ -1418,7 +1433,7 @@ There are a few exceptions, either because the standard translation
 does not work, or because we need special behavior for important
 cases:
 
-* We streamline the translation of the Scala Option type, translating 
+* We streamline the translation of the Scala Option type, translating
 `Some(v)` as `{ "Some" : v }` and `None` as `"None"`.
 
 * In the AST, we translate
@@ -1465,5 +1480,5 @@ when running `fpp-to-xml`:
 With this option, `fpp-to-json` generates the AST and the
 location map only; it doesn't generate the Analysis data structure.
 Because semantic analysis is not run, you don't have to present
-a complete or syntactically correct FPP model to the tool.
+a complete or semantically correct FPP model to the tool.
 

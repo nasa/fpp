@@ -707,77 +707,77 @@ namespace FppTest {
     this->m_component.FppTest_SmState_StateToChild_action_enterS3(this->getId(), signal);
   }
 
-  SmStateQueuedComponentBase::FppTest_SmState_StateToJunction ::
-    FppTest_SmState_StateToJunction(SmStateQueuedComponentBase& component) :
+  SmStateQueuedComponentBase::FppTest_SmState_StateToChoice ::
+    FppTest_SmState_StateToChoice(SmStateQueuedComponentBase& component) :
       m_component(component)
   {
 
   }
 
-  void SmStateQueuedComponentBase::FppTest_SmState_StateToJunction ::
+  void SmStateQueuedComponentBase::FppTest_SmState_StateToChoice ::
     init(SmStateQueuedComponentBase::SmId smId)
   {
     this->initBase(static_cast<FwEnumStoreType>(smId));
   }
 
-  SmStateQueuedComponentBase::SmId SmStateQueuedComponentBase::FppTest_SmState_StateToJunction ::
+  SmStateQueuedComponentBase::SmId SmStateQueuedComponentBase::FppTest_SmState_StateToChoice ::
     getId() const
   {
     return static_cast<SmStateQueuedComponentBase::SmId>(this->m_id);
   }
 
-  void SmStateQueuedComponentBase::FppTest_SmState_StateToJunction ::
+  void SmStateQueuedComponentBase::FppTest_SmState_StateToChoice ::
     action_exitS1(Signal signal)
   {
-    this->m_component.FppTest_SmState_StateToJunction_action_exitS1(this->getId(), signal);
+    this->m_component.FppTest_SmState_StateToChoice_action_exitS1(this->getId(), signal);
   }
 
-  void SmStateQueuedComponentBase::FppTest_SmState_StateToJunction ::
+  void SmStateQueuedComponentBase::FppTest_SmState_StateToChoice ::
     action_exitS2(Signal signal)
   {
-    this->m_component.FppTest_SmState_StateToJunction_action_exitS2(this->getId(), signal);
+    this->m_component.FppTest_SmState_StateToChoice_action_exitS2(this->getId(), signal);
   }
 
-  void SmStateQueuedComponentBase::FppTest_SmState_StateToJunction ::
+  void SmStateQueuedComponentBase::FppTest_SmState_StateToChoice ::
     action_exitS3(Signal signal)
   {
-    this->m_component.FppTest_SmState_StateToJunction_action_exitS3(this->getId(), signal);
+    this->m_component.FppTest_SmState_StateToChoice_action_exitS3(this->getId(), signal);
   }
 
-  void SmStateQueuedComponentBase::FppTest_SmState_StateToJunction ::
+  void SmStateQueuedComponentBase::FppTest_SmState_StateToChoice ::
     action_a(Signal signal)
   {
-    this->m_component.FppTest_SmState_StateToJunction_action_a(this->getId(), signal);
+    this->m_component.FppTest_SmState_StateToChoice_action_a(this->getId(), signal);
   }
 
-  void SmStateQueuedComponentBase::FppTest_SmState_StateToJunction ::
+  void SmStateQueuedComponentBase::FppTest_SmState_StateToChoice ::
     action_enterS1(Signal signal)
   {
-    this->m_component.FppTest_SmState_StateToJunction_action_enterS1(this->getId(), signal);
+    this->m_component.FppTest_SmState_StateToChoice_action_enterS1(this->getId(), signal);
   }
 
-  void SmStateQueuedComponentBase::FppTest_SmState_StateToJunction ::
+  void SmStateQueuedComponentBase::FppTest_SmState_StateToChoice ::
     action_enterS2(Signal signal)
   {
-    this->m_component.FppTest_SmState_StateToJunction_action_enterS2(this->getId(), signal);
+    this->m_component.FppTest_SmState_StateToChoice_action_enterS2(this->getId(), signal);
   }
 
-  void SmStateQueuedComponentBase::FppTest_SmState_StateToJunction ::
+  void SmStateQueuedComponentBase::FppTest_SmState_StateToChoice ::
     action_enterS3(Signal signal)
   {
-    this->m_component.FppTest_SmState_StateToJunction_action_enterS3(this->getId(), signal);
+    this->m_component.FppTest_SmState_StateToChoice_action_enterS3(this->getId(), signal);
   }
 
-  void SmStateQueuedComponentBase::FppTest_SmState_StateToJunction ::
+  void SmStateQueuedComponentBase::FppTest_SmState_StateToChoice ::
     action_enterS4(Signal signal)
   {
-    this->m_component.FppTest_SmState_StateToJunction_action_enterS4(this->getId(), signal);
+    this->m_component.FppTest_SmState_StateToChoice_action_enterS4(this->getId(), signal);
   }
 
-  bool SmStateQueuedComponentBase::FppTest_SmState_StateToJunction ::
+  bool SmStateQueuedComponentBase::FppTest_SmState_StateToChoice ::
     guard_g(Signal signal) const
   {
-    return this->m_component.FppTest_SmState_StateToJunction_guard_g(this->getId(), signal);
+    return this->m_component.FppTest_SmState_StateToChoice_guard_g(this->getId(), signal);
   }
 
   SmStateQueuedComponentBase::FppTest_SmState_StateToSelf ::
@@ -952,8 +952,11 @@ namespace FppTest {
     // Initialize base class
     Fw::QueuedComponentBase::init(instance);
 
-    this->m_stateMachine_basic.init(SmId::basic);
-    this->m_stateMachine_smStateBasic.init(SmId::smStateBasic);
+    // Initialize state machine instances
+    this->m_stateMachine_basic1.init(SmId::basic1);
+    this->m_stateMachine_basic2.init(SmId::basic2);
+    this->m_stateMachine_smStateBasic1.init(SmId::smStateBasic1);
+    this->m_stateMachine_smStateBasic2.init(SmId::smStateBasic2);
     this->m_stateMachine_smStateBasicGuard.init(SmId::smStateBasicGuard);
     this->m_stateMachine_smStateBasicGuardString.init(SmId::smStateBasicGuardString);
     this->m_stateMachine_smStateBasicGuardTestAbsType.init(SmId::smStateBasicGuardTestAbsType);
@@ -972,10 +975,35 @@ namespace FppTest {
     this->m_stateMachine_smStateInternal.init(SmId::smStateInternal);
     this->m_stateMachine_smStatePolymorphism.init(SmId::smStatePolymorphism);
     this->m_stateMachine_smStateStateToChild.init(SmId::smStateStateToChild);
-    this->m_stateMachine_smStateStateToJunction.init(SmId::smStateStateToJunction);
+    this->m_stateMachine_smStateStateToChoice.init(SmId::smStateStateToChoice);
     this->m_stateMachine_smStateStateToSelf.init(SmId::smStateStateToSelf);
     this->m_stateMachine_smStateStateToState.init(SmId::smStateStateToState);
 
+    // Connect input port schedIn
+    for (
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_schedIn_InputPorts());
+      port++
+    ) {
+      this->m_schedIn_InputPort[port].init();
+      this->m_schedIn_InputPort[port].addCallComp(
+        this,
+        m_p_schedIn_in
+      );
+      this->m_schedIn_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+      Fw::ObjectName portName;
+      portName.format(
+        "%s_schedIn_InputPort[%" PRI_PlatformIntType "]",
+        this->m_objName.toChar(),
+        port
+      );
+      this->m_schedIn_InputPort[port].setObjName(portName.toChar());
+#endif
+    }
+
+    // Create the queue
     Os::Queue::Status qStat = this->createQueue(
       queueDepth,
       static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
@@ -987,14 +1015,31 @@ namespace FppTest {
   }
 
   // ----------------------------------------------------------------------
+  // Getters for typed input ports
+  // ----------------------------------------------------------------------
+
+  Svc::InputSchedPort* SmStateQueuedComponentBase ::
+    get_schedIn_InputPort(FwIndexType portNum)
+  {
+    FW_ASSERT(
+      portNum < this->getNum_schedIn_InputPorts(),
+      static_cast<FwAssertArgType>(portNum)
+    );
+
+    return &this->m_schedIn_InputPort[portNum];
+  }
+
+  // ----------------------------------------------------------------------
   // Component construction and destruction
   // ----------------------------------------------------------------------
 
   SmStateQueuedComponentBase ::
     SmStateQueuedComponentBase(const char* compName) :
       Fw::QueuedComponentBase(compName),
-      m_stateMachine_basic(*this),
-      m_stateMachine_smStateBasic(*this),
+      m_stateMachine_basic1(*this),
+      m_stateMachine_basic2(*this),
+      m_stateMachine_smStateBasic1(*this),
+      m_stateMachine_smStateBasic2(*this),
       m_stateMachine_smStateBasicGuard(*this),
       m_stateMachine_smStateBasicGuardString(*this),
       m_stateMachine_smStateBasicGuardTestAbsType(*this),
@@ -1013,7 +1058,7 @@ namespace FppTest {
       m_stateMachine_smStateInternal(*this),
       m_stateMachine_smStatePolymorphism(),
       m_stateMachine_smStateStateToChild(*this),
-      m_stateMachine_smStateStateToJunction(*this),
+      m_stateMachine_smStateStateToChoice(*this),
       m_stateMachine_smStateStateToSelf(*this),
       m_stateMachine_smStateStateToState(*this)
   {
@@ -1027,19 +1072,66 @@ namespace FppTest {
   }
 
   // ----------------------------------------------------------------------
+  // Getters for numbers of typed input ports
+  // ----------------------------------------------------------------------
+
+  FwIndexType SmStateQueuedComponentBase ::
+    getNum_schedIn_InputPorts() const
+  {
+    return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_schedIn_InputPort));
+  }
+
+  // ----------------------------------------------------------------------
+  // Port handler base-class functions for typed input ports
+  //
+  // Call these functions directly to bypass the corresponding ports
+  // ----------------------------------------------------------------------
+
+  void SmStateQueuedComponentBase ::
+    schedIn_handlerBase(
+        FwIndexType portNum,
+        U32 context
+    )
+  {
+    // Make sure port number is valid
+    FW_ASSERT(
+      portNum < this->getNum_schedIn_InputPorts(),
+      static_cast<FwAssertArgType>(portNum)
+    );
+
+    // Call handler function
+    this->schedIn_handler(
+      portNum,
+      context
+    );
+  }
+
+  // ----------------------------------------------------------------------
   // State getter functions
   // ----------------------------------------------------------------------
 
   SmStateQueuedComponentBase::FppTest_SmStateQueued_Basic::State SmStateQueuedComponentBase ::
-    basic_getState() const
+    basic1_getState() const
   {
-    return this->m_stateMachine_basic.getState();
+    return this->m_stateMachine_basic1.getState();
+  }
+
+  SmStateQueuedComponentBase::FppTest_SmStateQueued_Basic::State SmStateQueuedComponentBase ::
+    basic2_getState() const
+  {
+    return this->m_stateMachine_basic2.getState();
   }
 
   SmStateQueuedComponentBase::FppTest_SmState_Basic::State SmStateQueuedComponentBase ::
-    smStateBasic_getState() const
+    smStateBasic1_getState() const
   {
-    return this->m_stateMachine_smStateBasic.getState();
+    return this->m_stateMachine_smStateBasic1.getState();
+  }
+
+  SmStateQueuedComponentBase::FppTest_SmState_Basic::State SmStateQueuedComponentBase ::
+    smStateBasic2_getState() const
+  {
+    return this->m_stateMachine_smStateBasic2.getState();
   }
 
   SmStateQueuedComponentBase::FppTest_SmState_BasicGuard::State SmStateQueuedComponentBase ::
@@ -1150,10 +1242,10 @@ namespace FppTest {
     return this->m_stateMachine_smStateStateToChild.getState();
   }
 
-  SmStateQueuedComponentBase::FppTest_SmState_StateToJunction::State SmStateQueuedComponentBase ::
-    smStateStateToJunction_getState() const
+  SmStateQueuedComponentBase::FppTest_SmState_StateToChoice::State SmStateQueuedComponentBase ::
+    smStateStateToChoice_getState() const
   {
-    return this->m_stateMachine_smStateStateToJunction.getState();
+    return this->m_stateMachine_smStateStateToChoice.getState();
   }
 
   SmStateQueuedComponentBase::FppTest_SmState_StateToSelf::State SmStateQueuedComponentBase ::
@@ -1173,23 +1265,43 @@ namespace FppTest {
   // ----------------------------------------------------------------------
 
   void SmStateQueuedComponentBase ::
-    basic_sendSignal_s()
+    basic1_sendSignal_s()
   {
     ComponentIpcSerializableBuffer buffer;
     // Serialize the message type, port number, state ID, and signal
-    this->sendSignalStart(SmId::basic, static_cast<FwEnumStoreType>(FppTest_SmStateQueued_Basic::Signal::s), buffer);
+    this->sendSignalStart(SmId::basic1, static_cast<FwEnumStoreType>(FppTest_SmStateQueued_Basic::Signal::s), buffer);
     // Send the message and handle overflow
-    this->basic_sendSignalFinish(buffer);
+    this->basic1_sendSignalFinish(buffer);
   }
 
   void SmStateQueuedComponentBase ::
-    smStateBasic_sendSignal_s()
+    basic2_sendSignal_s()
   {
     ComponentIpcSerializableBuffer buffer;
     // Serialize the message type, port number, state ID, and signal
-    this->sendSignalStart(SmId::smStateBasic, static_cast<FwEnumStoreType>(FppTest_SmState_Basic::Signal::s), buffer);
+    this->sendSignalStart(SmId::basic2, static_cast<FwEnumStoreType>(FppTest_SmStateQueued_Basic::Signal::s), buffer);
     // Send the message and handle overflow
-    this->smStateBasic_sendSignalFinish(buffer);
+    this->basic2_sendSignalFinish(buffer);
+  }
+
+  void SmStateQueuedComponentBase ::
+    smStateBasic1_sendSignal_s()
+  {
+    ComponentIpcSerializableBuffer buffer;
+    // Serialize the message type, port number, state ID, and signal
+    this->sendSignalStart(SmId::smStateBasic1, static_cast<FwEnumStoreType>(FppTest_SmState_Basic::Signal::s), buffer);
+    // Send the message and handle overflow
+    this->smStateBasic1_sendSignalFinish(buffer);
+  }
+
+  void SmStateQueuedComponentBase ::
+    smStateBasic2_sendSignal_s()
+  {
+    ComponentIpcSerializableBuffer buffer;
+    // Serialize the message type, port number, state ID, and signal
+    this->sendSignalStart(SmId::smStateBasic2, static_cast<FwEnumStoreType>(FppTest_SmState_Basic::Signal::s), buffer);
+    // Send the message and handle overflow
+    this->smStateBasic2_sendSignalFinish(buffer);
   }
 
   void SmStateQueuedComponentBase ::
@@ -1439,33 +1551,33 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateStateToJunction_sendSignal_S1_to_S4()
+    smStateStateToChoice_sendSignal_S1_to_S4()
   {
     ComponentIpcSerializableBuffer buffer;
     // Serialize the message type, port number, state ID, and signal
-    this->sendSignalStart(SmId::smStateStateToJunction, static_cast<FwEnumStoreType>(FppTest_SmState_StateToJunction::Signal::S1_to_S4), buffer);
+    this->sendSignalStart(SmId::smStateStateToChoice, static_cast<FwEnumStoreType>(FppTest_SmState_StateToChoice::Signal::S1_to_S4), buffer);
     // Send the message and handle overflow
-    this->smStateStateToJunction_sendSignalFinish(buffer);
+    this->smStateStateToChoice_sendSignalFinish(buffer);
   }
 
   void SmStateQueuedComponentBase ::
-    smStateStateToJunction_sendSignal_S1_to_J()
+    smStateStateToChoice_sendSignal_S1_to_C()
   {
     ComponentIpcSerializableBuffer buffer;
     // Serialize the message type, port number, state ID, and signal
-    this->sendSignalStart(SmId::smStateStateToJunction, static_cast<FwEnumStoreType>(FppTest_SmState_StateToJunction::Signal::S1_to_J), buffer);
+    this->sendSignalStart(SmId::smStateStateToChoice, static_cast<FwEnumStoreType>(FppTest_SmState_StateToChoice::Signal::S1_to_C), buffer);
     // Send the message and handle overflow
-    this->smStateStateToJunction_sendSignalFinish(buffer);
+    this->smStateStateToChoice_sendSignalFinish(buffer);
   }
 
   void SmStateQueuedComponentBase ::
-    smStateStateToJunction_sendSignal_S2_to_S3()
+    smStateStateToChoice_sendSignal_S2_to_S3()
   {
     ComponentIpcSerializableBuffer buffer;
     // Serialize the message type, port number, state ID, and signal
-    this->sendSignalStart(SmId::smStateStateToJunction, static_cast<FwEnumStoreType>(FppTest_SmState_StateToJunction::Signal::S2_to_S3), buffer);
+    this->sendSignalStart(SmId::smStateStateToChoice, static_cast<FwEnumStoreType>(FppTest_SmState_StateToChoice::Signal::S2_to_S3), buffer);
     // Send the message and handle overflow
-    this->smStateStateToJunction_sendSignalFinish(buffer);
+    this->smStateStateToChoice_sendSignalFinish(buffer);
   }
 
   void SmStateQueuedComponentBase ::
@@ -1581,6 +1693,25 @@ namespace FppTest {
   }
 
   // ----------------------------------------------------------------------
+  // Calls for messages received on typed input ports
+  // ----------------------------------------------------------------------
+
+  void SmStateQueuedComponentBase ::
+    m_p_schedIn_in(
+        Fw::PassiveComponentBase* callComp,
+        FwIndexType portNum,
+        U32 context
+    )
+  {
+    FW_ASSERT(callComp);
+    SmStateQueuedComponentBase* compPtr = static_cast<SmStateQueuedComponentBase*>(callComp);
+    compPtr->schedIn_handlerBase(
+      portNum,
+      context
+    );
+  }
+
+  // ----------------------------------------------------------------------
   // Send signal helper functions
   // ----------------------------------------------------------------------
 
@@ -1611,7 +1742,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    basic_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    basic1_sendSignalFinish(Fw::SerializeBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1624,11 +1755,42 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateBasic_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    basic2_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+  {
+    // Send message
+    Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+    Os::Queue::Status qStatus = this->m_queue.send(buffer, 0, _block);
+
+    FW_ASSERT(
+      qStatus == Os::Queue::OP_OK,
+      static_cast<FwAssertArgType>(qStatus)
+    );
+  }
+
+  void SmStateQueuedComponentBase ::
+    smStateBasic1_sendSignalFinish(Fw::SerializeBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
     Os::Queue::Status qStatus = this->m_queue.send(buffer, 1, _block);
+
+    FW_ASSERT(
+      qStatus == Os::Queue::OP_OK,
+      static_cast<FwAssertArgType>(qStatus)
+    );
+  }
+
+  void SmStateQueuedComponentBase ::
+    smStateBasic2_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+  {
+    // Send message
+    Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+    Os::Queue::Status qStatus = this->m_queue.send(buffer, 2, _block);
+
+    if (qStatus == Os::Queue::Status::FULL) {
+      this->incNumMsgDropped();
+      return;
+    }
 
     FW_ASSERT(
       qStatus == Os::Queue::OP_OK,
@@ -1891,7 +2053,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateStateToJunction_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateStateToChoice_sendSignalFinish(Fw::SerializeBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1944,14 +2106,24 @@ namespace FppTest {
     // Select the target state machine instance
     const SmId smId = static_cast<SmId>(storedSmId);
     switch (smId) {
-      case SmId::basic: {
+      case SmId::basic1: {
         const FppTest_SmStateQueued_Basic::Signal signal = static_cast<FppTest_SmStateQueued_Basic::Signal>(storedSignal);
-        this->FppTest_SmStateQueued_Basic_smDispatch(buffer, this->m_stateMachine_basic, signal);
+        this->FppTest_SmStateQueued_Basic_smDispatch(buffer, this->m_stateMachine_basic1, signal);
         break;
       }
-      case SmId::smStateBasic: {
+      case SmId::basic2: {
+        const FppTest_SmStateQueued_Basic::Signal signal = static_cast<FppTest_SmStateQueued_Basic::Signal>(storedSignal);
+        this->FppTest_SmStateQueued_Basic_smDispatch(buffer, this->m_stateMachine_basic2, signal);
+        break;
+      }
+      case SmId::smStateBasic1: {
         const FppTest_SmState_Basic::Signal signal = static_cast<FppTest_SmState_Basic::Signal>(storedSignal);
-        this->FppTest_SmState_Basic_smDispatch(buffer, this->m_stateMachine_smStateBasic, signal);
+        this->FppTest_SmState_Basic_smDispatch(buffer, this->m_stateMachine_smStateBasic1, signal);
+        break;
+      }
+      case SmId::smStateBasic2: {
+        const FppTest_SmState_Basic::Signal signal = static_cast<FppTest_SmState_Basic::Signal>(storedSignal);
+        this->FppTest_SmState_Basic_smDispatch(buffer, this->m_stateMachine_smStateBasic2, signal);
         break;
       }
       case SmId::smStateBasicGuard: {
@@ -2044,9 +2216,9 @@ namespace FppTest {
         this->FppTest_SmState_StateToChild_smDispatch(buffer, this->m_stateMachine_smStateStateToChild, signal);
         break;
       }
-      case SmId::smStateStateToJunction: {
-        const FppTest_SmState_StateToJunction::Signal signal = static_cast<FppTest_SmState_StateToJunction::Signal>(storedSignal);
-        this->FppTest_SmState_StateToJunction_smDispatch(buffer, this->m_stateMachine_smStateStateToJunction, signal);
+      case SmId::smStateStateToChoice: {
+        const FppTest_SmState_StateToChoice::Signal signal = static_cast<FppTest_SmState_StateToChoice::Signal>(storedSignal);
+        this->FppTest_SmState_StateToChoice_smDispatch(buffer, this->m_stateMachine_smStateStateToChoice, signal);
         break;
       }
       case SmId::smStateStateToSelf: {
@@ -2557,28 +2729,28 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    FppTest_SmState_StateToJunction_smDispatch(
+    FppTest_SmState_StateToChoice_smDispatch(
         Fw::SerializeBufferBase& buffer,
-        FppTest_SmState_StateToJunction& sm,
-        FppTest_SmState_StateToJunction::Signal signal
+        FppTest_SmState_StateToChoice& sm,
+        FppTest_SmState_StateToChoice::Signal signal
     )
   {
     switch (signal) {
-      case FppTest_SmState_StateToJunction::Signal::S1_to_S4: {
+      case FppTest_SmState_StateToChoice::Signal::S1_to_S4: {
         // Assert no data left in buffer
         FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
         // Call the sendSignal function for sm and S1_to_S4
         sm.sendSignal_S1_to_S4();
         break;
       }
-      case FppTest_SmState_StateToJunction::Signal::S1_to_J: {
+      case FppTest_SmState_StateToChoice::Signal::S1_to_C: {
         // Assert no data left in buffer
         FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
-        // Call the sendSignal function for sm and S1_to_J
-        sm.sendSignal_S1_to_J();
+        // Call the sendSignal function for sm and S1_to_C
+        sm.sendSignal_S1_to_C();
         break;
       }
-      case FppTest_SmState_StateToJunction::Signal::S2_to_S3: {
+      case FppTest_SmState_StateToChoice::Signal::S2_to_S3: {
         // Assert no data left in buffer
         FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
         // Call the sendSignal function for sm and S2_to_S3

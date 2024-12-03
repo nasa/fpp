@@ -21,7 +21,7 @@ object CheckStateMachineSemantics {
           sma <- CheckTransitionGraph.defStateMachineAnnotatedNode(sma, aNode)
           sma <- CheckTypedElements.defStateMachineAnnotatedNode(sma, aNode)
           sma <- ComputeFlattenedStateTransitionMap.defStateMachineAnnotatedNode(sma, aNode)
-          sma <- ComputeFlattenedJunctionTransitionMap.defStateMachineAnnotatedNode(sma, aNode)
+          sma <- ComputeFlattenedChoiceTransitionMap.defStateMachineAnnotatedNode(sma, aNode)
         }
         yield sma
       // External state machine: do nothing

@@ -12,10 +12,11 @@
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
 #include "SmInitialQueued_BasicStateMachineAc.hpp"
-#include "SmInitialQueued_JunctionStateMachineAc.hpp"
+#include "SmInitialQueued_ChoiceStateMachineAc.hpp"
 #include "SmInitialQueued_NestedStateMachineAc.hpp"
+#include "Svc/Sched/SchedPortAc.hpp"
 #include "state-machine/initial/BasicStateMachineAc.hpp"
-#include "state-machine/initial/JunctionStateMachineAc.hpp"
+#include "state-machine/initial/ChoiceStateMachineAc.hpp"
 #include "state-machine/initial/NestedStateMachineAc.hpp"
 
 namespace FppTest {
@@ -39,13 +40,20 @@ namespace FppTest {
       // Constants
       // ----------------------------------------------------------------------
 
+      //! Enumerations for numbers of typed input ports
+      enum {
+        NUM_SCHEDIN_INPUT_PORTS = 1,
+      };
+
       //! State machine identifiers
       enum class SmId : FwEnumStoreType {
-        basic,
-        junction,
+        basic1,
+        basic2,
+        choice,
         nested,
-        smInitialBasic,
-        smInitialJunction,
+        smInitialBasic1,
+        smInitialBasic2,
+        smInitialChoice,
         smInitialNested,
       };
 
@@ -93,15 +101,15 @@ namespace FppTest {
 
       };
 
-      //! Implementation of state machine FppTest_SmInitial_Junction
-      class FppTest_SmInitial_Junction :
-        public FppTest::SmInitial::JunctionStateMachineBase
+      //! Implementation of state machine FppTest_SmInitial_Choice
+      class FppTest_SmInitial_Choice :
+        public FppTest::SmInitial::ChoiceStateMachineBase
       {
 
         public:
 
           //! Constructor
-          FppTest_SmInitial_Junction(
+          FppTest_SmInitial_Choice(
               SmInitialQueuedComponentBase& component //!< The enclosing component
           );
 
@@ -214,15 +222,15 @@ namespace FppTest {
 
       };
 
-      //! Implementation of state machine FppTest_SmInitialQueued_Junction
-      class FppTest_SmInitialQueued_Junction :
-        public FppTest::SmInitialQueued_JunctionStateMachineBase
+      //! Implementation of state machine FppTest_SmInitialQueued_Choice
+      class FppTest_SmInitialQueued_Choice :
+        public FppTest::SmInitialQueued_ChoiceStateMachineBase
       {
 
         public:
 
           //! Constructor
-          FppTest_SmInitialQueued_Junction(
+          FppTest_SmInitialQueued_Choice(
               SmInitialQueuedComponentBase& component //!< The enclosing component
           );
 
@@ -309,6 +317,19 @@ namespace FppTest {
           FwEnumStoreType instance = 0 //!< The instance number
       );
 
+    public:
+
+      // ----------------------------------------------------------------------
+      // Getters for typed input ports
+      // ----------------------------------------------------------------------
+
+      //! Get typed input port at index
+      //!
+      //! \return schedIn[portNum]
+      Svc::InputSchedPort* get_schedIn_InputPort(
+          FwIndexType portNum //!< The port number
+      );
+
     PROTECTED:
 
       // ----------------------------------------------------------------------
@@ -326,23 +347,66 @@ namespace FppTest {
     PROTECTED:
 
       // ----------------------------------------------------------------------
+      // Getters for numbers of typed input ports
+      // ----------------------------------------------------------------------
+
+      //! Get the number of schedIn input ports
+      //!
+      //! \return The number of schedIn input ports
+      FwIndexType getNum_schedIn_InputPorts() const;
+
+    PROTECTED:
+
+      // ----------------------------------------------------------------------
+      // Handlers to implement for typed input ports
+      // ----------------------------------------------------------------------
+
+      //! Handler for input port schedIn
+      virtual void schedIn_handler(
+          FwIndexType portNum, //!< The port number
+          U32 context //!< The call order
+      ) = 0;
+
+    PROTECTED:
+
+      // ----------------------------------------------------------------------
+      // Port handler base-class functions for typed input ports
+      //
+      // Call these functions directly to bypass the corresponding ports
+      // ----------------------------------------------------------------------
+
+      //! Handler base-class function for input port schedIn
+      void schedIn_handlerBase(
+          FwIndexType portNum, //!< The port number
+          U32 context //!< The call order
+      );
+
+    PROTECTED:
+
+      // ----------------------------------------------------------------------
       // State getter functions
       // ----------------------------------------------------------------------
 
-      //! Get the state of state machine instance basic
-      FppTest_SmInitialQueued_Basic::State basic_getState() const;
+      //! Get the state of state machine instance basic1
+      FppTest_SmInitialQueued_Basic::State basic1_getState() const;
 
-      //! Get the state of state machine instance junction
-      FppTest_SmInitialQueued_Junction::State junction_getState() const;
+      //! Get the state of state machine instance basic2
+      FppTest_SmInitialQueued_Basic::State basic2_getState() const;
+
+      //! Get the state of state machine instance choice
+      FppTest_SmInitialQueued_Choice::State choice_getState() const;
 
       //! Get the state of state machine instance nested
       FppTest_SmInitialQueued_Nested::State nested_getState() const;
 
-      //! Get the state of state machine instance smInitialBasic
-      FppTest_SmInitial_Basic::State smInitialBasic_getState() const;
+      //! Get the state of state machine instance smInitialBasic1
+      FppTest_SmInitial_Basic::State smInitialBasic1_getState() const;
 
-      //! Get the state of state machine instance smInitialJunction
-      FppTest_SmInitial_Junction::State smInitialJunction_getState() const;
+      //! Get the state of state machine instance smInitialBasic2
+      FppTest_SmInitial_Basic::State smInitialBasic2_getState() const;
+
+      //! Get the state of state machine instance smInitialChoice
+      FppTest_SmInitial_Choice::State smInitialChoice_getState() const;
 
       //! Get the state of state machine instance smInitialNested
       FppTest_SmInitial_Nested::State smInitialNested_getState() const;
@@ -378,12 +442,12 @@ namespace FppTest {
           FppTest_SmInitial_Basic::Signal signal //!< The signal
       ) = 0;
 
-      //! Implementation for action a of state machine FppTest_SmInitial_Junction
+      //! Implementation for action a of state machine FppTest_SmInitial_Choice
       //!
       //! Action a
-      virtual void FppTest_SmInitial_Junction_action_a(
+      virtual void FppTest_SmInitial_Choice_action_a(
           SmId smId, //!< The state machine id
-          FppTest_SmInitial_Junction::Signal signal //!< The signal
+          FppTest_SmInitial_Choice::Signal signal //!< The signal
       ) = 0;
 
       //! Implementation for action a of state machine FppTest_SmInitial_Nested
@@ -402,12 +466,12 @@ namespace FppTest {
           FppTest_SmInitialQueued_Basic::Signal signal //!< The signal
       ) = 0;
 
-      //! Implementation for action a of state machine FppTest_SmInitialQueued_Junction
+      //! Implementation for action a of state machine FppTest_SmInitialQueued_Choice
       //!
       //! Action a
-      virtual void FppTest_SmInitialQueued_Junction_action_a(
+      virtual void FppTest_SmInitialQueued_Choice_action_a(
           SmId smId, //!< The state machine id
-          FppTest_SmInitialQueued_Junction::Signal signal //!< The signal
+          FppTest_SmInitialQueued_Choice::Signal signal //!< The signal
       ) = 0;
 
       //! Implementation for action a of state machine FppTest_SmInitialQueued_Nested
@@ -424,20 +488,20 @@ namespace FppTest {
       // Functions to implement for internal state machine guards
       // ----------------------------------------------------------------------
 
-      //! Implementation for guard g of state machine FppTest_SmInitial_Junction
+      //! Implementation for guard g of state machine FppTest_SmInitial_Choice
       //!
       //! Guard g
-      virtual bool FppTest_SmInitial_Junction_guard_g(
+      virtual bool FppTest_SmInitial_Choice_guard_g(
           SmId smId, //!< The state machine id
-          FppTest_SmInitial_Junction::Signal signal //!< The signal
+          FppTest_SmInitial_Choice::Signal signal //!< The signal
       ) const = 0;
 
-      //! Implementation for guard g of state machine FppTest_SmInitialQueued_Junction
+      //! Implementation for guard g of state machine FppTest_SmInitialQueued_Choice
       //!
       //! Guard g
-      virtual bool FppTest_SmInitialQueued_Junction_guard_g(
+      virtual bool FppTest_SmInitialQueued_Choice_guard_g(
           SmId smId, //!< The state machine id
-          FppTest_SmInitialQueued_Junction::Signal signal //!< The signal
+          FppTest_SmInitialQueued_Choice::Signal signal //!< The signal
       ) const = 0;
 
     PROTECTED:
@@ -448,6 +512,19 @@ namespace FppTest {
 
       //! Called in the message loop to dispatch a message from the queue
       virtual MsgDispatchStatus doDispatch();
+
+    PRIVATE:
+
+      // ----------------------------------------------------------------------
+      // Calls for messages received on typed input ports
+      // ----------------------------------------------------------------------
+
+      //! Callback for port schedIn
+      static void m_p_schedIn_in(
+          Fw::PassiveComponentBase* callComp, //!< The component instance
+          FwIndexType portNum, //!< The port number
+          U32 context //!< The call order
+      );
 
     PRIVATE:
 
@@ -474,11 +551,11 @@ namespace FppTest {
           FppTest_SmInitial_Basic::Signal signal //!< The signal
       );
 
-      //! Dispatch a signal to a state machine instance of type FppTest_SmInitial_Junction
-      void FppTest_SmInitial_Junction_smDispatch(
+      //! Dispatch a signal to a state machine instance of type FppTest_SmInitial_Choice
+      void FppTest_SmInitial_Choice_smDispatch(
           Fw::SerializeBufferBase& buffer, //!< The message buffer
-          FppTest_SmInitial_Junction& sm, //!< The state machine
-          FppTest_SmInitial_Junction::Signal signal //!< The signal
+          FppTest_SmInitial_Choice& sm, //!< The state machine
+          FppTest_SmInitial_Choice::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmInitial_Nested
@@ -495,11 +572,11 @@ namespace FppTest {
           FppTest_SmInitialQueued_Basic::Signal signal //!< The signal
       );
 
-      //! Dispatch a signal to a state machine instance of type FppTest_SmInitialQueued_Junction
-      void FppTest_SmInitialQueued_Junction_smDispatch(
+      //! Dispatch a signal to a state machine instance of type FppTest_SmInitialQueued_Choice
+      void FppTest_SmInitialQueued_Choice_smDispatch(
           Fw::SerializeBufferBase& buffer, //!< The message buffer
-          FppTest_SmInitialQueued_Junction& sm, //!< The state machine
-          FppTest_SmInitialQueued_Junction::Signal signal //!< The signal
+          FppTest_SmInitialQueued_Choice& sm, //!< The state machine
+          FppTest_SmInitialQueued_Choice::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmInitialQueued_Nested
@@ -512,23 +589,38 @@ namespace FppTest {
     PRIVATE:
 
       // ----------------------------------------------------------------------
+      // Typed input ports
+      // ----------------------------------------------------------------------
+
+      //! Input port schedIn
+      Svc::InputSchedPort m_schedIn_InputPort[NUM_SCHEDIN_INPUT_PORTS];
+
+    PRIVATE:
+
+      // ----------------------------------------------------------------------
       // State machine instances
       // ----------------------------------------------------------------------
 
-      //! State machine basic
-      FppTest_SmInitialQueued_Basic m_stateMachine_basic;
+      //! State machine basic1
+      FppTest_SmInitialQueued_Basic m_stateMachine_basic1;
 
-      //! State machine junction
-      FppTest_SmInitialQueued_Junction m_stateMachine_junction;
+      //! State machine basic2
+      FppTest_SmInitialQueued_Basic m_stateMachine_basic2;
+
+      //! State machine choice
+      FppTest_SmInitialQueued_Choice m_stateMachine_choice;
 
       //! State machine nested
       FppTest_SmInitialQueued_Nested m_stateMachine_nested;
 
-      //! State machine smInitialBasic
-      FppTest_SmInitial_Basic m_stateMachine_smInitialBasic;
+      //! State machine smInitialBasic1
+      FppTest_SmInitial_Basic m_stateMachine_smInitialBasic1;
 
-      //! State machine smInitialJunction
-      FppTest_SmInitial_Junction m_stateMachine_smInitialJunction;
+      //! State machine smInitialBasic2
+      FppTest_SmInitial_Basic m_stateMachine_smInitialBasic2;
+
+      //! State machine smInitialChoice
+      FppTest_SmInitial_Choice m_stateMachine_smInitialChoice;
 
       //! State machine smInitialNested
       FppTest_SmInitial_Nested m_stateMachine_smInitialNested;

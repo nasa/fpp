@@ -76,6 +76,30 @@ namespace ExternalSm {
     PROTECTED:
 
       // ----------------------------------------------------------------------
+      // State getter functions
+      // ----------------------------------------------------------------------
+
+      //! Get the state of state machine instance sm1
+      ExternalSm::ActiveExternalStateMachines_S1::ActiveExternalStateMachines_S1_States sm1_getState() const;
+
+      //! Get the state of state machine instance sm2
+      ExternalSm::ActiveExternalStateMachines_S1::ActiveExternalStateMachines_S1_States sm2_getState() const;
+
+      //! Get the state of state machine instance sm3
+      ExternalSm::ActiveExternalStateMachines_S2::ActiveExternalStateMachines_S2_States sm3_getState() const;
+
+      //! Get the state of state machine instance sm4
+      ExternalSm::ActiveExternalStateMachines_S2::ActiveExternalStateMachines_S2_States sm4_getState() const;
+
+      //! Get the state of state machine instance sm5
+      ExternalSm::ActiveExternalStateMachines_S2::ActiveExternalStateMachines_S2_States sm5_getState() const;
+
+      //! Get the state of state machine instance sm6
+      ExternalSm::ActiveExternalStateMachines_S2::ActiveExternalStateMachines_S2_States sm6_getState() const;
+
+    PROTECTED:
+
+      // ----------------------------------------------------------------------
       // Overflow hooks for external state machine instances
       //
       // When sending a signal to a state machine instance, if

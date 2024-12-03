@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/transition_graph/unreachable_choice.fpp:6.3
+  choice C { if g enter S else enter S }
+  ^
+error: choice C is unreachable

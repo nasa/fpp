@@ -62,7 +62,7 @@ object Token {
   final case class INPUT() extends Token
   final case class INSTANCE() extends Token
   final case class INTERNAL() extends Token
-  final case class JUNCTION() extends Token
+  final case class CHOICE() extends Token
   final case class LBRACE() extends Token
   final case class LBRACKET() extends Token
   final case class LITERAL_FLOAT(str: String) extends Token
@@ -128,7 +128,7 @@ object Token {
   final case class U32() extends Token
   final case class U64() extends Token
   final case class U8() extends Token
-  final case class UNUSED() extends Token
+  final case class UNMATCHED() extends Token
   final case class UPDATE() extends Token
   final case class WARNING() extends Token
   final case class WITH() extends Token

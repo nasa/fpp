@@ -114,7 +114,7 @@ namespace M {
       );
 
       //! Invoke a port interface
-      U32 invoke(U32 u);
+      U32 invoke(U32 u) const;
 
     private:
 

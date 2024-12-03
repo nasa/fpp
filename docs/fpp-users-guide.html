@@ -520,8 +520,32 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#Defining-State-Machines">9. Defining State Machines</a>
 <ul class="sectlevel2">
-<li><a href="#Defining-State-Machines_External-State-Machines">9.1. External State Machines</a></li>
-<li><a href="#Defining-State-Machines_Internal-State-Machines">9.2. Internal State Machines</a></li>
+<li><a href="#Defining-State-Machines_Writing-a-State-Machine-Definition">9.1. Writing a State Machine Definition</a></li>
+<li><a href="#Defining-State-Machines_States-Signals-and-Transitions">9.2. States, Signals, and Transitions</a></li>
+<li><a href="#Defining-State-Machines_Actions">9.3. Actions</a>
+<ul class="sectlevel3">
+<li><a href="#Defining-State-Machines_Actions_Actions-in-Transitions">9.3.1. Actions in Transitions</a></li>
+<li><a href="#Defining-State-Machines_Actions_Entry-and-Exit-Actions">9.3.2. Entry and Exit Actions</a></li>
+<li><a href="#Defining-State-Machines_Actions_Typed-Signals-and-Actions">9.3.3. Typed Signals and Actions</a></li>
+</ul>
+</li>
+<li><a href="#Defining-State-Machines_More-on-State-Transitions">9.4. More on State Transitions</a>
+<ul class="sectlevel3">
+<li><a href="#Defining-State-Machines_More-on-State-Transitions_Guarded-Transitions">9.4.1. Guarded Transitions</a></li>
+<li><a href="#Defining-State-Machines_More-on-State-Transitions_Self-Transitions">9.4.2. Self Transitions</a></li>
+<li><a href="#Defining-State-Machines_More-on-State-Transitions_Internal-Transitions">9.4.3. Internal Transitions</a></li>
+</ul>
+</li>
+<li><a href="#Defining-State-Machines_Choices">9.5. Choices</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy">9.6. Hierarchy</a>
+<ul class="sectlevel3">
+<li><a href="#Defining-State-Machines_Hierarchy_Substates">9.6.1. Substates</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">9.6.2. Inherited Transitions</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions">9.6.3. Entry and Exit Actions</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Directly-Related-States">9.6.4. Directly Related States</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Choices">9.6.5. Choices</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#Defining-Components">10. Defining Components</a>
@@ -686,9 +710,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">14.3. Generating C Plus Plus</a>
 <ul class="sectlevel3">
 <li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">14.3.1. Constant Definitions</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">14.3.2. Topology Definitions</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-and-Components">14.3.3. Types, Ports, and Components</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">14.3.4. Component Implementation and Unit Test Code</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-State-Machines-and-Components">14.3.2. Types, Ports, State Machines, and Components</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">14.3.3. Component Implementation and Unit Test Code</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">14.3.4. Topology Definitions</a></li>
 </ul>
 </li>
 <li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files">14.4. Identifying Generated Files</a>
@@ -776,16 +800,16 @@ We recommend that you read this document before consulting that one.</p>
 <div class="paragraph">
 <p><strong>Overview:</strong> The rest of this document proceeds as follows.
 Section 2 explains how to get up and running with FPP.
-Sections 3 through 11 describe the elements of an FPP
+Sections 3 through 12 describe the elements of an FPP
 model, starting with the simplest elements (constants
 and types) and working towards the most complex (components
 and topologies).
-Section 12 explains how to specify a model as a collection
+Section 13 explains how to specify a model as a collection
 of files: for example, it covers the management of dependencies
 between files.
-Section 13 explains how to analyze FPP models and how
+Section 14 explains how to analyze FPP models and how
 to translate FPP models to and from XML, to C&#43;&#43;, and to JSON.
-Section 14 explains how to write a C&#43;&#43; implementation
+Section 15 explains how to write a C&#43;&#43; implementation
 against the code generated from an FPP model.</p>
 </div>
 </div>
@@ -3506,12 +3530,12 @@ port P(
 <div class="sectionbody">
 <div class="paragraph">
 <p>A <strong>hierarchical state machine</strong> (state machine for short)
-specifies the following:</p>
+is a software subsystem that specifies the following:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>A set of <strong>states</strong> that a system can be in.
+<p>A set of <strong>states</strong> that the system can be in.
 The states can be arranged in a hierarchy (i.e.,
 states may have substates).</p>
 </li>
@@ -3533,14 +3557,14 @@ these state changes as a state machine.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>An <strong>external</strong> state machine definition is similar to
+<p>An <strong>external</strong> state machine definition is like
 an <a href="#Defining-Types_Abstract-Type-Definitions">abstract type definition</a>:
 it tells the analyzer that a state machine exists with a specified
 name, but it says nothing about the state machine behavior.
 An external tool must provide the state machine implementation.</p>
 </li>
 <li>
-<p>An <strong>internal</strong> state machine definition is similar to an
+<p>An <strong>internal</strong> state machine definition is like an
 <a href="#Defining-Types_Array-Type-Definitions">array type definition</a>
 or
 <a href="#Defining-Types_Struct-Type-Definitions">struct type definition</a>:
@@ -3551,20 +3575,26 @@ no external tool is required.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>As of the current version of FPP, only external state machines
-are implemented.
-Support for internal state machines is in development.</p>
+<p>The following subsections describe both kinds of state machine
+definitions.</p>
 </div>
 <div class="paragraph">
 <p>State machine definitions may appear at the top level or inside a
 <a href="#Defining-Modules">module definition</a>.
 A state machine definition is an
-<a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>.</p>
+<a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>.
+Once you define a state machine, you can
+<a href="#Defining-Components_State-Machine-Instances">instantiate it as part of a component</a>.
+The component can then send the signals that cause the state
+transitions.
+The component also provides the functions that are called when
+the state machine does actions and evaluates guards.</p>
 </div>
 <div class="sect2">
-<h3 id="Defining-State-Machines_External-State-Machines">9.1. External State Machines</h3>
+<h3 id="Defining-State-Machines_Writing-a-State-Machine-Definition">9.1. Writing a State Machine Definition</h3>
 <div class="paragraph">
-<p>To define an external state machine, you write the keywords
+<p><strong>External state machines:</strong>
+To define an external state machine, you write the keywords
 <code>state</code> <code>machine</code> followed by an identifier, which is the
 name of the state machine:</p>
 </div>
@@ -3574,10 +3604,7 @@ name of the state machine:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>This code defines an external state machine with name <code>M</code>.
-You can then
-<a href="#Defining-Components_State-Machine-Instances">instantiate</a>
-the state machine <code>M</code> in a component definition.</p>
+<p>This code defines an external state machine with name <code>M</code>.</p>
 </div>
 <div class="paragraph">
 <p>When you define an external state machine <code>M</code>, you must provide
@@ -3587,12 +3614,2005 @@ The external implementation must have a header file <code>M.hpp</code>
 located in the same directory as the FPP file where
 the state machine <code>M</code> is defined.</p>
 </div>
+<div class="paragraph">
+<p><strong>Internal state machines:</strong>
+In the following subsections, we explain how to define internal
+state machines in FPP.
+The behavior of these state machines closely follows the behavior
+described for state machines in the
+<a href="https://www.omg.org/spec/UML/2.5.1/PDF">Universal Modeling Language (UML)</a>.
+UML is a graphical language and FPP is a textual language,
+but each of the concepts in the FPP language is motivated
+by a corresponding UML concept.
+FPP does not represent every aspect of UML state machines:
+because our goal is to support embedded and flight software,
+we focus on a subset of UML state machine behavior that is
+(1) simple and unambiguous and (2) sufficient for embedded
+applications that use F Prime.</p>
+</div>
+<div class="paragraph">
+<p>In this manual, we focus on the syntax and high-level behavior
+of FPP state machines.
+For more details about the C&#43;&#43; code generation
+for state machines, see the
+<a href="https://github.com/nasa/fprime/blob/devel/docs/Design/general.md">F Prime design
+documentation</a>.</p>
+</div>
 </div>
 <div class="sect2">
-<h3 id="Defining-State-Machines_Internal-State-Machines">9.2. Internal State Machines</h3>
+<h3 id="Defining-State-Machines_States-Signals-and-Transitions">9.2. States, Signals, and Transitions</h3>
 <div class="paragraph">
-<p>Support for internal state machines is in development.
-It will be available in a future release of FPP.</p>
+<p>In this and the following sections, we explain how to define
+internal state machines, i.e., state machines that are fully
+specified in FPP.
+In these sections, when we say &#8220;state machine,&#8221;
+we mean an internal state machine.</p>
+</div>
+<div class="paragraph">
+<p>First we explain the concepts of states,
+signals, and transitions.
+These are the basic building blocks of FPP state machines.</p>
+</div>
+<div class="paragraph">
+<p><strong>Basic state machines:</strong>
+The simplest state machine <em>M</em> that has any useful
+behavior consists of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Several <strong>state definitions</strong>.
+These define the states of <em>M</em>.</p>
+</li>
+<li>
+<p>An <strong>initial transition specifier</strong>.
+This specifies the state that an instance of <em>M</em> is in when it starts up.</p>
+</li>
+<li>
+<p>One or more <strong>signal definitions</strong>.
+The external environment (typically an F Prime component)
+sends signals to instances of <em>M</em>.</p>
+</li>
+<li>
+<p>One or more <strong>state transition specifiers</strong>.
+These tell each instance of <em>M</em> what to do when it receives a signal.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A state machine representing a device with on-off behavior
+state machine Device {
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    on cmdOn enter ON
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is the example represented graphically, as a UML state
+machine:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="diagrams/state-machine/Basic.png" alt="Device state machine" width="200">
+</div>
+</div>
+<div class="paragraph">
+<p>This example defines a state machine <code>Device</code> that represents
+a device with on-off behavior.
+There are two states, <code>ON</code> and <code>OFF</code>.
+The initial transition specifier <code>initial enter OFF</code>
+says that the state machine is in state <code>OFF</code> when it starts up.
+There are two signals: <code>cmdOn</code> for turning the device
+on and <code>cmdOff</code> for turning the device off.
+There are two state transition specifiers:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A specifier that says to enter state <code>OFF</code>
+on receiving the <code>cmdOff</code> signal in state <code>ON</code>.</p>
+</li>
+<li>
+<p>A specifier that says to enter state <code>ON</code>
+on receiving the <code>cmdOn</code> signal in state <code>OFF</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In general, a state transition specifier causes a transition
+from the state <em>S</em> in which it appears to the state <em>S'</em> that
+appears after the keyword <code>enter</code>.
+We say that <em>S</em> is the <strong>source</strong> of the transition,
+and <em>S'</em> is the <strong>target</strong> of the transition.</p>
+</div>
+<div class="paragraph">
+<p>If a state machine instance receives a signal <em>s</em>, and it is
+in a state <em>S</em> that specifies no behavior for signal <em>s</em>
+(i.e., there is no transition with source <em>S</em> and signal <em>s</em>),
+then nothing happens.
+In the example above, if the state machine receives signal
+<code>cmdOn</code> in state <code>ON</code>
+or signal <code>cmdOff</code> in state <code>OFF</code>, then it takes no action.</p>
+</div>
+<div class="paragraph">
+<p><strong>Rules for defining state machines:</strong>
+Each state machine definition must conform to the following rules:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A state machine definition and each of its members is an
+<a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>.
+For example, you can annotate the <code>Device</code> state machine as shown above.
+The members of a state machine definition form an
+<a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element sequence</a> with a semicolon as the optional
+terminating punctuation.
+The same rules apply to the members of a state definition.</p>
+</li>
+<li>
+<p>Each state machine definition must have exactly one
+initial transition specifier that names a state of
+the state machine.
+For example, if we deleted the initial transition specifier
+from the example above and passed the result through
+<code>fpp-check</code>, an error would occur.</p>
+</li>
+<li>
+<p>Every state definition must be reachable from the initial
+transition specifier or from a state transition specifier.
+For example, if we deleted the state transition specifier
+in the state <code>ON</code> from the example above and passed
+the result through <code>fpp-check</code>, an error would occur.
+In this case, there would be no way to reach the <code>ON</code> state.</p>
+</li>
+<li>
+<p>Every state name must be unique, and every signal name
+must be unique.</p>
+</li>
+<li>
+<p>Each state may have at most one state transition specifier
+for each signal <em>s</em>.
+For example, if we added another transition to state <code>ON</code>
+on signal <code>cmdOff</code>, the FPP analyzer would report an error.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Simple state definitions:</strong>
+If a state definition has no transitions, then you can omit
+the braces.
+For example, here is a revised version of the <code>Device</code> state
+machine that has an off-on transition but no on-off transition:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A state machine representing a device with on-only behavior
+state machine Device {
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    on cmdOn enter ON
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that state <code>ON</code> has a simple definition with no curly braces.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-State-Machines_Actions">9.3. Actions</h3>
+<div class="paragraph">
+<p>An <strong>action</strong> is a function that a state machine calls at a
+specified point in its behavior.
+In the FPP model, actions are abstract;
+in the C&#43;&#43; back end they become pure virtual functions that
+you implement.
+When a state machine instance calls the function associated with
+an action <em>A</em>, we say that it <strong>does</strong> <em>A</em>.</p>
+</div>
+<div class="sect3">
+<h4 id="Defining-State-Machines_Actions_Actions-in-Transitions">9.3.1. Actions in Transitions</h4>
+<div class="paragraph">
+<p>To define an action, you write the keyword <code>action</code> followed
+by the name of the action.
+As with <a href="#Defining-State-Machines_States-Signals-and-Transitions">signals</a>,
+every action name must be unique.
+To do an action, you write the keyword <code>do</code>
+followed by a list of action names enclosed in curly braces.
+You can do this in an initial transition specifier or in a
+state transition specifier.</p>
+</div>
+<div class="paragraph">
+<p>As an example, here is the <code>Device</code> state machine from the
+previous section, with actions added:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A state machine representing a device with on-off behavior,
+@ with actions on transitions
+state machine Device {
+
+  @ Initial action 1
+  action initialAction1
+
+  @ Initial action 2
+  action initialAction2
+
+  @ An action on the transition from OFF to ON
+  action offOnAction
+
+  @ An action on the transition from ON to OFF
+  action onOffAction
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ The initial state is OFF
+  @ Before entering the initial state, do initialAction1 and then initialAction2
+  initial do { initialAction1, initialAction2 } enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    @ Before entering the OFF state, do onOffAction
+    on cmdOff do { onOffAction } enter OFF
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    @ Before entering the ON state, do offOnAction
+    on cmdOn do { offOnAction } enter ON
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is the graphical representation:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="diagrams/state-machine/ActionsInTransitions.png" alt="Device state machine with actions on transitions" width="500">
+</div>
+</div>
+<div class="paragraph">
+<p>In this example there are four actions:
+<code>initialAction1</code>, <code>initialAction2</code>, <code>offOnAction</code>, and <code>onOffAction</code>.
+The behavior of each of these actions is specified in the C&#43;&#43;
+implementation; for example, each could emit an
+<a href="#Defining-Components_Events">F Prime event</a>.
+The state machine has the following behavior:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On startup, do <code>initialAction1</code>, do <code>initialAction2</code>, and
+enter the <code>OFF</code> state.</p>
+</li>
+<li>
+<p>In state <code>OFF</code>, on receiving the <code>cmdOn</code> signal, do
+<code>offOnAction</code> and enter the <code>ON</code> state.</p>
+</li>
+<li>
+<p>In state <code>ON</code>, on receiving the <code>cmdOff</code> signal, do
+<code>onOffAction</code> and enter the <code>OFF</code> state.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When multiple actions appear in an action list, as in the initial
+transition specifier shown above, the actions occur in the order
+listed.
+Each action list is an
+<a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element sequence</a> with a comma as the optional
+terminating punctuation.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-State-Machines_Actions_Entry-and-Exit-Actions">9.3.2. Entry and Exit Actions</h4>
+<div class="paragraph">
+<p>In addition to doing actions on transitions, a state machine
+can do actions on entry to or exit from a state.
+To do actions like this, you write <strong>state entry specifiers</strong>
+and <strong>state exit specifiers</strong>.
+For example, here is the <code>Device</code> state machine from
+the previous section, with state entry and exit specifiers
+added to the <code>ON</code> and <code>OFF</code> states:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A state machine representing a device with on-off behavior,
+@ with actions on transitions and on state entry and exit
+state machine Device {
+
+  @ Initial action 1
+  action initialAction1
+
+  @ Initial action 2
+  action initialAction2
+
+  @ An action on the transition from OFF to ON
+  action offOnAction
+
+  @ An action on the transition from ON to OFF
+  action onOffAction
+
+  @ An action on entering the ON state
+  action enterOn
+
+  @ An action on exiting the ON state
+  action exitOn
+
+  @ An action on entering the OFF state
+  action enterOff
+
+  @ An action on exiting the OFF state
+  action exitOff
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ The initial state is OFF
+  @ Before entering the initial state, do initialAction1 and then initialAction2
+  initial do { initialAction1, initialAction2 } enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ On entering the ON state, do enterOn
+    entry do { enterOn }
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    @ Before entering the OFF state, do offAction
+    on cmdOff do { onOffAction } enter OFF
+
+    @ On exiting the ON state, do exitOn
+    exit do { exitOn }
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ On entering the OFF state, do enterOff
+    entry do { enterOff }
+
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    @ Before entering the ON state, do onAction
+    on cmdOn do { offOnAction } enter ON
+
+    @ On exiting the OFF state, do exitOff
+    exit do { exitOff }
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is the graphical representation:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="diagrams/state-machine/EntryAndExitActions.png" alt="Device state machine with entry and exit actions" width="500">
+</div>
+</div>
+<div class="paragraph">
+<p>As with actions on transitions, each entry or exit specifier names
+a list of actions, and the actions are done in the order named.
+The entry actions are done just before entering the state,
+and the exit actions are done just before exiting the state.
+For example, if the state machine is in state <code>OFF</code> and it
+receives a <code>cmdOn</code> signal, then it runs the following behavior,
+in the following order:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Exit state <code>OFF</code>. On exit, do <code>exitOff</code>.</p>
+</li>
+<li>
+<p>Transition from <code>OFF</code> to <code>ON</code>. On the transition, do <code>offOnAction</code>.</p>
+</li>
+<li>
+<p>Enter state <code>ON</code>. On entry, do <code>enterOn</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each state may have at most one entry specifier and at most one
+exit specifier.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-State-Machines_Actions_Typed-Signals-and-Actions">9.3.3. Typed Signals and Actions</h4>
+<div class="paragraph">
+<p>Optionally, signals and actions may carry data values.
+To specify that a signal or action carries a data value,
+you write a colon and a data type at the end of the
+signal or action specifier.
+For example, here is a <code>Device</code> state machine in which
+the <code>cmdOn</code> signal and the <code>offOnAction</code> each carries
+a <code>U32</code> counter value:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A state machine representing a device with on-off behavior,
+@ with actions on transitions
+state machine Device {
+
+  @ An action on the transition from OFF to ON
+  @ The value counts the number of times this action has occurred
+  action offOnAction: U32
+
+  @ A signal for turning the device on
+  @ The value counts the number of times this signal has been received
+  signal cmdOn: U32
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    @ Before entering the ON state, do offOnAction, passing the data from
+    @ the signal into the action
+    on cmdOn do { offOnAction } enter ON
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When you send the <code>cmdOn</code> signal to an instance of
+this state machine, you must provide a <code>U32</code> value.
+When the state machine is in the <code>OFF</code> state and it receives
+this signal, it does action <code>offOnAction</code> as shown.
+The function that defines the behavior of <code>offOnAction</code> has
+a single argument of type <code>U32</code>.
+The value provided when the signal is sent is passed as the
+argument to this function.</p>
+</div>
+<div class="paragraph">
+<p>Here are the rules for writing typed signals and actions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>When you do an action that has a type, a value
+compatible with that type must be available.
+For example, we can&#8217;t do the <code>offOnAction</code> in the <code>cmdOff</code> transition shown
+above, because no <code>U32</code>
+value is available there.
+Similarly, no action done in a
+<a href="#Defining-State-Machines_Actions_Entry-and-Exit-Actions">state entry or exit specifier</a> may carry a value,
+because no values are available on entry to or exit
+from a state.</p>
+</li>
+<li>
+<p>The type that appears in a signal or an action can
+be any FPP type.
+In the example above we used a simple <code>U32</code> type;
+we could have used, for example, a struct or array type.
+In particular, you can use a struct type to send several
+data values, with each value represented as a member
+of the struct.</p>
+</li>
+<li>
+<p>When doing an action with a value, you don&#8217;t have to
+make the types exactly match.
+For example, you are permitted to pass a <code>U16</code> value
+to an action that requires a <code>U32</code> value.
+However, the type of the value must be convertible to the type
+specified in the action.
+The type conversion rules are spelled out in full in
+<em>The FPP Language Specification</em>.
+In general, the analyzer will allow a conversion if it
+can be safely done for all values of the original type.</p>
+</li>
+<li>
+<p>If an action <em>A</em> does not carry any value, then you
+can do <em>A</em> in any context, even if a value is available there.
+For example, in the code shown above, the <code>cmdOn</code>
+transition could do some other action that carries no value.
+In this case the value is ignored when doing the action.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-State-Machines_More-on-State-Transitions">9.4. More on State Transitions</h3>
+<div class="paragraph">
+<p>In this section, we provide more details on how to write
+<a href="#Defining-State-Machines_States-Signals-and-Transitions">state transitions</a>
+in FPP state machines.</p>
+</div>
+<div class="sect3">
+<h4 id="Defining-State-Machines_More-on-State-Transitions_Guarded-Transitions">9.4.1. Guarded Transitions</h4>
+<div class="paragraph">
+<p>Sometimes it is useful to specify that a transition should occur
+only if a certain condition is true.
+For example, you may want to turn on a device, but only if
+it is safe to do so.
+We call this kind of transition a <strong>guarded transition</strong>.
+To specify this transition, you define a <strong>guard</strong>, which
+is an abstract function that returns a Boolean value.
+Then you use the guard in a transition.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A device state machine with a guarded transition
+state machine Device {
+
+  @ A guard for checking whether the device is in a safe state for power-on
+  guard powerOnIsSafe
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    @ if powerOnIsSafe evaluates to true. Otherwise no transition occurs.
+    on cmdOn if powerOnIsSafe enter ON
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is the graphical representation:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="diagrams/state-machine/GuardedTransitions.png" alt="Device state machine with a guarded transition" width="400">
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, there is one guard, <code>powerOnIsSafe</code>.
+The implementation of this function will return true
+if it is safe to power on the device; otherwise it will
+return false.
+In state <code>OFF</code>, the transition on signal <code>cmdOn</code> is
+now guarded: when the signal is received in this state,
+the transition occurs if and only if <code>powerOnIsSafe</code>
+evaluates to <code>true</code>.</p>
+</div>
+<div class="paragraph">
+<p>As with actions, each guard must have a unique name.
+Also as with actions, a guard can have a type; if it does,
+the type must match the type of the signal at the point
+where the guard is evaluated.
+For example, here is a revised version of the previous
+state machine that adds a value of type <code>DeviceStatus</code>
+to the guard <code>powerOnIsSafe</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A type representing the status of a device
+type DeviceStatus
+
+@ A device state machine with a guarded transition
+state machine Device {
+
+  @ A guard for checking whether the device is in a safe state for power-on
+  @ The DeviceStatus value provides the current device status
+  guard powerOnIsSafe: DeviceStatus
+
+  @ A signal for turning the device on
+  @ The DeviceStatus value provides the current device status
+  signal cmdOn: DeviceStatus
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    @ if powerOnIsSafe evaluates to true. Otherwise no transition occurs.
+    on cmdOn if powerOnIsSafe enter ON
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When you send the signal <code>cmdOn</code> to an instance of this state
+machine, you must provide a value of type <code>DeviceStatus</code>.
+When the state machine instance evaluates the guard <code>powerOnIsSafe</code>,
+it passes in the value as an argument to the function.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-State-Machines_More-on-State-Transitions_Self-Transitions">9.4.2. Self Transitions</h4>
+<div class="paragraph">
+<p>When a state transition has the same state <em>S</em> as its source
+and its target, and <em>S</em> has no substates, we call the transition
+a <strong>self transition</strong>.
+In this case the following behavior occurs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The state machine does the exit actions for <em>S</em>, if any.</p>
+</li>
+<li>
+<p>The state machine does the actions specified in the transition, if any.</p>
+</li>
+<li>
+<p>The state machine does the entry actions for <em>S</em>, if any.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Note that on a self transition, the state machine exits and
+reenters <em>S</em>.
+This behavior is a special case of a more general behavior that we will
+discuss
+<a href="#Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions">below</a>
+in connection with state hierarchy.
+<a href="#Defining-State-Machines_Hierarchy_Directly-Related-States">Below</a>
+we will also generalize the concept of a self transition to
+the case of a state with substates.</p>
+</div>
+<div class="paragraph">
+<p>As an example, consider the following state machine:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A state machine representing a device with on-off behavior,
+@ with a self transition
+state machine Device {
+
+  @ An action on entering the ON state
+  action enterOn
+
+  @ An action to perform on reset
+  action reset
+
+  @ An action on exiting the ON state
+  action exitOn
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ A signal for resetting the device
+  signal cmdReset
+
+  @ The initial state is OFF
+  @ Before entering the initial state, do initialAction1 and then initialAction2
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ On entering the ON state, do enterOn
+    entry do { enterOn }
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
+
+    @ In the ON state, a cmdReset signal causes a self transition
+    on cmdReset do { reset } enter ON
+
+    @ On exiting the ON state, do exitOn
+    exit do { exitOn }
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    on cmdOn enter ON
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is the graphical representation:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="diagrams/state-machine/SelfTransitions.png" alt="Device state machine with a self transition" width="400">
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, when the state machine is in the <code>ON</code> state and
+it receives a <code>cmdReset</code> signal, the following behavior occurs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Do action <code>exitOn</code>.</p>
+</li>
+<li>
+<p>Do action <code>reset</code>.</p>
+</li>
+<li>
+<p>Do action <code>enterOn</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-State-Machines_More-on-State-Transitions_Internal-Transitions">9.4.3. Internal Transitions</h4>
+<div class="paragraph">
+<p>An <strong>internal transition</strong> is like a
+<a href="#Defining-State-Machines_More-on-State-Transitions_Self-Transitions">self transition</a>,
+except that there is no exit and reentry.
+To write an internal transition, you write the <code>on</code> and <code>do</code>
+parts of a transition and omit the <code>enter</code> part.
+For example, here is a device state machine with a <code>reset</code>
+action that causes an internal transition:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A state machine representing a device with on-off behavior,
+@ with an internal transition
+state machine Device {
+
+  @ An action on entering the ON state
+  action enterOn
+
+  @ An action to perform on reset
+  action reset
+
+  @ An action on exiting the ON state
+  action exitOn
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ A signal for resetting the device
+  signal cmdReset
+
+  @ The initial state is OFF
+  @ Before entering the initial state, do initialAction1 and then initialAction2
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ On entering the ON state, do enterOn
+    entry do { enterOn }
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
+
+    @ In the ON state, a cmdReset signal causes an internal transition
+    on cmdReset do { reset }
+
+    @ On exiting the ON state, do exitOn
+    exit do { exitOn }
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    on cmdOn enter ON
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is the graphical representation:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="diagrams/state-machine/InternalTransitions.png" alt="Device state machine with an internal transition" width="200">
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, when the state machine is in state <code>ON</code> and it
+receives a <code>cmdReset</code> signal, it does the <code>reset</code> action and
+performs no other behavior.</p>
+</div>
+<div class="paragraph">
+<p>An internal transition may have a guard.
+For example, we could define a guard <code>resetIsSafe</code> and
+write the internal transition as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">on cmdReset if resetIsSafe do { reset }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As with other transitions, if the signal carries data, then
+any actions and guards names in an internal transition may
+carry data of a compatible type.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-State-Machines_Choices">9.5. Choices</h3>
+<div class="paragraph">
+<p>A <strong>choice definition</strong> is a state machine member that
+defines a branch point for one or more transitions.
+In this section we explain how to write and use
+choice definitions.</p>
+</div>
+<div class="paragraph">
+<p><strong>Basic choice definitions:</strong>
+The most basic choice definition consists of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A name. Like a state name, this name can be the target
+of a transition.</p>
+</li>
+<li>
+<p>The name of a
+<a href="#Defining-State-Machines_More-on-State-Transitions_Guarded-Transitions">guard</a>
+<em>G</em>.
+The evaluation of <em>G</em> selects which branch of the choice to
+follow.</p>
+</li>
+<li>
+<p>An <strong>if transition</strong> that specifies what to do if <em>G</em>
+evaluates to <code>true</code>.</p>
+</li>
+<li>
+<p>An <strong>else transition</strong> that specifies what to do if <em>G</em>
+evaluates to <code>false</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each of the if and else transitions has a target,
+which can be a state or a choice.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A device state machine with a choice
+state machine Device {
+
+  @ A guard for checking whether the device is in a safe state for power-on
+  guard powerOnIsSafe
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ A signal for resetting the device
+  signal cmdReset
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a cmdOff signal causes a transition to the choice ON_OR_ERROR
+    on cmdOn enter ON_OR_ERROR
+
+  }
+
+  @ The ON_OR_ERROR choice
+  choice ON_OR_ERROR {
+    if powerOnIsSafe enter ON else enter ERROR
+  }
+
+  @ The ERROR state
+  state ERROR {
+
+    @ In the ERROR state, a cmdReset signal causes a transition to the OFF state
+    on cmdReset enter OFF
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is the graphical representation:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="diagrams/state-machine/Choices.png" alt="Device state machine with a choice" width="450">
+</div>
+</div>
+<div class="paragraph">
+<p>This version of the <code>Device</code> state machine has three states:
+<code>ON</code>, <code>OFF</code>, and <code>ERROR</code>.
+It also has a choice <code>ON_OR_ERROR</code>.
+Each instance of the state machine has the following behavior:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The initial state is <code>OFF</code>.</p>
+</li>
+<li>
+<p>On receiving the signal <code>cmdOn</code> in the <code>OFF</code> state, it
+enters the choice <code>ON_OR_ERROR</code>.
+At that point, if <code>powerOnIsSafe</code> evaluates to <code>true</code>, then
+it enters then <code>ON</code> state.
+Otherwise it enters the <code>ERROR</code> state.</p>
+</li>
+<li>
+<p>On receiving the signal <code>cmdReset</code> in the <code>ERROR</code> state,
+it enters the <code>OFF</code> state.</p>
+</li>
+<li>
+<p>On receiving the signal <code>cmdOff</code> in the <code>ON</code> state,
+it enters the <code>OFF</code> state.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The text inside the curly braces of a choice consists
+of a single line.
+To write the text on multiple lines, you can use an
+<a href="#Defining-Constants_Multiline-Definitions">explicit line
+continuation</a>. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">choice ON_OR_ERROR {
+  if powerOnIsSafe \
+  enter ON \
+  else enter ERROR
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Initial transitions to choices:</strong>
+An initial transition can go to a choice.
+This pattern can express conditional behavior on state
+machine startup.
+For example, in the <code>Device</code> state machine shown above,
+we could have the initial transition go to a choice
+that checks a safety condition and then enters either
+the <code>OFF</code> state or an error state.</p>
+</div>
+<div class="paragraph">
+<p><strong>Choice transitions to choices:</strong>
+An if transition or an else transition of a choice
+(or both) can enter another choice.
+For example, it is permissible to write a chain of
+choices like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">choice C {
+  if g1 enter C1 else enter C2
+}
+
+choice C1 {
+  if g2 enter S1 else enter S2
+}
+
+choice C2 {
+  if g3 enter S3 else enter S4
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Effectively this is a four-way choice; it is a two-way
+choice, each branch of which leads to a two way choice.
+By having the if or else branch of <code>C1</code> go directly
+to a state, you could get a three-way choice.
+And by adding more levels, you can create an <em>n</em> -way
+choice for any <em>n</em>.
+In this way you can use choices to create arbitrarily
+complex branching patterns.
+Note though, that it is usually a good idea not to have
+more than a few levels of choices; otherwise the state
+machine can be complex and hard to understand.</p>
+</div>
+<div class="paragraph">
+<p><strong>The type associated with a choice:</strong>
+Like initial transitions and state transitions, the
+transitions out of a choice may
+<a href="#Defining-State-Machines_Actions_Typed-Signals-and-Actions">carry a value</a>.
+To determine whether the transitions of a choice <em>C</em> carry a value,
+and if so what type that value has, we use the following rules:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If any transition into <em>C</em> carries no value,
+then transitions out of <em>C</em> carry no value.</p>
+</li>
+<li>
+<p>Otherwise if all of the transitions into <em>C</em> carry
+a value of the same type <em>T</em>, then each of the
+transitions out of <em>C</em> carries a value of type <em>T</em>.</p>
+</li>
+<li>
+<p>Otherwise if the incoming types can be resolved to
+a common type <em>T</em>, then each of the transitions out of <em>C</em>
+carries a value of type <em>T</em>.
+The rules for resolving common types are given in
+<em>The FPP Language Specification</em>.
+The basic idea is to find a type to which it is always
+safe to cast all the incoming types.</p>
+</li>
+<li>
+<p>Otherwise the analyzer reports an error.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Actions in choice transitions:</strong>
+You can do actions in choice transitions just as for
+<a href="#Defining-State-Machines_Actions">initial transitions and
+state transitions</a>.
+For example, suppose we add the definitions of actions <code>onAction</code> and
+<code>errorAction</code> to the <code>Device</code> state machine shown above.
+Then we could revise the <code>ON_OR_ERROR</code> choice to read as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">choice ON_OR_ERROR {
+  if powerOnIsSafe do onAction enter ON else do errorAction enter ERROR
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As for other kinds of transitions, the actions done in choice
+transitions may carry values.
+If an action <em>A</em> done in a transition of a choice <em>C</em> carries a value,
+the type named in the definition of <em>A</em> must be
+compatible with the type associated with <em>C</em>, as discussed above.</p>
+</div>
+<div class="paragraph">
+<p><strong>Entry and exit actions:</strong>
+When a transition <em>T</em> of a state machine <em>M</em>
+goes to or from a choice, entry and
+exit actions are done as if each choice were a state with
+no entry and or exit actions.
+For example, let <em>I</em> be an instance of <em>M</em>, and
+suppose <em>I</em> is carrying out a transition <em>T</em>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If <em>T</em> goes from a choice <em>C</em> to a state <em>S</em>,
+then <em>I</em>
+does the actions of <em>T</em> followed by the entry actions of <em>S</em>.</p>
+</li>
+<li>
+<p>If <em>T</em> goes from a state <em>S</em> to a choice <em>C</em>,
+then <em>I</em>
+does the exit actions of <em>S</em> followed by the actions of <em>T</em>.</p>
+</li>
+<li>
+<p>If <em>T</em> goes from a choice <em>C</em><sub>1</sub> to a choice <em>C</em><sub>2</sub>,
+then <em>I</em> does the actions of <em>T</em>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Rules for choice definitions:</strong>
+Choice definitions must conform to the following rules:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>No state or choice may have the same name as any other
+state or choice.</p>
+</li>
+<li>
+<p>Every choice must be reachable from the initial transition
+or from a state transition.</p>
+</li>
+<li>
+<p>There may be no cycles of choice transitions.
+For example, it is not permitted for a choice <code>C1</code> to
+have a transition to a choice <code>C2</code> that has a transition
+back to <code>C1</code>.
+Nor is it permissible for <code>C1</code> to go to <code>C2</code>, <code>C2</code> to
+go to <code>C3</code>, and <code>C3</code> to go to <code>C1</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-State-Machines_Hierarchy">9.6. Hierarchy</h3>
+<div class="paragraph">
+<p>As with UML state machines, FPP state machines can have <strong>hierarchy</strong>.
+That is, we can do the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Define states within other states.
+When a state <em>T</em> is defined within a state <em>S</em>, <em>S</em> is called the
+<strong>parent</strong> of <em>T</em>, and <em>T</em> is called a <strong>substate</strong> or <strong>child</strong> of <em>S</em>.</p>
+</li>
+<li>
+<p>Define choices within states.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Using hierarchy, we can do the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Group related substates under a single parent.
+This grouping lets us express the state machine structure in a
+disciplined and modular way.</p>
+</li>
+<li>
+<p>Define behaviors of a parent state that are inherited
+by its substates.
+The parent behavior saves having to redefine the behavior for each
+substate.</p>
+</li>
+<li>
+<p>Control the way that entry and exit actions occur
+when transitions cross state boundaries.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A state machine with hierarchy is called a
+<strong>hierarchical state machine</strong>.
+In the following subsections, we explain how to define
+hierarchical state machines in FPP.</p>
+</div>
+<div class="sect3">
+<h4 id="Defining-State-Machines_Hierarchy_Substates">9.6.1. Substates</h4>
+<div class="paragraph">
+<p>In this section we explain how to define and use substates.</p>
+</div>
+<div class="paragraph">
+<p><strong>An example:</strong>
+Here is an example of a state machine with substates:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A device state machine with substates
+state machine Device {
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ A signal for indicating that the device is in an unsafe state
+  signal cmdUnsafe
+
+  @ A signal for indicating that the device is in a safe state
+  signal cmdSafe
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
+
+    @ In the ON state, a cmdUnsafe signal causes a transition to OFF.UNSAFE
+    on cmdUnsafe enter OFF.UNSAFE
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ The initial state is SAFE
+    initial enter SAFE
+
+    @ The state OFF.SAFE
+    @ In this state, it is safe to turn on the device
+    state SAFE {
+
+      @ In the SAFE state, a cmdOff signal causes a transition to the ON state
+      on cmdOn enter ON
+
+      @ In the SAFE state, a cmdUnsafe signal causes a transition to the UNSAFE state
+      on cmdUnsafe enter UNSAFE
+
+    }
+
+    @ The state OFF.UNSAFE
+    @ In this state, it is not safe to turn on the device
+    state UNSAFE {
+
+      @ In the UNSAFE state, a cmdSafe signal causes a transition to the SAFE state
+      on cmdSafe enter SAFE
+
+    }
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is the graphical representation:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="diagrams/state-machine/Substates.png" alt="Device state machine with substates" width="500">
+</div>
+</div>
+<div class="paragraph">
+<p>This state machine has four states: <code>ON</code>, <code>OFF</code>, <code>OFF.SAFE</code>, and <code>OFF.UNSAFE</code>.
+The last two states are substates of <code>OFF</code>.
+Notice the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The substates are defined syntactically within the parent state.</p>
+</li>
+<li>
+<p>The full names of the substates are qualified by the name of the parent state.</p>
+</li>
+<li>
+<p>Inside the scope of the parent state, you can refer
+to the substates by the shorter name that omits the implied qualifier.
+The way the qualification works for state names is identical to the
+way it works for <a href="#Defining-Modules">module names</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>An instance <em>m</em> of this state machine has the following behavior:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>When <em>m</em> starts up, it runs its initial transition specifier, just as for
+<a href="#Defining-State-Machines_States-Signals-and-Transitions">a state machine
+without hierarchy</a>.
+The state machine enters state <code>OFF</code>.
+<code>OFF</code> is a parent state, so it in turn has an initial transition
+specifier which is run.
+The state machine enters <code>OFF.SAFE</code>.</p>
+</li>
+<li>
+<p>In state <code>ON</code>, the following behavior occurs:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>When <em>m</em> receives signal <code>cmdOff</code>, it enters state
+<code>OFF</code>. This entry causes it to enter state <code>OFF.SAFE</code> as discussed above.</p>
+</li>
+<li>
+<p>When <em>m</em> receives signal <code>cmdUnsafe</code>, it goes
+directly to <code>OFF.UNSAFE</code>, bypassing the <code>OFF</code> state and its initial
+transition.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>In state <code>OFF.SAFE</code>, the following behavior occurs:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>When <em>m</em> receives signal <code>cmdOn</code>, it enters
+the <code>ON</code> state.</p>
+</li>
+<li>
+<p>When <em>m</em> receives signal <code>cmdUnsafe</code>, it
+enters the <code>OFF.UNSAFE</code> state.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>In state <code>OFF.UNSAFE</code>, when <em>m</em> receives signal
+<code>cmdSafe</code>, it enters the <code>OFF.SAFE</code> state.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Rules for substates:</strong>
+Here are the rules for defining substates:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Each parent state <em>S</em> must have exactly one initial transition
+specifier that enters a substate of <em>S</em>.</p>
+</li>
+<li>
+<p>Each state, including parents and substates, must be reachable
+from the initial transition of the state machine or from
+a state transition.</p>
+</li>
+<li>
+<p>Substates may themselves be parents (i.e., may have substates),
+to any depth.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Rule 1 ensures that the final target of every transition,
+after following all initial transition specifiers, is a
+<strong>leaf state</strong>, i.e., a state that has no substates.</p>
+</div>
+<div class="paragraph">
+<p><strong>The hierarchy tree:</strong>
+When a state <em>S</em> is a parent of a state <em>S'</em>, we say that <em>S</em> is an
+<strong>ancestor</strong> of <em>S'</em> in the state hierarchy.
+We also say that <em>S</em> is an ancestor of <em>S'</em> if it is a parent of
+an ancestor of <em>S'</em>.
+For example, if <em>S</em> is a parent of a parent of <em>S'</em>, then
+<em>S</em> is an ancestor of <em>S'</em>.
+Note that a state is never an ancestor of itself.</p>
+</div>
+<div class="paragraph">
+<p>When a state <em>S</em> is a an ancestor of a state <em>S'</em>, we
+say that <em>S'</em> is a <strong>descendant</strong> of <em>S</em>.
+For example, <em>S'</em> is a descendant of <em>S</em> if <em>S'</em>
+is a child of <em>S</em>, or if <em>S'</em> is a child of a child of
+<em>S</em>.
+Note that a state is never a descendant of itself.</p>
+</div>
+<div class="paragraph">
+<p>In order to make the state hierarchy into a tree, we also
+say that the entire state machine <em>M</em> is a parent of every top-level
+state in the state machine.
+This means that (1) <em>M</em> is an ancestor of every
+state in <em>M</em> and (2) every state in <em>M</em> is a descendant of <em>M</em>.
+We will say that the tree constructed in this way is the
+<strong>hierarchy tree</strong> for <em>M</em>, and that each of <em>M</em> and every state
+in <em>M</em> is a <strong>node</strong> in the hierarchy tree.
+In particular, <em>M</em> is the root node of the hierarchy tree.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-State-Machines_Hierarchy_Inherited-Transitions">9.6.2. Inherited Transitions</h4>
+<div class="paragraph">
+<p>In general, when a transition <em>T</em> is defined in a parent state <em>S</em>,
+<em>T</em> behaves as if it were defined in each of the
+<a href="#Defining-State-Machines_Hierarchy_Substates">leaf states</a> that is a
+<a href="#Defining-State-Machines_Hierarchy_Substates">descendant of <em>T</em></a>.
+In this case we say that <em>T</em> is <strong>inherited</strong> by each of the leaf states.
+There is an important exception to this rule:
+When a state <em>S</em> defines a transition <em>T</em> on a signal <em>s</em>,
+and a descendant <em>S'</em> of <em>S</em> defines another transition <em>T'</em>
+on the same signal <em>s</em>, the behavior of <em>T'</em> takes precedence
+over the inherited transition <em>T</em> in the behavior of <em>S'</em>.
+This rule is called <strong>behavioral polymorphism</strong> for transitions.</p>
+</div>
+<div class="paragraph">
+<p><strong>Example:</strong>
+Here is an example that illustrates inherited transitions
+and behavioral polymorphism:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A device state machine with inherited transitions and behavioral polymorphism
+state machine Device {
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ A signal for indicating that the device is in an unsafe state
+  signal cmdUnsafe
+
+  @ A signal for indicating that the device is in a safe state
+  signal cmdSafe
+
+  @ The initial state is DEVICE
+  initial enter DEVICE
+
+  @ The DEVICE state
+  state DEVICE {
+
+    @ The initial state is OFF
+    initial enter OFF
+
+    @ In the DEVICE state, a cmdUnsafe signal causes a transition to OFF.UNSAFE
+    on cmdUnsafe enter OFF.UNSAFE
+
+    @ The ON state
+    state ON {
+
+      @ In the ON state, a cmdOff signal causes a transition to the OFF state
+      on cmdOff enter OFF
+
+    }
+
+    @ The OFF state
+    state OFF {
+
+      @ The initial state is SAFE
+      initial enter SAFE
+
+      @ The state OFF.SAFE
+      @ In this state, it is safe to turn on the device
+      state SAFE {
+
+        @ In the SAFE state, a cmdOff signal causes a transition to the ON state
+        on cmdOn enter ON
+
+      }
+
+      @ The state OFF.UNSAFE
+      @ In this state, it is not safe to turn on the device
+      state UNSAFE {
+
+        @ In the UNSAFE state, a cmdSafe signal causes a transition to the SAFE state
+        on cmdSafe enter SAFE
+
+        @ In the UNSAFE state, a cmdUnsafe signal causes no action
+        on cmdUnsafe do { }
+
+      }
+
+    }
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is the graphical representation:</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="diagrams/state-machine/InheritedTransitions.png" alt="Device state machine with inherited transitions" width="600">
+</div>
+</div>
+<div class="paragraph">
+<p>Here we have rewritten the
+<a href="#Defining-State-Machines_Hierarchy_Substates"><code>Device</code> state machine from the previous section</a>
+so that all the states in that example are descendants of a single state
+<code>DEVICE</code>.
+By doing this, we can have a single transition out of <code>DEVICE</code> on signal
+<code>cmdUnsafe</code>.
+Before we had to write out the same transition twice,
+once in the state <code>ON</code> and once in the state <code>OFF.SAFE</code>.
+Here we can write the transition once in the ancestor state, and
+it is inherited by all the descendants.</p>
+</div>
+<div class="paragraph">
+<p>There is one catch, though: in the previous example, we did not define
+the transition on <code>cmdUnsafe</code> in the state <code>OFF.UNSAFE</code>.
+Here, if we use inheritance in the obvious way, the transition will
+be inherited by all the descendants of <code>DEVICE</code>, including <code>OFF.UNSAFE</code>,
+so the behavior will not be exactly the same as for the previous
+state machine.
+This may not matter much in this example, but it would matter if the
+the state <code>DEVICE.OFF.UNSAFE</code> had entry or exit actions; in this case
+transition from <code>UNSAFE</code> to itself (which is a
+<a href="#Defining-State-Machines_More-on-State-Transitions_Self-Transitions">self transition</a>)
+would cause an exit from and reentry to the state, which we may not want.</p>
+</div>
+<div class="paragraph">
+<p>To remedy this situation, we use behavioral polymorphism.
+In the state <code>DEVICE.OFF.UNSAFE</code>, we define an
+<a href="#Defining-State-Machines_More-on-State-Transitions_Internal-Transitions">internal
+transition</a>
+that has an empty list of actions and so does nothing.
+This transition overrides the transition provided in the ancestor state,
+so it restores the behavior that, on receipt of the signal
+<code>cmdUnsafe</code> in the state <code>DEVICE.OFF.UNSAFE</code>, nothing happens.</p>
+</div>
+<div class="paragraph">
+<p><strong>Syntactic and flattened state transitions:</strong>
+Once we introduce substates and inheritance, it is useful to
+distinguish <strong>syntactic state transitions</strong> from <strong>flattened state transitions</strong>.
+A syntactic state transition is a state transition in the FPP source
+for a state machine <em>M</em>.
+A flattened state transition is a transition that results from
+applying the rules for transition inheritance to a syntactic
+state transition.
+We say the transition is &#8220;flattened&#8221; because we create
+it by moving the left side of the transition down to a leaf state.
+This move flattens the hierarchy on the left
+side of the transition.</p>
+</div>
+<div class="paragraph">
+<p>When there is no hierarchy, a syntactic transition from state
+<em>S</em><sub>1</sub> to <em>S</em><sub>2</sub> generates exactly one flattened transition,
+also from <em>S</em><sub>1</sub> to <em>S</em><sub>2</sub>.
+Once we have hierarchy, however, syntactic and flattened
+state transitions may be different.
+For example, suppose that <em>S</em><sub>1</sub> is a parent state,
+and let <em>T</em> be a syntactic transition from <em>S</em><sub>1</sub> to <em>S</em><sub>2</sub>.
+Then for each descendant <em>L</em> of <em>S</em><sub>1</sub> that is a leaf state, there is a flattened
+state transition from <em>L</em> to <em>S</em><sub>2</sub>.
+Note in particular that whereas a syntactic state transition may
+have a parent state as its source, a flattened state transition always
+has a leaf state as its source.
+This distinction between syntactic and flattened state transitions
+will be useful when we discuss entry and exit actions
+in the following sections.</p>
+</div>
+<div class="paragraph">
+<p><strong>Internal transitions:</strong>
+<a href="#Defining-State-Machines_More-on-State-Transitions_Internal-Transitions">Internal transitions</a> are flattened and inherited like other transitions,
+except that there is no target state.
+When a parent state <em>S</em> defines an internal transition, the following occurs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>There is one flattened transition for each leaf state that
+that is a descendant of <em>S</em>.</p>
+</li>
+<li>
+<p>The behavior of each flattened transition is to stay in <em>S</em>
+and do the actions listed in the transition.
+There is no state change, and no entry or exit actions are done.</p>
+</li>
+<li>
+<p>As usual, any of these flattened transitions may be overridden
+by behavioral polymorphism.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions">9.6.3. Entry and Exit Actions</h4>
+<div class="paragraph">
+<p>In previous sections on
+<a href="#Defining-State-Machines_Actions_Entry-and-Exit-Actions">entry and exit actions</a> and on
+<a href="#Defining-State-Machines_More-on-State-Transitions_Self-Transitions">self transitions</a>,
+we explained the order in which actions occur during a transition between
+states without hierarchy.
+Each of the behaviors described there is a special case of a more general
+behavior for state machines with hierarchy, which we now describe.</p>
+</div>
+<div class="paragraph">
+<p><strong>General behavior:</strong>
+Suppose, in the course of running an instance of a state machine <em>M</em>,
+a <a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">flattened state transition</a> <em>T</em>
+occurs from state <em>L</em> to state <em>S</em>.
+By the definition of a flattened state transition, we know
+that <em>L</em> is a leaf state.
+When carrying out the transition <em>T</em>, the state machine instance will do
+actions as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Compute the <strong>least common ancestor</strong> of <em>L</em> and <em>S</em>.
+This is the unique node <em>N</em> of the <a href="#Defining-State-Machines_Hierarchy_Substates">hierarchy tree</a> of <em>M</em> such that (a) <em>N</em> is an ancestor of <em>L</em>,
+(b) <em>N</em> is an ancestor of <em>S</em>, and (c) there is no node <em>N'</em>
+that is a descendant of <em>N</em> and that satisfies properties (a) and (b).</p>
+</li>
+<li>
+<p>Traverse the hierarchy tree upwards from <em>L</em> to <em>N</em>.
+At each point where the traversal passes out of a state <em>S'</em>, in the
+order of the traversal, do the exit actions of <em>S'</em>, if any.</p>
+</li>
+<li>
+<p>Do the actions specified in <em>T</em>, if any.</p>
+</li>
+<li>
+<p>Traverse the hierarchy tree downwards from <em>N</em> to <em>S</em>.
+At each point where the traversal enters a state <em>S'</em>, in the
+order of the traversal, do the entry actions of <em>S'</em>, if any.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For example, suppose that <em>M</em> has a state <em>A</em> with substates
+<em>B</em> and <em>C</em>, <em>B</em> has substate <em>D</em>, and <em>C</em> has substate <em>E</em>.
+Suppose that <em>T</em> goes from <em>C</em> to <em>E</em>.
+Then least common ancestor is <em>A</em>, and the following actions
+would be done, in the following order:
+the exit actions of <em>C</em>, the exit actions of <em>B</em>,
+the actions of <em>T</em>, the entry actions of <em>C</em>, and the
+entry actions of <em>E</em>.</p>
+</div>
+<div class="paragraph">
+<p>Remember also that if <em>E</em> is not a leaf state, then <em>T</em> will
+<a href="#Defining-State-Machines_Hierarchy_Substates">follow
+one or more transitions to go to a leaf state</a>.
+In this case, any actions specified in those transitions are
+done as well,
+after the transitions described above, and in the order that
+the initial transitions are run.</p>
+</div>
+<div class="paragraph">
+<p>Finally, the algorithm above is described in a way
+that emphasizes ease of understanding.
+As stated, it is inefficient because it
+recomputes the least common ancestor every time a flattened state
+transition occurs.
+In fact all the sequences of exit and entry actions for flattened
+state transitions can be computed before generating code, and
+it is more efficient to do this.
+This is how the FPP code generator works.
+For more details, see the algorithm descriptions on the
+<a href="https://github.com/nasa/fpp/wiki/Compute-Flattened-State-Transition-Map">FPP wiki</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>The special case of no hierarchy:</strong>
+The general behavior described above agrees with the special-case
+behavior that we described in the section on
+<a href="#Defining-State-Machines_Actions_Entry-and-Exit-Actions">entry and exit actions for state machines without hierarchy</a>.
+When a state machine <em>M</em> has no hierarchy, a every state transition <em>T</em>
+is a flattened transition that goes from a leaf state <em>L</em> to a leaf
+state <em>S</em>, both of which are children of <em>M</em> in the hierarchy tree.
+So we always exit <em>L</em>, do the actions of <em>T</em>, and enter <em>S</em>.</p>
+</div>
+<div class="paragraph">
+<p>In particular,
+the general behavior agrees with the behavior that we previously
+described for
+<a href="#Defining-State-Machines_More-on-State-Transitions_Self-Transitions">self transitions</a>.
+When <em>L</em> and <em>S</em> are the same leaf state, the least common
+ancestor of <em>L</em> and <em>S</em> is the parent <em>P</em> of <em>S</em>.
+So we exit <em>S</em> to go up to <em>P</em>, do the actions of <em>T</em>, and
+reenter <em>S</em>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-State-Machines_Hierarchy_Directly-Related-States">9.6.4. Directly Related States</h4>
+<div class="paragraph">
+<p>Let <em>S</em><sub>1</sub> and <em>S</em><sub>2</sub> be states.
+If <em>S</em><sub>1</sub> is equal to S<sub>2</sub>, or <em>S</em><sub>1</sub> is an ancestor of S<sub>2</sub>, or S<sub>2</sub>
+is an ancestor of <em>S</em><sub>1</sub>, then we say that <em>S</em><sub>1</sub> and S<sub>2</sub> are
+<strong>directly related</strong> in the hierarchy tree.</p>
+</div>
+<div class="paragraph">
+<p>In this section we describe the behavior of transitions between
+directly related states.
+Each of the behaviors described below follows from the general behavior
+presented in the previous section.
+However, in some cases the behavior may be subtle or surprising.</p>
+</div>
+<div class="paragraph">
+<p><strong>Flattened transitions to ancestors:</strong>
+When a transition <em>T</em> goes from a leaf state <em>L</em> to a state <em>A</em>
+that is an ancestor of <em>L</em>, we call <em>T</em> a
+<strong>flattened transition to an ancestor</strong>.
+The least common ancestor
+of <em>L</em> and <em>A</em> is the parent <em>P</em> of <em>A</em>.
+Therefore the following behavior occurs:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Do exit actions to get from <em>L</em> to <em>P</em>. The last actions will
+be the exit actions of <em>A</em>, if any.</p>
+</li>
+<li>
+<p>Do the actions of <em>T</em>, if any.</p>
+</li>
+<li>
+<p>Do the entry actions of <em>A</em>, if any.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Syntactic transitions to ancestors:</strong>
+Consider a state transition <em>T</em> of the form
+<code>on</code> <em>s</em> <code>enter</code> <em>A</em> that is defined in the state <em>S</em>,
+where <em>A</em> is an ancestor of <em>S</em>.
+We call this kind of state transition a
+<strong>syntactic transition to an ancestor</strong>.
+If <em>S</em> is a leaf state, then it represents
+a flattened transition to the ancestor <em>A</em>.
+Otherwise it represents one flattened transition
+to the ancestor <em>A</em> for each descendant of <em>S</em> that
+is a leaf state.
+Because of
+<a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">behavioral polymorphism</a>, any of the flattened transitions may
+be overridden.</p>
+</div>
+<div class="paragraph">
+<p><strong>Flattened transitions to self:</strong>
+A <strong>flattened transition to self</strong> is a transition
+from a leaf state <em>L</em> to itself.
+This is what we previously called a
+<a href="#Defining-State-Machines_More-on-State-Transitions_Self-Transitions">self
+transition</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Syntactic transitions to self:</strong>
+Consider a state transition <em>T</em> of the form
+<code>on</code> <em>s</em> <code>enter</code> <em>S</em> that is defined in the state <em>S</em>.
+In general we call this kind of state transition a
+<strong>syntactic transition to self</strong>.
+If <em>S</em> is a leaf state, then <em>T</em> a flattened
+transition to self.
+In particular, when there is no hierarchy, every syntactic
+transition to self is a self transition.
+If <em>S</em> is not a leaf state, then <em>T</em> is flattened
+to one or more transitions from leaf states <em>L</em> that are
+descendants of <em>S</em>.
+Each of these transitions is a flattened transition
+to the ancestor <em>S</em>.
+Because of
+<a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">behavioral polymorphism</a>, any of the flattened transitions may
+be overridden.</p>
+</div>
+<div class="paragraph">
+<p><strong>Flattened transitions to descendants:</strong>
+In theory, a <strong>flattened transition to a descendant</strong> would
+be a transition from a leaf node <em>L</em> to a descendant <em>D</em> of <em>L</em>.
+However, leaf nodes have no descendants, so no such transition
+is possible.
+We include the category for completeness.
+It has no members.</p>
+</div>
+<div class="paragraph">
+<p><strong>Syntactic transitions to descendants:</strong>
+Consider a state transition <em>T</em> of the form
+<code>on</code> <em>s</em> <code>enter</code> <em>D</em> that is defined in the state <em>S</em>,
+where <em>D</em> is a descendant of <em>S</em>.
+We call this kind of state transition a
+<strong>syntactic transition to a descendant</strong>.
+By symmetry with syntactic transitions to ancestors,
+you might expect that the first behavior when
+making such a transition is to exit and reenter <em>S</em>.
+However, this is not what happens.
+Instead, <em>T</em> represents one flattened transition
+from each leaf state that is a descendant of <em>S</em>.
+The flattened transitions have the following properties:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If <em>D</em> is a leaf state, then the flattened
+transition out of <em>D</em> (and only that transition)
+is a flattened transition to self.</p>
+</li>
+<li>
+<p>Otherwise (a) none of the flattened transitions
+is a flattened transition to self, and (b) the
+flattened transitions out of the descendants of <em>D</em>
+are flattened transitions to the ancestor <em>D</em>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In either case, because of
+<a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">behavioral polymorphism</a>, any of the flattened transitions may
+be overridden.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-State-Machines_Hierarchy_Choices">9.6.5. Choices</h4>
+<div class="paragraph">
+<p>Like state definitions, choice definitions are hierarchical.
+That is, you may define a choice inside a state.
+The names of choices are qualified by the enclosing
+state names
+<a href="#Defining-State-Machines_Hierarchy_Substates">as for the
+names of substates</a>.
+For example, you can write this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine M {
+  ...
+  state S {
+    ...
+    choice C { ... }
+    ...
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The dots represent omitted text needed to make the state machine valid.
+In this example, the qualified name of the choice is <code>S.C</code>.
+Inside state <code>S</code>, you can refer to the choice as <code>S.C</code> or <code>C</code>.
+Outside state <code>S</code>, you must refer to it as <code>S.C</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Initial transitions to choices:</strong>
+When an initial transition <em>I</em> goes to a choice <em>C</em>,
+<em>C</em> and <em>I</em> must have the same parent <em>P</em> in the
+<a href="#Defining-State-Machines_Hierarchy_Substates">hierarchy tree</a>.
+In addition, each transition out of <em>C</em> must go to a state
+or choice with parent <em>P</em>; and if it goes
+to a choice, then each transition out of that choice must
+go to a state or choice with parent <em>P</em>, and so forth.
+Another way to say this is that (since no cycles of transitions
+through choices are allowed) each transition
+path out of <em>I</em> must go through zero or more choices with parent <em>P</em>
+to a state with parent <em>P</em>.</p>
+</div>
+<div class="paragraph">
+<p>For example, this state machine is allowed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine ValidInitialChoice {
+
+  guard g
+
+  initial enter S1
+
+  state S1 {
+
+    @ This initial transition is valid: C, S2, and S3 all have parent S1
+    initial enter C
+
+    choice C { if g enter S2 else enter S3 }
+
+    state S2
+
+    state S3
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>But this one is not:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine InvalidInitialChoice {
+
+  guard g
+
+  initial enter S1
+
+  state S1 {
+
+    @ This initial transition is invalid: C has parent S1,
+    @ but S2 and S3 have parent InvalidInitialChoice
+    initial enter C
+
+    choice C { if g enter S2 else enter S3 }
+
+  }
+
+  state S2
+
+  state S3
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Entry and exit actions:</strong>
+As in the <a href="#Defining-State-Machines_Choices">non-hierarchical case</a>,
+when a transition <em>T</em> of a state machine <em>M</em>
+goes to or from a choice, entry and
+exit actions occur as if each choice were a leaf state with
+no entry or exit actions.
+For example, suppose that <em>M</em> has a state <em>S</em> with substates
+<em>A</em> and <em>B</em>, <em>A</em> has a choice <em>C</em>, and <em>B</em> has substate <em>B'</em>.
+Suppose that <em>T</em> goes from <em>C</em> to <em>B'</em>.
+Then least common ancestor is <em>S</em>, and the following actions
+would be done, in the following order:
+the exit actions of <em>A</em>, the actions of <em>T</em>, the entry actions of <em>B</em>, and the
+entry actions of <em>B'</em>.</p>
+</div>
 </div>
 </div>
 </div>
@@ -6430,6 +8450,15 @@ active component StateMachine {
 }</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>As discussed
+<a href="#Defining-State-Machines_Writing-a-State-Machine-Definition">above</a>, state
+machine definitions may be internal (specified in FPP) or external (specified
+by an external tool).  For more details about the C&#43;&#43; code generation for
+instances of internal state machines, see the
+<a href="https://github.com/nasa/fprime/blob/devel/docs/Design/general.md">F Prime design
+documentation</a>.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="Defining-Components_Constants-Types-Enums-and-State-Machines">10.11. Constants, Types, Enums, and State Machines</h3>
@@ -8482,20 +10511,118 @@ For example, you may not connect <code>p1[0]</code> to another component
 and <code>p2[1]</code> to the same component, because this connection
 forces a mismatch.</p>
 </li>
+<li>
+<p>Duplicate connections at the same port number of <code>p1</code> or
+<code>p2</code> are not allowed, even if <code>p1</code> or <code>p2</code> are input ports.</p>
+</li>
 </ol>
 </div>
 <div class="paragraph">
 <p>If you violate these rules, you will get an error during
-analysis.</p>
+analysis.
+You can relax these rules by writing unmatched connections,
+as described below.</p>
+</div>
+<div class="paragraph">
+<p><strong>Unmatched connections:</strong>
+Occasionally you may need to relax the rules for using matched ports.
+For example, you may need to match pairs of connections that use
+the F Prime hub pattern to cross a network boundary.
+In this case, although the connections are logically matched
+at the endpoints, they all go through a single hub instance
+on the side of the boundary that has the matched ports, and so they do not obey the
+simple rules for matching given here.</p>
+</div>
+<div class="paragraph">
+<p>When a connection goes to or from a matched port,
+we say that it is <strong>match constrained</strong>.
+Ordinarily a match constrained connection must obey the
+rules for matching stated above.
+To relax the rules, you can write an <strong>unmatched</strong> connection.
+To do this, write the keyword <code>unmatched</code> at the start of the connection
+specifier.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">Port P
+
+passive component Source {
+  sync input port pIn: [2] P
+  output port pOut: [2] P
+
+  match pOut with pIn
+}
+
+passive component Target {
+  sync input port pIn: [2] P
+  output port pOut: [2] P
+}
+
+instance source: Source base id 0x100
+instance target: Target base id 0x200
+
+topology T {
+
+  instance source
+  instance target
+
+  connections C {
+    unmatched source.pOut[0] -&gt; target.pIn[0]
+    unmatched target.pOut[0] -&gt; source.pIn[0]
+    unmatched source.pOut[1] -&gt; target.pIn[1]
+    unmatched target.pOut[1] -&gt; source.pIn[1]
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, there are two pairs of connections between the
+<code>pIn</code> and <code>pOut</code> connections of the instances <code>source</code> and <code>target</code>.
+The ports of <code>source</code> are match constrained, so ordinarily
+the connections would need to obey the matching rules.
+The connections do partially obey the rules: for example,
+there are no duplicate numbers, and the numbers match.
+However, both pairs of connections go to and from the same
+instance <code>target</code>; ordinarily this is not allowed for
+match constrained connections.
+To allow it, we need to use unmatched ports as shown.</p>
+</div>
+<div class="paragraph">
+<p>Note the following about using unmatched ports:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>When connections are marked <code>unmatched</code>, the analyzer cannot check that the
+port numbers assigned to the connections conform to any particular pattern.
+If you need the port numbers to follow a pattern, as in the example shown
+above, then you must use explicit numbering.
+For a suggestion on how to do this, see the discussion of manual matching
+below.</p>
+</li>
+<li>
+<p>Unmatched ports must still obey the rule that distinct
+connections at a matched port must have distinct port numbers.</p>
+</li>
+<li>
+<p>The <code>unmatched</code> keyword is allowed only for connections that
+are match constrained, i.e., that go to or from a matched port.
+If you try to write an unmatched connection and the connection
+is not match constrained, then you will get an error.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p><strong>Manual matching:</strong>
-Automatic matched numbering works when each matched pair of connections
+Port matching specifiers work well when each matched pair of connections
 goes between the same two components, one of which
 has a matched pair of ports.
 If the matching does not follow this pattern, then automatic matched
-numbering will not work, and you will need to use explicit port
-numbers to express the matching.
+numbering will not work, and it is usually better not to
+use a port matching specifier at all.
+Instead, you can use explicit port numbers to express the matching.
 For example, the Ref topology contains these connections:</p>
 </div>
 <div class="listingblock">
@@ -10594,6 +12721,14 @@ translated to C&#43;&#43; files.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>C</em> <code><em></code> _E</em> <code>EnumAc.{hpp,cpp}</code></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">State machine <em>M</em> outside any component</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>M</em> <code>StateMachineAc.{hpp,cpp}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">State machine <em>M</em> in component <em>C</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>C</em> <code><em></code> _M</em> <code>StateMachineAc.{hpp,cpp}</code></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Struct <em>S</em> outside any component</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>S</em> <code>SerializableAc.{hpp,cpp}</code></p></td>
 </tr>
@@ -10840,75 +12975,33 @@ This is similar to the <code>-s</code> option for
 </div>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">14.3.2. Topology Definitions</h4>
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-State-Machines-and-Components">14.3.2. Types, Ports, State Machines, and Components</h4>
 <div class="paragraph">
-<p><code>fpp-to-cpp</code> also extracts <a href="#Defining-Topologies">topology definitions</a>
-from the source files.
-For each topology <em>T</em> defined in the source files, <code>fpp-to-cpp</code>
-writes files <em>T</em> <code>TopologyAc.hpp</code> and <em>T</em> <code>TopologyAc.cpp</code>.
-These files define two public functions:
-<code>setup</code> for setting up the topology, and
-<code>teardown</code>, for tearing down the topology.
-The function definitions come from the definition of <em>T</em> and
-from the
-<a href="#Defining-Component-Instances_Init-Specifiers">init specifiers</a>
-for the component instances used in <em>T</em>.
-You can call these functions from a handwritten <code>main</code>
-function.
-We will explain how to write this <code>main</code> function in the
-section on
-<a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments">implementing deployments</a>.</p>
+<p>To generate code for type, port, state machine, and component definitions, you
+run <code>fpp-to-cpp</code> in the same way as for
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">constant definitions</a>, with one exception:
+the translator ignores the <code>-g</code> option, because the include guard comes from
+the qualified name of the definition.
+For example, a component whose qualified name in FPP is <code>A.B.C</code>
+uses the name <code>A_B_CComponentAc_HPP</code> in its include guard.</p>
 </div>
 <div class="paragraph">
-<p>As an example, you can do the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>On the command line, run <code>fpp-to-cpp -p $PWD</code>.</p>
-</li>
-<li>
-<p>Copy the text of the <a href="#Defining-Topologies_A-Simple-Example">simple topology example</a> and paste it into the terminal.</p>
-</li>
-<li>
-<p>Press return, control-D, and return.</p>
-</li>
-<li>
-<p>Examine the generated files <code>SimpleTopologyAc.hpp</code>
-and <code>SimpleTopologyAc.cpp</code>.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>You can examine the files <code>RefTopologyAc.hpp</code> and <code>RefTopologyAc.cpp</code>
-in the F Prime repository.
-Currently these files are checked in at <code>Ref/Top</code>.
-Once we have integrated FPP with CMake, these files will be auto-generated
-by CMake and will be located at <code>Ref/build-fprime-automatic-native/F-Prime/Ref/Top</code>.</p>
-</div>
-<div class="paragraph">
-<p><strong>Options:</strong>
-When translating topologies,
-the <code>-d</code>, <code>-n</code>, and <code>-p</code> options work in the same way as for
-<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">translating constant definitions</a>.
-The <code>-g</code> option is ignored, because
-the include guard prefix comes from the name of the topology.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-and-Components">14.3.3. Types, Ports, and Components</h4>
-<div class="paragraph">
-<p>C&#43;&#43; code generation for types, ports, and components works similarly
-to the corresponding code generation from XML.
+<p>Once you generate C&#43;&#43; code for these definitions, you can use it to
+write a flight software implementation.
 The <a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F
-Prime User&#8217;s Guide</a> describes how to use this generated code
-to write flight software implementations.</p>
+Prime User&#8217;s Guide</a> explains how to do this.</p>
+</div>
+<div class="paragraph">
+<p>For more information about the generated code for data products,
+for state machines, and for state machine instances, see the
+<a href="https://github.com/nasa/fprime/blob/devel/docs/Design/general.md">F Prime design
+documentation</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">14.3.4. Component Implementation and Unit Test Code</h4>
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">14.3.3. Component Implementation and Unit Test Code</h4>
 <div class="paragraph">
-<p><code>fpp-to-cpp</code> has options <code>-t</code> and <code>-u</code> for generating component "templates" or
+<p><code>fpp-to-cpp</code> has options <code>-t</code> and <code>-u</code> for generating component &#8220;templates&#8221; or
 partial implementations and for generating unit test code.
 Here we cover the mechanics of using these options.
 For more information on implementing and testing components in F Prime, see
@@ -11006,6 +13099,62 @@ is not generated.</p>
 <code>UT_AUTO_HELPERS</code>. With this feature enabled, you don&#8217;t have to manage the
 file <em>C</em> <code>TesterHelpers.cpp</code> as part of your unit test source files; the
 build system does it for you.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">14.3.4. Topology Definitions</h4>
+<div class="paragraph">
+<p><code>fpp-to-cpp</code> also extracts <a href="#Defining-Topologies">topology definitions</a>
+from the source files.
+For each topology <em>T</em> defined in the source files, <code>fpp-to-cpp</code>
+writes files <em>T</em> <code>TopologyAc.hpp</code> and <em>T</em> <code>TopologyAc.cpp</code>.
+These files define two public functions:
+<code>setup</code> for setting up the topology, and
+<code>teardown</code>, for tearing down the topology.
+The function definitions come from the definition of <em>T</em> and
+from the
+<a href="#Defining-Component-Instances_Init-Specifiers">init specifiers</a>
+for the component instances used in <em>T</em>.
+You can call these functions from a handwritten <code>main</code>
+function.
+We will explain how to write this <code>main</code> function in the
+section on
+<a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments">implementing deployments</a>.</p>
+</div>
+<div class="paragraph">
+<p>As an example, you can do the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On the command line, run <code>fpp-to-cpp -p $PWD</code>.</p>
+</li>
+<li>
+<p>Copy the text of the <a href="#Defining-Topologies_A-Simple-Example">simple topology example</a> and paste it into the terminal.</p>
+</li>
+<li>
+<p>Press return, control-D, and return.</p>
+</li>
+<li>
+<p>Examine the generated files <code>SimpleTopologyAc.hpp</code>
+and <code>SimpleTopologyAc.cpp</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can examine the files <code>RefTopologyAc.hpp</code> and <code>RefTopologyAc.cpp</code>
+in the F Prime repository.
+Currently these files are checked in at <code>Ref/Top</code>.
+Once we have integrated FPP with CMake, these files will be auto-generated
+by CMake and will be located at <code>Ref/build-fprime-automatic-native/F-Prime/Ref/Top</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Options:</strong>
+When translating topologies,
+the <code>-d</code>, <code>-n</code>, and <code>-p</code> options work in the same way as for
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">translating constant definitions</a>.
+The <code>-g</code> option is ignored, because
+the include guard prefix comes from the name of the topology.</p>
 </div>
 </div>
 </div>
@@ -11996,7 +14145,7 @@ when running <code>fpp-to-xml</code>:</p>
 With this option, <code>fpp-to-json</code> generates the AST and the
 location map only; it doesn&#8217;t generate the Analysis data structure.
 Because semantic analysis is not run, you don&#8217;t have to present
-a complete or syntactically correct FPP model to the tool.</p>
+a complete or semantically correct FPP model to the tool.</p>
 </li>
 </ul>
 </div>
@@ -12019,7 +14168,7 @@ These are types that are named in the FPP model but are defined
 directly in C&#43;&#43;.</p>
 </li>
 <li>
-<p>Implementations of <a href="#Defining-State-Machines_External-State-Machines">external state machines</a>.</p>
+<p>Implementations of <a href="#Defining-State-Machines_Writing-a-State-Machine-Definition">external state machines</a>.</p>
 </li>
 <li>
 <p>Implementations of
@@ -12042,8 +14191,8 @@ This process is covered in detail in the F Prime user&#8217;s guide;
 we won&#8217;t cover it further here.
 Similarly, implementing libraries is unrelated to FPP, so we
 won&#8217;t cover it in this manual.
-Here we focus on items (1) and (4): implementing abstract types
-and implementing deployments.</p>
+Here we focus on items (1), (2), and (5): implementing abstract types,
+implementing external state machines, and implementing deployments.</p>
 </div>
 <div class="sect2">
 <h3 id="Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types">15.1. Implementing Abstract Types</h3>
@@ -12235,7 +14384,7 @@ and the types will be displayable.</p>
 <div class="sect2">
 <h3 id="Writing-C-Plus-Plus-Implementations_Implementing-External-State-Machines">15.2. Implementing External State Machines</h3>
 <div class="paragraph">
-<p>An <a href="#Defining-State-Machines_External-State-Machines">external state machine</a> refers to a state machine implementation
+<p>An <a href="#Defining-State-Machines_Writing-a-State-Machine-Definition">external state machine</a> refers to a state machine implementation
 supplied outside the FPP model.
 To implement an external state machine, you can use
 the <a href="https://github.com/JPLOpenSource/STARS/tree/main">State Autocoding for
@@ -12605,7 +14754,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-03 14:02:05 -0700
+Last updated 2024-11-19 21:51:12 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -49,6 +49,20 @@ object AstWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
+  override def defChoiceAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefChoice]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    val guard = data.guard
+    lines("def choice") ++
+    (ident(data.name) ++
+    addPrefix("guard", applyToData(ident)) (data.guard) ++
+    transitionExpr(data.ifTransition.data) ++
+    transitionExpr(data.elseTransition.data)).map(indentIn)
+  }
+
   override def defComponentAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
@@ -120,20 +134,6 @@ object AstWriter extends AstVisitor with LineUtils {
       ident(data.name) ++
       linesOpt(typeNameNode, data.typeName)
     ).map(indentIn)
-  }
-
-  override def defJunctionAnnotatedNode(
-    in: In,
-    aNode: Ast.Annotated[AstNode[Ast.DefJunction]]
-  ) = {
-    val (_, node, _) = aNode
-    val data = node.data
-    val guard = data.guard
-    lines("def junction") ++
-    (ident(data.name) ++
-    addPrefix("guard", applyToData(ident)) (data.guard) ++
-    transitionExpr(data.ifTransition.data) ++
-    transitionExpr(data.elseTransition.data)).map(indentIn)
   }
 
   override def defModuleAnnotatedNode(
@@ -349,7 +349,7 @@ object AstWriter extends AstVisitor with LineUtils {
   ) =  {
     def direct(g: Ast.SpecConnectionGraph.Direct) = {
       def connection(c: Ast.SpecConnectionGraph.Connection) = {
-        lines("connection") ++ (
+        lines(if c.isUnmatched then "unmatched connection" else "connection") ++ (
           addPrefix("from port", portInstanceIdentifier) (c.fromPort.data) ++
           linesOpt(addPrefix("index", exprNode), c.fromIndex) ++
           addPrefix("to port", portInstanceIdentifier) (c.toPort.data) ++

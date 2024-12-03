@@ -36,7 +36,7 @@ module DefinitionsAndSpecifiers {
     @ Parameter specifier
     param P: U32 default 0 id 0x00 set opcode 0x01 save opcode 0x02
     @< Parameter specifier
-    
+
     @ General port instance specifier
     sync input port p1: [10] P priority 10 assert
     @< General port instance specifier
@@ -108,12 +108,12 @@ module DefinitionsAndSpecifiers {
   @< Constant definition
 
   @ Enum definition
-  enum E : I32 { 
+  enum E : I32 {
     @ X
     X = 1
     @< X
     @ Y
-    Y = 2 
+    Y = 2
     @< Y
   }
   @< Enum definition
@@ -135,12 +135,12 @@ module DefinitionsAndSpecifiers {
   @< Port definition
 
   @ Struct definition
-  struct S { 
+  struct S {
     @ x
     x: U32 format "{} s"
     @< x
     @ y
-    y: F32 format "{} m/s" 
+    y: F32 format "{} m/s"
     @< y
   }
   @< Struct definition
@@ -157,7 +157,11 @@ module DefinitionsAndSpecifiers {
     @< Private instance specifier
 
     @ Direct connection graph specifier
-    connections C { i1.p[0] -> i2.p[1] }
+    connections C {
+      i1.p[0] -> i2.p[1]
+      unmatched i1.p1[0] -> i2.p2[0]
+      unmatched i1.p1 -> i2.p2
+    }
     @< Direct connection graph specifier
 
     @ Graph pattern specifier

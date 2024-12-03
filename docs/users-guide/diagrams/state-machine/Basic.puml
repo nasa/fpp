@@ -1,0 +1,12 @@
+@startuml
+
+[*] --> OFF
+
+state OFF
+
+state ON
+
+OFF --> ON : cmdOn
+ON --> OFF : cmdOff
+
+@enduml

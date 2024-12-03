@@ -35,6 +35,7 @@ namespace FppTest {
       initBase(const FwEnumStoreType id)
     {
       this->m_id = id;
+      // Enter the initial target of the state machine
       this->enter_S1(Signal::__FPRIME_AC_INITIAL_TRANSITION);
     }
 
@@ -57,9 +58,11 @@ namespace FppTest {
     {
       switch (this->m_state) {
         case State::S1_S2:
+          // Enter the target
           this->enter_S4(Signal::poly);
           break;
         case State::S1_S3:
+          // Enter the target
           this->enter_S5(Signal::poly);
           break;
         case State::S4:
@@ -77,6 +80,7 @@ namespace FppTest {
     {
       switch (this->m_state) {
         case State::S1_S2:
+          // Enter the target
           this->enter_S1_S3(Signal::S2_to_S3);
           break;
         case State::S1_S3:
@@ -92,36 +96,41 @@ namespace FppTest {
     }
 
     // ----------------------------------------------------------------------
-    // State and junction entry
+    // State and choice entry
     // ----------------------------------------------------------------------
 
     void PolymorphismStateMachineBase ::
       enter_S5(Signal signal)
     {
+      // Update the state
       this->m_state = State::S5;
     }
 
     void PolymorphismStateMachineBase ::
       enter_S4(Signal signal)
     {
+      // Update the state
       this->m_state = State::S4;
     }
 
     void PolymorphismStateMachineBase ::
       enter_S1(Signal signal)
     {
+      // Enter the target of the initial transition
       this->enter_S1_S2(signal);
     }
 
     void PolymorphismStateMachineBase ::
       enter_S1_S2(Signal signal)
     {
+      // Update the state
       this->m_state = State::S1_S2;
     }
 
     void PolymorphismStateMachineBase ::
       enter_S1_S3(Signal signal)
     {
+      // Update the state
       this->m_state = State::S1_S3;
     }
 

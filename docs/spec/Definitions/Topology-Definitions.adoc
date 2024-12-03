@@ -141,38 +141,58 @@ For each instance _I_ in the topology:
 <<Specifiers_Port-Matching-Specifiers,port matching specifier>>
 `match` stem:[p_1] `with` stem:[p_2] appearing in the definition of _C_:
 
-..  For each connection stem:[c_1] with an endpoint at _I_ `.` stem:[p_1]:
+.. For each of _i_ = 1 and _i_ = 2, check that no two distinct connections
+at _I_ `.` stem:[p_i] have the same port number assigned to them.
+
+.. Any connection that names _I_ `.` stem:[p_1] or _I_ `.` stem:[p_2]
+is *match constrained*. If a match constrained connection is marked
+`unmatched` then it is *unmatched*; otherwise it is *matched*.
+
+..  For each matched connection stem:[c_1] with an endpoint at _I_ `.` stem:[p_1]:
 
 ... Let _I'_ be the component instance at the other endpoint
 of stem:[c_1].
 
-... Check that there is one and only one connection
-stem:[c_2] from _I'_ to _I_ `.` stem:[p_2].
+... Check that there is one and only one matched connection
+stem:[c_2] between _I'_ and _I_ `.` stem:[p_2].
 
 .. Check that the connections stem:[c_2] computed in the previous
-step are all the connections at _I_ `.` stem:[p_2].
+step are all the matched connections at _I_ `.` stem:[p_2].
 
-.. For each pair stem:[(c_1,c_2)] that has both port numbers assigned,
-check that the port numbers match.
-For each pair stem:[(c_1,c_2)] that has exactly one port number assigned,
-assign the other one to match.
+.. For each pair stem:[(c_1,c_2)] computed in step c:
 
-.. Traverse the pairs stem:[(c_1,c_2)] according to the
+... If stem:[c_1] has a port number stem:[n_1] assigned at _I_ `.` stem:[p_1] and 
+stem:[c_2] has a port number stem:[n_2] assigned at
+_I_ `.` stem:[p_2], then check that stem:[n_1 = n_2].
+
+... Otherwise if stem:[c_1] has a port number _n_ assigned at _I_ `.` stem:[p_1],
+
+.... If no connection at _I_ `.` stem:[p_2] has port number _n_ assigned to it,
+then assign _n_ to stem:[c_2] at _I_ `.` stem:[p_2].
+
+.... Otherwise an error occurs.
+
+... Otherwise if stem:[c_2] has a port number _n_ assigned at _I_ `.` stem:[p_2],
+
+.... If no connection at _I_ `.` stem:[p_1] has port number _n_ assigned to it,
+then assign _n_ to stem:[c_1] at _I_ `.` stem:[p_1].
+
+.... Otherwise an error occurs.
+
+.. Traverse the pairs stem:[(c_1,c_2)] computed in step c according to the
 <<Definitions_Topology-Definitions_Semantics_Ordering-of-Connections,
 order>> of the connections stem:[c_1], least to greatest.
 For each pair stem:[(c_1,c_2)] that does not yet have assigned
 port numbers, find the lowest available port number
 and assign it at _I_ `.` stem:[p_1] and _I_ `.` stem:[p_2].
-A port number is available if (a) it is in bounds for the
-port instance being numbered; and (b)
-it is not already assigned to the same port instance
-in the topology.
-
-Note that in the last step,
-the two ports _I_ `.` stem:[p_1] and _I_ `.` stem:[p_2].
-have the same array size and
-the same port numbers assigned so far, so the lowest
-available port number is the same for both.
+A port number _n_ is available if (a) _n_ is in bounds for _I_ `.` stem:[p_1]
+and _I_ `.` stem:[p_2]; and (b)
+_n_ is not already assigned to a connection at _I_ `.` stem:[p_1]; and (c)
+_n_ is not already assigned to a connection at _I_ `.` stem:[p_2].
+If no port number is available, then an error occurs.
+Note that stem:[p_1] and stem:[p_2]
+<<Specifiers_Port-Matching-Specifiers_Semantics,are required to have the
+same size for their port arrays>>.
 
 *Apply general numbering:*
 Fill in any remaining port numbers.

@@ -8,7 +8,7 @@ four kinds of implementations you have to write:
 These are types that are named in the FPP model but are defined
 directly in {cpp}.
 
-. Implementations of <<Defining-State-Machines_External-State-Machines,
+. Implementations of <<Defining-State-Machines_Writing-a-State-Machine-Definition,
 external state machines>>.
 
 . Implementations of
@@ -26,8 +26,8 @@ This process is covered in detail in the F Prime user's guide;
 we won't cover it further here.
 Similarly, implementing libraries is unrelated to FPP, so we
 won't cover it in this manual.
-Here we focus on items (1) and (4): implementing abstract types
-and implementing deployments.
+Here we focus on items (1), (2), and (5): implementing abstract types,
+implementing external state machines, and implementing deployments.
 
 === Implementing Abstract Types
 
@@ -188,7 +188,7 @@ and the types will be displayable.
 
 === Implementing External State Machines
 
-An <<Defining-State-Machines_External-State-Machines,
+An <<Defining-State-Machines_Writing-a-State-Machine-Definition,
 external state machine>> refers to a state machine implementation
 supplied outside the FPP model.
 To implement an external state machine, you can use 

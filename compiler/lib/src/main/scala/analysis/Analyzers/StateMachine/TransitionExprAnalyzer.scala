@@ -29,21 +29,21 @@ trait TransitionExprAnalyzer
     exprNode: AstNode[Ast.TransitionExpr]
   ): Result = default(sma)
 
-  /** The pair of transition expressions in a junction */
-  def junctionTransitionExprPair(
+  /** The pair of transition expressions in a choice */
+  def choiceTransitionExprPair(
     sma: StateMachineAnalysis,
-    junction: StateMachineSymbol.Junction,
+    choice: StateMachineSymbol.Choice,
     ifExprNode: AstNode[Ast.TransitionExpr],
     elseExprNode: AstNode[Ast.TransitionExpr]
   ): Result = for {
-    sma <- junctionTransitionExpr(sma, junction, ifExprNode)
-    sma <- junctionTransitionExpr(sma, junction, elseExprNode)
+    sma <- choiceTransitionExpr(sma, choice, ifExprNode)
+    sma <- choiceTransitionExpr(sma, choice, elseExprNode)
   } yield sma
 
-  /** A transition expression in a junction */
-  def junctionTransitionExpr(
+  /** A transition expression in a choice */
+  def choiceTransitionExpr(
     sma: StateMachineAnalysis,
-    junction: StateMachineSymbol.Junction,
+    choice: StateMachineSymbol.Choice,
     exprNode: AstNode[Ast.TransitionExpr]
   ): Result = default(sma)
 
@@ -51,14 +51,14 @@ trait TransitionExprAnalyzer
   // Implementation using StateMachineAnalysisVisitor
   // ----------------------------------------------------------------------
 
-  override def defJunctionAnnotatedNode(
+  override def defChoiceAnnotatedNode(
     sma: StateMachineAnalysis,
-    aNode: Ast.Annotated[AstNode[Ast.DefJunction]]
+    aNode: Ast.Annotated[AstNode[Ast.DefChoice]]
   ) = {
     val data = aNode._2.data
-    junctionTransitionExprPair(
+    choiceTransitionExprPair(
       sma,
-      StateMachineSymbol.Junction(aNode),
+      StateMachineSymbol.Choice(aNode),
       data.ifTransition,
       data.elseTransition
     )

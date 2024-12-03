@@ -174,7 +174,7 @@ void OutputStringPort ::
       Fw::StringBase& str80Ref,
       const Fw::StringBase& str100,
       Fw::StringBase& str100Ref
-  )
+  ) const
 {
 #if FW_PORT_TRACING == 1
   this->trace();

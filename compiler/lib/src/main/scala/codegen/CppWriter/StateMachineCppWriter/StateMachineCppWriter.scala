@@ -86,7 +86,7 @@ case class StateMachineCppWriter(
   private def getEntryMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PRIVATE",
-      "State and junction entry",
+      "State and choice entry",
       StateMachineEntryFns(s, aNode).write
     )
 
@@ -165,6 +165,12 @@ case class StateMachineCppWriter(
     val actionSymbols = transition.actions.map(sma.getActionSymbol)
     val targetSymbol = sma.useDefMap(transition.target.id)
     val signal = s"Signal::$initialTransitionName"
+    val actionComment =
+      line("// Do the actions for the state machine initial transition")
+    val actionLines =
+      actionSymbols.flatMap(writeActionCall (signal) (None))
+    val enterComment = line("// Enter the initial target of the state machine")
+    val enterLines = writeEnterCall (signal) (None) (targetSymbol)
     functionClassMember(
       Some("Initialize the state machine"),
       "initBase",
@@ -177,8 +183,8 @@ case class StateMachineCppWriter(
       ),
       CppDoc.Type("void"),
       line("this->m_id = id;") :: List.concat(
-        actionSymbols.flatMap(writeActionCall (signal) (None)),
-        writeEnterCall (signal) (None) (targetSymbol)
+        Line.addPrefixLine (actionComment) (actionLines),
+        Line.addPrefixLine (enterComment) (enterLines)
       )
     )
   }

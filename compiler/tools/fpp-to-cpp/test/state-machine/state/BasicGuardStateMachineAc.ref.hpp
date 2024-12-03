@@ -110,7 +110,7 @@ namespace FppTest {
       PRIVATE:
 
         // ----------------------------------------------------------------------
-        // State and junction entry
+        // State and choice entry
         // ----------------------------------------------------------------------
 
         //! Enter state T

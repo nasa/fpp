@@ -16,9 +16,9 @@ object CheckActionAndGuardTypes
     checkActionTypes(sma, te, actions)
   }
 
-  override def junctionTypedElement(
+  override def choiceTypedElement(
     sma: StateMachineAnalysis,
-    te: StateMachineTypedElement.Junction
+    te: StateMachineTypedElement.Choice
   ): Result = {
     val data = te.aNode._2.data
     for {

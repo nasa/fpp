@@ -9,7 +9,7 @@ cd `dirname $0`
 echo "generating framework C++"
 
 fpp_files=`find . -name '*.fpp'`
-fpp-to-cpp -p $PWD $fpp_files
+../../../../bin/fpp-to-cpp -p $PWD $fpp_files
 
 # Move config files into place
 for base in FppConstantsAc ProcTypeEnumAc
@@ -26,6 +26,7 @@ do
   mv $dir*.hpp $dir*.cpp Fw/$dir
 done
 mv Param*.hpp Param*.cpp Fw/Prm
+mv Sched*.hpp Sched*.cpp Svc/Sched
 
 # Remaining files go into types
 mv *.hpp *.cpp Fw/Types

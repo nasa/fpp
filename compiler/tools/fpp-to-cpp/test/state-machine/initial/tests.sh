@@ -1,5 +1,5 @@
 tests="
 basic
-junction
+choice
 nested
 "

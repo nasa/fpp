@@ -39,9 +39,9 @@ namespace FppTest {
   }
 
   void SmInitialActive ::
-    FppTest_SmInitial_Junction_action_a(
+    FppTest_SmInitial_Choice_action_a(
         SmId smId,
-        FppTest_SmInitial_Junction::Signal signal
+        FppTest_SmInitial_Choice::Signal signal
     )
   {
     // TODO
@@ -66,9 +66,9 @@ namespace FppTest {
   }
 
   void SmInitialActive ::
-    FppTest_SmInitialActive_Junction_action_a(
+    FppTest_SmInitialActive_Choice_action_a(
         SmId smId,
-        FppTest_SmInitialActive_Junction::Signal signal
+        FppTest_SmInitialActive_Choice::Signal signal
     )
   {
     // TODO
@@ -88,18 +88,18 @@ namespace FppTest {
   // ----------------------------------------------------------------------
 
   bool SmInitialActive ::
-    FppTest_SmInitial_Junction_guard_g(
+    FppTest_SmInitial_Choice_guard_g(
         SmId smId,
-        FppTest_SmInitial_Junction::Signal signal
+        FppTest_SmInitial_Choice::Signal signal
     ) const
   {
     // TODO
   }
 
   bool SmInitialActive ::
-    FppTest_SmInitialActive_Junction_guard_g(
+    FppTest_SmInitialActive_Choice_guard_g(
         SmId smId,
-        FppTest_SmInitialActive_Junction::Signal signal
+        FppTest_SmInitialActive_Choice::Signal signal
     ) const
   {
     // TODO

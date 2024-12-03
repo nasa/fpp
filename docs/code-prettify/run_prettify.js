@@ -416,6 +416,7 @@ var IN_GLOBAL_SCOPE = false;
           "block," +
           "bool," +
           "change," +
+          "choice," +
           "command," +
           "component," +
           "connections," +
@@ -448,7 +449,6 @@ var IN_GLOBAL_SCOPE = false;
           "input," +
           "instance," +
           "internal," +
-          "junction," +
           "locate," +
           "low," +
           "machine," +
@@ -492,6 +492,7 @@ var IN_GLOBAL_SCOPE = false;
           "time," +
           "topology," +
           "type," +
+          "unmatched," +
           "update," +
           "warning," +
           "with," +

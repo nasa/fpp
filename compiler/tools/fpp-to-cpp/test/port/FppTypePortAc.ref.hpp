@@ -144,7 +144,7 @@ class OutputFppTypePort :
         A& aRef, //!< An array ref
         const S& s, //!< A struct
         S& sRef //!< A struct ref
-    );
+    ) const;
 
   private:
 

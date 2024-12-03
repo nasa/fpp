@@ -12,6 +12,7 @@
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
 #include "SmStateQueued_BasicStateMachineAc.hpp"
+#include "Svc/Sched/SchedPortAc.hpp"
 #include "state-machine/state/BasicGuardStateMachineAc.hpp"
 #include "state-machine/state/BasicGuardStringStateMachineAc.hpp"
 #include "state-machine/state/BasicGuardTestAbsTypeStateMachineAc.hpp"
@@ -31,7 +32,7 @@
 #include "state-machine/state/InternalStateMachineAc.hpp"
 #include "state-machine/state/PolymorphismStateMachineAc.hpp"
 #include "state-machine/state/StateToChildStateMachineAc.hpp"
-#include "state-machine/state/StateToJunctionStateMachineAc.hpp"
+#include "state-machine/state/StateToChoiceStateMachineAc.hpp"
 #include "state-machine/state/StateToSelfStateMachineAc.hpp"
 #include "state-machine/state/StateToStateStateMachineAc.hpp"
 
@@ -56,10 +57,17 @@ namespace FppTest {
       // Constants
       // ----------------------------------------------------------------------
 
+      //! Enumerations for numbers of typed input ports
+      enum {
+        NUM_SCHEDIN_INPUT_PORTS = 1,
+      };
+
       //! State machine identifiers
       enum class SmId : FwEnumStoreType {
-        basic,
-        smStateBasic,
+        basic1,
+        basic2,
+        smStateBasic1,
+        smStateBasic2,
         smStateBasicGuard,
         smStateBasicGuardString,
         smStateBasicGuardTestAbsType,
@@ -78,7 +86,7 @@ namespace FppTest {
         smStateInternal,
         smStatePolymorphism,
         smStateStateToChild,
-        smStateStateToJunction,
+        smStateStateToChoice,
         smStateStateToSelf,
         smStateStateToState,
       };
@@ -909,15 +917,15 @@ namespace FppTest {
 
       };
 
-      //! Implementation of state machine FppTest_SmState_StateToJunction
-      class FppTest_SmState_StateToJunction :
-        public FppTest::SmState::StateToJunctionStateMachineBase
+      //! Implementation of state machine FppTest_SmState_StateToChoice
+      class FppTest_SmState_StateToChoice :
+        public FppTest::SmState::StateToChoiceStateMachineBase
       {
 
         public:
 
           //! Constructor
-          FppTest_SmState_StateToJunction(
+          FppTest_SmState_StateToChoice(
               SmStateQueuedComponentBase& component //!< The enclosing component
           );
 
@@ -1185,6 +1193,19 @@ namespace FppTest {
           FwEnumStoreType instance = 0 //!< The instance number
       );
 
+    public:
+
+      // ----------------------------------------------------------------------
+      // Getters for typed input ports
+      // ----------------------------------------------------------------------
+
+      //! Get typed input port at index
+      //!
+      //! \return schedIn[portNum]
+      Svc::InputSchedPort* get_schedIn_InputPort(
+          FwIndexType portNum //!< The port number
+      );
+
     PROTECTED:
 
       // ----------------------------------------------------------------------
@@ -1202,14 +1223,57 @@ namespace FppTest {
     PROTECTED:
 
       // ----------------------------------------------------------------------
+      // Getters for numbers of typed input ports
+      // ----------------------------------------------------------------------
+
+      //! Get the number of schedIn input ports
+      //!
+      //! \return The number of schedIn input ports
+      FwIndexType getNum_schedIn_InputPorts() const;
+
+    PROTECTED:
+
+      // ----------------------------------------------------------------------
+      // Handlers to implement for typed input ports
+      // ----------------------------------------------------------------------
+
+      //! Handler for input port schedIn
+      virtual void schedIn_handler(
+          FwIndexType portNum, //!< The port number
+          U32 context //!< The call order
+      ) = 0;
+
+    PROTECTED:
+
+      // ----------------------------------------------------------------------
+      // Port handler base-class functions for typed input ports
+      //
+      // Call these functions directly to bypass the corresponding ports
+      // ----------------------------------------------------------------------
+
+      //! Handler base-class function for input port schedIn
+      void schedIn_handlerBase(
+          FwIndexType portNum, //!< The port number
+          U32 context //!< The call order
+      );
+
+    PROTECTED:
+
+      // ----------------------------------------------------------------------
       // State getter functions
       // ----------------------------------------------------------------------
 
-      //! Get the state of state machine instance basic
-      FppTest_SmStateQueued_Basic::State basic_getState() const;
+      //! Get the state of state machine instance basic1
+      FppTest_SmStateQueued_Basic::State basic1_getState() const;
 
-      //! Get the state of state machine instance smStateBasic
-      FppTest_SmState_Basic::State smStateBasic_getState() const;
+      //! Get the state of state machine instance basic2
+      FppTest_SmStateQueued_Basic::State basic2_getState() const;
+
+      //! Get the state of state machine instance smStateBasic1
+      FppTest_SmState_Basic::State smStateBasic1_getState() const;
+
+      //! Get the state of state machine instance smStateBasic2
+      FppTest_SmState_Basic::State smStateBasic2_getState() const;
 
       //! Get the state of state machine instance smStateBasicGuard
       FppTest_SmState_BasicGuard::State smStateBasicGuard_getState() const;
@@ -1265,8 +1329,8 @@ namespace FppTest {
       //! Get the state of state machine instance smStateStateToChild
       FppTest_SmState_StateToChild::State smStateStateToChild_getState() const;
 
-      //! Get the state of state machine instance smStateStateToJunction
-      FppTest_SmState_StateToJunction::State smStateStateToJunction_getState() const;
+      //! Get the state of state machine instance smStateStateToChoice
+      FppTest_SmState_StateToChoice::State smStateStateToChoice_getState() const;
 
       //! Get the state of state machine instance smStateStateToSelf
       FppTest_SmState_StateToSelf::State smStateStateToSelf_getState() const;
@@ -1280,11 +1344,17 @@ namespace FppTest {
       // Signal send functions
       // ----------------------------------------------------------------------
 
-      //! Send signal s to state machine basic
-      void basic_sendSignal_s();
+      //! Send signal s to state machine basic1
+      void basic1_sendSignal_s();
 
-      //! Send signal s to state machine smStateBasic
-      void smStateBasic_sendSignal_s();
+      //! Send signal s to state machine basic2
+      void basic2_sendSignal_s();
+
+      //! Send signal s to state machine smStateBasic1
+      void smStateBasic1_sendSignal_s();
+
+      //! Send signal s to state machine smStateBasic2
+      void smStateBasic2_sendSignal_s();
 
       //! Send signal s to state machine smStateBasicGuard
       void smStateBasicGuard_sendSignal_s();
@@ -1373,14 +1443,14 @@ namespace FppTest {
       //! Send signal S2_to_S3 to state machine smStateStateToChild
       void smStateStateToChild_sendSignal_S2_to_S3();
 
-      //! Send signal S1_to_S4 to state machine smStateStateToJunction
-      void smStateStateToJunction_sendSignal_S1_to_S4();
+      //! Send signal S1_to_S4 to state machine smStateStateToChoice
+      void smStateStateToChoice_sendSignal_S1_to_S4();
 
-      //! Send signal S1_to_J to state machine smStateStateToJunction
-      void smStateStateToJunction_sendSignal_S1_to_J();
+      //! Send signal S1_to_C to state machine smStateStateToChoice
+      void smStateStateToChoice_sendSignal_S1_to_C();
 
-      //! Send signal S2_to_S3 to state machine smStateStateToJunction
-      void smStateStateToJunction_sendSignal_S2_to_S3();
+      //! Send signal S2_to_S3 to state machine smStateStateToChoice
+      void smStateStateToChoice_sendSignal_S2_to_S3();
 
       //! Send signal S1_to_S1 to state machine smStateStateToSelf
       void smStateStateToSelf_sendSignal_S1_to_S1();
@@ -1656,68 +1726,68 @@ namespace FppTest {
           FppTest_SmState_StateToChild::Signal signal //!< The signal
       ) = 0;
 
-      //! Implementation for action exitS1 of state machine FppTest_SmState_StateToJunction
+      //! Implementation for action exitS1 of state machine FppTest_SmState_StateToChoice
       //!
       //! Exit S1
-      virtual void FppTest_SmState_StateToJunction_action_exitS1(
+      virtual void FppTest_SmState_StateToChoice_action_exitS1(
           SmId smId, //!< The state machine id
-          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+          FppTest_SmState_StateToChoice::Signal signal //!< The signal
       ) = 0;
 
-      //! Implementation for action exitS2 of state machine FppTest_SmState_StateToJunction
+      //! Implementation for action exitS2 of state machine FppTest_SmState_StateToChoice
       //!
       //! Exit S2
-      virtual void FppTest_SmState_StateToJunction_action_exitS2(
+      virtual void FppTest_SmState_StateToChoice_action_exitS2(
           SmId smId, //!< The state machine id
-          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+          FppTest_SmState_StateToChoice::Signal signal //!< The signal
       ) = 0;
 
-      //! Implementation for action exitS3 of state machine FppTest_SmState_StateToJunction
+      //! Implementation for action exitS3 of state machine FppTest_SmState_StateToChoice
       //!
       //! Exit S3
-      virtual void FppTest_SmState_StateToJunction_action_exitS3(
+      virtual void FppTest_SmState_StateToChoice_action_exitS3(
           SmId smId, //!< The state machine id
-          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+          FppTest_SmState_StateToChoice::Signal signal //!< The signal
       ) = 0;
 
-      //! Implementation for action a of state machine FppTest_SmState_StateToJunction
+      //! Implementation for action a of state machine FppTest_SmState_StateToChoice
       //!
       //! Action a
-      virtual void FppTest_SmState_StateToJunction_action_a(
+      virtual void FppTest_SmState_StateToChoice_action_a(
           SmId smId, //!< The state machine id
-          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+          FppTest_SmState_StateToChoice::Signal signal //!< The signal
       ) = 0;
 
-      //! Implementation for action enterS1 of state machine FppTest_SmState_StateToJunction
+      //! Implementation for action enterS1 of state machine FppTest_SmState_StateToChoice
       //!
       //! Enter S1
-      virtual void FppTest_SmState_StateToJunction_action_enterS1(
+      virtual void FppTest_SmState_StateToChoice_action_enterS1(
           SmId smId, //!< The state machine id
-          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+          FppTest_SmState_StateToChoice::Signal signal //!< The signal
       ) = 0;
 
-      //! Implementation for action enterS2 of state machine FppTest_SmState_StateToJunction
+      //! Implementation for action enterS2 of state machine FppTest_SmState_StateToChoice
       //!
       //! Enter S2
-      virtual void FppTest_SmState_StateToJunction_action_enterS2(
+      virtual void FppTest_SmState_StateToChoice_action_enterS2(
           SmId smId, //!< The state machine id
-          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+          FppTest_SmState_StateToChoice::Signal signal //!< The signal
       ) = 0;
 
-      //! Implementation for action enterS3 of state machine FppTest_SmState_StateToJunction
+      //! Implementation for action enterS3 of state machine FppTest_SmState_StateToChoice
       //!
       //! Enter S3
-      virtual void FppTest_SmState_StateToJunction_action_enterS3(
+      virtual void FppTest_SmState_StateToChoice_action_enterS3(
           SmId smId, //!< The state machine id
-          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+          FppTest_SmState_StateToChoice::Signal signal //!< The signal
       ) = 0;
 
-      //! Implementation for action enterS4 of state machine FppTest_SmState_StateToJunction
+      //! Implementation for action enterS4 of state machine FppTest_SmState_StateToChoice
       //!
       //! Enter S4
-      virtual void FppTest_SmState_StateToJunction_action_enterS4(
+      virtual void FppTest_SmState_StateToChoice_action_enterS4(
           SmId smId, //!< The state machine id
-          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+          FppTest_SmState_StateToChoice::Signal signal //!< The signal
       ) = 0;
 
       //! Implementation for action exitS1 of state machine FppTest_SmState_StateToSelf
@@ -1924,12 +1994,12 @@ namespace FppTest {
           U32 value //!< The value
       ) const = 0;
 
-      //! Implementation for guard g of state machine FppTest_SmState_StateToJunction
+      //! Implementation for guard g of state machine FppTest_SmState_StateToChoice
       //!
       //! Guard g
-      virtual bool FppTest_SmState_StateToJunction_guard_g(
+      virtual bool FppTest_SmState_StateToChoice_guard_g(
           SmId smId, //!< The state machine id
-          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+          FppTest_SmState_StateToChoice::Signal signal //!< The signal
       ) const = 0;
 
     PROTECTED:
@@ -1940,6 +2010,19 @@ namespace FppTest {
 
       //! Called in the message loop to dispatch a message from the queue
       virtual MsgDispatchStatus doDispatch();
+
+    PRIVATE:
+
+      // ----------------------------------------------------------------------
+      // Calls for messages received on typed input ports
+      // ----------------------------------------------------------------------
+
+      //! Callback for port schedIn
+      static void m_p_schedIn_in(
+          Fw::PassiveComponentBase* callComp, //!< The component instance
+          FwIndexType portNum, //!< The port number
+          U32 context //!< The call order
+      );
 
     PRIVATE:
 
@@ -1955,12 +2038,22 @@ namespace FppTest {
       );
 
       //! Finish sending a signal to a state machine
-      void basic_sendSignalFinish(
+      void basic1_sendSignalFinish(
           Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
-      void smStateBasic_sendSignalFinish(
+      void basic2_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
+      //! Finish sending a signal to a state machine
+      void smStateBasic1_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
+      //! Finish sending a signal to a state machine
+      void smStateBasic2_sendSignalFinish(
           Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
       );
 
@@ -2055,7 +2148,7 @@ namespace FppTest {
       );
 
       //! Finish sending a signal to a state machine
-      void smStateStateToJunction_sendSignalFinish(
+      void smStateStateToChoice_sendSignalFinish(
           Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
       );
 
@@ -2220,11 +2313,11 @@ namespace FppTest {
           FppTest_SmState_StateToChild::Signal signal //!< The signal
       );
 
-      //! Dispatch a signal to a state machine instance of type FppTest_SmState_StateToJunction
-      void FppTest_SmState_StateToJunction_smDispatch(
+      //! Dispatch a signal to a state machine instance of type FppTest_SmState_StateToChoice
+      void FppTest_SmState_StateToChoice_smDispatch(
           Fw::SerializeBufferBase& buffer, //!< The message buffer
-          FppTest_SmState_StateToJunction& sm, //!< The state machine
-          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+          FppTest_SmState_StateToChoice& sm, //!< The state machine
+          FppTest_SmState_StateToChoice::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmState_StateToSelf
@@ -2251,14 +2344,29 @@ namespace FppTest {
     PRIVATE:
 
       // ----------------------------------------------------------------------
+      // Typed input ports
+      // ----------------------------------------------------------------------
+
+      //! Input port schedIn
+      Svc::InputSchedPort m_schedIn_InputPort[NUM_SCHEDIN_INPUT_PORTS];
+
+    PRIVATE:
+
+      // ----------------------------------------------------------------------
       // State machine instances
       // ----------------------------------------------------------------------
 
-      //! State machine basic
-      FppTest_SmStateQueued_Basic m_stateMachine_basic;
+      //! State machine basic1
+      FppTest_SmStateQueued_Basic m_stateMachine_basic1;
 
-      //! State machine smStateBasic
-      FppTest_SmState_Basic m_stateMachine_smStateBasic;
+      //! State machine basic2
+      FppTest_SmStateQueued_Basic m_stateMachine_basic2;
+
+      //! State machine smStateBasic1
+      FppTest_SmState_Basic m_stateMachine_smStateBasic1;
+
+      //! State machine smStateBasic2
+      FppTest_SmState_Basic m_stateMachine_smStateBasic2;
 
       //! State machine smStateBasicGuard
       FppTest_SmState_BasicGuard m_stateMachine_smStateBasicGuard;
@@ -2314,8 +2422,8 @@ namespace FppTest {
       //! State machine smStateStateToChild
       FppTest_SmState_StateToChild m_stateMachine_smStateStateToChild;
 
-      //! State machine smStateStateToJunction
-      FppTest_SmState_StateToJunction m_stateMachine_smStateStateToJunction;
+      //! State machine smStateStateToChoice
+      FppTest_SmState_StateToChoice m_stateMachine_smStateStateToChoice;
 
       //! State machine smStateStateToSelf
       FppTest_SmState_StateToSelf m_stateMachine_smStateStateToSelf;

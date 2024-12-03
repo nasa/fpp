@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/redef/nested_choice.fpp:6.5
+    choice C { if g enter S else enter S }
+    ^
+error: redefinition of symbol C
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/redef/nested_choice.fpp:5.5
+    choice C { if g enter S else enter S }
+    ^

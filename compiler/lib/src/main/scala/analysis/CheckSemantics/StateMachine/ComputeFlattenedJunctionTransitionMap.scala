@@ -3,26 +3,26 @@ package fpp.compiler.analysis
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
-/** Compute the flattened junction transition map */
-object ComputeFlattenedJunctionTransitionMap
+/** Compute the flattened choice transition map */
+object ComputeFlattenedChoiceTransitionMap
   extends TransitionExprAnalyzer
 {
 
-  override def junctionTransitionExpr(
+  override def choiceTransitionExpr(
     sma: StateMachineAnalysis,
-    junction: StateMachineSymbol.Junction,
+    choice: StateMachineSymbol.Choice,
     exprNode: AstNode[Ast.TransitionExpr]
   ): Result = {
     val transition = {
       val actions = exprNode.data.actions.map(sma.getActionSymbol)
-      val target = sma.getStateOrJunction(exprNode.data.target)
+      val target = sma.getStateOrChoice(exprNode.data.target)
       val transition0 = Transition.External(actions, target)
-      val source = StateOrJunction.Junction(junction)
+      val source = StateOrChoice.Choice(choice)
       val cft = ConstructFlattenedTransition(sma, source)
       cft.transition(transition0)
     }
-    val fjtm = sma.flattenedJunctionTransitionMap + (exprNode -> transition)
-    Right(sma.copy(flattenedJunctionTransitionMap = fjtm))
+    val fjtm = sma.flattenedChoiceTransitionMap + (exprNode -> transition)
+    Right(sma.copy(flattenedChoiceTransitionMap = fjtm))
   }
 
 }

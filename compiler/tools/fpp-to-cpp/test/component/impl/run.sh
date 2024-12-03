@@ -61,18 +61,18 @@ queued()
   diff_template QueuedTest
 }
 
+sm_choice()
+{
+  run_test "-t -i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_choice" sm_choice && \
+  diff_template SmChoiceActive && \
+  diff_template SmChoiceQueued
+}
+
 sm_initial()
 {
   run_test "-t -i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_initial" sm_initial && \
   diff_template SmInitialActive && \
   diff_template SmInitialQueued
-}
-
-sm_junction()
-{
-  run_test "-t -i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_junction" sm_junction && \
-  diff_template SmJunctionActive && \
-  diff_template SmJunctionQueued
 }
 
 sm_state()

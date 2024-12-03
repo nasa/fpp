@@ -163,8 +163,8 @@ object Ast {
   object StateMachineMember {
     sealed trait Node
     final case class DefAction(node: AstNode[Ast.DefAction]) extends Node
+    final case class DefChoice(node: AstNode[Ast.DefChoice]) extends Node
     final case class DefGuard(node: AstNode[Ast.DefGuard]) extends Node
-    final case class DefJunction(node: AstNode[Ast.DefJunction]) extends Node
     final case class DefSignal(node: AstNode[Ast.DefSignal]) extends Node
     final case class DefState(node: AstNode[Ast.DefState]) extends Node
     final case class SpecInitialTransition(node: AstNode[Ast.SpecInitialTransition]) extends Node
@@ -176,18 +176,18 @@ object Ast {
     typeName: Option[AstNode[TypeName]]
   )
 
-  /** Guard definition */
-  final case class DefGuard(
-    name: Ident,
-    typeName: Option[AstNode[TypeName]]
-  )
-
-  /** Junction definition */
-  final case class DefJunction(
+  /** Choice definition */
+  final case class DefChoice(
     name: Ident,
     guard: AstNode[Ident],
     ifTransition: AstNode[TransitionExpr],
     elseTransition: AstNode[TransitionExpr]
+  )
+
+  /** Guard definition */
+  final case class DefGuard(
+    name: Ident,
+    typeName: Option[AstNode[TypeName]]
   )
 
   /** Transition expression */
@@ -212,7 +212,7 @@ object Ast {
   final case class StateMember(node: Annotated[StateMember.Node])
   object StateMember {
     sealed trait Node
-    final case class DefJunction(node: AstNode[Ast.DefJunction]) extends Node
+    final case class DefChoice(node: AstNode[Ast.DefChoice]) extends Node
     final case class DefState(node: AstNode[Ast.DefState]) extends Node
     final case class SpecInitialTransition(node: AstNode[Ast.SpecInitialTransition]) extends Node
     final case class SpecStateEntry(node: AstNode[Ast.SpecStateEntry]) extends Node
@@ -476,6 +476,7 @@ object Ast {
 
     /** Connection */
     final case class Connection(
+      isUnmatched: Boolean,
       fromPort: AstNode[PortInstanceIdentifier],
       fromIndex: Option[AstNode[Expr]],
       toPort: AstNode[PortInstanceIdentifier],
@@ -818,5 +819,4 @@ object Ast {
       override def toString = "public"
     }
   }
-
 }

@@ -11,6 +11,7 @@ case class ComponentExternalStateMachines(
 
   /** Gets the function members */
   def getFunctionMembers: List[CppDoc.Class.Member] = List.concat(
+    getStateGetterFunctions,
     getOverflowHooks,
     getSignalSendMembers
   )
@@ -22,7 +23,7 @@ case class ComponentExternalStateMachines(
 
   /** Writes the dispatch case, if any, for external state machine instances */
   def writeDispatchCase: List[Line] = {
-    lazy val caseBody = 
+    lazy val caseBody =
       Line.blank ::
       List.concat(
         writeDeserializeSmVars,
@@ -38,6 +39,26 @@ case class ComponentExternalStateMachines(
         "}"
       )
     guardedList (hasExternalStateMachineInstances) (caseStmt)
+  }
+
+  private def getStateGetterFunctions: List[CppDoc.Class.Member] = {
+    val members = externalStateMachineInstances.map { smi =>
+
+      val smiName = smi.getName
+      val smName = s.writeSymbol(smi.symbol)
+      val smEnumName = s"$smName::${s.getName(smi.symbol)}_States";
+      functionClassMember(
+        Some(s"Get the state of state machine instance $smiName"),
+        s"${smiName}_getState",
+        Nil,
+        CppDoc.Type(smEnumName, Some(smEnumName)),
+        lines(s"return this->m_stateMachine_$smiName.state;"),
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const
+      )
+    }
+
+    addAccessTagAndComment("PROTECTED", "State getter functions", members)
   }
 
   private def getOverflowHooks: List[CppDoc.Class.Member] =

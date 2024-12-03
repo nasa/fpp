@@ -6,7 +6,7 @@ import fpp.compiler.util._
 /** Construct a flattened transition */
 case class ConstructFlattenedTransition(
   sma: StateMachineAnalysis,
-  source: StateOrJunction
+  source: StateOrChoice
 ) {
 
   /** The interface method */
@@ -32,19 +32,19 @@ case class ConstructFlattenedTransition(
     Transition.External(actions, target)
   }
 
-  // Get the parent state list of a source state or junction
-  private def getSourceParentStateList(soj: StateOrJunction):
+  // Get the parent state list of a source state or choice
+  private def getSourceParentStateList(soc: StateOrChoice):
   List[StateMachineSymbol.State] = {
-    val start = soj match {
-      case StateOrJunction.State(state) => List(state)
-      case StateOrJunction.Junction(_) => Nil
+    val start = soc match {
+      case StateOrChoice.State(state) => List(state)
+      case StateOrChoice.Choice(_) => Nil
     }
-    sma.getParentStateList(soj.getSymbol, start)
+    sma.getParentStateList(soc.getSymbol, start)
   }
 
-  // Get the parent state list of a target state or junction
-  private def getTargetParentStateList(soj: StateOrJunction):
-  List[StateMachineSymbol.State] = sma.getParentStateList(soj.getSymbol)
+  // Get the parent state list of a target state or choice
+  private def getTargetParentStateList(soc: StateOrChoice):
+  List[StateMachineSymbol.State] = sma.getParentStateList(soc.getSymbol)
 
   // Delete the longest common prefix of two lists
   private def deleteLongestCommonPrefix[T](

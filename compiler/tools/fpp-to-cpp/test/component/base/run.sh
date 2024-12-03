@@ -73,18 +73,18 @@ queued()
   diff_cpp QueuedTestComponent
 }
 
+sm_choice()
+{
+  run_test "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_choice" sm_choice && \
+  diff_cpp SmChoiceActiveComponent && \
+  diff_cpp SmChoiceQueuedComponent
+}
+
 sm_initial()
 {
   run_test "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_initial" sm_initial && \
   diff_cpp SmInitialActiveComponent && \
   diff_cpp SmInitialQueuedComponent
-}
-
-sm_junction()
-{
-  run_test "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_junction" sm_junction && \
-  diff_cpp SmJunctionActiveComponent && \
-  diff_cpp SmJunctionQueuedComponent
 }
 
 sm_state()

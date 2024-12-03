@@ -48,9 +48,10 @@ object Parser extends Parsers {
 
   def connection: Parser[Ast.SpecConnectionGraph.Connection] = {
     def connectionPort = node(portInstanceIdentifier) ~! opt(index)
-    connectionPort ~! (rarrow ~>! connectionPort) ^^ {
-      case (fromPort ~ fromIndex) ~ (toPort ~ toIndex) => {
+    opt(unmatched) ~ connectionPort ~! (rarrow ~>! connectionPort) ^^ {
+      case unmatched ~ (fromPort ~ fromIndex) ~ (toPort ~ toIndex) => {
         Ast.SpecConnectionGraph.Connection(
+          unmatched.isDefined,
           fromPort,
           fromIndex,
           toPort,
@@ -76,6 +77,14 @@ object Parser extends Parsers {
     opt(default ~>! exprNode) ~!
     opt(format ~>! node(literalString)) ^^ {
       case name ~ size ~ eltType ~ default ~ format => Ast.DefArray(name, size, eltType, default, format)
+    }
+  }
+
+  def defChoice: Parser[Ast.DefChoice] = {
+    (choice ~> ident) ~! (lbrace ~> ifToken ~> node(ident)) ~! node(transitionExpr) ~!
+      (elseToken ~> node(transitionExpr)) <~! rbrace ^^ {
+      case ident ~ guard ~ ifTransition ~ elseTransition =>
+        Ast.DefChoice(ident, guard, ifTransition, elseTransition)
     }
   }
 
@@ -143,14 +152,6 @@ object Parser extends Parsers {
   def defGuard: Parser[Ast.DefGuard] = {
     (guard ~> ident) ~! opt(colon ~>! node(typeName)) ^^ {
       case ident ~ typeName => Ast.DefGuard(ident, typeName)
-    }
-  }
-
-  def defJunction: Parser[Ast.DefJunction] = {
-    (junction ~> ident) ~! (lbrace ~> ifToken ~> node(ident)) ~! node(transitionExpr) ~!
-      (elseToken ~> node(transitionExpr)) <~! rbrace ^^ {
-      case ident ~ guard ~ ifTransition ~ elseTransition =>
-        Ast.DefJunction(ident, guard, ifTransition, elseTransition)
     }
   }
 
@@ -696,7 +697,7 @@ object Parser extends Parsers {
     node(defSignal) ^^ { case n => Ast.StateMachineMember.DefSignal(n) } |
     node(defAction) ^^ { case n => Ast.StateMachineMember.DefAction(n) } |
     node(defGuard) ^^ { case n => Ast.StateMachineMember.DefGuard(n) } |
-    node(defJunction) ^^ { case n => Ast.StateMachineMember.DefJunction(n) } |
+    node(defChoice) ^^ { case n => Ast.StateMachineMember.DefChoice(n) } |
     failure("state machine member expected")
   }
 
@@ -704,11 +705,11 @@ object Parser extends Parsers {
     annotatedElementSequence(stateMachineMemberNode, semi, Ast.StateMachineMember(_))
 
   def stateMemberNode: Parser[Ast.StateMember.Node] = {
-    node(defJunction) ^^ { case n => Ast.StateMember.DefJunction(n) } |
+    node(defChoice) ^^ { case n => Ast.StateMember.DefChoice(n) } |
     node(defState) ^^ { case n => Ast.StateMember.DefState(n) } |
+    node(specInitialTransition) ^^ { case n => Ast.StateMember.SpecInitialTransition(n) } |
     node(specStateEntry) ^^ { case n => Ast.StateMember.SpecStateEntry(n) } |
     node(specStateExit) ^^ { case n => Ast.StateMember.SpecStateExit(n) } |
-    node(specInitialTransition) ^^ { case n => Ast.StateMember.SpecInitialTransition(n) } |
     node(specStateTransition) ^^ { case n => Ast.StateMember.SpecStateTransition(n) } |
     failure("state member expected")
   }
@@ -937,7 +938,7 @@ object Parser extends Parsers {
 
   private def internal = accept("internal", { case t : Token.INTERNAL => t })
 
-  private def junction = accept("junction", { case t : Token.JUNCTION => t })
+  private def choice = accept("choice", { case t : Token.CHOICE => t })
 
   private def lbrace = accept("{", { case t : Token.LBRACE => t })
 
@@ -1061,6 +1062,8 @@ object Parser extends Parsers {
   private def trueToken = accept("true", { case t : Token.TRUE => t })
 
   private def typeToken = accept("type", { case t : Token.TYPE => t })
+
+  private def unmatched = accept("unmatched", { case t : Token.UNMATCHED => t })
 
   private def update = accept("update", { case t : Token.UPDATE => t })
 

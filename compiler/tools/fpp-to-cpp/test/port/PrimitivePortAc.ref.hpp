@@ -137,7 +137,7 @@ class OutputPrimitivePort :
         F32& f32Ref,
         bool b,
         bool& bRef
-    );
+    ) const;
 
   private:
 

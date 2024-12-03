@@ -19,7 +19,7 @@ update()
   $fpp_check $args $infile.fpp 2>&1 | remove_path_prefix > $outfile.ref.txt
 }
 
-for file in `find . -name '*.ref.txt'`
+for file in `find . -maxdepth 1 -name '*.ref.txt'`
 do
   rm $file
 done
