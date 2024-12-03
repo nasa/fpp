@@ -1228,8 +1228,8 @@ annotations back to comments.
 
 FPP provides a tool called `fpp-to-layout` for generating files
 that you can use to visualize topologies.
-Given a topology _T_, this tool generates a directory containing a
-*layout input files* for _T_.
+Given a topology _T_, this tool generates a directory containing
+the *layout input files* for _T_.
 There is one file for each <<Defining-Topologies_Connection-Graphs,connection 
 graph>> in _T_.
 The files are designed to work with a tool called `fprime-layout`, which
