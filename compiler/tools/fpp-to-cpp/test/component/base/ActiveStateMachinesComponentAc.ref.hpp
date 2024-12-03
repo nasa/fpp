@@ -92,7 +92,7 @@ namespace M {
     PROTECTED:
 
       // ----------------------------------------------------------------------
-      // State machine function to push signals to the input queue
+      // Functions for sending sending state machine signals to the input queue
       // ----------------------------------------------------------------------
 
       //! State machine base-class function for sendSignals
@@ -130,6 +130,30 @@ namespace M {
           const M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal, //!< The state machine signal
           const Fw::SmSignalBuffer& data //!< The state machine data
       );
+
+    PROTECTED:
+
+      // ----------------------------------------------------------------------
+      // State getter functions
+      // ----------------------------------------------------------------------
+
+      //! Get the state of state machine instance sm1
+      M::ActiveStateMachines_S1::ActiveStateMachines_S1_States sm1_getState() const;
+
+      //! Get the state of state machine instance sm2
+      M::ActiveStateMachines_S1::ActiveStateMachines_S1_States sm2_getState() const;
+
+      //! Get the state of state machine instance sm3
+      M::ActiveStateMachines_S2::ActiveStateMachines_S2_States sm3_getState() const;
+
+      //! Get the state of state machine instance sm4
+      M::ActiveStateMachines_S2::ActiveStateMachines_S2_States sm4_getState() const;
+
+      //! Get the state of state machine instance sm5
+      M::ActiveStateMachines_S2::ActiveStateMachines_S2_States sm5_getState() const;
+
+      //! Get the state of state machine instance sm6
+      M::ActiveStateMachines_S2::ActiveStateMachines_S2_States sm6_getState() const;
 
     PRIVATE:
 

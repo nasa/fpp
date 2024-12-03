@@ -117,7 +117,7 @@ namespace M {
   }
 
   // ----------------------------------------------------------------------
-  // State machine function to push signals to the input queue
+  // Functions for sending sending state machine signals to the input queue
   // ----------------------------------------------------------------------
 
   void ActiveStateMachinesComponentBase ::
@@ -440,6 +440,46 @@ namespace M {
       qStatus == Os::Queue::OP_OK,
       static_cast<FwAssertArgType>(qStatus)
     );
+  }
+
+  // ----------------------------------------------------------------------
+  // State getter functions
+  // ----------------------------------------------------------------------
+
+  M::ActiveStateMachines_S1::ActiveStateMachines_S1_States ActiveStateMachinesComponentBase ::
+    sm1_getState() const
+  {
+    return this->m_stateMachine_sm1.state;
+  }
+
+  M::ActiveStateMachines_S1::ActiveStateMachines_S1_States ActiveStateMachinesComponentBase ::
+    sm2_getState() const
+  {
+    return this->m_stateMachine_sm2.state;
+  }
+
+  M::ActiveStateMachines_S2::ActiveStateMachines_S2_States ActiveStateMachinesComponentBase ::
+    sm3_getState() const
+  {
+    return this->m_stateMachine_sm3.state;
+  }
+
+  M::ActiveStateMachines_S2::ActiveStateMachines_S2_States ActiveStateMachinesComponentBase ::
+    sm4_getState() const
+  {
+    return this->m_stateMachine_sm4.state;
+  }
+
+  M::ActiveStateMachines_S2::ActiveStateMachines_S2_States ActiveStateMachinesComponentBase ::
+    sm5_getState() const
+  {
+    return this->m_stateMachine_sm5.state;
+  }
+
+  M::ActiveStateMachines_S2::ActiveStateMachines_S2_States ActiveStateMachinesComponentBase ::
+    sm6_getState() const
+  {
+    return this->m_stateMachine_sm6.state;
   }
 
   // ----------------------------------------------------------------------
