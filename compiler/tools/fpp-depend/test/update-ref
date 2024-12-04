@@ -44,22 +44,22 @@ direct() {
 
 filenames() {
   update '-g filenames_generated_output.ref.txt -u filenames_ut_output.ref.txt' \
-    filenames
+    ../../fpp-filenames/test/ok filenames
 }
 
 filenames_auto() {
   update '-a -g filenames_auto_generated_output.ref.txt -u filenames_auto_ut_output.ref.txt' \
-    filenames
+    ../../fpp-filenames/test/ok filenames
 }
 
 filenames_include() {
   update '-g filenames_include_generated_output.ref.txt -u filenames_include_ut_output.ref.txt' \
-    filenames_include
+    ../../fpp-filenames/test/include filenames_include
 }
 
 filenames_include_auto() {
   update '-a -g filenames_include_auto_generated_output.ref.txt -u filenames_include_auto_ut_output.ref.txt' \
-    filenames_include
+    ../../fpp-filenames/test/include filenames_include
 }
 
 framework() {
