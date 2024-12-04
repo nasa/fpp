@@ -74,3 +74,16 @@ module M {
   }
 
 }
+
+state machine SM {
+
+  action a: ActionType
+  guard g: GuardType
+  signal s1: SignalType
+  signal s2: string size SignalConstant
+
+  initial enter S
+
+  state S
+
+}
