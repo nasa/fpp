@@ -5,5 +5,4 @@ associated with a
 <<Definitions_State-Machine-Definitions,state machine definition>>.
 
 *Implementation note:*
-State machine behavior elements will not be implemented until Phase 2
-of state machine support in FPP.
+As of FPP v2.2.1, state machine behavior elements are not implemented.
