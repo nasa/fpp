@@ -4400,92 +4400,82 @@
   },
   "symbolScopeMap" : {
     "12" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
+      "map" : {
+        
       }
     },
     "84" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
+      "map" : {
+        
       }
     },
     "110" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
+      "map" : {
+        
       }
     },
     "298" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "CmdReg" : {
-                  "Port" : {
-                    "nodeId" : 287,
-                    "unqualifiedName" : "CmdReg"
-                  }
-                },
-                "Tlm" : {
-                  "Port" : {
-                    "nodeId" : 294,
-                    "unqualifiedName" : "Tlm"
-                  }
-                },
-                "PrmGet" : {
-                  "Port" : {
-                    "nodeId" : 291,
-                    "unqualifiedName" : "PrmGet"
-                  }
-                },
-                "LogText" : {
-                  "Port" : {
-                    "nodeId" : 290,
-                    "unqualifiedName" : "LogText"
-                  }
-                },
-                "Cmd" : {
-                  "Port" : {
-                    "nodeId" : 286,
-                    "unqualifiedName" : "Cmd"
-                  }
-                },
-                "Log" : {
-                  "Port" : {
-                    "nodeId" : 289,
-                    "unqualifiedName" : "Log"
-                  }
-                },
-                "CmdResponse" : {
-                  "Port" : {
-                    "nodeId" : 288,
-                    "unqualifiedName" : "CmdResponse"
-                  }
-                },
-                "Time" : {
-                  "Port" : {
-                    "nodeId" : 293,
-                    "unqualifiedName" : "Time"
-                  }
-                },
-                "PrmSet" : {
-                  "Port" : {
-                    "nodeId" : 292,
-                    "unqualifiedName" : "PrmSet"
-                  }
-                },
-                "TlmGet" : {
-                  "Port" : {
-                    "nodeId" : 297,
-                    "unqualifiedName" : "TlmGet"
-                  }
-                }
+      "map" : {
+        "Port" : {
+          "map" : {
+            "CmdReg" : {
+              "Port" : {
+                "nodeId" : 287,
+                "unqualifiedName" : "CmdReg"
+              }
+            },
+            "Tlm" : {
+              "Port" : {
+                "nodeId" : 294,
+                "unqualifiedName" : "Tlm"
+              }
+            },
+            "PrmGet" : {
+              "Port" : {
+                "nodeId" : 291,
+                "unqualifiedName" : "PrmGet"
+              }
+            },
+            "LogText" : {
+              "Port" : {
+                "nodeId" : 290,
+                "unqualifiedName" : "LogText"
+              }
+            },
+            "Cmd" : {
+              "Port" : {
+                "nodeId" : 286,
+                "unqualifiedName" : "Cmd"
+              }
+            },
+            "Log" : {
+              "Port" : {
+                "nodeId" : 289,
+                "unqualifiedName" : "Log"
+              }
+            },
+            "CmdResponse" : {
+              "Port" : {
+                "nodeId" : 288,
+                "unqualifiedName" : "CmdResponse"
+              }
+            },
+            "Time" : {
+              "Port" : {
+                "nodeId" : 293,
+                "unqualifiedName" : "Time"
+              }
+            },
+            "PrmSet" : {
+              "Port" : {
+                "nodeId" : 292,
+                "unqualifiedName" : "PrmSet"
+              }
+            },
+            "TlmGet" : {
+              "Port" : {
+                "nodeId" : 297,
+                "unqualifiedName" : "TlmGet"
               }
             }
           }
@@ -4493,31 +4483,23 @@
       }
     },
     "97" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
+      "map" : {
+        
       }
     },
     "67" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
+      "map" : {
+        
       }
     },
     "302" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Ping" : {
-                  "Port" : {
-                    "nodeId" : 301,
-                    "unqualifiedName" : "Ping"
-                  }
-                }
+      "map" : {
+        "Port" : {
+          "map" : {
+            "Ping" : {
+              "Port" : {
+                "nodeId" : 301,
+                "unqualifiedName" : "Ping"
               }
             }
           }
@@ -4525,17 +4507,13 @@
       }
     },
     "50" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
+      "map" : {
+        
       }
     },
     "37" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
+      "map" : {
+        
       }
     }
   },

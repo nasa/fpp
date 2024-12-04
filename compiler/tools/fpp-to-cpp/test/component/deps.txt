@@ -6,6 +6,7 @@
 ../../fprime/Fw/Time/Time.fpp
 ../../fprime/Fw/Tlm/Tlm.fpp
 ../../fprime/Fw/Types/Types.fpp
+../../fprime/Svc/Sched/Sched.fpp
 ../../fprime/config/DpCfg.fpp
 ../../fprime/config/FpConfig.fpp
 ../types.fpp

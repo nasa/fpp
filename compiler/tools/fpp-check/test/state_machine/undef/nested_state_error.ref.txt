@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/undef/nested_state_error.fpp:4.19
+    initial enter T
+                  ^
+error: undefined symbol T

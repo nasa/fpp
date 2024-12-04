@@ -1,0 +1,11 @@
+#!/bin/sh -e
+
+cd `dirname $0`
+
+. ../../../../../scripts/utils.sh
+
+clean
+for file in `find . -name '*Ac\.*'`
+do
+  rm $file
+done

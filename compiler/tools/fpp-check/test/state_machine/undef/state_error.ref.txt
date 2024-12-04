@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/undef/state_error.fpp:2.17
+  initial enter S
+                ^
+error: undefined symbol S

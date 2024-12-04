@@ -4,7 +4,6 @@
 // \brief  cpp file for QueuedAsyncProducts component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "QueuedAsyncProducts.hpp"
 
 // ----------------------------------------------------------------------
@@ -25,7 +24,7 @@ QueuedAsyncProducts ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined typed input ports
+// Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
 void QueuedAsyncProducts ::

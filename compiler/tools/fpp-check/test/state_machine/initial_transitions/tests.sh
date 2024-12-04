@@ -1,0 +1,17 @@
+tests="
+choice_cycle
+external_state_machine
+no_substates
+ok
+sm_choice_bad_parent_else
+sm_choice_bad_parent_if
+sm_choice_ok
+sm_mismatched_parents
+sm_multiple_transitions
+sm_no_transition
+state_choice_bad_parent_else
+state_choice_bad_parent_if
+state_mismatched_parents
+state_multiple_transitions
+state_no_transition
+"

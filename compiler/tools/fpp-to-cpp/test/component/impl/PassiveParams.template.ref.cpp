@@ -4,7 +4,6 @@
 // \brief  cpp file for PassiveParams component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "PassiveParams.hpp"
 
 // ----------------------------------------------------------------------
@@ -25,7 +24,7 @@ PassiveParams ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined typed input ports
+// Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
 void PassiveParams ::

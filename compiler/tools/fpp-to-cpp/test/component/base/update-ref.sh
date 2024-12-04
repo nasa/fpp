@@ -1,5 +1,6 @@
 component_dir=`dirname $PWD`
 fprime_dir=`dirname $component_dir`/fprime
+test_dir=`dirname $component_dir`
 
 types()
 {
@@ -43,12 +44,12 @@ active()
   move_cpp ActiveCommandsComponent
   move_cpp ActiveOverflowComponent
   move_cpp ActiveEventsComponent
+  move_cpp ActiveExternalStateMachinesComponent
   move_cpp ActiveGetProductsComponent
   move_cpp ActiveGuardedProductsComponent
   move_cpp ActiveNoArgsPortsOnlyComponent
   move_cpp ActiveParamsComponent
   move_cpp ActiveSerialComponent
-  move_cpp ActiveStateMachinesComponent
   move_cpp ActiveSyncProductsComponent
   move_cpp ActiveTelemetryComponent
   move_cpp ActiveTestComponent
@@ -70,4 +71,25 @@ queued()
   move_cpp QueuedSyncProductsComponent
   move_cpp QueuedTelemetryComponent
   move_cpp QueuedTestComponent
+}
+
+sm_choice()
+{
+  update "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_choice" sm_choice
+  move_cpp SmChoiceActiveComponent && \
+  move_cpp SmChoiceQueuedComponent
+}
+
+sm_initial()
+{
+  update "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_initial" sm_initial
+  move_cpp SmInitialActiveComponent && \
+  move_cpp SmInitialQueuedComponent
+}
+
+sm_state()
+{
+  update "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_state" sm_state
+  move_cpp SmStateActiveComponent && \
+  move_cpp SmStateQueuedComponent
 }

@@ -186,7 +186,7 @@ void OutputPrimitivePort ::
       F32& f32Ref,
       bool b,
       bool& bRef
-  )
+  ) const
 {
 #if FW_PORT_TRACING == 1
   this->trace();

@@ -4,7 +4,6 @@
 // \brief  cpp file for QueuedTest component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "QueuedTest.hpp"
 
 // ----------------------------------------------------------------------
@@ -25,7 +24,7 @@ QueuedTest ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined typed input ports
+// Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
 void QueuedTest ::

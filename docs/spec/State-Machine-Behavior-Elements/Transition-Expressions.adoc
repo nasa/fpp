@@ -4,9 +4,9 @@ An *transition expression* specifies a transition as part of an
 <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition>>,
 a <<State-Machine-Behavior-Elements_State-Transition-Specifiers,state transition>>,
 or
-a <<State-Machine-Behavior-Elements_Junction-Definitions,junction>>.
+a <<State-Machine-Behavior-Elements_Choice-Definitions,choice>>.
 The transition performs zero or more actions and then
-enters a state or junction.
+enters a state or choice.
 
 ==== Syntax
 
@@ -27,14 +27,14 @@ If there are no actions, the do expression may be omitted.
 to a
 <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
 or a
-<<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>
-It is the state or junction that is entered in the transition.
+<<State-Machine-Behavior-Elements_Choice-Definitions,choice definition>>
+It is the state or choice that is entered in the transition.
 
 ==== Dynamic Semantics
 
 A transition expression _E_ is run in the context of an
 initial transition specifier, a leaf state definition,
-or a junction definition.
+or a choice definition.
 
 . To run _E_ in the context of an initial transition specifier
 _I_, do the following:
@@ -44,17 +44,17 @@ _I_, do the following:
 .. Run the entry behavior of the
 <<State-Machine-Behavior-Elements_State-Definitions_Dynamic-Semantics,state>>
 or
-<<State-Machine-Behavior-Elements_Junction-Definitions_Dynamic-Semantics,junction>>
+<<State-Machine-Behavior-Elements_Choice-Definitions_Dynamic-Semantics,choice>>
 referred to in _E_.
 
 +
 According to the static semantics, actions and the entry behavior must not require
 a typed argument.
 
-. To run _E_ in the context of a leaf state definition or junction definition _D_,
+. To run _E_ in the context of a leaf state definition or choice definition _D_,
 do the following:
 
-.. Let _T_ be the state or junction which is the target of _E_.
+.. Let _T_ be the state or choice which is the target of _E_.
 
 .. Let _P_ be the *lowest common ancestor* of _D_ and _T_.
 The lowest common ancestor is defined as follows:
@@ -82,7 +82,7 @@ entry actions>> of _S_, in the order specified.
 .. Run the entry behavior of the
 <<State-Machine-Behavior-Elements_State-Definitions_Dynamic-Semantics,state>>
 or
-<<State-Machine-Behavior-Elements_Junction-Definitions_Dynamic-Semantics,junction>>
+<<State-Machine-Behavior-Elements_Choice-Definitions_Dynamic-Semantics,choice>>
 _T_.
 
 +

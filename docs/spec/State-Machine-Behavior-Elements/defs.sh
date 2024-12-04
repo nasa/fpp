@@ -9,10 +9,10 @@ redo-ifchange defs.sh
 export FILES="
 Introduction.adoc
 Action-Definitions.adoc
+Choice-Definitions.adoc
 Do-Expressions.adoc
 Guard-Definitions.adoc
 Initial-Transition-Specifiers.adoc
-Junction-Definitions.adoc
 Signal-Definitions.adoc
 State-Definitions.adoc
 State-Entry-Specifiers.adoc

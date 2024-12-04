@@ -4,7 +4,6 @@
 // \brief  cpp file for PassiveCommands component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "PassiveCommands.hpp"
 
 // ----------------------------------------------------------------------
@@ -25,7 +24,7 @@ PassiveCommands ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined typed input ports
+// Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
 void PassiveCommands ::

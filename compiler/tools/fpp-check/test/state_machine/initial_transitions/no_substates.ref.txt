@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/initial_transitions/no_substates.fpp:4.5
+    initial enter S
+    ^
+error: initial transition of state must go to state or choice defined in the same state
+transition path goes here:
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/initial_transitions/no_substates.fpp:3.3
+  state S {
+  ^

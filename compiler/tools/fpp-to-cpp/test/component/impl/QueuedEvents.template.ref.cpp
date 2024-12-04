@@ -4,7 +4,6 @@
 // \brief  cpp file for QueuedEvents component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "QueuedEvents.hpp"
 
 // ----------------------------------------------------------------------
@@ -25,7 +24,7 @@ QueuedEvents ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined typed input ports
+// Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
 void QueuedEvents ::

@@ -1,5 +1,6 @@
 component_dir=`dirname $PWD`
 fprime_dir=`dirname $component_dir`/fprime
+test_dir=`dirname $component_dir`
 
 empty()
 {
@@ -31,12 +32,12 @@ active()
   diff_template ActiveCommands && \
   diff_template ActiveOverflow && \
   diff_template ActiveEvents && \
+  diff_template ActiveExternalStateMachines && \
   diff_template ActiveGetProducts && \
   diff_template ActiveGuardedProducts && \
   diff_template ActiveNoArgsPortsOnly && \
   diff_template ActiveParams && \
   diff_template ActiveSerial && \
-  diff_template ActiveStateMachines && \
   diff_template ActiveSyncProducts && \
   diff_template ActiveTelemetry && \
   diff_template ActiveTest
@@ -58,4 +59,25 @@ queued()
   diff_template QueuedSyncProducts && \
   diff_template QueuedTelemetry && \
   diff_template QueuedTest
+}
+
+sm_choice()
+{
+  run_test "-t -i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_choice" sm_choice && \
+  diff_template SmChoiceActive && \
+  diff_template SmChoiceQueued
+}
+
+sm_initial()
+{
+  run_test "-t -i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_initial" sm_initial && \
+  diff_template SmInitialActive && \
+  diff_template SmInitialQueued
+}
+
+sm_state()
+{
+  run_test "-t -i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_state" sm_state && \
+  diff_template SmStateActive && \
+  diff_template SmStateQueued
 }

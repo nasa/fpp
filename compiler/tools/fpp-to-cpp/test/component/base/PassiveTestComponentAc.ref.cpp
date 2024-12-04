@@ -2916,7 +2916,7 @@ void PassiveTestComponentBase ::
 // ----------------------------------------------------------------------
 
 void PassiveTestComponentBase ::
-  log_ACTIVITY_HI_EventActivityHigh()
+  log_ACTIVITY_HI_EventActivityHigh() const
 {
   // Get the time
   Fw::Time _logTime;
@@ -3112,7 +3112,7 @@ void PassiveTestComponentBase ::
   log_COMMAND_EventCommand(
       const Fw::StringBase& str1,
       const Fw::StringBase& str2
-  )
+  ) const
 {
   // Get the time
   Fw::Time _logTime;
@@ -3191,7 +3191,7 @@ void PassiveTestComponentBase ::
 }
 
 void PassiveTestComponentBase ::
-  log_DIAGNOSTIC_EventDiagnostic(E e)
+  log_DIAGNOSTIC_EventDiagnostic(E e) const
 {
   // Get the time
   Fw::Time _logTime;
@@ -3382,7 +3382,7 @@ void PassiveTestComponentBase ::
 }
 
 void PassiveTestComponentBase ::
-  log_WARNING_HI_EventWarningHigh(S s)
+  log_WARNING_HI_EventWarningHigh(S s) const
 {
   // Get the time
   Fw::Time _logTime;
@@ -3572,7 +3572,7 @@ void PassiveTestComponentBase ::
   tlmWrite_ChannelU32Format(
       U32 arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (
@@ -3605,7 +3605,7 @@ void PassiveTestComponentBase ::
   tlmWrite_ChannelF32Format(
       F32 arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (
@@ -3638,7 +3638,7 @@ void PassiveTestComponentBase ::
   tlmWrite_ChannelStringFormat(
       const Fw::StringBase& arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (
@@ -3671,7 +3671,7 @@ void PassiveTestComponentBase ::
   tlmWrite_ChannelEnum(
       const E& arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (
@@ -3704,7 +3704,7 @@ void PassiveTestComponentBase ::
   tlmWrite_ChannelArrayFreq(
       const A& arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (
@@ -3737,7 +3737,7 @@ void PassiveTestComponentBase ::
   tlmWrite_ChannelStructFreq(
       const S& arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (
@@ -3770,7 +3770,7 @@ void PassiveTestComponentBase ::
   tlmWrite_ChannelU32Limits(
       U32 arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (
@@ -3803,7 +3803,7 @@ void PassiveTestComponentBase ::
   tlmWrite_ChannelF32Limits(
       F32 arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (
@@ -3836,7 +3836,7 @@ void PassiveTestComponentBase ::
   tlmWrite_ChannelF64(
       F64 arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (

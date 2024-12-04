@@ -1309,30 +1309,24 @@
   },
   "symbolScopeMap" : {
     "56" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
+      "map" : {
+        
       }
     },
     "61" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Tlm" : {
-                  "Port" : {
-                    "nodeId" : 57,
-                    "unqualifiedName" : "Tlm"
-                  }
-                },
-                "Time" : {
-                  "Port" : {
-                    "nodeId" : 60,
-                    "unqualifiedName" : "Time"
-                  }
-                }
+      "map" : {
+        "Port" : {
+          "map" : {
+            "Tlm" : {
+              "Port" : {
+                "nodeId" : 57,
+                "unqualifiedName" : "Tlm"
+              }
+            },
+            "Time" : {
+              "Port" : {
+                "nodeId" : 60,
+                "unqualifiedName" : "Time"
               }
             }
           }

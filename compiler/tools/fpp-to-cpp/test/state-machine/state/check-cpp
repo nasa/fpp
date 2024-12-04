@@ -1,0 +1,16 @@
+#!/bin/sh
+
+cd `dirname $0`
+
+fprime_gcc=../../../../../scripts/fprime-gcc
+
+../harness/generate-cpp
+
+for file in `find . -name '*.ref.cpp'`
+do
+  base=`basename $file .ref.cpp`
+  cp $base.ref.hpp $base.hpp
+  cp $base.ref.cpp $base.cpp
+  echo "compiling $base.cpp"
+  $fprime_gcc -Wno-unused-parameter -I../.. -I../../fprime/config -c $base.cpp
+done

@@ -56,4 +56,10 @@ no_include()
     $fpp_syntax no_include.out.txt
 }
 
+state_machine()
+{
+  run_test '' ../../fpp-syntax/test/state-machine state_machine && \
+    $fpp_syntax state_machine.out.txt
+}
+
 run_suite $tests

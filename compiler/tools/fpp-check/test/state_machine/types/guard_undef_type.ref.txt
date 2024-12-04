@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/types/guard_undef_type.fpp:3.12
+  guard g: T
+           ^
+error: undefined symbol T

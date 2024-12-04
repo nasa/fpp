@@ -1507,65 +1507,61 @@
   },
   "symbolScopeMap" : {
     "35" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "CmdReg" : {
-                  "Port" : {
-                    "nodeId" : 25,
-                    "unqualifiedName" : "CmdReg"
-                  }
-                },
-                "Tlm" : {
-                  "Port" : {
-                    "nodeId" : 29,
-                    "unqualifiedName" : "Tlm"
-                  }
-                },
-                "PrmGet" : {
-                  "Port" : {
-                    "nodeId" : 30,
-                    "unqualifiedName" : "PrmGet"
-                  }
-                },
-                "PrmSet" : {
-                  "Port" : {
-                    "nodeId" : 31,
-                    "unqualifiedName" : "PrmSet"
-                  }
-                },
-                "LogText" : {
-                  "Port" : {
-                    "nodeId" : 28,
-                    "unqualifiedName" : "LogText"
-                  }
-                },
-                "Cmd" : {
-                  "Port" : {
-                    "nodeId" : 24,
-                    "unqualifiedName" : "Cmd"
-                  }
-                },
-                "Log" : {
-                  "Port" : {
-                    "nodeId" : 27,
-                    "unqualifiedName" : "Log"
-                  }
-                },
-                "CmdResponse" : {
-                  "Port" : {
-                    "nodeId" : 26,
-                    "unqualifiedName" : "CmdResponse"
-                  }
-                },
-                "Time" : {
-                  "Port" : {
-                    "nodeId" : 34,
-                    "unqualifiedName" : "Time"
-                  }
-                }
+      "map" : {
+        "Port" : {
+          "map" : {
+            "CmdReg" : {
+              "Port" : {
+                "nodeId" : 25,
+                "unqualifiedName" : "CmdReg"
+              }
+            },
+            "Tlm" : {
+              "Port" : {
+                "nodeId" : 29,
+                "unqualifiedName" : "Tlm"
+              }
+            },
+            "PrmGet" : {
+              "Port" : {
+                "nodeId" : 30,
+                "unqualifiedName" : "PrmGet"
+              }
+            },
+            "PrmSet" : {
+              "Port" : {
+                "nodeId" : 31,
+                "unqualifiedName" : "PrmSet"
+              }
+            },
+            "LogText" : {
+              "Port" : {
+                "nodeId" : 28,
+                "unqualifiedName" : "LogText"
+              }
+            },
+            "Cmd" : {
+              "Port" : {
+                "nodeId" : 24,
+                "unqualifiedName" : "Cmd"
+              }
+            },
+            "Log" : {
+              "Port" : {
+                "nodeId" : 27,
+                "unqualifiedName" : "Log"
+              }
+            },
+            "CmdResponse" : {
+              "Port" : {
+                "nodeId" : 26,
+                "unqualifiedName" : "CmdResponse"
+              }
+            },
+            "Time" : {
+              "Port" : {
+                "nodeId" : 34,
+                "unqualifiedName" : "Time"
               }
             }
           }
@@ -1573,38 +1569,28 @@
       }
     },
     "5" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
+      "map" : {
+        
       }
     },
     "10" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
+      "map" : {
+        
       }
     },
     "14" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
+      "map" : {
+        
       }
     },
     "19" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
+      "map" : {
+        
       }
     },
     "23" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
+      "map" : {
+        
       }
     }
   },

@@ -1,0 +1,12 @@
+@startuml
+
+[*] --> OFF : / { initialAction1, initialAction2 }
+
+state OFF
+
+state ON
+
+OFF --> ON : cmdOn / { offOnAction }
+ON --> OFF : cmdOff / { onOffAction }
+
+@enduml

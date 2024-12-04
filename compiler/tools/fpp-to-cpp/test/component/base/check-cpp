@@ -8,6 +8,9 @@ cd `dirname $0`
 # Generate header files
 echo "running the tests to generate the header files"
 ./run
+(cd ../../state-machine/harness; ./generate-cpp)
+echo "running the tests in ../../state-machine to generate the header files"
+(cd ../../state-machine; ./run-all)
 
 # Compile cpp files
 ../compile_base_cpp "$@"

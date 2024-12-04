@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/types/action_undef_type.fpp:3.13
+  action a: T
+            ^
+error: undefined symbol T

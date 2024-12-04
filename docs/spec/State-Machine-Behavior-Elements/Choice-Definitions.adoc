@@ -1,0 +1,70 @@
+=== Choice Definitions
+
+A *choice definition* specifies a choice as part of a
+<<Definitions_State-Machine-Definitions,state machine definition>>
+or
+<<State-Machine-Behavior-Elements_State-Definitions,state definition>>.
+A choice is a branch point controlled by a
+<<State-Machine-Behavior-Elements_Guard-Definitions,guard>>.
+
+==== Syntax
+
+`choice` <<Lexical-Elements_Identifiers,_identifier_>>
+`{`
+`if` <<Lexical-Elements_Identifiers,_identifier_>> <<State-Machine-Behavior-Elements_Transition-Expressions,_transition-expression_>>
+`else` <<State-Machine-Behavior-Elements_Transition-Expressions,_transition-expression_>>
+`}`
+
+==== Static Semantics
+
+. The identifier after the keyword `choice` is the name of the choice.
+
+. The identifier after the keyword `if` must
+<<Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names,refer>>
+to a
+<<State-Machine-Behavior-Elements_Guard-Definitions,guard definition>>.
+It specifies the guard that controls the branch.
+
+. Each of the transition expressions must be valid.
+The first transition expression is run if the guard evaluates to `true`;
+otherwise the second transition expression is run.
+
+==== Dynamic Semantics
+
+Each choice _J_ has the following *entry behavior*:
+
+. Evaluate the guard of _J_.
+
+. If _J_ evaluates to `true`, then
+<<State-Machine-Behavior-Elements_Transition-Expressions_Dynamic-Semantics,
+run the `if` transition expression in the context of _J_>>.
+
+. Otherwise run the `else` transition expression in the context of _J_.
+
+If any of the guard or the transition expressions requires a typed argument
+_v_, then according to the static semantics, _v_ must be available,
+and it must have a compatible type.
+Use _v_ to evaluate the guard or run the transition expression.
+
+==== Examples
+
+[source,fpp]
+----
+state machine Device {
+
+  action initPower
+  guard coldStart
+
+  initial enter J1
+
+  choice J1 {
+    if coldStart enter OFF \
+    else do { initPower } enter ON
+  }
+
+  state OFF
+
+  state ON
+
+}
+----

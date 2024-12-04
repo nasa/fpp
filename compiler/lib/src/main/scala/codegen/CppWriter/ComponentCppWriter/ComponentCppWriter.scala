@@ -11,6 +11,16 @@ case class ComponentCppWriter (
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
+  private val symbol = componentSymbol
+
+  private val data = componentData
+
+  private val name = componentName
+
+  private val className = componentClassName
+
+  private val namespaceIdentList = componentNamespaceIdentList
+
   private val fileName = ComputeCppFiles.FileNames.getComponent(name)
 
   private val dpWriter = ComponentDataProducts(s, aNode)
@@ -26,6 +36,8 @@ case class ComponentCppWriter (
   private val tlmWriter = ComponentTelemetry(s, aNode)
 
   private val paramWriter = ComponentParameters(s, aNode)
+
+  private val externalStateMachineWriter = ComponentExternalStateMachines(s, aNode)
 
   private val stateMachineWriter = ComponentStateMachines(s, aNode)
 
@@ -58,7 +70,7 @@ case class ComponentCppWriter (
   private def getMembers: List[CppDoc.Member] = {
     val hppIncludes = getHppIncludes
     val cppIncludes = getCppIncludes
-    val smInterfaces = stateMachineWriter.getSmInterfaces
+    val externalSmInterfaces = externalStateMachineWriter.getSmInterfaces
     val cls = classMember(
       Some(
         addSeparatedString(
@@ -67,7 +79,7 @@ case class ComponentCppWriter (
         )
       ),
       className,
-      Some(s"public Fw::$baseClassName$smInterfaces"),
+      Some(s"public Fw::$baseClassName$externalSmInterfaces"),
       getClassMembers
     )
     List(
@@ -172,6 +184,7 @@ case class ComponentCppWriter (
 
       // Types
       dpWriter.getTypeMembers,
+      stateMachineWriter.getTypeMembers,
 
       // Public function members
       getPublicComponentFunctionMembers,
@@ -183,7 +196,7 @@ case class ComponentCppWriter (
       getProtectedComponentFunctionMembers,
       portWriter.getProtectedFunctionMembers,
       internalPortWriter.getFunctionMembers,
-      stateMachineWriter.getFunctionMembers,
+      stateMachineWriter.getProtectedFunctionMembers,
       cmdWriter.getProtectedFunctionMembers,
       eventWriter.getFunctionMembers,
       tlmWriter.getFunctionMembers,
@@ -198,6 +211,7 @@ case class ComponentCppWriter (
 
       // Private function members
       portWriter.getPrivateFunctionMembers,
+      stateMachineWriter.getPrivateFunctionMembers,
       paramWriter.getPrivateFunctionMembers,
       dpWriter.getPrivateDpFunctionMembers,
 
@@ -267,6 +281,7 @@ case class ComponentCppWriter (
             Line.blank :: wrapInAnonymousNamespace(
               intersperseBlankLines(
                 List(
+                  stateMachineWriter.getAnonymousNamespaceLines,
                   getMsgTypeEnum,
                   buffUnion,
                   getComponentIpcSerializableBufferClass(buffUnion)
@@ -289,7 +304,8 @@ case class ComponentCppWriter (
         serialAsyncInputPorts.map(portCppConstantName),
         asyncCmds.map((_, cmd) => commandCppConstantName(cmd)),
         internalPorts.map(internalPortCppConstantName),
-        guardedList (hasStateMachineInstances) (List(stateMachineCppConstantName))
+        guardedList (hasExternalStateMachineInstances) (List(externalStateMachineCppConstantName)),
+        guardedList (hasInternalStateMachineInstances) (List(internalStateMachineMsgType))
       ).map(s => line(s"$s,")),
       "};"
     )
@@ -334,13 +350,21 @@ case class ComponentCppWriter (
           "];"
         )
       ),
-      guardedList (hasStateMachineInstances) (
+      guardedList (hasExternalStateMachineInstances) (
         lines(
-          s"""|// Size of statemachine sendSignals
-              |BYTE sendSignalsStatemachineSize[
+          s"""|// Size of buffer for external state machine signals
+              |// The external SmSignalBuffer stores the signal data
+              |BYTE externalSmBufferSize[
               |  2 * sizeof(FwEnumStoreType) + Fw::SmSignalBuffer::SERIALIZED_SIZE
-              |];
-              |"""
+              |];"""
+        )
+      ),
+      guardedList (hasInternalStateMachineInstances) (
+        lines(
+          s"""|// Size of buffer for internal state machine signals
+              |// The internal SmSignalBuffer stores the state machine id, the
+              |// signal id, and the signal data
+              |BYTE internalSmBufferSize[SmSignalBuffer::SERIALIZED_SIZE];"""
         )
       )
     )
@@ -354,6 +378,7 @@ case class ComponentCppWriter (
   }
 
   private def getComponentIpcSerializableBufferClass(buffUnion: List[Line]): List[Line] = {
+    val maxDataSize = if buffUnion.nonEmpty then "sizeof(BuffUnion)" else "0"
     lines(
       s"""|// Define a message buffer class large enough to handle all the
           |// asynchronous inputs to the component
@@ -364,11 +389,12 @@ case class ComponentCppWriter (
           |  public:
           |
           |    enum {
-          |      // Max. message size = size of data + message id + port
-          |      SERIALIZATION_SIZE =${if (buffUnion.nonEmpty) """
-          |        sizeof(BuffUnion) +""" else "" }
-          |        sizeof(FwEnumStoreType) +
-          |        sizeof(FwIndexType)
+          |      // Offset into data in buffer: Size of message ID and port number
+          |      DATA_OFFSET = sizeof(FwEnumStoreType) + sizeof(FwIndexType),
+          |      // Max data size
+          |      MAX_DATA_SIZE = $maxDataSize,
+          |      // Max message size: Size of message id + size of port + max data size
+          |      SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
           |    };
           |
           |    Fw::Serializable::SizeType getBuffCapacity() const {
@@ -402,8 +428,13 @@ case class ComponentCppWriter (
         (p: PortInstance) => s"${p.getUnqualifiedName}_${p.getDirection.get.toString.capitalize}Port"
       )
 
-    def writeStateMachineInit(name: String) =
-      line(s"m_stateMachine_$name.init(STATE_MACHINE_${name.toUpperCase});")
+    def writeStateMachineInit(smi: StateMachineInstance, name: String) =
+      smi.getSmKind match {
+        case StateMachine.Kind.External =>
+          line(s"this->m_stateMachine_$name.init(static_cast<FwEnumStoreType>(${writeSmIdName(name)}));")
+        case StateMachine.Kind.Internal =>
+          line(s"this->m_stateMachine_$name.init(${writeSmIdName(name)});")
+      }
 
     val body = intersperseBlankLines(
       List(
@@ -412,7 +443,9 @@ case class ComponentCppWriter (
               |Fw::$baseClassName::init(instance);
               |"""
         ),
-        smInstancesByName.map((name, _) => writeStateMachineInit(name)),
+        Line.addPrefixLine
+          (line("// Initialize state machine instances"))
+          (smInstancesByName.map((name, smi) => writeStateMachineInit(smi, name))),
         intersperseBlankLines(specialInputPorts.map(writePortConnections)),
         intersperseBlankLines(typedInputPorts.map(writePortConnections)),
         intersperseBlankLines(serialInputPorts.map(writePortConnections)),
@@ -431,11 +464,13 @@ case class ComponentCppWriter (
                  |  static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
                  |);
                  |
+                 |// Create the queue
                  |Os::Queue::Status qStat = this->createQueue(queueDepth, this->m_msgSize);
                  |"""
             )
             else lines(
-              """|Os::Queue::Status qStat = this->createQueue(
+              """|// Create the queue
+                 |Os::Queue::Status qStat = this->createQueue(
                  |  queueDepth,
                  |  static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
                  |);
@@ -500,7 +535,16 @@ case class ComponentCppWriter (
             )
           ),
           s"Fw::${kindStr}ComponentBase(compName)" ::
-            smInstancesByName.map((name, _) => s"m_stateMachine_$name(this)"),
+            smInstancesByName.map((name, smi) => {
+              val sm = s.a.stateMachineMap(smi.symbol)
+              val hasActionsOrGuards = sm.hasActions || sm.hasGuards
+              val args = (smi.getSmKind, hasActionsOrGuards) match {
+                case (StateMachine.Kind.External, _) => "this"
+                case (StateMachine.Kind.Internal, true) => "*this"
+                case (StateMachine.Kind.Internal, false) => ""
+              }
+              s"m_stateMachine_$name($args)",
+            }),
           intersperseBlankLines(
             List(
               intersperseBlankLines(
@@ -828,7 +872,7 @@ case class ComponentCppWriter (
                     intersperseBlankLines(serialAsyncInputPorts.map(writeAsyncPortDispatch)),
                     intersperseBlankLines(asyncCmds.map(writeAsyncCommandDispatch)),
                     intersperseBlankLines(internalPorts.map(writeInternalPortDispatch)),
-                    stateMachineWriter.writeDispatch,
+                    stateMachineWriter.writeDispatchCases,
                     lines(
                       """|default:
                          |  return MSG_DISPATCH_ERROR;

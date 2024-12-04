@@ -10,15 +10,23 @@ case class ComponentTesterBaseWriter(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentTestUtils(s, aNode) {
 
-  private val fileName = ComputeCppFiles.FileNames.getComponentTesterBase(name)
+  private val className = componentClassName
 
-  private val relativeFileName = s.getRelativePath(fileName).toString
-
-  private val componentFileName = ComputeCppFiles.FileNames.getComponent(name)
+  private val componentFileName = ComputeCppFiles.FileNames.getComponent(componentName)
 
   private val componentRelativeFileName = s.getRelativePath(componentFileName).toString
 
+  private val fileName = ComputeCppFiles.FileNames.getComponentTesterBase(componentName)
+
   private val historyWriter = ComponentHistory(s, aNode)
+
+  private val name = componentName
+
+  private val namespaceIdentList = componentNamespaceIdentList
+
+  private val relativeFileName = s.getRelativePath(fileName).toString
+
+  private val symbol = componentSymbol
 
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)

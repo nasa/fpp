@@ -5,7 +5,6 @@
 // ======================================================================
 
 #include "ActiveTest.hpp"
-#include "FpConfig.hpp"
 
 namespace M {
 
@@ -27,7 +26,7 @@ namespace M {
   }
 
   // ----------------------------------------------------------------------
-  // Handler implementations for user-defined typed input ports
+  // Handler implementations for typed input ports
   // ----------------------------------------------------------------------
 
   void ActiveTest ::

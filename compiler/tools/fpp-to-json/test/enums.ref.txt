@@ -623,29 +623,25 @@
   },
   "symbolScopeMap" : {
     "5" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Value" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "YES" : {
-                  "EnumConstant" : {
-                    "nodeId" : 0,
-                    "unqualifiedName" : "YES"
-                  }
-                },
-                "NO" : {
-                  "EnumConstant" : {
-                    "nodeId" : 1,
-                    "unqualifiedName" : "NO"
-                  }
-                },
-                "MAYBE" : {
-                  "EnumConstant" : {
-                    "nodeId" : 4,
-                    "unqualifiedName" : "MAYBE"
-                  }
-                }
+      "map" : {
+        "Value" : {
+          "map" : {
+            "YES" : {
+              "EnumConstant" : {
+                "nodeId" : 0,
+                "unqualifiedName" : "YES"
+              }
+            },
+            "NO" : {
+              "EnumConstant" : {
+                "nodeId" : 1,
+                "unqualifiedName" : "NO"
+              }
+            },
+            "MAYBE" : {
+              "EnumConstant" : {
+                "nodeId" : 4,
+                "unqualifiedName" : "MAYBE"
               }
             }
           }
@@ -653,29 +649,25 @@
       }
     },
     "20" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Value" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "A" : {
-                  "EnumConstant" : {
-                    "nodeId" : 11,
-                    "unqualifiedName" : "A"
-                  }
-                },
-                "B" : {
-                  "EnumConstant" : {
-                    "nodeId" : 13,
-                    "unqualifiedName" : "B"
-                  }
-                },
-                "C" : {
-                  "EnumConstant" : {
-                    "nodeId" : 19,
-                    "unqualifiedName" : "C"
-                  }
-                }
+      "map" : {
+        "Value" : {
+          "map" : {
+            "A" : {
+              "EnumConstant" : {
+                "nodeId" : 11,
+                "unqualifiedName" : "A"
+              }
+            },
+            "B" : {
+              "EnumConstant" : {
+                "nodeId" : 13,
+                "unqualifiedName" : "B"
+              }
+            },
+            "C" : {
+              "EnumConstant" : {
+                "nodeId" : 19,
+                "unqualifiedName" : "C"
               }
             }
           }
@@ -683,29 +675,25 @@
       }
     },
     "34" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Value" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "A" : {
-                  "EnumConstant" : {
-                    "nodeId" : 28,
-                    "unqualifiedName" : "A"
-                  }
-                },
-                "B" : {
-                  "EnumConstant" : {
-                    "nodeId" : 29,
-                    "unqualifiedName" : "B"
-                  }
-                },
-                "C" : {
-                  "EnumConstant" : {
-                    "nodeId" : 32,
-                    "unqualifiedName" : "C"
-                  }
-                }
+      "map" : {
+        "Value" : {
+          "map" : {
+            "A" : {
+              "EnumConstant" : {
+                "nodeId" : 28,
+                "unqualifiedName" : "A"
+              }
+            },
+            "B" : {
+              "EnumConstant" : {
+                "nodeId" : 29,
+                "unqualifiedName" : "B"
+              }
+            },
+            "C" : {
+              "EnumConstant" : {
+                "nodeId" : 32,
+                "unqualifiedName" : "C"
               }
             }
           }

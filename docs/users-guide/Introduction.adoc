@@ -39,14 +39,14 @@ We recommend that you read this document before consulting that one.
 
 *Overview:* The rest of this document proceeds as follows.
 Section 2 explains how to get up and running with FPP.
-Sections 3 through 11 describe the elements of an FPP
+Sections 3 through 12 describe the elements of an FPP
 model, starting with the simplest elements (constants
 and types) and working towards the most complex (components
 and topologies).
-Section 12 explains how to specify a model as a collection
+Section 13 explains how to specify a model as a collection
 of files: for example, it covers the management of dependencies
 between files.
-Section 13 explains how to analyze FPP models and how
+Section 14 explains how to analyze FPP models and how
 to translate FPP models to and from XML, to {cpp}, and to JSON.
-Section 14 explains how to write a {cpp} implementation
+Section 15 explains how to write a {cpp} implementation
 against the code generated from an FPP model.

@@ -1,5 +1,6 @@
 component_dir=`dirname $PWD`
 fprime_dir=`dirname $component_dir`/fprime
+test_dir=`dirname $component_dir`
 
 types()
 {
@@ -43,12 +44,12 @@ active()
   diff_cpp ActiveCommandsComponent && \
   diff_cpp ActiveOverflowComponent && \
   diff_cpp ActiveEventsComponent && \
+  diff_cpp ActiveExternalStateMachinesComponent && \
   diff_cpp ActiveGetProductsComponent && \
   diff_cpp ActiveGuardedProductsComponent && \
   diff_cpp ActiveNoArgsPortsOnlyComponent && \
   diff_cpp ActiveParamsComponent && \
   diff_cpp ActiveSerialComponent && \
-  diff_cpp ActiveStateMachinesComponent && \
   diff_cpp ActiveSyncProductsComponent && \
   diff_cpp ActiveTelemetryComponent && \
   diff_cpp ActiveTestComponent
@@ -70,4 +71,25 @@ queued()
   diff_cpp QueuedSyncProductsComponent && \
   diff_cpp QueuedTelemetryComponent && \
   diff_cpp QueuedTestComponent
+}
+
+sm_choice()
+{
+  run_test "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_choice" sm_choice && \
+  diff_cpp SmChoiceActiveComponent && \
+  diff_cpp SmChoiceQueuedComponent
+}
+
+sm_initial()
+{
+  run_test "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_initial" sm_initial && \
+  diff_cpp SmInitialActiveComponent && \
+  diff_cpp SmInitialQueuedComponent
+}
+
+sm_state()
+{
+  run_test "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_state" sm_state && \
+  diff_cpp SmStateActiveComponent && \
+  diff_cpp SmStateQueuedComponent
 }

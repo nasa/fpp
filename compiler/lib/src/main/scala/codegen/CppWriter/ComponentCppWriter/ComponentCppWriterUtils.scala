@@ -4,43 +4,27 @@ import fpp.compiler.analysis._
 import fpp.compiler.ast._
 import fpp.compiler.codegen._
 
-/** Message type for message send logic */
-sealed trait MessageType
-object MessageType {
-  case object Command extends MessageType {
-    override def toString = "command"
-  }
-  case object Port extends MessageType {
-    override def toString = "async input port"
-  }
-  case object StateMachine extends MessageType {
-    override def toString = "state machine"
-  }
-}
-
 /** Utilities for writing C++ component definitions */
 abstract class ComponentCppWriterUtils(
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends CppWriterUtils {
 
-  val node: AstNode[Ast.DefComponent] = aNode._2
+  val componentNode: AstNode[Ast.DefComponent] = aNode._2
 
-  val data: Ast.DefComponent = node.data
+  val componentData: Ast.DefComponent = componentNode.data
 
-  val symbol: Symbol.Component = Symbol.Component(aNode)
+  val componentSymbol: Symbol.Component = Symbol.Component(aNode)
 
-  val component: Component = s.a.componentMap(symbol)
+  val component: Component = s.a.componentMap(componentSymbol)
 
-  val name: String = s.getName(symbol)
+  val componentName: String = s.getName(componentSymbol)
 
-  val namespaceIdentList: List[String] = s.getNamespaceIdentList(symbol)
+  val componentNamespaceIdentList: List[String] = s.getNamespaceIdentList(componentSymbol)
 
-  val className: String = s"${name}ComponentBase"
+  val componentClassName: String = s"${componentName}ComponentBase"
 
-  val implClassName: String = name
-
-  val members: List[Ast.ComponentMember] = data.members
+  val componentImplClassName: String = componentName
 
   val formalParamsCppWriter: FormalParamsCppWriter = FormalParamsCppWriter(s)
 
@@ -142,6 +126,14 @@ abstract class ComponentCppWriterUtils(
   /** List of state machine instances */
   val stateMachineInstances: List[StateMachineInstance] =
     component.stateMachineInstanceMap.toList.map((_, sm) => sm).sortBy(_.getName)
+
+  /** List of external state machine instances */
+  val externalStateMachineInstances: List[StateMachineInstance] =
+    stateMachineInstances.filter(_.getSmKind == StateMachine.Kind.External)
+
+  /** List of internal state machine instances */
+  val internalStateMachineInstances: List[StateMachineInstance] =
+    stateMachineInstances.filter(_.getSmKind == StateMachine.Kind.Internal)
 
   /** List of internal port instances sorted by name */
   val internalPorts: List[PortInstance.Internal] = component.portMap.toList.map((_, p) => p match {
@@ -286,7 +278,13 @@ abstract class ComponentCppWriterUtils(
 
   val smInstancesByName = component.stateMachineInstanceMap.toList.sortBy(_._1)
 
-  val smSymbols = component.stateMachineInstanceMap.map(_._2.symbol).toSet.toList
+  val smSymbols = component.stateMachineInstanceMap.map(_._2.symbol).toSet.toList.sortBy(s.writeSymbol)
+
+  val externalSmSymbols =
+    smSymbols.filter(StateMachine.getSymbolKind(_) == StateMachine.Kind.External)
+
+  val internalSmSymbols =
+    smSymbols.filter(StateMachine.getSymbolKind(_) == StateMachine.Kind.Internal)
 
   // Component properties
 
@@ -319,7 +317,11 @@ abstract class ComponentCppWriterUtils(
 
   val hasContainers: Boolean = containersByName != Nil
 
-  val hasStateMachineInstances: Boolean = component.hasStateMachineInstances
+  val hasExternalStateMachineInstances: Boolean =
+    component.hasStateMachineInstancesOfKind(StateMachine.Kind.External)
+
+  val hasInternalStateMachineInstances: Boolean =
+    component.hasStateMachineInstancesOfKind(StateMachine.Kind.Internal)
 
   val hasProductGetPort: Boolean = productGetPort.isDefined
 
@@ -327,9 +329,11 @@ abstract class ComponentCppWriterUtils(
 
   val hasProductRequestPort: Boolean = productRequestPort.isDefined
 
+  val hasStateMachineInstances: Boolean = component.hasStateMachineInstances
+
   /** Parameters for the init function */
   val initParams: List[CppDoc.Function.Param] = List.concat(
-    if data.kind != Ast.ComponentKind.Passive then List(
+    if componentData.kind != Ast.ComponentKind.Passive then List(
       CppDoc.Function.Param(
         CppDoc.Type("FwSizeType"),
         "queueDepth",
@@ -594,6 +598,9 @@ abstract class ComponentCppWriterUtils(
       case Command.Param.Set => "set"
     }
 
+  /** Write a state machine identifier name */
+  def writeSmIdName(name: String) = s"SmId::${name}"
+
   /** Write the type of an internal port param as a C++ type */
   def writeInternalPortParamType(param: Ast.FormalParam): String =
     writeTypeAsInternalPortParamType(s.a.typeMap(param.typeName.id))
@@ -614,59 +621,73 @@ abstract class ComponentCppWriterUtils(
   def writeChannelType(t: Type, stringRep: String = "Fw::StringBase"): String =
     TypeCppWriter.getName(s, t, stringRep)
 
+  def writeQueueSendLines(
+    bufferName: String,
+    queueFull: Ast.QueueFull,
+    priority: Option[BigInt]
+  ): List[Line] = {
+    val queueBlocking = queueFull match {
+      case Ast.QueueFull.Block => "BLOCKING"
+      case _ => "NONBLOCKING"
+    }
+    val priorityNum = priority.getOrElse(BigInt(0))
+    lines(
+      s"""|// Send message
+          |Os::Queue::BlockingType _block = Os::Queue::$queueBlocking;
+          |Os::Queue::Status qStatus = this->m_queue.send($bufferName, $priorityNum, _block);"""
+    )
+  }
+
+  def writeQueueFullLines(
+    queueFull: Ast.QueueFull,
+    messageType: MessageType,
+    hookBaseName: String,
+    hookParams: List[CppDoc.Function.Param]
+  ): List[Line] =
+    queueFull match {
+      case Ast.QueueFull.Drop => lines(
+        """|if (qStatus == Os::Queue::Status::FULL) {
+           |  this->incNumMsgDropped();
+           |  return;
+           |}
+           |"""
+      )
+      case Ast.QueueFull.Hook =>
+        val hookName = inputOverflowHookName(hookBaseName, messageType)
+        val hookArguments = hookParams.map(_.name).mkString(", ")
+        lines(
+          s"""|if (qStatus == Os::Queue::Status::FULL) {
+              |  this->$hookName($hookArguments);
+              |  return;
+              |}
+              |"""
+        )
+      case _ => Nil
+    }
+
+  def writeQueueAssert = lines(
+    """|FW_ASSERT(
+       |  qStatus == Os::Queue::OP_OK,
+       |  static_cast<FwAssertArgType>(qStatus)
+       |);
+       |"""
+  )
+
   /** Write send message logic */
   def writeSendMessageLogic(
     bufferName: String,
     queueFull: Ast.QueueFull,
     priority: Option[BigInt],
     messageType: MessageType,
-    name: String,
-    arguments: List[CppDoc.Function.Param]
-  ): List[Line] = {
-    val queueBlocking = queueFull match {
-      case Ast.QueueFull.Block => "BLOCKING"
-      case _ => "NONBLOCKING"
-    }
-    val priorityNum = priority match {
-      case Some(num) => num
-      case _ => BigInt(0)
-    }
-
-    intersperseBlankLines(
-      List(
-        lines(
-          s"""|// Send message
-              |Os::Queue::BlockingType _block = Os::Queue::$queueBlocking;
-              |Os::Queue::Status qStatus = this->m_queue.send($bufferName, $priorityNum, _block);
-              |"""
-        ),
-        queueFull match {
-          case Ast.QueueFull.Drop => lines(
-            """|if (qStatus == Os::Queue::Status::FULL) {
-               |  this->incNumMsgDropped();
-               |  return;
-               |}
-               |"""
-          )
-          case Ast.QueueFull.Hook => lines(
-            s"""|if (qStatus == Os::Queue::Status::FULL) {
-                |  this->${inputOverflowHookName(name, messageType)}(${arguments.map(_.name).mkString(", ")});
-                |  return;
-                |}
-                |"""
-          )
-          case _ => Nil
-        },
-        lines(
-          """|FW_ASSERT(
-             |  qStatus == Os::Queue::OP_OK,
-             |  static_cast<FwAssertArgType>(qStatus)
-             |);
-             |"""
-        )
-      )
+    hookBaseName: String,
+    hookParams: List[CppDoc.Function.Param]
+  ): List[Line] = intersperseBlankLines(
+    List(
+      writeQueueSendLines(bufferName, queueFull, priority),
+      writeQueueFullLines(queueFull, messageType, hookBaseName, hookParams),
+      writeQueueAssert
     )
-  }
+  )
 
   /** Write an event format as C++ */
   def writeEventFormat(event: Event): String = {
@@ -707,8 +728,11 @@ abstract class ComponentCppWriterUtils(
   def commandCppConstantName(cmd: Command) =
     s"CMD_${cmd.getName.toUpperCase}"
 
-  /** Get the name for the state machine enumerated constant in cpp file */
-  def stateMachineCppConstantName = "STATEMACHINE_SENDSIGNALS"
+  /** Get the name for the external state machine enumerated constant in cpp file */
+  def externalStateMachineCppConstantName = "EXTERNAL_STATE_MACHINE_SIGNAL"
+
+  /** Get the name for the internal state machine message id in cpp file */
+  def internalStateMachineMsgType = "INTERNAL_STATE_MACHINE_SIGNAL"
 
   /** Get the name for a port number getter function */
   def portNumGetterName(p: PortInstance) =
@@ -857,15 +881,21 @@ abstract class ComponentCppWriterUtils(
     CppDoc.Function.PureVirtual
   )
 
+  /** Writes the type of a state machine implementation */
+  def writeStateMachineImplType(smSymbol: Symbol.StateMachine) =
+    StateMachine.getSymbolKind(smSymbol) match {
+      case StateMachine.Kind.External => s.writeSymbol(smSymbol)
+      case StateMachine.Kind.Internal => s.writeSymbolAsIdent(smSymbol)
+    }
+
   private def getPortTypeBaseName(
     p: PortInstance,
-  ): String = {
+  ): String =
     p.getType match {
       case Some(PortInstance.Type.DefPort(symbol)) => symbol.getUnqualifiedName
       case Some(PortInstance.Type.Serial) => "serial"
       case None => ""
     }
-  }
 
   /** Write a type as the type of a general port param */
   private def writeTypeAsGeneralPortParamType (symbol: Symbol.Port) (t: Type) =

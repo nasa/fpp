@@ -10,6 +10,8 @@ abstract class ComponentTestUtils(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
+  private val name = componentName
+
   val testerBaseClassName: String = s"${name}TesterBase"
 
   val gTestClassName: String = s"${name}GTestBase"

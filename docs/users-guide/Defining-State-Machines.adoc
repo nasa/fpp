@@ -1,9 +1,9 @@
 == Defining State Machines
 
 A *hierarchical state machine* (state machine for short)
-specifies the following:
+is a software subsystem that specifies the following:
 
-* A set of *states* that a system can be in.
+* A set of *states* that the system can be in.
 The states can be arranged in a hierarchy (i.e.,
 states may have substates).
 
@@ -17,13 +17,13 @@ these state changes as a state machine.
 
 In FPP there are two ways to define a state machine:
 
-. An *external* state machine definition is similar to
+. An *external* state machine definition is like
 an <<Defining-Types_Abstract-Type-Definitions,abstract type definition>>:
 it tells the analyzer that a state machine exists with a specified
 name, but it says nothing about the state machine behavior.
 An external tool must provide the state machine implementation.
 
-. An *internal* state machine definition is similar to an
+. An *internal* state machine definition is like an
 <<Defining-Types_Array-Type-Definitions,array type definition>>
 or
 <<Defining-Types_Struct-Type-Definitions,struct type definition>>:
@@ -31,17 +31,24 @@ it provides a complete specification in FPP of the state machine behavior.
 The FPP back end uses this specification to generate code;
 no external tool is required.
 
-As of the current version of FPP, only external state machines
-are implemented.
-Support for internal state machines is in development.
+The following subsections describe both kinds of state machine
+definitions.
 
 State machine definitions may appear at the top level or inside a
 <<Defining-Modules,module definition>>.
 A state machine definition is an
 <<Writing-Comments-and-Annotations_Annotations,annotatable element>>.
+Once you define a state machine, you can
+<<Defining-Components_State-Machine-Instances,
+instantiate it as part of a component>>.
+The component can then send the signals that cause the state
+transitions.
+The component also provides the functions that are called when
+the state machine does actions and evaluates guards.
 
-=== External State Machines
+=== Writing a State Machine Definition
 
+*External state machines:*
 To define an external state machine, you write the keywords
 `state` `machine` followed by an identifier, which is the
 name of the state machine:
@@ -52,9 +59,6 @@ state machine M
 ----
 
 This code defines an external state machine with name `M`.
-You can then
-<<Defining-Components_State-Machine-Instances,instantiate>>
-the state machine `M` in a component definition.
 
 When you define an external state machine `M`, you must provide
 an implementation for `M`, as discussed in the section
@@ -64,7 +68,1702 @@ The external implementation must have a header file `M.hpp`
 located in the same directory as the FPP file where
 the state machine `M` is defined.
 
-=== Internal State Machines
+*Internal state machines:*
+In the following subsections, we explain how to define internal
+state machines in FPP.
+The behavior of these state machines closely follows the behavior
+described for state machines in the
+https://www.omg.org/spec/UML/2.5.1/PDF[Universal Modeling Language (UML)].
+UML is a graphical language and FPP is a textual language,
+but each of the concepts in the FPP language is motivated
+by a corresponding UML concept.
+FPP does not represent every aspect of UML state machines:
+because our goal is to support embedded and flight software,
+we focus on a subset of UML state machine behavior that is
+(1) simple and unambiguous and (2) sufficient for embedded
+applications that use F Prime.
 
-Support for internal state machines is in development.
-It will be available in a future release of FPP.
+In this manual, we focus on the syntax and high-level behavior
+of FPP state machines.
+For more details about the {cpp} code generation
+for state machines, see the
+https://github.com/nasa/fprime/blob/devel/docs/Design/general.md[F Prime design
+documentation].
+
+=== States, Signals, and Transitions
+
+In this and the following sections, we explain how to define
+internal state machines, i.e., state machines that are fully
+specified in FPP.
+In these sections, when we say "`state machine,`"
+we mean an internal state machine.
+
+First we explain the concepts of states,
+signals, and transitions.
+These are the basic building blocks of FPP state machines.
+
+*Basic state machines:*
+The simplest state machine _M_ that has any useful
+behavior consists of the following:
+
+* Several *state definitions*.
+These define the states of _M_.
+
+* An *initial transition specifier*.
+This specifies the state that an instance of _M_ is in when it starts up.
+
+* One or more *signal definitions*.
+The external environment (typically an F Prime component)
+sends signals to instances of _M_.
+
+* One or more *state transition specifiers*.
+These tell each instance of _M_ what to do when it receives a signal.
+
+Here is an example:
+
+[source,fpp]
+----
+@ A state machine representing a device with on-off behavior
+state machine Device {
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    on cmdOn enter ON
+
+  }
+
+}
+----
+
+Here is the example represented graphically, as a UML state
+machine:
+
+image::diagrams/state-machine/Basic.png[Device state machine,200,align="center"]
+
+This example defines a state machine `Device` that represents
+a device with on-off behavior.
+There are two states, `ON` and `OFF`.
+The initial transition specifier `initial enter OFF`
+says that the state machine is in state `OFF` when it starts up.
+There are two signals: `cmdOn` for turning the device
+on and `cmdOff` for turning the device off.
+There are two state transition specifiers:
+
+* A specifier that says to enter state `OFF`
+on receiving the `cmdOff` signal in state `ON`.
+
+* A specifier that says to enter state `ON`
+on receiving the `cmdOn` signal in state `OFF`.
+
+In general, a state transition specifier causes a transition
+from the state _S_ in which it appears to the state _S'_ that
+appears after the keyword `enter`.
+We say that _S_ is the *source* of the transition,
+and _S'_ is the *target* of the transition.
+
+If a state machine instance receives a signal _s_, and it is
+in a state _S_ that specifies no behavior for signal _s_
+(i.e., there is no transition with source _S_ and signal _s_),
+then nothing happens.
+In the example above, if the state machine receives signal
+`cmdOn` in state `ON`
+or signal `cmdOff` in state `OFF`, then it takes no action.
+
+*Rules for defining state machines:*
+Each state machine definition must conform to the following rules:
+
+. A state machine definition and each of its members is an
+<<Writing-Comments-and-Annotations_Annotations,annotatable element>>.
+For example, you can annotate the `Device` state machine as shown above.
+The members of a state machine definition form an
+<<Defining-Constants_Multiple-Definitions-and-Element-Sequences,
+element sequence>> with a semicolon as the optional
+terminating punctuation.
+The same rules apply to the members of a state definition.
+
+. Each state machine definition must have exactly one
+initial transition specifier that names a state of
+the state machine.
+For example, if we deleted the initial transition specifier
+from the example above and passed the result through
+`fpp-check`, an error would occur.
+
+. Every state definition must be reachable from the initial
+transition specifier or from a state transition specifier.
+For example, if we deleted the state transition specifier
+in the state `ON` from the example above and passed
+the result through `fpp-check`, an error would occur.
+In this case, there would be no way to reach the `ON` state.
+
+. Every state name must be unique, and every signal name
+must be unique.
+
+. Each state may have at most one state transition specifier
+for each signal _s_.
+For example, if we added another transition to state `ON`
+on signal `cmdOff`, the FPP analyzer would report an error.
+
+*Simple state definitions:*
+If a state definition has no transitions, then you can omit
+the braces.
+For example, here is a revised version of the `Device` state
+machine that has an off-on transition but no on-off transition:
+
+[source,fpp]
+----
+@ A state machine representing a device with on-only behavior
+state machine Device {
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    on cmdOn enter ON
+
+  }
+
+}
+----
+
+Notice that state `ON` has a simple definition with no curly braces.
+
+=== Actions
+
+An *action* is a function that a state machine calls at a
+specified point in its behavior.
+In the FPP model, actions are abstract;
+in the {cpp} back end they become pure virtual functions that
+you implement.
+When a state machine instance calls the function associated with
+an action _A_, we say that it *does* _A_.
+
+==== Actions in Transitions
+
+To define an action, you write the keyword `action` followed
+by the name of the action.
+As with <<Defining-State-Machines_States-Signals-and-Transitions,signals>>,
+every action name must be unique.
+To do an action, you write the keyword `do`
+followed by a list of action names enclosed in curly braces.
+You can do this in an initial transition specifier or in a
+state transition specifier.
+
+As an example, here is the `Device` state machine from the
+previous section, with actions added:
+
+[source,fpp]
+----
+@ A state machine representing a device with on-off behavior,
+@ with actions on transitions
+state machine Device {
+
+  @ Initial action 1
+  action initialAction1
+
+  @ Initial action 2
+  action initialAction2
+
+  @ An action on the transition from OFF to ON
+  action offOnAction
+
+  @ An action on the transition from ON to OFF
+  action onOffAction
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ The initial state is OFF
+  @ Before entering the initial state, do initialAction1 and then initialAction2
+  initial do { initialAction1, initialAction2 } enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    @ Before entering the OFF state, do onOffAction
+    on cmdOff do { onOffAction } enter OFF
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    @ Before entering the ON state, do offOnAction
+    on cmdOn do { offOnAction } enter ON
+
+  }
+
+}
+----
+
+Here is the graphical representation:
+
+image::diagrams/state-machine/ActionsInTransitions.png[Device state machine with actions on transitions,500,align="center"]
+
+In this example there are four actions:
+`initialAction1`, `initialAction2`, `offOnAction`, and `onOffAction`.
+The behavior of each of these actions is specified in the {cpp}
+implementation; for example, each could emit an
+<<Defining-Components_Events,F Prime event>>.
+The state machine has the following behavior:
+
+* On startup, do `initialAction1`, do `initialAction2`, and
+enter the `OFF` state.
+
+* In state `OFF`, on receiving the `cmdOn` signal, do
+`offOnAction` and enter the `ON` state.
+
+* In state `ON`, on receiving the `cmdOff` signal, do
+`onOffAction` and enter the `OFF` state.
+
+When multiple actions appear in an action list, as in the initial
+transition specifier shown above, the actions occur in the order
+listed.
+Each action list is an
+<<Defining-Constants_Multiple-Definitions-and-Element-Sequences,
+element sequence>> with a comma as the optional
+terminating punctuation.
+
+==== Entry and Exit Actions
+
+In addition to doing actions on transitions, a state machine
+can do actions on entry to or exit from a state.
+To do actions like this, you write *state entry specifiers*
+and *state exit specifiers*.
+For example, here is the `Device` state machine from
+the previous section, with state entry and exit specifiers
+added to the `ON` and `OFF` states:
+
+[source,fpp]
+----
+@ A state machine representing a device with on-off behavior,
+@ with actions on transitions and on state entry and exit
+state machine Device {
+
+  @ Initial action 1
+  action initialAction1
+
+  @ Initial action 2
+  action initialAction2
+
+  @ An action on the transition from OFF to ON
+  action offOnAction
+
+  @ An action on the transition from ON to OFF
+  action onOffAction
+
+  @ An action on entering the ON state
+  action enterOn
+
+  @ An action on exiting the ON state
+  action exitOn
+
+  @ An action on entering the OFF state
+  action enterOff
+
+  @ An action on exiting the OFF state
+  action exitOff
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ The initial state is OFF
+  @ Before entering the initial state, do initialAction1 and then initialAction2
+  initial do { initialAction1, initialAction2 } enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ On entering the ON state, do enterOn
+    entry do { enterOn }
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    @ Before entering the OFF state, do offAction
+    on cmdOff do { onOffAction } enter OFF
+
+    @ On exiting the ON state, do exitOn
+    exit do { exitOn }
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ On entering the OFF state, do enterOff
+    entry do { enterOff }
+
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    @ Before entering the ON state, do onAction
+    on cmdOn do { offOnAction } enter ON
+
+    @ On exiting the OFF state, do exitOff
+    exit do { exitOff }
+
+  }
+
+}
+----
+
+Here is the graphical representation:
+
+image::diagrams/state-machine/EntryAndExitActions.png[Device state machine with entry and exit actions,500,align="center"]
+
+As with actions on transitions, each entry or exit specifier names
+a list of actions, and the actions are done in the order named.
+The entry actions are done just before entering the state,
+and the exit actions are done just before exiting the state.
+For example, if the state machine is in state `OFF` and it
+receives a `cmdOn` signal, then it runs the following behavior,
+in the following order:
+
+* Exit state `OFF`. On exit, do `exitOff`.
+
+* Transition from `OFF` to `ON`. On the transition, do `offOnAction`.
+
+* Enter state `ON`. On entry, do `enterOn`.
+
+Each state may have at most one entry specifier and at most one
+exit specifier.
+
+==== Typed Signals and Actions
+
+Optionally, signals and actions may carry data values.
+To specify that a signal or action carries a data value,
+you write a colon and a data type at the end of the
+signal or action specifier.
+For example, here is a `Device` state machine in which
+the `cmdOn` signal and the `offOnAction` each carries
+a `U32` counter value:
+
+[source,fpp]
+----
+@ A state machine representing a device with on-off behavior,
+@ with actions on transitions
+state machine Device {
+
+  @ An action on the transition from OFF to ON
+  @ The value counts the number of times this action has occurred
+  action offOnAction: U32
+
+  @ A signal for turning the device on
+  @ The value counts the number of times this signal has been received
+  signal cmdOn: U32
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    @ Before entering the ON state, do offOnAction, passing the data from
+    @ the signal into the action
+    on cmdOn do { offOnAction } enter ON
+
+  }
+
+}
+----
+
+When you send the `cmdOn` signal to an instance of
+this state machine, you must provide a `U32` value.
+When the state machine is in the `OFF` state and it receives
+this signal, it does action `offOnAction` as shown.
+The function that defines the behavior of `offOnAction` has
+a single argument of type `U32`.
+The value provided when the signal is sent is passed as the
+argument to this function.
+
+Here are the rules for writing typed signals and actions:
+
+* When you do an action that has a type, a value
+compatible with that type must be available.
+For example, we can't do the `offOnAction` in the `cmdOff` transition shown
+above, because no `U32`
+value is available there.
+Similarly, no action done in a
+<<Defining-State-Machines_Actions_Entry-and-Exit-Actions,
+state entry or exit specifier>> may carry a value,
+because no values are available on entry to or exit
+from a state.
+
+* The type that appears in a signal or an action can
+be any FPP type.
+In the example above we used a simple `U32` type;
+we could have used, for example, a struct or array type.
+In particular, you can use a struct type to send several
+data values, with each value represented as a member
+of the struct.
+
+* When doing an action with a value, you don't have to
+make the types exactly match.
+For example, you are permitted to pass a `U16` value
+to an action that requires a `U32` value.
+However, the type of the value must be convertible to the type
+specified in the action.
+The type conversion rules are spelled out in full in
+_The FPP Language Specification_.
+In general, the analyzer will allow a conversion if it
+can be safely done for all values of the original type.
+
+* If an action _A_ does not carry any value, then you
+can do _A_ in any context, even if a value is available there.
+For example, in the code shown above, the `cmdOn`
+transition could do some other action that carries no value.
+In this case the value is ignored when doing the action.
+
+=== More on State Transitions
+
+In this section, we provide more details on how to write
+<<Defining-State-Machines_States-Signals-and-Transitions,state transitions>>
+in FPP state machines.
+
+==== Guarded Transitions
+
+Sometimes it is useful to specify that a transition should occur
+only if a certain condition is true.
+For example, you may want to turn on a device, but only if
+it is safe to do so.
+We call this kind of transition a *guarded transition*.
+To specify this transition, you define a *guard*, which
+is an abstract function that returns a Boolean value.
+Then you use the guard in a transition.
+Here is an example:
+
+[source,fpp]
+----
+@ A device state machine with a guarded transition
+state machine Device {
+
+  @ A guard for checking whether the device is in a safe state for power-on
+  guard powerOnIsSafe
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    @ if powerOnIsSafe evaluates to true. Otherwise no transition occurs.
+    on cmdOn if powerOnIsSafe enter ON
+
+  }
+
+}
+----
+
+Here is the graphical representation:
+
+image::diagrams/state-machine/GuardedTransitions.png[Device state machine with a guarded transition,400,align="center"]
+
+In this example, there is one guard, `powerOnIsSafe`.
+The implementation of this function will return true
+if it is safe to power on the device; otherwise it will
+return false.
+In state `OFF`, the transition on signal `cmdOn` is
+now guarded: when the signal is received in this state,
+the transition occurs if and only if `powerOnIsSafe`
+evaluates to `true`.
+
+As with actions, each guard must have a unique name.
+Also as with actions, a guard can have a type; if it does,
+the type must match the type of the signal at the point
+where the guard is evaluated.
+For example, here is a revised version of the previous
+state machine that adds a value of type `DeviceStatus`
+to the guard `powerOnIsSafe`:
+
+[source,fpp]
+----
+@ A type representing the status of a device
+type DeviceStatus
+
+@ A device state machine with a guarded transition
+state machine Device {
+
+  @ A guard for checking whether the device is in a safe state for power-on
+  @ The DeviceStatus value provides the current device status
+  guard powerOnIsSafe: DeviceStatus
+
+  @ A signal for turning the device on
+  @ The DeviceStatus value provides the current device status
+  signal cmdOn: DeviceStatus
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    @ if powerOnIsSafe evaluates to true. Otherwise no transition occurs.
+    on cmdOn if powerOnIsSafe enter ON
+
+  }
+
+}
+----
+
+When you send the signal `cmdOn` to an instance of this state
+machine, you must provide a value of type `DeviceStatus`.
+When the state machine instance evaluates the guard `powerOnIsSafe`,
+it passes in the value as an argument to the function.
+
+==== Self Transitions
+
+When a state transition has the same state _S_ as its source
+and its target, and _S_ has no substates, we call the transition
+a *self transition*.
+In this case the following behavior occurs:
+
+* The state machine does the exit actions for _S_, if any.
+
+* The state machine does the actions specified in the transition, if any.
+
+* The state machine does the entry actions for _S_, if any.
+
+Note that on a self transition, the state machine exits and
+reenters _S_.
+This behavior is a special case of a more general behavior that we will
+discuss
+<<Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions,below>>
+in connection with state hierarchy.
+<<Defining-State-Machines_Hierarchy_Directly-Related-States,Below>>
+we will also generalize the concept of a self transition to
+the case of a state with substates.
+
+As an example, consider the following state machine:
+
+[source,fpp]
+----
+@ A state machine representing a device with on-off behavior,
+@ with a self transition
+state machine Device {
+
+  @ An action on entering the ON state
+  action enterOn
+
+  @ An action to perform on reset
+  action reset
+
+  @ An action on exiting the ON state
+  action exitOn
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ A signal for resetting the device
+  signal cmdReset
+
+  @ The initial state is OFF
+  @ Before entering the initial state, do initialAction1 and then initialAction2
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ On entering the ON state, do enterOn
+    entry do { enterOn }
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
+
+    @ In the ON state, a cmdReset signal causes a self transition
+    on cmdReset do { reset } enter ON
+
+    @ On exiting the ON state, do exitOn
+    exit do { exitOn }
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    on cmdOn enter ON
+
+  }
+
+}
+----
+
+Here is the graphical representation:
+
+image::diagrams/state-machine/SelfTransitions.png[Device state machine with a self transition,400,align="center"]
+
+In this example, when the state machine is in the `ON` state and
+it receives a `cmdReset` signal, the following behavior occurs:
+
+* Do action `exitOn`.
+
+* Do action `reset`.
+
+* Do action `enterOn`.
+
+==== Internal Transitions
+
+An *internal transition* is like a
+<<Defining-State-Machines_More-on-State-Transitions_Self-Transitions,self transition>>,
+except that there is no exit and reentry.
+To write an internal transition, you write the `on` and `do`
+parts of a transition and omit the `enter` part.
+For example, here is a device state machine with a `reset`
+action that causes an internal transition:
+
+[source,fpp]
+----
+@ A state machine representing a device with on-off behavior,
+@ with an internal transition
+state machine Device {
+
+  @ An action on entering the ON state
+  action enterOn
+
+  @ An action to perform on reset
+  action reset
+
+  @ An action on exiting the ON state
+  action exitOn
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ A signal for resetting the device
+  signal cmdReset
+
+  @ The initial state is OFF
+  @ Before entering the initial state, do initialAction1 and then initialAction2
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ On entering the ON state, do enterOn
+    entry do { enterOn }
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
+
+    @ In the ON state, a cmdReset signal causes an internal transition
+    on cmdReset do { reset }
+
+    @ On exiting the ON state, do exitOn
+    exit do { exitOn }
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    on cmdOn enter ON
+
+  }
+
+}
+----
+
+Here is the graphical representation:
+
+image::diagrams/state-machine/InternalTransitions.png[Device state machine with an internal transition,200,align="center"]
+
+In this example, when the state machine is in state `ON` and it
+receives a `cmdReset` signal, it does the `reset` action and
+performs no other behavior.
+
+An internal transition may have a guard.
+For example, we could define a guard `resetIsSafe` and
+write the internal transition as follows:
+
+[source,fpp]
+--------
+on cmdReset if resetIsSafe do { reset }
+--------
+
+As with other transitions, if the signal carries data, then
+any actions and guards names in an internal transition may
+carry data of a compatible type.
+
+=== Choices
+
+A *choice definition* is a state machine member that
+defines a branch point for one or more transitions.
+In this section we explain how to write and use
+choice definitions.
+
+*Basic choice definitions:*
+The most basic choice definition consists of the following:
+
+* A name. Like a state name, this name can be the target
+of a transition.
+
+* The name of a
+<<Defining-State-Machines_More-on-State-Transitions_Guarded-Transitions,guard>>
+_G_.
+The evaluation of _G_ selects which branch of the choice to
+follow.
+
+* An *if transition* that specifies what to do if _G_
+evaluates to `true`.
+
+* An *else transition* that specifies what to do if _G_
+evaluates to `false`.
+
+Each of the if and else transitions has a target,
+which can be a state or a choice.
+
+Here is an example:
+
+[source,fpp]
+----
+@ A device state machine with a choice
+state machine Device {
+
+  @ A guard for checking whether the device is in a safe state for power-on
+  guard powerOnIsSafe
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ A signal for resetting the device
+  signal cmdReset
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a cmdOff signal causes a transition to the choice ON_OR_ERROR
+    on cmdOn enter ON_OR_ERROR
+
+  }
+
+  @ The ON_OR_ERROR choice
+  choice ON_OR_ERROR {
+    if powerOnIsSafe enter ON else enter ERROR
+  }
+
+  @ The ERROR state
+  state ERROR {
+
+    @ In the ERROR state, a cmdReset signal causes a transition to the OFF state
+    on cmdReset enter OFF
+
+  }
+
+}
+----
+
+Here is the graphical representation:
+
+image::diagrams/state-machine/Choices.png[Device state machine with a choice,450,align="center"]
+
+This version of the `Device` state machine has three states:
+`ON`, `OFF`, and `ERROR`.
+It also has a choice `ON_OR_ERROR`.
+Each instance of the state machine has the following behavior:
+
+* The initial state is `OFF`.
+
+* On receiving the signal `cmdOn` in the `OFF` state, it
+enters the choice `ON_OR_ERROR`.
+At that point, if `powerOnIsSafe` evaluates to `true`, then
+it enters then `ON` state.
+Otherwise it enters the `ERROR` state.
+
+* On receiving the signal `cmdReset` in the `ERROR` state,
+it enters the `OFF` state.
+
+* On receiving the signal `cmdOff` in the `ON` state,
+it enters the `OFF` state.
+
+The text inside the curly braces of a choice consists
+of a single line.
+To write the text on multiple lines, you can use an
+<<Defining-Constants_Multiline-Definitions,explicit line
+continuation>>. For example:
+
+[source,fpp]
+--------
+choice ON_OR_ERROR {
+  if powerOnIsSafe \
+  enter ON \
+  else enter ERROR
+}
+--------
+
+*Initial transitions to choices:*
+An initial transition can go to a choice.
+This pattern can express conditional behavior on state
+machine startup.
+For example, in the `Device` state machine shown above,
+we could have the initial transition go to a choice
+that checks a safety condition and then enters either
+the `OFF` state or an error state.
+
+*Choice transitions to choices:*
+An if transition or an else transition of a choice
+(or both) can enter another choice.
+For example, it is permissible to write a chain of
+choices like this:
+
+[source,fpp]
+--------
+choice C {
+  if g1 enter C1 else enter C2
+}
+
+choice C1 {
+  if g2 enter S1 else enter S2
+}
+
+choice C2 {
+  if g3 enter S3 else enter S4
+}
+--------
+
+Effectively this is a four-way choice; it is a two-way
+choice, each branch of which leads to a two way choice.
+By having the if or else branch of `C1` go directly
+to a state, you could get a three-way choice.
+And by adding more levels, you can create an _n_ -way
+choice for any _n_.
+In this way you can use choices to create arbitrarily
+complex branching patterns.
+Note though, that it is usually a good idea not to have
+more than a few levels of choices; otherwise the state
+machine can be complex and hard to understand.
+
+*The type associated with a choice:*
+Like initial transitions and state transitions, the
+transitions out of a choice may
+<<Defining-State-Machines_Actions_Typed-Signals-and-Actions,
+carry a value>>.
+To determine whether the transitions of a choice _C_ carry a value,
+and if so what type that value has, we use the following rules:
+
+. If any transition into _C_ carries no value,
+then transitions out of _C_ carry no value.
+
+. Otherwise if all of the transitions into _C_ carry
+a value of the same type _T_, then each of the
+transitions out of _C_ carries a value of type _T_.
+
+. Otherwise if the incoming types can be resolved to
+a common type _T_, then each of the transitions out of _C_
+carries a value of type _T_.
+The rules for resolving common types are given in
+_The FPP Language Specification_.
+The basic idea is to find a type to which it is always
+safe to cast all the incoming types.
+
+. Otherwise the analyzer reports an error.
+
+*Actions in choice transitions:*
+You can do actions in choice transitions just as for
+<<Defining-State-Machines_Actions,initial transitions and
+state transitions>>.
+For example, suppose we add the definitions of actions `onAction` and
+`errorAction` to the `Device` state machine shown above.
+Then we could revise the `ON_OR_ERROR` choice to read as follows:
+
+[source,fpp]
+--------
+choice ON_OR_ERROR {
+  if powerOnIsSafe do onAction enter ON else do errorAction enter ERROR
+}
+--------
+
+As for other kinds of transitions, the actions done in choice
+transitions may carry values.
+If an action _A_ done in a transition of a choice _C_ carries a value,
+the type named in the definition of _A_ must be
+compatible with the type associated with _C_, as discussed above.
+
+*Entry and exit actions:*
+When a transition _T_ of a state machine _M_
+goes to or from a choice, entry and
+exit actions are done as if each choice were a state with
+no entry and or exit actions.
+For example, let _I_ be an instance of _M_, and
+suppose _I_ is carrying out a transition _T_.
+
+* If _T_ goes from a choice _C_ to a state _S_,
+then _I_
+does the actions of _T_ followed by the entry actions of _S_.
+
+* If _T_ goes from a state _S_ to a choice _C_,
+then _I_
+does the exit actions of _S_ followed by the actions of _T_.
+
+* If _T_ goes from a choice _C_~1~ to a choice _C_~2~,
+then _I_ does the actions of _T_.
+
+*Rules for choice definitions:*
+Choice definitions must conform to the following rules:
+
+* No state or choice may have the same name as any other
+state or choice.
+
+* Every choice must be reachable from the initial transition
+or from a state transition.
+
+* There may be no cycles of choice transitions.
+For example, it is not permitted for a choice `C1` to
+have a transition to a choice `C2` that has a transition
+back to `C1`.
+Nor is it permissible for `C1` to go to `C2`, `C2` to
+go to `C3`, and `C3` to go to `C1`.
+
+=== Hierarchy
+
+As with UML state machines, FPP state machines can have *hierarchy*.
+That is, we can do the following:
+
+* Define states within other states.
+When a state _T_ is defined within a state _S_, _S_ is called the
+*parent* of _T_, and _T_ is called a *substate* or *child* of _S_.
+
+* Define choices within states.
+
+Using hierarchy, we can do the following:
+
+* Group related substates under a single parent.
+This grouping lets us express the state machine structure in a
+disciplined and modular way.
+
+* Define behaviors of a parent state that are inherited
+by its substates.
+The parent behavior saves having to redefine the behavior for each
+substate.
+
+* Control the way that entry and exit actions occur
+when transitions cross state boundaries.
+
+A state machine with hierarchy is called a
+*hierarchical state machine*.
+In the following subsections, we explain how to define
+hierarchical state machines in FPP.
+
+==== Substates
+
+In this section we explain how to define and use substates.
+
+*An example:*
+Here is an example of a state machine with substates:
+
+[source,fpp]
+----
+@ A device state machine with substates
+state machine Device {
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ A signal for indicating that the device is in an unsafe state
+  signal cmdUnsafe
+
+  @ A signal for indicating that the device is in a safe state
+  signal cmdSafe
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
+
+    @ In the ON state, a cmdUnsafe signal causes a transition to OFF.UNSAFE
+    on cmdUnsafe enter OFF.UNSAFE
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ The initial state is SAFE
+    initial enter SAFE
+
+    @ The state OFF.SAFE
+    @ In this state, it is safe to turn on the device
+    state SAFE {
+
+      @ In the SAFE state, a cmdOff signal causes a transition to the ON state
+      on cmdOn enter ON
+
+      @ In the SAFE state, a cmdUnsafe signal causes a transition to the UNSAFE state
+      on cmdUnsafe enter UNSAFE
+
+    }
+
+    @ The state OFF.UNSAFE
+    @ In this state, it is not safe to turn on the device
+    state UNSAFE {
+
+      @ In the UNSAFE state, a cmdSafe signal causes a transition to the SAFE state
+      on cmdSafe enter SAFE
+
+    }
+
+  }
+
+}
+----
+
+Here is the graphical representation:
+
+image::diagrams/state-machine/Substates.png[Device state machine with substates,500,align="center"]
+
+This state machine has four states: `ON`, `OFF`, `OFF.SAFE`, and `OFF.UNSAFE`.
+The last two states are substates of `OFF`.
+Notice the following:
+
+* The substates are defined syntactically within the parent state.
+
+* The full names of the substates are qualified by the name of the parent state.
+
+* Inside the scope of the parent state, you can refer
+to the substates by the shorter name that omits the implied qualifier.
+The way the qualification works for state names is identical to the
+way it works for <<Defining-Modules,module names>>.
+
+An instance _m_ of this state machine has the following behavior:
+
+. When _m_ starts up, it runs its initial transition specifier, just as for
+<<Defining-State-Machines_States-Signals-and-Transitions, a state machine
+without hierarchy>>.
+The state machine enters state `OFF`.
+`OFF` is a parent state, so it in turn has an initial transition
+specifier which is run.
+The state machine enters `OFF.SAFE`.
+
+. In state `ON`, the following behavior occurs:
+
+.. When _m_ receives signal `cmdOff`, it enters state
+`OFF`. This entry causes it to enter state `OFF.SAFE` as discussed above.
+
+.. When _m_ receives signal `cmdUnsafe`, it goes
+directly to `OFF.UNSAFE`, bypassing the `OFF` state and its initial
+transition.
+
+. In state `OFF.SAFE`, the following behavior occurs:
+
+.. When _m_ receives signal `cmdOn`, it enters
+the `ON` state.
+
+.. When _m_ receives signal `cmdUnsafe`, it
+enters the `OFF.UNSAFE` state.
+
+. In state `OFF.UNSAFE`, when _m_ receives signal
+`cmdSafe`, it enters the `OFF.SAFE` state.
+
+*Rules for substates:*
+Here are the rules for defining substates:
+
+. Each parent state _S_ must have exactly one initial transition
+specifier that enters a substate of _S_.
+
+. Each state, including parents and substates, must be reachable
+from the initial transition of the state machine or from
+a state transition.
+
+. Substates may themselves be parents (i.e., may have substates),
+to any depth.
+
+Rule 1 ensures that the final target of every transition,
+after following all initial transition specifiers, is a
+*leaf state*, i.e., a state that has no substates.
+
+*The hierarchy tree:*
+When a state _S_ is a parent of a state _S'_, we say that _S_ is an
+*ancestor* of _S'_ in the state hierarchy.
+We also say that _S_ is an ancestor of _S'_ if it is a parent of
+an ancestor of _S'_.
+For example, if _S_ is a parent of a parent of _S'_, then
+_S_ is an ancestor of _S'_.
+Note that a state is never an ancestor of itself.
+
+When a state _S_ is a an ancestor of a state _S'_, we
+say that _S'_ is a *descendant* of _S_.
+For example, _S'_ is a descendant of _S_ if _S'_
+is a child of _S_, or if _S'_ is a child of a child of
+_S_.
+Note that a state is never a descendant of itself.
+
+In order to make the state hierarchy into a tree, we also
+say that the entire state machine _M_ is a parent of every top-level
+state in the state machine.
+This means that (1) _M_ is an ancestor of every
+state in _M_ and (2) every state in _M_ is a descendant of _M_.
+We will say that the tree constructed in this way is the
+*hierarchy tree* for _M_, and that each of _M_ and every state
+in _M_ is a *node* in the hierarchy tree.
+In particular, _M_ is the root node of the hierarchy tree.
+
+==== Inherited Transitions
+
+In general, when a transition _T_ is defined in a parent state _S_,
+_T_ behaves as if it were defined in each of the
+<<Defining-State-Machines_Hierarchy_Substates, leaf states>> that is a
+<<Defining-State-Machines_Hierarchy_Substates, descendant of _T_>>.
+In this case we say that _T_ is *inherited* by each of the leaf states.
+There is an important exception to this rule:
+When a state _S_ defines a transition _T_ on a signal _s_,
+and a descendant _S'_ of _S_ defines another transition _T'_
+on the same signal _s_, the behavior of _T'_ takes precedence
+over the inherited transition _T_ in the behavior of _S'_.
+This rule is called *behavioral polymorphism* for transitions.
+
+*Example:*
+Here is an example that illustrates inherited transitions
+and behavioral polymorphism:
+
+[source,fpp]
+----
+@ A device state machine with inherited transitions and behavioral polymorphism
+state machine Device {
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ A signal for indicating that the device is in an unsafe state
+  signal cmdUnsafe
+
+  @ A signal for indicating that the device is in a safe state
+  signal cmdSafe
+
+  @ The initial state is DEVICE
+  initial enter DEVICE
+
+  @ The DEVICE state
+  state DEVICE {
+
+    @ The initial state is OFF
+    initial enter OFF
+
+    @ In the DEVICE state, a cmdUnsafe signal causes a transition to OFF.UNSAFE
+    on cmdUnsafe enter OFF.UNSAFE
+
+    @ The ON state
+    state ON {
+
+      @ In the ON state, a cmdOff signal causes a transition to the OFF state
+      on cmdOff enter OFF
+
+    }
+
+    @ The OFF state
+    state OFF {
+
+      @ The initial state is SAFE
+      initial enter SAFE
+
+      @ The state OFF.SAFE
+      @ In this state, it is safe to turn on the device
+      state SAFE {
+
+        @ In the SAFE state, a cmdOff signal causes a transition to the ON state
+        on cmdOn enter ON
+
+      }
+
+      @ The state OFF.UNSAFE
+      @ In this state, it is not safe to turn on the device
+      state UNSAFE {
+
+        @ In the UNSAFE state, a cmdSafe signal causes a transition to the SAFE state
+        on cmdSafe enter SAFE
+
+        @ In the UNSAFE state, a cmdUnsafe signal causes no action
+        on cmdUnsafe do { }
+
+      }
+
+    }
+
+  }
+
+}
+----
+
+Here is the graphical representation:
+
+image::diagrams/state-machine/InheritedTransitions.png[Device state machine with inherited transitions,600,align="center"]
+
+Here we have rewritten the
+<<Defining-State-Machines_Hierarchy_Substates,
+`Device` state machine from the previous section>>
+so that all the states in that example are descendants of a single state
+`DEVICE`.
+By doing this, we can have a single transition out of `DEVICE` on signal
+`cmdUnsafe`.
+Before we had to write out the same transition twice,
+once in the state `ON` and once in the state `OFF.SAFE`.
+Here we can write the transition once in the ancestor state, and
+it is inherited by all the descendants.
+
+There is one catch, though: in the previous example, we did not define
+the transition on `cmdUnsafe` in the state `OFF.UNSAFE`.
+Here, if we use inheritance in the obvious way, the transition will
+be inherited by all the descendants of `DEVICE`, including `OFF.UNSAFE`,
+so the behavior will not be exactly the same as for the previous
+state machine.
+This may not matter much in this example, but it would matter if the
+the state `DEVICE.OFF.UNSAFE` had entry or exit actions; in this case
+transition from `UNSAFE` to itself (which is a
+<<Defining-State-Machines_More-on-State-Transitions_Self-Transitions,self transition>>)
+would cause an exit from and reentry to the state, which we may not want.
+
+To remedy this situation, we use behavioral polymorphism.
+In the state `DEVICE.OFF.UNSAFE`, we define an
+<<Defining-State-Machines_More-on-State-Transitions_Internal-Transitions,internal
+transition>>
+that has an empty list of actions and so does nothing.
+This transition overrides the transition provided in the ancestor state,
+so it restores the behavior that, on receipt of the signal
+`cmdUnsafe` in the state `DEVICE.OFF.UNSAFE`, nothing happens.
+
+*Syntactic and flattened state transitions:*
+Once we introduce substates and inheritance, it is useful to
+distinguish *syntactic state transitions* from *flattened state transitions*.
+A syntactic state transition is a state transition in the FPP source
+for a state machine _M_.
+A flattened state transition is a transition that results from
+applying the rules for transition inheritance to a syntactic
+state transition.
+We say the transition is "`flattened`" because we create
+it by moving the left side of the transition down to a leaf state.
+This move flattens the hierarchy on the left
+side of the transition.
+
+When there is no hierarchy, a syntactic transition from state
+_S_~1~ to _S_~2~ generates exactly one flattened transition,
+also from _S_~1~ to _S_~2~.
+Once we have hierarchy, however, syntactic and flattened
+state transitions may be different.
+For example, suppose that _S_~1~ is a parent state,
+and let _T_ be a syntactic transition from _S_~1~ to _S_~2~.
+Then for each descendant _L_ of _S_~1~ that is a leaf state, there is a flattened
+state transition from _L_ to _S_~2~.
+Note in particular that whereas a syntactic state transition may
+have a parent state as its source, a flattened state transition always
+has a leaf state as its source.
+This distinction between syntactic and flattened state transitions
+will be useful when we discuss entry and exit actions
+in the following sections.
+
+*Internal transitions:*
+<<Defining-State-Machines_More-on-State-Transitions_Internal-Transitions,
+Internal transitions>> are flattened and inherited like other transitions,
+except that there is no target state.
+When a parent state _S_ defines an internal transition, the following occurs:
+
+* There is one flattened transition for each leaf state that
+that is a descendant of _S_.
+
+* The behavior of each flattened transition is to stay in _S_
+and do the actions listed in the transition.
+There is no state change, and no entry or exit actions are done.
+
+* As usual, any of these flattened transitions may be overridden
+by behavioral polymorphism.
+
+==== Entry and Exit Actions
+
+In previous sections on
+<<Defining-State-Machines_Actions_Entry-and-Exit-Actions,
+entry and exit actions>> and on
+<<Defining-State-Machines_More-on-State-Transitions_Self-Transitions,
+self transitions>>,
+we explained the order in which actions occur during a transition between
+states without hierarchy.
+Each of the behaviors described there is a special case of a more general
+behavior for state machines with hierarchy, which we now describe.
+
+*General behavior:*
+Suppose, in the course of running an instance of a state machine _M_,
+a <<Defining-State-Machines_Hierarchy_Inherited-Transitions,
+flattened state transition>> _T_
+occurs from state _L_ to state _S_.
+By the definition of a flattened state transition, we know
+that _L_ is a leaf state.
+When carrying out the transition _T_, the state machine instance will do
+actions as follows:
+
+. Compute the *least common ancestor* of _L_ and _S_.
+This is the unique node _N_ of the <<Defining-State-Machines_Hierarchy_Substates,
+hierarchy tree>> of _M_ such that (a) _N_ is an ancestor of _L_,
+(b) _N_ is an ancestor of _S_, and (c) there is no node _N'_
+that is a descendant of _N_ and that satisfies properties (a) and (b).
+
+. Traverse the hierarchy tree upwards from _L_ to _N_.
+At each point where the traversal passes out of a state _S'_, in the
+order of the traversal, do the exit actions of _S'_, if any.
+
+. Do the actions specified in _T_, if any.
+
+. Traverse the hierarchy tree downwards from _N_ to _S_.
+At each point where the traversal enters a state _S'_, in the
+order of the traversal, do the entry actions of _S'_, if any.
+
+For example, suppose that _M_ has a state _A_ with substates
+_B_ and _C_, _B_ has substate _D_, and _C_ has substate _E_.
+Suppose that _T_ goes from _C_ to _E_.
+Then least common ancestor is _A_, and the following actions
+would be done, in the following order:
+the exit actions of _C_, the exit actions of _B_,
+the actions of _T_, the entry actions of _C_, and the
+entry actions of _E_.
+
+Remember also that if _E_ is not a leaf state, then _T_ will
+<<Defining-State-Machines_Hierarchy_Substates,follow
+one or more transitions to go to a leaf state>>.
+In this case, any actions specified in those transitions are
+done as well,
+after the transitions described above, and in the order that
+the initial transitions are run.
+
+Finally, the algorithm above is described in a way
+that emphasizes ease of understanding.
+As stated, it is inefficient because it
+recomputes the least common ancestor every time a flattened state
+transition occurs.
+In fact all the sequences of exit and entry actions for flattened
+state transitions can be computed before generating code, and
+it is more efficient to do this.
+This is how the FPP code generator works.
+For more details, see the algorithm descriptions on the
+https://github.com/nasa/fpp/wiki/Compute-Flattened-State-Transition-Map[FPP wiki].
+
+*The special case of no hierarchy:*
+The general behavior described above agrees with the special-case
+behavior that we described in the section on
+<<Defining-State-Machines_Actions_Entry-and-Exit-Actions,
+entry and exit actions for state machines without hierarchy>>.
+When a state machine _M_ has no hierarchy, a every state transition _T_
+is a flattened transition that goes from a leaf state _L_ to a leaf
+state _S_, both of which are children of _M_ in the hierarchy tree.
+So we always exit _L_, do the actions of _T_, and enter _S_.
+
+In particular,
+the general behavior agrees with the behavior that we previously
+described for
+<<Defining-State-Machines_More-on-State-Transitions_Self-Transitions,
+self transitions>>.
+When _L_ and _S_ are the same leaf state, the least common
+ancestor of _L_ and _S_ is the parent _P_ of _S_.
+So we exit _S_ to go up to _P_, do the actions of _T_, and
+reenter _S_.
+
+==== Directly Related States
+
+Let _S_~1~ and _S_~2~ be states.
+If _S_~1~ is equal to S~2~, or _S_~1~ is an ancestor of S~2~, or S~2~
+is an ancestor of _S_~1~, then we say that _S_~1~ and S~2~ are
+*directly related* in the hierarchy tree.
+
+In this section we describe the behavior of transitions between
+directly related states.
+Each of the behaviors described below follows from the general behavior
+presented in the previous section.
+However, in some cases the behavior may be subtle or surprising.
+
+*Flattened transitions to ancestors:*
+When a transition _T_ goes from a leaf state _L_ to a state _A_
+that is an ancestor of _L_, we call _T_ a
+*flattened transition to an ancestor*.
+The least common ancestor
+of _L_ and _A_ is the parent _P_ of _A_.
+Therefore the following behavior occurs:
+
+. Do exit actions to get from _L_ to _P_. The last actions will
+be the exit actions of _A_, if any.
+
+. Do the actions of _T_, if any.
+
+. Do the entry actions of _A_, if any.
+
+*Syntactic transitions to ancestors:*
+Consider a state transition _T_ of the form
+`on` _s_ `enter` _A_ that is defined in the state _S_,
+where _A_ is an ancestor of _S_.
+We call this kind of state transition a
+*syntactic transition to an ancestor*.
+If _S_ is a leaf state, then it represents
+a flattened transition to the ancestor _A_.
+Otherwise it represents one flattened transition
+to the ancestor _A_ for each descendant of _S_ that
+is a leaf state.
+Because of
+<<Defining-State-Machines_Hierarchy_Inherited-Transitions,
+behavioral polymorphism>>, any of the flattened transitions may
+be overridden.
+
+*Flattened transitions to self:*
+A *flattened transition to self* is a transition
+from a leaf state _L_ to itself.
+This is what we previously called a
+<<Defining-State-Machines_More-on-State-Transitions_Self-Transitions,self
+transition>>.
+
+*Syntactic transitions to self:*
+Consider a state transition _T_ of the form
+`on` _s_ `enter` _S_ that is defined in the state _S_.
+In general we call this kind of state transition a
+*syntactic transition to self*.
+If _S_ is a leaf state, then _T_ a flattened
+transition to self.
+In particular, when there is no hierarchy, every syntactic
+transition to self is a self transition.
+If _S_ is not a leaf state, then _T_ is flattened
+to one or more transitions from leaf states _L_ that are
+descendants of _S_.
+Each of these transitions is a flattened transition
+to the ancestor _S_.
+Because of
+<<Defining-State-Machines_Hierarchy_Inherited-Transitions,
+behavioral polymorphism>>, any of the flattened transitions may
+be overridden.
+
+*Flattened transitions to descendants:*
+In theory, a *flattened transition to a descendant* would
+be a transition from a leaf node _L_ to a descendant _D_ of _L_.
+However, leaf nodes have no descendants, so no such transition
+is possible.
+We include the category for completeness.
+It has no members.
+
+*Syntactic transitions to descendants:*
+Consider a state transition _T_ of the form
+`on` _s_ `enter` _D_ that is defined in the state _S_,
+where _D_ is a descendant of _S_.
+We call this kind of state transition a
+*syntactic transition to a descendant*.
+By symmetry with syntactic transitions to ancestors,
+you might expect that the first behavior when
+making such a transition is to exit and reenter _S_.
+However, this is not what happens.
+Instead, _T_ represents one flattened transition
+from each leaf state that is a descendant of _S_.
+The flattened transitions have the following properties:
+
+. If _D_ is a leaf state, then the flattened
+transition out of _D_ (and only that transition)
+is a flattened transition to self.
+
+. Otherwise (a) none of the flattened transitions
+is a flattened transition to self, and (b) the
+flattened transitions out of the descendants of _D_
+are flattened transitions to the ancestor _D_.
+
+In either case, because of
+<<Defining-State-Machines_Hierarchy_Inherited-Transitions,
+behavioral polymorphism>>, any of the flattened transitions may
+be overridden.
+
+==== Choices
+
+Like state definitions, choice definitions are hierarchical.
+That is, you may define a choice inside a state.
+The names of choices are qualified by the enclosing
+state names
+<<Defining-State-Machines_Hierarchy_Substates,as for the
+names of substates>>.
+For example, you can write this:
+
+[source,fpp]
+--------
+state machine M {
+  ...
+  state S {
+    ...
+    choice C { ... }
+    ...
+  }
+
+}
+--------
+
+The dots represent omitted text needed to make the state machine valid.
+In this example, the qualified name of the choice is `S.C`.
+Inside state `S`, you can refer to the choice as `S.C` or `C`.
+Outside state `S`, you must refer to it as `S.C`.
+
+*Initial transitions to choices:*
+When an initial transition _I_ goes to a choice _C_,
+_C_ and _I_ must have the same parent _P_ in the
+<<Defining-State-Machines_Hierarchy_Substates,hierarchy tree>>.
+In addition, each transition out of _C_ must go to a state
+or choice with parent _P_; and if it goes
+to a choice, then each transition out of that choice must
+go to a state or choice with parent _P_, and so forth.
+Another way to say this is that (since no cycles of transitions
+through choices are allowed) each transition
+path out of _I_ must go through zero or more choices with parent _P_
+to a state with parent _P_.
+
+For example, this state machine is allowed:
+
+[source,fpp]
+----
+state machine ValidInitialChoice {
+
+  guard g
+
+  initial enter S1
+
+  state S1 {
+
+    @ This initial transition is valid: C, S2, and S3 all have parent S1
+    initial enter C
+
+    choice C { if g enter S2 else enter S3 }
+
+    state S2
+
+    state S3
+
+  }
+
+}
+----
+
+But this one is not:
+
+
+[source,fpp]
+--------
+state machine InvalidInitialChoice {
+
+  guard g
+
+  initial enter S1
+
+  state S1 {
+
+    @ This initial transition is invalid: C has parent S1,
+    @ but S2 and S3 have parent InvalidInitialChoice
+    initial enter C
+
+    choice C { if g enter S2 else enter S3 }
+
+  }
+
+  state S2
+
+  state S3
+
+}
+--------
+
+*Entry and exit actions:*
+As in the <<Defining-State-Machines_Choices,non-hierarchical case>>,
+when a transition _T_ of a state machine _M_
+goes to or from a choice, entry and
+exit actions occur as if each choice were a leaf state with
+no entry or exit actions.
+For example, suppose that _M_ has a state _S_ with substates
+_A_ and _B_, _A_ has a choice _C_, and _B_ has substate _B'_.
+Suppose that _T_ goes from _C_ to _B'_.
+Then least common ancestor is _S_, and the following actions
+would be done, in the following order:
+the exit actions of _A_, the actions of _T_, the entry actions of _B_, and the
+entry actions of _B'_.

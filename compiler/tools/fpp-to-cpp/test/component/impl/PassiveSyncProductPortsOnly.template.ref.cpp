@@ -4,7 +4,6 @@
 // \brief  cpp file for PassiveSyncProductPortsOnly component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "PassiveSyncProductPortsOnly.hpp"
 
 // ----------------------------------------------------------------------

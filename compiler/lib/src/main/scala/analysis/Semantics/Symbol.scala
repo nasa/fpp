@@ -4,18 +4,7 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** A data structure that represents a definition */
-sealed trait Symbol {
-
-  /** Gets the location of the symbol */
-  final def getLoc: Location = Locations.get(getNodeId)
-
-  /** Gets the AST node ID of the symbol */
-  def getNodeId: AstNode.Id
-
-  /** Gets the unqualified name of the symbol */
-  def getUnqualifiedName: Name.Unqualified
-
-}
+sealed trait Symbol extends SymbolInterface
 
 object Symbol {
 

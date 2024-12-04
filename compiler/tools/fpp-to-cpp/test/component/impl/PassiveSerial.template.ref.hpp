@@ -30,7 +30,7 @@ class PassiveSerial :
   PRIVATE:
 
     // ----------------------------------------------------------------------
-    // Handler implementations for user-defined typed input ports
+    // Handler implementations for typed input ports
     // ----------------------------------------------------------------------
 
     //! Handler implementation for noArgsGuarded
@@ -120,7 +120,7 @@ class PassiveSerial :
   PRIVATE:
 
     // ----------------------------------------------------------------------
-    // Handler implementations for user-defined serial input ports
+    // Handler implementations for serial input ports
     // ----------------------------------------------------------------------
 
     //! Handler implementation for serialGuarded

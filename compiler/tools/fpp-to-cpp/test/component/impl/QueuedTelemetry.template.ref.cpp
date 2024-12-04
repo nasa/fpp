@@ -4,7 +4,6 @@
 // \brief  cpp file for QueuedTelemetry component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "QueuedTelemetry.hpp"
 
 // ----------------------------------------------------------------------
@@ -25,7 +24,7 @@ QueuedTelemetry ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined typed input ports
+// Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
 void QueuedTelemetry ::

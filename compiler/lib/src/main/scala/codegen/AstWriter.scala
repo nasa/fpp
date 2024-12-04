@@ -20,6 +20,19 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("def abs type") ++ ident(node.data.name).map(indentIn)
   }
 
+  override def defActionAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefAction]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("def action") ++
+    (
+      ident(data.name) ++
+      linesOpt(typeNameNode, data.typeName)
+    ).map(indentIn)
+  }
+
   override def defArrayAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefArray]]
@@ -34,6 +47,20 @@ object AstWriter extends AstVisitor with LineUtils {
       linesOpt(addPrefix("default", exprNode), data.default),
       linesOpt(addPrefix("format", applyToData(string)), data.format)
     ).map(indentIn)
+  }
+
+  override def defChoiceAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefChoice]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    val guard = data.guard
+    lines("def choice") ++
+    (ident(data.name) ++
+    addPrefix("guard", applyToData(ident)) (data.guard) ++
+    transitionExpr(data.ifTransition.data) ++
+    transitionExpr(data.elseTransition.data)).map(indentIn)
   }
 
   override def defComponentAnnotatedNode(
@@ -96,6 +123,19 @@ object AstWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
+  override def defGuardAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefGuard]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("def guard") ++
+    (
+      ident(data.name) ++
+      linesOpt(typeNameNode, data.typeName)
+    ).map(indentIn)
+  }
+
   override def defModuleAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefModule]]
@@ -120,12 +160,43 @@ object AstWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
+  override def defSignalAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefSignal]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("def signal") ++
+    (
+      ident(data.name) ++
+      linesOpt(typeNameNode, data.typeName)
+    ).map(indentIn)
+  }
+
+  override def defStateAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefState]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("def state") ++
+    (
+      ident(data.name) ++
+      data.members.flatMap(stateMember)
+    ).map(indentIn)
+  }
+
   override def defStateMachineAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
   ) = {
     val (_, node, _) = aNode
-    lines("def state machine") ++ ident(node.data.name).map(indentIn)
+    val data = node.data
+    lines("def state machine") ++
+    (
+      ident(data.name) ++
+      data.members.getOrElse(Nil).flatMap(stateMachineMember)
+    ).map(indentIn)
   }
 
   override def defStructAnnotatedNode(
@@ -345,6 +416,16 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("spec include") ++ fileString(data.file.data).map(indentIn)
   }
 
+  override def specInitialTransitionAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecInitialTransition]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("spec initial") ++
+    transitionExpr(data.transition.data).map(indentIn)
+  }
+
   override def specInternalPortAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecInternalPort]]
@@ -459,6 +540,26 @@ object AstWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
+  override def specStateEntryAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateEntry]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("spec state entry") ++
+    actionList(data.actions).map(indentIn)
+  }
+
+  override def specStateExitAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateExit]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("spec state exit") ++
+    actionList(data.actions).map(indentIn)
+  }
+
   override def specStateMachineInstanceAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]
@@ -472,6 +573,18 @@ object AstWriter extends AstVisitor with LineUtils {
       linesOpt(addPrefix("priority", exprNode), data.priority),
       linesOpt(queueFull, data.queueFull)
     ).map(indentIn)
+  }
+
+  override def specStateTransitionAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateTransition]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("spec state transition") ++
+    (addPrefix("signal", applyToData(ident)) (data.signal) ++
+    linesOpt(addPrefix("guard", applyToData(ident)), data.guard) ++
+    transitionOrDo(data.transitionOrDo)).map(indentIn)
   }
 
   override def specTlmChannelAnnotatedNode(
@@ -594,12 +707,16 @@ object AstWriter extends AstVisitor with LineUtils {
     annotate(a1, l, a2)
   }
 
+  private def actionList(actions: List[AstNode[Ast.Ident]]): List[Line] =
+    actions.map(node => line(s"action ident ${node.data}"))
+
   private def defEnumConstant(dec: Ast.DefEnumConstant) =
     lines("def enum constant") ++
     List.concat(
       ident(dec.name),
       linesOpt(exprNode, dec.value)
     ).map(indentIn)
+
 
   private def exprNode(node: AstNode[Ast.Expr]): Out =
     matchExprNode((), node)
@@ -661,6 +778,18 @@ object AstWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
+  private def stateMachineMember(member: Ast.StateMachineMember) = {
+    val (a1, _, a2) = member.node
+    val l = matchStateMachineMember((), member)
+    annotate(a1, l, a2)
+  }
+
+  private def stateMember(member: Ast.StateMember) = {
+    val (a1, _, a2) = member.node
+    val l = matchStateMember((), member)
+    annotate(a1, l, a2)
+  }
+
   private def string(s: String) = s.split('\n').map(line).toList
 
   private def structMember(sm: Ast.StructMember) =
@@ -684,6 +813,19 @@ object AstWriter extends AstVisitor with LineUtils {
     val (a1, _, a2) = tm.node
     annotate(a1, l, a2)
   }
+
+  private def transitionExpr(transition: Ast.TransitionExpr) =
+    List.concat(
+      actionList(transition.actions),
+      addPrefix("target", applyToData(qualIdent)) (transition.target)
+    )
+
+  private def transitionOrDo(tod: Ast.TransitionOrDo) =
+    tod match {
+      case Ast.TransitionOrDo.Transition(transition) =>
+        transitionExpr(transition.data)
+      case Ast.TransitionOrDo.Do(actions) => actionList(actions)
+    }
 
   private def tuMember(tum: Ast.TUMember) = moduleMember(tum)
 

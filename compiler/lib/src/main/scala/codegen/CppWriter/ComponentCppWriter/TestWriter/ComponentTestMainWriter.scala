@@ -10,7 +10,11 @@ case class ComponentTestMainWriter(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentTestUtils(s, aNode) {
 
-  private val fileName = ComputeCppFiles.FileNames.getComponentTestMain(name)
+  private val fileName = ComputeCppFiles.FileNames.getComponentTestMain(componentName)
+
+  private val name = componentName
+
+  private val symbol = componentSymbol
 
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)

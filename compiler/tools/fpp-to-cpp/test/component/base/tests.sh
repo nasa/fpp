@@ -4,4 +4,7 @@ empty
 passive
 active
 queued
+sm_choice
+sm_initial
+sm_state
 "

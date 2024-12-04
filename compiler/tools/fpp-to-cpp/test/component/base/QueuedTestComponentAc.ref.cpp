@@ -76,11 +76,12 @@ namespace {
     public:
 
       enum {
-        // Max. message size = size of data + message id + port
-        SERIALIZATION_SIZE =
-          sizeof(BuffUnion) +
-          sizeof(FwEnumStoreType) +
-          sizeof(FwIndexType)
+        // Offset into data in buffer: Size of message ID and port number
+        DATA_OFFSET = sizeof(FwEnumStoreType) + sizeof(FwIndexType),
+        // Max data size
+        MAX_DATA_SIZE = sizeof(BuffUnion),
+        // Max message size: Size of message id + size of port + max data size
+        SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
       };
 
       Fw::Serializable::SizeType getBuffCapacity() const {
@@ -964,6 +965,7 @@ void QueuedTestComponentBase ::
 #endif
   }
 
+  // Create the queue
   Os::Queue::Status qStat = this->createQueue(
     queueDepth,
     static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
@@ -4475,7 +4477,7 @@ void QueuedTestComponentBase ::
 // ----------------------------------------------------------------------
 
 void QueuedTestComponentBase ::
-  log_ACTIVITY_HI_EventActivityHigh()
+  log_ACTIVITY_HI_EventActivityHigh() const
 {
   // Get the time
   Fw::Time _logTime;
@@ -4671,7 +4673,7 @@ void QueuedTestComponentBase ::
   log_COMMAND_EventCommand(
       const Fw::StringBase& str1,
       const Fw::StringBase& str2
-  )
+  ) const
 {
   // Get the time
   Fw::Time _logTime;
@@ -4750,7 +4752,7 @@ void QueuedTestComponentBase ::
 }
 
 void QueuedTestComponentBase ::
-  log_DIAGNOSTIC_EventDiagnostic(E e)
+  log_DIAGNOSTIC_EventDiagnostic(E e) const
 {
   // Get the time
   Fw::Time _logTime;
@@ -4941,7 +4943,7 @@ void QueuedTestComponentBase ::
 }
 
 void QueuedTestComponentBase ::
-  log_WARNING_HI_EventWarningHigh(S s)
+  log_WARNING_HI_EventWarningHigh(S s) const
 {
   // Get the time
   Fw::Time _logTime;
@@ -5131,7 +5133,7 @@ void QueuedTestComponentBase ::
   tlmWrite_ChannelU32Format(
       U32 arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (
@@ -5164,7 +5166,7 @@ void QueuedTestComponentBase ::
   tlmWrite_ChannelF32Format(
       F32 arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (
@@ -5197,7 +5199,7 @@ void QueuedTestComponentBase ::
   tlmWrite_ChannelStringFormat(
       const Fw::StringBase& arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (
@@ -5230,7 +5232,7 @@ void QueuedTestComponentBase ::
   tlmWrite_ChannelEnum(
       const E& arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (
@@ -5263,7 +5265,7 @@ void QueuedTestComponentBase ::
   tlmWrite_ChannelArrayFreq(
       const A& arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (
@@ -5296,7 +5298,7 @@ void QueuedTestComponentBase ::
   tlmWrite_ChannelStructFreq(
       const S& arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (
@@ -5329,7 +5331,7 @@ void QueuedTestComponentBase ::
   tlmWrite_ChannelU32Limits(
       U32 arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (
@@ -5362,7 +5364,7 @@ void QueuedTestComponentBase ::
   tlmWrite_ChannelF32Limits(
       F32 arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (
@@ -5395,7 +5397,7 @@ void QueuedTestComponentBase ::
   tlmWrite_ChannelF64(
       F64 arg,
       Fw::Time _tlmTime
-  )
+  ) const
 {
   if (this->m_tlmOut_OutputPort[0].isConnected()) {
     if (

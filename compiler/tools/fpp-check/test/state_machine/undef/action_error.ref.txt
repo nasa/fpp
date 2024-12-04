@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/undef/action_error.fpp:3.16
+  initial do { a } enter S
+               ^
+error: undefined symbol a

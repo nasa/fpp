@@ -4,7 +4,6 @@
 // \brief  cpp file for PassiveTest component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "PassiveTest.hpp"
 
 // ----------------------------------------------------------------------
@@ -25,7 +24,7 @@ PassiveTest ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined typed input ports
+// Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
 void PassiveTest ::

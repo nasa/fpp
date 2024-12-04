@@ -1,0 +1,110 @@
+@ State machine M
+def state machine
+  ident M
+  @ Action a1
+  def action
+    ident a1
+  @ Action a2
+  def action
+    ident a2
+  @ Action a3
+  def action
+    ident a3
+  @ Action a4
+  def action
+    ident a4
+    type name U32
+  @ Guard g1
+  def guard
+    ident g1
+  @ Guard g2
+  def guard
+    ident g2
+    type name U32
+  @ Signal s1
+  def signal
+    ident s1
+    type name U32
+  @ Signal s2
+  def signal
+    ident s2
+  @ Signal s3
+  def signal
+    ident s3
+  @ Signal s4
+  def signal
+    ident s4
+  @ Signal s5
+  def signal
+    ident s5
+  @ Signal s6
+  def signal
+    ident s6
+  @ Initial transition
+  spec initial
+    action ident a1
+    target qual ident C
+  @ Choice C
+  def choice
+    ident C
+    guard ident g1
+    target qual ident S1
+    target qual ident S2
+  @ State S1
+  def state
+    ident S1
+  @ State S2
+  def state
+    ident S2
+    spec state entry
+      action ident a1
+      action ident a2
+    spec state exit
+      action ident a1
+      action ident a2
+    @ Initial transition
+    spec initial
+      action ident a1
+      action ident a2
+      target qual ident S3
+    @ Choice C
+    def choice
+      ident C
+      guard ident g1
+      action ident a1
+      action ident a2
+      target qual ident S1
+      action ident a2
+      action ident a3
+      target qual ident S2.S3
+    @ State S3
+    def state
+      ident S3
+    @ Transition to S1
+    spec state transition
+      signal ident s1
+      guard ident g1
+      action ident a1
+      target qual ident C
+    spec state transition
+      signal ident s2
+      guard ident g1
+      target qual ident S1
+    @ Transition to S1
+    spec state transition
+      signal ident s3
+      guard ident g1
+      target qual ident S1
+    @ Transition to S1
+    spec state transition
+      signal ident s4
+      target qual ident S1
+    @ Internal transition
+    spec state transition
+      signal ident s5
+      guard ident g1
+      action ident a1
+    @ Internal transition
+    spec state transition
+      signal ident s6
+      action ident a1

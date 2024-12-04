@@ -1,5 +1,6 @@
 package fpp.compiler.analysis
 
+
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
@@ -60,6 +61,11 @@ case class Component(
 
   /** Query whether the component has state machine instances */
   def hasStateMachineInstances = this.stateMachineInstanceMap.size > 0
+
+  /** Query whether the component has state machine instances of
+   *  the specified kind */
+  def hasStateMachineInstancesOfKind(kind: StateMachine.Kind) =
+    this.stateMachineInstanceMap.filter(_._2.getSmKind == kind).size > 0
 
   /** Gets the max identifier */
   def getMaxId: BigInt = {

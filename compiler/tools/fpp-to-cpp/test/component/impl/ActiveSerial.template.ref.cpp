@@ -5,7 +5,6 @@
 // ======================================================================
 
 #include "ActiveSerial.hpp"
-#include "FpConfig.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction
@@ -25,7 +24,7 @@ ActiveSerial ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined typed input ports
+// Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
 void ActiveSerial ::
@@ -179,7 +178,7 @@ void ActiveSerial ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined serial input ports
+// Handler implementations for serial input ports
 // ----------------------------------------------------------------------
 
 void ActiveSerial ::

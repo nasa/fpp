@@ -50,19 +50,29 @@ object AutocodeCppWriter extends CppWriter {
     visitList(s, data.members, matchModuleMember)
   }
 
-  override def defStructAnnotatedNode(
-    s: State,
-    aNode: Ast.Annotated[AstNode[Ast.DefStruct]]
-  ) = {
-    val cppDoc = StructCppWriter(s, aNode).write
-    CppWriter.writeCppDoc(s, cppDoc)
-  }
-
   override def defPortAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefPort]]
   ) = {
     val cppDoc = PortCppWriter(s, aNode).write
+    CppWriter.writeCppDoc(s, cppDoc)
+  }
+
+  override def defStateMachineAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+  ) = StateMachine.getSymbolKind(Symbol.StateMachine(aNode)) match {
+    case StateMachine.Kind.Internal =>
+      val cppDoc = StateMachineCppWriter(s, aNode).write
+      CppWriter.writeCppDoc(s, cppDoc)
+    case StateMachine.Kind.External => Right(s)
+  }
+
+  override def defStructAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.DefStruct]]
+  ) = {
+    val cppDoc = StructCppWriter(s, aNode).write
     CppWriter.writeCppDoc(s, cppDoc)
   }
 

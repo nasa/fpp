@@ -1,0 +1,5 @@
+tests="
+basic
+choice
+nested
+"

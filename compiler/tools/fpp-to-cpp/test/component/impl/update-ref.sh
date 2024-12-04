@@ -1,5 +1,6 @@
 component_dir=`dirname $PWD`
 fprime_dir=`dirname $component_dir`/fprime
+test_dir=`dirname $component_dir`
 
 empty()
 {
@@ -31,12 +32,12 @@ active()
   move_template ActiveCommands
   move_template ActiveOverflow
   move_template ActiveEvents
+  move_template ActiveExternalStateMachines
   move_template ActiveGetProducts
   move_template ActiveGuardedProducts
   move_template ActiveNoArgsPortsOnly
   move_template ActiveParams
   move_template ActiveSerial
-  move_template ActiveStateMachines
   move_template ActiveSyncProducts
   move_template ActiveTelemetry
   move_template ActiveTest
@@ -58,4 +59,25 @@ queued()
   move_template QueuedSyncProducts
   move_template QueuedTelemetry
   move_template QueuedTest
+}
+
+sm_choice()
+{
+  update "-t -i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_choice" sm_choice
+  move_template SmChoiceActive && \
+  move_template SmChoiceQueued
+}
+
+sm_initial()
+{
+  update "-t -i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_initial" sm_initial
+  move_template SmInitialActive
+  move_template SmInitialQueued
+}
+
+sm_state()
+{
+  update "-t -i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_state" sm_state
+  move_template SmStateActive
+  move_template SmStateQueued
 }

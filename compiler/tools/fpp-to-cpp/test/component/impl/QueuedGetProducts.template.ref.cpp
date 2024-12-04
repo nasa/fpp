@@ -4,7 +4,6 @@
 // \brief  cpp file for QueuedGetProducts component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "QueuedGetProducts.hpp"
 
 // ----------------------------------------------------------------------
@@ -25,7 +24,7 @@ QueuedGetProducts ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined typed input ports
+// Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
 void QueuedGetProducts ::

@@ -1,0 +1,7 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/typed_elements/state_initial_bad_action_type.fpp:6.18
+    initial do { a } enter T
+                 ^
+error: type mismatch at initial transition
+type of initial transition is None
+type of action is U32

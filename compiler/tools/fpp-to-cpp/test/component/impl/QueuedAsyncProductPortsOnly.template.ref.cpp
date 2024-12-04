@@ -4,7 +4,6 @@
 // \brief  cpp file for QueuedAsyncProductPortsOnly component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "QueuedAsyncProductPortsOnly.hpp"
 
 // ----------------------------------------------------------------------
