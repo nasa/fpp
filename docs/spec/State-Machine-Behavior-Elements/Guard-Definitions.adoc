@@ -6,9 +6,9 @@ It defines a guard, i.e., a function that returns a Boolean value.
 Guards are associated with
 <<State-Machine-Behavior-Elements_State-Transition-Specifiers,state transitions>>
 and
-<<State-Machine-Behavior-Elements_Junction-Definitions,junctions>>.
+<<State-Machine-Behavior-Elements_Choice-Definitions,choices>>.
 If the guard evaluates to `true`, then the state transition occurs
-or the branch of the junction is taken.
+or the branch of the choice is taken.
 
 ==== Syntax
 `guard`

@@ -1,0 +1,7 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/transition_graph/choice_cycle.fpp:4.3
+  choice C1 { if g enter S else enter C2 }
+  ^
+error: encountered a choice cycle:
+  choice transition at [ local path prefix ]/compiler/tools/fpp-check/test/state_machine/transition_graph/choice_cycle.fpp:4.33 to choice C2
+  choice transition at [ local path prefix ]/compiler/tools/fpp-check/test/state_machine/transition_graph/choice_cycle.fpp:5.33 to choice C1

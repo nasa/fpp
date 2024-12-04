@@ -1,0 +1,30 @@
+@startuml
+
+[*] --> DEVICE
+
+state DEVICE {
+
+  [*] -> OFF
+
+  DEVICE --> UNSAFE : cmdUnsafe
+
+  state OFF {
+    [*] --> SAFE
+    state SAFE {
+      SAFE --> ON : cmdOn
+    }
+    state UNSAFE {
+      UNSAFE : cmdUnsafe / { }
+      UNSAFE --> SAFE : cmdSafe
+    }
+  }
+
+  state ON {
+
+    ON --> OFF : cmdOff
+
+  }
+
+}
+
+@enduml

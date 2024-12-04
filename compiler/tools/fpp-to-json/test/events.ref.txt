@@ -1183,43 +1183,35 @@
   },
   "symbolScopeMap" : {
     "19" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
+      "map" : {
+        
       }
     },
     "32" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
+      "map" : {
+        
       }
     },
     "38" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Log" : {
-                  "Port" : {
-                    "nodeId" : 33,
-                    "unqualifiedName" : "Log"
-                  }
-                },
-                "LogText" : {
-                  "Port" : {
-                    "nodeId" : 34,
-                    "unqualifiedName" : "LogText"
-                  }
-                },
-                "Time" : {
-                  "Port" : {
-                    "nodeId" : 37,
-                    "unqualifiedName" : "Time"
-                  }
-                }
+      "map" : {
+        "Port" : {
+          "map" : {
+            "Log" : {
+              "Port" : {
+                "nodeId" : 33,
+                "unqualifiedName" : "Log"
+              }
+            },
+            "LogText" : {
+              "Port" : {
+                "nodeId" : 34,
+                "unqualifiedName" : "LogText"
+              }
+            },
+            "Time" : {
+              "Port" : {
+                "nodeId" : 37,
+                "unqualifiedName" : "Time"
               }
             }
           }

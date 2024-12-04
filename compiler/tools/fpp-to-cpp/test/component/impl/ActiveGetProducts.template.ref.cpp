@@ -5,7 +5,6 @@
 // ======================================================================
 
 #include "ActiveGetProducts.hpp"
-#include "FpConfig.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction
@@ -25,7 +24,7 @@ ActiveGetProducts ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined typed input ports
+// Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
 void ActiveGetProducts ::

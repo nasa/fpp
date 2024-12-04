@@ -5,7 +5,6 @@
 // ======================================================================
 
 #include "ActiveParams.hpp"
-#include "FpConfig.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction
@@ -25,7 +24,7 @@ ActiveParams ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined typed input ports
+// Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
 void ActiveParams ::

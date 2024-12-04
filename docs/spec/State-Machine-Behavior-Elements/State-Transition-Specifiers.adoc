@@ -33,7 +33,7 @@ to a
 It specifies a guard for the transition.
 
 . The first form of the _transition-or-do_ syntax specifies an *external
-transition*, i.e., an optional list of actions and a target state or junction.
+transition*, i.e., an optional list of actions and a target state or choice.
 
 . The second form of the _transition-or-do_ syntax specifies an
 *internal transition*, i.e., a list of actions to take while remaining

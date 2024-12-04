@@ -5,7 +5,6 @@
 // ======================================================================
 
 #include "ActiveEvents.hpp"
-#include "FpConfig.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction
@@ -25,7 +24,7 @@ ActiveEvents ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined typed input ports
+// Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
 void ActiveEvents ::

@@ -244,6 +244,38 @@ sealed trait Error {
         Error.print (Some(loc)) (s"redefinition of symbol ${name}")
         System.err.println("previous definition is here:")
         System.err.println(prevLoc)
+      case SemanticError.StateMachine.CallSiteTypeMismatch(
+        loc,
+        teKind,
+        teTy,
+        siteKind,
+        siteTy
+      ) =>
+        Error.print (Some(loc)) (s"type mismatch at $teKind")
+        System.err.println(s"type of $teKind is $teTy")
+        System.err.println(s"type of $siteKind is $siteTy")
+      case SemanticError.StateMachine.DuplicateSignal(sigName, stateName, loc, prevLoc) =>
+        Error.print (Some(loc)) (s"duplicate use of signal $sigName in state $stateName")
+        System.err.println("previous use is here:")
+        System.err.println(prevLoc)
+      case SemanticError.StateMachine.InvalidInitialTransition(loc, msg, destLoc) =>
+        Error.print (Some(loc)) (msg)
+        destLoc.map(loc => {
+          System.err.println("target is defined here:")
+          System.err.println(loc)
+        })
+      case SemanticError.StateMachine.ChoiceCycle(loc, msg) =>
+        Error.print (Some(loc)) (msg)
+      case SemanticError.StateMachine.ChoiceTypeMismatch(
+        loc, toLoc1, to1, toLoc2, to2
+      ) =>
+        Error.print (Some(loc)) (s"type mismatch at choice")
+        System.err.println(toLoc1)
+        System.err.println(s"type of transition is $to1")
+        System.err.println(toLoc2)
+        System.err.println(s"type of transition is $to2")
+      case SemanticError.StateMachine.UnreachableNode(name, loc) =>
+        Error.print (Some(loc)) (s"$name is unreachable")
       case SemanticError.TooManyOutputPorts(loc, numPorts, arraySize, instanceLoc) =>
         Error.print (Some(loc)) (s"too many ports connected here (found $numPorts, max is $arraySize)")
         System.err.println("for this component instance:")
@@ -556,6 +588,48 @@ object SemanticError {
     loc: Location,
     prevLoc: Location
   ) extends Error
+  /** State machine semantic errors */
+  object StateMachine {
+    /** Call site type mismatch */
+    final case class CallSiteTypeMismatch(
+      loc: Location,
+      teKind: String,
+      teTy: String,
+      siteKind: String,
+      siteTy: String
+    ) extends Error
+    /** Duplicate signal */
+    final case class DuplicateSignal(
+      sigName: String,
+      stateName: String,
+      loc: Location,
+      prevLoc: Location
+    ) extends Error
+    /** Invalid initial transition specifier */
+    final case class InvalidInitialTransition(
+      loc: Location,
+      msg: String,
+      destLoc: Option[Location] = None
+    ) extends Error
+    /** Choice cycle */
+    final case class ChoiceCycle(
+      loc: Location,
+      msg: String
+    ) extends Error
+    /** Choice type mismatch */
+    final case class ChoiceTypeMismatch(
+      loc: Location,
+      toLoc1: Location,
+      to1: String,
+      tLoc2: Location,
+      to2: String
+    ) extends Error
+    /** Unreachable node in the transition graph */
+    final case class UnreachableNode(
+      name: String,
+      loc: Location
+    ) extends Error
+  }
   /** Too many output ports */
   final case class TooManyOutputPorts(
     loc: Location,

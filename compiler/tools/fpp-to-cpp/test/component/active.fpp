@@ -155,12 +155,12 @@ active component ActiveNoArgsPortsOnly {
 
 }
 
-module M {
+module ExternalSm {
 
-  @ An active component with state machines
-  active component ActiveStateMachines {
+  @ An active component with external state machines
+  active component ActiveExternalStateMachines {
 
-    include "include/state_machines.fppi"
+    include "include/external_state_machines.fppi"
 
   }
 

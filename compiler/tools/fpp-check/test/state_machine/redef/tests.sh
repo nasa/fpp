@@ -1,0 +1,12 @@
+tests="
+action
+choice
+guard
+nested_choice
+nested_state
+ok
+signal
+state
+state_choice
+state_shadow_ok
+"

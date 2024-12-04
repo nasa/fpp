@@ -766,29 +766,25 @@
   },
   "symbolScopeMap" : {
     "16" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Value" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "a" : {
-                  "Constant" : {
-                    "nodeId" : 1,
-                    "unqualifiedName" : "a"
-                  }
-                },
-                "b" : {
-                  "Constant" : {
-                    "nodeId" : 3,
-                    "unqualifiedName" : "b"
-                  }
-                },
-                "c" : {
-                  "Constant" : {
-                    "nodeId" : 15,
-                    "unqualifiedName" : "c"
-                  }
-                }
+      "map" : {
+        "Value" : {
+          "map" : {
+            "a" : {
+              "Constant" : {
+                "nodeId" : 1,
+                "unqualifiedName" : "a"
+              }
+            },
+            "b" : {
+              "Constant" : {
+                "nodeId" : 3,
+                "unqualifiedName" : "b"
+              }
+            },
+            "c" : {
+              "Constant" : {
+                "nodeId" : 15,
+                "unqualifiedName" : "c"
               }
             }
           }
@@ -796,23 +792,19 @@
       }
     },
     "27" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Value" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "a" : {
-                  "Constant" : {
-                    "nodeId" : 26,
-                    "unqualifiedName" : "a"
-                  }
-                },
-                "b" : {
-                  "Constant" : {
-                    "nodeId" : 33,
-                    "unqualifiedName" : "b"
-                  }
-                }
+      "map" : {
+        "Value" : {
+          "map" : {
+            "a" : {
+              "Constant" : {
+                "nodeId" : 26,
+                "unqualifiedName" : "a"
+              }
+            },
+            "b" : {
+              "Constant" : {
+                "nodeId" : 33,
+                "unqualifiedName" : "b"
               }
             }
           }
@@ -820,17 +812,13 @@
       }
     },
     "55" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Value" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "c" : {
-                  "Constant" : {
-                    "nodeId" : 54,
-                    "unqualifiedName" : "c"
-                  }
-                }
+      "map" : {
+        "Value" : {
+          "map" : {
+            "c" : {
+              "Constant" : {
+                "nodeId" : 54,
+                "unqualifiedName" : "c"
               }
             }
           }
@@ -838,89 +826,73 @@
       }
     },
     "56" : {
-      "ScopeImpl" : {
-        "map" : {
-          "ComponentInstance" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "B" : {
-                  "Module" : {
-                    "nodeId" : 55,
-                    "unqualifiedName" : "B"
-                  }
-                }
+      "map" : {
+        "ComponentInstance" : {
+          "map" : {
+            "B" : {
+              "Module" : {
+                "nodeId" : 55,
+                "unqualifiedName" : "B"
               }
             }
-          },
-          "Topology" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "B" : {
-                  "Module" : {
-                    "nodeId" : 55,
-                    "unqualifiedName" : "B"
-                  }
-                }
+          }
+        },
+        "Topology" : {
+          "map" : {
+            "B" : {
+              "Module" : {
+                "nodeId" : 55,
+                "unqualifiedName" : "B"
               }
             }
-          },
-          "StateMachine" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "B" : {
-                  "Module" : {
-                    "nodeId" : 55,
-                    "unqualifiedName" : "B"
-                  }
-                }
+          }
+        },
+        "StateMachine" : {
+          "map" : {
+            "B" : {
+              "Module" : {
+                "nodeId" : 55,
+                "unqualifiedName" : "B"
               }
             }
-          },
-          "Value" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "B" : {
-                  "Module" : {
-                    "nodeId" : 55,
-                    "unqualifiedName" : "B"
-                  }
-                }
+          }
+        },
+        "Value" : {
+          "map" : {
+            "B" : {
+              "Module" : {
+                "nodeId" : 55,
+                "unqualifiedName" : "B"
               }
             }
-          },
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "B" : {
-                  "Module" : {
-                    "nodeId" : 55,
-                    "unqualifiedName" : "B"
-                  }
-                }
+          }
+        },
+        "Port" : {
+          "map" : {
+            "B" : {
+              "Module" : {
+                "nodeId" : 55,
+                "unqualifiedName" : "B"
               }
             }
-          },
-          "Component" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "B" : {
-                  "Module" : {
-                    "nodeId" : 55,
-                    "unqualifiedName" : "B"
-                  }
-                }
+          }
+        },
+        "Component" : {
+          "map" : {
+            "B" : {
+              "Module" : {
+                "nodeId" : 55,
+                "unqualifiedName" : "B"
               }
             }
-          },
-          "Type" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "B" : {
-                  "Module" : {
-                    "nodeId" : 55,
-                    "unqualifiedName" : "B"
-                  }
-                }
+          }
+        },
+        "Type" : {
+          "map" : {
+            "B" : {
+              "Module" : {
+                "nodeId" : 55,
+                "unqualifiedName" : "B"
               }
             }
           }

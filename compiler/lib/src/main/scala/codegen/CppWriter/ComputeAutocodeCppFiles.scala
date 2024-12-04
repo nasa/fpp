@@ -55,6 +55,24 @@ object ComputeAutocodeCppFiles extends ComputeCppFiles {
     visitList(s, data.members, matchModuleMember)
   }
 
+  override def defStateMachineAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+  ) = aNode._2.data.members match {
+    case Some(_) =>
+      val name = s.getName(Symbol.StateMachine(aNode))
+      val loc = Locations.get(aNode._2.id)
+      addMappings(
+        s,
+        ComputeCppFiles.FileNames.getStateMachine(
+          name,
+          StateMachine.Kind.Internal
+        ),
+        Some(loc)
+      )
+    case None => Right(s)
+  }
+
   override def defStructAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefStruct]]

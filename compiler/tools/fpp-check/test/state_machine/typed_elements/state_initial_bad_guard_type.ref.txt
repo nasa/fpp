@@ -1,0 +1,2 @@
+fpp-check
+error: cannot open file [ local path prefix ]/compiler/tools/fpp-check/test/state_machine/typed_elements/state_initial_bad_guard_type.fpp

@@ -4,7 +4,6 @@
 // \brief  cpp file for PassiveGuardedProducts component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "PassiveGuardedProducts.hpp"
 
 // ----------------------------------------------------------------------
@@ -25,7 +24,7 @@ PassiveGuardedProducts ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined typed input ports
+// Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
 void PassiveGuardedProducts ::

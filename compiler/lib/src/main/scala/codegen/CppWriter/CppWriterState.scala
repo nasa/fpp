@@ -44,14 +44,14 @@ case class CppWriterState(
 
   /** Constructs a C++ identifier from a qualified symbol name */
   def identFromQualifiedSymbolName(s: Symbol): String =
-    CppWriter.identFromQualifiedName(a.getQualifiedName(s))
+    CppWriterState.identFromQualifiedName(a.getQualifiedName(s))
 
   /** Constructs an include guard from a qualified name and a kind */
   def includeGuardFromQualifiedName(s: Symbol, name: String): String = {
     val guard = a.getEnclosingNames(s) match {
       case Nil => name
       case names =>
-        val prefix = CppWriter.identFromQualifiedName(
+        val prefix = CppWriterState.identFromQualifiedName(
           Name.Qualified.fromIdentList(names)
         )
         s"${prefix}_$name"
@@ -95,8 +95,12 @@ case class CppWriterState(
         Name.Qualified.fromIdentList(identList)
       }
     }
-    CppWriter.writeQualifiedName(qualifiedName)
+    CppWriterState.writeQualifiedName(qualifiedName)
   }
+
+  /** Write an FPP symbol as a C++ identifier */
+  def writeSymbolAsIdent(sym: Symbol): String =
+    writeSymbol(sym).replaceAll("::", "_")
 
   // Skip component names in qualifiers
   // Those appear in the prefixes of definition names
@@ -127,38 +131,38 @@ case class CppWriterState(
 
   /** Write include directives for autocoded files */
   def writeIncludeDirectives(usedSymbols: Iterable[Symbol]): List[String] = {
-    def getDirectiveForSymbol(sym: Symbol): Option[String] =
+    def getDirectiveForSymbol(sym: Symbol): Option[String] = {
+      val name = getName(sym)
       for {
         fileName <- sym match {
-          case Symbol.AbsType(node) => getName(Symbol.AbsType(node)) match {
-            case name if isBuiltInType(name) => None
-            case name => Some(name)
-          }
-          case Symbol.Array(node) => Some(
-            ComputeCppFiles.FileNames.getArray(getName(Symbol.Array(node)))
+          case _: Symbol.AbsType =>
+            if isBuiltInType(name) then None else Some(name)
+          case _: Symbol.Array => Some(
+            ComputeCppFiles.FileNames.getArray(name)
           )
-          case Symbol.Component(node) => Some(
-            ComputeCppFiles.FileNames.getComponent(getName(Symbol.Component(node)))
+          case _: Symbol.Component => Some(
+            ComputeCppFiles.FileNames.getComponent(name)
           )
-          case Symbol.Enum(node) => Some(
-            ComputeCppFiles.FileNames.getEnum(getName(Symbol.Enum(node)))
+          case _: Symbol.Enum => Some(
+            ComputeCppFiles.FileNames.getEnum(name)
           )
-          case Symbol.Port(node) => Some(
-            ComputeCppFiles.FileNames.getPort(getName(Symbol.Port(node)))
+          case _: Symbol.Port => Some(
+            ComputeCppFiles.FileNames.getPort(name)
           )
-           case Symbol.StateMachine(node) => Some(
-            ComputeCppFiles.FileNames.getStateMachine(getName(Symbol.StateMachine(node)))
+          case stateMachine: Symbol.StateMachine =>
+            val kind = StateMachine.getSymbolKind(stateMachine)
+            Some(ComputeCppFiles.FileNames.getStateMachine(name, kind))
+          case _: Symbol.Struct => Some(
+            ComputeCppFiles.FileNames.getStruct(name)
           )
-          case Symbol.Struct(node) => Some(
-            ComputeCppFiles.FileNames.getStruct(getName(Symbol.Struct(node)))
-          )
-          case Symbol.Topology(node) => Some(
-            ComputeCppFiles.FileNames.getTopology(getName(Symbol.Topology(node)))
+          case _: Symbol.Topology => Some(
+            ComputeCppFiles.FileNames.getTopology(name)
           )
           case _ => None
         }
       }
-      yield CppWriter.headerString(getIncludePath(sym, fileName))
+      yield CppWriterState.headerString(getIncludePath(sym, fileName))
+    }
 
     usedSymbols.map(getDirectiveForSymbol).filter(_.isDefined).map(_.get).toList
   }
@@ -203,5 +207,25 @@ object CppWriterState {
     "FwTlmPacketizeIdType" -> zero,
     "FwTraceIdType" -> zero,
   )
+
+  /** Construct a header string */
+  def headerString(s: String): String = {
+    val q = "\""
+    s"#include $q$s$q"
+  }
+
+  /** Constructs a C++ identifier from a qualified state machine symbol name */
+  def identFromQualifiedSmSymbolName(
+    sma: StateMachineAnalysis,
+    s: StateMachineSymbol
+  ): String = identFromQualifiedName(sma.getQualifiedName(s))
+
+  /** Constructs a C++ identifier from a qualified name */
+  def identFromQualifiedName(name: Name.Qualified): String =
+    name.toString.replaceAll("\\.", "_")
+
+  /** Writes a qualified name */
+  def writeQualifiedName(name: Name.Qualified): String =
+    name.toString.replaceAll("\\.", "::")
 
 }

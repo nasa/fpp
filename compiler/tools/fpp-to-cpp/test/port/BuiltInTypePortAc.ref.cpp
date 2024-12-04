@@ -154,7 +154,7 @@ void OutputBuiltInTypePort ::
   invoke(
       FwOpcodeType t,
       FwOpcodeType& tRef
-  )
+  ) const
 {
 #if FW_PORT_TRACING == 1
   this->trace();

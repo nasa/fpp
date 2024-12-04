@@ -154,7 +154,7 @@ void OutputAbsTypePort ::
   invoke(
       const T& t,
       T& tRef
-  )
+  ) const
 {
 #if FW_PORT_TRACING == 1
   this->trace();

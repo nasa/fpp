@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/redef/nested_state.fpp:4.5
+    state T
+    ^
+error: redefinition of symbol T
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/redef/nested_state.fpp:3.5
+    state T
+    ^

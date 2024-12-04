@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/initial_transitions/choice_cycle.fpp:4.3
+  choice C { if g enter C else enter C }
+  ^
+error: encountered a choice cycle:
+  choice transition at [ local path prefix ]/compiler/tools/fpp-check/test/state_machine/initial_transitions/choice_cycle.fpp:4.19 to choice C

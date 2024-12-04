@@ -293,7 +293,12 @@ case class ComponentEvents (
             FormalParamsCppWriter.Value
           ),
           CppDoc.Type("void"),
-          writeBody(id, event)
+          writeBody(id, event),
+          CppDoc.Function.NonSV,
+          event.throttle match {
+            case Some(_) => CppDoc.Function.NonConst
+            case None => CppDoc.Function.Const
+          }
         )
       )
     )

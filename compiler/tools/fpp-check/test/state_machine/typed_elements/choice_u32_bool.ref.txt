@@ -1,0 +1,13 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/typed_elements/choice_u32_bool.fpp:8.5
+    choice C { if g enter T else enter T }
+    ^
+error: type mismatch at choice
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/typed_elements/choice_u32_bool.fpp:9.5
+    on s1 enter C
+    ^
+type of transition is U32
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/typed_elements/choice_u32_bool.fpp:10.5
+    on s2 enter C
+    ^
+type of transition is bool

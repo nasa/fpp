@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/redef/state_choice.fpp:4.3
+  choice S { if g enter S else enter S }
+  ^
+error: redefinition of symbol S
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/redef/state_choice.fpp:3.3
+  state S
+  ^

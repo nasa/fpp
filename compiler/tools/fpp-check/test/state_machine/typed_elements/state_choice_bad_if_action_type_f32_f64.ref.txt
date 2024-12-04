@@ -1,0 +1,7 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/typed_elements/state_choice_bad_if_action_type_f32_f64.fpp:9.26
+    choice C { if g do { a } enter T else enter T }
+                         ^
+error: type mismatch at choice
+type of choice is F64
+type of action is F32

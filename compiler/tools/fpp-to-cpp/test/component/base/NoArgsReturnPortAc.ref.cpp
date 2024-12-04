@@ -101,7 +101,7 @@ namespace Ports {
   }
 
   U32 OutputNoArgsReturnPort ::
-    invoke()
+    invoke() const
   {
 #if FW_PORT_TRACING == 1
     this->trace();

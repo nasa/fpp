@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+. ../../../../scripts/utils.sh
+
+for dir in choice initial state
+do
+  echo "[ $dir ]"
+  (cd $dir; ./check-cpp "$@")
+done

@@ -129,7 +129,7 @@ class OutputStringPort :
         Fw::StringBase& str80Ref,
         const Fw::StringBase& str100, //!< A string of size 100
         Fw::StringBase& str100Ref
-    );
+    ) const;
 
   private:
 

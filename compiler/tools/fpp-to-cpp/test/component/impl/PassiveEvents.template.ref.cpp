@@ -4,7 +4,6 @@
 // \brief  cpp file for PassiveEvents component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "PassiveEvents.hpp"
 
 // ----------------------------------------------------------------------
@@ -25,7 +24,7 @@ PassiveEvents ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined typed input ports
+// Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
 void PassiveEvents ::

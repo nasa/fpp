@@ -10,9 +10,17 @@ case class ComponentTestImplWriter(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentTestUtils(s, aNode) {
 
-  private val fileName = ComputeCppFiles.FileNames.getComponentTestImpl(name)
+  private val fileName = ComputeCppFiles.FileNames.getComponentTestImpl(componentName)
 
-  val helperFileName: String = ComputeCppFiles.FileNames.getComponentTestHelper(name)
+  private val data = componentData
+
+  private val name = componentName
+
+  private val namespaceIdentList = componentNamespaceIdentList
+
+  private val symbol = componentSymbol
+
+  val helperFileName: String = ComputeCppFiles.FileNames.getComponentTestHelper(componentName)
 
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
@@ -114,7 +122,7 @@ case class ComponentTestImplWriter(
           Nil,
           List(
             s"$gTestClassName(\"$testImplClassName\", $testImplClassName::MAX_HISTORY_SIZE)",
-            s"component(\"$implClassName\")"
+            s"component(\"$componentImplClassName\")"
           ),
           lines(
             """|this->initComponents();
@@ -239,7 +247,7 @@ case class ComponentTestImplWriter(
         linesClassMember(
           Line.blank :: lines(
             s"""|//! The component under test
-                |$implClassName component;
+                |$componentImplClassName component;
                 |"""
           )
         )

@@ -8,6 +8,7 @@ trait TypeExpressionAnalyzer
   extends Analyzer 
   with ComponentAnalyzer
   with ModuleAnalyzer
+  with StateMachineAnalyzer
   with TopologyAnalyzer
 {
 
@@ -42,10 +43,17 @@ trait TypeExpressionAnalyzer
     } yield a
   }
 
+
   def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]): Result = matchTypeNameNode(a, node)
 
   override def typeNameStringNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString) =
     opt(exprNode)(a, tn.size)
+
+  override def defActionAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAction]]) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    opt(typeNameNode)(a, node.data.typeName)
+  }
 
   override def defArrayAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node1, _) = node
@@ -86,6 +94,12 @@ trait TypeExpressionAnalyzer
     } yield a
   }
 
+  override def defGuardAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefGuard]]) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    opt(typeNameNode)(a, node.data.typeName)
+  }
+
   override def defPortAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefPort]]) = {
     val (_, node1, _) = node
     val data = node1.data
@@ -93,6 +107,12 @@ trait TypeExpressionAnalyzer
       a <- visitList(a, data.params, formalParamNode)
       a <- opt(typeNameNode)(a, data.returnType)
     } yield a
+  }
+
+  override def defSignalAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefSignal]]) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    opt(typeNameNode)(a, data.typeName)
   }
 
   override def defStructAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefStruct]]) = {

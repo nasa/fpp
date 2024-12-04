@@ -1,0 +1,18 @@
+@startuml
+
+[*] --> OFF
+
+state OFF {
+  [*] --> OFF.SAFE
+  state "SAFE" as OFF.SAFE
+  state "UNSAFE" as OFF.UNSAFE
+}
+state ON
+
+ON --> OFF : cmdOff
+ON --> OFF.UNSAFE : cmdUnsafe
+OFF.SAFE --> ON : cmdOn
+OFF.SAFE --> OFF.UNSAFE : cmdUnsafe
+OFF.UNSAFE --> OFF.SAFE : cmdSafe
+
+@enduml

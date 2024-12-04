@@ -4,7 +4,6 @@
 // \brief  cpp file for PassiveSyncProducts component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "PassiveSyncProducts.hpp"
 
 // ----------------------------------------------------------------------
@@ -25,7 +24,7 @@ PassiveSyncProducts ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined typed input ports
+// Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
 void PassiveSyncProducts ::

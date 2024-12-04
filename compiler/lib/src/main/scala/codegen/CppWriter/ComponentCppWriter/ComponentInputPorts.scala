@@ -10,6 +10,8 @@ case class ComponentInputPorts(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
+  private val className = componentClassName
+
   def generateHandlers(
     ports: List[PortInstance],
     portName: String => String,

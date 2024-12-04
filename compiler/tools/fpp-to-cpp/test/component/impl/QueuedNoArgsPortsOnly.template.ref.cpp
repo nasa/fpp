@@ -4,7 +4,6 @@
 // \brief  cpp file for QueuedNoArgsPortsOnly component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "QueuedNoArgsPortsOnly.hpp"
 
 // ----------------------------------------------------------------------
@@ -25,7 +24,7 @@ QueuedNoArgsPortsOnly ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined typed input ports
+// Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
 void QueuedNoArgsPortsOnly ::

@@ -5,7 +5,6 @@
 // ======================================================================
 
 #include "ActiveOverflow.hpp"
-#include "FpConfig.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction
@@ -25,7 +24,7 @@ ActiveOverflow ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined typed input ports
+// Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
 void ActiveOverflow ::
@@ -89,7 +88,7 @@ void ActiveOverflow ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined serial input ports
+// Handler implementations for serial input ports
 // ----------------------------------------------------------------------
 
 void ActiveOverflow ::
@@ -137,7 +136,7 @@ void ActiveOverflow ::
 }
 
 // ----------------------------------------------------------------------
-// Overflow hook implementations for 'hook' input ports
+// Overflow hook implementations for typed input ports
 // ----------------------------------------------------------------------
 
 void ActiveOverflow ::
@@ -155,6 +154,10 @@ void ActiveOverflow ::
   // TODO
 }
 
+// ----------------------------------------------------------------------
+// Overflow hook implementations for serial input ports
+// ----------------------------------------------------------------------
+
 void ActiveOverflow ::
   serialAsyncHook_overflowHook(
       FwIndexType portNum,
@@ -163,6 +166,10 @@ void ActiveOverflow ::
 {
   // TODO
 }
+
+// ----------------------------------------------------------------------
+// Overflow hook implementations for special input ports
+// ----------------------------------------------------------------------
 
 void ActiveOverflow ::
   productRecvInHook_overflowHook(

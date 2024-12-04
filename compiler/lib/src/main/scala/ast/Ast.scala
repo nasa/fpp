@@ -154,8 +154,102 @@ object Ast {
 
   /** State machine definition */
   final case class DefStateMachine(
-    name: Ident
+    name: Ident,
+    members: Option[List[StateMachineMember]]
   )
+
+  /** State machine member */
+  final case class StateMachineMember(node: Annotated[StateMachineMember.Node])
+  object StateMachineMember {
+    sealed trait Node
+    final case class DefAction(node: AstNode[Ast.DefAction]) extends Node
+    final case class DefChoice(node: AstNode[Ast.DefChoice]) extends Node
+    final case class DefGuard(node: AstNode[Ast.DefGuard]) extends Node
+    final case class DefSignal(node: AstNode[Ast.DefSignal]) extends Node
+    final case class DefState(node: AstNode[Ast.DefState]) extends Node
+    final case class SpecInitialTransition(node: AstNode[Ast.SpecInitialTransition]) extends Node
+  }
+
+  /** Action definition */
+  final case class DefAction(
+    name: Ident,
+    typeName: Option[AstNode[TypeName]]
+  )
+
+  /** Choice definition */
+  final case class DefChoice(
+    name: Ident,
+    guard: AstNode[Ident],
+    ifTransition: AstNode[TransitionExpr],
+    elseTransition: AstNode[TransitionExpr]
+  )
+
+  /** Guard definition */
+  final case class DefGuard(
+    name: Ident,
+    typeName: Option[AstNode[TypeName]]
+  )
+
+  /** Transition expression */
+  final case class TransitionExpr(
+    actions: List[AstNode[Ident]],
+    target: AstNode[QualIdent]
+  )
+
+  /** Signal definition */
+  final case class DefSignal(
+    name: Ident,
+    typeName: Option[AstNode[TypeName]]
+  )
+
+  /** State definition */
+  final case class DefState(
+    name: Ident,
+    members: List[StateMember]
+  )
+
+  /** State member */
+  final case class StateMember(node: Annotated[StateMember.Node])
+  object StateMember {
+    sealed trait Node
+    final case class DefChoice(node: AstNode[Ast.DefChoice]) extends Node
+    final case class DefState(node: AstNode[Ast.DefState]) extends Node
+    final case class SpecInitialTransition(node: AstNode[Ast.SpecInitialTransition]) extends Node
+    final case class SpecStateEntry(node: AstNode[Ast.SpecStateEntry]) extends Node
+    final case class SpecStateExit(node: AstNode[Ast.SpecStateExit]) extends Node
+    final case class SpecStateTransition(node: AstNode[Ast.SpecStateTransition]) extends Node
+  }
+
+  /** Initial state specifier */
+  final case class SpecInitialTransition(
+    transition: AstNode[TransitionExpr]
+  )
+
+  /** State entry specifier */
+  final case class SpecStateEntry(
+    actions: List[AstNode[Ident]]
+  )
+
+  /** State exit specifier */
+  final case class SpecStateExit(
+    actions: List[AstNode[Ident]]
+  )
+
+  /** Transition specifier */
+  final case class SpecStateTransition(
+    signal: AstNode[Ident],
+    guard: Option[AstNode[Ident]],
+    transitionOrDo: TransitionOrDo
+  )
+
+  /** Transition or do within transition specifier */
+  sealed trait TransitionOrDo
+  object TransitionOrDo {
+    final case class Transition(
+      transition: AstNode[TransitionExpr]
+    ) extends TransitionOrDo
+    final case class Do(actions: List[AstNode[Ident]]) extends TransitionOrDo
+  }
 
   /** Struct definition */
   final case class DefStruct(

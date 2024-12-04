@@ -63,18 +63,28 @@ case class Analysis(
   topologyMap: Map[Symbol.Topology, Topology] = Map(),
   /** The topology under construction */
   topology: Option[Topology] = None,
+  /** The map from state machine symbols to state machines */
+  stateMachineMap: Map[Symbol.StateMachine, StateMachine] = Map(),
 ) {
 
   /** Gets the qualified name of a symbol */
-  def getQualifiedName(s: Symbol): Name.Qualified = {
-    def getIdentList(so: Option[Symbol], out: List[Ast.Ident]): List[Ast.Ident] =
-      so match {
-        case Some(s) =>
-          val so1 = parentSymbolMap.get(s)
-          getIdentList(so1, s.getUnqualifiedName :: out)
-        case None => out
-      }
-    Name.Qualified.fromIdentList(getIdentList(Some(s), Nil))
+  val getQualifiedName = Analysis.getQualifiedNameFromMap (parentSymbolMap)
+
+  /** Gets the short name of a symbol
+   *  When generating C++, we may need to keep the component prefix, because
+   *  it is part of the symbol name */
+  def getShortName(
+    symbol: Symbol,
+    context: Symbol,
+    componentPrefix: Analysis.ComponentPrefix = Analysis.ComponentPrefix.Omit
+  ): Name.Qualified = {
+    val name = getQualifiedName(symbol)
+    val enclosingPrefix = getEnclosingNames(context)
+    val prefix = (context, componentPrefix) match {
+      case (_: Symbol.Component, Analysis.ComponentPrefix.Keep) => enclosingPrefix
+      case _ => enclosingPrefix :+ context.getUnqualifiedName
+    }
+    name.shortName(prefix)
   }
 
   /** Gets the list of enclosing identifiers for a symbol */
@@ -389,7 +399,7 @@ case class Analysis(
       checkDisplayableType(aNode._2.data.typeName.id, errorMsg)
     )
   }
-  
+
 }
 
 object Analysis {
@@ -518,6 +528,26 @@ object Analysis {
     val dec = value.toString
     val hex = value.toString(16).toUpperCase
     s"($dec dec, $hex hex)"
+  }
+
+  /** Gets the qualified name of a symbol from a parent-symbol map */
+  def getQualifiedNameFromMap[S <: SymbolInterface]
+    (parentSymbolMap: Map[S,S]) (s: S):
+  Name.Qualified = {
+    def getIdentList(so: Option[S], out: List[Ast.Ident]): List[Ast.Ident] =
+      so match {
+        case Some(s) =>
+          val so1 = parentSymbolMap.get(s)
+          getIdentList(so1, s.getUnqualifiedName :: out)
+        case None => out
+      }
+    Name.Qualified.fromIdentList(getIdentList(Some(s), Nil))
+  }
+
+  sealed trait ComponentPrefix
+  object ComponentPrefix {
+    case object Keep extends ComponentPrefix
+    case object Omit extends ComponentPrefix
   }
 
 }

@@ -1833,7 +1833,7 @@ class QueuedTestComponentBase :
     //! Log event EventActivityHigh
     //!
     //! An activity high event with no params
-    void log_ACTIVITY_HI_EventActivityHigh();
+    void log_ACTIVITY_HI_EventActivityHigh() const;
 
     //! Log event EventActivityLowThrottled
     //!
@@ -1850,14 +1850,14 @@ class QueuedTestComponentBase :
     void log_COMMAND_EventCommand(
         const Fw::StringBase& str1, //!< A string
         const Fw::StringBase& str2 //!< Another string
-    );
+    ) const;
 
     //! Log event EventDiagnostic
     //!
     //! A diagnostic event with enum params
     void log_DIAGNOSTIC_EventDiagnostic(
         E e //!< An enum
-    );
+    ) const;
 
     //! Log event EventFatalThrottled
     //!
@@ -1871,7 +1871,7 @@ class QueuedTestComponentBase :
     //! A warning high event with struct params
     void log_WARNING_HI_EventWarningHigh(
         S s //!< A struct
-    );
+    ) const;
 
     //! Log event EventWarningLowThrottled
     //!
@@ -1905,7 +1905,7 @@ class QueuedTestComponentBase :
     void tlmWrite_ChannelU32Format(
         U32 arg, //!< The telemetry value
         Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
-    );
+    ) const;
 
     //! Write telemetry channel ChannelF32Format
     //!
@@ -1913,7 +1913,7 @@ class QueuedTestComponentBase :
     void tlmWrite_ChannelF32Format(
         F32 arg, //!< The telemetry value
         Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
-    );
+    ) const;
 
     //! Write telemetry channel ChannelStringFormat
     //!
@@ -1921,7 +1921,7 @@ class QueuedTestComponentBase :
     void tlmWrite_ChannelStringFormat(
         const Fw::StringBase& arg, //!< The telemetry value
         Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
-    );
+    ) const;
 
     //! Write telemetry channel ChannelEnum
     //!
@@ -1929,7 +1929,7 @@ class QueuedTestComponentBase :
     void tlmWrite_ChannelEnum(
         const E& arg, //!< The telemetry value
         Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
-    );
+    ) const;
 
     //! Write telemetry channel ChannelArrayFreq
     //!
@@ -1937,7 +1937,7 @@ class QueuedTestComponentBase :
     void tlmWrite_ChannelArrayFreq(
         const A& arg, //!< The telemetry value
         Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
-    );
+    ) const;
 
     //! Write telemetry channel ChannelStructFreq
     //!
@@ -1945,7 +1945,7 @@ class QueuedTestComponentBase :
     void tlmWrite_ChannelStructFreq(
         const S& arg, //!< The telemetry value
         Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
-    );
+    ) const;
 
     //! Write telemetry channel ChannelU32Limits
     //!
@@ -1953,7 +1953,7 @@ class QueuedTestComponentBase :
     void tlmWrite_ChannelU32Limits(
         U32 arg, //!< The telemetry value
         Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
-    );
+    ) const;
 
     //! Write telemetry channel ChannelF32Limits
     //!
@@ -1961,7 +1961,7 @@ class QueuedTestComponentBase :
     void tlmWrite_ChannelF32Limits(
         F32 arg, //!< The telemetry value
         Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
-    );
+    ) const;
 
     //! Write telemetry channel ChannelF64
     //!
@@ -1969,7 +1969,7 @@ class QueuedTestComponentBase :
     void tlmWrite_ChannelF64(
         F64 arg, //!< The telemetry value
         Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
-    );
+    ) const;
 
     //! Write telemetry channel ChannelU32OnChange
     //!

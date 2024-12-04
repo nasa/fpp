@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+. ../../../../scripts/utils.sh
+
+for file in `find . -name run`
+do
+  dir=`dirname $file`
+  echo "[ $dir ]"
+  (cd $dir; ./run)
+done

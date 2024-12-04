@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/initial_transitions/sm_mismatched_parents.fpp:2.3
+  initial enter S.T
+  ^
+error: initial transition of state machine may not go to a state or choice defined in a substate
+transition path goes here:
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/initial_transitions/sm_mismatched_parents.fpp:5.5
+    state T
+    ^

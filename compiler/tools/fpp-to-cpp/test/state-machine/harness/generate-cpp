@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+cd `dirname $0`
+
+echo "generating C++ files for harness"
+
+state_machine=`dirname $PWD`
+harness=$state_machine/harness
+fpp_flags="-p $state_machine"
+fpp-to-cpp $fpp_flags harness.fpp

@@ -4,7 +4,6 @@
 // \brief  cpp file for QueuedGuardedProducts component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "QueuedGuardedProducts.hpp"
 
 // ----------------------------------------------------------------------
@@ -25,7 +24,7 @@ QueuedGuardedProducts ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined typed input ports
+// Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
 void QueuedGuardedProducts ::

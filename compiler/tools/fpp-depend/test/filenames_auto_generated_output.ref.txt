@@ -21,6 +21,8 @@ FppConstantsAc.hpp
 PPortAc.cpp
 PPortAc.hpp
 PPortAi.xml
+SM2StateMachineAc.cpp
+SM2StateMachineAc.hpp
 SSerializableAc.cpp
 SSerializableAc.hpp
 SSerializableAi.xml

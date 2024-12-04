@@ -556,34 +556,34 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#State-Machine-Behavior-Elements_Action-Definitions_Examples">6.1.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#State-Machine-Behavior-Elements_Do-Expressions">6.2. Do Expressions</a>
+<li><a href="#State-Machine-Behavior-Elements_Choice-Definitions">6.2. Choice Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#State-Machine-Behavior-Elements_Do-Expressions_Syntax">6.2.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior-Elements_Do-Expressions_Semantics">6.2.2. Semantics</a></li>
-<li><a href="#State-Machine-Behavior-Elements_Do-Expressions_Examples">6.2.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Choice-Definitions_Syntax">6.2.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Choice-Definitions_Static-Semantics">6.2.2. Static Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Choice-Definitions_Dynamic-Semantics">6.2.3. Dynamic Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Choice-Definitions_Examples">6.2.4. Examples</a></li>
 </ul>
 </li>
-<li><a href="#State-Machine-Behavior-Elements_Guard-Definitions">6.3. Guard Definitions</a>
+<li><a href="#State-Machine-Behavior-Elements_Do-Expressions">6.3. Do Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#State-Machine-Behavior-Elements_Guard-Definitions_Syntax">6.3.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior-Elements_Guard-Definitions_Semantics">6.3.2. Semantics</a></li>
-<li><a href="#State-Machine-Behavior-Elements_Guard-Definitions_Examples">6.3.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Do-Expressions_Syntax">6.3.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Do-Expressions_Semantics">6.3.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Do-Expressions_Examples">6.3.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">6.4. Initial Transition Specifiers</a>
+<li><a href="#State-Machine-Behavior-Elements_Guard-Definitions">6.4. Guard Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Syntax">6.4.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Static-Semantics">6.4.2. Static Semantics</a></li>
-<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Dynamic-Semantics">6.4.3. Dynamic Semantics</a></li>
-<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Examples">6.4.4. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Guard-Definitions_Syntax">6.4.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Guard-Definitions_Semantics">6.4.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Guard-Definitions_Examples">6.4.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#State-Machine-Behavior-Elements_Junction-Definitions">6.5. Junction Definitions</a>
+<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">6.5. Initial Transition Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#State-Machine-Behavior-Elements_Junction-Definitions_Syntax">6.5.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior-Elements_Junction-Definitions_Static-Semantics">6.5.2. Static Semantics</a></li>
-<li><a href="#State-Machine-Behavior-Elements_Junction-Definitions_Dynamic-Semantics">6.5.3. Dynamic Semantics</a></li>
-<li><a href="#State-Machine-Behavior-Elements_Junction-Definitions_Examples">6.5.4. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Syntax">6.5.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Static-Semantics">6.5.2. Static Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Dynamic-Semantics">6.5.3. Dynamic Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Examples">6.5.4. Examples</a></li>
 </ul>
 </li>
 <li><a href="#State-Machine-Behavior-Elements_Signal-Definitions">6.6. Signal Definitions</a>
@@ -1104,6 +1104,7 @@ base
 block
 bool
 change
+choice
 command
 component
 connections
@@ -1137,7 +1138,6 @@ initial
 input
 instance
 internal
-junction
 locate
 low
 machine
@@ -2816,7 +2816,7 @@ A state machine member is one of the following:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>An <a href="#State-Machine-Behavior-Elements_Action-Definitions">action definition</a></p>
+<p>A <a href="#State-Machine-Behavior-Elements_Choice-Definitions">choice definition</a></p>
 </li>
 <li>
 <p>A <a href="#State-Machine-Behavior-Elements_Guard-Definitions">guard definition</a></p>
@@ -2825,13 +2825,13 @@ A state machine member is one of the following:</p>
 <p>A <a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a></p>
 </li>
 <li>
-<p>A <a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a></p>
-</li>
-<li>
 <p>A <a href="#State-Machine-Behavior-Elements_Signal-Definitions">signal definition</a></p>
 </li>
 <li>
 <p>A <a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a></p>
+</li>
+<li>
+<p>An <a href="#State-Machine-Behavior-Elements_Action-Definitions">action definition</a></p>
 </li>
 </ul>
 </div>
@@ -2892,11 +2892,11 @@ follows:</p>
 <ol class="arabic">
 <li>
 <p>The nodes of the transition graph are the state definitions and
-junction definitions that are transitive members of <em>M</em>.</p>
+choice definitions that are transitive members of <em>M</em>.</p>
 </li>
 <li>
 <p>The <strong>initial node</strong> of the transition graph is the state definition
-or junction definition referred to in the unique initial transition specifier
+or choice definition referred to in the unique initial transition specifier
 that is an element of <em>M</em>.</p>
 </li>
 <li>
@@ -2904,7 +2904,7 @@ that is an element of <em>M</em>.</p>
 <a href="#State-Machine-Behavior-Elements_Transition-Expressions">transition expressions</a> <em>e</em> that appear in (1) initial transition specifiers
 that are members of states that are transitive members of <em>M</em> and (2)
 state transition specifiers that are transitive members of <em>M</em> and (3)
-junction definitions that are transitive members of <em>M</em>.
+choice definitions that are transitive members of <em>M</em>.
 Each transition expression represents an arc from a <strong>start node</strong> to an
 <strong>end node</strong>.
 The start node is defined as follows:</p>
@@ -2925,13 +2925,13 @@ immediately enclosing <em>T</em>.</p>
 </li>
 <li>
 <p>If <em>e</em> appears in a
-<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a>
+<a href="#State-Machine-Behavior-Elements_Choice-Definitions">choice definition</a>
 <em>J</em>, then the initial node is <em>J</em>.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>The terminal node is the state or junction definition
+<p>The terminal node is the state or choice definition
 <a href="#Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names">referred to</a>
 in <em>e</em>.</p>
 </div>
@@ -2945,13 +2945,13 @@ the transition graph <em>T</em> must satisfy the following rules:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Each state definition and each junction definition in
+<p>Each state definition and each choice definition in
 <em>T</em> must be reachable from the initial node of <em>T</em>.</p>
 </li>
 <li>
 <p>Let <em>S</em> be the subgraph of <em>T</em> consisting of all
-and only the junction definitions and the arcs whose start
-and end nodes are junction definitions.
+and only the choice definitions and the arcs whose start
+and end nodes are choice definitions.
 There must be no cycles in <em>S</em>.</p>
 </li>
 </ol>
@@ -2969,8 +2969,8 @@ a
 a
 <a href="#State-Machine-Behavior-Elements_State-Exit-Specifiers">state exit specifier</a>,
 or a
-<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a>.
-A typed element <em>e</em> <strong>points to</strong> a junction <em>J</em> if</p>
+<a href="#State-Machine-Behavior-Elements_Choice-Definitions">choice definition</a>.
+A typed element <em>e</em> <strong>points to</strong> a choice <em>J</em> if</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -2983,7 +2983,7 @@ refers to <em>J</em>; or</p>
 <em>J</em>; or</p>
 </li>
 <li>
-<p><em>e</em> is a junction, and at least one of its transition expressions
+<p><em>e</em> is a choice, and at least one of its transition expressions
 refers to <em>J</em>.</p>
 </li>
 </ol>
@@ -3006,7 +3006,7 @@ option specified in the definition of the signal specified in <em>S</em>
 after the keyword <code>on</code>.</p>
 </li>
 <li>
-<p>The type option of a junction <em>J</em> is the
+<p>The type option of a choice <em>J</em> is the
 <a href="#Type-Options_Computing-a-Common-Type-Option_Lists-of-Type-Options">common type option</a> of the type options of the typed elements
 that point to <em>J</em>.</p>
 </li>
@@ -3043,7 +3043,7 @@ of names in uses.</p>
 <div class="paragraph">
 <p><strong>State machine member definitions:</strong>
 There are five kinds of <strong>state machine member definitions</strong>:
-Action definitions, guard definitions, junction definitions, state
+Action definitions, guard definitions, choice definitions, state
 definitions, and state machine signal definitions.</p>
 </div>
 <div class="paragraph">
@@ -3079,7 +3079,7 @@ after replacing &#8220;definition&#8221; with &#8220;state machine member defini
 <div class="paragraph">
 <p><strong>Conflicting names:</strong>
 Each kind of definition resides in its own name group, except
-that states and junctions both reside in the state name group.
+that states and choices both reside in the state name group.
 No two state machine definitions that reside in the same name group
 may have the same qualified name.</p>
 </div>
@@ -3914,7 +3914,7 @@ It defines an action, i.e., a function that is called when
 the enclosing state machine performs a
 <a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">transition from a state</a>
 or passes through a
-<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction</a>.
+<a href="#State-Machine-Behavior-Elements_Choice-Definitions">choice</a>.
 Actions may carry data.</p>
 </div>
 <div class="sect3">
@@ -3972,7 +3972,100 @@ state machine ActionDefs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="State-Machine-Behavior-Elements_Do-Expressions">6.2. Do Expressions</h3>
+<h3 id="State-Machine-Behavior-Elements_Choice-Definitions">6.2. Choice Definitions</h3>
+<div class="paragraph">
+<p>A <strong>choice definition</strong> specifies a choice as part of a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>
+or
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>.
+A choice is a branch point controlled by a
+<a href="#State-Machine-Behavior-Elements_Guard-Definitions">guard</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Choice-Definitions_Syntax">6.2.1. Syntax</h4>
+<div class="paragraph">
+<p><code>choice</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<code>{</code>
+<code>if</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <a href="#State-Machine-Behavior-Elements_Transition-Expressions"><em>transition-expression</em></a>
+<code>else</code> <a href="#State-Machine-Behavior-Elements_Transition-Expressions"><em>transition-expression</em></a>
+<code>}</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Choice-Definitions_Static-Semantics">6.2.2. Static Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The identifier after the keyword <code>choice</code> is the name of the choice.</p>
+</li>
+<li>
+<p>The identifier after the keyword <code>if</code> must
+<a href="#Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names">refer</a>
+to a
+<a href="#State-Machine-Behavior-Elements_Guard-Definitions">guard definition</a>.
+It specifies the guard that controls the branch.</p>
+</li>
+<li>
+<p>Each of the transition expressions must be valid.
+The first transition expression is run if the guard evaluates to <code>true</code>;
+otherwise the second transition expression is run.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Choice-Definitions_Dynamic-Semantics">6.2.3. Dynamic Semantics</h4>
+<div class="paragraph">
+<p>Each choice <em>J</em> has the following <strong>entry behavior</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Evaluate the guard of <em>J</em>.</p>
+</li>
+<li>
+<p>If <em>J</em> evaluates to <code>true</code>, then
+<a href="#State-Machine-Behavior-Elements_Transition-Expressions_Dynamic-Semantics">run the <code>if</code> transition expression in the context of <em>J</em></a>.</p>
+</li>
+<li>
+<p>Otherwise run the <code>else</code> transition expression in the context of <em>J</em>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If any of the guard or the transition expressions requires a typed argument
+<em>v</em>, then according to the static semantics, <em>v</em> must be available,
+and it must have a compatible type.
+Use <em>v</em> to evaluate the guard or run the transition expression.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Choice-Definitions_Examples">6.2.4. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
+
+  action initPower
+  guard coldStart
+
+  initial enter J1
+
+  choice J1 {
+    if coldStart enter OFF \
+    else do { initPower } enter ON
+  }
+
+  state OFF
+
+  state ON
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="State-Machine-Behavior-Elements_Do-Expressions">6.3. Do Expressions</h3>
 <div class="paragraph">
 <p>An <strong>do expression</strong> specifies a list of actions as part of an
 <a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a>,
@@ -3980,10 +4073,10 @@ a <a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state t
 a <a href="#State-Machine-Behavior-Elements_State-Entry-Specifiers">state entry specifier</a>,
 a <a href="#State-Machine-Behavior-Elements_State-Exit-Specifiers">state exit specifier</a>,
 or
-a <a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a>.</p>
+a <a href="#State-Machine-Behavior-Elements_Choice-Definitions">choice definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_Do-Expressions_Syntax">6.2.1. Syntax</h4>
+<h4 id="State-Machine-Behavior-Elements_Do-Expressions_Syntax">6.3.1. Syntax</h4>
 <div class="paragraph">
 <p><code>do</code> <code>{</code> <em>action-sequence</em> <code>}</code></p>
 </div>
@@ -3995,7 +4088,7 @@ and the terminating punctuation is a comma.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_Do-Expressions_Semantics">6.2.2. Semantics</h4>
+<h4 id="State-Machine-Behavior-Elements_Do-Expressions_Semantics">6.3.2. Semantics</h4>
 <div class="paragraph">
 <p>Each identifier in the action sequence must
 <a href="#Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names">refer</a>
@@ -4004,7 +4097,7 @@ to an
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_Do-Expressions_Examples">6.2.3. Examples</h4>
+<h4 id="State-Machine-Behavior-Elements_Do-Expressions_Examples">6.3.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
@@ -4027,7 +4120,7 @@ to an
 </div>
 </div>
 <div class="sect2">
-<h3 id="State-Machine-Behavior-Elements_Guard-Definitions">6.3. Guard Definitions</h3>
+<h3 id="State-Machine-Behavior-Elements_Guard-Definitions">6.4. Guard Definitions</h3>
 <div class="paragraph">
 <p>A <strong>guard definition</strong> is part of a
 <a href="#Definitions_State-Machine-Definitions">state machine definition</a>.
@@ -4035,12 +4128,12 @@ It defines a guard, i.e., a function that returns a Boolean value.
 Guards are associated with
 <a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transitions</a>
 and
-<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junctions</a>.
+<a href="#State-Machine-Behavior-Elements_Choice-Definitions">choices</a>.
 If the guard evaluates to <code>true</code>, then the state transition occurs
-or the branch of the junction is taken.</p>
+or the branch of the choice is taken.</p>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_Guard-Definitions_Syntax">6.3.1. Syntax</h4>
+<h4 id="State-Machine-Behavior-Elements_Guard-Definitions_Syntax">6.4.1. Syntax</h4>
 <div class="paragraph">
 <p><code>guard</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
@@ -4051,7 +4144,7 @@ or the branch of the junction is taken.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_Guard-Definitions_Semantics">6.3.2. Semantics</h4>
+<h4 id="State-Machine-Behavior-Elements_Guard-Definitions_Semantics">6.4.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4068,7 +4161,7 @@ guard.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_Guard-Definitions_Examples">6.3.3. Examples</h4>
+<h4 id="State-Machine-Behavior-Elements_Guard-Definitions_Examples">6.4.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">enum EnabledStatus { ENABLED, DISABLED }
@@ -4096,7 +4189,7 @@ state machine GuardDefs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers">6.4. Initial Transition Specifiers</h3>
+<h3 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers">6.5. Initial Transition Specifiers</h3>
 <div class="paragraph">
 <p>An <strong>initial transition specifier</strong> is part of a
 <a href="#Definitions_State-Machine-Definitions">state machine definition</a>
@@ -4107,16 +4200,16 @@ when starting up a state machine or entering a state with
 substates.</p>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Syntax">6.4.1. Syntax</h4>
+<h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Syntax">6.5.1. Syntax</h4>
 <div class="paragraph">
 <p><code>initial</code>
 <a href="#State-Machine-Behavior-Elements_Transition-Expressions"><em>transition-expression</em></a></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Static-Semantics">6.4.2. Static Semantics</h4>
+<h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Static-Semantics">6.5.2. Static Semantics</h4>
 <div class="paragraph">
-<p>The state definition or junction definition referred to in the
+<p>The state definition or choice definition referred to in the
 transition expression must <strong>lead to a member</strong> of the same
 state machine definition or state definition in which the initial
 transition specifier appears.</p>
@@ -4128,23 +4221,23 @@ transition specifier appears.</p>
 (respectively a state <em>S</em>) if <em>D</em> is a member of <em>M</em> (respectively <em>S</em>).</p>
 </li>
 <li>
-<p>A junction definition <em>D</em> leads to a member of a state machine definition <em>M</em>
+<p>A choice definition <em>D</em> leads to a member of a state machine definition <em>M</em>
 (respectively as state <em>S</em>) if it is a member of <em>M</em> (respectively <em>S</em>)
-and the state or junction definitions referred to in <em>D</em> lead to members of
+and the state or choice definitions referred to in <em>D</em> lead to members of
 <em>M</em> (respectively <em>S</em>).</p>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Dynamic-Semantics">6.4.3. Dynamic Semantics</h4>
+<h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Dynamic-Semantics">6.5.3. Dynamic Semantics</h4>
 <div class="paragraph">
 <p>To run an initial transition specifier <em>I</em> with transition expression <em>E</em>,
 we <a href="#State-Machine-Behavior-Elements_Transition-Expressions_Dynamic-Semantics">run <em>E</em> in the context of <em>I</em></a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Examples">6.4.4. Examples</h4>
+<h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Examples">6.5.4. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
@@ -4167,99 +4260,6 @@ we <a href="#State-Machine-Behavior-Elements_Transition-Expressions_Dynamic-Sema
     state POWERING_UP
 
   }
-
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="State-Machine-Behavior-Elements_Junction-Definitions">6.5. Junction Definitions</h3>
-<div class="paragraph">
-<p>A <strong>junction definition</strong> specifies a junction as part of a
-<a href="#Definitions_State-Machine-Definitions">state machine definition</a>
-or
-<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>.
-A junction is a branch point controlled by a
-<a href="#State-Machine-Behavior-Elements_Guard-Definitions">guard</a>.</p>
-</div>
-<div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_Junction-Definitions_Syntax">6.5.1. Syntax</h4>
-<div class="paragraph">
-<p><code>junction</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<code>{</code>
-<code>if</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <a href="#State-Machine-Behavior-Elements_Transition-Expressions"><em>transition-expression</em></a>
-<code>else</code> <a href="#State-Machine-Behavior-Elements_Transition-Expressions"><em>transition-expression</em></a>
-<code>}</code></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_Junction-Definitions_Static-Semantics">6.5.2. Static Semantics</h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The identifier after the keyword <code>junction</code> is the name of the junction.</p>
-</li>
-<li>
-<p>The identifier after the keyword <code>if</code> must
-<a href="#Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names">refer</a>
-to a
-<a href="#State-Machine-Behavior-Elements_Guard-Definitions">guard definition</a>.
-It specifies the guard that controls the branch.</p>
-</li>
-<li>
-<p>Each of the transition expressions must be valid.
-The first transition expression is run if the guard evaluates to <code>true</code>;
-otherwise the second transition expression is run.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_Junction-Definitions_Dynamic-Semantics">6.5.3. Dynamic Semantics</h4>
-<div class="paragraph">
-<p>Each junction <em>J</em> has the following <strong>entry behavior</strong>:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Evaluate the guard of <em>J</em>.</p>
-</li>
-<li>
-<p>If <em>J</em> evaluates to <code>true</code>, then
-<a href="#State-Machine-Behavior-Elements_Transition-Expressions_Dynamic-Semantics">run the <code>if</code> transition expression in the context of <em>J</em></a>.</p>
-</li>
-<li>
-<p>Otherwise run the <code>else</code> transition expression in the context of <em>J</em>.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>If any of the guard or the transition expressions requires a typed argument
-<em>v</em>, then according to the static semantics, <em>v</em> must be available,
-and it must have a compatible type.
-Use <em>v</em> to evaluate the guard or run the transition expression.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_Junction-Definitions_Examples">6.5.4. Examples</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
-
-  action initPower
-  guard coldStart
-
-  initial enter J1
-
-  junction J1 {
-    if coldStart enter OFF \
-    else do { initPower } enter ON
-  }
-
-  state OFF
-
-  state ON
 
 }</code></pre>
 </div>
@@ -4370,7 +4370,7 @@ A state definition member is one of the following:</p>
 <p>An <a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a></p>
 </li>
 <li>
-<p>A <a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a></p>
+<p>A <a href="#State-Machine-Behavior-Elements_Choice-Definitions">choice definition</a></p>
 </li>
 <li>
 <p>A <a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a></p>
@@ -4659,7 +4659,7 @@ It specifies a guard for the transition.</p>
 </li>
 <li>
 <p>The first form of the <em>transition-or-do</em> syntax specifies an <strong>external
-transition</strong>, i.e., an optional list of actions and a target state or junction.</p>
+transition</strong>, i.e., an optional list of actions and a target state or choice.</p>
 </li>
 <li>
 <p>The second form of the <em>transition-or-do</em> syntax specifies an
@@ -4790,9 +4790,9 @@ the transition expression.</p>
 <a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition</a>,
 a <a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transition</a>,
 or
-a <a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction</a>.
+a <a href="#State-Machine-Behavior-Elements_Choice-Definitions">choice</a>.
 The transition performs zero or more actions and then
-enters a state or junction.</p>
+enters a state or choice.</p>
 </div>
 <div class="sect3">
 <h4 id="State-Machine-Behavior-Elements_Transition-Expressions_Syntax">6.11.1. Syntax</h4>
@@ -4818,8 +4818,8 @@ If there are no actions, the do expression may be omitted.</p>
 to a
 <a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>
 or a
-<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a>
-It is the state or junction that is entered in the transition.</p>
+<a href="#State-Machine-Behavior-Elements_Choice-Definitions">choice definition</a>
+It is the state or choice that is entered in the transition.</p>
 </li>
 </ol>
 </div>
@@ -4829,7 +4829,7 @@ It is the state or junction that is entered in the transition.</p>
 <div class="paragraph">
 <p>A transition expression <em>E</em> is run in the context of an
 initial transition specifier, a leaf state definition,
-or a junction definition.</p>
+or a choice definition.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -4845,7 +4845,7 @@ or a junction definition.</p>
 <p>Run the entry behavior of the
 <a href="#State-Machine-Behavior-Elements_State-Definitions_Dynamic-Semantics">state</a>
 or
-<a href="#State-Machine-Behavior-Elements_Junction-Definitions_Dynamic-Semantics">junction</a>
+<a href="#State-Machine-Behavior-Elements_Choice-Definitions_Dynamic-Semantics">choice</a>
 referred to in <em>E</em>.</p>
 </li>
 </ol>
@@ -4856,12 +4856,12 @@ a typed argument.</p>
 </div>
 </li>
 <li>
-<p>To run <em>E</em> in the context of a leaf state definition or junction definition <em>D</em>,
+<p>To run <em>E</em> in the context of a leaf state definition or choice definition <em>D</em>,
 do the following:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Let <em>T</em> be the state or junction which is the target of <em>E</em>.</p>
+<p>Let <em>T</em> be the state or choice which is the target of <em>E</em>.</p>
 </li>
 <li>
 <p>Let <em>P</em> be the <strong>lowest common ancestor</strong> of <em>D</em> and <em>T</em>.
@@ -4898,7 +4898,7 @@ When passing into a state <em>S</em>, perform the
 <p>Run the entry behavior of the
 <a href="#State-Machine-Behavior-Elements_State-Definitions_Dynamic-Semantics">state</a>
 or
-<a href="#State-Machine-Behavior-Elements_Junction-Definitions_Dynamic-Semantics">junction</a>
+<a href="#State-Machine-Behavior-Elements_Choice-Definitions_Dynamic-Semantics">choice</a>
 <em>T</em>.</p>
 </li>
 </ol>
@@ -10580,7 +10580,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-31 09:14:03 -0700
+Last updated 2024-11-19 09:03:13 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

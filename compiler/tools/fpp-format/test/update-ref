@@ -42,19 +42,22 @@ escaped_strings()
 
 no_include()
 {
-  update '' syntax no_include
   update '' ../../fpp-syntax/test/syntax no_include
 }
 
 include()
 {
-  update '-i' syntax include
   update '-i' ../../fpp-syntax/test/syntax include
 }
 
 kwd_names()
 {
   update '' kwd_names
+}
+
+state_machine()
+{
+  update '' ../../fpp-syntax/test/state-machine state_machine
 }
 
 for t in $tests

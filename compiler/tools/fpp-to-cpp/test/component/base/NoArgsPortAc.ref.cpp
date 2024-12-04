@@ -134,7 +134,7 @@ namespace Ports {
   }
 
   void OutputNoArgsPort ::
-    invoke()
+    invoke() const
   {
 #if FW_PORT_TRACING == 1
     this->trace();

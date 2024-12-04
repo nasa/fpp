@@ -121,7 +121,7 @@ class OutputBuiltInTypePort :
     void invoke(
         FwOpcodeType t,
         FwOpcodeType& tRef
-    );
+    ) const;
 
   private:
 

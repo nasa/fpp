@@ -4,7 +4,6 @@
 // \brief  cpp file for PassiveGetProducts component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "PassiveGetProducts.hpp"
 
 // ----------------------------------------------------------------------
@@ -25,7 +24,7 @@ PassiveGetProducts ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined typed input ports
+// Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
 void PassiveGetProducts ::

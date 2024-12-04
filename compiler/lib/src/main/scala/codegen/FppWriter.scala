@@ -44,15 +44,45 @@ object FppWriter extends AstVisitor with LineUtils {
 
   private implicit def lift(ls: Out): JoinOps = JoinOps(ls)
 
+  def actionList(actions: List[AstNode[Ast.Ident]]) =
+    actions match {
+      case Nil => lines("")
+      case _ => lines("do").join (" ") (
+        List.concat(
+          lines("{"),
+          actions.flatMap(applyToData(identAsLines)).map(indentIn),
+          lines("}")
+        )
+      )
+    }
+
   def componentMember(member: Ast.ComponentMember): Out = {
     val (a1, _, a2) = member.node
     val l = matchComponentMember((), member)
     annotate(a1, l, a2)
   }
 
+  def transitionExpr(transition: Ast.TransitionExpr): Out = {
+    val sep = if transition.actions.isEmpty then "enter " else " enter "
+    actionList(transition.actions).
+    join(sep)(qualIdent(transition.target.data))
+  }
+
   def moduleMember(member: Ast.ModuleMember): Out = {
     val (a1, _, a2) = member.node
     val l = matchModuleMember((), member)
+    annotate(a1, l, a2)
+  }
+
+  def stateMachineMember(member: Ast.StateMachineMember): Out = {
+    val (a1, _, a2) = member.node
+    val l = matchStateMachineMember((), member)
+    annotate(a1, l, a2)
+  }
+
+  def stateMember(member: Ast.StateMember): Out = {
+    val (a1, _, a2) = member.node
+    val l = matchStateMember((), member)
     annotate(a1, l, a2)
   }
 
@@ -69,6 +99,13 @@ object FppWriter extends AstVisitor with LineUtils {
   def tuMemberList(tuml: List[Ast.TUMember]): Out =
     Line.blankSeparated (tuMember) (tuml)
 
+  def transitionOrDo(tod: Ast.TransitionOrDo): Out =
+    tod match {
+      case Ast.TransitionOrDo.Transition(transition) =>
+        transitionExpr(transition.data)
+      case Ast.TransitionOrDo.Do(actions) => actionList(actions)
+    }
+
   override def defAbsTypeAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]
@@ -76,6 +113,16 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines(s"type ${ident(data.name)}")
+  }
+
+  override def defActionAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefAction]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"action ${ident(data.name)}").
+    joinOpt (data.typeName) (": ") (typeNameNode)
   }
 
   override def defArrayAnnotatedNode(
@@ -89,6 +136,20 @@ object FppWriter extends AstVisitor with LineUtils {
       join ("] ") (typeNameNode(data.eltType)).
       joinOpt (data.default) (" default ") (exprNode).
       joinOpt (data.format) (" format ") (applyToData(string))
+  }
+
+  override def defChoiceAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefChoice]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"choice ${ident(data.name)} {") ++
+    (lines(s"if ${data.guard.data}").
+    join(" ")(transitionExpr(data.ifTransition.data))).map(indentIn).
+    joinWithBreak("")(lines("else")).
+    join(" ")(transitionExpr(data.elseTransition.data)) ++
+    lines("}")
   }
 
   override def defComponentAnnotatedNode(
@@ -145,6 +206,16 @@ object FppWriter extends AstVisitor with LineUtils {
       )
   }
 
+  override def defGuardAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefGuard]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"guard ${ident(data.name)}").
+    joinOpt (data.typeName) (": ") (typeNameNode)
+  }
+
   override def defModuleAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefModule]]
@@ -167,13 +238,46 @@ object FppWriter extends AstVisitor with LineUtils {
       joinOpt (data.returnType) (" -> ") (typeNameNode)
   }
 
+  override def defSignalAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefSignal]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"signal ${ident(data.name)}").
+    joinOpt (data.typeName) (": ") (typeNameNode)
+  }
+
+  override def defStateAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefState]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    val name = ident(data.name)
+    data.members match {
+      case Nil => lines(s"state $name")
+      case _ =>
+        List(line(s"state $name {"), Line.blank) ++
+        (Line.blankSeparated (stateMember) (data.members)).map(indentIn) ++
+        List(Line.blank, line("}"))
+    }
+  }
+
   override def defStateMachineAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"state machine ${ident(data.name)}")
+    data.members match {
+        case Some(members) if members.nonEmpty =>
+            List(line(s"state machine ${ident(data.name)} {"), Line.blank) ++
+            (Line.blankSeparated(stateMachineMember)(members)).map(indentIn) ++
+            List(Line.blank, line("}"))
+        case _ =>
+            List(line(s"state machine ${ident(data.name)}"))
+    }
   }
 
   override def defStructAnnotatedNode(
@@ -358,6 +462,16 @@ object FppWriter extends AstVisitor with LineUtils {
     lines("include").join (" ") (string(data.file.data))
   }
 
+  override def specInitialTransitionAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecInitialTransition]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("initial ").
+    join("")(transitionExpr(data.transition.data))
+  }
+
   override def specInternalPortAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecInternalPort]]
@@ -459,6 +573,26 @@ object FppWriter extends AstVisitor with LineUtils {
       joinOpt (data.id) (" id ") (exprNode)
   }
 
+  override def specStateEntryAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateEntry]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("entry ").
+    join("")(actionList(data.actions))
+  }
+
+  override def specStateExitAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateExit]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("exit ").
+    join("")(actionList(data.actions))
+  }
+
   override def specStateMachineInstanceAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]
@@ -469,6 +603,17 @@ object FppWriter extends AstVisitor with LineUtils {
       join(": ") (qualIdent(data.stateMachine.data)).
       joinOptWithBreak (data.priority) ("priority ") (exprNode).
       joinOptWithBreak (data.queueFull) ("") (queueFull)
+  }
+
+  override def specStateTransitionAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateTransition]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"on ${ident(data.signal.data)}").
+    joinOpt(data.guard)(" if ")(applyToData(identAsLines)).
+    join(" ")(transitionOrDo(data.transitionOrDo))
   }
 
   override def specTlmChannelAnnotatedNode(
@@ -607,6 +752,8 @@ object FppWriter extends AstVisitor with LineUtils {
 
   private def ident(id: Ast.Ident) =
     if (Lexer.reservedWordSet.contains(id)) "$" ++ id else id
+
+  private def identAsLines = lines compose ident
 
   private def portInstanceId(pii: Ast.PortInstanceIdentifier) =
     qualIdent(pii.componentInstance.data).

@@ -1524,48 +1524,42 @@
   },
   "symbolScopeMap" : {
     "44" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
+      "map" : {
+        
       }
     },
     "52" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "CmdReg" : {
-                  "Port" : {
-                    "nodeId" : 48,
-                    "unqualifiedName" : "CmdReg"
-                  }
-                },
-                "PrmGet" : {
-                  "Port" : {
-                    "nodeId" : 45,
-                    "unqualifiedName" : "PrmGet"
-                  }
-                },
-                "PrmSet" : {
-                  "Port" : {
-                    "nodeId" : 46,
-                    "unqualifiedName" : "PrmSet"
-                  }
-                },
-                "Cmd" : {
-                  "Port" : {
-                    "nodeId" : 47,
-                    "unqualifiedName" : "Cmd"
-                  }
-                },
-                "CmdResponse" : {
-                  "Port" : {
-                    "nodeId" : 51,
-                    "unqualifiedName" : "CmdResponse"
-                  }
-                }
+      "map" : {
+        "Port" : {
+          "map" : {
+            "CmdReg" : {
+              "Port" : {
+                "nodeId" : 48,
+                "unqualifiedName" : "CmdReg"
+              }
+            },
+            "PrmGet" : {
+              "Port" : {
+                "nodeId" : 45,
+                "unqualifiedName" : "PrmGet"
+              }
+            },
+            "PrmSet" : {
+              "Port" : {
+                "nodeId" : 46,
+                "unqualifiedName" : "PrmSet"
+              }
+            },
+            "Cmd" : {
+              "Port" : {
+                "nodeId" : 47,
+                "unqualifiedName" : "Cmd"
+              }
+            },
+            "CmdResponse" : {
+              "Port" : {
+                "nodeId" : 51,
+                "unqualifiedName" : "CmdResponse"
               }
             }
           }
