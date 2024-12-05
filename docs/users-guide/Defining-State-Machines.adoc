@@ -157,7 +157,7 @@ state machine Device {
 Here is the example represented graphically, as a UML state
 machine:
 
-image::diagrams/state-machine/Basic.png[Device state machine,200,align="center"]
+image::users-guide/diagrams/state-machine/Basic.png[Device state machine,200,align="center"]
 
 This example defines a state machine `Device` that represents
 a device with on-off behavior.
@@ -330,7 +330,7 @@ state machine Device {
 
 Here is the graphical representation:
 
-image::diagrams/state-machine/ActionsInTransitions.png[Device state machine with actions on transitions,500,align="center"]
+image::users-guide/diagrams/state-machine/ActionsInTransitions.png[Device state machine with actions on transitions,500,align="center"]
 
 In this example there are four actions:
 `initialAction1`, `initialAction2`, `offOnAction`, and `onOffAction`.
@@ -441,7 +441,7 @@ state machine Device {
 
 Here is the graphical representation:
 
-image::diagrams/state-machine/EntryAndExitActions.png[Device state machine with entry and exit actions,500,align="center"]
+image::users-guide/diagrams/state-machine/EntryAndExitActions.png[Device state machine with entry and exit actions,500,align="center"]
 
 As with actions on transitions, each entry or exit specifier names
 a list of actions, and the actions are done in the order named.
@@ -615,7 +615,7 @@ state machine Device {
 
 Here is the graphical representation:
 
-image::diagrams/state-machine/GuardedTransitions.png[Device state machine with a guarded transition,400,align="center"]
+image::users-guide/diagrams/state-machine/GuardedTransitions.png[Device state machine with a guarded transition,400,align="center"]
 
 In this example, there is one guard, `powerOnIsSafe`.
 The implementation of this function will return true
@@ -764,7 +764,7 @@ state machine Device {
 
 Here is the graphical representation:
 
-image::diagrams/state-machine/SelfTransitions.png[Device state machine with a self transition,400,align="center"]
+image::users-guide/diagrams/state-machine/SelfTransitions.png[Device state machine with a self transition,400,align="center"]
 
 In this example, when the state machine is in the `ON` state and
 it receives a `cmdReset` signal, the following behavior occurs:
@@ -843,7 +843,7 @@ state machine Device {
 
 Here is the graphical representation:
 
-image::diagrams/state-machine/InternalTransitions.png[Device state machine with an internal transition,200,align="center"]
+image::users-guide/diagrams/state-machine/InternalTransitions.png[Device state machine with an internal transition,200,align="center"]
 
 In this example, when the state machine is in state `ON` and it
 receives a `cmdReset` signal, it does the `reset` action and
@@ -946,7 +946,7 @@ state machine Device {
 
 Here is the graphical representation:
 
-image::diagrams/state-machine/Choices.png[Device state machine with a choice,450,align="center"]
+image::users-guide/diagrams/state-machine/Choices.png[Device state machine with a choice,450,align="center"]
 
 This version of the `Device` state machine has three states:
 `ON`, `OFF`, and `ERROR`.
@@ -1207,7 +1207,7 @@ state machine Device {
 
 Here is the graphical representation:
 
-image::diagrams/state-machine/Substates.png[Device state machine with substates,500,align="center"]
+image::users-guide/diagrams/state-machine/Substates.png[Device state machine with substates,500,align="center"]
 
 This state machine has four states: `ON`, `OFF`, `OFF.SAFE`, and `OFF.UNSAFE`.
 The last two states are substates of `OFF`.
@@ -1386,7 +1386,7 @@ state machine Device {
 
 Here is the graphical representation:
 
-image::diagrams/state-machine/InheritedTransitions.png[Device state machine with inherited transitions,600,align="center"]
+image::users-guide/diagrams/state-machine/InheritedTransitions.png[Device state machine with inherited transitions,600,align="center"]
 
 Here we have rewritten the
 <<Defining-State-Machines_Hierarchy_Substates,

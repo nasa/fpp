@@ -1,4 +1,4 @@
-== diagrams/state-machine
+== users-guide/diagrams/state-machine
 
 This directory contains state machine diagrams for the FPP User's Guide.
 To generate the diagrams, the command `puml` must be in your path,
