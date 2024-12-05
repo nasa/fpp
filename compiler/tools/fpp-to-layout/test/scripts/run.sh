@@ -8,7 +8,7 @@ compare()
 {
   topDir=$1
   outfile=$2
-  diff -u $topDir'LayoutRef/'$outfile.txt $topDir'Layout/'$outfile.txt > $outfile.diff.txt 2>&1
+  diff -u $topDir'Layout.ref/'$outfile.txt $topDir'Layout/'$outfile.txt > $outfile.diff.txt 2>&1
 }
 
 compare_out()

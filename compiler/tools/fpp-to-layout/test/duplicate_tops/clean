@@ -10,7 +10,7 @@ do
   rm $file
 done
 
-for dir in `find . -type d -name '*LayoutRef'`
+for dir in `find . -type d -name '*Layout.ref'`
 do
   rm -r $dir
 done

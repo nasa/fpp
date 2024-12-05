@@ -25,6 +25,15 @@ object LayoutWriter extends AstStateVisitor with LineUtils {
         val topSymbol = Symbol.Topology(aNode)
         val name = s.getName(topSymbol)
         val directoryName = LayoutWriterState.getTopologyDirectoryName(name)
+
+        // Delete existing layout directory and files
+        val d = new java.io.File(s.dir + "/" + directoryName)
+        if (d.exists && d.isDirectory) {
+            for(file <- d.listFiles.filter(_.isFile).toList) 
+                yield file.delete()
+            d.delete()
+        }
+
         // Given the topology symbol, look up topology in analysis topology map
         val topology = s.a.topologyMap(topSymbol)
         for((cGraphName, connections) <- topology.connectionMap) yield {
