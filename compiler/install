@@ -64,6 +64,7 @@ fpp-to-cpp
 fpp-to-json
 fpp-to-xml
 fpp-to-dict
+fpp-to-layout
 "
 
 if git describe --tags --always > /dev/null 2>&1

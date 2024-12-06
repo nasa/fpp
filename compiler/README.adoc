@@ -34,8 +34,9 @@ That way you can run the tools from anywhere.
 * `fpp-locate-uses`
 * `fpp-syntax`
 * `fpp-to-cpp`
-* `fpp-to-xml`
 * `fpp-to-dict`
+* `fpp-to-layout`
+* `fpp-to-xml`
 
 See https://github.com/fprime-community/fpp/wiki/Tools for more information.
 
