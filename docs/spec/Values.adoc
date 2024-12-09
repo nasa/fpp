@@ -200,3 +200,7 @@ the sum of the serialized sizes of the members of _v_
 * If _T_ is an
 <<Types_Abstract-Types,abstract type>>, then _s_ is not specified in FPP.  It
 is up to the implementer of _T_ to provide the serialized size.
+
+* If _T_ is a
+<<Types_Alias-Types,alias type>>, then reapply the above rules on its
+<<Types_Underlying-Type,underlying type>>.
