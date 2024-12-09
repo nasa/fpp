@@ -80,6 +80,20 @@ An abstract type is written using its
 <<Scoping-of-Names_Names-of-Definitions,unique qualified
 name>>.
 
+=== Alias Types
+
+An *alias type* is a type associated with an
+<<Definitions_Alias-Type-Definitions,alias type definition>>.
+There is one alias type per type definition.
+An alias type is written using its
+<<Scoping-of-Names_Names-of-Definitions,unique qualified
+name>>.
+
+Alias types due not have literal values associated with them.
+Values associated with their underlying
+<<Types_Canonical-Types,canonical type>> can be casted into
+the alias type.
+
 === Internal Types
 
 *Internal types* do not have syntactic names in FPP source models.
@@ -118,6 +132,25 @@ The order of the members is not significant.
 For example, `{ a: U32, b: F32 }` represents the same
 type as `{ b : F32, a: U32 }`.
 
+=== Canonical Types
+
+A canonical type is the opposite of an <<Types_Alias-Types,alias type>>.
+The canonical type is the underlying type with all the "`sugar`" removed.
+For example, if `T` is a alias for `U8`, the underlying canonical type for
+`T` would be `U8`.
+
+All types can be traced back to a single unique canonical type known as its
+<<Types_Underlying-Types,underyling type>>
+
+==== Underlying Types
+
+An underlying type is a <<Types_Canonical-Type, canonical type>> assosicated with
+a type. If a type is already a <<Types_Canonical-Type, canonical type>>, it's underlying
+type is itself.
+
+The underying type of a <<Types_Alias-Type, alias type>> it's found by recursively stripping
+off aliases until the base <<Types_Canonical-Type, canonical type>> is reached.
+
 === Displayable Types
 
 A type is a **displayable type** if it is one of the following:
@@ -132,7 +165,8 @@ A type is a **displayable type** if it is one of the following:
 
 === Types with Numeric Members
 
-A type *has numeric members* if it is one of the following:
+A type *has numeric members* if its <<Types_Underlying-Types,underyling type>>
+is one of the following:
 
 * A <<Types_Internal-Types_Numeric-Types,numeric type>>.
 
@@ -192,3 +226,8 @@ struct definitions>> for examples.
 <<Values_Abstract-Type-Values,single value associated with _T_>>.
 This value is left abstract in the FPP model; the implementation
 of _T_ must provide a concrete value.
+
+* The default value associated with an
+<<Types_Alias-Types,alias type>> _T_ is the
+<<Types_Default-Values,default value>> of its
+<<Types_Underlying-Types,underlying type>>.

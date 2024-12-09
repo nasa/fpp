@@ -25,6 +25,19 @@ object EnterSymbols
       yield updateMap(a, symbol).copy(nestedScope = nestedScope)
   }
 
+  override def defAliasTypeAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    val name = data.name
+    val symbol = Symbol.AliasType(aNode)
+    val nestedScope = a.nestedScope
+    for (nestedScope <- nestedScope.put(NameGroup.Type)(name, symbol))
+      yield updateMap(a, symbol).copy(nestedScope = nestedScope)
+  }
+
   override def defArrayAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefArray]]

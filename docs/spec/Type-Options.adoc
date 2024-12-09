@@ -53,6 +53,8 @@ is computed as follows:
 .. If stem:[T_1] and stem:[T_2] are <<Type-Checking_Identical-Types,identical types>>,
 then let stem:[T] be stem:[T_1].
 
+.. Compute the <<Types_Underlying-Types,underyling type>>
+
 .. Otherwise if stem:[T_1] and stem:[T_2] are both
 <<Types_Primitive-Integer-Types,signed primitive integer types>>,
 then let stem:[T] be the wider of the two types.
