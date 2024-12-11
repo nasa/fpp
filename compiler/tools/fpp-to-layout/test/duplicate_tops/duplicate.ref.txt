@@ -1,0 +1,9 @@
+fpp-to-layout
+[ local path prefix ]/tools/fpp-to-layout/test/duplicate_tops/duplicate.fpp:7.1
+topology Duplicate { 
+^
+error: duplicate topology layout directory DuplicateLayout
+previous topology layout directory would be generated here:
+[ local path prefix ]/tools/fpp-to-layout/test/duplicate_tops/duplicate.fpp:3.3
+  topology Duplicate { 
+  ^

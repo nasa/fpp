@@ -13811,20 +13811,84 @@ annotations back to comments.</p>
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Visualizing-Topologies">14.7. Visualizing Topologies</h3>
 <div class="paragraph">
-<p>When FPP translates a topology <em>T</em> to XML, as discussed in the section on
-<a href="#Analyzing-and-Translating-Models_Generating-XML">generating XML</a>,
-it adds special comments that can be read by a companion tool called
-<code>fprime-layout</code>.
-<code>fprime-layout</code> reads a topology XML file and produces a
-<strong>topology visualization</strong>, i.e., a graphical rendering of the topology
-in which the component instances are shapes, the ports are smaller shapes,
-and the connections are arrows between the ports.
-<code>fprime-layout</code> produces one visualization for each
-<a href="#Defining-Topologies_Connection-Graphs">connection graph</a> in the
-topology.</p>
+<p>FPP provides a tool called <code>fpp-to-layout</code> for generating files
+that you can use to visualize topologies.
+Given a topology <em>T</em>, this tool generates a directory containing
+the <strong>layout input files</strong> for <em>T</em>.
+There is one file for each <a href="#Defining-Topologies_Connection-Graphs">connection
+graph</a> in <em>T</em>.
+The files are designed to work with a tool called <code>fprime-layout</code>, which
+we describe below.</p>
 </div>
 <div class="paragraph">
-<p>Topology visualization is an important part of the FPP work flow:</p>
+<p><strong>Procedure:</strong>
+The usual procedure for running <code>fpp-to-layout</code> is as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Identify one or more files <em>F</em> containing topology definitions
+for which you wish to generate layout input files.</p>
+</li>
+<li>
+<p><a href="#Specifying-Models-as-Files_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
+</li>
+<li>
+<p>If <em>D</em> is empty, then run <code>fpp-to-layout</code> <em>F</em>.</p>
+</li>
+<li>
+<p>Otherwise run <code>fpp-to-layout -i</code> <em>D<sub>1</sub></em> <code>,</code> &#8230;&#8203; <code>,</code> <em>D<sub>n</sub></em> <em>F</em>, where <em>D<sub>i</sub></em> are the
+names of the dependencies.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Except for the tool name, this procedure is identical to the one given for
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">generating C&#43;&#43;</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Input:</strong> You can provide input to <code>fpp-to-layout</code>
+either through named files or through standard input.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tool behavior:</strong>
+For each topology <em>T</em> defined in the input files <em>F</em>, <code>fpp-to-layout</code> does
+the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If a directory named <em>T</em> <code>Layout</code> exists in the current directory, then
+remove it.</p>
+</li>
+<li>
+<p>Create a directory named <em>T</em> <code>Layout</code> in the current directory.</p>
+</li>
+<li>
+<p>In the directory created in step 2, write one layout input file
+for each of the connection graphs in <em>T</em>.
+The
+<a href="https://github.com/fprime-community/fprime-layout/wiki/Topology-Input"><code>fprime-layout</code> wiki</a>
+describes the file format.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Options:</strong>
+<code>fpp-to-layout</code> provides an option <code>-d</code> for selecting the current directory
+to use when writing layout input files.
+This option works in the same way as for
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions"><code>fpp-to-cpp</code></a>.
+See the <a href="https://github.com/nasa/fpp/wiki/fpp-to-layout">FPP wiki</a> for details.</p>
+</div>
+<div class="paragraph">
+<p><strong>Producing visualizations:</strong>
+Once you have generated layout input files, you can use a
+companion tool called <code>fprime-layout</code> to read the files and produce a
+<strong>topology visualization</strong>, i.e., a graphical rendering of the topology in which
+the component instances are shapes, the ports are smaller shapes, and the
+connections are arrows between the ports.
+Topology visualization is an important part of the FPP work flow:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -13847,14 +13911,11 @@ the auto-generated connections of the pattern graph specifiers.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Extract the connection graphs from a topology XML file.</p>
-</li>
-<li>
 <p>Render the connection graphs as EPS (Encapsulated PostScript),
 generating one EPS file for each connection graph.</p>
 </li>
 <li>
-<p>Generate a set of layouts, one for each connection graph,
+<p>Generate a set of layouts, one for each layout input file,
 and view the layouts in a browser.</p>
 </li>
 </ul>
