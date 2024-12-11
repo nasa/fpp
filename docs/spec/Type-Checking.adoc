@@ -258,7 +258,7 @@ Here are the rules for type conversion:
 are <<Type-Checking_Identical-Types,identical types>>.
 
 . If stem:[T_1] or stem:[T_2] are not <<Types_Canonical-Types, canonical types>>,
-compute the <<Types_Underlying-Types,underyling type>> and reapply these
+compute the <<Types_Underlying-Types,underlying type>> and reapply these
 rules.
 
 . Any <<Types_String-Types,string type>> may be converted

@@ -84,15 +84,10 @@ name>>.
 
 An *alias type* is a type associated with an
 <<Definitions_Alias-Type-Definitions,alias type definition>>.
-There is one alias type per type definition.
+There is one alias type per alias type definition.
 An alias type is written using its
 <<Scoping-of-Names_Names-of-Definitions,unique qualified
 name>>.
-
-Alias types due not have literal values associated with them.
-Values associated with their underlying
-<<Types_Canonical-Types,canonical type>> can be casted into
-the alias type.
 
 === Internal Types
 
@@ -134,26 +129,23 @@ type as `{ b : F32, a: U32 }`.
 
 === Canonical Types
 
-A canonical type is the opposite of an <<Types_Alias-Types,alias type>>.
-The canonical type is the underlying type with all the "`sugar`" removed.
-For example, if `T` is a alias for `U8`, the underlying canonical type for
-`T` would be `U8`.
+A type is a *canonical type* if it is not an <<Types_Alias-Types,alias type>>.
 
-All types can be traced back to a single unique canonical type known as its
-<<Types_Underlying-Types,underyling type>>
+=== Underlying Types
 
-==== Underlying Types
+The *underlying type* of a type _T_ is the <<Types_Canonical-Types, canonical type>>
+associated with _T_.
 
-An underlying type is a <<Types_Canonical-Type, canonical type>> assosicated with
-a type. If a type is already a <<Types_Canonical-Type, canonical type>>, it's underlying
-type is itself.
+* If _T_ is a canonical type, then the underlying type of _T_ is _T_.
 
-The underying type of a <<Types_Alias-Type, alias type>> it's found by recursively stripping
-off aliases until the base <<Types_Canonical-Type, canonical type>> is reached.
+* Otherwise _T_ is an <<Types_Alias-Types,alias type>>.
+In this case, the underlying type of _T_ is the underlying type of the type
+associated with _T_ in the definition of _T_.
 
 === Displayable Types
 
-A type is a **displayable type** if it is one of the following:
+A *displayable type* is a type that the F Prime ground data system can display.
+It is one of the following:
 
 * A <<Types_Primitive-Integer-Types,primitive integer type>>.
 * A <<Types_Floating-Point-Types,floating-point type>>.
@@ -162,10 +154,12 @@ A type is a **displayable type** if it is one of the following:
 * An <<Types_Enum-Types,enum type>>.
 * An <<Types_Array-Types,array type>> whose member type is a displayable type.
 * A <<Types_Struct-Types,struct type>> whose member types are all displayable types.
+* An <<Types_Alias-Types,alias type>> whose <<Types_Underlying-Types,underlying 
+type>> is a displayable type.
 
 === Types with Numeric Members
 
-A type *has numeric members* if its <<Types_Underlying-Types,underyling type>>
+A type *has numeric members* if its <<Types_Underlying-Types,underlying type>>
 is one of the following:
 
 * A <<Types_Internal-Types_Numeric-Types,numeric type>>.

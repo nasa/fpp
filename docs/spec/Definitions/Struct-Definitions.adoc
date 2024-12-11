@@ -25,8 +25,8 @@ _]_
 
 ==== Semantics
 
-The identifier is the name _N_ of the type.  The definition associates the name
-_N_ with a
+The identifier is the name _N_ of the type.
+The definition associates the name _N_ with a
 <<Types_Struct-Types,struct type>> _T_ representing a structure with named members, each
 of the specified type.  Each
 identifier appearing in the struct type member sequence must be distinct.

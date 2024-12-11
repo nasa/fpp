@@ -203,4 +203,4 @@ is up to the implementer of _T_ to provide the serialized size.
 
 * If _T_ is a
 <<Types_Alias-Types,alias type>>, then reapply the above rules on its
-<<Types_Underlying-Type,underlying type>>.
+<<Types_Underlying-Types,underlying type>>.
