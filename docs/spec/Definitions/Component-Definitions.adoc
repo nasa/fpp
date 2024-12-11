@@ -27,6 +27,8 @@ A component member is one of the following:
 
 * A <<Definitions_Constant-Definitions,constant definition>>
 
+* A <<Definitions_State-Machine-Definitions,state machine definition>>
+
 * A <<Definitions_Struct-Definitions,struct definition>>
 
 * A <<Specifiers_Command-Specifiers,command specifier>>.
