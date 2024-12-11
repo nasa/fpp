@@ -14,7 +14,7 @@ specifies the behavior of a state machine and
 causes an implementation to be generated.
 
 *Implementation note:*
-As of FPP v2.2.0, only external state machine definitions are implemented.
+As of FPP v2.2.1, only external state machine definitions are implemented.
 
 ==== Syntax
 

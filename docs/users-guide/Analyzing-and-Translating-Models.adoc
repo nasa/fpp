@@ -566,22 +566,23 @@ uses the name `A_B_CComponentAc_HPP` in its include guard.
 
 Once you generate {cpp} code for these definitions, you can use it to
 write a flight software implementation.
-The https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md[F
-Prime User's Guide] explains how to do this.
+The https://fprime.jpl.nasa.gov/latest/documentation/user-manual/[F
+User Manual] explains how to do this.
 
 For more information about the generated code for data products,
 for state machines, and for state machine instances, see the
-https://github.com/nasa/fprime/blob/devel/docs/Design/general.md[F Prime design
-documentation].
+https://fprime.jpl.nasa.gov/latest/documentation/user-manual/[F
+Prime design documentation].
 
 ==== Component Implementation and Unit Test Code
 
-`fpp-to-cpp` has options `-t` and `-u` for generating component "`templates`" or
+`fpp-to-cpp` has options `-t` and `-u` for generating component "`templates`" 
+or
 partial implementations and for generating unit test code.
 Here we cover the mechanics of using these options.
 For more information on implementing and testing components in F Prime, see
-the https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md[F
-Prime User's Guide].
+the https://fprime.jpl.nasa.gov/latest/documentation/user-manual/[F
+Prime User Manual].
 
 *Generating implementation templates:*
 When you run `fpp-to-cpp` with option `-t` and without option `-u`,
@@ -1312,12 +1313,13 @@ Except for the tool name, this procedure is identical to the one given for
 either through named files or through standard input.
 
 *Tool behavior:*
-For each topology _T_ defined in the input files _F_, `fpp-to-dict` writes a file
+For each topology _T_ defined in the input files _F_, `fpp-to-dict` writes a 
+file
 _T_ `TopologyDictionary.json`.
 The dictionary is specified in JavaScript Object Notation (JSON) format.
 The JSON format is specified in the
-https://github.com/nasa/fprime/blob/devel/docs/Design/fpp-json-dict.md[F Prime
-dictionary documentation].
+https://fprime.jpl.nasa.gov/latest/documentation/user-manual/design/fpp-json-dict/[F 
+Prime dictionary documentation].
 
 Here is a common use case:
 

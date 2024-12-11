@@ -83,3 +83,8 @@ constant record_id = 0
 constant container_id = 0
 constant container_priority = 0
 constant product_recv_priority = 0
+
+type ActionType
+type GuardType
+type SignalType
+constant SignalConstant = 10

@@ -965,6 +965,7 @@ void QueuedTestComponentBase ::
 #endif
   }
 
+  // Create the queue
   Os::Queue::Status qStat = this->createQueue(
     queueDepth,
     static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)

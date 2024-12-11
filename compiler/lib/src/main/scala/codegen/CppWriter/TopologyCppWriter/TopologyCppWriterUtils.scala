@@ -52,13 +52,8 @@ abstract class TopologyCppWriterUtils(
   def getComponentNameAsQualIdent(ci: ComponentInstance): String =
     getNameAsQualIdent(getComponentName(ci))
 
-  def getShortName(name: Name.Qualified): Name.Qualified = {
-    val ens = s.a.getEnclosingNames(symbol)
-    name.shortName(ens)
-  }
-
   def getNameAsQualIdent(name: Name.Qualified): String =
-    CppWriter.writeQualifiedName(getShortName(name))
+    CppWriter.writeQualifiedName(name)
 
   def getSpecifierForPhase (phase: Int) (ci: ComponentInstance): 
     Option[InitSpecifier] = ci.initSpecifierMap.get(phase)

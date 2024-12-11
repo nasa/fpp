@@ -416,6 +416,7 @@ void QueuedOverflowComponentBase ::
     static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
   );
 
+  // Create the queue
   Os::Queue::Status qStat = this->createQueue(queueDepth, this->m_msgSize);
   FW_ASSERT(
     Os::Queue::Status::OP_OK == qStat,

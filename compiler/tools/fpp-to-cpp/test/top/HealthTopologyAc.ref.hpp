@@ -18,14 +18,14 @@
 namespace M {
 
   //! c1
-  extern C c1;
+  extern M::C c1;
 
 }
 
 namespace M {
 
   //! c2
-  extern C c2;
+  extern M::C c2;
 
 }
 

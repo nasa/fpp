@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>The F Prime Prime (FPP) User&#8217;s Guide, Unreleased, after v2.2.0</title>
+<title>The F Prime Prime (FPP) User&#8217;s Guide, Unreleased, after v2.2.1</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,7 +436,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>The F Prime Prime (FPP) User&#8217;s Guide, Unreleased, after v2.2.0</h1>
+<h1>The F Prime Prime (FPP) User&#8217;s Guide, Unreleased, after v2.2.1</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -756,7 +756,7 @@ A <a href="https://digitalcommons.usu.edu/smallsat/2018/all2018/328/">paper pres
 SmallSat 2018</a>
 provides an overview of F Prime.
 For more detailed information about F Prime, see the
-<a href="https://github.com/nasa/fprime/blob/devel/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.</p>
+<a href="https://fprime.jpl.nasa.gov/latest/documentation/user-manual/">F Prime User Manual</a>.</p>
 </div>
 <div class="paragraph">
 <p>The goals of FPP are as follows:</p>
@@ -3635,7 +3635,7 @@ applications that use F Prime.</p>
 of FPP state machines.
 For more details about the C&#43;&#43; code generation
 for state machines, see the
-<a href="https://github.com/nasa/fprime/blob/devel/docs/Design/general.md">F Prime design
+<a href="https://fprime.jpl.nasa.gov/latest/documentation/user-manual/">F Prime design
 documentation</a>.</p>
 </div>
 </div>
@@ -3721,7 +3721,7 @@ machine:</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
-<img src="diagrams/state-machine/Basic.png" alt="Device state machine" width="200">
+<img src="users-guide/diagrams/state-machine/Basic.png" alt="Device state machine" width="200">
 </div>
 </div>
 <div class="paragraph">
@@ -3922,7 +3922,7 @@ state machine Device {
 </div>
 <div class="imageblock text-center">
 <div class="content">
-<img src="diagrams/state-machine/ActionsInTransitions.png" alt="Device state machine with actions on transitions" width="500">
+<img src="users-guide/diagrams/state-machine/ActionsInTransitions.png" alt="Device state machine with actions on transitions" width="500">
 </div>
 </div>
 <div class="paragraph">
@@ -4047,7 +4047,7 @@ state machine Device {
 </div>
 <div class="imageblock text-center">
 <div class="content">
-<img src="diagrams/state-machine/EntryAndExitActions.png" alt="Device state machine with entry and exit actions" width="500">
+<img src="users-guide/diagrams/state-machine/EntryAndExitActions.png" alt="Device state machine with entry and exit actions" width="500">
 </div>
 </div>
 <div class="paragraph">
@@ -4249,7 +4249,7 @@ state machine Device {
 </div>
 <div class="imageblock text-center">
 <div class="content">
-<img src="diagrams/state-machine/GuardedTransitions.png" alt="Device state machine with a guarded transition" width="400">
+<img src="users-guide/diagrams/state-machine/GuardedTransitions.png" alt="Device state machine with a guarded transition" width="400">
 </div>
 </div>
 <div class="paragraph">
@@ -4416,7 +4416,7 @@ state machine Device {
 </div>
 <div class="imageblock text-center">
 <div class="content">
-<img src="diagrams/state-machine/SelfTransitions.png" alt="Device state machine with a self transition" width="400">
+<img src="users-guide/diagrams/state-machine/SelfTransitions.png" alt="Device state machine with a self transition" width="400">
 </div>
 </div>
 <div class="paragraph">
@@ -4509,7 +4509,7 @@ state machine Device {
 </div>
 <div class="imageblock text-center">
 <div class="content">
-<img src="diagrams/state-machine/InternalTransitions.png" alt="Device state machine with an internal transition" width="200">
+<img src="users-guide/diagrams/state-machine/InternalTransitions.png" alt="Device state machine with an internal transition" width="200">
 </div>
 </div>
 <div class="paragraph">
@@ -4633,7 +4633,7 @@ state machine Device {
 </div>
 <div class="imageblock text-center">
 <div class="content">
-<img src="diagrams/state-machine/Choices.png" alt="Device state machine with a choice" width="450">
+<img src="users-guide/diagrams/state-machine/Choices.png" alt="Device state machine with a choice" width="450">
 </div>
 </div>
 <div class="paragraph">
@@ -4956,7 +4956,7 @@ state machine Device {
 </div>
 <div class="imageblock text-center">
 <div class="content">
-<img src="diagrams/state-machine/Substates.png" alt="Device state machine with substates" width="500">
+<img src="users-guide/diagrams/state-machine/Substates.png" alt="Device state machine with substates" width="500">
 </div>
 </div>
 <div class="paragraph">
@@ -5183,7 +5183,7 @@ state machine Device {
 </div>
 <div class="imageblock text-center">
 <div class="content">
-<img src="diagrams/state-machine/InheritedTransitions.png" alt="Device state machine with inherited transitions" width="600">
+<img src="users-guide/diagrams/state-machine/InheritedTransitions.png" alt="Device state machine with inherited transitions" width="600">
 </div>
 </div>
 <div class="paragraph">
@@ -5794,7 +5794,7 @@ For example, in the C&#43;&#43; implementation, you would generate a
 base class with a virtual handler function, and then override that virtual
 function in a derived class that you write.
 For further details about implementing F Prime components, see the
-<a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.</p>
+<a href="https://fprime.jpl.nasa.gov/latest/documentation/user-manual/">F Prime User Manual</a>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Note on terminology:</strong> As explained above, there is a technical
@@ -6089,7 +6089,7 @@ on that side.
 This flexibility comes at the cost that you lose the type
 compile-time type checking provided by port connections with named types.
 For more information about serial ports and their use, see
-the <a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.</p>
+the <a href="https://fprime.jpl.nasa.gov/latest/documentation/user-manual/">F Prime User Manual</a>.</p>
 </div>
 </div>
 </div>
@@ -6228,7 +6228,7 @@ properly with F Prime C&#43;&#43; code generation.</p>
 <div class="paragraph">
 <p>For further information about command registration, receipt, and
 response, and implementing command handlers, see the
-<a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.</p>
+<a href="https://fprime.jpl.nasa.gov/latest/documentation/user-manual/">F Prime User Manual</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -6309,7 +6309,7 @@ simplified definitions of these ports:</p>
 </div>
 <div class="paragraph">
 <p>For further information about events in F Prime, see the
-<a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.</p>
+<a href="https://fprime.jpl.nasa.gov/latest/documentation/user-manual/">F Prime User Manual</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -6358,7 +6358,7 @@ simplified definition of this port:</p>
 </div>
 <div class="paragraph">
 <p>For further information about telemetry in F Prime, see the
-<a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.</p>
+<a href="https://fprime.jpl.nasa.gov/latest/documentation/user-manual/">F Prime User Manual</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -6443,7 +6443,7 @@ simplified definitions of these ports:</p>
 </div>
 <div class="paragraph">
 <p>For further information about parameters in F Prime, see the
-<a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.</p>
+<a href="https://fprime.jpl.nasa.gov/latest/documentation/user-manual/">F Prime User Manual</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -6493,7 +6493,7 @@ simplified definition of this port:</p>
 </div>
 <div class="paragraph">
 <p>For further information about time in F Prime, see the
-<a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.</p>
+<a href="https://fprime.jpl.nasa.gov/latest/documentation/user-manual/">F Prime User Manual</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -6616,8 +6616,8 @@ simplified definitions of these ports:</p>
 </div>
 <div class="paragraph">
 <p>For further information about data products in F Prime, see the
-<a href="https://github.com/nasa/fprime/blob/devel/docs/Design/data-products.md">data products documentation</a>
-in the F Prime repository.</p>
+<a href="https://fprime.jpl.nasa.gov/latest/documentation/user-manual/design/data-products/">data
+products documentation</a> in the F Prime repository.</p>
 </div>
 </div>
 </div>
@@ -6761,7 +6761,7 @@ as part of the component implementation.</p>
 <div class="paragraph">
 <p>For complete information about F Prime command dispatch and
 handling, see the
-<a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.
+<a href="https://fprime.jpl.nasa.gov/latest/documentation/user-manual/">F Prime User Manual</a>.
 Here we concentrate on how to specify commands in FPP.</p>
 </div>
 <div class="sect3">
@@ -7124,7 +7124,7 @@ you can store in an on-board file system or send to the ground.</p>
 <div class="paragraph">
 <p>For complete information about F Prime event
 handling, see the
-<a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.
+<a href="https://fprime.jpl.nasa.gov/latest/documentation/user-manual/">F Prime User Manual</a>.
 Here we concentrate on how to specify events in FPP.</p>
 </div>
 <div class="sect3">
@@ -7423,7 +7423,7 @@ instance has emitted it ten times.</p>
 emit the event until the throttling is canceled.
 Typically, the canceling happens via a FSW command.
 For details, see the
-<a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.</p>
+<a href="https://fprime.jpl.nasa.gov/latest/documentation/user-manual/">F Prime User Manual</a>.</p>
 </div>
 </div>
 </div>
@@ -7444,7 +7444,7 @@ or send them the ground.</p>
 <div class="paragraph">
 <p>For complete information about F Prime telemetry
 handling, see the
-<a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.
+<a href="https://fprime.jpl.nasa.gov/latest/documentation/user-manual/">F Prime User Manual</a>.
 Here we concentrate on how to specify telemetry channels in FPP.</p>
 </div>
 <div class="sect3">
@@ -7804,7 +7804,7 @@ for a hardware device or a software algorithm.</p>
 database component for storing parameters in a non-volatile
 manner (e.g., on a file system).
 For complete information about F Prime parameters, see the
-<a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.
+<a href="https://fprime.jpl.nasa.gov/latest/documentation/user-manual/">F Prime User Manual</a>.
 Here we concentrate on how to specify parameters in FPP.</p>
 </div>
 <div class="sect3">
@@ -8135,8 +8135,8 @@ for (1) managing buffers that can store data products in memory;
 (2) writing data products to the file system; and (3)
 cataloging stored data products for downlink in priority order.
 For more information about these F Prime features, see the
-<a href="https://github.com/nasa/fprime/blob/devel/docs/Design/data-products.md">F Prime
-data products documentation</a>.</p>
+<a href="https://fprime.jpl.nasa.gov/latest/documentation/user-manual/">F Prime data
+products documentation</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="Defining-Components_Data-Products_Basic-Data-Products">10.9.1. Basic Data Products</h4>
@@ -8149,7 +8149,7 @@ the container (e.g., the size of the data payload), and binary data
 representing a list of serialized <strong>records</strong>.
 A record is a unit of data.
 For a complete specification of the container format, see the
-<a href="https://github.com/nasa/fprime/blob/devel/Fw/Dp/docs/sdd.md">documentation</a>
+<a href="https://fprime.jpl.nasa.gov/latest/documentation/reference/api/cpp/html/_fw_dp.html">documentation</a>
 on F Prime framework support for data products.</p>
 </div>
 <div class="paragraph">
@@ -8215,7 +8215,7 @@ passive component BasicDataProducts {
 <p>The FPP back end uses this specification to generate code for requesting
 buffers to hold containers and for serializing records into containers.
 See the
-<a href="https://github.com/nasa/fprime/blob/devel/docs/Design/data-products.md">F
+<a href="https://fprime.jpl.nasa.gov/latest/documentation/user-manual/design/data-products/">F
 Prime data products documentation</a> for the details.</p>
 </div>
 <div class="paragraph">
@@ -8456,7 +8456,7 @@ active component StateMachine {
 machine definitions may be internal (specified in FPP) or external (specified
 by an external tool).  For more details about the C&#43;&#43; code generation for
 instances of internal state machines, see the
-<a href="https://github.com/nasa/fprime/blob/devel/docs/Design/general.md">F Prime design
+<a href="https://fprime.jpl.nasa.gov/latest/documentation/user-manual/">F Prime design
 documentation</a>.</p>
 </div>
 </div>
@@ -12988,25 +12988,26 @@ uses the name <code>A_B_CComponentAc_HPP</code> in its include guard.</p>
 <div class="paragraph">
 <p>Once you generate C&#43;&#43; code for these definitions, you can use it to
 write a flight software implementation.
-The <a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F
-Prime User&#8217;s Guide</a> explains how to do this.</p>
+The <a href="https://fprime.jpl.nasa.gov/latest/documentation/user-manual/">F
+User Manual</a> explains how to do this.</p>
 </div>
 <div class="paragraph">
 <p>For more information about the generated code for data products,
 for state machines, and for state machine instances, see the
-<a href="https://github.com/nasa/fprime/blob/devel/docs/Design/general.md">F Prime design
-documentation</a>.</p>
+<a href="https://fprime.jpl.nasa.gov/latest/documentation/user-manual/">F
+Prime design documentation</a>.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">14.3.3. Component Implementation and Unit Test Code</h4>
 <div class="paragraph">
-<p><code>fpp-to-cpp</code> has options <code>-t</code> and <code>-u</code> for generating component &#8220;templates&#8221; or
+<p><code>fpp-to-cpp</code> has options <code>-t</code> and <code>-u</code> for generating component &#8220;templates&#8221;
+or
 partial implementations and for generating unit test code.
 Here we cover the mechanics of using these options.
 For more information on implementing and testing components in F Prime, see
-the <a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F
-Prime User&#8217;s Guide</a>.</p>
+the <a href="https://fprime.jpl.nasa.gov/latest/documentation/user-manual/">F
+Prime User Manual</a>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Generating implementation templates:</strong>
@@ -13915,12 +13916,13 @@ either through named files or through standard input.</p>
 </div>
 <div class="paragraph">
 <p><strong>Tool behavior:</strong>
-For each topology <em>T</em> defined in the input files <em>F</em>, <code>fpp-to-dict</code> writes a file
+For each topology <em>T</em> defined in the input files <em>F</em>, <code>fpp-to-dict</code> writes a
+file
 <em>T</em> <code>TopologyDictionary.json</code>.
 The dictionary is specified in JavaScript Object Notation (JSON) format.
 The JSON format is specified in the
-<a href="https://github.com/nasa/fprime/blob/devel/docs/Design/fpp-json-dict.md">F Prime
-dictionary documentation</a>.</p>
+<a href="https://fprime.jpl.nasa.gov/latest/documentation/user-manual/design/fpp-json-dict/">F
+Prime dictionary documentation</a>.</p>
 </div>
 <div class="paragraph">
 <p>Here is a common use case:</p>
@@ -14754,7 +14756,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-12-11 10:11:48 -0800
+Last updated 2024-12-11 13:45:07 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -78,6 +78,7 @@ namespace ExternalSm {
     // Initialize base class
     Fw::ActiveComponentBase::init(instance);
 
+    // Initialize state machine instances
     this->m_stateMachine_sm1.init(static_cast<FwEnumStoreType>(SmId::sm1));
     this->m_stateMachine_sm2.init(static_cast<FwEnumStoreType>(SmId::sm2));
     this->m_stateMachine_sm3.init(static_cast<FwEnumStoreType>(SmId::sm3));
@@ -85,6 +86,7 @@ namespace ExternalSm {
     this->m_stateMachine_sm5.init(static_cast<FwEnumStoreType>(SmId::sm5));
     this->m_stateMachine_sm6.init(static_cast<FwEnumStoreType>(SmId::sm6));
 
+    // Create the queue
     Os::Queue::Status qStat = this->createQueue(
       queueDepth,
       static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)

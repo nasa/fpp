@@ -443,7 +443,9 @@ case class ComponentCppWriter (
               |Fw::$baseClassName::init(instance);
               |"""
         ),
-        smInstancesByName.map((name, smi) => writeStateMachineInit(smi, name)),
+        Line.addPrefixLine
+          (line("// Initialize state machine instances"))
+          (smInstancesByName.map((name, smi) => writeStateMachineInit(smi, name))),
         intersperseBlankLines(specialInputPorts.map(writePortConnections)),
         intersperseBlankLines(typedInputPorts.map(writePortConnections)),
         intersperseBlankLines(serialInputPorts.map(writePortConnections)),
@@ -462,11 +464,13 @@ case class ComponentCppWriter (
                  |  static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
                  |);
                  |
+                 |// Create the queue
                  |Os::Queue::Status qStat = this->createQueue(queueDepth, this->m_msgSize);
                  |"""
             )
             else lines(
-              """|Os::Queue::Status qStat = this->createQueue(
+              """|// Create the queue
+                 |Os::Queue::Status qStat = this->createQueue(
                  |  queueDepth,
                  |  static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
                  |);
