@@ -62,6 +62,7 @@ A *qualified identifier type name* is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified
 identifier>> that refers to an
 <<Definitions_Abstract-Type-Definitions,abstract type definition>>,
+<<Definitions_Alias-Type-Definitions,alias type definition>>,
 <<Definitions_Array-Definitions,array definition>>,
 <<Definitions_Enum-Definitions,enum definition>>, or
 <<Definitions_Struct-Definitions,struct definition>>

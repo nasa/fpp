@@ -304,7 +304,7 @@ trait CppWriterUtils extends LineUtils {
 
   /** Write a C++ expression for static serialized size */
   def writeSerializedSizeExpr(s: CppWriterState, t: Type, typeName: String): String =
-    (t, s.isPrimitive(t, typeName))  match {
+    (t.getUnderlyingType, s.isPrimitive(t, typeName))  match {
       // sizeof(bool) is not defined in C++
       // F Prime serializes bool as U8
       case (Type.Boolean, _)=> "sizeof(U8)"

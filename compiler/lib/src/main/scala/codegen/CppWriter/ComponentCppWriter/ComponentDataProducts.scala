@@ -466,7 +466,7 @@ case class ComponentDataProducts (
     private def arrayRecordSerializeFn(name: String, t: Type) = {
       // Get the type name and parameter type
       val typeName = TypeCppWriter.getName(s, t)
-      val paramType = t match {
+      val paramType = t.getUnderlyingType match {
         case Type.String(_) => "const Fw::StringBase**"
         case _ => s"const ${typeName}*"
       }
@@ -493,7 +493,7 @@ case class ComponentDataProducts (
               |  size * $eltSize;"""
       }).stripMargin
       // Generate the code for serializing the elements
-      val serializeElts = (t match {
+      val serializeElts = (t.getUnderlyingType match {
         // Optimize the U8 case
         case Type.U8 =>
           """|  status = this->m_dataBuffer.serialize(array, size, Fw::Serialization::OMIT_LENGTH);

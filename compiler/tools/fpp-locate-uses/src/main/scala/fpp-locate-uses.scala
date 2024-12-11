@@ -70,6 +70,7 @@ object FPPLocateUses {
         val fileNode = AstNode.create(relativePath.normalize.toString)
         val kind = s match {
           case _: Symbol.AbsType => Ast.SpecLoc.Type
+          case _: Symbol.AliasType => Ast.SpecLoc.Type
           case _: Symbol.Array => Ast.SpecLoc.Type
           case _: Symbol.Component => Ast.SpecLoc.Component
           case _: Symbol.ComponentInstance => Ast.SpecLoc.ComponentInstance
