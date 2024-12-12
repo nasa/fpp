@@ -3,9 +3,7 @@
 # ----------------------------------------------------------------------
 # Compile ref XML files, to check them for validity
 # ----------------------------------------------------------------------
-# 1. Compile from XML to C++
-# 2. Compile to C++ where feasible. Skip it if the F Prime dependencies
-#    are too complicated.
+# Compile from XML to C++
 # ----------------------------------------------------------------------
 
 pwd=$PWD
