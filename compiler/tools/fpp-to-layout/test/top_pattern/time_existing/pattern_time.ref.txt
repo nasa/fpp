@@ -1,2 +1,0 @@
-fpp-to-layout
-error: cannot open file [ local path prefix ]/fpp-to-layout/test/top_pattern/time_existing/pattern_time.fpp
