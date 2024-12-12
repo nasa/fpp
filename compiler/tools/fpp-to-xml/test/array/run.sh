@@ -12,6 +12,12 @@ array_ok()
     diff_xml ArrayOK1Array ArrayOK2Array ArrayOK3Array ArrayOK4Array ArrayOK5Array
 }
 
+array_special_comment()
+{
+  run_test "-p $PWD" array_special_comment && \
+    diff_xml ArraySpecialCommentArray
+}
+
 array_struct()
 {
   run_test "-p $PWD" array_struct && \
