@@ -2228,5 +2228,973 @@
   },
   "valueMap" : {
     
+  },
+  "stateMachineMap" : {
+    "233" : {
+      "aNode" : {
+        "astNodeId" : 233
+      },
+      "sma" : {
+        "symbol" : {
+          "node" : {
+            "astNodeId" : 233
+          }
+        },
+        "symbolScopeMap" : {
+          "28" : {
+            "map" : {
+              
+            }
+          },
+          "190" : {
+            "map" : {
+              
+            }
+          },
+          "232" : {
+            "map" : {
+              "State" : {
+                "map" : {
+                  "C" : {
+                    "Choice" : {
+                      "nodeId" : 189,
+                      "unqualifiedName" : "C"
+                    }
+                  },
+                  "S3" : {
+                    "State" : {
+                      "nodeId" : 190,
+                      "unqualifiedName" : "S3"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "useDefMap" : {
+          "216" : {
+            "Guard" : {
+              "nodeId" : 5,
+              "unqualifiedName" : "g1"
+            }
+          },
+          "201" : {
+            "State" : {
+              "nodeId" : 28,
+              "unqualifiedName" : "S1"
+            }
+          },
+          "174" : {
+            "State" : {
+              "nodeId" : 190,
+              "unqualifiedName" : "S3"
+            }
+          },
+          "192" : {
+            "Guard" : {
+              "nodeId" : 5,
+              "unqualifiedName" : "g1"
+            }
+          },
+          "199" : {
+            "Guard" : {
+              "nodeId" : 5,
+              "unqualifiedName" : "g1"
+            }
+          },
+          "228" : {
+            "Signal" : {
+              "nodeId" : 14,
+              "unqualifiedName" : "s6"
+            }
+          },
+          "185" : {
+            "State" : {
+              "nodeId" : 232,
+              "unqualifiedName" : "S2"
+            }
+          },
+          "184" : {
+            "Action" : {
+              "nodeId" : 2,
+              "unqualifiedName" : "a3"
+            }
+          },
+          "195" : {
+            "Choice" : {
+              "nodeId" : 189,
+              "unqualifiedName" : "C"
+            }
+          },
+          "207" : {
+            "State" : {
+              "nodeId" : 28,
+              "unqualifiedName" : "S1"
+            }
+          },
+          "172" : {
+            "Action" : {
+              "nodeId" : 1,
+              "unqualifiedName" : "a2"
+            }
+          },
+          "205" : {
+            "Guard" : {
+              "nodeId" : 5,
+              "unqualifiedName" : "g1"
+            }
+          },
+          "169" : {
+            "Action" : {
+              "nodeId" : 1,
+              "unqualifiedName" : "a2"
+            }
+          },
+          "193" : {
+            "Action" : {
+              "nodeId" : 0,
+              "unqualifiedName" : "a1"
+            }
+          },
+          "15" : {
+            "Action" : {
+              "nodeId" : 0,
+              "unqualifiedName" : "a1"
+            }
+          },
+          "181" : {
+            "State" : {
+              "nodeId" : 28,
+              "unqualifiedName" : "S1"
+            }
+          },
+          "22" : {
+            "State" : {
+              "nodeId" : 28,
+              "unqualifiedName" : "S1"
+            }
+          },
+          "212" : {
+            "State" : {
+              "nodeId" : 28,
+              "unqualifiedName" : "S1"
+            }
+          },
+          "166" : {
+            "Action" : {
+              "nodeId" : 1,
+              "unqualifiedName" : "a2"
+            }
+          },
+          "177" : {
+            "Guard" : {
+              "nodeId" : 5,
+              "unqualifiedName" : "g1"
+            }
+          },
+          "17" : {
+            "Choice" : {
+              "nodeId" : 27,
+              "unqualifiedName" : "C"
+            }
+          },
+          "25" : {
+            "State" : {
+              "nodeId" : 232,
+              "unqualifiedName" : "S2"
+            }
+          },
+          "230" : {
+            "Action" : {
+              "nodeId" : 0,
+              "unqualifiedName" : "a1"
+            }
+          },
+          "191" : {
+            "Signal" : {
+              "nodeId" : 9,
+              "unqualifiedName" : "s1"
+            }
+          },
+          "20" : {
+            "Guard" : {
+              "nodeId" : 5,
+              "unqualifiedName" : "g1"
+            }
+          },
+          "178" : {
+            "Action" : {
+              "nodeId" : 0,
+              "unqualifiedName" : "a1"
+            }
+          },
+          "210" : {
+            "Signal" : {
+              "nodeId" : 12,
+              "unqualifiedName" : "s4"
+            }
+          },
+          "198" : {
+            "Signal" : {
+              "nodeId" : 10,
+              "unqualifiedName" : "s2"
+            }
+          },
+          "187" : {
+            "State" : {
+              "nodeId" : 190,
+              "unqualifiedName" : "S3"
+            }
+          },
+          "171" : {
+            "Action" : {
+              "nodeId" : 0,
+              "unqualifiedName" : "a1"
+            }
+          },
+          "165" : {
+            "Action" : {
+              "nodeId" : 0,
+              "unqualifiedName" : "a1"
+            }
+          },
+          "215" : {
+            "Signal" : {
+              "nodeId" : 13,
+              "unqualifiedName" : "s5"
+            }
+          },
+          "183" : {
+            "Action" : {
+              "nodeId" : 1,
+              "unqualifiedName" : "a2"
+            }
+          },
+          "179" : {
+            "Action" : {
+              "nodeId" : 1,
+              "unqualifiedName" : "a2"
+            }
+          },
+          "218" : {
+            "Action" : {
+              "nodeId" : 0,
+              "unqualifiedName" : "a1"
+            }
+          },
+          "168" : {
+            "Action" : {
+              "nodeId" : 0,
+              "unqualifiedName" : "a1"
+            }
+          },
+          "204" : {
+            "Signal" : {
+              "nodeId" : 11,
+              "unqualifiedName" : "s3"
+            }
+          }
+        },
+        "transitionGraph" : {
+          "initialNode" : {
+            "Some" : {
+              "soc" : {
+                "Choice" : {
+                  "symbol" : {
+                    "node" : {
+                      "astNodeId" : 27
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "arcMap" : {
+            "state S1" : [
+            ],
+            "state S3" : [
+            ],
+            "choice C" : [
+              {
+                "Choice" : {
+                  "startChoice" : {
+                    "node" : {
+                      "astNodeId" : 27
+                    }
+                  },
+                  "aNode" : {
+                    "astNodeId" : 23
+                  },
+                  "endNode" : {
+                    "soc" : {
+                      "State" : {
+                        "symbol" : {
+                          "node" : {
+                            "astNodeId" : 28
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "Choice" : {
+                  "startChoice" : {
+                    "node" : {
+                      "astNodeId" : 27
+                    }
+                  },
+                  "aNode" : {
+                    "astNodeId" : 26
+                  },
+                  "endNode" : {
+                    "soc" : {
+                      "State" : {
+                        "symbol" : {
+                          "node" : {
+                            "astNodeId" : 232
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "state S2" : [
+              {
+                "State" : {
+                  "startState" : {
+                    "node" : {
+                      "astNodeId" : 232
+                    }
+                  },
+                  "aNode" : {
+                    "astNodeId" : 214
+                  },
+                  "endNode" : {
+                    "soc" : {
+                      "State" : {
+                        "symbol" : {
+                          "node" : {
+                            "astNodeId" : 28
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "State" : {
+                  "startState" : {
+                    "node" : {
+                      "astNodeId" : 232
+                    }
+                  },
+                  "aNode" : {
+                    "astNodeId" : 197
+                  },
+                  "endNode" : {
+                    "soc" : {
+                      "Choice" : {
+                        "symbol" : {
+                          "node" : {
+                            "astNodeId" : 189
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "State" : {
+                  "startState" : {
+                    "node" : {
+                      "astNodeId" : 232
+                    }
+                  },
+                  "aNode" : {
+                    "astNodeId" : 203
+                  },
+                  "endNode" : {
+                    "soc" : {
+                      "State" : {
+                        "symbol" : {
+                          "node" : {
+                            "astNodeId" : 28
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "State" : {
+                  "startState" : {
+                    "node" : {
+                      "astNodeId" : 232
+                    }
+                  },
+                  "aNode" : {
+                    "astNodeId" : 209
+                  },
+                  "endNode" : {
+                    "soc" : {
+                      "State" : {
+                        "symbol" : {
+                          "node" : {
+                            "astNodeId" : 28
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "Initial" : {
+                  "startState" : {
+                    "node" : {
+                      "astNodeId" : 232
+                    }
+                  },
+                  "aNode" : {
+                    "astNodeId" : 176
+                  },
+                  "endNode" : {
+                    "soc" : {
+                      "State" : {
+                        "symbol" : {
+                          "node" : {
+                            "astNodeId" : 190
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "reverseTransitionGraph" : {
+          "initialNode" : {
+            "Some" : {
+              "soc" : {
+                "Choice" : {
+                  "symbol" : {
+                    "node" : {
+                      "astNodeId" : 27
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "arcMap" : {
+            "state S1" : [
+              {
+                "State" : {
+                  "startState" : {
+                    "node" : {
+                      "astNodeId" : 232
+                    }
+                  },
+                  "aNode" : {
+                    "astNodeId" : 214
+                  },
+                  "endNode" : {
+                    "soc" : {
+                      "State" : {
+                        "symbol" : {
+                          "node" : {
+                            "astNodeId" : 28
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "Choice" : {
+                  "startChoice" : {
+                    "node" : {
+                      "astNodeId" : 27
+                    }
+                  },
+                  "aNode" : {
+                    "astNodeId" : 23
+                  },
+                  "endNode" : {
+                    "soc" : {
+                      "State" : {
+                        "symbol" : {
+                          "node" : {
+                            "astNodeId" : 28
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "State" : {
+                  "startState" : {
+                    "node" : {
+                      "astNodeId" : 232
+                    }
+                  },
+                  "aNode" : {
+                    "astNodeId" : 203
+                  },
+                  "endNode" : {
+                    "soc" : {
+                      "State" : {
+                        "symbol" : {
+                          "node" : {
+                            "astNodeId" : 28
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "State" : {
+                  "startState" : {
+                    "node" : {
+                      "astNodeId" : 232
+                    }
+                  },
+                  "aNode" : {
+                    "astNodeId" : 209
+                  },
+                  "endNode" : {
+                    "soc" : {
+                      "State" : {
+                        "symbol" : {
+                          "node" : {
+                            "astNodeId" : 28
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "Choice" : {
+                  "startChoice" : {
+                    "node" : {
+                      "astNodeId" : 189
+                    }
+                  },
+                  "aNode" : {
+                    "astNodeId" : 182
+                  },
+                  "endNode" : {
+                    "soc" : {
+                      "State" : {
+                        "symbol" : {
+                          "node" : {
+                            "astNodeId" : 28
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "state S3" : [
+              {
+                "Choice" : {
+                  "startChoice" : {
+                    "node" : {
+                      "astNodeId" : 189
+                    }
+                  },
+                  "aNode" : {
+                    "astNodeId" : 188
+                  },
+                  "endNode" : {
+                    "soc" : {
+                      "State" : {
+                        "symbol" : {
+                          "node" : {
+                            "astNodeId" : 190
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "Initial" : {
+                  "startState" : {
+                    "node" : {
+                      "astNodeId" : 232
+                    }
+                  },
+                  "aNode" : {
+                    "astNodeId" : 176
+                  },
+                  "endNode" : {
+                    "soc" : {
+                      "State" : {
+                        "symbol" : {
+                          "node" : {
+                            "astNodeId" : 190
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ],
+            "choice C" : [
+            ],
+            "state S2" : [
+              {
+                "Choice" : {
+                  "startChoice" : {
+                    "node" : {
+                      "astNodeId" : 27
+                    }
+                  },
+                  "aNode" : {
+                    "astNodeId" : 26
+                  },
+                  "endNode" : {
+                    "soc" : {
+                      "State" : {
+                        "symbol" : {
+                          "node" : {
+                            "astNodeId" : 232
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "typeOptionMap" : {
+          "170" : "None",
+          "19" : "None",
+          "197" : {
+            "Some" : {
+              "Int" : {
+                "PrimitiveInt" : {
+                  "kind" : {
+                    "U32" : {
+                      
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "209" : "None",
+          "231" : "None",
+          "219" : "None",
+          "214" : "None",
+          "203" : "None",
+          "167" : "None",
+          "176" : "None",
+          "189" : {
+            "Some" : {
+              "Int" : {
+                "PrimitiveInt" : {
+                  "kind" : {
+                    "U32" : {
+                      
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "27" : "None"
+        },
+        "flattenedStateTransitionMap" : {
+          "12" : {
+            "S3" : {
+              "guardOpt" : "None",
+              "transition" : {
+                "External" : {
+                  "actions" : [
+                    {
+                      "node" : {
+                        "astNodeId" : 0
+                      }
+                    },
+                    {
+                      "node" : {
+                        "astNodeId" : 1
+                      }
+                    }
+                  ],
+                  "target" : {
+                    "State" : {
+                      "symbol" : {
+                        "node" : {
+                          "astNodeId" : 28
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "13" : {
+            "S3" : {
+              "guardOpt" : {
+                "Some" : {
+                  "node" : {
+                    "astNodeId" : 5
+                  }
+                }
+              },
+              "transition" : {
+                "Internal" : {
+                  "actions" : [
+                    {
+                      "node" : {
+                        "astNodeId" : 0
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "10" : {
+            "S3" : {
+              "guardOpt" : {
+                "Some" : {
+                  "node" : {
+                    "astNodeId" : 5
+                  }
+                }
+              },
+              "transition" : {
+                "External" : {
+                  "actions" : [
+                    {
+                      "node" : {
+                        "astNodeId" : 0
+                      }
+                    },
+                    {
+                      "node" : {
+                        "astNodeId" : 1
+                      }
+                    }
+                  ],
+                  "target" : {
+                    "State" : {
+                      "symbol" : {
+                        "node" : {
+                          "astNodeId" : 28
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "14" : {
+            "S3" : {
+              "guardOpt" : "None",
+              "transition" : {
+                "Internal" : {
+                  "actions" : [
+                    {
+                      "node" : {
+                        "astNodeId" : 0
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "11" : {
+            "S3" : {
+              "guardOpt" : {
+                "Some" : {
+                  "node" : {
+                    "astNodeId" : 5
+                  }
+                }
+              },
+              "transition" : {
+                "External" : {
+                  "actions" : [
+                    {
+                      "node" : {
+                        "astNodeId" : 0
+                      }
+                    },
+                    {
+                      "node" : {
+                        "astNodeId" : 1
+                      }
+                    }
+                  ],
+                  "target" : {
+                    "State" : {
+                      "symbol" : {
+                        "node" : {
+                          "astNodeId" : 28
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "9" : {
+            "S3" : {
+              "guardOpt" : {
+                "Some" : {
+                  "node" : {
+                    "astNodeId" : 5
+                  }
+                }
+              },
+              "transition" : {
+                "External" : {
+                  "actions" : [
+                    {
+                      "node" : {
+                        "astNodeId" : 0
+                      }
+                    }
+                  ],
+                  "target" : {
+                    "Choice" : {
+                      "symbol" : {
+                        "node" : {
+                          "astNodeId" : 189
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "flattenedChoiceTransitionMap" : {
+          "23" : {
+            "External" : {
+              "actions" : [
+              ],
+              "target" : {
+                "State" : {
+                  "symbol" : {
+                    "node" : {
+                      "astNodeId" : 28
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "26" : {
+            "External" : {
+              "actions" : [
+              ],
+              "target" : {
+                "State" : {
+                  "symbol" : {
+                    "node" : {
+                      "astNodeId" : 232
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "182" : {
+            "External" : {
+              "actions" : [
+                {
+                  "node" : {
+                    "astNodeId" : 0
+                  }
+                },
+                {
+                  "node" : {
+                    "astNodeId" : 1
+                  }
+                },
+                {
+                  "node" : {
+                    "astNodeId" : 0
+                  }
+                },
+                {
+                  "node" : {
+                    "astNodeId" : 1
+                  }
+                }
+              ],
+              "target" : {
+                "State" : {
+                  "symbol" : {
+                    "node" : {
+                      "astNodeId" : 28
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "188" : {
+            "External" : {
+              "actions" : [
+                {
+                  "node" : {
+                    "astNodeId" : 1
+                  }
+                },
+                {
+                  "node" : {
+                    "astNodeId" : 2
+                  }
+                }
+              ],
+              "target" : {
+                "State" : {
+                  "symbol" : {
+                    "node" : {
+                      "astNodeId" : 190
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
