@@ -1,0 +1,7 @@
+c1
+tlmOut
+0
+telemetry
+tlmIn
+0
+

@@ -1,0 +1,7 @@
+c1
+textEventOut
+0
+textEvents
+textEventIn
+0
+
