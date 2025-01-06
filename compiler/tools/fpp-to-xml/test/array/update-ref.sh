@@ -13,6 +13,12 @@ array_ok()
   move_xml ArrayOK1Array ArrayOK2Array ArrayOK3Array ArrayOK4Array ArrayOK5Array
 }
 
+array_special_comment()
+{
+  update "-p $PWD" array_special_comment
+  move_xml ArraySpecialCommentArray
+}
+
 array_struct()
 {
   update "-p $PWD" array_struct
@@ -25,6 +31,7 @@ array_struct_member_array()
   update "-p $PWD" array_struct_member_array
   move_xml ArrayStructMemberArraySerializable ArrayStructMemberArrayArray
 }
+
 built_in_type()
 {
   update "-p $PWD" built_in_type
