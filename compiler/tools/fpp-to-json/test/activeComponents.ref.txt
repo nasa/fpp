@@ -2799,5 +2799,120 @@
         "value" : 256
       }
     }
+  },
+  "stateMachineMap" : {
+    "116" : {
+      "aNode" : {
+        "astNodeId" : 116
+      },
+      "sma" : {
+        "symbol" : {
+          "node" : {
+            "astNodeId" : 116
+          }
+        },
+        "symbolScopeMap" : {
+          
+        },
+        "useDefMap" : {
+          
+        },
+        "transitionGraph" : {
+          "initialNode" : "None",
+          "arcMap" : {
+            
+          }
+        },
+        "reverseTransitionGraph" : {
+          "initialNode" : "None",
+          "arcMap" : {
+            
+          }
+        },
+        "typeOptionMap" : {
+          
+        },
+        "flattenedStateTransitionMap" : {
+          
+        },
+        "flattenedChoiceTransitionMap" : {
+          
+        }
+      }
+    },
+    "124" : {
+      "aNode" : {
+        "astNodeId" : 124
+      },
+      "sma" : {
+        "symbol" : {
+          "node" : {
+            "astNodeId" : 124
+          }
+        },
+        "symbolScopeMap" : {
+          "123" : {
+            "map" : {
+              
+            }
+          }
+        },
+        "useDefMap" : {
+          "118" : {
+            "State" : {
+              "nodeId" : 123,
+              "unqualifiedName" : "IDLE"
+            }
+          }
+        },
+        "transitionGraph" : {
+          "initialNode" : {
+            "Some" : {
+              "soc" : {
+                "State" : {
+                  "symbol" : {
+                    "node" : {
+                      "astNodeId" : 123
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "arcMap" : {
+            "state IDLE" : [
+            ]
+          }
+        },
+        "reverseTransitionGraph" : {
+          "initialNode" : {
+            "Some" : {
+              "soc" : {
+                "State" : {
+                  "symbol" : {
+                    "node" : {
+                      "astNodeId" : 123
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "arcMap" : {
+            "state IDLE" : [
+            ]
+          }
+        },
+        "typeOptionMap" : {
+          "120" : "None"
+        },
+        "flattenedStateTransitionMap" : {
+          
+        },
+        "flattenedChoiceTransitionMap" : {
+          
+        }
+      }
+    }
   }
 }

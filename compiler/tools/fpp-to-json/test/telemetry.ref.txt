@@ -1579,5 +1579,8 @@
         "value" : 1
       }
     }
+  },
+  "stateMachineMap" : {
+    
   }
 }

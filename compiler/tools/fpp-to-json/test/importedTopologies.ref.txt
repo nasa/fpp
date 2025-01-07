@@ -8103,5 +8103,8 @@
         "value" : 1024
       }
     }
+  },
+  "stateMachineMap" : {
+    
   }
 }
