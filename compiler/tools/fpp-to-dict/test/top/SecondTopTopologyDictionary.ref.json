@@ -206,7 +206,7 @@
   ],
   "commands" : [
     {
-      "name" : "Module1.mySecondC1.PARAM2_PARAM_SAVE",
+      "name" : "Module1.mySecondC1.PARAM2_PRM_SAVE",
       "commandKind" : "save",
       "opcode" : 1411,
       "formalParams" : [
@@ -231,7 +231,7 @@
       "annotation" : "Command with string arg"
     },
     {
-      "name" : "Module1.mySecondC1.PARAM4_PARAM_SET",
+      "name" : "Module1.mySecondC1.PARAM4_PRM_SET",
       "commandKind" : "set",
       "opcode" : 1414,
       "formalParams" : [
@@ -276,7 +276,7 @@
       "annotation" : "Command with 2 args (array of strings and U32)"
     },
     {
-      "name" : "Module1.mySecondC1.PARAM3_PARAM_SAVE",
+      "name" : "Module1.mySecondC1.PARAM3_PRM_SAVE",
       "commandKind" : "save",
       "opcode" : 1413,
       "formalParams" : [
@@ -284,7 +284,7 @@
       "annotation" : "Parameter of type string"
     },
     {
-      "name" : "Module1.mySecondC1.PARAM1_PARAM_SAVE",
+      "name" : "Module1.mySecondC1.PARAM1_PRM_SAVE",
       "commandKind" : "save",
       "opcode" : 1285,
       "formalParams" : [
@@ -292,7 +292,7 @@
       "annotation" : "Parameter (struct)"
     },
     {
-      "name" : "Module1.mySecondC1.PARAM3_PARAM_SET",
+      "name" : "Module1.mySecondC1.PARAM3_PRM_SET",
       "commandKind" : "set",
       "opcode" : 1412,
       "formalParams" : [
@@ -330,7 +330,7 @@
       "annotation" : "Command with I32 arg"
     },
     {
-      "name" : "Module1.mySecondC1.PARAM2_PARAM_SET",
+      "name" : "Module1.mySecondC1.PARAM2_PRM_SET",
       "commandKind" : "set",
       "opcode" : 1410,
       "formalParams" : [
@@ -382,7 +382,7 @@
       "annotation" : "Command with 3 args (of types string, I32, and bool)"
     },
     {
-      "name" : "Module1.mySecondC1.PARAM4_PARAM_SAVE",
+      "name" : "Module1.mySecondC1.PARAM4_PRM_SAVE",
       "commandKind" : "save",
       "opcode" : 1415,
       "formalParams" : [
@@ -414,7 +414,7 @@
       "annotation" : "Command with 1 arg (of type struct)"
     },
     {
-      "name" : "Module1.mySecondC1.PARAM1_PARAM_SET",
+      "name" : "Module1.mySecondC1.PARAM1_PRM_SET",
       "commandKind" : "set",
       "opcode" : 1284,
       "formalParams" : [
@@ -430,7 +430,7 @@
       "annotation" : "Parameter (struct)"
     },
     {
-      "name" : "Module1.mySecondC1.PARAM5_PARAM_SET",
+      "name" : "Module1.mySecondC1.PARAM5_PRM_SET",
       "commandKind" : "set",
       "opcode" : 1416,
       "formalParams" : [
@@ -446,7 +446,7 @@
       "annotation" : "Parameter of type enum"
     },
     {
-      "name" : "Module1.mySecondC1.PARAM5_PARAM_SAVE",
+      "name" : "Module1.mySecondC1.PARAM5_PRM_SAVE",
       "commandKind" : "save",
       "opcode" : 1417,
       "formalParams" : [
