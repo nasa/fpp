@@ -38,7 +38,7 @@
   ],
   "commands" : [
     {
-      "name" : "M.I1.P_PARAM_SET",
+      "name" : "M.I1.P_PRM_SET",
       "commandKind" : "set",
       "opcode" : 256,
       "formalParams" : [
@@ -53,7 +53,7 @@
       ]
     },
     {
-      "name" : "M.I1.P_PARAM_SAVE",
+      "name" : "M.I1.P_PRM_SAVE",
       "commandKind" : "save",
       "opcode" : 257,
       "formalParams" : [
