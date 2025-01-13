@@ -1,0 +1,5 @@
+*.diff.txt
+*.out.txt
+*Layout
+default-tests.sh
+default-update-ref.sh
