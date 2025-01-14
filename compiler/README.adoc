@@ -161,12 +161,12 @@ so that it contains a pair of square brackets `[]` and nothing else.
 This will clear out any old trace information.
 
 . Run `./test` to use the installed tools to run the unit tests.
+This step will run the tracing agent and update the trace files.
 All the tests should pass.
 If the tests go haywire with failures, the likely cause
 is an errant `.lock` file left behind by the tracing agent.
 Run `find . -name .lock` in this directory to find the file;
 then delete it and retry.
-This step will run the tracing agent and update the trace files.
 
 . Commit the updated trace files to the repository.
 
