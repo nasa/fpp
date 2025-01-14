@@ -40,6 +40,10 @@ object AstJsonEncoder extends JsonEncoder {
   implicit val stateMachineMemberNodeEncoder: Encoder[Ast.StateMachineMember.Node] =
     io.circe.generic.semiauto.deriveEncoder[Ast.StateMachineMember.Node]
 
+  // JSON encoder for state member nodes
+  implicit val stateMemberNodeEncoder: Encoder[Ast.StateMember.Node] =
+    io.circe.generic.semiauto.deriveEncoder[Ast.StateMember.Node]
+
   // JSON encoder for type names
   implicit val typeNameEncoder: Encoder[Ast.TypeName] =
     io.circe.generic.semiauto.deriveEncoder[Ast.TypeName]

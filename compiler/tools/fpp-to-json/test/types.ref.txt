@@ -2102,5 +2102,8 @@
         }
       }
     }
+  },
+  "stateMachineMap" : {
+    
   }
 }
