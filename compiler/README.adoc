@@ -154,8 +154,6 @@ To do that, use the following procedure:
 
 . Run `./install-trace` to install JVM versions of the FPP tools with
 tracing enabled in the `bin` directory.
-Note that `install-trace` uses the native image files to run unit
-tests, which may fail at this point.
 
 . Edit the file
 `compiler/lib/src/main/resources/META-INF/native-image/reflect-config.json`
@@ -168,10 +166,10 @@ This step will run the tracing agent and update the trace files.
 
 . Commit the updated trace files to the repository.
 
-. If you wish, run `./install-trace` again to build the native
-image files with the new trace files and run the unit tests.
-All the tests should pass at this point.
-Alternatively you can let CI on `nasa/fpp` do this.
+. Run `./install` to reinstall the standard version
+of the tools.
 
-Remember to run `./install` to install the standard version
-of the tools if you no longer want to run the tracing agent.
+. If you wish, run `./release` to build the native
+image files with the new trace files and run the unit tests.
+All the tests should pass.
+Alternatively you can let CI on `nasa/fpp` do this step.
