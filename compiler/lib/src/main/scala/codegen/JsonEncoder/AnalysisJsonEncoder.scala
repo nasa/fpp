@@ -338,7 +338,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
   // ----------------------------------------------------------------------
   // The public encoder interface
   // ----------------------------------------------------------------------
-  
+
   /** Converts the Analysis data structure to JSON */
   def analysisToJson(a: Analysis): Json = {
     Json.obj(
@@ -356,5 +356,5 @@ object AnalysisJsonEncoder extends JsonEncoder{
       "stateMachineMap" -> a.stateMachineMap.asJson
     )
   }
-  
+
 }
