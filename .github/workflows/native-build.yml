@@ -64,7 +64,7 @@ jobs:
           ${{ inputs.build }} ${{ inputs.output-directory }}
         shell: bash
       - name: "Archiving JARs package"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-jar
           path: ${{ inputs.output-directory }}/*
@@ -80,7 +80,7 @@ jobs:
           ${{ inputs.test }}
           echo -e "Trace output files:\n$( find ${{ inputs.trace-directory }} -name *.json )"
       - name: "Archiving Tracing"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: jar-traces
           path: ${{ inputs.trace-directory }}/*.json
@@ -101,13 +101,13 @@ jobs:
           matrix = {
             "run": [
               {
-                "runner": "macos-12",
-                "tag": "macosx_12_0_universal2"
+                "runner": "macos-13",
+                "tag": "macosx_13_0_universal2"
               },
               {
                 "runner": "ubuntu-22.04",
-                "tag": "manylinux2014_x86_64",
-                "container": "quay.io/pypa/manylinux2014_x86_64"
+                "tag": "manylinux_2_28_x86_64",
+                "container": "quay.io/pypa/manylinux_2_28_x86_64"
               }
             ]
           }
@@ -131,16 +131,6 @@ jobs:
     container:
       image:  ${{ matrix.run.container || '' }}
     steps:
-      - name: "Fix environment"
-        run: |
-          # https://github.com/actions/checkout/issues/1809
-          # https://github.blog/changelog/2024-03-07-github-actions-all-actions-will-run-on-node20-instead-of-node16-by-default/
-          #
-          # NOTE: actions/checkout et al. @v3 are deprecated - however the manylinux2014_x86_64 Docker image does not have node20
-          # which prevents from upgrading to @v4. We keep the deprecated versions (@v3) for now for lack of a better solution
-          echo "ACTIONS_RUNNER_FORCED_INTERNAL_NODE_VERSION=node16" >> $GITHUB_ENV
-          echo "ACTIONS_RUNNER_FORCE_ACTIONS_NODE_VERSION=node16" >> $GITHUB_ENV
-          echo "ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true" >> $GITHUB_ENV
       - name: "Checkout repository"
         uses: actions/checkout@v3
         with:
@@ -148,13 +138,13 @@ jobs:
       - name: "Setup Native Image Tools"
         uses: fprime-community/native-images-action@main
       - name: "Download JARs"
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-jar
           path:  ${{ inputs.output-directory }}
       - if: ${{ inputs.trace }}
         name: "Download Tracing"
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: jar-traces
           path: ${{ inputs.trace-directory }}
@@ -165,7 +155,7 @@ jobs:
           $NATIVE_IMAGE_TOOLS_PATH/native-images ${{ inputs.output-directory }} ${{ inputs.tools }}
         shell: bash
       - name: "Archive Native Images"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-${{ matrix.run.tag }}
           path:  ${{ inputs.output-directory }}/*
@@ -186,7 +176,7 @@ jobs:
         with:
           submodules: recursive
       - name: "Download Package"
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-${{ matrix.tag }}
           path: ${{ inputs.output-directory }}
@@ -208,7 +198,7 @@ jobs:
           fprime-native-packager ${{ inputs.output-directory }} ${FLAGS}
         shell: bash
       - name: "Archiving Wheels"
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: wheels-${{ matrix.tag }}
           path: packages/dist/*
@@ -223,12 +213,12 @@ jobs:
       - name: "Setup Native Image Tools"
         uses: fprime-community/native-images-action@main
       - name: "Download Native Wheels"
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: wheels-${{ matrix.run.tag }}
           path: ${{ inputs.output-directory }}/native
       - name: "Download JAR Wheels"
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: wheels-jar
           path: ${{ inputs.output-directory }}/jars
@@ -250,7 +240,7 @@ jobs:
       matrix: ${{ fromJson(needs.generate-run-matricies.outputs.tags) }}
     steps:
       - name: "Download Package"
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: wheels-${{ matrix.tag }}
           path: dist

@@ -8,7 +8,7 @@ object AnnotationXmlWriter extends LineUtils {
 
   /** Write a multiline comment */
   def multilineComment[T](a: Ast.Annotated[T]): List[Line] = {
-    (a._1 ++ a._3).map(line) match {
+    (a._1 ++ a._3).map(line compose XmlTags.escaped) match {
       case Nil => Nil
       case ls => {
         val tags = XmlTags.tags("comment")
@@ -19,7 +19,7 @@ object AnnotationXmlWriter extends LineUtils {
 
   /** Write a single-line comment */
   def singleLineComment[T](a: Ast.Annotated[T]): Option[(String, String)] = {
-    val s = (a._1 ++ a._3).mkString(" ")
+    val s = (a._1 ++ a._3).map(XmlTags.escaped).mkString(" ")
     if (s.length > 0) Some(("comment", s)) else None
   }
 
