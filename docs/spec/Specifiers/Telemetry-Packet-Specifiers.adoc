@@ -1,7 +1,7 @@
 === Telemetry Packet Specifiers
 
 A *telemetry packet specifier* specifies the format of a data
-packet containing telemetry points that can be sent to the ground.
+packet containing telemetry points.
 A telemetry packet specifier is part of a
 <<Specifiers_Telemetry-Packet-Group-Specifiers,telemetry packet group 
 specifier>>, which is in turn part of a
