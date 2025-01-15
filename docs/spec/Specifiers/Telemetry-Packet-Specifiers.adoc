@@ -1,0 +1,16 @@
+=== Telemetry Packet Specifiers
+
+A *telemetry packet specifier* specifies the format of a packet of
+of telemetry channel data that can be sent to the ground.
+
+==== Syntax
+
+TODO
+
+==== Semantics
+
+TODO
+
+==== Examples
+
+TODO

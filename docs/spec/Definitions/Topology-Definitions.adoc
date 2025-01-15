@@ -27,6 +27,8 @@ instance specifier>>
 
 * A <<Specifiers_Connection-Graph-Specifiers,connection graph specifier>>
 
+* A <<Specifiers_Telemetry-Packet-Group-Specifiers,telemetry packet group specifier>>
+
 * A <<Specifiers_Topology-Import-Specifiers,topology import specifier>>
 
 * An <<Specifiers_Include-Specifiers,include specifier>>

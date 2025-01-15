@@ -1,0 +1,16 @@
+=== Telemetry Packet Group Specifiers
+
+A *telemetry packet group specifier* specifies a grouping of
+telemetry channels into <<Specifiers_Telemetry-Packet-Specifiers,telemetry packets>>.
+
+==== Syntax
+
+TODO
+
+==== Semantics
+
+TODO
+
+==== Examples
+
+TODO
