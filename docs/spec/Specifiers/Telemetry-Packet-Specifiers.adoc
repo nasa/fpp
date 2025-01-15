@@ -39,8 +39,8 @@ packet appearing in a packet group) or the previous packet identifier plus one.
 . The expression _e_ following `level` specifies the
 *level* of the packet.
 The level is a number that governs the sending of the packet.
-In the F Prime flight software, sending of packets can be throttled,
-so that only packets at or below a specified level are sent.
+In the F Prime flight software, sending of packets can be filtered
+by level, so that only packets at or below a specified level are sent.
 The type of _e_ must be
 <<Type-Checking_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>, and _e_ must evaluate

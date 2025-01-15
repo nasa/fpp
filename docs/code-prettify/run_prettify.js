@@ -443,7 +443,6 @@ var IN_GLOBAL_SCOPE = false;
           "hook," +
           "id," +
           "if," +
-          "ignore," +
           "import," +
           "include," +
           "initial," +
@@ -456,6 +455,7 @@ var IN_GLOBAL_SCOPE = false;
           "machine," +
           "match," +
           "module," +
+          "omit," +
           "on," +
           "opcode," +
           "orange," +

@@ -746,7 +746,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Specifiers_Telemetry-Packet-Group-Specifiers_Syntax">7.16.1. Syntax</a></li>
 <li><a href="#Specifiers_Telemetry-Packet-Group-Specifiers_Semantics">7.16.2. Semantics</a></li>
-<li><a href="#Specifiers_Telemetry-Packet-Group-Specifiers_Examples">7.16.3. Examples</a></li>
+<li><a href="#Specifiers_Telemetry-Packet-Group-Specifiers_Example">7.16.3. Example</a></li>
 </ul>
 </li>
 <li><a href="#Specifiers_Telemetry-Packet-Specifiers">7.17. Telemetry Packet Specifiers</a>
@@ -1157,7 +1157,6 @@ high
 hook
 id
 if
-ignore
 import
 include
 initial
@@ -1170,6 +1169,7 @@ low
 machine
 match
 module
+omit
 on
 opcode
 orange
@@ -7139,7 +7139,7 @@ A telemetry packet group specifier is part of a
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>{</code> <em>telemetry-packet-specifier-sequence</em> <code>}</code>
 <em>[</em>
-<code>ignore</code>
+<code>omit</code>
 <code>{</code> <em>telemetry-channel-specifier-sequence</em> <code>}</code>
 <em>]</em></p>
 </div>
@@ -7164,15 +7164,18 @@ and the terminating punctuation is a comma.</p>
 <ol class="arabic">
 <li>
 <p>Each telemetry packet specifier in <em>telemetry-packet-specifier-sequence</em> must
-be <a href="#Specifiers_Telemetry-Packet-Specifiers">valid</a>,
-and it must have a distinct name and a distinct identifier.</p>
+be <a href="#Specifiers_Telemetry-Packet-Specifiers">valid</a>,</p>
 </li>
 <li>
-<p>For every telemetry channel <em>T</em> that is a member of a component
-instance available in the enclosing topology, either through
+<p>Each telemetry packet specifier in <em>telemetry-packet-specifier-sequence</em> must
+must have a distinct name and a distinct identifier.</p>
+</li>
+<li>
+<p>For every component instance <em>I</em> available in the enclosing topology, either through
 <a href="#Specifiers_Component-Instance-Specifiers">direct specification</a>
 or through
 <a href="#Specifiers_Topology-Import-Specifiers">import</a>,
+for every telemetry channel <em>T</em> that is a member of <em>I</em>,
 exactly one of the following must be true:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
@@ -7181,7 +7184,8 @@ exactly one of the following must be true:</p>
 <em>telemetry-packet-specifier-sequence</em>.</p>
 </li>
 <li>
-<p><em>telemetry-channel-sequence</em> is present, and <em>T</em> appears in it.</p>
+<p><em>telemetry-channel-sequence</em> is present, and <em>T</em> appears in
+<em>telemetry-channel-sequence</em>.</p>
 </li>
 </ol>
 </div>
@@ -7190,23 +7194,23 @@ exactly one of the following must be true:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Telemetry-Packet-Group-Specifiers_Examples">7.16.3. Examples</h4>
+<h4 id="Specifiers_Telemetry-Packet-Group-Specifiers_Example">7.16.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">packets Packets {
 
-  packet CDH level 0 {
+  packet CDH id 0 level 0 {
     commandDispatcher.commandsDispatched
     rateGroup1Hz.rgMaxTime
     fileUplink.filesReceived
   }
 
-  packet ADCS level 2 {
+  packet ADCS id 1 level 2 {
     adcs.mode
     adcs.attitude
   }
 
-} ignore {
+} omit {
   adcs.extraTelemetry
 }</code></pre>
 </div>
@@ -7261,8 +7265,8 @@ packet appearing in a packet group) or the previous packet identifier plus one.<
 <p>The expression <em>e</em> following <code>level</code> specifies the
 <strong>level</strong> of the packet.
 The level is a number that governs the sending of the packet.
-In the F Prime flight software, sending of packets can be throttled,
-so that only packets at or below a specified level are sent.
+In the F Prime flight software, sending of packets can be filtered
+by level, so that only packets at or below a specified level are sent.
 The type of <em>e</em> must be
 <a href="#Type-Checking_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
@@ -10878,7 +10882,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-01-14 18:37:28 -0800
+Last updated 2025-01-15 09:58:41 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

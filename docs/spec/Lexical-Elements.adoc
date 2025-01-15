@@ -81,7 +81,6 @@ high
 hook
 id
 if
-ignore
 import
 include
 initial
@@ -94,6 +93,7 @@ low
 machine
 match
 module
+omit
 on
 opcode
 orange
