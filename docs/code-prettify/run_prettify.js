@@ -449,6 +449,7 @@ var IN_GLOBAL_SCOPE = false;
           "input," +
           "instance," +
           "internal," +
+          "level," +
           "locate," +
           "low," +
           "machine," +
@@ -458,6 +459,7 @@ var IN_GLOBAL_SCOPE = false;
           "opcode," +
           "orange," +
           "output," +
+          "packet," +
           "param," +
           "passive," +
           "phase," +

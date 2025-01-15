@@ -1163,6 +1163,7 @@ initial
 input
 instance
 internal
+level
 locate
 low
 machine
@@ -1172,6 +1173,7 @@ on
 opcode
 orange
 output
+packet
 param
 passive
 phase
@@ -7103,7 +7105,9 @@ telemetry Channel3: F64x3 \
 <h3 id="Specifiers_Telemetry-Packet-Group-Specifiers">7.16. Telemetry Packet Group Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>telemetry packet group specifier</strong> specifies a grouping of
-telemetry channels into <a href="#Specifiers_Telemetry-Packet-Specifiers">telemetry packets</a>.</p>
+telemetry channels into <a href="#Specifiers_Telemetry-Packet-Specifiers">telemetry packets</a>.
+A telemetry packet group specifier is part of a
+<a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Telemetry-Packet-Group-Specifiers_Syntax">7.16.1. Syntax</h4>
@@ -7127,25 +7131,86 @@ telemetry channels into <a href="#Specifiers_Telemetry-Packet-Specifiers">teleme
 <div class="sect2">
 <h3 id="Specifiers_Telemetry-Packet-Specifiers">7.17. Telemetry Packet Specifiers</h3>
 <div class="paragraph">
-<p>A <strong>telemetry packet specifier</strong> specifies the format of a packet of
-of telemetry channel data that can be sent to the ground.</p>
+<p>A <strong>telemetry packet specifier</strong> specifies the format of a data
+packet containing telemetry points that can be sent to the ground.
+A telemetry packet specifier is part of a
+<a href="#Specifiers_Telemetry-Packet-Group-Specifiers">telemetry packet group
+specifier</a>, which is in turn part of a
+<a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Telemetry-Packet-Specifiers_Syntax">7.17.1. Syntax</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p><code>packet</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em>
+<code>id</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em>
+<code>level</code> <a href="#Expressions"><em>expression</em></a>
+<code>{</code> <em>telemetry-channel-sequence</em> <code>}</code></p>
+</div>
+<div class="paragraph">
+<p><em>telemetry-channel-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in
+which each element is a
+<a href="#Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers">telemetry channel identifier</a>,
+and the terminating punctuation is a comma.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Telemetry-Packet-Specifiers_Semantics">7.17.2. Semantics</h4>
-<div class="paragraph">
-<p>TODO</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The optional expression <em>e</em> following <code>id</code> specifies the numeric
+identifier for the packet.
+If <em>e</em> is present, then the type of <em>e</em> must be
+<a href="#Type-Checking_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
+to a nonnegative integer.
+If <em>e</em> is not present, then the default identifier is either zero (for the
+first
+packet appearing in a packet group) or the previous packet identifier plus one.</p>
+</li>
+<li>
+<p>The expression <em>e</em> following <code>level</code> specifies the
+<strong>level</strong> of the packet.
+The level is a number that governs the sending of the packet.
+In the F Prime flight software, sending of packets can be throttled,
+so that only packets at or below a specified level are sent.
+The type of <em>e</em> must be
+<a href="#Type-Checking_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
+to a nonnegative integer.</p>
+</li>
+<li>
+<p>For each telemetry channel identifier <em>I</em> in <em>telemetry-channel-sequence</em>,
+the component instance referred to in <em>I</em> must be
+available in the enclosing topology, either through
+<a href="#Specifiers_Component-Instance-Specifiers">direct specification</a>
+or through
+<a href="#Specifiers_Topology-Import-Specifiers">import</a>.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Telemetry-Packet-Specifiers_Examples">7.17.3. Examples</h4>
-<div class="paragraph">
-<p>TODO</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp"># CDH packet has id 0 and level 0
+packet CDH id 0 level 0 {
+  commandDispatcher.commandsDispatched
+  rateGroup1Hz.rgMaxTime
+  fileUplink.filesReceived
+}
+
+# Implicit id of ADCS packet is 1. Its level is 2.
+packet ADCS level 2 {
+  adcs.mode
+  adcs.attitude
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -10728,7 +10793,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-01-14 17:00:17 -0800
+Last updated 2025-01-14 18:00:27 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

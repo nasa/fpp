@@ -1,16 +1,72 @@
 === Telemetry Packet Specifiers
 
-A *telemetry packet specifier* specifies the format of a packet of
-of telemetry channel data that can be sent to the ground.
+A *telemetry packet specifier* specifies the format of a data
+packet containing telemetry points that can be sent to the ground.
+A telemetry packet specifier is part of a
+<<Specifiers_Telemetry-Packet-Group-Specifiers,telemetry packet group 
+specifier>>, which is in turn part of a
+<<Definitions_Topology-Definitions,topology definition>>.
 
 ==== Syntax
 
-TODO
+`packet`
+<<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`id` <<Expressions,_expression_>>
+_]_
+`level` <<Expressions,_expression_>>
+`{` _telemetry-channel-sequence_ `}`
+
+_telemetry-channel-sequence_ is an
+<<Element-Sequences,element sequence>> in
+which each element is a
+<<Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers,
+telemetry channel identifier>>,
+and the terminating punctuation is a comma.
 
 ==== Semantics
 
-TODO
+* The optional expression _e_ following `id` specifies the numeric
+identifier for the packet.
+If _e_ is present, then the type of _e_ must be
+<<Type-Checking_Type-Conversion,convertible to>>
+<<Types_Internal-Types_Integer,_Integer_>>, and _e_ must evaluate
+to a nonnegative integer.
+If _e_ is not present, then the default identifier is either zero (for the
+first
+packet appearing in a packet group) or the previous packet identifier plus one.
+
+* The expression _e_ following `level` specifies the
+*level* of the packet.
+The level is a number that governs the sending of the packet.
+In the F Prime flight software, sending of packets can be throttled,
+so that only packets at or below a specified level are sent.
+The type of _e_ must be
+<<Type-Checking_Type-Conversion,convertible to>>
+<<Types_Internal-Types_Integer,_Integer_>>, and _e_ must evaluate
+to a nonnegative integer.
+
+* For each telemetry channel identifier _I_ in _telemetry-channel-sequence_,
+the component instance referred to in _I_ must be
+available in the enclosing topology, either through
+<<Specifiers_Component-Instance-Specifiers,direct specification>>
+or through
+<<Specifiers_Topology-Import-Specifiers,import>>.
 
 ==== Examples
 
-TODO
+[source,fpp]
+----
+# CDH packet has id 0 and level 0
+packet CDH id 0 level 0 {
+  commandDispatcher.commandsDispatched
+  rateGroup1Hz.rgMaxTime
+  fileUplink.filesReceived
+}
+
+# Implicit id of ADCS packet is 1. Its level is 2.
+packet ADCS level 2 {
+  adcs.mode
+  adcs.attitude
+}
+----

@@ -2,6 +2,8 @@
 
 A *telemetry packet group specifier* specifies a grouping of
 telemetry channels into <<Specifiers_Telemetry-Packet-Specifiers,telemetry packets>>.
+A telemetry packet group specifier is part of a
+<<Definitions_Topology-Definitions, topology definition>>.
 
 ==== Syntax
 
