@@ -1157,6 +1157,7 @@ high
 hook
 id
 if
+ignore
 import
 include
 initial
@@ -1174,6 +1175,7 @@ opcode
 orange
 output
 packet
+packets
 param
 passive
 phase
@@ -3392,6 +3394,9 @@ according to the following algorithm:</p>
 <a href="#Definitions_Topology-Definitions_Semantics_Resolving-to-a-Partially-Numbered-Topology">partially numbered topology</a> <em>T'</em>.</p>
 </li>
 <li>
+<p><a href="#Definitions_Topology-Definitions_Semantics_Checking-Telemetry-Packet-Group-Specifiers">Check telemetry packet group specifiers</a> for <em>T'</em>.</p>
+</li>
+<li>
 <p>Apply
 <a href="#Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Ports">automatic numbering of ports</a>
 to <em>T'</em>.</p>
@@ -3475,6 +3480,24 @@ For example, if a command pattern indicates a command
 registration connection between two ports, and there is already
 a command registration connection between those ports, then
 do not add the connection.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="Definitions_Topology-Definitions_Semantics_Checking-Telemetry-Packet-Group-Specifiers">Checking-Telemetry-Packet-Group-Specifiers</h5>
+<div class="paragraph">
+<p>FPP checks telemetry packet group specifiers as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Check that no two telemetry packet group specifiers have
+the same name.</p>
+</li>
+<li>
+<p>Check that each telemetry packet group specifier is
+<a href="#Specifiers_Telemetry-Packet-Group-Specifiers_Semantics">valid</a>.</p>
 </li>
 </ol>
 </div>
@@ -7112,19 +7135,81 @@ A telemetry packet group specifier is part of a
 <div class="sect3">
 <h4 id="Specifiers_Telemetry-Packet-Group-Specifiers_Syntax">7.16.1. Syntax</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p><code>telemetry</code> <code>packets</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<code>{</code> <em>telemetry-packet-specifier-sequence</em> <code>}</code>
+<em>[</em>
+<code>ignore</code>
+<code>{</code> <em>telemetry-channel-specifier-sequence</em> <code>}</code>
+<em>]</em></p>
+</div>
+<div class="paragraph">
+<p><em>telemetry-packet-specifier-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in
+which each element is a <a href="#Specifiers_Telemetry-Packet-Specifiers">telemetry
+packet specifier</a>,
+and the terminating punctuation is a comma.</p>
+</div>
+<div class="paragraph">
+<p><em>telemetry-channel-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in
+which each element is a
+<a href="#Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers">telemetry channel identifier</a>,
+and the terminating punctuation is a comma.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Telemetry-Packet-Group-Specifiers_Semantics">7.16.2. Semantics</h4>
-<div class="paragraph">
-<p>TODO</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Each telemetry packet specifier in <em>telemetry-packet-specifier-sequence</em> must
+be <a href="#Specifiers_Telemetry-Packet-Specifiers">valid</a>,
+and it must have a distinct name and a distinct identifier.</p>
+</li>
+<li>
+<p>For every telemetry channel <em>T</em> that is a member of a component
+instance available in the enclosing topology, either through
+<a href="#Specifiers_Component-Instance-Specifiers">direct specification</a>
+or through
+<a href="#Specifiers_Topology-Import-Specifiers">import</a>,
+exactly one of the following must be true:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><em>T</em> appears in at least one of the packets of
+<em>telemetry-packet-specifier-sequence</em>.</p>
+</li>
+<li>
+<p><em>telemetry-channel-sequence</em> is present, and <em>T</em> appears in it.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Telemetry-Packet-Group-Specifiers_Examples">7.16.3. Examples</h4>
-<div class="paragraph">
-<p>TODO</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">packets Packets {
+
+  packet CDH level 0 {
+    commandDispatcher.commandsDispatched
+    rateGroup1Hz.rgMaxTime
+    fileUplink.filesReceived
+  }
+
+  packet ADCS level 2 {
+    adcs.mode
+    adcs.attitude
+  }
+
+} ignore {
+  adcs.extraTelemetry
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -7159,8 +7244,8 @@ and the terminating punctuation is a comma.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Telemetry-Packet-Specifiers_Semantics">7.17.2. Semantics</h4>
-<div class="ulist">
-<ul>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>The optional expression <em>e</em> following <code>id</code> specifies the numeric
 identifier for the packet.
@@ -7191,7 +7276,7 @@ available in the enclosing topology, either through
 or through
 <a href="#Specifiers_Topology-Import-Specifiers">import</a>.</p>
 </li>
-</ul>
+</ol>
 </div>
 </div>
 <div class="sect3">
@@ -10793,7 +10878,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-01-14 18:00:27 -0800
+Last updated 2025-01-14 18:35:40 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

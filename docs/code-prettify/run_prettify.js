@@ -443,6 +443,7 @@ var IN_GLOBAL_SCOPE = false;
           "hook," +
           "id," +
           "if," +
+          "ignore," +
           "import," +
           "include," +
           "initial," +
@@ -460,6 +461,7 @@ var IN_GLOBAL_SCOPE = false;
           "orange," +
           "output," +
           "packet," +
+          "packets," +
           "param," +
           "passive," +
           "phase," +

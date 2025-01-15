@@ -7,12 +7,63 @@ A telemetry packet group specifier is part of a
 
 ==== Syntax
 
-TODO
+`telemetry` `packets`
+<<Lexical-Elements_Identifiers,_identifier_>>
+`{` _telemetry-packet-specifier-sequence_ `}`
+_[_
+`ignore`
+`{` _telemetry-channel-specifier-sequence_ `}`
+_]_
+
+_telemetry-packet-specifier-sequence_ is an
+<<Element-Sequences,element sequence>> in
+which each element is a <<Specifiers_Telemetry-Packet-Specifiers,telemetry
+packet specifier>>,
+and the terminating punctuation is a comma.
+
+_telemetry-channel-sequence_ is an
+<<Element-Sequences,element sequence>> in
+which each element is a
+<<Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers,
+telemetry channel identifier>>,
+and the terminating punctuation is a comma.
 
 ==== Semantics
 
-TODO
+. Each telemetry packet specifier in _telemetry-packet-specifier-sequence_ must
+be <<Specifiers_Telemetry-Packet-Specifiers,valid>>,
+and it must have a distinct name and a distinct identifier.
+
+. For every telemetry channel _T_ that is a member of a component
+instance available in the enclosing topology, either through
+<<Specifiers_Component-Instance-Specifiers,direct specification>>
+or through
+<<Specifiers_Topology-Import-Specifiers,import>>,
+exactly one of the following must be true:
+
+.. _T_ appears in at least one of the packets of
+_telemetry-packet-specifier-sequence_.
+
+.. _telemetry-channel-sequence_ is present, and _T_ appears in it.
 
 ==== Examples
 
-TODO
+[source,fpp]
+----
+packets Packets {
+
+  packet CDH level 0 {
+    commandDispatcher.commandsDispatched
+    rateGroup1Hz.rgMaxTime
+    fileUplink.filesReceived
+  }
+
+  packet ADCS level 2 {
+    adcs.mode
+    adcs.attitude
+  }
+
+} ignore {
+  adcs.extraTelemetry
+}
+----

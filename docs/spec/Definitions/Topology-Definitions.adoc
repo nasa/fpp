@@ -42,6 +42,9 @@ according to the following algorithm:
 <<Definitions_Topology-Definitions_Semantics_Resolving-to-a-Partially-Numbered-Topology,
 partially numbered topology>> _T'_.
 
+. <<Definitions_Topology-Definitions_Semantics_Checking-Telemetry-Packet-Group-Specifiers,
+Check telemetry packet group specifiers>> for _T'_.
+
 . Apply
 <<Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Ports,
 automatic numbering of ports>>
@@ -112,6 +115,16 @@ For example, if a command pattern indicates a command
 registration connection between two ports, and there is already
 a command registration connection between those ports, then
 do not add the connection.
+
+===== Checking-Telemetry-Packet-Group-Specifiers
+
+FPP checks telemetry packet group specifiers as follows:
+
+. Check that no two telemetry packet group specifiers have
+the same name.
+
+. Check that each telemetry packet group specifier is
+<<Specifiers_Telemetry-Packet-Group-Specifiers_Semantics,valid>>.
 
 ===== Automatic Numbering of Ports
 

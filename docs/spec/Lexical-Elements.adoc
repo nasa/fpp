@@ -81,6 +81,7 @@ high
 hook
 id
 if
+ignore
 import
 include
 initial
@@ -98,6 +99,7 @@ opcode
 orange
 output
 packet
+packets
 param
 passive
 phase
