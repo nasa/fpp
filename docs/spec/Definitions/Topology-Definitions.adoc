@@ -126,6 +126,13 @@ the same name.
 . Check that each telemetry packet group specifier is
 <<Specifiers_Telemetry-Packet-Group-Specifiers_Semantics,valid>>.
 
+Note that a telemetry packet group specifier is not required.
+If there is no specifier, then the topology has no packet definitions.
+Note also that two or more telemetry packet group specifiers
+are allowed.
+Each one specifies a way of assigning the telemetry channels
+of the topology to packets.
+
 ===== Automatic Numbering of Ports
 
 FPP automatically assigns port numbers as follows.
