@@ -566,12 +566,12 @@ uses the name `A_B_CComponentAc_HPP` in its include guard.
 
 Once you generate {cpp} code for these definitions, you can use it to
 write a flight software implementation.
-The https://fprime.jpl.nasa.gov/latest/documentation/user-manual/[F
+The https://fprime.jpl.nasa.gov/devel/documentation/user-manual/[F
 User Manual] explains how to do this.
 
 For more information about the generated code for data products,
 for state machines, and for state machine instances, see the
-https://fprime.jpl.nasa.gov/latest/documentation/user-manual/[F
+https://fprime.jpl.nasa.gov/devel/documentation/user-manual/design/state-machines/[F
 Prime design documentation].
 
 ==== Component Implementation and Unit Test Code
@@ -581,7 +581,7 @@ or
 partial implementations and for generating unit test code.
 Here we cover the mechanics of using these options.
 For more information on implementing and testing components in F Prime, see
-the https://fprime.jpl.nasa.gov/latest/documentation/user-manual/[F
+the https://fprime.jpl.nasa.gov/devel/documentation/user-manual/[F
 Prime User Manual].
 
 *Generating implementation templates:*
@@ -1361,8 +1361,8 @@ file
 _T_ `TopologyDictionary.json`.
 The dictionary is specified in JavaScript Object Notation (JSON) format.
 The JSON format is specified in the
-https://fprime.jpl.nasa.gov/latest/documentation/user-manual/design/fpp-json-dict/[F 
-Prime dictionary documentation].
+https://fprime.jpl.nasa.gov/devel/documentation/user-manual/design/fpp-json-dict/[F 
+Prime design documentation].
 
 Here is a common use case:
 

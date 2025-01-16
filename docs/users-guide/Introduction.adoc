@@ -7,7 +7,7 @@ A https://digitalcommons.usu.edu/smallsat/2018/all2018/328/[paper presented at
 SmallSat 2018]
 provides an overview of F Prime.
 For more detailed information about F Prime, see the
-https://fprime.jpl.nasa.gov/latest/documentation/user-manual/[F Prime User Manual].
+https://fprime.jpl.nasa.gov/devel/documentation/user-manual/[F Prime User Manual].
 
 The goals of FPP are as follows:
 
