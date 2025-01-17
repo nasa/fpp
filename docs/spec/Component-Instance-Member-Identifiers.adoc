@@ -50,10 +50,11 @@ port instance.
 
 === Telemetry Channel Identifiers
 
-A *telemetry channel identifier* identifies a telemetry channel
-that is part of a component instance.
-Telemetry channel identifiers appear in 
-<<Specifiers_Telemetry-Packet-Specifiers,telemetry packet specifiers>>.
+A *telemetry channel identifier* identifies a telemetry channel that is part of
+a component instance.  Telemetry channel identifiers appear in
+<<Specifiers_Telemetry-Packet-Group-Specifiers,telemetry packet group
+specifiers>> and <<Specifiers_Telemetry-Packet-Specifiers,telemetry packet
+specifiers>>.
 
 ==== Syntax
 

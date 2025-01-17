@@ -3,7 +3,7 @@
 A *telemetry packet specifier* specifies the format of a data
 packet containing telemetry points.
 A telemetry packet specifier is part of a
-<<Specifiers_Telemetry-Packet-Group-Specifiers,telemetry packet group 
+<<Specifiers_Telemetry-Packet-Group-Specifiers,telemetry packet group
 specifier>>, which is in turn part of a
 <<Definitions_Topology-Definitions,topology definition>>.
 
@@ -23,10 +23,15 @@ which each element is a *telemetry packet member*,
 and the terminating punctuation is a comma.
 A telemetry packet member is one of the following:
 
-* An <<Specifiers_Include-Specifiers,include specifier>>
+* _non-annotatable-include-specifier_
 
-* A <<Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers,
-telemetry channel identifier>>
+* _<<Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers,
+telemetry-channel-identifier>>_
+
+A _non-annotatable-include-specifier_ is identical to an
+<<Specifiers_Include-Specifiers,include specifier>>,
+but it is not an
+<<Comments-and-Annotations_Annotations_Where-Annotations-Can-Occur,annotatable element>>.
 
 ==== Semantics
 
@@ -50,9 +55,9 @@ The type of _e_ must be
 <<Types_Internal-Types_Integer,_Integer_>>, and _e_ must evaluate
 to a nonnegative integer.
 
-.  FPP recursively resolves any include specifiers in 
+.  FPP recursively resolves any include specifiers in
 _telemetry-packet-member-sequence_.
-This action converts _telemetry-packet-member-sequence_ to a list _L_ of 
+This action converts _telemetry-packet-member-sequence_ to a list _L_ of
 telemetry channel identifiers.
 For each telemetry channel identifier _I_ in _L_,
 the component instance referred to in _I_ must be
@@ -65,7 +70,7 @@ or through
 
 [source,fpp]
 ----
-# CDH packet has id 0 and level 0
+@ CDH packet has id 0 and level 0
 packet CDH id 0 level 0 {
   commandDispatcher.commandsDispatched
   rateGroup1Hz.rgMaxTime
@@ -73,7 +78,7 @@ packet CDH id 0 level 0 {
   include "UplinkTelemetryChannels.fppi"
 }
 
-# Implicit id of ADCS packet is 1. Its level is 2.
+@ Implicit id of ADCS packet is 1. Its level is 2.
 packet ADCS level 2 {
   adcs.mode
   adcs.attitude
