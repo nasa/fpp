@@ -15,14 +15,18 @@ _[_
 `id` <<Expressions,_expression_>>
 _]_
 `level` <<Expressions,_expression_>>
-`{` _telemetry-channel-sequence_ `}`
+`{` _telemetry-packet-member-sequence_ `}`
 
-_telemetry-channel-sequence_ is an
+_telemetry-packet-member-sequence_ is an
 <<Element-Sequences,element sequence>> in
-which each element is a
-<<Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers,
-telemetry channel identifier>>,
+which each element is a *telemetry packet member*,
 and the terminating punctuation is a comma.
+A telemetry packet member is one of the following:
+
+* An <<Specifiers_Include-Specifiers,include specifier>>
+
+* A <<Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers,
+telemetry channel identifier>>
 
 ==== Semantics
 
@@ -46,8 +50,11 @@ The type of _e_ must be
 <<Types_Internal-Types_Integer,_Integer_>>, and _e_ must evaluate
 to a nonnegative integer.
 
-. For each telemetry channel identifier _I_ in _telemetry-channel-sequence_,
-the component instance referred to in _I_ must be
+. FPP resolves any include specifiers in _telemetry-packet-member-sequence_ to a 
+list _L_
+of telemetry channel identifiers.
+It then checks that for each telemetry channel identifier _I_ in _L_,
+the component instance referred to in _I_ is
 available in the enclosing topology, either through
 <<Specifiers_Component-Instance-Specifiers,direct specification>>
 or through
@@ -61,7 +68,8 @@ or through
 packet CDH id 0 level 0 {
   commandDispatcher.commandsDispatched
   rateGroup1Hz.rgMaxTime
-  fileUplink.filesReceived
+  include "DownlinkTelemetryChannels.fppi"
+  include "UplinkTelemetryChannels.fppi"
 }
 
 # Implicit id of ADCS packet is 1. Its level is 2.

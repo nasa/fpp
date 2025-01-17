@@ -7145,21 +7145,31 @@ A telemetry packet group specifier is part of a
 <div class="paragraph">
 <p><code>telemetry</code> <code>packets</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<code>{</code> <em>telemetry-packet-specifier-sequence</em> <code>}</code>
+<code>{</code> <em>telemetry-packet-group-member-sequence</em> <code>}</code>
 <em>[</em>
 <code>omit</code>
-<code>{</code> <em>telemetry-channel-specifier-sequence</em> <code>}</code>
+<code>{</code> <em>telemetry-channel-identifier-sequence</em> <code>}</code>
 <em>]</em></p>
 </div>
 <div class="paragraph">
-<p><em>telemetry-packet-specifier-sequence</em> is an
+<p><em>telemetry-packet-group-member-sequence</em> is an
 <a href="#Element-Sequences">element sequence</a> in
-which each element is a <a href="#Specifiers_Telemetry-Packet-Specifiers">telemetry
-packet specifier</a>,
-and the terminating punctuation is a comma.</p>
+which each element is a <strong>telemetry packet group member</strong>,
+and the terminating punctuation is a comma.
+A telemetry packet group member is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>An <a href="#Specifiers_Include-Specifiers">include specifier</a></p>
+</li>
+<li>
+<p>A <a href="#Specifiers_Telemetry-Packet-Specifiers">telemetry packet specifier</a></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p><em>telemetry-channel-sequence</em> is an
+<p><em>telemetry-channel-identifier-sequence</em> is an
 <a href="#Element-Sequences">element sequence</a> in
 which each element is a
 <a href="#Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers">telemetry channel identifier</a>,
@@ -7168,14 +7178,20 @@ and the terminating punctuation is a comma.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Telemetry-Packet-Group-Specifiers_Semantics">7.16.2. Semantics</h4>
+<div class="paragraph">
+<p>FPP resolves any include specifiers in <em>telemetry-packet-specifier-sequence</em>,
+generating a list <em>L</em> of telemetry packet specifiers,
+each of which is a list of telemetry channel identifiers.
+It then checks the following:</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Each telemetry packet specifier in <em>telemetry-packet-specifier-sequence</em> must
+<p>Each telemetry packet specifier in <em>L</em> must
 be <a href="#Specifiers_Telemetry-Packet-Specifiers">valid</a>,</p>
 </li>
 <li>
-<p>Each telemetry packet specifier in <em>telemetry-packet-specifier-sequence</em> must
+<p>Each telemetry packet specifier in <em>L</em> must
 must have a distinct name and a distinct identifier.</p>
 </li>
 <li>
@@ -7188,12 +7204,11 @@ exactly one of the following must be true:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p><em>T</em> appears in at least one of the packets of
-<em>telemetry-packet-specifier-sequence</em>.</p>
+<p><em>T</em> appears in at least one of the telemetry packet specifiers of <em>L</em>.</p>
 </li>
 <li>
-<p><em>telemetry-channel-sequence</em> is present, and <em>T</em> appears in
-<em>telemetry-channel-sequence</em>.</p>
+<p><em>telemetry-channel-identifier-sequence</em> is present, and <em>T</em> appears in
+<em>telemetry-channel-identifier-sequence</em>.</p>
 </li>
 </ol>
 </div>
@@ -7217,6 +7232,8 @@ exactly one of the following must be true:</p>
     adcs.mode
     adcs.attitude
   }
+
+  include "PowerTelemetryPackets.fppi"
 
 } omit {
   adcs.extraTelemetry
@@ -7244,14 +7261,24 @@ specifier</a>, which is in turn part of a
 <code>id</code> <a href="#Expressions"><em>expression</em></a>
 <em>]</em>
 <code>level</code> <a href="#Expressions"><em>expression</em></a>
-<code>{</code> <em>telemetry-channel-sequence</em> <code>}</code></p>
+<code>{</code> <em>telemetry-packet-member-sequence</em> <code>}</code></p>
 </div>
 <div class="paragraph">
-<p><em>telemetry-channel-sequence</em> is an
+<p><em>telemetry-packet-member-sequence</em> is an
 <a href="#Element-Sequences">element sequence</a> in
-which each element is a
-<a href="#Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers">telemetry channel identifier</a>,
-and the terminating punctuation is a comma.</p>
+which each element is a <strong>telemetry packet member</strong>,
+and the terminating punctuation is a comma.
+A telemetry packet member is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>An <a href="#Specifiers_Include-Specifiers">include specifier</a></p>
+</li>
+<li>
+<p>A <a href="#Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers">telemetry channel identifier</a></p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect3">
@@ -7281,8 +7308,11 @@ The type of <em>e</em> must be
 to a nonnegative integer.</p>
 </li>
 <li>
-<p>For each telemetry channel identifier <em>I</em> in <em>telemetry-channel-sequence</em>,
-the component instance referred to in <em>I</em> must be
+<p>FPP resolves any include specifiers in <em>telemetry-packet-member-sequence</em> to a
+list <em>L</em>
+of telemetry channel identifiers.
+It then checks that for each telemetry channel identifier <em>I</em> in <em>L</em>,
+the component instance referred to in <em>I</em> is
 available in the enclosing topology, either through
 <a href="#Specifiers_Component-Instance-Specifiers">direct specification</a>
 or through
@@ -7299,7 +7329,8 @@ or through
 packet CDH id 0 level 0 {
   commandDispatcher.commandsDispatched
   rateGroup1Hz.rgMaxTime
-  fileUplink.filesReceived
+  include "DownlinkTelemetryChannels.fppi"
+  include "UplinkTelemetryChannels.fppi"
 }
 
 # Implicit id of ADCS packet is 1. Its level is 2.
@@ -10890,7 +10921,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-01-15 13:14:02 -0800
+Last updated 2025-01-16 17:01:17 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -9,19 +9,23 @@ A telemetry packet group specifier is part of a
 
 `telemetry` `packets`
 <<Lexical-Elements_Identifiers,_identifier_>>
-`{` _telemetry-packet-specifier-sequence_ `}`
+`{` _telemetry-packet-group-member-sequence_ `}`
 _[_
 `omit`
-`{` _telemetry-channel-specifier-sequence_ `}`
+`{` _telemetry-channel-identifier-sequence_ `}`
 _]_
 
-_telemetry-packet-specifier-sequence_ is an
+_telemetry-packet-group-member-sequence_ is an
 <<Element-Sequences,element sequence>> in
-which each element is a <<Specifiers_Telemetry-Packet-Specifiers,telemetry
-packet specifier>>,
+which each element is a *telemetry packet group member*,
 and the terminating punctuation is a comma.
+A telemetry packet group member is one of the following:
 
-_telemetry-channel-sequence_ is an
+* An <<Specifiers_Include-Specifiers,include specifier>>
+
+* A <<Specifiers_Telemetry-Packet-Specifiers,telemetry packet specifier>>
+
+_telemetry-channel-identifier-sequence_ is an
 <<Element-Sequences,element sequence>> in
 which each element is a
 <<Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers,
@@ -30,10 +34,15 @@ and the terminating punctuation is a comma.
 
 ==== Semantics
 
-. Each telemetry packet specifier in _telemetry-packet-specifier-sequence_ must
+FPP resolves any include specifiers in _telemetry-packet-specifier-sequence_,
+generating a list _L_ of telemetry packet specifiers,
+each of which is a list of telemetry channel identifiers.
+It then checks the following:
+
+. Each telemetry packet specifier in _L_ must
 be <<Specifiers_Telemetry-Packet-Specifiers,valid>>,
 
-. Each telemetry packet specifier in _telemetry-packet-specifier-sequence_ must
+. Each telemetry packet specifier in _L_ must
 must have a distinct name and a distinct identifier.
 
 . For every component instance _I_ available in the enclosing topology, either through
@@ -43,11 +52,10 @@ or through
 for every telemetry channel _T_ that is a member of _I_,
 exactly one of the following must be true:
 
-.. _T_ appears in at least one of the packets of
-_telemetry-packet-specifier-sequence_.
+.. _T_ appears in at least one of the telemetry packet specifiers of _L_.
 
-.. _telemetry-channel-sequence_ is present, and _T_ appears in
-_telemetry-channel-sequence_.
+.. _telemetry-channel-identifier-sequence_ is present, and _T_ appears in
+_telemetry-channel-identifier-sequence_.
 
 ==== Example
 
@@ -65,6 +73,8 @@ packets Packets {
     adcs.mode
     adcs.attitude
   }
+
+  include "PowerTelemetryPackets.fppi"
 
 } omit {
   adcs.extraTelemetry
