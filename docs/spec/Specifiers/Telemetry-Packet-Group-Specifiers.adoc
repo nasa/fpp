@@ -34,10 +34,12 @@ and the terminating punctuation is a comma.
 
 ==== Semantics
 
-FPP resolves any include specifiers in _telemetry-packet-specifier-sequence_,
-generating a list _L_ of telemetry packet specifiers,
+FPP recursively resolves any include specifiers in 
+_telemetry-packet-group-member-sequence_.
+This action converts _telemetry-packet-group-member-sequence_ to a
+list _L_ of telemetry packet specifiers,
 each of which is a list of telemetry channel identifiers.
-It then checks the following:
+FPP then checks the following:
 
 . Each telemetry packet specifier in _L_ must
 be <<Specifiers_Telemetry-Packet-Specifiers,valid>>,
