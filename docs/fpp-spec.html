@@ -7189,12 +7189,12 @@ FPP then checks the following:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Each telemetry packet specifier in <em>L</em> must
-be <a href="#Specifiers_Telemetry-Packet-Specifiers">valid</a>,</p>
+<p>Each telemetry packet specifier in <em>L</em> is
+<a href="#Specifiers_Telemetry-Packet-Specifiers">valid</a>,</p>
 </li>
 <li>
-<p>Each telemetry packet specifier in <em>L</em> must
-must have a distinct name and a distinct identifier.</p>
+<p>Each telemetry packet specifier in <em>L</em> has
+a distinct name and a distinct identifier.</p>
 </li>
 <li>
 <p>For every component instance <em>I</em> available in the enclosing topology, either through
@@ -7202,7 +7202,7 @@ must have a distinct name and a distinct identifier.</p>
 or through
 <a href="#Specifiers_Topology-Import-Specifiers">import</a>,
 for every telemetry channel <em>T</em> that is a member of <em>I</em>,
-exactly one of the following must be true:</p>
+exactly one of the following is true:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -7285,13 +7285,6 @@ A telemetry packet member is one of the following:</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Telemetry-Packet-Specifiers_Semantics">7.17.2. Semantics</h4>
-<div class="paragraph">
-<p>FPP recursively resolves any include specifiers in
-<em>telemetry-packet-member-sequence</em>.
-This action converts <em>telemetry-packet-member-sequence</em> to a list <em>L</em> of
-telemetry channel identifiers.
-FPP then checks the following:</p>
-</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -7317,8 +7310,12 @@ The type of <em>e</em> must be
 to a nonnegative integer.</p>
 </li>
 <li>
-<p>For each telemetry channel identifier <em>I</em> in <em>L</em>,
-the component instance referred to in <em>I</em> is
+<p>FPP recursively resolves any include specifiers in
+<em>telemetry-packet-member-sequence</em>.
+This action converts <em>telemetry-packet-member-sequence</em> to a list <em>L</em> of
+telemetry channel identifiers.
+For each telemetry channel identifier <em>I</em> in <em>L</em>,
+the component instance referred to in <em>I</em> must be
 available in the enclosing topology, either through
 <a href="#Specifiers_Component-Instance-Specifiers">direct specification</a>
 or through
@@ -10927,7 +10924,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-01-16 17:12:49 -0800
+Last updated 2025-01-16 17:26:52 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

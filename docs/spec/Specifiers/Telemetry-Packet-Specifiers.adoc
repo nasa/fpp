@@ -30,12 +30,6 @@ telemetry channel identifier>>
 
 ==== Semantics
 
-FPP recursively resolves any include specifiers in 
-_telemetry-packet-member-sequence_.
-This action converts _telemetry-packet-member-sequence_ to a list _L_ of 
-telemetry channel identifiers.
-FPP then checks the following:
-
 . The optional expression _e_ following `id` specifies the numeric
 identifier for the packet.
 If _e_ is present, then the type of _e_ must be
@@ -56,8 +50,12 @@ The type of _e_ must be
 <<Types_Internal-Types_Integer,_Integer_>>, and _e_ must evaluate
 to a nonnegative integer.
 
-. For each telemetry channel identifier _I_ in _L_,
-the component instance referred to in _I_ is
+.  FPP recursively resolves any include specifiers in 
+_telemetry-packet-member-sequence_.
+This action converts _telemetry-packet-member-sequence_ to a list _L_ of 
+telemetry channel identifiers.
+For each telemetry channel identifier _I_ in _L_,
+the component instance referred to in _I_ must be
 available in the enclosing topology, either through
 <<Specifiers_Component-Instance-Specifiers,direct specification>>
 or through

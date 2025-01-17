@@ -41,18 +41,18 @@ list _L_ of telemetry packet specifiers,
 each of which is a list of telemetry channel identifiers.
 FPP then checks the following:
 
-. Each telemetry packet specifier in _L_ must
-be <<Specifiers_Telemetry-Packet-Specifiers,valid>>,
+. Each telemetry packet specifier in _L_ is
+<<Specifiers_Telemetry-Packet-Specifiers,valid>>,
 
-. Each telemetry packet specifier in _L_ must
-must have a distinct name and a distinct identifier.
+. Each telemetry packet specifier in _L_ has
+a distinct name and a distinct identifier.
 
 . For every component instance _I_ available in the enclosing topology, either through
 <<Specifiers_Component-Instance-Specifiers,direct specification>>
 or through
 <<Specifiers_Topology-Import-Specifiers,import>>,
 for every telemetry channel _T_ that is a member of _I_,
-exactly one of the following must be true:
+exactly one of the following is true:
 
 .. _T_ appears in at least one of the telemetry packet specifiers of _L_.
 
