@@ -209,6 +209,39 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
+  "def tlmPacket OK" should {
+    parseAllOK(
+      Parser.specTlmPacket,
+      List(
+        """packet P level 0 {
+             include "file.fpp"
+             a.b
+             c.d
+        }""",
+        """packet P id 0 level 0 {}"""
+      )
+    )
+  }
+
+  "def tlmPacketGroup OK" should {
+    parseAllOK(
+      Parser.specTlmPacketGroup,
+      List(
+        """telemetry packets P {
+             @ P1
+             packet P1 level 0 {
+               include "file.fpp"
+               a.b
+               c.d
+             }
+             packet P2 id 1 level 0 {}
+           }""",
+        """telemetry packets P {} omit {}""",
+        """telemetry packets P {} omit { a.b, c.d }"""
+      )
+    )
+  }
+
   "def topology OK" should {
     parseAllOK(
       Parser.defTopology,
@@ -224,6 +257,9 @@ class ParserSpec extends AnyWordSpec {
           @ Pre
           instance i @< Post
         }""",
+        """topology T {
+          telemetry packets P {}
+        }"""
       )
     )
   }

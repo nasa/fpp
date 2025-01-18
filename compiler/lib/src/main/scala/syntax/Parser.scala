@@ -454,7 +454,7 @@ object Parser extends Parsers {
           case None => Nil
         }
       }
-      patternKind ~! (connections ~! instance ~>! node(qualIdent)) ~! instanceSequence ^^ {
+      patternKind ~ (connections ~! instance ~>! node(qualIdent)) ~! instanceSequence ^^ {
         case kind ~ source ~ targets => Ast.SpecConnectionGraph.Pattern(
           kind,
           source,
