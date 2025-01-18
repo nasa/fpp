@@ -618,6 +618,43 @@ object AstWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
+  override def specTlmPacketGroupAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketGroup]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    List.concat(
+      lines("def tlm packet group"),
+      List.concat(
+        ident(data.name),
+        List.concat(
+          lines("members"),
+          data.members.flatMap(tlmPacketGroupMember).map(indentIn)
+        ),
+        List.concat(
+          lines("omitted"),
+          data.omitted.flatMap(applyToData(tlmChannelIdentifier)).map(indentIn)
+        )
+      ).map(indentIn)
+    )
+  }
+
+  override def specTlmPacketAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacket]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("spec tlm packet") ++
+    List.concat(
+      ident(data.name),
+      linesOpt(addPrefix("id", exprNode), data.id),
+      addPrefix("level", exprNode) (data.level),
+      data.members.flatMap(tlmPacketMember)
+    ).map(indentIn)
+  }
+
   override def specTopImportAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecTopImport]]
@@ -755,6 +792,11 @@ object AstWriter extends AstVisitor with LineUtils {
     qualIdent(qid)
   }
 
+  private def tlmChannelIdentifier(tci: Ast.TlmChannelIdentifier): Out = {
+    val qid = Ast.QualIdent.Qualified(tci.componentInstance, tci.channelName)
+    qualIdent(qid)
+  }
+
   private def qualIdent(qid: Ast.QualIdent): Out =
     lines("qual ident " ++ qualIdentString(qid))
 
@@ -805,6 +847,21 @@ object AstWriter extends AstVisitor with LineUtils {
       linesOpt(addPrefix("format", applyToData(string)), stm.format)
     ).map(indentIn)
   }
+
+  private def tlmPacketGroupMember(member: Ast.TlmPacketGroupMember) = {
+    val l = matchTlmPacketGroupMember((), member)
+    val (a1, _, a2) = member.node
+    annotate(a1, l, a2)
+  }
+
+  private def tlmPacketMember(member: Ast.TlmPacketMember) =
+    member match {
+      case Ast.TlmPacketMember.SpecInclude(include) =>
+        specIncludeAnnotatedNode((), (Nil, include, Nil))
+      case Ast.TlmPacketMember.TlmChannelIdentifier(channel) =>
+        lines("tlm channel identifier") ++
+          tlmChannelIdentifier(channel.data).map(indentIn)
+    }
 
   private def todo = lines("TODO")
 

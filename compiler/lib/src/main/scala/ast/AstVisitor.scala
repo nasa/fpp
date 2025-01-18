@@ -215,7 +215,7 @@ trait AstVisitor {
     }
   }
 
-  final def matchTlmPacketGroup(in: In, member: Ast.TlmPacketGroupMember): Out = {
+  final def matchTlmPacketGroupMember(in: In, member: Ast.TlmPacketGroupMember): Out = {
     val (pre, node, post) =  member.node
     node match {
       case Ast.TlmPacketGroupMember.SpecInclude(node1) => specIncludeAnnotatedNode(in, (pre, node1, post))

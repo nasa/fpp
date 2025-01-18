@@ -163,16 +163,16 @@ object ResolveSpecInclude extends AstStateTransformer {
 
   private def tlmPacketMember(
     a: Analysis,
-    node: AstNode[Ast.TlmPacketMember]
-  ): Result[List[AstNode[Ast.TlmPacketMember]]] = {
-    node.data match {
+    member: Ast.TlmPacketMember
+  ): Result[List[Ast.TlmPacketMember]] = {
+    member match {
       case Ast.TlmPacketMember.SpecInclude(include) => resolveSpecInclude(
         a,
         include,
         Parser.tlmPacketMembers,
         tlmPacketMember
       )
-      case _ => Right(a, List(node))
+      case _ => Right(a, List(member))
     }
   }
 

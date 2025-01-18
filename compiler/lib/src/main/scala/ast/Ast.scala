@@ -745,7 +745,7 @@ object Ast {
     name: Ident,
     id: Option[AstNode[Expr]],
     level: AstNode[Expr],
-    members: List[AstNode[TlmPacketMember]]
+    members: List[TlmPacketMember]
   )
 
   /** Telemetry packet group specifier */

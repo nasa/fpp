@@ -772,8 +772,8 @@ object Parser extends Parsers {
     failure("telemetry packet member expected")
   }
 
-  def tlmPacketMembers: Parser[List[AstNode[Ast.TlmPacketMember]]] =
-    elementSequence(node(tlmPacketMember), comma)
+  def tlmPacketMembers: Parser[List[Ast.TlmPacketMember]] =
+    elementSequence(tlmPacketMember, comma)
 
   def topologyMemberNode: Parser[Ast.TopologyMember.Node] = {
     node(specCompInstance) ^^ { case n => Ast.TopologyMember.SpecCompInstance(n) } |
