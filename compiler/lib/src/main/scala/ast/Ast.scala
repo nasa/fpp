@@ -752,7 +752,7 @@ object Ast {
   final case class SpecTlmPacketGroup(
     name: Ident,
     members: List[TlmPacketGroupMember],
-    omit: List[TlmChannelIdentifier]
+    omitted: List[AstNode[TlmChannelIdentifier]]
   )
 
   /** Topology import specifier */

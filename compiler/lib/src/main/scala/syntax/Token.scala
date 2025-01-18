@@ -65,6 +65,7 @@ object Token {
   final case class CHOICE() extends Token
   final case class LBRACE() extends Token
   final case class LBRACKET() extends Token
+  final case class LEVEL() extends Token
   final case class LITERAL_FLOAT(str: String) extends Token
   final case class LITERAL_INT(str: String) extends Token
   final case class LITERAL_STRING(str: String) extends Token
@@ -75,10 +76,13 @@ object Token {
   final case class MATCH() extends Token
   final case class MINUS() extends Token
   final case class MODULE() extends Token
+  final case class OMIT() extends Token
   final case class ON() extends Token
   final case class OPCODE() extends Token
   final case class ORANGE() extends Token
   final case class OUTPUT() extends Token
+  final case class PACKET() extends Token
+  final case class PACKETS() extends Token
   final case class PARAM() extends Token
   final case class PASSIVE() extends Token
   final case class PHASE() extends Token

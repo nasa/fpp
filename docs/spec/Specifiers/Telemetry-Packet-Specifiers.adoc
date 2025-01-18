@@ -23,10 +23,10 @@ which each element is a *telemetry packet member*,
 and the terminating punctuation is a comma.
 A telemetry packet member is one of the following:
 
-* _non-annotatable-include-specifier_
+* _non-annotatable-include-specifier_.
 
 * _<<Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers,
-telemetry-channel-identifier>>_
+telemetry-channel-identifier>>_.
 
 A _non-annotatable-include-specifier_ is identical to an
 <<Specifiers_Include-Specifiers,include specifier>>,
