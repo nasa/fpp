@@ -86,6 +86,12 @@ object FppWriter extends AstVisitor with LineUtils {
     annotate(a1, l, a2)
   }
 
+  def tlmPacketGroupMember(member: Ast.TlmPacketGroupMember): Out = {
+    val (a1, _, a2) = member.node
+    val l = matchTlmPacketGroupMember((), member)
+    annotate(a1, l, a2)
+  }
+
   def topologyMember(member: Ast.TopologyMember): Out = {
     val (a1, _, a2) = member.node
     val l = matchTopologyMember((), member)
@@ -642,6 +648,38 @@ object FppWriter extends AstVisitor with LineUtils {
       joinOptWithBreak (optList(data.high)) ("high ") (limitSeq)
   }
 
+  override def specTlmPacketAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacket]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"packet ${ident(data.name)}").
+      joinOpt (data.id) (" id ") (exprNode).
+      join (" level ") (exprNode(data.level)).
+      joinNoIndent (" ") (
+        addBraces(data.members.flatMap(tlmPacketMember))
+      )
+  }
+
+  override def specTlmPacketGroupAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketGroup]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"telemery packets ${ident(data.name)}").
+      joinNoIndent (" ") (
+        addBraces(
+          Line.blank ::
+          (Line.blankSeparated (tlmPacketGroupMember) (data.members) :+ Line.blank)
+        )
+      ).
+      joinNoIndent (" omit ") (
+        addBracesIfNonempty(data.omitted.flatMap(applyToData(tlmChannelId)))
+      )
+  }
+
   override def specTopImportAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecTopImport]]
@@ -791,6 +829,18 @@ object FppWriter extends AstVisitor with LineUtils {
       joinOpt (member.size) (" ") (bracketExprNode).
       join (" ") (typeNameNode(member.typeName)).
       joinOpt (member.format) (" format ") (applyToData(string))
+
+  private def tlmChannelId(tci: Ast.TlmChannelIdentifier) =
+    qualIdent(tci.componentInstance.data).
+    addSuffix(s".${ident(tci.channelName.data)}")
+
+  private def tlmPacketMember(member: Ast.TlmPacketMember) =
+    member match {
+      case Ast.TlmPacketMember.SpecInclude(node) =>
+        specIncludeAnnotatedNode((), (Nil, node, Nil))
+      case Ast.TlmPacketMember.TlmChannelIdentifier(node) =>
+        tlmChannelId(node.data)
+    }
 
   private def typeNameNode(node: AstNode[Ast.TypeName]) = matchTypeNameNode((), node)
 

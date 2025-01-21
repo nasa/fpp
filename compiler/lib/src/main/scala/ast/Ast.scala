@@ -789,10 +789,10 @@ object Ast {
   sealed trait TlmPacketMember
   object TlmPacketMember {
 
-    final case class SpecInclude(include: AstNode[Ast.SpecInclude])
+    final case class SpecInclude(node: AstNode[Ast.SpecInclude])
       extends TlmPacketMember
 
-    final case class TlmChannelIdentifier(channel: AstNode[Ast.TlmChannelIdentifier])
+    final case class TlmChannelIdentifier(node: AstNode[Ast.TlmChannelIdentifier])
       extends TlmPacketMember
 
   }

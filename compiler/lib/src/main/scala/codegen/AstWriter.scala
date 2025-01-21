@@ -856,11 +856,11 @@ object AstWriter extends AstVisitor with LineUtils {
 
   private def tlmPacketMember(member: Ast.TlmPacketMember) =
     member match {
-      case Ast.TlmPacketMember.SpecInclude(include) =>
-        specIncludeAnnotatedNode((), (Nil, include, Nil))
-      case Ast.TlmPacketMember.TlmChannelIdentifier(channel) =>
+      case Ast.TlmPacketMember.SpecInclude(node) =>
+        specIncludeAnnotatedNode((), (Nil, node, Nil))
+      case Ast.TlmPacketMember.TlmChannelIdentifier(node) =>
         lines("tlm channel identifier") ++
-          tlmChannelIdentifier(channel.data).map(indentIn)
+          tlmChannelIdentifier(node.data).map(indentIn)
     }
 
   private def todo = lines("TODO")
