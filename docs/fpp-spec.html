@@ -7161,10 +7161,10 @@ A telemetry packet group member is one of the following:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>An <a href="#Specifiers_Include-Specifiers">include specifier</a></p>
+<p>An <a href="#Specifiers_Include-Specifiers">include specifier</a>.</p>
 </li>
 <li>
-<p>A <a href="#Specifiers_Telemetry-Packet-Specifiers">telemetry packet specifier</a></p>
+<p>A <a href="#Specifiers_Telemetry-Packet-Specifiers">telemetry packet specifier</a>.</p>
 </li>
 </ul>
 </div>
@@ -7275,12 +7275,18 @@ A telemetry packet member is one of the following:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>An <a href="#Specifiers_Include-Specifiers">include specifier</a></p>
+<p><em>non-annotatable-include-specifier</em>.</p>
 </li>
 <li>
-<p>A <a href="#Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers">telemetry channel identifier</a></p>
+<p><em><a href="#Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers">telemetry-channel-identifier</a></em>.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>A <em>non-annotatable-include-specifier</em> is identical to an
+<a href="#Specifiers_Include-Specifiers">include specifier</a>,
+but it is not an
+<a href="#Comments-and-Annotations_Annotations_Where-Annotations-Can-Occur">annotatable element</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -7328,7 +7334,7 @@ or through
 <h4 id="Specifiers_Telemetry-Packet-Specifiers_Examples">7.17.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># CDH packet has id 0 and level 0
+<pre class="prettyprint highlight"><code data-lang="fpp">@ CDH packet has id 0 and level 0
 packet CDH id 0 level 0 {
   commandDispatcher.commandsDispatched
   rateGroup1Hz.rgMaxTime
@@ -7336,7 +7342,7 @@ packet CDH id 0 level 0 {
   include "UplinkTelemetryChannels.fppi"
 }
 
-# Implicit id of ADCS packet is 1. Its level is 2.
+@ Implicit id of ADCS packet is 1. Its level is 2.
 packet ADCS level 2 {
   adcs.mode
   adcs.attitude
@@ -7608,10 +7614,11 @@ port instance.</p>
 <div class="sect2">
 <h3 id="Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers">8.2. Telemetry Channel Identifiers</h3>
 <div class="paragraph">
-<p>A <strong>telemetry channel identifier</strong> identifies a telemetry channel
-that is part of a component instance.
-Telemetry channel identifiers appear in
-<a href="#Specifiers_Telemetry-Packet-Specifiers">telemetry packet specifiers</a>.</p>
+<p>A <strong>telemetry channel identifier</strong> identifies a telemetry channel that is part of
+a component instance.  Telemetry channel identifiers appear in
+<a href="#Specifiers_Telemetry-Packet-Group-Specifiers">telemetry packet group
+specifiers</a> and <a href="#Specifiers_Telemetry-Packet-Specifiers">telemetry packet
+specifiers</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers_Syntax">8.2.1. Syntax</h4>
@@ -10924,7 +10931,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-01-16 17:26:52 -0800
+Last updated 2025-01-21 09:54:30 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

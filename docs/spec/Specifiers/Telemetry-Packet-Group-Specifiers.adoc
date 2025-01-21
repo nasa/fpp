@@ -21,9 +21,9 @@ which each element is a *telemetry packet group member*,
 and the terminating punctuation is a comma.
 A telemetry packet group member is one of the following:
 
-* An <<Specifiers_Include-Specifiers,include specifier>>
+* An <<Specifiers_Include-Specifiers,include specifier>>.
 
-* A <<Specifiers_Telemetry-Packet-Specifiers,telemetry packet specifier>>
+* A <<Specifiers_Telemetry-Packet-Specifiers,telemetry packet specifier>>.
 
 _telemetry-channel-identifier-sequence_ is an
 <<Element-Sequences,element sequence>> in
