@@ -35,7 +35,8 @@
 
 (defconst fpp-mode-definition-keywords
   '("type" "array" "component" "instance" "constant"
-    "enum" "machine" "module" "port" "state" "struct" "topology")
+    "enum" "machine" "module" "omit" "packet" "packets"
+    "port" "state" "struct" "topology")
   "FPP keywords for definitions.")
 
 (defconst fpp-mode-keywords
@@ -45,8 +46,8 @@
     "drop" "else" "entry" "event" "exit"
     "false" "fatal" "format" "get" "guard"
     "guarded" "health" "high" "hook" "id" "if" "import"
-    "include" "initial" "input" "internal"
-    "locate" "low" "match"  "on"  "opcode" "orange"
+    "include" "initial" "input" "internal" "level"
+    "locate" "low" "match" "on"  "opcode" "orange"
     "output" "param" "passive" "phase"  "priority"
     "private" "queue"  "queued" "raw" "recv" "red"
     "ref" "reg" "resp" "save" "signal" "serial" "set" "severity"
