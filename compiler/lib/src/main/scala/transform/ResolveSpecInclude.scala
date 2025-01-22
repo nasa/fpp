@@ -57,8 +57,38 @@ object ResolveSpecInclude extends AstStateTransformer {
     }
   }
 
+  override def specTlmPacketAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacket]]
+  ) = {
+    val (pre, node, post) = aNode
+    val Ast.SpecTlmPacket(name, id, level, members) = node.data
+    for { result <- transformList(a, members, tlmPacketMember) }
+    yield {
+      val (a1, members1) = result
+      val specTlmPacket = Ast.SpecTlmPacket(name, id, level, members1.flatten)
+      val node1 = AstNode.create(specTlmPacket, node.id)
+      (a1, (pre, node1, post))
+    }
+  }
+
+  override def specTlmPacketGroupAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketGroup]]
+  ) = {
+    val (pre, node, post) = aNode
+    val Ast.SpecTlmPacketGroup(name, members, omitted) = node.data
+    for { result <- transformList(a, members, tlmPacketGroupMember) }
+    yield {
+      val (a1, members1) = result
+      val defModule = Ast.SpecTlmPacketGroup(name, members1.flatten, omitted)
+      val node1 = AstNode.create(defModule, node.id)
+      (a1, (pre, node1, post))
+    }
+  }
+
   override def transUnit(a: Analysis, tu: Ast.TransUnit) = {
-    for { result <- transformList(a, tu.members, tuMember) } 
+    for { result <- transformList(a, tu.members, tuMember) }
     yield (result._1, Ast.TransUnit(result._2.flatten))
   }
 
@@ -81,7 +111,7 @@ object ResolveSpecInclude extends AstStateTransformer {
       case _ => checkLoc(Some(includingLoc), List(includedPath))
     }
   }
-  
+
   private def resolveSpecInclude[MemberType](
     a: Analysis,
     node: AstNode[Ast.SpecInclude],
@@ -90,8 +120,8 @@ object ResolveSpecInclude extends AstStateTransformer {
   ): Result[List[MemberType]] = {
     val spec = node.data
     val includingLoc = Locations.get(spec.file.id)
-    val path = includingLoc.getRelativePath(spec.file.data) 
-    for { 
+    val path = includingLoc.getRelativePath(spec.file.data)
+    for {
       includedFile <- Right(File.Path(path))
       _ <- checkForCycle(includingLoc, path.toString)
       members <- Parser.parseFile (parser) (Some(includingLoc)) (includedFile)
@@ -112,7 +142,7 @@ object ResolveSpecInclude extends AstStateTransformer {
         Parser.componentMembers,
         componentMember
       )
-      case _ => for { result <- matchComponentMember(a, member) } 
+      case _ => for { result <- matchComponentMember(a, member) }
         yield (result._1, List(result._2))
     }
   }
@@ -126,7 +156,39 @@ object ResolveSpecInclude extends AstStateTransformer {
         Parser.moduleMembers,
         moduleMember
       )
-      case _ => for { result <- matchModuleMember(a, member) } 
+      case _ => for { result <- matchModuleMember(a, member) }
+        yield (result._1, List(result._2))
+    }
+  }
+
+  private def tlmPacketMember(
+    a: Analysis,
+    member: Ast.TlmPacketMember
+  ): Result[List[Ast.TlmPacketMember]] = {
+    member match {
+      case Ast.TlmPacketMember.SpecInclude(include) => resolveSpecInclude(
+        a,
+        include,
+        Parser.tlmPacketMembers,
+        tlmPacketMember
+      )
+      case _ => Right(a, List(member))
+    }
+  }
+
+  private def tlmPacketGroupMember(
+    a: Analysis,
+    member: Ast.TlmPacketGroupMember
+  ): Result[List[Ast.TlmPacketGroupMember]] = {
+    val (_, node, _) = member.node
+    node match {
+      case Ast.TlmPacketGroupMember.SpecInclude(node1) => resolveSpecInclude(
+        a,
+        node1,
+        Parser.tlmPacketGroupMembers,
+        tlmPacketGroupMember
+      )
+      case _ => for { result <- matchTlmPacketGroupMember(a, member) }
         yield (result._1, List(result._2))
     }
   }
@@ -140,8 +202,8 @@ object ResolveSpecInclude extends AstStateTransformer {
         Parser.topologyMembers,
         topologyMember
       )
-      case _ => for { result <- matchTopologyMember(a, member) } 
-      yield (result._1, List(result._2))
+      case _ => for { result <- matchTopologyMember(a, member) }
+        yield (result._1, List(result._2))
     }
   }
 

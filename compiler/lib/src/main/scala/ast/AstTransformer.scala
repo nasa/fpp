@@ -177,6 +177,16 @@ trait AstTransformer {
     node: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]
   ): ResultAnnotatedNode[Ast.SpecTlmChannel] = Right(default(in), node)
 
+  def specTlmPacketAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecTlmPacket]]
+  ): ResultAnnotatedNode[Ast.SpecTlmPacket] = Right(default(in), node)
+
+  def specTlmPacketGroupAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecTlmPacketGroup]]
+  ): ResultAnnotatedNode[Ast.SpecTlmPacketGroup] = Right(default(in), node)
+
   def specTopImportAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecTopImport]]
@@ -305,6 +315,25 @@ trait AstTransformer {
     }
   }
 
+  final def matchTlmPacketGroupMember(in: In, member: Ast.TlmPacketGroupMember): Result[Ast.TlmPacketGroupMember] = {
+    def transform[T](
+      result: ResultAnnotatedNode[T],
+      f: AstNode[T] => Ast.TlmPacketGroupMember.Node
+    ) = {
+      for (pair <- result) yield {
+        val (out, (pre, node, post)) = pair
+        (out, Ast.TlmPacketGroupMember(pre, f(node), post))
+      }
+    }
+    val (pre, node, post) =  member.node
+    node match {
+      case Ast.TlmPacketGroupMember.SpecInclude(node1) =>
+        transform(specIncludeAnnotatedNode(in, (pre, node1, post)), Ast.TlmPacketGroupMember.SpecInclude(_))
+      case Ast.TlmPacketGroupMember.SpecTlmPacket(node1) =>
+        transform(specTlmPacketAnnotatedNode(in, (pre, node1, post)), Ast.TlmPacketGroupMember.SpecTlmPacket(_))
+    }
+  }
+
   final def matchTopologyMember(in: In, member: Ast.TopologyMember): Result[Ast.TopologyMember] = {
     def transform[T](
       result: ResultAnnotatedNode[T],
@@ -323,6 +352,8 @@ trait AstTransformer {
         transform(specConnectionGraphAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecConnectionGraph(_))
       case Ast.TopologyMember.SpecInclude(node1) =>
         transform(specIncludeAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecInclude(_))
+      case Ast.TopologyMember.SpecTlmPacketGroup(node1) =>
+        transform(specTlmPacketGroupAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecTlmPacketGroup(_))
       case Ast.TopologyMember.SpecTopImport(node1) =>
         transform(specTopImportAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecTopImport(_))
     }

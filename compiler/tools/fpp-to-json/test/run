@@ -50,19 +50,21 @@ run_test()
 }
 
 
+activeComponents(){
+  run_test "" activeComponents
+}
+
+commands(){
+  run_test "" commands
+}
+
+constTypesComponents(){
+  run_test "" constTypesComponents
+}
+
 constants()
 {
   run_test "" constants
-}
-
-modules()
-{
-  run_test "" modules
-}
-
-types()
-{
-  run_test "" types
 }
 
 enums()
@@ -70,14 +72,56 @@ enums()
   run_test "" enums
 }
 
+events(){
+  run_test "" events
+}
+
+importedTopologies(){
+  run_test "" importedTopologies
+}
+
+internalPorts()
+{
+  run_test "" internalPorts
+}
+
+matchedPorts(){
+  run_test "" matchedPorts
+}
+
+modules()
+{
+  run_test "" modules
+}
+
+parameters(){
+  run_test "" parameters
+}
+
+passiveComponent(){
+  run_test "" passiveComponent
+}
+
+patternedConnections(){
+  run_test "fprime/defs.fpp" patternedConnections
+}
+
 ports()
 {
   run_test "" ports
 }
 
+queuedComponents(){
+  run_test "" queuedComponents
+}
+
 simpleComponents()
 {
   run_test "" simpleComponents
+}
+
+simpleTopology(){
+  run_test "" simpleTopology
 }
 
 specialPorts()
@@ -90,61 +134,21 @@ stateMachine()
   run_test "" ../../fpp-syntax/test/state-machine stateMachine
 }
 
-internalPorts()
-{
-  run_test "" internalPorts
-}
-
-commands(){
-  run_test "" commands
-}
-
-events(){
-  run_test "" events
+syntaxOnly(){
+  run_test "-s" syntaxOnly 
 }
 
 telemetry(){
   run_test "" telemetry
 }
 
-parameters(){
-  run_test "" parameters
+telemetryPackets(){
+  run_test "" telemetryPackets
 }
 
-constTypesComponents(){
-  run_test "" constTypesComponents
-}
-
-matchedPorts(){
-  run_test "" matchedPorts
-}
-
-passiveComponent(){
-  run_test "" passiveComponent
-}
-
-queuedComponents(){
-  run_test "" queuedComponents
-}
-
-activeComponents(){
-  run_test "" activeComponents
-}
-
-simpleTopology(){
-  run_test "" simpleTopology
-}
-
-importedTopologies(){
-  run_test "" importedTopologies
-}
-
-syntaxOnly(){
-  run_test "-s" syntaxOnly 
-}
-
-patternedConnections(){
-  run_test "fprime/defs.fpp" patternedConnections
+types()
+{
+  run_test "" types
 }
 
 tests="
@@ -169,6 +173,7 @@ specialPorts
 stateMachine
 syntaxOnly
 telemetry
+telemetryPackets
 types
 "
 

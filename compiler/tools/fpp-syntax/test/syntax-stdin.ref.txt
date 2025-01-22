@@ -322,6 +322,33 @@ def module
     spec top import
       qual ident T1
     @< Topology import specifier
+    @ Telemetry packet group
+    def tlm packet group
+      ident P
+      members
+        @ Telemetry packet
+        spec tlm packet
+          ident P1
+          id literal int 0
+          level literal int 0
+          tlm channel identifier
+            qual ident i1.c1
+          tlm channel identifier
+            qual ident i2.c2
+        @< Telemetry packet
+        @ Included packet
+        spec tlm packet
+          ident P2
+          id literal int 1
+          level literal int 1
+          tlm channel identifier
+            qual ident i4.c4
+          tlm channel identifier
+            qual ident i5.c5
+        @< Included packet
+      omitted
+        qual ident i3.c3
+    @< Telemetry packet group
   @< Topology definition
   @ Location specifier
   spec loc

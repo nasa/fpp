@@ -285,6 +285,7 @@ object Ast {
     final case class SpecCompInstance(node: AstNode[Ast.SpecCompInstance]) extends Node
     final case class SpecConnectionGraph(node: AstNode[Ast.SpecConnectionGraph]) extends Node
     final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
+    final case class SpecTlmPacketGroup(node: AstNode[Ast.SpecTlmPacketGroup]) extends Node
     final case class SpecTopImport(node: AstNode[Ast.SpecTopImport]) extends Node
   }
 
@@ -739,6 +740,21 @@ object Ast {
 
   }
 
+  /** Telemetry packet specifier */
+  final case class SpecTlmPacket(
+    name: Ident,
+    id: Option[AstNode[Expr]],
+    level: AstNode[Expr],
+    members: List[TlmPacketMember]
+  )
+
+  /** Telemetry packet group specifier */
+  final case class SpecTlmPacketGroup(
+    name: Ident,
+    members: List[TlmPacketGroupMember],
+    omitted: List[AstNode[TlmChannelIdentifier]]
+  )
+
   /** Topology import specifier */
   final case class SpecTopImport(top: AstNode[QualIdent])
 
@@ -752,6 +768,34 @@ object Ast {
     typeName: AstNode[TypeName],
     format: Option[AstNode[String]]
   )
+
+  /** Telemetry channel identifier */
+  final case class TlmChannelIdentifier(
+    componentInstance: AstNode[QualIdent],
+    channelName: AstNode[Ident]
+  )
+
+  /** Telemetry packet group member */
+  final case class TlmPacketGroupMember(node: Annotated[TlmPacketGroupMember.Node])
+  object TlmPacketGroupMember {
+    sealed trait Node
+    final case class SpecInclude(node: AstNode[Ast.SpecInclude])
+      extends Node
+    final case class SpecTlmPacket(node: AstNode[Ast.SpecTlmPacket])
+      extends Node
+  }
+
+  /** Telemetry packet member */
+  sealed trait TlmPacketMember
+  object TlmPacketMember {
+
+    final case class SpecInclude(node: AstNode[Ast.SpecInclude])
+      extends TlmPacketMember
+
+    final case class TlmChannelIdentifier(node: AstNode[Ast.TlmChannelIdentifier])
+      extends TlmPacketMember
+
+  }
 
   /** Translation unit member */
   type TUMember = ModuleMember
