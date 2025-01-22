@@ -1,0 +1,2 @@
+-XX:+CMSClassUnloadingEnabled
+-Xss2M
