@@ -668,7 +668,7 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"telemery packets ${ident(data.name)}").
+    lines(s"telemetry packets ${ident(data.name)}").
       joinNoIndent (" ") (
         addBraces(
           Line.blank ::

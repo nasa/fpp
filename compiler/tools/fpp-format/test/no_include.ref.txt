@@ -197,7 +197,7 @@ module DefinitionsAndSpecifiers {
     import T1 @< Topology import specifier
 
     @ Telemetry packet group
-    telemery packets P {
+    telemetry packets P {
 
       @ Telemetry packet
       packet P1 id 0 level 0 {
