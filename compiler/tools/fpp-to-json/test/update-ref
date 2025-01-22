@@ -35,6 +35,7 @@ do
   rm $file
 done
 
+update "" ../../fpp-syntax/test/state-machine stateMachine
 update "" activeComponents
 update "" commands
 update "" constTypesComponents
@@ -47,14 +48,14 @@ update "" matchedPorts
 update "" modules
 update "" parameters
 update "" passiveComponent
-update "fprime/defs.fpp" patternedConnections
 update "" ports
 update "" queuedComponents
 update "" simpleComponents
 update "" simpleTopology
 update "" specialPorts
-update "" ../../fpp-syntax/test/state-machine stateMachine
 update "" telemetry
+update "" telemetryPackets
 update "" types
 update "-s" syntaxOnly
+update "fprime/defs.fpp" patternedConnections
 
