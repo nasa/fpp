@@ -196,6 +196,25 @@ module DefinitionsAndSpecifiers {
     @ Topology import specifier
     import T1 @< Topology import specifier
 
+    @ Telemetry packet group
+    telemery packets P {
+
+      @ Telemetry packet
+      packet P1 id 0 level 0 {
+        i1.c1
+        i2.c2
+      } @< Telemetry packet
+
+      @ Included packet
+      packet P2 id 1 level 1 {
+        i4.c4
+        i5.c5
+      } @< Included packet
+
+    } omit {
+      i3.c3
+    } @< Telemetry packet group
+
   } @< Topology definition
 
   @ Location specifier
