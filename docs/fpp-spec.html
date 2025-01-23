@@ -743,20 +743,45 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifiers_Telemetry-Channel-Specifiers_Examples">7.15.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Topology-Import-Specifiers">7.16. Topology Import Specifiers</a>
+<li><a href="#Specifiers_Telemetry-Packet-Group-Specifiers">7.16. Telemetry Packet Group Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Topology-Import-Specifiers_Syntax">7.16.1. Syntax</a></li>
-<li><a href="#Specifiers_Topology-Import-Specifiers_Semantics">7.16.2. Semantics</a></li>
-<li><a href="#Specifiers_Topology-Import-Specifiers_Example">7.16.3. Example</a></li>
+<li><a href="#Specifiers_Telemetry-Packet-Group-Specifiers_Syntax">7.16.1. Syntax</a></li>
+<li><a href="#Specifiers_Telemetry-Packet-Group-Specifiers_Semantics">7.16.2. Semantics</a></li>
+<li><a href="#Specifiers_Telemetry-Packet-Group-Specifiers_Example">7.16.3. Example</a></li>
+</ul>
+</li>
+<li><a href="#Specifiers_Telemetry-Packet-Specifiers">7.17. Telemetry Packet Specifiers</a>
+<ul class="sectlevel3">
+<li><a href="#Specifiers_Telemetry-Packet-Specifiers_Syntax">7.17.1. Syntax</a></li>
+<li><a href="#Specifiers_Telemetry-Packet-Specifiers_Semantics">7.17.2. Semantics</a></li>
+<li><a href="#Specifiers_Telemetry-Packet-Specifiers_Examples">7.17.3. Examples</a></li>
+</ul>
+</li>
+<li><a href="#Specifiers_Topology-Import-Specifiers">7.18. Topology Import Specifiers</a>
+<ul class="sectlevel3">
+<li><a href="#Specifiers_Topology-Import-Specifiers_Syntax">7.18.1. Syntax</a></li>
+<li><a href="#Specifiers_Topology-Import-Specifiers_Semantics">7.18.2. Semantics</a></li>
+<li><a href="#Specifiers_Topology-Import-Specifiers_Example">7.18.3. Example</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#Port-Instance-Identifiers">8. Port Instance Identifiers</a>
+<li><a href="#Component-Instance-Member-Identifiers">8. Component Instance Member Identifiers</a>
 <ul class="sectlevel2">
-<li><a href="#Port-Instance-Identifiers_Syntax">8.1. Syntax</a></li>
-<li><a href="#Port-Instance-Identifiers_Semantics">8.2. Semantics</a></li>
-<li><a href="#Port-Instance-Identifiers_Examples">8.3. Examples</a></li>
+<li><a href="#Component-Instance-Member-Identifiers_Port-Instance-Identifiers">8.1. Port Instance Identifiers</a>
+<ul class="sectlevel3">
+<li><a href="#Component-Instance-Member-Identifiers_Port-Instance-Identifiers_Syntax">8.1.1. Syntax</a></li>
+<li><a href="#Component-Instance-Member-Identifiers_Port-Instance-Identifiers_Semantics">8.1.2. Semantics</a></li>
+<li><a href="#Component-Instance-Member-Identifiers_Port-Instance-Identifiers_Examples">8.1.3. Examples</a></li>
+</ul>
+</li>
+<li><a href="#Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers">8.2. Telemetry Channel Identifiers</a>
+<ul class="sectlevel3">
+<li><a href="#Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers_Syntax">8.2.1. Syntax</a></li>
+<li><a href="#Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers_Semantics">8.2.2. Semantics</a></li>
+<li><a href="#Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers_Examples">8.2.3. Examples</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#Type-Names">9. Type Names</a>
@@ -978,10 +1003,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>This document provides a detailed description of <strong>F Prime Prime</strong>, also known
 as FPP or F Double Prime.
 FPP is a modeling language for the
-<a href="https://nasa.github.io/fprime/">F Prime flight software framework</a>.
-A <a href="https://digitalcommons.usu.edu/smallsat/2018/all2018/328/">paper presented at
-SmallSat 2018</a>
-provides an overview of F Prime.</p>
+<a href="https://fprime.jpl.nasa.gov">F Prime flight software framework</a>.</p>
 </div>
 <div class="paragraph">
 <p>The goals of FPP are as follows:</p>
@@ -1139,15 +1161,19 @@ initial
 input
 instance
 internal
+level
 locate
 low
 machine
 match
 module
+omit
 on
 opcode
 orange
 output
+packet
+packets
 param
 passive
 phase
@@ -3342,6 +3368,9 @@ instance specifier</a></p>
 <p>A <a href="#Specifiers_Connection-Graph-Specifiers">connection graph specifier</a></p>
 </li>
 <li>
+<p>A <a href="#Specifiers_Telemetry-Packet-Group-Specifiers">telemetry packet group specifier</a></p>
+</li>
+<li>
 <p>A <a href="#Specifiers_Topology-Import-Specifiers">topology import specifier</a></p>
 </li>
 <li>
@@ -3361,6 +3390,9 @@ according to the following algorithm:</p>
 <li>
 <p>Resolve <em>D</em> to a
 <a href="#Definitions_Topology-Definitions_Semantics_Resolving-to-a-Partially-Numbered-Topology">partially numbered topology</a> <em>T'</em>.</p>
+</li>
+<li>
+<p><a href="#Definitions_Topology-Definitions_Semantics_Checking-Telemetry-Packet-Group-Specifiers">Check telemetry packet group specifiers</a> for <em>T'</em>.</p>
 </li>
 <li>
 <p>Apply
@@ -3448,6 +3480,32 @@ a command registration connection between those ports, then
 do not add the connection.</p>
 </li>
 </ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="Definitions_Topology-Definitions_Semantics_Checking-Telemetry-Packet-Group-Specifiers">Checking-Telemetry-Packet-Group-Specifiers</h5>
+<div class="paragraph">
+<p>FPP checks telemetry packet group specifiers as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Check that no two telemetry packet group specifiers have
+the same name.</p>
+</li>
+<li>
+<p>Check that each telemetry packet group specifier is
+<a href="#Specifiers_Telemetry-Packet-Group-Specifiers_Semantics">valid</a>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Note that a telemetry packet group specifier is not required.
+If there is no specifier, then the topology has no packet definitions.
+Note also that two or more telemetry packet group specifiers
+are allowed.
+Each one specifies a way of assigning the telemetry channels
+of the topology to packets.</p>
 </div>
 </div>
 <div class="sect4">
@@ -5205,14 +5263,14 @@ A connection is the following:</p>
 <p><em>[</em>
 <code>unmatched</code>
 <em>]</em>
-<a href="#Port-Instance-Identifiers"><em>port-instance-id</em></a>
+<a href="#Component-Instance-Member-Identifiers_Port-Instance-Identifiers"><em>port-instance-id</em></a>
 <em>[</em>
 <code>[</code>
 <a href="#Expressions"><em>expression</em></a>
 <code>]</code>
 <em>]</em>
 <code>-></code>
-<a href="#Port-Instance-Identifiers"><em>port-instance-id</em></a>
+<a href="#Component-Instance-Member-Identifiers_Port-Instance-Identifiers"><em>port-instance-id</em></a>
 <em>[</em>
 <code>[</code>
 <a href="#Expressions"><em>expression</em></a>
@@ -7073,18 +7131,237 @@ telemetry Channel3: F64x3 \
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Topology-Import-Specifiers">7.16. Topology Import Specifiers</h3>
+<h3 id="Specifiers_Telemetry-Packet-Group-Specifiers">7.16. Telemetry Packet Group Specifiers</h3>
+<div class="paragraph">
+<p>A <strong>telemetry packet group specifier</strong> groups the telemetry channels of a
+topology into <a href="#Specifiers_Telemetry-Packet-Specifiers">telemetry packets</a>.
+A telemetry packet group specifier is part of a
+<a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Telemetry-Packet-Group-Specifiers_Syntax">7.16.1. Syntax</h4>
+<div class="paragraph">
+<p><code>telemetry</code> <code>packets</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<code>{</code> <em>telemetry-packet-group-member-sequence</em> <code>}</code>
+<em>[</em>
+<code>omit</code>
+<code>{</code> <em>telemetry-channel-identifier-sequence</em> <code>}</code>
+<em>]</em></p>
+</div>
+<div class="paragraph">
+<p><em>telemetry-packet-group-member-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in
+which each element is a <strong>telemetry packet group member</strong>,
+and the terminating punctuation is a comma.
+A telemetry packet group member is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>An <a href="#Specifiers_Include-Specifiers">include specifier</a>.</p>
+</li>
+<li>
+<p>A <a href="#Specifiers_Telemetry-Packet-Specifiers">telemetry packet specifier</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>telemetry-channel-identifier-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in
+which each element is a
+<a href="#Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers">telemetry channel identifier</a>,
+and the terminating punctuation is a comma.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Telemetry-Packet-Group-Specifiers_Semantics">7.16.2. Semantics</h4>
+<div class="paragraph">
+<p>FPP recursively resolves any include specifiers in
+<em>telemetry-packet-group-member-sequence</em>.
+This action converts <em>telemetry-packet-group-member-sequence</em> to a
+list <em>L</em> of telemetry packet specifiers,
+each of which is a list of telemetry channel identifiers.
+FPP then checks the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Each telemetry packet specifier in <em>L</em> is
+<a href="#Specifiers_Telemetry-Packet-Specifiers">valid</a>,</p>
+</li>
+<li>
+<p>Each telemetry packet specifier in <em>L</em> has
+a distinct name and a distinct identifier.</p>
+</li>
+<li>
+<p>For every component instance <em>I</em> available in the enclosing topology, either through
+<a href="#Specifiers_Component-Instance-Specifiers">direct specification</a>
+or through
+<a href="#Specifiers_Topology-Import-Specifiers">import</a>,
+for every telemetry channel <em>T</em> that is a member of <em>I</em>,
+exactly one of the following is true:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><em>T</em> appears in at least one of the telemetry packet specifiers of <em>L</em>.</p>
+</li>
+<li>
+<p><em>telemetry-channel-identifier-sequence</em> is present, and <em>T</em> appears in
+<em>telemetry-channel-identifier-sequence</em>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Telemetry-Packet-Group-Specifiers_Example">7.16.3. Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">packets Packets {
+
+  packet CDH id 0 level 0 {
+    commandDispatcher.commandsDispatched
+    rateGroup1Hz.rgMaxTime
+    fileUplink.filesReceived
+  }
+
+  packet ADCS id 1 level 2 {
+    adcs.mode
+    adcs.attitude
+  }
+
+  include "PowerTelemetryPackets.fppi"
+
+} omit {
+  adcs.extraTelemetry
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Specifiers_Telemetry-Packet-Specifiers">7.17. Telemetry Packet Specifiers</h3>
+<div class="paragraph">
+<p>A <strong>telemetry packet specifier</strong> specifies the format of a data
+packet containing telemetry points.
+A telemetry packet specifier is part of a
+<a href="#Specifiers_Telemetry-Packet-Group-Specifiers">telemetry packet group
+specifier</a>, which is in turn part of a
+<a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Telemetry-Packet-Specifiers_Syntax">7.17.1. Syntax</h4>
+<div class="paragraph">
+<p><code>packet</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em>
+<code>id</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em>
+<code>level</code> <a href="#Expressions"><em>expression</em></a>
+<code>{</code> <em>telemetry-packet-member-sequence</em> <code>}</code></p>
+</div>
+<div class="paragraph">
+<p><em>telemetry-packet-member-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in
+which each element is a <strong>telemetry packet member</strong>,
+and the terminating punctuation is a comma.
+A telemetry packet member is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>non-annotatable-include-specifier</em>.</p>
+</li>
+<li>
+<p><em><a href="#Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers">telemetry-channel-identifier</a></em>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A <em>non-annotatable-include-specifier</em> is identical to an
+<a href="#Specifiers_Include-Specifiers">include specifier</a>,
+but it is not an
+<a href="#Comments-and-Annotations_Annotations_Where-Annotations-Can-Occur">annotatable element</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Telemetry-Packet-Specifiers_Semantics">7.17.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The optional expression <em>e</em> following <code>id</code> specifies the numeric
+identifier for the packet.
+If <em>e</em> is present, then the type of <em>e</em> must be
+<a href="#Type-Checking_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
+to a nonnegative integer.
+If <em>e</em> is not present, then the default identifier is either zero (for the
+first
+packet appearing in a packet group) or the previous packet identifier plus one.</p>
+</li>
+<li>
+<p>The expression <em>e</em> following <code>level</code> specifies the
+<strong>level</strong> of the packet.
+The level is a number that governs the sending of the packet.
+In the F Prime flight software, sending of packets can be filtered
+by level, so that only packets at or below a specified level are sent.
+The type of <em>e</em> must be
+<a href="#Type-Checking_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
+to a nonnegative integer.</p>
+</li>
+<li>
+<p>FPP recursively resolves any include specifiers in
+<em>telemetry-packet-member-sequence</em>.
+This action converts <em>telemetry-packet-member-sequence</em> to a list <em>L</em> of
+telemetry channel identifiers.
+For each telemetry channel identifier <em>I</em> in <em>L</em>,
+the component instance referred to in <em>I</em> must be
+available in the enclosing topology, either through
+<a href="#Specifiers_Component-Instance-Specifiers">direct specification</a>
+or through
+<a href="#Specifiers_Topology-Import-Specifiers">import</a>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Telemetry-Packet-Specifiers_Examples">7.17.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ CDH packet has id 0 and level 0
+packet CDH id 0 level 0 {
+  commandDispatcher.commandsDispatched
+  rateGroup1Hz.rgMaxTime
+  include "DownlinkTelemetryChannels.fppi"
+  include "UplinkTelemetryChannels.fppi"
+}
+
+@ Implicit id of ADCS packet is 1. Its level is 2.
+packet ADCS level 2 {
+  adcs.mode
+  adcs.attitude
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Specifiers_Topology-Import-Specifiers">7.18. Topology Import Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>topology import specifier</strong> imports one topology into another one.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Topology-Import-Specifiers_Syntax">7.16.1. Syntax</h4>
+<h4 id="Specifiers_Topology-Import-Specifiers_Syntax">7.18.1. Syntax</h4>
 <div class="paragraph">
 <p><code>import</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Topology-Import-Specifiers_Semantics">7.16.2. Semantics</h4>
+<h4 id="Specifiers_Topology-Import-Specifiers_Semantics">7.18.2. Semantics</h4>
 <div class="paragraph">
 <p>The qualified identifier must
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
@@ -7175,7 +7452,7 @@ and connections \$C''_i\$.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Topology-Import-Specifiers_Example">7.16.3. Example</h4>
+<h4 id="Specifiers_Topology-Import-Specifiers_Example">7.18.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">topology A {
@@ -7265,24 +7542,30 @@ of its connections appear in topology <code>B</code>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Port-Instance-Identifiers">8. Port Instance Identifiers</h2>
+<h2 id="Component-Instance-Member-Identifiers">8. Component Instance Member Identifiers</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>A <strong>component instance member identifier</strong> refers to a member of a
+component instance.</p>
+</div>
+<div class="sect2">
+<h3 id="Component-Instance-Member-Identifiers_Port-Instance-Identifiers">8.1. Port Instance Identifiers</h3>
 <div class="paragraph">
 <p>A <strong>port instance identifier</strong> identifies a port instance
 that is part of a component instance.
 Port instance identifiers appear in
 <a href="#Specifiers_Connection-Graph-Specifiers">connection graph specifiers</a>.</p>
 </div>
-<div class="sect2">
-<h3 id="Port-Instance-Identifiers_Syntax">8.1. Syntax</h3>
+<div class="sect3">
+<h4 id="Component-Instance-Member-Identifiers_Port-Instance-Identifiers_Syntax">8.1.1. Syntax</h4>
 <div class="paragraph">
 <p><a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
 <code>.</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="Port-Instance-Identifiers_Semantics">8.2. Semantics</h3>
+<div class="sect3">
+<h4 id="Component-Instance-Member-Identifiers_Port-Instance-Identifiers_Semantics">8.1.2. Semantics</h4>
 <div class="paragraph">
 <p>For each port instance identifier <em>Q</em> <code>.</code> <em>P</em>:</p>
 </div>
@@ -7310,8 +7593,8 @@ of <em>C</em>.</p>
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="Port-Instance-Identifiers_Examples">8.3. Examples</h3>
+<div class="sect3">
+<h4 id="Component-Instance-Member-Identifiers_Port-Instance-Identifiers_Examples">8.1.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">a.b
@@ -7323,6 +7606,69 @@ A.b.c</code></pre>
 instance.
 In the second example, <code>A.b</code> names a component instance, and <code>c</code> names a
 port instance.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers">8.2. Telemetry Channel Identifiers</h3>
+<div class="paragraph">
+<p>A <strong>telemetry channel identifier</strong> identifies a telemetry channel that is part of
+a component instance.  Telemetry channel identifiers appear in
+<a href="#Specifiers_Telemetry-Packet-Group-Specifiers">telemetry packet group
+specifiers</a> and <a href="#Specifiers_Telemetry-Packet-Specifiers">telemetry packet
+specifiers</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers_Syntax">8.2.1. Syntax</h4>
+<div class="paragraph">
+<p><a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
+<code>.</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers_Semantics">8.2.2. Semantics</h4>
+<div class="paragraph">
+<p>For each telemetry channel identifier <em>Q</em> <code>.</code> <em>T</em>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The qualified identifier <em>Q</em> must
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
+a component instance <em>I</em>.</p>
+</li>
+<li>
+<p><em>I</em> must refer to a <a href="#Definitions_Component-Instance-Definitions">component
+instance definition <em>I'</em></a>.</p>
+</li>
+<li>
+<p><em>I'</em> must refer to a <a href="#Definitions_Component-Definitions">component
+definition <em>C</em></a>.</p>
+</li>
+<li>
+<p>The identifier <em>T</em>
+must refer to a
+<a href="#Specifiers_Telemetry-Channel-Specifiers">telemetry channel specifier</a>
+of <em>C</em>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers_Examples">8.2.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">a.b
+A.b.c</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the first example, <code>a</code> names a component instance, and <code>b</code> names a
+telemetry channel.
+In the second example, <code>A.b</code> names a component instance, and <code>c</code> names a
+telemetry channel.</p>
+</div>
 </div>
 </div>
 </div>
@@ -10583,7 +10929,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-01-17 15:38:16 -0800
+Last updated 2025-01-21 17:33:55 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

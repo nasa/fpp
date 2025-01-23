@@ -449,15 +449,19 @@ var IN_GLOBAL_SCOPE = false;
           "input," +
           "instance," +
           "internal," +
+          "level," +
           "locate," +
           "low," +
           "machine," +
           "match," +
           "module," +
+          "omit," +
           "on," +
           "opcode," +
           "orange," +
           "output," +
+          "packet," +
+          "packets," +
           "param," +
           "passive," +
           "phase," +

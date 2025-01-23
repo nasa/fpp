@@ -37,14 +37,14 @@ A connection is the following:
 _[_
 `unmatched`
 _]_
-<<Port-Instance-Identifiers,_port-instance-id_>>
+<<Component-Instance-Member-Identifiers_Port-Instance-Identifiers,_port-instance-id_>>
 _[_
 `[`
 <<Expressions,_expression_>>
 `]`
 _]_
 `pass:[->]`
-<<Port-Instance-Identifiers,_port-instance-id_>>
+<<Component-Instance-Member-Identifiers_Port-Instance-Identifiers,_port-instance-id_>>
 _[_
 `[`
 <<Expressions,_expression_>>
