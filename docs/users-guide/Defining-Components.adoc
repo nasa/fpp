@@ -2224,7 +2224,8 @@ The simplest record specification consists of the keywords `product` `record`,
 a name, and a data type.
 The name is the name of the record.
 The data type is the type of the data that the record holds.
-The data type must be a <<Types_Displayable-Types,displayable type>>.
+The data type must be a 
+<<Defining-Components_Commands_Formal-Parameters,displayable type>>.
 
 As an example, here is a component called `BasicDataProducts` that specifies
 two records and two containers.
