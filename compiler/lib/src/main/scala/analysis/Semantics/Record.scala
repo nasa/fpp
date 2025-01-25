@@ -24,11 +24,14 @@ object Record {
 
   /** Creates a record from a record specifier */
   def fromSpecRecord(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecRecord]]):
-    Record = {
+    Result.Result[Record] = {
       val node = aNode._2
       val data = node.data
       val recordType = a.typeMap(data.recordType.id)
-      Record(aNode, recordType, data.isArray)
+      for {
+        _ <- a.checkDisplayableType(data.recordType.id, "type of record is not displayable")
+      }
+      yield Record(aNode, recordType, data.isArray)
     }
 
 }
