@@ -1,0 +1,10 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/record/not_displayable.fpp:19.21
+  product record R: A id 0x100
+                    ^
+error: type of record is not displayable
+
+[ local path prefix ]/compiler/tools/fpp-check/test/record/not_displayable.fpp:17.3
+  type A
+  ^
+Type is defined here

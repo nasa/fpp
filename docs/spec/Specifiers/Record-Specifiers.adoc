@@ -21,7 +21,7 @@ _]_
 . The identifier names the record.
 
 . The type name _T_ following the identifier specifies the type of the data stored
-in the record.
+in the record. _T_ must be a <<Types_Displayable-Types,displayable type>>.
 
 .. If the keyword `array` appears after the type name, then the record stores
 a variable number of elements of type _T_.
