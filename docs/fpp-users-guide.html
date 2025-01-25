@@ -527,6 +527,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-State-Machines_Actions_Actions-in-Transitions">9.3.1. Actions in Transitions</a></li>
 <li><a href="#Defining-State-Machines_Actions_Entry-and-Exit-Actions">9.3.2. Entry and Exit Actions</a></li>
 <li><a href="#Defining-State-Machines_Actions_Typed-Signals-and-Actions">9.3.3. Typed Signals and Actions</a></li>
+<li><a href="#Defining-State-Machines_Actions_Atomicity-of-Signal-Handling">9.3.4. Atomicity of Signal Handling</a></li>
 </ul>
 </li>
 <li><a href="#Defining-State-Machines_More-on-State-Transitions">9.4. More on State Transitions</a>
@@ -4186,6 +4187,47 @@ In this case the value is ignored when doing the action.</p>
 </ul>
 </div>
 </div>
+<div class="sect3">
+<h4 id="Defining-State-Machines_Actions_Atomicity-of-Signal-Handling">9.3.4. Atomicity of Signal Handling</h4>
+<div class="paragraph">
+<p>When an FPP state machine receives a signal, the handling of
+that signal is <strong>atomic</strong>.
+That means that signals may be received concurrently,
+but they are handled one by one.
+For example, this sequence of events cannot occur:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In state <em>S</em><sub>1</sub>, signal <em>s</em><sub>1</sub> is handled, causing an action <em>A</em> and a
+transition to state <em>S</em><sub>2</sub>.</p>
+</li>
+<li>
+<p>After doing action <em>A</em>, but before entering state <em>S</em><sub>2</sub>,
+a signal <em>s</em><sub>2</sub> is handled.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Instead, <em>s</em><sub>2</sub> will be handled either before the handling of <em>s</em><sub>1</sub>
+starts or after the handling of <em>s</em><sub>1</sub> is complete.
+This atomicity guarantee is achieved by putting the signals on
+an input queue and using the queue to serialize the signal handler
+functions.</p>
+</div>
+<div class="paragraph">
+<p>Because of the atomicity guarantee, the C&#43;&#43; implementation of an FPP state machine
+can safely send a signal <em>s</em> as part of its implementation for an action <em>A</em>.
+The action <em>A</em> will be run during the handling of a signal <em>s'</em>.
+When <em>s'</em> is handled and <em>A</em> is run, <em>s</em> is placed on the queue.
+After <em>s'</em> is complete, <em>s</em> is dispatched from the queue and handled.</p>
+</div>
+<div class="paragraph">
+<p>For more details on sending signals to an FPP state machine, see the
+<a href="https://fprime.jpl.nasa.gov/latest/docs/user-manual/design/state-machines/">F
+Prime design documentation</a>.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="Defining-State-Machines_More-on-State-Transitions">9.4. More on State Transitions</h3>
@@ -4529,7 +4571,7 @@ write the internal transition as follows:</p>
 </div>
 <div class="paragraph">
 <p>As with other transitions, if the signal carries data, then
-any actions and guards names in an internal transition may
+any actions and guards named in an internal transition may
 carry data of a compatible type.</p>
 </div>
 </div>
@@ -14817,7 +14859,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-12-11 16:51:28 -0800
+Last updated 2025-01-24 16:53:43 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
