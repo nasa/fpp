@@ -87,8 +87,8 @@ In this manual, we focus on the syntax and high-level behavior
 of FPP state machines.
 For more details about the {cpp} code generation
 for state machines, see the
-https://fprime.jpl.nasa.gov/latest/documentation/user-manual/[F Prime design
-documentation].
+https://fprime.jpl.nasa.gov/latest/docs/user-manual/design/state-machines/[F 
+Prime design documentation].
 
 === States, Signals, and Transitions
 
