@@ -119,9 +119,9 @@ object CheckComponentDefs
     aNode: Ast.Annotated[AstNode[Ast.SpecRecord]]
   ) = {
     val data = aNode._2.data
-    val record = Record.fromSpecRecord(a, aNode)
     for {
       idOpt <- a.getNonnegativeBigIntValueOpt(data.id)
+      record <- Record.fromSpecRecord(a, aNode)
       component <- a.component.get.addRecord(idOpt, record)
     }
     yield a.copy(component = Some(component))
