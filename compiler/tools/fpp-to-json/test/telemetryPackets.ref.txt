@@ -2040,18 +2040,14 @@
     }
   },
   "typeMap" : {
-    "18" : {
+    "23" : {
       "Int" : {
-        "PrimitiveInt" : {
-          "kind" : {
-            "U32" : {
-              
-            }
-          }
+        "Integer" : {
+          
         }
       }
     },
-    "23" : {
+    "102" : {
       "Int" : {
         "Integer" : {
           
@@ -2064,6 +2060,24 @@
           
         }
       }
+    },
+    "18" : {
+      "Int" : {
+        "PrimitiveInt" : {
+          "kind" : {
+            "U32" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "101" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
     }
   },
   "useDefMap" : {
@@ -2071,6 +2085,12 @@
       "Port" : {
         "nodeId" : 0,
         "unqualifiedName" : "Tlm"
+      }
+    },
+    "110" : {
+      "ComponentInstance" : {
+        "nodeId" : 28,
+        "unqualifiedName" : "c2"
       }
     },
     "33" : {
@@ -2103,6 +2123,12 @@
         "unqualifiedName" : "P"
       }
     },
+    "105" : {
+      "ComponentInstance" : {
+        "nodeId" : 24,
+        "unqualifiedName" : "c1"
+      }
+    },
     "30" : {
       "ComponentInstance" : {
         "nodeId" : 24,
@@ -2125,6 +2151,16 @@
     "27" : {
       "Integer" : {
         "value" : 512
+      }
+    },
+    "101" : {
+      "Integer" : {
+        "value" : 0
+      }
+    },
+    "102" : {
+      "Integer" : {
+        "value" : 0
       }
     }
   },
