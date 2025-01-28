@@ -69,8 +69,16 @@ module M {
   }
 
   topology T2 {
+
     import T1
     instance c11
+
+    telemetry packets P {
+      packet P1 id tlm_packet_id level tlm_packet_level {
+
+      }
+    }
+
   }
 
 }
