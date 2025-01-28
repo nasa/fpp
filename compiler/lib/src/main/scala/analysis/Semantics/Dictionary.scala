@@ -28,7 +28,10 @@ case class Dictionary(
     recordEntryMap: Map[BigInt, RecordEntry] = Map(),
     /** The map from resolved ID to container */
     containerEntryMap: Map[BigInt, ContainerEntry] = Map(),    
-) {
+)
+
+object Dictionary {
+
     /** Given an analysis, returns all used symbols within commands, telemetry channels, parameters, and events */
     def getUsedSymbols(analysis: Analysis, topology: Topology): Set[Symbol] = {
         val symbolSetList  = for (componentInstance, _) <- topology.instanceMap yield {
@@ -121,4 +124,5 @@ case class Dictionary(
             containerEntryMap=instances.foldLeft(Map[BigInt, ContainerEntry]()) ((acc, inst) => resolveContainers(inst, acc))
         )
     }
+
 }

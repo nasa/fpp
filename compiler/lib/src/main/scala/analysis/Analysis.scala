@@ -65,6 +65,8 @@ case class Analysis(
   topology: Option[Topology] = None,
   /** The map from state machine symbols to state machines */
   stateMachineMap: Map[Symbol.StateMachine, StateMachine] = Map(),
+  /** The map from topology symbols to dictionaries */
+  dictionaryMap: Map[Symbol.Topology, Dictionary] = Map(),
 ) {
 
   /** Gets the qualified name of a symbol */
@@ -244,6 +246,11 @@ case class Analysis(
   def getTopology(id: AstNode.Id): Result.Result[Topology] =
     for (ts <- getTopologySymbol(id))
       yield this.topologyMap(ts)
+
+  /** Gets a dictionary from the dictionary map */
+  def getDictionary(id: AstNode.Id): Result.Result[Dictionary] =
+    for (ts <- getTopologySymbol(id))
+      yield this.dictionaryMap(ts)
 
   /** Gets a BigInt value from an AST node */
   def getBigIntValue(id: AstNode.Id): BigInt = {

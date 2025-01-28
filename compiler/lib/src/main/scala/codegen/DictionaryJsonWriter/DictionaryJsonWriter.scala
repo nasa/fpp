@@ -31,7 +31,7 @@ object DictionaryJsonWriter extends AstStateVisitor {
         // Given the topology symbol, lookup topology in analysis topology map
         val topology = s.a.topologyMap(topSymbol)
         // Construct dictionary for topology
-        val constructedDictionary = Dictionary().buildDictionary(s.a, topology)
+        val constructedDictionary = Dictionary.buildDictionary(s.a, topology)
         // Update metadata to use topology name for the name of the deployment
         val updatedMetadata = s.metadata.copy(deploymentName=name)
         // Generate JSON for dictionary and write JSON to file
