@@ -52,11 +52,11 @@ object Dictionary {
     getContainerEntryMap(t)
   )
 
-  private def getTypeSymbolsForSpecifier[AstSpecifier, Specifier](
+  private def getTypeSymbolsForSpecifier[Specifier](
     map: Map[BigInt, Specifier],
     usedSymbols: Specifier => Result.Result[Analysis]
-  ): Iterable[Symbol] =
-    map.values.flatMap {
+  ): Set[Symbol] =
+    map.values.toSet.flatMap {
       specifier => {
         val Right(a) = usedSymbols(specifier)
         UsedSymbols.resolveUses(a, a.usedSymbolSet)
@@ -82,10 +82,10 @@ object Dictionary {
         component.tlmChannelMap,
         channel => UsedSymbols.specTlmChannelAnnotatedNode(a, channel.aNode)
       )
-      val paramSymbolSet = for (_, param) <- component.paramMap yield {
-        val Right(a1) = UsedSymbols.specParamAnnotatedNode(a, param.aNode)
-        UsedSymbols.resolveUses(a1, a1.usedSymbolSet)
-      }
+      val paramSymbols = getTypeSymbolsForSpecifier(
+        component.paramMap,
+        param => UsedSymbols.specParamAnnotatedNode(a, param.aNode)
+      )
       val recordSymbolSet = for (_, record) <- component.recordMap yield {
         val Right(a1) = UsedSymbols.specRecordAnnotatedNode(a, record.aNode)
         UsedSymbols.resolveUses(a1, a1.usedSymbolSet)
@@ -95,10 +95,10 @@ object Dictionary {
         UsedSymbols.resolveUses(a1, a1.usedSymbolSet)
       }
       val combined = List.concat(
-        List(commandSymbols.toSet),
-        List(eventSymbols.toSet),
-        List(tlmChannelSymbols.toSet),
-        paramSymbolSet,
+        List(commandSymbols),
+        List(eventSymbols),
+        List(tlmChannelSymbols),
+        List(paramSymbols),
         recordSymbolSet,
         containerSymbolSet
       )
