@@ -19,7 +19,8 @@ object ConstructDictionaryMap
     val t = a.topologyMap(symbol)
     // TODO
     val d = Dictionary.initial(a, t)
-    Right(a.copy(dictionaryMap = a.dictionaryMap + (symbol -> d)))
+    val d1 = DictionaryUsedSymbols(a, t).updateUsedSymbols(d)
+    Right(a.copy(dictionaryMap = a.dictionaryMap + (symbol -> d1)))
   }
 
 }

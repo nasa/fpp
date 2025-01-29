@@ -42,72 +42,16 @@ object Dictionary {
   case class EventEntry(instance: ComponentInstance, event: Event)
 
   /** Constructs the initial dictionary (no telemetry packets) */
-  def initial(a: Analysis, t: Topology) = Dictionary(
-    getUsedSymbolSet(a, t),
-    getCommandEntryMap(t),
-    getTlmChannelEntryMap(t),
-    getEventEntryMap(t),
-    getParamEntryMap(t),
-    getRecordEntryMap(t),
-    getContainerEntryMap(t)
-  )
-
-  private def getUsedSymbolSet(a: Analysis, t: Topology): Set[Symbol] =
-    t.instanceMap.keys.toSet.flatMap(getUsedSymbolsForInstance (a))
-
-  private def getUsedSymbolsForInstance
-    (a: Analysis)
-    (ci: ComponentInstance)
-  = {
-    val component = ci.component
-    val commandSymbols = getUsedSymbolsForSpecifier(
-      component.commandMap,
-      {
-        case Command.NonParam(aNode, _) =>
-          UsedSymbols.specCommandAnnotatedNode(a, aNode)
-        case _ => Right(a.copy(usedSymbolSet = Set()))
-      }
+  def initial(a: Analysis, t: Topology) =
+    Dictionary(
+      Set(),
+      getCommandEntryMap(t),
+      getTlmChannelEntryMap(t),
+      getEventEntryMap(t),
+      getParamEntryMap(t),
+      getRecordEntryMap(t),
+      getContainerEntryMap(t)
     )
-    val eventSymbols = getUsedSymbolsForSpecifier(
-      component.eventMap,
-      event => UsedSymbols.specEventAnnotatedNode(a, event.aNode)
-    )
-    val tlmChannelSymbols = getUsedSymbolsForSpecifier(
-      component.tlmChannelMap,
-      channel => UsedSymbols.specTlmChannelAnnotatedNode(a, channel.aNode)
-    )
-    val paramSymbols = getUsedSymbolsForSpecifier(
-      component.paramMap,
-      param => UsedSymbols.specParamAnnotatedNode(a, param.aNode)
-    )
-    val recordSymbols = getUsedSymbolsForSpecifier(
-      component.recordMap,
-      record => UsedSymbols.specRecordAnnotatedNode(a, record.aNode)
-    )
-    val containerSymbols = getUsedSymbolsForSpecifier(
-      component.containerMap,
-      container => UsedSymbols.specContainerAnnotatedNode(a, container.aNode)
-    )
-    Set.concat(
-      commandSymbols,
-      eventSymbols,
-      tlmChannelSymbols,
-      paramSymbols,
-      recordSymbols,
-      containerSymbols
-    )
-  }
-
-  private def getUsedSymbolsForSpecifier[Specifier](
-    map: Map[BigInt, Specifier],
-    usedSymbols: Specifier => Result.Result[Analysis]
-  ): Set[Symbol] =
-    map.values.toSet.flatMap {
-      specifier => {
-        val Right(a) = usedSymbols(specifier)
-        UsedSymbols.resolveUses(a, a.usedSymbolSet)
-      }
-    }
 
   private val getCommandEntryMap =
     getEntryMap (_.commandMap) (CommandEntry.apply)
