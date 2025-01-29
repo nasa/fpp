@@ -1,5 +1,7 @@
 package fpp.compiler.analysis
 
+import fpp.compiler.util._
+
 /** Dictionary data structure */
 case class Dictionary(
  /** A set of type symbols used in the topology */
@@ -50,51 +52,60 @@ object Dictionary {
     getContainerEntryMap(t)
   )
 
-  private def getTypeSymbolSet(analysis: Analysis, topology: Topology): Set[Symbol] = {
-    val symbolSetList = for (componentInstance, _) <- topology.instanceMap yield {
+  private def getTypeSymbolsForSpecifier[AstSpecifier, Specifier](
+    map: Map[BigInt, Specifier],
+    usedSymbols: Specifier => Result.Result[Analysis]
+  ): Iterable[Symbol] =
+    map.values.flatMap {
+      specifier => {
+        val Right(a) = usedSymbols(specifier)
+        UsedSymbols.resolveUses(a, a.usedSymbolSet)
+      }
+    }
+
+  private def getTypeSymbolSet(a: Analysis, t: Topology): Set[Symbol] = {
+    val symbolSetList = for (componentInstance, _) <- t.instanceMap yield {
       val component = componentInstance.component
-      val commandSymbolSet = for (_, command) <- component.commandMap yield {
-        command match {
-          case fpp.compiler.analysis.Command.NonParam(aNode, kind) => {
-            val Right(a) = UsedSymbols.specCommandAnnotatedNode(analysis, aNode)
-            UsedSymbols.resolveUses(analysis, a.usedSymbolSet)
-          }
-          case fpp.compiler.analysis.Command.Param(aNode, kind) => Set()
+      val commandSymbols = getTypeSymbolsForSpecifier(
+        component.commandMap,
+        {
+          case Command.NonParam(aNode, _) =>
+            UsedSymbols.specCommandAnnotatedNode(a, aNode)
+          case _ => Right(a.copy(usedSymbolSet = Set()))
         }
-      }
-      val eventSymbolSet = for (_, event) <- component.eventMap yield {
-        val Right(a) = UsedSymbols.specEventAnnotatedNode(analysis, event.aNode)
-        UsedSymbols.resolveUses(analysis, a.usedSymbolSet)
-      }
-      val tlmChannelSymbolSet = for (_, channel) <- component.tlmChannelMap yield {
-        val Right(a) = UsedSymbols.specTlmChannelAnnotatedNode(analysis, channel.aNode)
-        UsedSymbols.resolveUses(analysis, a.usedSymbolSet)
-      }
+      )
+      val eventSymbols = getTypeSymbolsForSpecifier(
+        component.eventMap,
+        event => UsedSymbols.specEventAnnotatedNode(a, event.aNode)
+      )
+      val tlmChannelSymbols = getTypeSymbolsForSpecifier(
+        component.tlmChannelMap,
+        channel => UsedSymbols.specTlmChannelAnnotatedNode(a, channel.aNode)
+      )
       val paramSymbolSet = for (_, param) <- component.paramMap yield {
-        val Right(a) = UsedSymbols.specParamAnnotatedNode(analysis, param.aNode)
-        UsedSymbols.resolveUses(analysis, a.usedSymbolSet)
+        val Right(a1) = UsedSymbols.specParamAnnotatedNode(a, param.aNode)
+        UsedSymbols.resolveUses(a1, a1.usedSymbolSet)
       }
       val recordSymbolSet = for (_, record) <- component.recordMap yield {
-        val Right(a) = UsedSymbols.specRecordAnnotatedNode(analysis, record.aNode)
-        UsedSymbols.resolveUses(analysis, a.usedSymbolSet)
+        val Right(a1) = UsedSymbols.specRecordAnnotatedNode(a, record.aNode)
+        UsedSymbols.resolveUses(a1, a1.usedSymbolSet)
       }
       val containerSymbolSet = for (_, container) <- component.containerMap yield {
-        val Right(a) = UsedSymbols.specContainerAnnotatedNode(analysis, container.aNode)
-        UsedSymbols.resolveUses(analysis, a.usedSymbolSet)
+        val Right(a1) = UsedSymbols.specContainerAnnotatedNode(a, container.aNode)
+        UsedSymbols.resolveUses(a1, a1.usedSymbolSet)
       }
       val combined = List.concat(
-        commandSymbolSet,
-        eventSymbolSet,
-        tlmChannelSymbolSet,
+        List(commandSymbols.toSet),
+        List(eventSymbols.toSet),
+        List(tlmChannelSymbols.toSet),
         paramSymbolSet,
         recordSymbolSet,
         containerSymbolSet
       )
-      combined.foldLeft(Set[Symbol]()) ((acc, elem) => acc ++ elem)
-
+      combined.toSet.flatten
     }
     // Merge list of sets into a single set and return
-    symbolSetList.foldLeft(Set[Symbol]()) ((acc, elem) => acc ++ elem)
+    symbolSetList.toSet.flatten
   }
 
   private val getCommandEntryMap =
