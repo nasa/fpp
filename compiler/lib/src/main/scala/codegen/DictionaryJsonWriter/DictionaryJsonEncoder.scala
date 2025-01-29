@@ -50,7 +50,8 @@ case class DictionaryJsonEncoder(
     }
 
     /** DictionaryMetadata JSON Encoding */
-    private implicit def dictionaryMetadataEncoder: Encoder[DictionaryMetadata] = new Encoder[DictionaryMetadata] {
+    private implicit def dictionaryMetadataEncoder: Encoder[DictionaryMetadata] =
+      new Encoder[DictionaryMetadata] {
         override def apply(metadata: DictionaryMetadata): Json = {
             Json.obj(
                 "deploymentName" -> metadata.deploymentName.asJson,
@@ -63,33 +64,33 @@ case class DictionaryJsonEncoder(
     }
 
     /** JSON Encoding for Maps of Commands, Parameters, Events, Telemetry Channels, Records, and Containers */
-    private implicit val commandMapEncoder: Encoder[Map[BigInt, CommandEntry]] = {
-        def f1(opcode: BigInt, command: CommandEntry) = (opcode -> command).asJson
+    private implicit val commandMapEncoder: Encoder[Map[BigInt, Dictionary.CommandEntry]] = {
+        def f1(opcode: BigInt, command: Dictionary.CommandEntry) = (opcode -> command).asJson
         Encoder.instance (dictionaryEntryMapAsJson (f1) _)
     }
 
-    private implicit val paramMapEncoder: Encoder[Map[BigInt, ParamEntry]] = {
-        def f1(identifier: BigInt, param: ParamEntry) = (identifier -> param).asJson
+    private implicit val paramMapEncoder: Encoder[Map[BigInt, Dictionary.ParamEntry]] = {
+        def f1(identifier: BigInt, param: Dictionary.ParamEntry) = (identifier -> param).asJson
         Encoder.instance (dictionaryEntryMapAsJson (f1) _)
     }
 
-    private implicit val eventMapEncoder: Encoder[Map[BigInt, EventEntry]] = {
-        def f1(identifier: BigInt, event: EventEntry) = (identifier -> event).asJson
+    private implicit val eventMapEncoder: Encoder[Map[BigInt, Dictionary.EventEntry]] = {
+        def f1(identifier: BigInt, event: Dictionary.EventEntry) = (identifier -> event).asJson
         Encoder.instance (dictionaryEntryMapAsJson (f1) _)
     }
 
-    private implicit val channelMapEncoder: Encoder[Map[BigInt, TlmChannelEntry]] = {
-        def f1(identifier: BigInt, event: TlmChannelEntry) = (identifier -> event).asJson
+    private implicit val channelMapEncoder: Encoder[Map[BigInt, Dictionary.TlmChannelEntry]] = {
+        def f1(identifier: BigInt, event: Dictionary.TlmChannelEntry) = (identifier -> event).asJson
         Encoder.instance (dictionaryEntryMapAsJson (f1) _)
     }
 
-    private implicit val recordMapEncoder: Encoder[Map[BigInt, RecordEntry]] = {
-        def f1(identifier: BigInt, record: RecordEntry) = (identifier -> record).asJson
+    private implicit val recordMapEncoder: Encoder[Map[BigInt, Dictionary.RecordEntry]] = {
+        def f1(identifier: BigInt, record: Dictionary.RecordEntry) = (identifier -> record).asJson
         Encoder.instance (dictionaryEntryMapAsJson (f1) _)
     }
 
-    private implicit val containerMapEncoder: Encoder[Map[BigInt, ContainerEntry]] = {
-        def f1(identifier: BigInt, container: ContainerEntry) = (identifier -> container).asJson
+    private implicit val containerMapEncoder: Encoder[Map[BigInt, Dictionary.ContainerEntry]] = {
+        def f1(identifier: BigInt, container: Dictionary.ContainerEntry) = (identifier -> container).asJson
         Encoder.instance (dictionaryEntryMapAsJson (f1) _)
     }
 
@@ -286,7 +287,8 @@ case class DictionaryJsonEncoder(
     }
 
     /** JSON Encoding for FormalParamList */
-    private implicit def formalParamListEncoder: Encoder[Ast.FormalParamList] = new Encoder[Ast.FormalParamList] {
+    private implicit def formalParamListEncoder: Encoder[Ast.FormalParamList] =
+      new Encoder[Ast.FormalParamList] {
         override def apply(params: Ast.FormalParamList): Json = {
             val paramListJson = for (paramEntry <- params) yield {
                 val (preA, elem, postA) = paramEntry
@@ -310,8 +312,9 @@ case class DictionaryJsonEncoder(
     }
 
     /** JSON Encoding for Commands */
-    private implicit def commandEncoder: Encoder[(BigInt, CommandEntry)] = new Encoder[(BigInt, CommandEntry)] {
-        override def apply(entry: (BigInt, CommandEntry)): Json = {
+    private implicit def commandEncoder: Encoder[(BigInt, Dictionary.CommandEntry)] =
+      new Encoder[(BigInt, Dictionary.CommandEntry)] {
+        override def apply(entry: (BigInt, Dictionary.CommandEntry)): Json = {
             val opcode = entry._1
             val command  = entry._2.command
             val name = s"${entry._2.componentInstance.toString}.${command.getName}"
@@ -360,8 +363,9 @@ case class DictionaryJsonEncoder(
     }
 
     /** JSON Encoding for Parameters */
-    private implicit def paramEncoder: Encoder[(BigInt, ParamEntry)] = new Encoder[(BigInt, ParamEntry)] {
-        override def apply(entry: (BigInt, ParamEntry)): Json = {
+    private implicit def paramEncoder: Encoder[(BigInt, Dictionary.ParamEntry)] =
+      new Encoder[(BigInt, Dictionary.ParamEntry)] {
+        override def apply(entry: (BigInt, Dictionary.ParamEntry)): Json = {
             val numIdentifier = entry._1
             val param = entry._2.param
             val name = s"${entry._2.componentInstance.toString}.${param.getName}"
@@ -380,8 +384,9 @@ case class DictionaryJsonEncoder(
     }
 
     /** JSON Encoding for Events */
-    private implicit def eventEncoder: Encoder[(BigInt, EventEntry)] = new Encoder[(BigInt, EventEntry)] {
-        override def apply(entry: (BigInt, EventEntry)): Json = {
+    private implicit def eventEncoder: Encoder[(BigInt, Dictionary.EventEntry)] =
+      new Encoder[(BigInt, Dictionary.EventEntry)] {
+        override def apply(entry: (BigInt, Dictionary.EventEntry)): Json = {
             val event = entry._2.event
             val numIdentifier = entry._1
             val name = s"${entry._2.componentInstance.toString}.${event.getName}"
@@ -416,8 +421,9 @@ case class DictionaryJsonEncoder(
     }
 
     /** JSON Encoding for TlmChannels */
-    private implicit def channelEncoder: Encoder[(BigInt, TlmChannelEntry)] = new Encoder[(BigInt, TlmChannelEntry)] {
-        override def apply(entry: (BigInt, TlmChannelEntry)): Json = {
+    private implicit def channelEncoder: Encoder[(BigInt, Dictionary.TlmChannelEntry)] =
+      new Encoder[(BigInt, Dictionary.TlmChannelEntry)] {
+        override def apply(entry: (BigInt, Dictionary.TlmChannelEntry)): Json = {
             val channel = entry._2.tlmChannel
             val numIdentifier = entry._1
             val name = s"${entry._2.componentInstance.toString}.${channel.getName}"
@@ -448,8 +454,8 @@ case class DictionaryJsonEncoder(
     }
 
     /** JSON Encoding for Records */
-    private implicit def recordEncoder: Encoder[(BigInt, RecordEntry)] = new Encoder[(BigInt, RecordEntry)] {
-        override def apply(entry: (BigInt, RecordEntry)): Json = {
+    private implicit def recordEncoder: Encoder[(BigInt, Dictionary.RecordEntry)] = new Encoder[(BigInt, Dictionary.RecordEntry)] {
+        override def apply(entry: (BigInt, Dictionary.RecordEntry)): Json = {
             val record = entry._2.record
             val numIdentifier = entry._1
             val name = s"${entry._2.componentInstance.toString}.${record.getName}"
@@ -468,8 +474,8 @@ case class DictionaryJsonEncoder(
     }
 
     /** JSON Encoding for Containers */
-    private implicit def containerEncoder: Encoder[(BigInt, ContainerEntry)] = new Encoder[(BigInt, ContainerEntry)] {
-        override def apply(entry: (BigInt, ContainerEntry)): Json = {
+    private implicit def containerEncoder: Encoder[(BigInt, Dictionary.ContainerEntry)] = new Encoder[(BigInt, Dictionary.ContainerEntry)] {
+        override def apply(entry: (BigInt, Dictionary.ContainerEntry)): Json = {
             val container = entry._2.container
             val numIdentifier = entry._1
             val name = s"${entry._2.componentInstance.toString}.${container.getName}"
