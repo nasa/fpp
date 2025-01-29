@@ -18,7 +18,7 @@ object ConstructDictionaryMap
     val symbol = Symbol.Topology(aNode)
     val t = a.topologyMap(symbol)
     // TODO
-    val d = Dictionary.buildDictionary(a, t)
+    val d = Dictionary.initial(a, t)
     Right(a.copy(dictionaryMap = a.dictionaryMap + (symbol -> d)))
   }
 

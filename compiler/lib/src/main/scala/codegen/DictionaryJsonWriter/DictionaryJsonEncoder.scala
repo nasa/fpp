@@ -317,7 +317,7 @@ case class DictionaryJsonEncoder(
         override def apply(entry: (BigInt, Dictionary.CommandEntry)): Json = {
             val opcode = entry._1
             val command  = entry._2.command
-            val name = s"${entry._2.componentInstance.toString}.${command.getName}"
+            val name = s"${entry._2.instance.toString}.${command.getName}"
             command match {
                 case Command.NonParam(aNode, kind) => {
                     val (preA, node, postA) = aNode
@@ -368,7 +368,7 @@ case class DictionaryJsonEncoder(
         override def apply(entry: (BigInt, Dictionary.ParamEntry)): Json = {
             val numIdentifier = entry._1
             val param = entry._2.param
-            val name = s"${entry._2.componentInstance.toString}.${param.getName}"
+            val name = s"${entry._2.instance.toString}.${param.getName}"
             val (preA, node, postA) = param.aNode
             val json = Json.obj(
                 "name" -> name.asJson,
@@ -389,7 +389,7 @@ case class DictionaryJsonEncoder(
         override def apply(entry: (BigInt, Dictionary.EventEntry)): Json = {
             val event = entry._2.event
             val numIdentifier = entry._1
-            val name = s"${entry._2.componentInstance.toString}.${event.getName}"
+            val name = s"${entry._2.instance.toString}.${event.getName}"
             val (preA, node, postA) = event.aNode
             val severityStr = node.data.severity match {
                 case Ast.SpecEvent.ActivityHigh => "ACTIVITY_HI"
@@ -426,7 +426,7 @@ case class DictionaryJsonEncoder(
         override def apply(entry: (BigInt, Dictionary.TlmChannelEntry)): Json = {
             val channel = entry._2.tlmChannel
             val numIdentifier = entry._1
-            val name = s"${entry._2.componentInstance.toString}.${channel.getName}"
+            val name = s"${entry._2.instance.toString}.${channel.getName}"
             val (preA, node, postA) = channel.aNode
             val json = Json.obj(
                 "name" -> name.asJson,
@@ -458,7 +458,7 @@ case class DictionaryJsonEncoder(
         override def apply(entry: (BigInt, Dictionary.RecordEntry)): Json = {
             val record = entry._2.record
             val numIdentifier = entry._1
-            val name = s"${entry._2.componentInstance.toString}.${record.getName}"
+            val name = s"${entry._2.instance.toString}.${record.getName}"
             val (preA, node, postA) = record.aNode
             val json = Json.obj(
                 "name" -> name.asJson,
@@ -478,7 +478,7 @@ case class DictionaryJsonEncoder(
         override def apply(entry: (BigInt, Dictionary.ContainerEntry)): Json = {
             val container = entry._2.container
             val numIdentifier = entry._1
-            val name = s"${entry._2.componentInstance.toString}.${container.getName}"
+            val name = s"${entry._2.instance.toString}.${container.getName}"
             val (preA, node, postA) = container.aNode
             val json = Json.obj(
                 "name" -> name.asJson,

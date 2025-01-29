@@ -1,9 +1,5 @@
 package fpp.compiler.analysis
 
-import fpp.compiler.ast._
-import fpp.compiler.util._
-import fpp.compiler.analysis._
-
 /** Dictionary data structure */
 case class Dictionary(
  /** A set of type symbols used in the topology */
@@ -24,23 +20,23 @@ case class Dictionary(
 
 object Dictionary {
 
-  /** Command dictionary entry */
-  case class CommandEntry(command: Command, componentInstance: ComponentInstance)
+  /** A command entry in the dictionary */
+  case class CommandEntry(instance: ComponentInstance, command: Command)
 
-  /** Parameter dictionary entry */
-  case class ParamEntry(param: Param, componentInstance: ComponentInstance)
+  /** A container entry in the dictionary */
+  case class ContainerEntry(instance: ComponentInstance, container: Container)
 
-  /** Event dictionary entry */
-  case class EventEntry(event: Event, componentInstance: ComponentInstance)
+  /** A parameter entry in the dictionary */
+  case class ParamEntry(instance: ComponentInstance, param: Param)
 
-  /** Telemetry dictionary entry */
-  case class TlmChannelEntry(tlmChannel: TlmChannel, componentInstance: ComponentInstance)
+  /** A record entry in the dictionary */
+  case class RecordEntry(instance: ComponentInstance, record: Record)
 
-  /** Record dictionary entry */
-  case class RecordEntry(record: Record, componentInstance: ComponentInstance)
+  /** A telemetry channel entry in the dictionary */
+  case class TlmChannelEntry(instance: ComponentInstance, tlmChannel: TlmChannel)
 
-  /** Container dictionary entry */
-  case class ContainerEntry(container: Container, componentInstance: ComponentInstance)
+  /** An event entry dictionary entry */
+  case class EventEntry(instance: ComponentInstance, event: Event)
 
   /** Given an analysis, returns all used symbols within commands, telemetry channels, parameters, and events */
   def getUsedSymbols(analysis: Analysis, topology: Topology): Set[Symbol] = {
@@ -75,7 +71,14 @@ object Dictionary {
         val Right(a) = UsedSymbols.specContainerAnnotatedNode(analysis, container.aNode)
         UsedSymbols.resolveUses(analysis, a.usedSymbolSet)
       }
-      val combined = commandSymbolSet ++ eventSymbolSet ++ tlmChannelSymbolSet ++ paramSymbolSet ++ recordSymbolSet ++ containerSymbolSet
+      val combined = List.concat(
+        commandSymbolSet,
+        eventSymbolSet,
+        tlmChannelSymbolSet,
+        paramSymbolSet,
+        recordSymbolSet,
+        containerSymbolSet
+      )
       combined.foldLeft(Set[Symbol]()) ((acc, elem) => acc ++ elem)
 
     }
@@ -83,55 +86,62 @@ object Dictionary {
     symbolSetList.foldLeft(Set[Symbol]()) ((acc, elem) => acc ++ elem)
   }
 
-  /** Resolve base identifiers for all entries in the dictionary */
-  /** Constructs maps from base identifiers to dictionary entry (ie: CommandEntry, TlmChannelEntry, ParamEntry, etc.) */
-  def resolveCommands(componentInstance: ComponentInstance, resultMap: Map[BigInt, CommandEntry]): Map[BigInt, CommandEntry] = {
-    componentInstance.component.commandMap.foldLeft(resultMap) ((resultMap, inst) =>
-      resultMap + (componentInstance.baseId + inst._1 -> CommandEntry(componentInstance=componentInstance, command=inst._2))
-    )
+  private def addEntry[Specifier, Entry](
+    ci: ComponentInstance,
+    entryConstructor: (ComponentInstance, Specifier) => Entry,
+  ) = {
+    (m: Map[BigInt, Entry], idSpecifierPair: (BigInt, Specifier)) =>  {
+      val (localId, s) = idSpecifierPair
+      val id = ci.baseId + localId
+      val entry = entryConstructor(ci, s)
+      m + (id -> entry)
+    }
   }
 
-  def resolveTlmChannels(componentInstance: ComponentInstance, resultMap: Map[BigInt, TlmChannelEntry]): Map[BigInt, TlmChannelEntry] = {
-    componentInstance.component.tlmChannelMap.foldLeft(resultMap) ((resultMap, inst) =>
-      resultMap + (componentInstance.baseId + inst._1 -> TlmChannelEntry(componentInstance=componentInstance, tlmChannel=inst._2))
-    )
+  private def resolveEntries[Specifier, Entry]
+    (mapGetFn: Component => Map[BigInt, Specifier])
+    (entryConstructor: (ComponentInstance, Specifier) => Entry)
+    (instances: Iterable[ComponentInstance])
+  = {
+    def addEntriesForInstance(
+      entryMap: Map[BigInt, Entry],
+      ci: ComponentInstance,
+    ) = {
+      val m = mapGetFn(ci.component)
+      m.foldLeft(entryMap) (addEntry(ci, entryConstructor))
+    }
+    instances.foldLeft (Map[BigInt, Entry]()) (addEntriesForInstance),
   }
 
-  def resolveEvents(componentInstance: ComponentInstance, resultMap: Map[BigInt, EventEntry]): Map[BigInt, EventEntry] = {
-    componentInstance.component.eventMap.foldLeft(resultMap) ((resultMap, inst) =>
-      resultMap + (componentInstance.baseId + inst._1 -> EventEntry(componentInstance=componentInstance, event=inst._2))
-    )
-  }
+  private val resolveCommands =
+    resolveEntries (_.commandMap) (CommandEntry.apply)
 
-  def resolveParams(componentInstance: ComponentInstance, resultMap: Map[BigInt, ParamEntry]): Map[BigInt, ParamEntry] = {
-    componentInstance.component.paramMap.foldLeft(resultMap) ((resultMap, inst) =>
-      resultMap + (componentInstance.baseId + inst._1 -> ParamEntry(componentInstance=componentInstance, param=inst._2))
-    )
-  }
+  private val resolveTlmChannels =
+    resolveEntries (_.tlmChannelMap) (TlmChannelEntry.apply)
 
-  def resolveRecords(componentInstance: ComponentInstance, resultMap: Map[BigInt, RecordEntry]): Map[BigInt, RecordEntry] = {
-    componentInstance.component.recordMap.foldLeft(resultMap) ((resultMap, inst) =>
-      resultMap + (componentInstance.baseId + inst._1 -> RecordEntry(componentInstance=componentInstance, record=inst._2))
-    )
-  }
+  private val resolveEvents =
+    resolveEntries (_.eventMap) (EventEntry.apply)
 
-  def resolveContainers(componentInstance: ComponentInstance, resultMap: Map[BigInt, ContainerEntry]): Map[BigInt, ContainerEntry] = {
-    componentInstance.component.containerMap.foldLeft(resultMap) ((resultMap, inst) =>
-      resultMap + (componentInstance.baseId + inst._1 -> ContainerEntry(componentInstance=componentInstance, container=inst._2))
-    )
-  }
+  private val resolveParams =
+    resolveEntries (_.paramMap) (ParamEntry.apply)
 
-  /** Constructs dictionary for all component instances in a topology */
-  def buildDictionary(analysis: Analysis, topology: Topology): Dictionary = {
-    val instances = topology.instanceMap.keys
+  private val resolveRecords =
+    resolveEntries (_.recordMap) (RecordEntry.apply)
+
+  private val resolveContainers =
+    resolveEntries (_.containerMap) (ContainerEntry.apply)
+
+  /** Constructs the initial dictionary */
+  def initial(a: Analysis, t: Topology): Dictionary = {
+    val instances = t.instanceMap.keys
     Dictionary(
-      typeSymbolSet=getUsedSymbols(analysis, topology),
-      commandEntryMap=instances.foldLeft(Map[BigInt, CommandEntry]()) ((acc, inst) => resolveCommands(inst, acc)),
-      tlmChannelEntryMap=instances.foldLeft(Map[BigInt, TlmChannelEntry]()) ((acc, inst) => resolveTlmChannels(inst, acc)),
-      eventEntryMap=instances.foldLeft(Map[BigInt, EventEntry]()) ((acc, inst) => resolveEvents(inst, acc)),
-      paramEntryMap=instances.foldLeft(Map[BigInt, ParamEntry]()) ((acc, inst) => resolveParams(inst, acc)),
-      recordEntryMap=instances.foldLeft(Map[BigInt, RecordEntry]()) ((acc, inst) => resolveRecords(inst, acc)),
-      containerEntryMap=instances.foldLeft(Map[BigInt, ContainerEntry]()) ((acc, inst) => resolveContainers(inst, acc))
+      getUsedSymbols(a, t),
+      resolveCommands(instances),
+      resolveTlmChannels(instances),
+      resolveEvents(instances),
+      resolveParams(instances),
+      resolveRecords(instances),
+      resolveContainers(instances),
     )
   }
 
