@@ -1,0 +1,30 @@
+=== Alias Type Definitions
+
+An *alias type definition* associates a name with a type
+that is defined elsewhere.
+
+==== Syntax
+
+`type` <<Lexical-Elements_Identifiers,_identifier_>> = <<Type-Names,_type-name_>>
+
+==== Semantics
+
+The identifier is the name _N_ of the type.
+The definition associates the name _N_ with
+the type _T_ specified after the `=` symbol.
+Elsewhere in the model, the name _N_ may be used as alias of (i.e., an
+alternate name for) the type _T_.
+
+==== Examples
+
+[source,fpp]
+----
+# Defines a type A that is an alias of U32
+type A = U32
+
+# Defines a struct type B whose member x has type A
+struct B {
+  x: A
+  y: F32
+} default { y = 1 }
+----
