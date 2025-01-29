@@ -3,7 +3,7 @@ package fpp.compiler.analysis
 import fpp.compiler.util._
 
 /** Fills in the used symbols for a dictionary */
-case class DictionaryUsedSymbols(a: Analysis, t: Topology) {
+final case class DictionaryUsedSymbols(a: Analysis, t: Topology) {
 
   def updateUsedSymbols(d: Dictionary): Dictionary =
     d.copy(usedSymbolSet = getUsedSymbolSet)

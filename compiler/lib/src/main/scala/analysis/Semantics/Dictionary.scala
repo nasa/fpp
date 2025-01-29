@@ -3,7 +3,7 @@ package fpp.compiler.analysis
 import fpp.compiler.util._
 
 /** An FPP dictionary */
-case class Dictionary(
+final case class Dictionary(
   /** A set of symbols used in the dictionary */
   usedSymbolSet: Set[Symbol] = Set(),
   /** The map from global IDs to command entries */

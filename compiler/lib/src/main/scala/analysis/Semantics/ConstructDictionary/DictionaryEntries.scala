@@ -3,7 +3,7 @@ package fpp.compiler.analysis
 import fpp.compiler.util._
 
 /** Fills in the dictionary entries */
-case class DictionaryEntries(a: Analysis, t: Topology) {
+final case class DictionaryEntries(a: Analysis, t: Topology) {
 
   def updateEntries(d: Dictionary): Dictionary =
     d.copy(
