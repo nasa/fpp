@@ -495,7 +495,7 @@ case class DictionaryJsonEncoder(
     /** Main interface for the class. JSON Encoding for a complete dictionary */
     def dictionaryAsJson: Json = {
         /** Split set into individual sets consisting of each symbol type (arrays, enums, structs) */
-        val typeDefSymbols = splitTypeSymbolSet(dictionary.typeSymbolSet, Set())
+        val typeDefSymbols = splitTypeSymbolSet(dictionary.usedSymbolSet, Set())
         /** Convert each dictionary element to JSON and return the complete dictionary JSON */
         Json.obj(
             "metadata" -> dictionaryState.metadata.asJson,
