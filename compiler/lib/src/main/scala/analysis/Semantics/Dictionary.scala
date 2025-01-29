@@ -10,6 +10,8 @@ final case class Dictionary(
   commandEntryMap: Map[Command.Opcode, Dictionary.CommandEntry] = Map(),
   /** The map from global IDs to telemetry channel entries */
   tlmChannelEntryMap: Map[TlmChannel.Id, Dictionary.TlmChannelEntry] = Map(),
+  /** The reverse telemetry channel map (for packet construction) */
+  reverseTlmChannelEntryMap: Map[Dictionary.TlmChannelEntry, TlmChannel.Id] = Map(),
   /** The map from global IDs to event entries */
   eventEntryMap: Map[Event.Id, Dictionary.EventEntry] = Map(),
   /** The map from global IDs to parameter entries */
@@ -18,8 +20,20 @@ final case class Dictionary(
   recordEntryMap: Map[Record.Id, Dictionary.RecordEntry] = Map(),
   /** The map from global IDs to container entries */
   containerEntryMap: Map[Container.Id, Dictionary.ContainerEntry] = Map(),
-  // TODO: Telemetry packet group map
-)
+  /** The map from packet group names to packet groups */
+  tlmPacketGroupMap: Map[Name.Unqualified, TlmPacketGroup] = Map()
+) {
+
+  /** Updates the reverse tlm channel entry map */
+  def updateReverseTlmChannelEntryMap = {
+    val m = Map[Dictionary.TlmChannelEntry, TlmChannel.Id]()
+    tlmChannelEntryMap.foldLeft (m) {
+      case (m, (id, entry)) => m + (entry -> id)
+    }
+    this.copy(reverseTlmChannelEntryMap = m)
+  }
+
+}
 
 object Dictionary {
 
@@ -38,7 +52,7 @@ object Dictionary {
   /** A telemetry channel entry in the dictionary */
   case class TlmChannelEntry(instance: ComponentInstance, tlmChannel: TlmChannel)
 
-  /** An event entry dictionary entry */
+  /** An event entry in the dictionary */
   case class EventEntry(instance: ComponentInstance, event: Event)
 
 }

@@ -13,7 +13,7 @@ final case class DictionaryEntries(a: Analysis, t: Topology) {
       paramEntryMap = getParamEntryMap(t),
       recordEntryMap = getRecordEntryMap(t),
       containerEntryMap = getContainerEntryMap(t)
-    )
+    ).updateReverseTlmChannelEntryMap
 
   private val getCommandEntryMap =
     getEntryMap (_.commandMap) (Dictionary.CommandEntry.apply)
