@@ -86,23 +86,22 @@ object Dictionary {
         component.paramMap,
         param => UsedSymbols.specParamAnnotatedNode(a, param.aNode)
       )
-      val recordSymbolSet = for (_, record) <- component.recordMap yield {
-        val Right(a1) = UsedSymbols.specRecordAnnotatedNode(a, record.aNode)
-        UsedSymbols.resolveUses(a1, a1.usedSymbolSet)
-      }
-      val containerSymbolSet = for (_, container) <- component.containerMap yield {
-        val Right(a1) = UsedSymbols.specContainerAnnotatedNode(a, container.aNode)
-        UsedSymbols.resolveUses(a1, a1.usedSymbolSet)
-      }
-      val combined = List.concat(
-        List(commandSymbols),
-        List(eventSymbols),
-        List(tlmChannelSymbols),
-        List(paramSymbols),
-        recordSymbolSet,
-        containerSymbolSet
+      val recordSymbols = getTypeSymbolsForSpecifier(
+        component.recordMap,
+        record => UsedSymbols.specRecordAnnotatedNode(a, record.aNode)
       )
-      combined.toSet.flatten
+      val containerSymbols = getTypeSymbolsForSpecifier(
+        component.containerMap,
+        container => UsedSymbols.specContainerAnnotatedNode(a, container.aNode)
+      )
+      Set.concat(
+        commandSymbols,
+        eventSymbols,
+        tlmChannelSymbols,
+        paramSymbols,
+        recordSymbols,
+        containerSymbols
+      )
     }
     // Merge list of sets into a single set and return
     symbolSetList.toSet.flatten
