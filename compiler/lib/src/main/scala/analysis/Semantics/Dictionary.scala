@@ -16,6 +16,7 @@ case class Dictionary(
  recordEntryMap: Map[BigInt, Dictionary.RecordEntry] = Map(),
  /** The map from resolved IDs to container entries */
  containerEntryMap: Map[BigInt, Dictionary.ContainerEntry] = Map(),
+ // TODO: Telemetry packets
 )
 
 object Dictionary {
@@ -38,8 +39,18 @@ object Dictionary {
   /** An event entry dictionary entry */
   case class EventEntry(instance: ComponentInstance, event: Event)
 
-  /** Given an analysis, returns all used symbols within commands, telemetry channels, parameters, and events */
-  def getUsedSymbols(analysis: Analysis, topology: Topology): Set[Symbol] = {
+  /** Constructs the initial dictionary (no telemetry packets) */
+  def initial(a: Analysis, t: Topology) = Dictionary(
+    getTypeSymbolSet(a, t),
+    getCommandEntryMap(t),
+    getTlmChannelEntryMap(t),
+    getEventEntryMap(t),
+    getParamEntryMap(t),
+    getRecordEntryMap(t),
+    getContainerEntryMap(t)
+  )
+
+  private def getTypeSymbolSet(analysis: Analysis, topology: Topology): Set[Symbol] = {
     val symbolSetList = for (componentInstance, _) <- topology.instanceMap yield {
       val component = componentInstance.component
       val commandSymbolSet = for (_, command) <- component.commandMap yield {
@@ -86,63 +97,49 @@ object Dictionary {
     symbolSetList.foldLeft(Set[Symbol]()) ((acc, elem) => acc ++ elem)
   }
 
-  private def addEntry[Specifier, Entry](
-    ci: ComponentInstance,
-    entryConstructor: (ComponentInstance, Specifier) => Entry,
-  ) = {
-    (m: Map[BigInt, Entry], idSpecifierPair: (BigInt, Specifier)) =>  {
-      val (localId, s) = idSpecifierPair
-      val id = ci.baseId + localId
-      val entry = entryConstructor(ci, s)
-      m + (id -> entry)
-    }
-  }
+  private val getCommandEntryMap =
+    getEntryMap (_.commandMap) (CommandEntry.apply)
 
-  private def resolveEntries[Specifier, Entry]
-    (mapGetFn: Component => Map[BigInt, Specifier])
-    (entryConstructor: (ComponentInstance, Specifier) => Entry)
-    (instances: Iterable[ComponentInstance])
+  private val getTlmChannelEntryMap =
+    getEntryMap (_.tlmChannelMap) (TlmChannelEntry.apply)
+
+  private val getEventEntryMap =
+    getEntryMap (_.eventMap) (EventEntry.apply)
+
+  private val getParamEntryMap =
+    getEntryMap (_.paramMap) (ParamEntry.apply)
+
+  private val getRecordEntryMap =
+    getEntryMap (_.recordMap) (RecordEntry.apply)
+
+  private val getContainerEntryMap =
+    getEntryMap (_.containerMap) (ContainerEntry.apply)
+
+  private def getEntryMap[Specifier, Entry]
+    (getSpecMap: Component => Map[BigInt, Specifier])
+    (constructEntry: (ComponentInstance, Specifier) => Entry)
+    (t: Topology)
   = {
     def addEntriesForInstance(
       entryMap: Map[BigInt, Entry],
       ci: ComponentInstance,
     ) = {
-      val m = mapGetFn(ci.component)
-      m.foldLeft(entryMap) (addEntry(ci, entryConstructor))
+      val m = getSpecMap(ci.component)
+      m.foldLeft(entryMap) (addEntry(constructEntry, ci))
     }
-    instances.foldLeft (Map[BigInt, Entry]()) (addEntriesForInstance),
+    t.instanceMap.keys.foldLeft (Map[BigInt, Entry]()) (addEntriesForInstance),
   }
 
-  private val resolveCommands =
-    resolveEntries (_.commandMap) (CommandEntry.apply)
-
-  private val resolveTlmChannels =
-    resolveEntries (_.tlmChannelMap) (TlmChannelEntry.apply)
-
-  private val resolveEvents =
-    resolveEntries (_.eventMap) (EventEntry.apply)
-
-  private val resolveParams =
-    resolveEntries (_.paramMap) (ParamEntry.apply)
-
-  private val resolveRecords =
-    resolveEntries (_.recordMap) (RecordEntry.apply)
-
-  private val resolveContainers =
-    resolveEntries (_.containerMap) (ContainerEntry.apply)
-
-  /** Constructs the initial dictionary */
-  def initial(a: Analysis, t: Topology): Dictionary = {
-    val instances = t.instanceMap.keys
-    Dictionary(
-      getUsedSymbols(a, t),
-      resolveCommands(instances),
-      resolveTlmChannels(instances),
-      resolveEvents(instances),
-      resolveParams(instances),
-      resolveRecords(instances),
-      resolveContainers(instances),
-    )
+  private def addEntry[Specifier, Entry](
+    constructEntry: (ComponentInstance, Specifier) => Entry,
+    ci: ComponentInstance
+  ) = {
+    (m: Map[BigInt, Entry], idSpecifierPair: (BigInt, Specifier)) =>  {
+      val (localId, s) = idSpecifierPair
+      val id = ci.baseId + localId
+      val entry = constructEntry(ci, s)
+      m + (id -> entry)
+    }
   }
 
 }
