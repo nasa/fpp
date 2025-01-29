@@ -1044,5 +1044,8 @@
         }
       }
     }
+  },
+  "stateMachineMap" : {
+    
   }
 }

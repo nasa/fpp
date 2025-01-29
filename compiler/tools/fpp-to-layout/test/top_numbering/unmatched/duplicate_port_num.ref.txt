@@ -1,0 +1,17 @@
+fpp-to-layout
+[ local path prefix ]/fpp-to-layout/test/top_numbering/unmatched/duplicate_port_num.fpp:28.7
+      c1.pOut -> c2.pIn
+      ^
+error: implicit duplicate connection at matched port pOut[0]
+connection is implied here:
+[ local path prefix ]/fpp-to-layout/test/top_numbering/unmatched/duplicate_port_num.fpp:29.7
+      c2.pOut -> c1.pIn[0]
+      ^
+because of matching specified here:
+[ local path prefix ]/fpp-to-layout/test/top_numbering/unmatched/duplicate_port_num.fpp:10.5
+    match pOut with pIn
+    ^
+conflicting connection is here:
+[ local path prefix ]/fpp-to-layout/test/top_numbering/unmatched/duplicate_port_num.fpp:30.17
+      unmatched c1.pOut[0] -> c3.pIn
+                ^

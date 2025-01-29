@@ -48,8 +48,8 @@ object Command {
     override def getName = {
       val paramName = aNode._2.data.name.toUpperCase
       kind match {
-        case Param.Save => s"${paramName}_PARAM_SAVE"
-        case Param.Set => s"${paramName}_PARAM_SET"
+        case Param.Save => s"${paramName}_PRM_SAVE"
+        case Param.Set => s"${paramName}_PRM_SET"
       }
     }
   }

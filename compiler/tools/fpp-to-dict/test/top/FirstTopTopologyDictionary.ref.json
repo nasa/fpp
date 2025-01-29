@@ -222,7 +222,7 @@
       "annotation" : "Command with 1 arg (of type struct)"
     },
     {
-      "name" : "Module1.myFirstC1.PARAM2_PARAM_SET",
+      "name" : "Module1.myFirstC1.PARAM2_PRM_SET",
       "commandKind" : "set",
       "opcode" : 898,
       "formalParams" : [
@@ -238,7 +238,7 @@
       "annotation" : "Parameter of type array (with 4 U32 values)"
     },
     {
-      "name" : "Module1.myFirstC1.PARAM5_PARAM_SAVE",
+      "name" : "Module1.myFirstC1.PARAM5_PRM_SAVE",
       "commandKind" : "save",
       "opcode" : 905,
       "formalParams" : [
@@ -246,7 +246,7 @@
       "annotation" : "Parameter of type enum"
     },
     {
-      "name" : "Module1.myFirstC1.PARAM3_PARAM_SAVE",
+      "name" : "Module1.myFirstC1.PARAM3_PRM_SAVE",
       "commandKind" : "save",
       "opcode" : 901,
       "formalParams" : [
@@ -254,7 +254,7 @@
       "annotation" : "Parameter of type string"
     },
     {
-      "name" : "Module1.myFirstC1.PARAM1_PARAM_SAVE",
+      "name" : "Module1.myFirstC1.PARAM1_PRM_SAVE",
       "commandKind" : "save",
       "opcode" : 773,
       "formalParams" : [
@@ -262,7 +262,7 @@
       "annotation" : "Parameter (struct)"
     },
     {
-      "name" : "Module1.myFirstC1.PARAM3_PARAM_SET",
+      "name" : "Module1.myFirstC1.PARAM3_PRM_SET",
       "commandKind" : "set",
       "opcode" : 900,
       "formalParams" : [
@@ -353,7 +353,7 @@
       "annotation" : "Command with 3 args (of types string, I32, and bool)"
     },
     {
-      "name" : "Module1.myFirstC1.PARAM2_PARAM_SAVE",
+      "name" : "Module1.myFirstC1.PARAM2_PRM_SAVE",
       "commandKind" : "save",
       "opcode" : 899,
       "formalParams" : [
@@ -361,7 +361,7 @@
       "annotation" : "Parameter of type array (with 4 U32 values)"
     },
     {
-      "name" : "Module1.myFirstC1.PARAM4_PARAM_SET",
+      "name" : "Module1.myFirstC1.PARAM4_PRM_SET",
       "commandKind" : "set",
       "opcode" : 902,
       "formalParams" : [
@@ -406,7 +406,7 @@
       "annotation" : "Command with 2 args (array of strings and U32)"
     },
     {
-      "name" : "Module1.myFirstC1.PARAM5_PARAM_SET",
+      "name" : "Module1.myFirstC1.PARAM5_PRM_SET",
       "commandKind" : "set",
       "opcode" : 904,
       "formalParams" : [
@@ -422,7 +422,7 @@
       "annotation" : "Parameter of type enum"
     },
     {
-      "name" : "Module1.myFirstC1.PARAM1_PARAM_SET",
+      "name" : "Module1.myFirstC1.PARAM1_PRM_SET",
       "commandKind" : "set",
       "opcode" : 772,
       "formalParams" : [
@@ -438,7 +438,7 @@
       "annotation" : "Parameter (struct)"
     },
     {
-      "name" : "Module1.myFirstC1.PARAM4_PARAM_SAVE",
+      "name" : "Module1.myFirstC1.PARAM4_PRM_SAVE",
       "commandKind" : "save",
       "opcode" : 903,
       "formalParams" : [

@@ -475,5 +475,8 @@
         "value" : 10
       }
     }
+  },
+  "stateMachineMap" : {
+    
   }
 }

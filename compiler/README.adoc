@@ -34,8 +34,9 @@ That way you can run the tools from anywhere.
 * `fpp-locate-uses`
 * `fpp-syntax`
 * `fpp-to-cpp`
-* `fpp-to-xml`
 * `fpp-to-dict`
+* `fpp-to-layout`
+* `fpp-to-xml`
 
 See https://github.com/fprime-community/fpp/wiki/Tools for more information.
 
@@ -154,10 +155,25 @@ To do that, use the following procedure:
 . Run `./install-trace` to install JVM versions of the FPP tools with
 tracing enabled in the `bin` directory.
 
+. Edit the file
+`compiler/lib/src/main/resources/META-INF/native-image/reflect-config.json`
+so that it contains a pair of square brackets `[]` and nothing else.
+This will clear out any old trace information.
+
 . Run `./test` to use the installed tools to run the unit tests.
-This will run the tracing agent and update the trace files.
+This step will run the tracing agent and update the trace files.
+All the tests should pass.
+If the tests go haywire with failures, the likely cause
+is an errant `.lock` file left behind by the tracing agent.
+Run `find . -name .lock` in this directory to find the file;
+then delete it and retry.
 
 . Commit the updated trace files to the repository.
 
-Remember to run `./install` to install the standard version
-of the tools if you no longer want to run the tracing agent.
+. Run `./install` to reinstall the standard version
+of the tools.
+
+. If you wish, run `./release` to build the native
+image files with the new trace files and run the unit tests.
+All the tests should pass.
+Alternatively you can let CI on `nasa/fpp` do this step.
