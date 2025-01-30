@@ -558,6 +558,36 @@ For example, in the code shown above, the `cmdOn`
 transition could do some other action that carries no value.
 In this case the value is ignored when doing the action.
 
+==== Atomicity of Signal Handling
+
+When an FPP state machine receives a signal, the handling of
+that signal is *atomic*.
+That means that signals may be received concurrently,
+but they are handled one by one.
+For example, this sequence of events cannot occur:
+
+. In state _S_~1~, signal _s_~1~ is handled, causing an action _A_ and a
+  transition to state _S_~2~.
+
+. After doing action _A_, but before entering state _S_~2~,
+  a signal _s_~2~ is handled.
+
+Instead, _s_~2~ will be handled either before the handling of _s_~1~
+starts or after the handling of _s_~1~ is complete.
+This atomicity guarantee is achieved by putting the signals on
+an input queue and using the queue to serialize the signal handler
+functions.
+
+Because of the atomicity guarantee, the {cpp} implementation of an FPP state machine
+can safely send a signal _s_ as part of its implementation for an action _A_.
+The action _A_ will be run during the handling of a signal _s'_.
+When _s'_ is handled and _A_ is run, _s_ is placed on the queue.
+After _s'_ is complete, _s_ is dispatched from the queue and handled.
+
+For more details on sending signals to an FPP state machine, see the
+https://fprime.jpl.nasa.gov/latest/docs/user-manual/design/state-machines/[F
+Prime design documentation].
+
 === More on State Transitions
 
 In this section, we provide more details on how to write
@@ -859,7 +889,7 @@ on cmdReset if resetIsSafe do { reset }
 --------
 
 As with other transitions, if the signal carries data, then
-any actions and guards names in an internal transition may
+any actions and guards named in an internal transition may
 carry data of a compatible type.
 
 === Choices

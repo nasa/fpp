@@ -78,8 +78,8 @@ constant queue_size_def = 10
 constant stack_size_def = 10
 constant priority_def = 10
 constant cpu_def = 0
-type RecordType
 constant record_id = 0
+array RecordType = [3] U32
 constant container_id = 0
 constant container_priority = 0
 constant product_recv_priority = 0
