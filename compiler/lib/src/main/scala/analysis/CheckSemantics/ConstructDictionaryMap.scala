@@ -17,11 +17,19 @@ object ConstructDictionaryMap
   ) = {
     val symbol = Symbol.Topology(aNode)
     val t = a.topologyMap(symbol)
-    val d = Dictionary()
-    val d1 = DictionaryUsedSymbols(a, t).updateUsedSymbols(d)
-    val d2 = DictionaryEntries(a, t).updateEntries(d1)
-    // TODO
-    Right(a.copy(dictionaryMap = a.dictionaryMap + (symbol -> d2)))
+    val d = {
+      val d1 = Dictionary()
+      val d2 = DictionaryUsedSymbols(a, t).updateUsedSymbols(d1)
+      DictionaryEntries(a, t).updateEntries(d2)
+    }
+    val a1 = a.copy(dictionary = Some(d))
+    for {
+      a <- super.defTopologyAnnotatedNode(a1, aNode)
+    }
+    yield {
+      val d = a.dictionary.get
+      a.copy(dictionaryMap = a.dictionaryMap + (symbol -> d))
+    }
   }
 
 }

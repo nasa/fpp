@@ -5,9 +5,14 @@ import fpp.compiler.util._
 
 /** An FPP telemetry packet group */
 final case class TlmPacketGroup(
+  /** The annotated AST node */
   aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketGroup]],
-  packetMap: Map[TlmPacket.Id, TlmPacket],
-  omitted: Set[TlmChannel.Id]
+  /** The map from packet IDs to packets */
+  packetMap: Map[TlmPacket.Id, TlmPacket] = Map(),
+  /** The next default parameter ID */
+  defaultParamId: TlmPacket.Id = 0,
+  /** The set of omitted channel IDs */
+  omitted: Set[TlmChannel.Id] = Set()
 ) {
 
   /** Gets the name of the packet */
