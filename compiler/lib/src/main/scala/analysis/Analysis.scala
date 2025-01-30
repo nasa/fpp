@@ -67,6 +67,10 @@ case class Analysis(
   stateMachineMap: Map[Symbol.StateMachine, StateMachine] = Map(),
   /** The map from topology symbols to dictionaries */
   dictionaryMap: Map[Symbol.Topology, Dictionary] = Map(),
+  /** The dictionary under construction */
+  dictionary: Option[Dictionary] = None,
+  /** The telemetry packet group under construction */
+  tlmPacketGroup: Option[TlmPacketGroup] = None
 ) {
 
   /** Gets the qualified name of a symbol */
