@@ -8,5 +8,6 @@ missing_container
 missing_ports
 missing_product_recv_port
 missing_product_send_port
+not_displayable
 ok
 "
