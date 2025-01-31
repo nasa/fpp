@@ -80,6 +80,15 @@ An abstract type is written using its
 <<Scoping-of-Names_Names-of-Definitions,unique qualified
 name>>.
 
+=== Alias Types
+
+An *alias type* is a type associated with an
+<<Definitions_Alias-Type-Definitions,alias type definition>>.
+There is one alias type per alias type definition.
+An alias type is written using its
+<<Scoping-of-Names_Names-of-Definitions,unique qualified
+name>>.
+
 === Internal Types
 
 *Internal types* do not have syntactic names in FPP source models.
@@ -118,9 +127,25 @@ The order of the members is not significant.
 For example, `{ a: U32, b: F32 }` represents the same
 type as `{ b : F32, a: U32 }`.
 
+=== Canonical Types
+
+A type is a *canonical type* if it is not an <<Types_Alias-Types,alias type>>.
+
+=== Underlying Types
+
+The *underlying type* of a type _T_ is the <<Types_Canonical-Types, canonical type>>
+associated with _T_.
+
+* If _T_ is a canonical type, then the underlying type of _T_ is _T_.
+
+* Otherwise _T_ is an <<Types_Alias-Types,alias type>>.
+In this case, the underlying type of _T_ is the underlying type of the type
+associated with _T_ in the definition of _T_.
+
 === Displayable Types
 
-A type is a **displayable type** if it is one of the following:
+A *displayable type* is a type that the F Prime ground data system can display.
+It is one of the following:
 
 * A <<Types_Primitive-Integer-Types,primitive integer type>>.
 * A <<Types_Floating-Point-Types,floating-point type>>.
@@ -129,10 +154,13 @@ A type is a **displayable type** if it is one of the following:
 * An <<Types_Enum-Types,enum type>>.
 * An <<Types_Array-Types,array type>> whose member type is a displayable type.
 * A <<Types_Struct-Types,struct type>> whose member types are all displayable types.
+* An <<Types_Alias-Types,alias type>> whose <<Types_Underlying-Types,underlying 
+type>> is a displayable type.
 
 === Types with Numeric Members
 
-A type *has numeric members* if it is one of the following:
+A type *has numeric members* if its <<Types_Underlying-Types,underlying type>>
+is one of the following:
 
 * A <<Types_Internal-Types_Numeric-Types,numeric type>>.
 
@@ -192,3 +220,8 @@ struct definitions>> for examples.
 <<Values_Abstract-Type-Values,single value associated with _T_>>.
 This value is left abstract in the FPP model; the implementation
 of _T_ must provide a concrete value.
+
+* The default value associated with an
+<<Types_Alias-Types,alias type>> _T_ is the
+<<Types_Default-Values,default value>> of its
+<<Types_Underlying-Types,underlying type>>.
