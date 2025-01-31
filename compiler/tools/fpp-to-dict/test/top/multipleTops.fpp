@@ -45,6 +45,19 @@ module Module1 {
     y: EnumArray
   } default { x = E2.PASS }
 
+  struct ScalarStruct {
+    i8: I8,
+    i16: I16,
+    i32: I32,
+    i64: I64,
+    u8: U8,
+    u16: U16,
+    u32: U32,
+    u64: U64,
+    f32: F32,
+    f64: F64
+  }
+
   # Component
   active component Component1 { 
 
@@ -192,6 +205,9 @@ module Module1 {
 
     @ Command with 3 args (of types string, I32, and bool)
     sync command Command2(a: string, b: I32, c: bool)
+
+    @ Send scalars
+    sync command SendScalars(s: ScalarStruct)
 
     # Events
     @ Event with a single U64 arg

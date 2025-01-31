@@ -61,6 +61,112 @@
     },
     {
       "kind" : "struct",
+      "qualifiedName" : "Module1.ScalarStruct",
+      "members" : {
+        "u32" : {
+          "type" : {
+            "name" : "U32",
+            "kind" : "integer",
+            "size" : 32,
+            "signed" : false
+          },
+          "index" : 6
+        },
+        "f64" : {
+          "type" : {
+            "name" : "F64",
+            "kind" : "float",
+            "size" : 64
+          },
+          "index" : 9
+        },
+        "f32" : {
+          "type" : {
+            "name" : "F32",
+            "kind" : "float",
+            "size" : 32
+          },
+          "index" : 8
+        },
+        "i8" : {
+          "type" : {
+            "name" : "I8",
+            "kind" : "integer",
+            "size" : 8,
+            "signed" : true
+          },
+          "index" : 0
+        },
+        "i16" : {
+          "type" : {
+            "name" : "I16",
+            "kind" : "integer",
+            "size" : 16,
+            "signed" : true
+          },
+          "index" : 1
+        },
+        "u8" : {
+          "type" : {
+            "name" : "U8",
+            "kind" : "integer",
+            "size" : 8,
+            "signed" : false
+          },
+          "index" : 4
+        },
+        "u64" : {
+          "type" : {
+            "name" : "U64",
+            "kind" : "integer",
+            "size" : 64,
+            "signed" : false
+          },
+          "index" : 7
+        },
+        "i64" : {
+          "type" : {
+            "name" : "I64",
+            "kind" : "integer",
+            "size" : 64,
+            "signed" : true
+          },
+          "index" : 3
+        },
+        "i32" : {
+          "type" : {
+            "name" : "I32",
+            "kind" : "integer",
+            "size" : 32,
+            "signed" : true
+          },
+          "index" : 2
+        },
+        "u16" : {
+          "type" : {
+            "name" : "U16",
+            "kind" : "integer",
+            "size" : 16,
+            "signed" : false
+          },
+          "index" : 5
+        }
+      },
+      "default" : {
+        "u32" : 0,
+        "f64" : 0.0,
+        "f32" : 0.0,
+        "i8" : 0,
+        "i16" : 0,
+        "u8" : 0,
+        "u64" : 0,
+        "i64" : 0,
+        "i32" : 0,
+        "u16" : 0
+      }
+    },
+    {
+      "kind" : "struct",
       "qualifiedName" : "Module1.S1",
       "members" : {
         "x" : {
@@ -284,14 +390,6 @@
       "annotation" : "Parameter of type string"
     },
     {
-      "name" : "Module1.mySecondC1.PARAM1_PRM_SAVE",
-      "commandKind" : "save",
-      "opcode" : 1285,
-      "formalParams" : [
-      ],
-      "annotation" : "Parameter (struct)"
-    },
-    {
       "name" : "Module1.mySecondC1.PARAM3_PRM_SET",
       "commandKind" : "set",
       "opcode" : 1412,
@@ -396,6 +494,30 @@
       "formalParams" : [
       ],
       "annotation" : "Command with no args"
+    },
+    {
+      "name" : "Module1.mySecondC2.SendScalars",
+      "commandKind" : "sync",
+      "opcode" : 1538,
+      "formalParams" : [
+        {
+          "name" : "s",
+          "type" : {
+            "name" : "Module1.ScalarStruct",
+            "kind" : "qualifiedIdentifier"
+          },
+          "ref" : false
+        }
+      ],
+      "annotation" : "Send scalars"
+    },
+    {
+      "name" : "Module1.mySecondC1.PARAM1_PRM_SAVE",
+      "commandKind" : "save",
+      "opcode" : 1285,
+      "formalParams" : [
+      ],
+      "annotation" : "Parameter (struct)"
     },
     {
       "name" : "Module1.mySecondC2.Command1",

@@ -238,8 +238,7 @@ case class DictionaryJsonEncoder(
                     jsonWithOptionalValues(json, optionalValues)
                 }
                 case Symbol.Struct(preA, node, postA) => {
-                    val Type.Struct(_, anonStruct, default, sizes, formats) = dictionaryState.a.typeMap(symbol.getNodeId)
-                    val Type.AnonStruct(members) = anonStruct
+                    val Type.Struct(_, _, default, sizes, _) = dictionaryState.a.typeMap(symbol.getNodeId)
                     val memberFormatMap = node.data.members.flatMap { case (_, memberNode, _) =>
                         memberNode.data.format.map(format => memberNode.data.name -> format.data)
                     }.toMap
@@ -247,17 +246,17 @@ case class DictionaryJsonEncoder(
                         val annotation = (preA ++ postA).mkString("\n")
                         if (annotation.isEmpty) None else Some(memberNode.data.name -> annotation)
                     }.toMap
-                    val membersFormatted = for(((key, t), index) <- members.zipWithIndex) yield {
+                    val membersFormatted = for(((_, m, _), index) <- node.data.members.zipWithIndex) yield {
                         val json = Json.obj(
-                            "type" -> typeAsJson(t).asJson, 
+                            "type" -> typeAsJson(dictionaryState.a.typeMap(m.data.typeName.id)), 
                             "index" -> index.asJson
                         )
                         val optionalValues = Map(
-                            "size" -> sizes.get(key), 
-                            "format" -> memberFormatMap.get(key), 
-                            "annotation" -> memberAnnotationMap.get(key)
+                            "size" -> sizes.get(m.data.name), 
+                            "format" -> memberFormatMap.get(m.data.name), 
+                            "annotation" -> memberAnnotationMap.get(m.data.name)
                         )
-                        (key.toString -> jsonWithOptionalValues(json, optionalValues))
+                        (m.data.name.toString -> jsonWithOptionalValues(json, optionalValues))
                     }
                     val json = Json.obj(
                         "kind" -> "struct".asJson,
