@@ -172,6 +172,25 @@ module DefinitionsAndSpecifiers {
     import T1
     @< Topology import specifier
 
+    @ Telemetry packet group
+    telemetry packets P {
+
+      @ Telemetry packet
+      packet P1 id 0 level 0 {
+        i1.c1
+        i2.c2
+      }
+      @< Telemetry packet
+
+      @ Include specifier
+      include "packet.fppi"
+      @< Include specifier
+
+    } omit {
+      i3.c3
+    }
+    @< Telemetry packet group
+
   }
   @< Topology definition
 

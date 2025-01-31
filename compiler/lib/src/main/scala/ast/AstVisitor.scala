@@ -116,6 +116,10 @@ trait AstVisitor {
 
   def specTlmChannelAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]): Out = default(in)
 
+  def specTlmPacketAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTlmPacket]]): Out = default(in)
+
+  def specTlmPacketGroupAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTlmPacketGroup]]): Out = default(in)
+
   def specTopImportAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTopImport]]): Out = default(in)
 
   def transUnit(in: In, tu: Ast.TransUnit): Out = default(in)
@@ -211,12 +215,21 @@ trait AstVisitor {
     }
   }
 
+  final def matchTlmPacketGroupMember(in: In, member: Ast.TlmPacketGroupMember): Out = {
+    val (pre, node, post) =  member.node
+    node match {
+      case Ast.TlmPacketGroupMember.SpecInclude(node1) => specIncludeAnnotatedNode(in, (pre, node1, post))
+      case Ast.TlmPacketGroupMember.SpecTlmPacket(node1) => specTlmPacketAnnotatedNode(in, (pre, node1, post))
+    }
+  }
+
   final def matchTopologyMember(in: In, member: Ast.TopologyMember): Out = {
     val (pre, node, post) =  member.node
     node match {
       case Ast.TopologyMember.SpecCompInstance(node1) => specCompInstanceAnnotatedNode(in, (pre, node1, post))
       case Ast.TopologyMember.SpecConnectionGraph(node1) => specConnectionGraphAnnotatedNode(in, (pre, node1, post))
       case Ast.TopologyMember.SpecInclude(node1) => specIncludeAnnotatedNode(in, (pre, node1, post))
+      case Ast.TopologyMember.SpecTlmPacketGroup(node1) => specTlmPacketGroupAnnotatedNode(in, (pre, node1, post))
       case Ast.TopologyMember.SpecTopImport(node1) => specTopImportAnnotatedNode(in, (pre, node1, post))
     }
   }

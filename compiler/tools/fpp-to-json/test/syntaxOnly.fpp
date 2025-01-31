@@ -75,6 +75,9 @@ module Main {
     passive component C {
         sync input port pIn: P
         output port pOut: P
+        telemetry port tlmOut
+        time get port timeGetOut
+        telemetry T: U32
     }
 
     instance g: C base id 0x100
@@ -115,6 +118,21 @@ module Main {
 
         time connections instance l
 
-        health connections instance m 
+        health connections instance m
+
+        telemetry packets P {
+
+          packet P1 id 0 level 0 {
+            g.T
+            h.T
+            i.T
+          }
+
+        } omit {
+          j.T
+          k.T
+          l.T
+        }
+
     }
 }
