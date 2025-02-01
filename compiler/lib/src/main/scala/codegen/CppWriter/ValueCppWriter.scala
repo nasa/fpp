@@ -16,10 +16,13 @@ object ValueCppWriter {
     override def absType(s: CppWriterState, v: Value.AbsType) = {
       val aNode = v.t.node
       val cppName = s.writeSymbol(Symbol.AbsType(aNode))
-      CppWriterState.builtInTypes.get(cppName) match {
-        case Some(v) => write(s, v)
-        case None => TypeCppWriter.getName(s, v.getType) ++ "()"
-      }
+      TypeCppWriter.getName(s, v.getType) ++ "()"
+    }
+
+    override def aliasType(s: CppWriterState, v: Value.AliasType): String = {
+      val aNode = v.t.node
+      val cppName = s.writeSymbol(Symbol.AliasType(aNode))
+      TypeCppWriter.getName(s, v.getType) ++ "()"
     }
 
     override def array(s: CppWriterState, v: Value.Array) = {
@@ -68,7 +71,7 @@ object ValueCppWriter {
     val namesList = data.members
     val memberNames = namesList.map(_._2.data.name)
     val membersMap = v.anonStruct.members
-    val members = memberNames.map(membersMap.get(_).get)
+    val members = memberNames.map(membersMap(_))
     val memberValues = members.map(write(s, _))
     memberValues.mkString(", ")
   }

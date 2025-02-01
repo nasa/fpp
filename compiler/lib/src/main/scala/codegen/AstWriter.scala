@@ -2,6 +2,8 @@ package fpp.compiler.codegen
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
+import fpp.compiler.ast.Ast.Annotated
+import fpp.compiler.ast.Ast.DefAliasType
 
 /** Write out an FPP AST */
 object AstWriter extends AstVisitor with LineUtils {
@@ -11,6 +13,16 @@ object AstWriter extends AstVisitor with LineUtils {
   type Out = List[Line]
 
   def transUnit(tu: Ast.TransUnit): Out = transUnit((), tu)
+
+  override def defAliasTypeAnnotatedNode(
+    in: Unit,
+    aNode: Ast.Annotated[AstNode[DefAliasType]]): Out = {
+      val (_, node, _) = aNode
+      lines("def alias type") ++ (
+        ident(node.data.name) ++
+        typeNameNode(node.data.typeName)
+      ).map(indentIn)
+    }
 
   override def defAbsTypeAnnotatedNode(
     in: In,

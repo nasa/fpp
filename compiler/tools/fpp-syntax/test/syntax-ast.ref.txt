@@ -5,6 +5,11 @@ def module
   def abs type
     ident T
   @< Abstract type definition
+  @ Type alias definition
+  def alias type
+    ident TA
+    type name qual ident T
+  @ Type alias definition
   @ Array definition
   def array
     ident A

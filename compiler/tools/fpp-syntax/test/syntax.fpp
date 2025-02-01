@@ -5,6 +5,10 @@ module DefinitionsAndSpecifiers {
   type T
   @< Abstract type definition
 
+  @ Type alias definition
+  type TA = T
+  @< Type alias definition
+
   @ Array definition
   array A = [10] U32 default 0 format "{} counts"
   @< Array definition

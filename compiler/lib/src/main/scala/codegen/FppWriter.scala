@@ -4,6 +4,8 @@ import fpp.compiler.ast._
 import fpp.compiler.syntax._
 import fpp.compiler.util._
 import scala.language.implicitConversions
+import fpp.compiler.ast.Ast.Annotated
+import fpp.compiler.ast.Ast.DefAliasType
 
 /** Write out FPP source */
 object FppWriter extends AstVisitor with LineUtils {
@@ -111,6 +113,16 @@ object FppWriter extends AstVisitor with LineUtils {
         transitionExpr(transition.data)
       case Ast.TransitionOrDo.Do(actions) => actionList(actions)
     }
+
+  override def defAliasTypeAnnotatedNode(
+      in: In,
+      aNode: Ast.Annotated[AstNode[DefAliasType]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"type ${ident(data.name)} = ").
+      join("") (typeNameNode(data.typeName))
+  }
 
   override def defAbsTypeAnnotatedNode(
     in: In,

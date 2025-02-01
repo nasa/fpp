@@ -16,6 +16,9 @@ case class TypeCppWriter(
     override def absType(s: CppWriterState, t: Type.AbsType) =
       s.writeSymbol(Symbol.AbsType(t.node))
 
+    override def aliasType(s: CppWriterState, t: Type.AliasType) =
+      s.writeSymbol(Symbol.AliasType(t.node))
+
     override def array(s: CppWriterState, t: Type.Array) =
       s.writeSymbol(Symbol.Array(t.node))
 

@@ -3,6 +3,7 @@ package fpp.compiler.analysis
 import fpp.compiler.ast._
 import fpp.compiler.util._
 import java.lang
+import scala.annotation.constructorOnly
 
 /** An FPP Type */
 sealed trait Type {
@@ -15,6 +16,8 @@ sealed trait Type {
 
   /** Get the definition node identifier, if any */
   def getDefNodeId: Option[AstNode.Id] = None
+
+  def getUnderlyingType: Type = this
 
   /** Does this type have numeric members? */
   def hasNumericMembers: Boolean = isNumeric
@@ -36,6 +39,9 @@ sealed trait Type {
 
   /** Is this type a primitive type? */
   def isPrimitive: Boolean = false
+
+  /** Is this type a canonical (non-aliased) type? */
+  def isCanonical: Boolean = true
 
   /** Is this type promotable to a struct type? */
   final def isPromotableToStruct = isPromotableToArray
@@ -178,6 +184,21 @@ object Type {
     override def getDefaultValue = Some(Value.AbsType(this))
     override def getDefNodeId = Some(node._2.id)
     override def toString = node._2.data.name
+  }
+  
+  /** An alias type */
+  case class AliasType(
+    /** The AST node giving the definition */
+    node: Ast.Annotated[AstNode[Ast.DefAliasType]],
+
+    /** Type that this typedef points to */
+    aliasType: Type
+  ) extends Type {
+    override def getDefaultValue = Some(Value.AliasType(this))
+    override def getDefNodeId = Some(node._2.id)
+    override def toString = node._2.data.name
+    override def isCanonical = false
+    override def getUnderlyingType = aliasType.getUnderlyingType
   }
 
   /** A named array type */
@@ -345,8 +366,11 @@ object Type {
   }
 
   /** Check for type identity */
-  def areIdentical(t1: Type, t2: Type): Boolean = {
+  def areIdentical(t1Aliased: Type, t2Aliased: Type): Boolean = {
+    val t1 = t1Aliased.getUnderlyingType
+    val t2 = t2Aliased.getUnderlyingType
     val pair = (t1, t2)
+
     def numeric = pair match {
       case (PrimitiveInt(kind1), PrimitiveInt(kind2)) => kind1 == kind2
       case (Float(kind1), Float(kind2)) => kind1 == kind2
@@ -373,8 +397,13 @@ object Type {
   }
   
   /** Check for type convertibility */
-  def mayBeConverted(pair: (Type, Type)): Boolean = {
+  def mayBeConverted(aliasPair: (Type, Type)): Boolean = {
+    val pair = (aliasPair._1.getUnderlyingType, aliasPair._2.getUnderlyingType)
     val t1 -> t2 = pair
+
+    assert(t1.isCanonical)
+    assert(t2.isCanonical)
+
     def numeric = t1.isConvertibleToNumeric && t2.isNumeric
     def string = pair match {
       case (String(_) -> String(_)) => true
@@ -417,7 +446,9 @@ object Type {
   }
 
   /** Compute the common type for a pair of types */
-  def commonType(t1: Type, t2: Type): Option[Type] = {
+  def commonType(t1Alias: Type, t2Alias: Type): Option[Type] = {
+    val t1 = t1Alias.getUnderlyingType
+    val t2 = t2Alias.getUnderlyingType
     val pair = (t1, t2)
     type Rule = () => Option[Type]
     def selectFirstMatchIn(rules: List[Rule]): Option[Type] = rules match {

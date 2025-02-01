@@ -157,6 +157,7 @@ class ParserSpec extends AnyWordSpec {
           topology T {}
           locate component C at "c.fpp"
           type T
+          type K = T
           array A = [10] U32
           enum E { X, Y }
           include "a.fpp"
