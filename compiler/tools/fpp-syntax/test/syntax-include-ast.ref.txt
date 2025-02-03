@@ -9,7 +9,7 @@ def module
   def alias type
     ident TA
     type name qual ident T
-  @ Type alias definition
+  @< Type alias definition
   @ Array definition
   def array
     ident A

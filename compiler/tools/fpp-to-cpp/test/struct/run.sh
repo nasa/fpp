@@ -22,14 +22,14 @@ enum()
 abs_type()
 {
   run_test "-p $PWD" abs_type && \
-    diff_cpp AbsTypeSerializable && \
-    diff_cpp TType
+    diff_cpp AbsTypeSerializable
 }
 
 alias_type()
 {
   run_test "-p $PWD" alias_type && \
-    diff_cpp AliasTypeSerializable
+    diff_cpp AliasTypeSerializable && \
+    diff_cpp TType
 }
 
 empty()
