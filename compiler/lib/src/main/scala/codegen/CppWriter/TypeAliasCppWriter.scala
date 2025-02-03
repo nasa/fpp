@@ -22,11 +22,11 @@ case class TypeAliasCppWriter (
 
   private val aliasType @ Type.AliasType(_, _) = s.a.typeMap(node.id)
 
+  private val typeCppWriter = TypeCppWriter(s, "Fw::ExternalString")
+
   private val aliasedTypeName = typeCppWriter.write(aliasType.aliasType)
 
   private val namespaceIdentList = s.getNamespaceIdentList(symbol)
-
-  private val typeCppWriter = TypeCppWriter(s, "Fw::ExternalString")
 
   private def writeIncludeDirectives(
     s: CppWriterState,

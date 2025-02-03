@@ -17,9 +17,9 @@ BuiltInType ::
 {
   // Construct using element-wise constructor
   *this = BuiltInType(
-    0,
-    0,
-    0
+    FwOpcodeType(),
+    FwOpcodeType(),
+    FwOpcodeType()
   );
 }
 
