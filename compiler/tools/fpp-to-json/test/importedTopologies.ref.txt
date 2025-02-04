@@ -1688,6 +1688,9 @@
       "tlmChannelMap" : {
         
       },
+      "tlmChannelNameMap" : {
+        
+      },
       "defaultTlmChannelId" : 0,
       "eventMap" : {
         

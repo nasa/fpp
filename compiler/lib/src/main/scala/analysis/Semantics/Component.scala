@@ -187,25 +187,25 @@ case class Component(
     }
   }
 
-  /** Add a dictionary element mapped by ID */
-  private def addElementToIdMap[T](
-    map: Map[BigInt, T],
-    id: BigInt,
-    element: T,
-    getLoc: T => Location
-  ): Result.Result[(Map[BigInt,T], BigInt)] = {
-    map.get(id) match {
-      case Some(prevElement) =>
-        // Element already there: report the error
-        val idValue = Analysis.displayIdValue(id)
-        val loc = getLoc(element)
-        val prevLoc = getLoc(prevElement)
-        Left(SemanticError.DuplicateIdValue(idValue, loc, prevLoc))
-      case None =>
-        // New element: compute the new map and the new default ID
-        Right(map + (id -> element), id + 1)
-    }
-  }
+//  /** Add a dictionary element mapped by ID */
+//  private def addElementToIdMap[T](
+//    map: Map[BigInt, T],
+//    id: BigInt,
+//    element: T,
+//    getLoc: T => Location
+//  ): Result.Result[(Map[BigInt,T], BigInt)] = {
+//    map.get(id) match {
+//      case Some(prevElement) =>
+//        // Element already there: report the error
+//        val idValue = Analysis.displayIdValue(id)
+//        val loc = getLoc(element)
+//        val prevLoc = getLoc(prevElement)
+//        Left(SemanticError.DuplicateIdValue(idValue, loc, prevLoc))
+//      case None =>
+//        // New element: compute the new map and the new default ID
+//        Right(map + (id -> element), id + 1)
+//    }
+//  }
 
   /** Add a data product container */
   def addContainer(
@@ -213,7 +213,7 @@ case class Component(
     container: Container
   ): Result.Result[Component] = {
     for {
-      result <- addElementToIdMap(
+      result <- Analysis.addElementToIdMap(
         containerMap,
         idOpt.getOrElse(defaultContainerId),
         container,
@@ -232,7 +232,7 @@ case class Component(
     event: Event
   ): Result.Result[Component] = {
     for {
-      result <- addElementToIdMap(
+      result <- Analysis.addElementToIdMap(
         eventMap,
         idOpt.getOrElse(defaultEventId),
         event,
@@ -252,7 +252,7 @@ case class Component(
   ): Result.Result[Component] = {
     for {
       // Update the parameter map and the default parameter ID
-      result <- addElementToIdMap(
+      result <- Analysis.addElementToIdMap(
         paramMap,
         idOpt.getOrElse(defaultParamId),
         param,
@@ -279,7 +279,7 @@ case class Component(
     record: Record
   ): Result.Result[Component] = {
     for {
-      result <- addElementToIdMap(
+      result <- Analysis.addElementToIdMap(
         recordMap,
         idOpt.getOrElse(defaultRecordId),
         record,
@@ -298,7 +298,7 @@ case class Component(
     tlmChannel: TlmChannel
   ): Result.Result[Component] = {
     for {
-      result <- addElementToIdMap(
+      result <- Analysis.addElementToIdMap(
         tlmChannelMap,
         idOpt.getOrElse(defaultTlmChannelId),
         tlmChannel,

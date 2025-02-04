@@ -415,6 +415,26 @@ case class Analysis(
 
 object Analysis {
 
+  /** Adds a dictionary element mapped by ID */
+  def addElementToIdMap[T](
+    map: Map[BigInt, T],
+    id: BigInt,
+    element: T,
+    getLoc: T => Location
+  ): Result.Result[(Map[BigInt,T], BigInt)] = {
+    map.get(id) match {
+      case Some(prevElement) =>
+        // Element already there: report the error
+        val idValue = Analysis.displayIdValue(id)
+        val loc = getLoc(element)
+        val prevLoc = getLoc(prevElement)
+        Left(SemanticError.DuplicateIdValue(idValue, loc, prevLoc))
+      case None =>
+        // New element: compute the new map and the new default ID
+        Right(map + (id -> element), id + 1)
+    }
+  }
+
   /** Compute the common type for two types */
   def commonType(t1: Type, t2: Type, errorLoc: Location): Result.Result[Type] =
     Type.commonType(t1, t2) match {
