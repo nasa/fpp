@@ -241,6 +241,8 @@ are both  the same
 
 . Each of stem:[T_1] and stem:[T_2]
 is an
+<<Types_Abstract-Types,abstract type>>,
+<<Types_Alias-Types,alias type>>,
 <<Types_Array-Types,array type>>,
 <<Types_Enum-Types,enum type>>, or
 <<Types_Struct-Types,struct type>>,
@@ -256,6 +258,12 @@ Here are the rules for type conversion:
 
 . stem:[T_1] may be converted to stem:[T_2] if stem:[T_1] and stem:[T_2]
 are <<Type-Checking_Identical-Types,identical types>>.
+
+. If either stem:[T_1] or stem:[T_2] or both is an
+<<Types_Alias-Types,alias type>>, then stem:[T_1]
+may be converted to stem:[T_2] if the <<Types_Underlying-Types,underlying 
+type>> of stem:[T_1] may be converted to
+the <<Types_Underlying-Types,underlying type>> of stem:[T_2].
 
 . Any <<Types_String-Types,string type>> may be converted
 to any other string type.
@@ -330,6 +338,11 @@ the whole expression):
 . If stem:[T_1] and stem:[T_2] are
 <<Type-Checking_Identical-Types,identical types>>, then let
 stem:[T] be stem:[T_1].
+
+. Otherwise if stem:[T_1] or stem:[T_2] or both are <<Types_Alias-Types,alias 
+types>>, then replace
+each alias type with its <<Types_Underlying-Types,underlying type>>
+and reapply these rules.
 
 . Otherwise if stem:[T_1] and stem:[T_2] are both
 <<Types_Internal-Types_Numeric-Types,numeric types>>, then do the following:

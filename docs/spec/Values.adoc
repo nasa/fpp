@@ -24,12 +24,26 @@ A *value* is one of the following:
 
 * A struct value
 
-Every value belongs to exactly one type.
+Every value _v_ belongs to exactly one <<Types_Canonical-Types,canonical type>> 
+_T_, except as follows:
+
+* Every string value belongs to the type `string` and to
+all types `string` _n_, for any _n_.
+
+* Every value that belongs to type _T_ also belongs to every 
+<<Types_Alias-Types,alias type>> whose 
+<<Types_Underlying-Types,underlying type>> is _T_.
+
+When a value _v_ belongs to a type _T_, we say that _v_ is a value
+*of type _T_*.
+
+In the following subsections, we describe each kind of value and
+its associated canonical types.
 
 === Primitive Integer Values
 
 A *primitive integer value* is an ordinary (mathematical) integer value
-together with a
+together with its canonical type, which is a
 <<Types_Primitive-Integer-Types,primitive integer type>>. Formally, the set of
 primitive integer values
 is the disjoint union over the integer types of the values
@@ -43,14 +57,15 @@ stem:[[0, 255\]].
 stem:[[-2^(w-1), 2^(w-1)-1\]]. For example, `I8` represents the integers
 stem:[[-128, 127\]].
 
-We represent a primitive integer value as an expression followed by a colon and a type.
+We represent a primitive integer value as an expression followed by a colon and 
+a primitive integer type.
 For example, we write the value 1 at type `U32` as `1: U32`. The value `1:
 U32` is distinct from the value `1: U8`.
 
 === Integer Values
 
 An *integer value* is an ordinary (mathematical) integer value.
-It has type _Integer_.
+Its canonical type is _Integer_.
 We represent an integer value as an integer number, with no explicit type.
 For example, `1` is an integer value.
 
@@ -66,11 +81,12 @@ over the types `F32` and `F64` of the values represented by each type:
 
 We write a floating-point values analogously to primitive integer values. For
 example, we write the value 1.0 at type `F32` as `1.0: F32`.
+The canonical type of a floating-point value is `F32` or `F64`.
 
 === Boolean Values
 
 A *Boolean value* is one of the values `true` and `false`.
-Its type is `bool`.
+Its canonical type is `bool`.
 
 === String Values
 
@@ -78,13 +94,21 @@ A *string value* is a sequence of characters that can be
 represented as a <<Expressions_String-Literals,string literal expression>>.
 It is written in the same way as a string literal expression,
 e.g., `"abc"`.
-Its type is `string`.
+A string value belongs to the following canonical types:
+
+* `string`
+
+* `string` _n_ for any _n_
 
 === Abstract Type Values
 
 An *abstract type value* is a value associated with an abstract
 type.
-There is one value associated with each abstract type stem:[T].
+For each abstract type stem:[T], there is one 
+value with canonical type stem:[T].
+This value is not represented explicitly in the model, but it
+may be represented in the generated code, e.g., as an object
+with default initialization.
 We write the value `value of type` stem:[T].
 
 === Anonymous Array Values
@@ -93,10 +117,17 @@ An *anonymous array value* is a value associated with an anonymous
 array type.
 We write an anonymous array value similarly to an
 <<Expressions_Array-Expressions,array expression>>:
-an anonymous array value has the form `[` stem:[v_1] `,` stem:[...] `,`
+an anonymous array value stem:[v] has the form `[` stem:[v_1] `,` stem:[...] 
+`,`
 stem:[v_n] `]`, where for each stem:[i in [1,n]], stem:[v_i] is a value of type
-stem:[T] for some stem:[T].
-The type of the value is _[_ stem:[n] _]_ stem:[T].
+stem:[T] for some <<Types_Canonical-Types,canonical type>> stem:[T].
+The canonical type of stem:[v] is _[_ stem:[n] _]_ stem:[T].
+
+Note that for an anonymous array value stem:[v] to be well-formed, the member
+values must have identical types.
+If an array expression appearing in the source syntax has
+member values with non-identical types, then one or more members must be 
+converted to a different type before forming stem:[v].
 
 === Array Values
 
@@ -116,8 +147,12 @@ that refers to a
 with member type stem:[T].
 
 . For each stem:[i in [1,n]], stem:[v_i] is a value of type stem:[T].
+Note that stem:[T] need not be a canonical type.
+For example, it is permissible for stem:[T] to be `T`, for
+`T` to be an alias of `U32`, and for stem:[v] to be the value `[ 1: U32, 2: U32 ]`.
+In this case `1: U32` and `2: U32` are values of type `T`, as required.
 
-The type of the value is stem:[Q].
+The canonical type of the value is stem:[Q].
 
 === Enumeration Values
 
@@ -125,7 +160,7 @@ An *enumeration value* is a value associated with an
 <<Definitions_Enumerated-Constant-Definitions,enumerated constant definition>>.
 It is a pair consisting of the name and the integer value
 specified in the enumerated constant definition.
-Its type is the type associated with the
+Its canonical type is the type associated with the
 <<Definitions_Enum-Definitions,enum definition>> in which
 the enumerated constant definition appears.
 
@@ -139,8 +174,9 @@ We write an anonymous struct value stem:[v] similarly to a
 a struct value has the form `{` stem:[m_1] `=` stem:[v_1] `,` stem:[...] `,`
 stem:[m_n] `=` stem:[v_n] `}`,
 where for each stem:[i in [1,n]], stem:[v_i] is a value of type stem:[T_i].
-The type of stem:[v] is _{_ stem:[m_1] _:_ stem:[T_1] _,_ stem:[...] _,_
-stem:[m_n] _:_ stem:[T_n] _}_.
+Each type stem:[T_i] must be a <<Types_Canonical-Types,canonical type>>.
+The canonical type of the value is _{_ stem:[m_1] _:_ stem:[T_1] _,_ stem:[...] 
+_,_ stem:[m_n] _:_ stem:[T_n] _}_.
 
 === Struct Values
 
@@ -161,8 +197,13 @@ that refers to a
 . The members of stem:[Q] are stem:[m_i] `:` stem:[T_i] for stem:[i in [1,n\]].
 
 . For each stem:[i in [1,n]], stem:[v_i] is a value of type stem:[T_i].
+Note that stem:[T_i] need not be a canonical type.
+For example, it is permissible for stem:[T_1] to be `T`, for
+`T` to be an alias of `U32`, and for stem:[v_1] to be the value `1: U32`.
+In this case `1: U32` is a value of type `T`, as required.
 
-All the members must be explicitly assigned values.
+Each member of the struct value must have an explicit value.
+The canonical type of the struct value is stem:[Q].
 
 === Serialized Sizes
 
@@ -200,3 +241,7 @@ the sum of the serialized sizes of the members of _v_
 * If _T_ is an
 <<Types_Abstract-Types,abstract type>>, then _s_ is not specified in FPP.  It
 is up to the implementer of _T_ to provide the serialized size.
+
+* If _T_ is a
+<<Types_Alias-Types,alias type>>, then apply these rules to its
+<<Types_Underlying-Types,underlying type>>.
