@@ -180,42 +180,6 @@ class ActiveGetProducts :
         const S& s //!< A struct
     ) override;
 
-  PRIVATE:
-
-    // ----------------------------------------------------------------------
-    // Handler implementations for data products
-    // ----------------------------------------------------------------------
-
-    //! Receive a container of type Container1
-    void dpRecv_Container1_handler(
-        DpContainer& container, //!< The container
-        Fw::Success::T status //!< The container status
-    ) override;
-
-    //! Receive a container of type Container2
-    void dpRecv_Container2_handler(
-        DpContainer& container, //!< The container
-        Fw::Success::T status //!< The container status
-    ) override;
-
-    //! Receive a container of type Container3
-    void dpRecv_Container3_handler(
-        DpContainer& container, //!< The container
-        Fw::Success::T status //!< The container status
-    ) override;
-
-    //! Receive a container of type Container4
-    void dpRecv_Container4_handler(
-        DpContainer& container, //!< The container
-        Fw::Success::T status //!< The container status
-    ) override;
-
-    //! Receive a container of type Container5
-    void dpRecv_Container5_handler(
-        DpContainer& container, //!< The container
-        Fw::Success::T status //!< The container status
-    ) override;
-
 };
 
 #endif
