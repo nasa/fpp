@@ -52,6 +52,15 @@ object Dictionary {
   /** A telemetry channel entry in the dictionary */
   case class TlmChannelEntry(instance: ComponentInstance, tlmChannel: TlmChannel)
 
+  object TlmChannelEntry {
+
+    def fromTlmChannelIdentifier(identifier: TlmChannelIdentifier) = TlmChannelEntry(
+      identifier.componentInstance,
+      identifier.tlmChannel
+    )
+
+  }
+
   /** An event entry in the dictionary */
   case class EventEntry(instance: ComponentInstance, event: Event)
 

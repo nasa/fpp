@@ -47,6 +47,8 @@ sealed trait Error {
         Error.print (locOpt) (s"cannot open file $name")
       case FileError.CannotResolvePath(loc, name) =>
         Error.print (Some(loc)) (s"cannot resolve path $name")
+      case SemanticError.ChannelNotInDictionary(loc, channelName, topologyName) =>
+        Error.print (Some(loc)) (s"channel $channelName is not in dictionary for topology $topologyName")
       case SemanticError.DivisionByZero(loc) =>
         Error.print (Some(loc)) ("division by zero")
       case SemanticError.DuplicateConnectionAtMatchedPort(loc, port, portNum, prevLoc, matchingLoc) =>
@@ -200,6 +202,8 @@ sealed trait Error {
         Error.print (Some(loc)) (s"invalid symbol $name: $msg")
         System.err.println("symbol is defined here:")
         System.err.println(defLoc)
+      case SemanticError.InvalidTlmChannelName(loc, channelName, componentName) =>
+        Error.print (Some(loc)) (s"$channelName is not a telemetry channel of component $componentName")
       case SemanticError.InvalidType(loc, msg) =>
         Error.print (Some(loc)) (msg)
       case SemanticError.MismatchedPortNumbers(
@@ -330,6 +334,12 @@ object FileError {
 object SemanticError {
   /** Empty array */
   final case class EmptyArray(loc: Location) extends Error
+  /** Channel not in dictionary */
+  final case class ChannelNotInDictionary(
+    loc: Location,
+    channelName: String,
+    topologyName: String
+  ) extends Error
   /** Division by zero */
   final case class DivisionByZero(loc: Location) extends Error
   /** Duplicate connection at matched port */
@@ -543,6 +553,12 @@ object SemanticError {
     loc: Location,
     msg: String,
     defLoc: Location
+  ) extends Error
+  /** Invalid telemetry channel identifier name */
+  final case class InvalidTlmChannelName(
+    loc: Location,
+    channelName: String,
+    componentName: String
   ) extends Error
   /** Invalid type */
   final case class InvalidType(loc: Location, msg: String) extends Error

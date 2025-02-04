@@ -18,6 +18,8 @@ case class Component(
   defaultOpcode: BigInt = 0,
   /** The map from telemetry channel IDs to channels */
   tlmChannelMap: Map[TlmChannel.Id, TlmChannel] = Map(),
+  /** The map from telemetry channel names to channels */
+  tlmChannelNameMap: Map[Name.Unqualified, TlmChannel] = Map(),
   /** The next default channel ID */
   defaultTlmChannelId: BigInt = 0,
   /** The map from event IDs to events */
@@ -87,6 +89,19 @@ case class Component(
       case Some(portInstance) => Right(portInstance)
       case None => Left(
         SemanticError.InvalidPortInstanceId(
+          Locations.get(name.id),
+          name.data,
+          aNode._2.data.name
+        )
+      )
+    }
+
+  /** Gets a telemetry channel by name */
+  def getTlmChannelByName(name: AstNode[Ast.Ident]): Result.Result[TlmChannel] =
+    tlmChannelNameMap.get(name.data) match {
+      case Some(tlmChannel) => Right(tlmChannel)
+      case None => Left(
+        SemanticError.InvalidTlmChannelName(
           Locations.get(name.id),
           name.data,
           aNode._2.data.name
@@ -292,6 +307,9 @@ case class Component(
     }
     yield this.copy(
       tlmChannelMap = result._1,
+      // Add the channel to the channel name map. If there is a duplicate name,
+      // we will catch it later when we check all the dictionary elements.
+      tlmChannelNameMap = tlmChannelNameMap + (tlmChannel.getName -> tlmChannel),
       defaultTlmChannelId = result._2
     )
   }

@@ -22,6 +22,52 @@ object TlmPacket {
 
   type Id = BigInt
 
-  // TODO
+  /** Creates a telemetry packet from a telemetry packet specifier */
+  def fromSpecTlmPacket(
+    a: Analysis,
+    d: Dictionary,
+    t: Topology,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacket]]
+  ): Result.Result[TlmPacket] = {
+      val node = aNode._2
+      val data = node.data
+      val members = Set[TlmChannel.Id]()
+      for {
+        level <- a.getNonnegativeIntValue(data.level.id)
+        members <- Result.foldLeft (data.members) (members) (addIdForMember(a, d, t))
+      }
+      yield TlmPacket(aNode, level, members)
+   }
+
+   // Adds the numeric channel ID for a telemetry packet member to a set of channel IDs
+   private def addIdForMember
+     (a: Analysis, d: Dictionary, t: Topology)
+     (channelSet: Set[TlmChannel.Id], tlmPacketMember: Ast.TlmPacketMember):
+   Result.Result[Set[TlmChannel.Id]] =
+     tlmPacketMember match {
+       case Ast.TlmPacketMember.SpecInclude(_) => Right(channelSet)
+       case Ast.TlmPacketMember.TlmChannelIdentifier(node) =>
+         for {
+           channelId <- TlmChannelIdentifier.fromNode(a, node)
+           numericId <- findNumericId (d, t) (channelId)
+         }
+         yield channelSet + numericId
+     }
+
+   // Finds the numeric ID for a telemetry channel identifier
+   private def findNumericId (d: Dictionary, t: Topology) (channelId: TlmChannelIdentifier):
+   Result.Result[TlmChannel.Id] = {
+     val entry = Dictionary.TlmChannelEntry.fromTlmChannelIdentifier(channelId)
+     d.reverseTlmChannelEntryMap.get(entry) match {
+       case Some(id) => Right(id)
+       case None => Left(
+         SemanticError.ChannelNotInDictionary(
+           channelId.getLoc,
+           channelId.getQualifiedName.toString,
+           t.getName
+         )
+       )
+     }
+   }
 
 }
