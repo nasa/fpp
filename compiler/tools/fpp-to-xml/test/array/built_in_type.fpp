@@ -1,4 +1,4 @@
-type FwOpcodeType
+type FwOpcodeType = U32
 
 module M {
 

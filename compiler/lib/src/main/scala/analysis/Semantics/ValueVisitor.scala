@@ -9,8 +9,6 @@ trait ValueVisitor {
 
   def absType(in: In, v: Value.AbsType): Out = default(in, v)
 
-  def aliasType(in: In, v: Value.AliasType): Out = default(in, v)
-
   def anonArray(in: In, v: Value.AnonArray): Out = default(in, v)
 
   def anonStruct(in: In, v: Value.AnonStruct): Out = default(in, v)
@@ -44,7 +42,6 @@ trait ValueVisitor {
       case v : Value.String => string(in, v)
       case v : Value.AnonArray => anonArray(in, v)
       case v : Value.AbsType => absType(in, v)
-      case v : Value.AliasType => aliasType(in, v)
       case v : Value.Array => array(in, v)
       case v : Value.EnumConstant => enumConstant(in, v)
       case v : Value.AnonStruct => anonStruct(in, v)

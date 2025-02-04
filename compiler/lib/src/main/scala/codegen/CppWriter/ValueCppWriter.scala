@@ -19,12 +19,6 @@ object ValueCppWriter {
       TypeCppWriter.getName(s, v.getType) ++ "()"
     }
 
-    override def aliasType(s: CppWriterState, v: Value.AliasType): String = {
-      val aNode = v.t.node
-      val cppName = s.writeSymbol(Symbol.AliasType(aNode))
-      TypeCppWriter.getName(s, v.getType) ++ "()"
-    }
-
     override def array(s: CppWriterState, v: Value.Array) = {
       val elements = v.anonArray.elements.map(write(s, _))
       val stringify = elements.mkString(", ")

@@ -194,7 +194,7 @@ object Type {
     /** Type that this typedef points to */
     aliasType: Type
   ) extends Type {
-    override def getDefaultValue = Some(Value.AliasType(this))
+    override def getDefaultValue = aliasType.getDefaultValue
     override def getDefNodeId = Some(node._2.id)
     override def toString = node._2.data.name
     override def isCanonical = false

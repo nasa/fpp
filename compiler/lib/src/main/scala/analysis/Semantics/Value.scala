@@ -330,15 +330,6 @@ object Value {
 
   }
 
-  /** An alias type */
-  case class AliasType(t: Type.AliasType) extends Value {
-    
-    override def getType = t
-
-    override def toString = s"$t (${t.getUnderlyingType})"
-
-  }
-
   /** Array values */
   case class Array(anonArray: AnonArray, t: Type.Array) extends Value {
 
