@@ -14,7 +14,7 @@
 AliasType ::
   AliasType() :
     Serializable(),
-    m_t(T())
+    m_t(0)
 {
 
 }
