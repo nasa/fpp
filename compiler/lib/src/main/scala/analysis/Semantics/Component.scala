@@ -187,26 +187,6 @@ case class Component(
     }
   }
 
-//  /** Add a dictionary element mapped by ID */
-//  private def addElementToIdMap[T](
-//    map: Map[BigInt, T],
-//    id: BigInt,
-//    element: T,
-//    getLoc: T => Location
-//  ): Result.Result[(Map[BigInt,T], BigInt)] = {
-//    map.get(id) match {
-//      case Some(prevElement) =>
-//        // Element already there: report the error
-//        val idValue = Analysis.displayIdValue(id)
-//        val loc = getLoc(element)
-//        val prevLoc = getLoc(prevElement)
-//        Left(SemanticError.DuplicateIdValue(idValue, loc, prevLoc))
-//      case None =>
-//        // New element: compute the new map and the new default ID
-//        Right(map + (id -> element), id + 1)
-//    }
-//  }
-
   /** Add a data product container */
   def addContainer(
     idOpt: Option[TlmChannel.Id],
@@ -467,59 +447,39 @@ case class Component(
 
   /** Checks that there are no duplicate names in dictionaries */
   private def checkNoDuplicateNames:
-    Result.Result[Unit] = {
-      def checkDictionary[Id,Value](
-        dictionary: Map[Id,Value],
-        kind: String,
-        getName: Value => String,
-        getLoc: Value => Location
-      ) = {
-        val initialMap: Map[String, Location] = Map()
-        Result.foldLeft (dictionary.toList) (initialMap) ((map, pair) => {
-          val (_, value) = pair
-          val name = getName(value)
-          val loc = getLoc(value)
-          map.get(name) match {
-            case Some(prevLoc) =>
-              Left(SemanticError.DuplicateDictionaryName(
-                kind, name, loc, prevLoc
-              ))
-            case _ => Right(map + (name -> loc))
-          }
-        })
-      }
+    Result.Result[Unit] =
       for {
-        _ <- checkDictionary(
+        _ <- Analysis.checkDictionaryNames(
           this.paramMap,
           "parameter",
           _.getName,
           _.getLoc
         )
-        _ <- checkDictionary(
+        _ <- Analysis.checkDictionaryNames(
           this.commandMap,
           "command",
           _.getName,
           _.getLoc
         )
-        _ <- checkDictionary(
+        _ <- Analysis.checkDictionaryNames(
           this.eventMap,
           "event",
           _.getName,
           _.getLoc
         )
-        _ <- checkDictionary(
+        _ <- Analysis.checkDictionaryNames(
           this.tlmChannelMap,
           "telemetry channel",
           _.getName,
           _.getLoc
         )
-        _ <- checkDictionary(
+        _ <- Analysis.checkDictionaryNames(
           this.containerMap,
           "container",
           _.getName,
           _.getLoc
         )
-        _ <- checkDictionary(
+        _ <- Analysis.checkDictionaryNames(
           this.recordMap,
           "record",
           _.getName,
@@ -527,7 +487,6 @@ case class Component(
         )
       }
       yield ()
-    }
 
   /** Checks whether a component is valid */
   private def checkValidity: Result.Result[Unit] = {

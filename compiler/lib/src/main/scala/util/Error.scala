@@ -88,6 +88,10 @@ sealed trait Error {
       case SemanticError.DuplicateOutputConnection(loc, portNum, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate connection at output port $portNum")
         printPrevLoc(prevLoc)
+      case SemanticError.DuplicatePacketGroup(name, loc, prevLoc) =>
+        Error.print (Some(loc)) (s"duplicate packet group ${name}")
+        System.err.println("previous group is here:")
+        System.err.println(prevLoc)
       case SemanticError.DuplicateParameter(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate parameter ${name}")
         System.err.println("previous parameter is here:")
@@ -402,6 +406,12 @@ object SemanticError {
   final case class DuplicateOutputConnection(
     loc: Location,
     portNum: Int,
+    prevLoc: Location
+  ) extends Error
+  /** Duplicate packet group */
+  final case class DuplicatePacketGroup(
+    name: String,
+    loc: Location,
     prevLoc: Location
   ) extends Error
   /** Duplicate parameter */

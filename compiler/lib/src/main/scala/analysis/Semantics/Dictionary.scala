@@ -27,10 +27,42 @@ final case class Dictionary(
   /** Updates the reverse tlm channel entry map */
   def updateReverseTlmChannelEntryMap = {
     val m = Map[Dictionary.TlmChannelEntry, TlmChannel.Id]()
-    tlmChannelEntryMap.foldLeft (m) {
+    val m1 = tlmChannelEntryMap.foldLeft (m) {
       case (m, (id, entry)) => m + (entry -> id)
     }
-    this.copy(reverseTlmChannelEntryMap = m)
+    this.copy(reverseTlmChannelEntryMap = m1)
+  }
+
+  /** Finds the numeric ID for a telemetry channel identifier */
+  def findNumericIdForChannel (t: Topology) (channelId: TlmChannelIdentifier):
+  Result.Result[TlmChannel.Id] = {
+    val entry = Dictionary.TlmChannelEntry.fromTlmChannelIdentifier(channelId)
+    this.reverseTlmChannelEntryMap.get(entry) match {
+      case Some(id) => Right(id)
+      case None => Left(
+        SemanticError.ChannelNotInDictionary(
+          channelId.getLoc,
+          channelId.getQualifiedName.toString,
+          t.getName
+        )
+      )
+    }
+  }
+
+  /** Adds a telemetry channel packet group to the packet group map */
+  def addTlmPacketGroup(group: TlmPacketGroup):
+  Result.Result[Dictionary] = {
+    val name = group.getName
+    tlmPacketGroupMap.get(name) match {
+      case Some(prevGroup) =>
+        val loc = group.getLoc
+        val prevLoc = prevGroup.getLoc
+        Left(SemanticError.DuplicatePacketGroup(name, loc, prevLoc))
+      case None =>
+        val tlmPacketGroupMap = this.tlmPacketGroupMap + (name -> group)
+        val dictionary = this.copy(tlmPacketGroupMap = tlmPacketGroupMap)
+        Right(dictionary)
+    }
   }
 
 }

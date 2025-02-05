@@ -32,4 +32,41 @@ object ConstructDictionaryMap
     }
   }
 
+  override def specTlmPacketGroupAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketGroup]]
+  ) = {
+    val tpgOpt = Some(TlmPacketGroup(aNode))
+    val a1 = a.copy(tlmPacketGroup = tpgOpt)
+    val d = a.dictionary.get
+    for {
+      a <- super.specTlmPacketGroupAnnotatedNode(a1, aNode)
+      tpg <- TlmPacketGroup.complete (
+        a,
+        d,
+        a.topology.get
+      ) (a.tlmPacketGroup.get)
+      d <- d.addTlmPacketGroup(tpg)
+    }
+    yield a.copy(dictionary = Some(d))
+  }
+
+  override def specTlmPacketAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacket]]
+  ) = {
+    val data = aNode._2.data
+    for {
+      idOpt <- a.getNonnegativeBigIntValueOpt(data.id)
+      packet <- TlmPacket.fromSpecTlmPacket(
+        a,
+        a.dictionary.get,
+        a.topology.get,
+        aNode
+      )
+      g <- a.tlmPacketGroup.get.addPacket(idOpt, packet)
+    }
+    yield a.copy(tlmPacketGroup = Some(g))
+  }
+
 }

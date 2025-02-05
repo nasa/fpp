@@ -425,7 +425,7 @@ object Analysis {
     map.get(id) match {
       case Some(prevElement) =>
         // Element already there: report the error
-        val idValue = Analysis.displayIdValue(id)
+        val idValue = displayIdValue(id)
         val loc = getLoc(element)
         val prevLoc = getLoc(prevElement)
         Left(SemanticError.DuplicateIdValue(idValue, loc, prevLoc))
@@ -433,6 +433,28 @@ object Analysis {
         // New element: compute the new map and the new default ID
         Right(map + (id -> element), id + 1)
     }
+  }
+
+  /** Checks for duplicate names in dictionary */
+  def checkDictionaryNames[Id,Value](
+    dictionary: Map[Id,Value],
+    kind: String,
+    getName: Value => String,
+    getLoc: Value => Location
+  ) = {
+    val initialMap: Map[String, Location] = Map()
+    Result.foldLeft (dictionary.toList) (initialMap) ((map, pair) => {
+      val (_, value) = pair
+      val name = getName(value)
+      val loc = getLoc(value)
+      map.get(name) match {
+        case Some(prevLoc) =>
+          Left(SemanticError.DuplicateDictionaryName(
+            kind, name, loc, prevLoc
+          ))
+        case _ => Right(map + (name -> loc))
+      }
+    })
   }
 
   /** Compute the common type for two types */
