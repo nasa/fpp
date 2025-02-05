@@ -3,6 +3,3 @@
 A *state machine behavior element* specifies an element of the behavior
 associated with a
 <<Definitions_State-Machine-Definitions,state machine definition>>.
-
-*Implementation note:*
-As of FPP v2.2.1, state machine behavior elements are not implemented.

@@ -13,9 +13,6 @@ FSW build.
 specifies the behavior of a state machine and
 causes an implementation to be generated.
 
-*Implementation note:*
-As of FPP v2.2.1, only external state machine definitions are implemented.
-
 ==== Syntax
 
 `state machine` <<Lexical-Elements_Identifiers,_identifier_>>
