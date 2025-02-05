@@ -1066,42 +1066,6 @@ class PassiveGetProductsComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Handlers to implement for data products
-    // ----------------------------------------------------------------------
-
-    //! Receive a container of type Container1
-    virtual void dpRecv_Container1_handler(
-        DpContainer& container, //!< The container
-        Fw::Success::T status //!< The container status
-    ) = 0;
-
-    //! Receive a container of type Container2
-    virtual void dpRecv_Container2_handler(
-        DpContainer& container, //!< The container
-        Fw::Success::T status //!< The container status
-    ) = 0;
-
-    //! Receive a container of type Container3
-    virtual void dpRecv_Container3_handler(
-        DpContainer& container, //!< The container
-        Fw::Success::T status //!< The container status
-    ) = 0;
-
-    //! Receive a container of type Container4
-    virtual void dpRecv_Container4_handler(
-        DpContainer& container, //!< The container
-        Fw::Success::T status //!< The container status
-    ) = 0;
-
-    //! Receive a container of type Container5
-    virtual void dpRecv_Container5_handler(
-        DpContainer& container, //!< The container
-        Fw::Success::T status //!< The container status
-    ) = 0;
-
-  PROTECTED:
-
-    // ----------------------------------------------------------------------
     // Time
     // ----------------------------------------------------------------------
 
