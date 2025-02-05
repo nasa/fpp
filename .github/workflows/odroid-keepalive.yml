@@ -9,9 +9,11 @@
 name: Odroid Keepalive
 
 on:
+  # workflow_dispatch allows for manual trigger in the repo 'Actions' tab
   workflow_dispatch:
+  # run every Monday 8am
   schedule:
-    - cron: '0 0 */10 * *'
+    - cron: '0 8 * * 1'
 
 jobs:
   keepAlive:
