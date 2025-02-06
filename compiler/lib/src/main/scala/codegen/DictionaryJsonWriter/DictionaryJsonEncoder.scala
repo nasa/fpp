@@ -30,8 +30,8 @@ case class DictionaryJsonEncoder(
     dictionaryState: DictionaryJsonEncoderState
 ) {
     /** Dictionary entry map to JSON */
-    private def dictionaryEntryMapAsJson[A, B] (f1: (A, B) => Json) (map: Map[A, B]): Json =
-        (map.map { case (key, value) => f1(key, value) }).toList.asJson
+    private def dictionaryEntryMapAsJson[A, B] (f1: (A, B) => Json) (map: Map[A, B]) (implicit ord: Ordering[A]): Json =
+        (map.toList.sortBy(_._1)(ord).map { case (key, value) => f1(key, value) }).toList.asJson
 
     /** Dictionary symbol set to JSON */
     private def dictionarySymbolSetAsJson[A] (f1: A => Json) (set: Set[A]): Json =
@@ -91,6 +91,11 @@ case class DictionaryJsonEncoder(
 
     private implicit val containerMapEncoder: Encoder[Map[BigInt, Dictionary.ContainerEntry]] = {
         def f1(identifier: BigInt, container: Dictionary.ContainerEntry) = (identifier -> container).asJson
+        Encoder.instance (dictionaryEntryMapAsJson (f1) _)
+    }
+
+    private implicit val tlmPacketGroupMapEncoder: Encoder[Map[Name.Unqualified, TlmPacketGroup]] = {
+        def f1(name: Name.Unqualified, group: TlmPacketGroup) = (name -> group).asJson
         Encoder.instance (dictionaryEntryMapAsJson (f1) _)
     }
 
@@ -491,6 +496,26 @@ case class DictionaryJsonEncoder(
         }
     }
 
+    /** JSON Encoding for Telemetry Packet Groups */
+    private implicit def tlmPacketGroupEncoder: Encoder[(Name.Unqualified, TlmPacketGroup)] = new Encoder[(Name.Unqualified, TlmPacketGroup)] {
+        override def apply(entry: (Name.Unqualified, TlmPacketGroup)): Json = {
+            Json.obj(
+                "name" -> entry._1.toString.asJson,
+                "members" -> entry._2.packetMap.map((id, packet) => {
+                    Json.obj(
+                        "id" -> id.asJson,
+                        "level" -> packet.level.asJson,
+                        "members" -> packet.members.map(packetId => {
+                            val e = dictionary.tlmChannelEntryMap(packetId)
+                            s"${e.instance.toString}.${e.tlmChannel.getName}"
+                        }).toList.sorted.asJson
+                    )
+                }).toList.asJson,
+                "omitted" -> List().asJson
+            )
+        }
+    }
+
     /** Main interface for the class. JSON Encoding for a complete dictionary */
     def dictionaryAsJson: Json = {
         /** Split set into individual sets consisting of each symbol type (arrays, enums, structs) */
@@ -504,7 +529,8 @@ case class DictionaryJsonEncoder(
             "events" -> dictionary.eventEntryMap.asJson,
             "telemetryChannels" -> dictionary.tlmChannelEntryMap.asJson,
             "records" -> dictionary.recordEntryMap.asJson,
-            "containers" -> dictionary.containerEntryMap.asJson
+            "containers" -> dictionary.containerEntryMap.asJson,
+            "telemetryPacketGroups" -> dictionary.tlmPacketGroupMap.asJson
         )
     }
 
