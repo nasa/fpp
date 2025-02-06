@@ -13,10 +13,10 @@ final case class TlmPacketGroup(
   defaultPacketId: TlmPacket.Id = 0,
   /** The set of omitted channel IDs */
   omittedIdSet: Set[TlmChannel.Id] = Set(),
-  /** The map from each omitted channel IDs to a location
-   *  where the omitted channel is specified.
-   *  If the omitted channel appears more than once in the source
-   *  model, the map contains the last location. */
+  /** The map from each omitted channel ID to a location
+   *  where the channel is marked omitted.
+   *  If the channel appears more than once in the omitted list in
+   *  the source model, the map contains the last location. */
   omittedLocationMap: Map[TlmChannel.Id, Location] = Map()
 ) {
 
@@ -79,7 +79,7 @@ object TlmPacketGroup {
     }
   }
 
-  // Checks that each channel is either used or omitted
+  // Checks that each channel is either used or omitted, but not both
   private def checkChannelUsage
     (a: Analysis, d: Dictionary, t: Topology)
     (tpg: TlmPacketGroup):
@@ -108,7 +108,17 @@ object TlmPacketGroup {
     def checkIdNotUsedAndOmitted(id: TlmChannel.Id) =
       if usedIdSet.contains(id) && tpg.omittedIdSet.contains(id)
       then {
-        val msg = "TODO: Channel id used and omitted"
+        val entry = d.tlmChannelEntryMap(id)
+        val channelName = entry.getName
+        val usedLoc = usedIdLocationMap(id)
+        val omittedLoc = tpg.omittedLocationMap(id)
+        val msg = s"""|telemetry channel $channelName is both used and marked omitted
+                      |
+                      |used here:
+                      |$usedLoc
+                      |
+                      |marked omitted here:
+                      |$omittedLoc""".stripMargin
         Left(SemanticError.InvalidTlmPacketGroup(groupLoc, groupName, msg))
       }
       else Right(())

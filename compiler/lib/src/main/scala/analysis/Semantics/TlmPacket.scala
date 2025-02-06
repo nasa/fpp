@@ -11,8 +11,8 @@ final case class TlmPacket(
   level: Int,
   /** The identifiers for the member channels */
   memberIdList: List[TlmChannel.Id],
-  /** The map from each member IDs to a location where a member
-   *  wth that ID is specified.
+  /** The map from each member ID to a location where a member
+   *  with that ID is specified.
    *  If more than one member has this ID, the map contains the
    *  last location. */
   memberLocationMap: Map[TlmChannel.Id, Location]
