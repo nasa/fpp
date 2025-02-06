@@ -46,7 +46,10 @@ case class ComponentDataProducts (
     addAccessTagAndComment(
       "PROTECTED",
       "Handlers to implement for data products",
-      containersByName.map((id, container) => getDpRecvHandler(container.getName)),
+      productRequestPort match {
+        case None => Nil
+        case _ => containersByName.map((id, container) => getDpRecvHandler(container.getName))
+      },
       CppDoc.Lines.Hpp
     )
 
