@@ -208,6 +208,9 @@ sealed trait Error {
         System.err.println(defLoc)
       case SemanticError.InvalidTlmChannelName(loc, channelName, componentName) =>
         Error.print (Some(loc)) (s"$channelName is not a telemetry channel of component $componentName")
+      case SemanticError.InvalidTlmPacketGroup(loc, name, msg) =>
+        Error.print (Some(loc)) (s"invalid telemetry packet group $name")
+        System.err.println(msg)
       case SemanticError.InvalidType(loc, msg) =>
         Error.print (Some(loc)) (msg)
       case SemanticError.MismatchedPortNumbers(
@@ -569,6 +572,12 @@ object SemanticError {
     loc: Location,
     channelName: String,
     componentName: String
+  ) extends Error
+  /** Invalid telemetry packet */
+  final case class InvalidTlmPacketGroup(
+    loc: Location,
+    name: String,
+    msg: String
   ) extends Error
   /** Invalid type */
   final case class InvalidType(loc: Location, msg: String) extends Error

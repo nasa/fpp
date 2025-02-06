@@ -46,7 +46,7 @@ final case class TlmPacketGroup(
   }
 
   /** Gets the channels used in the packet group */
-  def getUsedChannelIds: Set[TlmChannel.Id] =
+  def getUsedIdSet: Set[TlmChannel.Id] =
     packetMap.values.toSet.flatMap(_.memberIdList.toSet)
 
   /** Gets the used ID location map for the packet group */
@@ -57,7 +57,7 @@ final case class TlmPacketGroup(
 
 object TlmPacketGroup {
 
-  /** Computes the omitted channels */
+  // Computes the omitted channels
   private def computeOmittedChannels
     (a: Analysis, d: Dictionary, t: Topology)
     (tpg: TlmPacketGroup):
@@ -79,13 +79,45 @@ object TlmPacketGroup {
     }
   }
 
-  /** Checks that each channel is either used or omitted */
+  // Checks that each channel is either used or omitted
   private def checkChannelUsage
     (a: Analysis, d: Dictionary, t: Topology)
     (tpg: TlmPacketGroup):
   Result.Result[Unit] = {
-    // TODO
-    Right(())
+    val usedIdSet = tpg.getUsedIdSet
+    val usedIdLocationMap = tpg.getUsedIdLocationMap
+    lazy val groupName = tpg.getName
+    lazy val groupLoc = Locations.get(tpg.aNode._2.id)
+    def checkIdUsedOrOmitted(id: TlmChannel.Id) =
+      if !usedIdSet.contains(id) && !tpg.omittedIdSet.contains(id)
+      then {
+        val entry = d.tlmChannelEntryMap(id)
+        val channelName = entry.getName
+        val instanceLoc = t.instanceMap(entry.instance)._2
+        val channelLoc = entry.tlmChannel.getLoc
+        val msg = s"""|telemetry channel $channelName is neither used nor marked as omitted
+                      |
+                      |component instance is defined here:
+                      |$instanceLoc
+                      |
+                      |telemetry channel is specified here:
+                      |$channelLoc""".stripMargin
+        Left(SemanticError.InvalidTlmPacketGroup(groupLoc, groupName, msg))
+      }
+      else Right(())
+    def checkIdNotUsedAndOmitted(id: TlmChannel.Id) =
+      if usedIdSet.contains(id) && tpg.omittedIdSet.contains(id)
+      then {
+        val msg = "TODO: Channel id used and omitted"
+        Left(SemanticError.InvalidTlmPacketGroup(groupLoc, groupName, msg))
+      }
+      else Right(())
+    def checkId(id: TlmChannel.Id) = for {
+      _ <- checkIdUsedOrOmitted(id)
+      _ <- checkIdNotUsedAndOmitted(id)
+    } yield ()
+    val ids = d.tlmChannelEntryMap.keys.toList
+    Result.foldLeft (ids) (()) { case (_, id) => checkId(id) }
   }
 
   /** Completes a telemetry packet group definition */
