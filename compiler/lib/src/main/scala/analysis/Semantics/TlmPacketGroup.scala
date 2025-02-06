@@ -11,8 +11,10 @@ final case class TlmPacketGroup(
   packetMap: Map[TlmPacket.Id, TlmPacket] = Map(),
   /** The next default packet ID */
   defaultPacketId: TlmPacket.Id = 0,
+  /** The set of used channel IDs */
+  usedChannelSet: Set[TlmChannel.Id] = Set(),
   /** The set of omitted channel IDs */
-  omitted: Set[TlmChannel.Id] = Set()
+  omittedChannelSet: Set[TlmChannel.Id] = Set()
 ) {
 
   /** Gets the name of the packet */
@@ -54,7 +56,7 @@ object TlmPacketGroup {
       TlmChannelIdentifier.getNumericIdForNode (a, d, t)
     )
   }
-  yield tpg.copy(omitted = omitted.toSet)
+  yield tpg.copy(omittedChannelSet = omitted.toSet)
 
   /** Checks that each channel is either used or omitted */
   private def checkChannelUsage
