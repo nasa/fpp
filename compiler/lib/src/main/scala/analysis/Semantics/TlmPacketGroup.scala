@@ -14,7 +14,7 @@ final case class TlmPacketGroup(
   /** The set of omitted channel IDs */
   omittedIdSet: Set[TlmChannel.Id] = Set(),
   /** The map from each omitted channel ID to a location
-   *  where the channel is marked omitted.
+   *  where the channel is marked as omitted.
    *  If the channel appears more than once in the omitted list in
    *  the source model, the map contains the last location. */
   omittedLocationMap: Map[TlmChannel.Id, Location] = Map()
