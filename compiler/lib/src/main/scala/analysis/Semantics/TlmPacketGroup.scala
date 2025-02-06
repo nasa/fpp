@@ -13,8 +13,11 @@ final case class TlmPacketGroup(
   defaultPacketId: TlmPacket.Id = 0,
   /** The set of omitted channel IDs */
   omittedIdSet: Set[TlmChannel.Id] = Set(),
-  /** The map from omitted channel IDs to their locations */
-  omittedIdLocationMap: Map[TlmChannel.Id, Location] = Map()
+  /** The map from each omitted channel IDs to a location
+   *  where the omitted channel is specified.
+   *  If the omitted channel appears more than once in the source
+   *  model, the map contains the last location. */
+  omittedLocationMap: Map[TlmChannel.Id, Location] = Map()
 ) {
 
   /** Gets the name of the packet */
@@ -44,7 +47,7 @@ final case class TlmPacketGroup(
 
   /** Gets the channels used in the packet group */
   def getUsedChannelIds: Set[TlmChannel.Id] =
-    packetMap.values.toSet.flatMap(_.memberIds.toSet)
+    packetMap.values.toSet.flatMap(_.memberIdList.toSet)
 
   /** Gets the used ID location map for the packet group */
   def getUsedIdLocationMap: Map[TlmChannel.Id, Location] =
@@ -59,19 +62,19 @@ object TlmPacketGroup {
     (a: Analysis, d: Dictionary, t: Topology)
     (tpg: TlmPacketGroup):
   Result.Result[TlmPacketGroup] = {
-    val omittedNodeList = tpg.aNode._2.data.omitted
+    val nodeList = tpg.aNode._2.data.omitted
     for {
-      omittedIdList <- Result.map(
-        omittedNodeList,
+      idList <- Result.map(
+        nodeList,
         TlmChannelIdentifier.getNumericIdForNode (a, d, t)
       )
     }
     yield {
-      val locs = omittedNodeList.map(node => Locations.get(node.id))
-      val locationMap = omittedIdList.zip(locs).toMap
+      val locs = nodeList.map(node => Locations.get(node.id))
+      val locationMap = idList.zip(locs).toMap
       tpg.copy(
-        omittedIdSet = omittedIdList.toSet,
-        omittedIdLocationMap = locationMap
+        omittedIdSet = idList.toSet,
+        omittedLocationMap = locationMap
       )
     }
   }

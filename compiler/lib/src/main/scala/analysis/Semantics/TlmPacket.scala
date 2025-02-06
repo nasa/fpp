@@ -10,8 +10,11 @@ final case class TlmPacket(
   /** The level */
   level: Int,
   /** The identifiers for the member channels */
-  memberIds: List[TlmChannel.Id],
-  /** The map from member IDs to the locations where the members are defined */
+  memberIdList: List[TlmChannel.Id],
+  /** The map from each member IDs to a location where a member
+   *  wth that ID is specified.
+   *  If more than one member has this ID, the map contains the
+   *  last location. */
   memberLocationMap: Map[TlmChannel.Id, Location]
 ) {
 
@@ -41,15 +44,15 @@ object TlmPacket {
     }
     for {
       level <- a.getNonnegativeIntValue(data.level.id)
-      memberIds <- Result.map (
+      idList <- Result.map (
         members,
         TlmChannelIdentifier.getNumericIdForNode (a, d, t)
       )
     }
     yield {
       val locs = members.map(node => Locations.get(node.id))
-      val locationMap = memberIds.zip(locs).toMap
-      TlmPacket(aNode, level, memberIds, locationMap)
+      val locationMap = idList.zip(locs).toMap
+      TlmPacket(aNode, level, idList, locationMap)
     }
   }
 
