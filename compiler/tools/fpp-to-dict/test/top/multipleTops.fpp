@@ -278,6 +278,10 @@ module Module1 {
         Module1.myFirstC1.TlmChannel1
         Module1.myFirstC1.TlmChannel2
       }
+
+      packet MyTlmPacket2 id 1 level 1 {
+        Module1.myFirstC1.TlmChannel3
+      }
     }
   }
 

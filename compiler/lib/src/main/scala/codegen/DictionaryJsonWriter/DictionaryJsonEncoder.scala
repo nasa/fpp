@@ -503,6 +503,7 @@ case class DictionaryJsonEncoder(
                 "name" -> entry._1.toString.asJson,
                 "members" -> entry._2.packetMap.map((id, packet) => {
                     Json.obj(
+                        "name" -> packet.getName.asJson,
                         "id" -> id.asJson,
                         "level" -> packet.level.asJson,
                         "members" -> packet.members.map(packetId => {
@@ -510,7 +511,7 @@ case class DictionaryJsonEncoder(
                             s"${e.instance.toString}.${e.tlmChannel.getName}"
                         }).toList.sorted.asJson
                     )
-                }).toList.asJson,
+                }).asJson,
                 "omitted" -> List().asJson
             )
         }
