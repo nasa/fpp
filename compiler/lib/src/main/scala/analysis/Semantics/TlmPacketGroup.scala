@@ -11,10 +11,10 @@ final case class TlmPacketGroup(
   packetMap: Map[TlmPacket.Id, TlmPacket] = Map(),
   /** The next default packet ID */
   defaultPacketId: TlmPacket.Id = 0,
-  /** The set of used channel IDs */
-  usedChannelSet: Set[TlmChannel.Id] = Set(),
   /** The set of omitted channel IDs */
-  omittedChannelSet: Set[TlmChannel.Id] = Set()
+  omittedIdSet: Set[TlmChannel.Id] = Set(),
+  /** The map from omitted channel IDs to their locations */
+  omittedIdLocationMap: Map[TlmChannel.Id, Location] = Map()
 ) {
 
   /** Gets the name of the packet */
@@ -42,21 +42,39 @@ final case class TlmPacketGroup(
     )
   }
 
+  /** Gets the channels used in the packet group */
+  def getUsedChannelIds: Set[TlmChannel.Id] =
+    packetMap.values.toSet.flatMap(_.memberIds.toSet)
+
+  /** Gets the used ID location map for the packet group */
+  def getUsedIdLocationMap: Map[TlmChannel.Id, Location] =
+    packetMap.values.flatMap(_.memberLocationMap).toMap
+
 }
 
 object TlmPacketGroup {
 
-  /** Constructs the set of omitted channels */
-  private def constructOmittedSet
+  /** Computes the omitted channels */
+  private def computeOmittedChannels
     (a: Analysis, d: Dictionary, t: Topology)
     (tpg: TlmPacketGroup):
-  Result.Result[TlmPacketGroup] = for {
-    omitted <- Result.map(
-      tpg.aNode._2.data.omitted,
-      TlmChannelIdentifier.getNumericIdForNode (a, d, t)
-    )
+  Result.Result[TlmPacketGroup] = {
+    val omittedNodeList = tpg.aNode._2.data.omitted
+    for {
+      omittedIdList <- Result.map(
+        omittedNodeList,
+        TlmChannelIdentifier.getNumericIdForNode (a, d, t)
+      )
+    }
+    yield {
+      val locs = omittedNodeList.map(node => Locations.get(node.id))
+      val locationMap = omittedIdList.zip(locs).toMap
+      tpg.copy(
+        omittedIdSet = omittedIdList.toSet,
+        omittedIdLocationMap = locationMap
+      )
+    }
   }
-  yield tpg.copy(omittedChannelSet = omitted.toSet)
 
   /** Checks that each channel is either used or omitted */
   private def checkChannelUsage
@@ -67,7 +85,7 @@ object TlmPacketGroup {
     Right(())
   }
 
-  /** Complete a telemetry packet group definition */
+  /** Completes a telemetry packet group definition */
   def complete(a: Analysis, d: Dictionary, t: Topology) (tpg: TlmPacketGroup):
   Result.Result[TlmPacketGroup] = for {
     _ <- Analysis.checkDictionaryNames(
@@ -76,7 +94,7 @@ object TlmPacketGroup {
       _.getName,
       _.getLoc
     )
-    tpg <- constructOmittedSet (a, d, t) (tpg)
+    tpg <- computeOmittedChannels (a, d, t) (tpg)
     _ <- checkChannelUsage (a, d, t) (tpg)
   }
   yield tpg
