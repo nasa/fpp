@@ -48,13 +48,15 @@ object TlmPacketGroup {
   private def constructOmittedSet
     (a: Analysis, d: Dictionary, t: Topology)
     (tpg: TlmPacketGroup):
-  Result.Result[TlmPacketGroup] = {
-    // TODO
-    Right(tpg)
+  Result.Result[TlmPacketGroup] = for {
+    omitted <- Result.map(
+      tpg.aNode._2.data.omitted,
+      TlmChannelIdentifier.getNumericIdForNode (a, d, t)
+    )
   }
+  yield tpg.copy(omitted = omitted.toSet)
 
-
-  /** Checks that each channel is used or omitted */
+  /** Checks that each channel is either used or omitted */
   private def checkChannelUsage
     (a: Analysis, d: Dictionary, t: Topology)
     (tpg: TlmPacketGroup):
@@ -74,6 +76,7 @@ object TlmPacketGroup {
     )
     tpg <- constructOmittedSet (a, d, t) (tpg)
     _ <- checkChannelUsage (a, d, t) (tpg)
-  } yield tpg
+  }
+  yield tpg
 
 }

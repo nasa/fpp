@@ -47,9 +47,8 @@ object TlmPacket {
     tlmPacketMember match {
       case Ast.TlmPacketMember.SpecInclude(_) => Right(channelSet)
       case Ast.TlmPacketMember.TlmChannelIdentifier(node) =>
-        for {
-          channelId <- TlmChannelIdentifier.fromNode(a, node)
-          numericId <- d.findNumericIdForChannel (t) (channelId)
+        for { 
+          numericId <- TlmChannelIdentifier.getNumericIdForNode (a, d, t) (node) 
         }
         yield channelSet + numericId
     }
