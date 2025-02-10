@@ -155,9 +155,12 @@ case class ComponentImplWriter(
     addAccessTagAndComment(
       "PRIVATE",
       s"Handler implementations for data products",
-      containersByName.map(
-        (id, container) => getDpRecvHandler(container.getName, lines("// TODO"))
-      )
+      productRequestPort match {
+        case None => Nil
+        case _ => containersByName.map(
+          (id, container) => getDpRecvHandler(container.getName, lines("// TODO"))
+        )
+      }
     )
 
   private def getDestructor: CppDoc.Class.Member =

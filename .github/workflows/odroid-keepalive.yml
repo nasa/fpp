@@ -1,0 +1,23 @@
+# The purpose of this workflow is to prevent the Odroid (self-hosted) runner 
+# from being de-registered by GitHub due to inactivity.
+# We only use the Odroid on FPP releases, but runners get de-registered after 14 days 
+# of idling.
+# See https://github.com/orgs/community/discussions/58146
+# https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/removing-self-hosted-runners#removing-a-runner-from-a-repository
+
+
+name: Odroid Keepalive
+
+on:
+  # workflow_dispatch allows for manual trigger in the repo 'Actions' tab
+  workflow_dispatch:
+  # run every Monday 8am
+  schedule:
+    - cron: '0 8 * * 1'
+
+jobs:
+  keepAlive:
+    runs-on: odroid
+    steps:
+      - name: Echo a message
+        run: echo I am still alive!
