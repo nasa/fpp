@@ -516,7 +516,7 @@ case class DictionaryJsonEncoder(
                         }).asJson
                     )
                 }).asJson,
-                "omitted" -> entry._2.omittedIdSet.map((tlmId) => {
+                "omitted" -> entry._2.omittedIdSet.map(tlmId => {
                     val e = dictionary.tlmChannelEntryMap(tlmId)
                     s"${e.instance.toString}.${e.tlmChannel.getName}"
                 }).toList.sorted.asJson
