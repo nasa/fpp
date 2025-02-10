@@ -56,4 +56,15 @@ object TlmChannelIdentifier {
       )
     }
 
+  /** Gets a numeric channel identifier from an AST node */
+  def getNumericIdForNode
+    (a: Analysis, d: Dictionary, t: Topology)
+    (node: AstNode[Ast.TlmChannelIdentifier]):
+  Result.Result[BigInt] =
+    for {
+      channelId <- TlmChannelIdentifier.fromNode(a, node)
+      numericId <- d.findNumericIdForChannel (t) (channelId)
+    }
+    yield numericId
+
 }

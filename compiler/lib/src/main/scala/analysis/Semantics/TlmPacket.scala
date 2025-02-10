@@ -5,9 +5,17 @@ import fpp.compiler.util._
 
 /** An FPP telemetry packet */
 final case class TlmPacket(
+  /** The AST node for the packet */
   aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacket]],
+  /** The level */
   level: Int,
-  members: Set[TlmChannel.Id]
+  /** The identifiers for the member channels */
+  memberIdList: List[TlmChannel.Id],
+  /** The map from each member ID to a location where a member
+   *  with that ID is specified.
+   *  If more than one member has this ID, the map contains the
+   *  last location. */
+  memberLocationMap: Map[TlmChannel.Id, Location]
 ) {
 
   /** Gets the name of the packet */
@@ -31,27 +39,21 @@ object TlmPacket {
   ): Result.Result[TlmPacket] = {
     val node = aNode._2
     val data = node.data
-    val members = Set[TlmChannel.Id]()
+    val members = data.members.collect {
+      case Ast.TlmPacketMember.TlmChannelIdentifier(node) => node
+    }
     for {
       level <- a.getNonnegativeIntValue(data.level.id)
-      members <- Result.foldLeft (data.members) (members) (addIdForMember(a, d, t))
+      idList <- Result.map (
+        members,
+        TlmChannelIdentifier.getNumericIdForNode (a, d, t)
+      )
     }
-    yield TlmPacket(aNode, level, members)
+    yield {
+      val locs = members.map(node => Locations.get(node.id))
+      val locationMap = idList.zip(locs).toMap
+      TlmPacket(aNode, level, idList, locationMap)
+    }
   }
-
-  // Adds the numeric channel ID for a telemetry packet member to a set of channel IDs
-  private def addIdForMember
-    (a: Analysis, d: Dictionary, t: Topology)
-    (channelSet: Set[TlmChannel.Id], tlmPacketMember: Ast.TlmPacketMember):
-  Result.Result[Set[TlmChannel.Id]] =
-    tlmPacketMember match {
-      case Ast.TlmPacketMember.SpecInclude(_) => Right(channelSet)
-      case Ast.TlmPacketMember.TlmChannelIdentifier(node) =>
-        for {
-          channelId <- TlmChannelIdentifier.fromNode(a, node)
-          numericId <- d.findNumericIdForChannel (t) (channelId)
-        }
-        yield channelSet + numericId
-    }
 
 }
