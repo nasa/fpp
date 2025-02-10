@@ -30,8 +30,12 @@ case class DictionaryJsonEncoder(
     dictionaryState: DictionaryJsonEncoderState
 ) {
     /** Dictionary entry map to JSON */
-    private def dictionaryEntryMapAsJson[A, B] (f1: (A, B) => Json) (map: Map[A, B]) (implicit ord: Ordering[A]): Json =
-        (map.toList.sortBy(_._1)(ord).map { case (key, value) => f1(key, value) }).toList.asJson
+    private def dictionaryEntryMapAsJson[A <: BigInt, B] (f1: (A, B) => Json) (map: Map[A, B]): Json =
+        (map.toList.sortBy(_._1).map { case (key, value) => f1(key, value) }).asJson
+
+    /** Dictionary telemetry packet group map to JSON */
+    private def dictionaryTlmPacketGroupMapAsJson[A <: String, TlmPacketGroup](f1: (A, TlmPacketGroup) => Json) (map: Map[A, TlmPacketGroup]): Json =
+        (map.toList.sortBy(_._1).map { case (key, value) => f1(key, value) }).asJson
 
     /** Dictionary symbol set to JSON */
     private def dictionarySymbolSetAsJson[A] (f1: A => Json) (set: Set[A]): Json =
@@ -96,7 +100,7 @@ case class DictionaryJsonEncoder(
 
     private implicit val tlmPacketGroupMapEncoder: Encoder[Map[Name.Unqualified, TlmPacketGroup]] = {
         def f1(name: Name.Unqualified, group: TlmPacketGroup) = (name -> group).asJson
-        Encoder.instance (dictionaryEntryMapAsJson (f1) _)
+        Encoder.instance (dictionaryTlmPacketGroupMapAsJson (f1) _)
     }
 
     /** JSON Encoding for FPP Types */
@@ -506,13 +510,16 @@ case class DictionaryJsonEncoder(
                         "name" -> packet.getName.asJson,
                         "id" -> id.asJson,
                         "level" -> packet.level.asJson,
-                        "members" -> packet.members.map(packetId => {
-                            val e = dictionary.tlmChannelEntryMap(packetId)
+                        "members" -> packet.memberIdList.map(tlmId => {
+                            val e = dictionary.tlmChannelEntryMap(tlmId)
                             s"${e.instance.toString}.${e.tlmChannel.getName}"
-                        }).toList.sorted.asJson
+                        }).asJson
                     )
                 }).asJson,
-                "omitted" -> List().asJson
+                "omitted" -> entry._2.omittedIdSet.map((tlmId) => {
+                    val e = dictionary.tlmChannelEntryMap(tlmId)
+                    s"${e.instance.toString}.${e.tlmChannel.getName}"
+                }).toList.sorted.asJson
             )
         }
     }
