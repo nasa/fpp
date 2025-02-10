@@ -2,8 +2,6 @@ package fpp.compiler.analysis
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
-import fpp.compiler.ast.Ast.Annotated
-import fpp.compiler.ast.Ast.DefAliasType
 
 /** Compute and check expression types, except for array sizes
  *  and default values */

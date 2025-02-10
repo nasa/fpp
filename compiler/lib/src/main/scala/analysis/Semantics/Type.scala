@@ -3,7 +3,6 @@ package fpp.compiler.analysis
 import fpp.compiler.ast._
 import fpp.compiler.util._
 import java.lang
-import scala.annotation.constructorOnly
 
 /** An FPP Type */
 sealed trait Type {

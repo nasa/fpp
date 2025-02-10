@@ -20,7 +20,7 @@ AliasType ::
 }
 
 AliasType ::
-  AliasType(T t) :
+  AliasType(U16 t) :
     Serializable(),
     m_t(t)
 {
@@ -126,13 +126,13 @@ void AliasType ::
 // ----------------------------------------------------------------------
 
 void AliasType ::
-  set(T t)
+  set(U16 t)
 {
   this->m_t = t;
 }
 
 void AliasType ::
-  sett(T t)
+  sett(U16 t)
 {
   this->m_t = t;
 }

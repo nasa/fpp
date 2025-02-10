@@ -106,7 +106,7 @@ class AliasType :
     // ----------------------------------------------------------------------
 
     //! Get member t
-    T gett() const
+    U16 gett() const
     {
       return this->m_t;
     }
