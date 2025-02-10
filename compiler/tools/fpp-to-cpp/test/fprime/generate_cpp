@@ -20,8 +20,6 @@ do
   done
 done
 
-mv *TypeAc.* config
-
 # Move files into place by name prefix
 for dir in Buffer Cmd Dp Log Prm Time Tlm
 do

@@ -1,17 +1,17 @@
-type FwBuffSizeType = FwSizeStoreType
-type FwChanIdType = U32
-type FwDpIdType = U32
-type FwDpPriorityType = U32
-type FwEnumStoreType = I32
-type FwEventIdType = U32
-type FwIndexType = I32
-type FwOpcodeType = U32
-type FwPacketDescriptorType = U32
-type FwPrmIdType = U32
-type FwSizeStoreType = U16
-type FwSizeType = U32
-type FwTimeBaseStoreType = U16
-type FwTimeContextStoreType = U8
-type FwTlmPacketizeIdType = U16
-type FwTraceIdType = U32
-type POINTER_CAST = U64
+type FwBuffSizeType
+type FwChanIdType
+type FwDpIdType
+type FwDpPriorityType
+type FwEnumStoreType
+type FwEventIdType
+type FwIndexType
+type FwOpcodeType
+type FwPacketDescriptorType
+type FwPrmIdType
+type FwSizeStoreType
+type FwSizeType
+type FwTimeBaseStoreType
+type FwTimeContextStoreType
+type FwTlmPacketizeIdType
+type FwTraceIdType
+type POINTER_CAST

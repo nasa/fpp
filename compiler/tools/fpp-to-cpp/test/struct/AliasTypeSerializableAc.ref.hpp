@@ -11,7 +11,6 @@
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
-#include "TTypeAc.hpp"
 
 class AliasType :
   public Fw::Serializable
@@ -26,7 +25,7 @@ class AliasType :
     enum {
       //! The size of the serial representation
       SERIALIZED_SIZE =
-        sizeof(T)
+        sizeof(U16)
     };
 
   public:
@@ -39,7 +38,7 @@ class AliasType :
     AliasType();
 
     //! Member constructor
-    AliasType(T t);
+    AliasType(U16 t);
 
     //! Copy constructor
     AliasType(
@@ -117,10 +116,10 @@ class AliasType :
     // ----------------------------------------------------------------------
 
     //! Set all members
-    void set(T t);
+    void set(U16 t);
 
     //! Set member t
-    void sett(T t);
+    void sett(U16 t);
 
   protected:
 
@@ -128,7 +127,7 @@ class AliasType :
     // Member variables
     // ----------------------------------------------------------------------
 
-    T m_t;
+    U16 m_t;
 
 };
 

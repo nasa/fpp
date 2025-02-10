@@ -2,6 +2,7 @@ package fpp.compiler.codegen
 
 import fpp.compiler.analysis._
 import fpp.compiler.util._
+import scala.annotation.switch
 
 /** Write an FPP type as C++ */
 case class TypeCppWriter(
@@ -17,7 +18,8 @@ case class TypeCppWriter(
       s.writeSymbol(Symbol.AbsType(t.node))
 
     override def aliasType(s: CppWriterState, t: Type.AliasType) =
-      s.writeSymbol(Symbol.AliasType(t.node))
+      // TODO(tumbar) Keep the aliased type name in codegen
+      this.matchType(s, t.getUnderlyingType)
 
     override def array(s: CppWriterState, t: Type.Array) =
       s.writeSymbol(Symbol.Array(t.node))

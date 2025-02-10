@@ -2,8 +2,6 @@ package fpp.compiler.codegen
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
-import fpp.compiler.ast.Ast.Annotated
-import fpp.compiler.ast.Ast.DefAliasType
 
 /** Write out an FPP AST */
 object AstWriter extends AstVisitor with LineUtils {
@@ -16,7 +14,7 @@ object AstWriter extends AstVisitor with LineUtils {
 
   override def defAliasTypeAnnotatedNode(
     in: Unit,
-    aNode: Ast.Annotated[AstNode[DefAliasType]]): Out = {
+    aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]): Out = {
       val (_, node, _) = aNode
       lines("def alias type") ++ (
         ident(node.data.name) ++

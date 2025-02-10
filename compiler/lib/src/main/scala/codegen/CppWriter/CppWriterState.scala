@@ -2,6 +2,7 @@ package fpp.compiler.codegen
 
 import fpp.compiler.analysis.*
 import fpp.compiler.util.*
+import fpp.compiler.codegen.CppWriterState.builtInTypes
 
 /** C++ Writer state */
 case class CppWriterState(
@@ -134,10 +135,10 @@ case class CppWriterState(
       val name = getName(sym)
       for {
         fileName <- sym match {
-          case _: Symbol.AbsType => Some(name)
-          case _: Symbol.AliasType => Some(
-            ComputeCppFiles.FileNames.getAliasType(name)
-          )
+          case _: Symbol.AbsType =>
+              if isBuiltInType(name) then None else Some(name)
+          // TODO(tumbar) Compute the includes for alias types
+          case _: Symbol.AliasType => None
           case _: Symbol.Array => Some(
             ComputeCppFiles.FileNames.getArray(name)
           )
@@ -168,8 +169,11 @@ case class CppWriterState(
     usedSymbols.map(getDirectiveForSymbol).filter(_.isDefined).map(_.get).toList
   }
 
+  /** Is t a built-in type? */
+  def isBuiltInType(typeName: String): Boolean = builtInTypes.contains(typeName)
+
   /** Is t a primitive type (not serializable)? */
-  def isPrimitive(t: Type, typeName: String): Boolean  = t.getUnderlyingType.isPrimitive
+  def isPrimitive(t: Type, typeName: String): Boolean  = isBuiltInType(typeName) || t.getUnderlyingType.isPrimitive
 
   /** Is t a string type? */
   def isStringType(t: Type) = t.getUnderlyingType match {
@@ -183,6 +187,28 @@ object CppWriterState {
 
   /** The default default string size */
   val defaultDefaultStringSize = 80
+
+  /** A mapping from special built-in types to their
+   *  default values */
+  val zero: Value.Integer = Value.Integer(0)
+  val builtInTypes: Map[String,Value.Integer] = Map(
+    "FwChanIdType" -> zero,
+    "FwDpIdType" -> zero,
+    "FwDpPriorityType" -> zero,
+    "FwEnumStoreType" -> zero,
+    "FwEventIdType" -> zero,
+    "FwIndexType" -> zero,
+    "FwOpcodeType" -> zero,
+    "FwPacketDescriptorType" -> zero,
+    "FwPrmIdType" -> zero,
+    "FwSignedSizeType" -> zero,
+    "FwSizeStoreType" -> zero,
+    "FwSizeType" -> zero,
+    "FwTimeBaseStoreType" -> zero,
+    "FwTimeContextStoreType" -> zero,
+    "FwTlmPacketizeIdType" -> zero,
+    "FwTraceIdType" -> zero,
+  )
 
   /** Construct a header string */
   def headerString(s: String): String = {

@@ -16,7 +16,6 @@
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/StringType.hpp"
-#include "FwOpcodeTypeTypeAc.hpp"
 
 //! Input BuiltInType port
 //! A port with built-in type parameters

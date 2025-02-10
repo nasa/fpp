@@ -16,7 +16,10 @@ object ValueCppWriter {
     override def absType(s: CppWriterState, v: Value.AbsType) = {
       val aNode = v.t.node
       val cppName = s.writeSymbol(Symbol.AbsType(aNode))
-      TypeCppWriter.getName(s, v.getType) ++ "()"
+      CppWriterState.builtInTypes.get(cppName) match {
+        case Some(v) => write(s, v)
+        case None => TypeCppWriter.getName(s, v.getType) ++ "()"
+      }
     }
 
     override def array(s: CppWriterState, v: Value.Array) = {

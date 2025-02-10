@@ -28,8 +28,7 @@ abs_type()
 alias_type()
 {
   run_test "-p $PWD" alias_type && \
-    diff_cpp AliasTypeSerializable && \
-    diff_cpp TType
+    diff_cpp AliasTypeSerializable
 }
 
 empty()

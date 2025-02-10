@@ -3,21 +3,9 @@ package fpp.compiler.codegen
 import fpp.compiler.analysis._
 import fpp.compiler.ast._
 import fpp.compiler.util._
-import fpp.compiler.ast.Ast.Annotated
-import fpp.compiler.ast.Ast.DefAliasType
 
 /** Writes out C++ for F Prime autocode */
 object AutocodeCppWriter extends CppWriter {
-
-  override def defAliasTypeAnnotatedNode(
-    s: State,
-    aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]
-  ) = {
-    val node = aNode._2
-    val data = node.data
-    val cppDoc = TypeAliasCppWriter(s, aNode).write
-    CppWriter.writeCppDoc(s, cppDoc)
-  }
 
   override def defArrayAnnotatedNode(
     s: State,

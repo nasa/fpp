@@ -75,9 +75,6 @@ object ComputeCppFiles {
     /** Gets the C++ file name for generated arrays */
     def getArray(baseName: String) = s"${baseName}ArrayAc"
 
-    /** Gets the C++ file name for generated type aliases (typedefs) */
-    def getAliasType(baseName: String) = s"${baseName}TypeAc"
-
     /** Gets the C++ file name for generated components */
     def getComponent(baseName: String) = s"${baseName}ComponentAc"
 

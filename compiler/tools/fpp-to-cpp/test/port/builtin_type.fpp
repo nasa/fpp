@@ -1,4 +1,4 @@
-type FwOpcodeType = U32;
+type FwOpcodeType
 
 @ A port with built-in type parameters
 port BuiltInType(
