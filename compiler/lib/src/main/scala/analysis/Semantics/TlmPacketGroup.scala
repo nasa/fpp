@@ -97,7 +97,7 @@ object TlmPacketGroup {
         val channelLoc = entry.tlmChannel.getLoc
         val msg = s"""|telemetry channel $channelName is neither used nor marked as omitted
                       |
-                      |component instance is defined here:
+                      |component instance is specified here:
                       |$instanceLoc
                       |
                       |telemetry channel is specified here:

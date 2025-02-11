@@ -1,6 +1,9 @@
 tests="
 bad_channel
 bad_omit_channel
+channel_neither_used_nor_omitted
+channel_used_and_omitted
+duplicate_group_name
 duplicate_id_explicit
 duplicate_id_implicit
 duplicate_packet_name
