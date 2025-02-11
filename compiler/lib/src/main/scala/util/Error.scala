@@ -48,7 +48,7 @@ sealed trait Error {
       case FileError.CannotResolvePath(loc, name) =>
         Error.print (Some(loc)) (s"cannot resolve path $name")
       case SemanticError.ChannelNotInDictionary(loc, channelName, topologyName) =>
-        Error.print (Some(loc)) (s"channel $channelName is not in dictionary for topology $topologyName")
+        Error.print (Some(loc)) (s"channel $channelName is not in the dictionary for topology $topologyName")
       case SemanticError.DivisionByZero(loc) =>
         Error.print (Some(loc)) ("division by zero")
       case SemanticError.DuplicateConnectionAtMatchedPort(loc, port, portNum, prevLoc, matchingLoc) =>
