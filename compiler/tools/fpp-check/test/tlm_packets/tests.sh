@@ -1,4 +1,5 @@
 tests="
+bad_channel
 ok
 "
 
