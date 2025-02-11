@@ -4,9 +4,9 @@ topology T {
   instance c2
   instance c3
 
-  telemetry packets P {
+  telemetry packets P1 {
 
-    packet P1 level 0 {
+    packet P1 id 0 level 0 {
       c1.T
       c2.T
     }
@@ -18,6 +18,16 @@ topology T {
 
   } omit {
     c3.T
+  }
+
+  telemetry packets P2 {
+
+    packet P1 id 0 level 0 {
+      c1.T
+      c2.T
+      c3.T
+    }
+
   }
 
 }
