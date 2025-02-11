@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/omit_instance_not_defined.fpp:6.5
+    u.T
+    ^
+error: undefined symbol u
