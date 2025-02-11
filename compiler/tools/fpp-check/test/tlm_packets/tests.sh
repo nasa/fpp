@@ -1,5 +1,6 @@
 tests="
 bad_channel
+instance_not_defined
 ok
 "
 
