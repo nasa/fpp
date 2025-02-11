@@ -13,6 +13,7 @@ topology T {
 
     packet P2 level 1 {
       c1.T
+      c1.T
     }
 
   } omit {
