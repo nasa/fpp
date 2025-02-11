@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/negative_level.fpp:5.21
+    packet P1 level -1 {
+                    ^
+error: invalid integer value -1
+value may not be negative
