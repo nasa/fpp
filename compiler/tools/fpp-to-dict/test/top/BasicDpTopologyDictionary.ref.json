@@ -10,26 +10,6 @@
   "typeDefinitions" : [
     {
       "kind" : "struct",
-      "qualifiedName" : "FppTest.DpTestComponent.Data",
-      "members" : {
-        "u16Field" : {
-          "type" : {
-            "name" : "U16",
-            "kind" : "integer",
-            "size" : 16,
-            "signed" : false
-          },
-          "index" : 0,
-          "annotation" : "A U16 field"
-        }
-      },
-      "default" : {
-        "u16Field" : 0
-      },
-      "annotation" : "Data for a DataRecord"
-    },
-    {
-      "kind" : "struct",
       "qualifiedName" : "FppTest.DpTestComponent.Complex",
       "members" : {
         "f1" : {
@@ -58,6 +38,26 @@
         "f2" : 0
       },
       "annotation" : "Data for a ComplexRecord"
+    },
+    {
+      "kind" : "struct",
+      "qualifiedName" : "FppTest.DpTestComponent.Data",
+      "members" : {
+        "u16Field" : {
+          "type" : {
+            "name" : "U16",
+            "kind" : "integer",
+            "size" : 16,
+            "signed" : false
+          },
+          "index" : 0,
+          "annotation" : "A U16 field"
+        }
+      },
+      "default" : {
+        "u16Field" : 0
+      },
+      "annotation" : "Data for a DataRecord"
     }
   ],
   "commands" : [

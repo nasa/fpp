@@ -47,6 +47,8 @@ sealed trait Error {
         Error.print (locOpt) (s"cannot open file $name")
       case FileError.CannotResolvePath(loc, name) =>
         Error.print (Some(loc)) (s"cannot resolve path $name")
+      case SemanticError.ChannelNotInDictionary(loc, channelName, topologyName) =>
+        Error.print (Some(loc)) (s"channel $channelName is not in the dictionary for topology $topologyName")
       case SemanticError.DivisionByZero(loc) =>
         Error.print (Some(loc)) ("division by zero")
       case SemanticError.DuplicateConnectionAtMatchedPort(loc, port, portNum, prevLoc, matchingLoc) =>
@@ -86,6 +88,10 @@ sealed trait Error {
       case SemanticError.DuplicateOutputConnection(loc, portNum, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate connection at output port $portNum")
         printPrevLoc(prevLoc)
+      case SemanticError.DuplicatePacketGroup(name, loc, prevLoc) =>
+        Error.print (Some(loc)) (s"duplicate packet group ${name}")
+        System.err.println("previous group is here:")
+        System.err.println(prevLoc)
       case SemanticError.DuplicateParameter(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate parameter ${name}")
         System.err.println("previous parameter is here:")
@@ -200,6 +206,11 @@ sealed trait Error {
         Error.print (Some(loc)) (s"invalid symbol $name: $msg")
         System.err.println("symbol is defined here:")
         System.err.println(defLoc)
+      case SemanticError.InvalidTlmChannelName(loc, channelName, componentName) =>
+        Error.print (Some(loc)) (s"$channelName is not a telemetry channel of component $componentName")
+      case SemanticError.InvalidTlmPacketGroup(loc, name, msg) =>
+        Error.print (Some(loc)) (s"invalid telemetry packet group $name")
+        System.err.println(msg)
       case SemanticError.InvalidType(loc, msg) =>
         Error.print (Some(loc)) (msg)
       case SemanticError.MismatchedPortNumbers(
@@ -330,6 +341,12 @@ object FileError {
 object SemanticError {
   /** Empty array */
   final case class EmptyArray(loc: Location) extends Error
+  /** Channel not in dictionary */
+  final case class ChannelNotInDictionary(
+    loc: Location,
+    channelName: String,
+    topologyName: String
+  ) extends Error
   /** Division by zero */
   final case class DivisionByZero(loc: Location) extends Error
   /** Duplicate connection at matched port */
@@ -392,6 +409,12 @@ object SemanticError {
   final case class DuplicateOutputConnection(
     loc: Location,
     portNum: Int,
+    prevLoc: Location
+  ) extends Error
+  /** Duplicate packet group */
+  final case class DuplicatePacketGroup(
+    name: String,
+    loc: Location,
     prevLoc: Location
   ) extends Error
   /** Duplicate parameter */
@@ -543,6 +566,18 @@ object SemanticError {
     loc: Location,
     msg: String,
     defLoc: Location
+  ) extends Error
+  /** Invalid telemetry channel identifier name */
+  final case class InvalidTlmChannelName(
+    loc: Location,
+    channelName: String,
+    componentName: String
+  ) extends Error
+  /** Invalid telemetry packet */
+  final case class InvalidTlmPacketGroup(
+    loc: Location,
+    name: String,
+    msg: String
   ) extends Error
   /** Invalid type */
   final case class InvalidType(loc: Location, msg: String) extends Error
