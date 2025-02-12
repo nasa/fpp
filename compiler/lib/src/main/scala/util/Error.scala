@@ -88,7 +88,7 @@ sealed trait Error {
       case SemanticError.DuplicateOutputConnection(loc, portNum, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate connection at output port $portNum")
         printPrevLoc(prevLoc)
-      case SemanticError.DuplicatePacketGroup(name, loc, prevLoc) =>
+      case SemanticError.DuplicatePacketSet(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate packet group ${name}")
         System.err.println("previous group is here:")
         System.err.println(prevLoc)
@@ -208,7 +208,7 @@ sealed trait Error {
         System.err.println(defLoc)
       case SemanticError.InvalidTlmChannelName(loc, channelName, componentName) =>
         Error.print (Some(loc)) (s"$channelName is not a telemetry channel of component $componentName")
-      case SemanticError.InvalidTlmPacketGroup(loc, name, msg) =>
+      case SemanticError.InvalidTlmPacketSet(loc, name, msg) =>
         Error.print (Some(loc)) (s"invalid telemetry packet group $name")
         System.err.println(msg)
       case SemanticError.InvalidType(loc, msg) =>
@@ -412,7 +412,7 @@ object SemanticError {
     prevLoc: Location
   ) extends Error
   /** Duplicate packet group */
-  final case class DuplicatePacketGroup(
+  final case class DuplicatePacketSet(
     name: String,
     loc: Location,
     prevLoc: Location
@@ -574,7 +574,7 @@ object SemanticError {
     componentName: String
   ) extends Error
   /** Invalid telemetry packet */
-  final case class InvalidTlmPacketGroup(
+  final case class InvalidTlmPacketSet(
     loc: Location,
     name: String,
     msg: String

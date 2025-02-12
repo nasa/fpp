@@ -70,7 +70,7 @@ case class Analysis(
   /** The dictionary under construction */
   dictionary: Option[Dictionary] = None,
   /** The telemetry packet group under construction */
-  tlmPacketGroup: Option[TlmPacketGroup] = None
+  tlmPacketSet: Option[TlmPacketSet] = None
 ) {
 
   /** Gets the qualified name of a symbol */

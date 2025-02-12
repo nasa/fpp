@@ -193,15 +193,15 @@ object Parser extends Parsers {
     }
   }
 
-  def specTlmPacketGroup: Parser[Ast.SpecTlmPacketGroup] = {
+  def specTlmPacketSet: Parser[Ast.SpecTlmPacketSet] = {
     def omitted: Parser[List[AstNode[Ast.TlmChannelIdentifier]]] = {
       opt(omit ~>! lbrace ~>! elementSequence(node(tlmChannelIdentifier), comma) <~! rbrace) ^^ {
         case Some(elements) => elements
         case None => Nil
       }
     }
-    (telemetry ~> packets) ~>! ident ~! (lbrace ~>! tlmPacketGroupMembers <~! rbrace) ~! omitted ^^ {
-      case name ~ members ~ omitted => Ast.SpecTlmPacketGroup(name, members, omitted)
+    (telemetry ~> packets) ~>! ident ~! (lbrace ~>! tlmPacketSetMembers <~! rbrace) ~! omitted ^^ {
+      case name ~ members ~ omitted => Ast.SpecTlmPacketSet(name, members, omitted)
     }
   }
 
@@ -753,17 +753,17 @@ object Parser extends Parsers {
       }
     }
 
-  def tlmPacketGroupMemberNode: Parser[Ast.TlmPacketGroupMember.Node] = {
-    node(specInclude) ^^ { case n => Ast.TlmPacketGroupMember.SpecInclude(n) } |
-    node(specTlmPacket) ^^ { case n => Ast.TlmPacketGroupMember.SpecTlmPacket(n) } |
+  def tlmPacketSetMemberNode: Parser[Ast.TlmPacketSetMember.Node] = {
+    node(specInclude) ^^ { case n => Ast.TlmPacketSetMember.SpecInclude(n) } |
+    node(specTlmPacket) ^^ { case n => Ast.TlmPacketSetMember.SpecTlmPacket(n) } |
     failure("telemetry packet group member expected")
   }
 
-  def tlmPacketGroupMembers: Parser[List[Ast.TlmPacketGroupMember]] =
+  def tlmPacketSetMembers: Parser[List[Ast.TlmPacketSetMember]] =
     annotatedElementSequence(
-      tlmPacketGroupMemberNode,
+      tlmPacketSetMemberNode,
       comma,
-      Ast.TlmPacketGroupMember(_)
+      Ast.TlmPacketSetMember(_)
     )
 
   def tlmPacketMember: Parser[Ast.TlmPacketMember] = {
@@ -779,7 +779,7 @@ object Parser extends Parsers {
     node(specCompInstance) ^^ { case n => Ast.TopologyMember.SpecCompInstance(n) } |
     node(specConnectionGraph) ^^ { case n => Ast.TopologyMember.SpecConnectionGraph(n) } |
     node(specInclude) ^^ { case n => Ast.TopologyMember.SpecInclude(n) } |
-    node(specTlmPacketGroup) ^^ { case n => Ast.TopologyMember.SpecTlmPacketGroup(n) } |
+    node(specTlmPacketSet) ^^ { case n => Ast.TopologyMember.SpecTlmPacketSet(n) } |
     node(specTopImport) ^^ { case n => Ast.TopologyMember.SpecTopImport(n) } |
     failure("topology member expected")
   }

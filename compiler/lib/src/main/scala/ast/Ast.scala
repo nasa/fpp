@@ -285,7 +285,7 @@ object Ast {
     final case class SpecCompInstance(node: AstNode[Ast.SpecCompInstance]) extends Node
     final case class SpecConnectionGraph(node: AstNode[Ast.SpecConnectionGraph]) extends Node
     final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
-    final case class SpecTlmPacketGroup(node: AstNode[Ast.SpecTlmPacketGroup]) extends Node
+    final case class SpecTlmPacketSet(node: AstNode[Ast.SpecTlmPacketSet]) extends Node
     final case class SpecTopImport(node: AstNode[Ast.SpecTopImport]) extends Node
   }
 
@@ -749,9 +749,9 @@ object Ast {
   )
 
   /** Telemetry packet group specifier */
-  final case class SpecTlmPacketGroup(
+  final case class SpecTlmPacketSet(
     name: Ident,
-    members: List[TlmPacketGroupMember],
+    members: List[TlmPacketSetMember],
     omitted: List[AstNode[TlmChannelIdentifier]]
   )
 
@@ -776,8 +776,8 @@ object Ast {
   )
 
   /** Telemetry packet group member */
-  final case class TlmPacketGroupMember(node: Annotated[TlmPacketGroupMember.Node])
-  object TlmPacketGroupMember {
+  final case class TlmPacketSetMember(node: Annotated[TlmPacketSetMember.Node])
+  object TlmPacketSetMember {
     sealed trait Node
     final case class SpecInclude(node: AstNode[Ast.SpecInclude])
       extends Node

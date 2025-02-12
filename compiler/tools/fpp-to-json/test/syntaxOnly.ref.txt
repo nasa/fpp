@@ -1864,7 +1864,7 @@
                                     [
                                     ],
                                     {
-                                      "SpecTlmPacketGroup" : {
+                                      "SpecTlmPacketSet" : {
                                         "node" : {
                                           "AstNode" : {
                                             "data" : {

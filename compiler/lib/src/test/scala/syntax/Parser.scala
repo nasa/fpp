@@ -223,9 +223,9 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
-  "def tlmPacketGroup OK" should {
+  "def tlmPacketSet OK" should {
     parseAllOK(
-      Parser.specTlmPacketGroup,
+      Parser.specTlmPacketSet,
       List(
         """telemetry packets P {
              @ P1

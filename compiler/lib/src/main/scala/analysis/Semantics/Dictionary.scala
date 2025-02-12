@@ -21,7 +21,7 @@ final case class Dictionary(
   /** The map from global IDs to container entries */
   containerEntryMap: Map[Container.Id, Dictionary.ContainerEntry] = Map(),
   /** The map from packet group names to packet groups */
-  tlmPacketGroupMap: Map[Name.Unqualified, TlmPacketGroup] = Map()
+  tlmPacketSetMap: Map[Name.Unqualified, TlmPacketSet] = Map()
 ) {
 
   /** Updates the reverse tlm channel entry map */
@@ -50,17 +50,17 @@ final case class Dictionary(
   }
 
   /** Adds a telemetry channel packet group to the packet group map */
-  def addTlmPacketGroup(group: TlmPacketGroup):
+  def addTlmPacketSet(group: TlmPacketSet):
   Result.Result[Dictionary] = {
     val name = group.getName
-    tlmPacketGroupMap.get(name) match {
+    tlmPacketSetMap.get(name) match {
       case Some(prevGroup) =>
         val loc = group.getLoc
         val prevLoc = prevGroup.getLoc
-        Left(SemanticError.DuplicatePacketGroup(name, loc, prevLoc))
+        Left(SemanticError.DuplicatePacketSet(name, loc, prevLoc))
       case None =>
-        val tlmPacketGroupMap = this.tlmPacketGroupMap + (name -> group)
-        val dictionary = this.copy(tlmPacketGroupMap = tlmPacketGroupMap)
+        val tlmPacketSetMap = this.tlmPacketSetMap + (name -> group)
+        val dictionary = this.copy(tlmPacketSetMap = tlmPacketSetMap)
         Right(dictionary)
     }
   }

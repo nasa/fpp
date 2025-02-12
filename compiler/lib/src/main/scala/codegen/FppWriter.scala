@@ -86,9 +86,9 @@ object FppWriter extends AstVisitor with LineUtils {
     annotate(a1, l, a2)
   }
 
-  def tlmPacketGroupMember(member: Ast.TlmPacketGroupMember): Out = {
+  def tlmPacketSetMember(member: Ast.TlmPacketSetMember): Out = {
     val (a1, _, a2) = member.node
-    val l = matchTlmPacketGroupMember((), member)
+    val l = matchTlmPacketSetMember((), member)
     annotate(a1, l, a2)
   }
 
@@ -662,9 +662,9 @@ object FppWriter extends AstVisitor with LineUtils {
       )
   }
 
-  override def specTlmPacketGroupAnnotatedNode(
+  override def specTlmPacketSetAnnotatedNode(
     in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketGroup]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketSet]]
   ) = {
     val (_, node, _) = aNode
     val data = node.data
@@ -672,7 +672,7 @@ object FppWriter extends AstVisitor with LineUtils {
       joinNoIndent (" ") (
         addBraces(
           Line.blank ::
-          (Line.blankSeparated (tlmPacketGroupMember) (data.members) :+ Line.blank)
+          (Line.blankSeparated (tlmPacketSetMember) (data.members) :+ Line.blank)
         )
       ).
       joinNoIndent (" omit ") (

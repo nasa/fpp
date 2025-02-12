@@ -618,9 +618,9 @@ object AstWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
-  override def specTlmPacketGroupAnnotatedNode(
+  override def specTlmPacketSetAnnotatedNode(
     in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketGroup]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketSet]]
   ) = {
     val (_, node, _) = aNode
     val data = node.data
@@ -630,7 +630,7 @@ object AstWriter extends AstVisitor with LineUtils {
         ident(data.name),
         List.concat(
           lines("members"),
-          data.members.flatMap(tlmPacketGroupMember).map(indentIn)
+          data.members.flatMap(tlmPacketSetMember).map(indentIn)
         ),
         List.concat(
           lines("omitted"),
@@ -848,8 +848,8 @@ object AstWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
-  private def tlmPacketGroupMember(member: Ast.TlmPacketGroupMember) = {
-    val l = matchTlmPacketGroupMember((), member)
+  private def tlmPacketSetMember(member: Ast.TlmPacketSetMember) = {
+    val l = matchTlmPacketSetMember((), member)
     val (a1, _, a2) = member.node
     annotate(a1, l, a2)
   }

@@ -141,11 +141,11 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     a <- visitList(a, aNode._2.data.members, tlmPacketMember)
   } yield a
 
-  override def specTlmPacketGroupAnnotatedNode(
+  override def specTlmPacketSetAnnotatedNode(
     a: Analysis,
-    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketGroup]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketSet]]
   ) = for {
-    a <- super.specTlmPacketGroupAnnotatedNode(a, aNode)
+    a <- super.specTlmPacketSetAnnotatedNode(a, aNode)
     a <- visitList(a, aNode._2.data.omitted, tlmChannelIdentifierNode)
   } yield a
 

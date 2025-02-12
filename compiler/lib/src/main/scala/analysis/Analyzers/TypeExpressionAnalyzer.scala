@@ -9,7 +9,7 @@ trait TypeExpressionAnalyzer
   with ComponentAnalyzer
   with ModuleAnalyzer
   with StateMachineAnalyzer
-  with TlmPacketGroupAnalyzer
+  with TlmPacketSetAnalyzer
   with TopologyAnalyzer
 {
 
