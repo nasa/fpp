@@ -3,6 +3,7 @@ topology T {
   instance c1
   instance c2
   instance c3
+  instance c4
 
   telemetry packets P1 {
 
@@ -18,6 +19,7 @@ topology T {
 
   } omit {
     c3.T
+    c4.T
   }
 
   telemetry packets P2 {
@@ -26,6 +28,7 @@ topology T {
       c1.T
       c2.T
       c3.T
+      c4.T
     }
 
   }
