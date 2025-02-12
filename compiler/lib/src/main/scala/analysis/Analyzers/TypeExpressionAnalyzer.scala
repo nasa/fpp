@@ -58,9 +58,7 @@ trait TypeExpressionAnalyzer
   override def defAliasTypeAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefAliasType]]) = {
     val (_, node1, _) = node
     val data = node1.data
-    for {
-      a <- typeNameNode(a, data.typeName)
-    } yield a
+    typeNameNode(a, data.typeName)
   }
 
   override def defArrayAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefArray]]) = {

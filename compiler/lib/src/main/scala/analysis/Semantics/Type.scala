@@ -365,9 +365,7 @@ object Type {
   }
 
   /** Check for type identity */
-  def areIdentical(t1Aliased: Type, t2Aliased: Type): Boolean = {
-    val t1 = t1Aliased.getUnderlyingType
-    val t2 = t2Aliased.getUnderlyingType
+  def areIdentical(t1: Type, t2: Type): Boolean = {
     val pair = (t1, t2)
 
     def numeric = pair match {

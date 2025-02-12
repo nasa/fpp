@@ -18,7 +18,9 @@ case class TypeCppWriter(
       s.writeSymbol(Symbol.AbsType(t.node))
 
     override def aliasType(s: CppWriterState, t: Type.AliasType) =
-      // TODO(tumbar) Keep the aliased type name in codegen
+      // TODO(tumbar) Type alias codegen is not implemented yet.
+      // For now we will use the underyling type which is guarenteed
+      // a concrete type defined in codegen.
       this.matchType(s, t.getUnderlyingType)
 
     override def array(s: CppWriterState, t: Type.Array) =

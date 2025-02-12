@@ -137,8 +137,10 @@ case class CppWriterState(
         fileName <- sym match {
           case _: Symbol.AbsType =>
               if isBuiltInType(name) then None else Some(name)
-          // TODO(tumbar) Compute the includes for alias types
-          case _: Symbol.AliasType => None
+          case at: Symbol.AliasType =>
+            // TODO(tumbar) We are not generating the type alias definitions in C++
+            // yet. We need to include the definitions for the referenced type for now.
+            getDirectiveForSymbol(a.useDefMap(at.node._2.data.typeName.id))
           case _: Symbol.Array => Some(
             ComputeCppFiles.FileNames.getArray(name)
           )
