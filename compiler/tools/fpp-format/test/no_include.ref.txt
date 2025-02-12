@@ -200,7 +200,7 @@ module DefinitionsAndSpecifiers {
     telemetry packets P {
 
       @ Telemetry packet
-      packet P1 id 0 level 0 {
+      packet P1 id 0 group 0 {
         i1.c1
         i2.c2
       } @< Telemetry packet

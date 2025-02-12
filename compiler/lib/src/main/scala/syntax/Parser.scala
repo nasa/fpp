@@ -694,10 +694,10 @@ object Parser extends Parsers {
   }
 
   def specTlmPacket: Parser[Ast.SpecTlmPacket] = {
-    packet ~>! ident ~! opt(id ~>! exprNode) ~! (level ~>! exprNode) ~!
+    packet ~>! ident ~! opt(id ~>! exprNode) ~! (group ~>! exprNode) ~!
       (lbrace ~>! tlmPacketMembers <~! rbrace) ^^ {
-        case name ~ id ~ level ~ members =>
-          Ast.SpecTlmPacket(name, id, level, members)
+        case name ~ id ~ group ~ members =>
+          Ast.SpecTlmPacket(name, id, group, members)
       }
   }
 
@@ -966,6 +966,8 @@ object Parser extends Parsers {
 
   private def get = accept("get", { case t : Token.GET => t })
 
+  private def group = accept("group", { case t : Token.GROUP => t })
+
   private def guard = accept("guard", { case t : Token.GUARD => t })
 
   private def guarded = accept("guarded", { case t : Token.GUARDED => t })
@@ -994,8 +996,6 @@ object Parser extends Parsers {
   private def instance = accept("instance", { case t : Token.INSTANCE => t })
 
   private def internal = accept("internal", { case t : Token.INTERNAL => t })
-
-  private def level = accept("level", { case t : Token.LEVEL => t })
 
   private def lbracket = accept("[", { case t : Token.LBRACKET => t })
 

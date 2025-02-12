@@ -1,5 +1,5 @@
 fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/id_not_numeric.fpp:5.18
-    packet P1 id "abc" level 0 {
+    packet P1 id "abc" group 0 {
                  ^
 error: cannot convert string to a numeric type

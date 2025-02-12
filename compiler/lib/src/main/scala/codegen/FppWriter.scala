@@ -656,7 +656,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val data = node.data
     lines(s"packet ${ident(data.name)}").
       joinOpt (data.id) (" id ") (exprNode).
-      join (" level ") (exprNode(data.level)).
+      join (" group ") (exprNode(data.group)).
       joinNoIndent (" ") (
         addBraces(data.members.flatMap(tlmPacketMember))
       )

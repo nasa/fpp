@@ -744,7 +744,7 @@ object Ast {
   final case class SpecTlmPacket(
     name: Ident,
     id: Option[AstNode[Expr]],
-    level: AstNode[Expr],
+    group: AstNode[Expr],
     members: List[TlmPacketMember]
   )
 

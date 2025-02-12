@@ -628,7 +628,7 @@ object AstWriter extends AstVisitor with LineUtils {
     List.concat(
       ident(data.name),
       linesOpt(addPrefix("id", exprNode), data.id),
-      addPrefix("level", exprNode) (data.level),
+      addPrefix("group", exprNode) (data.group),
       data.members.flatMap(tlmPacketMember)
     ).map(indentIn)
   }
