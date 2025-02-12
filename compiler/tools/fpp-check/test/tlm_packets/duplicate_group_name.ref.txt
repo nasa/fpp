@@ -1,9 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/duplicate_group_name.fpp:7.3
-  telemetry packets P {
-  ^
-error: duplicate telemetry packet set P
-previous set is here:
-[ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/duplicate_group_name.fpp:3.3
-  telemetry packets P {
-  ^
