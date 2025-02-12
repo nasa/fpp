@@ -749,11 +749,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifiers_Telemetry-Channel-Specifiers_Examples">7.15.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Telemetry-Packet-Group-Specifiers">7.16. Telemetry Packet Group Specifiers</a>
+<li><a href="#Specifiers_Telemetry-Packet-Set-Specifiers">7.16. Telemetry Packet Set Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Telemetry-Packet-Group-Specifiers_Syntax">7.16.1. Syntax</a></li>
-<li><a href="#Specifiers_Telemetry-Packet-Group-Specifiers_Semantics">7.16.2. Semantics</a></li>
-<li><a href="#Specifiers_Telemetry-Packet-Group-Specifiers_Example">7.16.3. Example</a></li>
+<li><a href="#Specifiers_Telemetry-Packet-Set-Specifiers_Syntax">7.16.1. Syntax</a></li>
+<li><a href="#Specifiers_Telemetry-Packet-Set-Specifiers_Semantics">7.16.2. Semantics</a></li>
+<li><a href="#Specifiers_Telemetry-Packet-Set-Specifiers_Example">7.16.3. Example</a></li>
 </ul>
 </li>
 <li><a href="#Specifiers_Telemetry-Packet-Specifiers">7.17. Telemetry Packet Specifiers</a>
@@ -1157,6 +1157,7 @@ false
 fatal
 format
 get
+group
 guard
 guarded
 health
@@ -1170,7 +1171,6 @@ initial
 input
 instance
 internal
-level
 locate
 low
 machine
@@ -3411,7 +3411,7 @@ instance specifier</a></p>
 <p>A <a href="#Specifiers_Connection-Graph-Specifiers">connection graph specifier</a></p>
 </li>
 <li>
-<p>A <a href="#Specifiers_Telemetry-Packet-Group-Specifiers">telemetry packet group specifier</a></p>
+<p>A <a href="#Specifiers_Telemetry-Packet-Set-Specifiers">telemetry packet set specifier</a></p>
 </li>
 <li>
 <p>A <a href="#Specifiers_Topology-Import-Specifiers">topology import specifier</a></p>
@@ -3435,7 +3435,7 @@ according to the following algorithm:</p>
 <a href="#Definitions_Topology-Definitions_Semantics_Resolving-to-a-Partially-Numbered-Topology">partially numbered topology</a> <em>T'</em>.</p>
 </li>
 <li>
-<p><a href="#Definitions_Topology-Definitions_Semantics_Checking-Telemetry-Packet-Group-Specifiers">Check telemetry packet group specifiers</a> for <em>T'</em>.</p>
+<p><a href="#Definitions_Topology-Definitions_Semantics_Checking-Telemetry-Packet-Set-Specifiers">Check telemetry packet set specifiers</a> for <em>T'</em>.</p>
 </li>
 <li>
 <p>Apply
@@ -3526,29 +3526,29 @@ do not add the connection.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="Definitions_Topology-Definitions_Semantics_Checking-Telemetry-Packet-Group-Specifiers">Checking-Telemetry-Packet-Group-Specifiers</h5>
+<h5 id="Definitions_Topology-Definitions_Semantics_Checking-Telemetry-Packet-Set-Specifiers">Checking Telemetry Packet Set Specifiers</h5>
 <div class="paragraph">
-<p>FPP checks telemetry packet group specifiers as follows:</p>
+<p>FPP checks telemetry packet set specifiers as follows:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Check that no two telemetry packet group specifiers have
+<p>Check that no two telemetry packet set specifiers have
 the same name.</p>
 </li>
 <li>
-<p>Check that each telemetry packet group specifier is
-<a href="#Specifiers_Telemetry-Packet-Group-Specifiers_Semantics">valid</a>.</p>
+<p>Check that each telemetry packet set specifier is
+<a href="#Specifiers_Telemetry-Packet-Set-Specifiers_Semantics">valid</a>.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>Note that a telemetry packet group specifier is not required.
+<p>Note that a telemetry packet set specifier is not required.
 If there is no specifier, then the topology has no packet definitions.
-Note also that two or more telemetry packet group specifiers
+Note also that two or more telemetry packet set specifiers
 are allowed.
 Each one specifies a way of assigning the telemetry channels
-of the topology to packets.</p>
+of the topology to a set of packets.</p>
 </div>
 </div>
 <div class="sect4">
@@ -7170,15 +7170,16 @@ telemetry Channel3: F64x3 \
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Telemetry-Packet-Group-Specifiers">7.16. Telemetry Packet Group Specifiers</h3>
+<h3 id="Specifiers_Telemetry-Packet-Set-Specifiers">7.16. Telemetry Packet Set Specifiers</h3>
 <div class="paragraph">
-<p>A <strong>telemetry packet group specifier</strong> groups the telemetry channels of a
-topology into <a href="#Specifiers_Telemetry-Packet-Specifiers">telemetry packets</a>.
-A telemetry packet group specifier is part of a
+<p>A <strong>telemetry packet set specifier</strong> arranges the telemetry channels of a
+topology into a set of <a href="#Specifiers_Telemetry-Packet-Specifiers">telemetry
+packets</a>.
+A telemetry packet set specifier is part of a
 <a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Telemetry-Packet-Group-Specifiers_Syntax">7.16.1. Syntax</h4>
+<h4 id="Specifiers_Telemetry-Packet-Set-Specifiers_Syntax">7.16.1. Syntax</h4>
 <div class="paragraph">
 <p><code>telemetry</code> <code>packets</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
@@ -7214,7 +7215,7 @@ and the terminating punctuation is a comma.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Telemetry-Packet-Group-Specifiers_Semantics">7.16.2. Semantics</h4>
+<h4 id="Specifiers_Telemetry-Packet-Set-Specifiers_Semantics">7.16.2. Semantics</h4>
 <div class="paragraph">
 <p>FPP recursively resolves any include specifiers in
 <em>telemetry-packet-group-member-sequence</em>.
@@ -7256,18 +7257,18 @@ exactly one of the following is true:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Telemetry-Packet-Group-Specifiers_Example">7.16.3. Example</h4>
+<h4 id="Specifiers_Telemetry-Packet-Set-Specifiers_Example">7.16.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">telemetry packets Packets {
 
-  packet CDH id 0 level 0 {
+  packet CDH id 0 group 0 {
     commandDispatcher.commandsDispatched
     rateGroup1Hz.rgMaxTime
     fileUplink.filesReceived
   }
 
-  packet ADCS id 1 level 2 {
+  packet ADCS id 1 group 2 {
     adcs.mode
     adcs.attitude
   }
@@ -7287,7 +7288,7 @@ exactly one of the following is true:</p>
 <p>A <strong>telemetry packet specifier</strong> specifies the format of a data
 packet containing telemetry points.
 A telemetry packet specifier is part of a
-<a href="#Specifiers_Telemetry-Packet-Group-Specifiers">telemetry packet group
+<a href="#Specifiers_Telemetry-Packet-Set-Specifiers">telemetry packet set
 specifier</a>, which is in turn part of a
 <a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
 </div>
@@ -7299,7 +7300,7 @@ specifier</a>, which is in turn part of a
 <em>[</em>
 <code>id</code> <a href="#Expressions"><em>expression</em></a>
 <em>]</em>
-<code>level</code> <a href="#Expressions"><em>expression</em></a>
+<code>group</code> <a href="#Expressions"><em>expression</em></a>
 <code>{</code> <em>telemetry-packet-member-sequence</em> <code>}</code></p>
 </div>
 <div class="paragraph">
@@ -7342,11 +7343,11 @@ first
 packet appearing in a packet group) or the previous packet identifier plus one.</p>
 </li>
 <li>
-<p>The expression <em>e</em> following <code>level</code> specifies the
-<strong>level</strong> of the packet.
-The level is a number that governs the sending of the packet.
+<p>The expression <em>e</em> following <code>group</code> specifies the
+<strong>group</strong> of the packet.
+The group is a number that governs the sending of the packet.
 In the F Prime flight software, sending of packets can be filtered
-by level, so that only packets at or below a specified level are sent.
+by group, so that only packets in certain groups are sent.
 The type of <em>e</em> must be
 <a href="#Type-Checking_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
@@ -7371,16 +7372,16 @@ or through
 <h4 id="Specifiers_Telemetry-Packet-Specifiers_Examples">7.17.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">@ CDH packet has id 0 and level 0
-packet CDH id 0 level 0 {
+<pre class="prettyprint highlight"><code data-lang="fpp">@ CDH packet has id 0 and group 0
+packet CDH id 0 group 0 {
   commandDispatcher.commandsDispatched
   rateGroup1Hz.rgMaxTime
   include "DownlinkTelemetryChannels.fppi"
   include "UplinkTelemetryChannels.fppi"
 }
 
-@ Implicit id of ADCS packet is 1. Its level is 2.
-packet ADCS level 2 {
+@ Implicit id of ADCS packet is 1. Its group is 2.
+packet ADCS group 2 {
   adcs.mode
   adcs.attitude
 }</code></pre>
@@ -7653,7 +7654,7 @@ port instance.</p>
 <div class="paragraph">
 <p>A <strong>telemetry channel identifier</strong> identifies a telemetry channel that is part of
 a component instance.  Telemetry channel identifiers appear in
-<a href="#Specifiers_Telemetry-Packet-Group-Specifiers">telemetry packet group
+<a href="#Specifiers_Telemetry-Packet-Set-Specifiers">telemetry packet set
 specifiers</a> and <a href="#Specifiers_Telemetry-Packet-Specifiers">telemetry packet
 specifiers</a>.</p>
 </div>
@@ -11106,7 +11107,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-02-05 19:45:17 -0800
+Last updated 2025-02-11 17:00:39 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -3,7 +3,7 @@
 A *telemetry packet specifier* specifies the format of a data
 packet containing telemetry points.
 A telemetry packet specifier is part of a
-<<Specifiers_Telemetry-Packet-Group-Specifiers,telemetry packet group
+<<Specifiers_Telemetry-Packet-Set-Specifiers,telemetry packet set
 specifier>>, which is in turn part of a
 <<Definitions_Topology-Definitions,topology definition>>.
 
@@ -14,7 +14,7 @@ specifier>>, which is in turn part of a
 _[_
 `id` <<Expressions,_expression_>>
 _]_
-`level` <<Expressions,_expression_>>
+`group` <<Expressions,_expression_>>
 `{` _telemetry-packet-member-sequence_ `}`
 
 _telemetry-packet-member-sequence_ is an
@@ -45,11 +45,11 @@ If _e_ is not present, then the default identifier is either zero (for the
 first
 packet appearing in a packet group) or the previous packet identifier plus one.
 
-. The expression _e_ following `level` specifies the
-*level* of the packet.
-The level is a number that governs the sending of the packet.
+. The expression _e_ following `group` specifies the
+*group* of the packet.
+The group is a number that governs the sending of the packet.
 In the F Prime flight software, sending of packets can be filtered
-by level, so that only packets at or below a specified level are sent.
+by group, so that only packets in certain groups are sent.
 The type of _e_ must be
 <<Type-Checking_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>, and _e_ must evaluate
@@ -70,16 +70,16 @@ or through
 
 [source,fpp]
 ----
-@ CDH packet has id 0 and level 0
-packet CDH id 0 level 0 {
+@ CDH packet has id 0 and group 0
+packet CDH id 0 group 0 {
   commandDispatcher.commandsDispatched
   rateGroup1Hz.rgMaxTime
   include "DownlinkTelemetryChannels.fppi"
   include "UplinkTelemetryChannels.fppi"
 }
 
-@ Implicit id of ADCS packet is 1. Its level is 2.
-packet ADCS level 2 {
+@ Implicit id of ADCS packet is 1. Its group is 2.
+packet ADCS group 2 {
   adcs.mode
   adcs.attitude
 }

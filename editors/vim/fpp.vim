@@ -40,6 +40,7 @@ syn keyword fppKeyword false
 syn keyword fppKeyword fatal
 syn keyword fppKeyword format
 syn keyword fppKeyword get
+syn keyword fppKeyword group
 syn keyword fppKeyword guard
 syn keyword fppKeyword guarded
 syn keyword fppKeyword health
@@ -53,7 +54,6 @@ syn keyword fppKeyword initial
 syn keyword fppKeyword input
 syn keyword fppKeyword instance
 syn keyword fppKeyword internal
-syn keyword fppKeyword level
 syn keyword fppKeyword locate
 syn keyword fppKeyword low
 syn keyword fppKeyword machine
