@@ -323,7 +323,7 @@ def module
       qual ident T1
     @< Topology import specifier
     @ Telemetry packet group
-    def tlm packet group
+    spec tlm packet set
       ident P
       members
         @ Telemetry packet

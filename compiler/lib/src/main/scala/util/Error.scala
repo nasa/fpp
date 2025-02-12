@@ -88,10 +88,6 @@ sealed trait Error {
       case SemanticError.DuplicateOutputConnection(loc, portNum, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate connection at output port $portNum")
         printPrevLoc(prevLoc)
-      case SemanticError.DuplicatePacketSet(name, loc, prevLoc) =>
-        Error.print (Some(loc)) (s"duplicate packet group ${name}")
-        System.err.println("previous group is here:")
-        System.err.println(prevLoc)
       case SemanticError.DuplicateParameter(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate parameter ${name}")
         System.err.println("previous parameter is here:")
@@ -109,6 +105,10 @@ sealed trait Error {
       case SemanticError.DuplicateStructMember(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate struct member ${name}")
         System.err.println("previous member is here:")
+        System.err.println(prevLoc)
+      case SemanticError.DuplicateTlmPacketSet(name, loc, prevLoc) =>
+        Error.print (Some(loc)) (s"duplicate telemetry packet set ${name}")
+        System.err.println("previous set is here:")
         System.err.println(prevLoc)
       case SemanticError.DuplicateTopology(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate topology ${name}")
@@ -209,7 +209,7 @@ sealed trait Error {
       case SemanticError.InvalidTlmChannelName(loc, channelName, componentName) =>
         Error.print (Some(loc)) (s"$channelName is not a telemetry channel of component $componentName")
       case SemanticError.InvalidTlmPacketSet(loc, name, msg) =>
-        Error.print (Some(loc)) (s"invalid telemetry packet group $name")
+        Error.print (Some(loc)) (s"invalid telemetry packet set $name")
         System.err.println(msg)
       case SemanticError.InvalidType(loc, msg) =>
         Error.print (Some(loc)) (msg)
@@ -411,12 +411,6 @@ object SemanticError {
     portNum: Int,
     prevLoc: Location
   ) extends Error
-  /** Duplicate packet group */
-  final case class DuplicatePacketSet(
-    name: String,
-    loc: Location,
-    prevLoc: Location
-  ) extends Error
   /** Duplicate parameter */
   final case class DuplicateParameter(
     name: String,
@@ -443,6 +437,12 @@ object SemanticError {
   ) extends Error
   /** Duplicate struct member */
   final case class DuplicateStructMember(
+    name: String,
+    loc: Location,
+    prevLoc: Location
+  ) extends Error
+  /** Duplicate telemetry packet set */
+  final case class DuplicateTlmPacketSet(
     name: String,
     loc: Location,
     prevLoc: Location

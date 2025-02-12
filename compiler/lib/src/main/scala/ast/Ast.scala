@@ -748,7 +748,7 @@ object Ast {
     members: List[TlmPacketMember]
   )
 
-  /** Telemetry packet group specifier */
+  /** Telemetry packet set specifier */
   final case class SpecTlmPacketSet(
     name: Ident,
     members: List[TlmPacketSetMember],
@@ -775,16 +775,6 @@ object Ast {
     channelName: AstNode[Ident]
   )
 
-  /** Telemetry packet group member */
-  final case class TlmPacketSetMember(node: Annotated[TlmPacketSetMember.Node])
-  object TlmPacketSetMember {
-    sealed trait Node
-    final case class SpecInclude(node: AstNode[Ast.SpecInclude])
-      extends Node
-    final case class SpecTlmPacket(node: AstNode[Ast.SpecTlmPacket])
-      extends Node
-  }
-
   /** Telemetry packet member */
   sealed trait TlmPacketMember
   object TlmPacketMember {
@@ -795,6 +785,16 @@ object Ast {
     final case class TlmChannelIdentifier(node: AstNode[Ast.TlmChannelIdentifier])
       extends TlmPacketMember
 
+  }
+
+  /** Telemetry packet set member */
+  final case class TlmPacketSetMember(node: Annotated[TlmPacketSetMember.Node])
+  object TlmPacketSetMember {
+    sealed trait Node
+    final case class SpecInclude(node: AstNode[Ast.SpecInclude])
+      extends Node
+    final case class SpecTlmPacket(node: AstNode[Ast.SpecTlmPacket])
+      extends Node
   }
 
   /** Translation unit member */

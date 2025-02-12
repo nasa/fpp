@@ -69,7 +69,7 @@ case class Analysis(
   dictionaryMap: Map[Symbol.Topology, Dictionary] = Map(),
   /** The dictionary under construction */
   dictionary: Option[Dictionary] = None,
-  /** The telemetry packet group under construction */
+  /** The telemetry packet set under construction */
   tlmPacketSet: Option[TlmPacketSet] = None
 ) {
 

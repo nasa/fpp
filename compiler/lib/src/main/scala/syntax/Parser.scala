@@ -756,7 +756,7 @@ object Parser extends Parsers {
   def tlmPacketSetMemberNode: Parser[Ast.TlmPacketSetMember.Node] = {
     node(specInclude) ^^ { case n => Ast.TlmPacketSetMember.SpecInclude(n) } |
     node(specTlmPacket) ^^ { case n => Ast.TlmPacketSetMember.SpecTlmPacket(n) } |
-    failure("telemetry packet group member expected")
+    failure("telemetry packet set member expected")
   }
 
   def tlmPacketSetMembers: Parser[List[Ast.TlmPacketSetMember]] =

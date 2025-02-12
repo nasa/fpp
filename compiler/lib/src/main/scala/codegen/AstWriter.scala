@@ -618,28 +618,6 @@ object AstWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
-  override def specTlmPacketSetAnnotatedNode(
-    in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketSet]]
-  ) = {
-    val (_, node, _) = aNode
-    val data = node.data
-    List.concat(
-      lines("def tlm packet group"),
-      List.concat(
-        ident(data.name),
-        List.concat(
-          lines("members"),
-          data.members.flatMap(tlmPacketSetMember).map(indentIn)
-        ),
-        List.concat(
-          lines("omitted"),
-          data.omitted.flatMap(applyToData(tlmChannelIdentifier)).map(indentIn)
-        )
-      ).map(indentIn)
-    )
-  }
-
   override def specTlmPacketAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacket]]
@@ -653,6 +631,28 @@ object AstWriter extends AstVisitor with LineUtils {
       addPrefix("level", exprNode) (data.level),
       data.members.flatMap(tlmPacketMember)
     ).map(indentIn)
+  }
+
+  override def specTlmPacketSetAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketSet]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    List.concat(
+      lines("spec tlm packet set"),
+      List.concat(
+        ident(data.name),
+        List.concat(
+          lines("members"),
+          data.members.flatMap(tlmPacketSetMember).map(indentIn)
+        ),
+        List.concat(
+          lines("omitted"),
+          data.omitted.flatMap(applyToData(tlmChannelIdentifier)).map(indentIn)
+        )
+      ).map(indentIn)
+    )
   }
 
   override def specTopImportAnnotatedNode(
