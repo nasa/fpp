@@ -62,11 +62,11 @@ object ResolveSpecInclude extends AstStateTransformer {
     aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacket]]
   ) = {
     val (pre, node, post) = aNode
-    val Ast.SpecTlmPacket(name, id, level, members) = node.data
+    val Ast.SpecTlmPacket(name, id, group, members) = node.data
     for { result <- transformList(a, members, tlmPacketMember) }
     yield {
       val (a1, members1) = result
-      val specTlmPacket = Ast.SpecTlmPacket(name, id, level, members1.flatten)
+      val specTlmPacket = Ast.SpecTlmPacket(name, id, group, members1.flatten)
       val node1 = AstNode.create(specTlmPacket, node.id)
       (a1, (pre, node1, post))
     }

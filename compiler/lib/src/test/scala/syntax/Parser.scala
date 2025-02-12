@@ -213,12 +213,12 @@ class ParserSpec extends AnyWordSpec {
     parseAllOK(
       Parser.specTlmPacket,
       List(
-        """packet P level 0 {
+        """packet P group 0 {
              include "file.fpp"
              a.b
              c.d
         }""",
-        """packet P id 0 level 0 {}"""
+        """packet P id 0 group 0 {}"""
       )
     )
   }
@@ -229,12 +229,12 @@ class ParserSpec extends AnyWordSpec {
       List(
         """telemetry packets P {
              @ P1
-             packet P1 level 0 {
+             packet P1 group 0 {
                include "file.fpp"
                a.b
                c.d
              }
-             packet P2 id 1 level 0 {}
+             packet P2 id 1 group 0 {}
            }""",
         """telemetry packets P {} omit {}""",
         """telemetry packets P {} omit { a.b, c.d }"""

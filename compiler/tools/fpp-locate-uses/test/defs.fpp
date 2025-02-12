@@ -90,4 +90,4 @@ type SignalType
 constant SignalConstant = 10
 
 constant tlm_packet_id = 0
-constant tlm_packet_level = 0
+constant tlm_packet_group = 0

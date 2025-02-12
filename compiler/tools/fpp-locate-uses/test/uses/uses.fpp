@@ -74,7 +74,7 @@ module M {
     instance c11
 
     telemetry packets P {
-      packet P1 id tlm_packet_id group tlm_packet_level {
+      packet P1 id tlm_packet_id group tlm_packet_group {
 
       }
     }
