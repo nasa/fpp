@@ -1,0 +1,16 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/channel_used_and_omitted.fpp:5.3
+  telemetry packets P {
+  ^
+error: invalid telemetry packet group P
+telemetry channel c1.T is both used and marked omitted
+
+used here:
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/channel_used_and_omitted.fpp:8.7
+      c1.T
+      ^
+
+marked omitted here:
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/channel_used_and_omitted.fpp:12.5
+    c1.T
+    ^
