@@ -23,7 +23,7 @@ Port-Matching-Specifiers.adoc
 Record-Specifiers.adoc
 State-Machine-Instance-Specifiers.adoc
 Telemetry-Channel-Specifiers.adoc
-Telemetry-Packet-Group-Specifiers.adoc
+Telemetry-Packet-Set-Specifiers.adoc
 Telemetry-Packet-Specifiers.adoc
 Topology-Import-Specifiers.adoc
 "

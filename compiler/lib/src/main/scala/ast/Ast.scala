@@ -285,7 +285,7 @@ object Ast {
     final case class SpecCompInstance(node: AstNode[Ast.SpecCompInstance]) extends Node
     final case class SpecConnectionGraph(node: AstNode[Ast.SpecConnectionGraph]) extends Node
     final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
-    final case class SpecTlmPacketGroup(node: AstNode[Ast.SpecTlmPacketGroup]) extends Node
+    final case class SpecTlmPacketSet(node: AstNode[Ast.SpecTlmPacketSet]) extends Node
     final case class SpecTopImport(node: AstNode[Ast.SpecTopImport]) extends Node
   }
 
@@ -744,14 +744,14 @@ object Ast {
   final case class SpecTlmPacket(
     name: Ident,
     id: Option[AstNode[Expr]],
-    level: AstNode[Expr],
+    group: AstNode[Expr],
     members: List[TlmPacketMember]
   )
 
-  /** Telemetry packet group specifier */
-  final case class SpecTlmPacketGroup(
+  /** Telemetry packet set specifier */
+  final case class SpecTlmPacketSet(
     name: Ident,
-    members: List[TlmPacketGroupMember],
+    members: List[TlmPacketSetMember],
     omitted: List[AstNode[TlmChannelIdentifier]]
   )
 
@@ -775,16 +775,6 @@ object Ast {
     channelName: AstNode[Ident]
   )
 
-  /** Telemetry packet group member */
-  final case class TlmPacketGroupMember(node: Annotated[TlmPacketGroupMember.Node])
-  object TlmPacketGroupMember {
-    sealed trait Node
-    final case class SpecInclude(node: AstNode[Ast.SpecInclude])
-      extends Node
-    final case class SpecTlmPacket(node: AstNode[Ast.SpecTlmPacket])
-      extends Node
-  }
-
   /** Telemetry packet member */
   sealed trait TlmPacketMember
   object TlmPacketMember {
@@ -795,6 +785,16 @@ object Ast {
     final case class TlmChannelIdentifier(node: AstNode[Ast.TlmChannelIdentifier])
       extends TlmPacketMember
 
+  }
+
+  /** Telemetry packet set member */
+  final case class TlmPacketSetMember(node: Annotated[TlmPacketSetMember.Node])
+  object TlmPacketSetMember {
+    sealed trait Node
+    final case class SpecInclude(node: AstNode[Ast.SpecInclude])
+      extends Node
+    final case class SpecTlmPacket(node: AstNode[Ast.SpecTlmPacket])
+      extends Node
   }
 
   /** Translation unit member */

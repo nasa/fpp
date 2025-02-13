@@ -4,11 +4,11 @@ topology T {
 
   telemetry packets P {
 
-    packet P level 0 {
+    packet P group 0 {
       c1.T
     }
 
-    packet P level 1 {
+    packet P group 1 {
       c1.T
     }
 

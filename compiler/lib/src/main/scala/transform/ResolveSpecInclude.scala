@@ -62,26 +62,26 @@ object ResolveSpecInclude extends AstStateTransformer {
     aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacket]]
   ) = {
     val (pre, node, post) = aNode
-    val Ast.SpecTlmPacket(name, id, level, members) = node.data
+    val Ast.SpecTlmPacket(name, id, group, members) = node.data
     for { result <- transformList(a, members, tlmPacketMember) }
     yield {
       val (a1, members1) = result
-      val specTlmPacket = Ast.SpecTlmPacket(name, id, level, members1.flatten)
+      val specTlmPacket = Ast.SpecTlmPacket(name, id, group, members1.flatten)
       val node1 = AstNode.create(specTlmPacket, node.id)
       (a1, (pre, node1, post))
     }
   }
 
-  override def specTlmPacketGroupAnnotatedNode(
+  override def specTlmPacketSetAnnotatedNode(
     a: Analysis,
-    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketGroup]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketSet]]
   ) = {
     val (pre, node, post) = aNode
-    val Ast.SpecTlmPacketGroup(name, members, omitted) = node.data
-    for { result <- transformList(a, members, tlmPacketGroupMember) }
+    val Ast.SpecTlmPacketSet(name, members, omitted) = node.data
+    for { result <- transformList(a, members, tlmPacketSetMember) }
     yield {
       val (a1, members1) = result
-      val defModule = Ast.SpecTlmPacketGroup(name, members1.flatten, omitted)
+      val defModule = Ast.SpecTlmPacketSet(name, members1.flatten, omitted)
       val node1 = AstNode.create(defModule, node.id)
       (a1, (pre, node1, post))
     }
@@ -176,19 +176,19 @@ object ResolveSpecInclude extends AstStateTransformer {
     }
   }
 
-  private def tlmPacketGroupMember(
+  private def tlmPacketSetMember(
     a: Analysis,
-    member: Ast.TlmPacketGroupMember
-  ): Result[List[Ast.TlmPacketGroupMember]] = {
+    member: Ast.TlmPacketSetMember
+  ): Result[List[Ast.TlmPacketSetMember]] = {
     val (_, node, _) = member.node
     node match {
-      case Ast.TlmPacketGroupMember.SpecInclude(node1) => resolveSpecInclude(
+      case Ast.TlmPacketSetMember.SpecInclude(node1) => resolveSpecInclude(
         a,
         node1,
-        Parser.tlmPacketGroupMembers,
-        tlmPacketGroupMember
+        Parser.tlmPacketSetMembers,
+        tlmPacketSetMember
       )
-      case _ => for { result <- matchTlmPacketGroupMember(a, member) }
+      case _ => for { result <- matchTlmPacketSetMember(a, member) }
         yield (result._1, List(result._2))
     }
   }

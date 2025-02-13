@@ -436,6 +436,7 @@ var IN_GLOBAL_SCOPE = false;
           "fatal," +
           "format," +
           "get," +
+          "group," +
           "guard," +
           "guarded," +
           "health," +
@@ -449,7 +450,6 @@ var IN_GLOBAL_SCOPE = false;
           "input," +
           "instance," +
           "internal," +
-          "level," +
           "locate," +
           "low," +
           "machine," +

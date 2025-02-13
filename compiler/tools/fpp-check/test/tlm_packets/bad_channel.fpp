@@ -4,7 +4,7 @@ topology T {
 
   telemetry packets P {
 
-    packet P1 level 0 {
+    packet P1 group 0 {
       c1.N
     }
 
