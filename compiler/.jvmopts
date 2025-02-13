@@ -1,2 +1,1 @@
--XX:+CMSClassUnloadingEnabled
--Xss2M
+-XX:+UseG1GC
