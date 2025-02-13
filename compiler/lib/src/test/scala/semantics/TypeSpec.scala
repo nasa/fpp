@@ -7,6 +7,7 @@ import org.scalatest.wordspec.AnyWordSpec
 import Helpers._
 import Type._
 import Types._
+import fpp.compiler.syntax.Parser.defAliasType
 
 class TypeSpec extends AnyWordSpec {
 
@@ -16,6 +17,7 @@ class TypeSpec extends AnyWordSpec {
       duplicate(defaultArray),
       duplicate(defaultEnum),
       duplicate(defaultStruct),
+      duplicate(defaultAliasType),
       duplicate(Boolean),
       duplicate(F32),
       duplicate(F64),
@@ -43,6 +45,8 @@ class TypeSpec extends AnyWordSpec {
       (I8,U32),
       duplicate(AnonArray(None, I32)),
       duplicate(AnonStruct(Map())),
+      (aliasType("TAliasU32", U32, 0), U32),
+      (aliasType("AliasE", enumeration("E", I32, 0), 1), enumeration("E", I32, 0))
     )
     identicalPairs.foreach { 
       pair => s"hold for $pair" in 
@@ -77,6 +81,13 @@ class TypeSpec extends AnyWordSpec {
       struct("S0", AnonStruct(Map("x" -> I32)), 0) -> struct("S1", AnonStruct(Map("x" -> I32)), 1),
       String(None) -> AnonStruct(Map("x" -> String(None))),
       AnonStruct(Map("x" -> I32)) -> AnonStruct(Map("x" -> AnonStruct(Map("y" -> I32)))),
+      duplicate(defaultAliasType),
+      enumeration("E", I32, 0) -> aliasType("AliasE", enumeration("E", I32, 0), 1),
+      aliasType("AliasE", enumeration("E", I32, 0), 1) -> enumeration("E", I32, 0),
+      aliasType("AliasE", enumeration("E", I32, 0), 1) -> I32,
+      defaultAliasType -> defaultAbsType,
+      aliasType("AliasU32", U32, 0) -> U32,
+      U32 -> aliasType("AliasU32", U32, 0),
     )
     val disallowedPairs = List(
       String(None) -> Boolean,
@@ -93,6 +104,8 @@ class TypeSpec extends AnyWordSpec {
       String(None) -> AnonStruct(Map("x" -> I32)),
       AnonArray(None, I32) -> AnonStruct(Map()),
       AnonStruct(Map()) -> AnonArray(None, I32),
+      I32 -> aliasType("AliasE", enumeration("E")),
+      struct("S", AnonStruct(Map("x" -> I32))) -> aliasType("U32Alias", enumeration("E", U16, 1), 2),
     )
     allowedPairs.foreach { 
       pair => s"allow ${pair._1} -> ${pair._2}" in
@@ -154,6 +167,19 @@ class TypeSpec extends AnyWordSpec {
         AnonStruct(Map("x" -> Integer)),
       (struct("S0", AnonStruct(Map("x" -> I32)), 0), AnonStruct(Map("x" -> I8))) ->
         AnonStruct(Map("x" -> Integer)),
+      // (enum E, type E1 = E) -> E
+      (enumeration("E", I32), aliasType("E1", enumeration("E"), 1)) -> enumeration("E"),
+      // (enum E1 = E, type E2 = E) -> E
+      (aliasType("E1", enumeration("E"), 1), aliasType("E2", enumeration("E"), 2)) -> enumeration("E"),
+      // (enum E3 = E1, type E2 = E1, type E1 = E) -> E1
+      (
+        aliasType("E3", aliasType("E1", enumeration("E"), 2), 4),
+        aliasType("E2", aliasType("E1", enumeration("E"), 2), 5),
+      ) -> aliasType("E1", enumeration("E"), 2),
+      (
+        aliasType("E2", aliasType("E1", enumeration("E"), 2), 5),
+        aliasType("E4", aliasType("E3", aliasType("E1", enumeration("E"), 2), 4), 6),
+      ) -> aliasType("E1", enumeration("E"), 2),
     )
     val disallowedPairs = List(
       (String(None), Boolean),

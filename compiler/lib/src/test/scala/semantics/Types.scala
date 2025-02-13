@@ -5,6 +5,7 @@ import fpp.compiler.analysis._
 
 import Helpers._
 import Type._
+import fpp.compiler.ast.Ast.TypeNameQualIdent
 
 /** Helper functions and values for types */
 object Types {
@@ -13,6 +14,14 @@ object Types {
     val d = Ast.DefAbsType(name)
     val anode = annotatedNode(d, id)
     AbsType(anode)
+  }
+
+  def aliasType(name: Ast.Ident, ty: Type, id: AstNode.Id = 0): AliasType = {
+    val typeNameNode = AstNode.create(Ast.TypeNameInt(Ast.U32()), id)
+
+    val d = Ast.DefAliasType(name, typeNameNode)
+    val anode = annotatedNode(d, id)
+    AliasType(anode, ty)
   }
 
   def array(name: Ast.Ident, anonArray: AnonArray = AnonArray(None, U32), id: AstNode.Id = 0): Array = {
@@ -39,5 +48,6 @@ object Types {
   val defaultArray: Array = array("A", AnonArray(None, I32), 1)
   val defaultEnum: Enum = enumeration("E", I32, 2)
   val defaultStruct: Struct = struct("S", AnonStruct(Map()), 3)
+  val defaultAliasType: AliasType = aliasType("TAlias", defaultAbsType, 4)
 
 }

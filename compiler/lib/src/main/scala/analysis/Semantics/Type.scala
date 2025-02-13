@@ -441,11 +441,8 @@ object Type {
     array ||
     struct
   }
-
   /** Compute the common type for a pair of types */
-  def commonType(t1Alias: Type, t2Alias: Type): Option[Type] = {
-    val t1 = t1Alias.getUnderlyingType
-    val t2 = t2Alias.getUnderlyingType
+  def commonType(t1: Type, t2: Type): Option[Type] = {
     val pair = (t1, t2)
     type Rule = () => Option[Type]
     def selectFirstMatchIn(rules: List[Rule]): Option[Type] = rules match {
@@ -458,6 +455,30 @@ object Type {
     def identical() = areIdentical(t1, t2) match {
       case true => Some(t1)
       case false => None
+    }
+    def alias() = {
+      def lca(a: Type, b: Type): Option[Type] = {
+        def getAncestors(t: Type, ancs: List[Type] = List()): List[Type] = {
+          t match {
+            case AliasType(_, parentType) =>
+              getAncestors(parentType, t :: ancs)
+            case _ =>
+              t :: ancs
+          }
+        }
+
+        // Reverse the ancestor list since `getAncestors` returns
+        // the ancestors with the oldest ancestor first.
+        val ancestorsOfA = getAncestors(a).reverse
+        val ancestorsOfB = getAncestors(b).reverse
+
+        // Traverse the ancestry of 'b' until we find a common ancestor with 'a'
+        ancestorsOfB.find(bi => ancestorsOfA.find(ai => areIdentical(ai, bi)).isDefined)
+      }
+
+      // If either type is an alias, first their common ancestor
+      if (!t1.isCanonical || !t2.isCanonical) lca(t1, t2)
+      else None
     }
     def numeric() = 
       if (t1.isFloat && t2.isNumeric) Some(Float(Float.F64))
@@ -552,6 +573,7 @@ object Type {
     }
     val rules: List[Rule] = List(
       identical,
+      alias,
       numeric,
       string,
       enumeration,
