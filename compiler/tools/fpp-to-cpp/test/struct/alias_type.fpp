@@ -1,2 +1,4 @@
 type T = U16
-struct AliasType { t: T }
+type AbT
+type TA = AbT
+struct AliasType { t: T, ta: TA }

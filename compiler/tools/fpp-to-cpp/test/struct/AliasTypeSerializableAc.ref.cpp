@@ -14,15 +14,20 @@
 AliasType ::
   AliasType() :
     Serializable(),
-    m_t(0)
+    m_t(0),
+    m_ta()
 {
 
 }
 
 AliasType ::
-  AliasType(U16 t) :
+  AliasType(
+      U16 t,
+      const AbT& ta
+  ) :
     Serializable(),
-    m_t(t)
+    m_t(t),
+    m_ta(ta)
 {
 
 }
@@ -30,7 +35,8 @@ AliasType ::
 AliasType ::
   AliasType(const AliasType& obj) :
     Serializable(),
-    m_t(obj.m_t)
+    m_t(obj.m_t),
+    m_ta(obj.m_ta)
 {
 
 }
@@ -46,14 +52,17 @@ AliasType& AliasType ::
     return *this;
   }
 
-  set(obj.m_t);
+  set(obj.m_t, obj.m_ta);
   return *this;
 }
 
 bool AliasType ::
   operator==(const AliasType& obj) const
 {
-  return (this->m_t == obj.m_t);
+  return (
+    (this->m_t == obj.m_t) &&
+    (this->m_ta == obj.m_ta)
+  );
 }
 
 bool AliasType ::
@@ -86,6 +95,10 @@ Fw::SerializeStatus AliasType ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
+  status = buffer.serialize(this->m_ta);
+  if (status != Fw::FW_SERIALIZE_OK) {
+    return status;
+  }
 
   return status;
 }
@@ -96,6 +109,10 @@ Fw::SerializeStatus AliasType ::
   Fw::SerializeStatus status;
 
   status = buffer.deserialize(this->m_t);
+  if (status != Fw::FW_SERIALIZE_OK) {
+    return status;
+  }
+  status = buffer.deserialize(this->m_ta);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -110,12 +127,20 @@ void AliasType ::
 {
   static const char* formatString =
     "( "
-    "t = %s"
+    "t = %s, "
+    "ta = %s"
     " )";
+
+  // Declare strings to hold any serializable toString() arguments
+  Fw::String taStr;
+
+  // Call toString for arrays and serializable types
+  this->m_ta.toString(taStr);
 
   sb.format(
     formatString,
-    this->m_t
+    this->m_t,
+    taStr.toChar()
   );
 }
 
@@ -126,13 +151,23 @@ void AliasType ::
 // ----------------------------------------------------------------------
 
 void AliasType ::
-  set(U16 t)
+  set(
+      U16 t,
+      const AbT& ta
+  )
 {
   this->m_t = t;
+  this->m_ta = ta;
 }
 
 void AliasType ::
   sett(U16 t)
 {
   this->m_t = t;
+}
+
+void AliasType ::
+  setta(const AbT& ta)
+{
+  this->m_ta = ta;
 }

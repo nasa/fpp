@@ -7,6 +7,7 @@
 #ifndef AliasTypeSerializableAc_HPP
 #define AliasTypeSerializableAc_HPP
 
+#include "AbT.hpp"
 #include "FpConfig.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
@@ -25,7 +26,8 @@ class AliasType :
     enum {
       //! The size of the serial representation
       SERIALIZED_SIZE =
-        sizeof(U16)
+        sizeof(U16) +
+        AbT::SERIALIZED_SIZE
     };
 
   public:
@@ -38,7 +40,10 @@ class AliasType :
     AliasType();
 
     //! Member constructor
-    AliasType(U16 t);
+    AliasType(
+        U16 t,
+        const AbT& ta
+    );
 
     //! Copy constructor
     AliasType(
@@ -111,15 +116,33 @@ class AliasType :
       return this->m_t;
     }
 
+    //! Get member ta
+    AbT& getta()
+    {
+      return this->m_ta;
+    }
+
+    //! Get member ta (const)
+    const AbT& getta() const
+    {
+      return this->m_ta;
+    }
+
     // ----------------------------------------------------------------------
     // Setter functions
     // ----------------------------------------------------------------------
 
     //! Set all members
-    void set(U16 t);
+    void set(
+        U16 t,
+        const AbT& ta
+    );
 
     //! Set member t
     void sett(U16 t);
+
+    //! Set member ta
+    void setta(const AbT& ta);
 
   protected:
 
@@ -128,6 +151,7 @@ class AliasType :
     // ----------------------------------------------------------------------
 
     U16 m_t;
+    AbT m_ta;
 
 };
 
