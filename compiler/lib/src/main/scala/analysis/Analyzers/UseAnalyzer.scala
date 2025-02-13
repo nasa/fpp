@@ -133,6 +133,22 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     }
   }
 
+  override def specTlmPacketAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacket]]
+  ) = for {
+    a <- super.specTlmPacketAnnotatedNode(a, aNode)
+    a <- visitList(a, aNode._2.data.members, tlmPacketMember)
+  } yield a
+
+  override def specTlmPacketGroupAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketGroup]]
+  ) = for {
+    a <- super.specTlmPacketGroupAnnotatedNode(a, aNode)
+    a <- visitList(a, aNode._2.data.omitted, tlmChannelIdentifierNode)
+  } yield a
+
   override def specTopImportAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecTopImport]]) = {
     val (_, node1, _) = node
     val data = node1.data
@@ -153,5 +169,18 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     val use = Name.Qualified.fromQualIdent(qualIdent.data)
     f(a, qualIdent, use)
   }
+
+  private def tlmChannelIdentifierNode (
+    a: Analysis,
+    node: AstNode[Ast.TlmChannelIdentifier]
+  ): Result =
+    qualIdentNode (componentInstanceUse) (a, node.data.componentInstance)
+
+  private def tlmPacketMember(a: Analysis, member: Ast.TlmPacketMember) =
+    member match {
+      case Ast.TlmPacketMember.SpecInclude(node) => Right(a)
+      case Ast.TlmPacketMember.TlmChannelIdentifier(node) =>
+        tlmChannelIdentifierNode(a, node)
+    }
 
 }

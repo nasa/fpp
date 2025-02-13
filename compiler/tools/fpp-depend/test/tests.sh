@@ -46,6 +46,7 @@ spec_param
 spec_record
 spec_state_machine_instance
 spec_tlm_channel
+spec_tlm_packet
 spec_top_import
 special_ports
 transitive_instance

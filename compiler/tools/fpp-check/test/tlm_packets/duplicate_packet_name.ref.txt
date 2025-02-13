@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/duplicate_packet_name.fpp:11.5
+    packet P level 1 {
+    ^
+error: duplicate packet name P
+previous occurrence is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/duplicate_packet_name.fpp:7.5
+    packet P level 0 {
+    ^

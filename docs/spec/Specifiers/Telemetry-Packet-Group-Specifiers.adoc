@@ -63,7 +63,7 @@ _telemetry-channel-identifier-sequence_.
 
 [source,fpp]
 ----
-packets Packets {
+telemetry packets Packets {
 
   packet CDH id 0 level 0 {
     commandDispatcher.commandsDispatched

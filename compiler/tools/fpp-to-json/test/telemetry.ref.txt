@@ -1260,6 +1260,224 @@
           }
         }
       },
+      "tlmChannelNameMap" : {
+        "Channel1" : {
+          "aNode" : {
+            "astNodeId" : 9
+          },
+          "channelType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U32" : {
+                    
+                  }
+                }
+              }
+            }
+          },
+          "update" : {
+            "Always" : {
+              
+            }
+          },
+          "format" : "None",
+          "lowLimits" : {
+            "red" : [
+              3,
+              {
+                "Integer" : {
+                  "value" : 0
+                }
+              }
+            ],
+            "orange" : [
+              5,
+              {
+                "Integer" : {
+                  "value" : 1
+                }
+              }
+            ],
+            "yellow" : [
+              7,
+              {
+                "Integer" : {
+                  "value" : 2
+                }
+              }
+            ]
+          },
+          "highLimits" : {
+            
+          }
+        },
+        "Channel2" : {
+          "aNode" : {
+            "astNodeId" : 28
+          },
+          "channelType" : {
+            "Primitive" : {
+              "Float" : {
+                "kind" : {
+                  "F64" : {
+                    
+                  }
+                }
+              }
+            }
+          },
+          "update" : {
+            "OnChange" : {
+              
+            }
+          },
+          "format" : {
+            "Some" : {
+              "prefix" : "",
+              "fields" : [
+                [
+                  {
+                    "Rational" : {
+                      "precision" : {
+                        "Some" : 3
+                      },
+                      "t" : {
+                        "Fixed" : {
+                          
+                        }
+                      }
+                    }
+                  },
+                  ""
+                ]
+              ]
+            }
+          },
+          "lowLimits" : {
+            "red" : [
+              13,
+              {
+                "Integer" : {
+                  "value" : -3
+                }
+              }
+            ],
+            "orange" : [
+              16,
+              {
+                "Integer" : {
+                  "value" : -2
+                }
+              }
+            ],
+            "yellow" : [
+              19,
+              {
+                "Integer" : {
+                  "value" : -1
+                }
+              }
+            ]
+          },
+          "highLimits" : {
+            "red" : [
+              22,
+              {
+                "Integer" : {
+                  "value" : 3
+                }
+              }
+            ],
+            "orange" : [
+              24,
+              {
+                "Integer" : {
+                  "value" : 2
+                }
+              }
+            ],
+            "yellow" : [
+              26,
+              {
+                "Integer" : {
+                  "value" : 1
+                }
+              }
+            ]
+          }
+        },
+        "Channel3" : {
+          "aNode" : {
+            "astNodeId" : 55
+          },
+          "channelType" : {
+            "Primitive" : {
+              "Float" : {
+                "kind" : {
+                  "F64" : {
+                    
+                  }
+                }
+              }
+            }
+          },
+          "update" : {
+            "Always" : {
+              
+            }
+          },
+          "format" : {
+            "Some" : {
+              "prefix" : "",
+              "fields" : [
+                [
+                  {
+                    "Rational" : {
+                      "precision" : "None",
+                      "t" : {
+                        "Exponent" : {
+                          
+                        }
+                      }
+                    }
+                  },
+                  ""
+                ]
+              ]
+            }
+          },
+          "lowLimits" : {
+            
+          },
+          "highLimits" : {
+            "red" : [
+              49,
+              {
+                "Integer" : {
+                  "value" : 3
+                }
+              }
+            ],
+            "orange" : [
+              51,
+              {
+                "Integer" : {
+                  "value" : 2
+                }
+              }
+            ],
+            "yellow" : [
+              53,
+              {
+                "Integer" : {
+                  "value" : 1
+                }
+              }
+            ]
+          }
+        }
+      },
       "defaultTlmChannelId" : 18,
       "eventMap" : {
         
