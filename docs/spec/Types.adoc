@@ -172,6 +172,14 @@ member type has numeric members.
 <<Types_Internal-Types_Anonymous-Struct-Types,anonymous struct type>> whose
 member types all have numeric members.
 
+=== Ancestor List
+
+A type **has a parent** if it is a <<Types_Alias-Types,alias type>>.
+An ancestor list of a type is a list containing the type itself as well
+as the ancestor list of the parent type (given it has a parent).
+
+The order of the ancestor list is from the type to the oldest parent type.
+
 === Default Values
 
 Every type _T_ with a syntactic name in FPP has an associated *default

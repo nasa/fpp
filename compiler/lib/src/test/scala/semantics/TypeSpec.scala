@@ -169,17 +169,24 @@ class TypeSpec extends AnyWordSpec {
         AnonStruct(Map("x" -> Integer)),
       // (enum E, type E1 = E) -> E
       (enumeration("E", I32), aliasType("E1", enumeration("E"), 1)) -> enumeration("E"),
-      // (enum E1 = E, type E2 = E) -> E
+      // Simple common underlying type
       (aliasType("E1", enumeration("E"), 1), aliasType("E2", enumeration("E"), 2)) -> enumeration("E"),
-      // (enum E3 = E1, type E2 = E1, type E1 = E) -> E1
+      // Common ancestor #1
       (
         aliasType("E3", aliasType("E1", enumeration("E"), 2), 4),
         aliasType("E2", aliasType("E1", enumeration("E"), 2), 5),
       ) -> aliasType("E1", enumeration("E"), 2),
+      // Common ancestor #2
       (
         aliasType("E2", aliasType("E1", enumeration("E"), 2), 5),
         aliasType("E4", aliasType("E3", aliasType("E1", enumeration("E"), 2), 4), 6),
       ) -> aliasType("E1", enumeration("E"), 2),
+      // No common ancestor
+      // Compute using the underlying type
+      (
+        aliasType("A1", enumeration("E0", I32, 0), 3),
+        aliasType("A2", enumeration("E1", I32, 1), 4)
+      ) -> I32
     )
     val disallowedPairs = List(
       (String(None), Boolean),

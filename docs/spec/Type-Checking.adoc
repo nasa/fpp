@@ -340,9 +340,15 @@ the whole expression):
 stem:[T] be stem:[T_1].
 
 . Otherwise if stem:[T_1] or stem:[T_2] or both are <<Types_Alias-Types,alias 
-types>>, then replace
+types>>, then do the following:
+
+.. Let stem:[A_1] be the <<Types_Ancestor-List,ancestor list>> of stem:[T_1]
+.. Let stem:[A_2] be the <<Types_Ancestor-List,ancestor list>> of stem:[T_2]
+.. Let stem:[T] first type in stem:[A_2] that is an <<Type-Checking_Identical-Types,identical type>>
+to a type in stem:[A_1] **if there exists such a type**.
+.. If there is no overlap between stem:[A_1] and stem:[A_2], replace each
 each alias type with its <<Types_Underlying-Types,underlying type>>
-and reapply these rules.
+and re-apply these rules.
 
 . Otherwise if stem:[T_1] and stem:[T_2] are both
 <<Types_Internal-Types_Numeric-Types,numeric types>>, then do the following:

@@ -476,8 +476,12 @@ object Type {
         ancestorsOfB.find(bi => ancestorsOfA.find(ai => areIdentical(ai, bi)).isDefined)
       }
 
-      // If either type is an alias, first their common ancestor
-      if (!t1.isCanonical || !t2.isCanonical) lca(t1, t2)
+      // If either type is an alias, first their common
+      if (!t1.isCanonical || !t2.isCanonical)
+        lca(t1, t2) match {
+          case None => commonType(t1.getUnderlyingType, t2.getUnderlyingType)
+          case Some(c) => Some(c)
+        }
       else None
     }
     def numeric() = 

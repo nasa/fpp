@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.20">
+<meta name="generator" content="Asciidoctor 2.0.23">
 <title>The F Prime Prime (FPP) Language Specification, Unreleased, after v2.3.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -140,7 +140,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -162,6 +162,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -327,7 +328,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -924,7 +925,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Types_Underlying-Types">17.14. Underlying Types</a></li>
 <li><a href="#Types_Displayable-Types">17.15. Displayable Types</a></li>
 <li><a href="#Types_Types-with-Numeric-Members">17.16. Types with Numeric Members</a></li>
-<li><a href="#Types_Default-Values">17.17. Default Values</a></li>
+<li><a href="#Types_Ancestor-List">17.17. Ancestor List</a></li>
+<li><a href="#Types_Default-Values">17.18. Default Values</a></li>
 </ul>
 </li>
 <li><a href="#Type-Checking">18. Type Checking</a>
@@ -9661,7 +9663,18 @@ member types all have numeric members.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Default-Values">17.17. Default Values</h3>
+<h3 id="Types_Ancestor-List">17.17. Ancestor List</h3>
+<div class="paragraph">
+<p>A type <strong>has a parent</strong> if it is a <a href="#Types_Alias-Types">alias type</a>.
+An ancestor list of a type is a list containing the type itself as well
+as the ancestor list of the parent type (given it has a parent).</p>
+</div>
+<div class="paragraph">
+<p>The order of the ancestor list is from the type to the oldest parent type.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Types_Default-Values">17.18. Default Values</h3>
 <div class="paragraph">
 <p>Every type <em>T</em> with a syntactic name in FPP has an associated <strong>default
 value</strong>.
@@ -10196,9 +10209,26 @@ the whole expression):</p>
 </li>
 <li>
 <p>Otherwise if \$T_1\$ or \$T_2\$ or both are <a href="#Types_Alias-Types">alias
-types</a>, then replace
+types</a>, then do the following:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Let \$A_1\$ be the <a href="#Types_Ancestor-List">ancestor list</a> of \$T_1\$</p>
+</li>
+<li>
+<p>Let \$A_2\$ be the <a href="#Types_Ancestor-List">ancestor list</a> of \$T_2\$</p>
+</li>
+<li>
+<p>Let \$T\$ first type in \$A_2\$ that is an <a href="#Type-Checking_Identical-Types">identical type</a>
+to a type in \$A_1\$ <strong>if there exists such a type</strong>.</p>
+</li>
+<li>
+<p>If there is no overlap between \$A_1\$ and \$A_2\$, replace each
 each alias type with its <a href="#Types_Underlying-Types">underlying type</a>
-and reapply these rules.</p>
+and re-apply these rules.</p>
+</li>
+</ol>
+</div>
 </li>
 <li>
 <p>Otherwise if \$T_1\$ and \$T_2\$ are both
@@ -11106,7 +11136,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-02-05 19:45:17 -0800
+Last updated 2025-02-13 10:58:14 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
