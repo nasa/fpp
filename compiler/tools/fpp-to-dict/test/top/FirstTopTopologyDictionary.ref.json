@@ -855,14 +855,14 @@
       "annotation" : "Description Container 3 with a default priority of 10"
     }
   ],
-  "telemetryPacketGroups" : [
+  "telemetryPacketSets" : [
     {
       "name" : "Packets",
       "members" : [
         {
           "name" : "MyTlmPacket1",
           "id" : 0,
-          "level" : 0,
+          "group" : 0,
           "members" : [
             "Module1.myFirstC1.TlmChannel1",
             "Module1.myFirstC1.TlmChannel2"
@@ -871,13 +871,16 @@
         {
           "name" : "MyTlmPacket2",
           "id" : 1,
-          "level" : 1,
+          "group" : 1,
           "members" : [
-            "Module1.myFirstC1.TlmChannel3"
+            "Module1.myFirstC2.TlmChannel1"
           ]
         }
       ],
       "omitted" : [
+        "Module1.myFirstC1.TlmChannel3",
+        "Module1.myFirstC2.TlmChannel2",
+        "Module1.myFirstC2.TlmChannel3"
       ]
     }
   ]

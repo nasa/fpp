@@ -264,6 +264,6 @@
       "annotation" : "Container 5"
     }
   ],
-  "telemetryPacketGroups" : [
+  "telemetryPacketSets" : [
   ]
 }

@@ -274,14 +274,18 @@ module Module1 {
     }
 
     telemetry packets Packets {
-      packet MyTlmPacket1 id 0 level 0 {
+      packet MyTlmPacket1 id 0 group 0 {
         Module1.myFirstC1.TlmChannel1
         Module1.myFirstC1.TlmChannel2
       }
 
-      packet MyTlmPacket2 id 1 level 1 {
-        Module1.myFirstC1.TlmChannel3
+      packet MyTlmPacket2 id 1 group 1 {
+        Module1.myFirstC2.TlmChannel1
       }
+    } omit {
+      Module1.myFirstC2.TlmChannel2
+      Module1.myFirstC1.TlmChannel3
+      Module1.myFirstC2.TlmChannel3
     }
   }
 

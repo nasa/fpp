@@ -855,6 +855,6 @@
       "annotation" : "Description Container 3 with a default priority of 10"
     }
   ],
-  "telemetryPacketGroups" : [
+  "telemetryPacketSets" : [
   ]
 }

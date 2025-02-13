@@ -106,7 +106,7 @@
                 "id": {
                     "type": "number"
                 },
-                "level": {
+                "group": {
                     "type": "number"
                 },
                 "members": {
@@ -510,7 +510,7 @@
                 ]
             }
         },
-        "telemetryPacketGroups": {
+        "telemetryPacketSets": {
             "type": "array",
             "items": {
                 "type": "object",
