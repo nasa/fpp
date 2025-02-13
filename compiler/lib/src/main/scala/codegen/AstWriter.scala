@@ -618,28 +618,6 @@ object AstWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
-  override def specTlmPacketGroupAnnotatedNode(
-    in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketGroup]]
-  ) = {
-    val (_, node, _) = aNode
-    val data = node.data
-    List.concat(
-      lines("def tlm packet group"),
-      List.concat(
-        ident(data.name),
-        List.concat(
-          lines("members"),
-          data.members.flatMap(tlmPacketGroupMember).map(indentIn)
-        ),
-        List.concat(
-          lines("omitted"),
-          data.omitted.flatMap(applyToData(tlmChannelIdentifier)).map(indentIn)
-        )
-      ).map(indentIn)
-    )
-  }
-
   override def specTlmPacketAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacket]]
@@ -650,9 +628,31 @@ object AstWriter extends AstVisitor with LineUtils {
     List.concat(
       ident(data.name),
       linesOpt(addPrefix("id", exprNode), data.id),
-      addPrefix("level", exprNode) (data.level),
+      addPrefix("group", exprNode) (data.group),
       data.members.flatMap(tlmPacketMember)
     ).map(indentIn)
+  }
+
+  override def specTlmPacketSetAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketSet]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    List.concat(
+      lines("spec tlm packet set"),
+      List.concat(
+        ident(data.name),
+        List.concat(
+          lines("members"),
+          data.members.flatMap(tlmPacketSetMember).map(indentIn)
+        ),
+        List.concat(
+          lines("omitted"),
+          data.omitted.flatMap(applyToData(tlmChannelIdentifier)).map(indentIn)
+        )
+      ).map(indentIn)
+    )
   }
 
   override def specTopImportAnnotatedNode(
@@ -848,8 +848,8 @@ object AstWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
-  private def tlmPacketGroupMember(member: Ast.TlmPacketGroupMember) = {
-    val l = matchTlmPacketGroupMember((), member)
+  private def tlmPacketSetMember(member: Ast.TlmPacketSetMember) = {
+    val l = matchTlmPacketSetMember((), member)
     val (a1, _, a2) = member.node
     annotate(a1, l, a2)
   }

@@ -193,15 +193,15 @@ object Parser extends Parsers {
     }
   }
 
-  def specTlmPacketGroup: Parser[Ast.SpecTlmPacketGroup] = {
+  def specTlmPacketSet: Parser[Ast.SpecTlmPacketSet] = {
     def omitted: Parser[List[AstNode[Ast.TlmChannelIdentifier]]] = {
       opt(omit ~>! lbrace ~>! elementSequence(node(tlmChannelIdentifier), comma) <~! rbrace) ^^ {
         case Some(elements) => elements
         case None => Nil
       }
     }
-    (telemetry ~> packets) ~>! ident ~! (lbrace ~>! tlmPacketGroupMembers <~! rbrace) ~! omitted ^^ {
-      case name ~ members ~ omitted => Ast.SpecTlmPacketGroup(name, members, omitted)
+    (telemetry ~> packets) ~>! ident ~! (lbrace ~>! tlmPacketSetMembers <~! rbrace) ~! omitted ^^ {
+      case name ~ members ~ omitted => Ast.SpecTlmPacketSet(name, members, omitted)
     }
   }
 
@@ -694,10 +694,10 @@ object Parser extends Parsers {
   }
 
   def specTlmPacket: Parser[Ast.SpecTlmPacket] = {
-    packet ~>! ident ~! opt(id ~>! exprNode) ~! (level ~>! exprNode) ~!
+    packet ~>! ident ~! opt(id ~>! exprNode) ~! (group ~>! exprNode) ~!
       (lbrace ~>! tlmPacketMembers <~! rbrace) ^^ {
-        case name ~ id ~ level ~ members =>
-          Ast.SpecTlmPacket(name, id, level, members)
+        case name ~ id ~ group ~ members =>
+          Ast.SpecTlmPacket(name, id, group, members)
       }
   }
 
@@ -753,17 +753,17 @@ object Parser extends Parsers {
       }
     }
 
-  def tlmPacketGroupMemberNode: Parser[Ast.TlmPacketGroupMember.Node] = {
-    node(specInclude) ^^ { case n => Ast.TlmPacketGroupMember.SpecInclude(n) } |
-    node(specTlmPacket) ^^ { case n => Ast.TlmPacketGroupMember.SpecTlmPacket(n) } |
-    failure("telemetry packet group member expected")
+  def tlmPacketSetMemberNode: Parser[Ast.TlmPacketSetMember.Node] = {
+    node(specInclude) ^^ { case n => Ast.TlmPacketSetMember.SpecInclude(n) } |
+    node(specTlmPacket) ^^ { case n => Ast.TlmPacketSetMember.SpecTlmPacket(n) } |
+    failure("telemetry packet set member expected")
   }
 
-  def tlmPacketGroupMembers: Parser[List[Ast.TlmPacketGroupMember]] =
+  def tlmPacketSetMembers: Parser[List[Ast.TlmPacketSetMember]] =
     annotatedElementSequence(
-      tlmPacketGroupMemberNode,
+      tlmPacketSetMemberNode,
       comma,
-      Ast.TlmPacketGroupMember(_)
+      Ast.TlmPacketSetMember(_)
     )
 
   def tlmPacketMember: Parser[Ast.TlmPacketMember] = {
@@ -779,7 +779,7 @@ object Parser extends Parsers {
     node(specCompInstance) ^^ { case n => Ast.TopologyMember.SpecCompInstance(n) } |
     node(specConnectionGraph) ^^ { case n => Ast.TopologyMember.SpecConnectionGraph(n) } |
     node(specInclude) ^^ { case n => Ast.TopologyMember.SpecInclude(n) } |
-    node(specTlmPacketGroup) ^^ { case n => Ast.TopologyMember.SpecTlmPacketGroup(n) } |
+    node(specTlmPacketSet) ^^ { case n => Ast.TopologyMember.SpecTlmPacketSet(n) } |
     node(specTopImport) ^^ { case n => Ast.TopologyMember.SpecTopImport(n) } |
     failure("topology member expected")
   }
@@ -966,6 +966,8 @@ object Parser extends Parsers {
 
   private def get = accept("get", { case t : Token.GET => t })
 
+  private def group = accept("group", { case t : Token.GROUP => t })
+
   private def guard = accept("guard", { case t : Token.GUARD => t })
 
   private def guarded = accept("guarded", { case t : Token.GUARDED => t })
@@ -994,8 +996,6 @@ object Parser extends Parsers {
   private def instance = accept("instance", { case t : Token.INSTANCE => t })
 
   private def internal = accept("internal", { case t : Token.INTERNAL => t })
-
-  private def level = accept("level", { case t : Token.LEVEL => t })
 
   private def lbracket = accept("[", { case t : Token.LBRACKET => t })
 

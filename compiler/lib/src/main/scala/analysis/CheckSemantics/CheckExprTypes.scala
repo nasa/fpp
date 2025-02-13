@@ -305,7 +305,7 @@ object CheckExprTypes extends UseAnalyzer {
     for {
       a <- super.specTlmPacketAnnotatedNode(a, aNode)
       _ <- convertNodeToNumericOpt(a, data.id)
-      _ <- convertNodeToNumeric(a, data.level)
+      _ <- convertNodeToNumeric(a, data.group)
     } yield a
   }
 

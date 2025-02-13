@@ -1,8 +1,9 @@
-=== Telemetry Packet Group Specifiers
+=== Telemetry Packet Set Specifiers
 
-A *telemetry packet group specifier* groups the telemetry channels of a
-topology into <<Specifiers_Telemetry-Packet-Specifiers,telemetry packets>>.
-A telemetry packet group specifier is part of a
+A *telemetry packet set specifier* arranges the telemetry channels of a
+topology into a set of <<Specifiers_Telemetry-Packet-Specifiers,telemetry 
+packets>>.
+A telemetry packet set specifier is part of a
 <<Definitions_Topology-Definitions, topology definition>>.
 
 ==== Syntax
@@ -65,13 +66,13 @@ _telemetry-channel-identifier-sequence_.
 ----
 telemetry packets Packets {
 
-  packet CDH id 0 level 0 {
+  packet CDH id 0 group 0 {
     commandDispatcher.commandsDispatched
     rateGroup1Hz.rgMaxTime
     fileUplink.filesReceived
   }
 
-  packet ADCS id 1 level 2 {
+  packet ADCS id 1 group 2 {
     adcs.mode
     adcs.attitude
   }

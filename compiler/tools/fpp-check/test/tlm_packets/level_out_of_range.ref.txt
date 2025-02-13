@@ -1,6 +1,6 @@
 fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/level_out_of_range.fpp:5.21
-    packet P1 level 0xFFFFFFFFFFFFFFFF {
+    packet P1 group 0xFFFFFFFFFFFFFFFF {
                     ^
 error: invalid integer value 18446744073709551615
 value out of range

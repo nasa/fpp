@@ -74,6 +74,7 @@ false
 fatal
 format
 get
+group
 guard
 guarded
 health
@@ -87,7 +88,6 @@ initial
 input
 instance
 internal
-level
 locate
 low
 machine

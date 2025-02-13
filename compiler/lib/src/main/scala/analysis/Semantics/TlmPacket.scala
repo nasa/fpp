@@ -7,8 +7,8 @@ import fpp.compiler.util._
 final case class TlmPacket(
   /** The AST node for the packet */
   aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacket]],
-  /** The level */
-  level: Int,
+  /** The packet group */
+  group: Int,
   /** The identifiers for the member channels */
   memberIdList: List[TlmChannel.Id],
   /** The map from each member ID to a location where a member
@@ -43,7 +43,7 @@ object TlmPacket {
       case Ast.TlmPacketMember.TlmChannelIdentifier(node) => node
     }
     for {
-      level <- a.getNonnegativeIntValue(data.level.id)
+      group <- a.getNonnegativeIntValue(data.group.id)
       idList <- Result.map (
         members,
         TlmChannelIdentifier.getNumericIdForNode (a, d, t)
@@ -52,7 +52,7 @@ object TlmPacket {
     yield {
       val locs = members.map(node => Locations.get(node.id))
       val locationMap = idList.zip(locs).toMap
-      TlmPacket(aNode, level, idList, locationMap)
+      TlmPacket(aNode, group, idList, locationMap)
     }
   }
 

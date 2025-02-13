@@ -27,7 +27,7 @@ instance specifier>>
 
 * A <<Specifiers_Connection-Graph-Specifiers,connection graph specifier>>
 
-* A <<Specifiers_Telemetry-Packet-Group-Specifiers,telemetry packet group specifier>>
+* A <<Specifiers_Telemetry-Packet-Set-Specifiers,telemetry packet set specifier>>
 
 * A <<Specifiers_Topology-Import-Specifiers,topology import specifier>>
 
@@ -42,8 +42,8 @@ according to the following algorithm:
 <<Definitions_Topology-Definitions_Semantics_Resolving-to-a-Partially-Numbered-Topology,
 partially numbered topology>> _T'_.
 
-. <<Definitions_Topology-Definitions_Semantics_Checking-Telemetry-Packet-Group-Specifiers,
-Check telemetry packet group specifiers>> for _T'_.
+. <<Definitions_Topology-Definitions_Semantics_Checking-Telemetry-Packet-Set-Specifiers,
+Check telemetry packet set specifiers>> for _T'_.
 
 . Apply
 <<Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Ports,
@@ -116,22 +116,22 @@ registration connection between two ports, and there is already
 a command registration connection between those ports, then
 do not add the connection.
 
-===== Checking-Telemetry-Packet-Group-Specifiers
+===== Checking Telemetry Packet Set Specifiers
 
-FPP checks telemetry packet group specifiers as follows:
+FPP checks telemetry packet set specifiers as follows:
 
-. Check that no two telemetry packet group specifiers have
+. Check that no two telemetry packet set specifiers have
 the same name.
 
-. Check that each telemetry packet group specifier is
-<<Specifiers_Telemetry-Packet-Group-Specifiers_Semantics,valid>>.
+. Check that each telemetry packet set specifier is
+<<Specifiers_Telemetry-Packet-Set-Specifiers_Semantics,valid>>.
 
-Note that a telemetry packet group specifier is not required.
+Note that a telemetry packet set specifier is not required.
 If there is no specifier, then the topology has no packet definitions.
-Note also that two or more telemetry packet group specifiers
+Note also that two or more telemetry packet set specifiers
 are allowed.
 Each one specifies a way of assigning the telemetry channels
-of the topology to packets.
+of the topology to a set of packets.
 
 ===== Automatic Numbering of Ports
 
