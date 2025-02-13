@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/bad_channel.fpp:8.10
+      c1.N
+         ^
+error: N is not a telemetry channel of component C

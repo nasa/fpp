@@ -1150,6 +1150,9 @@
       "tlmChannelMap" : {
         
       },
+      "tlmChannelNameMap" : {
+        
+      },
       "defaultTlmChannelId" : 0,
       "eventMap" : {
         
@@ -1294,6 +1297,9 @@
       },
       "defaultOpcode" : 0,
       "tlmChannelMap" : {
+        
+      },
+      "tlmChannelNameMap" : {
         
       },
       "defaultTlmChannelId" : 0,
@@ -1458,6 +1464,9 @@
       "tlmChannelMap" : {
         
       },
+      "tlmChannelNameMap" : {
+        
+      },
       "defaultTlmChannelId" : 0,
       "eventMap" : {
         
@@ -1553,6 +1562,9 @@
       },
       "defaultOpcode" : 0,
       "tlmChannelMap" : {
+        
+      },
+      "tlmChannelNameMap" : {
         
       },
       "defaultTlmChannelId" : 0,

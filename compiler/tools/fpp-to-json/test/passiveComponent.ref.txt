@@ -1019,6 +1019,64 @@
           }
         }
       },
+      "tlmChannelNameMap" : {
+        "ImpulseTemp" : {
+          "aNode" : {
+            "astNodeId" : 37
+          },
+          "channelType" : {
+            "Primitive" : {
+              "Float" : {
+                "kind" : {
+                  "F32" : {
+                    
+                  }
+                }
+              }
+            }
+          },
+          "update" : {
+            "Always" : {
+              
+            }
+          },
+          "format" : "None",
+          "lowLimits" : {
+            
+          },
+          "highLimits" : {
+            
+          }
+        },
+        "WarpTemp" : {
+          "aNode" : {
+            "astNodeId" : 43
+          },
+          "channelType" : {
+            "Primitive" : {
+              "Float" : {
+                "kind" : {
+                  "F32" : {
+                    
+                  }
+                }
+              }
+            }
+          },
+          "update" : {
+            "Always" : {
+              
+            }
+          },
+          "format" : "None",
+          "lowLimits" : {
+            
+          },
+          "highLimits" : {
+            
+          }
+        }
+      },
       "defaultTlmChannelId" : 2,
       "eventMap" : {
         

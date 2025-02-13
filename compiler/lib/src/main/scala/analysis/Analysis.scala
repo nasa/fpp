@@ -65,6 +65,12 @@ case class Analysis(
   topology: Option[Topology] = None,
   /** The map from state machine symbols to state machines */
   stateMachineMap: Map[Symbol.StateMachine, StateMachine] = Map(),
+  /** The map from topology symbols to dictionaries */
+  dictionaryMap: Map[Symbol.Topology, Dictionary] = Map(),
+  /** The dictionary under construction */
+  dictionary: Option[Dictionary] = None,
+  /** The telemetry packet group under construction */
+  tlmPacketGroup: Option[TlmPacketGroup] = None
 ) {
 
   /** Gets the qualified name of a symbol */
@@ -245,6 +251,11 @@ case class Analysis(
     for (ts <- getTopologySymbol(id))
       yield this.topologyMap(ts)
 
+  /** Gets a dictionary from the dictionary map */
+  def getDictionary(id: AstNode.Id): Result.Result[Dictionary] =
+    for (ts <- getTopologySymbol(id))
+      yield this.dictionaryMap(ts)
+
   /** Gets a BigInt value from an AST node */
   def getBigIntValue(id: AstNode.Id): BigInt = {
     val Value.Integer(v) = Analysis.convertValueToType(
@@ -403,6 +414,48 @@ case class Analysis(
 }
 
 object Analysis {
+
+  /** Adds a dictionary element mapped by ID */
+  def addElementToIdMap[T](
+    map: Map[BigInt, T],
+    id: BigInt,
+    element: T,
+    getLoc: T => Location
+  ): Result.Result[(Map[BigInt,T], BigInt)] = {
+    map.get(id) match {
+      case Some(prevElement) =>
+        // Element already there: report the error
+        val idValue = displayIdValue(id)
+        val loc = getLoc(element)
+        val prevLoc = getLoc(prevElement)
+        Left(SemanticError.DuplicateIdValue(idValue, loc, prevLoc))
+      case None =>
+        // New element: compute the new map and the new default ID
+        Right(map + (id -> element), id + 1)
+    }
+  }
+
+  /** Checks for duplicate names in dictionary */
+  def checkDictionaryNames[Id,Value](
+    dictionary: Map[Id,Value],
+    kind: String,
+    getName: Value => String,
+    getLoc: Value => Location
+  ) = {
+    val initialMap: Map[String, Location] = Map()
+    Result.foldLeft (dictionary.toList) (initialMap) ((map, pair) => {
+      val (_, value) = pair
+      val name = getName(value)
+      val loc = getLoc(value)
+      map.get(name) match {
+        case Some(prevLoc) =>
+          Left(SemanticError.DuplicateDictionaryName(
+            kind, name, loc, prevLoc
+          ))
+        case _ => Right(map + (name -> loc))
+      }
+    })
+  }
 
   /** Compute the common type for two types */
   def commonType(t1: Type, t2: Type, errorLoc: Location): Result.Result[Type] =

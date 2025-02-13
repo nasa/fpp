@@ -309,6 +309,19 @@ object CheckExprTypes extends UseAnalyzer {
     yield a
   }
 
+  override def specTlmPacketAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacket]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    for {
+      a <- super.specTlmPacketAnnotatedNode(a, aNode)
+      _ <- convertNodeToNumericOpt(a, data.id)
+      _ <- convertNodeToNumeric(a, data.level)
+    } yield a
+  }
+
   override def structTypeMemberAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.StructTypeMember]]

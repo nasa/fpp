@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/duplicate_id_explicit.fpp:12.5
+    packet P2 id 0 level 1 {
+    ^
+error: duplicate identifier value (0 dec, 0 hex)
+previous occurrence is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/duplicate_id_explicit.fpp:8.5
+    packet P1 id 0 level 0 {
+    ^

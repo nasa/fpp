@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/instance_not_in_topology.fpp:6.7
+      c1.T
+      ^
+error: channel c1.T is not in the dictionary for topology T

@@ -18,6 +18,8 @@ case class Component(
   defaultOpcode: BigInt = 0,
   /** The map from telemetry channel IDs to channels */
   tlmChannelMap: Map[TlmChannel.Id, TlmChannel] = Map(),
+  /** The map from telemetry channel names to channels */
+  tlmChannelNameMap: Map[Name.Unqualified, TlmChannel] = Map(),
   /** The next default channel ID */
   defaultTlmChannelId: BigInt = 0,
   /** The map from event IDs to events */
@@ -87,6 +89,19 @@ case class Component(
       case Some(portInstance) => Right(portInstance)
       case None => Left(
         SemanticError.InvalidPortInstanceId(
+          Locations.get(name.id),
+          name.data,
+          aNode._2.data.name
+        )
+      )
+    }
+
+  /** Gets a telemetry channel by name */
+  def getTlmChannelByName(name: AstNode[Ast.Ident]): Result.Result[TlmChannel] =
+    tlmChannelNameMap.get(name.data) match {
+      case Some(tlmChannel) => Right(tlmChannel)
+      case None => Left(
+        SemanticError.InvalidTlmChannelName(
           Locations.get(name.id),
           name.data,
           aNode._2.data.name
@@ -172,33 +187,13 @@ case class Component(
     }
   }
 
-  /** Add a dictionary element mapped by ID */
-  private def addElementToIdMap[T](
-    map: Map[BigInt, T],
-    id: BigInt,
-    element: T,
-    getLoc: T => Location
-  ): Result.Result[(Map[BigInt,T], BigInt)] = {
-    map.get(id) match {
-      case Some(prevElement) =>
-        // Element already there: report the error
-        val idValue = Analysis.displayIdValue(id)
-        val loc = getLoc(element)
-        val prevLoc = getLoc(prevElement)
-        Left(SemanticError.DuplicateIdValue(idValue, loc, prevLoc))
-      case None =>
-        // New element: compute the new map and the new default ID
-        Right(map + (id -> element), id + 1)
-    }
-  }
-
   /** Add a data product container */
   def addContainer(
     idOpt: Option[TlmChannel.Id],
     container: Container
   ): Result.Result[Component] = {
     for {
-      result <- addElementToIdMap(
+      result <- Analysis.addElementToIdMap(
         containerMap,
         idOpt.getOrElse(defaultContainerId),
         container,
@@ -217,7 +212,7 @@ case class Component(
     event: Event
   ): Result.Result[Component] = {
     for {
-      result <- addElementToIdMap(
+      result <- Analysis.addElementToIdMap(
         eventMap,
         idOpt.getOrElse(defaultEventId),
         event,
@@ -237,7 +232,7 @@ case class Component(
   ): Result.Result[Component] = {
     for {
       // Update the parameter map and the default parameter ID
-      result <- addElementToIdMap(
+      result <- Analysis.addElementToIdMap(
         paramMap,
         idOpt.getOrElse(defaultParamId),
         param,
@@ -264,7 +259,7 @@ case class Component(
     record: Record
   ): Result.Result[Component] = {
     for {
-      result <- addElementToIdMap(
+      result <- Analysis.addElementToIdMap(
         recordMap,
         idOpt.getOrElse(defaultRecordId),
         record,
@@ -283,7 +278,7 @@ case class Component(
     tlmChannel: TlmChannel
   ): Result.Result[Component] = {
     for {
-      result <- addElementToIdMap(
+      result <- Analysis.addElementToIdMap(
         tlmChannelMap,
         idOpt.getOrElse(defaultTlmChannelId),
         tlmChannel,
@@ -292,6 +287,9 @@ case class Component(
     }
     yield this.copy(
       tlmChannelMap = result._1,
+      // Add the channel to the channel name map. If there is a duplicate name,
+      // we will catch it later when we check all the dictionary elements.
+      tlmChannelNameMap = tlmChannelNameMap + (tlmChannel.getName -> tlmChannel),
       defaultTlmChannelId = result._2
     )
   }
@@ -449,59 +447,39 @@ case class Component(
 
   /** Checks that there are no duplicate names in dictionaries */
   private def checkNoDuplicateNames:
-    Result.Result[Unit] = {
-      def checkDictionary[Id,Value](
-        dictionary: Map[Id,Value],
-        kind: String,
-        getName: Value => String,
-        getLoc: Value => Location
-      ) = {
-        val initialMap: Map[String, Location] = Map()
-        Result.foldLeft (dictionary.toList) (initialMap) ((map, pair) => {
-          val (_, value) = pair
-          val name = getName(value)
-          val loc = getLoc(value)
-          map.get(name) match {
-            case Some(prevLoc) =>
-              Left(SemanticError.DuplicateDictionaryName(
-                kind, name, loc, prevLoc
-              ))
-            case _ => Right(map + (name -> loc))
-          }
-        })
-      }
+    Result.Result[Unit] =
       for {
-        _ <- checkDictionary(
+        _ <- Analysis.checkDictionaryNames(
           this.paramMap,
           "parameter",
           _.getName,
           _.getLoc
         )
-        _ <- checkDictionary(
+        _ <- Analysis.checkDictionaryNames(
           this.commandMap,
           "command",
           _.getName,
           _.getLoc
         )
-        _ <- checkDictionary(
+        _ <- Analysis.checkDictionaryNames(
           this.eventMap,
           "event",
           _.getName,
           _.getLoc
         )
-        _ <- checkDictionary(
+        _ <- Analysis.checkDictionaryNames(
           this.tlmChannelMap,
           "telemetry channel",
           _.getName,
           _.getLoc
         )
-        _ <- checkDictionary(
+        _ <- Analysis.checkDictionaryNames(
           this.containerMap,
           "container",
           _.getName,
           _.getLoc
         )
-        _ <- checkDictionary(
+        _ <- Analysis.checkDictionaryNames(
           this.recordMap,
           "record",
           _.getName,
@@ -509,7 +487,6 @@ case class Component(
         )
       }
       yield ()
-    }
 
   /** Checks whether a component is valid */
   private def checkValidity: Result.Result[Unit] = {

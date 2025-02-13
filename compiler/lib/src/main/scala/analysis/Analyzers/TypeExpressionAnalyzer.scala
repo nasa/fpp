@@ -9,6 +9,7 @@ trait TypeExpressionAnalyzer
   with ComponentAnalyzer
   with ModuleAnalyzer
   with StateMachineAnalyzer
+  with TlmPacketGroupAnalyzer
   with TopologyAnalyzer
 {
 
@@ -269,6 +270,15 @@ trait TypeExpressionAnalyzer
       a <- opt(exprNode)(a, data.id)
       a <- visitList(a, data.low, limit)
       a <- visitList(a, data.high, limit)
+    } yield a
+  }
+
+  override def specTlmPacketAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacket]]) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    for {
+      a <- opt(exprNode)(a, data.id)
+      a <- exprNode(a, data.level)
     } yield a
   }
 

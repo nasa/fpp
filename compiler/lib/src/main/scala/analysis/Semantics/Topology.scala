@@ -31,6 +31,9 @@ case class Topology(
   unconnectedPortSet: Set[PortInstanceIdentifier] = Set()
 ) {
 
+  /** Gets the name of the topology */
+  def getName = aNode._2.data.name
+
   /** Add a connection */
   def addConnection(
     graphName: Name.Unqualified,
