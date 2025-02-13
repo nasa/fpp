@@ -500,8 +500,8 @@ case class DictionaryJsonEncoder(
         }
     }
 
-    /** JSON Encoding for Telemetry Packet Groups */
-    private implicit def tlmPacketGroupEncoder: Encoder[(Name.Unqualified, TlmPacketGroup)] = new Encoder[(Name.Unqualified, TlmPacketGroup)] {
+    /** JSON Encoding for Telemetry Packet Sets */
+    private implicit def tlmPacketSetEncoder: Encoder[(Name.Unqualified, TlmPacketGroup)] = new Encoder[(Name.Unqualified, TlmPacketGroup)] {
         override def apply(entry: (Name.Unqualified, TlmPacketGroup)): Json = {
             Json.obj(
                 "name" -> entry._1.toString.asJson,
@@ -509,7 +509,7 @@ case class DictionaryJsonEncoder(
                     Json.obj(
                         "name" -> packet.getName.asJson,
                         "id" -> id.asJson,
-                        "level" -> packet.level.asJson,
+                        "group" -> packet.level.asJson,
                         "members" -> packet.memberIdList.map(tlmId => {
                             val e = dictionary.tlmChannelEntryMap(tlmId)
                             s"${e.instance.toString}.${e.tlmChannel.getName}"
@@ -538,7 +538,7 @@ case class DictionaryJsonEncoder(
             "telemetryChannels" -> dictionary.tlmChannelEntryMap.asJson,
             "records" -> dictionary.recordEntryMap.asJson,
             "containers" -> dictionary.containerEntryMap.asJson,
-            "telemetryPacketGroups" -> dictionary.tlmPacketGroupMap.asJson
+            "telemetryPacketSets" -> dictionary.tlmPacketGroupMap.asJson
         )
     }
 
