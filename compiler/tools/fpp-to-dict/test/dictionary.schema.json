@@ -119,7 +119,7 @@
             "required": [
                 "name",
                 "id",
-                "level",
+                "group",
                 "members"
             ]
         }
