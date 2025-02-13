@@ -203,13 +203,13 @@ module DefinitionsAndSpecifiers {
     telemetry packets P {
 
       @ Telemetry packet
-      packet P1 id 0 level 0 {
+      packet P1 id 0 group 0 {
         i1.c1
         i2.c2
       } @< Telemetry packet
 
       @ Included packet
-      packet P2 id 1 level 1 {
+      packet P2 id 1 group 1 {
         i4.c4
         i5.c5
       } @< Included packet

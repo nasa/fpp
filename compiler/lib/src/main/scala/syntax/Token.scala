@@ -44,6 +44,7 @@ object Token {
   final case class FATAL() extends Token
   final case class FORMAT() extends Token
   final case class GET() extends Token
+  final case class GROUP() extends Token
   final case class GUARD() extends Token
   final case class GUARDED() extends Token
   final case class HEALTH() extends Token
@@ -65,7 +66,6 @@ object Token {
   final case class CHOICE() extends Token
   final case class LBRACE() extends Token
   final case class LBRACKET() extends Token
-  final case class LEVEL() extends Token
   final case class LITERAL_FLOAT(str: String) extends Token
   final case class LITERAL_INT(str: String) extends Token
   final case class LITERAL_STRING(str: String) extends Token

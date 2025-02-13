@@ -3,10 +3,10 @@ package fpp.compiler.analysis
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
-/** An FPP telemetry packet group */
-final case class TlmPacketGroup(
+/** An FPP telemetry packet set */
+final case class TlmPacketSet(
   /** The annotated AST node */
-  aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketGroup]],
+  aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketSet]],
   /** The map from packet IDs to packets */
   packetMap: Map[TlmPacket.Id, TlmPacket] = Map(),
   /** The next default packet ID */
@@ -26,11 +26,11 @@ final case class TlmPacketGroup(
   /** Gets the location of the packet specifier */
   def getLoc: Location = Locations.get(aNode._2.id)
 
-  /** Add a telemetry packet */
+  /** Add a telemetry packet to the set */
   def addPacket(
     idOpt: Option[Event.Id],
     packet: TlmPacket
-  ): Result.Result[TlmPacketGroup] = {
+  ): Result.Result[TlmPacketSet] = {
     for {
       result <- Analysis.addElementToIdMap(
         packetMap,
@@ -45,23 +45,23 @@ final case class TlmPacketGroup(
     )
   }
 
-  /** Gets the channels used in the packet group */
+  /** Gets the channels used in the packet set */
   def getUsedIdSet: Set[TlmChannel.Id] =
     packetMap.values.toSet.flatMap(_.memberIdList.toSet)
 
-  /** Gets the used ID location map for the packet group */
+  /** Gets the used ID location map for the packet set */
   def getUsedIdLocationMap: Map[TlmChannel.Id, Location] =
     packetMap.values.flatMap(_.memberLocationMap).toMap
 
 }
 
-object TlmPacketGroup {
+object TlmPacketSet {
 
-  // Computes the omitted channels
+  // Computes the omitted channels of the packet set
   private def computeOmittedChannels
     (a: Analysis, d: Dictionary, t: Topology)
-    (tpg: TlmPacketGroup):
-  Result.Result[TlmPacketGroup] = {
+    (tpg: TlmPacketSet):
+  Result.Result[TlmPacketSet] = {
     val nodeList = tpg.aNode._2.data.omitted
     for {
       idList <- Result.map(
@@ -82,12 +82,12 @@ object TlmPacketGroup {
   // Checks that each channel is either used or omitted, but not both
   private def checkChannelUsage
     (a: Analysis, d: Dictionary, t: Topology)
-    (tpg: TlmPacketGroup):
+    (tpg: TlmPacketSet):
   Result.Result[Unit] = {
     val usedIdSet = tpg.getUsedIdSet
     val usedIdLocationMap = tpg.getUsedIdLocationMap
-    lazy val groupName = tpg.getName
-    lazy val groupLoc = Locations.get(tpg.aNode._2.id)
+    lazy val setName = tpg.getName
+    lazy val setLoc = Locations.get(tpg.aNode._2.id)
     def checkIdUsedOrOmitted(id: TlmChannel.Id) =
       if !usedIdSet.contains(id) && !tpg.omittedIdSet.contains(id)
       then {
@@ -102,7 +102,7 @@ object TlmPacketGroup {
                       |
                       |telemetry channel is specified here:
                       |$channelLoc""".stripMargin
-        Left(SemanticError.InvalidTlmPacketGroup(groupLoc, groupName, msg))
+        Left(SemanticError.InvalidTlmPacketSet(setLoc, setName, msg))
       }
       else Right(())
     def checkIdNotUsedAndOmitted(id: TlmChannel.Id) =
@@ -119,7 +119,7 @@ object TlmPacketGroup {
                       |
                       |marked omitted here:
                       |$omittedLoc""".stripMargin
-        Left(SemanticError.InvalidTlmPacketGroup(groupLoc, groupName, msg))
+        Left(SemanticError.InvalidTlmPacketSet(setLoc, setName, msg))
       }
       else Right(())
     def checkId(id: TlmChannel.Id) = for {
@@ -130,9 +130,9 @@ object TlmPacketGroup {
     Result.foldLeft (ids) (()) { case (_, id) => checkId(id) }
   }
 
-  /** Completes a telemetry packet group definition */
-  def complete(a: Analysis, d: Dictionary, t: Topology) (tpg: TlmPacketGroup):
-  Result.Result[TlmPacketGroup] = for {
+  /** Completes a telemetry packet set definition */
+  def complete(a: Analysis, d: Dictionary, t: Topology) (tpg: TlmPacketSet):
+  Result.Result[TlmPacketSet] = for {
     _ <- Analysis.checkDictionaryNames(
       tpg.packetMap,
       "packet",

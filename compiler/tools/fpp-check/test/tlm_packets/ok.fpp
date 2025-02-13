@@ -7,12 +7,12 @@ topology T {
 
   telemetry packets P1 {
 
-    packet P1 id 0 level 0 {
+    packet P1 id 0 group 0 {
       c1.T
       c2.T
     }
 
-    packet P2 level 1 {
+    packet P2 group 1 {
       c1.T
       c1.T
     }
@@ -24,7 +24,7 @@ topology T {
 
   telemetry packets P2 {
 
-    packet P1 id 0 level 0 {
+    packet P1 id 0 group 0 {
       c1.T
       c2.T
       c3.T

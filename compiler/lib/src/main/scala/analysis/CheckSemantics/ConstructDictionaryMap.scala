@@ -8,7 +8,7 @@ object ConstructDictionaryMap
   extends Analyzer 
   with ModuleAnalyzer
   with TopologyAnalyzer
-  with TlmPacketGroupAnalyzer
+  with TlmPacketSetAnalyzer
 {
 
   override def defTopologyAnnotatedNode(
@@ -32,21 +32,21 @@ object ConstructDictionaryMap
     }
   }
 
-  override def specTlmPacketGroupAnnotatedNode(
+  override def specTlmPacketSetAnnotatedNode(
     a: Analysis,
-    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketGroup]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketSet]]
   ) = {
-    val tpgOpt = Some(TlmPacketGroup(aNode))
-    val a1 = a.copy(tlmPacketGroup = tpgOpt)
+    val tpgOpt = Some(TlmPacketSet(aNode))
+    val a1 = a.copy(tlmPacketSet = tpgOpt)
     val d = a.dictionary.get
     for {
-      a <- super.specTlmPacketGroupAnnotatedNode(a1, aNode)
-      tpg <- TlmPacketGroup.complete (
+      a <- super.specTlmPacketSetAnnotatedNode(a1, aNode)
+      tpg <- TlmPacketSet.complete (
         a,
         d,
         a.topology.get
-      ) (a.tlmPacketGroup.get)
-      d <- d.addTlmPacketGroup(tpg)
+      ) (a.tlmPacketSet.get)
+      d <- d.addTlmPacketSet(tpg)
     }
     yield a.copy(dictionary = Some(d))
   }
@@ -64,9 +64,9 @@ object ConstructDictionaryMap
         a.topology.get,
         aNode
       )
-      g <- a.tlmPacketGroup.get.addPacket(idOpt, packet)
+      g <- a.tlmPacketSet.get.addPacket(idOpt, packet)
     }
-    yield a.copy(tlmPacketGroup = Some(g))
+    yield a.copy(tlmPacketSet = Some(g))
   }
 
 }

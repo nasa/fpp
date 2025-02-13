@@ -8,7 +8,7 @@ topology T {
 
   telemetry packets P {
 
-    packet P1 id a level b {
+    packet P1 id a group b {
       i.c
     }
 

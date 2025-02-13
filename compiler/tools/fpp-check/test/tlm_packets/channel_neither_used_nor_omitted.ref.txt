@@ -2,7 +2,7 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/channel_neither_used_nor_omitted.fpp:5.3
   telemetry packets P {
   ^
-error: invalid telemetry packet group P
+error: invalid telemetry packet set P
 telemetry channel c1.T is neither used nor marked as omitted
 
 component instance is specified here:

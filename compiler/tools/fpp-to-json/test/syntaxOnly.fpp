@@ -122,7 +122,7 @@ module Main {
 
         telemetry packets P {
 
-          packet P1 id 0 level 0 {
+          packet P1 id 0 group 0 {
             g.T
             h.T
             i.T

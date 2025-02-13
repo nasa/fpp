@@ -9,7 +9,7 @@ trait TypeExpressionAnalyzer
   with ComponentAnalyzer
   with ModuleAnalyzer
   with StateMachineAnalyzer
-  with TlmPacketGroupAnalyzer
+  with TlmPacketSetAnalyzer
   with TopologyAnalyzer
 {
 
@@ -278,7 +278,7 @@ trait TypeExpressionAnalyzer
     val data = node.data
     for {
       a <- opt(exprNode)(a, data.id)
-      a <- exprNode(a, data.level)
+      a <- exprNode(a, data.group)
     } yield a
   }
 
