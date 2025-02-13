@@ -33,8 +33,8 @@ case class DictionaryJsonEncoder(
     private def dictionaryEntryMapAsJson[A <: BigInt, B] (f1: (A, B) => Json) (map: Map[A, B]): Json =
         (map.toList.sortBy(_._1).map { case (key, value) => f1(key, value) }).asJson
 
-    /** Dictionary telemetry packet group map to JSON */
-    private def dictionaryTlmPacketGroupMapAsJson[A <: String, TlmPacketGroup](f1: (A, TlmPacketGroup) => Json) (map: Map[A, TlmPacketGroup]): Json =
+    /** Dictionary telemetry packet set map to JSON */
+    private def dictionaryTlmPacketSetMapAsJson[A <: String, TlmPacketSet](f1: (A, TlmPacketSet) => Json) (map: Map[A, TlmPacketSet]): Json =
         (map.toList.sortBy(_._1).map { case (key, value) => f1(key, value) }).asJson
 
     /** Dictionary symbol set to JSON */
@@ -98,9 +98,9 @@ case class DictionaryJsonEncoder(
         Encoder.instance (dictionaryEntryMapAsJson (f1) _)
     }
 
-    private implicit val tlmPacketGroupMapEncoder: Encoder[Map[Name.Unqualified, TlmPacketGroup]] = {
-        def f1(name: Name.Unqualified, group: TlmPacketGroup) = (name -> group).asJson
-        Encoder.instance (dictionaryTlmPacketGroupMapAsJson (f1) _)
+    private implicit val tlmPacketSetMapEncoder: Encoder[Map[Name.Unqualified, TlmPacketSet]] = {
+        def f1(name: Name.Unqualified, group: TlmPacketSet) = (name -> group).asJson
+        Encoder.instance (dictionaryTlmPacketSetMapAsJson (f1) _)
     }
 
     /** JSON Encoding for FPP Types */
@@ -501,15 +501,15 @@ case class DictionaryJsonEncoder(
     }
 
     /** JSON Encoding for Telemetry Packet Sets */
-    private implicit def tlmPacketSetEncoder: Encoder[(Name.Unqualified, TlmPacketGroup)] = new Encoder[(Name.Unqualified, TlmPacketGroup)] {
-        override def apply(entry: (Name.Unqualified, TlmPacketGroup)): Json = {
+    private implicit def tlmPacketSetEncoder: Encoder[(Name.Unqualified, TlmPacketSet)] = new Encoder[(Name.Unqualified, TlmPacketSet)] {
+        override def apply(entry: (Name.Unqualified, TlmPacketSet)): Json = {
             Json.obj(
                 "name" -> entry._1.toString.asJson,
                 "members" -> entry._2.packetMap.map((id, packet) => {
                     Json.obj(
                         "name" -> packet.getName.asJson,
                         "id" -> id.asJson,
-                        "group" -> packet.level.asJson,
+                        "group" -> packet.group.asJson,
                         "members" -> packet.memberIdList.map(tlmId => {
                             val e = dictionary.tlmChannelEntryMap(tlmId)
                             s"${e.instance.toString}.${e.tlmChannel.getName}"
@@ -538,7 +538,7 @@ case class DictionaryJsonEncoder(
             "telemetryChannels" -> dictionary.tlmChannelEntryMap.asJson,
             "records" -> dictionary.recordEntryMap.asJson,
             "containers" -> dictionary.containerEntryMap.asJson,
-            "telemetryPacketSets" -> dictionary.tlmPacketGroupMap.asJson
+            "telemetryPacketSets" -> dictionary.tlmPacketSetMap.asJson
         )
     }
 
