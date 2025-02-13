@@ -9667,8 +9667,10 @@ member types all have numeric members.</p>
 <h3 id="Types_Ancestor-List">17.17. Ancestor List</h3>
 <div class="paragraph">
 <p>A type <strong>has a parent</strong> if it is a <a href="#Types_Alias-Types">alias type</a>.
-An ancestor list of a type is a list containing the type itself as well
-as the ancestor list of the parent type (given it has a parent).</p>
+The parent type is the type pointed to by the <a href="#Types_Alias-Types">alias type&#8217;s</a> definition.
+This relationship creates a tree of types where nodes only know about their
+parent node. An ancestor list of a type is a list containing the type
+itself as well as the ancestor list of the parent type (given it has a parent).</p>
 </div>
 <div class="paragraph">
 <p>The order of the ancestor list is from the type to the oldest parent type.</p>
@@ -10220,8 +10222,8 @@ types</a>, then do the following:</p>
 <p>Let \$A_2\$ be the <a href="#Types_Ancestor-List">ancestor list</a> of \$T_2\$</p>
 </li>
 <li>
-<p>Let \$T\$ first type in \$A_2\$ that is an <a href="#Type-Checking_Identical-Types">identical type</a>
-to a type in \$A_1\$ <strong>if there exists such a type</strong>.</p>
+<p>Let \$T\$ be the first type in \$A_2\$ that is <a href="#Type-Checking_Identical-Types">identical</a>
+to a type in \$A_1\$ (<strong>if there exists such a type</strong>).</p>
 </li>
 <li>
 <p>If there is no overlap between \$A_1\$ and \$A_2\$, replace each
@@ -11137,7 +11139,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-02-13 11:05:41 -0800
+Last updated 2025-02-13 11:18:21 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

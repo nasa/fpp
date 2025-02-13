@@ -344,8 +344,8 @@ types>>, then do the following:
 
 .. Let stem:[A_1] be the <<Types_Ancestor-List,ancestor list>> of stem:[T_1]
 .. Let stem:[A_2] be the <<Types_Ancestor-List,ancestor list>> of stem:[T_2]
-.. Let stem:[T] first type in stem:[A_2] that is an <<Type-Checking_Identical-Types,identical type>>
-to a type in stem:[A_1] **if there exists such a type**.
+.. Let stem:[T] be the first type in stem:[A_2] that is <<Type-Checking_Identical-Types,identical>>
+to a type in stem:[A_1] (**if there exists such a type**).
 .. If there is no overlap between stem:[A_1] and stem:[A_2], replace each
 each alias type with its <<Types_Underlying-Types,underlying type>>
 and re-apply these rules.
