@@ -1,1 +1,1 @@
--Xmx2G -XX:+UseG1GC
+-Xmx2G -XX:+UseG1GC -Xss2M
