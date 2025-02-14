@@ -1,6 +1,6 @@
 {
   "metadata" : {
-    "deploymentName" : "BasicDp",
+    "deploymentName" : "FppTest.BasicDp",
     "projectVersion" : "1.0.0",
     "frameworkVersion" : "3.4.3",
     "libraryVersions" : [
