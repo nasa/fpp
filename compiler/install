@@ -86,7 +86,8 @@ echo $cmd
 $cmd
 
 echo "Restoring Version.scala"
-cp $util/Version.scala.bak $util/Version.scala
+sed -i.bak -e "s/val v = .*/val v = \"[unknown version]\"/" \
+  $util/Version.scala
 
 mkdir -p $dest
 
