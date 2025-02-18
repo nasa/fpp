@@ -2212,7 +2212,7 @@ the container (e.g., the size of the data payload), and binary data
 representing a list of serialized *records*.
 A record is a unit of data.
 For a complete specification of the container format, see the 
-https://fprime.jpl.nasa.gov/latest/Fw/Dp/docs/sdd/[F Prime design 
+https://fprime.jpl.nasa.gov/devel/Fw/Dp/docs/sdd/[F Prime design 
 documentation].
 
 In an F Prime component, you can specify one or more containers
