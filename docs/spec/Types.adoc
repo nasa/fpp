@@ -172,15 +172,17 @@ member type has numeric members.
 <<Types_Internal-Types_Anonymous-Struct-Types,anonymous struct type>> whose
 member types all have numeric members.
 
-=== Ancestor List
+=== Alias Lists
 
-A type **has a parent** if it is a <<Types_Alias-Types,alias type>>.
-The parent type is the type pointed to by the <<Types_Alias-Types,alias type's>> definition.
-This relationship creates a tree of types where nodes only know about their
-parent node. An ancestor list of a type is a list containing the type
-itself as well as the ancestor list of the parent type (given it has a parent).
+The *alias list* of a type stem:[T] is a list stem:[L] defined as follows:
 
-The order of the ancestor list is from the type to the oldest parent type.
+. The head of stem:[L] is stem:[T].
+
+. If stem:[T] is not an <<Types_Alias-Types,alias type>>, then the
+tail of stem:[L] is the empty list.
+
+. Otherwise the tail of stem:[T] is the alias list of the type
+stem:[T'] that appears in the definition of stem:[T].
 
 === Default Values
 
