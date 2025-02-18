@@ -85,8 +85,8 @@ a time get port for getting the time, and a telemetry port
 for reporting telemetry.
 (For more information on rate groups and the use of `Svc.Sched`
 ports, see the 
-https://fprime.jpl.nasa.gov/latest/docs/user-manual/design/rate-group/[F Prime 
-documentation].)
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/design-patterns/rate-group/[F 
+Prime documentation].)
 We have given the component two telemetry channels:
 `ImpulseTemp` for reporting the temperature of the impulse engine,
 and `WarpTemp` for reporting the temperature of the warp core.
