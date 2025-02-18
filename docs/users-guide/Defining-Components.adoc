@@ -142,7 +142,7 @@ For example, in the {cpp} implementation, you would generate a
 base class with a virtual handler function, and then override that virtual
 function in a derived class that you write.
 For further details about implementing F Prime components, see the
-https://fprime.jpl.nasa.gov/latest/docs/user-manual/[F Prime User Manual].
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/[F Prime User Manual].
 
 *Note on terminology:* As explained above, there is a technical
 distinction between a _port type_ (defined outside any component, and providing
@@ -150,7 +150,7 @@ the type of a port instance)
 and a _port instance_ (specified inside a component and instantiating
 a port type).
 However, it is sometimes useful to refer to a port instance with
-the shorter term "port" when there is no danger of confusion.
+the shorter term "`port`" when there is no danger of confusion.
 We will do that in this manual.
 For example, we will say that the `F32Adder` component has three
 ports: two async input ports of type `F32Value` and one output port
@@ -405,7 +405,7 @@ on that side.
 This flexibility comes at the cost that you lose the type
 compile-time type checking provided by port connections with named types.
 For more information about serial ports and their use, see
-the https://fprime.jpl.nasa.gov/latest/docs/user-manual/[F Prime User Manual].
+the https://fprime.jpl.nasa.gov/devel/docs/user-manual/[F Prime User Manual].
 
 === Special Port Instances
 
@@ -507,7 +507,7 @@ properly with F Prime {cpp} code generation.
 
 For further information about command registration, receipt, and
 response, and implementing command handlers, see the
-https://fprime.jpl.nasa.gov/latest/docs/user-manual/[F Prime User Manual].
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/[F Prime User Manual].
 
 ==== Event Ports
 
@@ -566,7 +566,7 @@ module Fw {
 --------
 
 For further information about events in F Prime, see the
-https://fprime.jpl.nasa.gov/latest/docs/user-manual/[F Prime User Manual].
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/[F Prime User Manual].
 
 ==== Telemetry Ports
 
@@ -609,7 +609,7 @@ module Fw {
 --------
 
 For further information about telemetry in F Prime, see the
-https://fprime.jpl.nasa.gov/latest/docs/user-manual/[F Prime User Manual].
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/[F Prime User Manual].
 
 ==== Parameter Ports
 
@@ -671,7 +671,7 @@ module Fw {
 --------
 
 For further information about parameters in F Prime, see the
-https://fprime.jpl.nasa.gov/latest/docs/user-manual/[F Prime User Manual].
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/[F Prime User Manual].
 
 ==== Time Get Ports
 
@@ -715,7 +715,7 @@ module Fw {
 --------
 
 For further information about time in F Prime, see the
-https://fprime.jpl.nasa.gov/latest/docs/user-manual/[F Prime User Manual].
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/[F Prime User Manual].
 
 ==== Data Product Ports
 
@@ -811,7 +811,7 @@ module Fw {
 --------
 
 For further information about data products in F Prime, see the
-https://fprime.jpl.nasa.gov/latest/docs/user-manual/design/data-products/[F 
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/data-products/[F 
 Prime design documentation].
 
 
@@ -944,7 +944,7 @@ as part of the component implementation.
 
 For complete information about F Prime command dispatch and
 handling, see the
-https://fprime.jpl.nasa.gov/latest/docs/user-manual/[F Prime User Manual].
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/[F Prime User Manual].
 Here we concentrate on how to specify commands in FPP.
 
 ==== Basic Commands
@@ -1271,7 +1271,7 @@ you can store in an on-board file system or send to the ground.
 
 For complete information about F Prime event
 handling, see the
-https://fprime.jpl.nasa.gov/latest/docs/user-manual/[F Prime User Manual].
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/[F Prime User Manual].
 Here we concentrate on how to specify events in FPP.
 
 ==== Basic Events
@@ -1545,7 +1545,7 @@ Once an event is throttled, the component instance will no longer
 emit the event until the throttling is canceled.
 Typically, the canceling happens via a FSW command.
 For details, see the
-https://fprime.jpl.nasa.gov/latest/docs/user-manual/[F Prime User Manual].
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/[F Prime User Manual].
 
 === Telemetry
 
@@ -1562,7 +1562,7 @@ or send them the ground.
 
 For complete information about F Prime telemetry
 handling, see the
-https://fprime.jpl.nasa.gov/latest/docs/user-manual/[F Prime User Manual].
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/[F Prime User Manual].
 Here we concentrate on how to specify telemetry channels in FPP.
 
 ==== Basic Telemetry
@@ -1890,7 +1890,7 @@ F Prime has special support for parameters, including a parameter
 database component for storing parameters in a non-volatile
 manner (e.g., on a file system).
 For complete information about F Prime parameters, see the
-https://fprime.jpl.nasa.gov/latest/docs/user-manual/[F Prime User Manual].
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/[F Prime User Manual].
 Here we concentrate on how to specify parameters in FPP.
 
 ==== Basic Parameters
@@ -2199,7 +2199,7 @@ for (1) managing buffers that can store data products in memory;
 (2) writing data products to the file system; and (3)
 cataloging stored data products for downlink in priority order.
 For more information about these F Prime features, see the
-https://fprime.jpl.nasa.gov/latest/docs/user-manual/design/data-products/[F 
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/data-products/[F 
 Prime design documentation].
 
 ==== Basic Data Products
@@ -2212,7 +2212,7 @@ the container (e.g., the size of the data payload), and binary data
 representing a list of serialized *records*.
 A record is a unit of data.
 For a complete specification of the container format, see the 
-https://fprime.jpl.nasa.gov/latest/Fw/Dp/docs/sdd/[F Prime design 
+https://fprime.jpl.nasa.gov/devel/Fw/Dp/docs/sdd/[F Prime design 
 documentation].
 
 In an F Prime component, you can specify one or more containers
@@ -2277,7 +2277,7 @@ passive component BasicDataProducts {
 The FPP back end uses this specification to generate code for requesting
 buffers to hold containers and for serializing records into containers.
 See the
-https://fprime.jpl.nasa.gov/latest/docs/user-manual/design/data-products/[F
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/data-products/[F
 Prime design documentation] for the details.
 
 Note the following:
@@ -2497,7 +2497,7 @@ As discussed
 machine definitions may be internal (specified in FPP) or external (specified
 by an external tool).  For more details about the {cpp} code generation for
 instances of internal state machines, see the
-https://fprime.jpl.nasa.gov/latest/docs/user-manual/design/state-machines/[F 
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/state-machines/[F 
 Prime design documentation].
 
 === Constants, Types, Enums, and State Machines

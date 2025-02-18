@@ -87,7 +87,7 @@ In this manual, we focus on the syntax and high-level behavior
 of FPP state machines.
 For more details about the {cpp} code generation
 for state machines, see the
-https://fprime.jpl.nasa.gov/latest/docs/user-manual/design/state-machines/[F 
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/state-machines/[F 
 Prime design documentation].
 
 === States, Signals, and Transitions
@@ -585,7 +585,7 @@ When _s'_ is handled and _A_ is run, _s_ is placed on the queue.
 After _s'_ is complete, _s_ is dispatched from the queue and handled.
 
 For more details on sending signals to an FPP state machine, see the
-https://fprime.jpl.nasa.gov/latest/docs/user-manual/design/state-machines/[F
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/state-machines/[F
 Prime design documentation].
 
 === More on State Transitions
