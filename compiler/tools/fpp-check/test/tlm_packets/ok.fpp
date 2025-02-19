@@ -1,4 +1,4 @@
-topology T {
+topology T1 {
 
   instance c1
   instance c2
@@ -32,5 +32,9 @@ topology T {
     }
 
   }
+
+}
+
+topology T2 {
 
 }
