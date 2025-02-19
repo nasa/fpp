@@ -321,6 +321,12 @@ trait CppWriterUtils extends LineUtils {
       case (_, true) => s"sizeof($typeName)"
       case _ => s"$typeName::SERIALIZED_SIZE"
     }
+  
+  /** Writes a format argument U64 */
+  def writeFormatArg (t: Type) (arg: String) =
+    if t == Type.F32
+    then s"static_cast<U64>($arg)"
+    else arg
 
   def classMember(
     comment: Option[String],
