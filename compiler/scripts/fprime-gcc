@@ -23,6 +23,7 @@ flags="
 -Wold-style-cast
 -Wshadow
 -pedantic
+-Wdouble-promotion
 "
 
 unset os_flags

@@ -275,7 +275,7 @@ namespace M {
 
     sb.format(
       formatString,
-      this->m_mF32,
+      static_cast<U64>(this->m_mF32),
       this->m_mF64,
       this->m_mI16,
       this->m_mI32,
