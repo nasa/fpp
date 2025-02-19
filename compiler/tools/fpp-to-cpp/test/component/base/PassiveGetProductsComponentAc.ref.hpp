@@ -218,14 +218,14 @@ class PassiveGetProductsComponentBase :
             FwSizeType size //!< The array size
         );
 
-        FwDpIdType getBaseId() const { return this->baseId; }
+        FwDpIdType getBaseId() const { return this->m_baseId; }
 
-        void setBaseId(FwDpIdType baseId) { this->baseId = baseId; }
+        void setBaseId(FwDpIdType baseId) { this->m_baseId = baseId; }
 
       PRIVATE:
 
         //! The component base id
-        FwDpIdType baseId;
+        FwDpIdType m_baseId;
 
     };
 
