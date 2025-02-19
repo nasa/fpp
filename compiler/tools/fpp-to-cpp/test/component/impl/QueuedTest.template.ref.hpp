@@ -9,7 +9,7 @@
 
 #include "QueuedTestComponentAc.hpp"
 
-class QueuedTest :
+class QueuedTest final :
   public QueuedTestComponentBase
 {
 

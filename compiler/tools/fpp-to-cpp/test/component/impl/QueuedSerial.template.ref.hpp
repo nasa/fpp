@@ -9,7 +9,7 @@
 
 #include "QueuedSerialComponentAc.hpp"
 
-class QueuedSerial :
+class QueuedSerial final :
   public QueuedSerialComponentBase
 {
 

@@ -327,13 +327,15 @@ trait CppWriterUtils extends LineUtils {
     name: String,
     superclassDecls: Option[String],
     members: List[CppDoc.Class.Member],
+    classSpecifier: Option[String] = None
   ): CppDoc.Member.Class =
     CppDoc.Member.Class(
       CppDoc.Class(
         comment,
         name,
         superclassDecls,
-        members
+        members,
+        classSpecifier
       )
     )
 

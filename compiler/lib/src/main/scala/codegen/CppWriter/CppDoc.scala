@@ -42,6 +42,8 @@ object CppDoc {
     superclassDecls: Option[String],
     /** The class members */
     members: List[Class.Member],
+    /** The class specifier, if any, before the colon */
+    classSpecifier: Option[String] = None
   )
 
   object Class {

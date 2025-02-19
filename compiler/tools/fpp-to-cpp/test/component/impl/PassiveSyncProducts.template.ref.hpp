@@ -9,7 +9,7 @@
 
 #include "PassiveSyncProductsComponentAc.hpp"
 
-class PassiveSyncProducts :
+class PassiveSyncProducts final :
   public PassiveSyncProductsComponentBase
 {
 

@@ -9,7 +9,7 @@
 
 #include "QueuedAsyncProductPortsOnlyComponentAc.hpp"
 
-class QueuedAsyncProductPortsOnly :
+class QueuedAsyncProductPortsOnly final :
   public QueuedAsyncProductPortsOnlyComponentBase
 {
 

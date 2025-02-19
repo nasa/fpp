@@ -9,7 +9,7 @@
 
 #include "QueuedNoArgsPortsOnlyComponentAc.hpp"
 
-class QueuedNoArgsPortsOnly :
+class QueuedNoArgsPortsOnly final :
   public QueuedNoArgsPortsOnlyComponentBase
 {
 

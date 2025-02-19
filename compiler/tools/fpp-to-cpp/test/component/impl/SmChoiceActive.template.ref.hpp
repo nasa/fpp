@@ -11,7 +11,7 @@
 
 namespace FppTest {
 
-  class SmChoiceActive :
+  class SmChoiceActive final :
     public SmChoiceActiveComponentBase
   {
 

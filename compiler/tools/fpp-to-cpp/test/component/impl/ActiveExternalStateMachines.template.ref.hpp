@@ -11,7 +11,7 @@
 
 namespace ExternalSm {
 
-  class ActiveExternalStateMachines :
+  class ActiveExternalStateMachines final :
     public ActiveExternalStateMachinesComponentBase
   {
 
