@@ -476,11 +476,13 @@ object Type {
         ancestorsOfB.find(bi => ancestorsOfA.find(ai => areIdentical(ai, bi)).isDefined)
       }
 
-      // If either type is an alias, first their common
+      // Apply this rule if either of t1 and t2 is an alias type
       if (!t1.isCanonical || !t2.isCanonical)
         lca(t1, t2) match {
-          case None => commonType(t1.getUnderlyingType, t2.getUnderlyingType)
+          // If there is a least common ancestor, then use it
           case Some(c) => Some(c)
+          // Otherwise use the common type of the undelrying types
+          case None => commonType(t1.getUnderlyingType, t2.getUnderlyingType)
         }
       else None
     }
