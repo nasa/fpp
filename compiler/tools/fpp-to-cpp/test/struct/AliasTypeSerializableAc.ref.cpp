@@ -14,20 +14,20 @@
 AliasType ::
   AliasType() :
     Serializable(),
-    m_t(0),
-    m_ta()
+    m_x(0),
+    m_y()
 {
 
 }
 
 AliasType ::
   AliasType(
-      U16 t,
-      const AbT& ta
+      U16 x,
+      const T& y
   ) :
     Serializable(),
-    m_t(t),
-    m_ta(ta)
+    m_x(x),
+    m_y(y)
 {
 
 }
@@ -35,8 +35,8 @@ AliasType ::
 AliasType ::
   AliasType(const AliasType& obj) :
     Serializable(),
-    m_t(obj.m_t),
-    m_ta(obj.m_ta)
+    m_x(obj.m_x),
+    m_y(obj.m_y)
 {
 
 }
@@ -52,7 +52,7 @@ AliasType& AliasType ::
     return *this;
   }
 
-  set(obj.m_t, obj.m_ta);
+  set(obj.m_x, obj.m_y);
   return *this;
 }
 
@@ -60,8 +60,8 @@ bool AliasType ::
   operator==(const AliasType& obj) const
 {
   return (
-    (this->m_t == obj.m_t) &&
-    (this->m_ta == obj.m_ta)
+    (this->m_x == obj.m_x) &&
+    (this->m_y == obj.m_y)
   );
 }
 
@@ -91,11 +91,11 @@ Fw::SerializeStatus AliasType ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->m_t);
+  status = buffer.serialize(this->m_x);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_ta);
+  status = buffer.serialize(this->m_y);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -108,11 +108,11 @@ Fw::SerializeStatus AliasType ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->m_t);
+  status = buffer.deserialize(this->m_x);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_ta);
+  status = buffer.deserialize(this->m_y);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -127,20 +127,20 @@ void AliasType ::
 {
   static const char* formatString =
     "( "
-    "t = %s, "
-    "ta = %s"
+    "x = %s, "
+    "y = %s"
     " )";
 
   // Declare strings to hold any serializable toString() arguments
-  Fw::String taStr;
+  Fw::String yStr;
 
   // Call toString for arrays and serializable types
-  this->m_ta.toString(taStr);
+  this->m_y.toString(yStr);
 
   sb.format(
     formatString,
-    this->m_t,
-    taStr.toChar()
+    this->m_x,
+    yStr.toChar()
   );
 }
 
@@ -152,22 +152,22 @@ void AliasType ::
 
 void AliasType ::
   set(
-      U16 t,
-      const AbT& ta
+      U16 x,
+      const T& y
   )
 {
-  this->m_t = t;
-  this->m_ta = ta;
+  this->m_x = x;
+  this->m_y = y;
 }
 
 void AliasType ::
-  sett(U16 t)
+  setx(U16 x)
 {
-  this->m_t = t;
+  this->m_x = x;
 }
 
 void AliasType ::
-  setta(const AbT& ta)
+  sety(const T& y)
 {
-  this->m_ta = ta;
+  this->m_y = y;
 }

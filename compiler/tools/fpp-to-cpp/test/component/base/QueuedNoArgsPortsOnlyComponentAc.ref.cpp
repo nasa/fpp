@@ -530,6 +530,11 @@ void QueuedNoArgsPortsOnlyComponentBase ::
     portNum < this->getNum_noArgsOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
+
+  FW_ASSERT(
+    this->m_noArgsOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
   this->m_noArgsOut_OutputPort[portNum].invoke();
 }
 
@@ -538,6 +543,11 @@ U32 QueuedNoArgsPortsOnlyComponentBase ::
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_noArgsReturnOut_OutputPort[portNum].isConnected(),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_noArgsReturnOut_OutputPort[portNum].invoke();

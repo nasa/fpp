@@ -1870,6 +1870,11 @@ void PassiveGuardedProductsComponentBase ::
     portNum < this->getNum_productRequestOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
+
+  FW_ASSERT(
+    this->m_productRequestOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
   this->m_productRequestOut_OutputPort[portNum].invoke(
     id,
     dataSize
@@ -1885,6 +1890,11 @@ void PassiveGuardedProductsComponentBase ::
 {
   FW_ASSERT(
     portNum < this->getNum_productSendOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_productSendOut_OutputPort[portNum].isConnected(),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_productSendOut_OutputPort[portNum].invoke(
@@ -1904,6 +1914,11 @@ void PassiveGuardedProductsComponentBase ::
     portNum < this->getNum_noArgsOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
+
+  FW_ASSERT(
+    this->m_noArgsOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
   this->m_noArgsOut_OutputPort[portNum].invoke();
 }
 
@@ -1912,6 +1927,11 @@ U32 PassiveGuardedProductsComponentBase ::
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_noArgsReturnOut_OutputPort[portNum].isConnected(),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_noArgsReturnOut_OutputPort[portNum].invoke();
@@ -1931,6 +1951,11 @@ void PassiveGuardedProductsComponentBase ::
 {
   FW_ASSERT(
     portNum < this->getNum_typedOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_typedOut_OutputPort[portNum].isConnected(),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_typedOut_OutputPort[portNum].invoke(
@@ -1958,6 +1983,11 @@ F32 PassiveGuardedProductsComponentBase ::
 {
   FW_ASSERT(
     portNum < this->getNum_typedReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_typedReturnOut_OutputPort[portNum].isConnected(),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_typedReturnOut_OutputPort[portNum].invoke(

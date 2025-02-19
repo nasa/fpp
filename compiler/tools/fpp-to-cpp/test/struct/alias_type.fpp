@@ -1,4 +1,4 @@
-type T = U16
-type AbT
-type TA = AbT
-struct AliasType { t: T, ta: TA }
+type U16Alias = U16
+type T
+type TAlias = T
+struct AliasType { x: U16Alias, y: TAlias }

@@ -189,6 +189,11 @@ Fw::Success PassiveGetProductPortsOnlyComponentBase ::
     portNum < this->getNum_productGetOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
+
+  FW_ASSERT(
+    this->m_productGetOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
   return this->m_productGetOut_OutputPort[portNum].invoke(
     id,
     dataSize,
@@ -205,6 +210,11 @@ void PassiveGetProductPortsOnlyComponentBase ::
 {
   FW_ASSERT(
     portNum < this->getNum_productSendOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_productSendOut_OutputPort[portNum].isConnected(),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_productSendOut_OutputPort[portNum].invoke(

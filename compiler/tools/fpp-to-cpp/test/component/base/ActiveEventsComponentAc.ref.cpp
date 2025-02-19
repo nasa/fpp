@@ -2264,6 +2264,11 @@ void ActiveEventsComponentBase ::
     portNum < this->getNum_noArgsOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
+
+  FW_ASSERT(
+    this->m_noArgsOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
   this->m_noArgsOut_OutputPort[portNum].invoke();
 }
 
@@ -2272,6 +2277,11 @@ U32 ActiveEventsComponentBase ::
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_noArgsReturnOut_OutputPort[portNum].isConnected(),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_noArgsReturnOut_OutputPort[portNum].invoke();
@@ -2291,6 +2301,11 @@ void ActiveEventsComponentBase ::
 {
   FW_ASSERT(
     portNum < this->getNum_typedOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_typedOut_OutputPort[portNum].isConnected(),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_typedOut_OutputPort[portNum].invoke(
@@ -2318,6 +2333,11 @@ F32 ActiveEventsComponentBase ::
 {
   FW_ASSERT(
     portNum < this->getNum_typedReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_typedReturnOut_OutputPort[portNum].isConnected(),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_typedReturnOut_OutputPort[portNum].invoke(
