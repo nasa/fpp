@@ -18,12 +18,12 @@ fi
 
 flags="
 -Wall
+-Wdouble-promotion
 -Werror
 -Wextra
 -Wold-style-cast
 -Wshadow
 -pedantic
--Wdouble-promotion
 "
 
 unset os_flags
