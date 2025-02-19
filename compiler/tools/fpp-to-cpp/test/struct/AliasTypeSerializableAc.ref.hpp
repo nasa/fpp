@@ -7,11 +7,11 @@
 #ifndef AliasTypeSerializableAc_HPP
 #define AliasTypeSerializableAc_HPP
 
-#include "AbT.hpp"
 #include "FpConfig.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
+#include "T.hpp"
 
 class AliasType :
   public Fw::Serializable
@@ -27,7 +27,7 @@ class AliasType :
       //! The size of the serial representation
       SERIALIZED_SIZE =
         sizeof(U16) +
-        AbT::SERIALIZED_SIZE
+        T::SERIALIZED_SIZE
     };
 
   public:
@@ -41,8 +41,8 @@ class AliasType :
 
     //! Member constructor
     AliasType(
-        U16 t,
-        const AbT& ta
+        U16 x,
+        const T& y
     );
 
     //! Copy constructor
@@ -110,22 +110,22 @@ class AliasType :
     // Getter functions
     // ----------------------------------------------------------------------
 
-    //! Get member t
-    U16 gett() const
+    //! Get member x
+    U16 getx() const
     {
-      return this->m_t;
+      return this->m_x;
     }
 
-    //! Get member ta
-    AbT& getta()
+    //! Get member y
+    T& gety()
     {
-      return this->m_ta;
+      return this->m_y;
     }
 
-    //! Get member ta (const)
-    const AbT& getta() const
+    //! Get member y (const)
+    const T& gety() const
     {
-      return this->m_ta;
+      return this->m_y;
     }
 
     // ----------------------------------------------------------------------
@@ -134,15 +134,15 @@ class AliasType :
 
     //! Set all members
     void set(
-        U16 t,
-        const AbT& ta
+        U16 x,
+        const T& y
     );
 
-    //! Set member t
-    void sett(U16 t);
+    //! Set member x
+    void setx(U16 x);
 
-    //! Set member ta
-    void setta(const AbT& ta);
+    //! Set member y
+    void sety(const T& y);
 
   protected:
 
@@ -150,8 +150,8 @@ class AliasType :
     // Member variables
     // ----------------------------------------------------------------------
 
-    U16 m_t;
-    AbT m_ta;
+    U16 m_x;
+    T m_y;
 
 };
 
