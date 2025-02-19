@@ -2534,7 +2534,7 @@ void QueuedEventsComponentBase ::
 #endif
       "EventActivityLowThrottled ",
       u32,
-      f32,
+      static_cast<U64>(f32),
       b
     );
 
