@@ -80,7 +80,7 @@ ActiveAsyncProductsComponentBase::DpContainer ::
       FwDpIdType baseId
   ) :
     Fw::DpContainer(id, buffer),
-    baseId(baseId)
+    m_baseId(baseId)
 {
 
 }
@@ -88,7 +88,7 @@ ActiveAsyncProductsComponentBase::DpContainer ::
 ActiveAsyncProductsComponentBase::DpContainer ::
   DpContainer() :
     Fw::DpContainer(),
-    baseId(0)
+    m_baseId(0)
 {
 
 }
@@ -108,7 +108,7 @@ Fw::SerializeStatus ActiveAsyncProductsComponentBase::DpContainer ::
   // Serialize the elements if they will fit
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
-    const FwDpIdType id = this->baseId + RecordId::DataArrayRecord;
+    const FwDpIdType id = this->m_baseId + RecordId::DataArrayRecord;
     status = this->m_dataBuffer.serialize(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     status = this->m_dataBuffer.serializeSize(size);
@@ -133,7 +133,7 @@ Fw::SerializeStatus ActiveAsyncProductsComponentBase::DpContainer ::
     ActiveAsyncProducts_Data::SERIALIZED_SIZE;
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
-    const FwDpIdType id = this->baseId + RecordId::DataRecord;
+    const FwDpIdType id = this->m_baseId + RecordId::DataRecord;
     status = this->m_dataBuffer.serialize(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     status = this->m_dataBuffer.serialize(elt);
@@ -166,7 +166,7 @@ Fw::SerializeStatus ActiveAsyncProductsComponentBase::DpContainer ::
   // Serialize the elements if they will fit
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
-    const FwDpIdType id = this->baseId + RecordId::StringArrayRecord;
+    const FwDpIdType id = this->m_baseId + RecordId::StringArrayRecord;
     status = this->m_dataBuffer.serialize(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     status = this->m_dataBuffer.serializeSize(size);
@@ -194,7 +194,7 @@ Fw::SerializeStatus ActiveAsyncProductsComponentBase::DpContainer ::
     elt.serializedTruncatedSize(stringSize);
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
-    const FwDpIdType id = this->baseId + RecordId::StringRecord;
+    const FwDpIdType id = this->m_baseId + RecordId::StringRecord;
     status = this->m_dataBuffer.serialize(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     status = elt.serialize(this->m_dataBuffer, stringSize);
@@ -222,7 +222,7 @@ Fw::SerializeStatus ActiveAsyncProductsComponentBase::DpContainer ::
   // Serialize the elements if they will fit
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
-    const FwDpIdType id = this->baseId + RecordId::U32ArrayRecord;
+    const FwDpIdType id = this->m_baseId + RecordId::U32ArrayRecord;
     status = this->m_dataBuffer.serialize(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     status = this->m_dataBuffer.serializeSize(size);
@@ -247,7 +247,7 @@ Fw::SerializeStatus ActiveAsyncProductsComponentBase::DpContainer ::
     sizeof(U32);
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
-    const FwDpIdType id = this->baseId + RecordId::U32Record;
+    const FwDpIdType id = this->m_baseId + RecordId::U32Record;
     status = this->m_dataBuffer.serialize(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     status = this->m_dataBuffer.serialize(elt);
@@ -275,7 +275,7 @@ Fw::SerializeStatus ActiveAsyncProductsComponentBase::DpContainer ::
   // Serialize the elements if they will fit
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
-    const FwDpIdType id = this->baseId + RecordId::U8ArrayRecord;
+    const FwDpIdType id = this->m_baseId + RecordId::U8ArrayRecord;
     status = this->m_dataBuffer.serialize(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     status = this->m_dataBuffer.serializeSize(size);

@@ -386,13 +386,13 @@ case class ComponentDataProducts (
             Some("The component base id")
           )
         ),
-        List("Fw::DpContainer(id, buffer)", "baseId(baseId)"),
+        List("Fw::DpContainer(id, buffer)", "m_baseId(baseId)"),
         Nil
       ),
       constructorClassMember(
         Some("Constructor with default initialization"),
         Nil,
-        List("Fw::DpContainer()", "baseId(0)"),
+        List("Fw::DpContainer()", "m_baseId(0)"),
         Nil
       ),
     )
@@ -437,7 +437,7 @@ case class ComponentDataProducts (
         s"""|$computeSizeDelta
             |Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
             |if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
-            |  const FwDpIdType id = this->baseId + RecordId::$name;
+            |  const FwDpIdType id = this->m_baseId + RecordId::$name;
             |  status = this->m_dataBuffer.serialize(id);
             |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
             |  status = $serialExpr;
@@ -524,7 +524,7 @@ case class ComponentDataProducts (
             |// Serialize the elements if they will fit
             |Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
             |if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
-            |  const FwDpIdType id = this->baseId + RecordId::$name;
+            |  const FwDpIdType id = this->m_baseId + RecordId::$name;
             |  status = this->m_dataBuffer.serialize(id);
             |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
             |  status = this->m_dataBuffer.serializeSize(size);
@@ -575,9 +575,9 @@ case class ComponentDataProducts (
     private val getAccessFunctionsMember = linesClassMember(
       lines(
         raw"""|
-              |FwDpIdType getBaseId() const { return this->baseId; }
+              |FwDpIdType getBaseId() const { return this->m_baseId; }
               |
-              |void setBaseId(FwDpIdType baseId) { this->baseId = baseId; }"""
+              |void setBaseId(FwDpIdType baseId) { this->m_baseId = baseId; }"""
       )
     )
 
@@ -589,7 +589,7 @@ case class ComponentDataProducts (
       linesClassMember(
         CppDocHppWriter.writeAccessTag("PRIVATE") ++
         CppDocWriter.writeDoxygenComment("The component base id") ++
-        lines("FwDpIdType baseId;")
+        lines("FwDpIdType m_baseId;")
       )
     )
 

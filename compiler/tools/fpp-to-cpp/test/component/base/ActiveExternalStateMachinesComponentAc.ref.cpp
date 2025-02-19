@@ -536,7 +536,7 @@ namespace ExternalSm {
 
         // Deserialize the state machine ID to an FwEnumStoreType
         FwEnumStoreType enumStoreSmId = 0;
-        Fw::SerializeStatus deserStatus = msg.deserialize(enumStoreSmId);
+        deserStatus = msg.deserialize(enumStoreSmId);
         FW_ASSERT(
           deserStatus == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(deserStatus)
