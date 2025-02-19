@@ -1,6 +1,6 @@
 {
   "metadata" : {
-    "deploymentName" : "FirstTop",
+    "deploymentName" : "Module1.FirstTop",
     "projectVersion" : "1.0.0",
     "frameworkVersion" : "3.4.3",
     "libraryVersions" : [
@@ -312,88 +312,6 @@
   ],
   "commands" : [
     {
-      "name" : "Module1.myFirstC2.Command1",
-      "commandKind" : "sync",
-      "opcode" : 1024,
-      "formalParams" : [
-        {
-          "name" : "a",
-          "type" : {
-            "name" : "Module1.S2",
-            "kind" : "qualifiedIdentifier"
-          },
-          "ref" : false
-        }
-      ],
-      "annotation" : "Command with 1 arg (of type struct)"
-    },
-    {
-      "name" : "Module1.myFirstC1.PARAM2_PRM_SET",
-      "commandKind" : "set",
-      "opcode" : 898,
-      "formalParams" : [
-        {
-          "name" : "val",
-          "type" : {
-            "name" : "Module1.U32x4",
-            "kind" : "qualifiedIdentifier"
-          },
-          "ref" : false
-        }
-      ],
-      "annotation" : "Parameter of type array (with 4 U32 values)"
-    },
-    {
-      "name" : "Module1.myFirstC1.PARAM5_PRM_SAVE",
-      "commandKind" : "save",
-      "opcode" : 905,
-      "formalParams" : [
-      ],
-      "annotation" : "Parameter of type enum"
-    },
-    {
-      "name" : "Module1.myFirstC1.PARAM3_PRM_SAVE",
-      "commandKind" : "save",
-      "opcode" : 901,
-      "formalParams" : [
-      ],
-      "annotation" : "Parameter of type string"
-    },
-    {
-      "name" : "Module1.myFirstC1.PARAM3_PRM_SET",
-      "commandKind" : "set",
-      "opcode" : 900,
-      "formalParams" : [
-        {
-          "name" : "val",
-          "type" : {
-            "name" : "string",
-            "kind" : "string",
-            "size" : 20
-          },
-          "ref" : false
-        }
-      ],
-      "annotation" : "Parameter of type string"
-    },
-    {
-      "name" : "Module1.myFirstC1.Command2",
-      "commandKind" : "sync",
-      "opcode" : 769,
-      "formalParams" : [
-        {
-          "name" : "a",
-          "type" : {
-            "name" : "string",
-            "kind" : "string",
-            "size" : 16
-          },
-          "ref" : false
-        }
-      ],
-      "annotation" : "Command with string arg"
-    },
-    {
       "name" : "Module1.myFirstC1.Command1",
       "commandKind" : "async",
       "opcode" : 768,
@@ -413,6 +331,197 @@
       "priority" : 10,
       "queueFullBehavior" : "drop",
       "annotation" : "Command with I32 arg"
+    },
+    {
+      "name" : "Module1.myFirstC1.Command2",
+      "commandKind" : "sync",
+      "opcode" : 769,
+      "formalParams" : [
+        {
+          "name" : "a",
+          "type" : {
+            "name" : "string",
+            "kind" : "string",
+            "size" : 16
+          },
+          "ref" : false
+        }
+      ],
+      "annotation" : "Command with string arg"
+    },
+    {
+      "name" : "Module1.myFirstC1.Command3",
+      "commandKind" : "sync",
+      "opcode" : 770,
+      "formalParams" : [
+        {
+          "name" : "a",
+          "type" : {
+            "name" : "Module1.StringArray",
+            "kind" : "qualifiedIdentifier"
+          },
+          "ref" : false,
+          "annotation" : "description for argument a"
+        },
+        {
+          "name" : "b",
+          "type" : {
+            "name" : "U32",
+            "kind" : "integer",
+            "size" : 32,
+            "signed" : false
+          },
+          "ref" : false,
+          "annotation" : "description for argument b"
+        }
+      ],
+      "annotation" : "Command with 2 args (array of strings and U32)"
+    },
+    {
+      "name" : "Module1.myFirstC1.Command4",
+      "commandKind" : "sync",
+      "opcode" : 771,
+      "formalParams" : [
+      ],
+      "annotation" : "Command with no args"
+    },
+    {
+      "name" : "Module1.myFirstC1.PARAM1_PRM_SET",
+      "commandKind" : "set",
+      "opcode" : 772,
+      "formalParams" : [
+        {
+          "name" : "val",
+          "type" : {
+            "name" : "Module1.S1",
+            "kind" : "qualifiedIdentifier"
+          },
+          "ref" : false
+        }
+      ],
+      "annotation" : "Parameter (struct)"
+    },
+    {
+      "name" : "Module1.myFirstC1.PARAM1_PRM_SAVE",
+      "commandKind" : "save",
+      "opcode" : 773,
+      "formalParams" : [
+      ],
+      "annotation" : "Parameter (struct)"
+    },
+    {
+      "name" : "Module1.myFirstC1.PARAM2_PRM_SET",
+      "commandKind" : "set",
+      "opcode" : 898,
+      "formalParams" : [
+        {
+          "name" : "val",
+          "type" : {
+            "name" : "Module1.U32x4",
+            "kind" : "qualifiedIdentifier"
+          },
+          "ref" : false
+        }
+      ],
+      "annotation" : "Parameter of type array (with 4 U32 values)"
+    },
+    {
+      "name" : "Module1.myFirstC1.PARAM2_PRM_SAVE",
+      "commandKind" : "save",
+      "opcode" : 899,
+      "formalParams" : [
+      ],
+      "annotation" : "Parameter of type array (with 4 U32 values)"
+    },
+    {
+      "name" : "Module1.myFirstC1.PARAM3_PRM_SET",
+      "commandKind" : "set",
+      "opcode" : 900,
+      "formalParams" : [
+        {
+          "name" : "val",
+          "type" : {
+            "name" : "string",
+            "kind" : "string",
+            "size" : 20
+          },
+          "ref" : false
+        }
+      ],
+      "annotation" : "Parameter of type string"
+    },
+    {
+      "name" : "Module1.myFirstC1.PARAM3_PRM_SAVE",
+      "commandKind" : "save",
+      "opcode" : 901,
+      "formalParams" : [
+      ],
+      "annotation" : "Parameter of type string"
+    },
+    {
+      "name" : "Module1.myFirstC1.PARAM4_PRM_SET",
+      "commandKind" : "set",
+      "opcode" : 902,
+      "formalParams" : [
+        {
+          "name" : "val",
+          "type" : {
+            "name" : "F32",
+            "kind" : "float",
+            "size" : 32
+          },
+          "ref" : false
+        }
+      ],
+      "annotation" : "Parameter of type F32"
+    },
+    {
+      "name" : "Module1.myFirstC1.PARAM4_PRM_SAVE",
+      "commandKind" : "save",
+      "opcode" : 903,
+      "formalParams" : [
+      ],
+      "annotation" : "Parameter of type F32"
+    },
+    {
+      "name" : "Module1.myFirstC1.PARAM5_PRM_SET",
+      "commandKind" : "set",
+      "opcode" : 904,
+      "formalParams" : [
+        {
+          "name" : "val",
+          "type" : {
+            "name" : "Module1.E1",
+            "kind" : "qualifiedIdentifier"
+          },
+          "ref" : false
+        }
+      ],
+      "annotation" : "Parameter of type enum"
+    },
+    {
+      "name" : "Module1.myFirstC1.PARAM5_PRM_SAVE",
+      "commandKind" : "save",
+      "opcode" : 905,
+      "formalParams" : [
+      ],
+      "annotation" : "Parameter of type enum"
+    },
+    {
+      "name" : "Module1.myFirstC2.Command1",
+      "commandKind" : "sync",
+      "opcode" : 1024,
+      "formalParams" : [
+        {
+          "name" : "a",
+          "type" : {
+            "name" : "Module1.S2",
+            "kind" : "qualifiedIdentifier"
+          },
+          "ref" : false
+        }
+      ],
+      "annotation" : "Command with 1 arg (of type struct)"
     },
     {
       "name" : "Module1.myFirstC2.Command2",
@@ -451,59 +560,6 @@
       "annotation" : "Command with 3 args (of types string, I32, and bool)"
     },
     {
-      "name" : "Module1.myFirstC1.PARAM2_PRM_SAVE",
-      "commandKind" : "save",
-      "opcode" : 899,
-      "formalParams" : [
-      ],
-      "annotation" : "Parameter of type array (with 4 U32 values)"
-    },
-    {
-      "name" : "Module1.myFirstC1.PARAM4_PRM_SET",
-      "commandKind" : "set",
-      "opcode" : 902,
-      "formalParams" : [
-        {
-          "name" : "val",
-          "type" : {
-            "name" : "F32",
-            "kind" : "float",
-            "size" : 32
-          },
-          "ref" : false
-        }
-      ],
-      "annotation" : "Parameter of type F32"
-    },
-    {
-      "name" : "Module1.myFirstC1.Command3",
-      "commandKind" : "sync",
-      "opcode" : 770,
-      "formalParams" : [
-        {
-          "name" : "a",
-          "type" : {
-            "name" : "Module1.StringArray",
-            "kind" : "qualifiedIdentifier"
-          },
-          "ref" : false,
-          "annotation" : "description for argument a"
-        },
-        {
-          "name" : "b",
-          "type" : {
-            "name" : "U32",
-            "kind" : "integer",
-            "size" : 32,
-            "signed" : false
-          },
-          "ref" : false,
-          "annotation" : "description for argument b"
-        }
-      ],
-      "annotation" : "Command with 2 args (array of strings and U32)"
-    },
-    {
       "name" : "Module1.myFirstC2.SendScalars",
       "commandKind" : "sync",
       "opcode" : 1026,
@@ -518,93 +574,9 @@
         }
       ],
       "annotation" : "Send scalars"
-    },
-    {
-      "name" : "Module1.myFirstC1.PARAM1_PRM_SAVE",
-      "commandKind" : "save",
-      "opcode" : 773,
-      "formalParams" : [
-      ],
-      "annotation" : "Parameter (struct)"
-    },
-    {
-      "name" : "Module1.myFirstC1.PARAM5_PRM_SET",
-      "commandKind" : "set",
-      "opcode" : 904,
-      "formalParams" : [
-        {
-          "name" : "val",
-          "type" : {
-            "name" : "Module1.E1",
-            "kind" : "qualifiedIdentifier"
-          },
-          "ref" : false
-        }
-      ],
-      "annotation" : "Parameter of type enum"
-    },
-    {
-      "name" : "Module1.myFirstC1.PARAM1_PRM_SET",
-      "commandKind" : "set",
-      "opcode" : 772,
-      "formalParams" : [
-        {
-          "name" : "val",
-          "type" : {
-            "name" : "Module1.S1",
-            "kind" : "qualifiedIdentifier"
-          },
-          "ref" : false
-        }
-      ],
-      "annotation" : "Parameter (struct)"
-    },
-    {
-      "name" : "Module1.myFirstC1.PARAM4_PRM_SAVE",
-      "commandKind" : "save",
-      "opcode" : 903,
-      "formalParams" : [
-      ],
-      "annotation" : "Parameter of type F32"
-    },
-    {
-      "name" : "Module1.myFirstC1.Command4",
-      "commandKind" : "sync",
-      "opcode" : 771,
-      "formalParams" : [
-      ],
-      "annotation" : "Command with no args"
     }
   ],
   "parameters" : [
-    {
-      "name" : "Module1.myFirstC1.Param2",
-      "type" : {
-        "name" : "Module1.U32x4",
-        "kind" : "qualifiedIdentifier"
-      },
-      "id" : 770,
-      "annotation" : "Parameter of type array (with 4 U32 values)"
-    },
-    {
-      "name" : "Module1.myFirstC1.Param5",
-      "type" : {
-        "name" : "Module1.E1",
-        "kind" : "qualifiedIdentifier"
-      },
-      "id" : 773,
-      "annotation" : "Parameter of type enum"
-    },
-    {
-      "name" : "Module1.myFirstC1.Param4",
-      "type" : {
-        "name" : "F32",
-        "kind" : "float",
-        "size" : 32
-      },
-      "id" : 772,
-      "annotation" : "Parameter of type F32"
-    },
     {
       "name" : "Module1.myFirstC1.Param1",
       "type" : {
@@ -619,6 +591,15 @@
       "annotation" : "Parameter (struct)"
     },
     {
+      "name" : "Module1.myFirstC1.Param2",
+      "type" : {
+        "name" : "Module1.U32x4",
+        "kind" : "qualifiedIdentifier"
+      },
+      "id" : 770,
+      "annotation" : "Parameter of type array (with 4 U32 values)"
+    },
+    {
       "name" : "Module1.myFirstC1.Param3",
       "type" : {
         "name" : "string",
@@ -627,6 +608,25 @@
       },
       "id" : 771,
       "annotation" : "Parameter of type string"
+    },
+    {
+      "name" : "Module1.myFirstC1.Param4",
+      "type" : {
+        "name" : "F32",
+        "kind" : "float",
+        "size" : 32
+      },
+      "id" : 772,
+      "annotation" : "Parameter of type F32"
+    },
+    {
+      "name" : "Module1.myFirstC1.Param5",
+      "type" : {
+        "name" : "Module1.E1",
+        "kind" : "qualifiedIdentifier"
+      },
+      "id" : 773,
+      "annotation" : "Parameter of type enum"
     }
   ],
   "events" : [
@@ -708,59 +708,6 @@
   ],
   "telemetryChannels" : [
     {
-      "name" : "Module1.myFirstC2.TlmChannel1",
-      "type" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
-      },
-      "id" : 1024,
-      "telemetryUpdate" : "always",
-      "annotation" : "Telemetry channel of type U32 with no high/low limits"
-    },
-    {
-      "name" : "Module1.myFirstC1.MyTlmChannel3",
-      "type" : {
-        "name" : "U64",
-        "kind" : "integer",
-        "size" : 64,
-        "signed" : false
-      },
-      "id" : 770,
-      "telemetryUpdate" : "always",
-      "annotation" : "Telemetry channel of type U64"
-    },
-    {
-      "name" : "Module1.myFirstC2.TlmChannel3",
-      "type" : {
-        "name" : "F64",
-        "kind" : "float",
-        "size" : 64
-      },
-      "id" : 1026,
-      "telemetryUpdate" : "always",
-      "annotation" : "Telemetry channel of type F32 with high limits",
-      "limits" : {
-        "high" : {
-          "yellow" : 1.0,
-          "orange" : 2.0,
-          "red" : 3.0
-        }
-      }
-    },
-    {
-      "name" : "Module1.myFirstC1.MyTlmChannel2",
-      "type" : {
-        "name" : "F32",
-        "kind" : "float",
-        "size" : 32
-      },
-      "id" : 769,
-      "telemetryUpdate" : "always",
-      "annotation" : "Telemetry channel of type F32"
-    },
-    {
       "name" : "Module1.myFirstC1.TlmChannel1",
       "type" : {
         "name" : "F64",
@@ -784,6 +731,41 @@
       }
     },
     {
+      "name" : "Module1.myFirstC1.TlmChannel2",
+      "type" : {
+        "name" : "F32",
+        "kind" : "float",
+        "size" : 32
+      },
+      "id" : 769,
+      "telemetryUpdate" : "always",
+      "annotation" : "Telemetry channel of type F32"
+    },
+    {
+      "name" : "Module1.myFirstC1.TlmChannel3",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "id" : 770,
+      "telemetryUpdate" : "always",
+      "annotation" : "Telemetry channel of type U64"
+    },
+    {
+      "name" : "Module1.myFirstC2.TlmChannel1",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "id" : 1024,
+      "telemetryUpdate" : "always",
+      "annotation" : "Telemetry channel of type U32 with no high/low limits"
+    },
+    {
       "name" : "Module1.myFirstC2.TlmChannel2",
       "type" : {
         "name" : "F64",
@@ -798,6 +780,24 @@
           "yellow" : -1.1,
           "orange" : -2.2,
           "red" : -3.3
+        }
+      }
+    },
+    {
+      "name" : "Module1.myFirstC2.TlmChannel3",
+      "type" : {
+        "name" : "F64",
+        "kind" : "float",
+        "size" : 64
+      },
+      "id" : 1026,
+      "telemetryUpdate" : "always",
+      "annotation" : "Telemetry channel of type F32 with high limits",
+      "limits" : {
+        "high" : {
+          "yellow" : 1.0,
+          "orange" : 2.0,
+          "red" : 3.0
         }
       }
     }
@@ -853,6 +853,35 @@
       "id" : 786,
       "defaultPriority" : 10,
       "annotation" : "Description Container 3 with a default priority of 10"
+    }
+  ],
+  "telemetryPacketSets" : [
+    {
+      "name" : "Packets",
+      "members" : [
+        {
+          "name" : "MyTlmPacket1",
+          "id" : 0,
+          "group" : 0,
+          "members" : [
+            "Module1.myFirstC1.TlmChannel1",
+            "Module1.myFirstC1.TlmChannel2"
+          ]
+        },
+        {
+          "name" : "MyTlmPacket2",
+          "id" : 1,
+          "group" : 1,
+          "members" : [
+            "Module1.myFirstC2.TlmChannel1"
+          ]
+        }
+      ],
+      "omitted" : [
+        "Module1.myFirstC1.TlmChannel3",
+        "Module1.myFirstC2.TlmChannel2",
+        "Module1.myFirstC2.TlmChannel3"
+      ]
     }
   ]
 }

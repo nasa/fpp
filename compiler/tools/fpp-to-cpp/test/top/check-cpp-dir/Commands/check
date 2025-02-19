@@ -1,6 +1,7 @@
 #!/bin/sh -e
 
 fpp_to_cpp=../../../../../../bin/fpp-to-cpp
+fprime_gcc=../../../../../../scripts/fprime-gcc
 
 echo '  removing old files'
 ./clean
@@ -17,4 +18,4 @@ do
 done
 
 echo '  compiling C++'
-fprime-gcc -I.. -I../../../fprime -I../../../fprime/config -Wno-unused-parameter -c CommandsTopologyAc.cpp
+$fprime_gcc -I.. -I../../../fprime -I../../../fprime/config -Wno-unused-parameter -c CommandsTopologyAc.cpp

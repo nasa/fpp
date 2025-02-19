@@ -112,6 +112,16 @@ object FppWriter extends AstVisitor with LineUtils {
       case Ast.TransitionOrDo.Do(actions) => actionList(actions)
     }
 
+  override def defAliasTypeAnnotatedNode(
+      in: In,
+      aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"type ${ident(data.name)} = ").
+      join("") (typeNameNode(data.typeName))
+  }
+
   override def defAbsTypeAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]

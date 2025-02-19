@@ -12,6 +12,16 @@ object AstWriter extends AstVisitor with LineUtils {
 
   def transUnit(tu: Ast.TransUnit): Out = transUnit((), tu)
 
+  override def defAliasTypeAnnotatedNode(
+    in: Unit,
+    aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]): Out = {
+      val (_, node, _) = aNode
+      lines("def alias type") ++ (
+        ident(node.data.name) ++
+        typeNameNode(node.data.typeName)
+      ).map(indentIn)
+    }
+
   override def defAbsTypeAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]

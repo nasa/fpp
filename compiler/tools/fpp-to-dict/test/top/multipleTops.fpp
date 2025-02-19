@@ -134,10 +134,10 @@ module Module1 {
       high { yellow 1.1, orange 2.2, red 3.3 }
 
     @ Telemetry channel of type F32
-    telemetry MyTlmChannel2: F32
+    telemetry TlmChannel2: F32
 
     @ Telemetry channel of type U64
-    telemetry MyTlmChannel3: U64
+    telemetry TlmChannel3: U64
 
     # Records
     @ Record with single U32 value
@@ -271,6 +271,21 @@ module Module1 {
 
     connections C {
       myFirstC1.pOut -> myFirstC2.pIn
+    }
+
+    telemetry packets Packets {
+      packet MyTlmPacket1 id 0 group 0 {
+        Module1.myFirstC1.TlmChannel1
+        Module1.myFirstC1.TlmChannel2
+      }
+
+      packet MyTlmPacket2 id 1 group 1 {
+        Module1.myFirstC2.TlmChannel1
+      }
+    } omit {
+      Module1.myFirstC2.TlmChannel2
+      Module1.myFirstC1.TlmChannel3
+      Module1.myFirstC2.TlmChannel3
     }
   }
 

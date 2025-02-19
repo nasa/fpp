@@ -68,7 +68,7 @@ object ValueCppWriter {
     val namesList = data.members
     val memberNames = namesList.map(_._2.data.name)
     val membersMap = v.anonStruct.members
-    val members = memberNames.map(membersMap.get(_).get)
+    val members = memberNames.map(membersMap(_))
     val memberValues = members.map(write(s, _))
     memberValues.mkString(", ")
   }

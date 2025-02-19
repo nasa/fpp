@@ -11,6 +11,8 @@ trait AstVisitor {
 
   def defAbsTypeAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefAbsType]]): Out = default(in)
 
+  def defAliasTypeAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefAliasType]]): Out = default(in)
+
   def defActionAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefAction]]): Out = default(in)
 
   def defArrayAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefArray]]): Out = default(in)
@@ -138,6 +140,7 @@ trait AstVisitor {
     val (pre, node, post) =  member.node
     node match {
       case Ast.ComponentMember.DefAbsType(node1) => defAbsTypeAnnotatedNode(in, (pre, node1, post))
+      case Ast.ComponentMember.DefAliasType(node1) => defAliasTypeAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.DefArray(node1) => defArrayAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.DefConstant(node1) => defConstantAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.DefEnum(node1) => defEnumAnnotatedNode(in, (pre, node1, post))
@@ -176,6 +179,7 @@ trait AstVisitor {
     val (pre, node, post) = member.node
     node match {
       case Ast.ModuleMember.DefAbsType(node1) => defAbsTypeAnnotatedNode(in, (pre, node1, post))
+      case Ast.ModuleMember.DefAliasType(node1) => defAliasTypeAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefArray(node1) => defArrayAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefComponent(node1) => defComponentAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefComponentInstance(node1) => defComponentInstanceAnnotatedNode(in, (pre, node1, post))

@@ -924,7 +924,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Types_Underlying-Types">17.14. Underlying Types</a></li>
 <li><a href="#Types_Displayable-Types">17.15. Displayable Types</a></li>
 <li><a href="#Types_Types-with-Numeric-Members">17.16. Types with Numeric Members</a></li>
-<li><a href="#Types_Default-Values">17.17. Default Values</a></li>
+<li><a href="#Types_Alias-Lists">17.17. Alias Lists</a></li>
+<li><a href="#Types_Default-Values">17.18. Default Values</a></li>
 </ul>
 </li>
 <li><a href="#Type-Checking">18. Type Checking</a>
@@ -9662,7 +9663,28 @@ member types all have numeric members.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Default-Values">17.17. Default Values</h3>
+<h3 id="Types_Alias-Lists">17.17. Alias Lists</h3>
+<div class="paragraph">
+<p>The <strong>alias list</strong> of a type \$T\$ is a list \$L\$ defined as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The head of \$L\$ is \$T\$.</p>
+</li>
+<li>
+<p>If \$T\$ is not an <a href="#Types_Alias-Types">alias type</a>, then the
+tail of \$L\$ is the empty list.</p>
+</li>
+<li>
+<p>Otherwise the tail of \$T\$ is the alias list of the type
+\$T'\$ that appears in the definition of \$T\$.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Types_Default-Values">17.18. Default Values</h3>
 <div class="paragraph">
 <p>Every type <em>T</em> with a syntactic name in FPP has an associated <strong>default
 value</strong>.
@@ -10197,9 +10219,32 @@ the whole expression):</p>
 </li>
 <li>
 <p>Otherwise if \$T_1\$ or \$T_2\$ or both are <a href="#Types_Alias-Types">alias
-types</a>, then replace
-each alias type with its <a href="#Types_Underlying-Types">underlying type</a>
-and reapply these rules.</p>
+types</a>, then do the following:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Let \$L_1\$ be the <a href="#Types_Alias-Lists">alias list</a> of \$T_1\$.</p>
+</li>
+<li>
+<p>Let \$L_2\$ be the <a href="#Types_Alias-Lists">alias list</a> of \$T_2\$.</p>
+</li>
+<li>
+<p>If there is no type in \$L_1\$ that is
+<a href="#Type-Checking_Identical-Types">identical</a>
+to a type in \$L_2\$, then replace each each alias type with its
+<a href="#Types_Underlying-Types">underlying type</a> and reapply these rules.</p>
+</li>
+<li>
+<p>Otherwise let \$T\$ be the first type in \$L_2\$ that is identical
+to a type in \$L_1\$.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Note that the algorithm is symmetric in \$L_1\$ and \$L_2\$, i.e.,
+reversing \$L_1\$ and stem \$L_2\$ in the last two items would
+produce the same result.</p>
+</div>
 </li>
 <li>
 <p>Otherwise if \$T_1\$ and \$T_2\$ are both
@@ -11107,7 +11152,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-02-11 17:00:39 -0800
+Last updated 2025-02-18 16:14:41 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

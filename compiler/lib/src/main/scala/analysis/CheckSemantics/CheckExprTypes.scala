@@ -42,6 +42,19 @@ object CheckExprTypes extends UseAnalyzer {
     else Right(a)
   }
 
+  override def defAliasTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]) = {
+    val (_, node,_) = aNode
+    if (!a.typeMap.contains(node.id)) {
+      val data = node.data
+      for (a <- super.defAliasTypeAnnotatedNode(a, aNode))
+        yield {
+          val t = a.typeMap(data.typeName.id)
+          a.assignType(node -> t)
+        }
+    }
+    else Right(a)
+  }
+
   override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node, _) = aNode
     val data = node.data

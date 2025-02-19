@@ -1,8 +1,8 @@
 package fpp.compiler.codegen
 
 import fpp.compiler.analysis.*
-import fpp.compiler.codegen.CppWriterState.builtInTypes
 import fpp.compiler.util.*
+import fpp.compiler.codegen.CppWriterState.builtInTypes
 
 /** C++ Writer state */
 case class CppWriterState(
@@ -131,12 +131,20 @@ case class CppWriterState(
 
   /** Write include directives for autocoded files */
   def writeIncludeDirectives(usedSymbols: Iterable[Symbol]): List[String] = {
-    def getDirectiveForSymbol(sym: Symbol): Option[String] = {
+    def getIncludeFiles(sym: Symbol): Option[String] = {
       val name = getName(sym)
       for {
         fileName <- sym match {
           case _: Symbol.AbsType =>
-            if isBuiltInType(name) then None else Some(name)
+              if isBuiltInType(name) then None else Some(name)
+          case at: Symbol.AliasType =>
+            // TODO(tumbar) We are not generating the type alias definitions in C++
+            // yet. We need to include the definitions for the referenced type for now.
+            a.useDefMap.get(at.node._2.data.typeName.id) match {
+              case Some(refSym) => return getIncludeFiles(refSym)
+              // This is probably a builtin primitive
+              case None => None
+            }
           case _: Symbol.Array => Some(
             ComputeCppFiles.FileNames.getArray(name)
           )
@@ -161,20 +169,20 @@ case class CppWriterState(
           case _ => None
         }
       }
-      yield CppWriterState.headerString(getIncludePath(sym, fileName))
+      yield getIncludePath(sym, fileName)
     }
 
-    usedSymbols.map(getDirectiveForSymbol).filter(_.isDefined).map(_.get).toList
+    usedSymbols.map(getIncludeFiles).filter(_.isDefined).map(_.get).map(CppWriterState.headerString).toList
   }
 
   /** Is t a built-in type? */
   def isBuiltInType(typeName: String): Boolean = builtInTypes.contains(typeName)
 
   /** Is t a primitive type (not serializable)? */
-  def isPrimitive(t: Type, typeName: String): Boolean  = t.isPrimitive || isBuiltInType(typeName)
+  def isPrimitive(t: Type, typeName: String): Boolean  = isBuiltInType(typeName) || t.getUnderlyingType.isPrimitive
 
   /** Is t a string type? */
-  def isStringType(t: Type) = t match {
+  def isStringType(t: Type) = t.getUnderlyingType match {
     case _: Type.String => true
     case _ => false
   }

@@ -30,12 +30,16 @@ case class DictionaryJsonEncoder(
     dictionaryState: DictionaryJsonEncoderState
 ) {
     /** Dictionary entry map to JSON */
-    private def dictionaryEntryMapAsJson[A, B] (f1: (A, B) => Json) (map: Map[A, B]): Json =
-        (map.map { case (key, value) => f1(key, value) }).toList.asJson
+    private def dictionaryEntryMapAsJson[T] (f: (BigInt, T) => Json) (map: Map[BigInt, T]): Json =
+        (map.toList.sortBy(_._1).map(f(_, _))).asJson
+
+    /** Dictionary telemetry packet set map to JSON */
+    private def dictionaryTlmPacketSetMapAsJson(f: (Name.Unqualified, TlmPacketSet) => Json) (map: Map[Name.Unqualified, TlmPacketSet]): Json =
+        (map.toList.sortBy(_._1).map(f(_, _))).asJson
 
     /** Dictionary symbol set to JSON */
-    private def dictionarySymbolSetAsJson[A] (f1: A => Json) (set: Set[A]): Json =
-        (set.map(elem => f1(elem))).toList.asJson
+    private def dictionarySymbolSetAsJson[A] (f: A => Json) (set: Set[A]): Json =
+        (set.map(f)).toList.asJson
     
     /** Enum Constant JSON Encoding */
     private def enumConstantAsJson(aNode: AstNode[Ast.DefEnumConstant]): Map[String, Json] = {
@@ -45,8 +49,8 @@ case class DictionaryJsonEncoder(
 
     /** Symbol JSON Encoding */
     private implicit def typeSymbolSetEncoder [T <: Symbol]: Encoder[Set[T]] = {
-        def f1(symbol: T) = symbol.asJson
-        Encoder.instance (dictionarySymbolSetAsJson (f1) _)
+        def f(symbol: T) = symbol.asJson
+        Encoder.instance (dictionarySymbolSetAsJson (f) _)
     }
 
     /** DictionaryMetadata JSON Encoding */
@@ -65,33 +69,38 @@ case class DictionaryJsonEncoder(
 
     /** JSON Encoding for Maps of Commands, Parameters, Events, Telemetry Channels, Records, and Containers */
     private implicit val commandMapEncoder: Encoder[Map[BigInt, Dictionary.CommandEntry]] = {
-        def f1(opcode: BigInt, command: Dictionary.CommandEntry) = (opcode -> command).asJson
-        Encoder.instance (dictionaryEntryMapAsJson (f1) _)
+        def f(opcode: BigInt, command: Dictionary.CommandEntry) = (opcode -> command).asJson
+        Encoder.instance (dictionaryEntryMapAsJson (f) _)
     }
 
     private implicit val paramMapEncoder: Encoder[Map[BigInt, Dictionary.ParamEntry]] = {
-        def f1(identifier: BigInt, param: Dictionary.ParamEntry) = (identifier -> param).asJson
-        Encoder.instance (dictionaryEntryMapAsJson (f1) _)
+        def f(identifier: BigInt, param: Dictionary.ParamEntry) = (identifier -> param).asJson
+        Encoder.instance (dictionaryEntryMapAsJson (f) _)
     }
 
     private implicit val eventMapEncoder: Encoder[Map[BigInt, Dictionary.EventEntry]] = {
-        def f1(identifier: BigInt, event: Dictionary.EventEntry) = (identifier -> event).asJson
-        Encoder.instance (dictionaryEntryMapAsJson (f1) _)
+        def f(identifier: BigInt, event: Dictionary.EventEntry) = (identifier -> event).asJson
+        Encoder.instance (dictionaryEntryMapAsJson (f) _)
     }
 
     private implicit val channelMapEncoder: Encoder[Map[BigInt, Dictionary.TlmChannelEntry]] = {
-        def f1(identifier: BigInt, event: Dictionary.TlmChannelEntry) = (identifier -> event).asJson
-        Encoder.instance (dictionaryEntryMapAsJson (f1) _)
+        def f(identifier: BigInt, event: Dictionary.TlmChannelEntry) = (identifier -> event).asJson
+        Encoder.instance (dictionaryEntryMapAsJson (f) _)
     }
 
     private implicit val recordMapEncoder: Encoder[Map[BigInt, Dictionary.RecordEntry]] = {
-        def f1(identifier: BigInt, record: Dictionary.RecordEntry) = (identifier -> record).asJson
-        Encoder.instance (dictionaryEntryMapAsJson (f1) _)
+        def f(identifier: BigInt, record: Dictionary.RecordEntry) = (identifier -> record).asJson
+        Encoder.instance (dictionaryEntryMapAsJson (f) _)
     }
 
     private implicit val containerMapEncoder: Encoder[Map[BigInt, Dictionary.ContainerEntry]] = {
-        def f1(identifier: BigInt, container: Dictionary.ContainerEntry) = (identifier -> container).asJson
-        Encoder.instance (dictionaryEntryMapAsJson (f1) _)
+        def f(identifier: BigInt, container: Dictionary.ContainerEntry) = (identifier -> container).asJson
+        Encoder.instance (dictionaryEntryMapAsJson (f) _)
+    }
+
+    private implicit val tlmPacketSetMapEncoder: Encoder[Map[Name.Unqualified, TlmPacketSet]] = {
+        def f(name: Name.Unqualified, group: TlmPacketSet) = (name -> group).asJson
+        Encoder.instance (dictionaryTlmPacketSetMapAsJson (f) _)
     }
 
     /** JSON Encoding for FPP Types */
@@ -491,6 +500,30 @@ case class DictionaryJsonEncoder(
         }
     }
 
+    /** JSON Encoding for Telemetry Packet Sets */
+    private implicit def tlmPacketSetEncoder: Encoder[(Name.Unqualified, TlmPacketSet)] = new Encoder[(Name.Unqualified, TlmPacketSet)] {
+        override def apply(entry: (Name.Unqualified, TlmPacketSet)): Json = {
+            Json.obj(
+                "name" -> entry._1.toString.asJson,
+                "members" -> entry._2.packetMap.map((id, packet) => {
+                    Json.obj(
+                        "name" -> packet.getName.asJson,
+                        "id" -> id.asJson,
+                        "group" -> packet.group.asJson,
+                        "members" -> packet.memberIdList.map(tlmId => {
+                            val e = dictionary.tlmChannelEntryMap(tlmId)
+                            s"${e.instance.toString}.${e.tlmChannel.getName}"
+                        }).asJson
+                    )
+                }).asJson,
+                "omitted" -> entry._2.omittedIdSet.map(tlmId => {
+                    val e = dictionary.tlmChannelEntryMap(tlmId)
+                    s"${e.instance.toString}.${e.tlmChannel.getName}"
+                }).toList.sorted.asJson
+            )
+        }
+    }
+
     /** Main interface for the class. JSON Encoding for a complete dictionary */
     def dictionaryAsJson: Json = {
         /** Split set into individual sets consisting of each symbol type (arrays, enums, structs) */
@@ -504,7 +537,8 @@ case class DictionaryJsonEncoder(
             "events" -> dictionary.eventEntryMap.asJson,
             "telemetryChannels" -> dictionary.tlmChannelEntryMap.asJson,
             "records" -> dictionary.recordEntryMap.asJson,
-            "containers" -> dictionary.containerEntryMap.asJson
+            "containers" -> dictionary.containerEntryMap.asJson,
+            "telemetryPacketSets" -> dictionary.tlmPacketSetMap.asJson
         )
     }
 

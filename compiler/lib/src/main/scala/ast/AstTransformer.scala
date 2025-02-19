@@ -23,6 +23,12 @@ trait AstTransformer {
   ): ResultAnnotatedNode[Ast.DefAbsType] =
     Right(default(in), node)
 
+  def defAliasTypeAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefAliasType]]
+  ): ResultAnnotatedNode[Ast.DefAliasType] =
+    Right(default(in), node)
+
   def defArrayAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefArray]]): ResultAnnotatedNode[Ast.DefArray] =
     Right(default(in), node)
 
@@ -224,6 +230,8 @@ trait AstTransformer {
     node match {
       case Ast.ComponentMember.DefAbsType(node1) =>
         transform(defAbsTypeAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.DefAbsType(_))
+      case Ast.ComponentMember.DefAliasType(node1) =>
+        transform(defAliasTypeAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.DefAliasType(_))
       case Ast.ComponentMember.DefArray(node1) =>
         transform(defArrayAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.DefArray(_))
       case Ast.ComponentMember.DefConstant(node1) =>
@@ -288,6 +296,8 @@ trait AstTransformer {
     node match {
       case Ast.ModuleMember.DefAbsType(node1) =>
         transform(defAbsTypeAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefAbsType(_))
+      case Ast.ModuleMember.DefAliasType(node1) =>
+        transform(defAliasTypeAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefAliasType(_))
       case Ast.ModuleMember.DefArray(node1) =>
         transform(defArrayAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefArray(_))
       case Ast.ModuleMember.DefComponent(node1) =>
