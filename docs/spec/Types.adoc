@@ -172,6 +172,18 @@ member type has numeric members.
 <<Types_Internal-Types_Anonymous-Struct-Types,anonymous struct type>> whose
 member types all have numeric members.
 
+=== Alias Lists
+
+The *alias list* of a type stem:[T] is a list stem:[L] defined as follows:
+
+. The head of stem:[L] is stem:[T].
+
+. If stem:[T] is not an <<Types_Alias-Types,alias type>>, then the
+tail of stem:[L] is the empty list.
+
+. Otherwise the tail of stem:[T] is the alias list of the type
+stem:[T'] that appears in the definition of stem:[T].
+
 === Default Values
 
 Every type _T_ with a syntactic name in FPP has an associated *default

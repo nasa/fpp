@@ -16,6 +16,8 @@ sealed trait Type {
   /** Get the definition node identifier, if any */
   def getDefNodeId: Option[AstNode.Id] = None
 
+  def getUnderlyingType: Type = this
+
   /** Does this type have numeric members? */
   def hasNumericMembers: Boolean = isNumeric
 
@@ -36,6 +38,9 @@ sealed trait Type {
 
   /** Is this type a primitive type? */
   def isPrimitive: Boolean = false
+
+  /** Is this type a canonical (non-aliased) type? */
+  def isCanonical: Boolean = true
 
   /** Is this type promotable to a struct type? */
   final def isPromotableToStruct = isPromotableToArray
@@ -178,6 +183,21 @@ object Type {
     override def getDefaultValue = Some(Value.AbsType(this))
     override def getDefNodeId = Some(node._2.id)
     override def toString = node._2.data.name
+  }
+  
+  /** An alias type */
+  case class AliasType(
+    /** The AST node giving the definition */
+    node: Ast.Annotated[AstNode[Ast.DefAliasType]],
+
+    /** Type that this typedef points to */
+    aliasType: Type
+  ) extends Type {
+    override def getDefaultValue = aliasType.getDefaultValue
+    override def getDefNodeId = Some(node._2.id)
+    override def toString = node._2.data.name
+    override def isCanonical = false
+    override def getUnderlyingType = aliasType.getUnderlyingType
   }
 
   /** A named array type */
@@ -347,6 +367,7 @@ object Type {
   /** Check for type identity */
   def areIdentical(t1: Type, t2: Type): Boolean = {
     val pair = (t1, t2)
+
     def numeric = pair match {
       case (PrimitiveInt(kind1), PrimitiveInt(kind2)) => kind1 == kind2
       case (Float(kind1), Float(kind2)) => kind1 == kind2
@@ -373,8 +394,13 @@ object Type {
   }
   
   /** Check for type convertibility */
-  def mayBeConverted(pair: (Type, Type)): Boolean = {
+  def mayBeConverted(aliasPair: (Type, Type)): Boolean = {
+    val pair = (aliasPair._1.getUnderlyingType, aliasPair._2.getUnderlyingType)
     val t1 -> t2 = pair
+
+    assert(t1.isCanonical)
+    assert(t2.isCanonical)
+
     def numeric = t1.isConvertibleToNumeric && t2.isNumeric
     def string = pair match {
       case (String(_) -> String(_)) => true
@@ -415,7 +441,6 @@ object Type {
     array ||
     struct
   }
-
   /** Compute the common type for a pair of types */
   def commonType(t1: Type, t2: Type): Option[Type] = {
     val pair = (t1, t2)
@@ -430,6 +455,36 @@ object Type {
     def identical() = areIdentical(t1, t2) match {
       case true => Some(t1)
       case false => None
+    }
+    def alias() = {
+      def lca(a: Type, b: Type): Option[Type] = {
+        def getAncestors(t: Type, ancs: List[Type] = List()): List[Type] = {
+          t match {
+            case AliasType(_, parentType) =>
+              getAncestors(parentType, t :: ancs)
+            case _ =>
+              t :: ancs
+          }
+        }
+
+        // Reverse the ancestor list since `getAncestors` returns
+        // the ancestors with the oldest ancestor first.
+        val ancestorsOfA = getAncestors(a).reverse
+        val ancestorsOfB = getAncestors(b).reverse
+
+        // Traverse the ancestry of 'b' until we find a common ancestor with 'a'
+        ancestorsOfB.find(bi => ancestorsOfA.find(ai => areIdentical(ai, bi)).isDefined)
+      }
+
+      // Apply this rule if either of t1 and t2 is an alias type
+      if (!t1.isCanonical || !t2.isCanonical)
+        lca(t1, t2) match {
+          // If there is a least common ancestor, then use it
+          case Some(c) => Some(c)
+          // Otherwise use the common type of the undelrying types
+          case None => commonType(t1.getUnderlyingType, t2.getUnderlyingType)
+        }
+      else None
     }
     def numeric() = 
       if (t1.isFloat && t2.isNumeric) Some(Float(Float.F64))
@@ -524,6 +579,7 @@ object Type {
     }
     val rules: List[Rule] = List(
       identical,
+      alias,
       numeric,
       string,
       enumeration,

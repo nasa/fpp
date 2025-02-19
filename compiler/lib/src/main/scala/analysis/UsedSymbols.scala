@@ -59,6 +59,7 @@ object UsedSymbols extends UseAnalyzer {
     def helper(s: Symbol): Set[Symbol] = {
       val Right(a2) = s match {
         case Symbol.AbsType(node) => defAbsTypeAnnotatedNode(a1, node)
+        case Symbol.AliasType(node) => defAliasTypeAnnotatedNode(a1, node)
         case Symbol.Array(node) => defArrayAnnotatedNode(a1, node)
         case Symbol.Component(node) => defComponentAnnotatedNode(a1, node)
         case Symbol.ComponentInstance(node) => defComponentInstanceAnnotatedNode(a1, node)

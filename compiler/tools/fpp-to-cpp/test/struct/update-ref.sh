@@ -25,6 +25,12 @@ abs_type()
   move_cpp AbsTypeSerializable
 }
 
+alias_type()
+{
+  update "-p $PWD" alias_type
+  move_cpp AliasTypeSerializable
+}
+
 empty()
 {
   update "-p $PWD" empty

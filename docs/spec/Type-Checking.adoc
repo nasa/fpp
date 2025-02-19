@@ -340,9 +340,24 @@ the whole expression):
 stem:[T] be stem:[T_1].
 
 . Otherwise if stem:[T_1] or stem:[T_2] or both are <<Types_Alias-Types,alias 
-types>>, then replace
-each alias type with its <<Types_Underlying-Types,underlying type>>
-and reapply these rules.
+types>>, then do the following:
+
+.. Let stem:[L_1] be the <<Types_Alias-Lists,alias list>> of stem:[T_1].
+
+.. Let stem:[L_2] be the <<Types_Alias-Lists,alias list>> of stem:[T_2].
+
+.. If there is no type in stem:[L_1] that is 
+<<Type-Checking_Identical-Types,identical>>
+to a type in stem:[L_2], then replace each each alias type with its 
+<<Types_Underlying-Types,underlying type>> and reapply these rules.
+
+.. Otherwise let stem:[T] be the first type in stem:[L_2] that is identical
+to a type in stem:[L_1].
+
++
+Note that the algorithm is symmetric in stem:[L_1] and stem:[L_2], i.e.,
+reversing stem:[L_1] and stem stem:[L_2] in the last two items would
+produce the same result.
 
 . Otherwise if stem:[T_1] and stem:[T_2] are both
 <<Types_Internal-Types_Numeric-Types,numeric types>>, then do the following:

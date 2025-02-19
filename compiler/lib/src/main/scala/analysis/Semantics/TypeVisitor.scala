@@ -9,6 +9,8 @@ trait TypeVisitor {
 
   def absType(in: In, t: Type.AbsType): Out = default(in, t)
 
+  def aliasType(in: In, t: Type.AliasType): Out = default(in, t)
+
   def anonArray(in: In, t: Type.AnonArray): Out = default(in, t)
 
   def anonStruct(in: In, t: Type.AnonStruct): Out = default(in, t)
@@ -36,6 +38,7 @@ trait TypeVisitor {
   final def matchType(in: In, t: Type): Out =
     t match {
       case t : Type.AbsType => absType(in, t)
+      case t : Type.AliasType => aliasType(in, t)
       case t : Type.AnonArray => anonArray(in, t)
       case t : Type.AnonStruct => anonStruct(in, t)
       case t : Type.Array => array(in, t)
