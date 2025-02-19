@@ -353,13 +353,13 @@ void Format ::
     this->m_m8,
     this->m_m9,
     this->m_m10,
-    static_cast<U64>(this->m_m11),
-    static_cast<U64>(this->m_m12),
-    static_cast<U64>(this->m_m13),
-    static_cast<U64>(this->m_m14),
-    static_cast<U64>(this->m_m15),
-    static_cast<U64>(this->m_m16),
-    static_cast<U64>(this->m_m17)
+    static_cast<F64>(this->m_m11),
+    static_cast<F64>(this->m_m12),
+    static_cast<F64>(this->m_m13),
+    static_cast<F64>(this->m_m14),
+    static_cast<F64>(this->m_m15),
+    static_cast<F64>(this->m_m16),
+    static_cast<F64>(this->m_m17)
   );
 }
 

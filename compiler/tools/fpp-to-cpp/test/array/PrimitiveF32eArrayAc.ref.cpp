@@ -184,9 +184,9 @@ namespace M {
 
     sb.format(
       formatString,
-      static_cast<U64>(this->elements[0]),
-      static_cast<U64>(this->elements[1]),
-      static_cast<U64>(this->elements[2])
+      static_cast<F64>(this->elements[0]),
+      static_cast<F64>(this->elements[1]),
+      static_cast<F64>(this->elements[2])
     );
   }
 

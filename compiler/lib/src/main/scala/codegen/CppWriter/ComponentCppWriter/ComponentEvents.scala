@@ -223,7 +223,7 @@ case class ComponentEvents (
                     s.a.typeMap(param._2.data.typeName.id) match {
                       case Type.String(_) => s"$name.toChar()"
                       case t if s.isPrimitive(t, writeFormalParamType(param._2.data)) =>
-                        promoteF32ToU64 (t) (name)
+                        promoteF32ToF64 (t) (name)
                       case _ => s"${name}Str.toChar()"
                     }
                   })).mkString(",\n")

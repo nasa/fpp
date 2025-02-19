@@ -423,7 +423,7 @@ case class ArrayCppWriter (
       else s"str$i.toChar()"
     val formatArgs = lines(
       List.range(0, arraySize).map(
-        promoteF32ToU64(eltType) compose getFormatArg
+        promoteF32ToF64(eltType) compose getFormatArg
       ).mkString(",\n")
     )
 

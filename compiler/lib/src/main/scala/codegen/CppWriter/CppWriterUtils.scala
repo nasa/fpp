@@ -322,10 +322,10 @@ trait CppWriterUtils extends LineUtils {
       case _ => s"$typeName::SERIALIZED_SIZE"
     }
   
-  /** Promotes an F32 value to a U64 */
-  def promoteF32ToU64 (t: Type) (v: String) =
+  /** Promotes an F32 value to a F64 */
+  def promoteF32ToF64 (t: Type) (v: String) =
     if t == Type.F32
-    then s"static_cast<U64>($v)"
+    then s"static_cast<F64>($v)"
     else v
 
   def classMember(

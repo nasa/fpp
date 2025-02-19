@@ -2534,7 +2534,7 @@ void ActiveEventsComponentBase ::
 #endif
       "EventActivityLowThrottled ",
       u32,
-      static_cast<U64>(f32),
+      static_cast<F64>(f32),
       b
     );
 

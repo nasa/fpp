@@ -136,7 +136,7 @@ namespace M {
     sb.format(
       formatString,
       this->m_x,
-      static_cast<U64>(this->m_y)
+      static_cast<F64>(this->m_y)
     );
   }
 
