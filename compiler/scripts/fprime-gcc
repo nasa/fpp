@@ -18,8 +18,9 @@ fi
 
 flags="
 -Wall
--Wextra
 -Werror
+-Wextra
+-Wold-style-cast
 -Wshadow
 -pedantic
 "
