@@ -279,6 +279,9 @@
                             },
                             "underlyingType": {
                                 "$ref": "#/$defs/typeDescriptor"
+                            },
+                            "annotation": {
+                                "type": "string"
                             }
                         },
                         "required": [

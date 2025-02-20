@@ -3,6 +3,7 @@ module FppTest {
   @ A component for testing  data product code gen
   active component DpTestComponent {
 
+    @ Alias of type U16
     type AliasU16 = U16
 
     output port pOut: Ports.P

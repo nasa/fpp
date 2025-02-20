@@ -1,6 +1,8 @@
 module Module1 {
 
+  @ Alias of type U32
   type AliasT1 = U32
+  @ Alias of type AliasT1 (with underlying type U32)
   type AliasT2 = AliasT1
   type AliasT3 = string size 20
 

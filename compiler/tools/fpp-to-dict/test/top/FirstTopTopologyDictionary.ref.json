@@ -11,22 +11,6 @@
   },
   "typeDefinitions" : [
     {
-      "kind" : "alias",
-      "qualifiedName" : "Module1.AliasT1",
-      "type" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
-      },
-      "underlyingType" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
-      }
-    },
-    {
       "kind" : "struct",
       "qualifiedName" : "Module1.S2",
       "members" : {
@@ -77,17 +61,20 @@
     },
     {
       "kind" : "alias",
-      "qualifiedName" : "Module1.AliasT2",
+      "qualifiedName" : "Module1.AliasT1",
       "type" : {
-        "name" : "Module1.AliasT1",
-        "kind" : "qualifiedIdentifier"
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
       },
       "underlyingType" : {
         "name" : "U32",
         "kind" : "integer",
         "size" : 32,
         "signed" : false
-      }
+      },
+      "annotation" : "Alias of type U32"
     },
     {
       "kind" : "struct",
@@ -194,6 +181,21 @@
         "i32" : 0,
         "u16" : 0
       }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "Module1.AliasT2",
+      "type" : {
+        "name" : "Module1.AliasT1",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "annotation" : "Alias of type AliasT1 (with underlying type U32)"
     },
     {
       "kind" : "struct",
