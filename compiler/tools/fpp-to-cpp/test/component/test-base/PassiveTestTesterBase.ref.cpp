@@ -1989,7 +1989,11 @@ void PassiveTestTesterBase ::
   args.resetDeser();
 
   const U32 idBase = this->getIdBase();
-  FW_ASSERT(id >= idBase, id, idBase);
+  FW_ASSERT(
+    id >= idBase,
+    static_cast<FwAssertArgType>(id),
+    static_cast<FwAssertArgType>(idBase)
+  );
 
   switch (id - idBase) {
     case PassiveTestComponentBase::EVENTID_EVENTACTIVITYHIGH: {
@@ -2019,7 +2023,11 @@ void PassiveTestTesterBase ::
         static_cast<FwAssertArgType>(_status)
       );
       // Verify they match expected.
-      FW_ASSERT(_numArgs == 3, _numArgs, 3);
+      FW_ASSERT(
+        _numArgs == 3,
+        static_cast<FwAssertArgType>(_numArgs),
+        static_cast<FwAssertArgType>(3)
+      );
 #endif
 
       U32 _event_arg_u32;
@@ -2032,7 +2040,11 @@ void PassiveTestTesterBase ::
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
         );
-        FW_ASSERT(_argSize == sizeof(U32), _argSize, sizeof(U32));
+        FW_ASSERT(
+          _argSize == sizeof(U32),
+          static_cast<FwAssertArgType>(_argSize),
+          static_cast<FwAssertArgType>(sizeof(U32))
+        );
       }
 #endif
       _status = args.deserialize(_event_arg_u32);
@@ -2051,7 +2063,11 @@ void PassiveTestTesterBase ::
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
         );
-        FW_ASSERT(_argSize == sizeof(F32), _argSize, sizeof(F32));
+        FW_ASSERT(
+          _argSize == sizeof(F32),
+          static_cast<FwAssertArgType>(_argSize),
+          static_cast<FwAssertArgType>(sizeof(F32))
+        );
       }
 #endif
       _status = args.deserialize(_event_arg_f32);
@@ -2070,7 +2086,11 @@ void PassiveTestTesterBase ::
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
         );
-        FW_ASSERT(_argSize == sizeof(U8), _argSize, sizeof(U8));
+        FW_ASSERT(
+          _argSize == sizeof(U8),
+          static_cast<FwAssertArgType>(_argSize),
+          static_cast<FwAssertArgType>(sizeof(U8))
+        );
       }
 #endif
       _status = args.deserialize(_event_arg_b);
@@ -2094,7 +2114,11 @@ void PassiveTestTesterBase ::
         static_cast<FwAssertArgType>(_status)
       );
       // Verify they match expected.
-      FW_ASSERT(_numArgs == 2, _numArgs, 2);
+      FW_ASSERT(
+        _numArgs == 2,
+        static_cast<FwAssertArgType>(_numArgs),
+        static_cast<FwAssertArgType>(2)
+      );
 #endif
 
       Fw::LogStringArg _event_arg_str1;
@@ -2107,7 +2131,11 @@ void PassiveTestTesterBase ::
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
         );
-        FW_ASSERT(_argSize == Fw::LogStringArg::SERIALIZED_SIZE, _argSize, Fw::LogStringArg::SERIALIZED_SIZE);
+        FW_ASSERT(
+          _argSize == Fw::LogStringArg::SERIALIZED_SIZE,
+          static_cast<FwAssertArgType>(_argSize),
+          static_cast<FwAssertArgType>(Fw::LogStringArg::SERIALIZED_SIZE)
+        );
       }
 #endif
       _status = args.deserialize(_event_arg_str1);
@@ -2126,7 +2154,11 @@ void PassiveTestTesterBase ::
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
         );
-        FW_ASSERT(_argSize == Fw::LogStringArg::SERIALIZED_SIZE, _argSize, Fw::LogStringArg::SERIALIZED_SIZE);
+        FW_ASSERT(
+          _argSize == Fw::LogStringArg::SERIALIZED_SIZE,
+          static_cast<FwAssertArgType>(_argSize),
+          static_cast<FwAssertArgType>(Fw::LogStringArg::SERIALIZED_SIZE)
+        );
       }
 #endif
       _status = args.deserialize(_event_arg_str2);
@@ -2150,7 +2182,11 @@ void PassiveTestTesterBase ::
         static_cast<FwAssertArgType>(_status)
       );
       // Verify they match expected.
-      FW_ASSERT(_numArgs == 1, _numArgs, 1);
+      FW_ASSERT(
+        _numArgs == 1,
+        static_cast<FwAssertArgType>(_numArgs),
+        static_cast<FwAssertArgType>(1)
+      );
 #endif
 
       E _event_arg_e;
@@ -2163,7 +2199,11 @@ void PassiveTestTesterBase ::
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
         );
-        FW_ASSERT(_argSize == E::SERIALIZED_SIZE, _argSize, E::SERIALIZED_SIZE);
+        FW_ASSERT(
+          _argSize == E::SERIALIZED_SIZE,
+          static_cast<FwAssertArgType>(_argSize),
+          static_cast<FwAssertArgType>(E::SERIALIZED_SIZE)
+        );
       }
 #endif
       _status = args.deserialize(_event_arg_e);
@@ -2187,7 +2227,11 @@ void PassiveTestTesterBase ::
         static_cast<FwAssertArgType>(_status)
       );
       // Verify they match expected.
-      FW_ASSERT(_numArgs == 1 + 1, _numArgs, 1 + 1);
+      FW_ASSERT(
+        _numArgs == 1 + 1,
+        static_cast<FwAssertArgType>(_numArgs),
+        static_cast<FwAssertArgType>(1 + 1)
+      );
 
       // For FATAL, there is a stack size of 4 and a dummy entry
       U8 stackArgLen;
@@ -2196,7 +2240,10 @@ void PassiveTestTesterBase ::
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
       );
-      FW_ASSERT(stackArgLen == 4, stackArgLen);
+      FW_ASSERT(
+        stackArgLen == 4,
+        static_cast<FwAssertArgType>(stackArgLen)
+      );
 
       U32 dummyStackArg;
       _status = args.deserialize(dummyStackArg);
@@ -2204,7 +2251,10 @@ void PassiveTestTesterBase ::
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
       );
-      FW_ASSERT(dummyStackArg == 0, dummyStackArg);
+      FW_ASSERT(
+        dummyStackArg == 0,
+        static_cast<FwAssertArgType>(dummyStackArg)
+      );
 #endif
 
       A _event_arg_a;
@@ -2217,7 +2267,11 @@ void PassiveTestTesterBase ::
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
         );
-        FW_ASSERT(_argSize == A::SERIALIZED_SIZE, _argSize, A::SERIALIZED_SIZE);
+        FW_ASSERT(
+          _argSize == A::SERIALIZED_SIZE,
+          static_cast<FwAssertArgType>(_argSize),
+          static_cast<FwAssertArgType>(A::SERIALIZED_SIZE)
+        );
       }
 #endif
       _status = args.deserialize(_event_arg_a);
@@ -2241,7 +2295,11 @@ void PassiveTestTesterBase ::
         static_cast<FwAssertArgType>(_status)
       );
       // Verify they match expected.
-      FW_ASSERT(_numArgs == 1, _numArgs, 1);
+      FW_ASSERT(
+        _numArgs == 1,
+        static_cast<FwAssertArgType>(_numArgs),
+        static_cast<FwAssertArgType>(1)
+      );
 #endif
 
       S _event_arg_s;
@@ -2254,7 +2312,11 @@ void PassiveTestTesterBase ::
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
         );
-        FW_ASSERT(_argSize == S::SERIALIZED_SIZE, _argSize, S::SERIALIZED_SIZE);
+        FW_ASSERT(
+          _argSize == S::SERIALIZED_SIZE,
+          static_cast<FwAssertArgType>(_argSize),
+          static_cast<FwAssertArgType>(S::SERIALIZED_SIZE)
+        );
       }
 #endif
       _status = args.deserialize(_event_arg_s);
@@ -2282,7 +2344,7 @@ void PassiveTestTesterBase ::
     }
 
     default: {
-      FW_ASSERT(0, id);
+      FW_ASSERT(0, static_cast<FwAssertArgType>(id));
       break;
     }
   }
@@ -2392,7 +2454,11 @@ void PassiveTestTesterBase ::
   val.resetDeser();
 
   const U32 idBase = this->getIdBase();
-  FW_ASSERT(id >= idBase, id, idBase);
+  FW_ASSERT(
+    id >= idBase,
+    static_cast<FwAssertArgType>(id),
+    static_cast<FwAssertArgType>(idBase)
+  );
 
   switch (id - idBase) {
     case PassiveTestComponentBase::CHANNELID_CHANNELU32FORMAT: {
@@ -2539,7 +2605,7 @@ void PassiveTestTesterBase ::
     }
 
     default: {
-      FW_ASSERT(0, id);
+      FW_ASSERT(0, static_cast<FwAssertArgType>(id));
       break;
     }
   }
@@ -3325,7 +3391,11 @@ Fw::ParamValid PassiveTestTesterBase ::
   val.resetSer();
 
   const U32 idBase = _testerBase->getIdBase();
-  FW_ASSERT(id >= idBase, id, idBase);
+  FW_ASSERT(
+    id >= idBase,
+    static_cast<FwAssertArgType>(id),
+    static_cast<FwAssertArgType>(idBase)
+  );
 
   switch (id - idBase) {
     case PassiveTestComponentBase::PARAMID_PARAMU32: {
@@ -3389,7 +3459,7 @@ Fw::ParamValid PassiveTestTesterBase ::
     };
 
     default:
-      FW_ASSERT(0, id);
+      FW_ASSERT(0, static_cast<FwAssertArgType>(id));
       break;
   }
 
@@ -3409,7 +3479,11 @@ void PassiveTestTesterBase ::
   val.resetSer();
 
   const U32 idBase = _testerBase->getIdBase();
-  FW_ASSERT(id >= idBase, id, idBase);
+  FW_ASSERT(
+    id >= idBase,
+    static_cast<FwAssertArgType>(id),
+    static_cast<FwAssertArgType>(idBase)
+  );
 
   switch (id - idBase) {
     case PassiveTestComponentBase::PARAMID_PARAMU32: {
@@ -3497,7 +3571,7 @@ void PassiveTestTesterBase ::
     };
 
     default:
-      FW_ASSERT(0, id);
+      FW_ASSERT(0, static_cast<FwAssertArgType>(id));
       break;
   }
 }

@@ -18,6 +18,7 @@ fi
 
 flags="
 -Wall
+-Wconversion
 -Wdouble-promotion
 -Werror
 -Wextra
@@ -42,5 +43,4 @@ case "$os" in
     ;;
 esac
 
-# Removing -Wconversion because of many implicit casts of size type in F Prime
 g++ --std=c++11 $flags $os_flags -DTGT_OS_TYPE_$os_type -I $FPRIME -I $FPRIME/config -I $FPRIME/cmake/platform/types -I . $FPRIME_GCC_FLAGS $@
