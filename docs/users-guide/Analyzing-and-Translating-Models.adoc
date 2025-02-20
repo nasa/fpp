@@ -702,7 +702,6 @@ the include guard prefix comes from the name of the topology.
 The generated {cpp} is intended to compile with the following gcc
 and clang compiler flags:
 
-[source]
 ----
 --std=c++11
 -Wall
@@ -718,7 +717,6 @@ and clang compiler flags:
 
 When using clang, the following flags must also be set:
 
-[source]
 ----
 -Wno-vla-extension
 ----
