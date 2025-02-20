@@ -2866,7 +2866,7 @@ void ActiveSerialTesterBase ::
       FW_ASSERT(_numArgs == 3, _numArgs, 3);
 #endif
 
-      U32 u32;
+      U32 _event_arg_u32;
 #if FW_AMPCS_COMPATIBLE
       {
         // Deserialize the argument size
@@ -2879,13 +2879,13 @@ void ActiveSerialTesterBase ::
         FW_ASSERT(_argSize == sizeof(U32), _argSize, sizeof(U32));
       }
 #endif
-      _status = args.deserialize(u32);
+      _status = args.deserialize(_event_arg_u32);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
       );
 
-      F32 f32;
+      F32 _event_arg_f32;
 #if FW_AMPCS_COMPATIBLE
       {
         // Deserialize the argument size
@@ -2898,13 +2898,13 @@ void ActiveSerialTesterBase ::
         FW_ASSERT(_argSize == sizeof(F32), _argSize, sizeof(F32));
       }
 #endif
-      _status = args.deserialize(f32);
+      _status = args.deserialize(_event_arg_f32);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
       );
 
-      bool b;
+      bool _event_arg_b;
 #if FW_AMPCS_COMPATIBLE
       {
         // Deserialize the argument size
@@ -2917,12 +2917,12 @@ void ActiveSerialTesterBase ::
         FW_ASSERT(_argSize == sizeof(U8), _argSize, sizeof(U8));
       }
 #endif
-      _status = args.deserialize(b);
+      _status = args.deserialize(_event_arg_b);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
       );
-      this->logIn_ACTIVITY_LO_EventActivityLowThrottled(u32, f32, b);
+      this->logIn_ACTIVITY_LO_EventActivityLowThrottled(_event_arg_u32, _event_arg_f32, _event_arg_b);
       break;
     }
 
@@ -2941,7 +2941,7 @@ void ActiveSerialTesterBase ::
       FW_ASSERT(_numArgs == 2, _numArgs, 2);
 #endif
 
-      Fw::LogStringArg str1;
+      Fw::LogStringArg _event_arg_str1;
 #if FW_AMPCS_COMPATIBLE
       {
         // Deserialize the argument size
@@ -2954,13 +2954,13 @@ void ActiveSerialTesterBase ::
         FW_ASSERT(_argSize == Fw::LogStringArg::SERIALIZED_SIZE, _argSize, Fw::LogStringArg::SERIALIZED_SIZE);
       }
 #endif
-      _status = args.deserialize(str1);
+      _status = args.deserialize(_event_arg_str1);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
       );
 
-      Fw::LogStringArg str2;
+      Fw::LogStringArg _event_arg_str2;
 #if FW_AMPCS_COMPATIBLE
       {
         // Deserialize the argument size
@@ -2973,12 +2973,12 @@ void ActiveSerialTesterBase ::
         FW_ASSERT(_argSize == Fw::LogStringArg::SERIALIZED_SIZE, _argSize, Fw::LogStringArg::SERIALIZED_SIZE);
       }
 #endif
-      _status = args.deserialize(str2);
+      _status = args.deserialize(_event_arg_str2);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
       );
-      this->logIn_COMMAND_EventCommand(str1, str2);
+      this->logIn_COMMAND_EventCommand(_event_arg_str1, _event_arg_str2);
       break;
     }
 
@@ -2997,7 +2997,7 @@ void ActiveSerialTesterBase ::
       FW_ASSERT(_numArgs == 1, _numArgs, 1);
 #endif
 
-      E e;
+      E _event_arg_e;
 #if FW_AMPCS_COMPATIBLE
       {
         // Deserialize the argument size
@@ -3010,12 +3010,12 @@ void ActiveSerialTesterBase ::
         FW_ASSERT(_argSize == E::SERIALIZED_SIZE, _argSize, E::SERIALIZED_SIZE);
       }
 #endif
-      _status = args.deserialize(e);
+      _status = args.deserialize(_event_arg_e);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
       );
-      this->logIn_DIAGNOSTIC_EventDiagnostic(e);
+      this->logIn_DIAGNOSTIC_EventDiagnostic(_event_arg_e);
       break;
     }
 
@@ -3051,7 +3051,7 @@ void ActiveSerialTesterBase ::
       FW_ASSERT(dummyStackArg == 0, dummyStackArg);
 #endif
 
-      A a;
+      A _event_arg_a;
 #if FW_AMPCS_COMPATIBLE
       {
         // Deserialize the argument size
@@ -3064,12 +3064,12 @@ void ActiveSerialTesterBase ::
         FW_ASSERT(_argSize == A::SERIALIZED_SIZE, _argSize, A::SERIALIZED_SIZE);
       }
 #endif
-      _status = args.deserialize(a);
+      _status = args.deserialize(_event_arg_a);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
       );
-      this->logIn_FATAL_EventFatalThrottled(a);
+      this->logIn_FATAL_EventFatalThrottled(_event_arg_a);
       break;
     }
 
@@ -3088,7 +3088,7 @@ void ActiveSerialTesterBase ::
       FW_ASSERT(_numArgs == 1, _numArgs, 1);
 #endif
 
-      S s;
+      S _event_arg_s;
 #if FW_AMPCS_COMPATIBLE
       {
         // Deserialize the argument size
@@ -3101,12 +3101,12 @@ void ActiveSerialTesterBase ::
         FW_ASSERT(_argSize == S::SERIALIZED_SIZE, _argSize, S::SERIALIZED_SIZE);
       }
 #endif
-      _status = args.deserialize(s);
+      _status = args.deserialize(_event_arg_s);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
       );
-      this->logIn_WARNING_HI_EventWarningHigh(s);
+      this->logIn_WARNING_HI_EventWarningHigh(_event_arg_s);
       break;
     }
 

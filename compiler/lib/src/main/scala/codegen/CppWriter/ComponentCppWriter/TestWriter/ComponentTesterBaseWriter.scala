@@ -835,7 +835,7 @@ case class ComponentTesterBaseWriter(
           },
           event.aNode._2.data.params.flatMap(aNode => {
             val data = aNode._2.data
-            val name = data.name
+            val name = s"_event_arg_${data.name}"
             val tn = writeFormalParamType(data, "Fw::LogStringArg")
             val paramType = s.a.typeMap(data.typeName.id)
             val serializedSizeExpr = writeSerializedSizeExpr(s, paramType, tn)
@@ -865,7 +865,7 @@ case class ComponentTesterBaseWriter(
           }),
           {
             val handlerName = eventHandlerName(event)
-            val paramString = params.map(_._1).mkString(", ")
+            val paramString = params.map(p => s"_event_arg_${p._1}").mkString(", ")
             lines(
               s"""|this->$handlerName($paramString);
                   |break;
