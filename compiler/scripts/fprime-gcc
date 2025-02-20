@@ -32,7 +32,7 @@ os=`uname`
 case "$os" in
   Darwin)
     os_type=DARWIN
-    os_flags='-Wno-nullability-completeness -ferror-limit=1'
+    os_flags='-ferror-limit=1'
     ;;
   Linux)
     os_type=LINUX
