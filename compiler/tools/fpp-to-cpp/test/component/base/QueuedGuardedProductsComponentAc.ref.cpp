@@ -108,12 +108,12 @@ Fw::SerializeStatus QueuedGuardedProductsComponentBase::DpContainer ::
   if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::DataArrayRecord;
     status = this->m_dataBuffer.serialize(id);
-    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     status = this->m_dataBuffer.serializeSize(size);
-    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     for (FwSizeType i = 0; i < size; i++) {
       status = this->m_dataBuffer.serialize(array[i]);
-      FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+      FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     }
     this->m_dataSize += sizeDelta;
   }
@@ -133,9 +133,9 @@ Fw::SerializeStatus QueuedGuardedProductsComponentBase::DpContainer ::
   if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::DataRecord;
     status = this->m_dataBuffer.serialize(id);
-    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     status = this->m_dataBuffer.serialize(elt);
-    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     this->m_dataSize += sizeDelta;
   }
   else {
@@ -166,14 +166,14 @@ Fw::SerializeStatus QueuedGuardedProductsComponentBase::DpContainer ::
   if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::StringArrayRecord;
     status = this->m_dataBuffer.serialize(id);
-    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     status = this->m_dataBuffer.serializeSize(size);
-    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     for (FwSizeType i = 0; i < size; i++) {
       const Fw::StringBase *const sbPtr = array[i];
       FW_ASSERT(sbPtr != nullptr);
       status = sbPtr->serialize(this->m_dataBuffer, stringSize);
-      FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+      FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     }
     this->m_dataSize += sizeDelta;
   }
@@ -194,9 +194,9 @@ Fw::SerializeStatus QueuedGuardedProductsComponentBase::DpContainer ::
   if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::StringRecord;
     status = this->m_dataBuffer.serialize(id);
-    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     status = elt.serialize(this->m_dataBuffer, stringSize);
-    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     this->m_dataSize += sizeDelta;
   }
   else {
@@ -222,12 +222,12 @@ Fw::SerializeStatus QueuedGuardedProductsComponentBase::DpContainer ::
   if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::U32ArrayRecord;
     status = this->m_dataBuffer.serialize(id);
-    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     status = this->m_dataBuffer.serializeSize(size);
-    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     for (FwSizeType i = 0; i < size; i++) {
       status = this->m_dataBuffer.serialize(array[i]);
-      FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+      FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     }
     this->m_dataSize += sizeDelta;
   }
@@ -247,9 +247,9 @@ Fw::SerializeStatus QueuedGuardedProductsComponentBase::DpContainer ::
   if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::U32Record;
     status = this->m_dataBuffer.serialize(id);
-    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     status = this->m_dataBuffer.serialize(elt);
-    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     this->m_dataSize += sizeDelta;
   }
   else {
@@ -275,11 +275,11 @@ Fw::SerializeStatus QueuedGuardedProductsComponentBase::DpContainer ::
   if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::U8ArrayRecord;
     status = this->m_dataBuffer.serialize(id);
-    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     status = this->m_dataBuffer.serializeSize(size);
-    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     status = this->m_dataBuffer.serialize(array, size, Fw::Serialization::OMIT_LENGTH);
-    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     this->m_dataSize += sizeDelta;
   }
   else {
@@ -3580,7 +3580,11 @@ void QueuedGuardedProductsComponentBase ::
   DpContainer container(id, buffer, this->getIdBase());
   // Convert global id to local id
   const FwDpIdType idBase = this->getIdBase();
-  FW_ASSERT(id >= idBase, id, idBase);
+  FW_ASSERT(
+    id >= idBase,
+    static_cast<FwAssertArgType>(id),
+    static_cast<FwAssertArgType>(idBase)
+  );
   const FwDpIdType localId = id - idBase;
   // Switch on the local id
   switch (localId) {
