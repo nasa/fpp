@@ -45,10 +45,8 @@
       "members" : {
         "u16Field" : {
           "type" : {
-            "name" : "U16",
-            "kind" : "integer",
-            "size" : 16,
-            "signed" : false
+            "name" : "FppTest.DpTestComponent.AliasU16",
+            "kind" : "qualifiedIdentifier"
           },
           "index" : 0,
           "annotation" : "A U16 field"
@@ -58,6 +56,22 @@
         "u16Field" : 0
       },
       "annotation" : "Data for a DataRecord"
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FppTest.DpTestComponent.AliasU16",
+      "type" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      }
     }
   ],
   "commands" : [
