@@ -18,11 +18,11 @@ EEnumAc.hpp
 EEnumAi.xml
 FppConstantsAc.cpp
 FppConstantsAc.hpp
-PPacketsAc.cpp
-PPacketsAc.hpp
 PPortAc.cpp
 PPortAc.hpp
 PPortAi.xml
+PTlmPacketsAc.cpp
+PTlmPacketsAc.hpp
 SM2StateMachineAc.cpp
 SM2StateMachineAc.hpp
 SSerializableAc.cpp

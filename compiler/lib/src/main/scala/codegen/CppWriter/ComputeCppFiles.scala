@@ -98,7 +98,7 @@ object ComputeCppFiles {
     def getStruct(baseName: String) = s"${baseName}SerializableAc"
 
     /** Gets the C++ file name for a telemetry packet set */
-    def getTlmPacketSet(baseName: String) = s"${baseName}PacketsAc"
+    def getTlmPacketSet(baseName: String) = s"${baseName}TlmPacketsAc"
 
     /** Gets the C++ file name for generated topologies */
     def getTopology(baseName: String): String = s"${baseName}TopologyAc"
