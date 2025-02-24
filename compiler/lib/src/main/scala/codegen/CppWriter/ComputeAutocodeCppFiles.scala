@@ -93,14 +93,29 @@ object ComputeAutocodeCppFiles extends ComputeCppFiles {
     addMappings(s, ComputeCppFiles.FileNames.getPort(name), Some(loc))
   }
 
+  override def specTlmPacketSetAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketSet]]
+  ) = {
+    val node = aNode._2
+    val name = node.data.name
+    val loc = Locations.get(node.id)
+    addMappings(s, ComputeCppFiles.FileNames.getTlmPacketSet(name), Some(loc))
+  }
+
   override def defTopologyAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
   ) = {
     val node = aNode._2
-    val name = node.data.name
+    val data = node.data
+    val name = data.name
     val loc = Locations.get(node.id)
-    addMappings(s, ComputeCppFiles.FileNames.getTopology(name), Some(loc))
+    for {
+      s <- addMappings(s, ComputeCppFiles.FileNames.getTopology(name), Some(loc))
+      s <- visitList (s, data.members, matchTopologyMember)
+    }
+    yield s
   }
 
 }
