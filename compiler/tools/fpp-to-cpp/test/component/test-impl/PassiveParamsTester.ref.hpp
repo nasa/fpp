@@ -10,7 +10,7 @@
 #include "PassiveParamsGTestBase.hpp"
 #include "PassiveParams.hpp"
 
-class PassiveParamsTester :
+class PassiveParamsTester final :
   public PassiveParamsGTestBase
 {
 

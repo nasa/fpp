@@ -10,7 +10,7 @@
 #include "ActiveEventsGTestBase.hpp"
 #include "ActiveEvents.hpp"
 
-class ActiveEventsTester :
+class ActiveEventsTester final :
   public ActiveEventsGTestBase
 {
 

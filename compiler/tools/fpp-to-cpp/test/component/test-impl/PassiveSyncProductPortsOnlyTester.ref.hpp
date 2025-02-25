@@ -10,7 +10,7 @@
 #include "PassiveSyncProductPortsOnlyGTestBase.hpp"
 #include "PassiveSyncProductPortsOnly.hpp"
 
-class PassiveSyncProductPortsOnlyTester :
+class PassiveSyncProductPortsOnlyTester final :
   public PassiveSyncProductPortsOnlyGTestBase
 {
 

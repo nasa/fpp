@@ -362,7 +362,7 @@ case class ComponentImplWriter(
       componentImplClassName,
       Some(s"public $className"),
       getClassMembers,
-      Some("final")
+      CppDoc.Class.Final
     )
     hppIncludes :: cppIncludes ::
     wrapInNamespaces(namespaceIdentList, List(cls))

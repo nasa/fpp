@@ -10,7 +10,7 @@
 #include "ActiveCommandsGTestBase.hpp"
 #include "ActiveCommands.hpp"
 
-class ActiveCommandsTester :
+class ActiveCommandsTester final :
   public ActiveCommandsGTestBase
 {
 

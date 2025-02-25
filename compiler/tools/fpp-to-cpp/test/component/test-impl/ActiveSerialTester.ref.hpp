@@ -10,7 +10,7 @@
 #include "ActiveSerialGTestBase.hpp"
 #include "ActiveSerial.hpp"
 
-class ActiveSerialTester :
+class ActiveSerialTester final :
   public ActiveSerialGTestBase
 {
 
