@@ -44,22 +44,16 @@ case class TlmPacketSetCppWriter(
     )
   }
 
-  private def getChannelArrayMember: CppDoc.Member =
-    linesMember(
-      List.concat(
-        CppDocWriter.writeBannerComment("Channel arrays"),
-        addBlankPrefix(
-          wrapInAnonymousNamespace(
-            addBlankPostfix(
-              lines(
-                """|
-                   |// TODO"""
-              )
-            )
-          )
-        )
-      ),
-      CppDoc.Lines.Cpp
+  private def getChannelArraySizesLines: List[Line] =
+    writeStruct(
+      "ChannelArraySizes",
+       packets.flatMap(writeChannelArraySize)
+    )
+
+  private def getChannelArraysLines: List[Line] =
+    writeStruct(
+      "ChannelArrays",
+       packets.flatMap(writeChannelArray)
     )
 
   private def getChannelIdLines: List[Line] = {
@@ -74,12 +68,7 @@ case class TlmPacketSetCppWriter(
             |static constexpr FwChanIdType $nameStr = $idStr;"""
       )
     }
-    addBlankPrefix(
-      wrapInNamedStruct(
-        "ChannelIds",
-        addBlankPostfix(channelEntries.flatMap(writeChannelId))
-      )
-    )
+    writeStruct("ChannelIds", channelEntries.flatMap(writeChannelId))
   }
 
   private def getChannelSizeLines: List[Line] = {
@@ -95,12 +84,7 @@ case class TlmPacketSetCppWriter(
             |static constexpr FwSizeType $nameStr = $sizeStr;"""
       )
     }
-    addBlankPrefix(
-      wrapInNamedStruct(
-        "ChannelSizes",
-        addBlankPostfix(channelEntries.flatMap(writeChannelSize))
-      )
-    )
+    writeStruct("ChannelSizes", channelEntries.flatMap(writeChannelSize))
   }
 
   private def getCppIncludesMember: CppDoc.Member = {
@@ -113,18 +97,37 @@ case class TlmPacketSetCppWriter(
 
   private def getCppMembers: List[CppDoc.Member] =
     List(
-      getChannelArrayMember,
-      getPacketMember,
-      getCppVarMember
+      getDataStructuresMember,
+      getCppVarsMember
     )
 
-  private def getCppVarMember: CppDoc.Member =
+  private def getCppVarsMember: CppDoc.Member =
     linesMember(
       List.concat(
         CppDocWriter.writeBannerComment("Extern variables"),
         lines(
           """|
              |// TODO: Variables"""
+        )
+      ),
+      CppDoc.Lines.Cpp
+    )
+
+  private def getDataStructuresMember: CppDoc.Member =
+    linesMember(
+      List.concat(
+        CppDocWriter.writeBannerComment("File-local data strcutures"),
+        addBlankPrefix(
+          wrapInAnonymousNamespace(
+            addBlankPostfix(
+              List.concat(
+                getChannelArraysLines,
+                getChannelArraySizesLines,
+                getPacketsLines,
+                getOmittedListLines
+              )
+            )
+          )
         )
       ),
       CppDoc.Lines.Cpp
@@ -193,6 +196,14 @@ case class TlmPacketSetCppWriter(
       wrapInNamespaces(nsil, members)
   }
 
+  private def getOmittedListLines: List[Line] =
+    lines(
+      """|
+         |// TODO: Omitted list
+         |
+         |// TODO: Size of omitted list"""
+    )
+
   private def getPacketDataSizeLines: List[Line] = {
     def writePacketDataSize(tp: TlmPacket): List[Line] = {
       def writeChannelSizeExpr(id: TlmChannel.Id) = {
@@ -218,15 +229,21 @@ case class TlmPacketSetCppWriter(
             |);"""
       )
     }
-    addBlankPrefix(
-      wrapInNamedStruct(
-        "PacketDataSizes",
-        addBlankPostfix(packets.flatMap(writePacketDataSize))
-      )
-    )
+    writeStruct("PacketDataSizes", packets.flatMap(writePacketDataSize))
   }
 
-  private def getPacketGroupLines: List[Line] = Nil
+  private def getPacketGroupLines: List[Line] = {
+    def writePacketGroup(tp: TlmPacket) = {
+      val name = tp.getName
+      val group = tp.group
+      lines(
+        s"""|
+            |//! The group for packet $name
+            |static constexpr FwIndexType $name = $group;"""
+      )
+    }
+    writeStruct("PacketGroups", packets.flatMap(writePacketGroup))
+  }
 
   private def getPacketIdLines: List[Line] = {
     def writePacketId(id: TlmPacket.Id, tp: TlmPacket) = {
@@ -238,53 +255,64 @@ case class TlmPacketSetCppWriter(
             |static constexpr FwTlmPacketizeIdType $name = $idStr;"""
       )
     }
-    addBlankPrefix(
-      wrapInNamedStruct(
-        "PacketIds",
-        addBlankPostfix(packetsWithId.flatMap(writePacketId))
-      )
-    )
+    writeStruct("PacketIds", packetsWithId.flatMap(writePacketId))
   }
 
-  private def getPacketMember: CppDoc.Member =
-    linesMember(
-      List.concat(
-        CppDocWriter.writeBannerComment("Packets"),
-        addBlankPrefix(
-          wrapInAnonymousNamespace(
-            addBlankPostfix(
-              lines(
-                """|
-                   |// TODO"""
-              )
-            )
-          )
-        )
-      ),
-      CppDoc.Lines.Cpp
+  private def getPacketsLines: List[Line] =
+    writeStruct(
+      "Packets",
+      packets.flatMap(writePacket)
     )
 
   private def getSizeBoundLines: List[Line] =
+    writeStruct(
+      "SizeBounds",
+      lines(
+        """|
+           |// The size of a packet header
+           |static constexpr FwSizeType packetHeaderSize = Fw::Time::SERIALIZED_SIZE +
+           |  sizeof(FwTlmPacketizeIdType) + sizeof(FwPacketDescriptorType);
+           |
+           |// A packet header must fit in a com buffer
+           |static_assert(
+           |  packetHeaderSize <= FW_COM_BUFFER_MAX_SIZE,
+           |  "packet header must fit in com buffer"
+           |);
+           |
+           |// The max data size in a com buffer
+           |static constexpr FwSizeType packetMaxDataSize = FW_COM_BUFFER_MAX_SIZE - packetHeaderSize;"""
+      )
+    )
+
+  private def writeChannelArray(tp: TlmPacket): List[Line] = {
+    val name = tp.getName
+    lines(
+      s"""|
+          |// TODO: Channel array for packet $name"""
+    )
+  }
+
+  private def writeChannelArraySize(tp: TlmPacket): List[Line] = {
+    val name = tp.getName
+    lines(
+      s"""|
+          |// TODO: Channel array size for packet $name"""
+    )
+  }
+
+  private def writePacket(tp: TlmPacket): List[Line] = {
+    val name = tp.getName
+    lines(
+      s"""|
+          |// TODO: Packet $name"""
+    )
+  }
+
+  private def writeStruct(name: String, lines: List[Line]) =
     addBlankPrefix(
       wrapInNamedStruct(
-        "SizeBounds",
-        addBlankPostfix(
-          lines(
-            """|
-               |// The size of a packet header
-               |static constexpr FwSizeType packetHeaderSize = Fw::Time::SERIALIZED_SIZE +
-               |  sizeof(FwTlmPacketizeIdType) + sizeof(FwPacketDescriptorType);
-               |
-               |// A packet header must fit in a com buffer
-               |static_assert(
-               |  packetHeaderSize <= FW_COM_BUFFER_MAX_SIZE,
-               |  "packet header must fit in com buffer"
-               |);
-               |
-               |// The max data size in a com buffer
-               |static constexpr FwSizeType packetMaxDataSize = FW_COM_BUFFER_MAX_SIZE - packetHeaderSize;"""
-          )
-        )
+        name,
+        addBlankPostfix(lines)
       )
     )
 
