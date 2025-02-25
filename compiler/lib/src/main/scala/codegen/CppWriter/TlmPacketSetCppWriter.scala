@@ -114,11 +114,19 @@ case class TlmPacketSetCppWriter(
       )
     )
 
-  private def getChannelSizeLines: List[Line] = Nil
+  private def getChannelSizeLines: List[Line] =
+    addBlankPrefix(
+      wrapInNamedStruct(
+        "ChannelSizes",
+        addBlankPostfix(channelEntries.flatMap(writeChannelSize))
+      )
+    )
 
   private def getPacketIdLines: List[Line] = Nil
 
   private def getPacketLevelLines: List[Line] = Nil
+
+  private def getPacketGroupLines: List[Line] = Nil
 
   private def getPacketDataSizeLines: List[Line] = 
     addBlankPrefix(
@@ -156,6 +164,7 @@ case class TlmPacketSetCppWriter(
         getChannelSizeLines,
         getPacketIdLines,
         getPacketLevelLines,
+        getPacketGroupLines,
         getPacketDataSizeLines
       )
     )
@@ -247,11 +256,17 @@ case class TlmPacketSetCppWriter(
     )
   }
 
-  private def writeChannelSize(id: TlmChannel.Id) = {
-    val entry = d.tlmChannelEntryMap(id)
+  private def writeChannelSize(entry: Dictionary.TlmChannelEntry) = {
+    val name = entry.getQualifiedName
+    val nameStr = CppWriter.identFromQualifiedName(name)
     val t = entry.tlmChannel.channelType
     val tn = TypeCppWriter.getName(s, t)
-    writeSerializedSizeExpr(s, t, tn)
+    val sizeStr = writeSerializedSizeExpr(s, t, tn)
+    lines(
+      s"""|
+          |//! The serialized size of channel $name
+          |static constexpr FwSizeType $nameStr = $sizeStr;"""
+    )
   }
 
   private def writeChannelId(entry: Dictionary.TlmChannelEntry) = {
@@ -268,16 +283,25 @@ case class TlmPacketSetCppWriter(
 
   // TODO: Use the symbolic names for the channel sizes, once they are available
   private def writePacketDataSize(tp: TlmPacket): List[Line] = {
+    def writeChannelSizeExpr(id: TlmChannel.Id) = {
+      val entry = d.tlmChannelEntryMap(id)
+      val name = entry.getQualifiedName
+      val nameStr = CppWriter.identFromQualifiedName(name)
+      s"ChannelSizes::$nameStr"
+    }
     val name = tp.getName
     val idList = tp.memberIdList
-    val dataSize = idList.map(writeChannelSize).mkString("\n  + ")
+    val dataSize = idList match {
+      case Nil => "0"
+      case _ => idList.map(writeChannelSizeExpr).mkString("\n  + ")
+    }
     lines(
       s"""|
           |//! The data size for packet $name
           |static constexpr FwSizeType $name = $dataSize;
           |
           |static_assert(
-          |  static_cast<FwSizeType>(PacketDataSizes::$name) <= packetMaxDataSize,
+          |  $name <= packetMaxDataSize,
           |  "packet data must fit in max data size"
           |);"""
     )
