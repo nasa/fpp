@@ -29,6 +29,9 @@ case class TlmPacketSetCppWriter(
 
   private val fileName = ComputeCppFiles.FileNames.getTlmPacketSet(topQualifiedName)
 
+  private val channelEntries =
+    d.tlmChannelEntryMap.values.toList.sortBy(_.tlmChannel.getName)
+
   def write: CppDoc = {
     CppWriter.createCppDoc(
       s"$name telemetry packets",
@@ -103,7 +106,13 @@ case class TlmPacketSetCppWriter(
       CppDoc.Lines.Cpp
     )
 
-  private def getChannelIdLines: List[Line] = Nil
+  private def getChannelIdLines: List[Line] =
+    addBlankPrefix(
+      wrapInNamedStruct(
+        "ChannelIds",
+        addBlankPostfix(channelEntries.flatMap(writeChannelId))
+      )
+    )
 
   private def getChannelSizeLines: List[Line] = Nil
 
@@ -129,7 +138,7 @@ case class TlmPacketSetCppWriter(
            |
            |// A packet header must fit in a com buffer
            |static_assert(
-           |  FW_COM_BUFFER_MAX_SIZE >= packetHeaderSize,
+           |  packetHeaderSize <= FW_COM_BUFFER_MAX_SIZE,
            |  "packet header must fit in com buffer"
            |);
            |
@@ -245,6 +254,19 @@ case class TlmPacketSetCppWriter(
     writeSerializedSizeExpr(s, t, tn)
   }
 
+  private def writeChannelId(entry: Dictionary.TlmChannelEntry) = {
+    val name = entry.getQualifiedName
+    val nameStr = CppWriter.identFromQualifiedName(name)
+    val id = d.reverseTlmChannelEntryMap(entry)
+    val idStr = CppWriter.writeId(id)
+    lines(
+      s"""|
+          |//! The identifier for channel $name
+          |static constexpr FwChanIdType $nameStr = $idStr;"""
+    )
+  }
+
+  // TODO: Use the symbolic names for the channel sizes, once they are available
   private def writePacketDataSize(tp: TlmPacket): List[Line] = {
     val name = tp.getName
     val idList = tp.memberIdList
