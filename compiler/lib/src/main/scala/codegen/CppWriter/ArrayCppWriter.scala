@@ -417,13 +417,15 @@ case class ArrayCppWriter (
         List(Line.blank),
       ).flatten
     // Write format arguments in toString()
-    val formatArgs =
-      if hasPrimitiveEltType then
-        lines(List.range(0, arraySize).map(i => s"this->elements[$i]").mkString(",\n"))
-      else if hasStringEltType then
-        lines(List.range(0, arraySize).map(i => s"this->elements[$i].toChar()").mkString(",\n"))
-      else
-          lines(List.range(0, arraySize).map(i => s"str$i.toChar()").mkString(",\n"))
+    def getFormatArg(i: Int) =
+      if hasPrimitiveEltType then s"this->elements[$i]"
+      else if hasStringEltType then s"this->elements[$i].toChar()"
+      else s"str$i.toChar()"
+    val formatArgs = lines(
+      List.range(0, arraySize).map(
+        promoteF32ToF64(eltType) compose getFormatArg
+      ).mkString(",\n")
+    )
 
     List(
       linesClassMember(

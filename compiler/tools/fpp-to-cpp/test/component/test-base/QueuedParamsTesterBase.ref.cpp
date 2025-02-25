@@ -2147,7 +2147,11 @@ Fw::ParamValid QueuedParamsTesterBase ::
   val.resetSer();
 
   const U32 idBase = _testerBase->getIdBase();
-  FW_ASSERT(id >= idBase, id, idBase);
+  FW_ASSERT(
+    id >= idBase,
+    static_cast<FwAssertArgType>(id),
+    static_cast<FwAssertArgType>(idBase)
+  );
 
   switch (id - idBase) {
     case QueuedParamsComponentBase::PARAMID_PARAMU32: {
@@ -2211,7 +2215,7 @@ Fw::ParamValid QueuedParamsTesterBase ::
     };
 
     default:
-      FW_ASSERT(0, id);
+      FW_ASSERT(0, static_cast<FwAssertArgType>(id));
       break;
   }
 
@@ -2231,7 +2235,11 @@ void QueuedParamsTesterBase ::
   val.resetSer();
 
   const U32 idBase = _testerBase->getIdBase();
-  FW_ASSERT(id >= idBase, id, idBase);
+  FW_ASSERT(
+    id >= idBase,
+    static_cast<FwAssertArgType>(id),
+    static_cast<FwAssertArgType>(idBase)
+  );
 
   switch (id - idBase) {
     case QueuedParamsComponentBase::PARAMID_PARAMU32: {
@@ -2319,7 +2327,7 @@ void QueuedParamsTesterBase ::
     };
 
     default:
-      FW_ASSERT(0, id);
+      FW_ASSERT(0, static_cast<FwAssertArgType>(id));
       break;
   }
 }

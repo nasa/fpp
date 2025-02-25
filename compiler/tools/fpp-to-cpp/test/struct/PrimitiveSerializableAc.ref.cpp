@@ -328,9 +328,9 @@ void Primitive ::
 
   sb.format(
     formatString,
-    this->m_mF32[0],
-    this->m_mF32[1],
-    this->m_mF32[2],
+    static_cast<F64>(this->m_mF32[0]),
+    static_cast<F64>(this->m_mF32[1]),
+    static_cast<F64>(this->m_mF32[2]),
     this->m_mF64,
     this->m_mI16,
     this->m_mI32,

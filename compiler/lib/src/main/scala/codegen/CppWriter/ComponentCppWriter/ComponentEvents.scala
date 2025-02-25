@@ -222,7 +222,8 @@ case class ComponentEvents (
                     val name = param._2.data.name
                     s.a.typeMap(param._2.data.typeName.id) match {
                       case Type.String(_) => s"$name.toChar()"
-                      case t if s.isPrimitive(t, writeFormalParamType(param._2.data)) => name
+                      case t if s.isPrimitive(t, writeFormalParamType(param._2.data)) =>
+                        promoteF32ToF64 (t) (name)
                       case _ => s"${name}Str.toChar()"
                     }
                   })).mkString(",\n")

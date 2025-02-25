@@ -807,7 +807,11 @@ case class ComponentTesterBaseWriter(
                 val length = params.length
                 event.aNode._2.data.severity match {
                   case Ast.SpecEvent.Fatal => lines(
-                    s"""|FW_ASSERT(_numArgs == $length + 1, _numArgs, $length + 1);
+                    s"""|FW_ASSERT(
+                        |  _numArgs == $length + 1,
+                        |  static_cast<FwAssertArgType>(_numArgs),
+                        |  static_cast<FwAssertArgType>($length + 1)
+                        |);
                         |
                         |// For FATAL, there is a stack size of 4 and a dummy entry
                         |U8 stackArgLen;
@@ -816,7 +820,10 @@ case class ComponentTesterBaseWriter(
                         |    _status == Fw::FW_SERIALIZE_OK,
                         |    static_cast<FwAssertArgType>(_status)
                         |);
-                        |FW_ASSERT(stackArgLen == 4, stackArgLen);
+                        |FW_ASSERT(
+                        |  stackArgLen == 4,
+                        |  static_cast<FwAssertArgType>(stackArgLen)
+                        |);
                         |
                         |U32 dummyStackArg;
                         |_status = args.deserialize(dummyStackArg);
@@ -824,10 +831,19 @@ case class ComponentTesterBaseWriter(
                         |    _status == Fw::FW_SERIALIZE_OK,
                         |    static_cast<FwAssertArgType>(_status)
                         |);
-                        |FW_ASSERT(dummyStackArg == 0, dummyStackArg);
+                        |FW_ASSERT(
+                        |  dummyStackArg == 0,
+                        |  static_cast<FwAssertArgType>(dummyStackArg)
+                        |);
                         |"""
                   )
-                  case _ => lines(s"FW_ASSERT(_numArgs == $length, _numArgs, $length);")
+                  case _ => lines(
+                    s"""|FW_ASSERT(
+                        |  _numArgs == $length,
+                        |  static_cast<FwAssertArgType>(_numArgs),
+                        |  static_cast<FwAssertArgType>($length)
+                        |);"""
+                  )
                 }
               },
               lines("#endif")
@@ -835,7 +851,7 @@ case class ComponentTesterBaseWriter(
           },
           event.aNode._2.data.params.flatMap(aNode => {
             val data = aNode._2.data
-            val name = data.name
+            val name = s"_event_arg_${data.name}"
             val tn = writeFormalParamType(data, "Fw::LogStringArg")
             val paramType = s.a.typeMap(data.typeName.id)
             val serializedSizeExpr = writeSerializedSizeExpr(s, paramType, tn)
@@ -852,7 +868,11 @@ case class ComponentTesterBaseWriter(
                   |    _status == Fw::FW_SERIALIZE_OK,
                   |    static_cast<FwAssertArgType>(_status)
                   |  );
-                  |  FW_ASSERT(_argSize == $serializedSizeExpr, _argSize, $serializedSizeExpr);
+                  |  FW_ASSERT(
+                  |    _argSize == $serializedSizeExpr,
+                  |    static_cast<FwAssertArgType>(_argSize),
+                  |    static_cast<FwAssertArgType>($serializedSizeExpr)
+                  |  );
                   |}
                   |#endif
                   |_status = args.deserialize($name);
@@ -865,7 +885,7 @@ case class ComponentTesterBaseWriter(
           }),
           {
             val handlerName = eventHandlerName(event)
-            val paramString = params.map(_._1).mkString(", ")
+            val paramString = params.map(p => s"_event_arg_${p._1}").mkString(", ")
             lines(
               s"""|this->$handlerName($paramString);
                   |break;
@@ -883,7 +903,7 @@ case class ComponentTesterBaseWriter(
         sortedEvents.map((id, event) => writeSwitchCase(id, event)) ++ List(
           lines(
             """|default: {
-               |  FW_ASSERT(0, id);
+               |  FW_ASSERT(0, static_cast<FwAssertArgType>(id));
                |  break;
                |}
                |"""
@@ -919,7 +939,11 @@ case class ComponentTesterBaseWriter(
           """|args.resetDeser();
              |
              |const U32 idBase = this->getIdBase();
-             |FW_ASSERT(id >= idBase, id, idBase);
+             |FW_ASSERT(
+             |  id >= idBase,
+             |  static_cast<FwAssertArgType>(id),
+             |  static_cast<FwAssertArgType>(idBase)
+             |);
              |"""
         ),
         switchStatement
@@ -1031,7 +1055,7 @@ case class ComponentTesterBaseWriter(
           wrapInScope(
             "default: {",
             lines(
-              """|FW_ASSERT(0, id);
+              """|FW_ASSERT(0, static_cast<FwAssertArgType>(id));
                  |break;
                  |"""
             ),
@@ -1067,7 +1091,11 @@ case class ComponentTesterBaseWriter(
               """|val.resetDeser();
                  |
                  |const U32 idBase = this->getIdBase();
-                 |FW_ASSERT(id >= idBase, id, idBase);
+                 |FW_ASSERT(
+                 |  id >= idBase,
+                 |  static_cast<FwAssertArgType>(id),
+                 |  static_cast<FwAssertArgType>(idBase)
+                 |);
                  |"""
             ),
             Line.blank :: switchStatement
@@ -1245,7 +1273,11 @@ case class ComponentTesterBaseWriter(
               |$value.resetSer();
               |
               |const U32 idBase = _testerBase->getIdBase();
-              |FW_ASSERT($id >= idBase, $id, idBase);
+              |FW_ASSERT(
+              |  $id >= idBase,
+              |  static_cast<FwAssertArgType>($id),
+              |  static_cast<FwAssertArgType>(idBase)
+              |);
               |"""
         ),
         wrapInSwitch(
@@ -1273,7 +1305,7 @@ case class ComponentTesterBaseWriter(
             ) ++ List(
               lines(
                 """|default:
-                   |  FW_ASSERT(0, id);
+                   |  FW_ASSERT(0, static_cast<FwAssertArgType>(id));
                    |  break;
                    |"""
               )
@@ -1291,7 +1323,11 @@ case class ComponentTesterBaseWriter(
         s"""|$value.resetSer();
             |
             |const U32 idBase = _testerBase->getIdBase();
-            |FW_ASSERT($id >= idBase, $id, idBase);
+            |FW_ASSERT(
+            |  $id >= idBase,
+            |  static_cast<FwAssertArgType>($id),
+            |  static_cast<FwAssertArgType>(idBase)
+            |);
             |"""
       ),
       Line.blank :: wrapInSwitch(
@@ -1324,7 +1360,7 @@ case class ComponentTesterBaseWriter(
           }) ++ List(
             lines(
               s"""|default:
-                  |  FW_ASSERT(0, $id);
+                  |  FW_ASSERT(0, static_cast<FwAssertArgType>($id));
                   |  break;
                   |"""
             )

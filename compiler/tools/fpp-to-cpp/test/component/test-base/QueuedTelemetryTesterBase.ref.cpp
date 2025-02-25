@@ -1556,7 +1556,11 @@ void QueuedTelemetryTesterBase ::
   val.resetDeser();
 
   const U32 idBase = this->getIdBase();
-  FW_ASSERT(id >= idBase, id, idBase);
+  FW_ASSERT(
+    id >= idBase,
+    static_cast<FwAssertArgType>(id),
+    static_cast<FwAssertArgType>(idBase)
+  );
 
   switch (id - idBase) {
     case QueuedTelemetryComponentBase::CHANNELID_CHANNELU32FORMAT: {
@@ -1703,7 +1707,7 @@ void QueuedTelemetryTesterBase ::
     }
 
     default: {
-      FW_ASSERT(0, id);
+      FW_ASSERT(0, static_cast<FwAssertArgType>(id));
       break;
     }
   }

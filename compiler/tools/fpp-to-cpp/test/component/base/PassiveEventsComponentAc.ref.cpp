@@ -1713,7 +1713,7 @@ void PassiveEventsComponentBase ::
 #endif
       "EventActivityLowThrottled ",
       u32,
-      f32,
+      static_cast<F64>(f32),
       b
     );
 
