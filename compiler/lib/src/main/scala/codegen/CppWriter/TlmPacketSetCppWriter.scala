@@ -39,16 +39,16 @@ case class TlmPacketSetCppWriter(
     )
   }
 
-  private def getAnonymousNamespaceMember: CppDoc.Member =
+  private def getChannelArrayMember: CppDoc.Member =
     linesMember(
       List.concat(
-        CppDocWriter.writeBannerComment("File-local data structures"),
+        CppDocWriter.writeBannerComment("Channel arrays"),
         addBlankPrefix(
           wrapInAnonymousNamespace(
             addBlankPostfix(
-              List.concat(
-                getCppChannelArraysLines,
-                getCppPacketsLines
+              lines(
+                """|
+                   |// TODO"""
               )
             )
           )
@@ -57,10 +57,22 @@ case class TlmPacketSetCppWriter(
       CppDoc.Lines.Cpp
     )
 
-  private def getCppChannelArraysLines: List[Line] =
-    lines(
-      """|
-         |// TODO: Channel arrays"""
+  private def getPacketMember: CppDoc.Member =
+    linesMember(
+      List.concat(
+        CppDocWriter.writeBannerComment("Packets"),
+        addBlankPrefix(
+          wrapInAnonymousNamespace(
+            addBlankPostfix(
+              lines(
+                """|
+                   |// TODO"""
+              )
+            )
+          )
+        )
+      ),
+      CppDoc.Lines.Cpp
     )
 
   private def getCppIncludesMember: CppDoc.Member = {
@@ -74,7 +86,8 @@ case class TlmPacketSetCppWriter(
   private def getCppMembers: List[CppDoc.Member] =
     List(
       getStaticAssertMember,
-      getAnonymousNamespaceMember,
+      getChannelArrayMember,
+      getPacketMember,
       getCppVarMember
     )
 
@@ -88,12 +101,6 @@ case class TlmPacketSetCppWriter(
         )
       ),
       CppDoc.Lines.Cpp
-    )
-
-  private def getCppPacketsLines: List[Line] =
-    lines(
-      """|
-         |// TODO: Packets"""
     )
 
   private def getHppConstantMembers: List[CppDoc.Member] =
@@ -204,14 +211,9 @@ case class TlmPacketSetCppWriter(
 
   private def writeChannelSize(id: TlmChannel.Id) = {
     val entry = d.tlmChannelEntryMap(id)
-    entry.tlmChannel.channelType match {
-      case (ts: Type.String) =>
-        val stringSize = writeStringSize(s, ts)
-        s"Fw::StringBase::STATIC_SERIALIZED_SIZE(FW_MIN($stringSize, FW_TLM_STRING_MAX_SIZE))"
-      case t =>
-        val tn = TypeCppWriter.getName(s, t)
-        writeSerializedSizeExpr(s, t, tn)
-    }
+    val t = entry.tlmChannel.channelType
+    val tn = TypeCppWriter.getName(s, t)
+    writeSerializedSizeExpr(s, t, tn)
   }
 
   private def writePacketDataSizeEnum(tp: TlmPacket): List[Line] = {

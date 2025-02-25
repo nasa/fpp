@@ -92,7 +92,7 @@ object TlmPacketSet {
       if !usedIdSet.contains(id) && !tpg.omittedIdSet.contains(id)
       then {
         val entry = d.tlmChannelEntryMap(id)
-        val channelName = entry.getName
+        val channelName = entry.getQualifiedName
         val instanceLoc = t.instanceMap(entry.instance)._2
         val channelLoc = entry.tlmChannel.getLoc
         val msg = s"""|telemetry channel $channelName is neither used nor marked as omitted
@@ -109,7 +109,7 @@ object TlmPacketSet {
       if usedIdSet.contains(id) && tpg.omittedIdSet.contains(id)
       then {
         val entry = d.tlmChannelEntryMap(id)
-        val channelName = entry.getName
+        val channelName = entry.getQualifiedName
         val usedLoc = usedIdLocationMap(id)
         val omittedLoc = tpg.omittedLocationMap(id)
         val msg = s"""|telemetry channel $channelName is both used and marked omitted
