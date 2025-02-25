@@ -60,21 +60,46 @@ case class TlmPacketSetCppWriter(
       CppDoc.Lines.Cpp
     )
 
-  private def getChannelIdLines: List[Line] =
+  private def getChannelIdLines: List[Line] = {
+    def writeChannelId(entry: Dictionary.TlmChannelEntry) = {
+      val name = entry.getQualifiedName
+      val nameStr = CppWriter.identFromQualifiedName(name)
+      val id = d.reverseTlmChannelEntryMap(entry)
+      val idStr = CppWriter.writeId(id)
+      lines(
+        s"""|
+            |//! The identifier for channel $name
+            |static constexpr FwChanIdType $nameStr = $idStr;"""
+      )
+    }
     addBlankPrefix(
       wrapInNamedStruct(
         "ChannelIds",
         addBlankPostfix(channelEntries.flatMap(writeChannelId))
       )
     )
+  }
 
-  private def getChannelSizeLines: List[Line] =
+  private def getChannelSizeLines: List[Line] = {
+    def writeChannelSize(entry: Dictionary.TlmChannelEntry) = {
+      val name = entry.getQualifiedName
+      val nameStr = CppWriter.identFromQualifiedName(name)
+      val t = entry.tlmChannel.channelType
+      val tn = TypeCppWriter.getName(s, t)
+      val sizeStr = writeSerializedSizeExpr(s, t, tn)
+      lines(
+        s"""|
+            |//! The serialized size of channel $name
+            |static constexpr FwSizeType $nameStr = $sizeStr;"""
+      )
+    }
     addBlankPrefix(
       wrapInNamedStruct(
         "ChannelSizes",
         addBlankPostfix(channelEntries.flatMap(writeChannelSize))
       )
     )
+  }
 
   private def getCppIncludesMember: CppDoc.Member = {
     val headers = List(
@@ -86,7 +111,6 @@ case class TlmPacketSetCppWriter(
 
   private def getCppMembers: List[CppDoc.Member] =
     List(
-      //getStaticAssertMember,
       getChannelArrayMember,
       getPacketMember,
       getCppVarMember
@@ -218,68 +242,6 @@ case class TlmPacketSetCppWriter(
            |constexpr FwSizeType packetMaxDataSize = FW_COM_BUFFER_MAX_SIZE - packetHeaderSize;"""
       )
     )
-
-  private def getStaticAssertMember: CppDoc.Member = {
-    def writeStaticAssert(tp: TlmPacket): List[Line] = {
-      val name = tp.getName
-      lines(
-        s"""|static_assert(
-            |  PacketDataSizes::$name <= packetMaxDataSize,
-            |  "packet data must fit in max data size"
-            |);"""
-      )
-    }
-    linesMember(
-      List.concat(
-        CppDocWriter.writeBannerComment("Static assertions"),
-        addBlankPrefix(
-          wrapInAnonymousNamespace(
-            List.concat(
-              lines(
-                """|
-                   |// The size of a packet header
-                   |constexpr FwSizeType packetHeaderSize = Fw::Time::SERIALIZED_SIZE + sizeof(FwTlmPacketizeIdType) +
-                   |  sizeof(FwPacketDescriptorType);
-                   |
-                   |// A packet header must fit in a com buffer
-                   |static_assert(FW_COM_BUFFER_MAX_SIZE >= packetHeaderSize, "packet header must fit in com buffer");
-                   |
-                   |// The max data size in a com buffer
-                   |constexpr FwSizeType packetMaxDataSize = FW_COM_BUFFER_MAX_SIZE - packetHeaderSize;"""
-              ),
-              addBlankPrefix(addBlankPostfix(packets.flatMap(writeStaticAssert)))
-            )
-          )
-        )
-      ),
-      CppDoc.Lines.Cpp
-    )
-  }
-
-  private def writeChannelId(entry: Dictionary.TlmChannelEntry) = {
-    val name = entry.getQualifiedName
-    val nameStr = CppWriter.identFromQualifiedName(name)
-    val id = d.reverseTlmChannelEntryMap(entry)
-    val idStr = CppWriter.writeId(id)
-    lines(
-      s"""|
-          |//! The identifier for channel $name
-          |static constexpr FwChanIdType $nameStr = $idStr;"""
-    )
-  }
-
-  private def writeChannelSize(entry: Dictionary.TlmChannelEntry) = {
-    val name = entry.getQualifiedName
-    val nameStr = CppWriter.identFromQualifiedName(name)
-    val t = entry.tlmChannel.channelType
-    val tn = TypeCppWriter.getName(s, t)
-    val sizeStr = writeSerializedSizeExpr(s, t, tn)
-    lines(
-      s"""|
-          |//! The serialized size of channel $name
-          |static constexpr FwSizeType $nameStr = $sizeStr;"""
-    )
-  }
 
   private def writePacketDataSize(tp: TlmPacket): List[Line] = {
     def writeChannelSizeExpr(id: TlmChannel.Id) = {
