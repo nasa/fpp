@@ -225,21 +225,26 @@ case class TlmPacketSetCppWriter(
     )
 
   private def getSizeBoundLines: List[Line] =
-    List.concat(
-      lines(
-        """|
-           |// The size of a packet header
-           |constexpr FwSizeType packetHeaderSize = Fw::Time::SERIALIZED_SIZE +
-           |  sizeof(FwTlmPacketizeIdType) + sizeof(FwPacketDescriptorType);
-           |
-           |// A packet header must fit in a com buffer
-           |static_assert(
-           |  packetHeaderSize <= FW_COM_BUFFER_MAX_SIZE,
-           |  "packet header must fit in com buffer"
-           |);
-           |
-           |// The max data size in a com buffer
-           |constexpr FwSizeType packetMaxDataSize = FW_COM_BUFFER_MAX_SIZE - packetHeaderSize;"""
+    addBlankPrefix(
+      wrapInNamedStruct(
+        "SizeBounds",
+        addBlankPostfix(
+          lines(
+            """|
+               |// The size of a packet header
+               |static constexpr FwSizeType packetHeaderSize = Fw::Time::SERIALIZED_SIZE +
+               |  sizeof(FwTlmPacketizeIdType) + sizeof(FwPacketDescriptorType);
+               |
+               |// A packet header must fit in a com buffer
+               |static_assert(
+               |  packetHeaderSize <= FW_COM_BUFFER_MAX_SIZE,
+               |  "packet header must fit in com buffer"
+               |);
+               |
+               |// The max data size in a com buffer
+               |static constexpr FwSizeType packetMaxDataSize = FW_COM_BUFFER_MAX_SIZE - packetHeaderSize;"""
+          )
+        )
       )
     )
 
@@ -262,7 +267,7 @@ case class TlmPacketSetCppWriter(
           |static constexpr FwSizeType $name = $dataSize;
           |
           |static_assert(
-          |  $name <= packetMaxDataSize,
+          |  $name <= SizeBounds::packetMaxDataSize,
           |  "packet data must fit in max data size"
           |);"""
     )
