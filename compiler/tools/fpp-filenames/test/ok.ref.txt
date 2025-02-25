@@ -21,8 +21,6 @@ FppConstantsAc.hpp
 PPortAc.cpp
 PPortAc.hpp
 PPortAi.xml
-PTlmPacketsAc.cpp
-PTlmPacketsAc.hpp
 SM2StateMachineAc.cpp
 SM2StateMachineAc.hpp
 SSerializableAc.cpp
@@ -32,3 +30,5 @@ TTopologyAc.cpp
 TTopologyAc.hpp
 TTopologyAppAi.xml
 TTopologyDictionary.json
+T_PTlmPacketsAc.cpp
+T_PTlmPacketsAc.hpp
