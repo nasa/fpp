@@ -21,7 +21,9 @@ case class TlmPacketSetCppWriter(
 
   private val tps = d.tlmPacketSetMap(name)
 
-  private val packets = tps.packetMap.values.toList.sortBy(_.getName)
+  private val packetsWithId = tps.packetMap.toList.sortBy(_._2.getName)
+
+  private val packets = packetsWithId.map(_._2)
 
   private val topQualifiedName = s"${t.getName}_$name"
 
@@ -136,7 +138,6 @@ case class TlmPacketSetCppWriter(
         getChannelIdLines,
         getChannelSizeLines,
         getPacketIdLines,
-        getPacketLevelLines,
         getPacketGroupLines,
         getPacketDataSizeLines
       )
@@ -192,19 +193,58 @@ case class TlmPacketSetCppWriter(
       wrapInNamespaces(nsil, members)
   }
 
-  private def getPacketDataSizeLines: List[Line] =
+  private def getPacketDataSizeLines: List[Line] = {
+    def writePacketDataSize(tp: TlmPacket): List[Line] = {
+      def writeChannelSizeExpr(id: TlmChannel.Id) = {
+        val entry = d.tlmChannelEntryMap(id)
+        val name = entry.getQualifiedName
+        val nameStr = CppWriter.identFromQualifiedName(name)
+        s"ChannelSizes::$nameStr"
+      }
+      val name = tp.getName
+      val idList = tp.memberIdList
+      val dataSize = idList match {
+        case Nil => "0"
+        case _ => idList.map(writeChannelSizeExpr).mkString("\n  + ")
+      }
+      lines(
+        s"""|
+            |//! The data size for packet $name
+            |static constexpr FwSizeType $name = $dataSize;
+            |
+            |static_assert(
+            |  $name <= SizeBounds::packetMaxDataSize,
+            |  "packet data must fit in max data size"
+            |);"""
+      )
+    }
     addBlankPrefix(
       wrapInNamedStruct(
         "PacketDataSizes",
         addBlankPostfix(packets.flatMap(writePacketDataSize))
       )
     )
+  }
 
   private def getPacketGroupLines: List[Line] = Nil
 
-  private def getPacketIdLines: List[Line] = Nil
-
-  private def getPacketLevelLines: List[Line] = Nil
+  private def getPacketIdLines: List[Line] = {
+    def writePacketId(id: TlmPacket.Id, tp: TlmPacket) = {
+      val name = tp.getName
+      val idStr = CppWriter.writeId(id)
+      lines(
+        s"""|
+            |//! The identifier for packet $name
+            |static constexpr FwTlmPacketizeIdType $name = $idStr;"""
+      )
+    }
+    addBlankPrefix(
+      wrapInNamedStruct(
+        "PacketIds",
+        addBlankPostfix(packetsWithId.flatMap(writePacketId))
+      )
+    )
+  }
 
   private def getPacketMember: CppDoc.Member =
     linesMember(
@@ -247,30 +287,5 @@ case class TlmPacketSetCppWriter(
         )
       )
     )
-
-  private def writePacketDataSize(tp: TlmPacket): List[Line] = {
-    def writeChannelSizeExpr(id: TlmChannel.Id) = {
-      val entry = d.tlmChannelEntryMap(id)
-      val name = entry.getQualifiedName
-      val nameStr = CppWriter.identFromQualifiedName(name)
-      s"ChannelSizes::$nameStr"
-    }
-    val name = tp.getName
-    val idList = tp.memberIdList
-    val dataSize = idList match {
-      case Nil => "0"
-      case _ => idList.map(writeChannelSizeExpr).mkString("\n  + ")
-    }
-    lines(
-      s"""|
-          |//! The data size for packet $name
-          |static constexpr FwSizeType $name = $dataSize;
-          |
-          |static_assert(
-          |  $name <= SizeBounds::packetMaxDataSize,
-          |  "packet data must fit in max data size"
-          |);"""
-    )
-  }
 
 }
