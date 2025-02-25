@@ -21,7 +21,7 @@ case class TlmPacketSetCppWriter(
 
   private val tps = d.tlmPacketSetMap(name)
 
-  private val packetList = tps.packetMap.values.toList.sortBy(_.getName)
+  private val packets = tps.packetMap.values.toList.sortBy(_.getName)
 
   private val topQualifiedName = s"${t.getName}_$name"
 
@@ -60,22 +60,20 @@ case class TlmPacketSetCppWriter(
       CppDoc.Lines.Cpp
     )
 
-  private def getPacketMember: CppDoc.Member =
-    linesMember(
-      List.concat(
-        CppDocWriter.writeBannerComment("Packets"),
-        addBlankPrefix(
-          wrapInAnonymousNamespace(
-            addBlankPostfix(
-              lines(
-                """|
-                   |// TODO"""
-              )
-            )
-          )
-        )
-      ),
-      CppDoc.Lines.Cpp
+  private def getChannelIdLines: List[Line] =
+    addBlankPrefix(
+      wrapInNamedStruct(
+        "ChannelIds",
+        addBlankPostfix(channelEntries.flatMap(writeChannelId))
+      )
+    )
+
+  private def getChannelSizeLines: List[Line] =
+    addBlankPrefix(
+      wrapInNamedStruct(
+        "ChannelSizes",
+        addBlankPostfix(channelEntries.flatMap(writeChannelSize))
+      )
     )
 
   private def getCppIncludesMember: CppDoc.Member = {
@@ -104,55 +102,6 @@ case class TlmPacketSetCppWriter(
         )
       ),
       CppDoc.Lines.Cpp
-    )
-
-  private def getChannelIdLines: List[Line] =
-    addBlankPrefix(
-      wrapInNamedStruct(
-        "ChannelIds",
-        addBlankPostfix(channelEntries.flatMap(writeChannelId))
-      )
-    )
-
-  private def getChannelSizeLines: List[Line] =
-    addBlankPrefix(
-      wrapInNamedStruct(
-        "ChannelSizes",
-        addBlankPostfix(channelEntries.flatMap(writeChannelSize))
-      )
-    )
-
-  private def getPacketIdLines: List[Line] = Nil
-
-  private def getPacketLevelLines: List[Line] = Nil
-
-  private def getPacketGroupLines: List[Line] = Nil
-
-  private def getPacketDataSizeLines: List[Line] = 
-    addBlankPrefix(
-      wrapInNamedStruct(
-        "PacketDataSizes",
-        addBlankPostfix(packetList.flatMap(writePacketDataSize))
-      )
-    )
-
-  private def getSizeBoundLines: List[Line] =
-    List.concat(
-      lines(
-        """|
-           |// The size of a packet header
-           |constexpr FwSizeType packetHeaderSize = Fw::Time::SERIALIZED_SIZE +
-           |  sizeof(FwTlmPacketizeIdType) + sizeof(FwPacketDescriptorType);
-           |
-           |// A packet header must fit in a com buffer
-           |static_assert(
-           |  packetHeaderSize <= FW_COM_BUFFER_MAX_SIZE,
-           |  "packet header must fit in com buffer"
-           |);
-           |
-           |// The max data size in a com buffer
-           |constexpr FwSizeType packetMaxDataSize = FW_COM_BUFFER_MAX_SIZE - packetHeaderSize;"""
-      )
     )
 
   private def getHppConstantMember: CppDoc.Member =
@@ -219,6 +168,57 @@ case class TlmPacketSetCppWriter(
       wrapInNamespaces(nsil, members)
   }
 
+  private def getPacketDataSizeLines: List[Line] =
+    addBlankPrefix(
+      wrapInNamedStruct(
+        "PacketDataSizes",
+        addBlankPostfix(packets.flatMap(writePacketDataSize))
+      )
+    )
+
+  private def getPacketGroupLines: List[Line] = Nil
+
+  private def getPacketIdLines: List[Line] = Nil
+
+  private def getPacketLevelLines: List[Line] = Nil
+
+  private def getPacketMember: CppDoc.Member =
+    linesMember(
+      List.concat(
+        CppDocWriter.writeBannerComment("Packets"),
+        addBlankPrefix(
+          wrapInAnonymousNamespace(
+            addBlankPostfix(
+              lines(
+                """|
+                   |// TODO"""
+              )
+            )
+          )
+        )
+      ),
+      CppDoc.Lines.Cpp
+    )
+
+  private def getSizeBoundLines: List[Line] =
+    List.concat(
+      lines(
+        """|
+           |// The size of a packet header
+           |constexpr FwSizeType packetHeaderSize = Fw::Time::SERIALIZED_SIZE +
+           |  sizeof(FwTlmPacketizeIdType) + sizeof(FwPacketDescriptorType);
+           |
+           |// A packet header must fit in a com buffer
+           |static_assert(
+           |  packetHeaderSize <= FW_COM_BUFFER_MAX_SIZE,
+           |  "packet header must fit in com buffer"
+           |);
+           |
+           |// The max data size in a com buffer
+           |constexpr FwSizeType packetMaxDataSize = FW_COM_BUFFER_MAX_SIZE - packetHeaderSize;"""
+      )
+    )
+
   private def getStaticAssertMember: CppDoc.Member = {
     def writeStaticAssert(tp: TlmPacket): List[Line] = {
       val name = tp.getName
@@ -247,12 +247,24 @@ case class TlmPacketSetCppWriter(
                    |// The max data size in a com buffer
                    |constexpr FwSizeType packetMaxDataSize = FW_COM_BUFFER_MAX_SIZE - packetHeaderSize;"""
               ),
-              addBlankPrefix(addBlankPostfix(packetList.flatMap(writeStaticAssert)))
+              addBlankPrefix(addBlankPostfix(packets.flatMap(writeStaticAssert)))
             )
           )
         )
       ),
       CppDoc.Lines.Cpp
+    )
+  }
+
+  private def writeChannelId(entry: Dictionary.TlmChannelEntry) = {
+    val name = entry.getQualifiedName
+    val nameStr = CppWriter.identFromQualifiedName(name)
+    val id = d.reverseTlmChannelEntryMap(entry)
+    val idStr = CppWriter.writeId(id)
+    lines(
+      s"""|
+          |//! The identifier for channel $name
+          |static constexpr FwChanIdType $nameStr = $idStr;"""
     )
   }
 
@@ -269,19 +281,6 @@ case class TlmPacketSetCppWriter(
     )
   }
 
-  private def writeChannelId(entry: Dictionary.TlmChannelEntry) = {
-    val name = entry.getQualifiedName
-    val nameStr = CppWriter.identFromQualifiedName(name)
-    val id = d.reverseTlmChannelEntryMap(entry)
-    val idStr = CppWriter.writeId(id)
-    lines(
-      s"""|
-          |//! The identifier for channel $name
-          |static constexpr FwChanIdType $nameStr = $idStr;"""
-    )
-  }
-
-  // TODO: Use the symbolic names for the channel sizes, once they are available
   private def writePacketDataSize(tp: TlmPacket): List[Line] = {
     def writeChannelSizeExpr(id: TlmChannel.Id) = {
       val entry = d.tlmChannelEntryMap(id)
