@@ -41,46 +41,60 @@ case class TlmPacketSetCppWriter(
 
   private def getAnonymousNamespaceMember: CppDoc.Member =
     linesMember(
-      wrapInAnonymousNamespace(
-        List.concat(
-          getCppChannelArraysLines,
-          getCppPacketsLines
+      List.concat(
+        CppDocWriter.writeBannerComment("File-local data structures"),
+        addBlankPrefix(
+          wrapInAnonymousNamespace(
+            addBlankPostfix(
+              List.concat(
+                getCppChannelArraysLines,
+                getCppPacketsLines
+              )
+            )
+          )
         )
       ),
       CppDoc.Lines.Cpp
     )
 
-  private def getCppChannelArraysLines: List[Line] = {
-    // TODO
-    Nil
-  }
+  private def getCppChannelArraysLines: List[Line] =
+    lines(
+      """|
+         |// TODO: Channel arrays"""
+    )
 
   private def getCppIncludesMember: CppDoc.Member = {
-    // TODO
-    linesMember(Nil)
+    val headers = List(
+      "Fw/Types/Assert.hpp",
+      s"${s.getRelativePath(fileName).toString}.hpp",
+    ).sorted.map(CppWriter.headerString).map(line)
+    linesMember(Line.blank :: headers, CppDoc.Lines.Cpp)
   }
 
   private def getCppMembers: List[CppDoc.Member] =
     List(
+      getStaticAssertMember,
       getAnonymousNamespaceMember,
-      getCppPacketListMember,
-      getCppOmittedMember
+      getCppVarMember
     )
 
-  private def getCppOmittedMember: CppDoc.Member = {
-    // TODO
-    linesMember(Nil)
-  }
+  private def getCppVarMember: CppDoc.Member =
+    linesMember(
+      List.concat(
+        CppDocWriter.writeBannerComment("Extern variables"),
+        lines(
+          """|
+             |// TODO: Variables"""
+        )
+      ),
+      CppDoc.Lines.Cpp
+    )
 
-  private def getCppPacketListMember: CppDoc.Member = {
-    // TODO
-    linesMember(Nil)
-  }
-
-  private def getCppPacketsLines: List[Line] = {
-    // TODO
-    Nil
-  }
+  private def getCppPacketsLines: List[Line] =
+    lines(
+      """|
+         |// TODO: Packets"""
+    )
 
   private def getHppConstantMembers: List[CppDoc.Member] =
     List(
@@ -90,8 +104,8 @@ case class TlmPacketSetCppWriter(
           addBlankPrefix(
             line("//! The packet sizes") ::
             wrapInEnumClass(
-              "PacketSize",
-              packetList.flatMap(writePacketSizeEnum),
+              "PacketDataSize",
+              packetList.flatMap(writePacketDataSizeEnum),
               Some("FwSizeType")
             )
           )
@@ -102,6 +116,7 @@ case class TlmPacketSetCppWriter(
   private def getHppIncludesMember: CppDoc.Member = {
     val headers = List(
       "Fw/Types/StringBase.hpp",
+      "Fw/Time/Time.hpp",
       "Svc/TlmPacketizer/TlmPacketizerTypes.hpp"
     ).map(CppWriter.headerString)
     linesMember(addBlankPrefix(headers.sorted.map(line)))
@@ -150,6 +165,43 @@ case class TlmPacketSetCppWriter(
       wrapInNamespaces(nsil, members)
   }
 
+  private def getStaticAssertMember: CppDoc.Member = {
+    def writeStaticAssert(tp: TlmPacket): List[Line] = {
+      val name = tp.getName
+      lines(
+        s"""|static_assert(
+            |  static_cast<FwSizeType>(PacketDataSize::$name) <= packetMaxDataSize,
+            |  "packet data must fit in max data size"
+            |);"""
+      )
+    }
+    linesMember(
+      List.concat(
+        CppDocWriter.writeBannerComment("Static assertions"),
+        addBlankPrefix(
+          wrapInAnonymousNamespace(
+            List.concat(
+              lines(
+                """|
+                   |// The size of a packet header
+                   |constexpr FwSizeType packetHeaderSize = Fw::Time::SERIALIZED_SIZE + sizeof(FwTlmPacketizeIdType) +
+                   |  sizeof(FwPacketDescriptorType);
+                   |
+                   |// A packet header must fit in a com buffer
+                   |static_assert(FW_COM_BUFFER_MAX_SIZE >= packetHeaderSize, "packet header must fit in com buffer");
+                   |
+                   |// The max data size in a com buffer
+                   |constexpr FwSizeType packetMaxDataSize = FW_COM_BUFFER_MAX_SIZE - packetHeaderSize;"""
+              ),
+              addBlankPrefix(addBlankPostfix(packetList.flatMap(writeStaticAssert)))
+            )
+          )
+        )
+      ),
+      CppDoc.Lines.Cpp
+    )
+  }
+
   private def writeChannelSize(id: TlmChannel.Id) = {
     val entry = d.tlmChannelEntryMap(id)
     entry.tlmChannel.channelType match {
@@ -162,7 +214,7 @@ case class TlmPacketSetCppWriter(
     }
   }
 
-  private def writePacketSizeEnum(tp: TlmPacket): List[Line] = {
+  private def writePacketDataSizeEnum(tp: TlmPacket): List[Line] = {
     val name = tp.getName
     val idList = tp.memberIdList
     val channelSize = idList.map(writeChannelSize).mkString("\n  + ")
