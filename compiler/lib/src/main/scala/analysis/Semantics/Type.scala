@@ -197,7 +197,7 @@ object Type {
     override def getDefNodeId = Some(node._2.id)
     override def toString = node._2.data.name
     override def isCanonical = false
-    override def isDisplayable = aliasType.getUnderlyingType.isDisplayable
+    override def isDisplayable = getUnderlyingType.isDisplayable
     override def getUnderlyingType = aliasType.getUnderlyingType
   }
 
