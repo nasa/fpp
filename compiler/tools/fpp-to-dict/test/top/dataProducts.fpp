@@ -2,6 +2,10 @@ module FppTest {
 
   @ A component for testing  data product code gen
   active component DpTestComponent {
+
+    @ Alias of type U16
+    type AliasU16 = U16
+
     output port pOut: Ports.P
     sync input port pIn: Ports.P
 
@@ -12,7 +16,7 @@ module FppTest {
     @ Data for a DataRecord
     struct Data {
       @ A U16 field
-      u16Field: U16
+      u16Field: AliasU16
     }
 
     @ Data for a ComplexRecord
