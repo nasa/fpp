@@ -312,7 +312,7 @@ case class TlmPacketSetCppWriter(
     lines(
       s"""|
           |// The entry array size for packet $name
-          |static constexpr FwSizeType $name = $size;"""
+          |static constexpr FwIndexType $name = $size;"""
     )
   }
 
@@ -329,21 +329,32 @@ case class TlmPacketSetCppWriter(
     lines(
       s"""|
           |// The size of the array of omitted channels
-          |constexpr FwSizeType omittedArraySize = $size;""",
+          |constexpr FwIndexType omittedArraySize = $size;""",
     ),
   }
 
-  private def writeOmittedChannels: List[Line] =
+  private def writeOmittedChannels: List[Line] = {
+    val omittedArray = tps.omittedIdSet.size match {
+      case 0 => "nullptr"
+      case _ => "omittedArray"
+    }
     lines(
       """|
-         |// TODO: omittedChannels"""
+         |
+         |constexpr Svc::TlmPacketizerPacket omittedChannels = {
+         |  omittedArray,
+         |  0,
+         |  0,
+         |  omittedArraySize
+         |};"""
     )
+  }
 
   private def writeOmittedEntryArray: List[Line] =
     addBlankPrefix(
       Line.addPrefixLine (line(s"// The omitted channel entries")) (
         wrapInScope(
-          s"constexpr Svc::TlmPacketizerChannelEntry omittedArary[omittedArraySize] = {",
+          s"constexpr Svc::TlmPacketizerChannelEntry omittedArray[omittedArraySize] = {",
           tps.omittedIdSet.map(d.tlmChannelEntryMap(_)).toList.
           sortBy(_.tlmChannel.getName).flatMap(writeChannelEntry),
           "};"
@@ -375,7 +386,7 @@ case class TlmPacketSetCppWriter(
     val body = array :+ line("Packets::numPackets")
     addBlankPrefix(
       wrapInScope(
-        "const Svc::TlmPacketizerPacketList packetList = {",
+        "constexpr Svc::TlmPacketizerPacketList packetList = {",
         body,
         "};"
       )
