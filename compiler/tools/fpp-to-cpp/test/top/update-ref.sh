@@ -35,3 +35,9 @@ params()
   move_cpp ParamsTopology
 }
 
+tlm_packets()
+{
+  update "-i builtin.fpp -p $PWD" tlm_packets
+  move_cpp TlmPackets_P1TlmPackets
+  move_cpp TlmPackets_P2TlmPackets
+}

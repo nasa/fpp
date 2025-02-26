@@ -27,7 +27,7 @@ case class TlmPacketSetCppWriter(
 
   private val topQualifiedName = s"${t.getName}_$name"
 
-  private val namespaceName = s"${topQualifiedName}Packets"
+  private val namespaceName = s"${topQualifiedName}TlmPackets"
 
   private val fileName = ComputeCppFiles.FileNames.getTlmPacketSet(topQualifiedName)
 

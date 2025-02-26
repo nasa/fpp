@@ -35,3 +35,10 @@ params()
     diff_cpp ParamsTopology
 }
 
+tlm_packets()
+{
+  run_test "-i builtin.fpp -p $PWD" tlm_packets && \
+    diff_cpp TlmPackets_P1TlmPackets && \
+    diff_cpp TlmPackets_P2TlmPackets
+}
+
