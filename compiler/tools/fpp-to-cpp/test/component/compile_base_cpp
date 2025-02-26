@@ -28,13 +28,13 @@ done
 
 fprime_gcc=../../../../../scripts/fprime-gcc
 
-## Set compiler flags
+# Set compiler flags
 include_flags="-I.. -I../.. -I../../fprime -I../../fprime/config"
+# F Prime components sometimes provide parameter arguments that are unused
+# F Prime components use variable-length arrays for managing buffers
 warning_flags="
--Wno-sign-conversion
 -Wno-unused-parameter
 -Wno-vla-extension
--Wno-zero-length-array
 "
 gcc_flags="$include_flags $warning_flags $LOCAL_CPP_FLAGS"
 

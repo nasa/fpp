@@ -261,6 +261,35 @@
                             "members",
                             "default"
                         ]
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "kind": {
+                                "type": "string",
+                                "enum": [
+                                    "alias"
+                                ]
+                            },
+                            "qualifiedName": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "$ref": "#/$defs/typeDescriptor"
+                            },
+                            "underlyingType": {
+                                "$ref": "#/$defs/typeDescriptor"
+                            },
+                            "annotation": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "kind",
+                            "qualifiedName",
+                            "type",
+                            "underlyingType"
+                        ]
                     }
                 ]
             }

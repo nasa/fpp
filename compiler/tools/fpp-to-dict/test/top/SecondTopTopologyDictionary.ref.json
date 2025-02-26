@@ -60,6 +60,23 @@
       "default" : "Module1.E2.PASS"
     },
     {
+      "kind" : "alias",
+      "qualifiedName" : "Module1.AliasT1",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "annotation" : "Alias of type U32"
+    },
+    {
       "kind" : "struct",
       "qualifiedName" : "Module1.ScalarStruct",
       "members" : {
@@ -166,6 +183,21 @@
       }
     },
     {
+      "kind" : "alias",
+      "qualifiedName" : "Module1.AliasT2",
+      "type" : {
+        "name" : "Module1.AliasT1",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "annotation" : "Alias of type AliasT1 (with underlying type U32)"
+    },
+    {
       "kind" : "struct",
       "qualifiedName" : "Module1.S1",
       "members" : {
@@ -208,6 +240,20 @@
         "B"
       ],
       "annotation" : "An array of 2 String values"
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "Module1.AliasT3",
+      "type" : {
+        "name" : "string",
+        "kind" : "string",
+        "size" : 20
+      },
+      "underlyingType" : {
+        "name" : "string",
+        "kind" : "string",
+        "size" : 20
+      }
     },
     {
       "kind" : "enum",
@@ -441,9 +487,8 @@
         {
           "name" : "val",
           "type" : {
-            "name" : "string",
-            "kind" : "string",
-            "size" : 20
+            "name" : "Module1.AliasT3",
+            "kind" : "qualifiedIdentifier"
           },
           "ref" : false
         }
@@ -602,9 +647,8 @@
     {
       "name" : "Module1.mySecondC1.Param3",
       "type" : {
-        "name" : "string",
-        "kind" : "string",
-        "size" : 20
+        "name" : "Module1.AliasT3",
+        "kind" : "qualifiedIdentifier"
       },
       "id" : 1283,
       "annotation" : "Parameter of type string"
@@ -806,10 +850,8 @@
     {
       "name" : "Module1.mySecondC1.Record1",
       "type" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
+        "name" : "Module1.AliasT2",
+        "kind" : "qualifiedIdentifier"
       },
       "array" : false,
       "id" : 1280,

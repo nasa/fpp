@@ -635,7 +635,10 @@ case class ComponentCppWriter (
         case PortInstance.Type.Serial => lines(
           s"""|// Deserialize serialized buffer into new buffer
               |U8 handBuff[this->m_msgSize];
-              |Fw::ExternalSerializeBuffer serHandBuff(handBuff,this->m_msgSize);
+              |Fw::ExternalSerializeBuffer serHandBuff(
+              |  handBuff,
+              |  static_cast<Fw::Serializable::SizeType>(this->m_msgSize)
+              |);
               |deserStatus = msg.deserialize(serHandBuff);
               |FW_ASSERT(
               |  deserStatus == Fw::FW_SERIALIZE_OK,
@@ -814,7 +817,10 @@ case class ComponentCppWriter (
             List(
               if hasSerialAsyncInputPorts then lines(
                 """|U8 msgBuff[this->m_msgSize];
-                   |Fw::ExternalSerializeBuffer msg(msgBuff,this->m_msgSize);
+                   |Fw::ExternalSerializeBuffer msg(
+                   |  msgBuff,
+                   |  static_cast<Fw::Serializable::SizeType>(this->m_msgSize)
+                   |);
                    |"""
               )
               else lines("ComponentIpcSerializableBuffer msg;"),

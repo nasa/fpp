@@ -1,5 +1,11 @@
 module Module1 {
 
+  @ Alias of type U32
+  type AliasT1 = U32
+  @ Alias of type AliasT1 (with underlying type U32)
+  type AliasT2 = AliasT1
+  type AliasT3 = string size 20
+
   # enums
   enum E1: U32 {
     X = 0
@@ -94,7 +100,7 @@ module Module1 {
       save opcode 0x83
 
     @ Parameter of type string
-    param Param3: string size 20
+    param Param3: AliasT3
 
     @ Parameter of type F32
     param Param4: F32
@@ -141,7 +147,7 @@ module Module1 {
 
     # Records
     @ Record with single U32 value
-    product record Record1: U32
+    product record Record1: AliasT2
 
     @ Record with a single F64x4 value
     product record Record2: F64x4

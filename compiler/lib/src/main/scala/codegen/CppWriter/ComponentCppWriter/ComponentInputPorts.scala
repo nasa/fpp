@@ -124,7 +124,10 @@ case class ComponentInputPorts(
             case PortInstance.Type.Serial => lines(
               s"""|// Declare buffer for ${p.getUnqualifiedName}
                   |U8 msgBuff[this->m_msgSize];
-                  |Fw::ExternalSerializeBuffer $bufferName(msgBuff, this->m_msgSize);
+                  |Fw::ExternalSerializeBuffer $bufferName(
+                  |  msgBuff,
+                  |  static_cast<Fw::Serializable::SizeType>(this->m_msgSize)
+                  |);
                   |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
                   |"""
             )

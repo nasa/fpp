@@ -489,13 +489,13 @@ case class StructCppWriter(
                       case (false, _: Type.String) =>
                         List(s"this->m_$n.toChar()")
                       case (false, t) if s.isPrimitive(t, tn) =>
-                        List(s"this->m_$n")
+                        List(promoteF32ToF64 (t) (s"this->m_$n"))
                       case (false, _) =>
                         List(s"${n}Str.toChar()")
                       case (true, _: Type.String) =>
                         List.range(0, sizes(n)).map(i => s"this->m_$n[$i].toChar()")
                       case (true, t) if s.isPrimitive(t, tn) =>
-                        List.range(0, sizes(n)).map(i => s"this->m_$n[$i]")
+                        List.range(0, sizes(n)).map(i => promoteF32ToF64 (t) (s"this->m_$n[$i]"))
                       case _ =>
                         List.range(0, sizes(n)).map(i => s"${n}Str[$i].toChar()")
                     }).mkString(",\n"))
