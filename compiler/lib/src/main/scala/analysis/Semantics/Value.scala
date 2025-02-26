@@ -22,7 +22,7 @@ sealed trait Value {
 
   /** Convert this value to a type */
   final def convertToType(t: Type): Option[Value] = {
-    if (Type.areIdentical(getType, t))
+    if (Type.areIdentical(getType, t.getUnderlyingType))
       Some(this)
     else convertToDistinctType(t)
   }
@@ -125,7 +125,7 @@ object Value {
     }
 
     override def convertToDistinctType(t: Type) =
-      t match {
+      t.getUnderlyingType match {
         case Type.PrimitiveInt(kind1) => Some(PrimitiveInt(value, kind1))
         case Type.Integer => Some(Integer(value))
         case Type.Float(kind1) => Some(Float(value.doubleValue, kind1))
@@ -185,7 +185,7 @@ object Value {
     }
 
     override def convertToDistinctType(t: Type) =
-      t match {
+      t.getUnderlyingType match {
         case Type.PrimitiveInt(kind1) => Some(PrimitiveInt(value, kind1))
         case Type.Integer => Some(Integer(value))
         case Type.Float(kind1) => Some(Float(value.doubleValue, kind1))
@@ -229,7 +229,7 @@ object Value {
     override def isZero = (Math.abs(value) < Float.EPSILON)
 
     override def convertToDistinctType(t: Type) =
-      t match {
+      t.getUnderlyingType match {
         case Type.PrimitiveInt(kind1) => Some(PrimitiveInt(value.intValue, kind1))
         case Type.Integer => Some(Integer(value.intValue))
         case Type.Float(kind1) => Some(Float(value, kind1))
@@ -258,7 +258,7 @@ object Value {
   /** Boolean values */
   case class Boolean(value: scala.Boolean) extends Value {
 
-    override def convertToDistinctType(t: Type) = promoteToAggregate(t)
+    override def convertToDistinctType(t: Type) = promoteToAggregate(t.getUnderlyingType)
 
     override def getType = Type.Boolean
 
@@ -270,7 +270,7 @@ object Value {
   case class String(value: java.lang.String) extends Value {
 
     override def convertToDistinctType(t: Type) =
-      t match {
+      t.getUnderlyingType match {
         case Type.String(_) => Some(this)
         case _ => promoteToAggregate(t)
       }
@@ -288,8 +288,8 @@ object Value {
       def convertElements(in: List[Value], t: Type, out: List[Value]): Option[List[Value]] =
         in match {
           case Nil => Some(out.reverse)
-          case head :: tail => head.convertToType(t) match {
-            case Some(v) => convertElements(tail, t, v :: out)
+          case head :: tail => head.convertToType(t.getUnderlyingType) match {
+            case Some(v) => convertElements(tail, t.getUnderlyingType, v :: out)
             case None => None
           }
         }
@@ -307,7 +307,7 @@ object Value {
     }
 
     override def convertToDistinctType(t: Type) =
-      t match {
+      t.getUnderlyingType match {
         case anonArrayType : Type.AnonArray => convertToAnonArray(anonArrayType)
         case arrayType : Type.Array => convertToArray(arrayType)
         case _ => None
@@ -340,7 +340,7 @@ object Value {
       anonArray.convertToArray(arrayType)
 
     override def convertToDistinctType(t: Type) =
-      t match {
+      t.getUnderlyingType match {
         case anonArrayType : Type.AnonArray => convertToAnonArray(anonArrayType)
         case arrayType : Type.Array => convertToArray(arrayType)
         case _ => None
@@ -363,7 +363,7 @@ object Value {
     def convertToRepType: PrimitiveInt = PrimitiveInt(value._2, t.repType.kind)
 
     override def convertToDistinctType(t: Type) =
-      convertToRepType.convertToDistinctType(t) match {
+      convertToRepType.convertToDistinctType(t.getUnderlyingType) match {
         case Some(v) => Some(v)
         case None => promoteToAggregate(t)
       }
@@ -407,7 +407,7 @@ object Value {
     }
 
     override def convertToDistinctType(t: Type) =
-      t match {
+      t.getUnderlyingType match {
         case anonStructType : Type.AnonStruct => convertToAnonStruct(anonStructType)
         case structType : Type.Struct => convertToStruct(structType)
         case _ => None
@@ -445,7 +445,7 @@ object Value {
     def convertToStruct(structType: Type.Struct): Option[Value.Struct] =
       anonStruct.convertToStruct(structType)
     override def convertToDistinctType(t: Type) =
-      t match {
+      t.getUnderlyingType match {
         case anonStructType : Type.AnonStruct => convertToAnonStruct(anonStructType)
         case structType : Type.Struct => convertToStruct(structType)
         case _ => None

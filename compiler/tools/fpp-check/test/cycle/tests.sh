@@ -1,4 +1,5 @@
 tests="
+alias
 array
 constant_1
 constant_2

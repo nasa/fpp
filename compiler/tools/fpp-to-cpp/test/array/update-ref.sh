@@ -41,6 +41,12 @@ abs_type()
   move_cpp AbsTypeArray
 }
 
+alias_type()
+{
+  update "-p $PWD" alias_type
+  move_cpp AliasTypeArray
+}
+
 struct()
 {
   update "-p $PWD" struct

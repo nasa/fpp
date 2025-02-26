@@ -5,6 +5,7 @@ string
 enum
 builtin_type
 abs_type
+alias_type
 struct
 component
 header_path

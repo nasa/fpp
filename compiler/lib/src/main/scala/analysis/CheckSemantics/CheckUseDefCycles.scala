@@ -9,6 +9,11 @@ object CheckUseDefCycles extends UseAnalyzer {
   override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) =
     visitUse(a, node, use)
 
+  override def defAliasTypeAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefAliasType]]) = {
+    val symbol = Symbol.AliasType(node)
+    visitDefPost(a, symbol, node, super.defAliasTypeAnnotatedNode)
+  }
+
   override def defArrayAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val symbol = Symbol.Array(node)
     visitDefPost(a, symbol, node, super.defArrayAnnotatedNode)
@@ -56,6 +61,7 @@ object CheckUseDefCycles extends UseAnalyzer {
 
   private def visitDefPre(a: Analysis, symbol: Symbol): Result = {
     symbol match {
+      case Symbol.AliasType(node) => defAliasTypeAnnotatedNode(a, node)
       case Symbol.Array(node) => defArrayAnnotatedNode(a, node)
       case Symbol.Constant(node) => defConstantAnnotatedNode(a, node)
       case Symbol.Enum(node) => defEnumAnnotatedNode(a, node)
