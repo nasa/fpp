@@ -44,16 +44,16 @@ case class TlmPacketSetCppWriter(
     )
   }
 
-  private def getChannelArraySizesLines: List[Line] =
+  private def getEntryArraySizesLines: List[Line] =
     writeStruct(
-      "ChannelArraySizes",
-       packets.flatMap(writeChannelArraySize)
+      "EntryArraySizes",
+       packets.flatMap(writeEntryArraySize)
     )
 
-  private def getChannelArraysLines: List[Line] =
+  private def getEntryArraysLines: List[Line] =
     writeStruct(
-      "ChannelArrays",
-       packets.flatMap(writeChannelArray)
+      "EntryArrays",
+       packets.flatMap(writeEntryArray)
     )
 
   private def getChannelIdLines: List[Line] = {
@@ -121,8 +121,8 @@ case class TlmPacketSetCppWriter(
           wrapInAnonymousNamespace(
             addBlankPostfix(
               List.concat(
-                getChannelArraysLines,
-                getChannelArraySizesLines,
+                getEntryArraySizesLines,
+                getEntryArraysLines,
                 getPacketsLines,
                 getOmittedListLines
               )
@@ -284,7 +284,7 @@ case class TlmPacketSetCppWriter(
       )
     )
 
-  private def writeChannelArray(tp: TlmPacket): List[Line] = {
+  private def writeEntryArray(tp: TlmPacket): List[Line] = {
     def writeChannelEntry(entry: Dictionary.TlmChannelEntry) = {
       val name = entry.getQualifiedName
       val nameStr = CppWriter.identFromQualifiedName(name)
@@ -292,19 +292,22 @@ case class TlmPacketSetCppWriter(
     }
     val name = tp.getName
     addBlankPrefix(
+      line(s"// The channel entries for packet $name") ::
       wrapInScope(
-        s"const Svc::TlmPacketizerChannelEntry $name[] = {",
+        s"const Svc::TlmPacketizerChannelEntry $name[EntryArraySizes::$name] = {",
         channelEntries.flatMap(writeChannelEntry),
         "};"
       )
     )
   }
 
-  private def writeChannelArraySize(tp: TlmPacket): List[Line] = {
+  private def writeEntryArraySize(tp: TlmPacket): List[Line] = {
     val name = tp.getName
+    val size = tp.memberIdList.size
     lines(
       s"""|
-          |// TODO: Channel array size for packet $name"""
+          |// The entry array size for packet $name
+          |static constexpr FwSizeType $name = $size;"""
     )
   }
 
