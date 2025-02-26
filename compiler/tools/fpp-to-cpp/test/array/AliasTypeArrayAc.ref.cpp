@@ -4,7 +4,7 @@
 // \brief  cpp file for AliasType array
 // ======================================================================
 
-#include "/Users/tumbar/git/fpp/compiler/tools/fpp-to-cpp/test/array/AliasTypeArrayAc.hpp"
+#include "AliasTypeArrayAc.hpp"
 #include "Fw/Types/Assert.hpp"
 
 // ----------------------------------------------------------------------
