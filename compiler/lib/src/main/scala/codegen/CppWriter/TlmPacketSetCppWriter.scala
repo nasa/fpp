@@ -89,14 +89,31 @@ case class TlmPacketSetCppWriter(
       getCppVarsMember
     )
 
+  private def writePacketList: List[Line] = {
+    val arrayBody = packets.map(p => line(s"&Packets::${p.getName},"))
+    val array = wrapInScope("{", arrayBody, "},")
+    val body = array :+ line("Packets::numPackets")
+    addBlankPrefix(
+      wrapInScope(
+        "const Svc::TlmPacketizerPacketList packetList = {",
+        body,
+        "};"
+      )
+    )
+  }
+
+  private def writeOmittedChannels: List[Line] =
+    lines(
+      """|
+         |// TODO: omittedChannels"""
+    )
+
   private def getCppVarsMember: CppDoc.Member =
     linesMember(
       List.concat(
         CppDocWriter.writeBannerComment("Extern variables"),
-        lines(
-          """|
-             |// TODO: Variables"""
-        )
+        writePacketList,
+        writeOmittedChannels
       ),
       CppDoc.Lines.Cpp
     )
@@ -201,7 +218,12 @@ case class TlmPacketSetCppWriter(
     lines(
       s"""|
           |// The number of packets
-          |static constexpr FwIndexType numPackets = $n;"""
+          |constexpr FwIndexType numPackets = $n;
+          |
+          |static_assert(
+          |  numPackets <= Svc::MAX_PACKETIZER_PACKETS,
+          |  "number of packets must be less than or equal to the maximum"
+          |);"""
     )
   }
 
@@ -268,7 +290,7 @@ case class TlmPacketSetCppWriter(
   }
 
   private def getPacketsLines: List[Line] =
-    writeStruct(
+    writeNamespace(
       "Packets",
       getNumPacketsLines ++
       packets.flatMap(writePacket)
@@ -304,7 +326,7 @@ case class TlmPacketSetCppWriter(
     addBlankPrefix(
       line(s"// The channel entries for packet $name") ::
       wrapInScope(
-        s"const Svc::TlmPacketizerChannelEntry $name[EntryArraySizes::$name] = {",
+        s"constexpr Svc::TlmPacketizerChannelEntry $name[EntryArraySizes::$name] = {",
         channelEntries.flatMap(writeChannelEntry),
         "};"
       )
@@ -338,7 +360,7 @@ case class TlmPacketSetCppWriter(
     lines(
       s"""|
           |// Packet $name
-          |const Svc::TlmPacketizerPacket $name = {
+          |constexpr Svc::TlmPacketizerPacket $name = {
           |  $entryArray,
           |  PacketIds::$name,
           |  PacketGroups::$name,
