@@ -44,18 +44,6 @@ case class TlmPacketSetCppWriter(
     )
   }
 
-  private def getEntryArraySizesLines: List[Line] =
-    writeStruct(
-      "EntryArraySizes",
-       packets.flatMap(writeEntryArraySize)
-    )
-
-  private def getEntryArraysLines: List[Line] =
-    writeStruct(
-      "EntryArrays",
-       packets.flatMap(writeEntryArray)
-    )
-
   private def getChannelIdLines: List[Line] = {
     def writeChannelId(entry: Dictionary.TlmChannelEntry) = {
       val name = entry.getQualifiedName
@@ -133,6 +121,18 @@ case class TlmPacketSetCppWriter(
       CppDoc.Lines.Cpp
     )
 
+  private def getEntryArraySizesLines: List[Line] =
+    writeStruct(
+      "EntryArraySizes",
+       packets.flatMap(writeEntryArraySize)
+    )
+
+  private def getEntryArraysLines: List[Line] =
+    writeNamespace(
+      "EntryArrays",
+       packets.flatMap(writeEntryArray)
+    )
+
   private def getHppConstantMember: CppDoc.Member =
     linesMember(
       List.concat(
@@ -196,12 +196,21 @@ case class TlmPacketSetCppWriter(
       wrapInNamespaces(nsil, members)
   }
 
+  private def getNumPacketsLines = {
+    val n = packets.size
+    lines(
+      s"""|
+          |// The number of packets
+          |static constexpr FwIndexType numPackets = $n;"""
+    )
+  }
+
   private def getOmittedListLines: List[Line] =
     lines(
       """|
-         |// TODO: Omitted list
+         |// TODO: Size of omitted list
          |
-         |// TODO: Size of omitted list"""
+         |// TODO: Omitted list"""
     )
 
   private def getPacketDataSizeLines: List[Line] = {
@@ -261,6 +270,7 @@ case class TlmPacketSetCppWriter(
   private def getPacketsLines: List[Line] =
     writeStruct(
       "Packets",
+      getNumPacketsLines ++
       packets.flatMap(writePacket)
     )
 
@@ -311,11 +321,29 @@ case class TlmPacketSetCppWriter(
     )
   }
 
+  private def writeNamespace(name: String, lines: List[Line]) =
+    addBlankPrefix(
+      wrapInNamespace(
+        name,
+        addBlankPostfix(lines)
+      )
+    )
+
   private def writePacket(tp: TlmPacket): List[Line] = {
     val name = tp.getName
+    val entryArray = tp.memberIdList.size match {
+      case 0 => "nullptr"
+      case _ => s"EntryArrays::$name"
+    }
     lines(
       s"""|
-          |// TODO: Packet $name"""
+          |// Packet $name
+          |const Svc::TlmPacketizerPacket $name = {
+          |  $entryArray,
+          |  PacketIds::$name,
+          |  PacketGroups::$name,
+          |  EntryArraySizes::$name
+          |};"""
     )
   }
 
