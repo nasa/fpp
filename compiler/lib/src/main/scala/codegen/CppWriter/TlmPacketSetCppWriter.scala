@@ -285,10 +285,18 @@ case class TlmPacketSetCppWriter(
     )
 
   private def writeChannelArray(tp: TlmPacket): List[Line] = {
+    def writeChannelEntry(entry: Dictionary.TlmChannelEntry) = {
+      val name = entry.getQualifiedName
+      val nameStr = CppWriter.identFromQualifiedName(name)
+      lines(s"{ ChannelIds::$nameStr, ChannelSizes::$nameStr },")
+    }
     val name = tp.getName
-    lines(
-      s"""|
-          |// TODO: Channel array for packet $name"""
+    addBlankPrefix(
+      wrapInScope(
+        s"const Svc::TlmPacketizerChannelEntry $name[] = {",
+        channelEntries.flatMap(writeChannelEntry),
+        "};"
+      )
     )
   }
 
