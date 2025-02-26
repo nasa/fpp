@@ -121,11 +121,17 @@ case class TlmPacketSetCppWriter(
   private def getDataStructuresMember: CppDoc.Member =
     linesMember(
       List.concat(
-        CppDocWriter.writeBannerComment("File-local data strcutures"),
+        CppDocWriter.writeBannerComment("File-local constants and variables"),
         addBlankPrefix(
           wrapInAnonymousNamespace(
             addBlankPostfix(
               List.concat(
+                getSizeBoundLines,
+                getChannelIdLines,
+                getChannelSizeLines,
+                getPacketIdLines,
+                getPacketGroupLines,
+                getPacketDataSizeLines,
                 getEntryArraySizesLines,
                 getEntryArraysLines,
                 getPacketsLines,
@@ -150,19 +156,6 @@ case class TlmPacketSetCppWriter(
        packets.flatMap(writeEntryArray)
     )
 
-  private def getHppConstantMember: CppDoc.Member =
-    linesMember(
-      List.concat(
-        CppDocWriter.writeBannerComment("Constants"),
-        getSizeBoundLines,
-        getChannelIdLines,
-        getChannelSizeLines,
-        getPacketIdLines,
-        getPacketGroupLines,
-        getPacketDataSizeLines
-      )
-    )
-
   private def getHppIncludesMember: CppDoc.Member = {
     val headers = List(
       "Fw/Types/StringBase.hpp",
@@ -174,7 +167,6 @@ case class TlmPacketSetCppWriter(
 
   private def getHppMembers: List[CppDoc.Member] =
     List(
-      getHppConstantMember,
       getHppVarMember
     )
 
