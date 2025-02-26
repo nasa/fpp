@@ -89,25 +89,6 @@ case class TlmPacketSetCppWriter(
       getCppVarsMember
     )
 
-  private def writePacketList: List[Line] = {
-    val arrayBody = packets.map(p => line(s"&Packets::${p.getName},"))
-    val array = wrapInScope("{", arrayBody, "},")
-    val body = array :+ line("Packets::numPackets")
-    addBlankPrefix(
-      wrapInScope(
-        "const Svc::TlmPacketizerPacketList packetList = {",
-        body,
-        "};"
-      )
-    )
-  }
-
-  private def writeOmittedChannels: List[Line] =
-    lines(
-      """|
-         |// TODO: omittedChannels"""
-    )
-
   private def getCppVarsMember: CppDoc.Member =
     linesMember(
       List.concat(
@@ -147,13 +128,13 @@ case class TlmPacketSetCppWriter(
   private def getEntryArraySizesLines: List[Line] =
     writeStruct(
       "EntryArraySizes",
-       packets.flatMap(writeEntryArraySize)
+       packets.flatMap(writeEntryArraySizeForPacket)
     )
 
   private def getEntryArraysLines: List[Line] =
     writeNamespace(
       "EntryArrays",
-       packets.flatMap(writeEntryArray)
+       packets.flatMap(writeEntryArrayForPacket)
     )
 
   private def getHppIncludesMember: CppDoc.Member = {
@@ -219,13 +200,16 @@ case class TlmPacketSetCppWriter(
     )
   }
 
-  private def getOmittedListLines: List[Line] =
+  private def getOmittedListLines: List[Line] = {
+    val size = tps.omittedIdSet.size
     lines(
-      """|
-         |// TODO: Size of omitted list
-         |
-         |// TODO: Omitted list"""
+      s"""|
+          |// The size of the array of omitted channels
+          |constexpr FwSizeType omittedArraySize = $size;
+          |
+          |// TODO: Omitted list"""
     )
+  }
 
   private def getPacketDataSizeLines: List[Line] = {
     def writePacketDataSize(tp: TlmPacket): List[Line] = {
@@ -308,24 +292,30 @@ case class TlmPacketSetCppWriter(
       )
     )
 
-  private def writeEntryArray(tp: TlmPacket): List[Line] = {
-    def writeChannelEntry(entry: Dictionary.TlmChannelEntry) = {
-      val name = entry.getQualifiedName
-      val nameStr = CppWriter.identFromQualifiedName(name)
-      lines(s"{ ChannelIds::$nameStr, ChannelSizes::$nameStr },")
-    }
+  private def writeChannelEntry(entry: Dictionary.TlmChannelEntry) = {
+    val name = entry.getQualifiedName
+    val nameStr = CppWriter.identFromQualifiedName(name)
+    lines(s"{ ChannelIds::$nameStr, ChannelSizes::$nameStr },")
+  }
+
+  private def writeChannelEntryForId(id: TlmChannel.Id) = {
+    val entry = d.tlmChannelEntryMap(id)
+    writeChannelEntry(entry)
+  }
+
+  private def writeEntryArrayForPacket(tp: TlmPacket): List[Line] = {
     val name = tp.getName
     addBlankPrefix(
       line(s"// The channel entries for packet $name") ::
       wrapInScope(
         s"constexpr Svc::TlmPacketizerChannelEntry $name[EntryArraySizes::$name] = {",
-        channelEntries.flatMap(writeChannelEntry),
+        tp.memberIdList.flatMap(writeChannelEntryForId),
         "};"
       )
     )
   }
 
-  private def writeEntryArraySize(tp: TlmPacket): List[Line] = {
+  private def writeEntryArraySizeForPacket(tp: TlmPacket): List[Line] = {
     val name = tp.getName
     val size = tp.memberIdList.size
     lines(
@@ -343,6 +333,12 @@ case class TlmPacketSetCppWriter(
       )
     )
 
+  private def writeOmittedChannels: List[Line] =
+    lines(
+      """|
+         |// TODO: omittedChannels"""
+    )
+
   private def writePacket(tp: TlmPacket): List[Line] = {
     val name = tp.getName
     val entryArray = tp.memberIdList.size match {
@@ -358,6 +354,19 @@ case class TlmPacketSetCppWriter(
           |  PacketGroups::$name,
           |  EntryArraySizes::$name
           |};"""
+    )
+  }
+
+  private def writePacketList: List[Line] = {
+    val arrayBody = packets.map(p => line(s"&Packets::${p.getName},"))
+    val array = wrapInScope("{", arrayBody, "},")
+    val body = array :+ line("Packets::numPackets")
+    addBlankPrefix(
+      wrapInScope(
+        "const Svc::TlmPacketizerPacketList packetList = {",
+        body,
+        "};"
+      )
     )
   }
 
