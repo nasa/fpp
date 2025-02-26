@@ -11,7 +11,7 @@
 
 namespace FppTest {
 
-  class SmChoiceQueued :
+  class SmChoiceQueued final :
     public SmChoiceQueuedComponentBase
   {
 

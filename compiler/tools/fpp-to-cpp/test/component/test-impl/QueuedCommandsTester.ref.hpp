@@ -10,7 +10,7 @@
 #include "QueuedCommandsGTestBase.hpp"
 #include "QueuedCommands.hpp"
 
-class QueuedCommandsTester :
+class QueuedCommandsTester final :
   public QueuedCommandsGTestBase
 {
 

@@ -9,7 +9,7 @@
 
 #include "ActiveGuardedProductsComponentAc.hpp"
 
-class ActiveGuardedProducts :
+class ActiveGuardedProducts final :
   public ActiveGuardedProductsComponentBase
 {
 

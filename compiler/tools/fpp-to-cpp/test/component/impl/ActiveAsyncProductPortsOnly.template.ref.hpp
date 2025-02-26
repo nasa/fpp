@@ -9,7 +9,7 @@
 
 #include "ActiveAsyncProductPortsOnlyComponentAc.hpp"
 
-class ActiveAsyncProductPortsOnly :
+class ActiveAsyncProductPortsOnly final :
   public ActiveAsyncProductPortsOnlyComponentBase
 {
 

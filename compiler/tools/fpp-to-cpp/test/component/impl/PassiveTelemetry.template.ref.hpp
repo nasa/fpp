@@ -9,7 +9,7 @@
 
 #include "PassiveTelemetryComponentAc.hpp"
 
-class PassiveTelemetry :
+class PassiveTelemetry final :
   public PassiveTelemetryComponentBase
 {
 

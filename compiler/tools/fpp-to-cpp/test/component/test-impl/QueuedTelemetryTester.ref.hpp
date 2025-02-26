@@ -10,7 +10,7 @@
 #include "QueuedTelemetryGTestBase.hpp"
 #include "QueuedTelemetry.hpp"
 
-class QueuedTelemetryTester :
+class QueuedTelemetryTester final :
   public QueuedTelemetryGTestBase
 {
 

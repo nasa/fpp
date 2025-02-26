@@ -9,7 +9,7 @@
 
 #include "QueuedEventsComponentAc.hpp"
 
-class QueuedEvents :
+class QueuedEvents final :
   public QueuedEventsComponentBase
 {
 

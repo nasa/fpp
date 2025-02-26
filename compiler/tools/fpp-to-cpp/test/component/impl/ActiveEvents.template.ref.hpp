@@ -9,7 +9,7 @@
 
 #include "ActiveEventsComponentAc.hpp"
 
-class ActiveEvents :
+class ActiveEvents final :
   public ActiveEventsComponentBase
 {
 

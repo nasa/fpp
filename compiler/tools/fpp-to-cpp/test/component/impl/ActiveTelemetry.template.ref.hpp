@@ -9,7 +9,7 @@
 
 #include "ActiveTelemetryComponentAc.hpp"
 
-class ActiveTelemetry :
+class ActiveTelemetry final :
   public ActiveTelemetryComponentBase
 {
 

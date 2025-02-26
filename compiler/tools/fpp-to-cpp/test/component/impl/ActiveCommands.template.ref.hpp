@@ -9,7 +9,7 @@
 
 #include "ActiveCommandsComponentAc.hpp"
 
-class ActiveCommands :
+class ActiveCommands final :
   public ActiveCommandsComponentBase
 {
 

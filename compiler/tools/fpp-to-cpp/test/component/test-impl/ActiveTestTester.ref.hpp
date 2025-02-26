@@ -12,7 +12,7 @@
 
 namespace M {
 
-  class ActiveTestTester :
+  class ActiveTestTester final :
     public ActiveTestGTestBase
   {
 
