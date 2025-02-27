@@ -7,12 +7,12 @@ struct S {
 
 passive component C { 
 
-  telemetry T_string: string
-  telemetry T_u32: U32
-  telemetry T_f32: F32
-  telemetry T_bool: bool
-  telemetry T_A: A
-  telemetry T_S: S
+  telemetry T1: string
+  telemetry T2: U32
+  telemetry T3: F32
+  telemetry T4: bool
+  telemetry T5: A
+  telemetry T6: S
 
   time get port timeGetOut
 
@@ -37,6 +37,53 @@ module M {
 
       }
 
+    }
+
+  }
+
+  topology OneInstance {
+
+    instance c1
+
+    telemetry packets P1 {
+
+      packet P1 group 0 {
+        c1.T1
+        c1.T2
+        c1.T3
+      }
+
+      packet P2 group 0 {
+        c1.T4
+        c1.T5
+        c1.T6
+      }
+
+    }
+
+    telemetry packets P2 {
+
+      packet P1 group 0 {
+        c1.T1
+        c1.T2
+        c1.T3
+      }
+
+    } omit {
+      c1.T4
+      c1.T5
+      c1.T6
+    }
+
+    telemetry packets P3 {
+
+    } omit {
+      c1.T1
+      c1.T2
+      c1.T3
+      c1.T4
+      c1.T5
+      c1.T6
     }
 
   }

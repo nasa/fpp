@@ -96,11 +96,13 @@ case class TlmPacketSetCppWriter(
     )
 
   private def getHppIncludesMember: CppDoc.Member = {
-    val headers = List(
+    val standardHeaders = List(
       "Fw/Types/StringBase.hpp",
       "Fw/Time/Time.hpp",
       "Svc/TlmPacketizer/TlmPacketizerTypes.hpp"
     ).map(CppWriter.headerString)
+    val symbolHeaders = s.writeIncludeDirectives(d.usedSymbolSet)
+    val headers = standardHeaders ++ symbolHeaders
     linesMember(addBlankPrefix(headers.sorted.map(line)))
   }
 
