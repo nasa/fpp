@@ -43,4 +43,5 @@ tlm_packets()
   move_cpp OneInstance_P1TlmPackets
   move_cpp OneInstance_P2TlmPackets
   move_cpp OneInstance_P3TlmPackets
+  move_cpp TwoInstances_P1TlmPackets
 }

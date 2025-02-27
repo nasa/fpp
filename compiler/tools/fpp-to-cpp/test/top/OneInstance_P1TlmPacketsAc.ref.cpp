@@ -95,10 +95,10 @@ namespace M {
       struct PacketGroups {
 
         //! The group for packet P1
-        static constexpr FwIndexType P1 = 0;
+        static constexpr FwIndexType P1 = 1;
 
         //! The group for packet P2
-        static constexpr FwIndexType P2 = 0;
+        static constexpr FwIndexType P2 = 2;
 
       };
 
