@@ -233,14 +233,14 @@ case class TlmPacketSetCppWriter(
       case _ => "omittedArray"
     }
     lines(
-      """|
-         |
-         |constexpr Svc::TlmPacketizerPacket omittedChannels = {
-         |  omittedArray,
-         |  0,
-         |  0,
-         |  omittedArraySize
-         |};"""
+      s"""|
+          |
+          |constexpr Svc::TlmPacketizerPacket omittedChannels = {
+          |  $omittedArray,
+          |  0,
+          |  0,
+          |  omittedArraySize
+          |};"""
     )
   }
 
@@ -355,7 +355,9 @@ case class TlmPacketSetCppWriter(
 
   private def writePacketList: List[Line] = {
     val arrayBody = packets.map(p => line(s"&Packets::${p.getName},"))
-    val array = wrapInScope("{", arrayBody, "},")
+    val array = if packets.size == 0
+                then lines("{},")
+                else wrapInScope("{", arrayBody, "},")
     val body = array :+ line("Packets::numPackets")
     addBlankPrefix(
       wrapInScope(
@@ -374,22 +376,24 @@ case class TlmPacketSetCppWriter(
     )
 
   private def writeSizeBounds: List[Line] =
-    writeStruct(
-      "SizeBounds",
-      lines(
-        """|
-           |// The size of a packet header
-           |static constexpr FwSizeType packetHeaderSize = Fw::Time::SERIALIZED_SIZE +
-           |  sizeof(FwTlmPacketizeIdType) + sizeof(FwPacketDescriptorType);
-           |
-           |// A packet header must fit in a com buffer
-           |static_assert(
-           |  packetHeaderSize <= FW_COM_BUFFER_MAX_SIZE,
-           |  "packet header must fit in com buffer"
-           |);
-           |
-           |// The max data size in a com buffer
-           |static constexpr FwSizeType packetMaxDataSize = FW_COM_BUFFER_MAX_SIZE - packetHeaderSize;"""
+    guardedList (packets.size > 0) (
+      writeStruct(
+        "SizeBounds",
+        lines(
+          """|
+             |// The size of a packet header
+             |static constexpr FwSizeType packetHeaderSize = Fw::Time::SERIALIZED_SIZE +
+             |  sizeof(FwTlmPacketizeIdType) + sizeof(FwPacketDescriptorType);
+             |
+             |// A packet header must fit in a com buffer
+             |static_assert(
+             |  packetHeaderSize <= FW_COM_BUFFER_MAX_SIZE,
+             |  "packet header must fit in com buffer"
+             |);
+             |
+             |// The max data size in a com buffer
+             |static constexpr FwSizeType packetMaxDataSize = FW_COM_BUFFER_MAX_SIZE - packetHeaderSize;"""
+        )
       )
     )
 

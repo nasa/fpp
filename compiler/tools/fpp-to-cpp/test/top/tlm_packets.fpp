@@ -25,7 +25,7 @@ module M {
   instance c1: C base id 0x100
   instance c2: C base id 0x200
   
-  topology TlmPackets { 
+  topology NoInstances { 
 
     telemetry packets P1 {
 
