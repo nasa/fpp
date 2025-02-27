@@ -9,110 +9,106 @@
 #include "Fw/Types/StringBase.hpp"
 #include "NoInstances_P2TlmPacketsAc.hpp"
 
-namespace M {
+namespace NoInstances_P2TlmPackets {
 
-  namespace NoInstances_P2TlmPackets {
+  // ----------------------------------------------------------------------
+  // File-local constants and variables
+  // ----------------------------------------------------------------------
 
-    // ----------------------------------------------------------------------
-    // File-local constants and variables
-    // ----------------------------------------------------------------------
+  namespace {
 
-    namespace {
+    struct SizeBounds {
 
-      struct SizeBounds {
+      // The size of a packet header
+      static constexpr FwSizeType packetHeaderSize = Fw::Time::SERIALIZED_SIZE +
+        sizeof(FwTlmPacketizeIdType) + sizeof(FwPacketDescriptorType);
 
-        // The size of a packet header
-        static constexpr FwSizeType packetHeaderSize = Fw::Time::SERIALIZED_SIZE +
-          sizeof(FwTlmPacketizeIdType) + sizeof(FwPacketDescriptorType);
+      // A packet header must fit in a com buffer
+      static_assert(
+        packetHeaderSize <= FW_COM_BUFFER_MAX_SIZE,
+        "packet header must fit in com buffer"
+      );
 
-        // A packet header must fit in a com buffer
-        static_assert(
-          packetHeaderSize <= FW_COM_BUFFER_MAX_SIZE,
-          "packet header must fit in com buffer"
-        );
+      // The max data size in a com buffer
+      static constexpr FwSizeType packetMaxDataSize = FW_COM_BUFFER_MAX_SIZE - packetHeaderSize;
 
-        // The max data size in a com buffer
-        static constexpr FwSizeType packetMaxDataSize = FW_COM_BUFFER_MAX_SIZE - packetHeaderSize;
+    };
 
+    struct PacketIds {
+
+      //! The identifier for packet P1
+      static constexpr FwTlmPacketizeIdType P1 = 0x0;
+
+    };
+
+    struct PacketGroups {
+
+      //! The group for packet P1
+      static constexpr FwIndexType P1 = 0;
+
+    };
+
+    struct PacketDataSizes {
+
+      //! The data size for packet P1
+      static constexpr FwSizeType P1 = 0;
+
+      static_assert(
+        P1 <= SizeBounds::packetMaxDataSize,
+        "packet data must fit in max data size"
+      );
+
+    };
+
+    struct PacketEntryArraySizes {
+
+      // The entry array size for packet P1
+      static constexpr FwIndexType P1 = 0;
+
+    };
+
+    namespace Packets {
+
+      // The number of packets
+      constexpr FwIndexType numPackets = 1;
+
+      static_assert(
+        numPackets <= Svc::MAX_PACKETIZER_PACKETS,
+        "number of packets must be less than or equal to the maximum"
+      );
+
+      // Packet P1
+      constexpr Svc::TlmPacketizerPacket P1 = {
+        nullptr,
+        PacketIds::P1,
+        PacketGroups::P1,
+        PacketEntryArraySizes::P1
       };
-
-      struct PacketIds {
-
-        //! The identifier for packet P1
-        static constexpr FwTlmPacketizeIdType P1 = 0x0;
-
-      };
-
-      struct PacketGroups {
-
-        //! The group for packet P1
-        static constexpr FwIndexType P1 = 0;
-
-      };
-
-      struct PacketDataSizes {
-
-        //! The data size for packet P1
-        static constexpr FwSizeType P1 = 0;
-
-        static_assert(
-          P1 <= SizeBounds::packetMaxDataSize,
-          "packet data must fit in max data size"
-        );
-
-      };
-
-      struct PacketEntryArraySizes {
-
-        // The entry array size for packet P1
-        static constexpr FwIndexType P1 = 0;
-
-      };
-
-      namespace Packets {
-
-        // The number of packets
-        constexpr FwIndexType numPackets = 1;
-
-        static_assert(
-          numPackets <= Svc::MAX_PACKETIZER_PACKETS,
-          "number of packets must be less than or equal to the maximum"
-        );
-
-        // Packet P1
-        constexpr Svc::TlmPacketizerPacket P1 = {
-          nullptr,
-          PacketIds::P1,
-          PacketGroups::P1,
-          PacketEntryArraySizes::P1
-        };
-
-      }
-
-      // The size of the array of omitted channels
-      constexpr FwIndexType omittedArraySize = 0;
 
     }
 
-    // ----------------------------------------------------------------------
-    // Extern variables
-    // ----------------------------------------------------------------------
-
-    constexpr Svc::TlmPacketizerPacketList packetList = {
-      {
-        &Packets::P1,
-      },
-      Packets::numPackets
-    };
-
-
-    constexpr Svc::TlmPacketizerPacket omittedChannels = {
-      nullptr,
-      0,
-      0,
-      omittedArraySize
-    };
+    // The size of the array of omitted channels
+    constexpr FwIndexType omittedArraySize = 0;
 
   }
+
+  // ----------------------------------------------------------------------
+  // Extern variables
+  // ----------------------------------------------------------------------
+
+  constexpr Svc::TlmPacketizerPacketList packetList = {
+    {
+      &Packets::P1,
+    },
+    Packets::numPackets
+  };
+
+
+  constexpr Svc::TlmPacketizerPacket omittedChannels = {
+    nullptr,
+    0,
+    0,
+    omittedArraySize
+  };
 
 }

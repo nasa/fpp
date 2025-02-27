@@ -11,7 +11,7 @@
 #include "SSerializableAc.hpp"
 #include "TwoInstances_P1TlmPacketsAc.hpp"
 
-namespace M {
+namespace N {
 
   namespace TwoInstances_P1TlmPackets {
 

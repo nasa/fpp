@@ -4,12 +4,12 @@
 // \brief  hpp file for P1 telemetry packets
 // ======================================================================
 
-#ifndef M_TwoInstances_P1TlmPackets_HPP
-#define M_TwoInstances_P1TlmPackets_HPP
+#ifndef N_TwoInstances_P1TlmPackets_HPP
+#define N_TwoInstances_P1TlmPackets_HPP
 
 #include "Svc/TlmPacketizer/TlmPacketizerTypes.hpp"
 
-namespace M {
+namespace N {
 
   namespace TwoInstances_P1TlmPackets {
 

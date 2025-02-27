@@ -9,50 +9,46 @@
 #include "Fw/Types/StringBase.hpp"
 #include "NoInstances_P1TlmPacketsAc.hpp"
 
-namespace M {
+namespace NoInstances_P1TlmPackets {
 
-  namespace NoInstances_P1TlmPackets {
+  // ----------------------------------------------------------------------
+  // File-local constants and variables
+  // ----------------------------------------------------------------------
 
-    // ----------------------------------------------------------------------
-    // File-local constants and variables
-    // ----------------------------------------------------------------------
+  namespace {
 
-    namespace {
+    namespace Packets {
 
-      namespace Packets {
+      // The number of packets
+      constexpr FwIndexType numPackets = 0;
 
-        // The number of packets
-        constexpr FwIndexType numPackets = 0;
-
-        static_assert(
-          numPackets <= Svc::MAX_PACKETIZER_PACKETS,
-          "number of packets must be less than or equal to the maximum"
-        );
-
-      }
-
-      // The size of the array of omitted channels
-      constexpr FwIndexType omittedArraySize = 0;
+      static_assert(
+        numPackets <= Svc::MAX_PACKETIZER_PACKETS,
+        "number of packets must be less than or equal to the maximum"
+      );
 
     }
 
-    // ----------------------------------------------------------------------
-    // Extern variables
-    // ----------------------------------------------------------------------
-
-    constexpr Svc::TlmPacketizerPacketList packetList = {
-      {},
-      Packets::numPackets
-    };
-
-
-    constexpr Svc::TlmPacketizerPacket omittedChannels = {
-      nullptr,
-      0,
-      0,
-      omittedArraySize
-    };
+    // The size of the array of omitted channels
+    constexpr FwIndexType omittedArraySize = 0;
 
   }
+
+  // ----------------------------------------------------------------------
+  // Extern variables
+  // ----------------------------------------------------------------------
+
+  constexpr Svc::TlmPacketizerPacketList packetList = {
+    {},
+    Packets::numPackets
+  };
+
+
+  constexpr Svc::TlmPacketizerPacket omittedChannels = {
+    nullptr,
+    0,
+    0,
+    omittedArraySize
+  };
 
 }

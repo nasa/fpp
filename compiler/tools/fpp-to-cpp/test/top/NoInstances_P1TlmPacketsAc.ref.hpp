@@ -4,26 +4,22 @@
 // \brief  hpp file for P1 telemetry packets
 // ======================================================================
 
-#ifndef M_NoInstances_P1TlmPackets_HPP
-#define M_NoInstances_P1TlmPackets_HPP
+#ifndef NoInstances_P1TlmPackets_HPP
+#define NoInstances_P1TlmPackets_HPP
 
 #include "Svc/TlmPacketizer/TlmPacketizerTypes.hpp"
 
-namespace M {
+namespace NoInstances_P1TlmPackets {
 
-  namespace NoInstances_P1TlmPackets {
+  // ----------------------------------------------------------------------
+  // Extern variables
+  // ----------------------------------------------------------------------
 
-    // ----------------------------------------------------------------------
-    // Extern variables
-    // ----------------------------------------------------------------------
+  //! The list of packets
+  extern const Svc::TlmPacketizerPacketList packetList;
 
-    //! The list of packets
-    extern const Svc::TlmPacketizerPacketList packetList;
-
-    //! The omitted channels
-    extern const Svc::TlmPacketizerPacket omittedChannels;
-
-  }
+  //! The omitted channels
+  extern const Svc::TlmPacketizerPacket omittedChannels;
 
 }
 
