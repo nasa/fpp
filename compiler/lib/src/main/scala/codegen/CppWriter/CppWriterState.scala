@@ -1,7 +1,8 @@
 package fpp.compiler.codegen
 
-import fpp.compiler.analysis.*
-import fpp.compiler.util.*
+import fpp.compiler.analysis._
+import fpp.compiler.ast._
+import fpp.compiler.util._
 import fpp.compiler.codegen.CppWriterState.builtInTypes
 
 /** C++ Writer state */

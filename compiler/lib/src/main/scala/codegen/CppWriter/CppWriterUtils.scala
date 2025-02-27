@@ -104,7 +104,7 @@ trait CppWriterUtils extends LineUtils {
   def wrapInEnumClass(
     name: String,
     ll: List[Line],
-    tyOpt: Option[String]
+    tyOpt: Option[String] = None
   ): List[Line] = {
     val prefix = tyOpt match {
       case Some(ty) => s"enum class $name : $ty {"

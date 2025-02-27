@@ -5,4 +5,5 @@ health
 nested_namespaces
 no_namespace
 params
+tlm_packets
 "
