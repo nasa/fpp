@@ -1,3 +1,43 @@
+abs_type()
+{
+  update "-p $PWD" abs_type
+  move_cpp AbsTypeArray
+}
+
+alias_type()
+{
+  update "-p $PWD" alias_type
+  move_cpp AliasTypeArray
+}
+
+builtin_type()
+{
+  update "-p $PWD" builtin_type
+  move_cpp BuiltInTypeArray
+}
+
+component()
+{
+  update "-p $PWD" component
+  move_cpp C_AArray
+  move_cpp AArray
+}
+
+enum()
+{
+  update "-p $PWD" enum
+  move_cpp E1Enum
+  move_cpp E2Enum
+  move_cpp Enum1Array
+  move_cpp Enum2Array
+}
+
+header_path()
+{
+  update "-p $PWD" "include/T.fpp header_path" header_path
+  move_cpp HeaderPathArray
+}
+
 primitive()
 {
   update "-p $PWD" primitive
@@ -12,33 +52,18 @@ primitive()
   move_cpp PrimitiveArrayArray
 }
 
+single_element()
+{
+  update "-p $PWD" single_element
+  move_cpp SingleElementArray
+}
+
 string()
 {
   update "-p $PWD" string
-  move_cpp String1Array 
-  move_cpp String2Array 
+  move_cpp String1Array
+  move_cpp String2Array
   move_cpp StringArrayArray
-}
-
-enum()
-{
-  update "-p $PWD" enum
-  move_cpp E1Enum 
-  move_cpp E2Enum 
-  move_cpp Enum1Array 
-  move_cpp Enum2Array
-}
-
-builtin_type()
-{
-  update "-p $PWD" builtin_type
-  move_cpp BuiltInTypeArray
-}
-
-abs_type()
-{
-  update "-p $PWD" abs_type
-  move_cpp AbsTypeArray
 }
 
 struct()
@@ -52,21 +77,3 @@ struct()
   move_cpp S3Serializable
 }
 
-component()
-{
-  update "-p $PWD" component
-  move_cpp C_AArray
-  move_cpp AArray
-}
-
-header_path()
-{
-  update "-p $PWD" "include/T.fpp header_path" header_path
-  move_cpp HeaderPathArray
-}
-
-single_element()
-{
-  update "-p $PWD" single_element
-  move_cpp SingleElementArray
-}
