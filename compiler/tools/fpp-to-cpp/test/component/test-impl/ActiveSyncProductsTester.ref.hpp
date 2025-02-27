@@ -10,7 +10,7 @@
 #include "ActiveSyncProductsGTestBase.hpp"
 #include "ActiveSyncProducts.hpp"
 
-class ActiveSyncProductsTester :
+class ActiveSyncProductsTester final :
   public ActiveSyncProductsGTestBase
 {
 

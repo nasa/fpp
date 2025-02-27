@@ -9,7 +9,7 @@
 
 #include "ActiveAsyncProductsComponentAc.hpp"
 
-class ActiveAsyncProducts :
+class ActiveAsyncProducts final :
   public ActiveAsyncProductsComponentBase
 {
 

@@ -10,7 +10,7 @@
 #include "ActiveGuardedProductsGTestBase.hpp"
 #include "ActiveGuardedProducts.hpp"
 
-class ActiveGuardedProductsTester :
+class ActiveGuardedProductsTester final :
   public ActiveGuardedProductsGTestBase
 {
 

@@ -11,7 +11,7 @@
 
 namespace FppTest {
 
-  class SmInitialActive :
+  class SmInitialActive final :
     public SmInitialActiveComponentBase
   {
 

@@ -10,7 +10,7 @@
 #include "PassiveCommandsGTestBase.hpp"
 #include "PassiveCommands.hpp"
 
-class PassiveCommandsTester :
+class PassiveCommandsTester final :
   public PassiveCommandsGTestBase
 {
 

@@ -10,7 +10,7 @@
 #include "QueuedTestGTestBase.hpp"
 #include "QueuedTest.hpp"
 
-class QueuedTestTester :
+class QueuedTestTester final :
   public QueuedTestGTestBase
 {
 

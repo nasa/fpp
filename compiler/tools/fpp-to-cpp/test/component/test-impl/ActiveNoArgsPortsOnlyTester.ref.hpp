@@ -10,7 +10,7 @@
 #include "ActiveNoArgsPortsOnlyGTestBase.hpp"
 #include "ActiveNoArgsPortsOnly.hpp"
 
-class ActiveNoArgsPortsOnlyTester :
+class ActiveNoArgsPortsOnlyTester final :
   public ActiveNoArgsPortsOnlyGTestBase
 {
 

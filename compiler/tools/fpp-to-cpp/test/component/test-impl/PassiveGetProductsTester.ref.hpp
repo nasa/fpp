@@ -10,7 +10,7 @@
 #include "PassiveGetProductsGTestBase.hpp"
 #include "PassiveGetProducts.hpp"
 
-class PassiveGetProductsTester :
+class PassiveGetProductsTester final :
   public PassiveGetProductsGTestBase
 {
 

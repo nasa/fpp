@@ -11,7 +11,7 @@
 
 namespace M {
 
-  class ActiveTest :
+  class ActiveTest final :
     public ActiveTestComponentBase
   {
 

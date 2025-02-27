@@ -9,7 +9,7 @@
 
 #include "EmptyComponentAc.hpp"
 
-class Empty :
+class Empty final :
   public EmptyComponentBase
 {
 

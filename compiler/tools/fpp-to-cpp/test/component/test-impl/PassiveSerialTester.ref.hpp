@@ -10,7 +10,7 @@
 #include "PassiveSerialGTestBase.hpp"
 #include "PassiveSerial.hpp"
 
-class PassiveSerialTester :
+class PassiveSerialTester final :
   public PassiveSerialGTestBase
 {
 

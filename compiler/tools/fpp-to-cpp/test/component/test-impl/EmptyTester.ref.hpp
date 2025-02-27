@@ -10,7 +10,7 @@
 #include "EmptyGTestBase.hpp"
 #include "Empty.hpp"
 
-class EmptyTester :
+class EmptyTester final :
   public EmptyGTestBase
 {
 

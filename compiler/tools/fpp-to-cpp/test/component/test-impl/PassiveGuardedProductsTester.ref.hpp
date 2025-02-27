@@ -10,7 +10,7 @@
 #include "PassiveGuardedProductsGTestBase.hpp"
 #include "PassiveGuardedProducts.hpp"
 
-class PassiveGuardedProductsTester :
+class PassiveGuardedProductsTester final :
   public PassiveGuardedProductsGTestBase
 {
 

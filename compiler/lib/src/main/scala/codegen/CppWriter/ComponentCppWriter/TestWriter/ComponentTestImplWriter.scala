@@ -38,7 +38,8 @@ case class ComponentTestImplWriter(
       None,
       testImplClassName,
       Some(s"public $gTestClassName"),
-      getClassMembers
+      getClassMembers,
+      CppDoc.Class.Final
     )
     List.concat(
       getHppIncludes :: getCppIncludes,

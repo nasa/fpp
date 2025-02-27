@@ -9,7 +9,7 @@
 
 #include "ActiveGetProductsComponentAc.hpp"
 
-class ActiveGetProducts :
+class ActiveGetProducts final :
   public ActiveGetProductsComponentBase
 {
 

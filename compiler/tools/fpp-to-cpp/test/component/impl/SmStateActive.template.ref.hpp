@@ -11,7 +11,7 @@
 
 namespace FppTest {
 
-  class SmStateActive :
+  class SmStateActive final :
     public SmStateActiveComponentBase
   {
 

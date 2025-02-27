@@ -10,7 +10,7 @@
 #include "QueuedSyncProductsGTestBase.hpp"
 #include "QueuedSyncProducts.hpp"
 
-class QueuedSyncProductsTester :
+class QueuedSyncProductsTester final :
   public QueuedSyncProductsGTestBase
 {
 

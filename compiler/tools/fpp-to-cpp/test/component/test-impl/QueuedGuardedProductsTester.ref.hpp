@@ -10,7 +10,7 @@
 #include "QueuedGuardedProductsGTestBase.hpp"
 #include "QueuedGuardedProducts.hpp"
 
-class QueuedGuardedProductsTester :
+class QueuedGuardedProductsTester final :
   public QueuedGuardedProductsGTestBase
 {
 

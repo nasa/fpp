@@ -9,7 +9,7 @@
 
 #include "PassiveEventsComponentAc.hpp"
 
-class PassiveEvents :
+class PassiveEvents final :
   public PassiveEventsComponentBase
 {
 

@@ -9,7 +9,7 @@
 
 #include "PassiveParamsComponentAc.hpp"
 
-class PassiveParams :
+class PassiveParams final :
   public PassiveParamsComponentBase
 {
 

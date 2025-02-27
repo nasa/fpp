@@ -9,7 +9,7 @@
 
 #include "PassiveTestComponentAc.hpp"
 
-class PassiveTest :
+class PassiveTest final :
   public PassiveTestComponentBase
 {
 

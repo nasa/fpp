@@ -9,7 +9,7 @@
 
 #include "QueuedCommandsComponentAc.hpp"
 
-class QueuedCommands :
+class QueuedCommands final :
   public QueuedCommandsComponentBase
 {
 

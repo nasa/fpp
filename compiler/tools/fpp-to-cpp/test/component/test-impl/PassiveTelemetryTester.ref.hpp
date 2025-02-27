@@ -10,7 +10,7 @@
 #include "PassiveTelemetryGTestBase.hpp"
 #include "PassiveTelemetry.hpp"
 
-class PassiveTelemetryTester :
+class PassiveTelemetryTester final :
   public PassiveTelemetryGTestBase
 {
 
