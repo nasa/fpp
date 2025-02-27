@@ -4,8 +4,12 @@
 // \brief  cpp file for P1 telemetry packets
 // ======================================================================
 
+#include "AArrayAc.hpp"
+#include "Fw/Time/Time.hpp"
 #include "Fw/Types/Assert.hpp"
+#include "Fw/Types/StringBase.hpp"
 #include "OneInstance_P1TlmPacketsAc.hpp"
+#include "SSerializableAc.hpp"
 
 namespace M {
 

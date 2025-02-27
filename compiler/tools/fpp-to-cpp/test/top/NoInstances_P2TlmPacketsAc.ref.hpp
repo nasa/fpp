@@ -7,8 +7,6 @@
 #ifndef M_NoInstances_P2TlmPackets_HPP
 #define M_NoInstances_P2TlmPackets_HPP
 
-#include "Fw/Time/Time.hpp"
-#include "Fw/Types/StringBase.hpp"
 #include "Svc/TlmPacketizer/TlmPacketizerTypes.hpp"
 
 namespace M {

@@ -45,11 +45,15 @@ case class TlmPacketSetCppWriter(
   }
 
   private def getCppIncludesMember: CppDoc.Member = {
-    val headers = List(
+    val standardHeaders = List(
       "Fw/Types/Assert.hpp",
+      "Fw/Types/StringBase.hpp",
+      "Fw/Time/Time.hpp",
       s"${s.getRelativePath(fileName).toString}.hpp",
-    ).sorted.map(CppWriter.headerString).map(line)
-    linesMember(Line.blank :: headers, CppDoc.Lines.Cpp)
+    ).sorted.map(CppWriter.headerString)
+    val usedSymbolHeaders = s.writeIncludeDirectives(d.usedSymbolSet)
+    val headers = standardHeaders ++ usedSymbolHeaders
+    linesMember(addBlankPrefix(headers.sorted.map(line)), CppDoc.Lines.Cpp)
   }
 
   private def getCppMembers: List[CppDoc.Member] =
@@ -96,13 +100,9 @@ case class TlmPacketSetCppWriter(
     )
 
   private def getHppIncludesMember: CppDoc.Member = {
-    val standardHeaders = List(
-      "Fw/Types/StringBase.hpp",
-      "Fw/Time/Time.hpp",
+    val headers = List(
       "Svc/TlmPacketizer/TlmPacketizerTypes.hpp"
     ).map(CppWriter.headerString)
-    val symbolHeaders = s.writeIncludeDirectives(d.usedSymbolSet)
-    val headers = standardHeaders ++ symbolHeaders
     linesMember(addBlankPrefix(headers.sorted.map(line)))
   }
 

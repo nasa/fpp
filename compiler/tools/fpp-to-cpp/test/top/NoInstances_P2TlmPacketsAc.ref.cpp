@@ -4,7 +4,9 @@
 // \brief  cpp file for P2 telemetry packets
 // ======================================================================
 
+#include "Fw/Time/Time.hpp"
 #include "Fw/Types/Assert.hpp"
+#include "Fw/Types/StringBase.hpp"
 #include "NoInstances_P2TlmPacketsAc.hpp"
 
 namespace M {

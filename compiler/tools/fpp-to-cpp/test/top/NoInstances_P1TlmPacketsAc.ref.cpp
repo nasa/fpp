@@ -4,7 +4,9 @@
 // \brief  cpp file for P1 telemetry packets
 // ======================================================================
 
+#include "Fw/Time/Time.hpp"
 #include "Fw/Types/Assert.hpp"
+#include "Fw/Types/StringBase.hpp"
 #include "NoInstances_P1TlmPacketsAc.hpp"
 
 namespace M {
