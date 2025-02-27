@@ -1,0 +1,7 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/cycle/alias.fpp:1.1
+type TStructCycle = SSCycle
+^
+error: encountered a use-def cycle:
+  use SSCycle at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/alias.fpp:1.21 refers to definition SSCycle at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/alias.fpp:3.1
+  use TStructCycle at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/alias.fpp:7.9 refers to definition TStructCycle at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/alias.fpp:1.1
