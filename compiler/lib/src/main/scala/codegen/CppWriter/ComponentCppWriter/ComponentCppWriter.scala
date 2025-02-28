@@ -93,6 +93,8 @@ case class ComponentCppWriter (
     // Conditional headers
     val dpHeaders =
       guardedList (hasDataProducts) (List("Fw/Dp/DpContainer.hpp"))
+    val eventHeaders =
+      guardedList (hasEvents) (List("<atomic>"))
     val mutexHeaders =
       guardedList (hasGuardedInputPorts || hasGuardedCommands || hasParameters) (
         List("Os/Mutex.hpp")
@@ -116,6 +118,7 @@ case class ComponentCppWriter (
         "Fw/Comp/ActiveComponentBase.hpp"
       ),
       dpHeaders,
+      eventHeaders,
       mutexHeaders,
       cmdStrHeaders,
       tlmStrHeaders,

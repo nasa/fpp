@@ -64,7 +64,7 @@ case class ComponentEvents (
         linesClassMember(
           Line.blank :: lines(
             s"""|//! Throttle for ${event.getName}
-                |FwIndexType ${eventThrottleCounterName(event.getName)};
+                |std::atomic<FwIndexType> ${eventThrottleCounterName(event.getName)};
                 |"""
           )
         )
@@ -254,7 +254,7 @@ case class ComponentEvents (
                 |  return;
                 |}
                 |else {
-                |  this->${eventThrottleCounterName(event.getName)}++;
+                |  this->${eventThrottleCounterName(event.getName)}.fetch_add(1);
                 |}
                 |"""
           )
