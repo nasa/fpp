@@ -2878,7 +2878,10 @@ void QueuedSerialComponentBase ::
 
   // Declare buffer for serialAsync
   U8 msgBuff[this->m_msgSize];
-  Fw::ExternalSerializeBuffer msgSerBuff(msgBuff, this->m_msgSize);
+  Fw::ExternalSerializeBuffer msgSerBuff(
+    msgBuff,
+    static_cast<Fw::Serializable::SizeType>(this->m_msgSize)
+  );
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize message ID
@@ -2928,7 +2931,10 @@ void QueuedSerialComponentBase ::
 
   // Declare buffer for serialAsyncAssert
   U8 msgBuff[this->m_msgSize];
-  Fw::ExternalSerializeBuffer msgSerBuff(msgBuff, this->m_msgSize);
+  Fw::ExternalSerializeBuffer msgSerBuff(
+    msgBuff,
+    static_cast<Fw::Serializable::SizeType>(this->m_msgSize)
+  );
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize message ID
@@ -2978,7 +2984,10 @@ void QueuedSerialComponentBase ::
 
   // Declare buffer for serialAsyncBlockPriority
   U8 msgBuff[this->m_msgSize];
-  Fw::ExternalSerializeBuffer msgSerBuff(msgBuff, this->m_msgSize);
+  Fw::ExternalSerializeBuffer msgSerBuff(
+    msgBuff,
+    static_cast<Fw::Serializable::SizeType>(this->m_msgSize)
+  );
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize message ID
@@ -3028,7 +3037,10 @@ void QueuedSerialComponentBase ::
 
   // Declare buffer for serialAsyncDropPriority
   U8 msgBuff[this->m_msgSize];
-  Fw::ExternalSerializeBuffer msgSerBuff(msgBuff, this->m_msgSize);
+  Fw::ExternalSerializeBuffer msgSerBuff(
+    msgBuff,
+    static_cast<Fw::Serializable::SizeType>(this->m_msgSize)
+  );
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize message ID
@@ -3242,6 +3254,11 @@ void QueuedSerialComponentBase ::
     portNum < this->getNum_noArgsOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
+
+  FW_ASSERT(
+    this->m_noArgsOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
   this->m_noArgsOut_OutputPort[portNum].invoke();
 }
 
@@ -3250,6 +3267,11 @@ U32 QueuedSerialComponentBase ::
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_noArgsReturnOut_OutputPort[portNum].isConnected(),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_noArgsReturnOut_OutputPort[portNum].invoke();
@@ -3269,6 +3291,11 @@ void QueuedSerialComponentBase ::
 {
   FW_ASSERT(
     portNum < this->getNum_typedOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_typedOut_OutputPort[portNum].isConnected(),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_typedOut_OutputPort[portNum].invoke(
@@ -3298,6 +3325,11 @@ F32 QueuedSerialComponentBase ::
     portNum < this->getNum_typedReturnOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
+
+  FW_ASSERT(
+    this->m_typedReturnOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
   return this->m_typedReturnOut_OutputPort[portNum].invoke(
     u32,
     f32,
@@ -3321,6 +3353,11 @@ Fw::SerializeStatus QueuedSerialComponentBase ::
 {
   FW_ASSERT(
     portNum < this->getNum_serialOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_serialOut_OutputPort[portNum].isConnected(),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_serialOut_OutputPort[portNum].invokeSerial(
@@ -4777,7 +4814,7 @@ void QueuedSerialComponentBase ::
 #endif
       "EventActivityLowThrottled ",
       u32,
-      f32,
+      static_cast<F64>(f32),
       b
     );
 
@@ -5774,7 +5811,10 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
   doDispatch()
 {
   U8 msgBuff[this->m_msgSize];
-  Fw::ExternalSerializeBuffer msg(msgBuff,this->m_msgSize);
+  Fw::ExternalSerializeBuffer msg(
+    msgBuff,
+    static_cast<Fw::Serializable::SizeType>(this->m_msgSize)
+  );
   FwQueuePriorityType priority = 0;
 
   Os::Queue::Status msgStatus = this->m_queue.receive(
@@ -6120,7 +6160,10 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
     case SERIALASYNC_SERIAL: {
       // Deserialize serialized buffer into new buffer
       U8 handBuff[this->m_msgSize];
-      Fw::ExternalSerializeBuffer serHandBuff(handBuff,this->m_msgSize);
+      Fw::ExternalSerializeBuffer serHandBuff(
+        handBuff,
+        static_cast<Fw::Serializable::SizeType>(this->m_msgSize)
+      );
       deserStatus = msg.deserialize(serHandBuff);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,
@@ -6135,7 +6178,10 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
     case SERIALASYNCASSERT_SERIAL: {
       // Deserialize serialized buffer into new buffer
       U8 handBuff[this->m_msgSize];
-      Fw::ExternalSerializeBuffer serHandBuff(handBuff,this->m_msgSize);
+      Fw::ExternalSerializeBuffer serHandBuff(
+        handBuff,
+        static_cast<Fw::Serializable::SizeType>(this->m_msgSize)
+      );
       deserStatus = msg.deserialize(serHandBuff);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,
@@ -6150,7 +6196,10 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
     case SERIALASYNCBLOCKPRIORITY_SERIAL: {
       // Deserialize serialized buffer into new buffer
       U8 handBuff[this->m_msgSize];
-      Fw::ExternalSerializeBuffer serHandBuff(handBuff,this->m_msgSize);
+      Fw::ExternalSerializeBuffer serHandBuff(
+        handBuff,
+        static_cast<Fw::Serializable::SizeType>(this->m_msgSize)
+      );
       deserStatus = msg.deserialize(serHandBuff);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,
@@ -6165,7 +6214,10 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
     case SERIALASYNCDROPPRIORITY_SERIAL: {
       // Deserialize serialized buffer into new buffer
       U8 handBuff[this->m_msgSize];
-      Fw::ExternalSerializeBuffer serHandBuff(handBuff,this->m_msgSize);
+      Fw::ExternalSerializeBuffer serHandBuff(
+        handBuff,
+        static_cast<Fw::Serializable::SizeType>(this->m_msgSize)
+      );
       deserStatus = msg.deserialize(serHandBuff);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,

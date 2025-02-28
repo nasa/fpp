@@ -147,6 +147,11 @@ case class ComponentOutputPorts(
                   |  static_cast<FwAssertArgType>(portNum)
                   |);
                   |
+                  |FW_ASSERT(
+                  |  this->${portVariableName(p)}[portNum].isConnected(),
+                  |  static_cast<FwAssertArgType>(portNum)
+                  |);
+                  |
                   |"""
             ),
             writeFunctionCall(

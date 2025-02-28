@@ -408,6 +408,11 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
     portNum < this->getNum_productRequestOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
+
+  FW_ASSERT(
+    this->m_productRequestOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
   this->m_productRequestOut_OutputPort[portNum].invoke(
     id,
     dataSize
@@ -423,6 +428,11 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
 {
   FW_ASSERT(
     portNum < this->getNum_productSendOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_productSendOut_OutputPort[portNum].isConnected(),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_productSendOut_OutputPort[portNum].invoke(

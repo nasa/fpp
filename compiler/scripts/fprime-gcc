@@ -16,12 +16,23 @@ then
   exit 1
 fi
 
+flags="
+-Wall
+-Wconversion
+-Wdouble-promotion
+-Werror
+-Wextra
+-Wold-style-cast
+-Wshadow
+-pedantic
+"
+
 unset os_flags
 os=`uname`
 case "$os" in
   Darwin)
     os_type=DARWIN
-    os_flags='-Wno-nullability-completeness -Wpedantic -ferror-limit=1'
+    os_flags='-ferror-limit=1'
     ;;
   Linux)
     os_type=LINUX
@@ -32,5 +43,4 @@ case "$os" in
     ;;
 esac
 
-# Removing -Wconversion because of many implicit casts of size type in F Prime
-g++ --std=c++11 -Wall -Wextra $os_flags -DTGT_OS_TYPE_$os_type -I $FPRIME -I $FPRIME/config -I $FPRIME/cmake/platform/types -I . $FPRIME_GCC_FLAGS $@
+g++ --std=c++11 $flags $os_flags -DTGT_OS_TYPE_$os_type -I $FPRIME -I $FPRIME/config -I $FPRIME/cmake/platform/types -I . $FPRIME_GCC_FLAGS $@

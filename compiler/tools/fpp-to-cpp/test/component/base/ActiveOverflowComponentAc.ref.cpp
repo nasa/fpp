@@ -1530,7 +1530,10 @@ void ActiveOverflowComponentBase ::
 
   // Declare buffer for serialAsyncHook
   U8 msgBuff[this->m_msgSize];
-  Fw::ExternalSerializeBuffer msgSerBuff(msgBuff, this->m_msgSize);
+  Fw::ExternalSerializeBuffer msgSerBuff(
+    msgBuff,
+    static_cast<Fw::Serializable::SizeType>(this->m_msgSize)
+  );
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize message ID
@@ -1926,7 +1929,10 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveOverflowComponentBase ::
   doDispatch()
 {
   U8 msgBuff[this->m_msgSize];
-  Fw::ExternalSerializeBuffer msg(msgBuff,this->m_msgSize);
+  Fw::ExternalSerializeBuffer msg(
+    msgBuff,
+    static_cast<Fw::Serializable::SizeType>(this->m_msgSize)
+  );
   FwQueuePriorityType priority = 0;
 
   Os::Queue::Status msgStatus = this->m_queue.receive(
@@ -2295,7 +2301,10 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveOverflowComponentBase ::
     case SERIALASYNCHOOK_SERIAL: {
       // Deserialize serialized buffer into new buffer
       U8 handBuff[this->m_msgSize];
-      Fw::ExternalSerializeBuffer serHandBuff(handBuff,this->m_msgSize);
+      Fw::ExternalSerializeBuffer serHandBuff(
+        handBuff,
+        static_cast<Fw::Serializable::SizeType>(this->m_msgSize)
+      );
       deserStatus = msg.deserialize(serHandBuff);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,
