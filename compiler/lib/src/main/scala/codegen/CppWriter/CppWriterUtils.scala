@@ -327,7 +327,7 @@ trait CppWriterUtils extends LineUtils {
     name: String,
     superclassDecls: Option[String],
     members: List[CppDoc.Class.Member],
-    qualifier: CppDoc.Class.Qualifier = CppDoc.Class.NonFinal
+    qualifier: CppDoc.Class.FinalQualifier = CppDoc.Class.NonFinal
   ): CppDoc.Member.Class =
     CppDoc.Member.Class(
       CppDoc.Class(

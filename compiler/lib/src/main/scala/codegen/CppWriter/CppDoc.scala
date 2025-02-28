@@ -42,14 +42,14 @@ object CppDoc {
     superclassDecls: Option[String],
     /** The class members */
     members: List[Class.Member],
-    /** The class qualifier, if any, before the colon */
-    qualifier: Class.Qualifier = Class.NonFinal
+    /** The class final qualifier, if any, before the colon */
+    qualifier: Class.FinalQualifier = Class.NonFinal
   )
 
   object Class {
-    sealed trait Qualifier
-    case object Final extends Qualifier
-    case object NonFinal extends Qualifier
+    sealed trait FinalQualifier
+    case object Final extends FinalQualifier
+    case object NonFinal extends FinalQualifier
     sealed trait Member
     object Member {
       case class Class(c: CppDoc.Class) extends Member
