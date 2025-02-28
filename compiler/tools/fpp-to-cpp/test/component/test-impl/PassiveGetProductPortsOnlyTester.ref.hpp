@@ -10,7 +10,7 @@
 #include "PassiveGetProductPortsOnlyGTestBase.hpp"
 #include "PassiveGetProductPortsOnly.hpp"
 
-class PassiveGetProductPortsOnlyTester :
+class PassiveGetProductPortsOnlyTester final :
   public PassiveGetProductPortsOnlyGTestBase
 {
 

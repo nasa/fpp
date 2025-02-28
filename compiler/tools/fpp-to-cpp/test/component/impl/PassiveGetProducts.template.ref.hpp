@@ -9,7 +9,7 @@
 
 #include "PassiveGetProductsComponentAc.hpp"
 
-class PassiveGetProducts :
+class PassiveGetProducts final :
   public PassiveGetProductsComponentBase
 {
 

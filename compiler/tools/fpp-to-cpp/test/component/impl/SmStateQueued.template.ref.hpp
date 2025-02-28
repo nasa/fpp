@@ -11,7 +11,7 @@
 
 namespace FppTest {
 
-  class SmStateQueued :
+  class SmStateQueued final :
     public SmStateQueuedComponentBase
   {
 

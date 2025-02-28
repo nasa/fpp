@@ -10,7 +10,7 @@
 #include "QueuedSerialGTestBase.hpp"
 #include "QueuedSerial.hpp"
 
-class QueuedSerialTester :
+class QueuedSerialTester final :
   public QueuedSerialGTestBase
 {
 

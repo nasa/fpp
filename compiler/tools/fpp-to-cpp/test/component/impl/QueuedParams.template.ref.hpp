@@ -9,7 +9,7 @@
 
 #include "QueuedParamsComponentAc.hpp"
 
-class QueuedParams :
+class QueuedParams final :
   public QueuedParamsComponentBase
 {
 

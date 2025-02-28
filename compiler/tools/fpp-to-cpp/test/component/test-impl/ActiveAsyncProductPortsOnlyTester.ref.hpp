@@ -10,7 +10,7 @@
 #include "ActiveAsyncProductPortsOnlyGTestBase.hpp"
 #include "ActiveAsyncProductPortsOnly.hpp"
 
-class ActiveAsyncProductPortsOnlyTester :
+class ActiveAsyncProductPortsOnlyTester final :
   public ActiveAsyncProductPortsOnlyGTestBase
 {
 

@@ -9,7 +9,7 @@
 
 #include "QueuedOverflowComponentAc.hpp"
 
-class QueuedOverflow :
+class QueuedOverflow final :
   public QueuedOverflowComponentBase
 {
 

@@ -9,7 +9,7 @@
 
 #include "ActiveParamsComponentAc.hpp"
 
-class ActiveParams :
+class ActiveParams final :
   public ActiveParamsComponentBase
 {
 

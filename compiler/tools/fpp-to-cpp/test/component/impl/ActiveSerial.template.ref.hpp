@@ -9,7 +9,7 @@
 
 #include "ActiveSerialComponentAc.hpp"
 
-class ActiveSerial :
+class ActiveSerial final :
   public ActiveSerialComponentBase
 {
 

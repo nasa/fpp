@@ -9,7 +9,7 @@
 
 #include "ActiveOverflowComponentAc.hpp"
 
-class ActiveOverflow :
+class ActiveOverflow final :
   public ActiveOverflowComponentBase
 {
 

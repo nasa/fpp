@@ -9,7 +9,7 @@
 
 #include "PassiveSyncProductPortsOnlyComponentAc.hpp"
 
-class PassiveSyncProductPortsOnly :
+class PassiveSyncProductPortsOnly final :
   public PassiveSyncProductPortsOnlyComponentBase
 {
 

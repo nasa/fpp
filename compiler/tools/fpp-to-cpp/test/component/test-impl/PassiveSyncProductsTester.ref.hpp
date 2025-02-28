@@ -10,7 +10,7 @@
 #include "PassiveSyncProductsGTestBase.hpp"
 #include "PassiveSyncProducts.hpp"
 
-class PassiveSyncProductsTester :
+class PassiveSyncProductsTester final :
   public PassiveSyncProductsGTestBase
 {
 

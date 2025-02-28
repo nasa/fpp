@@ -9,7 +9,7 @@
 
 #include "ActiveNoArgsPortsOnlyComponentAc.hpp"
 
-class ActiveNoArgsPortsOnly :
+class ActiveNoArgsPortsOnly final :
   public ActiveNoArgsPortsOnlyComponentBase
 {
 
