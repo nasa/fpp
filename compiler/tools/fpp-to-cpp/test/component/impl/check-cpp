@@ -7,6 +7,7 @@ export FPRIME_GCC_FLAGS="-I../../fprime"
 warning_flags="
 -Wno-return-type
 -Wno-unused-parameter
+-Wno-abstract-final-class
 "
 
 # Generate framework cpp files
