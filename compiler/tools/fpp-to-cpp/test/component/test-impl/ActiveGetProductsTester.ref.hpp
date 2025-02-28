@@ -10,7 +10,7 @@
 #include "ActiveGetProductsGTestBase.hpp"
 #include "ActiveGetProducts.hpp"
 
-class ActiveGetProductsTester :
+class ActiveGetProductsTester final :
   public ActiveGetProductsGTestBase
 {
 

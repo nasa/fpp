@@ -9,7 +9,7 @@
 
 #include "QueuedGuardedProductsComponentAc.hpp"
 
-class QueuedGuardedProducts :
+class QueuedGuardedProducts final :
   public QueuedGuardedProductsComponentBase
 {
 

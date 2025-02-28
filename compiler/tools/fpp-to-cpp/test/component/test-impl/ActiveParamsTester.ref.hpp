@@ -10,7 +10,7 @@
 #include "ActiveParamsGTestBase.hpp"
 #include "ActiveParams.hpp"
 
-class ActiveParamsTester :
+class ActiveParamsTester final :
   public ActiveParamsGTestBase
 {
 

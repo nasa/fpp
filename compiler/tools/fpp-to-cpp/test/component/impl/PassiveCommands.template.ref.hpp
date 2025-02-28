@@ -9,7 +9,7 @@
 
 #include "PassiveCommandsComponentAc.hpp"
 
-class PassiveCommands :
+class PassiveCommands final :
   public PassiveCommandsComponentBase
 {
 

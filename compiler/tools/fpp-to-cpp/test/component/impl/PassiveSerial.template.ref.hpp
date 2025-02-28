@@ -9,7 +9,7 @@
 
 #include "PassiveSerialComponentAc.hpp"
 
-class PassiveSerial :
+class PassiveSerial final :
   public PassiveSerialComponentBase
 {
 

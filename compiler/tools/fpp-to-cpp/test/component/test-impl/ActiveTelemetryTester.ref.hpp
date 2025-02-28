@@ -10,7 +10,7 @@
 #include "ActiveTelemetryGTestBase.hpp"
 #include "ActiveTelemetry.hpp"
 
-class ActiveTelemetryTester :
+class ActiveTelemetryTester final :
   public ActiveTelemetryGTestBase
 {
 

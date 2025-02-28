@@ -10,7 +10,7 @@
 #include "QueuedParamsGTestBase.hpp"
 #include "QueuedParams.hpp"
 
-class QueuedParamsTester :
+class QueuedParamsTester final :
   public QueuedParamsGTestBase
 {
 

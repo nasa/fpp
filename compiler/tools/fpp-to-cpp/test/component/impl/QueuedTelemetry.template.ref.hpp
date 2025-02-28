@@ -9,7 +9,7 @@
 
 #include "QueuedTelemetryComponentAc.hpp"
 
-class QueuedTelemetry :
+class QueuedTelemetry final :
   public QueuedTelemetryComponentBase
 {
 

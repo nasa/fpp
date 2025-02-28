@@ -10,7 +10,7 @@
 #include "PassiveEventsGTestBase.hpp"
 #include "PassiveEvents.hpp"
 
-class PassiveEventsTester :
+class PassiveEventsTester final :
   public PassiveEventsGTestBase
 {
 

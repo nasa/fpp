@@ -10,7 +10,7 @@
 #include "ActiveAsyncProductsGTestBase.hpp"
 #include "ActiveAsyncProducts.hpp"
 
-class ActiveAsyncProductsTester :
+class ActiveAsyncProductsTester final :
   public ActiveAsyncProductsGTestBase
 {
 

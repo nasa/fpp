@@ -60,13 +60,17 @@ object CppDocHppWriter extends CppDocWriter {
   override def visitClass(in: Input, c: CppDoc.Class) = {
     val name = c.name
     val commentLines = CppDocWriter.writeDoxygenCommentOpt(c.comment)
+    val className = c.qualifier match {
+      case CppDoc.Class.Final => s"class $name final"
+      case CppDoc.Class.NonFinal => s"class $name"
+    }
     val openLines = c.superclassDecls match {
       case Some(d) => List(
-        line(s"class $name :"),
+        line(s"$className :"),
         indentIn(line(d)),
         line("{")
       )
-      case None => lines(s"class $name {")
+      case None => lines(s"$className {")
     }
     val bodyLines = {
       val newClassNameList = name :: in.classNameList

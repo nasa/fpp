@@ -9,7 +9,7 @@
 
 #include "ActiveSyncProductsComponentAc.hpp"
 
-class ActiveSyncProducts :
+class ActiveSyncProducts final :
   public ActiveSyncProductsComponentBase
 {
 
