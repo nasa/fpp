@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# ----------------------------------------------------------------------
+# Compile ref C++ files, to check them for validity
+# ----------------------------------------------------------------------
+
+cd `dirname $0`
+
+fprime_gcc=../../../../scripts/fprime-gcc
+
+../fprime/generate_cpp
+
+echo "running tests to generate the headers"
+./run
+
+for file in `find . -name '*.ref.cpp'`
+do
+  base=`basename $file .ref.cpp`
+  cp $base.ref.hpp $base.hpp
+  cp $base.ref.cpp $base.cpp
+  echo "compiling $base.cpp"
+  $fprime_gcc -Iinclude -c $base.cpp
+done

@@ -26,6 +26,28 @@ object ComputeAutocodeCppFiles extends ComputeCppFiles {
     aNode: Ast.Annotated[AstNode[Ast.DefConstant]]
   ) = addMappings(s, ComputeCppFiles.FileNames.getConstants, None)
 
+  override def defAliasTypeAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]
+  ) = {
+    val node = aNode._2
+    val name = s.getName(Symbol.AliasType(aNode))
+    val loc = Locations.get(node.id)
+    val fileName = ComputeCppFiles.FileNames.getAliasType(name)
+
+    // Only add C header if its supported
+    if (s.a.typeSupportedInC(node.id)) {
+      for {
+        s <- addHppMapping(s, fileName, Some(loc), "h")
+      } yield s
+    }
+
+    // Always add C++ header
+    for {
+      s <- addHppMapping(s, fileName, Some(loc), "hpp")
+    } yield s
+  }
+
   override def defArrayAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefArray]]
