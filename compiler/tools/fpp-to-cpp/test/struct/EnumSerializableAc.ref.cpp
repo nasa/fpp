@@ -75,17 +75,17 @@ Enum& Enum ::
 bool Enum ::
   operator==(const Enum& obj) const
 {
+  if (this == &obj) { return true; }
+
   // Compare non-array members
   if (!(this->m_e == obj.m_e)) {
     return false;
   }
 
   // Compare array members
-  if (!(this->m_eArr == obj.m_eArr)) {
-    for (FwSizeType i = 0; i < 3; i++) {
-      if (!(this->m_eArr[i] == obj.m_eArr[i])) {
-        return false;
-      }
+  for (FwSizeType i = 0; i < 3; i++) {
+    if (!(this->m_eArr[i] == obj.m_eArr[i])) {
+      return false;
     }
   }
 

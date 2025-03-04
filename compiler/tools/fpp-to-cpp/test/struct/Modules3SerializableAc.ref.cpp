@@ -75,17 +75,17 @@ Modules3& Modules3 ::
 bool Modules3 ::
   operator==(const Modules3& obj) const
 {
+  if (this == &obj) { return true; }
+
   // Compare non-array members
   if (!(this->m_x == obj.m_x)) {
     return false;
   }
 
   // Compare array members
-  if (!(this->m_arr == obj.m_arr)) {
-    for (FwSizeType i = 0; i < 3; i++) {
-      if (!(this->m_arr[i] == obj.m_arr[i])) {
-        return false;
-      }
+  for (FwSizeType i = 0; i < 3; i++) {
+    if (!(this->m_arr[i] == obj.m_arr[i])) {
+      return false;
     }
   }
 
