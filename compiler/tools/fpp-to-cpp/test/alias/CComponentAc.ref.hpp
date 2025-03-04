@@ -7,14 +7,19 @@
 #ifndef CComponentAc_HPP
 #define CComponentAc_HPP
 
+#include "AliasPortPortAc.hpp"
 #include "C_AArrayAc.hpp"
 #include "C_T2AliasAc.hpp"
 #include "C_TAliasAc.hpp"
+#include "DpGetPortAc.hpp"
+#include "DpSendPortAc.hpp"
 #include "FpConfig.hpp"
 #include "Fw/Comp/ActiveComponentBase.hpp"
+#include "Fw/Dp/DpContainer.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
 #include "Fw/Tlm/TlmString.hpp"
+#include "LogPortAc.hpp"
 #include "TimePortAc.hpp"
 #include "TlmPortAc.hpp"
 
@@ -37,8 +42,17 @@ class CComponentBase :
     // Constants
     // ----------------------------------------------------------------------
 
+    //! Enumerations for numbers of typed input ports
+    enum {
+      NUM_P1_INPUT_PORTS = 1,
+      NUM_P2_INPUT_PORTS = 3,
+    };
+
     //! Enumerations for numbers of special output ports
     enum {
+      NUM_EVENTOUT_OUTPUT_PORTS = 1,
+      NUM_PRODUCTGET_OUTPUT_PORTS = 1,
+      NUM_PRODUCTSEND_OUTPUT_PORTS = 1,
       NUM_TIMEGET_OUTPUT_PORTS = 1,
       NUM_TLMOUT_OUTPUT_PORTS = 1,
     };
@@ -47,6 +61,74 @@ class CComponentBase :
     enum {
       CHANNELID_E1 = 0x0, //!< Channel ID for E1
       CHANNELID_E2 = 0x1, //!< Channel ID for E2
+      CHANNELID_E3 = 0x2, //!< Channel ID for E3
+    };
+
+    //! Record sizes
+    static constexpr FwSizeType SIZE_OF_R1_RECORD =
+      sizeof(FwDpIdType) + C_T2::SERIALIZED_SIZE;
+
+  PROTECTED:
+
+    // ----------------------------------------------------------------------
+    // Types for data products
+    // ----------------------------------------------------------------------
+
+    //! The container ids
+    struct ContainerId {
+      enum T : FwDpIdType {
+        C1 = 0,
+      };
+    };
+
+    //! The container default priorities
+    struct ContainerPriority {
+      enum T : FwDpPriorityType {
+        C1 = 0,
+      };
+    };
+
+    //! The record ids
+    struct RecordId {
+      enum T : FwDpIdType {
+        R1 = 17,
+      };
+    };
+
+    //! A data product container
+    class DpContainer :
+      public Fw::DpContainer
+    {
+
+      public:
+
+        //! Constructor with custom initialization
+        DpContainer(
+            FwDpIdType id, //!< The container id
+            const Fw::Buffer& buffer, //!< The packet buffer
+            FwDpIdType baseId //!< The component base id
+        );
+
+        //! Constructor with default initialization
+        DpContainer();
+
+      public:
+
+        //! Serialize a R1 record into the packet buffer
+        //! \return The serialize status
+        Fw::SerializeStatus serializeRecord_R1(
+            const C_T2& elt //!< The element
+        );
+
+        FwDpIdType getBaseId() const { return this->m_baseId; }
+
+        void setBaseId(FwDpIdType baseId) { this->m_baseId = baseId; }
+
+      PRIVATE:
+
+        //! The component base id
+        FwDpIdType m_baseId;
+
     };
 
   public:
@@ -63,8 +145,46 @@ class CComponentBase :
   public:
 
     // ----------------------------------------------------------------------
+    // Getters for typed input ports
+    // ----------------------------------------------------------------------
+
+    //! Get typed input port at index
+    //!
+    //! \return P1[portNum]
+    InputAliasPortPort* get_P1_InputPort(
+        FwIndexType portNum //!< The port number
+    );
+
+    //! Get typed input port at index
+    //!
+    //! \return P2[portNum]
+    InputAliasPortPort* get_P2_InputPort(
+        FwIndexType portNum //!< The port number
+    );
+
+  public:
+
+    // ----------------------------------------------------------------------
     // Connect input ports to special output ports
     // ----------------------------------------------------------------------
+
+    //! Connect port to eventOut[portNum]
+    void set_eventOut_OutputPort(
+        FwIndexType portNum, //!< The port number
+        Fw::InputLogPort* port //!< The input port
+    );
+
+    //! Connect port to productGet[portNum]
+    void set_productGet_OutputPort(
+        FwIndexType portNum, //!< The port number
+        Fw::InputDpGetPort* port //!< The input port
+    );
+
+    //! Connect port to productSend[portNum]
+    void set_productSend_OutputPort(
+        FwIndexType portNum, //!< The port number
+        Fw::InputDpSendPort* port //!< The input port
+    );
 
     //! Connect port to timeGet[portNum]
     void set_timeGet_OutputPort(
@@ -85,6 +205,24 @@ class CComponentBase :
     // ----------------------------------------------------------------------
     // Connect serial input ports to special output ports
     // ----------------------------------------------------------------------
+
+    //! Connect port to eventOut[portNum]
+    void set_eventOut_OutputPort(
+        FwIndexType portNum, //!< The port number
+        Fw::InputSerializePort* port //!< The port
+    );
+
+    //! Connect port to productGet[portNum]
+    void set_productGet_OutputPort(
+        FwIndexType portNum, //!< The port number
+        Fw::InputSerializePort* port //!< The port
+    );
+
+    //! Connect port to productSend[portNum]
+    void set_productSend_OutputPort(
+        FwIndexType portNum, //!< The port number
+        Fw::InputSerializePort* port //!< The port
+    );
 
     //! Connect port to timeGet[portNum]
     void set_timeGet_OutputPort(
@@ -117,8 +255,39 @@ class CComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
+    // Getters for numbers of typed input ports
+    // ----------------------------------------------------------------------
+
+    //! Get the number of P1 input ports
+    //!
+    //! \return The number of P1 input ports
+    FwIndexType getNum_P1_InputPorts() const;
+
+    //! Get the number of P2 input ports
+    //!
+    //! \return The number of P2 input ports
+    FwIndexType getNum_P2_InputPorts() const;
+
+  PROTECTED:
+
+    // ----------------------------------------------------------------------
     // Getters for numbers of special output ports
     // ----------------------------------------------------------------------
+
+    //! Get the number of eventOut output ports
+    //!
+    //! \return The number of eventOut output ports
+    FwIndexType getNum_eventOut_OutputPorts() const;
+
+    //! Get the number of productGet output ports
+    //!
+    //! \return The number of productGet output ports
+    FwIndexType getNum_productGet_OutputPorts() const;
+
+    //! Get the number of productSend output ports
+    //!
+    //! \return The number of productSend output ports
+    FwIndexType getNum_productSend_OutputPorts() const;
 
     //! Get the number of timeGet output ports
     //!
@@ -136,6 +305,27 @@ class CComponentBase :
     // Connection status queries for special output ports
     // ----------------------------------------------------------------------
 
+    //! Check whether port eventOut is connected
+    //!
+    //! \return Whether port eventOut is connected
+    bool isConnected_eventOut_OutputPort(
+        FwIndexType portNum //!< The port number
+    );
+
+    //! Check whether port productGet is connected
+    //!
+    //! \return Whether port productGet is connected
+    bool isConnected_productGet_OutputPort(
+        FwIndexType portNum //!< The port number
+    );
+
+    //! Check whether port productSend is connected
+    //!
+    //! \return Whether port productSend is connected
+    bool isConnected_productSend_OutputPort(
+        FwIndexType portNum //!< The port number
+    );
+
     //! Check whether port timeGet is connected
     //!
     //! \return Whether port timeGet is connected
@@ -147,6 +337,64 @@ class CComponentBase :
     //!
     //! \return Whether port tlmOut is connected
     bool isConnected_tlmOut_OutputPort(
+        FwIndexType portNum //!< The port number
+    );
+
+  PROTECTED:
+
+    // ----------------------------------------------------------------------
+    // Handlers to implement for typed input ports
+    // ----------------------------------------------------------------------
+
+    //! Handler for input port P1
+    virtual StringA P1_handler(
+        FwIndexType portNum, //!< The port number
+        T a1,
+        const StringA& a2
+    ) = 0;
+
+    //! Handler for input port P2
+    virtual StringA P2_handler(
+        FwIndexType portNum, //!< The port number
+        T a1,
+        const StringA& a2
+    ) = 0;
+
+  PROTECTED:
+
+    // ----------------------------------------------------------------------
+    // Port handler base-class functions for typed input ports
+    //
+    // Call these functions directly to bypass the corresponding ports
+    // ----------------------------------------------------------------------
+
+    //! Handler base-class function for input port P1
+    StringA P1_handlerBase(
+        FwIndexType portNum, //!< The port number
+        T a1,
+        const StringA& a2
+    );
+
+    //! Handler base-class function for input port P2
+    StringA P2_handlerBase(
+        FwIndexType portNum, //!< The port number
+        T a1,
+        const StringA& a2
+    );
+
+  PROTECTED:
+
+    // ----------------------------------------------------------------------
+    // Invocation functions for special output ports
+    // ----------------------------------------------------------------------
+
+    //! Invoke output port productGet
+    void productGet_out(
+        FwIndexType portNum //!< The port number
+    );
+
+    //! Invoke output port productSend
+    void productSend_out(
         FwIndexType portNum //!< The port number
     );
 
@@ -168,6 +416,38 @@ class CComponentBase :
         Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
     ) const;
 
+    //! Write telemetry channel E3
+    void tlmWrite_E3(
+        const Fw::StringBase& arg, //!< The telemetry value
+        Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
+    ) const;
+
+  PROTECTED:
+
+    // ----------------------------------------------------------------------
+    // Functions for managing data products
+    // ----------------------------------------------------------------------
+
+    //! Get a buffer and use it to initialize container C1
+    //! \return The status of the buffer request
+    Fw::Success::T dpGet_C1(
+        FwSizeType dataSize, //!< The data size (input)
+        DpContainer& container //!< The container (output)
+    ) {
+      return this->dpGet(
+        ContainerId::C1,
+        dataSize,
+        ContainerPriority::C1,
+        container
+      );
+    }
+
+    //! Send a data product
+    void dpSend(
+        DpContainer& container, //!< The data product container
+        Fw::Time timeTag = Fw::ZERO_TIME //!< The time tag
+    );
+
   PROTECTED:
 
     // ----------------------------------------------------------------------
@@ -182,8 +462,66 @@ class CComponentBase :
   PRIVATE:
 
     // ----------------------------------------------------------------------
+    // Calls for messages received on typed input ports
+    // ----------------------------------------------------------------------
+
+    //! Callback for port P1
+    static StringA m_p_P1_in(
+        Fw::PassiveComponentBase* callComp, //!< The component instance
+        FwIndexType portNum, //!< The port number
+        T a1,
+        const StringA& a2
+    );
+
+    //! Callback for port P2
+    static StringA m_p_P2_in(
+        Fw::PassiveComponentBase* callComp, //!< The component instance
+        FwIndexType portNum, //!< The port number
+        T a1,
+        const StringA& a2
+    );
+
+  PRIVATE:
+
+    // ----------------------------------------------------------------------
+    // Private data product handling functions
+    // ----------------------------------------------------------------------
+
+    //! Get a buffer and use it to initialize a data product container
+    //! \return The status of the buffer request
+    Fw::Success::T dpGet(
+        ContainerId::T containerId, //!< The component-local container id (input)
+        FwSizeType dataSize, //!< The data size (input)
+        FwDpPriorityType priority, //!< The priority (input)
+        DpContainer& container //!< The container (output)
+    );
+
+  PRIVATE:
+
+    // ----------------------------------------------------------------------
+    // Typed input ports
+    // ----------------------------------------------------------------------
+
+    //! Input port P1
+    InputAliasPortPort m_P1_InputPort[NUM_P1_INPUT_PORTS];
+
+    //! Input port P2
+    InputAliasPortPort m_P2_InputPort[NUM_P2_INPUT_PORTS];
+
+  PRIVATE:
+
+    // ----------------------------------------------------------------------
     // Special output ports
     // ----------------------------------------------------------------------
+
+    //! Output port eventOut
+    Fw::OutputLogPort m_eventOut_OutputPort[NUM_EVENTOUT_OUTPUT_PORTS];
+
+    //! Output port productGet
+    Fw::OutputDpGetPort m_productGet_OutputPort[NUM_PRODUCTGET_OUTPUT_PORTS];
+
+    //! Output port productSend
+    Fw::OutputDpSendPort m_productSend_OutputPort[NUM_PRODUCTSEND_OUTPUT_PORTS];
 
     //! Output port timeGet
     Fw::OutputTimePort m_timeGet_OutputPort[NUM_TIMEGET_OUTPUT_PORTS];

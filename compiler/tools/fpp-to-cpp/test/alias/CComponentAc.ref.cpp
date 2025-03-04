@@ -12,6 +12,52 @@
 #endif
 
 // ----------------------------------------------------------------------
+// Types for data products
+// ----------------------------------------------------------------------
+
+CComponentBase::DpContainer ::
+  DpContainer(
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      FwDpIdType baseId
+  ) :
+    Fw::DpContainer(id, buffer),
+    m_baseId(baseId)
+{
+
+}
+
+CComponentBase::DpContainer ::
+  DpContainer() :
+    Fw::DpContainer(),
+    m_baseId(0)
+{
+
+}
+
+Fw::SerializeStatus CComponentBase::DpContainer ::
+  serializeRecord_R1(const C_T2& elt)
+{
+  const FwSizeType stringSize = 30;
+  const FwSizeType sizeDelta =
+    sizeof(FwDpIdType) +
+    elt.serializedTruncatedSize(stringSize);
+  Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
+  if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
+    const FwDpIdType id = this->m_baseId + RecordId::R1;
+    status = this->m_dataBuffer.serialize(id);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
+    status = elt.serialize(this->m_dataBuffer, stringSize);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
+    this->m_dataSize += sizeDelta;
+  }
+  else {
+    status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
+  }
+  return status;
+}
+
+// ----------------------------------------------------------------------
 // Component initialization
 // ----------------------------------------------------------------------
 
@@ -20,6 +66,111 @@ void CComponentBase ::
 {
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);
+
+  // Connect input port P1
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_P1_InputPorts());
+    port++
+  ) {
+    this->m_P1_InputPort[port].init();
+    this->m_P1_InputPort[port].addCallComp(
+      this,
+      m_p_P1_in
+    );
+    this->m_P1_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_P1_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_P1_InputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect input port P2
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_P2_InputPorts());
+    port++
+  ) {
+    this->m_P2_InputPort[port].init();
+    this->m_P2_InputPort[port].addCallComp(
+      this,
+      m_p_P2_in
+    );
+    this->m_P2_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_P2_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_P2_InputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect output port eventOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_eventOut_OutputPorts());
+    port++
+  ) {
+    this->m_eventOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_eventOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_eventOut_OutputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect output port productGet
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_productGet_OutputPorts());
+    port++
+  ) {
+    this->m_productGet_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_productGet_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_productGet_OutputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect output port productSend
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_productSend_OutputPorts());
+    port++
+  ) {
+    this->m_productSend_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_productSend_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_productSend_OutputPort[port].setObjName(portName.toChar());
+#endif
+  }
 
   // Connect output port timeGet
   for (
@@ -61,8 +212,76 @@ void CComponentBase ::
 }
 
 // ----------------------------------------------------------------------
+// Getters for typed input ports
+// ----------------------------------------------------------------------
+
+InputAliasPortPort* CComponentBase ::
+  get_P1_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_P1_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_P1_InputPort[portNum];
+}
+
+InputAliasPortPort* CComponentBase ::
+  get_P2_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_P2_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_P2_InputPort[portNum];
+}
+
+// ----------------------------------------------------------------------
 // Connect input ports to special output ports
 // ----------------------------------------------------------------------
+
+void CComponentBase ::
+  set_eventOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputLogPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_eventOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_eventOut_OutputPort[portNum].addCallPort(port);
+}
+
+void CComponentBase ::
+  set_productGet_OutputPort(
+      FwIndexType portNum,
+      Fw::InputDpGetPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_productGet_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_productGet_OutputPort[portNum].addCallPort(port);
+}
+
+void CComponentBase ::
+  set_productSend_OutputPort(
+      FwIndexType portNum,
+      Fw::InputDpSendPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_productSend_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_productSend_OutputPort[portNum].addCallPort(port);
+}
 
 void CComponentBase ::
   set_timeGet_OutputPort(
@@ -97,6 +316,48 @@ void CComponentBase ::
 // ----------------------------------------------------------------------
 // Connect serial input ports to special output ports
 // ----------------------------------------------------------------------
+
+void CComponentBase ::
+  set_eventOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_eventOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_eventOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void CComponentBase ::
+  set_productGet_OutputPort(
+      FwIndexType portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_productGet_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_productGet_OutputPort[portNum].registerSerialPort(port);
+}
+
+void CComponentBase ::
+  set_productSend_OutputPort(
+      FwIndexType portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_productSend_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_productSend_OutputPort[portNum].registerSerialPort(port);
+}
 
 void CComponentBase ::
   set_timeGet_OutputPort(
@@ -146,8 +407,42 @@ CComponentBase ::
 }
 
 // ----------------------------------------------------------------------
+// Getters for numbers of typed input ports
+// ----------------------------------------------------------------------
+
+FwIndexType CComponentBase ::
+  getNum_P1_InputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_P1_InputPort));
+}
+
+FwIndexType CComponentBase ::
+  getNum_P2_InputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_P2_InputPort));
+}
+
+// ----------------------------------------------------------------------
 // Getters for numbers of special output ports
 // ----------------------------------------------------------------------
+
+FwIndexType CComponentBase ::
+  getNum_eventOut_OutputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_eventOut_OutputPort));
+}
+
+FwIndexType CComponentBase ::
+  getNum_productGet_OutputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productGet_OutputPort));
+}
+
+FwIndexType CComponentBase ::
+  getNum_productSend_OutputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productSend_OutputPort));
+}
 
 FwIndexType CComponentBase ::
   getNum_timeGet_OutputPorts() const
@@ -164,6 +459,39 @@ FwIndexType CComponentBase ::
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
+
+bool CComponentBase ::
+  isConnected_eventOut_OutputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_eventOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_eventOut_OutputPort[portNum].isConnected();
+}
+
+bool CComponentBase ::
+  isConnected_productGet_OutputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_productGet_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_productGet_OutputPort[portNum].isConnected();
+}
+
+bool CComponentBase ::
+  isConnected_productSend_OutputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_productSend_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_productSend_OutputPort[portNum].isConnected();
+}
 
 bool CComponentBase ::
   isConnected_timeGet_OutputPort(FwIndexType portNum)
@@ -185,6 +513,96 @@ bool CComponentBase ::
   );
 
   return this->m_tlmOut_OutputPort[portNum].isConnected();
+}
+
+// ----------------------------------------------------------------------
+// Port handler base-class functions for typed input ports
+//
+// Call these functions directly to bypass the corresponding ports
+// ----------------------------------------------------------------------
+
+StringA CComponentBase ::
+  P1_handlerBase(
+      FwIndexType portNum,
+      T a1,
+      const StringA& a2
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_P1_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  StringA retVal;
+
+  // Call handler function
+  retVal = this->P1_handler(
+    portNum,
+    a1,
+    a2
+  );
+
+  return retVal;
+}
+
+StringA CComponentBase ::
+  P2_handlerBase(
+      FwIndexType portNum,
+      T a1,
+      const StringA& a2
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_P2_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  StringA retVal;
+
+  // Call handler function
+  retVal = this->P2_handler(
+    portNum,
+    a1,
+    a2
+  );
+
+  return retVal;
+}
+
+// ----------------------------------------------------------------------
+// Invocation functions for special output ports
+// ----------------------------------------------------------------------
+
+void CComponentBase ::
+  productGet_out(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_productGet_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_productGet_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_productGet_OutputPort[portNum].invoke();
+}
+
+void CComponentBase ::
+  productSend_out(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_productSend_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_productSend_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_productSend_OutputPort[portNum].invoke();
 }
 
 // ----------------------------------------------------------------------
@@ -239,7 +657,7 @@ void CComponentBase ::
     }
 
     Fw::TlmBuffer _tlmBuff;
-    Fw::SerializeStatus _stat = _tlmBuff.serialize(arg);
+    Fw::SerializeStatus _stat = arg.serialize(_tlmBuff, FW_MIN(FW_TLM_STRING_MAX_SIZE, 30));
     FW_ASSERT(
       _stat == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_stat)
@@ -257,6 +675,71 @@ void CComponentBase ::
   }
 }
 
+void CComponentBase ::
+  tlmWrite_E3(
+      const Fw::StringBase& arg,
+      Fw::Time _tlmTime
+  ) const
+{
+  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+    if (
+      this->m_timeGet_OutputPort[0].isConnected() &&
+      (_tlmTime ==  Fw::ZERO_TIME)
+    ) {
+      this->m_timeGet_OutputPort[0].invoke(_tlmTime);
+    }
+
+    Fw::TlmBuffer _tlmBuff;
+    Fw::SerializeStatus _stat = arg.serialize(_tlmBuff, FW_MIN(FW_TLM_STRING_MAX_SIZE, 30));
+    FW_ASSERT(
+      _stat == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_stat)
+    );
+
+    FwChanIdType _id;
+
+    _id = this->getIdBase() + CHANNELID_E3;
+
+    this->m_tlmOut_OutputPort[0].invoke(
+      _id,
+      _tlmTime,
+      _tlmBuff
+    );
+  }
+}
+
+// ----------------------------------------------------------------------
+// Functions for managing data products
+// ----------------------------------------------------------------------
+
+void CComponentBase ::
+  dpSend(
+      DpContainer& container,
+      Fw::Time timeTag
+  )
+{
+  // Update the time tag
+  if (timeTag == Fw::ZERO_TIME) {
+    // Get the time from the time port
+    timeTag = this->getTime();
+  }
+  container.setTimeTag(timeTag);
+  // Serialize the header into the packet
+  container.serializeHeader();
+  // Update the data hash
+  container.updateDataHash();
+  // Update the size of the buffer according to the data size
+  const FwSizeType packetSize = container.getPacketSize();
+  Fw::Buffer buffer = container.getBuffer();
+  FW_ASSERT(packetSize <= buffer.getSize(), static_cast<FwAssertArgType>(packetSize),
+      static_cast<FwAssertArgType>(buffer.getSize()));
+  buffer.setSize(static_cast<U32>(packetSize));
+  // Invalidate the buffer in the container, so it can't be reused
+  container.invalidateBuffer();
+  // Send the buffer
+  this->productSend_out(0, container.getId(), buffer);
+}
+
 // ----------------------------------------------------------------------
 // Time
 // ----------------------------------------------------------------------
@@ -272,4 +755,68 @@ Fw::Time CComponentBase ::
   else {
     return Fw::Time(TB_NONE, 0, 0);
   }
+}
+
+// ----------------------------------------------------------------------
+// Calls for messages received on typed input ports
+// ----------------------------------------------------------------------
+
+StringA CComponentBase ::
+  m_p_P1_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      T a1,
+      const StringA& a2
+  )
+{
+  FW_ASSERT(callComp);
+  CComponentBase* compPtr = static_cast<CComponentBase*>(callComp);
+  return compPtr->P1_handlerBase(
+    portNum,
+    a1,
+    a2
+  );
+}
+
+StringA CComponentBase ::
+  m_p_P2_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      T a1,
+      const StringA& a2
+  )
+{
+  FW_ASSERT(callComp);
+  CComponentBase* compPtr = static_cast<CComponentBase*>(callComp);
+  return compPtr->P2_handlerBase(
+    portNum,
+    a1,
+    a2
+  );
+}
+
+// ----------------------------------------------------------------------
+// Private data product handling functions
+// ----------------------------------------------------------------------
+
+Fw::Success::T CComponentBase ::
+  dpGet(
+      ContainerId::T containerId,
+      FwSizeType dataSize,
+      FwDpPriorityType priority,
+      DpContainer& container
+  )
+{
+  const FwDpIdType baseId = this->getIdBase();
+  const FwDpIdType globalId = baseId + containerId;
+  const FwSizeType size = DpContainer::getPacketSizeForDataSize(dataSize);
+  Fw::Buffer buffer;
+  const Fw::Success::T status = this->productGet_out(0, globalId, size, buffer);
+  if (status == Fw::Success::SUCCESS) {
+    // Assign a fresh DpContainer into container
+    // This action clears out all the container state
+    container = DpContainer(globalId, buffer, baseId);
+    container.setPriority(priority);
+  }
+  return status;
 }

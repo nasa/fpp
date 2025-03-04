@@ -33,7 +33,7 @@ case class PortCppWriter (
   }).toMap
 
   // List of tuples (name, type) for each string param
-  private val strParamList = paramTypeMap.map((n, t) => t match {
+  private val strParamList = paramTypeMap.map((n, t) => t.getUnderlyingType match {
     case t: Type.String => Some((n, t))
     case _ => None
   }).filter(_.isDefined).map(_.get).toList
