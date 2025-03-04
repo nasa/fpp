@@ -21,4 +21,8 @@ module M {
 
 }
 
-topology T { }
+topology T {
+  telemetry packets P {
+
+  }
+}
