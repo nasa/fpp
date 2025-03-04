@@ -36,16 +36,13 @@ object ComputeAutocodeCppFiles extends ComputeCppFiles {
     val fileName = ComputeCppFiles.FileNames.getAliasType(name)
     val t = s.a.typeMap(node.id)
 
-    // Only add C header if its supported
-    if (s.isTypeSupportedInC(t)) {
-      for {
-        s <- addHppMapping(s, fileName, Some(loc), "h")
-      } yield s
-    }
-
-    // Always add C++ header
     for {
       s <- addHppMapping(s, fileName, Some(loc), "hpp")
+      // Only add C header if its supported
+      s <- s.isTypeSupportedInC(t) match {
+        case true => addHppMapping(s, fileName, Some(loc), "h")
+        case false => Right(s)
+      }
     } yield s
   }
 
