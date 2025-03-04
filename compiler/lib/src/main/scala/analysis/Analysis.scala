@@ -143,12 +143,6 @@ case class Analysis(
     Analysis.commonType(t1, t2, errorLoc)
   }
 
-  /** Compute whether or not this type can be used in a C header/source */
-  def typeSupportedInC(id: AstNode.Id): Boolean = {
-    val t = this.typeMap(id)
-    t.isSupportedInC(this)
-  }
-
   /** Add two noes */
   def add(id1: AstNode.Id, id2: AstNode.Id): Value = {
     val v1 = valueMap(id1)

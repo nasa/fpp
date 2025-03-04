@@ -39,8 +39,9 @@ basic()
 builtin_type()
 {
   run_test "-p $PWD" builtin_type && \
-    # TODO(tumbar) Should we generate C headers for builtin type?
-    diff_hpp BuiltInTypeAlias
+    diff_h_hpp BuiltInTypeAlias && \
+    diff_hpp NamespacedBuiltin1Alias && \
+    diff_hpp NamespacedBuiltin2Alias
 }
 
 namespace()
@@ -50,4 +51,13 @@ namespace()
     diff_h_hpp SimpleCType2Alias && \
     diff_hpp NamespacedAliasTypeAlias && \
     diff_hpp NamespacedAliasType2Alias
+}
+
+component()
+{
+  run_test "-p $PWD" component && \
+    diff_cpp C_AArray && \
+    diff_cpp CComponent && \
+    diff_h_hpp TAlias && \
+    diff_hpp C_TAlias
 }

@@ -9,8 +9,16 @@
 
 #include "Fw/Types/BasicTypes.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 //! A simple type alias that supports C codegen
 typedef U32 SimpleCType;
 #define PRI_SimpleCType PRI_u32
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

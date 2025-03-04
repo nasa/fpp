@@ -7,9 +7,8 @@
 #ifndef BuiltInTypeAliasAc_HPP
 #define BuiltInTypeAliasAc_HPP
 
-#include "Fw/Types/BasicTypes.h"
+#include "FppConfig.hpp"
 
-//! An alias of a built-in type
-using BuiltInType = FwOpcodeType;
+#include "BuiltInTypeAliasAc.h"
 
 #endif

@@ -174,6 +174,22 @@ case class CppWriterState(
   /** Is t a built-in type? */
   def isBuiltInType(typeName: String): Boolean = builtInTypes.contains(typeName)
 
+  def isTypeSupportedInC(t: Type): Boolean = {
+    t match {
+      case Type.AliasType(node, aliasType) =>
+        a.parentSymbolMap.get(Symbol.AliasType(node)) match {
+          // Types that are definied inside some namespace cannot be included in C headers
+          case Some(_) => false
+          // Make sure all types in the alias chain meet the C requirements
+          case None => isTypeSupportedInC(aliasType)
+        }
+      case Type.AbsType(node) => isBuiltInType(getName(Symbol.AbsType(node)))
+      case Type.PrimitiveInt(_) => true
+      case Type.Float(_) => true
+      case _ => false
+    }
+  }
+
   /** Is t a primitive type (not serializable)? */
   def isPrimitive(t: Type, typeName: String): Boolean  = isBuiltInType(typeName) || t.getUnderlyingType.isPrimitive
 

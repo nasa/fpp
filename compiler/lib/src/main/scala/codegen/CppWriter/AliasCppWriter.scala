@@ -24,9 +24,9 @@ case class AliasCppWriter (
 
   private val namespaceIdentList = s.getNamespaceIdentList(symbol)
 
-  private val typeCppWriter = TypeCppWriter(s, "Fw::ExternalString")
+  private val typeCppWriter = TypeCppWriter(s, "Fw::String")
 
-  private val supportedCHeader = aliasType.isSupportedInC(s.a)
+  private val supportedCHeader = s.isTypeSupportedInC(aliasType)
 
   private def writeHppIncludeDirectives(
     s: CppWriterState,
@@ -45,9 +45,9 @@ case class AliasCppWriter (
       val name = s.getName(sym)
       for {
         fileName <- sym match {
-          case _: Symbol.AliasType => Some(
-            ComputeCppFiles.FileNames.getAliasType(name)
-          )
+          case Symbol.AliasType(_) => Some(ComputeCppFiles.FileNames.getAliasType(name))
+          case Symbol.AbsType(node) =>
+             if s.isBuiltInType(name) then Some("FppConfig") else None
           case _ => None
         }
       }
@@ -95,8 +95,26 @@ case class AliasCppWriter (
   private def getHMembers: List[CppDoc.Member] = {
     List(
       getHIncludes,
+      getHOpenCPPGuard,
       getHDefinition,
+      getHCloseCPPGuard,
     )
+  }
+
+  private def getHOpenCPPGuard: CppDoc.Member = {
+    linesMember(addBlankPrefix(lines(
+        """|#ifdef __cplusplus
+           |extern "C" {
+           |#endif""")
+      ))
+  }
+
+  private def getHCloseCPPGuard: CppDoc.Member = {
+    linesMember(addBlankPrefix(lines(
+        """|#ifdef __cplusplus
+           |}
+           |#endif""")
+      ))
   }
 
   private def getHIncludes: CppDoc.Member = {
@@ -111,16 +129,24 @@ case class AliasCppWriter (
     ).map(CppWriter.headerString)
     val symbolHeaders = writeHIncludeDirectives(s, aNode)
     val headers = standardHeaders ++ symbolHeaders
-    linesMember(addBlankPrefix(headers.sorted.map(line)))
+    linesMember(addBlankPrefix(headers.distinct.sorted.map(line)))
   }
 
   private def getHppIncludes: CppDoc.Member.Lines = {
     val standardHeaders = List(
-      "Fw/Types/BasicTypes.h",
+      aliasType.aliasType match {
+        case Type.String(_) => "Fw/Types/String.hpp"
+        case Type.AbsType(node) =>
+           s.isBuiltInType(node._2._1.name) match {
+            case true => "FppConfig.hpp"
+            case false => "Fw/Types/BasicTypes.h"
+          }
+        case _ => "Fw/Types/BasicTypes.h"
+      },
     ).map(CppWriter.headerString)
     val symbolHeaders = writeHppIncludeDirectives(s, aNode)
     val headers = standardHeaders ++ symbolHeaders
-    linesMember(addBlankPrefix(headers.sorted.map(line)))
+    linesMember(addBlankPrefix(headers.distinct.sorted.map(line)))
   }
 
   private def getHppDefinition: CppDoc.Member.Lines = {

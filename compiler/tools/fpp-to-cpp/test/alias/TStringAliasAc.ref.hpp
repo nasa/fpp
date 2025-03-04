@@ -7,8 +7,8 @@
 #ifndef TStringAliasAc_HPP
 #define TStringAliasAc_HPP
 
-#include "Fw/Types/BasicTypes.h"
+#include "Fw/Types/String.hpp"
 
-using TString = Fw::ExternalString;
+using TString = Fw::String;
 
 #endif

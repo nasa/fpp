@@ -34,9 +34,10 @@ object ComputeAutocodeCppFiles extends ComputeCppFiles {
     val name = s.getName(Symbol.AliasType(aNode))
     val loc = Locations.get(node.id)
     val fileName = ComputeCppFiles.FileNames.getAliasType(name)
+    val t = s.a.typeMap(node.id)
 
     // Only add C header if its supported
-    if (s.a.typeSupportedInC(node.id)) {
+    if (s.isTypeSupportedInC(t)) {
       for {
         s <- addHppMapping(s, fileName, Some(loc), "h")
       } yield s

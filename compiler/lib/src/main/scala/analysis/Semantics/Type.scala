@@ -30,9 +30,6 @@ sealed trait Type {
   /** Is this type displayable? */
   def isDisplayable: Boolean = false
 
-  /** Can this type be used in C (instead of C++) */
-  def isSupportedInC(a: Analysis): Boolean = false
-
   /** Is this type a float type? */
   def isFloat: Boolean = false
 
@@ -75,7 +72,6 @@ object Type {
   {
     override def getDefaultValue = Some(Value.PrimitiveInt(0, kind))
     override def isDisplayable = true
-    override def isSupportedInC(a: Analysis) = true
     override def toString = kind match {
       case PrimitiveInt.I8 => "I8"
       case PrimitiveInt.I16 => "I16"
@@ -136,7 +132,6 @@ object Type {
   case class Float(kind: Float.Kind) extends Type with Primitive {
     override def getDefaultValue = Some(Value.Float(0, kind))
     override def isFloat = true
-    override def isSupportedInC(a: Analysis) = true
     override def isDisplayable = true
     override def toString = kind match {
       case Float.F32 => "F32"
@@ -202,14 +197,6 @@ object Type {
     override def getDefNodeId = Some(node._2.id)
     override def toString = node._2.data.name
     override def isCanonical = false
-
-    // C does not support namespacing and therefore does not support the non-global scope
-    override def isSupportedInC(a: Analysis) = (
-      a.parentSymbolMap.get(Symbol.AliasType(node)) match {
-        case Some(_) => false
-        case None => aliasType.isSupportedInC(a)
-      }
-    )
 
     override def isDisplayable = getUnderlyingType.isDisplayable
     override def getUnderlyingType = aliasType.getUnderlyingType

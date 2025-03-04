@@ -7,8 +7,8 @@
 #ifndef TStringSizeAliasAc_HPP
 #define TStringSizeAliasAc_HPP
 
-#include "Fw/Types/BasicTypes.h"
+#include "Fw/Types/String.hpp"
 
-using TStringSize = Fw::ExternalString;
+using TStringSize = Fw::String;
 
 #endif

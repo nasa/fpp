@@ -10,9 +10,17 @@
 #include "Fw/Types/BasicTypes.h"
 #include "SimpleCTypeAliasAc.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 //! A simple type alias that references another simple type alias
 //! Tests if we can handle C header file include chaining
 typedef SimpleCType SimpleCType2;
 #define PRI_SimpleCType2 PRI_SimpleCType
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

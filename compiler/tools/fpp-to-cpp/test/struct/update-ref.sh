@@ -29,6 +29,9 @@ alias_type()
 {
   update "-p $PWD" alias_type
   move_cpp AliasTypeSerializable
+  mv U16AliasAliasAc.h U16AliasAliasAc.ref.h
+  mv U16AliasAliasAc.hpp U16AliasAliasAc.ref.hpp
+  mv TAliasAliasAc.hpp TAliasAliasAc.ref.hpp
 }
 
 empty()
