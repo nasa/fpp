@@ -30,3 +30,8 @@ TTopologyAc.cpp
 TTopologyAc.hpp
 TTopologyAppAi.xml
 TTopologyDictionary.json
+WithCDefinitionAliasAc.h
+WithCDefinitionAliasAc.hpp
+WithCDefinitionBuiltinAliasAc.h
+WithCDefinitionBuiltinAliasAc.hpp
+WithoutCDefinitionAliasAc.hpp
