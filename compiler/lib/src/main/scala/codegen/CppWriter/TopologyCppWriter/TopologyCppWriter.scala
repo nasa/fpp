@@ -36,10 +36,13 @@ case class TopologyCppWriter(
 
   private def getIncludeMembers: List[CppDoc.Member] = {
     val hpp = {
-      val strings = (
-        TopComponentIncludes(s, aNode).getHeaderStrings :+
-        CppWriter.headerString(
-          s.getRelativePath(s"${name}TopologyDefs.hpp").toString
+      val strings = List.concat(
+        TopComponentIncludes(s, aNode).getHeaderStrings,
+        TopTlmPacketIncludes(s, aNode).getHeaderStrings,
+        List(
+          CppWriter.headerString(
+            s.getRelativePath(s"${name}TopologyDefs.hpp").toString
+          )
         )
       ).sorted
       linesMember(Line.blank :: strings.map(line))

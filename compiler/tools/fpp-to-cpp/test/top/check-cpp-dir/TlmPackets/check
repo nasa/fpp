@@ -1,0 +1,27 @@
+#!/bin/sh -e
+
+fpp_to_cpp=../../../../../../bin/fpp-to-cpp
+fprime_gcc=../../../../../../scripts/fprime-gcc
+
+echo '  removing old files'
+./clean
+
+dir=`cd ../..; echo $PWD`
+
+echo '  generating C++'
+$fpp_to_cpp -p $dir -i ../../builtin.fpp ../../tlm_packets.fpp
+for suffix in hpp cpp
+do
+  for file in ../../*TlmPacketsAc.ref.$suffix
+  do
+    base=`basename $file .ref.$suffix`
+    cp $file $base.$suffix
+  done
+done
+
+echo '  compiling C++'
+for file in *TlmPacketsAc.cpp
+do
+  echo "    compiling $file"
+  $fprime_gcc -I.. -I../../../fprime -I../../../fprime/config -Wno-unused-parameter -c $file
+done

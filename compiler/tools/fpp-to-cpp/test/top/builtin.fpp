@@ -4,6 +4,8 @@ module Fw {
   port CmdResponse
   port PrmGet
   port PrmSet
+  port Time
+  port Tlm
 }
 
 enum Phases {

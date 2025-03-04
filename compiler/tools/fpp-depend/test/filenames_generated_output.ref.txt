@@ -30,6 +30,8 @@ TTopologyAc.cpp
 TTopologyAc.hpp
 TTopologyAppAi.xml
 TTopologyDictionary.json
+T_PTlmPacketsAc.cpp
+T_PTlmPacketsAc.hpp
 WithCDefinitionAliasAc.h
 WithCDefinitionAliasAc.hpp
 WithCDefinitionBuiltinAliasAc.h
