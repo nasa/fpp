@@ -742,7 +742,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Public-Symbols">15.3.3. Public Symbols</a></li>
 </ul>
 </li>
-<li><a href="#Writing-C-Plus-Plus-Implementations_Serialization-of-Values">15.4. Serialization of Values</a></li>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Serialization-of-FPP-Values">15.4. Serialization of FPP Values</a></li>
 </ul>
 </li>
 </ul>
@@ -14382,7 +14382,8 @@ It is up to you to provide that header file.</p>
 </div>
 <div class="paragraph">
 <p><strong>General implementations:</strong>
-In general, when implementing an abstract type <code>T</code> in C&#43;&#43;, you should define
+In the most common case, when implementing an abstract type <code>T</code> in C&#43;&#43;, you
+should define
 a class that extends <code>Fw::Serializable</code> from the F Prime framework.
 Your class definition should include the following:</p>
 </div>
@@ -14428,6 +14429,10 @@ of a byte string serialized from the class.</p>
 </div>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>For more on serialization, see the section on
+<a href="#Writing-C-Plus-Plus-Implementations_Serialization-of-FPP-Values">serialization of FPP values</a>.</p>
 </div>
 <div class="paragraph">
 <p>Here is a minimal complete implementation of an abstract type <code>T</code>.
@@ -14906,9 +14911,129 @@ function, you may.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Writing-C-Plus-Plus-Implementations_Serialization-of-Values">15.4. Serialization of Values</h3>
+<h3 id="Writing-C-Plus-Plus-Implementations_Serialization-of-FPP-Values">15.4. Serialization of FPP Values</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>Every value represented in FPP can be <strong>serialized</strong>, i.e., converted into a
+machine-independent sequence of bytes.
+Serialization provides a consistent way to store data (e.g.,
+to onboard storage) and to transmit data (e.g., to or from the ground).
+The F Prime framework also uses serialization to pass data through asynchronous
+port invocations.
+The data is serialized when it is put on a message queue
+and then <strong>deserialized</strong> (i.e., converted from a byte sequence to
+data represented in C&#43;&#43;)
+when it is taken off the queue for processing.</p>
+</div>
+<div class="paragraph">
+<p>F Prime uses the following conventions for serializing data:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Values of primitive integer type are serialized as follows:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>A value of unsigned integer type (<code>U8</code>, <code>U16</code>, <code>U32</code>, or <code>U64</code>)
+is serialized in big-endian order (most significant byte first),
+using the number of bytes implied by the bit width.
+For example, the <code>U16</code> value 10 (decimal) is serialized as the
+two bytes <code>00</code> <code>0A</code> (hex).</p>
+</li>
+<li>
+<p>A value of signed integer type (<code>I8</code>, <code>I16</code>, <code>I32</code>, or <code>I64</code>)
+is serialized by (1) converting the value to an unsigned value of the same bit
+width and (2) serializing the unsigned value as stated above.
+If the value is nonnegative, then the converted value in step 1 is
+the same as the initial value.
+Otherwise the converted value is the two&#8217;s complement of the initial value.
+For example:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>The <code>I16</code> value 10 (decimal) is serialized as two bytes
+in big-endian order, yielding the bytes <code>00</code> <code>0A</code> (hex).</p>
+</li>
+<li>
+<p>The <code>I16</code> value -10 (decimal) is serialized by
+(1) computing the <code>U16</code> value 2<sup>16</sup> - 10 = 65526
+and (2) serializing that value as two bytes in big-endian order,
+yielding the bytes <code>FF</code> <code>F6</code> (hex).</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>A value of floating-point type (<code>F32</code> or <code>F64</code>)
+is serialized in big-endian order according to the IEEE
+standard for representing these values.</p>
+</li>
+<li>
+<p>A value of Boolean type is serialized as a single byte.
+The byte values used to represent <code>true</code> and <code>false</code>
+are <code>FW_SERIALIZE_TRUE_VALUE</code> and <code>FW_SERIALIZE_FALSE_VALUE</code>,
+which are defined in the F Prime configuration header <code>FpConfig.h</code>.</p>
+</li>
+<li>
+<p>A value of string type is serialized as a size followed
+by the string characters.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>The size is serialized as described above for primitive
+integer types.
+The F Prime type definition <code>FwSizeStoreType</code> specifies the type to use
+for the size.
+This type definition is user-configurable; it is found in the
+F Prime configuration header <code>FpConfig.h</code>.</p>
+</li>
+<li>
+<p>There is one byte for each string character, and there is
+no null terminator.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>A value of <a href="#Defining-Types_Array-Type-Definitions">array type</a>
+is serialized as a sequence of serialized values, one for each array
+element, in array order.
+Each value is serialized using these rules.</p>
+</li>
+<li>
+<p>A value of <a href="#Defining-Types_Struct-Type-Definitions">struct type</a>
+is serialized member-by-member, in the order
+that the members appear in the FPP struct definition,
+with no padding.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Except for
+<a href="#Defining-Types_Struct-Type-Definitions_Member-Arrays">member arrays</a>,
+each member is serialized using these rules.</p>
+</li>
+<li>
+<p>Each member array is serialized as described above
+for a value of array type.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>A value of <a href="#Defining-Enums">enum type</a> is serialized according
+to its <a href="#Defining-Enums_The-Representation-Type">representation type</a>.
+The representation type is serialized as described above
+for primitive integer values.</p>
+</li>
+<li>
+<p>A value of <a href="#Defining-Types_Abstract-Type-Definitions">abstract type</a> is
+serialized according to its
+<a href="#Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types">C&#43;&#43; implementation</a>.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -14916,7 +15041,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-03-05 11:07:09 -0800
+Last updated 2025-03-05 15:04:54 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
