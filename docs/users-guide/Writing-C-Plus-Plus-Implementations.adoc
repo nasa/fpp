@@ -589,13 +589,12 @@ with no padding.
 <<Defining-Types_Struct-Type-Definitions_Member-Arrays,member arrays>>,
 each member is serialized using these rules.
 
-.. Each member array is serialized as described above
-for a value of array type.
+.. Each member array is serialized as stated in rule 5.
 
-. A value of <<Defining-Enums,enum type>> is serialized according
-to its <<Defining-Enums_The-Representation-Type,representation type>>.
-The representation type is serialized as described above
-for primitive integer values.
+. A value of <<Defining-Enums,enum type>> is converted to a primitive 
+integer value of the <<Defining-Enums_The-Representation-Type,representation 
+type>> specified in the enum definition.
+This value is serialized as stated in rule 1.
 
 . A value of <<Defining-Types_Abstract-Type-Definitions,abstract type>> is
 serialized according to its 

@@ -15017,17 +15017,16 @@ with no padding.</p>
 each member is serialized using these rules.</p>
 </li>
 <li>
-<p>Each member array is serialized as described above
-for a value of array type.</p>
+<p>Each member array is serialized as stated in rule 5.</p>
 </li>
 </ol>
 </div>
 </li>
 <li>
-<p>A value of <a href="#Defining-Enums">enum type</a> is serialized according
-to its <a href="#Defining-Enums_The-Representation-Type">representation type</a>.
-The representation type is serialized as described above
-for primitive integer values.</p>
+<p>A value of <a href="#Defining-Enums">enum type</a> is converted to a primitive
+integer value of the <a href="#Defining-Enums_The-Representation-Type">representation
+type</a> specified in the enum definition.
+This value is serialized as stated in rule 1.</p>
 </li>
 <li>
 <p>A value of <a href="#Defining-Types_Abstract-Type-Definitions">abstract type</a> is
@@ -15042,7 +15041,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-03-05 15:19:45 -0800
+Last updated 2025-03-05 15:45:55 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
