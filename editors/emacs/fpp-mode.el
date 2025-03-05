@@ -2,7 +2,7 @@
 ;;
 ;; Author: Dennis Ogbe <do@ogbe.net>
 ;; Keywords: languages, fpp
-;; Version: 1
+;; Version: 1.1
 
 ;;; Commentary:
 ;;
@@ -44,7 +44,7 @@
     "at" "base" "block" "change" "choice" "command"
     "connections" "cpu" "default" "diagnostic" "do"
     "drop" "else" "entry" "event" "exit"
-    "false" "fatal" "format" "get" "group" "guard"
+    "false" "fatal" "format" "get" "guard"
     "guarded" "health" "high" "hook" "id" "if" "import"
     "include" "initial" "input" "internal"
     "locate" "low" "match" "on"  "opcode" "orange"
@@ -110,17 +110,23 @@
   (while (fpp-mode-is-continued-line t))
   (beginning-of-line))
 
+(defun fpp-mode-re-count (rx)
+  "Return the number of matches of rx in the the current line."
+  (save-excursion
+    (let* ((eol (progn (end-of-line) (point)))
+           (end (progn (beginning-of-line)
+                       (or (re-search-forward "[@#]" eol t) eol))))
+      (beginning-of-line)
+      (named-let loop ((cnt 0))
+        (if (re-search-forward rx end t) (loop (1+ cnt)) cnt)))))
+
 (defun fpp-mode-indent-function ()
   "A very simple-minded indentation algorithm for FPP."
   (interactive)
-  (let ((point-offset (- (current-column) (current-indentation)))
-        (has-closing-paren
-         (save-excursion
-           (beginning-of-line)
-           (fpp-mode-re-search 'forward (rx (or (intersection (not "{") "}")
-                                                (intersection (not "(") ")")
-                                                (intersection (not "[") "]")))
-                               (point-at-eol)))))
+  (let* ((point-offset (- (current-column) (current-indentation)))
+         (nopen (fpp-mode-re-count "[{\(\[]"))
+         (nclose (fpp-mode-re-count "[\]\)}]"))
+         (has-closing-paren (> (- nclose nopen) 0)))
     (if has-closing-paren
         ;; skip closing paren to get right number of levels from `syntax-ppss'
         (end-of-line)
