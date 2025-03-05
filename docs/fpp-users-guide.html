@@ -742,6 +742,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Public-Symbols">15.3.3. Public Symbols</a></li>
 </ul>
 </li>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Serialization-of-Values">15.4. Serialization of Values</a></li>
 </ul>
 </li>
 </ul>
@@ -14328,7 +14329,9 @@ we won&#8217;t cover it further here.
 Similarly, implementing libraries is unrelated to FPP, so we
 won&#8217;t cover it in this manual.
 Here we focus on items (1), (2), and (5): implementing abstract types,
-implementing external state machines, and implementing deployments.</p>
+implementing external state machines, and implementing deployments.
+We also discuss <strong>serialization</strong> of data values, i.e., representing
+FPP data values as binary data for storage and transmission.</p>
 </div>
 <div class="sect2">
 <h3 id="Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types">15.1. Implementing Abstract Types</h3>
@@ -14378,9 +14381,10 @@ a header file <code>T.hpp</code> must exist in the current directory.
 It is up to you to provide that header file.</p>
 </div>
 <div class="paragraph">
-<p>When implementing an abstract type <code>T</code> in C&#43;&#43;, you must define
+<p><strong>General implementations:</strong>
+In general, when implementing an abstract type <code>T</code> in C&#43;&#43;, you should define
 a class that extends <code>Fw::Serializable</code> from the F Prime framework.
-Your class definition must include the following:</p>
+Your class definition should include the following:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -14470,6 +14474,22 @@ struct T final : public Fw::Serializable { // Extend Fw::Serializable
 
 #endif</pre>
 </div>
+</div>
+<div class="paragraph">
+<p><strong>Serializable buffers used in ports:</strong>
+In some cases, you may want to define an abstract type <code>T</code> that represents
+a data buffer and that is used only in <a href="#Defining-Ports">port definitions</a>.
+In this case you can implement
+<code>T</code> as a class that extends <code>Fw::SerializeBufferBase</code>.
+Instead of implementing the <code>serialize</code> and <code>deserialize</code> functions
+directly, you override functions that get the address and the capacity
+(allocated size) of the buffer; the base class <code>Fw::SerializeBufferBase</code>
+uses these functions to implement <code>serialize</code> and <code>deserialize</code>.
+For an example of how to do this, see the files <code>Fw/Cmd/CmdArgBuffer.hpp</code>
+and <code>Fw/Cmd/CmdArgBuffer.cpp</code> in the F Prime repository.
+Be careful, though: if you implement an abstract type <code>T</code> this way
+and you try to use the type <code>T</code> outside of a port definition,
+the generated C&#43;&#43; may not compile.</p>
 </div>
 <div class="paragraph">
 <p><strong>Built-in types:</strong>
@@ -14885,12 +14905,18 @@ function, you may.</p>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="Writing-C-Plus-Plus-Implementations_Serialization-of-Values">15.4. Serialization of Values</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-02-20 09:49:49 -0800
+Last updated 2025-03-05 11:07:09 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -28,6 +28,8 @@ Similarly, implementing libraries is unrelated to FPP, so we
 won't cover it in this manual.
 Here we focus on items (1), (2), and (5): implementing abstract types,
 implementing external state machines, and implementing deployments.
+We also discuss *serialization* of data values, i.e., representing
+FPP data values as binary data for storage and transmission.
 
 === Implementing Abstract Types
 
@@ -68,9 +70,10 @@ This line says that in order to compile `AArrayAc.cpp`,
 a header file `T.hpp` must exist in the current directory.
 It is up to you to provide that header file.
 
-When implementing an abstract type `T` in {cpp}, you must define
+*General implementations:*
+In general, when implementing an abstract type `T` in {cpp}, you should define
 a class that extends `Fw::Serializable` from the F Prime framework.
-Your class definition must include the following:
+Your class definition should include the following:
 
 * An implementation of the virtual function
 +
@@ -144,6 +147,21 @@ struct T final : public Fw::Serializable { // Extend Fw::Serializable
 
 #endif
 ----
+
+*Serializable buffers used in ports:*
+In some cases, you may want to define an abstract type `T` that represents
+a data buffer and that is used only in <<Defining-Ports,port definitions>>.
+In this case you can implement
+`T` as a class that extends `Fw::SerializeBufferBase`.
+Instead of implementing the `serialize` and `deserialize` functions
+directly, you override functions that get the address and the capacity
+(allocated size) of the buffer; the base class `Fw::SerializeBufferBase`
+uses these functions to implement `serialize` and `deserialize`.
+For an example of how to do this, see the files `Fw/Cmd/CmdArgBuffer.hpp`
+and `Fw/Cmd/CmdArgBuffer.cpp` in the F Prime repository.
+Be careful, though: if you implement an abstract type `T` this way
+and you try to use the type `T` outside of a port definition,
+the generated {cpp} may not compile.
 
 *Built-in types:*
 The following types are abstract in the FPP model but are known to
@@ -489,3 +507,7 @@ up the custom {cpp} code for _I_, and the FPP translator will automatically
 put the code for _I_ into the correct place in _T_ `TopologyAc.cpp`.
 However, if you wish to write the custom code directly into your main
 function, you may.
+
+=== Serialization of Values
+
+TODO
