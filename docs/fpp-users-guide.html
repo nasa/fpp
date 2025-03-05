@@ -14382,8 +14382,8 @@ It is up to you to provide that header file.</p>
 </div>
 <div class="paragraph">
 <p><strong>General implementations:</strong>
-In the most common case, when implementing an abstract type <code>T</code> in C&#43;&#43;, you
-should define
+In most cases, when implementing an abstract type <code>T</code> in C&#43;&#43;, you
+will define
 a class that extends <code>Fw::Serializable</code> from the F Prime framework.
 Your class definition should include the following:</p>
 </div>
@@ -14921,11 +14921,11 @@ The F Prime framework also uses serialization to pass data through asynchronous
 port invocations.
 The data is serialized when it is put on a message queue
 and then <strong>deserialized</strong> (i.e., converted from a byte sequence to
-data represented in C&#43;&#43;)
+a C&#43;&#43; representation)
 when it is taken off the queue for processing.</p>
 </div>
 <div class="paragraph">
-<p>F Prime uses the following conventions for serializing data:</p>
+<p>F Prime uses the following rules for serializing data:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -14942,11 +14942,11 @@ two bytes <code>00</code> <code>0A</code> (hex).</p>
 </li>
 <li>
 <p>A value of signed integer type (<code>I8</code>, <code>I16</code>, <code>I32</code>, or <code>I64</code>)
-is serialized by (1) converting the value to an unsigned value of the same bit
-width and (2) serializing the unsigned value as stated above.
-If the value is nonnegative, then the converted value in step 1 is
-the same as the initial value.
-Otherwise the converted value is the two&#8217;s complement of the initial value.
+is serialized by first converting the value to an unsigned value of the same bit
+width and then serializing the unsigned value as stated in rule 1.a.
+If the value is nonnegative, then the unsigned value is
+the same as the signed value.
+Otherwise the unsigned value is the two&#8217;s complement of the signed value.
 For example:</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
@@ -14979,11 +14979,11 @@ which are defined in the F Prime configuration header <code>FpConfig.h</code>.</
 </li>
 <li>
 <p>A value of string type is serialized as a size followed
-by the string characters.</p>
+by the string characters in string order.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>The size is serialized as described above for primitive
+<p>The size is serialized according to rule 1 for primitive
 integer types.
 The F Prime type definition <code>FwSizeStoreType</code> specifies the type to use
 for the size.
@@ -14991,8 +14991,9 @@ This type definition is user-configurable; it is found in the
 F Prime configuration header <code>FpConfig.h</code>.</p>
 </li>
 <li>
-<p>There is one byte for each string character, and there is
-no null terminator.</p>
+<p>There is one byte for each character of the string, and there is
+no null terminator.
+Each string character is serialized as an <code>I8</code> value according to rule 1.b.</p>
 </li>
 </ol>
 </div>
@@ -15041,7 +15042,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-03-05 15:04:54 -0800
+Last updated 2025-03-05 15:19:45 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
