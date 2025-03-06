@@ -40,23 +40,23 @@ class QueuedEventsTesterBase :
         History(
            const U32 maxSize //!< The maximum history size
         ) :
-          numEntries(0),
-          maxSize(maxSize)
+          m_numEntries(0),
+          m_maxSize(maxSize)
         {
-          this->entries = new T[maxSize];
+          this->m_entries = new T[maxSize];
         }
 
         //! Destroy a History
         ~History()
         {
-          delete[] this->entries;
+          delete[] this->m_entries;
         }
 
         //! Clear the history
         //!
         void clear()
         {
-          this->numEntries = 0;
+          this->m_numEntries = 0;
         }
 
         //! Push an item onto the history
@@ -65,8 +65,8 @@ class QueuedEventsTesterBase :
             const T& entry //!< The item
         )
         {
-          FW_ASSERT(this->numEntries < this->maxSize);
-          entries[this->numEntries++] = entry;
+          FW_ASSERT(this->m_numEntries < this->m_maxSize);
+          this->m_entries[this->m_numEntries++] = entry;
         }
 
         //! Get an item at an index
@@ -76,8 +76,8 @@ class QueuedEventsTesterBase :
             const U32 i //!< The index
         ) const
         {
-          FW_ASSERT(i < this->numEntries);
-          return entries[i];
+          FW_ASSERT(i < this->m_numEntries);
+          return this->m_entries[i];
         }
 
         //! Get the number of entries in the history
@@ -85,19 +85,19 @@ class QueuedEventsTesterBase :
         //! \return The number of entries in the history
         U32 size() const
         {
-          return this->numEntries;
+          return this->m_numEntries;
         }
 
       private:
 
         //! The number of entries in the history
-        U32 numEntries;
+        U32 m_numEntries;
 
         //! The maximum history size
-        const U32 maxSize;
+        const U32 m_maxSize;
 
         //! The entries
-        T* entries;
+        T* m_entries;
 
     };
 

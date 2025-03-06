@@ -53,11 +53,11 @@ class ActiveExternalStateMachines_S2_Interface {
 class ActiveExternalStateMachines_S2 {
                                  
   private:
-    ActiveExternalStateMachines_S2_Interface *parent;
+    ActiveExternalStateMachines_S2_Interface *m_parent;
                                  
   public:
                                  
-    ActiveExternalStateMachines_S2(ActiveExternalStateMachines_S2_Interface* parent) : parent(parent) {}
+    ActiveExternalStateMachines_S2(ActiveExternalStateMachines_S2_Interface* parent) : m_parent(parent) {}
   
     enum ActiveExternalStateMachines_S2_States {
       ON,

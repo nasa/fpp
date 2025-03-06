@@ -101,6 +101,7 @@ namespace M {
   bool S1 ::
     operator==(const S1& obj) const
   {
+    if (this == &obj) { return true; }
     return (
       (this->m_mF32 == obj.m_mF32) &&
       (this->m_mF64 == obj.m_mF64) &&

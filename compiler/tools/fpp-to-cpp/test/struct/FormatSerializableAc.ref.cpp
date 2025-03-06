@@ -119,6 +119,7 @@ Format& Format ::
 bool Format ::
   operator==(const Format& obj) const
 {
+  if (this == &obj) { return true; }
   return (
     (this->m_m1 == obj.m_m1) &&
     (this->m_m2 == obj.m_m2) &&

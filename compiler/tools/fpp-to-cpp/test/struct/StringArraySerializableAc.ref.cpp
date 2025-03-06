@@ -87,17 +87,17 @@ StringArray& StringArray ::
 bool StringArray ::
   operator==(const StringArray& obj) const
 {
+  if (this == &obj) { return true; }
+
   // Compare non-array members
   if (!(this->m_s1 == obj.m_s1)) {
     return false;
   }
 
   // Compare array members
-  if (!(this->m_s2 == obj.m_s2)) {
-    for (FwSizeType i = 0; i < 16; i++) {
-      if (!(this->m_s2[i] == obj.m_s2[i])) {
-        return false;
-      }
+  for (FwSizeType i = 0; i < 16; i++) {
+    if (!(this->m_s2[i] == obj.m_s2[i])) {
+      return false;
     }
   }
 

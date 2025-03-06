@@ -579,48 +579,48 @@ void QueuedNoArgsPortsOnlyComponentBase ::
 Fw::QueuedComponentBase::MsgDispatchStatus QueuedNoArgsPortsOnlyComponentBase ::
   doDispatch()
 {
-  ComponentIpcSerializableBuffer msg;
-  FwQueuePriorityType priority = 0;
+  ComponentIpcSerializableBuffer _msg;
+  FwQueuePriorityType _priority = 0;
 
-  Os::Queue::Status msgStatus = this->m_queue.receive(
-    msg,
+  Os::Queue::Status _msgStatus = this->m_queue.receive(
+    _msg,
     Os::Queue::NONBLOCKING,
-    priority
+    _priority
   );
-  if (Os::Queue::Status::EMPTY == msgStatus) {
+  if (Os::Queue::Status::EMPTY == _msgStatus) {
     return Fw::QueuedComponentBase::MSG_DISPATCH_EMPTY;
   }
   else {
     FW_ASSERT(
-      msgStatus == Os::Queue::OP_OK,
-      static_cast<FwAssertArgType>(msgStatus)
+      _msgStatus == Os::Queue::OP_OK,
+      static_cast<FwAssertArgType>(_msgStatus)
     );
   }
 
   // Reset to beginning of buffer
-  msg.resetDeser();
+  _msg.resetDeser();
 
-  FwEnumStoreType desMsg = 0;
-  Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
+  FwEnumStoreType _desMsg = 0;
+  Fw::SerializeStatus _deserStatus = _msg.deserialize(_desMsg);
   FW_ASSERT(
-    deserStatus == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(deserStatus)
+    _deserStatus == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_deserStatus)
   );
 
-  MsgTypeEnum msgType = static_cast<MsgTypeEnum>(desMsg);
+  MsgTypeEnum _msgType = static_cast<MsgTypeEnum>(_desMsg);
 
-  if (msgType == QUEUEDNOARGSPORTSONLY_COMPONENT_EXIT) {
+  if (_msgType == QUEUEDNOARGSPORTSONLY_COMPONENT_EXIT) {
     return MSG_DISPATCH_EXIT;
   }
 
   FwIndexType portNum = 0;
-  deserStatus = msg.deserialize(portNum);
+  _deserStatus = _msg.deserialize(portNum);
   FW_ASSERT(
-    deserStatus == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(deserStatus)
+    _deserStatus == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_deserStatus)
   );
 
-  switch (msgType) {
+  switch (_msgType) {
     // Handle async input port noArgsAsync
     case NOARGSASYNC_NOARGS: {
       // Call handler function
