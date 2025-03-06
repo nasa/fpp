@@ -563,9 +563,10 @@ object Parser extends Parsers {
     opt(default ~>! exprNode) ~!
     opt(id ~>! exprNode) ~!
     opt(set ~! opcode ~>! exprNode) ~!
-    opt(save ~! opcode ~>! exprNode) ^^ {
-      case name ~ typeName ~ default ~ id ~ setOpcode ~ saveOpcode =>
-        Ast.SpecParam(name, typeName, default, id, setOpcode, saveOpcode)
+    opt(save ~! opcode ~>! exprNode) ~!
+    opt(external ~>! exprNode) ^^ {
+      case name ~ typeName ~ default ~ id ~ setOpcode ~ saveOpcode ~ external =>
+        Ast.SpecParam(name, typeName, default, id, setOpcode, saveOpcode, external)
     }
   }
 
@@ -658,7 +659,7 @@ object Parser extends Parsers {
     (state ~> machine ~> (instance ~>! ident) ~! (colon ~>! node(qualIdent)) ~!
     opt(priority ~>! exprNode) ~!
     opt(queueFull)) ^^ {
-      case name ~ statemachine ~ priority ~ queueFull => 
+      case name ~ statemachine ~ priority ~ queueFull =>
         Ast.SpecStateMachineInstance(name, statemachine, priority, queueFull)
     }
   }
@@ -961,6 +962,8 @@ object Parser extends Parsers {
   private def event = accept("event", { case t : Token.EVENT => t })
 
   private def exit = accept("exit", { case t : Token.EXIT => t })
+
+  private def external = accept("external", { case t : Token.EXTERNAL => t })
 
   private def falseToken = accept("false", { case t : Token.FALSE => t })
 

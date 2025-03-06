@@ -276,6 +276,7 @@ object Lexer extends RegexParsers {
     ("enum", (u: Unit) => Token.ENUM()),
     ("event", (u: Unit) => Token.EVENT()),
     ("exit", (u: Unit) => Token.EXIT()),
+    ("external", (u: Unit) => Token.EXTERNAL()),
     ("false", (u: Unit) => Token.FALSE()),
     ("fatal", (u: Unit) => Token.FATAL()),
     ("format", (u: Unit) => Token.FORMAT()),

@@ -7,3 +7,4 @@ __SHADOW__
 __pycache__
 dist/
 fprime_fpp/fpp_version_info.py
+ compiler/project/* # Scala metals project files

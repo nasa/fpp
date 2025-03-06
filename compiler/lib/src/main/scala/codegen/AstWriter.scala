@@ -480,6 +480,7 @@ object AstWriter extends AstVisitor with LineUtils {
       linesOpt(addPrefix("id", exprNode), data.id),
       linesOpt(addPrefix("set opcode", exprNode), data.setOpcode),
       linesOpt(addPrefix("save opcode", exprNode), data.saveOpcode),
+      linesOpt(addPrefix("external", exprNode), data.external),
     ).map(indentIn)
   }
 
