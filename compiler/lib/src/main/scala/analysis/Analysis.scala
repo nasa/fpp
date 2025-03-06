@@ -309,12 +309,12 @@ case class Analysis(
   def getIntValueOpt[T](nodeOpt: Option[AstNode[T]]): Result.Result[Option[Int]] =
     Result.mapOpt(nodeOpt, (node: AstNode[T]) => getIntValue(node.id))
 
-  /** Gets an optional nonnegative BigInt value from an AST ndoe */
+  /** Gets an optional nonnegative BigInt value from an AST node */
   def getNonnegativeBigIntValueOpt[T](nodeOpt: Option[AstNode[T]]):
     Result.Result[Option[BigInt]] =
     Result.mapOpt(nodeOpt, (node: AstNode[T]) => getNonnegativeBigIntValue(node.id))
 
-  /** Gets an optional nonnegative int value from an AST ndoe */
+  /** Gets an optional nonnegative int value from an AST node */
   def getNonnegativeIntValueOpt[T](nodeOpt: Option[AstNode[T]]): Result.Result[Option[Int]] =
     Result.mapOpt(nodeOpt, (node: AstNode[T]) => getNonnegativeIntValue(node.id))
 
