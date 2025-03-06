@@ -138,7 +138,7 @@ case class ArrayCppWriter (
         CppDocWriter.writeBannerComment("Constants") ++
         addBlankPrefix(
           wrapInEnum({
-            val elementSizes = eltType match {
+            val elementSizes = eltType.getUnderlyingType match {
               case ts: Type.String =>
                 s"""|//! The string size of each element
                     |ELEMENT_STRING_SIZE = ${writeStringSize(s, ts)},
@@ -545,7 +545,7 @@ case class ArrayCppWriter (
         CppDocWriter.writeBannerComment("Member variables") ++
         List.concat(
           addBlankPrefix(
-            eltType match {
+            eltType.getUnderlyingType match {
               case _: Type.String =>
                 lines("""|//! The char buffers
                          |char buffers[SIZE][ELEMENT_BUFFER_SIZE];""".stripMargin)

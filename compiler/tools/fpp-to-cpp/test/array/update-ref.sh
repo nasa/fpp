@@ -8,6 +8,8 @@ alias_type()
 {
   update "-p $PWD" alias_type
   move_cpp AliasTypeArray
+  mv ATAliasAc.hpp ATAliasAc.ref.hpp
+  mv ATAliasAc.h ATAliasAc.ref.h
 }
 
 builtin_type()

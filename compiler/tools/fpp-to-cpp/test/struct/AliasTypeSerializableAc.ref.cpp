@@ -22,8 +22,8 @@ AliasType ::
 
 AliasType ::
   AliasType(
-      U16 x,
-      const T& y
+      U16Alias x,
+      const TAlias& y
   ) :
     Serializable(),
     m_x(x),
@@ -152,8 +152,8 @@ void AliasType ::
 
 void AliasType ::
   set(
-      U16 x,
-      const T& y
+      U16Alias x,
+      const TAlias& y
   )
 {
   this->m_x = x;
@@ -161,13 +161,13 @@ void AliasType ::
 }
 
 void AliasType ::
-  setx(U16 x)
+  setx(U16Alias x)
 {
   this->m_x = x;
 }
 
 void AliasType ::
-  sety(const T& y)
+  sety(const TAlias& y)
 {
   this->m_y = y;
 }

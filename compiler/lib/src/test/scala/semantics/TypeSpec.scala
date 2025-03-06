@@ -7,7 +7,6 @@ import org.scalatest.wordspec.AnyWordSpec
 import Helpers._
 import Type._
 import Types._
-import fpp.compiler.syntax.Parser.defAliasType
 
 class TypeSpec extends AnyWordSpec {
 

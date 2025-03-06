@@ -28,7 +28,10 @@ abs_type()
 alias_type()
 {
   run_test "-p $PWD" alias_type && \
-    diff_cpp AliasTypeSerializable
+    diff_cpp AliasTypeSerializable && \
+    diff -u U16AliasAliasAc.ref.h U16AliasAliasAc.h && \
+    diff -u U16AliasAliasAc.ref.hpp U16AliasAliasAc.hpp
+    diff -u TAliasAliasAc.ref.hpp TAliasAliasAc.hpp
 }
 
 empty()

@@ -351,7 +351,7 @@ case class StructCppWriter(
   private def getFunctionMembers: List[CppDoc.Class.Member] = {
     // Members on which to call toString()
     val toStringMemberNames =
-      memberList.filter((n, tn) => typeMembers(n) match {
+      memberList.filter((n, tn) => typeMembers(n).getUnderlyingType match {
         case _: Type.String => false
         case t if s.isPrimitive(t, tn) => false
         case _ => true
@@ -623,7 +623,7 @@ case class StructCppWriter(
   private def writeMemberAsParamScalar(member: (String, String)) = member match {
     case (n, tn) => CppDoc.Function.Param(
       CppDoc.Type(
-        typeMembers(n) match {
+        typeMembers(n).getUnderlyingType match {
           case _: Type.Enum => s"$tn::T"
           case _: Type.String => "const Fw::StringBase&"
           case t => if s.isPrimitive(t, tn) then tn else s"const $tn&"
@@ -654,7 +654,7 @@ case class StructCppWriter(
 
   private def writeInitializer(name: String, value: String) = {
     val bufferName = getBufferName(name)
-    typeMembers(name) match {
+    typeMembers(name).getUnderlyingType match {
       case _: Type.String => s"m_$name(m_$bufferName, sizeof m_$bufferName, $value)"
       case _ => s"m_$name($value)"
     }
@@ -671,7 +671,7 @@ case class StructCppWriter(
         sizes(n),
         List.concat(
           {
-            typeMembers(n) match {
+            typeMembers(n).getUnderlyingType match {
               case _: Type.String =>
                 val bufferName = getBufferName(n)
                 lines(s"""|// Initialize the external string
