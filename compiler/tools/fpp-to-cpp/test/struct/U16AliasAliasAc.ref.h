@@ -9,15 +9,7 @@
 
 #include "Fw/Types/BasicTypes.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 typedef U16 U16Alias;
 #define PRI_U16Alias PRI_u16
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif

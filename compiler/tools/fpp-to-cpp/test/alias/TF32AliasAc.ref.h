@@ -9,15 +9,7 @@
 
 #include "Fw/Types/BasicTypes.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 typedef F32 TF32;
 #define PRI_TF32 PRI_f32
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif

@@ -9,6 +9,8 @@
 
 #include "Fw/Types/BasicTypes.h"
 
+extern "C" {
 #include "TU32AliasAc.h"
+}
 
 #endif

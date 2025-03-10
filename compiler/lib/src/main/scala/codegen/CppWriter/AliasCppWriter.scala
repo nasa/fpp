@@ -86,34 +86,28 @@ case class AliasCppWriter (
   }
 
   private def getHppMembers: List[CppDoc.Member] = {
-    List(
-      List(getHppIncludes),
-      wrapInNamespaces(namespaceIdentList, List(getHppDefinition))
-    ).flatten
+    List.concat(
+        List(getHppIncludes),
+        wrapInNamespaces(namespaceIdentList, List(getHppDefinition))
+    )
   }
 
   private def getHMembers: List[CppDoc.Member] = {
     List(
       getHIncludes,
-      getHOpenCPPGuard,
       getHDefinition,
-      getHCloseCPPGuard,
     )
   }
 
-  private def getHOpenCPPGuard: CppDoc.Member = {
+  private def getHPPCPPGuard: CppDoc.Member = {
     linesMember(addBlankPrefix(lines(
-        """|#ifdef __cplusplus
-           |extern "C" {
-           |#endif""")
+        """extern "C" {""")
       ))
   }
 
-  private def getHCloseCPPGuard: CppDoc.Member = {
+  private def getHPPCloseCPPGuard: CppDoc.Member = {
     linesMember(addBlankPrefix(lines(
-        """|#ifdef __cplusplus
-           |}
-           |#endif""")
+        """}""")
       ))
   }
 
@@ -153,11 +147,14 @@ case class AliasCppWriter (
     val name = s.getName(symbol)
 
     supportedCHeader match {
-      case true => linesMember(addBlankPrefix(lines(
-        // Include the C definition of the type alias
-        // This is using a `typedef`
-        CppWriterState.headerString(s.getIncludePath(symbol, ComputeCppFiles.FileNames.getAliasType(name), "h"))
-      )))
+      case true => linesMember(
+          // Include the C definition of the type alias
+          // This is using a `typedef`
+          addBlankPrefix(lines(
+            s"""|extern "C" {
+                |${CppWriterState.headerString(s.getIncludePath(symbol, ComputeCppFiles.FileNames.getAliasType(name), "h"))}
+                |}""")
+          ))
       case false => linesMember(addBlankPrefix(
         // Define a C++ only
         AnnotationCppWriter.writePreComment(aNode) ++ lines(

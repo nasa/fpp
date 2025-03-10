@@ -9,15 +9,7 @@
 
 #include "Fw/Types/BasicTypes.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 typedef U32 AT;
 #define PRI_AT PRI_u32
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif

@@ -9,6 +9,8 @@
 
 #include "FppConfig.hpp"
 
+extern "C" {
 #include "BuiltInTypeAliasAc.h"
+}
 
 #endif

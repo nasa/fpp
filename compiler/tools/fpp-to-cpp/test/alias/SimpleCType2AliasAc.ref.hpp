@@ -10,6 +10,8 @@
 #include "Fw/Types/BasicTypes.h"
 #include "SimpleCTypeAliasAc.hpp"
 
+extern "C" {
 #include "SimpleCType2AliasAc.h"
+}
 
 #endif

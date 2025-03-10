@@ -10,16 +10,8 @@
 #include "FppConfig.h"
 #include "Fw/Types/BasicTypes.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 //! An alias of a built-in type
 typedef FwOpcodeType BuiltInType;
 #define PRI_BuiltInType PRI_FwOpcodeType
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif
