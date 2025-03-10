@@ -16,7 +16,7 @@
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
-#include "Fw/Types/StringType.hpp"
+#include "Fw/Types/String.hpp"
 #include "SSerializableAc.hpp"
 
 namespace Ports {

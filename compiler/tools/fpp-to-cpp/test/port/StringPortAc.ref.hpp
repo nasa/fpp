@@ -15,7 +15,7 @@
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/Serializable.hpp"
-#include "Fw/Types/StringType.hpp"
+#include "Fw/Types/String.hpp"
 
 //! Input String port
 //! A port with string parameters
