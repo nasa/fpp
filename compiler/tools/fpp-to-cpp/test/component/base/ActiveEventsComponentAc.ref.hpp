@@ -28,6 +28,7 @@
 #include "Fw/Tlm/TlmPortAc.hpp"
 #include "NoArgsPortAc.hpp"
 #include "NoArgsReturnPortAc.hpp"
+#include "NoArgsStringReturnPortAc.hpp"
 #include "Os/Mutex.hpp"
 #include "SSerializableAc.hpp"
 #include "TypedPortAc.hpp"
@@ -65,6 +66,7 @@ class ActiveEventsComponentBase :
       NUM_NOARGSGUARDED_INPUT_PORTS = 1,
       NUM_NOARGSRETURNGUARDED_INPUT_PORTS = 1,
       NUM_NOARGSRETURNSYNC_INPUT_PORTS = 3,
+      NUM_NOARGSSTRINGRETURNSYNC_INPUT_PORTS = 1,
       NUM_NOARGSSYNC_INPUT_PORTS = 3,
       NUM_TYPEDASYNC_INPUT_PORTS = 1,
       NUM_TYPEDASYNCASSERT_INPUT_PORTS = 1,
@@ -92,6 +94,7 @@ class ActiveEventsComponentBase :
     enum {
       NUM_NOARGSOUT_OUTPUT_PORTS = 1,
       NUM_NOARGSRETURNOUT_OUTPUT_PORTS = 1,
+      NUM_NOARGSSTRINGRETURNOUT_OUTPUT_PORTS = 1,
       NUM_TYPEDOUT_OUTPUT_PORTS = 1,
       NUM_TYPEDRETURNOUT_OUTPUT_PORTS = 1,
     };
@@ -170,6 +173,13 @@ class ActiveEventsComponentBase :
     //!
     //! \return noArgsReturnSync[portNum]
     Ports::InputNoArgsReturnPort* get_noArgsReturnSync_InputPort(
+        FwIndexType portNum //!< The port number
+    );
+
+    //! Get typed input port at index
+    //!
+    //! \return noArgsStringReturnSync[portNum]
+    Ports::InputNoArgsStringReturnPort* get_noArgsStringReturnSync_InputPort(
         FwIndexType portNum //!< The port number
     );
 
@@ -310,6 +320,12 @@ class ActiveEventsComponentBase :
     void set_noArgsReturnOut_OutputPort(
         FwIndexType portNum, //!< The port number
         Ports::InputNoArgsReturnPort* port //!< The input port
+    );
+
+    //! Connect port to noArgsStringReturnOut[portNum]
+    void set_noArgsStringReturnOut_OutputPort(
+        FwIndexType portNum, //!< The port number
+        Ports::InputNoArgsStringReturnPort* port //!< The input port
     );
 
     //! Connect port to typedOut[portNum]
@@ -453,6 +469,11 @@ class ActiveEventsComponentBase :
     //! \return The number of noArgsReturnSync input ports
     FwIndexType getNum_noArgsReturnSync_InputPorts() const;
 
+    //! Get the number of noArgsStringReturnSync input ports
+    //!
+    //! \return The number of noArgsStringReturnSync input ports
+    FwIndexType getNum_noArgsStringReturnSync_InputPorts() const;
+
     //! Get the number of noArgsSync input ports
     //!
     //! \return The number of noArgsSync input ports
@@ -564,6 +585,11 @@ class ActiveEventsComponentBase :
     //! \return The number of noArgsReturnOut output ports
     FwIndexType getNum_noArgsReturnOut_OutputPorts() const;
 
+    //! Get the number of noArgsStringReturnOut output ports
+    //!
+    //! \return The number of noArgsStringReturnOut output ports
+    FwIndexType getNum_noArgsStringReturnOut_OutputPorts() const;
+
     //! Get the number of typedOut output ports
     //!
     //! \return The number of typedOut output ports
@@ -660,6 +686,13 @@ class ActiveEventsComponentBase :
         FwIndexType portNum //!< The port number
     );
 
+    //! Check whether port noArgsStringReturnOut is connected
+    //!
+    //! \return Whether port noArgsStringReturnOut is connected
+    bool isConnected_noArgsStringReturnOut_OutputPort(
+        FwIndexType portNum //!< The port number
+    );
+
     //! Check whether port typedOut is connected
     //!
     //! \return Whether port typedOut is connected
@@ -697,6 +730,11 @@ class ActiveEventsComponentBase :
 
     //! Handler for input port noArgsReturnSync
     virtual U32 noArgsReturnSync_handler(
+        FwIndexType portNum //!< The port number
+    ) = 0;
+
+    //! Handler for input port noArgsStringReturnSync
+    virtual Fw::String noArgsStringReturnSync_handler(
         FwIndexType portNum //!< The port number
     ) = 0;
 
@@ -826,6 +864,11 @@ class ActiveEventsComponentBase :
 
     //! Handler base-class function for input port noArgsReturnSync
     U32 noArgsReturnSync_handlerBase(
+        FwIndexType portNum //!< The port number
+    );
+
+    //! Handler base-class function for input port noArgsStringReturnSync
+    Fw::String noArgsStringReturnSync_handlerBase(
         FwIndexType portNum //!< The port number
     );
 
@@ -1009,6 +1052,11 @@ class ActiveEventsComponentBase :
         FwIndexType portNum //!< The port number
     );
 
+    //! Invoke output port noArgsStringReturnOut
+    Fw::String noArgsStringReturnOut_out(
+        FwIndexType portNum //!< The port number
+    );
+
     //! Invoke output port typedOut
     void typedOut_out(
         FwIndexType portNum, //!< The port number
@@ -1182,6 +1230,12 @@ class ActiveEventsComponentBase :
         FwIndexType portNum //!< The port number
     );
 
+    //! Callback for port noArgsStringReturnSync
+    static Fw::String m_p_noArgsStringReturnSync_in(
+        Fw::PassiveComponentBase* callComp, //!< The component instance
+        FwIndexType portNum //!< The port number
+    );
+
     //! Callback for port noArgsSync
     static void m_p_noArgsSync_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
@@ -1319,6 +1373,9 @@ class ActiveEventsComponentBase :
     //! Input port noArgsReturnSync
     Ports::InputNoArgsReturnPort m_noArgsReturnSync_InputPort[NUM_NOARGSRETURNSYNC_INPUT_PORTS];
 
+    //! Input port noArgsStringReturnSync
+    Ports::InputNoArgsStringReturnPort m_noArgsStringReturnSync_InputPort[NUM_NOARGSSTRINGRETURNSYNC_INPUT_PORTS];
+
     //! Input port noArgsSync
     Ports::InputNoArgsPort m_noArgsSync_InputPort[NUM_NOARGSSYNC_INPUT_PORTS];
 
@@ -1391,6 +1448,9 @@ class ActiveEventsComponentBase :
 
     //! Output port noArgsReturnOut
     Ports::OutputNoArgsReturnPort m_noArgsReturnOut_OutputPort[NUM_NOARGSRETURNOUT_OUTPUT_PORTS];
+
+    //! Output port noArgsStringReturnOut
+    Ports::OutputNoArgsStringReturnPort m_noArgsStringReturnOut_OutputPort[NUM_NOARGSSTRINGRETURNOUT_OUTPUT_PORTS];
 
     //! Output port typedOut
     Ports::OutputTypedPort m_typedOut_OutputPort[NUM_TYPEDOUT_OUTPUT_PORTS];

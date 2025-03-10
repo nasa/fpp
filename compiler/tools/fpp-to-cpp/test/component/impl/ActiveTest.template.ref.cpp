@@ -53,6 +53,12 @@ namespace M {
     // TODO return
   }
 
+  Fw::String ActiveTest ::
+    noArgsStringReturnSync_handler(FwIndexType portNum)
+  {
+    // TODO return
+  }
+
   void ActiveTest ::
     noArgsSync_handler(FwIndexType portNum)
   {

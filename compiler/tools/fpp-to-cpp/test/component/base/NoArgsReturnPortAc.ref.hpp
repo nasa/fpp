@@ -19,7 +19,7 @@
 namespace Ports {
 
   //! Input NoArgsReturn port
-  //! A type port with no arguments and a return type
+  //! A typed port with no arguments and a return type
   class InputNoArgsReturnPort :
     public Fw::InputPortBase
   {
@@ -89,7 +89,7 @@ namespace Ports {
   };
 
   //! Output NoArgsReturn port
-  //! A type port with no arguments and a return type
+  //! A typed port with no arguments and a return type
   class OutputNoArgsReturnPort :
     public Fw::OutputPortBase
   {
