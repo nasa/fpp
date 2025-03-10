@@ -7,9 +7,10 @@
 #ifndef PassiveCommandsComponentAc_HPP
 #define PassiveCommandsComponentAc_HPP
 
+#include <FpConfig.hpp>
+
 #include "AArrayAc.hpp"
 #include "EEnumAc.hpp"
-#include "FpConfig.hpp"
 #include "Fw/Cmd/CmdPortAc.hpp"
 #include "Fw/Cmd/CmdRegPortAc.hpp"
 #include "Fw/Cmd/CmdResponsePortAc.hpp"

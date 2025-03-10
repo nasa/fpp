@@ -7,8 +7,9 @@
 #ifndef ActiveAsyncProductsComponentAc_HPP
 #define ActiveAsyncProductsComponentAc_HPP
 
+#include <FpConfig.hpp>
+
 #include "ActiveAsyncProducts_DataSerializableAc.hpp"
-#include "FpConfig.hpp"
 #include "Fw/Cmd/CmdPortAc.hpp"
 #include "Fw/Cmd/CmdRegPortAc.hpp"
 #include "Fw/Cmd/CmdResponsePortAc.hpp"

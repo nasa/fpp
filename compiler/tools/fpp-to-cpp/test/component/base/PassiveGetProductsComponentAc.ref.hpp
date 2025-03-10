@@ -7,7 +7,8 @@
 #ifndef PassiveGetProductsComponentAc_HPP
 #define PassiveGetProductsComponentAc_HPP
 
-#include "FpConfig.hpp"
+#include <FpConfig.hpp>
+
 #include "Fw/Cmd/CmdPortAc.hpp"
 #include "Fw/Cmd/CmdRegPortAc.hpp"
 #include "Fw/Cmd/CmdResponsePortAc.hpp"

@@ -7,8 +7,9 @@
 #ifndef ActiveGetProductsComponentAc_HPP
 #define ActiveGetProductsComponentAc_HPP
 
+#include <FpConfig.hpp>
+
 #include "ActiveGetProducts_DataSerializableAc.hpp"
-#include "FpConfig.hpp"
 #include "Fw/Cmd/CmdPortAc.hpp"
 #include "Fw/Cmd/CmdRegPortAc.hpp"
 #include "Fw/Cmd/CmdResponsePortAc.hpp"
