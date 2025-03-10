@@ -23,6 +23,8 @@ case class PortCppWriter (
 
   private val typeCppWriter = TypeCppWriter(s, "Fw::StringBase")
 
+  private val returnTypeCppWriter = TypeCppWriter(s, "Fw::String")
+
   private val formalParamsCppWriter = FormalParamsCppWriter(s)
 
   private val params = data.params
@@ -58,7 +60,7 @@ case class PortCppWriter (
 
   // Return type as a C++ type
   private val returnType = data.returnType match {
-    case Some(value) => typeCppWriter.write(s.a.typeMap(value.id))
+    case Some(value) => returnTypeCppWriter.write(s.a.typeMap(value.id))
     case None => "void"
   }
 
@@ -132,7 +134,7 @@ case class PortCppWriter (
         "Fw/Comp/PassiveComponentBase.hpp",
         "Fw/Port/InputPortBase.hpp",
         "Fw/Port/OutputPortBase.hpp",
-        "Fw/Types/StringType.hpp",
+        "Fw/Types/String.hpp",
       ) ++ serializableHeader
     ).map(CppWriter.headerString)
     val symbolHeaders = writeIncludeDirectives
