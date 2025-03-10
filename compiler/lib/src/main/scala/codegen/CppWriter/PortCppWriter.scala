@@ -123,6 +123,7 @@ case class PortCppWriter (
     val systemHeaders = List(
       "cstdio",
       "cstring",
+      "FpConfig.hpp"
     ).map(CppWriter.systemHeaderString).map(line)
     val serializableHeader = data.returnType match {
       case Some(_) => Nil
@@ -130,7 +131,6 @@ case class PortCppWriter (
     }
     val standardHeaders = (
       List(
-        "FpConfig.hpp",
         "Fw/Comp/PassiveComponentBase.hpp",
         "Fw/Port/InputPortBase.hpp",
         "Fw/Port/OutputPortBase.hpp",
@@ -140,10 +140,10 @@ case class PortCppWriter (
     val symbolHeaders = writeIncludeDirectives
     val userHeaders = (standardHeaders ++ symbolHeaders).sorted.map(line)
     linesMember(
-      List(
-        Line.blank :: systemHeaders,
-        Line.blank :: userHeaders
-      ).flatten
+      List.concat(
+        addBlankPrefix(systemHeaders),
+        addBlankPrefix(userHeaders)
+      )
     )
   }
 

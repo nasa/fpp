@@ -9,8 +9,8 @@
 
 #include <cstdio>
 #include <cstring>
+#include <FpConfig.hpp>
 
-#include "FpConfig.hpp"
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
