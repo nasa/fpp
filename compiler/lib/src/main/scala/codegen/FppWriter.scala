@@ -524,7 +524,7 @@ object FppWriter extends AstVisitor with LineUtils {
       joinOpt (data.id) (" id ") (exprNode).
       joinOptWithBreak (data.setOpcode) ("set opcode ") (exprNode).
       joinOptWithBreak (data.saveOpcode) ("save opcode ") (exprNode).
-      joinOptWithBreak (data.external) ("external ") (exprNode)
+      addSuffix (if data.isExternal then "external " else "")
   }
 
   override def specPortInstanceAnnotatedNode(

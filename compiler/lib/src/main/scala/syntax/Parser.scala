@@ -564,9 +564,9 @@ object Parser extends Parsers {
     opt(id ~>! exprNode) ~!
     opt(set ~! opcode ~>! exprNode) ~!
     opt(save ~! opcode ~>! exprNode) ~!
-    opt(external ~>! exprNode) ^^ {
+    opt(external) ^^ {
       case name ~ typeName ~ default ~ id ~ setOpcode ~ saveOpcode ~ external =>
-        Ast.SpecParam(name, typeName, default, id, setOpcode, saveOpcode, external)
+        Ast.SpecParam(name, typeName, default, id, setOpcode, saveOpcode, external.isDefined)
     }
   }
 

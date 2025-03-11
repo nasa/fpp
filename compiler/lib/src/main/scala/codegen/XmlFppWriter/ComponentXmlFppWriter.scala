@@ -98,11 +98,10 @@ object ComponentXmlFppWriter extends LineUtils {
       )
 
     /** Translates an optional boolean attribute */
-    def translateBoolOpt(xmlNode: scala.xml.Node, name: String):
-        Option[AstNode[Ast.ExprLiteralBool]] =
+    def translateBoolOpt(xmlNode: scala.xml.Node, name: String): Boolean =
           XmlFppWriter.getAttributeOpt(xmlNode, name).match {
-            case Some(_) => Some(AstNode.create(Ast.ExprLiteralBool(Ast.LiteralBool.True)))
-            case None => Some(AstNode.create(Ast.ExprLiteralBool(Ast.LiteralBool.False)))
+            case Some(_) => true
+            case None => false
       }
 
     /** Translates an optional queue full attribute */
@@ -365,7 +364,7 @@ object ComponentXmlFppWriter extends LineUtils {
             }
             val setOpcode = translateIntegerOpt(xmlNode, "set_opcode")
             val saveOpcode = translateIntegerOpt(xmlNode, "save_opcode")
-            val external = translateBoolOpt(xmlNode, "external")
+            val isExternal = translateBoolOpt(xmlNode, "external")
             val paramMemberNode = {
               val param = Ast.SpecParam(
                 name,
@@ -374,7 +373,7 @@ object ComponentXmlFppWriter extends LineUtils {
                 id,
                 setOpcode,
                 saveOpcode,
-                external
+                isExternal
               )
               val node = AstNode.create(param)
               val memberNode = Ast.ComponentMember.SpecParam(node)
