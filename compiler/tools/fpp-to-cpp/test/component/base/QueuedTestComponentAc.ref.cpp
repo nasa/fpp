@@ -5713,72 +5713,72 @@ void QueuedTestComponentBase ::
 Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
   doDispatch()
 {
-  ComponentIpcSerializableBuffer msg;
-  FwQueuePriorityType priority = 0;
+  ComponentIpcSerializableBuffer _msg;
+  FwQueuePriorityType _priority = 0;
 
-  Os::Queue::Status msgStatus = this->m_queue.receive(
-    msg,
+  Os::Queue::Status _msgStatus = this->m_queue.receive(
+    _msg,
     Os::Queue::NONBLOCKING,
-    priority
+    _priority
   );
-  if (Os::Queue::Status::EMPTY == msgStatus) {
+  if (Os::Queue::Status::EMPTY == _msgStatus) {
     return Fw::QueuedComponentBase::MSG_DISPATCH_EMPTY;
   }
   else {
     FW_ASSERT(
-      msgStatus == Os::Queue::OP_OK,
-      static_cast<FwAssertArgType>(msgStatus)
+      _msgStatus == Os::Queue::OP_OK,
+      static_cast<FwAssertArgType>(_msgStatus)
     );
   }
 
   // Reset to beginning of buffer
-  msg.resetDeser();
+  _msg.resetDeser();
 
-  FwEnumStoreType desMsg = 0;
-  Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
+  FwEnumStoreType _desMsg = 0;
+  Fw::SerializeStatus _deserStatus = _msg.deserialize(_desMsg);
   FW_ASSERT(
-    deserStatus == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(deserStatus)
+    _deserStatus == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_deserStatus)
   );
 
-  MsgTypeEnum msgType = static_cast<MsgTypeEnum>(desMsg);
+  MsgTypeEnum _msgType = static_cast<MsgTypeEnum>(_desMsg);
 
-  if (msgType == QUEUEDTEST_COMPONENT_EXIT) {
+  if (_msgType == QUEUEDTEST_COMPONENT_EXIT) {
     return MSG_DISPATCH_EXIT;
   }
 
   FwIndexType portNum = 0;
-  deserStatus = msg.deserialize(portNum);
+  _deserStatus = _msg.deserialize(portNum);
   FW_ASSERT(
-    deserStatus == Fw::FW_SERIALIZE_OK,
-    static_cast<FwAssertArgType>(deserStatus)
+    _deserStatus == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_deserStatus)
   );
 
-  switch (msgType) {
+  switch (_msgType) {
     // Handle async input port productRecvIn
     case PRODUCTRECVIN_DPRESPONSE: {
       // Deserialize argument id
       FwDpIdType id;
-      deserStatus = msg.deserialize(id);
+      _deserStatus = _msg.deserialize(id);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument buffer
       Fw::Buffer buffer;
-      deserStatus = msg.deserialize(buffer);
+      _deserStatus = _msg.deserialize(buffer);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument status
       Fw::Success status;
-      deserStatus = msg.deserialize(status);
+      _deserStatus = _msg.deserialize(status);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
       // Call handler function
       this->productRecvIn_handler(
@@ -5803,59 +5803,59 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
     case TYPEDASYNC_TYPED: {
       // Deserialize argument u32
       U32 u32;
-      deserStatus = msg.deserialize(u32);
+      _deserStatus = _msg.deserialize(u32);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument f32
       F32 f32;
-      deserStatus = msg.deserialize(f32);
+      _deserStatus = _msg.deserialize(f32);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument b
       bool b;
-      deserStatus = msg.deserialize(b);
+      _deserStatus = _msg.deserialize(b);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument str1
       char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
-      deserStatus = msg.deserialize(str1);
+      _deserStatus = _msg.deserialize(str1);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument e
       E e;
-      deserStatus = msg.deserialize(e);
+      _deserStatus = _msg.deserialize(e);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument a
       A a;
-      deserStatus = msg.deserialize(a);
+      _deserStatus = _msg.deserialize(a);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument s
       S s;
-      deserStatus = msg.deserialize(s);
+      _deserStatus = _msg.deserialize(s);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
       // Call handler function
       this->typedAsync_handler(
@@ -5876,59 +5876,59 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
     case TYPEDASYNCASSERT_TYPED: {
       // Deserialize argument u32
       U32 u32;
-      deserStatus = msg.deserialize(u32);
+      _deserStatus = _msg.deserialize(u32);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument f32
       F32 f32;
-      deserStatus = msg.deserialize(f32);
+      _deserStatus = _msg.deserialize(f32);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument b
       bool b;
-      deserStatus = msg.deserialize(b);
+      _deserStatus = _msg.deserialize(b);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument str1
       char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
-      deserStatus = msg.deserialize(str1);
+      _deserStatus = _msg.deserialize(str1);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument e
       E e;
-      deserStatus = msg.deserialize(e);
+      _deserStatus = _msg.deserialize(e);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument a
       A a;
-      deserStatus = msg.deserialize(a);
+      _deserStatus = _msg.deserialize(a);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument s
       S s;
-      deserStatus = msg.deserialize(s);
+      _deserStatus = _msg.deserialize(s);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
       // Call handler function
       this->typedAsyncAssert_handler(
@@ -5949,59 +5949,59 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
     case TYPEDASYNCBLOCKPRIORITY_TYPED: {
       // Deserialize argument u32
       U32 u32;
-      deserStatus = msg.deserialize(u32);
+      _deserStatus = _msg.deserialize(u32);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument f32
       F32 f32;
-      deserStatus = msg.deserialize(f32);
+      _deserStatus = _msg.deserialize(f32);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument b
       bool b;
-      deserStatus = msg.deserialize(b);
+      _deserStatus = _msg.deserialize(b);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument str1
       char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
-      deserStatus = msg.deserialize(str1);
+      _deserStatus = _msg.deserialize(str1);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument e
       E e;
-      deserStatus = msg.deserialize(e);
+      _deserStatus = _msg.deserialize(e);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument a
       A a;
-      deserStatus = msg.deserialize(a);
+      _deserStatus = _msg.deserialize(a);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument s
       S s;
-      deserStatus = msg.deserialize(s);
+      _deserStatus = _msg.deserialize(s);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
       // Call handler function
       this->typedAsyncBlockPriority_handler(
@@ -6022,59 +6022,59 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
     case TYPEDASYNCDROPPRIORITY_TYPED: {
       // Deserialize argument u32
       U32 u32;
-      deserStatus = msg.deserialize(u32);
+      _deserStatus = _msg.deserialize(u32);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument f32
       F32 f32;
-      deserStatus = msg.deserialize(f32);
+      _deserStatus = _msg.deserialize(f32);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument b
       bool b;
-      deserStatus = msg.deserialize(b);
+      _deserStatus = _msg.deserialize(b);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument str1
       char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
       Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
-      deserStatus = msg.deserialize(str1);
+      _deserStatus = _msg.deserialize(str1);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument e
       E e;
-      deserStatus = msg.deserialize(e);
+      _deserStatus = _msg.deserialize(e);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument a
       A a;
-      deserStatus = msg.deserialize(a);
+      _deserStatus = _msg.deserialize(a);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize argument s
       S s;
-      deserStatus = msg.deserialize(s);
+      _deserStatus = _msg.deserialize(s);
       FW_ASSERT(
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
       // Call handler function
       this->typedAsyncDropPriority_handler(
@@ -6094,27 +6094,27 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
     // Handle command CMD_ASYNC
     case CMD_CMD_ASYNC: {
       // Deserialize opcode
-      FwOpcodeType opCode = 0;
-      deserStatus = msg.deserialize(opCode);
+      FwOpcodeType _opCode = 0;
+      _deserStatus = _msg.deserialize(_opCode);
       FW_ASSERT (
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize command sequence
-      U32 cmdSeq = 0;
-      deserStatus = msg.deserialize(cmdSeq);
+      U32 _cmdSeq = 0;
+      _deserStatus = _msg.deserialize(_cmdSeq);
       FW_ASSERT (
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize command argument buffer
       Fw::CmdArgBuffer args;
-      deserStatus = msg.deserialize(args);
+      _deserStatus = _msg.deserialize(args);
       FW_ASSERT (
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Reset buffer
@@ -6125,7 +6125,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
       if (args.getBuffLeft() != 0) {
         if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-          this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
+          this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
         break;
@@ -6133,7 +6133,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
 #endif
 
       // Call handler function
-      this->CMD_ASYNC_cmdHandler(opCode, cmdSeq);
+      this->CMD_ASYNC_cmdHandler(_opCode, _cmdSeq);
 
       break;
     }
@@ -6141,27 +6141,27 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
     // Handle command CMD_PRIORITY
     case CMD_CMD_PRIORITY: {
       // Deserialize opcode
-      FwOpcodeType opCode = 0;
-      deserStatus = msg.deserialize(opCode);
+      FwOpcodeType _opCode = 0;
+      _deserStatus = _msg.deserialize(_opCode);
       FW_ASSERT (
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize command sequence
-      U32 cmdSeq = 0;
-      deserStatus = msg.deserialize(cmdSeq);
+      U32 _cmdSeq = 0;
+      _deserStatus = _msg.deserialize(_cmdSeq);
       FW_ASSERT (
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize command argument buffer
       Fw::CmdArgBuffer args;
-      deserStatus = msg.deserialize(args);
+      _deserStatus = _msg.deserialize(args);
       FW_ASSERT (
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Reset buffer
@@ -6172,7 +6172,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
       if (args.getBuffLeft() != 0) {
         if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-          this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
+          this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
         break;
@@ -6180,7 +6180,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
 #endif
 
       // Call handler function
-      this->CMD_PRIORITY_cmdHandler(opCode, cmdSeq);
+      this->CMD_PRIORITY_cmdHandler(_opCode, _cmdSeq);
 
       break;
     }
@@ -6188,27 +6188,27 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
     // Handle command CMD_PARAMS_PRIORITY
     case CMD_CMD_PARAMS_PRIORITY: {
       // Deserialize opcode
-      FwOpcodeType opCode = 0;
-      deserStatus = msg.deserialize(opCode);
+      FwOpcodeType _opCode = 0;
+      _deserStatus = _msg.deserialize(_opCode);
       FW_ASSERT (
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize command sequence
-      U32 cmdSeq = 0;
-      deserStatus = msg.deserialize(cmdSeq);
+      U32 _cmdSeq = 0;
+      _deserStatus = _msg.deserialize(_cmdSeq);
       FW_ASSERT (
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize command argument buffer
       Fw::CmdArgBuffer args;
-      deserStatus = msg.deserialize(args);
+      _deserStatus = _msg.deserialize(args);
       FW_ASSERT (
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Reset buffer
@@ -6216,12 +6216,12 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
 
       // Deserialize argument u32
       U32 u32;
-      deserStatus = args.deserialize(u32);
-      if (deserStatus != Fw::FW_SERIALIZE_OK) {
+      _deserStatus = args.deserialize(u32);
+      if (_deserStatus != Fw::FW_SERIALIZE_OK) {
         if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
           this->cmdResponse_out(
-              opCode,
-              cmdSeq,
+              _opCode,
+              _cmdSeq,
               Fw::CmdResponse::FORMAT_ERROR
           );
         }
@@ -6234,7 +6234,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
       if (args.getBuffLeft() != 0) {
         if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-          this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
+          this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
         break;
@@ -6243,7 +6243,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
 
       // Call handler function
       this->CMD_PARAMS_PRIORITY_cmdHandler(
-        opCode, cmdSeq,
+        _opCode, _cmdSeq,
         u32
       );
 
@@ -6253,27 +6253,27 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
     // Handle command CMD_DROP
     case CMD_CMD_DROP: {
       // Deserialize opcode
-      FwOpcodeType opCode = 0;
-      deserStatus = msg.deserialize(opCode);
+      FwOpcodeType _opCode = 0;
+      _deserStatus = _msg.deserialize(_opCode);
       FW_ASSERT (
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize command sequence
-      U32 cmdSeq = 0;
-      deserStatus = msg.deserialize(cmdSeq);
+      U32 _cmdSeq = 0;
+      _deserStatus = _msg.deserialize(_cmdSeq);
       FW_ASSERT (
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize command argument buffer
       Fw::CmdArgBuffer args;
-      deserStatus = msg.deserialize(args);
+      _deserStatus = _msg.deserialize(args);
       FW_ASSERT (
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Reset buffer
@@ -6284,7 +6284,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
       if (args.getBuffLeft() != 0) {
         if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-          this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
+          this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
         break;
@@ -6292,7 +6292,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
 #endif
 
       // Call handler function
-      this->CMD_DROP_cmdHandler(opCode, cmdSeq);
+      this->CMD_DROP_cmdHandler(_opCode, _cmdSeq);
 
       break;
     }
@@ -6300,27 +6300,27 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
     // Handle command CMD_PARAMS_PRIORITY_DROP
     case CMD_CMD_PARAMS_PRIORITY_DROP: {
       // Deserialize opcode
-      FwOpcodeType opCode = 0;
-      deserStatus = msg.deserialize(opCode);
+      FwOpcodeType _opCode = 0;
+      _deserStatus = _msg.deserialize(_opCode);
       FW_ASSERT (
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize command sequence
-      U32 cmdSeq = 0;
-      deserStatus = msg.deserialize(cmdSeq);
+      U32 _cmdSeq = 0;
+      _deserStatus = _msg.deserialize(_cmdSeq);
       FW_ASSERT (
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Deserialize command argument buffer
       Fw::CmdArgBuffer args;
-      deserStatus = msg.deserialize(args);
+      _deserStatus = _msg.deserialize(args);
       FW_ASSERT (
-        deserStatus == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(deserStatus)
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Reset buffer
@@ -6328,12 +6328,12 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
 
       // Deserialize argument u32
       U32 u32;
-      deserStatus = args.deserialize(u32);
-      if (deserStatus != Fw::FW_SERIALIZE_OK) {
+      _deserStatus = args.deserialize(u32);
+      if (_deserStatus != Fw::FW_SERIALIZE_OK) {
         if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
           this->cmdResponse_out(
-              opCode,
-              cmdSeq,
+              _opCode,
+              _cmdSeq,
               Fw::CmdResponse::FORMAT_ERROR
           );
         }
@@ -6346,7 +6346,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
       if (args.getBuffLeft() != 0) {
         if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-          this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
+          this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
         break;
@@ -6355,7 +6355,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
 
       // Call handler function
       this->CMD_PARAMS_PRIORITY_DROP_cmdHandler(
-        opCode, cmdSeq,
+        _opCode, _cmdSeq,
         u32
       );
 
@@ -6365,19 +6365,19 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
     // Handle internal interface internalArray
     case INT_IF_INTERNALARRAY: {
       A a;
-      deserStatus = msg.deserialize(a);
+      _deserStatus = _msg.deserialize(a);
 
       // Internal interface should always deserialize
       FW_ASSERT(
-        Fw::FW_SERIALIZE_OK == deserStatus,
-        static_cast<FwAssertArgType>(deserStatus)
+        Fw::FW_SERIALIZE_OK == _deserStatus,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Make sure there was no data left over.
       // That means the buffer size was incorrect.
       FW_ASSERT(
-        msg.getBuffLeft() == 0,
-        static_cast<FwAssertArgType>(msg.getBuffLeft())
+        _msg.getBuffLeft() == 0,
+        static_cast<FwAssertArgType>(_msg.getBuffLeft())
       );
 
       // Call handler function
@@ -6391,19 +6391,19 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
     // Handle internal interface internalEnum
     case INT_IF_INTERNALENUM: {
       E e;
-      deserStatus = msg.deserialize(e);
+      _deserStatus = _msg.deserialize(e);
 
       // Internal interface should always deserialize
       FW_ASSERT(
-        Fw::FW_SERIALIZE_OK == deserStatus,
-        static_cast<FwAssertArgType>(deserStatus)
+        Fw::FW_SERIALIZE_OK == _deserStatus,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Make sure there was no data left over.
       // That means the buffer size was incorrect.
       FW_ASSERT(
-        msg.getBuffLeft() == 0,
-        static_cast<FwAssertArgType>(msg.getBuffLeft())
+        _msg.getBuffLeft() == 0,
+        static_cast<FwAssertArgType>(_msg.getBuffLeft())
       );
 
       // Call handler function
@@ -6417,37 +6417,37 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
     // Handle internal interface internalPrimitive
     case INT_IF_INTERNALPRIMITIVE: {
       U32 u32;
-      deserStatus = msg.deserialize(u32);
+      _deserStatus = _msg.deserialize(u32);
 
       // Internal interface should always deserialize
       FW_ASSERT(
-        Fw::FW_SERIALIZE_OK == deserStatus,
-        static_cast<FwAssertArgType>(deserStatus)
+        Fw::FW_SERIALIZE_OK == _deserStatus,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       F32 f32;
-      deserStatus = msg.deserialize(f32);
+      _deserStatus = _msg.deserialize(f32);
 
       // Internal interface should always deserialize
       FW_ASSERT(
-        Fw::FW_SERIALIZE_OK == deserStatus,
-        static_cast<FwAssertArgType>(deserStatus)
+        Fw::FW_SERIALIZE_OK == _deserStatus,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       bool b;
-      deserStatus = msg.deserialize(b);
+      _deserStatus = _msg.deserialize(b);
 
       // Internal interface should always deserialize
       FW_ASSERT(
-        Fw::FW_SERIALIZE_OK == deserStatus,
-        static_cast<FwAssertArgType>(deserStatus)
+        Fw::FW_SERIALIZE_OK == _deserStatus,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Make sure there was no data left over.
       // That means the buffer size was incorrect.
       FW_ASSERT(
-        msg.getBuffLeft() == 0,
-        static_cast<FwAssertArgType>(msg.getBuffLeft())
+        _msg.getBuffLeft() == 0,
+        static_cast<FwAssertArgType>(_msg.getBuffLeft())
       );
 
       // Call handler function
@@ -6465,8 +6465,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
       // Make sure there was no data left over.
       // That means the buffer size was incorrect.
       FW_ASSERT(
-        msg.getBuffLeft() == 0,
-        static_cast<FwAssertArgType>(msg.getBuffLeft())
+        _msg.getBuffLeft() == 0,
+        static_cast<FwAssertArgType>(_msg.getBuffLeft())
       );
 
       // Call handler function
@@ -6478,28 +6478,28 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
     // Handle internal interface internalString
     case INT_IF_INTERNALSTRING: {
       Fw::InternalInterfaceString str1;
-      deserStatus = msg.deserialize(str1);
+      _deserStatus = _msg.deserialize(str1);
 
       // Internal interface should always deserialize
       FW_ASSERT(
-        Fw::FW_SERIALIZE_OK == deserStatus,
-        static_cast<FwAssertArgType>(deserStatus)
+        Fw::FW_SERIALIZE_OK == _deserStatus,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       Fw::InternalInterfaceString str2;
-      deserStatus = msg.deserialize(str2);
+      _deserStatus = _msg.deserialize(str2);
 
       // Internal interface should always deserialize
       FW_ASSERT(
-        Fw::FW_SERIALIZE_OK == deserStatus,
-        static_cast<FwAssertArgType>(deserStatus)
+        Fw::FW_SERIALIZE_OK == _deserStatus,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Make sure there was no data left over.
       // That means the buffer size was incorrect.
       FW_ASSERT(
-        msg.getBuffLeft() == 0,
-        static_cast<FwAssertArgType>(msg.getBuffLeft())
+        _msg.getBuffLeft() == 0,
+        static_cast<FwAssertArgType>(_msg.getBuffLeft())
       );
 
       // Call handler function
@@ -6514,19 +6514,19 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
     // Handle internal interface internalStruct
     case INT_IF_INTERNALSTRUCT: {
       S s;
-      deserStatus = msg.deserialize(s);
+      _deserStatus = _msg.deserialize(s);
 
       // Internal interface should always deserialize
       FW_ASSERT(
-        Fw::FW_SERIALIZE_OK == deserStatus,
-        static_cast<FwAssertArgType>(deserStatus)
+        Fw::FW_SERIALIZE_OK == _deserStatus,
+        static_cast<FwAssertArgType>(_deserStatus)
       );
 
       // Make sure there was no data left over.
       // That means the buffer size was incorrect.
       FW_ASSERT(
-        msg.getBuffLeft() == 0,
-        static_cast<FwAssertArgType>(msg.getBuffLeft())
+        _msg.getBuffLeft() == 0,
+        static_cast<FwAssertArgType>(_msg.getBuffLeft())
       );
 
       // Call handler function

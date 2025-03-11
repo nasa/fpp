@@ -34,7 +34,7 @@ include_flags="-I.. -I../.. -I../../fprime -I../../fprime/config"
 # F Prime components use variable-length arrays for managing buffers
 warning_flags="
 -Wno-unused-parameter
--Wno-vla-extension
+-Wno-vla
 "
 gcc_flags="$include_flags $warning_flags $LOCAL_CPP_FLAGS"
 

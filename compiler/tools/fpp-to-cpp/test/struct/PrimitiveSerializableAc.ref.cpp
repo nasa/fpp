@@ -135,6 +135,8 @@ Primitive& Primitive ::
 bool Primitive ::
   operator==(const Primitive& obj) const
 {
+  if (this == &obj) { return true; }
+
   // Compare non-array members
   if (!(
     (this->m_mF64 == obj.m_mF64) &&
@@ -153,11 +155,9 @@ bool Primitive ::
   }
 
   // Compare array members
-  if (!(this->m_mF32 == obj.m_mF32)) {
-    for (FwSizeType i = 0; i < 3; i++) {
-      if (!(this->m_mF32[i] == obj.m_mF32[i])) {
-        return false;
-      }
+  for (FwSizeType i = 0; i < 3; i++) {
+    if (!(this->m_mF32[i] == obj.m_mF32[i])) {
+      return false;
     }
   }
 
