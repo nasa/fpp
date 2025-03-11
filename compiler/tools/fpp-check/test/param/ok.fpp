@@ -36,8 +36,12 @@ passive component C {
   @ Parameter P3
   param P3: U32x3 \
     default 0
-    
+
   @ Parameter P4
   param P4: string
+
+  @ Parameter P5
+  param P5: U16 \
+    external
 
 }
