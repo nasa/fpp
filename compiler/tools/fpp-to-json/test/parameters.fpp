@@ -48,6 +48,13 @@ passive component ParamOpcodes {
     default [ 1.0, 2.0, 3.0 ] \
     save opcode 0x20
 
+  @ Parameter 4
+  @ Its set opcode is 0x21
+  @ Its save opcode is 0x22
+  param Param4: I16 \
+    default 42 \
+    external
+
 }
 
 module Fw {
