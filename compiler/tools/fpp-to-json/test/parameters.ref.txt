@@ -442,7 +442,7 @@
                     ],
                     [
                       [
-                        "Parameter 4",
+                        "Parameter 4 which is managed externally",
                         "Its set opcode is 0x21",
                         "Its save opcode is 0x22"
                       ],
@@ -762,7 +762,7 @@
   },
   "26" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/parameters.fpp",
-    "pos" : "54.17",
+    "pos" : "54.26",
     "includingLoc" : "None"
   },
   "27" : {
@@ -777,7 +777,7 @@
   },
   "29" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/parameters.fpp",
-    "pos" : "54.17",
+    "pos" : "54.26",
     "includingLoc" : "None"
   },
   "30" : {
@@ -792,7 +792,7 @@
   },
   "32" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/parameters.fpp",
-    "pos" : "54.17",
+    "pos" : "54.26",
     "includingLoc" : "None"
   },
   "33" : {
@@ -812,42 +812,42 @@
   },
   "36" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/parameters.fpp",
-    "pos" : "61.3",
+    "pos" : "60.3",
     "includingLoc" : "None"
   },
   "37" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/parameters.fpp",
-    "pos" : "62.3",
+    "pos" : "61.3",
     "includingLoc" : "None"
   },
   "38" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/parameters.fpp",
-    "pos" : "63.3",
+    "pos" : "62.3",
     "includingLoc" : "None"
   },
   "39" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/parameters.fpp",
-    "pos" : "64.3",
+    "pos" : "63.3",
     "includingLoc" : "None"
   },
   "40" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/parameters.fpp",
-    "pos" : "65.3",
+    "pos" : "64.3",
     "includingLoc" : "None"
   },
   "41" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/parameters.fpp",
-    "pos" : "65.3",
+    "pos" : "64.3",
     "includingLoc" : "None"
   },
   "42" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/parameters.fpp",
-    "pos" : "65.3",
+    "pos" : "64.3",
     "includingLoc" : "None"
   },
   "43" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/parameters.fpp",
-    "pos" : "60.1",
+    "pos" : "59.1",
     "includingLoc" : "None"
   }
 }

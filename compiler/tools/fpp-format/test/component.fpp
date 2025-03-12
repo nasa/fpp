@@ -11,7 +11,7 @@ active component C {
   @< Command specifier
 
   @ Parameter specifier
-  param P: U32 default 0 id 0x00 set opcode 0x01 save opcode 0x02 external
+  external param P: U32 default 0 id 0x00 set opcode 0x01 save opcode 0x02
   @< Parameter specifier
 
   @ General port instance specifier

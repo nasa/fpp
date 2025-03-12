@@ -41,7 +41,6 @@ passive component C {
   param P4: string
 
   @ Parameter P5
-  param P5: U16 \
-    external
+  external param P5: U16
 
 }
