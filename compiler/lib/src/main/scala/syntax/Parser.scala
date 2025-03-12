@@ -559,13 +559,12 @@ object Parser extends Parsers {
   }
 
   def specParam: Parser[Ast.SpecParam] = {
-    (param ~>! ident) ~ (colon ~>! node(typeName)) ~!
+    opt(external) ~ (param ~>! ident) ~ (colon ~>! node(typeName)) ~!
     opt(default ~>! exprNode) ~!
     opt(id ~>! exprNode) ~!
     opt(set ~! opcode ~>! exprNode) ~!
-    opt(save ~! opcode ~>! exprNode) ~!
-    opt(external) ^^ {
-      case name ~ typeName ~ default ~ id ~ setOpcode ~ saveOpcode ~ external =>
+    opt(save ~! opcode ~>! exprNode) ^^ {
+      case external ~ name ~ typeName ~ default ~ id ~ setOpcode ~ saveOpcode =>
         Ast.SpecParam(name, typeName, default, id, setOpcode, saveOpcode, external.isDefined)
     }
   }

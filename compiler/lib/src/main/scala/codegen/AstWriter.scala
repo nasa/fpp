@@ -472,6 +472,7 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
+    lines(if data.isExternal then "external" else "") ++
     lines("spec param") ++
     List.concat(
       ident(data.name),
@@ -480,7 +481,6 @@ object AstWriter extends AstVisitor with LineUtils {
       linesOpt(addPrefix("id", exprNode), data.id),
       linesOpt(addPrefix("set opcode", exprNode), data.setOpcode),
       linesOpt(addPrefix("save opcode", exprNode), data.saveOpcode),
-      lines(if data.isExternal then "external" else ""),
     ).map(indentIn)
   }
 

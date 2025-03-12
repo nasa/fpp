@@ -81,6 +81,7 @@ def module
       queue full assert
     @< Command specifier
     @ Parameter specifier
+    external
     spec param
       ident P
       type name U32
@@ -88,7 +89,6 @@ def module
       id literal int 0x00
       set opcode literal int 0x01
       save opcode literal int 0x02
-      external
     @< Parameter specifier
     @ General port instance specifier
     spec port instance general
