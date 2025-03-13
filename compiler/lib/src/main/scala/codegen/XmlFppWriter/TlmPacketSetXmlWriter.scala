@@ -23,6 +23,26 @@ object TlmPacketSetXmlFppWriter extends LineUtils {
           Ast.TopologyMember(node)
         }
 
+    /** Extracts a telemetry packet set member */
+    def tlmPacketSetMember(
+      file: XmlFppWriter.File,
+      node: scala.xml.Node
+    ): Result.Result[Ast.TlmPacketSetMember] =
+      for {
+        name <- file.getAttribute(node, "name")
+      }
+      yield {
+        val data = Ast.SpecTlmPacket(
+          name,
+          None,
+          AstNode.create(Ast.ExprLiteralInt("0")),
+          Nil
+        )
+        val node = Ast.TlmPacketSetMember.SpecTlmPacket(AstNode.create(data))
+        val aNode = (Nil, node, Nil)
+        Ast.TlmPacketSetMember(aNode)
+      }
+
 //    /** Translates an XML type to an FPP type name */
 //    def translateType(file: XmlFppWriter.File): Node => Result.Result[Ast.TypeName] = 
 //      file.translateType(node => file.getAttribute(node, "type")) _
@@ -72,16 +92,17 @@ object TlmPacketSetXmlFppWriter extends LineUtils {
 //      }
 //      yield enumOpts.filter(_.isDefined).map(_.get)
 
-
     /** Extracts telemetry packet set members */
     def tlmPacketSetMemberList(file: XmlFppWriter.File):
-      Result.Result[List[Ast.TlmPacketSetMember]] =
-        Right(Nil)
+      Result.Result[List[Ast.TlmPacketSetMember]] = {
+        val packets = file.elem \ "packet"
+        Result.map(packets.toList, tlmPacketSetMember(file, _))
+      }
 
     /** Extracts omitted channels */
     def omittedChannelList(file: XmlFppWriter.File):
       Result.Result[List[AstNode[Ast.TlmChannelIdentifier]]] =
-        Right(Nil)
+      Right(Nil)
 
 //    /** Extracts struct type members */
 //    def structTypeMemberAnnotatedNodeList(file: XmlFppWriter.File): 
