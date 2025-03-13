@@ -141,6 +141,7 @@ object XmlFppWriter extends LineUtils {
           case "events" => ComponentXmlFppWriter.writeEventsFile(this)
           case "interface" => PortXmlFppWriter.writeFile(this)
           case "internal_interfaces" => ComponentXmlFppWriter.writeInternalPortsFile(this)
+          case "packets" => TlmPacketSetXmlFppWriter.writeFile(this)
           case "parameters" => ComponentXmlFppWriter.writeParamsFile(this)
           case "ports" => ComponentXmlFppWriter.writePortsFile(this)
           case "serializable" => StructXmlFppWriter.writeFile(this)
@@ -176,7 +177,7 @@ object XmlFppWriter extends LineUtils {
 
   /** Writes a file list */
   def writeFileList(fileList: List[File]): Result.Result[List[Line]] = {
-    for (files <- Result.map(fileList, (file: File) => file.write))
+    for (files <- Result.map(fileList, _.write))
       yield Line.blankSeparated (identity[List[Line]]) (files)
   }
 

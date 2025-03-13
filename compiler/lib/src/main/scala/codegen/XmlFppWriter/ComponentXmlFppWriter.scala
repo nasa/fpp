@@ -41,7 +41,7 @@ object ComponentXmlFppWriter extends LineUtils {
   /** Builds FPP for translating Component XML */
   private object FppBuilder {
 
-    /** Generates the list of TU members */
+    /** Generates the TU member */
     def tuMember(file: XmlFppWriter.File): Result.Result[Ast.TUMember] =
       for {
         component <- defComponentAnnotated(file)
