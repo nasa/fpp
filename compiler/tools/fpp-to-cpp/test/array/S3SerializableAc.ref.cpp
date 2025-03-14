@@ -77,17 +77,17 @@ namespace S {
   bool S3 ::
     operator==(const S3& obj) const
   {
+    if (this == &obj) { return true; }
+
     // Compare non-array members
     if (!(this->m_mF64 == obj.m_mF64)) {
       return false;
     }
 
     // Compare array members
-    if (!(this->m_mU32Array == obj.m_mU32Array)) {
-      for (FwSizeType i = 0; i < 3; i++) {
-        if (!(this->m_mU32Array[i] == obj.m_mU32Array[i])) {
-          return false;
-        }
+    for (FwSizeType i = 0; i < 3; i++) {
+      if (!(this->m_mU32Array[i] == obj.m_mU32Array[i])) {
+        return false;
       }
     }
 

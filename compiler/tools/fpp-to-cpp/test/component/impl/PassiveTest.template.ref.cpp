@@ -45,6 +45,12 @@ U32 PassiveTest ::
   // TODO return
 }
 
+Fw::String PassiveTest ::
+  noArgsStringReturnSync_handler(FwIndexType portNum)
+{
+  // TODO return
+}
+
 void PassiveTest ::
   noArgsSync_handler(FwIndexType portNum)
 {

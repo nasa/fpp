@@ -59,6 +59,7 @@ String& String ::
 bool String ::
   operator==(const String& obj) const
 {
+  if (this == &obj) { return true; }
   return (
     (this->m_s1 == obj.m_s1) &&
     (this->m_s2 == obj.m_s2)

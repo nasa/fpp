@@ -45,3 +45,9 @@ string()
   run_test "-p $PWD" string && \
     diff_cpp StringPort
 }
+
+string_return_type()
+{
+  run_test "-p $PWD" string_return_type && \
+    diff_cpp StringReturnTypePort
+}

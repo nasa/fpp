@@ -9,17 +9,17 @@
 
 #include <cstdio>
 #include <cstring>
+#include <FpConfig.hpp>
 
-#include "FpConfig.hpp"
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
-#include "Fw/Types/StringType.hpp"
+#include "Fw/Types/String.hpp"
 
 namespace Ports {
 
   //! Input NoArgsReturn port
-  //! A type port with no arguments and a return type
+  //! A typed port with no arguments and a return type
   class InputNoArgsReturnPort :
     public Fw::InputPortBase
   {
@@ -89,7 +89,7 @@ namespace Ports {
   };
 
   //! Output NoArgsReturn port
-  //! A type port with no arguments and a return type
+  //! A typed port with no arguments and a return type
   class OutputNoArgsReturnPort :
     public Fw::OutputPortBase
   {

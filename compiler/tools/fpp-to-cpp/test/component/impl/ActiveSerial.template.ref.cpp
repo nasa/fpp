@@ -51,6 +51,12 @@ U32 ActiveSerial ::
   // TODO return
 }
 
+Fw::String ActiveSerial ::
+  noArgsStringReturnSync_handler(FwIndexType portNum)
+{
+  // TODO return
+}
+
 void ActiveSerial ::
   noArgsSync_handler(FwIndexType portNum)
 {

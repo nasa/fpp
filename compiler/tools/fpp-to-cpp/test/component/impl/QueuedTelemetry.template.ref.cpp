@@ -51,6 +51,12 @@ U32 QueuedTelemetry ::
   // TODO return
 }
 
+Fw::String QueuedTelemetry ::
+  noArgsStringReturnSync_handler(FwIndexType portNum)
+{
+  // TODO return
+}
+
 void QueuedTelemetry ::
   noArgsSync_handler(FwIndexType portNum)
 {

@@ -51,6 +51,12 @@ U32 ActiveCommands ::
   // TODO return
 }
 
+Fw::String ActiveCommands ::
+  noArgsStringReturnSync_handler(FwIndexType portNum)
+{
+  // TODO return
+}
+
 void ActiveCommands ::
   noArgsSync_handler(FwIndexType portNum)
 {

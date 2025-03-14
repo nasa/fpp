@@ -7,7 +7,8 @@
 #ifndef EmptyComponentAc_HPP
 #define EmptyComponentAc_HPP
 
-#include "FpConfig.hpp"
+#include <FpConfig.hpp>
+
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"

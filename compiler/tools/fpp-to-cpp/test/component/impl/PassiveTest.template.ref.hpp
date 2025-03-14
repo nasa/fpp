@@ -54,6 +54,13 @@ class PassiveTest final :
         FwIndexType portNum //!< The port number
     ) override;
 
+    //! Handler implementation for noArgsStringReturnSync
+    //!
+    //! A typed sync input port with a string return type
+    Fw::String noArgsStringReturnSync_handler(
+        FwIndexType portNum //!< The port number
+    ) override;
+
     //! Handler implementation for noArgsSync
     //!
     //! A typed sync input port

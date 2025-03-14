@@ -63,6 +63,7 @@ Default& Default ::
 bool Default ::
   operator==(const Default& obj) const
 {
+  if (this == &obj) { return true; }
   return (
     (this->m_mU32 == obj.m_mU32) &&
     (this->m_mS1 == obj.m_mS1) &&

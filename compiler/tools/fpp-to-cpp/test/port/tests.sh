@@ -8,4 +8,5 @@ kwd_name
 primitive
 return_type
 string
+string_return_type
 "

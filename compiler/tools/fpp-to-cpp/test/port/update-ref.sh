@@ -45,3 +45,9 @@ string()
   update "-p $PWD" string
   move_cpp StringPort
 }
+
+string_return_type()
+{
+  update "-p $PWD" string_return_type
+  move_cpp StringReturnTypePort
+}
