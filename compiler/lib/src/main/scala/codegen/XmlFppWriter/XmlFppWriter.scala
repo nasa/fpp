@@ -96,6 +96,12 @@ object XmlFppWriter extends LineUtils {
     def invalidAttribute(name: String, node: scala.xml.Node): Error =
       semanticError(s"invalid attribute $name in node ${node.toString}")
 
+    /** Translates a integer attribute */
+    def translateInteger(xmlNode: scala.xml.Node, name: String): Result.Result[AstNode[Ast.ExprLiteralInt]] =
+      getAttribute(xmlNode, name).map(
+        text => AstNode.create(Ast.ExprLiteralInt(text))
+      )
+
     /** Translates an XML type to an FPP type name */
     def translateType
       (getType: scala.xml.Node => Result.Result[String])
@@ -310,6 +316,12 @@ object XmlFppWriter extends LineUtils {
       }
       (format, note)
     }
+
+    /** Translates an optional integer attribute */
+    def translateIntegerOpt(xmlNode: scala.xml.Node, name: String): Option[AstNode[Ast.ExprLiteralInt]] =
+      getAttributeOpt(xmlNode, name).map(
+        text => AstNode.create(Ast.ExprLiteralInt(text))
+      )
 
     /** Translates a value from FPP to XML */
     def translateValue(xmlValue: String, tn: Ast.TypeName): Option[AstNode[Ast.Expr]] = {
