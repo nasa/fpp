@@ -45,6 +45,12 @@ U32 PassiveTelemetry ::
   // TODO return
 }
 
+Fw::String PassiveTelemetry ::
+  noArgsStringReturnSync_handler(FwIndexType portNum)
+{
+  // TODO return
+}
+
 void PassiveTelemetry ::
   noArgsSync_handler(FwIndexType portNum)
 {

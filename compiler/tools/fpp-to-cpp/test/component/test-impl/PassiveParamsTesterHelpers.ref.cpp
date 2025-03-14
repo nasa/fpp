@@ -66,6 +66,11 @@ void PassiveParamsTester ::
     );
   }
 
+  this->connect_to_noArgsStringReturnSync(
+    0,
+    this->component.get_noArgsStringReturnSync_InputPort(0)
+  );
+
   for (FwIndexType i = 0; i < 3; i++) {
     this->connect_to_noArgsSync(
       i,
@@ -107,6 +112,11 @@ void PassiveParamsTester ::
   this->component.set_noArgsReturnOut_OutputPort(
     0,
     this->get_from_noArgsReturnOut(0)
+  );
+
+  this->component.set_noArgsStringReturnOut_OutputPort(
+    0,
+    this->get_from_noArgsStringReturnOut(0)
   );
 
   this->component.set_typedOut_OutputPort(

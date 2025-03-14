@@ -51,6 +51,12 @@ U32 QueuedCommands ::
   // TODO return
 }
 
+Fw::String QueuedCommands ::
+  noArgsStringReturnSync_handler(FwIndexType portNum)
+{
+  // TODO return
+}
+
 void QueuedCommands ::
   noArgsSync_handler(FwIndexType portNum)
 {

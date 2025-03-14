@@ -45,6 +45,12 @@ U32 PassiveCommands ::
   // TODO return
 }
 
+Fw::String PassiveCommands ::
+  noArgsStringReturnSync_handler(FwIndexType portNum)
+{
+  // TODO return
+}
+
 void PassiveCommands ::
   noArgsSync_handler(FwIndexType portNum)
 {

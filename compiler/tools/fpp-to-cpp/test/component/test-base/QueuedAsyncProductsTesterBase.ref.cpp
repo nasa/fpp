@@ -139,6 +139,30 @@ void QueuedAsyncProductsTesterBase ::
 #endif
   }
 
+  // Connect input port noArgsStringReturnOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_noArgsStringReturnOut());
+    port++
+  ) {
+    this->m_from_noArgsStringReturnOut[port].init();
+    this->m_from_noArgsStringReturnOut[port].addCallComp(
+      this,
+      from_noArgsStringReturnOut_static
+    );
+    this->m_from_noArgsStringReturnOut[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_from_noArgsStringReturnOut[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_from_noArgsStringReturnOut[port].setObjName(portName.toChar());
+#endif
+  }
+
   // Connect input port typedOut
   for (
     FwIndexType port = 0;
@@ -279,6 +303,25 @@ void QueuedAsyncProductsTesterBase ::
       port
     );
     this->m_to_noArgsReturnSync[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect output port noArgsStringReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsStringReturnSync());
+    port++
+  ) {
+    this->m_to_noArgsStringReturnSync[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_to_noArgsStringReturnSync[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_to_noArgsStringReturnSync[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -540,6 +583,20 @@ void QueuedAsyncProductsTesterBase ::
   );
 
   this->m_to_noArgsReturnSync[portNum].addCallPort(port);
+}
+
+void QueuedAsyncProductsTesterBase ::
+  connect_to_noArgsStringReturnSync(
+      FwIndexType portNum,
+      Ports::InputNoArgsStringReturnPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_to_noArgsStringReturnSync(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_to_noArgsStringReturnSync[portNum].addCallPort(port);
 }
 
 void QueuedAsyncProductsTesterBase ::
@@ -808,6 +865,17 @@ Ports::InputNoArgsReturnPort* QueuedAsyncProductsTesterBase ::
   return &this->m_from_noArgsReturnOut[portNum];
 }
 
+Ports::InputNoArgsStringReturnPort* QueuedAsyncProductsTesterBase ::
+  get_from_noArgsStringReturnOut(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_from_noArgsStringReturnOut(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_from_noArgsStringReturnOut[portNum];
+}
+
 Ports::InputTypedPort* QueuedAsyncProductsTesterBase ::
   get_from_typedOut(FwIndexType portNum)
 {
@@ -883,6 +951,13 @@ U32 QueuedAsyncProductsTesterBase ::
   return 0;
 }
 
+Fw::String QueuedAsyncProductsTesterBase ::
+  from_noArgsStringReturnOut_handler(FwIndexType portNum)
+{
+  this->pushFromPortEntry_noArgsStringReturnOut();
+  return Fw::String("");
+}
+
 void QueuedAsyncProductsTesterBase ::
   from_typedOut_handler(
       FwIndexType portNum,
@@ -938,6 +1013,17 @@ U32 QueuedAsyncProductsTesterBase ::
     static_cast<FwAssertArgType>(portNum)
   );
   return this->from_noArgsReturnOut_handler(portNum);
+}
+
+Fw::String QueuedAsyncProductsTesterBase ::
+  from_noArgsStringReturnOut_handlerBase(FwIndexType portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_from_noArgsStringReturnOut(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->from_noArgsStringReturnOut_handler(portNum);
 }
 
 void QueuedAsyncProductsTesterBase ::
@@ -1044,6 +1130,17 @@ U32 QueuedAsyncProductsTesterBase ::
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_to_noArgsReturnSync[portNum].invoke();
+}
+
+Fw::String QueuedAsyncProductsTesterBase ::
+  invoke_to_noArgsStringReturnSync(FwIndexType portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_to_noArgsStringReturnSync(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_to_noArgsStringReturnSync[portNum].invoke();
 }
 
 void QueuedAsyncProductsTesterBase ::
@@ -1322,6 +1419,12 @@ FwIndexType QueuedAsyncProductsTesterBase ::
 }
 
 FwIndexType QueuedAsyncProductsTesterBase ::
+  getNum_to_noArgsStringReturnSync() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsStringReturnSync));
+}
+
+FwIndexType QueuedAsyncProductsTesterBase ::
   getNum_to_noArgsSync() const
 {
   return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsSync));
@@ -1452,6 +1555,12 @@ FwIndexType QueuedAsyncProductsTesterBase ::
 }
 
 FwIndexType QueuedAsyncProductsTesterBase ::
+  getNum_from_noArgsStringReturnOut() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsStringReturnOut));
+}
+
+FwIndexType QueuedAsyncProductsTesterBase ::
   getNum_from_typedOut() const
 {
   return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
@@ -1531,6 +1640,17 @@ bool QueuedAsyncProductsTesterBase ::
   );
 
   return this->m_to_noArgsReturnSync[portNum].isConnected();
+}
+
+bool QueuedAsyncProductsTesterBase ::
+  isConnected_to_noArgsStringReturnSync(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_to_noArgsStringReturnSync(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_to_noArgsStringReturnSync[portNum].isConnected();
 }
 
 bool QueuedAsyncProductsTesterBase ::
@@ -1714,6 +1834,7 @@ void QueuedAsyncProductsTesterBase ::
   this->fromPortHistorySize = 0;
   this->fromPortHistorySize_noArgsOut = 0;
   this->fromPortHistorySize_noArgsReturnOut = 0;
+  this->fromPortHistorySize_noArgsStringReturnOut = 0;
   this->fromPortHistory_typedOut->clear();
   this->fromPortHistory_typedReturnOut->clear();
 }
@@ -1729,6 +1850,13 @@ void QueuedAsyncProductsTesterBase ::
   pushFromPortEntry_noArgsReturnOut()
 {
   this->fromPortHistorySize_noArgsReturnOut++;
+  this->fromPortHistorySize++;
+}
+
+void QueuedAsyncProductsTesterBase ::
+  pushFromPortEntry_noArgsStringReturnOut()
+{
+  this->fromPortHistorySize_noArgsStringReturnOut++;
   this->fromPortHistorySize++;
 }
 
@@ -1837,6 +1965,17 @@ U32 QueuedAsyncProductsTesterBase ::
   FW_ASSERT(callComp != nullptr);
   QueuedAsyncProductsTesterBase* _testerBase = static_cast<QueuedAsyncProductsTesterBase*>(callComp);
   return _testerBase->from_noArgsReturnOut_handlerBase(portNum);
+}
+
+Fw::String QueuedAsyncProductsTesterBase ::
+  from_noArgsStringReturnOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      FwIndexType portNum
+  )
+{
+  FW_ASSERT(callComp != nullptr);
+  QueuedAsyncProductsTesterBase* _testerBase = static_cast<QueuedAsyncProductsTesterBase*>(callComp);
+  return _testerBase->from_noArgsStringReturnOut_handlerBase(portNum);
 }
 
 void QueuedAsyncProductsTesterBase ::

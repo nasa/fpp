@@ -139,6 +139,30 @@ void PassiveCommandsTesterBase ::
 #endif
   }
 
+  // Connect input port noArgsStringReturnOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_noArgsStringReturnOut());
+    port++
+  ) {
+    this->m_from_noArgsStringReturnOut[port].init();
+    this->m_from_noArgsStringReturnOut[port].addCallComp(
+      this,
+      from_noArgsStringReturnOut_static
+    );
+    this->m_from_noArgsStringReturnOut[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_from_noArgsStringReturnOut[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_from_noArgsStringReturnOut[port].setObjName(portName.toChar());
+#endif
+  }
+
   // Connect input port typedOut
   for (
     FwIndexType port = 0;
@@ -260,6 +284,25 @@ void PassiveCommandsTesterBase ::
       port
     );
     this->m_to_noArgsReturnSync[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect output port noArgsStringReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsStringReturnSync());
+    port++
+  ) {
+    this->m_to_noArgsStringReturnSync[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_to_noArgsStringReturnSync[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_to_noArgsStringReturnSync[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -417,6 +460,20 @@ void PassiveCommandsTesterBase ::
   );
 
   this->m_to_noArgsReturnSync[portNum].addCallPort(port);
+}
+
+void PassiveCommandsTesterBase ::
+  connect_to_noArgsStringReturnSync(
+      FwIndexType portNum,
+      Ports::InputNoArgsStringReturnPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_to_noArgsStringReturnSync(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_to_noArgsStringReturnSync[portNum].addCallPort(port);
 }
 
 void PassiveCommandsTesterBase ::
@@ -607,6 +664,17 @@ Ports::InputNoArgsReturnPort* PassiveCommandsTesterBase ::
   return &this->m_from_noArgsReturnOut[portNum];
 }
 
+Ports::InputNoArgsStringReturnPort* PassiveCommandsTesterBase ::
+  get_from_noArgsStringReturnOut(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_from_noArgsStringReturnOut(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_from_noArgsStringReturnOut[portNum];
+}
+
 Ports::InputTypedPort* PassiveCommandsTesterBase ::
   get_from_typedOut(FwIndexType portNum)
 {
@@ -680,6 +748,13 @@ U32 PassiveCommandsTesterBase ::
   return 0;
 }
 
+Fw::String PassiveCommandsTesterBase ::
+  from_noArgsStringReturnOut_handler(FwIndexType portNum)
+{
+  this->pushFromPortEntry_noArgsStringReturnOut();
+  return Fw::String("");
+}
+
 void PassiveCommandsTesterBase ::
   from_typedOut_handler(
       FwIndexType portNum,
@@ -735,6 +810,17 @@ U32 PassiveCommandsTesterBase ::
     static_cast<FwAssertArgType>(portNum)
   );
   return this->from_noArgsReturnOut_handler(portNum);
+}
+
+Fw::String PassiveCommandsTesterBase ::
+  from_noArgsStringReturnOut_handlerBase(FwIndexType portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_from_noArgsStringReturnOut(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->from_noArgsStringReturnOut_handler(portNum);
 }
 
 void PassiveCommandsTesterBase ::
@@ -830,6 +916,17 @@ U32 PassiveCommandsTesterBase ::
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_to_noArgsReturnSync[portNum].invoke();
+}
+
+Fw::String PassiveCommandsTesterBase ::
+  invoke_to_noArgsStringReturnSync(FwIndexType portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_to_noArgsStringReturnSync(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_to_noArgsStringReturnSync[portNum].invoke();
 }
 
 void PassiveCommandsTesterBase ::
@@ -984,6 +1081,12 @@ FwIndexType PassiveCommandsTesterBase ::
 }
 
 FwIndexType PassiveCommandsTesterBase ::
+  getNum_to_noArgsStringReturnSync() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsStringReturnSync));
+}
+
+FwIndexType PassiveCommandsTesterBase ::
   getNum_to_noArgsSync() const
 {
   return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsSync));
@@ -1078,6 +1181,12 @@ FwIndexType PassiveCommandsTesterBase ::
 }
 
 FwIndexType PassiveCommandsTesterBase ::
+  getNum_from_noArgsStringReturnOut() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsStringReturnOut));
+}
+
+FwIndexType PassiveCommandsTesterBase ::
   getNum_from_typedOut() const
 {
   return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
@@ -1135,6 +1244,17 @@ bool PassiveCommandsTesterBase ::
   );
 
   return this->m_to_noArgsReturnSync[portNum].isConnected();
+}
+
+bool PassiveCommandsTesterBase ::
+  isConnected_to_noArgsStringReturnSync(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_to_noArgsStringReturnSync(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_to_noArgsStringReturnSync[portNum].isConnected();
 }
 
 bool PassiveCommandsTesterBase ::
@@ -1687,6 +1807,7 @@ void PassiveCommandsTesterBase ::
   this->fromPortHistorySize = 0;
   this->fromPortHistorySize_noArgsOut = 0;
   this->fromPortHistorySize_noArgsReturnOut = 0;
+  this->fromPortHistorySize_noArgsStringReturnOut = 0;
   this->fromPortHistory_typedOut->clear();
   this->fromPortHistory_typedReturnOut->clear();
 }
@@ -1702,6 +1823,13 @@ void PassiveCommandsTesterBase ::
   pushFromPortEntry_noArgsReturnOut()
 {
   this->fromPortHistorySize_noArgsReturnOut++;
+  this->fromPortHistorySize++;
+}
+
+void PassiveCommandsTesterBase ::
+  pushFromPortEntry_noArgsStringReturnOut()
+{
+  this->fromPortHistorySize_noArgsStringReturnOut++;
   this->fromPortHistorySize++;
 }
 
@@ -1809,6 +1937,17 @@ U32 PassiveCommandsTesterBase ::
   FW_ASSERT(callComp != nullptr);
   PassiveCommandsTesterBase* _testerBase = static_cast<PassiveCommandsTesterBase*>(callComp);
   return _testerBase->from_noArgsReturnOut_handlerBase(portNum);
+}
+
+Fw::String PassiveCommandsTesterBase ::
+  from_noArgsStringReturnOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      FwIndexType portNum
+  )
+{
+  FW_ASSERT(callComp != nullptr);
+  PassiveCommandsTesterBase* _testerBase = static_cast<PassiveCommandsTesterBase*>(callComp);
+  return _testerBase->from_noArgsStringReturnOut_handlerBase(portNum);
 }
 
 void PassiveCommandsTesterBase ::

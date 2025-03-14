@@ -230,6 +230,12 @@ class PassiveEventsTesterBase :
         Ports::InputNoArgsReturnPort* port //!< The input port
     );
 
+    //! Connect port to noArgsStringReturnSync[portNum]
+    void connect_to_noArgsStringReturnSync(
+        FwIndexType portNum, //!< The port number
+        Ports::InputNoArgsStringReturnPort* port //!< The input port
+    );
+
     //! Connect port to noArgsSync[portNum]
     void connect_to_noArgsSync(
         FwIndexType portNum, //!< The port number
@@ -342,6 +348,13 @@ class PassiveEventsTesterBase :
 
     //! Get from port at index
     //!
+    //! \return from_noArgsStringReturnOut[portNum]
+    Ports::InputNoArgsStringReturnPort* get_from_noArgsStringReturnOut(
+        FwIndexType portNum //!< The port number
+    );
+
+    //! Get from port at index
+    //!
     //! \return from_typedOut[portNum]
     Ports::InputTypedPort* get_from_typedOut(
         FwIndexType portNum //!< The port number
@@ -386,6 +399,11 @@ class PassiveEventsTesterBase :
         FwIndexType portNum //!< The port number
     );
 
+    //! Default handler implementation for from_noArgsStringReturnOut
+    virtual Fw::String from_noArgsStringReturnOut_handler(
+        FwIndexType portNum //!< The port number
+    );
+
     //! Default handler implementation for from_typedOut
     virtual void from_typedOut_handler(
         FwIndexType portNum, //!< The port number
@@ -423,6 +441,11 @@ class PassiveEventsTesterBase :
 
     //! Handler base-class function for from_noArgsReturnOut
     U32 from_noArgsReturnOut_handlerBase(
+        FwIndexType portNum //!< The port number
+    );
+
+    //! Handler base-class function for from_noArgsStringReturnOut
+    Fw::String from_noArgsStringReturnOut_handlerBase(
         FwIndexType portNum //!< The port number
     );
 
@@ -468,6 +491,11 @@ class PassiveEventsTesterBase :
 
     //! Invoke the to port connected to noArgsReturnSync
     U32 invoke_to_noArgsReturnSync(
+        FwIndexType portNum //!< The port number
+    );
+
+    //! Invoke the to port connected to noArgsStringReturnSync
+    Fw::String invoke_to_noArgsStringReturnSync(
         FwIndexType portNum //!< The port number
     );
 
@@ -550,6 +578,11 @@ class PassiveEventsTesterBase :
     //! \return The number of to_noArgsReturnSync ports
     FwIndexType getNum_to_noArgsReturnSync() const;
 
+    //! Get the number of to_noArgsStringReturnSync ports
+    //!
+    //! \return The number of to_noArgsStringReturnSync ports
+    FwIndexType getNum_to_noArgsStringReturnSync() const;
+
     //! Get the number of to_noArgsSync ports
     //!
     //! \return The number of to_noArgsSync ports
@@ -629,6 +662,11 @@ class PassiveEventsTesterBase :
     //! \return The number of from_noArgsReturnOut ports
     FwIndexType getNum_from_noArgsReturnOut() const;
 
+    //! Get the number of from_noArgsStringReturnOut ports
+    //!
+    //! \return The number of from_noArgsStringReturnOut ports
+    FwIndexType getNum_from_noArgsStringReturnOut() const;
+
     //! Get the number of from_typedOut ports
     //!
     //! \return The number of from_typedOut ports
@@ -670,6 +708,13 @@ class PassiveEventsTesterBase :
     //!
     //! \return Whether port to_noArgsReturnSync is connected
     bool isConnected_to_noArgsReturnSync(
+        FwIndexType portNum //!< The port number
+    );
+
+    //! Check whether port to_noArgsStringReturnSync is connected
+    //!
+    //! \return Whether port to_noArgsStringReturnSync is connected
+    bool isConnected_to_noArgsStringReturnSync(
         FwIndexType portNum //!< The port number
     );
 
@@ -797,6 +842,9 @@ class PassiveEventsTesterBase :
     //! Push an entry on the history for from_noArgsReturnOut
     void pushFromPortEntry_noArgsReturnOut();
 
+    //! Push an entry on the history for from_noArgsStringReturnOut
+    void pushFromPortEntry_noArgsStringReturnOut();
+
     //! Push an entry on the history for from_typedOut
     void pushFromPortEntry_typedOut(
         U32 u32, //!< A U32
@@ -884,6 +932,12 @@ class PassiveEventsTesterBase :
         FwIndexType portNum //!< The port number
     );
 
+    //! Static function for port from_noArgsStringReturnOut
+    static Fw::String from_noArgsStringReturnOut_static(
+        Fw::PassiveComponentBase* const callComp, //!< The component instance
+        FwIndexType portNum //!< The port number
+    );
+
     //! Static function for port from_typedOut
     static void from_typedOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
@@ -924,6 +978,9 @@ class PassiveEventsTesterBase :
 
     //! The size of history for from_noArgsReturnOut
     U32 fromPortHistorySize_noArgsReturnOut;
+
+    //! The size of history for from_noArgsStringReturnOut
+    U32 fromPortHistorySize_noArgsStringReturnOut;
 
     //! The history for from_typedOut
     History<FromPortEntry_typedOut>* fromPortHistory_typedOut;
@@ -980,6 +1037,9 @@ class PassiveEventsTesterBase :
     //! To port connected to noArgsReturnSync
     Ports::OutputNoArgsReturnPort m_to_noArgsReturnSync[3];
 
+    //! To port connected to noArgsStringReturnSync
+    Ports::OutputNoArgsStringReturnPort m_to_noArgsStringReturnSync[1];
+
     //! To port connected to noArgsSync
     Ports::OutputNoArgsPort m_to_noArgsSync[3];
 
@@ -1034,6 +1094,9 @@ class PassiveEventsTesterBase :
 
     //! From port connected to noArgsReturnOut
     Ports::InputNoArgsReturnPort m_from_noArgsReturnOut[1];
+
+    //! From port connected to noArgsStringReturnOut
+    Ports::InputNoArgsStringReturnPort m_from_noArgsStringReturnOut[1];
 
     //! From port connected to typedOut
     Ports::InputTypedPort m_from_typedOut[1];

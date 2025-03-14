@@ -9,15 +9,15 @@
 
 #include <cstdio>
 #include <cstring>
+#include <FpConfig.hpp>
 
 #include "AArrayAc.hpp"
 #include "EEnumAc.hpp"
-#include "FpConfig.hpp"
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/Serializable.hpp"
-#include "Fw/Types/StringType.hpp"
+#include "Fw/Types/String.hpp"
 #include "SSerializableAc.hpp"
 
 namespace Ports {
