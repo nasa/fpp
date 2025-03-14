@@ -43,7 +43,7 @@
   '("action" "active" "activity" "always"  "assert"
     "at" "base" "block" "change" "choice" "command"
     "connections" "cpu" "default" "diagnostic" "do"
-    "drop" "else" "entry" "event" "exit"
+    "drop" "else" "entry" "event" "exit" "external"
     "false" "fatal" "format" "get" "guard"
     "guarded" "health" "high" "hook" "id" "if" "import"
     "include" "initial" "input" "internal"

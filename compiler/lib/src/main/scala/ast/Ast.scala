@@ -590,8 +590,9 @@ object Ast {
     typeName: AstNode[TypeName],
     default: Option[AstNode[Expr]],
     id: Option[AstNode[Expr]],
-    setOpcode:  Option[AstNode[Expr]],
-    saveOpcode:  Option[AstNode[Expr]]
+    setOpcode: Option[AstNode[Expr]],
+    saveOpcode: Option[AstNode[Expr]],
+    isExternal: Boolean
   )
 
   /** Port instance specifier */

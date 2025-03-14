@@ -17,6 +17,7 @@ object Token {
   final case class BLOCK() extends Token
   final case class BOOL() extends Token
   final case class CHANGE() extends Token
+  final case class CHOICE() extends Token
   final case class COLON() extends Token
   final case class COMMA() extends Token
   final case class COMMAND() extends Token
@@ -38,6 +39,7 @@ object Token {
   final case class EQUALS() extends Token
   final case class EVENT() extends Token
   final case class EXIT() extends Token
+  final case class EXTERNAL() extends Token
   final case class F32() extends Token
   final case class F64() extends Token
   final case class FALSE() extends Token
@@ -63,7 +65,6 @@ object Token {
   final case class INPUT() extends Token
   final case class INSTANCE() extends Token
   final case class INTERNAL() extends Token
-  final case class CHOICE() extends Token
   final case class LBRACE() extends Token
   final case class LBRACKET() extends Token
   final case class LITERAL_FLOAT(str: String) extends Token

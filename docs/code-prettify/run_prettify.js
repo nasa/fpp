@@ -433,6 +433,7 @@ var IN_GLOBAL_SCOPE = false;
           "enum," +
           "event," +
           "exit," +
+          "external," +
           "fatal," +
           "format," +
           "get," +
@@ -469,8 +470,8 @@ var IN_GLOBAL_SCOPE = false;
           "priority," +
           "private," +
           "product," +
-          "queued," +
           "queue," +
+          "queued," +
           "record," +
           "recv," +
           "red," +
