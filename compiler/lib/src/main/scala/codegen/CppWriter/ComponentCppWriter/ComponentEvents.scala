@@ -254,7 +254,7 @@ case class ComponentEvents (
                 |  return;
                 |}
                 |else {
-                |  this->${eventThrottleCounterName(event.getName)}.fetch_add(1);
+                |  (void) this->${eventThrottleCounterName(event.getName)}.fetch_add(1);
                 |}
                 |"""
           )

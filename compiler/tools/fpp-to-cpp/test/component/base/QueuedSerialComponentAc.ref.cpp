@@ -4712,7 +4712,7 @@ void QueuedSerialComponentBase ::
     return;
   }
   else {
-    this->m_EventActivityLowThrottledThrottle++;
+    (void) this->m_EventActivityLowThrottledThrottle.fetch_add(1);
   }
 
   // Get the time
@@ -5003,7 +5003,7 @@ void QueuedSerialComponentBase ::
     return;
   }
   else {
-    this->m_EventFatalThrottledThrottle++;
+    (void) this->m_EventFatalThrottledThrottle.fetch_add(1);
   }
 
   // Get the time
@@ -5194,7 +5194,7 @@ void QueuedSerialComponentBase ::
     return;
   }
   else {
-    this->m_EventWarningLowThrottledThrottle++;
+    (void) this->m_EventWarningLowThrottledThrottle.fetch_add(1);
   }
 
   // Get the time

@@ -40,6 +40,7 @@
 #include "SSerializableAc.hpp"
 #include "TypedPortAc.hpp"
 #include "TypedReturnPortAc.hpp"
+#include <atomic>
 
 namespace M {
 
@@ -2580,13 +2581,13 @@ namespace M {
       // ----------------------------------------------------------------------
 
       //! Throttle for EventActivityLowThrottled
-      FwIndexType m_EventActivityLowThrottledThrottle;
+      std::atomic<FwIndexType> m_EventActivityLowThrottledThrottle;
 
       //! Throttle for EventFatalThrottled
-      FwIndexType m_EventFatalThrottledThrottle;
+      std::atomic<FwIndexType> m_EventFatalThrottledThrottle;
 
       //! Throttle for EventWarningLowThrottled
-      FwIndexType m_EventWarningLowThrottledThrottle;
+      std::atomic<FwIndexType> m_EventWarningLowThrottledThrottle;
 
     PRIVATE:
 

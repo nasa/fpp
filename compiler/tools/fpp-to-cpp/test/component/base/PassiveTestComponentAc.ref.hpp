@@ -39,6 +39,7 @@
 #include "SSerializableAc.hpp"
 #include "TypedPortAc.hpp"
 #include "TypedReturnPortAc.hpp"
+#include <atomic>
 
 //! \class PassiveTestComponentBase
 //! \brief Auto-generated base for PassiveTest component
@@ -2036,13 +2037,13 @@ class PassiveTestComponentBase :
     // ----------------------------------------------------------------------
 
     //! Throttle for EventActivityLowThrottled
-    FwIndexType m_EventActivityLowThrottledThrottle;
+    std::atomic<FwIndexType> m_EventActivityLowThrottledThrottle;
 
     //! Throttle for EventFatalThrottled
-    FwIndexType m_EventFatalThrottledThrottle;
+    std::atomic<FwIndexType> m_EventFatalThrottledThrottle;
 
     //! Throttle for EventWarningLowThrottled
-    FwIndexType m_EventWarningLowThrottledThrottle;
+    std::atomic<FwIndexType> m_EventWarningLowThrottledThrottle;
 
   PRIVATE:
 

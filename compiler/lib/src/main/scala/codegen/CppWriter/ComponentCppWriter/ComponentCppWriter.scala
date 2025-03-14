@@ -93,8 +93,6 @@ case class ComponentCppWriter (
     // Conditional headers
     val dpHeaders =
       guardedList (hasDataProducts) (List("Fw/Dp/DpContainer.hpp"))
-    val eventHeaders =
-      guardedList (hasEvents) (List("<atomic>"))
     val mutexHeaders =
       guardedList (hasGuardedInputPorts || hasGuardedCommands || hasParameters) (
         List("Os/Mutex.hpp")
@@ -109,7 +107,8 @@ case class ComponentCppWriter (
       guardedList (hasEvents) (List("Fw/Log/LogString.hpp"))
     val internalStrHeaders =
       guardedList (hasInternalPorts) (List("Fw/Types/InternalInterfaceString.hpp"))
-
+    val systemHeaders =
+      guardedList (hasEvents) (List("atomic")).map(CppWriter.systemHeaderString)
     val standardHeaders = List.concat(
       List(
         "FpConfig.hpp",
@@ -118,7 +117,6 @@ case class ComponentCppWriter (
         "Fw/Comp/ActiveComponentBase.hpp"
       ),
       dpHeaders,
-      eventHeaders,
       mutexHeaders,
       cmdStrHeaders,
       tlmStrHeaders,
@@ -127,7 +125,7 @@ case class ComponentCppWriter (
       internalStrHeaders
     ).map(CppWriter.headerString)
     val symbolHeaders = writeIncludeDirectives
-    val headers = standardHeaders ++ symbolHeaders
+    val headers = systemHeaders ++ standardHeaders ++ symbolHeaders
     linesMember(addBlankPrefix(headers.sorted.flatMap({
       case s: "#include \"Fw/Log/LogTextPortAc.hpp\"" =>
         lines(
