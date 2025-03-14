@@ -50,6 +50,23 @@ run_test()
 }
 
 
+run_fpp_check_test() {
+  f=$1
+  outfile="${f##*/}"
+  outfile="${outfile%.*}"
+  outfile=$dir_name"_"$outfile
+  status=0
+  $fpp_to_json $f 2>&1 | remove_path_prefix > $outfile.out.txt && \
+      remove_path_prefix < fpp-ast.json >> $outfile.out.txt && \
+      remove_path_prefix < fpp-loc-map.json >> $outfile.out.txt
+    if grep -qi "Exception in thread" $outfile.out.txt; then
+      rm $outfile.out.txt
+      status=1
+    fi
+    rm $outfile.out.txt
+    return $status
+}
+
 activeComponents(){
   run_test "" activeComponents
 }
@@ -65,6 +82,10 @@ constTypesComponents(){
 constants()
 {
   run_test "" constants
+}
+
+dataProducts(){
+  run_test "" dataProducts
 }
 
 enums()
@@ -156,6 +177,7 @@ activeComponents
 commands
 constTypesComponents
 constants
+dataProducts
 enums
 events
 importedTopologies
@@ -177,4 +199,35 @@ telemetryPackets
 types
 "
 
-run_suite $tests
+# Generate fpp-check test cases
+test_names=""
+exclude_test_dirs=("tlm_packets")
+fpp_check_test_dir="../../fpp-check/test/"
+fpp_check_tests=$(for d in "$fpp_check_test_dir"*
+do
+if [[ -d $d ]]; then
+  dir_name="${d##*/}"
+  for f in "$d"/*
+  do
+  if [[ -f $f ]]; then
+    if [ "${f##*.}" == "fpp" ]; then  
+    file_name="${f##*/}"
+    file_name="${file_name%.*}"
+    func_name="fpp_check"_$dir_name"_"$file_name
+
+    test_names+="\n$func_name"
+echo "
+$func_name()
+{
+  run_fpp_check_test $f
+}"
+    fi
+  fi
+  done
+fi
+done > fpp-check-tests.sh && \
+echo $test_names)
+
+. ./fpp-check-tests.sh
+
+run_suite $tests$fpp_check_tests
