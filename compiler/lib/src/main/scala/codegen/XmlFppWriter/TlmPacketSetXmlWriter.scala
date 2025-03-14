@@ -64,19 +64,23 @@ object TlmPacketSetXmlFppWriter extends LineUtils {
         case _ => Left(file.semanticError(s"channel name $name is not well-formed"))
       }
 
+    /** Extracts a telemetry channel identifier node */
+    def tlmChannelIdentifierNode(
+      file: XmlFppWriter.File,
+      xmlNode: scala.xml.Node
+    ): Result.Result[AstNode[Ast.TlmChannelIdentifier]] =
+      for {
+        name <- file.getAttribute(xmlNode, "name")
+        tci <- tlmChannelIdentifier(file, name)
+      }
+      yield AstNode.create(tci)
+
     /** Extracts a telemetry packet member */
     def tlmPacketMember(
       file: XmlFppWriter.File,
       xmlNode: scala.xml.Node
     ): Result.Result[Ast.TlmPacketMember] =
-      for {
-        name <- file.getAttribute(xmlNode, "name")
-        tci <- tlmChannelIdentifier(file, name)
-      }
-      yield {
-        val node = AstNode.create(tci)
-        Ast.TlmPacketMember.TlmChannelIdentifier(node)
-      }
+      tlmChannelIdentifierNode(file, xmlNode).map(Ast.TlmPacketMember.TlmChannelIdentifier.apply)
 
     /** Extracts telemetry packet members */
     def tlmPacketMemberList(file: XmlFppWriter.File, xmlNode: scala.xml.Node):
@@ -95,7 +99,12 @@ object TlmPacketSetXmlFppWriter extends LineUtils {
     /** Extracts omitted channels */
     def omittedChannelList(file: XmlFppWriter.File):
       Result.Result[List[AstNode[Ast.TlmChannelIdentifier]]] =
-      Right(Nil)
+      for {
+        child <- file.getSingleChild(file.elem, "ignore")
+        channels <- Right(child \ "channel")
+        channelIds <- Result.map(channels.toList, tlmChannelIdentifierNode(file, _))
+      }
+      yield channelIds
 
     /** Translates the telemetry packet set */
     def specTlmPacketSetAnnotated(file: XmlFppWriter.File):
