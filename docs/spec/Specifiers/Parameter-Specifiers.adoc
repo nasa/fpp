@@ -5,6 +5,9 @@ A *parameter specifier* specifies a parameter as part of a
 
 ==== Syntax
 
+_[_
+`external`
+_]_
 `param` <<Lexical-Elements_Identifiers,_identifier_>>
 `:` <<Type-Names,_type-name_>>
 _[_
@@ -21,6 +24,9 @@ _[_
 _]_
 
 ==== Semantics
+
+* The optional keyword `external` specifies the parameter storage,
+serialization, and deserialization will be delegated to an external source.
 
 * The identifier names the parameter.
 
