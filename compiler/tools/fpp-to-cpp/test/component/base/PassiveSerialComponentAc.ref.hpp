@@ -8,6 +8,7 @@
 #define PassiveSerialComponentAc_HPP
 
 #include <FpConfig.hpp>
+#include <atomic>
 
 #include "AArrayAc.hpp"
 #include "EEnumAc.hpp"
@@ -36,7 +37,6 @@
 #include "SSerializableAc.hpp"
 #include "TypedPortAc.hpp"
 #include "TypedReturnPortAc.hpp"
-#include <atomic>
 
 static_assert(
   FW_PORT_SERIALIZATION == 1,

@@ -8,6 +8,7 @@
 #define PassiveEventsComponentAc_HPP
 
 #include <FpConfig.hpp>
+#include <atomic>
 
 #include "AArrayAc.hpp"
 #include "EEnumAc.hpp"
@@ -33,7 +34,6 @@
 #include "SSerializableAc.hpp"
 #include "TypedPortAc.hpp"
 #include "TypedReturnPortAc.hpp"
-#include <atomic>
 
 //! \class PassiveEventsComponentBase
 //! \brief Auto-generated base for PassiveEvents component

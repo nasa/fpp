@@ -8,6 +8,7 @@
 #define PassiveTestComponentAc_HPP
 
 #include <FpConfig.hpp>
+#include <atomic>
 
 #include "AArrayAc.hpp"
 #include "EEnumAc.hpp"
@@ -41,7 +42,6 @@
 #include "SSerializableAc.hpp"
 #include "TypedPortAc.hpp"
 #include "TypedReturnPortAc.hpp"
-#include <atomic>
 
 //! \class PassiveTestComponentBase
 //! \brief Auto-generated base for PassiveTest component

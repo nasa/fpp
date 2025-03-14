@@ -8,6 +8,7 @@
 #define M_ActiveTestComponentAc_HPP
 
 #include <FpConfig.hpp>
+#include <atomic>
 
 #include "AArrayAc.hpp"
 #include "ActiveTest_DataSerializableAc.hpp"
@@ -42,7 +43,6 @@
 #include "SSerializableAc.hpp"
 #include "TypedPortAc.hpp"
 #include "TypedReturnPortAc.hpp"
-#include <atomic>
 
 namespace M {
 

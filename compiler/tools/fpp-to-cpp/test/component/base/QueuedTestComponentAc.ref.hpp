@@ -8,6 +8,7 @@
 #define QueuedTestComponentAc_HPP
 
 #include <FpConfig.hpp>
+#include <atomic>
 
 #include "AArrayAc.hpp"
 #include "EEnumAc.hpp"
@@ -42,7 +43,6 @@
 #include "SSerializableAc.hpp"
 #include "TypedPortAc.hpp"
 #include "TypedReturnPortAc.hpp"
-#include <atomic>
 
 //! \class QueuedTestComponentBase
 //! \brief Auto-generated base for QueuedTest component
