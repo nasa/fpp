@@ -117,7 +117,57 @@ case class ComponentParameters (
                     |"""
               ),
               intersperseBlankLines(
-                sortedParams.map((_, param) =>
+                sortedParams.map { case (_, param) =>
+                  val deserializationCode = {
+                    if (param.isExternal) {
+                      List(
+                        lines(
+                          s"""| // Call the deserialize function for the external parameter
+                              | this->deserializeParam(_id,buff);
+                              |"""
+                        )
+                      )
+                    } else {
+                      List(
+                        lines(
+                          s"""| // Deserialize value
+                              |this->m_paramLock.lock();
+                              |
+                              |// If there was a deserialization issue, mark it invalid
+                              |"""
+                        ),
+                        wrapInIfElse(
+                          s"this->${paramValidityFlagName(param.getName)} == Fw::ParamValid::VALID",
+                          line(s"stat = buff.deserialize(this->${paramVariableName(param.getName)});") ::
+                            wrapInIf(
+                              "stat != Fw::FW_SERIALIZE_OK",
+                              param.default match {
+                                case Some(value) => lines(
+                                  s"""|this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::DEFAULT;
+                                      |// Set default value
+                                      |this->${paramVariableName(param.getName)} = ${ValueCppWriter.write(s, value)};
+                                      |"""
+                                )
+                                case None => lines(
+                                  s"this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::INVALID;"
+                                )
+                              }
+                            ),
+                          param.default match {
+                            case Some(value) => lines(
+                              s"""|// Set default value
+                                  |this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::DEFAULT;
+                                  |this->${paramVariableName(param.getName)} = ${ValueCppWriter.write(s, value)};
+                                  |"""
+                            )
+                            case None => lines("// No default")
+                          }
+                        ),
+                        Line.blank :: lines("this->m_paramLock.unLock();")
+                      )
+                    }
+                  }
+
                   List.concat(
                     lines(
                       s"""|_id = this->getIdBase() + ${paramIdConstantName(param.getName)};
@@ -129,47 +179,11 @@ case class ComponentParameters (
                           |    buff
                           |  );
                           |
-                          |// Deserialize value
-                          |this->m_paramLock.lock();
-                          |
-                          |// If there was a deserialization issue, mark it invalid
                           |"""
-                    ),
-                    wrapInIfElse(
-                      s"this->${paramValidityFlagName(param.getName)} == Fw::ParamValid::VALID",
-                      line(s"stat = buff.deserialize(this->${paramVariableName(param.getName)});") ::
-                        wrapInIf(
-                          "stat != Fw::FW_SERIALIZE_OK",
-                          param.default match {
-                            case Some(value) => lines(
-                              s"""|this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::DEFAULT;
-                                  |// Set default value
-                                  |this->${paramVariableName(param.getName)} = ${ValueCppWriter.write(s, value)};
-                                  |"""
-                            )
-                            case None => lines(
-                              s"this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::INVALID;"
-                            )
-                          }
-                        ),
-                      param.default match {
-                        case Some(value) => lines(
-                          s"""|// Set default value
-                              |this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::DEFAULT;
-                              |this->${paramVariableName(param.getName)} = ${ValueCppWriter.write(s, value)};
-                              |"""
-                        )
-                        case None => lines("// No default")
-                      }
-                    ),
-                    Line.blank :: lines("this->m_paramLock.unLock();")
+                    ) ++
+                    deserializationCode.flatten
                   )
-                )
-              ),
-              lines(
-                """|// Call notifier
-                   |this->parametersLoaded();
-                   |"""
+                }
               )
             )
           )
