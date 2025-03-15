@@ -416,7 +416,7 @@ case class ComponentDataProducts (
           else s"const $typeName&"
       }
       // Generate the code for computing the size delta
-      val computeSizeDelta = (t match {
+      val computeSizeDelta = (t.getUnderlyingType match {
         case ts: Type.String =>
           val stringSize = writeStringSize(s, ts)
           s"""|const FwSizeType stringSize = $stringSize;
@@ -431,7 +431,7 @@ case class ComponentDataProducts (
       }).stripMargin
       // Get the expression that does the serialization
       // For strings this is a truncated serialization
-      val serialExpr = t match {
+      val serialExpr = t.getUnderlyingType match {
         case ts: Type.String =>
           "elt.serialize(this->m_dataBuffer, stringSize)"
         case _ => "this->m_dataBuffer.serialize(elt)"
@@ -478,7 +478,7 @@ case class ComponentDataProducts (
         case _ => s"const ${typeName}*"
       }
       // Generate the code for computing the size delta
-      val computeSizeDelta = (t match {
+      val computeSizeDelta = (t.getUnderlyingType match {
         case ts: Type.String =>
           val stringSize = writeStringSize(s, ts)
           s"""|const FwSizeType stringSize = $stringSize;

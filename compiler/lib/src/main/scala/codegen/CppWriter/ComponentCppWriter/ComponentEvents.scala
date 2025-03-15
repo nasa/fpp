@@ -132,7 +132,7 @@ case class ComponentEvents (
                 eventParamTypeMap(id).map((name, typeName, ty) => {
 
                   List.concat(
-                    ty match {
+                    ty.getUnderlyingType match {
                       case t: Type.String =>
                         val serialSize = writeStringSize(s, t)
                         lines(

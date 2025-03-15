@@ -99,11 +99,12 @@ object CppDocHppWriter extends CppDocWriter {
     val hppFile = cppDoc.hppFile
     val cppFileName = cppDoc.cppFileName
     val in = Input(hppFile, cppFileName)
+    val ext = hppFile.name.toString.split("\\.").last
     List(
       CppDocWriter.writeBanner(
         cppDoc,
         in.hppFile.name,
-        s"hpp file for ${cppDoc.description}"
+        s"$ext file for ${cppDoc.description}"
       ),
       openIncludeGuard(hppFile.includeGuard),
       cppDoc.members.map(visitMember(in, _)).flatten,

@@ -7,7 +7,9 @@ abs_type()
 alias_type()
 {
   run_test "-p $PWD" alias_type && \
-    diff_cpp AliasTypeArray
+    diff_cpp AliasTypeArray && \
+    diff -u ATAliasAc.ref.h ATAliasAc.h && \
+    diff -u ATAliasAc.ref.hpp ATAliasAc.hpp
 }
 
 builtin_type()

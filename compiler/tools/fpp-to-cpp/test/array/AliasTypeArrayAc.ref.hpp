@@ -7,6 +7,7 @@
 #ifndef AliasTypeArrayAc_HPP
 #define AliasTypeArrayAc_HPP
 
+#include "ATAliasAc.hpp"
 #include "FpConfig.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
@@ -24,7 +25,7 @@ class AliasType :
     // ----------------------------------------------------------------------
 
     //! The element type
-    using ElementType = U32;
+    using ElementType = AT;
 
   public:
 
@@ -36,7 +37,7 @@ class AliasType :
       //! The size of the array
       SIZE = 3,
       //! The serialized size of each element
-      ELEMENT_SERIALIZED_SIZE = sizeof(U32),
+      ELEMENT_SERIALIZED_SIZE = sizeof(AT),
       //! The size of the serial representation
       SERIALIZED_SIZE = SIZE * ELEMENT_SERIALIZED_SIZE
     };

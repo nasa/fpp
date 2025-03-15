@@ -7,6 +7,24 @@ import fpp.compiler.util._
 /** Writes out C++ for F Prime autocode */
 object AutocodeCppWriter extends CppWriter {
 
+  override def defAliasTypeAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]
+  ) = {
+  val node = aNode._2
+    val data = node.data
+    val hppDoc = AliasCppWriter(s, aNode).writeHpp
+    val hDoc = AliasCppWriter(s, aNode).writeH
+
+    for {
+      s <- CppWriter.writeHppFile(s, hppDoc)
+      s <- hDoc match {
+        case Some(doc) => CppWriter.writeHppFile(s, doc)
+        case None => Right(s)
+      }
+    } yield s
+  }
+
   override def defArrayAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefArray]]

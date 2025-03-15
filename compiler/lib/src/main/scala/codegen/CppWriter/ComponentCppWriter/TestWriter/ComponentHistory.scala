@@ -179,7 +179,7 @@ case class ComponentHistory(
               s"$entryName() :",
               lines(
                 params.map((n, tn, t) => {
-                  t match {
+                  t.getUnderlyingType match {
                     case ts: Type.String =>
                       val bufferName = getBufferName(n)
                       s"$n($bufferName, sizeof $bufferName)"
