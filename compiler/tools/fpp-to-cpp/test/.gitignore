@@ -6,6 +6,7 @@
 *.template.hpp
 *Ac.cpp
 *Ac.hpp
+*Ac.h
 *GTestBase.cpp
 *GTestBase.hpp
 *TesterBase.cpp
