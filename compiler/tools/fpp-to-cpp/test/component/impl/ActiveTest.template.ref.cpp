@@ -32,19 +32,19 @@ namespace M {
   void ActiveTest ::
     aliasTypedAsync_handler(
         FwIndexType portNum,
-        U32 u32,
-        F32 f32,
-        bool b,
+        AliasPrim1 u32,
+        AliasPrim2 f32,
+        AliasBool b,
         const Fw::StringBase& str2,
-        const E& e,
-        const A& a,
-        const S& s
+        const AliasEnum& e,
+        const AliasArray& a,
+        const AliasStruct& s
     )
   {
     // TODO
   }
 
-  Fw::String ActiveTest ::
+  AliasString ActiveTest ::
     noArgsAliasStringReturnSync_handler(FwIndexType portNum)
   {
     // TODO return
@@ -89,43 +89,43 @@ namespace M {
   void ActiveTest ::
     typedAliasGuarded_handler(
         FwIndexType portNum,
-        U32 u32,
-        F32 f32,
-        bool b,
+        AliasPrim1 u32,
+        AliasPrim2 f32,
+        AliasBool b,
         const Fw::StringBase& str2,
-        const E& e,
-        const A& a,
-        const S& s
+        const AliasEnum& e,
+        const AliasArray& a,
+        const AliasStruct& s
     )
   {
     // TODO
   }
 
-  F32 ActiveTest ::
+  AliasPrim2 ActiveTest ::
     typedAliasReturnSync_handler(
         FwIndexType portNum,
-        U32 u32,
-        F32 f32,
-        bool b,
+        AliasPrim1 u32,
+        AliasPrim2 f32,
+        AliasBool b,
         const Fw::StringBase& str2,
-        const E& e,
-        const A& a,
-        const S& s
+        const AliasEnum& e,
+        const AliasArray& a,
+        const AliasStruct& s
     )
   {
     // TODO return
   }
 
-  Fw::String ActiveTest ::
+  AliasString ActiveTest ::
     typedAliasStringReturnSync_handler(
         FwIndexType portNum,
-        U32 u32,
-        F32 f32,
-        bool b,
+        AliasPrim1 u32,
+        AliasPrim2 f32,
+        AliasBool b,
         const Fw::StringBase& str2,
-        const E& e,
-        const A& a,
-        const StructWithAlias& s
+        const AliasEnum& e,
+        const AliasArray& a,
+        const AnotherAliasStruct& s
     )
   {
     // TODO return

@@ -1199,44 +1199,44 @@ Fw::String QueuedCommandsTesterBase ::
 void QueuedCommandsTesterBase ::
   from_typedAliasOut_handler(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   this->pushFromPortEntry_typedAliasOut(u32, f32, b, str2, e, a, s);
 }
 
-F32 QueuedCommandsTesterBase ::
+AliasPrim2 QueuedCommandsTesterBase ::
   from_typedAliasReturnOut_handler(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   this->pushFromPortEntry_typedAliasReturnOut(u32, f32, b, str2, e, a, s);
   return 0.0f;
 }
 
-Fw::String QueuedCommandsTesterBase ::
+AliasString QueuedCommandsTesterBase ::
   from_typedAliasReturnStringOut_handler(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const StructWithAlias& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
   )
 {
   this->pushFromPortEntry_typedAliasReturnStringOut(u32, f32, b, str2, e, a, s);
@@ -1314,13 +1314,13 @@ Fw::String QueuedCommandsTesterBase ::
 void QueuedCommandsTesterBase ::
   from_typedAliasOut_handlerBase(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   // Make sure port number is valid
@@ -1340,16 +1340,16 @@ void QueuedCommandsTesterBase ::
   );
 }
 
-F32 QueuedCommandsTesterBase ::
+AliasPrim2 QueuedCommandsTesterBase ::
   from_typedAliasReturnOut_handlerBase(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   // Make sure port number is valid
@@ -1369,16 +1369,16 @@ F32 QueuedCommandsTesterBase ::
   );
 }
 
-Fw::String QueuedCommandsTesterBase ::
+AliasString QueuedCommandsTesterBase ::
   from_typedAliasReturnStringOut_handlerBase(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const StructWithAlias& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
   )
 {
   // Make sure port number is valid
@@ -1463,13 +1463,13 @@ F32 QueuedCommandsTesterBase ::
 void QueuedCommandsTesterBase ::
   invoke_to_aliasTypedAsync(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   // Make sure port number is valid
@@ -1488,7 +1488,7 @@ void QueuedCommandsTesterBase ::
   );
 }
 
-Fw::String QueuedCommandsTesterBase ::
+AliasString QueuedCommandsTesterBase ::
   invoke_to_noArgsAliasStringReturnSync(FwIndexType portNum)
 {
   // Make sure port number is valid
@@ -1568,13 +1568,13 @@ void QueuedCommandsTesterBase ::
 void QueuedCommandsTesterBase ::
   invoke_to_typedAliasGuarded(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   // Make sure port number is valid
@@ -1593,16 +1593,16 @@ void QueuedCommandsTesterBase ::
   );
 }
 
-F32 QueuedCommandsTesterBase ::
+AliasPrim2 QueuedCommandsTesterBase ::
   invoke_to_typedAliasReturnSync(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   // Make sure port number is valid
@@ -1621,16 +1621,16 @@ F32 QueuedCommandsTesterBase ::
   );
 }
 
-Fw::String QueuedCommandsTesterBase ::
+AliasString QueuedCommandsTesterBase ::
   invoke_to_typedAliasStringReturnSync(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const StructWithAlias& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
   )
 {
   // Make sure port number is valid
@@ -2990,13 +2990,13 @@ void QueuedCommandsTesterBase ::
 
 void QueuedCommandsTesterBase ::
   pushFromPortEntry_typedAliasOut(
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   FromPortEntry_typedAliasOut _e;
@@ -3013,13 +3013,13 @@ void QueuedCommandsTesterBase ::
 
 void QueuedCommandsTesterBase ::
   pushFromPortEntry_typedAliasReturnOut(
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   FromPortEntry_typedAliasReturnOut _e;
@@ -3036,13 +3036,13 @@ void QueuedCommandsTesterBase ::
 
 void QueuedCommandsTesterBase ::
   pushFromPortEntry_typedAliasReturnStringOut(
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const StructWithAlias& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
   )
 {
   FromPortEntry_typedAliasReturnStringOut _e;
@@ -3178,13 +3178,13 @@ void QueuedCommandsTesterBase ::
   from_typedAliasOut_static(
       Fw::PassiveComponentBase* const callComp,
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   FW_ASSERT(callComp != nullptr);
@@ -3201,17 +3201,17 @@ void QueuedCommandsTesterBase ::
   );
 }
 
-F32 QueuedCommandsTesterBase ::
+AliasPrim2 QueuedCommandsTesterBase ::
   from_typedAliasReturnOut_static(
       Fw::PassiveComponentBase* const callComp,
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   FW_ASSERT(callComp != nullptr);
@@ -3228,17 +3228,17 @@ F32 QueuedCommandsTesterBase ::
   );
 }
 
-Fw::String QueuedCommandsTesterBase ::
+AliasString QueuedCommandsTesterBase ::
   from_typedAliasReturnStringOut_static(
       Fw::PassiveComponentBase* const callComp,
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const StructWithAlias& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
   )
 {
   FW_ASSERT(callComp != nullptr);

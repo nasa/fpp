@@ -27,7 +27,7 @@ PassiveTest ::
 // Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
-Fw::String PassiveTest ::
+AliasString PassiveTest ::
   noArgsAliasStringReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
@@ -66,43 +66,43 @@ void PassiveTest ::
 void PassiveTest ::
   typedAliasGuarded_handler(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   // TODO
 }
 
-F32 PassiveTest ::
+AliasPrim2 PassiveTest ::
   typedAliasReturnSync_handler(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   // TODO return
 }
 
-Fw::String PassiveTest ::
+AliasString PassiveTest ::
   typedAliasStringReturnSync_handler(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const StructWithAlias& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
   )
 {
   // TODO return

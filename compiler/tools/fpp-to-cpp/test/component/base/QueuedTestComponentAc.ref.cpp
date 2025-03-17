@@ -2773,13 +2773,13 @@ void QueuedTestComponentBase ::
 void QueuedTestComponentBase ::
   aliasTypedAsync_handlerBase(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   // Make sure port number is valid
@@ -2840,7 +2840,7 @@ void QueuedTestComponentBase ::
   );
 
   // Serialize argument str2
-  _status = str2.serialize(msg, 32);
+  _status = msg.serialize(str2);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2877,7 +2877,7 @@ void QueuedTestComponentBase ::
   );
 }
 
-Fw::String QueuedTestComponentBase ::
+AliasString QueuedTestComponentBase ::
   noArgsAliasStringReturnSync_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
@@ -2886,7 +2886,7 @@ Fw::String QueuedTestComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  Fw::String retVal;
+  AliasString retVal;
 
   // Call handler function
   retVal = this->noArgsAliasStringReturnSync_handler(portNum);
@@ -3026,13 +3026,13 @@ void QueuedTestComponentBase ::
 void QueuedTestComponentBase ::
   typedAliasGuarded_handlerBase(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   // Make sure port number is valid
@@ -3060,16 +3060,16 @@ void QueuedTestComponentBase ::
   this->unLock();
 }
 
-F32 QueuedTestComponentBase ::
+AliasPrim2 QueuedTestComponentBase ::
   typedAliasReturnSync_handlerBase(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   // Make sure port number is valid
@@ -3078,7 +3078,7 @@ F32 QueuedTestComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  F32 retVal;
+  AliasPrim2 retVal;
 
   // Call handler function
   retVal = this->typedAliasReturnSync_handler(
@@ -3095,16 +3095,16 @@ F32 QueuedTestComponentBase ::
   return retVal;
 }
 
-Fw::String QueuedTestComponentBase ::
+AliasString QueuedTestComponentBase ::
   typedAliasStringReturnSync_handlerBase(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const StructWithAlias& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
   )
 {
   // Make sure port number is valid
@@ -3113,7 +3113,7 @@ Fw::String QueuedTestComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  Fw::String retVal;
+  AliasString retVal;
 
   // Call handler function
   retVal = this->typedAliasStringReturnSync_handler(
@@ -3737,13 +3737,13 @@ void QueuedTestComponentBase ::
 void QueuedTestComponentBase ::
   aliasTypedAsync_preMsgHook(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   // Default: no-op
@@ -3915,13 +3915,13 @@ Fw::String QueuedTestComponentBase ::
 void QueuedTestComponentBase ::
   typedAliasOut_out(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   FW_ASSERT(
@@ -3944,16 +3944,16 @@ void QueuedTestComponentBase ::
   );
 }
 
-F32 QueuedTestComponentBase ::
+AliasPrim2 QueuedTestComponentBase ::
   typedAliasReturnOut_out(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   FW_ASSERT(
@@ -3976,16 +3976,16 @@ F32 QueuedTestComponentBase ::
   );
 }
 
-Fw::String QueuedTestComponentBase ::
+AliasString QueuedTestComponentBase ::
   typedAliasReturnStringOut_out(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const StructWithAlias& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
   )
 {
   FW_ASSERT(
@@ -6630,7 +6630,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
     // Handle async input port aliasTypedAsync
     case ALIASTYPEDASYNC_ALIASTYPED: {
       // Deserialize argument u32
-      U32 u32;
+      AliasPrim1 u32;
       _deserStatus = _msg.deserialize(u32);
       FW_ASSERT(
         _deserStatus == Fw::FW_SERIALIZE_OK,
@@ -6638,7 +6638,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
       );
 
       // Deserialize argument f32
-      F32 f32;
+      AliasPrim2 f32;
       _deserStatus = _msg.deserialize(f32);
       FW_ASSERT(
         _deserStatus == Fw::FW_SERIALIZE_OK,
@@ -6646,7 +6646,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
       );
 
       // Deserialize argument b
-      bool b;
+      AliasBool b;
       _deserStatus = _msg.deserialize(b);
       FW_ASSERT(
         _deserStatus == Fw::FW_SERIALIZE_OK,
@@ -6663,7 +6663,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
       );
 
       // Deserialize argument e
-      E e;
+      AliasEnum e;
       _deserStatus = _msg.deserialize(e);
       FW_ASSERT(
         _deserStatus == Fw::FW_SERIALIZE_OK,
@@ -6671,7 +6671,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
       );
 
       // Deserialize argument a
-      A a;
+      AliasArray a;
       _deserStatus = _msg.deserialize(a);
       FW_ASSERT(
         _deserStatus == Fw::FW_SERIALIZE_OK,
@@ -6679,7 +6679,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
       );
 
       // Deserialize argument s
-      S s;
+      AliasStruct s;
       _deserStatus = _msg.deserialize(s);
       FW_ASSERT(
         _deserStatus == Fw::FW_SERIALIZE_OK,
@@ -7776,13 +7776,13 @@ void QueuedTestComponentBase ::
   m_p_aliasTypedAsync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   FW_ASSERT(callComp);
@@ -7799,7 +7799,7 @@ void QueuedTestComponentBase ::
   );
 }
 
-Fw::String QueuedTestComponentBase ::
+AliasString QueuedTestComponentBase ::
   m_p_noArgsAliasStringReturnSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum
@@ -7880,13 +7880,13 @@ void QueuedTestComponentBase ::
   m_p_typedAliasGuarded_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   FW_ASSERT(callComp);
@@ -7903,17 +7903,17 @@ void QueuedTestComponentBase ::
   );
 }
 
-F32 QueuedTestComponentBase ::
+AliasPrim2 QueuedTestComponentBase ::
   m_p_typedAliasReturnSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   FW_ASSERT(callComp);
@@ -7930,17 +7930,17 @@ F32 QueuedTestComponentBase ::
   );
 }
 
-Fw::String QueuedTestComponentBase ::
+AliasString QueuedTestComponentBase ::
   m_p_typedAliasStringReturnSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const StructWithAlias& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
   )
 {
   FW_ASSERT(callComp);

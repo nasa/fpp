@@ -119,14 +119,14 @@ class ActiveGuardedProductsTesterBase :
         a(),
         s()
       {}
-      U32 u32;
-      F32 f32;
-      bool b;
+      AliasPrim1 u32;
+      AliasPrim2 f32;
+      AliasBool b;
       char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(32)];
       Fw::ExternalString str2;
-      E e;
-      A a;
-      S s;
+      AliasEnum e;
+      AliasArray a;
+      AliasStruct s;
     };
 
     //! A history entry for port from_typedAliasReturnOut
@@ -140,14 +140,14 @@ class ActiveGuardedProductsTesterBase :
         a(),
         s()
       {}
-      U32 u32;
-      F32 f32;
-      bool b;
+      AliasPrim1 u32;
+      AliasPrim2 f32;
+      AliasBool b;
       char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(32)];
       Fw::ExternalString str2;
-      E e;
-      A a;
-      S s;
+      AliasEnum e;
+      AliasArray a;
+      AliasStruct s;
     };
 
     //! A history entry for port from_typedAliasReturnStringOut
@@ -161,14 +161,14 @@ class ActiveGuardedProductsTesterBase :
         a(),
         s()
       {}
-      U32 u32;
-      F32 f32;
-      bool b;
+      AliasPrim1 u32;
+      AliasPrim2 f32;
+      AliasBool b;
       char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(32)];
       Fw::ExternalString str2;
-      E e;
-      A a;
-      StructWithAlias s;
+      AliasEnum e;
+      AliasArray a;
+      AnotherAliasStruct s;
     };
 
     //! A history entry for port from_typedOut
@@ -544,37 +544,37 @@ class ActiveGuardedProductsTesterBase :
     //! Default handler implementation for from_typedAliasOut
     virtual void from_typedAliasOut_handler(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     );
 
     //! Default handler implementation for from_typedAliasReturnOut
-    virtual F32 from_typedAliasReturnOut_handler(
+    virtual AliasPrim2 from_typedAliasReturnOut_handler(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     );
 
     //! Default handler implementation for from_typedAliasReturnStringOut
-    virtual Fw::String from_typedAliasReturnStringOut_handler(
+    virtual AliasString from_typedAliasReturnStringOut_handler(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const StructWithAlias& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AnotherAliasStruct& s //!< A struct
     );
 
     //! Default handler implementation for from_typedOut
@@ -625,37 +625,37 @@ class ActiveGuardedProductsTesterBase :
     //! Handler base-class function for from_typedAliasOut
     void from_typedAliasOut_handlerBase(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     );
 
     //! Handler base-class function for from_typedAliasReturnOut
-    F32 from_typedAliasReturnOut_handlerBase(
+    AliasPrim2 from_typedAliasReturnOut_handlerBase(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     );
 
     //! Handler base-class function for from_typedAliasReturnStringOut
-    Fw::String from_typedAliasReturnStringOut_handlerBase(
+    AliasString from_typedAliasReturnStringOut_handlerBase(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const StructWithAlias& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AnotherAliasStruct& s //!< A struct
     );
 
     //! Handler base-class function for from_typedOut
@@ -691,17 +691,17 @@ class ActiveGuardedProductsTesterBase :
     //! Invoke the to port connected to aliasTypedAsync
     void invoke_to_aliasTypedAsync(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     );
 
     //! Invoke the to port connected to noArgsAliasStringReturnSync
-    Fw::String invoke_to_noArgsAliasStringReturnSync(
+    AliasString invoke_to_noArgsAliasStringReturnSync(
         FwIndexType portNum //!< The port number
     );
 
@@ -738,37 +738,37 @@ class ActiveGuardedProductsTesterBase :
     //! Invoke the to port connected to typedAliasGuarded
     void invoke_to_typedAliasGuarded(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     );
 
     //! Invoke the to port connected to typedAliasReturnSync
-    F32 invoke_to_typedAliasReturnSync(
+    AliasPrim2 invoke_to_typedAliasReturnSync(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     );
 
     //! Invoke the to port connected to typedAliasStringReturnSync
-    Fw::String invoke_to_typedAliasStringReturnSync(
+    AliasString invoke_to_typedAliasStringReturnSync(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const StructWithAlias& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AnotherAliasStruct& s //!< A struct
     );
 
     //! Invoke the to port connected to typedAsync
@@ -1302,35 +1302,35 @@ class ActiveGuardedProductsTesterBase :
 
     //! Push an entry on the history for from_typedAliasOut
     void pushFromPortEntry_typedAliasOut(
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     );
 
     //! Push an entry on the history for from_typedAliasReturnOut
     void pushFromPortEntry_typedAliasReturnOut(
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     );
 
     //! Push an entry on the history for from_typedAliasReturnStringOut
     void pushFromPortEntry_typedAliasReturnStringOut(
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const StructWithAlias& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AnotherAliasStruct& s //!< A struct
     );
 
     //! Push an entry on the history for from_typedOut
@@ -1406,39 +1406,39 @@ class ActiveGuardedProductsTesterBase :
     static void from_typedAliasOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     );
 
     //! Static function for port from_typedAliasReturnOut
-    static F32 from_typedAliasReturnOut_static(
+    static AliasPrim2 from_typedAliasReturnOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     );
 
     //! Static function for port from_typedAliasReturnStringOut
-    static Fw::String from_typedAliasReturnStringOut_static(
+    static AliasString from_typedAliasReturnStringOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const StructWithAlias& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AnotherAliasStruct& s //!< A struct
     );
 
     //! Static function for port from_typedOut

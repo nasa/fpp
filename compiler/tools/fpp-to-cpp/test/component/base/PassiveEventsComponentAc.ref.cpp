@@ -1635,7 +1635,7 @@ bool PassiveEventsComponentBase ::
 // Call these functions directly to bypass the corresponding ports
 // ----------------------------------------------------------------------
 
-Fw::String PassiveEventsComponentBase ::
+AliasString PassiveEventsComponentBase ::
   noArgsAliasStringReturnSync_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
@@ -1644,7 +1644,7 @@ Fw::String PassiveEventsComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  Fw::String retVal;
+  AliasString retVal;
 
   // Call handler function
   retVal = this->noArgsAliasStringReturnSync_handler(portNum);
@@ -1744,13 +1744,13 @@ void PassiveEventsComponentBase ::
 void PassiveEventsComponentBase ::
   typedAliasGuarded_handlerBase(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   // Make sure port number is valid
@@ -1778,16 +1778,16 @@ void PassiveEventsComponentBase ::
   this->unLock();
 }
 
-F32 PassiveEventsComponentBase ::
+AliasPrim2 PassiveEventsComponentBase ::
   typedAliasReturnSync_handlerBase(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   // Make sure port number is valid
@@ -1796,7 +1796,7 @@ F32 PassiveEventsComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  F32 retVal;
+  AliasPrim2 retVal;
 
   // Call handler function
   retVal = this->typedAliasReturnSync_handler(
@@ -1813,16 +1813,16 @@ F32 PassiveEventsComponentBase ::
   return retVal;
 }
 
-Fw::String PassiveEventsComponentBase ::
+AliasString PassiveEventsComponentBase ::
   typedAliasStringReturnSync_handlerBase(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const StructWithAlias& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
   )
 {
   // Make sure port number is valid
@@ -1831,7 +1831,7 @@ Fw::String PassiveEventsComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  Fw::String retVal;
+  AliasString retVal;
 
   // Call handler function
   retVal = this->typedAliasStringReturnSync_handler(
@@ -2044,13 +2044,13 @@ Fw::String PassiveEventsComponentBase ::
 void PassiveEventsComponentBase ::
   typedAliasOut_out(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   FW_ASSERT(
@@ -2073,16 +2073,16 @@ void PassiveEventsComponentBase ::
   );
 }
 
-F32 PassiveEventsComponentBase ::
+AliasPrim2 PassiveEventsComponentBase ::
   typedAliasReturnOut_out(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   FW_ASSERT(
@@ -2105,16 +2105,16 @@ F32 PassiveEventsComponentBase ::
   );
 }
 
-Fw::String PassiveEventsComponentBase ::
+AliasString PassiveEventsComponentBase ::
   typedAliasReturnStringOut_out(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const StructWithAlias& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
   )
 {
   FW_ASSERT(
@@ -2913,7 +2913,7 @@ void PassiveEventsComponentBase ::
 // Calls for messages received on typed input ports
 // ----------------------------------------------------------------------
 
-Fw::String PassiveEventsComponentBase ::
+AliasString PassiveEventsComponentBase ::
   m_p_noArgsAliasStringReturnSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum
@@ -2983,13 +2983,13 @@ void PassiveEventsComponentBase ::
   m_p_typedAliasGuarded_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   FW_ASSERT(callComp);
@@ -3006,17 +3006,17 @@ void PassiveEventsComponentBase ::
   );
 }
 
-F32 PassiveEventsComponentBase ::
+AliasPrim2 PassiveEventsComponentBase ::
   m_p_typedAliasReturnSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   FW_ASSERT(callComp);
@@ -3033,17 +3033,17 @@ F32 PassiveEventsComponentBase ::
   );
 }
 
-Fw::String PassiveEventsComponentBase ::
+AliasString PassiveEventsComponentBase ::
   m_p_typedAliasStringReturnSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const StructWithAlias& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
   )
 {
   FW_ASSERT(callComp);

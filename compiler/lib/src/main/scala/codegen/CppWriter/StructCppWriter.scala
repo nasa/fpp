@@ -489,7 +489,7 @@ case class StructCppWriter(
                 {
                   line("formatString,") ::
                   lines(memberList.flatMap((n, tn) =>
-                    (sizes.contains(n), typeMembers(n)) match {
+                    (sizes.contains(n), typeMembers(n).getUnderlyingType) match {
                       case (false, _: Type.String) =>
                         List(s"this->m_$n.toChar()")
                       case (false, t) if s.isPrimitive(t, tn) =>
@@ -525,7 +525,7 @@ case class StructCppWriter(
   private def getGetterFunctionMembers: List[CppDoc.Class.Member] = {
     def getGetterName(n: String) = s"get$n"
 
-    memberList.flatMap((n, tn) => (sizes.contains(n), typeMembers(n)) match {
+    memberList.flatMap((n, tn) => (sizes.contains(n), typeMembers(n).getUnderlyingType) match {
       case (false, _: Type.Enum) => List(
         CppDoc.Class.Member.Lines(
           CppDoc.Lines(
@@ -646,7 +646,7 @@ case class StructCppWriter(
         case StructCppWriter.Const => "const "
         case StructCppWriter.NonConst => ""
       }
-      (sizes.contains(n), typeMembers(n)) match {
+      (sizes.contains(n), typeMembers(n).getUnderlyingType) match {
         case (true, _) => s"$maybeConstStr${getMemberTypeName(n)}&"
         case (_, _: Type.Enum) => s"$tn::T"
         case (_, _: Type.String) => s"${maybeConstStr}Fw::ExternalString&"

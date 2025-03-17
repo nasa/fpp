@@ -33,7 +33,7 @@ type AliasEnum = E
 type AliasString = string size 32
 
 struct StructWithAlias {
-  x: U32,
+  x: AliasPrim1,
   y: AliasString,
   z: AliasArray
   w: AliasAliasArray

@@ -1078,17 +1078,17 @@ class ActiveSerialComponentBase :
     //! Handler for input port aliasTypedAsync
     virtual void aliasTypedAsync_handler(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     ) = 0;
 
     //! Handler for input port noArgsAliasStringReturnSync
-    virtual Fw::String noArgsAliasStringReturnSync_handler(
+    virtual AliasString noArgsAliasStringReturnSync_handler(
         FwIndexType portNum //!< The port number
     ) = 0;
 
@@ -1125,37 +1125,37 @@ class ActiveSerialComponentBase :
     //! Handler for input port typedAliasGuarded
     virtual void typedAliasGuarded_handler(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     ) = 0;
 
     //! Handler for input port typedAliasReturnSync
-    virtual F32 typedAliasReturnSync_handler(
+    virtual AliasPrim2 typedAliasReturnSync_handler(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     ) = 0;
 
     //! Handler for input port typedAliasStringReturnSync
-    virtual Fw::String typedAliasStringReturnSync_handler(
+    virtual AliasString typedAliasStringReturnSync_handler(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const StructWithAlias& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AnotherAliasStruct& s //!< A struct
     ) = 0;
 
     //! Handler for input port typedAsync
@@ -1265,17 +1265,17 @@ class ActiveSerialComponentBase :
     //! Handler base-class function for input port aliasTypedAsync
     void aliasTypedAsync_handlerBase(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     );
 
     //! Handler base-class function for input port noArgsAliasStringReturnSync
-    Fw::String noArgsAliasStringReturnSync_handlerBase(
+    AliasString noArgsAliasStringReturnSync_handlerBase(
         FwIndexType portNum //!< The port number
     );
 
@@ -1312,37 +1312,37 @@ class ActiveSerialComponentBase :
     //! Handler base-class function for input port typedAliasGuarded
     void typedAliasGuarded_handlerBase(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     );
 
     //! Handler base-class function for input port typedAliasReturnSync
-    F32 typedAliasReturnSync_handlerBase(
+    AliasPrim2 typedAliasReturnSync_handlerBase(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     );
 
     //! Handler base-class function for input port typedAliasStringReturnSync
-    Fw::String typedAliasStringReturnSync_handlerBase(
+    AliasString typedAliasStringReturnSync_handlerBase(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const StructWithAlias& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AnotherAliasStruct& s //!< A struct
     );
 
     //! Handler base-class function for input port typedAsync
@@ -1540,13 +1540,13 @@ class ActiveSerialComponentBase :
     //! Pre-message hook for async input port aliasTypedAsync
     virtual void aliasTypedAsync_preMsgHook(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     );
 
     //! Pre-message hook for async input port noArgsAsync
@@ -1660,37 +1660,37 @@ class ActiveSerialComponentBase :
     //! Invoke output port typedAliasOut
     void typedAliasOut_out(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     );
 
     //! Invoke output port typedAliasReturnOut
-    F32 typedAliasReturnOut_out(
+    AliasPrim2 typedAliasReturnOut_out(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     );
 
     //! Invoke output port typedAliasReturnStringOut
-    Fw::String typedAliasReturnStringOut_out(
+    AliasString typedAliasReturnStringOut_out(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const StructWithAlias& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AnotherAliasStruct& s //!< A struct
     );
 
     //! Invoke output port typedOut
@@ -2483,17 +2483,17 @@ class ActiveSerialComponentBase :
     static void m_p_aliasTypedAsync_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     );
 
     //! Callback for port noArgsAliasStringReturnSync
-    static Fw::String m_p_noArgsAliasStringReturnSync_in(
+    static AliasString m_p_noArgsAliasStringReturnSync_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
         FwIndexType portNum //!< The port number
     );
@@ -2538,39 +2538,39 @@ class ActiveSerialComponentBase :
     static void m_p_typedAliasGuarded_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     );
 
     //! Callback for port typedAliasReturnSync
-    static F32 m_p_typedAliasReturnSync_in(
+    static AliasPrim2 m_p_typedAliasReturnSync_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     );
 
     //! Callback for port typedAliasStringReturnSync
-    static Fw::String m_p_typedAliasStringReturnSync_in(
+    static AliasString m_p_typedAliasStringReturnSync_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const StructWithAlias& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AnotherAliasStruct& s //!< A struct
     );
 
     //! Callback for port typedAsync

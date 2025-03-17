@@ -11,7 +11,17 @@ types()
   diff_cpp TypedReturnPort && \
   diff_cpp EEnum && \
   diff_cpp AArray && \
-  diff_cpp SSerializable
+  diff_cpp SSerializable && \
+  diff_h_hpp AliasPrim1Alias && \
+  diff_h_hpp AliasPrim2Alias && \
+  diff_hpp AliasStructAlias && \
+  diff_hpp AliasBoolAlias && \
+  diff_hpp AliasArrayAlias && \
+  diff_hpp AliasAliasArrayAlias && \
+  diff_hpp AliasEnumAlias && \
+  diff_hpp AliasStringAlias &&
+  diff_cpp StructWithAliasSerializable
+  diff_hpp AnotherAliasStructAlias
 }
 
 empty()

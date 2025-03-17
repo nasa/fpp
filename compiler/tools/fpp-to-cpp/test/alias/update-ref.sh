@@ -1,28 +1,3 @@
-move_h_hpp()
-{
-  if test $# -ne 1
-  then
-    echo 'usage: move_h_hpp file' 1>&2
-    exit 1
-  fi
-  file=$1
-  for suffix in hpp h
-  do
-    mv $file'Ac.'$suffix $file'Ac.ref.'$suffix
-  done
-}
-
-move_hpp()
-{
-  if test $# -ne 1
-  then
-    echo 'usage: move_hpp file' 1>&2
-    exit 1
-  fi
-  file=$1
-  mv $file'Ac.hpp' $file'Ac.ref.hpp'
-}
-
 abs_type()
 {
   update "-p $PWD" abs_type
@@ -55,11 +30,3 @@ namespace()
   move_hpp NamespacedAliasType2Alias
 }
 
-component()
-{
-  update "-p $PWD" component
-  move_cpp C_AArray
-  move_cpp CComponent
-  move_h_hpp TAlias
-  move_hpp C_TAlias
-}

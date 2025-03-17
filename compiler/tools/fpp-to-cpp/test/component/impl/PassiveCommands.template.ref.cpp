@@ -27,7 +27,7 @@ PassiveCommands ::
 // Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
-Fw::String PassiveCommands ::
+AliasString PassiveCommands ::
   noArgsAliasStringReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
@@ -66,43 +66,43 @@ void PassiveCommands ::
 void PassiveCommands ::
   typedAliasGuarded_handler(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   // TODO
 }
 
-F32 PassiveCommands ::
+AliasPrim2 PassiveCommands ::
   typedAliasReturnSync_handler(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const S& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
   )
 {
   // TODO return
 }
 
-Fw::String PassiveCommands ::
+AliasString PassiveCommands ::
   typedAliasStringReturnSync_handler(
       FwIndexType portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
       const Fw::StringBase& str2,
-      const E& e,
-      const A& a,
-      const StructWithAlias& s
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
   )
 {
   // TODO return

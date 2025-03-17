@@ -2775,13 +2775,13 @@ namespace M {
   void ActiveTestComponentBase ::
     aliasTypedAsync_handlerBase(
         FwIndexType portNum,
-        U32 u32,
-        F32 f32,
-        bool b,
+        AliasPrim1 u32,
+        AliasPrim2 f32,
+        AliasBool b,
         const Fw::StringBase& str2,
-        const E& e,
-        const A& a,
-        const S& s
+        const AliasEnum& e,
+        const AliasArray& a,
+        const AliasStruct& s
     )
   {
     // Make sure port number is valid
@@ -2842,7 +2842,7 @@ namespace M {
     );
 
     // Serialize argument str2
-    _status = str2.serialize(msg, 32);
+    _status = msg.serialize(str2);
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -2879,7 +2879,7 @@ namespace M {
     );
   }
 
-  Fw::String ActiveTestComponentBase ::
+  AliasString ActiveTestComponentBase ::
     noArgsAliasStringReturnSync_handlerBase(FwIndexType portNum)
   {
     // Make sure port number is valid
@@ -2888,7 +2888,7 @@ namespace M {
       static_cast<FwAssertArgType>(portNum)
     );
 
-    Fw::String retVal;
+    AliasString retVal;
 
     // Call handler function
     retVal = this->noArgsAliasStringReturnSync_handler(portNum);
@@ -3028,13 +3028,13 @@ namespace M {
   void ActiveTestComponentBase ::
     typedAliasGuarded_handlerBase(
         FwIndexType portNum,
-        U32 u32,
-        F32 f32,
-        bool b,
+        AliasPrim1 u32,
+        AliasPrim2 f32,
+        AliasBool b,
         const Fw::StringBase& str2,
-        const E& e,
-        const A& a,
-        const S& s
+        const AliasEnum& e,
+        const AliasArray& a,
+        const AliasStruct& s
     )
   {
     // Make sure port number is valid
@@ -3062,16 +3062,16 @@ namespace M {
     this->unLock();
   }
 
-  F32 ActiveTestComponentBase ::
+  AliasPrim2 ActiveTestComponentBase ::
     typedAliasReturnSync_handlerBase(
         FwIndexType portNum,
-        U32 u32,
-        F32 f32,
-        bool b,
+        AliasPrim1 u32,
+        AliasPrim2 f32,
+        AliasBool b,
         const Fw::StringBase& str2,
-        const E& e,
-        const A& a,
-        const S& s
+        const AliasEnum& e,
+        const AliasArray& a,
+        const AliasStruct& s
     )
   {
     // Make sure port number is valid
@@ -3080,7 +3080,7 @@ namespace M {
       static_cast<FwAssertArgType>(portNum)
     );
 
-    F32 retVal;
+    AliasPrim2 retVal;
 
     // Call handler function
     retVal = this->typedAliasReturnSync_handler(
@@ -3097,16 +3097,16 @@ namespace M {
     return retVal;
   }
 
-  Fw::String ActiveTestComponentBase ::
+  AliasString ActiveTestComponentBase ::
     typedAliasStringReturnSync_handlerBase(
         FwIndexType portNum,
-        U32 u32,
-        F32 f32,
-        bool b,
+        AliasPrim1 u32,
+        AliasPrim2 f32,
+        AliasBool b,
         const Fw::StringBase& str2,
-        const E& e,
-        const A& a,
-        const StructWithAlias& s
+        const AliasEnum& e,
+        const AliasArray& a,
+        const AnotherAliasStruct& s
     )
   {
     // Make sure port number is valid
@@ -3115,7 +3115,7 @@ namespace M {
       static_cast<FwAssertArgType>(portNum)
     );
 
-    Fw::String retVal;
+    AliasString retVal;
 
     // Call handler function
     retVal = this->typedAliasStringReturnSync_handler(
@@ -3739,13 +3739,13 @@ namespace M {
   void ActiveTestComponentBase ::
     aliasTypedAsync_preMsgHook(
         FwIndexType portNum,
-        U32 u32,
-        F32 f32,
-        bool b,
+        AliasPrim1 u32,
+        AliasPrim2 f32,
+        AliasBool b,
         const Fw::StringBase& str2,
-        const E& e,
-        const A& a,
-        const S& s
+        const AliasEnum& e,
+        const AliasArray& a,
+        const AliasStruct& s
     )
   {
     // Default: no-op
@@ -3917,13 +3917,13 @@ namespace M {
   void ActiveTestComponentBase ::
     typedAliasOut_out(
         FwIndexType portNum,
-        U32 u32,
-        F32 f32,
-        bool b,
+        AliasPrim1 u32,
+        AliasPrim2 f32,
+        AliasBool b,
         const Fw::StringBase& str2,
-        const E& e,
-        const A& a,
-        const S& s
+        const AliasEnum& e,
+        const AliasArray& a,
+        const AliasStruct& s
     )
   {
     FW_ASSERT(
@@ -3946,16 +3946,16 @@ namespace M {
     );
   }
 
-  F32 ActiveTestComponentBase ::
+  AliasPrim2 ActiveTestComponentBase ::
     typedAliasReturnOut_out(
         FwIndexType portNum,
-        U32 u32,
-        F32 f32,
-        bool b,
+        AliasPrim1 u32,
+        AliasPrim2 f32,
+        AliasBool b,
         const Fw::StringBase& str2,
-        const E& e,
-        const A& a,
-        const S& s
+        const AliasEnum& e,
+        const AliasArray& a,
+        const AliasStruct& s
     )
   {
     FW_ASSERT(
@@ -3978,16 +3978,16 @@ namespace M {
     );
   }
 
-  Fw::String ActiveTestComponentBase ::
+  AliasString ActiveTestComponentBase ::
     typedAliasReturnStringOut_out(
         FwIndexType portNum,
-        U32 u32,
-        F32 f32,
-        bool b,
+        AliasPrim1 u32,
+        AliasPrim2 f32,
+        AliasBool b,
         const Fw::StringBase& str2,
-        const E& e,
-        const A& a,
-        const StructWithAlias& s
+        const AliasEnum& e,
+        const AliasArray& a,
+        const AnotherAliasStruct& s
     )
   {
     FW_ASSERT(
@@ -6627,7 +6627,7 @@ namespace M {
       // Handle async input port aliasTypedAsync
       case ALIASTYPEDASYNC_ALIASTYPED: {
         // Deserialize argument u32
-        U32 u32;
+        AliasPrim1 u32;
         _deserStatus = _msg.deserialize(u32);
         FW_ASSERT(
           _deserStatus == Fw::FW_SERIALIZE_OK,
@@ -6635,7 +6635,7 @@ namespace M {
         );
 
         // Deserialize argument f32
-        F32 f32;
+        AliasPrim2 f32;
         _deserStatus = _msg.deserialize(f32);
         FW_ASSERT(
           _deserStatus == Fw::FW_SERIALIZE_OK,
@@ -6643,7 +6643,7 @@ namespace M {
         );
 
         // Deserialize argument b
-        bool b;
+        AliasBool b;
         _deserStatus = _msg.deserialize(b);
         FW_ASSERT(
           _deserStatus == Fw::FW_SERIALIZE_OK,
@@ -6660,7 +6660,7 @@ namespace M {
         );
 
         // Deserialize argument e
-        E e;
+        AliasEnum e;
         _deserStatus = _msg.deserialize(e);
         FW_ASSERT(
           _deserStatus == Fw::FW_SERIALIZE_OK,
@@ -6668,7 +6668,7 @@ namespace M {
         );
 
         // Deserialize argument a
-        A a;
+        AliasArray a;
         _deserStatus = _msg.deserialize(a);
         FW_ASSERT(
           _deserStatus == Fw::FW_SERIALIZE_OK,
@@ -6676,7 +6676,7 @@ namespace M {
         );
 
         // Deserialize argument s
-        S s;
+        AliasStruct s;
         _deserStatus = _msg.deserialize(s);
         FW_ASSERT(
           _deserStatus == Fw::FW_SERIALIZE_OK,
@@ -7773,13 +7773,13 @@ namespace M {
     m_p_aliasTypedAsync_in(
         Fw::PassiveComponentBase* callComp,
         FwIndexType portNum,
-        U32 u32,
-        F32 f32,
-        bool b,
+        AliasPrim1 u32,
+        AliasPrim2 f32,
+        AliasBool b,
         const Fw::StringBase& str2,
-        const E& e,
-        const A& a,
-        const S& s
+        const AliasEnum& e,
+        const AliasArray& a,
+        const AliasStruct& s
     )
   {
     FW_ASSERT(callComp);
@@ -7796,7 +7796,7 @@ namespace M {
     );
   }
 
-  Fw::String ActiveTestComponentBase ::
+  AliasString ActiveTestComponentBase ::
     m_p_noArgsAliasStringReturnSync_in(
         Fw::PassiveComponentBase* callComp,
         FwIndexType portNum
@@ -7877,13 +7877,13 @@ namespace M {
     m_p_typedAliasGuarded_in(
         Fw::PassiveComponentBase* callComp,
         FwIndexType portNum,
-        U32 u32,
-        F32 f32,
-        bool b,
+        AliasPrim1 u32,
+        AliasPrim2 f32,
+        AliasBool b,
         const Fw::StringBase& str2,
-        const E& e,
-        const A& a,
-        const S& s
+        const AliasEnum& e,
+        const AliasArray& a,
+        const AliasStruct& s
     )
   {
     FW_ASSERT(callComp);
@@ -7900,17 +7900,17 @@ namespace M {
     );
   }
 
-  F32 ActiveTestComponentBase ::
+  AliasPrim2 ActiveTestComponentBase ::
     m_p_typedAliasReturnSync_in(
         Fw::PassiveComponentBase* callComp,
         FwIndexType portNum,
-        U32 u32,
-        F32 f32,
-        bool b,
+        AliasPrim1 u32,
+        AliasPrim2 f32,
+        AliasBool b,
         const Fw::StringBase& str2,
-        const E& e,
-        const A& a,
-        const S& s
+        const AliasEnum& e,
+        const AliasArray& a,
+        const AliasStruct& s
     )
   {
     FW_ASSERT(callComp);
@@ -7927,17 +7927,17 @@ namespace M {
     );
   }
 
-  Fw::String ActiveTestComponentBase ::
+  AliasString ActiveTestComponentBase ::
     m_p_typedAliasStringReturnSync_in(
         Fw::PassiveComponentBase* callComp,
         FwIndexType portNum,
-        U32 u32,
-        F32 f32,
-        bool b,
+        AliasPrim1 u32,
+        AliasPrim2 f32,
+        AliasBool b,
         const Fw::StringBase& str2,
-        const E& e,
-        const A& a,
-        const StructWithAlias& s
+        const AliasEnum& e,
+        const AliasArray& a,
+        const AnotherAliasStruct& s
     )
   {
     FW_ASSERT(callComp);

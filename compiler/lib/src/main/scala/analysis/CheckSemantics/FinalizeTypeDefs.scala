@@ -17,6 +17,24 @@ object FinalizeTypeDefs
       yield if (t1 != t2) a.assignType(node -> t2) else a
   }
 
+  override def defAliasTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]) = {
+    val symbol = Symbol.AliasType(aNode)
+    def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]) = {
+      val node = aNode._2
+      val data = node.data
+      // Get the type of this node as an alias type A
+      val aliasType @ Type.AliasType(_, _) = a.typeMap(node.id)
+      for {
+        referencedType <- TypeVisitor.ty(a, aliasType.aliasType)
+        aliasType1 <- Right(aliasType.copy(aliasType = referencedType))
+      } yield {
+        // Update A in the type map
+        a.assignType(node -> aliasType1)
+      }
+    }
+    visitIfNeeded(symbol, visitor)(a, aNode)
+  }
+
   override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val symbol = Symbol.Array(aNode)
     def visitor(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
@@ -178,7 +196,8 @@ object FinalizeTypeDefs
     override def default(a: Analysis, t: Type) = Right(t)
 
     override def aliasType(a: Analysis, t: Type.AliasType) =
-      Right(a.typeMap(t.node._2.data.typeName.id))
+      for (a <- defAliasTypeAnnotatedNode(a, t.node))
+        yield a.typeMap(t.node._2.id)
 
     override def array(a: Analysis, t: Type.Array) =
       for (a <- defArrayAnnotatedNode(a, t.node))

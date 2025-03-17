@@ -36,7 +36,7 @@ class PassiveGuardedProducts final :
     //! Handler implementation for noArgsAliasStringReturnSync
     //!
     //! A typed sync input port with a string return type
-    Fw::String noArgsAliasStringReturnSync_handler(
+    AliasString noArgsAliasStringReturnSync_handler(
         FwIndexType portNum //!< The port number
     ) override;
 
@@ -80,41 +80,41 @@ class PassiveGuardedProducts final :
     //! A typed guarded input
     void typedAliasGuarded_handler(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     ) override;
 
     //! Handler implementation for typedAliasReturnSync
     //!
     //! An alias typed sync input port with a return type
-    F32 typedAliasReturnSync_handler(
+    AliasPrim2 typedAliasReturnSync_handler(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
     ) override;
 
     //! Handler implementation for typedAliasStringReturnSync
     //!
     //! A typed sync input port with a return type
-    Fw::String typedAliasStringReturnSync_handler(
+    AliasString typedAliasStringReturnSync_handler(
         FwIndexType portNum, //!< The port number
-        U32 u32, //!< A primitive
-        F32 f32, //!< Another primtive
-        bool b, //!< A boolean
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const StructWithAlias& s //!< A struct
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AnotherAliasStruct& s //!< A struct
     ) override;
 
     //! Handler implementation for typedGuarded
