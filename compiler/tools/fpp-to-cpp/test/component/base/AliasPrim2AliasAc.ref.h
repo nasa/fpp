@@ -7,6 +7,8 @@
 #ifndef AliasPrim2AliasAc_H
 #define AliasPrim2AliasAc_H
 
+#include <FpConfig.h>
+
 #include "Fw/Types/BasicTypes.h"
 
 //! Alias of another primtive type

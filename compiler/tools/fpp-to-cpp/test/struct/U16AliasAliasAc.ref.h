@@ -7,6 +7,8 @@
 #ifndef U16AliasAliasAc_H
 #define U16AliasAliasAc_H
 
+#include <FpConfig.h>
+
 #include "Fw/Types/BasicTypes.h"
 
 typedef U16 U16Alias;
