@@ -51,6 +51,12 @@ U32 QueuedSyncProducts ::
   // TODO return
 }
 
+Fw::String QueuedSyncProducts ::
+  noArgsStringReturnSync_handler(FwIndexType portNum)
+{
+  // TODO return
+}
+
 void QueuedSyncProducts ::
   noArgsSync_handler(FwIndexType portNum)
 {

@@ -230,50 +230,54 @@ case class StructCppWriter(
     val nonArrayMemberCheck = lines(
       nonArrayMemberNames.map(n => s"(this->m_$n == obj.m_$n)"
       ).mkString(" &&\n"))
-    val equalityOpBody =
-      // Simplify syntax if there are no array members
-      if sizes.isEmpty then
-        if nonArrayMemberNames.length == 1 then
-          lines(s"return ${nonArrayMemberCheck.head};")
-        else wrapInScope(
+    val addressEqualityCheck = lines("if (this == &obj) { return true; }")
+    lazy val emptySizes =
+      if nonArrayMemberNames.length == 1 then
+        lines(s"return ${nonArrayMemberCheck.head};")
+      else List.concat(
+        addressEqualityCheck,
+        wrapInScope(
           "return (",
           nonArrayMemberCheck,
           ");"
         )
-      else List(
-        if nonArrayMemberNames.length > 0 then List(
-          lines("// Compare non-array members"),
-          if nonArrayMemberNames.length == 1 then
-            wrapInIf(
-              s"!${nonArrayMemberCheck.head}",
-              lines("return false;")
-            )
-          else List(
-            lines("if (!("),
-            nonArrayMemberCheck.map(indentIn),
-            lines(
-              """|)) {
-                 |  return false;
-                 |}"""
-            ),
-          ).flatten
-        ).flatten
-        else lines(s"")
-        ,Line.blank :: lines("// Compare array members"),
-        arrayMemberNames.flatMap(n =>
+      )
+    lazy val nonEmptySizes = List.concat(
+      addBlankPostfix(addressEqualityCheck),
+      if nonArrayMemberNames.length > 0
+      then List.concat(
+        lines("// Compare non-array members"),
+        if nonArrayMemberNames.length == 1 then
           wrapInIf(
-            s"!(this->m_$n == obj.m_$n)",
-            iterateN(
-              sizes(n),
-              wrapInIf(
-                s"!(this->m_$n[i] == obj.m_$n[i])",
-                lines("return false;")
-              )
-            )
+            s"!${nonArrayMemberCheck.head}",
+            lines("return false;")
           )
-        ),
-        Line.blank :: lines("return true;"),
-      ).flatten
+        else List.concat(
+          lines("if (!("),
+          nonArrayMemberCheck.map(indentIn),
+          lines(
+            """|)) {
+               |  return false;
+               |}"""
+          )
+        )
+      )
+      else lines(s""),
+      Line.blank :: lines("// Compare array members"),
+      arrayMemberNames.flatMap(n =>
+        iterateN(
+          sizes(n),
+          wrapInIf(
+            s"!(this->m_$n[i] == obj.m_$n[i])",
+            lines("return false;")
+          )
+        )
+      ),
+      Line.blank :: lines("return true;"),
+    )
+    val equalityOpBody = 
+      // Simplify syntax if there are no array members
+      if sizes.isEmpty then emptySizes else nonEmptySizes
 
     List(
       linesClassMember(

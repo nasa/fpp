@@ -94,7 +94,7 @@ case class ComponentInternalStateMachines(
       CppDocWriter.writeComment("Handle signals to internal state machines") ++
       lines(
         s"""|case $internalStateMachineMsgType:
-            |  this->smDispatch(msg);
+            |  this->smDispatch(_msg);
             |  break;"""
       )
     )

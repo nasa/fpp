@@ -85,36 +85,36 @@ case class ComponentExternalStateMachines(
 
       val serializeCode =
         lines(
-          s"""|ComponentIpcSerializableBuffer msg;
+          s"""|ComponentIpcSerializableBuffer _msg;
               |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
               |
               |// Serialize the message ID
-              |_status = msg.serialize(static_cast<FwEnumStoreType>($externalStateMachineCppConstantName));
+              |_status = _msg.serialize(static_cast<FwEnumStoreType>($externalStateMachineCppConstantName));
               |FW_ASSERT (
               |  _status == Fw::FW_SERIALIZE_OK,
               |  static_cast<FwAssertArgType>(_status)
               |);
               |
               |// Fake port number to make message dequeue work
-              |_status = msg.serialize(static_cast<FwIndexType>(0));
+              |_status = _msg.serialize(static_cast<FwIndexType>(0));
               |FW_ASSERT (
               |  _status == Fw::FW_SERIALIZE_OK,
               |  static_cast<FwAssertArgType>(_status)
               |);
               |
-              |_status = msg.serialize(static_cast<FwEnumStoreType>(${writeSmIdName(smi.getName)}));
+              |_status = _msg.serialize(static_cast<FwEnumStoreType>(${writeSmIdName(smi.getName)}));
               |FW_ASSERT(
               |  _status == Fw::FW_SERIALIZE_OK,
               |  static_cast<FwAssertArgType>(_status)
               |);
               |
-              |_status = msg.serialize(static_cast<FwEnumStoreType>(signal));
+              |_status = _msg.serialize(static_cast<FwEnumStoreType>(signal));
               |FW_ASSERT(
               |  _status == Fw::FW_SERIALIZE_OK,
               |  static_cast<FwAssertArgType>(_status)
               |);
               |
-              |_status = msg.serialize(data);
+              |_status = _msg.serialize(data);
               |FW_ASSERT(
               |  _status == Fw::FW_SERIALIZE_OK,
               |  static_cast<FwAssertArgType>(_status)
@@ -123,7 +123,7 @@ case class ComponentExternalStateMachines(
 
       val sendLogicCode = List.concat(
         writeSendMessageLogic(
-          "msg", smi.queueFull, smi.priority,
+          "_msg", smi.queueFull, smi.priority,
           MessageType.StateMachine, smi.getName,
           ComponentExternalStateMachines.signalParams(s, smi.symbol)
         )
@@ -151,10 +151,10 @@ case class ComponentExternalStateMachines(
   private val writeDeserializeSmVars = lines(
     """|// Deserialize the state machine ID to an FwEnumStoreType
        |FwEnumStoreType enumStoreSmId = 0;
-       |deserStatus = msg.deserialize(enumStoreSmId);
+       |_deserStatus = _msg.deserialize(enumStoreSmId);
        |FW_ASSERT(
-       |  deserStatus == Fw::FW_SERIALIZE_OK,
-       |  static_cast<FwAssertArgType>(deserStatus)
+       |  _deserStatus == Fw::FW_SERIALIZE_OK,
+       |  static_cast<FwAssertArgType>(_deserStatus)
        |);
        |// Cast it to the correct type
        |SmId stateMachineId = static_cast<SmId>(enumStoreSmId);
@@ -163,25 +163,25 @@ case class ComponentExternalStateMachines(
        |// This value will be cast to the correct type in the
        |// switch statement that calls the state machine update function.
        |FwEnumStoreType enumStoreSmSignal = 0;
-       |deserStatus = msg.deserialize(enumStoreSmSignal);
+       |_deserStatus = _msg.deserialize(enumStoreSmSignal);
        |FW_ASSERT(
-       |  deserStatus == Fw::FW_SERIALIZE_OK,
-       |  static_cast<FwAssertArgType>(deserStatus)
+       |  _deserStatus == Fw::FW_SERIALIZE_OK,
+       |  static_cast<FwAssertArgType>(_deserStatus)
        |);
        |
        |// Deserialize the state machine data
        |Fw::SmSignalBuffer data;
-       |deserStatus = msg.deserialize(data);
+       |_deserStatus = _msg.deserialize(data);
        |FW_ASSERT(
-       |  Fw::FW_SERIALIZE_OK == deserStatus,
-       |  static_cast<FwAssertArgType>(deserStatus)
+       |  Fw::FW_SERIALIZE_OK == _deserStatus,
+       |  static_cast<FwAssertArgType>(_deserStatus)
        |);
        |
        |// Make sure there was no data left over.
        |// That means the buffer size was incorrect.
        |FW_ASSERT(
-       |  msg.getBuffLeft() == 0,
-       |  static_cast<FwAssertArgType>(msg.getBuffLeft())
+       |  _msg.getBuffLeft() == 0,
+       |  static_cast<FwAssertArgType>(_msg.getBuffLeft())
        |);"""
   )
 

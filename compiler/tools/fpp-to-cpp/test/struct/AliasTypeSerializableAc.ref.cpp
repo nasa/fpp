@@ -59,6 +59,7 @@ AliasType& AliasType ::
 bool AliasType ::
   operator==(const AliasType& obj) const
 {
+  if (this == &obj) { return true; }
   return (
     (this->m_x == obj.m_x) &&
     (this->m_y == obj.m_y)

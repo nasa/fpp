@@ -61,6 +61,7 @@ namespace M {
   bool Modules1 ::
     operator==(const Modules1& obj) const
   {
+    if (this == &obj) { return true; }
     return (
       (this->m_x == obj.m_x) &&
       (this->m_y == obj.m_y)

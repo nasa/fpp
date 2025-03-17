@@ -51,6 +51,12 @@ U32 ActiveGuardedProducts ::
   // TODO return
 }
 
+Fw::String ActiveGuardedProducts ::
+  noArgsStringReturnSync_handler(FwIndexType portNum)
+{
+  // TODO return
+}
+
 void ActiveGuardedProducts ::
   noArgsSync_handler(FwIndexType portNum)
 {
