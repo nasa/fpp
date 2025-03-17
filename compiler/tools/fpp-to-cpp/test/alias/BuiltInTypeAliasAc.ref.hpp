@@ -7,7 +7,9 @@
 #ifndef BuiltInTypeAliasAc_HPP
 #define BuiltInTypeAliasAc_HPP
 
-#include "FppConfig.hpp"
+#include <FpConfig.hpp>
+
+#include "Fw/Types/BasicTypes.h"
 
 extern "C" {
 #include "BuiltInTypeAliasAc.h"

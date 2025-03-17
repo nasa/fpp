@@ -7,7 +7,8 @@
 #ifndef BuiltInTypeAliasAc_H
 #define BuiltInTypeAliasAc_H
 
-#include "FppConfig.h"
+#include <FpConfig.h>
+
 #include "Fw/Types/BasicTypes.h"
 
 //! An alias of a built-in type

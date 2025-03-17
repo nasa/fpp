@@ -192,7 +192,12 @@ case class CppWriterState(
   }
 
   /** Is t a primitive type (not serializable)? */
-  def isPrimitive(t: Type, typeName: String): Boolean  = isBuiltInType(typeName) || t.getUnderlyingType.isPrimitive
+  def isPrimitive(t: Type, typeName: String): Boolean  = (
+    isBuiltInType(typeName) ||
+    t.getUnderlyingType.isPrimitive ||
+    // See if this an alias of a builtin type
+    isBuiltInType(t.getUnderlyingType.toString())
+  )
 
   /** Is t a string type? */
   def isStringType(t: Type) = t.getUnderlyingType match {

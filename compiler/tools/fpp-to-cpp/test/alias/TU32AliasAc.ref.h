@@ -7,6 +7,8 @@
 #ifndef TU32AliasAc_H
 #define TU32AliasAc_H
 
+#include <FpConfig.h>
+
 #include "Fw/Types/BasicTypes.h"
 
 typedef U32 TU32;

@@ -7,6 +7,8 @@
 #ifndef AliasStringAliasAc_HPP
 #define AliasStringAliasAc_HPP
 
+#include <FpConfig.hpp>
+
 #include "Fw/Types/String.hpp"
 
 //! Alias of a string

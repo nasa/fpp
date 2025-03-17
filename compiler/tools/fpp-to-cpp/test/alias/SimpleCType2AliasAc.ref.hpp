@@ -7,6 +7,8 @@
 #ifndef SimpleCType2AliasAc_HPP
 #define SimpleCType2AliasAc_HPP
 
+#include <FpConfig.hpp>
+
 #include "Fw/Types/BasicTypes.h"
 #include "SimpleCTypeAliasAc.hpp"
 

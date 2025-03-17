@@ -7,7 +7,9 @@
 #ifndef M_NamespacedBuiltin1AliasAc_HPP
 #define M_NamespacedBuiltin1AliasAc_HPP
 
-#include "FppConfig.hpp"
+#include <FpConfig.hpp>
+
+#include "Fw/Types/BasicTypes.h"
 
 namespace M {
 

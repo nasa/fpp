@@ -7,6 +7,8 @@
 #ifndef TF32AliasAc_H
 #define TF32AliasAc_H
 
+#include <FpConfig.h>
+
 #include "Fw/Types/BasicTypes.h"
 
 typedef F32 TF32;

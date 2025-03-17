@@ -7,6 +7,8 @@
 #ifndef SimpleCTypeAliasAc_H
 #define SimpleCTypeAliasAc_H
 
+#include <FpConfig.h>
+
 #include "Fw/Types/BasicTypes.h"
 
 //! A simple type alias that supports C codegen

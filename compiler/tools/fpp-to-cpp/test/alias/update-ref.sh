@@ -2,6 +2,7 @@ abs_type()
 {
   update "-p $PWD" abs_type
   move_hpp AbsTypeAlias
+  move_cpp AbsSerializable
 }
 
 basic()
@@ -11,6 +12,7 @@ basic()
   move_h_hpp TU32Alias
   move_hpp TStringAlias
   move_hpp TStringSizeAlias
+  move_cpp BasicSerializable
 }
 
 builtin_type()
@@ -19,6 +21,7 @@ builtin_type()
   move_h_hpp BuiltInTypeAlias
   move_hpp NamespacedBuiltin1Alias
   move_hpp NamespacedBuiltin2Alias
+  move_cpp BuiltinSerializable
 }
 
 namespace()
@@ -28,5 +31,5 @@ namespace()
   move_h_hpp SimpleCType2Alias
   move_hpp NamespacedAliasTypeAlias
   move_hpp NamespacedAliasType2Alias
+  move_cpp NamespaceSerializable
 }
-

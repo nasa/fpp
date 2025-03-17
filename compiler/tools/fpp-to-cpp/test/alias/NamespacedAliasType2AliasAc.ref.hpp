@@ -7,6 +7,8 @@
 #ifndef M_NamespacedAliasType2AliasAc_HPP
 #define M_NamespacedAliasType2AliasAc_HPP
 
+#include <FpConfig.hpp>
+
 #include "Fw/Types/BasicTypes.h"
 #include "NamespacedAliasTypeAliasAc.hpp"
 

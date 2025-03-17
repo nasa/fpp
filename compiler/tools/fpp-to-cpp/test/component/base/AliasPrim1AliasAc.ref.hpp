@@ -7,6 +7,8 @@
 #ifndef AliasPrim1AliasAc_HPP
 #define AliasPrim1AliasAc_HPP
 
+#include <FpConfig.hpp>
+
 #include "Fw/Types/BasicTypes.h"
 
 extern "C" {

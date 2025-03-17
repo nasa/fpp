@@ -14,3 +14,10 @@ module M {
     @ Type within a namespace that references another namespaces type
     type NamespacedAliasType2 = M2.NamespacedAliasType
 }
+
+struct Namespace {
+    A: SimpleCType,
+    B: SimpleCType2,
+    C: M.M2.NamespacedAliasType,
+    D: M.NamespacedAliasType2
+}
