@@ -18,7 +18,10 @@ case class TypeCppWriter(
       s.writeSymbol(Symbol.AbsType(t.node))
 
     override def aliasType(s: CppWriterState, t: Type.AliasType) =
-      s.writeSymbol(Symbol.AliasType(t.node))
+      (stringTypeName, t.getUnderlyingType) match {
+        case ("Fw::StringBase", Type.String(_)) => stringTypeName
+        case _ => s.writeSymbol(Symbol.AliasType(t.node))
+      }
 
     override def array(s: CppWriterState, t: Type.Array) =
       s.writeSymbol(Symbol.Array(t.node))
