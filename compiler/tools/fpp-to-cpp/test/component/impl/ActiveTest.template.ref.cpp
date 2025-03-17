@@ -30,6 +30,27 @@ namespace M {
   // ----------------------------------------------------------------------
 
   void ActiveTest ::
+    aliasTypedAsync_handler(
+        FwIndexType portNum,
+        U32 u32,
+        F32 f32,
+        bool b,
+        const Fw::StringBase& str2,
+        const E& e,
+        const A& a,
+        const S& s
+    )
+  {
+    // TODO
+  }
+
+  Fw::String ActiveTest ::
+    noArgsAliasStringReturnSync_handler(FwIndexType portNum)
+  {
+    // TODO return
+  }
+
+  void ActiveTest ::
     noArgsAsync_handler(FwIndexType portNum)
   {
     // TODO
@@ -63,6 +84,51 @@ namespace M {
     noArgsSync_handler(FwIndexType portNum)
   {
     // TODO
+  }
+
+  void ActiveTest ::
+    typedAliasGuarded_handler(
+        FwIndexType portNum,
+        U32 u32,
+        F32 f32,
+        bool b,
+        const Fw::StringBase& str2,
+        const E& e,
+        const A& a,
+        const S& s
+    )
+  {
+    // TODO
+  }
+
+  F32 ActiveTest ::
+    typedAliasReturnSync_handler(
+        FwIndexType portNum,
+        U32 u32,
+        F32 f32,
+        bool b,
+        const Fw::StringBase& str2,
+        const E& e,
+        const A& a,
+        const S& s
+    )
+  {
+    // TODO return
+  }
+
+  Fw::String ActiveTest ::
+    typedAliasStringReturnSync_handler(
+        FwIndexType portNum,
+        U32 u32,
+        F32 f32,
+        bool b,
+        const Fw::StringBase& str2,
+        const E& e,
+        const A& a,
+        const StructWithAlias& s
+    )
+  {
+    // TODO return
   }
 
   void ActiveTest ::
@@ -148,7 +214,7 @@ namespace M {
         bool b,
         const Fw::StringBase& str2,
         const E& e,
-        const A& a,
+        const AA& a,
         const S& s
     )
   {
@@ -163,7 +229,7 @@ namespace M {
         bool b,
         const Fw::StringBase& str2,
         const E& e,
-        const A& a,
+        const AA& a,
         const S& s
     )
   {

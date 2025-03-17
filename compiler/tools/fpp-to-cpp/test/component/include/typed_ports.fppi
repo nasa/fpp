@@ -24,7 +24,7 @@ guarded input port noArgsReturnGuarded: Ports.NoArgsReturn
 sync input port typedSync: [3] Ports.Typed
 
 @ A typed guarded input
-guarded input port typedAliasGuarded: Ports.AliasedTyped
+guarded input port typedAliasGuarded: Ports.AliasTyped
 
 @ A typed guarded input
 guarded input port typedGuarded: Ports.Typed
@@ -36,7 +36,7 @@ sync input port typedReturnSync: [3] Ports.TypedReturn
 sync input port typedAliasReturnSync: [3] Ports.AliasTypedReturn
 
 @ A typed sync input port with a return type
-sync input port typedAliasStringReturnSync: [3] Ports.AliasedTypedReturnString
+sync input port typedAliasStringReturnSync: [3] Ports.AliasTypedReturnString
 
 @ A typed guarded input with a return type
 guarded input port typedReturnGuarded: Ports.TypedReturn
@@ -54,7 +54,7 @@ output port noArgsStringReturnOut: Ports.NoArgsStringReturn
 output port typedOut: Ports.Typed
 
 @ An alias typed output port
-output port typedOut: Ports.AliasTyped
+output port typedAliasOut: Ports.AliasTyped
 
 @ A typed output port with a return type
 output port typedReturnOut: Ports.TypedReturn

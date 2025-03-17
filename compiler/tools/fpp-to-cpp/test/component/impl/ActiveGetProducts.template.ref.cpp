@@ -28,6 +28,27 @@ ActiveGetProducts ::
 // ----------------------------------------------------------------------
 
 void ActiveGetProducts ::
+  aliasTypedAsync_handler(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // TODO
+}
+
+Fw::String ActiveGetProducts ::
+  noArgsAliasStringReturnSync_handler(FwIndexType portNum)
+{
+  // TODO return
+}
+
+void ActiveGetProducts ::
   noArgsAsync_handler(FwIndexType portNum)
 {
   // TODO
@@ -61,6 +82,51 @@ void ActiveGetProducts ::
   noArgsSync_handler(FwIndexType portNum)
 {
   // TODO
+}
+
+void ActiveGetProducts ::
+  typedAliasGuarded_handler(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // TODO
+}
+
+F32 ActiveGetProducts ::
+  typedAliasReturnSync_handler(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // TODO return
+}
+
+Fw::String ActiveGetProducts ::
+  typedAliasStringReturnSync_handler(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const StructWithAlias& s
+  )
+{
+  // TODO return
 }
 
 void ActiveGetProducts ::
@@ -146,7 +212,7 @@ F32 ActiveGetProducts ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const A& a,
+      const AA& a,
       const S& s
   )
 {
@@ -161,7 +227,7 @@ F32 ActiveGetProducts ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const A& a,
+      const AA& a,
       const S& s
   )
 {

@@ -28,6 +28,27 @@ ActiveEvents ::
 // ----------------------------------------------------------------------
 
 void ActiveEvents ::
+  aliasTypedAsync_handler(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // TODO
+}
+
+Fw::String ActiveEvents ::
+  noArgsAliasStringReturnSync_handler(FwIndexType portNum)
+{
+  // TODO return
+}
+
+void ActiveEvents ::
   noArgsAsync_handler(FwIndexType portNum)
 {
   // TODO
@@ -61,6 +82,51 @@ void ActiveEvents ::
   noArgsSync_handler(FwIndexType portNum)
 {
   // TODO
+}
+
+void ActiveEvents ::
+  typedAliasGuarded_handler(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // TODO
+}
+
+F32 ActiveEvents ::
+  typedAliasReturnSync_handler(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // TODO return
+}
+
+Fw::String ActiveEvents ::
+  typedAliasStringReturnSync_handler(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const StructWithAlias& s
+  )
+{
+  // TODO return
 }
 
 void ActiveEvents ::
@@ -146,7 +212,7 @@ F32 ActiveEvents ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const A& a,
+      const AA& a,
       const S& s
   )
 {
@@ -161,7 +227,7 @@ F32 ActiveEvents ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const A& a,
+      const AA& a,
       const S& s
   )
 {

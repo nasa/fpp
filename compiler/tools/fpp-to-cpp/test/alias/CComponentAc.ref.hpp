@@ -7,13 +7,14 @@
 #ifndef CComponentAc_HPP
 #define CComponentAc_HPP
 
+#include <FpConfig.hpp>
+
 #include "AliasPortPortAc.hpp"
 #include "C_AArrayAc.hpp"
 #include "C_T2AliasAc.hpp"
 #include "C_TAliasAc.hpp"
 #include "DpGetPortAc.hpp"
 #include "DpSendPortAc.hpp"
-#include "FpConfig.hpp"
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/Dp/DpContainer.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
@@ -66,7 +67,7 @@ class CComponentBase :
 
     //! Record sizes
     static constexpr FwSizeType SIZE_OF_R1_RECORD =
-      sizeof(FwDpIdType) + C_T2::SERIALIZED_SIZE;
+      sizeof(FwDpIdType) + Fw::StringBase::STATIC_SERIALIZED_SIZE(30);
 
   PROTECTED:
 
@@ -117,7 +118,7 @@ class CComponentBase :
         //! Serialize a R1 record into the packet buffer
         //! \return The serialize status
         Fw::SerializeStatus serializeRecord_R1(
-            const C_T2& elt //!< The element
+            const Fw::StringBase& elt //!< The element
         );
 
         FwDpIdType getBaseId() const { return this->m_baseId; }
@@ -350,14 +351,14 @@ class CComponentBase :
     virtual StringA P1_handler(
         FwIndexType portNum, //!< The port number
         T a1,
-        const StringA& a2
+        const Fw::StringBase& a2
     ) = 0;
 
     //! Handler for input port P2
     virtual StringA P2_handler(
         FwIndexType portNum, //!< The port number
         T a1,
-        const StringA& a2
+        const Fw::StringBase& a2
     ) = 0;
 
   PROTECTED:
@@ -372,14 +373,14 @@ class CComponentBase :
     StringA P1_handlerBase(
         FwIndexType portNum, //!< The port number
         T a1,
-        const StringA& a2
+        const Fw::StringBase& a2
     );
 
     //! Handler base-class function for input port P2
     StringA P2_handlerBase(
         FwIndexType portNum, //!< The port number
         T a1,
-        const StringA& a2
+        const Fw::StringBase& a2
     );
 
   PROTECTED:
@@ -412,7 +413,7 @@ class CComponentBase :
 
     //! Write telemetry channel E2
     void tlmWrite_E2(
-        const C_T2& arg, //!< The telemetry value
+        const Fw::StringBase& arg, //!< The telemetry value
         Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
     ) const;
 
@@ -470,7 +471,7 @@ class CComponentBase :
         Fw::PassiveComponentBase* callComp, //!< The component instance
         FwIndexType portNum, //!< The port number
         T a1,
-        const StringA& a2
+        const Fw::StringBase& a2
     );
 
     //! Callback for port P2
@@ -478,7 +479,7 @@ class CComponentBase :
         Fw::PassiveComponentBase* callComp, //!< The component instance
         FwIndexType portNum, //!< The port number
         T a1,
-        const StringA& a2
+        const Fw::StringBase& a2
     );
 
   PRIVATE:

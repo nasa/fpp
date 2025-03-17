@@ -28,6 +28,27 @@ ActiveGuardedProducts ::
 // ----------------------------------------------------------------------
 
 void ActiveGuardedProducts ::
+  aliasTypedAsync_handler(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // TODO
+}
+
+Fw::String ActiveGuardedProducts ::
+  noArgsAliasStringReturnSync_handler(FwIndexType portNum)
+{
+  // TODO return
+}
+
+void ActiveGuardedProducts ::
   noArgsAsync_handler(FwIndexType portNum)
 {
   // TODO
@@ -61,6 +82,51 @@ void ActiveGuardedProducts ::
   noArgsSync_handler(FwIndexType portNum)
 {
   // TODO
+}
+
+void ActiveGuardedProducts ::
+  typedAliasGuarded_handler(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // TODO
+}
+
+F32 ActiveGuardedProducts ::
+  typedAliasReturnSync_handler(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // TODO return
+}
+
+Fw::String ActiveGuardedProducts ::
+  typedAliasStringReturnSync_handler(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const StructWithAlias& s
+  )
+{
+  // TODO return
 }
 
 void ActiveGuardedProducts ::
@@ -146,7 +212,7 @@ F32 ActiveGuardedProducts ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const A& a,
+      const AA& a,
       const S& s
   )
 {
@@ -161,7 +227,7 @@ F32 ActiveGuardedProducts ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const A& a,
+      const AA& a,
       const S& s
   )
 {

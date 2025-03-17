@@ -36,7 +36,7 @@ CComponentBase::DpContainer ::
 }
 
 Fw::SerializeStatus CComponentBase::DpContainer ::
-  serializeRecord_R1(const C_T2& elt)
+  serializeRecord_R1(const Fw::StringBase& elt)
 {
   const FwSizeType stringSize = 30;
   const FwSizeType sizeDelta =
@@ -525,7 +525,7 @@ StringA CComponentBase ::
   P1_handlerBase(
       FwIndexType portNum,
       T a1,
-      const StringA& a2
+      const Fw::StringBase& a2
   )
 {
   // Make sure port number is valid
@@ -550,7 +550,7 @@ StringA CComponentBase ::
   P2_handlerBase(
       FwIndexType portNum,
       T a1,
-      const StringA& a2
+      const Fw::StringBase& a2
   )
 {
   // Make sure port number is valid
@@ -644,7 +644,7 @@ void CComponentBase ::
 
 void CComponentBase ::
   tlmWrite_E2(
-      const C_T2& arg,
+      const Fw::StringBase& arg,
       Fw::Time _tlmTime
   ) const
 {
@@ -766,7 +766,7 @@ StringA CComponentBase ::
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
       T a1,
-      const StringA& a2
+      const Fw::StringBase& a2
   )
 {
   FW_ASSERT(callComp);
@@ -783,7 +783,7 @@ StringA CComponentBase ::
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
       T a1,
-      const StringA& a2
+      const Fw::StringBase& a2
   )
 {
   FW_ASSERT(callComp);

@@ -27,6 +27,12 @@ PassiveTelemetry ::
 // Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
+Fw::String PassiveTelemetry ::
+  noArgsAliasStringReturnSync_handler(FwIndexType portNum)
+{
+  // TODO return
+}
+
 void PassiveTelemetry ::
   noArgsGuarded_handler(FwIndexType portNum)
 {
@@ -58,6 +64,51 @@ void PassiveTelemetry ::
 }
 
 void PassiveTelemetry ::
+  typedAliasGuarded_handler(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // TODO
+}
+
+F32 PassiveTelemetry ::
+  typedAliasReturnSync_handler(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // TODO return
+}
+
+Fw::String PassiveTelemetry ::
+  typedAliasStringReturnSync_handler(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const StructWithAlias& s
+  )
+{
+  // TODO return
+}
+
+void PassiveTelemetry ::
   typedGuarded_handler(
       FwIndexType portNum,
       U32 u32,
@@ -80,7 +131,7 @@ F32 PassiveTelemetry ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const A& a,
+      const AA& a,
       const S& s
   )
 {
@@ -95,7 +146,7 @@ F32 PassiveTelemetry ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const A& a,
+      const AA& a,
       const S& s
   )
 {

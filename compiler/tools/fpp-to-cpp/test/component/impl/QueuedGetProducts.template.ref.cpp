@@ -28,6 +28,27 @@ QueuedGetProducts ::
 // ----------------------------------------------------------------------
 
 void QueuedGetProducts ::
+  aliasTypedAsync_handler(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // TODO
+}
+
+Fw::String QueuedGetProducts ::
+  noArgsAliasStringReturnSync_handler(FwIndexType portNum)
+{
+  // TODO return
+}
+
+void QueuedGetProducts ::
   noArgsAsync_handler(FwIndexType portNum)
 {
   // TODO
@@ -61,6 +82,51 @@ void QueuedGetProducts ::
   noArgsSync_handler(FwIndexType portNum)
 {
   // TODO
+}
+
+void QueuedGetProducts ::
+  typedAliasGuarded_handler(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // TODO
+}
+
+F32 QueuedGetProducts ::
+  typedAliasReturnSync_handler(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // TODO return
+}
+
+Fw::String QueuedGetProducts ::
+  typedAliasStringReturnSync_handler(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const StructWithAlias& s
+  )
+{
+  // TODO return
 }
 
 void QueuedGetProducts ::
@@ -146,7 +212,7 @@ F32 QueuedGetProducts ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const A& a,
+      const AA& a,
       const S& s
   )
 {
@@ -161,7 +227,7 @@ F32 QueuedGetProducts ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const A& a,
+      const AA& a,
       const S& s
   )
 {

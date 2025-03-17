@@ -108,6 +108,69 @@ class ActiveAsyncProductsTesterBase :
     // History types
     // ----------------------------------------------------------------------
 
+    //! A history entry for port from_typedAliasOut
+    struct FromPortEntry_typedAliasOut {
+      FromPortEntry_typedAliasOut() :
+        u32(),
+        f32(),
+        b(),
+        str2(__fprime_ac_str2_buffer, sizeof __fprime_ac_str2_buffer),
+        e(),
+        a(),
+        s()
+      {}
+      U32 u32;
+      F32 f32;
+      bool b;
+      char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(32)];
+      Fw::ExternalString str2;
+      E e;
+      A a;
+      S s;
+    };
+
+    //! A history entry for port from_typedAliasReturnOut
+    struct FromPortEntry_typedAliasReturnOut {
+      FromPortEntry_typedAliasReturnOut() :
+        u32(),
+        f32(),
+        b(),
+        str2(__fprime_ac_str2_buffer, sizeof __fprime_ac_str2_buffer),
+        e(),
+        a(),
+        s()
+      {}
+      U32 u32;
+      F32 f32;
+      bool b;
+      char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(32)];
+      Fw::ExternalString str2;
+      E e;
+      A a;
+      S s;
+    };
+
+    //! A history entry for port from_typedAliasReturnStringOut
+    struct FromPortEntry_typedAliasReturnStringOut {
+      FromPortEntry_typedAliasReturnStringOut() :
+        u32(),
+        f32(),
+        b(),
+        str2(__fprime_ac_str2_buffer, sizeof __fprime_ac_str2_buffer),
+        e(),
+        a(),
+        s()
+      {}
+      U32 u32;
+      F32 f32;
+      bool b;
+      char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(32)];
+      Fw::ExternalString str2;
+      E e;
+      A a;
+      StructWithAlias s;
+    };
+
     //! A history entry for port from_typedOut
     struct FromPortEntry_typedOut {
       FromPortEntry_typedOut() :
@@ -146,7 +209,7 @@ class ActiveAsyncProductsTesterBase :
       char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(80)];
       Fw::ExternalString str2;
       E e;
-      A a;
+      AA a;
       S s;
     };
 
@@ -191,6 +254,18 @@ class ActiveAsyncProductsTesterBase :
         Fw::InputDpResponsePort* port //!< The input port
     );
 
+    //! Connect port to aliasTypedAsync[portNum]
+    void connect_to_aliasTypedAsync(
+        FwIndexType portNum, //!< The port number
+        Ports::InputAliasTypedPort* port //!< The input port
+    );
+
+    //! Connect port to noArgsAliasStringReturnSync[portNum]
+    void connect_to_noArgsAliasStringReturnSync(
+        FwIndexType portNum, //!< The port number
+        Ports::InputNoArgsAliasStringReturnPort* port //!< The input port
+    );
+
     //! Connect port to noArgsAsync[portNum]
     void connect_to_noArgsAsync(
         FwIndexType portNum, //!< The port number
@@ -225,6 +300,24 @@ class ActiveAsyncProductsTesterBase :
     void connect_to_noArgsSync(
         FwIndexType portNum, //!< The port number
         Ports::InputNoArgsPort* port //!< The input port
+    );
+
+    //! Connect port to typedAliasGuarded[portNum]
+    void connect_to_typedAliasGuarded(
+        FwIndexType portNum, //!< The port number
+        Ports::InputAliasTypedPort* port //!< The input port
+    );
+
+    //! Connect port to typedAliasReturnSync[portNum]
+    void connect_to_typedAliasReturnSync(
+        FwIndexType portNum, //!< The port number
+        Ports::InputAliasTypedReturnPort* port //!< The input port
+    );
+
+    //! Connect port to typedAliasStringReturnSync[portNum]
+    void connect_to_typedAliasStringReturnSync(
+        FwIndexType portNum, //!< The port number
+        Ports::InputAliasTypedReturnStringPort* port //!< The input port
     );
 
     //! Connect port to typedAsync[portNum]
@@ -378,6 +471,27 @@ class ActiveAsyncProductsTesterBase :
 
     //! Get from port at index
     //!
+    //! \return from_typedAliasOut[portNum]
+    Ports::InputAliasTypedPort* get_from_typedAliasOut(
+        FwIndexType portNum //!< The port number
+    );
+
+    //! Get from port at index
+    //!
+    //! \return from_typedAliasReturnOut[portNum]
+    Ports::InputAliasTypedReturnPort* get_from_typedAliasReturnOut(
+        FwIndexType portNum //!< The port number
+    );
+
+    //! Get from port at index
+    //!
+    //! \return from_typedAliasReturnStringOut[portNum]
+    Ports::InputAliasTypedReturnStringPort* get_from_typedAliasReturnStringOut(
+        FwIndexType portNum //!< The port number
+    );
+
+    //! Get from port at index
+    //!
     //! \return from_typedOut[portNum]
     Ports::InputTypedPort* get_from_typedOut(
         FwIndexType portNum //!< The port number
@@ -427,6 +541,42 @@ class ActiveAsyncProductsTesterBase :
         FwIndexType portNum //!< The port number
     );
 
+    //! Default handler implementation for from_typedAliasOut
+    virtual void from_typedAliasOut_handler(
+        FwIndexType portNum, //!< The port number
+        U32 u32, //!< A primitive
+        F32 f32, //!< Another primtive
+        bool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const S& s //!< A struct
+    );
+
+    //! Default handler implementation for from_typedAliasReturnOut
+    virtual F32 from_typedAliasReturnOut_handler(
+        FwIndexType portNum, //!< The port number
+        U32 u32, //!< A primitive
+        F32 f32, //!< Another primtive
+        bool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const S& s //!< A struct
+    );
+
+    //! Default handler implementation for from_typedAliasReturnStringOut
+    virtual Fw::String from_typedAliasReturnStringOut_handler(
+        FwIndexType portNum, //!< The port number
+        U32 u32, //!< A primitive
+        F32 f32, //!< Another primtive
+        bool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const StructWithAlias& s //!< A struct
+    );
+
     //! Default handler implementation for from_typedOut
     virtual void from_typedOut_handler(
         FwIndexType portNum, //!< The port number
@@ -447,7 +597,7 @@ class ActiveAsyncProductsTesterBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const A& a, //!< An array
+        const AA& a, //!< An array
         const S& s //!< A struct
     );
 
@@ -472,6 +622,42 @@ class ActiveAsyncProductsTesterBase :
         FwIndexType portNum //!< The port number
     );
 
+    //! Handler base-class function for from_typedAliasOut
+    void from_typedAliasOut_handlerBase(
+        FwIndexType portNum, //!< The port number
+        U32 u32, //!< A primitive
+        F32 f32, //!< Another primtive
+        bool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const S& s //!< A struct
+    );
+
+    //! Handler base-class function for from_typedAliasReturnOut
+    F32 from_typedAliasReturnOut_handlerBase(
+        FwIndexType portNum, //!< The port number
+        U32 u32, //!< A primitive
+        F32 f32, //!< Another primtive
+        bool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const S& s //!< A struct
+    );
+
+    //! Handler base-class function for from_typedAliasReturnStringOut
+    Fw::String from_typedAliasReturnStringOut_handlerBase(
+        FwIndexType portNum, //!< The port number
+        U32 u32, //!< A primitive
+        F32 f32, //!< Another primtive
+        bool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const StructWithAlias& s //!< A struct
+    );
+
     //! Handler base-class function for from_typedOut
     void from_typedOut_handlerBase(
         FwIndexType portNum, //!< The port number
@@ -492,7 +678,7 @@ class ActiveAsyncProductsTesterBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const A& a, //!< An array
+        const AA& a, //!< An array
         const S& s //!< A struct
     );
 
@@ -501,6 +687,23 @@ class ActiveAsyncProductsTesterBase :
     // ----------------------------------------------------------------------
     // Invocation functions for to ports
     // ----------------------------------------------------------------------
+
+    //! Invoke the to port connected to aliasTypedAsync
+    void invoke_to_aliasTypedAsync(
+        FwIndexType portNum, //!< The port number
+        U32 u32, //!< A primitive
+        F32 f32, //!< Another primtive
+        bool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const S& s //!< A struct
+    );
+
+    //! Invoke the to port connected to noArgsAliasStringReturnSync
+    Fw::String invoke_to_noArgsAliasStringReturnSync(
+        FwIndexType portNum //!< The port number
+    );
 
     //! Invoke the to port connected to noArgsAsync
     void invoke_to_noArgsAsync(
@@ -530,6 +733,42 @@ class ActiveAsyncProductsTesterBase :
     //! Invoke the to port connected to noArgsSync
     void invoke_to_noArgsSync(
         FwIndexType portNum //!< The port number
+    );
+
+    //! Invoke the to port connected to typedAliasGuarded
+    void invoke_to_typedAliasGuarded(
+        FwIndexType portNum, //!< The port number
+        U32 u32, //!< A primitive
+        F32 f32, //!< Another primtive
+        bool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const S& s //!< A struct
+    );
+
+    //! Invoke the to port connected to typedAliasReturnSync
+    F32 invoke_to_typedAliasReturnSync(
+        FwIndexType portNum, //!< The port number
+        U32 u32, //!< A primitive
+        F32 f32, //!< Another primtive
+        bool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const S& s //!< A struct
+    );
+
+    //! Invoke the to port connected to typedAliasStringReturnSync
+    Fw::String invoke_to_typedAliasStringReturnSync(
+        FwIndexType portNum, //!< The port number
+        U32 u32, //!< A primitive
+        F32 f32, //!< Another primtive
+        bool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const StructWithAlias& s //!< A struct
     );
 
     //! Invoke the to port connected to typedAsync
@@ -600,7 +839,7 @@ class ActiveAsyncProductsTesterBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const A& a, //!< An array
+        const AA& a, //!< An array
         const S& s //!< A struct
     );
 
@@ -612,7 +851,7 @@ class ActiveAsyncProductsTesterBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const A& a, //!< An array
+        const AA& a, //!< An array
         const S& s //!< A struct
     );
 
@@ -644,6 +883,16 @@ class ActiveAsyncProductsTesterBase :
     //! \return The number of to_productRecvIn ports
     FwIndexType getNum_to_productRecvIn() const;
 
+    //! Get the number of to_aliasTypedAsync ports
+    //!
+    //! \return The number of to_aliasTypedAsync ports
+    FwIndexType getNum_to_aliasTypedAsync() const;
+
+    //! Get the number of to_noArgsAliasStringReturnSync ports
+    //!
+    //! \return The number of to_noArgsAliasStringReturnSync ports
+    FwIndexType getNum_to_noArgsAliasStringReturnSync() const;
+
     //! Get the number of to_noArgsAsync ports
     //!
     //! \return The number of to_noArgsAsync ports
@@ -673,6 +922,21 @@ class ActiveAsyncProductsTesterBase :
     //!
     //! \return The number of to_noArgsSync ports
     FwIndexType getNum_to_noArgsSync() const;
+
+    //! Get the number of to_typedAliasGuarded ports
+    //!
+    //! \return The number of to_typedAliasGuarded ports
+    FwIndexType getNum_to_typedAliasGuarded() const;
+
+    //! Get the number of to_typedAliasReturnSync ports
+    //!
+    //! \return The number of to_typedAliasReturnSync ports
+    FwIndexType getNum_to_typedAliasReturnSync() const;
+
+    //! Get the number of to_typedAliasStringReturnSync ports
+    //!
+    //! \return The number of to_typedAliasStringReturnSync ports
+    FwIndexType getNum_to_typedAliasStringReturnSync() const;
 
     //! Get the number of to_typedAsync ports
     //!
@@ -783,6 +1047,21 @@ class ActiveAsyncProductsTesterBase :
     //! \return The number of from_noArgsStringReturnOut ports
     FwIndexType getNum_from_noArgsStringReturnOut() const;
 
+    //! Get the number of from_typedAliasOut ports
+    //!
+    //! \return The number of from_typedAliasOut ports
+    FwIndexType getNum_from_typedAliasOut() const;
+
+    //! Get the number of from_typedAliasReturnOut ports
+    //!
+    //! \return The number of from_typedAliasReturnOut ports
+    FwIndexType getNum_from_typedAliasReturnOut() const;
+
+    //! Get the number of from_typedAliasReturnStringOut ports
+    //!
+    //! \return The number of from_typedAliasReturnStringOut ports
+    FwIndexType getNum_from_typedAliasReturnStringOut() const;
+
     //! Get the number of from_typedOut ports
     //!
     //! \return The number of from_typedOut ports
@@ -810,6 +1089,20 @@ class ActiveAsyncProductsTesterBase :
     //!
     //! \return Whether port to_productRecvIn is connected
     bool isConnected_to_productRecvIn(
+        FwIndexType portNum //!< The port number
+    );
+
+    //! Check whether port to_aliasTypedAsync is connected
+    //!
+    //! \return Whether port to_aliasTypedAsync is connected
+    bool isConnected_to_aliasTypedAsync(
+        FwIndexType portNum //!< The port number
+    );
+
+    //! Check whether port to_noArgsAliasStringReturnSync is connected
+    //!
+    //! \return Whether port to_noArgsAliasStringReturnSync is connected
+    bool isConnected_to_noArgsAliasStringReturnSync(
         FwIndexType portNum //!< The port number
     );
 
@@ -852,6 +1145,27 @@ class ActiveAsyncProductsTesterBase :
     //!
     //! \return Whether port to_noArgsSync is connected
     bool isConnected_to_noArgsSync(
+        FwIndexType portNum //!< The port number
+    );
+
+    //! Check whether port to_typedAliasGuarded is connected
+    //!
+    //! \return Whether port to_typedAliasGuarded is connected
+    bool isConnected_to_typedAliasGuarded(
+        FwIndexType portNum //!< The port number
+    );
+
+    //! Check whether port to_typedAliasReturnSync is connected
+    //!
+    //! \return Whether port to_typedAliasReturnSync is connected
+    bool isConnected_to_typedAliasReturnSync(
+        FwIndexType portNum //!< The port number
+    );
+
+    //! Check whether port to_typedAliasStringReturnSync is connected
+    //!
+    //! \return Whether port to_typedAliasStringReturnSync is connected
+    bool isConnected_to_typedAliasStringReturnSync(
         FwIndexType portNum //!< The port number
     );
 
@@ -986,6 +1300,39 @@ class ActiveAsyncProductsTesterBase :
     //! Push an entry on the history for from_noArgsStringReturnOut
     void pushFromPortEntry_noArgsStringReturnOut();
 
+    //! Push an entry on the history for from_typedAliasOut
+    void pushFromPortEntry_typedAliasOut(
+        U32 u32, //!< A primitive
+        F32 f32, //!< Another primtive
+        bool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const S& s //!< A struct
+    );
+
+    //! Push an entry on the history for from_typedAliasReturnOut
+    void pushFromPortEntry_typedAliasReturnOut(
+        U32 u32, //!< A primitive
+        F32 f32, //!< Another primtive
+        bool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const S& s //!< A struct
+    );
+
+    //! Push an entry on the history for from_typedAliasReturnStringOut
+    void pushFromPortEntry_typedAliasReturnStringOut(
+        U32 u32, //!< A primitive
+        F32 f32, //!< Another primtive
+        bool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const StructWithAlias& s //!< A struct
+    );
+
     //! Push an entry on the history for from_typedOut
     void pushFromPortEntry_typedOut(
         U32 u32, //!< A U32
@@ -1004,7 +1351,7 @@ class ActiveAsyncProductsTesterBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const A& a, //!< An array
+        const AA& a, //!< An array
         const S& s //!< A struct
     );
 
@@ -1055,6 +1402,45 @@ class ActiveAsyncProductsTesterBase :
         FwIndexType portNum //!< The port number
     );
 
+    //! Static function for port from_typedAliasOut
+    static void from_typedAliasOut_static(
+        Fw::PassiveComponentBase* const callComp, //!< The component instance
+        FwIndexType portNum, //!< The port number
+        U32 u32, //!< A primitive
+        F32 f32, //!< Another primtive
+        bool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const S& s //!< A struct
+    );
+
+    //! Static function for port from_typedAliasReturnOut
+    static F32 from_typedAliasReturnOut_static(
+        Fw::PassiveComponentBase* const callComp, //!< The component instance
+        FwIndexType portNum, //!< The port number
+        U32 u32, //!< A primitive
+        F32 f32, //!< Another primtive
+        bool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const S& s //!< A struct
+    );
+
+    //! Static function for port from_typedAliasReturnStringOut
+    static Fw::String from_typedAliasReturnStringOut_static(
+        Fw::PassiveComponentBase* const callComp, //!< The component instance
+        FwIndexType portNum, //!< The port number
+        U32 u32, //!< A primitive
+        F32 f32, //!< Another primtive
+        bool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const StructWithAlias& s //!< A struct
+    );
+
     //! Static function for port from_typedOut
     static void from_typedOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
@@ -1077,7 +1463,7 @@ class ActiveAsyncProductsTesterBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const A& a, //!< An array
+        const AA& a, //!< An array
         const S& s //!< A struct
     );
 
@@ -1098,6 +1484,15 @@ class ActiveAsyncProductsTesterBase :
 
     //! The size of history for from_noArgsStringReturnOut
     U32 fromPortHistorySize_noArgsStringReturnOut;
+
+    //! The history for from_typedAliasOut
+    History<FromPortEntry_typedAliasOut>* fromPortHistory_typedAliasOut;
+
+    //! The history for from_typedAliasReturnOut
+    History<FromPortEntry_typedAliasReturnOut>* fromPortHistory_typedAliasReturnOut;
+
+    //! The history for from_typedAliasReturnStringOut
+    History<FromPortEntry_typedAliasReturnStringOut>* fromPortHistory_typedAliasReturnStringOut;
 
     //! The history for from_typedOut
     History<FromPortEntry_typedOut>* fromPortHistory_typedOut;
@@ -1123,6 +1518,12 @@ class ActiveAsyncProductsTesterBase :
     //! To port connected to productRecvIn
     Fw::OutputDpResponsePort m_to_productRecvIn[1];
 
+    //! To port connected to aliasTypedAsync
+    Ports::OutputAliasTypedPort m_to_aliasTypedAsync[1];
+
+    //! To port connected to noArgsAliasStringReturnSync
+    Ports::OutputNoArgsAliasStringReturnPort m_to_noArgsAliasStringReturnSync[1];
+
     //! To port connected to noArgsAsync
     Ports::OutputNoArgsPort m_to_noArgsAsync[1];
 
@@ -1140,6 +1541,15 @@ class ActiveAsyncProductsTesterBase :
 
     //! To port connected to noArgsSync
     Ports::OutputNoArgsPort m_to_noArgsSync[3];
+
+    //! To port connected to typedAliasGuarded
+    Ports::OutputAliasTypedPort m_to_typedAliasGuarded[1];
+
+    //! To port connected to typedAliasReturnSync
+    Ports::OutputAliasTypedReturnPort m_to_typedAliasReturnSync[3];
+
+    //! To port connected to typedAliasStringReturnSync
+    Ports::OutputAliasTypedReturnStringPort m_to_typedAliasStringReturnSync[3];
 
     //! To port connected to typedAsync
     Ports::OutputTypedPort m_to_typedAsync[1];
@@ -1213,6 +1623,15 @@ class ActiveAsyncProductsTesterBase :
 
     //! From port connected to noArgsStringReturnOut
     Ports::InputNoArgsStringReturnPort m_from_noArgsStringReturnOut[1];
+
+    //! From port connected to typedAliasOut
+    Ports::InputAliasTypedPort m_from_typedAliasOut[1];
+
+    //! From port connected to typedAliasReturnOut
+    Ports::InputAliasTypedReturnPort m_from_typedAliasReturnOut[1];
+
+    //! From port connected to typedAliasReturnStringOut
+    Ports::InputAliasTypedReturnStringPort m_from_typedAliasReturnStringOut[1];
 
     //! From port connected to typedOut
     Ports::InputTypedPort m_from_typedOut[1];

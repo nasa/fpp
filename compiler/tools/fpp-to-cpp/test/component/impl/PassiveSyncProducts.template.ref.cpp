@@ -27,6 +27,12 @@ PassiveSyncProducts ::
 // Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
+Fw::String PassiveSyncProducts ::
+  noArgsAliasStringReturnSync_handler(FwIndexType portNum)
+{
+  // TODO return
+}
+
 void PassiveSyncProducts ::
   noArgsGuarded_handler(FwIndexType portNum)
 {
@@ -58,6 +64,51 @@ void PassiveSyncProducts ::
 }
 
 void PassiveSyncProducts ::
+  typedAliasGuarded_handler(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // TODO
+}
+
+F32 PassiveSyncProducts ::
+  typedAliasReturnSync_handler(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // TODO return
+}
+
+Fw::String PassiveSyncProducts ::
+  typedAliasStringReturnSync_handler(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str2,
+      const E& e,
+      const A& a,
+      const StructWithAlias& s
+  )
+{
+  // TODO return
+}
+
+void PassiveSyncProducts ::
   typedGuarded_handler(
       FwIndexType portNum,
       U32 u32,
@@ -80,7 +131,7 @@ F32 PassiveSyncProducts ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const A& a,
+      const AA& a,
       const S& s
   )
 {
@@ -95,7 +146,7 @@ F32 PassiveSyncProducts ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const A& a,
+      const AA& a,
       const S& s
   )
 {

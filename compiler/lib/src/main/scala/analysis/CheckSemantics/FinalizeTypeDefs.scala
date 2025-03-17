@@ -177,6 +177,9 @@ object FinalizeTypeDefs
 
     override def default(a: Analysis, t: Type) = Right(t)
 
+    override def aliasType(a: Analysis, t: Type.AliasType) =
+      Right(a.typeMap(t.node._2.data.typeName.id))
+
     override def array(a: Analysis, t: Type.Array) =
       for (a <- defArrayAnnotatedNode(a, t.node))
         yield a.typeMap(t.node._2.id)

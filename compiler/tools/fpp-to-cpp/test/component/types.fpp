@@ -4,6 +4,9 @@ enum E { X, Y, Z }
 @ An array
 array A = [3] U32
 
+@ An array of arrays
+array AA = [3] A
+
 @ A struct
 struct S { x: U32, y: string }
 
@@ -21,6 +24,7 @@ type AliasBool = bool
 
 @ Alias of an array
 type AliasArray = A
+type AliasAliasArray = AliasArray
 
 @ Alias of an enum
 type AliasEnum = E
@@ -32,6 +36,7 @@ struct StructWithAlias {
   x: U32,
   y: AliasString,
   z: AliasArray
+  w: AliasAliasArray
 }
 
 type AnotherAliasStruct = StructWithAlias
@@ -68,12 +73,12 @@ module Ports {
     b: bool, @< A boolean
     str2: string, @< A string
     e: E, @< An enum
-    a: A, @< An array
+    a: AA, @< An array
     s: S @< A struct
   ) -> F32
 
   @ An aliased typed port
-  port AliasedTyped(
+  port AliasTyped(
     u32: AliasPrim1, @< A primitive
     f32: AliasPrim2, @< Another primtive
     b: AliasBool, @< A boolean
@@ -84,7 +89,7 @@ module Ports {
   )
 
   @ An aliased typed port with a return type
-  port AliasedTypedReturn(
+  port AliasTypedReturn(
     u32: AliasPrim1, @< A primitive
     f32: AliasPrim2, @< Another primtive
     b: AliasBool, @< A boolean
@@ -95,7 +100,7 @@ module Ports {
   ) -> AliasPrim2
 
   @ An aliased typed port with a return type
-  port AliasedTypedReturnString(
+  port AliasTypedReturnString(
     u32: AliasPrim1, @< A primitive
     f32: AliasPrim2, @< Another primtive
     b: AliasBool, @< A boolean
