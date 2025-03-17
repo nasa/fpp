@@ -3,6 +3,7 @@
 *.tasty
 *~
 .*
+!.gitattributes
 __SHADOW__
 __pycache__
 dist/

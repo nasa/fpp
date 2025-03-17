@@ -1,0 +1,5 @@
+# Mark generated reference files as vendored
+*.ref.cpp linguist-vendored
+*.ref.hpp linguist-vendored
+*.ref.h linguist-vendored
+
