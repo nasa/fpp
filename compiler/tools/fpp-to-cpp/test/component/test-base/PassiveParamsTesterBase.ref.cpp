@@ -692,7 +692,8 @@ PassiveParamsTesterBase ::
     m_param_ParamString_valid(Fw::ParamValid::UNINIT),
     m_param_ParamEnum_valid(Fw::ParamValid::UNINIT),
     m_param_ParamArray_valid(Fw::ParamValid::UNINIT),
-    m_param_ParamStruct_valid(Fw::ParamValid::UNINIT)
+    m_param_ParamStruct_valid(Fw::ParamValid::UNINIT),
+    m_param_ParamI32_valid(Fw::ParamValid::UNINIT)
 {
   // Initialize port histories
   this->fromPortHistory_typedOut = new History<FromPortEntry_typedOut>(maxHistorySize);
@@ -1640,6 +1641,65 @@ void PassiveParamsTesterBase ::
   }
 }
 
+void PassiveParamsTesterBase ::
+  paramSet_ParamI32(
+      const I32& val,
+      Fw::ParamValid valid
+  )
+{
+  this->m_param_ParamI32 = val;
+  this->m_param_ParamI32_valid = valid;
+}
+
+void PassiveParamsTesterBase ::
+  paramSend_ParamI32(
+      FwEnumStoreType instance,
+      U32 cmdSeq
+  )
+{
+  // Build command for parameter set
+  Fw::CmdArgBuffer args;
+  FW_ASSERT(
+    args.serialize(this->m_param_ParamI32) == Fw::FW_SERIALIZE_OK
+  );
+
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  PassiveParamsComponentBase::OPCODE_PARAMI32_SET + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void PassiveParamsTesterBase ::
+  paramSave_ParamI32(
+      FwEnumStoreType instance,
+      U32 cmdSeq
+  )
+{
+  Fw::CmdArgBuffer args;
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = PassiveParamsComponentBase::OPCODE_PARAMI32_SAVE + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
 // ----------------------------------------------------------------------
 // Functions to test time
 // ----------------------------------------------------------------------
@@ -1841,6 +1901,16 @@ Fw::ParamValid PassiveParamsTesterBase ::
       break;
     };
 
+    case PassiveParamsComponentBase::PARAMID_PARAMI32: {
+      _status = val.serialize(_testerBase->m_param_ParamI32);
+      _ret = _testerBase->m_param_ParamI32_valid;
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      break;
+    };
+
     default:
       FW_ASSERT(0, static_cast<FwAssertArgType>(id));
       break;
@@ -1949,6 +2019,20 @@ void PassiveParamsTesterBase ::
       FW_ASSERT(
         ParamStructVal ==
         _testerBase->m_param_ParamStruct
+      );
+      break;
+    };
+
+    case PassiveParamsComponentBase::PARAMID_PARAMI32: {
+      I32 ParamI32Val;
+      _status = val.deserialize(ParamI32Val);
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      FW_ASSERT(
+        ParamI32Val ==
+        _testerBase->m_param_ParamI32
       );
       break;
     };

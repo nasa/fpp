@@ -1568,6 +1568,14 @@ void QueuedSerialComponentBase ::
   this->m_cmdRegOut_OutputPort[0].invoke(
     this->getIdBase() + OPCODE_PARAMSTRUCT_SAVE
   );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMI32_SET
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMI32_SAVE
+  );
 }
 
 // ----------------------------------------------------------------------
@@ -1741,6 +1749,31 @@ void QueuedSerialComponentBase ::
 
   this->m_paramLock.unLock();
 
+  _id = this->getIdBase() + PARAMID_PARAMI32;
+
+  // Get parameter ParamI32
+  this->m_param_ParamI32_valid =
+    this->m_prmGetOut_OutputPort[0].invoke(
+      _id,
+      buff
+    );
+
+  // Deserialize value
+  this->m_paramLock.lock();
+
+  // If there was a deserialization issue, mark it invalid
+  if (this->m_param_ParamI32_valid == Fw::ParamValid::VALID) {
+    stat = buff.deserialize(this->m_ParamI32);
+    if (stat != Fw::FW_SERIALIZE_OK) {
+      this->m_param_ParamI32_valid = Fw::ParamValid::INVALID;
+    }
+  }
+  else {
+    // No default
+  }
+
+  this->m_paramLock.unLock();
+
   // Call notifier
   this->parametersLoaded();
 }
@@ -1770,6 +1803,7 @@ QueuedSerialComponentBase ::
   this->m_param_ParamEnum_valid = Fw::ParamValid::UNINIT;
   this->m_param_ParamArray_valid = Fw::ParamValid::UNINIT;
   this->m_param_ParamStruct_valid = Fw::ParamValid::UNINIT;
+  this->m_param_ParamI32_valid = Fw::ParamValid::UNINIT;
 }
 
 QueuedSerialComponentBase ::
@@ -5767,6 +5801,17 @@ S QueuedSerialComponentBase ::
   return _local;
 }
 
+I32 QueuedSerialComponentBase ::
+  paramGet_ParamI32(Fw::ParamValid& valid)
+{
+  I32 _local;
+  this->m_paramLock.lock();
+  valid = this->m_param_ParamI32_valid;
+  _local = this->m_ParamI32;
+  this->m_paramLock.unLock();
+  return _local;
+}
+
 // ----------------------------------------------------------------------
 // Time
 // ----------------------------------------------------------------------
@@ -6974,6 +7019,26 @@ void QueuedSerialComponentBase ::
       );
       break;
     }
+
+    case OPCODE_PARAMI32_SET: {
+      Fw::CmdResponse _cstat = compPtr->paramSet_ParamI32(args);
+      compPtr->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMI32_SAVE: {
+      Fw::CmdResponse _cstat = compPtr->paramSave_ParamI32();
+      compPtr->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
   }
 }
 
@@ -7474,6 +7539,26 @@ Fw::CmdResponse QueuedSerialComponentBase ::
   return Fw::CmdResponse::OK;
 }
 
+Fw::CmdResponse QueuedSerialComponentBase ::
+  paramSet_ParamI32(Fw::SerializeBufferBase& val)
+{
+  I32 _local_val;
+  Fw::SerializeStatus _stat = val.deserialize(_local_val);
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
+
+  // Assign value only if successfully deserialized
+  this->m_paramLock.lock();
+  this->m_ParamI32 = _local_val;
+  this->m_param_ParamI32_valid = Fw::ParamValid::VALID;
+  this->m_paramLock.unLock();
+
+  // Call notifier
+  this->parameterUpdated(PARAMID_PARAMI32);
+  return Fw::CmdResponse::OK;
+}
+
 // ----------------------------------------------------------------------
 // Parameter save functions
 // ----------------------------------------------------------------------
@@ -7639,6 +7724,35 @@ Fw::CmdResponse QueuedSerialComponentBase ::
 
     FwPrmIdType id = 0;
     id = this->getIdBase() + PARAMID_PARAMSTRUCT;
+
+    // Save the parameter
+    this->m_prmSetOut_OutputPort[0].invoke(
+      id,
+      saveBuff
+    );
+
+    return Fw::CmdResponse::OK;
+  }
+
+  return Fw::CmdResponse::EXECUTION_ERROR;
+}
+
+Fw::CmdResponse QueuedSerialComponentBase ::
+  paramSave_ParamI32()
+{
+  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+    Fw::ParamBuffer saveBuff;
+    this->m_paramLock.lock();
+
+    Fw::SerializeStatus stat = saveBuff.serialize(m_ParamI32);
+
+    this->m_paramLock.unLock();
+    if (stat != Fw::FW_SERIALIZE_OK) {
+      return Fw::CmdResponse::VALIDATION_ERROR;
+    }
+
+    FwPrmIdType id = 0;
+    id = this->getIdBase() + PARAMID_PARAMI32;
 
     // Save the parameter
     this->m_prmSetOut_OutputPort[0].invoke(

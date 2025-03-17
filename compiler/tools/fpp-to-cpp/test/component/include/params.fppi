@@ -26,3 +26,6 @@ param ParamArray: A \
 param ParamStruct: S \
   set opcode 0x40 \
   save opcode 0x45
+
+@ An externally stored parameter with I32 data
+external param ParamI32: I32

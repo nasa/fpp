@@ -313,6 +313,8 @@ abstract class ComponentCppWriterUtils(
 
   val hasParameters: Boolean = component.paramMap.nonEmpty
 
+  val hasExternalParameters: Boolean = component.paramMap.values.exists(_.isExternal)
+
   val hasDataProducts: Boolean = component.hasDataProducts
 
   val hasContainers: Boolean = containersByName != Nil
@@ -346,6 +348,19 @@ abstract class ComponentCppWriterUtils(
         CppDoc.Type("FwSizeType"),
         "msgSize",
         Some("The message size")
+      )
+    )
+    else Nil,
+    if hasExternalParameters then List(
+      CppDoc.Function.Param(
+        CppDoc.Type("ParamSerizationPtr"),
+        "serialPtr",
+        Some("The function pointer to serialize an external parmeter")
+      ),
+      CppDoc.Function.Param(
+        CppDoc.Type("ParamDeserizationPtr"),
+        "deserialPtr",
+        Some("The function pointer to deserialize an external parmeter")
       )
     )
     else Nil,

@@ -127,6 +127,8 @@ class PassiveTestComponentBase :
       OPCODE_PARAMARRAY_SAVE = 0x35, //!< Opcode to save parameter ParamArray
       OPCODE_PARAMSTRUCT_SET = 0x40, //!< Opcode to set parameter ParamStruct
       OPCODE_PARAMSTRUCT_SAVE = 0x45, //!< Opcode to save parameter ParamStruct
+      OPCODE_PARAMI32_SET = 0x46, //!< Opcode to set parameter ParamI32
+      OPCODE_PARAMI32_SAVE = 0x47, //!< Opcode to save parameter ParamI32
     };
 
     //! Event IDs
@@ -171,6 +173,7 @@ class PassiveTestComponentBase :
       PARAMID_PARAMENUM = 0x30, //!< A parameter with enum data
       PARAMID_PARAMARRAY = 0x31, //!< A parameter with array data, default value, and save opcode
       PARAMID_PARAMSTRUCT = 0x32, //!< A parameter with struct data and set/save opcodes
+      PARAMID_PARAMI32 = 0x33, //!< An externally stored parameter with I32 data
     };
 
     //! Record sizes
@@ -1610,6 +1613,15 @@ class PassiveTestComponentBase :
         Fw::ParamValid& valid //!< Whether the parameter is valid
     );
 
+    //! Get parameter ParamI32
+    //!
+    //! \return The parameter value
+    //!
+    //! An externally stored parameter with I32 data
+    I32 paramGet_ParamI32(
+        Fw::ParamValid& valid //!< Whether the parameter is valid
+    );
+
   PROTECTED:
 
     // ----------------------------------------------------------------------
@@ -1873,6 +1885,13 @@ class PassiveTestComponentBase :
         Fw::SerializeBufferBase& val //!< The serialization buffer
     );
 
+    //! Set parameter ParamI32
+    //!
+    //! \return The command response
+    Fw::CmdResponse paramSet_ParamI32(
+        Fw::SerializeBufferBase& val //!< The serialization buffer
+    );
+
   PRIVATE:
 
     // ----------------------------------------------------------------------
@@ -1908,6 +1927,11 @@ class PassiveTestComponentBase :
     //!
     //! \return The command response
     Fw::CmdResponse paramSave_ParamStruct();
+
+    //! Save parameter ParamI32
+    //!
+    //! \return The command response
+    Fw::CmdResponse paramSave_ParamI32();
 
   PRIVATE:
 
@@ -2092,6 +2116,9 @@ class PassiveTestComponentBase :
     //! True if ParamStruct was successfully received
     Fw::ParamValid m_param_ParamStruct_valid;
 
+    //! True if ParamI32 was successfully received
+    Fw::ParamValid m_param_ParamI32_valid;
+
   PRIVATE:
 
     // ----------------------------------------------------------------------
@@ -2128,6 +2155,11 @@ class PassiveTestComponentBase :
     //!
     //! A parameter with struct data and set/save opcodes
     S m_ParamStruct;
+
+    //! Parameter ParamI32
+    //!
+    //! An externally stored parameter with I32 data
+    I32 m_ParamI32;
 
   PRIVATE:
 

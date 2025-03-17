@@ -1374,6 +1374,24 @@ namespace M {
           U32 cmdSeq //!< The command sequence number
       );
 
+      //! Set parameter ParamI32
+      void paramSet_ParamI32(
+          const I32& val, //!< The parameter value
+          Fw::ParamValid valid //!< The parameter valid flag
+      );
+
+      //! Send parameter ParamI32
+      void paramSend_ParamI32(
+          FwEnumStoreType instance, //!< The component instance
+          U32 cmdSeq //!< The command sequence number
+      );
+
+      //! Save parameter ParamI32
+      void paramSave_ParamI32(
+          FwEnumStoreType instance, //!< The component instance
+          U32 cmdSeq //!< The command sequence number
+      );
+
     protected:
 
       // ----------------------------------------------------------------------
@@ -1843,6 +1861,9 @@ namespace M {
       //! True if parameter ParamStruct was successfully received
       Fw::ParamValid m_param_ParamStruct_valid;
 
+      //! True if parameter ParamI32 was successfully received
+      Fw::ParamValid m_param_ParamI32_valid;
+
     private:
 
       // ----------------------------------------------------------------------
@@ -1866,6 +1887,9 @@ namespace M {
 
       //! Parameter ParamStruct
       S m_param_ParamStruct;
+
+      //! Parameter ParamI32
+      I32 m_param_ParamI32;
 
     private:
 
