@@ -6,5 +6,10 @@ files=`find . -name '*.ref.txt' | egrep -v 'error|missing'`
 for file in $files
 do
   echo "checking $file"
-  $fpp_syntax < $file
+  if echo $file | grep -q "fprime_ref_packets\.ref\.txt$"
+  then
+    $fpp_syntax -i < fprime_ref_packets.fpp
+  else
+    $fpp_syntax < $file
+  fi
 done
