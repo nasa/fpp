@@ -6286,8 +6286,11 @@ The second location specifier refers to the constant <code>M.b</code>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The optional keyword <code>external</code> specifies the parameter storage,
-serialization, and deserialization will be delegated to an external source.</p>
+<p>The optional keyword <code>external</code>, if present, specifies
+that the parameter will be stored externally to the
+code generated from FPP.
+External parameters allow library code to represent and
+access parameter values in an efficient way.</p>
 </li>
 <li>
 <p>The identifier names the parameter.</p>
@@ -11161,7 +11164,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-03-14 14:56:29 -0600
+Last updated 2025-03-17 17:00:50 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

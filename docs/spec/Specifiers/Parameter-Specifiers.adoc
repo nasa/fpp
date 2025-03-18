@@ -25,8 +25,11 @@ _]_
 
 ==== Semantics
 
-* The optional keyword `external` specifies the parameter storage,
-serialization, and deserialization will be delegated to an external source.
+* The optional keyword `external`, if present, specifies
+that the parameter will be stored externally to the
+code generated from FPP.
+External parameters allow library code to represent and
+access parameter values in an efficient way.
 
 * The identifier names the parameter.
 
