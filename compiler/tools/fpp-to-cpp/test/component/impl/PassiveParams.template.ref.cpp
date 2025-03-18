@@ -27,6 +27,12 @@ PassiveParams ::
 // Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
+AliasString PassiveParams ::
+  noArgsAliasStringReturnSync_handler(FwIndexType portNum)
+{
+  // TODO return
+}
+
 void PassiveParams ::
   noArgsGuarded_handler(FwIndexType portNum)
 {
@@ -55,6 +61,51 @@ void PassiveParams ::
   noArgsSync_handler(FwIndexType portNum)
 {
   // TODO
+}
+
+void PassiveParams ::
+  typedAliasGuarded_handler(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // TODO
+}
+
+AliasPrim2 PassiveParams ::
+  typedAliasReturnSync_handler(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // TODO return
+}
+
+AliasString PassiveParams ::
+  typedAliasStringReturnSync_handler(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
+  )
+{
+  // TODO return
 }
 
 void PassiveParams ::

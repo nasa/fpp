@@ -10,7 +10,12 @@ object ComputeGeneratedFiles {
   /** Computes autocoded files (XML, C++ and JSON Dictionary) */
   def getAutocodeFiles(tul: List[Ast.TransUnit]): Result.Result[List[String]] =
     for {
+      // Perform analysis only up to the point we need
       a <- enterSymbols(tul)
+      a <- CheckUses.visitList(a, tul, CheckUses.transUnit)
+      _ <- CheckUseDefCycles.visitList(a, tul, CheckUseDefCycles.transUnit)
+      a <- CheckTypeUses.visitList(a, tul, CheckTypeUses.transUnit)
+
       xmlFiles <- getXmlFiles(a, tul)
       cppFiles <- getAutocodeCppFiles(a, tul)
       dictFiles <- getDictionaryJsonFiles(a, tul)

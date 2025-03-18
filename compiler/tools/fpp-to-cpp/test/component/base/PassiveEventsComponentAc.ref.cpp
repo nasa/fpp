@@ -45,6 +45,30 @@ void PassiveEventsComponentBase ::
 #endif
   }
 
+  // Connect input port noArgsAliasStringReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsAliasStringReturnSync_InputPorts());
+    port++
+  ) {
+    this->m_noArgsAliasStringReturnSync_InputPort[port].init();
+    this->m_noArgsAliasStringReturnSync_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsAliasStringReturnSync_in
+    );
+    this->m_noArgsAliasStringReturnSync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_noArgsAliasStringReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_noArgsAliasStringReturnSync_InputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
   // Connect input port noArgsGuarded
   for (
     FwIndexType port = 0;
@@ -162,6 +186,78 @@ void PassiveEventsComponentBase ::
       port
     );
     this->m_noArgsSync_InputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect input port typedAliasGuarded
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAliasGuarded_InputPorts());
+    port++
+  ) {
+    this->m_typedAliasGuarded_InputPort[port].init();
+    this->m_typedAliasGuarded_InputPort[port].addCallComp(
+      this,
+      m_p_typedAliasGuarded_in
+    );
+    this->m_typedAliasGuarded_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAliasGuarded_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAliasGuarded_InputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect input port typedAliasReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAliasReturnSync_InputPorts());
+    port++
+  ) {
+    this->m_typedAliasReturnSync_InputPort[port].init();
+    this->m_typedAliasReturnSync_InputPort[port].addCallComp(
+      this,
+      m_p_typedAliasReturnSync_in
+    );
+    this->m_typedAliasReturnSync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAliasReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAliasReturnSync_InputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect input port typedAliasStringReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAliasStringReturnSync_InputPorts());
+    port++
+  ) {
+    this->m_typedAliasStringReturnSync_InputPort[port].init();
+    this->m_typedAliasStringReturnSync_InputPort[port].addCallComp(
+      this,
+      m_p_typedAliasStringReturnSync_in
+    );
+    this->m_typedAliasStringReturnSync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAliasStringReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAliasStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -472,6 +568,63 @@ void PassiveEventsComponentBase ::
 #endif
   }
 
+  // Connect output port typedAliasOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAliasOut_OutputPorts());
+    port++
+  ) {
+    this->m_typedAliasOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAliasOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAliasOut_OutputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect output port typedAliasReturnOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAliasReturnOut_OutputPorts());
+    port++
+  ) {
+    this->m_typedAliasReturnOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAliasReturnOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAliasReturnOut_OutputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect output port typedAliasReturnStringOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAliasReturnStringOut_OutputPorts());
+    port++
+  ) {
+    this->m_typedAliasReturnStringOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAliasReturnStringOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAliasReturnStringOut_OutputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
   // Connect output port typedOut
   for (
     FwIndexType port = 0;
@@ -530,6 +683,17 @@ Fw::InputCmdPort* PassiveEventsComponentBase ::
 // Getters for typed input ports
 // ----------------------------------------------------------------------
 
+Ports::InputNoArgsAliasStringReturnPort* PassiveEventsComponentBase ::
+  get_noArgsAliasStringReturnSync_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsAliasStringReturnSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_noArgsAliasStringReturnSync_InputPort[portNum];
+}
+
 Ports::InputNoArgsPort* PassiveEventsComponentBase ::
   get_noArgsGuarded_InputPort(FwIndexType portNum)
 {
@@ -583,6 +747,39 @@ Ports::InputNoArgsPort* PassiveEventsComponentBase ::
   );
 
   return &this->m_noArgsSync_InputPort[portNum];
+}
+
+Ports::InputAliasTypedPort* PassiveEventsComponentBase ::
+  get_typedAliasGuarded_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasGuarded_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_typedAliasGuarded_InputPort[portNum];
+}
+
+Ports::InputAliasTypedReturnPort* PassiveEventsComponentBase ::
+  get_typedAliasReturnSync_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasReturnSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_typedAliasReturnSync_InputPort[portNum];
+}
+
+Ports::InputAliasTypedReturnStringPort* PassiveEventsComponentBase ::
+  get_typedAliasStringReturnSync_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasStringReturnSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_typedAliasStringReturnSync_InputPort[portNum];
 }
 
 Ports::InputTypedPort* PassiveEventsComponentBase ::
@@ -796,6 +993,48 @@ void PassiveEventsComponentBase ::
 }
 
 void PassiveEventsComponentBase ::
+  set_typedAliasOut_OutputPort(
+      FwIndexType portNum,
+      Ports::InputAliasTypedPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_typedAliasOut_OutputPort[portNum].addCallPort(port);
+}
+
+void PassiveEventsComponentBase ::
+  set_typedAliasReturnOut_OutputPort(
+      FwIndexType portNum,
+      Ports::InputAliasTypedReturnPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_typedAliasReturnOut_OutputPort[portNum].addCallPort(port);
+}
+
+void PassiveEventsComponentBase ::
+  set_typedAliasReturnStringOut_OutputPort(
+      FwIndexType portNum,
+      Ports::InputAliasTypedReturnStringPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasReturnStringOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_typedAliasReturnStringOut_OutputPort[portNum].addCallPort(port);
+}
+
+void PassiveEventsComponentBase ::
   set_typedOut_OutputPort(
       FwIndexType portNum,
       Ports::InputTypedPort* port
@@ -954,6 +1193,20 @@ void PassiveEventsComponentBase ::
 }
 
 void PassiveEventsComponentBase ::
+  set_typedAliasOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_typedAliasOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void PassiveEventsComponentBase ::
   set_typedOut_OutputPort(
       FwIndexType portNum,
       Fw::InputSerializePort* port
@@ -1003,6 +1256,12 @@ FwIndexType PassiveEventsComponentBase ::
 // ----------------------------------------------------------------------
 
 FwIndexType PassiveEventsComponentBase ::
+  getNum_noArgsAliasStringReturnSync_InputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsAliasStringReturnSync_InputPort));
+}
+
+FwIndexType PassiveEventsComponentBase ::
   getNum_noArgsGuarded_InputPorts() const
 {
   return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsGuarded_InputPort));
@@ -1030,6 +1289,24 @@ FwIndexType PassiveEventsComponentBase ::
   getNum_noArgsSync_InputPorts() const
 {
   return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsSync_InputPort));
+}
+
+FwIndexType PassiveEventsComponentBase ::
+  getNum_typedAliasGuarded_InputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasGuarded_InputPort));
+}
+
+FwIndexType PassiveEventsComponentBase ::
+  getNum_typedAliasReturnSync_InputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasReturnSync_InputPort));
+}
+
+FwIndexType PassiveEventsComponentBase ::
+  getNum_typedAliasStringReturnSync_InputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasStringReturnSync_InputPort));
 }
 
 FwIndexType PassiveEventsComponentBase ::
@@ -1132,6 +1409,24 @@ FwIndexType PassiveEventsComponentBase ::
   getNum_noArgsStringReturnOut_OutputPorts() const
 {
   return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsStringReturnOut_OutputPort));
+}
+
+FwIndexType PassiveEventsComponentBase ::
+  getNum_typedAliasOut_OutputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasOut_OutputPort));
+}
+
+FwIndexType PassiveEventsComponentBase ::
+  getNum_typedAliasReturnOut_OutputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasReturnOut_OutputPort));
+}
+
+FwIndexType PassiveEventsComponentBase ::
+  getNum_typedAliasReturnStringOut_OutputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasReturnStringOut_OutputPort));
 }
 
 FwIndexType PassiveEventsComponentBase ::
@@ -1280,6 +1575,39 @@ bool PassiveEventsComponentBase ::
 }
 
 bool PassiveEventsComponentBase ::
+  isConnected_typedAliasOut_OutputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_typedAliasOut_OutputPort[portNum].isConnected();
+}
+
+bool PassiveEventsComponentBase ::
+  isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_typedAliasReturnOut_OutputPort[portNum].isConnected();
+}
+
+bool PassiveEventsComponentBase ::
+  isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasReturnStringOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_typedAliasReturnStringOut_OutputPort[portNum].isConnected();
+}
+
+bool PassiveEventsComponentBase ::
   isConnected_typedOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
@@ -1306,6 +1634,23 @@ bool PassiveEventsComponentBase ::
 //
 // Call these functions directly to bypass the corresponding ports
 // ----------------------------------------------------------------------
+
+AliasString PassiveEventsComponentBase ::
+  noArgsAliasStringReturnSync_handlerBase(FwIndexType portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_noArgsAliasStringReturnSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  AliasString retVal;
+
+  // Call handler function
+  retVal = this->noArgsAliasStringReturnSync_handler(portNum);
+
+  return retVal;
+}
 
 void PassiveEventsComponentBase ::
   noArgsGuarded_handlerBase(FwIndexType portNum)
@@ -1394,6 +1739,113 @@ void PassiveEventsComponentBase ::
 
   // Call handler function
   this->noArgsSync_handler(portNum);
+}
+
+void PassiveEventsComponentBase ::
+  typedAliasGuarded_handlerBase(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasGuarded_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  // Lock guard mutex before calling
+  this->lock();
+
+  // Call handler function
+  this->typedAliasGuarded_handler(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+
+  // Unlock guard mutex
+  this->unLock();
+}
+
+AliasPrim2 PassiveEventsComponentBase ::
+  typedAliasReturnSync_handlerBase(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasReturnSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  AliasPrim2 retVal;
+
+  // Call handler function
+  retVal = this->typedAliasReturnSync_handler(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+
+  return retVal;
+}
+
+AliasString PassiveEventsComponentBase ::
+  typedAliasStringReturnSync_handlerBase(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasStringReturnSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  AliasString retVal;
+
+  // Call handler function
+  retVal = this->typedAliasStringReturnSync_handler(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+
+  return retVal;
 }
 
 void PassiveEventsComponentBase ::
@@ -1587,6 +2039,102 @@ Fw::String PassiveEventsComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_noArgsStringReturnOut_OutputPort[portNum].invoke();
+}
+
+void PassiveEventsComponentBase ::
+  typedAliasOut_out(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_typedAliasOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_typedAliasOut_OutputPort[portNum].invoke(
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+AliasPrim2 PassiveEventsComponentBase ::
+  typedAliasReturnOut_out(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_typedAliasReturnOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_typedAliasReturnOut_OutputPort[portNum].invoke(
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+AliasString PassiveEventsComponentBase ::
+  typedAliasReturnStringOut_out(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasReturnStringOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_typedAliasReturnStringOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_typedAliasReturnStringOut_OutputPort[portNum].invoke(
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
 }
 
 void PassiveEventsComponentBase ::
@@ -2365,6 +2913,17 @@ void PassiveEventsComponentBase ::
 // Calls for messages received on typed input ports
 // ----------------------------------------------------------------------
 
+AliasString PassiveEventsComponentBase ::
+  m_p_noArgsAliasStringReturnSync_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum
+  )
+{
+  FW_ASSERT(callComp);
+  PassiveEventsComponentBase* compPtr = static_cast<PassiveEventsComponentBase*>(callComp);
+  return compPtr->noArgsAliasStringReturnSync_handlerBase(portNum);
+}
+
 void PassiveEventsComponentBase ::
   m_p_noArgsGuarded_in(
       Fw::PassiveComponentBase* callComp,
@@ -2418,6 +2977,87 @@ void PassiveEventsComponentBase ::
   FW_ASSERT(callComp);
   PassiveEventsComponentBase* compPtr = static_cast<PassiveEventsComponentBase*>(callComp);
   compPtr->noArgsSync_handlerBase(portNum);
+}
+
+void PassiveEventsComponentBase ::
+  m_p_typedAliasGuarded_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  FW_ASSERT(callComp);
+  PassiveEventsComponentBase* compPtr = static_cast<PassiveEventsComponentBase*>(callComp);
+  compPtr->typedAliasGuarded_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+AliasPrim2 PassiveEventsComponentBase ::
+  m_p_typedAliasReturnSync_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  FW_ASSERT(callComp);
+  PassiveEventsComponentBase* compPtr = static_cast<PassiveEventsComponentBase*>(callComp);
+  return compPtr->typedAliasReturnSync_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+AliasString PassiveEventsComponentBase ::
+  m_p_typedAliasStringReturnSync_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
+  )
+{
+  FW_ASSERT(callComp);
+  PassiveEventsComponentBase* compPtr = static_cast<PassiveEventsComponentBase*>(callComp);
+  return compPtr->typedAliasStringReturnSync_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
 }
 
 void PassiveEventsComponentBase ::

@@ -10,6 +10,9 @@
 #include <FpConfig.hpp>
 
 #include "AArrayAc.hpp"
+#include "AliasTypedPortAc.hpp"
+#include "AliasTypedReturnPortAc.hpp"
+#include "AliasTypedReturnStringPortAc.hpp"
 #include "EEnumAc.hpp"
 #include "Fw/Cmd/CmdPortAc.hpp"
 #include "Fw/Cmd/CmdRegPortAc.hpp"
@@ -29,6 +32,7 @@
 #include "Fw/Time/TimePortAc.hpp"
 #include "Fw/Tlm/TlmPortAc.hpp"
 #include "Fw/Tlm/TlmString.hpp"
+#include "NoArgsAliasStringReturnPortAc.hpp"
 #include "NoArgsPortAc.hpp"
 #include "NoArgsReturnPortAc.hpp"
 #include "NoArgsStringReturnPortAc.hpp"
@@ -70,11 +74,15 @@ class PassiveSerialComponentBase :
 
     //! Enumerations for numbers of typed input ports
     enum {
+      NUM_NOARGSALIASSTRINGRETURNSYNC_INPUT_PORTS = 1,
       NUM_NOARGSGUARDED_INPUT_PORTS = 1,
       NUM_NOARGSRETURNGUARDED_INPUT_PORTS = 1,
       NUM_NOARGSRETURNSYNC_INPUT_PORTS = 3,
       NUM_NOARGSSTRINGRETURNSYNC_INPUT_PORTS = 1,
       NUM_NOARGSSYNC_INPUT_PORTS = 3,
+      NUM_TYPEDALIASGUARDED_INPUT_PORTS = 1,
+      NUM_TYPEDALIASRETURNSYNC_INPUT_PORTS = 3,
+      NUM_TYPEDALIASSTRINGRETURNSYNC_INPUT_PORTS = 3,
       NUM_TYPEDGUARDED_INPUT_PORTS = 1,
       NUM_TYPEDRETURNGUARDED_INPUT_PORTS = 1,
       NUM_TYPEDRETURNSYNC_INPUT_PORTS = 3,
@@ -104,6 +112,9 @@ class PassiveSerialComponentBase :
       NUM_NOARGSOUT_OUTPUT_PORTS = 1,
       NUM_NOARGSRETURNOUT_OUTPUT_PORTS = 1,
       NUM_NOARGSSTRINGRETURNOUT_OUTPUT_PORTS = 1,
+      NUM_TYPEDALIASOUT_OUTPUT_PORTS = 1,
+      NUM_TYPEDALIASRETURNOUT_OUTPUT_PORTS = 1,
+      NUM_TYPEDALIASRETURNSTRINGOUT_OUTPUT_PORTS = 1,
       NUM_TYPEDOUT_OUTPUT_PORTS = 1,
       NUM_TYPEDRETURNOUT_OUTPUT_PORTS = 1,
     };
@@ -217,6 +228,13 @@ class PassiveSerialComponentBase :
 
     //! Get typed input port at index
     //!
+    //! \return noArgsAliasStringReturnSync[portNum]
+    Ports::InputNoArgsAliasStringReturnPort* get_noArgsAliasStringReturnSync_InputPort(
+        FwIndexType portNum //!< The port number
+    );
+
+    //! Get typed input port at index
+    //!
     //! \return noArgsGuarded[portNum]
     Ports::InputNoArgsPort* get_noArgsGuarded_InputPort(
         FwIndexType portNum //!< The port number
@@ -247,6 +265,27 @@ class PassiveSerialComponentBase :
     //!
     //! \return noArgsSync[portNum]
     Ports::InputNoArgsPort* get_noArgsSync_InputPort(
+        FwIndexType portNum //!< The port number
+    );
+
+    //! Get typed input port at index
+    //!
+    //! \return typedAliasGuarded[portNum]
+    Ports::InputAliasTypedPort* get_typedAliasGuarded_InputPort(
+        FwIndexType portNum //!< The port number
+    );
+
+    //! Get typed input port at index
+    //!
+    //! \return typedAliasReturnSync[portNum]
+    Ports::InputAliasTypedReturnPort* get_typedAliasReturnSync_InputPort(
+        FwIndexType portNum //!< The port number
+    );
+
+    //! Get typed input port at index
+    //!
+    //! \return typedAliasStringReturnSync[portNum]
+    Ports::InputAliasTypedReturnStringPort* get_typedAliasStringReturnSync_InputPort(
         FwIndexType portNum //!< The port number
     );
 
@@ -380,6 +419,24 @@ class PassiveSerialComponentBase :
         Ports::InputNoArgsStringReturnPort* port //!< The input port
     );
 
+    //! Connect port to typedAliasOut[portNum]
+    void set_typedAliasOut_OutputPort(
+        FwIndexType portNum, //!< The port number
+        Ports::InputAliasTypedPort* port //!< The input port
+    );
+
+    //! Connect port to typedAliasReturnOut[portNum]
+    void set_typedAliasReturnOut_OutputPort(
+        FwIndexType portNum, //!< The port number
+        Ports::InputAliasTypedReturnPort* port //!< The input port
+    );
+
+    //! Connect port to typedAliasReturnStringOut[portNum]
+    void set_typedAliasReturnStringOut_OutputPort(
+        FwIndexType portNum, //!< The port number
+        Ports::InputAliasTypedReturnStringPort* port //!< The input port
+    );
+
     //! Connect port to typedOut[portNum]
     void set_typedOut_OutputPort(
         FwIndexType portNum, //!< The port number
@@ -462,6 +519,12 @@ class PassiveSerialComponentBase :
         Fw::InputSerializePort* port //!< The port
     );
 
+    //! Connect port to typedAliasOut[portNum]
+    void set_typedAliasOut_OutputPort(
+        FwIndexType portNum, //!< The port number
+        Fw::InputSerializePort* port //!< The port
+    );
+
     //! Connect port to typedOut[portNum]
     void set_typedOut_OutputPort(
         FwIndexType portNum, //!< The port number
@@ -539,6 +602,11 @@ class PassiveSerialComponentBase :
     // Getters for numbers of typed input ports
     // ----------------------------------------------------------------------
 
+    //! Get the number of noArgsAliasStringReturnSync input ports
+    //!
+    //! \return The number of noArgsAliasStringReturnSync input ports
+    FwIndexType getNum_noArgsAliasStringReturnSync_InputPorts() const;
+
     //! Get the number of noArgsGuarded input ports
     //!
     //! \return The number of noArgsGuarded input ports
@@ -563,6 +631,21 @@ class PassiveSerialComponentBase :
     //!
     //! \return The number of noArgsSync input ports
     FwIndexType getNum_noArgsSync_InputPorts() const;
+
+    //! Get the number of typedAliasGuarded input ports
+    //!
+    //! \return The number of typedAliasGuarded input ports
+    FwIndexType getNum_typedAliasGuarded_InputPorts() const;
+
+    //! Get the number of typedAliasReturnSync input ports
+    //!
+    //! \return The number of typedAliasReturnSync input ports
+    FwIndexType getNum_typedAliasReturnSync_InputPorts() const;
+
+    //! Get the number of typedAliasStringReturnSync input ports
+    //!
+    //! \return The number of typedAliasStringReturnSync input ports
+    FwIndexType getNum_typedAliasStringReturnSync_InputPorts() const;
 
     //! Get the number of typedGuarded input ports
     //!
@@ -670,6 +753,21 @@ class PassiveSerialComponentBase :
     //!
     //! \return The number of noArgsStringReturnOut output ports
     FwIndexType getNum_noArgsStringReturnOut_OutputPorts() const;
+
+    //! Get the number of typedAliasOut output ports
+    //!
+    //! \return The number of typedAliasOut output ports
+    FwIndexType getNum_typedAliasOut_OutputPorts() const;
+
+    //! Get the number of typedAliasReturnOut output ports
+    //!
+    //! \return The number of typedAliasReturnOut output ports
+    FwIndexType getNum_typedAliasReturnOut_OutputPorts() const;
+
+    //! Get the number of typedAliasReturnStringOut output ports
+    //!
+    //! \return The number of typedAliasReturnStringOut output ports
+    FwIndexType getNum_typedAliasReturnStringOut_OutputPorts() const;
 
     //! Get the number of typedOut output ports
     //!
@@ -785,6 +883,27 @@ class PassiveSerialComponentBase :
         FwIndexType portNum //!< The port number
     );
 
+    //! Check whether port typedAliasOut is connected
+    //!
+    //! \return Whether port typedAliasOut is connected
+    bool isConnected_typedAliasOut_OutputPort(
+        FwIndexType portNum //!< The port number
+    );
+
+    //! Check whether port typedAliasReturnOut is connected
+    //!
+    //! \return Whether port typedAliasReturnOut is connected
+    bool isConnected_typedAliasReturnOut_OutputPort(
+        FwIndexType portNum //!< The port number
+    );
+
+    //! Check whether port typedAliasReturnStringOut is connected
+    //!
+    //! \return Whether port typedAliasReturnStringOut is connected
+    bool isConnected_typedAliasReturnStringOut_OutputPort(
+        FwIndexType portNum //!< The port number
+    );
+
     //! Check whether port typedOut is connected
     //!
     //! \return Whether port typedOut is connected
@@ -818,6 +937,11 @@ class PassiveSerialComponentBase :
     // Handlers to implement for typed input ports
     // ----------------------------------------------------------------------
 
+    //! Handler for input port noArgsAliasStringReturnSync
+    virtual AliasString noArgsAliasStringReturnSync_handler(
+        FwIndexType portNum //!< The port number
+    ) = 0;
+
     //! Handler for input port noArgsGuarded
     virtual void noArgsGuarded_handler(
         FwIndexType portNum //!< The port number
@@ -841,6 +965,42 @@ class PassiveSerialComponentBase :
     //! Handler for input port noArgsSync
     virtual void noArgsSync_handler(
         FwIndexType portNum //!< The port number
+    ) = 0;
+
+    //! Handler for input port typedAliasGuarded
+    virtual void typedAliasGuarded_handler(
+        FwIndexType portNum, //!< The port number
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
+    ) = 0;
+
+    //! Handler for input port typedAliasReturnSync
+    virtual AliasPrim2 typedAliasReturnSync_handler(
+        FwIndexType portNum, //!< The port number
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
+    ) = 0;
+
+    //! Handler for input port typedAliasStringReturnSync
+    virtual AliasString typedAliasStringReturnSync_handler(
+        FwIndexType portNum, //!< The port number
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AnotherAliasStruct& s //!< A struct
     ) = 0;
 
     //! Handler for input port typedGuarded
@@ -899,6 +1059,11 @@ class PassiveSerialComponentBase :
     // Call these functions directly to bypass the corresponding ports
     // ----------------------------------------------------------------------
 
+    //! Handler base-class function for input port noArgsAliasStringReturnSync
+    AliasString noArgsAliasStringReturnSync_handlerBase(
+        FwIndexType portNum //!< The port number
+    );
+
     //! Handler base-class function for input port noArgsGuarded
     void noArgsGuarded_handlerBase(
         FwIndexType portNum //!< The port number
@@ -922,6 +1087,42 @@ class PassiveSerialComponentBase :
     //! Handler base-class function for input port noArgsSync
     void noArgsSync_handlerBase(
         FwIndexType portNum //!< The port number
+    );
+
+    //! Handler base-class function for input port typedAliasGuarded
+    void typedAliasGuarded_handlerBase(
+        FwIndexType portNum, //!< The port number
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
+    );
+
+    //! Handler base-class function for input port typedAliasReturnSync
+    AliasPrim2 typedAliasReturnSync_handlerBase(
+        FwIndexType portNum, //!< The port number
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
+    );
+
+    //! Handler base-class function for input port typedAliasStringReturnSync
+    AliasString typedAliasStringReturnSync_handlerBase(
+        FwIndexType portNum, //!< The port number
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AnotherAliasStruct& s //!< A struct
     );
 
     //! Handler base-class function for input port typedGuarded
@@ -1029,6 +1230,42 @@ class PassiveSerialComponentBase :
     //! Invoke output port noArgsStringReturnOut
     Fw::String noArgsStringReturnOut_out(
         FwIndexType portNum //!< The port number
+    );
+
+    //! Invoke output port typedAliasOut
+    void typedAliasOut_out(
+        FwIndexType portNum, //!< The port number
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
+    );
+
+    //! Invoke output port typedAliasReturnOut
+    AliasPrim2 typedAliasReturnOut_out(
+        FwIndexType portNum, //!< The port number
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
+    );
+
+    //! Invoke output port typedAliasReturnStringOut
+    AliasString typedAliasReturnStringOut_out(
+        FwIndexType portNum, //!< The port number
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AnotherAliasStruct& s //!< A struct
     );
 
     //! Invoke output port typedOut
@@ -1607,6 +1844,12 @@ class PassiveSerialComponentBase :
     // Calls for messages received on typed input ports
     // ----------------------------------------------------------------------
 
+    //! Callback for port noArgsAliasStringReturnSync
+    static AliasString m_p_noArgsAliasStringReturnSync_in(
+        Fw::PassiveComponentBase* callComp, //!< The component instance
+        FwIndexType portNum //!< The port number
+    );
+
     //! Callback for port noArgsGuarded
     static void m_p_noArgsGuarded_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
@@ -1635,6 +1878,45 @@ class PassiveSerialComponentBase :
     static void m_p_noArgsSync_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
         FwIndexType portNum //!< The port number
+    );
+
+    //! Callback for port typedAliasGuarded
+    static void m_p_typedAliasGuarded_in(
+        Fw::PassiveComponentBase* callComp, //!< The component instance
+        FwIndexType portNum, //!< The port number
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
+    );
+
+    //! Callback for port typedAliasReturnSync
+    static AliasPrim2 m_p_typedAliasReturnSync_in(
+        Fw::PassiveComponentBase* callComp, //!< The component instance
+        FwIndexType portNum, //!< The port number
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
+    );
+
+    //! Callback for port typedAliasStringReturnSync
+    static AliasString m_p_typedAliasStringReturnSync_in(
+        Fw::PassiveComponentBase* callComp, //!< The component instance
+        FwIndexType portNum, //!< The port number
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AnotherAliasStruct& s //!< A struct
     );
 
     //! Callback for port typedGuarded
@@ -1812,6 +2094,9 @@ class PassiveSerialComponentBase :
     // Typed input ports
     // ----------------------------------------------------------------------
 
+    //! Input port noArgsAliasStringReturnSync
+    Ports::InputNoArgsAliasStringReturnPort m_noArgsAliasStringReturnSync_InputPort[NUM_NOARGSALIASSTRINGRETURNSYNC_INPUT_PORTS];
+
     //! Input port noArgsGuarded
     Ports::InputNoArgsPort m_noArgsGuarded_InputPort[NUM_NOARGSGUARDED_INPUT_PORTS];
 
@@ -1826,6 +2111,15 @@ class PassiveSerialComponentBase :
 
     //! Input port noArgsSync
     Ports::InputNoArgsPort m_noArgsSync_InputPort[NUM_NOARGSSYNC_INPUT_PORTS];
+
+    //! Input port typedAliasGuarded
+    Ports::InputAliasTypedPort m_typedAliasGuarded_InputPort[NUM_TYPEDALIASGUARDED_INPUT_PORTS];
+
+    //! Input port typedAliasReturnSync
+    Ports::InputAliasTypedReturnPort m_typedAliasReturnSync_InputPort[NUM_TYPEDALIASRETURNSYNC_INPUT_PORTS];
+
+    //! Input port typedAliasStringReturnSync
+    Ports::InputAliasTypedReturnStringPort m_typedAliasStringReturnSync_InputPort[NUM_TYPEDALIASSTRINGRETURNSYNC_INPUT_PORTS];
 
     //! Input port typedGuarded
     Ports::InputTypedPort m_typedGuarded_InputPort[NUM_TYPEDGUARDED_INPUT_PORTS];
@@ -1899,6 +2193,15 @@ class PassiveSerialComponentBase :
 
     //! Output port noArgsStringReturnOut
     Ports::OutputNoArgsStringReturnPort m_noArgsStringReturnOut_OutputPort[NUM_NOARGSSTRINGRETURNOUT_OUTPUT_PORTS];
+
+    //! Output port typedAliasOut
+    Ports::OutputAliasTypedPort m_typedAliasOut_OutputPort[NUM_TYPEDALIASOUT_OUTPUT_PORTS];
+
+    //! Output port typedAliasReturnOut
+    Ports::OutputAliasTypedReturnPort m_typedAliasReturnOut_OutputPort[NUM_TYPEDALIASRETURNOUT_OUTPUT_PORTS];
+
+    //! Output port typedAliasReturnStringOut
+    Ports::OutputAliasTypedReturnStringPort m_typedAliasReturnStringOut_OutputPort[NUM_TYPEDALIASRETURNSTRINGOUT_OUTPUT_PORTS];
 
     //! Output port typedOut
     Ports::OutputTypedPort m_typedOut_OutputPort[NUM_TYPEDOUT_OUTPUT_PORTS];

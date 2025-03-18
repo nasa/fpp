@@ -30,6 +30,15 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
     writeSpecLoc(s, Ast.SpecLoc.Type, data.name, node)
   }
 
+  override def defAliasTypeAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    writeSpecLoc(s, Ast.SpecLoc.Type, data.name, node)
+  }
+
   override def defArrayAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefArray]]

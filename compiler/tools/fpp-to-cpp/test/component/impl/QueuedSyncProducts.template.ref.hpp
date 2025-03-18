@@ -33,6 +33,27 @@ class QueuedSyncProducts final :
     // Handler implementations for typed input ports
     // ----------------------------------------------------------------------
 
+    //! Handler implementation for aliasTypedAsync
+    //!
+    //! An alias typed async input port
+    void aliasTypedAsync_handler(
+        FwIndexType portNum, //!< The port number
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
+    ) override;
+
+    //! Handler implementation for noArgsAliasStringReturnSync
+    //!
+    //! A typed sync input port with a string return type
+    AliasString noArgsAliasStringReturnSync_handler(
+        FwIndexType portNum //!< The port number
+    ) override;
+
     //! Handler implementation for noArgsAsync
     //!
     //! A typed async input port
@@ -73,6 +94,48 @@ class QueuedSyncProducts final :
     //! A typed sync input port
     void noArgsSync_handler(
         FwIndexType portNum //!< The port number
+    ) override;
+
+    //! Handler implementation for typedAliasGuarded
+    //!
+    //! A typed guarded input
+    void typedAliasGuarded_handler(
+        FwIndexType portNum, //!< The port number
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
+    ) override;
+
+    //! Handler implementation for typedAliasReturnSync
+    //!
+    //! An alias typed sync input port with a return type
+    AliasPrim2 typedAliasReturnSync_handler(
+        FwIndexType portNum, //!< The port number
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AliasStruct& s //!< A struct
+    ) override;
+
+    //! Handler implementation for typedAliasStringReturnSync
+    //!
+    //! A typed sync input port with a return type
+    AliasString typedAliasStringReturnSync_handler(
+        FwIndexType portNum, //!< The port number
+        AliasPrim1 u32, //!< A primitive
+        AliasPrim2 f32, //!< Another primtive
+        AliasBool b, //!< A boolean
+        const Fw::StringBase& str2, //!< A string
+        const AliasEnum& e, //!< An enum
+        const AliasArray& a, //!< An array
+        const AnotherAliasStruct& s //!< A struct
     ) override;
 
     //! Handler implementation for typedAsync

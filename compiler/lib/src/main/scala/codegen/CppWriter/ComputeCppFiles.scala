@@ -72,6 +72,13 @@ object ComputeCppFiles {
     /** Gets the C++ file name for generated constants */
     def getConstants = "FppConstantsAc"
 
+    /**
+     * Gets the filename for the C++ type alias header
+     * This is also used for the optional C header if the
+     * alias supports being defined in a C header
+     */
+    def getAliasType(baseName: String) = s"${baseName}AliasAc"
+
     /** Gets the C++ file name for generated arrays */
     def getArray(baseName: String) = s"${baseName}ArrayAc"
 

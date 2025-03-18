@@ -17,6 +17,7 @@ warning_flags="
 echo "running the tests in ../base to generate the header files"
 (cd ../base; ./run)
 cp ../base/*Ac.hpp .
+cp ../base/*Ac.h .
 
 # Compile cpp files
 for file in `ls *.template.ref.cpp`

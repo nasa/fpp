@@ -9,7 +9,7 @@ warning_flags="
 -Wno-unused-parameter
 "
 include_flags="
--I$FPRIME/gtest/googletest-src/googletest/include
+-I$FPRIME/googletest/googletest/include/
 -I..
 -I../../../..
 -I../base
