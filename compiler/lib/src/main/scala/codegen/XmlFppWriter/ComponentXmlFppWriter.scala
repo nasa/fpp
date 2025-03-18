@@ -41,7 +41,7 @@ object ComponentXmlFppWriter extends LineUtils {
   /** Builds FPP for translating Component XML */
   private object FppBuilder {
 
-    /** Generates the list of TU members */
+    /** Generates the TU member */
     def tuMember(file: XmlFppWriter.File): Result.Result[Ast.TUMember] =
       for {
         component <- defComponentAnnotated(file)
@@ -91,12 +91,6 @@ object ComponentXmlFppWriter extends LineUtils {
         for (enums <- FormalParamsXmlFppWriter.defEnumAnnotatedList(file, xmlNode))
         yield enums.map(constructEnumMember)
 
-    /** Translates an optional integer attribute */
-    def translateIntegerOpt(xmlNode: scala.xml.Node, name: String): Option[AstNode[Ast.ExprLiteralInt]] =
-      XmlFppWriter.getAttributeOpt(xmlNode, name).map(
-          text => AstNode.create(Ast.ExprLiteralInt(text))
-      )
-
     /** Translates an optional queue full attribute */
     def translateQueueFullOpt(file: XmlFppWriter.File, xmlNode: scala.xml.Node):
       Result.Result[Option[Ast.QueueFull]] = {
@@ -118,13 +112,13 @@ object ComponentXmlFppWriter extends LineUtils {
           yield qfo.map(AstNode.create(_))
 
     /** Translates an XML type to an FPP type name */
-    def translateType(file: XmlFppWriter.File): Node => Result.Result[Ast.TypeName] = 
+    def translateType(file: XmlFppWriter.File): Node => Result.Result[Ast.TypeName] =
       file.translateType(node => file.getAttribute(node, "data_type")) _
 
     case object MemberGenerator {
 
       case object Include extends MemberGenerator {
-        
+
         val xmlName = "import_dictionary"
 
         override def generateMemberNode(file: XmlFppWriter.File, xmlNode: scala.xml.Node) =
@@ -174,7 +168,7 @@ object ComponentXmlFppWriter extends LineUtils {
               case "Serial" => None
               case _ => Some(XmlFppWriter.FppBuilder.translateQualIdent(xmlPort))
             }
-            val priority = translateIntegerOpt(xmlNode, "priority")
+            val priority = XmlFppWriter.FppBuilder.translateIntegerOpt(xmlNode, "priority")
             General(kind, name, size, port, priority, queueFull.map(AstNode.create(_)))
           }
         }
@@ -231,7 +225,7 @@ object ComponentXmlFppWriter extends LineUtils {
           }
           yield {
             val annotatedPortMemberNode = {
-              val priority = translateIntegerOpt(xmlNode, "priority")
+              val priority = XmlFppWriter.FppBuilder.translateIntegerOpt(xmlNode, "priority")
               val internalPort = Ast.SpecInternalPort(name, params, priority, queueFull)
               val node = AstNode.create(internalPort)
               val memberNode = Ast.ComponentMember.SpecInternalPort(node)
@@ -263,8 +257,8 @@ object ComponentXmlFppWriter extends LineUtils {
           }
           yield {
             val annotatedCommandMemberNode = {
-              val priority = translateIntegerOpt(xmlNode, "priority")
-              val opcode = translateIntegerOpt(xmlNode, "opcode")
+              val priority = XmlFppWriter.FppBuilder.translateIntegerOpt(xmlNode, "priority")
+              val opcode = XmlFppWriter.FppBuilder.translateIntegerOpt(xmlNode, "opcode")
               val command = Ast.SpecCommand(
                 kind,
                 name,
@@ -307,14 +301,14 @@ object ComponentXmlFppWriter extends LineUtils {
           }
           yield {
             val annotatedEventMemberNode = {
-              val id = translateIntegerOpt(xmlNode, "id")
+              val id = XmlFppWriter.FppBuilder.translateIntegerOpt(xmlNode, "id")
               val (formatOpt, note) = 
                 XmlFppWriter.FppBuilder.translateFormatOpt(Some(xmlFormat))
               val format = formatOpt match {
                 case Some(format) => format
                 case None => "{}"
               }
-              val throttle = translateIntegerOpt(xmlNode, "throttle")
+              val throttle = XmlFppWriter.FppBuilder.translateIntegerOpt(xmlNode, "throttle")
               val event = Ast.SpecEvent(
                 name,
                 params,
@@ -344,19 +338,21 @@ object ComponentXmlFppWriter extends LineUtils {
             typeName <- translateType(file)(xmlNode)
           }
           yield {
-            val id = translateIntegerOpt(xmlNode, "id")
+            val id = XmlFppWriter.FppBuilder.translateIntegerOpt(xmlNode, "id")
             val xmlDefaultOpt = XmlFppWriter.getAttributeOpt(xmlNode, "default")
             val defaultOpt = xmlDefaultOpt.flatMap(
               s => XmlFppWriter.FppBuilder.translateValue(s, typeName)
             )
             val defaultNote = (xmlDefaultOpt, defaultOpt) match {
-              case (Some(xmlDefault), None) => 
+              case (Some(xmlDefault), None) =>
                 val s = s"could not translate default value $xmlDefault"
                 List(XmlFppWriter.constructNote(s))
               case _ => Nil
             }
-            val setOpcode = translateIntegerOpt(xmlNode, "set_opcode")
-            val saveOpcode = translateIntegerOpt(xmlNode, "save_opcode")
+            val setOpcode = XmlFppWriter.FppBuilder.translateIntegerOpt(xmlNode, "set_opcode")
+            val saveOpcode = XmlFppWriter.FppBuilder.translateIntegerOpt(xmlNode, "save_opcode")
+            val isExternal = XmlFppWriter.getAttributeOpt(xmlNode, "external").isDefined
+
             val paramMemberNode = {
               val param = Ast.SpecParam(
                 name,
@@ -364,14 +360,15 @@ object ComponentXmlFppWriter extends LineUtils {
                 defaultOpt,
                 id,
                 setOpcode,
-                saveOpcode
+                saveOpcode,
+                isExternal
               )
               val node = AstNode.create(param)
               val memberNode = Ast.ComponentMember.SpecParam(node)
               (defaultNote ++ comment, memberNode, Nil)
             }
             enumAnnotatedOpt match {
-              case Some(enumAnnotated) => 
+              case Some(enumAnnotated) =>
                 val enumMemberNode = constructEnumMember(enumAnnotated)
                 List(enumMemberNode, paramMemberNode)
               case None => List(paramMemberNode)
@@ -428,9 +425,9 @@ object ComponentXmlFppWriter extends LineUtils {
             highLimits <- translateLimits("high", typeName, name)
           }
           yield {
-            val id = translateIntegerOpt(xmlNode, "id")
+            val id = XmlFppWriter.FppBuilder.translateIntegerOpt(xmlNode, "id")
             val xmlFormat = XmlFppWriter.getAttributeOpt(xmlNode, "format_string")
-            val (format, formatNote) = 
+            val (format, formatNote) =
               XmlFppWriter.FppBuilder.translateFormatOpt(xmlFormat)
             val channel = Ast.SpecTlmChannel(
               name,
@@ -445,7 +442,7 @@ object ComponentXmlFppWriter extends LineUtils {
             val memberNode = Ast.ComponentMember.SpecTlmChannel(node)
             val tlmChannelMemberNode = (formatNote ++ comment, memberNode, Nil)
             enumAnnotatedOpt match {
-              case Some(enumAnnotated) => 
+              case Some(enumAnnotated) =>
                 val enumMemberNode = constructEnumMember(enumAnnotated)
                 List(enumMemberNode, tlmChannelMemberNode)
               case None => List(tlmChannelMemberNode)
@@ -481,7 +478,7 @@ object ComponentXmlFppWriter extends LineUtils {
       } yield list.flatten
 
     /** Extracts component members */
-    def componentMemberList(file: XmlFppWriter.File): 
+    def componentMemberList(file: XmlFppWriter.File):
       Result.Result[List[Ast.ComponentMember]] = {
         def mapChildrenOfName(args: (String, MemberGenerator)): MemListRes = {
           val (name, memberGenerator) = args

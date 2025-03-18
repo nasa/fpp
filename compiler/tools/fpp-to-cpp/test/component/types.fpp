@@ -12,8 +12,11 @@ module Ports {
   @ A typed port with no arguments
   port NoArgs
 
-  @ A type port with no arguments and a return type
+  @ A typed port with no arguments and a return type
   port NoArgsReturn -> U32
+
+  @ A typed port with no arguments and a string return type
+  port NoArgsStringReturn -> string
 
   @ A typed port
   port Typed(

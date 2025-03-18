@@ -261,6 +261,30 @@ void PassiveSerialTesterBase ::
 #endif
   }
 
+  // Connect input port noArgsStringReturnOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_noArgsStringReturnOut());
+    port++
+  ) {
+    this->m_from_noArgsStringReturnOut[port].init();
+    this->m_from_noArgsStringReturnOut[port].addCallComp(
+      this,
+      from_noArgsStringReturnOut_static
+    );
+    this->m_from_noArgsStringReturnOut[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_from_noArgsStringReturnOut[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_from_noArgsStringReturnOut[port].setObjName(portName.toChar());
+#endif
+  }
+
   // Connect input port typedOut
   for (
     FwIndexType port = 0;
@@ -406,6 +430,25 @@ void PassiveSerialTesterBase ::
       port
     );
     this->m_to_noArgsReturnSync[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect output port noArgsStringReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsStringReturnSync());
+    port++
+  ) {
+    this->m_to_noArgsStringReturnSync[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_to_noArgsStringReturnSync[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_to_noArgsStringReturnSync[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -601,6 +644,20 @@ void PassiveSerialTesterBase ::
   );
 
   this->m_to_noArgsReturnSync[portNum].addCallPort(port);
+}
+
+void PassiveSerialTesterBase ::
+  connect_to_noArgsStringReturnSync(
+      FwIndexType portNum,
+      Ports::InputNoArgsStringReturnPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_to_noArgsStringReturnSync(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_to_noArgsStringReturnSync[portNum].addCallPort(port);
 }
 
 void PassiveSerialTesterBase ::
@@ -819,6 +876,17 @@ Ports::InputNoArgsReturnPort* PassiveSerialTesterBase ::
   return &this->m_from_noArgsReturnOut[portNum];
 }
 
+Ports::InputNoArgsStringReturnPort* PassiveSerialTesterBase ::
+  get_from_noArgsStringReturnOut(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_from_noArgsStringReturnOut(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_from_noArgsStringReturnOut[portNum];
+}
+
 Ports::InputTypedPort* PassiveSerialTesterBase ::
   get_from_typedOut(FwIndexType portNum)
 {
@@ -955,6 +1023,13 @@ U32 PassiveSerialTesterBase ::
   return 0;
 }
 
+Fw::String PassiveSerialTesterBase ::
+  from_noArgsStringReturnOut_handler(FwIndexType portNum)
+{
+  this->pushFromPortEntry_noArgsStringReturnOut();
+  return Fw::String("");
+}
+
 void PassiveSerialTesterBase ::
   from_typedOut_handler(
       FwIndexType portNum,
@@ -1024,6 +1099,17 @@ U32 PassiveSerialTesterBase ::
     static_cast<FwAssertArgType>(portNum)
   );
   return this->from_noArgsReturnOut_handler(portNum);
+}
+
+Fw::String PassiveSerialTesterBase ::
+  from_noArgsStringReturnOut_handlerBase(FwIndexType portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_from_noArgsStringReturnOut(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->from_noArgsStringReturnOut_handler(portNum);
 }
 
 void PassiveSerialTesterBase ::
@@ -1136,6 +1222,17 @@ U32 PassiveSerialTesterBase ::
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_to_noArgsReturnSync[portNum].invoke();
+}
+
+Fw::String PassiveSerialTesterBase ::
+  invoke_to_noArgsStringReturnSync(FwIndexType portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_to_noArgsStringReturnSync(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_to_noArgsStringReturnSync[portNum].invoke();
 }
 
 void PassiveSerialTesterBase ::
@@ -1322,6 +1419,12 @@ FwIndexType PassiveSerialTesterBase ::
 }
 
 FwIndexType PassiveSerialTesterBase ::
+  getNum_to_noArgsStringReturnSync() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsStringReturnSync));
+}
+
+FwIndexType PassiveSerialTesterBase ::
   getNum_to_noArgsSync() const
 {
   return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsSync));
@@ -1428,6 +1531,12 @@ FwIndexType PassiveSerialTesterBase ::
 }
 
 FwIndexType PassiveSerialTesterBase ::
+  getNum_from_noArgsStringReturnOut() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsStringReturnOut));
+}
+
+FwIndexType PassiveSerialTesterBase ::
   getNum_from_typedOut() const
 {
   return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
@@ -1491,6 +1600,17 @@ bool PassiveSerialTesterBase ::
   );
 
   return this->m_to_noArgsReturnSync[portNum].isConnected();
+}
+
+bool PassiveSerialTesterBase ::
+  isConnected_to_noArgsStringReturnSync(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_to_noArgsStringReturnSync(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_to_noArgsStringReturnSync[portNum].isConnected();
 }
 
 bool PassiveSerialTesterBase ::
@@ -3186,6 +3306,7 @@ void PassiveSerialTesterBase ::
   this->fromPortHistorySize = 0;
   this->fromPortHistorySize_noArgsOut = 0;
   this->fromPortHistorySize_noArgsReturnOut = 0;
+  this->fromPortHistorySize_noArgsStringReturnOut = 0;
   this->fromPortHistory_typedOut->clear();
   this->fromPortHistory_typedReturnOut->clear();
 }
@@ -3201,6 +3322,13 @@ void PassiveSerialTesterBase ::
   pushFromPortEntry_noArgsReturnOut()
 {
   this->fromPortHistorySize_noArgsReturnOut++;
+  this->fromPortHistorySize++;
+}
+
+void PassiveSerialTesterBase ::
+  pushFromPortEntry_noArgsStringReturnOut()
+{
+  this->fromPortHistorySize_noArgsStringReturnOut++;
   this->fromPortHistorySize++;
 }
 
@@ -3646,6 +3774,17 @@ U32 PassiveSerialTesterBase ::
   FW_ASSERT(callComp != nullptr);
   PassiveSerialTesterBase* _testerBase = static_cast<PassiveSerialTesterBase*>(callComp);
   return _testerBase->from_noArgsReturnOut_handlerBase(portNum);
+}
+
+Fw::String PassiveSerialTesterBase ::
+  from_noArgsStringReturnOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      FwIndexType portNum
+  )
+{
+  FW_ASSERT(callComp != nullptr);
+  PassiveSerialTesterBase* _testerBase = static_cast<PassiveSerialTesterBase*>(callComp);
+  return _testerBase->from_noArgsStringReturnOut_handlerBase(portNum);
 }
 
 void PassiveSerialTesterBase ::

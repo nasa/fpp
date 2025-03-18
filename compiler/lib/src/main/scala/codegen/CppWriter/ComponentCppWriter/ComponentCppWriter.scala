@@ -108,33 +108,42 @@ case class ComponentCppWriter (
     val internalStrHeaders =
       guardedList (hasInternalPorts) (List("Fw/Types/InternalInterfaceString.hpp"))
 
-    val standardHeaders = List.concat(
-      List(
-        "FpConfig.hpp",
-        "Fw/Port/InputSerializePort.hpp",
-        "Fw/Port/OutputSerializePort.hpp",
-        "Fw/Comp/ActiveComponentBase.hpp"
-      ),
-      dpHeaders,
-      mutexHeaders,
-      cmdStrHeaders,
-      tlmStrHeaders,
-      prmStrHeaders,
-      logStrHeaders,
-      internalStrHeaders
-    ).map(CppWriter.headerString)
-    val symbolHeaders = writeIncludeDirectives
-    val headers = standardHeaders ++ symbolHeaders
-    linesMember(addBlankPrefix(headers.sorted.flatMap({
-      case s: "#include \"Fw/Log/LogTextPortAc.hpp\"" =>
-        lines(
-          s"""|#if FW_ENABLE_TEXT_LOGGING == 1
-              |$s
-              |#endif
-              |""".stripMargin
-        )
-      case s => lines(s)
-    })))
+    val systemHeaders = List(
+      "FpConfig.hpp"
+    ).map(CppWriter.systemHeaderString).sorted.map(line)
+    val userHeaders = {
+      val standardHeaders = List.concat(
+        List(
+          "Fw/Port/InputSerializePort.hpp",
+          "Fw/Port/OutputSerializePort.hpp",
+          "Fw/Comp/ActiveComponentBase.hpp"
+        ),
+        dpHeaders,
+        mutexHeaders,
+        cmdStrHeaders,
+        tlmStrHeaders,
+        prmStrHeaders,
+        logStrHeaders,
+        internalStrHeaders
+      ).map(CppWriter.headerString)
+      val symbolHeaders = writeIncludeDirectives
+      (standardHeaders ++ symbolHeaders).sorted.flatMap({
+        case s: "#include \"Fw/Log/LogTextPortAc.hpp\"" =>
+          lines(
+            s"""|#if FW_ENABLE_TEXT_LOGGING == 1
+                |$s
+                |#endif
+                |""".stripMargin
+          )
+        case s => lines(s)
+      })
+    }
+    linesMember(
+      List.concat(
+        addBlankPrefix(systemHeaders),
+        addBlankPrefix(userHeaders)
+      )
+    )
   }
 
   private def getCppIncludes: CppDoc.Member = {

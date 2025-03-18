@@ -115,6 +115,30 @@ void QueuedTelemetryTesterBase ::
 #endif
   }
 
+  // Connect input port noArgsStringReturnOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_noArgsStringReturnOut());
+    port++
+  ) {
+    this->m_from_noArgsStringReturnOut[port].init();
+    this->m_from_noArgsStringReturnOut[port].addCallComp(
+      this,
+      from_noArgsStringReturnOut_static
+    );
+    this->m_from_noArgsStringReturnOut[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_from_noArgsStringReturnOut[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_from_noArgsStringReturnOut[port].setObjName(portName.toChar());
+#endif
+  }
+
   // Connect input port typedOut
   for (
     FwIndexType port = 0;
@@ -236,6 +260,25 @@ void QueuedTelemetryTesterBase ::
       port
     );
     this->m_to_noArgsReturnSync[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect output port noArgsStringReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsStringReturnSync());
+    port++
+  ) {
+    this->m_to_noArgsStringReturnSync[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_to_noArgsStringReturnSync[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_to_noArgsStringReturnSync[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -486,6 +529,20 @@ void QueuedTelemetryTesterBase ::
 }
 
 void QueuedTelemetryTesterBase ::
+  connect_to_noArgsStringReturnSync(
+      FwIndexType portNum,
+      Ports::InputNoArgsStringReturnPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_to_noArgsStringReturnSync(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_to_noArgsStringReturnSync[portNum].addCallPort(port);
+}
+
+void QueuedTelemetryTesterBase ::
   connect_to_noArgsSync(
       FwIndexType portNum,
       Ports::InputNoArgsPort* port
@@ -729,6 +786,17 @@ Ports::InputNoArgsReturnPort* QueuedTelemetryTesterBase ::
   return &this->m_from_noArgsReturnOut[portNum];
 }
 
+Ports::InputNoArgsStringReturnPort* QueuedTelemetryTesterBase ::
+  get_from_noArgsStringReturnOut(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_from_noArgsStringReturnOut(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_from_noArgsStringReturnOut[portNum];
+}
+
 Ports::InputTypedPort* QueuedTelemetryTesterBase ::
   get_from_typedOut(FwIndexType portNum)
 {
@@ -822,6 +890,13 @@ U32 QueuedTelemetryTesterBase ::
   return 0;
 }
 
+Fw::String QueuedTelemetryTesterBase ::
+  from_noArgsStringReturnOut_handler(FwIndexType portNum)
+{
+  this->pushFromPortEntry_noArgsStringReturnOut();
+  return Fw::String("");
+}
+
 void QueuedTelemetryTesterBase ::
   from_typedOut_handler(
       FwIndexType portNum,
@@ -877,6 +952,17 @@ U32 QueuedTelemetryTesterBase ::
     static_cast<FwAssertArgType>(portNum)
   );
   return this->from_noArgsReturnOut_handler(portNum);
+}
+
+Fw::String QueuedTelemetryTesterBase ::
+  from_noArgsStringReturnOut_handlerBase(FwIndexType portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_from_noArgsStringReturnOut(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->from_noArgsStringReturnOut_handler(portNum);
 }
 
 void QueuedTelemetryTesterBase ::
@@ -983,6 +1069,17 @@ U32 QueuedTelemetryTesterBase ::
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_to_noArgsReturnSync[portNum].invoke();
+}
+
+Fw::String QueuedTelemetryTesterBase ::
+  invoke_to_noArgsStringReturnSync(FwIndexType portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_to_noArgsStringReturnSync(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_to_noArgsStringReturnSync[portNum].invoke();
 }
 
 void QueuedTelemetryTesterBase ::
@@ -1255,6 +1352,12 @@ FwIndexType QueuedTelemetryTesterBase ::
 }
 
 FwIndexType QueuedTelemetryTesterBase ::
+  getNum_to_noArgsStringReturnSync() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsStringReturnSync));
+}
+
+FwIndexType QueuedTelemetryTesterBase ::
   getNum_to_noArgsSync() const
 {
   return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsSync));
@@ -1373,6 +1476,12 @@ FwIndexType QueuedTelemetryTesterBase ::
 }
 
 FwIndexType QueuedTelemetryTesterBase ::
+  getNum_from_noArgsStringReturnOut() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsStringReturnOut));
+}
+
+FwIndexType QueuedTelemetryTesterBase ::
   getNum_from_typedOut() const
 {
   return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
@@ -1441,6 +1550,17 @@ bool QueuedTelemetryTesterBase ::
   );
 
   return this->m_to_noArgsReturnSync[portNum].isConnected();
+}
+
+bool QueuedTelemetryTesterBase ::
+  isConnected_to_noArgsStringReturnSync(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_to_noArgsStringReturnSync(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_to_noArgsStringReturnSync[portNum].isConnected();
 }
 
 bool QueuedTelemetryTesterBase ::
@@ -1861,6 +1981,7 @@ void QueuedTelemetryTesterBase ::
   this->fromPortHistorySize = 0;
   this->fromPortHistorySize_noArgsOut = 0;
   this->fromPortHistorySize_noArgsReturnOut = 0;
+  this->fromPortHistorySize_noArgsStringReturnOut = 0;
   this->fromPortHistory_typedOut->clear();
   this->fromPortHistory_typedReturnOut->clear();
 }
@@ -1876,6 +1997,13 @@ void QueuedTelemetryTesterBase ::
   pushFromPortEntry_noArgsReturnOut()
 {
   this->fromPortHistorySize_noArgsReturnOut++;
+  this->fromPortHistorySize++;
+}
+
+void QueuedTelemetryTesterBase ::
+  pushFromPortEntry_noArgsStringReturnOut()
+{
+  this->fromPortHistorySize_noArgsStringReturnOut++;
   this->fromPortHistorySize++;
 }
 
@@ -1990,6 +2118,17 @@ U32 QueuedTelemetryTesterBase ::
   FW_ASSERT(callComp != nullptr);
   QueuedTelemetryTesterBase* _testerBase = static_cast<QueuedTelemetryTesterBase*>(callComp);
   return _testerBase->from_noArgsReturnOut_handlerBase(portNum);
+}
+
+Fw::String QueuedTelemetryTesterBase ::
+  from_noArgsStringReturnOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      FwIndexType portNum
+  )
+{
+  FW_ASSERT(callComp != nullptr);
+  QueuedTelemetryTesterBase* _testerBase = static_cast<QueuedTelemetryTesterBase*>(callComp);
+  return _testerBase->from_noArgsStringReturnOut_handlerBase(portNum);
 }
 
 void QueuedTelemetryTesterBase ::

@@ -51,6 +51,12 @@ U32 QueuedTest ::
   // TODO return
 }
 
+Fw::String QueuedTest ::
+  noArgsStringReturnSync_handler(FwIndexType portNum)
+{
+  // TODO return
+}
+
 void QueuedTest ::
   noArgsSync_handler(FwIndexType portNum)
 {

@@ -117,6 +117,30 @@ void PassiveSerialComponentBase ::
 #endif
   }
 
+  // Connect input port noArgsStringReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsStringReturnSync_InputPorts());
+    port++
+  ) {
+    this->m_noArgsStringReturnSync_InputPort[port].init();
+    this->m_noArgsStringReturnSync_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsStringReturnSync_in
+    );
+    this->m_noArgsStringReturnSync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_noArgsStringReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_noArgsStringReturnSync_InputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
   // Connect input port noArgsSync
   for (
     FwIndexType port = 0;
@@ -477,6 +501,25 @@ void PassiveSerialComponentBase ::
 #endif
   }
 
+  // Connect output port noArgsStringReturnOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsStringReturnOut_OutputPorts());
+    port++
+  ) {
+    this->m_noArgsStringReturnOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_noArgsStringReturnOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_noArgsStringReturnOut_OutputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
   // Connect output port typedOut
   for (
     FwIndexType port = 0;
@@ -585,6 +628,17 @@ Ports::InputNoArgsReturnPort* PassiveSerialComponentBase ::
   );
 
   return &this->m_noArgsReturnSync_InputPort[portNum];
+}
+
+Ports::InputNoArgsStringReturnPort* PassiveSerialComponentBase ::
+  get_noArgsStringReturnSync_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsStringReturnSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_noArgsStringReturnSync_InputPort[portNum];
 }
 
 Ports::InputNoArgsPort* PassiveSerialComponentBase ::
@@ -818,6 +872,20 @@ void PassiveSerialComponentBase ::
   );
 
   this->m_noArgsReturnOut_OutputPort[portNum].addCallPort(port);
+}
+
+void PassiveSerialComponentBase ::
+  set_noArgsStringReturnOut_OutputPort(
+      FwIndexType portNum,
+      Ports::InputNoArgsStringReturnPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsStringReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_noArgsStringReturnOut_OutputPort[portNum].addCallPort(port);
 }
 
 void PassiveSerialComponentBase ::
@@ -1363,6 +1431,12 @@ FwIndexType PassiveSerialComponentBase ::
 }
 
 FwIndexType PassiveSerialComponentBase ::
+  getNum_noArgsStringReturnSync_InputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsStringReturnSync_InputPort));
+}
+
+FwIndexType PassiveSerialComponentBase ::
   getNum_noArgsSync_InputPorts() const
 {
   return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsSync_InputPort));
@@ -1478,6 +1552,12 @@ FwIndexType PassiveSerialComponentBase ::
   getNum_noArgsReturnOut_OutputPorts() const
 {
   return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnOut_OutputPort));
+}
+
+FwIndexType PassiveSerialComponentBase ::
+  getNum_noArgsStringReturnOut_OutputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsStringReturnOut_OutputPort));
 }
 
 FwIndexType PassiveSerialComponentBase ::
@@ -1625,6 +1705,17 @@ bool PassiveSerialComponentBase ::
 }
 
 bool PassiveSerialComponentBase ::
+  isConnected_noArgsStringReturnOut_OutputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsStringReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_noArgsStringReturnOut_OutputPort[portNum].isConnected();
+}
+
+bool PassiveSerialComponentBase ::
   isConnected_typedOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
@@ -1722,6 +1813,23 @@ U32 PassiveSerialComponentBase ::
 
   // Call handler function
   retVal = this->noArgsReturnSync_handler(portNum);
+
+  return retVal;
+}
+
+Fw::String PassiveSerialComponentBase ::
+  noArgsStringReturnSync_handlerBase(FwIndexType portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_noArgsStringReturnSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  Fw::String retVal;
+
+  // Call handler function
+  retVal = this->noArgsStringReturnSync_handler(portNum);
 
   return retVal;
 }
@@ -1965,6 +2073,21 @@ U32 PassiveSerialComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_noArgsReturnOut_OutputPort[portNum].invoke();
+}
+
+Fw::String PassiveSerialComponentBase ::
+  noArgsStringReturnOut_out(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsStringReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_noArgsStringReturnOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_noArgsStringReturnOut_OutputPort[portNum].invoke();
 }
 
 void PassiveSerialComponentBase ::
@@ -4162,6 +4285,17 @@ U32 PassiveSerialComponentBase ::
   FW_ASSERT(callComp);
   PassiveSerialComponentBase* compPtr = static_cast<PassiveSerialComponentBase*>(callComp);
   return compPtr->noArgsReturnSync_handlerBase(portNum);
+}
+
+Fw::String PassiveSerialComponentBase ::
+  m_p_noArgsStringReturnSync_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum
+  )
+{
+  FW_ASSERT(callComp);
+  PassiveSerialComponentBase* compPtr = static_cast<PassiveSerialComponentBase*>(callComp);
+  return compPtr->noArgsStringReturnSync_handlerBase(portNum);
 }
 
 void PassiveSerialComponentBase ::
