@@ -209,7 +209,7 @@ class PassiveSyncProductsTesterBase :
       char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(80)];
       Fw::ExternalString str2;
       E e;
-      AA a;
+      A a;
       S s;
     };
 
@@ -561,7 +561,7 @@ class PassiveSyncProductsTesterBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const AA& a, //!< An array
+        const A& a, //!< An array
         const S& s //!< A struct
     );
 
@@ -642,7 +642,7 @@ class PassiveSyncProductsTesterBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const AA& a, //!< An array
+        const A& a, //!< An array
         const S& s //!< A struct
     );
 
@@ -738,7 +738,7 @@ class PassiveSyncProductsTesterBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const AA& a, //!< An array
+        const A& a, //!< An array
         const S& s //!< A struct
     );
 
@@ -750,7 +750,7 @@ class PassiveSyncProductsTesterBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const AA& a, //!< An array
+        const A& a, //!< An array
         const S& s //!< A struct
     );
 
@@ -1178,7 +1178,7 @@ class PassiveSyncProductsTesterBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const AA& a, //!< An array
+        const A& a, //!< An array
         const S& s //!< A struct
     );
 
@@ -1290,7 +1290,7 @@ class PassiveSyncProductsTesterBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const AA& a, //!< An array
+        const A& a, //!< An array
         const S& s //!< A struct
     );
 

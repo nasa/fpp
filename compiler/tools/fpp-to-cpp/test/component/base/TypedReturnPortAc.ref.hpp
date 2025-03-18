@@ -11,7 +11,7 @@
 #include <cstring>
 #include <FpConfig.hpp>
 
-#include "AAArrayAc.hpp"
+#include "AArrayAc.hpp"
 #include "EEnumAc.hpp"
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
@@ -41,7 +41,7 @@ namespace Ports {
           sizeof(U8) +
           Fw::StringBase::STATIC_SERIALIZED_SIZE(80) +
           E::SERIALIZED_SIZE +
-          AA::SERIALIZED_SIZE +
+          A::SERIALIZED_SIZE +
           S::SERIALIZED_SIZE
       };
 
@@ -60,7 +60,7 @@ namespace Ports {
         bool b,
         const Fw::StringBase& str2,
         const E& e,
-        const AA& a,
+        const A& a,
         const S& s
       );
 
@@ -89,7 +89,7 @@ namespace Ports {
           bool b, //!< A boolean
           const Fw::StringBase& str2, //!< A string
           const E& e, //!< An enum
-          const AA& a, //!< An array
+          const A& a, //!< An array
           const S& s //!< A struct
       );
 
@@ -143,7 +143,7 @@ namespace Ports {
           bool b, //!< A boolean
           const Fw::StringBase& str2, //!< A string
           const E& e, //!< An enum
-          const AA& a, //!< An array
+          const A& a, //!< An array
           const S& s //!< A struct
       ) const;
 

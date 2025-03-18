@@ -9,6 +9,7 @@
 
 #include "AliasAliasArrayAliasAc.hpp"
 #include "AliasArrayAliasAc.hpp"
+#include "AliasArrayAliasArrayAliasAc.hpp"
 #include "AliasPrim1AliasAc.hpp"
 #include "AliasStringAliasAc.hpp"
 #include "FpConfig.hpp"
@@ -32,7 +33,8 @@ class StructWithAlias :
         sizeof(AliasPrim1) +
         AliasString::SERIALIZED_SIZE +
         AliasArray::SERIALIZED_SIZE +
-        AliasAliasArray::SERIALIZED_SIZE
+        AliasAliasArray::SERIALIZED_SIZE +
+        AliasArrayAliasArray::SERIALIZED_SIZE
     };
 
   public:
@@ -49,7 +51,8 @@ class StructWithAlias :
         AliasPrim1 x,
         const Fw::StringBase& y,
         const AliasArray& z,
-        const AliasAliasArray& w
+        const AliasAliasArray& w,
+        const AliasArrayAliasArray& q
     );
 
     //! Copy constructor
@@ -159,6 +162,18 @@ class StructWithAlias :
       return this->m_w;
     }
 
+    //! Get member q
+    AliasArrayAliasArray& getq()
+    {
+      return this->m_q;
+    }
+
+    //! Get member q (const)
+    const AliasArrayAliasArray& getq() const
+    {
+      return this->m_q;
+    }
+
     // ----------------------------------------------------------------------
     // Setter functions
     // ----------------------------------------------------------------------
@@ -168,7 +183,8 @@ class StructWithAlias :
         AliasPrim1 x,
         const Fw::StringBase& y,
         const AliasArray& z,
-        const AliasAliasArray& w
+        const AliasAliasArray& w,
+        const AliasArrayAliasArray& q
     );
 
     //! Set member x
@@ -183,6 +199,9 @@ class StructWithAlias :
     //! Set member w
     void setw(const AliasAliasArray& w);
 
+    //! Set member q
+    void setq(const AliasArrayAliasArray& q);
+
   protected:
 
     // ----------------------------------------------------------------------
@@ -194,6 +213,7 @@ class StructWithAlias :
     Fw::ExternalString m_y;
     AliasArray m_z;
     AliasAliasArray m_w;
+    AliasArrayAliasArray m_q;
 
 };
 

@@ -1152,7 +1152,7 @@ class PassiveTestComponentBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const AA& a, //!< An array
+        const A& a, //!< An array
         const S& s //!< A struct
     ) = 0;
 
@@ -1164,7 +1164,7 @@ class PassiveTestComponentBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const AA& a, //!< An array
+        const A& a, //!< An array
         const S& s //!< A struct
     ) = 0;
 
@@ -1274,7 +1274,7 @@ class PassiveTestComponentBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const AA& a, //!< An array
+        const A& a, //!< An array
         const S& s //!< A struct
     );
 
@@ -1286,7 +1286,7 @@ class PassiveTestComponentBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const AA& a, //!< An array
+        const A& a, //!< An array
         const S& s //!< A struct
     );
 
@@ -1399,7 +1399,7 @@ class PassiveTestComponentBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const AA& a, //!< An array
+        const A& a, //!< An array
         const S& s //!< A struct
     );
 
@@ -2132,7 +2132,7 @@ class PassiveTestComponentBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const AA& a, //!< An array
+        const A& a, //!< An array
         const S& s //!< A struct
     );
 
@@ -2145,7 +2145,7 @@ class PassiveTestComponentBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const AA& a, //!< An array
+        const A& a, //!< An array
         const S& s //!< A struct
     );
 

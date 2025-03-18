@@ -849,7 +849,7 @@ class PassiveTelemetryComponentBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const AA& a, //!< An array
+        const A& a, //!< An array
         const S& s //!< A struct
     ) = 0;
 
@@ -861,7 +861,7 @@ class PassiveTelemetryComponentBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const AA& a, //!< An array
+        const A& a, //!< An array
         const S& s //!< A struct
     ) = 0;
 
@@ -971,7 +971,7 @@ class PassiveTelemetryComponentBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const AA& a, //!< An array
+        const A& a, //!< An array
         const S& s //!< A struct
     );
 
@@ -983,7 +983,7 @@ class PassiveTelemetryComponentBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const AA& a, //!< An array
+        const A& a, //!< An array
         const S& s //!< A struct
     );
 
@@ -1076,7 +1076,7 @@ class PassiveTelemetryComponentBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const AA& a, //!< An array
+        const A& a, //!< An array
         const S& s //!< A struct
     );
 
@@ -1318,7 +1318,7 @@ class PassiveTelemetryComponentBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const AA& a, //!< An array
+        const A& a, //!< An array
         const S& s //!< A struct
     );
 
@@ -1331,7 +1331,7 @@ class PassiveTelemetryComponentBase :
         bool b, //!< A boolean
         const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
-        const AA& a, //!< An array
+        const A& a, //!< An array
         const S& s //!< A struct
     );
 

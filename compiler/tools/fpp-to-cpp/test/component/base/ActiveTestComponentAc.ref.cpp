@@ -3610,7 +3610,7 @@ namespace M {
         bool b,
         const Fw::StringBase& str2,
         const E& e,
-        const AA& a,
+        const A& a,
         const S& s
     )
   {
@@ -3651,7 +3651,7 @@ namespace M {
         bool b,
         const Fw::StringBase& str2,
         const E& e,
-        const AA& a,
+        const A& a,
         const S& s
     )
   {
@@ -4050,7 +4050,7 @@ namespace M {
         bool b,
         const Fw::StringBase& str2,
         const E& e,
-        const AA& a,
+        const A& a,
         const S& s
     )
   {
@@ -8098,7 +8098,7 @@ namespace M {
         bool b,
         const Fw::StringBase& str2,
         const E& e,
-        const AA& a,
+        const A& a,
         const S& s
     )
   {
@@ -8125,7 +8125,7 @@ namespace M {
         bool b,
         const Fw::StringBase& str2,
         const E& e,
-        const AA& a,
+        const A& a,
         const S& s
     )
   {

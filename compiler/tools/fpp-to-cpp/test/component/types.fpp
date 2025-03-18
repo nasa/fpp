@@ -4,9 +4,6 @@ enum E { X, Y, Z }
 @ An array
 array A = [3] U32
 
-@ An array of arrays
-array AA = [3] A
-
 @ A struct
 struct S { x: U32, y: string }
 
@@ -24,7 +21,12 @@ type AliasBool = bool
 
 @ Alias of an array
 type AliasArray = A
+
+# Test deep recursion of aliases
+
 type AliasAliasArray = AliasArray
+array ArrayAliasArray = [3] AliasAliasArray
+type AliasArrayAliasArray = ArrayAliasArray
 
 @ Alias of an enum
 type AliasEnum = E
@@ -37,6 +39,7 @@ struct StructWithAlias {
   y: AliasString,
   z: AliasArray
   w: AliasAliasArray
+  q: AliasArrayAliasArray
 }
 
 type AnotherAliasStruct = StructWithAlias
@@ -73,7 +76,7 @@ module Ports {
     b: bool, @< A boolean
     str2: string, @< A string
     e: E, @< An enum
-    a: AA, @< An array
+    a: A, @< An array
     s: S @< A struct
   ) -> F32
 

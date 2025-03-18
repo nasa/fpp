@@ -1263,7 +1263,7 @@ F32 QueuedEventsTesterBase ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const AA& a,
+      const A& a,
       const S& s
   )
 {
@@ -1432,7 +1432,7 @@ F32 QueuedEventsTesterBase ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const AA& a,
+      const A& a,
       const S& s
   )
 {
@@ -1794,7 +1794,7 @@ F32 QueuedEventsTesterBase ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const AA& a,
+      const A& a,
       const S& s
   )
 {
@@ -1822,7 +1822,7 @@ F32 QueuedEventsTesterBase ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const AA& a,
+      const A& a,
       const S& s
   )
 {
@@ -2942,7 +2942,7 @@ void QueuedEventsTesterBase ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const AA& a,
+      const A& a,
       const S& s
   )
 {
@@ -3230,7 +3230,7 @@ F32 QueuedEventsTesterBase ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const AA& a,
+      const A& a,
       const S& s
   )
 {

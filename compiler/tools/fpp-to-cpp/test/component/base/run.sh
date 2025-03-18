@@ -20,8 +20,10 @@ types()
   diff_hpp AliasAliasArrayAlias && \
   diff_hpp AliasEnumAlias && \
   diff_hpp AliasStringAlias &&
-  diff_cpp StructWithAliasSerializable
-  diff_hpp AnotherAliasStructAlias
+  diff_cpp StructWithAliasSerializable && \
+  diff_hpp AnotherAliasStructAlias && \
+  diff_cpp ArrayAliasArrayArray && \
+  diff_hpp AliasArrayAliasArrayAlias
 }
 
 empty()

@@ -1353,7 +1353,7 @@ F32 PassiveTestTesterBase ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const AA& a,
+      const A& a,
       const S& s
   )
 {
@@ -1522,7 +1522,7 @@ F32 PassiveTestTesterBase ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const AA& a,
+      const A& a,
       const S& s
   )
 {
@@ -1733,7 +1733,7 @@ F32 PassiveTestTesterBase ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const AA& a,
+      const A& a,
       const S& s
   )
 {
@@ -1761,7 +1761,7 @@ F32 PassiveTestTesterBase ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const AA& a,
+      const A& a,
       const S& s
   )
 {
@@ -3984,7 +3984,7 @@ void PassiveTestTesterBase ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const AA& a,
+      const A& a,
       const S& s
   )
 {
@@ -4550,7 +4550,7 @@ F32 PassiveTestTesterBase ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const AA& a,
+      const A& a,
       const S& s
   )
 {

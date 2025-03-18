@@ -1266,7 +1266,7 @@ F32 ActiveCommandsTesterBase ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const AA& a,
+      const A& a,
       const S& s
   )
 {
@@ -1435,7 +1435,7 @@ F32 ActiveCommandsTesterBase ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const AA& a,
+      const A& a,
       const S& s
   )
 {
@@ -1797,7 +1797,7 @@ F32 ActiveCommandsTesterBase ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const AA& a,
+      const A& a,
       const S& s
   )
 {
@@ -1825,7 +1825,7 @@ F32 ActiveCommandsTesterBase ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const AA& a,
+      const A& a,
       const S& s
   )
 {
@@ -3087,7 +3087,7 @@ void ActiveCommandsTesterBase ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const AA& a,
+      const A& a,
       const S& s
   )
 {
@@ -3291,7 +3291,7 @@ F32 ActiveCommandsTesterBase ::
       bool b,
       const Fw::StringBase& str2,
       const E& e,
-      const AA& a,
+      const A& a,
       const S& s
   )
 {

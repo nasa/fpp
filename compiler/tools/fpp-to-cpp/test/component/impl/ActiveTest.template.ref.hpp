@@ -220,7 +220,7 @@ namespace M {
           bool b, //!< A boolean
           const Fw::StringBase& str2, //!< A string
           const E& e, //!< An enum
-          const AA& a, //!< An array
+          const A& a, //!< An array
           const S& s //!< A struct
       ) override;
 
@@ -234,7 +234,7 @@ namespace M {
           bool b, //!< A boolean
           const Fw::StringBase& str2, //!< A string
           const E& e, //!< An enum
-          const AA& a, //!< An array
+          const A& a, //!< An array
           const S& s //!< A struct
       ) override;
 

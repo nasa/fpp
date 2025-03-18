@@ -17,7 +17,8 @@ StructWithAlias ::
     m_x(0),
     m_y(m___fprime_ac_y_buffer, sizeof m___fprime_ac_y_buffer, Fw::String("")),
     m_z(A(0, 0, 0)),
-    m_w(A(0, 0, 0))
+    m_w(A(0, 0, 0)),
+    m_q(ArrayAliasArray(A(0, 0, 0), A(0, 0, 0), A(0, 0, 0)))
 {
 
 }
@@ -27,13 +28,15 @@ StructWithAlias ::
       AliasPrim1 x,
       const Fw::StringBase& y,
       const AliasArray& z,
-      const AliasAliasArray& w
+      const AliasAliasArray& w,
+      const AliasArrayAliasArray& q
   ) :
     Serializable(),
     m_x(x),
     m_y(m___fprime_ac_y_buffer, sizeof m___fprime_ac_y_buffer, y),
     m_z(z),
-    m_w(w)
+    m_w(w),
+    m_q(q)
 {
 
 }
@@ -44,7 +47,8 @@ StructWithAlias ::
     m_x(obj.m_x),
     m_y(m___fprime_ac_y_buffer, sizeof m___fprime_ac_y_buffer, obj.m_y),
     m_z(obj.m_z),
-    m_w(obj.m_w)
+    m_w(obj.m_w),
+    m_q(obj.m_q)
 {
 
 }
@@ -60,7 +64,7 @@ StructWithAlias& StructWithAlias ::
     return *this;
   }
 
-  set(obj.m_x, obj.m_y, obj.m_z, obj.m_w);
+  set(obj.m_x, obj.m_y, obj.m_z, obj.m_w, obj.m_q);
   return *this;
 }
 
@@ -72,7 +76,8 @@ bool StructWithAlias ::
     (this->m_x == obj.m_x) &&
     (this->m_y == obj.m_y) &&
     (this->m_z == obj.m_z) &&
-    (this->m_w == obj.m_w)
+    (this->m_w == obj.m_w) &&
+    (this->m_q == obj.m_q)
   );
 }
 
@@ -118,6 +123,10 @@ Fw::SerializeStatus StructWithAlias ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
+  status = buffer.serialize(this->m_q);
+  if (status != Fw::FW_SERIALIZE_OK) {
+    return status;
+  }
 
   return status;
 }
@@ -143,6 +152,10 @@ Fw::SerializeStatus StructWithAlias ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
+  status = buffer.deserialize(this->m_q);
+  if (status != Fw::FW_SERIALIZE_OK) {
+    return status;
+  }
 
   return status;
 }
@@ -157,23 +170,27 @@ void StructWithAlias ::
     "x = %s, "
     "y = %s, "
     "z = %s, "
-    "w = %s"
+    "w = %s, "
+    "q = %s"
     " )";
 
   // Declare strings to hold any serializable toString() arguments
   Fw::String zStr;
   Fw::String wStr;
+  Fw::String qStr;
 
   // Call toString for arrays and serializable types
   this->m_z.toString(zStr);
   this->m_w.toString(wStr);
+  this->m_q.toString(qStr);
 
   sb.format(
     formatString,
     this->m_x,
     this->m_y.toChar(),
     zStr.toChar(),
-    wStr.toChar()
+    wStr.toChar(),
+    qStr.toChar()
   );
 }
 
@@ -188,13 +205,15 @@ void StructWithAlias ::
       AliasPrim1 x,
       const Fw::StringBase& y,
       const AliasArray& z,
-      const AliasAliasArray& w
+      const AliasAliasArray& w,
+      const AliasArrayAliasArray& q
   )
 {
   this->m_x = x;
   this->m_y = y;
   this->m_z = z;
   this->m_w = w;
+  this->m_q = q;
 }
 
 void StructWithAlias ::
@@ -219,4 +238,10 @@ void StructWithAlias ::
   setw(const AliasAliasArray& w)
 {
   this->m_w = w;
+}
+
+void StructWithAlias ::
+  setq(const AliasArrayAliasArray& q)
+{
+  this->m_q = q;
 }

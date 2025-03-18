@@ -22,6 +22,8 @@ types()
   move_hpp AliasStringAlias
   move_cpp StructWithAliasSerializable
   move_hpp AnotherAliasStructAlias
+  move_cpp ArrayAliasArrayArray
+  move_hpp AliasArrayAliasArrayAlias
 }
 
 empty()
