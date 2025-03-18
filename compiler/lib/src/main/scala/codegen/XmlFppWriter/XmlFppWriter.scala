@@ -323,10 +323,6 @@ object XmlFppWriter extends LineUtils {
         text => AstNode.create(Ast.ExprLiteralInt(text))
       )
 
-    /** Translates an optional boolean attribute */
-    def translateBoolOpt(xmlNode: scala.xml.Node, name: String): Boolean =
-      XmlFppWriter.getAttributeOpt(xmlNode, name).isDefined
-
     /** Translates a value from FPP to XML */
     def translateValue(xmlValue: String, tn: Ast.TypeName): Option[AstNode[Ast.Expr]] = {
       val exprOpt = (xmlValue, tn) match {

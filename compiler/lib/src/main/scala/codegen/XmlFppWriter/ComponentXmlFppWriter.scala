@@ -351,7 +351,8 @@ object ComponentXmlFppWriter extends LineUtils {
             }
             val setOpcode = XmlFppWriter.FppBuilder.translateIntegerOpt(xmlNode, "set_opcode")
             val saveOpcode = XmlFppWriter.FppBuilder.translateIntegerOpt(xmlNode, "save_opcode")
-            val isExternal = XmlFppWriter.FppBuilder.translateBoolOpt(xmlNode, "external")
+            val isExternal = XmlFppWriter.getAttributeOpt(xmlNode, "external").isDefined
+
             val paramMemberNode = {
               val param = Ast.SpecParam(
                 name,
