@@ -96,6 +96,12 @@ object XmlFppWriter extends LineUtils {
     def invalidAttribute(name: String, node: scala.xml.Node): Error =
       semanticError(s"invalid attribute $name in node ${node.toString}")
 
+    /** Translates a integer attribute */
+    def translateInteger(xmlNode: scala.xml.Node, name: String): Result.Result[AstNode[Ast.ExprLiteralInt]] =
+      getAttribute(xmlNode, name).map(
+        text => AstNode.create(Ast.ExprLiteralInt(text))
+      )
+
     /** Translates an XML type to an FPP type name */
     def translateType
       (getType: scala.xml.Node => Result.Result[String])
@@ -141,6 +147,7 @@ object XmlFppWriter extends LineUtils {
           case "events" => ComponentXmlFppWriter.writeEventsFile(this)
           case "interface" => PortXmlFppWriter.writeFile(this)
           case "internal_interfaces" => ComponentXmlFppWriter.writeInternalPortsFile(this)
+          case "packets" => TlmPacketSetXmlFppWriter.writeFile(this)
           case "parameters" => ComponentXmlFppWriter.writeParamsFile(this)
           case "ports" => ComponentXmlFppWriter.writePortsFile(this)
           case "serializable" => StructXmlFppWriter.writeFile(this)
@@ -176,7 +183,7 @@ object XmlFppWriter extends LineUtils {
 
   /** Writes a file list */
   def writeFileList(fileList: List[File]): Result.Result[List[Line]] = {
-    for (files <- Result.map(fileList, (file: File) => file.write))
+    for (files <- Result.map(fileList, _.write))
       yield Line.blankSeparated (identity[List[Line]]) (files)
   }
 
@@ -309,6 +316,16 @@ object XmlFppWriter extends LineUtils {
       }
       (format, note)
     }
+
+    /** Translates an optional integer attribute */
+    def translateIntegerOpt(xmlNode: scala.xml.Node, name: String): Option[AstNode[Ast.ExprLiteralInt]] =
+      getAttributeOpt(xmlNode, name).map(
+        text => AstNode.create(Ast.ExprLiteralInt(text))
+      )
+
+    /** Translates an optional boolean attribute */
+    def translateBoolOpt(xmlNode: scala.xml.Node, name: String): Boolean =
+      XmlFppWriter.getAttributeOpt(xmlNode, name).isDefined
 
     /** Translates a value from FPP to XML */
     def translateValue(xmlValue: String, tn: Ast.TypeName): Option[AstNode[Ast.Expr]] = {
