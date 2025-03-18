@@ -11,6 +11,9 @@ guarded input port noArgsGuarded: Ports.NoArgs
 @ A typed sync input port
 sync input port noArgsReturnSync: [3] Ports.NoArgsReturn
 
+@ A typed sync input port with a string return type
+sync input port noArgsStringReturnSync: Ports.NoArgsStringReturn
+
 @ A typed guarded input
 guarded input port noArgsReturnGuarded: Ports.NoArgsReturn
 
@@ -31,6 +34,9 @@ output port noArgsOut: Ports.NoArgs
 
 @ A typed output port with no arguments and a return type
 output port noArgsReturnOut: Ports.NoArgsReturn
+
+@ A typed output port with no arguments and a string return type
+output port noArgsStringReturnOut: Ports.NoArgsStringReturn
 
 @ A typed output port
 output port typedOut: Ports.Typed

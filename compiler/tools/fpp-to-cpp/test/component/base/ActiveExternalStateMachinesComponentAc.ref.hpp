@@ -7,9 +7,10 @@
 #ifndef ExternalSm_ActiveExternalStateMachinesComponentAc_HPP
 #define ExternalSm_ActiveExternalStateMachinesComponentAc_HPP
 
+#include <FpConfig.hpp>
+
 #include "ActiveExternalStateMachines_S1.hpp"
 #include "ActiveExternalStateMachines_S2.hpp"
-#include "FpConfig.hpp"
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
