@@ -50,21 +50,19 @@ run_test()
 }
 
 
+# Run fpp-to-json on fpp-check test case
+# Success criteria: "Exception in thread" (case insensitive) does not exist in the stdout/stderr of fpp-to-json
 run_fpp_check_test() {
   f=$1
   outfile="${f##*/}"
   outfile="${outfile%.*}"
   outfile=$dir_name"_"$outfile
   status=0
-  $fpp_to_json $f 2>&1 | remove_path_prefix > $outfile.out.txt && \
-      remove_path_prefix < fpp-ast.json >> $outfile.out.txt && \
-      remove_path_prefix < fpp-loc-map.json >> $outfile.out.txt
-    if grep -qi "Exception in thread" $outfile.out.txt; then
-      rm $outfile.out.txt
-      status=1
-    fi
-    rm $outfile.out.txt
-    return $status
+  if $fpp_to_json $f 2>&1 | grep -qi "Exception in thread"; then
+    status=1
+  fi
+  rm -f fpp-ast.json fpp-loc-map.json fpp-analysis.json
+  return $status
 }
 
 activeComponents(){
@@ -172,7 +170,7 @@ types()
   run_test "" types
 }
 
-tests="
+fpp_to_json_tests="
 activeComponents
 commands
 constTypesComponents
@@ -199,9 +197,15 @@ telemetryPackets
 types
 "
 
-# Generate fpp-check test cases
+# Generate fpp-check test cases by doing the following:
+# Get all .fpp test cases in the fpp-check/test/* directories
+# For each test case:
+#   1.) Create a function with the following name: fpp_check_<directory name>_<file name>
+#   2.) In the function, call the run_fpp_check_test (defined in this file) and provide the filename of the FPP model to run
+# After iterating all test cases:
+#   1.) Write all functions to a new file called fpp-check-tests.sh
+#   2.) Return string containing all test names so they can be executed below
 test_names=""
-exclude_test_dirs=("tlm_packets")
 fpp_check_test_dir="../../fpp-check/test/"
 fpp_check_tests=$(for d in "$fpp_check_test_dir"*
 do
@@ -230,4 +234,4 @@ echo $test_names)
 
 . ./fpp-check-tests.sh
 
-run_suite $tests$fpp_check_tests
+run_suite $fpp_to_json_tests$fpp_check_tests
