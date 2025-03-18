@@ -7,8 +7,8 @@
 #ifndef PassiveTestComponentAc_HPP
 #define PassiveTestComponentAc_HPP
 
-#include <FpConfig.hpp>
 #include <atomic>
+#include <FpConfig.hpp>
 
 #include "AArrayAc.hpp"
 #include "EEnumAc.hpp"

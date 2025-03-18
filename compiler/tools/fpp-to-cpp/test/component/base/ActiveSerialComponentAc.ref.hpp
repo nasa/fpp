@@ -7,8 +7,8 @@
 #ifndef ActiveSerialComponentAc_HPP
 #define ActiveSerialComponentAc_HPP
 
-#include <FpConfig.hpp>
 #include <atomic>
+#include <FpConfig.hpp>
 
 #include "AArrayAc.hpp"
 #include "EEnumAc.hpp"

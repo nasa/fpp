@@ -7,8 +7,8 @@
 #ifndef PassiveEventsComponentAc_HPP
 #define PassiveEventsComponentAc_HPP
 
-#include <FpConfig.hpp>
 #include <atomic>
+#include <FpConfig.hpp>
 
 #include "AArrayAc.hpp"
 #include "EEnumAc.hpp"

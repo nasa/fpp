@@ -7,8 +7,8 @@
 #ifndef ActiveEventsComponentAc_HPP
 #define ActiveEventsComponentAc_HPP
 
-#include <FpConfig.hpp>
 #include <atomic>
+#include <FpConfig.hpp>
 
 #include "AArrayAc.hpp"
 #include "EEnumAc.hpp"

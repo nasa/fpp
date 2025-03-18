@@ -7,8 +7,8 @@
 #ifndef QueuedEventsComponentAc_HPP
 #define QueuedEventsComponentAc_HPP
 
-#include <FpConfig.hpp>
 #include <atomic>
+#include <FpConfig.hpp>
 
 #include "AArrayAc.hpp"
 #include "EEnumAc.hpp"

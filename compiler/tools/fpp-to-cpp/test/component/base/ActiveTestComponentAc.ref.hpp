@@ -7,8 +7,8 @@
 #ifndef M_ActiveTestComponentAc_HPP
 #define M_ActiveTestComponentAc_HPP
 
-#include <FpConfig.hpp>
 #include <atomic>
+#include <FpConfig.hpp>
 
 #include "AArrayAc.hpp"
 #include "ActiveTest_DataSerializableAc.hpp"

@@ -7,8 +7,8 @@
 #ifndef QueuedSerialComponentAc_HPP
 #define QueuedSerialComponentAc_HPP
 
-#include <FpConfig.hpp>
 #include <atomic>
+#include <FpConfig.hpp>
 
 #include "AArrayAc.hpp"
 #include "EEnumAc.hpp"
