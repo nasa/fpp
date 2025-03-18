@@ -87,7 +87,32 @@ case class ComponentParameters (
           )
         }),
         CppDoc.Lines.Hpp
-      )
+      ),
+      if hasExternalParameters then {
+        addAccessTagAndComment(
+          "PRIVATE",
+          "Parameter function pointers",
+          List(
+            linesClassMember(
+              lines(
+                s"""|
+                    |//! Function to serialize an externally stored parameter
+                    |Fw::ParamSerializeFunc paramSerizationPtr;
+                    |"""
+              )
+            ),
+            linesClassMember(
+              lines(
+                s"""|
+                    |//! Function to deserialize an externally stored parameter
+                    |Fw::ParamDeserializeFunc paramSerizationPtr;
+                    |"""
+              )
+            )
+          )
+        )
+      }
+      else Nil
     ).flatten
   }
 

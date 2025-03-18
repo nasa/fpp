@@ -484,7 +484,15 @@ case class ComponentCppWriter (
                  |"""
             )
           )
+        },
+        if hasExternalParameters then {
+          lines(
+            """| // Set external parameter functions pointers
+               | this->paramSerizationPtr = paramSerizationPtr;
+               | this->paramDeserizationPtr = paramDeserizationPtr;
+               |""")
         }
+        else Nil,
       )
     )
 

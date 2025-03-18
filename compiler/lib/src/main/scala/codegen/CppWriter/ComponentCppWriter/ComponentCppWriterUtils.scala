@@ -351,19 +351,6 @@ abstract class ComponentCppWriterUtils(
       )
     )
     else Nil,
-    if hasExternalParameters then List(
-      CppDoc.Function.Param(
-        CppDoc.Type("ParamSerizationPtr"),
-        "serialPtr",
-        Some("The function pointer to serialize an external parmeter")
-      ),
-      CppDoc.Function.Param(
-        CppDoc.Type("ParamDeserizationPtr"),
-        "deserialPtr",
-        Some("The function pointer to deserialize an external parmeter")
-      )
-    )
-    else Nil,
     List(
       CppDoc.Function.Param(
         CppDoc.Type("FwEnumStoreType"),
@@ -372,6 +359,19 @@ abstract class ComponentCppWriterUtils(
         Some("0")
       )
     ),
+    if hasExternalParameters then List(
+      CppDoc.Function.Param(
+        CppDoc.Type("ParamSerizationPtr"),
+        "paramSerizationPtr",
+        Some("The function pointer to serialize an external parmeter")
+      ),
+      CppDoc.Function.Param(
+        CppDoc.Type("ParamDeserizationPtr"),
+        "paramDeserizationPtr",
+        Some("The function pointer to deserialize an external parmeter")
+      )
+    )
+    else Nil,
   )
 
   val portParamTypeMap: ComponentCppWriterUtils.PortParamTypeMap =
