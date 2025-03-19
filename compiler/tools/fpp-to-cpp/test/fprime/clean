@@ -3,7 +3,7 @@
 . ../../../../scripts/utils.sh
 
 clean
-for file in `find . -name '*Ac.cpp' -or -name '*Ac.hpp'`
+for file in `find . -name '*Ac.cpp' -or -name '*Ac.hpp' -or -name '*Ac.h'`
 do
   rm $file
 done

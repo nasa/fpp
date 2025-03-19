@@ -35,7 +35,7 @@ case class FormalParamsCppWriter(s: CppWriterState) {
     val qualifiedTypeName = param.kind match {
       // Reference formal parameters become non-constant C++ reference parameters
       case Ast.FormalParam.Ref => s"$typeName&"
-      case Ast.FormalParam.Value => t match {
+      case Ast.FormalParam.Value => t.getUnderlyingType match {
         // Primitive, non-reference formal parameters become C++ value parameters
         case t if s.isPrimitive(t, typeName) => typeName
         // String formal parameters become constant C++ reference parameters

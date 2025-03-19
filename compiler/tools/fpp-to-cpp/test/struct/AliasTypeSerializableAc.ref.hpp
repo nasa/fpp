@@ -11,7 +11,8 @@
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
-#include "T.hpp"
+#include "TAliasAliasAc.hpp"
+#include "U16AliasAliasAc.hpp"
 
 class AliasType :
   public Fw::Serializable
@@ -26,8 +27,8 @@ class AliasType :
     enum {
       //! The size of the serial representation
       SERIALIZED_SIZE =
-        sizeof(U16) +
-        T::SERIALIZED_SIZE
+        sizeof(U16Alias) +
+        TAlias::SERIALIZED_SIZE
     };
 
   public:
@@ -41,8 +42,8 @@ class AliasType :
 
     //! Member constructor
     AliasType(
-        U16 x,
-        const T& y
+        U16Alias x,
+        const TAlias& y
     );
 
     //! Copy constructor
@@ -111,19 +112,19 @@ class AliasType :
     // ----------------------------------------------------------------------
 
     //! Get member x
-    U16 getx() const
+    U16Alias getx() const
     {
       return this->m_x;
     }
 
     //! Get member y
-    T& gety()
+    TAlias& gety()
     {
       return this->m_y;
     }
 
     //! Get member y (const)
-    const T& gety() const
+    const TAlias& gety() const
     {
       return this->m_y;
     }
@@ -134,15 +135,15 @@ class AliasType :
 
     //! Set all members
     void set(
-        U16 x,
-        const T& y
+        U16Alias x,
+        const TAlias& y
     );
 
     //! Set member x
-    void setx(U16 x);
+    void setx(U16Alias x);
 
     //! Set member y
-    void sety(const T& y);
+    void sety(const TAlias& y);
 
   protected:
 
@@ -150,8 +151,8 @@ class AliasType :
     // Member variables
     // ----------------------------------------------------------------------
 
-    U16 m_x;
-    T m_y;
+    U16Alias m_x;
+    TAlias m_y;
 
 };
 

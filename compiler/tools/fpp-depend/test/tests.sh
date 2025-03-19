@@ -1,4 +1,5 @@
 tests="
+def_alias
 def_array
 def_component_instance
 def_constant

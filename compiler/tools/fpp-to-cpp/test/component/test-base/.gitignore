@@ -1,4 +1,6 @@
 *.hpp
 *.cpp
+*.h
 !*.ref.hpp
 !*.ref.cpp
+!*.ref.h

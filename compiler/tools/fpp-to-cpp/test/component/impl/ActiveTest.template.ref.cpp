@@ -30,6 +30,27 @@ namespace M {
   // ----------------------------------------------------------------------
 
   void ActiveTest ::
+    aliasTypedAsync_handler(
+        FwIndexType portNum,
+        AliasPrim1 u32,
+        AliasPrim2 f32,
+        AliasBool b,
+        const Fw::StringBase& str2,
+        const AliasEnum& e,
+        const AliasArray& a,
+        const AliasStruct& s
+    )
+  {
+    // TODO
+  }
+
+  AliasString ActiveTest ::
+    noArgsAliasStringReturnSync_handler(FwIndexType portNum)
+  {
+    // TODO return
+  }
+
+  void ActiveTest ::
     noArgsAsync_handler(FwIndexType portNum)
   {
     // TODO
@@ -63,6 +84,51 @@ namespace M {
     noArgsSync_handler(FwIndexType portNum)
   {
     // TODO
+  }
+
+  void ActiveTest ::
+    typedAliasGuarded_handler(
+        FwIndexType portNum,
+        AliasPrim1 u32,
+        AliasPrim2 f32,
+        AliasBool b,
+        const Fw::StringBase& str2,
+        const AliasEnum& e,
+        const AliasArray& a,
+        const AliasStruct& s
+    )
+  {
+    // TODO
+  }
+
+  AliasPrim2 ActiveTest ::
+    typedAliasReturnSync_handler(
+        FwIndexType portNum,
+        AliasPrim1 u32,
+        AliasPrim2 f32,
+        AliasBool b,
+        const Fw::StringBase& str2,
+        const AliasEnum& e,
+        const AliasArray& a,
+        const AliasStruct& s
+    )
+  {
+    // TODO return
+  }
+
+  AliasString ActiveTest ::
+    typedAliasStringReturnSync_handler(
+        FwIndexType portNum,
+        AliasPrim1 u32,
+        AliasPrim2 f32,
+        AliasBool b,
+        const Fw::StringBase& str2,
+        const AliasEnum& e,
+        const AliasArray& a,
+        const AnotherAliasStruct& s
+    )
+  {
+    // TODO return
   }
 
   void ActiveTest ::

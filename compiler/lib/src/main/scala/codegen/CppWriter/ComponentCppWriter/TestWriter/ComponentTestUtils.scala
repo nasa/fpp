@@ -145,7 +145,7 @@ abstract class ComponentTestUtils(
       case Some(stringRep) => TypeCppWriter.getName(s, t, stringRep)
       case None => TypeCppWriter.getName(s, t)
     }
-    t match {
+    t.getUnderlyingType match {
       case t if s.isPrimitive(t, typeName) => s"const $typeName"
       case _: Type.String => stringRepOpt match {
         case Some(stringRep) => s"const $stringRep&"
