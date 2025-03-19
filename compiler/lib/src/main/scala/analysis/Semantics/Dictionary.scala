@@ -84,10 +84,10 @@ object Dictionary {
   /** A telemetry channel entry in the dictionary */
   case class TlmChannelEntry(instance: ComponentInstance, tlmChannel: TlmChannel) {
 
-    def getName = {
+    def getQualifiedName = {
       val instanceName = instance.qualifiedName
       val channelName = tlmChannel.getName
-      s"$instanceName.$channelName"
+      Name.Qualified.fromIdentList(instanceName.toIdentList :+ channelName)
     }
 
   }

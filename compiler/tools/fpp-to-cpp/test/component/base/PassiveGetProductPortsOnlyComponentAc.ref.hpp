@@ -7,7 +7,8 @@
 #ifndef PassiveGetProductPortsOnlyComponentAc_HPP
 #define PassiveGetProductPortsOnlyComponentAc_HPP
 
-#include "FpConfig.hpp"
+#include <FpConfig.hpp>
+
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/Dp/DpGetPortAc.hpp"
 #include "Fw/Dp/DpSendPortAc.hpp"

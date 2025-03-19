@@ -49,6 +49,238 @@
         this->fromPortHistory_noArgsReturnOut->at(index); \
   }
 
+#define ASSERT_from_noArgsStringReturnOut_SIZE(size) \
+  this->assert_from_noArgsStringReturnOut_size(__FILE__, __LINE__, size)
+
+#define ASSERT_from_noArgsStringReturnOut(index) \
+  { \
+    ASSERT_GT(this->fromPortHistory_noArgsStringReturnOut->size(), static_cast<U32>(index)) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Index into history of noArgsStringReturnOut\n" \
+      << "  Expected: Less than size of history (" \
+      << this->fromPortHistory_noArgsStringReturnOut->size() << ")\n" \
+      << "  Actual:   " << index << "\n"; \
+      const FromPortEntry_noArgsStringReturnOut& _e = \
+        this->fromPortHistory_noArgsStringReturnOut->at(index); \
+  }
+
+#define ASSERT_from_typedAliasOut_SIZE(size) \
+  this->assert_from_typedAliasOut_size(__FILE__, __LINE__, size)
+
+#define ASSERT_from_typedAliasOut(index, _u32, _f32, _b, _str2, _e, _a, _s) \
+  { \
+    ASSERT_GT(this->fromPortHistory_typedAliasOut->size(), static_cast<U32>(index)) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Index into history of typedAliasOut\n" \
+      << "  Expected: Less than size of history (" \
+      << this->fromPortHistory_typedAliasOut->size() << ")\n" \
+      << "  Actual:   " << index << "\n"; \
+      const FromPortEntry_typedAliasOut& _e = \
+        this->fromPortHistory_typedAliasOut->at(index); \
+    ASSERT_EQ(_u32, _e.u32) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Value of argument u32 at index " \
+      << index \
+      << " in history of typedAliasOut\n" \
+      << "  Expected: " << _u32 << "\n" \
+      << "  Actual:   " << _e.u32 << "\n"; \
+    ASSERT_EQ(_f32, _e.f32) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Value of argument f32 at index " \
+      << index \
+      << " in history of typedAliasOut\n" \
+      << "  Expected: " << _f32 << "\n" \
+      << "  Actual:   " << _e.f32 << "\n"; \
+    ASSERT_EQ(_b, _e.b) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Value of argument b at index " \
+      << index \
+      << " in history of typedAliasOut\n" \
+      << "  Expected: " << _b << "\n" \
+      << "  Actual:   " << _e.b << "\n"; \
+    ASSERT_EQ(_str2, _e.str2) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Value of argument str2 at index " \
+      << index \
+      << " in history of typedAliasOut\n" \
+      << "  Expected: " << _str2 << "\n" \
+      << "  Actual:   " << _e.str2 << "\n"; \
+    ASSERT_EQ(_e, _e.e) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Value of argument e at index " \
+      << index \
+      << " in history of typedAliasOut\n" \
+      << "  Expected: " << _e << "\n" \
+      << "  Actual:   " << _e.e << "\n"; \
+    ASSERT_EQ(_a, _e.a) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Value of argument a at index " \
+      << index \
+      << " in history of typedAliasOut\n" \
+      << "  Expected: " << _a << "\n" \
+      << "  Actual:   " << _e.a << "\n"; \
+    ASSERT_EQ(_s, _e.s) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Value of argument s at index " \
+      << index \
+      << " in history of typedAliasOut\n" \
+      << "  Expected: " << _s << "\n" \
+      << "  Actual:   " << _e.s << "\n"; \
+  }
+
+#define ASSERT_from_typedAliasReturnOut_SIZE(size) \
+  this->assert_from_typedAliasReturnOut_size(__FILE__, __LINE__, size)
+
+#define ASSERT_from_typedAliasReturnOut(index, _u32, _f32, _b, _str2, _e, _a, _s) \
+  { \
+    ASSERT_GT(this->fromPortHistory_typedAliasReturnOut->size(), static_cast<U32>(index)) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Index into history of typedAliasReturnOut\n" \
+      << "  Expected: Less than size of history (" \
+      << this->fromPortHistory_typedAliasReturnOut->size() << ")\n" \
+      << "  Actual:   " << index << "\n"; \
+      const FromPortEntry_typedAliasReturnOut& _e = \
+        this->fromPortHistory_typedAliasReturnOut->at(index); \
+    ASSERT_EQ(_u32, _e.u32) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Value of argument u32 at index " \
+      << index \
+      << " in history of typedAliasReturnOut\n" \
+      << "  Expected: " << _u32 << "\n" \
+      << "  Actual:   " << _e.u32 << "\n"; \
+    ASSERT_EQ(_f32, _e.f32) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Value of argument f32 at index " \
+      << index \
+      << " in history of typedAliasReturnOut\n" \
+      << "  Expected: " << _f32 << "\n" \
+      << "  Actual:   " << _e.f32 << "\n"; \
+    ASSERT_EQ(_b, _e.b) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Value of argument b at index " \
+      << index \
+      << " in history of typedAliasReturnOut\n" \
+      << "  Expected: " << _b << "\n" \
+      << "  Actual:   " << _e.b << "\n"; \
+    ASSERT_EQ(_str2, _e.str2) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Value of argument str2 at index " \
+      << index \
+      << " in history of typedAliasReturnOut\n" \
+      << "  Expected: " << _str2 << "\n" \
+      << "  Actual:   " << _e.str2 << "\n"; \
+    ASSERT_EQ(_e, _e.e) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Value of argument e at index " \
+      << index \
+      << " in history of typedAliasReturnOut\n" \
+      << "  Expected: " << _e << "\n" \
+      << "  Actual:   " << _e.e << "\n"; \
+    ASSERT_EQ(_a, _e.a) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Value of argument a at index " \
+      << index \
+      << " in history of typedAliasReturnOut\n" \
+      << "  Expected: " << _a << "\n" \
+      << "  Actual:   " << _e.a << "\n"; \
+    ASSERT_EQ(_s, _e.s) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Value of argument s at index " \
+      << index \
+      << " in history of typedAliasReturnOut\n" \
+      << "  Expected: " << _s << "\n" \
+      << "  Actual:   " << _e.s << "\n"; \
+  }
+
+#define ASSERT_from_typedAliasReturnStringOut_SIZE(size) \
+  this->assert_from_typedAliasReturnStringOut_size(__FILE__, __LINE__, size)
+
+#define ASSERT_from_typedAliasReturnStringOut(index, _u32, _f32, _b, _str2, _e, _a, _s) \
+  { \
+    ASSERT_GT(this->fromPortHistory_typedAliasReturnStringOut->size(), static_cast<U32>(index)) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Index into history of typedAliasReturnStringOut\n" \
+      << "  Expected: Less than size of history (" \
+      << this->fromPortHistory_typedAliasReturnStringOut->size() << ")\n" \
+      << "  Actual:   " << index << "\n"; \
+      const FromPortEntry_typedAliasReturnStringOut& _e = \
+        this->fromPortHistory_typedAliasReturnStringOut->at(index); \
+    ASSERT_EQ(_u32, _e.u32) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Value of argument u32 at index " \
+      << index \
+      << " in history of typedAliasReturnStringOut\n" \
+      << "  Expected: " << _u32 << "\n" \
+      << "  Actual:   " << _e.u32 << "\n"; \
+    ASSERT_EQ(_f32, _e.f32) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Value of argument f32 at index " \
+      << index \
+      << " in history of typedAliasReturnStringOut\n" \
+      << "  Expected: " << _f32 << "\n" \
+      << "  Actual:   " << _e.f32 << "\n"; \
+    ASSERT_EQ(_b, _e.b) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Value of argument b at index " \
+      << index \
+      << " in history of typedAliasReturnStringOut\n" \
+      << "  Expected: " << _b << "\n" \
+      << "  Actual:   " << _e.b << "\n"; \
+    ASSERT_EQ(_str2, _e.str2) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Value of argument str2 at index " \
+      << index \
+      << " in history of typedAliasReturnStringOut\n" \
+      << "  Expected: " << _str2 << "\n" \
+      << "  Actual:   " << _e.str2 << "\n"; \
+    ASSERT_EQ(_e, _e.e) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Value of argument e at index " \
+      << index \
+      << " in history of typedAliasReturnStringOut\n" \
+      << "  Expected: " << _e << "\n" \
+      << "  Actual:   " << _e.e << "\n"; \
+    ASSERT_EQ(_a, _e.a) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Value of argument a at index " \
+      << index \
+      << " in history of typedAliasReturnStringOut\n" \
+      << "  Expected: " << _a << "\n" \
+      << "  Actual:   " << _e.a << "\n"; \
+    ASSERT_EQ(_s, _e.s) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Value of argument s at index " \
+      << index \
+      << " in history of typedAliasReturnStringOut\n" \
+      << "  Expected: " << _s << "\n" \
+      << "  Actual:   " << _e.s << "\n"; \
+  }
+
 #define ASSERT_from_typedOut_SIZE(size) \
   this->assert_from_typedOut_size(__FILE__, __LINE__, size)
 
@@ -256,6 +488,34 @@ class PassiveGuardedProductsGTestBase :
 
     //! From port: noArgsReturnOut
     void assert_from_noArgsReturnOut_size(
+        const char* const __callSiteFileName, //!< The name of the file containing the call site
+        const U32 __callSiteLineNumber, //!< The line number of the call site
+        const U32 size //!< The asserted size
+    ) const;
+
+    //! From port: noArgsStringReturnOut
+    void assert_from_noArgsStringReturnOut_size(
+        const char* const __callSiteFileName, //!< The name of the file containing the call site
+        const U32 __callSiteLineNumber, //!< The line number of the call site
+        const U32 size //!< The asserted size
+    ) const;
+
+    //! From port: typedAliasOut
+    void assert_from_typedAliasOut_size(
+        const char* const __callSiteFileName, //!< The name of the file containing the call site
+        const U32 __callSiteLineNumber, //!< The line number of the call site
+        const U32 size //!< The asserted size
+    ) const;
+
+    //! From port: typedAliasReturnOut
+    void assert_from_typedAliasReturnOut_size(
+        const char* const __callSiteFileName, //!< The name of the file containing the call site
+        const U32 __callSiteLineNumber, //!< The line number of the call site
+        const U32 size //!< The asserted size
+    ) const;
+
+    //! From port: typedAliasReturnStringOut
+    void assert_from_typedAliasReturnStringOut_size(
         const char* const __callSiteFileName, //!< The name of the file containing the call site
         const U32 __callSiteLineNumber, //!< The line number of the call site
         const U32 size //!< The asserted size

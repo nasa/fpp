@@ -27,6 +27,16 @@ void QueuedTelemetryTester ::
 
   // Connect typed input ports
 
+  this->connect_to_aliasTypedAsync(
+    0,
+    this->component.get_aliasTypedAsync_InputPort(0)
+  );
+
+  this->connect_to_noArgsAliasStringReturnSync(
+    0,
+    this->component.get_noArgsAliasStringReturnSync_InputPort(0)
+  );
+
   this->connect_to_noArgsAsync(
     0,
     this->component.get_noArgsAsync_InputPort(0)
@@ -49,10 +59,34 @@ void QueuedTelemetryTester ::
     );
   }
 
+  this->connect_to_noArgsStringReturnSync(
+    0,
+    this->component.get_noArgsStringReturnSync_InputPort(0)
+  );
+
   for (FwIndexType i = 0; i < 3; i++) {
     this->connect_to_noArgsSync(
       i,
       this->component.get_noArgsSync_InputPort(i)
+    );
+  }
+
+  this->connect_to_typedAliasGuarded(
+    0,
+    this->component.get_typedAliasGuarded_InputPort(0)
+  );
+
+  for (FwIndexType i = 0; i < 3; i++) {
+    this->connect_to_typedAliasReturnSync(
+      i,
+      this->component.get_typedAliasReturnSync_InputPort(i)
+    );
+  }
+
+  for (FwIndexType i = 0; i < 3; i++) {
+    this->connect_to_typedAliasStringReturnSync(
+      i,
+      this->component.get_typedAliasStringReturnSync_InputPort(i)
     );
   }
 
@@ -110,6 +144,26 @@ void QueuedTelemetryTester ::
   this->component.set_noArgsReturnOut_OutputPort(
     0,
     this->get_from_noArgsReturnOut(0)
+  );
+
+  this->component.set_noArgsStringReturnOut_OutputPort(
+    0,
+    this->get_from_noArgsStringReturnOut(0)
+  );
+
+  this->component.set_typedAliasOut_OutputPort(
+    0,
+    this->get_from_typedAliasOut(0)
+  );
+
+  this->component.set_typedAliasReturnOut_OutputPort(
+    0,
+    this->get_from_typedAliasReturnOut(0)
+  );
+
+  this->component.set_typedAliasReturnStringOut_OutputPort(
+    0,
+    this->get_from_typedAliasReturnStringOut(0)
   );
 
   this->component.set_typedOut_OutputPort(

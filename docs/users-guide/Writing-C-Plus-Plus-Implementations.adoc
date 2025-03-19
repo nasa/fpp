@@ -28,6 +28,8 @@ Similarly, implementing libraries is unrelated to FPP, so we
 won't cover it in this manual.
 Here we focus on items (1), (2), and (5): implementing abstract types,
 implementing external state machines, and implementing deployments.
+We also discuss *serialization* of data values, i.e., representing
+FPP data values as binary data for storage and transmission.
 
 === Implementing Abstract Types
 
@@ -68,9 +70,11 @@ This line says that in order to compile `AArrayAc.cpp`,
 a header file `T.hpp` must exist in the current directory.
 It is up to you to provide that header file.
 
-When implementing an abstract type `T` in {cpp}, you must define
+*General implementations:*
+In most cases, when implementing an abstract type `T` in {cpp}, you 
+will define
 a class that extends `Fw::Serializable` from the F Prime framework.
-Your class definition must include the following:
+Your class definition should include the following:
 
 * An implementation of the virtual function
 +
@@ -100,6 +104,10 @@ of a byte string serialized from the class.
 ----
 bool operator==(const T& that) const;
 ----
+
+For more on serialization, see the section on 
+<<Writing-C-Plus-Plus-Implementations_Serialization-of-FPP-Values,
+serialization of FPP values>>.
 
 Here is a minimal complete implementation of an abstract type `T`.
 It has one member variable `x` of type `U32` and no methods other than
@@ -144,6 +152,21 @@ struct T final : public Fw::Serializable { // Extend Fw::Serializable
 
 #endif
 ----
+
+*Serializable buffers used in ports:*
+In some cases, you may want to define an abstract type `T` that represents
+a data buffer and that is used only in <<Defining-Ports,port definitions>>.
+In this case you can implement
+`T` as a class that extends `Fw::SerializeBufferBase`.
+Instead of implementing the `serialize` and `deserialize` functions
+directly, you override functions that get the address and the capacity
+(allocated size) of the buffer; the base class `Fw::SerializeBufferBase`
+uses these functions to implement `serialize` and `deserialize`.
+For an example of how to do this, see the files `Fw/Cmd/CmdArgBuffer.hpp`
+and `Fw/Cmd/CmdArgBuffer.cpp` in the F Prime repository.
+Be careful, though: if you implement an abstract type `T` this way
+and you try to use the type `T` outside of a port definition,
+the generated {cpp} may not compile.
 
 *Built-in types:*
 The following types are abstract in the FPP model but are known to
@@ -489,3 +512,91 @@ up the custom {cpp} code for _I_, and the FPP translator will automatically
 put the code for _I_ into the correct place in _T_ `TopologyAc.cpp`.
 However, if you wish to write the custom code directly into your main
 function, you may.
+
+=== Serialization of FPP Values
+
+Every value represented in FPP can be *serialized*, i.e., converted into a 
+machine-independent sequence of bytes.
+Serialization provides a consistent way to store data (e.g.,
+to onboard storage) and to transmit data (e.g., to or from the ground).
+The F Prime framework also uses serialization to pass data through asynchronous
+port invocations.
+The data is serialized when it is put on a message queue
+and then *deserialized* (i.e., converted from a byte sequence to
+a {cpp} representation)
+when it is taken off the queue for processing.
+
+F Prime uses the following rules for serializing data:
+
+. Values of primitive integer type are serialized as follows:
+
+.. A value of unsigned integer type (`U8`, `U16`, `U32`, or `U64`)
+is serialized in big-endian order (most significant byte first),
+using the number of bytes implied by the bit width.
+For example, the `U16` value 10 (decimal) is serialized as the
+two bytes `00` `0A` (hex).
+
+.. A value of signed integer type (`I8`, `I16`, `I32`, or `I64`)
+is serialized by first converting the value to an unsigned value of the same bit
+width and then serializing the unsigned value as stated in rule 1.a.
+If the value is nonnegative, then the unsigned value is
+the same as the signed value.
+Otherwise the unsigned value is the two's complement of the signed value.
+For example:
+
+... The `I16` value 10 (decimal) is serialized as two bytes
+in big-endian order, yielding the bytes `00` `0A` (hex).
+
+... The `I16` value -10 (decimal) is serialized by
+(1) computing the `U16` value 2^16^ - 10 = 65526
+and (2) serializing that value as two bytes in big-endian order,
+yielding the bytes `FF` `F6` (hex).
+
+. A value of floating-point type (`F32` or `F64`)
+is serialized in big-endian order according to the IEEE
+standard for representing these values.
+
+. A value of Boolean type is serialized as a single byte.
+The byte values used to represent `true` and `false`
+are `FW_SERIALIZE_TRUE_VALUE` and `FW_SERIALIZE_FALSE_VALUE`,
+which are defined in the F Prime configuration header `FpConfig.h`.
+
+. A value of string type is serialized as a size followed
+by the string characters in string order.
+
+.. The size is serialized according to rule 1 for primitive
+integer types.
+The F Prime type definition `FwSizeStoreType` specifies the type to use
+for the size.
+This type definition is user-configurable; it is found in the
+F Prime configuration header `FpConfig.h`.
+
+.. There is one byte for each character of the string, and there is
+no null terminator.
+Each string character is serialized as an `I8` value according to rule 1.b.
+
+. A value of <<Defining-Types_Array-Type-Definitions,array type>>
+is serialized as a sequence of serialized values, one for each array
+element, in array order.
+Each value is serialized using these rules.
+
+. A value of <<Defining-Types_Struct-Type-Definitions,struct type>>
+is serialized member-by-member, in the order
+that the members appear in the FPP struct definition,
+with no padding.
+
+.. Except for 
+<<Defining-Types_Struct-Type-Definitions_Member-Arrays,member arrays>>,
+each member is serialized using these rules.
+
+.. Each member array is serialized as stated in rule 5.
+
+. A value of <<Defining-Enums,enum type>> is converted to a primitive 
+integer value of the <<Defining-Enums_The-Representation-Type,representation 
+type>> specified in the enum definition.
+This value is serialized as stated in rule 1.
+
+. A value of <<Defining-Types_Abstract-Type-Definitions,abstract type>> is
+serialized according to its 
+<<Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types,
+{cpp} implementation>>.

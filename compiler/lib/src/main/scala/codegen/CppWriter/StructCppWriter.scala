@@ -230,50 +230,54 @@ case class StructCppWriter(
     val nonArrayMemberCheck = lines(
       nonArrayMemberNames.map(n => s"(this->m_$n == obj.m_$n)"
       ).mkString(" &&\n"))
-    val equalityOpBody =
-      // Simplify syntax if there are no array members
-      if sizes.isEmpty then
-        if nonArrayMemberNames.length == 1 then
-          lines(s"return ${nonArrayMemberCheck.head};")
-        else wrapInScope(
+    val addressEqualityCheck = lines("if (this == &obj) { return true; }")
+    lazy val emptySizes =
+      if nonArrayMemberNames.length == 1 then
+        lines(s"return ${nonArrayMemberCheck.head};")
+      else List.concat(
+        addressEqualityCheck,
+        wrapInScope(
           "return (",
           nonArrayMemberCheck,
           ");"
         )
-      else List(
-        if nonArrayMemberNames.length > 0 then List(
-          lines("// Compare non-array members"),
-          if nonArrayMemberNames.length == 1 then
-            wrapInIf(
-              s"!${nonArrayMemberCheck.head}",
-              lines("return false;")
-            )
-          else List(
-            lines("if (!("),
-            nonArrayMemberCheck.map(indentIn),
-            lines(
-              """|)) {
-                 |  return false;
-                 |}"""
-            ),
-          ).flatten
-        ).flatten
-        else lines(s"")
-        ,Line.blank :: lines("// Compare array members"),
-        arrayMemberNames.flatMap(n =>
+      )
+    lazy val nonEmptySizes = List.concat(
+      addBlankPostfix(addressEqualityCheck),
+      if nonArrayMemberNames.length > 0
+      then List.concat(
+        lines("// Compare non-array members"),
+        if nonArrayMemberNames.length == 1 then
           wrapInIf(
-            s"!(this->m_$n == obj.m_$n)",
-            iterateN(
-              sizes(n),
-              wrapInIf(
-                s"!(this->m_$n[i] == obj.m_$n[i])",
-                lines("return false;")
-              )
-            )
+            s"!${nonArrayMemberCheck.head}",
+            lines("return false;")
           )
-        ),
-        Line.blank :: lines("return true;"),
-      ).flatten
+        else List.concat(
+          lines("if (!("),
+          nonArrayMemberCheck.map(indentIn),
+          lines(
+            """|)) {
+               |  return false;
+               |}"""
+          )
+        )
+      )
+      else lines(s""),
+      Line.blank :: lines("// Compare array members"),
+      arrayMemberNames.flatMap(n =>
+        iterateN(
+          sizes(n),
+          wrapInIf(
+            s"!(this->m_$n[i] == obj.m_$n[i])",
+            lines("return false;")
+          )
+        )
+      ),
+      Line.blank :: lines("return true;"),
+    )
+    val equalityOpBody = 
+      // Simplify syntax if there are no array members
+      if sizes.isEmpty then emptySizes else nonEmptySizes
 
     List(
       linesClassMember(
@@ -351,7 +355,7 @@ case class StructCppWriter(
   private def getFunctionMembers: List[CppDoc.Class.Member] = {
     // Members on which to call toString()
     val toStringMemberNames =
-      memberList.filter((n, tn) => typeMembers(n) match {
+      memberList.filter((n, tn) => typeMembers(n).getUnderlyingType match {
         case _: Type.String => false
         case t if s.isPrimitive(t, tn) => false
         case _ => true
@@ -485,7 +489,7 @@ case class StructCppWriter(
                 {
                   line("formatString,") ::
                   lines(memberList.flatMap((n, tn) =>
-                    (sizes.contains(n), typeMembers(n)) match {
+                    (sizes.contains(n), typeMembers(n).getUnderlyingType) match {
                       case (false, _: Type.String) =>
                         List(s"this->m_$n.toChar()")
                       case (false, t) if s.isPrimitive(t, tn) =>
@@ -521,7 +525,7 @@ case class StructCppWriter(
   private def getGetterFunctionMembers: List[CppDoc.Class.Member] = {
     def getGetterName(n: String) = s"get$n"
 
-    memberList.flatMap((n, tn) => (sizes.contains(n), typeMembers(n)) match {
+    memberList.flatMap((n, tn) => (sizes.contains(n), typeMembers(n).getUnderlyingType) match {
       case (false, _: Type.Enum) => List(
         CppDoc.Class.Member.Lines(
           CppDoc.Lines(
@@ -623,7 +627,7 @@ case class StructCppWriter(
   private def writeMemberAsParamScalar(member: (String, String)) = member match {
     case (n, tn) => CppDoc.Function.Param(
       CppDoc.Type(
-        typeMembers(n) match {
+        typeMembers(n).getUnderlyingType match {
           case _: Type.Enum => s"$tn::T"
           case _: Type.String => "const Fw::StringBase&"
           case t => if s.isPrimitive(t, tn) then tn else s"const $tn&"
@@ -642,7 +646,7 @@ case class StructCppWriter(
         case StructCppWriter.Const => "const "
         case StructCppWriter.NonConst => ""
       }
-      (sizes.contains(n), typeMembers(n)) match {
+      (sizes.contains(n), typeMembers(n).getUnderlyingType) match {
         case (true, _) => s"$maybeConstStr${getMemberTypeName(n)}&"
         case (_, _: Type.Enum) => s"$tn::T"
         case (_, _: Type.String) => s"${maybeConstStr}Fw::ExternalString&"
@@ -654,7 +658,7 @@ case class StructCppWriter(
 
   private def writeInitializer(name: String, value: String) = {
     val bufferName = getBufferName(name)
-    typeMembers(name) match {
+    typeMembers(name).getUnderlyingType match {
       case _: Type.String => s"m_$name(m_$bufferName, sizeof m_$bufferName, $value)"
       case _ => s"m_$name($value)"
     }
@@ -671,7 +675,7 @@ case class StructCppWriter(
         sizes(n),
         List.concat(
           {
-            typeMembers(n) match {
+            typeMembers(n).getUnderlyingType match {
               case _: Type.String =>
                 val bufferName = getBufferName(n)
                 lines(s"""|// Initialize the external string

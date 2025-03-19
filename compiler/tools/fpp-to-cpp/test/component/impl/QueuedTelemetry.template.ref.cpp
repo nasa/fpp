@@ -28,6 +28,27 @@ QueuedTelemetry ::
 // ----------------------------------------------------------------------
 
 void QueuedTelemetry ::
+  aliasTypedAsync_handler(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // TODO
+}
+
+AliasString QueuedTelemetry ::
+  noArgsAliasStringReturnSync_handler(FwIndexType portNum)
+{
+  // TODO return
+}
+
+void QueuedTelemetry ::
   noArgsAsync_handler(FwIndexType portNum)
 {
   // TODO
@@ -51,10 +72,61 @@ U32 QueuedTelemetry ::
   // TODO return
 }
 
+Fw::String QueuedTelemetry ::
+  noArgsStringReturnSync_handler(FwIndexType portNum)
+{
+  // TODO return
+}
+
 void QueuedTelemetry ::
   noArgsSync_handler(FwIndexType portNum)
 {
   // TODO
+}
+
+void QueuedTelemetry ::
+  typedAliasGuarded_handler(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // TODO
+}
+
+AliasPrim2 QueuedTelemetry ::
+  typedAliasReturnSync_handler(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // TODO return
+}
+
+AliasString QueuedTelemetry ::
+  typedAliasStringReturnSync_handler(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
+  )
+{
+  // TODO return
 }
 
 void QueuedTelemetry ::

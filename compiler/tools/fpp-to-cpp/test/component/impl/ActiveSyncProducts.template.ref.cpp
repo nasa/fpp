@@ -28,6 +28,27 @@ ActiveSyncProducts ::
 // ----------------------------------------------------------------------
 
 void ActiveSyncProducts ::
+  aliasTypedAsync_handler(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // TODO
+}
+
+AliasString ActiveSyncProducts ::
+  noArgsAliasStringReturnSync_handler(FwIndexType portNum)
+{
+  // TODO return
+}
+
+void ActiveSyncProducts ::
   noArgsAsync_handler(FwIndexType portNum)
 {
   // TODO
@@ -51,10 +72,61 @@ U32 ActiveSyncProducts ::
   // TODO return
 }
 
+Fw::String ActiveSyncProducts ::
+  noArgsStringReturnSync_handler(FwIndexType portNum)
+{
+  // TODO return
+}
+
 void ActiveSyncProducts ::
   noArgsSync_handler(FwIndexType portNum)
 {
   // TODO
+}
+
+void ActiveSyncProducts ::
+  typedAliasGuarded_handler(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // TODO
+}
+
+AliasPrim2 ActiveSyncProducts ::
+  typedAliasReturnSync_handler(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // TODO return
+}
+
+AliasString ActiveSyncProducts ::
+  typedAliasStringReturnSync_handler(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
+  )
+{
+  // TODO return
 }
 
 void ActiveSyncProducts ::

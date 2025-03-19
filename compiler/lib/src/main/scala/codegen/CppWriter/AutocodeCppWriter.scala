@@ -7,6 +7,24 @@ import fpp.compiler.util._
 /** Writes out C++ for F Prime autocode */
 object AutocodeCppWriter extends CppWriter {
 
+  override def defAliasTypeAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]
+  ) = {
+  val node = aNode._2
+    val data = node.data
+    val hppDoc = AliasCppWriter(s, aNode).writeHpp
+    val hDoc = AliasCppWriter(s, aNode).writeH
+
+    for {
+      s <- CppWriter.writeHppFile(s, hppDoc)
+      s <- hDoc match {
+        case Some(doc) => CppWriter.writeHppFile(s, doc)
+        case None => Right(s)
+      }
+    } yield s
+  }
+
   override def defArrayAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefArray]]
@@ -82,7 +100,24 @@ object AutocodeCppWriter extends CppWriter {
   ) = {
     val node = aNode._2
     val data = node.data
-    val cppDoc = TopologyCppWriter(s, aNode).write
+    val ts = Symbol.Topology(aNode)
+    val t = s.a.topologyMap(ts)
+    val d = s.a.dictionaryMap(ts)
+    val a = s.a.copy(topology = Some(t), dictionary = Some(d))
+    val s1 = s.copy(a = a)
+    val cppDoc = TopologyCppWriter(s1, aNode).write
+    for {
+      s <- CppWriter.writeCppDoc(s1, cppDoc)
+      s <- visitList(s, data.members, matchTopologyMember)
+    }
+    yield s
+  }
+
+  override def specTlmPacketSetAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketSet]]
+  ) = {
+    val cppDoc = TlmPacketSetCppWriter(s, aNode).write
     CppWriter.writeCppDoc(s, cppDoc)
   }
 

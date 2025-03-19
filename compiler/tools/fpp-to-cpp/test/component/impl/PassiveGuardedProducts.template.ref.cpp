@@ -27,6 +27,12 @@ PassiveGuardedProducts ::
 // Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
+AliasString PassiveGuardedProducts ::
+  noArgsAliasStringReturnSync_handler(FwIndexType portNum)
+{
+  // TODO return
+}
+
 void PassiveGuardedProducts ::
   noArgsGuarded_handler(FwIndexType portNum)
 {
@@ -45,10 +51,61 @@ U32 PassiveGuardedProducts ::
   // TODO return
 }
 
+Fw::String PassiveGuardedProducts ::
+  noArgsStringReturnSync_handler(FwIndexType portNum)
+{
+  // TODO return
+}
+
 void PassiveGuardedProducts ::
   noArgsSync_handler(FwIndexType portNum)
 {
   // TODO
+}
+
+void PassiveGuardedProducts ::
+  typedAliasGuarded_handler(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // TODO
+}
+
+AliasPrim2 PassiveGuardedProducts ::
+  typedAliasReturnSync_handler(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // TODO return
+}
+
+AliasString PassiveGuardedProducts ::
+  typedAliasStringReturnSync_handler(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
+  )
+{
+  // TODO return
 }
 
 void PassiveGuardedProducts ::

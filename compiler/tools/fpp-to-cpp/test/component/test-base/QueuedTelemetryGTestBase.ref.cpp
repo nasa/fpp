@@ -76,6 +76,66 @@ void QueuedTelemetryGTestBase ::
 }
 
 void QueuedTelemetryGTestBase ::
+  assert_from_noArgsStringReturnOut_size(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 size
+  ) const
+{
+  ASSERT_EQ(size, this->fromPortHistorySize_noArgsStringReturnOut)
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Size of history for noArgsStringReturnOut\n"
+    << "  Expected: " << size << "\n"
+    << "  Actual:   " << this->fromPortHistorySize_noArgsStringReturnOut << "\n";
+}
+
+void QueuedTelemetryGTestBase ::
+  assert_from_typedAliasOut_size(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 size
+  ) const
+{
+  ASSERT_EQ(size, this->fromPortHistory_typedAliasOut->size())
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Size of history for typedAliasOut\n"
+    << "  Expected: " << size << "\n"
+    << "  Actual:   " << this->fromPortHistory_typedAliasOut->size() << "\n";
+}
+
+void QueuedTelemetryGTestBase ::
+  assert_from_typedAliasReturnOut_size(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 size
+  ) const
+{
+  ASSERT_EQ(size, this->fromPortHistory_typedAliasReturnOut->size())
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Size of history for typedAliasReturnOut\n"
+    << "  Expected: " << size << "\n"
+    << "  Actual:   " << this->fromPortHistory_typedAliasReturnOut->size() << "\n";
+}
+
+void QueuedTelemetryGTestBase ::
+  assert_from_typedAliasReturnStringOut_size(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 size
+  ) const
+{
+  ASSERT_EQ(size, this->fromPortHistory_typedAliasReturnStringOut->size())
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Size of history for typedAliasReturnStringOut\n"
+    << "  Expected: " << size << "\n"
+    << "  Actual:   " << this->fromPortHistory_typedAliasReturnStringOut->size() << "\n";
+}
+
+void QueuedTelemetryGTestBase ::
   assert_from_typedOut_size(
       const char* const __callSiteFileName,
       const U32 __callSiteLineNumber,

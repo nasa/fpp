@@ -83,21 +83,19 @@ Modules4& Modules4 ::
 bool Modules4 ::
   operator==(const Modules4& obj) const
 {
+  if (this == &obj) { return true; }
+
 
 
   // Compare array members
-  if (!(this->m_arr1 == obj.m_arr1)) {
-    for (FwSizeType i = 0; i < 3; i++) {
-      if (!(this->m_arr1[i] == obj.m_arr1[i])) {
-        return false;
-      }
+  for (FwSizeType i = 0; i < 3; i++) {
+    if (!(this->m_arr1[i] == obj.m_arr1[i])) {
+      return false;
     }
   }
-  if (!(this->m_arr2 == obj.m_arr2)) {
-    for (FwSizeType i = 0; i < 6; i++) {
-      if (!(this->m_arr2[i] == obj.m_arr2[i])) {
-        return false;
-      }
+  for (FwSizeType i = 0; i < 6; i++) {
+    if (!(this->m_arr2[i] == obj.m_arr2[i])) {
+      return false;
     }
   }
 

@@ -94,7 +94,7 @@ case class ComponentInternalStateMachines(
       CppDocWriter.writeComment("Handle signals to internal state machines") ++
       lines(
         s"""|case $internalStateMachineMsgType:
-            |  this->smDispatch(msg);
+            |  this->smDispatch(_msg);
             |  break;"""
       )
     )
@@ -306,7 +306,7 @@ case class ComponentInternalStateMachines(
           case head :: _ =>
             val paramName = head.name
             val id = signal.node._2.data.typeName.get.id
-            val serializeExpr = s.a.typeMap(id) match {
+            val serializeExpr = s.a.typeMap(id).getUnderlyingType match {
               case t: Type.String =>
                 val serialSize = writeStringSize(s, t)
                 s"$paramName.serialize(buffer, $serialSize)"
@@ -635,7 +635,7 @@ case class ComponentInternalStateMachines(
             case ((ts, maxStringSize), signal) =>
               signal.node._2.data.typeName match {
                 case Some(tn) =>
-                  s.a.typeMap(tn.id) match {
+                  s.a.typeMap(tn.id).getUnderlyingType match {
                     case t: Type.String => (
                       ts + Type.String(None),
                       maxStringSize.max(getStringSize(s, t))
@@ -684,13 +684,13 @@ case class ComponentInternalStateMachines(
       List.concat(comment, union)
     }
 
-    private def writeSignalTypeName(t: Type) = t match {
+    private def writeSignalTypeName(t: Type) = t.getUnderlyingType match {
       case t: Type.String => "string"
       case _ => TypeCppWriter.getName(s, t)
     }
 
     private def writeSignalTypeSize(t: Type): String =
-      t match {
+      t.getUnderlyingType match {
         case _: Type.String =>
           s"Fw::StringBase::STATIC_SERIALIZED_SIZE(${signalStringSize.toString})"
         case _ => writeSerializedSizeExpr(s, t, TypeCppWriter.getName(s, t))

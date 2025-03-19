@@ -72,6 +72,13 @@ object ComputeCppFiles {
     /** Gets the C++ file name for generated constants */
     def getConstants = "FppConstantsAc"
 
+    /**
+     * Gets the filename for the C++ type alias header
+     * This is also used for the optional C header if the
+     * alias supports being defined in a C header
+     */
+    def getAliasType(baseName: String) = s"${baseName}AliasAc"
+
     /** Gets the C++ file name for generated arrays */
     def getArray(baseName: String) = s"${baseName}ArrayAc"
 
@@ -84,6 +91,9 @@ object ComputeCppFiles {
     /** Gets the C++ file name for generated enums */
     def getEnum(baseName: String) = s"${baseName}EnumAc"
 
+    /** Gets the C++ file name for generated ports */
+    def getPort(baseName: String) = s"${baseName}PortAc"
+
     /** Gets the C++ file name for state machines */
     def getStateMachine(baseName: String, kind: StateMachine.Kind) =
       kind match {
@@ -91,11 +101,11 @@ object ComputeCppFiles {
         case StateMachine.Kind.Internal => s"${baseName}StateMachineAc"
       }
 
-    /** Gets the C++ file name for generated ports */
-    def getPort(baseName: String) = s"${baseName}PortAc"
-
     /** Gets the C++ file name for generated structs */
     def getStruct(baseName: String) = s"${baseName}SerializableAc"
+
+    /** Gets the C++ file name for a telemetry packet set */
+    def getTlmPacketSet(baseName: String) = s"${baseName}TlmPacketsAc"
 
     /** Gets the C++ file name for generated topologies */
     def getTopology(baseName: String): String = s"${baseName}TopologyAc"

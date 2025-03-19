@@ -104,7 +104,7 @@ trait CppWriterUtils extends LineUtils {
   def wrapInEnumClass(
     name: String,
     ll: List[Line],
-    tyOpt: Option[String]
+    tyOpt: Option[String] = None
   ): List[Line] = {
     val prefix = tyOpt match {
       case Some(ty) => s"enum class $name : $ty {"
@@ -256,7 +256,7 @@ trait CppWriterUtils extends LineUtils {
 
   /** Write a variable declaration */
   def writeVarDecl(s: CppWriterState, typeName: String, name: String, t: Type): String =
-    t match {
+    t.getUnderlyingType match {
       case st: Type.String =>
         val bufferName = getBufferName(name)
         val size = writeStringSize(s, st)
@@ -275,7 +275,7 @@ trait CppWriterUtils extends LineUtils {
     arraySize: Option[String] = None
   ): String = {
     val arrayBrackets = arraySize.map(s => s"[$s]").getOrElse("")
-    t match {
+    t.getUnderlyingType match {
       case st: Type.String =>
         val bufferName = getBufferName(name)
         val size = writeStringSize(s, st)

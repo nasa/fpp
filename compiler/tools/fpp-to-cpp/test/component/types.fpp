@@ -7,13 +7,56 @@ array A = [3] U32
 @ A struct
 struct S { x: U32, y: string }
 
+@ Alias of a primitive type
+type AliasPrim1 = U32
+
+@ Alias of another primtive type
+type AliasPrim2 = F32
+
+@ Alias of a struct
+type AliasStruct = S
+
+@ Alias of a boolean
+type AliasBool = bool
+
+@ Alias of an array
+type AliasArray = A
+
+# Test deep recursion of aliases
+
+type AliasAliasArray = AliasArray
+array ArrayAliasArray = [3] AliasAliasArray
+type AliasArrayAliasArray = ArrayAliasArray
+
+@ Alias of an enum
+type AliasEnum = E
+
+@ Alias of a string
+type AliasString = string size 32
+
+struct StructWithAlias {
+  x: AliasPrim1,
+  y: AliasString,
+  z: AliasArray
+  w: AliasAliasArray
+  q: AliasArrayAliasArray
+}
+
+type AnotherAliasStruct = StructWithAlias
+
 module Ports {
 
   @ A typed port with no arguments
   port NoArgs
 
-  @ A type port with no arguments and a return type
+  @ A typed port with no arguments and a return type
   port NoArgsReturn -> U32
+
+  @ A typed port with no arguments and a string return type
+  port NoArgsStringReturn -> string
+
+  @ A aliased typed port with no arguments and a aliased string return type
+  port NoArgsAliasStringReturn -> AliasString
 
   @ A typed port
   port Typed(
@@ -36,5 +79,38 @@ module Ports {
     a: A, @< An array
     s: S @< A struct
   ) -> F32
+
+  @ An aliased typed port
+  port AliasTyped(
+    u32: AliasPrim1, @< A primitive
+    f32: AliasPrim2, @< Another primtive
+    b: AliasBool, @< A boolean
+    str2: AliasString, @< A string
+    e: AliasEnum, @< An enum
+    a: AliasArray, @< An array
+    s: AliasStruct @< A struct
+  )
+
+  @ An aliased typed port with a return type
+  port AliasTypedReturn(
+    u32: AliasPrim1, @< A primitive
+    f32: AliasPrim2, @< Another primtive
+    b: AliasBool, @< A boolean
+    str2: AliasString, @< A string
+    e: AliasEnum, @< An enum
+    a: AliasArray, @< An array
+    s: AliasStruct @< A struct
+  ) -> AliasPrim2
+
+  @ An aliased typed port with a return type
+  port AliasTypedReturnString(
+    u32: AliasPrim1, @< A primitive
+    f32: AliasPrim2, @< Another primtive
+    b: AliasBool, @< A boolean
+    str2: AliasString, @< A string
+    e: AliasEnum, @< An enum
+    a: AliasArray, @< An array
+    s: AnotherAliasStruct @< A struct
+  ) -> AliasString
 
 }

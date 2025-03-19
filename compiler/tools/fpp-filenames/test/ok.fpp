@@ -10,6 +10,11 @@ state machine SM2 {
   state S
 }
 
+type FwOpcodeType
+type WithCDefinition = U32
+type WithCDefinitionBuiltin = FwOpcodeType
+type WithoutCDefinition = A
+
 module M {
 
   passive component C {
@@ -21,4 +26,8 @@ module M {
 
 }
 
-topology T { }
+topology T {
+  telemetry packets P {
+
+  }
+}

@@ -26,6 +26,17 @@ object ComputeAutocodeCppFiles extends ComputeCppFiles {
     aNode: Ast.Annotated[AstNode[Ast.DefConstant]]
   ) = addMappings(s, ComputeCppFiles.FileNames.getConstants, None)
 
+  override def defAliasTypeAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]
+  ) = {
+    val node = aNode._2
+    val name = s.getName(Symbol.AliasType(aNode))
+    val loc = Locations.get(node.id)
+    val fileName = ComputeCppFiles.FileNames.getAliasType(name)
+    addHppMapping(s, fileName, Some(loc), "hpp")
+  }
+
   override def defArrayAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefArray]]
@@ -98,9 +109,27 @@ object ComputeAutocodeCppFiles extends ComputeCppFiles {
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
   ) = {
     val node = aNode._2
-    val name = node.data.name
+    val data = node.data
+    val name = data.name
     val loc = Locations.get(node.id)
-    addMappings(s, ComputeCppFiles.FileNames.getTopology(name), Some(loc))
+    val a = s.a.copy(parentSymbol = Some(Symbol.Topology(aNode)))
+    val s1 = s.copy(a = a)
+    for {
+      s <- addMappings(s1, ComputeCppFiles.FileNames.getTopology(name), Some(loc))
+      s <- visitList (s, data.members, matchTopologyMember)
+    }
+    yield s
+  }
+
+  override def specTlmPacketSetAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketSet]]
+  ) = {
+    val node = aNode._2
+    val loc = Locations.get(node.id)
+    val topSymbol = s.a.parentSymbol.get
+    val name = s"${topSymbol.getUnqualifiedName}_${node.data.name}"
+    addMappings(s, ComputeCppFiles.FileNames.getTlmPacketSet(name), Some(loc))
   }
 
 }
