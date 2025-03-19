@@ -7,6 +7,7 @@
 #ifndef QueuedEventsComponentAc_HPP
 #define QueuedEventsComponentAc_HPP
 
+#include <atomic>
 #include <FpConfig.hpp>
 
 #include "AArrayAc.hpp"
@@ -1833,13 +1834,13 @@ class QueuedEventsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Throttle for EventActivityLowThrottled
-    FwIndexType m_EventActivityLowThrottledThrottle;
+    std::atomic<FwIndexType> m_EventActivityLowThrottledThrottle;
 
     //! Throttle for EventFatalThrottled
-    FwIndexType m_EventFatalThrottledThrottle;
+    std::atomic<FwIndexType> m_EventFatalThrottledThrottle;
 
     //! Throttle for EventWarningLowThrottled
-    FwIndexType m_EventWarningLowThrottledThrottle;
+    std::atomic<FwIndexType> m_EventWarningLowThrottledThrottle;
 
   PRIVATE:
 

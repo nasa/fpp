@@ -7,6 +7,7 @@
 #ifndef QueuedSerialComponentAc_HPP
 #define QueuedSerialComponentAc_HPP
 
+#include <atomic>
 #include <FpConfig.hpp>
 
 #include "AArrayAc.hpp"
@@ -2989,13 +2990,13 @@ class QueuedSerialComponentBase :
     // ----------------------------------------------------------------------
 
     //! Throttle for EventActivityLowThrottled
-    FwIndexType m_EventActivityLowThrottledThrottle;
+    std::atomic<FwIndexType> m_EventActivityLowThrottledThrottle;
 
     //! Throttle for EventFatalThrottled
-    FwIndexType m_EventFatalThrottledThrottle;
+    std::atomic<FwIndexType> m_EventFatalThrottledThrottle;
 
     //! Throttle for EventWarningLowThrottled
-    FwIndexType m_EventWarningLowThrottledThrottle;
+    std::atomic<FwIndexType> m_EventWarningLowThrottledThrottle;
 
   PRIVATE:
 
