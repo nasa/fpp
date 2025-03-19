@@ -19,7 +19,7 @@ run_fpp_check_test() {
 # Generate fpp-check test cases by doing the following:
 # Get all .fpp test cases in the fpp-check/test/* directories
 # For each test case:
-#   1.) Create a function with the following name: fpp_check_<directory name>_<file name>
+#   1.) Create a function with the following name: <directory name>_<file name>
 #   2.) In the function, call the run_fpp_check_test (defined in this file) and provide the filename of the FPP model to run
 # After iterating all test cases:
 #   1.) Write all functions to a new file called fpp-check-tests.sh
