@@ -219,7 +219,7 @@ if [[ -d $d ]]; then
     file_name="${file_name%.*}"
     func_name="fpp_check"_$dir_name"_"$file_name
 
-    test_names+="\n$func_name"
+    test_names+="$func_name "
 echo "
 $func_name()
 {
