@@ -12,6 +12,18 @@ types()
   move_cpp EEnum
   move_cpp AArray
   move_cpp SSerializable
+  move_h_hpp AliasPrim1Alias
+  move_h_hpp AliasPrim2Alias
+  move_hpp AliasStructAlias
+  move_hpp AliasBoolAlias
+  move_hpp AliasArrayAlias
+  move_hpp AliasAliasArrayAlias
+  move_hpp AliasEnumAlias
+  move_hpp AliasStringAlias
+  move_cpp StructWithAliasSerializable
+  move_hpp AnotherAliasStructAlias
+  move_cpp ArrayAliasArrayArray
+  move_hpp AliasArrayAliasArrayAlias
 }
 
 empty()

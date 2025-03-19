@@ -14,6 +14,7 @@
 namespace {
   enum MsgTypeEnum {
     QUEUEDEVENTS_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
+    ALIASTYPEDASYNC_ALIASTYPED,
     NOARGSASYNC_NOARGS,
     TYPEDASYNC_TYPED,
     TYPEDASYNCASSERT_TYPED,
@@ -24,6 +25,7 @@ namespace {
   // Get the max size by constructing a union of the async input, command, and
   // internal port serialization sizes
   union BuffUnion {
+    BYTE aliasTypedAsyncPortSize[Ports::InputAliasTypedPort::SERIALIZED_SIZE];
     BYTE typedAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
     BYTE typedAsyncAssertPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
     BYTE typedAsyncBlockPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
@@ -101,6 +103,54 @@ void QueuedEventsComponentBase ::
       port
     );
     this->m_cmdIn_InputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect input port aliasTypedAsync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_aliasTypedAsync_InputPorts());
+    port++
+  ) {
+    this->m_aliasTypedAsync_InputPort[port].init();
+    this->m_aliasTypedAsync_InputPort[port].addCallComp(
+      this,
+      m_p_aliasTypedAsync_in
+    );
+    this->m_aliasTypedAsync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_aliasTypedAsync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_aliasTypedAsync_InputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect input port noArgsAliasStringReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsAliasStringReturnSync_InputPorts());
+    port++
+  ) {
+    this->m_noArgsAliasStringReturnSync_InputPort[port].init();
+    this->m_noArgsAliasStringReturnSync_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsAliasStringReturnSync_in
+    );
+    this->m_noArgsAliasStringReturnSync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_noArgsAliasStringReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_noArgsAliasStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -245,6 +295,78 @@ void QueuedEventsComponentBase ::
       port
     );
     this->m_noArgsSync_InputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect input port typedAliasGuarded
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAliasGuarded_InputPorts());
+    port++
+  ) {
+    this->m_typedAliasGuarded_InputPort[port].init();
+    this->m_typedAliasGuarded_InputPort[port].addCallComp(
+      this,
+      m_p_typedAliasGuarded_in
+    );
+    this->m_typedAliasGuarded_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAliasGuarded_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAliasGuarded_InputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect input port typedAliasReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAliasReturnSync_InputPorts());
+    port++
+  ) {
+    this->m_typedAliasReturnSync_InputPort[port].init();
+    this->m_typedAliasReturnSync_InputPort[port].addCallComp(
+      this,
+      m_p_typedAliasReturnSync_in
+    );
+    this->m_typedAliasReturnSync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAliasReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAliasReturnSync_InputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect input port typedAliasStringReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAliasStringReturnSync_InputPorts());
+    port++
+  ) {
+    this->m_typedAliasStringReturnSync_InputPort[port].init();
+    this->m_typedAliasStringReturnSync_InputPort[port].addCallComp(
+      this,
+      m_p_typedAliasStringReturnSync_in
+    );
+    this->m_typedAliasStringReturnSync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAliasStringReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAliasStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -651,6 +773,63 @@ void QueuedEventsComponentBase ::
 #endif
   }
 
+  // Connect output port typedAliasOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAliasOut_OutputPorts());
+    port++
+  ) {
+    this->m_typedAliasOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAliasOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAliasOut_OutputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect output port typedAliasReturnOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAliasReturnOut_OutputPorts());
+    port++
+  ) {
+    this->m_typedAliasReturnOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAliasReturnOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAliasReturnOut_OutputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect output port typedAliasReturnStringOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAliasReturnStringOut_OutputPorts());
+    port++
+  ) {
+    this->m_typedAliasReturnStringOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAliasReturnStringOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAliasReturnStringOut_OutputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
   // Connect output port typedOut
   for (
     FwIndexType port = 0;
@@ -719,6 +898,28 @@ Fw::InputCmdPort* QueuedEventsComponentBase ::
 // Getters for typed input ports
 // ----------------------------------------------------------------------
 
+Ports::InputAliasTypedPort* QueuedEventsComponentBase ::
+  get_aliasTypedAsync_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_aliasTypedAsync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_aliasTypedAsync_InputPort[portNum];
+}
+
+Ports::InputNoArgsAliasStringReturnPort* QueuedEventsComponentBase ::
+  get_noArgsAliasStringReturnSync_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsAliasStringReturnSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_noArgsAliasStringReturnSync_InputPort[portNum];
+}
+
 Ports::InputNoArgsPort* QueuedEventsComponentBase ::
   get_noArgsAsync_InputPort(FwIndexType portNum)
 {
@@ -783,6 +984,39 @@ Ports::InputNoArgsPort* QueuedEventsComponentBase ::
   );
 
   return &this->m_noArgsSync_InputPort[portNum];
+}
+
+Ports::InputAliasTypedPort* QueuedEventsComponentBase ::
+  get_typedAliasGuarded_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasGuarded_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_typedAliasGuarded_InputPort[portNum];
+}
+
+Ports::InputAliasTypedReturnPort* QueuedEventsComponentBase ::
+  get_typedAliasReturnSync_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasReturnSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_typedAliasReturnSync_InputPort[portNum];
+}
+
+Ports::InputAliasTypedReturnStringPort* QueuedEventsComponentBase ::
+  get_typedAliasStringReturnSync_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasStringReturnSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_typedAliasStringReturnSync_InputPort[portNum];
 }
 
 Ports::InputTypedPort* QueuedEventsComponentBase ::
@@ -1040,6 +1274,48 @@ void QueuedEventsComponentBase ::
 }
 
 void QueuedEventsComponentBase ::
+  set_typedAliasOut_OutputPort(
+      FwIndexType portNum,
+      Ports::InputAliasTypedPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_typedAliasOut_OutputPort[portNum].addCallPort(port);
+}
+
+void QueuedEventsComponentBase ::
+  set_typedAliasReturnOut_OutputPort(
+      FwIndexType portNum,
+      Ports::InputAliasTypedReturnPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_typedAliasReturnOut_OutputPort[portNum].addCallPort(port);
+}
+
+void QueuedEventsComponentBase ::
+  set_typedAliasReturnStringOut_OutputPort(
+      FwIndexType portNum,
+      Ports::InputAliasTypedReturnStringPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasReturnStringOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_typedAliasReturnStringOut_OutputPort[portNum].addCallPort(port);
+}
+
+void QueuedEventsComponentBase ::
   set_typedOut_OutputPort(
       FwIndexType portNum,
       Ports::InputTypedPort* port
@@ -1198,6 +1474,20 @@ void QueuedEventsComponentBase ::
 }
 
 void QueuedEventsComponentBase ::
+  set_typedAliasOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_typedAliasOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void QueuedEventsComponentBase ::
   set_typedOut_OutputPort(
       FwIndexType portNum,
       Fw::InputSerializePort* port
@@ -1247,6 +1537,18 @@ FwIndexType QueuedEventsComponentBase ::
 // ----------------------------------------------------------------------
 
 FwIndexType QueuedEventsComponentBase ::
+  getNum_aliasTypedAsync_InputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_aliasTypedAsync_InputPort));
+}
+
+FwIndexType QueuedEventsComponentBase ::
+  getNum_noArgsAliasStringReturnSync_InputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsAliasStringReturnSync_InputPort));
+}
+
+FwIndexType QueuedEventsComponentBase ::
   getNum_noArgsAsync_InputPorts() const
 {
   return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsAsync_InputPort));
@@ -1280,6 +1582,24 @@ FwIndexType QueuedEventsComponentBase ::
   getNum_noArgsSync_InputPorts() const
 {
   return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsSync_InputPort));
+}
+
+FwIndexType QueuedEventsComponentBase ::
+  getNum_typedAliasGuarded_InputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasGuarded_InputPort));
+}
+
+FwIndexType QueuedEventsComponentBase ::
+  getNum_typedAliasReturnSync_InputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasReturnSync_InputPort));
+}
+
+FwIndexType QueuedEventsComponentBase ::
+  getNum_typedAliasStringReturnSync_InputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasStringReturnSync_InputPort));
 }
 
 FwIndexType QueuedEventsComponentBase ::
@@ -1406,6 +1726,24 @@ FwIndexType QueuedEventsComponentBase ::
   getNum_noArgsStringReturnOut_OutputPorts() const
 {
   return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsStringReturnOut_OutputPort));
+}
+
+FwIndexType QueuedEventsComponentBase ::
+  getNum_typedAliasOut_OutputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasOut_OutputPort));
+}
+
+FwIndexType QueuedEventsComponentBase ::
+  getNum_typedAliasReturnOut_OutputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasReturnOut_OutputPort));
+}
+
+FwIndexType QueuedEventsComponentBase ::
+  getNum_typedAliasReturnStringOut_OutputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasReturnStringOut_OutputPort));
 }
 
 FwIndexType QueuedEventsComponentBase ::
@@ -1554,6 +1892,39 @@ bool QueuedEventsComponentBase ::
 }
 
 bool QueuedEventsComponentBase ::
+  isConnected_typedAliasOut_OutputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_typedAliasOut_OutputPort[portNum].isConnected();
+}
+
+bool QueuedEventsComponentBase ::
+  isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_typedAliasReturnOut_OutputPort[portNum].isConnected();
+}
+
+bool QueuedEventsComponentBase ::
+  isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasReturnStringOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_typedAliasReturnStringOut_OutputPort[portNum].isConnected();
+}
+
+bool QueuedEventsComponentBase ::
   isConnected_typedOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
@@ -1580,6 +1951,130 @@ bool QueuedEventsComponentBase ::
 //
 // Call these functions directly to bypass the corresponding ports
 // ----------------------------------------------------------------------
+
+void QueuedEventsComponentBase ::
+  aliasTypedAsync_handlerBase(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_aliasTypedAsync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  // Call pre-message hook
+  aliasTypedAsync_preMsgHook(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+  ComponentIpcSerializableBuffer msg;
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+
+  // Serialize message ID
+  _status = msg.serialize(
+    static_cast<FwEnumStoreType>(ALIASTYPEDASYNC_ALIASTYPED)
+  );
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Serialize port number
+  _status = msg.serialize(portNum);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Serialize argument u32
+  _status = msg.serialize(u32);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Serialize argument f32
+  _status = msg.serialize(f32);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Serialize argument b
+  _status = msg.serialize(b);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Serialize argument str2
+  _status = msg.serialize(str2);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Serialize argument e
+  _status = msg.serialize(e);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Serialize argument a
+  _status = msg.serialize(a);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Serialize argument s
+  _status = msg.serialize(s);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Send message
+  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
+
+  FW_ASSERT(
+    qStatus == Os::Queue::OP_OK,
+    static_cast<FwAssertArgType>(qStatus)
+  );
+}
+
+AliasString QueuedEventsComponentBase ::
+  noArgsAliasStringReturnSync_handlerBase(FwIndexType portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_noArgsAliasStringReturnSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  AliasString retVal;
+
+  // Call handler function
+  retVal = this->noArgsAliasStringReturnSync_handler(portNum);
+
+  return retVal;
+}
 
 void QueuedEventsComponentBase ::
   noArgsAsync_handlerBase(FwIndexType portNum)
@@ -1708,6 +2203,113 @@ void QueuedEventsComponentBase ::
 
   // Call handler function
   this->noArgsSync_handler(portNum);
+}
+
+void QueuedEventsComponentBase ::
+  typedAliasGuarded_handlerBase(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasGuarded_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  // Lock guard mutex before calling
+  this->lock();
+
+  // Call handler function
+  this->typedAliasGuarded_handler(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+
+  // Unlock guard mutex
+  this->unLock();
+}
+
+AliasPrim2 QueuedEventsComponentBase ::
+  typedAliasReturnSync_handlerBase(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasReturnSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  AliasPrim2 retVal;
+
+  // Call handler function
+  retVal = this->typedAliasReturnSync_handler(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+
+  return retVal;
+}
+
+AliasString QueuedEventsComponentBase ::
+  typedAliasStringReturnSync_handlerBase(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasStringReturnSync_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  AliasString retVal;
+
+  // Call handler function
+  retVal = this->typedAliasStringReturnSync_handler(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+
+  return retVal;
 }
 
 void QueuedEventsComponentBase ::
@@ -2296,6 +2898,21 @@ void QueuedEventsComponentBase ::
 // ----------------------------------------------------------------------
 
 void QueuedEventsComponentBase ::
+  aliasTypedAsync_preMsgHook(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // Default: no-op
+}
+
+void QueuedEventsComponentBase ::
   noArgsAsync_preMsgHook(FwIndexType portNum)
 {
   // Default: no-op
@@ -2408,6 +3025,102 @@ Fw::String QueuedEventsComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_noArgsStringReturnOut_OutputPort[portNum].invoke();
+}
+
+void QueuedEventsComponentBase ::
+  typedAliasOut_out(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_typedAliasOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_typedAliasOut_OutputPort[portNum].invoke(
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+AliasPrim2 QueuedEventsComponentBase ::
+  typedAliasReturnOut_out(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_typedAliasReturnOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_typedAliasReturnOut_OutputPort[portNum].invoke(
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+AliasString QueuedEventsComponentBase ::
+  typedAliasReturnStringOut_out(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_typedAliasReturnStringOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_typedAliasReturnStringOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_typedAliasReturnStringOut_OutputPort[portNum].invoke(
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
 }
 
 void QueuedEventsComponentBase ::
@@ -3212,6 +3925,79 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedEventsComponentBase ::
   );
 
   switch (_msgType) {
+    // Handle async input port aliasTypedAsync
+    case ALIASTYPEDASYNC_ALIASTYPED: {
+      // Deserialize argument u32
+      AliasPrim1 u32;
+      _deserStatus = _msg.deserialize(u32);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument f32
+      AliasPrim2 f32;
+      _deserStatus = _msg.deserialize(f32);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument b
+      AliasBool b;
+      _deserStatus = _msg.deserialize(b);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument str2
+      char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(32)];
+      Fw::ExternalString str2(__fprime_ac_str2_buffer, sizeof __fprime_ac_str2_buffer);
+      _deserStatus = _msg.deserialize(str2);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument e
+      AliasEnum e;
+      _deserStatus = _msg.deserialize(e);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument a
+      AliasArray a;
+      _deserStatus = _msg.deserialize(a);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument s
+      AliasStruct s;
+      _deserStatus = _msg.deserialize(s);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+      // Call handler function
+      this->aliasTypedAsync_handler(
+        portNum,
+        u32,
+        f32,
+        b,
+        str2,
+        e,
+        a,
+        s
+      );
+
+      break;
+    }
+
     // Handle async input port noArgsAsync
     case NOARGSASYNC_NOARGS: {
       // Call handler function
@@ -3543,6 +4329,44 @@ void QueuedEventsComponentBase ::
 // ----------------------------------------------------------------------
 
 void QueuedEventsComponentBase ::
+  m_p_aliasTypedAsync_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedEventsComponentBase* compPtr = static_cast<QueuedEventsComponentBase*>(callComp);
+  compPtr->aliasTypedAsync_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+AliasString QueuedEventsComponentBase ::
+  m_p_noArgsAliasStringReturnSync_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedEventsComponentBase* compPtr = static_cast<QueuedEventsComponentBase*>(callComp);
+  return compPtr->noArgsAliasStringReturnSync_handlerBase(portNum);
+}
+
+void QueuedEventsComponentBase ::
   m_p_noArgsAsync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum
@@ -3606,6 +4430,87 @@ void QueuedEventsComponentBase ::
   FW_ASSERT(callComp);
   QueuedEventsComponentBase* compPtr = static_cast<QueuedEventsComponentBase*>(callComp);
   compPtr->noArgsSync_handlerBase(portNum);
+}
+
+void QueuedEventsComponentBase ::
+  m_p_typedAliasGuarded_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedEventsComponentBase* compPtr = static_cast<QueuedEventsComponentBase*>(callComp);
+  compPtr->typedAliasGuarded_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+AliasPrim2 QueuedEventsComponentBase ::
+  m_p_typedAliasReturnSync_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedEventsComponentBase* compPtr = static_cast<QueuedEventsComponentBase*>(callComp);
+  return compPtr->typedAliasReturnSync_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+AliasString QueuedEventsComponentBase ::
+  m_p_typedAliasStringReturnSync_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedEventsComponentBase* compPtr = static_cast<QueuedEventsComponentBase*>(callComp);
+  return compPtr->typedAliasStringReturnSync_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
 }
 
 void QueuedEventsComponentBase ::

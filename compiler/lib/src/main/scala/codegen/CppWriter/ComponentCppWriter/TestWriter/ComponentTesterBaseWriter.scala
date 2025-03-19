@@ -676,7 +676,7 @@ case class ComponentTesterBaseWriter(
                 cmdFormalParams.map(param => {
                   val t = s.a.typeMap(param._2.data.typeName.id)
                   val varName = param._2.data.name
-                  t match {
+                  t.getUnderlyingType match {
                     case ts: Type.String =>
                       lines(
                         s"""|_status = $varName.serialize(buf, FW_CMD_STRING_MAX_SIZE);

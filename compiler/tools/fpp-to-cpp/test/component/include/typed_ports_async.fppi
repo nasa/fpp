@@ -4,6 +4,9 @@ async input port noArgsAsync: Ports.NoArgs
 @ A typed async input port
 async input port typedAsync: Ports.Typed
 
+@ An alias typed async input port
+async input port aliasTypedAsync: Ports.AliasTyped
+
 @ A typed async input port with queue full behavior and priority
 async input port typedAsyncAssert: Ports.Typed assert
 
