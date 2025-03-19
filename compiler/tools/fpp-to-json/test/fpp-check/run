@@ -1,0 +1,56 @@
+#!/bin/sh -e
+
+. ../../../../scripts/test-utils.sh
+
+fpp_to_json=../../../../bin/fpp-to-json
+
+
+# Run fpp-to-json on fpp-check test case
+# Success criteria: "Exception in thread" (case insensitive) does not exist in the stdout/stderr of fpp-to-json
+run_fpp_check_test() {
+  status=0
+  if $fpp_to_json "$@" 2>&1 | grep -qi "Exception in thread"; then
+    status=1
+  fi
+  rm -f fpp-ast.json fpp-loc-map.json fpp-analysis.json
+  return $status
+}
+
+# Generate fpp-check test cases by doing the following:
+# Get all .fpp test cases in the fpp-check/test/* directories
+# For each test case:
+#   1.) Create a function with the following name: fpp_check_<directory name>_<file name>
+#   2.) In the function, call the run_fpp_check_test (defined in this file) and provide the filename of the FPP model to run
+# After iterating all test cases:
+#   1.) Write all functions to a new file called fpp-check-tests.sh
+#   2.) Return string containing all test names so they can be executed below
+test_names=""
+fpp_check_test_dir="../../../fpp-check/test/"
+fpp_check_tests=$(for d in "$fpp_check_test_dir"*
+do
+if [[ -d $d ]]; then
+  dir_name="${d##*/}"
+  for f in "$d"/*
+  do
+  if [[ -f $f ]]; then
+    if [ "${f##*.}" == "fpp" ]; then  
+    file_name="${f##*/}"
+    file_name="${file_name%.*}"
+    func_name=$dir_name"_"$file_name
+
+    test_names+="$func_name "
+echo "
+$func_name()
+{
+  run_fpp_check_test $f
+}"
+    fi
+  fi
+  done
+fi
+done > fpp-check-tests.sh && \
+echo $test_names)
+
+. ./fpp-check-tests.sh
+
+run_suite $fpp_check_tests
