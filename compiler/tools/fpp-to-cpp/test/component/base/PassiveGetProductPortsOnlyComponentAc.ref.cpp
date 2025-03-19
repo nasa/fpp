@@ -71,7 +71,7 @@ void PassiveGetProductPortsOnlyComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_productGetOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_productGetOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -85,7 +85,7 @@ void PassiveGetProductPortsOnlyComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_productSendOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_productSendOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -105,7 +105,7 @@ void PassiveGetProductPortsOnlyComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_productSendOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_productSendOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -155,7 +155,7 @@ bool PassiveGetProductPortsOnlyComponentBase ::
   isConnected_productGetOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_productGetOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_productGetOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -166,7 +166,7 @@ bool PassiveGetProductPortsOnlyComponentBase ::
   isConnected_productSendOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_productSendOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_productSendOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -186,7 +186,7 @@ Fw::Success PassiveGetProductPortsOnlyComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_productGetOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_productGetOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -209,7 +209,7 @@ void PassiveGetProductPortsOnlyComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_productSendOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_productSendOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 

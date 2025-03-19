@@ -495,7 +495,7 @@ namespace FppTest {
     get_schedIn_InputPort(FwIndexType portNum)
   {
     FW_ASSERT(
-      portNum < this->getNum_schedIn_InputPorts(),
+      0 <= portNum && portNum < this->getNum_schedIn_InputPorts(),
       static_cast<FwAssertArgType>(portNum)
     );
 
@@ -551,7 +551,7 @@ namespace FppTest {
   {
     // Make sure port number is valid
     FW_ASSERT(
-      portNum < this->getNum_schedIn_InputPorts(),
+      0 <= portNum && portNum < this->getNum_schedIn_InputPorts(),
       static_cast<FwAssertArgType>(portNum)
     );
 

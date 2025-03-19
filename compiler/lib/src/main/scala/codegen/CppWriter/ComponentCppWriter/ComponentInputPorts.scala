@@ -55,7 +55,7 @@ case class ComponentInputPorts(
           CppDoc.Type(s"${getQualifiedPortTypeName(p, PortInstance.Direction.Input)}*"),
           lines(
             s"""|FW_ASSERT(
-                |  portNum < this->${numGetterName(p)}(),
+                |  0 <= portNum && portNum < this->${numGetterName(p)}(),
                 |  static_cast<FwAssertArgType>(portNum)
                 |);
                 |
@@ -229,7 +229,7 @@ case class ComponentInputPorts(
               lines(
                 s"""|// Make sure port number is valid
                     |FW_ASSERT(
-                    |  portNum < this->${portNumGetterName(p)}(),
+                    |  0 <= portNum && portNum < this->${portNumGetterName(p)}(),
                     |  static_cast<FwAssertArgType>(portNum)
                     |);
                     |"""

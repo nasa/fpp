@@ -48,7 +48,7 @@ case class ComponentOutputPorts(
             CppDoc.Type("void"),
             lines(
               s"""|FW_ASSERT(
-                  |  portNum < this->${numGetterName(p)}(),
+                  |  0 <= portNum && portNum < this->${numGetterName(p)}(),
                   |  static_cast<FwAssertArgType>(portNum)
                   |);
                   |
@@ -109,7 +109,7 @@ case class ComponentOutputPorts(
                 CppDoc.Type("void"),
                 lines(
                   s"""|FW_ASSERT(
-                      |  portNum < this->${portNumGetterName(p)}(),
+                      |  0 <= portNum && portNum < this->${portNumGetterName(p)}(),
                       |  static_cast<FwAssertArgType>(portNum)
                       |);
                       |
@@ -143,7 +143,7 @@ case class ComponentOutputPorts(
           List.concat(
             lines(
               s"""|FW_ASSERT(
-                  |  portNum < this->${portNumGetterName(p)}(),
+                  |  0 <= portNum && portNum < this->${portNumGetterName(p)}(),
                   |  static_cast<FwAssertArgType>(portNum)
                   |);
                   |
@@ -188,7 +188,7 @@ case class ComponentOutputPorts(
         CppDoc.Type("bool"),
         lines(
           s"""|FW_ASSERT(
-              |  portNum < this->${numGetterName(p)}(),
+              |  0 <= portNum && portNum < this->${numGetterName(p)}(),
               |  static_cast<FwAssertArgType>(portNum)
               |);
               |

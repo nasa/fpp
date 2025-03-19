@@ -432,7 +432,7 @@ Fw::InputCmdPort* QueuedOverflowComponentBase ::
   get_cmdIn_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_cmdIn_InputPorts(),
+    0 <= portNum && portNum < this->getNum_cmdIn_InputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -443,7 +443,7 @@ Fw::InputDpResponsePort* QueuedOverflowComponentBase ::
   get_productRecvInHook_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_productRecvInHook_InputPorts(),
+    0 <= portNum && portNum < this->getNum_productRecvInHook_InputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -458,7 +458,7 @@ Ports::InputTypedPort* QueuedOverflowComponentBase ::
   get_assertAsync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_assertAsync_InputPorts(),
+    0 <= portNum && portNum < this->getNum_assertAsync_InputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -469,7 +469,7 @@ Ports::InputTypedPort* QueuedOverflowComponentBase ::
   get_blockAsync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_blockAsync_InputPorts(),
+    0 <= portNum && portNum < this->getNum_blockAsync_InputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -480,7 +480,7 @@ Ports::InputTypedPort* QueuedOverflowComponentBase ::
   get_dropAsync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_dropAsync_InputPorts(),
+    0 <= portNum && portNum < this->getNum_dropAsync_InputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -491,7 +491,7 @@ Ports::InputTypedPort* QueuedOverflowComponentBase ::
   get_hookAsync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_hookAsync_InputPorts(),
+    0 <= portNum && portNum < this->getNum_hookAsync_InputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -506,7 +506,7 @@ Fw::InputSerializePort* QueuedOverflowComponentBase ::
   get_serialAsyncHook_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_serialAsyncHook_InputPorts(),
+    0 <= portNum && portNum < this->getNum_serialAsyncHook_InputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -524,7 +524,7 @@ void QueuedOverflowComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_cmdRegOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_cmdRegOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -538,7 +538,7 @@ void QueuedOverflowComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_cmdResponseOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_cmdResponseOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -552,7 +552,7 @@ void QueuedOverflowComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_eventOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_eventOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -566,7 +566,7 @@ void QueuedOverflowComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_prmGetOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_prmGetOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -580,7 +580,7 @@ void QueuedOverflowComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_prmSetOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_prmSetOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -596,7 +596,7 @@ void QueuedOverflowComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_textEventOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_textEventOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -612,7 +612,7 @@ void QueuedOverflowComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_timeGetOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_timeGetOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -626,7 +626,7 @@ void QueuedOverflowComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_tlmOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_tlmOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -646,7 +646,7 @@ void QueuedOverflowComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_cmdRegOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_cmdRegOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -660,7 +660,7 @@ void QueuedOverflowComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_cmdResponseOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_cmdResponseOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -674,7 +674,7 @@ void QueuedOverflowComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_eventOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_eventOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -688,7 +688,7 @@ void QueuedOverflowComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_prmSetOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_prmSetOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -704,7 +704,7 @@ void QueuedOverflowComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_textEventOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_textEventOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -720,7 +720,7 @@ void QueuedOverflowComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_timeGetOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_timeGetOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -734,7 +734,7 @@ void QueuedOverflowComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_tlmOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_tlmOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -896,7 +896,7 @@ bool QueuedOverflowComponentBase ::
   isConnected_cmdRegOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_cmdRegOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_cmdRegOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -907,7 +907,7 @@ bool QueuedOverflowComponentBase ::
   isConnected_cmdResponseOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_cmdResponseOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_cmdResponseOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -918,7 +918,7 @@ bool QueuedOverflowComponentBase ::
   isConnected_eventOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_eventOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_eventOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -929,7 +929,7 @@ bool QueuedOverflowComponentBase ::
   isConnected_prmGetOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_prmGetOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_prmGetOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -940,7 +940,7 @@ bool QueuedOverflowComponentBase ::
   isConnected_prmSetOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_prmSetOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_prmSetOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -953,7 +953,7 @@ bool QueuedOverflowComponentBase ::
   isConnected_textEventOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_textEventOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_textEventOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -966,7 +966,7 @@ bool QueuedOverflowComponentBase ::
   isConnected_timeGetOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_timeGetOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_timeGetOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -977,7 +977,7 @@ bool QueuedOverflowComponentBase ::
   isConnected_tlmOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_tlmOut_OutputPorts(),
+    0 <= portNum && portNum < this->getNum_tlmOut_OutputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1000,7 +1000,7 @@ void QueuedOverflowComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_productRecvInHook_InputPorts(),
+    0 <= portNum && portNum < this->getNum_productRecvInHook_InputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1086,7 +1086,7 @@ void QueuedOverflowComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_assertAsync_InputPorts(),
+    0 <= portNum && portNum < this->getNum_assertAsync_InputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1193,7 +1193,7 @@ void QueuedOverflowComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_blockAsync_InputPorts(),
+    0 <= portNum && portNum < this->getNum_blockAsync_InputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1300,7 +1300,7 @@ void QueuedOverflowComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_dropAsync_InputPorts(),
+    0 <= portNum && portNum < this->getNum_dropAsync_InputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1412,7 +1412,7 @@ void QueuedOverflowComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_hookAsync_InputPorts(),
+    0 <= portNum && portNum < this->getNum_hookAsync_InputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1524,7 +1524,7 @@ void QueuedOverflowComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_serialAsyncHook_InputPorts(),
+    0 <= portNum && portNum < this->getNum_serialAsyncHook_InputPorts(),
     static_cast<FwAssertArgType>(portNum)
   );
 

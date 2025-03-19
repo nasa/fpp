@@ -31,7 +31,7 @@ void QueuedAsyncProductPortsOnlyTesterBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_to_productRecvIn(),
+    0 <= portNum && portNum < this->getNum_to_productRecvIn(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -46,7 +46,7 @@ Fw::InputDpRequestPort* QueuedAsyncProductPortsOnlyTesterBase ::
   get_from_productRequestOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_from_productRequestOut(),
+    0 <= portNum && portNum < this->getNum_from_productRequestOut(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -57,7 +57,7 @@ Fw::InputDpSendPort* QueuedAsyncProductPortsOnlyTesterBase ::
   get_from_productSendOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_from_productSendOut(),
+    0 <= portNum && portNum < this->getNum_from_productSendOut(),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -114,7 +114,7 @@ bool QueuedAsyncProductPortsOnlyTesterBase ::
   isConnected_to_productRecvIn(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_to_productRecvIn(),
+    0 <= portNum && portNum < this->getNum_to_productRecvIn(),
     static_cast<FwAssertArgType>(portNum)
   );
 
