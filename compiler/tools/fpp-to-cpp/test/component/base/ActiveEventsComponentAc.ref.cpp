@@ -3845,7 +3845,7 @@ void ActiveEventsComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::Time ActiveEventsComponentBase ::
-  getTime()
+  getTime() const
 {
   if (this->m_timeGetOut_OutputPort[0].isConnected()) {
     Fw::Time _time;
