@@ -6,6 +6,7 @@ cd `dirname $0`
 
 fpp_to_json=../../../../bin/fpp-to-json
 
+# Get the name of a test function associated with a test input file
 get_func_name()
 {
   echo $1 | sed 's;.*/\([^/]*\)/\([^/]*\)\.fpp$;\1_\2;'
@@ -44,24 +45,15 @@ run_fpp_check_test() {
 generate_fpp_check_tests()
 {
   rm -f fpp-check-tests.sh
-  for dir in ../../../fpp-check/test/*
+  for file in `find ../../../fpp-check/test -name '*.fpp'`
   do
-    if [[ -d $dir ]]
-    then
-      for file in $dir/*
-      do
-        if echo $file | grep -q '\.fpp$'
-        then  
-          func_name=`get_func_name $file`
-          echo $func_name
-          echo "
+    func_name=`get_func_name $file`
+    echo $func_name
+    echo "
 $func_name()
 {
   run_fpp_check_test $file
 }" >> fpp-check-tests.sh
-        fi
-      done
-    fi
   done
 }
 
