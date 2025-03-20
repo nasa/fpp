@@ -41,7 +41,7 @@ run_fpp_check_test() {
 #   2. In the function, call run_fpp_check_test (defined in this file) and
 #      provide the filename of the FPP model to run
 #   3. Append the function to fpp-check-tests.sh
-#   4. Add the test name to the outut of this function
+#   4. Add the test name to the output of this function
 generate_fpp_check_tests()
 {
   rm -f fpp-check-tests.sh
