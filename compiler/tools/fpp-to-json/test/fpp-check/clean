@@ -1,0 +1,5 @@
+#!/bin/sh
+
+. ../../../../scripts/utils.sh
+rm -f fpp-check-tests.sh fpp-ast.json fpp-loc-map.json fpp-analysis.json
+clean
