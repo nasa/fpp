@@ -1,0 +1,1081 @@
+[
+  {
+    "members" : [
+      [
+        [
+        ],
+        {
+          "DefModule" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "Fw",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "DpRequest",
+                                "params" : [
+                                ],
+                                "returnType" : "None"
+                              },
+                              "id" : 0
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "DpResponse",
+                                "params" : [
+                                ],
+                                "returnType" : "None"
+                              },
+                              "id" : 1
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "DpSend",
+                                "params" : [
+                                ],
+                                "returnType" : "None"
+                              },
+                              "id" : 2
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "Time",
+                                "params" : [
+                                ],
+                                "returnType" : "None"
+                              },
+                              "id" : 5
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 6
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefComponent" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "kind" : {
+                    "Passive" : {
+                      
+                    }
+                  },
+                  "name" : "C",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "Special" : {
+                                  "inputKind" : "None",
+                                  "kind" : {
+                                    "ProductRequest" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "productRequestOut",
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 7
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "Special" : {
+                                  "inputKind" : {
+                                    "Some" : {
+                                      "Sync" : {
+                                        
+                                      }
+                                    }
+                                  },
+                                  "kind" : {
+                                    "ProductRecv" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "productRecvIn",
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 8
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "Special" : {
+                                  "inputKind" : "None",
+                                  "kind" : {
+                                    "ProductSend" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "productSendOut",
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 9
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "Special" : {
+                                  "inputKind" : "None",
+                                  "kind" : {
+                                    "TimeGet" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "timeGetOut",
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 10
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "A container with no ID and no default priority"
+                      ],
+                      {
+                        "SpecContainer" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "Basic",
+                                "id" : "None",
+                                "defaultPriority" : "None"
+                              },
+                              "id" : 11
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "A container with ID and no default priority"
+                      ],
+                      {
+                        "SpecContainer" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "IdOnly",
+                                "id" : {
+                                  "Some" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "ExprLiteralInt" : {
+                                          "value" : "0x100"
+                                        }
+                                      },
+                                      "id" : 12
+                                    }
+                                  }
+                                },
+                                "defaultPriority" : "None"
+                              },
+                              "id" : 13
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "A container with ID and default priority"
+                      ],
+                      {
+                        "SpecContainer" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "IdPriority",
+                                "id" : {
+                                  "Some" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "ExprLiteralInt" : {
+                                          "value" : "0x200"
+                                        }
+                                      },
+                                      "id" : 14
+                                    }
+                                  }
+                                },
+                                "defaultPriority" : {
+                                  "Some" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "ExprLiteralInt" : {
+                                          "value" : "3"
+                                        }
+                                      },
+                                      "id" : 15
+                                    }
+                                  }
+                                }
+                              },
+                              "id" : 16
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "A record with no ID"
+                      ],
+                      {
+                        "SpecRecord" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "Basic",
+                                "recordType" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "TypeNameInt" : {
+                                        "name" : {
+                                          "U32" : {
+                                            
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "id" : 17
+                                  }
+                                },
+                                "isArray" : false,
+                                "id" : "None"
+                              },
+                              "id" : 18
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "A record with an ID"
+                      ],
+                      {
+                        "SpecRecord" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "Id",
+                                "recordType" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "TypeNameInt" : {
+                                        "name" : {
+                                          "U32" : {
+                                            
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "id" : 25
+                                  }
+                                },
+                                "isArray" : false,
+                                "id" : {
+                                  "Some" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "ExprLiteralInt" : {
+                                          "value" : "0x100"
+                                        }
+                                      },
+                                      "id" : 26
+                                    }
+                                  }
+                                }
+                              },
+                              "id" : 27
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 28
+              }
+            }
+          }
+        },
+        [
+        ]
+      ]
+    ]
+  }
+]
+{
+  "0" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "3.3",
+    "includingLoc" : "None"
+  },
+  "1" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "4.3",
+    "includingLoc" : "None"
+  },
+  "2" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "5.3",
+    "includingLoc" : "None"
+  },
+  "3" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "6.3",
+    "includingLoc" : "None"
+  },
+  "4" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "6.3",
+    "includingLoc" : "None"
+  },
+  "5" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "6.3",
+    "includingLoc" : "None"
+  },
+  "6" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "1.1",
+    "includingLoc" : "None"
+  },
+  "7" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "12.3",
+    "includingLoc" : "None"
+  },
+  "8" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "13.3",
+    "includingLoc" : "None"
+  },
+  "9" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "14.3",
+    "includingLoc" : "None"
+  },
+  "10" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "15.3",
+    "includingLoc" : "None"
+  },
+  "11" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "18.3",
+    "includingLoc" : "None"
+  },
+  "12" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "21.31",
+    "includingLoc" : "None"
+  },
+  "13" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "21.3",
+    "includingLoc" : "None"
+  },
+  "14" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "24.35",
+    "includingLoc" : "None"
+  },
+  "15" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "24.58",
+    "includingLoc" : "None"
+  },
+  "16" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "24.3",
+    "includingLoc" : "None"
+  },
+  "17" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "27.25",
+    "includingLoc" : "None"
+  },
+  "18" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "27.3",
+    "includingLoc" : "None"
+  },
+  "19" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "30.22",
+    "includingLoc" : "None"
+  },
+  "20" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "30.29",
+    "includingLoc" : "None"
+  },
+  "21" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "30.3",
+    "includingLoc" : "None"
+  },
+  "22" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "30.22",
+    "includingLoc" : "None"
+  },
+  "23" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "30.29",
+    "includingLoc" : "None"
+  },
+  "24" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "30.3",
+    "includingLoc" : "None"
+  },
+  "25" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "30.22",
+    "includingLoc" : "None"
+  },
+  "26" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "30.29",
+    "includingLoc" : "None"
+  },
+  "27" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "30.3",
+    "includingLoc" : "None"
+  },
+  "28" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp",
+    "pos" : "10.1",
+    "includingLoc" : "None"
+  }
+}
+{
+  "componentInstanceMap" : {
+    
+  },
+  "componentMap" : {
+    "28" : {
+      "aNode" : {
+        "astNodeId" : 28
+      },
+      "portMap" : {
+        "productRequestOut" : {
+          "Special" : {
+            "aNode" : {
+              "astNodeId" : 7
+            },
+            "specifier" : {
+              "inputKind" : "None",
+              "kind" : {
+                "ProductRequest" : {
+                  
+                }
+              },
+              "name" : "productRequestOut",
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 0,
+                "unqualifiedName" : "DpRequest"
+              }
+            },
+            "priority" : "None",
+            "queueFull" : "None"
+          }
+        },
+        "productRecvIn" : {
+          "Special" : {
+            "aNode" : {
+              "astNodeId" : 8
+            },
+            "specifier" : {
+              "inputKind" : {
+                "Some" : {
+                  "Sync" : {
+                    
+                  }
+                }
+              },
+              "kind" : {
+                "ProductRecv" : {
+                  
+                }
+              },
+              "name" : "productRecvIn",
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 1,
+                "unqualifiedName" : "DpResponse"
+              }
+            },
+            "priority" : "None",
+            "queueFull" : {
+              "Some" : {
+                "Assert" : {
+                  
+                }
+              }
+            }
+          }
+        },
+        "productSendOut" : {
+          "Special" : {
+            "aNode" : {
+              "astNodeId" : 9
+            },
+            "specifier" : {
+              "inputKind" : "None",
+              "kind" : {
+                "ProductSend" : {
+                  
+                }
+              },
+              "name" : "productSendOut",
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 2,
+                "unqualifiedName" : "DpSend"
+              }
+            },
+            "priority" : "None",
+            "queueFull" : "None"
+          }
+        },
+        "timeGetOut" : {
+          "Special" : {
+            "aNode" : {
+              "astNodeId" : 10
+            },
+            "specifier" : {
+              "inputKind" : "None",
+              "kind" : {
+                "TimeGet" : {
+                  
+                }
+              },
+              "name" : "timeGetOut",
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 5,
+                "unqualifiedName" : "Time"
+              }
+            },
+            "priority" : "None",
+            "queueFull" : "None"
+          }
+        }
+      },
+      "specialPortMap" : {
+        "product request" : {
+          "aNode" : {
+            "astNodeId" : 7
+          },
+          "specifier" : {
+            "inputKind" : "None",
+            "kind" : {
+              "ProductRequest" : {
+                
+              }
+            },
+            "name" : "productRequestOut",
+            "priority" : "None",
+            "queueFull" : "None"
+          },
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 0,
+              "unqualifiedName" : "DpRequest"
+            }
+          },
+          "priority" : "None",
+          "queueFull" : "None"
+        },
+        "product recv" : {
+          "aNode" : {
+            "astNodeId" : 8
+          },
+          "specifier" : {
+            "inputKind" : {
+              "Some" : {
+                "Sync" : {
+                  
+                }
+              }
+            },
+            "kind" : {
+              "ProductRecv" : {
+                
+              }
+            },
+            "name" : "productRecvIn",
+            "priority" : "None",
+            "queueFull" : "None"
+          },
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 1,
+              "unqualifiedName" : "DpResponse"
+            }
+          },
+          "priority" : "None",
+          "queueFull" : {
+            "Some" : {
+              "Assert" : {
+                
+              }
+            }
+          }
+        },
+        "product send" : {
+          "aNode" : {
+            "astNodeId" : 9
+          },
+          "specifier" : {
+            "inputKind" : "None",
+            "kind" : {
+              "ProductSend" : {
+                
+              }
+            },
+            "name" : "productSendOut",
+            "priority" : "None",
+            "queueFull" : "None"
+          },
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 2,
+              "unqualifiedName" : "DpSend"
+            }
+          },
+          "priority" : "None",
+          "queueFull" : "None"
+        },
+        "time get" : {
+          "aNode" : {
+            "astNodeId" : 10
+          },
+          "specifier" : {
+            "inputKind" : "None",
+            "kind" : {
+              "TimeGet" : {
+                
+              }
+            },
+            "name" : "timeGetOut",
+            "priority" : "None",
+            "queueFull" : "None"
+          },
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 5,
+              "unqualifiedName" : "Time"
+            }
+          },
+          "priority" : "None",
+          "queueFull" : "None"
+        }
+      },
+      "commandMap" : {
+        
+      },
+      "defaultOpcode" : 0,
+      "tlmChannelMap" : {
+        
+      },
+      "tlmChannelNameMap" : {
+        
+      },
+      "defaultTlmChannelId" : 0,
+      "eventMap" : {
+        
+      },
+      "defaultEventId" : 0,
+      "paramMap" : {
+        
+      },
+      "specPortMatchingList" : [
+      ],
+      "stateMachineInstanceMap" : {
+        
+      },
+      "portMatchingList" : [
+      ],
+      "defaultParamId" : 0,
+      "containerMap" : {
+        "0" : {
+          "aNode" : {
+            "astNodeId" : 11
+          },
+          "defaultPriority" : "None"
+        },
+        "256" : {
+          "aNode" : {
+            "astNodeId" : 13
+          },
+          "defaultPriority" : "None"
+        },
+        "512" : {
+          "aNode" : {
+            "astNodeId" : 16
+          },
+          "defaultPriority" : {
+            "Some" : 3
+          }
+        }
+      },
+      "defaultContainerId" : 513,
+      "recordMap" : {
+        "0" : {
+          "aNode" : {
+            "astNodeId" : 18
+          },
+          "recordType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U32" : {
+                    
+                  }
+                }
+              }
+            }
+          },
+          "isArray" : false
+        },
+        "256" : {
+          "aNode" : {
+            "astNodeId" : 27
+          },
+          "recordType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U32" : {
+                    
+                  }
+                }
+              }
+            }
+          },
+          "isArray" : false
+        }
+      },
+      "defaultRecordId" : 257
+    }
+  },
+  "includedFileSet" : [
+  ],
+  "inputFileSet" : [
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/dataProducts.fpp"
+  ],
+  "locationSpecifierMap" : [
+  ],
+  "parentSymbolMap" : {
+    "0" : {
+      "Module" : {
+        "nodeId" : 6,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "1" : {
+      "Module" : {
+        "nodeId" : 6,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "2" : {
+      "Module" : {
+        "nodeId" : 6,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "5" : {
+      "Module" : {
+        "nodeId" : 6,
+        "unqualifiedName" : "Fw"
+      }
+    }
+  },
+  "symbolScopeMap" : {
+    "6" : {
+      "map" : {
+        "Port" : {
+          "map" : {
+            "DpRequest" : {
+              "Port" : {
+                "nodeId" : 0,
+                "unqualifiedName" : "DpRequest"
+              }
+            },
+            "DpResponse" : {
+              "Port" : {
+                "nodeId" : 1,
+                "unqualifiedName" : "DpResponse"
+              }
+            },
+            "DpSend" : {
+              "Port" : {
+                "nodeId" : 2,
+                "unqualifiedName" : "DpSend"
+              }
+            },
+            "Time" : {
+              "Port" : {
+                "nodeId" : 5,
+                "unqualifiedName" : "Time"
+              }
+            }
+          }
+        }
+      }
+    },
+    "28" : {
+      "map" : {
+        
+      }
+    }
+  },
+  "topologyMap" : {
+    
+  },
+  "typeMap" : {
+    "12" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "15" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "26" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "17" : {
+      "Int" : {
+        "PrimitiveInt" : {
+          "kind" : {
+            "U32" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "25" : {
+      "Int" : {
+        "PrimitiveInt" : {
+          "kind" : {
+            "U32" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "14" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    }
+  },
+  "useDefMap" : {
+    "7" : {
+      "Port" : {
+        "nodeId" : 0,
+        "unqualifiedName" : "DpRequest"
+      }
+    },
+    "8" : {
+      "Port" : {
+        "nodeId" : 1,
+        "unqualifiedName" : "DpResponse"
+      }
+    },
+    "9" : {
+      "Port" : {
+        "nodeId" : 2,
+        "unqualifiedName" : "DpSend"
+      }
+    },
+    "10" : {
+      "Port" : {
+        "nodeId" : 5,
+        "unqualifiedName" : "Time"
+      }
+    }
+  },
+  "valueMap" : {
+    "12" : {
+      "Integer" : {
+        "value" : 256
+      }
+    },
+    "14" : {
+      "Integer" : {
+        "value" : 512
+      }
+    },
+    "15" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "26" : {
+      "Integer" : {
+        "value" : 256
+      }
+    }
+  },
+  "stateMachineMap" : {
+    
+  }
+}

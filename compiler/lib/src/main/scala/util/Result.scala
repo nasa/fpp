@@ -64,7 +64,7 @@ object Result {
     }
   }
 
-  /** Expect a Right result; throw InternalException otherwise */
+  /** Expect a Right result; throw InternalError otherwise */
   def expectRight[T](result: Result[T]): T = result match {
     case Right(value) => value
     case Left(e) => throw new InternalError(s"unexpected error ${e}")
