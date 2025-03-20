@@ -955,7 +955,7 @@ Fw::InputCmdPort* PassiveGuardedProductsComponentBase ::
   get_cmdIn_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_cmdIn_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_cmdIn_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -966,7 +966,7 @@ Fw::InputDpResponsePort* PassiveGuardedProductsComponentBase ::
   get_productRecvIn_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_productRecvIn_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productRecvIn_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -981,7 +981,7 @@ Ports::InputNoArgsAliasStringReturnPort* PassiveGuardedProductsComponentBase ::
   get_noArgsAliasStringReturnSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsAliasStringReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsAliasStringReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -992,7 +992,7 @@ Ports::InputNoArgsPort* PassiveGuardedProductsComponentBase ::
   get_noArgsGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1003,7 +1003,7 @@ Ports::InputNoArgsReturnPort* PassiveGuardedProductsComponentBase ::
   get_noArgsReturnGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsReturnGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1014,7 +1014,7 @@ Ports::InputNoArgsReturnPort* PassiveGuardedProductsComponentBase ::
   get_noArgsReturnSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1025,7 +1025,7 @@ Ports::InputNoArgsStringReturnPort* PassiveGuardedProductsComponentBase ::
   get_noArgsStringReturnSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsStringReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1036,7 +1036,7 @@ Ports::InputNoArgsPort* PassiveGuardedProductsComponentBase ::
   get_noArgsSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1047,7 +1047,7 @@ Ports::InputAliasTypedPort* PassiveGuardedProductsComponentBase ::
   get_typedAliasGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_typedAliasGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1058,7 +1058,7 @@ Ports::InputAliasTypedReturnPort* PassiveGuardedProductsComponentBase ::
   get_typedAliasReturnSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_typedAliasReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1069,7 +1069,7 @@ Ports::InputAliasTypedReturnStringPort* PassiveGuardedProductsComponentBase ::
   get_typedAliasStringReturnSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_typedAliasStringReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasStringReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1080,7 +1080,7 @@ Ports::InputTypedPort* PassiveGuardedProductsComponentBase ::
   get_typedGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_typedGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1091,7 +1091,7 @@ Ports::InputTypedReturnPort* PassiveGuardedProductsComponentBase ::
   get_typedReturnGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_typedReturnGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedReturnGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1102,7 +1102,7 @@ Ports::InputTypedReturnPort* PassiveGuardedProductsComponentBase ::
   get_typedReturnSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_typedReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1113,7 +1113,7 @@ Ports::InputTypedPort* PassiveGuardedProductsComponentBase ::
   get_typedSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_typedSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1131,7 +1131,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_cmdRegOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1145,7 +1145,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_cmdResponseOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1159,7 +1159,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_eventOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1173,7 +1173,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_prmGetOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1187,7 +1187,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_prmSetOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1201,7 +1201,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_productRequestOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1215,7 +1215,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_productSendOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1231,7 +1231,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_textEventOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1247,7 +1247,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_timeGetOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1261,7 +1261,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_tlmOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1279,7 +1279,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1293,7 +1293,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1307,7 +1307,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsStringReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1321,7 +1321,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_typedAliasOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1335,7 +1335,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_typedAliasReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1349,7 +1349,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_typedAliasReturnStringOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1363,7 +1363,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_typedOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1377,7 +1377,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_typedReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1397,7 +1397,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_cmdRegOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1411,7 +1411,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_cmdResponseOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1425,7 +1425,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_eventOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1439,7 +1439,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_prmSetOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1453,7 +1453,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_productRequestOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1467,7 +1467,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_productSendOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1483,7 +1483,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_textEventOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1499,7 +1499,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_timeGetOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1513,7 +1513,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_tlmOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1535,7 +1535,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1549,7 +1549,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_typedAliasOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1563,7 +1563,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_typedOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1815,7 +1815,7 @@ bool PassiveGuardedProductsComponentBase ::
   isConnected_cmdRegOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_cmdRegOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1826,7 +1826,7 @@ bool PassiveGuardedProductsComponentBase ::
   isConnected_cmdResponseOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_cmdResponseOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1837,7 +1837,7 @@ bool PassiveGuardedProductsComponentBase ::
   isConnected_eventOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_eventOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1848,7 +1848,7 @@ bool PassiveGuardedProductsComponentBase ::
   isConnected_prmGetOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_prmGetOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1859,7 +1859,7 @@ bool PassiveGuardedProductsComponentBase ::
   isConnected_prmSetOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_prmSetOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1870,7 +1870,7 @@ bool PassiveGuardedProductsComponentBase ::
   isConnected_productRequestOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_productRequestOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1881,7 +1881,7 @@ bool PassiveGuardedProductsComponentBase ::
   isConnected_productSendOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_productSendOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1894,7 +1894,7 @@ bool PassiveGuardedProductsComponentBase ::
   isConnected_textEventOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_textEventOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1907,7 +1907,7 @@ bool PassiveGuardedProductsComponentBase ::
   isConnected_timeGetOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_timeGetOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1918,7 +1918,7 @@ bool PassiveGuardedProductsComponentBase ::
   isConnected_tlmOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_tlmOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1933,7 +1933,7 @@ bool PassiveGuardedProductsComponentBase ::
   isConnected_noArgsOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1944,7 +1944,7 @@ bool PassiveGuardedProductsComponentBase ::
   isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1955,7 +1955,7 @@ bool PassiveGuardedProductsComponentBase ::
   isConnected_noArgsStringReturnOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsStringReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1966,7 +1966,7 @@ bool PassiveGuardedProductsComponentBase ::
   isConnected_typedAliasOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_typedAliasOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1977,7 +1977,7 @@ bool PassiveGuardedProductsComponentBase ::
   isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_typedAliasReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1988,7 +1988,7 @@ bool PassiveGuardedProductsComponentBase ::
   isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_typedAliasReturnStringOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1999,7 +1999,7 @@ bool PassiveGuardedProductsComponentBase ::
   isConnected_typedOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_typedOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2010,7 +2010,7 @@ bool PassiveGuardedProductsComponentBase ::
   isConnected_typedReturnOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_typedReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2033,7 +2033,7 @@ void PassiveGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_productRecvIn_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productRecvIn_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2063,7 +2063,7 @@ AliasString PassiveGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_noArgsAliasStringReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsAliasStringReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2080,7 +2080,7 @@ void PassiveGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_noArgsGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2099,7 +2099,7 @@ U32 PassiveGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_noArgsReturnGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2122,7 +2122,7 @@ U32 PassiveGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_noArgsReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2139,7 +2139,7 @@ Fw::String PassiveGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_noArgsStringReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2156,7 +2156,7 @@ void PassiveGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_noArgsSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2178,7 +2178,7 @@ void PassiveGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_typedAliasGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2215,7 +2215,7 @@ AliasPrim2 PassiveGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_typedAliasReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2250,7 +2250,7 @@ AliasString PassiveGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_typedAliasStringReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasStringReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2285,7 +2285,7 @@ void PassiveGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_typedGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2322,7 +2322,7 @@ F32 PassiveGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_typedReturnGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedReturnGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2363,7 +2363,7 @@ F32 PassiveGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_typedReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2398,7 +2398,7 @@ void PassiveGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_typedSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2427,7 +2427,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_productRequestOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2449,7 +2449,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_productSendOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2471,7 +2471,7 @@ void PassiveGuardedProductsComponentBase ::
   noArgsOut_out(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2486,7 +2486,7 @@ U32 PassiveGuardedProductsComponentBase ::
   noArgsReturnOut_out(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2501,7 +2501,7 @@ Fw::String PassiveGuardedProductsComponentBase ::
   noArgsStringReturnOut_out(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsStringReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2525,7 +2525,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_typedAliasOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2557,7 +2557,7 @@ AliasPrim2 PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_typedAliasReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2589,7 +2589,7 @@ AliasString PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_typedAliasReturnStringOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2621,7 +2621,7 @@ void PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_typedOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2653,7 +2653,7 @@ F32 PassiveGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_typedReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
