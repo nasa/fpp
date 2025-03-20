@@ -34,7 +34,7 @@ remove_author()
 # Run a test
 run()
 {
-  printf '%-70s' $1
+  printf '%-74s' $1
   $@
   status=$?
   if test $status -eq 0

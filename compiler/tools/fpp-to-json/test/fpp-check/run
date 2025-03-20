@@ -9,7 +9,7 @@ fpp_to_json=../../../../bin/fpp-to-json
 # Get the name of a test function associated with a test input file
 get_func_name()
 {
-  echo $1 | sed 's;.*/\([^/]*\)/\([^/]*\)\.fpp$;\1_\2;'
+  echo $1 | sed -e 's;.*/fpp-check/test/\(.*\)\.fpp$;\1;' -e 's;/;__;g'
 }
 
 # Run fpp-to-json on fpp-check test cases to (1) get the native build
