@@ -1,17 +1,34 @@
 #!/bin/sh -e
 
+cd `dirname $0`
+
 . ../../../../scripts/test-utils.sh
 
 fpp_to_json=../../../../bin/fpp-to-json
 
+get_func_name()
+{
+  echo $1 | sed 's;.*/\([^/]*\)/\([^/]*\)\.fpp$;\1_\2;'
+}
 
-# Run fpp-to-json on fpp-check test case
-# Success criteria: "Exception in thread" (case insensitive) does not exist in the stdout/stderr of fpp-to-json
+# Run fpp-to-json on fpp-check test cases to (1) get the native build
+# tracing info and (2) test the native build. All we care about is
+# that the tool ran without crashing. For these tests, we ignore
+# the output of the tool.
 run_fpp_check_test() {
+  infile=$1
+  # Check for signs of a crash
   status=0
-  if $fpp_to_json "$@" 2>&1 | grep -qi "Exception in thread"; then
+  if $fpp_to_json $infile 2>&1 | grep -qi "exception in thread"
+  then
+    # Record the error output for debugging
+    func_name=`get_func_name $infile`
+    $fpp_to_json $infile > $func_name.out.txt 2>&1 || true
     status=1
   fi
+  # Remove the tool output, if any.
+  # If the tool execution caused an error, but there was no
+  # crash, there won't be any output, and that's OK.
   rm -f fpp-ast.json fpp-loc-map.json fpp-analysis.json
   return $status
 }
@@ -19,37 +36,36 @@ run_fpp_check_test() {
 # Generate fpp-check test cases by doing the following:
 # Get all .fpp test cases in the fpp-check/test/* directories
 # For each test case:
-#   1.) Create a function with the following name: <directory name>_<file name>
-#   2.) In the function, call the run_fpp_check_test (defined in this file) and provide the filename of the FPP model to run
-# After iterating all test cases:
-#   1.) Write all functions to a new file called fpp-check-tests.sh
-#   2.) Return string containing all test names so they can be executed below
-test_names=""
-fpp_check_test_dir="../../../fpp-check/test/"
-fpp_check_tests=$(for d in "$fpp_check_test_dir"*
-do
-if [[ -d $d ]]; then
-  dir_name="${d##*/}"
-  for f in "$d"/*
+#   1. Create a function with the following name: <directory name>_<file name>
+#   2. In the function, call run_fpp_check_test (defined in this file) and
+#      provide the filename of the FPP model to run
+#   3. Append the function to fpp-check-tests.sh
+#   4. Add the test name to the outut of this function
+generate_fpp_check_tests()
+{
+  rm -f fpp-check-tests.sh
+  for dir in ../../../fpp-check/test/*
   do
-  if [[ -f $f ]]; then
-    if [ "${f##*.}" == "fpp" ]; then  
-    file_name="${f##*/}"
-    file_name="${file_name%.*}"
-    func_name=$dir_name"_"$file_name
-
-    test_names+="$func_name "
-echo "
+    if [[ -d $dir ]]
+    then
+      for file in $dir/*
+      do
+        if echo $file | grep -q '\.fpp$'
+        then  
+          func_name=`get_func_name $file`
+          echo $func_name
+          echo "
 $func_name()
 {
-  run_fpp_check_test $f
-}"
+  run_fpp_check_test $file
+}" >> fpp-check-tests.sh
+        fi
+      done
     fi
-  fi
   done
-fi
-done > fpp-check-tests.sh && \
-echo $test_names)
+}
+
+fpp_check_tests=`generate_fpp_check_tests`
 
 . ./fpp-check-tests.sh
 
