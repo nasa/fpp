@@ -6,8 +6,10 @@ cd `dirname $0`
 
 fpp_to_json=../../../../bin/fpp-to-json
 
-# Get the name of a test function associated with a test input file
-get_func_name()
+# Get the name of a test associated with an FPP input file:
+# 1. Remove the prefix ./*fpp/check/test/
+# 2. Replace all path separators / with __
+get_test_name()
 {
   echo $1 | sed -e 's;.*/fpp-check/test/\(.*\)\.fpp$;\1;' -e 's;/;__;g'
 }
@@ -23,8 +25,8 @@ run_fpp_check_test() {
   if $fpp_to_json $infile 2>&1 | grep -qi "exception in thread"
   then
     # Record the error output for debugging
-    func_name=`get_func_name $infile`
-    $fpp_to_json $infile > $func_name.out.txt 2>&1 || true
+    test_name=`get_test_name $infile`
+    $fpp_to_json $infile > $test_name.out.txt 2>&1 || true
     status=1
   fi
   # Remove the tool output, if any.
@@ -34,23 +36,21 @@ run_fpp_check_test() {
   return $status
 }
 
-# Generate fpp-check test cases by doing the following:
-# Get all .fpp test cases in the fpp-check/test/* directories
-# For each test case:
-#   1. Create a function with the following name: <directory name>_<file name>
-#   2. In the function, call run_fpp_check_test (defined in this file) and
-#      provide the filename of the FPP model to run
-#   3. Append the function to fpp-check-tests.sh
-#   4. Add the test name to the output of this function
+# Generate fpp-check test cases
 generate_fpp_check_tests()
 {
+  # Clear fpp-check-tests.sh
   rm -f fpp-check-tests.sh
+  # Find all .fpp input files under ../../../fpp-check/test
   for file in `find ../../../fpp-check/test -name '*.fpp'`
   do
-    func_name=`get_func_name $file`
-    echo $func_name
+    # Get the name of the test associated with the file
+    test_name=`get_test_name $file`
+    # Add the name to the output of this function
+    echo $test_name
+    # Append a test function with that name to fpp-check-tests.sh
     echo "
-$func_name()
+$test_name()
 {
   run_fpp_check_test $file
 }" >> fpp-check-tests.sh
