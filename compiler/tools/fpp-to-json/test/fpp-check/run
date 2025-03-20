@@ -7,7 +7,7 @@ cd `dirname $0`
 fpp_to_json=../../../../bin/fpp-to-json
 
 # Get the name of a test associated with an FPP input file:
-# 1. Remove the prefix ./*fpp/check/test/
+# 1. Remove the prefix .*/fpp-check/test/
 # 2. Replace all path separators / with __
 get_test_name()
 {
