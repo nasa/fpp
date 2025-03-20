@@ -1046,6 +1046,14 @@
   "fields":[{"name":"0bitmap$1673"}]
 },
 {
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1820",
+  "fields":[{"name":"0bitmap$1672"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1821",
+  "fields":[{"name":"0bitmap$1671"}]
+},
+{
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1824",
   "fields":[{"name":"0bitmap$1696"}]
 },
