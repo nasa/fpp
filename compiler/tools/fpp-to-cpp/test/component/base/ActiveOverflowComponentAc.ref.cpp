@@ -1909,7 +1909,7 @@ void ActiveOverflowComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::Time ActiveOverflowComponentBase ::
-  getTime()
+  getTime() const
 {
   if (this->m_timeGetOut_OutputPort[0].isConnected()) {
     Fw::Time _time;

@@ -7,6 +7,7 @@
 #ifndef ActiveSerialComponentAc_HPP
 #define ActiveSerialComponentAc_HPP
 
+#include <atomic>
 #include <FpConfig.hpp>
 
 #include "AArrayAc.hpp"
@@ -2432,7 +2433,7 @@ class ActiveSerialComponentBase :
     //!  Get the time
     //!
     //! \\return The current time
-    Fw::Time getTime();
+    Fw::Time getTime() const;
 
   PROTECTED:
 
@@ -2989,13 +2990,13 @@ class ActiveSerialComponentBase :
     // ----------------------------------------------------------------------
 
     //! Throttle for EventActivityLowThrottled
-    FwIndexType m_EventActivityLowThrottledThrottle;
+    std::atomic<FwIndexType> m_EventActivityLowThrottledThrottle;
 
     //! Throttle for EventFatalThrottled
-    FwIndexType m_EventFatalThrottledThrottle;
+    std::atomic<FwIndexType> m_EventFatalThrottledThrottle;
 
     //! Throttle for EventWarningLowThrottled
-    FwIndexType m_EventWarningLowThrottledThrottle;
+    std::atomic<FwIndexType> m_EventWarningLowThrottledThrottle;
 
   PRIVATE:
 

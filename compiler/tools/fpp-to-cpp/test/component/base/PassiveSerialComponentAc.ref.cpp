@@ -3456,7 +3456,7 @@ void PassiveSerialComponentBase ::
     return;
   }
   else {
-    this->m_EventActivityLowThrottledThrottle++;
+    (void) this->m_EventActivityLowThrottledThrottle.fetch_add(1);
   }
 
   // Get the time
@@ -3747,7 +3747,7 @@ void PassiveSerialComponentBase ::
     return;
   }
   else {
-    this->m_EventFatalThrottledThrottle++;
+    (void) this->m_EventFatalThrottledThrottle.fetch_add(1);
   }
 
   // Get the time
@@ -3938,7 +3938,7 @@ void PassiveSerialComponentBase ::
     return;
   }
   else {
-    this->m_EventWarningLowThrottledThrottle++;
+    (void) this->m_EventWarningLowThrottledThrottle.fetch_add(1);
   }
 
   // Get the time
@@ -4516,7 +4516,7 @@ S PassiveSerialComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::Time PassiveSerialComponentBase ::
-  getTime()
+  getTime() const
 {
   if (this->m_timeGetOut_OutputPort[0].isConnected()) {
     Fw::Time _time;

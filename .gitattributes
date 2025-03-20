@@ -1,0 +1,7 @@
+# Mark generated reference files as vendored
+# This way they are not counted in the source file statistics for the repository,
+# but they are included in the version diffs
+*.ref.cpp linguist-vendored
+*.ref.hpp linguist-vendored
+*.ref.h linguist-vendored
+
