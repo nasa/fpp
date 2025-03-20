@@ -219,7 +219,7 @@ Ports::InputNoArgsPort* QueuedNoArgsPortsOnlyComponentBase ::
   get_noArgsAsync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsAsync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsAsync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -230,7 +230,7 @@ Ports::InputNoArgsPort* QueuedNoArgsPortsOnlyComponentBase ::
   get_noArgsGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -241,7 +241,7 @@ Ports::InputNoArgsReturnPort* QueuedNoArgsPortsOnlyComponentBase ::
   get_noArgsReturnGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsReturnGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -252,7 +252,7 @@ Ports::InputNoArgsReturnPort* QueuedNoArgsPortsOnlyComponentBase ::
   get_noArgsReturnSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -270,7 +270,7 @@ void QueuedNoArgsPortsOnlyComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -284,7 +284,7 @@ void QueuedNoArgsPortsOnlyComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -304,7 +304,7 @@ void QueuedNoArgsPortsOnlyComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -382,7 +382,7 @@ bool QueuedNoArgsPortsOnlyComponentBase ::
   isConnected_noArgsOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -393,7 +393,7 @@ bool QueuedNoArgsPortsOnlyComponentBase ::
   isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -411,7 +411,7 @@ void QueuedNoArgsPortsOnlyComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsAsync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsAsync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -451,7 +451,7 @@ void QueuedNoArgsPortsOnlyComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -470,7 +470,7 @@ U32 QueuedNoArgsPortsOnlyComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsReturnGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -493,7 +493,7 @@ U32 QueuedNoArgsPortsOnlyComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -527,7 +527,7 @@ void QueuedNoArgsPortsOnlyComponentBase ::
   noArgsOut_out(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -542,7 +542,7 @@ U32 QueuedNoArgsPortsOnlyComponentBase ::
   noArgsReturnOut_out(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 

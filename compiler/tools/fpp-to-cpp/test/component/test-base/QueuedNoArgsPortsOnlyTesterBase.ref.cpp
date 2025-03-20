@@ -155,7 +155,7 @@ void QueuedNoArgsPortsOnlyTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsAsync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsAsync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -169,7 +169,7 @@ void QueuedNoArgsPortsOnlyTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -183,7 +183,7 @@ void QueuedNoArgsPortsOnlyTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsReturnGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -197,7 +197,7 @@ void QueuedNoArgsPortsOnlyTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -212,7 +212,7 @@ Ports::InputNoArgsPort* QueuedNoArgsPortsOnlyTesterBase ::
   get_from_noArgsOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_noArgsOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_noArgsOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -223,7 +223,7 @@ Ports::InputNoArgsReturnPort* QueuedNoArgsPortsOnlyTesterBase ::
   get_from_noArgsReturnOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_noArgsReturnOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_noArgsReturnOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -280,7 +280,7 @@ void QueuedNoArgsPortsOnlyTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_noArgsOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_noArgsOut()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->from_noArgsOut_handler(portNum);
@@ -291,7 +291,7 @@ U32 QueuedNoArgsPortsOnlyTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_noArgsReturnOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_noArgsReturnOut()),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->from_noArgsReturnOut_handler(portNum);
@@ -306,7 +306,7 @@ void QueuedNoArgsPortsOnlyTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsAsync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsAsync()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_to_noArgsAsync[portNum].invoke();
@@ -317,7 +317,7 @@ void QueuedNoArgsPortsOnlyTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_to_noArgsGuarded[portNum].invoke();
@@ -328,7 +328,7 @@ U32 QueuedNoArgsPortsOnlyTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsReturnGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_to_noArgsReturnGuarded[portNum].invoke();
@@ -339,7 +339,7 @@ U32 QueuedNoArgsPortsOnlyTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_to_noArgsReturnSync[portNum].invoke();
@@ -393,7 +393,7 @@ bool QueuedNoArgsPortsOnlyTesterBase ::
   isConnected_to_noArgsAsync(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsAsync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsAsync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -404,7 +404,7 @@ bool QueuedNoArgsPortsOnlyTesterBase ::
   isConnected_to_noArgsGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -415,7 +415,7 @@ bool QueuedNoArgsPortsOnlyTesterBase ::
   isConnected_to_noArgsReturnGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsReturnGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -426,7 +426,7 @@ bool QueuedNoArgsPortsOnlyTesterBase ::
   isConnected_to_noArgsReturnSync(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 

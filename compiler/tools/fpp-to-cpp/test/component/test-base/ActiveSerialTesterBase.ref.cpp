@@ -935,7 +935,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_cmdIn(),
+    (0 <= portNum) && (portNum < this->getNum_to_cmdIn()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -949,7 +949,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_aliasTypedAsync(),
+    (0 <= portNum) && (portNum < this->getNum_to_aliasTypedAsync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -963,7 +963,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsAliasStringReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsAliasStringReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -977,7 +977,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsAsync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsAsync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -991,7 +991,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1005,7 +1005,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsReturnGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1019,7 +1019,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1033,7 +1033,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsStringReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsStringReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1047,7 +1047,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1061,7 +1061,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedAliasGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedAliasGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1075,7 +1075,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedAliasReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedAliasReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1089,7 +1089,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedAliasStringReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedAliasStringReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1103,7 +1103,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedAsync(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedAsync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1117,7 +1117,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedAsyncAssert(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedAsyncAssert()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1131,7 +1131,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedAsyncBlockPriority(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedAsyncBlockPriority()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1145,7 +1145,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedAsyncDropPriority(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedAsyncDropPriority()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1159,7 +1159,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1173,7 +1173,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedReturnGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedReturnGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1187,7 +1187,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1201,7 +1201,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1215,7 +1215,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_serialAsync(),
+    (0 <= portNum) && (portNum < this->getNum_to_serialAsync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1229,7 +1229,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_serialAsyncAssert(),
+    (0 <= portNum) && (portNum < this->getNum_to_serialAsyncAssert()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1243,7 +1243,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_serialAsyncBlockPriority(),
+    (0 <= portNum) && (portNum < this->getNum_to_serialAsyncBlockPriority()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1257,7 +1257,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_serialAsyncDropPriority(),
+    (0 <= portNum) && (portNum < this->getNum_to_serialAsyncDropPriority()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1271,7 +1271,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_serialGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_serialGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1285,7 +1285,7 @@ void ActiveSerialTesterBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_serialSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_serialSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1300,7 +1300,7 @@ Fw::InputCmdRegPort* ActiveSerialTesterBase ::
   get_from_cmdRegOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_cmdRegOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_cmdRegOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1311,7 +1311,7 @@ Fw::InputCmdResponsePort* ActiveSerialTesterBase ::
   get_from_cmdResponseOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_cmdResponseOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_cmdResponseOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1322,7 +1322,7 @@ Fw::InputLogPort* ActiveSerialTesterBase ::
   get_from_eventOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_eventOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_eventOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1333,7 +1333,7 @@ Fw::InputPrmGetPort* ActiveSerialTesterBase ::
   get_from_prmGetOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_prmGetOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_prmGetOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1344,7 +1344,7 @@ Fw::InputPrmSetPort* ActiveSerialTesterBase ::
   get_from_prmSetOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_prmSetOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_prmSetOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1357,7 +1357,7 @@ Fw::InputLogTextPort* ActiveSerialTesterBase ::
   get_from_textEventOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_textEventOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_textEventOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1370,7 +1370,7 @@ Fw::InputTimePort* ActiveSerialTesterBase ::
   get_from_timeGetOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_timeGetOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_timeGetOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1381,7 +1381,7 @@ Fw::InputTlmPort* ActiveSerialTesterBase ::
   get_from_tlmOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_tlmOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_tlmOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1392,7 +1392,7 @@ Ports::InputNoArgsPort* ActiveSerialTesterBase ::
   get_from_noArgsOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_noArgsOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_noArgsOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1403,7 +1403,7 @@ Ports::InputNoArgsReturnPort* ActiveSerialTesterBase ::
   get_from_noArgsReturnOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_noArgsReturnOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_noArgsReturnOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1414,7 +1414,7 @@ Ports::InputNoArgsStringReturnPort* ActiveSerialTesterBase ::
   get_from_noArgsStringReturnOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_noArgsStringReturnOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_noArgsStringReturnOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1425,7 +1425,7 @@ Ports::InputAliasTypedPort* ActiveSerialTesterBase ::
   get_from_typedAliasOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_typedAliasOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_typedAliasOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1436,7 +1436,7 @@ Ports::InputAliasTypedReturnPort* ActiveSerialTesterBase ::
   get_from_typedAliasReturnOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_typedAliasReturnOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_typedAliasReturnOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1447,7 +1447,7 @@ Ports::InputAliasTypedReturnStringPort* ActiveSerialTesterBase ::
   get_from_typedAliasReturnStringOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_typedAliasReturnStringOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_typedAliasReturnStringOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1458,7 +1458,7 @@ Ports::InputTypedPort* ActiveSerialTesterBase ::
   get_from_typedOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_typedOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_typedOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1469,7 +1469,7 @@ Ports::InputTypedReturnPort* ActiveSerialTesterBase ::
   get_from_typedReturnOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_typedReturnOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_typedReturnOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1480,7 +1480,7 @@ Fw::InputSerializePort* ActiveSerialTesterBase ::
   get_from_serialOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_serialOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_serialOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1704,7 +1704,7 @@ void ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_noArgsOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_noArgsOut()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->from_noArgsOut_handler(portNum);
@@ -1715,7 +1715,7 @@ U32 ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_noArgsReturnOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_noArgsReturnOut()),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->from_noArgsReturnOut_handler(portNum);
@@ -1726,7 +1726,7 @@ Fw::String ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_noArgsStringReturnOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_noArgsStringReturnOut()),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->from_noArgsStringReturnOut_handler(portNum);
@@ -1746,7 +1746,7 @@ void ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_typedAliasOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_typedAliasOut()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->from_typedAliasOut_handler(
@@ -1775,7 +1775,7 @@ AliasPrim2 ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_typedAliasReturnOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_typedAliasReturnOut()),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->from_typedAliasReturnOut_handler(
@@ -1804,7 +1804,7 @@ AliasString ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_typedAliasReturnStringOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_typedAliasReturnStringOut()),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->from_typedAliasReturnStringOut_handler(
@@ -1833,7 +1833,7 @@ void ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_typedOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_typedOut()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->from_typedOut_handler(
@@ -1862,7 +1862,7 @@ F32 ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_typedReturnOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_typedReturnOut()),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->from_typedReturnOut_handler(
@@ -1885,7 +1885,7 @@ void ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_from_serialOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_serialOut()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->from_serialOut_handler(
@@ -1912,7 +1912,7 @@ void ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_aliasTypedAsync(),
+    (0 <= portNum) && (portNum < this->getNum_to_aliasTypedAsync()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_to_aliasTypedAsync[portNum].invoke(
@@ -1931,7 +1931,7 @@ AliasString ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsAliasStringReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsAliasStringReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_to_noArgsAliasStringReturnSync[portNum].invoke();
@@ -1942,7 +1942,7 @@ void ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsAsync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsAsync()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_to_noArgsAsync[portNum].invoke();
@@ -1953,7 +1953,7 @@ void ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_to_noArgsGuarded[portNum].invoke();
@@ -1964,7 +1964,7 @@ U32 ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsReturnGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_to_noArgsReturnGuarded[portNum].invoke();
@@ -1975,7 +1975,7 @@ U32 ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_to_noArgsReturnSync[portNum].invoke();
@@ -1986,7 +1986,7 @@ Fw::String ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsStringReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsStringReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_to_noArgsStringReturnSync[portNum].invoke();
@@ -1997,7 +1997,7 @@ void ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsSync()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_to_noArgsSync[portNum].invoke();
@@ -2017,7 +2017,7 @@ void ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedAliasGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedAliasGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_to_typedAliasGuarded[portNum].invoke(
@@ -2045,7 +2045,7 @@ AliasPrim2 ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedAliasReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedAliasReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_to_typedAliasReturnSync[portNum].invoke(
@@ -2073,7 +2073,7 @@ AliasString ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedAliasStringReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedAliasStringReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_to_typedAliasStringReturnSync[portNum].invoke(
@@ -2101,7 +2101,7 @@ void ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedAsync(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedAsync()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_to_typedAsync[portNum].invoke(
@@ -2129,7 +2129,7 @@ void ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedAsyncAssert(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedAsyncAssert()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_to_typedAsyncAssert[portNum].invoke(
@@ -2157,7 +2157,7 @@ void ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedAsyncBlockPriority(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedAsyncBlockPriority()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_to_typedAsyncBlockPriority[portNum].invoke(
@@ -2185,7 +2185,7 @@ void ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedAsyncDropPriority(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedAsyncDropPriority()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_to_typedAsyncDropPriority[portNum].invoke(
@@ -2213,7 +2213,7 @@ void ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_to_typedGuarded[portNum].invoke(
@@ -2241,7 +2241,7 @@ F32 ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedReturnGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedReturnGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_to_typedReturnGuarded[portNum].invoke(
@@ -2269,7 +2269,7 @@ F32 ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_to_typedReturnSync[portNum].invoke(
@@ -2297,7 +2297,7 @@ void ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedSync()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_to_typedSync[portNum].invoke(
@@ -2319,7 +2319,7 @@ void ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_serialAsync(),
+    (0 <= portNum) && (portNum < this->getNum_to_serialAsync()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_to_serialAsync[portNum].invokeSerial(
@@ -2335,7 +2335,7 @@ void ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_serialAsyncAssert(),
+    (0 <= portNum) && (portNum < this->getNum_to_serialAsyncAssert()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_to_serialAsyncAssert[portNum].invokeSerial(
@@ -2351,7 +2351,7 @@ void ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_serialAsyncBlockPriority(),
+    (0 <= portNum) && (portNum < this->getNum_to_serialAsyncBlockPriority()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_to_serialAsyncBlockPriority[portNum].invokeSerial(
@@ -2367,7 +2367,7 @@ void ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_serialAsyncDropPriority(),
+    (0 <= portNum) && (portNum < this->getNum_to_serialAsyncDropPriority()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_to_serialAsyncDropPriority[portNum].invokeSerial(
@@ -2383,7 +2383,7 @@ void ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_serialGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_serialGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_to_serialGuarded[portNum].invokeSerial(
@@ -2399,7 +2399,7 @@ void ActiveSerialTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_serialSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_serialSync()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_to_serialSync[portNum].invokeSerial(
@@ -2681,7 +2681,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_cmdIn(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_cmdIn(),
+    (0 <= portNum) && (portNum < this->getNum_to_cmdIn()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2692,7 +2692,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_aliasTypedAsync(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_aliasTypedAsync(),
+    (0 <= portNum) && (portNum < this->getNum_to_aliasTypedAsync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2703,7 +2703,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_noArgsAliasStringReturnSync(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsAliasStringReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsAliasStringReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2714,7 +2714,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_noArgsAsync(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsAsync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsAsync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2725,7 +2725,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_noArgsGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2736,7 +2736,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_noArgsReturnGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsReturnGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2747,7 +2747,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_noArgsReturnSync(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2758,7 +2758,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_noArgsStringReturnSync(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsStringReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsStringReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2769,7 +2769,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_noArgsSync(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_noArgsSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2780,7 +2780,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_typedAliasGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedAliasGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedAliasGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2791,7 +2791,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_typedAliasReturnSync(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedAliasReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedAliasReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2802,7 +2802,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_typedAliasStringReturnSync(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedAliasStringReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedAliasStringReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2813,7 +2813,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_typedAsync(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedAsync(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedAsync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2824,7 +2824,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_typedAsyncAssert(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedAsyncAssert(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedAsyncAssert()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2835,7 +2835,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_typedAsyncBlockPriority(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedAsyncBlockPriority(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedAsyncBlockPriority()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2846,7 +2846,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_typedAsyncDropPriority(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedAsyncDropPriority(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedAsyncDropPriority()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2857,7 +2857,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_typedGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2868,7 +2868,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_typedReturnGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedReturnGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedReturnGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2879,7 +2879,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_typedReturnSync(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2890,7 +2890,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_typedSync(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_typedSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2901,7 +2901,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_serialAsync(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_serialAsync(),
+    (0 <= portNum) && (portNum < this->getNum_to_serialAsync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2912,7 +2912,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_serialAsyncAssert(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_serialAsyncAssert(),
+    (0 <= portNum) && (portNum < this->getNum_to_serialAsyncAssert()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2923,7 +2923,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_serialAsyncBlockPriority(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_serialAsyncBlockPriority(),
+    (0 <= portNum) && (portNum < this->getNum_to_serialAsyncBlockPriority()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2934,7 +2934,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_serialAsyncDropPriority(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_serialAsyncDropPriority(),
+    (0 <= portNum) && (portNum < this->getNum_to_serialAsyncDropPriority()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2945,7 +2945,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_serialGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_serialGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_serialGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2956,7 +2956,7 @@ bool ActiveSerialTesterBase ::
   isConnected_to_serialSync(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_to_serialSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_serialSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 

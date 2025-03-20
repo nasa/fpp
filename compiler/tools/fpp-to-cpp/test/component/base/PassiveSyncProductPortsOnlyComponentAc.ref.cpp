@@ -92,7 +92,7 @@ Fw::InputDpResponsePort* PassiveSyncProductPortsOnlyComponentBase ::
   get_productRecvIn_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_productRecvIn_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productRecvIn_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -110,7 +110,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_productRequestOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -124,7 +124,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_productSendOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -144,7 +144,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_productRequestOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -158,7 +158,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_productSendOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -218,7 +218,7 @@ bool PassiveSyncProductPortsOnlyComponentBase ::
   isConnected_productRequestOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_productRequestOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -229,7 +229,7 @@ bool PassiveSyncProductPortsOnlyComponentBase ::
   isConnected_productSendOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_productSendOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -252,7 +252,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_productRecvIn_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productRecvIn_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -277,7 +277,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_productRequestOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -299,7 +299,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_productSendOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 

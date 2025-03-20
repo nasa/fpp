@@ -739,7 +739,7 @@ Fw::InputCmdPort* PassiveSerialComponentBase ::
   get_cmdIn_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_cmdIn_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_cmdIn_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -754,7 +754,7 @@ Ports::InputNoArgsAliasStringReturnPort* PassiveSerialComponentBase ::
   get_noArgsAliasStringReturnSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsAliasStringReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsAliasStringReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -765,7 +765,7 @@ Ports::InputNoArgsPort* PassiveSerialComponentBase ::
   get_noArgsGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -776,7 +776,7 @@ Ports::InputNoArgsReturnPort* PassiveSerialComponentBase ::
   get_noArgsReturnGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsReturnGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -787,7 +787,7 @@ Ports::InputNoArgsReturnPort* PassiveSerialComponentBase ::
   get_noArgsReturnSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -798,7 +798,7 @@ Ports::InputNoArgsStringReturnPort* PassiveSerialComponentBase ::
   get_noArgsStringReturnSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsStringReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -809,7 +809,7 @@ Ports::InputNoArgsPort* PassiveSerialComponentBase ::
   get_noArgsSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -820,7 +820,7 @@ Ports::InputAliasTypedPort* PassiveSerialComponentBase ::
   get_typedAliasGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedAliasGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -831,7 +831,7 @@ Ports::InputAliasTypedReturnPort* PassiveSerialComponentBase ::
   get_typedAliasReturnSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedAliasReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -842,7 +842,7 @@ Ports::InputAliasTypedReturnStringPort* PassiveSerialComponentBase ::
   get_typedAliasStringReturnSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedAliasStringReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasStringReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -853,7 +853,7 @@ Ports::InputTypedPort* PassiveSerialComponentBase ::
   get_typedGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -864,7 +864,7 @@ Ports::InputTypedReturnPort* PassiveSerialComponentBase ::
   get_typedReturnGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedReturnGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedReturnGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -875,7 +875,7 @@ Ports::InputTypedReturnPort* PassiveSerialComponentBase ::
   get_typedReturnSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -886,7 +886,7 @@ Ports::InputTypedPort* PassiveSerialComponentBase ::
   get_typedSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -901,7 +901,7 @@ Fw::InputSerializePort* PassiveSerialComponentBase ::
   get_serialGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_serialGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_serialGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -912,7 +912,7 @@ Fw::InputSerializePort* PassiveSerialComponentBase ::
   get_serialSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_serialSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_serialSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -930,7 +930,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_cmdRegOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -944,7 +944,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_cmdResponseOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -958,7 +958,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_eventOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -972,7 +972,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_prmGetOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -986,7 +986,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_prmSetOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1002,7 +1002,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_textEventOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1018,7 +1018,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_timeGetOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1032,7 +1032,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_tlmOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1050,7 +1050,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1064,7 +1064,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1078,7 +1078,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsStringReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1092,7 +1092,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedAliasOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1106,7 +1106,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedAliasReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1120,7 +1120,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedAliasReturnStringOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1134,7 +1134,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1148,7 +1148,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1168,7 +1168,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_cmdRegOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1182,7 +1182,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_cmdResponseOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1196,7 +1196,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_eventOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1210,7 +1210,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_prmSetOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1226,7 +1226,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_textEventOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1242,7 +1242,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_timeGetOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1256,7 +1256,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_tlmOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1278,7 +1278,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1292,7 +1292,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedAliasOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1306,7 +1306,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1328,7 +1328,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_serialOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_serialOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1885,7 +1885,7 @@ bool PassiveSerialComponentBase ::
   isConnected_cmdRegOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_cmdRegOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1896,7 +1896,7 @@ bool PassiveSerialComponentBase ::
   isConnected_cmdResponseOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_cmdResponseOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1907,7 +1907,7 @@ bool PassiveSerialComponentBase ::
   isConnected_eventOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_eventOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1918,7 +1918,7 @@ bool PassiveSerialComponentBase ::
   isConnected_prmGetOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_prmGetOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1929,7 +1929,7 @@ bool PassiveSerialComponentBase ::
   isConnected_prmSetOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_prmSetOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1942,7 +1942,7 @@ bool PassiveSerialComponentBase ::
   isConnected_textEventOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_textEventOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1955,7 +1955,7 @@ bool PassiveSerialComponentBase ::
   isConnected_timeGetOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_timeGetOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1966,7 +1966,7 @@ bool PassiveSerialComponentBase ::
   isConnected_tlmOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_tlmOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1981,7 +1981,7 @@ bool PassiveSerialComponentBase ::
   isConnected_noArgsOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1992,7 +1992,7 @@ bool PassiveSerialComponentBase ::
   isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2003,7 +2003,7 @@ bool PassiveSerialComponentBase ::
   isConnected_noArgsStringReturnOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsStringReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2014,7 +2014,7 @@ bool PassiveSerialComponentBase ::
   isConnected_typedAliasOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedAliasOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2025,7 +2025,7 @@ bool PassiveSerialComponentBase ::
   isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedAliasReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2036,7 +2036,7 @@ bool PassiveSerialComponentBase ::
   isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedAliasReturnStringOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2047,7 +2047,7 @@ bool PassiveSerialComponentBase ::
   isConnected_typedOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2058,7 +2058,7 @@ bool PassiveSerialComponentBase ::
   isConnected_typedReturnOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2073,7 +2073,7 @@ bool PassiveSerialComponentBase ::
   isConnected_serialOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_serialOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_serialOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2091,7 +2091,7 @@ AliasString PassiveSerialComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsAliasStringReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsAliasStringReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2108,7 +2108,7 @@ void PassiveSerialComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2127,7 +2127,7 @@ U32 PassiveSerialComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsReturnGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2150,7 +2150,7 @@ U32 PassiveSerialComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2167,7 +2167,7 @@ Fw::String PassiveSerialComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsStringReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2184,7 +2184,7 @@ void PassiveSerialComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2206,7 +2206,7 @@ void PassiveSerialComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedAliasGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2243,7 +2243,7 @@ AliasPrim2 PassiveSerialComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedAliasReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2278,7 +2278,7 @@ AliasString PassiveSerialComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedAliasStringReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasStringReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2313,7 +2313,7 @@ void PassiveSerialComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2350,7 +2350,7 @@ F32 PassiveSerialComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedReturnGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedReturnGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2391,7 +2391,7 @@ F32 PassiveSerialComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2426,7 +2426,7 @@ void PassiveSerialComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2457,7 +2457,7 @@ void PassiveSerialComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_serialGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_serialGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2482,7 +2482,7 @@ void PassiveSerialComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_serialSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_serialSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2501,7 +2501,7 @@ void PassiveSerialComponentBase ::
   noArgsOut_out(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2516,7 +2516,7 @@ U32 PassiveSerialComponentBase ::
   noArgsReturnOut_out(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2531,7 +2531,7 @@ Fw::String PassiveSerialComponentBase ::
   noArgsStringReturnOut_out(FwIndexType portNum)
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_noArgsStringReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2555,7 +2555,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedAliasOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2587,7 +2587,7 @@ AliasPrim2 PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedAliasReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2619,7 +2619,7 @@ AliasString PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedAliasReturnStringOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2651,7 +2651,7 @@ void PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2683,7 +2683,7 @@ F32 PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_typedReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2713,7 +2713,7 @@ Fw::SerializeStatus PassiveSerialComponentBase ::
   )
 {
   FW_ASSERT(
-    0 <= portNum && portNum < this->getNum_serialOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_serialOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 

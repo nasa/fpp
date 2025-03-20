@@ -437,7 +437,7 @@ case class ComponentTesterBaseWriter(
             lines(
               s"""|// Make sure port number is valid
                   |FW_ASSERT(
-                  |  0 <= portNum && portNum < this->${testerPortNumGetterName(p)}(),
+                  |  (0 <= portNum) && (portNum < this->${testerPortNumGetterName(p)}()),
                   |  static_cast<FwAssertArgType>(portNum)
                   |);
                   |
@@ -477,7 +477,7 @@ case class ComponentTesterBaseWriter(
             lines(
               s"""|// Make sure port number is valid
                   |FW_ASSERT(
-                  |  0 <= portNum && portNum < this->${testerPortNumGetterName(p)}(),
+                  |  (0 <= portNum) && (portNum < this->${testerPortNumGetterName(p)}()),
                   |  static_cast<FwAssertArgType>(portNum)
                   |);
                   |
