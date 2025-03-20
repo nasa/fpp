@@ -4516,7 +4516,7 @@ S PassiveSerialComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::Time PassiveSerialComponentBase ::
-  getTime()
+  getTime() const
 {
   if (this->m_timeGetOut_OutputPort[0].isConnected()) {
     Fw::Time _time;

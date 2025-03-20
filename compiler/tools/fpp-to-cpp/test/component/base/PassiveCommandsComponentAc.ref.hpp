@@ -1348,7 +1348,7 @@ class PassiveCommandsComponentBase :
     //!  Get the time
     //!
     //! \\return The current time
-    Fw::Time getTime();
+    Fw::Time getTime() const;
 
   PROTECTED:
 

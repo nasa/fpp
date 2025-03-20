@@ -6511,7 +6511,7 @@ void QueuedTestComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::Time QueuedTestComponentBase ::
-  getTime()
+  getTime() const
 {
   if (this->m_timeGetOut_OutputPort[0].isConnected()) {
     Fw::Time _time;

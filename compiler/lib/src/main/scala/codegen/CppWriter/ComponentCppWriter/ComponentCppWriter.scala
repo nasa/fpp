@@ -935,7 +935,9 @@ case class ComponentCppWriter (
               lines(
                 "return Fw::Time(TB_NONE, 0, 0);"
               )
-            )
+            ),
+            CppDoc.Function.NonSV,
+            CppDoc.Function.Const
           )
         )
       )
