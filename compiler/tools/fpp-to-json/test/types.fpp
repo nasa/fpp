@@ -16,3 +16,26 @@ struct S2 { x: U32, y: string } default s
 
 type T # T is an abstract type
 array arr = [3] T # A is an array of 3 values of type T
+
+# struct with identifier that is a reserved word
+struct SignalInfo {
+  $type: SignalType
+  history: SignalSet
+  pairHistory: SignalPairSet
+}
+
+struct SignalPair {
+  $time: F32 format "{f}"
+  value: F32 format "{f}"
+}
+
+array SignalPairSet = [4] SignalPair
+
+array SignalSet = [4] F32 format "{f}"
+
+enum SignalType {
+  TRIANGLE
+  SQUARE
+  SINE
+  NOISE
+}

@@ -48,7 +48,7 @@ case class CppWriterState(
     CppWriterState.identFromQualifiedName(a.getQualifiedName(s))
 
   /** Constructs an include guard from a qualified name and a kind */
-  def includeGuardFromQualifiedName(s: Symbol, name: String): String = {
+  def includeGuardFromQualifiedName(s: Symbol, name: String, headerExtension: String = "HPP"): String = {
     val guard = a.getEnclosingNames(s) match {
       case Nil => name
       case names =>
@@ -57,7 +57,7 @@ case class CppWriterState(
         )
         s"${prefix}_$name"
     }
-    s"${guard}_HPP"
+    s"${guard}_$headerExtension"
   }
 
   /** Gets the C++ namespace associated with a symbol */
@@ -122,12 +122,13 @@ case class CppWriterState(
   /** Get an include path for a symbol and a file name base */
   def getIncludePath(
     sym: Symbol,
-    fileNameBase: String
+    fileNameBase: String,
+    headerExtension: String = "hpp"
   ): String = {
     val loc = sym.getLoc.tuLocation
     val fullPath = loc.getNeighborPath(fileNameBase)
     val path = removeLongestPathPrefix(fullPath)
-    s"${path.toString}.hpp"
+    s"${path.toString}.$headerExtension"
   }
 
   /** Write include directives for autocoded files */
@@ -138,14 +139,9 @@ case class CppWriterState(
         fileName <- sym match {
           case _: Symbol.AbsType =>
               if isBuiltInType(name) then None else Some(name)
-          case at: Symbol.AliasType =>
-            // TODO(tumbar) We are not generating the type alias definitions in C++
-            // yet. We need to include the definitions for the referenced type for now.
-            a.useDefMap.get(at.node._2.data.typeName.id) match {
-              case Some(refSym) => return getIncludeFiles(refSym)
-              // This is probably a builtin primitive
-              case None => None
-            }
+          case _: Symbol.AliasType => Some(
+            ComputeCppFiles.FileNames.getAliasType(name)
+          )
           case _: Symbol.Array => Some(
             ComputeCppFiles.FileNames.getArray(name)
           )
@@ -179,8 +175,29 @@ case class CppWriterState(
   /** Is t a built-in type? */
   def isBuiltInType(typeName: String): Boolean = builtInTypes.contains(typeName)
 
+  def isTypeSupportedInC(t: Type): Boolean = {
+    t match {
+      case Type.AliasType(node, aliasType) =>
+        a.parentSymbolMap.get(Symbol.AliasType(node)) match {
+          // Types that are definied inside some namespace cannot be included in C headers
+          case Some(_) => false
+          // Make sure all types in the alias chain meet the C requirements
+          case None => isTypeSupportedInC(aliasType)
+        }
+      case Type.AbsType(node) => isBuiltInType(getName(Symbol.AbsType(node)))
+      case Type.PrimitiveInt(_) => true
+      case Type.Float(_) => true
+      case _ => false
+    }
+  }
+
   /** Is t a primitive type (not serializable)? */
-  def isPrimitive(t: Type, typeName: String): Boolean  = isBuiltInType(typeName) || t.getUnderlyingType.isPrimitive
+  def isPrimitive(t: Type, typeName: String): Boolean  = (
+    isBuiltInType(typeName) ||
+    t.getUnderlyingType.isPrimitive ||
+    // See if this an alias of a builtin type
+    isBuiltInType(t.getUnderlyingType.toString())
+  )
 
   /** Is t a string type? */
   def isStringType(t: Type) = t.getUnderlyingType match {

@@ -277,145 +277,471 @@
       ],
       [
         [
-          "Component for illustrating event throttling"
         ],
         {
-          "DefComponent" : {
+          "DefModule" : {
             "node" : {
               "AstNode" : {
                 "data" : {
-                  "kind" : {
-                    "Passive" : {
-                      
-                    }
-                  },
-                  "name" : "EventThrottling",
+                  "name" : "M",
                   "members" : [
                     [
                       [
-                        "Event port"
+                        "Component for illustrating event throttling"
                       ],
                       {
-                        "SpecPortInstance" : {
+                        "DefComponent" : {
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "Special" : {
-                                  "inputKind" : "None",
-                                  "kind" : {
-                                    "Event" : {
-                                      
-                                    }
-                                  },
-                                  "name" : "eventOut",
-                                  "priority" : "None",
-                                  "queueFull" : "None"
-                                }
-                              },
-                              "id" : 20
-                            }
-                          }
-                        }
-                      },
-                      [
-                      ]
-                    ],
-                    [
-                      [
-                        "Text event port"
-                      ],
-                      {
-                        "SpecPortInstance" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "Special" : {
-                                  "inputKind" : "None",
-                                  "kind" : {
-                                    "TextEvent" : {
-                                      
-                                    }
-                                  },
-                                  "name" : "textEventOut",
-                                  "priority" : "None",
-                                  "queueFull" : "None"
-                                }
-                              },
-                              "id" : 21
-                            }
-                          }
-                        }
-                      },
-                      [
-                      ]
-                    ],
-                    [
-                      [
-                        "Time get port"
-                      ],
-                      {
-                        "SpecPortInstance" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "Special" : {
-                                  "inputKind" : "None",
-                                  "kind" : {
-                                    "TimeGet" : {
-                                      
-                                    }
-                                  },
-                                  "name" : "timeGetOut",
-                                  "priority" : "None",
-                                  "queueFull" : "None"
-                                }
-                              },
-                              "id" : 22
-                            }
-                          }
-                        }
-                      },
-                      [
-                      ]
-                    ],
-                    [
-                      [
-                        "Event 1"
-                      ],
-                      {
-                        "SpecEvent" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "Event1",
-                                "params" : [
-                                ],
-                                "severity" : {
-                                  "WarningHigh" : {
+                                "kind" : {
+                                  "Passive" : {
                                     
                                   }
                                 },
-                                "id" : "None",
-                                "format" : {
-                                  "AstNode" : {
-                                    "data" : "Event 1 occurred",
-                                    "id" : 29
-                                  }
-                                },
-                                "throttle" : {
-                                  "Some" : {
-                                    "AstNode" : {
-                                      "data" : {
-                                        "ExprLiteralInt" : {
-                                          "value" : "10"
+                                "name" : "EventThrottling",
+                                "members" : [
+                                  [
+                                    [
+                                      "Event port"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "Special" : {
+                                                "inputKind" : "None",
+                                                "kind" : {
+                                                  "Event" : {
+                                                    
+                                                  }
+                                                },
+                                                "name" : "eventOut",
+                                                "priority" : "None",
+                                                "queueFull" : "None"
+                                              }
+                                            },
+                                            "id" : 120
+                                          }
                                         }
-                                      },
-                                      "id" : 30
-                                    }
-                                  }
-                                }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Text event port"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "Special" : {
+                                                "inputKind" : "None",
+                                                "kind" : {
+                                                  "TextEvent" : {
+                                                    
+                                                  }
+                                                },
+                                                "name" : "textEventOut",
+                                                "priority" : "None",
+                                                "queueFull" : "None"
+                                              }
+                                            },
+                                            "id" : 121
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Time get port"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "Special" : {
+                                                "inputKind" : "None",
+                                                "kind" : {
+                                                  "TimeGet" : {
+                                                    
+                                                  }
+                                                },
+                                                "name" : "timeGetOut",
+                                                "priority" : "None",
+                                                "queueFull" : "None"
+                                              }
+                                            },
+                                            "id" : 122
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Event 1"
+                                    ],
+                                    {
+                                      "SpecEvent" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "name" : "Event1",
+                                              "params" : [
+                                              ],
+                                              "severity" : {
+                                                "ActivityLow" : {
+                                                  
+                                                }
+                                              },
+                                              "id" : {
+                                                "Some" : {
+                                                  "AstNode" : {
+                                                    "data" : {
+                                                      "ExprLiteralInt" : {
+                                                        "value" : "0x10"
+                                                      }
+                                                    },
+                                                    "id" : 123
+                                                  }
+                                                }
+                                              },
+                                              "format" : {
+                                                "AstNode" : {
+                                                  "data" : "Event 1 occurred",
+                                                  "id" : 124
+                                                }
+                                              },
+                                              "throttle" : "None"
+                                            },
+                                            "id" : 125
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Event 2"
+                                    ],
+                                    {
+                                      "SpecEvent" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "name" : "Event2",
+                                              "params" : [
+                                                [
+                                                  [
+                                                  ],
+                                                  {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "kind" : {
+                                                          "Value" : {
+                                                            
+                                                          }
+                                                        },
+                                                        "name" : "port",
+                                                        "typeName" : {
+                                                          "AstNode" : {
+                                                            "data" : {
+                                                              "TypeNameInt" : {
+                                                                "name" : {
+                                                                  "I32" : {
+                                                                    
+                                                                  }
+                                                                }
+                                                              }
+                                                            },
+                                                            "id" : 128
+                                                          }
+                                                        }
+                                                      },
+                                                      "id" : 129
+                                                    }
+                                                  },
+                                                  [
+                                                    "Port arg"
+                                                  ]
+                                                ]
+                                              ],
+                                              "severity" : {
+                                                "Command" : {
+                                                  
+                                                }
+                                              },
+                                              "id" : {
+                                                "Some" : {
+                                                  "AstNode" : {
+                                                    "data" : {
+                                                      "ExprLiteralInt" : {
+                                                        "value" : "2"
+                                                      }
+                                                    },
+                                                    "id" : 130
+                                                  }
+                                                }
+                                              },
+                                              "format" : {
+                                                "AstNode" : {
+                                                  "data" : "Port {}",
+                                                  "id" : 131
+                                                }
+                                              },
+                                              "throttle" : "None"
+                                            },
+                                            "id" : 132
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Event 3",
+                                      "Event with 3 args"
+                                    ],
+                                    {
+                                      "SpecEvent" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "name" : "Event3",
+                                              "params" : [
+                                                [
+                                                  [
+                                                  ],
+                                                  {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "kind" : {
+                                                          "Value" : {
+                                                            
+                                                          }
+                                                        },
+                                                        "name" : "arg1",
+                                                        "typeName" : {
+                                                          "AstNode" : {
+                                                            "data" : {
+                                                              "TypeNameInt" : {
+                                                                "name" : {
+                                                                  "I32" : {
+                                                                    
+                                                                  }
+                                                                }
+                                                              }
+                                                            },
+                                                            "id" : 135
+                                                          }
+                                                        }
+                                                      },
+                                                      "id" : 136
+                                                    }
+                                                  },
+                                                  [
+                                                    "Arg1"
+                                                  ]
+                                                ],
+                                                [
+                                                  [
+                                                  ],
+                                                  {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "kind" : {
+                                                          "Value" : {
+                                                            
+                                                          }
+                                                        },
+                                                        "name" : "arg2",
+                                                        "typeName" : {
+                                                          "AstNode" : {
+                                                            "data" : {
+                                                              "TypeNameFloat" : {
+                                                                "name" : {
+                                                                  "F32" : {
+                                                                    
+                                                                  }
+                                                                }
+                                                              }
+                                                            },
+                                                            "id" : 139
+                                                          }
+                                                        }
+                                                      },
+                                                      "id" : 140
+                                                    }
+                                                  },
+                                                  [
+                                                    "Arg2"
+                                                  ]
+                                                ],
+                                                [
+                                                  [
+                                                  ],
+                                                  {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "kind" : {
+                                                          "Value" : {
+                                                            
+                                                          }
+                                                        },
+                                                        "name" : "arg3",
+                                                        "typeName" : {
+                                                          "AstNode" : {
+                                                            "data" : {
+                                                              "TypeNameInt" : {
+                                                                "name" : {
+                                                                  "U8" : {
+                                                                    
+                                                                  }
+                                                                }
+                                                              }
+                                                            },
+                                                            "id" : 143
+                                                          }
+                                                        }
+                                                      },
+                                                      "id" : 144
+                                                    }
+                                                  },
+                                                  [
+                                                    "Arg3"
+                                                  ]
+                                                ]
+                                              ],
+                                              "severity" : {
+                                                "ActivityHigh" : {
+                                                  
+                                                }
+                                              },
+                                              "id" : {
+                                                "Some" : {
+                                                  "AstNode" : {
+                                                    "data" : {
+                                                      "ExprLiteralInt" : {
+                                                        "value" : "9"
+                                                      }
+                                                    },
+                                                    "id" : 145
+                                                  }
+                                                }
+                                              },
+                                              "format" : {
+                                                "AstNode" : {
+                                                  "data" : "Event3 args: I32: {}, F32: {f}, U8: {}",
+                                                  "id" : 146
+                                                }
+                                              },
+                                              "throttle" : "None"
+                                            },
+                                            "id" : 147
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Exceeded the number of commands that can be simultaneously executed"
+                                    ],
+                                    {
+                                      "SpecEvent" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "name" : "TooManyCommands",
+                                              "params" : [
+                                                [
+                                                  [
+                                                  ],
+                                                  {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "kind" : {
+                                                          "Value" : {
+                                                            
+                                                          }
+                                                        },
+                                                        "name" : "Opcode",
+                                                        "typeName" : {
+                                                          "AstNode" : {
+                                                            "data" : {
+                                                              "TypeNameInt" : {
+                                                                "name" : {
+                                                                  "U32" : {
+                                                                    
+                                                                  }
+                                                                }
+                                                              }
+                                                            },
+                                                            "id" : 164
+                                                          }
+                                                        }
+                                                      },
+                                                      "id" : 165
+                                                    }
+                                                  },
+                                                  [
+                                                    "The opcode that overflowed the list"
+                                                  ]
+                                                ]
+                                              ],
+                                              "severity" : {
+                                                "WarningHigh" : {
+                                                  
+                                                }
+                                              },
+                                              "id" : {
+                                                "Some" : {
+                                                  "AstNode" : {
+                                                    "data" : {
+                                                      "ExprLiteralInt" : {
+                                                        "value" : "6"
+                                                      }
+                                                    },
+                                                    "id" : 166
+                                                  }
+                                                }
+                                              },
+                                              "format" : {
+                                                "AstNode" : {
+                                                  "data" : "Too many outstanding commands. opcode=0x{x}",
+                                                  "id" : 167
+                                                }
+                                              },
+                                              "throttle" : "None"
+                                            },
+                                            "id" : 168
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ]
+                                ]
                               },
-                              "id" : 31
+                              "id" : 169
                             }
                           }
                         }
@@ -425,7 +751,7 @@
                     ]
                   ]
                 },
-                "id" : 32
+                "id" : 170
               }
             }
           }
@@ -456,7 +782,7 @@
                                 ],
                                 "returnType" : "None"
                               },
-                              "id" : 33
+                              "id" : 171
                             }
                           }
                         }
@@ -477,7 +803,7 @@
                                 ],
                                 "returnType" : "None"
                               },
-                              "id" : 34
+                              "id" : 172
                             }
                           }
                         }
@@ -498,7 +824,7 @@
                                 ],
                                 "returnType" : "None"
                               },
-                              "id" : 37
+                              "id" : 175
                             }
                           }
                         }
@@ -508,7 +834,7 @@
                     ]
                   ]
                 },
-                "id" : 38
+                "id" : 176
               }
             }
           }
@@ -622,97 +948,787 @@
   },
   "20" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "51.3",
+    "pos" : "52.5",
     "includingLoc" : "None"
   },
   "21" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "54.3",
+    "pos" : "55.5",
     "includingLoc" : "None"
   },
   "22" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "57.3",
+    "pos" : "58.5",
     "includingLoc" : "None"
   },
   "23" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "65.12",
+    "pos" : "66.10",
     "includingLoc" : "None"
   },
   "24" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "66.14",
+    "pos" : "67.14",
     "includingLoc" : "None"
   },
   "25" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "64.3",
+    "pos" : "65.5",
     "includingLoc" : "None"
   },
   "26" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "65.12",
+    "pos" : "71.14",
     "includingLoc" : "None"
   },
   "27" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "66.14",
+    "pos" : "71.7",
     "includingLoc" : "None"
   },
   "28" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "64.3",
+    "pos" : "71.14",
     "includingLoc" : "None"
   },
   "29" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "65.12",
+    "pos" : "71.7",
     "includingLoc" : "None"
   },
   "30" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "66.14",
+    "pos" : "74.10",
     "includingLoc" : "None"
   },
   "31" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "64.3",
+    "pos" : "75.14",
     "includingLoc" : "None"
   },
   "32" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "44.1",
+    "pos" : "70.5",
     "includingLoc" : "None"
   },
   "33" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "71.3",
+    "pos" : "80.13",
     "includingLoc" : "None"
   },
   "34" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "72.3",
+    "pos" : "80.7",
     "includingLoc" : "None"
   },
   "35" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "73.3",
+    "pos" : "80.13",
     "includingLoc" : "None"
   },
   "36" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "73.3",
+    "pos" : "80.7",
     "includingLoc" : "None"
   },
   "37" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "73.3",
+    "pos" : "81.13",
     "includingLoc" : "None"
   },
   "38" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
-    "pos" : "70.1",
+    "pos" : "81.7",
+    "includingLoc" : "None"
+  },
+  "39" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "81.13",
+    "includingLoc" : "None"
+  },
+  "40" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "81.7",
+    "includingLoc" : "None"
+  },
+  "41" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "82.13",
+    "includingLoc" : "None"
+  },
+  "42" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "82.7",
+    "includingLoc" : "None"
+  },
+  "43" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "82.13",
+    "includingLoc" : "None"
+  },
+  "44" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "82.7",
+    "includingLoc" : "None"
+  },
+  "45" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "85.10",
+    "includingLoc" : "None"
+  },
+  "46" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "86.14",
+    "includingLoc" : "None"
+  },
+  "47" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "79.5",
+    "includingLoc" : "None"
+  },
+  "48" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.17",
+    "includingLoc" : "None"
+  },
+  "49" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.9",
+    "includingLoc" : "None"
+  },
+  "50" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.17",
+    "includingLoc" : "None"
+  },
+  "51" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.9",
+    "includingLoc" : "None"
+  },
+  "52" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "93.10",
+    "includingLoc" : "None"
+  },
+  "53" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "94.14",
+    "includingLoc" : "None"
+  },
+  "54" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "89.5",
+    "includingLoc" : "None"
+  },
+  "55" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.17",
+    "includingLoc" : "None"
+  },
+  "56" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.9",
+    "includingLoc" : "None"
+  },
+  "57" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.17",
+    "includingLoc" : "None"
+  },
+  "58" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.9",
+    "includingLoc" : "None"
+  },
+  "59" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "93.10",
+    "includingLoc" : "None"
+  },
+  "60" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "94.14",
+    "includingLoc" : "None"
+  },
+  "61" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "89.5",
+    "includingLoc" : "None"
+  },
+  "62" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.17",
+    "includingLoc" : "None"
+  },
+  "63" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.9",
+    "includingLoc" : "None"
+  },
+  "64" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.17",
+    "includingLoc" : "None"
+  },
+  "65" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.9",
+    "includingLoc" : "None"
+  },
+  "66" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "93.10",
+    "includingLoc" : "None"
+  },
+  "67" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "94.14",
+    "includingLoc" : "None"
+  },
+  "68" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "89.5",
+    "includingLoc" : "None"
+  },
+  "69" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "45.3",
+    "includingLoc" : "None"
+  },
+  "70" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "52.5",
+    "includingLoc" : "None"
+  },
+  "71" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "55.5",
+    "includingLoc" : "None"
+  },
+  "72" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "58.5",
+    "includingLoc" : "None"
+  },
+  "73" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "66.10",
+    "includingLoc" : "None"
+  },
+  "74" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "67.14",
+    "includingLoc" : "None"
+  },
+  "75" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "65.5",
+    "includingLoc" : "None"
+  },
+  "76" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "71.14",
+    "includingLoc" : "None"
+  },
+  "77" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "71.7",
+    "includingLoc" : "None"
+  },
+  "78" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "71.14",
+    "includingLoc" : "None"
+  },
+  "79" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "71.7",
+    "includingLoc" : "None"
+  },
+  "80" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "74.10",
+    "includingLoc" : "None"
+  },
+  "81" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "75.14",
+    "includingLoc" : "None"
+  },
+  "82" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "70.5",
+    "includingLoc" : "None"
+  },
+  "83" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "80.13",
+    "includingLoc" : "None"
+  },
+  "84" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "80.7",
+    "includingLoc" : "None"
+  },
+  "85" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "80.13",
+    "includingLoc" : "None"
+  },
+  "86" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "80.7",
+    "includingLoc" : "None"
+  },
+  "87" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "81.13",
+    "includingLoc" : "None"
+  },
+  "88" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "81.7",
+    "includingLoc" : "None"
+  },
+  "89" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "81.13",
+    "includingLoc" : "None"
+  },
+  "90" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "81.7",
+    "includingLoc" : "None"
+  },
+  "91" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "82.13",
+    "includingLoc" : "None"
+  },
+  "92" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "82.7",
+    "includingLoc" : "None"
+  },
+  "93" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "82.13",
+    "includingLoc" : "None"
+  },
+  "94" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "82.7",
+    "includingLoc" : "None"
+  },
+  "95" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "85.10",
+    "includingLoc" : "None"
+  },
+  "96" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "86.14",
+    "includingLoc" : "None"
+  },
+  "97" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "79.5",
+    "includingLoc" : "None"
+  },
+  "98" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.17",
+    "includingLoc" : "None"
+  },
+  "99" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.9",
+    "includingLoc" : "None"
+  },
+  "100" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.17",
+    "includingLoc" : "None"
+  },
+  "101" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.9",
+    "includingLoc" : "None"
+  },
+  "102" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "93.10",
+    "includingLoc" : "None"
+  },
+  "103" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "94.14",
+    "includingLoc" : "None"
+  },
+  "104" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "89.5",
+    "includingLoc" : "None"
+  },
+  "105" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.17",
+    "includingLoc" : "None"
+  },
+  "106" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.9",
+    "includingLoc" : "None"
+  },
+  "107" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.17",
+    "includingLoc" : "None"
+  },
+  "108" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.9",
+    "includingLoc" : "None"
+  },
+  "109" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "93.10",
+    "includingLoc" : "None"
+  },
+  "110" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "94.14",
+    "includingLoc" : "None"
+  },
+  "111" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "89.5",
+    "includingLoc" : "None"
+  },
+  "112" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.17",
+    "includingLoc" : "None"
+  },
+  "113" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.9",
+    "includingLoc" : "None"
+  },
+  "114" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.17",
+    "includingLoc" : "None"
+  },
+  "115" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.9",
+    "includingLoc" : "None"
+  },
+  "116" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "93.10",
+    "includingLoc" : "None"
+  },
+  "117" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "94.14",
+    "includingLoc" : "None"
+  },
+  "118" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "89.5",
+    "includingLoc" : "None"
+  },
+  "119" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "45.3",
+    "includingLoc" : "None"
+  },
+  "120" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "52.5",
+    "includingLoc" : "None"
+  },
+  "121" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "55.5",
+    "includingLoc" : "None"
+  },
+  "122" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "58.5",
+    "includingLoc" : "None"
+  },
+  "123" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "66.10",
+    "includingLoc" : "None"
+  },
+  "124" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "67.14",
+    "includingLoc" : "None"
+  },
+  "125" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "65.5",
+    "includingLoc" : "None"
+  },
+  "126" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "71.14",
+    "includingLoc" : "None"
+  },
+  "127" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "71.7",
+    "includingLoc" : "None"
+  },
+  "128" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "71.14",
+    "includingLoc" : "None"
+  },
+  "129" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "71.7",
+    "includingLoc" : "None"
+  },
+  "130" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "74.10",
+    "includingLoc" : "None"
+  },
+  "131" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "75.14",
+    "includingLoc" : "None"
+  },
+  "132" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "70.5",
+    "includingLoc" : "None"
+  },
+  "133" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "80.13",
+    "includingLoc" : "None"
+  },
+  "134" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "80.7",
+    "includingLoc" : "None"
+  },
+  "135" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "80.13",
+    "includingLoc" : "None"
+  },
+  "136" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "80.7",
+    "includingLoc" : "None"
+  },
+  "137" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "81.13",
+    "includingLoc" : "None"
+  },
+  "138" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "81.7",
+    "includingLoc" : "None"
+  },
+  "139" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "81.13",
+    "includingLoc" : "None"
+  },
+  "140" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "81.7",
+    "includingLoc" : "None"
+  },
+  "141" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "82.13",
+    "includingLoc" : "None"
+  },
+  "142" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "82.7",
+    "includingLoc" : "None"
+  },
+  "143" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "82.13",
+    "includingLoc" : "None"
+  },
+  "144" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "82.7",
+    "includingLoc" : "None"
+  },
+  "145" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "85.10",
+    "includingLoc" : "None"
+  },
+  "146" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "86.14",
+    "includingLoc" : "None"
+  },
+  "147" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "79.5",
+    "includingLoc" : "None"
+  },
+  "148" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.17",
+    "includingLoc" : "None"
+  },
+  "149" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.9",
+    "includingLoc" : "None"
+  },
+  "150" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.17",
+    "includingLoc" : "None"
+  },
+  "151" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.9",
+    "includingLoc" : "None"
+  },
+  "152" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "93.10",
+    "includingLoc" : "None"
+  },
+  "153" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "94.14",
+    "includingLoc" : "None"
+  },
+  "154" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "89.5",
+    "includingLoc" : "None"
+  },
+  "155" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.17",
+    "includingLoc" : "None"
+  },
+  "156" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.9",
+    "includingLoc" : "None"
+  },
+  "157" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.17",
+    "includingLoc" : "None"
+  },
+  "158" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.9",
+    "includingLoc" : "None"
+  },
+  "159" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "93.10",
+    "includingLoc" : "None"
+  },
+  "160" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "94.14",
+    "includingLoc" : "None"
+  },
+  "161" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "89.5",
+    "includingLoc" : "None"
+  },
+  "162" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.17",
+    "includingLoc" : "None"
+  },
+  "163" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.9",
+    "includingLoc" : "None"
+  },
+  "164" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.17",
+    "includingLoc" : "None"
+  },
+  "165" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "90.9",
+    "includingLoc" : "None"
+  },
+  "166" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "93.10",
+    "includingLoc" : "None"
+  },
+  "167" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "94.14",
+    "includingLoc" : "None"
+  },
+  "168" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "89.5",
+    "includingLoc" : "None"
+  },
+  "169" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "45.3",
+    "includingLoc" : "None"
+  },
+  "170" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "43.1",
+    "includingLoc" : "None"
+  },
+  "171" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "100.3",
+    "includingLoc" : "None"
+  },
+  "172" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "101.3",
+    "includingLoc" : "None"
+  },
+  "173" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "102.3",
+    "includingLoc" : "None"
+  },
+  "174" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "102.3",
+    "includingLoc" : "None"
+  },
+  "175" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "102.3",
+    "includingLoc" : "None"
+  },
+  "176" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp",
+    "pos" : "99.1",
     "includingLoc" : "None"
   }
 }
@@ -744,7 +1760,7 @@
             },
             "symbol" : {
               "Port" : {
-                "nodeId" : 33,
+                "nodeId" : 171,
                 "unqualifiedName" : "Log"
               }
             },
@@ -770,7 +1786,7 @@
             },
             "symbol" : {
               "Port" : {
-                "nodeId" : 34,
+                "nodeId" : 172,
                 "unqualifiedName" : "LogText"
               }
             },
@@ -796,7 +1812,7 @@
             },
             "symbol" : {
               "Port" : {
-                "nodeId" : 37,
+                "nodeId" : 175,
                 "unqualifiedName" : "Time"
               }
             },
@@ -823,7 +1839,7 @@
           },
           "symbol" : {
             "Port" : {
-              "nodeId" : 33,
+              "nodeId" : 171,
               "unqualifiedName" : "Log"
             }
           },
@@ -847,7 +1863,7 @@
           },
           "symbol" : {
             "Port" : {
-              "nodeId" : 34,
+              "nodeId" : 172,
               "unqualifiedName" : "LogText"
             }
           },
@@ -871,7 +1887,7 @@
           },
           "symbol" : {
             "Port" : {
-              "nodeId" : 37,
+              "nodeId" : 175,
               "unqualifiedName" : "Time"
             }
           },
@@ -954,15 +1970,15 @@
       },
       "defaultRecordId" : 0
     },
-    "32" : {
+    "169" : {
       "aNode" : {
-        "astNodeId" : 32
+        "astNodeId" : 169
       },
       "portMap" : {
         "eventOut" : {
           "Special" : {
             "aNode" : {
-              "astNodeId" : 20
+              "astNodeId" : 120
             },
             "specifier" : {
               "inputKind" : "None",
@@ -977,7 +1993,7 @@
             },
             "symbol" : {
               "Port" : {
-                "nodeId" : 33,
+                "nodeId" : 171,
                 "unqualifiedName" : "Log"
               }
             },
@@ -988,7 +2004,7 @@
         "textEventOut" : {
           "Special" : {
             "aNode" : {
-              "astNodeId" : 21
+              "astNodeId" : 121
             },
             "specifier" : {
               "inputKind" : "None",
@@ -1003,7 +2019,7 @@
             },
             "symbol" : {
               "Port" : {
-                "nodeId" : 34,
+                "nodeId" : 172,
                 "unqualifiedName" : "LogText"
               }
             },
@@ -1014,7 +2030,7 @@
         "timeGetOut" : {
           "Special" : {
             "aNode" : {
-              "astNodeId" : 22
+              "astNodeId" : 122
             },
             "specifier" : {
               "inputKind" : "None",
@@ -1029,7 +2045,7 @@
             },
             "symbol" : {
               "Port" : {
-                "nodeId" : 37,
+                "nodeId" : 175,
                 "unqualifiedName" : "Time"
               }
             },
@@ -1041,7 +2057,7 @@
       "specialPortMap" : {
         "event" : {
           "aNode" : {
-            "astNodeId" : 20
+            "astNodeId" : 120
           },
           "specifier" : {
             "inputKind" : "None",
@@ -1056,7 +2072,7 @@
           },
           "symbol" : {
             "Port" : {
-              "nodeId" : 33,
+              "nodeId" : 171,
               "unqualifiedName" : "Log"
             }
           },
@@ -1065,7 +2081,7 @@
         },
         "text event" : {
           "aNode" : {
-            "astNodeId" : 21
+            "astNodeId" : 121
           },
           "specifier" : {
             "inputKind" : "None",
@@ -1080,7 +2096,7 @@
           },
           "symbol" : {
             "Port" : {
-              "nodeId" : 34,
+              "nodeId" : 172,
               "unqualifiedName" : "LogText"
             }
           },
@@ -1089,7 +2105,7 @@
         },
         "time get" : {
           "aNode" : {
-            "astNodeId" : 22
+            "astNodeId" : 122
           },
           "specifier" : {
             "inputKind" : "None",
@@ -1104,7 +2120,7 @@
           },
           "symbol" : {
             "Port" : {
-              "nodeId" : 37,
+              "nodeId" : 175,
               "unqualifiedName" : "Time"
             }
           },
@@ -1124,21 +2140,101 @@
       },
       "defaultTlmChannelId" : 0,
       "eventMap" : {
-        "0" : {
+        "16" : {
           "aNode" : {
-            "astNodeId" : 31
+            "astNodeId" : 125
           },
           "format" : {
             "prefix" : "Event 1 occurred",
             "fields" : [
             ]
           },
-          "throttle" : {
-            "Some" : 10
-          }
+          "throttle" : "None"
+        },
+        "2" : {
+          "aNode" : {
+            "astNodeId" : 132
+          },
+          "format" : {
+            "prefix" : "Port ",
+            "fields" : [
+              [
+                {
+                  "Default" : {
+                    
+                  }
+                },
+                ""
+              ]
+            ]
+          },
+          "throttle" : "None"
+        },
+        "9" : {
+          "aNode" : {
+            "astNodeId" : 147
+          },
+          "format" : {
+            "prefix" : "Event3 args: I32: ",
+            "fields" : [
+              [
+                {
+                  "Default" : {
+                    
+                  }
+                },
+                ", F32: "
+              ],
+              [
+                {
+                  "Rational" : {
+                    "precision" : "None",
+                    "t" : {
+                      "Fixed" : {
+                        
+                      }
+                    }
+                  }
+                },
+                ", U8: "
+              ],
+              [
+                {
+                  "Default" : {
+                    
+                  }
+                },
+                ""
+              ]
+            ]
+          },
+          "throttle" : "None"
+        },
+        "6" : {
+          "aNode" : {
+            "astNodeId" : 168
+          },
+          "format" : {
+            "prefix" : "Too many outstanding commands. opcode=0x",
+            "fields" : [
+              [
+                {
+                  "Integer" : {
+                    "t" : {
+                      "Hexadecimal" : {
+                        
+                      }
+                    }
+                  }
+                },
+                ""
+              ]
+            ]
+          },
+          "throttle" : "None"
         }
       },
-      "defaultEventId" : 1,
+      "defaultEventId" : 7,
       "paramMap" : {
         
       },
@@ -1168,21 +2264,27 @@
   "locationSpecifierMap" : [
   ],
   "parentSymbolMap" : {
-    "33" : {
+    "169" : {
       "Module" : {
-        "nodeId" : 38,
+        "nodeId" : 170,
+        "unqualifiedName" : "M"
+      }
+    },
+    "171" : {
+      "Module" : {
+        "nodeId" : 176,
         "unqualifiedName" : "Fw"
       }
     },
-    "34" : {
+    "172" : {
       "Module" : {
-        "nodeId" : 38,
+        "nodeId" : 176,
         "unqualifiedName" : "Fw"
       }
     },
-    "37" : {
+    "175" : {
       "Module" : {
-        "nodeId" : 38,
+        "nodeId" : 176,
         "unqualifiedName" : "Fw"
       }
     }
@@ -1193,30 +2295,74 @@
         
       }
     },
-    "32" : {
+    "169" : {
       "map" : {
         
       }
     },
-    "38" : {
+    "170" : {
+      "map" : {
+        "Component" : {
+          "map" : {
+            "EventThrottling" : {
+              "Component" : {
+                "nodeId" : 169,
+                "unqualifiedName" : "EventThrottling"
+              }
+            }
+          }
+        },
+        "StateMachine" : {
+          "map" : {
+            "EventThrottling" : {
+              "Component" : {
+                "nodeId" : 169,
+                "unqualifiedName" : "EventThrottling"
+              }
+            }
+          }
+        },
+        "Type" : {
+          "map" : {
+            "EventThrottling" : {
+              "Component" : {
+                "nodeId" : 169,
+                "unqualifiedName" : "EventThrottling"
+              }
+            }
+          }
+        },
+        "Value" : {
+          "map" : {
+            "EventThrottling" : {
+              "Component" : {
+                "nodeId" : 169,
+                "unqualifiedName" : "EventThrottling"
+              }
+            }
+          }
+        }
+      }
+    },
+    "176" : {
       "map" : {
         "Port" : {
           "map" : {
             "Log" : {
               "Port" : {
-                "nodeId" : 33,
+                "nodeId" : 171,
                 "unqualifiedName" : "Log"
               }
             },
             "LogText" : {
               "Port" : {
-                "nodeId" : 34,
+                "nodeId" : 172,
                 "unqualifiedName" : "LogText"
               }
             },
             "Time" : {
               "Port" : {
-                "nodeId" : 37,
+                "nodeId" : 175,
                 "unqualifiedName" : "Time"
               }
             }
@@ -1229,6 +2375,74 @@
     
   },
   "typeMap" : {
+    "135" : {
+      "Int" : {
+        "PrimitiveInt" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "128" : {
+      "Int" : {
+        "PrimitiveInt" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "139" : {
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F32" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "123" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "166" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "10" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "145" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "3" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
     "8" : {
       "Int" : {
         "PrimitiveInt" : {
@@ -1240,21 +2454,29 @@
         }
       }
     },
-    "3" : {
+    "164" : {
       "Int" : {
-        "Integer" : {
-          
+        "PrimitiveInt" : {
+          "kind" : {
+            "U32" : {
+              
+            }
+          }
         }
       }
     },
-    "10" : {
+    "143" : {
       "Int" : {
-        "Integer" : {
-          
+        "PrimitiveInt" : {
+          "kind" : {
+            "U8" : {
+              
+            }
+          }
         }
       }
     },
-    "30" : {
+    "130" : {
       "Int" : {
         "Integer" : {
           
@@ -1263,47 +2485,52 @@
     }
   },
   "useDefMap" : {
-    "22" : {
+    "120" : {
       "Port" : {
-        "nodeId" : 37,
-        "unqualifiedName" : "Time"
+        "nodeId" : 171,
+        "unqualifiedName" : "Log"
       }
     },
-    "21" : {
+    "121" : {
       "Port" : {
-        "nodeId" : 34,
+        "nodeId" : 172,
         "unqualifiedName" : "LogText"
       }
     },
     "1" : {
       "Port" : {
-        "nodeId" : 34,
+        "nodeId" : 172,
         "unqualifiedName" : "LogText"
       }
     },
-    "2" : {
+    "122" : {
       "Port" : {
-        "nodeId" : 37,
+        "nodeId" : 175,
         "unqualifiedName" : "Time"
       }
     },
     "0" : {
       "Port" : {
-        "nodeId" : 33,
+        "nodeId" : 171,
         "unqualifiedName" : "Log"
       }
     },
-    "20" : {
+    "2" : {
       "Port" : {
-        "nodeId" : 33,
-        "unqualifiedName" : "Log"
+        "nodeId" : 175,
+        "unqualifiedName" : "Time"
       }
     }
   },
   "valueMap" : {
-    "3" : {
+    "123" : {
       "Integer" : {
         "value" : 16
+      }
+    },
+    "166" : {
+      "Integer" : {
+        "value" : 6
       }
     },
     "10" : {
@@ -1311,9 +2538,19 @@
         "value" : 17
       }
     },
-    "30" : {
+    "145" : {
       "Integer" : {
-        "value" : 10
+        "value" : 9
+      }
+    },
+    "130" : {
+      "Integer" : {
+        "value" : 2
+      }
+    },
+    "3" : {
+      "Integer" : {
+        "value" : 16
       }
     }
   },

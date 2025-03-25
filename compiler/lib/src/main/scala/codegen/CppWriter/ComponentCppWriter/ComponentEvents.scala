@@ -64,7 +64,7 @@ case class ComponentEvents (
         linesClassMember(
           Line.blank :: lines(
             s"""|//! Throttle for ${event.getName}
-                |FwIndexType ${eventThrottleCounterName(event.getName)};
+                |std::atomic<FwIndexType> ${eventThrottleCounterName(event.getName)};
                 |"""
           )
         )
@@ -132,7 +132,7 @@ case class ComponentEvents (
                 eventParamTypeMap(id).map((name, typeName, ty) => {
 
                   List.concat(
-                    ty match {
+                    ty.getUnderlyingType match {
                       case t: Type.String =>
                         val serialSize = writeStringSize(s, t)
                         lines(
@@ -254,7 +254,7 @@ case class ComponentEvents (
                 |  return;
                 |}
                 |else {
-                |  this->${eventThrottleCounterName(event.getName)}++;
+                |  (void) this->${eventThrottleCounterName(event.getName)}.fetch_add(1);
                 |}
                 |"""
           )
