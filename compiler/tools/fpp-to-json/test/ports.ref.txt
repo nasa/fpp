@@ -639,7 +639,7 @@
                     ],
                     [
                       [
-                        "A component for generating periodic signals"
+                        "Queued component"
                       ],
                       {
                         "DefComponent" : {

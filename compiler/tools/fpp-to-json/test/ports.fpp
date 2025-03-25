@@ -20,6 +20,7 @@ module Fw {
 module M {
   port P
 
+  @ Queued component
   queued component Q {
 
     @ Data product receive port
