@@ -153,7 +153,7 @@ Fw::InputDpResponsePort* QueuedAsyncProductPortsOnlyComponentBase ::
   get_productRecvIn_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_productRecvIn_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productRecvIn_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -171,7 +171,7 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_productRequestOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -185,7 +185,7 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_productSendOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -205,7 +205,7 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_productRequestOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -219,7 +219,7 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_productSendOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -279,7 +279,7 @@ bool QueuedAsyncProductPortsOnlyComponentBase ::
   isConnected_productRequestOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_productRequestOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -290,7 +290,7 @@ bool QueuedAsyncProductPortsOnlyComponentBase ::
   isConnected_productSendOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_productSendOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -313,7 +313,7 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_productRecvIn_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productRecvIn_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -405,7 +405,7 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_productRequestOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -427,7 +427,7 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_productSendOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 

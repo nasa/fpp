@@ -139,6 +139,102 @@ void PassiveGuardedProductsTesterBase ::
 #endif
   }
 
+  // Connect input port noArgsStringReturnOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_noArgsStringReturnOut());
+    port++
+  ) {
+    this->m_from_noArgsStringReturnOut[port].init();
+    this->m_from_noArgsStringReturnOut[port].addCallComp(
+      this,
+      from_noArgsStringReturnOut_static
+    );
+    this->m_from_noArgsStringReturnOut[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_from_noArgsStringReturnOut[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_from_noArgsStringReturnOut[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect input port typedAliasOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_typedAliasOut());
+    port++
+  ) {
+    this->m_from_typedAliasOut[port].init();
+    this->m_from_typedAliasOut[port].addCallComp(
+      this,
+      from_typedAliasOut_static
+    );
+    this->m_from_typedAliasOut[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_from_typedAliasOut[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_from_typedAliasOut[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect input port typedAliasReturnOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_typedAliasReturnOut());
+    port++
+  ) {
+    this->m_from_typedAliasReturnOut[port].init();
+    this->m_from_typedAliasReturnOut[port].addCallComp(
+      this,
+      from_typedAliasReturnOut_static
+    );
+    this->m_from_typedAliasReturnOut[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_from_typedAliasReturnOut[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_from_typedAliasReturnOut[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect input port typedAliasReturnStringOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_typedAliasReturnStringOut());
+    port++
+  ) {
+    this->m_from_typedAliasReturnStringOut[port].init();
+    this->m_from_typedAliasReturnStringOut[port].addCallComp(
+      this,
+      from_typedAliasReturnStringOut_static
+    );
+    this->m_from_typedAliasReturnStringOut[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_from_typedAliasReturnStringOut[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_from_typedAliasReturnStringOut[port].setObjName(portName.toChar());
+#endif
+  }
+
   // Connect input port typedOut
   for (
     FwIndexType port = 0;
@@ -206,6 +302,25 @@ void PassiveGuardedProductsTesterBase ::
 #endif
   }
 
+  // Connect output port noArgsAliasStringReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsAliasStringReturnSync());
+    port++
+  ) {
+    this->m_to_noArgsAliasStringReturnSync[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_to_noArgsAliasStringReturnSync[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_to_noArgsAliasStringReturnSync[port].setObjName(portName.toChar());
+#endif
+  }
+
   // Connect output port noArgsGuarded
   for (
     FwIndexType port = 0;
@@ -263,6 +378,25 @@ void PassiveGuardedProductsTesterBase ::
 #endif
   }
 
+  // Connect output port noArgsStringReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsStringReturnSync());
+    port++
+  ) {
+    this->m_to_noArgsStringReturnSync[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_to_noArgsStringReturnSync[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_to_noArgsStringReturnSync[port].setObjName(portName.toChar());
+#endif
+  }
+
   // Connect output port noArgsSync
   for (
     FwIndexType port = 0;
@@ -279,6 +413,63 @@ void PassiveGuardedProductsTesterBase ::
       port
     );
     this->m_to_noArgsSync[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect output port typedAliasGuarded
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedAliasGuarded());
+    port++
+  ) {
+    this->m_to_typedAliasGuarded[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_to_typedAliasGuarded[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_to_typedAliasGuarded[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect output port typedAliasReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedAliasReturnSync());
+    port++
+  ) {
+    this->m_to_typedAliasReturnSync[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_to_typedAliasReturnSync[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_to_typedAliasReturnSync[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect output port typedAliasStringReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedAliasStringReturnSync());
+    port++
+  ) {
+    this->m_to_typedAliasStringReturnSync[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_to_typedAliasStringReturnSync[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_to_typedAliasStringReturnSync[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -370,7 +561,7 @@ void PassiveGuardedProductsTesterBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_to_cmdIn(),
+    (0 <= portNum) && (portNum < this->getNum_to_cmdIn()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -384,11 +575,25 @@ void PassiveGuardedProductsTesterBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_to_productRecvIn(),
+    (0 <= portNum) && (portNum < this->getNum_to_productRecvIn()),
     static_cast<FwAssertArgType>(portNum)
   );
 
   this->m_to_productRecvIn[portNum].addCallPort(port);
+}
+
+void PassiveGuardedProductsTesterBase ::
+  connect_to_noArgsAliasStringReturnSync(
+      FwIndexType portNum,
+      Ports::InputNoArgsAliasStringReturnPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsAliasStringReturnSync()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_to_noArgsAliasStringReturnSync[portNum].addCallPort(port);
 }
 
 void PassiveGuardedProductsTesterBase ::
@@ -398,7 +603,7 @@ void PassiveGuardedProductsTesterBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_to_noArgsGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -412,7 +617,7 @@ void PassiveGuardedProductsTesterBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_to_noArgsReturnGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -426,11 +631,25 @@ void PassiveGuardedProductsTesterBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_to_noArgsReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
   this->m_to_noArgsReturnSync[portNum].addCallPort(port);
+}
+
+void PassiveGuardedProductsTesterBase ::
+  connect_to_noArgsStringReturnSync(
+      FwIndexType portNum,
+      Ports::InputNoArgsStringReturnPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsStringReturnSync()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_to_noArgsStringReturnSync[portNum].addCallPort(port);
 }
 
 void PassiveGuardedProductsTesterBase ::
@@ -440,11 +659,53 @@ void PassiveGuardedProductsTesterBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_to_noArgsSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
   this->m_to_noArgsSync[portNum].addCallPort(port);
+}
+
+void PassiveGuardedProductsTesterBase ::
+  connect_to_typedAliasGuarded(
+      FwIndexType portNum,
+      Ports::InputAliasTypedPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_to_typedAliasGuarded()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_to_typedAliasGuarded[portNum].addCallPort(port);
+}
+
+void PassiveGuardedProductsTesterBase ::
+  connect_to_typedAliasReturnSync(
+      FwIndexType portNum,
+      Ports::InputAliasTypedReturnPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_to_typedAliasReturnSync()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_to_typedAliasReturnSync[portNum].addCallPort(port);
+}
+
+void PassiveGuardedProductsTesterBase ::
+  connect_to_typedAliasStringReturnSync(
+      FwIndexType portNum,
+      Ports::InputAliasTypedReturnStringPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_to_typedAliasStringReturnSync()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_to_typedAliasStringReturnSync[portNum].addCallPort(port);
 }
 
 void PassiveGuardedProductsTesterBase ::
@@ -454,7 +715,7 @@ void PassiveGuardedProductsTesterBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_to_typedGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -468,7 +729,7 @@ void PassiveGuardedProductsTesterBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_to_typedReturnGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedReturnGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -482,7 +743,7 @@ void PassiveGuardedProductsTesterBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_to_typedReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -496,7 +757,7 @@ void PassiveGuardedProductsTesterBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_to_typedSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -511,7 +772,7 @@ Fw::InputCmdRegPort* PassiveGuardedProductsTesterBase ::
   get_from_cmdRegOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_from_cmdRegOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_cmdRegOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -522,7 +783,7 @@ Fw::InputCmdResponsePort* PassiveGuardedProductsTesterBase ::
   get_from_cmdResponseOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_from_cmdResponseOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_cmdResponseOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -533,7 +794,7 @@ Fw::InputLogPort* PassiveGuardedProductsTesterBase ::
   get_from_eventOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_from_eventOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_eventOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -544,7 +805,7 @@ Fw::InputPrmGetPort* PassiveGuardedProductsTesterBase ::
   get_from_prmGetOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_from_prmGetOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_prmGetOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -555,7 +816,7 @@ Fw::InputPrmSetPort* PassiveGuardedProductsTesterBase ::
   get_from_prmSetOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_from_prmSetOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_prmSetOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -566,7 +827,7 @@ Fw::InputDpRequestPort* PassiveGuardedProductsTesterBase ::
   get_from_productRequestOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_from_productRequestOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_productRequestOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -577,7 +838,7 @@ Fw::InputDpSendPort* PassiveGuardedProductsTesterBase ::
   get_from_productSendOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_from_productSendOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_productSendOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -590,7 +851,7 @@ Fw::InputLogTextPort* PassiveGuardedProductsTesterBase ::
   get_from_textEventOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_from_textEventOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_textEventOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -603,7 +864,7 @@ Fw::InputTimePort* PassiveGuardedProductsTesterBase ::
   get_from_timeGetOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_from_timeGetOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_timeGetOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -614,7 +875,7 @@ Fw::InputTlmPort* PassiveGuardedProductsTesterBase ::
   get_from_tlmOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_from_tlmOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_tlmOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -625,7 +886,7 @@ Ports::InputNoArgsPort* PassiveGuardedProductsTesterBase ::
   get_from_noArgsOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_from_noArgsOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_noArgsOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -636,18 +897,62 @@ Ports::InputNoArgsReturnPort* PassiveGuardedProductsTesterBase ::
   get_from_noArgsReturnOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_from_noArgsReturnOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_noArgsReturnOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
   return &this->m_from_noArgsReturnOut[portNum];
 }
 
+Ports::InputNoArgsStringReturnPort* PassiveGuardedProductsTesterBase ::
+  get_from_noArgsStringReturnOut(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_from_noArgsStringReturnOut()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_from_noArgsStringReturnOut[portNum];
+}
+
+Ports::InputAliasTypedPort* PassiveGuardedProductsTesterBase ::
+  get_from_typedAliasOut(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_from_typedAliasOut()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_from_typedAliasOut[portNum];
+}
+
+Ports::InputAliasTypedReturnPort* PassiveGuardedProductsTesterBase ::
+  get_from_typedAliasReturnOut(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_from_typedAliasReturnOut()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_from_typedAliasReturnOut[portNum];
+}
+
+Ports::InputAliasTypedReturnStringPort* PassiveGuardedProductsTesterBase ::
+  get_from_typedAliasReturnStringOut(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_from_typedAliasReturnStringOut()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_from_typedAliasReturnStringOut[portNum];
+}
+
 Ports::InputTypedPort* PassiveGuardedProductsTesterBase ::
   get_from_typedOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_from_typedOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_typedOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -658,7 +963,7 @@ Ports::InputTypedReturnPort* PassiveGuardedProductsTesterBase ::
   get_from_typedReturnOut(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_from_typedReturnOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_typedReturnOut()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -677,6 +982,9 @@ PassiveGuardedProductsTesterBase ::
     Fw::PassiveComponentBase(compName)
 {
   // Initialize port histories
+  this->fromPortHistory_typedAliasOut = new History<FromPortEntry_typedAliasOut>(maxHistorySize);
+  this->fromPortHistory_typedAliasReturnOut = new History<FromPortEntry_typedAliasReturnOut>(maxHistorySize);
+  this->fromPortHistory_typedAliasReturnStringOut = new History<FromPortEntry_typedAliasReturnStringOut>(maxHistorySize);
   this->fromPortHistory_typedOut = new History<FromPortEntry_typedOut>(maxHistorySize);
   this->fromPortHistory_typedReturnOut = new History<FromPortEntry_typedReturnOut>(maxHistorySize);
 
@@ -692,6 +1000,9 @@ PassiveGuardedProductsTesterBase ::
   ~PassiveGuardedProductsTesterBase()
 {
   // Destroy port histories
+  delete this->fromPortHistory_typedAliasOut;
+  delete this->fromPortHistory_typedAliasReturnOut;
+  delete this->fromPortHistory_typedAliasReturnStringOut;
   delete this->fromPortHistory_typedOut;
   delete this->fromPortHistory_typedReturnOut;
 
@@ -716,6 +1027,60 @@ U32 PassiveGuardedProductsTesterBase ::
 {
   this->pushFromPortEntry_noArgsReturnOut();
   return 0;
+}
+
+Fw::String PassiveGuardedProductsTesterBase ::
+  from_noArgsStringReturnOut_handler(FwIndexType portNum)
+{
+  this->pushFromPortEntry_noArgsStringReturnOut();
+  return Fw::String("");
+}
+
+void PassiveGuardedProductsTesterBase ::
+  from_typedAliasOut_handler(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  this->pushFromPortEntry_typedAliasOut(u32, f32, b, str2, e, a, s);
+}
+
+AliasPrim2 PassiveGuardedProductsTesterBase ::
+  from_typedAliasReturnOut_handler(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  this->pushFromPortEntry_typedAliasReturnOut(u32, f32, b, str2, e, a, s);
+  return 0.0f;
+}
+
+AliasString PassiveGuardedProductsTesterBase ::
+  from_typedAliasReturnStringOut_handler(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
+  )
+{
+  this->pushFromPortEntry_typedAliasReturnStringOut(u32, f32, b, str2, e, a, s);
+  return Fw::String("");
 }
 
 void PassiveGuardedProductsTesterBase ::
@@ -758,7 +1123,7 @@ void PassiveGuardedProductsTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_from_noArgsOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_noArgsOut()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->from_noArgsOut_handler(portNum);
@@ -769,10 +1134,108 @@ U32 PassiveGuardedProductsTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_from_noArgsReturnOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_noArgsReturnOut()),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->from_noArgsReturnOut_handler(portNum);
+}
+
+Fw::String PassiveGuardedProductsTesterBase ::
+  from_noArgsStringReturnOut_handlerBase(FwIndexType portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_from_noArgsStringReturnOut()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->from_noArgsStringReturnOut_handler(portNum);
+}
+
+void PassiveGuardedProductsTesterBase ::
+  from_typedAliasOut_handlerBase(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_from_typedAliasOut()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->from_typedAliasOut_handler(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+AliasPrim2 PassiveGuardedProductsTesterBase ::
+  from_typedAliasReturnOut_handlerBase(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_from_typedAliasReturnOut()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->from_typedAliasReturnOut_handler(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+AliasString PassiveGuardedProductsTesterBase ::
+  from_typedAliasReturnStringOut_handlerBase(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_from_typedAliasReturnStringOut()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->from_typedAliasReturnStringOut_handler(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
 }
 
 void PassiveGuardedProductsTesterBase ::
@@ -789,7 +1252,7 @@ void PassiveGuardedProductsTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_from_typedOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_typedOut()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->from_typedOut_handler(
@@ -818,7 +1281,7 @@ F32 PassiveGuardedProductsTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_from_typedReturnOut(),
+    (0 <= portNum) && (portNum < this->getNum_from_typedReturnOut()),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->from_typedReturnOut_handler(
@@ -837,12 +1300,23 @@ F32 PassiveGuardedProductsTesterBase ::
 // Invocation functions for to ports
 // ----------------------------------------------------------------------
 
+AliasString PassiveGuardedProductsTesterBase ::
+  invoke_to_noArgsAliasStringReturnSync(FwIndexType portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsAliasStringReturnSync()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_to_noArgsAliasStringReturnSync[portNum].invoke();
+}
+
 void PassiveGuardedProductsTesterBase ::
   invoke_to_noArgsGuarded(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_to_noArgsGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_to_noArgsGuarded[portNum].invoke();
@@ -853,7 +1327,7 @@ U32 PassiveGuardedProductsTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_to_noArgsReturnGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_to_noArgsReturnGuarded[portNum].invoke();
@@ -864,10 +1338,21 @@ U32 PassiveGuardedProductsTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_to_noArgsReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_to_noArgsReturnSync[portNum].invoke();
+}
+
+Fw::String PassiveGuardedProductsTesterBase ::
+  invoke_to_noArgsStringReturnSync(FwIndexType portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsStringReturnSync()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_to_noArgsStringReturnSync[portNum].invoke();
 }
 
 void PassiveGuardedProductsTesterBase ::
@@ -875,10 +1360,94 @@ void PassiveGuardedProductsTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_to_noArgsSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsSync()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_to_noArgsSync[portNum].invoke();
+}
+
+void PassiveGuardedProductsTesterBase ::
+  invoke_to_typedAliasGuarded(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_to_typedAliasGuarded()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_to_typedAliasGuarded[portNum].invoke(
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+AliasPrim2 PassiveGuardedProductsTesterBase ::
+  invoke_to_typedAliasReturnSync(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_to_typedAliasReturnSync()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_to_typedAliasReturnSync[portNum].invoke(
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+AliasString PassiveGuardedProductsTesterBase ::
+  invoke_to_typedAliasStringReturnSync(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_to_typedAliasStringReturnSync()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_to_typedAliasStringReturnSync[portNum].invoke(
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
 }
 
 void PassiveGuardedProductsTesterBase ::
@@ -895,7 +1464,7 @@ void PassiveGuardedProductsTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_to_typedGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_to_typedGuarded[portNum].invoke(
@@ -923,7 +1492,7 @@ F32 PassiveGuardedProductsTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_to_typedReturnGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedReturnGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_to_typedReturnGuarded[portNum].invoke(
@@ -951,7 +1520,7 @@ F32 PassiveGuardedProductsTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_to_typedReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_to_typedReturnSync[portNum].invoke(
@@ -979,7 +1548,7 @@ void PassiveGuardedProductsTesterBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_to_typedSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedSync()),
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_to_typedSync[portNum].invoke(
@@ -1010,6 +1579,12 @@ FwIndexType PassiveGuardedProductsTesterBase ::
 }
 
 FwIndexType PassiveGuardedProductsTesterBase ::
+  getNum_to_noArgsAliasStringReturnSync() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsAliasStringReturnSync));
+}
+
+FwIndexType PassiveGuardedProductsTesterBase ::
   getNum_to_noArgsGuarded() const
 {
   return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
@@ -1028,9 +1603,33 @@ FwIndexType PassiveGuardedProductsTesterBase ::
 }
 
 FwIndexType PassiveGuardedProductsTesterBase ::
+  getNum_to_noArgsStringReturnSync() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsStringReturnSync));
+}
+
+FwIndexType PassiveGuardedProductsTesterBase ::
   getNum_to_noArgsSync() const
 {
   return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsSync));
+}
+
+FwIndexType PassiveGuardedProductsTesterBase ::
+  getNum_to_typedAliasGuarded() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAliasGuarded));
+}
+
+FwIndexType PassiveGuardedProductsTesterBase ::
+  getNum_to_typedAliasReturnSync() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAliasReturnSync));
+}
+
+FwIndexType PassiveGuardedProductsTesterBase ::
+  getNum_to_typedAliasStringReturnSync() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAliasStringReturnSync));
 }
 
 FwIndexType PassiveGuardedProductsTesterBase ::
@@ -1134,6 +1733,30 @@ FwIndexType PassiveGuardedProductsTesterBase ::
 }
 
 FwIndexType PassiveGuardedProductsTesterBase ::
+  getNum_from_noArgsStringReturnOut() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsStringReturnOut));
+}
+
+FwIndexType PassiveGuardedProductsTesterBase ::
+  getNum_from_typedAliasOut() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedAliasOut));
+}
+
+FwIndexType PassiveGuardedProductsTesterBase ::
+  getNum_from_typedAliasReturnOut() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedAliasReturnOut));
+}
+
+FwIndexType PassiveGuardedProductsTesterBase ::
+  getNum_from_typedAliasReturnStringOut() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedAliasReturnStringOut));
+}
+
+FwIndexType PassiveGuardedProductsTesterBase ::
   getNum_from_typedOut() const
 {
   return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
@@ -1153,7 +1776,7 @@ bool PassiveGuardedProductsTesterBase ::
   isConnected_to_cmdIn(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_to_cmdIn(),
+    (0 <= portNum) && (portNum < this->getNum_to_cmdIn()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1164,7 +1787,7 @@ bool PassiveGuardedProductsTesterBase ::
   isConnected_to_productRecvIn(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_to_productRecvIn(),
+    (0 <= portNum) && (portNum < this->getNum_to_productRecvIn()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1172,10 +1795,21 @@ bool PassiveGuardedProductsTesterBase ::
 }
 
 bool PassiveGuardedProductsTesterBase ::
+  isConnected_to_noArgsAliasStringReturnSync(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsAliasStringReturnSync()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_to_noArgsAliasStringReturnSync[portNum].isConnected();
+}
+
+bool PassiveGuardedProductsTesterBase ::
   isConnected_to_noArgsGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_to_noArgsGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1186,7 +1820,7 @@ bool PassiveGuardedProductsTesterBase ::
   isConnected_to_noArgsReturnGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_to_noArgsReturnGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1197,7 +1831,7 @@ bool PassiveGuardedProductsTesterBase ::
   isConnected_to_noArgsReturnSync(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_to_noArgsReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1205,10 +1839,21 @@ bool PassiveGuardedProductsTesterBase ::
 }
 
 bool PassiveGuardedProductsTesterBase ::
+  isConnected_to_noArgsStringReturnSync(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsStringReturnSync()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_to_noArgsStringReturnSync[portNum].isConnected();
+}
+
+bool PassiveGuardedProductsTesterBase ::
   isConnected_to_noArgsSync(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_to_noArgsSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_noArgsSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1216,10 +1861,43 @@ bool PassiveGuardedProductsTesterBase ::
 }
 
 bool PassiveGuardedProductsTesterBase ::
+  isConnected_to_typedAliasGuarded(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_to_typedAliasGuarded()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_to_typedAliasGuarded[portNum].isConnected();
+}
+
+bool PassiveGuardedProductsTesterBase ::
+  isConnected_to_typedAliasReturnSync(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_to_typedAliasReturnSync()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_to_typedAliasReturnSync[portNum].isConnected();
+}
+
+bool PassiveGuardedProductsTesterBase ::
+  isConnected_to_typedAliasStringReturnSync(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_to_typedAliasStringReturnSync()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_to_typedAliasStringReturnSync[portNum].isConnected();
+}
+
+bool PassiveGuardedProductsTesterBase ::
   isConnected_to_typedGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_to_typedGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1230,7 +1908,7 @@ bool PassiveGuardedProductsTesterBase ::
   isConnected_to_typedReturnGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_to_typedReturnGuarded(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedReturnGuarded()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1241,7 +1919,7 @@ bool PassiveGuardedProductsTesterBase ::
   isConnected_to_typedReturnSync(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_to_typedReturnSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedReturnSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1252,7 +1930,7 @@ bool PassiveGuardedProductsTesterBase ::
   isConnected_to_typedSync(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_to_typedSync(),
+    (0 <= portNum) && (portNum < this->getNum_to_typedSync()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1341,6 +2019,10 @@ void PassiveGuardedProductsTesterBase ::
   this->fromPortHistorySize = 0;
   this->fromPortHistorySize_noArgsOut = 0;
   this->fromPortHistorySize_noArgsReturnOut = 0;
+  this->fromPortHistorySize_noArgsStringReturnOut = 0;
+  this->fromPortHistory_typedAliasOut->clear();
+  this->fromPortHistory_typedAliasReturnOut->clear();
+  this->fromPortHistory_typedAliasReturnStringOut->clear();
   this->fromPortHistory_typedOut->clear();
   this->fromPortHistory_typedReturnOut->clear();
 }
@@ -1356,6 +2038,82 @@ void PassiveGuardedProductsTesterBase ::
   pushFromPortEntry_noArgsReturnOut()
 {
   this->fromPortHistorySize_noArgsReturnOut++;
+  this->fromPortHistorySize++;
+}
+
+void PassiveGuardedProductsTesterBase ::
+  pushFromPortEntry_noArgsStringReturnOut()
+{
+  this->fromPortHistorySize_noArgsStringReturnOut++;
+  this->fromPortHistorySize++;
+}
+
+void PassiveGuardedProductsTesterBase ::
+  pushFromPortEntry_typedAliasOut(
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  FromPortEntry_typedAliasOut _e;
+  _e.u32 = u32;
+  _e.f32 = f32;
+  _e.b = b;
+  _e.str2 = str2;
+  _e.e = e;
+  _e.a = a;
+  _e.s = s;
+  this->fromPortHistory_typedAliasOut->push_back(_e);
+  this->fromPortHistorySize++;
+}
+
+void PassiveGuardedProductsTesterBase ::
+  pushFromPortEntry_typedAliasReturnOut(
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  FromPortEntry_typedAliasReturnOut _e;
+  _e.u32 = u32;
+  _e.f32 = f32;
+  _e.b = b;
+  _e.str2 = str2;
+  _e.e = e;
+  _e.a = a;
+  _e.s = s;
+  this->fromPortHistory_typedAliasReturnOut->push_back(_e);
+  this->fromPortHistorySize++;
+}
+
+void PassiveGuardedProductsTesterBase ::
+  pushFromPortEntry_typedAliasReturnStringOut(
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
+  )
+{
+  FromPortEntry_typedAliasReturnStringOut _e;
+  _e.u32 = u32;
+  _e.f32 = f32;
+  _e.b = b;
+  _e.str2 = str2;
+  _e.e = e;
+  _e.a = a;
+  _e.s = s;
+  this->fromPortHistory_typedAliasReturnStringOut->push_back(_e);
   this->fromPortHistorySize++;
 }
 
@@ -1464,6 +2222,98 @@ U32 PassiveGuardedProductsTesterBase ::
   FW_ASSERT(callComp != nullptr);
   PassiveGuardedProductsTesterBase* _testerBase = static_cast<PassiveGuardedProductsTesterBase*>(callComp);
   return _testerBase->from_noArgsReturnOut_handlerBase(portNum);
+}
+
+Fw::String PassiveGuardedProductsTesterBase ::
+  from_noArgsStringReturnOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      FwIndexType portNum
+  )
+{
+  FW_ASSERT(callComp != nullptr);
+  PassiveGuardedProductsTesterBase* _testerBase = static_cast<PassiveGuardedProductsTesterBase*>(callComp);
+  return _testerBase->from_noArgsStringReturnOut_handlerBase(portNum);
+}
+
+void PassiveGuardedProductsTesterBase ::
+  from_typedAliasOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  FW_ASSERT(callComp != nullptr);
+  PassiveGuardedProductsTesterBase* _testerBase = static_cast<PassiveGuardedProductsTesterBase*>(callComp);
+  _testerBase->from_typedAliasOut_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+AliasPrim2 PassiveGuardedProductsTesterBase ::
+  from_typedAliasReturnOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  FW_ASSERT(callComp != nullptr);
+  PassiveGuardedProductsTesterBase* _testerBase = static_cast<PassiveGuardedProductsTesterBase*>(callComp);
+  return _testerBase->from_typedAliasReturnOut_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+AliasString PassiveGuardedProductsTesterBase ::
+  from_typedAliasReturnStringOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
+  )
+{
+  FW_ASSERT(callComp != nullptr);
+  PassiveGuardedProductsTesterBase* _testerBase = static_cast<PassiveGuardedProductsTesterBase*>(callComp);
+  return _testerBase->from_typedAliasReturnStringOut_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
 }
 
 void PassiveGuardedProductsTesterBase ::

@@ -3,8 +3,11 @@
 *.tasty
 *~
 .*
+!.gitattributes
 __SHADOW__
 __pycache__
 dist/
 fprime_fpp/fpp_version_info.py
- compiler/project/* # Scala metals project files
+# Scala metals project files
+compiler/project/metals.sbt
+compiler/project/project/

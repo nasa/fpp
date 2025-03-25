@@ -20,7 +20,7 @@ export LOCAL_CPP_FLAGS="
 -I../impl
 -I../test-base
 -I../test-impl
--I$FPRIME/gtest/googletest-src/googletest/include
+-I$FPRIME/googletest/googletest/include
 -DPROTECTED=public
 -DPRIVATE=public
 -DBUILD_UT=1

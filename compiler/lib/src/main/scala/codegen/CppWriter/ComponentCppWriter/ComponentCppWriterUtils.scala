@@ -561,7 +561,7 @@ abstract class ComponentCppWriterUtils(
   /** Get the C++ return type of a port instance as a String option */
   def getPortReturnType(pi: PortInstance): Option[String] = {
     def transformer (sym: Symbol.Port) (node: AstNode[Ast.TypeName]) =
-      TypeCppWriter.getName(s, s.a.typeMap(node.id))
+      TypeCppWriter.getName(s, s.a.typeMap(node.id), "Fw::String")
     transformPortReturnType(pi, transformer)
   }
 

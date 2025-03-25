@@ -18,10 +18,10 @@ case class TypeCppWriter(
       s.writeSymbol(Symbol.AbsType(t.node))
 
     override def aliasType(s: CppWriterState, t: Type.AliasType) =
-      // TODO(tumbar) Type alias codegen is not implemented yet.
-      // For now we will use the underyling type which is guarenteed
-      // a concrete type defined in codegen.
-      this.matchType(s, t.getUnderlyingType)
+      (stringTypeName, t.getUnderlyingType) match {
+        case ("Fw::StringBase", Type.String(_)) => stringTypeName
+        case _ => s.writeSymbol(Symbol.AliasType(t.node))
+      }
 
     override def array(s: CppWriterState, t: Type.Array) =
       s.writeSymbol(Symbol.Array(t.node))

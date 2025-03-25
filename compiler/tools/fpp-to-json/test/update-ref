@@ -40,6 +40,7 @@ update "" activeComponents
 update "" commands
 update "" constTypesComponents
 update "" constants
+update "" dataProducts
 update "" enums
 update "" events
 update "" importedTopologies

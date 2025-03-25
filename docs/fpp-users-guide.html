@@ -742,6 +742,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Public-Symbols">15.3.3. Public Symbols</a></li>
 </ul>
 </li>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Serialization-of-FPP-Values">15.4. Serialization of FPP Values</a></li>
 </ul>
 </li>
 </ul>
@@ -14328,7 +14329,9 @@ we won&#8217;t cover it further here.
 Similarly, implementing libraries is unrelated to FPP, so we
 won&#8217;t cover it in this manual.
 Here we focus on items (1), (2), and (5): implementing abstract types,
-implementing external state machines, and implementing deployments.</p>
+implementing external state machines, and implementing deployments.
+We also discuss <strong>serialization</strong> of data values, i.e., representing
+FPP data values as binary data for storage and transmission.</p>
 </div>
 <div class="sect2">
 <h3 id="Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types">15.1. Implementing Abstract Types</h3>
@@ -14378,9 +14381,11 @@ a header file <code>T.hpp</code> must exist in the current directory.
 It is up to you to provide that header file.</p>
 </div>
 <div class="paragraph">
-<p>When implementing an abstract type <code>T</code> in C&#43;&#43;, you must define
+<p><strong>General implementations:</strong>
+In most cases, when implementing an abstract type <code>T</code> in C&#43;&#43;, you
+will define
 a class that extends <code>Fw::Serializable</code> from the F Prime framework.
-Your class definition must include the following:</p>
+Your class definition should include the following:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -14424,6 +14429,10 @@ of a byte string serialized from the class.</p>
 </div>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>For more on serialization, see the section on
+<a href="#Writing-C-Plus-Plus-Implementations_Serialization-of-FPP-Values">serialization of FPP values</a>.</p>
 </div>
 <div class="paragraph">
 <p>Here is a minimal complete implementation of an abstract type <code>T</code>.
@@ -14470,6 +14479,22 @@ struct T final : public Fw::Serializable { // Extend Fw::Serializable
 
 #endif</pre>
 </div>
+</div>
+<div class="paragraph">
+<p><strong>Serializable buffers used in ports:</strong>
+In some cases, you may want to define an abstract type <code>T</code> that represents
+a data buffer and that is used only in <a href="#Defining-Ports">port definitions</a>.
+In this case you can implement
+<code>T</code> as a class that extends <code>Fw::SerializeBufferBase</code>.
+Instead of implementing the <code>serialize</code> and <code>deserialize</code> functions
+directly, you override functions that get the address and the capacity
+(allocated size) of the buffer; the base class <code>Fw::SerializeBufferBase</code>
+uses these functions to implement <code>serialize</code> and <code>deserialize</code>.
+For an example of how to do this, see the files <code>Fw/Cmd/CmdArgBuffer.hpp</code>
+and <code>Fw/Cmd/CmdArgBuffer.cpp</code> in the F Prime repository.
+Be careful, though: if you implement an abstract type <code>T</code> this way
+and you try to use the type <code>T</code> outside of a port definition,
+the generated C&#43;&#43; may not compile.</p>
 </div>
 <div class="paragraph">
 <p><strong>Built-in types:</strong>
@@ -14885,12 +14910,138 @@ function, you may.</p>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="Writing-C-Plus-Plus-Implementations_Serialization-of-FPP-Values">15.4. Serialization of FPP Values</h3>
+<div class="paragraph">
+<p>Every value represented in FPP can be <strong>serialized</strong>, i.e., converted into a
+machine-independent sequence of bytes.
+Serialization provides a consistent way to store data (e.g.,
+to onboard storage) and to transmit data (e.g., to or from the ground).
+The F Prime framework also uses serialization to pass data through asynchronous
+port invocations.
+The data is serialized when it is put on a message queue
+and then <strong>deserialized</strong> (i.e., converted from a byte sequence to
+a C&#43;&#43; representation)
+when it is taken off the queue for processing.</p>
+</div>
+<div class="paragraph">
+<p>F Prime uses the following rules for serializing data:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Values of primitive integer type are serialized as follows:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>A value of unsigned integer type (<code>U8</code>, <code>U16</code>, <code>U32</code>, or <code>U64</code>)
+is serialized in big-endian order (most significant byte first),
+using the number of bytes implied by the bit width.
+For example, the <code>U16</code> value 10 (decimal) is serialized as the
+two bytes <code>00</code> <code>0A</code> (hex).</p>
+</li>
+<li>
+<p>A value of signed integer type (<code>I8</code>, <code>I16</code>, <code>I32</code>, or <code>I64</code>)
+is serialized by first converting the value to an unsigned value of the same bit
+width and then serializing the unsigned value as stated in rule 1.a.
+If the value is nonnegative, then the unsigned value is
+the same as the signed value.
+Otherwise the unsigned value is the two&#8217;s complement of the signed value.
+For example:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>The <code>I16</code> value 10 (decimal) is serialized as two bytes
+in big-endian order, yielding the bytes <code>00</code> <code>0A</code> (hex).</p>
+</li>
+<li>
+<p>The <code>I16</code> value -10 (decimal) is serialized by
+(1) computing the <code>U16</code> value 2<sup>16</sup> - 10 = 65526
+and (2) serializing that value as two bytes in big-endian order,
+yielding the bytes <code>FF</code> <code>F6</code> (hex).</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>A value of floating-point type (<code>F32</code> or <code>F64</code>)
+is serialized in big-endian order according to the IEEE
+standard for representing these values.</p>
+</li>
+<li>
+<p>A value of Boolean type is serialized as a single byte.
+The byte values used to represent <code>true</code> and <code>false</code>
+are <code>FW_SERIALIZE_TRUE_VALUE</code> and <code>FW_SERIALIZE_FALSE_VALUE</code>,
+which are defined in the F Prime configuration header <code>FpConfig.h</code>.</p>
+</li>
+<li>
+<p>A value of string type is serialized as a size followed
+by the string characters in string order.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>The size is serialized according to rule 1 for primitive
+integer types.
+The F Prime type definition <code>FwSizeStoreType</code> specifies the type to use
+for the size.
+This type definition is user-configurable; it is found in the
+F Prime configuration header <code>FpConfig.h</code>.</p>
+</li>
+<li>
+<p>There is one byte for each character of the string, and there is
+no null terminator.
+Each string character is serialized as an <code>I8</code> value according to rule 1.b.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>A value of <a href="#Defining-Types_Array-Type-Definitions">array type</a>
+is serialized as a sequence of serialized values, one for each array
+element, in array order.
+Each value is serialized using these rules.</p>
+</li>
+<li>
+<p>A value of <a href="#Defining-Types_Struct-Type-Definitions">struct type</a>
+is serialized member-by-member, in the order
+that the members appear in the FPP struct definition,
+with no padding.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Except for
+<a href="#Defining-Types_Struct-Type-Definitions_Member-Arrays">member arrays</a>,
+each member is serialized using these rules.</p>
+</li>
+<li>
+<p>Each member array is serialized as stated in rule 5.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>A value of <a href="#Defining-Enums">enum type</a> is converted to a primitive
+integer value of the <a href="#Defining-Enums_The-Representation-Type">representation
+type</a> specified in the enum definition.
+This value is serialized as stated in rule 1.</p>
+</li>
+<li>
+<p>A value of <a href="#Defining-Types_Abstract-Type-Definitions">abstract type</a> is
+serialized according to its
+<a href="#Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types">C&#43;&#43; implementation</a>.</p>
+</li>
+</ol>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-02-20 09:49:49 -0800
+Last updated 2025-03-17 17:06:15 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -23,6 +23,8 @@ case class PortCppWriter (
 
   private val typeCppWriter = TypeCppWriter(s, "Fw::StringBase")
 
+  private val returnTypeCppWriter = TypeCppWriter(s, "Fw::String")
+
   private val formalParamsCppWriter = FormalParamsCppWriter(s)
 
   private val params = data.params
@@ -33,7 +35,7 @@ case class PortCppWriter (
   }).toMap
 
   // List of tuples (name, type) for each string param
-  private val strParamList = paramTypeMap.map((n, t) => t match {
+  private val strParamList = paramTypeMap.map((n, t) => t.getUnderlyingType match {
     case t: Type.String => Some((n, t))
     case _ => None
   }).filter(_.isDefined).map(_.get).toList
@@ -58,7 +60,7 @@ case class PortCppWriter (
 
   // Return type as a C++ type
   private val returnType = data.returnType match {
-    case Some(value) => typeCppWriter.write(s.a.typeMap(value.id))
+    case Some(value) => returnTypeCppWriter.write(s.a.typeMap(value.id))
     case None => "void"
   }
 
@@ -121,6 +123,7 @@ case class PortCppWriter (
     val systemHeaders = List(
       "cstdio",
       "cstring",
+      "FpConfig.hpp"
     ).map(CppWriter.systemHeaderString).map(line)
     val serializableHeader = data.returnType match {
       case Some(_) => Nil
@@ -128,20 +131,19 @@ case class PortCppWriter (
     }
     val standardHeaders = (
       List(
-        "FpConfig.hpp",
         "Fw/Comp/PassiveComponentBase.hpp",
         "Fw/Port/InputPortBase.hpp",
         "Fw/Port/OutputPortBase.hpp",
-        "Fw/Types/StringType.hpp",
+        "Fw/Types/String.hpp",
       ) ++ serializableHeader
     ).map(CppWriter.headerString)
     val symbolHeaders = writeIncludeDirectives
     val userHeaders = (standardHeaders ++ symbolHeaders).sorted.map(line)
     linesMember(
-      List(
-        Line.blank :: systemHeaders,
-        Line.blank :: userHeaders
-      ).flatten
+      List.concat(
+        addBlankPrefix(systemHeaders),
+        addBlankPrefix(userHeaders)
+      )
     )
   }
 

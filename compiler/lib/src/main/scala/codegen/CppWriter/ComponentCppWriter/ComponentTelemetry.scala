@@ -111,7 +111,7 @@ case class ComponentTelemetry (
                   |"""
             ),
             lines(
-              channel.channelType match {
+              channel.channelType.getUnderlyingType match {
                 case t: Type.String =>
                   val serialSize = writeStringSize(s, t)
                   s"Fw::SerializeStatus _stat = arg.serialize(_tlmBuff, FW_MIN(FW_TLM_STRING_MAX_SIZE, $serialSize));"

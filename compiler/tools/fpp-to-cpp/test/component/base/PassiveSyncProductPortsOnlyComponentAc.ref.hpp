@@ -7,7 +7,8 @@
 #ifndef PassiveSyncProductPortsOnlyComponentAc_HPP
 #define PassiveSyncProductPortsOnlyComponentAc_HPP
 
-#include "FpConfig.hpp"
+#include <FpConfig.hpp>
+
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/Dp/DpRequestPortAc.hpp"
 #include "Fw/Dp/DpResponsePortAc.hpp"

@@ -472,8 +472,7 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(if data.isExternal then "external" else "") ++
-    lines("spec param") ++
+    lines(if data.isExternal then "external spec param" else "spec param") ++
     List.concat(
       ident(data.name),
       typeNameNode(data.typeName),

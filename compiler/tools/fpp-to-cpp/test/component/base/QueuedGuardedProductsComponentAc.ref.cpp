@@ -14,6 +14,7 @@
 namespace {
   enum MsgTypeEnum {
     QUEUEDGUARDEDPRODUCTS_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
+    ALIASTYPEDASYNC_ALIASTYPED,
     NOARGSASYNC_NOARGS,
     TYPEDASYNC_TYPED,
     TYPEDASYNCASSERT_TYPED,
@@ -24,6 +25,7 @@ namespace {
   // Get the max size by constructing a union of the async input, command, and
   // internal port serialization sizes
   union BuffUnion {
+    BYTE aliasTypedAsyncPortSize[Ports::InputAliasTypedPort::SERIALIZED_SIZE];
     BYTE typedAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
     BYTE typedAsyncAssertPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
     BYTE typedAsyncBlockPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
@@ -349,6 +351,54 @@ void QueuedGuardedProductsComponentBase ::
 #endif
   }
 
+  // Connect input port aliasTypedAsync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_aliasTypedAsync_InputPorts());
+    port++
+  ) {
+    this->m_aliasTypedAsync_InputPort[port].init();
+    this->m_aliasTypedAsync_InputPort[port].addCallComp(
+      this,
+      m_p_aliasTypedAsync_in
+    );
+    this->m_aliasTypedAsync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_aliasTypedAsync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_aliasTypedAsync_InputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect input port noArgsAliasStringReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsAliasStringReturnSync_InputPorts());
+    port++
+  ) {
+    this->m_noArgsAliasStringReturnSync_InputPort[port].init();
+    this->m_noArgsAliasStringReturnSync_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsAliasStringReturnSync_in
+    );
+    this->m_noArgsAliasStringReturnSync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_noArgsAliasStringReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_noArgsAliasStringReturnSync_InputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
   // Connect input port noArgsAsync
   for (
     FwIndexType port = 0;
@@ -445,6 +495,30 @@ void QueuedGuardedProductsComponentBase ::
 #endif
   }
 
+  // Connect input port noArgsStringReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsStringReturnSync_InputPorts());
+    port++
+  ) {
+    this->m_noArgsStringReturnSync_InputPort[port].init();
+    this->m_noArgsStringReturnSync_InputPort[port].addCallComp(
+      this,
+      m_p_noArgsStringReturnSync_in
+    );
+    this->m_noArgsStringReturnSync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_noArgsStringReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_noArgsStringReturnSync_InputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
   // Connect input port noArgsSync
   for (
     FwIndexType port = 0;
@@ -466,6 +540,78 @@ void QueuedGuardedProductsComponentBase ::
       port
     );
     this->m_noArgsSync_InputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect input port typedAliasGuarded
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAliasGuarded_InputPorts());
+    port++
+  ) {
+    this->m_typedAliasGuarded_InputPort[port].init();
+    this->m_typedAliasGuarded_InputPort[port].addCallComp(
+      this,
+      m_p_typedAliasGuarded_in
+    );
+    this->m_typedAliasGuarded_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAliasGuarded_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAliasGuarded_InputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect input port typedAliasReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAliasReturnSync_InputPorts());
+    port++
+  ) {
+    this->m_typedAliasReturnSync_InputPort[port].init();
+    this->m_typedAliasReturnSync_InputPort[port].addCallComp(
+      this,
+      m_p_typedAliasReturnSync_in
+    );
+    this->m_typedAliasReturnSync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAliasReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAliasReturnSync_InputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect input port typedAliasStringReturnSync
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAliasStringReturnSync_InputPorts());
+    port++
+  ) {
+    this->m_typedAliasStringReturnSync_InputPort[port].init();
+    this->m_typedAliasStringReturnSync_InputPort[port].addCallComp(
+      this,
+      m_p_typedAliasStringReturnSync_in
+    );
+    this->m_typedAliasStringReturnSync_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAliasStringReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAliasStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -891,6 +1037,82 @@ void QueuedGuardedProductsComponentBase ::
 #endif
   }
 
+  // Connect output port noArgsStringReturnOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsStringReturnOut_OutputPorts());
+    port++
+  ) {
+    this->m_noArgsStringReturnOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_noArgsStringReturnOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_noArgsStringReturnOut_OutputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect output port typedAliasOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAliasOut_OutputPorts());
+    port++
+  ) {
+    this->m_typedAliasOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAliasOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAliasOut_OutputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect output port typedAliasReturnOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAliasReturnOut_OutputPorts());
+    port++
+  ) {
+    this->m_typedAliasReturnOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAliasReturnOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAliasReturnOut_OutputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
+  // Connect output port typedAliasReturnStringOut
+  for (
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAliasReturnStringOut_OutputPorts());
+    port++
+  ) {
+    this->m_typedAliasReturnStringOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    Fw::ObjectName portName;
+    portName.format(
+      "%s_typedAliasReturnStringOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName.toChar(),
+      port
+    );
+    this->m_typedAliasReturnStringOut_OutputPort[port].setObjName(portName.toChar());
+#endif
+  }
+
   // Connect output port typedOut
   for (
     FwIndexType port = 0;
@@ -948,7 +1170,7 @@ Fw::InputCmdPort* QueuedGuardedProductsComponentBase ::
   get_cmdIn_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_cmdIn_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_cmdIn_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -959,7 +1181,7 @@ Fw::InputDpResponsePort* QueuedGuardedProductsComponentBase ::
   get_productRecvIn_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_productRecvIn_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productRecvIn_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -970,11 +1192,33 @@ Fw::InputDpResponsePort* QueuedGuardedProductsComponentBase ::
 // Getters for typed input ports
 // ----------------------------------------------------------------------
 
+Ports::InputAliasTypedPort* QueuedGuardedProductsComponentBase ::
+  get_aliasTypedAsync_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_aliasTypedAsync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_aliasTypedAsync_InputPort[portNum];
+}
+
+Ports::InputNoArgsAliasStringReturnPort* QueuedGuardedProductsComponentBase ::
+  get_noArgsAliasStringReturnSync_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsAliasStringReturnSync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_noArgsAliasStringReturnSync_InputPort[portNum];
+}
+
 Ports::InputNoArgsPort* QueuedGuardedProductsComponentBase ::
   get_noArgsAsync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsAsync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsAsync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -985,7 +1229,7 @@ Ports::InputNoArgsPort* QueuedGuardedProductsComponentBase ::
   get_noArgsGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -996,7 +1240,7 @@ Ports::InputNoArgsReturnPort* QueuedGuardedProductsComponentBase ::
   get_noArgsReturnGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsReturnGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1007,29 +1251,73 @@ Ports::InputNoArgsReturnPort* QueuedGuardedProductsComponentBase ::
   get_noArgsReturnSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
   return &this->m_noArgsReturnSync_InputPort[portNum];
 }
 
+Ports::InputNoArgsStringReturnPort* QueuedGuardedProductsComponentBase ::
+  get_noArgsStringReturnSync_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnSync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_noArgsStringReturnSync_InputPort[portNum];
+}
+
 Ports::InputNoArgsPort* QueuedGuardedProductsComponentBase ::
   get_noArgsSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
   return &this->m_noArgsSync_InputPort[portNum];
 }
 
+Ports::InputAliasTypedPort* QueuedGuardedProductsComponentBase ::
+  get_typedAliasGuarded_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasGuarded_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_typedAliasGuarded_InputPort[portNum];
+}
+
+Ports::InputAliasTypedReturnPort* QueuedGuardedProductsComponentBase ::
+  get_typedAliasReturnSync_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnSync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_typedAliasReturnSync_InputPort[portNum];
+}
+
+Ports::InputAliasTypedReturnStringPort* QueuedGuardedProductsComponentBase ::
+  get_typedAliasStringReturnSync_InputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasStringReturnSync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_typedAliasStringReturnSync_InputPort[portNum];
+}
+
 Ports::InputTypedPort* QueuedGuardedProductsComponentBase ::
   get_typedAsync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_typedAsync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAsync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1040,7 +1328,7 @@ Ports::InputTypedPort* QueuedGuardedProductsComponentBase ::
   get_typedAsyncAssert_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_typedAsyncAssert_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAsyncAssert_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1051,7 +1339,7 @@ Ports::InputTypedPort* QueuedGuardedProductsComponentBase ::
   get_typedAsyncBlockPriority_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_typedAsyncBlockPriority_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAsyncBlockPriority_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1062,7 +1350,7 @@ Ports::InputTypedPort* QueuedGuardedProductsComponentBase ::
   get_typedAsyncDropPriority_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_typedAsyncDropPriority_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAsyncDropPriority_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1073,7 +1361,7 @@ Ports::InputTypedPort* QueuedGuardedProductsComponentBase ::
   get_typedGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_typedGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1084,7 +1372,7 @@ Ports::InputTypedReturnPort* QueuedGuardedProductsComponentBase ::
   get_typedReturnGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_typedReturnGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedReturnGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1095,7 +1383,7 @@ Ports::InputTypedReturnPort* QueuedGuardedProductsComponentBase ::
   get_typedReturnSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_typedReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1106,7 +1394,7 @@ Ports::InputTypedPort* QueuedGuardedProductsComponentBase ::
   get_typedSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_typedSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1124,7 +1412,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_cmdRegOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1138,7 +1426,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_cmdResponseOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1152,7 +1440,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_eventOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1166,7 +1454,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_prmGetOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1180,7 +1468,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_prmSetOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1194,7 +1482,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_productRequestOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1208,7 +1496,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_productSendOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1224,7 +1512,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_textEventOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1240,7 +1528,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_timeGetOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1254,7 +1542,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_tlmOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1272,7 +1560,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1286,11 +1574,67 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
   this->m_noArgsReturnOut_OutputPort[portNum].addCallPort(port);
+}
+
+void QueuedGuardedProductsComponentBase ::
+  set_noArgsStringReturnOut_OutputPort(
+      FwIndexType portNum,
+      Ports::InputNoArgsStringReturnPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_noArgsStringReturnOut_OutputPort[portNum].addCallPort(port);
+}
+
+void QueuedGuardedProductsComponentBase ::
+  set_typedAliasOut_OutputPort(
+      FwIndexType portNum,
+      Ports::InputAliasTypedPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_typedAliasOut_OutputPort[portNum].addCallPort(port);
+}
+
+void QueuedGuardedProductsComponentBase ::
+  set_typedAliasReturnOut_OutputPort(
+      FwIndexType portNum,
+      Ports::InputAliasTypedReturnPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_typedAliasReturnOut_OutputPort[portNum].addCallPort(port);
+}
+
+void QueuedGuardedProductsComponentBase ::
+  set_typedAliasReturnStringOut_OutputPort(
+      FwIndexType portNum,
+      Ports::InputAliasTypedReturnStringPort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_typedAliasReturnStringOut_OutputPort[portNum].addCallPort(port);
 }
 
 void QueuedGuardedProductsComponentBase ::
@@ -1300,7 +1644,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_typedOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1314,7 +1658,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_typedReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1334,7 +1678,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_cmdRegOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1348,7 +1692,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_cmdResponseOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1362,7 +1706,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_eventOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1376,7 +1720,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_prmSetOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1390,7 +1734,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_productRequestOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1404,7 +1748,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_productSendOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1420,7 +1764,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_textEventOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1436,7 +1780,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_timeGetOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1450,7 +1794,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_tlmOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1472,11 +1816,25 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
   this->m_noArgsOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void QueuedGuardedProductsComponentBase ::
+  set_typedAliasOut_OutputPort(
+      FwIndexType portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_typedAliasOut_OutputPort[portNum].registerSerialPort(port);
 }
 
 void QueuedGuardedProductsComponentBase ::
@@ -1486,7 +1844,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_typedOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1533,6 +1891,18 @@ FwIndexType QueuedGuardedProductsComponentBase ::
 // ----------------------------------------------------------------------
 
 FwIndexType QueuedGuardedProductsComponentBase ::
+  getNum_aliasTypedAsync_InputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_aliasTypedAsync_InputPort));
+}
+
+FwIndexType QueuedGuardedProductsComponentBase ::
+  getNum_noArgsAliasStringReturnSync_InputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsAliasStringReturnSync_InputPort));
+}
+
+FwIndexType QueuedGuardedProductsComponentBase ::
   getNum_noArgsAsync_InputPorts() const
 {
   return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsAsync_InputPort));
@@ -1557,9 +1927,33 @@ FwIndexType QueuedGuardedProductsComponentBase ::
 }
 
 FwIndexType QueuedGuardedProductsComponentBase ::
+  getNum_noArgsStringReturnSync_InputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsStringReturnSync_InputPort));
+}
+
+FwIndexType QueuedGuardedProductsComponentBase ::
   getNum_noArgsSync_InputPorts() const
 {
   return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsSync_InputPort));
+}
+
+FwIndexType QueuedGuardedProductsComponentBase ::
+  getNum_typedAliasGuarded_InputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasGuarded_InputPort));
+}
+
+FwIndexType QueuedGuardedProductsComponentBase ::
+  getNum_typedAliasReturnSync_InputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasReturnSync_InputPort));
+}
+
+FwIndexType QueuedGuardedProductsComponentBase ::
+  getNum_typedAliasStringReturnSync_InputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasStringReturnSync_InputPort));
 }
 
 FwIndexType QueuedGuardedProductsComponentBase ::
@@ -1695,6 +2089,30 @@ FwIndexType QueuedGuardedProductsComponentBase ::
 }
 
 FwIndexType QueuedGuardedProductsComponentBase ::
+  getNum_noArgsStringReturnOut_OutputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsStringReturnOut_OutputPort));
+}
+
+FwIndexType QueuedGuardedProductsComponentBase ::
+  getNum_typedAliasOut_OutputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasOut_OutputPort));
+}
+
+FwIndexType QueuedGuardedProductsComponentBase ::
+  getNum_typedAliasReturnOut_OutputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasReturnOut_OutputPort));
+}
+
+FwIndexType QueuedGuardedProductsComponentBase ::
+  getNum_typedAliasReturnStringOut_OutputPorts() const
+{
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasReturnStringOut_OutputPort));
+}
+
+FwIndexType QueuedGuardedProductsComponentBase ::
   getNum_typedOut_OutputPorts() const
 {
   return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedOut_OutputPort));
@@ -1714,7 +2132,7 @@ bool QueuedGuardedProductsComponentBase ::
   isConnected_cmdRegOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_cmdRegOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1725,7 +2143,7 @@ bool QueuedGuardedProductsComponentBase ::
   isConnected_cmdResponseOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_cmdResponseOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1736,7 +2154,7 @@ bool QueuedGuardedProductsComponentBase ::
   isConnected_eventOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_eventOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1747,7 +2165,7 @@ bool QueuedGuardedProductsComponentBase ::
   isConnected_prmGetOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_prmGetOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1758,7 +2176,7 @@ bool QueuedGuardedProductsComponentBase ::
   isConnected_prmSetOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_prmSetOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1769,7 +2187,7 @@ bool QueuedGuardedProductsComponentBase ::
   isConnected_productRequestOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_productRequestOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1780,7 +2198,7 @@ bool QueuedGuardedProductsComponentBase ::
   isConnected_productSendOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_productSendOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1793,7 +2211,7 @@ bool QueuedGuardedProductsComponentBase ::
   isConnected_textEventOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_textEventOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1806,7 +2224,7 @@ bool QueuedGuardedProductsComponentBase ::
   isConnected_timeGetOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_timeGetOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1817,7 +2235,7 @@ bool QueuedGuardedProductsComponentBase ::
   isConnected_tlmOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_tlmOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1832,7 +2250,7 @@ bool QueuedGuardedProductsComponentBase ::
   isConnected_noArgsOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1843,7 +2261,7 @@ bool QueuedGuardedProductsComponentBase ::
   isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1851,10 +2269,54 @@ bool QueuedGuardedProductsComponentBase ::
 }
 
 bool QueuedGuardedProductsComponentBase ::
+  isConnected_noArgsStringReturnOut_OutputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_noArgsStringReturnOut_OutputPort[portNum].isConnected();
+}
+
+bool QueuedGuardedProductsComponentBase ::
+  isConnected_typedAliasOut_OutputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_typedAliasOut_OutputPort[portNum].isConnected();
+}
+
+bool QueuedGuardedProductsComponentBase ::
+  isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_typedAliasReturnOut_OutputPort[portNum].isConnected();
+}
+
+bool QueuedGuardedProductsComponentBase ::
+  isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_typedAliasReturnStringOut_OutputPort[portNum].isConnected();
+}
+
+bool QueuedGuardedProductsComponentBase ::
   isConnected_typedOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_typedOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1865,7 +2327,7 @@ bool QueuedGuardedProductsComponentBase ::
   isConnected_typedReturnOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_typedReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1888,7 +2350,7 @@ void QueuedGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_productRecvIn_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productRecvIn_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1914,11 +2376,135 @@ void QueuedGuardedProductsComponentBase ::
 // ----------------------------------------------------------------------
 
 void QueuedGuardedProductsComponentBase ::
+  aliasTypedAsync_handlerBase(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_aliasTypedAsync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  // Call pre-message hook
+  aliasTypedAsync_preMsgHook(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+  ComponentIpcSerializableBuffer msg;
+  Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+
+  // Serialize message ID
+  _status = msg.serialize(
+    static_cast<FwEnumStoreType>(ALIASTYPEDASYNC_ALIASTYPED)
+  );
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Serialize port number
+  _status = msg.serialize(portNum);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Serialize argument u32
+  _status = msg.serialize(u32);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Serialize argument f32
+  _status = msg.serialize(f32);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Serialize argument b
+  _status = msg.serialize(b);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Serialize argument str2
+  _status = msg.serialize(str2);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Serialize argument e
+  _status = msg.serialize(e);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Serialize argument a
+  _status = msg.serialize(a);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Serialize argument s
+  _status = msg.serialize(s);
+  FW_ASSERT(
+    _status == Fw::FW_SERIALIZE_OK,
+    static_cast<FwAssertArgType>(_status)
+  );
+
+  // Send message
+  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
+
+  FW_ASSERT(
+    qStatus == Os::Queue::OP_OK,
+    static_cast<FwAssertArgType>(qStatus)
+  );
+}
+
+AliasString QueuedGuardedProductsComponentBase ::
+  noArgsAliasStringReturnSync_handlerBase(FwIndexType portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsAliasStringReturnSync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  AliasString retVal;
+
+  // Call handler function
+  retVal = this->noArgsAliasStringReturnSync_handler(portNum);
+
+  return retVal;
+}
+
+void QueuedGuardedProductsComponentBase ::
   noArgsAsync_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_noArgsAsync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsAsync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1958,7 +2544,7 @@ void QueuedGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_noArgsGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -1977,7 +2563,7 @@ U32 QueuedGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_noArgsReturnGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2000,7 +2586,7 @@ U32 QueuedGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_noArgsReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2012,17 +2598,141 @@ U32 QueuedGuardedProductsComponentBase ::
   return retVal;
 }
 
+Fw::String QueuedGuardedProductsComponentBase ::
+  noArgsStringReturnSync_handlerBase(FwIndexType portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnSync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  Fw::String retVal;
+
+  // Call handler function
+  retVal = this->noArgsStringReturnSync_handler(portNum);
+
+  return retVal;
+}
+
 void QueuedGuardedProductsComponentBase ::
   noArgsSync_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_noArgsSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
   // Call handler function
   this->noArgsSync_handler(portNum);
+}
+
+void QueuedGuardedProductsComponentBase ::
+  typedAliasGuarded_handlerBase(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasGuarded_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  // Lock guard mutex before calling
+  this->lock();
+
+  // Call handler function
+  this->typedAliasGuarded_handler(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+
+  // Unlock guard mutex
+  this->unLock();
+}
+
+AliasPrim2 QueuedGuardedProductsComponentBase ::
+  typedAliasReturnSync_handlerBase(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnSync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  AliasPrim2 retVal;
+
+  // Call handler function
+  retVal = this->typedAliasReturnSync_handler(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+
+  return retVal;
+}
+
+AliasString QueuedGuardedProductsComponentBase ::
+  typedAliasStringReturnSync_handlerBase(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasStringReturnSync_InputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  AliasString retVal;
+
+  // Call handler function
+  retVal = this->typedAliasStringReturnSync_handler(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+
+  return retVal;
 }
 
 void QueuedGuardedProductsComponentBase ::
@@ -2039,7 +2749,7 @@ void QueuedGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_typedAsync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAsync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2146,7 +2856,7 @@ void QueuedGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_typedAsyncAssert_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAsyncAssert_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2253,7 +2963,7 @@ void QueuedGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_typedAsyncBlockPriority_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAsyncBlockPriority_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2360,7 +3070,7 @@ void QueuedGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_typedAsyncDropPriority_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedAsyncDropPriority_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2472,7 +3182,7 @@ void QueuedGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_typedGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2509,7 +3219,7 @@ F32 QueuedGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_typedReturnGuarded_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedReturnGuarded_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2550,7 +3260,7 @@ F32 QueuedGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_typedReturnSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedReturnSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2585,7 +3295,7 @@ void QueuedGuardedProductsComponentBase ::
 {
   // Make sure port number is valid
   FW_ASSERT(
-    portNum < this->getNum_typedSync_InputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedSync_InputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2609,6 +3319,21 @@ void QueuedGuardedProductsComponentBase ::
 // on the corresponding port. By default, they do nothing. You can
 // override them to provide specific pre-message behavior.
 // ----------------------------------------------------------------------
+
+void QueuedGuardedProductsComponentBase ::
+  aliasTypedAsync_preMsgHook(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  // Default: no-op
+}
 
 void QueuedGuardedProductsComponentBase ::
   noArgsAsync_preMsgHook(FwIndexType portNum)
@@ -2688,7 +3413,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_productRequestOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2710,7 +3435,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_productSendOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2732,7 +3457,7 @@ void QueuedGuardedProductsComponentBase ::
   noArgsOut_out(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2747,7 +3472,7 @@ U32 QueuedGuardedProductsComponentBase ::
   noArgsReturnOut_out(FwIndexType portNum)
 {
   FW_ASSERT(
-    portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2756,6 +3481,117 @@ U32 QueuedGuardedProductsComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
   return this->m_noArgsReturnOut_OutputPort[portNum].invoke();
+}
+
+Fw::String QueuedGuardedProductsComponentBase ::
+  noArgsStringReturnOut_out(FwIndexType portNum)
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_noArgsStringReturnOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_noArgsStringReturnOut_OutputPort[portNum].invoke();
+}
+
+void QueuedGuardedProductsComponentBase ::
+  typedAliasOut_out(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_typedAliasOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_typedAliasOut_OutputPort[portNum].invoke(
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+AliasPrim2 QueuedGuardedProductsComponentBase ::
+  typedAliasReturnOut_out(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_typedAliasReturnOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_typedAliasReturnOut_OutputPort[portNum].invoke(
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+AliasString QueuedGuardedProductsComponentBase ::
+  typedAliasReturnStringOut_out(
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
+  )
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_typedAliasReturnStringOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_typedAliasReturnStringOut_OutputPort[portNum].invoke(
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
 }
 
 void QueuedGuardedProductsComponentBase ::
@@ -2771,7 +3607,7 @@ void QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_typedOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2803,7 +3639,7 @@ F32 QueuedGuardedProductsComponentBase ::
   )
 {
   FW_ASSERT(
-    portNum < this->getNum_typedReturnOut_OutputPorts(),
+    (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
     static_cast<FwAssertArgType>(portNum)
   );
 
@@ -2859,7 +3695,7 @@ void QueuedGuardedProductsComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::Time QueuedGuardedProductsComponentBase ::
-  getTime()
+  getTime() const
 {
   if (this->m_timeGetOut_OutputPort[0].isConnected()) {
     Fw::Time _time;
@@ -2934,6 +3770,79 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedGuardedProductsComponentBase ::
   );
 
   switch (_msgType) {
+    // Handle async input port aliasTypedAsync
+    case ALIASTYPEDASYNC_ALIASTYPED: {
+      // Deserialize argument u32
+      AliasPrim1 u32;
+      _deserStatus = _msg.deserialize(u32);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument f32
+      AliasPrim2 f32;
+      _deserStatus = _msg.deserialize(f32);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument b
+      AliasBool b;
+      _deserStatus = _msg.deserialize(b);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument str2
+      char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(32)];
+      Fw::ExternalString str2(__fprime_ac_str2_buffer, sizeof __fprime_ac_str2_buffer);
+      _deserStatus = _msg.deserialize(str2);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument e
+      AliasEnum e;
+      _deserStatus = _msg.deserialize(e);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument a
+      AliasArray a;
+      _deserStatus = _msg.deserialize(a);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+
+      // Deserialize argument s
+      AliasStruct s;
+      _deserStatus = _msg.deserialize(s);
+      FW_ASSERT(
+        _deserStatus == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_deserStatus)
+      );
+      // Call handler function
+      this->aliasTypedAsync_handler(
+        portNum,
+        u32,
+        f32,
+        b,
+        str2,
+        e,
+        a,
+        s
+      );
+
+      break;
+    }
+
     // Handle async input port noArgsAsync
     case NOARGSASYNC_NOARGS: {
       // Call handler function
@@ -3284,6 +4193,44 @@ void QueuedGuardedProductsComponentBase ::
 // ----------------------------------------------------------------------
 
 void QueuedGuardedProductsComponentBase ::
+  m_p_aliasTypedAsync_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedGuardedProductsComponentBase* compPtr = static_cast<QueuedGuardedProductsComponentBase*>(callComp);
+  compPtr->aliasTypedAsync_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+AliasString QueuedGuardedProductsComponentBase ::
+  m_p_noArgsAliasStringReturnSync_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedGuardedProductsComponentBase* compPtr = static_cast<QueuedGuardedProductsComponentBase*>(callComp);
+  return compPtr->noArgsAliasStringReturnSync_handlerBase(portNum);
+}
+
+void QueuedGuardedProductsComponentBase ::
   m_p_noArgsAsync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum
@@ -3327,6 +4274,17 @@ U32 QueuedGuardedProductsComponentBase ::
   return compPtr->noArgsReturnSync_handlerBase(portNum);
 }
 
+Fw::String QueuedGuardedProductsComponentBase ::
+  m_p_noArgsStringReturnSync_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedGuardedProductsComponentBase* compPtr = static_cast<QueuedGuardedProductsComponentBase*>(callComp);
+  return compPtr->noArgsStringReturnSync_handlerBase(portNum);
+}
+
 void QueuedGuardedProductsComponentBase ::
   m_p_noArgsSync_in(
       Fw::PassiveComponentBase* callComp,
@@ -3336,6 +4294,87 @@ void QueuedGuardedProductsComponentBase ::
   FW_ASSERT(callComp);
   QueuedGuardedProductsComponentBase* compPtr = static_cast<QueuedGuardedProductsComponentBase*>(callComp);
   compPtr->noArgsSync_handlerBase(portNum);
+}
+
+void QueuedGuardedProductsComponentBase ::
+  m_p_typedAliasGuarded_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedGuardedProductsComponentBase* compPtr = static_cast<QueuedGuardedProductsComponentBase*>(callComp);
+  compPtr->typedAliasGuarded_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+AliasPrim2 QueuedGuardedProductsComponentBase ::
+  m_p_typedAliasReturnSync_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AliasStruct& s
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedGuardedProductsComponentBase* compPtr = static_cast<QueuedGuardedProductsComponentBase*>(callComp);
+  return compPtr->typedAliasReturnSync_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
+}
+
+AliasString QueuedGuardedProductsComponentBase ::
+  m_p_typedAliasStringReturnSync_in(
+      Fw::PassiveComponentBase* callComp,
+      FwIndexType portNum,
+      AliasPrim1 u32,
+      AliasPrim2 f32,
+      AliasBool b,
+      const Fw::StringBase& str2,
+      const AliasEnum& e,
+      const AliasArray& a,
+      const AnotherAliasStruct& s
+  )
+{
+  FW_ASSERT(callComp);
+  QueuedGuardedProductsComponentBase* compPtr = static_cast<QueuedGuardedProductsComponentBase*>(callComp);
+  return compPtr->typedAliasStringReturnSync_handlerBase(
+    portNum,
+    u32,
+    f32,
+    b,
+    str2,
+    e,
+    a,
+    s
+  );
 }
 
 void QueuedGuardedProductsComponentBase ::
