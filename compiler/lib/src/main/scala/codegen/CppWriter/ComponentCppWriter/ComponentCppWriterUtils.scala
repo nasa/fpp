@@ -361,13 +361,13 @@ abstract class ComponentCppWriterUtils(
     ),
     if hasExternalParameters then List(
       CppDoc.Function.Param(
-        CppDoc.Type("ParamSerizationPtr"),
-        "paramSerizationPtr",
+        CppDoc.Type("ParamSerizationFunc*"),
+        "paramSerizationFuncPtr",
         Some("The function pointer to serialize an external parmeter")
       ),
       CppDoc.Function.Param(
-        CppDoc.Type("ParamDeserizationPtr"),
-        "paramDeserizationPtr",
+        CppDoc.Type("ParamDeserizationFuncPtr"),
+        "paramDeserizationFuncPtr",
         Some("The function pointer to deserialize an external parmeter")
       )
     )

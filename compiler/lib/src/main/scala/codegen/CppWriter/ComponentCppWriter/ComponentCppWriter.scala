@@ -488,11 +488,12 @@ case class ComponentCppWriter (
         if hasExternalParameters then {
           lines(
             """| // Set external parameter functions pointers
-               | this->paramSerizationPtr = paramSerizationPtr;
-               | this->paramDeserizationPtr = paramDeserizationPtr;
+               | this->paramSerizationFuncPtr = paramSerizationFuncPtr;
+               | this->paramDeserizationFuncPtr = paramDeserizationFuncPtr;
                |""")
         }
         else Nil,
+        // TODO Check if/else pattern can be replaced with a guarded list
       )
     )
 

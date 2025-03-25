@@ -97,7 +97,7 @@ case class ComponentParameters (
               lines(
                 s"""|
                     |//! Function to serialize an externally stored parameter
-                    |Fw::ParamSerializeFunc paramSerizationPtr;
+                    |Fw::ParamSerializeFunc paramSerizationFuncPtr;
                     |"""
               )
             ),
@@ -105,7 +105,7 @@ case class ComponentParameters (
               lines(
                 s"""|
                     |//! Function to deserialize an externally stored parameter
-                    |Fw::ParamDeserializeFunc paramSerizationPtr;
+                    |Fw::ParamDeserializeFunc paramDeserizationFuncPtr;
                     |"""
               )
             )
