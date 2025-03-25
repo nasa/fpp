@@ -20,7 +20,6 @@ module Fw {
 module M {
   port P
 
-  @ A component for generating periodic signals
   queued component Q {
 
     @ Data product receive port
