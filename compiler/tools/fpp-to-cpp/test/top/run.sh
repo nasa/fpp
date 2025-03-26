@@ -38,6 +38,7 @@ params()
 tlm_packets()
 {
   run_test "-i builtin.fpp -p $PWD" tlm_packets && \
+    diff_cpp NoInstancesTopology && \
     diff_cpp NoInstances_P1TlmPackets && \
     diff_cpp NoInstances_P2TlmPackets && \
     diff_cpp OneInstance_P1TlmPackets && \
