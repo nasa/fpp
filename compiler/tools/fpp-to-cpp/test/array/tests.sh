@@ -1,7 +1,6 @@
 tests="
 abs_type
 alias_type
-builtin_type
 component
 duplicate
 enum
