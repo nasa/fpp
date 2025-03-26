@@ -18,5 +18,5 @@ do
     cp $base.$suffix $dest_base.$suffix
   done
   echo "compiling $dest_base.cpp"
-  $fprime_gcc -I../../.. -c $dest_base.cpp
+  $fprime_gcc -I../../.. -I ../fprime/config -c $dest_base.cpp
 done

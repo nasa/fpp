@@ -7,8 +7,6 @@
 #ifndef TAliasAliasAc_HPP
 #define TAliasAliasAc_HPP
 
-#include <FpConfig.hpp>
-
 #include "Fw/Types/BasicTypes.h"
 #include "T.hpp"
 

@@ -7,12 +7,10 @@
 #ifndef SimpleCTypeAliasAc_H
 #define SimpleCTypeAliasAc_H
 
-#include <FpConfig.h>
-
 #include "Fw/Types/BasicTypes.h"
 
 //! A simple type alias that supports C codegen
 typedef U32 SimpleCType;
-#define PRI_SimpleCType PRI_u32
+#define PRI_SimpleCType PRIu32
 
 #endif

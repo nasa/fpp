@@ -120,27 +120,16 @@ case class AliasCppWriter (
       return linesMember(List())
     }
 
-    val systemHHeaders = List(
-      "FpConfig.h"
-    ).map(CppWriter.systemHeaderString).map(line)
-
     val standardHeaders = List(
       "Fw/Types/BasicTypes.h",
     ).map(CppWriter.headerString)
 
     val symbolHeaders = writeHIncludeDirectives(s, aNode)
     val headers = (standardHeaders ++ symbolHeaders).distinct.sorted.map(line)
-    linesMember(List.concat(
-      addBlankPrefix(systemHHeaders),
-      addBlankPrefix(headers)
-    ))
+    linesMember(addBlankPrefix(headers))
   }
 
   private def getHppIncludes: CppDoc.Member.Lines = {
-    val systemHppHeaders = List(
-      "FpConfig.hpp"
-    ).map(CppWriter.systemHeaderString).map(line)
-
     val standardHeaders = List(
       aliasType.aliasType match {
         case Type.String(_) => "Fw/Types/String.hpp"
@@ -149,10 +138,7 @@ case class AliasCppWriter (
     ).map(CppWriter.headerString)
     val symbolHeaders = writeHppIncludeDirectives(s, aNode)
     val headers = standardHeaders ++ symbolHeaders
-    linesMember(List.concat(
-      addBlankPrefix(systemHppHeaders),
-      addBlankPrefix(headers.distinct.sorted.map(line))
-    ))
+    linesMember(addBlankPrefix(headers.distinct.sorted.map(line)))
   }
 
   private def getHppDefinition: CppDoc.Member.Lines = {
@@ -182,7 +168,7 @@ case class AliasCppWriter (
       ty match {
         case Type.Float(f) => aliasType.aliasType.toString().toLowerCase()
         case Type.PrimitiveInt(i) => aliasType.aliasType.toString().toLowerCase()
-        case _ => typeCppWriter.write(ty)
+        case _ => "_" + typeCppWriter.write(ty)
       }
     }
 
@@ -191,7 +177,7 @@ case class AliasCppWriter (
     linesMember(addBlankPrefix(
       AnnotationCppWriter.writePreComment(aNode) ++ lines(
         s"""|typedef ${typeCppWriter.write(aliasType.aliasType)} $name;
-            |#define PRI_$name PRI_${fmtSpec}""")
+            |#define PRI_$name PRI${fmtSpec}""")
     ))
   }
 }

@@ -7,8 +7,6 @@
 #ifndef AliasEnumAliasAc_HPP
 #define AliasEnumAliasAc_HPP
 
-#include <FpConfig.hpp>
-
 #include "EEnumAc.hpp"
 #include "Fw/Types/BasicTypes.h"
 

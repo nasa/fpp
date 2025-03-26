@@ -7,12 +7,10 @@
 #ifndef AliasPrim2AliasAc_H
 #define AliasPrim2AliasAc_H
 
-#include <FpConfig.h>
-
 #include "Fw/Types/BasicTypes.h"
 
 //! Alias of another primtive type
 typedef F32 AliasPrim2;
-#define PRI_AliasPrim2 PRI_f32
+#define PRI_AliasPrim2 PRIf32
 
 #endif

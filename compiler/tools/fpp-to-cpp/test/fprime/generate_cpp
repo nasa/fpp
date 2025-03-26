@@ -20,6 +20,32 @@ do
   done
 done
 
+# Move Fw aliases (FpConfig.h dependencies) into config
+fp_config_aliases="
+FwChanIdType
+FwDpIdType
+FwDpPriorityType
+FwEnumStoreType
+FwEventIdType
+FwOpcodeType
+FwPacketDescriptorType
+FwPrmIdType
+FwSizeStoreType
+FwSizeType
+FwTimeBaseStoreType
+FwTimeContextStoreType
+FwTlmPacketizeIdType
+FwTraceIdType
+"
+
+for base in ${fp_config_aliases}
+do
+  for suffix in hpp h
+  do
+    mv ${base}AliasAc.$suffix config
+  done
+done
+
 # Move files into place by name prefix
 for dir in Buffer Cmd Dp Log Prm Time Tlm
 do

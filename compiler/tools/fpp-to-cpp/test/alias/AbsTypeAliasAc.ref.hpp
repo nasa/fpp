@@ -7,8 +7,6 @@
 #ifndef AbsTypeAliasAc_HPP
 #define AbsTypeAliasAc_HPP
 
-#include <FpConfig.hpp>
-
 #include "Fw/Types/BasicTypes.h"
 #include "T.hpp"
 
