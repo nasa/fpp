@@ -335,22 +335,24 @@ abstract class ComponentCppWriterUtils(
 
   /** Parameters for the init function */
   val initParams: List[CppDoc.Function.Param] = List.concat(
-    if componentData.kind != Ast.ComponentKind.Passive then List(
-      CppDoc.Function.Param(
-        CppDoc.Type("FwSizeType"),
-        "queueDepth",
-        Some("The queue depth")
+    guardedList (componentData.kind != Ast.ComponentKind.Passive) (
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("FwSizeType"),
+          "queueDepth",
+          Some("The queue depth")
+        )
       )
-    )
-    else Nil,
-    if hasSerialAsyncInputPorts then List(
-      CppDoc.Function.Param(
-        CppDoc.Type("FwSizeType"),
-        "msgSize",
-        Some("The message size")
+    ),
+    guardedList (hasSerialAsyncInputPorts) (
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("FwSizeType"),
+          "msgSize",
+          Some("The message size")
+        )
       )
-    )
-    else Nil,
+    ),
     List(
       CppDoc.Function.Param(
         CppDoc.Type("FwEnumStoreType"),
@@ -359,19 +361,20 @@ abstract class ComponentCppWriterUtils(
         Some("0")
       )
     ),
-    if hasExternalParameters then List(
-      CppDoc.Function.Param(
-        CppDoc.Type("ParamSerizationFunc*"),
-        "paramSerizationFuncPtr",
-        Some("The function pointer to serialize an external parmeter")
-      ),
-      CppDoc.Function.Param(
-        CppDoc.Type("ParamDeserizationFuncPtr"),
-        "paramDeserizationFuncPtr",
-        Some("The function pointer to deserialize an external parmeter")
+    guardedList (hasExternalParameters) (
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("ParamSerizationFunc*"),
+          "paramSerizationFuncPtr",
+          Some("The function pointer to serialize an external parmeter")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("ParamDeserizationFuncPtr"),
+          "paramDeserizationFuncPtr",
+          Some("The function pointer to deserialize an external parmeter")
+        )
       )
     )
-    else Nil,
   )
 
   val portParamTypeMap: ComponentCppWriterUtils.PortParamTypeMap =

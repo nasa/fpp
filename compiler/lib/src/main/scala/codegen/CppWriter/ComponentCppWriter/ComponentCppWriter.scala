@@ -107,7 +107,7 @@ case class ComponentCppWriter (
       guardedList (hasEvents) (List("Fw/Log/LogString.hpp"))
     val internalStrHeaders =
       guardedList (hasInternalPorts) (List("Fw/Types/InternalInterfaceString.hpp"))
-    val systemHeaders = 
+    val systemHeaders =
       ("FpConfig.hpp" :: guardedList (hasEvents) (
         List("atomic")
       )).map(CppWriter.systemHeaderString).sortBy(_.toLowerCase()).map(line)
@@ -494,15 +494,13 @@ case class ComponentCppWriter (
             )
           )
         },
-        if hasExternalParameters then {
+        guardedList (hasExternalParameters) (
           lines(
             """| // Set external parameter functions pointers
                | this->paramSerizationFuncPtr = paramSerizationFuncPtr;
                | this->paramDeserizationFuncPtr = paramDeserizationFuncPtr;
                |""")
-        }
-        else Nil,
-        // TODO Check if/else pattern can be replaced with a guarded list
+        )
       )
     )
 
