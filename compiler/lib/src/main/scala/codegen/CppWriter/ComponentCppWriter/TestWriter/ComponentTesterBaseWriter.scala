@@ -28,6 +28,8 @@ case class ComponentTesterBaseWriter(
 
   private val symbol = componentSymbol
 
+  private val isActive = this.aNode._2.data.kind == Ast.ComponentKind.Active
+
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
     CppWriter.createCppDoc(
@@ -121,6 +123,7 @@ case class ComponentTesterBaseWriter(
       guardedList (hasTimeGetPort) (getTimeFunctions),
       guardedList (hasDataProducts) (getDpFunctions),
       historyWriter.getFunctionMembers,
+      guardedList (isActive) (getDispatcherFunctions),
 
       // Private function members
       getPortStaticFunctions,
@@ -626,6 +629,68 @@ case class ComponentTesterBaseWriter(
       }
     )
   }
+
+
+  private def getDispatcherFunctions: List[CppDoc.Class.Member] = {
+    val oneBody = intersperseBlankLines(
+      List(
+        lines(
+          """|    // Dispatch one message returning status
+             |    return component.doDispatch();
+             |"""
+        ),
+      )
+    )
+    val allBody = intersperseBlankLines(
+      List(
+        lines(
+          s"""|    // Dispatch all message unless ERROR, or EXIT occur
+              |    ${className}::MsgDispatchStatus messageStatus = ${componentClassName}::MsgDispatchStatus::MSG_DISPATCH_EMPTY;
+              |    while (messageStatus == ${componentClassName}::MSG_DISPATCH_OK) {
+              |         messageStatus = component.doDispatch();
+              |    }
+              |    return messageStatus;
+              |"""
+        ),
+      )
+    )
+
+    addAccessTagAndComment(
+      "public",
+      "Dispatching helper functions",
+      List(
+        functionClassMember(
+          Some(s"Calls component's doDispatch on behalf of the caller"),
+          "dispatchOne",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type(s"${className}&"),
+              "component",
+              Some("The component to dispatch")
+            )
+          ),
+          CppDoc.Type(s"${className}::MsgDispatchStatus"),
+          oneBody,
+          CppDoc.Function.Static
+        ),
+        functionClassMember(
+          Some(s"Calls component's doDispatch until ERROR, or EXIT"),
+          "dispatchAll",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type(s"${className}&"),
+              "component",
+              Some("The component to dispatch")
+            )
+          ),
+          CppDoc.Type(s"${className}::MsgDispatchStatus"),
+          allBody,
+          CppDoc.Function.Static
+        )
+      )
+    )
+  }
+
 
   private def getCmdFunctions: List[CppDoc.Class.Member] = {
     val cmdPortInvocation = {
