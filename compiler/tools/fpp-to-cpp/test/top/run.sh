@@ -41,6 +41,7 @@ tlm_packets()
     diff_cpp NoInstancesTopology && \
     diff_cpp NoInstances_P1TlmPackets && \
     diff_cpp NoInstances_P2TlmPackets && \
+    diff_cpp OneInstanceTopology && \
     diff_cpp OneInstance_P1TlmPackets && \
     diff_cpp OneInstance_P2TlmPackets && \
     diff_cpp OneInstance_P3TlmPackets && \
