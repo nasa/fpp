@@ -11,6 +11,7 @@ dir=`cd ../..; echo $PWD`
 tops="
 <NoInstances>
 <OneInstance>
+<TwoInstances>
 "
 
 echo '  generating C++'
