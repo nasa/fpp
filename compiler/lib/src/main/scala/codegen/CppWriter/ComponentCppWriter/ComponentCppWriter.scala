@@ -217,6 +217,7 @@ case class ComponentCppWriter (
 
       // Protected/private function members
       getDispatchFunctionMember,
+      guardedList (data.kind == Ast.ComponentKind.Queued) (getDispatchCurrentMemebers),
 
       // Private function members
       portWriter.getPrivateFunctionMembers,
@@ -905,6 +906,44 @@ case class ComponentCppWriter (
         )
       )
     }
+  }
+
+  private def getDispatchCurrentMemebers: List[CppDoc.Class.Member] = {
+    val body = intersperseBlankLines(
+      List(
+        lines(
+          """|    // Dispatch all current messages unless ERROR or EXIT occur
+             |    const FwSizeType currentMessageCount = this->m_queue.getMessagesAvailable();
+             |    QueuedComponentBase::MsgDispatchStatus messageStatus = QueuedComponentBase::MsgDispatchStatus::MSG_DISPATCH_EMPTY;
+             |    for (FwSizeType i = 0; i < currentMessageCount; i++) {
+             |        messageStatus = this->doDispatch();
+             |        if (messageStatus != QueuedComponentBase::MSG_DISPATCH_OK) {
+             |            break;
+             |        }
+             |    }
+             |    return messageStatus;
+             |"""
+        ),
+      )
+    )
+
+    addAccessTagAndComment(
+      "protected",
+      "Helper functions for dispatching current messages",
+      List(
+        functionClassMember(
+          Some(s"Dispatch all current messages unless ERROR or EXIT occurs"),
+          "dispatchCurrentMessages",
+          Nil,
+          CppDoc.Type(
+            "MsgDispatchStatus",
+            Some("Fw::QueuedComponentBase::MsgDispatchStatus")
+          ),
+          body,
+          CppDoc.Function.NonSV
+        )
+      )
+    )
   }
 
   private def getTimeFunctionMember: List[CppDoc.Class.Member] =

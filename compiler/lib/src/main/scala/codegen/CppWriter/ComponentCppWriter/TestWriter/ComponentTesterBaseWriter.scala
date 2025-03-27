@@ -12,6 +12,8 @@ case class ComponentTesterBaseWriter(
 
   private val className = componentClassName
 
+  private val data = componentData
+
   private val componentFileName = ComputeCppFiles.FileNames.getComponent(componentName)
 
   private val componentRelativeFileName = s.getRelativePath(componentFileName).toString
@@ -27,8 +29,6 @@ case class ComponentTesterBaseWriter(
   private val relativeFileName = s.getRelativePath(fileName).toString
 
   private val symbol = componentSymbol
-
-  private val isActive = this.aNode._2.data.kind == Ast.ComponentKind.Active
 
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
@@ -123,7 +123,7 @@ case class ComponentTesterBaseWriter(
       guardedList (hasTimeGetPort) (getTimeFunctions),
       guardedList (hasDataProducts) (getDpFunctions),
       historyWriter.getFunctionMembers,
-      guardedList (isActive) (getDispatcherFunctions),
+      guardedList (this.data.kind == Ast.ComponentKind.Active) (getDispatcherFunctions),
 
       // Private function members
       getPortStaticFunctions,
@@ -644,10 +644,14 @@ case class ComponentTesterBaseWriter(
     val allBody = intersperseBlankLines(
       List(
         lines(
-          s"""|    // Dispatch all message unless ERROR, or EXIT occur
-              |    ${className}::MsgDispatchStatus messageStatus = ${componentClassName}::MsgDispatchStatus::MSG_DISPATCH_EMPTY;
-              |    while (messageStatus == ${componentClassName}::MSG_DISPATCH_OK) {
-              |         messageStatus = component.doDispatch();
+          s"""|    // Dispatch all current messages unless ERROR or EXIT occur
+              |    const FwSizeType currentMessageCount = component.m_queue.getMessagesAvailable();
+              |    ${className}::MsgDispatchStatus messageStatus = ${className}::MsgDispatchStatus::MSG_DISPATCH_EMPTY;
+              |    for (FwSizeType i = 0; i < currentMessageCount; i++) {
+              |        messageStatus = component.doDispatch();
+              |        if (messageStatus != ${className}::MSG_DISPATCH_OK) {
+              |            break;
+              |        }
               |    }
               |    return messageStatus;
               |"""
@@ -674,8 +678,8 @@ case class ComponentTesterBaseWriter(
           CppDoc.Function.Static
         ),
         functionClassMember(
-          Some(s"Calls component's doDispatch until ERROR, or EXIT"),
-          "dispatchAll",
+          Some(s"Call component's doDispatch for all current messages unless ERROR, or EXIT"),
+          "dispatchCurrentMessages",
           List(
             CppDoc.Function.Param(
               CppDoc.Type(s"${className}&"),
@@ -690,7 +694,6 @@ case class ComponentTesterBaseWriter(
       )
     )
   }
-
 
   private def getCmdFunctions: List[CppDoc.Class.Member] = {
     val cmdPortInvocation = {
