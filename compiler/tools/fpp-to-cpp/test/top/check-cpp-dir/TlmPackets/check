@@ -10,13 +10,14 @@ dir=`cd ../..; echo $PWD`
 
 tops="
 <NoInstances>
+<OneInstance>
 "
 
 echo '  generating C++'
 $fpp_to_cpp -p $dir -i ../../builtin.fpp ../../tlm_packets.fpp
 for suffix in hpp cpp
 do
-  top_acs=`echo $tops | sed -e "s;<;../../;" -e "s;>;TopologyAc.ref.$suffix;"`
+  top_acs=`echo $tops | sed -e "s;<;../../;g" -e "s;>;TopologyAc.ref.$suffix;g"`
   for file in ../../*TlmPacketsAc.ref.$suffix $top_acs
   do
     base=`basename $file .ref.$suffix`
@@ -25,9 +26,16 @@ do
 done
 
 echo '  compiling C++'
-top_cpps=`echo $tops | sed -e "s;<;;" -e "s;>;TopologyAc.cpp;"`
+top_cpps=`echo $tops | sed -e "s;<;;g" -e "s;>;TopologyAc.cpp;g"`
 for file in *TlmPacketsAc.cpp $top_cpps
 do
+  include_paths="
+  -I..
+  -I../../../fprime
+  -I../../../fprime/config
+  -I../../../fprime/Fw/Time
+  -I../../../fprime/Fw/Tlm
+  "
   echo "    compiling $file"
-  $fprime_gcc -I.. -I../../../fprime -I../../../fprime/config -Wno-unused-parameter -c $file
+  $fprime_gcc $include_paths -Wno-unused-parameter -c $file
 done
