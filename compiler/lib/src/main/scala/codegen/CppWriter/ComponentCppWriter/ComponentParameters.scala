@@ -92,21 +92,13 @@ case class ComponentParameters (
         List(
           addAccessTagAndComment(
             "PRIVATE",
-            "Parameter function pointers",
+            "Parameter delegates",
             List(
               linesClassMember(
                 lines(
                   s"""|
-                      |//! Function to serialize an externally stored parameter
-                      |Fw::ParamSerializeFunc paramSerizationFuncPtr;
-                      |"""
-                )
-              ),
-              linesClassMember(
-                lines(
-                  s"""|
-                      |//! Function to deserialize an externally stored parameter
-                      |Fw::ParamDeserializeFunc paramDeserizationFuncPtr;
+                      |//! Delegate to serialize/deserialize an externally stored parameter
+                      |Fw::ParamExternalDelegate* paramDelegate;
                       |"""
                 )
               )
@@ -148,8 +140,9 @@ case class ComponentParameters (
                     if (param.isExternal) {
                       List(
                         lines(
-                          s"""| // Call the deserialize function for the external parameter
-                              | this->deserializeParam(_id,buff);
+                          s"""|
+                              | // Call the delegate deserialize function for ${paramVariableName(param.getName)})
+                              | this->paramDelegate->deserializeParam(_id,buff);
                               |"""
                         )
                       )

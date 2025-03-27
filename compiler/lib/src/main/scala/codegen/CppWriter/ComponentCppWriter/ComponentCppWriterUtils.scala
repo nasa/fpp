@@ -353,26 +353,21 @@ abstract class ComponentCppWriterUtils(
         )
       )
     ),
+    guardedList (hasExternalParameters) (
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::ParamExternalDelegate&"),
+          "paramDelegateRef",
+          Some("The delegate for externally managed parmeters")
+        ),
+      )
+    ),
     List(
       CppDoc.Function.Param(
         CppDoc.Type("FwEnumStoreType"),
         "instance",
         Some("The instance number"),
         Some("0")
-      )
-    ),
-    guardedList (hasExternalParameters) (
-      List(
-        CppDoc.Function.Param(
-          CppDoc.Type("ParamSerizationFunc*"),
-          "paramSerizationFuncPtr",
-          Some("The function pointer to serialize an external parmeter")
-        ),
-        CppDoc.Function.Param(
-          CppDoc.Type("ParamDeserizationFuncPtr"),
-          "paramDeserizationFuncPtr",
-          Some("The function pointer to deserialize an external parmeter")
-        )
       )
     )
   )

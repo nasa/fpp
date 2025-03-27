@@ -103,6 +103,8 @@ case class ComponentCppWriter (
       guardedList (hasChannels) (List("Fw/Tlm/TlmString.hpp"))
     val prmStrHeaders =
       guardedList (hasParameters) (List("Fw/Prm/PrmString.hpp"))
+    val prmExtHeaders =
+      guardedList (hasExternalParameters) (List("Fw/Prm/PrmExternalTypes.hpp"))
     val logStrHeaders =
       guardedList (hasEvents) (List("Fw/Log/LogString.hpp"))
     val internalStrHeaders =
@@ -123,6 +125,7 @@ case class ComponentCppWriter (
         cmdStrHeaders,
         tlmStrHeaders,
         prmStrHeaders,
+        prmExtHeaders,
         logStrHeaders,
         internalStrHeaders
       ).map(CppWriter.headerString)
@@ -496,9 +499,8 @@ case class ComponentCppWriter (
         },
         guardedList (hasExternalParameters) (
           lines(
-            """| // Set external parameter functions pointers
-               | this->paramSerizationFuncPtr = paramSerizationFuncPtr;
-               | this->paramDeserizationFuncPtr = paramDeserizationFuncPtr;
+            """| // Set external parameter delegates
+               | this->paramDelegate = &paramDelegateRef;
                |""")
         )
       )
