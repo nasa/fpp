@@ -26,5 +26,5 @@ do
   cp $base.template.ref.hpp $base.hpp
   cp $base.template.ref.cpp $base.cpp
   echo "compiling $base.cpp"
-  $fprime_gcc -I../../../.. -I.. -I../.. -I../../fprime/config $warning_flags -c $base.cpp
+  $fprime_gcc -I../../../.. -I.. -I../.. -I../../fprime $warning_flags -c $base.cpp
 done

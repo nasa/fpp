@@ -15,7 +15,7 @@ include_flags="
 -I../base
 -I../impl
 -I../test-base
--I../../fprime/config
+-I../../fprime
 "
 define_flags="-DPROTECTED="public" -DBUILD_UT=1"
 

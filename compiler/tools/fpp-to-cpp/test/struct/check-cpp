@@ -16,5 +16,5 @@ do
   cp $base.ref.hpp $base.hpp
   cp $base.ref.cpp $base.cpp
   echo "compiling $base.cpp"
-  $fprime_gcc -I../fprime/config -c $base.cpp
+  $fprime_gcc -I../fprime -c $base.cpp
 done

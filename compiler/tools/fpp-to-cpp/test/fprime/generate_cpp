@@ -22,20 +22,33 @@ done
 
 # Move Fw aliases (FpConfig.h dependencies) into config
 fp_config_aliases="
+FwAssertArgType
 FwChanIdType
 FwDpIdType
 FwDpPriorityType
 FwEnumStoreType
 FwEventIdType
+FwIndexType
 FwOpcodeType
 FwPacketDescriptorType
 FwPrmIdType
+FwQueuePriorityType
+FwSignedSizeType
 FwSizeStoreType
 FwSizeType
+FwTaskPriorityType
 FwTimeBaseStoreType
 FwTimeContextStoreType
 FwTlmPacketizeIdType
 FwTraceIdType
+"
+fp_platform_aliases="
+PlatformSizeType
+PlatformSignedSizeType
+PlatformIndexType
+PlatformAssertArgType
+PlatformTaskPriorityType
+PlatformQueuePriorityType
 "
 
 for base in ${fp_config_aliases}
@@ -43,6 +56,14 @@ do
   for suffix in hpp h
   do
     mv ${base}AliasAc.$suffix config
+  done
+done
+
+for base in ${fp_platform_aliases}
+do
+  for suffix in hpp h
+  do
+    mv ${base}AliasAc.$suffix Platform
   done
 done
 
