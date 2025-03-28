@@ -10,6 +10,6 @@
 #include "Fw/Types/BasicTypes.h"
 
 typedef U16 U16Alias;
-#define PRI_U16Alias PRIu16
+#define PRI_U16Alias PRI_U16
 
 #endif

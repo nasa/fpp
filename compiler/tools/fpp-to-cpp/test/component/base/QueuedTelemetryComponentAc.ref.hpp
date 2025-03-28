@@ -7,7 +7,7 @@
 #ifndef QueuedTelemetryComponentAc_HPP
 #define QueuedTelemetryComponentAc_HPP
 
-#include <FpConfig.hpp>
+#include <Fw/FPrimeBasicTypes.hpp>
 
 #include "AArrayAc.hpp"
 #include "AliasTypedPortAc.hpp"

@@ -10,6 +10,5 @@
 #include "Fw/Types/BasicTypes.h"
 
 typedef F32 TF32;
-#define PRI_TF32 PRIf32
 
 #endif

@@ -83,7 +83,7 @@ case class EnumCppWriter(
 
   private def getHppIncludes: CppDoc.Member = {
     val strings = List(
-      "FpConfig.hpp",
+      "Fw/FPrimeBasicTypes.hpp",
       "Fw/Types/Serializable.hpp",
       "Fw/Types/String.hpp"
     )

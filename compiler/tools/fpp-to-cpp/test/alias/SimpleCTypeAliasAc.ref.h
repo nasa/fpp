@@ -11,6 +11,6 @@
 
 //! A simple type alias that supports C codegen
 typedef U32 SimpleCType;
-#define PRI_SimpleCType PRIu32
+#define PRI_SimpleCType PRI_U32
 
 #endif

@@ -11,6 +11,6 @@
 
 //! Alias of a primitive type
 typedef U32 AliasPrim1;
-#define PRI_AliasPrim1 PRIu32
+#define PRI_AliasPrim1 PRI_U32
 
 #endif

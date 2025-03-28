@@ -7,7 +7,7 @@
 #ifndef QueuedCommandsComponentAc_HPP
 #define QueuedCommandsComponentAc_HPP
 
-#include <FpConfig.hpp>
+#include <Fw/FPrimeBasicTypes.hpp>
 
 #include "AArrayAc.hpp"
 #include "AliasTypedPortAc.hpp"

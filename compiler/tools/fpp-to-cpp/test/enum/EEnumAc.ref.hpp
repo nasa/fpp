@@ -7,7 +7,7 @@
 #ifndef EEnumAc_HPP
 #define EEnumAc_HPP
 
-#include "FpConfig.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 

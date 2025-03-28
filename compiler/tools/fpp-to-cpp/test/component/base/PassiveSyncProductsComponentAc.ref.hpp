@@ -7,7 +7,7 @@
 #ifndef PassiveSyncProductsComponentAc_HPP
 #define PassiveSyncProductsComponentAc_HPP
 
-#include <FpConfig.hpp>
+#include <Fw/FPrimeBasicTypes.hpp>
 
 #include "AliasTypedPortAc.hpp"
 #include "AliasTypedReturnPortAc.hpp"

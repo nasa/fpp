@@ -7,7 +7,7 @@
 #ifndef ExternalSm_ActiveExternalStateMachinesComponentAc_HPP
 #define ExternalSm_ActiveExternalStateMachinesComponentAc_HPP
 
-#include <FpConfig.hpp>
+#include <Fw/FPrimeBasicTypes.hpp>
 
 #include "ActiveExternalStateMachines_S1.hpp"
 #include "ActiveExternalStateMachines_S2.hpp"

@@ -164,20 +164,21 @@ case class AliasCppWriter (
 
   private def getHDefinition: CppDoc.Member.Lines = {
     val name = s.getName(symbol)
-    def getTypePRI(ty: Type): String = {
-      ty match {
-        case Type.Float(f) => aliasType.aliasType.toString().toLowerCase()
-        case Type.PrimitiveInt(i) => aliasType.aliasType.toString().toLowerCase()
-        case _ => "_" + typeCppWriter.write(ty)
+
+    val fmtSpecList = aliasType.aliasType match {
+        // Float format strings are not something that can be provided directly due to various
+        // choices (f, g, etc.) and smaller floats are automatically promoted to larger ones.
+        case Type.Float(f) => Nil
+        case _ => List("_" + typeCppWriter.write(aliasType.aliasType))
       }
-    }
 
-    val fmtSpec = getTypePRI(aliasType.aliasType)
-
-    linesMember(addBlankPrefix(
-      AnnotationCppWriter.writePreComment(aNode) ++ lines(
-        s"""|typedef ${typeCppWriter.write(aliasType.aliasType)} $name;
-            |#define PRI_$name PRI${fmtSpec}""")
-    ))
+    linesMember(
+      addBlankPrefix(
+        AnnotationCppWriter.writePreComment(aNode) ++ (
+          s"typedef ${typeCppWriter.write(aliasType.aliasType)} $name;" ::
+          fmtSpecList.map(s => s"#define PRI_$name PRI$s")
+        ).map(line)
+      )
+    )
   }
 }

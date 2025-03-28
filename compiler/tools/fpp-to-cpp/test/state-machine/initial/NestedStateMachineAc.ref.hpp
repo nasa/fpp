@@ -7,7 +7,7 @@
 #ifndef FppTest_SmInitial_NestedStateMachineAc_HPP
 #define FppTest_SmInitial_NestedStateMachineAc_HPP
 
-#include <FpConfig.hpp>
+#include <Fw/FPrimeBasicTypes.hpp>
 
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"

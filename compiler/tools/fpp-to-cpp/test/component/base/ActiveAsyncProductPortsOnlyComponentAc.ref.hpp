@@ -7,7 +7,7 @@
 #ifndef ActiveAsyncProductPortsOnlyComponentAc_HPP
 #define ActiveAsyncProductPortsOnlyComponentAc_HPP
 
-#include <FpConfig.hpp>
+#include <Fw/FPrimeBasicTypes.hpp>
 
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/Dp/DpRequestPortAc.hpp"

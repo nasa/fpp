@@ -7,7 +7,7 @@
 #ifndef ActiveAsyncProductsComponentAc_HPP
 #define ActiveAsyncProductsComponentAc_HPP
 
-#include <FpConfig.hpp>
+#include <Fw/FPrimeBasicTypes.hpp>
 
 #include "ActiveAsyncProducts_DataSerializableAc.hpp"
 #include "AliasTypedPortAc.hpp"

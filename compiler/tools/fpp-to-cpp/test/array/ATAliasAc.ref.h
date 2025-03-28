@@ -10,6 +10,6 @@
 #include "Fw/Types/BasicTypes.h"
 
 typedef U32 AT;
-#define PRI_AT PRIu32
+#define PRI_AT PRI_U32
 
 #endif

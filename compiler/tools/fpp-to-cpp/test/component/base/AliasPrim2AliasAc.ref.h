@@ -11,6 +11,5 @@
 
 //! Alias of another primtive type
 typedef F32 AliasPrim2;
-#define PRI_AliasPrim2 PRIf32
 
 #endif

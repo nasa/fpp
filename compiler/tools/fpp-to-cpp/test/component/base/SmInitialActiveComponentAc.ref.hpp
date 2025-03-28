@@ -7,7 +7,7 @@
 #ifndef FppTest_SmInitialActiveComponentAc_HPP
 #define FppTest_SmInitialActiveComponentAc_HPP
 
-#include <FpConfig.hpp>
+#include <Fw/FPrimeBasicTypes.hpp>
 
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
