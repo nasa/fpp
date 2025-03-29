@@ -3,7 +3,6 @@ package fpp.compiler.codegen
 import fpp.compiler.analysis._
 import fpp.compiler.ast._
 import fpp.compiler.util._
-import fpp.compiler.codegen.CppWriterState.builtInTypes
 
 /** C++ Writer state */
 case class CppWriterState(
@@ -137,8 +136,7 @@ case class CppWriterState(
       val name = getName(sym)
       for {
         fileName <- sym match {
-          case _: Symbol.AbsType =>
-              if isBuiltInType(name) then None else Some(name)
+          case _: Symbol.AbsType => Some(name)
           case _: Symbol.AliasType => Some(
             ComputeCppFiles.FileNames.getAliasType(name)
           )
@@ -172,9 +170,6 @@ case class CppWriterState(
     usedSymbols.map(getIncludeFiles).filter(_.isDefined).map(_.get).map(CppWriterState.headerString).toList
   }
 
-  /** Is t a built-in type? */
-  def isBuiltInType(typeName: String): Boolean = builtInTypes.contains(typeName)
-
   def isTypeSupportedInC(t: Type): Boolean = {
     t match {
       case Type.AliasType(node, aliasType) =>
@@ -184,7 +179,6 @@ case class CppWriterState(
           // Make sure all types in the alias chain meet the C requirements
           case None => isTypeSupportedInC(aliasType)
         }
-      case Type.AbsType(node) => isBuiltInType(getName(Symbol.AbsType(node)))
       case Type.PrimitiveInt(_) => true
       case Type.Float(_) => true
       case _ => false
@@ -192,12 +186,7 @@ case class CppWriterState(
   }
 
   /** Is t a primitive type (not serializable)? */
-  def isPrimitive(t: Type, typeName: String): Boolean  = (
-    isBuiltInType(typeName) ||
-    t.getUnderlyingType.isPrimitive ||
-    // See if this an alias of a builtin type
-    isBuiltInType(t.getUnderlyingType.toString())
-  )
+  def isPrimitive(t: Type, typeName: String): Boolean  = t.getUnderlyingType.isPrimitive
 
   /** Is t a string type? */
   def isStringType(t: Type) = t.getUnderlyingType match {
@@ -211,28 +200,6 @@ object CppWriterState {
 
   /** The default default string size */
   val defaultDefaultStringSize = 80
-
-  /** A mapping from special built-in types to their
-   *  default values */
-  val zero: Value.Integer = Value.Integer(0)
-  val builtInTypes: Map[String,Value.Integer] = Map(
-    "FwChanIdType" -> zero,
-    "FwDpIdType" -> zero,
-    "FwDpPriorityType" -> zero,
-    "FwEnumStoreType" -> zero,
-    "FwEventIdType" -> zero,
-    "FwIndexType" -> zero,
-    "FwOpcodeType" -> zero,
-    "FwPacketDescriptorType" -> zero,
-    "FwPrmIdType" -> zero,
-    "FwSignedSizeType" -> zero,
-    "FwSizeStoreType" -> zero,
-    "FwSizeType" -> zero,
-    "FwTimeBaseStoreType" -> zero,
-    "FwTimeContextStoreType" -> zero,
-    "FwTlmPacketizeIdType" -> zero,
-    "FwTraceIdType" -> zero,
-  )
 
   /** Construct a header string */
   def headerString(s: String): String = {

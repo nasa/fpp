@@ -9,4 +9,5 @@
 ../../fprime/Svc/Sched/Sched.fpp
 ../../fprime/config/DpCfg.fpp
 ../../fprime/config/FpConfig.fpp
+../../fprime/Platform/PlatformTypes.fpp
 ../types.fpp

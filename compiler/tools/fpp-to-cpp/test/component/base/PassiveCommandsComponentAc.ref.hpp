@@ -7,7 +7,7 @@
 #ifndef PassiveCommandsComponentAc_HPP
 #define PassiveCommandsComponentAc_HPP
 
-#include <FpConfig.hpp>
+#include <Fw/FPrimeBasicTypes.hpp>
 
 #include "AArrayAc.hpp"
 #include "AliasTypedPortAc.hpp"

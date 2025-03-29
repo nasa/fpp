@@ -7,7 +7,7 @@
 #ifndef ActiveGuardedProductsComponentAc_HPP
 #define ActiveGuardedProductsComponentAc_HPP
 
-#include <FpConfig.hpp>
+#include <Fw/FPrimeBasicTypes.hpp>
 
 #include "ActiveGuardedProducts_DataSerializableAc.hpp"
 #include "AliasTypedPortAc.hpp"

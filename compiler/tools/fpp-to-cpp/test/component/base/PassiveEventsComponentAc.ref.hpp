@@ -8,7 +8,7 @@
 #define PassiveEventsComponentAc_HPP
 
 #include <atomic>
-#include <FpConfig.hpp>
+#include <Fw/FPrimeBasicTypes.hpp>
 
 #include "AArrayAc.hpp"
 #include "AliasTypedPortAc.hpp"

@@ -7,8 +7,6 @@
 #ifndef AliasStructAliasAc_HPP
 #define AliasStructAliasAc_HPP
 
-#include <FpConfig.hpp>
-
 #include "Fw/Types/BasicTypes.h"
 #include "SSerializableAc.hpp"
 

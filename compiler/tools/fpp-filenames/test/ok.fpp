@@ -10,7 +10,7 @@ state machine SM2 {
   state S
 }
 
-type FwOpcodeType
+type FwOpcodeType = U32
 type WithCDefinition = U32
 type WithCDefinitionBuiltin = FwOpcodeType
 type WithoutCDefinition = A

@@ -120,27 +120,16 @@ case class AliasCppWriter (
       return linesMember(List())
     }
 
-    val systemHHeaders = List(
-      "FpConfig.h"
-    ).map(CppWriter.systemHeaderString).map(line)
-
     val standardHeaders = List(
       "Fw/Types/BasicTypes.h",
     ).map(CppWriter.headerString)
 
     val symbolHeaders = writeHIncludeDirectives(s, aNode)
     val headers = (standardHeaders ++ symbolHeaders).distinct.sorted.map(line)
-    linesMember(List.concat(
-      addBlankPrefix(systemHHeaders),
-      addBlankPrefix(headers)
-    ))
+    linesMember(addBlankPrefix(headers))
   }
 
   private def getHppIncludes: CppDoc.Member.Lines = {
-    val systemHppHeaders = List(
-      "FpConfig.hpp"
-    ).map(CppWriter.systemHeaderString).map(line)
-
     val standardHeaders = List(
       aliasType.aliasType match {
         case Type.String(_) => "Fw/Types/String.hpp"
@@ -149,10 +138,7 @@ case class AliasCppWriter (
     ).map(CppWriter.headerString)
     val symbolHeaders = writeHppIncludeDirectives(s, aNode)
     val headers = standardHeaders ++ symbolHeaders
-    linesMember(List.concat(
-      addBlankPrefix(systemHppHeaders),
-      addBlankPrefix(headers.distinct.sorted.map(line))
-    ))
+    linesMember(addBlankPrefix(headers.distinct.sorted.map(line)))
   }
 
   private def getHppDefinition: CppDoc.Member.Lines = {
@@ -178,20 +164,21 @@ case class AliasCppWriter (
 
   private def getHDefinition: CppDoc.Member.Lines = {
     val name = s.getName(symbol)
-    def getTypePRI(ty: Type): String = {
-      ty match {
-        case Type.Float(f) => aliasType.aliasType.toString().toLowerCase()
-        case Type.PrimitiveInt(i) => aliasType.aliasType.toString().toLowerCase()
-        case _ => typeCppWriter.write(ty)
+
+    val fmtSpecList = aliasType.aliasType match {
+        // Float format strings are not something that can be provided directly due to various
+        // choices (f, g, etc.) and smaller floats are automatically promoted to larger ones.
+        case Type.Float(f) => Nil
+        case _ => List("_" + typeCppWriter.write(aliasType.aliasType))
       }
-    }
 
-    val fmtSpec = getTypePRI(aliasType.aliasType)
-
-    linesMember(addBlankPrefix(
-      AnnotationCppWriter.writePreComment(aNode) ++ lines(
-        s"""|typedef ${typeCppWriter.write(aliasType.aliasType)} $name;
-            |#define PRI_$name PRI_${fmtSpec}""")
-    ))
+    linesMember(
+      addBlankPrefix(
+        AnnotationCppWriter.writePreComment(aNode) ++ (
+          s"typedef ${typeCppWriter.write(aliasType.aliasType)} $name;" ::
+          fmtSpecList.map(s => s"#define PRI_$name PRI$s")
+        ).map(line)
+      )
+    )
   }
 }

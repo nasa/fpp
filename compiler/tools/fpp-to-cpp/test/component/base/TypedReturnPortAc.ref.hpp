@@ -9,7 +9,7 @@
 
 #include <cstdio>
 #include <cstring>
-#include <FpConfig.hpp>
+#include <Fw/FPrimeBasicTypes.hpp>
 
 #include "AArrayAc.hpp"
 #include "EEnumAc.hpp"

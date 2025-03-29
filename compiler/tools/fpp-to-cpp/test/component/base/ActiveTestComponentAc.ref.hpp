@@ -8,7 +8,7 @@
 #define M_ActiveTestComponentAc_HPP
 
 #include <atomic>
-#include <FpConfig.hpp>
+#include <Fw/FPrimeBasicTypes.hpp>
 
 #include "AArrayAc.hpp"
 #include "ActiveTest_DataSerializableAc.hpp"

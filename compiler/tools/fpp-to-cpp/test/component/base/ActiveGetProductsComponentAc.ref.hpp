@@ -7,7 +7,7 @@
 #ifndef ActiveGetProductsComponentAc_HPP
 #define ActiveGetProductsComponentAc_HPP
 
-#include <FpConfig.hpp>
+#include <Fw/FPrimeBasicTypes.hpp>
 
 #include "ActiveGetProducts_DataSerializableAc.hpp"
 #include "AliasTypedPortAc.hpp"

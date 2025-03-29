@@ -7,7 +7,7 @@
 #ifndef ActiveParamsComponentAc_HPP
 #define ActiveParamsComponentAc_HPP
 
-#include <FpConfig.hpp>
+#include <Fw/FPrimeBasicTypes.hpp>
 
 #include "AArrayAc.hpp"
 #include "AliasTypedPortAc.hpp"

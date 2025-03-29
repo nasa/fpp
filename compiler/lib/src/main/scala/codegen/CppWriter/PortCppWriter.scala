@@ -123,7 +123,7 @@ case class PortCppWriter (
     val systemHeaders = List(
       "cstdio",
       "cstring",
-      "FpConfig.hpp"
+      "Fw/FPrimeBasicTypes.hpp"
     ).map(CppWriter.systemHeaderString).map(line)
     val serializableHeader = data.returnType match {
       case Some(_) => Nil

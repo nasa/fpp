@@ -108,7 +108,7 @@ case class ComponentCppWriter (
     val internalStrHeaders =
       guardedList (hasInternalPorts) (List("Fw/Types/InternalInterfaceString.hpp"))
     val systemHeaders = 
-      ("FpConfig.hpp" :: guardedList (hasEvents) (
+      ("Fw/FPrimeBasicTypes.hpp" :: guardedList (hasEvents) (
         List("atomic")
       )).map(CppWriter.systemHeaderString).sortBy(_.toLowerCase()).map(line)
     val userHeaders = {

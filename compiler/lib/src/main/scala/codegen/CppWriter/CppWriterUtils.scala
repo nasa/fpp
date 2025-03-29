@@ -7,7 +7,7 @@ trait CppWriterUtils extends LineUtils {
 
   /** Standard system hpp headers */
   val standardSystemHppHeaders = List(
-    "FpConfig.hpp"
+    "Fw/FPrimeBasicTypes.hpp"
   ).map(CppWriter.systemHeaderString)
 
   /** Standard user hpp headers */

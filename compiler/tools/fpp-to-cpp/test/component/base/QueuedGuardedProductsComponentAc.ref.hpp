@@ -7,7 +7,7 @@
 #ifndef QueuedGuardedProductsComponentAc_HPP
 #define QueuedGuardedProductsComponentAc_HPP
 
-#include <FpConfig.hpp>
+#include <Fw/FPrimeBasicTypes.hpp>
 
 #include "AliasTypedPortAc.hpp"
 #include "AliasTypedReturnPortAc.hpp"

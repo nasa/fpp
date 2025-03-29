@@ -31,13 +31,8 @@ case class XmlWriterState(
         tagFileName <- sym match {
           case Symbol.AbsType(aNode) => 
             val symbol = Symbol.AbsType(aNode)
-            // Don't import headers for built-in types
-            val cppName = writeSymbol(symbol)
-            if (CppWriterState.builtInTypes.contains(cppName)) None
-            else {
-              val name = getName(symbol)
-              Some("include_header", s"${name}.hpp")
-            }
+            val name = getName(symbol)
+            Some("include_header", s"${name}.hpp")
           case Symbol.Array(aNode) => Some(
             "import_array_type",
             XmlWriterState.getArrayFileName(getName(Symbol.Array(aNode)))

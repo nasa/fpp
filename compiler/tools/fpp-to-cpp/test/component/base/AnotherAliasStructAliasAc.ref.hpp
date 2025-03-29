@@ -7,8 +7,6 @@
 #ifndef AnotherAliasStructAliasAc_HPP
 #define AnotherAliasStructAliasAc_HPP
 
-#include <FpConfig.hpp>
-
 #include "Fw/Types/BasicTypes.h"
 #include "StructWithAliasSerializableAc.hpp"
 

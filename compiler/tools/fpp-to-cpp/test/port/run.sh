@@ -4,12 +4,6 @@ abs_type()
     diff_cpp AbsTypePort
 }
 
-builtin_type()
-{
-  run_test "-p $PWD" builtin_type && \
-    diff_cpp BuiltInTypePort
-}
-
 empty()
 {
   run_test "-p $PWD" empty && \

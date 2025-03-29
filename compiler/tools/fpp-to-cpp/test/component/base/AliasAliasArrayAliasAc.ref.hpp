@@ -7,8 +7,6 @@
 #ifndef AliasAliasArrayAliasAc_HPP
 #define AliasAliasArrayAliasAc_HPP
 
-#include <FpConfig.hpp>
-
 #include "AliasArrayAliasAc.hpp"
 #include "Fw/Types/BasicTypes.h"
 

@@ -7,7 +7,7 @@
 #ifndef PassiveTelemetryComponentAc_HPP
 #define PassiveTelemetryComponentAc_HPP
 
-#include <FpConfig.hpp>
+#include <Fw/FPrimeBasicTypes.hpp>
 
 #include "AArrayAc.hpp"
 #include "AliasTypedPortAc.hpp"

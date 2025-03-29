@@ -7,8 +7,6 @@
 #ifndef TStringAliasAc_HPP
 #define TStringAliasAc_HPP
 
-#include <FpConfig.hpp>
-
 #include "Fw/Types/String.hpp"
 
 using TString = Fw::String;

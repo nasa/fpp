@@ -29,9 +29,3 @@ array_struct_member_array()
   run_test "-p $PWD" array_struct_member_array && \
     diff_xml ArrayStructMemberArraySerializable ArrayStructMemberArrayArray
 }
-
-built_in_type()
-{
-  run_test "-p $PWD" built_in_type && \
-    diff_xml BuiltInTypeArray
-}

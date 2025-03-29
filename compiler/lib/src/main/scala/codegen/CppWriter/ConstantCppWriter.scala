@@ -15,7 +15,7 @@ object ConstantCppWriter extends CppWriterUtils {
       case constantMembers => 
         val fileName = ComputeCppFiles.FileNames.getConstants
         val hppHeaderLines = {
-          val headers = List("FpConfig.hpp")
+          val headers = List("Fw/FPrimeBasicTypes.hpp")
           Line.blank :: headers.map(CppWriter.headerLine)
         }
         val cppHeaderLines = {

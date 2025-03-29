@@ -12,12 +12,6 @@ alias_type()
   mv ATAliasAc.h ATAliasAc.ref.h
 }
 
-builtin_type()
-{
-  update "-p $PWD" builtin_type
-  move_cpp BuiltInTypeArray
-}
-
 component()
 {
   update "-p $PWD" component

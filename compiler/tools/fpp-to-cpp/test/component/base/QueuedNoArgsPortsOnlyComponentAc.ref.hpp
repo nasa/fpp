@@ -7,7 +7,7 @@
 #ifndef QueuedNoArgsPortsOnlyComponentAc_HPP
 #define QueuedNoArgsPortsOnlyComponentAc_HPP
 
-#include <FpConfig.hpp>
+#include <Fw/FPrimeBasicTypes.hpp>
 
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/Port/InputSerializePort.hpp"

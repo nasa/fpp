@@ -7,7 +7,7 @@
 #ifndef C_C_AArrayAc_HPP
 #define C_C_AArrayAc_HPP
 
-#include "FpConfig.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"

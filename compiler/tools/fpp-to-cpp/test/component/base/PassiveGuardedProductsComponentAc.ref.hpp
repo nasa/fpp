@@ -7,7 +7,7 @@
 #ifndef PassiveGuardedProductsComponentAc_HPP
 #define PassiveGuardedProductsComponentAc_HPP
 
-#include <FpConfig.hpp>
+#include <Fw/FPrimeBasicTypes.hpp>
 
 #include "AliasTypedPortAc.hpp"
 #include "AliasTypedReturnPortAc.hpp"

@@ -7,7 +7,7 @@
 #ifndef ActiveSyncProductsComponentAc_HPP
 #define ActiveSyncProductsComponentAc_HPP
 
-#include <FpConfig.hpp>
+#include <Fw/FPrimeBasicTypes.hpp>
 
 #include "ActiveSyncProducts_DataSerializableAc.hpp"
 #include "AliasTypedPortAc.hpp"

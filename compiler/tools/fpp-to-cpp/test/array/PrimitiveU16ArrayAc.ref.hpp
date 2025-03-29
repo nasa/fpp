@@ -7,7 +7,7 @@
 #ifndef M_PrimitiveU16ArrayAc_HPP
 #define M_PrimitiveU16ArrayAc_HPP
 
-#include "FpConfig.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"

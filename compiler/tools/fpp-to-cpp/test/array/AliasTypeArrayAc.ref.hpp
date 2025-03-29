@@ -8,7 +8,7 @@
 #define AliasTypeArrayAc_HPP
 
 #include "ATAliasAc.hpp"
-#include "FpConfig.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"

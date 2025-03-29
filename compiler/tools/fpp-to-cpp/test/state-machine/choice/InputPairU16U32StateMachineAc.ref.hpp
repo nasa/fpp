@@ -7,7 +7,7 @@
 #ifndef FppTest_SmChoice_InputPairU16U32StateMachineAc_HPP
 #define FppTest_SmChoice_InputPairU16U32StateMachineAc_HPP
 
-#include <FpConfig.hpp>
+#include <Fw/FPrimeBasicTypes.hpp>
 
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"

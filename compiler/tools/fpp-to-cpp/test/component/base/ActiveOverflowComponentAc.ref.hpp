@@ -7,7 +7,7 @@
 #ifndef ActiveOverflowComponentAc_HPP
 #define ActiveOverflowComponentAc_HPP
 
-#include <FpConfig.hpp>
+#include <Fw/FPrimeBasicTypes.hpp>
 
 #include "Fw/Cmd/CmdPortAc.hpp"
 #include "Fw/Cmd/CmdRegPortAc.hpp"

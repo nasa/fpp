@@ -7,8 +7,6 @@
 #ifndef AliasBoolAliasAc_HPP
 #define AliasBoolAliasAc_HPP
 
-#include <FpConfig.hpp>
-
 #include "Fw/Types/BasicTypes.h"
 
 //! Alias of a boolean

@@ -18,6 +18,7 @@ EEnumAc.hpp
 EEnumAi.xml
 FppConstantsAc.cpp
 FppConstantsAc.hpp
+FwOpcodeTypeAliasAc.hpp
 PPortAc.cpp
 PPortAc.hpp
 PPortAi.xml
