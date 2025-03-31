@@ -66,7 +66,7 @@ case class TopologyCppWriter(
       TopConfigObjects(s, aNode).getHppLines
     )
     val cppLines = linesMember(
-      Line.blank :: addBlankPostfix(TopConfigObjects(s, aNode).getCppLines),
+      TopConfigObjects(s, aNode).getCppLines,
       CppDoc.Lines.Cpp
     )
     val (helperFnNames, helperFns) = TopHelperFns(s, aNode).getMembers
