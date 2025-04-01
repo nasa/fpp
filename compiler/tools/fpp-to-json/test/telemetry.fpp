@@ -16,7 +16,8 @@ passive component TlmLimits {
   # ----------------------------------------------------------------------
 
   @ Telemetry channel 1
-  telemetry Channel1: U32 \
+  telemetry Channel1: U32 id 0 \
+    format "{}s" \
     low { red 0, orange 1, yellow 2 }
 
   @ Telemetry channel 2
@@ -37,4 +38,12 @@ passive component TlmLimits {
 module Fw {
   port Tlm
   port Time
+}
+
+instance i: TlmLimits base id 0x4A00
+
+module M {
+    topology T {
+        instance i
+    }
 }
