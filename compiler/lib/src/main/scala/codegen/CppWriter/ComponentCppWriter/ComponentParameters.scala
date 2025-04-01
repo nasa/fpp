@@ -141,7 +141,7 @@ case class ComponentParameters (
                       List(
                         lines(
                           s"""|
-                              | // Call the delegate deserialize function for ${paramVariableName(param.getName)})
+                              | // Call the delegate deserialize function for ${paramVariableName(param.getName)}
                               | this->paramDelegate->deserializeParam(_id,buff);
                               |"""
                         )
@@ -313,24 +313,40 @@ case class ComponentParameters (
             ),
           ),
           CppDoc.Type("Fw::CmdResponse"),
-          lines(
-            s"""|${writeParamType(param.paramType, "Fw::ParamString")} _local_val;
-                |Fw::SerializeStatus _stat = val.deserialize(_local_val);
-                |if (_stat != Fw::FW_SERIALIZE_OK) {
-                |  return Fw::CmdResponse::VALIDATION_ERROR;
-                |}
-                |
-                |// Assign value only if successfully deserialized
-                |this->m_paramLock.lock();
-                |this->${paramVariableName(param.getName)} = _local_val;
-                |this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::VALID;
-                |this->m_paramLock.unLock();
-                |
-                |// Call notifier
-                |this->parameterUpdated(${paramIdConstantName(param.getName)});
-                |return Fw::CmdResponse::OK;
-                |"""
-          )
+          if (param.isExternal) {
+            lines(
+              s"""|// Call the delegate serialize function for ${paramVariableName(param.getName)}
+                  |Fw::SerializeStatus _stat;
+                  |_stat = this->paramDelegate->deserializeParam(_id,buff);
+                  |if (_stat != Fw::FW_SERIALIZE_OK) {
+                  |  return Fw::CmdResponse::VALIDATION_ERROR;
+                  |}
+                  |
+                  |// Call notifier
+                  |this->parameterUpdated(${paramIdConstantName(param.getName)});
+                  |return Fw::CmdResponse::OK;
+                  |"""
+            )
+          } else {
+            lines(
+              s"""|${writeParamType(param.paramType, "Fw::ParamString")} _local_val;
+                  |Fw::SerializeStatus _stat = val.deserialize(_local_val);
+                  |if (_stat != Fw::FW_SERIALIZE_OK) {
+                  |  return Fw::CmdResponse::VALIDATION_ERROR;
+                  |}
+                  |
+                  |// Assign value only if successfully deserialized
+                  |this->m_paramLock.lock();
+                  |this->${paramVariableName(param.getName)} = _local_val;
+                  |this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::VALID;
+                  |this->m_paramLock.unLock();
+                  |
+                  |// Call notifier
+                  |this->parameterUpdated(${paramIdConstantName(param.getName)});
+                  |return Fw::CmdResponse::OK;
+                  |"""
+            )
+          }
         )
       )
     )
