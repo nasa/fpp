@@ -19,7 +19,9 @@ case class TopTlmPacketIncludes(
     CppWriter.headerString(getIncludePath(tps))
 
   private def getIncludePath(tps: TlmPacketSet): String = {
-    val fileNameBase = ComputeCppFiles.FileNames.getTlmPacketSet(tps.getName)
+    val t = s.a.topologyMap(Symbol.Topology(aNode))
+    val tpsName = s"${t.getName}_${tps.getName}"
+    val fileNameBase = ComputeCppFiles.FileNames.getTlmPacketSet(tpsName)
     val fileName = s"$fileNameBase.hpp"
     s.getRelativePath(fileName).toString
   }
