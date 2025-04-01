@@ -237,7 +237,10 @@ Fw::SerializeStatus PassiveTestComponentBase::DpContainer ::
 // ----------------------------------------------------------------------
 
 void PassiveTestComponentBase ::
-  init(FwEnumStoreType instance)
+  init(
+      Fw::ParamExternalDelegate& paramDelegateRef,
+      FwEnumStoreType instance
+  )
 {
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);
@@ -945,6 +948,9 @@ void PassiveTestComponentBase ::
     this->m_typedReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+
+   // Set external parameter delegates
+   this->paramDelegate = &paramDelegateRef;
 }
 
 // ----------------------------------------------------------------------
@@ -1707,8 +1713,7 @@ void PassiveTestComponentBase ::
       _id,
       buff
     );
-
-  // Deserialize value
+   // Deserialize value
   this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
@@ -1732,8 +1737,7 @@ void PassiveTestComponentBase ::
       _id,
       buff
     );
-
-  // Deserialize value
+   // Deserialize value
   this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
@@ -1757,8 +1761,7 @@ void PassiveTestComponentBase ::
       _id,
       buff
     );
-
-  // Deserialize value
+   // Deserialize value
   this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
@@ -1786,8 +1789,7 @@ void PassiveTestComponentBase ::
       _id,
       buff
     );
-
-  // Deserialize value
+   // Deserialize value
   this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
@@ -1811,8 +1813,7 @@ void PassiveTestComponentBase ::
       _id,
       buff
     );
-
-  // Deserialize value
+   // Deserialize value
   this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
@@ -1840,8 +1841,7 @@ void PassiveTestComponentBase ::
       _id,
       buff
     );
-
-  // Deserialize value
+   // Deserialize value
   this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
@@ -1866,24 +1866,8 @@ void PassiveTestComponentBase ::
       buff
     );
 
-  // Deserialize value
-  this->m_paramLock.lock();
-
-  // If there was a deserialization issue, mark it invalid
-  if (this->m_param_ParamI32_valid == Fw::ParamValid::VALID) {
-    stat = buff.deserialize(this->m_ParamI32);
-    if (stat != Fw::FW_SERIALIZE_OK) {
-      this->m_param_ParamI32_valid = Fw::ParamValid::INVALID;
-    }
-  }
-  else {
-    // No default
-  }
-
-  this->m_paramLock.unLock();
-
-  // Call notifier
-  this->parametersLoaded();
+   // Call the delegate deserialize function for m_ParamI32
+   this->paramDelegate->deserializeParam(_id,buff);
 }
 
 // ----------------------------------------------------------------------
@@ -5537,17 +5521,12 @@ Fw::CmdResponse PassiveTestComponentBase ::
 Fw::CmdResponse PassiveTestComponentBase ::
   paramSet_ParamI32(Fw::SerializeBufferBase& val)
 {
-  I32 _local_val;
-  Fw::SerializeStatus _stat = val.deserialize(_local_val);
+  // Call the delegate serialize function for m_ParamI32
+  Fw::SerializeStatus _stat;
+  _stat = this->paramDelegate->deserializeParam(_id,buff);
   if (_stat != Fw::FW_SERIALIZE_OK) {
     return Fw::CmdResponse::VALIDATION_ERROR;
   }
-
-  // Assign value only if successfully deserialized
-  this->m_paramLock.lock();
-  this->m_ParamI32 = _local_val;
-  this->m_param_ParamI32_valid = Fw::ParamValid::VALID;
-  this->m_paramLock.unLock();
 
   // Call notifier
   this->parameterUpdated(PARAMID_PARAMI32);
@@ -5830,3 +5809,7 @@ void PassiveTestComponentBase ::
       break;
   }
 }
+
+// ----------------------------------------------------------------------
+// Parameter delegates
+// ----------------------------------------------------------------------

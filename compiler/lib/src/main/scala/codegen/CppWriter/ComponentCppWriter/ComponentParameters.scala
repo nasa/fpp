@@ -142,7 +142,7 @@ case class ComponentParameters (
                         lines(
                           s"""|
                               | // Call the delegate deserialize function for ${paramVariableName(param.getName)}
-                              | this->paramDelegate->deserializeParam(_id,buff);
+                              | this->paramDelegate->deserializeParam(_id, buff);
                               |"""
                         )
                       )
@@ -317,7 +317,7 @@ case class ComponentParameters (
             lines(
               s"""|// Call the delegate serialize function for ${paramVariableName(param.getName)}
                   |Fw::SerializeStatus _stat;
-                  |_stat = this->paramDelegate->deserializeParam(_id,buff);
+                  |_stat = this->paramDelegate->deserializeParam(_id, buff);
                   |if (_stat != Fw::FW_SERIALIZE_OK) {
                   |  return Fw::CmdResponse::VALIDATION_ERROR;
                   |}

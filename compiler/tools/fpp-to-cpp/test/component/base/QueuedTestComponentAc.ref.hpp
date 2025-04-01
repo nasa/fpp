@@ -31,6 +31,7 @@
 #endif
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
+#include "Fw/Prm/PrmExternalTypes.hpp"
 #include "Fw/Prm/PrmGetPortAc.hpp"
 #include "Fw/Prm/PrmSetPortAc.hpp"
 #include "Fw/Prm/PrmString.hpp"
@@ -350,6 +351,7 @@ class QueuedTestComponentBase :
     //! Initialize QueuedTestComponentBase object
     void init(
         FwSizeType queueDepth, //!< The queue depth
+        Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parmeters
         FwEnumStoreType instance = 0 //!< The instance number
     );
 
@@ -3132,6 +3134,15 @@ class QueuedTestComponentBase :
     //!
     //! An externally stored parameter with I32 data
     I32 m_ParamI32;
+
+  PRIVATE:
+
+    // ----------------------------------------------------------------------
+    // Parameter delegates
+    // ----------------------------------------------------------------------
+
+    //! Delegate to serialize/deserialize an externally stored parameter
+    Fw::ParamExternalDelegate* paramDelegate;
 
   PRIVATE:
 
