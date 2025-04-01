@@ -53,6 +53,8 @@ class ActiveEventsComponentBase :
 
     //! Friend class for white-box testing
     friend class ActiveEventsComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class ActiveEventsTesterBase;
 
   PROTECTED:
 

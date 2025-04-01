@@ -52,6 +52,8 @@ class ActiveTelemetryComponentBase :
 
     //! Friend class for white-box testing
     friend class ActiveTelemetryComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class ActiveTelemetryTesterBase;
 
   PROTECTED:
 

@@ -53,6 +53,8 @@ class ActiveAsyncProductsComponentBase :
 
     //! Friend class for white-box testing
     friend class ActiveAsyncProductsComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class ActiveAsyncProductsTesterBase;
 
   PROTECTED:
 

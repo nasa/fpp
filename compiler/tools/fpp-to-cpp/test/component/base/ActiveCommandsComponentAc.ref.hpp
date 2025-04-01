@@ -52,6 +52,8 @@ class ActiveCommandsComponentBase :
 
     //! Friend class for white-box testing
     friend class ActiveCommandsComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class ActiveCommandsTesterBase;
 
   PROTECTED:
 

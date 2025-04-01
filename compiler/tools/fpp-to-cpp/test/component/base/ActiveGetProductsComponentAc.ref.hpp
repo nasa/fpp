@@ -52,6 +52,8 @@ class ActiveGetProductsComponentBase :
 
     //! Friend class for white-box testing
     friend class ActiveGetProductsComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class ActiveGetProductsTesterBase;
 
   PROTECTED:
 

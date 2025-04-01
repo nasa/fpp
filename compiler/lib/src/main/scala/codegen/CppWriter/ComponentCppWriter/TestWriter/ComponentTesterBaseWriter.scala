@@ -641,22 +641,18 @@ case class ComponentTesterBaseWriter(
         ),
       )
     )
-    val allBody = intersperseBlankLines(
-      List(
-        lines(
-          s"""|    // Dispatch all current messages unless ERROR or EXIT occur
-              |    const FwSizeType currentMessageCount = component.m_queue.getMessagesAvailable();
-              |    ${className}::MsgDispatchStatus messageStatus = ${className}::MsgDispatchStatus::MSG_DISPATCH_EMPTY;
-              |    for (FwSizeType i = 0; i < currentMessageCount; i++) {
-              |        messageStatus = component.doDispatch();
-              |        if (messageStatus != ${className}::MSG_DISPATCH_OK) {
-              |            break;
-              |        }
-              |    }
-              |    return messageStatus;
-              |"""
-        ),
-      )
+    val allBody = lines(
+      s"""|    // Dispatch all current messages unless ERROR or EXIT occur
+          |    const FwSizeType currentMessageCount = component.m_queue.getMessagesAvailable();
+          |    ${className}::MsgDispatchStatus messageStatus = ${className}::MsgDispatchStatus::MSG_DISPATCH_EMPTY;
+          |    for (FwSizeType i = 0; i < currentMessageCount; i++) {
+          |        messageStatus = component.doDispatch();
+          |        if (messageStatus != ${className}::MSG_DISPATCH_OK) {
+          |            break;
+          |        }
+          |    }
+          |    return messageStatus;
+          |"""
     )
 
     addAccessTagAndComment(

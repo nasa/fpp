@@ -61,6 +61,8 @@ class PassiveSerialComponentBase :
 
     //! Friend class for white-box testing
     friend class PassiveSerialComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class PassiveSerialTesterBase;
 
   PROTECTED:
 

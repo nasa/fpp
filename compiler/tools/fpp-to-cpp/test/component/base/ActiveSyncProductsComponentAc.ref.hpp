@@ -53,6 +53,8 @@ class ActiveSyncProductsComponentBase :
 
     //! Friend class for white-box testing
     friend class ActiveSyncProductsComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class ActiveSyncProductsTesterBase;
 
   PROTECTED:
 

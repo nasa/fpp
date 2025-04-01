@@ -3034,6 +3034,32 @@ void ActiveEventsTesterBase ::
 #endif
 
 // ----------------------------------------------------------------------
+// Dispatching helper functions
+// ----------------------------------------------------------------------
+
+ActiveEventsComponentBase::MsgDispatchStatus ActiveEventsTesterBase ::
+  dispatchOne(ActiveEventsComponentBase& component)
+{
+      // Dispatch one message returning status
+      return component.doDispatch();
+}
+
+ActiveEventsComponentBase::MsgDispatchStatus ActiveEventsTesterBase ::
+  dispatchCurrentMessages(ActiveEventsComponentBase& component)
+{
+      // Dispatch all current messages unless ERROR or EXIT occur
+      const FwSizeType currentMessageCount = component.m_queue.getMessagesAvailable();
+      ActiveEventsComponentBase::MsgDispatchStatus messageStatus = ActiveEventsComponentBase::MsgDispatchStatus::MSG_DISPATCH_EMPTY;
+      for (FwSizeType i = 0; i < currentMessageCount; i++) {
+          messageStatus = component.doDispatch();
+          if (messageStatus != ActiveEventsComponentBase::MSG_DISPATCH_OK) {
+              break;
+          }
+      }
+      return messageStatus;
+}
+
+// ----------------------------------------------------------------------
 // Static functions for output ports
 // ----------------------------------------------------------------------
 

@@ -52,6 +52,8 @@ class QueuedGetProductsComponentBase :
 
     //! Friend class for white-box testing
     friend class QueuedGetProductsComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class QueuedGetProductsTesterBase;
 
   PROTECTED:
 

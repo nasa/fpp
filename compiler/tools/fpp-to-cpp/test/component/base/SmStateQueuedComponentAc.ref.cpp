@@ -1693,6 +1693,25 @@ namespace FppTest {
   }
 
   // ----------------------------------------------------------------------
+  // Helper functions for dispatching current messages
+  // ----------------------------------------------------------------------
+
+  Fw::QueuedComponentBase::MsgDispatchStatus SmStateQueuedComponentBase ::
+    dispatchCurrentMessages()
+  {
+        // Dispatch all current messages unless ERROR or EXIT occur
+        const FwSizeType currentMessageCount = this->m_queue.getMessagesAvailable();
+        QueuedComponentBase::MsgDispatchStatus messageStatus = QueuedComponentBase::MsgDispatchStatus::MSG_DISPATCH_EMPTY;
+        for (FwSizeType i = 0; i < currentMessageCount; i++) {
+            messageStatus = this->doDispatch();
+            if (messageStatus != QueuedComponentBase::MSG_DISPATCH_OK) {
+                break;
+            }
+        }
+        return messageStatus;
+  }
+
+  // ----------------------------------------------------------------------
   // Calls for messages received on typed input ports
   // ----------------------------------------------------------------------
 

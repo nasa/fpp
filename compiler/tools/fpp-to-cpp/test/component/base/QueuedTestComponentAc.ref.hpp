@@ -62,6 +62,8 @@ class QueuedTestComponentBase :
 
     //! Friend class for white-box testing
     friend class QueuedTestComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class QueuedTestTesterBase;
 
   PROTECTED:
 
@@ -2523,6 +2525,15 @@ class QueuedTestComponentBase :
 
     //! Called in the message loop to dispatch a message from the queue
     virtual MsgDispatchStatus doDispatch();
+
+  protected:
+
+    // ----------------------------------------------------------------------
+    // Helper functions for dispatching current messages
+    // ----------------------------------------------------------------------
+
+    //! Dispatch all current messages unless ERROR or EXIT occurs
+    MsgDispatchStatus dispatchCurrentMessages();
 
   PRIVATE:
 
