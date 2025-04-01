@@ -142,7 +142,7 @@ case class AliasCppWriter (
       // in symbolHeaders
       aliasType.aliasType match {
         case Type.String(_) => "Fw/Types/String.hpp"
-        case _ => "Fw/Types/BasicTypes.h"
+        case _ => "Fw/Types/BasicTypes.hpp"
       },
     ).map(CppWriter.headerString)
     val symbolHeaders = writeHppIncludeDirectives(s, aNode)

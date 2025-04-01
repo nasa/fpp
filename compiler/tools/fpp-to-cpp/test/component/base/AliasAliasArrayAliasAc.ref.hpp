@@ -8,7 +8,7 @@
 #define AliasAliasArrayAliasAc_HPP
 
 #include "AliasArrayAliasAc.hpp"
-#include "Fw/Types/BasicTypes.h"
+#include "Fw/Types/BasicTypes.hpp"
 
 using AliasAliasArray = AliasArray;
 

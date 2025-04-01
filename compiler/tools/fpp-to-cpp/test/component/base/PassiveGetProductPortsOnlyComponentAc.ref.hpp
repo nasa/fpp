@@ -7,11 +7,10 @@
 #ifndef PassiveGetProductPortsOnlyComponentAc_HPP
 #define PassiveGetProductPortsOnlyComponentAc_HPP
 
-#include <Fw/FPrimeBasicTypes.hpp>
-
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/Dp/DpGetPortAc.hpp"
 #include "Fw/Dp/DpSendPortAc.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
 

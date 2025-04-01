@@ -7,8 +7,7 @@
 #ifndef FppTest_SmInitial_BasicStateMachineAc_HPP
 #define FppTest_SmInitial_BasicStateMachineAc_HPP
 
-#include <Fw/FPrimeBasicTypes.hpp>
-
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"

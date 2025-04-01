@@ -7,14 +7,13 @@
 #ifndef QueuedOverflowComponentAc_HPP
 #define QueuedOverflowComponentAc_HPP
 
-#include <Fw/FPrimeBasicTypes.hpp>
-
 #include "Fw/Cmd/CmdPortAc.hpp"
 #include "Fw/Cmd/CmdRegPortAc.hpp"
 #include "Fw/Cmd/CmdResponsePortAc.hpp"
 #include "Fw/Cmd/CmdString.hpp"
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/Dp/DpResponsePortAc.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Log/LogPortAc.hpp"
 #if FW_ENABLE_TEXT_LOGGING == 1
 #include "Fw/Log/LogTextPortAc.hpp"

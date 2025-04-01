@@ -9,11 +9,11 @@
 
 #include <cstdio>
 #include <cstring>
-#include <Fw/FPrimeBasicTypes.hpp>
 
 #include "AArrayAc.hpp"
 #include "EEnumAc.hpp"
 #include "Fw/Comp/PassiveComponentBase.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/String.hpp"

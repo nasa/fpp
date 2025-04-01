@@ -7,7 +7,7 @@
 #ifndef SimpleCTypeAliasAc_HPP
 #define SimpleCTypeAliasAc_HPP
 
-#include "Fw/Types/BasicTypes.h"
+#include "Fw/Types/BasicTypes.hpp"
 
 extern "C" {
 #include "SimpleCTypeAliasAc.h"

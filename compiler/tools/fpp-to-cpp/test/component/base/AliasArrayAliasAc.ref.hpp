@@ -8,7 +8,7 @@
 #define AliasArrayAliasAc_HPP
 
 #include "AArrayAc.hpp"
-#include "Fw/Types/BasicTypes.h"
+#include "Fw/Types/BasicTypes.hpp"
 
 //! Alias of an array
 using AliasArray = A;

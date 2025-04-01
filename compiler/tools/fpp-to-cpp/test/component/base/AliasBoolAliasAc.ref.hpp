@@ -7,7 +7,7 @@
 #ifndef AliasBoolAliasAc_HPP
 #define AliasBoolAliasAc_HPP
 
-#include "Fw/Types/BasicTypes.h"
+#include "Fw/Types/BasicTypes.hpp"
 
 //! Alias of a boolean
 using AliasBool = bool;

@@ -7,7 +7,7 @@
 #ifndef M_NamespacedAliasType2AliasAc_HPP
 #define M_NamespacedAliasType2AliasAc_HPP
 
-#include "Fw/Types/BasicTypes.h"
+#include "Fw/Types/BasicTypes.hpp"
 #include "NamespacedAliasTypeAliasAc.hpp"
 
 namespace M {
