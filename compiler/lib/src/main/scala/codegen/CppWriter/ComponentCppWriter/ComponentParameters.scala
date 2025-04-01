@@ -141,15 +141,15 @@ case class ComponentParameters (
                       List(
                         lines(
                           s"""|
-                              | // Call the delegate deserialize function for ${paramVariableName(param.getName)}
-                              | this->paramDelegate->deserializeParam(_id, buff);
+                              |// Call the delegate deserialize function for ${paramVariableName(param.getName)}
+                              |this->paramDelegate->deserializeParam(_id, buff);
                               |"""
                         )
                       )
                     } else {
                       List(
                         lines(
-                          s"""| // Deserialize value
+                          s"""|// Deserialize value
                               |this->m_paramLock.lock();
                               |
                               |// If there was a deserialization issue, mark it invalid
@@ -200,7 +200,13 @@ case class ComponentParameters (
                           |
                           |"""
                     ) ++
-                    deserializationCode.flatten
+                    deserializationCode.flatten ++
+                    lines(
+                      """|
+                         |// Call notifier
+                         |this->parametersLoaded();
+                         |"""
+                    )
                   )
                 }
               )
