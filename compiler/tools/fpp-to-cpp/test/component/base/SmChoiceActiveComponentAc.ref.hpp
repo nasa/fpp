@@ -7,9 +7,8 @@
 #ifndef FppTest_SmChoiceActiveComponentAc_HPP
 #define FppTest_SmChoiceActiveComponentAc_HPP
 
-#include <Fw/FPrimeBasicTypes.hpp>
-
 #include "Fw/Comp/ActiveComponentBase.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
 #include "SmChoiceActive_BasicStateMachineAc.hpp"

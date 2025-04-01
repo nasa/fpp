@@ -6,19 +6,18 @@ import fpp.compiler.analysis._
 trait CppWriterUtils extends LineUtils {
 
   /** Standard system hpp headers */
-  val standardSystemHppHeaders = List(
-    "Fw/FPrimeBasicTypes.hpp"
-  ).map(CppWriter.systemHeaderString)
+  val standardSystemHppHeaders = Nil.map(CppWriter.systemHeaderString)
 
   /** Standard user hpp headers */
   val standardUserHppHeaders = List(
+    "Fw/FPrimeBasicTypes.hpp",
     "Fw/Types/ExternalString.hpp",
     "Fw/Types/Serializable.hpp",
     "Fw/Types/String.hpp"
   ).map(CppWriter.headerString)
 
   /** Standard system cpp headers */
-  val standardSystemCppHeaders = Nil
+  val standardSystemCppHeaders = Nil.map(CppWriter.systemHeaderString)
 
   /** Standard user cpp headers */
   val standardUserCppHeaders = List(

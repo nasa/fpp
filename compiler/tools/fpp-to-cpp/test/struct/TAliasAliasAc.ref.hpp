@@ -7,7 +7,7 @@
 #ifndef TAliasAliasAc_HPP
 #define TAliasAliasAc_HPP
 
-#include "Fw/Types/BasicTypes.h"
+#include "Fw/Types/BasicTypes.hpp"
 #include "T.hpp"
 
 using TAlias = T;

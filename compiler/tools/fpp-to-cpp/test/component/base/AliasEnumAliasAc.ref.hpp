@@ -8,7 +8,7 @@
 #define AliasEnumAliasAc_HPP
 
 #include "EEnumAc.hpp"
-#include "Fw/Types/BasicTypes.h"
+#include "Fw/Types/BasicTypes.hpp"
 
 //! Alias of an enum
 using AliasEnum = E;

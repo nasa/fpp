@@ -7,12 +7,11 @@
 #ifndef ActiveAsyncProductPortsOnlyComponentAc_HPP
 #define ActiveAsyncProductPortsOnlyComponentAc_HPP
 
-#include <Fw/FPrimeBasicTypes.hpp>
-
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/Dp/DpRequestPortAc.hpp"
 #include "Fw/Dp/DpResponsePortAc.hpp"
 #include "Fw/Dp/DpSendPortAc.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
 

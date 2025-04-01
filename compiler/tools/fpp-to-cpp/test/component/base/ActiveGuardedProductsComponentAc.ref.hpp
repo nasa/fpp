@@ -7,8 +7,6 @@
 #ifndef ActiveGuardedProductsComponentAc_HPP
 #define ActiveGuardedProductsComponentAc_HPP
 
-#include <Fw/FPrimeBasicTypes.hpp>
-
 #include "ActiveGuardedProducts_DataSerializableAc.hpp"
 #include "AliasTypedPortAc.hpp"
 #include "AliasTypedReturnPortAc.hpp"
@@ -21,6 +19,7 @@
 #include "Fw/Dp/DpRequestPortAc.hpp"
 #include "Fw/Dp/DpResponsePortAc.hpp"
 #include "Fw/Dp/DpSendPortAc.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Log/LogPortAc.hpp"
 #if FW_ENABLE_TEXT_LOGGING == 1
 #include "Fw/Log/LogTextPortAc.hpp"

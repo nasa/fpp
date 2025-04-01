@@ -7,7 +7,7 @@
 #ifndef AnotherAliasStructAliasAc_HPP
 #define AnotherAliasStructAliasAc_HPP
 
-#include "Fw/Types/BasicTypes.h"
+#include "Fw/Types/BasicTypes.hpp"
 #include "StructWithAliasSerializableAc.hpp"
 
 using AnotherAliasStruct = StructWithAlias;

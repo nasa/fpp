@@ -7,7 +7,7 @@
 #ifndef AliasStructAliasAc_HPP
 #define AliasStructAliasAc_HPP
 
-#include "Fw/Types/BasicTypes.h"
+#include "Fw/Types/BasicTypes.hpp"
 #include "SSerializableAc.hpp"
 
 //! Alias of a struct

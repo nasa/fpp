@@ -8,7 +8,6 @@
 #define QueuedEventsComponentAc_HPP
 
 #include <atomic>
-#include <Fw/FPrimeBasicTypes.hpp>
 
 #include "AArrayAc.hpp"
 #include "AliasTypedPortAc.hpp"
@@ -19,6 +18,7 @@
 #include "Fw/Cmd/CmdRegPortAc.hpp"
 #include "Fw/Cmd/CmdResponsePortAc.hpp"
 #include "Fw/Comp/ActiveComponentBase.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Log/LogPortAc.hpp"
 #include "Fw/Log/LogString.hpp"
 #if FW_ENABLE_TEXT_LOGGING == 1
