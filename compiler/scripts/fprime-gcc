@@ -2,7 +2,7 @@
 
 # ======================================================================
 # Compile F Prime source files
-# ---------------------------------------------------------------------- 
+# ----------------------------------------------------------------------
 # Setup:
 #
 # 1. Set FPRIME to point to the root of your F Prime working repo
@@ -15,6 +15,14 @@ then
   echo '  set FPRIME to the root of your F Prime working repo' 1>&2
   exit 1
 fi
+case $FPRIME in
+  /*) ;; # Continue
+  *)
+    echo 'fprime-gcc: environment variable FPRIME is not an absoute path' 1>&2
+    echo '  set FPRIME to the absolute root of your F Prime working repo' 1>&2
+    exit 1
+    ;;
+esac
 
 flags="
 -Wall
@@ -43,4 +51,5 @@ case "$os" in
     ;;
 esac
 
-g++ --std=c++11 $flags $os_flags -DTGT_OS_TYPE_$os_type -I $FPRIME -I $FPRIME/config -I $FPRIME/cmake/platform/types -I . $FPRIME_GCC_FLAGS $@
+g++ --std=c++11 $flags $os_flags -DTGT_OS_TYPE_$os_type -I $FPRIME -I $FPRIME/config \
+  -I $FPRIME/cmake/platform/types -I . $FPRIME_GCC_FLAGS $@
