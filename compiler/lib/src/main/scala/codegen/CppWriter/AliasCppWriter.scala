@@ -120,6 +120,10 @@ case class AliasCppWriter (
       return linesMember(List())
     }
 
+    // Include Fw/Types/BasicTypes.h here
+    // To avoid an include cycle, don't depend on Fw/FPrimeBasicTypes.hpp
+    // If the alias refers to one of those types, the header will appear
+    // in symbolHeaders
     val standardHeaders = List(
       "Fw/Types/BasicTypes.h",
     ).map(CppWriter.headerString)
@@ -131,6 +135,11 @@ case class AliasCppWriter (
 
   private def getHppIncludes: CppDoc.Member.Lines = {
     val standardHeaders = List(
+      // Include BasicTypes.h or Fw/Types/String.hpp here
+      // Fw/Types/String.hpp includes Fw/Types/BasicTypes.h
+      // To avoid an include cycle, don't depend on Fw/FPrimeBasicTypes.hpp
+      // If the alias refers to one of those types, the header will appear
+      // in symbolHeaders
       aliasType.aliasType match {
         case Type.String(_) => "Fw/Types/String.hpp"
         case _ => "Fw/Types/BasicTypes.h"
@@ -166,9 +175,12 @@ case class AliasCppWriter (
     val name = s.getName(symbol)
 
     val fmtSpecList = aliasType.aliasType match {
-        // Float format strings are not something that can be provided directly due to various
-        // choices (f, g, etc.) and smaller floats are automatically promoted to larger ones.
+        // C-style floating-poing format strings (f, g) are platform-independent
+        // In F Prime code, we just use them
         case Type.Float(f) => Nil
+        // C-style integer format strings (d, u, ld, lu, etc.) are platform-specific
+        // In F Prime code we don't use them. Instead we use a platform-independent macro.
+        // Write out the macro here
         case _ => List("_" + typeCppWriter.write(aliasType.aliasType))
       }
 
