@@ -4689,6 +4689,32 @@ namespace M {
   }
 
   // ----------------------------------------------------------------------
+  // Dispatching helper functions
+  // ----------------------------------------------------------------------
+
+  ActiveTestComponentBase::MsgDispatchStatus ActiveTestTesterBase ::
+    dispatchOne(ActiveTestComponentBase& component)
+  {
+        // Dispatch one message returning status
+        return component.doDispatch();
+  }
+
+  ActiveTestComponentBase::MsgDispatchStatus ActiveTestTesterBase ::
+    dispatchCurrentMessages(ActiveTestComponentBase& component)
+  {
+        // Dispatch all current messages unless ERROR or EXIT occur
+        const FwSizeType currentMessageCount = component.m_queue.getMessagesAvailable();
+        ActiveTestComponentBase::MsgDispatchStatus messageStatus = ActiveTestComponentBase::MsgDispatchStatus::MSG_DISPATCH_EMPTY;
+        for (FwSizeType i = 0; i < currentMessageCount; i++) {
+            messageStatus = component.doDispatch();
+            if (messageStatus != ActiveTestComponentBase::MSG_DISPATCH_OK) {
+                break;
+            }
+        }
+        return messageStatus;
+  }
+
+  // ----------------------------------------------------------------------
   // Static functions for output ports
   // ----------------------------------------------------------------------
 

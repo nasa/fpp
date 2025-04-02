@@ -29,6 +29,8 @@ class ActiveAsyncProductPortsOnlyComponentBase :
 
     //! Friend class for white-box testing
     friend class ActiveAsyncProductPortsOnlyComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class ActiveAsyncProductPortsOnlyTesterBase;
 
   PROTECTED:
 

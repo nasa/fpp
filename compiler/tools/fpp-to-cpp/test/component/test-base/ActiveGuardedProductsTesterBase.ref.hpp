@@ -1355,6 +1355,22 @@ class ActiveGuardedProductsTesterBase :
         const S& s //!< A struct
     );
 
+  public:
+
+    // ----------------------------------------------------------------------
+    // Dispatching helper functions
+    // ----------------------------------------------------------------------
+
+    //! Calls component's doDispatch on behalf of the caller
+    static ActiveGuardedProductsComponentBase::MsgDispatchStatus dispatchOne(
+        ActiveGuardedProductsComponentBase& component //!< The component to dispatch
+    );
+
+    //! Call component's doDispatch for all current messages unless ERROR, or EXIT
+    static ActiveGuardedProductsComponentBase::MsgDispatchStatus dispatchCurrentMessages(
+        ActiveGuardedProductsComponentBase& component //!< The component to dispatch
+    );
+
   private:
 
     // ----------------------------------------------------------------------

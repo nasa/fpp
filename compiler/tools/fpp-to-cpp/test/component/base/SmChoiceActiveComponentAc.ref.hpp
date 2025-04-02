@@ -34,6 +34,8 @@ namespace FppTest {
 
       //! Friend class for white-box testing
       friend class SmChoiceActiveComponentBaseFriend;
+      //! Friend class tester to support autocoded test harness
+      friend class SmChoiceActiveTesterBase;
 
     PROTECTED:
 

@@ -46,6 +46,8 @@ class ActiveOverflowComponentBase :
 
     //! Friend class for white-box testing
     friend class ActiveOverflowComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class ActiveOverflowTesterBase;
 
   PROTECTED:
 
@@ -921,7 +923,7 @@ class ActiveOverflowComponentBase :
     // Time
     // ----------------------------------------------------------------------
 
-    //!  Get the time
+    //! Get the time
     //!
     //! \\return The current time
     Fw::Time getTime() const;

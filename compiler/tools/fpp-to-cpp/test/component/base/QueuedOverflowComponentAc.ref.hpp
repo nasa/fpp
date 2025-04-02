@@ -46,6 +46,8 @@ class QueuedOverflowComponentBase :
 
     //! Friend class for white-box testing
     friend class QueuedOverflowComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class QueuedOverflowTesterBase;
 
   PROTECTED:
 
@@ -921,7 +923,7 @@ class QueuedOverflowComponentBase :
     // Time
     // ----------------------------------------------------------------------
 
-    //!  Get the time
+    //! Get the time
     //!
     //! \\return The current time
     Fw::Time getTime() const;
@@ -934,6 +936,15 @@ class QueuedOverflowComponentBase :
 
     //! Called in the message loop to dispatch a message from the queue
     virtual MsgDispatchStatus doDispatch();
+
+  protected:
+
+    // ----------------------------------------------------------------------
+    // Helper functions for dispatching current messages
+    // ----------------------------------------------------------------------
+
+    //! Dispatch all current messages unless ERROR or EXIT occurs
+    MsgDispatchStatus dispatchCurrentMessages();
 
   PRIVATE:
 

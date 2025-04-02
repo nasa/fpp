@@ -121,6 +121,7 @@ case class ComponentTesterBaseWriter(
       guardedList (hasTimeGetPort) (getTimeFunctions),
       guardedList (hasDataProducts) (getDpFunctions),
       historyWriter.getFunctionMembers,
+      guardedList (componentData.kind == Ast.ComponentKind.Active) (getDispatcherFunctions),
 
       // Private function members
       getPortStaticFunctions,
@@ -624,6 +625,66 @@ case class ComponentTesterBaseWriter(
           List(pushProductSend, handleProductSend)
         )
       }
+    )
+  }
+
+  private def getDispatcherFunctions: List[CppDoc.Class.Member] = {
+    val oneBody = intersperseBlankLines(
+      List(
+        lines(
+          """|    // Dispatch one message returning status
+             |    return component.doDispatch();
+             |"""
+        ),
+      )
+    )
+    val allBody = lines(
+      s"""|    // Dispatch all current messages unless ERROR or EXIT occur
+          |    const FwSizeType currentMessageCount = component.m_queue.getMessagesAvailable();
+          |    ${className}::MsgDispatchStatus messageStatus = ${className}::MsgDispatchStatus::MSG_DISPATCH_EMPTY;
+          |    for (FwSizeType i = 0; i < currentMessageCount; i++) {
+          |        messageStatus = component.doDispatch();
+          |        if (messageStatus != ${className}::MSG_DISPATCH_OK) {
+          |            break;
+          |        }
+          |    }
+          |    return messageStatus;
+          |"""
+    )
+
+    addAccessTagAndComment(
+      "public",
+      "Dispatching helper functions",
+      List(
+        functionClassMember(
+          Some(s"Calls component's doDispatch on behalf of the caller"),
+          "dispatchOne",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type(s"${className}&"),
+              "component",
+              Some("The component to dispatch")
+            )
+          ),
+          CppDoc.Type(s"${className}::MsgDispatchStatus"),
+          oneBody,
+          CppDoc.Function.Static
+        ),
+        functionClassMember(
+          Some(s"Call component's doDispatch for all current messages unless ERROR, or EXIT"),
+          "dispatchCurrentMessages",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type(s"${className}&"),
+              "component",
+              Some("The component to dispatch")
+            )
+          ),
+          CppDoc.Type(s"${className}::MsgDispatchStatus"),
+          allBody,
+          CppDoc.Function.Static
+        )
+      )
     )
   }
 

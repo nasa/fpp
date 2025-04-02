@@ -1404,6 +1404,22 @@ class ActiveCommandsTesterBase :
         const S& s //!< A struct
     );
 
+  public:
+
+    // ----------------------------------------------------------------------
+    // Dispatching helper functions
+    // ----------------------------------------------------------------------
+
+    //! Calls component's doDispatch on behalf of the caller
+    static ActiveCommandsComponentBase::MsgDispatchStatus dispatchOne(
+        ActiveCommandsComponentBase& component //!< The component to dispatch
+    );
+
+    //! Call component's doDispatch for all current messages unless ERROR, or EXIT
+    static ActiveCommandsComponentBase::MsgDispatchStatus dispatchCurrentMessages(
+        ActiveCommandsComponentBase& component //!< The component to dispatch
+    );
+
   private:
 
     // ----------------------------------------------------------------------

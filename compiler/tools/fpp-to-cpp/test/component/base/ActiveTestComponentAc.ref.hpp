@@ -64,6 +64,8 @@ namespace M {
 
       //! Friend class for white-box testing
       friend class ActiveTestComponentBaseFriend;
+      //! Friend class tester to support autocoded test harness
+      friend class ActiveTestTesterBase;
 
     PROTECTED:
 
@@ -2497,7 +2499,7 @@ namespace M {
       // Time
       // ----------------------------------------------------------------------
 
-      //!  Get the time
+      //! Get the time
       //!
       //! \\return The current time
       Fw::Time getTime() const;

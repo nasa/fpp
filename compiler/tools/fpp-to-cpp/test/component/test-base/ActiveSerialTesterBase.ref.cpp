@@ -4959,6 +4959,32 @@ void ActiveSerialTesterBase ::
 }
 
 // ----------------------------------------------------------------------
+// Dispatching helper functions
+// ----------------------------------------------------------------------
+
+ActiveSerialComponentBase::MsgDispatchStatus ActiveSerialTesterBase ::
+  dispatchOne(ActiveSerialComponentBase& component)
+{
+      // Dispatch one message returning status
+      return component.doDispatch();
+}
+
+ActiveSerialComponentBase::MsgDispatchStatus ActiveSerialTesterBase ::
+  dispatchCurrentMessages(ActiveSerialComponentBase& component)
+{
+      // Dispatch all current messages unless ERROR or EXIT occur
+      const FwSizeType currentMessageCount = component.m_queue.getMessagesAvailable();
+      ActiveSerialComponentBase::MsgDispatchStatus messageStatus = ActiveSerialComponentBase::MsgDispatchStatus::MSG_DISPATCH_EMPTY;
+      for (FwSizeType i = 0; i < currentMessageCount; i++) {
+          messageStatus = component.doDispatch();
+          if (messageStatus != ActiveSerialComponentBase::MSG_DISPATCH_OK) {
+              break;
+          }
+      }
+      return messageStatus;
+}
+
+// ----------------------------------------------------------------------
 // Static functions for output ports
 // ----------------------------------------------------------------------
 
