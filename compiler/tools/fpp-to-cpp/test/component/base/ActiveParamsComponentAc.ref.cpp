@@ -4906,22 +4906,18 @@ Fw::CmdResponse ActiveParamsComponentBase ::
   paramSave_ParamI32()
 {
   if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+    FwPrmIdType _id;
+    _id = this->getIdBase() + PARAMID_PARAMI32;
+
     Fw::ParamBuffer saveBuff;
-    this->m_paramLock.lock();
-
-    Fw::SerializeStatus stat = saveBuff.serialize(m_ParamI32);
-
-    this->m_paramLock.unLock();
+    Fw::SerializeStatus stat = this->paramDelegate->serializeParam(_id, saveBuff);
     if (stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
     }
 
-    FwPrmIdType id = 0;
-    id = this->getIdBase() + PARAMID_PARAMI32;
-
     // Save the parameter
     this->m_prmSetOut_OutputPort[0].invoke(
-      id,
+      _id,
       saveBuff
     );
 

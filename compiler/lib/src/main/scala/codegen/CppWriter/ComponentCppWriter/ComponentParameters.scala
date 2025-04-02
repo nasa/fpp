@@ -378,29 +378,51 @@ case class ComponentParameters (
           List.concat(
             wrapInIf(
               s"this->${portVariableName(prmSetPort.get)}[0].isConnected()",
-              lines(
-                s"""|Fw::ParamBuffer saveBuff;
-                    |this->m_paramLock.lock();
-                    |
-                    |Fw::SerializeStatus stat = saveBuff.serialize(${paramVariableName(param.getName)});
-                    |
-                    |this->m_paramLock.unLock();
-                    |if (stat != Fw::FW_SERIALIZE_OK) {
-                    |  return Fw::CmdResponse::VALIDATION_ERROR;
-                    |}
-                    |
-                    |FwPrmIdType id = 0;
-                    |id = this->getIdBase() + ${paramIdConstantName(param.getName)};
-                    |
-                    |// Save the parameter
-                    |this->${portVariableName(prmSetPort.get)}[0].invoke(
-                    |  id,
-                    |  saveBuff
-                    |);
-                    |
-                    |return Fw::CmdResponse::OK;
-                    |"""
-              )
+              if (param.isExternal) {
+                lines(
+                  s"""|FwPrmIdType _id;
+                      |_id = this->getIdBase() + ${paramIdConstantName(param.getName)};
+                      |
+                      |Fw::ParamBuffer saveBuff;
+                      |Fw::SerializeStatus stat = this->paramDelegate->serializeParam(_id, saveBuff);
+                      |if (stat != Fw::FW_SERIALIZE_OK) {
+                      |  return Fw::CmdResponse::VALIDATION_ERROR;
+                      |}
+                      |
+                      |// Save the parameter
+                      |this->${portVariableName(prmSetPort.get)}[0].invoke(
+                      |  _id,
+                      |  saveBuff
+                      |);
+                      |
+                      |return Fw::CmdResponse::OK;
+                      |"""
+                )
+              } else {
+                lines(
+                  s"""|Fw::ParamBuffer saveBuff;
+                      |this->m_paramLock.lock();
+                      |
+                      |Fw::SerializeStatus stat = saveBuff.serialize(${paramVariableName(param.getName)});
+                      |
+                      |this->m_paramLock.unLock();
+                      |if (stat != Fw::FW_SERIALIZE_OK) {
+                      |  return Fw::CmdResponse::VALIDATION_ERROR;
+                      |}
+                      |
+                      |FwPrmIdType id = 0;
+                      |id = this->getIdBase() + ${paramIdConstantName(param.getName)};
+                      |
+                      |// Save the parameter
+                      |this->${portVariableName(prmSetPort.get)}[0].invoke(
+                      |  id,
+                      |  saveBuff
+                      |);
+                      |
+                      |return Fw::CmdResponse::OK;
+                      |"""
+                )
+              }
             ),
             Line.blank :: lines("return Fw::CmdResponse::EXECUTION_ERROR;")
           )
