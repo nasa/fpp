@@ -52,6 +52,8 @@ class ActiveCommandsComponentBase :
 
     //! Friend class for white-box testing
     friend class ActiveCommandsComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class ActiveCommandsTesterBase;
 
   PROTECTED:
 
@@ -1761,7 +1763,7 @@ class ActiveCommandsComponentBase :
     // Time
     // ----------------------------------------------------------------------
 
-    //!  Get the time
+    //! Get the time
     //!
     //! \\return The current time
     Fw::Time getTime() const;

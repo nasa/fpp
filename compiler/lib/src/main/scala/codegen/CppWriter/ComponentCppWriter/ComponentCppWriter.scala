@@ -11,17 +11,7 @@ case class ComponentCppWriter (
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  private val symbol = componentSymbol
-
-  private val data = componentData
-
-  private val name = componentName
-
-  private val className = componentClassName
-
-  private val namespaceIdentList = componentNamespaceIdentList
-
-  private val fileName = ComputeCppFiles.FileNames.getComponent(name)
+  private val fileName = ComputeCppFiles.FileNames.getComponent(componentName)
 
   private val dpWriter = ComponentDataProducts(s, aNode)
 
@@ -41,7 +31,7 @@ case class ComponentCppWriter (
 
   private val stateMachineWriter = ComponentStateMachines(s, aNode)
 
-  private val kindStr = data.kind match {
+  private val kindStr = componentData.kind match {
     case Ast.ComponentKind.Active => "Active"
     case Ast.ComponentKind.Passive => "Passive"
     case Ast.ComponentKind.Queued => "Queued"
@@ -49,7 +39,7 @@ case class ComponentCppWriter (
 
   private val baseClassName = s"${kindStr}ComponentBase"
 
-  private val exitConstantName = s"${name.toUpperCase}_COMPONENT_EXIT"
+  private val exitConstantName = s"${componentName.toUpperCase}_COMPONENT_EXIT"
 
   private def writeIncludeDirectives: List[String] = {
     val Right(a) = UsedSymbols.defComponentAnnotatedNode(s.a, aNode)
@@ -57,9 +47,9 @@ case class ComponentCppWriter (
   }
 
   def write: CppDoc = {
-    val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
+    val includeGuard = s.includeGuardFromQualifiedName(componentSymbol, fileName)
     CppWriter.createCppDoc(
-      s"$name component base class",
+      s"$componentName component base class",
       fileName,
       includeGuard,
       getMembers,
@@ -74,18 +64,18 @@ case class ComponentCppWriter (
     val cls = classMember(
       Some(
         addSeparatedString(
-          s"\\class $className\n\\brief Auto-generated base for $name component",
+          s"\\class $componentClassName\n\\brief Auto-generated base for $componentName component",
           AnnotationCppWriter.asStringOpt(aNode)
         )
       ),
-      className,
+      componentClassName,
       Some(s"public Fw::$baseClassName$externalSmInterfaces"),
       getClassMembers
     )
     List(
       List(hppIncludes, cppIncludes),
       getStaticAssertion,
-      wrapInNamespaces(namespaceIdentList, List(cls))
+      wrapInNamespaces(componentNamespaceIdentList, List(cls))
     ).flatten
   }
 
@@ -172,7 +162,7 @@ case class ComponentCppWriter (
         Line.blank :: lines(
           s"""|static_assert(
               |  FW_PORT_SERIALIZATION == 1,
-              |  \"$name component requires serialization\"
+              |  \"$componentName component requires serialization\"
               |);
               |"""
         )
@@ -217,6 +207,7 @@ case class ComponentCppWriter (
 
       // Protected/private function members
       getDispatchFunctionMember,
+      guardedList (componentData.kind == Ast.ComponentKind.Queued) (getDispatchCurrentMembers),
 
       // Private function members
       portWriter.getPrivateFunctionMembers,
@@ -272,7 +263,9 @@ case class ComponentCppWriter (
           lines(
             s"""|
                 |//! Friend class for white-box testing
-                |friend class ${className}Friend;
+                |friend class ${componentClassName}Friend;
+                |//! Friend class tester to support autocoded test harness
+                |friend class ${componentName}TesterBase;
                 |"""
           )
         ).flatten
@@ -281,7 +274,7 @@ case class ComponentCppWriter (
   }
 
   private def getAnonymousNamespaceMembers: List[CppDoc.Class.Member] =
-    data.kind match {
+    componentData.kind match {
       case Ast.ComponentKind.Passive => Nil
       case _ => {
         val buffUnion = getBuffUnion
@@ -461,7 +454,7 @@ case class ComponentCppWriter (
         intersperseBlankLines(specialOutputPorts.map(writePortConnections)),
         intersperseBlankLines(typedOutputPorts.map(writePortConnections)),
         intersperseBlankLines(serialOutputPorts.map(writePortConnections)),
-        data.kind match {
+        componentData.kind match {
           case Ast.ComponentKind.Passive => Nil
           case _ => List.concat(
             if hasSerialAsyncInputPorts then lines(
@@ -502,7 +495,7 @@ case class ComponentCppWriter (
       "Component initialization",
       List(
         functionClassMember(
-          Some(s"Initialize $className object"),
+          Some(s"Initialize $componentClassName object"),
           "init",
           initParams,
           CppDoc.Type("void"),
@@ -534,7 +527,7 @@ case class ComponentCppWriter (
       "Component construction and destruction",
       List(
         constructorClassMember(
-          Some(s"Construct $className object"),
+          Some(s"Construct $componentClassName object"),
           List(
             CppDoc.Function.Param(
               CppDoc.Type("const char*"),
@@ -571,7 +564,7 @@ case class ComponentCppWriter (
           )
         ),
         destructorClassMember(
-          Some(s"Destroy $className object"),
+          Some(s"Destroy $componentClassName object"),
           Nil,
           CppDoc.Class.Destructor.Virtual
         )
@@ -797,7 +790,7 @@ case class ComponentCppWriter (
         )
     }
 
-    if data.kind == Ast.ComponentKind.Passive then Nil
+    if componentData.kind == Ast.ComponentKind.Passive then Nil
     else {
       val assertMsgStatus = lines(
         """|FW_ASSERT(
@@ -808,7 +801,7 @@ case class ComponentCppWriter (
       )
 
       addAccessTagAndComment(
-        data.kind match {
+        componentData.kind match {
           case Ast.ComponentKind.Active => "PRIVATE"
           case Ast.ComponentKind.Queued => "PROTECTED"
           case _ => ""
@@ -838,12 +831,12 @@ case class ComponentCppWriter (
                     |
                     |Os::Queue::Status _msgStatus = this->m_queue.receive(
                     |  _msg,
-                    |  Os::Queue::${if data.kind == Ast.ComponentKind.Queued then "NON" else ""}BLOCKING,
+                    |  Os::Queue::${if componentData.kind == Ast.ComponentKind.Queued then "NON" else ""}BLOCKING,
                     |  _priority
                     |);
                     |""".stripMargin
               ),
-              if data.kind == Ast.ComponentKind.Queued then wrapInIfElse(
+              if componentData.kind == Ast.ComponentKind.Queued then wrapInIfElse(
                 "Os::Queue::Status::EMPTY == _msgStatus",
                 lines("return Fw::QueuedComponentBase::MSG_DISPATCH_EMPTY;"),
                 assertMsgStatus
@@ -905,6 +898,39 @@ case class ComponentCppWriter (
     }
   }
 
+  private def getDispatchCurrentMembers: List[CppDoc.Class.Member] = {
+    val body = lines(
+      """|// Dispatch all current messages unless ERROR or EXIT occur
+         |const FwSizeType currentMessageCount = this->m_queue.getMessagesAvailable();
+         |MsgDispatchStatus messageStatus = MsgDispatchStatus::MSG_DISPATCH_EMPTY;
+         |for (FwSizeType i = 0; i < currentMessageCount; i++) {
+         |  messageStatus = this->doDispatch();
+         |  if (messageStatus != QueuedComponentBase::MSG_DISPATCH_OK) {
+         |    break;
+         |  }
+         |}
+         |return messageStatus;"""
+    )
+
+    addAccessTagAndComment(
+      "protected",
+      "Helper functions for dispatching current messages",
+      List(
+        functionClassMember(
+          Some(s"Dispatch all current messages unless ERROR or EXIT occurs"),
+          "dispatchCurrentMessages",
+          Nil,
+          CppDoc.Type(
+            "MsgDispatchStatus",
+            Some("Fw::QueuedComponentBase::MsgDispatchStatus")
+          ),
+          body,
+          CppDoc.Function.NonSV
+        )
+      )
+    )
+  }
+
   private def getTimeFunctionMember: List[CppDoc.Class.Member] =
     if !hasTimeGetPort then Nil
     else {
@@ -916,7 +942,7 @@ case class ComponentCppWriter (
         List(
           functionClassMember(
             Some(
-              """| Get the time
+              """|Get the time
                  |
                  |\\return The current time
                  |"""

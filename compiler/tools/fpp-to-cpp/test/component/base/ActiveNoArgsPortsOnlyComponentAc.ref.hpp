@@ -30,6 +30,8 @@ class ActiveNoArgsPortsOnlyComponentBase :
 
     //! Friend class for white-box testing
     friend class ActiveNoArgsPortsOnlyComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class ActiveNoArgsPortsOnlyTesterBase;
 
   PROTECTED:
 

@@ -2615,6 +2615,32 @@ void QueuedSyncProductsTesterBase ::
 }
 
 // ----------------------------------------------------------------------
+// Dispatching helper functions
+// ----------------------------------------------------------------------
+
+QueuedSyncProductsComponentBase::MsgDispatchStatus QueuedSyncProductsTesterBase ::
+  dispatchOne(QueuedSyncProductsComponentBase& component)
+{
+      // Dispatch one message returning status
+      return component.doDispatch();
+}
+
+QueuedSyncProductsComponentBase::MsgDispatchStatus QueuedSyncProductsTesterBase ::
+  dispatchCurrentMessages(QueuedSyncProductsComponentBase& component)
+{
+      // Dispatch all current messages unless ERROR or EXIT occur
+      const FwSizeType currentMessageCount = component.m_queue.getMessagesAvailable();
+      QueuedSyncProductsComponentBase::MsgDispatchStatus messageStatus = QueuedSyncProductsComponentBase::MsgDispatchStatus::MSG_DISPATCH_EMPTY;
+      for (FwSizeType i = 0; i < currentMessageCount; i++) {
+          messageStatus = component.doDispatch();
+          if (messageStatus != QueuedSyncProductsComponentBase::MSG_DISPATCH_OK) {
+              break;
+          }
+      }
+      return messageStatus;
+}
+
+// ----------------------------------------------------------------------
 // Static functions for output ports
 // ----------------------------------------------------------------------
 

@@ -52,6 +52,8 @@ class QueuedGetProductsComponentBase :
 
     //! Friend class for white-box testing
     friend class QueuedGetProductsComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class QueuedGetProductsTesterBase;
 
   PROTECTED:
 
@@ -1639,7 +1641,7 @@ class QueuedGetProductsComponentBase :
     // Time
     // ----------------------------------------------------------------------
 
-    //!  Get the time
+    //! Get the time
     //!
     //! \\return The current time
     Fw::Time getTime() const;

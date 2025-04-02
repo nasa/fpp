@@ -53,6 +53,8 @@ class PassiveEventsComponentBase :
 
     //! Friend class for white-box testing
     friend class PassiveEventsComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class PassiveEventsTesterBase;
 
   PROTECTED:
 
@@ -1159,7 +1161,7 @@ class PassiveEventsComponentBase :
     // Time
     // ----------------------------------------------------------------------
 
-    //!  Get the time
+    //! Get the time
     //!
     //! \\return The current time
     Fw::Time getTime() const;

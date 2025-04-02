@@ -2615,6 +2615,32 @@ void ActiveSyncProductsTesterBase ::
 }
 
 // ----------------------------------------------------------------------
+// Dispatching helper functions
+// ----------------------------------------------------------------------
+
+ActiveSyncProductsComponentBase::MsgDispatchStatus ActiveSyncProductsTesterBase ::
+  dispatchOne(ActiveSyncProductsComponentBase& component)
+{
+      // Dispatch one message returning status
+      return component.doDispatch();
+}
+
+ActiveSyncProductsComponentBase::MsgDispatchStatus ActiveSyncProductsTesterBase ::
+  dispatchCurrentMessages(ActiveSyncProductsComponentBase& component)
+{
+      // Dispatch all current messages unless ERROR or EXIT occur
+      const FwSizeType currentMessageCount = component.m_queue.getMessagesAvailable();
+      ActiveSyncProductsComponentBase::MsgDispatchStatus messageStatus = ActiveSyncProductsComponentBase::MsgDispatchStatus::MSG_DISPATCH_EMPTY;
+      for (FwSizeType i = 0; i < currentMessageCount; i++) {
+          messageStatus = component.doDispatch();
+          if (messageStatus != ActiveSyncProductsComponentBase::MSG_DISPATCH_OK) {
+              break;
+          }
+      }
+      return messageStatus;
+}
+
+// ----------------------------------------------------------------------
 // Static functions for output ports
 // ----------------------------------------------------------------------
 

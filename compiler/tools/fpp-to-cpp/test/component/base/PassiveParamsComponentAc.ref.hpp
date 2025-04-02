@@ -53,6 +53,8 @@ class PassiveParamsComponentBase :
 
     //! Friend class for white-box testing
     friend class PassiveParamsComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class PassiveParamsTesterBase;
 
   PROTECTED:
 
@@ -1217,7 +1219,7 @@ class PassiveParamsComponentBase :
     // Time
     // ----------------------------------------------------------------------
 
-    //!  Get the time
+    //! Get the time
     //!
     //! \\return The current time
     Fw::Time getTime() const;

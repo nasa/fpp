@@ -53,6 +53,8 @@ class ActiveGuardedProductsComponentBase :
 
     //! Friend class for white-box testing
     friend class ActiveGuardedProductsComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class ActiveGuardedProductsTesterBase;
 
   PROTECTED:
 
@@ -1675,7 +1677,7 @@ class ActiveGuardedProductsComponentBase :
     // Time
     // ----------------------------------------------------------------------
 
-    //!  Get the time
+    //! Get the time
     //!
     //! \\return The current time
     Fw::Time getTime() const;

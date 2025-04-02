@@ -52,6 +52,8 @@ class PassiveTelemetryComponentBase :
 
     //! Friend class for white-box testing
     friend class PassiveTelemetryComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class PassiveTelemetryTesterBase;
 
   PROTECTED:
 
@@ -1180,7 +1182,7 @@ class PassiveTelemetryComponentBase :
     // Time
     // ----------------------------------------------------------------------
 
-    //!  Get the time
+    //! Get the time
     //!
     //! \\return The current time
     Fw::Time getTime() const;

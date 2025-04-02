@@ -2556,6 +2556,32 @@ void ActiveGetProductsTesterBase ::
 }
 
 // ----------------------------------------------------------------------
+// Dispatching helper functions
+// ----------------------------------------------------------------------
+
+ActiveGetProductsComponentBase::MsgDispatchStatus ActiveGetProductsTesterBase ::
+  dispatchOne(ActiveGetProductsComponentBase& component)
+{
+      // Dispatch one message returning status
+      return component.doDispatch();
+}
+
+ActiveGetProductsComponentBase::MsgDispatchStatus ActiveGetProductsTesterBase ::
+  dispatchCurrentMessages(ActiveGetProductsComponentBase& component)
+{
+      // Dispatch all current messages unless ERROR or EXIT occur
+      const FwSizeType currentMessageCount = component.m_queue.getMessagesAvailable();
+      ActiveGetProductsComponentBase::MsgDispatchStatus messageStatus = ActiveGetProductsComponentBase::MsgDispatchStatus::MSG_DISPATCH_EMPTY;
+      for (FwSizeType i = 0; i < currentMessageCount; i++) {
+          messageStatus = component.doDispatch();
+          if (messageStatus != ActiveGetProductsComponentBase::MSG_DISPATCH_OK) {
+              break;
+          }
+      }
+      return messageStatus;
+}
+
+// ----------------------------------------------------------------------
 // Static functions for output ports
 // ----------------------------------------------------------------------
 

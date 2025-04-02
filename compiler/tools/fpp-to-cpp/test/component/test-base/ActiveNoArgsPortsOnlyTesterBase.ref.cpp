@@ -466,6 +466,32 @@ void ActiveNoArgsPortsOnlyTesterBase ::
 }
 
 // ----------------------------------------------------------------------
+// Dispatching helper functions
+// ----------------------------------------------------------------------
+
+ActiveNoArgsPortsOnlyComponentBase::MsgDispatchStatus ActiveNoArgsPortsOnlyTesterBase ::
+  dispatchOne(ActiveNoArgsPortsOnlyComponentBase& component)
+{
+      // Dispatch one message returning status
+      return component.doDispatch();
+}
+
+ActiveNoArgsPortsOnlyComponentBase::MsgDispatchStatus ActiveNoArgsPortsOnlyTesterBase ::
+  dispatchCurrentMessages(ActiveNoArgsPortsOnlyComponentBase& component)
+{
+      // Dispatch all current messages unless ERROR or EXIT occur
+      const FwSizeType currentMessageCount = component.m_queue.getMessagesAvailable();
+      ActiveNoArgsPortsOnlyComponentBase::MsgDispatchStatus messageStatus = ActiveNoArgsPortsOnlyComponentBase::MsgDispatchStatus::MSG_DISPATCH_EMPTY;
+      for (FwSizeType i = 0; i < currentMessageCount; i++) {
+          messageStatus = component.doDispatch();
+          if (messageStatus != ActiveNoArgsPortsOnlyComponentBase::MSG_DISPATCH_OK) {
+              break;
+          }
+      }
+      return messageStatus;
+}
+
+// ----------------------------------------------------------------------
 // Static functions for output ports
 // ----------------------------------------------------------------------
 
