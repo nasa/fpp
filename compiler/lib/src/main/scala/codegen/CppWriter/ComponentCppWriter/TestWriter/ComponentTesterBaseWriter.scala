@@ -12,8 +12,6 @@ case class ComponentTesterBaseWriter(
 
   private val className = componentClassName
 
-  private val data = componentData
-
   private val componentFileName = ComputeCppFiles.FileNames.getComponent(componentName)
 
   private val componentRelativeFileName = s.getRelativePath(componentFileName).toString
@@ -123,7 +121,7 @@ case class ComponentTesterBaseWriter(
       guardedList (hasTimeGetPort) (getTimeFunctions),
       guardedList (hasDataProducts) (getDpFunctions),
       historyWriter.getFunctionMembers,
-      guardedList (this.data.kind == Ast.ComponentKind.Active) (getDispatcherFunctions),
+      guardedList (componentData.kind == Ast.ComponentKind.Active) (getDispatcherFunctions),
 
       // Private function members
       getPortStaticFunctions,
