@@ -7,7 +7,7 @@
 #ifndef fpp_to_cpp_test_constants_FppConstantsAc_HPP
 #define fpp_to_cpp_test_constants_FppConstantsAc_HPP
 
-#include "FpConfig.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 
 //! Constant a
 enum FppConstant_a {

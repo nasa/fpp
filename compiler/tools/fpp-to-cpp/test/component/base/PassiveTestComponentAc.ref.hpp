@@ -8,7 +8,6 @@
 #define PassiveTestComponentAc_HPP
 
 #include <atomic>
-#include <FpConfig.hpp>
 
 #include "AArrayAc.hpp"
 #include "AliasTypedPortAc.hpp"
@@ -24,6 +23,7 @@
 #include "Fw/Dp/DpRequestPortAc.hpp"
 #include "Fw/Dp/DpResponsePortAc.hpp"
 #include "Fw/Dp/DpSendPortAc.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Log/LogPortAc.hpp"
 #include "Fw/Log/LogString.hpp"
 #if FW_ENABLE_TEXT_LOGGING == 1

@@ -7,9 +7,8 @@
 #ifndef FppTest_SmStateActiveComponentAc_HPP
 #define FppTest_SmStateActiveComponentAc_HPP
 
-#include <FpConfig.hpp>
-
 #include "Fw/Comp/ActiveComponentBase.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
 #include "SmStateActive_BasicStateMachineAc.hpp"

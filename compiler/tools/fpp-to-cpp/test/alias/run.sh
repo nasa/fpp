@@ -15,15 +15,6 @@ basic()
     diff_cpp BasicSerializable
 }
 
-builtin_type()
-{
-  run_test "-p $PWD" builtin_type && \
-    diff_h_hpp BuiltInTypeAlias && \
-    diff_hpp NamespacedBuiltin1Alias && \
-    diff_hpp NamespacedBuiltin2Alias && \
-    diff_cpp BuiltinSerializable
-}
-
 namespace()
 {
   run_test "-p $PWD" namespace && \

@@ -7,9 +7,7 @@
 #ifndef ATAliasAc_HPP
 #define ATAliasAc_HPP
 
-#include <FpConfig.hpp>
-
-#include "Fw/Types/BasicTypes.h"
+#include "Fw/Types/BasicTypes.hpp"
 
 extern "C" {
 #include "ATAliasAc.h"

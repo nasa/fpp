@@ -7,8 +7,7 @@
 #ifndef FppTest_SmState_PolymorphismStateMachineAc_HPP
 #define FppTest_SmState_PolymorphismStateMachineAc_HPP
 
-#include <FpConfig.hpp>
-
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"

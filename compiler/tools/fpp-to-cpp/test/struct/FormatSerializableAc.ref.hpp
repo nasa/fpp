@@ -7,7 +7,7 @@
 #ifndef FormatSerializableAc_HPP
 #define FormatSerializableAc_HPP
 
-#include "FpConfig.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"

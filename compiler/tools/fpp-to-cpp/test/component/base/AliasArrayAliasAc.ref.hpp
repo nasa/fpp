@@ -7,10 +7,8 @@
 #ifndef AliasArrayAliasAc_HPP
 #define AliasArrayAliasAc_HPP
 
-#include <FpConfig.hpp>
-
 #include "AArrayAc.hpp"
-#include "Fw/Types/BasicTypes.h"
+#include "Fw/Types/BasicTypes.hpp"
 
 //! Alias of an array
 using AliasArray = A;
