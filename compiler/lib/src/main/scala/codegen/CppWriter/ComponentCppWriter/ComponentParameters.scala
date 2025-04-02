@@ -141,6 +141,8 @@ case class ComponentParameters (
                       List(
                         lines(
                           s"""|
+                              |// Do not include the base ID when passing an ID to the delegate
+                              |_id = ${paramIdConstantName(param.getName)};
                               |// If there was a deserialization issue, mark it invalid
                               |"""
                         ),
@@ -335,7 +337,8 @@ case class ComponentParameters (
           if (param.isExternal) {
             lines(
               s"""|FwPrmIdType _id;
-                  |_id = this->getIdBase() + ${paramIdConstantName(param.getName)};
+                  |// Do not include the base ID when passing an ID to the delegate
+                  |_id = ${paramIdConstantName(param.getName)};
                   |
                   |// Call the delegate serialize function for ${paramVariableName(param.getName)}
                   |Fw::SerializeStatus _stat;
@@ -395,7 +398,8 @@ case class ComponentParameters (
               if (param.isExternal) {
                 lines(
                   s"""|FwPrmIdType _id;
-                      |_id = this->getIdBase() + ${paramIdConstantName(param.getName)};
+                      |// Do not include the base ID when passing an ID to the delegate
+                      |_id = ${paramIdConstantName(param.getName)};
                       |
                       |Fw::ParamBuffer saveBuff;
                       |Fw::SerializeStatus stat = this->paramDelegate->serializeParam(_id, saveBuff);
@@ -404,6 +408,7 @@ case class ComponentParameters (
                       |}
                       |
                       |// Save the parameter
+                      |_id = this->getIdBase() + ${paramIdConstantName(param.getName)};
                       |this->${portVariableName(prmSetPort.get)}[0].invoke(
                       |  _id,
                       |  saveBuff

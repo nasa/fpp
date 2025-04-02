@@ -2203,6 +2203,8 @@ namespace M {
         buff
       );
 
+    // Do not include the base ID when passing an ID to the delegate
+    _id = PARAMID_PARAMI32;
     // If there was a deserialization issue, mark it invalid
     if (this->m_param_ParamI32_valid == Fw::ParamValid::VALID) {
       // Call the delegate deserialize function for m_ParamI32
@@ -8357,7 +8359,8 @@ namespace M {
     paramSet_ParamI32(Fw::SerializeBufferBase& val)
   {
     FwPrmIdType _id;
-    _id = this->getIdBase() + PARAMID_PARAMI32;
+    // Do not include the base ID when passing an ID to the delegate
+    _id = PARAMID_PARAMI32;
 
     // Call the delegate serialize function for m_ParamI32
     Fw::SerializeStatus _stat;
@@ -8554,7 +8557,8 @@ namespace M {
   {
     if (this->m_prmSetOut_OutputPort[0].isConnected()) {
       FwPrmIdType _id;
-      _id = this->getIdBase() + PARAMID_PARAMI32;
+      // Do not include the base ID when passing an ID to the delegate
+      _id = PARAMID_PARAMI32;
 
       Fw::ParamBuffer saveBuff;
       Fw::SerializeStatus stat = this->paramDelegate->serializeParam(_id, saveBuff);
@@ -8563,6 +8567,7 @@ namespace M {
       }
 
       // Save the parameter
+      _id = this->getIdBase() + PARAMID_PARAMI32;
       this->m_prmSetOut_OutputPort[0].invoke(
         _id,
         saveBuff
