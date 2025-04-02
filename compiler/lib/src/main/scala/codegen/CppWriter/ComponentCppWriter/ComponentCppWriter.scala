@@ -11,11 +11,7 @@ case class ComponentCppWriter (
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  private val name = componentName
-
-  private val namespaceIdentList = componentNamespaceIdentList
-
-  private val fileName = ComputeCppFiles.FileNames.getComponent(name)
+  private val fileName = ComputeCppFiles.FileNames.getComponent(componentName)
 
   private val dpWriter = ComponentDataProducts(s, aNode)
 
@@ -43,7 +39,7 @@ case class ComponentCppWriter (
 
   private val baseClassName = s"${kindStr}ComponentBase"
 
-  private val exitConstantName = s"${name.toUpperCase}_COMPONENT_EXIT"
+  private val exitConstantName = s"${componentName.toUpperCase}_COMPONENT_EXIT"
 
   private def writeIncludeDirectives: List[String] = {
     val Right(a) = UsedSymbols.defComponentAnnotatedNode(s.a, aNode)
@@ -53,7 +49,7 @@ case class ComponentCppWriter (
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(componentSymbol, fileName)
     CppWriter.createCppDoc(
-      s"$name component base class",
+      s"$componentName component base class",
       fileName,
       includeGuard,
       getMembers,
@@ -68,7 +64,7 @@ case class ComponentCppWriter (
     val cls = classMember(
       Some(
         addSeparatedString(
-          s"\\class $componentClassName\n\\brief Auto-generated base for $name component",
+          s"\\class $componentClassName\n\\brief Auto-generated base for $componentName component",
           AnnotationCppWriter.asStringOpt(aNode)
         )
       ),
@@ -79,7 +75,7 @@ case class ComponentCppWriter (
     List(
       List(hppIncludes, cppIncludes),
       getStaticAssertion,
-      wrapInNamespaces(namespaceIdentList, List(cls))
+      wrapInNamespaces(componentNamespaceIdentList, List(cls))
     ).flatten
   }
 
@@ -166,7 +162,7 @@ case class ComponentCppWriter (
         Line.blank :: lines(
           s"""|static_assert(
               |  FW_PORT_SERIALIZATION == 1,
-              |  \"$name component requires serialization\"
+              |  \"$componentName component requires serialization\"
               |);
               |"""
         )
