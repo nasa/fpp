@@ -573,8 +573,8 @@ case class ComponentCppWriter (
               throttledEvents.map((_, event) => line(
                 s"this->${eventThrottleCounterName(event.getName)} = 0;"
               )),
-              sortedParams.map((_, param) => line(
-                s"this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::UNINIT;"
+              sortedParams.flatMap((_, param) => guardedList(!param.isExternal) (
+                lines(s"this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::UNINIT;")
               ))
             )
           )

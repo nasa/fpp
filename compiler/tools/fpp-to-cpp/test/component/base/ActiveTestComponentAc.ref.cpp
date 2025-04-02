@@ -2042,6 +2042,8 @@ namespace M {
 
     FwPrmIdType _id;
 
+    Fw::ParamValid param_valid;
+
     _id = this->getIdBase() + PARAMID_PARAMU32;
 
     // Get parameter ParamU32
@@ -2050,10 +2052,12 @@ namespace M {
         _id,
         buff
       );
+
     // Deserialize value
     this->m_paramLock.lock();
 
     // If there was a deserialization issue, mark it invalid
+
     if (this->m_param_ParamU32_valid == Fw::ParamValid::VALID) {
       stat = buff.deserialize(this->m_ParamU32);
       if (stat != Fw::FW_SERIALIZE_OK) {
@@ -2063,6 +2067,7 @@ namespace M {
     else {
       // No default
     }
+
 
     this->m_paramLock.unLock();
 
@@ -2074,10 +2079,12 @@ namespace M {
         _id,
         buff
       );
+
     // Deserialize value
     this->m_paramLock.lock();
 
     // If there was a deserialization issue, mark it invalid
+
     if (this->m_param_ParamF64_valid == Fw::ParamValid::VALID) {
       stat = buff.deserialize(this->m_ParamF64);
       if (stat != Fw::FW_SERIALIZE_OK) {
@@ -2087,6 +2094,7 @@ namespace M {
     else {
       // No default
     }
+
 
     this->m_paramLock.unLock();
 
@@ -2098,10 +2106,12 @@ namespace M {
         _id,
         buff
       );
+
     // Deserialize value
     this->m_paramLock.lock();
 
     // If there was a deserialization issue, mark it invalid
+
     if (this->m_param_ParamString_valid == Fw::ParamValid::VALID) {
       stat = buff.deserialize(this->m_ParamString);
       if (stat != Fw::FW_SERIALIZE_OK) {
@@ -2116,6 +2126,7 @@ namespace M {
       this->m_ParamString = Fw::String("default");
     }
 
+
     this->m_paramLock.unLock();
 
     _id = this->getIdBase() + PARAMID_PARAMENUM;
@@ -2126,10 +2137,12 @@ namespace M {
         _id,
         buff
       );
+
     // Deserialize value
     this->m_paramLock.lock();
 
     // If there was a deserialization issue, mark it invalid
+
     if (this->m_param_ParamEnum_valid == Fw::ParamValid::VALID) {
       stat = buff.deserialize(this->m_ParamEnum);
       if (stat != Fw::FW_SERIALIZE_OK) {
@@ -2139,6 +2152,7 @@ namespace M {
     else {
       // No default
     }
+
 
     this->m_paramLock.unLock();
 
@@ -2150,10 +2164,12 @@ namespace M {
         _id,
         buff
       );
+
     // Deserialize value
     this->m_paramLock.lock();
 
     // If there was a deserialization issue, mark it invalid
+
     if (this->m_param_ParamArray_valid == Fw::ParamValid::VALID) {
       stat = buff.deserialize(this->m_ParamArray);
       if (stat != Fw::FW_SERIALIZE_OK) {
@@ -2168,6 +2184,7 @@ namespace M {
       this->m_ParamArray = A(1, 2, 3);
     }
 
+
     this->m_paramLock.unLock();
 
     _id = this->getIdBase() + PARAMID_PARAMSTRUCT;
@@ -2178,10 +2195,12 @@ namespace M {
         _id,
         buff
       );
+
     // Deserialize value
     this->m_paramLock.lock();
 
     // If there was a deserialization issue, mark it invalid
+
     if (this->m_param_ParamStruct_valid == Fw::ParamValid::VALID) {
       stat = buff.deserialize(this->m_ParamStruct);
       if (stat != Fw::FW_SERIALIZE_OK) {
@@ -2192,29 +2211,30 @@ namespace M {
       // No default
     }
 
+
     this->m_paramLock.unLock();
 
     _id = this->getIdBase() + PARAMID_PARAMI32;
 
     // Get parameter ParamI32
-    this->m_param_ParamI32_valid =
-      this->m_prmGetOut_OutputPort[0].invoke(
-        _id,
-        buff
-      );
+    param_valid = this->m_prmGetOut_OutputPort[0].invoke(
+      _id,
+      buff
+    );
 
     // Do not include the base ID when passing an ID to the delegate
     _id = PARAMID_PARAMI32;
     // If there was a deserialization issue, mark it invalid
-    if (this->m_param_ParamI32_valid == Fw::ParamValid::VALID) {
+
+    if (param_valid == Fw::ParamValid::VALID) {
       // Call the delegate deserialize function for m_ParamI32
-      stat = this->paramDelegate->deserializeParam(_id, this->m_param_ParamI32_valid, buff);
+      stat = this->paramDelegate->deserializeParam(_id, param_valid, buff);
       if (stat != Fw::FW_SERIALIZE_OK) {
-        this->m_param_ParamI32_valid = Fw::ParamValid::INVALID;
+        param_valid = Fw::ParamValid::INVALID;
       }
     }
     else {
-      this->m_param_ParamI32_valid = Fw::ParamValid::INVALID;
+      param_valid = Fw::ParamValid::INVALID;
     }
 
     // Call notifier
@@ -2246,7 +2266,6 @@ namespace M {
     this->m_param_ParamEnum_valid = Fw::ParamValid::UNINIT;
     this->m_param_ParamArray_valid = Fw::ParamValid::UNINIT;
     this->m_param_ParamStruct_valid = Fw::ParamValid::UNINIT;
-    this->m_param_ParamI32_valid = Fw::ParamValid::UNINIT;
   }
 
   ActiveTestComponentBase ::
@@ -6510,10 +6529,20 @@ namespace M {
     paramGet_ParamI32(Fw::ParamValid& valid)
   {
     I32 _local;
-    this->m_paramLock.lock();
-    valid = this->m_param_ParamI32_valid;
-    _local = this->m_ParamI32;
-    this->m_paramLock.unLock();
+    Fw::ParamBuffer getBuff;
+    FwPrmIdType _id;
+    // Do not include the base ID when passing an ID to the delegate
+    _id = PARAMID_PARAMI32;
+
+    // Get the external parameter from the delegate
+    Fw::SerializeStatus stat = this->paramDelegate->serializeParam(_id, getBuff);
+    if(stat == Fw::FW_SERIALIZE_OK) {
+      stat = getBuff.deserialize(_local);
+      FW_ASSERT(stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(stat));
+      valid = Fw::ParamValid::VALID;
+    } else {
+      valid = Fw::ParamValid::INVALID;
+    }
     return _local;
   }
 

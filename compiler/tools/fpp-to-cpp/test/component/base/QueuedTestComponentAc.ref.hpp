@@ -3090,9 +3090,6 @@ class QueuedTestComponentBase :
     //! True if ParamStruct was successfully received
     Fw::ParamValid m_param_ParamStruct_valid;
 
-    //! True if ParamI32 was successfully received
-    Fw::ParamValid m_param_ParamI32_valid;
-
   PRIVATE:
 
     // ----------------------------------------------------------------------
@@ -3129,11 +3126,6 @@ class QueuedTestComponentBase :
     //!
     //! A parameter with struct data and set/save opcodes
     S m_ParamStruct;
-
-    //! Parameter ParamI32
-    //!
-    //! An externally stored parameter with I32 data
-    I32 m_ParamI32;
 
   PRIVATE:
 
