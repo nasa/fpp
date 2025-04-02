@@ -1750,7 +1750,7 @@ void ActiveParamsComponentBase ::
   // If there was a deserialization issue, mark it invalid
   if (this->m_param_ParamI32_valid == Fw::ParamValid::VALID) {
     // Call the delegate deserialize function for m_ParamI32
-    stat = this->paramDelegate->deserializeParam(_id, buff);
+    stat = this->paramDelegate->deserializeParam(_id, this->m_param_ParamI32_valid, buff);
     if (stat != Fw::FW_SERIALIZE_OK) {
       this->m_param_ParamI32_valid = Fw::ParamValid::INVALID;
     }
@@ -4723,7 +4723,7 @@ Fw::CmdResponse ActiveParamsComponentBase ::
 
   // Call the delegate serialize function for m_ParamI32
   Fw::SerializeStatus _stat;
-  _stat = this->paramDelegate->deserializeParam(_id, dynamic_cast<Fw::ParamBuffer&>(val));
+  _stat = this->paramDelegate->deserializeParam(_id, Fw::ParamValid::VALID, dynamic_cast<Fw::ParamBuffer&>(val));
   if (_stat != Fw::FW_SERIALIZE_OK) {
     return Fw::CmdResponse::VALIDATION_ERROR;
   }

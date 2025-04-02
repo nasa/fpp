@@ -148,7 +148,7 @@ case class ComponentParameters (
                           s"this->${paramValidityFlagName(param.getName)} == Fw::ParamValid::VALID",
                           lines(
                             s"""|// Call the delegate deserialize function for ${paramVariableName(param.getName)}
-                                |stat = this->paramDelegate->deserializeParam(_id, buff);
+                                |stat = this->paramDelegate->deserializeParam(_id, this->${paramValidityFlagName(param.getName)}, buff);
                                 |"""
                           ) ++
                             wrapInIf(
@@ -339,7 +339,7 @@ case class ComponentParameters (
                   |
                   |// Call the delegate serialize function for ${paramVariableName(param.getName)}
                   |Fw::SerializeStatus _stat;
-                  |_stat = this->paramDelegate->deserializeParam(_id, dynamic_cast<Fw::ParamBuffer&>(val));
+                  |_stat = this->paramDelegate->deserializeParam(_id, Fw::ParamValid::VALID, dynamic_cast<Fw::ParamBuffer&>(val));
                   |if (_stat != Fw::FW_SERIALIZE_OK) {
                   |  return Fw::CmdResponse::VALIDATION_ERROR;
                   |}
