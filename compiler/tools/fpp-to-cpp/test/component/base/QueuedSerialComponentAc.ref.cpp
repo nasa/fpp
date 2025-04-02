@@ -2114,8 +2114,17 @@ void QueuedSerialComponentBase ::
       buff
     );
 
-  // Call the delegate deserialize function for m_ParamI32
-  this->paramDelegate->deserializeParam(_id, buff);
+  // If there was a deserialization issue, mark it invalid
+  if (this->m_param_ParamI32_valid == Fw::ParamValid::VALID) {
+    // Call the delegate deserialize function for m_ParamI32
+    stat = this->paramDelegate->deserializeParam(_id, buff);
+    if (stat != Fw::FW_SERIALIZE_OK) {
+      this->m_param_ParamI32_valid = Fw::ParamValid::INVALID;
+    }
+  }
+  else {
+    this->m_param_ParamI32_valid = Fw::ParamValid::INVALID;
+  }
 
   // Call notifier
   this->parametersLoaded();

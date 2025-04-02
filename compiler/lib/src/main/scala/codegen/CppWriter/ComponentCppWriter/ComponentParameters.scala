@@ -141,9 +141,23 @@ case class ComponentParameters (
                       List(
                         lines(
                           s"""|
-                              |// Call the delegate deserialize function for ${paramVariableName(param.getName)}
-                              |this->paramDelegate->deserializeParam(_id, buff);
+                              |// If there was a deserialization issue, mark it invalid
                               |"""
+                        ),
+                        wrapInIfElse(
+                          s"this->${paramValidityFlagName(param.getName)} == Fw::ParamValid::VALID",
+                          lines(
+                            s"""|// Call the delegate deserialize function for ${paramVariableName(param.getName)}
+                                |stat = this->paramDelegate->deserializeParam(_id, buff);
+                                |"""
+                          ) ++
+                            wrapInIf(
+                              "stat != Fw::FW_SERIALIZE_OK",
+                              lines(
+                                s"this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::INVALID;"
+                              )
+                            ),
+                          lines(s"this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::INVALID;")
                         )
                       )
                     } else {

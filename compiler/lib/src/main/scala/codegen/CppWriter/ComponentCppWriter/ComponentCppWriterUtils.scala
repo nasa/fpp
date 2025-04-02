@@ -358,7 +358,7 @@ abstract class ComponentCppWriterUtils(
         CppDoc.Function.Param(
           CppDoc.Type("Fw::ParamExternalDelegate&"),
           "paramDelegateRef",
-          Some("The delegate for externally managed parmeters")
+          Some("The delegate for externally managed parameters")
         ),
       )
     ),

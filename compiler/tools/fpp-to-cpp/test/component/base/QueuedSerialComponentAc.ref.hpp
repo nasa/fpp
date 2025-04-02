@@ -227,7 +227,7 @@ class QueuedSerialComponentBase :
     void init(
         FwSizeType queueDepth, //!< The queue depth
         FwSizeType msgSize, //!< The message size
-        Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parmeters
+        Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parameters
         FwEnumStoreType instance = 0 //!< The instance number
     );
 

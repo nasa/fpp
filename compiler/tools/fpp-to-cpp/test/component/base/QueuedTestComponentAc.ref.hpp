@@ -351,7 +351,7 @@ class QueuedTestComponentBase :
     //! Initialize QueuedTestComponentBase object
     void init(
         FwSizeType queueDepth, //!< The queue depth
-        Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parmeters
+        Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parameters
         FwEnumStoreType instance = 0 //!< The instance number
     );
 

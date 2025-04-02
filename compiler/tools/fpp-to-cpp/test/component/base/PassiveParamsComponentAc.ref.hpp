@@ -145,7 +145,7 @@ class PassiveParamsComponentBase :
 
     //! Initialize PassiveParamsComponentBase object
     void init(
-        Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parmeters
+        Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parameters
         FwEnumStoreType instance = 0 //!< The instance number
     );
 
