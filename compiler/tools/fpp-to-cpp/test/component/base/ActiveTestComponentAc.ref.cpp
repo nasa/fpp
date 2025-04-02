@@ -2050,7 +2050,7 @@ namespace M {
         _id,
         buff
       );
-     // Deserialize value
+    // Deserialize value
     this->m_paramLock.lock();
 
     // If there was a deserialization issue, mark it invalid
@@ -2074,7 +2074,7 @@ namespace M {
         _id,
         buff
       );
-     // Deserialize value
+    // Deserialize value
     this->m_paramLock.lock();
 
     // If there was a deserialization issue, mark it invalid
@@ -2098,7 +2098,7 @@ namespace M {
         _id,
         buff
       );
-     // Deserialize value
+    // Deserialize value
     this->m_paramLock.lock();
 
     // If there was a deserialization issue, mark it invalid
@@ -2126,7 +2126,7 @@ namespace M {
         _id,
         buff
       );
-     // Deserialize value
+    // Deserialize value
     this->m_paramLock.lock();
 
     // If there was a deserialization issue, mark it invalid
@@ -2150,7 +2150,7 @@ namespace M {
         _id,
         buff
       );
-     // Deserialize value
+    // Deserialize value
     this->m_paramLock.lock();
 
     // If there was a deserialization issue, mark it invalid
@@ -2178,7 +2178,7 @@ namespace M {
         _id,
         buff
       );
-     // Deserialize value
+    // Deserialize value
     this->m_paramLock.lock();
 
     // If there was a deserialization issue, mark it invalid
@@ -2203,8 +2203,11 @@ namespace M {
         buff
       );
 
-     // Call the delegate deserialize function for m_ParamI32
-     this->paramDelegate->deserializeParam(_id,buff);
+    // Call the delegate deserialize function for m_ParamI32
+    this->paramDelegate->deserializeParam(_id, buff);
+
+    // Call notifier
+    this->parametersLoaded();
   }
 
   // ----------------------------------------------------------------------
@@ -8344,9 +8347,12 @@ namespace M {
   Fw::CmdResponse ActiveTestComponentBase ::
     paramSet_ParamI32(Fw::SerializeBufferBase& val)
   {
+    FwPrmIdType _id;
+    _id = this->getIdBase() + PARAMID_PARAMI32;
+
     // Call the delegate serialize function for m_ParamI32
     Fw::SerializeStatus _stat;
-    _stat = this->paramDelegate->deserializeParam(_id,buff);
+    _stat = this->paramDelegate->deserializeParam(_id, dynamic_cast<Fw::ParamBuffer&>(val));
     if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
     }

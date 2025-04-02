@@ -200,15 +200,14 @@ case class ComponentParameters (
                           |
                           |"""
                     ) ++
-                    deserializationCode.flatten ++
-                    lines(
-                      """|
-                         |// Call notifier
-                         |this->parametersLoaded();
-                         |"""
-                    )
+                    deserializationCode.flatten
                   )
                 }
+              ),
+              lines(
+                """|// Call notifier
+                   |this->parametersLoaded();
+                   |"""
               )
             )
           )
@@ -321,9 +320,12 @@ case class ComponentParameters (
           CppDoc.Type("Fw::CmdResponse"),
           if (param.isExternal) {
             lines(
-              s"""|// Call the delegate serialize function for ${paramVariableName(param.getName)}
+              s"""|FwPrmIdType _id;
+                  |_id = this->getIdBase() + ${paramIdConstantName(param.getName)};
+                  |
+                  |// Call the delegate serialize function for ${paramVariableName(param.getName)}
                   |Fw::SerializeStatus _stat;
-                  |_stat = this->paramDelegate->deserializeParam(_id, buff);
+                  |_stat = this->paramDelegate->deserializeParam(_id, dynamic_cast<Fw::ParamBuffer&>(val));
                   |if (_stat != Fw::FW_SERIALIZE_OK) {
                   |  return Fw::CmdResponse::VALIDATION_ERROR;
                   |}
