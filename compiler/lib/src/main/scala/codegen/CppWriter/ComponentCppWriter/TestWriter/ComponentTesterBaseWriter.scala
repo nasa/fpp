@@ -628,7 +628,6 @@ case class ComponentTesterBaseWriter(
     )
   }
 
-
   private def getDispatcherFunctions: List[CppDoc.Class.Member] = {
     val oneBody = intersperseBlankLines(
       List(
