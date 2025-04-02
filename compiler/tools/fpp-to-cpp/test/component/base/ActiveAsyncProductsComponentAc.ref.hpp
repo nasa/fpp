@@ -1695,7 +1695,7 @@ class ActiveAsyncProductsComponentBase :
     // Time
     // ----------------------------------------------------------------------
 
-    //!  Get the time
+    //! Get the time
     //!
     //! \\return The current time
     Fw::Time getTime() const;

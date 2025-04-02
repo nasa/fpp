@@ -7460,16 +7460,16 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
 Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
   dispatchCurrentMessages()
 {
-      // Dispatch all current messages unless ERROR or EXIT occur
-      const FwSizeType currentMessageCount = this->m_queue.getMessagesAvailable();
-      QueuedComponentBase::MsgDispatchStatus messageStatus = QueuedComponentBase::MsgDispatchStatus::MSG_DISPATCH_EMPTY;
-      for (FwSizeType i = 0; i < currentMessageCount; i++) {
-          messageStatus = this->doDispatch();
-          if (messageStatus != QueuedComponentBase::MSG_DISPATCH_OK) {
-              break;
-          }
-      }
-      return messageStatus;
+  // Dispatch all current messages unless ERROR or EXIT occur
+  const FwSizeType currentMessageCount = this->m_queue.getMessagesAvailable();
+  MsgDispatchStatus messageStatus = MsgDispatchStatus::MSG_DISPATCH_EMPTY;
+  for (FwSizeType i = 0; i < currentMessageCount; i++) {
+    messageStatus = this->doDispatch();
+    if (messageStatus != QueuedComponentBase::MSG_DISPATCH_OK) {
+      break;
+    }
+  }
+  return messageStatus;
 }
 
 // ----------------------------------------------------------------------

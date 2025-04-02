@@ -217,7 +217,7 @@ case class ComponentCppWriter (
 
       // Protected/private function members
       getDispatchFunctionMember,
-      guardedList (data.kind == Ast.ComponentKind.Queued) (getDispatchCurrentMemebers),
+      guardedList (data.kind == Ast.ComponentKind.Queued) (getDispatchCurrentMembers),
 
       // Private function members
       portWriter.getPrivateFunctionMembers,
@@ -908,19 +908,18 @@ case class ComponentCppWriter (
     }
   }
 
-  private def getDispatchCurrentMemebers: List[CppDoc.Class.Member] = {
+  private def getDispatchCurrentMembers: List[CppDoc.Class.Member] = {
     val body = lines(
-      """|    // Dispatch all current messages unless ERROR or EXIT occur
-          |    const FwSizeType currentMessageCount = this->m_queue.getMessagesAvailable();
-          |    QueuedComponentBase::MsgDispatchStatus messageStatus = QueuedComponentBase::MsgDispatchStatus::MSG_DISPATCH_EMPTY;
-          |    for (FwSizeType i = 0; i < currentMessageCount; i++) {
-          |        messageStatus = this->doDispatch();
-          |        if (messageStatus != QueuedComponentBase::MSG_DISPATCH_OK) {
-          |            break;
-          |        }
-          |    }
-          |    return messageStatus;
-          |"""
+      """|// Dispatch all current messages unless ERROR or EXIT occur
+         |const FwSizeType currentMessageCount = this->m_queue.getMessagesAvailable();
+         |MsgDispatchStatus messageStatus = MsgDispatchStatus::MSG_DISPATCH_EMPTY;
+         |for (FwSizeType i = 0; i < currentMessageCount; i++) {
+         |  messageStatus = this->doDispatch();
+         |  if (messageStatus != QueuedComponentBase::MSG_DISPATCH_OK) {
+         |    break;
+         |  }
+         |}
+         |return messageStatus;"""
     )
 
     addAccessTagAndComment(
@@ -953,7 +952,7 @@ case class ComponentCppWriter (
         List(
           functionClassMember(
             Some(
-              """| Get the time
+              """|Get the time
                  |
                  |\\return The current time
                  |"""
