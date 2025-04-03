@@ -37,7 +37,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_productRecvIn_InputPort[%" PRI_PlatformIntType "]",
+      "%s_productRecvIn_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -56,7 +56,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_productRequestOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_productRequestOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -75,7 +75,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_productSendOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_productSendOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
