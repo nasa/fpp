@@ -35,7 +35,7 @@ void ActiveNoArgsPortsOnlyTesterBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_from_noArgsOut[%" PRI_PlatformIntType "]",
+      "%s_from_noArgsOut[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -59,7 +59,7 @@ void ActiveNoArgsPortsOnlyTesterBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_from_noArgsReturnOut[%" PRI_PlatformIntType "]",
+      "%s_from_noArgsReturnOut[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -78,7 +78,7 @@ void ActiveNoArgsPortsOnlyTesterBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_to_noArgsAsync[%" PRI_PlatformIntType "]",
+      "%s_to_noArgsAsync[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -97,7 +97,7 @@ void ActiveNoArgsPortsOnlyTesterBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_to_noArgsGuarded[%" PRI_PlatformIntType "]",
+      "%s_to_noArgsGuarded[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -116,7 +116,7 @@ void ActiveNoArgsPortsOnlyTesterBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_to_noArgsReturnGuarded[%" PRI_PlatformIntType "]",
+      "%s_to_noArgsReturnGuarded[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -135,7 +135,7 @@ void ActiveNoArgsPortsOnlyTesterBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_to_noArgsReturnSync[%" PRI_PlatformIntType "]",
+      "%s_to_noArgsReturnSync[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );

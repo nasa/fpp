@@ -1073,7 +1073,7 @@ object ComponentCppWriter extends CppWriterUtils {
             s"""|#if FW_OBJECT_NAMES == 1
                 |Fw::ObjectName portName;
                 |portName.format(
-                |  "%s_${printName(port)}[%" PRI_PlatformIntType "]",
+                |  "%s_${printName(port)}[%" PRI_FwIndexType "]",
                 |  this->m_objName.toChar(),
                 |  port
                 |);
