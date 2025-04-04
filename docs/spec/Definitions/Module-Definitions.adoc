@@ -26,6 +26,8 @@ A module member is one of the following:
 
 * A <<Definitions_Port-Definitions,port definition>>
 
+* A <<Definitions_State-Machine-Definitions,state machine definition>>
+
 * A <<Definitions_Struct-Definitions,struct definition>>
 
 * A <<Definitions_Topology-Definitions,topology definition>>
@@ -34,13 +36,13 @@ A module member is one of the following:
 
 * An <<Definitions_Abstract-Type-Definitions,abstract type definition>>
 
+* An <<Definitions_Alias-Type-Definitions,alias type definition>>
+
 * An <<Definitions_Array-Definitions,array definition>>
 
 * An <<Definitions_Enum-Definitions,enum definition>>
 
 * An <<Specifiers_Include-Specifiers,include specifier>>
-
-* A <<Definitions_State-Machine-Definitions,state machine definition>>
 
 ==== Semantics
 
