@@ -497,6 +497,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#Defining-Types_Abstract-Type-Definitions">6.3. Abstract Type Definitions</a></li>
+<li><a href="#Defining-Types_Alias-Type-Definitions">6.4. Alias Type Definitions</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Enums">7. Defining Enums</a>
@@ -1987,6 +1988,9 @@ an FPP type definition may become a class definition in C&#43;&#43;.</p>
 <li>
 <p>Abstract type definitions</p>
 </li>
+<li>
+<p>Alias type definitions</p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -2768,13 +2772,73 @@ provides the default value.
 In particular, when the target language is C&#43;&#43;, the default
 value is the zero-argument constructor <code>T()</code>.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Types_Alias-Type-Definitions">6.4. Alias Type Definitions</h3>
 <div class="paragraph">
-<p><strong>Built-in types:</strong>
-When translating FPP to C&#43;&#43;, there are a few special types that are abstract
-in the model, but that are known to the translator.
-You don&#8217;t have to define C&#43;&#43; classes for these types.
-We will discuss these types further in the section on
-<a href="#Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types">implementing abstract types</a>.</p>
+<p>An <strong>alias type definition</strong> provides an alternate name for
+a type that is defined elsewhere.
+The alternate name is called an <strong>alias</strong> of the original type.
+For example, here is an alias type definition specifying that the type
+<code>T</code> is an alias for the type <code>U32</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">type T = U32</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Wherever this definition is available, the type <code>T</code> may be used
+interchangeably with the type <code>U32</code>.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">type T = U32
+array A = [3] T</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>An alias type definition may refer to any type, including another
+alias type, except that it may not refer to itself, either directly or through
+another alias.
+For example, here is an alias type definition specifying that the type
+<code>T</code> is an alias for the struct type <code>S</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">struct S { x: U32, y: I32 }
+type T = S</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is a set of definitions specifying that <code>S</code> is an alias for <code>T</code>,
+and <code>T</code> is an alias for <code>F32</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">type S = T
+type T = F32</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is set of alias type definitions that is illegal, because each of
+the definitions indirectly refers to itself:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">type S = T
+type T = S</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Alias type definitions are useful for specifying configurations.
+Part of a model can use a type <code>T</code>, without
+defining <code>T</code>; elsewhere, configuration code can define
+<code>T</code> to be the alias of another type.
+F Prime uses this method to provide basic type whose definitions
+configure the framework.
+These types are defined in the file <code>config/FpConfig.fpp</code>.</p>
 </div>
 </div>
 </div>
@@ -15041,7 +15105,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-04-03 17:17:44 -0700
+Last updated 2025-04-07 14:27:28 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

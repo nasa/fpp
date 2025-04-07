@@ -11,6 +11,7 @@ There are three kinds of type definitions:
 * Array type definitions
 * Struct type definitions
 * Abstract type definitions
+* Alias type definitions
 
 Type definitions may appear at the top level or inside a
 <<Defining-Modules,module definition>>.
@@ -641,10 +642,63 @@ provides the default value.
 In particular, when the target language is {cpp}, the default
 value is the zero-argument constructor `T()`.
 
-*Built-in types:*
-When translating FPP to {cpp}, there are a few special types that are abstract
-in the model, but that are known to the translator.
-You don't have to define {cpp} classes for these types.
-We will discuss these types further in the section on
-<<Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types,
-implementing abstract types>>.
+=== Alias Type Definitions
+
+An *alias type definition* provides an alternate name for
+a type that is defined elsewhere.
+The alternate name is called an *alias* of the original type.
+For example, here is an alias type definition specifying that the type
+`T` is an alias for the type `U32`:
+
+[source,fpp]
+----
+type T = U32
+----
+
+Wherever this definition is available, the type `T` may be used
+interchangeably with the type `U32`.
+For example:
+
+[source,fpp]
+----
+type T = U32
+array A = [3] T
+----
+
+An alias type definition may refer to any type, including another
+alias type, except that it may not refer to itself, either directly or through
+another alias.
+For example, here is an alias type definition specifying that the type
+`T` is an alias for the struct type `S`:
+
+[source,fpp]
+----
+struct S { x: U32, y: I32 }
+type T = S
+----
+
+Here is a set of definitions specifying that `S` is an alias for `T`,
+and `T` is an alias for `F32`:
+
+[source,fpp]
+----
+type S = T
+type T = F32
+----
+
+Here is set of alias type definitions that is illegal, because each of
+the definitions indirectly refers to itself:
+
+[source,fpp]
+--------
+type S = T
+type T = S
+--------
+
+Alias type definitions are useful for specifying configurations.
+Part of a model can use a type `T`, without
+defining `T`; elsewhere, configuration code can define
+`T` to be the alias of another type.
+F Prime uses this method to provide basic type whose definitions
+configure the framework.
+These types are defined in the file `config/FpConfig.fpp`.
