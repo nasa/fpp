@@ -468,7 +468,7 @@ namespace FppTest {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_schedIn_InputPort[%" PRI_PlatformIntType "]",
+        "%s_schedIn_InputPort[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
