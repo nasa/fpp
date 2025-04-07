@@ -409,7 +409,7 @@ module M {
 generates an array class `M::A` in files `AArrayAc.hpp`
 and `AArrayAc.cpp`.
 
-*Alias types:*
+*Headers for alias types:*
 For alias types, a {cpp} header with suffix `.hpp` is always generated.
 A C header with suffix `.h` is also generated if the alias type
 is C-compatible.

@@ -677,7 +677,7 @@ struct S { x: U32, y: I32 }
 type T = S
 ----
 
-Here is a set of definitions specifying that `S` is an alias of `T`,
+Here is a pair of definitions specifying that `S` is an alias of `T`,
 and `T` is an alias of `F32`:
 
 [source,fpp]
@@ -686,7 +686,7 @@ type S = T
 type T = F32
 ----
 
-Here is set of alias type definitions that is illegal, because each of
+Here is a pair of alias type definitions that is illegal, because each of
 the definitions indirectly refers to itself:
 
 [source,fpp]

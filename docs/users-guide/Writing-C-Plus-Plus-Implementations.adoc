@@ -33,7 +33,7 @@ FPP data values as binary data for storage and transmission.
 
 === Implementing Abstract Types
 
-When translating to XML and then {cpp}, an
+When translating to {cpp}, an
 <<Defining-Types_Abstract-Type-Definitions,abstract type definition>>
 represents a {cpp} class that you write directly in {cpp}.
 When you use an abstract type _T_ in an FPP definition _D_ (for example, as the

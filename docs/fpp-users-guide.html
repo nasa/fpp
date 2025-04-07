@@ -2812,7 +2812,7 @@ type T = S</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Here is a set of definitions specifying that <code>S</code> is an alias of <code>T</code>,
+<p>Here is a pair of definitions specifying that <code>S</code> is an alias of <code>T</code>,
 and <code>T</code> is an alias of <code>F32</code>:</p>
 </div>
 <div class="listingblock">
@@ -2822,7 +2822,7 @@ type T = F32</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Here is set of alias type definitions that is illegal, because each of
+<p>Here is a pair of alias type definitions that is illegal, because each of
 the definitions indirectly refers to itself:</p>
 </div>
 <div class="listingblock">
@@ -11118,7 +11118,7 @@ For more comprehensive coverage, see
 <div class="sect2">
 <h3 id="Specifying-Models-as-Files_Dividing-Models-into-Files">13.1. Dividing Models into Files</h3>
 <div class="paragraph">
-<p>Unlike F Prime XML, FPP does not require any particular division of model
+<p>FPP does not require any particular division of model
 elements into files.
 For example, there is no requirement that each
 type definition reside in its own file.
@@ -12901,7 +12901,7 @@ For example, the following code</p>
 and <code>AArrayAc.cpp</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>Alias types:</strong>
+<p><strong>Headers for alias types:</strong>
 For alias types, a C&#43;&#43; header with suffix <code>.hpp</code> is always generated.
 A C header with suffix <code>.h</code> is also generated if the alias type
 is C-compatible.
@@ -14456,7 +14456,7 @@ FPP data values as binary data for storage and transmission.</p>
 <div class="sect2">
 <h3 id="Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types">15.1. Implementing Abstract Types</h3>
 <div class="paragraph">
-<p>When translating to XML and then C&#43;&#43;, an
+<p>When translating to C&#43;&#43;, an
 <a href="#Defining-Types_Abstract-Type-Definitions">abstract type definition</a>
 represents a C&#43;&#43; class that you write directly in C&#43;&#43;.
 When you use an abstract type <em>T</em> in an FPP definition <em>D</em> (for example, as the
@@ -15116,7 +15116,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-04-07 15:54:49 -0700
+Last updated 2025-04-07 16:42:43 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
