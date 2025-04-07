@@ -140,8 +140,8 @@ even though `c.Out` has two ports and only one of them is connected.
 
 We are phasing out the use of XML in favor of generating
 JSON and directly generating {cpp}.
-However, the F Prime XML representation is still used, e.g., in
-for specifying the layout of telemetry packets.
+However, for backwards compatibility, the F Prime XML representation is still available
+as of this FPP release.
 This section describes how to generate XML from FPP.
 
 *XML file names:* The table <<xml-file-names>> shows how FPP definitions are
