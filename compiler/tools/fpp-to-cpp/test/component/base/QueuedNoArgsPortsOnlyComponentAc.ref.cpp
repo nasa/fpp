@@ -82,7 +82,7 @@ void QueuedNoArgsPortsOnlyComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_noArgsAsync_InputPort[%" PRI_PlatformIntType "]",
+      "%s_noArgsAsync_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -106,7 +106,7 @@ void QueuedNoArgsPortsOnlyComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_noArgsGuarded_InputPort[%" PRI_PlatformIntType "]",
+      "%s_noArgsGuarded_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -130,7 +130,7 @@ void QueuedNoArgsPortsOnlyComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_noArgsReturnGuarded_InputPort[%" PRI_PlatformIntType "]",
+      "%s_noArgsReturnGuarded_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -154,7 +154,7 @@ void QueuedNoArgsPortsOnlyComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_noArgsReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      "%s_noArgsReturnSync_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -173,7 +173,7 @@ void QueuedNoArgsPortsOnlyComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_noArgsOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_noArgsOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -192,7 +192,7 @@ void QueuedNoArgsPortsOnlyComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_noArgsReturnOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_noArgsReturnOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
