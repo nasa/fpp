@@ -428,7 +428,7 @@ type T2 = T1
 ----
 
 The following alias types are not C-compatible, so
-they do not cause `.h` headers to be generated.
+they do not cause `.h` headers to be generated:
 
 [source,fpp]
 ----
@@ -436,7 +436,7 @@ module M {
   type T1 = U32 # Definition is in a module
 }
 type T2 = M.T1 # M.T1 is not C-compatible
-array A = [3] U32 
+array A = [3] U32
 type T3 = A # A is not C-compatible
 ----
 
@@ -623,7 +623,7 @@ Prime design documentation].
 
 ==== Component Implementation and Unit Test Code
 
-`fpp-to-cpp` has options `-t` and `-u` for generating component "`templates`" 
+`fpp-to-cpp` has options `-t` and `-u` for generating component "`templates`"
 or
 partial implementations and for generating unit test code.
 Here we cover the mechanics of using these options.
@@ -1316,7 +1316,7 @@ FPP provides a tool called `fpp-to-layout` for generating files
 that you can use to visualize topologies.
 Given a topology _T_, this tool generates a directory containing
 the *layout input files* for _T_.
-There is one file for each <<Defining-Topologies_Connection-Graphs,connection 
+There is one file for each <<Defining-Topologies_Connection-Graphs,connection
 graph>> in _T_.
 The files are designed to work with a tool called `fprime-layout`, which
 we describe below.
@@ -1351,7 +1351,7 @@ remove it.
 
 . In the directory created in step 2, write one layout input file
 for each of the connection graphs in _T_.
-The 
+The
 https://github.com/fprime-community/fprime-layout/wiki/Topology-Input[`fprime-layout` wiki]
 describes the file format.
 
@@ -1366,8 +1366,8 @@ See the https://github.com/nasa/fpp/wiki/fpp-to-layout[FPP wiki] for details.
 *Producing visualizations:*
 Once you have generated layout input files, you can use a
 companion tool called `fprime-layout` to read the files and produce a
-*topology visualization*, i.e., a graphical rendering of the topology in which 
-the component instances are shapes, the ports are smaller shapes, and the 
+*topology visualization*, i.e., a graphical rendering of the topology in which
+the component instances are shapes, the ports are smaller shapes, and the
 connections are arrows between the ports.
 Topology visualization is an important part of the FPP work flow:
 
@@ -1426,12 +1426,12 @@ Except for the tool name, this procedure is identical to the one given for
 either through named files or through standard input.
 
 *Tool behavior:*
-For each topology _T_ defined in the input files _F_, `fpp-to-dict` writes a 
+For each topology _T_ defined in the input files _F_, `fpp-to-dict` writes a
 file
 _T_ `TopologyDictionary.json`.
 The dictionary is specified in JavaScript Object Notation (JSON) format.
 The JSON format is specified in the
-https://fprime.jpl.nasa.gov/devel/docs/reference/fpp-json-dict/[F Prime design 
+https://fprime.jpl.nasa.gov/devel/docs/reference/fpp-json-dict/[F Prime design
 documentation].
 
 Here is a common use case:
