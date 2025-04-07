@@ -12847,6 +12847,14 @@ translated to C&#43;&#43; files.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>C</em> <code><em></code> _S</em> <code>SerializableAc.{hpp,cpp}</code></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alias type <em>A</em> outside any component</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>A</em> <code>AliasAc.{hpp,h,cpp}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alias type <em>A</em> in component <em>C</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>C</em> <code><em></code> _A</em> <code>AliasAc.{hpp,h,cpp}</code></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Port <em>P</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>P</em> <code>PortAc.{hpp,cpp}</code></p></td>
 </tr>
@@ -12891,6 +12899,43 @@ For example, the following code</p>
 <div class="paragraph">
 <p>generates an array class <code>M::A</code> in files <code>AArrayAc.hpp</code>
 and <code>AArrayAc.cpp</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Alias types:</strong>
+For alias types, a C&#43;&#43; header with suffix <code>.hpp</code> is always generated.
+A C header with suffix <code>.h</code> is also generated if the alias type
+is C-compatible.
+This means (1) the underlying
+type is a signed or unsigned integer type or a floating-point type,
+and (2) the alias type definition does not appear in an FPP module
+or component, and (3) if the alias type refers to another alias
+type <em>T</em>, then <em>T</em> is C-compatible.
+For example, the following alias types are C-compatible
+and cause <code>.h</code> headers to be generated:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">type T1 = U32
+type T2 = T1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following alias types are not C-compatible, so
+they do not cause <code>.h</code> headers to be generated.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+  type T1 = U32 # Definition is in a module
+}
+type T2 = M.T1 # M.T1 is not C-compatible
+array A = [3] U32
+type T3 = A # A is not C-compatible</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When both headers are generated, you should include the <code>.h</code> header in your
+C programs and the <code>.hpp</code> header in your C&#43;&#43; programs.</p>
 </div>
 <div class="paragraph">
 <p><strong>Tool name:</strong> The tool for translating FPP to C&#43;&#43; is called
@@ -13087,7 +13132,8 @@ This is similar to the <code>-s</code> option for
 <div class="sect3">
 <h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-State-Machines-and-Components">14.3.2. Types, Ports, State Machines, and Components</h4>
 <div class="paragraph">
-<p>To generate code for type, port, state machine, and component definitions, you
+<p><strong>Generating code:</strong>
+To generate code for type, port, state machine, and component definitions, you
 run <code>fpp-to-cpp</code> in the same way as for
 <a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">constant definitions</a>, with one exception:
 the translator ignores the <code>-g</code> option, because the include guard comes from
@@ -13096,7 +13142,17 @@ For example, a component whose qualified name in FPP is <code>A.B.C</code>
 uses the name <code>A_B_CComponentAc_HPP</code> in its include guard.</p>
 </div>
 <div class="paragraph">
-<p>Once you generate C&#43;&#43; code for these definitions, you can use it to
+<p><strong>Names of generated files for alias types:</strong>
+When reporting generated files for alias types via the <code>-n</code> option,
+<code>fpp-to-cpp</code> reports only <code>.hpp</code> files, not <code>.h</code> files.
+This is to keep the analysis simple, so that it can be run when
+<a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-depend">computing dependencies</a>.
+In a future version of FPP, we may revise the analysis strategy
+and report the generation of <code>.h</code> files as well.</p>
+</div>
+<div class="paragraph">
+<p><strong>Using the generated code:</strong>
+Once you generate C&#43;&#43; code for these definitions, you can use it to
 write a flight software implementation.
 The <a href="https://fprime.jpl.nasa.gov/devel/docs/user-manual/">F
 User Manual</a> explains how to do this.</p>
@@ -14358,7 +14414,7 @@ a complete or semantically correct FPP model to the tool.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>When constructing an F Prime deployment in C&#43;&#43;, there are generally
-four kinds of implementations you have to write:</p>
+five kinds of implementations you have to write:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -14386,13 +14442,13 @@ the FSW application.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>Implementing a component involves filling out the API provided by
+<p>Implementing a component (item 3) involves filling out the API provided by
 the C&#43;&#43; component base class.
 This process is covered in detail in the F Prime user&#8217;s guide;
 we won&#8217;t cover it further here.
-Similarly, implementing libraries is unrelated to FPP, so we
+Similarly, implementing libraries (item 4) is unrelated to FPP, so we
 won&#8217;t cover it in this manual.
-Here we focus on items (1), (2), and (5): implementing abstract types,
+Here we focus on items 1, 2, and 5: implementing abstract types,
 implementing external state machines, and implementing deployments.
 We also discuss <strong>serialization</strong> of data values, i.e., representing
 FPP data values as binary data for storage and transmission.</p>
@@ -14400,7 +14456,7 @@ FPP data values as binary data for storage and transmission.</p>
 <div class="sect2">
 <h3 id="Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types">15.1. Implementing Abstract Types</h3>
 <div class="paragraph">
-<p>Except for a few built-in types (see below), when translating to XML and then C&#43;&#43;, an
+<p>When translating to XML and then C&#43;&#43;, an
 <a href="#Defining-Types_Abstract-Type-Definitions">abstract type definition</a>
 represents a C&#43;&#43; class that you write directly in C&#43;&#43;.
 When you use an abstract type <em>T</em> in an FPP definition <em>D</em> (for example, as the
@@ -14559,51 +14615,6 @@ and <code>Fw/Cmd/CmdArgBuffer.cpp</code> in the F Prime repository.
 Be careful, though: if you implement an abstract type <code>T</code> this way
 and you try to use the type <code>T</code> outside of a port definition,
 the generated C&#43;&#43; may not compile.</p>
-</div>
-<div class="paragraph">
-<p><strong>Built-in types:</strong>
-The following types are abstract in the FPP model but are known to
-the C&#43;&#43; translator:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>type FwChanIdType
-type FwDpIdType
-type FwDpPriorityType
-type FwEnumStoreType
-type FwEventIdType
-type FwIndexType
-type FwOpcodeType
-type FwPacketDescriptorType
-type FwPrmIdType
-type FwSignedSizeType
-type FwSizeStoreType
-type FwSizeType
-type FwTimeBaseStoreType
-type FwTimeContextStoreType
-type FwTlmPacketizeIdType
-type FwTraceIdType</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Each of these types is an alias for a C&#43;&#43; integer type, and each
-has default value zero.</p>
-</div>
-<div class="paragraph">
-<p>The F Prime framework provides the C&#43;&#43; definitions
-for these types.
-It also provides the corresponding abstract type definitions
-in the FPP model; for a typical F Prime project, these
-definitions are located at <code>config/FpConfig.fpp</code>.
-You don&#8217;t have to define header files for these types.</p>
-</div>
-<div class="paragraph">
-<p>Because the built-in types are encoded in the FPP model as abstract types,
-they are not <a href="#Defining-Components_Commands_Formal-Parameters">displayable types</a>.
-In a future version of FPP, we plan to encode these types as
-explicit aliases of primitive integer types.
-When we do this, the definitions will be known to FPP,
-and the types will be displayable.</p>
 </div>
 </div>
 <div class="sect2">
@@ -15052,7 +15063,7 @@ integer types.
 The F Prime type definition <code>FwSizeStoreType</code> specifies the type to use
 for the size.
 This type definition is user-configurable; it is found in the
-F Prime configuration header <code>FpConfig.h</code>.</p>
+F Prime configuration file <code>FpConfig.fpp</code>.</p>
 </li>
 <li>
 <p>There is one byte for each character of the string, and there is
@@ -15105,7 +15116,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-04-07 14:41:27 -0700
+Last updated 2025-04-07 15:54:49 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

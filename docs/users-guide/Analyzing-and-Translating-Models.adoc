@@ -373,6 +373,8 @@ translated to {cpp} files.
 |State machine _M_ in component _C_|_C_ `_` _M_ `StateMachineAc.{hpp,cpp}`
 |Struct _S_ outside any component|_S_ `SerializableAc.{hpp,cpp}`
 |Struct _S_ in component _C_|_C_ `_` _S_ `SerializableAc.{hpp,cpp}`
+|Alias type _A_ outside any component|_A_ `AliasAc.{hpp,h,cpp}`
+|Alias type _A_ in component _C_|_C_ `_` _A_ `AliasAc.{hpp,h,cpp}`
 |Port _P_|_P_ `PortAc.{hpp,cpp}`
 |Component _C_|_C_ `ComponentAc.{hpp,cpp}`
 |Topology _T_|_T_ `TopologyAc.{hpp,cpp}`
@@ -406,6 +408,40 @@ module M {
 
 generates an array class `M::A` in files `AArrayAc.hpp`
 and `AArrayAc.cpp`.
+
+*Alias types:*
+For alias types, a {cpp} header with suffix `.hpp` is always generated.
+A C header with suffix `.h` is also generated if the alias type
+is C-compatible.
+This means (1) the underlying
+type is a signed or unsigned integer type or a floating-point type,
+and (2) the alias type definition does not appear in an FPP module
+or component, and (3) if the alias type refers to another alias
+type _T_, then _T_ is C-compatible.
+For example, the following alias types are C-compatible
+and cause `.h` headers to be generated:
+
+[source,fpp]
+----
+type T1 = U32
+type T2 = T1
+----
+
+The following alias types are not C-compatible, so
+they do not cause `.h` headers to be generated.
+
+[source,fpp]
+----
+module M {
+  type T1 = U32 # Definition is in a module
+}
+type T2 = M.T1 # M.T1 is not C-compatible
+array A = [3] U32 
+type T3 = A # A is not C-compatible
+----
+
+When both headers are generated, you should include the `.h` header in your
+C programs and the `.hpp` header in your {cpp} programs.
 
 *Tool name:* The tool for translating FPP to {cpp} is called
 `fpp-to-cpp`.
@@ -555,6 +591,7 @@ This is similar to the `-s` option for
 
 ==== Types, Ports, State Machines, and Components
 
+*Generating code:*
 To generate code for type, port, state machine, and component definitions, you
 run `fpp-to-cpp` in the same way as for
 <<Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions,
@@ -564,6 +601,16 @@ the qualified name of the definition.
 For example, a component whose qualified name in FPP is `A.B.C`
 uses the name `A_B_CComponentAc_HPP` in its include guard.
 
+*Names of generated files for alias types:*
+When reporting generated files for alias types via the `-n` option,
+`fpp-to-cpp` reports only `.hpp` files, not `.h` files.
+This is to keep the analysis simple, so that it can be run when
+<<Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-depend,
+computing dependencies>>.
+In a future version of FPP, we may revise the analysis strategy
+and report the generation of `.h` files as well.
+
+*Using the generated code:*
 Once you generate {cpp} code for these definitions, you can use it to
 write a flight software implementation.
 The https://fprime.jpl.nasa.gov/devel/docs/user-manual/[F

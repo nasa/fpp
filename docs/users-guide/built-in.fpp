@@ -1,4 +1,4 @@
-# Placeholders for built-in ports
+# Placeholders for built-in symbols
 module Fw {
   port BufferSend
   port Cmd
