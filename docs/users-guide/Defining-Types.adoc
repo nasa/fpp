@@ -6,7 +6,7 @@ model and that may generate code in the target language.
 For example,
 an FPP type definition may become a class definition in {cpp}.
 
-There are three kinds of type definitions:
+There are four kinds of type definitions:
 
 * Array type definitions
 * Struct type definitions
@@ -648,7 +648,7 @@ An *alias type definition* provides an alternate name for
 a type that is defined elsewhere.
 The alternate name is called an *alias* of the original type.
 For example, here is an alias type definition specifying that the type
-`T` is an alias for the type `U32`:
+`T` is an alias of the type `U32`:
 
 [source,fpp]
 ----
@@ -669,7 +669,7 @@ An alias type definition may refer to any type, including another
 alias type, except that it may not refer to itself, either directly or through
 another alias.
 For example, here is an alias type definition specifying that the type
-`T` is an alias for the struct type `S`:
+`T` is an alias of the struct type `S`:
 
 [source,fpp]
 ----
@@ -677,8 +677,8 @@ struct S { x: U32, y: I32 }
 type T = S
 ----
 
-Here is a set of definitions specifying that `S` is an alias for `T`,
-and `T` is an alias for `F32`:
+Here is a set of definitions specifying that `S` is an alias of `T`,
+and `T` is an alias of `F32`:
 
 [source,fpp]
 ----
