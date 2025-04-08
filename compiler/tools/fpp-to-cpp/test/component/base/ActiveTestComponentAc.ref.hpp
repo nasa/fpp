@@ -355,7 +355,6 @@ namespace M {
       //! Initialize ActiveTestComponentBase object
       void init(
           FwSizeType queueDepth, //!< The queue depth
-          Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parameters
           FwEnumStoreType instance = 0 //!< The instance number
       );
 
@@ -768,6 +767,7 @@ namespace M {
 
       //! Construct ActiveTestComponentBase object
       ActiveTestComponentBase(
+          const Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parameters
           const char* compName = "" //!< The component name
       );
 
@@ -3138,7 +3138,7 @@ namespace M {
       // ----------------------------------------------------------------------
 
       //! Delegate to serialize/deserialize an externally stored parameter
-      Fw::ParamExternalDelegate* paramDelegate;
+      const Fw::ParamExternalDelegate& paramDelegate;
 
     PRIVATE:
 

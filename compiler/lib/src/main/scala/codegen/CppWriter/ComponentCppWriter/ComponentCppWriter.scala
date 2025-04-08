@@ -490,13 +490,7 @@ case class ComponentCppWriter (
                  |"""
             )
           )
-        },
-        guardedList (hasExternalParameters) (
-          lines(
-            """| // Set external parameter delegates
-               | this->paramDelegate = &paramDelegateRef;
-               |""")
-        )
+        }
       )
     )
 
@@ -538,16 +532,27 @@ case class ComponentCppWriter (
       List(
         constructorClassMember(
           Some(s"Construct $componentClassName object"),
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("const char*"),
-              "compName",
-              Some("The component name"),
-              Some("\"\"")
+          List.concat(
+            guardedList (hasExternalParameters) (
+              List(
+                CppDoc.Function.Param(
+                  CppDoc.Type("const Fw::ParamExternalDelegate&"),
+                  "paramDelegateRef",
+                  Some("The delegate for externally managed parameters")
+                ),
+              )
+            ),
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type("const char*"),
+                "compName",
+                Some("The component name"),
+                Some("\"\"")
+              )
             )
           ),
-          s"Fw::${kindStr}ComponentBase(compName)" ::
-            smInstancesByName.map((name, smi) => {
+          List(s"Fw::${kindStr}ComponentBase(compName)") ++
+            smInstancesByName.map { (name, smi) =>
               val sm = s.a.stateMachineMap(smi.symbol)
               val hasActionsOrGuards = sm.hasActions || sm.hasGuards
               val args = (smi.getSmKind, hasActionsOrGuards) match {
@@ -556,7 +561,8 @@ case class ComponentCppWriter (
                 case (StateMachine.Kind.Internal, false) => ""
               }
               s"m_stateMachine_$name($args)",
-            }),
+            }.toList ++
+            (if hasExternalParameters then List("paramDelegate(paramDelegateRef)") else Nil),
           intersperseBlankLines(
             List(
               intersperseBlankLines(

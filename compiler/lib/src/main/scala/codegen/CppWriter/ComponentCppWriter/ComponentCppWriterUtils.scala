@@ -353,15 +353,6 @@ abstract class ComponentCppWriterUtils(
         )
       )
     ),
-    guardedList (hasExternalParameters) (
-      List(
-        CppDoc.Function.Param(
-          CppDoc.Type("Fw::ParamExternalDelegate&"),
-          "paramDelegateRef",
-          Some("The delegate for externally managed parameters")
-        ),
-      )
-    ),
     List(
       CppDoc.Function.Param(
         CppDoc.Type("FwEnumStoreType"),

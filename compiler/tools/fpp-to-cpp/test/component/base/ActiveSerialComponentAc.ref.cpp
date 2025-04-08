@@ -115,7 +115,6 @@ void ActiveSerialComponentBase ::
   init(
       FwSizeType queueDepth,
       FwSizeType msgSize,
-      Fw::ParamExternalDelegate& paramDelegateRef,
       FwEnumStoreType instance
   )
 {
@@ -1085,9 +1084,6 @@ void ActiveSerialComponentBase ::
     Os::Queue::Status::OP_OK == qStat,
     static_cast<FwAssertArgType>(qStat)
   );
-
-   // Set external parameter delegates
-   this->paramDelegate = &paramDelegateRef;
 }
 
 // ----------------------------------------------------------------------
@@ -2139,7 +2135,7 @@ void ActiveSerialComponentBase ::
 
   if (param_valid == Fw::ParamValid::VALID) {
     // Call the delegate deserialize function for m_ParamI32
-    stat = this->paramDelegate->deserializeParam(_id, param_valid, buff);
+    stat = this->paramDelegate.deserializeParam(_id, param_valid, buff);
     if (stat != Fw::FW_SERIALIZE_OK) {
       param_valid = Fw::ParamValid::INVALID;
     }
@@ -2157,8 +2153,12 @@ void ActiveSerialComponentBase ::
 // ----------------------------------------------------------------------
 
 ActiveSerialComponentBase ::
-  ActiveSerialComponentBase(const char* compName) :
-    Fw::ActiveComponentBase(compName)
+  ActiveSerialComponentBase(
+      const Fw::ParamExternalDelegate& paramDelegateRef,
+      const char* compName
+  ) :
+    Fw::ActiveComponentBase(compName),
+    paramDelegate(paramDelegateRef)
 {
   // Write telemetry channel ChannelU32OnChange
   this->m_first_update_ChannelU32OnChange = true;
@@ -6662,7 +6662,7 @@ I32 ActiveSerialComponentBase ::
   _id = PARAMID_PARAMI32;
 
   // Get the external parameter from the delegate
-  Fw::SerializeStatus stat = this->paramDelegate->serializeParam(_id, getBuff);
+  Fw::SerializeStatus stat = this->paramDelegate.serializeParam(_id, getBuff);
   if(stat == Fw::FW_SERIALIZE_OK) {
     stat = getBuff.deserialize(_local);
     FW_ASSERT(stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(stat));
@@ -8607,7 +8607,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
 
   // Call the delegate serialize function for m_ParamI32
   Fw::SerializeStatus _stat;
-  _stat = this->paramDelegate->deserializeParam(_id, Fw::ParamValid::VALID, dynamic_cast<Fw::ParamBuffer&>(val));
+  _stat = this->paramDelegate.deserializeParam(_id, Fw::ParamValid::VALID, dynamic_cast<Fw::ParamBuffer&>(val));
   if (_stat != Fw::FW_SERIALIZE_OK) {
     return Fw::CmdResponse::VALIDATION_ERROR;
   }
@@ -8804,7 +8804,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
     _id = PARAMID_PARAMI32;
 
     Fw::ParamBuffer saveBuff;
-    Fw::SerializeStatus stat = this->paramDelegate->serializeParam(_id, saveBuff);
+    Fw::SerializeStatus stat = this->paramDelegate.serializeParam(_id, saveBuff);
     if (stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
     }

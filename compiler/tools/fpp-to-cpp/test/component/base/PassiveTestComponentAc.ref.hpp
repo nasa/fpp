@@ -340,7 +340,6 @@ class PassiveTestComponentBase :
 
     //! Initialize PassiveTestComponentBase object
     void init(
-        Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parameters
         FwEnumStoreType instance = 0 //!< The instance number
     );
 
@@ -711,6 +710,7 @@ class PassiveTestComponentBase :
 
     //! Construct PassiveTestComponentBase object
     PassiveTestComponentBase(
+        const Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parameters
         const char* compName = "" //!< The component name
     );
 
@@ -2529,7 +2529,7 @@ class PassiveTestComponentBase :
     // ----------------------------------------------------------------------
 
     //! Delegate to serialize/deserialize an externally stored parameter
-    Fw::ParamExternalDelegate* paramDelegate;
+    const Fw::ParamExternalDelegate& paramDelegate;
 
   PRIVATE:
 

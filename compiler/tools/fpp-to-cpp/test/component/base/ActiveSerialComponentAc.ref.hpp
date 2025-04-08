@@ -229,7 +229,6 @@ class ActiveSerialComponentBase :
     void init(
         FwSizeType queueDepth, //!< The queue depth
         FwSizeType msgSize, //!< The message size
-        Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parameters
         FwEnumStoreType instance = 0 //!< The instance number
     );
 
@@ -675,6 +674,7 @@ class ActiveSerialComponentBase :
 
     //! Construct ActiveSerialComponentBase object
     ActiveSerialComponentBase(
+        const Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parameters
         const char* compName = "" //!< The component name
     );
 
@@ -3118,7 +3118,7 @@ class ActiveSerialComponentBase :
     // ----------------------------------------------------------------------
 
     //! Delegate to serialize/deserialize an externally stored parameter
-    Fw::ParamExternalDelegate* paramDelegate;
+    const Fw::ParamExternalDelegate& paramDelegate;
 
   PRIVATE:
 
