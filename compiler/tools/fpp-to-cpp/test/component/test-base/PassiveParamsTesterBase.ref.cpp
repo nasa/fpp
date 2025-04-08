@@ -1965,6 +1965,51 @@ void PassiveParamsTesterBase ::
 // Functions to test parameters
 // ----------------------------------------------------------------------
 
+ Fw::SerializeStatus PassiveParamsTesterBase ::
+  PassiveParamsComponentBase_serializeParam(
+      const Fw::FwPrmIdType id,
+      const Fw::ParamValid prmStat,
+      Fw::ParamBuffer& buff
+  )
+{
+  Fw::SerializeStatus stat;
+  // Serialize the parameter based on ID
+  switch(id)
+  {
+    // ParamI32
+    case PARAMID_PARAMI32:
+      stat = buff.serialize(this->ParamI32);
+      break;
+    default:
+      // Unknown ID should not have gotten here
+      FW_ASSERT(FALSE, id);
+  }
+
+  return stat;
+}
+
+ Fw::SerializeStatus PassiveParamsTesterBase ::
+  PassiveParamsComponentBase_deserializeParam(
+      const Fw::FwPrmIdType id,
+      Fw::ParamBuffer& buff
+  )
+{
+  Fw::SerializeStatus stat;
+  // Serialize the parameter based on ID
+  switch(id)
+  {
+    // ParamI32
+    case PARAMID_PARAMI32:
+      stat = buff.deserialize(this->ParamI32);
+      break;
+    default:
+      // Unknown ID should not have gotten here
+      FW_ASSERT(FALSE, id);
+  }
+
+  return stat;
+}
+
 void PassiveParamsTesterBase ::
   paramSet_ParamU32(
       const U32& val,

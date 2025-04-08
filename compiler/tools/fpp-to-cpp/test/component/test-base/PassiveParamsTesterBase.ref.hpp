@@ -1030,6 +1030,19 @@ class PassiveParamsTesterBase :
     // Functions to test parameters
     // ----------------------------------------------------------------------
 
+    //! Parameter serialization function for external parameter unit testing
+     Fw::SerializeStatus PassiveParamsComponentBase_serializeParam(
+        const Fw::FwPrmIdType id, //!< The parameter ID
+        const Fw::ParamValid prmStat, //!< The parameter validity status
+        Fw::ParamBuffer& buff //!< The parameter validity status
+    );
+
+    //! Parameter deserialization function for external parameter unit testing
+     Fw::SerializeStatus PassiveParamsComponentBase_deserializeParam(
+        const Fw::FwPrmIdType id, //!< The parameter ID
+        Fw::ParamBuffer& buff //!< The parameter validity status
+    );
+
     //! Set parameter ParamU32
     void paramSet_ParamU32(
         const U32& val, //!< The parameter value
