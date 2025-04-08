@@ -7,9 +7,7 @@
 #ifndef TU32AliasAc_HPP
 #define TU32AliasAc_HPP
 
-#include <FpConfig.hpp>
-
-#include "Fw/Types/BasicTypes.h"
+#include "Fw/Types/BasicTypes.hpp"
 
 extern "C" {
 #include "TU32AliasAc.h"

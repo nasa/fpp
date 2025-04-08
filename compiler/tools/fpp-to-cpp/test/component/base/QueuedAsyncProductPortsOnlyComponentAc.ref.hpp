@@ -7,12 +7,11 @@
 #ifndef QueuedAsyncProductPortsOnlyComponentAc_HPP
 #define QueuedAsyncProductPortsOnlyComponentAc_HPP
 
-#include <FpConfig.hpp>
-
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/Dp/DpRequestPortAc.hpp"
 #include "Fw/Dp/DpResponsePortAc.hpp"
 #include "Fw/Dp/DpSendPortAc.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
 
@@ -30,6 +29,8 @@ class QueuedAsyncProductPortsOnlyComponentBase :
 
     //! Friend class for white-box testing
     friend class QueuedAsyncProductPortsOnlyComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class QueuedAsyncProductPortsOnlyTesterBase;
 
   PROTECTED:
 
@@ -236,6 +237,15 @@ class QueuedAsyncProductPortsOnlyComponentBase :
 
     //! Called in the message loop to dispatch a message from the queue
     virtual MsgDispatchStatus doDispatch();
+
+  protected:
+
+    // ----------------------------------------------------------------------
+    // Helper functions for dispatching current messages
+    // ----------------------------------------------------------------------
+
+    //! Dispatch all current messages unless ERROR or EXIT occurs
+    MsgDispatchStatus dispatchCurrentMessages();
 
   PRIVATE:
 

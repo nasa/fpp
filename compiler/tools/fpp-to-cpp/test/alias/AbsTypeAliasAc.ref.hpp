@@ -7,9 +7,7 @@
 #ifndef AbsTypeAliasAc_HPP
 #define AbsTypeAliasAc_HPP
 
-#include <FpConfig.hpp>
-
-#include "Fw/Types/BasicTypes.h"
+#include "Fw/Types/BasicTypes.hpp"
 #include "T.hpp"
 
 //! An alias of abstract type

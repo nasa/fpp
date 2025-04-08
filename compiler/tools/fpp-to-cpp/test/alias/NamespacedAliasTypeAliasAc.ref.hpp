@@ -7,9 +7,7 @@
 #ifndef M_M2_NamespacedAliasTypeAliasAc_HPP
 #define M_M2_NamespacedAliasTypeAliasAc_HPP
 
-#include <FpConfig.hpp>
-
-#include "Fw/Types/BasicTypes.h"
+#include "Fw/Types/BasicTypes.hpp"
 #include "SimpleCType2AliasAc.hpp"
 
 namespace M {

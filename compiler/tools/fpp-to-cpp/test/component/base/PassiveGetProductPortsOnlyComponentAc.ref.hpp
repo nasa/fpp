@@ -7,11 +7,10 @@
 #ifndef PassiveGetProductPortsOnlyComponentAc_HPP
 #define PassiveGetProductPortsOnlyComponentAc_HPP
 
-#include <FpConfig.hpp>
-
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/Dp/DpGetPortAc.hpp"
 #include "Fw/Dp/DpSendPortAc.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
 
@@ -29,6 +28,8 @@ class PassiveGetProductPortsOnlyComponentBase :
 
     //! Friend class for white-box testing
     friend class PassiveGetProductPortsOnlyComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class PassiveGetProductPortsOnlyTesterBase;
 
   PROTECTED:
 

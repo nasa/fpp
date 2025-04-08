@@ -7,9 +7,8 @@
 #ifndef ActiveNoArgsPortsOnlyComponentAc_HPP
 #define ActiveNoArgsPortsOnlyComponentAc_HPP
 
-#include <FpConfig.hpp>
-
 #include "Fw/Comp/ActiveComponentBase.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
 #include "NoArgsPortAc.hpp"
@@ -30,6 +29,8 @@ class ActiveNoArgsPortsOnlyComponentBase :
 
     //! Friend class for white-box testing
     friend class ActiveNoArgsPortsOnlyComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class ActiveNoArgsPortsOnlyTesterBase;
 
   PROTECTED:
 

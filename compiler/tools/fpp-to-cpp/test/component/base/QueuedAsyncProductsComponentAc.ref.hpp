@@ -7,8 +7,6 @@
 #ifndef QueuedAsyncProductsComponentAc_HPP
 #define QueuedAsyncProductsComponentAc_HPP
 
-#include <FpConfig.hpp>
-
 #include "AliasTypedPortAc.hpp"
 #include "AliasTypedReturnPortAc.hpp"
 #include "AliasTypedReturnStringPortAc.hpp"
@@ -20,6 +18,7 @@
 #include "Fw/Dp/DpRequestPortAc.hpp"
 #include "Fw/Dp/DpResponsePortAc.hpp"
 #include "Fw/Dp/DpSendPortAc.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Log/LogPortAc.hpp"
 #if FW_ENABLE_TEXT_LOGGING == 1
 #include "Fw/Log/LogTextPortAc.hpp"
@@ -53,6 +52,8 @@ class QueuedAsyncProductsComponentBase :
 
     //! Friend class for white-box testing
     friend class QueuedAsyncProductsComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class QueuedAsyncProductsTesterBase;
 
   PROTECTED:
 
@@ -1693,7 +1694,7 @@ class QueuedAsyncProductsComponentBase :
     // Time
     // ----------------------------------------------------------------------
 
-    //!  Get the time
+    //! Get the time
     //!
     //! \\return The current time
     Fw::Time getTime() const;

@@ -356,7 +356,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_cmdIn_InputPort[%" PRI_PlatformIntType "]",
+      "%s_cmdIn_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -380,7 +380,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_productRecvIn_InputPort[%" PRI_PlatformIntType "]",
+      "%s_productRecvIn_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -404,7 +404,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_aliasTypedAsync_InputPort[%" PRI_PlatformIntType "]",
+      "%s_aliasTypedAsync_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -428,7 +428,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_noArgsAliasStringReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      "%s_noArgsAliasStringReturnSync_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -452,7 +452,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_noArgsAsync_InputPort[%" PRI_PlatformIntType "]",
+      "%s_noArgsAsync_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -476,7 +476,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_noArgsGuarded_InputPort[%" PRI_PlatformIntType "]",
+      "%s_noArgsGuarded_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -500,7 +500,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_noArgsReturnGuarded_InputPort[%" PRI_PlatformIntType "]",
+      "%s_noArgsReturnGuarded_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -524,7 +524,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_noArgsReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      "%s_noArgsReturnSync_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -548,7 +548,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_noArgsStringReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      "%s_noArgsStringReturnSync_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -572,7 +572,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_noArgsSync_InputPort[%" PRI_PlatformIntType "]",
+      "%s_noArgsSync_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -596,7 +596,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_typedAliasGuarded_InputPort[%" PRI_PlatformIntType "]",
+      "%s_typedAliasGuarded_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -620,7 +620,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_typedAliasReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      "%s_typedAliasReturnSync_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -644,7 +644,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_typedAliasStringReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      "%s_typedAliasStringReturnSync_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -668,7 +668,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_typedAsync_InputPort[%" PRI_PlatformIntType "]",
+      "%s_typedAsync_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -692,7 +692,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_typedAsyncAssert_InputPort[%" PRI_PlatformIntType "]",
+      "%s_typedAsyncAssert_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -716,7 +716,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_typedAsyncBlockPriority_InputPort[%" PRI_PlatformIntType "]",
+      "%s_typedAsyncBlockPriority_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -740,7 +740,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_typedAsyncDropPriority_InputPort[%" PRI_PlatformIntType "]",
+      "%s_typedAsyncDropPriority_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -764,7 +764,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_typedGuarded_InputPort[%" PRI_PlatformIntType "]",
+      "%s_typedGuarded_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -788,7 +788,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_typedReturnGuarded_InputPort[%" PRI_PlatformIntType "]",
+      "%s_typedReturnGuarded_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -812,7 +812,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_typedReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      "%s_typedReturnSync_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -836,7 +836,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_typedSync_InputPort[%" PRI_PlatformIntType "]",
+      "%s_typedSync_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -855,7 +855,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_cmdRegOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_cmdRegOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -874,7 +874,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_cmdResponseOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_cmdResponseOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -893,7 +893,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_eventOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_eventOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -912,7 +912,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_prmGetOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_prmGetOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -931,7 +931,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_prmSetOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_prmSetOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -950,7 +950,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_productRequestOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_productRequestOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -969,7 +969,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_productSendOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_productSendOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -989,7 +989,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_textEventOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_textEventOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -1009,7 +1009,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_timeGetOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_timeGetOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -1028,7 +1028,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_tlmOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_tlmOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -1047,7 +1047,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_noArgsOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_noArgsOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -1066,7 +1066,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_noArgsReturnOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_noArgsReturnOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -1085,7 +1085,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_noArgsStringReturnOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_noArgsStringReturnOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -1104,7 +1104,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_typedAliasOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_typedAliasOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -1123,7 +1123,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_typedAliasReturnOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_typedAliasReturnOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -1142,7 +1142,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_typedAliasReturnStringOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_typedAliasReturnStringOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -1161,7 +1161,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_typedOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_typedOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -1180,7 +1180,7 @@ void QueuedTestComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_typedReturnOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_typedReturnOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -7521,6 +7521,25 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
   }
 
   return MSG_DISPATCH_OK;
+}
+
+// ----------------------------------------------------------------------
+// Helper functions for dispatching current messages
+// ----------------------------------------------------------------------
+
+Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
+  dispatchCurrentMessages()
+{
+  // Dispatch all current messages unless ERROR or EXIT occur
+  const FwSizeType currentMessageCount = this->m_queue.getMessagesAvailable();
+  MsgDispatchStatus messageStatus = MsgDispatchStatus::MSG_DISPATCH_EMPTY;
+  for (FwSizeType i = 0; i < currentMessageCount; i++) {
+    messageStatus = this->doDispatch();
+    if (messageStatus != QueuedComponentBase::MSG_DISPATCH_OK) {
+      break;
+    }
+  }
+  return messageStatus;
 }
 
 // ----------------------------------------------------------------------

@@ -102,7 +102,7 @@ void QueuedOverflowComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_cmdIn_InputPort[%" PRI_PlatformIntType "]",
+      "%s_cmdIn_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -126,7 +126,7 @@ void QueuedOverflowComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_productRecvInHook_InputPort[%" PRI_PlatformIntType "]",
+      "%s_productRecvInHook_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -150,7 +150,7 @@ void QueuedOverflowComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_assertAsync_InputPort[%" PRI_PlatformIntType "]",
+      "%s_assertAsync_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -174,7 +174,7 @@ void QueuedOverflowComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_blockAsync_InputPort[%" PRI_PlatformIntType "]",
+      "%s_blockAsync_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -198,7 +198,7 @@ void QueuedOverflowComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_dropAsync_InputPort[%" PRI_PlatformIntType "]",
+      "%s_dropAsync_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -222,7 +222,7 @@ void QueuedOverflowComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_hookAsync_InputPort[%" PRI_PlatformIntType "]",
+      "%s_hookAsync_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -246,7 +246,7 @@ void QueuedOverflowComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_serialAsyncHook_InputPort[%" PRI_PlatformIntType "]",
+      "%s_serialAsyncHook_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -265,7 +265,7 @@ void QueuedOverflowComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_cmdRegOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_cmdRegOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -284,7 +284,7 @@ void QueuedOverflowComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_cmdResponseOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_cmdResponseOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -303,7 +303,7 @@ void QueuedOverflowComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_eventOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_eventOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -322,7 +322,7 @@ void QueuedOverflowComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_prmGetOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_prmGetOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -341,7 +341,7 @@ void QueuedOverflowComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_prmSetOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_prmSetOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -361,7 +361,7 @@ void QueuedOverflowComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_textEventOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_textEventOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -381,7 +381,7 @@ void QueuedOverflowComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_timeGetOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_timeGetOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -400,7 +400,7 @@ void QueuedOverflowComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_tlmOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_tlmOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -2452,6 +2452,25 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedOverflowComponentBase ::
   }
 
   return MSG_DISPATCH_OK;
+}
+
+// ----------------------------------------------------------------------
+// Helper functions for dispatching current messages
+// ----------------------------------------------------------------------
+
+Fw::QueuedComponentBase::MsgDispatchStatus QueuedOverflowComponentBase ::
+  dispatchCurrentMessages()
+{
+  // Dispatch all current messages unless ERROR or EXIT occur
+  const FwSizeType currentMessageCount = this->m_queue.getMessagesAvailable();
+  MsgDispatchStatus messageStatus = MsgDispatchStatus::MSG_DISPATCH_EMPTY;
+  for (FwSizeType i = 0; i < currentMessageCount; i++) {
+    messageStatus = this->doDispatch();
+    if (messageStatus != QueuedComponentBase::MSG_DISPATCH_OK) {
+      break;
+    }
+  }
+  return messageStatus;
 }
 
 // ----------------------------------------------------------------------

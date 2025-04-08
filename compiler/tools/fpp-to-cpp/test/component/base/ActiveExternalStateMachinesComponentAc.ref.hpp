@@ -7,11 +7,10 @@
 #ifndef ExternalSm_ActiveExternalStateMachinesComponentAc_HPP
 #define ExternalSm_ActiveExternalStateMachinesComponentAc_HPP
 
-#include <FpConfig.hpp>
-
 #include "ActiveExternalStateMachines_S1.hpp"
 #include "ActiveExternalStateMachines_S2.hpp"
 #include "Fw/Comp/ActiveComponentBase.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
 
@@ -31,6 +30,8 @@ namespace ExternalSm {
 
       //! Friend class for white-box testing
       friend class ActiveExternalStateMachinesComponentBaseFriend;
+      //! Friend class tester to support autocoded test harness
+      friend class ActiveExternalStateMachinesTesterBase;
 
     PROTECTED:
 

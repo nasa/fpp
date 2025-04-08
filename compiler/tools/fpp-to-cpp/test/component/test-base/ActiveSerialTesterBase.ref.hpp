@@ -1975,6 +1975,22 @@ class ActiveSerialTesterBase :
     //! Clear telemetry history
     void clearTlm();
 
+  public:
+
+    // ----------------------------------------------------------------------
+    // Dispatching helper functions
+    // ----------------------------------------------------------------------
+
+    //! Calls component's doDispatch on behalf of the caller
+    static ActiveSerialComponentBase::MsgDispatchStatus dispatchOne(
+        ActiveSerialComponentBase& component //!< The component to dispatch
+    );
+
+    //! Call component's doDispatch for all current messages unless ERROR, or EXIT
+    static ActiveSerialComponentBase::MsgDispatchStatus dispatchCurrentMessages(
+        ActiveSerialComponentBase& component //!< The component to dispatch
+    );
+
   private:
 
     // ----------------------------------------------------------------------

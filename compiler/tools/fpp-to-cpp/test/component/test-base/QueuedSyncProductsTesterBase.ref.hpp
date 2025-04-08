@@ -1355,6 +1355,22 @@ class QueuedSyncProductsTesterBase :
         const S& s //!< A struct
     );
 
+  public:
+
+    // ----------------------------------------------------------------------
+    // Dispatching helper functions
+    // ----------------------------------------------------------------------
+
+    //! Calls component's doDispatch on behalf of the caller
+    static QueuedSyncProductsComponentBase::MsgDispatchStatus dispatchOne(
+        QueuedSyncProductsComponentBase& component //!< The component to dispatch
+    );
+
+    //! Call component's doDispatch for all current messages unless ERROR, or EXIT
+    static QueuedSyncProductsComponentBase::MsgDispatchStatus dispatchCurrentMessages(
+        QueuedSyncProductsComponentBase& component //!< The component to dispatch
+    );
+
   private:
 
     // ----------------------------------------------------------------------

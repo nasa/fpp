@@ -120,39 +120,34 @@ case class AliasCppWriter (
       return linesMember(List())
     }
 
-    val systemHHeaders = List(
-      "FpConfig.h"
-    ).map(CppWriter.systemHeaderString).map(line)
-
+    // Include Fw/Types/BasicTypes.h here
+    // To avoid an include cycle, don't depend on Fw/FPrimeBasicTypes.hpp
+    // If the alias refers to one of those types, the header will appear
+    // in symbolHeaders
     val standardHeaders = List(
       "Fw/Types/BasicTypes.h",
     ).map(CppWriter.headerString)
 
     val symbolHeaders = writeHIncludeDirectives(s, aNode)
     val headers = (standardHeaders ++ symbolHeaders).distinct.sorted.map(line)
-    linesMember(List.concat(
-      addBlankPrefix(systemHHeaders),
-      addBlankPrefix(headers)
-    ))
+    linesMember(addBlankPrefix(headers))
   }
 
   private def getHppIncludes: CppDoc.Member.Lines = {
-    val systemHppHeaders = List(
-      "FpConfig.hpp"
-    ).map(CppWriter.systemHeaderString).map(line)
-
     val standardHeaders = List(
+      // Include BasicTypes.h or Fw/Types/String.hpp here
+      // Fw/Types/String.hpp includes Fw/Types/BasicTypes.h
+      // To avoid an include cycle, don't depend on Fw/FPrimeBasicTypes.hpp
+      // If the alias refers to one of those types, the header will appear
+      // in symbolHeaders
       aliasType.aliasType match {
         case Type.String(_) => "Fw/Types/String.hpp"
-        case _ => "Fw/Types/BasicTypes.h"
+        case _ => "Fw/Types/BasicTypes.hpp"
       },
     ).map(CppWriter.headerString)
     val symbolHeaders = writeHppIncludeDirectives(s, aNode)
     val headers = standardHeaders ++ symbolHeaders
-    linesMember(List.concat(
-      addBlankPrefix(systemHppHeaders),
-      addBlankPrefix(headers.distinct.sorted.map(line))
-    ))
+    linesMember(addBlankPrefix(headers.distinct.sorted.map(line)))
   }
 
   private def getHppDefinition: CppDoc.Member.Lines = {
@@ -178,20 +173,24 @@ case class AliasCppWriter (
 
   private def getHDefinition: CppDoc.Member.Lines = {
     val name = s.getName(symbol)
-    def getTypePRI(ty: Type): String = {
-      ty match {
-        case Type.Float(f) => aliasType.aliasType.toString().toLowerCase()
-        case Type.PrimitiveInt(i) => aliasType.aliasType.toString().toLowerCase()
-        case _ => typeCppWriter.write(ty)
+
+    val fmtSpecList = aliasType.aliasType match {
+        // C-style floating-poing format strings (f, g) are platform-independent
+        // In F Prime code, we just use them
+        case Type.Float(f) => Nil
+        // C-style integer format strings (d, u, ld, lu, etc.) are platform-specific
+        // In F Prime code we don't use them. Instead we use a platform-independent macro.
+        // Write out the macro here
+        case _ => List("_" + typeCppWriter.write(aliasType.aliasType))
       }
-    }
 
-    val fmtSpec = getTypePRI(aliasType.aliasType)
-
-    linesMember(addBlankPrefix(
-      AnnotationCppWriter.writePreComment(aNode) ++ lines(
-        s"""|typedef ${typeCppWriter.write(aliasType.aliasType)} $name;
-            |#define PRI_$name PRI_${fmtSpec}""")
-    ))
+    linesMember(
+      addBlankPrefix(
+        AnnotationCppWriter.writePreComment(aNode) ++ (
+          s"typedef ${typeCppWriter.write(aliasType.aliasType)} $name;" ::
+          fmtSpecList.map(s => s"#define PRI_$name PRI$s")
+        ).map(line)
+      )
+    )
   }
 }

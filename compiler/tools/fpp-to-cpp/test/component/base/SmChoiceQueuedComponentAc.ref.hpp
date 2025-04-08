@@ -7,9 +7,8 @@
 #ifndef FppTest_SmChoiceQueuedComponentAc_HPP
 #define FppTest_SmChoiceQueuedComponentAc_HPP
 
-#include <FpConfig.hpp>
-
 #include "Fw/Comp/ActiveComponentBase.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
 #include "SmChoiceQueued_BasicStateMachineAc.hpp"
@@ -36,6 +35,8 @@ namespace FppTest {
 
       //! Friend class for white-box testing
       friend class SmChoiceQueuedComponentBaseFriend;
+      //! Friend class tester to support autocoded test harness
+      friend class SmChoiceQueuedTesterBase;
 
     PROTECTED:
 
@@ -919,6 +920,15 @@ namespace FppTest {
 
       //! Called in the message loop to dispatch a message from the queue
       virtual MsgDispatchStatus doDispatch();
+
+    protected:
+
+      // ----------------------------------------------------------------------
+      // Helper functions for dispatching current messages
+      // ----------------------------------------------------------------------
+
+      //! Dispatch all current messages unless ERROR or EXIT occurs
+      MsgDispatchStatus dispatchCurrentMessages();
 
     PRIVATE:
 

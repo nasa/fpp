@@ -9,7 +9,7 @@ echo '  removing old files'
 dir=`cd ../..; echo $PWD`
 
 echo '  generating C++'
-fpp-to-cpp -p $dir -i ../../builtin.fpp ../../health.fpp
+$fpp_to_cpp -p $dir -i ../../builtin.fpp ../../health.fpp
 
 for suffix in hpp cpp
 do

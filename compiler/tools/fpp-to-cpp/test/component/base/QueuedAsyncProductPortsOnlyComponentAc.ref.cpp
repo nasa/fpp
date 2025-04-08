@@ -88,7 +88,7 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_productRecvIn_InputPort[%" PRI_PlatformIntType "]",
+      "%s_productRecvIn_InputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -107,7 +107,7 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_productRequestOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_productRequestOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -126,7 +126,7 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_productSendOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_productSendOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -531,6 +531,25 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedAsyncProductPortsOnlyComponentB
   }
 
   return MSG_DISPATCH_OK;
+}
+
+// ----------------------------------------------------------------------
+// Helper functions for dispatching current messages
+// ----------------------------------------------------------------------
+
+Fw::QueuedComponentBase::MsgDispatchStatus QueuedAsyncProductPortsOnlyComponentBase ::
+  dispatchCurrentMessages()
+{
+  // Dispatch all current messages unless ERROR or EXIT occur
+  const FwSizeType currentMessageCount = this->m_queue.getMessagesAvailable();
+  MsgDispatchStatus messageStatus = MsgDispatchStatus::MSG_DISPATCH_EMPTY;
+  for (FwSizeType i = 0; i < currentMessageCount; i++) {
+    messageStatus = this->doDispatch();
+    if (messageStatus != QueuedComponentBase::MSG_DISPATCH_OK) {
+      break;
+    }
+  }
+  return messageStatus;
 }
 
 // ----------------------------------------------------------------------

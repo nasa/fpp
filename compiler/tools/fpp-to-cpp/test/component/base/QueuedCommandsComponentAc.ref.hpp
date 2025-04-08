@@ -7,8 +7,6 @@
 #ifndef QueuedCommandsComponentAc_HPP
 #define QueuedCommandsComponentAc_HPP
 
-#include <FpConfig.hpp>
-
 #include "AArrayAc.hpp"
 #include "AliasTypedPortAc.hpp"
 #include "AliasTypedReturnPortAc.hpp"
@@ -19,6 +17,7 @@
 #include "Fw/Cmd/CmdResponsePortAc.hpp"
 #include "Fw/Cmd/CmdString.hpp"
 #include "Fw/Comp/ActiveComponentBase.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Log/LogPortAc.hpp"
 #if FW_ENABLE_TEXT_LOGGING == 1
 #include "Fw/Log/LogTextPortAc.hpp"
@@ -52,6 +51,8 @@ class QueuedCommandsComponentBase :
 
     //! Friend class for white-box testing
     friend class QueuedCommandsComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class QueuedCommandsTesterBase;
 
   PROTECTED:
 
@@ -1761,7 +1762,7 @@ class QueuedCommandsComponentBase :
     // Time
     // ----------------------------------------------------------------------
 
-    //!  Get the time
+    //! Get the time
     //!
     //! \\return The current time
     Fw::Time getTime() const;
@@ -1789,6 +1790,15 @@ class QueuedCommandsComponentBase :
 
     //! Called in the message loop to dispatch a message from the queue
     virtual MsgDispatchStatus doDispatch();
+
+  protected:
+
+    // ----------------------------------------------------------------------
+    // Helper functions for dispatching current messages
+    // ----------------------------------------------------------------------
+
+    //! Dispatch all current messages unless ERROR or EXIT occurs
+    MsgDispatchStatus dispatchCurrentMessages();
 
   PRIVATE:
 

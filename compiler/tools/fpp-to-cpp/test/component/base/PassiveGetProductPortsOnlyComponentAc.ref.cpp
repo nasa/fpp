@@ -32,7 +32,7 @@ void PassiveGetProductPortsOnlyComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_productGetOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_productGetOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );
@@ -51,7 +51,7 @@ void PassiveGetProductPortsOnlyComponentBase ::
 #if FW_OBJECT_NAMES == 1
     Fw::ObjectName portName;
     portName.format(
-      "%s_productSendOut_OutputPort[%" PRI_PlatformIntType "]",
+      "%s_productSendOut_OutputPort[%" PRI_FwIndexType "]",
       this->m_objName.toChar(),
       port
     );

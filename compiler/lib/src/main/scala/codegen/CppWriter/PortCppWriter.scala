@@ -122,8 +122,7 @@ case class PortCppWriter (
   private def getHppIncludes: CppDoc.Member = {
     val systemHeaders = List(
       "cstdio",
-      "cstring",
-      "FpConfig.hpp"
+      "cstring"
     ).map(CppWriter.systemHeaderString).map(line)
     val serializableHeader = data.returnType match {
       case Some(_) => Nil
@@ -131,6 +130,7 @@ case class PortCppWriter (
     }
     val standardHeaders = (
       List(
+        "Fw/FPrimeBasicTypes.hpp",
         "Fw/Comp/PassiveComponentBase.hpp",
         "Fw/Port/InputPortBase.hpp",
         "Fw/Port/OutputPortBase.hpp",
