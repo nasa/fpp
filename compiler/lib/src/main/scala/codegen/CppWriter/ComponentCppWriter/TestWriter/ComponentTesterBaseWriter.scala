@@ -28,6 +28,8 @@ case class ComponentTesterBaseWriter(
 
   private val symbol = componentSymbol
 
+  private val externalParameterDelegate = ExternalParameterDelegate(s, aNode)
+
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
     CppWriter.createCppDoc(
@@ -68,9 +70,12 @@ case class ComponentTesterBaseWriter(
     val dpHeaders = guardedList (hasDataProducts) (
       List("Fw/Dp/test/util/DpContainerHeader.hpp")
     )
+    val prmExtHeaders =
+      guardedList (hasExternalParameters) (List("Fw/Prm/PrmExternalTypes.hpp"))
     val userHeaders = List.concat(
       standardHeaders,
-      dpHeaders
+      dpHeaders,
+      prmExtHeaders
     ).sorted.map(CppWriter.headerString).map(line)
     val systemHeaders = lines(CppWriter.systemHeaderString("cstdio"))
     linesMember(
@@ -101,6 +106,7 @@ case class ComponentTesterBaseWriter(
       // Types
       historyWriter.getClassMember,
       historyWriter.getTypeMembers,
+      guardedList (hasExternalParameters) (externalParameterDelegate.getClassMember),
 
       // Public function members
       getInitFunction,
@@ -1214,109 +1220,6 @@ case class ComponentTesterBaseWriter(
     addAccessTagAndComment(
       "protected",
       "Functions to test parameters",
-      guardedList (hasExternalParameters) (
-        List(
-          functionClassMember(
-            Some(s"Parameter serialization function for external parameter unit testing"),
-            s"${className}_serializeParam",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("const Fw::FwPrmIdType"),
-                "id",
-                Some("The parameter ID")
-              ),
-              CppDoc.Function.Param(
-                CppDoc.Type("const Fw::ParamValid"),
-                "prmStat",
-                Some("The parameter validity status")
-              ),
-              CppDoc.Function.Param(
-                CppDoc.Type("Fw::ParamBuffer&"),
-                "buff",
-                Some("The parameter validity status")
-              )
-            ),
-            CppDoc.Type(" Fw::SerializeStatus"),
-            {
-              lines(
-                """|Fw::SerializeStatus stat;
-                   |// Serialize the parameter based on ID
-                   |switch(id)
-                   |{
-                   |"""
-              ) ++
-              sortedParams.flatMap((_, prm) => {
-                guardedList (prm.isExternal) (
-                  lines(
-                    s"""|  // ${prm.getName}
-                        |  case ${paramIdConstantName(prm.getName)}:
-                        |    stat = buff.serialize(this->${prm.getName});
-                        |    break;
-                        |
-                        |"""
-                  )
-                )
-              }) ++
-              lines(
-                """|  default:
-                   |    // Unknown ID should not have gotten here
-                   |    FW_ASSERT(FALSE, id);
-                   |}
-                   |
-                   |return stat;
-                   |"""
-              )
-            }
-          ),
-          functionClassMember(
-            Some(s"Parameter deserialization function for external parameter unit testing"),
-            s"${className}_deserializeParam",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("const Fw::FwPrmIdType"),
-                "id",
-                Some("The parameter ID")
-              ),
-              CppDoc.Function.Param(
-                CppDoc.Type("Fw::ParamBuffer&"),
-                "buff",
-                Some("The parameter validity status")
-              )
-            ),
-            CppDoc.Type(" Fw::SerializeStatus"),
-            {
-              lines(
-                """|Fw::SerializeStatus stat;
-                   |// Serialize the parameter based on ID
-                   |switch(id)
-                   |{
-                   |"""
-              ) ++
-              sortedParams.flatMap((_, prm) => {
-                guardedList (prm.isExternal) (
-                  lines(
-                    s"""|  // ${prm.getName}
-                        |  case ${paramIdConstantName(prm.getName)}:
-                        |    stat = buff.deserialize(this->${prm.getName});
-                        |    break;
-                        |
-                        |"""
-                  )
-                )
-              }) ++
-              lines(
-                """|  default:
-                   |    // Unknown ID should not have gotten here
-                   |    FW_ASSERT(FALSE, id);
-                   |}
-                   |
-                   |return stat;
-                   |"""
-              )
-            }
-          )
-        )
-      ) ++
       sortedParams.flatMap((_, prm) => {
         val paramName = prm.getName
         val paramType = writeParamType(prm.paramType)
@@ -1741,4 +1644,128 @@ case class ComponentTesterBaseWriter(
     )
   }
 
+}
+
+/** Writes out C++ for component test external parameter base class */
+case class ExternalParameterDelegate(
+  s: CppWriterState,
+  aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
+) extends ComponentTestUtils(s, aNode) {
+
+  private val className = s"${componentClassName}ParamExternalDelegate"
+
+  def getClassMember: List[CppDoc.Class.Member.Class] = {
+    List(
+      classClassMember(
+        Some("External Parameter Delegate"),
+        className,
+        Some("Fw::ParamExternalDelegate"),
+        List.concat(
+          getFunctionMembers
+        )
+      )
+    )
+  }
+
+  private def getFunctionMembers: List[CppDoc.Class.Member] = List(
+    functionClassMember(
+      Some(s"Parameter deserialization function for external parameter unit testing"),
+      s"deserializeParam",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("const FwPrmIdType"),
+          "id",
+          Some("The parameter ID to deserialize")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("const Fw::ParamValid"),
+          "prmStat",
+          Some("The parameter validity status")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::ParamBuffer&"),
+          "buff",
+          Some("The buffer containing the parameter to deserialize")
+        )
+      ),
+      CppDoc.Type("Fw::SerializeStatus"),
+      {
+        lines(
+          """|Fw::SerializeStatus stat;
+              |// Serialize the parameter based on ID
+              |switch(id)
+              |{
+              |"""
+        ) ++
+        sortedParams.flatMap((_, prm) => {
+          guardedList (prm.isExternal) (
+            lines(
+              s"""|  // ${prm.getName}
+                  |  case ${paramIdConstantName(prm.getName)}:
+                  |    stat = buff.deserialize(this->${prm.getName});
+                  |    break;
+                  |
+                  |"""
+            )
+          )
+        }) ++
+        lines(
+          """|  default:
+              |    // Unknown ID should not have gotten here
+              |    FW_ASSERT(FALSE, id);
+              |}
+              |
+              |return stat;
+              |"""
+        )
+      }
+    ),
+    functionClassMember(
+      Some(s"Parameter serialization function for external parameter unit testing"),
+      "serializeParam",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("const FwPrmIdType"),
+          "id",
+          Some("The parameter ID to serialize")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::ParamBuffer&"),
+          "buff",
+          Some("The buffer to serialize the parameter into")
+        )
+      ),
+      CppDoc.Type("Fw::SerializeStatus"),
+      {
+        lines(
+          """|Fw::SerializeStatus stat;
+              |// Serialize the parameter based on ID
+              |switch(id)
+              |{
+              |"""
+        ) ++
+        sortedParams.flatMap((_, prm) => {
+          guardedList (prm.isExternal) (
+            lines(
+              s"""|  // ${prm.getName}
+                  |  case ${paramIdConstantName(prm.getName)}:
+                  |    stat = buff.serialize(this->${prm.getName});
+                  |    break;
+                  |
+                  |"""
+            )
+          )
+        }) ++
+        lines(
+          """|  default:
+              |    // Unknown ID should not have gotten here
+              |    FW_ASSERT(FALSE, id);
+              |}
+              |
+              |return stat;
+              |"""
+        )
+      }
+    )
+  )
 }

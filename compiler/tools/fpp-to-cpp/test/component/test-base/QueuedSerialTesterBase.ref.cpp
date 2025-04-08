@@ -9,6 +9,51 @@
 
 #include "test-base/QueuedSerialTesterBase.hpp"
 
+Fw::SerializeStatus QueuedSerialTesterBase::QueuedSerialComponentBaseParamExternalDelegate ::
+  deserializeParam(
+      const FwPrmIdType id,
+      const Fw::ParamValid prmStat,
+      Fw::ParamBuffer& buff
+  )
+{
+  Fw::SerializeStatus stat;
+  // Serialize the parameter based on ID
+  switch(id)
+  {
+    // ParamI32
+    case PARAMID_PARAMI32:
+      stat = buff.deserialize(this->ParamI32);
+      break;
+    default:
+      // Unknown ID should not have gotten here
+      FW_ASSERT(FALSE, id);
+  }
+
+  return stat;
+}
+
+Fw::SerializeStatus QueuedSerialTesterBase::QueuedSerialComponentBaseParamExternalDelegate ::
+  serializeParam(
+      const FwPrmIdType id,
+      Fw::ParamBuffer& buff
+  )
+{
+  Fw::SerializeStatus stat;
+  // Serialize the parameter based on ID
+  switch(id)
+  {
+    // ParamI32
+    case PARAMID_PARAMI32:
+      stat = buff.serialize(this->ParamI32);
+      break;
+    default:
+      // Unknown ID should not have gotten here
+      FW_ASSERT(FALSE, id);
+  }
+
+  return stat;
+}
+
 // ----------------------------------------------------------------------
 // Component initialization
 // ----------------------------------------------------------------------
@@ -4336,51 +4381,6 @@ void QueuedSerialTesterBase ::
 // ----------------------------------------------------------------------
 // Functions to test parameters
 // ----------------------------------------------------------------------
-
- Fw::SerializeStatus QueuedSerialTesterBase ::
-  QueuedSerialComponentBase_serializeParam(
-      const Fw::FwPrmIdType id,
-      const Fw::ParamValid prmStat,
-      Fw::ParamBuffer& buff
-  )
-{
-  Fw::SerializeStatus stat;
-  // Serialize the parameter based on ID
-  switch(id)
-  {
-    // ParamI32
-    case PARAMID_PARAMI32:
-      stat = buff.serialize(this->ParamI32);
-      break;
-    default:
-      // Unknown ID should not have gotten here
-      FW_ASSERT(FALSE, id);
-  }
-
-  return stat;
-}
-
- Fw::SerializeStatus QueuedSerialTesterBase ::
-  QueuedSerialComponentBase_deserializeParam(
-      const Fw::FwPrmIdType id,
-      Fw::ParamBuffer& buff
-  )
-{
-  Fw::SerializeStatus stat;
-  // Serialize the parameter based on ID
-  switch(id)
-  {
-    // ParamI32
-    case PARAMID_PARAMI32:
-      stat = buff.deserialize(this->ParamI32);
-      break;
-    default:
-      // Unknown ID should not have gotten here
-      FW_ASSERT(FALSE, id);
-  }
-
-  return stat;
-}
 
 void QueuedSerialTesterBase ::
   paramSet_ParamU32(

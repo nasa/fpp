@@ -11,6 +11,7 @@
 
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
+#include "Fw/Prm/PrmExternalTypes.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "test-base/ActiveSerialComponentAc.hpp"
@@ -323,6 +324,26 @@ class ActiveSerialTesterBase :
     struct TlmEntry_ChannelEnumOnChange {
       Fw::Time timeTag;
       E arg;
+    };
+
+    //! External Parameter Delegate
+    class ActiveSerialComponentBaseParamExternalDelegate :
+      Fw::ParamExternalDelegate
+    {
+
+        //! Parameter deserialization function for external parameter unit testing
+        Fw::SerializeStatus deserializeParam(
+            const FwPrmIdType id, //!< The parameter ID to deserialize
+            const Fw::ParamValid prmStat, //!< The parameter validity status
+            Fw::ParamBuffer& buff //!< The buffer containing the parameter to deserialize
+        );
+
+        //! Parameter serialization function for external parameter unit testing
+        Fw::SerializeStatus serializeParam(
+            const FwPrmIdType id, //!< The parameter ID to serialize
+            Fw::ParamBuffer& buff //!< The buffer to serialize the parameter into
+        );
+
     };
 
   public:
@@ -1742,19 +1763,6 @@ class ActiveSerialTesterBase :
     // ----------------------------------------------------------------------
     // Functions to test parameters
     // ----------------------------------------------------------------------
-
-    //! Parameter serialization function for external parameter unit testing
-     Fw::SerializeStatus ActiveSerialComponentBase_serializeParam(
-        const Fw::FwPrmIdType id, //!< The parameter ID
-        const Fw::ParamValid prmStat, //!< The parameter validity status
-        Fw::ParamBuffer& buff //!< The parameter validity status
-    );
-
-    //! Parameter deserialization function for external parameter unit testing
-     Fw::SerializeStatus ActiveSerialComponentBase_deserializeParam(
-        const Fw::FwPrmIdType id, //!< The parameter ID
-        Fw::ParamBuffer& buff //!< The parameter validity status
-    );
 
     //! Set parameter ParamU32
     void paramSet_ParamU32(
