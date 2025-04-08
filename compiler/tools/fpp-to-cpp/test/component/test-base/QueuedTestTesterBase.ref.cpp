@@ -14,7 +14,7 @@ Fw::SerializeStatus QueuedTestTesterBase::QueuedTestComponentBaseParamExternalDe
       const FwPrmIdType id,
       const Fw::ParamValid prmStat,
       Fw::ParamBuffer& buff
-  )
+  ) const
 {
   Fw::SerializeStatus stat;
   // Serialize the parameter based on ID
@@ -36,7 +36,7 @@ Fw::SerializeStatus QueuedTestTesterBase::QueuedTestComponentBaseParamExternalDe
   serializeParam(
       const FwPrmIdType id,
       Fw::ParamBuffer& buff
-  )
+  ) const
 {
   Fw::SerializeStatus stat;
   // Serialize the parameter based on ID

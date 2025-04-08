@@ -349,13 +349,13 @@ class QueuedTestTesterBase :
             const FwPrmIdType id, //!< The parameter ID to deserialize
             const Fw::ParamValid prmStat, //!< The parameter validity status
             Fw::ParamBuffer& buff //!< The buffer containing the parameter to deserialize
-        );
+        ) const;
 
         //! Parameter serialization function for external parameter unit testing
         Fw::SerializeStatus serializeParam(
             const FwPrmIdType id, //!< The parameter ID to serialize
             Fw::ParamBuffer& buff //!< The buffer to serialize the parameter into
-        );
+        ) const;
 
     };
 

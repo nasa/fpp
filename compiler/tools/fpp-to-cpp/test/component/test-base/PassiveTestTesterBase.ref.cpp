@@ -14,7 +14,7 @@ Fw::SerializeStatus PassiveTestTesterBase::PassiveTestComponentBaseParamExternal
       const FwPrmIdType id,
       const Fw::ParamValid prmStat,
       Fw::ParamBuffer& buff
-  )
+  ) const
 {
   Fw::SerializeStatus stat;
   // Serialize the parameter based on ID
@@ -36,7 +36,7 @@ Fw::SerializeStatus PassiveTestTesterBase::PassiveTestComponentBaseParamExternal
   serializeParam(
       const FwPrmIdType id,
       Fw::ParamBuffer& buff
-  )
+  ) const
 {
   Fw::SerializeStatus stat;
   // Serialize the parameter based on ID

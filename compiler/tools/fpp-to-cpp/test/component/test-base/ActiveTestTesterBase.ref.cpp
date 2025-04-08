@@ -16,7 +16,7 @@ namespace M {
         const FwPrmIdType id,
         const Fw::ParamValid prmStat,
         Fw::ParamBuffer& buff
-    )
+    ) const
   {
     Fw::SerializeStatus stat;
     // Serialize the parameter based on ID
@@ -38,7 +38,7 @@ namespace M {
     serializeParam(
         const FwPrmIdType id,
         Fw::ParamBuffer& buff
-    )
+    ) const
   {
     Fw::SerializeStatus stat;
     // Serialize the parameter based on ID

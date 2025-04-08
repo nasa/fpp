@@ -1718,7 +1718,9 @@ case class ExternalParameterDelegate(
               |return stat;
               |"""
         )
-      }
+      },
+      CppDoc.Function.NonSV,
+      CppDoc.Function.Const
     ),
     functionClassMember(
       Some(s"Parameter serialization function for external parameter unit testing"),
@@ -1759,13 +1761,15 @@ case class ExternalParameterDelegate(
         lines(
           """|  default:
               |    // Unknown ID should not have gotten here
-              |    FW_ASSERT(FALSE, id);
+              |    FW_ASSERT(false, id);
               |}
               |
               |return stat;
               |"""
         )
-      }
+      },
+      CppDoc.Function.NonSV,
+      CppDoc.Function.Const
     )
   )
 }
