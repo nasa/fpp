@@ -7,9 +7,7 @@
 #ifndef U16AliasAliasAc_HPP
 #define U16AliasAliasAc_HPP
 
-#include <FpConfig.hpp>
-
-#include "Fw/Types/BasicTypes.h"
+#include "Fw/Types/BasicTypes.hpp"
 
 extern "C" {
 #include "U16AliasAliasAc.h"

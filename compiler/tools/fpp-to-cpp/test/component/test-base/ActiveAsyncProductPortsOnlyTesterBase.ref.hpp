@@ -113,6 +113,22 @@ class ActiveAsyncProductPortsOnlyTesterBase :
         FwIndexType portNum //!< The port number
     );
 
+  public:
+
+    // ----------------------------------------------------------------------
+    // Dispatching helper functions
+    // ----------------------------------------------------------------------
+
+    //! Calls component's doDispatch on behalf of the caller
+    static ActiveAsyncProductPortsOnlyComponentBase::MsgDispatchStatus dispatchOne(
+        ActiveAsyncProductPortsOnlyComponentBase& component //!< The component to dispatch
+    );
+
+    //! Call component's doDispatch for all current messages unless ERROR, or EXIT
+    static ActiveAsyncProductPortsOnlyComponentBase::MsgDispatchStatus dispatchCurrentMessages(
+        ActiveAsyncProductPortsOnlyComponentBase& component //!< The component to dispatch
+    );
+
   private:
 
     // ----------------------------------------------------------------------

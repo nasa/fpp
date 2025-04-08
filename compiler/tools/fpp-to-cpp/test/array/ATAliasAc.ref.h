@@ -7,11 +7,9 @@
 #ifndef ATAliasAc_H
 #define ATAliasAc_H
 
-#include <FpConfig.h>
-
 #include "Fw/Types/BasicTypes.h"
 
 typedef U32 AT;
-#define PRI_AT PRI_u32
+#define PRI_AT PRI_U32
 
 #endif

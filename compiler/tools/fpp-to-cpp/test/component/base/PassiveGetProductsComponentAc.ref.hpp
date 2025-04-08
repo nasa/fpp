@@ -7,8 +7,6 @@
 #ifndef PassiveGetProductsComponentAc_HPP
 #define PassiveGetProductsComponentAc_HPP
 
-#include <FpConfig.hpp>
-
 #include "AliasTypedPortAc.hpp"
 #include "AliasTypedReturnPortAc.hpp"
 #include "AliasTypedReturnStringPortAc.hpp"
@@ -19,6 +17,7 @@
 #include "Fw/Dp/DpContainer.hpp"
 #include "Fw/Dp/DpGetPortAc.hpp"
 #include "Fw/Dp/DpSendPortAc.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Log/LogPortAc.hpp"
 #if FW_ENABLE_TEXT_LOGGING == 1
 #include "Fw/Log/LogTextPortAc.hpp"
@@ -52,6 +51,8 @@ class PassiveGetProductsComponentBase :
 
     //! Friend class for white-box testing
     friend class PassiveGetProductsComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class PassiveGetProductsTesterBase;
 
   PROTECTED:
 
@@ -1355,7 +1356,7 @@ class PassiveGetProductsComponentBase :
     // Time
     // ----------------------------------------------------------------------
 
-    //!  Get the time
+    //! Get the time
     //!
     //! \\return The current time
     Fw::Time getTime() const;

@@ -8,7 +8,6 @@
 #define ActiveEventsComponentAc_HPP
 
 #include <atomic>
-#include <FpConfig.hpp>
 
 #include "AArrayAc.hpp"
 #include "AliasTypedPortAc.hpp"
@@ -19,6 +18,7 @@
 #include "Fw/Cmd/CmdRegPortAc.hpp"
 #include "Fw/Cmd/CmdResponsePortAc.hpp"
 #include "Fw/Comp/ActiveComponentBase.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Log/LogPortAc.hpp"
 #include "Fw/Log/LogString.hpp"
 #if FW_ENABLE_TEXT_LOGGING == 1
@@ -53,6 +53,8 @@ class ActiveEventsComponentBase :
 
     //! Friend class for white-box testing
     friend class ActiveEventsComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class ActiveEventsTesterBase;
 
   PROTECTED:
 
@@ -1443,7 +1445,7 @@ class ActiveEventsComponentBase :
     // Time
     // ----------------------------------------------------------------------
 
-    //!  Get the time
+    //! Get the time
     //!
     //! \\return The current time
     Fw::Time getTime() const;

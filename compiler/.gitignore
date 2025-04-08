@@ -5,3 +5,5 @@ test-output.txt
 *.o
 native-fpp-*
 *.class
+# Version is not checked in during typical development
+lib/src/main/scala/util/Version.scala

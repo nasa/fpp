@@ -8,7 +8,6 @@
 #define M_ActiveTestComponentAc_HPP
 
 #include <atomic>
-#include <FpConfig.hpp>
 
 #include "AArrayAc.hpp"
 #include "ActiveTest_DataSerializableAc.hpp"
@@ -25,6 +24,7 @@
 #include "Fw/Dp/DpRequestPortAc.hpp"
 #include "Fw/Dp/DpResponsePortAc.hpp"
 #include "Fw/Dp/DpSendPortAc.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Log/LogPortAc.hpp"
 #include "Fw/Log/LogString.hpp"
 #if FW_ENABLE_TEXT_LOGGING == 1
@@ -64,6 +64,8 @@ namespace M {
 
       //! Friend class for white-box testing
       friend class ActiveTestComponentBaseFriend;
+      //! Friend class tester to support autocoded test harness
+      friend class ActiveTestTesterBase;
 
     PROTECTED:
 
@@ -2497,7 +2499,7 @@ namespace M {
       // Time
       // ----------------------------------------------------------------------
 
-      //!  Get the time
+      //! Get the time
       //!
       //! \\return The current time
       Fw::Time getTime() const;

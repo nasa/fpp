@@ -37,7 +37,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_from_cmdRegOut[%" PRI_PlatformIntType "]",
+        "%s_from_cmdRegOut[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -61,7 +61,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_from_cmdResponseOut[%" PRI_PlatformIntType "]",
+        "%s_from_cmdResponseOut[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -85,7 +85,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_from_eventOut[%" PRI_PlatformIntType "]",
+        "%s_from_eventOut[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -109,7 +109,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_from_prmGetOut[%" PRI_PlatformIntType "]",
+        "%s_from_prmGetOut[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -133,7 +133,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_from_prmSetOut[%" PRI_PlatformIntType "]",
+        "%s_from_prmSetOut[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -157,7 +157,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_from_productRequestOut[%" PRI_PlatformIntType "]",
+        "%s_from_productRequestOut[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -181,7 +181,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_from_productSendOut[%" PRI_PlatformIntType "]",
+        "%s_from_productSendOut[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -206,7 +206,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_from_textEventOut[%" PRI_PlatformIntType "]",
+        "%s_from_textEventOut[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -231,7 +231,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_from_timeGetOut[%" PRI_PlatformIntType "]",
+        "%s_from_timeGetOut[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -255,7 +255,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_from_tlmOut[%" PRI_PlatformIntType "]",
+        "%s_from_tlmOut[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -279,7 +279,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_from_noArgsOut[%" PRI_PlatformIntType "]",
+        "%s_from_noArgsOut[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -303,7 +303,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_from_noArgsReturnOut[%" PRI_PlatformIntType "]",
+        "%s_from_noArgsReturnOut[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -327,7 +327,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_from_noArgsStringReturnOut[%" PRI_PlatformIntType "]",
+        "%s_from_noArgsStringReturnOut[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -351,7 +351,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_from_typedAliasOut[%" PRI_PlatformIntType "]",
+        "%s_from_typedAliasOut[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -375,7 +375,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_from_typedAliasReturnOut[%" PRI_PlatformIntType "]",
+        "%s_from_typedAliasReturnOut[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -399,7 +399,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_from_typedAliasReturnStringOut[%" PRI_PlatformIntType "]",
+        "%s_from_typedAliasReturnStringOut[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -423,7 +423,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_from_typedOut[%" PRI_PlatformIntType "]",
+        "%s_from_typedOut[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -447,7 +447,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_from_typedReturnOut[%" PRI_PlatformIntType "]",
+        "%s_from_typedReturnOut[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -466,7 +466,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_to_cmdIn[%" PRI_PlatformIntType "]",
+        "%s_to_cmdIn[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -485,7 +485,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_to_productRecvIn[%" PRI_PlatformIntType "]",
+        "%s_to_productRecvIn[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -504,7 +504,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_to_aliasTypedAsync[%" PRI_PlatformIntType "]",
+        "%s_to_aliasTypedAsync[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -523,7 +523,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_to_noArgsAliasStringReturnSync[%" PRI_PlatformIntType "]",
+        "%s_to_noArgsAliasStringReturnSync[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -542,7 +542,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_to_noArgsAsync[%" PRI_PlatformIntType "]",
+        "%s_to_noArgsAsync[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -561,7 +561,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_to_noArgsGuarded[%" PRI_PlatformIntType "]",
+        "%s_to_noArgsGuarded[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -580,7 +580,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_to_noArgsReturnGuarded[%" PRI_PlatformIntType "]",
+        "%s_to_noArgsReturnGuarded[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -599,7 +599,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_to_noArgsReturnSync[%" PRI_PlatformIntType "]",
+        "%s_to_noArgsReturnSync[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -618,7 +618,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_to_noArgsStringReturnSync[%" PRI_PlatformIntType "]",
+        "%s_to_noArgsStringReturnSync[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -637,7 +637,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_to_noArgsSync[%" PRI_PlatformIntType "]",
+        "%s_to_noArgsSync[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -656,7 +656,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_to_typedAliasGuarded[%" PRI_PlatformIntType "]",
+        "%s_to_typedAliasGuarded[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -675,7 +675,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_to_typedAliasReturnSync[%" PRI_PlatformIntType "]",
+        "%s_to_typedAliasReturnSync[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -694,7 +694,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_to_typedAliasStringReturnSync[%" PRI_PlatformIntType "]",
+        "%s_to_typedAliasStringReturnSync[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -713,7 +713,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_to_typedAsync[%" PRI_PlatformIntType "]",
+        "%s_to_typedAsync[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -732,7 +732,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_to_typedAsyncAssert[%" PRI_PlatformIntType "]",
+        "%s_to_typedAsyncAssert[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -751,7 +751,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_to_typedAsyncBlockPriority[%" PRI_PlatformIntType "]",
+        "%s_to_typedAsyncBlockPriority[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -770,7 +770,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_to_typedAsyncDropPriority[%" PRI_PlatformIntType "]",
+        "%s_to_typedAsyncDropPriority[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -789,7 +789,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_to_typedGuarded[%" PRI_PlatformIntType "]",
+        "%s_to_typedGuarded[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -808,7 +808,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_to_typedReturnGuarded[%" PRI_PlatformIntType "]",
+        "%s_to_typedReturnGuarded[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -827,7 +827,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_to_typedReturnSync[%" PRI_PlatformIntType "]",
+        "%s_to_typedReturnSync[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -846,7 +846,7 @@ namespace M {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_to_typedSync[%" PRI_PlatformIntType "]",
+        "%s_to_typedSync[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -4686,6 +4686,32 @@ namespace M {
     this->tlmHistory_ChannelF64->clear();
     this->tlmHistory_ChannelU32OnChange->clear();
     this->tlmHistory_ChannelEnumOnChange->clear();
+  }
+
+  // ----------------------------------------------------------------------
+  // Dispatching helper functions
+  // ----------------------------------------------------------------------
+
+  ActiveTestComponentBase::MsgDispatchStatus ActiveTestTesterBase ::
+    dispatchOne(ActiveTestComponentBase& component)
+  {
+        // Dispatch one message returning status
+        return component.doDispatch();
+  }
+
+  ActiveTestComponentBase::MsgDispatchStatus ActiveTestTesterBase ::
+    dispatchCurrentMessages(ActiveTestComponentBase& component)
+  {
+        // Dispatch all current messages unless ERROR or EXIT occur
+        const FwSizeType currentMessageCount = component.m_queue.getMessagesAvailable();
+        ActiveTestComponentBase::MsgDispatchStatus messageStatus = ActiveTestComponentBase::MsgDispatchStatus::MSG_DISPATCH_EMPTY;
+        for (FwSizeType i = 0; i < currentMessageCount; i++) {
+            messageStatus = component.doDispatch();
+            if (messageStatus != ActiveTestComponentBase::MSG_DISPATCH_OK) {
+                break;
+            }
+        }
+        return messageStatus;
   }
 
   // ----------------------------------------------------------------------

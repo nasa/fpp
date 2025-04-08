@@ -8,7 +8,6 @@
 #define QueuedTestComponentAc_HPP
 
 #include <atomic>
-#include <FpConfig.hpp>
 
 #include "AArrayAc.hpp"
 #include "AliasTypedPortAc.hpp"
@@ -24,6 +23,7 @@
 #include "Fw/Dp/DpRequestPortAc.hpp"
 #include "Fw/Dp/DpResponsePortAc.hpp"
 #include "Fw/Dp/DpSendPortAc.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Log/LogPortAc.hpp"
 #include "Fw/Log/LogString.hpp"
 #if FW_ENABLE_TEXT_LOGGING == 1
@@ -62,6 +62,8 @@ class QueuedTestComponentBase :
 
     //! Friend class for white-box testing
     friend class QueuedTestComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class QueuedTestTesterBase;
 
   PROTECTED:
 
@@ -2495,7 +2497,7 @@ class QueuedTestComponentBase :
     // Time
     // ----------------------------------------------------------------------
 
-    //!  Get the time
+    //! Get the time
     //!
     //! \\return The current time
     Fw::Time getTime() const;
@@ -2523,6 +2525,15 @@ class QueuedTestComponentBase :
 
     //! Called in the message loop to dispatch a message from the queue
     virtual MsgDispatchStatus doDispatch();
+
+  protected:
+
+    // ----------------------------------------------------------------------
+    // Helper functions for dispatching current messages
+    // ----------------------------------------------------------------------
+
+    //! Dispatch all current messages unless ERROR or EXIT occurs
+    MsgDispatchStatus dispatchCurrentMessages();
 
   PRIVATE:
 

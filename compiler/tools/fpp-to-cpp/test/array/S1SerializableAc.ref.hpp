@@ -7,7 +7,7 @@
 #ifndef M_S1SerializableAc_HPP
 #define M_S1SerializableAc_HPP
 
-#include "FpConfig.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"

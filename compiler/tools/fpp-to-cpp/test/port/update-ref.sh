@@ -4,12 +4,6 @@ abs_type()
   move_cpp AbsTypePort
 }
 
-builtin_type()
-{
-  update "-p $PWD" builtin_type
-  move_cpp BuiltInTypePort
-}
-
 empty()
 {
   update "-p $PWD" empty

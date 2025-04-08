@@ -57,6 +57,8 @@ identifier values.
 
 * An <<Definitions_Abstract-Type-Definitions,abstract type definition>>
 
+* An <<Definitions_Alias-Type-Definitions,alias type definition>>
+
 * An <<Definitions_Array-Definitions,array definition>>
 
 * An <<Definitions_Enum-Definitions,enum definition>>

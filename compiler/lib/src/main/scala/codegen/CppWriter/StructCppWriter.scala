@@ -100,7 +100,7 @@ case class StructCppWriter(
 
   private def getHppIncludes: CppDoc.Member = {
     val userHeaders = List(
-      "FpConfig.hpp",
+      "Fw/FPrimeBasicTypes.hpp",
       "Fw/Types/ExternalString.hpp",
       "Fw/Types/Serializable.hpp",
       "Fw/Types/String.hpp"

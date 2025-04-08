@@ -12,20 +12,12 @@ case class ComponentTestImplWriter(
 
   private val fileName = ComputeCppFiles.FileNames.getComponentTestImpl(componentName)
 
-  private val data = componentData
-
-  private val name = componentName
-
-  private val namespaceIdentList = componentNamespaceIdentList
-
-  private val symbol = componentSymbol
-
   val helperFileName: String = ComputeCppFiles.FileNames.getComponentTestHelper(componentName)
 
   def write: CppDoc = {
-    val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
+    val includeGuard = s.includeGuardFromQualifiedName(componentSymbol, fileName)
     CppWriter.createCppDoc(
-      s"$name component test harness implementation class",
+      s"$componentName component test harness implementation class",
       fileName,
       includeGuard,
       getMembers,
@@ -43,15 +35,15 @@ case class ComponentTestImplWriter(
     )
     List.concat(
       getHppIncludes :: getCppIncludes,
-      wrapInNamespaces(namespaceIdentList, List(cls))
+      wrapInNamespaces(componentNamespaceIdentList, List(cls))
     )
   }
 
   private def getHppIncludes: CppDoc.Member = {
     val headers = List(
-      ComputeCppFiles.FileNames.getComponentGTestBase(name),
-      ComputeCppFiles.FileNames.getComponentImpl(name)
-    ).map(s.getIncludePath(symbol, _))
+      ComputeCppFiles.FileNames.getComponentGTestBase(componentName),
+      ComputeCppFiles.FileNames.getComponentImpl(componentName)
+    ).map(s.getIncludePath(componentSymbol, _))
     linesMember(
       addBlankPrefix(headers.map(CppWriter.headerString).map(line))
     )
@@ -98,7 +90,7 @@ case class ComponentTestImplWriter(
                   |static const FwEnumStoreType $idConstantName = 0;
                   |"""
             ),
-            guardedList (data.kind != Ast.ComponentKind.Passive) (
+            guardedList (componentData.kind != Ast.ComponentKind.Passive) (
               lines(
                 s"""|
                     |// Queue depth supplied to the component instance under test
@@ -196,7 +188,7 @@ case class ComponentTestImplWriter(
     }
 
     val initArgs = List.concat(
-      guardedList (data.kind != Ast.ComponentKind.Passive) (
+      guardedList (componentData.kind != Ast.ComponentKind.Passive) (
         List(s"$testImplClassName::$queueDepthConstantName")
       ),
       List(s"$testImplClassName::$idConstantName"),

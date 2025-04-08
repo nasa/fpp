@@ -120,3 +120,29 @@ bool ActiveAsyncProductPortsOnlyTesterBase ::
 
   return this->m_to_productRecvIn[portNum].isConnected();
 }
+
+// ----------------------------------------------------------------------
+// Dispatching helper functions
+// ----------------------------------------------------------------------
+
+ActiveAsyncProductPortsOnlyComponentBase::MsgDispatchStatus ActiveAsyncProductPortsOnlyTesterBase ::
+  dispatchOne(ActiveAsyncProductPortsOnlyComponentBase& component)
+{
+      // Dispatch one message returning status
+      return component.doDispatch();
+}
+
+ActiveAsyncProductPortsOnlyComponentBase::MsgDispatchStatus ActiveAsyncProductPortsOnlyTesterBase ::
+  dispatchCurrentMessages(ActiveAsyncProductPortsOnlyComponentBase& component)
+{
+      // Dispatch all current messages unless ERROR or EXIT occur
+      const FwSizeType currentMessageCount = component.m_queue.getMessagesAvailable();
+      ActiveAsyncProductPortsOnlyComponentBase::MsgDispatchStatus messageStatus = ActiveAsyncProductPortsOnlyComponentBase::MsgDispatchStatus::MSG_DISPATCH_EMPTY;
+      for (FwSizeType i = 0; i < currentMessageCount; i++) {
+          messageStatus = component.doDispatch();
+          if (messageStatus != ActiveAsyncProductPortsOnlyComponentBase::MSG_DISPATCH_OK) {
+              break;
+          }
+      }
+      return messageStatus;
+}

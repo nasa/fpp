@@ -7,9 +7,8 @@
 #ifndef FppTest_SmInitialActiveComponentAc_HPP
 #define FppTest_SmInitialActiveComponentAc_HPP
 
-#include <FpConfig.hpp>
-
 #include "Fw/Comp/ActiveComponentBase.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
 #include "SmInitialActive_BasicStateMachineAc.hpp"
@@ -33,6 +32,8 @@ namespace FppTest {
 
       //! Friend class for white-box testing
       friend class SmInitialActiveComponentBaseFriend;
+      //! Friend class tester to support autocoded test harness
+      friend class SmInitialActiveTesterBase;
 
     PROTECTED:
 

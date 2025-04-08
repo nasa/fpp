@@ -15,15 +15,6 @@ basic()
   move_cpp BasicSerializable
 }
 
-builtin_type()
-{
-  update "-p $PWD" builtin_type
-  move_h_hpp BuiltInTypeAlias
-  move_hpp NamespacedBuiltin1Alias
-  move_hpp NamespacedBuiltin2Alias
-  move_cpp BuiltinSerializable
-}
-
 namespace()
 {
   update "-p $PWD" namespace

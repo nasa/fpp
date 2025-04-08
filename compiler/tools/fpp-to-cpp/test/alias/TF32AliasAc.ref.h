@@ -7,11 +7,8 @@
 #ifndef TF32AliasAc_H
 #define TF32AliasAc_H
 
-#include <FpConfig.h>
-
 #include "Fw/Types/BasicTypes.h"
 
 typedef F32 TF32;
-#define PRI_TF32 PRI_f32
 
 #endif

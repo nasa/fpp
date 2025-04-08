@@ -7,8 +7,6 @@
 #ifndef PassiveTelemetryComponentAc_HPP
 #define PassiveTelemetryComponentAc_HPP
 
-#include <FpConfig.hpp>
-
 #include "AArrayAc.hpp"
 #include "AliasTypedPortAc.hpp"
 #include "AliasTypedReturnPortAc.hpp"
@@ -18,6 +16,7 @@
 #include "Fw/Cmd/CmdRegPortAc.hpp"
 #include "Fw/Cmd/CmdResponsePortAc.hpp"
 #include "Fw/Comp/ActiveComponentBase.hpp"
+#include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Log/LogPortAc.hpp"
 #if FW_ENABLE_TEXT_LOGGING == 1
 #include "Fw/Log/LogTextPortAc.hpp"
@@ -52,6 +51,8 @@ class PassiveTelemetryComponentBase :
 
     //! Friend class for white-box testing
     friend class PassiveTelemetryComponentBaseFriend;
+    //! Friend class tester to support autocoded test harness
+    friend class PassiveTelemetryTesterBase;
 
   PROTECTED:
 
@@ -1180,7 +1181,7 @@ class PassiveTelemetryComponentBase :
     // Time
     // ----------------------------------------------------------------------
 
-    //!  Get the time
+    //! Get the time
     //!
     //! \\return The current time
     Fw::Time getTime() const;

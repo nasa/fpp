@@ -995,7 +995,7 @@ namespace FppTest {
 #if FW_OBJECT_NAMES == 1
       Fw::ObjectName portName;
       portName.format(
-        "%s_schedIn_InputPort[%" PRI_PlatformIntType "]",
+        "%s_schedIn_InputPort[%" PRI_FwIndexType "]",
         this->m_objName.toChar(),
         port
       );
@@ -1690,6 +1690,25 @@ namespace FppTest {
     }
 
     return MSG_DISPATCH_OK;
+  }
+
+  // ----------------------------------------------------------------------
+  // Helper functions for dispatching current messages
+  // ----------------------------------------------------------------------
+
+  Fw::QueuedComponentBase::MsgDispatchStatus SmStateQueuedComponentBase ::
+    dispatchCurrentMessages()
+  {
+    // Dispatch all current messages unless ERROR or EXIT occur
+    const FwSizeType currentMessageCount = this->m_queue.getMessagesAvailable();
+    MsgDispatchStatus messageStatus = MsgDispatchStatus::MSG_DISPATCH_EMPTY;
+    for (FwSizeType i = 0; i < currentMessageCount; i++) {
+      messageStatus = this->doDispatch();
+      if (messageStatus != QueuedComponentBase::MSG_DISPATCH_OK) {
+        break;
+      }
+    }
+    return messageStatus;
   }
 
   // ----------------------------------------------------------------------
