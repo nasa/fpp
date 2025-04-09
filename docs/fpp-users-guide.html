@@ -3320,6 +3320,37 @@ or a pointer to shared data.
 F Prime provides a type <code>Fw::Buffer</code> that stores a
 pointer to a shared data buffer.</p>
 </div>
+<div class="paragraph">
+<p><strong>Passing string arguments:</strong>
+Suppose that an input port <code>pIn</code> of a component instance <code>c</code>
+has port type <code>P</code>.
+If <code>P</code> has a formal parameter of type <code>string</code>,
+the corresponding formal parameter in the handler for <code>pIn</code> is
+a constant reference to <code>Fw::StringBase</code>, which is an abstract
+supertype of all F Prime string types.
+The string object referred to depends on whether <code>pIn</code> is synchronous
+or asynchronous:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If <code>pIn</code> is synchronous, then the reference is
+to the string object used in the invocation.
+In this case the size specified in the <code>string</code> type is ignored.
+For example, if a string of length 80 is bound to a port parameter
+whose type is <code>string size 40</code>, the reference is to the original
+string of length 80.</p>
+</li>
+<li>
+<p>If <code>pIn</code> is asynchronous, then the reference is to
+a string object on the stack whose size is bounded by
+the size named in the port parameter.
+For example, if a string of length 80 is bound to a port parameter
+whose type is <code>string size 40</code>, then the reference is to a string
+consisting of the first 40 characters of the original string.</p>
+</li>
+</ol>
+</div>
 </div>
 <div class="sect2">
 <h3 id="Defining-Ports_Reference-Parameters">8.4. Reference Parameters</h3>
@@ -15116,7 +15147,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-04-07 16:47:06 -0700
+Last updated 2025-04-09 16:55:04 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
