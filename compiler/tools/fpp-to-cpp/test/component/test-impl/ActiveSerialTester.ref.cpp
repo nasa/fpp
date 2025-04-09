@@ -13,7 +13,7 @@
 ActiveSerialTester ::
   ActiveSerialTester() :
     ActiveSerialGTestBase("ActiveSerialTester", ActiveSerialTester::MAX_HISTORY_SIZE),
-    component("ActiveSerial")
+    component(paramDelegateRef, "ActiveSerial")
 {
   this->initComponents();
   this->connectPorts();

@@ -7,7 +7,7 @@
 #include "QueuedGetProducts.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction test and destruction
 // ----------------------------------------------------------------------
 
 QueuedGetProducts ::

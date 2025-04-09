@@ -16,7 +16,7 @@ class PassiveGuardedProducts final :
   public:
 
     // ----------------------------------------------------------------------
-    // Component construction and destruction
+    // Component construction test and destruction
     // ----------------------------------------------------------------------
 
     //! Construct PassiveGuardedProducts object

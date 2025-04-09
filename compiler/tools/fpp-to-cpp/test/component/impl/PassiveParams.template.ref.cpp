@@ -7,12 +7,15 @@
 #include "PassiveParams.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction test and destruction
 // ----------------------------------------------------------------------
 
 PassiveParams ::
-  PassiveParams(const char* const compName) :
-    PassiveParamsComponentBase(compName)
+  PassiveParams(
+      Fw::ParamExternalDelegate& paramDelegateRef,
+      const char* const compName
+  ) :
+    PassiveParamsComponentBase(paramDelegateRef, compName)
 {
 
 }

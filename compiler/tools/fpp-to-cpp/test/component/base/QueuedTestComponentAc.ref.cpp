@@ -2241,7 +2241,7 @@ void QueuedTestComponentBase ::
 
 QueuedTestComponentBase ::
   QueuedTestComponentBase(
-      const Fw::ParamExternalDelegate& paramDelegateRef,
+      Fw::ParamExternalDelegate& paramDelegateRef,
       const char* compName
   ) :
     Fw::QueuedComponentBase(compName),

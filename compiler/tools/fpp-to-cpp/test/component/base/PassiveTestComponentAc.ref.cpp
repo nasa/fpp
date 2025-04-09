@@ -1904,7 +1904,7 @@ void PassiveTestComponentBase ::
 
 PassiveTestComponentBase ::
   PassiveTestComponentBase(
-      const Fw::ParamExternalDelegate& paramDelegateRef,
+      Fw::ParamExternalDelegate& paramDelegateRef,
       const char* compName
   ) :
     Fw::PassiveComponentBase(compName),

@@ -16,7 +16,7 @@ class ActiveAsyncProductPortsOnly final :
   public:
 
     // ----------------------------------------------------------------------
-    // Component construction and destruction
+    // Component construction test and destruction
     // ----------------------------------------------------------------------
 
     //! Construct ActiveAsyncProductPortsOnly object

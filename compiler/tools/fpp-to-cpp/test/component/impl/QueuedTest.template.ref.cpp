@@ -7,12 +7,15 @@
 #include "QueuedTest.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction test and destruction
 // ----------------------------------------------------------------------
 
 QueuedTest ::
-  QueuedTest(const char* const compName) :
-    QueuedTestComponentBase(compName)
+  QueuedTest(
+      Fw::ParamExternalDelegate& paramDelegateRef,
+      const char* const compName
+  ) :
+    QueuedTestComponentBase(paramDelegateRef, compName)
 {
 
 }

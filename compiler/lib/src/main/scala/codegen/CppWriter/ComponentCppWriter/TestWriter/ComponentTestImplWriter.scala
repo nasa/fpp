@@ -106,6 +106,12 @@ case class ComponentTestImplWriter(
   }
 
   private def getConstructorMembers: List[CppDoc.Class.Member] = {
+    val compInitializer = if (hasExternalParameters) {
+      s"component(paramDelegateRef, \"$componentImplClassName\")"
+    } else {
+      s"component(\"$componentImplClassName\")"
+    }
+
     addAccessTagAndComment(
       "public",
       "Construction and destruction",
@@ -115,7 +121,7 @@ case class ComponentTestImplWriter(
           Nil,
           List(
             s"$gTestClassName(\"$testImplClassName\", $testImplClassName::MAX_HISTORY_SIZE)",
-            s"component(\"$componentImplClassName\")"
+            compInitializer
           ),
           lines(
             """|this->initComponents();

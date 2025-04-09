@@ -7,7 +7,7 @@
 #include "PassiveSyncProductPortsOnly.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction test and destruction
 // ----------------------------------------------------------------------
 
 PassiveSyncProductPortsOnly ::

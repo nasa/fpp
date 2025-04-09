@@ -7,7 +7,7 @@
 #include "PassiveSyncProducts.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction test and destruction
 // ----------------------------------------------------------------------
 
 PassiveSyncProducts ::

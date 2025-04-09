@@ -7,7 +7,7 @@
 #include "PassiveCommands.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction test and destruction
 // ----------------------------------------------------------------------
 
 PassiveCommands ::

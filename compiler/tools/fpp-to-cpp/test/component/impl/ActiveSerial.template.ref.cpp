@@ -7,12 +7,15 @@
 #include "ActiveSerial.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction test and destruction
 // ----------------------------------------------------------------------
 
 ActiveSerial ::
-  ActiveSerial(const char* const compName) :
-    ActiveSerialComponentBase(compName)
+  ActiveSerial(
+      Fw::ParamExternalDelegate& paramDelegateRef,
+      const char* const compName
+  ) :
+    ActiveSerialComponentBase(paramDelegateRef, compName)
 {
 
 }

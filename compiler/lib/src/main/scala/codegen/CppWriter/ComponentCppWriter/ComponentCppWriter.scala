@@ -536,7 +536,7 @@ case class ComponentCppWriter (
             guardedList (hasExternalParameters) (
               List(
                 CppDoc.Function.Param(
-                  CppDoc.Type("const Fw::ParamExternalDelegate&"),
+                  CppDoc.Type("Fw::ParamExternalDelegate&"),
                   "paramDelegateRef",
                   Some("The delegate for externally managed parameters")
                 ),

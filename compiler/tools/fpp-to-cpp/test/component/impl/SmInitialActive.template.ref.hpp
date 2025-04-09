@@ -18,7 +18,7 @@ namespace FppTest {
     public:
 
       // ----------------------------------------------------------------------
-      // Component construction and destruction
+      // Component construction test and destruction
       // ----------------------------------------------------------------------
 
       //! Construct SmInitialActive object

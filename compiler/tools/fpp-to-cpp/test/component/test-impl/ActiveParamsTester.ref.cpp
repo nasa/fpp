@@ -13,7 +13,7 @@
 ActiveParamsTester ::
   ActiveParamsTester() :
     ActiveParamsGTestBase("ActiveParamsTester", ActiveParamsTester::MAX_HISTORY_SIZE),
-    component("ActiveParams")
+    component(paramDelegateRef, "ActiveParams")
 {
   this->initComponents();
   this->connectPorts();

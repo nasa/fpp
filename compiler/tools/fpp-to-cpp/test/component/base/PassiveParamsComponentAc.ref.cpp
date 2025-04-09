@@ -1506,7 +1506,7 @@ void PassiveParamsComponentBase ::
 
 PassiveParamsComponentBase ::
   PassiveParamsComponentBase(
-      const Fw::ParamExternalDelegate& paramDelegateRef,
+      Fw::ParamExternalDelegate& paramDelegateRef,
       const char* compName
   ) :
     Fw::PassiveComponentBase(compName),

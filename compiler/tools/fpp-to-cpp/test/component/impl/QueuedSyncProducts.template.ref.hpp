@@ -16,7 +16,7 @@ class QueuedSyncProducts final :
   public:
 
     // ----------------------------------------------------------------------
-    // Component construction and destruction
+    // Component construction test and destruction
     // ----------------------------------------------------------------------
 
     //! Construct QueuedSyncProducts object

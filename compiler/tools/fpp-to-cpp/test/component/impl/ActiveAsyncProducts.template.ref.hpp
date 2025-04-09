@@ -16,7 +16,7 @@ class ActiveAsyncProducts final :
   public:
 
     // ----------------------------------------------------------------------
-    // Component construction and destruction
+    // Component construction test and destruction
     // ----------------------------------------------------------------------
 
     //! Construct ActiveAsyncProducts object

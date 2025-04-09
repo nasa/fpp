@@ -16,7 +16,7 @@ class ActiveNoArgsPortsOnly final :
   public:
 
     // ----------------------------------------------------------------------
-    // Component construction and destruction
+    // Component construction test and destruction
     // ----------------------------------------------------------------------
 
     //! Construct ActiveNoArgsPortsOnly object

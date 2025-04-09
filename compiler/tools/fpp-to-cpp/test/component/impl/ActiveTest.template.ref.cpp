@@ -9,12 +9,15 @@
 namespace M {
 
   // ----------------------------------------------------------------------
-  // Component construction and destruction
+  // Component construction test and destruction
   // ----------------------------------------------------------------------
 
   ActiveTest ::
-    ActiveTest(const char* const compName) :
-      ActiveTestComponentBase(compName)
+    ActiveTest(
+        Fw::ParamExternalDelegate& paramDelegateRef,
+        const char* const compName
+    ) :
+      ActiveTestComponentBase(paramDelegateRef, compName)
   {
 
   }

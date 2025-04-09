@@ -674,7 +674,7 @@ class ActiveSerialComponentBase :
 
     //! Construct ActiveSerialComponentBase object
     ActiveSerialComponentBase(
-        const Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parameters
+        Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parameters
         const char* compName = "" //!< The component name
     );
 
@@ -3118,7 +3118,7 @@ class ActiveSerialComponentBase :
     // ----------------------------------------------------------------------
 
     //! Delegate to serialize/deserialize an externally stored parameter
-    const Fw::ParamExternalDelegate& paramDelegate;
+    Fw::ParamExternalDelegate& paramDelegate;
 
   PRIVATE:
 

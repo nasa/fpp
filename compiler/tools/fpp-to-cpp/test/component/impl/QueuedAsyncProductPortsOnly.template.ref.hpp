@@ -16,7 +16,7 @@ class QueuedAsyncProductPortsOnly final :
   public:
 
     // ----------------------------------------------------------------------
-    // Component construction and destruction
+    // Component construction test and destruction
     // ----------------------------------------------------------------------
 
     //! Construct QueuedAsyncProductPortsOnly object

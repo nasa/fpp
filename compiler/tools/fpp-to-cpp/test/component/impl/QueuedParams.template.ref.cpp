@@ -7,12 +7,15 @@
 #include "QueuedParams.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction test and destruction
 // ----------------------------------------------------------------------
 
 QueuedParams ::
-  QueuedParams(const char* const compName) :
-    QueuedParamsComponentBase(compName)
+  QueuedParams(
+      Fw::ParamExternalDelegate& paramDelegateRef,
+      const char* const compName
+  ) :
+    QueuedParamsComponentBase(paramDelegateRef, compName)
 {
 
 }

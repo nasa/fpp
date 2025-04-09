@@ -7,12 +7,15 @@
 #include "ActiveParams.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction test and destruction
 // ----------------------------------------------------------------------
 
 ActiveParams ::
-  ActiveParams(const char* const compName) :
-    ActiveParamsComponentBase(compName)
+  ActiveParams(
+      Fw::ParamExternalDelegate& paramDelegateRef,
+      const char* const compName
+  ) :
+    ActiveParamsComponentBase(paramDelegateRef, compName)
 {
 
 }

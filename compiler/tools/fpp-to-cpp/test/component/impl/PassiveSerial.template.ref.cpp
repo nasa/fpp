@@ -7,12 +7,15 @@
 #include "PassiveSerial.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction test and destruction
 // ----------------------------------------------------------------------
 
 PassiveSerial ::
-  PassiveSerial(const char* const compName) :
-    PassiveSerialComponentBase(compName)
+  PassiveSerial(
+      Fw::ParamExternalDelegate& paramDelegateRef,
+      const char* const compName
+  ) :
+    PassiveSerialComponentBase(paramDelegateRef, compName)
 {
 
 }

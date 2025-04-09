@@ -7,7 +7,7 @@
 #include "ActiveNoArgsPortsOnly.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction test and destruction
 // ----------------------------------------------------------------------
 
 ActiveNoArgsPortsOnly ::

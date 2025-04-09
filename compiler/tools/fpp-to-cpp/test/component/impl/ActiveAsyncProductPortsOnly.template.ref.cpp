@@ -7,7 +7,7 @@
 #include "ActiveAsyncProductPortsOnly.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction test and destruction
 // ----------------------------------------------------------------------
 
 ActiveAsyncProductPortsOnly ::

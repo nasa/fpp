@@ -2243,7 +2243,7 @@ namespace M {
 
   ActiveTestComponentBase ::
     ActiveTestComponentBase(
-        const Fw::ParamExternalDelegate& paramDelegateRef,
+        Fw::ParamExternalDelegate& paramDelegateRef,
         const char* compName
     ) :
       Fw::ActiveComponentBase(compName),

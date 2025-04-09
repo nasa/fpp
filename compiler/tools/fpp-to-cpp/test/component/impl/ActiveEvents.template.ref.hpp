@@ -16,7 +16,7 @@ class ActiveEvents final :
   public:
 
     // ----------------------------------------------------------------------
-    // Component construction and destruction
+    // Component construction test and destruction
     // ----------------------------------------------------------------------
 
     //! Construct ActiveEvents object

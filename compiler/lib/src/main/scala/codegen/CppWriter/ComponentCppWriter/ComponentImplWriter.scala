@@ -122,24 +122,42 @@ case class ComponentImplWriter(
       hookCmds.map(getCommandOverflowHook)
     )
 
-  private def getConstructor: CppDoc.Class.Member =
+  private def getConstructor: CppDoc.Class.Member = {
+    val initializers = if (hasExternalParameters) {
+      List(s"$className(paramDelegateRef, compName)")
+    } else {
+      List(s"$className(compName)")
+    }
+
     constructorClassMember(
       Some(s"Construct $componentImplClassName object"),
-      List(
-        CppDoc.Function.Param(
-          CppDoc.Type("const char* const"),
-          "compName",
-          Some("The component name")
+      List.concat(
+        guardedList (hasExternalParameters) (
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::ParamExternalDelegate&"),
+              "paramDelegateRef",
+              Some("The delegate for externally managed parameters")
+            ),
+          )
+        ),
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("const char* const"),
+            "compName",
+            Some("The component name")
+          )
         )
       ),
-      List(s"$className(compName)"),
+      initializers,
       Nil
     )
+  }
 
   private def getConstructorsAndDestructors: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "public",
-      "Component construction and destruction",
+      "Component construction test and destruction",
       List(getConstructor, getDestructor)
     )
 

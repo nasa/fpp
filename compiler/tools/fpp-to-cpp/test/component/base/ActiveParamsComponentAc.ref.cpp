@@ -1787,7 +1787,7 @@ void ActiveParamsComponentBase ::
 
 ActiveParamsComponentBase ::
   ActiveParamsComponentBase(
-      const Fw::ParamExternalDelegate& paramDelegateRef,
+      Fw::ParamExternalDelegate& paramDelegateRef,
       const char* compName
   ) :
     Fw::ActiveComponentBase(compName),

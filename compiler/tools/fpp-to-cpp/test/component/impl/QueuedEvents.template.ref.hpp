@@ -16,7 +16,7 @@ class QueuedEvents final :
   public:
 
     // ----------------------------------------------------------------------
-    // Component construction and destruction
+    // Component construction test and destruction
     // ----------------------------------------------------------------------
 
     //! Construct QueuedEvents object

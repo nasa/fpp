@@ -16,7 +16,7 @@ class PassiveTelemetry final :
   public:
 
     // ----------------------------------------------------------------------
-    // Component construction and destruction
+    // Component construction test and destruction
     // ----------------------------------------------------------------------
 
     //! Construct PassiveTelemetry object

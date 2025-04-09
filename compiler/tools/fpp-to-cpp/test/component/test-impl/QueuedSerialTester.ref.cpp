@@ -13,7 +13,7 @@
 QueuedSerialTester ::
   QueuedSerialTester() :
     QueuedSerialGTestBase("QueuedSerialTester", QueuedSerialTester::MAX_HISTORY_SIZE),
-    component("QueuedSerial")
+    component(paramDelegateRef, "QueuedSerial")
 {
   this->initComponents();
   this->connectPorts();

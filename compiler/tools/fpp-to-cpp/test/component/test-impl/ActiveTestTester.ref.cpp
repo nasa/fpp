@@ -15,7 +15,7 @@ namespace M {
   ActiveTestTester ::
     ActiveTestTester() :
       ActiveTestGTestBase("ActiveTestTester", ActiveTestTester::MAX_HISTORY_SIZE),
-      component("ActiveTest")
+      component(paramDelegateRef, "ActiveTest")
   {
     this->initComponents();
     this->connectPorts();

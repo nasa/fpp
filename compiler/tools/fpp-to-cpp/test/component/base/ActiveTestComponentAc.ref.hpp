@@ -767,7 +767,7 @@ namespace M {
 
       //! Construct ActiveTestComponentBase object
       ActiveTestComponentBase(
-          const Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parameters
+          Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parameters
           const char* compName = "" //!< The component name
       );
 
@@ -3138,7 +3138,7 @@ namespace M {
       // ----------------------------------------------------------------------
 
       //! Delegate to serialize/deserialize an externally stored parameter
-      const Fw::ParamExternalDelegate& paramDelegate;
+      Fw::ParamExternalDelegate& paramDelegate;
 
     PRIVATE:
 

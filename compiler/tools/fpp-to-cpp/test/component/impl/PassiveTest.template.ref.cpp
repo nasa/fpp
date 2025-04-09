@@ -7,12 +7,15 @@
 #include "PassiveTest.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction test and destruction
 // ----------------------------------------------------------------------
 
 PassiveTest ::
-  PassiveTest(const char* const compName) :
-    PassiveTestComponentBase(compName)
+  PassiveTest(
+      Fw::ParamExternalDelegate& paramDelegateRef,
+      const char* const compName
+  ) :
+    PassiveTestComponentBase(paramDelegateRef, compName)
 {
 
 }

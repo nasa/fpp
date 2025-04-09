@@ -2154,7 +2154,7 @@ void ActiveSerialComponentBase ::
 
 ActiveSerialComponentBase ::
   ActiveSerialComponentBase(
-      const Fw::ParamExternalDelegate& paramDelegateRef,
+      Fw::ParamExternalDelegate& paramDelegateRef,
       const char* compName
   ) :
     Fw::ActiveComponentBase(compName),

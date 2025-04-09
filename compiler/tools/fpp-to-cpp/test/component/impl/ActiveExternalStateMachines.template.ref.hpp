@@ -18,7 +18,7 @@ namespace ExternalSm {
     public:
 
       // ----------------------------------------------------------------------
-      // Component construction and destruction
+      // Component construction test and destruction
       // ----------------------------------------------------------------------
 
       //! Construct ActiveExternalStateMachines object

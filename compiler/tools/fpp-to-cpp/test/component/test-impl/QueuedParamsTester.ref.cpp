@@ -13,7 +13,7 @@
 QueuedParamsTester ::
   QueuedParamsTester() :
     QueuedParamsGTestBase("QueuedParamsTester", QueuedParamsTester::MAX_HISTORY_SIZE),
-    component("QueuedParams")
+    component(paramDelegateRef, "QueuedParams")
 {
   this->initComponents();
   this->connectPorts();

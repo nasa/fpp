@@ -7,12 +7,15 @@
 #include "QueuedSerial.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction and destruction
+// Component construction test and destruction
 // ----------------------------------------------------------------------
 
 QueuedSerial ::
-  QueuedSerial(const char* const compName) :
-    QueuedSerialComponentBase(compName)
+  QueuedSerial(
+      Fw::ParamExternalDelegate& paramDelegateRef,
+      const char* const compName
+  ) :
+    QueuedSerialComponentBase(paramDelegateRef, compName)
 {
 
 }

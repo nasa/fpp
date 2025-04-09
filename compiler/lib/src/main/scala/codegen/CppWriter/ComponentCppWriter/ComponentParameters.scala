@@ -106,7 +106,7 @@ case class ComponentParameters (
                 lines(
                   s"""|
                       |//! Delegate to serialize/deserialize an externally stored parameter
-                      |const Fw::ParamExternalDelegate& paramDelegate;
+                      |Fw::ParamExternalDelegate& paramDelegate;
                       |"""
                 )
               )
