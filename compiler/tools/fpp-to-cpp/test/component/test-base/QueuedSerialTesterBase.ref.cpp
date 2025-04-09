@@ -9,24 +9,28 @@
 
 #include "test-base/QueuedSerialTesterBase.hpp"
 
+// ----------------------------------------------------------------------
+// Unit test external parameter delegate serialization/deserialization
+// ----------------------------------------------------------------------
+
 Fw::SerializeStatus QueuedSerialTesterBase::QueuedSerialComponentBaseParamExternalDelegate ::
   deserializeParam(
       const FwPrmIdType id,
       const Fw::ParamValid prmStat,
       Fw::ParamBuffer& buff
-  ) const
+  )
 {
   Fw::SerializeStatus stat;
   // Serialize the parameter based on ID
   switch(id)
   {
     // ParamI32
-    case PARAMID_PARAMI32:
-      stat = buff.deserialize(this->ParamI32);
+    case QueuedSerialComponentBase::PARAMID_PARAMI32:
+      stat = buff.deserialize(this->m_param_ParamI32);
       break;
     default:
       // Unknown ID should not have gotten here
-      FW_ASSERT(FALSE, id);
+      FW_ASSERT(false, id);
   }
 
   return stat;
@@ -43,12 +47,12 @@ Fw::SerializeStatus QueuedSerialTesterBase::QueuedSerialComponentBaseParamExtern
   switch(id)
   {
     // ParamI32
-    case PARAMID_PARAMI32:
-      stat = buff.serialize(this->ParamI32);
+    case QueuedSerialComponentBase::PARAMID_PARAMI32:
+      stat = buff.serialize(this->m_param_ParamI32);
       break;
     default:
       // Unknown ID should not have gotten here
-      FW_ASSERT(FALSE, id);
+      FW_ASSERT(false, id);
   }
 
   return stat;
@@ -1547,8 +1551,7 @@ QueuedSerialTesterBase ::
     m_param_ParamString_valid(Fw::ParamValid::UNINIT),
     m_param_ParamEnum_valid(Fw::ParamValid::UNINIT),
     m_param_ParamArray_valid(Fw::ParamValid::UNINIT),
-    m_param_ParamStruct_valid(Fw::ParamValid::UNINIT),
-    m_param_ParamI32_valid(Fw::ParamValid::UNINIT)
+    m_param_ParamStruct_valid(Fw::ParamValid::UNINIT)
 {
   // Initialize port histories
   this->fromPortHistory_typedAliasOut = new History<FromPortEntry_typedAliasOut>(maxHistorySize);
@@ -4742,8 +4745,8 @@ void QueuedSerialTesterBase ::
       Fw::ParamValid valid
   )
 {
-  this->m_param_ParamI32 = val;
-  this->m_param_ParamI32_valid = valid;
+  this->paramDelegate.m_param_ParamI32 = val;
+  this->paramDelegate.m_param_ParamI32_valid = valid;
 }
 
 void QueuedSerialTesterBase ::
@@ -4755,7 +4758,7 @@ void QueuedSerialTesterBase ::
   // Build command for parameter set
   Fw::CmdArgBuffer args;
   FW_ASSERT(
-    args.serialize(this->m_param_ParamI32) == Fw::FW_SERIALIZE_OK
+    args.serialize(this->paramDelegate.m_param_ParamI32) == Fw::FW_SERIALIZE_OK
   );
 
   const U32 idBase = this->getIdBase();
@@ -5188,8 +5191,8 @@ Fw::ParamValid QueuedSerialTesterBase ::
     };
 
     case QueuedSerialComponentBase::PARAMID_PARAMI32: {
-      _status = val.serialize(_testerBase->m_param_ParamI32);
-      _ret = _testerBase->m_param_ParamI32_valid;
+      _status = val.serialize(_testerBase->paramDelegate.m_param_ParamI32);
+      _ret = _testerBase->paramDelegate.m_param_ParamI32_valid;
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -5318,7 +5321,7 @@ void QueuedSerialTesterBase ::
       );
       FW_ASSERT(
         ParamI32Val ==
-        _testerBase->m_param_ParamI32
+        _testerBase->paramDelegate.m_param_ParamI32
       );
       break;
     };
@@ -5553,3 +5556,7 @@ void QueuedSerialTesterBase ::
     buffer
   );
 }
+
+// ----------------------------------------------------------------------
+// Parameter delegates
+// ----------------------------------------------------------------------

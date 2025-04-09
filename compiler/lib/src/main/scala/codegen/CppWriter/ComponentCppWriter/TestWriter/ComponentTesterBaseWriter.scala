@@ -198,11 +198,11 @@ case class ComponentTesterBaseWriter(
         constructorClassMember(
           Some(s"Construct object $testerBaseClassName"),
           constructorParams,
-          "Fw::PassiveComponentBase(compName)" :: sortedParams.map(
-            (_, param) => {
+          "Fw::PassiveComponentBase(compName)" :: sortedParams.collect {
+            case (_, param) if !param.isExternal =>
               val flagName = paramValidityFlagName(param.getName)
               s"$flagName(Fw::ParamValid::UNINIT)"
-            }),
+          },
           {
             lazy val portHistories = line("// Initialize port histories") ::
               typedOutputPorts.filter(hasPortParams).map(p => {
@@ -1242,11 +1242,19 @@ case class ComponentTesterBaseWriter(
               )
             ),
             CppDoc.Type("void"),
-            lines(
-              s"""|this->$paramVarName = val;
-                  |this->$paramValidityFlag = valid;
-                  |"""
-            )
+            if (prm.isExternal) {
+              lines(
+                s"""|this->paramDelegate.$paramVarName = val;
+                    |this->paramDelegate.$paramValidityFlag = valid;
+                    |"""
+              )
+            } else {
+              lines(
+                s"""|this->$paramVarName = val;
+                    |this->$paramValidityFlag = valid;
+                    |"""
+              )
+            }
           ),
           functionClassMember(
             Some(s"Send parameter $paramName"),
@@ -1261,7 +1269,11 @@ case class ComponentTesterBaseWriter(
             ),
             CppDoc.Type("void"),
             {
-              val paramVar = paramVariableName(prm.getName)
+              val paramVar = if (prm.isExternal) {
+                s"paramDelegate.${paramVariableName(prm.getName)}"
+              } else {
+                paramVariableName(prm.getName)
+              }
               val constantName = paramCommandConstantName(prm.getName, Command.Param.Set)
               val portVar = testerPortVariableName(cmdRecvPort.get)
               lines(
@@ -1353,8 +1365,16 @@ case class ComponentTesterBaseWriter(
             sortedParams.map((_, prm) => {
               val prmName = prm.getName
               val idConstantName = paramIdConstantName(prmName)
-              val varName = paramVariableName(prmName)
-              val validityFlagName = paramValidityFlagName(prmName)
+              val varName = if (prm.isExternal) {
+                s"paramDelegate.${paramVariableName(prm.getName)}"
+              } else {
+                paramVariableName(prm.getName)
+              }
+              val validityFlagName = if (prm.isExternal) {
+                s"paramDelegate.${paramValidityFlagName(prm.getName)}"
+              } else {
+                paramValidityFlagName(prm.getName)
+              }
               wrapInScope(
                 s"case $className::$idConstantName: {",
                 lines(
@@ -1368,7 +1388,8 @@ case class ComponentTesterBaseWriter(
                       |"""
                 ),
                 "};"
-              )}
+              )
+            }
             ) ++ List(
               lines(
                 """|default:
@@ -1404,7 +1425,11 @@ case class ComponentTesterBaseWriter(
             val paramName = prm.getName
             val idConstantName = paramIdConstantName(paramName)
             val paramNameVal = s"${paramName}Val"
-            val paramVarName = paramVariableName(paramName)
+            val paramVarName = if (prm.isExternal) {
+              s"paramDelegate.${paramVariableName(paramName)}"
+            } else {
+              paramVariableName(paramName)
+            }
             val paramType = writeParamType(prm.paramType, "Fw::ParamString")
             wrapInScope(
               s"case $className::$idConstantName: {",
@@ -1592,37 +1617,59 @@ case class ComponentTesterBaseWriter(
       addAccessTagAndComment(
         "private",
         "Parameter validity flags",
-        sortedParams.map((_, prm) => {
-          val paramName = prm.getName
-          val validityFlagName = paramValidityFlagName(paramName)
-          linesClassMember(
-            Line.blank :: lines(
-              s"""|//! True if parameter $paramName was successfully received
-                  |Fw::ParamValid $validityFlagName;
-                  |"""
-            ),
-            CppDoc.Lines.Hpp
+        sortedParams.flatMap { case (_, param) =>
+          if (param.isExternal) then Nil
+          else List(
+            linesClassMember(
+              lines(
+                s"""|
+                    |//! True if ${param.getName} was successfully received
+                    |Fw::ParamValid ${paramValidityFlagName(param.getName)};
+                    |"""
+              )
+            )
           )
-        }),
+        },
         CppDoc.Lines.Hpp
       ),
       addAccessTagAndComment(
         "private",
         "Parameter variables",
-        sortedParams.map((_, prm) => {
-          val paramName = prm.getName
-          val paramType = writeParamType(prm.paramType, "Fw::ParamString")
-          val varName = paramVariableName(paramName)
-          linesClassMember(
-            Line.blank :: lines(
-              s"""|//! Parameter $paramName
-                  |$paramType $varName;
-                  |"""
-            ),
-            CppDoc.Lines.Hpp
-          )
-        }),
+        sortedParams.flatMap { case (_, param) =>
+          if (param.isExternal) then Nil
+          else {
+            val paramType = writeParamType(param.paramType, "Fw::ParamString")
+            val paramVarName = paramVariableName(param.getName)
+            List(
+              linesClassMember(
+                List.concat(
+                  addSeparatedPreComment(
+                    s"Parameter ${param.getName}",
+                    AnnotationCppWriter.asStringOpt(param.aNode)
+                  ),
+                  lines(s"$paramType $paramVarName;")
+                )
+              )
+            )
+          }
+        },
         CppDoc.Lines.Hpp
+      ),
+      guardedList (hasExternalParameters) (
+        addAccessTagAndComment(
+          "private",
+          "Parameter delegates",
+          List(
+            linesClassMember(
+              lines(
+                s"""|
+                    |//! Delegate to serialize/deserialize an externally stored parameter
+                    |${componentClassName}ParamExternalDelegate paramDelegate;
+                    |"""
+              )
+            )
+          )
+        )
       ),
       addAccessTagAndComment(
         "private",
@@ -1659,117 +1706,168 @@ case class ExternalParameterDelegate(
       classClassMember(
         Some("External Parameter Delegate"),
         className,
-        Some("Fw::ParamExternalDelegate"),
+        Some(s"public Fw::ParamExternalDelegate"),
         List.concat(
+          getVariableMembers,
           getFunctionMembers
         )
       )
     )
   }
 
-  private def getFunctionMembers: List[CppDoc.Class.Member] = List(
-    functionClassMember(
-      Some(s"Parameter deserialization function for external parameter unit testing"),
-      s"deserializeParam",
+  private def getFunctionMembers: List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "public",
+      "Unit test external parameter delegate serialization/deserialization",
       List(
-        CppDoc.Function.Param(
-          CppDoc.Type("const FwPrmIdType"),
-          "id",
-          Some("The parameter ID to deserialize")
-        ),
-        CppDoc.Function.Param(
-          CppDoc.Type("const Fw::ParamValid"),
-          "prmStat",
-          Some("The parameter validity status")
-        ),
-        CppDoc.Function.Param(
-          CppDoc.Type("Fw::ParamBuffer&"),
-          "buff",
-          Some("The buffer containing the parameter to deserialize")
-        )
-      ),
-      CppDoc.Type("Fw::SerializeStatus"),
-      {
-        lines(
-          """|Fw::SerializeStatus stat;
-              |// Serialize the parameter based on ID
-              |switch(id)
-              |{
-              |"""
-        ) ++
-        sortedParams.flatMap((_, prm) => {
-          guardedList (prm.isExternal) (
+        functionClassMember(
+          Some(s"Parameter deserialization function for external parameter unit testing"),
+          s"deserializeParam",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("const FwPrmIdType"),
+              "id",
+              Some("The parameter ID to deserialize")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("const Fw::ParamValid"),
+              "prmStat",
+              Some("The parameter validity status")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::ParamBuffer&"),
+              "buff",
+              Some("The buffer containing the parameter to deserialize")
+            )
+          ),
+          CppDoc.Type("Fw::SerializeStatus"),
+          {
             lines(
-              s"""|  // ${prm.getName}
-                  |  case ${paramIdConstantName(prm.getName)}:
-                  |    stat = buff.deserialize(this->${prm.getName});
-                  |    break;
+              """|Fw::SerializeStatus stat;
+                  |// Serialize the parameter based on ID
+                  |switch(id)
+                  |{
+                  |"""
+            ) ++
+            sortedParams.flatMap((_, prm) => {
+              guardedList (prm.isExternal) (
+                lines(
+                  s"""|  // ${prm.getName}
+                      |  case ${componentClassName}::${paramIdConstantName(prm.getName)}:
+                      |    stat = buff.deserialize(this->${paramVariableName(prm.getName)});
+                      |    break;
+                      |
+                      |"""
+                )
+              )
+            }) ++
+            lines(
+              """|  default:
+                  |    // Unknown ID should not have gotten here
+                  |    FW_ASSERT(false, id);
+                  |}
                   |
+                  |return stat;
                   |"""
             )
-          )
-        }) ++
-        lines(
-          """|  default:
-              |    // Unknown ID should not have gotten here
-              |    FW_ASSERT(FALSE, id);
-              |}
-              |
-              |return stat;
-              |"""
-        )
-      },
-      CppDoc.Function.NonSV,
-      CppDoc.Function.Const
-    ),
-    functionClassMember(
-      Some(s"Parameter serialization function for external parameter unit testing"),
-      "serializeParam",
-      List(
-        CppDoc.Function.Param(
-          CppDoc.Type("const FwPrmIdType"),
-          "id",
-          Some("The parameter ID to serialize")
+          },
+          CppDoc.Function.NonSV,
+          CppDoc.Function.NonConst
         ),
-        CppDoc.Function.Param(
-          CppDoc.Type("Fw::ParamBuffer&"),
-          "buff",
-          Some("The buffer to serialize the parameter into")
-        )
-      ),
-      CppDoc.Type("Fw::SerializeStatus"),
-      {
-        lines(
-          """|Fw::SerializeStatus stat;
-              |// Serialize the parameter based on ID
-              |switch(id)
-              |{
-              |"""
-        ) ++
-        sortedParams.flatMap((_, prm) => {
-          guardedList (prm.isExternal) (
+        functionClassMember(
+          Some(s"Parameter serialization function for external parameter unit testing"),
+          "serializeParam",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("const FwPrmIdType"),
+              "id",
+              Some("The parameter ID to serialize")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::ParamBuffer&"),
+              "buff",
+              Some("The buffer to serialize the parameter into")
+            )
+          ),
+          CppDoc.Type("Fw::SerializeStatus"),
+          {
             lines(
-              s"""|  // ${prm.getName}
-                  |  case ${paramIdConstantName(prm.getName)}:
-                  |    stat = buff.serialize(this->${prm.getName});
-                  |    break;
+              """|Fw::SerializeStatus stat;
+                  |// Serialize the parameter based on ID
+                  |switch(id)
+                  |{
+                  |"""
+            ) ++
+            sortedParams.flatMap((_, prm) => {
+              guardedList (prm.isExternal) (
+                lines(
+                  s"""|  // ${prm.getName}
+                      |  case ${componentClassName}::${paramIdConstantName(prm.getName)}:
+                      |    stat = buff.serialize(this->${paramVariableName(prm.getName)});
+                      |    break;
+                      |
+                      |"""
+                )
+              )
+            }) ++
+            lines(
+              """|  default:
+                  |    // Unknown ID should not have gotten here
+                  |    FW_ASSERT(false, id);
+                  |}
                   |
+                  |return stat;
                   |"""
             )
-          )
-        }) ++
-        lines(
-          """|  default:
-              |    // Unknown ID should not have gotten here
-              |    FW_ASSERT(false, id);
-              |}
-              |
-              |return stat;
-              |"""
+          },
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
         )
-      },
-      CppDoc.Function.NonSV,
-      CppDoc.Function.Const
+      )
     )
-  )
+  }
+
+  private def getVariableMembers: List[CppDoc.Class.Member] = {
+    sortedParams.flatMap { case (_, param) =>
+      if (param.isExternal) {
+        addAccessTagAndComment(
+          "public",
+          "Parameter validity flags",
+          List(
+            linesClassMember(
+              lines(
+                s"""|
+                    |//! True if ${param.getName} was successfully received
+                    |Fw::ParamValid ${paramValidityFlagName(param.getName)};
+                    |"""
+              )
+            )
+          ),
+          CppDoc.Lines.Hpp
+        )
+      } else Nil
+    } ++
+    sortedParams.flatMap { case (_, param) =>
+      if (param.isExternal) {
+        val paramType = writeParamType(param.paramType, "Fw::ParamString")
+        val paramVarName = paramVariableName(param.getName)
+        addAccessTagAndComment(
+          "public",
+          "Parameter variables",
+          List(
+            linesClassMember(
+              List.concat(
+                addSeparatedPreComment(
+                  s"Parameter ${param.getName}",
+                  AnnotationCppWriter.asStringOpt(param.aNode)
+                ),
+                lines(s"$paramType $paramVarName;")
+              )
+            )
+          ),
+          CppDoc.Lines.Hpp
+        )
+      } else Nil
+    }
+  }
 }

@@ -222,15 +222,41 @@ class PassiveParamsTesterBase :
 
     //! External Parameter Delegate
     class PassiveParamsComponentBaseParamExternalDelegate :
-      Fw::ParamExternalDelegate
+      public Fw::ParamExternalDelegate
     {
+
+      public:
+
+        // ----------------------------------------------------------------------
+        // Parameter validity flags
+        // ----------------------------------------------------------------------
+
+        //! True if ParamI32 was successfully received
+        Fw::ParamValid m_param_ParamI32_valid;
+
+      public:
+
+        // ----------------------------------------------------------------------
+        // Parameter variables
+        // ----------------------------------------------------------------------
+
+        //! Parameter ParamI32
+        //!
+        //! An externally stored parameter with I32 data
+        I32 m_param_ParamI32;
+
+      public:
+
+        // ----------------------------------------------------------------------
+        // Unit test external parameter delegate serialization/deserialization
+        // ----------------------------------------------------------------------
 
         //! Parameter deserialization function for external parameter unit testing
         Fw::SerializeStatus deserializeParam(
             const FwPrmIdType id, //!< The parameter ID to deserialize
             const Fw::ParamValid prmStat, //!< The parameter validity status
             Fw::ParamBuffer& buff //!< The buffer containing the parameter to deserialize
-        ) const;
+        );
 
         //! Parameter serialization function for external parameter unit testing
         Fw::SerializeStatus serializeParam(
@@ -1540,26 +1566,23 @@ class PassiveParamsTesterBase :
     // Parameter validity flags
     // ----------------------------------------------------------------------
 
-    //! True if parameter ParamU32 was successfully received
+    //! True if ParamU32 was successfully received
     Fw::ParamValid m_param_ParamU32_valid;
 
-    //! True if parameter ParamF64 was successfully received
+    //! True if ParamF64 was successfully received
     Fw::ParamValid m_param_ParamF64_valid;
 
-    //! True if parameter ParamString was successfully received
+    //! True if ParamString was successfully received
     Fw::ParamValid m_param_ParamString_valid;
 
-    //! True if parameter ParamEnum was successfully received
+    //! True if ParamEnum was successfully received
     Fw::ParamValid m_param_ParamEnum_valid;
 
-    //! True if parameter ParamArray was successfully received
+    //! True if ParamArray was successfully received
     Fw::ParamValid m_param_ParamArray_valid;
 
-    //! True if parameter ParamStruct was successfully received
+    //! True if ParamStruct was successfully received
     Fw::ParamValid m_param_ParamStruct_valid;
-
-    //! True if parameter ParamI32 was successfully received
-    Fw::ParamValid m_param_ParamI32_valid;
 
   private:
 
@@ -1568,25 +1591,44 @@ class PassiveParamsTesterBase :
     // ----------------------------------------------------------------------
 
     //! Parameter ParamU32
+    //!
+    //! A parameter with U32 data
+    //! Second line of annotation
     U32 m_param_ParamU32;
 
     //! Parameter ParamF64
+    //!
+    //! A parameter with F64 data
     F64 m_param_ParamF64;
 
     //! Parameter ParamString
+    //!
+    //! A parameter with string data and default value
     Fw::ParamString m_param_ParamString;
 
     //! Parameter ParamEnum
+    //!
+    //! A parameter with enum data
     E m_param_ParamEnum;
 
     //! Parameter ParamArray
+    //!
+    //! A parameter with array data, default value, and save opcode
     A m_param_ParamArray;
 
     //! Parameter ParamStruct
+    //!
+    //! A parameter with struct data and set/save opcodes
     S m_param_ParamStruct;
 
-    //! Parameter ParamI32
-    I32 m_param_ParamI32;
+  private:
+
+    // ----------------------------------------------------------------------
+    // Parameter delegates
+    // ----------------------------------------------------------------------
+
+    //! Delegate to serialize/deserialize an externally stored parameter
+    PassiveParamsComponentBaseParamExternalDelegate paramDelegate;
 
   private:
 
