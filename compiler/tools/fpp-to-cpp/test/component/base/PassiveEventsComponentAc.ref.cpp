@@ -1635,7 +1635,7 @@ bool PassiveEventsComponentBase ::
 // Call these functions directly to bypass the corresponding ports
 // ----------------------------------------------------------------------
 
-AliasString PassiveEventsComponentBase ::
+Fw::String PassiveEventsComponentBase ::
   noArgsAliasStringReturnSync_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
@@ -1644,7 +1644,7 @@ AliasString PassiveEventsComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  AliasString retVal;
+  Fw::String retVal;
 
   // Call handler function
   retVal = this->noArgsAliasStringReturnSync_handler(portNum);
@@ -1813,7 +1813,7 @@ AliasPrim2 PassiveEventsComponentBase ::
   return retVal;
 }
 
-AliasString PassiveEventsComponentBase ::
+Fw::String PassiveEventsComponentBase ::
   typedAliasStringReturnSync_handlerBase(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -1831,7 +1831,7 @@ AliasString PassiveEventsComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  AliasString retVal;
+  Fw::String retVal;
 
   // Call handler function
   retVal = this->typedAliasStringReturnSync_handler(
@@ -2105,7 +2105,7 @@ AliasPrim2 PassiveEventsComponentBase ::
   );
 }
 
-AliasString PassiveEventsComponentBase ::
+Fw::String PassiveEventsComponentBase ::
   typedAliasReturnStringOut_out(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -2913,7 +2913,7 @@ void PassiveEventsComponentBase ::
 // Calls for messages received on typed input ports
 // ----------------------------------------------------------------------
 
-AliasString PassiveEventsComponentBase ::
+Fw::String PassiveEventsComponentBase ::
   m_p_noArgsAliasStringReturnSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum
@@ -3033,7 +3033,7 @@ AliasPrim2 PassiveEventsComponentBase ::
   );
 }
 
-AliasString PassiveEventsComponentBase ::
+Fw::String PassiveEventsComponentBase ::
   m_p_typedAliasStringReturnSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,

@@ -27,7 +27,7 @@ PassiveSerial ::
 // Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
-AliasString PassiveSerial ::
+Fw::String PassiveSerial ::
   noArgsAliasStringReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
@@ -93,7 +93,7 @@ AliasPrim2 PassiveSerial ::
   // TODO return
 }
 
-AliasString PassiveSerial ::
+Fw::String PassiveSerial ::
   typedAliasStringReturnSync_handler(
       FwIndexType portNum,
       AliasPrim1 u32,

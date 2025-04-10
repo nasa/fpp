@@ -27,7 +27,7 @@ PassiveGuardedProducts ::
 // Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
-AliasString PassiveGuardedProducts ::
+Fw::String PassiveGuardedProducts ::
   noArgsAliasStringReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
@@ -93,7 +93,7 @@ AliasPrim2 PassiveGuardedProducts ::
   // TODO return
 }
 
-AliasString PassiveGuardedProducts ::
+Fw::String PassiveGuardedProducts ::
   typedAliasStringReturnSync_handler(
       FwIndexType portNum,
       AliasPrim1 u32,

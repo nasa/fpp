@@ -861,7 +861,7 @@ class QueuedEventsComponentBase :
     ) = 0;
 
     //! Handler for input port noArgsAliasStringReturnSync
-    virtual AliasString noArgsAliasStringReturnSync_handler(
+    virtual Fw::String noArgsAliasStringReturnSync_handler(
         FwIndexType portNum //!< The port number
     ) = 0;
 
@@ -920,7 +920,7 @@ class QueuedEventsComponentBase :
     ) = 0;
 
     //! Handler for input port typedAliasStringReturnSync
-    virtual AliasString typedAliasStringReturnSync_handler(
+    virtual Fw::String typedAliasStringReturnSync_handler(
         FwIndexType portNum, //!< The port number
         AliasPrim1 u32, //!< A primitive
         AliasPrim2 f32, //!< Another primtive
@@ -1048,7 +1048,7 @@ class QueuedEventsComponentBase :
     );
 
     //! Handler base-class function for input port noArgsAliasStringReturnSync
-    AliasString noArgsAliasStringReturnSync_handlerBase(
+    Fw::String noArgsAliasStringReturnSync_handlerBase(
         FwIndexType portNum //!< The port number
     );
 
@@ -1107,7 +1107,7 @@ class QueuedEventsComponentBase :
     );
 
     //! Handler base-class function for input port typedAliasStringReturnSync
-    AliasString typedAliasStringReturnSync_handlerBase(
+    Fw::String typedAliasStringReturnSync_handlerBase(
         FwIndexType portNum, //!< The port number
         AliasPrim1 u32, //!< A primitive
         AliasPrim2 f32, //!< Another primtive
@@ -1335,7 +1335,7 @@ class QueuedEventsComponentBase :
     );
 
     //! Invoke output port typedAliasReturnStringOut
-    AliasString typedAliasReturnStringOut_out(
+    Fw::String typedAliasReturnStringOut_out(
         FwIndexType portNum, //!< The port number
         AliasPrim1 u32, //!< A primitive
         AliasPrim2 f32, //!< Another primtive
@@ -1518,7 +1518,7 @@ class QueuedEventsComponentBase :
     );
 
     //! Callback for port noArgsAliasStringReturnSync
-    static AliasString m_p_noArgsAliasStringReturnSync_in(
+    static Fw::String m_p_noArgsAliasStringReturnSync_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
         FwIndexType portNum //!< The port number
     );
@@ -1586,7 +1586,7 @@ class QueuedEventsComponentBase :
     );
 
     //! Callback for port typedAliasStringReturnSync
-    static AliasString m_p_typedAliasStringReturnSync_in(
+    static Fw::String m_p_typedAliasStringReturnSync_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
         FwIndexType portNum, //!< The port number
         AliasPrim1 u32, //!< A primitive

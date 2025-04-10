@@ -2482,7 +2482,7 @@ void ActiveGuardedProductsComponentBase ::
   );
 }
 
-AliasString ActiveGuardedProductsComponentBase ::
+Fw::String ActiveGuardedProductsComponentBase ::
   noArgsAliasStringReturnSync_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
@@ -2491,7 +2491,7 @@ AliasString ActiveGuardedProductsComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  AliasString retVal;
+  Fw::String retVal;
 
   // Call handler function
   retVal = this->noArgsAliasStringReturnSync_handler(portNum);
@@ -2700,7 +2700,7 @@ AliasPrim2 ActiveGuardedProductsComponentBase ::
   return retVal;
 }
 
-AliasString ActiveGuardedProductsComponentBase ::
+Fw::String ActiveGuardedProductsComponentBase ::
   typedAliasStringReturnSync_handlerBase(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -2718,7 +2718,7 @@ AliasString ActiveGuardedProductsComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  AliasString retVal;
+  Fw::String retVal;
 
   // Call handler function
   retVal = this->typedAliasStringReturnSync_handler(
@@ -3562,7 +3562,7 @@ AliasPrim2 ActiveGuardedProductsComponentBase ::
   );
 }
 
-AliasString ActiveGuardedProductsComponentBase ::
+Fw::String ActiveGuardedProductsComponentBase ::
   typedAliasReturnStringOut_out(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -4219,7 +4219,7 @@ void ActiveGuardedProductsComponentBase ::
   );
 }
 
-AliasString ActiveGuardedProductsComponentBase ::
+Fw::String ActiveGuardedProductsComponentBase ::
   m_p_noArgsAliasStringReturnSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum
@@ -4350,7 +4350,7 @@ AliasPrim2 ActiveGuardedProductsComponentBase ::
   );
 }
 
-AliasString ActiveGuardedProductsComponentBase ::
+Fw::String ActiveGuardedProductsComponentBase ::
   m_p_typedAliasStringReturnSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,

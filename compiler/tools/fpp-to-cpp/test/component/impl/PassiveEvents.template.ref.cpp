@@ -27,7 +27,7 @@ PassiveEvents ::
 // Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
-AliasString PassiveEvents ::
+Fw::String PassiveEvents ::
   noArgsAliasStringReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
@@ -93,7 +93,7 @@ AliasPrim2 PassiveEvents ::
   // TODO return
 }
 
-AliasString PassiveEvents ::
+Fw::String PassiveEvents ::
   typedAliasStringReturnSync_handler(
       FwIndexType portNum,
       AliasPrim1 u32,
