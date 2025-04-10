@@ -17,19 +17,30 @@ AliasType ::
     m_x(0),
     m_y()
 {
-
+  for (FwSizeType i = 0; i < 50; i++) {
+    // Initialize the external string
+    this->m_z[i].setBuffer(&m___fprime_ac_z_buffer[i][0], sizeof m___fprime_ac_z_buffer[i]);
+    // Set the array value
+    this->m_z[i] = Fw::String("");
+  }
 }
 
 AliasType ::
   AliasType(
       U16Alias x,
-      const TAlias& y
+      const TAlias& y,
+      const Type_of_z& z
   ) :
     Serializable(),
     m_x(x),
     m_y(y)
 {
-
+  for (FwSizeType i = 0; i < 50; i++) {
+    // Initialize the external string
+    this->m_z[i].setBuffer(&m___fprime_ac_z_buffer[i][0], sizeof m___fprime_ac_z_buffer[i]);
+    // Set the array value
+    this->m_z[i] = z[i];
+  }
 }
 
 AliasType ::
@@ -38,7 +49,30 @@ AliasType ::
     m_x(obj.m_x),
     m_y(obj.m_y)
 {
+  for (FwSizeType i = 0; i < 50; i++) {
+    // Initialize the external string
+    this->m_z[i].setBuffer(&m___fprime_ac_z_buffer[i][0], sizeof m___fprime_ac_z_buffer[i]);
+    // Set the array value
+    this->m_z[i] = obj.m_z[i];
+  }
+}
 
+AliasType ::
+  AliasType(
+      U16Alias x,
+      const TAlias& y,
+      const Fw::StringBase& z
+  ) :
+    Serializable(),
+    m_x(x),
+    m_y(y)
+{
+  for (FwSizeType i = 0; i < 50; i++) {
+    // Initialize the external string
+    this->m_z[i].setBuffer(&m___fprime_ac_z_buffer[i][0], sizeof m___fprime_ac_z_buffer[i]);
+    // Set the array value
+    this->m_z[i] = z;
+  }
 }
 
 // ----------------------------------------------------------------------
@@ -52,7 +86,7 @@ AliasType& AliasType ::
     return *this;
   }
 
-  set(obj.m_x, obj.m_y);
+  set(obj.m_x, obj.m_y, obj.m_z);
   return *this;
 }
 
@@ -60,10 +94,23 @@ bool AliasType ::
   operator==(const AliasType& obj) const
 {
   if (this == &obj) { return true; }
-  return (
+
+  // Compare non-array members
+  if (!(
     (this->m_x == obj.m_x) &&
     (this->m_y == obj.m_y)
-  );
+  )) {
+    return false;
+  }
+
+  // Compare array members
+  for (FwSizeType i = 0; i < 50; i++) {
+    if (!(this->m_z[i] == obj.m_z[i])) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 bool AliasType ::
@@ -100,6 +147,12 @@ Fw::SerializeStatus AliasType ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
+  for (FwSizeType i = 0; i < 50; i++) {
+    status = buffer.serialize(this->m_z[i]);
+    if (status != Fw::FW_SERIALIZE_OK) {
+      return status;
+    }
+  }
 
   return status;
 }
@@ -117,6 +170,12 @@ Fw::SerializeStatus AliasType ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
+  for (FwSizeType i = 0; i < 50; i++) {
+    status = buffer.deserialize(this->m_z[i]);
+    if (status != Fw::FW_SERIALIZE_OK) {
+      return status;
+    }
+  }
 
   return status;
 }
@@ -129,7 +188,57 @@ void AliasType ::
   static const char* formatString =
     "( "
     "x = %s, "
-    "y = %s"
+    "y = %s, "
+    "z = [ %s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s, "
+    "%s ]"
     " )";
 
   // Declare strings to hold any serializable toString() arguments
@@ -141,7 +250,57 @@ void AliasType ::
   sb.format(
     formatString,
     this->m_x,
-    yStr.toChar()
+    yStr.toChar(),
+    this->m_z[0].toChar(),
+    this->m_z[1].toChar(),
+    this->m_z[2].toChar(),
+    this->m_z[3].toChar(),
+    this->m_z[4].toChar(),
+    this->m_z[5].toChar(),
+    this->m_z[6].toChar(),
+    this->m_z[7].toChar(),
+    this->m_z[8].toChar(),
+    this->m_z[9].toChar(),
+    this->m_z[10].toChar(),
+    this->m_z[11].toChar(),
+    this->m_z[12].toChar(),
+    this->m_z[13].toChar(),
+    this->m_z[14].toChar(),
+    this->m_z[15].toChar(),
+    this->m_z[16].toChar(),
+    this->m_z[17].toChar(),
+    this->m_z[18].toChar(),
+    this->m_z[19].toChar(),
+    this->m_z[20].toChar(),
+    this->m_z[21].toChar(),
+    this->m_z[22].toChar(),
+    this->m_z[23].toChar(),
+    this->m_z[24].toChar(),
+    this->m_z[25].toChar(),
+    this->m_z[26].toChar(),
+    this->m_z[27].toChar(),
+    this->m_z[28].toChar(),
+    this->m_z[29].toChar(),
+    this->m_z[30].toChar(),
+    this->m_z[31].toChar(),
+    this->m_z[32].toChar(),
+    this->m_z[33].toChar(),
+    this->m_z[34].toChar(),
+    this->m_z[35].toChar(),
+    this->m_z[36].toChar(),
+    this->m_z[37].toChar(),
+    this->m_z[38].toChar(),
+    this->m_z[39].toChar(),
+    this->m_z[40].toChar(),
+    this->m_z[41].toChar(),
+    this->m_z[42].toChar(),
+    this->m_z[43].toChar(),
+    this->m_z[44].toChar(),
+    this->m_z[45].toChar(),
+    this->m_z[46].toChar(),
+    this->m_z[47].toChar(),
+    this->m_z[48].toChar(),
+    this->m_z[49].toChar()
   );
 }
 
@@ -154,11 +313,19 @@ void AliasType ::
 void AliasType ::
   set(
       U16Alias x,
-      const TAlias& y
+      const TAlias& y,
+      const Type_of_z& z
   )
 {
   this->m_x = x;
   this->m_y = y;
+
+  for (FwSizeType i = 0; i < 50; i++) {
+    // Initialize the external string
+    this->m_z[i].setBuffer(&m___fprime_ac_z_buffer[i][0], sizeof m___fprime_ac_z_buffer[i]);
+    // Set the array value
+    this->m_z[i] = z[i];
+  }
 }
 
 void AliasType ::
@@ -171,4 +338,12 @@ void AliasType ::
   sety(const TAlias& y)
 {
   this->m_y = y;
+}
+
+void AliasType ::
+  setz(const Type_of_z& z)
+{
+  for (FwSizeType i = 0; i < 50; i++) {
+    this->m_z[i] = z[i];
+  }
 }

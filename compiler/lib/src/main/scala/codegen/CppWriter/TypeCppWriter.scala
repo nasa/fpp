@@ -19,7 +19,13 @@ case class TypeCppWriter(
 
     override def aliasType(s: CppWriterState, t: Type.AliasType) =
       (stringTypeName, t.getUnderlyingType) match {
-        case ("Fw::StringBase", Type.String(_)) => stringTypeName
+        // String aliases are aliases for Fw::String
+        // If the parent is asking for this we can keep alias source semantics
+        // and still utilize the C++ type alias
+        case ("Fw::String", Type.String(_)) => s.writeSymbol(Symbol.AliasType(t.node))
+        // This is a string type that is something other than what our alias uses
+        // as its underlying type. Use the type requested by the calling code
+        case (_, Type.String(_)) => stringTypeName
         case _ => s.writeSymbol(Symbol.AliasType(t.node))
       }
 

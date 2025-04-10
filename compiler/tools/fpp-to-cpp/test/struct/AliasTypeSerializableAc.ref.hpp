@@ -11,12 +11,22 @@
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
+#include "SAliasAliasAc.hpp"
 #include "TAliasAliasAc.hpp"
 #include "U16AliasAliasAc.hpp"
 
 class AliasType :
   public Fw::Serializable
 {
+
+  public:
+
+    // ----------------------------------------------------------------------
+    // Types
+    // ----------------------------------------------------------------------
+
+    //! The type of z
+    using Type_of_z = Fw::ExternalString[50];
 
   public:
 
@@ -28,7 +38,8 @@ class AliasType :
       //! The size of the serial representation
       SERIALIZED_SIZE =
         sizeof(U16Alias) +
-        TAlias::SERIALIZED_SIZE
+        TAlias::SERIALIZED_SIZE +
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(50) * 50
     };
 
   public:
@@ -43,12 +54,20 @@ class AliasType :
     //! Member constructor
     AliasType(
         U16Alias x,
-        const TAlias& y
+        const TAlias& y,
+        const Type_of_z& z
     );
 
     //! Copy constructor
     AliasType(
         const AliasType& obj //!< The source object
+    );
+
+    //! Member constructor (scalar values for arrays)
+    AliasType(
+        U16Alias x,
+        const TAlias& y,
+        const Fw::StringBase& z
     );
 
   public:
@@ -129,6 +148,18 @@ class AliasType :
       return this->m_y;
     }
 
+    //! Get member z
+    Type_of_z& getz()
+    {
+      return this->m_z;
+    }
+
+    //! Get member z (const)
+    const Type_of_z& getz() const
+    {
+      return this->m_z;
+    }
+
     // ----------------------------------------------------------------------
     // Setter functions
     // ----------------------------------------------------------------------
@@ -136,7 +167,8 @@ class AliasType :
     //! Set all members
     void set(
         U16Alias x,
-        const TAlias& y
+        const TAlias& y,
+        const Type_of_z& z
     );
 
     //! Set member x
@@ -144,6 +176,9 @@ class AliasType :
 
     //! Set member y
     void sety(const TAlias& y);
+
+    //! Set member z
+    void setz(const Type_of_z& z);
 
   protected:
 
@@ -153,6 +188,8 @@ class AliasType :
 
     U16Alias m_x;
     TAlias m_y;
+    char m___fprime_ac_z_buffer[50][Fw::StringBase::BUFFER_SIZE(50)];
+    Fw::ExternalString m_z[50];
 
 };
 

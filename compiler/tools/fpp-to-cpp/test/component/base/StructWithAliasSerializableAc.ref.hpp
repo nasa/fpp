@@ -31,7 +31,7 @@ class StructWithAlias :
       //! The size of the serial representation
       SERIALIZED_SIZE =
         sizeof(AliasPrim1) +
-        AliasString::SERIALIZED_SIZE +
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(32) +
         AliasArray::SERIALIZED_SIZE +
         AliasAliasArray::SERIALIZED_SIZE +
         AliasArrayAliasArray::SERIALIZED_SIZE
