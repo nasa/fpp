@@ -13178,7 +13178,8 @@ The generated code for an <a href="#Defining-Types_Alias-Type-Definitions">alias
 definition</a> is either a C-style <code>typedef</code> (in a <code>.h</code> file) or a C&#43;&#43;11-style
 <code>using</code> alias (in a <code>.hpp</code> file).  The generated code for an alias to an FPP
 <code>string</code> type is always an alias to the F Prime type <code>Fw::String</code>; the size in
-the <code>string</code> type is ignored. For example, the following alias type definitions
+the <code>string</code> type is ignored when generating the alias.
+For example, the following alias type definitions
 all generate aliases to <code>Fw::String</code>, either directly or indirectly:</p>
 </div>
 <div class="listingblock">
@@ -15165,7 +15166,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-04-09 17:26:56 -0700
+Last updated 2025-04-10 10:06:50 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

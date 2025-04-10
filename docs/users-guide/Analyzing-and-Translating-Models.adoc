@@ -606,7 +606,8 @@ The generated code for an <<Defining-Types_Alias-Type-Definitions,alias type
 definition>> is either a C-style `typedef` (in a `.h` file) or a {cpp}11-style
 `using` alias (in a `.hpp` file).  The generated code for an alias to an FPP
 `string` type is always an alias to the F Prime type `Fw::String`; the size in 
-the `string` type is ignored. For example, the following alias type definitions 
+the `string` type is ignored when generating the alias.
+For example, the following alias type definitions 
 all generate aliases to `Fw::String`, either directly or indirectly:
 
 [source,fpp]
