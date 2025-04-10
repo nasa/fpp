@@ -21,7 +21,6 @@ class ActiveSerial final :
 
     //! Construct ActiveSerial object
     ActiveSerial(
-        Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parameters
         const char* const compName //!< The component name
     );
 

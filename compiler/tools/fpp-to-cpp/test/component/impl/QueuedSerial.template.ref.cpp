@@ -11,13 +11,10 @@
 // ----------------------------------------------------------------------
 
 QueuedSerial ::
-  QueuedSerial(
-      Fw::ParamExternalDelegate& paramDelegateRef,
-      const char* const compName
-  ) :
-    QueuedSerialComponentBase(paramDelegateRef, compName)
+  QueuedSerial(const char* const compName)
 {
-
+  // TODO Initialize component base class with concrete implementation of ParamExternalDelegate
+  QueuedSerialComponentBase(Fw::ParamExternalDelegate(), compName);
 }
 
 QueuedSerial ::

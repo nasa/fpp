@@ -13,13 +13,10 @@ namespace M {
   // ----------------------------------------------------------------------
 
   ActiveTest ::
-    ActiveTest(
-        Fw::ParamExternalDelegate& paramDelegateRef,
-        const char* const compName
-    ) :
-      ActiveTestComponentBase(paramDelegateRef, compName)
+    ActiveTest(const char* const compName)
   {
-
+    // TODO Initialize component base class with concrete implementation of ParamExternalDelegate
+    ActiveTestComponentBase(Fw::ParamExternalDelegate(), compName);
   }
 
   ActiveTest ::

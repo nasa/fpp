@@ -11,13 +11,10 @@
 // ----------------------------------------------------------------------
 
 ActiveSerial ::
-  ActiveSerial(
-      Fw::ParamExternalDelegate& paramDelegateRef,
-      const char* const compName
-  ) :
-    ActiveSerialComponentBase(paramDelegateRef, compName)
+  ActiveSerial(const char* const compName)
 {
-
+  // TODO Initialize component base class with concrete implementation of ParamExternalDelegate
+  ActiveSerialComponentBase(Fw::ParamExternalDelegate(), compName);
 }
 
 ActiveSerial ::

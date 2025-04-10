@@ -21,7 +21,6 @@ class QueuedSerial final :
 
     //! Construct QueuedSerial object
     QueuedSerial(
-        Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parameters
         const char* const compName //!< The component name
     );
 

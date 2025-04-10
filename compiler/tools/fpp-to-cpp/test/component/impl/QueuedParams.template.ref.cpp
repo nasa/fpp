@@ -11,13 +11,10 @@
 // ----------------------------------------------------------------------
 
 QueuedParams ::
-  QueuedParams(
-      Fw::ParamExternalDelegate& paramDelegateRef,
-      const char* const compName
-  ) :
-    QueuedParamsComponentBase(paramDelegateRef, compName)
+  QueuedParams(const char* const compName)
 {
-
+  // TODO Initialize component base class with concrete implementation of ParamExternalDelegate
+  QueuedParamsComponentBase(Fw::ParamExternalDelegate(), compName);
 }
 
 QueuedParams ::

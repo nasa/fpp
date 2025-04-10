@@ -124,33 +124,31 @@ case class ComponentImplWriter(
 
   private def getConstructor: CppDoc.Class.Member = {
     val initializers = if (hasExternalParameters) {
-      List(s"$className(paramDelegateRef, compName)")
+      Nil
     } else {
       List(s"$className(compName)")
+    }
+    val bodyLines = if (hasExternalParameters) {
+      lines(
+        s"""|// TODO Initialize component base class with concrete implementation of ParamExternalDelegate
+            |$className(Fw::ParamExternalDelegate(), compName);
+            |"""
+      )
+    } else {
+      Nil
     }
 
     constructorClassMember(
       Some(s"Construct $componentImplClassName object"),
-      List.concat(
-        guardedList (hasExternalParameters) (
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::ParamExternalDelegate&"),
-              "paramDelegateRef",
-              Some("The delegate for externally managed parameters")
-            ),
-          )
-        ),
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type("const char* const"),
-            "compName",
-            Some("The component name")
-          )
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("const char* const"),
+          "compName",
+          Some("The component name")
         )
       ),
       initializers,
-      Nil
+      bodyLines
     )
   }
 

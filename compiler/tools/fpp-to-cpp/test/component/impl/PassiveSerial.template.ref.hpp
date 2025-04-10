@@ -21,7 +21,6 @@ class PassiveSerial final :
 
     //! Construct PassiveSerial object
     PassiveSerial(
-        Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parameters
         const char* const compName //!< The component name
     );
 

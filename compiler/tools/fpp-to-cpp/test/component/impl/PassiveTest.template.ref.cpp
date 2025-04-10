@@ -11,13 +11,10 @@
 // ----------------------------------------------------------------------
 
 PassiveTest ::
-  PassiveTest(
-      Fw::ParamExternalDelegate& paramDelegateRef,
-      const char* const compName
-  ) :
-    PassiveTestComponentBase(paramDelegateRef, compName)
+  PassiveTest(const char* const compName)
 {
-
+  // TODO Initialize component base class with concrete implementation of ParamExternalDelegate
+  PassiveTestComponentBase(Fw::ParamExternalDelegate(), compName);
 }
 
 PassiveTest ::

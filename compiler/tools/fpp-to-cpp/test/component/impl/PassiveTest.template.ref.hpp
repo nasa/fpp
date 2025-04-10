@@ -21,7 +21,6 @@ class PassiveTest final :
 
     //! Construct PassiveTest object
     PassiveTest(
-        Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parameters
         const char* const compName //!< The component name
     );
 

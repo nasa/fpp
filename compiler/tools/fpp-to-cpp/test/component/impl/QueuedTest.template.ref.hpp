@@ -21,7 +21,6 @@ class QueuedTest final :
 
     //! Construct QueuedTest object
     QueuedTest(
-        Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parameters
         const char* const compName //!< The component name
     );
 

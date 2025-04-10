@@ -11,13 +11,10 @@
 // ----------------------------------------------------------------------
 
 PassiveSerial ::
-  PassiveSerial(
-      Fw::ParamExternalDelegate& paramDelegateRef,
-      const char* const compName
-  ) :
-    PassiveSerialComponentBase(paramDelegateRef, compName)
+  PassiveSerial(const char* const compName)
 {
-
+  // TODO Initialize component base class with concrete implementation of ParamExternalDelegate
+  PassiveSerialComponentBase(Fw::ParamExternalDelegate(), compName);
 }
 
 PassiveSerial ::

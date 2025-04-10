@@ -23,7 +23,6 @@ namespace M {
 
       //! Construct ActiveTest object
       ActiveTest(
-          Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parameters
           const char* const compName //!< The component name
       );
 

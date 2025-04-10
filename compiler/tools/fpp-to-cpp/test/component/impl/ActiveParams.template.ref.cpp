@@ -11,13 +11,10 @@
 // ----------------------------------------------------------------------
 
 ActiveParams ::
-  ActiveParams(
-      Fw::ParamExternalDelegate& paramDelegateRef,
-      const char* const compName
-  ) :
-    ActiveParamsComponentBase(paramDelegateRef, compName)
+  ActiveParams(const char* const compName)
 {
-
+  // TODO Initialize component base class with concrete implementation of ParamExternalDelegate
+  ActiveParamsComponentBase(Fw::ParamExternalDelegate(), compName);
 }
 
 ActiveParams ::

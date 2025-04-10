@@ -11,13 +11,10 @@
 // ----------------------------------------------------------------------
 
 QueuedTest ::
-  QueuedTest(
-      Fw::ParamExternalDelegate& paramDelegateRef,
-      const char* const compName
-  ) :
-    QueuedTestComponentBase(paramDelegateRef, compName)
+  QueuedTest(const char* const compName)
 {
-
+  // TODO Initialize component base class with concrete implementation of ParamExternalDelegate
+  QueuedTestComponentBase(Fw::ParamExternalDelegate(), compName);
 }
 
 QueuedTest ::

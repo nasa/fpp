@@ -21,7 +21,6 @@ class PassiveParams final :
 
     //! Construct PassiveParams object
     PassiveParams(
-        Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parameters
         const char* const compName //!< The component name
     );
 

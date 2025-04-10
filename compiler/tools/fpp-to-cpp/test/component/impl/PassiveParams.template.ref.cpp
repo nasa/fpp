@@ -11,13 +11,10 @@
 // ----------------------------------------------------------------------
 
 PassiveParams ::
-  PassiveParams(
-      Fw::ParamExternalDelegate& paramDelegateRef,
-      const char* const compName
-  ) :
-    PassiveParamsComponentBase(paramDelegateRef, compName)
+  PassiveParams(const char* const compName)
 {
-
+  // TODO Initialize component base class with concrete implementation of ParamExternalDelegate
+  PassiveParamsComponentBase(Fw::ParamExternalDelegate(), compName);
 }
 
 PassiveParams ::
