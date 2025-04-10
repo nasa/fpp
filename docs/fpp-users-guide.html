@@ -13173,8 +13173,23 @@ For example, a component whose qualified name in FPP is <code>A.B.C</code>
 uses the name <code>A_B_CComponentAc_HPP</code> in its include guard.</p>
 </div>
 <div class="paragraph">
-<p><strong>Names of generated files for alias types:</strong>
-When reporting generated files for alias types via the <code>-n</code> option,
+<p><strong>Alias types:</strong>
+The generated code for an <a href="#Defining-Types_Alias-Type-Definitions">alias type
+definition</a> is either a C-style <code>typedef</code> (in a <code>.h</code> file) or a C&#43;&#43;11-style
+<code>using</code> alias (in a <code>.hpp</code> file).  The generated code for an alias to an FPP
+<code>string</code> type is always an alias to the F Prime type <code>Fw::String</code>; the size in
+the <code>string</code> type is ignored. For example, the following alias type definitions
+all generate aliases to <code>Fw::String</code>, either directly or indirectly:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">type T1 = string size 40 # Generates an alias to Fw::String
+type T2 = string size 80 # Generates an alias to Fw::String
+type T3 = T2 # Generates an alias to T2, which is an alias to Fw::String</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When reporting generated files for alias types via the <code>-n</code> option,
 <code>fpp-to-cpp</code> reports only <code>.hpp</code> files, not <code>.h</code> files.
 This is to keep the analysis simple, so that it can be run when
 <a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-depend">computing dependencies</a>.
@@ -13512,10 +13527,13 @@ run one tool (<code>fpp-depend</code>) instead of two (<code>fpp-depend</code> a
 Running one tool may help your build go faster.</p>
 </div>
 <div class="paragraph">
-<p><code>fpp-depend</code> provides the following options:</p>
+<p>To write out the names of generated files, you can use the following
+options provided by <code>fpp-depend</code>:</p>
 </div>
 <div class="paragraph">
-<p><code>-a</code>: Enable unit test auto helpers.</p>
+<p><code>-a</code>: Report the generation of files with
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">unit
+test auto helpers enabled</a>.</p>
 </div>
 <div class="paragraph">
 <p><code>-g</code> <em>file</em>: Write the names of the generated autocode files
@@ -15147,7 +15165,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-04-09 16:55:04 -0700
+Last updated 2025-04-09 17:23:50 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

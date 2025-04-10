@@ -601,7 +601,21 @@ the qualified name of the definition.
 For example, a component whose qualified name in FPP is `A.B.C`
 uses the name `A_B_CComponentAc_HPP` in its include guard.
 
-*Names of generated files for alias types:*
+*Alias types:*
+The generated code for an <<Defining-Types_Alias-Type-Definitions,alias type
+definition>> is either a C-style `typedef` (in a `.h` file) or a {cpp}11-style
+`using` alias (in a `.hpp` file).  The generated code for an alias to an FPP
+`string` type is always an alias to the F Prime type `Fw::String`; the size in 
+the `string` type is ignored. For example, the following alias type definitions 
+all generate aliases to `Fw::String`, either directly or indirectly:
+
+[source,fpp]
+----
+type T1 = string size 40 # Generates an alias to Fw::String
+type T2 = string size 80 # Generates an alias to Fw::String
+type T3 = T2 # Generates an alias to T2, which is an alias to Fw::String
+----
+
 When reporting generated files for alias types via the `-n` option,
 `fpp-to-cpp` reports only `.hpp` files, not `.h` files.
 This is to keep the analysis simple, so that it can be run when
@@ -882,9 +896,12 @@ run one tool (`fpp-depend`) instead of two (`fpp-depend` and
 `fpp-filenames`).
 Running one tool may help your build go faster.
 
-`fpp-depend` provides the following options:
+To write out the names of generated files, you can use the following
+options provided by `fpp-depend`:
 
-`-a`: Enable unit test auto helpers.
+`-a`: Report the generation of files with
+<<Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code,unit
+test auto helpers enabled>>.
 
 `-g` _file_: Write the names of the generated autocode files
  to the file _file_.
