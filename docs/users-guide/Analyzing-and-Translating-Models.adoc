@@ -140,8 +140,8 @@ even though `c.Out` has two ports and only one of them is connected.
 
 We are phasing out the use of XML in favor of generating
 JSON and directly generating {cpp}.
-However, the F Prime XML representation is still used, e.g., in
-for specifying the layout of telemetry packets.
+However, for backwards compatibility, the F Prime XML representation is still available
+as of this FPP release.
 This section describes how to generate XML from FPP.
 
 *XML file names:* The table <<xml-file-names>> shows how FPP definitions are
@@ -373,6 +373,8 @@ translated to {cpp} files.
 |State machine _M_ in component _C_|_C_ `_` _M_ `StateMachineAc.{hpp,cpp}`
 |Struct _S_ outside any component|_S_ `SerializableAc.{hpp,cpp}`
 |Struct _S_ in component _C_|_C_ `_` _S_ `SerializableAc.{hpp,cpp}`
+|Alias type _A_ outside any component|_A_ `AliasAc.{hpp,h,cpp}`
+|Alias type _A_ in component _C_|_C_ `_` _A_ `AliasAc.{hpp,h,cpp}`
 |Port _P_|_P_ `PortAc.{hpp,cpp}`
 |Component _C_|_C_ `ComponentAc.{hpp,cpp}`
 |Topology _T_|_T_ `TopologyAc.{hpp,cpp}`
@@ -406,6 +408,40 @@ module M {
 
 generates an array class `M::A` in files `AArrayAc.hpp`
 and `AArrayAc.cpp`.
+
+*Headers for alias types:*
+For alias types, a {cpp} header with suffix `.hpp` is always generated.
+A C header with suffix `.h` is also generated if the alias type
+is C-compatible.
+This means (1) the underlying
+type is a signed or unsigned integer type or a floating-point type,
+and (2) the alias type definition does not appear in an FPP module
+or component, and (3) if the alias type refers to another alias
+type _T_, then _T_ is C-compatible.
+For example, the following alias types are C-compatible
+and cause `.h` headers to be generated:
+
+[source,fpp]
+----
+type T1 = U32
+type T2 = T1
+----
+
+The following alias types are not C-compatible, so
+they do not cause `.h` headers to be generated:
+
+[source,fpp]
+----
+module M {
+  type T1 = U32 # Definition is in a module
+}
+type T2 = M.T1 # M.T1 is not C-compatible
+array A = [3] U32
+type T3 = A # A is not C-compatible
+----
+
+When both headers are generated, you should include the `.h` header in your
+C programs and the `.hpp` header in your {cpp} programs.
 
 *Tool name:* The tool for translating FPP to {cpp} is called
 `fpp-to-cpp`.
@@ -555,6 +591,7 @@ This is similar to the `-s` option for
 
 ==== Types, Ports, State Machines, and Components
 
+*Generating code:*
 To generate code for type, port, state machine, and component definitions, you
 run `fpp-to-cpp` in the same way as for
 <<Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions,
@@ -564,6 +601,31 @@ the qualified name of the definition.
 For example, a component whose qualified name in FPP is `A.B.C`
 uses the name `A_B_CComponentAc_HPP` in its include guard.
 
+*Alias types:*
+The generated code for an <<Defining-Types_Alias-Type-Definitions,alias type
+definition>> is either a C-style `typedef` (in a `.h` file) or a {cpp}11-style
+`using` alias (in a `.hpp` file).  The generated code for an alias to an FPP
+`string` type is always an alias to the F Prime type `Fw::String`; the size in 
+the `string` type is ignored when generating the alias.
+For example, the following alias type definitions 
+all generate aliases to `Fw::String`, either directly or indirectly:
+
+[source,fpp]
+----
+type T1 = string size 40 # Generates an alias to Fw::String
+type T2 = string size 80 # Generates an alias to Fw::String
+type T3 = T2 # Generates an alias to T2, which is an alias to Fw::String
+----
+
+When reporting generated files for alias types via the `-n` option,
+`fpp-to-cpp` reports only `.hpp` files, not `.h` files.
+This is to keep the analysis simple, so that it can be run when
+<<Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-depend,
+computing dependencies>>.
+In a future version of FPP, we may revise the analysis strategy
+and report the generation of `.h` files as well.
+
+*Using the generated code:*
 Once you generate {cpp} code for these definitions, you can use it to
 write a flight software implementation.
 The https://fprime.jpl.nasa.gov/devel/docs/user-manual/[F
@@ -576,7 +638,7 @@ Prime design documentation].
 
 ==== Component Implementation and Unit Test Code
 
-`fpp-to-cpp` has options `-t` and `-u` for generating component "`templates`" 
+`fpp-to-cpp` has options `-t` and `-u` for generating component "`templates`"
 or
 partial implementations and for generating unit test code.
 Here we cover the mechanics of using these options.
@@ -835,9 +897,12 @@ run one tool (`fpp-depend`) instead of two (`fpp-depend` and
 `fpp-filenames`).
 Running one tool may help your build go faster.
 
-`fpp-depend` provides the following options:
+To write out the names of generated files, you can use the following
+options provided by `fpp-depend`:
 
-`-a`: Enable unit test auto helpers.
+`-a`: Report the generation of files with
+<<Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code,unit
+test auto helpers enabled>>.
 
 `-g` _file_: Write the names of the generated autocode files
  to the file _file_.
@@ -1269,7 +1334,7 @@ FPP provides a tool called `fpp-to-layout` for generating files
 that you can use to visualize topologies.
 Given a topology _T_, this tool generates a directory containing
 the *layout input files* for _T_.
-There is one file for each <<Defining-Topologies_Connection-Graphs,connection 
+There is one file for each <<Defining-Topologies_Connection-Graphs,connection
 graph>> in _T_.
 The files are designed to work with a tool called `fprime-layout`, which
 we describe below.
@@ -1304,7 +1369,7 @@ remove it.
 
 . In the directory created in step 2, write one layout input file
 for each of the connection graphs in _T_.
-The 
+The
 https://github.com/fprime-community/fprime-layout/wiki/Topology-Input[`fprime-layout` wiki]
 describes the file format.
 
@@ -1319,8 +1384,8 @@ See the https://github.com/nasa/fpp/wiki/fpp-to-layout[FPP wiki] for details.
 *Producing visualizations:*
 Once you have generated layout input files, you can use a
 companion tool called `fprime-layout` to read the files and produce a
-*topology visualization*, i.e., a graphical rendering of the topology in which 
-the component instances are shapes, the ports are smaller shapes, and the 
+*topology visualization*, i.e., a graphical rendering of the topology in which
+the component instances are shapes, the ports are smaller shapes, and the
 connections are arrows between the ports.
 Topology visualization is an important part of the FPP work flow:
 
@@ -1379,12 +1444,12 @@ Except for the tool name, this procedure is identical to the one given for
 either through named files or through standard input.
 
 *Tool behavior:*
-For each topology _T_ defined in the input files _F_, `fpp-to-dict` writes a 
+For each topology _T_ defined in the input files _F_, `fpp-to-dict` writes a
 file
 _T_ `TopologyDictionary.json`.
 The dictionary is specified in JavaScript Object Notation (JSON) format.
 The JSON format is specified in the
-https://fprime.jpl.nasa.gov/devel/docs/reference/fpp-json-dict/[F Prime design 
+https://fprime.jpl.nasa.gov/devel/docs/reference/fpp-json-dict/[F Prime design
 documentation].
 
 Here is a common use case:
