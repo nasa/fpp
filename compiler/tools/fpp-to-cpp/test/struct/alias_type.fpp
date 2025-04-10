@@ -5,5 +5,5 @@ type SAlias = string size 50
 struct AliasType {
     x: U16Alias,
     y: TAlias,
-    z: [50] SAlias
+    z: [10] SAlias
 }

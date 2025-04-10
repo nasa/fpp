@@ -26,7 +26,7 @@ class AliasType :
     // ----------------------------------------------------------------------
 
     //! The type of z
-    using Type_of_z = Fw::ExternalString[50];
+    using Type_of_z = Fw::ExternalString[10];
 
   public:
 
@@ -39,7 +39,7 @@ class AliasType :
       SERIALIZED_SIZE =
         sizeof(U16Alias) +
         TAlias::SERIALIZED_SIZE +
-        Fw::StringBase::STATIC_SERIALIZED_SIZE(50) * 50
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(50) * 10
     };
 
   public:
@@ -188,8 +188,8 @@ class AliasType :
 
     U16Alias m_x;
     TAlias m_y;
-    char m___fprime_ac_z_buffer[50][Fw::StringBase::BUFFER_SIZE(50)];
-    Fw::ExternalString m_z[50];
+    char m___fprime_ac_z_buffer[10][Fw::StringBase::BUFFER_SIZE(50)];
+    Fw::ExternalString m_z[10];
 
 };
 
