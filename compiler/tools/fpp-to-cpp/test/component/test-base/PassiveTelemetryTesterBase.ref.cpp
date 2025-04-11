@@ -1006,7 +1006,7 @@ AliasPrim2 PassiveTelemetryTesterBase ::
   return 0.0f;
 }
 
-AliasString PassiveTelemetryTesterBase ::
+Fw::String PassiveTelemetryTesterBase ::
   from_typedAliasReturnStringOut_handler(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -1148,7 +1148,7 @@ AliasPrim2 PassiveTelemetryTesterBase ::
   );
 }
 
-AliasString PassiveTelemetryTesterBase ::
+Fw::String PassiveTelemetryTesterBase ::
   from_typedAliasReturnStringOut_handlerBase(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -1239,7 +1239,7 @@ F32 PassiveTelemetryTesterBase ::
 // Invocation functions for to ports
 // ----------------------------------------------------------------------
 
-AliasString PassiveTelemetryTesterBase ::
+Fw::String PassiveTelemetryTesterBase ::
   invoke_to_noArgsAliasStringReturnSync(FwIndexType portNum)
 {
   // Make sure port number is valid
@@ -1361,7 +1361,7 @@ AliasPrim2 PassiveTelemetryTesterBase ::
   );
 }
 
-AliasString PassiveTelemetryTesterBase ::
+Fw::String PassiveTelemetryTesterBase ::
   invoke_to_typedAliasStringReturnSync(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -2442,7 +2442,7 @@ AliasPrim2 PassiveTelemetryTesterBase ::
   );
 }
 
-AliasString PassiveTelemetryTesterBase ::
+Fw::String PassiveTelemetryTesterBase ::
   from_typedAliasReturnStringOut_static(
       Fw::PassiveComponentBase* const callComp,
       FwIndexType portNum,

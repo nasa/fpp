@@ -42,7 +42,7 @@ void ActiveParams ::
   // TODO
 }
 
-AliasString ActiveParams ::
+Fw::String ActiveParams ::
   noArgsAliasStringReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
@@ -114,7 +114,7 @@ AliasPrim2 ActiveParams ::
   // TODO return
 }
 
-AliasString ActiveParams ::
+Fw::String ActiveParams ::
   typedAliasStringReturnSync_handler(
       FwIndexType portNum,
       AliasPrim1 u32,

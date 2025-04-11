@@ -42,7 +42,7 @@ void ActiveEvents ::
   // TODO
 }
 
-AliasString ActiveEvents ::
+Fw::String ActiveEvents ::
   noArgsAliasStringReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
@@ -114,7 +114,7 @@ AliasPrim2 ActiveEvents ::
   // TODO return
 }
 
-AliasString ActiveEvents ::
+Fw::String ActiveEvents ::
   typedAliasStringReturnSync_handler(
       FwIndexType portNum,
       AliasPrim1 u32,

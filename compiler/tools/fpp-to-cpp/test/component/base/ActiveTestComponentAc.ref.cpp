@@ -2879,7 +2879,7 @@ namespace M {
     );
   }
 
-  AliasString ActiveTestComponentBase ::
+  Fw::String ActiveTestComponentBase ::
     noArgsAliasStringReturnSync_handlerBase(FwIndexType portNum)
   {
     // Make sure port number is valid
@@ -2888,7 +2888,7 @@ namespace M {
       static_cast<FwAssertArgType>(portNum)
     );
 
-    AliasString retVal;
+    Fw::String retVal;
 
     // Call handler function
     retVal = this->noArgsAliasStringReturnSync_handler(portNum);
@@ -3097,7 +3097,7 @@ namespace M {
     return retVal;
   }
 
-  AliasString ActiveTestComponentBase ::
+  Fw::String ActiveTestComponentBase ::
     typedAliasStringReturnSync_handlerBase(
         FwIndexType portNum,
         AliasPrim1 u32,
@@ -3115,7 +3115,7 @@ namespace M {
       static_cast<FwAssertArgType>(portNum)
     );
 
-    AliasString retVal;
+    Fw::String retVal;
 
     // Call handler function
     retVal = this->typedAliasStringReturnSync_handler(
@@ -3978,7 +3978,7 @@ namespace M {
     );
   }
 
-  AliasString ActiveTestComponentBase ::
+  Fw::String ActiveTestComponentBase ::
     typedAliasReturnStringOut_out(
         FwIndexType portNum,
         AliasPrim1 u32,
@@ -7796,7 +7796,7 @@ namespace M {
     );
   }
 
-  AliasString ActiveTestComponentBase ::
+  Fw::String ActiveTestComponentBase ::
     m_p_noArgsAliasStringReturnSync_in(
         Fw::PassiveComponentBase* callComp,
         FwIndexType portNum
@@ -7927,7 +7927,7 @@ namespace M {
     );
   }
 
-  AliasString ActiveTestComponentBase ::
+  Fw::String ActiveTestComponentBase ::
     m_p_typedAliasStringReturnSync_in(
         Fw::PassiveComponentBase* callComp,
         FwIndexType portNum,

@@ -1638,7 +1638,7 @@ bool PassiveTelemetryComponentBase ::
 // Call these functions directly to bypass the corresponding ports
 // ----------------------------------------------------------------------
 
-AliasString PassiveTelemetryComponentBase ::
+Fw::String PassiveTelemetryComponentBase ::
   noArgsAliasStringReturnSync_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
@@ -1647,7 +1647,7 @@ AliasString PassiveTelemetryComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  AliasString retVal;
+  Fw::String retVal;
 
   // Call handler function
   retVal = this->noArgsAliasStringReturnSync_handler(portNum);
@@ -1816,7 +1816,7 @@ AliasPrim2 PassiveTelemetryComponentBase ::
   return retVal;
 }
 
-AliasString PassiveTelemetryComponentBase ::
+Fw::String PassiveTelemetryComponentBase ::
   typedAliasStringReturnSync_handlerBase(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -1834,7 +1834,7 @@ AliasString PassiveTelemetryComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  AliasString retVal;
+  Fw::String retVal;
 
   // Call handler function
   retVal = this->typedAliasStringReturnSync_handler(
@@ -2108,7 +2108,7 @@ AliasPrim2 PassiveTelemetryComponentBase ::
   );
 }
 
-AliasString PassiveTelemetryComponentBase ::
+Fw::String PassiveTelemetryComponentBase ::
   typedAliasReturnStringOut_out(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -2660,7 +2660,7 @@ void PassiveTelemetryComponentBase ::
 // Calls for messages received on typed input ports
 // ----------------------------------------------------------------------
 
-AliasString PassiveTelemetryComponentBase ::
+Fw::String PassiveTelemetryComponentBase ::
   m_p_noArgsAliasStringReturnSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum
@@ -2780,7 +2780,7 @@ AliasPrim2 PassiveTelemetryComponentBase ::
   );
 }
 
-AliasString PassiveTelemetryComponentBase ::
+Fw::String PassiveTelemetryComponentBase ::
   m_p_typedAliasStringReturnSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
