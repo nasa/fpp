@@ -377,13 +377,13 @@ namespace M {
               const FwPrmIdType id, //!< The parameter ID to deserialize
               const Fw::ParamValid prmStat, //!< The parameter validity status
               Fw::ParamBuffer& buff //!< The buffer containing the parameter to deserialize
-          );
+          ) override;
 
           //! Parameter serialization function for external parameter unit testing
           Fw::SerializeStatus serializeParam(
               const FwPrmIdType id, //!< The parameter ID to serialize
               Fw::ParamBuffer& buff //!< The buffer to serialize the parameter into
-          ) const;
+          ) const override;
 
       };
 
@@ -2443,7 +2443,7 @@ namespace M {
       //! A parameter with struct data and set/save opcodes
       S m_param_ParamStruct;
 
-    private:
+    public:
 
       // ----------------------------------------------------------------------
       // Parameter delegates

@@ -13,7 +13,7 @@
 PassiveSerialTester ::
   PassiveSerialTester() :
     PassiveSerialGTestBase("PassiveSerialTester", PassiveSerialTester::MAX_HISTORY_SIZE),
-    component(paramDelegateRef, "PassiveSerial")
+    component(this->paramDelegate, "PassiveSerial")
 {
   this->initComponents();
   this->connectPorts();

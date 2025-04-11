@@ -1657,7 +1657,7 @@ case class ComponentTesterBaseWriter(
       ),
       guardedList (hasExternalParameters) (
         addAccessTagAndComment(
-          "private",
+          "public",
           "Parameter delegates",
           List(
             linesClassMember(
@@ -1771,7 +1771,7 @@ case class ExternalParameterDelegate(
                   |"""
             )
           },
-          CppDoc.Function.NonSV,
+          CppDoc.Function.Override,
           CppDoc.Function.NonConst
         ),
         functionClassMember(
@@ -1820,7 +1820,7 @@ case class ExternalParameterDelegate(
                   |"""
             )
           },
-          CppDoc.Function.NonSV,
+          CppDoc.Function.Override,
           CppDoc.Function.Const
         )
       )

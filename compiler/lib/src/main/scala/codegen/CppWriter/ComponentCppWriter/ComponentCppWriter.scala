@@ -526,6 +526,7 @@ case class ComponentCppWriter (
       ).flatten
     }
 
+    println(s"getProtectedComponentFunctionMembers ${componentClassName}: hasExternalParameters: ${hasExternalParameters}")
     addAccessTagAndComment(
       "PROTECTED",
       "Component construction and destruction",

@@ -107,7 +107,7 @@ case class ComponentTestImplWriter(
 
   private def getConstructorMembers: List[CppDoc.Class.Member] = {
     val compInitializer = if (hasExternalParameters) {
-      s"component(paramDelegateRef, \"$componentImplClassName\")"
+      s"component(this->paramDelegate, \"$componentImplClassName\")"
     } else {
       s"component(\"$componentImplClassName\")"
     }
