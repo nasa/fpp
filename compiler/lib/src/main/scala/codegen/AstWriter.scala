@@ -129,7 +129,8 @@ object AstWriter extends AstVisitor with LineUtils {
     List.concat(
       ident(data.name),
       linesOpt(typeNameNode, data.typeName),
-      data.constants.flatMap(annotateNode(defEnumConstant))
+      data.constants.flatMap(annotateNode(defEnumConstant)),
+      linesOpt(addPrefix("default", exprNode), data.default)
     ).map(indentIn)
   }
 
