@@ -13,10 +13,11 @@
 ActiveParamsTester ::
   ActiveParamsTester() :
     ActiveParamsGTestBase("ActiveParamsTester", ActiveParamsTester::MAX_HISTORY_SIZE),
-    component(this->paramDelegate, "ActiveParams")
+    component("ActiveParams")
 {
   this->initComponents();
   this->connectPorts();
+  this->component.registerExternalParameters(&this->paramTesterDelegate);
 }
 
 ActiveParamsTester ::

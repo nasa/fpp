@@ -13,8 +13,11 @@
 QueuedSerial ::
   QueuedSerial(const char* const compName)
 {
-  // TODO Initialize component base class with concrete implementation of ParamExternalDelegate
-  QueuedSerialComponentBase(Fw::ParamExternalDelegate(), compName);
+  // TODO Initialize the ParamExternalDelegate
+  // The register function can be called directly here:
+  // E.G. this->registerExternalParameters(SomeParamExternalDelegateChild());
+  // Or the protected register function can be exposed and
+  // called externally to the QueuedSerial
 }
 
 QueuedSerial ::

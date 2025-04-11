@@ -369,7 +369,7 @@ namespace M {
         public:
 
           // ----------------------------------------------------------------------
-          // Unit test external parameter delegate serialization/deserialization
+          // Unit test implementation of external parameter delegate serialization/deserialization
           // ----------------------------------------------------------------------
 
           //! Parameter deserialization function for external parameter unit testing
@@ -2443,14 +2443,14 @@ namespace M {
       //! A parameter with struct data and set/save opcodes
       S m_param_ParamStruct;
 
-    public:
+    protected:
 
       // ----------------------------------------------------------------------
       // Parameter delegates
       // ----------------------------------------------------------------------
 
       //! Delegate to serialize/deserialize an externally stored parameter
-      ActiveTestComponentBaseParamExternalDelegate paramDelegate;
+      ActiveTestComponentBaseParamExternalDelegate paramTesterDelegate;
 
     private:
 

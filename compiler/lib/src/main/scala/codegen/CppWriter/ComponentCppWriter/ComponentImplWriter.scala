@@ -130,8 +130,11 @@ case class ComponentImplWriter(
     }
     val bodyLines = if (hasExternalParameters) {
       lines(
-        s"""|// TODO Initialize component base class with concrete implementation of ParamExternalDelegate
-            |$className(Fw::ParamExternalDelegate(), compName);
+        s"""|// TODO Initialize the ParamExternalDelegate
+            |// The register function can be called directly here:
+            |// E.G. this->registerExternalParameters(SomeParamExternalDelegateChild());
+            |// Or the protected register function can be exposed and
+            |// called externally to the $componentImplClassName
             |"""
       )
     } else {

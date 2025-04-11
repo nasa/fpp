@@ -15,10 +15,11 @@ namespace M {
   ActiveTestTester ::
     ActiveTestTester() :
       ActiveTestGTestBase("ActiveTestTester", ActiveTestTester::MAX_HISTORY_SIZE),
-      component(this->paramDelegate, "ActiveTest")
+      component("ActiveTest")
   {
     this->initComponents();
     this->connectPorts();
+    this->component.registerExternalParameters(&this->paramTesterDelegate);
   }
 
   ActiveTestTester ::

@@ -13,10 +13,11 @@
 PassiveTestTester ::
   PassiveTestTester() :
     PassiveTestGTestBase("PassiveTestTester", PassiveTestTester::MAX_HISTORY_SIZE),
-    component(this->paramDelegate, "PassiveTest")
+    component("PassiveTest")
 {
   this->initComponents();
   this->connectPorts();
+  this->component.registerExternalParameters(&this->paramTesterDelegate);
 }
 
 PassiveTestTester ::

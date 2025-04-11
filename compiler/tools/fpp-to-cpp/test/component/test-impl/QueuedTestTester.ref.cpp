@@ -13,10 +13,11 @@
 QueuedTestTester ::
   QueuedTestTester() :
     QueuedTestGTestBase("QueuedTestTester", QueuedTestTester::MAX_HISTORY_SIZE),
-    component(this->paramDelegate, "QueuedTest")
+    component("QueuedTest")
 {
   this->initComponents();
   this->connectPorts();
+  this->component.registerExternalParameters(&this->paramTesterDelegate);
 }
 
 QueuedTestTester ::

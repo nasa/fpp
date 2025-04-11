@@ -10,7 +10,7 @@
 #include "test-base/ActiveSerialTesterBase.hpp"
 
 // ----------------------------------------------------------------------
-// Unit test external parameter delegate serialization/deserialization
+// Unit test implementation of external parameter delegate serialization/deserialization
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus ActiveSerialTesterBase::ActiveSerialComponentBaseParamExternalDelegate ::
@@ -4745,8 +4745,8 @@ void ActiveSerialTesterBase ::
       Fw::ParamValid valid
   )
 {
-  this->paramDelegate.m_param_ParamI32 = val;
-  this->paramDelegate.m_param_ParamI32_valid = valid;
+  this->paramTesterDelegate.m_param_ParamI32 = val;
+  this->paramTesterDelegate.m_param_ParamI32_valid = valid;
 }
 
 void ActiveSerialTesterBase ::
@@ -4758,7 +4758,7 @@ void ActiveSerialTesterBase ::
   // Build command for parameter set
   Fw::CmdArgBuffer args;
   FW_ASSERT(
-    args.serialize(this->paramDelegate.m_param_ParamI32) == Fw::FW_SERIALIZE_OK
+    args.serialize(this->paramTesterDelegate.m_param_ParamI32) == Fw::FW_SERIALIZE_OK
   );
 
   const U32 idBase = this->getIdBase();
@@ -5217,8 +5217,8 @@ Fw::ParamValid ActiveSerialTesterBase ::
     };
 
     case ActiveSerialComponentBase::PARAMID_PARAMI32: {
-      _status = val.serialize(_testerBase->paramDelegate.m_param_ParamI32);
-      _ret = _testerBase->paramDelegate.m_param_ParamI32_valid;
+      _status = val.serialize(_testerBase->paramTesterDelegate.m_param_ParamI32);
+      _ret = _testerBase->paramTesterDelegate.m_param_ParamI32_valid;
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -5347,7 +5347,7 @@ void ActiveSerialTesterBase ::
       );
       FW_ASSERT(
         ParamI32Val ==
-        _testerBase->paramDelegate.m_param_ParamI32
+        _testerBase->paramTesterDelegate.m_param_ParamI32
       );
       break;
     };

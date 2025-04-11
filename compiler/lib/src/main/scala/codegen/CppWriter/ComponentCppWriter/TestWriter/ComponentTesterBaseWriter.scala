@@ -1244,8 +1244,8 @@ case class ComponentTesterBaseWriter(
             CppDoc.Type("void"),
             if (prm.isExternal) {
               lines(
-                s"""|this->paramDelegate.$paramVarName = val;
-                    |this->paramDelegate.$paramValidityFlag = valid;
+                s"""|this->paramTesterDelegate.$paramVarName = val;
+                    |this->paramTesterDelegate.$paramValidityFlag = valid;
                     |"""
               )
             } else {
@@ -1270,7 +1270,7 @@ case class ComponentTesterBaseWriter(
             CppDoc.Type("void"),
             {
               val paramVar = if (prm.isExternal) {
-                s"paramDelegate.${paramVariableName(prm.getName)}"
+                s"paramTesterDelegate.${paramVariableName(prm.getName)}"
               } else {
                 paramVariableName(prm.getName)
               }
@@ -1366,12 +1366,12 @@ case class ComponentTesterBaseWriter(
               val prmName = prm.getName
               val idConstantName = paramIdConstantName(prmName)
               val varName = if (prm.isExternal) {
-                s"paramDelegate.${paramVariableName(prm.getName)}"
+                s"paramTesterDelegate.${paramVariableName(prm.getName)}"
               } else {
                 paramVariableName(prm.getName)
               }
               val validityFlagName = if (prm.isExternal) {
-                s"paramDelegate.${paramValidityFlagName(prm.getName)}"
+                s"paramTesterDelegate.${paramValidityFlagName(prm.getName)}"
               } else {
                 paramValidityFlagName(prm.getName)
               }
@@ -1426,7 +1426,7 @@ case class ComponentTesterBaseWriter(
             val idConstantName = paramIdConstantName(paramName)
             val paramNameVal = s"${paramName}Val"
             val paramVarName = if (prm.isExternal) {
-              s"paramDelegate.${paramVariableName(paramName)}"
+              s"paramTesterDelegate.${paramVariableName(paramName)}"
             } else {
               paramVariableName(paramName)
             }
@@ -1657,14 +1657,14 @@ case class ComponentTesterBaseWriter(
       ),
       guardedList (hasExternalParameters) (
         addAccessTagAndComment(
-          "public",
+          "protected",
           "Parameter delegates",
           List(
             linesClassMember(
               lines(
                 s"""|
                     |//! Delegate to serialize/deserialize an externally stored parameter
-                    |${componentClassName}ParamExternalDelegate paramDelegate;
+                    |${componentClassName}ParamExternalDelegate paramTesterDelegate;
                     |"""
               )
             )
@@ -1718,7 +1718,7 @@ case class ExternalParameterDelegate(
   private def getFunctionMembers: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
       "public",
-      "Unit test external parameter delegate serialization/deserialization",
+      "Unit test implementation of external parameter delegate serialization/deserialization",
       List(
         functionClassMember(
           Some(s"Parameter deserialization function for external parameter unit testing"),
