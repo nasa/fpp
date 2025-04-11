@@ -2062,7 +2062,7 @@ void QueuedTelemetryComponentBase ::
   );
 }
 
-AliasString QueuedTelemetryComponentBase ::
+Fw::String QueuedTelemetryComponentBase ::
   noArgsAliasStringReturnSync_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
@@ -2071,7 +2071,7 @@ AliasString QueuedTelemetryComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  AliasString retVal;
+  Fw::String retVal;
 
   // Call handler function
   retVal = this->noArgsAliasStringReturnSync_handler(portNum);
@@ -2280,7 +2280,7 @@ AliasPrim2 QueuedTelemetryComponentBase ::
   return retVal;
 }
 
-AliasString QueuedTelemetryComponentBase ::
+Fw::String QueuedTelemetryComponentBase ::
   typedAliasStringReturnSync_handlerBase(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -2298,7 +2298,7 @@ AliasString QueuedTelemetryComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  AliasString retVal;
+  Fw::String retVal;
 
   // Call handler function
   retVal = this->typedAliasStringReturnSync_handler(
@@ -3094,7 +3094,7 @@ AliasPrim2 QueuedTelemetryComponentBase ::
   );
 }
 
-AliasString QueuedTelemetryComponentBase ::
+Fw::String QueuedTelemetryComponentBase ::
   typedAliasReturnStringOut_out(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -4121,7 +4121,7 @@ void QueuedTelemetryComponentBase ::
   );
 }
 
-AliasString QueuedTelemetryComponentBase ::
+Fw::String QueuedTelemetryComponentBase ::
   m_p_noArgsAliasStringReturnSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum
@@ -4252,7 +4252,7 @@ AliasPrim2 QueuedTelemetryComponentBase ::
   );
 }
 
-AliasString QueuedTelemetryComponentBase ::
+Fw::String QueuedTelemetryComponentBase ::
   m_p_typedAliasStringReturnSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,

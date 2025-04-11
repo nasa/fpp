@@ -1227,7 +1227,7 @@ AliasPrim2 ActiveCommandsTesterBase ::
   return 0.0f;
 }
 
-AliasString ActiveCommandsTesterBase ::
+Fw::String ActiveCommandsTesterBase ::
   from_typedAliasReturnStringOut_handler(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -1369,7 +1369,7 @@ AliasPrim2 ActiveCommandsTesterBase ::
   );
 }
 
-AliasString ActiveCommandsTesterBase ::
+Fw::String ActiveCommandsTesterBase ::
   from_typedAliasReturnStringOut_handlerBase(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -1488,7 +1488,7 @@ void ActiveCommandsTesterBase ::
   );
 }
 
-AliasString ActiveCommandsTesterBase ::
+Fw::String ActiveCommandsTesterBase ::
   invoke_to_noArgsAliasStringReturnSync(FwIndexType portNum)
 {
   // Make sure port number is valid
@@ -1621,7 +1621,7 @@ AliasPrim2 ActiveCommandsTesterBase ::
   );
 }
 
-AliasString ActiveCommandsTesterBase ::
+Fw::String ActiveCommandsTesterBase ::
   invoke_to_typedAliasStringReturnSync(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -3254,7 +3254,7 @@ AliasPrim2 ActiveCommandsTesterBase ::
   );
 }
 
-AliasString ActiveCommandsTesterBase ::
+Fw::String ActiveCommandsTesterBase ::
   from_typedAliasReturnStringOut_static(
       Fw::PassiveComponentBase* const callComp,
       FwIndexType portNum,

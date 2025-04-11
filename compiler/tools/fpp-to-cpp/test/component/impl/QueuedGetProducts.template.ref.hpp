@@ -50,7 +50,7 @@ class QueuedGetProducts final :
     //! Handler implementation for noArgsAliasStringReturnSync
     //!
     //! A typed sync input port with a string return type
-    AliasString noArgsAliasStringReturnSync_handler(
+    Fw::String noArgsAliasStringReturnSync_handler(
         FwIndexType portNum //!< The port number
     ) override;
 
@@ -127,7 +127,7 @@ class QueuedGetProducts final :
     //! Handler implementation for typedAliasStringReturnSync
     //!
     //! A typed sync input port with a return type
-    AliasString typedAliasStringReturnSync_handler(
+    Fw::String typedAliasStringReturnSync_handler(
         FwIndexType portNum, //!< The port number
         AliasPrim1 u32, //!< A primitive
         AliasPrim2 f32, //!< Another primtive

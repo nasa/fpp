@@ -42,7 +42,7 @@ void ActiveCommands ::
   // TODO
 }
 
-AliasString ActiveCommands ::
+Fw::String ActiveCommands ::
   noArgsAliasStringReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
@@ -114,7 +114,7 @@ AliasPrim2 ActiveCommands ::
   // TODO return
 }
 
-AliasString ActiveCommands ::
+Fw::String ActiveCommands ::
   typedAliasStringReturnSync_handler(
       FwIndexType portNum,
       AliasPrim1 u32,

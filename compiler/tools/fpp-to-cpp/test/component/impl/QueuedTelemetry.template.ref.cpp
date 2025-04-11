@@ -42,7 +42,7 @@ void QueuedTelemetry ::
   // TODO
 }
 
-AliasString QueuedTelemetry ::
+Fw::String QueuedTelemetry ::
   noArgsAliasStringReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
@@ -114,7 +114,7 @@ AliasPrim2 QueuedTelemetry ::
   // TODO return
 }
 
-AliasString QueuedTelemetry ::
+Fw::String QueuedTelemetry ::
   typedAliasStringReturnSync_handler(
       FwIndexType portNum,
       AliasPrim1 u32,

@@ -1204,7 +1204,7 @@ AliasPrim2 QueuedTelemetryTesterBase ::
   return 0.0f;
 }
 
-AliasString QueuedTelemetryTesterBase ::
+Fw::String QueuedTelemetryTesterBase ::
   from_typedAliasReturnStringOut_handler(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -1346,7 +1346,7 @@ AliasPrim2 QueuedTelemetryTesterBase ::
   );
 }
 
-AliasString QueuedTelemetryTesterBase ::
+Fw::String QueuedTelemetryTesterBase ::
   from_typedAliasReturnStringOut_handlerBase(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -1465,7 +1465,7 @@ void QueuedTelemetryTesterBase ::
   );
 }
 
-AliasString QueuedTelemetryTesterBase ::
+Fw::String QueuedTelemetryTesterBase ::
   invoke_to_noArgsAliasStringReturnSync(FwIndexType portNum)
 {
   // Make sure port number is valid
@@ -1598,7 +1598,7 @@ AliasPrim2 QueuedTelemetryTesterBase ::
   );
 }
 
-AliasString QueuedTelemetryTesterBase ::
+Fw::String QueuedTelemetryTesterBase ::
   invoke_to_typedAliasStringReturnSync(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -2893,7 +2893,7 @@ AliasPrim2 QueuedTelemetryTesterBase ::
   );
 }
 
-AliasString QueuedTelemetryTesterBase ::
+Fw::String QueuedTelemetryTesterBase ::
   from_typedAliasReturnStringOut_static(
       Fw::PassiveComponentBase* const callComp,
       FwIndexType portNum,

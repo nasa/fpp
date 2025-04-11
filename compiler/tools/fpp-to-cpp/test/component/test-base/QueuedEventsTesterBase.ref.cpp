@@ -1224,7 +1224,7 @@ AliasPrim2 QueuedEventsTesterBase ::
   return 0.0f;
 }
 
-AliasString QueuedEventsTesterBase ::
+Fw::String QueuedEventsTesterBase ::
   from_typedAliasReturnStringOut_handler(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -1366,7 +1366,7 @@ AliasPrim2 QueuedEventsTesterBase ::
   );
 }
 
-AliasString QueuedEventsTesterBase ::
+Fw::String QueuedEventsTesterBase ::
   from_typedAliasReturnStringOut_handlerBase(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -1485,7 +1485,7 @@ void QueuedEventsTesterBase ::
   );
 }
 
-AliasString QueuedEventsTesterBase ::
+Fw::String QueuedEventsTesterBase ::
   invoke_to_noArgsAliasStringReturnSync(FwIndexType portNum)
 {
   // Make sure port number is valid
@@ -1618,7 +1618,7 @@ AliasPrim2 QueuedEventsTesterBase ::
   );
 }
 
-AliasString QueuedEventsTesterBase ::
+Fw::String QueuedEventsTesterBase ::
   invoke_to_typedAliasStringReturnSync(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -3167,7 +3167,7 @@ AliasPrim2 QueuedEventsTesterBase ::
   );
 }
 
-AliasString QueuedEventsTesterBase ::
+Fw::String QueuedEventsTesterBase ::
   from_typedAliasReturnStringOut_static(
       Fw::PassiveComponentBase* const callComp,
       FwIndexType portNum,
