@@ -52,6 +52,7 @@ def module
         ident Y
       def enum constant
         ident Z
+      default ident X
     @ Container specifier
     spec container
       ident C

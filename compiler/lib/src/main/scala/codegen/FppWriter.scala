@@ -219,7 +219,8 @@ object FppWriter extends AstVisitor with LineUtils {
       joinOpt (data.typeName) (": ") (typeNameNode).
       joinNoIndent (" ") (
         addBraces(data.constants.flatMap(annotateNode(defEnumConstant)))
-      )
+      ).
+      joinOpt (data.default) (" default ") (exprNode)
   }
 
   override def defGuardAnnotatedNode(

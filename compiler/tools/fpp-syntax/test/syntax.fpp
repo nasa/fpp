@@ -23,7 +23,7 @@ module DefinitionsAndSpecifiers {
     type T
     array A = [3] U32
     struct S { x: [3] U32, y: F32, z: string }
-    enum E { X, Y, Z }
+    enum E { X, Y, Z } default X
 
     @ Container specifier
     product container C id 0x00 default priority 10

@@ -30,7 +30,7 @@ module DefinitionsAndSpecifiers {
       X
       Y
       Z
-    }
+    } default X
 
     @ Container specifier
     product container C id 0x00 default priority 10 @< Container specifier
