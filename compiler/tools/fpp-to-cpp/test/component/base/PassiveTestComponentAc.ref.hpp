@@ -710,7 +710,6 @@ class PassiveTestComponentBase :
 
     //! Construct PassiveTestComponentBase object
     PassiveTestComponentBase(
-        Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parameters
         const char* compName = "" //!< The component name
     );
 
@@ -1916,6 +1915,17 @@ class PassiveTestComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
+    // External parameter delegate initialization
+    // ----------------------------------------------------------------------
+
+    //! Initialize the external parameter delegate
+    void registerExternalParameters(
+        Fw::ParamExternalDelegate* paramExternalDelegatePtr //!< The delegate for externally managed parameters
+    );
+
+  PROTECTED:
+
+    // ----------------------------------------------------------------------
     // Functions for managing data products
     // ----------------------------------------------------------------------
 
@@ -2529,7 +2539,7 @@ class PassiveTestComponentBase :
     // ----------------------------------------------------------------------
 
     //! Delegate to serialize/deserialize an externally stored parameter
-    Fw::ParamExternalDelegate& paramDelegate;
+    Fw::ParamExternalDelegate* paramDelegatePtr;
 
   PRIVATE:
 

@@ -534,7 +534,6 @@ class QueuedParamsComponentBase :
 
     //! Construct QueuedParamsComponentBase object
     QueuedParamsComponentBase(
-        Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parameters
         const char* compName = "" //!< The component name
     );
 
@@ -1513,6 +1512,17 @@ class QueuedParamsComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
+    // External parameter delegate initialization
+    // ----------------------------------------------------------------------
+
+    //! Initialize the external parameter delegate
+    void registerExternalParameters(
+        Fw::ParamExternalDelegate* paramExternalDelegatePtr //!< The delegate for externally managed parameters
+    );
+
+  PROTECTED:
+
+    // ----------------------------------------------------------------------
     // Time
     // ----------------------------------------------------------------------
 
@@ -2073,7 +2083,7 @@ class QueuedParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Delegate to serialize/deserialize an externally stored parameter
-    Fw::ParamExternalDelegate& paramDelegate;
+    Fw::ParamExternalDelegate* paramDelegatePtr;
 
   PRIVATE:
 

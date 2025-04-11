@@ -767,7 +767,6 @@ namespace M {
 
       //! Construct ActiveTestComponentBase object
       ActiveTestComponentBase(
-          Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parameters
           const char* compName = "" //!< The component name
       );
 
@@ -2427,6 +2426,17 @@ namespace M {
     PROTECTED:
 
       // ----------------------------------------------------------------------
+      // External parameter delegate initialization
+      // ----------------------------------------------------------------------
+
+      //! Initialize the external parameter delegate
+      void registerExternalParameters(
+          Fw::ParamExternalDelegate* paramExternalDelegatePtr //!< The delegate for externally managed parameters
+      );
+
+    PROTECTED:
+
+      // ----------------------------------------------------------------------
       // Functions for managing data products
       // ----------------------------------------------------------------------
 
@@ -3138,7 +3148,7 @@ namespace M {
       // ----------------------------------------------------------------------
 
       //! Delegate to serialize/deserialize an externally stored parameter
-      Fw::ParamExternalDelegate& paramDelegate;
+      Fw::ParamExternalDelegate* paramDelegatePtr;
 
     PRIVATE:
 

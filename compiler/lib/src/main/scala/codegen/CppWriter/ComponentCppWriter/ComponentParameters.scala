@@ -40,7 +40,8 @@ case class ComponentParameters (
     if !hasParameters then Nil
     else List(
       getHookFunctions,
-      getGetterFunctions
+      getGetterFunctions,
+      getExternalParameterFunctions
     ).flatten
   }
 
@@ -106,7 +107,7 @@ case class ComponentParameters (
                 lines(
                   s"""|
                       |//! Delegate to serialize/deserialize an externally stored parameter
-                      |Fw::ParamExternalDelegate& paramDelegate;
+                      |Fw::ParamExternalDelegate* paramDelegatePtr;
                       |"""
                 )
               )
@@ -166,8 +167,9 @@ case class ComponentParameters (
                       wrapInIfElse(
                         s"param_valid == Fw::ParamValid::VALID",
                         lines(
-                          s"""|// Call the delegate deserialize function for ${paramVariableName(param.getName)}
-                              |stat = this->paramDelegate.deserializeParam(_id, param_valid, buff);
+                          s"""|FW_ASSERT(this->paramDelegatePtr != NULL);
+                              |// Call the delegate deserialize function for ${paramVariableName(param.getName)}
+                              |stat = this->paramDelegatePtr->deserializeParam(_id, param_valid, buff);
                               |"""
                         ) ++
                           wrapInIf(
@@ -316,8 +318,9 @@ case class ComponentParameters (
                   |// Do not include the base ID when passing an ID to the delegate
                   |_id = ${paramIdConstantName(param.getName)};
                   |
+                  |FW_ASSERT(this->paramDelegatePtr != NULL);
                   |// Get the external parameter from the delegate
-                  |Fw::SerializeStatus stat = this->paramDelegate.serializeParam(_id, getBuff);
+                  |Fw::SerializeStatus stat = this->paramDelegatePtr->serializeParam(_id, getBuff);
                   |if(stat == Fw::FW_SERIALIZE_OK) {
                   |  stat = getBuff.deserialize(_local);
                   |  FW_ASSERT(stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(stat));
@@ -373,9 +376,10 @@ case class ComponentParameters (
                   |// Do not include the base ID when passing an ID to the delegate
                   |_id = ${paramIdConstantName(param.getName)};
                   |
+                  |FW_ASSERT(this->paramDelegatePtr != NULL);
                   |// Call the delegate serialize function for ${paramVariableName(param.getName)}
                   |Fw::SerializeStatus _stat;
-                  |_stat = this->paramDelegate.deserializeParam(_id, Fw::ParamValid::VALID, dynamic_cast<Fw::ParamBuffer&>(val));
+                  |_stat = this->paramDelegatePtr->deserializeParam(_id, Fw::ParamValid::VALID, dynamic_cast<Fw::ParamBuffer&>(val));
                   |if (_stat != Fw::FW_SERIALIZE_OK) {
                   |  return Fw::CmdResponse::VALIDATION_ERROR;
                   |}
@@ -434,8 +438,9 @@ case class ComponentParameters (
                       |// Do not include the base ID when passing an ID to the delegate
                       |_id = ${paramIdConstantName(param.getName)};
                       |
+                      |FW_ASSERT(this->paramDelegatePtr != NULL);
                       |Fw::ParamBuffer saveBuff;
-                      |Fw::SerializeStatus stat = this->paramDelegate.serializeParam(_id, saveBuff);
+                      |Fw::SerializeStatus stat = this->paramDelegatePtr->serializeParam(_id, saveBuff);
                       |if (stat != Fw::FW_SERIALIZE_OK) {
                       |  return Fw::CmdResponse::VALIDATION_ERROR;
                       |}
@@ -477,6 +482,34 @@ case class ComponentParameters (
               }
             ),
             Line.blank :: lines("return Fw::CmdResponse::EXECUTION_ERROR;")
+          )
+        )
+      )
+    )
+  }
+
+  private def getExternalParameterFunctions: List[CppDoc.Class.Member] = {
+    guardedList (hasExternalParameters) (
+      addAccessTagAndComment(
+        "PROTECTED",
+        "External parameter delegate initialization",
+        List(
+          functionClassMember(
+            Some("Initialize the external parameter delegate"),
+            "registerExternalParameters",
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type("Fw::ParamExternalDelegate*"),
+                "paramExternalDelegatePtr",
+                Some("The delegate for externally managed parameters")
+              )
+            ),
+            CppDoc.Type("void"),
+            lines(
+              """|FW_ASSERT(paramExternalDelegatePtr != NULL);
+                 |this->paramDelegatePtr = paramExternalDelegatePtr;
+                 |"""
+            )
           )
         )
       )

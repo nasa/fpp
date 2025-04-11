@@ -526,44 +526,32 @@ case class ComponentCppWriter (
       ).flatten
     }
 
-    println(s"getProtectedComponentFunctionMembers ${componentClassName}: hasExternalParameters: ${hasExternalParameters}")
     addAccessTagAndComment(
-      "PROTECTED",
-      "Component construction and destruction",
+    "PROTECTED",
+    "Component construction and destruction",
       List(
         constructorClassMember(
           Some(s"Construct $componentClassName object"),
-          List.concat(
-            guardedList (hasExternalParameters) (
-              List(
-                CppDoc.Function.Param(
-                  CppDoc.Type("Fw::ParamExternalDelegate&"),
-                  "paramDelegateRef",
-                  Some("The delegate for externally managed parameters")
-                ),
-              )
-            ),
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("const char*"),
-                "compName",
-                Some("The component name"),
-                Some("\"\"")
-              )
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("const char*"),
+              "compName",
+              Some("The component name"),
+              Some("\"\"")
             )
           ),
-          List(s"Fw::${kindStr}ComponentBase(compName)") ++
+          List(s"Fw::${kindStr}ComponentBase(compName)") :::
+            (if (hasExternalParameters) List("paramDelegatePtr(NULL)") else Nil) :::
             smInstancesByName.map { (name, smi) =>
               val sm = s.a.stateMachineMap(smi.symbol)
               val hasActionsOrGuards = sm.hasActions || sm.hasGuards
               val args = (smi.getSmKind, hasActionsOrGuards) match {
-                case (StateMachine.Kind.External, _) => "this"
-                case (StateMachine.Kind.Internal, true) => "*this"
-                case (StateMachine.Kind.Internal, false) => ""
+                case (StateMachine.Kind.External, _)       => "this"
+                case (StateMachine.Kind.Internal, true)    => "*this"
+                case (StateMachine.Kind.Internal, false)   => ""
               }
-              s"m_stateMachine_$name($args)",
-            }.toList ++
-            (if hasExternalParameters then List("paramDelegate(paramDelegateRef)") else Nil),
+              s"m_stateMachine_$name($args)"
+            },
           intersperseBlankLines(
             List(
               intersperseBlankLines(

@@ -485,7 +485,6 @@ class PassiveParamsComponentBase :
 
     //! Construct PassiveParamsComponentBase object
     PassiveParamsComponentBase(
-        Fw::ParamExternalDelegate& paramDelegateRef, //!< The delegate for externally managed parameters
         const char* compName = "" //!< The component name
     );
 
@@ -1229,6 +1228,17 @@ class PassiveParamsComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
+    // External parameter delegate initialization
+    // ----------------------------------------------------------------------
+
+    //! Initialize the external parameter delegate
+    void registerExternalParameters(
+        Fw::ParamExternalDelegate* paramExternalDelegatePtr //!< The delegate for externally managed parameters
+    );
+
+  PROTECTED:
+
+    // ----------------------------------------------------------------------
     // Time
     // ----------------------------------------------------------------------
 
@@ -1682,7 +1692,7 @@ class PassiveParamsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Delegate to serialize/deserialize an externally stored parameter
-    Fw::ParamExternalDelegate& paramDelegate;
+    Fw::ParamExternalDelegate* paramDelegatePtr;
 
   PRIVATE:
 
