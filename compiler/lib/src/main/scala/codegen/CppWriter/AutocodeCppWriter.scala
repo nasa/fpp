@@ -7,6 +7,13 @@ import fpp.compiler.util._
 /** Writes out C++ for F Prime autocode */
 object AutocodeCppWriter extends CppWriter {
 
+  override def tuList(s: State, tul: List[Ast.TransUnit]): Result.Result[Unit] =
+    for {
+      _ <- ConstantCppWriter.write(s, tul)
+      _ <- super.tuList(s, tul)
+    }
+    yield ()
+
   override def defAliasTypeAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]
