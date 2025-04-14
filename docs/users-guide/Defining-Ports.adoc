@@ -208,6 +208,30 @@ or a pointer to shared data.
 F Prime provides a type `Fw::Buffer` that stores a
 pointer to a shared data buffer.
 
+*Passing string arguments:*
+Suppose that an input port `pIn` of a component instance `c`
+has port type `P`.
+If `P` has a formal parameter of type `string`,
+the corresponding formal parameter in the handler for `pIn` is
+a constant reference to `Fw::StringBase`, which is an abstract
+supertype of all F Prime string types.
+The string object referred to depends on whether `pIn` is synchronous
+or asynchronous:
+
+. If `pIn` is synchronous, then the reference is
+to the string object used in the invocation.
+In this case the size specified in the `string` type is ignored.
+For example, if a string of length 80 is bound to a port parameter
+whose type is `string size 40`, the reference is to the original
+string of length 80.
+
+. If `pIn` is asynchronous, then the reference is to
+a string object on the stack whose size is bounded by
+the size named in the port parameter.
+For example, if a string of length 80 is bound to a port parameter
+whose type is `string size 40`, then the reference is to a string
+consisting of the first 40 characters of the original string.
+
 === Reference Parameters
 
 You may write the keyword `ref` in front of any formal parameter _p_

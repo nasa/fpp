@@ -1034,7 +1034,7 @@ AliasPrim2 PassiveGetProductsTesterBase ::
   return 0.0f;
 }
 
-AliasString PassiveGetProductsTesterBase ::
+Fw::String PassiveGetProductsTesterBase ::
   from_typedAliasReturnStringOut_handler(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -1176,7 +1176,7 @@ AliasPrim2 PassiveGetProductsTesterBase ::
   );
 }
 
-AliasString PassiveGetProductsTesterBase ::
+Fw::String PassiveGetProductsTesterBase ::
   from_typedAliasReturnStringOut_handlerBase(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -1267,7 +1267,7 @@ F32 PassiveGetProductsTesterBase ::
 // Invocation functions for to ports
 // ----------------------------------------------------------------------
 
-AliasString PassiveGetProductsTesterBase ::
+Fw::String PassiveGetProductsTesterBase ::
   invoke_to_noArgsAliasStringReturnSync(FwIndexType portNum)
 {
   // Make sure port number is valid
@@ -1389,7 +1389,7 @@ AliasPrim2 PassiveGetProductsTesterBase ::
   );
 }
 
-AliasString PassiveGetProductsTesterBase ::
+Fw::String PassiveGetProductsTesterBase ::
   invoke_to_typedAliasStringReturnSync(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -2231,7 +2231,7 @@ AliasPrim2 PassiveGetProductsTesterBase ::
   );
 }
 
-AliasString PassiveGetProductsTesterBase ::
+Fw::String PassiveGetProductsTesterBase ::
   from_typedAliasReturnStringOut_static(
       Fw::PassiveComponentBase* const callComp,
       FwIndexType portNum,

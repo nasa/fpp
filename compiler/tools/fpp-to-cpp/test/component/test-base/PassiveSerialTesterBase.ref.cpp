@@ -1304,7 +1304,7 @@ AliasPrim2 PassiveSerialTesterBase ::
   return 0.0f;
 }
 
-AliasString PassiveSerialTesterBase ::
+Fw::String PassiveSerialTesterBase ::
   from_typedAliasReturnStringOut_handler(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -1460,7 +1460,7 @@ AliasPrim2 PassiveSerialTesterBase ::
   );
 }
 
-AliasString PassiveSerialTesterBase ::
+Fw::String PassiveSerialTesterBase ::
   from_typedAliasReturnStringOut_handlerBase(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -1568,7 +1568,7 @@ void PassiveSerialTesterBase ::
 // Invocation functions for to ports
 // ----------------------------------------------------------------------
 
-AliasString PassiveSerialTesterBase ::
+Fw::String PassiveSerialTesterBase ::
   invoke_to_noArgsAliasStringReturnSync(FwIndexType portNum)
 {
   // Make sure port number is valid
@@ -1690,7 +1690,7 @@ AliasPrim2 PassiveSerialTesterBase ::
   );
 }
 
-AliasString PassiveSerialTesterBase ::
+Fw::String PassiveSerialTesterBase ::
   invoke_to_typedAliasStringReturnSync(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -4471,7 +4471,7 @@ AliasPrim2 PassiveSerialTesterBase ::
   );
 }
 
-AliasString PassiveSerialTesterBase ::
+Fw::String PassiveSerialTesterBase ::
   from_typedAliasReturnStringOut_static(
       Fw::PassiveComponentBase* const callComp,
       FwIndexType portNum,

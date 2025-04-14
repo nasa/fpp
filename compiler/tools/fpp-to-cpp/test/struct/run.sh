@@ -30,7 +30,8 @@ alias_type()
   run_test "-p $PWD" alias_type && \
     diff_cpp AliasTypeSerializable && \
     diff_h_hpp U16AliasAlias && \
-    diff_hpp TAliasAlias
+    diff_hpp TAliasAlias && \
+    diff_hpp SAliasAlias
 }
 
 empty()

@@ -16,7 +16,7 @@ https://github.com/nasa/fpp/wiki/Tools[the FPP wiki].
 
 === Dividing Models into Files
 
-Unlike F Prime XML, FPP does not require any particular division of model 
+FPP does not require any particular division of model 
 elements into files.
 For example, there is no requirement that each
 type definition reside in its own file.

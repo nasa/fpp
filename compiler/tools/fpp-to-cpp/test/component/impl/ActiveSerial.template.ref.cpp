@@ -42,7 +42,7 @@ void ActiveSerial ::
   // TODO
 }
 
-AliasString ActiveSerial ::
+Fw::String ActiveSerial ::
   noArgsAliasStringReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
@@ -114,7 +114,7 @@ AliasPrim2 ActiveSerial ::
   // TODO return
 }
 
-AliasString ActiveSerial ::
+Fw::String ActiveSerial ::
   typedAliasStringReturnSync_handler(
       FwIndexType portNum,
       AliasPrim1 u32,
