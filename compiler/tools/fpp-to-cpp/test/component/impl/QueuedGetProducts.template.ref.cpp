@@ -42,7 +42,7 @@ void QueuedGetProducts ::
   // TODO
 }
 
-AliasString QueuedGetProducts ::
+Fw::String QueuedGetProducts ::
   noArgsAliasStringReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
@@ -114,7 +114,7 @@ AliasPrim2 QueuedGetProducts ::
   // TODO return
 }
 
-AliasString QueuedGetProducts ::
+Fw::String QueuedGetProducts ::
   typedAliasStringReturnSync_handler(
       FwIndexType portNum,
       AliasPrim1 u32,

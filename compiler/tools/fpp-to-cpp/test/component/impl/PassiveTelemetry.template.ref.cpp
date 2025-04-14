@@ -27,7 +27,7 @@ PassiveTelemetry ::
 // Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
-AliasString PassiveTelemetry ::
+Fw::String PassiveTelemetry ::
   noArgsAliasStringReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
@@ -93,7 +93,7 @@ AliasPrim2 PassiveTelemetry ::
   // TODO return
 }
 
-AliasString PassiveTelemetry ::
+Fw::String PassiveTelemetry ::
   typedAliasStringReturnSync_handler(
       FwIndexType portNum,
       AliasPrim1 u32,

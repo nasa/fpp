@@ -728,7 +728,7 @@ class QueuedTestTesterBase :
     );
 
     //! Default handler implementation for from_typedAliasReturnStringOut
-    virtual AliasString from_typedAliasReturnStringOut_handler(
+    virtual Fw::String from_typedAliasReturnStringOut_handler(
         FwIndexType portNum, //!< The port number
         AliasPrim1 u32, //!< A primitive
         AliasPrim2 f32, //!< Another primtive
@@ -809,7 +809,7 @@ class QueuedTestTesterBase :
     );
 
     //! Handler base-class function for from_typedAliasReturnStringOut
-    AliasString from_typedAliasReturnStringOut_handlerBase(
+    Fw::String from_typedAliasReturnStringOut_handlerBase(
         FwIndexType portNum, //!< The port number
         AliasPrim1 u32, //!< A primitive
         AliasPrim2 f32, //!< Another primtive
@@ -863,7 +863,7 @@ class QueuedTestTesterBase :
     );
 
     //! Invoke the to port connected to noArgsAliasStringReturnSync
-    AliasString invoke_to_noArgsAliasStringReturnSync(
+    Fw::String invoke_to_noArgsAliasStringReturnSync(
         FwIndexType portNum //!< The port number
     );
 
@@ -922,7 +922,7 @@ class QueuedTestTesterBase :
     );
 
     //! Invoke the to port connected to typedAliasStringReturnSync
-    AliasString invoke_to_typedAliasStringReturnSync(
+    Fw::String invoke_to_typedAliasStringReturnSync(
         FwIndexType portNum, //!< The port number
         AliasPrim1 u32, //!< A primitive
         AliasPrim2 f32, //!< Another primtive
@@ -2086,7 +2086,7 @@ class QueuedTestTesterBase :
     );
 
     //! Static function for port from_typedAliasReturnStringOut
-    static AliasString from_typedAliasReturnStringOut_static(
+    static Fw::String from_typedAliasReturnStringOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
         FwIndexType portNum, //!< The port number
         AliasPrim1 u32, //!< A primitive

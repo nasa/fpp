@@ -1,7 +1,7 @@
 == Writing C Plus Plus Implementations
 
 When constructing an F Prime deployment in {cpp}, there are generally
-four kinds of implementations you have to write:
+five kinds of implementations you have to write:
 
 . Implementations of
 <<Defining-Types_Abstract-Type-Definitions,abstract types>>.
@@ -20,20 +20,20 @@ e.g., algorithm libraries or hardware device driver libraries.
 . A top-level implementation including a `main` function for running
 the FSW application.
 
-Implementing a component involves filling out the API provided by
+Implementing a component (item 3) involves filling out the API provided by
 the {cpp} component base class.
 This process is covered in detail in the F Prime user's guide;
 we won't cover it further here.
-Similarly, implementing libraries is unrelated to FPP, so we
+Similarly, implementing libraries (item 4) is unrelated to FPP, so we
 won't cover it in this manual.
-Here we focus on items (1), (2), and (5): implementing abstract types,
+Here we focus on items 1, 2, and 5: implementing abstract types,
 implementing external state machines, and implementing deployments.
 We also discuss *serialization* of data values, i.e., representing
 FPP data values as binary data for storage and transmission.
 
 === Implementing Abstract Types
 
-Except for a few built-in types (see below), when translating to XML and then {cpp}, an
+When translating to {cpp}, an
 <<Defining-Types_Abstract-Type-Definitions,abstract type definition>>
 represents a {cpp} class that you write directly in {cpp}.
 When you use an abstract type _T_ in an FPP definition _D_ (for example, as the
@@ -167,47 +167,6 @@ and `Fw/Cmd/CmdArgBuffer.cpp` in the F Prime repository.
 Be careful, though: if you implement an abstract type `T` this way
 and you try to use the type `T` outside of a port definition,
 the generated {cpp} may not compile.
-
-*Built-in types:*
-The following types are abstract in the FPP model but are known to
-the {cpp} translator:
-
-----
-type FwChanIdType
-type FwDpIdType
-type FwDpPriorityType
-type FwEnumStoreType
-type FwEventIdType
-type FwIndexType
-type FwOpcodeType
-type FwPacketDescriptorType
-type FwPrmIdType
-type FwSignedSizeType
-type FwSizeStoreType
-type FwSizeType
-type FwTimeBaseStoreType
-type FwTimeContextStoreType
-type FwTlmPacketizeIdType
-type FwTraceIdType
-----
-
-Each of these types is an alias for a {cpp} integer type, and each
-has default value zero.
-
-The F Prime framework provides the {cpp} definitions
-for these types.
-It also provides the corresponding abstract type definitions
-in the FPP model; for a typical F Prime project, these
-definitions are located at `config/FpConfig.fpp`.
-You don't have to define header files for these types.
-
-Because the built-in types are encoded in the FPP model as abstract types,
-they are not <<Defining-Components_Commands_Formal-Parameters,
-displayable types>>.
-In a future version of FPP, we plan to encode these types as
-explicit aliases of primitive integer types.
-When we do this, the definitions will be known to FPP,
-and the types will be displayable.
 
 === Implementing External State Machines
 
@@ -569,7 +528,7 @@ integer types.
 The F Prime type definition `FwSizeStoreType` specifies the type to use
 for the size.
 This type definition is user-configurable; it is found in the
-F Prime configuration header `FpConfig.h`.
+F Prime configuration file `FpConfig.fpp`.
 
 .. There is one byte for each character of the string, and there is
 no null terminator.

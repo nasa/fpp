@@ -42,7 +42,7 @@ void ActiveSyncProducts ::
   // TODO
 }
 
-AliasString ActiveSyncProducts ::
+Fw::String ActiveSyncProducts ::
   noArgsAliasStringReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
@@ -114,7 +114,7 @@ AliasPrim2 ActiveSyncProducts ::
   // TODO return
 }
 
-AliasString ActiveSyncProducts ::
+Fw::String ActiveSyncProducts ::
   typedAliasStringReturnSync_handler(
       FwIndexType portNum,
       AliasPrim1 u32,

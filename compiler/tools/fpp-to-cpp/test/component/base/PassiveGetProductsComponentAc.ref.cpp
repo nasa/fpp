@@ -1968,7 +1968,7 @@ bool PassiveGetProductsComponentBase ::
 // Call these functions directly to bypass the corresponding ports
 // ----------------------------------------------------------------------
 
-AliasString PassiveGetProductsComponentBase ::
+Fw::String PassiveGetProductsComponentBase ::
   noArgsAliasStringReturnSync_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
@@ -1977,7 +1977,7 @@ AliasString PassiveGetProductsComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  AliasString retVal;
+  Fw::String retVal;
 
   // Call handler function
   retVal = this->noArgsAliasStringReturnSync_handler(portNum);
@@ -2146,7 +2146,7 @@ AliasPrim2 PassiveGetProductsComponentBase ::
   return retVal;
 }
 
-AliasString PassiveGetProductsComponentBase ::
+Fw::String PassiveGetProductsComponentBase ::
   typedAliasStringReturnSync_handlerBase(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -2164,7 +2164,7 @@ AliasString PassiveGetProductsComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  AliasString retVal;
+  Fw::String retVal;
 
   // Call handler function
   retVal = this->typedAliasStringReturnSync_handler(
@@ -2488,7 +2488,7 @@ AliasPrim2 PassiveGetProductsComponentBase ::
   );
 }
 
-AliasString PassiveGetProductsComponentBase ::
+Fw::String PassiveGetProductsComponentBase ::
   typedAliasReturnStringOut_out(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -2675,7 +2675,7 @@ void PassiveGetProductsComponentBase ::
 // Calls for messages received on typed input ports
 // ----------------------------------------------------------------------
 
-AliasString PassiveGetProductsComponentBase ::
+Fw::String PassiveGetProductsComponentBase ::
   m_p_noArgsAliasStringReturnSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum
@@ -2795,7 +2795,7 @@ AliasPrim2 PassiveGetProductsComponentBase ::
   );
 }
 
-AliasString PassiveGetProductsComponentBase ::
+Fw::String PassiveGetProductsComponentBase ::
   m_p_typedAliasStringReturnSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,

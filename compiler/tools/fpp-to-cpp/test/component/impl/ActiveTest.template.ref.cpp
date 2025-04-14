@@ -47,7 +47,7 @@ namespace M {
     // TODO
   }
 
-  AliasString ActiveTest ::
+  Fw::String ActiveTest ::
     noArgsAliasStringReturnSync_handler(FwIndexType portNum)
   {
     // TODO return
@@ -119,7 +119,7 @@ namespace M {
     // TODO return
   }
 
-  AliasString ActiveTest ::
+  Fw::String ActiveTest ::
     typedAliasStringReturnSync_handler(
         FwIndexType portNum,
         AliasPrim1 u32,

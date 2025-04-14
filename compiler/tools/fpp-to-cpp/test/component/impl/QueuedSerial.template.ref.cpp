@@ -45,7 +45,7 @@ void QueuedSerial ::
   // TODO
 }
 
-AliasString QueuedSerial ::
+Fw::String QueuedSerial ::
   noArgsAliasStringReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
@@ -117,7 +117,7 @@ AliasPrim2 QueuedSerial ::
   // TODO return
 }
 
-AliasString QueuedSerial ::
+Fw::String QueuedSerial ::
   typedAliasStringReturnSync_handler(
       FwIndexType portNum,
       AliasPrim1 u32,

@@ -30,7 +30,7 @@ PassiveTest ::
 // Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
-AliasString PassiveTest ::
+Fw::String PassiveTest ::
   noArgsAliasStringReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
@@ -96,7 +96,7 @@ AliasPrim2 PassiveTest ::
   // TODO return
 }
 
-AliasString PassiveTest ::
+Fw::String PassiveTest ::
   typedAliasStringReturnSync_handler(
       FwIndexType portNum,
       AliasPrim1 u32,

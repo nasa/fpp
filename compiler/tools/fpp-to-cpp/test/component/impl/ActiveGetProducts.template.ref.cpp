@@ -42,7 +42,7 @@ void ActiveGetProducts ::
   // TODO
 }
 
-AliasString ActiveGetProducts ::
+Fw::String ActiveGetProducts ::
   noArgsAliasStringReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
@@ -114,7 +114,7 @@ AliasPrim2 ActiveGetProducts ::
   // TODO return
 }
 
-AliasString ActiveGetProducts ::
+Fw::String ActiveGetProducts ::
   typedAliasStringReturnSync_handler(
       FwIndexType portNum,
       AliasPrim1 u32,

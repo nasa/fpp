@@ -42,7 +42,7 @@ void QueuedEvents ::
   // TODO
 }
 
-AliasString QueuedEvents ::
+Fw::String QueuedEvents ::
   noArgsAliasStringReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
@@ -114,7 +114,7 @@ AliasPrim2 QueuedEvents ::
   // TODO return
 }
 
-AliasString QueuedEvents ::
+Fw::String QueuedEvents ::
   typedAliasStringReturnSync_handler(
       FwIndexType portNum,
       AliasPrim1 u32,

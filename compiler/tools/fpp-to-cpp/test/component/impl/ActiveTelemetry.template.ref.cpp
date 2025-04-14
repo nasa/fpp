@@ -42,7 +42,7 @@ void ActiveTelemetry ::
   // TODO
 }
 
-AliasString ActiveTelemetry ::
+Fw::String ActiveTelemetry ::
   noArgsAliasStringReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
@@ -114,7 +114,7 @@ AliasPrim2 ActiveTelemetry ::
   // TODO return
 }
 
-AliasString ActiveTelemetry ::
+Fw::String ActiveTelemetry ::
   typedAliasStringReturnSync_handler(
       FwIndexType portNum,
       AliasPrim1 u32,

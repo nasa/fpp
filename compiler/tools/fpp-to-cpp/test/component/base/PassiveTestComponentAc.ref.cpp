@@ -2400,7 +2400,7 @@ void PassiveTestComponentBase ::
 // Call these functions directly to bypass the corresponding ports
 // ----------------------------------------------------------------------
 
-AliasString PassiveTestComponentBase ::
+Fw::String PassiveTestComponentBase ::
   noArgsAliasStringReturnSync_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
@@ -2409,7 +2409,7 @@ AliasString PassiveTestComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  AliasString retVal;
+  Fw::String retVal;
 
   // Call handler function
   retVal = this->noArgsAliasStringReturnSync_handler(portNum);
@@ -2578,7 +2578,7 @@ AliasPrim2 PassiveTestComponentBase ::
   return retVal;
 }
 
-AliasString PassiveTestComponentBase ::
+Fw::String PassiveTestComponentBase ::
   typedAliasStringReturnSync_handlerBase(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -2596,7 +2596,7 @@ AliasString PassiveTestComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  AliasString retVal;
+  Fw::String retVal;
 
   // Call handler function
   retVal = this->typedAliasStringReturnSync_handler(
@@ -2918,7 +2918,7 @@ AliasPrim2 PassiveTestComponentBase ::
   );
 }
 
-AliasString PassiveTestComponentBase ::
+Fw::String PassiveTestComponentBase ::
   typedAliasReturnStringOut_out(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -5195,7 +5195,7 @@ void PassiveTestComponentBase ::
 // Calls for messages received on typed input ports
 // ----------------------------------------------------------------------
 
-AliasString PassiveTestComponentBase ::
+Fw::String PassiveTestComponentBase ::
   m_p_noArgsAliasStringReturnSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum
@@ -5315,7 +5315,7 @@ AliasPrim2 PassiveTestComponentBase ::
   );
 }
 
-AliasString PassiveTestComponentBase ::
+Fw::String PassiveTestComponentBase ::
   m_p_typedAliasStringReturnSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,

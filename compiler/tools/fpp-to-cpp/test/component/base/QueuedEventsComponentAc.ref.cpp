@@ -2059,7 +2059,7 @@ void QueuedEventsComponentBase ::
   );
 }
 
-AliasString QueuedEventsComponentBase ::
+Fw::String QueuedEventsComponentBase ::
   noArgsAliasStringReturnSync_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
@@ -2068,7 +2068,7 @@ AliasString QueuedEventsComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  AliasString retVal;
+  Fw::String retVal;
 
   // Call handler function
   retVal = this->noArgsAliasStringReturnSync_handler(portNum);
@@ -2277,7 +2277,7 @@ AliasPrim2 QueuedEventsComponentBase ::
   return retVal;
 }
 
-AliasString QueuedEventsComponentBase ::
+Fw::String QueuedEventsComponentBase ::
   typedAliasStringReturnSync_handlerBase(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -2295,7 +2295,7 @@ AliasString QueuedEventsComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  AliasString retVal;
+  Fw::String retVal;
 
   // Call handler function
   retVal = this->typedAliasStringReturnSync_handler(
@@ -3091,7 +3091,7 @@ AliasPrim2 QueuedEventsComponentBase ::
   );
 }
 
-AliasString QueuedEventsComponentBase ::
+Fw::String QueuedEventsComponentBase ::
   typedAliasReturnStringOut_out(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -4374,7 +4374,7 @@ void QueuedEventsComponentBase ::
   );
 }
 
-AliasString QueuedEventsComponentBase ::
+Fw::String QueuedEventsComponentBase ::
   m_p_noArgsAliasStringReturnSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum
@@ -4505,7 +4505,7 @@ AliasPrim2 QueuedEventsComponentBase ::
   );
 }
 
-AliasString QueuedEventsComponentBase ::
+Fw::String QueuedEventsComponentBase ::
   m_p_typedAliasStringReturnSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,

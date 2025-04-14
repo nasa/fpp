@@ -45,7 +45,7 @@ void QueuedTest ::
   // TODO
 }
 
-AliasString QueuedTest ::
+Fw::String QueuedTest ::
   noArgsAliasStringReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
@@ -117,7 +117,7 @@ AliasPrim2 QueuedTest ::
   // TODO return
 }
 
-AliasString QueuedTest ::
+Fw::String QueuedTest ::
   typedAliasStringReturnSync_handler(
       FwIndexType portNum,
       AliasPrim1 u32,

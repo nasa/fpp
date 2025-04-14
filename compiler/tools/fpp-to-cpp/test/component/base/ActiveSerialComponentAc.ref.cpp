@@ -2789,7 +2789,7 @@ void ActiveSerialComponentBase ::
   );
 }
 
-AliasString ActiveSerialComponentBase ::
+Fw::String ActiveSerialComponentBase ::
   noArgsAliasStringReturnSync_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
@@ -2798,7 +2798,7 @@ AliasString ActiveSerialComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  AliasString retVal;
+  Fw::String retVal;
 
   // Call handler function
   retVal = this->noArgsAliasStringReturnSync_handler(portNum);
@@ -3007,7 +3007,7 @@ AliasPrim2 ActiveSerialComponentBase ::
   return retVal;
 }
 
-AliasString ActiveSerialComponentBase ::
+Fw::String ActiveSerialComponentBase ::
   typedAliasStringReturnSync_handlerBase(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -3025,7 +3025,7 @@ AliasString ActiveSerialComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  AliasString retVal;
+  Fw::String retVal;
 
   // Call handler function
   retVal = this->typedAliasStringReturnSync_handler(
@@ -4132,7 +4132,7 @@ AliasPrim2 ActiveSerialComponentBase ::
   );
 }
 
-AliasString ActiveSerialComponentBase ::
+Fw::String ActiveSerialComponentBase ::
   typedAliasReturnStringOut_out(
       FwIndexType portNum,
       AliasPrim1 u32,
@@ -8017,7 +8017,7 @@ void ActiveSerialComponentBase ::
   );
 }
 
-AliasString ActiveSerialComponentBase ::
+Fw::String ActiveSerialComponentBase ::
   m_p_noArgsAliasStringReturnSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum
@@ -8148,7 +8148,7 @@ AliasPrim2 ActiveSerialComponentBase ::
   );
 }
 
-AliasString ActiveSerialComponentBase ::
+Fw::String ActiveSerialComponentBase ::
   m_p_typedAliasStringReturnSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,

@@ -1569,7 +1569,7 @@ namespace M {
     return 0.0f;
   }
 
-  AliasString ActiveTestTesterBase ::
+  Fw::String ActiveTestTesterBase ::
     from_typedAliasReturnStringOut_handler(
         FwIndexType portNum,
         AliasPrim1 u32,
@@ -1711,7 +1711,7 @@ namespace M {
     );
   }
 
-  AliasString ActiveTestTesterBase ::
+  Fw::String ActiveTestTesterBase ::
     from_typedAliasReturnStringOut_handlerBase(
         FwIndexType portNum,
         AliasPrim1 u32,
@@ -1830,7 +1830,7 @@ namespace M {
     );
   }
 
-  AliasString ActiveTestTesterBase ::
+  Fw::String ActiveTestTesterBase ::
     invoke_to_noArgsAliasStringReturnSync(FwIndexType portNum)
   {
     // Make sure port number is valid
@@ -1963,7 +1963,7 @@ namespace M {
     );
   }
 
-  AliasString ActiveTestTesterBase ::
+  Fw::String ActiveTestTesterBase ::
     invoke_to_typedAliasStringReturnSync(
         FwIndexType portNum,
         AliasPrim1 u32,
@@ -5247,7 +5247,7 @@ namespace M {
     );
   }
 
-  AliasString ActiveTestTesterBase ::
+  Fw::String ActiveTestTesterBase ::
     from_typedAliasReturnStringOut_static(
         Fw::PassiveComponentBase* const callComp,
         FwIndexType portNum,
