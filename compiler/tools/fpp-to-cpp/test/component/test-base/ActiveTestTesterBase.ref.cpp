@@ -17,14 +17,17 @@ namespace M {
 
   Fw::SerializeStatus ActiveTestTesterBase::ActiveTestComponentBaseParamExternalDelegate ::
     deserializeParam(
-        const FwPrmIdType id,
+        const FwPrmIdType base_id,
+        const FwPrmIdType local_id,
         const Fw::ParamValid prmStat,
         Fw::ParamBuffer& buff
     )
   {
     Fw::SerializeStatus stat;
+    (void) base_id;
+
     // Serialize the parameter based on ID
-    switch(id)
+    switch(local_id)
     {
       // ParamI32
       case ActiveTestComponentBase::PARAMID_PARAMI32:
@@ -32,7 +35,7 @@ namespace M {
         break;
       default:
         // Unknown ID should not have gotten here
-        FW_ASSERT(false, id);
+        FW_ASSERT(false, local_id);
     }
 
     return stat;
@@ -40,13 +43,16 @@ namespace M {
 
   Fw::SerializeStatus ActiveTestTesterBase::ActiveTestComponentBaseParamExternalDelegate ::
     serializeParam(
-        const FwPrmIdType id,
+        const FwPrmIdType base_id,
+        const FwPrmIdType local_id,
         Fw::ParamBuffer& buff
     ) const
   {
     Fw::SerializeStatus stat;
+    (void) base_id;
+
     // Serialize the parameter based on ID
-    switch(id)
+    switch(local_id)
     {
       // ParamI32
       case ActiveTestComponentBase::PARAMID_PARAMI32:
@@ -54,7 +60,7 @@ namespace M {
         break;
       default:
         // Unknown ID should not have gotten here
-        FW_ASSERT(false, id);
+        FW_ASSERT(false, local_id);
     }
 
     return stat;

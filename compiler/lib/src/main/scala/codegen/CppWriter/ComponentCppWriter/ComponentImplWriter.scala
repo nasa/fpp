@@ -133,8 +133,8 @@ case class ComponentImplWriter(
         s"""|// TODO Initialize the ParamExternalDelegate
             |// The register function can be called directly here:
             |// E.G. this->registerExternalParameters(SomeParamExternalDelegateChild());
-            |// Or the protected register function can be exposed and
-            |// called externally to the $componentImplClassName
+            |// Or you can call the register function in a public setup method
+            |// that is called when setting up the component instance.
             |"""
       )
     } else {

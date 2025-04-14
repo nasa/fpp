@@ -1726,8 +1726,13 @@ case class ExternalParameterDelegate(
           List(
             CppDoc.Function.Param(
               CppDoc.Type("const FwPrmIdType"),
-              "id",
-              Some("The parameter ID to deserialize")
+              "base_id",
+              Some("The component base parameter ID to deserialize")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("const FwPrmIdType"),
+              "local_id",
+              Some("The parameter local ID to deserialize")
             ),
             CppDoc.Function.Param(
               CppDoc.Type("const Fw::ParamValid"),
@@ -1744,10 +1749,12 @@ case class ExternalParameterDelegate(
           {
             lines(
               """|Fw::SerializeStatus stat;
-                  |// Serialize the parameter based on ID
-                  |switch(id)
-                  |{
-                  |"""
+                 |(void) base_id;
+                 |
+                 |// Serialize the parameter based on ID
+                 |switch(local_id)
+                 |{
+                 |"""
             ) ++
             sortedParams.flatMap((_, prm) => {
               guardedList (prm.isExternal) (
@@ -1763,12 +1770,12 @@ case class ExternalParameterDelegate(
             }) ++
             lines(
               """|  default:
-                  |    // Unknown ID should not have gotten here
-                  |    FW_ASSERT(false, id);
-                  |}
-                  |
-                  |return stat;
-                  |"""
+                 |    // Unknown ID should not have gotten here
+                 |    FW_ASSERT(false, local_id);
+                 |}
+                 |
+                 |return stat;
+                 |"""
             )
           },
           CppDoc.Function.Override,
@@ -1780,8 +1787,13 @@ case class ExternalParameterDelegate(
           List(
             CppDoc.Function.Param(
               CppDoc.Type("const FwPrmIdType"),
-              "id",
-              Some("The parameter ID to serialize")
+              "base_id",
+              Some("The component base parameter ID to serialize")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("const FwPrmIdType"),
+              "local_id",
+              Some("The parameter local ID to serialize")
             ),
             CppDoc.Function.Param(
               CppDoc.Type("Fw::ParamBuffer&"),
@@ -1793,10 +1805,12 @@ case class ExternalParameterDelegate(
           {
             lines(
               """|Fw::SerializeStatus stat;
-                  |// Serialize the parameter based on ID
-                  |switch(id)
-                  |{
-                  |"""
+                 |(void) base_id;
+                 |
+                 |// Serialize the parameter based on ID
+                 |switch(local_id)
+                 |{
+                 |"""
             ) ++
             sortedParams.flatMap((_, prm) => {
               guardedList (prm.isExternal) (
@@ -1812,12 +1826,12 @@ case class ExternalParameterDelegate(
             }) ++
             lines(
               """|  default:
-                  |    // Unknown ID should not have gotten here
-                  |    FW_ASSERT(false, id);
-                  |}
-                  |
-                  |return stat;
-                  |"""
+                 |    // Unknown ID should not have gotten here
+                 |    FW_ASSERT(false, local_id);
+                 |}
+                 |
+                 |return stat;
+                 |"""
             )
           },
           CppDoc.Function.Override,

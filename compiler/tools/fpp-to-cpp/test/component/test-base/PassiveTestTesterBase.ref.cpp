@@ -15,14 +15,17 @@
 
 Fw::SerializeStatus PassiveTestTesterBase::PassiveTestComponentBaseParamExternalDelegate ::
   deserializeParam(
-      const FwPrmIdType id,
+      const FwPrmIdType base_id,
+      const FwPrmIdType local_id,
       const Fw::ParamValid prmStat,
       Fw::ParamBuffer& buff
   )
 {
   Fw::SerializeStatus stat;
+  (void) base_id;
+
   // Serialize the parameter based on ID
-  switch(id)
+  switch(local_id)
   {
     // ParamI32
     case PassiveTestComponentBase::PARAMID_PARAMI32:
@@ -30,7 +33,7 @@ Fw::SerializeStatus PassiveTestTesterBase::PassiveTestComponentBaseParamExternal
       break;
     default:
       // Unknown ID should not have gotten here
-      FW_ASSERT(false, id);
+      FW_ASSERT(false, local_id);
   }
 
   return stat;
@@ -38,13 +41,16 @@ Fw::SerializeStatus PassiveTestTesterBase::PassiveTestComponentBaseParamExternal
 
 Fw::SerializeStatus PassiveTestTesterBase::PassiveTestComponentBaseParamExternalDelegate ::
   serializeParam(
-      const FwPrmIdType id,
+      const FwPrmIdType base_id,
+      const FwPrmIdType local_id,
       Fw::ParamBuffer& buff
   ) const
 {
   Fw::SerializeStatus stat;
+  (void) base_id;
+
   // Serialize the parameter based on ID
-  switch(id)
+  switch(local_id)
   {
     // ParamI32
     case PassiveTestComponentBase::PARAMID_PARAMI32:
@@ -52,7 +58,7 @@ Fw::SerializeStatus PassiveTestTesterBase::PassiveTestComponentBaseParamExternal
       break;
     default:
       // Unknown ID should not have gotten here
-      FW_ASSERT(false, id);
+      FW_ASSERT(false, local_id);
   }
 
   return stat;
