@@ -270,6 +270,8 @@ case class ComponentCppWriter (
                 |friend class ${componentClassName}Friend;
                 |//! Friend class tester to support autocoded test harness
                 |friend class ${componentName}TesterBase;
+                |//! Friend class tester implementation to support white-box testing
+                |friend class ${componentName}Tester;
                 |"""
           )
         ).flatten

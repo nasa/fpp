@@ -64,6 +64,8 @@ class PassiveSerialComponentBase :
     friend class PassiveSerialComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class PassiveSerialTesterBase;
+    //! Friend class tester implementation to support autocoded test harness
+    friend class PassiveSerialTester;
 
   PROTECTED:
 

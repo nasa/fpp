@@ -53,6 +53,8 @@ class ActiveGetProductsComponentBase :
     friend class ActiveGetProductsComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class ActiveGetProductsTesterBase;
+    //! Friend class tester implementation to support autocoded test harness
+    friend class ActiveGetProductsTester;
 
   PROTECTED:
 

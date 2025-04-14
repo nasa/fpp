@@ -31,6 +31,8 @@ class ActiveAsyncProductPortsOnlyComponentBase :
     friend class ActiveAsyncProductPortsOnlyComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class ActiveAsyncProductPortsOnlyTesterBase;
+    //! Friend class tester implementation to support autocoded test harness
+    friend class ActiveAsyncProductPortsOnlyTester;
 
   PROTECTED:
 

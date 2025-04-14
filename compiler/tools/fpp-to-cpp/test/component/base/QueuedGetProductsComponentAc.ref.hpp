@@ -53,6 +53,8 @@ class QueuedGetProductsComponentBase :
     friend class QueuedGetProductsComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class QueuedGetProductsTesterBase;
+    //! Friend class tester implementation to support autocoded test harness
+    friend class QueuedGetProductsTester;
 
   PROTECTED:
 

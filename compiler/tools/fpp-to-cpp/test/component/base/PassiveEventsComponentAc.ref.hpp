@@ -55,6 +55,8 @@ class PassiveEventsComponentBase :
     friend class PassiveEventsComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class PassiveEventsTesterBase;
+    //! Friend class tester implementation to support autocoded test harness
+    friend class PassiveEventsTester;
 
   PROTECTED:
 

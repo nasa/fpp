@@ -48,6 +48,8 @@ class QueuedOverflowComponentBase :
     friend class QueuedOverflowComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class QueuedOverflowTesterBase;
+    //! Friend class tester implementation to support autocoded test harness
+    friend class QueuedOverflowTester;
 
   PROTECTED:
 

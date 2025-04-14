@@ -55,6 +55,8 @@ class ActiveParamsComponentBase :
     friend class ActiveParamsComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class ActiveParamsTesterBase;
+    //! Friend class tester implementation to support autocoded test harness
+    friend class ActiveParamsTester;
 
   PROTECTED:
 

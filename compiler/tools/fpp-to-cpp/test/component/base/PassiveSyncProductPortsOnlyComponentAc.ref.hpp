@@ -31,6 +31,8 @@ class PassiveSyncProductPortsOnlyComponentBase :
     friend class PassiveSyncProductPortsOnlyComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class PassiveSyncProductPortsOnlyTesterBase;
+    //! Friend class tester implementation to support autocoded test harness
+    friend class PassiveSyncProductPortsOnlyTester;
 
   PROTECTED:
 

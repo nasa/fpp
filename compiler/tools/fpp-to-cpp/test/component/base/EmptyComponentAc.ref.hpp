@@ -26,6 +26,8 @@ class EmptyComponentBase :
     friend class EmptyComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class EmptyTesterBase;
+    //! Friend class tester implementation to support autocoded test harness
+    friend class EmptyTester;
 
   public:
 

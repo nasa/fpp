@@ -54,6 +54,8 @@ class ActiveSyncProductsComponentBase :
     friend class ActiveSyncProductsComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class ActiveSyncProductsTesterBase;
+    //! Friend class tester implementation to support autocoded test harness
+    friend class ActiveSyncProductsTester;
 
   PROTECTED:
 

@@ -31,6 +31,8 @@ class QueuedNoArgsPortsOnlyComponentBase :
     friend class QueuedNoArgsPortsOnlyComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class QueuedNoArgsPortsOnlyTesterBase;
+    //! Friend class tester implementation to support autocoded test harness
+    friend class QueuedNoArgsPortsOnlyTester;
 
   PROTECTED:
 

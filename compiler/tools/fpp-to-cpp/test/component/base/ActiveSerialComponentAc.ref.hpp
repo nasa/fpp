@@ -65,6 +65,8 @@ class ActiveSerialComponentBase :
     friend class ActiveSerialComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class ActiveSerialTesterBase;
+    //! Friend class tester implementation to support autocoded test harness
+    friend class ActiveSerialTester;
 
   PROTECTED:
 

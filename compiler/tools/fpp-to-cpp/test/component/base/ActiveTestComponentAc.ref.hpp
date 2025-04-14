@@ -67,6 +67,8 @@ namespace M {
       friend class ActiveTestComponentBaseFriend;
       //! Friend class tester to support autocoded test harness
       friend class ActiveTestTesterBase;
+      //! Friend class tester implementation to support autocoded test harness
+      friend class ActiveTestTester;
 
     PROTECTED:
 

@@ -55,6 +55,8 @@ class QueuedParamsComponentBase :
     friend class QueuedParamsComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class QueuedParamsTesterBase;
+    //! Friend class tester implementation to support autocoded test harness
+    friend class QueuedParamsTester;
 
   PROTECTED:
 

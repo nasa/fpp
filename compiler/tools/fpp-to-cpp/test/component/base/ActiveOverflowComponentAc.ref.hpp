@@ -48,6 +48,8 @@ class ActiveOverflowComponentBase :
     friend class ActiveOverflowComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class ActiveOverflowTesterBase;
+    //! Friend class tester implementation to support autocoded test harness
+    friend class ActiveOverflowTester;
 
   PROTECTED:
 

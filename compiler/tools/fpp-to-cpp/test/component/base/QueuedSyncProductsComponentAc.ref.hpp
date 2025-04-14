@@ -54,6 +54,8 @@ class QueuedSyncProductsComponentBase :
     friend class QueuedSyncProductsComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class QueuedSyncProductsTesterBase;
+    //! Friend class tester implementation to support autocoded test harness
+    friend class QueuedSyncProductsTester;
 
   PROTECTED:
 

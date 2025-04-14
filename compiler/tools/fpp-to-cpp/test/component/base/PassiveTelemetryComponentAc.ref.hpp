@@ -53,6 +53,8 @@ class PassiveTelemetryComponentBase :
     friend class PassiveTelemetryComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class PassiveTelemetryTesterBase;
+    //! Friend class tester implementation to support autocoded test harness
+    friend class PassiveTelemetryTester;
 
   PROTECTED:
 

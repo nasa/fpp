@@ -35,6 +35,8 @@ namespace FppTest {
       friend class SmInitialQueuedComponentBaseFriend;
       //! Friend class tester to support autocoded test harness
       friend class SmInitialQueuedTesterBase;
+      //! Friend class tester implementation to support autocoded test harness
+      friend class SmInitialQueuedTester;
 
     PROTECTED:
 

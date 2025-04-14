@@ -53,6 +53,8 @@ class ActiveCommandsComponentBase :
     friend class ActiveCommandsComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class ActiveCommandsTesterBase;
+    //! Friend class tester implementation to support autocoded test harness
+    friend class ActiveCommandsTester;
 
   PROTECTED:
 

@@ -54,6 +54,8 @@ class PassiveGuardedProductsComponentBase :
     friend class PassiveGuardedProductsComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class PassiveGuardedProductsTesterBase;
+    //! Friend class tester implementation to support autocoded test harness
+    friend class PassiveGuardedProductsTester;
 
   PROTECTED:
 
