@@ -44,11 +44,9 @@ class ActiveOverflowComponentBase :
     // Friend classes
     // ----------------------------------------------------------------------
 
-    //! Friend class for white-box testing
-    friend class ActiveOverflowComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class ActiveOverflowTesterBase;
-    //! Friend class tester implementation to support autocoded test harness
+    //! Friend class tester implementation to support white-box testing
     friend class ActiveOverflowTester;
 
   PROTECTED:

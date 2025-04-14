@@ -61,11 +61,9 @@ class QueuedSerialComponentBase :
     // Friend classes
     // ----------------------------------------------------------------------
 
-    //! Friend class for white-box testing
-    friend class QueuedSerialComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class QueuedSerialTesterBase;
-    //! Friend class tester implementation to support autocoded test harness
+    //! Friend class tester implementation to support white-box testing
     friend class QueuedSerialTester;
 
   PROTECTED:

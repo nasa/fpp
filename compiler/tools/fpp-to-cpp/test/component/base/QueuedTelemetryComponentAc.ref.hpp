@@ -49,11 +49,9 @@ class QueuedTelemetryComponentBase :
     // Friend classes
     // ----------------------------------------------------------------------
 
-    //! Friend class for white-box testing
-    friend class QueuedTelemetryComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class QueuedTelemetryTesterBase;
-    //! Friend class tester implementation to support autocoded test harness
+    //! Friend class tester implementation to support white-box testing
     friend class QueuedTelemetryTester;
 
   PROTECTED:

@@ -266,8 +266,6 @@ case class ComponentCppWriter (
           ),
           lines(
             s"""|
-                |//! Friend class for white-box testing
-                |friend class ${componentClassName}Friend;
                 |//! Friend class tester to support autocoded test harness
                 |friend class ${componentName}TesterBase;
                 |//! Friend class tester implementation to support white-box testing

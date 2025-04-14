@@ -50,11 +50,9 @@ class QueuedAsyncProductsComponentBase :
     // Friend classes
     // ----------------------------------------------------------------------
 
-    //! Friend class for white-box testing
-    friend class QueuedAsyncProductsComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class QueuedAsyncProductsTesterBase;
-    //! Friend class tester implementation to support autocoded test harness
+    //! Friend class tester implementation to support white-box testing
     friend class QueuedAsyncProductsTester;
 
   PROTECTED:

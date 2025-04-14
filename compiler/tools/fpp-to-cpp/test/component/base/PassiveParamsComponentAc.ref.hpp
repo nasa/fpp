@@ -51,11 +51,9 @@ class PassiveParamsComponentBase :
     // Friend classes
     // ----------------------------------------------------------------------
 
-    //! Friend class for white-box testing
-    friend class PassiveParamsComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class PassiveParamsTesterBase;
-    //! Friend class tester implementation to support autocoded test harness
+    //! Friend class tester implementation to support white-box testing
     friend class PassiveParamsTester;
 
   PROTECTED:

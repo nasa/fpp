@@ -26,11 +26,9 @@ class PassiveGetProductPortsOnlyComponentBase :
     // Friend classes
     // ----------------------------------------------------------------------
 
-    //! Friend class for white-box testing
-    friend class PassiveGetProductPortsOnlyComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class PassiveGetProductPortsOnlyTesterBase;
-    //! Friend class tester implementation to support autocoded test harness
+    //! Friend class tester implementation to support white-box testing
     friend class PassiveGetProductPortsOnlyTester;
 
   PROTECTED:

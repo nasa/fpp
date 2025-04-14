@@ -50,11 +50,9 @@ class ActiveGuardedProductsComponentBase :
     // Friend classes
     // ----------------------------------------------------------------------
 
-    //! Friend class for white-box testing
-    friend class ActiveGuardedProductsComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class ActiveGuardedProductsTesterBase;
-    //! Friend class tester implementation to support autocoded test harness
+    //! Friend class tester implementation to support white-box testing
     friend class ActiveGuardedProductsTester;
 
   PROTECTED:

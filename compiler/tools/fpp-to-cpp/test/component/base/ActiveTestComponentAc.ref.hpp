@@ -63,11 +63,9 @@ namespace M {
       // Friend classes
       // ----------------------------------------------------------------------
 
-      //! Friend class for white-box testing
-      friend class ActiveTestComponentBaseFriend;
       //! Friend class tester to support autocoded test harness
       friend class ActiveTestTesterBase;
-      //! Friend class tester implementation to support autocoded test harness
+      //! Friend class tester implementation to support white-box testing
       friend class ActiveTestTester;
 
     PROTECTED:
