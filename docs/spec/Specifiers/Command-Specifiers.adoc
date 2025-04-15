@@ -64,6 +64,8 @@ when the input full is queue.
 This specifier is valid only if the kind of the command is `async`.
 If no specifier appears, then the default behavior is `assert`.
 
+* Commands have an implied use of the type `FwOpcodeType`.
+
 ==== Examples
 
 [source,fpp]

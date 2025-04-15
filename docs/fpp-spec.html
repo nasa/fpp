@@ -5141,6 +5141,9 @@ when the input full is queue.
 This specifier is valid only if the kind of the command is <code>async</code>.
 If no specifier appears, then the default behavior is <code>assert</code>.</p>
 </li>
+<li>
+<p>Commands have an implied use of the type <code>FwOpcodeType</code>.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -5766,6 +5769,9 @@ of times to emit the event before throttling it.
 The type of <em>e</em> must be convertible to
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a> and must evaluate to an integer
 in the range [0,2<sup>31</sup>).</p>
+</li>
+<li>
+<p>Events have an implied use of the type <code>FwEventIdType</code>.</p>
 </li>
 </ul>
 </div>
@@ -7145,6 +7151,9 @@ value of <em>v</em>.</p>
 </ol>
 </div>
 </li>
+<li>
+<p>Telemetry Channels have an implied use of the type <code>FwChanIdType</code>.</p>
+</li>
 </ol>
 </div>
 </div>
@@ -7372,6 +7381,9 @@ available in the enclosing topology, either through
 <a href="#Specifiers_Component-Instance-Specifiers">direct specification</a>
 or through
 <a href="#Specifiers_Topology-Import-Specifiers">import</a>.</p>
+</li>
+<li>
+<p>Telemetry Packets have an implied use of the type <code>FwTlmPacketizeIdType</code>.</p>
 </li>
 </ol>
 </div>
@@ -11159,7 +11171,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-04-07 13:30:00 -0700
+Last updated 2025-04-14 15:07:33 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

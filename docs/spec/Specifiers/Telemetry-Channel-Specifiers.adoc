@@ -88,6 +88,8 @@ limit is applied directly to _v_.
 (e.g., it is an array), then the limit is applied recursively to each member
 value of _v_.
 
+. Telemetry Channels have an implied use of the type `FwChanIdType`.
+
 ==== Examples
 
 [source,fpp]

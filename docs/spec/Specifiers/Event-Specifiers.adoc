@@ -62,6 +62,8 @@ The type of _e_ must be convertible to
 <<Types_Internal-Types_Integer,_Integer_>> and must evaluate to an integer
 in the range [0,2^31^).
 
+* Events have an implied use of the type `FwEventIdType`.
+
 ==== Examples
 
 [source,fpp]

@@ -66,6 +66,8 @@ available in the enclosing topology, either through
 or through
 <<Specifiers_Topology-Import-Specifiers,import>>.
 
+. Telemetry Packets have an implied use of the type `FwTlmPacketizeIdType`.
+
 ==== Examples
 
 [source,fpp]
