@@ -31,8 +31,8 @@ class Basic :
       SERIALIZED_SIZE =
         sizeof(TU32) +
         sizeof(TF32) +
-        Fw::StringBase::STATIC_SERIALIZED_SIZE(80) +
-        Fw::StringBase::STATIC_SERIALIZED_SIZE(2)
+        TString::SERIALIZED_SIZE +
+        TStringSize::SERIALIZED_SIZE
     };
 
   public:

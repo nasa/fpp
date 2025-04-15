@@ -205,6 +205,7 @@ class QueuedTestComponentBase :
       PARAMID_PARAMARRAY = 0x31, //!< A parameter with array data, default value, and save opcode
       PARAMID_PARAMSTRUCT = 0x32, //!< A parameter with struct data and set/save opcodes
       PARAMID_PARAMI32 = 0x33, //!< An externally stored parameter with I32 data
+                               //!< Second line of annotation
     };
 
     //! Record sizes
@@ -2417,6 +2418,7 @@ class QueuedTestComponentBase :
     //! \return The parameter value
     //!
     //! An externally stored parameter with I32 data
+    //! Second line of annotation
     I32 paramGet_ParamI32(
         Fw::ParamValid& valid //!< Whether the parameter is valid
     );

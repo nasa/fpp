@@ -10,61 +10,6 @@
 #include "test-base/QueuedParamsTesterBase.hpp"
 
 // ----------------------------------------------------------------------
-// Unit test implementation of external parameter delegate serialization/deserialization
-// ----------------------------------------------------------------------
-
-Fw::SerializeStatus QueuedParamsTesterBase::QueuedParamsComponentBaseParamExternalDelegate ::
-  deserializeParam(
-      const FwPrmIdType base_id,
-      const FwPrmIdType local_id,
-      const Fw::ParamValid prmStat,
-      Fw::ParamBuffer& buff
-  )
-{
-  Fw::SerializeStatus stat;
-  (void) base_id;
-
-  // Serialize the parameter based on ID
-  switch(local_id)
-  {
-    // ParamI32
-    case QueuedParamsComponentBase::PARAMID_PARAMI32:
-      stat = buff.deserialize(this->m_param_ParamI32);
-      break;
-    default:
-      // Unknown ID should not have gotten here
-      FW_ASSERT(false, local_id);
-  }
-
-  return stat;
-}
-
-Fw::SerializeStatus QueuedParamsTesterBase::QueuedParamsComponentBaseParamExternalDelegate ::
-  serializeParam(
-      const FwPrmIdType base_id,
-      const FwPrmIdType local_id,
-      Fw::ParamBuffer& buff
-  ) const
-{
-  Fw::SerializeStatus stat;
-  (void) base_id;
-
-  // Serialize the parameter based on ID
-  switch(local_id)
-  {
-    // ParamI32
-    case QueuedParamsComponentBase::PARAMID_PARAMI32:
-      stat = buff.serialize(this->m_param_ParamI32);
-      break;
-    default:
-      // Unknown ID should not have gotten here
-      FW_ASSERT(false, local_id);
-  }
-
-  return stat;
-}
-
-// ----------------------------------------------------------------------
 // Component initialization
 // ----------------------------------------------------------------------
 
@@ -2824,65 +2769,6 @@ void QueuedParamsTesterBase ::
   }
 }
 
-void QueuedParamsTesterBase ::
-  paramSet_ParamI32(
-      const I32& val,
-      Fw::ParamValid valid
-  )
-{
-  this->paramTesterDelegate.m_param_ParamI32 = val;
-  this->paramTesterDelegate.m_param_ParamI32_valid = valid;
-}
-
-void QueuedParamsTesterBase ::
-  paramSend_ParamI32(
-      FwEnumStoreType instance,
-      U32 cmdSeq
-  )
-{
-  // Build command for parameter set
-  Fw::CmdArgBuffer args;
-  FW_ASSERT(
-    args.serialize(this->paramTesterDelegate.m_param_ParamI32) == Fw::FW_SERIALIZE_OK
-  );
-
-  const U32 idBase = this->getIdBase();
-  FwOpcodeType _prmOpcode =  QueuedParamsComponentBase::OPCODE_PARAMI32_SET + idBase;
-
-  if (not this->m_to_cmdIn[0].isConnected()) {
-    printf("Test Command Output port not connected!\n");
-  }
-  else {
-    this->m_to_cmdIn[0].invoke(
-      _prmOpcode,
-      cmdSeq,
-      args
-    );
-  }
-}
-
-void QueuedParamsTesterBase ::
-  paramSave_ParamI32(
-      FwEnumStoreType instance,
-      U32 cmdSeq
-  )
-{
-  Fw::CmdArgBuffer args;
-  const U32 idBase = this->getIdBase();
-  FwOpcodeType _prmOpcode = QueuedParamsComponentBase::OPCODE_PARAMI32_SAVE + idBase;
-
-  if (not this->m_to_cmdIn[0].isConnected()) {
-    printf("Test Command Output port not connected!\n");
-  }
-  else {
-    this->m_to_cmdIn[0].invoke(
-      _prmOpcode,
-      cmdSeq,
-      args
-    );
-  }
-}
-
 // ----------------------------------------------------------------------
 // Functions to test time
 // ----------------------------------------------------------------------
@@ -3164,16 +3050,6 @@ Fw::ParamValid QueuedParamsTesterBase ::
       break;
     };
 
-    case QueuedParamsComponentBase::PARAMID_PARAMI32: {
-      _status = val.serialize(_testerBase->paramTesterDelegate.m_param_ParamI32);
-      _ret = _testerBase->paramTesterDelegate.m_param_ParamI32_valid;
-      FW_ASSERT(
-        _status == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_status)
-      );
-      break;
-    };
-
     default:
       FW_ASSERT(0, static_cast<FwAssertArgType>(id));
       break;
@@ -3282,20 +3158,6 @@ void QueuedParamsTesterBase ::
       FW_ASSERT(
         ParamStructVal ==
         _testerBase->m_param_ParamStruct
-      );
-      break;
-    };
-
-    case QueuedParamsComponentBase::PARAMID_PARAMI32: {
-      I32 ParamI32Val;
-      _status = val.deserialize(ParamI32Val);
-      FW_ASSERT(
-        _status == Fw::FW_SERIALIZE_OK,
-        static_cast<FwAssertArgType>(_status)
-      );
-      FW_ASSERT(
-        ParamI32Val ==
-        _testerBase->paramTesterDelegate.m_param_ParamI32
       );
       break;
     };
@@ -3484,7 +3346,3 @@ F32 QueuedParamsTesterBase ::
     s
   );
 }
-
-// ----------------------------------------------------------------------
-// Parameter delegates
-// ----------------------------------------------------------------------

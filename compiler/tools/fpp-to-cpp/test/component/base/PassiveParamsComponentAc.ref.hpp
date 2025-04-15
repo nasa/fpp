@@ -24,7 +24,6 @@
 #endif
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
-#include "Fw/Prm/PrmExternalTypes.hpp"
 #include "Fw/Prm/PrmGetPortAc.hpp"
 #include "Fw/Prm/PrmSetPortAc.hpp"
 #include "Fw/Prm/PrmString.hpp"
@@ -122,8 +121,6 @@ class PassiveParamsComponentBase :
       OPCODE_PARAMARRAY_SAVE = 0x35, //!< Opcode to save parameter ParamArray
       OPCODE_PARAMSTRUCT_SET = 0x40, //!< Opcode to set parameter ParamStruct
       OPCODE_PARAMSTRUCT_SAVE = 0x45, //!< Opcode to save parameter ParamStruct
-      OPCODE_PARAMI32_SET = 0x46, //!< Opcode to set parameter ParamI32
-      OPCODE_PARAMI32_SAVE = 0x47, //!< Opcode to save parameter ParamI32
     };
 
     //! Parameter IDs
@@ -135,7 +132,6 @@ class PassiveParamsComponentBase :
       PARAMID_PARAMENUM = 0x30, //!< A parameter with enum data
       PARAMID_PARAMARRAY = 0x31, //!< A parameter with array data, default value, and save opcode
       PARAMID_PARAMSTRUCT = 0x32, //!< A parameter with struct data and set/save opcodes
-      PARAMID_PARAMI32 = 0x33, //!< An externally stored parameter with I32 data
     };
 
   public:
@@ -1216,26 +1212,6 @@ class PassiveParamsComponentBase :
         Fw::ParamValid& valid //!< Whether the parameter is valid
     );
 
-    //! Get parameter ParamI32
-    //!
-    //! \return The parameter value
-    //!
-    //! An externally stored parameter with I32 data
-    I32 paramGet_ParamI32(
-        Fw::ParamValid& valid //!< Whether the parameter is valid
-    );
-
-  PROTECTED:
-
-    // ----------------------------------------------------------------------
-    // External parameter delegate initialization
-    // ----------------------------------------------------------------------
-
-    //! Initialize the external parameter delegate
-    void registerExternalParameters(
-        Fw::ParamExternalDelegate* paramExternalDelegatePtr //!< The delegate for externally managed parameters
-    );
-
   PROTECTED:
 
     // ----------------------------------------------------------------------
@@ -1458,13 +1434,6 @@ class PassiveParamsComponentBase :
         Fw::SerializeBufferBase& val //!< The serialization buffer
     );
 
-    //! Set parameter ParamI32
-    //!
-    //! \return The command response
-    Fw::CmdResponse paramSet_ParamI32(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
-    );
-
   PRIVATE:
 
     // ----------------------------------------------------------------------
@@ -1500,11 +1469,6 @@ class PassiveParamsComponentBase :
     //!
     //! \return The command response
     Fw::CmdResponse paramSave_ParamStruct();
-
-    //! Save parameter ParamI32
-    //!
-    //! \return The command response
-    Fw::CmdResponse paramSave_ParamI32();
 
   PRIVATE:
 
@@ -1684,15 +1648,6 @@ class PassiveParamsComponentBase :
     //!
     //! A parameter with struct data and set/save opcodes
     S m_ParamStruct;
-
-  PRIVATE:
-
-    // ----------------------------------------------------------------------
-    // Parameter delegates
-    // ----------------------------------------------------------------------
-
-    //! Delegate to serialize/deserialize an externally stored parameter
-    Fw::ParamExternalDelegate* paramDelegatePtr;
 
   PRIVATE:
 

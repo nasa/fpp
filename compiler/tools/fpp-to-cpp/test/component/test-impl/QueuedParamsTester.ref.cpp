@@ -17,7 +17,6 @@ QueuedParamsTester ::
 {
   this->initComponents();
   this->connectPorts();
-  this->component.registerExternalParameters(&this->paramTesterDelegate);
 }
 
 QueuedParamsTester ::

@@ -26,7 +26,7 @@ class AliasType :
     // ----------------------------------------------------------------------
 
     //! The type of z
-    using Type_of_z = Fw::ExternalString[10];
+    using Type_of_z = SAlias[10];
 
   public:
 
@@ -39,7 +39,7 @@ class AliasType :
       SERIALIZED_SIZE =
         sizeof(U16Alias) +
         TAlias::SERIALIZED_SIZE +
-        Fw::StringBase::STATIC_SERIALIZED_SIZE(50) * 10
+        SAlias::SERIALIZED_SIZE * 10
     };
 
   public:

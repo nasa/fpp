@@ -41,6 +41,7 @@ passive()
   diff_cpp PassiveGetProductsComponent && \
   diff_cpp PassiveGuardedProductsComponent && \
   diff_cpp PassiveParamsComponent &&\
+  diff_cpp PassiveExternalParamsComponent &&\
   diff_cpp PassiveSerialComponent && \
   diff_cpp PassiveSyncProductPortsOnlyComponent && \
   diff_cpp PassiveSyncProductsComponent && \
@@ -61,6 +62,7 @@ active()
   diff_cpp ActiveGuardedProductsComponent && \
   diff_cpp ActiveNoArgsPortsOnlyComponent && \
   diff_cpp ActiveParamsComponent && \
+  diff_cpp ActiveExternalParamsComponent && \
   diff_cpp ActiveSerialComponent && \
   diff_cpp ActiveSyncProductsComponent && \
   diff_cpp ActiveTelemetryComponent && \
@@ -79,6 +81,7 @@ queued()
   diff_cpp QueuedGuardedProductsComponent && \
   diff_cpp QueuedNoArgsPortsOnlyComponent && \
   diff_cpp QueuedParamsComponent && \
+  diff_cpp QueuedExternalParamsComponent && \
   diff_cpp QueuedSerialComponent && \
   diff_cpp QueuedSyncProductsComponent && \
   diff_cpp QueuedTelemetryComponent && \

@@ -11,7 +11,6 @@
 
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
-#include "Fw/Prm/PrmExternalTypes.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "test-base/QueuedParamsComponentAc.hpp"
@@ -218,54 +217,6 @@ class QueuedParamsTesterBase :
       FwOpcodeType opCode;
       U32 cmdSeq;
       Fw::CmdResponse response;
-    };
-
-    //! External Parameter Delegate
-    class QueuedParamsComponentBaseParamExternalDelegate :
-      public Fw::ParamExternalDelegate
-    {
-
-      public:
-
-        // ----------------------------------------------------------------------
-        // Parameter validity flags
-        // ----------------------------------------------------------------------
-
-        //! True if ParamI32 was successfully received
-        Fw::ParamValid m_param_ParamI32_valid;
-
-      public:
-
-        // ----------------------------------------------------------------------
-        // Parameter variables
-        // ----------------------------------------------------------------------
-
-        //! Parameter ParamI32
-        //!
-        //! An externally stored parameter with I32 data
-        I32 m_param_ParamI32;
-
-      public:
-
-        // ----------------------------------------------------------------------
-        // Unit test implementation of external parameter delegate serialization/deserialization
-        // ----------------------------------------------------------------------
-
-        //! Parameter deserialization function for external parameter unit testing
-        Fw::SerializeStatus deserializeParam(
-            const FwPrmIdType base_id, //!< The component base parameter ID to deserialize
-            const FwPrmIdType local_id, //!< The parameter local ID to deserialize
-            const Fw::ParamValid prmStat, //!< The parameter validity status
-            Fw::ParamBuffer& buff //!< The buffer containing the parameter to deserialize
-        ) override;
-
-        //! Parameter serialization function for external parameter unit testing
-        Fw::SerializeStatus serializeParam(
-            const FwPrmIdType base_id, //!< The component base parameter ID to serialize
-            const FwPrmIdType local_id, //!< The parameter local ID to serialize
-            Fw::ParamBuffer& buff //!< The buffer to serialize the parameter into
-        ) const override;
-
     };
 
   public:
@@ -1360,24 +1311,6 @@ class QueuedParamsTesterBase :
         U32 cmdSeq //!< The command sequence number
     );
 
-    //! Set parameter ParamI32
-    void paramSet_ParamI32(
-        const I32& val, //!< The parameter value
-        Fw::ParamValid valid //!< The parameter valid flag
-    );
-
-    //! Send parameter ParamI32
-    void paramSend_ParamI32(
-        FwEnumStoreType instance, //!< The component instance
-        U32 cmdSeq //!< The command sequence number
-    );
-
-    //! Save parameter ParamI32
-    void paramSave_ParamI32(
-        FwEnumStoreType instance, //!< The component instance
-        U32 cmdSeq //!< The command sequence number
-    );
-
   protected:
 
     // ----------------------------------------------------------------------
@@ -1813,15 +1746,6 @@ class QueuedParamsTesterBase :
     //!
     //! A parameter with struct data and set/save opcodes
     S m_param_ParamStruct;
-
-  protected:
-
-    // ----------------------------------------------------------------------
-    // Parameter delegates
-    // ----------------------------------------------------------------------
-
-    //! Delegate to serialize/deserialize an externally stored parameter
-    QueuedParamsComponentBaseParamExternalDelegate paramTesterDelegate;
 
   private:
 

@@ -17,7 +17,6 @@ ActiveParamsTester ::
 {
   this->initComponents();
   this->connectPorts();
-  this->component.registerExternalParameters(&this->paramTesterDelegate);
 }
 
 ActiveParamsTester ::

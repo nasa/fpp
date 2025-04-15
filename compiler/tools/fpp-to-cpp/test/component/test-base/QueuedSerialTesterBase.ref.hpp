@@ -349,6 +349,7 @@ class QueuedSerialTesterBase :
         //! Parameter ParamI32
         //!
         //! An externally stored parameter with I32 data
+        //! Second line of annotation
         I32 m_param_ParamI32;
 
       public:

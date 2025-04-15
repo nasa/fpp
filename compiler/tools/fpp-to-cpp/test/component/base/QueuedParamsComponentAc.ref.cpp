@@ -1559,14 +1559,6 @@ void QueuedParamsComponentBase ::
   this->m_cmdRegOut_OutputPort[0].invoke(
     this->getIdBase() + OPCODE_PARAMSTRUCT_SAVE
   );
-
-  this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMI32_SET
-  );
-
-  this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMI32_SAVE
-  );
 }
 
 // ----------------------------------------------------------------------
@@ -1582,8 +1574,6 @@ void QueuedParamsComponentBase ::
   FW_ASSERT(this->m_prmGetOut_OutputPort[0].isConnected());
 
   FwPrmIdType _id;
-
-  Fw::ParamValid param_valid;
 
   _id = base_id + PARAMID_PARAMU32;
 
@@ -1755,33 +1745,6 @@ void QueuedParamsComponentBase ::
 
   this->m_paramLock.unLock();
 
-  _id = base_id + PARAMID_PARAMI32;
-
-  // Get parameter ParamI32
-  param_valid = this->m_prmGetOut_OutputPort[0].invoke(
-    _id,
-    buff
-  );
-
-  // Get the local ID to pass to the delegate
-  _id = PARAMID_PARAMI32;
-  // If there was a deserialization issue, mark it invalid
-
-  if (param_valid == Fw::ParamValid::VALID) {
-    // Pass the local ID to the delegate
-    _id = PARAMID_PARAMI32;
-
-    FW_ASSERT(this->paramDelegatePtr != NULL);
-    // Call the delegate deserialize function for m_ParamI32
-    stat = this->paramDelegatePtr->deserializeParam(base_id, _id, param_valid, buff);
-    if (stat != Fw::FW_SERIALIZE_OK) {
-      param_valid = Fw::ParamValid::INVALID;
-    }
-  }
-  else {
-    param_valid = Fw::ParamValid::INVALID;
-  }
-
   // Call notifier
   this->parametersLoaded();
 }
@@ -1792,8 +1755,7 @@ void QueuedParamsComponentBase ::
 
 QueuedParamsComponentBase ::
   QueuedParamsComponentBase(const char* compName) :
-    Fw::QueuedComponentBase(compName),
-    paramDelegatePtr(NULL)
+    Fw::QueuedComponentBase(compName)
 {
   this->m_param_ParamU32_valid = Fw::ParamValid::UNINIT;
   this->m_param_ParamF64_valid = Fw::ParamValid::UNINIT;
@@ -3575,40 +3537,6 @@ S QueuedParamsComponentBase ::
   return _local;
 }
 
-I32 QueuedParamsComponentBase ::
-  paramGet_ParamI32(Fw::ParamValid& valid)
-{
-  I32 _local;
-  Fw::ParamBuffer getBuff;
-  FwPrmIdType local_id;
-  FwPrmIdType base_id = this->getIdBase();
-  // Get the local ID to pass to the delegate
-  local_id = PARAMID_PARAMI32;
-
-  FW_ASSERT(this->paramDelegatePtr != NULL);
-  // Get the external parameter from the delegate
-  Fw::SerializeStatus stat = this->paramDelegatePtr->serializeParam(base_id, local_id, getBuff);
-  if(stat == Fw::FW_SERIALIZE_OK) {
-    stat = getBuff.deserialize(_local);
-    FW_ASSERT(stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(stat));
-    valid = Fw::ParamValid::VALID;
-  } else {
-    valid = Fw::ParamValid::INVALID;
-  }
-  return _local;
-}
-
-// ----------------------------------------------------------------------
-// External parameter delegate initialization
-// ----------------------------------------------------------------------
-
-void QueuedParamsComponentBase ::
-  registerExternalParameters(Fw::ParamExternalDelegate* paramExternalDelegatePtr)
-{
-  FW_ASSERT(paramExternalDelegatePtr != NULL);
-  this->paramDelegatePtr = paramExternalDelegatePtr;
-}
-
 // ----------------------------------------------------------------------
 // Time
 // ----------------------------------------------------------------------
@@ -4233,26 +4161,6 @@ void QueuedParamsComponentBase ::
       );
       break;
     }
-
-    case OPCODE_PARAMI32_SET: {
-      Fw::CmdResponse _cstat = compPtr->paramSet_ParamI32(args);
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-
-    case OPCODE_PARAMI32_SAVE: {
-      Fw::CmdResponse _cstat = compPtr->paramSave_ParamI32();
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
   }
 }
 
@@ -4785,25 +4693,6 @@ Fw::CmdResponse QueuedParamsComponentBase ::
   return Fw::CmdResponse::OK;
 }
 
-Fw::CmdResponse QueuedParamsComponentBase ::
-  paramSet_ParamI32(Fw::SerializeBufferBase& val)
-{
-  FwPrmIdType local_id = PARAMID_PARAMI32;
-  FwPrmIdType base_id = this->getIdBase();
-
-  FW_ASSERT(this->paramDelegatePtr != NULL);
-  // Call the delegate serialize function for m_ParamI32
-  Fw::SerializeStatus _stat;
-  _stat = this->paramDelegatePtr->deserializeParam(base_id, local_id, Fw::ParamValid::VALID, dynamic_cast<Fw::ParamBuffer&>(val));
-  if (_stat != Fw::FW_SERIALIZE_OK) {
-    return Fw::CmdResponse::VALIDATION_ERROR;
-  }
-
-  // Call notifier
-  this->parameterUpdated(PARAMID_PARAMI32);
-  return Fw::CmdResponse::OK;
-}
-
 // ----------------------------------------------------------------------
 // Parameter save functions
 // ----------------------------------------------------------------------
@@ -4981,35 +4870,3 @@ Fw::CmdResponse QueuedParamsComponentBase ::
 
   return Fw::CmdResponse::EXECUTION_ERROR;
 }
-
-Fw::CmdResponse QueuedParamsComponentBase ::
-  paramSave_ParamI32()
-{
-  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
-    // Get the local ID to pass to the delegate
-    FwPrmIdType _id = PARAMID_PARAMI32;
-    FwPrmIdType base_id = this->getIdBase();
-
-    FW_ASSERT(this->paramDelegatePtr != NULL);
-    Fw::ParamBuffer saveBuff;
-    Fw::SerializeStatus stat = this->paramDelegatePtr->serializeParam(base_id, _id, saveBuff);
-    if (stat != Fw::FW_SERIALIZE_OK) {
-      return Fw::CmdResponse::VALIDATION_ERROR;
-    }
-
-    // Save the parameter
-    _id = this->getIdBase() + PARAMID_PARAMI32;
-    this->m_prmSetOut_OutputPort[0].invoke(
-      _id,
-      saveBuff
-    );
-
-    return Fw::CmdResponse::OK;
-  }
-
-  return Fw::CmdResponse::EXECUTION_ERROR;
-}
-
-// ----------------------------------------------------------------------
-// Parameter delegates
-// ----------------------------------------------------------------------
