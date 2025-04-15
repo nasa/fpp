@@ -158,7 +158,7 @@ case class ComponentImplWriter(
   private def getConstructorsAndDestructors: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "public",
-      "Component construction test and destruction",
+      "Component construction and destruction",
       List(getConstructor, getDestructor)
     )
 

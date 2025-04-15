@@ -7,7 +7,7 @@
 #include "PassiveGuardedProducts.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction test and destruction
+// Component construction and destruction
 // ----------------------------------------------------------------------
 
 PassiveGuardedProducts ::

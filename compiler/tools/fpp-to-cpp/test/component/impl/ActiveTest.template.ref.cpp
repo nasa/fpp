@@ -9,7 +9,7 @@
 namespace M {
 
   // ----------------------------------------------------------------------
-  // Component construction test and destruction
+  // Component construction and destruction
   // ----------------------------------------------------------------------
 
   ActiveTest ::

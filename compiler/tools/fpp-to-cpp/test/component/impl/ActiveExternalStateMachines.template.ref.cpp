@@ -9,7 +9,7 @@
 namespace ExternalSm {
 
   // ----------------------------------------------------------------------
-  // Component construction test and destruction
+  // Component construction and destruction
   // ----------------------------------------------------------------------
 
   ActiveExternalStateMachines ::

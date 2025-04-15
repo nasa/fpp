@@ -16,7 +16,7 @@ class QueuedParams final :
   public:
 
     // ----------------------------------------------------------------------
-    // Component construction test and destruction
+    // Component construction and destruction
     // ----------------------------------------------------------------------
 
     //! Construct QueuedParams object

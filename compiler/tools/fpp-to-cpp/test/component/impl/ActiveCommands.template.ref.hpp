@@ -16,7 +16,7 @@ class ActiveCommands final :
   public:
 
     // ----------------------------------------------------------------------
-    // Component construction test and destruction
+    // Component construction and destruction
     // ----------------------------------------------------------------------
 
     //! Construct ActiveCommands object

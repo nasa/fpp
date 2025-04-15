@@ -7,7 +7,7 @@
 #include "ActiveExternalParams.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction test and destruction
+// Component construction and destruction
 // ----------------------------------------------------------------------
 
 ActiveExternalParams ::

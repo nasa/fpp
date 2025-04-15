@@ -9,7 +9,7 @@
 namespace FppTest {
 
   // ----------------------------------------------------------------------
-  // Component construction test and destruction
+  // Component construction and destruction
   // ----------------------------------------------------------------------
 
   SmStateQueued ::

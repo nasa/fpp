@@ -16,7 +16,7 @@ class PassiveEvents final :
   public:
 
     // ----------------------------------------------------------------------
-    // Component construction test and destruction
+    // Component construction and destruction
     // ----------------------------------------------------------------------
 
     //! Construct PassiveEvents object

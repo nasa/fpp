@@ -18,7 +18,7 @@ namespace M {
     public:
 
       // ----------------------------------------------------------------------
-      // Component construction test and destruction
+      // Component construction and destruction
       // ----------------------------------------------------------------------
 
       //! Construct ActiveTest object

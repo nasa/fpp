@@ -7,7 +7,7 @@
 #include "QueuedExternalParams.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction test and destruction
+// Component construction and destruction
 // ----------------------------------------------------------------------
 
 QueuedExternalParams ::

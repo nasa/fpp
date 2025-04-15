@@ -7,7 +7,7 @@
 #include "ActiveCommands.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction test and destruction
+// Component construction and destruction
 // ----------------------------------------------------------------------
 
 ActiveCommands ::

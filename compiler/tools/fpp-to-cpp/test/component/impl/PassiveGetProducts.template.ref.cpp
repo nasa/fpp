@@ -7,7 +7,7 @@
 #include "PassiveGetProducts.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction test and destruction
+// Component construction and destruction
 // ----------------------------------------------------------------------
 
 PassiveGetProducts ::

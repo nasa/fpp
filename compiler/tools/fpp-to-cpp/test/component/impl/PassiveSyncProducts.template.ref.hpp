@@ -16,7 +16,7 @@ class PassiveSyncProducts final :
   public:
 
     // ----------------------------------------------------------------------
-    // Component construction test and destruction
+    // Component construction and destruction
     // ----------------------------------------------------------------------
 
     //! Construct PassiveSyncProducts object

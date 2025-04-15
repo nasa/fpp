@@ -7,7 +7,7 @@
 #include "ActiveGetProducts.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction test and destruction
+// Component construction and destruction
 // ----------------------------------------------------------------------
 
 ActiveGetProducts ::

@@ -16,7 +16,7 @@ class ActiveGetProducts final :
   public:
 
     // ----------------------------------------------------------------------
-    // Component construction test and destruction
+    // Component construction and destruction
     // ----------------------------------------------------------------------
 
     //! Construct ActiveGetProducts object

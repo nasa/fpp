@@ -7,7 +7,7 @@
 #include "PassiveParams.hpp"
 
 // ----------------------------------------------------------------------
-// Component construction test and destruction
+// Component construction and destruction
 // ----------------------------------------------------------------------
 
 PassiveParams ::
