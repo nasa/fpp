@@ -9,6 +9,85 @@
   },
   "typeDefinitions" : [
     {
+      "kind" : "struct",
+      "qualifiedName" : "FppTest.DpTestComponent.Complex",
+      "members" : {
+        "f1" : {
+          "type" : {
+            "name" : "FppTest.DpTestComponent.Data",
+            "kind" : "qualifiedIdentifier"
+          },
+          "index" : 0,
+          "annotation" : "A struct in the struct"
+        },
+        "f2" : {
+          "type" : {
+            "name" : "U32",
+            "kind" : "integer",
+            "size" : 32,
+            "signed" : false
+          },
+          "index" : 1,
+          "annotation" : "A simple U32 field"
+        }
+      },
+      "default" : {
+        "f1" : {
+          "u16Field" : 0
+        },
+        "f2" : 0
+      },
+      "annotation" : "Data for a ComplexRecord"
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwTlmPacketizeIdType",
+      "type" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwEventIdType",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwPacketDescriptorType",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
       "kind" : "alias",
       "qualifiedName" : "FppTest.DpTestComponent.AliasU16",
       "type" : {
@@ -44,35 +123,36 @@
       "annotation" : "Data for a DataRecord"
     },
     {
-      "kind" : "struct",
-      "qualifiedName" : "FppTest.DpTestComponent.Complex",
-      "members" : {
-        "f1" : {
-          "type" : {
-            "name" : "FppTest.DpTestComponent.Data",
-            "kind" : "qualifiedIdentifier"
-          },
-          "index" : 0,
-          "annotation" : "A struct in the struct"
-        },
-        "f2" : {
-          "type" : {
-            "name" : "U32",
-            "kind" : "integer",
-            "size" : 32,
-            "signed" : false
-          },
-          "index" : 1,
-          "annotation" : "A simple U32 field"
-        }
+      "kind" : "alias",
+      "qualifiedName" : "FwOpcodeType",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
       },
-      "default" : {
-        "f1" : {
-          "u16Field" : 0
-        },
-        "f2" : 0
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwChanIdType",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
       },
-      "annotation" : "Data for a ComplexRecord"
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
     }
   ],
   "commands" : [

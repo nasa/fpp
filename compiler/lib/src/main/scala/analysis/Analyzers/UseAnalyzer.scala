@@ -160,31 +160,6 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     typeUse(a, node, use)
   }
 
-  override def defTopologyAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
-    a.dictionaryMode match {
-      case true => { 
-        val impliedTypeUses = List(
-          "FwChanIdType", 
-          "FwEventIdType", 
-          "FwOpcodeType", 
-          "FwPacketDescriptorType", 
-          "FwTlmPacketizeIdType"
-        )
-        val (pre, node1, post) = node
-        for {
-          a <- super.defTopologyAnnotatedNode(a, node)
-          a <- Result.foldLeft (impliedTypeUses) (a) ((a, t) => {
-            val ident = Ast.QualIdent.Unqualified(t)
-            val typeNode =  AstNode.create(Ast.TypeNameQualIdent(AstNode.create(ident, node1.id)), node1.id)
-            val impliedUse = Name.Qualified.fromQualIdent(ident)
-            typeUse(a, typeNode, impliedUse)
-          })
-        } yield a
-      }
-      case _ => super.defTopologyAnnotatedNode(a, node)
-    }
-  }
-
   private def portInstanceIdentifierNode(a: Analysis, node: AstNode[Ast.PortInstanceIdentifier]): Result =
     qualIdentNode (componentInstanceUse) (a, node.data.componentInstance)
 

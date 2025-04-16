@@ -72,7 +72,9 @@ case class Analysis(
   /** The telemetry packet set under construction */
   tlmPacketSet: Option[TlmPacketSet] = None,
   /** The dictionary generation mode */
-  dictionaryMode: Boolean = false
+  dictionaryMode: Boolean = false,
+  /** The set of type symbols used by the dictionary */
+  dictionaryTypeSymbolSet: Set[Symbol] = Set()
 ) {
 
   /** Gets the qualified name of a symbol */
