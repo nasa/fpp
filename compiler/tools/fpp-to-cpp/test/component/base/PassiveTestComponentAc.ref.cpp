@@ -5969,11 +5969,22 @@ Fw::CmdResponse PassiveTestComponentBase ::
 {
   FwPrmIdType local_id = PARAMID_PARAMI32EXT;
   FwPrmIdType base_id = this->getIdBase();
+  Fw::SerializeStatus _stat;
+  I32 _local_val;
+  Fw::ParamBuffer param_buffer;
+
+  // val argument is a Fw::CmdArgBuffer&, so deserialize the parameter
+  _stat = val.deserialize(_local_val);
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
+  // And re-serialize in a parameter buffer
+  _stat = param_buffer.serialize(_local_val);
+  FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, _stat);
 
   FW_ASSERT(this->paramDelegatePtr != NULL);
   // Call the delegate serialize function for m_ParamI32Ext
-  Fw::SerializeStatus _stat;
-  _stat = this->paramDelegatePtr->deserializeParam(base_id, local_id, Fw::ParamValid::VALID, dynamic_cast<Fw::ParamBuffer&>(val));
+  _stat = this->paramDelegatePtr->deserializeParam(base_id, local_id, Fw::ParamValid::VALID, param_buffer);
   if (_stat != Fw::FW_SERIALIZE_OK) {
     return Fw::CmdResponse::VALIDATION_ERROR;
   }
@@ -5988,11 +5999,22 @@ Fw::CmdResponse PassiveTestComponentBase ::
 {
   FwPrmIdType local_id = PARAMID_PARAMF64EXT;
   FwPrmIdType base_id = this->getIdBase();
+  Fw::SerializeStatus _stat;
+  F64 _local_val;
+  Fw::ParamBuffer param_buffer;
+
+  // val argument is a Fw::CmdArgBuffer&, so deserialize the parameter
+  _stat = val.deserialize(_local_val);
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
+  // And re-serialize in a parameter buffer
+  _stat = param_buffer.serialize(_local_val);
+  FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, _stat);
 
   FW_ASSERT(this->paramDelegatePtr != NULL);
   // Call the delegate serialize function for m_ParamF64Ext
-  Fw::SerializeStatus _stat;
-  _stat = this->paramDelegatePtr->deserializeParam(base_id, local_id, Fw::ParamValid::VALID, dynamic_cast<Fw::ParamBuffer&>(val));
+  _stat = this->paramDelegatePtr->deserializeParam(base_id, local_id, Fw::ParamValid::VALID, param_buffer);
   if (_stat != Fw::FW_SERIALIZE_OK) {
     return Fw::CmdResponse::VALIDATION_ERROR;
   }
@@ -6007,11 +6029,22 @@ Fw::CmdResponse PassiveTestComponentBase ::
 {
   FwPrmIdType local_id = PARAMID_PARAMSTRINGEXT;
   FwPrmIdType base_id = this->getIdBase();
+  Fw::SerializeStatus _stat;
+  Fw::ParamString _local_val;
+  Fw::ParamBuffer param_buffer;
+
+  // val argument is a Fw::CmdArgBuffer&, so deserialize the parameter
+  _stat = val.deserialize(_local_val);
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
+  // And re-serialize in a parameter buffer
+  _stat = param_buffer.serialize(_local_val);
+  FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, _stat);
 
   FW_ASSERT(this->paramDelegatePtr != NULL);
   // Call the delegate serialize function for m_ParamStringExt
-  Fw::SerializeStatus _stat;
-  _stat = this->paramDelegatePtr->deserializeParam(base_id, local_id, Fw::ParamValid::VALID, dynamic_cast<Fw::ParamBuffer&>(val));
+  _stat = this->paramDelegatePtr->deserializeParam(base_id, local_id, Fw::ParamValid::VALID, param_buffer);
   if (_stat != Fw::FW_SERIALIZE_OK) {
     return Fw::CmdResponse::VALIDATION_ERROR;
   }
@@ -6026,11 +6059,22 @@ Fw::CmdResponse PassiveTestComponentBase ::
 {
   FwPrmIdType local_id = PARAMID_PARAMENUMEXT;
   FwPrmIdType base_id = this->getIdBase();
+  Fw::SerializeStatus _stat;
+  E _local_val;
+  Fw::ParamBuffer param_buffer;
+
+  // val argument is a Fw::CmdArgBuffer&, so deserialize the parameter
+  _stat = val.deserialize(_local_val);
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
+  // And re-serialize in a parameter buffer
+  _stat = param_buffer.serialize(_local_val);
+  FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, _stat);
 
   FW_ASSERT(this->paramDelegatePtr != NULL);
   // Call the delegate serialize function for m_ParamEnumExt
-  Fw::SerializeStatus _stat;
-  _stat = this->paramDelegatePtr->deserializeParam(base_id, local_id, Fw::ParamValid::VALID, dynamic_cast<Fw::ParamBuffer&>(val));
+  _stat = this->paramDelegatePtr->deserializeParam(base_id, local_id, Fw::ParamValid::VALID, param_buffer);
   if (_stat != Fw::FW_SERIALIZE_OK) {
     return Fw::CmdResponse::VALIDATION_ERROR;
   }
@@ -6045,11 +6089,22 @@ Fw::CmdResponse PassiveTestComponentBase ::
 {
   FwPrmIdType local_id = PARAMID_PARAMARRAYEXT;
   FwPrmIdType base_id = this->getIdBase();
+  Fw::SerializeStatus _stat;
+  A _local_val;
+  Fw::ParamBuffer param_buffer;
+
+  // val argument is a Fw::CmdArgBuffer&, so deserialize the parameter
+  _stat = val.deserialize(_local_val);
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
+  // And re-serialize in a parameter buffer
+  _stat = param_buffer.serialize(_local_val);
+  FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, _stat);
 
   FW_ASSERT(this->paramDelegatePtr != NULL);
   // Call the delegate serialize function for m_ParamArrayExt
-  Fw::SerializeStatus _stat;
-  _stat = this->paramDelegatePtr->deserializeParam(base_id, local_id, Fw::ParamValid::VALID, dynamic_cast<Fw::ParamBuffer&>(val));
+  _stat = this->paramDelegatePtr->deserializeParam(base_id, local_id, Fw::ParamValid::VALID, param_buffer);
   if (_stat != Fw::FW_SERIALIZE_OK) {
     return Fw::CmdResponse::VALIDATION_ERROR;
   }
@@ -6064,11 +6119,22 @@ Fw::CmdResponse PassiveTestComponentBase ::
 {
   FwPrmIdType local_id = PARAMID_PARAMSTRUCTEXT;
   FwPrmIdType base_id = this->getIdBase();
+  Fw::SerializeStatus _stat;
+  S _local_val;
+  Fw::ParamBuffer param_buffer;
+
+  // val argument is a Fw::CmdArgBuffer&, so deserialize the parameter
+  _stat = val.deserialize(_local_val);
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
+  // And re-serialize in a parameter buffer
+  _stat = param_buffer.serialize(_local_val);
+  FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, _stat);
 
   FW_ASSERT(this->paramDelegatePtr != NULL);
   // Call the delegate serialize function for m_ParamStructExt
-  Fw::SerializeStatus _stat;
-  _stat = this->paramDelegatePtr->deserializeParam(base_id, local_id, Fw::ParamValid::VALID, dynamic_cast<Fw::ParamBuffer&>(val));
+  _stat = this->paramDelegatePtr->deserializeParam(base_id, local_id, Fw::ParamValid::VALID, param_buffer);
   if (_stat != Fw::FW_SERIALIZE_OK) {
     return Fw::CmdResponse::VALIDATION_ERROR;
   }
