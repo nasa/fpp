@@ -8,6 +8,7 @@ passive component PassiveTest {
   include "include/commands.fppi"
   include "include/events.fppi"
   include "include/params.fppi"
+  include "include/external_params.fppi"
   include "include/products.fppi"
   include "include/telemetry.fppi"
 
@@ -24,6 +25,7 @@ passive component PassiveSerial {
   include "include/events.fppi"
   include "include/telemetry.fppi"
   include "include/params.fppi"
+  include "include/external_params.fppi"
 
 }
 
@@ -64,6 +66,16 @@ passive component PassiveParams {
   include "include/special_ports.fppi"
 
   include "include/params.fppi"
+
+}
+
+@ A passive component with external params only
+passive component PassiveExternalParams {
+
+  include "include/typed_ports.fppi"
+  include "include/special_ports.fppi"
+
+  include "include/external_params.fppi"
 
 }
 

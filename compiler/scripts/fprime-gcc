@@ -2,7 +2,7 @@
 
 # ======================================================================
 # Compile F Prime source files
-# ---------------------------------------------------------------------- 
+# ----------------------------------------------------------------------
 # Setup:
 #
 # 1. Set FPRIME to point to the root of your F Prime working repo
@@ -15,6 +15,14 @@ then
   echo '  set FPRIME to the root of your F Prime working repo' 1>&2
   exit 1
 fi
+case $FPRIME in
+  /*) ;; # Continue
+  *)
+    echo "fprime-gcc: environment variable FPRIME is set to $FPRIME" 1>&2
+    echo '  set FPRIME to the absolute path to root of your F Prime working repo' 1>&2
+    exit 1
+    ;;
+esac
 
 flags="
 -Wall

@@ -17,6 +17,7 @@ passive()
   move_template PassiveGetProducts
   move_template PassiveGuardedProducts
   move_template PassiveParams
+  move_template PassiveExternalParams
   move_template PassiveSerial
   move_template PassiveSyncProductPortsOnly
   move_template PassiveSyncProducts
@@ -37,6 +38,7 @@ active()
   move_template ActiveGuardedProducts
   move_template ActiveNoArgsPortsOnly
   move_template ActiveParams
+  move_template ActiveExternalParams
   move_template ActiveSerial
   move_template ActiveSyncProducts
   move_template ActiveTelemetry
@@ -55,6 +57,7 @@ queued()
   move_template QueuedGuardedProducts
   move_template QueuedNoArgsPortsOnly
   move_template QueuedParams
+  move_template QueuedExternalParams
   move_template QueuedSerial
   move_template QueuedSyncProducts
   move_template QueuedTelemetry

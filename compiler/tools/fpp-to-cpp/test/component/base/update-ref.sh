@@ -7,7 +7,7 @@ types()
   update "-p $component_dir" "../types" types
   move_cpp NoArgsPort
   move_cpp NoArgsReturnPort
-  move_cpp TypedPort 
+  move_cpp TypedPort
   move_cpp TypedReturnPort
   move_cpp EEnum
   move_cpp AArray
@@ -41,6 +41,7 @@ passive()
   move_cpp PassiveGetProductsComponent
   move_cpp PassiveGuardedProductsComponent
   move_cpp PassiveParamsComponent
+  move_cpp PassiveExternalParamsComponent
   move_cpp PassiveSerialComponent
   move_cpp PassiveSyncProductPortsOnlyComponent
   move_cpp PassiveSyncProductsComponent
@@ -61,6 +62,7 @@ active()
   move_cpp ActiveGuardedProductsComponent
   move_cpp ActiveNoArgsPortsOnlyComponent
   move_cpp ActiveParamsComponent
+  move_cpp ActiveExternalParamsComponent
   move_cpp ActiveSerialComponent
   move_cpp ActiveSyncProductsComponent
   move_cpp ActiveTelemetryComponent
@@ -79,6 +81,7 @@ queued()
   move_cpp QueuedGuardedProductsComponent
   move_cpp QueuedNoArgsPortsOnlyComponent
   move_cpp QueuedParamsComponent
+  move_cpp QueuedExternalParamsComponent
   move_cpp QueuedSerialComponent
   move_cpp QueuedSyncProductsComponent
   move_cpp QueuedTelemetryComponent

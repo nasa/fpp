@@ -18,6 +18,7 @@ passive()
   diff_test_template PassiveGetProducts && \
   diff_test_template PassiveGuardedProducts && \
   diff_test_template PassiveParams && \
+  diff_test_template PassiveExternalParams && \
   diff_test_template PassiveSerial && \
   diff_test_template PassiveSyncProductPortsOnly && \
   diff_test_template PassiveSyncProducts && \
@@ -36,6 +37,7 @@ active()
   diff_test_template ActiveGuardedProducts && \
   diff_test_template ActiveNoArgsPortsOnly && \
   diff_test_template ActiveParams && \
+  diff_test_template ActiveExternalParams && \
   diff_test_template ActiveSerial && \
   diff_test_template ActiveSyncProducts && \
   diff_test_template ActiveTelemetry && \
@@ -50,5 +52,6 @@ queued()
   diff_test_template QueuedCommands && \
   diff_test_template QueuedEvents && \
   diff_test_template QueuedTelemetry && \
-  diff_test_template QueuedParams
+  diff_test_template QueuedParams && \
+  diff_test_template QueuedExternalParams
 }

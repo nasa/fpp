@@ -117,11 +117,16 @@ case class ComponentTestImplWriter(
             s"$gTestClassName(\"$testImplClassName\", $testImplClassName::MAX_HISTORY_SIZE)",
             s"component(\"$componentImplClassName\")"
           ),
-          lines(
-            """|this->initComponents();
-               |this->connectPorts();
-               |"""
-          )
+          List(
+            lines(
+              """|this->initComponents();
+                 |this->connectPorts();
+                 |"""
+            ),
+            guardedList (hasExternalParameters) (
+              lines("|this->component.registerExternalParameters(&this->paramTesterDelegate);")
+            )
+          ).flatten
         ),
         destructorClassMember(
           Some(s"Destroy object $testImplClassName"),

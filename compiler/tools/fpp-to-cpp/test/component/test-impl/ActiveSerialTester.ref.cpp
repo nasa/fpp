@@ -17,6 +17,7 @@ ActiveSerialTester ::
 {
   this->initComponents();
   this->connectPorts();
+  this->component.registerExternalParameters(&this->paramTesterDelegate);
 }
 
 ActiveSerialTester ::

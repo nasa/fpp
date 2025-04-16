@@ -1253,7 +1253,8 @@
             }
           },
           "setOpcode" : 0,
-          "saveOpcode" : 1
+          "saveOpcode" : 1,
+          "isExternal" : false
         },
         "16" : {
           "aNode" : {
@@ -1283,7 +1284,8 @@
             }
           },
           "setOpcode" : 16,
-          "saveOpcode" : 17
+          "saveOpcode" : 17,
+          "isExternal" : false
         },
         "17" : {
           "aNode" : {
@@ -1498,7 +1500,8 @@
             }
           },
           "setOpcode" : 18,
-          "saveOpcode" : 32
+          "saveOpcode" : 32,
+          "isExternal" : false
         },
         "18" : {
           "aNode" : {
@@ -1528,7 +1531,8 @@
             }
           },
           "setOpcode" : 33,
-          "saveOpcode" : 34
+          "saveOpcode" : 34,
+          "isExternal" : true
         }
       },
       "specPortMatchingList" : [

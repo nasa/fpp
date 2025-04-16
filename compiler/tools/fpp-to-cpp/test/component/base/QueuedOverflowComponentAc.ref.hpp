@@ -44,10 +44,10 @@ class QueuedOverflowComponentBase :
     // Friend classes
     // ----------------------------------------------------------------------
 
-    //! Friend class for white-box testing
-    friend class QueuedOverflowComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class QueuedOverflowTesterBase;
+    //! Friend class tester implementation to support white-box testing
+    friend class QueuedOverflowTester;
 
   PROTECTED:
 

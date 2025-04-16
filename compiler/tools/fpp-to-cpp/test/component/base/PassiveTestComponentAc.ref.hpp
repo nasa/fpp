@@ -31,6 +31,7 @@
 #endif
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
+#include "Fw/Prm/PrmExternalTypes.hpp"
 #include "Fw/Prm/PrmGetPortAc.hpp"
 #include "Fw/Prm/PrmSetPortAc.hpp"
 #include "Fw/Prm/PrmString.hpp"
@@ -59,10 +60,10 @@ class PassiveTestComponentBase :
     // Friend classes
     // ----------------------------------------------------------------------
 
-    //! Friend class for white-box testing
-    friend class PassiveTestComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class PassiveTestTesterBase;
+    //! Friend class tester implementation to support white-box testing
+    friend class PassiveTestTester;
 
   PROTECTED:
 
@@ -145,6 +146,18 @@ class PassiveTestComponentBase :
       OPCODE_PARAMARRAY_SAVE = 0x35, //!< Opcode to save parameter ParamArray
       OPCODE_PARAMSTRUCT_SET = 0x40, //!< Opcode to set parameter ParamStruct
       OPCODE_PARAMSTRUCT_SAVE = 0x45, //!< Opcode to save parameter ParamStruct
+      OPCODE_PARAMI32EXT_SET = 0x46, //!< Opcode to set parameter ParamI32Ext
+      OPCODE_PARAMI32EXT_SAVE = 0x47, //!< Opcode to save parameter ParamI32Ext
+      OPCODE_PARAMF64EXT_SET = 0x48, //!< Opcode to set parameter ParamF64Ext
+      OPCODE_PARAMF64EXT_SAVE = 0x49, //!< Opcode to save parameter ParamF64Ext
+      OPCODE_PARAMSTRINGEXT_SET = 0x4a, //!< Opcode to set parameter ParamStringExt
+      OPCODE_PARAMSTRINGEXT_SAVE = 0x4b, //!< Opcode to save parameter ParamStringExt
+      OPCODE_PARAMENUMEXT_SET = 0x4c, //!< Opcode to set parameter ParamEnumExt
+      OPCODE_PARAMENUMEXT_SAVE = 0x4d, //!< Opcode to save parameter ParamEnumExt
+      OPCODE_PARAMARRAYEXT_SET = 0x4e, //!< Opcode to set parameter ParamArrayExt
+      OPCODE_PARAMARRAYEXT_SAVE = 0x65, //!< Opcode to save parameter ParamArrayExt
+      OPCODE_PARAMSTRUCTEXT_SET = 0x70, //!< Opcode to set parameter ParamStructExt
+      OPCODE_PARAMSTRUCTEXT_SAVE = 0x75, //!< Opcode to save parameter ParamStructExt
     };
 
     //! Event IDs
@@ -189,6 +202,13 @@ class PassiveTestComponentBase :
       PARAMID_PARAMENUM = 0x30, //!< A parameter with enum data
       PARAMID_PARAMARRAY = 0x31, //!< A parameter with array data, default value, and save opcode
       PARAMID_PARAMSTRUCT = 0x32, //!< A parameter with struct data and set/save opcodes
+      PARAMID_PARAMI32EXT = 0x33, //!< An externally stored parameter with I32 data
+                                  //!< Second line of annotation
+      PARAMID_PARAMF64EXT = 0x34, //!< An externally stored parameter with F64 data
+      PARAMID_PARAMSTRINGEXT = 0x35, //!< An externally stored parameter with string data and default value
+      PARAMID_PARAMENUMEXT = 0x60, //!< An externally stored parameter with enum data
+      PARAMID_PARAMARRAYEXT = 0x61, //!< An externally stored parameter with array data, default value, and save opcode
+      PARAMID_PARAMSTRUCTEXT = 0x62, //!< An externally stored parameter with struct data and set/save opcodes
     };
 
     //! Record sizes
@@ -1899,6 +1919,72 @@ class PassiveTestComponentBase :
         Fw::ParamValid& valid //!< Whether the parameter is valid
     );
 
+    //! Get parameter ParamI32Ext
+    //!
+    //! \return The parameter value
+    //!
+    //! An externally stored parameter with I32 data
+    //! Second line of annotation
+    I32 paramGet_ParamI32Ext(
+        Fw::ParamValid& valid //!< Whether the parameter is valid
+    );
+
+    //! Get parameter ParamF64Ext
+    //!
+    //! \return The parameter value
+    //!
+    //! An externally stored parameter with F64 data
+    F64 paramGet_ParamF64Ext(
+        Fw::ParamValid& valid //!< Whether the parameter is valid
+    );
+
+    //! Get parameter ParamStringExt
+    //!
+    //! \return The parameter value
+    //!
+    //! An externally stored parameter with string data and default value
+    Fw::ParamString paramGet_ParamStringExt(
+        Fw::ParamValid& valid //!< Whether the parameter is valid
+    );
+
+    //! Get parameter ParamEnumExt
+    //!
+    //! \return The parameter value
+    //!
+    //! An externally stored parameter with enum data
+    E paramGet_ParamEnumExt(
+        Fw::ParamValid& valid //!< Whether the parameter is valid
+    );
+
+    //! Get parameter ParamArrayExt
+    //!
+    //! \return The parameter value
+    //!
+    //! An externally stored parameter with array data, default value, and save opcode
+    A paramGet_ParamArrayExt(
+        Fw::ParamValid& valid //!< Whether the parameter is valid
+    );
+
+    //! Get parameter ParamStructExt
+    //!
+    //! \return The parameter value
+    //!
+    //! An externally stored parameter with struct data and set/save opcodes
+    S paramGet_ParamStructExt(
+        Fw::ParamValid& valid //!< Whether the parameter is valid
+    );
+
+  PROTECTED:
+
+    // ----------------------------------------------------------------------
+    // External parameter delegate initialization
+    // ----------------------------------------------------------------------
+
+    //! Initialize the external parameter delegate
+    void registerExternalParameters(
+        Fw::ParamExternalDelegate* paramExternalDelegatePtr //!< The delegate for externally managed parameters
+    );
+
   PROTECTED:
 
     // ----------------------------------------------------------------------
@@ -2213,6 +2299,48 @@ class PassiveTestComponentBase :
         Fw::SerializeBufferBase& val //!< The serialization buffer
     );
 
+    //! Set parameter ParamI32Ext
+    //!
+    //! \return The command response
+    Fw::CmdResponse paramSet_ParamI32Ext(
+        Fw::SerializeBufferBase& val //!< The serialization buffer
+    );
+
+    //! Set parameter ParamF64Ext
+    //!
+    //! \return The command response
+    Fw::CmdResponse paramSet_ParamF64Ext(
+        Fw::SerializeBufferBase& val //!< The serialization buffer
+    );
+
+    //! Set parameter ParamStringExt
+    //!
+    //! \return The command response
+    Fw::CmdResponse paramSet_ParamStringExt(
+        Fw::SerializeBufferBase& val //!< The serialization buffer
+    );
+
+    //! Set parameter ParamEnumExt
+    //!
+    //! \return The command response
+    Fw::CmdResponse paramSet_ParamEnumExt(
+        Fw::SerializeBufferBase& val //!< The serialization buffer
+    );
+
+    //! Set parameter ParamArrayExt
+    //!
+    //! \return The command response
+    Fw::CmdResponse paramSet_ParamArrayExt(
+        Fw::SerializeBufferBase& val //!< The serialization buffer
+    );
+
+    //! Set parameter ParamStructExt
+    //!
+    //! \return The command response
+    Fw::CmdResponse paramSet_ParamStructExt(
+        Fw::SerializeBufferBase& val //!< The serialization buffer
+    );
+
   PRIVATE:
 
     // ----------------------------------------------------------------------
@@ -2248,6 +2376,36 @@ class PassiveTestComponentBase :
     //!
     //! \return The command response
     Fw::CmdResponse paramSave_ParamStruct();
+
+    //! Save parameter ParamI32Ext
+    //!
+    //! \return The command response
+    Fw::CmdResponse paramSave_ParamI32Ext();
+
+    //! Save parameter ParamF64Ext
+    //!
+    //! \return The command response
+    Fw::CmdResponse paramSave_ParamF64Ext();
+
+    //! Save parameter ParamStringExt
+    //!
+    //! \return The command response
+    Fw::CmdResponse paramSave_ParamStringExt();
+
+    //! Save parameter ParamEnumExt
+    //!
+    //! \return The command response
+    Fw::CmdResponse paramSave_ParamEnumExt();
+
+    //! Save parameter ParamArrayExt
+    //!
+    //! \return The command response
+    Fw::CmdResponse paramSave_ParamArrayExt();
+
+    //! Save parameter ParamStructExt
+    //!
+    //! \return The command response
+    Fw::CmdResponse paramSave_ParamStructExt();
 
   PRIVATE:
 
@@ -2495,6 +2653,15 @@ class PassiveTestComponentBase :
     //!
     //! A parameter with struct data and set/save opcodes
     S m_ParamStruct;
+
+  PRIVATE:
+
+    // ----------------------------------------------------------------------
+    // Parameter delegates
+    // ----------------------------------------------------------------------
+
+    //! Delegate to serialize/deserialize an externally stored parameter
+    Fw::ParamExternalDelegate* paramDelegatePtr;
 
   PRIVATE:
 

@@ -49,10 +49,10 @@ class PassiveCommandsComponentBase :
     // Friend classes
     // ----------------------------------------------------------------------
 
-    //! Friend class for white-box testing
-    friend class PassiveCommandsComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class PassiveCommandsTesterBase;
+    //! Friend class tester implementation to support white-box testing
+    friend class PassiveCommandsTester;
 
   PROTECTED:
 

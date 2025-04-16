@@ -28,10 +28,10 @@ namespace ExternalSm {
       // Friend classes
       // ----------------------------------------------------------------------
 
-      //! Friend class for white-box testing
-      friend class ActiveExternalStateMachinesComponentBaseFriend;
       //! Friend class tester to support autocoded test harness
       friend class ActiveExternalStateMachinesTesterBase;
+      //! Friend class tester implementation to support white-box testing
+      friend class ActiveExternalStateMachinesTester;
 
     PROTECTED:
 
