@@ -1381,8 +1381,7 @@ case class ComponentTesterBaseWriter(
       lines(s"$testerBaseDecl\n"),
       guardedList (hasParameters) (lines("Fw::SerializeStatus _status;")),
       lines(
-        s"""|$value.resetSer();
-            |
+        s"""|
             |const U32 idBase = _testerBase->getIdBase();
             |FW_ASSERT(
             |  $id >= idBase,
