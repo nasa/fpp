@@ -213,6 +213,8 @@ sealed trait Error {
         System.err.println(msg)
       case SemanticError.InvalidType(loc, msg) =>
         Error.print (Some(loc)) (msg)
+      case SemanticError.InvalidToken(loc, msg) =>
+        Error.print (Some(loc)) (s"invalid token: $msg")
       case SemanticError.MismatchedPortNumbers(
         p1Loc: Location,
         p1Number: Int,
@@ -233,6 +235,8 @@ sealed trait Error {
         Error.print (Some(loc)) ("unmatched connection must go from or to a matched port")
       case SemanticError.MissingPort(loc, specMsg, portMsg) =>
         Error.print (Some(loc)) (s"component with $specMsg must have $portMsg")
+      case SemanticError.MultiError(errors) =>
+        errors.foreach(_.print)
       case SemanticError.NoPortAvailableForMatchedNumbering(loc1, loc2, matchingLoc) =>
         Error.print (None) (s"no port available for matched numbering")
         System.err.println("matched connections are specified here:")
@@ -605,6 +609,10 @@ object SemanticError {
   final case class MissingPortMatching(
     loc: Location
   ) extends Error
+  /** A merged error */
+  final case class MultiError(
+    errors: List[Error]
+  ) extends Error
   /** Matched port numbering could not find a valid port number */
   final case class NoPortAvailableForMatchedNumbering(
     loc1: Location,
@@ -628,6 +636,11 @@ object SemanticError {
     name: String,
     loc: Location,
     prevLoc: Location
+  ) extends Error
+  /** Lexer Error */
+  final case class InvalidToken(
+    loc: Location,
+    msg: String,
   ) extends Error
   /** State machine semantic errors */
   object StateMachine {

@@ -10,6 +10,8 @@ class LexerSpec extends AnyWordSpec {
   "Error" should {
     def error(file: File): Unit = {
       val reader = new FileReader(file)
+      val contents = LazyList.continually(reader.read).takeWhile(_ != -1).map(_.toChar).toArray
+      new Lexer.Scanner()
       Lexer.parse(Lexer.tokens, reader) match {
         case Lexer.Success(_, _) => assert(false)
         case _ => ()
@@ -91,7 +93,7 @@ class LexerSpec extends AnyWordSpec {
     "lex \"\\n\" to one EOL" in {
       val s = "\n"
       Lexer.parse(Lexer.tokens, s) match {
-        case Lexer.Success(Token.EOL() :: List(), _) => ()
+        case Lexer.Success(TokenId.EOL() :: List(), _) => ()
         case _ => assert(false)
       }
     }
@@ -107,7 +109,7 @@ class LexerSpec extends AnyWordSpec {
   "string literal" should {
     def lex(s: String): Unit = {
       Lexer.parse(Lexer.tokens, s) match {
-        case Lexer.Success(Token.LITERAL_STRING(_) :: List(), _) => ()
+        case Lexer.Success(TokenId.LITERAL_STRING(_) :: List(), _) => ()
         case _ => assert(false)
       }
     }
