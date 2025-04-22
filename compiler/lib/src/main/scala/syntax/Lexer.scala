@@ -190,7 +190,7 @@ object Lexer {
     /** Current token to return */
     var token: TokenId = EOF
 
-    val lines = new String(content).split("\n")
+    val lines = String(content).split("\n", -1)
 
     def list(): Result.Result[List[Token]] = {
       val out = mutable.ArrayBuffer[Token]()
@@ -354,8 +354,8 @@ object Lexer {
     def pos() = {
       new TokenPosition(
         line + 1,
-        offset - lineOffset,
-        lines(Math.min(line, lines.length - 1))
+        offset - lineOffset + 1,
+        lines(Math.max(0, Math.min(line, lines.length - 1)))
       )
     }
 
@@ -396,7 +396,7 @@ object Lexer {
     @tailrec
     private final def fetchToken(): Unit = {
       offset = charOffset - 1
-      lineOffset = if (lastOffset < lineStartOffset) lineStartOffset else -1
+      lineOffset = if (lastOffset < lineStartOffset) lineStartOffset else 0
       reservedWord = false
       line = lineNo
       (ch: @switch) match {
@@ -492,7 +492,7 @@ object Lexer {
             fetchFraction()
             setStrVal()
           } else token = DOT
-        // Newline
+        // Newline (or line comment)
         case LF | '#' =>
           eatNewlines()
 
@@ -514,7 +514,8 @@ object Lexer {
           eatNewlines()
         // Token Symbols
         case '*' =>
-          nextChar(); token = STAR
+          nextChar()
+          token = STAR
           eatNewlines()
         case '-' =>
           nextChar()
@@ -524,38 +525,50 @@ object Lexer {
           } else token = MINUS
           eatNewlines()
         case '+' =>
-          nextChar(); token = PLUS
+          nextChar()
+          token = PLUS
           eatNewlines()
         case '/' =>
-          nextChar(); token = SLASH
+          nextChar()
+          token = SLASH
           eatNewlines()
         case '=' =>
-          nextChar(); token = EQUALS
+          nextChar()
+          token = EQUALS
           eatNewlines()
         case ';' =>
-          nextChar(); token = SEMI
+          nextChar()
+          token = SEMI
           eatNewlines()
         case ':' =>
-          nextChar(); token = COLON
+          nextChar()
+          token = COLON
           eatNewlines()
         case ',' =>
-          nextChar(); token = COMMA
+          nextChar()
+          token = COMMA
           eatNewlines()
         case '(' =>
-          nextChar(); token = LPAREN
+          nextChar()
+          token = LPAREN
           eatNewlines()
         case '{' =>
-          nextChar(); token = LBRACE
+          nextChar()
+          token = LBRACE
           eatNewlines()
         case ')' =>
-          nextChar(); token = RPAREN
+          nextChar()
+          token = RPAREN
         case '}' =>
-          nextChar(); token = RBRACE
+          nextChar()
+          token = RBRACE
         case '[' =>
-          nextChar(); token = LBRACKET
+          nextChar()
+          token = LBRACKET
           eatNewlines()
         case ']' =>
-          nextChar(); token = RBRACKET
+          nextChar()
+          token = RBRACKET
         case _ =>
           val errMsg = {
             // Print out the unicode value, in case the console can't
@@ -579,6 +592,14 @@ object Lexer {
       }
     }
 
+    @tailrec
+    private final def eatLineComment(): Unit = (ch: @switch) match {
+      case LF | SU =>
+      case _ =>
+        nextChar()
+        eatLineComment()
+    }
+
     /**
      * Read through all whitespace, comments, and newlines until another token is reached
      * This does not update any state of the current token
@@ -593,9 +614,7 @@ object Lexer {
         // Skip comments
         case '#' =>
           nextChar()
-          while (ch != LF) {
-            nextChar()
-          }
+          eatLineComment()
           eatNewlines()
         case _ =>
       }
@@ -618,7 +637,7 @@ object Lexer {
 
     @tailrec
     private def fetchAnnotationRest(): Unit = (ch: @switch) match {
-      case LF =>
+      case LF | SU =>
         setStrVal()
         nextChar()
         strVal = strVal.trim()
@@ -633,7 +652,7 @@ object Lexer {
         case '\\' => putChar('\\')
         case '\"' => putChar('\"')
         // TODO(tumbar) We could put in more string escape sequences
-        case _ => error("invalid string escape sequence")
+        case _ => putChar(ch)
       }
 
       nextChar()
@@ -657,8 +676,8 @@ object Lexer {
           if skip <= 0 then putChar(' ')
           nextChar()
           fetchStringLitMulti(fullIndent, skip - 1)
-        case '\n' =>
-          putChar('\n')
+        case LF | SU =>
+          putChar(LF)
           nextChar()
           fetchStringLitMulti(fullIndent, fullIndent)
         case '\"' =>
@@ -689,25 +708,23 @@ object Lexer {
     }
 
     @tailrec
-    private def fetchStringLitSingle(): Unit = {
-      (ch: @switch) match {
-        case '\n' =>
-          nextChar()
-          setStrVal()
-          error("missing string double quote closure")
-        case '\\' =>
-          nextChar()
-          putStringEscapeChar()
-          fetchStringLitSingle()
-        case '\"' =>
-          nextChar()
-          setStrVal()
-          token = LITERAL_STRING
-        case _ =>
-          putChar(ch)
-          nextChar()
-          fetchStringLitSingle()
-      }
+    private def fetchStringLitSingle(): Unit = (ch: @switch) match {
+      case LF | SU =>
+        nextChar()
+        setStrVal()
+        error("missing string double quote closure")
+      case '\\' =>
+        nextChar()
+        putStringEscapeChar()
+        fetchStringLitSingle()
+      case '\"' =>
+        nextChar()
+        setStrVal()
+        token = LITERAL_STRING
+      case _ =>
+        putChar(ch)
+        nextChar()
+        fetchStringLitSingle()
     }
 
     /** Read a number into strVal and set base */
@@ -719,12 +736,9 @@ object Lexer {
 
       token = LITERAL_INT
       if (base == 10 && ch == '.') {
-        val lch = lookaheadChar()
-        if ('0' <= lch && lch <= '9') {
-          putChar('.')
-          nextChar()
-          fetchFraction()
-        }
+        putChar('.')
+        nextChar()
+        fetchFraction()
       } else
         (ch: @switch) match {
           case 'e' | 'E' =>
