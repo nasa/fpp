@@ -472,7 +472,12 @@ object Lexer {
             nextChar()
             if (ch == '\"') {
               nextChar()
-              fetchStringLitMulti()
+
+              // Skip the initial newline if it exists
+              if ch == LF then nextChar()
+
+              val indent = fetchStringLitMultiIndent()
+              fetchStringLitMulti(indent, indent)
             } else {
               strVal = ""
               token = LITERAL_STRING
@@ -623,9 +628,39 @@ object Lexer {
         fetchAnnotationRest()
     }
 
-    @tailrec
-    private def fetchStringLitMulti(): Unit = {
+    private inline def putStringEscapeChar(): Unit = {
       (ch: @switch) match {
+        case '\\' => putChar('\\')
+        case '\"' => putChar('\"')
+        // TODO(tumbar) We could put in more string escape sequences
+        case _ => error("invalid string escape sequence")
+      }
+
+      nextChar()
+    }
+
+    /** Compute the initial space indent */
+    @tailrec
+    private def fetchStringLitMultiIndent(indent: Int = 0): Int = {
+      (ch: @switch) match {
+        case ' ' =>
+          nextChar()
+          fetchStringLitMultiIndent(indent + 1)
+        case _ => indent
+      }
+    }
+
+    @tailrec
+    private def fetchStringLitMulti(fullIndent: Int, skip: Int): Unit = {
+      (ch: @switch) match {
+        case ' ' =>
+          if skip <= 0 then putChar(' ')
+          nextChar()
+          fetchStringLitMulti(fullIndent, skip - 1)
+        case '\n' =>
+          putChar('\n')
+          nextChar()
+          fetchStringLitMulti(fullIndent, fullIndent)
         case '\"' =>
           nextChar()
           if (ch == '\"') {
@@ -641,11 +676,15 @@ object Lexer {
             }
           } else putChar('\"')
 
-          fetchStringLitMulti()
+          fetchStringLitMulti(fullIndent, 0)
+        case '\\' =>
+          nextChar()
+          putStringEscapeChar()
+          fetchStringLitMulti(fullIndent, 0)
         case _ =>
           putChar(ch)
           nextChar()
-          fetchStringLitMulti()
+          fetchStringLitMulti(fullIndent, 0)
       }
     }
 
@@ -658,14 +697,7 @@ object Lexer {
           error("missing string double quote closure")
         case '\\' =>
           nextChar()
-          (ch: @switch) match {
-            case '\\' => putChar('\\')
-            case '\"' => putChar('\"')
-            // TODO(tumbar) We could put in more string escape sequences
-            case _ => error("invalid string escape sequence")
-          }
-
-          nextChar()
+          putStringEscapeChar()
           fetchStringLitSingle()
         case '\"' =>
           nextChar()

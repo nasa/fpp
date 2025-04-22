@@ -2,4 +2,4 @@ fpp-syntax
 [ local path prefix ]/compiler/tools/fpp-syntax/test/illegal-character.fpp:1.1
 %
 ^
-error: illegal character (unicode value 37, hex 0x25)
+error: invalid token: unicode value 37, hex 0x25

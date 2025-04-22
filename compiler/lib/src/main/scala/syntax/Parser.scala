@@ -433,7 +433,7 @@ object Parser extends Parsers {
       case s@Success(out, in1) =>
         error match {
           case Some(e) => e
-          case None => if (in1.atEnd) s else Failure("unexpected token " + in1.first, in1)
+          case None => if (in1.atEnd) s else Failure("unexpected token", in1)
         }
       case other => other
     }
