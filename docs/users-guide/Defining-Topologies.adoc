@@ -1096,10 +1096,193 @@ Cycles in the import graph are not allowed.
 For example, if `A` imports `B` and `B` imports `C`
 and `C` imports `A`, you will get an error.
 
+
 === Include Specifiers
 
 You can include code from another file in a topology definition.
 You do this by writing an *include specifier*.
-We will explain more about this in the section on
+Here is a simple example, in which the body of a topology
+definition is specified in a file `T.fppi` and then included
+in a topology definition:
+
+[source,fpp]
+--------
+topology T {
+
+  include "T.fppi"
+
+}
+--------
+
+We will explain more about this feature in the section on
 <<Specifying-Models-as-Files_Include-Specifiers,include specifiers>>
 below.
+
+=== Telemetry Packets
+
+When defining a topology, you may (but are not required to)
+specify how the <<Defining-Components_Telemetry,telemetry channels>>
+defined in the topology are grouped into **telemetry packets**.
+If you do this, then you can use an F Prime component called
+the Telemetry Packetizer to construct telemetry packets and transmit
+them to the ground.
+This approach is usually more space efficient than transmitting
+individual channels.
+In this section we explain how to specify telemetry packets in FPP.
+
+==== Telemetry Packet Sets
+
+To group the channels of a topology _T_ into packets, you write a
+**telemetry packet set** as part of the definition of _T_.
+Here is a simple example showing a complete topology with a
+telemetry packet set:
+
+[source,fpp]
+----
+passive component C {
+
+  telemetry port tlmOut
+
+  time get port timeGetOut
+
+  telemetry T1: U32
+
+  telemetry T2: F32
+
+}
+
+instance c1: C base id 0x100
+instance c2: C base id 0x200
+
+topology T {
+
+  instance c1
+  instance c2
+
+  @ Telemetry packet set PacketSet
+  telemetry packets PacketSet {
+
+    @ Packet P1
+    packet P1 group 0 {
+      c1.T1
+      c2.T1
+      c1.T1
+    }
+
+    @ Packet P2
+    packet P2 group 1 {
+      c1.T2
+      c2.T2
+    }
+
+  }
+
+}
+----
+
+In this example, we have defined a passive component `C` with two telemetry
+channels, `T1` and `T2`.
+We have defined two instances of `C`, `c1` and `c2`, so that there
+are four telemetry channels overall: `c1.T1`, `c1.T2`, `c2.T1`, and `c2.T2`.
+We have defined a topology `T` that uses the instances `c1` and `c2`
+and defines a telemetry packet set `PacketSet`.
+(In a realistic topology, there would be other instances and connections,
+for example the telemetry packetizer instance and the ground interface
+component. Here we have omitted these instances
+and connections to focus on illustrating the FPP features.)
+
+Notice the following about this example:
+
+. To write a telemetry packet set, you write the keywords `telemetry` `packets`
+followed by the name of the packet set, here `PacketSet`.
+Then you write the body of the telemetry packet set inside curly braces
+`{ ... }`.
+
+. In the body of the packet set, you specify packets.
+The packet specifiers are
+<<Writing-Comments-and-Annotations_Annotations,annotatable elements>>.
+The body of the packet set is an
+<<Defining-Constants_Multiple-Definitions-and-Element-Sequences,
+element sequence>> in which the optional
+terminating punctuation is a comma.
+
+. Each packet specifier consists of the keyword `packet`, the packet
+name, the keyword `group`, a group identifier, and the body of the packet.
+Within a telemetry packet set, the packet names must be distinct.
+The group identifiers must be numeric values.
+In particular they can be
+<<Defining-Constants_Writing-a-Constant-Definition,defined constants>>,
+<<Defining-Enums,enumerated constants>>, or
+<<Defining-Constants_Expressions_Value-Arithmetic-Expressions,
+arithmetic expressions>>.
+The Telemetry Packetizer uses the group identifiers to select
+which packets get transmitted.
+For example, it is possible to transmit packets from group 0 but not group 1.
+More than one packet may have the same group identifier.
+
+. Inside each packet, you specify telemetry channels
+enclosed in curly braces `{ ... }`.
+The channel specifiers are
+<<Writing-Comments-and-Annotations_Annotations,annotatable elements>>.
+The body of the packet is an
+<<Defining-Constants_Multiple-Definitions-and-Element-Sequences,
+element sequence>> in which the optional
+terminating punctuation is a comma.
+
+When the packets are serialized and transmitted, each packet with name
+_P_ contains data from
+the channels listed in the specification for _P_, in the order that
+the channels are specified.
+As shown for packet `P1`, a single channel may appear more than
+once in a packet; that means that data from that channel appears at
+two or more offsets in that packet.
+
+The form of a telemetry channel specifier
+is an instance name followed by a dot and a channel name.
+The channel name must name a channel specified in the component
+that is the type of an instance of the topology.
+For example, in the model above, `c1.T` is a valid channel
+for topology `T` because `c1` is an instance of `T`,
+`c1` has type `C`, and `T` is a channel of `C`.
+
+The instance name may be a qualified name containing a dot,
+as discussed in
+the section on <<Defining-Modules,defining modules>>.
+For example, if we had written
+
+[source,fpp]
+--------
+module M {
+
+  instance c1: C base id 0x100
+
+}
+--------
+
+instead of
+
+[source,fpp]
+--------
+instance c1: C base id 0x100
+--------
+
+to define instance `c1` in the model shown above,
+then in the topology `T` we would write
+`instance M.c1` instead of `instance c`, and we would write
+channel `M.c1.T` instead of channel `c1.T`.
+
+==== Telemetry Packet Identifiers
+
+TODO
+
+==== Omitted Channels
+
+TODO
+
+==== Specifying Multiple Telemetry Packet Sets
+
+TODO
+
+==== Include Specifiers
+
+TODO
