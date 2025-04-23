@@ -1273,7 +1273,35 @@ channel `M.c1.T` instead of channel `c1.T`.
 
 ==== Telemetry Packet Identifiers
 
-TODO
+Within a telemetry packet set, every packet has a unique numeric identifier.
+Typically the identifiers start at zero and count up by one.
+If you don't specify an identifier, as in the example shown in the previous
+section, then FPP assigns a default identifier: zero for the first packet in the set;
+otherwise one more than the identifier of the previous event.
+
+If you wish, you may explicitly specify one or more packet identifiers. To do 
+this, you write the keyword `id` followed by a numeric expression immediately 
+after the packet name.
+For example, in the model shown in the previous section, we
+could have written
+
+[source,fpp]
+--------
+@ Packet P1
+packet P1 id 0 group 0 {
+  c1.T1
+  c2.T1
+  c1.T1
+}
+
+@ Packet P2
+packet P2 id 1 group 1 {
+  c1.T2
+  c2.T2
+}
+--------
+
+for the packet specifiers, and this would have equivalent behavior.
 
 ==== Omitted Channels
 

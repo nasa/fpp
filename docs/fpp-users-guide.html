@@ -11319,7 +11319,37 @@ channel <code>M.c1.T</code> instead of channel <code>c1.T</code>.</p>
 <div class="sect3">
 <h4 id="Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Identifiers">12.6.2. Telemetry Packet Identifiers</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>Within a telemetry packet set, every packet has a unique numeric identifier.
+Typically the identifiers start at zero and count up by one.
+If you don&#8217;t specify an identifier, as in the example shown in the previous
+section, then FPP assigns a default identifier: zero for the first packet in the set;
+otherwise one more than the identifier of the previous event.</p>
+</div>
+<div class="paragraph">
+<p>If you wish, you may explicitly specify one or more packet identifiers. To do
+this, you write the keyword <code>id</code> followed by a numeric expression immediately
+after the packet name.
+For example, in the model shown in the previous section, we
+could have written</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ Packet P1
+packet P1 id 0 group 0 {
+  c1.T1
+  c2.T1
+  c1.T1
+}
+
+@ Packet P2
+packet P2 id 1 group 1 {
+  c1.T2
+  c2.T2
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>for the packet specifiers, and this would have equivalent behavior.</p>
 </div>
 </div>
 <div class="sect3">
@@ -15382,7 +15412,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-04-23 08:21:32 -0700
+Last updated 2025-04-23 08:43:02 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
