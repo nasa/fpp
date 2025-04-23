@@ -14,7 +14,7 @@ case class ComponentParameters (
     if !hasParameters then Nil
     else List(
       linesClassMember(
-        List(
+        List.concat(
           Line.blank :: lines(s"//! Parameter IDs"),
           wrapInEnum(
             sortedParams.flatMap((id, param) =>
@@ -26,7 +26,7 @@ case class ComponentParameters (
               )
             )
           )
-        ).flatten
+        )
       )
     )
   }
@@ -38,24 +38,24 @@ case class ComponentParameters (
 
   def getProtectedFunctionMembers: List[CppDoc.Class.Member] = {
     if !hasParameters then Nil
-    else List(
+    else List.concat(
       getHookFunctions,
       getGetterFunctions,
       getExternalParameterFunctions
-    ).flatten
+    )
   }
 
   def getPrivateFunctionMembers: List[CppDoc.Class.Member] = {
     if !hasParameters then Nil
-    else List(
+    else List.concat(
       getSetters,
       getSaveFunctions
-    ).flatten
+    )
   }
 
   def getVariableMembers: List[CppDoc.Class.Member] = {
     if !hasParameters then Nil
-    else List(
+    else List.concat(
       addAccessTagAndComment(
         "PRIVATE",
         "Parameter validity flags",
@@ -98,7 +98,7 @@ case class ComponentParameters (
         CppDoc.Lines.Hpp
       ),
       guardedList (hasExternalParameters) (
-        List(
+        List.concat(
           addAccessTagAndComment(
             "PRIVATE",
             "Parameter delegates",
@@ -114,8 +114,8 @@ case class ComponentParameters (
             )
           )
         )
-      ).flatten
-    ).flatten
+      )
+    )
   }
 
   private def getLoadFunction: List[CppDoc.Class.Member] = {
