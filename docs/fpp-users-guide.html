@@ -11357,8 +11357,9 @@ packet P2 id 1 group 1 {
 <div class="paragraph">
 <p>By default, every telemetry channel in the topology must appear
 in at least one telemetry packet.
-For example, in the model shown above, if we omit the definition
-of packet <code>P2</code>, then an error will result, because neither channel
+For example, in the model shown above, if we comment out the definition
+of packet <code>P2</code> and run the result through <code>fpp-check</code>, then an error will result,
+because neither channel
 <code>c1.T2</code> nor channel <code>c2.T2</code> appears in any packet.
 The purpose of this behavior is to ensure that you don&#8217;t omit
 any channels from the telemetry by mistake.</p>
@@ -11419,7 +11420,60 @@ packet and also to appear in the omitted list.</p>
 <div class="sect3">
 <h4 id="Defining-Topologies_Telemetry-Packets_Specifying-Multiple-Telemetry-Packet-Sets">12.6.4. Specifying Multiple Telemetry Packet Sets</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>You may specify more than one telemetry packet set in a topology.
+Each telemetry packet set must have a distinct name.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">passive component C {
+
+  telemetry port tlmOut
+
+  time get port timeGetOut
+
+  telemetry T: U32
+
+}
+
+instance c1: C base id 0x100
+instance c2: C base id 0x200
+
+topology T {
+
+  instance c1
+  instance c2
+
+  @ Telemetry packet set PacketSet1
+  telemetry packets PacketSet1 {
+
+    @ Packet P
+    packet P1 group 0 {
+      c1.T
+    }
+
+  } omit {
+    c2.T
+  }
+
+  @ Telemetry packet set PacketSet2
+  telemetry packets PacketSet2 {
+
+    @ Packet P
+    packet P1 group 0 {
+      c2.T
+    }
+
+  } omit {
+    c1.T
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When you run the F Prime ground data system, you can tell it which
+telemetry packet set to use to decode the packets.</p>
 </div>
 </div>
 <div class="sect3">
@@ -15470,7 +15524,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-04-23 08:58:14 -0700
+Last updated 2025-04-23 13:50:33 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
