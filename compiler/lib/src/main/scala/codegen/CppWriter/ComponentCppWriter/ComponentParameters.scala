@@ -443,56 +443,52 @@ case class ComponentParameters (
           Nil,
           CppDoc.Type("Fw::CmdResponse"),
           List.concat(
+            lines(
+              s"""|Fw::ParamBuffer saveBuff;
+                  |FwPrmIdType _id;
+                  |Fw::SerializeStatus stat;
+                  |
+                  |"""
+            ),
             wrapInIf(
               s"this->${portVariableName(prmSetPort.get)}[0].isConnected()",
-              if (param.isExternal) {
-                lines(
-                  s"""|// Get the local ID to pass to the delegate
-                      |FwPrmIdType _id = ${paramIdConstantName(param.getName)};
-                      |FwPrmIdType base_id = this->getIdBase();
-                      |
-                      |FW_ASSERT(this->paramDelegatePtr != NULL);
-                      |Fw::ParamBuffer saveBuff;
-                      |Fw::SerializeStatus stat = this->paramDelegatePtr->serializeParam(base_id, _id, saveBuff);
-                      |if (stat != Fw::FW_SERIALIZE_OK) {
-                      |  return Fw::CmdResponse::VALIDATION_ERROR;
-                      |}
-                      |
-                      |// Save the parameter
-                      |_id = this->getIdBase() + ${paramIdConstantName(param.getName)};
-                      |this->${portVariableName(prmSetPort.get)}[0].invoke(
-                      |  _id,
-                      |  saveBuff
-                      |);
-                      |
-                      |return Fw::CmdResponse::OK;
-                      |"""
-                )
-              } else {
-                lines(
-                  s"""|Fw::ParamBuffer saveBuff;
-                      |this->m_paramLock.lock();
-                      |
-                      |Fw::SerializeStatus stat = saveBuff.serialize(${paramVariableName(param.getName)});
-                      |
-                      |this->m_paramLock.unLock();
-                      |if (stat != Fw::FW_SERIALIZE_OK) {
-                      |  return Fw::CmdResponse::VALIDATION_ERROR;
-                      |}
-                      |
-                      |FwPrmIdType id = 0;
-                      |id = this->getIdBase() + ${paramIdConstantName(param.getName)};
-                      |
-                      |// Save the parameter
-                      |this->${portVariableName(prmSetPort.get)}[0].invoke(
-                      |  id,
-                      |  saveBuff
-                      |);
-                      |
-                      |return Fw::CmdResponse::OK;
-                      |"""
-                )
-              }
+              List.concat(
+                if (param.isExternal) {
+                  lines(
+                    s"""|// Get the local and base ID to pass to the delegate
+                        |_id = ${paramIdConstantName(param.getName)};
+                        |FwPrmIdType base_id = this->getIdBase();
+                        |
+                        |FW_ASSERT(this->paramDelegatePtr != NULL);
+                        |stat = this->paramDelegatePtr->serializeParam(base_id, _id, saveBuff);
+                        |"""
+                  )
+                } else {
+                  lines(
+                    s"""|this->m_paramLock.lock();
+                        |
+                        |stat = saveBuff.serialize(${paramVariableName(param.getName)});
+                        |
+                        |this->m_paramLock.unLock();
+                        |"""
+                  )
+                }
+              ) ++ lines(
+                s"""|if (stat != Fw::FW_SERIALIZE_OK) {
+                    |  return Fw::CmdResponse::VALIDATION_ERROR;
+                    |}
+                    |
+                    |_id = this->getIdBase() + ${paramIdConstantName(param.getName)};
+                    |
+                    |// Save the parameter
+                    |this->${portVariableName(prmSetPort.get)}[0].invoke(
+                    |  _id,
+                    |  saveBuff
+                    |);
+                    |
+                    |return Fw::CmdResponse::OK;
+                    |"""
+              )
             ),
             Line.blank :: lines("return Fw::CmdResponse::EXECUTION_ERROR;")
           )
