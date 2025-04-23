@@ -340,47 +340,17 @@ class QueuedSerialTesterBase :
         //! True if ParamI32Ext was successfully received
         Fw::ParamValid m_param_ParamI32Ext_valid;
 
-      public:
-
-        // ----------------------------------------------------------------------
-        // Parameter validity flags
-        // ----------------------------------------------------------------------
-
         //! True if ParamF64Ext was successfully received
         Fw::ParamValid m_param_ParamF64Ext_valid;
-
-      public:
-
-        // ----------------------------------------------------------------------
-        // Parameter validity flags
-        // ----------------------------------------------------------------------
 
         //! True if ParamStringExt was successfully received
         Fw::ParamValid m_param_ParamStringExt_valid;
 
-      public:
-
-        // ----------------------------------------------------------------------
-        // Parameter validity flags
-        // ----------------------------------------------------------------------
-
         //! True if ParamEnumExt was successfully received
         Fw::ParamValid m_param_ParamEnumExt_valid;
 
-      public:
-
-        // ----------------------------------------------------------------------
-        // Parameter validity flags
-        // ----------------------------------------------------------------------
-
         //! True if ParamArrayExt was successfully received
         Fw::ParamValid m_param_ParamArrayExt_valid;
-
-      public:
-
-        // ----------------------------------------------------------------------
-        // Parameter validity flags
-        // ----------------------------------------------------------------------
 
         //! True if ParamStructExt was successfully received
         Fw::ParamValid m_param_ParamStructExt_valid;
@@ -397,55 +367,25 @@ class QueuedSerialTesterBase :
         //! Second line of annotation
         I32 m_param_ParamI32Ext;
 
-      public:
-
-        // ----------------------------------------------------------------------
-        // Parameter variables
-        // ----------------------------------------------------------------------
-
         //! Parameter ParamF64Ext
         //!
         //! An externally stored parameter with F64 data
         F64 m_param_ParamF64Ext;
-
-      public:
-
-        // ----------------------------------------------------------------------
-        // Parameter variables
-        // ----------------------------------------------------------------------
 
         //! Parameter ParamStringExt
         //!
         //! An externally stored parameter with string data and default value
         Fw::ParamString m_param_ParamStringExt;
 
-      public:
-
-        // ----------------------------------------------------------------------
-        // Parameter variables
-        // ----------------------------------------------------------------------
-
         //! Parameter ParamEnumExt
         //!
         //! An externally stored parameter with enum data
         E m_param_ParamEnumExt;
 
-      public:
-
-        // ----------------------------------------------------------------------
-        // Parameter variables
-        // ----------------------------------------------------------------------
-
         //! Parameter ParamArrayExt
         //!
         //! An externally stored parameter with array data, default value, and save opcode
         A m_param_ParamArrayExt;
-
-      public:
-
-        // ----------------------------------------------------------------------
-        // Parameter variables
-        // ----------------------------------------------------------------------
 
         //! Parameter ParamStructExt
         //!

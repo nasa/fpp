@@ -1842,12 +1842,13 @@ case class ExternalParameterDelegate(
   }
 
   private def getVariableMembers: List[CppDoc.Class.Member] = {
-    sortedParams.flatMap { case (_, param) =>
-      if (param.isExternal) {
-        addAccessTagAndComment(
-          "public",
-          "Parameter validity flags",
-          List(
+    List.concat(
+      addAccessTagAndComment(
+        "public",
+        "Parameter validity flags",
+        sortedParams.flatMap { case (_, param) =>
+          if (!param.isExternal) then Nil
+          else List(
             linesClassMember(
               lines(
                 s"""|
@@ -1856,32 +1857,33 @@ case class ExternalParameterDelegate(
                     |"""
               )
             )
-          ),
-          CppDoc.Lines.Hpp
-        )
-      } else Nil
-    } ++
-    sortedParams.flatMap { case (_, param) =>
-      if (param.isExternal) {
-        val paramType = writeParamType(param.paramType, "Fw::ParamString")
-        val paramVarName = paramVariableName(param.getName)
-        addAccessTagAndComment(
-          "public",
-          "Parameter variables",
-          List(
-            linesClassMember(
-              List.concat(
-                addSeparatedPreComment(
-                  s"Parameter ${param.getName}",
-                  AnnotationCppWriter.asStringOpt(param.aNode)
-                ),
-                lines(s"$paramType $paramVarName;")
+          )
+        },
+        CppDoc.Lines.Hpp
+      ),
+      addAccessTagAndComment(
+        "public",
+        "Parameter variables",
+        sortedParams.flatMap { case (_, param) =>
+          if (!param.isExternal) then Nil
+          else {
+            val paramType = writeParamType(param.paramType, "Fw::ParamString")
+            val paramVarName = paramVariableName(param.getName)
+            List(
+              linesClassMember(
+                List.concat(
+                  addSeparatedPreComment(
+                    s"Parameter ${param.getName}",
+                    AnnotationCppWriter.asStringOpt(param.aNode)
+                  ),
+                  lines(s"$paramType $paramVarName;")
+                )
               )
             )
-          ),
-          CppDoc.Lines.Hpp
-        )
-      } else Nil
-    }
+          }
+        },
+        CppDoc.Lines.Hpp
+      )
+    )
   }
 }
