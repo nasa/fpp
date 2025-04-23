@@ -1303,9 +1303,65 @@ packet P2 id 1 group 1 {
 
 for the packet specifiers, and this would have equivalent behavior.
 
-==== Omitted Channels
+==== Omitting Channels
 
-TODO
+By default, every telemetry channel in the topology must appear
+in at least one telemetry packet.
+For example, in the model shown above, if we omit the definition
+of packet `P2`, then an error will result, because neither channel
+`c1.T2` nor channel `c2.T2` appears in any packet.
+The purpose of this behavior is to ensure that you don't omit
+any channels from the telemetry by mistake.
+
+If you do want to omit channels from the telemetry packets,
+then you can do so explicitly by writing the keyword `omit` and listing
+those channels after the main specification of the packet set.
+Here is an example:
+
+[source,fpp]
+----
+passive component C {
+
+  telemetry port tlmOut
+
+  time get port timeGetOut
+
+  telemetry T1: U32
+
+  telemetry T2: F32
+
+}
+
+instance c1: C base id 0x100
+instance c2: C base id 0x200
+
+topology T {
+
+  instance c1
+  instance c2
+
+  @ Telemetry packet set PacketSet
+  telemetry packets PacketSet {
+
+    @ Packet P1
+    packet P1 group 0 {
+      c1.T1
+      c2.T1
+      c1.T1
+    }
+
+  } omit {
+    c1.T2
+    c2.T2
+  }
+
+}
+----
+
+The form of the list of omitted channels is the same as the
+form of the list of channels in a telemetry packet.
+It is an error for any channel to appear in a telemetry
+packet and also to appear in the omitted list.
 
 ==== Specifying Multiple Telemetry Packet Sets
 

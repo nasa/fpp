@@ -669,7 +669,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Sets">12.6.1. Telemetry Packet Sets</a></li>
 <li><a href="#Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Identifiers">12.6.2. Telemetry Packet Identifiers</a></li>
-<li><a href="#Defining-Topologies_Telemetry-Packets_Omitted-Channels">12.6.3. Omitted Channels</a></li>
+<li><a href="#Defining-Topologies_Telemetry-Packets_Omitting-Channels">12.6.3. Omitting Channels</a></li>
 <li><a href="#Defining-Topologies_Telemetry-Packets_Specifying-Multiple-Telemetry-Packet-Sets">12.6.4. Specifying Multiple Telemetry Packet Sets</a></li>
 <li><a href="#Defining-Topologies_Telemetry-Packets_Include-Specifiers">12.6.5. Include Specifiers</a></li>
 </ul>
@@ -11353,9 +11353,67 @@ packet P2 id 1 group 1 {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Telemetry-Packets_Omitted-Channels">12.6.3. Omitted Channels</h4>
+<h4 id="Defining-Topologies_Telemetry-Packets_Omitting-Channels">12.6.3. Omitting Channels</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>By default, every telemetry channel in the topology must appear
+in at least one telemetry packet.
+For example, in the model shown above, if we omit the definition
+of packet <code>P2</code>, then an error will result, because neither channel
+<code>c1.T2</code> nor channel <code>c2.T2</code> appears in any packet.
+The purpose of this behavior is to ensure that you don&#8217;t omit
+any channels from the telemetry by mistake.</p>
+</div>
+<div class="paragraph">
+<p>If you do want to omit channels from the telemetry packets,
+then you can do so explicitly by writing the keyword <code>omit</code> and listing
+those channels after the main specification of the packet set.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">passive component C {
+
+  telemetry port tlmOut
+
+  time get port timeGetOut
+
+  telemetry T1: U32
+
+  telemetry T2: F32
+
+}
+
+instance c1: C base id 0x100
+instance c2: C base id 0x200
+
+topology T {
+
+  instance c1
+  instance c2
+
+  @ Telemetry packet set PacketSet
+  telemetry packets PacketSet {
+
+    @ Packet P1
+    packet P1 group 0 {
+      c1.T1
+      c2.T1
+      c1.T1
+    }
+
+  } omit {
+    c1.T2
+    c2.T2
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The form of the list of omitted channels is the same as the
+form of the list of channels in a telemetry packet.
+It is an error for any channel to appear in a telemetry
+packet and also to appear in the omitted list.</p>
 </div>
 </div>
 <div class="sect3">
@@ -15412,7 +15470,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-04-23 08:43:02 -0700
+Last updated 2025-04-23 08:58:14 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
