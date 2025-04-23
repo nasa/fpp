@@ -11280,8 +11280,8 @@ two or more offsets in that packet.</p>
 <div class="paragraph">
 <p>The form of a telemetry channel specifier
 is an instance name followed by a dot and a channel name.
-The channel name must name a channel specified in the component
-that is the type of an instance of the topology.
+The instance name must refer to an instance of the topology.
+The channel name must refer to a channel of that instance.
 For example, in the model above, <code>c1.T</code> is a valid channel
 for topology <code>T</code> because <code>c1</code> is an instance of <code>T</code>,
 <code>c1</code> has type <code>C</code>, and <code>T</code> is a channel of <code>C</code>.</p>
@@ -11479,7 +11479,44 @@ telemetry packet set to use to decode the packets.</p>
 <div class="sect3">
 <h4 id="Defining-Topologies_Telemetry-Packets_Include-Specifiers">12.6.5. Include Specifiers</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>When writing a telemetry packet set, you can
+<a href="#Defining-Topologies_Include-Specifiers">include code
+from another file</a> in the following places:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>You can include code inside a packet set specifier.
+The code must contain packet specifiers.</p>
+</li>
+<li>
+<p>You can include code inside a packet specifier.
+The code must list telemetry channels.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">telemetry packets PacketSet {
+
+  @ Include some packets
+  include "packets.fppi"
+
+  packet P group 0 {
+    c1.T1
+    # Include some channels
+    include "channels.fppi"
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The files that you include can themselves include code
+from other files, if you wish.</p>
 </div>
 </div>
 </div>
@@ -15524,7 +15561,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-04-23 13:50:33 -0700
+Last updated 2025-04-23 15:25:18 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -1239,8 +1239,8 @@ two or more offsets in that packet.
 
 The form of a telemetry channel specifier
 is an instance name followed by a dot and a channel name.
-The channel name must name a channel specified in the component
-that is the type of an instance of the topology.
+The instance name must refer to an instance of the topology.
+The channel name must refer to a channel of that instance.
 For example, in the model above, `c1.T` is a valid channel
 for topology `T` because `c1` is an instance of `T`,
 `c1` has type `C`, and `T` is a channel of `C`.
@@ -1422,4 +1422,33 @@ telemetry packet set to use to decode the packets.
 
 ==== Include Specifiers
 
-TODO
+When writing a telemetry packet set, you can
+<<Defining-Topologies_Include-Specifiers,include code
+from another file>> in the following places:
+
+. You can include code inside a packet set specifier.
+The code must contain packet specifiers.
+
+. You can include code inside a packet specifier.
+The code must list telemetry channels.
+
+For example:
+
+[source,fpp]
+--------
+telemetry packets PacketSet {
+
+  @ Include some packets
+  include "packets.fppi"
+
+  packet P group 0 {
+    c1.T1
+    # Include some channels
+    include "channels.fppi"
+  }
+
+}
+--------
+
+The files that you include can themselves include code
+from other files, if you wish.
