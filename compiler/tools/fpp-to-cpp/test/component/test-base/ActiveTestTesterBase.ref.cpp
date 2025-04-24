@@ -5365,7 +5365,6 @@ namespace M {
   {
     ActiveTestTesterBase* _testerBase = static_cast<ActiveTestTesterBase*>(callComp);
     Fw::SerializeStatus _status;
-    val.resetSer();
 
     const U32 idBase = _testerBase->getIdBase();
     FW_ASSERT(

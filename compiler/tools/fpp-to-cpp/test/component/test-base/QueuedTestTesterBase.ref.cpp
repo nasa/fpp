@@ -5337,7 +5337,6 @@ void QueuedTestTesterBase ::
 {
   QueuedTestTesterBase* _testerBase = static_cast<QueuedTestTesterBase*>(callComp);
   Fw::SerializeStatus _status;
-  val.resetSer();
 
   const U32 idBase = _testerBase->getIdBase();
   FW_ASSERT(
