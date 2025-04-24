@@ -1826,7 +1826,7 @@ case class ExternalParameterDelegate(
             }) ++
             lines(
               """|  default:
-                 |    // Unknown ID should not have gotten here
+                 |    // Unknown ID; should not have gotten here
                  |    FW_ASSERT(false, local_id);
                  |}
                  |
