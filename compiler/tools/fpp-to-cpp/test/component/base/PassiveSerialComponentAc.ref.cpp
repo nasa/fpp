@@ -1520,7 +1520,6 @@ void PassiveSerialComponentBase ::
   this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
-
   if (this->m_param_ParamU32_valid == Fw::ParamValid::VALID) {
     stat = buff.deserialize(this->m_ParamU32);
     if (stat != Fw::FW_SERIALIZE_OK) {
@@ -1530,7 +1529,6 @@ void PassiveSerialComponentBase ::
   else {
     // No default
   }
-
 
   this->m_paramLock.unLock();
 
@@ -1547,7 +1545,6 @@ void PassiveSerialComponentBase ::
   this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
-
   if (this->m_param_ParamF64_valid == Fw::ParamValid::VALID) {
     stat = buff.deserialize(this->m_ParamF64);
     if (stat != Fw::FW_SERIALIZE_OK) {
@@ -1557,7 +1554,6 @@ void PassiveSerialComponentBase ::
   else {
     // No default
   }
-
 
   this->m_paramLock.unLock();
 
@@ -1574,7 +1570,6 @@ void PassiveSerialComponentBase ::
   this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
-
   if (this->m_param_ParamString_valid == Fw::ParamValid::VALID) {
     stat = buff.deserialize(this->m_ParamString);
     if (stat != Fw::FW_SERIALIZE_OK) {
@@ -1588,7 +1583,6 @@ void PassiveSerialComponentBase ::
     this->m_param_ParamString_valid = Fw::ParamValid::DEFAULT;
     this->m_ParamString = Fw::String("default");
   }
-
 
   this->m_paramLock.unLock();
 
@@ -1605,7 +1599,6 @@ void PassiveSerialComponentBase ::
   this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
-
   if (this->m_param_ParamEnum_valid == Fw::ParamValid::VALID) {
     stat = buff.deserialize(this->m_ParamEnum);
     if (stat != Fw::FW_SERIALIZE_OK) {
@@ -1615,7 +1608,6 @@ void PassiveSerialComponentBase ::
   else {
     // No default
   }
-
 
   this->m_paramLock.unLock();
 
@@ -1632,7 +1624,6 @@ void PassiveSerialComponentBase ::
   this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
-
   if (this->m_param_ParamArray_valid == Fw::ParamValid::VALID) {
     stat = buff.deserialize(this->m_ParamArray);
     if (stat != Fw::FW_SERIALIZE_OK) {
@@ -1646,7 +1637,6 @@ void PassiveSerialComponentBase ::
     this->m_param_ParamArray_valid = Fw::ParamValid::DEFAULT;
     this->m_ParamArray = A(1, 2, 3);
   }
-
 
   this->m_paramLock.unLock();
 
@@ -1663,7 +1653,6 @@ void PassiveSerialComponentBase ::
   this->m_paramLock.lock();
 
   // If there was a deserialization issue, mark it invalid
-
   if (this->m_param_ParamStruct_valid == Fw::ParamValid::VALID) {
     stat = buff.deserialize(this->m_ParamStruct);
     if (stat != Fw::FW_SERIALIZE_OK) {
@@ -1673,7 +1662,6 @@ void PassiveSerialComponentBase ::
   else {
     // No default
   }
-
 
   this->m_paramLock.unLock();
 
@@ -1688,7 +1676,6 @@ void PassiveSerialComponentBase ::
   // Get the local ID to pass to the delegate
   _id = PARAMID_PARAMI32EXT;
   // If there was a deserialization issue, mark it invalid
-
   if (param_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
     _id = PARAMID_PARAMI32EXT;
@@ -1715,7 +1702,6 @@ void PassiveSerialComponentBase ::
   // Get the local ID to pass to the delegate
   _id = PARAMID_PARAMF64EXT;
   // If there was a deserialization issue, mark it invalid
-
   if (param_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
     _id = PARAMID_PARAMF64EXT;
@@ -1742,7 +1728,6 @@ void PassiveSerialComponentBase ::
   // Get the local ID to pass to the delegate
   _id = PARAMID_PARAMSTRINGEXT;
   // If there was a deserialization issue, mark it invalid
-
   if (param_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
     _id = PARAMID_PARAMSTRINGEXT;
@@ -1769,7 +1754,6 @@ void PassiveSerialComponentBase ::
   // Get the local ID to pass to the delegate
   _id = PARAMID_PARAMENUMEXT;
   // If there was a deserialization issue, mark it invalid
-
   if (param_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
     _id = PARAMID_PARAMENUMEXT;
@@ -1796,7 +1780,6 @@ void PassiveSerialComponentBase ::
   // Get the local ID to pass to the delegate
   _id = PARAMID_PARAMARRAYEXT;
   // If there was a deserialization issue, mark it invalid
-
   if (param_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
     _id = PARAMID_PARAMARRAYEXT;
@@ -1823,7 +1806,6 @@ void PassiveSerialComponentBase ::
   // Get the local ID to pass to the delegate
   _id = PARAMID_PARAMSTRUCTEXT;
   // If there was a deserialization issue, mark it invalid
-
   if (param_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
     _id = PARAMID_PARAMSTRUCTEXT;

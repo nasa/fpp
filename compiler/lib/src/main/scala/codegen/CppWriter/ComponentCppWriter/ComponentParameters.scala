@@ -148,9 +148,9 @@ case class ComponentParameters (
                 lines("|Fw::ParamValid param_valid;")
               ),
               intersperseBlankLines(
-                sortedParams.flatMap { case (_, param) =>
+                sortedParams.map((_, param) =>
                   if (param.isExternal) {
-                    List(
+                    List.concat(
                       lines(
                         s"""|_id = base_id + ${paramIdConstantName(param.getName)};
                             |
@@ -162,7 +162,8 @@ case class ComponentParameters (
                             |
                             |// Get the local ID to pass to the delegate
                             |_id = ${paramIdConstantName(param.getName)};
-                            |// If there was a deserialization issue, mark it invalid"""
+                            |// If there was a deserialization issue, mark it invalid
+                            |"""
                       ),
                       wrapInIfElse(
                         s"param_valid == Fw::ParamValid::VALID",
@@ -185,7 +186,7 @@ case class ComponentParameters (
                       )
                     )
                   } else {
-                    List(
+                    List.concat(
                       lines(
                         s"""|_id = base_id + ${paramIdConstantName(param.getName)};
                             |
@@ -199,7 +200,8 @@ case class ComponentParameters (
                             |// Deserialize value
                             |this->m_paramLock.lock();
                             |
-                            |// If there was a deserialization issue, mark it invalid"""
+                            |// If there was a deserialization issue, mark it invalid
+                            |"""
                       ),
                       wrapInIfElse(
                         s"this->${paramValidityFlagName(param.getName)} == Fw::ParamValid::VALID",
@@ -231,7 +233,7 @@ case class ComponentParameters (
                       Line.blank :: lines("this->m_paramLock.unLock();")
                     )
                   }
-                }
+                )
               ),
               lines(
                 """|// Call notifier

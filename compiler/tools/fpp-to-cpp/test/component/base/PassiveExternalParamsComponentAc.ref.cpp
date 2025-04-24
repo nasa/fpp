@@ -1307,7 +1307,6 @@ void PassiveExternalParamsComponentBase ::
   // Get the local ID to pass to the delegate
   _id = PARAMID_PARAMI32EXT;
   // If there was a deserialization issue, mark it invalid
-
   if (param_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
     _id = PARAMID_PARAMI32EXT;
@@ -1334,7 +1333,6 @@ void PassiveExternalParamsComponentBase ::
   // Get the local ID to pass to the delegate
   _id = PARAMID_PARAMF64EXT;
   // If there was a deserialization issue, mark it invalid
-
   if (param_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
     _id = PARAMID_PARAMF64EXT;
@@ -1361,7 +1359,6 @@ void PassiveExternalParamsComponentBase ::
   // Get the local ID to pass to the delegate
   _id = PARAMID_PARAMSTRINGEXT;
   // If there was a deserialization issue, mark it invalid
-
   if (param_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
     _id = PARAMID_PARAMSTRINGEXT;
@@ -1388,7 +1385,6 @@ void PassiveExternalParamsComponentBase ::
   // Get the local ID to pass to the delegate
   _id = PARAMID_PARAMENUMEXT;
   // If there was a deserialization issue, mark it invalid
-
   if (param_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
     _id = PARAMID_PARAMENUMEXT;
@@ -1415,7 +1411,6 @@ void PassiveExternalParamsComponentBase ::
   // Get the local ID to pass to the delegate
   _id = PARAMID_PARAMARRAYEXT;
   // If there was a deserialization issue, mark it invalid
-
   if (param_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
     _id = PARAMID_PARAMARRAYEXT;
@@ -1442,7 +1437,6 @@ void PassiveExternalParamsComponentBase ::
   // Get the local ID to pass to the delegate
   _id = PARAMID_PARAMSTRUCTEXT;
   // If there was a deserialization issue, mark it invalid
-
   if (param_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
     _id = PARAMID_PARAMSTRUCTEXT;
