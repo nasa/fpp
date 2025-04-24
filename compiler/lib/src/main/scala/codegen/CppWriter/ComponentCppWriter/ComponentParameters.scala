@@ -378,21 +378,10 @@ case class ComponentParameters (
               s"""|FwPrmIdType local_id = ${paramIdConstantName(param.getName)};
                   |FwPrmIdType base_id = this->getIdBase();
                   |Fw::SerializeStatus _stat;
-                  |${writeParamType(param.paramType, "Fw::ParamString")} _local_val;
-                  |Fw::ParamBuffer param_buffer;
-                  |
-                  |// val argument is a Fw::CmdArgBuffer&, so deserialize the parameter
-                  |_stat = val.deserialize(_local_val);
-                  |if (_stat != Fw::FW_SERIALIZE_OK) {
-                  |  return Fw::CmdResponse::VALIDATION_ERROR;
-                  |}
-                  |// And re-serialize in a parameter buffer
-                  |_stat = param_buffer.serialize(_local_val);
-                  |FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, _stat);
                   |
                   |FW_ASSERT(this->paramDelegatePtr != NULL);
                   |// Call the delegate serialize function for ${paramVariableName(param.getName)}
-                  |_stat = this->paramDelegatePtr->deserializeParam(base_id, local_id, Fw::ParamValid::VALID, param_buffer);
+                  |_stat = this->paramDelegatePtr->deserializeParam(base_id, local_id, Fw::ParamValid::VALID, val);
                   |if (_stat != Fw::FW_SERIALIZE_OK) {
                   |  return Fw::CmdResponse::VALIDATION_ERROR;
                   |}

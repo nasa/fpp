@@ -18,7 +18,7 @@ Fw::SerializeStatus QueuedExternalParamsTesterBase::QueuedExternalParamsComponen
       const FwPrmIdType base_id,
       const FwPrmIdType local_id,
       const Fw::ParamValid prmStat,
-      Fw::ParamBuffer& buff
+      Fw::SerializeBufferBase& buff
   )
 {
   Fw::SerializeStatus stat;
@@ -63,7 +63,7 @@ Fw::SerializeStatus QueuedExternalParamsTesterBase::QueuedExternalParamsComponen
   serializeParam(
       const FwPrmIdType base_id,
       const FwPrmIdType local_id,
-      Fw::ParamBuffer& buff
+      Fw::SerializeBufferBase& buff
   ) const
 {
   Fw::SerializeStatus stat;
