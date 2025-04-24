@@ -52,7 +52,7 @@ Fw::SerializeStatus QueuedSerialTesterBase::QueuedSerialComponentBaseParamExtern
       stat = buff.deserialize(this->m_param_ParamStructExt);
       break;
     default:
-      // Unknown ID should not have gotten here
+      // Unknown ID; should not have gotten here
       FW_ASSERT(false, local_id);
   }
 
@@ -97,7 +97,7 @@ Fw::SerializeStatus QueuedSerialTesterBase::QueuedSerialComponentBaseParamExtern
       stat = buff.serialize(this->m_param_ParamStructExt);
       break;
     default:
-      // Unknown ID should not have gotten here
+      // Unknown ID; should not have gotten here
       FW_ASSERT(false, local_id);
   }
 

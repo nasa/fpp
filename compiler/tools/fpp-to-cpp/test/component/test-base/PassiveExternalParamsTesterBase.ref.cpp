@@ -52,7 +52,7 @@ Fw::SerializeStatus PassiveExternalParamsTesterBase::PassiveExternalParamsCompon
       stat = buff.deserialize(this->m_param_ParamStructExt);
       break;
     default:
-      // Unknown ID should not have gotten here
+      // Unknown ID; should not have gotten here
       FW_ASSERT(false, local_id);
   }
 
@@ -97,7 +97,7 @@ Fw::SerializeStatus PassiveExternalParamsTesterBase::PassiveExternalParamsCompon
       stat = buff.serialize(this->m_param_ParamStructExt);
       break;
     default:
-      // Unknown ID should not have gotten here
+      // Unknown ID; should not have gotten here
       FW_ASSERT(false, local_id);
   }
 
@@ -2706,7 +2706,6 @@ void PassiveExternalParamsTesterBase ::
 {
   PassiveExternalParamsTesterBase* _testerBase = static_cast<PassiveExternalParamsTesterBase*>(callComp);
   Fw::SerializeStatus _status;
-  val.resetSer();
 
   const U32 idBase = _testerBase->getIdBase();
   FW_ASSERT(

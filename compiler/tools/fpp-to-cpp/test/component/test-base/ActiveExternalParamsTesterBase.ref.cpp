@@ -52,7 +52,7 @@ Fw::SerializeStatus ActiveExternalParamsTesterBase::ActiveExternalParamsComponen
       stat = buff.deserialize(this->m_param_ParamStructExt);
       break;
     default:
-      // Unknown ID should not have gotten here
+      // Unknown ID; should not have gotten here
       FW_ASSERT(false, local_id);
   }
 
@@ -97,7 +97,7 @@ Fw::SerializeStatus ActiveExternalParamsTesterBase::ActiveExternalParamsComponen
       stat = buff.serialize(this->m_param_ParamStructExt);
       break;
     default:
-      // Unknown ID should not have gotten here
+      // Unknown ID; should not have gotten here
       FW_ASSERT(false, local_id);
   }
 
@@ -3183,7 +3183,6 @@ void ActiveExternalParamsTesterBase ::
 {
   ActiveExternalParamsTesterBase* _testerBase = static_cast<ActiveExternalParamsTesterBase*>(callComp);
   Fw::SerializeStatus _status;
-  val.resetSer();
 
   const U32 idBase = _testerBase->getIdBase();
   FW_ASSERT(
