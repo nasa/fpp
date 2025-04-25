@@ -131,9 +131,10 @@ object CheckUses extends UseAnalyzer {
         val mapping = a.nestedScope.get (NameGroup.Type) _
         for {
           a <- Result.foldLeft (impliedTypeUses) (a) ((a, t) => {
-            helpers.getSymbolForName(mapping)(node1.id, t) match {
-              case Left(e: SemanticError.UndefinedSymbol) => 
-                Left(AnnotatedError(e, s"Dictionary requires type ${t} to be defined."))
+            Result.annotateResult(
+              helpers.getSymbolForName(mapping)(node1.id, t), 
+              s"Dictionary requires type ${t} to be defined."
+            ) match {
               case Left(e) => Left(e)
               case Right(symbol) => Right(a.copy(dictionaryTypeSymbolSet = a.dictionaryTypeSymbolSet + symbol))
             }
