@@ -3,3 +3,4 @@ fpp-to-dict
 topology T {
 ^
 error: undefined symbol FwEventIdType
+note: Dictionary requires type FwEventIdType to be defined.

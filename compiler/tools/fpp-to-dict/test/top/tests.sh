@@ -2,5 +2,7 @@ tests="
 multipleTops
 dataProducts
 duplicate
+missingFwOpcodeType
+missingFwEventIdType
 unqualifiedComponentInstances
 "
