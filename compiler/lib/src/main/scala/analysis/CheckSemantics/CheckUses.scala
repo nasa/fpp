@@ -133,7 +133,7 @@ object CheckUses extends UseAnalyzer {
           a <- Result.foldLeft (impliedTypeUses) (a) ((a, t) => {
             helpers.getSymbolForName(mapping)(node1.id, t) match {
               case Left(e: SemanticError.UndefinedSymbol) => 
-                Left(e.copy(notes=e.notes :+ s"Dictionary requires type ${t} to be defined."))
+                Left(AnnotatedError(e, s"Dictionary requires type ${t} to be defined."))
               case Left(e) => Left(e)
               case Right(symbol) => Right(a.copy(dictionaryTypeSymbolSet = a.dictionaryTypeSymbolSet + symbol))
             }

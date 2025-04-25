@@ -19,12 +19,7 @@ sealed trait Error {
     System.err.println("previous occurrence is here:")
     System.err.println(prevLoc)
   }
-
-  /** Prints a list of notes */
-  def printNotes(notes: List[String]): Unit = {
-    notes.map(n => System.err.println(s"note: ${n}"))
-  }
-
+  
   /*** Print the error */
   def print: Unit = {
     this match {
@@ -301,15 +296,23 @@ sealed trait Error {
         System.err.println("for this component instance:")
         System.err.println(instanceLoc)
       case SemanticError.TypeMismatch(loc, msg) => Error.print (Some(loc)) (msg)
-      case SemanticError.UndefinedSymbol(name, loc, notes) =>
+      case SemanticError.UndefinedSymbol(name, loc) =>
         Error.print (Some(loc)) (s"undefined symbol ${name}")
-        printNotes(notes)
       case SemanticError.UseDefCycle(loc, msg) => Error.print (Some(loc)) (msg)
       case XmlError.ParseError(file, msg) => Error.printXml (file) (msg)
       case XmlError.SemanticError(file, msg) => Error.printXml (file) (msg)
+      case e: AnnotatedError => e.print
     }
   }
 
+}
+
+/** Annotated error for including additional notes */
+case class AnnotatedError(error: Error, note: String) extends Error {
+  override def print: Unit = {
+    error.print
+    System.err.println(s"note: ${note}")
+  }
 }
 
 /** A syntax error */
@@ -687,7 +690,7 @@ object SemanticError {
   /** Type mismatch */
   final case class TypeMismatch(loc: Location, msg: String) extends Error
   /** Undefined symbol */
-  final case class UndefinedSymbol(name: String, loc: Location, notes: List[String]=List()) extends Error
+  final case class UndefinedSymbol(name: String, loc: Location) extends Error
   /** Use-def cycle */
   final case class UseDefCycle(loc: Location, msg: String) extends Error
 }
