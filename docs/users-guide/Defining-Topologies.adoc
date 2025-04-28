@@ -1277,7 +1277,7 @@ Within a telemetry packet set, every packet has a unique numeric identifier.
 Typically the identifiers start at zero and count up by one.
 If you don't specify an identifier, as in the example shown in the previous
 section, then FPP assigns a default identifier: zero for the first packet in the set;
-otherwise one more than the identifier of the previous event.
+otherwise one more than the identifier of the previous packet.
 
 If you wish, you may explicitly specify one or more packet identifiers. To do 
 this, you write the keyword `id` followed by a numeric expression immediately 
