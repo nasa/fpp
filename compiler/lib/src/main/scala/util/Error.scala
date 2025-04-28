@@ -301,20 +301,16 @@ sealed trait Error {
       case SemanticError.UseDefCycle(loc, msg) => Error.print (Some(loc)) (msg)
       case XmlError.ParseError(file, msg) => Error.printXml (file) (msg)
       case XmlError.SemanticError(file, msg) => Error.printXml (file) (msg)
-      case e: AnnotatedError => e.print
+      case AnnotatedError(error, note) => 
+        error.print
+        System.err.println(s"note: ${note}")
     }
   }
 
 }
 
 /** Annotated error for including additional notes */
-case class AnnotatedError(error: Error, note: String) extends Error {
-  override def print: Unit = {
-    error.print
-    System.err.println(s"note: ${note}")
-  }
-}
-
+final case class AnnotatedError(error: Error, note: String) extends Error
 /** A syntax error */
 final case class SyntaxError(loc: Location, msg: String) extends Error
 
