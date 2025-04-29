@@ -72,14 +72,11 @@ of the interpreted string is _c_.
 
 Whitespace inside a multiline string literal is trimmed as follows:
 
-. The first extended newline character, if any, after the first `"""` is
+. The first extended newline character, if any, immediately after the first `"""` is
 deleted from the interpreted string.
 
-. Any whitespace occurring in columns to the left of the first `"""`
-is deleted from the result of step 1.
-
-. Any leading and trailing extended newline characters are deleted from the
-result of step 2.
+. Any leading whitespace on the first line after `"""` is removed from all the lines
+in the multi-line string.
 
 *Example 1*
 
@@ -95,7 +92,7 @@ The value of the string constant `s` is `"""`.
 
 [source,fpp]
 ----
-  """
+constant s = """
   // This is a multiline string literal
   // It represents some C++ code
   instance.create(0, 1);

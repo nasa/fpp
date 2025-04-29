@@ -461,10 +461,23 @@ object Lexer {
         // Escaped newline
         case '\\' =>
           nextChar()
+          // Absorb spaces until newline
+          while (ch == ' ') {
+            nextChar()
+          }
           if (ch == LF) {
             nextChar()
             fetchToken()
-          } else error("expected line continuation")
+          } else {
+            offset = charOffset - 1
+            error("expected line continuation")
+            while (ch != LF) {
+              nextChar()
+            }
+
+            nextChar()
+            fetchToken()
+          }
         // String Literals
         case '\"' =>
           nextChar()

@@ -925,7 +925,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Types_Underlying-Types">17.14. Underlying Types</a></li>
 <li><a href="#Types_Displayable-Types">17.15. Displayable Types</a></li>
 <li><a href="#Types_Types-with-Numeric-Members">17.16. Types with Numeric Members</a></li>
-<li><a href="#Types_Alias-Lists">17.17. Alias Lists</a></li>
+<li><a href="#Types_Ancestor-List">17.17. Ancestor List</a></li>
 <li><a href="#Types_Default-Values">17.18. Default Values</a></li>
 </ul>
 </li>
@@ -1854,9 +1854,6 @@ identifier values.</p>
 <p>An <a href="#Definitions_Abstract-Type-Definitions">abstract type definition</a></p>
 </li>
 <li>
-<p>An <a href="#Definitions_Alias-Type-Definitions">alias type definition</a></p>
-</li>
-<li>
 <p>An <a href="#Definitions_Array-Definitions">array definition</a></p>
 </li>
 <li>
@@ -2725,9 +2722,6 @@ A module member is one of the following:</p>
 <p>A <a href="#Definitions_Port-Definitions">port definition</a></p>
 </li>
 <li>
-<p>A <a href="#Definitions_State-Machine-Definitions">state machine definition</a></p>
-</li>
-<li>
 <p>A <a href="#Definitions_Struct-Definitions">struct definition</a></p>
 </li>
 <li>
@@ -2740,9 +2734,6 @@ A module member is one of the following:</p>
 <p>An <a href="#Definitions_Abstract-Type-Definitions">abstract type definition</a></p>
 </li>
 <li>
-<p>An <a href="#Definitions_Alias-Type-Definitions">alias type definition</a></p>
-</li>
-<li>
 <p>An <a href="#Definitions_Array-Definitions">array definition</a></p>
 </li>
 <li>
@@ -2750,6 +2741,9 @@ A module member is one of the following:</p>
 </li>
 <li>
 <p>An <a href="#Specifiers_Include-Specifiers">include specifier</a></p>
+</li>
+<li>
+<p>A <a href="#Definitions_State-Machine-Definitions">state machine definition</a></p>
 </li>
 </ul>
 </div>
@@ -8258,16 +8252,12 @@ of the interpreted string is <em>c</em>.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The first extended newline character, if any, after the first <code>"""</code> is
+<p>The first extended newline character, if any, immediately after the first <code>"""</code> is
 deleted from the interpreted string.</p>
 </li>
 <li>
-<p>Any whitespace occurring in columns to the left of the first <code>"""</code>
-is deleted from the result of step 1.</p>
-</li>
-<li>
-<p>Any leading and trailing extended newline characters are deleted from the
-result of step 2.</p>
+<p>Any preceding whitespace on the first line after <code>"""</code> is removed from the line and
+all of the following lines.</p>
 </li>
 </ol>
 </div>
@@ -8310,6 +8300,9 @@ The value of the string constant <code>s</code> is <code>"""</code>.</p>
 <p><code>instance.create(0, 1);</code></p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>The string literal</p>
 </div>
 </div>
 </div>
@@ -9670,24 +9663,16 @@ member types all have numeric members.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Alias-Lists">17.17. Alias Lists</h3>
+<h3 id="Types_Ancestor-List">17.17. Ancestor List</h3>
 <div class="paragraph">
-<p>The <strong>alias list</strong> of a type \$T\$ is a list \$L\$ defined as follows:</p>
+<p>A type <strong>has a parent</strong> if it is a <a href="#Types_Alias-Types">alias type</a>.
+The parent type is the type pointed to by the <a href="#Types_Alias-Types">alias type&#8217;s</a> definition.
+This relationship creates a tree of types where nodes only know about their
+parent node. An ancestor list of a type is a list containing the type
+itself as well as the ancestor list of the parent type (given it has a parent).</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The head of \$L\$ is \$T\$.</p>
-</li>
-<li>
-<p>If \$T\$ is not an <a href="#Types_Alias-Types">alias type</a>, then the
-tail of \$L\$ is the empty list.</p>
-</li>
-<li>
-<p>Otherwise the tail of \$T\$ is the alias list of the type
-\$T'\$ that appears in the definition of \$T\$.</p>
-</li>
-</ol>
+<div class="paragraph">
+<p>The order of the ancestor list is from the type to the oldest parent type.</p>
 </div>
 </div>
 <div class="sect2">
@@ -10230,27 +10215,21 @@ types</a>, then do the following:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Let \$L_1\$ be the <a href="#Types_Alias-Lists">alias list</a> of \$T_1\$.</p>
+<p>Let \$A_1\$ be the <a href="#Types_Ancestor-List">ancestor list</a> of \$T_1\$</p>
 </li>
 <li>
-<p>Let \$L_2\$ be the <a href="#Types_Alias-Lists">alias list</a> of \$T_2\$.</p>
+<p>Let \$A_2\$ be the <a href="#Types_Ancestor-List">ancestor list</a> of \$T_2\$</p>
 </li>
 <li>
-<p>If there is no type in \$L_1\$ that is
-<a href="#Type-Checking_Identical-Types">identical</a>
-to a type in \$L_2\$, then replace each each alias type with its
-<a href="#Types_Underlying-Types">underlying type</a> and reapply these rules.</p>
+<p>Let \$T\$ be the first type in \$A_2\$ that is <a href="#Type-Checking_Identical-Types">identical</a>
+to a type in \$A_1\$ (<strong>if there exists such a type</strong>).</p>
 </li>
 <li>
-<p>Otherwise let \$T\$ be the first type in \$L_2\$ that is identical
-to a type in \$L_1\$.</p>
+<p>If there is no overlap between \$A_1\$ and \$A_2\$, replace each
+each alias type with its <a href="#Types_Underlying-Types">underlying type</a>
+and re-apply these rules.</p>
 </li>
 </ol>
-</div>
-<div class="paragraph">
-<p>Note that the algorithm is symmetric in \$L_1\$ and \$L_2\$, i.e.,
-reversing \$L_1\$ and stem \$L_2\$ in the last two items would
-produce the same result.</p>
 </div>
 </li>
 <li>
@@ -11159,7 +11138,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-04-07 13:30:00 -0700
+Last updated 2025-04-29 10:37:10 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
