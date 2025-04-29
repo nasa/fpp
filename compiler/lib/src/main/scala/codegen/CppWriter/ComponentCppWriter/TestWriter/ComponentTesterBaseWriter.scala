@@ -1770,7 +1770,7 @@ case class ExternalParameterDelegate(
             lines(
               """|  default:
                  |    // Unknown ID; should not have gotten here
-                 |    FW_ASSERT(false, local_id);
+                 |    FW_ASSERT(0, static_cast<FwAssertArgType>(local_id));
                  |}
                  |
                  |return stat;
@@ -1826,7 +1826,7 @@ case class ExternalParameterDelegate(
             lines(
               """|  default:
                  |    // Unknown ID; should not have gotten here
-                 |    FW_ASSERT(false, local_id);
+                 |    FW_ASSERT(0, static_cast<FwAssertArgType>(local_id));
                  |}
                  |
                  |return stat;
