@@ -138,7 +138,7 @@ case class ComponentParameters (
               lines(
                 s"""|Fw::ParamBuffer buff;
                     |Fw::SerializeStatus stat = Fw::FW_SERIALIZE_OK;
-                    |FwPrmIdType base_id = this->getIdBase();
+                    |FwPrmIdType baseId = this->getIdBase();
                     |FW_ASSERT(this->${portVariableName(prmGetPort.get)}[0].isConnected());
                     |
                     |FwPrmIdType _id;
@@ -152,7 +152,7 @@ case class ComponentParameters (
                   if (param.isExternal) {
                     List.concat(
                       lines(
-                        s"""|_id = base_id + ${paramIdConstantName(param.getName)};
+                        s"""|_id = baseId + ${paramIdConstantName(param.getName)};
                             |
                             |// Get parameter ${param.getName}
                             |param_valid = this->${portVariableName(prmGetPort.get)}[0].invoke(
@@ -173,7 +173,7 @@ case class ComponentParameters (
                               |
                               |FW_ASSERT(this->paramDelegatePtr != NULL);
                               |// Call the delegate deserialize function for ${paramVariableName(param.getName)}
-                              |stat = this->paramDelegatePtr->deserializeParam(base_id, _id, param_valid, buff);
+                              |stat = this->paramDelegatePtr->deserializeParam(baseId, _id, param_valid, buff);
                               |"""
                         ) ++
                           wrapInIf(
@@ -188,7 +188,7 @@ case class ComponentParameters (
                   } else {
                     List.concat(
                       lines(
-                        s"""|_id = base_id + ${paramIdConstantName(param.getName)};
+                        s"""|_id = baseId + ${paramIdConstantName(param.getName)};
                             |
                             |// Get parameter ${param.getName}
                             |this->${paramValidityFlagName(param.getName)} =
@@ -318,14 +318,14 @@ case class ComponentParameters (
             lines(
               s"""|${writeParamType(param.paramType, "Fw::ParamString")} _local{};
                   |Fw::ParamBuffer getBuff;
-                  |FwPrmIdType local_id;
-                  |FwPrmIdType base_id = this->getIdBase();
+                  |// Get the base ID
+                  |const FwPrmIdType baseId = static_cast<FwPrmIdType>(this->getIdBase());
                   |// Get the local ID to pass to the delegate
-                  |local_id = ${paramIdConstantName(param.getName)};
+                  |const FwPrmIdType local_id = ${paramIdConstantName(param.getName)};
                   |
                   |FW_ASSERT(this->paramDelegatePtr != NULL);
                   |// Get the external parameter from the delegate
-                  |Fw::SerializeStatus stat = this->paramDelegatePtr->serializeParam(base_id, local_id, getBuff);
+                  |Fw::SerializeStatus stat = this->paramDelegatePtr->serializeParam(baseId, local_id, getBuff);
                   |if(stat == Fw::FW_SERIALIZE_OK) {
                   |  stat = getBuff.deserialize(_local);
                   |  FW_ASSERT(stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(stat));
@@ -378,12 +378,12 @@ case class ComponentParameters (
           if (param.isExternal) {
             lines(
               s"""|FwPrmIdType local_id = ${paramIdConstantName(param.getName)};
-                  |FwPrmIdType base_id = this->getIdBase();
+                  |FwPrmIdType baseId = this->getIdBase();
                   |Fw::SerializeStatus _stat;
                   |
                   |FW_ASSERT(this->paramDelegatePtr != NULL);
                   |// Call the delegate serialize function for ${paramVariableName(param.getName)}
-                  |_stat = this->paramDelegatePtr->deserializeParam(base_id, local_id, Fw::ParamValid::VALID, val);
+                  |_stat = this->paramDelegatePtr->deserializeParam(baseId, local_id, Fw::ParamValid::VALID, val);
                   |if (_stat != Fw::FW_SERIALIZE_OK) {
                   |  return Fw::CmdResponse::VALIDATION_ERROR;
                   |}
@@ -435,9 +435,9 @@ case class ComponentParameters (
           CppDoc.Type("Fw::CmdResponse"),
           List.concat(
             lines(
-              s"""|Fw::ParamBuffer saveBuff;
+              s"""|Fw::ParamBuffer _saveBuff;
                   |FwPrmIdType _id;
-                  |Fw::SerializeStatus stat;
+                  |Fw::SerializeStatus _stat;
                   |
                   |"""
             ),
@@ -448,33 +448,33 @@ case class ComponentParameters (
                   lines(
                     s"""|// Get the local and base ID to pass to the delegate
                         |_id = ${paramIdConstantName(param.getName)};
-                        |FwPrmIdType base_id = this->getIdBase();
+                        |FwPrmIdType _baseId = this->getIdBase();
                         |
                         |FW_ASSERT(this->paramDelegatePtr != NULL);
-                        |stat = this->paramDelegatePtr->serializeParam(base_id, _id, saveBuff);
+                        |_stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
                         |"""
                   )
                 } else {
                   lines(
                     s"""|this->m_paramLock.lock();
                         |
-                        |stat = saveBuff.serialize(${paramVariableName(param.getName)});
+                        |_stat = _saveBuff.serialize(${paramVariableName(param.getName)});
                         |
                         |this->m_paramLock.unLock();
                         |"""
                   )
                 }
               ) ++ lines(
-                s"""|if (stat != Fw::FW_SERIALIZE_OK) {
+                s"""|if (_stat != Fw::FW_SERIALIZE_OK) {
                     |  return Fw::CmdResponse::VALIDATION_ERROR;
                     |}
                     |
-                    |_id = this->getIdBase() + ${paramIdConstantName(param.getName)};
+                    |_id = static_cast<FwPrmIdType>(this->getIdBase() + ${paramIdConstantName(param.getName)});
                     |
                     |// Save the parameter
                     |this->${portVariableName(prmSetPort.get)}[0].invoke(
                     |  _id,
-                    |  saveBuff
+                    |  _saveBuff
                     |);
                     |
                     |return Fw::CmdResponse::OK;
