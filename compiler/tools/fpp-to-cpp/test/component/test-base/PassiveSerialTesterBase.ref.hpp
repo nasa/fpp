@@ -400,16 +400,16 @@ class PassiveSerialTesterBase :
 
         //! Parameter deserialization function for external parameter unit testing
         Fw::SerializeStatus deserializeParam(
-            const FwPrmIdType base_id, //!< The component base parameter ID to deserialize
-            const FwPrmIdType local_id, //!< The parameter local ID to deserialize
+            const FwPrmIdType baseId, //!< The component base parameter ID to deserialize
+            const FwPrmIdType localId, //!< The parameter local ID to deserialize
             const Fw::ParamValid prmStat, //!< The parameter validity status
             Fw::SerializeBufferBase& buff //!< The buffer containing the parameter to deserialize
         ) override;
 
         //! Parameter serialization function for external parameter unit testing
         Fw::SerializeStatus serializeParam(
-            const FwPrmIdType base_id, //!< The component base parameter ID to serialize
-            const FwPrmIdType local_id, //!< The parameter local ID to serialize
+            const FwPrmIdType baseId, //!< The component base parameter ID to serialize
+            const FwPrmIdType localId, //!< The parameter local ID to serialize
             Fw::SerializeBufferBase& buff //!< The buffer to serialize the parameter into
         ) const override;
 

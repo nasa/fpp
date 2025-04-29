@@ -1725,12 +1725,12 @@ case class ExternalParameterDelegate(
           List(
             CppDoc.Function.Param(
               CppDoc.Type("const FwPrmIdType"),
-              "base_id",
+              "baseId",
               Some("The component base parameter ID to deserialize")
             ),
             CppDoc.Function.Param(
               CppDoc.Type("const FwPrmIdType"),
-              "local_id",
+              "localId",
               Some("The parameter local ID to deserialize")
             ),
             CppDoc.Function.Param(
@@ -1748,10 +1748,10 @@ case class ExternalParameterDelegate(
           {
             lines(
               """|Fw::SerializeStatus stat;
-                 |(void) base_id;
+                 |(void) baseId;
                  |
                  |// Serialize the parameter based on ID
-                 |switch(local_id)
+                 |switch(localId)
                  |{
                  |"""
             ) ++
@@ -1770,7 +1770,7 @@ case class ExternalParameterDelegate(
             lines(
               """|  default:
                  |    // Unknown ID; should not have gotten here
-                 |    FW_ASSERT(0, static_cast<FwAssertArgType>(local_id));
+                 |    FW_ASSERT(0, static_cast<FwAssertArgType>(localId));
                  |}
                  |
                  |return stat;
@@ -1786,12 +1786,12 @@ case class ExternalParameterDelegate(
           List(
             CppDoc.Function.Param(
               CppDoc.Type("const FwPrmIdType"),
-              "base_id",
+              "baseId",
               Some("The component base parameter ID to serialize")
             ),
             CppDoc.Function.Param(
               CppDoc.Type("const FwPrmIdType"),
-              "local_id",
+              "localId",
               Some("The parameter local ID to serialize")
             ),
             CppDoc.Function.Param(
@@ -1804,10 +1804,10 @@ case class ExternalParameterDelegate(
           {
             lines(
               """|Fw::SerializeStatus stat;
-                 |(void) base_id;
+                 |(void) baseId;
                  |
                  |// Serialize the parameter based on ID
-                 |switch(local_id)
+                 |switch(localId)
                  |{
                  |"""
             ) ++
@@ -1826,7 +1826,7 @@ case class ExternalParameterDelegate(
             lines(
               """|  default:
                  |    // Unknown ID; should not have gotten here
-                 |    FW_ASSERT(0, static_cast<FwAssertArgType>(local_id));
+                 |    FW_ASSERT(0, static_cast<FwAssertArgType>(localId));
                  |}
                  |
                  |return stat;

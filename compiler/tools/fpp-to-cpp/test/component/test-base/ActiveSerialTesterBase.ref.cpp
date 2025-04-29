@@ -15,17 +15,17 @@
 
 Fw::SerializeStatus ActiveSerialTesterBase::ActiveSerialComponentBaseParamExternalDelegate ::
   deserializeParam(
-      const FwPrmIdType base_id,
-      const FwPrmIdType local_id,
+      const FwPrmIdType baseId,
+      const FwPrmIdType localId,
       const Fw::ParamValid prmStat,
       Fw::SerializeBufferBase& buff
   )
 {
   Fw::SerializeStatus stat;
-  (void) base_id;
+  (void) baseId;
 
   // Serialize the parameter based on ID
-  switch(local_id)
+  switch(localId)
   {
     // ParamI32Ext
     case ActiveSerialComponentBase::PARAMID_PARAMI32EXT:
@@ -53,7 +53,7 @@ Fw::SerializeStatus ActiveSerialTesterBase::ActiveSerialComponentBaseParamExtern
       break;
     default:
       // Unknown ID; should not have gotten here
-      FW_ASSERT(0, static_cast<FwAssertArgType>(local_id));
+      FW_ASSERT(0, static_cast<FwAssertArgType>(localId));
   }
 
   return stat;
@@ -61,16 +61,16 @@ Fw::SerializeStatus ActiveSerialTesterBase::ActiveSerialComponentBaseParamExtern
 
 Fw::SerializeStatus ActiveSerialTesterBase::ActiveSerialComponentBaseParamExternalDelegate ::
   serializeParam(
-      const FwPrmIdType base_id,
-      const FwPrmIdType local_id,
+      const FwPrmIdType baseId,
+      const FwPrmIdType localId,
       Fw::SerializeBufferBase& buff
   ) const
 {
   Fw::SerializeStatus stat;
-  (void) base_id;
+  (void) baseId;
 
   // Serialize the parameter based on ID
-  switch(local_id)
+  switch(localId)
   {
     // ParamI32Ext
     case ActiveSerialComponentBase::PARAMID_PARAMI32EXT:
@@ -98,7 +98,7 @@ Fw::SerializeStatus ActiveSerialTesterBase::ActiveSerialComponentBaseParamExtern
       break;
     default:
       // Unknown ID; should not have gotten here
-      FW_ASSERT(0, static_cast<FwAssertArgType>(local_id));
+      FW_ASSERT(0, static_cast<FwAssertArgType>(localId));
   }
 
   return stat;
