@@ -60,14 +60,15 @@ case class ComponentParameters (
         "PRIVATE",
         "Parameter validity flags",
         sortedParams.flatMap { case (_, param) =>
-          if (param.isExternal) then Nil
-          else List(
-            linesClassMember(
-              lines(
-                s"""|
-                    |//! True if ${param.getName} was successfully received
-                    |Fw::ParamValid ${paramValidityFlagName(param.getName)};
-                    |"""
+          guardedList (!param.isExternal) (
+            List(
+              linesClassMember(
+                lines(
+                  s"""|
+                      |//! True if ${param.getName} was successfully received
+                      |Fw::ParamValid ${paramValidityFlagName(param.getName)};
+                      |"""
+                )
               )
             )
           )
@@ -78,8 +79,7 @@ case class ComponentParameters (
         "PRIVATE",
         "Parameter variables",
         sortedParams.flatMap { case (_, param) =>
-          if (param.isExternal) then Nil
-          else {
+          guardedList (!param.isExternal) {
             val paramType = writeParamType(param.paramType, "Fw::ParamString")
             val paramVarName = paramVariableName(param.getName)
             List(
