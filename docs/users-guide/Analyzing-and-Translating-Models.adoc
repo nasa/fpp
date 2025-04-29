@@ -1452,6 +1452,23 @@ The JSON format is specified in the
 https://fprime.jpl.nasa.gov/devel/docs/reference/fpp-json-dict/[F Prime design
 documentation].
 
+When generating dictionaries with `fpp-to-dict`, the following types must be defined
+in FPP (either in the input model itself or in a dependency file):
+
+* `FwChanIdType`
+
+* `FwEventIdType`
+
+* `FwOpcodeType`
+
+* `FwPacketDescriptorType`
+
+* `FwTlmPacketizeIdType`
+
+For more information on defining types, see the 
+<<Defining-Types_Alias-Type-Definitions,alias type
+definition>> section.
+
 Here is a common use case:
 
 * The input files _F_ define a single topology _T_.
