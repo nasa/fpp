@@ -1294,7 +1294,7 @@ void PassiveParamsComponentBase ::
 
   FwPrmIdType _id{};
 
-  _id = static_cast<FwPrmIdType>(_baseId + PARAMID_PARAMU32);
+  _id = _baseId + PARAMID_PARAMU32;
 
   // Get parameter ParamU32
   this->m_param_ParamU32_valid =
@@ -1319,7 +1319,7 @@ void PassiveParamsComponentBase ::
 
   this->m_paramLock.unLock();
 
-  _id = static_cast<FwPrmIdType>(_baseId + PARAMID_PARAMF64);
+  _id = _baseId + PARAMID_PARAMF64;
 
   // Get parameter ParamF64
   this->m_param_ParamF64_valid =
@@ -1344,7 +1344,7 @@ void PassiveParamsComponentBase ::
 
   this->m_paramLock.unLock();
 
-  _id = static_cast<FwPrmIdType>(_baseId + PARAMID_PARAMSTRING);
+  _id = _baseId + PARAMID_PARAMSTRING;
 
   // Get parameter ParamString
   this->m_param_ParamString_valid =
@@ -1373,7 +1373,7 @@ void PassiveParamsComponentBase ::
 
   this->m_paramLock.unLock();
 
-  _id = static_cast<FwPrmIdType>(_baseId + PARAMID_PARAMENUM);
+  _id = _baseId + PARAMID_PARAMENUM;
 
   // Get parameter ParamEnum
   this->m_param_ParamEnum_valid =
@@ -1398,7 +1398,7 @@ void PassiveParamsComponentBase ::
 
   this->m_paramLock.unLock();
 
-  _id = static_cast<FwPrmIdType>(_baseId + PARAMID_PARAMARRAY);
+  _id = _baseId + PARAMID_PARAMARRAY;
 
   // Get parameter ParamArray
   this->m_param_ParamArray_valid =
@@ -1427,7 +1427,7 @@ void PassiveParamsComponentBase ::
 
   this->m_paramLock.unLock();
 
-  _id = static_cast<FwPrmIdType>(_baseId + PARAMID_PARAMSTRUCT);
+  _id = _baseId + PARAMID_PARAMSTRUCT;
 
   // Get parameter ParamStruct
   this->m_param_ParamStruct_valid =
