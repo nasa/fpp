@@ -3458,7 +3458,7 @@ void ActiveExternalParamsComponentBase ::
 I32 ActiveExternalParamsComponentBase ::
   paramGet_ParamI32Ext(Fw::ParamValid& valid)
 {
-  I32 _local;
+  I32 _local{};
   Fw::ParamBuffer getBuff;
   FwPrmIdType local_id;
   FwPrmIdType base_id = this->getIdBase();
@@ -3481,7 +3481,7 @@ I32 ActiveExternalParamsComponentBase ::
 F64 ActiveExternalParamsComponentBase ::
   paramGet_ParamF64Ext(Fw::ParamValid& valid)
 {
-  F64 _local;
+  F64 _local{};
   Fw::ParamBuffer getBuff;
   FwPrmIdType local_id;
   FwPrmIdType base_id = this->getIdBase();
@@ -3504,7 +3504,7 @@ F64 ActiveExternalParamsComponentBase ::
 Fw::ParamString ActiveExternalParamsComponentBase ::
   paramGet_ParamStringExt(Fw::ParamValid& valid)
 {
-  Fw::ParamString _local;
+  Fw::ParamString _local{};
   Fw::ParamBuffer getBuff;
   FwPrmIdType local_id;
   FwPrmIdType base_id = this->getIdBase();
@@ -3527,7 +3527,7 @@ Fw::ParamString ActiveExternalParamsComponentBase ::
 E ActiveExternalParamsComponentBase ::
   paramGet_ParamEnumExt(Fw::ParamValid& valid)
 {
-  E _local;
+  E _local{};
   Fw::ParamBuffer getBuff;
   FwPrmIdType local_id;
   FwPrmIdType base_id = this->getIdBase();
@@ -3550,7 +3550,7 @@ E ActiveExternalParamsComponentBase ::
 A ActiveExternalParamsComponentBase ::
   paramGet_ParamArrayExt(Fw::ParamValid& valid)
 {
-  A _local;
+  A _local{};
   Fw::ParamBuffer getBuff;
   FwPrmIdType local_id;
   FwPrmIdType base_id = this->getIdBase();
@@ -3573,7 +3573,7 @@ A ActiveExternalParamsComponentBase ::
 S ActiveExternalParamsComponentBase ::
   paramGet_ParamStructExt(Fw::ParamValid& valid)
 {
-  S _local;
+  S _local{};
   Fw::ParamBuffer getBuff;
   FwPrmIdType local_id;
   FwPrmIdType base_id = this->getIdBase();

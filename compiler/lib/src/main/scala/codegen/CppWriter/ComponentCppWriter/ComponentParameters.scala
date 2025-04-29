@@ -316,7 +316,7 @@ case class ComponentParameters (
           CppDoc.Type(writeParamType(param.paramType, "Fw::ParamString")),
           if(param.isExternal) {
             lines(
-              s"""|${writeParamType(param.paramType, "Fw::ParamString")} _local;
+              s"""|${writeParamType(param.paramType, "Fw::ParamString")} _local{};
                   |Fw::ParamBuffer getBuff;
                   |FwPrmIdType local_id;
                   |FwPrmIdType base_id = this->getIdBase();
@@ -340,7 +340,7 @@ case class ComponentParameters (
           else
           {
             lines(
-              s"""|${writeParamType(param.paramType, "Fw::ParamString")} _local;
+              s"""|${writeParamType(param.paramType, "Fw::ParamString")} _local{};
                   |this->m_paramLock.lock();
                   |valid = this->${paramValidityFlagName(param.getName)};
                   |_local = this->${paramVariableName(param.getName)};
@@ -395,7 +395,7 @@ case class ComponentParameters (
             )
           } else {
             lines(
-              s"""|${writeParamType(param.paramType, "Fw::ParamString")} _local_val;
+              s"""|${writeParamType(param.paramType, "Fw::ParamString")} _local_val{};
                   |Fw::SerializeStatus _stat = val.deserialize(_local_val);
                   |if (_stat != Fw::FW_SERIALIZE_OK) {
                   |  return Fw::CmdResponse::VALIDATION_ERROR;

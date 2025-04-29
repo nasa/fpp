@@ -6748,7 +6748,7 @@ void QueuedSerialComponentBase ::
 U32 QueuedSerialComponentBase ::
   paramGet_ParamU32(Fw::ParamValid& valid)
 {
-  U32 _local;
+  U32 _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamU32_valid;
   _local = this->m_ParamU32;
@@ -6759,7 +6759,7 @@ U32 QueuedSerialComponentBase ::
 F64 QueuedSerialComponentBase ::
   paramGet_ParamF64(Fw::ParamValid& valid)
 {
-  F64 _local;
+  F64 _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamF64_valid;
   _local = this->m_ParamF64;
@@ -6770,7 +6770,7 @@ F64 QueuedSerialComponentBase ::
 Fw::ParamString QueuedSerialComponentBase ::
   paramGet_ParamString(Fw::ParamValid& valid)
 {
-  Fw::ParamString _local;
+  Fw::ParamString _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamString_valid;
   _local = this->m_ParamString;
@@ -6781,7 +6781,7 @@ Fw::ParamString QueuedSerialComponentBase ::
 E QueuedSerialComponentBase ::
   paramGet_ParamEnum(Fw::ParamValid& valid)
 {
-  E _local;
+  E _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamEnum_valid;
   _local = this->m_ParamEnum;
@@ -6792,7 +6792,7 @@ E QueuedSerialComponentBase ::
 A QueuedSerialComponentBase ::
   paramGet_ParamArray(Fw::ParamValid& valid)
 {
-  A _local;
+  A _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamArray_valid;
   _local = this->m_ParamArray;
@@ -6803,7 +6803,7 @@ A QueuedSerialComponentBase ::
 S QueuedSerialComponentBase ::
   paramGet_ParamStruct(Fw::ParamValid& valid)
 {
-  S _local;
+  S _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamStruct_valid;
   _local = this->m_ParamStruct;
@@ -6814,7 +6814,7 @@ S QueuedSerialComponentBase ::
 I32 QueuedSerialComponentBase ::
   paramGet_ParamI32Ext(Fw::ParamValid& valid)
 {
-  I32 _local;
+  I32 _local{};
   Fw::ParamBuffer getBuff;
   FwPrmIdType local_id;
   FwPrmIdType base_id = this->getIdBase();
@@ -6837,7 +6837,7 @@ I32 QueuedSerialComponentBase ::
 F64 QueuedSerialComponentBase ::
   paramGet_ParamF64Ext(Fw::ParamValid& valid)
 {
-  F64 _local;
+  F64 _local{};
   Fw::ParamBuffer getBuff;
   FwPrmIdType local_id;
   FwPrmIdType base_id = this->getIdBase();
@@ -6860,7 +6860,7 @@ F64 QueuedSerialComponentBase ::
 Fw::ParamString QueuedSerialComponentBase ::
   paramGet_ParamStringExt(Fw::ParamValid& valid)
 {
-  Fw::ParamString _local;
+  Fw::ParamString _local{};
   Fw::ParamBuffer getBuff;
   FwPrmIdType local_id;
   FwPrmIdType base_id = this->getIdBase();
@@ -6883,7 +6883,7 @@ Fw::ParamString QueuedSerialComponentBase ::
 E QueuedSerialComponentBase ::
   paramGet_ParamEnumExt(Fw::ParamValid& valid)
 {
-  E _local;
+  E _local{};
   Fw::ParamBuffer getBuff;
   FwPrmIdType local_id;
   FwPrmIdType base_id = this->getIdBase();
@@ -6906,7 +6906,7 @@ E QueuedSerialComponentBase ::
 A QueuedSerialComponentBase ::
   paramGet_ParamArrayExt(Fw::ParamValid& valid)
 {
-  A _local;
+  A _local{};
   Fw::ParamBuffer getBuff;
   FwPrmIdType local_id;
   FwPrmIdType base_id = this->getIdBase();
@@ -6929,7 +6929,7 @@ A QueuedSerialComponentBase ::
 S QueuedSerialComponentBase ::
   paramGet_ParamStructExt(Fw::ParamValid& valid)
 {
-  S _local;
+  S _local{};
   Fw::ParamBuffer getBuff;
   FwPrmIdType local_id;
   FwPrmIdType base_id = this->getIdBase();
@@ -8892,7 +8892,7 @@ void QueuedSerialComponentBase ::
 Fw::CmdResponse QueuedSerialComponentBase ::
   paramSet_ParamU32(Fw::SerializeBufferBase& val)
 {
-  U32 _local_val;
+  U32 _local_val{};
   Fw::SerializeStatus _stat = val.deserialize(_local_val);
   if (_stat != Fw::FW_SERIALIZE_OK) {
     return Fw::CmdResponse::VALIDATION_ERROR;
@@ -8912,7 +8912,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
 Fw::CmdResponse QueuedSerialComponentBase ::
   paramSet_ParamF64(Fw::SerializeBufferBase& val)
 {
-  F64 _local_val;
+  F64 _local_val{};
   Fw::SerializeStatus _stat = val.deserialize(_local_val);
   if (_stat != Fw::FW_SERIALIZE_OK) {
     return Fw::CmdResponse::VALIDATION_ERROR;
@@ -8932,7 +8932,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
 Fw::CmdResponse QueuedSerialComponentBase ::
   paramSet_ParamString(Fw::SerializeBufferBase& val)
 {
-  Fw::ParamString _local_val;
+  Fw::ParamString _local_val{};
   Fw::SerializeStatus _stat = val.deserialize(_local_val);
   if (_stat != Fw::FW_SERIALIZE_OK) {
     return Fw::CmdResponse::VALIDATION_ERROR;
@@ -8952,7 +8952,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
 Fw::CmdResponse QueuedSerialComponentBase ::
   paramSet_ParamEnum(Fw::SerializeBufferBase& val)
 {
-  E _local_val;
+  E _local_val{};
   Fw::SerializeStatus _stat = val.deserialize(_local_val);
   if (_stat != Fw::FW_SERIALIZE_OK) {
     return Fw::CmdResponse::VALIDATION_ERROR;
@@ -8972,7 +8972,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
 Fw::CmdResponse QueuedSerialComponentBase ::
   paramSet_ParamArray(Fw::SerializeBufferBase& val)
 {
-  A _local_val;
+  A _local_val{};
   Fw::SerializeStatus _stat = val.deserialize(_local_val);
   if (_stat != Fw::FW_SERIALIZE_OK) {
     return Fw::CmdResponse::VALIDATION_ERROR;
@@ -8992,7 +8992,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
 Fw::CmdResponse QueuedSerialComponentBase ::
   paramSet_ParamStruct(Fw::SerializeBufferBase& val)
 {
-  S _local_val;
+  S _local_val{};
   Fw::SerializeStatus _stat = val.deserialize(_local_val);
   if (_stat != Fw::FW_SERIALIZE_OK) {
     return Fw::CmdResponse::VALIDATION_ERROR;
