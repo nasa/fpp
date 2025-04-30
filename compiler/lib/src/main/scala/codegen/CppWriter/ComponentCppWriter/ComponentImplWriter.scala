@@ -122,7 +122,25 @@ case class ComponentImplWriter(
       hookCmds.map(getCommandOverflowHook)
     )
 
-  private def getConstructor: CppDoc.Class.Member =
+  private def getConstructor: CppDoc.Class.Member = {
+    val initializers = if (hasExternalParameters) {
+      Nil
+    } else {
+      List(s"$className(compName)")
+    }
+    val bodyLines = if (hasExternalParameters) {
+      lines(
+        s"""|// TODO Initialize the ParamExternalDelegate
+            |// The register function can be called directly here:
+            |// E.G. this->registerExternalParameters(SomeParamExternalDelegateChild());
+            |// Or you can call the register function in a public setup method
+            |// that is called when setting up the component instance.
+            |"""
+      )
+    } else {
+      Nil
+    }
+
     constructorClassMember(
       Some(s"Construct $componentImplClassName object"),
       List(
@@ -132,9 +150,10 @@ case class ComponentImplWriter(
           Some("The component name")
         )
       ),
-      List(s"$className(compName)"),
-      Nil
+      initializers,
+      bodyLines
     )
+  }
 
   private def getConstructorsAndDestructors: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
