@@ -352,7 +352,7 @@ active component ActiveF32Adder {
 
   @ Input 2: Drop on queue full
   async input port f32ValueIn2: F32Value drop
-  
+
   @ Input 3: Call hook function on queue full
   async input port f32ValueIn3: F32Value hook
 
@@ -811,7 +811,7 @@ module Fw {
 --------
 
 For further information about data products in F Prime, see the
-https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/data-products/[F 
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/data-products/[F
 Prime design documentation].
 
 
@@ -1050,7 +1050,7 @@ for the following:
 
 . Each parameter must have a *displayable type*, i.e., a
 type that the F Prime ground data system knows how to display.
-For example, the type may not be an 
+For example, the type may not be an
 <<Defining-Types_Abstract-Type-Definitions,abstract type>>.
 Nor may it be an array or struct type that has an abstract type
 as a member type.
@@ -1103,7 +1103,7 @@ its definition is known to FPP.
 Try replacing the enum definition with the
 abstract type definition `type S` and see what happens when
 you run the model through `fpp-check`.
-Remember to <<Defining-Components_Special-Port-Instances_Command-Ports,provide 
+Remember to <<Defining-Components_Special-Port-Instances_Command-Ports,provide
 stubs for the special command ports>> that are required by
 `fpp-check`.
 
@@ -1358,7 +1358,7 @@ The argument values appear in the formatted text
 that describes the event.
 
 You specify the formal parameters of an event in the same
-way as for a <<Defining-Components_Commands_Formal-Parameters,command 
+way as for a <<Defining-Components_Commands_Formal-Parameters,command
 specifier>>.
 For each formal parameter, there must be a corresponding
 replacement field in the format string.
@@ -1571,7 +1571,7 @@ The simplest telemetry channel consists of the keyword `telemetry`,
 a name, and a data type.
 The name is the name of the channel.
 The data type is the type of data carried on the channel.
-The data type must be a 
+The data type must be a
 <<Defining-Components_Commands_Formal-Parameters,displayable type>>.
 
 As an example, here is an active component called `BasicTelemetry`
@@ -1899,7 +1899,7 @@ The simplest parameter consists of the keyword `param`,
 a name, and a data type.
 The name is the name of the parameter.
 The data type is the type of data stored in the parameter.
-The data type must be a 
+The data type must be a
 <<Defining-Components_Commands_Formal-Parameters,displayable type>>.
 
 As an example, here is an active component called `BasicParams`
@@ -2040,7 +2040,7 @@ relative to the component, usually starting from
 zero and counting up by one.
 If you omit the identifier, then
 FPP assigns a default identifier: zero for the first
-event in the component; otherwise one more than the
+parameter in the component; otherwise one more than the
 identifier of the previous parameter.
 
 If you wish, you may explicitly specify one or more
@@ -2188,6 +2188,90 @@ passive component ParamOpcodes {
 }
 ----
 
+==== External Parameters
+F Prime parameters are typically stored and managed internally to the
+component, in the autocoded base class.
+Parameter values can be accessed by the component implementation through
+autocoded get functions.
+Internal parameters are defined without any prefix.
+
+In some cases, a parameter may need to be managed and stored outside
+the component.
+This can be done by declaring a parameter to be external, using the
+`external` keyword prefix.
+
+Here is an example of an internal parameter, `Param1`, and an external parameter, `Param2`:
+
+[source,fpp]
+----
+@ A component for illustrating internal and external parameters
+passive component ParamExternal {
+
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
+  @ Command receive port
+  command recv port cmdIn
+
+  @ Command registration port
+  command reg port cmdRegOut
+
+  @ Command response port
+  command resp port cmdResponseOut
+
+  @ Parameter get port
+  param get port prmGetOut
+
+  @ Parameter set port
+  param set port prmSetOut
+
+  # ----------------------------------------------------------------------
+  # Parameters
+  # ----------------------------------------------------------------------
+
+  @ Parameter 1
+  @ Its implied to be an internal parameter
+  param Param1: U32
+
+  @ Parameter 2
+  @ Its an external parameter
+  external param Param2: F64 \
+    default 2.0 \
+    id 0x10 \
+    set opcode 0x10 \
+    save opcode 0x11
+
+}
+----
+
+Note that an external parameter can still specify
+<<Defining-Components_Parameters_Default-Values,default values>>,
+<<Defining-Components_Parameters_Identifiers,identifiers>>, and
+<<Defining-Components_Parameters_Set-and-Save-Opcodes, set/save opcodes>>
+in the same manner as an internal parameter.
+
+===== External Parameter Delegate
+
+A component with externally managed parameter(s) must still be able
+to perform the nominal set/save/get parameter actions.
+To facilitate this the component needs the ability to serialize
+and deserialize a parameter value.
+This is facilitated by implementing the interface defined by the
+`ParamExternalDelegate` abstract base class, and registering the
+concrete implementation by calling `registerExternalParameters()`
+during FSW initialization.
+`registerExternalParameters()` can be called directly in the
+component implementation constructor, or exposed as a public
+interface to be called by the topology.
+
+S concrete implementation of the `ParamExternalDelegate` abstract
+base class is autocoded in the component tester base.
+This implementation can be used for unit testing or another user
+defined concrete implementation can be used.
+Either option must call the `registerExternalParameters()`
+function during FSW initialization.
+
 === Data Products
 
 When defining an F Prime component, you may specify the *data products*
@@ -2199,7 +2283,7 @@ for (1) managing buffers that can store data products in memory;
 (2) writing data products to the file system; and (3)
 cataloging stored data products for downlink in priority order.
 For more information about these F Prime features, see the
-https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/data-products/[F 
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/data-products/[F
 Prime design documentation].
 
 ==== Basic Data Products
@@ -2211,8 +2295,8 @@ A container consists of a header, which provides information about
 the container (e.g., the size of the data payload), and binary data
 representing a list of serialized *records*.
 A record is a unit of data.
-For a complete specification of the container format, see the 
-https://fprime.jpl.nasa.gov/devel/Fw/Dp/docs/sdd/[F Prime design 
+For a complete specification of the container format, see the
+https://fprime.jpl.nasa.gov/devel/Fw/Dp/docs/sdd/[F Prime design
 documentation].
 
 In an F Prime component, you can specify one or more containers
@@ -2224,7 +2308,7 @@ The simplest record specification consists of the keywords `product` `record`,
 a name, and a data type.
 The name is the name of the record.
 The data type is the type of the data that the record holds.
-The data type must be a 
+The data type must be a
 <<Defining-Components_Commands_Formal-Parameters,displayable type>>.
 
 As an example, here is a component called `BasicDataProducts` that specifies
@@ -2239,7 +2323,7 @@ struct Data { a: U32, b: F32 }
 passive component BasicDataProducts {
 
   # ----------------------------------------------------------------------
-  # Ports 
+  # Ports
   # ----------------------------------------------------------------------
 
   @ Product get port
@@ -2252,7 +2336,7 @@ passive component BasicDataProducts {
   time get port timeGetOut
 
   # ----------------------------------------------------------------------
-  # Records 
+  # Records
   # ----------------------------------------------------------------------
 
   @ Record 1
@@ -2260,9 +2344,9 @@ passive component BasicDataProducts {
 
   @ Record 2
   product record Record2: Data
-  
+
   # ----------------------------------------------------------------------
-  # Containers 
+  # Containers
   # ----------------------------------------------------------------------
 
   @ Container 1
@@ -2283,7 +2367,7 @@ Prime design documentation] for the details.
 Note the following:
 
 * Records are not specific to containers.
-For example, with the specification shown above, you can serialize instances of 
+For example, with the specification shown above, you can serialize instances of
 `Record1` and `Record2` into either or both of `Container1` and `Container2`.
 
 * Like telemetry channels, F Prime containers are component-centric.
@@ -2291,7 +2375,7 @@ A component can request containers that it defines, and it can fill those
 containers with records that it defines.
 It cannot use records or containers defined by another component.
 
-* If a component has container specifier, then it must have at least one record 
+* If a component has container specifier, then it must have at least one record
 specifier, and vice versa.
 
 ==== Identifiers
@@ -2330,7 +2414,7 @@ struct Data { a: U32, b: F32 }
 passive component DataProductIdentifiers {
 
   # ----------------------------------------------------------------------
-  # Ports 
+  # Ports
   # ----------------------------------------------------------------------
 
   @ Product get port
@@ -2343,7 +2427,7 @@ passive component DataProductIdentifiers {
   time get port timeGetOut
 
   # ----------------------------------------------------------------------
-  # Records 
+  # Records
   # ----------------------------------------------------------------------
 
   @ Record 1
@@ -2353,9 +2437,9 @@ passive component DataProductIdentifiers {
   @ Record 2
   @ Its identifier is 0x10
   product record Record2: Data id 0x10
-  
+
   # ----------------------------------------------------------------------
-  # Containers 
+  # Containers
   # ----------------------------------------------------------------------
 
   @ Container 1
@@ -2375,7 +2459,7 @@ and the container identifiers must be unique.
 ==== Array Records
 
 In the basic form of a record described above, each record that
-does not have 
+does not have
 <<Defining-Types_Array-Type-Definitions_Type-Names,string type>>
 has a fixed, statically-specified size.
 The record may contain an array (e.g., an
@@ -2396,7 +2480,7 @@ struct Data { a: U32, b: F32 }
 passive component ArrayRecords {
 
   # ----------------------------------------------------------------------
-  # Ports 
+  # Ports
   # ----------------------------------------------------------------------
 
   @ Product get port
@@ -2409,7 +2493,7 @@ passive component ArrayRecords {
   time get port timeGetOut
 
   # ----------------------------------------------------------------------
-  # Records 
+  # Records
   # ----------------------------------------------------------------------
 
   @ A data record
@@ -2421,7 +2505,7 @@ passive component ArrayRecords {
   product record DataArrayRecord: Data array
 
   # ----------------------------------------------------------------------
-  # Containers 
+  # Containers
   # ----------------------------------------------------------------------
 
   @ A container
@@ -2497,14 +2581,14 @@ As discussed
 machine definitions may be internal (specified in FPP) or external (specified
 by an external tool).  For more details about the {cpp} code generation for
 instances of internal state machines, see the
-https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/state-machines/[F 
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/state-machines/[F
 Prime design documentation].
 
 === Constants, Types, Enums, and State Machines
 
 You can write a <<Defining-Constants,constant definition>>,
-<<Defining-Types,type definition>>, 
-<<Defining-Enums,enum definition>>, 
+<<Defining-Types,type definition>>,
+<<Defining-Enums,enum definition>>,
 or
 <<Defining-State-Machines,state machine definition>>
 as a component member.
