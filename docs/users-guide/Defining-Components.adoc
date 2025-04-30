@@ -2265,7 +2265,7 @@ during FSW initialization.
 component implementation constructor, or exposed as a public
 interface to be called by the topology.
 
-S concrete implementation of the `ParamExternalDelegate` abstract
+A concrete implementation of the `ParamExternalDelegate` abstract
 base class is autocoded in the component tester base.
 This implementation can be used for unit testing or another user
 defined concrete implementation can be used.
