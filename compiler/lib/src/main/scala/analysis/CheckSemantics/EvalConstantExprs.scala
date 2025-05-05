@@ -117,7 +117,6 @@ object EvalConstantExprs extends UseAnalyzer {
   override def exprLiteralIntNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralInt) = {
     val bigInt = if e.value.length > 2 then e.value.substring(0, 2) match {
       case "0x" | "0X" => BigInt(e.value.substring(2, e.value.length), 16)
-      case "0b" | "0B" => BigInt(e.value.substring(2, e.value.length), 2)
       case _ => BigInt(e.value)
     } else BigInt(e.value)
 

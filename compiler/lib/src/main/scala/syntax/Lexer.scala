@@ -441,10 +441,6 @@ object Lexer {
                 putChar('0')
                 putChar('x')
                 nextChar()
-              case 'b' | 'B' =>
-                putChar('0')
-                putChar('b')
-                nextChar()
               case _ => base = 10; putChar('0')
             }
             if (base != 10 && digit2int(ch, base) < 0)
