@@ -1,0 +1,44 @@
+=== Interface Definitions
+
+An *interface definition* defines a pure F Prime interface. An interface is
+a collection of input and output ports that is expose functionality from
+a component or topology.
+
+==== Syntax
+
+`interface` <<Lexical-Elements_Identifiers,_identifier_>>
+`{` _interface-member-sequence_ `}`
+
+_interface-member-sequence_ is an
+<<Element-Sequences,element sequence>> in
+which each element is a *interface member*,
+and the terminating punctuation is a semicolon.
+An interface member is one of the following:
+
+* A <<Specifiers_Port-Instance-Specifiers,port instance specifier>>
+
+* An <<Specifiers_Component-Import-Specifiers,import specifier>>
+
+==== Semantics
+
+The identifier is the name of the interface.
+A component or topology is said to *implement* an interface if
+it contains all of the ports specified in the interface with matching
+names and port types. Interfaces purely exist in the FPP model to
+group ports and abstract functionality for re-use.
+
+===== Components
+
+Interfaces can be <<Specifiers_Component-Import-Specifiers,imported>>
+into an existing component. Importing an interface into a component will
+place the port definitions in the interface into the component.
+
+Because interfaces are just a collection of input and output ports, all components
+are in turn interfaces and be used interchangebly. Component's however are a superset of
+interfaces and generate code unlike pure interface definitions.
+
+===== Topologies
+
+Topologies 
+
+==== Examples
