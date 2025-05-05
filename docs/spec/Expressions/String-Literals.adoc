@@ -72,11 +72,16 @@ of the interpreted string is _c_.
 
 Whitespace inside a multiline string literal is trimmed as follows:
 
-. The first extended newline character, if any, immediately after the first `"""` is
-deleted from the interpreted string.
+. Delete the the first extended newline character, if any, immediately after
+the first `"""` in the literal string.
 
-. Any leading whitespace on the first line after `"""` is removed from all the lines
-in the multi-line string.
+. Let _n_ be the number of leading space characters in the first line of
+the result of item 1.
+For each line _L_ in the multiline string literal, let _L'_ be the corresponding
+line of the interpreted string.
+If _L_ has at least _n_ leading space
+characters, then _L'_ is constructed by deleting _n_ leading space characters from _L'_.
+Otherwise _L'_ is constructed by deleting all leading space characters from _L'_
 
 *Example 1*
 

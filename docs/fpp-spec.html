@@ -8258,12 +8258,17 @@ of the interpreted string is <em>c</em>.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The first extended newline character, if any, immediately after the first <code>"""</code> is
-deleted from the interpreted string.</p>
+<p>Delete the the first extended newline character, if any, immediately after
+the first <code>"""</code> in the literal string.</p>
 </li>
 <li>
-<p>Any leading whitespace on the first line after <code>"""</code> is removed from all the lines
-in the multi-line string.</p>
+<p>Let <em>n</em> be the number of leading space characters in the first line of
+the result of item 1.
+For each line <em>L</em> in the multiline string literal, let <em>L'</em> be the corresponding
+line of the interpreted string.
+If <em>L</em> has at least <em>n</em> leading space
+characters, then <em>L'</em> is constructed by deleting <em>n</em> leading space characters from <em>L'</em>.
+Otherwise <em>L'</em> is constructed by deleting all leading space characters from <em>L'</em></p>
 </li>
 </ol>
 </div>
@@ -11155,7 +11160,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-04-29 11:03:59 -0700
+Last updated 2025-05-05 16:46:24 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
