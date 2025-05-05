@@ -1,8 +1,8 @@
 package fpp.compiler.syntax
 
 import fpp.compiler.util.Error
+import fpp.compiler.util.MultiError
 import fpp.compiler.util.Result
-import fpp.compiler.util.SemanticError.MultiError
 
 class Context {
   private var errors: List[Error] = List()

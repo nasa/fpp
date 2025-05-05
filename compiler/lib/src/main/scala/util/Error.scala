@@ -47,6 +47,8 @@ sealed trait Error {
         Error.print (locOpt) (s"cannot open file $name")
       case FileError.CannotResolvePath(loc, name) =>
         Error.print (Some(loc)) (s"cannot resolve path $name")
+      case MultiError(errors) =>
+        errors.foreach(_.print)
       case SemanticError.ChannelNotInDictionary(loc, channelName, topologyName) =>
         Error.print (Some(loc)) (s"channel $channelName is not in the dictionary for topology $topologyName")
       case SemanticError.DivisionByZero(loc) =>
@@ -235,8 +237,6 @@ sealed trait Error {
         Error.print (Some(loc)) ("unmatched connection must go from or to a matched port")
       case SemanticError.MissingPort(loc, specMsg, portMsg) =>
         Error.print (Some(loc)) (s"component with $specMsg must have $portMsg")
-      case SemanticError.MultiError(errors) =>
-        errors.foreach(_.print)
       case SemanticError.NoPortAvailableForMatchedNumbering(loc1, loc2, matchingLoc) =>
         Error.print (None) (s"no port available for matched numbering")
         System.err.println("matched connections are specified here:")
@@ -340,6 +340,9 @@ object FileError {
   /** Cannot resolve path */
   final case class CannotResolvePath(loc: Location, name: String) extends Error
 }
+
+/** An error representing several other errors */
+final case class MultiError(errors: List[Error]) extends Error
 
 /** A semantic error */
 object SemanticError {
@@ -608,10 +611,6 @@ object SemanticError {
   ) extends Error
   final case class MissingPortMatching(
     loc: Location
-  ) extends Error
-  /** A merged error */
-  final case class MultiError(
-    errors: List[Error]
   ) extends Error
   /** Matched port numbering could not find a valid port number */
   final case class NoPortAvailableForMatchedNumbering(
