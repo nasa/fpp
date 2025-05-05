@@ -80,8 +80,8 @@ the result of item 1.
 For each line _L_ in the multiline string literal, let _L'_ be the corresponding
 line of the interpreted string.
 If _L_ has at least _n_ leading space
-characters, then _L'_ is constructed by deleting _n_ leading space characters from _L'_.
-Otherwise _L'_ is constructed by deleting all leading space characters from _L'_
+characters, then construct _L'_ by deleting _n_ leading space characters from _L'_.
+Otherwise construct _L'_ by deleting all leading space characters from _L'_
 
 *Example 1*
 
