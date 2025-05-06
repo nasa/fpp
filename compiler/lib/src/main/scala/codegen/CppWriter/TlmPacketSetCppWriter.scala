@@ -225,8 +225,8 @@ case class TlmPacketSetCppWriter(
     lines(
       s"""|
           |// The size of the array of omitted channels
-          |constexpr FwIndexType omittedArraySize = $size;""",
-    ),
+          |constexpr FwIndexType omittedArraySize = $size;"""
+    )
   }
 
   private def writeOmittedChannels: List[Line] = {
