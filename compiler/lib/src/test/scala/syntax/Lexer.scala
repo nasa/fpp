@@ -1,18 +1,21 @@
 package fpp.compiler.test
 
-import fpp.compiler.syntax.{Lexer,Token}
+import fpp.compiler.syntax.{Lexer,Token,Context}
+import fpp.compiler.util.{File => FppFile}
 import java.io.File
-import java.io.FileReader
 import org.scalatest.wordspec.AnyWordSpec
 
 class LexerSpec extends AnyWordSpec {
 
   "Error" should {
     def error(file: File): Unit = {
-      val reader = new FileReader(file)
-      Lexer.parse(Lexer.tokens, reader) match {
-        case Lexer.Success(_, _) => assert(false)
-        case _ => ()
+      val contents = scala.io.Source.fromFile(file)
+      Lexer.Scanner(
+        FppFile.Path(file.toPath),
+        contents.toArray
+      )(using Context()).list() match {
+        case Left(_) => ()
+        case Right(_) => assert(false)
       }
     }
     val dir = new File("lib/src/test/input/syntax/lexer/error")
@@ -23,9 +26,17 @@ class LexerSpec extends AnyWordSpec {
 
   "FP literal" should {
     def lex(s: String): Unit = {
-      Lexer.parse(Lexer.tokens, s) match {
-        case Lexer.Success(Token.LITERAL_FLOAT(s1) :: List(), _) => assert(s1 === s)
-        case _ => assert(false)
+      Lexer.Scanner(
+        FppFile.StdIn,
+        s.toCharArray
+      )(using Context()).list() match {
+        case Right(Token.LITERAL_FLOAT(s1) :: List()) => assert(s1 === s)
+        case Right(t) =>
+          System.err.println(t)
+          assert(false)
+        case Left(e) =>
+          e.print
+          assert(false)
       }
     }
     val literals = List(
@@ -40,16 +51,16 @@ class LexerSpec extends AnyWordSpec {
 
   "OK" should {
     def ok(file: File): Unit = {
-      val reader = new FileReader(file)
-      Lexer.parse(Lexer.tokens, reader) match {
-        case Lexer.Success(_, _) => ()
-        case Lexer.NoSuccess(msg, next) => {
-          println(msg)
-          println(next.pos.longString)
+      val contents = scala.io.Source.fromFile(file)
+      Lexer.Scanner(
+        FppFile.Path(file.toPath),
+        contents.toArray
+      )(using Context()).list() match {
+        case Right(_) => ()
+        case Left(msg) => {
+          msg.print
           assert(false)
         }
-        // Suppress false compiler warning
-        case _ => throw new InternalError("This cannot happen")
       }
     }
     val dir = new File("lib/src/test/input/syntax/lexer/ok")
@@ -60,14 +71,20 @@ class LexerSpec extends AnyWordSpec {
 
   "annotations" should {
     "lex \"@ abc\" to a pre-annotation" in {
-      Lexer.parse(Lexer.tokens, "@ abc") match {
-        case Lexer.Success(Token.PRE_ANNOTATION("abc") :: List(), _) => ()
+      Lexer.Scanner(
+        FppFile.StdIn,
+        "@ abc".toCharArray
+      )(using Context()).list() match {
+        case Right(Token.PRE_ANNOTATION("abc") :: List()) => ()
         case _ => assert(false)
       }
     }
     "lex \"@< abc\" to a post-annotation" in {
-      Lexer.parse(Lexer.tokens, "@< abc") match {
-        case Lexer.Success(Token.POST_ANNOTATION("abc") :: List(), _) => ()
+      Lexer.Scanner(
+        FppFile.StdIn,
+        "@< abc".toCharArray
+      )(using Context()).list() match {
+        case Right(Token.POST_ANNOTATION("abc") :: List()) => ()
         case _ => assert(false)
       }
     }
@@ -75,8 +92,11 @@ class LexerSpec extends AnyWordSpec {
 
   "int literal" should {
     def lex(s: String): Unit = {
-      Lexer.parse(Lexer.tokens, s) match {
-        case Lexer.Success(Token.LITERAL_INT(s1) :: List(), _) => assert(s1 === s)
+      Lexer.Scanner(
+        FppFile.StdIn,
+        s.toCharArray
+      )(using Context()).list() match {
+        case Right(Token.LITERAL_INT(s1) :: List()) => assert(s1 === s)
         case _ => assert(false)
       }
     }
@@ -90,15 +110,21 @@ class LexerSpec extends AnyWordSpec {
   "line continuation" should {
     "lex \"\\n\" to one EOL" in {
       val s = "\n"
-      Lexer.parse(Lexer.tokens, s) match {
-        case Lexer.Success(Token.EOL() :: List(), _) => ()
+      Lexer.Scanner(
+        FppFile.StdIn,
+        s.toCharArray
+      )(using Context()).list() match {
+        case Right(Token.EOL() :: List()) => ()
         case _ => assert(false)
       }
     }
     "lex \"\\\\n\" to zero tokens" in {
       val s = "\\\n"
-      Lexer.parse(Lexer.tokens, s) match {
-        case Lexer.Success(List(), _) => ()
+      Lexer.Scanner(
+        FppFile.StdIn,
+        s.toCharArray
+      )(using Context()).list() match {
+        case Right(List()) => ()
         case _ => assert(false)
       }
     }
@@ -106,8 +132,11 @@ class LexerSpec extends AnyWordSpec {
 
   "string literal" should {
     def lex(s: String): Unit = {
-      Lexer.parse(Lexer.tokens, s) match {
-        case Lexer.Success(Token.LITERAL_STRING(_) :: List(), _) => ()
+      Lexer.Scanner(
+        FppFile.StdIn,
+        s.toCharArray
+      )(using Context()).list() match {
+        case Right(Token.LITERAL_STRING(_) :: List()) => ()
         case _ => assert(false)
       }
     }

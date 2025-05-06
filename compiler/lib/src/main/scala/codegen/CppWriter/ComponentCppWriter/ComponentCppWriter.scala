@@ -546,7 +546,7 @@ case class ComponentCppWriter (
                 case (StateMachine.Kind.Internal, true) => "*this"
                 case (StateMachine.Kind.Internal, false) => ""
               }
-              s"m_stateMachine_$name($args)",
+              s"m_stateMachine_$name($args)"
             }),
           intersperseBlankLines(
             List(
