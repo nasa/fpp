@@ -7,10 +7,18 @@ a component.
 ==== Syntax
 
 `interface` <<Lexical-Elements_Identifiers,_identifier_>>
+_[_
 `(`
 <<Template-Parameter-Lists,_template-param-list_>>
 `)`
+_]_
 `{` _interface-member-sequence_ `}`
+
+_template-member-sequence_ specifies
+the set of parameters to utilize in the interface. Parameters
+are useful when working with non-static port counts for array
+port instances. If the list is not specified, the interface will
+not have any parameters.
 
 _interface-member-sequence_ is an
 <<Element-Sequences,element sequence>> in
