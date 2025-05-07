@@ -1,0 +1,37 @@
+== Template Parameter Lists
+
+A *template parameter list* is an
+<<Element-Sequences,element sequence>>
+in which the elements are formal template parameters,
+and the terminating punctuation is a comma.
+
+A *template parameter* is an untyped symbol to which a
+value becomes bound at compile time. Constants and literals
+may be bound to template parameter. Parameter types are omitted
+in the parameter lists though they are checked on uses of 
+Template parameters appear, for example, in
+<<Definitions_Interface-Template-Definitions,interface template definitions>>.
+
+=== Syntax
+
+Template parameters have the following syntax:
+
+`constant` <<Lexical-Elements_Identifiers,_identifier_>>
+
+=== Semantics
+
+The identifier is the name of the template parameter.
+No two parameters in the same formal parameter list
+may have the same name.
+
+Template parameters accept any expression type. The expressions type
+is verified when evaluating the template that this parameter belongs
+to. This behavior is very similar to macro parameters in C.
+
+=== Examples
+
+[source,fpp]
+----
+constant i
+constant j, constant k
+----

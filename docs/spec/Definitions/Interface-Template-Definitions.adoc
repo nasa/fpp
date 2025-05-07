@@ -1,0 +1,60 @@
+=== Interface Template Definitions
+
+An interface template is a template constructor that can be
+instantiated into an interface. This pattern can be used to
+parameterize port numbers in interfaces.
+
+==== Syntax
+
+`interface`
+<<Lexical-Elements_Identifiers,_identifier_>>
+`(`
+<<Template-Parameter-Lists,_param-list_>>
+`)`
+`{`
+_interface-member-sequence_
+`}`
+
+_interface-specifier-sequence_ is an
+<<Element-Sequences,element sequence>> in
+which each element is an interface member,
+and the terminating punctuation is a semicolon.
+A interface member is one of the following:
+
+* A <<Specifiers_Port-Instance-Specifiers,port instance specifier>>
+
+* An <<Specifiers_Interface-Import-Specifiers,interface import specifier>>
+
+* An <<Specifiers_Interface-Template-Import-Specifiers,interface template import specifier>>
+
+==== Semantics
+
+An interface template is constructor that takes compile-time constant
+parameters and can be initialized to an <<Definitions_Interface-Definitions,interface>>.
+Interface templates only accept constant parameters via a
+<<Template-Parameter-Lists,template parameter list>>. These parameters can
+specify port counts in arrays of port instances.
+
+Interface templates can be initialized into an annonymous interface using
+<<Template-Instatiation,template instatiation>> as part of 
+
+==== Examples
+
+[source,fpp]
+----
+@ Interface that sends out signal 'P' and receives a reply P on the same port number
+interface I(constant numPorts) {
+
+  @ Signal 'P' init
+  output port pOut: [numPorts] P
+
+  @ Reply signal
+  guarded input port pIn: [numPorts] P
+
+}
+
+active component C {
+  # Import an annonymous by instantiating 'I'
+  import I(20)
+}
+----

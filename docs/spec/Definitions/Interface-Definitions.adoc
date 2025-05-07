@@ -17,7 +17,9 @@ An interface member is one of the following:
 
 * A <<Specifiers_Port-Instance-Specifiers,port instance specifier>>
 
-* An <<Specifiers_Component-Import-Specifiers,import specifier>>
+* An <<Specifiers_Interface-Import-Specifiers,interface import specifier>>
+
+* An <<Specifiers_Interface-Template-Import-Specifiers,interface template import specifier>>
 
 ==== Semantics
 
@@ -32,3 +34,16 @@ place the port definitions in the interface into the component. This is
 equivalent to places the port instances into the component directly.
 
 ==== Examples
+
+[source,fpp]
+----
+interface I {
+  output port p1: P
+  guarded input port p2: P
+}
+
+active component C {
+    import I
+}
+
+----

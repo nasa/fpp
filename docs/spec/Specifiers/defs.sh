@@ -15,6 +15,8 @@ Container-Specifiers.adoc
 Event-Specifiers.adoc
 Include-Specifiers.adoc
 Init-Specifiers.adoc
+Interface-Import-Specifiers.adoc
+Interface-Template-Import-Specifiers.adoc
 Internal-Port-Specifiers.adoc
 Location-Specifiers.adoc
 Parameter-Specifiers.adoc
