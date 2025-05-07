@@ -7,6 +7,9 @@ a component.
 ==== Syntax
 
 `interface` <<Lexical-Elements_Identifiers,_identifier_>>
+`(`
+<<Template-Parameter-Lists,_template-param-list_>>
+`)`
 `{` _interface-member-sequence_ `}`
 
 _interface-member-sequence_ is an
@@ -19,8 +22,6 @@ An interface member is one of the following:
 
 * An <<Specifiers_Interface-Import-Specifiers,interface import specifier>>
 
-* An <<Specifiers_Interface-Template-Import-Specifiers,interface template import specifier>>
-
 ==== Semantics
 
 The identifier is the name of the interface.
@@ -28,10 +29,15 @@ A component is said to *implement* an interface if it contains all
 of the ports specified in the interface with matching names and port
 types.
 
-Interfaces can be <<Specifiers_Component-Import-Specifiers,imported>>
+Interfaces can be <<Specifiers_Interface-Import-Specifiers,imported>>
 into an existing component. Importing an interface into a component will
 place the port definitions in the interface into the component. This is
 equivalent to places the port instances into the component directly.
+
+When referencing an interface, _all_ parameters must be specified and filled in.
+Interface accept constant parameters via a
+<<Template-Parameter-Lists,template parameter list>>. These parameters can
+specify port counts in arrays of port instances.
 
 ==== Examples
 
@@ -42,8 +48,13 @@ interface I {
   guarded input port p2: P
 }
 
-active component C {
-    import I
+interface J(constant numPorts) {
+  output port p3: [numPorts] P
+  guarded input port p4: [numPorts] P
 }
 
+active component C {
+    import I
+    import J(10)
+}
 ----

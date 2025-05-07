@@ -71,7 +71,7 @@ values.
 
 * An <<Specifiers_Internal-Port-Specifiers,internal port specifier>>
 
-* An <<Specifiers_Component-Import-Specifiers,import specifier>>
+* An <<Specifiers_Interface-Import-Specifiers,interface import specifier>>
 
 The command, event, parameter, telemetry, record, and container
 specifiers are collectively referred to as *dictionary specifiers*.

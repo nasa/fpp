@@ -5,7 +5,18 @@ component.
 
 ==== Syntax
 
-`import` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+`import`
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+_[_
+`(`
+_template-parameter-sequence_
+`)`
+_]_
+
+_template-member-sequence_ is an
+<<Element-Sequences,element sequence>> in
+which each element is an <<Expressions,expression>>,
+and the terminating punctuation is a comma.
 
 ==== Semantics
 
@@ -16,6 +27,10 @@ a <<Definitions_Interface-Definitions,interface definition>>.
 When an interface is imported the ports specified in the interface
 are placed into the component. It is exactly equivalent to pasting the
 port instances into the component directly.
+
+When importing an interface _without_ parameters, it is equalivent to
+write `I()` or just simply `I`. When important an interface _with_ parameters,
+all parameters must be specified in the import (no partial importing...).
 
 ==== Example
 
