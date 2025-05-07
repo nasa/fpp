@@ -171,43 +171,33 @@ void StringArray ::
   static const char* formatString =
     "( "
     "s1 = %s, "
-    "s2 = [ %s, "
-    "%s, "
-    "%s, "
-    "%s, "
-    "%s, "
-    "%s, "
-    "%s, "
-    "%s, "
-    "%s, "
-    "%s, "
-    "%s, "
-    "%s, "
-    "%s, "
-    "%s, "
-    "%s, "
-    "%s ]"
+    "s2 = [ %s ]"
     " )";
+
+  // Declare strings to hold any serializable toString() arguments
+  Fw::String s2Str;
+
+  // Call toString for arrays and serializable types
+  for (FwSizeType i = 0; i < 16; i++) {
+    Fw::String s2Tmp;
+    s2Tmp = this->m_s2[i];
+
+    FwSizeType size = s2Tmp.length() + (i > 0 ? 2 : 0);
+    FwSizeType remaining = s2Str.maxLength() - s2Str.length();
+    if (size < remaining) {
+      if (i > 0) {
+        s2Str += ", ";
+      }
+      s2Str += s2Tmp;
+    } else {
+      break;
+    }
+  }
 
   sb.format(
     formatString,
     this->m_s1.toChar(),
-    this->m_s2[0].toChar(),
-    this->m_s2[1].toChar(),
-    this->m_s2[2].toChar(),
-    this->m_s2[3].toChar(),
-    this->m_s2[4].toChar(),
-    this->m_s2[5].toChar(),
-    this->m_s2[6].toChar(),
-    this->m_s2[7].toChar(),
-    this->m_s2[8].toChar(),
-    this->m_s2[9].toChar(),
-    this->m_s2[10].toChar(),
-    this->m_s2[11].toChar(),
-    this->m_s2[12].toChar(),
-    this->m_s2[13].toChar(),
-    this->m_s2[14].toChar(),
-    this->m_s2[15].toChar()
+    s2Str.toChar()
   );
 }
 
