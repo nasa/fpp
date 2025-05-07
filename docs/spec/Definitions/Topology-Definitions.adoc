@@ -292,9 +292,6 @@ stem:[c_2].
 
 . Otherwise stem:[c_1] and stem:[c_2] are equal in the ordering.
 
-====== Interface Binding
-
-
 ==== Examples
 
 *Example 1.*
