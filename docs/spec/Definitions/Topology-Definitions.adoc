@@ -12,7 +12,7 @@ The connections are merged graph by graph.
 
 ==== Syntax
 
-[`sealed`] `topology`
+`topology`
 <<Lexical-Elements_Identifiers,_identifier_>>
 `{` _topology-member-sequence_ `}`
 
@@ -291,20 +291,6 @@ stem:[e'_2], then stem:[c_1] is less than (respectively greater than)
 stem:[c_2].
 
 . Otherwise stem:[c_1] and stem:[c_2] are equal in the ordering.
-
-===== Sealed Topologies
-
-A `sealed` topology is a topology that includes the `sealed` keyword prefix before it's
-definition. A sealed topology restricts how topologies that import it can connect to ports
-inside the topology. A sealed topology (also refered to as "black-box" topology) contrasts
-a "white-box" or standard topology in it's exposure component ports. In a white-box topology
-a parent topology may connect ports by reaching into instances defined in the imported topology.
-In this mechanism, the topology itself does not implement any interface as it does not have ports
-of it's own but rather defines components that expose their own ports.
-
-A sealed or black-box topology differs from the standard topology by hiding the components and ports
-within it and only exposing a set of ports to any parent topology. A `sealed` should include a set of
-<<Specifiers_Port-Map-Specifiers,port maps>>
 
 ====== Interface Binding
 
