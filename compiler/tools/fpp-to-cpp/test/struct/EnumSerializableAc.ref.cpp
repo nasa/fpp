@@ -173,8 +173,7 @@ void Enum ::
     this->m_eArr[i].toString(eArrTmp);
 
     FwSizeType size = eArrTmp.length() + (i > 0 ? 2 : 0);
-    FwSizeType remaining = eArrStr.maxLength() - eArrStr.length();
-    if (size < remaining) {
+    if (size + eArrStr.length() < eArrStr.maxLength()) {
       if (i > 0) {
         eArrStr += ", ";
       }

@@ -203,8 +203,7 @@ void AliasType ::
     zTmp = this->m_z[i];
 
     FwSizeType size = zTmp.length() + (i > 0 ? 2 : 0);
-    FwSizeType remaining = zStr.maxLength() - zStr.length();
-    if (size < remaining) {
+    if (size + zStr.length() < zStr.maxLength()) {
       if (i > 0) {
         zStr += ", ";
       }
