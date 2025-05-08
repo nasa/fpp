@@ -16,6 +16,8 @@ Component-Instance-Definitions.adoc
 Constant-Definitions.adoc
 Enum-Definitions.adoc
 Enumerated-Constant-Definitions.adoc
+Interface-Alias-Definitions.adoc
+Interface-Definitions.adoc
 Module-Definitions.adoc
 Port-Definitions.adoc
 State-Machine-Definitions.adoc
