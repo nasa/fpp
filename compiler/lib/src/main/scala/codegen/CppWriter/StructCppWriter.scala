@@ -354,7 +354,7 @@ case class StructCppWriter(
       astMembers.map((_, node, _) => {
         val t = typeMembers(node.data.name)
         (node, node.data.name, typeCppWriter.write(t))
-      }).filter((n, _, tn) => (sizes.contains(n.data.name), typeMembers(n.data.name).getUnderlyingType) match {
+      }).filter((n, _, tn) => (sizes.contains(n.data.name), typeMembers(n.data.name)) match {
         case (false, _: Type.String) => false
         case (false, t) if s.isPrimitive(t, tn) => false
         case _ => true
@@ -375,7 +375,7 @@ case class StructCppWriter(
               node.data.typeName
             )
 
-            (sizes.contains(n), typeMembers(n).getUnderlyingType) match {
+            (sizes.contains(n), typeMembers(n)) match {
               case (true, _: Type.String) =>
               case (true, t) if s.isPrimitive(t, tn) => 
               case (true, _) =>
@@ -384,11 +384,11 @@ case class StructCppWriter(
 
             // Loop through and format each element if this is an array
             if (sizes.contains(n)) {
-              val fillTmpString = (typeMembers(n).getUnderlyingType) match {
+              val fillTmpString = (typeMembers(n)) match {
                 case (_: Type.String) =>
                   s"${n}Tmp = this->m_$n[i];"
                 case t if s.isPrimitive(t, tn) =>
-                  s"""${n}Tmp.format("$formatStr", ${promoteF32ToF64 (t) (s"this->m_$n[i]")});"""
+                  s"""${n}Tmp.format("$formatStr", ${s"this->m_$n[i]"});"""
                 case _ =>
                   s"this->m_$n[i].toString(${n}Tmp);"
               }
@@ -515,7 +515,7 @@ case class StructCppWriter(
                       case (false, _: Type.String) =>
                         List(s"this->m_$n.toChar()")
                       case (false, t) if s.isPrimitive(t, tn) =>
-                        List(promoteF32ToF64 (t) (s"this->m_$n"))
+                        List(s"this->m_$n")
                       case _ =>
                         List(s"${n}Str.toChar()")
                     }).mkString(",\n"))

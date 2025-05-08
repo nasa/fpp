@@ -330,7 +330,7 @@ void Primitive ::
   // Call toString for arrays and serializable types
   for (FwSizeType i = 0; i < 3; i++) {
     Fw::String mF32Tmp;
-    mF32Tmp.format("%f", static_cast<F64>(this->m_mF32[i]));
+    mF32Tmp.format("%f", this->m_mF32[i]);
 
     FwSizeType size = mF32Tmp.length() + (i > 0 ? 2 : 0);
     if ((size + mF32Str.length()) <= mF32Str.maxLength()) {
@@ -345,13 +345,7 @@ void Primitive ::
 
   sb.format(
     formatString,
-<<<<<<< HEAD
-    this->m_mF32[0],
-    this->m_mF32[1],
-    this->m_mF32[2],
-=======
     mF32Str.toChar(),
->>>>>>> 45295d17f (Generate loop for toString() on Struct member arrays)
     this->m_mF64,
     this->m_mI16,
     this->m_mI32,
