@@ -173,7 +173,7 @@ namespace S {
       mU32ArrayTmp.format("%" PRIu32 "", this->m_mU32Array[i]);
 
       FwSizeType size = mU32ArrayTmp.length() + (i > 0 ? 2 : 0);
-      if (size + mU32ArrayStr.length() < mU32ArrayStr.maxLength()) {
+      if ((size + mU32ArrayStr.length()) <= mU32ArrayStr.maxLength()) {
         if (i > 0) {
           mU32ArrayStr += ", ";
         }
