@@ -333,7 +333,7 @@ void Primitive ::
     mF32Tmp.format("%f", static_cast<F64>(this->m_mF32[i]));
 
     FwSizeType size = mF32Tmp.length() + (i > 0 ? 2 : 0);
-    if (size + mF32Str.length() < mF32Str.maxLength()) {
+    if ((size + mF32Str.length()) <= mF32Str.maxLength()) {
       if (i > 0) {
         mF32Str += ", ";
       }
