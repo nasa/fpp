@@ -159,27 +159,34 @@ void Enum ::
   static const char* formatString =
     "( "
     "e = %s, "
-    "eArr = [ %s, "
-    "%s, "
-    "%s ]"
+    "eArr = [ %s ]"
     " )";
 
   // Declare strings to hold any serializable toString() arguments
   Fw::String eStr;
-  Fw::String eArrStr[3];
+  Fw::String eArrStr;
 
   // Call toString for arrays and serializable types
   this->m_e.toString(eStr);
   for (FwSizeType i = 0; i < 3; i++) {
-    this->m_eArr[i].toString(eArrStr[i]);
+    Fw::String eArrTmp;
+    this->m_eArr[i].toString(eArrTmp);
+
+    FwSizeType size = eArrTmp.length() + (i > 0 ? 2 : 0);
+    if ((size + eArrStr.length()) <= eArrStr.maxLength()) {
+      if (i > 0) {
+        eArrStr += ", ";
+      }
+      eArrStr += eArrTmp;
+    } else {
+      break;
+    }
   }
 
   sb.format(
     formatString,
     eStr.toChar(),
-    eArrStr[0].toChar(),
-    eArrStr[1].toChar(),
-    eArrStr[2].toChar()
+    eArrStr.toChar()
   );
 }
 

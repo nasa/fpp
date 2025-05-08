@@ -159,27 +159,34 @@ void Modules3 ::
   static const char* formatString =
     "( "
     "x = %s, "
-    "arr = [ %s, "
-    "%s, "
-    "%s ]"
+    "arr = [ %s ]"
     " )";
 
   // Declare strings to hold any serializable toString() arguments
   Fw::String xStr;
-  Fw::String arrStr[3];
+  Fw::String arrStr;
 
   // Call toString for arrays and serializable types
   this->m_x.toString(xStr);
   for (FwSizeType i = 0; i < 3; i++) {
-    this->m_arr[i].toString(arrStr[i]);
+    Fw::String arrTmp;
+    this->m_arr[i].toString(arrTmp);
+
+    FwSizeType size = arrTmp.length() + (i > 0 ? 2 : 0);
+    if ((size + arrStr.length()) <= arrStr.maxLength()) {
+      if (i > 0) {
+        arrStr += ", ";
+      }
+      arrStr += arrTmp;
+    } else {
+      break;
+    }
   }
 
   sb.format(
     formatString,
     xStr.toChar(),
-    arrStr[0].toChar(),
-    arrStr[1].toChar(),
-    arrStr[2].toChar()
+    arrStr.toChar()
   );
 }
 
