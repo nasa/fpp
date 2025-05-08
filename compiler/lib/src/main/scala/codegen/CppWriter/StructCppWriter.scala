@@ -398,8 +398,7 @@ case class StructCppWriter(
                       |${fillTmpString}
                       |
                       |FwSizeType size = ${n}Tmp.length() + (i > 0 ? 2 : 0);
-                      |FwSizeType remaining = ${n}Str.maxLength() - ${n}Str.length();
-                      |if (size < remaining) {
+                      |if (size + ${n}Str.length() < ${n}Str.maxLength()) {
                       |  if (i > 0) {
                       |    ${n}Str += ", ";
                       |  }

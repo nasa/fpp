@@ -183,8 +183,7 @@ void StringArray ::
     s2Tmp = this->m_s2[i];
 
     FwSizeType size = s2Tmp.length() + (i > 0 ? 2 : 0);
-    FwSizeType remaining = s2Str.maxLength() - s2Str.length();
-    if (size < remaining) {
+    if (size + s2Str.length() < s2Str.maxLength()) {
       if (i > 0) {
         s2Str += ", ";
       }

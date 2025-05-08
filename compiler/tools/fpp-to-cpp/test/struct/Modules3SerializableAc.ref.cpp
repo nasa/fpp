@@ -173,8 +173,7 @@ void Modules3 ::
     this->m_arr[i].toString(arrTmp);
 
     FwSizeType size = arrTmp.length() + (i > 0 ? 2 : 0);
-    FwSizeType remaining = arrStr.maxLength() - arrStr.length();
-    if (size < remaining) {
+    if (size + arrStr.length() < arrStr.maxLength()) {
       if (i > 0) {
         arrStr += ", ";
       }
