@@ -13,6 +13,7 @@ final case class DictionaryUsedSymbols(a: Analysis, t: Topology) {
 
   private def getUsedSymbolsForInstance(ci: ComponentInstance) = {
     val component = ci.component
+    val dictionaryTypeSymbols = a.dictionaryTypeSymbolSet
     val commandSymbols = getUsedSymbolsForSpecifier(
       component.commandMap,
       {
@@ -42,6 +43,7 @@ final case class DictionaryUsedSymbols(a: Analysis, t: Topology) {
       container => UsedSymbols.specContainerAnnotatedNode(a, container.aNode)
     )
     Set.concat(
+      dictionaryTypeSymbols,
       commandSymbols,
       eventSymbols,
       tlmChannelSymbols,

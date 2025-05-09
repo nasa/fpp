@@ -14625,6 +14625,35 @@ The JSON format is specified in the
 documentation</a>.</p>
 </div>
 <div class="paragraph">
+<p>When generating dictionaries with <code>fpp-to-dict</code>, the following types must be defined
+in FPP (either in the input model itself or in a dependency file) and each type must be
+an alias of an integer type:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>FwChanIdType</code></p>
+</li>
+<li>
+<p><code>FwEventIdType</code></p>
+</li>
+<li>
+<p><code>FwOpcodeType</code></p>
+</li>
+<li>
+<p><code>FwPacketDescriptorType</code></p>
+</li>
+<li>
+<p><code>FwTlmPacketizeIdType</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For more information on defining types, see the
+<a href="#Defining-Types_Alias-Type-Definitions">alias type
+definition</a> section.</p>
+</div>
+<div class="paragraph">
 <p>Here is a common use case:</p>
 </div>
 <div class="ulist">
@@ -15561,7 +15590,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-05-05 15:59:04 -0700
+Last updated 2025-05-09 10:22:38 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
