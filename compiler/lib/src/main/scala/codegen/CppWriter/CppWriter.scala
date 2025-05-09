@@ -13,11 +13,8 @@ trait CppWriter extends AstStateVisitor with LineUtils {
     visitList(s, tu.members, matchTuMember)
 
   def tuList(s: State, tul: List[Ast.TransUnit]): Result.Result[Unit] =
-    for {
-      _ <- ConstantCppWriter.write(s, tul)
-      _ <- visitList(s, tul, transUnit)
-    }
-    yield ()
+    for (_ <- visitList(s, tul, transUnit)) yield ()
+
 }
 
 object CppWriter extends LineUtils{

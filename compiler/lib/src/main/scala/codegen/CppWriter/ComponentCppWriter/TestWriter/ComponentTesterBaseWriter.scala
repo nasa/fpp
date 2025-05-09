@@ -1297,7 +1297,7 @@ case class ComponentTesterBaseWriter(
             {
               val constantName = paramCommandConstantName(prm.getName, Command.Param.Save)
               val varName = testerPortVariableName(cmdRecvPort.get)
-            lines(
+              lines(
               s"""|Fw::CmdArgBuffer args;
                   |const U32 idBase = this->getIdBase();
                   |FwOpcodeType _prmOpcode = $className::$constantName + idBase;
@@ -1381,8 +1381,7 @@ case class ComponentTesterBaseWriter(
       lines(s"$testerBaseDecl\n"),
       guardedList (hasParameters) (lines("Fw::SerializeStatus _status;")),
       lines(
-        s"""|$value.resetSer();
-            |
+        s"""|
             |const U32 idBase = _testerBase->getIdBase();
             |FW_ASSERT(
             |  $id >= idBase,

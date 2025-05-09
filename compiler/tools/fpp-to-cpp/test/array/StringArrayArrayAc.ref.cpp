@@ -17,11 +17,11 @@ StringArray ::
 {
   // Construct using element-wise constructor
   *this = StringArray(
-    String2(Fw::String("\"\\"), Fw::String("abc\ndef")),
-    String2(Fw::String("\"\\"), Fw::String("abc\ndef")),
-    String2(Fw::String("\"\\"), Fw::String("abc\ndef")),
-    String2(Fw::String("\"\\"), Fw::String("abc\ndef")),
-    String2(Fw::String("\"\\"), Fw::String("abc\ndef"))
+    String2(Fw::String("\"\\"), Fw::String("abc\ndef\n")),
+    String2(Fw::String("\"\\"), Fw::String("abc\ndef\n")),
+    String2(Fw::String("\"\\"), Fw::String("abc\ndef\n")),
+    String2(Fw::String("\"\\"), Fw::String("abc\ndef\n")),
+    String2(Fw::String("\"\\"), Fw::String("abc\ndef\n"))
   );
 }
 
