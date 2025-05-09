@@ -71,8 +71,8 @@ case class Analysis(
   dictionary: Option[Dictionary] = None,
   /** The telemetry packet set under construction */
   tlmPacketSet: Option[TlmPacketSet] = None,
-  /** The dictionary generation mode */
-  dictionaryMode: Boolean = false,
+  /** Whether a dictionary is needed in code generation */
+  dictionaryNeeded: Boolean = false,
   /** The set of type symbols used by the dictionary */
   dictionaryTypeSymbolSet: Set[Symbol] = Set()
 ) {

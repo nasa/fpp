@@ -3,6 +3,7 @@ multipleTops
 dataProducts
 duplicate
 missingFwOpcodeType
-missingFwEventIdType
+arrayFwEventIdType
+floatFwEventIdType
 unqualifiedComponentInstances
 "

@@ -309,7 +309,7 @@ sealed trait Error {
 
 }
 
-/** Annotated error for including additional notes */
+/** An error with a note */
 final case class AnnotatedError(error: Error, note: String) extends Error
 /** A syntax error */
 final case class SyntaxError(loc: Location, msg: String) extends Error

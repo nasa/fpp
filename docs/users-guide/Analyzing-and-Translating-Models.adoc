@@ -1453,7 +1453,8 @@ https://fprime.jpl.nasa.gov/devel/docs/reference/fpp-json-dict/[F Prime design
 documentation].
 
 When generating dictionaries with `fpp-to-dict`, the following types must be defined
-in FPP (either in the input model itself or in a dependency file):
+in FPP (either in the input model itself or in a dependency file) and each type must be
+an alias of an integer type:
 
 * `FwChanIdType`
 

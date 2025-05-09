@@ -1,6 +1,0 @@
-fpp-to-dict
-[ local path prefix ]/tools/fpp-to-dict/test/top/missingFwEventIdType.fpp:6.1
-topology T {
-^
-error: undefined symbol FwEventIdType
-note: Dictionary requires type FwEventIdType to be defined.

@@ -118,7 +118,7 @@ object CheckUses extends UseAnalyzer {
   }
 
   override def defTopologyAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
-    a.dictionaryMode match {
+    a.dictionaryNeeded match {
       case true => {
         val impliedTypeUses = List(
           "FwChanIdType", 

@@ -26,10 +26,16 @@ missingFwOpcodeType()
     compare missingFwOpcodeType
 }
 
-missingFwEventType()
+arrayFwEventType()
 {
-  run_test '' missingFwEventType && \
-    compare missingFwEventType
+  run_test '' arrayFwEventType && \
+    compare arrayFwEventType
+}
+
+floatFwEventType()
+{
+  run_test '' floatFwEventType && \
+    compare floatFwEventType
 }
 
 unqualifiedComponentInstances()
