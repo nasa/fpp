@@ -160,17 +160,32 @@ namespace S {
   {
     static const char* formatString =
       "( "
-      "mU32Array = [ %" PRIu32 ", "
-      "%" PRIu32 ", "
-      "%" PRIu32 " ], "
+      "mU32Array = [ %s ], "
       "mF64 = %f"
       " )";
 
+    // Declare strings to hold any serializable toString() arguments
+    Fw::String mU32ArrayStr;
+
+    // Call toString for arrays and serializable types
+    for (FwSizeType i = 0; i < 3; i++) {
+      Fw::String mU32ArrayTmp;
+      mU32ArrayTmp.format("%" PRIu32 "", this->m_mU32Array[i]);
+
+      FwSizeType size = mU32ArrayTmp.length() + (i > 0 ? 2 : 0);
+      if ((size + mU32ArrayStr.length()) <= mU32ArrayStr.maxLength()) {
+        if (i > 0) {
+          mU32ArrayStr += ", ";
+        }
+        mU32ArrayStr += mU32ArrayTmp;
+      } else {
+        break;
+      }
+    }
+
     sb.format(
       formatString,
-      this->m_mU32Array[0],
-      this->m_mU32Array[1],
-      this->m_mU32Array[2],
+      mU32ArrayStr.toChar(),
       this->m_mF64
     );
   }

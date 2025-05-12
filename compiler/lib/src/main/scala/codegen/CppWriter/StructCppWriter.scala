@@ -355,11 +355,14 @@ case class StructCppWriter(
   private def getFunctionMembers: List[CppDoc.Class.Member] = {
     // Members on which to call toString()
     val toStringMemberNames =
-      memberList.filter((n, tn) => typeMembers(n).getUnderlyingType match {
-        case _: Type.String => false
-        case t if s.isPrimitive(t, tn) => false
+      astMembers.map((_, node, _) => {
+        val t = typeMembers(node.data.name)
+        (node, node.data.name, typeCppWriter.write(t))
+      }).filter((n, _, tn) => (sizes.contains(n.data.name), typeMembers(n.data.name).getUnderlyingType) match {
+        case (false, _: Type.String) => false
+        case (false, t) if s.isPrimitive(t, tn) => false
         case _ => true
-      }).map((n, _) => n)
+      })
     // String initialization for arrays and serializable member types in toString()
     val initStrings = toStringMemberNames match {
       case Nil => Nil
@@ -367,20 +370,48 @@ case class StructCppWriter(
         List(
           Line.blank ::
             lines("// Declare strings to hold any serializable toString() arguments"),
-          names.flatMap(n =>
-            if sizes.contains(n) then
-              lines(s"Fw::String ${n}Str[${sizes(n)}];")
-            else
-              lines(s"Fw::String ${n}Str;")
-          ),
+          names.flatMap((_, n, _) => lines(s"Fw::String ${n}Str;")),
           Line.blank ::
             lines("// Call toString for arrays and serializable types"),
-          names.flatMap(n =>
-            if sizes.contains(n) then
-              iterateN(sizes(n), lines(s"this->m_$n[i].toString(${n}Str[i]);"))
-            else
-              lines(s"this->m_$n.toString(${n}Str);")
-          ),
+          names.flatMap((node, n, tn) => {
+            val formatStr = FormatCppWriter.write(
+              getFormatStr(n),
+              node.data.typeName
+            )
+
+            (sizes.contains(n), typeMembers(n).getUnderlyingType) match {
+              case (true, _: Type.String) =>
+              case (true, t) if s.isPrimitive(t, tn) => 
+              case (true, _) =>
+              case _ => lines(s"this->m_$n.toString(${n}Str);")
+            }
+
+            // Loop through and format each element if this is an array
+            if (sizes.contains(n)) {
+              val fillTmpString = (typeMembers(n).getUnderlyingType) match {
+                case (_: Type.String) =>
+                  s"${n}Tmp = this->m_$n[i];"
+                case t if s.isPrimitive(t, tn) =>
+                  s"""${n}Tmp.format("$formatStr", ${promoteF32ToF64 (t) (s"this->m_$n[i]")});"""
+                case _ =>
+                  s"this->m_$n[i].toString(${n}Tmp);"
+              }
+
+              iterateN(sizes(n), lines(
+                  s"""|Fw::String ${n}Tmp;
+                      |${fillTmpString}
+                      |
+                      |FwSizeType size = ${n}Tmp.length() + (i > 0 ? 2 : 0);
+                      |if ((size + ${n}Str.length()) <= ${n}Str.maxLength()) {
+                      |  if (i > 0) {
+                      |    ${n}Str += ", ";
+                      |  }
+                      |  ${n}Str += ${n}Tmp;
+                      |} else {
+                      |  break;
+                      |}"""))
+            } else lines(s"this->m_$n.toString(${n}Str);")
+          }),
         ).flatten
     }
 
@@ -473,12 +504,7 @@ case class StructCppWriter(
                   node.data.typeName
                 )
                 if sizes.contains(n) then {
-                  if sizes(n) == 1 then
-                    List(s"$n = [ $formatStr ]")
-                  else
-                    s"$n = [ $formatStr" ::
-                      List.fill(sizes(n) - 2)(formatStr) ++
-                        List(s"$formatStr ]")
+                  List(s"$n = [ %s ]")
                 } else
                   List(s"$n = $formatStr")
               }).mkString("\"( \"\n\"", ", \"\n\"", "\"\n\" )\";")).map(indentIn),
@@ -494,14 +520,8 @@ case class StructCppWriter(
                         List(s"this->m_$n.toChar()")
                       case (false, t) if s.isPrimitive(t, tn) =>
                         List(promoteF32ToF64 (t) (s"this->m_$n"))
-                      case (false, _) =>
-                        List(s"${n}Str.toChar()")
-                      case (true, _: Type.String) =>
-                        List.range(0, sizes(n)).map(i => s"this->m_$n[$i].toChar()")
-                      case (true, t) if s.isPrimitive(t, tn) =>
-                        List.range(0, sizes(n)).map(i => promoteF32ToF64 (t) (s"this->m_$n[$i]"))
                       case _ =>
-                        List.range(0, sizes(n)).map(i => s"${n}Str[$i].toChar()")
+                        List(s"${n}Str.toChar()")
                     }).mkString(",\n"))
                 },
                 ");"

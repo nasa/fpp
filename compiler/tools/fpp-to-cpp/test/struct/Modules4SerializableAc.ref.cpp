@@ -172,40 +172,48 @@ void Modules4 ::
 {
   static const char* formatString =
     "( "
-    "arr1 = [ %s, "
-    "%s, "
-    "%s ], "
-    "arr2 = [ %s, "
-    "%s, "
-    "%s, "
-    "%s, "
-    "%s, "
-    "%s ]"
+    "arr1 = [ %s ], "
+    "arr2 = [ %s ]"
     " )";
 
   // Declare strings to hold any serializable toString() arguments
-  Fw::String arr1Str[3];
-  Fw::String arr2Str[6];
+  Fw::String arr1Str;
+  Fw::String arr2Str;
 
   // Call toString for arrays and serializable types
   for (FwSizeType i = 0; i < 3; i++) {
-    this->m_arr1[i].toString(arr1Str[i]);
+    Fw::String arr1Tmp;
+    this->m_arr1[i].toString(arr1Tmp);
+
+    FwSizeType size = arr1Tmp.length() + (i > 0 ? 2 : 0);
+    if ((size + arr1Str.length()) <= arr1Str.maxLength()) {
+      if (i > 0) {
+        arr1Str += ", ";
+      }
+      arr1Str += arr1Tmp;
+    } else {
+      break;
+    }
   }
   for (FwSizeType i = 0; i < 6; i++) {
-    this->m_arr2[i].toString(arr2Str[i]);
+    Fw::String arr2Tmp;
+    this->m_arr2[i].toString(arr2Tmp);
+
+    FwSizeType size = arr2Tmp.length() + (i > 0 ? 2 : 0);
+    if ((size + arr2Str.length()) <= arr2Str.maxLength()) {
+      if (i > 0) {
+        arr2Str += ", ";
+      }
+      arr2Str += arr2Tmp;
+    } else {
+      break;
+    }
   }
 
   sb.format(
     formatString,
-    arr1Str[0].toChar(),
-    arr1Str[1].toChar(),
-    arr1Str[2].toChar(),
-    arr2Str[0].toChar(),
-    arr2Str[1].toChar(),
-    arr2Str[2].toChar(),
-    arr2Str[3].toChar(),
-    arr2Str[4].toChar(),
-    arr2Str[5].toChar()
+    arr1Str.toChar(),
+    arr2Str.toChar()
   );
 }
 

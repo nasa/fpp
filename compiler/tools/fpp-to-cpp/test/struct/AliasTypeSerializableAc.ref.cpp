@@ -189,38 +189,35 @@ void AliasType ::
     "( "
     "x = %s, "
     "y = %s, "
-    "z = [ %s, "
-    "%s, "
-    "%s, "
-    "%s, "
-    "%s, "
-    "%s, "
-    "%s, "
-    "%s, "
-    "%s, "
-    "%s ]"
+    "z = [ %s ]"
     " )";
 
   // Declare strings to hold any serializable toString() arguments
   Fw::String yStr;
+  Fw::String zStr;
 
   // Call toString for arrays and serializable types
   this->m_y.toString(yStr);
+  for (FwSizeType i = 0; i < 10; i++) {
+    Fw::String zTmp;
+    zTmp = this->m_z[i];
+
+    FwSizeType size = zTmp.length() + (i > 0 ? 2 : 0);
+    if ((size + zStr.length()) <= zStr.maxLength()) {
+      if (i > 0) {
+        zStr += ", ";
+      }
+      zStr += zTmp;
+    } else {
+      break;
+    }
+  }
 
   sb.format(
     formatString,
     this->m_x,
     yStr.toChar(),
-    this->m_z[0].toChar(),
-    this->m_z[1].toChar(),
-    this->m_z[2].toChar(),
-    this->m_z[3].toChar(),
-    this->m_z[4].toChar(),
-    this->m_z[5].toChar(),
-    this->m_z[6].toChar(),
-    this->m_z[7].toChar(),
-    this->m_z[8].toChar(),
-    this->m_z[9].toChar()
+    zStr.toChar()
   );
 }
 
