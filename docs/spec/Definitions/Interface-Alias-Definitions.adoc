@@ -7,11 +7,6 @@ An *interface alias definition* defines another name for a
 `interface` <<Lexical-Elements_Identifiers,_identifier_>>
 `=`
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
-_[_
-`(`
-_template-parameter-sequence_
-`)`
-_]_
 
 ==== Semantics
 
