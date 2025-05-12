@@ -5,9 +5,6 @@ An *interface alias definition* defines another name for a
 ==== Syntax
 
 `interface` <<Lexical-Elements_Identifiers,_identifier_>>
-`(`
-<<Template-Parameter-Lists,_param-list_>>
-`)`
 `=`
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 _[_
@@ -15,11 +12,6 @@ _[_
 _template-parameter-sequence_
 `)`
 _]_
-
-_template-member-sequence_ is an
-<<Element-Sequences,element sequence>> in
-which each element is an <<Expressions,expression>>,
-and the terminating punctuation is a comma.
 
 ==== Semantics
 
@@ -29,10 +21,6 @@ The qualified identifier must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
 a <<Definitions_Interface-Definitions,interface definition>> or another
 <<Definitions_Interface-Alias-Definitions,interface alias definition>>.
-
-An interface alias may have template parameters just like
-<<Definitions_Interface-Definitions,interface definition>> and can be
-propagated to the underlying alias instatiation.
 
 ==== Examples
 
