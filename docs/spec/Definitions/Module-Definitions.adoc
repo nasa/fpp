@@ -22,6 +22,8 @@ A module member is one of the following:
 
 * A <<Definitions_Constant-Definitions,constant definition>>
 
+* An <<Definitions_Interface-Definitions,interface definition>>
+
 * A <<Definitions_Module-Definitions,module definition>>
 
 * A <<Definitions_Port-Definitions,port definition>>
