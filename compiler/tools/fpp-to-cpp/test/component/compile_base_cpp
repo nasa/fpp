@@ -4,7 +4,7 @@
 # Compile base class C++ files with guards for conditional compilation
 #
 # By default, each file is compiled with three different sets of values of F
-# Prime guards: 
+# Prime guards:
 # - Default values as found in fprime/config/FpConfig.h
 # - All guards turned on
 # - All guards turned off (except FW_PORT_SERIALIZATION for components
@@ -29,7 +29,7 @@ done
 fprime_gcc=../../../../../scripts/fprime-gcc
 
 # Set compiler flags
-include_flags="-I.. -I../.. -I../../fprime -I../../fprime/config"
+include_flags="-I.. -I../.. -I../../fprime -I../../fprime/default"
 # F Prime components sometimes provide parameter arguments that are unused
 # F Prime components use variable-length arrays for managing buffers
 warning_flags="
