@@ -21,7 +21,7 @@ a <<Definitions_Port-Interface-Definitions,port interface definition>>.
 An interface import specifier is resolved to a set _S_ of port interfaces
 as follows:
 
-. Recursively <<Definitions_Port-Interface-Definitions,resolve the port 
+. Recursively <<Definitions_Port-Interface-Definitions,resolve the port
 interface definition _D_>>
 named in the specifier.
 
@@ -49,7 +49,7 @@ interface I {
   output port pOut: P
 
 }
-  
+
 @ Component C
 passive component C {
 
