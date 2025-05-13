@@ -38,7 +38,7 @@ instance specifiers _S~s~_ and add _S~s~_ to _S_.
 The set of port instance specifiers represented by _D_ must satisfy
 the following rules:
 
-. Each port instsance specifier must have a distinct name.
+. Each port instance specifier must have a distinct name.
 
 . There must be at most one of each special port kind.
 
