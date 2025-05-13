@@ -4,7 +4,7 @@ A *interface import specifier* specifies that the ports of a
 <<Definitions_Port-Interface-Definitions,port interface definition>>
 are to be added as members of a
 <<Definitions_Component-Definitions,component definition>>
-or
+or a
 <<Definitions_Port-Interface-Definitions,port interface definition>>.
 
 ==== Syntax
@@ -18,19 +18,44 @@ The qualified identifier must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
 a <<Definitions_Port-Interface-Definitions,port interface definition>>.
 
-When an interface is imported the ports specified in the interface
-are placed into the component. It is exactly equivalent to pasting the
-port instances into the component directly.
+An interface import specifier is resolved to a set of port interfaces
+as follows:
+
+. Recursively <<Definitions_Port-Interface-Definitions,resolve the port 
+interface definition>>
+named in the specifier.
+
+. Convert the resolved port interface definition to a set of port instances.
 
 ==== Example
 
 [source,fpp]
 ----
+@ Interface I
 interface I {
-  sync input port p: P
+
+  @ Port pIn
+  sync input port pIn: P
+
 }
 
-component C {
+@ Interface J {
+
+  @ Import interface I
+  @ This brings in port pIn
   import I
+
+  @ Add port pOut
+  output port pOut: P
+
+}
+  
+@ Component C
+passive component C {
+
+  @ Import interface J
+  @ This brings in pIn and pOut
+  import J
+
 }
 ----
