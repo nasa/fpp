@@ -18,14 +18,14 @@ The qualified identifier must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
 a <<Definitions_Port-Interface-Definitions,port interface definition>>.
 
-An interface import specifier is resolved to a set of port interfaces
+An interface import specifier is resolved to a set _S_ of port interfaces
 as follows:
 
 . Recursively <<Definitions_Port-Interface-Definitions,resolve the port 
-interface definition>>
+interface definition _D_>>
 named in the specifier.
 
-. Convert the resolved port interface definition to a set of port instances.
+. Let _S_ be the set of port interfaces represented by _D_.
 
 ==== Example
 
