@@ -2,7 +2,7 @@
 
 # ======================================================================
 # Compile F Prime source files
-# ---------------------------------------------------------------------- 
+# ----------------------------------------------------------------------
 # Setup:
 #
 # 1. Set FPRIME to point to the root of your F Prime working repo
@@ -48,7 +48,7 @@ g++ --std=c++11 \
   $os_flags \
   -DTGT_OS_TYPE_$os_type \
   -I $FPRIME \
-  -I $FPRIME/config \
+  -I $FPRIME/default \
   -I $FPRIME/cmake/platform/types \
   -I . \
   $FPRIME_GCC_FLAGS \
