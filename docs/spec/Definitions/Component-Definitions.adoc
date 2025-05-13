@@ -96,7 +96,7 @@ specifiers that are members of the component>>;
 and (3) the internal port specifiers that appear as members of the component.
 The port specifiers must satisfy the following rules:
 
-. All names appearing in any port specifiers must be distinct.
+. Each port specifier must have a distinct name.
 
 . No passive component may have an `async` general or special
 port specifier, an internal
