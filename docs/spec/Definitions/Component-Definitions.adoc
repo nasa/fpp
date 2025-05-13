@@ -85,8 +85,7 @@ The definitions inside the body of the component are
 qualified with the component name, as for
 <<Definitions_Module-Definitions,module definitions>>.
 
-All names appearing in any state machine instance specifier must
-be distinct.
+Each state machine instance specifier must have a distinct name.
 
 Each component definition has a set of *port specifiers*, consisting of
 (1) the port instance specifiers that appear as members of the component;
