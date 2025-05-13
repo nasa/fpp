@@ -1,7 +1,7 @@
 package fpp.compiler.test
 
 import fpp.compiler.ast._
-import fpp.compiler.syntax.{Lexer,Parser,Token}
+import fpp.compiler.syntax.{Lexer,Parser,TokenId}
 import java.io.File
 import java.io.FileReader
 import org.scalatest.wordspec.AnyWordSpec

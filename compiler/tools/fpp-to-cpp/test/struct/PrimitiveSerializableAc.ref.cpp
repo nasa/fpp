@@ -310,9 +310,7 @@ void Primitive ::
 {
   static const char* formatString =
     "( "
-    "mF32 = [ %f, "
-    "%f, "
-    "%f ], "
+    "mF32 = [ %s ], "
     "mF64 = %f, "
     "mI16 = %" PRIi16 ", "
     "mI32 = %" PRIi32 ", "
@@ -326,11 +324,28 @@ void Primitive ::
     "m_string = %s"
     " )";
 
+  // Declare strings to hold any serializable toString() arguments
+  Fw::String mF32Str;
+
+  // Call toString for arrays and serializable types
+  for (FwSizeType i = 0; i < 3; i++) {
+    Fw::String mF32Tmp;
+    mF32Tmp.format("%f", static_cast<F64>(this->m_mF32[i]));
+
+    FwSizeType size = mF32Tmp.length() + (i > 0 ? 2 : 0);
+    if ((size + mF32Str.length()) <= mF32Str.maxLength()) {
+      if (i > 0) {
+        mF32Str += ", ";
+      }
+      mF32Str += mF32Tmp;
+    } else {
+      break;
+    }
+  }
+
   sb.format(
     formatString,
-    static_cast<F64>(this->m_mF32[0]),
-    static_cast<F64>(this->m_mF32[1]),
-    static_cast<F64>(this->m_mF32[2]),
+    mF32Str.toChar(),
     this->m_mF64,
     this->m_mI16,
     this->m_mI32,
