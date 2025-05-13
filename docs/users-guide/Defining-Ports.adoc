@@ -214,7 +214,7 @@ has port type `P`.
 If `P` has a formal parameter of type `string`,
 the corresponding formal parameter in the handler for `pIn` is
 a constant reference to `Fw::StringBase`, which is an abstract
-super type of all F Prime string types.
+supertype of all F Prime string types.
 The string object referred to depends on whether `pIn` is synchronous
 or asynchronous:
 
