@@ -35,7 +35,7 @@ specifiers, computed as follows:
 <<Specifiers_Interface-Import-Specifiers_Semantics,resolve>> _s_ to a set of port 
 instance specifiers _S~s~_ and add _S~s~_ to _S_.
 
-The set _S_ of port instance specifiers represented by _D_ must satisfy
+The set of port instance specifiers represented by _D_ must satisfy
 the following rules:
 
 . All names appearing in any port instance specifiers must be distinct.
@@ -71,7 +71,7 @@ interface ComInterface {
 
 }
 
-@ A component that uses the Command and Com interfaces separately
+@ A component that imports the Command and Com interfaces separately
 active component CommandComSeparate {
 
   @ Import the command interface
@@ -82,7 +82,7 @@ active component CommandComSeparate {
 
 }
 
-@ An interface composed of the command and com interfaces
+@ An interface composed of the Command and Com interfaces
 interface CommandComInterface {
 
   @ Import the command interface
@@ -93,7 +93,7 @@ interface CommandComInterface {
 
 }
 
-@ A component that uses the CommandCom interface
+@ A component that imports the CommandCom interface
 interface CommandComComposed {
 
   @ Import the CommandCom interface
