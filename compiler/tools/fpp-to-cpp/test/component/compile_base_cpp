@@ -29,7 +29,7 @@ done
 fprime_gcc=../../../../../scripts/fprime-gcc
 
 # Set compiler flags
-include_flags="-I.. -I../.. -I../../fprime -I../../fprime/default"
+include_flags="-I.. -I../.. -I../../fprime"
 # F Prime components sometimes provide parameter arguments that are unused
 # F Prime components use variable-length arrays for managing buffers
 warning_flags="
