@@ -1311,7 +1311,7 @@ case class ComponentTesterBaseWriter(
             {
               val constantName = paramCommandConstantName(prm.getName, Command.Param.Save)
               val varName = testerPortVariableName(cmdRecvPort.get)
-            lines(
+              lines(
               s"""|Fw::CmdArgBuffer args;
                   |const U32 idBase = this->getIdBase();
                   |FwOpcodeType _prmOpcode = $className::$constantName + idBase;

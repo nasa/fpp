@@ -47,6 +47,8 @@ sealed trait Error {
         Error.print (locOpt) (s"cannot open file $name")
       case FileError.CannotResolvePath(loc, name) =>
         Error.print (Some(loc)) (s"cannot resolve path $name")
+      case MultiError(errors) =>
+        errors.foreach(_.print)
       case SemanticError.ChannelNotInDictionary(loc, channelName, topologyName) =>
         Error.print (Some(loc)) (s"channel $channelName is not in the dictionary for topology $topologyName")
       case SemanticError.DivisionByZero(loc) =>
@@ -213,6 +215,8 @@ sealed trait Error {
         System.err.println(msg)
       case SemanticError.InvalidType(loc, msg) =>
         Error.print (Some(loc)) (msg)
+      case SemanticError.InvalidToken(loc, msg) =>
+        Error.print (Some(loc)) (s"invalid token: $msg")
       case SemanticError.MismatchedPortNumbers(
         p1Loc: Location,
         p1Number: Int,
@@ -336,6 +340,9 @@ object FileError {
   /** Cannot resolve path */
   final case class CannotResolvePath(loc: Location, name: String) extends Error
 }
+
+/** An error representing several other errors */
+final case class MultiError(errors: List[Error]) extends Error
 
 /** A semantic error */
 object SemanticError {
@@ -628,6 +635,11 @@ object SemanticError {
     name: String,
     loc: Location,
     prevLoc: Location
+  ) extends Error
+  /** Lexer Error */
+  final case class InvalidToken(
+    loc: Location,
+    msg: String,
   ) extends Error
   /** State machine semantic errors */
   object StateMachine {
