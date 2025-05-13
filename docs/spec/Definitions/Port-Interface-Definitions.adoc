@@ -1,8 +1,8 @@
-=== Interface Definitions
+=== Port Interface Definitions
 
-An *interface definition* defines a pure F Prime interface. An interface is
-a collection of input and output ports that is expose functionality from
-a component.
+A *port interface definition* defines an F Prime port interface.
+A port interface is a collection of
+<<Specifiers_Port-Instance-Specifiers,port instance specifiers>>.
 
 ==== Syntax
 
@@ -22,14 +22,6 @@ An interface member is one of the following:
 ==== Semantics
 
 The identifier is the name of the interface.
-A component is said to *implement* an interface if it contains all
-of the ports specified in the interface with matching names and port
-types.
-
-Interfaces can be <<Specifiers_Interface-Import-Specifiers,imported>>
-into an existing component. Importing an interface into a component will
-place the port definitions in the interface into the component. This is
-equivalent to places the port instances into the component directly.
 
 ==== Examples
 
