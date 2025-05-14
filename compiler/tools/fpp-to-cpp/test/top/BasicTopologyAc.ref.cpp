@@ -103,13 +103,13 @@ namespace M {
   void startTasks(const TopologyState& state) {
     M::active2.startSpecial();
     M::active3.start(
-      Os::Task::TASK_DEFAULT, // Default priority
+      Os::Task::TASK_PRIORITY_DEFAULT, // Default priority
       Os::Task::TASK_DEFAULT, // Default stack size
       Os::Task::TASK_DEFAULT, // Default CPU
       static_cast<Os::Task::ParamType>(TaskIds::M_active3)
     );
     active1.start(
-      static_cast<Os::Task::ParamType>(Priorities::active1),
+      static_cast<FwTaskPriorityType>(Priorities::active1),
       static_cast<Os::Task::ParamType>(StackSizes::active1),
       static_cast<Os::Task::ParamType>(CPUs::active1),
       static_cast<Os::Task::ParamType>(TaskIds::active1)

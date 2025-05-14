@@ -55,7 +55,7 @@ case class TopHelperFns(
       val name = CppWriter.identFromQualifiedName(ci.qualifiedName)
       getCodeLinesForPhase (CppWriter.Phases.initComponents) (ci).getOrElse(
         ci.component.aNode._2.data.kind match {
-          case Ast.ComponentKind.Passive => 
+          case Ast.ComponentKind.Passive =>
             lines(s"$cppQualifiedName.init(InstanceIds::$name);")
           case _ =>
             lines(s"$cppQualifiedName.init(QueueSizes::$name, InstanceIds::$name);")
@@ -198,8 +198,8 @@ case class TopHelperFns(
           val cppQualifiedName = CppWriter.writeQualifiedName(ci.qualifiedName)
           val name = CppWriter.identFromQualifiedName(ci.qualifiedName)
           val priority = ci.priority match {
-            case Some(_) => s"static_cast<Os::Task::ParamType>(Priorities::$name),"
-            case None => "Os::Task::TASK_DEFAULT, // Default priority"
+            case Some(_) => s"static_cast<FwTaskPriorityType>(Priorities::$name),"
+            case None => "Os::Task::TASK_PRIORITY_DEFAULT, // Default priority"
           }
           val stackSize = ci.stackSize match {
             case Some(_) => s"static_cast<Os::Task::ParamType>(StackSizes::$name),"
