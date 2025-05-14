@@ -98,9 +98,9 @@ active component ActiveParams {
 @ An active component with external params only
 active component ActiveExternalParams {
 
-  include "include/typed_ports.fppi"
-  include "include/typed_ports_async.fppi"
-  include "include/special_ports.fppi"
+  import TypedPorts
+  import TypedPortsAsync
+  import SpecialPorts
 
   include "include/external_params.fppi"
 

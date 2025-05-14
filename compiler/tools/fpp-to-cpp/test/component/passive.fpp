@@ -72,6 +72,8 @@ passive component PassiveParams {
 @ A passive component with external params only
 passive component PassiveExternalParams {
 
+  import TypedPorts
+  import SpecialPorts
   include "include/typed_ports.fppi"
   include "include/special_ports.fppi"
 
