@@ -6,6 +6,7 @@ duplicate_id_implicit
 duplicate_limit_high
 duplicate_limit_low
 duplicate_name
+format_alias_not_numeric
 format_missing_repl
 format_not_numeric
 format_too_many_repls
