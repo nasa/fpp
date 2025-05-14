@@ -154,8 +154,8 @@ void Basic ::
 {
   static const char* formatString =
     "( "
-    "A = %s, "
-    "B = %s, "
+    "A = %" PRIu32 ", "
+    "B = %f, "
     "C = %s, "
     "D = %s"
     " )";

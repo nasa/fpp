@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/event/format_alias_not_numeric.fpp:5.46
+  event E(a: T) severity activity low format "{x}"
+                                             ^
+error: invalid format string: T is not an integer type

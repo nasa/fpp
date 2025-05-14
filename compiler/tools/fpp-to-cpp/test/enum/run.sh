@@ -1,3 +1,9 @@
+alias_serial_type()
+{
+  run_test "-p $PWD" alias_serial_type && \
+    diff_cpp AliasSerialTypeEnum
+}
+
 default()
 {
   run_test "-p $PWD" default && \
