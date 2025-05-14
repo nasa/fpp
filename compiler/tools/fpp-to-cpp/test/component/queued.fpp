@@ -1,10 +1,10 @@
 @ A queued component
 queued component QueuedTest {
 
-  include "include/product_ports_async.fppi"
-  include "include/typed_ports.fppi"
-  include "include/typed_ports_async.fppi"
-  include "include/special_ports.fppi"
+  import DataProductAsyncReceive
+  import TypedPorts
+  import TypedPortsAsync
+  import SpecialPorts
   include "include/internal_ports.fppi"
 
   include "include/commands.fppi"
@@ -18,22 +18,22 @@ queued component QueuedTest {
 
 @ An active component with overflow behavior
 queued component QueuedOverflow {
-  include "include/special_ports.fppi"
+  import SpecialPorts
   include "include/overflow_commands.fppi"
-  include "include/overflow_typed_ports.fppi"
-  include "include/overflow_product_ports.fppi"
-  include "include/overflow_serial_ports.fppi"
+  import TypedPortsOverflow
+  import DataProductAsyncReceiveOverflow
+  import SerialPortsOverflow
   include "include/overflow_internal_ports.fppi"
 }
 
 @ A queued component with serial ports
 queued component QueuedSerial {
 
-  include "include/typed_ports.fppi"
-  include "include/typed_ports_async.fppi"
-  include "include/serial_ports.fppi"
-  include "include/serial_ports_async.fppi"
-  include "include/special_ports.fppi"
+  import TypedPorts
+  import TypedPortsAsync
+  import SerialPorts
+  import SerialPortsAsync
+  import SpecialPorts
   include "include/internal_ports.fppi"
 
   include "include/commands.fppi"
@@ -47,9 +47,9 @@ queued component QueuedSerial {
 @ An queued component with commands
 queued component QueuedCommands {
 
-  include "include/typed_ports.fppi"
-  include "include/typed_ports_async.fppi"
-  include "include/special_ports.fppi"
+  import TypedPorts
+  import TypedPortsAsync
+  import SpecialPorts
 
   include "include/commands.fppi"
   include "include/commands_async.fppi"
@@ -59,9 +59,9 @@ queued component QueuedCommands {
 @ An queued component with events
 queued component QueuedEvents {
 
-  include "include/typed_ports.fppi"
-  include "include/typed_ports_async.fppi"
-  include "include/special_ports.fppi"
+  import TypedPorts
+  import TypedPortsAsync
+  import SpecialPorts
 
   include "include/events.fppi"
 
@@ -70,9 +70,9 @@ queued component QueuedEvents {
 @ An queued component with telemetry
 queued component QueuedTelemetry {
 
-  include "include/typed_ports.fppi"
-  include "include/typed_ports_async.fppi"
-  include "include/special_ports.fppi"
+  import TypedPorts
+  import TypedPortsAsync
+  import SpecialPorts
 
   include "include/telemetry.fppi"
 
@@ -81,9 +81,9 @@ queued component QueuedTelemetry {
 @ An queued component with params
 queued component QueuedParams {
 
-  include "include/typed_ports.fppi"
-  include "include/typed_ports_async.fppi"
-  include "include/special_ports.fppi"
+  import TypedPorts
+  import TypedPortsAsync
+  import SpecialPorts
 
   include "include/params.fppi"
 
@@ -92,10 +92,10 @@ queued component QueuedParams {
 @ A queued component with async data products
 active component QueuedAsyncProducts {
 
-  include "include/product_ports_async.fppi"
-  include "include/special_ports.fppi"
-  include "include/typed_ports.fppi"
-  include "include/typed_ports_async.fppi"
+  import DataProductAsyncReceive
+  import TypedPorts
+  import TypedPortsAsync
+  import SpecialPorts
 
   include "include/products.fppi"
 
@@ -104,10 +104,10 @@ active component QueuedAsyncProducts {
 @ A queued component with sync data products
 active component QueuedSyncProducts {
 
-  include "include/product_ports_sync.fppi"
-  include "include/special_ports.fppi"
-  include "include/typed_ports.fppi"
-  include "include/typed_ports_async.fppi"
+  import DataProductSyncReceive
+  import TypedPorts
+  import TypedPortsAsync
+  import SpecialPorts
 
   include "include/products.fppi"
 
@@ -116,10 +116,10 @@ active component QueuedSyncProducts {
 @ A queued component with guarded data products
 active component QueuedGuardedProducts {
 
-  include "include/product_ports_guarded.fppi"
-  include "include/special_ports.fppi"
-  include "include/typed_ports.fppi"
-  include "include/typed_ports_async.fppi"
+  import DataProductGuardedReceive
+  import TypedPorts
+  import TypedPortsAsync
+  import SpecialPorts
 
   include "include/products.fppi"
 
@@ -128,10 +128,10 @@ active component QueuedGuardedProducts {
 @ A queued component with data product get
 active component QueuedGetProducts {
 
-  include "include/product_ports_get.fppi"
-  include "include/special_ports.fppi"
-  include "include/typed_ports.fppi"
-  include "include/typed_ports_async.fppi"
+  import DataProductGet
+  import TypedPorts
+  import TypedPortsAsync
+  import SpecialPorts
 
   include "include/products.fppi"
 
@@ -140,13 +140,13 @@ active component QueuedGetProducts {
 @ An queued component with async product request and ports only
 queued component QueuedAsyncProductPortsOnly {
 
-  include "include/product_ports_async.fppi"
+  import DataProductAsyncReceive
 
 }
 
 @ An queued component with only ports without arguments
 queued component QueuedNoArgsPortsOnly {
 
-  include "include/typed_ports_no_args.fppi"
+  import TypedPortsNoArgs
 
 }

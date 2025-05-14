@@ -40,6 +40,10 @@ object Symbol {
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name
   }
+  final case class Interface(node: Ast.Annotated[AstNode[Ast.DefInterface]]) extends Symbol {
+    override def getNodeId = node._2.id
+    override def getUnqualifiedName = node._2.data.name
+  }
   final case class Module(node: Ast.Annotated[AstNode[Ast.DefModule]]) extends Symbol {
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name
