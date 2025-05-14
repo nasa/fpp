@@ -1,4 +1,5 @@
 tests="
+alias_serial_type
 duplicate
 default
 explicit
