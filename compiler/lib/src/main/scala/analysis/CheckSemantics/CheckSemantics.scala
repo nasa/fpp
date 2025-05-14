@@ -25,6 +25,7 @@ object CheckSemantics {
       a <- EvalConstantExprs.visitList(a, tul, EvalConstantExprs.transUnit)
       a <- FinalizeTypeDefs.visitList(a, tul, FinalizeTypeDefs.transUnit)
       a <- CheckPortDefs.visitList(a, tul, CheckPortDefs.transUnit)
+      a <- CheckInterfaceDefs.visitList(a, tul, CheckInterfaceDefs.transUnit)
       a <- CheckComponentDefs.visitList(a, tul, CheckComponentDefs.transUnit)
       a <- CheckComponentInstanceDefs.visitList(a, tul, CheckComponentInstanceDefs.transUnit)
       _ <- CheckComponentInstanceDefs.checkIdRanges(a)

@@ -1,8 +1,9 @@
 package fpp.compiler.analysis
 
-
-import fpp.compiler.ast._
-import fpp.compiler.util._
+import fpp.compiler.analysis.Name.Unqualified
+import fpp.compiler.ast.*
+import fpp.compiler.ast.Ast.SpecPortInstance
+import fpp.compiler.util.*
 
 /** An FPP component */
 case class Component(
@@ -44,35 +45,41 @@ case class Component(
   recordMap: Map[Record.Id, Record] = Map(),
   /** The next default record ID */
   defaultRecordId: BigInt = 0
-) {
+) extends GenericPortInterface[Component](aNode._2.data.name, portMap, specialPortMap) {
+  def withPortMap(newPortMap: Map[Unqualified, PortInstance]): Component =
+    this.copy(portMap = newPortMap)
+
+  def withSpecialPortMap(
+    newSpecialPortMap: Map[SpecPortInstance.SpecialKind, PortInstance.Special]
+  ): Component = this.copy(specialPortMap = newSpecialPortMap)
 
   /** Query whether the component has parameters */
-  def hasParameters = this.paramMap.size > 0
+  def hasParameters = this.paramMap.nonEmpty
 
   /** Query whether the component has commands */
-  def hasCommands = this.commandMap.size > 0
+  def hasCommands = this.commandMap.nonEmpty
 
   /** Query whether the component has events */
-  def hasEvents = this.eventMap.size > 0
+  def hasEvents = this.eventMap.nonEmpty
 
   /** Query whether the component has telemetry */
-  def hasTelemetry = this.tlmChannelMap.size > 0
+  def hasTelemetry = this.tlmChannelMap.nonEmpty
 
   /** Query whether the component has data products */
   def hasDataProducts = (this.recordMap.size + this.containerMap.size) > 0
 
   /** Query whether the component has state machine instances */
-  def hasStateMachineInstances = this.stateMachineInstanceMap.size > 0
+  def hasStateMachineInstances = this.stateMachineInstanceMap.nonEmpty
 
   /** Query whether the component has state machine instances of
    *  the specified kind */
   def hasStateMachineInstancesOfKind(kind: StateMachine.Kind) =
-    this.stateMachineInstanceMap.filter(_._2.getSmKind == kind).size > 0
+    this.stateMachineInstanceMap.exists(_._2.getSmKind == kind)
 
   /** Gets the max identifier */
   def getMaxId: BigInt = {
     def maxInMap[T](map: Map[BigInt, T]): BigInt =
-      if (map.size == 0) -1 else map.keys.max
+      if (map.isEmpty) -1 else map.keys.max
     val maxMap = Vector(
       commandMap,
       containerMap,
@@ -82,19 +89,6 @@ case class Component(
     ).maxBy(maxInMap)
     maxInMap(maxMap)
   }
-
-  /** Gets a port instance by name */
-  def getPortInstance(name: AstNode[Ast.Ident]): Result.Result[PortInstance] =
-    portMap.get(name.data) match {
-      case Some(portInstance) => Right(portInstance)
-      case None => Left(
-        SemanticError.InvalidPortInstanceId(
-          Locations.get(name.id),
-          name.data,
-          aNode._2.data.name
-        )
-      )
-    }
 
   /** Gets a telemetry channel by name */
   def getTlmChannelByName(name: AstNode[Ast.Ident]): Result.Result[TlmChannel] =
@@ -128,17 +122,6 @@ case class Component(
     }
   }
 
-  /** Add a port instance */
-  def addPortInstance(instance: PortInstance): Result.Result[Component] =
-    for {
-      c <- updatePortMap(instance)
-      c <- instance match {
-        case special: PortInstance.Special => c.updateSpecialPortMap(special)
-        case _ => Right(c)
-      }
-    }
-    yield c
-
   /** Add a state machine instance */
   def addStateMachineInstance(instance: StateMachineInstance):
   Result.Result[Component] = {
@@ -151,38 +134,6 @@ case class Component(
       case None => 
         val stateMachineInstanceMap = this.stateMachineInstanceMap + (name -> instance)
         val component = this.copy(stateMachineInstanceMap = stateMachineInstanceMap)
-        Right(component)
-    }
-  }
-
-  /** Add a port instance to the port map */
-  private def updatePortMap(instance: PortInstance):
-  Result.Result[Component] = {
-    val name = instance.getUnqualifiedName
-    portMap.get(name) match {
-      case Some(prevInstance) =>
-        val loc = instance.getLoc
-        val prevLoc = prevInstance.getLoc
-        Left(SemanticError.DuplicatePortInstance(name, loc, prevLoc))
-      case None => 
-        val portMap = this.portMap + (name -> instance)
-        val component = this.copy(portMap = portMap)
-        Right(component)
-    }
-  }
-
-  /** Add a port instance to the special port map */
-  private def updateSpecialPortMap(instance: PortInstance.Special):
-  Result.Result[Component] = {
-    val kind = instance.specifier.kind
-    specialPortMap.get(kind) match {
-      case Some(prevInstance) =>
-        val loc = instance.getLoc
-        val prevLoc = prevInstance.getLoc
-        Left(SemanticError.DuplicatePortInstance(kind.toString, loc, prevLoc))
-      case None => 
-        val specialPortMap = this.specialPortMap + (kind -> instance)
-        val component = this.copy(specialPortMap = specialPortMap)
         Right(component)
     }
   }
@@ -534,7 +485,7 @@ case class Component(
       val name = node.data
       val loc = Locations.get(node.id)
       for {
-        instance <- getPortInstance(node)
+        instance <- this.getPortInstance(node)
         general <- instance match {
           case general: PortInstance.General => Right(general)
           case _ => Left(
