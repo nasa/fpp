@@ -18,6 +18,7 @@ passive()
   diff_test PassiveGetProducts && \
   diff_test PassiveGuardedProducts && \
   diff_test PassiveParams && \
+  diff_test PassiveExternalParams && \
   diff_test PassiveSerial && \
   diff_test PassiveSyncProductPortsOnly && \
   diff_test PassiveSyncProducts && \
@@ -36,6 +37,7 @@ active()
   diff_test ActiveGuardedProducts && \
   diff_test ActiveNoArgsPortsOnly && \
   diff_test ActiveParams &&\
+  diff_test ActiveExternalParams &&\
   diff_test ActiveSerial && \
   diff_test ActiveSyncProducts && \
   diff_test ActiveTelemetry && \
@@ -53,6 +55,7 @@ queued()
   diff_test QueuedGuardedProducts && \
   diff_test QueuedNoArgsPortsOnly && \
   diff_test QueuedParams && \
+  diff_test QueuedExternalParams && \
   diff_test QueuedSerial && \
   diff_test QueuedSyncProducts
   diff_test QueuedTelemetry && \

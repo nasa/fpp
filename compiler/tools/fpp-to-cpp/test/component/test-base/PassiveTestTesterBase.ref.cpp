@@ -10,6 +10,101 @@
 #include "test-base/PassiveTestTesterBase.hpp"
 
 // ----------------------------------------------------------------------
+// Unit test implementation of external parameter delegate serialization/deserialization
+// ----------------------------------------------------------------------
+
+Fw::SerializeStatus PassiveTestTesterBase::PassiveTestComponentBaseParamExternalDelegate ::
+  deserializeParam(
+      const FwPrmIdType baseId,
+      const FwPrmIdType localId,
+      const Fw::ParamValid prmStat,
+      Fw::SerializeBufferBase& buff
+  )
+{
+  Fw::SerializeStatus stat;
+  (void) baseId;
+
+  // Serialize the parameter based on ID
+  switch(localId)
+  {
+    // ParamI32Ext
+    case PassiveTestComponentBase::PARAMID_PARAMI32EXT:
+      stat = buff.deserialize(this->m_param_ParamI32Ext);
+      break;
+    // ParamF64Ext
+    case PassiveTestComponentBase::PARAMID_PARAMF64EXT:
+      stat = buff.deserialize(this->m_param_ParamF64Ext);
+      break;
+    // ParamStringExt
+    case PassiveTestComponentBase::PARAMID_PARAMSTRINGEXT:
+      stat = buff.deserialize(this->m_param_ParamStringExt);
+      break;
+    // ParamEnumExt
+    case PassiveTestComponentBase::PARAMID_PARAMENUMEXT:
+      stat = buff.deserialize(this->m_param_ParamEnumExt);
+      break;
+    // ParamArrayExt
+    case PassiveTestComponentBase::PARAMID_PARAMARRAYEXT:
+      stat = buff.deserialize(this->m_param_ParamArrayExt);
+      break;
+    // ParamStructExt
+    case PassiveTestComponentBase::PARAMID_PARAMSTRUCTEXT:
+      stat = buff.deserialize(this->m_param_ParamStructExt);
+      break;
+    default:
+      // Unknown ID; should not have gotten here
+      FW_ASSERT(0, static_cast<FwAssertArgType>(localId));
+  }
+
+  return stat;
+}
+
+Fw::SerializeStatus PassiveTestTesterBase::PassiveTestComponentBaseParamExternalDelegate ::
+  serializeParam(
+      const FwPrmIdType baseId,
+      const FwPrmIdType localId,
+      Fw::SerializeBufferBase& buff
+  ) const
+{
+  Fw::SerializeStatus stat;
+  (void) baseId;
+
+  // Serialize the parameter based on ID
+  switch(localId)
+  {
+    // ParamI32Ext
+    case PassiveTestComponentBase::PARAMID_PARAMI32EXT:
+      stat = buff.serialize(this->m_param_ParamI32Ext);
+      break;
+    // ParamF64Ext
+    case PassiveTestComponentBase::PARAMID_PARAMF64EXT:
+      stat = buff.serialize(this->m_param_ParamF64Ext);
+      break;
+    // ParamStringExt
+    case PassiveTestComponentBase::PARAMID_PARAMSTRINGEXT:
+      stat = buff.serialize(this->m_param_ParamStringExt);
+      break;
+    // ParamEnumExt
+    case PassiveTestComponentBase::PARAMID_PARAMENUMEXT:
+      stat = buff.serialize(this->m_param_ParamEnumExt);
+      break;
+    // ParamArrayExt
+    case PassiveTestComponentBase::PARAMID_PARAMARRAYEXT:
+      stat = buff.serialize(this->m_param_ParamArrayExt);
+      break;
+    // ParamStructExt
+    case PassiveTestComponentBase::PARAMID_PARAMSTRUCTEXT:
+      stat = buff.serialize(this->m_param_ParamStructExt);
+      break;
+    default:
+      // Unknown ID; should not have gotten here
+      FW_ASSERT(0, static_cast<FwAssertArgType>(localId));
+  }
+
+  return stat;
+}
+
+// ----------------------------------------------------------------------
 // Component initialization
 // ----------------------------------------------------------------------
 
@@ -3768,6 +3863,360 @@ void PassiveTestTesterBase ::
   }
 }
 
+void PassiveTestTesterBase ::
+  paramSet_ParamI32Ext(
+      const I32& val,
+      Fw::ParamValid valid
+  )
+{
+  this->paramTesterDelegate.m_param_ParamI32Ext = val;
+  this->paramTesterDelegate.m_param_ParamI32Ext_valid = valid;
+}
+
+void PassiveTestTesterBase ::
+  paramSend_ParamI32Ext(
+      FwEnumStoreType instance,
+      U32 cmdSeq
+  )
+{
+  // Build command for parameter set
+  Fw::CmdArgBuffer args;
+  FW_ASSERT(
+    args.serialize(this->paramTesterDelegate.m_param_ParamI32Ext) == Fw::FW_SERIALIZE_OK
+  );
+
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  PassiveTestComponentBase::OPCODE_PARAMI32EXT_SET + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void PassiveTestTesterBase ::
+  paramSave_ParamI32Ext(
+      FwEnumStoreType instance,
+      U32 cmdSeq
+  )
+{
+  Fw::CmdArgBuffer args;
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = PassiveTestComponentBase::OPCODE_PARAMI32EXT_SAVE + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void PassiveTestTesterBase ::
+  paramSet_ParamF64Ext(
+      const F64& val,
+      Fw::ParamValid valid
+  )
+{
+  this->paramTesterDelegate.m_param_ParamF64Ext = val;
+  this->paramTesterDelegate.m_param_ParamF64Ext_valid = valid;
+}
+
+void PassiveTestTesterBase ::
+  paramSend_ParamF64Ext(
+      FwEnumStoreType instance,
+      U32 cmdSeq
+  )
+{
+  // Build command for parameter set
+  Fw::CmdArgBuffer args;
+  FW_ASSERT(
+    args.serialize(this->paramTesterDelegate.m_param_ParamF64Ext) == Fw::FW_SERIALIZE_OK
+  );
+
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  PassiveTestComponentBase::OPCODE_PARAMF64EXT_SET + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void PassiveTestTesterBase ::
+  paramSave_ParamF64Ext(
+      FwEnumStoreType instance,
+      U32 cmdSeq
+  )
+{
+  Fw::CmdArgBuffer args;
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = PassiveTestComponentBase::OPCODE_PARAMF64EXT_SAVE + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void PassiveTestTesterBase ::
+  paramSet_ParamStringExt(
+      const Fw::StringBase& val,
+      Fw::ParamValid valid
+  )
+{
+  this->paramTesterDelegate.m_param_ParamStringExt = val;
+  this->paramTesterDelegate.m_param_ParamStringExt_valid = valid;
+}
+
+void PassiveTestTesterBase ::
+  paramSend_ParamStringExt(
+      FwEnumStoreType instance,
+      U32 cmdSeq
+  )
+{
+  // Build command for parameter set
+  Fw::CmdArgBuffer args;
+  FW_ASSERT(
+    args.serialize(this->paramTesterDelegate.m_param_ParamStringExt) == Fw::FW_SERIALIZE_OK
+  );
+
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  PassiveTestComponentBase::OPCODE_PARAMSTRINGEXT_SET + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void PassiveTestTesterBase ::
+  paramSave_ParamStringExt(
+      FwEnumStoreType instance,
+      U32 cmdSeq
+  )
+{
+  Fw::CmdArgBuffer args;
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = PassiveTestComponentBase::OPCODE_PARAMSTRINGEXT_SAVE + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void PassiveTestTesterBase ::
+  paramSet_ParamEnumExt(
+      const E& val,
+      Fw::ParamValid valid
+  )
+{
+  this->paramTesterDelegate.m_param_ParamEnumExt = val;
+  this->paramTesterDelegate.m_param_ParamEnumExt_valid = valid;
+}
+
+void PassiveTestTesterBase ::
+  paramSend_ParamEnumExt(
+      FwEnumStoreType instance,
+      U32 cmdSeq
+  )
+{
+  // Build command for parameter set
+  Fw::CmdArgBuffer args;
+  FW_ASSERT(
+    args.serialize(this->paramTesterDelegate.m_param_ParamEnumExt) == Fw::FW_SERIALIZE_OK
+  );
+
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  PassiveTestComponentBase::OPCODE_PARAMENUMEXT_SET + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void PassiveTestTesterBase ::
+  paramSave_ParamEnumExt(
+      FwEnumStoreType instance,
+      U32 cmdSeq
+  )
+{
+  Fw::CmdArgBuffer args;
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = PassiveTestComponentBase::OPCODE_PARAMENUMEXT_SAVE + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void PassiveTestTesterBase ::
+  paramSet_ParamArrayExt(
+      const A& val,
+      Fw::ParamValid valid
+  )
+{
+  this->paramTesterDelegate.m_param_ParamArrayExt = val;
+  this->paramTesterDelegate.m_param_ParamArrayExt_valid = valid;
+}
+
+void PassiveTestTesterBase ::
+  paramSend_ParamArrayExt(
+      FwEnumStoreType instance,
+      U32 cmdSeq
+  )
+{
+  // Build command for parameter set
+  Fw::CmdArgBuffer args;
+  FW_ASSERT(
+    args.serialize(this->paramTesterDelegate.m_param_ParamArrayExt) == Fw::FW_SERIALIZE_OK
+  );
+
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  PassiveTestComponentBase::OPCODE_PARAMARRAYEXT_SET + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void PassiveTestTesterBase ::
+  paramSave_ParamArrayExt(
+      FwEnumStoreType instance,
+      U32 cmdSeq
+  )
+{
+  Fw::CmdArgBuffer args;
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = PassiveTestComponentBase::OPCODE_PARAMARRAYEXT_SAVE + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void PassiveTestTesterBase ::
+  paramSet_ParamStructExt(
+      const S& val,
+      Fw::ParamValid valid
+  )
+{
+  this->paramTesterDelegate.m_param_ParamStructExt = val;
+  this->paramTesterDelegate.m_param_ParamStructExt_valid = valid;
+}
+
+void PassiveTestTesterBase ::
+  paramSend_ParamStructExt(
+      FwEnumStoreType instance,
+      U32 cmdSeq
+  )
+{
+  // Build command for parameter set
+  Fw::CmdArgBuffer args;
+  FW_ASSERT(
+    args.serialize(this->paramTesterDelegate.m_param_ParamStructExt) == Fw::FW_SERIALIZE_OK
+  );
+
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  PassiveTestComponentBase::OPCODE_PARAMSTRUCTEXT_SET + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
+void PassiveTestTesterBase ::
+  paramSave_ParamStructExt(
+      FwEnumStoreType instance,
+      U32 cmdSeq
+  )
+{
+  Fw::CmdArgBuffer args;
+  const U32 idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = PassiveTestComponentBase::OPCODE_PARAMSTRUCTEXT_SAVE + idBase;
+
+  if (not this->m_to_cmdIn[0].isConnected()) {
+    printf("Test Command Output port not connected!\n");
+  }
+  else {
+    this->m_to_cmdIn[0].invoke(
+      _prmOpcode,
+      cmdSeq,
+      args
+    );
+  }
+}
+
 // ----------------------------------------------------------------------
 // Functions to test time
 // ----------------------------------------------------------------------
@@ -4216,6 +4665,66 @@ Fw::ParamValid PassiveTestTesterBase ::
       break;
     };
 
+    case PassiveTestComponentBase::PARAMID_PARAMI32EXT: {
+      _status = val.serialize(_testerBase->paramTesterDelegate.m_param_ParamI32Ext);
+      _ret = _testerBase->paramTesterDelegate.m_param_ParamI32Ext_valid;
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      break;
+    };
+
+    case PassiveTestComponentBase::PARAMID_PARAMF64EXT: {
+      _status = val.serialize(_testerBase->paramTesterDelegate.m_param_ParamF64Ext);
+      _ret = _testerBase->paramTesterDelegate.m_param_ParamF64Ext_valid;
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      break;
+    };
+
+    case PassiveTestComponentBase::PARAMID_PARAMSTRINGEXT: {
+      _status = val.serialize(_testerBase->paramTesterDelegate.m_param_ParamStringExt);
+      _ret = _testerBase->paramTesterDelegate.m_param_ParamStringExt_valid;
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      break;
+    };
+
+    case PassiveTestComponentBase::PARAMID_PARAMENUMEXT: {
+      _status = val.serialize(_testerBase->paramTesterDelegate.m_param_ParamEnumExt);
+      _ret = _testerBase->paramTesterDelegate.m_param_ParamEnumExt_valid;
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      break;
+    };
+
+    case PassiveTestComponentBase::PARAMID_PARAMARRAYEXT: {
+      _status = val.serialize(_testerBase->paramTesterDelegate.m_param_ParamArrayExt);
+      _ret = _testerBase->paramTesterDelegate.m_param_ParamArrayExt_valid;
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      break;
+    };
+
+    case PassiveTestComponentBase::PARAMID_PARAMSTRUCTEXT: {
+      _status = val.serialize(_testerBase->paramTesterDelegate.m_param_ParamStructExt);
+      _ret = _testerBase->paramTesterDelegate.m_param_ParamStructExt_valid;
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      break;
+    };
+
     default:
       FW_ASSERT(0, static_cast<FwAssertArgType>(id));
       break;
@@ -4323,6 +4832,90 @@ void PassiveTestTesterBase ::
       FW_ASSERT(
         ParamStructVal ==
         _testerBase->m_param_ParamStruct
+      );
+      break;
+    };
+
+    case PassiveTestComponentBase::PARAMID_PARAMI32EXT: {
+      I32 ParamI32ExtVal;
+      _status = val.deserialize(ParamI32ExtVal);
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      FW_ASSERT(
+        ParamI32ExtVal ==
+        _testerBase->paramTesterDelegate.m_param_ParamI32Ext
+      );
+      break;
+    };
+
+    case PassiveTestComponentBase::PARAMID_PARAMF64EXT: {
+      F64 ParamF64ExtVal;
+      _status = val.deserialize(ParamF64ExtVal);
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      FW_ASSERT(
+        ParamF64ExtVal ==
+        _testerBase->paramTesterDelegate.m_param_ParamF64Ext
+      );
+      break;
+    };
+
+    case PassiveTestComponentBase::PARAMID_PARAMSTRINGEXT: {
+      Fw::ParamString ParamStringExtVal;
+      _status = val.deserialize(ParamStringExtVal);
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      FW_ASSERT(
+        ParamStringExtVal ==
+        _testerBase->paramTesterDelegate.m_param_ParamStringExt
+      );
+      break;
+    };
+
+    case PassiveTestComponentBase::PARAMID_PARAMENUMEXT: {
+      E ParamEnumExtVal;
+      _status = val.deserialize(ParamEnumExtVal);
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      FW_ASSERT(
+        ParamEnumExtVal ==
+        _testerBase->paramTesterDelegate.m_param_ParamEnumExt
+      );
+      break;
+    };
+
+    case PassiveTestComponentBase::PARAMID_PARAMARRAYEXT: {
+      A ParamArrayExtVal;
+      _status = val.deserialize(ParamArrayExtVal);
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      FW_ASSERT(
+        ParamArrayExtVal ==
+        _testerBase->paramTesterDelegate.m_param_ParamArrayExt
+      );
+      break;
+    };
+
+    case PassiveTestComponentBase::PARAMID_PARAMSTRUCTEXT: {
+      S ParamStructExtVal;
+      _status = val.deserialize(ParamStructExtVal);
+      FW_ASSERT(
+        _status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_status)
+      );
+      FW_ASSERT(
+        ParamStructExtVal ==
+        _testerBase->paramTesterDelegate.m_param_ParamStructExt
       );
       break;
     };
@@ -4566,3 +5159,7 @@ F32 PassiveTestTesterBase ::
     s
   );
 }
+
+// ----------------------------------------------------------------------
+// Parameter delegates
+// ----------------------------------------------------------------------

@@ -50,10 +50,10 @@ class QueuedParamsComponentBase :
     // Friend classes
     // ----------------------------------------------------------------------
 
-    //! Friend class for white-box testing
-    friend class QueuedParamsComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class QueuedParamsTesterBase;
+    //! Friend class tester implementation to support white-box testing
+    friend class QueuedParamsTester;
 
   PROTECTED:
 
