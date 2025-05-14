@@ -1,7 +1,9 @@
 package fpp.compiler.analysis
 
-import fpp.compiler.ast._
-import fpp.compiler.util._
+import fpp.compiler.ast.*
+import fpp.compiler.util.*
+
+import scala.annotation.tailrec
 
 /** The analysis data structure */
 case class Analysis(
@@ -59,6 +61,10 @@ case class Analysis(
   componentInstanceMap: Map[Symbol.ComponentInstance, ComponentInstance] = Map(),
   /** The component instance under construction */
   componentInstance: Option[ComponentInstance] = None,
+  /** The map from component symbols to components */
+  interfaceMap: Map[Symbol.Interface, Interface] = Map(),
+  /** The interface under construction */
+  interface: Option[Interface] = None,
   /** The map from topology symbols to topologies */
   topologyMap: Map[Symbol.Topology, Topology] = Map(),
   /** The topology under construction */
@@ -114,6 +120,7 @@ case class Analysis(
 
   /** Compute the common type for a list of node Ids */
   def commonType(nodes: List[AstNode.Id], emptyListError: Error): Result.Result[Type] = {
+    @tailrec
     def helper(prevNodeId: AstNode.Id, prevType: Type, nextNodes: List[AstNode.Id]): Result.Result[Type] = {
       nextNodes match {
         case Nil => Right(prevType)
@@ -232,6 +239,25 @@ case class Analysis(
     for (cis <- getComponentInstanceSymbol(id))
       yield this.componentInstanceMap(cis)
 
+  /** Gets an interface symbol from use-def map */
+  def getInterfaceSymbol(id: AstNode.Id): Result.Result[Symbol.Interface] =
+    this.useDefMap(id) match {
+      case ts: Symbol.Interface => Right(ts)
+      case s => Left(
+        SemanticError.InvalidSymbol(
+          s.getUnqualifiedName,
+          Locations.get(id),
+          "not a interface symbol",
+          s.getLoc
+        )
+      )
+    }
+
+  /** Gets an interface from the interface definition map */
+  def getInterface(id: AstNode.Id): Result.Result[Interface] =
+    for (cis <- getInterfaceSymbol(id))
+      yield this.interfaceMap(cis)
+
   /** Gets a topology symbol from use-def map */
   def getTopologySymbol(id: AstNode.Id): Result.Result[Symbol.Topology] =
     this.useDefMap(id) match {
@@ -288,7 +314,7 @@ case class Analysis(
       ))
   }
 
-  /** Gets a nonnegative int value from an AST node */
+  /** Gets a non-negative int value from an AST node */
   def getNonnegativeIntValue(id: AstNode.Id): Result.Result[Int] =
     for {
       v <- getIntValue(id)
@@ -309,12 +335,12 @@ case class Analysis(
   def getIntValueOpt[T](nodeOpt: Option[AstNode[T]]): Result.Result[Option[Int]] =
     Result.mapOpt(nodeOpt, (node: AstNode[T]) => getIntValue(node.id))
 
-  /** Gets an optional nonnegative BigInt value from an AST ndoe */
+  /** Gets an optional non-negative BigInt value from an AST node */
   def getNonnegativeBigIntValueOpt[T](nodeOpt: Option[AstNode[T]]):
     Result.Result[Option[BigInt]] =
     Result.mapOpt(nodeOpt, (node: AstNode[T]) => getNonnegativeBigIntValue(node.id))
 
-  /** Gets an optional nonnegative int value from an AST ndoe */
+  /** Gets an optional non-negative int value from an AST node */
   def getNonnegativeIntValueOpt[T](nodeOpt: Option[AstNode[T]]): Result.Result[Option[Int]] =
     Result.mapOpt(nodeOpt, (node: AstNode[T]) => getNonnegativeIntValue(node.id))
 

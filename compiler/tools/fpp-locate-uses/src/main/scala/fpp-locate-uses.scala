@@ -77,6 +77,7 @@ object FPPLocateUses {
           case _: Symbol.Constant => Ast.SpecLoc.Constant
           case _: Symbol.Enum => Ast.SpecLoc.Type
           case _: Symbol.EnumConstant => Ast.SpecLoc.Type
+          case _: Symbol.Interface => Ast.SpecLoc.Interface
           case _: Symbol.Module => throw InternalError("use should not be module symbol")
           case _: Symbol.Port => Ast.SpecLoc.Port
           case _: Symbol.StateMachine => Ast.SpecLoc.StateMachine
