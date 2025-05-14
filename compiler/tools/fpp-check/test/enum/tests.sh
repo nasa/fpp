@@ -1,4 +1,6 @@
 tests="
+alias_rep_type_ok
+bad_alias_rep_type
 bad_constant
 bad_default
 bad_rep_type

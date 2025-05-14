@@ -59,7 +59,7 @@ object CheckTypeUses extends UseAnalyzer {
         repType <- {
           data.typeName match {
             case Some(typeName) => {
-              val repType = a.typeMap(typeName.id)
+              val repType = a.typeMap(typeName.id).getUnderlyingType
               val loc = Locations.get(typeName.id)
               repType match {
                 case t : Type.PrimitiveInt => Right(t)
