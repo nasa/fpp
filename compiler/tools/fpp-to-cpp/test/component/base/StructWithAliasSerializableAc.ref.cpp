@@ -167,7 +167,7 @@ void StructWithAlias ::
 {
   static const char* formatString =
     "( "
-    "x = %s, "
+    "x = %" PRIu32 ", "
     "y = %s, "
     "z = %s, "
     "w = %s, "

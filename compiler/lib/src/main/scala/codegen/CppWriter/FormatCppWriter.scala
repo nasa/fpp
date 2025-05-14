@@ -15,18 +15,31 @@ object FormatCppWriter {
       case (TypeUtils.Signed, w) => s"%\" PRIi${w.toString} \""
     }
 
-  /** Write an FPP format field as a C++ format string */
-  def writeField(f: Format.Field, tn: AstNode[Ast.TypeName]): String = {
-    import Format.Field._
-    def default = tn.data match {
-      case Ast.TypeNameFloat(_) => "%f"
-      case Ast.TypeNameInt(name) => getDecimalFormat(name)
-      case Ast.TypeNameQualIdent(_) => "%s"
-      case Ast.TypeNameBool => "%d" // C++ boolean is promoted to int in printf
-      case Ast.TypeNameString(_) => "%s"
+  /** Get the PRI macro for a decimal integer type */
+  def getDecimalFormat(pit: Type.PrimitiveInt): String =
+    (pit.signedness, pit.bitWidth) match {
+      case (Type.PrimitiveInt.Unsigned, w) => s"%\" PRIu${w.toString} \""
+      case (Type.PrimitiveInt.Signed, w) => s"%\" PRIi${w.toString} \""
     }
-    def integer(t: Integer.Type) = tn.data match {
-      case Ast.TypeNameInt(name) => t match {
+
+  /** Write an FPP format field as a C++ format string */
+  def writeField(s: CppWriterState, f: Format.Field, tn: AstNode[Ast.TypeName]): String = {
+    import Format.Field._
+//    def default = tn.data match {
+//      case Ast.TypeNameFloat(_) => "%f"
+//      case Ast.TypeNameInt(name) => getDecimalFormat(name)
+//      case Ast.TypeNameQualIdent(_) => "%s"
+//      case Ast.TypeNameBool => "%d" // C++ boolean is promoted to int in printf
+//      case Ast.TypeNameString(_) => "%s"
+//    }
+    def default = s.a.typeMap(tn.id).getUnderlyingType  match {
+      case _: Type.Float => "%f"
+      case pit: Type.PrimitiveInt => getDecimalFormat(pit)
+      case Type.Boolean => "%d" // C++ Boolean is promoted to int in printf
+      case _ => "%s"
+    }
+    def integer(it: Integer.Type) = tn.data match {
+      case Ast.TypeNameInt(name) => it match {
         case Integer.Character => "%c"
         case Integer.Decimal => getDecimalFormat(name)
         case Integer.Hexadecimal => s"%\" PRIx${TypeUtils.width(name).toString} \""
@@ -34,13 +47,13 @@ object FormatCppWriter {
       }
       case _ => default
     }
-    def rational(precision: Option[BigInt], t: Rational.Type) = tn.data match {
+    def rational(precision: Option[BigInt], rt: Rational.Type) = tn.data match {
       case Ast.TypeNameFloat(_) =>
         val precisionStr = precision match {
           case Some(p) => s".${p.toString}"
           case None => ""
         }
-        t match {
+        rt match {
           case Rational.Exponent => s"%${precisionStr}e"
           case Rational.Fixed => s"%${precisionStr}f"
           case Rational.General => s"%${precisionStr}g"
@@ -50,15 +63,15 @@ object FormatCppWriter {
 
     f match {
       case Default => default
-      case Integer(t) => integer(t)
-      case Rational(precision, t) => rational(precision, t)
+      case Integer(it) => integer(it)
+      case Rational(precision, rt) => rational(precision, rt)
     }
   }
 
-  def write(f: Format, tn: AstNode[Ast.TypeName]): String = {
-    f.fields.foldLeft(escapePercent(f.prefix))((a, s) =>
-      a + (s match {
-        case (field, suffix) => writeField(field, tn) + escapePercent(suffix)
+  def write(s: CppWriterState, f: Format, tn: AstNode[Ast.TypeName]): String = {
+    f.fields.foldLeft(escapePercent(f.prefix))((a, fs) =>
+      a + (fs match {
+        case (field, suffix) => writeField(s, field, tn) + escapePercent(suffix)
       })
     )
   }
