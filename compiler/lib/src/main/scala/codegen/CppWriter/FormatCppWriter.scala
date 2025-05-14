@@ -9,13 +9,6 @@ import fpp.compiler.util._
 object FormatCppWriter {
 
   /** Get the PRI macro for a decimal integer type */
-  def getDecimalFormat(name: Ast.TypeInt): String =
-    (TypeUtils.signedness(name), TypeUtils.width(name)) match {
-      case (TypeUtils.Unsigned, w) => s"%\" PRIu${w.toString} \""
-      case (TypeUtils.Signed, w) => s"%\" PRIi${w.toString} \""
-    }
-
-  /** Get the PRI macro for a decimal integer type */
   def getDecimalFormat(pit: Type.PrimitiveInt): String =
     (pit.signedness, pit.bitWidth) match {
       case (Type.PrimitiveInt.Unsigned, w) => s"%\" PRIu${w.toString} \""
@@ -25,25 +18,18 @@ object FormatCppWriter {
   /** Write an FPP format field as a C++ format string */
   def writeField(s: CppWriterState, f: Format.Field, tn: AstNode[Ast.TypeName]): String = {
     import Format.Field._
-//    def default = tn.data match {
-//      case Ast.TypeNameFloat(_) => "%f"
-//      case Ast.TypeNameInt(name) => getDecimalFormat(name)
-//      case Ast.TypeNameQualIdent(_) => "%s"
-//      case Ast.TypeNameBool => "%d" // C++ boolean is promoted to int in printf
-//      case Ast.TypeNameString(_) => "%s"
-//    }
-    def default = s.a.typeMap(tn.id).getUnderlyingType  match {
+    def default = s.a.typeMap(tn.id).getUnderlyingType match {
       case _: Type.Float => "%f"
       case pit: Type.PrimitiveInt => getDecimalFormat(pit)
       case Type.Boolean => "%d" // C++ Boolean is promoted to int in printf
       case _ => "%s"
     }
-    def integer(it: Integer.Type) = tn.data match {
-      case Ast.TypeNameInt(name) => it match {
+    def integer(it: Integer.Type) = s.a.typeMap(tn.id).getUnderlyingType match {
+      case pit: Type.PrimitiveInt => it match {
         case Integer.Character => "%c"
-        case Integer.Decimal => getDecimalFormat(name)
-        case Integer.Hexadecimal => s"%\" PRIx${TypeUtils.width(name).toString} \""
-        case Integer.Octal => s"%\" PRIo${TypeUtils.width(name).toString} \""
+        case Integer.Decimal => getDecimalFormat(pit)
+        case Integer.Hexadecimal => s"%\" PRIx${pit.bitWidth.toString} \""
+        case Integer.Octal => s"%\" PRIo${pit.bitWidth.toString} \""
       }
       case _ => default
     }
