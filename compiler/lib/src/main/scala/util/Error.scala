@@ -302,6 +302,12 @@ sealed trait Error {
       case SemanticError.TypeMismatch(loc, msg) => Error.print (Some(loc)) (msg)
       case SemanticError.UndefinedSymbol(name, loc) =>
         Error.print (Some(loc)) (s"undefined symbol ${name}")
+      case SemanticError.InterfaceImport(
+        importLoc,
+        err
+      ) =>
+        Error.print (Some(importLoc)) (s"failed to import interface")
+        err.print
       case SemanticError.UseDefCycle(loc, msg) => Error.print (Some(loc)) (msg)
       case XmlError.ParseError(file, msg) => Error.printXml (file) (msg)
       case XmlError.SemanticError(file, msg) => Error.printXml (file) (msg)
@@ -626,6 +632,11 @@ object SemanticError {
     baseId2: BigInt,
     name2: String,
     loc2: Location
+  ) extends Error
+  /** Error while importing an interface */
+  final case class InterfaceImport(
+    importLoc: Location,
+    err: Error
   ) extends Error
   /** Passive async input */
   final case class PassiveAsync(loc: Location) extends Error

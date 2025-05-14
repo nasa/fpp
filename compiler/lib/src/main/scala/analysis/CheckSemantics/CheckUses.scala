@@ -123,6 +123,9 @@ object CheckUses extends UseAnalyzer {
   override def topologyUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     helpers.visitQualIdentNode (NameGroup.Topology) (a, node)
 
+  override def interfaceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
+    helpers.visitQualIdentNode (NameGroup.Interface) (a, node)
+
   override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) = {
     val data = node.data
     data match {
