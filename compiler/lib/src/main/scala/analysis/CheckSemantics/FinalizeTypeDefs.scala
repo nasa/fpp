@@ -174,21 +174,6 @@ object FinalizeTypeDefs
     visitIfNeeded(symbol, visitor)(a, aNode)
   }
 
-  override def defTopologyAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
-    for {
-      a <- Result.foldLeft (a.dictionaryTypeSymbolSet.toList) (a) ((a, s) => {
-        val t = a.typeMap(s.getNodeId)
-        val loc = Locations.get(s.getNodeId)
-        t match {
-          case x : Type.AliasType => 
-            if(x.getUnderlyingType.isInt) Right(a)
-            else Left(SemanticError.InvalidType(loc, s"underlying type must be an integer."))
-          case _ => Left(SemanticError.InvalidType(loc, s"type must be an alias of an integer type."))
-        }
-      })
-    } yield a
-  }
-
   override def transUnit(a: Analysis, tu: Ast.TransUnit) =
     super.transUnit(a.copy(visitedSymbolSet = Set()), tu)
 
