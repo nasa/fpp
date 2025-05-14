@@ -5,6 +5,8 @@ import scala.util.parsing.input.Positional
 sealed trait Token extends Positional
 
 object Token {
+  case object EOF extends Token
+
   final case class ACTION() extends Token
   final case class ACTIVE() extends Token
   final case class ACTIVITY() extends Token
@@ -137,4 +139,150 @@ object Token {
   final case class WARNING() extends Token
   final case class WITH() extends Token
   final case class YELLOW() extends Token
+}
+
+enum TokenId {
+  case EOF
+
+  // Identifier (non keyword words)
+  case IDENTIFIER
+
+  // Annotations
+  case POST_ANNOTATION
+  case PRE_ANNOTATION
+
+  // Literals
+  case LITERAL_FLOAT
+  case LITERAL_INT
+  case LITERAL_STRING
+
+  // Keywords
+  case ACTION
+  case ACTIVE
+  case ACTIVITY
+  case ALWAYS
+  case ARRAY
+  case ASSERT
+  case ASYNC
+  case AT
+  case BASE
+  case BLOCK
+  case BOOL
+  case CHANGE
+  case COMMAND
+  case COMPONENT
+  case CONNECTIONS
+  case CONSTANT
+  case CONTAINER
+  case CPU
+  case DEFAULT
+  case DIAGNOSTIC
+  case DO
+  case DROP
+  case ELSE
+  case ENTER
+  case ENTRY
+  case ENUM
+  case EVENT
+  case EXIT
+  case F32
+  case F64
+  case FALSE
+  case FATAL
+  case FORMAT
+  case GET
+  case GROUP
+  case GUARD
+  case GUARDED
+  case HEALTH
+  case HIGH
+  case HOOK
+  case I16
+  case I32
+  case I64
+  case I8
+  case ID
+  case IF
+  case IMPORT
+  case INCLUDE
+  case INITIAL
+  case INPUT
+  case INSTANCE
+  case INTERNAL
+  case CHOICE
+  case LOCATE
+  case LOW
+  case MACHINE
+  case MATCH
+  case MODULE
+  case OMIT
+  case ON
+  case OPCODE
+  case ORANGE
+  case OUTPUT
+  case PACKET
+  case PACKETS
+  case PARAM
+  case PASSIVE
+  case PHASE
+  case PORT
+  case PRIORITY
+  case PRIVATE
+  case PRODUCT
+  case QUEUE
+  case QUEUED
+  case RECORD
+  case RECV
+  case RED
+  case REF
+  case REG
+  case REQUEST
+  case RESP
+  case SAVE
+  case SEND
+  case SERIAL
+  case SET
+  case SEVERITY
+  case SIGNAL
+  case SIZE
+  case STACK
+  case STATE
+  case STRING
+  case STRUCT
+  case SYNC
+  case TELEMETRY
+  case TEXT
+  case THROTTLE
+  case TIME
+  case TOPOLOGY
+  case TRUE
+  case TYPE
+  case U16
+  case U32
+  case U64
+  case U8
+  case UNMATCHED
+  case UPDATE
+  case WARNING
+  case WITH
+  case YELLOW
+
+  // Symbols
+  case COLON
+  case COMMA
+  case DOT
+  case EOL
+  case EQUALS
+  case LBRACE
+  case LBRACKET
+  case LPAREN
+  case MINUS
+  case PLUS
+  case RARROW
+  case RBRACE
+  case RBRACKET
+  case RPAREN
+  case SEMI
+  case SLASH
+  case STAR
 }

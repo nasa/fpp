@@ -19,7 +19,7 @@ String2 ::
   // Construct using element-wise constructor
   *this = String2(
     Fw::String("\"\\"),
-    Fw::String("abc\ndef")
+    Fw::String("abc\ndef\n")
   );
 }
 

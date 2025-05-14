@@ -2617,7 +2617,6 @@ void PassiveParamsTesterBase ::
 {
   PassiveParamsTesterBase* _testerBase = static_cast<PassiveParamsTesterBase*>(callComp);
   Fw::SerializeStatus _status;
-  val.resetSer();
 
   const U32 idBase = _testerBase->getIdBase();
   FW_ASSERT(

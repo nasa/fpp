@@ -8258,16 +8258,17 @@ of the interpreted string is <em>c</em>.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The first extended newline character, if any, after the first <code>"""</code> is
-deleted from the interpreted string.</p>
+<p>Delete the the first extended newline character, if any, immediately after
+the first <code>"""</code> in the literal string.</p>
 </li>
 <li>
-<p>Any whitespace occurring in columns to the left of the first <code>"""</code>
-is deleted from the result of step 1.</p>
-</li>
-<li>
-<p>Any leading and trailing extended newline characters are deleted from the
-result of step 2.</p>
+<p>Let <em>n</em> be the number of leading space characters in the first line of
+the result of item 1.
+For each line <em>L</em> in the multiline string literal, let <em>L'</em> be the corresponding
+line of the interpreted string.
+If <em>L</em> has at least <em>n</em> leading space
+characters, then construct <em>L'</em> by deleting <em>n</em> leading space characters from <em>L'</em>.
+Otherwise construct <em>L'</em> by deleting all leading space characters from <em>L'</em></p>
 </li>
 </ol>
 </div>
@@ -8288,7 +8289,7 @@ The value of the string constant <code>s</code> is <code>"""</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">  """
+<pre class="prettyprint highlight"><code data-lang="fpp">constant s = """
   // This is a multiline string literal
   // It represents some C++ code
   instance.create(0, 1);
@@ -11159,7 +11160,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-04-28 16:57:49 -0700
+Last updated 2025-05-05 16:53:47 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
