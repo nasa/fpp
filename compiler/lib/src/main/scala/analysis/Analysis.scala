@@ -521,7 +521,7 @@ object Analysis {
       val (t, field) = pair
       val loc = Locations.get(node.id)
       for {
-        _ <- if (field.isInteger && !t.isInt)
+        _ <- if (field.isInteger && !t.getUnderlyingType.isInt)
                Left(SemanticError.InvalidFormatString(loc, s"$t is not an integer type"))
              else Right(())
         _ <- field match {
@@ -536,7 +536,7 @@ object Analysis {
                  else Right(())
                case _ => Right(())
              }
-        _ <- if (field.isRational && !t.isFloat)
+        _ <- if (field.isRational && !t.getUnderlyingType.isFloat)
                Left(SemanticError.InvalidFormatString(loc, s"$t is not a floating-point type"))
              else Right(())
       }

@@ -375,6 +375,7 @@ case class StructCppWriter(
             lines("// Call toString for arrays and serializable types"),
           names.flatMap((node, n, tn) => {
             val formatStr = FormatCppWriter.write(
+              s,
               getFormatStr(n),
               node.data.typeName
             )
@@ -500,6 +501,7 @@ case class StructCppWriter(
               lines(astMembers.flatMap((_, node, _) => {
                 val n = node.data.name
                 val formatStr = FormatCppWriter.write(
+                  s,
                   getFormatStr(n),
                   node.data.typeName
                 )

@@ -56,7 +56,7 @@ g++ --std=c++11 \
   $os_flags \
   -DTGT_OS_TYPE_$os_type \
   -I $FPRIME \
-  -I $FPRIME/config \
+  -I $FPRIME/default \
   -I $FPRIME/cmake/platform/types \
   -I . \
   $FPRIME_GCC_FLAGS \

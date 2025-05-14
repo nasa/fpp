@@ -1,6 +1,7 @@
 tests="
 abs_type_ok
 active_no_async_input
+array_alias_format_not_numeric
 array_default_error
 array_format_not_numeric
 array_ok
@@ -12,6 +13,7 @@ enum_undef_constant
 enum_undef_type
 queued_no_async_input
 ok
+struct_alias_format_not_numeric
 struct_default_error
 struct_format_not_numeric
 struct_ok
