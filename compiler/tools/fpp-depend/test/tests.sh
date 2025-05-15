@@ -42,6 +42,7 @@ spec_connection_graph_direct
 spec_connection_graph_pattern
 spec_container
 spec_event
+spec_import_interface
 spec_internal_port
 spec_param
 spec_record

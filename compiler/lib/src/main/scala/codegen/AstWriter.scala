@@ -88,6 +88,19 @@ object AstWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
+  override def defInterfaceAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefInterface]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("def interface") ++
+    (
+      ident(data.name) ++
+      data.members.flatMap(interfaceMember)
+    ).map(indentIn)
+  }
+
   override def defComponentInstanceAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefComponentInstance]]
@@ -668,12 +681,22 @@ object AstWriter extends AstVisitor with LineUtils {
 
   override def specTopImportAnnotatedNode(
     in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecTopImport]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecImport]]
   ) = {
     val (_, node, _) = aNode
     val data = node.data
     lines("spec top import") ++
-    qualIdent(data.top.data).map(indentIn)
+    qualIdent(data.sym.data).map(indentIn)
+  }
+
+  override def specInterfaceImportAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecImport]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("spec interface import") ++
+    qualIdent(data.sym.data).map(indentIn)
   }
 
   override def transUnit(in: In, tu: Ast.TransUnit) =
@@ -752,6 +775,12 @@ object AstWriter extends AstVisitor with LineUtils {
   private def componentMember(member: Ast.ComponentMember) = {
     val (a1, _, a2) = member.node
     val l = matchComponentMember((), member)
+    annotate(a1, l, a2)
+  }
+
+  private def interfaceMember(member: Ast.InterfaceMember) = {
+    val (a1, _, a2) = member.node
+    val l = matchInterfaceMember((), member)
     annotate(a1, l, a2)
   }
 
