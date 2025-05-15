@@ -154,10 +154,10 @@ void Namespace ::
 {
   static const char* formatString =
     "( "
-    "A = %s, "
-    "B = %s, "
-    "C = %s, "
-    "D = %s"
+    "A = %" PRIu32 ", "
+    "B = %" PRIu32 ", "
+    "C = %" PRIu32 ", "
+    "D = %" PRIu32 ""
     " )";
 
   sb.format(

@@ -1,6 +1,9 @@
 tests="
 default_error
 default_ok
+format_alias_not_numeric
+format_alias_numeric
+format_alias_ok
 format_bad_syntax
 format_missing_repl
 format_not_numeric

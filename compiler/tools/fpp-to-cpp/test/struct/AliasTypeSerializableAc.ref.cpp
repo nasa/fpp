@@ -187,7 +187,7 @@ void AliasType ::
 {
   static const char* formatString =
     "( "
-    "x = %s, "
+    "x = %" PRIu16 ", "
     "y = %s, "
     "z = [ %s ]"
     " )";

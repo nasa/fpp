@@ -450,11 +450,10 @@ case class EnumCppWriter(
     cs.tail.map(c => line(s"|| ${writeInterval(c)}")).map(indentIn)
 
   private def writeFormatStr = {
-    val typeName = data.typeName match {
-      case Some(AstNode(Ast.TypeNameInt(name), _)) => name
-      case _ => Ast.I32()
-    }
-    FormatCppWriter.getDecimalFormat(typeName)
+    val pit @ Type.PrimitiveInt(_) =
+      data.typeName.map(tn => s.a.typeMap(tn.id).getUnderlyingType).
+      getOrElse(Type.I32)
+    FormatCppWriter.getDecimalFormat(pit)
   }
 
 }

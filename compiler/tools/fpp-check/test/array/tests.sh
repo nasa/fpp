@@ -6,6 +6,10 @@ default_ok
 enum_default_error
 enum_default_ok
 enum_no_default_ok
+format_alias_float_not_int
+format_alias_int_not_rational
+format_alias_not_numeric
+format_alias_ok
 format_bad_syntax
 format_float_not_int
 format_int_not_rational

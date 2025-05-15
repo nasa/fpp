@@ -1,3 +1,9 @@
+alias_serial_type()
+{
+  update "-p $PWD" alias_serial_type
+  move_cpp AliasSerialTypeEnum
+}
+
 default()
 {
   update "-p $PWD" default
