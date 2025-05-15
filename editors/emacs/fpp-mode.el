@@ -46,7 +46,7 @@
     "drop" "else" "entry" "event" "exit"
     "false" "fatal" "format" "get" "guard"
     "guarded" "health" "high" "hook" "id" "if" "import"
-    "include" "initial" "input" "internal"
+    "include" "initial" "input" "interface" "internal"
     "locate" "low" "match" "on"  "opcode" "orange"
     "output" "param" "passive" "phase"  "priority"
     "private" "queue"  "queued" "raw" "recv" "red"

@@ -3,7 +3,9 @@
 A *port instance specifier* specifies an instantiated
 <<Definitions_Port-Definitions,port>> as part
 of a
-<<Definitions_Component-Definitions,component definition>>.
+<<Definitions_Component-Definitions,component definition>>
+or a
+<<Definitions_Port-Interface-Definitions,port interface definition>>.
 
 ==== Syntax
 

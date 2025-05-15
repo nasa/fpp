@@ -65,9 +65,9 @@ diagnostic
 do
 drop
 else
+enter
 entry
 enum
-enter
 event
 exit
 false
@@ -87,6 +87,7 @@ include
 initial
 input
 instance
+interface
 internal
 locate
 low
