@@ -769,8 +769,8 @@ case class ComponentTesterBaseWriter(
             lines(
               s"""|// Call output command port
                   |FwOpcodeType _opcode;
-                  |const U32 idBase = this->getIdBase();
-                  |_opcode = $className::${commandConstantName(cmd)} + idBase;
+                  |const FwBaseIdType idBase = this->getIdBase();
+                  |_opcode = $className::${commandConstantName(cmd)} + static_cast<FwOpcodeType>(idBase);
                   |"""
             ),
             cmdPortInvocation
@@ -818,8 +818,8 @@ case class ComponentTesterBaseWriter(
           CppDoc.Type("void"),
           List.concat(
             lines(
-              s"""|const U32 idBase = this->getIdBase();
-                  |FwOpcodeType _opcode = opCode + idBase;
+              s"""|const FwBaseIdType idBase = this->getIdBase();
+                  |FwOpcodeType _opcode = opCode + static_cast<FwOpcodeType>(idBase);
                   |
                   |"""
             ),
@@ -1005,7 +1005,7 @@ case class ComponentTesterBaseWriter(
         lines(
           """|args.resetDeser();
              |
-             |const U32 idBase = this->getIdBase();
+             |const FwBaseIdType idBase = this->getIdBase();
              |FW_ASSERT(
              |  id >= idBase,
              |  static_cast<FwAssertArgType>(id),
@@ -1157,7 +1157,7 @@ case class ComponentTesterBaseWriter(
             lines(
               """|val.resetDeser();
                  |
-                 |const U32 idBase = this->getIdBase();
+                 |const FwBaseIdType idBase = this->getIdBase();
                  |FW_ASSERT(
                  |  id >= idBase,
                  |  static_cast<FwAssertArgType>(id),
@@ -1279,8 +1279,8 @@ case class ComponentTesterBaseWriter(
                     |  args.serialize(this->$paramVar) == Fw::FW_SERIALIZE_OK
                     |);
                     |
-                    |const U32 idBase = this->getIdBase();
-                    |FwOpcodeType _prmOpcode =  $className::$constantName + idBase;
+                    |const FwBaseIdType idBase = this->getIdBase();
+                    |FwOpcodeType _prmOpcode =  $className::$constantName + static_cast<FwOpcodeType>(idBase);
                     |
                     |if (not this->$portVar[0].isConnected()) {
                     |  printf("Test Command Output port not connected!\\n");
@@ -1313,8 +1313,8 @@ case class ComponentTesterBaseWriter(
               val varName = testerPortVariableName(cmdRecvPort.get)
               lines(
               s"""|Fw::CmdArgBuffer args;
-                  |const U32 idBase = this->getIdBase();
-                  |FwOpcodeType _prmOpcode = $className::$constantName + idBase;
+                  |const FwBaseIdType idBase = this->getIdBase();
+                  |FwOpcodeType _prmOpcode = $className::$constantName + static_cast<FwOpcodeType>(idBase);
                   |
                   |if (not this->$varName[0].isConnected()) {
                   |  printf("Test Command Output port not connected!\\n");
@@ -1347,7 +1347,7 @@ case class ComponentTesterBaseWriter(
           s"""|Fw::ParamValid _ret = Fw::ParamValid::VALID;
               |$value.resetSer();
               |
-              |const U32 idBase = _testerBase->getIdBase();
+              |const FwBaseIdType idBase = _testerBase->getIdBase();
               |FW_ASSERT(
               |  $id >= idBase,
               |  static_cast<FwAssertArgType>($id),
@@ -1401,7 +1401,7 @@ case class ComponentTesterBaseWriter(
       guardedList (hasParameters) (lines("Fw::SerializeStatus _status;")),
       lines(
         s"""|
-            |const U32 idBase = _testerBase->getIdBase();
+            |const FwBaseIdType idBase = _testerBase->getIdBase();
             |FW_ASSERT(
             |  $id >= idBase,
             |  static_cast<FwAssertArgType>($id),
