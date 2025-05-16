@@ -5,12 +5,17 @@ multipleTops()
   move_json SecondTop
 }
 
+basic()
+{
+  update "-i fwTypes.fpp -p 1.0.0 -f 3.4.3" basic
+  move_json Basic
+}
+
 dataProducts()
 {
   update "-i builtin.fpp,fwTypes.fpp -p 1.0.0 -f 3.4.3" dataProducts
   move_json BasicDp
 }
-
 
 duplicate()
 {

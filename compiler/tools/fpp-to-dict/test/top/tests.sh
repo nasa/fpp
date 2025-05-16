@@ -1,5 +1,6 @@
 tests="
 multipleTops
+basic
 dataProducts
 duplicate
 missingFwOpcodeType

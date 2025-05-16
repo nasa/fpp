@@ -9,11 +9,10 @@ final case class DictionaryUsedSymbols(a: Analysis, t: Topology) {
     d.copy(usedSymbolSet = getUsedSymbolSet)
 
   private def getUsedSymbolSet: Set[Symbol] =
-    t.instanceMap.keys.toSet.flatMap(getUsedSymbolsForInstance)
+    t.instanceMap.keys.toSet.flatMap(getUsedSymbolsForInstance) ++ a.dictionaryTypeSymbolSet
 
   private def getUsedSymbolsForInstance(ci: ComponentInstance) = {
     val component = ci.component
-    val dictionaryTypeSymbols = a.dictionaryTypeSymbolSet
     val commandSymbols = getUsedSymbolsForSpecifier(
       component.commandMap,
       {
@@ -43,7 +42,6 @@ final case class DictionaryUsedSymbols(a: Analysis, t: Topology) {
       container => UsedSymbols.specContainerAnnotatedNode(a, container.aNode)
     )
     Set.concat(
-      dictionaryTypeSymbols,
       commandSymbols,
       eventSymbols,
       tlmChannelSymbols,

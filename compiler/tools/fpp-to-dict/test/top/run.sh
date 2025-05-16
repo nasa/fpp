@@ -7,6 +7,13 @@ multipleTops()
     diff_json SecondTop
 }
 
+basic()
+{
+  run_test "-i fwTypes.fpp -p 1.0.0 -f 3.4.3" basic && \
+    validate_json_schema Basic && \
+    diff_json Basic
+}
+
 dataProducts()
 {
   run_test "-i builtin.fpp,fwTypes.fpp -p 1.0.0 -f 3.4.3" dataProducts && \
