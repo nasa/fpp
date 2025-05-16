@@ -24,6 +24,15 @@ object ConstructDictionaryMap
     }
     val a1 = a.copy(topology = Some(t), dictionary = Some(d))
     for {
+      a <- Result.foldLeft (a.dictionaryTypeSymbolSet.toList) (a) ((a, s) => {
+        val loc = Locations.get(s.getNodeId)
+        a.typeMap(s.getNodeId) match {
+          case x : Type.AliasType => 
+            if(x.getUnderlyingType.isInt) Right(a)
+            else Left(SemanticError.InvalidType(loc, s"underlying type must be an integer."))
+          case _ => Left(SemanticError.InvalidType(loc, s"type must be an alias of an integer type."))
+        }
+      })
       a <- super.defTopologyAnnotatedNode(a1, aNode)
     }
     yield {

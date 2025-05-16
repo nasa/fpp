@@ -11,34 +11,6 @@
   },
   "typeDefinitions" : [
     {
-      "kind" : "struct",
-      "qualifiedName" : "Module1.S2",
-      "members" : {
-        "x" : {
-          "type" : {
-            "name" : "Module1.E2",
-            "kind" : "qualifiedIdentifier"
-          },
-          "index" : 0
-        },
-        "y" : {
-          "type" : {
-            "name" : "Module1.EnumArray",
-            "kind" : "qualifiedIdentifier"
-          },
-          "index" : 1
-        }
-      },
-      "default" : {
-        "x" : "Module1.E2.PASS",
-        "y" : [
-          "Module1.E3.YES",
-          "Module1.E3.YES",
-          "Module1.E3.YES"
-        ]
-      }
-    },
-    {
       "kind" : "enum",
       "qualifiedName" : "Module1.E2",
       "representationType" : {
@@ -58,6 +30,22 @@
         }
       ],
       "default" : "Module1.E2.PASS"
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwEventIdType",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
     },
     {
       "kind" : "alias",
@@ -243,6 +231,22 @@
     },
     {
       "kind" : "alias",
+      "qualifiedName" : "FwPacketDescriptorType",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
       "qualifiedName" : "Module1.AliasT3",
       "type" : {
         "name" : "string",
@@ -321,6 +325,50 @@
       "annotation" : "An array of 3 enum values"
     },
     {
+      "kind" : "alias",
+      "qualifiedName" : "FwTlmPacketizeIdType",
+      "type" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "struct",
+      "qualifiedName" : "Module1.S2",
+      "members" : {
+        "x" : {
+          "type" : {
+            "name" : "Module1.E2",
+            "kind" : "qualifiedIdentifier"
+          },
+          "index" : 0
+        },
+        "y" : {
+          "type" : {
+            "name" : "Module1.EnumArray",
+            "kind" : "qualifiedIdentifier"
+          },
+          "index" : 1
+        }
+      },
+      "default" : {
+        "x" : "Module1.E2.PASS",
+        "y" : [
+          "Module1.E3.YES",
+          "Module1.E3.YES",
+          "Module1.E3.YES"
+        ]
+      }
+    },
+    {
       "kind" : "array",
       "qualifiedName" : "Module1.F64x4",
       "size" : 4,
@@ -354,6 +402,38 @@
         4
       ],
       "annotation" : "An array of 4 U32 values"
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwOpcodeType",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwChanIdType",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
     }
   ],
   "commands" : [
