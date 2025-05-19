@@ -14625,9 +14625,28 @@ The JSON format is specified in the
 documentation</a>.</p>
 </div>
 <div class="paragraph">
-<p>When generating dictionaries with <code>fpp-to-dict</code>, the following types must be defined
-in FPP (either in the input model itself or in a dependency file) and each type must be
-an alias of an integer type:</p>
+<p>Here is a common use case:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The input files <em>F</em> define a single topology <em>T</em>.
+<em>T</em> describes all the component instances and connections in a FSW
+application, and the generated dictionary <em>T</em> <code>TopologyDictionary.json</code>
+is the dictionary for the application.</p>
+</li>
+<li>
+<p>If <em>T</em> imports subtopologies, then those subtopologies are defined
+in the dependency files <em>D</em>.
+That way the subtopologies are part of the model, but no dictionaries
+are generated for them.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>F Prime configuration:</strong>
+When you run <code>fpp-to-dict</code> on an FPP model, the model must define the following
+types:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -14649,28 +14668,13 @@ an alias of an integer type:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>For more information on defining types, see the
-<a href="#Defining-Types_Alias-Type-Definitions">alias type
-definition</a> section.</p>
-</div>
-<div class="paragraph">
-<p>Here is a common use case:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>The input files <em>F</em> define a single topology <em>T</em>.
-<em>T</em> describes all the component instances and connections in a FSW
-application, and the generated dictionary <em>T</em> <code>TopologyDictionary.json</code>
-is the dictionary for the application.</p>
-</li>
-<li>
-<p>If <em>T</em> imports subtopologies, then those subtopologies are defined
-in the dependency files <em>D</em>.
-That way the subtopologies are part of the model, but no dictionaries
-are generated for them.</p>
-</li>
-</ul>
+<p>These types are required by the F Prime GDS, so they are included in the dictionary.
+Each of these types must be an alias of an integer type.
+Typically you specify these types as part of F Prime configuration,
+in the file <code>config/FpConfig.fpp</code>.
+See the
+<a href="https://fprime.jpl.nasa.gov/latest/docs/user-manual/framework/configuring-fprime/">F
+Prime documentation</a> for details.</p>
 </div>
 <div class="paragraph">
 <p><strong>Options:</strong>
@@ -15590,7 +15594,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-05-09 10:22:38 -0700
+Last updated 2025-05-19 11:24:19 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

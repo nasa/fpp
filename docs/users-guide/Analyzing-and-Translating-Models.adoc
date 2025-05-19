@@ -1452,24 +1452,6 @@ The JSON format is specified in the
 https://fprime.jpl.nasa.gov/devel/docs/reference/fpp-json-dict/[F Prime design
 documentation].
 
-When generating dictionaries with `fpp-to-dict`, the following types must be defined
-in FPP (either in the input model itself or in a dependency file) and each type must be
-an alias of an integer type:
-
-* `FwChanIdType`
-
-* `FwEventIdType`
-
-* `FwOpcodeType`
-
-* `FwPacketDescriptorType`
-
-* `FwTlmPacketizeIdType`
-
-For more information on defining types, see the 
-<<Defining-Types_Alias-Type-Definitions,alias type
-definition>> section.
-
 Here is a common use case:
 
 * The input files _F_ define a single topology _T_.
@@ -1481,6 +1463,28 @@ is the dictionary for the application.
 in the dependency files _D_.
 That way the subtopologies are part of the model, but no dictionaries
 are generated for them.
+
+*F Prime configuration:*
+When you run `fpp-to-dict` on an FPP model, the model must define the following 
+types:
+
+* `FwChanIdType`
+
+* `FwEventIdType`
+
+* `FwOpcodeType`
+
+* `FwPacketDescriptorType`
+
+* `FwTlmPacketizeIdType`
+
+These types are required by the F Prime GDS, so they are included in the dictionary.
+Each of these types must be an alias of an integer type.
+Typically you specify these types as part of F Prime configuration,
+in the file `config/FpConfig.fpp`.
+See the
+https://fprime.jpl.nasa.gov/latest/docs/user-manual/framework/configuring-fprime/[F 
+Prime documentation] for details.
 
 *Options:*
 `fpp-to-dict` provides the following options:
