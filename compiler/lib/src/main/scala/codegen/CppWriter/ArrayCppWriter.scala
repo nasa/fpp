@@ -39,6 +39,7 @@ case class ArrayCppWriter (
   private val arraySize = arrayType.getArraySize.get
 
   private val formatStr = FormatCppWriter.write(
+    s,
     arrayType.format.getOrElse(Format("", List((Format.Field.Default, "")))),
     data.eltType
   )

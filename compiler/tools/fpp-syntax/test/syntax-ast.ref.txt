@@ -82,7 +82,7 @@ def module
       queue full assert
     @< Command specifier
     @ Parameter specifier
-    spec param
+    external spec param
       ident P
       type name U32
       default literal int 0

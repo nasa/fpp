@@ -519,7 +519,8 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"param ${ident(data.name)}").
+    val external = (if data.isExternal then "external " else "")
+    lines(s"${external}param ${ident(data.name)}").
       join (": ") (typeNameNode(data.typeName)).
       joinOpt (data.default) (" default ") (exprNode).
       joinOpt (data.id) (" id ") (exprNode).

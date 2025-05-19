@@ -176,9 +176,9 @@ void AliasType ::
   toString(Fw::StringBase& sb) const
 {
   static const char *formatString = "[ "
-    "%s "
-    "%s "
-    "%s ]";
+    "%" PRIu32 " "
+    "%" PRIu32 " "
+    "%" PRIu32 " ]";
 
   sb.format(
     formatString,

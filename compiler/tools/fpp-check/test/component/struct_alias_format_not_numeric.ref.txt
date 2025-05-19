@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/component/struct_alias_format_not_numeric.fpp:3.25
+struct S2 { x: T format "{.3f}" }
+                        ^
+error: invalid format string: T is not a floating-point type

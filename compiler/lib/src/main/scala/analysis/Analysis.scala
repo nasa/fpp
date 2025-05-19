@@ -313,12 +313,12 @@ case class Analysis(
   def getIntValueOpt[T](nodeOpt: Option[AstNode[T]]): Result.Result[Option[Int]] =
     Result.mapOpt(nodeOpt, (node: AstNode[T]) => getIntValue(node.id))
 
-  /** Gets an optional nonnegative BigInt value from an AST ndoe */
+  /** Gets an optional nonnegative BigInt value from an AST node */
   def getNonnegativeBigIntValueOpt[T](nodeOpt: Option[AstNode[T]]):
     Result.Result[Option[BigInt]] =
     Result.mapOpt(nodeOpt, (node: AstNode[T]) => getNonnegativeBigIntValue(node.id))
 
-  /** Gets an optional nonnegative int value from an AST ndoe */
+  /** Gets an optional nonnegative int value from an AST node */
   def getNonnegativeIntValueOpt[T](nodeOpt: Option[AstNode[T]]): Result.Result[Option[Int]] =
     Result.mapOpt(nodeOpt, (node: AstNode[T]) => getNonnegativeIntValue(node.id))
 
@@ -525,7 +525,7 @@ object Analysis {
       val (t, field) = pair
       val loc = Locations.get(node.id)
       for {
-        _ <- if (field.isInteger && !t.isInt)
+        _ <- if (field.isInteger && !t.getUnderlyingType.isInt)
                Left(SemanticError.InvalidFormatString(loc, s"$t is not an integer type"))
              else Right(())
         _ <- field match {
@@ -540,7 +540,7 @@ object Analysis {
                  else Right(())
                case _ => Right(())
              }
-        _ <- if (field.isRational && !t.isFloat)
+        _ <- if (field.isRational && !t.getUnderlyingType.isFloat)
                Left(SemanticError.InvalidFormatString(loc, s"$t is not a floating-point type"))
              else Right(())
       }
