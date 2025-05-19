@@ -1478,12 +1478,13 @@ types:
 
 * `FwTlmPacketizeIdType`
 
-These types are required by the F Prime GDS, so they are included in the dictionary.
+These types are required by the F Prime GDS, so they are included in the 
+dictionary.
 Each of these types must be an alias of an integer type.
 Typically you specify these types as part of F Prime configuration,
 in the file `config/FpConfig.fpp`.
 See the
-https://fprime.jpl.nasa.gov/latest/docs/user-manual/framework/configuring-fprime/[F 
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/[F 
 Prime documentation] for details.
 
 *Options:*
