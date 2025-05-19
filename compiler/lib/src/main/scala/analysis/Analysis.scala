@@ -47,7 +47,7 @@ case class Analysis(
   /** The mapping from type and constant symbols, expressions,
    *  and type names to their types */
   typeMap: Map[AstNode.Id, Type] = Map(),
-  /** THe mapping from constant symbols and expressions to their values. */
+  /** The mapping from constant symbols and expressions to their values. */
   valueMap: Map[AstNode.Id, Value] = Map(),
   /** The set of symbols used. Used during code generation. */
   usedSymbolSet: Set[Symbol] = Set(),
@@ -70,7 +70,11 @@ case class Analysis(
   /** The dictionary under construction */
   dictionary: Option[Dictionary] = None,
   /** The telemetry packet set under construction */
-  tlmPacketSet: Option[TlmPacketSet] = None
+  tlmPacketSet: Option[TlmPacketSet] = None,
+  /** Whether a dictionary is needed in code generation */
+  dictionaryNeeded: Boolean = false,
+  /** The set of type symbols used by the dictionary */
+  dictionaryTypeSymbolSet: Set[Symbol] = Set()
 ) {
 
   /** Gets the qualified name of a symbol */
