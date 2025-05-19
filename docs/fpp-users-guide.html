@@ -8276,8 +8276,8 @@ passive component ParamOpcodes {
 <em>C</em>, the FPP code generator produces code for storing
 and managing <em>P</em> as part of the auto-generated
 code for <em>C</em>.
-Sometimes it is convenient to store and manage parameters separately,
-for example when integrating an F Prime component with a library
+Sometimes it is more convenient to store and manage parameters separately.
+For example, you may wish to integrate an F Prime component with a library
 that stores and manages its own parameters.
 In this case you can specify an <strong>external</strong> parameter.
 An external parameter is like an ordinary parameter (also called
@@ -8316,10 +8316,10 @@ passive component ParamExternal {
   # Parameters
   # ----------------------------------------------------------------------
 
-  @ Parameter 1 is an internal parameter
+  @ Param1 is an internal parameter
   param Param1: U32
 
-  @ Parameter 2 is an external parameter
+  @ Param2 is an external parameter
   external param Param2: F64 \
     default 2.0 \
     id 0x10 \
@@ -15664,7 +15664,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-05-19 13:09:14 -0700
+Last updated 2025-05-19 13:14:47 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
