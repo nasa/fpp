@@ -134,7 +134,7 @@ object CheckUses extends UseAnalyzer {
             for {
               symbol <- Result.annotateResult(
                 helpers.getSymbolForName(mapping)(node1.id, t), 
-                s"when constructing a dictionary, type ${t} must be defined")
+                s"when constructing a dictionary, the type $t must be defined")
             } yield a.copy(dictionaryTypeSymbolSet = a.dictionaryTypeSymbolSet + symbol)
           })
           a <- super.defTopologyAnnotatedNode(a, node)

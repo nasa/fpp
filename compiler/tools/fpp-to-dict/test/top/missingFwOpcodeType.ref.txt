@@ -3,4 +3,4 @@ fpp-to-dict
 topology T {
 ^
 error: undefined symbol FwOpcodeType
-note: when constructing a dictionary, type FwOpcodeType must be defined
+note: when constructing a dictionary, the type FwOpcodeType must be defined
