@@ -19,7 +19,7 @@ sealed trait Error {
     System.err.println("previous occurrence is here:")
     System.err.println(prevLoc)
   }
-
+  
   /*** Print the error */
   def print: Unit = {
     this match {
@@ -305,11 +305,16 @@ sealed trait Error {
       case SemanticError.UseDefCycle(loc, msg) => Error.print (Some(loc)) (msg)
       case XmlError.ParseError(file, msg) => Error.printXml (file) (msg)
       case XmlError.SemanticError(file, msg) => Error.printXml (file) (msg)
+      case AnnotatedError(error, note) => 
+        error.print
+        System.err.println(s"note: ${note}")
     }
   }
 
 }
 
+/** An error with a note */
+final case class AnnotatedError(error: Error, note: String) extends Error
 /** A syntax error */
 final case class SyntaxError(loc: Location, msg: String) extends Error
 

@@ -65,11 +65,12 @@ diagnostic
 do
 drop
 else
+enter
 entry
 enum
-enter
 event
 exit
+external
 false
 fatal
 format

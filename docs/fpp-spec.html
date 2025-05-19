@@ -1150,11 +1150,12 @@ diagnostic
 do
 drop
 else
+enter
 entry
 enum
-enter
 event
 exit
+external
 false
 fatal
 format
@@ -6267,7 +6268,10 @@ The second location specifier refers to the constant <code>M.b</code>.</p>
 <div class="sect3">
 <h4 id="Specifiers_Parameter-Specifiers_Syntax">7.10.1. Syntax</h4>
 <div class="paragraph">
-<p><code>param</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<p><em>[</em>
+<code>external</code>
+<em>]</em>
+<code>param</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>:</code> <a href="#Type-Names"><em>type-name</em></a>
 <em>[</em>
 <code>default</code> <a href="#Expressions"><em>expression</em></a>
@@ -6287,6 +6291,13 @@ The second location specifier refers to the constant <code>M.b</code>.</p>
 <h4 id="Specifiers_Parameter-Specifiers_Semantics">7.10.2. Semantics</h4>
 <div class="ulist">
 <ul>
+<li>
+<p>The optional keyword <code>external</code>, if present, specifies
+that the parameter will be stored externally to the
+code generated from FPP.
+External parameters allow library code to represent and
+access parameter values in an efficient way.</p>
+</li>
 <li>
 <p>The identifier names the parameter.</p>
 </li>
@@ -11160,7 +11171,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-05-05 16:53:47 -0700
+Last updated 2025-05-19 11:45:12 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

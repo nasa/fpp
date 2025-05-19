@@ -13,6 +13,7 @@ module M {
     include "include/commands_async.fppi"
     include "include/events.fppi"
     include "include/params.fppi"
+    include "include/external_params.fppi"
     include "include/products.fppi"
     include "include/telemetry.fppi"
 
@@ -45,6 +46,7 @@ active component ActiveSerial {
   include "include/events.fppi"
   include "include/telemetry.fppi"
   include "include/params.fppi"
+  include "include/external_params.fppi"
 
 }
 
@@ -90,6 +92,17 @@ active component ActiveParams {
   include "include/special_ports.fppi"
 
   include "include/params.fppi"
+
+}
+
+@ An active component with external params only
+active component ActiveExternalParams {
+
+  include "include/typed_ports.fppi"
+  include "include/typed_ports_async.fppi"
+  include "include/special_ports.fppi"
+
+  include "include/external_params.fppi"
 
 }
 

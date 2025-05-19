@@ -18,6 +18,7 @@ passive()
   move_test PassiveGetProducts
   move_test PassiveGuardedProducts
   move_test PassiveParams
+  move_test PassiveExternalParams
   move_test PassiveSerial
   move_test PassiveSyncProductPortsOnly
   move_test PassiveSyncProducts
@@ -36,6 +37,7 @@ active()
   move_test ActiveGuardedProducts
   move_test ActiveNoArgsPortsOnly
   move_test ActiveParams
+  move_test ActiveExternalParams
   move_test ActiveSerial
   move_test ActiveSyncProducts
   move_test ActiveTelemetry
@@ -53,6 +55,7 @@ queued()
   move_test QueuedGuardedProducts
   move_test QueuedNoArgsPortsOnly
   move_test QueuedParams
+  move_test QueuedExternalParams
   move_test QueuedSerial
   move_test QueuedSyncProducts
   move_test QueuedTelemetry

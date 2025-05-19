@@ -4,6 +4,13 @@ package fpp.compiler.util
 object Result {
 
   type Result[T] = Either[Error, T]
+
+  /** Wraps error as an AnnotatedError with note */
+  def annotateResult[A](r: Result[A], note: String): Result[A] =
+    r match {
+      case Right(v) => Right(v)
+      case Left(e: Error) => Left(AnnotatedError(e, note))
+    }
   
   /** Left fold with a function that returns a result */
   def foldLeft[A,B]
