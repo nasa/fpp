@@ -606,6 +606,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Components_Parameters_Default-Values">10.8.2. Default Values</a></li>
 <li><a href="#Defining-Components_Parameters_Identifiers">10.8.3. Identifiers</a></li>
 <li><a href="#Defining-Components_Parameters_Set-and-Save-Opcodes">10.8.4. Set and Save Opcodes</a></li>
+<li><a href="#Defining-Components_Parameters_External-Parameters">10.8.5. External Parameters</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Components_Data-Products">10.9. Data Products</a>
@@ -8106,7 +8107,7 @@ relative to the component, usually starting from
 zero and counting up by one.
 If you omit the identifier, then
 FPP assigns a default identifier: zero for the first
-event in the component; otherwise one more than the
+parameter in the component; otherwise one more than the
 identifier of the previous parameter.</p>
 </div>
 <div class="paragraph">
@@ -8265,6 +8266,99 @@ passive component ParamOpcodes {
     save opcode 0x20
 
 }</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Parameters_External-Parameters">10.8.5. External Parameters</h4>
+<div class="paragraph">
+<p>F Prime parameters are typically stored and managed internally to the
+component, in the autocoded base class.
+Parameter values can be accessed by the component implementation through
+autocoded get functions.
+Internal parameters are defined without any prefix.</p>
+</div>
+<div class="paragraph">
+<p>In some cases, a parameter may need to be managed and stored outside
+the component.
+This can be done by declaring a parameter to be external, using the
+<code>external</code> keyword prefix.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example of an internal parameter, <code>Param1</code>, and an external parameter, <code>Param2</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A component for illustrating internal and external parameters
+passive component ParamExternal {
+
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
+  @ Command receive port
+  command recv port cmdIn
+
+  @ Command registration port
+  command reg port cmdRegOut
+
+  @ Command response port
+  command resp port cmdResponseOut
+
+  @ Parameter get port
+  param get port prmGetOut
+
+  @ Parameter set port
+  param set port prmSetOut
+
+  # ----------------------------------------------------------------------
+  # Parameters
+  # ----------------------------------------------------------------------
+
+  @ Parameter 1
+  @ Its implied to be an internal parameter
+  param Param1: U32
+
+  @ Parameter 2
+  @ Its an external parameter
+  external param Param2: F64 \
+    default 2.0 \
+    id 0x10 \
+    set opcode 0x10 \
+    save opcode 0x11
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that an external parameter can still specify
+<a href="#Defining-Components_Parameters_Default-Values">default values</a>,
+<a href="#Defining-Components_Parameters_Identifiers">identifiers</a>, and
+<a href="#Defining-Components_Parameters_Set-and-Save-Opcodes">set/save opcodes</a>
+in the same manner as an internal parameter.</p>
+</div>
+<div class="sect4">
+<h5 id="Defining-Components_Parameters_External-Parameters_External-Parameter-Delegate">External Parameter Delegate</h5>
+<div class="paragraph">
+<p>A component with externally managed parameter(s) must still be able
+to perform the nominal set/save/get parameter actions.
+To facilitate this the component needs the ability to serialize
+and deserialize a parameter value.
+This is facilitated by implementing the interface defined by the
+<code>ParamExternalDelegate</code> abstract base class, and registering the
+concrete implementation by calling <code>registerExternalParameters()</code>
+during FSW initialization.
+<code>registerExternalParameters()</code> can be called directly in the
+component implementation constructor, or exposed as a public
+interface to be called by the topology.</p>
+</div>
+<div class="paragraph">
+<p>A concrete implementation of the <code>ParamExternalDelegate</code> abstract
+base class is autocoded in the component tester base.
+This implementation can be used for unit testing or another user
+defined concrete implementation can be used.
+Either option must call the <code>registerExternalParameters()</code>
+function during FSW initialization.</p>
 </div>
 </div>
 </div>
@@ -15561,7 +15655,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-05-05 15:59:04 -0700
+Last updated 2025-05-19 11:45:32 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
