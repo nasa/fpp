@@ -2189,18 +2189,21 @@ passive component ParamOpcodes {
 ----
 
 ==== External Parameters
-F Prime parameters are typically stored and managed internally to the
-component, in the autocoded base class.
-Parameter values can be accessed by the component implementation through
-autocoded get functions.
-Internal parameters are defined without any prefix.
 
-In some cases, a parameter may need to be managed and stored outside
-the component.
-This can be done by declaring a parameter to be external, using the
-`external` keyword prefix.
+In the default case, when you specify a parameter _P_ in a component
+_C_, the FPP code generator produces code for storing
+and managing _P_ as part of the auto-generated
+code for _C_.
+Sometimes it is convenient to store and manage parameters separately,
+for example when integrating an F Prime component with a library
+that stores and manages its own parameters.
+In this case you can specify an **external** parameter.
+An external parameter is like an ordinary parameter (also called
+an internal parameter), except that its specifier begins
+with the keyword `external`.
 
-Here is an example of an internal parameter, `Param1`, and an external parameter, `Param2`:
+Here is an example component definition that specifies two parameters,
+an internal parameter `Param1` and an external parameter `Param2`.
 
 [source,fpp]
 ----
@@ -2230,12 +2233,10 @@ passive component ParamExternal {
   # Parameters
   # ----------------------------------------------------------------------
 
-  @ Parameter 1
-  @ Its implied to be an internal parameter
+  @ Parameter 1 is an internal parameter
   param Param1: U32
 
-  @ Parameter 2
-  @ Its an external parameter
+  @ Parameter 2 is an external parameter
   external param Param2: F64 \
     default 2.0 \
     id 0x10 \
@@ -2245,32 +2246,11 @@ passive component ParamExternal {
 }
 ----
 
-Note that an external parameter can still specify
-<<Defining-Components_Parameters_Default-Values,default values>>,
-<<Defining-Components_Parameters_Identifiers,identifiers>>, and
-<<Defining-Components_Parameters_Set-and-Save-Opcodes, set/save opcodes>>
-in the same manner as an internal parameter.
-
-===== External Parameter Delegate
-
-A component with externally managed parameter(s) must still be able
-to perform the nominal set/save/get parameter actions.
-To facilitate this the component needs the ability to serialize
-and deserialize a parameter value.
-This is facilitated by implementing the interface defined by the
-`ParamExternalDelegate` abstract base class, and registering the
-concrete implementation by calling `registerExternalParameters()`
-during FSW initialization.
-`registerExternalParameters()` can be called directly in the
-component implementation constructor, or exposed as a public
-interface to be called by the topology.
-
-A concrete implementation of the `ParamExternalDelegate` abstract
-base class is autocoded in the component tester base.
-This implementation can be used for unit testing or another user
-defined concrete implementation can be used.
-Either option must call the `registerExternalParameters()`
-function during FSW initialization.
+When you specify an external parameter, you are responsible for
+providing the {cpp} code that stores and maintains the parameter.
+The
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/autocoded-functions/#parameters[F 
+Prime User Manual] explains how to do this.
 
 === Data Products
 
@@ -2284,7 +2264,7 @@ for (1) managing buffers that can store data products in memory;
 cataloging stored data products for downlink in priority order.
 For more information about these F Prime features, see the
 https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/data-products/[F
-Prime design documentation].
+Prime User Manual].
 
 ==== Basic Data Products
 
