@@ -14644,6 +14644,40 @@ are generated for them.</p>
 </ul>
 </div>
 <div class="paragraph">
+<p><strong>F Prime configuration:</strong>
+When you run <code>fpp-to-dict</code> on an FPP model, the model must define the following
+types:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>FwChanIdType</code></p>
+</li>
+<li>
+<p><code>FwEventIdType</code></p>
+</li>
+<li>
+<p><code>FwOpcodeType</code></p>
+</li>
+<li>
+<p><code>FwPacketDescriptorType</code></p>
+</li>
+<li>
+<p><code>FwTlmPacketizeIdType</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These types are required by the F Prime GDS, so they are included in the
+dictionary.
+Each of these types must be an alias of an integer type.
+Typically you specify these types as part of F Prime configuration,
+in the file <code>config/FpConfig.fpp</code>.
+See the
+<a href="https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/">F
+Prime documentation</a> for details.</p>
+</div>
+<div class="paragraph">
 <p><strong>Options:</strong>
 <code>fpp-to-dict</code> provides the following options:</p>
 </div>
@@ -15561,7 +15595,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-05-05 15:59:04 -0700
+Last updated 2025-05-19 11:49:41 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
