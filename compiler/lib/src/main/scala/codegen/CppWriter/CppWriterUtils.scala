@@ -323,7 +323,7 @@ trait CppWriterUtils extends LineUtils {
 
   /** Explicitly promotes an F32 value to an F64 value */
   def promoteF32ToF64 (t: Type) (v: String) =
-    if t == Type.F32
+    if t.getUnderlyingType == Type.F32
     then s"static_cast<F64>($v)"
     else v
 

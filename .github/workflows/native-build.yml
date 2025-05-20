@@ -79,7 +79,8 @@ jobs:
           export PATH="${NATIVE_IMAGE_TOOLS_PATH}:${PATH}"
           ${{ inputs.test }}
           echo -e "Trace output files:\n$( find ${{ inputs.trace-directory }} -name *.json )"
-      - name: "Archiving Tracing"
+      - if: ${{ inputs.trace }}
+        name: "Archiving Tracing"
         uses: actions/upload-artifact@v4
         with:
           name: jar-traces
