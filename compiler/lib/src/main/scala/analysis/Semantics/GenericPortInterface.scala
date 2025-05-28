@@ -40,13 +40,16 @@ trait GenericPortInterface[T <: GenericPortInterface[T]](
 
   def addImportedInterface(
     interface: Interface,
-    loc: Location
+    importNodeId: AstNode.Id,
   ): Result.Result[T] = {
     val init = this.withPortMap(portMap)
     Result.foldLeft(interface.portMap.values.toList)(init)((c, pi) => {
-      c.addPortInstance(pi) match {
+      c.addPortInstance(pi.withImportSpecifier(importNodeId)) match {
         case Right(cc) => Right(cc)
-        case Left(err) => Left(SemanticError.InterfaceImport(loc, err))
+        case Left(err) => Left(SemanticError.InterfaceImport(
+          Locations.get(importNodeId),
+          err,
+        ))
       }
     })
   }
@@ -58,8 +61,10 @@ trait GenericPortInterface[T <: GenericPortInterface[T]](
     portMap.get(name) match {
       case Some(prevInstance) =>
         val loc = instance.getLoc
+        val importLocs = instance.getImportLocs
         val prevLoc = prevInstance.getLoc
-        Left(SemanticError.DuplicatePortInstance(name, loc, prevLoc))
+        val prevImportLocs = prevInstance.getImportLocs
+        Left(SemanticError.DuplicatePortInstance(name, loc, importLocs, prevLoc, prevImportLocs))
       case None => 
         val portMap = this.portMap + (name -> instance)
         val t = this.withPortMap(portMap)
@@ -74,8 +79,10 @@ trait GenericPortInterface[T <: GenericPortInterface[T]](
     specialPortMap.get(kind) match {
       case Some(prevInstance) =>
         val loc = instance.getLoc
+        val importLocs = instance.getImportLocs
         val prevLoc = prevInstance.getLoc
-        Left(SemanticError.DuplicatePortInstance(kind.toString, loc, prevLoc))
+        val prevImportLocs = prevInstance.getImportLocs
+        Left(SemanticError.DuplicatePortInstance(kind.toString, loc, importLocs, prevLoc, prevImportLocs))
       case None => 
         val specialPortMap = this.specialPortMap + (kind -> instance)
         val t = this.withSpecialPortMap(specialPortMap)

@@ -17,6 +17,14 @@ module DefinitionsAndSpecifiers {
   state machine SO
   @< State machine outside a component
 
+  @ Interface definition
+  interface I {
+    @ General port instance specifier
+    sync input port pI: [10] P priority 10 assert
+    @< General port instance specifier
+  }
+  @< Interface definition
+
   @ Component definition
   active component C {
 
@@ -88,6 +96,9 @@ module DefinitionsAndSpecifiers {
     internal port I(a: U32, b: F32) priority 10 assert
     @< Internal port specifier
 
+    @ Interface import specifier
+    import I
+    @< Interface import specifier
   }
   @< Component definition
 
