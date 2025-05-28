@@ -212,8 +212,10 @@ def module
       priority literal int 10
       queue full assert
     @< Internal port specifier
+    @ Interface import specifier
     spec interface import
       qual ident I
+    @< Interface import specifier
   @< Component definition
   @ Simple component instance definition
   def component instance

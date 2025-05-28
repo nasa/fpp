@@ -6,6 +6,10 @@ active component C {
   struct S { x: U32, y: F32, z: string }
   enum E { X, Y, Z }
 
+  @ Interface import specifier
+  import I
+  @< Interface import specifier
+
   @ Command specifier
   async command C(a: U32, b: F32) opcode 0x00 priority 10 assert
   @< Command specifier
