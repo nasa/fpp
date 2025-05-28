@@ -355,7 +355,8 @@ case class Component(
         this.portMap.values.toList,
         (instance: PortInstance) => {
           val loc = instance.getLoc
-          val error = SemanticError.PassiveAsync(loc)
+          val importLocs = instance.getImportLocs
+          val error = SemanticError.PassiveAsync(loc, importLocs)
           instance match {
             case general : PortInstance.General =>
               general.kind match {
@@ -376,7 +377,7 @@ case class Component(
         this.commandMap.values.toList,
         (command: Command) => command match {
           case Command.NonParam(_, Command.NonParam.Async(_, _)) =>
-            Left(SemanticError.PassiveAsync(command.getLoc))
+            Left(SemanticError.PassiveAsync(command.getLoc, List()))
           case _ => Right(())
         }
       )

@@ -45,7 +45,7 @@ object CheckInterfaceDefs
       iface <- a.getInterface(ifaceNode.id)
       i <- a.interface.get.addImportedInterface(
         iface,
-        Locations.get(node.id),
+        node.id,
       )
     } yield a.copy(interface = Some(i))
   }

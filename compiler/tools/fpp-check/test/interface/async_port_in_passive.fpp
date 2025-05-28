@@ -4,6 +4,14 @@ interface I {
     async input port P: P
 }
 
-passive component C {
+interface J {
     import I
+}
+
+interface K {
+    import J
+}
+
+passive component C {
+    import K
 }

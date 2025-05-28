@@ -115,7 +115,7 @@ object CheckComponentDefs
       iface <- a.getInterface(ifaceNode.id)
       c2 <- component.addImportedInterface(
         iface,
-        Locations.get(node.id),
+        node.id,
       )
     }
     yield a.copy(component = Some(c2))
