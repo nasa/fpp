@@ -73,8 +73,12 @@ case class Analysis(
   tlmPacketSet: Option[TlmPacketSet] = None,
   /** Whether a dictionary is needed in code generation */
   dictionaryNeeded: Boolean = false,
-  /** The set of type symbols used by the dictionary */
-  dictionaryTypeSymbolSet: Set[Symbol] = Set()
+  /** The set of integer symbols used by the dictionary */
+  dictionaryIntegerSymbolSet: Set[Symbol] = Set(),
+  /** The set of constant symbols used by the dictionary */
+  dictionaryConstantSymbolSet: Set[Symbol] = Set(),
+  /** The set of enum symbols used by the dictionary */
+  dictionaryEnumSymbolSet: Set[Symbol] = Set()
 ) {
 
   /** Gets the qualified name of a symbol */

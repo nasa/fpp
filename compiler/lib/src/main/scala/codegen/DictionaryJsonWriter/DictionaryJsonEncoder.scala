@@ -201,7 +201,7 @@ case class DictionaryJsonEncoder(
         }
     }
 
-    /** JSON Encoding for symbols (arrays, enums, and structs only) */
+    /** JSON Encoding for symbols (arrays, enums, structs, alias types, and constants only) */
     private implicit def typeSymbolEncoder [T <: Symbol]: Encoder[T] = new Encoder[T] {
         override def apply(symbol: T): Json = {
             val qualifiedName = dictionaryState.a.getQualifiedName(symbol).toString
@@ -292,6 +292,26 @@ case class DictionaryJsonEncoder(
                         "qualifiedName" -> qualifiedName.asJson,
                         "type" -> typeAsJson(aliasType),
                         "underlyingType" -> typeAsJson(alias.getUnderlyingType)
+                    )
+                    val optionalValues = Map(
+                        "annotation" -> concatAnnotations(preA, postA)
+                    )
+                    jsonWithOptionalValues(json, optionalValues)
+                }
+                case Symbol.Constant(preA, node, postA) => {
+                    val value = dictionaryState.a.valueMap(symbol.getNodeId)
+                    val t = value match {
+                        case Value.Integer(v) => {
+                            if(v < 0) then Type.I64
+                            else Type.U64
+                        }
+                        case _ => value.getType
+                    }
+                    val json = Json.obj(
+                        "kind" -> "constant".asJson,
+                        "qualifiedName" -> qualifiedName.asJson,
+                        "type" -> typeAsJson(t),
+                        "value" -> valueAsJson(value)
                     )
                     val optionalValues = Map(
                         "annotation" -> concatAnnotations(preA, postA)
@@ -546,7 +566,7 @@ case class DictionaryJsonEncoder(
 
     /** Main interface for the class. JSON Encoding for a complete dictionary */
     def dictionaryAsJson: Json = {
-        /** Split set into individual sets consisting of each symbol type (arrays, enums, structs, aliases) */
+        /** Split set into individual sets consisting of each symbol type (arrays, enums, structs, aliases, and constants) */
         val typeDefSymbols = splitTypeSymbolSet(dictionary.usedSymbolSet, Set())
         /** Convert each dictionary element to JSON and return the complete dictionary JSON */
         Json.obj(
@@ -598,11 +618,11 @@ case class DictionaryJsonEncoder(
         if (concat.isEmpty) None else Some(concat)
     }
 
-     /** Given a set of symbols, returns subset consisting of array, enum, and struct symbols */
+     /** Given a set of symbols, returns subset consisting of array, enum, struct, alias, and constant symbols */
     private def splitTypeSymbolSet(symbolSet: Set[Symbol], outSet: Set[Symbol]): (Set[Symbol]) = {
         if (symbolSet.isEmpty) (outSet) else {
             val (tail, out) = symbolSet.head match {
-                case h: (Symbol.Array | Symbol.Enum | Symbol.Struct | Symbol.AliasType) => (symbolSet.tail, outSet + h)
+                case h: (Symbol.Array | Symbol.Enum | Symbol.Struct | Symbol.AliasType | Symbol.Constant) => (symbolSet.tail, outSet + h)
                 case _ => (symbolSet.tail, outSet)
             }
             splitTypeSymbolSet(tail, out)

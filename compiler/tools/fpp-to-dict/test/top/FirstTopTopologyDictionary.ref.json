@@ -12,6 +12,35 @@
   "typeDefinitions" : [
     {
       "kind" : "enum",
+      "qualifiedName" : "ProcType",
+      "representationType" : {
+        "name" : "U8",
+        "kind" : "integer",
+        "size" : 8,
+        "signed" : false
+      },
+      "enumeratedConstants" : [
+        {
+          "name" : "PROC_TYPE_ZERO",
+          "value" : 1,
+          "annotation" : "Processing type 0"
+        },
+        {
+          "name" : "PROC_TYPE_ONE",
+          "value" : 2,
+          "annotation" : "Processing type 1"
+        },
+        {
+          "name" : "PROC_TYPE_TWO",
+          "value" : 4,
+          "annotation" : "Processing type 2"
+        }
+      ],
+      "default" : "ProcType.PROC_TYPE_ZERO",
+      "annotation" : "A bit mask for selecting the type of processing to perform on\na container before writing it to disk."
+    },
+    {
+      "kind" : "enum",
       "qualifiedName" : "Module1.E2",
       "representationType" : {
         "name" : "I32",
@@ -46,6 +75,39 @@
         "size" : 32,
         "signed" : false
       }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwSizeType",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwTimeContextStoreType",
+      "type" : {
+        "name" : "U8",
+        "kind" : "integer",
+        "size" : 8,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U8",
+        "kind" : "integer",
+        "size" : 8,
+        "signed" : false
+      },
+      "annotation" : "The type used to serialize a time context value"
     },
     {
       "kind" : "alias",
@@ -171,19 +233,16 @@
       }
     },
     {
-      "kind" : "alias",
-      "qualifiedName" : "Module1.AliasT2",
+      "kind" : "constant",
+      "qualifiedName" : "CONTAINER_USER_DATA_SIZE",
       "type" : {
-        "name" : "Module1.AliasT1",
-        "kind" : "qualifiedIdentifier"
-      },
-      "underlyingType" : {
-        "name" : "U32",
+        "name" : "U64",
         "kind" : "integer",
-        "size" : 32,
+        "size" : 64,
         "signed" : false
       },
-      "annotation" : "Alias of type AliasT1 (with underlying type U32)"
+      "value" : 1,
+      "annotation" : "The container user data size"
     },
     {
       "kind" : "struct",
@@ -231,22 +290,6 @@
     },
     {
       "kind" : "alias",
-      "qualifiedName" : "FwPacketDescriptorType",
-      "type" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
-      },
-      "underlyingType" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
-      }
-    },
-    {
-      "kind" : "alias",
       "qualifiedName" : "Module1.AliasT3",
       "type" : {
         "name" : "string",
@@ -260,29 +303,20 @@
       }
     },
     {
-      "kind" : "enum",
-      "qualifiedName" : "Module1.E1",
-      "representationType" : {
+      "kind" : "alias",
+      "qualifiedName" : "FwDpPriorityType",
+      "type" : {
         "name" : "U32",
         "kind" : "integer",
         "size" : 32,
         "signed" : false
       },
-      "enumeratedConstants" : [
-        {
-          "name" : "X",
-          "value" : 0
-        },
-        {
-          "name" : "Y",
-          "value" : 1
-        },
-        {
-          "name" : "Z",
-          "value" : 2
-        }
-      ],
-      "default" : "Module1.E1.X"
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
     },
     {
       "kind" : "enum",
@@ -405,6 +439,81 @@
     },
     {
       "kind" : "alias",
+      "qualifiedName" : "FwDpIdType",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "Module1.AliasT2",
+      "type" : {
+        "name" : "Module1.AliasT1",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "annotation" : "Alias of type AliasT1 (with underlying type U32)"
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwPacketDescriptorType",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "enum",
+      "qualifiedName" : "DpState",
+      "representationType" : {
+        "name" : "U8",
+        "kind" : "integer",
+        "size" : 8,
+        "signed" : false
+      },
+      "enumeratedConstants" : [
+        {
+          "name" : "UNTRANSMITTED",
+          "value" : 0,
+          "annotation" : "The untransmitted state"
+        },
+        {
+          "name" : "PARTIAL",
+          "value" : 1,
+          "annotation" : "The partially transmitted state\nA data product is in this state from the start of transmission\nuntil transmission is complete."
+        },
+        {
+          "name" : "TRANSMITTED",
+          "value" : 2,
+          "annotation" : "The transmitted state"
+        }
+      ],
+      "default" : "DpState.UNTRANSMITTED"
+    },
+    {
+      "kind" : "alias",
       "qualifiedName" : "FwOpcodeType",
       "type" : {
         "name" : "U32",
@@ -434,6 +543,48 @@
         "size" : 32,
         "signed" : false
       }
+    },
+    {
+      "kind" : "enum",
+      "qualifiedName" : "Module1.E1",
+      "representationType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "enumeratedConstants" : [
+        {
+          "name" : "X",
+          "value" : 0
+        },
+        {
+          "name" : "Y",
+          "value" : 1
+        },
+        {
+          "name" : "Z",
+          "value" : 2
+        }
+      ],
+      "default" : "Module1.E1.X"
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwTimeBaseStoreType",
+      "type" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "annotation" : "The type used to serialize a time base value"
     }
   ],
   "commands" : [

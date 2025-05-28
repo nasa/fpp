@@ -120,25 +120,54 @@ object CheckUses extends UseAnalyzer {
   override def defTopologyAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
     a.dictionaryNeeded match {
       case true => {
-        val impliedTypeUses = List(
-          "FwChanIdType", 
+        val impliedAliasTypeUses = List(
+          "FwChanIdType",
+          "FwDpIdType",
+          "FwDpPriorityType",  
           "FwEventIdType", 
           "FwOpcodeType", 
           "FwPacketDescriptorType", 
-          "FwTlmPacketizeIdType"
+          "FwSizeType",
+          "FwTimeBaseStoreType",
+          "FwTimeContextStoreType",
+          "FwTlmPacketizeIdType",
+        )
+        val impliedEnumUses = List(
+          "DpState",
+          "ProcType"
+        )
+        val impliedConstantUses = List(
+          "CONTAINER_USER_DATA_SIZE"
         )
         val (_, node1, _) = node
-        val mapping = a.nestedScope.get (NameGroup.Type) _
-        for {
-          a <- Result.foldLeft (impliedTypeUses) (a) ((a, t) => {
+        val typeMapping = a.nestedScope.get (NameGroup.Type) _
+        val valueMapping = a.nestedScope.get (NameGroup.Value) _
+
+        def checkImpliedUses(
+          impliedUses: List[String], 
+          mapping: Name.Unqualified => Option[Symbol],
+          id: AstNode.Id,
+          typeName: String
+        ): Result.Result[Set[Symbol]] = {
+          Result.foldLeft (impliedUses) (Set[Symbol]()) ((s, t) => {
             for {
               symbol <- Result.annotateResult(
-                helpers.getSymbolForName(mapping)(node1.id, t), 
-                s"when constructing a dictionary, the type $t must be defined")
-            } yield a.copy(dictionaryTypeSymbolSet = a.dictionaryTypeSymbolSet + symbol)
+                helpers.getSymbolForName(mapping)(id, t), 
+                s"when constructing a dictionary, the $typeName $t must be defined")
+            } yield s + symbol
           })
+        }
+
+        for {
+          s1 <- checkImpliedUses(impliedAliasTypeUses, typeMapping, node1.id, "alias")
+          s2 <- checkImpliedUses(impliedEnumUses, typeMapping, node1.id, "enum")
+          s3 <- checkImpliedUses(impliedConstantUses, valueMapping, node1.id, "constant")
           a <- super.defTopologyAnnotatedNode(a, node)
-        } yield a
+        } yield a.copy(
+            dictionaryIntegerSymbolSet = a.dictionaryIntegerSymbolSet ++ s1,
+            dictionaryEnumSymbolSet = a.dictionaryEnumSymbolSet ++ s2,
+            dictionaryConstantSymbolSet = a.dictionaryConstantSymbolSet ++ s3
+          )
       }
       case false => super.defTopologyAnnotatedNode(a, node)
     }

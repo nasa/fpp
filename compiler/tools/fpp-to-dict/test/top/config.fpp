@@ -2,6 +2,7 @@ type FwChanIdType = U32
 type FwDpIdType = U32
 type FwDpPriorityType = U32
 type FwEventIdType = U32
+type FwOpcodeType = U32
 type FwPacketDescriptorType = U32
 type FwTlmPacketizeIdType = U16
 type FwSizeType = U32
@@ -36,6 +37,3 @@ enum DpState: U8 {
     @ The transmitted state
     TRANSMITTED
 } default UNTRANSMITTED
-topology T {
-
-}

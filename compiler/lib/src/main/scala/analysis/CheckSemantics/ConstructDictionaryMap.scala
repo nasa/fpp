@@ -15,6 +15,14 @@ object ConstructDictionaryMap
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
   ) = {
+    def checkIntegerType(symbolSet: Set[Symbol], msg: String): Result.Result[Analysis] = {
+      Result.foldLeft (symbolSet.toList) (a) ((a, s) => {
+        val loc = Locations.get(s.getNodeId)
+        if a.typeMap(s.getNodeId).getUnderlyingType.isInt
+        then Right(a)
+        else Left(SemanticError.InvalidType(loc, msg))
+      })
+    }
     val symbol = Symbol.Topology(aNode)
     val t = a.topologyMap(symbol)
     val d = {
@@ -24,17 +32,8 @@ object ConstructDictionaryMap
     }
     val a1 = a.copy(topology = Some(t), dictionary = Some(d))
     for {
-      a <- Result.foldLeft (a.dictionaryTypeSymbolSet.toList) (a) ((a, s) => {
-        val loc = Locations.get(s.getNodeId)
-        if a.typeMap(s.getNodeId).getUnderlyingType.isInt
-        then Right(a)
-        else Left(
-          SemanticError.InvalidType(
-            loc,
-            s"this F Prime framework type must be an alias of an integer type"
-          )
-        )
-      })
+      a <- checkIntegerType(a.dictionaryIntegerSymbolSet, "this F Prime framework type must be an alias of an integer type")
+      a <- checkIntegerType(a.dictionaryConstantSymbolSet, "this F Prime framework type must be a constant with a value of integer type")
       a <- super.defTopologyAnnotatedNode(a1, aNode)
     }
     yield {

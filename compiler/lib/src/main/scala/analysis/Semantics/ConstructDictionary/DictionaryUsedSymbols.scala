@@ -9,7 +9,10 @@ final case class DictionaryUsedSymbols(a: Analysis, t: Topology) {
     d.copy(usedSymbolSet = getUsedSymbolSet)
 
   private def getUsedSymbolSet: Set[Symbol] =
-    t.instanceMap.keys.toSet.flatMap(getUsedSymbolsForInstance) ++ a.dictionaryTypeSymbolSet
+    t.instanceMap.keys.toSet.flatMap(getUsedSymbolsForInstance) 
+      ++ a.dictionaryIntegerSymbolSet 
+      ++ a.dictionaryConstantSymbolSet 
+      ++ a.dictionaryEnumSymbolSet
 
   private def getUsedSymbolsForInstance(ci: ComponentInstance) = {
     val component = ci.component
