@@ -17,6 +17,9 @@ active component C {
     Z
   }
 
+  @ Interface import specifier
+  import I @< Interface import specifier
+
   @ Command specifier
   async command C(
                    a: U32

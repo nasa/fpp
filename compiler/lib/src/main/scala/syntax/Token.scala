@@ -64,6 +64,7 @@ object Token {
   final case class INITIAL() extends Token
   final case class INPUT() extends Token
   final case class INSTANCE() extends Token
+  final case class INTERFACE() extends Token
   final case class INTERNAL() extends Token
   final case class CHOICE() extends Token
   final case class LBRACE() extends Token
@@ -208,6 +209,7 @@ enum TokenId {
   case INITIAL
   case INPUT
   case INSTANCE
+  case INTERFACE
   case INTERNAL
   case CHOICE
   case LOCATE

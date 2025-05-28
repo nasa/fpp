@@ -628,9 +628,9 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
-  "spec top import OK" should {
+  "spec import OK" should {
     parseAllOK(
-      Parser.specTopImport,
+      Parser.specImport,
       List(
         "import a",
         "import a.b",
