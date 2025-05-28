@@ -149,10 +149,10 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     a <- visitList(a, aNode._2.data.omitted, tlmChannelIdentifierNode)
   } yield a
 
-  override def specTopImportAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecTopImport]]) = {
+  override def specTopImportAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecImport]]) = {
     val (_, node1, _) = node
     val data = node1.data
-    qualIdentNode(topologyUse)(a, data.top)
+    qualIdentNode(topologyUse)(a, data.sym)
   }
 
   override def typeNameQualIdentNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent) = {

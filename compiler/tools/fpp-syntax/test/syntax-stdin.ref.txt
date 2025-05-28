@@ -22,6 +22,19 @@ def module
   def state machine
     ident SO
   @< State machine outside a component
+  @ Interface definition
+  def interface
+    ident I
+    @ General port instance specifier
+    spec port instance general
+      kind sync input
+      ident pI
+      array size literal int 10
+      port type qual ident P
+      priority literal int 10
+      queue full assert
+    @< General port instance specifier
+  @< Interface definition
   @ Component definition
   def component
     kind active
@@ -199,6 +212,10 @@ def module
       priority literal int 10
       queue full assert
     @< Internal port specifier
+    @ Interface import specifier
+    spec interface import
+      qual ident I
+    @< Interface import specifier
   @< Component definition
   @ Simple component instance definition
   def component instance
