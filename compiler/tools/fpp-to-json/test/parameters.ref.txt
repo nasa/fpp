@@ -875,7 +875,9 @@
               }
             },
             "priority" : "None",
-            "queueFull" : "None"
+            "queueFull" : "None",
+            "importNodeIds" : [
+            ]
           }
         },
         "prmGetOut" : {
@@ -901,7 +903,9 @@
               }
             },
             "priority" : "None",
-            "queueFull" : "None"
+            "queueFull" : "None",
+            "importNodeIds" : [
+            ]
           }
         },
         "cmdResponseOut" : {
@@ -927,7 +931,9 @@
               }
             },
             "priority" : "None",
-            "queueFull" : "None"
+            "queueFull" : "None",
+            "importNodeIds" : [
+            ]
           }
         },
         "prmSetOut" : {
@@ -953,7 +959,9 @@
               }
             },
             "priority" : "None",
-            "queueFull" : "None"
+            "queueFull" : "None",
+            "importNodeIds" : [
+            ]
           }
         },
         "cmdRegOut" : {
@@ -979,7 +987,9 @@
               }
             },
             "priority" : "None",
-            "queueFull" : "None"
+            "queueFull" : "None",
+            "importNodeIds" : [
+            ]
           }
         }
       },
@@ -1006,7 +1016,9 @@
             }
           },
           "priority" : "None",
-          "queueFull" : "None"
+          "queueFull" : "None",
+          "importNodeIds" : [
+          ]
         },
         "command recv" : {
           "aNode" : {
@@ -1030,7 +1042,9 @@
             }
           },
           "priority" : "None",
-          "queueFull" : "None"
+          "queueFull" : "None",
+          "importNodeIds" : [
+          ]
         },
         "command reg" : {
           "aNode" : {
@@ -1054,7 +1068,9 @@
             }
           },
           "priority" : "None",
-          "queueFull" : "None"
+          "queueFull" : "None",
+          "importNodeIds" : [
+          ]
         },
         "command resp" : {
           "aNode" : {
@@ -1078,7 +1094,9 @@
             }
           },
           "priority" : "None",
-          "queueFull" : "None"
+          "queueFull" : "None",
+          "importNodeIds" : [
+          ]
         },
         "param get" : {
           "aNode" : {
@@ -1102,7 +1120,9 @@
             }
           },
           "priority" : "None",
-          "queueFull" : "None"
+          "queueFull" : "None",
+          "importNodeIds" : [
+          ]
         }
       },
       "commandMap" : {
