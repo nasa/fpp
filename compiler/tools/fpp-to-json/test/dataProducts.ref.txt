@@ -608,7 +608,9 @@
               }
             },
             "priority" : "None",
-            "queueFull" : "None"
+            "queueFull" : "None",
+            "importNodeIds" : [
+            ]
           }
         },
         "productRecvIn" : {
@@ -646,7 +648,9 @@
                   
                 }
               }
-            }
+            },
+            "importNodeIds" : [
+            ]
           }
         },
         "productSendOut" : {
@@ -672,7 +676,9 @@
               }
             },
             "priority" : "None",
-            "queueFull" : "None"
+            "queueFull" : "None",
+            "importNodeIds" : [
+            ]
           }
         },
         "timeGetOut" : {
@@ -698,7 +704,9 @@
               }
             },
             "priority" : "None",
-            "queueFull" : "None"
+            "queueFull" : "None",
+            "importNodeIds" : [
+            ]
           }
         }
       },
@@ -725,7 +733,9 @@
             }
           },
           "priority" : "None",
-          "queueFull" : "None"
+          "queueFull" : "None",
+          "importNodeIds" : [
+          ]
         },
         "product recv" : {
           "aNode" : {
@@ -761,7 +771,9 @@
                 
               }
             }
-          }
+          },
+          "importNodeIds" : [
+          ]
         },
         "product send" : {
           "aNode" : {
@@ -785,7 +797,9 @@
             }
           },
           "priority" : "None",
-          "queueFull" : "None"
+          "queueFull" : "None",
+          "importNodeIds" : [
+          ]
         },
         "time get" : {
           "aNode" : {
@@ -809,7 +823,9 @@
             }
           },
           "priority" : "None",
-          "queueFull" : "None"
+          "queueFull" : "None",
+          "importNodeIds" : [
+          ]
         }
       },
       "commandMap" : {

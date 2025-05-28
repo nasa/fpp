@@ -83,6 +83,10 @@ importedTopologies(){
   run_test "" importedTopologies
 }
 
+interfaces(){
+  run_test "" interfaces
+}
+
 internalPorts()
 {
   run_test "" internalPorts
@@ -163,6 +167,7 @@ dataProducts
 enums
 events
 importedTopologies
+interfaces
 internalPorts
 matchedPorts
 modules

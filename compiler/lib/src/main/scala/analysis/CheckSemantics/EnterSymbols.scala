@@ -4,9 +4,10 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** Enter symbols into their scopes */
-object EnterSymbols 
-  extends Analyzer 
+object EnterSymbols
+  extends Analyzer
   with EnumAnalyzer
+  with InterfaceAnalyzer
   with ComponentAnalyzer
   with ModuleAnalyzer
   with TopologyAnalyzer
@@ -151,6 +152,19 @@ object EnterSymbols
     val symbol = Symbol.EnumConstant(aNode)
     val nestedScope = a.nestedScope
     for (nestedScope <- nestedScope.put(NameGroup.Value)(name, symbol))
+      yield updateMap(a, symbol).copy(nestedScope = nestedScope)
+  }
+
+  override def defInterfaceAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefInterface]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    val name = data.name
+    val symbol = Symbol.Interface(aNode)
+    val nestedScope = a.nestedScope
+    for (nestedScope <- nestedScope.put(NameGroup.Interface)(name, symbol))
       yield updateMap(a, symbol).copy(nestedScope = nestedScope)
   }
 

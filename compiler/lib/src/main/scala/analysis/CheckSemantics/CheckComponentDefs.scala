@@ -5,7 +5,7 @@ import fpp.compiler.util._
 
 /** Check component definitions */
 object CheckComponentDefs
-  extends Analyzer 
+  extends Analyzer
   with ComponentAnalyzer
   with ModuleAnalyzer
 {
@@ -102,6 +102,23 @@ object CheckComponentDefs
       component <- a.component.get.addPortInstance(instance)
     }
     yield a.copy(component = Some(component))
+  }
+
+  override def specInterfaceImportAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecImport]]
+  ) = {
+    val node = aNode._2
+    val ifaceNode = node.data.sym
+    val component = a.component.get
+    for {
+      iface <- a.getInterface(ifaceNode.id)
+      c2 <- component.addImportedInterface(
+        iface,
+        node.id,
+      )
+    }
+    yield a.copy(component = Some(c2))
   }
 
   override def specPortMatchingAnnotatedNode(

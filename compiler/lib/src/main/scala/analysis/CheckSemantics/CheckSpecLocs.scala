@@ -6,7 +6,7 @@ import fpp.compiler.util._
 /** Check location specifiers */
 object CheckSpecLocs
   extends Analyzer
-  with ModuleAnalyzer 
+  with ModuleAnalyzer
 {
 
   override def defAbsTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]) = {

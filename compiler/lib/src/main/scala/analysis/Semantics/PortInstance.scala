@@ -23,6 +23,18 @@ sealed trait PortInstance {
   /** Gets the AST node ID of the port instance */
   def getNodeId: AstNode.Id
 
+  /**
+   * Gets the locations of the import specifiers (if this port was imported)
+   * The first item is the import of the parent interface
+   * The final item is the import into the component
+   * All the in-between locs are for imports into other interfaces
+   */
+  final def getImportLocs: List[Location] = getImportNodeIds.map(Locations.get)
+
+  def getImportNodeIds: List[AstNode.Id]
+
+  def withImportSpecifier(importNode: AstNode.Id): PortInstance
+
   /** Gets the unqualified name of the port instance */
   def getUnqualifiedName: Name.Unqualified
 
@@ -106,6 +118,7 @@ object PortInstance {
     kind: General.Kind,
     size: Int,
     ty: Type,
+    importNodeIds: List[AstNode.Id] = List(),
   ) extends PortInstance {
 
     override def getDirection = kind match {
@@ -121,6 +134,10 @@ object PortInstance {
 
     override def getUnqualifiedName = specifier.name
 
+    def withImportSpecifier(importNode: AstNode.Id): PortInstance =
+      this.copy(importNodeIds = importNodeIds :+ importNode)
+
+    def getImportNodeIds = importNodeIds
   }
 
   /** A special port instance */
@@ -129,7 +146,8 @@ object PortInstance {
     specifier: Ast.SpecPortInstance.Special,
     symbol: Symbol.Port,
     priority: Option[BigInt],
-    queueFull: Option[Ast.QueueFull]
+    queueFull: Option[Ast.QueueFull],
+    importNodeIds: List[AstNode.Id] = List(),
   ) extends PortInstance {
 
     override def getDirection = {
@@ -147,6 +165,11 @@ object PortInstance {
     override def getType = Some(Type.DefPort(symbol))
 
     override def getUnqualifiedName = specifier.name
+
+    def withImportSpecifier(importNode: AstNode.Id): PortInstance =
+      this.copy(importNodeIds = importNodeIds :+ importNode)
+
+    def getImportNodeIds = importNodeIds
 
   }
 
@@ -167,6 +190,9 @@ object PortInstance {
         this.getLoc
       ))
 
+      // Internal ports cannot be imported
+      def withImportSpecifier(importNode: AstNode.Id): PortInstance = this
+      def getImportNodeIds = List()
   }
 
   /** Creates a port instance from an internal port specifier */
