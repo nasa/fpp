@@ -34,6 +34,15 @@ def module
       priority literal int 10
       queue full assert
     @< General port instance specifier
+    @ Special port instance specifier
+    spec port instance special
+      kind command recv
+      ident cmdIn
+    @< Special port instance specifier
+    @ Interface import specifier
+    spec interface import
+      qual ident J
+    @< Interface import specifier
   @< Interface definition
   @ Component definition
   def component
