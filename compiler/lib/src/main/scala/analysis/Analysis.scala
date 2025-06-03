@@ -1,7 +1,7 @@
 package fpp.compiler.analysis
 
-import fpp.compiler.ast.*
-import fpp.compiler.util.*
+import fpp.compiler.ast._
+import fpp.compiler.util._
 
 import scala.annotation.tailrec
 
@@ -49,7 +49,7 @@ case class Analysis(
   /** The mapping from type and constant symbols, expressions,
    *  and type names to their types */
   typeMap: Map[AstNode.Id, Type] = Map(),
-  /** THe mapping from constant symbols and expressions to their values. */
+  /** The mapping from constant symbols and expressions to their values. */
   valueMap: Map[AstNode.Id, Value] = Map(),
   /** The set of symbols used. Used during code generation. */
   usedSymbolSet: Set[Symbol] = Set(),
@@ -61,7 +61,7 @@ case class Analysis(
   componentInstanceMap: Map[Symbol.ComponentInstance, ComponentInstance] = Map(),
   /** The component instance under construction */
   componentInstance: Option[ComponentInstance] = None,
-  /** The map from component symbols to components */
+  /** The map from interface symbols to interfaces */
   interfaceMap: Map[Symbol.Interface, Interface] = Map(),
   /** The interface under construction */
   interface: Option[Interface] = None,
@@ -76,7 +76,11 @@ case class Analysis(
   /** The dictionary under construction */
   dictionary: Option[Dictionary] = None,
   /** The telemetry packet set under construction */
-  tlmPacketSet: Option[TlmPacketSet] = None
+  tlmPacketSet: Option[TlmPacketSet] = None,
+  /** Whether a dictionary is needed in code generation */
+  dictionaryNeeded: Boolean = false,
+  /** The set of type symbols used by the dictionary */
+  dictionaryTypeSymbolSet: Set[Symbol] = Set()
 ) {
 
   /** Gets the qualified name of a symbol */
@@ -314,7 +318,7 @@ case class Analysis(
       ))
   }
 
-  /** Gets a non-negative int value from an AST node */
+  /** Gets a nonnegative int value from an AST node */
   def getNonnegativeIntValue(id: AstNode.Id): Result.Result[Int] =
     for {
       v <- getIntValue(id)
@@ -335,12 +339,12 @@ case class Analysis(
   def getIntValueOpt[T](nodeOpt: Option[AstNode[T]]): Result.Result[Option[Int]] =
     Result.mapOpt(nodeOpt, (node: AstNode[T]) => getIntValue(node.id))
 
-  /** Gets an optional non-negative BigInt value from an AST node */
+  /** Gets an optional nonnegative BigInt value from an AST node */
   def getNonnegativeBigIntValueOpt[T](nodeOpt: Option[AstNode[T]]):
     Result.Result[Option[BigInt]] =
     Result.mapOpt(nodeOpt, (node: AstNode[T]) => getNonnegativeBigIntValue(node.id))
 
-  /** Gets an optional non-negative int value from an AST node */
+  /** Gets an optional nonnegative int value from an AST node */
   def getNonnegativeIntValueOpt[T](nodeOpt: Option[AstNode[T]]): Result.Result[Option[Int]] =
     Result.mapOpt(nodeOpt, (node: AstNode[T]) => getNonnegativeIntValue(node.id))
 

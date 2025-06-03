@@ -6,12 +6,16 @@ active component C {
   struct S { x: U32, y: F32, z: string }
   enum E { X, Y, Z }
 
+  @ Interface import specifier
+  import I
+  @< Interface import specifier
+
   @ Command specifier
   async command C(a: U32, b: F32) opcode 0x00 priority 10 assert
   @< Command specifier
 
   @ Parameter specifier
-  param P: U32 default 0 id 0x00 set opcode 0x01 save opcode 0x02
+  external param P: U32 default 0 id 0x00 set opcode 0x01 save opcode 0x02
   @< Parameter specifier
 
   @ General port instance specifier

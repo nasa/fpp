@@ -1464,6 +1464,29 @@ in the dependency files _D_.
 That way the subtopologies are part of the model, but no dictionaries
 are generated for them.
 
+*F Prime configuration:*
+When you run `fpp-to-dict` on an FPP model, the model must define the following 
+types:
+
+* `FwChanIdType`
+
+* `FwEventIdType`
+
+* `FwOpcodeType`
+
+* `FwPacketDescriptorType`
+
+* `FwTlmPacketizeIdType`
+
+These types are required by the F Prime GDS, so they are included in the 
+dictionary.
+Each of these types must be an alias of an integer type.
+Typically you specify these types as part of F Prime configuration,
+in the file `config/FpConfig.fpp`.
+See the
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/[F 
+Prime documentation] for details.
+
 *Options:*
 `fpp-to-dict` provides the following options:
 

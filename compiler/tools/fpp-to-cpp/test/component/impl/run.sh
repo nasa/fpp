@@ -18,6 +18,7 @@ passive()
   diff_template PassiveGetProducts && \
   diff_template PassiveGuardedProducts && \
   diff_template PassiveParams && \
+  diff_template PassiveExternalParams && \
   diff_template PassiveSerial && \
   diff_template PassiveSyncProductPortsOnly && \
   diff_template PassiveSyncProducts && \
@@ -38,6 +39,7 @@ active()
   diff_template ActiveGuardedProducts && \
   diff_template ActiveNoArgsPortsOnly && \
   diff_template ActiveParams && \
+  diff_template ActiveExternalParams && \
   diff_template ActiveSerial && \
   diff_template ActiveSyncProducts && \
   diff_template ActiveTelemetry && \
@@ -56,6 +58,7 @@ queued()
   diff_template QueuedGuardedProducts && \
   diff_template QueuedNoArgsPortsOnly && \
   diff_template QueuedParams && \
+  diff_template QueuedExternalParams && \
   diff_template QueuedSerial && \
   diff_template QueuedSyncProducts && \
   diff_template QueuedTelemetry && \

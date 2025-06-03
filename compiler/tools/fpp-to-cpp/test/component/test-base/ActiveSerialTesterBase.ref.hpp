@@ -11,6 +11,7 @@
 
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
+#include "Fw/Prm/PrmExternalTypes.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "test-base/ActiveSerialComponentAc.hpp"
@@ -323,6 +324,95 @@ class ActiveSerialTesterBase :
     struct TlmEntry_ChannelEnumOnChange {
       Fw::Time timeTag;
       E arg;
+    };
+
+    //! External Parameter Delegate
+    class ActiveSerialComponentBaseParamExternalDelegate :
+      public Fw::ParamExternalDelegate
+    {
+
+      public:
+
+        // ----------------------------------------------------------------------
+        // Parameter validity flags
+        // ----------------------------------------------------------------------
+
+        //! True if ParamI32Ext was successfully received
+        Fw::ParamValid m_param_ParamI32Ext_valid;
+
+        //! True if ParamF64Ext was successfully received
+        Fw::ParamValid m_param_ParamF64Ext_valid;
+
+        //! True if ParamStringExt was successfully received
+        Fw::ParamValid m_param_ParamStringExt_valid;
+
+        //! True if ParamEnumExt was successfully received
+        Fw::ParamValid m_param_ParamEnumExt_valid;
+
+        //! True if ParamArrayExt was successfully received
+        Fw::ParamValid m_param_ParamArrayExt_valid;
+
+        //! True if ParamStructExt was successfully received
+        Fw::ParamValid m_param_ParamStructExt_valid;
+
+      public:
+
+        // ----------------------------------------------------------------------
+        // Parameter variables
+        // ----------------------------------------------------------------------
+
+        //! Parameter ParamI32Ext
+        //!
+        //! An externally stored parameter with I32 data
+        //! Second line of annotation
+        I32 m_param_ParamI32Ext;
+
+        //! Parameter ParamF64Ext
+        //!
+        //! An externally stored parameter with F64 data
+        F64 m_param_ParamF64Ext;
+
+        //! Parameter ParamStringExt
+        //!
+        //! An externally stored parameter with string data and default value
+        Fw::ParamString m_param_ParamStringExt;
+
+        //! Parameter ParamEnumExt
+        //!
+        //! An externally stored parameter with enum data
+        E m_param_ParamEnumExt;
+
+        //! Parameter ParamArrayExt
+        //!
+        //! An externally stored parameter with array data, default value, and save opcode
+        A m_param_ParamArrayExt;
+
+        //! Parameter ParamStructExt
+        //!
+        //! An externally stored parameter with struct data and set/save opcodes
+        S m_param_ParamStructExt;
+
+      public:
+
+        // ----------------------------------------------------------------------
+        // Unit test implementation of external parameter delegate serialization/deserialization
+        // ----------------------------------------------------------------------
+
+        //! Parameter deserialization function for external parameter unit testing
+        Fw::SerializeStatus deserializeParam(
+            const FwPrmIdType baseId, //!< The component base parameter ID to deserialize
+            const FwPrmIdType localId, //!< The parameter local ID to deserialize
+            const Fw::ParamValid prmStat, //!< The parameter validity status
+            Fw::SerializeBufferBase& buff //!< The buffer containing the parameter to deserialize
+        ) override;
+
+        //! Parameter serialization function for external parameter unit testing
+        Fw::SerializeStatus serializeParam(
+            const FwPrmIdType baseId, //!< The component base parameter ID to serialize
+            const FwPrmIdType localId, //!< The parameter local ID to serialize
+            Fw::SerializeBufferBase& buff //!< The buffer to serialize the parameter into
+        ) const override;
+
     };
 
   public:
@@ -1851,6 +1941,114 @@ class ActiveSerialTesterBase :
         U32 cmdSeq //!< The command sequence number
     );
 
+    //! Set parameter ParamI32Ext
+    void paramSet_ParamI32Ext(
+        const I32& val, //!< The parameter value
+        Fw::ParamValid valid //!< The parameter valid flag
+    );
+
+    //! Send parameter ParamI32Ext
+    void paramSend_ParamI32Ext(
+        FwEnumStoreType instance, //!< The component instance
+        U32 cmdSeq //!< The command sequence number
+    );
+
+    //! Save parameter ParamI32Ext
+    void paramSave_ParamI32Ext(
+        FwEnumStoreType instance, //!< The component instance
+        U32 cmdSeq //!< The command sequence number
+    );
+
+    //! Set parameter ParamF64Ext
+    void paramSet_ParamF64Ext(
+        const F64& val, //!< The parameter value
+        Fw::ParamValid valid //!< The parameter valid flag
+    );
+
+    //! Send parameter ParamF64Ext
+    void paramSend_ParamF64Ext(
+        FwEnumStoreType instance, //!< The component instance
+        U32 cmdSeq //!< The command sequence number
+    );
+
+    //! Save parameter ParamF64Ext
+    void paramSave_ParamF64Ext(
+        FwEnumStoreType instance, //!< The component instance
+        U32 cmdSeq //!< The command sequence number
+    );
+
+    //! Set parameter ParamStringExt
+    void paramSet_ParamStringExt(
+        const Fw::StringBase& val, //!< The parameter value
+        Fw::ParamValid valid //!< The parameter valid flag
+    );
+
+    //! Send parameter ParamStringExt
+    void paramSend_ParamStringExt(
+        FwEnumStoreType instance, //!< The component instance
+        U32 cmdSeq //!< The command sequence number
+    );
+
+    //! Save parameter ParamStringExt
+    void paramSave_ParamStringExt(
+        FwEnumStoreType instance, //!< The component instance
+        U32 cmdSeq //!< The command sequence number
+    );
+
+    //! Set parameter ParamEnumExt
+    void paramSet_ParamEnumExt(
+        const E& val, //!< The parameter value
+        Fw::ParamValid valid //!< The parameter valid flag
+    );
+
+    //! Send parameter ParamEnumExt
+    void paramSend_ParamEnumExt(
+        FwEnumStoreType instance, //!< The component instance
+        U32 cmdSeq //!< The command sequence number
+    );
+
+    //! Save parameter ParamEnumExt
+    void paramSave_ParamEnumExt(
+        FwEnumStoreType instance, //!< The component instance
+        U32 cmdSeq //!< The command sequence number
+    );
+
+    //! Set parameter ParamArrayExt
+    void paramSet_ParamArrayExt(
+        const A& val, //!< The parameter value
+        Fw::ParamValid valid //!< The parameter valid flag
+    );
+
+    //! Send parameter ParamArrayExt
+    void paramSend_ParamArrayExt(
+        FwEnumStoreType instance, //!< The component instance
+        U32 cmdSeq //!< The command sequence number
+    );
+
+    //! Save parameter ParamArrayExt
+    void paramSave_ParamArrayExt(
+        FwEnumStoreType instance, //!< The component instance
+        U32 cmdSeq //!< The command sequence number
+    );
+
+    //! Set parameter ParamStructExt
+    void paramSet_ParamStructExt(
+        const S& val, //!< The parameter value
+        Fw::ParamValid valid //!< The parameter valid flag
+    );
+
+    //! Send parameter ParamStructExt
+    void paramSend_ParamStructExt(
+        FwEnumStoreType instance, //!< The component instance
+        U32 cmdSeq //!< The command sequence number
+    );
+
+    //! Save parameter ParamStructExt
+    void paramSave_ParamStructExt(
+        FwEnumStoreType instance, //!< The component instance
+        U32 cmdSeq //!< The command sequence number
+    );
+
   protected:
 
     // ----------------------------------------------------------------------
@@ -2395,22 +2593,22 @@ class ActiveSerialTesterBase :
     // Parameter validity flags
     // ----------------------------------------------------------------------
 
-    //! True if parameter ParamU32 was successfully received
+    //! True if ParamU32 was successfully received
     Fw::ParamValid m_param_ParamU32_valid;
 
-    //! True if parameter ParamF64 was successfully received
+    //! True if ParamF64 was successfully received
     Fw::ParamValid m_param_ParamF64_valid;
 
-    //! True if parameter ParamString was successfully received
+    //! True if ParamString was successfully received
     Fw::ParamValid m_param_ParamString_valid;
 
-    //! True if parameter ParamEnum was successfully received
+    //! True if ParamEnum was successfully received
     Fw::ParamValid m_param_ParamEnum_valid;
 
-    //! True if parameter ParamArray was successfully received
+    //! True if ParamArray was successfully received
     Fw::ParamValid m_param_ParamArray_valid;
 
-    //! True if parameter ParamStruct was successfully received
+    //! True if ParamStruct was successfully received
     Fw::ParamValid m_param_ParamStruct_valid;
 
   private:
@@ -2420,22 +2618,44 @@ class ActiveSerialTesterBase :
     // ----------------------------------------------------------------------
 
     //! Parameter ParamU32
+    //!
+    //! A parameter with U32 data
+    //! Second line of annotation
     U32 m_param_ParamU32;
 
     //! Parameter ParamF64
+    //!
+    //! A parameter with F64 data
     F64 m_param_ParamF64;
 
     //! Parameter ParamString
+    //!
+    //! A parameter with string data and default value
     Fw::ParamString m_param_ParamString;
 
     //! Parameter ParamEnum
+    //!
+    //! A parameter with enum data
     E m_param_ParamEnum;
 
     //! Parameter ParamArray
+    //!
+    //! A parameter with array data, default value, and save opcode
     A m_param_ParamArray;
 
     //! Parameter ParamStruct
+    //!
+    //! A parameter with struct data and set/save opcodes
     S m_param_ParamStruct;
+
+  protected:
+
+    // ----------------------------------------------------------------------
+    // Parameter delegates
+    // ----------------------------------------------------------------------
+
+    //! Delegate to serialize/deserialize an externally stored parameter
+    ActiveSerialComponentBaseParamExternalDelegate paramTesterDelegate;
 
   private:
 

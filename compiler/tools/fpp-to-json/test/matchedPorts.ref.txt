@@ -441,7 +441,9 @@
                   }
                 }
               }
-            }
+            },
+            "importNodeIds" : [
+            ]
           }
         },
         "pingIn" : {
@@ -480,7 +482,9 @@
                   }
                 }
               }
-            }
+            },
+            "importNodeIds" : [
+            ]
           }
         }
       },
@@ -553,7 +557,9 @@
                   }
                 }
               }
-            }
+            },
+            "importNodeIds" : [
+            ]
           },
           "instance2" : {
             "aNode" : {
@@ -590,7 +596,9 @@
                   }
                 }
               }
-            }
+            },
+            "importNodeIds" : [
+            ]
           }
         }
       ],

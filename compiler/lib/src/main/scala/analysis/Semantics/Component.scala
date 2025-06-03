@@ -56,6 +56,9 @@ case class Component(
   /** Query whether the component has parameters */
   def hasParameters = this.paramMap.nonEmpty
 
+  /** Query whether the component has external parameters */
+  def hasExternalParameters = paramMap.values.exists(_.isExternal)
+
   /** Query whether the component has commands */
   def hasCommands = this.commandMap.nonEmpty
 
@@ -131,7 +134,7 @@ case class Component(
         val loc = instance.getLoc
         val prevLoc = prevInstance.getLoc
         Left(SemanticError.DuplicateStateMachineInstance(name, loc, prevLoc))
-      case None => 
+      case None =>
         val stateMachineInstanceMap = this.stateMachineInstanceMap + (name -> instance)
         val component = this.copy(stateMachineInstanceMap = stateMachineInstanceMap)
         Right(component)
@@ -175,7 +178,7 @@ case class Component(
       defaultEventId = result._2
     )
   }
-  
+
   /** Add a parameter */
   def addParam(
     idOpt: Option[Param.Id],
@@ -256,7 +259,7 @@ case class Component(
         portKinds: List[Ast.SpecPortInstance.SpecialKind]
       ) = if (condition) Result.map(
         portKinds,
-        (portKind: Ast.SpecPortInstance.SpecialKind) => 
+        (portKind: Ast.SpecPortInstance.SpecialKind) =>
           this.specialPortMap.get(portKind) match {
             case Some(_) => Right(())
             case None =>
@@ -388,7 +391,7 @@ case class Component(
           val error = SemanticError.PassiveStateMachine(loc)
           Left(error)
         }
-      ) 
+      )
       for {
         _ <- checkPortInstances()
         _ <- checkCommands()

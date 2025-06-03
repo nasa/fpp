@@ -34,6 +34,15 @@ def module
       priority literal int 10
       queue full assert
     @< General port instance specifier
+    @ Special port instance specifier
+    spec port instance special
+      kind command recv
+      ident cmdIn
+    @< Special port instance specifier
+    @ Interface import specifier
+    spec interface import
+      qual ident J
+    @< Interface import specifier
   @< Interface definition
   @ Component definition
   def component
@@ -95,7 +104,7 @@ def module
       queue full assert
     @< Command specifier
     @ Parameter specifier
-    spec param
+    external spec param
       ident P
       type name U32
       default literal int 0
@@ -212,8 +221,10 @@ def module
       priority literal int 10
       queue full assert
     @< Internal port specifier
+    @ Interface import specifier
     spec interface import
       qual ident I
+    @< Interface import specifier
   @< Component definition
   @ Simple component instance definition
   def component instance

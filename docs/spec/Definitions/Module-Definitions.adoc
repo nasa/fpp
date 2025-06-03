@@ -26,6 +26,8 @@ A module member is one of the following:
 
 * A <<Definitions_Port-Definitions,port definition>>
 
+* A <<Definitions_Port-Interface-Definitions,port interface definition>>
+
 * A <<Definitions_State-Machine-Definitions,state machine definition>>
 
 * A <<Definitions_Struct-Definitions,struct definition>>

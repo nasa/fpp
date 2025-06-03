@@ -1676,6 +1676,54 @@ void PassiveTestComponentBase ::
   this->m_cmdRegOut_OutputPort[0].invoke(
     this->getIdBase() + OPCODE_PARAMSTRUCT_SAVE
   );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMI32EXT_SET
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMI32EXT_SAVE
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMF64EXT_SET
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMF64EXT_SAVE
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMSTRINGEXT_SET
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMSTRINGEXT_SAVE
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMENUMEXT_SET
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMENUMEXT_SAVE
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMARRAYEXT_SET
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMARRAYEXT_SAVE
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMSTRUCTEXT_SET
+  );
+
+  this->m_cmdRegOut_OutputPort[0].invoke(
+    this->getIdBase() + OPCODE_PARAMSTRUCTEXT_SAVE
+  );
 }
 
 // ----------------------------------------------------------------------
@@ -1685,19 +1733,22 @@ void PassiveTestComponentBase ::
 void PassiveTestComponentBase ::
   loadParameters()
 {
-  Fw::ParamBuffer buff;
-  Fw::SerializeStatus stat = Fw::FW_SERIALIZE_OK;
+  Fw::ParamBuffer _buff;
+  Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_OK;
+  const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
   FW_ASSERT(this->m_prmGetOut_OutputPort[0].isConnected());
 
-  FwPrmIdType _id;
+  FwPrmIdType _id{};
 
-  _id = this->getIdBase() + PARAMID_PARAMU32;
+  Fw::ParamValid param_valid;
+
+  _id = _baseId + PARAMID_PARAMU32;
 
   // Get parameter ParamU32
   this->m_param_ParamU32_valid =
     this->m_prmGetOut_OutputPort[0].invoke(
       _id,
-      buff
+      _buff
     );
 
   // Deserialize value
@@ -1705,8 +1756,8 @@ void PassiveTestComponentBase ::
 
   // If there was a deserialization issue, mark it invalid
   if (this->m_param_ParamU32_valid == Fw::ParamValid::VALID) {
-    stat = buff.deserialize(this->m_ParamU32);
-    if (stat != Fw::FW_SERIALIZE_OK) {
+    _stat = _buff.deserialize(this->m_ParamU32);
+    if (_stat != Fw::FW_SERIALIZE_OK) {
       this->m_param_ParamU32_valid = Fw::ParamValid::INVALID;
     }
   }
@@ -1716,13 +1767,13 @@ void PassiveTestComponentBase ::
 
   this->m_paramLock.unLock();
 
-  _id = this->getIdBase() + PARAMID_PARAMF64;
+  _id = _baseId + PARAMID_PARAMF64;
 
   // Get parameter ParamF64
   this->m_param_ParamF64_valid =
     this->m_prmGetOut_OutputPort[0].invoke(
       _id,
-      buff
+      _buff
     );
 
   // Deserialize value
@@ -1730,8 +1781,8 @@ void PassiveTestComponentBase ::
 
   // If there was a deserialization issue, mark it invalid
   if (this->m_param_ParamF64_valid == Fw::ParamValid::VALID) {
-    stat = buff.deserialize(this->m_ParamF64);
-    if (stat != Fw::FW_SERIALIZE_OK) {
+    _stat = _buff.deserialize(this->m_ParamF64);
+    if (_stat != Fw::FW_SERIALIZE_OK) {
       this->m_param_ParamF64_valid = Fw::ParamValid::INVALID;
     }
   }
@@ -1741,13 +1792,13 @@ void PassiveTestComponentBase ::
 
   this->m_paramLock.unLock();
 
-  _id = this->getIdBase() + PARAMID_PARAMSTRING;
+  _id = _baseId + PARAMID_PARAMSTRING;
 
   // Get parameter ParamString
   this->m_param_ParamString_valid =
     this->m_prmGetOut_OutputPort[0].invoke(
       _id,
-      buff
+      _buff
     );
 
   // Deserialize value
@@ -1755,8 +1806,8 @@ void PassiveTestComponentBase ::
 
   // If there was a deserialization issue, mark it invalid
   if (this->m_param_ParamString_valid == Fw::ParamValid::VALID) {
-    stat = buff.deserialize(this->m_ParamString);
-    if (stat != Fw::FW_SERIALIZE_OK) {
+    _stat = _buff.deserialize(this->m_ParamString);
+    if (_stat != Fw::FW_SERIALIZE_OK) {
       this->m_param_ParamString_valid = Fw::ParamValid::DEFAULT;
       // Set default value
       this->m_ParamString = Fw::String("default");
@@ -1770,13 +1821,13 @@ void PassiveTestComponentBase ::
 
   this->m_paramLock.unLock();
 
-  _id = this->getIdBase() + PARAMID_PARAMENUM;
+  _id = _baseId + PARAMID_PARAMENUM;
 
   // Get parameter ParamEnum
   this->m_param_ParamEnum_valid =
     this->m_prmGetOut_OutputPort[0].invoke(
       _id,
-      buff
+      _buff
     );
 
   // Deserialize value
@@ -1784,8 +1835,8 @@ void PassiveTestComponentBase ::
 
   // If there was a deserialization issue, mark it invalid
   if (this->m_param_ParamEnum_valid == Fw::ParamValid::VALID) {
-    stat = buff.deserialize(this->m_ParamEnum);
-    if (stat != Fw::FW_SERIALIZE_OK) {
+    _stat = _buff.deserialize(this->m_ParamEnum);
+    if (_stat != Fw::FW_SERIALIZE_OK) {
       this->m_param_ParamEnum_valid = Fw::ParamValid::INVALID;
     }
   }
@@ -1795,13 +1846,13 @@ void PassiveTestComponentBase ::
 
   this->m_paramLock.unLock();
 
-  _id = this->getIdBase() + PARAMID_PARAMARRAY;
+  _id = _baseId + PARAMID_PARAMARRAY;
 
   // Get parameter ParamArray
   this->m_param_ParamArray_valid =
     this->m_prmGetOut_OutputPort[0].invoke(
       _id,
-      buff
+      _buff
     );
 
   // Deserialize value
@@ -1809,8 +1860,8 @@ void PassiveTestComponentBase ::
 
   // If there was a deserialization issue, mark it invalid
   if (this->m_param_ParamArray_valid == Fw::ParamValid::VALID) {
-    stat = buff.deserialize(this->m_ParamArray);
-    if (stat != Fw::FW_SERIALIZE_OK) {
+    _stat = _buff.deserialize(this->m_ParamArray);
+    if (_stat != Fw::FW_SERIALIZE_OK) {
       this->m_param_ParamArray_valid = Fw::ParamValid::DEFAULT;
       // Set default value
       this->m_ParamArray = A(1, 2, 3);
@@ -1824,13 +1875,13 @@ void PassiveTestComponentBase ::
 
   this->m_paramLock.unLock();
 
-  _id = this->getIdBase() + PARAMID_PARAMSTRUCT;
+  _id = _baseId + PARAMID_PARAMSTRUCT;
 
   // Get parameter ParamStruct
   this->m_param_ParamStruct_valid =
     this->m_prmGetOut_OutputPort[0].invoke(
       _id,
-      buff
+      _buff
     );
 
   // Deserialize value
@@ -1838,8 +1889,8 @@ void PassiveTestComponentBase ::
 
   // If there was a deserialization issue, mark it invalid
   if (this->m_param_ParamStruct_valid == Fw::ParamValid::VALID) {
-    stat = buff.deserialize(this->m_ParamStruct);
-    if (stat != Fw::FW_SERIALIZE_OK) {
+    _stat = _buff.deserialize(this->m_ParamStruct);
+    if (_stat != Fw::FW_SERIALIZE_OK) {
       this->m_param_ParamStruct_valid = Fw::ParamValid::INVALID;
     }
   }
@@ -1848,6 +1899,162 @@ void PassiveTestComponentBase ::
   }
 
   this->m_paramLock.unLock();
+
+  _id = _baseId + PARAMID_PARAMI32EXT;
+
+  // Get parameter ParamI32Ext
+  param_valid = this->m_prmGetOut_OutputPort[0].invoke(
+    _id,
+    _buff
+  );
+
+  // Get the local ID to pass to the delegate
+  _id = PARAMID_PARAMI32EXT;
+  // If there was a deserialization issue, mark it invalid
+  if (param_valid == Fw::ParamValid::VALID) {
+    // Pass the local ID to the delegate
+    _id = PARAMID_PARAMI32EXT;
+
+    FW_ASSERT(this->paramDelegatePtr != NULL);
+    // Call the delegate deserialize function for m_ParamI32Ext
+    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
+    if (_stat != Fw::FW_SERIALIZE_OK) {
+      param_valid = Fw::ParamValid::INVALID;
+    }
+  }
+  else {
+    param_valid = Fw::ParamValid::INVALID;
+  }
+
+  _id = _baseId + PARAMID_PARAMF64EXT;
+
+  // Get parameter ParamF64Ext
+  param_valid = this->m_prmGetOut_OutputPort[0].invoke(
+    _id,
+    _buff
+  );
+
+  // Get the local ID to pass to the delegate
+  _id = PARAMID_PARAMF64EXT;
+  // If there was a deserialization issue, mark it invalid
+  if (param_valid == Fw::ParamValid::VALID) {
+    // Pass the local ID to the delegate
+    _id = PARAMID_PARAMF64EXT;
+
+    FW_ASSERT(this->paramDelegatePtr != NULL);
+    // Call the delegate deserialize function for m_ParamF64Ext
+    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
+    if (_stat != Fw::FW_SERIALIZE_OK) {
+      param_valid = Fw::ParamValid::INVALID;
+    }
+  }
+  else {
+    param_valid = Fw::ParamValid::INVALID;
+  }
+
+  _id = _baseId + PARAMID_PARAMSTRINGEXT;
+
+  // Get parameter ParamStringExt
+  param_valid = this->m_prmGetOut_OutputPort[0].invoke(
+    _id,
+    _buff
+  );
+
+  // Get the local ID to pass to the delegate
+  _id = PARAMID_PARAMSTRINGEXT;
+  // If there was a deserialization issue, mark it invalid
+  if (param_valid == Fw::ParamValid::VALID) {
+    // Pass the local ID to the delegate
+    _id = PARAMID_PARAMSTRINGEXT;
+
+    FW_ASSERT(this->paramDelegatePtr != NULL);
+    // Call the delegate deserialize function for m_ParamStringExt
+    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
+    if (_stat != Fw::FW_SERIALIZE_OK) {
+      param_valid = Fw::ParamValid::INVALID;
+    }
+  }
+  else {
+    param_valid = Fw::ParamValid::INVALID;
+  }
+
+  _id = _baseId + PARAMID_PARAMENUMEXT;
+
+  // Get parameter ParamEnumExt
+  param_valid = this->m_prmGetOut_OutputPort[0].invoke(
+    _id,
+    _buff
+  );
+
+  // Get the local ID to pass to the delegate
+  _id = PARAMID_PARAMENUMEXT;
+  // If there was a deserialization issue, mark it invalid
+  if (param_valid == Fw::ParamValid::VALID) {
+    // Pass the local ID to the delegate
+    _id = PARAMID_PARAMENUMEXT;
+
+    FW_ASSERT(this->paramDelegatePtr != NULL);
+    // Call the delegate deserialize function for m_ParamEnumExt
+    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
+    if (_stat != Fw::FW_SERIALIZE_OK) {
+      param_valid = Fw::ParamValid::INVALID;
+    }
+  }
+  else {
+    param_valid = Fw::ParamValid::INVALID;
+  }
+
+  _id = _baseId + PARAMID_PARAMARRAYEXT;
+
+  // Get parameter ParamArrayExt
+  param_valid = this->m_prmGetOut_OutputPort[0].invoke(
+    _id,
+    _buff
+  );
+
+  // Get the local ID to pass to the delegate
+  _id = PARAMID_PARAMARRAYEXT;
+  // If there was a deserialization issue, mark it invalid
+  if (param_valid == Fw::ParamValid::VALID) {
+    // Pass the local ID to the delegate
+    _id = PARAMID_PARAMARRAYEXT;
+
+    FW_ASSERT(this->paramDelegatePtr != NULL);
+    // Call the delegate deserialize function for m_ParamArrayExt
+    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
+    if (_stat != Fw::FW_SERIALIZE_OK) {
+      param_valid = Fw::ParamValid::INVALID;
+    }
+  }
+  else {
+    param_valid = Fw::ParamValid::INVALID;
+  }
+
+  _id = _baseId + PARAMID_PARAMSTRUCTEXT;
+
+  // Get parameter ParamStructExt
+  param_valid = this->m_prmGetOut_OutputPort[0].invoke(
+    _id,
+    _buff
+  );
+
+  // Get the local ID to pass to the delegate
+  _id = PARAMID_PARAMSTRUCTEXT;
+  // If there was a deserialization issue, mark it invalid
+  if (param_valid == Fw::ParamValid::VALID) {
+    // Pass the local ID to the delegate
+    _id = PARAMID_PARAMSTRUCTEXT;
+
+    FW_ASSERT(this->paramDelegatePtr != NULL);
+    // Call the delegate deserialize function for m_ParamStructExt
+    _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
+    if (_stat != Fw::FW_SERIALIZE_OK) {
+      param_valid = Fw::ParamValid::INVALID;
+    }
+  }
+  else {
+    param_valid = Fw::ParamValid::INVALID;
+  }
 
   // Call notifier
   this->parametersLoaded();
@@ -1859,7 +2066,8 @@ void PassiveTestComponentBase ::
 
 PassiveTestComponentBase ::
   PassiveTestComponentBase(const char* compName) :
-    Fw::PassiveComponentBase(compName)
+    Fw::PassiveComponentBase(compName),
+    paramDelegatePtr(NULL)
 {
   // Write telemetry channel ChannelU32OnChange
   this->m_first_update_ChannelU32OnChange = true;
@@ -4685,7 +4893,7 @@ void PassiveTestComponentBase ::
 U32 PassiveTestComponentBase ::
   paramGet_ParamU32(Fw::ParamValid& valid)
 {
-  U32 _local;
+  U32 _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamU32_valid;
   _local = this->m_ParamU32;
@@ -4696,7 +4904,7 @@ U32 PassiveTestComponentBase ::
 F64 PassiveTestComponentBase ::
   paramGet_ParamF64(Fw::ParamValid& valid)
 {
-  F64 _local;
+  F64 _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamF64_valid;
   _local = this->m_ParamF64;
@@ -4707,7 +4915,7 @@ F64 PassiveTestComponentBase ::
 Fw::ParamString PassiveTestComponentBase ::
   paramGet_ParamString(Fw::ParamValid& valid)
 {
-  Fw::ParamString _local;
+  Fw::ParamString _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamString_valid;
   _local = this->m_ParamString;
@@ -4718,7 +4926,7 @@ Fw::ParamString PassiveTestComponentBase ::
 E PassiveTestComponentBase ::
   paramGet_ParamEnum(Fw::ParamValid& valid)
 {
-  E _local;
+  E _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamEnum_valid;
   _local = this->m_ParamEnum;
@@ -4729,7 +4937,7 @@ E PassiveTestComponentBase ::
 A PassiveTestComponentBase ::
   paramGet_ParamArray(Fw::ParamValid& valid)
 {
-  A _local;
+  A _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamArray_valid;
   _local = this->m_ParamArray;
@@ -4740,12 +4948,161 @@ A PassiveTestComponentBase ::
 S PassiveTestComponentBase ::
   paramGet_ParamStruct(Fw::ParamValid& valid)
 {
-  S _local;
+  S _local{};
   this->m_paramLock.lock();
   valid = this->m_param_ParamStruct_valid;
   _local = this->m_ParamStruct;
   this->m_paramLock.unLock();
   return _local;
+}
+
+I32 PassiveTestComponentBase ::
+  paramGet_ParamI32Ext(Fw::ParamValid& valid)
+{
+  I32 _local{};
+  Fw::ParamBuffer _getBuff;
+  // Get the base ID
+  const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+  // Get the local ID to pass to the delegate
+  const FwPrmIdType _localId = PARAMID_PARAMI32EXT;
+
+  FW_ASSERT(this->paramDelegatePtr != NULL);
+  // Get the external parameter from the delegate
+  Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
+  if(_stat == Fw::FW_SERIALIZE_OK) {
+    _stat = _getBuff.deserialize(_local);
+    FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
+    valid = Fw::ParamValid::VALID;
+  } else {
+    valid = Fw::ParamValid::INVALID;
+  }
+  return _local;
+}
+
+F64 PassiveTestComponentBase ::
+  paramGet_ParamF64Ext(Fw::ParamValid& valid)
+{
+  F64 _local{};
+  Fw::ParamBuffer _getBuff;
+  // Get the base ID
+  const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+  // Get the local ID to pass to the delegate
+  const FwPrmIdType _localId = PARAMID_PARAMF64EXT;
+
+  FW_ASSERT(this->paramDelegatePtr != NULL);
+  // Get the external parameter from the delegate
+  Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
+  if(_stat == Fw::FW_SERIALIZE_OK) {
+    _stat = _getBuff.deserialize(_local);
+    FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
+    valid = Fw::ParamValid::VALID;
+  } else {
+    valid = Fw::ParamValid::INVALID;
+  }
+  return _local;
+}
+
+Fw::ParamString PassiveTestComponentBase ::
+  paramGet_ParamStringExt(Fw::ParamValid& valid)
+{
+  Fw::ParamString _local{};
+  Fw::ParamBuffer _getBuff;
+  // Get the base ID
+  const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+  // Get the local ID to pass to the delegate
+  const FwPrmIdType _localId = PARAMID_PARAMSTRINGEXT;
+
+  FW_ASSERT(this->paramDelegatePtr != NULL);
+  // Get the external parameter from the delegate
+  Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
+  if(_stat == Fw::FW_SERIALIZE_OK) {
+    _stat = _getBuff.deserialize(_local);
+    FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
+    valid = Fw::ParamValid::VALID;
+  } else {
+    valid = Fw::ParamValid::INVALID;
+  }
+  return _local;
+}
+
+E PassiveTestComponentBase ::
+  paramGet_ParamEnumExt(Fw::ParamValid& valid)
+{
+  E _local{};
+  Fw::ParamBuffer _getBuff;
+  // Get the base ID
+  const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+  // Get the local ID to pass to the delegate
+  const FwPrmIdType _localId = PARAMID_PARAMENUMEXT;
+
+  FW_ASSERT(this->paramDelegatePtr != NULL);
+  // Get the external parameter from the delegate
+  Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
+  if(_stat == Fw::FW_SERIALIZE_OK) {
+    _stat = _getBuff.deserialize(_local);
+    FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
+    valid = Fw::ParamValid::VALID;
+  } else {
+    valid = Fw::ParamValid::INVALID;
+  }
+  return _local;
+}
+
+A PassiveTestComponentBase ::
+  paramGet_ParamArrayExt(Fw::ParamValid& valid)
+{
+  A _local{};
+  Fw::ParamBuffer _getBuff;
+  // Get the base ID
+  const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+  // Get the local ID to pass to the delegate
+  const FwPrmIdType _localId = PARAMID_PARAMARRAYEXT;
+
+  FW_ASSERT(this->paramDelegatePtr != NULL);
+  // Get the external parameter from the delegate
+  Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
+  if(_stat == Fw::FW_SERIALIZE_OK) {
+    _stat = _getBuff.deserialize(_local);
+    FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
+    valid = Fw::ParamValid::VALID;
+  } else {
+    valid = Fw::ParamValid::INVALID;
+  }
+  return _local;
+}
+
+S PassiveTestComponentBase ::
+  paramGet_ParamStructExt(Fw::ParamValid& valid)
+{
+  S _local{};
+  Fw::ParamBuffer _getBuff;
+  // Get the base ID
+  const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+  // Get the local ID to pass to the delegate
+  const FwPrmIdType _localId = PARAMID_PARAMSTRUCTEXT;
+
+  FW_ASSERT(this->paramDelegatePtr != NULL);
+  // Get the external parameter from the delegate
+  Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
+  if(_stat == Fw::FW_SERIALIZE_OK) {
+    _stat = _getBuff.deserialize(_local);
+    FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
+    valid = Fw::ParamValid::VALID;
+  } else {
+    valid = Fw::ParamValid::INVALID;
+  }
+  return _local;
+}
+
+// ----------------------------------------------------------------------
+// External parameter delegate initialization
+// ----------------------------------------------------------------------
+
+void PassiveTestComponentBase ::
+  registerExternalParameters(Fw::ParamExternalDelegate* paramExternalDelegatePtr)
+{
+  FW_ASSERT(paramExternalDelegatePtr != NULL);
+  this->paramDelegatePtr = paramExternalDelegatePtr;
 }
 
 // ----------------------------------------------------------------------
@@ -5064,6 +5421,126 @@ void PassiveTestComponentBase ::
       );
       break;
     }
+
+    case OPCODE_PARAMI32EXT_SET: {
+      Fw::CmdResponse _cstat = compPtr->paramSet_ParamI32Ext(args);
+      compPtr->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMI32EXT_SAVE: {
+      Fw::CmdResponse _cstat = compPtr->paramSave_ParamI32Ext();
+      compPtr->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMF64EXT_SET: {
+      Fw::CmdResponse _cstat = compPtr->paramSet_ParamF64Ext(args);
+      compPtr->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMF64EXT_SAVE: {
+      Fw::CmdResponse _cstat = compPtr->paramSave_ParamF64Ext();
+      compPtr->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMSTRINGEXT_SET: {
+      Fw::CmdResponse _cstat = compPtr->paramSet_ParamStringExt(args);
+      compPtr->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMSTRINGEXT_SAVE: {
+      Fw::CmdResponse _cstat = compPtr->paramSave_ParamStringExt();
+      compPtr->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMENUMEXT_SET: {
+      Fw::CmdResponse _cstat = compPtr->paramSet_ParamEnumExt(args);
+      compPtr->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMENUMEXT_SAVE: {
+      Fw::CmdResponse _cstat = compPtr->paramSave_ParamEnumExt();
+      compPtr->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMARRAYEXT_SET: {
+      Fw::CmdResponse _cstat = compPtr->paramSet_ParamArrayExt(args);
+      compPtr->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMARRAYEXT_SAVE: {
+      Fw::CmdResponse _cstat = compPtr->paramSave_ParamArrayExt();
+      compPtr->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMSTRUCTEXT_SET: {
+      Fw::CmdResponse _cstat = compPtr->paramSet_ParamStructExt(args);
+      compPtr->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMSTRUCTEXT_SAVE: {
+      Fw::CmdResponse _cstat = compPtr->paramSave_ParamStructExt();
+      compPtr->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
   }
 }
 
@@ -5352,15 +5829,15 @@ void PassiveTestComponentBase ::
 Fw::CmdResponse PassiveTestComponentBase ::
   paramSet_ParamU32(Fw::SerializeBufferBase& val)
 {
-  U32 _local_val;
-  Fw::SerializeStatus _stat = val.deserialize(_local_val);
+  U32 _localVal{};
+  const Fw::SerializeStatus _stat = val.deserialize(_localVal);
   if (_stat != Fw::FW_SERIALIZE_OK) {
     return Fw::CmdResponse::VALIDATION_ERROR;
   }
 
   // Assign value only if successfully deserialized
   this->m_paramLock.lock();
-  this->m_ParamU32 = _local_val;
+  this->m_ParamU32 = _localVal;
   this->m_param_ParamU32_valid = Fw::ParamValid::VALID;
   this->m_paramLock.unLock();
 
@@ -5372,15 +5849,15 @@ Fw::CmdResponse PassiveTestComponentBase ::
 Fw::CmdResponse PassiveTestComponentBase ::
   paramSet_ParamF64(Fw::SerializeBufferBase& val)
 {
-  F64 _local_val;
-  Fw::SerializeStatus _stat = val.deserialize(_local_val);
+  F64 _localVal{};
+  const Fw::SerializeStatus _stat = val.deserialize(_localVal);
   if (_stat != Fw::FW_SERIALIZE_OK) {
     return Fw::CmdResponse::VALIDATION_ERROR;
   }
 
   // Assign value only if successfully deserialized
   this->m_paramLock.lock();
-  this->m_ParamF64 = _local_val;
+  this->m_ParamF64 = _localVal;
   this->m_param_ParamF64_valid = Fw::ParamValid::VALID;
   this->m_paramLock.unLock();
 
@@ -5392,15 +5869,15 @@ Fw::CmdResponse PassiveTestComponentBase ::
 Fw::CmdResponse PassiveTestComponentBase ::
   paramSet_ParamString(Fw::SerializeBufferBase& val)
 {
-  Fw::ParamString _local_val;
-  Fw::SerializeStatus _stat = val.deserialize(_local_val);
+  Fw::ParamString _localVal{};
+  const Fw::SerializeStatus _stat = val.deserialize(_localVal);
   if (_stat != Fw::FW_SERIALIZE_OK) {
     return Fw::CmdResponse::VALIDATION_ERROR;
   }
 
   // Assign value only if successfully deserialized
   this->m_paramLock.lock();
-  this->m_ParamString = _local_val;
+  this->m_ParamString = _localVal;
   this->m_param_ParamString_valid = Fw::ParamValid::VALID;
   this->m_paramLock.unLock();
 
@@ -5412,15 +5889,15 @@ Fw::CmdResponse PassiveTestComponentBase ::
 Fw::CmdResponse PassiveTestComponentBase ::
   paramSet_ParamEnum(Fw::SerializeBufferBase& val)
 {
-  E _local_val;
-  Fw::SerializeStatus _stat = val.deserialize(_local_val);
+  E _localVal{};
+  const Fw::SerializeStatus _stat = val.deserialize(_localVal);
   if (_stat != Fw::FW_SERIALIZE_OK) {
     return Fw::CmdResponse::VALIDATION_ERROR;
   }
 
   // Assign value only if successfully deserialized
   this->m_paramLock.lock();
-  this->m_ParamEnum = _local_val;
+  this->m_ParamEnum = _localVal;
   this->m_param_ParamEnum_valid = Fw::ParamValid::VALID;
   this->m_paramLock.unLock();
 
@@ -5432,15 +5909,15 @@ Fw::CmdResponse PassiveTestComponentBase ::
 Fw::CmdResponse PassiveTestComponentBase ::
   paramSet_ParamArray(Fw::SerializeBufferBase& val)
 {
-  A _local_val;
-  Fw::SerializeStatus _stat = val.deserialize(_local_val);
+  A _localVal{};
+  const Fw::SerializeStatus _stat = val.deserialize(_localVal);
   if (_stat != Fw::FW_SERIALIZE_OK) {
     return Fw::CmdResponse::VALIDATION_ERROR;
   }
 
   // Assign value only if successfully deserialized
   this->m_paramLock.lock();
-  this->m_ParamArray = _local_val;
+  this->m_ParamArray = _localVal;
   this->m_param_ParamArray_valid = Fw::ParamValid::VALID;
   this->m_paramLock.unLock();
 
@@ -5452,20 +5929,158 @@ Fw::CmdResponse PassiveTestComponentBase ::
 Fw::CmdResponse PassiveTestComponentBase ::
   paramSet_ParamStruct(Fw::SerializeBufferBase& val)
 {
-  S _local_val;
-  Fw::SerializeStatus _stat = val.deserialize(_local_val);
+  S _localVal{};
+  const Fw::SerializeStatus _stat = val.deserialize(_localVal);
   if (_stat != Fw::FW_SERIALIZE_OK) {
     return Fw::CmdResponse::VALIDATION_ERROR;
   }
 
   // Assign value only if successfully deserialized
   this->m_paramLock.lock();
-  this->m_ParamStruct = _local_val;
+  this->m_ParamStruct = _localVal;
   this->m_param_ParamStruct_valid = Fw::ParamValid::VALID;
   this->m_paramLock.unLock();
 
   // Call notifier
   this->parameterUpdated(PARAMID_PARAMSTRUCT);
+  return Fw::CmdResponse::OK;
+}
+
+Fw::CmdResponse PassiveTestComponentBase ::
+  paramSet_ParamI32Ext(Fw::SerializeBufferBase& val)
+{
+  const FwPrmIdType _localId = PARAMID_PARAMI32EXT;
+  const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+
+  FW_ASSERT(this->paramDelegatePtr != NULL);
+  // Call the delegate serialize function for m_ParamI32Ext
+  const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
+    _baseId,
+    _localId,
+    Fw::ParamValid::VALID,
+    val
+  );
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
+
+  // Call notifier
+  this->parameterUpdated(PARAMID_PARAMI32EXT);
+  return Fw::CmdResponse::OK;
+}
+
+Fw::CmdResponse PassiveTestComponentBase ::
+  paramSet_ParamF64Ext(Fw::SerializeBufferBase& val)
+{
+  const FwPrmIdType _localId = PARAMID_PARAMF64EXT;
+  const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+
+  FW_ASSERT(this->paramDelegatePtr != NULL);
+  // Call the delegate serialize function for m_ParamF64Ext
+  const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
+    _baseId,
+    _localId,
+    Fw::ParamValid::VALID,
+    val
+  );
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
+
+  // Call notifier
+  this->parameterUpdated(PARAMID_PARAMF64EXT);
+  return Fw::CmdResponse::OK;
+}
+
+Fw::CmdResponse PassiveTestComponentBase ::
+  paramSet_ParamStringExt(Fw::SerializeBufferBase& val)
+{
+  const FwPrmIdType _localId = PARAMID_PARAMSTRINGEXT;
+  const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+
+  FW_ASSERT(this->paramDelegatePtr != NULL);
+  // Call the delegate serialize function for m_ParamStringExt
+  const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
+    _baseId,
+    _localId,
+    Fw::ParamValid::VALID,
+    val
+  );
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
+
+  // Call notifier
+  this->parameterUpdated(PARAMID_PARAMSTRINGEXT);
+  return Fw::CmdResponse::OK;
+}
+
+Fw::CmdResponse PassiveTestComponentBase ::
+  paramSet_ParamEnumExt(Fw::SerializeBufferBase& val)
+{
+  const FwPrmIdType _localId = PARAMID_PARAMENUMEXT;
+  const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+
+  FW_ASSERT(this->paramDelegatePtr != NULL);
+  // Call the delegate serialize function for m_ParamEnumExt
+  const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
+    _baseId,
+    _localId,
+    Fw::ParamValid::VALID,
+    val
+  );
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
+
+  // Call notifier
+  this->parameterUpdated(PARAMID_PARAMENUMEXT);
+  return Fw::CmdResponse::OK;
+}
+
+Fw::CmdResponse PassiveTestComponentBase ::
+  paramSet_ParamArrayExt(Fw::SerializeBufferBase& val)
+{
+  const FwPrmIdType _localId = PARAMID_PARAMARRAYEXT;
+  const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+
+  FW_ASSERT(this->paramDelegatePtr != NULL);
+  // Call the delegate serialize function for m_ParamArrayExt
+  const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
+    _baseId,
+    _localId,
+    Fw::ParamValid::VALID,
+    val
+  );
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
+
+  // Call notifier
+  this->parameterUpdated(PARAMID_PARAMARRAYEXT);
+  return Fw::CmdResponse::OK;
+}
+
+Fw::CmdResponse PassiveTestComponentBase ::
+  paramSet_ParamStructExt(Fw::SerializeBufferBase& val)
+{
+  const FwPrmIdType _localId = PARAMID_PARAMSTRUCTEXT;
+  const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+
+  FW_ASSERT(this->paramDelegatePtr != NULL);
+  // Call the delegate serialize function for m_ParamStructExt
+  const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
+    _baseId,
+    _localId,
+    Fw::ParamValid::VALID,
+    val
+  );
+  if (_stat != Fw::FW_SERIALIZE_OK) {
+    return Fw::CmdResponse::VALIDATION_ERROR;
+  }
+
+  // Call notifier
+  this->parameterUpdated(PARAMID_PARAMSTRUCTEXT);
   return Fw::CmdResponse::OK;
 }
 
@@ -5476,24 +6091,25 @@ Fw::CmdResponse PassiveTestComponentBase ::
 Fw::CmdResponse PassiveTestComponentBase ::
   paramSave_ParamU32()
 {
+  Fw::ParamBuffer _saveBuff;
+  FwPrmIdType _id;
+  Fw::SerializeStatus _stat;
   if (this->m_prmSetOut_OutputPort[0].isConnected()) {
-    Fw::ParamBuffer saveBuff;
     this->m_paramLock.lock();
 
-    Fw::SerializeStatus stat = saveBuff.serialize(m_ParamU32);
+    _stat = _saveBuff.serialize(m_ParamU32);
 
     this->m_paramLock.unLock();
-    if (stat != Fw::FW_SERIALIZE_OK) {
+    if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
     }
 
-    FwPrmIdType id = 0;
-    id = this->getIdBase() + PARAMID_PARAMU32;
+    _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMU32);
 
     // Save the parameter
     this->m_prmSetOut_OutputPort[0].invoke(
-      id,
-      saveBuff
+      _id,
+      _saveBuff
     );
 
     return Fw::CmdResponse::OK;
@@ -5505,24 +6121,25 @@ Fw::CmdResponse PassiveTestComponentBase ::
 Fw::CmdResponse PassiveTestComponentBase ::
   paramSave_ParamF64()
 {
+  Fw::ParamBuffer _saveBuff;
+  FwPrmIdType _id;
+  Fw::SerializeStatus _stat;
   if (this->m_prmSetOut_OutputPort[0].isConnected()) {
-    Fw::ParamBuffer saveBuff;
     this->m_paramLock.lock();
 
-    Fw::SerializeStatus stat = saveBuff.serialize(m_ParamF64);
+    _stat = _saveBuff.serialize(m_ParamF64);
 
     this->m_paramLock.unLock();
-    if (stat != Fw::FW_SERIALIZE_OK) {
+    if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
     }
 
-    FwPrmIdType id = 0;
-    id = this->getIdBase() + PARAMID_PARAMF64;
+    _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMF64);
 
     // Save the parameter
     this->m_prmSetOut_OutputPort[0].invoke(
-      id,
-      saveBuff
+      _id,
+      _saveBuff
     );
 
     return Fw::CmdResponse::OK;
@@ -5534,24 +6151,25 @@ Fw::CmdResponse PassiveTestComponentBase ::
 Fw::CmdResponse PassiveTestComponentBase ::
   paramSave_ParamString()
 {
+  Fw::ParamBuffer _saveBuff;
+  FwPrmIdType _id;
+  Fw::SerializeStatus _stat;
   if (this->m_prmSetOut_OutputPort[0].isConnected()) {
-    Fw::ParamBuffer saveBuff;
     this->m_paramLock.lock();
 
-    Fw::SerializeStatus stat = saveBuff.serialize(m_ParamString);
+    _stat = _saveBuff.serialize(m_ParamString);
 
     this->m_paramLock.unLock();
-    if (stat != Fw::FW_SERIALIZE_OK) {
+    if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
     }
 
-    FwPrmIdType id = 0;
-    id = this->getIdBase() + PARAMID_PARAMSTRING;
+    _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMSTRING);
 
     // Save the parameter
     this->m_prmSetOut_OutputPort[0].invoke(
-      id,
-      saveBuff
+      _id,
+      _saveBuff
     );
 
     return Fw::CmdResponse::OK;
@@ -5563,24 +6181,25 @@ Fw::CmdResponse PassiveTestComponentBase ::
 Fw::CmdResponse PassiveTestComponentBase ::
   paramSave_ParamEnum()
 {
+  Fw::ParamBuffer _saveBuff;
+  FwPrmIdType _id;
+  Fw::SerializeStatus _stat;
   if (this->m_prmSetOut_OutputPort[0].isConnected()) {
-    Fw::ParamBuffer saveBuff;
     this->m_paramLock.lock();
 
-    Fw::SerializeStatus stat = saveBuff.serialize(m_ParamEnum);
+    _stat = _saveBuff.serialize(m_ParamEnum);
 
     this->m_paramLock.unLock();
-    if (stat != Fw::FW_SERIALIZE_OK) {
+    if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
     }
 
-    FwPrmIdType id = 0;
-    id = this->getIdBase() + PARAMID_PARAMENUM;
+    _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMENUM);
 
     // Save the parameter
     this->m_prmSetOut_OutputPort[0].invoke(
-      id,
-      saveBuff
+      _id,
+      _saveBuff
     );
 
     return Fw::CmdResponse::OK;
@@ -5592,24 +6211,25 @@ Fw::CmdResponse PassiveTestComponentBase ::
 Fw::CmdResponse PassiveTestComponentBase ::
   paramSave_ParamArray()
 {
+  Fw::ParamBuffer _saveBuff;
+  FwPrmIdType _id;
+  Fw::SerializeStatus _stat;
   if (this->m_prmSetOut_OutputPort[0].isConnected()) {
-    Fw::ParamBuffer saveBuff;
     this->m_paramLock.lock();
 
-    Fw::SerializeStatus stat = saveBuff.serialize(m_ParamArray);
+    _stat = _saveBuff.serialize(m_ParamArray);
 
     this->m_paramLock.unLock();
-    if (stat != Fw::FW_SERIALIZE_OK) {
+    if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
     }
 
-    FwPrmIdType id = 0;
-    id = this->getIdBase() + PARAMID_PARAMARRAY;
+    _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMARRAY);
 
     // Save the parameter
     this->m_prmSetOut_OutputPort[0].invoke(
-      id,
-      saveBuff
+      _id,
+      _saveBuff
     );
 
     return Fw::CmdResponse::OK;
@@ -5621,24 +6241,211 @@ Fw::CmdResponse PassiveTestComponentBase ::
 Fw::CmdResponse PassiveTestComponentBase ::
   paramSave_ParamStruct()
 {
+  Fw::ParamBuffer _saveBuff;
+  FwPrmIdType _id;
+  Fw::SerializeStatus _stat;
   if (this->m_prmSetOut_OutputPort[0].isConnected()) {
-    Fw::ParamBuffer saveBuff;
     this->m_paramLock.lock();
 
-    Fw::SerializeStatus stat = saveBuff.serialize(m_ParamStruct);
+    _stat = _saveBuff.serialize(m_ParamStruct);
 
     this->m_paramLock.unLock();
-    if (stat != Fw::FW_SERIALIZE_OK) {
+    if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
     }
 
-    FwPrmIdType id = 0;
-    id = this->getIdBase() + PARAMID_PARAMSTRUCT;
+    _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMSTRUCT);
 
     // Save the parameter
     this->m_prmSetOut_OutputPort[0].invoke(
-      id,
-      saveBuff
+      _id,
+      _saveBuff
+    );
+
+    return Fw::CmdResponse::OK;
+  }
+
+  return Fw::CmdResponse::EXECUTION_ERROR;
+}
+
+Fw::CmdResponse PassiveTestComponentBase ::
+  paramSave_ParamI32Ext()
+{
+  Fw::ParamBuffer _saveBuff;
+  FwPrmIdType _id;
+  Fw::SerializeStatus _stat;
+  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+    // Get the local and base ID to pass to the delegate
+    _id = PARAMID_PARAMI32EXT;
+    const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+
+    FW_ASSERT(this->paramDelegatePtr != NULL);
+    _stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
+    if (_stat != Fw::FW_SERIALIZE_OK) {
+      return Fw::CmdResponse::VALIDATION_ERROR;
+    }
+
+    _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMI32EXT);
+
+    // Save the parameter
+    this->m_prmSetOut_OutputPort[0].invoke(
+      _id,
+      _saveBuff
+    );
+
+    return Fw::CmdResponse::OK;
+  }
+
+  return Fw::CmdResponse::EXECUTION_ERROR;
+}
+
+Fw::CmdResponse PassiveTestComponentBase ::
+  paramSave_ParamF64Ext()
+{
+  Fw::ParamBuffer _saveBuff;
+  FwPrmIdType _id;
+  Fw::SerializeStatus _stat;
+  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+    // Get the local and base ID to pass to the delegate
+    _id = PARAMID_PARAMF64EXT;
+    const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+
+    FW_ASSERT(this->paramDelegatePtr != NULL);
+    _stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
+    if (_stat != Fw::FW_SERIALIZE_OK) {
+      return Fw::CmdResponse::VALIDATION_ERROR;
+    }
+
+    _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMF64EXT);
+
+    // Save the parameter
+    this->m_prmSetOut_OutputPort[0].invoke(
+      _id,
+      _saveBuff
+    );
+
+    return Fw::CmdResponse::OK;
+  }
+
+  return Fw::CmdResponse::EXECUTION_ERROR;
+}
+
+Fw::CmdResponse PassiveTestComponentBase ::
+  paramSave_ParamStringExt()
+{
+  Fw::ParamBuffer _saveBuff;
+  FwPrmIdType _id;
+  Fw::SerializeStatus _stat;
+  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+    // Get the local and base ID to pass to the delegate
+    _id = PARAMID_PARAMSTRINGEXT;
+    const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+
+    FW_ASSERT(this->paramDelegatePtr != NULL);
+    _stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
+    if (_stat != Fw::FW_SERIALIZE_OK) {
+      return Fw::CmdResponse::VALIDATION_ERROR;
+    }
+
+    _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMSTRINGEXT);
+
+    // Save the parameter
+    this->m_prmSetOut_OutputPort[0].invoke(
+      _id,
+      _saveBuff
+    );
+
+    return Fw::CmdResponse::OK;
+  }
+
+  return Fw::CmdResponse::EXECUTION_ERROR;
+}
+
+Fw::CmdResponse PassiveTestComponentBase ::
+  paramSave_ParamEnumExt()
+{
+  Fw::ParamBuffer _saveBuff;
+  FwPrmIdType _id;
+  Fw::SerializeStatus _stat;
+  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+    // Get the local and base ID to pass to the delegate
+    _id = PARAMID_PARAMENUMEXT;
+    const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+
+    FW_ASSERT(this->paramDelegatePtr != NULL);
+    _stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
+    if (_stat != Fw::FW_SERIALIZE_OK) {
+      return Fw::CmdResponse::VALIDATION_ERROR;
+    }
+
+    _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMENUMEXT);
+
+    // Save the parameter
+    this->m_prmSetOut_OutputPort[0].invoke(
+      _id,
+      _saveBuff
+    );
+
+    return Fw::CmdResponse::OK;
+  }
+
+  return Fw::CmdResponse::EXECUTION_ERROR;
+}
+
+Fw::CmdResponse PassiveTestComponentBase ::
+  paramSave_ParamArrayExt()
+{
+  Fw::ParamBuffer _saveBuff;
+  FwPrmIdType _id;
+  Fw::SerializeStatus _stat;
+  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+    // Get the local and base ID to pass to the delegate
+    _id = PARAMID_PARAMARRAYEXT;
+    const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+
+    FW_ASSERT(this->paramDelegatePtr != NULL);
+    _stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
+    if (_stat != Fw::FW_SERIALIZE_OK) {
+      return Fw::CmdResponse::VALIDATION_ERROR;
+    }
+
+    _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMARRAYEXT);
+
+    // Save the parameter
+    this->m_prmSetOut_OutputPort[0].invoke(
+      _id,
+      _saveBuff
+    );
+
+    return Fw::CmdResponse::OK;
+  }
+
+  return Fw::CmdResponse::EXECUTION_ERROR;
+}
+
+Fw::CmdResponse PassiveTestComponentBase ::
+  paramSave_ParamStructExt()
+{
+  Fw::ParamBuffer _saveBuff;
+  FwPrmIdType _id;
+  Fw::SerializeStatus _stat;
+  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+    // Get the local and base ID to pass to the delegate
+    _id = PARAMID_PARAMSTRUCTEXT;
+    const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+
+    FW_ASSERT(this->paramDelegatePtr != NULL);
+    _stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
+    if (_stat != Fw::FW_SERIALIZE_OK) {
+      return Fw::CmdResponse::VALIDATION_ERROR;
+    }
+
+    _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMSTRUCTEXT);
+
+    // Save the parameter
+    this->m_prmSetOut_OutputPort[0].invoke(
+      _id,
+      _saveBuff
     );
 
     return Fw::CmdResponse::OK;
@@ -5716,3 +6523,7 @@ void PassiveTestComponentBase ::
       break;
   }
 }
+
+// ----------------------------------------------------------------------
+// Parameter delegates
+// ----------------------------------------------------------------------

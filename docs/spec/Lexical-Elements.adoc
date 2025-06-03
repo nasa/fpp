@@ -65,11 +65,12 @@ diagnostic
 do
 drop
 else
+enter
 entry
 enum
-enter
 event
 exit
+external
 false
 fatal
 format
@@ -87,6 +88,7 @@ include
 initial
 input
 instance
+interface
 internal
 locate
 low

@@ -183,21 +183,35 @@ namespace M {
   void PrimitiveF64 ::
     toString(Fw::StringBase& sb) const
   {
-    static const char *formatString = "[ "
-      "%.5g "
-      "%.5g "
-      "%.5g "
-      "%.5g "
-      "%.5g ]";
+    // Clear the output string
+    sb = "";
 
-    sb.format(
-      formatString,
-      this->elements[0],
-      this->elements[1],
-      this->elements[2],
-      this->elements[3],
-      this->elements[4]
-    );
+    // Array prefix
+    if (sb.length() + 2 <= sb.maxLength()) {
+      sb += "[ ";
+    } else {
+      return;
+    }
+
+    for (U32 index = 0; index < SIZE; index++) {
+      Fw::String tmp;
+      tmp.format("%.5g", this->elements[index]);
+
+      FwSizeType size = tmp.length() + (index > 0 ? 2 : 0);
+      if ((size + sb.length()) <= sb.maxLength()) {
+        if (index > 0) {
+          sb += ", ";
+        }
+        sb += tmp;
+      } else {
+        break;
+      }
+    }
+
+    // Array suffix
+    if (sb.length() + 2 <= sb.maxLength()) {
+      sb += " ]";
+    }
   }
 
 #endif

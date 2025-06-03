@@ -71,6 +71,8 @@ values.
 
 * An <<Specifiers_Internal-Port-Specifiers,internal port specifier>>
 
+* An <<Specifiers_Interface-Import-Specifiers,interface import specifier>>
+
 The command, event, parameter, telemetry, record, and container
 specifiers are collectively referred to as *dictionary specifiers*.
 The record and container specifiers are collectively referred to
@@ -83,13 +85,17 @@ The definitions inside the body of the component are
 qualified with the component name, as for
 <<Definitions_Module-Definitions,module definitions>>.
 
-The component members must satisfy the following rules:
+Each state machine instance specifier must have a distinct name.
 
-. All names appearing in any general port specifiers, special port specifiers,
-and internal port specifiers must be distinct.
+Each component definition has a set of *port specifiers*, consisting of
+(1) the port instance specifiers that appear as members of the component;
+(2) the port instance specifiers added by
+<<Specifiers_Interface-Import-Specifiers,resolving any interface import
+specifiers that are members of the component>>;
+and (3) the internal port specifiers that appear as members of the component.
+The port specifiers must satisfy the following rules:
 
-. All names appearing in any state machine instance specifier must
-be distinct.
+. Each port specifier must have a distinct name.
 
 . No passive component may have an `async` general or special
 port specifier, an internal

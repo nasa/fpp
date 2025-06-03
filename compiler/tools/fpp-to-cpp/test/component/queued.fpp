@@ -13,6 +13,7 @@ queued component QueuedTest {
   include "include/products.fppi"
   include "include/telemetry.fppi"
   include "include/params.fppi"
+  include "include/external_params.fppi"
 
 }
 
@@ -41,6 +42,7 @@ queued component QueuedSerial {
   include "include/events.fppi"
   include "include/telemetry.fppi"
   include "include/params.fppi"
+  include "include/external_params.fppi"
 
 }
 
@@ -86,6 +88,17 @@ queued component QueuedParams {
   import SpecialPorts
 
   include "include/params.fppi"
+
+}
+
+@ An queued component with external params only
+queued component QueuedExternalParams {
+
+  include "include/typed_ports.fppi"
+  include "include/typed_ports_async.fppi"
+  include "include/special_ports.fppi"
+
+  include "include/external_params.fppi"
 
 }
 
