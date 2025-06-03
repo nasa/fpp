@@ -173,7 +173,7 @@ object CheckUses extends UseAnalyzer {
           s3 <- checkImpliedUses(impliedConstantUses, node1.id, "constant", NameGroup.Value)
           a <- super.defTopologyAnnotatedNode(a, node)
         } yield a.copy(
-            dictionaryIntegerSymbolSet = a.dictionaryIntegerSymbolSet ++ s1,
+            dictionaryAliasSymbolSet = a.dictionaryAliasSymbolSet ++ s1,
             dictionaryEnumSymbolSet = a.dictionaryEnumSymbolSet ++ s2,
             dictionaryConstantSymbolSet = a.dictionaryConstantSymbolSet ++ s3
           )

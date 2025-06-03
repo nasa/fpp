@@ -32,7 +32,7 @@ object ConstructDictionaryMap
     }
     val a1 = a.copy(topology = Some(t), dictionary = Some(d))
     for {
-      a <- checkIntegerType(a.dictionaryIntegerSymbolSet, "this F Prime framework type must be an alias of an integer type")
+      a <- checkIntegerType(a.dictionaryAliasSymbolSet, "this F Prime framework type must be an alias of an integer type")
       a <- checkIntegerType(a.dictionaryConstantSymbolSet, "this F Prime framework type must be a constant with a value of integer type")
       a <- super.defTopologyAnnotatedNode(a1, aNode)
     }

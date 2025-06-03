@@ -10,7 +10,7 @@ final case class DictionaryUsedSymbols(a: Analysis, t: Topology) {
 
   private def getUsedSymbolSet: Set[Symbol] =
     t.instanceMap.keys.toSet.flatMap(getUsedSymbolsForInstance) 
-      ++ a.dictionaryIntegerSymbolSet 
+      ++ a.dictionaryAliasSymbolSet 
       ++ a.dictionaryConstantSymbolSet 
       ++ a.dictionaryEnumSymbolSet
 
