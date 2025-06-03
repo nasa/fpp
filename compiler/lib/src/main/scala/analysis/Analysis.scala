@@ -1,7 +1,7 @@
 package fpp.compiler.analysis
 
-import fpp.compiler.ast.*
-import fpp.compiler.util.*
+import fpp.compiler.ast._
+import fpp.compiler.util._
 
 import scala.annotation.tailrec
 
@@ -318,7 +318,7 @@ case class Analysis(
       ))
   }
 
-  /** Gets a non-negative int value from an AST node */
+  /** Gets a nonnegative int value from an AST node */
   def getNonnegativeIntValue(id: AstNode.Id): Result.Result[Int] =
     for {
       v <- getIntValue(id)
