@@ -121,47 +121,56 @@ object CheckUses extends UseAnalyzer {
     a.dictionaryNeeded match {
       case true => {
         val impliedAliasTypeUses = List(
-          "FwChanIdType",
-          "FwDpIdType",
-          "FwDpPriorityType",  
-          "FwEventIdType", 
-          "FwOpcodeType", 
-          "FwPacketDescriptorType", 
-          "FwSizeType",
-          "FwTimeBaseStoreType",
-          "FwTimeContextStoreType",
-          "FwTlmPacketizeIdType",
+          List("FwChanIdType"),
+          List("FwDpIdType"),
+          List("FwDpPriorityType"),  
+          List("FwEventIdType"), 
+          List("FwOpcodeType"), 
+          List("FwPacketDescriptorType"), 
+          List("FwSizeType"),
+          List("FwTimeBaseStoreType"),
+          List("FwTimeContextStoreType"),
+          List("FwTlmPacketizeIdType")
         )
         val impliedEnumUses = List(
-          "DpState",
-          "ProcType"
+          List("Fw", "DpState"),
+          List("Fw", "DpCfg", "ProcType")
         )
         val impliedConstantUses = List(
-          "CONTAINER_USER_DATA_SIZE"
+          List("Fw", "DpCfg", "CONTAINER_USER_DATA_SIZE")
         )
         val (_, node1, _) = node
-        val typeMapping = a.nestedScope.get (NameGroup.Type) _
-        val valueMapping = a.nestedScope.get (NameGroup.Value) _
-
         def checkImpliedUses(
-          impliedUses: List[String], 
-          mapping: Name.Unqualified => Option[Symbol],
+          impliedUses: List[List[String]], 
           id: AstNode.Id,
-          typeName: String
+          typeName: String,
+          ng: NameGroup
         ): Result.Result[Set[Symbol]] = {
-          Result.foldLeft (impliedUses) (Set[Symbol]()) ((s, t) => {
+          Result.foldLeft (impliedUses) (Set[Symbol]()) ((s, identList) => {
+            val nodeList = identList.map(AstNode.create(_, node1.id))
+            val qualIdent = Ast.QualIdent.fromNodeList(nodeList)
+            val impliedUse = AstNode.create(qualIdent, node1.id)
             for {
-              symbol <- Result.annotateResult(
-                helpers.getSymbolForName(mapping)(id, t), 
-                s"when constructing a dictionary, the $typeName $t must be defined")
+              symbol <- impliedUse.data match {
+                case Ast.QualIdent.Unqualified(name) =>
+                  Result.annotateResult(
+                    helpers.getSymbolForName(a.nestedScope.get (ng) _)(id, name), 
+                    s"when constructing a dictionary, the $typeName $name must be defined"
+                  )
+                case Ast.QualIdent.Qualified(qualifier, name) =>
+                  Result.annotateResult(
+                    helpers.getSymbolForQualifiedName (ng) (a, node1.id, qualifier, name),
+                    s"when constructing a dictionary, the $typeName ${identList.mkString(".")} must be defined"
+                  )
+              }
             } yield s + symbol
           })
         }
 
         for {
-          s1 <- checkImpliedUses(impliedAliasTypeUses, typeMapping, node1.id, "alias")
-          s2 <- checkImpliedUses(impliedEnumUses, typeMapping, node1.id, "enum")
-          s3 <- checkImpliedUses(impliedConstantUses, valueMapping, node1.id, "constant")
+          s1 <- checkImpliedUses(impliedAliasTypeUses, node1.id, "alias", NameGroup.Type)
+          s2 <- checkImpliedUses(impliedEnumUses, node1.id, "enum", NameGroup.Type)
+          s3 <- checkImpliedUses(impliedConstantUses, node1.id, "constant", NameGroup.Value)
           a <- super.defTopologyAnnotatedNode(a, node)
         } yield a.copy(
             dictionaryIntegerSymbolSet = a.dictionaryIntegerSymbolSet ++ s1,

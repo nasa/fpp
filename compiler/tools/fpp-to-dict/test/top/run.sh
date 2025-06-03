@@ -33,6 +33,13 @@ missingFwOpcodeType()
     compare missingFwOpcodeType
 }
 
+missingUserDataSizeConstant()
+{
+  run_test '' missingUserDataSizeConstant && \
+    compare missingUserDataSizeConstant
+}
+
+
 arrayFwEventType()
 {
   run_test '' arrayFwEventType && \

@@ -1,0 +1,6 @@
+fpp-to-dict
+[ local path prefix ]/tools/fpp-to-dict/test/top/missingUserDataSizeConstant.fpp:42.1
+topology T {
+^
+error: undefined symbol CONTAINER_USER_DATA_SIZE
+note: when constructing a dictionary, the constant Fw.DpCfg.CONTAINER_USER_DATA_SIZE must be defined

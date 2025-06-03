@@ -26,9 +26,6 @@ module Fw {
     } default UNTRANSMITTED
 
     module DpCfg {
-        @ The container user data size
-        constant CONTAINER_USER_DATA_SIZE = 1
-
         @ A bit mask for selecting the type of processing to perform on
         @ a container before writing it to disk.
         enum ProcType: U8 {
@@ -40,4 +37,8 @@ module Fw {
             PROC_TYPE_TWO = 0x04
         }
     }
+}
+
+topology T {
+  
 }

@@ -57,7 +57,7 @@
     },
     {
       "kind" : "enum",
-      "qualifiedName" : "ProcType",
+      "qualifiedName" : "Fw.DpState",
       "representationType" : {
         "name" : "U8",
         "kind" : "integer",
@@ -66,23 +66,22 @@
       },
       "enumeratedConstants" : [
         {
-          "name" : "PROC_TYPE_ZERO",
+          "name" : "UNTRANSMITTED",
+          "value" : 0,
+          "annotation" : "The untransmitted state"
+        },
+        {
+          "name" : "PARTIAL",
           "value" : 1,
-          "annotation" : "Processing type 0"
+          "annotation" : "The partially transmitted state\nA data product is in this state from the start of transmission\nuntil transmission is complete."
         },
         {
-          "name" : "PROC_TYPE_ONE",
+          "name" : "TRANSMITTED",
           "value" : 2,
-          "annotation" : "Processing type 1"
-        },
-        {
-          "name" : "PROC_TYPE_TWO",
-          "value" : 4,
-          "annotation" : "Processing type 2"
+          "annotation" : "The transmitted state"
         }
       ],
-      "default" : "ProcType.PROC_TYPE_ZERO",
-      "annotation" : "A bit mask for selecting the type of processing to perform on\na container before writing it to disk."
+      "default" : "Fw.DpState.UNTRANSMITTED"
     },
     {
       "kind" : "alias",
@@ -150,16 +149,49 @@
       }
     },
     {
-      "kind" : "constant",
-      "qualifiedName" : "CONTAINER_USER_DATA_SIZE",
-      "type" : {
-        "name" : "U64",
+      "kind" : "enum",
+      "qualifiedName" : "Fw.DpCfg.ProcType",
+      "representationType" : {
+        "name" : "U8",
         "kind" : "integer",
-        "size" : 64,
+        "size" : 8,
         "signed" : false
       },
-      "value" : 1,
-      "annotation" : "The container user data size"
+      "enumeratedConstants" : [
+        {
+          "name" : "PROC_TYPE_ZERO",
+          "value" : 1,
+          "annotation" : "Processing type 0"
+        },
+        {
+          "name" : "PROC_TYPE_ONE",
+          "value" : 2,
+          "annotation" : "Processing type 1"
+        },
+        {
+          "name" : "PROC_TYPE_TWO",
+          "value" : 4,
+          "annotation" : "Processing type 2"
+        }
+      ],
+      "default" : "Fw.DpCfg.ProcType.PROC_TYPE_ZERO",
+      "annotation" : "A bit mask for selecting the type of processing to perform on\na container before writing it to disk."
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwPacketDescriptorType",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
     },
     {
       "kind" : "alias",
@@ -193,50 +225,6 @@
         "size" : 32,
         "signed" : false
       }
-    },
-    {
-      "kind" : "alias",
-      "qualifiedName" : "FwPacketDescriptorType",
-      "type" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
-      },
-      "underlyingType" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
-      }
-    },
-    {
-      "kind" : "enum",
-      "qualifiedName" : "DpState",
-      "representationType" : {
-        "name" : "U8",
-        "kind" : "integer",
-        "size" : 8,
-        "signed" : false
-      },
-      "enumeratedConstants" : [
-        {
-          "name" : "UNTRANSMITTED",
-          "value" : 0,
-          "annotation" : "The untransmitted state"
-        },
-        {
-          "name" : "PARTIAL",
-          "value" : 1,
-          "annotation" : "The partially transmitted state\nA data product is in this state from the start of transmission\nuntil transmission is complete."
-        },
-        {
-          "name" : "TRANSMITTED",
-          "value" : 2,
-          "annotation" : "The transmitted state"
-        }
-      ],
-      "default" : "DpState.UNTRANSMITTED"
     },
     {
       "kind" : "alias",
@@ -304,6 +292,20 @@
         "u16Field" : 0
       },
       "annotation" : "Data for a DataRecord"
+    }
+  ],
+  "constants" : [
+    {
+      "kind" : "constant",
+      "qualifiedName" : "Fw.DpCfg.CONTAINER_USER_DATA_SIZE",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "value" : 1,
+      "annotation" : "The container user data size"
     }
   ],
   "commands" : [

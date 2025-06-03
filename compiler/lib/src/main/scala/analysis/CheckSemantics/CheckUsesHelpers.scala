@@ -52,7 +52,7 @@ case class CheckUsesHelpers[A,NG,S <: SymbolInterface](
     }
   }
 
-  private def visitQualifiedName (ng: NG) (
+  def getSymbolForQualifiedName (ng: NG) (
     a: A,
     id: AstNode.Id,
     qualifier: AstNode[Ast.QualIdent],
@@ -77,6 +77,18 @@ case class CheckUsesHelpers[A,NG,S <: SymbolInterface](
         val mapping = scope.get (ng) _
         getSymbolForName(mapping)(name.id, name.data)
       }
+    }
+    yield symbol
+
+  private def visitQualifiedName (ng: NG) (
+    a: A,
+    id: AstNode.Id,
+    qualifier: AstNode[Ast.QualIdent],
+    name: AstNode[Ast.Ident]
+  ) =
+    for {
+      a <- visitQualIdentNode (ng) (a, qualifier)
+      symbol <- getSymbolForQualifiedName (ng) (a, id, qualifier, name)
     }
     yield {
       val useDefMap = getUseDefMap(a) + (id -> symbol)
