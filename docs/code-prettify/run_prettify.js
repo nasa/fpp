@@ -450,6 +450,7 @@ var IN_GLOBAL_SCOPE = false;
           "initial," +
           "input," +
           "instance," +
+          "interface," +
           "internal," +
           "locate," +
           "low," +

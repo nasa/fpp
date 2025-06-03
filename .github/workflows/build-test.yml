@@ -2,9 +2,9 @@ name: FPP CI
 
 on:
   push:
-    branches: [ "main", "release/**" ]
+    branches: [ "main", "release/**", "feature/**" ]
   pull_request:
-    branches: [ "main", "release/**" ]
+    branches: [ "main", "release/**", "feature/**" ]
 
 permissions:
   contents: read

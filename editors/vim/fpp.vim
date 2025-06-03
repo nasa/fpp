@@ -54,6 +54,7 @@ syn keyword fppKeyword include
 syn keyword fppKeyword initial
 syn keyword fppKeyword input
 syn keyword fppKeyword instance
+syn keyword fppKeyword interface
 syn keyword fppKeyword internal
 syn keyword fppKeyword locate
 syn keyword fppKeyword low
