@@ -565,7 +565,7 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "top" : {
+                                "sym" : {
                                   "AstNode" : {
                                     "data" : {
                                       "Unqualified" : {
@@ -827,7 +827,7 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "top" : {
+                                "sym" : {
                                   "AstNode" : {
                                     "data" : {
                                       "Unqualified" : {
