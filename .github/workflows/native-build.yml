@@ -79,7 +79,8 @@ jobs:
           export PATH="${NATIVE_IMAGE_TOOLS_PATH}:${PATH}"
           ${{ inputs.test }}
           echo -e "Trace output files:\n$( find ${{ inputs.trace-directory }} -name *.json )"
-      - name: "Archiving Tracing"
+      - if: ${{ inputs.trace }}
+        name: "Archiving Tracing"
         uses: actions/upload-artifact@v4
         with:
           name: jar-traces
@@ -108,16 +109,15 @@ jobs:
                 "runner": "ubuntu-22.04",
                 "tag": "manylinux_2_28_x86_64",
                 "container": "quay.io/pypa/manylinux_2_28_x86_64"
+              },
+              {
+                "runner": "ubuntu-22.04-arm",
+                "tag": "manylinux_2_28_aarch64",
+                "container": "quay.io/pypa/manylinux_2_28_aarch64"
               }
+              
             ]
           }
-          if "${{ github.event_name }}" == 'release':
-            matrix["run"].append(
-              {
-                "runner": "odroid",
-                "tag": "manylinux_2_28_aarch64"
-              }
-            )
           tags = {"tag": ["jar"] + [run["tag"] for run in matrix["run"]]}
           with open(os.environ["GITHUB_OUTPUT"], "a") as file_handle:
             for file_stream in [sys.stdout, file_handle]:

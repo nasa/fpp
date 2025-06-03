@@ -175,27 +175,35 @@ Fw::SerializeStatus ArrayAliasArray ::
 void ArrayAliasArray ::
   toString(Fw::StringBase& sb) const
 {
-  static const char *formatString = "[ "
-    "%s "
-    "%s "
-    "%s ]";
+  // Clear the output string
+  sb = "";
 
-  // Declare strings to hold any serializable toString() arguments
-  Fw::String str0;
-  Fw::String str1;
-  Fw::String str2;
+  // Array prefix
+  if (sb.length() + 2 <= sb.maxLength()) {
+    sb += "[ ";
+  } else {
+    return;
+  }
 
-  // Call toString for arrays and serializable types
-  this->elements[0].toString(str0);
-  this->elements[1].toString(str1);
-  this->elements[2].toString(str2);
+  for (U32 index = 0; index < SIZE; index++) {
+    Fw::String tmp;
+    this->elements[index].toString(tmp);
 
-  sb.format(
-    formatString,
-    str0.toChar(),
-    str1.toChar(),
-    str2.toChar()
-  );
+    FwSizeType size = tmp.length() + (index > 0 ? 2 : 0);
+    if ((size + sb.length()) <= sb.maxLength()) {
+      if (index > 0) {
+        sb += ", ";
+      }
+      sb += tmp;
+    } else {
+      break;
+    }
+  }
+
+  // Array suffix
+  if (sb.length() + 2 <= sb.maxLength()) {
+    sb += " ]";
+  }
 }
 
 #endif

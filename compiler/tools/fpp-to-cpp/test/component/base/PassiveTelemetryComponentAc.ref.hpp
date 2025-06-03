@@ -49,10 +49,10 @@ class PassiveTelemetryComponentBase :
     // Friend classes
     // ----------------------------------------------------------------------
 
-    //! Friend class for white-box testing
-    friend class PassiveTelemetryComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class PassiveTelemetryTesterBase;
+    //! Friend class tester implementation to support white-box testing
+    friend class PassiveTelemetryTester;
 
   PROTECTED:
 
