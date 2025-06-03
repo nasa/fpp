@@ -18,4 +18,5 @@ jobs:
       output-directory: ./compiler/bin
       meta-package: fpp
       fast-hack: true
+      trace: false
     secrets: inherit

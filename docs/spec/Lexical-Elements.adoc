@@ -70,6 +70,7 @@ entry
 enum
 event
 exit
+external
 false
 fatal
 format

@@ -55,6 +55,7 @@ object Lexer {
     ("enum", ENUM),
     ("event", EVENT),
     ("exit", EXIT),
+    ("external", EXTERNAL),
     ("false", FALSE),
     ("fatal", FATAL),
     ("format", FORMAT),
@@ -247,6 +248,7 @@ object Lexer {
         case EQUALS => Token.EQUALS()
         case EVENT => Token.EVENT()
         case EXIT => Token.EXIT()
+        case EXTERNAL => Token.EXTERNAL()
         case F32 => Token.F32()
         case F64 => Token.F64()
         case FALSE => Token.FALSE()
@@ -433,21 +435,18 @@ object Lexer {
           fetchIdentRest()
         // Numeric literal
         case '0' =>
-          def fetchLeadingZero(): Unit = {
-            nextChar()
-            ch match {
-              case 'x' | 'X' =>
-                base = 16
-                putChar('0')
-                putChar('x')
-                nextChar()
-              case _ => base = 10; putChar('0')
-            }
-            if (base != 10 && digit2int(ch, base) < 0)
-              error("invalid literal number")
+          nextChar()
+          ch match {
+            case 'x' | 'X' =>
+              base = 16
+              putChar('0')
+              putChar('x')
+              nextChar()
+            case _ => base = 10; putChar('0')
           }
+          if (base != 10 && digit2int(ch, base) < 0)
+            error("invalid literal number")
 
-          fetchLeadingZero()
           fetchNumber()
         // More numeric literals
         case '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' =>

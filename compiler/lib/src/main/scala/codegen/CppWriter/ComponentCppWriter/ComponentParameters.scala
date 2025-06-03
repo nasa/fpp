@@ -14,7 +14,7 @@ case class ComponentParameters (
     if !hasParameters then Nil
     else List(
       linesClassMember(
-        List(
+        List.concat(
           Line.blank :: lines(s"//! Parameter IDs"),
           wrapInEnum(
             sortedParams.flatMap((id, param) =>
@@ -26,7 +26,7 @@ case class ComponentParameters (
               )
             )
           )
-        ).flatten
+        )
       )
     )
   }
@@ -38,57 +38,84 @@ case class ComponentParameters (
 
   def getProtectedFunctionMembers: List[CppDoc.Class.Member] = {
     if !hasParameters then Nil
-    else List(
+    else List.concat(
       getHookFunctions,
-      getGetterFunctions
-    ).flatten
+      getGetterFunctions,
+      getExternalParameterFunctions
+    )
   }
 
   def getPrivateFunctionMembers: List[CppDoc.Class.Member] = {
     if !hasParameters then Nil
-    else List(
+    else List.concat(
       getSetters,
       getSaveFunctions
-    ).flatten
+    )
   }
 
   def getVariableMembers: List[CppDoc.Class.Member] = {
     if !hasParameters then Nil
-    else List(
+    else List.concat(
       addAccessTagAndComment(
         "PRIVATE",
         "Parameter validity flags",
-        sortedParams.map((_, param) =>
-          linesClassMember(
-            lines(
-              s"""|
-                  |//! True if ${param.getName} was successfully received
-                  |Fw::ParamValid ${paramValidityFlagName(param.getName)};
-                  |"""
+        sortedParams.flatMap { case (_, param) =>
+          guardedList (!param.isExternal) (
+            List(
+              linesClassMember(
+                lines(
+                  s"""|
+                      |//! True if ${param.getName} was successfully received
+                      |Fw::ParamValid ${paramValidityFlagName(param.getName)};
+                      |"""
+                )
+              )
             )
           )
-        ),
+        },
         CppDoc.Lines.Hpp
       ),
       addAccessTagAndComment(
         "PRIVATE",
         "Parameter variables",
-        sortedParams.map((_, param) => {
-          val paramType = writeParamType(param.paramType, "Fw::ParamString")
-          val paramVarName = paramVariableName(param.getName)
-          linesClassMember(
-            List.concat(
-              addSeparatedPreComment(
-                s"Parameter ${param.getName}",
-                AnnotationCppWriter.asStringOpt(param.aNode)
-              ),
-              lines(s"$paramType $paramVarName;")
+        sortedParams.flatMap { case (_, param) =>
+          guardedList (!param.isExternal) {
+            val paramType = writeParamType(param.paramType, "Fw::ParamString")
+            val paramVarName = paramVariableName(param.getName)
+            List(
+              linesClassMember(
+                List.concat(
+                  addSeparatedPreComment(
+                    s"Parameter ${param.getName}",
+                    AnnotationCppWriter.asStringOpt(param.aNode)
+                  ),
+                  lines(s"$paramType $paramVarName;")
+                )
+              )
+            )
+          }
+        },
+        CppDoc.Lines.Hpp
+      ),
+      guardedList (hasExternalParameters) (
+        List.concat(
+          addAccessTagAndComment(
+            "PRIVATE",
+            "Parameter delegates",
+            List(
+              linesClassMember(
+                lines(
+                  s"""|
+                      |//! Delegate to serialize/deserialize an externally stored parameter
+                      |Fw::ParamExternalDelegate* paramDelegatePtr;
+                      |"""
+                )
+              )
             )
           )
-        }),
-        CppDoc.Lines.Hpp
+        )
       )
-    ).flatten
+    )
   }
 
   private def getLoadFunction: List[CppDoc.Class.Member] = {
@@ -109,61 +136,101 @@ case class ComponentParameters (
           intersperseBlankLines(
             List(
               lines(
-                s"""|Fw::ParamBuffer buff;
-                    |Fw::SerializeStatus stat = Fw::FW_SERIALIZE_OK;
+                s"""|Fw::ParamBuffer _buff;
+                    |Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_OK;
+                    |const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
                     |FW_ASSERT(this->${portVariableName(prmGetPort.get)}[0].isConnected());
                     |
-                    |FwPrmIdType _id;
+                    |FwPrmIdType _id{};
                     |"""
               ),
+              guardedList (hasExternalParameters) (lines("Fw::ParamValid param_valid;")),
               intersperseBlankLines(
                 sortedParams.map((_, param) =>
-                  List.concat(
-                    lines(
-                      s"""|_id = this->getIdBase() + ${paramIdConstantName(param.getName)};
-                          |
-                          |// Get parameter ${param.getName}
-                          |this->${paramValidityFlagName(param.getName)} =
-                          |  this->${portVariableName(prmGetPort.get)}[0].invoke(
-                          |    _id,
-                          |    buff
-                          |  );
-                          |
-                          |// Deserialize value
-                          |this->m_paramLock.lock();
-                          |
-                          |// If there was a deserialization issue, mark it invalid
-                          |"""
-                    ),
-                    wrapInIfElse(
-                      s"this->${paramValidityFlagName(param.getName)} == Fw::ParamValid::VALID",
-                      line(s"stat = buff.deserialize(this->${paramVariableName(param.getName)});") ::
-                        wrapInIf(
-                          "stat != Fw::FW_SERIALIZE_OK",
-                          param.default match {
-                            case Some(value) => lines(
-                              s"""|this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::DEFAULT;
-                                  |// Set default value
-                                  |this->${paramVariableName(param.getName)} = ${ValueCppWriter.write(s, value)};
-                                  |"""
-                            )
-                            case None => lines(
-                              s"this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::INVALID;"
-                            )
-                          }
-                        ),
-                      param.default match {
-                        case Some(value) => lines(
-                          s"""|// Set default value
-                              |this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::DEFAULT;
-                              |this->${paramVariableName(param.getName)} = ${ValueCppWriter.write(s, value)};
+                  if (param.isExternal) {
+                    List.concat(
+                      lines(
+                        s"""|_id = _baseId + ${paramIdConstantName(param.getName)};
+                            |
+                            |// Get parameter ${param.getName}
+                            |param_valid = this->${portVariableName(prmGetPort.get)}[0].invoke(
+                            |  _id,
+                            |  _buff
+                            |);
+                            |
+                            |// Get the local ID to pass to the delegate
+                            |_id = ${paramIdConstantName(param.getName)};
+                            |// If there was a deserialization issue, mark it invalid
+                            |"""
+                      ),
+                      wrapInIfElse(
+                        s"param_valid == Fw::ParamValid::VALID",
+                        lines(
+                          s"""|// Pass the local ID to the delegate
+                              |_id = ${paramIdConstantName(param.getName)};
+                              |
+                              |FW_ASSERT(this->paramDelegatePtr != NULL);
+                              |// Call the delegate deserialize function for ${paramVariableName(param.getName)}
+                              |_stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
                               |"""
-                        )
-                        case None => lines("// No default")
-                      }
-                    ),
-                    Line.blank :: lines("this->m_paramLock.unLock();")
-                  )
+                        ) ++
+                          wrapInIf(
+                            "_stat != Fw::FW_SERIALIZE_OK",
+                            lines(
+                              s"param_valid = Fw::ParamValid::INVALID;"
+                            )
+                          ),
+                        lines(s"param_valid = Fw::ParamValid::INVALID;")
+                      )
+                    )
+                  } else {
+                    List.concat(
+                      lines(
+                        s"""|_id = _baseId + ${paramIdConstantName(param.getName)};
+                            |
+                            |// Get parameter ${param.getName}
+                            |this->${paramValidityFlagName(param.getName)} =
+                            |  this->${portVariableName(prmGetPort.get)}[0].invoke(
+                            |    _id,
+                            |    _buff
+                            |  );
+                            |
+                            |// Deserialize value
+                            |this->m_paramLock.lock();
+                            |
+                            |// If there was a deserialization issue, mark it invalid
+                            |"""
+                      ),
+                      wrapInIfElse(
+                        s"this->${paramValidityFlagName(param.getName)} == Fw::ParamValid::VALID",
+                        line(s"_stat = _buff.deserialize(this->${paramVariableName(param.getName)});") ::
+                          wrapInIf(
+                            "_stat != Fw::FW_SERIALIZE_OK",
+                            param.default match {
+                              case Some(value) => lines(
+                                s"""|this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::DEFAULT;
+                                    |// Set default value
+                                    |this->${paramVariableName(param.getName)} = ${ValueCppWriter.write(s, value)};
+                                    |"""
+                              )
+                              case None => lines(
+                                s"this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::INVALID;"
+                              )
+                            }
+                          ),
+                        param.default match {
+                          case Some(value) => lines(
+                            s"""|// Set default value
+                                |this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::DEFAULT;
+                                |this->${paramVariableName(param.getName)} = ${ValueCppWriter.write(s, value)};
+                                |"""
+                          )
+                          case None => lines("// No default")
+                        }
+                      ),
+                      Line.blank :: lines("this->m_paramLock.unLock();")
+                    )
+                  }
                 )
               ),
               lines(
@@ -245,15 +312,41 @@ case class ComponentParameters (
             )
           ),
           CppDoc.Type(writeParamType(param.paramType, "Fw::ParamString")),
-          lines(
-            s"""|${writeParamType(param.paramType, "Fw::ParamString")} _local;
-                |this->m_paramLock.lock();
-                |valid = this->${paramValidityFlagName(param.getName)};
-                |_local = this->${paramVariableName(param.getName)};
-                |this->m_paramLock.unLock();
-                |return _local;
-                |"""
-          )
+          if(param.isExternal) {
+            lines(
+              s"""|${writeParamType(param.paramType, "Fw::ParamString")} _local{};
+                  |Fw::ParamBuffer _getBuff;
+                  |// Get the base ID
+                  |const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+                  |// Get the local ID to pass to the delegate
+                  |const FwPrmIdType _localId = ${paramIdConstantName(param.getName)};
+                  |
+                  |FW_ASSERT(this->paramDelegatePtr != NULL);
+                  |// Get the external parameter from the delegate
+                  |Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
+                  |if(_stat == Fw::FW_SERIALIZE_OK) {
+                  |  _stat = _getBuff.deserialize(_local);
+                  |  FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
+                  |  valid = Fw::ParamValid::VALID;
+                  |} else {
+                  |  valid = Fw::ParamValid::INVALID;
+                  |}
+                  |return _local;
+                  |"""
+            )
+          }
+          else
+          {
+            lines(
+              s"""|${writeParamType(param.paramType, "Fw::ParamString")} _local{};
+                  |this->m_paramLock.lock();
+                  |valid = this->${paramValidityFlagName(param.getName)};
+                  |_local = this->${paramVariableName(param.getName)};
+                  |this->m_paramLock.unLock();
+                  |return _local;
+                  |"""
+            )
+          }
         )
       )
     )
@@ -280,24 +373,48 @@ case class ComponentParameters (
             ),
           ),
           CppDoc.Type("Fw::CmdResponse"),
-          lines(
-            s"""|${writeParamType(param.paramType, "Fw::ParamString")} _local_val;
-                |Fw::SerializeStatus _stat = val.deserialize(_local_val);
-                |if (_stat != Fw::FW_SERIALIZE_OK) {
-                |  return Fw::CmdResponse::VALIDATION_ERROR;
-                |}
-                |
-                |// Assign value only if successfully deserialized
-                |this->m_paramLock.lock();
-                |this->${paramVariableName(param.getName)} = _local_val;
-                |this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::VALID;
-                |this->m_paramLock.unLock();
-                |
-                |// Call notifier
-                |this->parameterUpdated(${paramIdConstantName(param.getName)});
-                |return Fw::CmdResponse::OK;
-                |"""
-          )
+          if (param.isExternal) {
+            lines(
+              s"""|const FwPrmIdType _localId = ${paramIdConstantName(param.getName)};
+                  |const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+                  |
+                  |FW_ASSERT(this->paramDelegatePtr != NULL);
+                  |// Call the delegate serialize function for ${paramVariableName(param.getName)}
+                  |const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
+                  |  _baseId,
+                  |  _localId,
+                  |  Fw::ParamValid::VALID,
+                  |  val
+                  |);
+                  |if (_stat != Fw::FW_SERIALIZE_OK) {
+                  |  return Fw::CmdResponse::VALIDATION_ERROR;
+                  |}
+                  |
+                  |// Call notifier
+                  |this->parameterUpdated(${paramIdConstantName(param.getName)});
+                  |return Fw::CmdResponse::OK;
+                  |"""
+            )
+          } else {
+            lines(
+              s"""|${writeParamType(param.paramType, "Fw::ParamString")} _localVal{};
+                  |const Fw::SerializeStatus _stat = val.deserialize(_localVal);
+                  |if (_stat != Fw::FW_SERIALIZE_OK) {
+                  |  return Fw::CmdResponse::VALIDATION_ERROR;
+                  |}
+                  |
+                  |// Assign value only if successfully deserialized
+                  |this->m_paramLock.lock();
+                  |this->${paramVariableName(param.getName)} = _localVal;
+                  |this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::VALID;
+                  |this->m_paramLock.unLock();
+                  |
+                  |// Call notifier
+                  |this->parameterUpdated(${paramIdConstantName(param.getName)});
+                  |return Fw::CmdResponse::OK;
+                  |"""
+            )
+          }
         )
       )
     )
@@ -319,26 +436,47 @@ case class ComponentParameters (
           Nil,
           CppDoc.Type("Fw::CmdResponse"),
           List.concat(
+            lines(
+              s"""|Fw::ParamBuffer _saveBuff;
+                  |FwPrmIdType _id;
+                  |Fw::SerializeStatus _stat;
+                  |
+                  |"""
+            ),
             wrapInIf(
               s"this->${portVariableName(prmSetPort.get)}[0].isConnected()",
-              lines(
-                s"""|Fw::ParamBuffer saveBuff;
-                    |this->m_paramLock.lock();
-                    |
-                    |Fw::SerializeStatus stat = saveBuff.serialize(${paramVariableName(param.getName)});
-                    |
-                    |this->m_paramLock.unLock();
-                    |if (stat != Fw::FW_SERIALIZE_OK) {
+              List.concat(
+                if (param.isExternal) {
+                  lines(
+                    s"""|// Get the local and base ID to pass to the delegate
+                        |_id = ${paramIdConstantName(param.getName)};
+                        |const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+                        |
+                        |FW_ASSERT(this->paramDelegatePtr != NULL);
+                        |_stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
+                        |"""
+                  )
+                } else {
+                  lines(
+                    s"""|this->m_paramLock.lock();
+                        |
+                        |_stat = _saveBuff.serialize(${paramVariableName(param.getName)});
+                        |
+                        |this->m_paramLock.unLock();
+                        |"""
+                  )
+                }
+              ) ++ lines(
+                s"""|if (_stat != Fw::FW_SERIALIZE_OK) {
                     |  return Fw::CmdResponse::VALIDATION_ERROR;
                     |}
                     |
-                    |FwPrmIdType id = 0;
-                    |id = this->getIdBase() + ${paramIdConstantName(param.getName)};
+                    |_id = static_cast<FwPrmIdType>(this->getIdBase() + ${paramIdConstantName(param.getName)});
                     |
                     |// Save the parameter
                     |this->${portVariableName(prmSetPort.get)}[0].invoke(
-                    |  id,
-                    |  saveBuff
+                    |  _id,
+                    |  _saveBuff
                     |);
                     |
                     |return Fw::CmdResponse::OK;
@@ -346,6 +484,34 @@ case class ComponentParameters (
               )
             ),
             Line.blank :: lines("return Fw::CmdResponse::EXECUTION_ERROR;")
+          )
+        )
+      )
+    )
+  }
+
+  private def getExternalParameterFunctions: List[CppDoc.Class.Member] = {
+    guardedList (hasExternalParameters) (
+      addAccessTagAndComment(
+        "PROTECTED",
+        "External parameter delegate initialization",
+        List(
+          functionClassMember(
+            Some("Initialize the external parameter delegate"),
+            "registerExternalParameters",
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type("Fw::ParamExternalDelegate*"),
+                "paramExternalDelegatePtr",
+                Some("The delegate for externally managed parameters")
+              )
+            ),
+            CppDoc.Type("void"),
+            lines(
+              """|FW_ASSERT(paramExternalDelegatePtr != NULL);
+                 |this->paramDelegatePtr = paramExternalDelegatePtr;
+                 |"""
+            )
           )
         )
       )

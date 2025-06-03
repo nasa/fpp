@@ -27,10 +27,10 @@ class QueuedNoArgsPortsOnlyComponentBase :
     // Friend classes
     // ----------------------------------------------------------------------
 
-    //! Friend class for white-box testing
-    friend class QueuedNoArgsPortsOnlyComponentBaseFriend;
     //! Friend class tester to support autocoded test harness
     friend class QueuedNoArgsPortsOnlyTesterBase;
+    //! Friend class tester implementation to support white-box testing
+    friend class QueuedNoArgsPortsOnlyTester;
 
   PROTECTED:
 

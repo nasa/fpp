@@ -31,11 +31,12 @@ syn keyword fppKeyword diagnostic
 syn keyword fppKeyword do
 syn keyword fppKeyword drop
 syn keyword fppKeyword else
-syn keyword fppKeyword entry
 syn keyword fppKeyword enter
+syn keyword fppKeyword entry
 syn keyword fppKeyword enum
 syn keyword fppKeyword event
 syn keyword fppKeyword exit
+syn keyword fppKeyword external
 syn keyword fppKeyword false
 syn keyword fppKeyword fatal
 syn keyword fppKeyword format
