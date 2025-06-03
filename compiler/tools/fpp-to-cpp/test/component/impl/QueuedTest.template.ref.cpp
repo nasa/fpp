@@ -11,10 +11,13 @@
 // ----------------------------------------------------------------------
 
 QueuedTest ::
-  QueuedTest(const char* const compName) :
-    QueuedTestComponentBase(compName)
+  QueuedTest(const char* const compName)
 {
-
+  // TODO Initialize the ParamExternalDelegate
+  // The register function can be called directly here:
+  // E.G. this->registerExternalParameters(SomeParamExternalDelegateChild());
+  // Or you can call the register function in a public setup method
+  // that is called when setting up the component instance.
 }
 
 QueuedTest ::

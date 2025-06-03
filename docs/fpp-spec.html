@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>The F Prime Prime (FPP) Language Specification, Unreleased, after v2.3.0</title>
+<title>The F Prime Prime (FPP) Language Specification, Unreleased, after v2.3.1</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>The F Prime Prime (FPP) Language Specification, Unreleased, after v2.3.0</h1>
+<h1>The F Prime Prime (FPP) Language Specification, Unreleased, after v2.3.1</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -1150,11 +1150,12 @@ diagnostic
 do
 drop
 else
+enter
 entry
 enum
-enter
 event
 exit
+external
 false
 fatal
 format
@@ -6267,7 +6268,10 @@ The second location specifier refers to the constant <code>M.b</code>.</p>
 <div class="sect3">
 <h4 id="Specifiers_Parameter-Specifiers_Syntax">7.10.1. Syntax</h4>
 <div class="paragraph">
-<p><code>param</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<p><em>[</em>
+<code>external</code>
+<em>]</em>
+<code>param</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>:</code> <a href="#Type-Names"><em>type-name</em></a>
 <em>[</em>
 <code>default</code> <a href="#Expressions"><em>expression</em></a>
@@ -6287,6 +6291,13 @@ The second location specifier refers to the constant <code>M.b</code>.</p>
 <h4 id="Specifiers_Parameter-Specifiers_Semantics">7.10.2. Semantics</h4>
 <div class="ulist">
 <ul>
+<li>
+<p>The optional keyword <code>external</code>, if present, specifies
+that the parameter will be stored externally to the
+code generated from FPP.
+External parameters allow library code to represent and
+access parameter values in an efficient way.</p>
+</li>
 <li>
 <p>The identifier names the parameter.</p>
 </li>
@@ -11160,7 +11171,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-05-05 16:53:47 -0700
+Last updated 2025-05-21 16:29:07 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

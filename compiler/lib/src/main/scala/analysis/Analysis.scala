@@ -47,7 +47,7 @@ case class Analysis(
   /** The mapping from type and constant symbols, expressions,
    *  and type names to their types */
   typeMap: Map[AstNode.Id, Type] = Map(),
-  /** THe mapping from constant symbols and expressions to their values. */
+  /** The mapping from constant symbols and expressions to their values. */
   valueMap: Map[AstNode.Id, Value] = Map(),
   /** The set of symbols used. Used during code generation. */
   usedSymbolSet: Set[Symbol] = Set(),
@@ -70,7 +70,11 @@ case class Analysis(
   /** The dictionary under construction */
   dictionary: Option[Dictionary] = None,
   /** The telemetry packet set under construction */
-  tlmPacketSet: Option[TlmPacketSet] = None
+  tlmPacketSet: Option[TlmPacketSet] = None,
+  /** Whether a dictionary is needed in code generation */
+  dictionaryNeeded: Boolean = false,
+  /** The set of type symbols used by the dictionary */
+  dictionaryTypeSymbolSet: Set[Symbol] = Set()
 ) {
 
   /** Gets the qualified name of a symbol */
@@ -309,12 +313,12 @@ case class Analysis(
   def getIntValueOpt[T](nodeOpt: Option[AstNode[T]]): Result.Result[Option[Int]] =
     Result.mapOpt(nodeOpt, (node: AstNode[T]) => getIntValue(node.id))
 
-  /** Gets an optional nonnegative BigInt value from an AST ndoe */
+  /** Gets an optional nonnegative BigInt value from an AST node */
   def getNonnegativeBigIntValueOpt[T](nodeOpt: Option[AstNode[T]]):
     Result.Result[Option[BigInt]] =
     Result.mapOpt(nodeOpt, (node: AstNode[T]) => getNonnegativeBigIntValue(node.id))
 
-  /** Gets an optional nonnegative int value from an AST ndoe */
+  /** Gets an optional nonnegative int value from an AST node */
   def getNonnegativeIntValueOpt[T](nodeOpt: Option[AstNode[T]]): Result.Result[Option[Int]] =
     Result.mapOpt(nodeOpt, (node: AstNode[T]) => getNonnegativeIntValue(node.id))
 

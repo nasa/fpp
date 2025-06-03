@@ -9,7 +9,8 @@ final case class Param(
   paramType: Type,
   default: Option[Value],
   setOpcode: BigInt,
-  saveOpcode: BigInt
+  saveOpcode: BigInt,
+  isExternal: Boolean
 ) {
 
   /** Gets the name of the parameter */
@@ -52,7 +53,7 @@ object Param {
       yield {
         val (setOpcode, defaultOpcode1) = computeOpcode(setOpcodeOpt, defaultOpcode)
         val (saveOpcode, defaultOpcode2) = computeOpcode(saveOpcodeOpt, defaultOpcode1)
-        (Param(aNode, paramType, default, setOpcode, saveOpcode), defaultOpcode2)
+        (Param(aNode, paramType, default, setOpcode, saveOpcode, data.isExternal), defaultOpcode2)
       }
    }
 

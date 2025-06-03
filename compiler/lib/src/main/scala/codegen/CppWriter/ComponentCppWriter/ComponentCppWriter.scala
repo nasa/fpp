@@ -93,11 +93,13 @@ case class ComponentCppWriter (
       guardedList (hasChannels) (List("Fw/Tlm/TlmString.hpp"))
     val prmStrHeaders =
       guardedList (hasParameters) (List("Fw/Prm/PrmString.hpp"))
+    val prmExtHeaders =
+      guardedList (hasExternalParameters) (List("Fw/Prm/PrmExternalTypes.hpp"))
     val logStrHeaders =
       guardedList (hasEvents) (List("Fw/Log/LogString.hpp"))
     val internalStrHeaders =
       guardedList (hasInternalPorts) (List("Fw/Types/InternalInterfaceString.hpp"))
-    val systemHeaders = 
+    val systemHeaders =
       (guardedList (hasEvents) (
         List("atomic")
       )).map(CppWriter.systemHeaderString).sortBy(_.toLowerCase()).map(line)
@@ -114,6 +116,7 @@ case class ComponentCppWriter (
         cmdStrHeaders,
         tlmStrHeaders,
         prmStrHeaders,
+        prmExtHeaders,
         logStrHeaders,
         internalStrHeaders
       ).map(CppWriter.headerString)
@@ -263,10 +266,10 @@ case class ComponentCppWriter (
           ),
           lines(
             s"""|
-                |//! Friend class for white-box testing
-                |friend class ${componentClassName}Friend;
                 |//! Friend class tester to support autocoded test harness
                 |friend class ${componentName}TesterBase;
+                |//! Friend class tester implementation to support white-box testing
+                |friend class ${componentName}Tester;
                 |"""
           )
         ).flatten
@@ -524,8 +527,8 @@ case class ComponentCppWriter (
     }
 
     addAccessTagAndComment(
-      "PROTECTED",
-      "Component construction and destruction",
+    "PROTECTED",
+    "Component construction and destruction",
       List(
         constructorClassMember(
           Some(s"Construct $componentClassName object"),
@@ -537,17 +540,18 @@ case class ComponentCppWriter (
               Some("\"\"")
             )
           ),
-          s"Fw::${kindStr}ComponentBase(compName)" ::
-            smInstancesByName.map((name, smi) => {
+          List(s"Fw::${kindStr}ComponentBase(compName)") :::
+            (if (hasExternalParameters) List("paramDelegatePtr(NULL)") else Nil) :::
+            smInstancesByName.map { (name, smi) =>
               val sm = s.a.stateMachineMap(smi.symbol)
               val hasActionsOrGuards = sm.hasActions || sm.hasGuards
               val args = (smi.getSmKind, hasActionsOrGuards) match {
-                case (StateMachine.Kind.External, _) => "this"
-                case (StateMachine.Kind.Internal, true) => "*this"
-                case (StateMachine.Kind.Internal, false) => ""
+                case (StateMachine.Kind.External, _)       => "this"
+                case (StateMachine.Kind.Internal, true)    => "*this"
+                case (StateMachine.Kind.Internal, false)   => ""
               }
               s"m_stateMachine_$name($args)"
-            }),
+            },
           intersperseBlankLines(
             List(
               intersperseBlankLines(
@@ -558,8 +562,8 @@ case class ComponentCppWriter (
               throttledEvents.map((_, event) => line(
                 s"this->${eventThrottleCounterName(event.getName)} = 0;"
               )),
-              sortedParams.map((_, param) => line(
-                s"this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::UNINIT;"
+              sortedParams.flatMap((_, param) => guardedList(!param.isExternal) (
+                lines(s"this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::UNINIT;")
               ))
             )
           )

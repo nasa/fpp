@@ -406,27 +406,35 @@ case class ArrayCppWriter (
     )
 
   private def getPublicFunctionMembers: List[CppDoc.Class.Member] = {
-    // Write string initialization for serializable element types in toString()
-    val initStrings =
-      if hasPrimitiveEltType || hasStringEltType then Nil
-      else List(
-        lines("// Declare strings to hold any serializable toString() arguments"),
-        List.range(0, arraySize).map(i => line(s"Fw::String str$i;")),
-        Line.blank ::
-          lines("// Call toString for arrays and serializable types"),
-        List.range(0, arraySize).map(i => line(s"this->elements[$i].toString(str$i);")),
-        List(Line.blank),
-      ).flatten
-    // Write format arguments in toString()
-    def getFormatArg(i: Int) =
-      if hasPrimitiveEltType then s"this->elements[$i]"
-      else if hasStringEltType then s"this->elements[$i].toChar()"
-      else s"str$i.toChar()"
-    val formatArgs = lines(
-      List.range(0, arraySize).map(
-        promoteF32ToF64(eltType) compose getFormatArg
-      ).mkString(",\n")
-    )
+    val fillTmpString =
+        // Standard format string, just copy it in
+        if hasStringEltType && formatStr == "%s" then s"tmp = this->elements[index];"
+        // Non-standard format string, we need to copy the string in with .format()
+        else if hasStringEltType then s"tmp.format(\"$formatStr\", this->elements[index].toChar());"
+        // Primitive string format
+        else if hasPrimitiveEltType then s"tmp.format(\"$formatStr\", ${promoteF32ToF64(eltType)("this->elements[index]")});"
+        // Complex object type with default format string, convert the object to a string
+        else if formatStr == "%s" then "this->elements[index].toString(tmp);"
+        // Complex object type with non-default format string, convert the object to a string
+        // Then re-format the string using the custom format string
+        else s"""this->elements[index].toString(tmp);
+                 |tmp.format(\"%s\", tmp.toChar());"""
+
+    val formatLoop = indexIterator(lines(
+      s"""|Fw::String tmp;
+          |$fillTmpString
+          |
+          |FwSizeType size = tmp.length() + (index > 0 ? 2 : 0);
+          |if ((size + sb.length()) <= sb.maxLength()) {
+          |  if (index > 0) {
+          |    sb += ", ";
+          |  }
+          |  sb += tmp;
+          |} else {
+          |  break;
+          |}
+          |"""
+    ))
 
     List(
       linesClassMember(
@@ -494,20 +502,24 @@ case class ArrayCppWriter (
             ),
             CppDoc.Type("void"),
             List.concat(
-              wrapInScope(
-                "static const char *formatString = \"[ \"",
-                lines(List.fill(arraySize)(s"\"$formatStr ").mkString("\"\n") + "]\";"),
-                ""
-              ),
-              initStrings,
-              wrapInScope(
-                "sb.format(",
-                {
-                  line("formatString,") ::
-                  formatArgs
-                },
-                ");"
-              )
+              lines(
+                s"""|// Clear the output string
+                    |sb = "";
+                    |
+                    |// Array prefix
+                    |if (sb.length() + 2 <= sb.maxLength()) {
+                    |  sb += \"[ \";
+                    |} else {
+                    |  return;
+                    |}"""),
+              List(Line.blank),
+              formatLoop,
+              List(Line.blank),
+              lines(
+                s"""|// Array suffix
+                    |if (sb.length() + 2 <= sb.maxLength()) {
+                    |  sb += \" ]\";
+                    |}"""),
             ),
             CppDoc.Function.NonSV,
             CppDoc.Function.Const,

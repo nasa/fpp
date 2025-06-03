@@ -5,6 +5,9 @@ A *parameter specifier* specifies a parameter as part of a
 
 ==== Syntax
 
+_[_
+`external`
+_]_
 `param` <<Lexical-Elements_Identifiers,_identifier_>>
 `:` <<Type-Names,_type-name_>>
 _[_
@@ -21,6 +24,12 @@ _[_
 _]_
 
 ==== Semantics
+
+* The optional keyword `external`, if present, specifies
+that the parameter will be stored externally to the
+code generated from FPP.
+External parameters allow library code to represent and
+access parameter values in an efficient way.
 
 * The identifier names the parameter.
 

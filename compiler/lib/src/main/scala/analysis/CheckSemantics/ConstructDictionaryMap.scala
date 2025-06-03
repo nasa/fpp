@@ -24,6 +24,17 @@ object ConstructDictionaryMap
     }
     val a1 = a.copy(topology = Some(t), dictionary = Some(d))
     for {
+      a <- Result.foldLeft (a.dictionaryTypeSymbolSet.toList) (a) ((a, s) => {
+        val loc = Locations.get(s.getNodeId)
+        if a.typeMap(s.getNodeId).getUnderlyingType.isInt
+        then Right(a)
+        else Left(
+          SemanticError.InvalidType(
+            loc,
+            s"this F Prime framework type must be an alias of an integer type"
+          )
+        )
+      })
       a <- super.defTopologyAnnotatedNode(a1, aNode)
     }
     yield {

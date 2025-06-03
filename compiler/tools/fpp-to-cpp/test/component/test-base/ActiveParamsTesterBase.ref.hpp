@@ -1708,22 +1708,22 @@ class ActiveParamsTesterBase :
     // Parameter validity flags
     // ----------------------------------------------------------------------
 
-    //! True if parameter ParamU32 was successfully received
+    //! True if ParamU32 was successfully received
     Fw::ParamValid m_param_ParamU32_valid;
 
-    //! True if parameter ParamF64 was successfully received
+    //! True if ParamF64 was successfully received
     Fw::ParamValid m_param_ParamF64_valid;
 
-    //! True if parameter ParamString was successfully received
+    //! True if ParamString was successfully received
     Fw::ParamValid m_param_ParamString_valid;
 
-    //! True if parameter ParamEnum was successfully received
+    //! True if ParamEnum was successfully received
     Fw::ParamValid m_param_ParamEnum_valid;
 
-    //! True if parameter ParamArray was successfully received
+    //! True if ParamArray was successfully received
     Fw::ParamValid m_param_ParamArray_valid;
 
-    //! True if parameter ParamStruct was successfully received
+    //! True if ParamStruct was successfully received
     Fw::ParamValid m_param_ParamStruct_valid;
 
   private:
@@ -1733,21 +1733,34 @@ class ActiveParamsTesterBase :
     // ----------------------------------------------------------------------
 
     //! Parameter ParamU32
+    //!
+    //! A parameter with U32 data
+    //! Second line of annotation
     U32 m_param_ParamU32;
 
     //! Parameter ParamF64
+    //!
+    //! A parameter with F64 data
     F64 m_param_ParamF64;
 
     //! Parameter ParamString
+    //!
+    //! A parameter with string data and default value
     Fw::ParamString m_param_ParamString;
 
     //! Parameter ParamEnum
+    //!
+    //! A parameter with enum data
     E m_param_ParamEnum;
 
     //! Parameter ParamArray
+    //!
+    //! A parameter with array data, default value, and save opcode
     A m_param_ParamArray;
 
     //! Parameter ParamStruct
+    //!
+    //! A parameter with struct data and set/save opcodes
     S m_param_ParamStruct;
 
   private:
