@@ -61,7 +61,7 @@ case class Analysis(
   componentInstanceMap: Map[Symbol.ComponentInstance, ComponentInstance] = Map(),
   /** The component instance under construction */
   componentInstance: Option[ComponentInstance] = None,
-  /** The map from component symbols to components */
+  /** The map from interface symbols to interfaces */
   interfaceMap: Map[Symbol.Interface, Interface] = Map(),
   /** The interface under construction */
   interface: Option[Interface] = None,
