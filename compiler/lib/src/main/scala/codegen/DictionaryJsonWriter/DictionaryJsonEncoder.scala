@@ -568,7 +568,7 @@ case class DictionaryJsonEncoder(
     def dictionaryAsJson: Json = {
         /** Split set into individual sets consisting of each symbol type (arrays, enums, structs, aliases, and constants) */
         val typeDefSymbols = getTypeDefSymbols(dictionary.usedSymbolSet, Set())
-        val constantSymbols = getConstantSymbolSet(dictionary.usedSymbolSet, Set())
+        val constantSymbols = getConstantSymbols(dictionary.usedSymbolSet, Set())
         /** Convert each dictionary element to JSON and return the complete dictionary JSON */
         Json.obj(
             "metadata" -> dictionaryState.metadata.asJson,
@@ -632,13 +632,13 @@ case class DictionaryJsonEncoder(
     }
 
     /** Given a set of symbols, returns subset consisting of constant symbols only */
-    private def getConstantSymbolSet(symbolSet: Set[Symbol], outSet: Set[Symbol]): (Set[Symbol]) = {
+    private def getConstantSymbols(symbolSet: Set[Symbol], outSet: Set[Symbol]): (Set[Symbol]) = {
         if (symbolSet.isEmpty) (outSet) else {
             val (tail, out) = symbolSet.head match {
                 case h: (Symbol.Constant) => (symbolSet.tail, outSet + h)
                 case _ => (symbolSet.tail, outSet)
             }
-            getConstantSymbolSet(tail, out)
+            getConstantSymbols(tail, out)
         }
     }
 
