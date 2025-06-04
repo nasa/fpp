@@ -165,11 +165,8 @@ case class CppWriterState(
             // Compute the symbols that this inteface depends on
             // We are not generating a header for this interface therefore
             // the dependency is deaper than a single layer like the others
-            val Right(a) = UsedSymbols.defInterfaceAnnotatedNode(
-              this.a,
-              this.a.interfaceMap(iface).aNode,
-            )
-            a.usedSymbolSet.map(getIncludeFiles).flatten.toList
+            UsedSymbols.resolveUses(this.a, Set(iface))
+              .map(getIncludeFiles).flatten.toList
           case _: Symbol.Constant => List()
           case _: Symbol.EnumConstant => List()
           case _: Symbol.Module => List()
