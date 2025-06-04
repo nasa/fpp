@@ -1,7 +1,6 @@
 component_dir=`dirname $PWD`
 fprime_dir=`dirname $component_dir`/fprime
 test_dir=`dirname $component_dir`
-# set -x
 
 empty()
 {
