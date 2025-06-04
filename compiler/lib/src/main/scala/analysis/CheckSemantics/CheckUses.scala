@@ -128,6 +128,7 @@ object CheckUses extends UseAnalyzer {
           List("FwOpcodeType"), 
           List("FwPacketDescriptorType"), 
           List("FwSizeType"),
+          List("FwSizeStoreType"),
           List("FwTimeBaseStoreType"),
           List("FwTimeContextStoreType"),
           List("FwTlmPacketizeIdType")

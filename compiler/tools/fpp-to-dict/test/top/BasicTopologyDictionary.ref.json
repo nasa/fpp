@@ -148,6 +148,22 @@
     },
     {
       "kind" : "alias",
+      "qualifiedName" : "FwSizeStoreType",
+      "type" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
       "qualifiedName" : "FwPacketDescriptorType",
       "type" : {
         "name" : "U32",
@@ -238,7 +254,7 @@
         "size" : 64,
         "signed" : false
       },
-      "value" : 1,
+      "value" : 32,
       "annotation" : "The container user data size"
     }
   ],

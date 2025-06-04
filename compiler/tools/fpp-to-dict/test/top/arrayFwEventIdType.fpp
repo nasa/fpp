@@ -6,6 +6,7 @@ type FwOpcodeType = U32
 type FwPacketDescriptorType = U32
 type FwTlmPacketizeIdType = U16
 type FwSizeType = U32
+type FwSizeStoreType = U16
 
 @ The type used to serialize a time base value
 type FwTimeBaseStoreType = U16

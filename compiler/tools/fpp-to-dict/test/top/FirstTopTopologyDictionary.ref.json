@@ -212,35 +212,6 @@
       "annotation" : "A bit mask for selecting the type of processing to perform on\na container before writing it to disk."
     },
     {
-      "kind" : "struct",
-      "qualifiedName" : "Module1.S1",
-      "members" : {
-        "x" : {
-          "type" : {
-            "name" : "U64",
-            "kind" : "integer",
-            "size" : 64,
-            "signed" : false
-          },
-          "index" : 0,
-          "format" : "The value of x is {}"
-        },
-        "y" : {
-          "type" : {
-            "name" : "F32",
-            "kind" : "float",
-            "size" : 32
-          },
-          "index" : 1,
-          "format" : "The value of y is {.2f}"
-        }
-      },
-      "default" : {
-        "x" : 1,
-        "y" : 1.5
-      }
-    },
-    {
       "kind" : "array",
       "qualifiedName" : "Module1.StringArray",
       "size" : 2,
@@ -501,6 +472,51 @@
       "annotation" : "Alias of type AliasT1 (with underlying type U32)"
     },
     {
+      "kind" : "struct",
+      "qualifiedName" : "Module1.S1",
+      "members" : {
+        "x" : {
+          "type" : {
+            "name" : "U64",
+            "kind" : "integer",
+            "size" : 64,
+            "signed" : false
+          },
+          "index" : 0,
+          "format" : "The value of x is {}"
+        },
+        "y" : {
+          "type" : {
+            "name" : "F32",
+            "kind" : "float",
+            "size" : 32
+          },
+          "index" : 1,
+          "format" : "The value of y is {.2f}"
+        }
+      },
+      "default" : {
+        "x" : 1,
+        "y" : 1.5
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwSizeStoreType",
+      "type" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      }
+    },
+    {
       "kind" : "alias",
       "qualifiedName" : "FwOpcodeType",
       "type" : {
@@ -585,7 +601,7 @@
         "size" : 64,
         "signed" : false
       },
-      "value" : 1,
+      "value" : 32,
       "annotation" : "The container user data size"
     }
   ],
