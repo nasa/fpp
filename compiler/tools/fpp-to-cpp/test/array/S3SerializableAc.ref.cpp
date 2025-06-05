@@ -159,8 +159,7 @@ namespace S {
     toString(Fw::StringBase& sb) const
   {
     Fw::String tmp;
-    sb = "";
-    sb += "( ";
+    sb = "( ";
 
     // Format mU32Array
     sb += "mU32Array = ";

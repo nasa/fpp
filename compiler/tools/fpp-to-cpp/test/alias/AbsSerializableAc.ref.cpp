@@ -109,8 +109,7 @@ void Abs ::
   toString(Fw::StringBase& sb) const
 {
   Fw::String tmp;
-  sb = "";
-  sb += "( ";
+  sb = "( ";
 
   // Format A
   sb += "A = ";

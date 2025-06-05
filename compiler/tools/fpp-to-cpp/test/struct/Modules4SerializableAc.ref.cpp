@@ -171,8 +171,7 @@ void Modules4 ::
   toString(Fw::StringBase& sb) const
 {
   Fw::String tmp;
-  sb = "";
-  sb += "( ";
+  sb = "( ";
 
   // Format arr1
   sb += "arr1 = ";

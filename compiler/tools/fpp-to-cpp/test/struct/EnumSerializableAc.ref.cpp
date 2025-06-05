@@ -157,8 +157,7 @@ void Enum ::
   toString(Fw::StringBase& sb) const
 {
   Fw::String tmp;
-  sb = "";
-  sb += "( ";
+  sb = "( ";
 
   // Format e
   sb += "e = ";

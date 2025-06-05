@@ -169,8 +169,7 @@ void StringArray ::
   toString(Fw::StringBase& sb) const
 {
   Fw::String tmp;
-  sb = "";
-  sb += "( ";
+  sb = "( ";
 
   // Format s1
   sb += "s1 = ";

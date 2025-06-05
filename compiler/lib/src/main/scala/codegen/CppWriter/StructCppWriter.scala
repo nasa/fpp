@@ -2,7 +2,6 @@ package fpp.compiler.codegen
 
 import fpp.compiler.analysis._
 import fpp.compiler.ast._
-import fpp.compiler.codegen.Line.blank
 
 /** Writes out C++ for struct definitions */
 case class StructCppWriter(
@@ -510,8 +509,7 @@ case class StructCppWriter(
             CppDoc.Type("void"),
             List.concat(
               if needsTmpString then lines("Fw::String tmp;") else List(),
-              lines("""|sb = "";
-                       |sb += "( ";"""),
+              lines("sb = \"( \";"),
               memberToString.zipWithIndex.flatMap((memberToStringLines, idx) => {
                 if idx > 0 then List.concat(
                   lines("sb += \", \";"),

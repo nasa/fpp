@@ -140,8 +140,7 @@ void Default ::
   toString(Fw::StringBase& sb) const
 {
   Fw::String tmp;
-  sb = "";
-  sb += "( ";
+  sb = "( ";
 
   // Format mU32
   sb += "mU32 = ";

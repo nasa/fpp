@@ -126,8 +126,7 @@ Fw::SerializeStatus String ::
 void String ::
   toString(Fw::StringBase& sb) const
 {
-  sb = "";
-  sb += "( ";
+  sb = "( ";
 
   // Format s1
   sb += "s1 = ";

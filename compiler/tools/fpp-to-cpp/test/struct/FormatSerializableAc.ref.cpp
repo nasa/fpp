@@ -322,8 +322,7 @@ void Format ::
   toString(Fw::StringBase& sb) const
 {
   Fw::String tmp;
-  sb = "";
-  sb += "( ";
+  sb = "( ";
 
   // Format m1
   sb += "m1 = ";
