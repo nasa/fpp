@@ -126,17 +126,20 @@ Fw::SerializeStatus S ::
 void S ::
   toString(Fw::StringBase& sb) const
 {
-  static const char* formatString =
-    "( "
-    "x = %" PRIu32 ", "
-    "y = %s"
-    " )";
+  Fw::String tmp;
+  sb = "";
+  sb += "( ";
 
-  sb.format(
-    formatString,
-    this->m_x,
-    this->m_y.toChar()
-  );
+  // Format x
+  sb += "x = ";
+  tmp.format("%" PRIu32 "", this->m_x);
+  sb += tmp;
+  sb += ", ";
+
+  // Format y
+  sb += "y = ";
+  sb += this->m_y;
+  sb += " )";
 }
 
 #endif

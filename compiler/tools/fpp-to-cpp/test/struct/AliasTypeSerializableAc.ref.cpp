@@ -185,40 +185,34 @@ Fw::SerializeStatus AliasType ::
 void AliasType ::
   toString(Fw::StringBase& sb) const
 {
-  static const char* formatString =
-    "( "
-    "x = %" PRIu16 ", "
-    "y = %s, "
-    "z = [ %s ]"
-    " )";
+  Fw::String tmp;
+  sb = "";
+  sb += "( ";
 
-  // Declare strings to hold any serializable toString() arguments
-  Fw::String yStr;
-  Fw::String zStr;
+  // Format x
+  sb += "x = ";
+  tmp.format("%" PRIu16 "", this->m_x);
+  sb += tmp;
+  sb += ", ";
 
-  // Call toString for arrays and serializable types
-  this->m_y.toString(yStr);
+  // Format y
+  sb += "y = ";
+  this->m_y.toString(tmp);
+  sb += tmp;
+  sb += ", ";
+
+  // Format z
+  sb += "z = ";
+  sb += "[ ";
   for (FwSizeType i = 0; i < 10; i++) {
-    Fw::String zTmp;
-    zTmp = this->m_z[i];
-
-    FwSizeType size = zTmp.length() + (i > 0 ? 2 : 0);
-    if ((size + zStr.length()) <= zStr.maxLength()) {
-      if (i > 0) {
-        zStr += ", ";
-      }
-      zStr += zTmp;
-    } else {
-      break;
+    tmp = this->m_z[i];
+    if (i > 0) {
+      sb += ", ";
     }
+    sb += tmp;
   }
-
-  sb.format(
-    formatString,
-    this->m_x,
-    yStr.toChar(),
-    zStr.toChar()
-  );
+  sb += "] ";
+  sb += " )";
 }
 
 #endif

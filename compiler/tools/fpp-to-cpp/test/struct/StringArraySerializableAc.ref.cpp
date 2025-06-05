@@ -168,36 +168,27 @@ Fw::SerializeStatus StringArray ::
 void StringArray ::
   toString(Fw::StringBase& sb) const
 {
-  static const char* formatString =
-    "( "
-    "s1 = %s, "
-    "s2 = [ %s ]"
-    " )";
+  Fw::String tmp;
+  sb = "";
+  sb += "( ";
 
-  // Declare strings to hold any serializable toString() arguments
-  Fw::String s2Str;
+  // Format s1
+  sb += "s1 = ";
+  sb += this->m_s1;
+  sb += ", ";
 
-  // Call toString for arrays and serializable types
+  // Format s2
+  sb += "s2 = ";
+  sb += "[ ";
   for (FwSizeType i = 0; i < 16; i++) {
-    Fw::String s2Tmp;
-    s2Tmp = this->m_s2[i];
-
-    FwSizeType size = s2Tmp.length() + (i > 0 ? 2 : 0);
-    if ((size + s2Str.length()) <= s2Str.maxLength()) {
-      if (i > 0) {
-        s2Str += ", ";
-      }
-      s2Str += s2Tmp;
-    } else {
-      break;
+    tmp = this->m_s2[i];
+    if (i > 0) {
+      sb += ", ";
     }
+    sb += tmp;
   }
-
-  sb.format(
-    formatString,
-    this->m_s1.toChar(),
-    s2Str.toChar()
-  );
+  sb += "] ";
+  sb += " )";
 }
 
 #endif

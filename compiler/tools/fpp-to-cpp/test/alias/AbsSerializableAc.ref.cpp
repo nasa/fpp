@@ -108,21 +108,15 @@ Fw::SerializeStatus Abs ::
 void Abs ::
   toString(Fw::StringBase& sb) const
 {
-  static const char* formatString =
-    "( "
-    "A = %s"
-    " )";
+  Fw::String tmp;
+  sb = "";
+  sb += "( ";
 
-  // Declare strings to hold any serializable toString() arguments
-  Fw::String AStr;
-
-  // Call toString for arrays and serializable types
-  this->m_A.toString(AStr);
-
-  sb.format(
-    formatString,
-    AStr.toChar()
-  );
+  // Format A
+  sb += "A = ";
+  this->m_A.toString(tmp);
+  sb += tmp;
+  sb += " )";
 }
 
 #endif

@@ -321,47 +321,111 @@ Fw::SerializeStatus Format ::
 void Format ::
   toString(Fw::StringBase& sb) const
 {
-  static const char* formatString =
-    "( "
-    "m1 = %" PRIi32 ", "
-    "m2 = %" PRIu32 ", "
-    "m3 = %" PRIi32 ", "
-    "m4 = %" PRIu32 ", "
-    "m5 = %" PRIx32 ", "
-    "m6 = %" PRIx32 ", "
-    "m7 = %c, "
-    "m8 = %c, "
-    "m9 = %" PRIo32 ", "
-    "m10 = %" PRIo32 ", "
-    "m11 = %e, "
-    "m12 = %f, "
-    "m13 = %g, "
-    "m14 = %.3e, "
-    "m15 = %.3f, "
-    "m16 = %.3g, "
-    "m17 = %.3g%%"
-    " )";
+  Fw::String tmp;
+  sb = "";
+  sb += "( ";
 
-  sb.format(
-    formatString,
-    this->m_m1,
-    this->m_m2,
-    this->m_m3,
-    this->m_m4,
-    this->m_m5,
-    this->m_m6,
-    this->m_m7,
-    this->m_m8,
-    this->m_m9,
-    this->m_m10,
-    static_cast<F64>(this->m_m11),
-    static_cast<F64>(this->m_m12),
-    static_cast<F64>(this->m_m13),
-    static_cast<F64>(this->m_m14),
-    static_cast<F64>(this->m_m15),
-    static_cast<F64>(this->m_m16),
-    static_cast<F64>(this->m_m17)
-  );
+  // Format m1
+  sb += "m1 = ";
+  tmp.format("%" PRIi32 "", this->m_m1);
+  sb += tmp;
+  sb += ", ";
+
+  // Format m2
+  sb += "m2 = ";
+  tmp.format("%" PRIu32 "", this->m_m2);
+  sb += tmp;
+  sb += ", ";
+
+  // Format m3
+  sb += "m3 = ";
+  tmp.format("%" PRIi32 "", this->m_m3);
+  sb += tmp;
+  sb += ", ";
+
+  // Format m4
+  sb += "m4 = ";
+  tmp.format("%" PRIu32 "", this->m_m4);
+  sb += tmp;
+  sb += ", ";
+
+  // Format m5
+  sb += "m5 = ";
+  tmp.format("%" PRIi32 "", this->m_m5);
+  sb += tmp;
+  sb += ", ";
+
+  // Format m6
+  sb += "m6 = ";
+  tmp.format("%" PRIu32 "", this->m_m6);
+  sb += tmp;
+  sb += ", ";
+
+  // Format m7
+  sb += "m7 = ";
+  tmp.format("%" PRIi32 "", this->m_m7);
+  sb += tmp;
+  sb += ", ";
+
+  // Format m8
+  sb += "m8 = ";
+  tmp.format("%" PRIu32 "", this->m_m8);
+  sb += tmp;
+  sb += ", ";
+
+  // Format m9
+  sb += "m9 = ";
+  tmp.format("%" PRIi32 "", this->m_m9);
+  sb += tmp;
+  sb += ", ";
+
+  // Format m10
+  sb += "m10 = ";
+  tmp.format("%" PRIu32 "", this->m_m10);
+  sb += tmp;
+  sb += ", ";
+
+  // Format m11
+  sb += "m11 = ";
+  tmp.format("%f", static_cast<F64>(this->m_m11));
+  sb += tmp;
+  sb += ", ";
+
+  // Format m12
+  sb += "m12 = ";
+  tmp.format("%f", static_cast<F64>(this->m_m12));
+  sb += tmp;
+  sb += ", ";
+
+  // Format m13
+  sb += "m13 = ";
+  tmp.format("%f", static_cast<F64>(this->m_m13));
+  sb += tmp;
+  sb += ", ";
+
+  // Format m14
+  sb += "m14 = ";
+  tmp.format("%f", static_cast<F64>(this->m_m14));
+  sb += tmp;
+  sb += ", ";
+
+  // Format m15
+  sb += "m15 = ";
+  tmp.format("%f", static_cast<F64>(this->m_m15));
+  sb += tmp;
+  sb += ", ";
+
+  // Format m16
+  sb += "m16 = ";
+  tmp.format("%f", static_cast<F64>(this->m_m16));
+  sb += tmp;
+  sb += ", ";
+
+  // Format m17
+  sb += "m17 = ";
+  tmp.format("%f", static_cast<F64>(this->m_m17));
+  sb += tmp;
+  sb += " )";
 }
 
 #endif

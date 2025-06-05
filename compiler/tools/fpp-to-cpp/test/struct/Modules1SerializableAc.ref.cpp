@@ -128,17 +128,21 @@ namespace M {
   void Modules1 ::
     toString(Fw::StringBase& sb) const
   {
-    static const char* formatString =
-      "( "
-      "x = %" PRIu32 ", "
-      "y = %f"
-      " )";
+    Fw::String tmp;
+    sb = "";
+    sb += "( ";
 
-    sb.format(
-      formatString,
-      this->m_x,
-      static_cast<F64>(this->m_y)
-    );
+    // Format x
+    sb += "x = ";
+    tmp.format("%" PRIu32 "", this->m_x);
+    sb += tmp;
+    sb += ", ";
+
+    // Format y
+    sb += "y = ";
+    tmp.format("%f", static_cast<F64>(this->m_y));
+    sb += tmp;
+    sb += " )";
   }
 
 #endif

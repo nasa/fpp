@@ -110,21 +110,15 @@ namespace M {
   void Modules2 ::
     toString(Fw::StringBase& sb) const
   {
-    static const char* formatString =
-      "( "
-      "x = %s"
-      " )";
+    Fw::String tmp;
+    sb = "";
+    sb += "( ";
 
-    // Declare strings to hold any serializable toString() arguments
-    Fw::String xStr;
-
-    // Call toString for arrays and serializable types
-    this->m_x.toString(xStr);
-
-    sb.format(
-      formatString,
-      xStr.toChar()
-    );
+    // Format x
+    sb += "x = ";
+    this->m_x.toString(tmp);
+    sb += tmp;
+    sb += " )";
   }
 
 #endif

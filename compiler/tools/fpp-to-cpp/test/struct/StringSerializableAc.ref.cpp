@@ -126,17 +126,18 @@ Fw::SerializeStatus String ::
 void String ::
   toString(Fw::StringBase& sb) const
 {
-  static const char* formatString =
-    "( "
-    "s1 = %s, "
-    "s2 = %s"
-    " )";
+  sb = "";
+  sb += "( ";
 
-  sb.format(
-    formatString,
-    this->m_s1.toChar(),
-    this->m_s2.toChar()
-  );
+  // Format s1
+  sb += "s1 = ";
+  sb += this->m_s1;
+  sb += ", ";
+
+  // Format s2
+  sb += "s2 = ";
+  sb += this->m_s2;
+  sb += " )";
 }
 
 #endif
