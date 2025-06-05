@@ -162,11 +162,10 @@ case class CppWriterState(
             getIncludePath(sym, ComputeCppFiles.FileNames.getTopology(name))
           )
           case iface: Symbol.Interface =>
-            // Compute the symbols that this inteface depends on
-            // We are not generating a header for this interface therefore
-            // the dependency is deaper than a single layer like the others
+            // Recursively resolve uses to pick up the header dependencies
+            // implied by imported interfaces
             UsedSymbols.resolveUses(this.a, Set(iface))
-              .map(getIncludeFiles).flatten.toList
+              .flatMap(getIncludeFiles).toList
           case _: Symbol.Constant => List()
           case _: Symbol.EnumConstant => List()
           case _: Symbol.Module => List()
@@ -176,7 +175,7 @@ case class CppWriterState(
       yield filenames
     }
 
-    usedSymbols.map(getIncludeFiles).flatten.map(CppWriterState.headerString).toList
+    usedSymbols.flatMap(getIncludeFiles).map(CppWriterState.headerString).toList
   }
 
   def isTypeSupportedInC(t: Type): Boolean = {
