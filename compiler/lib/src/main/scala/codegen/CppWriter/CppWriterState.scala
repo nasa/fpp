@@ -164,8 +164,11 @@ case class CppWriterState(
           case iface: Symbol.Interface =>
             // Recursively resolve uses to pick up the header dependencies
             // implied by imported interfaces
-            UsedSymbols.resolveUses(this.a, Set(iface))
-              .flatMap(getIncludeFiles).toList
+            val Right(a) = UsedSymbols.defInterfaceAnnotatedNode(
+              this.a,
+              this.a.interfaceMap(iface).aNode,
+            )
+            a.usedSymbolSet.flatMap(getIncludeFiles).toList
           case _: Symbol.Constant => List()
           case _: Symbol.EnumConstant => List()
           case _: Symbol.Module => List()
