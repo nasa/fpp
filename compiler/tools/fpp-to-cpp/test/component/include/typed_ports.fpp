@@ -1,8 +1,5 @@
-@ ----------------------------------------------------------------------
-@ General ports
-@ ----------------------------------------------------------------------
-interface TypedPorts {
-    @ A typed sync input port
+interface NoArgsInTypedPorts {
+     @ A typed sync input port
     sync input port noArgsSync: [3] Ports.NoArgs
 
     @ A typed guarded input
@@ -19,8 +16,26 @@ interface TypedPorts {
 
     @ A typed guarded input
     guarded input port noArgsReturnGuarded: Ports.NoArgsReturn
+}
 
-    @ A typed sync input port
+interface NoArgsOutTypedPorts {
+    @ A typed output port with no arguments
+    output port noArgsOut: Ports.NoArgs
+
+    @ A typed output port with no arguments and a return type
+    output port noArgsReturnOut: Ports.NoArgsReturn
+
+    @ A typed output port with no arguments and a string return type
+    output port noArgsStringReturnOut: Ports.NoArgsStringReturn
+}
+
+interface NoArgsTypedPorts {
+    import NoArgsInTypedPorts
+    import NoArgsOutTypedPorts
+}
+
+interface TypedPortsIn {
+     @ A typed sync input port
     sync input port typedSync: [3] Ports.Typed
 
     @ A typed guarded input
@@ -40,16 +55,9 @@ interface TypedPorts {
 
     @ A typed guarded input with a return type
     guarded input port typedReturnGuarded: Ports.TypedReturn
+}
 
-    @ A typed output port with no arguments
-    output port noArgsOut: Ports.NoArgs
-
-    @ A typed output port with no arguments and a return type
-    output port noArgsReturnOut: Ports.NoArgsReturn
-
-    @ A typed output port with no arguments and a string return type
-    output port noArgsStringReturnOut: Ports.NoArgsStringReturn
-
+interface TypedPortsOut {
     @ A typed output port
     output port typedOut: Ports.Typed
 
@@ -64,4 +72,13 @@ interface TypedPorts {
 
     @ An alias typed output port with a return type
     output port typedAliasReturnStringOut: Ports.AliasTypedReturnString
+}
+
+@ ----------------------------------------------------------------------
+@ General ports
+@ ----------------------------------------------------------------------
+interface TypedPorts {
+    import NoArgsTypedPorts
+    import TypedPortsIn
+    import TypedPortsOut
 }
