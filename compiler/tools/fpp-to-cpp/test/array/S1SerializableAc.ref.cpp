@@ -258,37 +258,79 @@ namespace M {
   void S1 ::
     toString(Fw::StringBase& sb) const
   {
-    static const char* formatString =
-      "( "
-      "mF32 = %f, "
-      "mF64 = %f, "
-      "mI16 = %" PRIi16 ", "
-      "mI32 = %" PRIi32 ", "
-      "mI64 = %" PRIi64 ", "
-      "mI8 = %" PRIi8 ", "
-      "mU16 = %" PRIu16 ", "
-      "mU32 = %" PRIu32 ", "
-      "mU64 = %" PRIu64 ", "
-      "mU8 = %" PRIu8 ", "
-      "mBool = %d, "
-      "mString = %s"
-      " )";
+    Fw::String tmp;
+    sb = "( ";
 
-    sb.format(
-      formatString,
-      static_cast<F64>(this->m_mF32),
-      this->m_mF64,
-      this->m_mI16,
-      this->m_mI32,
-      this->m_mI64,
-      this->m_mI8,
-      this->m_mU16,
-      this->m_mU32,
-      this->m_mU64,
-      this->m_mU8,
-      this->m_mBool,
-      this->m_mString.toChar()
-    );
+    // Format mF32
+    sb += "mF32 = ";
+    tmp.format("%f", static_cast<F64>(this->m_mF32));
+    sb += tmp;
+    sb += ", ";
+
+    // Format mF64
+    sb += "mF64 = ";
+    tmp.format("%f", this->m_mF64);
+    sb += tmp;
+    sb += ", ";
+
+    // Format mI16
+    sb += "mI16 = ";
+    tmp.format("%" PRIi16 "", this->m_mI16);
+    sb += tmp;
+    sb += ", ";
+
+    // Format mI32
+    sb += "mI32 = ";
+    tmp.format("%" PRIi32 "", this->m_mI32);
+    sb += tmp;
+    sb += ", ";
+
+    // Format mI64
+    sb += "mI64 = ";
+    tmp.format("%" PRIi64 "", this->m_mI64);
+    sb += tmp;
+    sb += ", ";
+
+    // Format mI8
+    sb += "mI8 = ";
+    tmp.format("%" PRIi8 "", this->m_mI8);
+    sb += tmp;
+    sb += ", ";
+
+    // Format mU16
+    sb += "mU16 = ";
+    tmp.format("%" PRIu16 "", this->m_mU16);
+    sb += tmp;
+    sb += ", ";
+
+    // Format mU32
+    sb += "mU32 = ";
+    tmp.format("%" PRIu32 "", this->m_mU32);
+    sb += tmp;
+    sb += ", ";
+
+    // Format mU64
+    sb += "mU64 = ";
+    tmp.format("%" PRIu64 "", this->m_mU64);
+    sb += tmp;
+    sb += ", ";
+
+    // Format mU8
+    sb += "mU8 = ";
+    tmp.format("%" PRIu8 "", this->m_mU8);
+    sb += tmp;
+    sb += ", ";
+
+    // Format mBool
+    sb += "mBool = ";
+    tmp.format("%d", this->m_mBool);
+    sb += tmp;
+    sb += ", ";
+
+    // Format mString
+    sb += "mString = ";
+    sb += this->m_mString;
+    sb += " )";
   }
 
 #endif

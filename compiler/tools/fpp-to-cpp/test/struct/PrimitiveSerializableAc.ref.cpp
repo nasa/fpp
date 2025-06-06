@@ -308,56 +308,86 @@ Fw::SerializeStatus Primitive ::
 void Primitive ::
   toString(Fw::StringBase& sb) const
 {
-  static const char* formatString =
-    "( "
-    "mF32 = [ %s ], "
-    "mF64 = %f, "
-    "mI16 = %" PRIi16 ", "
-    "mI32 = %" PRIi32 ", "
-    "mI64 = %" PRIi64 ", "
-    "mI8 = %" PRIi8 ", "
-    "mU16 = %" PRIu16 ", "
-    "mU32 = %" PRIu32 ", "
-    "mU64 = %" PRIu64 ", "
-    "mU8 = %" PRIu8 ", "
-    "m_bool = %d, "
-    "m_string = %s"
-    " )";
+  Fw::String tmp;
+  sb = "( ";
 
-  // Declare strings to hold any serializable toString() arguments
-  Fw::String mF32Str;
-
-  // Call toString for arrays and serializable types
+  // Format mF32
+  sb += "mF32 = ";
+  sb += "[ ";
   for (FwSizeType i = 0; i < 3; i++) {
-    Fw::String mF32Tmp;
-    mF32Tmp.format("%f", static_cast<F64>(this->m_mF32[i]));
-
-    FwSizeType size = mF32Tmp.length() + (i > 0 ? 2 : 0);
-    if ((size + mF32Str.length()) <= mF32Str.maxLength()) {
-      if (i > 0) {
-        mF32Str += ", ";
-      }
-      mF32Str += mF32Tmp;
-    } else {
-      break;
+    tmp.format("%f", static_cast<F64>(this->m_mF32[i]));
+    if (i > 0) {
+      sb += ", ";
     }
+    sb += tmp;
   }
+  sb += " ]";
+  sb += ", ";
 
-  sb.format(
-    formatString,
-    mF32Str.toChar(),
-    this->m_mF64,
-    this->m_mI16,
-    this->m_mI32,
-    this->m_mI64,
-    this->m_mI8,
-    this->m_mU16,
-    this->m_mU32,
-    this->m_mU64,
-    this->m_mU8,
-    this->m_m_bool,
-    this->m_m_string.toChar()
-  );
+  // Format mF64
+  sb += "mF64 = ";
+  tmp.format("%f", this->m_mF64);
+  sb += tmp;
+  sb += ", ";
+
+  // Format mI16
+  sb += "mI16 = ";
+  tmp.format("%" PRIi16 "", this->m_mI16);
+  sb += tmp;
+  sb += ", ";
+
+  // Format mI32
+  sb += "mI32 = ";
+  tmp.format("%" PRIi32 "", this->m_mI32);
+  sb += tmp;
+  sb += ", ";
+
+  // Format mI64
+  sb += "mI64 = ";
+  tmp.format("%" PRIi64 "", this->m_mI64);
+  sb += tmp;
+  sb += ", ";
+
+  // Format mI8
+  sb += "mI8 = ";
+  tmp.format("%" PRIi8 "", this->m_mI8);
+  sb += tmp;
+  sb += ", ";
+
+  // Format mU16
+  sb += "mU16 = ";
+  tmp.format("%" PRIu16 "", this->m_mU16);
+  sb += tmp;
+  sb += ", ";
+
+  // Format mU32
+  sb += "mU32 = ";
+  tmp.format("%" PRIu32 "", this->m_mU32);
+  sb += tmp;
+  sb += ", ";
+
+  // Format mU64
+  sb += "mU64 = ";
+  tmp.format("%" PRIu64 "", this->m_mU64);
+  sb += tmp;
+  sb += ", ";
+
+  // Format mU8
+  sb += "mU8 = ";
+  tmp.format("%" PRIu8 "", this->m_mU8);
+  sb += tmp;
+  sb += ", ";
+
+  // Format m_bool
+  sb += "m_bool = ";
+  tmp.format("%d", this->m_m_bool);
+  sb += tmp;
+  sb += ", ";
+
+  // Format m_string
+  sb += "m_string = ";
+  sb += this->m_m_string;
+  sb += " )";
 }
 
 #endif

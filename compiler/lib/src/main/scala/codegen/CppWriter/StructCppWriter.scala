@@ -354,67 +354,78 @@ case class StructCppWriter(
 
   private def getFunctionMembers: List[CppDoc.Class.Member] = {
     // Members on which to call toString()
-    val toStringMemberNames =
+    val needsTmpString =
       astMembers.map((_, node, _) => {
         val t = typeMembers(node.data.name)
         (node, node.data.name, typeCppWriter.write(t))
-      }).filter((n, _, tn) => (sizes.contains(n.data.name), typeMembers(n.data.name).getUnderlyingType) match {
+      }).find((n, _, tn) => (sizes.contains(n.data.name), typeMembers(n.data.name).getUnderlyingType) match {
+        // Only plain string types don't need a tmp string form appending to the struct
         case (false, _: Type.String) => false
-        case (false, t) if s.isPrimitive(t, tn) => false
         case _ => true
-      })
-    // String initialization for arrays and serializable member types in toString()
-    val initStrings = toStringMemberNames match {
-      case Nil => Nil
-      case names =>
-        List(
-          Line.blank ::
-            lines("// Declare strings to hold any serializable toString() arguments"),
-          names.flatMap((_, n, _) => lines(s"Fw::String ${n}Str;")),
-          Line.blank ::
-            lines("// Call toString for arrays and serializable types"),
-          names.flatMap((node, n, tn) => {
-            val formatStr = FormatCppWriter.write(
-              s,
-              getFormatStr(n),
-              node.data.typeName
-            )
+      }).isDefined
 
-            (sizes.contains(n), typeMembers(n).getUnderlyingType) match {
-              case (true, _: Type.String) =>
-              case (true, t) if s.isPrimitive(t, tn) => 
-              case (true, _) =>
-              case _ => lines(s"this->m_$n.toString(${n}Str);")
-            }
+    val getMemberToString = (node: AstNode[Ast.StructTypeMember], n: String, tn: String) => {
+      (sizes.contains(node.data.name), typeMembers(node.data.name).getUnderlyingType) match {
+        case (false, _: Type.String) =>
+          // Type is already a string, no need to perform any conversion
+          lines(s"sb += this->m_$n;")
+        case (false, t) if s.isPrimitive(t, tn) =>
+          // Format the primitive into a temporary string buffer
+          val formatStr = FormatCppWriter.write(
+            s,
+            getFormatStr(name),
+            node.data.typeName
+          )
+          lines(s"""|tmp.format("$formatStr", ${promoteF32ToF64 (t) (s"this->m_$n")});
+                    |sb += tmp;""")
+        case (true, _) =>
+          // An array member
+          // Iterate through each member and format it into 'tmp'
+          // Append 'tmp' to the final string
+          val formatStr = FormatCppWriter.write(
+            s,
+            getFormatStr(name),
+            node.data.typeName
+          )
 
-            // Loop through and format each element if this is an array
-            if (sizes.contains(n)) {
-              val fillTmpString = (typeMembers(n).getUnderlyingType) match {
-                case (_: Type.String) =>
-                  s"${n}Tmp = this->m_$n[i];"
-                case t if s.isPrimitive(t, tn) =>
-                  s"""${n}Tmp.format("$formatStr", ${promoteF32ToF64 (t) (s"this->m_$n[i]")});"""
-                case _ =>
-                  s"this->m_$n[i].toString(${n}Tmp);"
-              }
+          val fillTmpString = (typeMembers(n).getUnderlyingType) match {
+            case (_: Type.String) =>
+              s"tmp = this->m_$n[i];"
+            case t if s.isPrimitive(t, tn) =>
+              s"""tmp.format("$formatStr", ${promoteF32ToF64 (t) (s"this->m_$n[i]")});"""
+            case _ =>
+              s"this->m_$n[i].toString(tmp);"
+          }
 
-              iterateN(sizes(n), lines(
-                  s"""|Fw::String ${n}Tmp;
-                      |${fillTmpString}
-                      |
-                      |FwSizeType size = ${n}Tmp.length() + (i > 0 ? 2 : 0);
-                      |if ((size + ${n}Str.length()) <= ${n}Str.maxLength()) {
-                      |  if (i > 0) {
-                      |    ${n}Str += ", ";
-                      |  }
-                      |  ${n}Str += ${n}Tmp;
-                      |} else {
-                      |  break;
-                      |}"""))
-            } else lines(s"this->m_$n.toString(${n}Str);")
-          }),
-        ).flatten
+          List.concat(
+            lines("sb += \"[ \";"),
+            iterateN(sizes(n), lines(
+              s"""|${fillTmpString}
+                  |if (i > 0) {
+                  |  sb += ", ";
+                  |}
+                  |sb += tmp;"""
+            )),
+            lines("sb += \" ]\";"),
+          )
+        case (false, _) =>
+          // A complex (non-array) type
+          lines(s"""|this->m_$n.toString(tmp);
+                    |sb += tmp;""")
+      }
     }
+
+    // toString() append formatted member to string
+    val memberToString =
+      astMembers.map((_, node, _) => {
+        val t = typeMembers(node.data.name)
+        (node, node.data.name, typeCppWriter.write(t))
+      }).map((node, n, tn) => List.concat(
+          lines(s"""|
+                    |// Format $n
+                    |sb += "$n = ";"""),
+          getMemberToString(node, n, tn),
+      ))
 
     def writeSerializeStatusCheck =
       wrapInIf(
@@ -497,37 +508,15 @@ case class StructCppWriter(
             ),
             CppDoc.Type("void"),
             List.concat(
-              lines("static const char* formatString ="),
-              lines(astMembers.flatMap((_, node, _) => {
-                val n = node.data.name
-                val formatStr = FormatCppWriter.write(
-                  s,
-                  getFormatStr(n),
-                  node.data.typeName
-                )
-                if sizes.contains(n) then {
-                  List(s"$n = [ %s ]")
-                } else
-                  List(s"$n = $formatStr")
-              }).mkString("\"( \"\n\"", ", \"\n\"", "\"\n\" )\";")).map(indentIn),
-              initStrings,
-              Line.blank ::
-              wrapInScope(
-                "sb.format(",
-                {
-                  line("formatString,") ::
-                  lines(memberList.flatMap((n, tn) =>
-                    (sizes.contains(n), typeMembers(n).getUnderlyingType) match {
-                      case (false, _: Type.String) =>
-                        List(s"this->m_$n.toChar()")
-                      case (false, t) if s.isPrimitive(t, tn) =>
-                        List(promoteF32ToF64 (t) (s"this->m_$n"))
-                      case _ =>
-                        List(s"${n}Str.toChar()")
-                    }).mkString(",\n"))
-                },
-                ");"
-              )
+              if needsTmpString then lines("Fw::String tmp;") else List(),
+              lines("sb = \"( \";"),
+              memberToString.zipWithIndex.flatMap((memberToStringLines, idx) => {
+                if idx > 0 then List.concat(
+                  lines("sb += \", \";"),
+                  memberToStringLines,
+                ) else memberToStringLines
+              }),
+              lines("sb += \" )\";"),
             ),
             CppDoc.Function.NonSV,
             CppDoc.Function.Const

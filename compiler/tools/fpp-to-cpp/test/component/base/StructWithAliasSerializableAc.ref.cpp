@@ -165,33 +165,37 @@ Fw::SerializeStatus StructWithAlias ::
 void StructWithAlias ::
   toString(Fw::StringBase& sb) const
 {
-  static const char* formatString =
-    "( "
-    "x = %" PRIu32 ", "
-    "y = %s, "
-    "z = %s, "
-    "w = %s, "
-    "q = %s"
-    " )";
+  Fw::String tmp;
+  sb = "( ";
 
-  // Declare strings to hold any serializable toString() arguments
-  Fw::String zStr;
-  Fw::String wStr;
-  Fw::String qStr;
+  // Format x
+  sb += "x = ";
+  tmp.format("%" PRIu32 "", this->m_x);
+  sb += tmp;
+  sb += ", ";
 
-  // Call toString for arrays and serializable types
-  this->m_z.toString(zStr);
-  this->m_w.toString(wStr);
-  this->m_q.toString(qStr);
+  // Format y
+  sb += "y = ";
+  sb += this->m_y;
+  sb += ", ";
 
-  sb.format(
-    formatString,
-    this->m_x,
-    this->m_y.toChar(),
-    zStr.toChar(),
-    wStr.toChar(),
-    qStr.toChar()
-  );
+  // Format z
+  sb += "z = ";
+  this->m_z.toString(tmp);
+  sb += tmp;
+  sb += ", ";
+
+  // Format w
+  sb += "w = ";
+  this->m_w.toString(tmp);
+  sb += tmp;
+  sb += ", ";
+
+  // Format q
+  sb += "q = ";
+  this->m_q.toString(tmp);
+  sb += tmp;
+  sb += " )";
 }
 
 #endif
