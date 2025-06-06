@@ -406,7 +406,7 @@ case class StructCppWriter(
                   |}
                   |sb += tmp;"""
             )),
-            lines("sb += \"] \";"),
+            lines("sb += \" ]\";"),
           )
         case (false, _) =>
           // A complex (non-array) type

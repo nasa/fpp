@@ -186,7 +186,7 @@ void StringArray ::
     }
     sb += tmp;
   }
-  sb += "] ";
+  sb += " ]";
   sb += " )";
 }
 

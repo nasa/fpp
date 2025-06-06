@@ -175,7 +175,7 @@ void Modules3 ::
     }
     sb += tmp;
   }
-  sb += "] ";
+  sb += " ]";
   sb += " )";
 }
 

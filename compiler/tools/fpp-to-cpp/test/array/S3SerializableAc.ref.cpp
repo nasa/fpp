@@ -171,7 +171,7 @@ namespace S {
       }
       sb += tmp;
     }
-    sb += "] ";
+    sb += " ]";
     sb += ", ";
 
     // Format mF64

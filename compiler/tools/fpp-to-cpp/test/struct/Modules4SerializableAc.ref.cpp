@@ -183,7 +183,7 @@ void Modules4 ::
     }
     sb += tmp;
   }
-  sb += "] ";
+  sb += " ]";
   sb += ", ";
 
   // Format arr2
@@ -196,7 +196,7 @@ void Modules4 ::
     }
     sb += tmp;
   }
-  sb += "] ";
+  sb += " ]";
   sb += " )";
 }
 

@@ -210,7 +210,7 @@ void AliasType ::
     }
     sb += tmp;
   }
-  sb += "] ";
+  sb += " ]";
   sb += " )";
 }
 

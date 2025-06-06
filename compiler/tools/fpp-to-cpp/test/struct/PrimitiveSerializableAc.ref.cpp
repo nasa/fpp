@@ -321,7 +321,7 @@ void Primitive ::
     }
     sb += tmp;
   }
-  sb += "] ";
+  sb += " ]";
   sb += ", ";
 
   // Format mF64
