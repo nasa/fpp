@@ -3,6 +3,8 @@ package fpp.compiler.analysis
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
+import scala.annotation.tailrec
+
 /** The analysis data structure */
 case class Analysis(
   /** The set of files presented to the analyzer */
@@ -59,6 +61,10 @@ case class Analysis(
   componentInstanceMap: Map[Symbol.ComponentInstance, ComponentInstance] = Map(),
   /** The component instance under construction */
   componentInstance: Option[ComponentInstance] = None,
+  /** The map from interface symbols to interfaces */
+  interfaceMap: Map[Symbol.Interface, Interface] = Map(),
+  /** The interface under construction */
+  interface: Option[Interface] = None,
   /** The map from topology symbols to topologies */
   topologyMap: Map[Symbol.Topology, Topology] = Map(),
   /** The topology under construction */
@@ -118,6 +124,7 @@ case class Analysis(
 
   /** Compute the common type for a list of node Ids */
   def commonType(nodes: List[AstNode.Id], emptyListError: Error): Result.Result[Type] = {
+    @tailrec
     def helper(prevNodeId: AstNode.Id, prevType: Type, nextNodes: List[AstNode.Id]): Result.Result[Type] = {
       nextNodes match {
         case Nil => Right(prevType)
@@ -235,6 +242,25 @@ case class Analysis(
   def getComponentInstance(id: AstNode.Id): Result.Result[ComponentInstance] =
     for (cis <- getComponentInstanceSymbol(id))
       yield this.componentInstanceMap(cis)
+
+  /** Gets an interface symbol from use-def map */
+  def getInterfaceSymbol(id: AstNode.Id): Result.Result[Symbol.Interface] =
+    this.useDefMap(id) match {
+      case ts: Symbol.Interface => Right(ts)
+      case s => Left(
+        SemanticError.InvalidSymbol(
+          s.getUnqualifiedName,
+          Locations.get(id),
+          "not a interface symbol",
+          s.getLoc
+        )
+      )
+    }
+
+  /** Gets an interface from the interface definition map */
+  def getInterface(id: AstNode.Id): Result.Result[Interface] =
+    for (cis <- getInterfaceSymbol(id))
+      yield this.interfaceMap(cis)
 
   /** Gets a topology symbol from use-def map */
   def getTopologySymbol(id: AstNode.Id): Result.Result[Symbol.Topology] =

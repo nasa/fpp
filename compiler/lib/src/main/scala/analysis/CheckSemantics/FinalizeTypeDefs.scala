@@ -5,7 +5,7 @@ import fpp.compiler.util._
 
 /** Finalize type definitions. Update the types of uses (type names) that refer 
  *  to the definitions. */
-object FinalizeTypeDefs 
+object FinalizeTypeDefs
   extends TypeExpressionAnalyzer
 {
 

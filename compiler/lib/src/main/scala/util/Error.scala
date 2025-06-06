@@ -1,5 +1,9 @@
 package fpp.compiler.util
 
+import fpp.compiler.util.Location
+import java.util.Locale
+import fpp.compiler.util.Location
+
 /** An exception for signaling internal compiler errors */
 final case class InternalError(val msg: String) extends Exception {
   override def toString = s"internal error: $msg"
@@ -97,10 +101,18 @@ sealed trait Error {
       case SemanticError.DuplicatePattern(kind, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate $kind pattern")
         printPrevLoc(prevLoc)
-      case SemanticError.DuplicatePortInstance(name, loc, prevLoc) =>
+      case SemanticError.DuplicatePortInstance(name, loc, importLocs, prevLoc, prevImportLocs) =>
         Error.print (Some(loc)) (s"duplicate port instance ${name}")
+        if (importLocs.nonEmpty) {
+          System.err.println(s"port imported from here")
+          importLocs.map(System.err.println)
+        }
         System.err.println("previous instance is here:")
         System.err.println(prevLoc)
+        if (prevImportLocs.nonEmpty) {
+          System.err.println(s"previous instance imported from here")
+          prevImportLocs.reverse.map(System.err.println)
+        }
       case SemanticError.DuplicateStateMachineInstance(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate state machine instance name ${name}")
         printPrevLoc(prevLoc)
@@ -255,8 +267,12 @@ sealed trait Error {
         System.err.println(loc1)
         System.err.println(s"$name2 is defined here")
         System.err.println(loc2)
-      case SemanticError.PassiveAsync(loc) =>
+      case SemanticError.PassiveAsync(loc, importLocs) =>
         Error.print (Some(loc)) ("passive component may not have async input")
+        if (importLocs.nonEmpty) {
+          System.err.println(s"port instance was imported from here")
+          importLocs.reverse.map(System.err.println)
+        }
       case SemanticError.PassiveStateMachine(loc) =>
         Error.print (Some(loc)) ("passive component may not have a state machine instance")
       case SemanticError.RedefinedSymbol(name, loc, prevLoc) =>
@@ -302,6 +318,12 @@ sealed trait Error {
       case SemanticError.TypeMismatch(loc, msg) => Error.print (Some(loc)) (msg)
       case SemanticError.UndefinedSymbol(name, loc) =>
         Error.print (Some(loc)) (s"undefined symbol ${name}")
+      case SemanticError.InterfaceImport(
+        importLoc,
+        err
+      ) =>
+        Error.print (Some(importLoc)) (s"failed to import interface")
+        err.print
       case SemanticError.UseDefCycle(loc, msg) => Error.print (Some(loc)) (msg)
       case XmlError.ParseError(file, msg) => Error.printXml (file) (msg)
       case XmlError.SemanticError(file, msg) => Error.printXml (file) (msg)
@@ -439,7 +461,9 @@ object SemanticError {
   final case class DuplicatePortInstance(
     name: String,
     loc: Location,
-    prevLoc: Location
+    importLocs: List[Location],
+    prevLoc: Location,
+    prevImportLocs: List[Location]
   ) extends Error
   /** Duplicate state machine instance */
   final case class DuplicateStateMachineInstance(
@@ -632,8 +656,13 @@ object SemanticError {
     name2: String,
     loc2: Location
   ) extends Error
+  /** Error while importing an interface */
+  final case class InterfaceImport(
+    importLoc: Location,
+    err: Error
+  ) extends Error
   /** Passive async input */
-  final case class PassiveAsync(loc: Location) extends Error
+  final case class PassiveAsync(loc: Location, importLocs: List[Location]) extends Error
   final case class PassiveStateMachine(loc: Location) extends Error
   /** Redefined symbol */
   final case class RedefinedSymbol(

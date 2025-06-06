@@ -44,6 +44,11 @@ object CheckUseDefCycles extends UseAnalyzer {
     visitDefPost(a, symbol, node, super.defTopologyAnnotatedNode)
   }
 
+  override def defInterfaceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefInterface]]) = {
+    val symbol = Symbol.Interface(node)
+    visitDefPost(a, symbol, node, super.defInterfaceAnnotatedNode)
+  }
+
   override def topologyUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     visitUse(a, node, use)
 

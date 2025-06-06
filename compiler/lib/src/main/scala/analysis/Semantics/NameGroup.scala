@@ -9,6 +9,7 @@ object NameGroup {
   case object Port extends NameGroup
   case object StateMachine extends NameGroup
   case object Topology extends NameGroup
+  case object Interface extends NameGroup
   case object Type extends NameGroup
   case object Value extends NameGroup
 
@@ -18,6 +19,7 @@ object NameGroup {
     Port,
     StateMachine,
     Topology,
+    Interface,
     Type,
     Value
   )

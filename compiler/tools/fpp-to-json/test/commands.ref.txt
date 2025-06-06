@@ -733,7 +733,9 @@
               }
             },
             "priority" : "None",
-            "queueFull" : "None"
+            "queueFull" : "None",
+            "importNodeIds" : [
+            ]
           }
         },
         "cmdIn" : {
@@ -759,7 +761,9 @@
               }
             },
             "priority" : "None",
-            "queueFull" : "None"
+            "queueFull" : "None",
+            "importNodeIds" : [
+            ]
           }
         },
         "cmdResponseOut" : {
@@ -785,7 +789,9 @@
               }
             },
             "priority" : "None",
-            "queueFull" : "None"
+            "queueFull" : "None",
+            "importNodeIds" : [
+            ]
           }
         }
       },
@@ -812,7 +818,9 @@
             }
           },
           "priority" : "None",
-          "queueFull" : "None"
+          "queueFull" : "None",
+          "importNodeIds" : [
+          ]
         },
         "command recv" : {
           "aNode" : {
@@ -836,7 +844,9 @@
             }
           },
           "priority" : "None",
-          "queueFull" : "None"
+          "queueFull" : "None",
+          "importNodeIds" : [
+          ]
         },
         "command resp" : {
           "aNode" : {
@@ -860,7 +870,9 @@
             }
           },
           "priority" : "None",
-          "queueFull" : "None"
+          "queueFull" : "None",
+          "importNodeIds" : [
+          ]
         }
       },
       "commandMap" : {

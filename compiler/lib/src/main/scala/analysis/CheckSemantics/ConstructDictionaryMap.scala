@@ -5,7 +5,7 @@ import fpp.compiler.util._
 
 /** Construct the dictionary map */
 object ConstructDictionaryMap
-  extends Analyzer 
+  extends Analyzer
   with ModuleAnalyzer
   with TopologyAnalyzer
   with TlmPacketSetAnalyzer
