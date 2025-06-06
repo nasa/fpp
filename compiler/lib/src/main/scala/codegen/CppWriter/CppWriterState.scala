@@ -162,7 +162,7 @@ case class CppWriterState(
             getIncludePath(sym, ComputeCppFiles.FileNames.getTopology(name))
           )
           case iface: Symbol.Interface =>
-            // Recursively resolve uses to pick up the header dependencies
+            // Resolve the uses to pick up the header dependencies
             // implied by imported interfaces
             val Right(a) = UsedSymbols.defInterfaceAnnotatedNode(
               this.a,
