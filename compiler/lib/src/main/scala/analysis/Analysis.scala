@@ -476,10 +476,9 @@ object Analysis {
     (getName: T => Name.Unqualified)
     (error: (String, Location, Location) => Error)
     (nodes: List[AstNode[T]]): Result.Result[Unit] = {
-    val result: Result.Result[Map[Name.Unqualified, AstNode.Id]] = Right(Map())
+    val empty: Map[Name.Unqualified, AstNode.Id] = Map()
     for {
-      _ <- nodes.foldLeft(result)( (result, node) => {
-        val Right(map) = result
+      _ <- Result.foldLeft (nodes) (empty) ((map, node) => {
         val name = getName(node.data)
         map.get(name) match {
           case None => Right(map + (name -> node.id))
