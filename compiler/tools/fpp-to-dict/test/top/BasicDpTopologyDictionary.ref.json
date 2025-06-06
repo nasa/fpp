@@ -56,6 +56,34 @@
       }
     },
     {
+      "kind" : "enum",
+      "qualifiedName" : "Fw.DpState",
+      "representationType" : {
+        "name" : "U8",
+        "kind" : "integer",
+        "size" : 8,
+        "signed" : false
+      },
+      "enumeratedConstants" : [
+        {
+          "name" : "UNTRANSMITTED",
+          "value" : 0,
+          "annotation" : "The untransmitted state"
+        },
+        {
+          "name" : "PARTIAL",
+          "value" : 1,
+          "annotation" : "The partially transmitted state\nA data product is in this state from the start of transmission\nuntil transmission is complete."
+        },
+        {
+          "name" : "TRANSMITTED",
+          "value" : 2,
+          "annotation" : "The transmitted state"
+        }
+      ],
+      "default" : "Fw.DpState.UNTRANSMITTED"
+    },
+    {
       "kind" : "alias",
       "qualifiedName" : "FwEventIdType",
       "type" : {
@@ -68,6 +96,100 @@
         "name" : "U32",
         "kind" : "integer",
         "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwSizeType",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwTimeContextStoreType",
+      "type" : {
+        "name" : "U8",
+        "kind" : "integer",
+        "size" : 8,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U8",
+        "kind" : "integer",
+        "size" : 8,
+        "signed" : false
+      },
+      "annotation" : "The type used to serialize a time context value"
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwDpIdType",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "enum",
+      "qualifiedName" : "Fw.DpCfg.ProcType",
+      "representationType" : {
+        "name" : "U8",
+        "kind" : "integer",
+        "size" : 8,
+        "signed" : false
+      },
+      "enumeratedConstants" : [
+        {
+          "name" : "PROC_TYPE_ZERO",
+          "value" : 1,
+          "annotation" : "Processing type 0"
+        },
+        {
+          "name" : "PROC_TYPE_ONE",
+          "value" : 2,
+          "annotation" : "Processing type 1"
+        },
+        {
+          "name" : "PROC_TYPE_TWO",
+          "value" : 4,
+          "annotation" : "Processing type 2"
+        }
+      ],
+      "default" : "Fw.DpCfg.ProcType.PROC_TYPE_ZERO",
+      "annotation" : "A bit mask for selecting the type of processing to perform on\na container before writing it to disk."
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwSizeStoreType",
+      "type" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
         "signed" : false
       }
     },
@@ -105,22 +227,20 @@
       "annotation" : "Alias of type U16"
     },
     {
-      "kind" : "struct",
-      "qualifiedName" : "FppTest.DpTestComponent.Data",
-      "members" : {
-        "u16Field" : {
-          "type" : {
-            "name" : "FppTest.DpTestComponent.AliasU16",
-            "kind" : "qualifiedIdentifier"
-          },
-          "index" : 0,
-          "annotation" : "A U16 field"
-        }
+      "kind" : "alias",
+      "qualifiedName" : "FwDpPriorityType",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
       },
-      "default" : {
-        "u16Field" : 0
-      },
-      "annotation" : "Data for a DataRecord"
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
     },
     {
       "kind" : "alias",
@@ -153,6 +273,55 @@
         "size" : 32,
         "signed" : false
       }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwTimeBaseStoreType",
+      "type" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "annotation" : "The type used to serialize a time base value"
+    },
+    {
+      "kind" : "struct",
+      "qualifiedName" : "FppTest.DpTestComponent.Data",
+      "members" : {
+        "u16Field" : {
+          "type" : {
+            "name" : "FppTest.DpTestComponent.AliasU16",
+            "kind" : "qualifiedIdentifier"
+          },
+          "index" : 0,
+          "annotation" : "A U16 field"
+        }
+      },
+      "default" : {
+        "u16Field" : 0
+      },
+      "annotation" : "Data for a DataRecord"
+    }
+  ],
+  "constants" : [
+    {
+      "kind" : "constant",
+      "qualifiedName" : "Fw.DpCfg.CONTAINER_USER_DATA_SIZE",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "value" : 32,
+      "annotation" : "The container user data size"
     }
   ],
   "commands" : [

@@ -2,6 +2,7 @@ type FwChanIdType = U32
 type FwDpIdType = U32
 type FwDpPriorityType = U32
 type FwEventIdType = U32
+type FwOpcodeType = U32
 type FwPacketDescriptorType = U32
 type FwTlmPacketizeIdType = U16
 type FwSizeType = U32
@@ -26,9 +27,6 @@ module Fw {
     } default UNTRANSMITTED
 
     module DpCfg {
-        @ The container user data size
-        constant CONTAINER_USER_DATA_SIZE = 1
-
         @ A bit mask for selecting the type of processing to perform on
         @ a container before writing it to disk.
         enum ProcType: U8 {
