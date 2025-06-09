@@ -435,21 +435,18 @@ object Lexer {
           fetchIdentRest()
         // Numeric literal
         case '0' =>
-          def fetchLeadingZero(): Unit = {
-            nextChar()
-            ch match {
-              case 'x' | 'X' =>
-                base = 16
-                putChar('0')
-                putChar('x')
-                nextChar()
-              case _ => base = 10; putChar('0')
-            }
-            if (base != 10 && digit2int(ch, base) < 0)
-              error("invalid literal number")
+          nextChar()
+          ch match {
+            case 'x' | 'X' =>
+              base = 16
+              putChar('0')
+              putChar('x')
+              nextChar()
+            case _ => base = 10; putChar('0')
           }
+          if (base != 10 && digit2int(ch, base) < 0)
+            error("invalid literal number")
 
-          fetchLeadingZero()
           fetchNumber()
         // More numeric literals
         case '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' =>

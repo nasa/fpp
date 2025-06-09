@@ -156,38 +156,27 @@ Fw::SerializeStatus Enum ::
 void Enum ::
   toString(Fw::StringBase& sb) const
 {
-  static const char* formatString =
-    "( "
-    "e = %s, "
-    "eArr = [ %s ]"
-    " )";
+  Fw::String tmp;
+  sb = "( ";
 
-  // Declare strings to hold any serializable toString() arguments
-  Fw::String eStr;
-  Fw::String eArrStr;
+  // Format e
+  sb += "e = ";
+  this->m_e.toString(tmp);
+  sb += tmp;
+  sb += ", ";
 
-  // Call toString for arrays and serializable types
-  this->m_e.toString(eStr);
+  // Format eArr
+  sb += "eArr = ";
+  sb += "[ ";
   for (FwSizeType i = 0; i < 3; i++) {
-    Fw::String eArrTmp;
-    this->m_eArr[i].toString(eArrTmp);
-
-    FwSizeType size = eArrTmp.length() + (i > 0 ? 2 : 0);
-    if ((size + eArrStr.length()) <= eArrStr.maxLength()) {
-      if (i > 0) {
-        eArrStr += ", ";
-      }
-      eArrStr += eArrTmp;
-    } else {
-      break;
+    this->m_eArr[i].toString(tmp);
+    if (i > 0) {
+      sb += ", ";
     }
+    sb += tmp;
   }
-
-  sb.format(
-    formatString,
-    eStr.toChar(),
-    eArrStr.toChar()
-  );
+  sb += " ]";
+  sb += " )";
 }
 
 #endif

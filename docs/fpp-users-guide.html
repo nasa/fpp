@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>The F Prime Prime (FPP) User&#8217;s Guide, Unreleased, after v2.3.0</title>
+<title>The F Prime Prime (FPP) User&#8217;s Guide, Unreleased, after v2.3.1</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>The F Prime Prime (FPP) User&#8217;s Guide, Unreleased, after v2.3.0</h1>
+<h1>The F Prime Prime (FPP) User&#8217;s Guide, Unreleased, after v2.3.1</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -606,6 +606,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Components_Parameters_Default-Values">10.8.2. Default Values</a></li>
 <li><a href="#Defining-Components_Parameters_Identifiers">10.8.3. Identifiers</a></li>
 <li><a href="#Defining-Components_Parameters_Set-and-Save-Opcodes">10.8.4. Set and Save Opcodes</a></li>
+<li><a href="#Defining-Components_Parameters_External-Parameters">10.8.5. External Parameters</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Components_Data-Products">10.9. Data Products</a>
@@ -8106,7 +8107,7 @@ relative to the component, usually starting from
 zero and counting up by one.
 If you omit the identifier, then
 FPP assigns a default identifier: zero for the first
-event in the component; otherwise one more than the
+parameter in the component; otherwise one more than the
 identifier of the previous parameter.</p>
 </div>
 <div class="paragraph">
@@ -8268,6 +8269,74 @@ passive component ParamOpcodes {
 </div>
 </div>
 </div>
+<div class="sect3">
+<h4 id="Defining-Components_Parameters_External-Parameters">10.8.5. External Parameters</h4>
+<div class="paragraph">
+<p>In the default case, when you specify a parameter <em>P</em> in a component
+<em>C</em>, the FPP code generator produces code for storing
+and managing <em>P</em> as part of the auto-generated
+code for <em>C</em>.
+Sometimes it is more convenient to store and manage parameters separately.
+For example, you may wish to integrate an F Prime component with a library
+that stores and manages its own parameters.
+In this case you can specify an <strong>external</strong> parameter.
+An external parameter is like an ordinary parameter (also called
+an internal parameter), except that its specifier begins
+with the keyword <code>external</code>.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example component definition that specifies two parameters,
+an internal parameter <code>Param1</code> and an external parameter <code>Param2</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A component for illustrating internal and external parameters
+passive component ParamExternal {
+
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
+  @ Command receive port
+  command recv port cmdIn
+
+  @ Command registration port
+  command reg port cmdRegOut
+
+  @ Command response port
+  command resp port cmdResponseOut
+
+  @ Parameter get port
+  param get port prmGetOut
+
+  @ Parameter set port
+  param set port prmSetOut
+
+  # ----------------------------------------------------------------------
+  # Parameters
+  # ----------------------------------------------------------------------
+
+  @ Param1 is an internal parameter
+  param Param1: U32
+
+  @ Param2 is an external parameter
+  external param Param2: F64 \
+    default 2.0 \
+    id 0x10 \
+    set opcode 0x10 \
+    save opcode 0x11
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When you specify an external parameter, you are responsible for
+providing the C&#43;&#43; code that stores and maintains the parameter.
+The
+<a href="https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/autocoded-functions/#parameters">F
+Prime User Manual</a> explains how to do this.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="Defining-Components_Data-Products">10.9. Data Products</h3>
@@ -8282,7 +8351,7 @@ for (1) managing buffers that can store data products in memory;
 cataloging stored data products for downlink in priority order.
 For more information about these F Prime features, see the
 <a href="https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/data-products/">F
-Prime design documentation</a>.</p>
+Prime User Manual</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="Defining-Components_Data-Products_Basic-Data-Products">10.9.1. Basic Data Products</h4>
@@ -14644,6 +14713,40 @@ are generated for them.</p>
 </ul>
 </div>
 <div class="paragraph">
+<p><strong>F Prime configuration:</strong>
+When you run <code>fpp-to-dict</code> on an FPP model, the model must define the following
+types:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>FwChanIdType</code></p>
+</li>
+<li>
+<p><code>FwEventIdType</code></p>
+</li>
+<li>
+<p><code>FwOpcodeType</code></p>
+</li>
+<li>
+<p><code>FwPacketDescriptorType</code></p>
+</li>
+<li>
+<p><code>FwTlmPacketizeIdType</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These types are required by the F Prime GDS, so they are included in the
+dictionary.
+Each of these types must be an alias of an integer type.
+Typically you specify these types as part of F Prime configuration,
+in the file <code>config/FpConfig.fpp</code>.
+See the
+<a href="https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/">F
+Prime documentation</a> for details.</p>
+</div>
+<div class="paragraph">
 <p><strong>Options:</strong>
 <code>fpp-to-dict</code> provides the following options:</p>
 </div>
@@ -15561,7 +15664,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-05-05 15:59:04 -0700
+Last updated 2025-05-21 16:29:41 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

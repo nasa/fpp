@@ -158,36 +158,27 @@ namespace S {
   void S3 ::
     toString(Fw::StringBase& sb) const
   {
-    static const char* formatString =
-      "( "
-      "mU32Array = [ %s ], "
-      "mF64 = %f"
-      " )";
+    Fw::String tmp;
+    sb = "( ";
 
-    // Declare strings to hold any serializable toString() arguments
-    Fw::String mU32ArrayStr;
-
-    // Call toString for arrays and serializable types
+    // Format mU32Array
+    sb += "mU32Array = ";
+    sb += "[ ";
     for (FwSizeType i = 0; i < 3; i++) {
-      Fw::String mU32ArrayTmp;
-      mU32ArrayTmp.format("%" PRIu32 "", this->m_mU32Array[i]);
-
-      FwSizeType size = mU32ArrayTmp.length() + (i > 0 ? 2 : 0);
-      if ((size + mU32ArrayStr.length()) <= mU32ArrayStr.maxLength()) {
-        if (i > 0) {
-          mU32ArrayStr += ", ";
-        }
-        mU32ArrayStr += mU32ArrayTmp;
-      } else {
-        break;
+      tmp.format("%" PRIu32 "", this->m_mU32Array[i]);
+      if (i > 0) {
+        sb += ", ";
       }
+      sb += tmp;
     }
+    sb += " ]";
+    sb += ", ";
 
-    sb.format(
-      formatString,
-      mU32ArrayStr.toChar(),
-      this->m_mF64
-    );
+    // Format mF64
+    sb += "mF64 = ";
+    tmp.format("%f", this->m_mF64);
+    sb += tmp;
+    sb += " )";
   }
 
 #endif

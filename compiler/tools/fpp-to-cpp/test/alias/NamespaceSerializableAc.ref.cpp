@@ -152,21 +152,32 @@ Fw::SerializeStatus Namespace ::
 void Namespace ::
   toString(Fw::StringBase& sb) const
 {
-  static const char* formatString =
-    "( "
-    "A = %" PRIu32 ", "
-    "B = %" PRIu32 ", "
-    "C = %" PRIu32 ", "
-    "D = %" PRIu32 ""
-    " )";
+  Fw::String tmp;
+  sb = "( ";
 
-  sb.format(
-    formatString,
-    this->m_A,
-    this->m_B,
-    this->m_C,
-    this->m_D
-  );
+  // Format A
+  sb += "A = ";
+  tmp.format("%" PRIu32 "", this->m_A);
+  sb += tmp;
+  sb += ", ";
+
+  // Format B
+  sb += "B = ";
+  tmp.format("%" PRIu32 "", this->m_B);
+  sb += tmp;
+  sb += ", ";
+
+  // Format C
+  sb += "C = ";
+  tmp.format("%" PRIu32 "", this->m_C);
+  sb += tmp;
+  sb += ", ";
+
+  // Format D
+  sb += "D = ";
+  tmp.format("%" PRIu32 "", this->m_D);
+  sb += tmp;
+  sb += " )";
 }
 
 #endif

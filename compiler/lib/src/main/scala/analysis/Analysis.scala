@@ -47,7 +47,7 @@ case class Analysis(
   /** The mapping from type and constant symbols, expressions,
    *  and type names to their types */
   typeMap: Map[AstNode.Id, Type] = Map(),
-  /** THe mapping from constant symbols and expressions to their values. */
+  /** The mapping from constant symbols and expressions to their values. */
   valueMap: Map[AstNode.Id, Value] = Map(),
   /** The set of symbols used. Used during code generation. */
   usedSymbolSet: Set[Symbol] = Set(),
@@ -70,7 +70,11 @@ case class Analysis(
   /** The dictionary under construction */
   dictionary: Option[Dictionary] = None,
   /** The telemetry packet set under construction */
-  tlmPacketSet: Option[TlmPacketSet] = None
+  tlmPacketSet: Option[TlmPacketSet] = None,
+  /** Whether a dictionary is needed in code generation */
+  dictionaryNeeded: Boolean = false,
+  /** The set of type symbols used by the dictionary */
+  dictionaryTypeSymbolSet: Set[Symbol] = Set()
 ) {
 
   /** Gets the qualified name of a symbol */
@@ -472,10 +476,9 @@ object Analysis {
     (getName: T => Name.Unqualified)
     (error: (String, Location, Location) => Error)
     (nodes: List[AstNode[T]]): Result.Result[Unit] = {
-    val result: Result.Result[Map[Name.Unqualified, AstNode.Id]] = Right(Map())
+    val empty: Map[Name.Unqualified, AstNode.Id] = Map()
     for {
-      _ <- nodes.foldLeft(result)( (result, node) => {
-        val Right(map) = result
+      _ <- Result.foldLeft (nodes) (empty) ((map, node) => {
         val name = getName(node.data)
         map.get(name) match {
           case None => Right(map + (name -> node.id))
