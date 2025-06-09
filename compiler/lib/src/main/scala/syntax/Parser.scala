@@ -665,6 +665,7 @@ object Parser extends Parsers {
         state ~! machine ^^ (_ => Ast.SpecLoc.StateMachine) |
         topology ^^ (_ => Ast.SpecLoc.Topology) |
         typeToken ^^ (_ => Ast.SpecLoc.Type) |
+        interface ^^ (_ => Ast.SpecLoc.Interface) |
         failure("location kind expected")
     }
 
