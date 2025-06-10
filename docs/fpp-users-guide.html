@@ -14714,8 +14714,12 @@ are generated for them.</p>
 </div>
 <div class="paragraph">
 <p><strong>F Prime configuration:</strong>
-When you run <code>fpp-to-dict</code> on an FPP model, the model must define the following
-types:</p>
+There are various types and constants required by the F Prime GDS, so they
+are included in the dictionary. When you run <code>fpp-to-dict</code> on an FPP model,
+the model must define the following alias types, enumerations, and constants:</p>
+</div>
+<div class="paragraph">
+<p>Alias Types:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -14734,13 +14738,65 @@ types:</p>
 <li>
 <p><code>FwTlmPacketizeIdType</code></p>
 </li>
+<li>
+<p><code>FwDpIdType</code></p>
+</li>
+<li>
+<p><code>FwDpPriorityType</code></p>
+</li>
+<li>
+<p><code>FwSizeStoreType</code></p>
+</li>
+<li>
+<p><code>FwTimeBaseStoreType</code></p>
+</li>
+<li>
+<p><code>FwTimeContextStoreType</code></p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
-<p>These types are required by the F Prime GDS, so they are included in the
-dictionary.
-Each of these types must be an alias of an integer type.
-Typically you specify these types as part of F Prime configuration,
+<p>Enumerations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Fw.DpState</code></p>
+</li>
+<li>
+<p><code>Fw.DpCfg.ProcType</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Constants:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The alias types and constants required by the dictionary must all be integer types.</p>
+</div>
+<div class="paragraph">
+<p>Type information for constant dictionary entries is determined by
+checking the sign of a constant and will always default to the maximum integer size (64 bits):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If the constant is positive, the type of the constant is U64.</p>
+</li>
+<li>
+<p>If the constant is negative, the type of the constant is I64.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Typically you specify these types as part of F Prime configuration,
 in the file <code>config/FpConfig.fpp</code>.
 See the
 <a href="https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/">F
@@ -15664,7 +15720,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-05-21 16:29:41 -0700
+Last updated 2025-06-10 16:27:26 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
