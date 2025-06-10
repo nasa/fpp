@@ -2343,8 +2343,8 @@ void ActiveCommandsTesterBase ::
       Fw::CmdArgBuffer& buf
   )
 {
-  const U32 idBase = this->getIdBase();
-  FwOpcodeType _opcode = opCode + idBase;
+  const FwIdType idBase = this->getIdBase();
+  FwOpcodeType _opcode = opCode + static_cast<FwOpcodeType>(idBase);
   if (this->m_to_cmdIn[0].isConnected()) {
     this->m_to_cmdIn[0].invoke(
       _opcode,
@@ -2367,8 +2367,8 @@ void ActiveCommandsTesterBase ::
 
   // Call output command port
   FwOpcodeType _opcode;
-  const U32 idBase = this->getIdBase();
-  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_SYNC + idBase;
+  const FwIdType idBase = this->getIdBase();
+  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_SYNC + static_cast<FwOpcodeType>(idBase);
 
   if (this->m_to_cmdIn[0].isConnected()) {
     this->m_to_cmdIn[0].invoke(
@@ -2415,8 +2415,8 @@ void ActiveCommandsTesterBase ::
 
   // Call output command port
   FwOpcodeType _opcode;
-  const U32 idBase = this->getIdBase();
-  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_SYNC_PRIMITIVE + idBase;
+  const FwIdType idBase = this->getIdBase();
+  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_SYNC_PRIMITIVE + static_cast<FwOpcodeType>(idBase);
 
   if (this->m_to_cmdIn[0].isConnected()) {
     this->m_to_cmdIn[0].invoke(
@@ -2456,8 +2456,8 @@ void ActiveCommandsTesterBase ::
 
   // Call output command port
   FwOpcodeType _opcode;
-  const U32 idBase = this->getIdBase();
-  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_SYNC_STRING + idBase;
+  const FwIdType idBase = this->getIdBase();
+  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_SYNC_STRING + static_cast<FwOpcodeType>(idBase);
 
   if (this->m_to_cmdIn[0].isConnected()) {
     this->m_to_cmdIn[0].invoke(
@@ -2490,8 +2490,8 @@ void ActiveCommandsTesterBase ::
 
   // Call output command port
   FwOpcodeType _opcode;
-  const U32 idBase = this->getIdBase();
-  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_SYNC_ENUM + idBase;
+  const FwIdType idBase = this->getIdBase();
+  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_SYNC_ENUM + static_cast<FwOpcodeType>(idBase);
 
   if (this->m_to_cmdIn[0].isConnected()) {
     this->m_to_cmdIn[0].invoke(
@@ -2524,8 +2524,8 @@ void ActiveCommandsTesterBase ::
 
   // Call output command port
   FwOpcodeType _opcode;
-  const U32 idBase = this->getIdBase();
-  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_SYNC_ARRAY + idBase;
+  const FwIdType idBase = this->getIdBase();
+  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_SYNC_ARRAY + static_cast<FwOpcodeType>(idBase);
 
   if (this->m_to_cmdIn[0].isConnected()) {
     this->m_to_cmdIn[0].invoke(
@@ -2558,8 +2558,8 @@ void ActiveCommandsTesterBase ::
 
   // Call output command port
   FwOpcodeType _opcode;
-  const U32 idBase = this->getIdBase();
-  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_SYNC_STRUCT + idBase;
+  const FwIdType idBase = this->getIdBase();
+  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_SYNC_STRUCT + static_cast<FwOpcodeType>(idBase);
 
   if (this->m_to_cmdIn[0].isConnected()) {
     this->m_to_cmdIn[0].invoke(
@@ -2583,8 +2583,8 @@ void ActiveCommandsTesterBase ::
 
   // Call output command port
   FwOpcodeType _opcode;
-  const U32 idBase = this->getIdBase();
-  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_GUARDED + idBase;
+  const FwIdType idBase = this->getIdBase();
+  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_GUARDED + static_cast<FwOpcodeType>(idBase);
 
   if (this->m_to_cmdIn[0].isConnected()) {
     this->m_to_cmdIn[0].invoke(
@@ -2631,8 +2631,8 @@ void ActiveCommandsTesterBase ::
 
   // Call output command port
   FwOpcodeType _opcode;
-  const U32 idBase = this->getIdBase();
-  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_GUARDED_PRIMITIVE + idBase;
+  const FwIdType idBase = this->getIdBase();
+  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_GUARDED_PRIMITIVE + static_cast<FwOpcodeType>(idBase);
 
   if (this->m_to_cmdIn[0].isConnected()) {
     this->m_to_cmdIn[0].invoke(
@@ -2672,8 +2672,8 @@ void ActiveCommandsTesterBase ::
 
   // Call output command port
   FwOpcodeType _opcode;
-  const U32 idBase = this->getIdBase();
-  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_GUARDED_STRING + idBase;
+  const FwIdType idBase = this->getIdBase();
+  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_GUARDED_STRING + static_cast<FwOpcodeType>(idBase);
 
   if (this->m_to_cmdIn[0].isConnected()) {
     this->m_to_cmdIn[0].invoke(
@@ -2706,8 +2706,8 @@ void ActiveCommandsTesterBase ::
 
   // Call output command port
   FwOpcodeType _opcode;
-  const U32 idBase = this->getIdBase();
-  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_GUARDED_ENUM + idBase;
+  const FwIdType idBase = this->getIdBase();
+  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_GUARDED_ENUM + static_cast<FwOpcodeType>(idBase);
 
   if (this->m_to_cmdIn[0].isConnected()) {
     this->m_to_cmdIn[0].invoke(
@@ -2740,8 +2740,8 @@ void ActiveCommandsTesterBase ::
 
   // Call output command port
   FwOpcodeType _opcode;
-  const U32 idBase = this->getIdBase();
-  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_GUARDED_ARRAY + idBase;
+  const FwIdType idBase = this->getIdBase();
+  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_GUARDED_ARRAY + static_cast<FwOpcodeType>(idBase);
 
   if (this->m_to_cmdIn[0].isConnected()) {
     this->m_to_cmdIn[0].invoke(
@@ -2774,8 +2774,8 @@ void ActiveCommandsTesterBase ::
 
   // Call output command port
   FwOpcodeType _opcode;
-  const U32 idBase = this->getIdBase();
-  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_GUARDED_STRUCT + idBase;
+  const FwIdType idBase = this->getIdBase();
+  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_GUARDED_STRUCT + static_cast<FwOpcodeType>(idBase);
 
   if (this->m_to_cmdIn[0].isConnected()) {
     this->m_to_cmdIn[0].invoke(
@@ -2799,8 +2799,8 @@ void ActiveCommandsTesterBase ::
 
   // Call output command port
   FwOpcodeType _opcode;
-  const U32 idBase = this->getIdBase();
-  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_ASYNC + idBase;
+  const FwIdType idBase = this->getIdBase();
+  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_ASYNC + static_cast<FwOpcodeType>(idBase);
 
   if (this->m_to_cmdIn[0].isConnected()) {
     this->m_to_cmdIn[0].invoke(
@@ -2824,8 +2824,8 @@ void ActiveCommandsTesterBase ::
 
   // Call output command port
   FwOpcodeType _opcode;
-  const U32 idBase = this->getIdBase();
-  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_PRIORITY + idBase;
+  const FwIdType idBase = this->getIdBase();
+  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_PRIORITY + static_cast<FwOpcodeType>(idBase);
 
   if (this->m_to_cmdIn[0].isConnected()) {
     this->m_to_cmdIn[0].invoke(
@@ -2858,8 +2858,8 @@ void ActiveCommandsTesterBase ::
 
   // Call output command port
   FwOpcodeType _opcode;
-  const U32 idBase = this->getIdBase();
-  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_PARAMS_PRIORITY + idBase;
+  const FwIdType idBase = this->getIdBase();
+  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_PARAMS_PRIORITY + static_cast<FwOpcodeType>(idBase);
 
   if (this->m_to_cmdIn[0].isConnected()) {
     this->m_to_cmdIn[0].invoke(
@@ -2883,8 +2883,8 @@ void ActiveCommandsTesterBase ::
 
   // Call output command port
   FwOpcodeType _opcode;
-  const U32 idBase = this->getIdBase();
-  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_DROP + idBase;
+  const FwIdType idBase = this->getIdBase();
+  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_DROP + static_cast<FwOpcodeType>(idBase);
 
   if (this->m_to_cmdIn[0].isConnected()) {
     this->m_to_cmdIn[0].invoke(
@@ -2917,8 +2917,8 @@ void ActiveCommandsTesterBase ::
 
   // Call output command port
   FwOpcodeType _opcode;
-  const U32 idBase = this->getIdBase();
-  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_PARAMS_PRIORITY_DROP + idBase;
+  const FwIdType idBase = this->getIdBase();
+  _opcode = ActiveCommandsComponentBase::OPCODE_CMD_PARAMS_PRIORITY_DROP + static_cast<FwOpcodeType>(idBase);
 
   if (this->m_to_cmdIn[0].isConnected()) {
     this->m_to_cmdIn[0].invoke(

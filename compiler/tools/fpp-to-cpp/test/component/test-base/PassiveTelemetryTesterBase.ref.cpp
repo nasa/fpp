@@ -1860,7 +1860,7 @@ void PassiveTelemetryTesterBase ::
 {
   val.resetDeser();
 
-  const U32 idBase = this->getIdBase();
+  const FwIdType idBase = this->getIdBase();
   FW_ASSERT(
     id >= idBase,
     static_cast<FwAssertArgType>(id),

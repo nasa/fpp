@@ -3217,7 +3217,7 @@ void ActiveTelemetryComponentBase ::
 
     FwChanIdType _id;
 
-    _id = this->getIdBase() + CHANNELID_CHANNELU32FORMAT;
+    _id = static_cast<FwChanIdType>(this->getIdBase()) + CHANNELID_CHANNELU32FORMAT;
 
     this->m_tlmOut_OutputPort[0].invoke(
       _id,
@@ -3250,7 +3250,7 @@ void ActiveTelemetryComponentBase ::
 
     FwChanIdType _id;
 
-    _id = this->getIdBase() + CHANNELID_CHANNELF32FORMAT;
+    _id = static_cast<FwChanIdType>(this->getIdBase()) + CHANNELID_CHANNELF32FORMAT;
 
     this->m_tlmOut_OutputPort[0].invoke(
       _id,
@@ -3283,7 +3283,7 @@ void ActiveTelemetryComponentBase ::
 
     FwChanIdType _id;
 
-    _id = this->getIdBase() + CHANNELID_CHANNELSTRINGFORMAT;
+    _id = static_cast<FwChanIdType>(this->getIdBase()) + CHANNELID_CHANNELSTRINGFORMAT;
 
     this->m_tlmOut_OutputPort[0].invoke(
       _id,
@@ -3316,7 +3316,7 @@ void ActiveTelemetryComponentBase ::
 
     FwChanIdType _id;
 
-    _id = this->getIdBase() + CHANNELID_CHANNELENUM;
+    _id = static_cast<FwChanIdType>(this->getIdBase()) + CHANNELID_CHANNELENUM;
 
     this->m_tlmOut_OutputPort[0].invoke(
       _id,
@@ -3349,7 +3349,7 @@ void ActiveTelemetryComponentBase ::
 
     FwChanIdType _id;
 
-    _id = this->getIdBase() + CHANNELID_CHANNELARRAYFREQ;
+    _id = static_cast<FwChanIdType>(this->getIdBase()) + CHANNELID_CHANNELARRAYFREQ;
 
     this->m_tlmOut_OutputPort[0].invoke(
       _id,
@@ -3382,7 +3382,7 @@ void ActiveTelemetryComponentBase ::
 
     FwChanIdType _id;
 
-    _id = this->getIdBase() + CHANNELID_CHANNELSTRUCTFREQ;
+    _id = static_cast<FwChanIdType>(this->getIdBase()) + CHANNELID_CHANNELSTRUCTFREQ;
 
     this->m_tlmOut_OutputPort[0].invoke(
       _id,
@@ -3415,7 +3415,7 @@ void ActiveTelemetryComponentBase ::
 
     FwChanIdType _id;
 
-    _id = this->getIdBase() + CHANNELID_CHANNELU32LIMITS;
+    _id = static_cast<FwChanIdType>(this->getIdBase()) + CHANNELID_CHANNELU32LIMITS;
 
     this->m_tlmOut_OutputPort[0].invoke(
       _id,
@@ -3448,7 +3448,7 @@ void ActiveTelemetryComponentBase ::
 
     FwChanIdType _id;
 
-    _id = this->getIdBase() + CHANNELID_CHANNELF32LIMITS;
+    _id = static_cast<FwChanIdType>(this->getIdBase()) + CHANNELID_CHANNELF32LIMITS;
 
     this->m_tlmOut_OutputPort[0].invoke(
       _id,
@@ -3481,7 +3481,7 @@ void ActiveTelemetryComponentBase ::
 
     FwChanIdType _id;
 
-    _id = this->getIdBase() + CHANNELID_CHANNELF64;
+    _id = static_cast<FwChanIdType>(this->getIdBase()) + CHANNELID_CHANNELF64;
 
     this->m_tlmOut_OutputPort[0].invoke(
       _id,
@@ -3529,7 +3529,7 @@ void ActiveTelemetryComponentBase ::
 
     FwChanIdType _id;
 
-    _id = this->getIdBase() + CHANNELID_CHANNELU32ONCHANGE;
+    _id = static_cast<FwChanIdType>(this->getIdBase()) + CHANNELID_CHANNELU32ONCHANGE;
 
     this->m_tlmOut_OutputPort[0].invoke(
       _id,
@@ -3577,7 +3577,7 @@ void ActiveTelemetryComponentBase ::
 
     FwChanIdType _id;
 
-    _id = this->getIdBase() + CHANNELID_CHANNELENUMONCHANGE;
+    _id = static_cast<FwChanIdType>(this->getIdBase()) + CHANNELID_CHANNELENUMONCHANGE;
 
     this->m_tlmOut_OutputPort[0].invoke(
       _id,

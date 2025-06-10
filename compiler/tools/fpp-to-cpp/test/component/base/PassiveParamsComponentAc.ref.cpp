@@ -1232,51 +1232,51 @@ void PassiveParamsComponentBase ::
   FW_ASSERT(this->m_cmdRegOut_OutputPort[0].isConnected());
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMU32_SET
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMU32_SET
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMU32_SAVE
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMU32_SAVE
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMF64_SET
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMF64_SET
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMF64_SAVE
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMF64_SAVE
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMSTRING_SET
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMSTRING_SET
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMSTRING_SAVE
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMSTRING_SAVE
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMENUM_SET
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMENUM_SET
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMENUM_SAVE
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMENUM_SAVE
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMARRAY_SET
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMARRAY_SET
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMARRAY_SAVE
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMARRAY_SAVE
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMSTRUCT_SET
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMSTRUCT_SET
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMSTRUCT_SAVE
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMSTRUCT_SAVE
   );
 }
 

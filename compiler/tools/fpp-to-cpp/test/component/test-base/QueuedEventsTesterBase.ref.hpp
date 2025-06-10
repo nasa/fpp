@@ -216,7 +216,7 @@ class QueuedEventsTesterBase :
 
     //! A history entry for text log events
     struct TextLogEntry {
-      U32 id;
+      FwEventIdType id;
       Fw::Time timeTag;
       Fw::LogSeverity severity;
       Fw::TextLogString text;

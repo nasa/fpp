@@ -2035,8 +2035,8 @@ void PassiveExternalParamsTesterBase ::
       Fw::CmdArgBuffer& buf
   )
 {
-  const U32 idBase = this->getIdBase();
-  FwOpcodeType _opcode = opCode + idBase;
+  const FwIdType idBase = this->getIdBase();
+  FwOpcodeType _opcode = opCode + static_cast<FwOpcodeType>(idBase);
   if (this->m_to_cmdIn[0].isConnected()) {
     this->m_to_cmdIn[0].invoke(
       _opcode,
@@ -2075,8 +2075,8 @@ void PassiveExternalParamsTesterBase ::
     args.serialize(this->paramTesterDelegate.m_param_ParamI32Ext) == Fw::FW_SERIALIZE_OK
   );
 
-  const U32 idBase = this->getIdBase();
-  FwOpcodeType _prmOpcode =  PassiveExternalParamsComponentBase::OPCODE_PARAMI32EXT_SET + idBase;
+  const FwIdType idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  PassiveExternalParamsComponentBase::OPCODE_PARAMI32EXT_SET + static_cast<FwOpcodeType>(idBase);
 
   if (not this->m_to_cmdIn[0].isConnected()) {
     printf("Test Command Output port not connected!\n");
@@ -2097,8 +2097,8 @@ void PassiveExternalParamsTesterBase ::
   )
 {
   Fw::CmdArgBuffer args;
-  const U32 idBase = this->getIdBase();
-  FwOpcodeType _prmOpcode = PassiveExternalParamsComponentBase::OPCODE_PARAMI32EXT_SAVE + idBase;
+  const FwIdType idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = PassiveExternalParamsComponentBase::OPCODE_PARAMI32EXT_SAVE + static_cast<FwOpcodeType>(idBase);
 
   if (not this->m_to_cmdIn[0].isConnected()) {
     printf("Test Command Output port not connected!\n");
@@ -2134,8 +2134,8 @@ void PassiveExternalParamsTesterBase ::
     args.serialize(this->paramTesterDelegate.m_param_ParamF64Ext) == Fw::FW_SERIALIZE_OK
   );
 
-  const U32 idBase = this->getIdBase();
-  FwOpcodeType _prmOpcode =  PassiveExternalParamsComponentBase::OPCODE_PARAMF64EXT_SET + idBase;
+  const FwIdType idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  PassiveExternalParamsComponentBase::OPCODE_PARAMF64EXT_SET + static_cast<FwOpcodeType>(idBase);
 
   if (not this->m_to_cmdIn[0].isConnected()) {
     printf("Test Command Output port not connected!\n");
@@ -2156,8 +2156,8 @@ void PassiveExternalParamsTesterBase ::
   )
 {
   Fw::CmdArgBuffer args;
-  const U32 idBase = this->getIdBase();
-  FwOpcodeType _prmOpcode = PassiveExternalParamsComponentBase::OPCODE_PARAMF64EXT_SAVE + idBase;
+  const FwIdType idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = PassiveExternalParamsComponentBase::OPCODE_PARAMF64EXT_SAVE + static_cast<FwOpcodeType>(idBase);
 
   if (not this->m_to_cmdIn[0].isConnected()) {
     printf("Test Command Output port not connected!\n");
@@ -2193,8 +2193,8 @@ void PassiveExternalParamsTesterBase ::
     args.serialize(this->paramTesterDelegate.m_param_ParamStringExt) == Fw::FW_SERIALIZE_OK
   );
 
-  const U32 idBase = this->getIdBase();
-  FwOpcodeType _prmOpcode =  PassiveExternalParamsComponentBase::OPCODE_PARAMSTRINGEXT_SET + idBase;
+  const FwIdType idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  PassiveExternalParamsComponentBase::OPCODE_PARAMSTRINGEXT_SET + static_cast<FwOpcodeType>(idBase);
 
   if (not this->m_to_cmdIn[0].isConnected()) {
     printf("Test Command Output port not connected!\n");
@@ -2215,8 +2215,8 @@ void PassiveExternalParamsTesterBase ::
   )
 {
   Fw::CmdArgBuffer args;
-  const U32 idBase = this->getIdBase();
-  FwOpcodeType _prmOpcode = PassiveExternalParamsComponentBase::OPCODE_PARAMSTRINGEXT_SAVE + idBase;
+  const FwIdType idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = PassiveExternalParamsComponentBase::OPCODE_PARAMSTRINGEXT_SAVE + static_cast<FwOpcodeType>(idBase);
 
   if (not this->m_to_cmdIn[0].isConnected()) {
     printf("Test Command Output port not connected!\n");
@@ -2252,8 +2252,8 @@ void PassiveExternalParamsTesterBase ::
     args.serialize(this->paramTesterDelegate.m_param_ParamEnumExt) == Fw::FW_SERIALIZE_OK
   );
 
-  const U32 idBase = this->getIdBase();
-  FwOpcodeType _prmOpcode =  PassiveExternalParamsComponentBase::OPCODE_PARAMENUMEXT_SET + idBase;
+  const FwIdType idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  PassiveExternalParamsComponentBase::OPCODE_PARAMENUMEXT_SET + static_cast<FwOpcodeType>(idBase);
 
   if (not this->m_to_cmdIn[0].isConnected()) {
     printf("Test Command Output port not connected!\n");
@@ -2274,8 +2274,8 @@ void PassiveExternalParamsTesterBase ::
   )
 {
   Fw::CmdArgBuffer args;
-  const U32 idBase = this->getIdBase();
-  FwOpcodeType _prmOpcode = PassiveExternalParamsComponentBase::OPCODE_PARAMENUMEXT_SAVE + idBase;
+  const FwIdType idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = PassiveExternalParamsComponentBase::OPCODE_PARAMENUMEXT_SAVE + static_cast<FwOpcodeType>(idBase);
 
   if (not this->m_to_cmdIn[0].isConnected()) {
     printf("Test Command Output port not connected!\n");
@@ -2311,8 +2311,8 @@ void PassiveExternalParamsTesterBase ::
     args.serialize(this->paramTesterDelegate.m_param_ParamArrayExt) == Fw::FW_SERIALIZE_OK
   );
 
-  const U32 idBase = this->getIdBase();
-  FwOpcodeType _prmOpcode =  PassiveExternalParamsComponentBase::OPCODE_PARAMARRAYEXT_SET + idBase;
+  const FwIdType idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  PassiveExternalParamsComponentBase::OPCODE_PARAMARRAYEXT_SET + static_cast<FwOpcodeType>(idBase);
 
   if (not this->m_to_cmdIn[0].isConnected()) {
     printf("Test Command Output port not connected!\n");
@@ -2333,8 +2333,8 @@ void PassiveExternalParamsTesterBase ::
   )
 {
   Fw::CmdArgBuffer args;
-  const U32 idBase = this->getIdBase();
-  FwOpcodeType _prmOpcode = PassiveExternalParamsComponentBase::OPCODE_PARAMARRAYEXT_SAVE + idBase;
+  const FwIdType idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = PassiveExternalParamsComponentBase::OPCODE_PARAMARRAYEXT_SAVE + static_cast<FwOpcodeType>(idBase);
 
   if (not this->m_to_cmdIn[0].isConnected()) {
     printf("Test Command Output port not connected!\n");
@@ -2370,8 +2370,8 @@ void PassiveExternalParamsTesterBase ::
     args.serialize(this->paramTesterDelegate.m_param_ParamStructExt) == Fw::FW_SERIALIZE_OK
   );
 
-  const U32 idBase = this->getIdBase();
-  FwOpcodeType _prmOpcode =  PassiveExternalParamsComponentBase::OPCODE_PARAMSTRUCTEXT_SET + idBase;
+  const FwIdType idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode =  PassiveExternalParamsComponentBase::OPCODE_PARAMSTRUCTEXT_SET + static_cast<FwOpcodeType>(idBase);
 
   if (not this->m_to_cmdIn[0].isConnected()) {
     printf("Test Command Output port not connected!\n");
@@ -2392,8 +2392,8 @@ void PassiveExternalParamsTesterBase ::
   )
 {
   Fw::CmdArgBuffer args;
-  const U32 idBase = this->getIdBase();
-  FwOpcodeType _prmOpcode = PassiveExternalParamsComponentBase::OPCODE_PARAMSTRUCTEXT_SAVE + idBase;
+  const FwIdType idBase = this->getIdBase();
+  FwOpcodeType _prmOpcode = PassiveExternalParamsComponentBase::OPCODE_PARAMSTRUCTEXT_SAVE + static_cast<FwOpcodeType>(idBase);
 
   if (not this->m_to_cmdIn[0].isConnected()) {
     printf("Test Command Output port not connected!\n");
@@ -2620,7 +2620,7 @@ Fw::ParamValid PassiveExternalParamsTesterBase ::
   Fw::ParamValid _ret = Fw::ParamValid::VALID;
   val.resetSer();
 
-  const U32 idBase = _testerBase->getIdBase();
+  const FwIdType idBase = _testerBase->getIdBase();
   FW_ASSERT(
     id >= idBase,
     static_cast<FwAssertArgType>(id),
@@ -2707,7 +2707,7 @@ void PassiveExternalParamsTesterBase ::
   PassiveExternalParamsTesterBase* _testerBase = static_cast<PassiveExternalParamsTesterBase*>(callComp);
   Fw::SerializeStatus _status;
 
-  const U32 idBase = _testerBase->getIdBase();
+  const FwIdType idBase = _testerBase->getIdBase();
   FW_ASSERT(
     id >= idBase,
     static_cast<FwAssertArgType>(id),
