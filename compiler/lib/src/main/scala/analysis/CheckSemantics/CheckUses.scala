@@ -120,7 +120,7 @@ object CheckUses extends UseAnalyzer {
   override def defTopologyAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
     a.dictionaryNeeded match {
       case true => {
-        val impliedAliasTypeUses = List(
+        val impliedTypeUses = List(
           List("FwChanIdType"),
           List("FwDpIdType"),
           List("FwDpPriorityType"),  
@@ -169,12 +169,12 @@ object CheckUses extends UseAnalyzer {
         }
 
         for {
-          s1 <- checkImpliedUses(impliedAliasTypeUses, node1.id, "alias", NameGroup.Type)
+          s1 <- checkImpliedUses(impliedTypeUses, node1.id, "alias", NameGroup.Type)
           s2 <- checkImpliedUses(impliedEnumUses, node1.id, "enum", NameGroup.Type)
           s3 <- checkImpliedUses(impliedConstantUses, node1.id, "constant", NameGroup.Value)
           a <- super.defTopologyAnnotatedNode(a, node)
         } yield a.copy(
-            dictionaryAliasSymbolSet = a.dictionaryAliasSymbolSet ++ s1,
+            dictionaryTypeSymbolSet = a.dictionaryTypeSymbolSet ++ s1,
             dictionaryEnumSymbolSet = a.dictionaryEnumSymbolSet ++ s2,
             dictionaryConstantSymbolSet = a.dictionaryConstantSymbolSet ++ s3
           )
