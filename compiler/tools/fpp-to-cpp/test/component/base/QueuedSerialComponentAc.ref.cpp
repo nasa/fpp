@@ -1812,167 +1812,167 @@ void QueuedSerialComponentBase ::
   FW_ASSERT(this->m_cmdRegOut_OutputPort[0].isConnected());
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_SYNC
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_SYNC
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_SYNC_PRIMITIVE
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_SYNC_PRIMITIVE
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_SYNC_STRING
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_SYNC_STRING
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_SYNC_ENUM
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_SYNC_ENUM
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_SYNC_ARRAY
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_SYNC_ARRAY
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_SYNC_STRUCT
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_SYNC_STRUCT
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_GUARDED
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_GUARDED
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_GUARDED_PRIMITIVE
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_GUARDED_PRIMITIVE
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_GUARDED_STRING
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_GUARDED_STRING
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_GUARDED_ENUM
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_GUARDED_ENUM
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_GUARDED_ARRAY
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_GUARDED_ARRAY
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_GUARDED_STRUCT
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_GUARDED_STRUCT
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_ASYNC
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_ASYNC
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_PRIORITY
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_PRIORITY
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_PARAMS_PRIORITY
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_PARAMS_PRIORITY
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_DROP
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_DROP
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_PARAMS_PRIORITY_DROP
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_PARAMS_PRIORITY_DROP
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMU32_SET
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMU32_SET
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMU32_SAVE
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMU32_SAVE
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMF64_SET
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMF64_SET
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMF64_SAVE
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMF64_SAVE
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMSTRING_SET
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMSTRING_SET
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMSTRING_SAVE
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMSTRING_SAVE
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMENUM_SET
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMENUM_SET
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMENUM_SAVE
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMENUM_SAVE
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMARRAY_SET
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMARRAY_SET
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMARRAY_SAVE
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMARRAY_SAVE
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMSTRUCT_SET
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMSTRUCT_SET
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMSTRUCT_SAVE
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMSTRUCT_SAVE
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMI32EXT_SET
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMI32EXT_SET
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMI32EXT_SAVE
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMI32EXT_SAVE
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMF64EXT_SET
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMF64EXT_SET
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMF64EXT_SAVE
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMF64EXT_SAVE
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMSTRINGEXT_SET
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMSTRINGEXT_SET
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMSTRINGEXT_SAVE
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMSTRINGEXT_SAVE
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMENUMEXT_SET
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMENUMEXT_SET
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMENUMEXT_SAVE
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMENUMEXT_SAVE
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMARRAYEXT_SET
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMARRAYEXT_SET
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMARRAYEXT_SAVE
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMARRAYEXT_SAVE
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMSTRUCTEXT_SET
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMSTRUCTEXT_SET
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_PARAMSTRUCTEXT_SAVE
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_PARAMSTRUCTEXT_SAVE
   );
 }
 
@@ -5690,7 +5690,7 @@ void QueuedSerialComponentBase ::
 
   FwEventIdType _id = static_cast<FwEventIdType>(0);
 
-  _id = this->getIdBase() + EVENTID_EVENTACTIVITYHIGH;
+  _id = static_cast<FwEventIdType>(this->getIdBase()) + EVENTID_EVENTACTIVITYHIGH;
 
   // Emit the event on the log port
   if (this->m_eventOut_OutputPort[0].isConnected()) {
@@ -5767,7 +5767,7 @@ void QueuedSerialComponentBase ::
 
   FwEventIdType _id = static_cast<FwEventIdType>(0);
 
-  _id = this->getIdBase() + EVENTID_EVENTACTIVITYLOWTHROTTLED;
+  _id = static_cast<FwEventIdType>(this->getIdBase()) + EVENTID_EVENTACTIVITYLOWTHROTTLED;
 
   // Emit the event on the log port
   if (this->m_eventOut_OutputPort[0].isConnected()) {
@@ -5886,7 +5886,7 @@ void QueuedSerialComponentBase ::
 
   FwEventIdType _id = static_cast<FwEventIdType>(0);
 
-  _id = this->getIdBase() + EVENTID_EVENTCOMMAND;
+  _id = static_cast<FwEventIdType>(this->getIdBase()) + EVENTID_EVENTCOMMAND;
 
   // Emit the event on the log port
   if (this->m_eventOut_OutputPort[0].isConnected()) {
@@ -5965,7 +5965,7 @@ void QueuedSerialComponentBase ::
 
   FwEventIdType _id = static_cast<FwEventIdType>(0);
 
-  _id = this->getIdBase() + EVENTID_EVENTDIAGNOSTIC;
+  _id = static_cast<FwEventIdType>(this->getIdBase()) + EVENTID_EVENTDIAGNOSTIC;
 
   // Emit the event on the log port
   if (this->m_eventOut_OutputPort[0].isConnected()) {
@@ -6058,7 +6058,7 @@ void QueuedSerialComponentBase ::
 
   FwEventIdType _id = static_cast<FwEventIdType>(0);
 
-  _id = this->getIdBase() + EVENTID_EVENTFATALTHROTTLED;
+  _id = static_cast<FwEventIdType>(this->getIdBase()) + EVENTID_EVENTFATALTHROTTLED;
 
   // Emit the event on the log port
   if (this->m_eventOut_OutputPort[0].isConnected()) {
@@ -6156,7 +6156,7 @@ void QueuedSerialComponentBase ::
 
   FwEventIdType _id = static_cast<FwEventIdType>(0);
 
-  _id = this->getIdBase() + EVENTID_EVENTWARNINGHIGH;
+  _id = static_cast<FwEventIdType>(this->getIdBase()) + EVENTID_EVENTWARNINGHIGH;
 
   // Emit the event on the log port
   if (this->m_eventOut_OutputPort[0].isConnected()) {
@@ -6249,7 +6249,7 @@ void QueuedSerialComponentBase ::
 
   FwEventIdType _id = static_cast<FwEventIdType>(0);
 
-  _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLED;
+  _id = static_cast<FwEventIdType>(this->getIdBase()) + EVENTID_EVENTWARNINGLOWTHROTTLED;
 
   // Emit the event on the log port
   if (this->m_eventOut_OutputPort[0].isConnected()) {
@@ -6355,7 +6355,7 @@ void QueuedSerialComponentBase ::
 
     FwChanIdType _id;
 
-    _id = this->getIdBase() + CHANNELID_CHANNELU32FORMAT;
+    _id = static_cast<FwChanIdType>(this->getIdBase()) + CHANNELID_CHANNELU32FORMAT;
 
     this->m_tlmOut_OutputPort[0].invoke(
       _id,
@@ -6388,7 +6388,7 @@ void QueuedSerialComponentBase ::
 
     FwChanIdType _id;
 
-    _id = this->getIdBase() + CHANNELID_CHANNELF32FORMAT;
+    _id = static_cast<FwChanIdType>(this->getIdBase()) + CHANNELID_CHANNELF32FORMAT;
 
     this->m_tlmOut_OutputPort[0].invoke(
       _id,
@@ -6421,7 +6421,7 @@ void QueuedSerialComponentBase ::
 
     FwChanIdType _id;
 
-    _id = this->getIdBase() + CHANNELID_CHANNELSTRINGFORMAT;
+    _id = static_cast<FwChanIdType>(this->getIdBase()) + CHANNELID_CHANNELSTRINGFORMAT;
 
     this->m_tlmOut_OutputPort[0].invoke(
       _id,
@@ -6454,7 +6454,7 @@ void QueuedSerialComponentBase ::
 
     FwChanIdType _id;
 
-    _id = this->getIdBase() + CHANNELID_CHANNELENUM;
+    _id = static_cast<FwChanIdType>(this->getIdBase()) + CHANNELID_CHANNELENUM;
 
     this->m_tlmOut_OutputPort[0].invoke(
       _id,
@@ -6487,7 +6487,7 @@ void QueuedSerialComponentBase ::
 
     FwChanIdType _id;
 
-    _id = this->getIdBase() + CHANNELID_CHANNELARRAYFREQ;
+    _id = static_cast<FwChanIdType>(this->getIdBase()) + CHANNELID_CHANNELARRAYFREQ;
 
     this->m_tlmOut_OutputPort[0].invoke(
       _id,
@@ -6520,7 +6520,7 @@ void QueuedSerialComponentBase ::
 
     FwChanIdType _id;
 
-    _id = this->getIdBase() + CHANNELID_CHANNELSTRUCTFREQ;
+    _id = static_cast<FwChanIdType>(this->getIdBase()) + CHANNELID_CHANNELSTRUCTFREQ;
 
     this->m_tlmOut_OutputPort[0].invoke(
       _id,
@@ -6553,7 +6553,7 @@ void QueuedSerialComponentBase ::
 
     FwChanIdType _id;
 
-    _id = this->getIdBase() + CHANNELID_CHANNELU32LIMITS;
+    _id = static_cast<FwChanIdType>(this->getIdBase()) + CHANNELID_CHANNELU32LIMITS;
 
     this->m_tlmOut_OutputPort[0].invoke(
       _id,
@@ -6586,7 +6586,7 @@ void QueuedSerialComponentBase ::
 
     FwChanIdType _id;
 
-    _id = this->getIdBase() + CHANNELID_CHANNELF32LIMITS;
+    _id = static_cast<FwChanIdType>(this->getIdBase()) + CHANNELID_CHANNELF32LIMITS;
 
     this->m_tlmOut_OutputPort[0].invoke(
       _id,
@@ -6619,7 +6619,7 @@ void QueuedSerialComponentBase ::
 
     FwChanIdType _id;
 
-    _id = this->getIdBase() + CHANNELID_CHANNELF64;
+    _id = static_cast<FwChanIdType>(this->getIdBase()) + CHANNELID_CHANNELF64;
 
     this->m_tlmOut_OutputPort[0].invoke(
       _id,
@@ -6667,7 +6667,7 @@ void QueuedSerialComponentBase ::
 
     FwChanIdType _id;
 
-    _id = this->getIdBase() + CHANNELID_CHANNELU32ONCHANGE;
+    _id = static_cast<FwChanIdType>(this->getIdBase()) + CHANNELID_CHANNELU32ONCHANGE;
 
     this->m_tlmOut_OutputPort[0].invoke(
       _id,
@@ -6715,7 +6715,7 @@ void QueuedSerialComponentBase ::
 
     FwChanIdType _id;
 
-    _id = this->getIdBase() + CHANNELID_CHANNELENUMONCHANGE;
+    _id = static_cast<FwChanIdType>(this->getIdBase()) + CHANNELID_CHANNELENUMONCHANGE;
 
     this->m_tlmOut_OutputPort[0].invoke(
       _id,

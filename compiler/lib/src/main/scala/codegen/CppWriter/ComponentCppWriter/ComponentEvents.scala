@@ -268,7 +268,7 @@ case class ComponentEvents (
               |
               |FwEventIdType _id = static_cast<FwEventIdType>(0);
               |
-              |_id = this->getIdBase() + ${eventIdConstantName(event.getName)};
+              |_id = static_cast<FwEventIdType>(this->getIdBase()) + ${eventIdConstantName(event.getName)};
               |"""
         ),
         writeLogBody(id, event),

@@ -127,7 +127,7 @@ case class ComponentTelemetry (
                   |
                   |FwChanIdType _id;
                   |
-                  |_id = this->getIdBase() + ${channelIdConstantName(channel.getName)};
+                  |_id = static_cast<FwChanIdType>(this->getIdBase()) + ${channelIdConstantName(channel.getName)};
                   |
                   |this->${portVariableName(tlmPort.get)}[0].invoke(
                   |  _id,

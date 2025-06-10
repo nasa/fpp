@@ -2754,8 +2754,8 @@ namespace M {
         Fw::CmdArgBuffer& buf
     )
   {
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _opcode = opCode + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _opcode = opCode + static_cast<FwOpcodeType>(idBase);
     if (this->m_to_cmdIn[0].isConnected()) {
       this->m_to_cmdIn[0].invoke(
         _opcode,
@@ -2778,8 +2778,8 @@ namespace M {
 
     // Call output command port
     FwOpcodeType _opcode;
-    const U32 idBase = this->getIdBase();
-    _opcode = ActiveTestComponentBase::OPCODE_CMD_SYNC + idBase;
+    const FwIdType idBase = this->getIdBase();
+    _opcode = ActiveTestComponentBase::OPCODE_CMD_SYNC + static_cast<FwOpcodeType>(idBase);
 
     if (this->m_to_cmdIn[0].isConnected()) {
       this->m_to_cmdIn[0].invoke(
@@ -2826,8 +2826,8 @@ namespace M {
 
     // Call output command port
     FwOpcodeType _opcode;
-    const U32 idBase = this->getIdBase();
-    _opcode = ActiveTestComponentBase::OPCODE_CMD_SYNC_PRIMITIVE + idBase;
+    const FwIdType idBase = this->getIdBase();
+    _opcode = ActiveTestComponentBase::OPCODE_CMD_SYNC_PRIMITIVE + static_cast<FwOpcodeType>(idBase);
 
     if (this->m_to_cmdIn[0].isConnected()) {
       this->m_to_cmdIn[0].invoke(
@@ -2867,8 +2867,8 @@ namespace M {
 
     // Call output command port
     FwOpcodeType _opcode;
-    const U32 idBase = this->getIdBase();
-    _opcode = ActiveTestComponentBase::OPCODE_CMD_SYNC_STRING + idBase;
+    const FwIdType idBase = this->getIdBase();
+    _opcode = ActiveTestComponentBase::OPCODE_CMD_SYNC_STRING + static_cast<FwOpcodeType>(idBase);
 
     if (this->m_to_cmdIn[0].isConnected()) {
       this->m_to_cmdIn[0].invoke(
@@ -2901,8 +2901,8 @@ namespace M {
 
     // Call output command port
     FwOpcodeType _opcode;
-    const U32 idBase = this->getIdBase();
-    _opcode = ActiveTestComponentBase::OPCODE_CMD_SYNC_ENUM + idBase;
+    const FwIdType idBase = this->getIdBase();
+    _opcode = ActiveTestComponentBase::OPCODE_CMD_SYNC_ENUM + static_cast<FwOpcodeType>(idBase);
 
     if (this->m_to_cmdIn[0].isConnected()) {
       this->m_to_cmdIn[0].invoke(
@@ -2935,8 +2935,8 @@ namespace M {
 
     // Call output command port
     FwOpcodeType _opcode;
-    const U32 idBase = this->getIdBase();
-    _opcode = ActiveTestComponentBase::OPCODE_CMD_SYNC_ARRAY + idBase;
+    const FwIdType idBase = this->getIdBase();
+    _opcode = ActiveTestComponentBase::OPCODE_CMD_SYNC_ARRAY + static_cast<FwOpcodeType>(idBase);
 
     if (this->m_to_cmdIn[0].isConnected()) {
       this->m_to_cmdIn[0].invoke(
@@ -2969,8 +2969,8 @@ namespace M {
 
     // Call output command port
     FwOpcodeType _opcode;
-    const U32 idBase = this->getIdBase();
-    _opcode = ActiveTestComponentBase::OPCODE_CMD_SYNC_STRUCT + idBase;
+    const FwIdType idBase = this->getIdBase();
+    _opcode = ActiveTestComponentBase::OPCODE_CMD_SYNC_STRUCT + static_cast<FwOpcodeType>(idBase);
 
     if (this->m_to_cmdIn[0].isConnected()) {
       this->m_to_cmdIn[0].invoke(
@@ -2994,8 +2994,8 @@ namespace M {
 
     // Call output command port
     FwOpcodeType _opcode;
-    const U32 idBase = this->getIdBase();
-    _opcode = ActiveTestComponentBase::OPCODE_CMD_GUARDED + idBase;
+    const FwIdType idBase = this->getIdBase();
+    _opcode = ActiveTestComponentBase::OPCODE_CMD_GUARDED + static_cast<FwOpcodeType>(idBase);
 
     if (this->m_to_cmdIn[0].isConnected()) {
       this->m_to_cmdIn[0].invoke(
@@ -3042,8 +3042,8 @@ namespace M {
 
     // Call output command port
     FwOpcodeType _opcode;
-    const U32 idBase = this->getIdBase();
-    _opcode = ActiveTestComponentBase::OPCODE_CMD_GUARDED_PRIMITIVE + idBase;
+    const FwIdType idBase = this->getIdBase();
+    _opcode = ActiveTestComponentBase::OPCODE_CMD_GUARDED_PRIMITIVE + static_cast<FwOpcodeType>(idBase);
 
     if (this->m_to_cmdIn[0].isConnected()) {
       this->m_to_cmdIn[0].invoke(
@@ -3083,8 +3083,8 @@ namespace M {
 
     // Call output command port
     FwOpcodeType _opcode;
-    const U32 idBase = this->getIdBase();
-    _opcode = ActiveTestComponentBase::OPCODE_CMD_GUARDED_STRING + idBase;
+    const FwIdType idBase = this->getIdBase();
+    _opcode = ActiveTestComponentBase::OPCODE_CMD_GUARDED_STRING + static_cast<FwOpcodeType>(idBase);
 
     if (this->m_to_cmdIn[0].isConnected()) {
       this->m_to_cmdIn[0].invoke(
@@ -3117,8 +3117,8 @@ namespace M {
 
     // Call output command port
     FwOpcodeType _opcode;
-    const U32 idBase = this->getIdBase();
-    _opcode = ActiveTestComponentBase::OPCODE_CMD_GUARDED_ENUM + idBase;
+    const FwIdType idBase = this->getIdBase();
+    _opcode = ActiveTestComponentBase::OPCODE_CMD_GUARDED_ENUM + static_cast<FwOpcodeType>(idBase);
 
     if (this->m_to_cmdIn[0].isConnected()) {
       this->m_to_cmdIn[0].invoke(
@@ -3151,8 +3151,8 @@ namespace M {
 
     // Call output command port
     FwOpcodeType _opcode;
-    const U32 idBase = this->getIdBase();
-    _opcode = ActiveTestComponentBase::OPCODE_CMD_GUARDED_ARRAY + idBase;
+    const FwIdType idBase = this->getIdBase();
+    _opcode = ActiveTestComponentBase::OPCODE_CMD_GUARDED_ARRAY + static_cast<FwOpcodeType>(idBase);
 
     if (this->m_to_cmdIn[0].isConnected()) {
       this->m_to_cmdIn[0].invoke(
@@ -3185,8 +3185,8 @@ namespace M {
 
     // Call output command port
     FwOpcodeType _opcode;
-    const U32 idBase = this->getIdBase();
-    _opcode = ActiveTestComponentBase::OPCODE_CMD_GUARDED_STRUCT + idBase;
+    const FwIdType idBase = this->getIdBase();
+    _opcode = ActiveTestComponentBase::OPCODE_CMD_GUARDED_STRUCT + static_cast<FwOpcodeType>(idBase);
 
     if (this->m_to_cmdIn[0].isConnected()) {
       this->m_to_cmdIn[0].invoke(
@@ -3210,8 +3210,8 @@ namespace M {
 
     // Call output command port
     FwOpcodeType _opcode;
-    const U32 idBase = this->getIdBase();
-    _opcode = ActiveTestComponentBase::OPCODE_CMD_ASYNC + idBase;
+    const FwIdType idBase = this->getIdBase();
+    _opcode = ActiveTestComponentBase::OPCODE_CMD_ASYNC + static_cast<FwOpcodeType>(idBase);
 
     if (this->m_to_cmdIn[0].isConnected()) {
       this->m_to_cmdIn[0].invoke(
@@ -3235,8 +3235,8 @@ namespace M {
 
     // Call output command port
     FwOpcodeType _opcode;
-    const U32 idBase = this->getIdBase();
-    _opcode = ActiveTestComponentBase::OPCODE_CMD_PRIORITY + idBase;
+    const FwIdType idBase = this->getIdBase();
+    _opcode = ActiveTestComponentBase::OPCODE_CMD_PRIORITY + static_cast<FwOpcodeType>(idBase);
 
     if (this->m_to_cmdIn[0].isConnected()) {
       this->m_to_cmdIn[0].invoke(
@@ -3269,8 +3269,8 @@ namespace M {
 
     // Call output command port
     FwOpcodeType _opcode;
-    const U32 idBase = this->getIdBase();
-    _opcode = ActiveTestComponentBase::OPCODE_CMD_PARAMS_PRIORITY + idBase;
+    const FwIdType idBase = this->getIdBase();
+    _opcode = ActiveTestComponentBase::OPCODE_CMD_PARAMS_PRIORITY + static_cast<FwOpcodeType>(idBase);
 
     if (this->m_to_cmdIn[0].isConnected()) {
       this->m_to_cmdIn[0].invoke(
@@ -3294,8 +3294,8 @@ namespace M {
 
     // Call output command port
     FwOpcodeType _opcode;
-    const U32 idBase = this->getIdBase();
-    _opcode = ActiveTestComponentBase::OPCODE_CMD_DROP + idBase;
+    const FwIdType idBase = this->getIdBase();
+    _opcode = ActiveTestComponentBase::OPCODE_CMD_DROP + static_cast<FwOpcodeType>(idBase);
 
     if (this->m_to_cmdIn[0].isConnected()) {
       this->m_to_cmdIn[0].invoke(
@@ -3328,8 +3328,8 @@ namespace M {
 
     // Call output command port
     FwOpcodeType _opcode;
-    const U32 idBase = this->getIdBase();
-    _opcode = ActiveTestComponentBase::OPCODE_CMD_PARAMS_PRIORITY_DROP + idBase;
+    const FwIdType idBase = this->getIdBase();
+    _opcode = ActiveTestComponentBase::OPCODE_CMD_PARAMS_PRIORITY_DROP + static_cast<FwOpcodeType>(idBase);
 
     if (this->m_to_cmdIn[0].isConnected()) {
       this->m_to_cmdIn[0].invoke(
@@ -3357,7 +3357,7 @@ namespace M {
   {
     args.resetDeser();
 
-    const U32 idBase = this->getIdBase();
+    const FwIdType idBase = this->getIdBase();
     FW_ASSERT(
       id >= idBase,
       static_cast<FwAssertArgType>(id),
@@ -3822,7 +3822,7 @@ namespace M {
   {
     val.resetDeser();
 
-    const U32 idBase = this->getIdBase();
+    const FwIdType idBase = this->getIdBase();
     FW_ASSERT(
       id >= idBase,
       static_cast<FwAssertArgType>(id),
@@ -4127,8 +4127,8 @@ namespace M {
       args.serialize(this->m_param_ParamU32) == Fw::FW_SERIALIZE_OK
     );
 
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _prmOpcode =  ActiveTestComponentBase::OPCODE_PARAMU32_SET + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _prmOpcode =  ActiveTestComponentBase::OPCODE_PARAMU32_SET + static_cast<FwOpcodeType>(idBase);
 
     if (not this->m_to_cmdIn[0].isConnected()) {
       printf("Test Command Output port not connected!\n");
@@ -4149,8 +4149,8 @@ namespace M {
     )
   {
     Fw::CmdArgBuffer args;
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _prmOpcode = ActiveTestComponentBase::OPCODE_PARAMU32_SAVE + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _prmOpcode = ActiveTestComponentBase::OPCODE_PARAMU32_SAVE + static_cast<FwOpcodeType>(idBase);
 
     if (not this->m_to_cmdIn[0].isConnected()) {
       printf("Test Command Output port not connected!\n");
@@ -4186,8 +4186,8 @@ namespace M {
       args.serialize(this->m_param_ParamF64) == Fw::FW_SERIALIZE_OK
     );
 
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _prmOpcode =  ActiveTestComponentBase::OPCODE_PARAMF64_SET + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _prmOpcode =  ActiveTestComponentBase::OPCODE_PARAMF64_SET + static_cast<FwOpcodeType>(idBase);
 
     if (not this->m_to_cmdIn[0].isConnected()) {
       printf("Test Command Output port not connected!\n");
@@ -4208,8 +4208,8 @@ namespace M {
     )
   {
     Fw::CmdArgBuffer args;
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _prmOpcode = ActiveTestComponentBase::OPCODE_PARAMF64_SAVE + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _prmOpcode = ActiveTestComponentBase::OPCODE_PARAMF64_SAVE + static_cast<FwOpcodeType>(idBase);
 
     if (not this->m_to_cmdIn[0].isConnected()) {
       printf("Test Command Output port not connected!\n");
@@ -4245,8 +4245,8 @@ namespace M {
       args.serialize(this->m_param_ParamString) == Fw::FW_SERIALIZE_OK
     );
 
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _prmOpcode =  ActiveTestComponentBase::OPCODE_PARAMSTRING_SET + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _prmOpcode =  ActiveTestComponentBase::OPCODE_PARAMSTRING_SET + static_cast<FwOpcodeType>(idBase);
 
     if (not this->m_to_cmdIn[0].isConnected()) {
       printf("Test Command Output port not connected!\n");
@@ -4267,8 +4267,8 @@ namespace M {
     )
   {
     Fw::CmdArgBuffer args;
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _prmOpcode = ActiveTestComponentBase::OPCODE_PARAMSTRING_SAVE + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _prmOpcode = ActiveTestComponentBase::OPCODE_PARAMSTRING_SAVE + static_cast<FwOpcodeType>(idBase);
 
     if (not this->m_to_cmdIn[0].isConnected()) {
       printf("Test Command Output port not connected!\n");
@@ -4304,8 +4304,8 @@ namespace M {
       args.serialize(this->m_param_ParamEnum) == Fw::FW_SERIALIZE_OK
     );
 
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _prmOpcode =  ActiveTestComponentBase::OPCODE_PARAMENUM_SET + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _prmOpcode =  ActiveTestComponentBase::OPCODE_PARAMENUM_SET + static_cast<FwOpcodeType>(idBase);
 
     if (not this->m_to_cmdIn[0].isConnected()) {
       printf("Test Command Output port not connected!\n");
@@ -4326,8 +4326,8 @@ namespace M {
     )
   {
     Fw::CmdArgBuffer args;
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _prmOpcode = ActiveTestComponentBase::OPCODE_PARAMENUM_SAVE + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _prmOpcode = ActiveTestComponentBase::OPCODE_PARAMENUM_SAVE + static_cast<FwOpcodeType>(idBase);
 
     if (not this->m_to_cmdIn[0].isConnected()) {
       printf("Test Command Output port not connected!\n");
@@ -4363,8 +4363,8 @@ namespace M {
       args.serialize(this->m_param_ParamArray) == Fw::FW_SERIALIZE_OK
     );
 
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _prmOpcode =  ActiveTestComponentBase::OPCODE_PARAMARRAY_SET + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _prmOpcode =  ActiveTestComponentBase::OPCODE_PARAMARRAY_SET + static_cast<FwOpcodeType>(idBase);
 
     if (not this->m_to_cmdIn[0].isConnected()) {
       printf("Test Command Output port not connected!\n");
@@ -4385,8 +4385,8 @@ namespace M {
     )
   {
     Fw::CmdArgBuffer args;
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _prmOpcode = ActiveTestComponentBase::OPCODE_PARAMARRAY_SAVE + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _prmOpcode = ActiveTestComponentBase::OPCODE_PARAMARRAY_SAVE + static_cast<FwOpcodeType>(idBase);
 
     if (not this->m_to_cmdIn[0].isConnected()) {
       printf("Test Command Output port not connected!\n");
@@ -4422,8 +4422,8 @@ namespace M {
       args.serialize(this->m_param_ParamStruct) == Fw::FW_SERIALIZE_OK
     );
 
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _prmOpcode =  ActiveTestComponentBase::OPCODE_PARAMSTRUCT_SET + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _prmOpcode =  ActiveTestComponentBase::OPCODE_PARAMSTRUCT_SET + static_cast<FwOpcodeType>(idBase);
 
     if (not this->m_to_cmdIn[0].isConnected()) {
       printf("Test Command Output port not connected!\n");
@@ -4444,8 +4444,8 @@ namespace M {
     )
   {
     Fw::CmdArgBuffer args;
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _prmOpcode = ActiveTestComponentBase::OPCODE_PARAMSTRUCT_SAVE + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _prmOpcode = ActiveTestComponentBase::OPCODE_PARAMSTRUCT_SAVE + static_cast<FwOpcodeType>(idBase);
 
     if (not this->m_to_cmdIn[0].isConnected()) {
       printf("Test Command Output port not connected!\n");
@@ -4481,8 +4481,8 @@ namespace M {
       args.serialize(this->paramTesterDelegate.m_param_ParamI32Ext) == Fw::FW_SERIALIZE_OK
     );
 
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _prmOpcode =  ActiveTestComponentBase::OPCODE_PARAMI32EXT_SET + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _prmOpcode =  ActiveTestComponentBase::OPCODE_PARAMI32EXT_SET + static_cast<FwOpcodeType>(idBase);
 
     if (not this->m_to_cmdIn[0].isConnected()) {
       printf("Test Command Output port not connected!\n");
@@ -4503,8 +4503,8 @@ namespace M {
     )
   {
     Fw::CmdArgBuffer args;
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _prmOpcode = ActiveTestComponentBase::OPCODE_PARAMI32EXT_SAVE + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _prmOpcode = ActiveTestComponentBase::OPCODE_PARAMI32EXT_SAVE + static_cast<FwOpcodeType>(idBase);
 
     if (not this->m_to_cmdIn[0].isConnected()) {
       printf("Test Command Output port not connected!\n");
@@ -4540,8 +4540,8 @@ namespace M {
       args.serialize(this->paramTesterDelegate.m_param_ParamF64Ext) == Fw::FW_SERIALIZE_OK
     );
 
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _prmOpcode =  ActiveTestComponentBase::OPCODE_PARAMF64EXT_SET + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _prmOpcode =  ActiveTestComponentBase::OPCODE_PARAMF64EXT_SET + static_cast<FwOpcodeType>(idBase);
 
     if (not this->m_to_cmdIn[0].isConnected()) {
       printf("Test Command Output port not connected!\n");
@@ -4562,8 +4562,8 @@ namespace M {
     )
   {
     Fw::CmdArgBuffer args;
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _prmOpcode = ActiveTestComponentBase::OPCODE_PARAMF64EXT_SAVE + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _prmOpcode = ActiveTestComponentBase::OPCODE_PARAMF64EXT_SAVE + static_cast<FwOpcodeType>(idBase);
 
     if (not this->m_to_cmdIn[0].isConnected()) {
       printf("Test Command Output port not connected!\n");
@@ -4599,8 +4599,8 @@ namespace M {
       args.serialize(this->paramTesterDelegate.m_param_ParamStringExt) == Fw::FW_SERIALIZE_OK
     );
 
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _prmOpcode =  ActiveTestComponentBase::OPCODE_PARAMSTRINGEXT_SET + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _prmOpcode =  ActiveTestComponentBase::OPCODE_PARAMSTRINGEXT_SET + static_cast<FwOpcodeType>(idBase);
 
     if (not this->m_to_cmdIn[0].isConnected()) {
       printf("Test Command Output port not connected!\n");
@@ -4621,8 +4621,8 @@ namespace M {
     )
   {
     Fw::CmdArgBuffer args;
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _prmOpcode = ActiveTestComponentBase::OPCODE_PARAMSTRINGEXT_SAVE + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _prmOpcode = ActiveTestComponentBase::OPCODE_PARAMSTRINGEXT_SAVE + static_cast<FwOpcodeType>(idBase);
 
     if (not this->m_to_cmdIn[0].isConnected()) {
       printf("Test Command Output port not connected!\n");
@@ -4658,8 +4658,8 @@ namespace M {
       args.serialize(this->paramTesterDelegate.m_param_ParamEnumExt) == Fw::FW_SERIALIZE_OK
     );
 
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _prmOpcode =  ActiveTestComponentBase::OPCODE_PARAMENUMEXT_SET + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _prmOpcode =  ActiveTestComponentBase::OPCODE_PARAMENUMEXT_SET + static_cast<FwOpcodeType>(idBase);
 
     if (not this->m_to_cmdIn[0].isConnected()) {
       printf("Test Command Output port not connected!\n");
@@ -4680,8 +4680,8 @@ namespace M {
     )
   {
     Fw::CmdArgBuffer args;
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _prmOpcode = ActiveTestComponentBase::OPCODE_PARAMENUMEXT_SAVE + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _prmOpcode = ActiveTestComponentBase::OPCODE_PARAMENUMEXT_SAVE + static_cast<FwOpcodeType>(idBase);
 
     if (not this->m_to_cmdIn[0].isConnected()) {
       printf("Test Command Output port not connected!\n");
@@ -4717,8 +4717,8 @@ namespace M {
       args.serialize(this->paramTesterDelegate.m_param_ParamArrayExt) == Fw::FW_SERIALIZE_OK
     );
 
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _prmOpcode =  ActiveTestComponentBase::OPCODE_PARAMARRAYEXT_SET + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _prmOpcode =  ActiveTestComponentBase::OPCODE_PARAMARRAYEXT_SET + static_cast<FwOpcodeType>(idBase);
 
     if (not this->m_to_cmdIn[0].isConnected()) {
       printf("Test Command Output port not connected!\n");
@@ -4739,8 +4739,8 @@ namespace M {
     )
   {
     Fw::CmdArgBuffer args;
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _prmOpcode = ActiveTestComponentBase::OPCODE_PARAMARRAYEXT_SAVE + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _prmOpcode = ActiveTestComponentBase::OPCODE_PARAMARRAYEXT_SAVE + static_cast<FwOpcodeType>(idBase);
 
     if (not this->m_to_cmdIn[0].isConnected()) {
       printf("Test Command Output port not connected!\n");
@@ -4776,8 +4776,8 @@ namespace M {
       args.serialize(this->paramTesterDelegate.m_param_ParamStructExt) == Fw::FW_SERIALIZE_OK
     );
 
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _prmOpcode =  ActiveTestComponentBase::OPCODE_PARAMSTRUCTEXT_SET + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _prmOpcode =  ActiveTestComponentBase::OPCODE_PARAMSTRUCTEXT_SET + static_cast<FwOpcodeType>(idBase);
 
     if (not this->m_to_cmdIn[0].isConnected()) {
       printf("Test Command Output port not connected!\n");
@@ -4798,8 +4798,8 @@ namespace M {
     )
   {
     Fw::CmdArgBuffer args;
-    const U32 idBase = this->getIdBase();
-    FwOpcodeType _prmOpcode = ActiveTestComponentBase::OPCODE_PARAMSTRUCTEXT_SAVE + idBase;
+    const FwIdType idBase = this->getIdBase();
+    FwOpcodeType _prmOpcode = ActiveTestComponentBase::OPCODE_PARAMSTRUCTEXT_SAVE + static_cast<FwOpcodeType>(idBase);
 
     if (not this->m_to_cmdIn[0].isConnected()) {
       printf("Test Command Output port not connected!\n");
@@ -5219,7 +5219,7 @@ namespace M {
     Fw::ParamValid _ret = Fw::ParamValid::VALID;
     val.resetSer();
 
-    const U32 idBase = _testerBase->getIdBase();
+    const FwIdType idBase = _testerBase->getIdBase();
     FW_ASSERT(
       id >= idBase,
       static_cast<FwAssertArgType>(id),
@@ -5366,7 +5366,7 @@ namespace M {
     ActiveTestTesterBase* _testerBase = static_cast<ActiveTestTesterBase*>(callComp);
     Fw::SerializeStatus _status;
 
-    const U32 idBase = _testerBase->getIdBase();
+    const FwIdType idBase = _testerBase->getIdBase();
     FW_ASSERT(
       id >= idBase,
       static_cast<FwAssertArgType>(id),

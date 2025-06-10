@@ -67,7 +67,7 @@ case class ComponentCommands (
           sortedCmds.map((_, cmd) =>
             lines(
               s"""|this->${portVariableName(cmdRegPort.get)}[0].invoke(
-                  |  this->getIdBase() + ${commandConstantName(cmd)}
+                  |  static_cast<FwOpcodeType>(this->getIdBase()) + ${commandConstantName(cmd)}
                   |);
                   |"""
             )

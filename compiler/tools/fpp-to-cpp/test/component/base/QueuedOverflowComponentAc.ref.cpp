@@ -753,11 +753,11 @@ void QueuedOverflowComponentBase ::
   FW_ASSERT(this->m_cmdRegOut_OutputPort[0].isConnected());
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_HOOK
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_HOOK
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_PARAMS_PRIORITY_HOOK
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_PARAMS_PRIORITY_HOOK
   );
 }
 
