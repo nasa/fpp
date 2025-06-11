@@ -4,9 +4,11 @@ locate constant a at "a.fpp"
 locate constant b at "b.fpp"
 locate constant c at "c.fpp"
 locate constant d at "d.fpp"
-
+locate interface K at "k.fpp"
 
 interface J {
+  import K
+
   async input port p: [a] P priority b
 }
 
