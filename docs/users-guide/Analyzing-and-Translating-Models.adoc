@@ -1502,14 +1502,6 @@ Constants:
 
 The alias types and constants required by the dictionary must all be integer types.
 
-Type information for constant dictionary entries is determined by 
-checking the sign of a constant and will always default to the maximum integer size (64 bits):
-
-* If the constant is positive, the type of the constant is U64.
-
-* If the constant is negative, the type of the constant is I64.
-
-
 Typically you specify these types as part of F Prime configuration,
 in the file `config/FpConfig.fpp`.
 See the
