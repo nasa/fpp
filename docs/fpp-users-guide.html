@@ -14757,71 +14757,76 @@ These definitions are required by the F Prime GDS.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The type of a telemetry channel identifier</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwEventIdType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alias type definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type of an event identifier</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwOpcodeType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alias type definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type of a command opcode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwPacketDescriptorType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alias type definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type of a com packet descriptor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwDpIdType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alias type definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type of a data product identifier</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwDpPriorityType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alias type definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type of a data product priority</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwSizeStoreType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alias type definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type used to serialize a size value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTimeBaseStoreType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alias type definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type used to serialize a time base value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTimeContextStoreType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alias type definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type used to serialize a time context value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpState</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enum type definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The data product state</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpCfg.ProcType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enum type definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A bit mask for selecting the type of processing
+to perform on a container before writing it to disk.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Constant definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The size in bytes of the user-configurable
+data in the container packet header</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Constant must be an integer type</p></td>
+</tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p>Alias Types:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>FwChanIdType</code></p>
-</li>
-<li>
-<p><code>FwEventIdType</code></p>
-</li>
-<li>
-<p><code>FwOpcodeType</code></p>
-</li>
-<li>
-<p><code>FwPacketDescriptorType</code></p>
-</li>
-<li>
-<p><code>FwTlmPacketizeIdType</code></p>
-</li>
-<li>
-<p><code>FwDpIdType</code></p>
-</li>
-<li>
-<p><code>FwDpPriorityType</code></p>
-</li>
-<li>
-<p><code>FwSizeStoreType</code></p>
-</li>
-<li>
-<p><code>FwTimeBaseStoreType</code></p>
-</li>
-<li>
-<p><code>FwTimeContextStoreType</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Enumerations:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>Fw.DpState</code></p>
-</li>
-<li>
-<p><code>Fw.DpCfg.ProcType</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Constants:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The alias types and constants required by the dictionary must all be integer types.</p>
-</div>
 <div class="paragraph">
 <p>Typically you specify these types as part of F Prime configuration,
 in the file <code>config/FpConfig.fpp</code>.
@@ -15747,7 +15752,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-06-11 11:15:12 -0700
+Last updated 2025-06-11 13:32:02 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

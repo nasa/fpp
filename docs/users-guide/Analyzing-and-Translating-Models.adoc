@@ -1479,40 +1479,64 @@ These definitions are required by the F Prime GDS.
 |The type of a telemetry channel identifier
 |Underlying type must be an integer type
 
+|`FwEventIdType`
+|Alias type definition
+|The type of an event identifier
+|Underlying type must be an integer type
+
+|`FwOpcodeType`
+|Alias type definition
+|The type of a command opcode
+|Underlying type must be an integer type
+
+|`FwPacketDescriptorType`
+|Alias type definition
+|The type of a com packet descriptor
+|Underlying type must be an integer type
+
+|`FwDpIdType`
+|Alias type definition
+|The type of a data product identifier
+|Underlying type must be an integer type
+
+|`FwDpPriorityType`
+|Alias type definition
+|The type of a data product priority
+|Underlying type must be an integer type
+
+|`FwSizeStoreType`
+|Alias type definition
+|The type used to serialize a size value
+|Underlying type must be an integer type
+
+|`FwTimeBaseStoreType`
+|Alias type definition
+|The type used to serialize a time base value
+|Underlying type must be an integer type
+
+|`FwTimeContextStoreType`
+|Alias type definition
+|The type used to serialize a time context value
+|Underlying type must be an integer type
+
+|`Fw.DpState`
+|Enum type definition
+|The data product state
+|
+
+|`Fw.DpCfg.ProcType`
+|Enum type definition
+|A bit mask for selecting the type of processing 
+to perform on a container before writing it to disk.
+|
+
+|`Fw.DpCfg.CONTAINER_USER_DATA_SIZE`
+|Constant definition
+|The size in bytes of the user-configurable 
+data in the container packet header
+|Constant must be an integer type
+
 |===
-
-Alias Types:
-
-* `FwChanIdType`
-
-* `FwEventIdType`
-
-* `FwOpcodeType`
-
-* `FwPacketDescriptorType`
-
-* `FwTlmPacketizeIdType`
-
-* `FwDpIdType`
-
-* `FwDpPriorityType`
-
-* `FwSizeStoreType`
-
-* `FwTimeBaseStoreType`
-
-* `FwTimeContextStoreType`
-
-Enumerations:
-
-* `Fw.DpState`
-* `Fw.DpCfg.ProcType`
-
-Constants:
-
-* `Fw.DpCfg.CONTAINER_USER_DATA_SIZE`
-
-The alias types and constants required by the dictionary must all be integer types.
 
 Typically you specify these types as part of F Prime configuration,
 in the file `config/FpConfig.fpp`.
