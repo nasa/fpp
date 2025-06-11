@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/struct/duplicate_names.fpp:3.3
+  x: U16
+  ^
+error: duplicate struct member x
+previous member is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/struct/duplicate_names.fpp:2.3
+  x: F32
+  ^
