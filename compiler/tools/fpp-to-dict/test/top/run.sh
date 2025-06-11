@@ -52,6 +52,12 @@ floatFwEventType()
     compare floatFwEventType
 }
 
+floatUserDataSizeConstant()
+{
+  run_test '' floatUserDataSizeConstant && \
+    compare floatUserDataSizeConstant
+}
+
 unqualifiedComponentInstances()
 {
   run_test "-i builtin.fpp,config.fpp -p 1.0.0 -f 3.4.3 -l lib1-1.0.0,lib2-2.0.0" unqualifiedComponentInstances && \

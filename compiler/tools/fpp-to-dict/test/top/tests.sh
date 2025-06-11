@@ -7,5 +7,6 @@ missingFwOpcodeType
 missingUserDataSizeConstant
 arrayFwEventIdType
 floatFwEventIdType
+floatUserDataSizeConstant
 unqualifiedComponentInstances
 "
