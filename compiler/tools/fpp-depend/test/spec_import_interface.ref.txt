@@ -4,3 +4,4 @@
 [ local path prefix ]/compiler/tools/fpp-depend/test/b.fpp
 [ local path prefix ]/compiler/tools/fpp-depend/test/c.fpp
 [ local path prefix ]/compiler/tools/fpp-depend/test/d.fpp
+[ local path prefix ]/compiler/tools/fpp-depend/test/k.fpp

@@ -4,6 +4,7 @@ def_array
 def_component_instance
 def_constant
 def_enum
+def_interface
 def_port
 def_state_machine
 def_struct
