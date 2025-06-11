@@ -123,10 +123,10 @@ object CheckUses extends UseAnalyzer {
         val impliedTypeUses = List(
           List("FwChanIdType"),
           List("FwDpIdType"),
-          List("FwDpPriorityType"),  
-          List("FwEventIdType"), 
-          List("FwOpcodeType"), 
-          List("FwPacketDescriptorType"), 
+          List("FwDpPriorityType"),
+          List("FwEventIdType"),
+          List("FwOpcodeType"),
+          List("FwPacketDescriptorType"),
           List("FwSizeType"),
           List("FwSizeStoreType"),
           List("FwTimeBaseStoreType"),
@@ -142,7 +142,7 @@ object CheckUses extends UseAnalyzer {
         )
         val (_, node1, _) = node
         def checkImpliedUses(
-          impliedUses: List[List[String]], 
+          impliedUses: List[List[String]],
           id: AstNode.Id,
           typeName: String,
           ng: NameGroup
@@ -155,7 +155,7 @@ object CheckUses extends UseAnalyzer {
               symbol <- impliedUse.data match {
                 case Ast.QualIdent.Unqualified(name) =>
                   Result.annotateResult(
-                    helpers.getSymbolForName(a.nestedScope.get (ng) _)(id, name), 
+                    helpers.getSymbolForName(a.nestedScope.get (ng) _)(id, name),
                     s"when constructing a dictionary, the $typeName $name must be defined"
                   )
                 case Ast.QualIdent.Qualified(qualifier, name) =>
