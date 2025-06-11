@@ -74,7 +74,11 @@ case class Analysis(
   /** Whether a dictionary is needed in code generation */
   dictionaryNeeded: Boolean = false,
   /** The set of type symbols used by the dictionary */
-  dictionaryTypeSymbolSet: Set[Symbol] = Set()
+  dictionaryTypeSymbolSet: Set[Symbol] = Set(),
+  /** The set of constant symbols used by the dictionary */
+  dictionaryConstantSymbolSet: Set[Symbol] = Set(),
+  /** The set of enum symbols used by the dictionary */
+  dictionaryEnumSymbolSet: Set[Symbol] = Set()
 ) {
 
   /** Gets the qualified name of a symbol */

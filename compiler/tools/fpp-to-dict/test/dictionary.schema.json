@@ -148,6 +148,46 @@
                 }
             }
         },
+        "constants": {
+            "type": "array",
+            "items": {
+                "anyOf": [
+                    {
+                        "type": "object",
+                        "properties": {
+                            "kind": {
+                                "type": "string",
+                                "enum": [
+                                    "constant"
+                                ]
+                            },
+                            "qualifiedName": {
+                                "type": "string"
+                            },
+                            "type": {
+                                "$ref": "#/$defs/typeDescriptor"
+                            },
+                            "value": {
+                                "type": [
+                                    "boolean",
+                                    "number",
+                                    "string"
+                                ]
+                            },
+                            "annotation": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "kind",
+                            "qualifiedName",
+                            "type",
+                            "value"
+                        ]
+                    }
+                ]
+            }
+        },
         "typeDefinitions": {
             "type": "array",
             "items": {

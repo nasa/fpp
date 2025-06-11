@@ -2809,7 +2809,8 @@ array A = [3] T</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>An alias type definition may refer to any type, including another
+<p><strong>Rules for alias type definitions:</strong>
+An alias type definition may refer to any type, including another
 alias type, except that it may not refer to itself, either directly or through
 another alias.
 For example, here is an alias type definition specifying that the type
@@ -2842,7 +2843,22 @@ type T = S</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Alias type definitions are useful for specifying configurations.
+<p><strong>Underlying types:</strong>
+Because an alias type definition may not refer to itself, every
+chain of aliases ends in a type that is not an alias.
+This type is called the <strong>underlying type</strong> of all the aliases
+in the chain.
+For example:</p>
+</div>
+<div class="listingblock fpp">
+<div class="content">
+<pre class="prettyprint highlight"><code>type S = T   # Underlying type of S is U32
+type T = U32 # Underlying type of T is U32</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Configuration:</strong>
+Alias type definitions are useful for specifying configurations.
 Part of a model can use a type <code>T</code>, without
 defining <code>T</code>; elsewhere, configuration code can define
 <code>T</code> to be the alias of another type.
@@ -14714,33 +14730,105 @@ are generated for them.</p>
 </div>
 <div class="paragraph">
 <p><strong>F Prime configuration:</strong>
-When you run <code>fpp-to-dict</code> on an FPP model, the model must define the following
-types:</p>
+When you run <code>fpp-to-dict</code> on an FPP model,
+the model must contain the definitions shown in Table <a href="#dict-defs">Definitions Required by the GDS</a>.
+These definitions are required by the F Prime GDS.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>FwChanIdType</code></p>
-</li>
-<li>
-<p><code>FwEventIdType</code></p>
-</li>
-<li>
-<p><code>FwOpcodeType</code></p>
-</li>
-<li>
-<p><code>FwPacketDescriptorType</code></p>
-</li>
-<li>
-<p><code>FwTlmPacketizeIdType</code></p>
-</li>
-</ul>
-</div>
+<table id="dict-defs" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. Definitions Required by the GDS</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Kind</th>
+<th class="tableblock halign-left valign-top">Purpose</th>
+<th class="tableblock halign-left valign-top">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwChanIdType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alias type definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type of a telemetry channel identifier</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwEventIdType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alias type definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type of an event identifier</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwOpcodeType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alias type definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type of a command opcode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwPacketDescriptorType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alias type definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type of a com packet descriptor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwDpIdType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alias type definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type of a data product identifier</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwDpPriorityType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alias type definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type of a data product priority</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwSizeStoreType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alias type definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type used to serialize a size value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTimeBaseStoreType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alias type definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type used to serialize a time base value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTimeContextStoreType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alias type definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type used to serialize a time context value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpState</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enum type definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The data product state</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpCfg.ProcType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enum type definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A bit mask for selecting the type of processing
+to perform on a container before writing it to disk.</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Constant definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The size in bytes of the user-configurable
+data in the container packet header</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Constant must be an integer type</p></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
-<p>These types are required by the F Prime GDS, so they are included in the
-dictionary.
-Each of these types must be an alias of an integer type.
-Typically you specify these types as part of F Prime configuration,
+<p>Typically you specify these types as part of F Prime configuration,
 in the file <code>config/FpConfig.fpp</code>.
 See the
 <a href="https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/">F
@@ -15664,7 +15752,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-05-21 16:29:41 -0700
+Last updated 2025-06-11 13:32:02 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

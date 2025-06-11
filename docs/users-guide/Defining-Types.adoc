@@ -665,6 +665,7 @@ type T = U32
 array A = [3] T
 ----
 
+*Rules for alias type definitions:*
 An alias type definition may refer to any type, including another
 alias type, except that it may not refer to itself, either directly or through
 another alias.
@@ -695,6 +696,20 @@ type S = T
 type T = S
 --------
 
+*Underlying types:*
+Because an alias type definition may not refer to itself, every
+chain of aliases ends in a type that is not an alias.
+This type is called the *underlying type* of all the aliases
+in the chain.
+For example:
+
+[source.fpp]
+----
+type S = T   # Underlying type of S is U32
+type T = U32 # Underlying type of T is U32
+----
+
+*Configuration:*
 Alias type definitions are useful for specifying configurations.
 Part of a model can use a type `T`, without
 defining `T`; elsewhere, configuration code can define

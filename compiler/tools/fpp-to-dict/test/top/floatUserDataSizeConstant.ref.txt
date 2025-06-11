@@ -1,0 +1,5 @@
+fpp-to-dict
+[ local path prefix ]/tools/fpp-to-dict/test/top/floatUserDataSizeConstant.fpp:31.9
+        constant CONTAINER_USER_DATA_SIZE = 1.5
+        ^
+error: this F Prime constant must have an integer type
