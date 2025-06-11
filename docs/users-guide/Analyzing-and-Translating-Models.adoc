@@ -1465,9 +1465,21 @@ That way the subtopologies are part of the model, but no dictionaries
 are generated for them.
 
 *F Prime configuration:*
-There are various types and constants required by the F Prime GDS, so they
-are included in the dictionary. When you run `fpp-to-dict` on an FPP model, 
-the model must define the following alias types, enumerations, and constants:
+When you run `fpp-to-dict` on an FPP model, 
+the model must contain the definitions shown in Table <<dict-defs>>.
+These definitions are required by the F Prime GDS.
+
+[[dict-defs]]
+.Definitions Required by the GDS
+|===
+|Name|Kind|Purpose|Notes
+
+|`FwChanIdType`
+|Alias type definition
+|The type of a telemetry channel identifier
+|Underlying type must be an integer type
+
+|===
 
 Alias Types:
 

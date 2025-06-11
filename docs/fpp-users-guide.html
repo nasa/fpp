@@ -2809,7 +2809,8 @@ array A = [3] T</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>An alias type definition may refer to any type, including another
+<p><strong>Rules for alias type definitions:</strong>
+An alias type definition may refer to any type, including another
 alias type, except that it may not refer to itself, either directly or through
 another alias.
 For example, here is an alias type definition specifying that the type
@@ -2842,7 +2843,22 @@ type T = S</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Alias type definitions are useful for specifying configurations.
+<p><strong>Underlying types:</strong>
+Because an alias type definition may not refer to itself, every
+chain of aliases ends in a type that is not an alias.
+This type is called the <strong>underlying type</strong> of all the aliases
+in the chain.
+For example:</p>
+</div>
+<div class="listingblock fpp">
+<div class="content">
+<pre class="prettyprint highlight"><code>type S = T   # Underlying type of S is U32
+type T = U32 # Underlying type of T is U32</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Configuration:</strong>
+Alias type definitions are useful for specifying configurations.
 Part of a model can use a type <code>T</code>, without
 defining <code>T</code>; elsewhere, configuration code can define
 <code>T</code> to be the alias of another type.
@@ -14714,10 +14730,35 @@ are generated for them.</p>
 </div>
 <div class="paragraph">
 <p><strong>F Prime configuration:</strong>
-There are various types and constants required by the F Prime GDS, so they
-are included in the dictionary. When you run <code>fpp-to-dict</code> on an FPP model,
-the model must define the following alias types, enumerations, and constants:</p>
+When you run <code>fpp-to-dict</code> on an FPP model,
+the model must contain the definitions shown in Table <a href="#dict-defs">Definitions Required by the GDS</a>.
+These definitions are required by the F Prime GDS.</p>
 </div>
+<table id="dict-defs" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. Definitions Required by the GDS</caption>
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Kind</th>
+<th class="tableblock halign-left valign-top">Purpose</th>
+<th class="tableblock halign-left valign-top">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwChanIdType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alias type definition</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The type of a telemetry channel identifier</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
 <p>Alias Types:</p>
 </div>
@@ -15706,7 +15747,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-06-11 09:17:55 -0700
+Last updated 2025-06-11 11:15:12 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
