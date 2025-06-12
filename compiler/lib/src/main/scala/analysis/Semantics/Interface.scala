@@ -3,7 +3,7 @@ package fpp.compiler.analysis
 import fpp.compiler.ast.*
 import fpp.compiler.util.*
 
-/** An FPP component */
+/** An FPP interface */
 case class Interface(
   /** The AST node defining the component */
   aNode: Ast.Annotated[AstNode[Ast.DefInterface]],

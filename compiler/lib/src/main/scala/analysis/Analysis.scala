@@ -80,7 +80,9 @@ case class Analysis(
   /** Whether a dictionary is needed in code generation */
   dictionaryNeeded: Boolean = false,
   /** The set of type symbols used by the dictionary */
-  dictionaryTypeSymbolSet: Set[Symbol] = Set()
+  dictionaryTypeSymbolSet: Set[Symbol] = Set(),
+  /** The map of nodes to implied uses */
+  impliedUseMap: Map[AstNode.Id, ImpliedUse.Uses] = Map()
 ) {
 
   /** Gets the qualified name of a symbol */

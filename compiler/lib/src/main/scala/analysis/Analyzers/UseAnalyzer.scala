@@ -126,9 +126,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
           case Ast.SpecPortInstance.TimeGet => "Time"
         }
         val identList = List("Fw", name)
-        val nodeList = identList.map(AstNode.create(_, node.id))
-        val qualIdent = Ast.QualIdent.fromNodeList(nodeList)
-        val impliedUse = AstNode.create(qualIdent, node.id)
+        val impliedUse = ImpliedUse.fromIdentListAndId(identList, node.id).asAstNode
         for {
           a <- opt(exprNode)(a, special.priority)
           a <- qualIdentNode(portUse)(a, impliedUse)
