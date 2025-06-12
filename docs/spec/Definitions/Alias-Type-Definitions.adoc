@@ -28,3 +28,72 @@ struct B {
   y: F32
 } default { y = 1 }
 ----
+
+==== Framework Definitions
+
+The following alias type definitions are used specially by the
+F Prime framework.
+If they are present in the model, then they must conform
+to the following rules.
+
+|===
+|Name|Rules
+
+|`FwAssertArgType`
+|Underlying type must be an integer type
+
+|`FwChanIdType`
+|Underlying type must be an integer type
+
+|`FwDpIdType`
+|Underlying type must be an integer type
+
+|`FwDpPriorityType`
+|Underlying type must be an integer type
+
+|`FwEnumStoreType`
+|Underlying type must be an integer type
+
+|`FwEventIdType`
+|Underlying type must be an integer type
+
+|`FwIndexType`
+|Underlying type must be a signed integer type
+
+|`FwOpcodeType`
+|Underlying type must be an integer type
+
+|`FwPacketDescriptorType`
+|Underlying type must be an integer type
+
+|`FwPrmIdType`
+|Underlying type must be an integer type
+
+|`FwQueuePriorityType`
+|Underlying type must be an integer type
+
+|`FwSignedSizeType`
+|Underlying type must be a signed integer type
+
+|`FwSizeStoreType`
+|Underlying type must be an integer type
+
+|`FwSizeType`
+|Underlying type must be an unsigned integer type
+
+|`FwTaskPriorityType`
+|Underlying type must be an integer type
+
+|`FwTimeBaseStoreType`
+|Underlying type must be an integer type
+
+|`FwTimeContextStoreType`
+|Underlying type must be an integer type
+
+|`FwTlmPacketizeIdType`
+|Underlying type must be an integer type
+
+|`FwTraceIdType`
+|Underlying type must be an integer type
+
+|===

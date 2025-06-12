@@ -1,0 +1,5 @@
+tests="
+fw_assert_arg_type_not_integer
+fw_index_type_not_signed
+fw_size_type_not_unsigned
+"

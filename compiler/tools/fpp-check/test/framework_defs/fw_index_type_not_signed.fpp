@@ -1,0 +1,1 @@
+type FwIndexType = U32

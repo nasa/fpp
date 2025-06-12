@@ -52,5 +52,6 @@ spec_tlm_channel
 spec_tlm_packet
 spec_top_import
 special_ports
+topology_implied_type
 transitive_instance
 "
