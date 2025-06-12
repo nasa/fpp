@@ -58,6 +58,8 @@ reside in the following *name groups*:
 
 . The *component name group*
 
+. The *interface name group*
+
 . The *port name group*
 
 . The *state machine name group*
@@ -89,6 +91,8 @@ state machine name group.
 * Module definitions reside in all the name groups.
 
 * Port definitions reside in the port name group.
+
+* Port interface definitions reside in the interface name group.
 
 * State machine definitions reside in the state machine name group.
 

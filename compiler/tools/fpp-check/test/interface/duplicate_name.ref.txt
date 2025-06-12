@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/interface/duplicate_name.fpp:5.5
+    output port P: P
+    ^
+error: duplicate port instance P
+previous instance is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/interface/duplicate_name.fpp:4.5
+    async input port P: P
+    ^

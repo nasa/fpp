@@ -1,6 +1,7 @@
 # ----------------------------------------------------------------------
 # Time ports
 # ----------------------------------------------------------------------
-
-@ A port for getting the time
-time get port timeGetOut
+interface TimePorts {
+    @ A port for getting the time
+    time get port timeGetOut
+}

@@ -44,6 +44,7 @@ update "" dataProducts
 update "" enums
 update "" events
 update "" importedTopologies
+update "" interfaces
 update "" internalPorts
 update "" matchedPorts
 update "" modules

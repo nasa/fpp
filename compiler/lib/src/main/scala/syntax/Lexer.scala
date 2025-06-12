@@ -73,6 +73,7 @@ object Lexer {
     ("initial", INITIAL),
     ("input", INPUT),
     ("instance", INSTANCE),
+    ("interface", INTERFACE),
     ("internal", INTERNAL),
     ("locate", LOCATE),
     ("low", LOW),
@@ -273,6 +274,7 @@ object Lexer {
         case INITIAL => Token.INITIAL()
         case INPUT => Token.INPUT()
         case INSTANCE => Token.INSTANCE()
+        case INTERFACE => Token.INTERFACE()
         case INTERNAL => Token.INTERNAL()
         case CHOICE => Token.CHOICE()
         case LBRACE => Token.LBRACE()

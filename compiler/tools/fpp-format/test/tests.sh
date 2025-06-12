@@ -2,6 +2,7 @@ tests="
 component
 escaped_strings
 include
+interface
 kwd_names
 no_include
 state_machine

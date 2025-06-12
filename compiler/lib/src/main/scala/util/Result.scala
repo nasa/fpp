@@ -1,5 +1,7 @@
 package fpp.compiler.util
 
+import scala.annotation.tailrec
+
 /** The result of a compilation step */
 object Result {
 
@@ -13,6 +15,7 @@ object Result {
     }
   
   /** Left fold with a function that returns a result */
+  @tailrec
   def foldLeft[A,B]
     (as: List[A])
     (b: B)
@@ -31,6 +34,7 @@ object Result {
     list: List[A], 
     f: A => Result[B]
   ): Result[List[B]] = {
+    @tailrec
     def helper(in: List[A], out: List[B]): Result[List[B]] = {
       in match {
         case Nil => Right(out.reverse)
@@ -61,6 +65,7 @@ object Result {
     }
 
   /** Apply a list of result functions in sequence */
+  @tailrec
   def seq[A](
     r: Result[A],
     fs: List[A => Result[A]]
@@ -74,7 +79,7 @@ object Result {
   /** Expect a Right result; throw InternalError otherwise */
   def expectRight[T](result: Result[T]): T = result match {
     case Right(value) => value
-    case Left(e) => throw new InternalError(s"unexpected error ${e}")
+    case Left(e) => throw InternalError(s"unexpected error ${e}")
   }
 
 }

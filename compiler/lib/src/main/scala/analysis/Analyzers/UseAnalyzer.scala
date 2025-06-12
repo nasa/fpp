@@ -21,6 +21,9 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
   /** A use of a topology definition */
   def topologyUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
 
+  /** A use of an interface definition */
+  def interfaceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
+
   /** A use of a type definition */
   def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified): Result = default(a)
 
@@ -149,10 +152,16 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     a <- visitList(a, aNode._2.data.omitted, tlmChannelIdentifierNode)
   } yield a
 
-  override def specTopImportAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecTopImport]]) = {
+  override def specTopImportAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecImport]]) = {
     val (_, node1, _) = node
     val data = node1.data
-    qualIdentNode(topologyUse)(a, data.top)
+    qualIdentNode(topologyUse)(a, data.sym)
+  }
+
+  override def specInterfaceImportAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecImport]]) = {
+    val (_, node1, _) = node
+    val data = node1.data
+    qualIdentNode(interfaceUse)(a, data.sym)
   }
 
   override def typeNameQualIdentNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent) = {

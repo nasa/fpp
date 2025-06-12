@@ -62,6 +62,12 @@ object FppWriter extends AstVisitor with LineUtils {
     annotate(a1, l, a2)
   }
 
+  def interfaceMember(member: Ast.InterfaceMember): Out = {
+    val (a1, _, a2) = member.node
+    val l = matchInterfaceMember((), member)
+    annotate(a1, l, a2)
+  }
+
   def transitionExpr(transition: Ast.TransitionExpr): Out = {
     val sep = if transition.actions.isEmpty then "enter " else " enter "
     actionList(transition.actions).
@@ -198,6 +204,17 @@ object FppWriter extends AstVisitor with LineUtils {
       joinOptWithBreak (data.priority) ("priority ") (exprNode).
       joinOptWithBreak (data.cpu) ("cpu ") (exprNode).
       joinWithBreak ("") (initSpecs(data.initSpecs))
+  }
+
+  override def defInterfaceAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefInterface]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    List(line(s"interface ${ident(data.name)} {"), Line.blank) ++
+    (Line.blankSeparated (interfaceMember) (data.members)).map(indentIn) ++
+    List(Line.blank, line("}"))
   }
 
   override def defConstantAnnotatedNode(
@@ -694,11 +711,20 @@ object FppWriter extends AstVisitor with LineUtils {
 
   override def specTopImportAnnotatedNode(
     in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecTopImport]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecImport]]
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    Line.addPrefix("import ", qualIdent(data.top.data))
+    Line.addPrefix("import ", qualIdent(data.sym.data))
+  }
+
+  override def specInterfaceImportAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecImport]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    Line.addPrefix("import ", qualIdent(data.sym.data))
   }
 
   override def transUnit(

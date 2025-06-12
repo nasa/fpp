@@ -1,9 +1,9 @@
 @ A passive component
 passive component PassiveTest {
 
-  include "include/product_ports_sync.fppi"
-  include "include/typed_ports.fppi"
-  include "include/special_ports.fppi"
+  import DataProductSyncReceive
+  import TypedPorts
+  import SpecialPorts
 
   include "include/commands.fppi"
   include "include/events.fppi"
@@ -17,9 +17,9 @@ passive component PassiveTest {
 @ A passive component with serial ports
 passive component PassiveSerial {
 
-  include "include/typed_ports.fppi"
-  include "include/serial_ports.fppi"
-  include "include/special_ports.fppi"
+  import TypedPorts
+  import SerialPorts
+  import SpecialPorts
 
   include "include/commands.fppi"
   include "include/events.fppi"
@@ -32,8 +32,8 @@ passive component PassiveSerial {
 @ A passive component with commands
 passive component PassiveCommands {
 
-  include "include/typed_ports.fppi"
-  include "include/special_ports.fppi"
+  import TypedPorts
+  import SpecialPorts
 
   include "include/commands.fppi"
 
@@ -42,8 +42,8 @@ passive component PassiveCommands {
 @ A passive component with events
 passive component PassiveEvents {
 
-  include "include/typed_ports.fppi"
-  include "include/special_ports.fppi"
+  import TypedPorts
+  import SpecialPorts
 
   include "include/events.fppi"
 
@@ -52,8 +52,8 @@ passive component PassiveEvents {
 @ A passive component with telemetry
 passive component PassiveTelemetry {
 
-  include "include/typed_ports.fppi"
-  include "include/special_ports.fppi"
+  import TypedPorts
+  import SpecialPorts
 
   include "include/telemetry.fppi"
 
@@ -62,8 +62,8 @@ passive component PassiveTelemetry {
 @ A passive component with params
 passive component PassiveParams {
 
-  include "include/typed_ports.fppi"
-  include "include/special_ports.fppi"
+  import TypedPorts
+  import SpecialPorts
 
   include "include/params.fppi"
 
@@ -72,8 +72,8 @@ passive component PassiveParams {
 @ A passive component with external params only
 passive component PassiveExternalParams {
 
-  include "include/typed_ports.fppi"
-  include "include/special_ports.fppi"
+  import TypedPorts
+  import SpecialPorts
 
   include "include/external_params.fppi"
 
@@ -82,9 +82,9 @@ passive component PassiveExternalParams {
 @ A passive component with sync data products
 passive component PassiveSyncProducts {
 
-  include "include/product_ports_sync.fppi"
-  include "include/special_ports.fppi"
-  include "include/typed_ports.fppi"
+  import DataProductSyncReceive
+  import TypedPorts
+  import SpecialPorts
 
   include "include/products.fppi"
 
@@ -93,9 +93,9 @@ passive component PassiveSyncProducts {
 @ A passive component with guarded data products
 passive component PassiveGuardedProducts {
 
-  include "include/product_ports_guarded.fppi"
-  include "include/special_ports.fppi"
-  include "include/typed_ports.fppi"
+  import DataProductGuardedReceive
+  import TypedPorts
+  import SpecialPorts
 
   include "include/products.fppi"
 
@@ -104,9 +104,9 @@ passive component PassiveGuardedProducts {
 @ A passive component with data product get
 passive component PassiveGetProducts {
 
-  include "include/product_ports_get.fppi"
-  include "include/special_ports.fppi"
-  include "include/typed_ports.fppi"
+  import DataProductGet
+  import TypedPorts
+  import SpecialPorts
 
   include "include/products.fppi"
 
@@ -115,13 +115,13 @@ passive component PassiveGetProducts {
 @ A passive component with product get and ports only
 passive component PassiveGetProductPortsOnly {
 
-  include "include/product_ports_get.fppi"
+  import DataProductGet
 
 }
 
 @ A passive component with sync product request and ports only
 passive component PassiveSyncProductPortsOnly {
 
-  include "include/product_ports_sync.fppi"
+  import DataProductSyncReceive
 
 }

@@ -847,6 +847,16 @@
             }
           }
         },
+        "Interface" : {
+          "map" : {
+            "B" : {
+              "Module" : {
+                "nodeId" : 55,
+                "unqualifiedName" : "B"
+              }
+            }
+          }
+        },
         "StateMachine" : {
           "map" : {
             "B" : {

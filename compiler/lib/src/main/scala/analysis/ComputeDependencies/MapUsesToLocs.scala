@@ -37,6 +37,9 @@ object MapUsesToLocs extends UseAnalyzer {
   override def topologyUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     analyzeUse(a, Ast.SpecLoc.Topology, use)
 
+  override def interfaceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
+    analyzeUse(a, Ast.SpecLoc.Interface, use)
+
   override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) =
     analyzeUse(a, Ast.SpecLoc.Type, use)
 

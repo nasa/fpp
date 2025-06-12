@@ -1,7 +1,7 @@
 package fpp.compiler.analysis
 
-import fpp.compiler.ast._
-import fpp.compiler.util._
+import fpp.compiler.ast.*
+import fpp.compiler.util.*
 
 /** Compute used symbols */
 object UsedSymbols extends UseAnalyzer {
@@ -31,6 +31,12 @@ object UsedSymbols extends UseAnalyzer {
   ) = addSymbol(a, node)
 
   override def topologyUse(
+    a: Analysis,
+    node: AstNode[Ast.QualIdent],
+    use: Name.Qualified
+  ) = addSymbol(a, node)
+
+  override def interfaceUse(
     a: Analysis,
     node: AstNode[Ast.QualIdent],
     use: Name.Qualified
@@ -66,6 +72,7 @@ object UsedSymbols extends UseAnalyzer {
         case Symbol.Constant(node) => defConstantAnnotatedNode(a1, node)
         case Symbol.Enum(node) => defEnumAnnotatedNode(a1, node)
         case Symbol.EnumConstant(node) => defEnumConstantAnnotatedNode(a1, node)
+        case Symbol.Interface(node) => defInterfaceAnnotatedNode(a1, node)
         case Symbol.Module(node) => defModuleAnnotatedNode(a1, node)
         case Symbol.Port(node) => defPortAnnotatedNode(a1, node)
         case Symbol.StateMachine(node) => defStateMachineAnnotatedNode(a1, node)

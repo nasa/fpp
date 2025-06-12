@@ -4,10 +4,10 @@ module M {
   active component ActiveTest {
 
     include "include/internal_ports.fppi"
-    include "include/product_ports_async.fppi"
-    include "include/special_ports.fppi"
-    include "include/typed_ports.fppi"
-    include "include/typed_ports_async.fppi"
+    import DataProductAsyncReceive
+    import SpecialPorts
+    import TypedPorts
+    import TypedPortsAsync
 
     include "include/commands.fppi"
     include "include/commands_async.fppi"
@@ -23,22 +23,22 @@ module M {
 
 @ An active component with overflow behavior
 active component ActiveOverflow {
-  include "include/special_ports.fppi"
+  import SpecialPorts
   include "include/overflow_commands.fppi"
-  include "include/overflow_typed_ports.fppi"
-  include "include/overflow_product_ports.fppi"
-  include "include/overflow_serial_ports.fppi"
+  import TypedPortsOverflow
+  import DataProductAsyncReceiveOverflow
+  import SerialPortsOverflow
   include "include/overflow_internal_ports.fppi"
 }
 
 @ An active component with serial ports
 active component ActiveSerial {
 
-  include "include/typed_ports.fppi"
-  include "include/typed_ports_async.fppi"
-  include "include/serial_ports.fppi"
-  include "include/serial_ports_async.fppi"
-  include "include/special_ports.fppi"
+  import TypedPorts
+  import TypedPortsAsync
+  import SerialPorts
+  import SerialPortsAsync
+  import SpecialPorts
   include "include/internal_ports.fppi"
 
   include "include/commands.fppi"
@@ -53,9 +53,9 @@ active component ActiveSerial {
 @ An active component with commands
 active component ActiveCommands {
 
-  include "include/typed_ports.fppi"
-  include "include/typed_ports_async.fppi"
-  include "include/special_ports.fppi"
+  import TypedPorts
+  import TypedPortsAsync
+  import SpecialPorts
 
   include "include/commands.fppi"
   include "include/commands_async.fppi"
@@ -65,9 +65,9 @@ active component ActiveCommands {
 @ An active component with events
 active component ActiveEvents {
 
-  include "include/typed_ports.fppi"
-  include "include/typed_ports_async.fppi"
-  include "include/special_ports.fppi"
+  import TypedPorts
+  import TypedPortsAsync
+  import SpecialPorts
 
   include "include/events.fppi"
 
@@ -76,9 +76,9 @@ active component ActiveEvents {
 @ An active component with telemetry
 active component ActiveTelemetry {
 
-  include "include/typed_ports.fppi"
-  include "include/typed_ports_async.fppi"
-  include "include/special_ports.fppi"
+  import TypedPorts
+  import TypedPortsAsync
+  import SpecialPorts
 
   include "include/telemetry.fppi"
 
@@ -87,9 +87,9 @@ active component ActiveTelemetry {
 @ An active component with params
 active component ActiveParams {
 
-  include "include/typed_ports.fppi"
-  include "include/typed_ports_async.fppi"
-  include "include/special_ports.fppi"
+  import TypedPorts
+  import TypedPortsAsync
+  import SpecialPorts
 
   include "include/params.fppi"
 
@@ -98,9 +98,9 @@ active component ActiveParams {
 @ An active component with external params only
 active component ActiveExternalParams {
 
-  include "include/typed_ports.fppi"
-  include "include/typed_ports_async.fppi"
-  include "include/special_ports.fppi"
+  import TypedPorts
+  import TypedPortsAsync
+  import SpecialPorts
 
   include "include/external_params.fppi"
 
@@ -109,10 +109,10 @@ active component ActiveExternalParams {
 @ An active component with async data products
 active component ActiveAsyncProducts {
 
-  include "include/product_ports_async.fppi"
-  include "include/special_ports.fppi"
-  include "include/typed_ports.fppi"
-  include "include/typed_ports_async.fppi"
+  import DataProductAsyncReceive
+  import TypedPorts
+  import TypedPortsAsync
+  import SpecialPorts
 
   include "include/products.fppi"
 
@@ -121,10 +121,10 @@ active component ActiveAsyncProducts {
 @ An active component with sync data products
 active component ActiveSyncProducts {
 
-  include "include/product_ports_sync.fppi"
-  include "include/special_ports.fppi"
-  include "include/typed_ports.fppi"
-  include "include/typed_ports_async.fppi"
+  import DataProductSyncReceive
+  import TypedPorts
+  import TypedPortsAsync
+  import SpecialPorts
 
   include "include/products.fppi"
 
@@ -133,10 +133,10 @@ active component ActiveSyncProducts {
 @ An active component with guarded data products
 active component ActiveGuardedProducts {
 
-  include "include/product_ports_guarded.fppi"
-  include "include/special_ports.fppi"
-  include "include/typed_ports.fppi"
-  include "include/typed_ports_async.fppi"
+  import DataProductGuardedReceive
+  import TypedPorts
+  import TypedPortsAsync
+  import SpecialPorts
 
   include "include/products.fppi"
 
@@ -145,10 +145,10 @@ active component ActiveGuardedProducts {
 @ An active component with data product get
 active component ActiveGetProducts {
 
-  include "include/product_ports_get.fppi"
-  include "include/special_ports.fppi"
-  include "include/typed_ports.fppi"
-  include "include/typed_ports_async.fppi"
+  import DataProductGet
+  import TypedPorts
+  import TypedPortsAsync
+  import SpecialPorts
 
   include "include/products.fppi"
 
@@ -157,14 +157,14 @@ active component ActiveGetProducts {
 @ An active component with async product request and ports only
 active component ActiveAsyncProductPortsOnly {
 
-  include "include/product_ports_async.fppi"
+  import DataProductAsyncReceive
 
 }
 
 @ An active component with only ports without arguments
 active component ActiveNoArgsPortsOnly {
 
-  include "include/typed_ports_no_args.fppi"
+  import TypedPortsNoArgs
 
 }
 

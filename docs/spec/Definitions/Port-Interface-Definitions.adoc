@@ -1,0 +1,103 @@
+=== Port Interface Definitions
+
+A *port interface definition* defines an F Prime port interface.
+A port interface is a collection of
+<<Specifiers_Port-Instance-Specifiers,port instance specifiers>>
+that may be imported into a
+<<Definitions_Component-Definitions,component definition>>
+or another port interface definition.
+
+==== Syntax
+
+`interface` <<Lexical-Elements_Identifiers,_identifier_>>
+`{` _port-interface-member-sequence_ `}`
+
+_port-interface-member-sequence_ is an
+<<Element-Sequences,element sequence>> in
+which each element is a *port interface member*,
+and the terminating punctuation is a semicolon.
+A port interface member is one of the following:
+
+* A <<Specifiers_Port-Instance-Specifiers,port instance specifier>>
+
+* An <<Specifiers_Interface-Import-Specifiers,interface import specifier>>
+
+==== Semantics
+
+The identifier is the name of the interface.
+
+A port interface definition _D_ represents a set _S_ of port instance
+specifiers, computed as follows:
+
+. Add each port instance specifier that is a member of _D_ to _S_.
+
+. For each interface import specifier _s_ that is a member of _D_,
+<<Specifiers_Interface-Import-Specifiers_Semantics,resolve>> _s_ to a set of port
+instance specifiers _S~s~_ and add _S~s~_ to _S_.
+
+The set of port instance specifiers represented by _D_ must satisfy
+the following rules:
+
+. Each port instance specifier must have a distinct name.
+
+. There must be at most one of each special port kind.
+
+==== Examples
+
+[source,fpp]
+----
+@ A command interface
+interface CommandInterface {
+
+  @ A port for receiving commands from the command dispatcher
+  command recv port cmdIn
+
+  @ A port for sending command registration requests to the command dispatcher
+  command reg port cmdRegOut
+
+  @ A port for sending responses to the command dispatcher
+  command resp port cmdRespOut
+
+}
+
+@ A com interface
+interface ComInterface {
+
+  @ Com input port
+  async input port comIn: Fw.Com
+
+  @ Com output port
+  output port comOut: Fw.Com
+
+}
+
+@ A component that imports the Command and Com interfaces separately
+active component CommandComSeparate {
+
+  @ Import the command interface
+  import CommandInterface
+
+  @ Import the com interface
+  import ComInterface
+
+}
+
+@ An interface composed of the Command and Com interfaces
+interface CommandComInterface {
+
+  @ Import the command interface
+  import CommandInterface
+
+  @ Import the com interface
+  import ComInterface
+
+}
+
+@ A component that imports the CommandCom interface
+interface CommandComComposed {
+
+  @ Import the CommandCom interface
+  import CommandComInterface
+
+}
+----

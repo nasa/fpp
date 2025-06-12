@@ -81,10 +81,10 @@ object CheckTopologyDefs
 
   override def specTopImportAnnotatedNode(
     a: Analysis,
-    aNode: Ast.Annotated[AstNode[Ast.SpecTopImport]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecImport]]
   ) = {
     val node = aNode._2
-    val topNode = node.data.top
+    val topNode = node.data.sym
     for {
       ts <- a.getTopologySymbol(topNode.id)
       topology <- a.topology.get.addImportedTopology(

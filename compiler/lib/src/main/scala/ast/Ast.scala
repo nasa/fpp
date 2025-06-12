@@ -69,6 +69,7 @@ object Ast {
     final case class SpecRecord(node: AstNode[Ast.SpecRecord]) extends Node
     final case class SpecStateMachineInstance(node: AstNode[Ast.SpecStateMachineInstance]) extends Node
     final case class SpecTlmChannel(node: AstNode[Ast.SpecTlmChannel]) extends Node
+    final case class SpecImportInterface(node: AstNode[Ast.SpecImport]) extends Node
   }
 
   /** Abstract type definition */
@@ -144,6 +145,7 @@ object Ast {
     final case class DefComponentInstance(node: AstNode[Ast.DefComponentInstance]) extends Node
     final case class DefConstant(node: AstNode[Ast.DefConstant]) extends Node
     final case class DefEnum(node: AstNode[Ast.DefEnum]) extends Node
+    final case class DefInterface(node: AstNode[Ast.DefInterface]) extends Node
     final case class DefModule(node: AstNode[Ast.DefModule]) extends Node
     final case class DefPort(node: AstNode[Ast.DefPort]) extends Node
     final case class DefStateMachine(node: AstNode[Ast.DefStateMachine]) extends Node
@@ -259,6 +261,20 @@ object Ast {
     final case class Do(actions: List[AstNode[Ident]]) extends TransitionOrDo
   }
 
+  /** Interface member */
+  final case class InterfaceMember(node: Annotated[InterfaceMember.Node])
+  object InterfaceMember {
+    sealed trait Node
+    final case class SpecPortInstance(node: AstNode[Ast.SpecPortInstance]) extends Node
+    final case class SpecImportInterface(node: AstNode[Ast.SpecImport]) extends Node
+  }
+
+  /** Interface definition */
+  final case class DefInterface(
+    name: Ident,
+    members: List[InterfaceMember]
+  )
+
   /** Struct definition */
   final case class DefStruct(
     name: Ident,
@@ -294,7 +310,7 @@ object Ast {
     final case class SpecConnectionGraph(node: AstNode[Ast.SpecConnectionGraph]) extends Node
     final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
     final case class SpecTlmPacketSet(node: AstNode[Ast.SpecTlmPacketSet]) extends Node
-    final case class SpecTopImport(node: AstNode[Ast.SpecTopImport]) extends Node
+    final case class SpecTopImport(node: AstNode[Ast.SpecImport]) extends Node
   }
 
   /** Formal parameter */
@@ -582,6 +598,9 @@ object Ast {
     case object Type extends Kind {
       override def toString = "type"
     }
+    case object Interface extends Kind {
+      override def toString = "interface"
+    }
   }
 
   /** Parameter specifier */
@@ -764,8 +783,8 @@ object Ast {
     omitted: List[AstNode[TlmChannelIdentifier]]
   )
 
-  /** Topology import specifier */
-  final case class SpecTopImport(top: AstNode[QualIdent])
+  /** Import specifier */
+  final case class SpecImport(sym: AstNode[QualIdent])
 
   /** Struct member */
   final case class StructMember(name: Ident, value: AstNode[Expr])

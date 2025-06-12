@@ -531,26 +531,33 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions_Port-Definitions_Examples">5.10.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_State-Machine-Definitions">5.11. State Machine Definitions</a>
+<li><a href="#Definitions_Port-Interface-Definitions">5.11. Port Interface Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_State-Machine-Definitions_Syntax">5.11.1. Syntax</a></li>
-<li><a href="#Definitions_State-Machine-Definitions_Static-Semantics">5.11.2. Static Semantics</a></li>
-<li><a href="#Definitions_State-Machine-Definitions_Dynamic-Semantics">5.11.3. Dynamic Semantics</a></li>
-<li><a href="#Definitions_State-Machine-Definitions_Examples">5.11.4. Examples</a></li>
+<li><a href="#Definitions_Port-Interface-Definitions_Syntax">5.11.1. Syntax</a></li>
+<li><a href="#Definitions_Port-Interface-Definitions_Semantics">5.11.2. Semantics</a></li>
+<li><a href="#Definitions_Port-Interface-Definitions_Examples">5.11.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Struct-Definitions">5.12. Struct Definitions</a>
+<li><a href="#Definitions_State-Machine-Definitions">5.12. State Machine Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_Struct-Definitions_Syntax">5.12.1. Syntax</a></li>
-<li><a href="#Definitions_Struct-Definitions_Semantics">5.12.2. Semantics</a></li>
-<li><a href="#Definitions_Struct-Definitions_Examples">5.12.3. Examples</a></li>
+<li><a href="#Definitions_State-Machine-Definitions_Syntax">5.12.1. Syntax</a></li>
+<li><a href="#Definitions_State-Machine-Definitions_Static-Semantics">5.12.2. Static Semantics</a></li>
+<li><a href="#Definitions_State-Machine-Definitions_Dynamic-Semantics">5.12.3. Dynamic Semantics</a></li>
+<li><a href="#Definitions_State-Machine-Definitions_Examples">5.12.4. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Topology-Definitions">5.13. Topology Definitions</a>
+<li><a href="#Definitions_Struct-Definitions">5.13. Struct Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_Topology-Definitions_Syntax">5.13.1. Syntax</a></li>
-<li><a href="#Definitions_Topology-Definitions_Semantics">5.13.2. Semantics</a></li>
-<li><a href="#Definitions_Topology-Definitions_Examples">5.13.3. Examples</a></li>
+<li><a href="#Definitions_Struct-Definitions_Syntax">5.13.1. Syntax</a></li>
+<li><a href="#Definitions_Struct-Definitions_Semantics">5.13.2. Semantics</a></li>
+<li><a href="#Definitions_Struct-Definitions_Examples">5.13.3. Examples</a></li>
+</ul>
+</li>
+<li><a href="#Definitions_Topology-Definitions">5.14. Topology Definitions</a>
+<ul class="sectlevel3">
+<li><a href="#Definitions_Topology-Definitions_Syntax">5.14.1. Syntax</a></li>
+<li><a href="#Definitions_Topology-Definitions_Semantics">5.14.2. Semantics</a></li>
+<li><a href="#Definitions_Topology-Definitions_Examples">5.14.3. Examples</a></li>
 </ul>
 </li>
 </ul>
@@ -693,82 +700,89 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifiers_Init-Specifiers_Example">7.7.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Internal-Port-Specifiers">7.8. Internal Port Specifiers</a>
+<li><a href="#Specifiers_Interface-Import-Specifiers">7.8. Interface Import Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Internal-Port-Specifiers_Syntax">7.8.1. Syntax</a></li>
-<li><a href="#Specifiers_Internal-Port-Specifiers_Semantics">7.8.2. Semantics</a></li>
-<li><a href="#Specifiers_Internal-Port-Specifiers_Examples">7.8.3. Examples</a></li>
+<li><a href="#Specifiers_Interface-Import-Specifiers_Syntax">7.8.1. Syntax</a></li>
+<li><a href="#Specifiers_Interface-Import-Specifiers_Semantics">7.8.2. Semantics</a></li>
+<li><a href="#Specifiers_Interface-Import-Specifiers_Example">7.8.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Location-Specifiers">7.9. Location Specifiers</a>
+<li><a href="#Specifiers_Internal-Port-Specifiers">7.9. Internal Port Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Location-Specifiers_Syntax">7.9.1. Syntax</a></li>
-<li><a href="#Specifiers_Location-Specifiers_Semantics">7.9.2. Semantics</a></li>
-<li><a href="#Specifiers_Location-Specifiers_Examples">7.9.3. Examples</a></li>
+<li><a href="#Specifiers_Internal-Port-Specifiers_Syntax">7.9.1. Syntax</a></li>
+<li><a href="#Specifiers_Internal-Port-Specifiers_Semantics">7.9.2. Semantics</a></li>
+<li><a href="#Specifiers_Internal-Port-Specifiers_Examples">7.9.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Parameter-Specifiers">7.10. Parameter Specifiers</a>
+<li><a href="#Specifiers_Location-Specifiers">7.10. Location Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Parameter-Specifiers_Syntax">7.10.1. Syntax</a></li>
-<li><a href="#Specifiers_Parameter-Specifiers_Semantics">7.10.2. Semantics</a></li>
-<li><a href="#Specifiers_Parameter-Specifiers_Examples">7.10.3. Examples</a></li>
+<li><a href="#Specifiers_Location-Specifiers_Syntax">7.10.1. Syntax</a></li>
+<li><a href="#Specifiers_Location-Specifiers_Semantics">7.10.2. Semantics</a></li>
+<li><a href="#Specifiers_Location-Specifiers_Examples">7.10.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Port-Instance-Specifiers">7.11. Port Instance Specifiers</a>
+<li><a href="#Specifiers_Parameter-Specifiers">7.11. Parameter Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Port-Instance-Specifiers_Syntax">7.11.1. Syntax</a></li>
-<li><a href="#Specifiers_Port-Instance-Specifiers_Semantics">7.11.2. Semantics</a></li>
-<li><a href="#Specifiers_Port-Instance-Specifiers_Examples">7.11.3. Examples</a></li>
+<li><a href="#Specifiers_Parameter-Specifiers_Syntax">7.11.1. Syntax</a></li>
+<li><a href="#Specifiers_Parameter-Specifiers_Semantics">7.11.2. Semantics</a></li>
+<li><a href="#Specifiers_Parameter-Specifiers_Examples">7.11.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Port-Matching-Specifiers">7.12. Port Matching Specifiers</a>
+<li><a href="#Specifiers_Port-Instance-Specifiers">7.12. Port Instance Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Port-Matching-Specifiers_Syntax">7.12.1. Syntax</a></li>
-<li><a href="#Specifiers_Port-Matching-Specifiers_Semantics">7.12.2. Semantics</a></li>
-<li><a href="#Specifiers_Port-Matching-Specifiers_Example">7.12.3. Example</a></li>
+<li><a href="#Specifiers_Port-Instance-Specifiers_Syntax">7.12.1. Syntax</a></li>
+<li><a href="#Specifiers_Port-Instance-Specifiers_Semantics">7.12.2. Semantics</a></li>
+<li><a href="#Specifiers_Port-Instance-Specifiers_Examples">7.12.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Record-Specifiers">7.13. Record Specifiers</a>
+<li><a href="#Specifiers_Port-Matching-Specifiers">7.13. Port Matching Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Record-Specifiers_Syntax">7.13.1. Syntax</a></li>
-<li><a href="#Specifiers_Record-Specifiers_Semantics">7.13.2. Semantics</a></li>
-<li><a href="#Specifiers_Record-Specifiers_Examples">7.13.3. Examples</a></li>
+<li><a href="#Specifiers_Port-Matching-Specifiers_Syntax">7.13.1. Syntax</a></li>
+<li><a href="#Specifiers_Port-Matching-Specifiers_Semantics">7.13.2. Semantics</a></li>
+<li><a href="#Specifiers_Port-Matching-Specifiers_Example">7.13.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_State-Machine-Instance-Specifiers">7.14. State Machine Instance Specifiers</a>
+<li><a href="#Specifiers_Record-Specifiers">7.14. Record Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_State-Machine-Instance-Specifiers_Syntax">7.14.1. Syntax</a></li>
-<li><a href="#Specifiers_State-Machine-Instance-Specifiers_Static-Semantics">7.14.2. Static Semantics</a></li>
-<li><a href="#Specifiers_State-Machine-Instance-Specifiers_Dynamic-Semantics">7.14.3. Dynamic Semantics</a></li>
-<li><a href="#Specifiers_State-Machine-Instance-Specifiers_Examples">7.14.4. Examples</a></li>
+<li><a href="#Specifiers_Record-Specifiers_Syntax">7.14.1. Syntax</a></li>
+<li><a href="#Specifiers_Record-Specifiers_Semantics">7.14.2. Semantics</a></li>
+<li><a href="#Specifiers_Record-Specifiers_Examples">7.14.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Telemetry-Channel-Specifiers">7.15. Telemetry Channel Specifiers</a>
+<li><a href="#Specifiers_State-Machine-Instance-Specifiers">7.15. State Machine Instance Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Telemetry-Channel-Specifiers_Syntax">7.15.1. Syntax</a></li>
-<li><a href="#Specifiers_Telemetry-Channel-Specifiers_Semantics">7.15.2. Semantics</a></li>
-<li><a href="#Specifiers_Telemetry-Channel-Specifiers_Examples">7.15.3. Examples</a></li>
+<li><a href="#Specifiers_State-Machine-Instance-Specifiers_Syntax">7.15.1. Syntax</a></li>
+<li><a href="#Specifiers_State-Machine-Instance-Specifiers_Static-Semantics">7.15.2. Static Semantics</a></li>
+<li><a href="#Specifiers_State-Machine-Instance-Specifiers_Dynamic-Semantics">7.15.3. Dynamic Semantics</a></li>
+<li><a href="#Specifiers_State-Machine-Instance-Specifiers_Examples">7.15.4. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Telemetry-Packet-Set-Specifiers">7.16. Telemetry Packet Set Specifiers</a>
+<li><a href="#Specifiers_Telemetry-Channel-Specifiers">7.16. Telemetry Channel Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Telemetry-Packet-Set-Specifiers_Syntax">7.16.1. Syntax</a></li>
-<li><a href="#Specifiers_Telemetry-Packet-Set-Specifiers_Semantics">7.16.2. Semantics</a></li>
-<li><a href="#Specifiers_Telemetry-Packet-Set-Specifiers_Example">7.16.3. Example</a></li>
+<li><a href="#Specifiers_Telemetry-Channel-Specifiers_Syntax">7.16.1. Syntax</a></li>
+<li><a href="#Specifiers_Telemetry-Channel-Specifiers_Semantics">7.16.2. Semantics</a></li>
+<li><a href="#Specifiers_Telemetry-Channel-Specifiers_Examples">7.16.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Telemetry-Packet-Specifiers">7.17. Telemetry Packet Specifiers</a>
+<li><a href="#Specifiers_Telemetry-Packet-Set-Specifiers">7.17. Telemetry Packet Set Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Telemetry-Packet-Specifiers_Syntax">7.17.1. Syntax</a></li>
-<li><a href="#Specifiers_Telemetry-Packet-Specifiers_Semantics">7.17.2. Semantics</a></li>
-<li><a href="#Specifiers_Telemetry-Packet-Specifiers_Examples">7.17.3. Examples</a></li>
+<li><a href="#Specifiers_Telemetry-Packet-Set-Specifiers_Syntax">7.17.1. Syntax</a></li>
+<li><a href="#Specifiers_Telemetry-Packet-Set-Specifiers_Semantics">7.17.2. Semantics</a></li>
+<li><a href="#Specifiers_Telemetry-Packet-Set-Specifiers_Example">7.17.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Topology-Import-Specifiers">7.18. Topology Import Specifiers</a>
+<li><a href="#Specifiers_Telemetry-Packet-Specifiers">7.18. Telemetry Packet Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Topology-Import-Specifiers_Syntax">7.18.1. Syntax</a></li>
-<li><a href="#Specifiers_Topology-Import-Specifiers_Semantics">7.18.2. Semantics</a></li>
-<li><a href="#Specifiers_Topology-Import-Specifiers_Example">7.18.3. Example</a></li>
+<li><a href="#Specifiers_Telemetry-Packet-Specifiers_Syntax">7.18.1. Syntax</a></li>
+<li><a href="#Specifiers_Telemetry-Packet-Specifiers_Semantics">7.18.2. Semantics</a></li>
+<li><a href="#Specifiers_Telemetry-Packet-Specifiers_Examples">7.18.3. Examples</a></li>
+</ul>
+</li>
+<li><a href="#Specifiers_Topology-Import-Specifiers">7.19. Topology Import Specifiers</a>
+<ul class="sectlevel3">
+<li><a href="#Specifiers_Topology-Import-Specifiers_Syntax">7.19.1. Syntax</a></li>
+<li><a href="#Specifiers_Topology-Import-Specifiers_Semantics">7.19.2. Semantics</a></li>
+<li><a href="#Specifiers_Topology-Import-Specifiers_Example">7.19.3. Example</a></li>
 </ul>
 </li>
 </ul>
@@ -1173,6 +1187,7 @@ include
 initial
 input
 instance
+interface
 internal
 locate
 low
@@ -1874,6 +1889,9 @@ values.</p>
 <li>
 <p>An <a href="#Specifiers_Internal-Port-Specifiers">internal port specifier</a></p>
 </li>
+<li>
+<p>An <a href="#Specifiers_Interface-Import-Specifiers">interface import specifier</a></p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -1892,17 +1910,21 @@ qualified with the component name, as for
 <a href="#Definitions_Module-Definitions">module definitions</a>.</p>
 </div>
 <div class="paragraph">
-<p>The component members must satisfy the following rules:</p>
+<p>Each state machine instance specifier must have a distinct name.</p>
+</div>
+<div class="paragraph">
+<p>Each component definition has a set of <strong>port specifiers</strong>, consisting of
+(1) the port instance specifiers that appear as members of the component;
+(2) the port instance specifiers added by
+<a href="#Specifiers_Interface-Import-Specifiers">resolving any interface import
+specifiers that are members of the component</a>;
+and (3) the internal port specifiers that appear as members of the component.
+The port specifiers must satisfy the following rules:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>All names appearing in any general port specifiers, special port specifiers,
-and internal port specifiers must be distinct.</p>
-</li>
-<li>
-<p>All names appearing in any state machine instance specifier must
-be distinct.</p>
+<p>Each port specifier must have a distinct name.</p>
 </li>
 <li>
 <p>No passive component may have an <code>async</code> general or special
@@ -2726,6 +2748,9 @@ A module member is one of the following:</p>
 <p>A <a href="#Definitions_Port-Definitions">port definition</a></p>
 </li>
 <li>
+<p>A <a href="#Definitions_Port-Interface-Definitions">port interface definition</a></p>
+</li>
+<li>
 <p>A <a href="#Definitions_State-Machine-Definitions">state machine definition</a></p>
 </li>
 <li>
@@ -2860,7 +2885,139 @@ port Port3(
 </div>
 </div>
 <div class="sect2">
-<h3 id="Definitions_State-Machine-Definitions">5.11. State Machine Definitions</h3>
+<h3 id="Definitions_Port-Interface-Definitions">5.11. Port Interface Definitions</h3>
+<div class="paragraph">
+<p>A <strong>port interface definition</strong> defines an F Prime port interface.
+A port interface is a collection of
+<a href="#Specifiers_Port-Instance-Specifiers">port instance specifiers</a>
+that may be imported into a
+<a href="#Definitions_Component-Definitions">component definition</a>
+or another port interface definition.</p>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Port-Interface-Definitions_Syntax">5.11.1. Syntax</h4>
+<div class="paragraph">
+<p><code>interface</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<code>{</code> <em>port-interface-member-sequence</em> <code>}</code></p>
+</div>
+<div class="paragraph">
+<p><em>port-interface-member-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in
+which each element is a <strong>port interface member</strong>,
+and the terminating punctuation is a semicolon.
+A port interface member is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <a href="#Specifiers_Port-Instance-Specifiers">port instance specifier</a></p>
+</li>
+<li>
+<p>An <a href="#Specifiers_Interface-Import-Specifiers">interface import specifier</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Port-Interface-Definitions_Semantics">5.11.2. Semantics</h4>
+<div class="paragraph">
+<p>The identifier is the name of the interface.</p>
+</div>
+<div class="paragraph">
+<p>A port interface definition <em>D</em> represents a set <em>S</em> of port instance
+specifiers, computed as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Add each port instance specifier that is a member of <em>D</em> to <em>S</em>.</p>
+</li>
+<li>
+<p>For each interface import specifier <em>s</em> that is a member of <em>D</em>,
+<a href="#Specifiers_Interface-Import-Specifiers_Semantics">resolve</a> <em>s</em> to a set of port
+instance specifiers <em>S<sub>s</sub></em> and add <em>S<sub>s</sub></em> to <em>S</em>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The set of port instance specifiers represented by <em>D</em> must satisfy
+the following rules:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Each port instance specifier must have a distinct name.</p>
+</li>
+<li>
+<p>There must be at most one of each special port kind.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Port-Interface-Definitions_Examples">5.11.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A command interface
+interface CommandInterface {
+
+  @ A port for receiving commands from the command dispatcher
+  command recv port cmdIn
+
+  @ A port for sending command registration requests to the command dispatcher
+  command reg port cmdRegOut
+
+  @ A port for sending responses to the command dispatcher
+  command resp port cmdRespOut
+
+}
+
+@ A com interface
+interface ComInterface {
+
+  @ Com input port
+  async input port comIn: Fw.Com
+
+  @ Com output port
+  output port comOut: Fw.Com
+
+}
+
+@ A component that imports the Command and Com interfaces separately
+active component CommandComSeparate {
+
+  @ Import the command interface
+  import CommandInterface
+
+  @ Import the com interface
+  import ComInterface
+
+}
+
+@ An interface composed of the Command and Com interfaces
+interface CommandComInterface {
+
+  @ Import the command interface
+  import CommandInterface
+
+  @ Import the com interface
+  import ComInterface
+
+}
+
+@ A component that imports the CommandCom interface
+interface CommandComComposed {
+
+  @ Import the CommandCom interface
+  import CommandComInterface
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Definitions_State-Machine-Definitions">5.12. State Machine Definitions</h3>
 <div class="paragraph">
 <p>A <strong>state machine definition</strong> defines a state machine.</p>
 </div>
@@ -2883,7 +3040,7 @@ causes an implementation to be generated.</p>
 </ol>
 </div>
 <div class="sect3">
-<h4 id="Definitions_State-Machine-Definitions_Syntax">5.11.1. Syntax</h4>
+<h4 id="Definitions_State-Machine-Definitions_Syntax">5.12.1. Syntax</h4>
 <div class="paragraph">
 <p><code>state machine</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>[</em> <code>{</code> <em>state-machine-member-sequence</em> <code>}</code> <em>]</em></p>
@@ -2924,7 +3081,7 @@ the members of any state definition that is a transitive member of <em>M</em>.</
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_State-Machine-Definitions_Static-Semantics">5.11.2. Static Semantics</h4>
+<h4 id="Definitions_State-Machine-Definitions_Static-Semantics">5.12.2. Static Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3192,7 +3349,7 @@ with the following modifications:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_State-Machine-Definitions_Dynamic-Semantics">5.11.3. Dynamic Semantics</h4>
+<h4 id="Definitions_State-Machine-Definitions_Dynamic-Semantics">5.12.3. Dynamic Semantics</h4>
 <div class="paragraph">
 <p>An internal state machine <em>M</em> has the following runtime behavior:</p>
 </div>
@@ -3227,7 +3384,7 @@ as part of an active or queued component.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_State-Machine-Definitions_Examples">5.11.4. Examples</h4>
+<h4 id="Definitions_State-Machine-Definitions_Examples">5.12.4. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine MonitorSm {
@@ -3280,13 +3437,13 @@ as part of an active or queued component.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Definitions_Struct-Definitions">5.12. Struct Definitions</h3>
+<h3 id="Definitions_Struct-Definitions">5.13. Struct Definitions</h3>
 <div class="paragraph">
 <p>A <strong>struct definition</strong> defines a new structure type and associates a name
 with it.</p>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Struct-Definitions_Syntax">5.12.1. Syntax</h4>
+<h4 id="Definitions_Struct-Definitions_Syntax">5.13.1. Syntax</h4>
 <div class="paragraph">
 <p><code>struct</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>{</code> <em>struct-type-member-sequence</em> <code>}</code>
@@ -3310,7 +3467,7 @@ A <strong>struct type member</strong> has the following syntax:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Struct-Definitions_Semantics">5.12.2. Semantics</h4>
+<h4 id="Definitions_Struct-Definitions_Semantics">5.13.2. Semantics</h4>
 <div class="paragraph">
 <p>The identifier is the name <em>N</em> of the type.
 The definition associates the name <em>N</em> with a
@@ -3348,7 +3505,7 @@ greater than one, then the value is applied to each element.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Struct-Definitions_Examples">5.12.3. Examples</h4>
+<h4 id="Definitions_Struct-Definitions_Examples">5.13.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp"># Defines a struct type A with members x and y
@@ -3383,7 +3540,7 @@ struct D {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Definitions_Topology-Definitions">5.13. Topology Definitions</h3>
+<h3 id="Definitions_Topology-Definitions">5.14. Topology Definitions</h3>
 <div class="paragraph">
 <p>A <strong>topology definition</strong> defines an F Prime topology,
 that is, a set of component instances and the connections
@@ -3397,7 +3554,7 @@ function, such as commanding and telemetry.</p>
 The connections are merged graph by graph.</p>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Topology-Definitions_Syntax">5.13.1. Syntax</h4>
+<h4 id="Definitions_Topology-Definitions_Syntax">5.14.1. Syntax</h4>
 <div class="paragraph">
 <p><code>topology</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
@@ -3432,7 +3589,7 @@ instance specifier</a></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Topology-Definitions_Semantics">5.13.2. Semantics</h4>
+<h4 id="Definitions_Topology-Definitions_Semantics">5.14.2. Semantics</h4>
 <div class="paragraph">
 <p>A topology definition <em>D</em> must be resolvable to a topology <em>T</em>,
 according to the following algorithm:</p>
@@ -3808,7 +3965,7 @@ then \$c_1\$ is less than (respectively greater than) \$c_2\$.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Topology-Definitions_Examples">5.13.3. Examples</h4>
+<h4 id="Definitions_Topology-Definitions_Examples">5.14.3. Examples</h4>
 <div class="paragraph">
 <p><strong>Example 1.</strong></p>
 </div>
@@ -6014,7 +6171,83 @@ phase to remove the instance ID from the arguments of the <code>init</code> meth
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Internal-Port-Specifiers">7.8. Internal Port Specifiers</h3>
+<h3 id="Specifiers_Interface-Import-Specifiers">7.8. Interface Import Specifiers</h3>
+<div class="paragraph">
+<p>A <strong>interface import specifier</strong> specifies that the ports of a
+<a href="#Definitions_Port-Interface-Definitions">port interface definition</a>
+are to be added as members of a
+<a href="#Definitions_Component-Definitions">component definition</a>
+or a
+<a href="#Definitions_Port-Interface-Definitions">port interface definition</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Interface-Import-Specifiers_Syntax">7.8.1. Syntax</h4>
+<div class="paragraph">
+<p><code>import</code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Interface-Import-Specifiers_Semantics">7.8.2. Semantics</h4>
+<div class="paragraph">
+<p>The qualified identifier must
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
+a <a href="#Definitions_Port-Interface-Definitions">port interface definition</a>.</p>
+</div>
+<div class="paragraph">
+<p>An interface import specifier is resolved to a set <em>S</em> of port interfaces
+as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Recursively <a href="#Definitions_Port-Interface-Definitions">resolve the port
+interface definition <em>D</em></a>
+named in the specifier.</p>
+</li>
+<li>
+<p>Let <em>S</em> be the set of port interfaces represented by <em>D</em>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Interface-Import-Specifiers_Example">7.8.3. Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ Interface I
+interface I {
+
+  @ Port pIn
+  sync input port pIn: P
+
+}
+
+@ Interface J {
+
+  @ Import interface I
+  @ This brings in port pIn
+  import I
+
+  @ Add port pOut
+  output port pOut: P
+
+}
+
+@ Component C
+passive component C {
+
+  @ Import interface J
+  @ This brings in pIn and pOut
+  import J
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Specifiers_Internal-Port-Specifiers">7.9. Internal Port Specifiers</h3>
 <div class="paragraph">
 <p>An <strong>internal port specifier</strong> specifies
 a single-use port for use in handlers of the enclosing
@@ -6023,7 +6256,7 @@ A component can use an internal port to send a message
 to itself.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Internal-Port-Specifiers_Syntax">7.8.1. Syntax</h4>
+<h4 id="Specifiers_Internal-Port-Specifiers_Syntax">7.9.1. Syntax</h4>
 <div class="paragraph">
 <p><code>internal</code> <code>port</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
@@ -6045,7 +6278,7 @@ to itself.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Internal-Port-Specifiers_Semantics">7.8.2. Semantics</h4>
+<h4 id="Specifiers_Internal-Port-Specifiers_Semantics">7.9.2. Semantics</h4>
 <div class="paragraph">
 <p>The identifier is the name of the port.
 The parameter list specifies the formal parameters of the
@@ -6061,7 +6294,7 @@ specifiers</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Internal-Port-Specifiers_Examples">7.8.3. Examples</h4>
+<h4 id="Specifiers_Internal-Port-Specifiers_Examples">7.9.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">@ Port 1
@@ -6080,14 +6313,14 @@ internal port Port2(
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Location-Specifiers">7.9. Location Specifiers</h3>
+<h3 id="Specifiers_Location-Specifiers">7.10. Location Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>location specifier</strong> specifies the
 <a href="#Translation-Units-and-Models_Locations">location</a>
 of a <a href="#Definitions">definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Location-Specifiers_Syntax">7.9.1. Syntax</h4>
+<h4 id="Specifiers_Location-Specifiers_Syntax">7.10.1. Syntax</h4>
 <div class="paragraph">
 <p>A location specifier is one of the following:</p>
 </div>
@@ -6132,7 +6365,7 @@ of a <a href="#Definitions">definition</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Location-Specifiers_Semantics">7.9.2. Semantics</h4>
+<h4 id="Specifiers_Location-Specifiers_Semantics">7.10.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -6207,7 +6440,7 @@ consistent.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Location-Specifiers_Examples">7.9.3. Examples</h4>
+<h4 id="Specifiers_Location-Specifiers_Examples">7.10.3. Examples</h4>
 <div class="paragraph">
 <p><strong>Example 1:</strong></p>
 </div>
@@ -6260,13 +6493,13 @@ The second location specifier refers to the constant <code>M.b</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Parameter-Specifiers">7.10. Parameter Specifiers</h3>
+<h3 id="Specifiers_Parameter-Specifiers">7.11. Parameter Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>parameter specifier</strong> specifies a parameter as part of a
 <a href="#Definitions_Component-Definitions">component definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Parameter-Specifiers_Syntax">7.10.1. Syntax</h4>
+<h4 id="Specifiers_Parameter-Specifiers_Syntax">7.11.1. Syntax</h4>
 <div class="paragraph">
 <p><em>[</em>
 <code>external</code>
@@ -6288,7 +6521,7 @@ The second location specifier refers to the constant <code>M.b</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Parameter-Specifiers_Semantics">7.10.2. Semantics</h4>
+<h4 id="Specifiers_Parameter-Specifiers_Semantics">7.11.2. Semantics</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -6351,7 +6584,7 @@ plus one.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Parameter-Specifiers_Examples">7.10.3. Examples</h4>
+<h4 id="Specifiers_Parameter-Specifiers_Examples">7.11.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">@ Parameter 1
@@ -6371,15 +6604,17 @@ param Parameter2: F64 \
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Port-Instance-Specifiers">7.11. Port Instance Specifiers</h3>
+<h3 id="Specifiers_Port-Instance-Specifiers">7.12. Port Instance Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>port instance specifier</strong> specifies an instantiated
 <a href="#Definitions_Port-Definitions">port</a> as part
 of a
-<a href="#Definitions_Component-Definitions">component definition</a>.</p>
+<a href="#Definitions_Component-Definitions">component definition</a>
+or a
+<a href="#Definitions_Port-Interface-Definitions">port interface definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Port-Instance-Specifiers_Syntax">7.11.1. Syntax</h4>
+<h4 id="Specifiers_Port-Instance-Specifiers_Syntax">7.12.1. Syntax</h4>
 <div class="paragraph">
 <p>A port instance specifier is one of the following:</p>
 </div>
@@ -6541,7 +6776,7 @@ of a
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Port-Instance-Specifiers_Semantics">7.11.2. Semantics</h4>
+<h4 id="Specifiers_Port-Instance-Specifiers_Semantics">7.12.2. Semantics</h4>
 <div class="paragraph">
 <p><strong>General port instances:</strong></p>
 </div>
@@ -6720,7 +6955,7 @@ These ports are defined by the F Prime framework.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Port-Instance-Specifiers_Examples">7.11.3. Examples</h4>
+<h4 id="Specifiers_Port-Instance-Specifiers_Examples">7.12.3. Examples</h4>
 <div class="paragraph">
 <p><strong>General ports:</strong></p>
 </div>
@@ -6789,7 +7024,7 @@ product send port productSendOut</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Port-Matching-Specifiers">7.12. Port Matching Specifiers</h3>
+<h3 id="Specifiers_Port-Matching-Specifiers">7.13. Port Matching Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>port matching specifier</strong> is part of a
 <a href="#Definitions_Component-Definitions">component definition</a>.
@@ -6802,7 +7037,7 @@ to its ping output port at port number <em>n</em> should also be connected
 to its ping input port at the same port number <em>n</em>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Port-Matching-Specifiers_Syntax">7.12.1. Syntax</h4>
+<h4 id="Specifiers_Port-Matching-Specifiers_Syntax">7.13.1. Syntax</h4>
 <div class="paragraph">
 <p><code>match</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
@@ -6811,7 +7046,7 @@ to its ping input port at the same port number <em>n</em>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Port-Matching-Specifiers_Semantics">7.12.2. Semantics</h4>
+<h4 id="Specifiers_Port-Matching-Specifiers_Semantics">7.13.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -6827,7 +7062,7 @@ array size.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Port-Matching-Specifiers_Example">7.12.3. Example</h4>
+<h4 id="Specifiers_Port-Matching-Specifiers_Example">7.13.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">queued component Health {
@@ -6850,7 +7085,7 @@ array size.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Record-Specifiers">7.13. Record Specifiers</h3>
+<h3 id="Specifiers_Record-Specifiers">7.14. Record Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>record specifier</strong> specifies a data product record as part of a
 <a href="#Definitions_Component-Definitions">component definition</a>.
@@ -6858,7 +7093,7 @@ A record is a unit of data that is stored in a
 <a href="#Specifiers_Container-Specifiers">container</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Record-Specifiers_Syntax">7.13.1. Syntax</h4>
+<h4 id="Specifiers_Record-Specifiers_Syntax">7.14.1. Syntax</h4>
 <div class="paragraph">
 <p><code>product</code> <code>record</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>:</code> <a href="#Type-Names"><em>type-name</em></a>
@@ -6871,7 +7106,7 @@ A record is a unit of data that is stored in a
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Record-Specifiers_Semantics">7.13.2. Semantics</h4>
+<h4 id="Specifiers_Record-Specifiers_Semantics">7.14.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -6909,7 +7144,7 @@ component) or the previous record identifier plus one.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Record-Specifiers_Examples">7.13.3. Examples</h4>
+<h4 id="Specifiers_Record-Specifiers_Examples">7.14.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">@ An array of 3 F64 values
@@ -6930,7 +7165,7 @@ product record Record2: F64x3</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_State-Machine-Instance-Specifiers">7.14. State Machine Instance Specifiers</h3>
+<h3 id="Specifiers_State-Machine-Instance-Specifiers">7.15. State Machine Instance Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>state machine instance specifier</strong> specifies an instantiated
 <a href="#Definitions_State-Machine-Definitions">state machine</a> as part
@@ -6938,7 +7173,7 @@ of a
 <a href="#Definitions_Component-Definitions">component definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_State-Machine-Instance-Specifiers_Syntax">7.14.1. Syntax</h4>
+<h4 id="Specifiers_State-Machine-Instance-Specifiers_Syntax">7.15.1. Syntax</h4>
 <div class="paragraph">
 <p><code>state machine instance</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
@@ -6957,7 +7192,7 @@ of a
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_State-Machine-Instance-Specifiers_Static-Semantics">7.14.2. Static Semantics</h4>
+<h4 id="Specifiers_State-Machine-Instance-Specifiers_Static-Semantics">7.15.2. Static Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -6978,7 +7213,7 @@ specifiers</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_State-Machine-Instance-Specifiers_Dynamic-Semantics">7.14.3. Dynamic Semantics</h4>
+<h4 id="Specifiers_State-Machine-Instance-Specifiers_Dynamic-Semantics">7.15.3. Dynamic Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -7006,7 +7241,7 @@ are used to call the <a href="#Definitions_State-Machine-Definitions_Dynamic-Sem
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_State-Machine-Instance-Specifiers_Examples">7.14.4. Examples</h4>
+<h4 id="Specifiers_State-Machine-Instance-Specifiers_Examples">7.15.4. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine M {
@@ -7028,13 +7263,13 @@ passive component C {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Telemetry-Channel-Specifiers">7.15. Telemetry Channel Specifiers</h3>
+<h3 id="Specifiers_Telemetry-Channel-Specifiers">7.16. Telemetry Channel Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>telemetry channel definition</strong> defines a telemetry channel as part of a
 <a href="#Definitions_Component-Definitions">component definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Telemetry-Channel-Specifiers_Syntax">7.15.1. Syntax</h4>
+<h4 id="Specifiers_Telemetry-Channel-Specifiers_Syntax">7.16.1. Syntax</h4>
 <div class="paragraph">
 <p><code>telemetry</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>:</code> <a href="#Type-Names"><em>type-name</em></a>
@@ -7089,7 +7324,7 @@ A telemetry limit is one of the following:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Telemetry-Channel-Specifiers_Semantics">7.15.2. Semantics</h4>
+<h4 id="Specifiers_Telemetry-Channel-Specifiers_Semantics">7.16.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -7160,7 +7395,7 @@ value of <em>v</em>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Telemetry-Channel-Specifiers_Examples">7.15.3. Examples</h4>
+<h4 id="Specifiers_Telemetry-Channel-Specifiers_Examples">7.16.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">@ An array of 3 F64 values
@@ -7189,7 +7424,7 @@ telemetry Channel3: F64x3 \
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Telemetry-Packet-Set-Specifiers">7.16. Telemetry Packet Set Specifiers</h3>
+<h3 id="Specifiers_Telemetry-Packet-Set-Specifiers">7.17. Telemetry Packet Set Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>telemetry packet set specifier</strong> arranges the telemetry channels of a
 topology into a set of <a href="#Specifiers_Telemetry-Packet-Specifiers">telemetry
@@ -7198,7 +7433,7 @@ A telemetry packet set specifier is part of a
 <a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Telemetry-Packet-Set-Specifiers_Syntax">7.16.1. Syntax</h4>
+<h4 id="Specifiers_Telemetry-Packet-Set-Specifiers_Syntax">7.17.1. Syntax</h4>
 <div class="paragraph">
 <p><code>telemetry</code> <code>packets</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
@@ -7234,7 +7469,7 @@ and the terminating punctuation is a comma.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Telemetry-Packet-Set-Specifiers_Semantics">7.16.2. Semantics</h4>
+<h4 id="Specifiers_Telemetry-Packet-Set-Specifiers_Semantics">7.17.2. Semantics</h4>
 <div class="paragraph">
 <p>FPP recursively resolves any include specifiers in
 <em>telemetry-packet-group-member-sequence</em>.
@@ -7276,7 +7511,7 @@ exactly one of the following is true:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Telemetry-Packet-Set-Specifiers_Example">7.16.3. Example</h4>
+<h4 id="Specifiers_Telemetry-Packet-Set-Specifiers_Example">7.17.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">telemetry packets Packets {
@@ -7302,7 +7537,7 @@ exactly one of the following is true:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Telemetry-Packet-Specifiers">7.17. Telemetry Packet Specifiers</h3>
+<h3 id="Specifiers_Telemetry-Packet-Specifiers">7.18. Telemetry Packet Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>telemetry packet specifier</strong> specifies the format of a data
 packet containing telemetry points.
@@ -7312,7 +7547,7 @@ specifier</a>, which is in turn part of a
 <a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Telemetry-Packet-Specifiers_Syntax">7.17.1. Syntax</h4>
+<h4 id="Specifiers_Telemetry-Packet-Specifiers_Syntax">7.18.1. Syntax</h4>
 <div class="paragraph">
 <p><code>packet</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
@@ -7347,7 +7582,7 @@ but it is not an
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Telemetry-Packet-Specifiers_Semantics">7.17.2. Semantics</h4>
+<h4 id="Specifiers_Telemetry-Packet-Specifiers_Semantics">7.18.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -7388,7 +7623,7 @@ or through
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Telemetry-Packet-Specifiers_Examples">7.17.3. Examples</h4>
+<h4 id="Specifiers_Telemetry-Packet-Specifiers_Examples">7.18.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">@ CDH packet has id 0 and group 0
@@ -7409,18 +7644,18 @@ packet ADCS group 2 {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Topology-Import-Specifiers">7.18. Topology Import Specifiers</h3>
+<h3 id="Specifiers_Topology-Import-Specifiers">7.19. Topology Import Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>topology import specifier</strong> imports one topology into another one.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Topology-Import-Specifiers_Syntax">7.18.1. Syntax</h4>
+<h4 id="Specifiers_Topology-Import-Specifiers_Syntax">7.19.1. Syntax</h4>
 <div class="paragraph">
 <p><code>import</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Topology-Import-Specifiers_Semantics">7.18.2. Semantics</h4>
+<h4 id="Specifiers_Topology-Import-Specifiers_Semantics">7.19.2. Semantics</h4>
 <div class="paragraph">
 <p>The qualified identifier must
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
@@ -7511,7 +7746,7 @@ and connections \$C''_i\$.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Topology-Import-Specifiers_Example">7.18.3. Example</h4>
+<h4 id="Specifiers_Topology-Import-Specifiers_Example">7.19.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">topology A {
@@ -8953,6 +9188,9 @@ reside in the following <strong>name groups</strong>:</p>
 <p>The <strong>component name group</strong></p>
 </li>
 <li>
+<p>The <strong>interface name group</strong></p>
+</li>
+<li>
 <p>The <strong>port name group</strong></p>
 </li>
 <li>
@@ -9002,6 +9240,9 @@ state machine name group.</p>
 </li>
 <li>
 <p>Port definitions reside in the port name group.</p>
+</li>
+<li>
+<p>Port interface definitions reside in the interface name group.</p>
 </li>
 <li>
 <p>State machine definitions reside in the state machine name group.</p>
@@ -11171,7 +11412,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-05-21 16:29:07 -0700
+Last updated 2025-06-03 09:13:52 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
