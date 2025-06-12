@@ -39,22 +39,7 @@ to the following rules.
 |===
 |Name|Rules
 
-|`FwSizeType`
-|Underlying type must be an unsigned integer type
-
-|`FwSignedSizeType`
-|Underlying type must be a signed integer type
-
-|`FwIndexType`
-|Underlying type must be a signed integer type
-
 |`FwAssertArgType`
-|Underlying type must be an integer type
-
-|`FwTaskPriorityType`
-|Underlying type must be an integer type
-
-|`FwQueuePriorityType`
 |Underlying type must be an integer type
 
 |`FwChanIdType`
@@ -66,8 +51,14 @@ to the following rules.
 |`FwDpPriorityType`
 |Underlying type must be an integer type
 
+|`FwEnumStoreType`
+|Underlying type must be an integer type
+
 |`FwEventIdType`
 |Underlying type must be an integer type
+
+|`FwIndexType`
+|Underlying type must be a signed integer type
 
 |`FwOpcodeType`
 |Underlying type must be an integer type
@@ -78,7 +69,19 @@ to the following rules.
 |`FwPrmIdType`
 |Underlying type must be an integer type
 
+|`FwQueuePriorityType`
+|Underlying type must be an integer type
+
+|`FwSignedSizeType`
+|Underlying type must be a signed integer type
+
 |`FwSizeStoreType`
+|Underlying type must be an integer type
+
+|`FwSizeType`
+|Underlying type must be an unsigned integer type
+
+|`FwTaskPriorityType`
 |Underlying type must be an integer type
 
 |`FwTimeBaseStoreType`
@@ -91,9 +94,6 @@ to the following rules.
 |Underlying type must be an integer type
 
 |`FwTraceIdType`
-|Underlying type must be an integer type
-
-|`FwEnumStoreType`
 |Underlying type must be an integer type
 
 |===
