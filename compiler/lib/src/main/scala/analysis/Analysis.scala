@@ -297,7 +297,7 @@ case class Analysis(
     v
   }
 
-  /** Gets the implied type uses for an AST node */
+  /** Gets the implied uses for an AST node */
   def getImpliedUses(kind: ImpliedUse.Kind, id: AstNode.Id): Set[ImpliedUse] =
     impliedUseMap(id).get(kind).getOrElse(Set())
 
