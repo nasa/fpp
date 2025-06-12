@@ -26,6 +26,16 @@ object ImpliedUse {
 
   type Uses = Map[Kind, Set[ImpliedUse]]
 
+  def getTopologyIntegerTypes(a: Analysis) =
+    if (a.dictionaryNeeded) then List(
+      "FwChanIdType",
+      "FwEventIdType",
+      "FwOpcodeType",
+      "FwPacketDescriptorType",
+      "FwTlmPacketizeIdType"
+    )
+    else Nil
+
   def replicateId(id: AstNode.Id) = {
     val loc = Locations.get(id)
     val id1 = AstNode.getId

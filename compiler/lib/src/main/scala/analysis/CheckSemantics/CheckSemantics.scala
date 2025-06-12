@@ -17,6 +17,7 @@ object CheckSemantics {
       a <- Right(a_tul._1)
       tul <- Right(a_tul._2)
       a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
+      a <- ConstructImpliedUseMap.visitList(a, tul, ConstructImpliedUseMap.transUnit)
       a <- CheckUses.visitList(a, tul, CheckUses.transUnit)
       _ <- CheckUseDefCycles.visitList(a, tul, CheckUseDefCycles.transUnit)
       a <- CheckTypeUses.visitList(a, tul, CheckTypeUses.transUnit)

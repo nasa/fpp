@@ -21,6 +21,7 @@ object ComputeDependencies {
         case _ => Right(a)
       }
       a <- BuildSpecLocMap.visitList(a, tul, BuildSpecLocMap.transUnit)
+      a <- ConstructImpliedUseMap.visitList(a, tul, ConstructImpliedUseMap.transUnit)
       a <- MapUsesToLocs.visitList(a, tul, MapUsesToLocs.transUnit)
     }
     yield {
