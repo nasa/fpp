@@ -97,4 +97,3 @@ to the following rules.
 |Underlying type must be an integer type
 
 |===
-
