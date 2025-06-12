@@ -79,8 +79,6 @@ case class Analysis(
   tlmPacketSet: Option[TlmPacketSet] = None,
   /** Whether a dictionary is needed in code generation */
   dictionaryNeeded: Boolean = false,
-  /** The set of type symbols used by the dictionary */
-  dictionaryTypeSymbolSet: Set[Symbol] = Set(),
   /** The map of nodes to implied uses */
   impliedUseMap: Map[AstNode.Id, ImpliedUse.Uses] = Map()
 ) {
