@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/framework_defs/fw_index_type_not_signed.fpp:1.1
+type FwIndexType = U32
+^
+error: the F Prime framework type FwIndexType must be an alias of a signed integer type

@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/framework_defs/fw_assert_arg_type_not_integer.fpp:1.1
+type FwAssertArgType = string
+^
+error: the F Prime framework type FwAssertArgType must be an alias of an integer type

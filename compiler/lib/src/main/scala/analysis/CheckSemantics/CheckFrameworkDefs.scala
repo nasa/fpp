@@ -41,7 +41,7 @@ object CheckFrameworkDefs
     then Right(a)
     else Left(
       SemanticError.InvalidType(
-        Locations.get(a.useDefMap(id).getNodeId),
+        Locations.get(id),
         s"the F Prime framework type ${name} must be an alias of an integer type"
       )
     )
@@ -53,7 +53,7 @@ object CheckFrameworkDefs
     }
     if (valid) then Right(a) else Left(
       SemanticError.InvalidType(
-        Locations.get(a.useDefMap(id).getNodeId),
+        Locations.get(id),
         s"the F Prime framework type ${name} must be an alias of a signed integer type"
       )
     )
@@ -66,7 +66,7 @@ object CheckFrameworkDefs
     }
     if (valid) then Right(a) else Left(
       SemanticError.InvalidType(
-        Locations.get(a.useDefMap(id).getNodeId),
+        Locations.get(id),
         s"the F Prime framework type ${name} must be an alias of an unsigned integer type"
       )
     )

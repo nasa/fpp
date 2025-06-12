@@ -1,0 +1,1 @@
+type FwSizeType = I32
