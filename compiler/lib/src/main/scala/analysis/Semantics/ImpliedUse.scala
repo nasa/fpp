@@ -11,10 +11,15 @@ case class ImpliedUse(
   id: AstNode.Id
 ) {
 
-  def asAstNode = {
+  def asQualIdentNode: AstNode[Ast.QualIdent] = {
     val nodeList = name.toIdentList.map(AstNode.create(_, id))
     val qualIdent = Ast.QualIdent.fromNodeList(nodeList)
     AstNode.create(qualIdent, id)
+  }
+
+  def asTypeNameNode: AstNode[Ast.TypeName] = {
+    val typeName = Ast.TypeNameQualIdent(asQualIdentNode)
+    AstNode.create(typeName, id)
   }
 
 }
@@ -22,7 +27,7 @@ case class ImpliedUse(
 object ImpliedUse {
 
   enum Kind:
-    case Constant, Enum, Type
+    case Constant, Type
 
   type Uses = Map[Kind, Set[ImpliedUse]]
 
