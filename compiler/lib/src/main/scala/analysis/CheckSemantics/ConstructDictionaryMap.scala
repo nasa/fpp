@@ -23,7 +23,6 @@ object ConstructDictionaryMap
       DictionaryEntries(a, t).updateEntries(d2)
     }
     for {
-      _ <- checkImpliedTypeUses(a, aNode._2.id)
       a <- super.defTopologyAnnotatedNode(
         a.copy(topology = Some(t), dictionary = Some(d)),
         aNode
@@ -70,20 +69,6 @@ object ConstructDictionaryMap
       g <- a.tlmPacketSet.get.addPacket(idOpt, packet)
     }
     yield a.copy(tlmPacketSet = Some(g))
-  }
-
-  private def checkImpliedTypeUses(a: Analysis, id: AstNode.Id) = {
-    val impliedTypeUses = a.getImpliedUses(ImpliedUse.Kind.Type, id).toList
-    Result.foldLeft (impliedTypeUses) (()) ((_, iu) => {
-      if a.typeMap(iu.id).getUnderlyingType.isInt
-      then Right(())
-      else Left(
-        SemanticError.InvalidType(
-          Locations.get(a.useDefMap(iu.id).getNodeId),
-          s"the F Prime framework type ${iu.name} must be an alias of an integer type"
-        )
-      )
-    })
   }
 
 }
