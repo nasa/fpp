@@ -32,7 +32,7 @@ object ImpliedUse {
   type Uses = Map[Kind, Set[ImpliedUse]]
 
   def getTopologyIntegerTypes(a: Analysis) =
-    if (a.dictionaryRequired) then List(
+    if (a.dictionaryGeneration) then List(
       "FwChanIdType",
       "FwEventIdType",
       "FwOpcodeType",

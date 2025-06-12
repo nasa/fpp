@@ -77,8 +77,8 @@ case class Analysis(
   dictionary: Option[Dictionary] = None,
   /** The telemetry packet set under construction */
   tlmPacketSet: Option[TlmPacketSet] = None,
-  /** Whether a dictionary is required in code generation */
-  dictionaryRequired: Boolean = false,
+  /** Whether dictionary generation is required */
+  dictionaryGeneration: Boolean = false,
   /** The mapping from nodes to implied uses */
   impliedUseMap: Map[AstNode.Id, ImpliedUse.Uses] = Map()
 ) {

@@ -27,7 +27,7 @@ object FPPToDict {
             case Nil  => List(File.StdIn)
             case list => list
         }
-        val a = Analysis(inputFileSet = options.files.toSet, dictionaryRequired = true)
+        val a = Analysis(inputFileSet = options.files.toSet, dictionaryGeneration = true)
         val metadata = DictionaryMetadata(
             projectVersion=options.projectVersion, 
             frameworkVersion=options.frameworkVersion, 
