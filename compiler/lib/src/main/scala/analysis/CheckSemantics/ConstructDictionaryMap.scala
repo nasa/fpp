@@ -79,8 +79,8 @@ object ConstructDictionaryMap
       then Right(())
       else Left(
         SemanticError.InvalidType(
-          Locations.get(iu.id),
-          s"this F Prime framework type must be an alias of an integer type"
+          Locations.get(a.useDefMap(iu.id).getNodeId),
+          s"the F Prime framework type ${iu.name} must be an alias of an integer type"
         )
       )
     })
