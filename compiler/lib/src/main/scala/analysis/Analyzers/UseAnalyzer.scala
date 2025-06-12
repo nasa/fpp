@@ -204,7 +204,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
   }
 
   private def visitImpliedTypeUses(a: Analysis, id: AstNode.Id) = {
-    val uses = a.impliedUseMap(id).get(ImpliedUse.Kind.Type).getOrElse(Nil).toList
+    val uses = a.getImpliedUses(ImpliedUse.Kind.Type, id).toList
     def visit(a: Analysis, iu: ImpliedUse) = typeUse(a, iu.asTypeNameNode, iu.name)
     visitList(a, uses, visit)
   }

@@ -297,6 +297,10 @@ case class Analysis(
     v
   }
 
+  /** Gets the implied type uses for an AST node */
+  def getImpliedUses(kind: ImpliedUse.Kind, id: AstNode.Id): Set[ImpliedUse] =
+    impliedUseMap(id).get(kind).getOrElse(Set())
+
   /** Gets an int value from an AST node */
   def getIntValue(id: AstNode.Id): Result.Result[Int] = {
     val v = getBigIntValue(id)
