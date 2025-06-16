@@ -31,14 +31,16 @@ object ImpliedUse {
 
   type Uses = Map[Kind, Set[ImpliedUse]]
 
-  def getTopologyIntegerTypes(a: Analysis) =
+  /** The qualified names of implied type uses.
+   *  Each name is a list of identifiers */
+  def getTopologyTypes(a: Analysis) =
     if (a.dictionaryGeneration) then List(
       "FwChanIdType",
       "FwEventIdType",
       "FwOpcodeType",
       "FwPacketDescriptorType",
       "FwTlmPacketizeIdType"
-    )
+    ).map(List(_))
     else Nil
 
   def replicateId(id: AstNode.Id) = {
