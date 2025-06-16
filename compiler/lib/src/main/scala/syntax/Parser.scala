@@ -51,6 +51,8 @@ object Parser extends Parsers {
         Ast.ComponentMember.SpecStateMachineInstance(n)) |
       node(specTlmChannel) ^^ (n =>
         Ast.ComponentMember.SpecTlmChannel(n)) |
+      node(specImport) ^^ (n =>
+        Ast.ComponentMember.SpecImportInterface(n)) |
       failure("component member expected")
   }
 
@@ -149,6 +151,23 @@ object Parser extends Parsers {
           cpu,
           initSpecSequence
         )
+    }
+  }
+
+  private def interfaceMemberNode: Parser[Ast.InterfaceMember.Node] = {
+      node(specPortInstance) ^^ (n =>
+        Ast.InterfaceMember.SpecPortInstance(n)) |
+      node(specImport) ^^ (n =>
+        Ast.InterfaceMember.SpecImportInterface(n)) |
+      failure("component member expected")
+  }
+
+  def interfaceMembers: Parser[List[Ast.InterfaceMember]] =
+    annotatedElementSequence(interfaceMemberNode, semi, Ast.InterfaceMember(_))
+
+  def defInterface: Parser[Ast.DefInterface] = {
+    (interface ~>! ident) ~! (lbrace ~>! interfaceMembers <~! rbrace) ^^ {
+      case name ~ members => Ast.DefInterface(name, members)
     }
   }
 
@@ -393,6 +412,7 @@ object Parser extends Parsers {
       node(defAbsType) ^^ (n => Ast.ModuleMember.DefAbsType(n)) |
       node(defArray) ^^ (n => Ast.ModuleMember.DefArray(n)) |
       node(defComponent) ^^ (n => Ast.ModuleMember.DefComponent(n)) |
+      node(defInterface) ^^ (n => Ast.ModuleMember.DefInterface(n)) |
       node(defComponentInstance) ^^ (n =>
         Ast.ModuleMember.DefComponentInstance(n)) |
       node(defConstant) ^^ (n => Ast.ModuleMember.DefConstant(n)) |
@@ -645,6 +665,7 @@ object Parser extends Parsers {
         state ~! machine ^^ (_ => Ast.SpecLoc.StateMachine) |
         topology ^^ (_ => Ast.SpecLoc.Topology) |
         typeToken ^^ (_ => Ast.SpecLoc.Type) |
+        interface ^^ (_ => Ast.SpecLoc.Interface) |
         failure("location kind expected")
     }
 
@@ -822,8 +843,8 @@ object Parser extends Parsers {
     }
   }
 
-  def specTopImport: Parser[Ast.SpecTopImport] =
-    importToken ~>! node(qualIdent) ^^ (top => Ast.SpecTopImport(top))
+  def specImport: Parser[Ast.SpecImport] =
+    importToken ~>! node(qualIdent) ^^ (top => Ast.SpecImport(top))
 
   private def specStateTransition: Parser[Ast.SpecStateTransition] = {
     (on ~> node(ident)) ~! opt(ifToken ~> node(ident)) ~ transitionOrDo ^^ {
@@ -914,7 +935,7 @@ object Parser extends Parsers {
       node(specInclude) ^^ (n => Ast.TopologyMember.SpecInclude(n)) |
       node(specTlmPacketSet) ^^ (n =>
         Ast.TopologyMember.SpecTlmPacketSet(n)) |
-      node(specTopImport) ^^ (n => Ast.TopologyMember.SpecTopImport(n)) |
+      node(specImport) ^^ (n => Ast.TopologyMember.SpecTopImport(n)) |
       failure("topology member expected")
   }
 
@@ -1150,6 +1171,8 @@ object Parser extends Parsers {
   private def instance = accept("instance", { case t: Token.INSTANCE => t })
 
   private def internal = accept("internal", { case t: Token.INTERNAL => t })
+
+  private def interface = accept("interface", { case t: Token.INTERFACE => t })
 
   private def lbracket = accept("[", { case t: Token.LBRACKET => t })
 

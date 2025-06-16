@@ -40,6 +40,9 @@ trait AstTransformer {
     node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]
   ): ResultAnnotatedNode[Ast.DefComponentInstance] = Right(default(in), node)
 
+  def defInterfaceAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefInterface]]): ResultAnnotatedNode[Ast.DefInterface] =
+    Right(default(in), node)
+
   def defConstantAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefConstant]]
@@ -195,8 +198,13 @@ trait AstTransformer {
 
   def specTopImportAnnotatedNode(
     in: In,
-    node: Ast.Annotated[AstNode[Ast.SpecTopImport]]
-  ): ResultAnnotatedNode[Ast.SpecTopImport] = Right(default(in), node)
+    node: Ast.Annotated[AstNode[Ast.SpecImport]]
+  ): ResultAnnotatedNode[Ast.SpecImport] = Right(default(in), node)
+
+  def specInterfaceImportAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecImport]]
+  ): ResultAnnotatedNode[Ast.SpecImport] = Right(default(in), node)
 
   def transUnit(in: In, tu: Ast.TransUnit): Result[Ast.TransUnit] =
     Right(default(in), tu)
@@ -264,6 +272,27 @@ trait AstTransformer {
         transform(specStateMachineInstanceAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.SpecStateMachineInstance(_))
       case Ast.ComponentMember.SpecTlmChannel(node1) =>
         transform(specTlmChannelAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.SpecTlmChannel(_))
+      case Ast.ComponentMember.SpecImportInterface(node1) =>
+        transform(specInterfaceImportAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.SpecImportInterface(_))
+    }
+  }
+
+  final def matchInterfaceMember(in: In, member: Ast.InterfaceMember): Result[Ast.InterfaceMember] = {
+    def transform[T](
+      result: ResultAnnotatedNode[T],
+      f: AstNode[T] => Ast.InterfaceMember.Node
+    ) = {
+      for { pair <- result } yield {
+        val (out, (pre, node, post)) = pair
+        (out, Ast.InterfaceMember(pre, f(node), post))
+      }
+    }
+    val (pre, node, post) =  member.node
+    node match {
+      case Ast.InterfaceMember.SpecPortInstance(node1) =>
+        transform(specPortInstanceAnnotatedNode(in, (pre, node1, post)), Ast.InterfaceMember.SpecPortInstance(_))
+      case Ast.InterfaceMember.SpecImportInterface(node1) =>
+        transform(specInterfaceImportAnnotatedNode(in, (pre, node1, post)), Ast.InterfaceMember.SpecImportInterface(_))
     }
   }
 
@@ -304,6 +333,8 @@ trait AstTransformer {
         transform(defComponentAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefComponent(_))
       case Ast.ModuleMember.DefComponentInstance(node1) =>
         transform(defComponentInstanceAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefComponentInstance(_))
+      case Ast.ModuleMember.DefInterface(node1) =>
+        transform(defInterfaceAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefInterface(_))
       case Ast.ModuleMember.DefConstant(node1) =>
         transform(defConstantAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefConstant(_))
       case Ast.ModuleMember.DefEnum(node1) =>

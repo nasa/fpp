@@ -4,6 +4,7 @@ def_array
 def_component_instance
 def_constant
 def_enum
+def_interface
 def_port
 def_state_machine
 def_struct
@@ -42,6 +43,7 @@ spec_connection_graph_direct
 spec_connection_graph_pattern
 spec_container
 spec_event
+spec_import_interface
 spec_internal_port
 spec_param
 spec_record

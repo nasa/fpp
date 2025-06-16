@@ -4,9 +4,10 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** Analyze types and expressions */
-trait TypeExpressionAnalyzer 
-  extends Analyzer 
+trait TypeExpressionAnalyzer
+  extends Analyzer
   with ComponentAnalyzer
+  with InterfaceAnalyzer
   with ModuleAnalyzer
   with StateMachineAnalyzer
   with TlmPacketSetAnalyzer

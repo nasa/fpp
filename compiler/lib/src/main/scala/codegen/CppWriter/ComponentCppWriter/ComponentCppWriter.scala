@@ -1089,7 +1089,7 @@ object ComponentCppWriter extends CppWriterUtils {
       )
 
     port match {
-      case PortInstance.Special(aNode, _, _, _, _) => aNode._2.data match {
+      case PortInstance.Special(aNode, _, _, _, _, _) => aNode._2.data match {
         case Ast.SpecPortInstance.Special(_, kind, _, _, _) => kind match {
           case Ast.SpecPortInstance.TextEvent => List.concat(
             lines("#if FW_ENABLE_TEXT_LOGGING == 1"),

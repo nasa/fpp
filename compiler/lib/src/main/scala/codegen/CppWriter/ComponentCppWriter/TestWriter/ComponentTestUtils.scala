@@ -303,7 +303,7 @@ abstract class ComponentTestUtils(
   /** Queries whether a port instance is used for testing */
   def portInstanceIsUsed(p: PortInstance): Boolean =
     p match {
-      case PortInstance.Special(aNode, _, _, _, _) =>
+      case PortInstance.Special(aNode, _, _, _, _, _) =>
         import Ast.SpecPortInstance._
         val spec @ Special(_, kind, _, _, _) = aNode._2.data
         kind match {

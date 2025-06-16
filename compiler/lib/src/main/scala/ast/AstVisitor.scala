@@ -21,6 +21,8 @@ trait AstVisitor {
 
   def defComponentAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefComponent]]): Out = default(in)
 
+  def defInterfaceAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefInterface]]): Out = default(in)
+
   def defComponentInstanceAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]): Out = default(in)
 
   def defConstantAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefConstant]]): Out = default(in)
@@ -122,7 +124,9 @@ trait AstVisitor {
 
   def specTlmPacketSetAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTlmPacketSet]]): Out = default(in)
 
-  def specTopImportAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTopImport]]): Out = default(in)
+  def specTopImportAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecImport]]): Out = default(in)
+
+  def specInterfaceImportAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecImport]]): Out = default(in)
 
   def transUnit(in: In, tu: Ast.TransUnit): Out = default(in)
 
@@ -157,6 +161,15 @@ trait AstVisitor {
       case Ast.ComponentMember.SpecRecord(node1) => specRecordAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecStateMachineInstance(node1) => specStateMachineInstanceAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecTlmChannel(node1) => specTlmChannelAnnotatedNode(in, (pre, node1, post))
+      case Ast.ComponentMember.SpecImportInterface(node1) => specInterfaceImportAnnotatedNode(in, (pre, node1, post))
+    }
+  }
+
+  final def matchInterfaceMember(in: In, member: Ast.InterfaceMember): Out = {
+    val (pre, node, post) =  member.node
+    node match {
+      case Ast.InterfaceMember.SpecPortInstance(node1) => specPortInstanceAnnotatedNode(in, (pre, node1, post))
+      case Ast.InterfaceMember.SpecImportInterface(node1) => specInterfaceImportAnnotatedNode(in, (pre, node1, post))
     }
   }
 
@@ -182,6 +195,7 @@ trait AstVisitor {
       case Ast.ModuleMember.DefAliasType(node1) => defAliasTypeAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefArray(node1) => defArrayAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefComponent(node1) => defComponentAnnotatedNode(in, (pre, node1, post))
+      case Ast.ModuleMember.DefInterface(node1) => defInterfaceAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefComponentInstance(node1) => defComponentInstanceAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefConstant(node1) => defConstantAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefEnum(node1) => defEnumAnnotatedNode(in, (pre, node1, post))

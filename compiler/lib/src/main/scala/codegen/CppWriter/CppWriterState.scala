@@ -132,42 +132,53 @@ case class CppWriterState(
 
   /** Write include directives for autocoded files */
   def writeIncludeDirectives(usedSymbols: Iterable[Symbol]): List[String] = {
-    def getIncludeFiles(sym: Symbol): Option[String] = {
+    def getIncludeFiles(sym: Symbol): List[String] = {
       val name = getName(sym)
       for {
-        fileName <- sym match {
-          case _: Symbol.AbsType => Some(name)
-          case _: Symbol.AliasType => Some(
-            ComputeCppFiles.FileNames.getAliasType(name)
+        filenames <- sym match {
+          case _: Symbol.AbsType => List(getIncludePath(sym, name))
+          case _: Symbol.AliasType => List(
+            getIncludePath(sym, ComputeCppFiles.FileNames.getAliasType(name))
           )
-          case _: Symbol.Array => Some(
-            ComputeCppFiles.FileNames.getArray(name)
+          case _: Symbol.Array => List(
+            getIncludePath(sym, ComputeCppFiles.FileNames.getArray(name))
           )
-          case _: Symbol.Component => Some(
-            ComputeCppFiles.FileNames.getComponent(name)
+          case _: Symbol.Component => List(
+            getIncludePath(sym, ComputeCppFiles.FileNames.getComponent(name))
           )
-          case _: Symbol.Enum => Some(
-            ComputeCppFiles.FileNames.getEnum(name)
+          case _: Symbol.Enum => List(
+            getIncludePath(sym, ComputeCppFiles.FileNames.getEnum(name))
           )
-          case _: Symbol.Port => Some(
-            ComputeCppFiles.FileNames.getPort(name)
+          case _: Symbol.Port => List(
+            getIncludePath(sym, ComputeCppFiles.FileNames.getPort(name))
           )
           case stateMachine: Symbol.StateMachine =>
             val kind = StateMachine.getSymbolKind(stateMachine)
-            Some(ComputeCppFiles.FileNames.getStateMachine(name, kind))
-          case _: Symbol.Struct => Some(
-            ComputeCppFiles.FileNames.getStruct(name)
+            List(getIncludePath(sym, ComputeCppFiles.FileNames.getStateMachine(name, kind)))
+          case _: Symbol.Struct => List(
+            getIncludePath(sym, ComputeCppFiles.FileNames.getStruct(name))
           )
-          case _: Symbol.Topology => Some(
-            ComputeCppFiles.FileNames.getTopology(name)
+          case _: Symbol.Topology => List(
+            getIncludePath(sym, ComputeCppFiles.FileNames.getTopology(name))
           )
-          case _ => None
+          case iface: Symbol.Interface =>
+            // Resolve the uses to pick up the header dependencies
+            // implied by imported interfaces
+            val Right(a) = UsedSymbols.defInterfaceAnnotatedNode(
+              this.a,
+              this.a.interfaceMap(iface).aNode,
+            )
+            a.usedSymbolSet.flatMap(getIncludeFiles).toList
+          case _: Symbol.Constant => List()
+          case _: Symbol.EnumConstant => List()
+          case _: Symbol.Module => List()
+          case _: Symbol.ComponentInstance => List()
         }
       }
-      yield getIncludePath(sym, fileName)
+      yield filenames
     }
 
-    usedSymbols.map(getIncludeFiles).filter(_.isDefined).map(_.get).map(CppWriterState.headerString).toList
+    usedSymbols.flatMap(getIncludeFiles).map(CppWriterState.headerString).toList
   }
 
   def isTypeSupportedInC(t: Type): Boolean = {

@@ -1471,7 +1471,7 @@ case class ComponentTesterBaseWriter(
               getPortParams(i).map(_._1)
             )
           )
-        case PortInstance.Special(aNode, _, _, _, _) =>
+        case PortInstance.Special(aNode, _, _, _, _, _) =>
           import Ast.SpecPortInstance._
           val spec @ Special(_, kind, _, _, _) = aNode._2.data
           kind match {
