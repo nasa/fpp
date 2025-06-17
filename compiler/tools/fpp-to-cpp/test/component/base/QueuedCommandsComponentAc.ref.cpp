@@ -1518,71 +1518,71 @@ void QueuedCommandsComponentBase ::
   FW_ASSERT(this->m_cmdRegOut_OutputPort[0].isConnected());
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_SYNC
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_SYNC
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_SYNC_PRIMITIVE
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_SYNC_PRIMITIVE
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_SYNC_STRING
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_SYNC_STRING
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_SYNC_ENUM
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_SYNC_ENUM
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_SYNC_ARRAY
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_SYNC_ARRAY
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_SYNC_STRUCT
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_SYNC_STRUCT
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_GUARDED
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_GUARDED
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_GUARDED_PRIMITIVE
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_GUARDED_PRIMITIVE
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_GUARDED_STRING
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_GUARDED_STRING
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_GUARDED_ENUM
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_GUARDED_ENUM
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_GUARDED_ARRAY
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_GUARDED_ARRAY
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_GUARDED_STRUCT
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_GUARDED_STRUCT
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_ASYNC
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_ASYNC
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_PRIORITY
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_PRIORITY
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_PARAMS_PRIORITY
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_PARAMS_PRIORITY
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_DROP
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_DROP
   );
 
   this->m_cmdRegOut_OutputPort[0].invoke(
-    this->getIdBase() + OPCODE_CMD_PARAMS_PRIORITY_DROP
+    static_cast<FwOpcodeType>(this->getIdBase()) + OPCODE_CMD_PARAMS_PRIORITY_DROP
   );
 }
 

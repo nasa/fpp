@@ -406,7 +406,7 @@ case class ComponentHistory(
           wrapInScope(
             "struct TextLogEntry {",
             lines(
-              """|U32 id;
+              """|FwEventIdType id;
                  |Fw::Time timeTag;
                  |Fw::LogSeverity severity;
                  |Fw::TextLogString text;
