@@ -43,7 +43,7 @@ object FPPDepend {
       case Nil => List(File.StdIn)
       case list => list
     }
-    val a = Analysis(inputFileSet = options.files.toSet)
+    val a = Analysis(inputFileSet = options.files.toSet, dictionaryGeneration = true)
     for {
       tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
       aTul <- ResolveSpecInclude.transformList(

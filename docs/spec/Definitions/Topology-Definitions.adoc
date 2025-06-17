@@ -292,6 +292,22 @@ stem:[c_2].
 
 . Otherwise stem:[c_1] and stem:[c_2] are equal in the ordering.
 
+==== Implied Uses
+
+When generating a dictionary from a topology _T_, the analyzer may
+treat the definition of _T_ as if it contained uses of
+one or more <<Definitions_Alias-Type-Definitions_Framework-Definitions,
+framework alias type definitions>> that are required by the dictionary.
+These uses are called *implied uses*.
+
+The management of these implied uses is left up to the FPP implementation.
+The only requirement levied here is that, when generating a dictionary,
+the FPP implementation must guarantee that all the framework definitions
+required by the dictionary specification are available in the model.
+Those framework definitions are specified
+in the https://fprime.jpl.nasa.gov/latest/docs/reference/fpp-json-dict/[F Prime 
+dictionary specification].
+
 ==== Examples
 
 *Example 1.*

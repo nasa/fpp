@@ -118,30 +118,18 @@ object CheckUses extends UseAnalyzer {
   }
 
   override def defTopologyAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
-    a.dictionaryNeeded match {
-      case true => {
-        val impliedTypeUses = List(
-          "FwChanIdType", 
-          "FwEventIdType", 
-          "FwOpcodeType", 
-          "FwPacketDescriptorType", 
-          "FwTlmPacketizeIdType"
-        )
-        val (_, node1, _) = node
-        val mapping = a.nestedScope.get (NameGroup.Type) _
+    val impliedTypeUses = a.getImpliedUses(ImpliedUse.Kind.Type, node._2.id).toList
+    for {
+      _ <- Result.foldLeft (impliedTypeUses) (()) ((_, itu) => {
         for {
-          a <- Result.foldLeft (impliedTypeUses) (a) ((a, t) => {
-            for {
-              symbol <- Result.annotateResult(
-                helpers.getSymbolForName(mapping)(node1.id, t), 
-                s"when constructing a dictionary, the type $t must be defined")
-            } yield a.copy(dictionaryTypeSymbolSet = a.dictionaryTypeSymbolSet + symbol)
-          })
-          a <- super.defTopologyAnnotatedNode(a, node)
-        } yield a
-      }
-      case false => super.defTopologyAnnotatedNode(a, node)
-    }
+          _ <- Result.annotateResult(
+            typeUse(a, itu.asTypeNameNode, itu.name),
+            s"when constructing a dictionary, the type ${itu.name} must be defined"
+          )
+        } yield ()
+      })
+      a <- super.defTopologyAnnotatedNode(a, node)
+    } yield a
   }
 
   override def portUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =

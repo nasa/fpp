@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/framework_defs/fw_size_type_not_unsigned.fpp:1.1
+type FwSizeType = I32
+^
+error: the F Prime framework type FwSizeType must be an alias of an unsigned integer type

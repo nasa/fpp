@@ -8,10 +8,16 @@ object AstNode {
   /** A node identifier */
   type Id = Int
 
+  /** Get a fresh identifier */
+  def getId: Id = {
+    val id0 = id
+    id = id + 1
+    id0
+  }
+
   /** Create a new node with a fresh identifier */
   def create[T](data: T): AstNode[T] = {
-    val node = AstNode(data, id)
-    id = id + 1
+    val node = AstNode(data, getId)
     node
   }
 

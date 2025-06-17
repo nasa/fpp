@@ -39,6 +39,14 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     } yield a
   }
 
+  override def defTopologyAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
+    val id = node._2.id
+    for {
+      a <- visitImpliedUses(a, id)
+      a <- super.defTopologyAnnotatedNode(a, node)
+    } yield a
+  }
+
   override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot) = {
     def nameOpt(e: Ast.Expr, qualifier: List[Name.Unqualified]): Option[Name.Qualified] = {
       e match {
@@ -126,9 +134,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
           case Ast.SpecPortInstance.TimeGet => "Time"
         }
         val identList = List("Fw", name)
-        val nodeList = identList.map(AstNode.create(_, node.id))
-        val qualIdent = Ast.QualIdent.fromNodeList(nodeList)
-        val impliedUse = AstNode.create(qualIdent, node.id)
+        val impliedUse = ImpliedUse.fromIdentListAndId(identList, node.id).asQualIdentNode
         for {
           a <- opt(exprNode)(a, special.priority)
           a <- qualIdentNode(portUse)(a, impliedUse)
@@ -191,5 +197,23 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
       case Ast.TlmPacketMember.TlmChannelIdentifier(node) =>
         tlmChannelIdentifierNode(a, node)
     }
+
+  private def visitImpliedConstantUses(a: Analysis, id: AstNode.Id) = {
+    // TODO
+    Right(a)
+  }
+
+  private def visitImpliedTypeUses(a: Analysis, id: AstNode.Id) = {
+    val uses = a.getImpliedUses(ImpliedUse.Kind.Type, id).toList
+    def visit(a: Analysis, iu: ImpliedUse) = typeUse(a, iu.asTypeNameNode, iu.name)
+    visitList(a, uses, visit)
+  }
+
+  private def visitImpliedUses(a: Analysis, id: AstNode.Id) = {
+    for {
+      a <- visitImpliedConstantUses(a, id)
+      a <- visitImpliedTypeUses(a, id)
+    } yield a
+  }
 
 }

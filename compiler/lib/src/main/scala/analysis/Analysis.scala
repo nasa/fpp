@@ -77,10 +77,10 @@ case class Analysis(
   dictionary: Option[Dictionary] = None,
   /** The telemetry packet set under construction */
   tlmPacketSet: Option[TlmPacketSet] = None,
-  /** Whether a dictionary is needed in code generation */
-  dictionaryNeeded: Boolean = false,
-  /** The set of type symbols used by the dictionary */
-  dictionaryTypeSymbolSet: Set[Symbol] = Set()
+  /** Whether dictionary generation is required */
+  dictionaryGeneration: Boolean = false,
+  /** The mapping from nodes to implied uses */
+  impliedUseMap: Map[AstNode.Id, ImpliedUse.Uses] = Map()
 ) {
 
   /** Gets the qualified name of a symbol */
@@ -294,6 +294,10 @@ case class Analysis(
     ): @unchecked
     v
   }
+
+  /** Gets the implied uses for an AST node */
+  def getImpliedUses(kind: ImpliedUse.Kind, id: AstNode.Id): Set[ImpliedUse] =
+    impliedUseMap(id).get(kind).getOrElse(Set())
 
   /** Gets an int value from an AST node */
   def getIntValue(id: AstNode.Id): Result.Result[Int] = {
