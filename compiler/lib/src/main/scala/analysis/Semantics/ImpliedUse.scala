@@ -11,6 +11,15 @@ case class ImpliedUse(
   id: AstNode.Id
 ) {
 
+  def asExprNode: AstNode[Ast.Expr] = {
+    val Name.Qualified(qualifier, base) = name
+    val head :: tail = qualifier :+ base
+    val expr = tail.foldLeft (Ast.ExprIdent(head): Ast.Expr) ((e1, s) =>
+      Ast.ExprDot(AstNode.create(e1, id), AstNode.create(s, id))
+    )
+    AstNode.create(expr, id)
+  }
+
   def asQualIdentNode: AstNode[Ast.QualIdent] = {
     val nodeList = name.toIdentList.map(AstNode.create(_, id))
     val qualIdent = Ast.QualIdent.fromNodeList(nodeList)
@@ -40,7 +49,18 @@ object ImpliedUse {
       "FwOpcodeType",
       "FwPacketDescriptorType",
       "FwTlmPacketizeIdType"
-    ).map(List(_))
+    ).map(List(_)) ++ List(
+      List("Fw", "DpState"),
+      List("Fw", "DpCfg", "ProcType")
+    )
+    else Nil
+
+  /** The qualified names of implied constant uses.
+   *  Each name is a list of identifiers */
+  def getTopologyConstants(a: Analysis) =
+    if (a.dictionaryGeneration) then List(
+      List("Fw", "DpCfg", "CONTAINER_USER_DATA_SIZE")
+    )
     else Nil
 
   def replicateId(id: AstNode.Id) = {

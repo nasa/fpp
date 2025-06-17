@@ -36,6 +36,35 @@ object CheckFrameworkDefs
     }
   }
 
+  override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
+    val name = a.getQualifiedName (Symbol.Constant(aNode)).toString
+    val id = aNode._2.id
+    name match {
+      case "Fw.DpCfg.CONTAINER_USER_DATA_SIZE" => requireIntegerConstant(a, name, id)
+      case _ => Right(a)
+    }
+  }
+
+  override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
+    val name = a.getQualifiedName (Symbol.Enum(aNode)).toString
+    val id = aNode._2.id
+    name match {
+      case "Fw.DpState" => Right(a) // placeholder
+      case "Fw.DpCfg.ProcType" => Right(a) // placeholder
+      case _ => Right(a)
+    }
+  }
+
+  private def requireIntegerConstant(a: Analysis, name: String, id: AstNode.Id) =
+    if a.typeMap(id).getUnderlyingType.isInt
+    then Right(a)
+    else Left(
+      SemanticError.InvalidType(
+        Locations.get(id),
+        s"the F Prime framework constant ${name} must have an integer type"
+      )
+    )
+
   private def requireIntegerTypeAlias(a: Analysis, name: String, id: AstNode.Id) =
     if a.typeMap(id).getUnderlyingType.isInt
     then Right(a)
