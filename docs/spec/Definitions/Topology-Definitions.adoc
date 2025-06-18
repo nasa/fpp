@@ -31,6 +31,8 @@ instance specifier>>
 
 * A <<Specifiers_Topology-Import-Specifiers,topology import specifier>>
 
+* A <<Specifiers_Port-Export-Specifiers,topology port export specifier>>
+
 * An <<Specifiers_Include-Specifiers,include specifier>>
 
 ==== Semantics
@@ -138,7 +140,7 @@ of the topology to a set of packets.
 FPP automatically assigns port numbers as follows.
 
 *Check output port numbers:*
-At each output port _p_ of each component instance _I_, check that
+At each output port _p_ of each component instance (or topology) _I_, check that
 
 . The number of connections is in bounds for the
 size of _I_ `.` _p_.
@@ -157,7 +159,7 @@ a.p[0] -> c.p
 Assign matching numbers to matched pairs of ports.
 For each instance _I_ in the topology:
 
-. Let _C_ be the component type of _I_.
+. Let _C_ be the component type or a topology type of _I_.
 
 .  For each
 <<Specifiers_Port-Matching-Specifiers,port matching specifier>>
@@ -241,10 +243,14 @@ For purposes of port numbering, FPP orders connections as follows.
 A *connection endpoint* is _I_ `.` _p_ or _I_ `.` _p_ `[` _n_ `]`, where
 
 * _I_ refers to a
-<<Definitions_Component-Instance-Definitions,component instance>>.
+<<Definitions_Component-Instance-Definitions,component instance>> or
+an <<Specifiers_Topology-Import_Specifiers,imported>> <<Definitions_Topology-Definitions,topology definition>>.
 
-* _p_ is an identifier that names a port instance specified in
+* If _I_ is a component instance, _p_ is an identifier that names a port instance specified in
 the component definition associated with _I_.
+
+* If _I_ is topology definition, _p_ is an identifier that names an <<Specifiers_Port-Export-Specifiers,exported port>> inside
+_I_. _I_ must be <<Specifiers_Topology-Import_Specifiers,imported>> into the parent topology of the connection.
 
 * _n_ is an optional port number that is present if and only
 if it appears in the model source.
