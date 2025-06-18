@@ -199,8 +199,9 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     }
 
   private def visitImpliedConstantUses(a: Analysis, id: AstNode.Id) = {
-    // TODO
-    Right(a)
+    val uses = a.getImpliedUses(ImpliedUse.Kind.Constant, id).toList
+    def visit(a: Analysis, iu: ImpliedUse) = constantUse(a, iu.asExprNode, iu.name)
+    visitList(a, uses, visit)
   }
 
   private def visitImpliedTypeUses(a: Analysis, id: AstNode.Id) = {

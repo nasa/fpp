@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/framework_defs/user_data_size_not_integer.fpp:4.9
+        constant CONTAINER_USER_DATA_SIZE = 1.5
+        ^
+error: the F Prime framework constant Fw.DpCfg.CONTAINER_USER_DATA_SIZE must have an integer type

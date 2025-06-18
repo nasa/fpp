@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/framework_defs/fw_event_id_type_not_alias_type.fpp:1.1
+array FwEventIdType = [3] F32
+^
+error: the F Prime framework type FwEventIdType must be an alias type

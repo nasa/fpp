@@ -119,6 +119,7 @@ object CheckUses extends UseAnalyzer {
 
   override def defTopologyAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
     val impliedTypeUses = a.getImpliedUses(ImpliedUse.Kind.Type, node._2.id).toList
+    val impliedConstantUses = a.getImpliedUses(ImpliedUse.Kind.Constant, node._2.id).toList
     for {
       _ <- Result.foldLeft (impliedTypeUses) (()) ((_, itu) => {
         for {
@@ -126,6 +127,16 @@ object CheckUses extends UseAnalyzer {
             typeUse(a, itu.asTypeNameNode, itu.name),
             s"when constructing a dictionary, the type ${itu.name} must be defined"
           )
+        } yield ()
+      })
+      _ <- Result.foldLeft (impliedConstantUses) (()) ((_, itu) => {
+        for {
+          _ <- {
+            Result.annotateResult(
+              constantUse(a, itu.asExprNode, itu.name),
+              s"when constructing a dictionary, the constant ${itu.name} must be defined"
+            )
+          }
         } yield ()
       })
       a <- super.defTopologyAnnotatedNode(a, node)

@@ -296,7 +296,7 @@ stem:[c_2].
 
 When generating a dictionary from a topology _T_, the analyzer may
 treat the definition of _T_ as if it contained uses of
-one or more <<Definitions_Alias-Type-Definitions_Framework-Definitions,
+one or more <<Definitions_Framework-Definitions,
 framework alias type definitions>> that are required by the dictionary.
 These uses are called *implied uses*.
 
