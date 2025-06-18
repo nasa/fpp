@@ -97,20 +97,3 @@ enum Status {
   MAYBE
 } default MAYBE
 ----
-
-==== Framework Definitions
-The following enum definitions are used specifically by the
-F Prime framework.
-If they are present in the model, then they must conform
-to the following rules.
-
-|===
-|Name|Rules
-
-|`Fw.DpState`
-|
-
-|`Fw.DpCfg.ProcType`
-|
-
-|===

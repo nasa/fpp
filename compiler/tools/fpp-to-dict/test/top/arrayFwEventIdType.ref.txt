@@ -1,5 +1,5 @@
 fpp-to-dict
-[ local path prefix ]/tools/fpp-to-dict/test/top/arrayFwEventIdType.fpp:5.1
+[ local path prefix ]/tools/fpp-to-dict/test/top/arrayFwEventIdType.fpp:4.1
 array FwEventIdType = [3] F32
 ^
-error: the F Prime framework type FwEventIdType must be an alias of an integer type
+error: the F Prime framework type FwEventIdType must be an alias type

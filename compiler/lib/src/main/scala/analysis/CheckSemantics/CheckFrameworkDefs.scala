@@ -9,29 +9,83 @@ object CheckFrameworkDefs
   with ModuleAnalyzer
 {
 
+  override def defAbsTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]) = {
+    val name = a.getQualifiedName (Symbol.AbsType(aNode)).toString
+    val id = aNode._2.id
+    checkFrameworkTypes(a, name, id)
+  }
+
   override def defAliasTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]) = {
     val name = a.getQualifiedName (Symbol.AliasType(aNode)).toString
     val id = aNode._2.id
+    for {
+      a <- checkFrameworkTypes(a, name, id)
+      a <- name match {
+        case "FwAssertArgType" => requireIntegerTypeAlias(a, name, id)
+        case "FwChanIdType" => requireIntegerTypeAlias(a, name, id)
+        case "FwDpIdType" => requireIntegerTypeAlias(a, name, id)
+        case "FwDpPriorityType" => requireIntegerTypeAlias(a, name, id)
+        case "FwEnumStoreType" => requireIntegerTypeAlias(a, name, id)
+        case "FwEventIdType" => requireIntegerTypeAlias(a, name, id)
+        case "FwIndexType" => requireSignedIntegerTypeAlias(a, name, id)
+        case "FwOpcodeType" => requireIntegerTypeAlias(a, name, id)
+        case "FwPacketDescriptorType" => requireIntegerTypeAlias(a, name, id)
+        case "FwPrmIdType" => requireIntegerTypeAlias(a, name, id)
+        case "FwQueuePriorityType" => requireIntegerTypeAlias(a, name, id)
+        case "FwSignedSizeType" => requireSignedIntegerTypeAlias(a, name, id)
+        case "FwSizeStoreType" => requireIntegerTypeAlias(a, name, id)
+        case "FwSizeType" => requireUnsignedIntegerTypeAlias(a, name, id)
+        case "FwPriorityType" => requireIntegerTypeAlias(a, name, id)
+        case "FwTimeBaseStoreType" => requireIntegerTypeAlias(a, name, id)
+        case "FwTimeContextStoreType" => requireIntegerTypeAlias(a, name, id)
+        case "FwTlmPacketizeIdType" => requireIntegerTypeAlias(a, name, id)
+        case "FwTraceIdType" => requireIntegerTypeAlias(a, name, id)
+        case _ => Right(a)
+      }
+    } yield a
+  }
+
+  override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
+    val name = a.getQualifiedName (Symbol.Array(aNode)).toString
+    val id = aNode._2.id
+    checkFrameworkTypes(a, name, id)
+  }
+
+  override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
+    val name = a.getQualifiedName (Symbol.Enum(aNode)).toString
+    val id = aNode._2.id
+    checkFrameworkTypes(a, name, id)
+  }
+
+  override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
+    val name = a.getQualifiedName (Symbol.Struct(aNode)).toString
+    val id = aNode._2.id
+    checkFrameworkTypes(a, name, id)
+  }
+
+  private def checkFrameworkTypes(a: Analysis, name: String, id: AstNode.Id) = {
     name match {
-      case "FwAssertArgType" => requireIntegerTypeAlias(a, name, id)
-      case "FwChanIdType" => requireIntegerTypeAlias(a, name, id)
-      case "FwDpIdType" => requireIntegerTypeAlias(a, name, id)
-      case "FwDpPriorityType" => requireIntegerTypeAlias(a, name, id)
-      case "FwEnumStoreType" => requireIntegerTypeAlias(a, name, id)
-      case "FwEventIdType" => requireIntegerTypeAlias(a, name, id)
-      case "FwIndexType" => requireSignedIntegerTypeAlias(a, name, id)
-      case "FwOpcodeType" => requireIntegerTypeAlias(a, name, id)
-      case "FwPacketDescriptorType" => requireIntegerTypeAlias(a, name, id)
-      case "FwPrmIdType" => requireIntegerTypeAlias(a, name, id)
-      case "FwQueuePriorityType" => requireIntegerTypeAlias(a, name, id)
-      case "FwSignedSizeType" => requireSignedIntegerTypeAlias(a, name, id)
-      case "FwSizeStoreType" => requireIntegerTypeAlias(a, name, id)
-      case "FwSizeType" => requireUnsignedIntegerTypeAlias(a, name, id)
-      case "FwPriorityType" => requireIntegerTypeAlias(a, name, id)
-      case "FwTimeBaseStoreType" => requireIntegerTypeAlias(a, name, id)
-      case "FwTimeContextStoreType" => requireIntegerTypeAlias(a, name, id)
-      case "FwTlmPacketizeIdType" => requireIntegerTypeAlias(a, name, id)
-      case "FwTraceIdType" => requireIntegerTypeAlias(a, name, id)
+      case "FwAssertArgType" => requireAliasType(a, name, id)
+      case "FwChanIdType" => requireAliasType(a, name, id)
+      case "FwDpIdType" => requireAliasType(a, name, id)
+      case "FwDpPriorityType" => requireAliasType(a, name, id)
+      case "FwEnumStoreType" => requireAliasType(a, name, id)
+      case "FwEventIdType" => requireAliasType(a, name, id)
+      case "FwIndexType" => requireAliasType(a, name, id)
+      case "FwOpcodeType" => requireAliasType(a, name, id)
+      case "FwPacketDescriptorType" => requireAliasType(a, name, id)
+      case "FwPrmIdType" => requireAliasType(a, name, id)
+      case "FwQueuePriorityType" => requireAliasType(a, name, id)
+      case "FwSignedSizeType" => requireAliasType(a, name, id)
+      case "FwSizeStoreType" => requireAliasType(a, name, id)
+      case "FwSizeType" => requireAliasType(a, name, id)
+      case "FwPriorityType" => requireAliasType(a, name, id)
+      case "FwTimeBaseStoreType" => requireAliasType(a, name, id)
+      case "FwTimeContextStoreType" => requireAliasType(a, name, id)
+      case "FwTlmPacketizeIdType" => requireAliasType(a, name, id)
+      case "FwTraceIdType" => requireAliasType(a, name, id)
+      case "Fw.DpState" => requireEnum(a, name, id)
+      case "Fw.DpCfg.ProcType" => requireEnum(a, name, id)
       case _ => Right(a)
     }
   }
@@ -45,13 +99,29 @@ object CheckFrameworkDefs
     }
   }
 
-  override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
-    val name = a.getQualifiedName (Symbol.Enum(aNode)).toString
-    val id = aNode._2.id
-    name match {
-      case "Fw.DpState" => Right(a) // placeholder
-      case "Fw.DpCfg.ProcType" => Right(a) // placeholder
-      case _ => Right(a)
+  private def requireAliasType(a: Analysis, name: String, id: AstNode.Id) = {
+    val t = a.typeMap(id)
+    t match {
+      case x: Type.AliasType => Right(a)
+      case _ =>  Left(
+        SemanticError.InvalidType(
+          Locations.get(id),
+          s"the F Prime framework type ${name} must be an alias type"
+        )
+      )
+    }
+  }
+
+  private def requireEnum(a: Analysis, name: String, id: AstNode.Id) = {
+    val t = a.typeMap(id)
+    t match {
+      case x: Type.Enum => Right(a)
+      case _ =>  Left(
+        SemanticError.InvalidType(
+          Locations.get(id),
+          s"the F Prime framework type ${name} must be an enum"
+        )
+      )
     }
   }
 

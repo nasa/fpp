@@ -237,3 +237,81 @@ of _T_ must provide a concrete value.
 <<Types_Alias-Types,alias type>> _T_ is the
 <<Types_Default-Values,default value>> of its
 <<Types_Underlying-Types,underlying type>>.
+
+==== Framework Definitions
+
+The following definitions are used specifically by the
+F Prime framework.
+If they are present in the model, then they must conform
+to the following rules.
+
+|===
+|Name|Rules
+
+|`FwAssertArgType`
+|Must be an alias type with an underlying type of integer
+
+|`FwChanIdType`
+|Must be an alias type with an underlying type of integer
+
+|`FwDpIdType`
+|Must be an alias type with an underlying type of integer
+
+|`FwDpPriorityType`
+|Must be an alias type with an underlying type of integer
+
+|`FwEnumStoreType`
+|Must be an alias type with an underlying type of integer
+
+|`FwEventIdType`
+|Must be an alias type with an underlying type of integer
+
+|`FwIndexType`
+|Must be an alias type with an underlying type of signed integer
+
+|`FwOpcodeType`
+|Must be an alias type with an underlying type of integer
+
+|`FwPacketDescriptorType`
+|Must be an alias type with an underlying type of integer
+
+|`FwPrmIdType`
+|Must be an alias type with an underlying type of integer
+
+|`FwQueuePriorityType`
+|Must be an alias type with an underlying type of integer
+
+|`FwSignedSizeType`
+|Must be an alias type with an underlying type of signed integer
+
+|`FwSizeStoreType`
+|Must be an alias type with an underlying type of integer
+
+|`FwSizeType`
+|Must be an alias type with an underlying type of unsigned integer
+
+|`FwTaskPriorityType`
+|Must be an alias type with an underlying type of integer
+
+|`FwTimeBaseStoreType`
+|Must be an alias type with an underlying type of integer
+
+|`FwTimeContextStoreType`
+|Must be an alias type with an underlying type of integer
+
+|`FwTlmPacketizeIdType`
+|Must be an alias type with an underlying type of integer
+
+|`FwTraceIdType`
+|Must be an alias type with an underlying type of integer
+
+|`Fw.DpState`
+|Must be an enum
+
+|`Fw.DpCfg.ProcType`
+|Must be an enum
+
+|`Fw.DpCfg.CONTAINER_USER_DATA_SIZE`
+|Must be a constant of an integer
+
+|===

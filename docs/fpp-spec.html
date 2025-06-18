@@ -471,7 +471,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions_Alias-Type-Definitions_Syntax">5.2.1. Syntax</a></li>
 <li><a href="#Definitions_Alias-Type-Definitions_Semantics">5.2.2. Semantics</a></li>
 <li><a href="#Definitions_Alias-Type-Definitions_Examples">5.2.3. Examples</a></li>
-<li><a href="#Definitions_Alias-Type-Definitions_Framework-Definitions">5.2.4. Framework Definitions</a></li>
 </ul>
 </li>
 <li><a href="#Definitions_Array-Definitions">5.3. Array Definitions</a>
@@ -500,7 +499,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions_Constant-Definitions_Syntax">5.6.1. Syntax</a></li>
 <li><a href="#Definitions_Constant-Definitions_Semantics">5.6.2. Semantics</a></li>
 <li><a href="#Definitions_Constant-Definitions_Examples">5.6.3. Examples</a></li>
-<li><a href="#Definitions_Constant-Definitions_Framework-Definitions">5.6.4. Framework Definitions</a></li>
 </ul>
 </li>
 <li><a href="#Definitions_Enum-Definitions">5.7. Enum Definitions</a>
@@ -510,7 +508,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions_Enum-Definitions_Inferred-Representation-Type">5.7.3. Inferred Representation Type</a></li>
 <li><a href="#Definitions_Enum-Definitions_Explicit-Representation-Type">5.7.4. Explicit Representation Type</a></li>
 <li><a href="#Definitions_Enum-Definitions_Examples">5.7.5. Examples</a></li>
-<li><a href="#Definitions_Enum-Definitions_Framework-Definitions">5.7.6. Framework Definitions</a></li>
 </ul>
 </li>
 <li><a href="#Definitions_Enumerated-Constant-Definitions">5.8. Enumerated Constant Definitions</a>
@@ -944,7 +941,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Types_Displayable-Types">17.15. Displayable Types</a></li>
 <li><a href="#Types_Types-with-Numeric-Members">17.16. Types with Numeric Members</a></li>
 <li><a href="#Types_Alias-Lists">17.17. Alias Lists</a></li>
-<li><a href="#Types_Default-Values">17.18. Default Values</a></li>
+<li><a href="#Types_Default-Values">17.18. Default Values</a>
+<ul class="sectlevel3">
+<li><a href="#Types_Default-Values_Framework-Definitions">17.18.1. Framework Definitions</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#Type-Checking">18. Type Checking</a>
@@ -1719,105 +1720,6 @@ struct B {
 } default { y = 1 }</code></pre>
 </div>
 </div>
-</div>
-<div class="sect3">
-<h4 id="Definitions_Alias-Type-Definitions_Framework-Definitions">5.2.4. Framework Definitions</h4>
-<div class="paragraph">
-<p>The following alias type definitions are used specially by the
-F Prime framework.
-If they are present in the model, then they must conform
-to the following rules.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Rules</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwAssertArgType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwChanIdType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwDpIdType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwDpPriorityType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwEnumStoreType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwEventIdType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwIndexType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be a signed integer type</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwOpcodeType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwPacketDescriptorType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwPrmIdType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwQueuePriorityType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwSignedSizeType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be a signed integer type</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwSizeStoreType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwSizeType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an unsigned integer type</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTaskPriorityType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTimeBaseStoreType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTimeContextStoreType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTlmPacketizeIdType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTraceIdType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Underlying type must be an integer type</p></td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 <div class="sect2">
@@ -2621,33 +2523,6 @@ constant c = a # c has value 0</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="Definitions_Constant-Definitions_Framework-Definitions">5.6.4. Framework Definitions</h4>
-<div class="paragraph">
-<p>The following constant definitions are used specifically by the
-F Prime framework.
-If they are present in the model, then they must conform
-to the following rules.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Rules</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Constant must be an integer</p></td>
-</tr>
-</tbody>
-</table>
-</div>
 </div>
 <div class="sect2">
 <h3 id="Definitions_Enum-Definitions">5.7. Enum Definitions</h3>
@@ -2775,37 +2650,6 @@ default value.</p>
 } default MAYBE</code></pre>
 </div>
 </div>
-</div>
-<div class="sect3">
-<h4 id="Definitions_Enum-Definitions_Framework-Definitions">5.7.6. Framework Definitions</h4>
-<div class="paragraph">
-<p>The following enum definitions are used specifically by the
-F Prime framework.
-If they are present in the model, then they must conform
-to the following rules.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Rules</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpState</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpCfg.ProcType</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 <div class="sect2">
@@ -10187,6 +10031,117 @@ of <em>T</em> must provide a concrete value.</p>
 </li>
 </ul>
 </div>
+<div class="sect3">
+<h4 id="Types_Default-Values_Framework-Definitions">17.18.1. Framework Definitions</h4>
+<div class="paragraph">
+<p>The following definitions are used specifically by the
+F Prime framework.
+If they are present in the model, then they must conform
+to the following rules.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Rules</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwAssertArgType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwChanIdType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwDpIdType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwDpPriorityType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwEnumStoreType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwEventIdType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwIndexType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of signed integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwOpcodeType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwPacketDescriptorType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwPrmIdType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwQueuePriorityType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwSignedSizeType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of signed integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwSizeStoreType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwSizeType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of unsigned integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTaskPriorityType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTimeBaseStoreType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTimeContextStoreType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTlmPacketizeIdType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTraceIdType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpState</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an enum</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpCfg.ProcType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an enum</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant of an integer</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </div>
@@ -11591,7 +11546,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-06-17 13:22:52 -0700
+Last updated 2025-06-17 16:35:00 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

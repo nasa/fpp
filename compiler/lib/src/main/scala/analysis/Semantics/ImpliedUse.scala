@@ -45,9 +45,15 @@ object ImpliedUse {
   def getTopologyTypes(a: Analysis) =
     if (a.dictionaryGeneration) then List(
       "FwChanIdType",
+      "FwDpIdType",
+      "FwDpPriorityType",
       "FwEventIdType",
       "FwOpcodeType",
       "FwPacketDescriptorType",
+      "FwSizeType",
+      "FwSizeStoreType",
+      "FwTimeBaseStoreType",
+      "FwTimeContextStoreType",
       "FwTlmPacketizeIdType"
     ).map(List(_)) ++ List(
       List("Fw", "DpState"),
