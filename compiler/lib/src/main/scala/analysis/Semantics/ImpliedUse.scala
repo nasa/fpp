@@ -43,22 +43,22 @@ object ImpliedUse {
   /** The qualified names of implied type uses.
    *  Each name is a list of identifiers */
   def getTopologyTypes(a: Analysis) =
-    if (a.dictionaryGeneration) then List(
-      "FwChanIdType",
-      "FwDpIdType",
-      "FwDpPriorityType",
-      "FwEventIdType",
-      "FwOpcodeType",
-      "FwPacketDescriptorType",
-      "FwSizeType",
-      "FwSizeStoreType",
-      "FwTimeBaseStoreType",
-      "FwTimeContextStoreType",
-      "FwTlmPacketizeIdType"
-    ).map(List(_)) ++ List(
-      List("Fw", "DpState"),
-      List("Fw", "DpCfg", "ProcType")
-    )
+    if (a.dictionaryGeneration) then
+      List("Fw", "DpCfg", "ProcType") ::
+      List("Fw", "DpState") ::
+      List(
+        "FwChanIdType",
+        "FwDpIdType",
+        "FwDpPriorityType",
+        "FwEventIdType",
+        "FwOpcodeType",
+        "FwPacketDescriptorType",
+        "FwSizeType",
+        "FwSizeStoreType",
+        "FwTimeBaseStoreType",
+        "FwTimeContextStoreType",
+        "FwTlmPacketizeIdType"
+      ).map(List(_))
     else Nil
 
   /** The qualified names of implied constant uses.

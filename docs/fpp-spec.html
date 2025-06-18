@@ -561,6 +561,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions_Topology-Definitions_Examples">5.14.4. Examples</a></li>
 </ul>
 </li>
+<li><a href="#Definitions_Framework-Definitions">5.15. Framework Definitions</a></li>
 </ul>
 </li>
 <li><a href="#State-Machine-Behavior-Elements">6. State Machine Behavior Elements</a>
@@ -941,11 +942,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Types_Displayable-Types">17.15. Displayable Types</a></li>
 <li><a href="#Types_Types-with-Numeric-Members">17.16. Types with Numeric Members</a></li>
 <li><a href="#Types_Alias-Lists">17.17. Alias Lists</a></li>
-<li><a href="#Types_Default-Values">17.18. Default Values</a>
-<ul class="sectlevel3">
-<li><a href="#Types_Default-Values_Framework-Definitions">17.18.1. Framework Definitions</a></li>
-</ul>
-</li>
+<li><a href="#Types_Default-Values">17.18. Default Values</a></li>
 </ul>
 </li>
 <li><a href="#Type-Checking">18. Type Checking</a>
@@ -3974,7 +3971,7 @@ then \$c_1\$ is less than (respectively greater than) \$c_2\$.</p>
 <div class="paragraph">
 <p>When generating a dictionary from a topology <em>T</em>, the analyzer may
 treat the definition of <em>T</em> as if it contained uses of
-one or more <a href="#Definitions_Alias-Type-Definitions_Framework-Definitions">framework alias type definitions</a> that are required by the dictionary.
+one or more <a href="#Definitions_Framework-Definitions">framework alias type definitions</a> that are required by the dictionary.
 These uses are called <strong>implied uses</strong>.</p>
 </div>
 <div class="paragraph">
@@ -4183,6 +4180,117 @@ specifiers</a>:</p>
 </div>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="Definitions_Framework-Definitions">5.15. Framework Definitions</h3>
+<div class="paragraph">
+<p>The following definitions are used specially by the
+F Prime framework.
+If they are present in the model, then they must conform
+to the following rules.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Rules</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpCfg.ProcType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an enum</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpState</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an enum</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwAssertArgType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwChanIdType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwDpIdType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwDpPriorityType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwEnumStoreType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwEventIdType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwIndexType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of signed integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwOpcodeType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwPacketDescriptorType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwPrmIdType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwQueuePriorityType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwSignedSizeType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of signed integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwSizeStoreType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwSizeType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of unsigned integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTaskPriorityType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTimeBaseStoreType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTimeContextStoreType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTlmPacketizeIdType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTraceIdType</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -10031,117 +10139,6 @@ of <em>T</em> must provide a concrete value.</p>
 </li>
 </ul>
 </div>
-<div class="sect3">
-<h4 id="Types_Default-Values_Framework-Definitions">17.18.1. Framework Definitions</h4>
-<div class="paragraph">
-<p>The following definitions are used specifically by the
-F Prime framework.
-If they are present in the model, then they must conform
-to the following rules.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Name</th>
-<th class="tableblock halign-left valign-top">Rules</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwAssertArgType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwChanIdType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwDpIdType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwDpPriorityType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwEnumStoreType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwEventIdType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwIndexType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of signed integer</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwOpcodeType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwPacketDescriptorType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwPrmIdType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwQueuePriorityType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwSignedSizeType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of signed integer</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwSizeStoreType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwSizeType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of unsigned integer</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTaskPriorityType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTimeBaseStoreType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTimeContextStoreType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTlmPacketizeIdType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTraceIdType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpState</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an enum</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpCfg.ProcType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an enum</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant of an integer</p></td>
-</tr>
-</tbody>
-</table>
-</div>
 </div>
 </div>
 </div>
@@ -11546,7 +11543,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-06-17 16:35:00 -0700
+Last updated 2025-06-18 09:45:39 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
