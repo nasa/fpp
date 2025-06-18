@@ -1,5 +1,0 @@
-fpp-to-dict
-[ local path prefix ]/tools/fpp-to-dict/test/top/floatFwEventIdType.fpp:4.1
-type FwEventIdType = F32
-^
-error: the F Prime framework type FwEventIdType must be an alias of an integer type
