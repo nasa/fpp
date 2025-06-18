@@ -5,11 +5,20 @@ F Prime framework.
 If they are present in the model, then they must conform
 to the following rules.
 
+==== Constant Definitions
+
 |===
 |Name|Rules
 
 |`Fw.DpCfg.CONTAINER_USER_DATA_SIZE`
 |Must be a constant with an underlying type of integer
+
+|===
+
+==== Type Definitions
+
+|===
+|Name|Rules
 
 |`Fw.DpCfg.ProcType`
 |Must be an enum

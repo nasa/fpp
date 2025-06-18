@@ -561,7 +561,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions_Topology-Definitions_Examples">5.14.4. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Framework-Definitions">5.15. Framework Definitions</a></li>
+<li><a href="#Definitions_Framework-Definitions">5.15. Framework Definitions</a>
+<ul class="sectlevel3">
+<li><a href="#Definitions_Framework-Definitions_Constant-Definitions">5.15.1. Constant Definitions</a></li>
+<li><a href="#Definitions_Framework-Definitions_Type-Definitions">5.15.2. Type Definitions</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#State-Machine-Behavior-Elements">6. State Machine Behavior Elements</a>
@@ -4189,6 +4194,8 @@ F Prime framework.
 If they are present in the model, then they must conform
 to the following rules.</p>
 </div>
+<div class="sect3">
+<h4 id="Definitions_Framework-Definitions_Constant-Definitions">5.15.1. Constant Definitions</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -4205,6 +4212,23 @@ to the following rules.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
 </tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Framework-Definitions_Type-Definitions">5.15.2. Type Definitions</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Rules</th>
+</tr>
+</thead>
+<tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpCfg.ProcType</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Must be an enum</p></td>
@@ -4291,6 +4315,7 @@ to the following rules.</p>
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 </div>
 </div>
@@ -11543,7 +11568,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-06-18 09:45:39 -0700
+Last updated 2025-06-18 09:48:44 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
