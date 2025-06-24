@@ -1,5 +1,5 @@
 fpp-to-dict
-[ local path prefix ]/tools/fpp-to-dict/test/top/missingFwOpcodeType.fpp:45.1
+[ local path prefix ]/tools/fpp-to-dict/test/top/missingFwOpcodeType.fpp:26.1
 topology T {
 ^
 error: undefined symbol FwOpcodeType
