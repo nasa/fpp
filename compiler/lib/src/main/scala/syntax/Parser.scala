@@ -843,6 +843,11 @@ object Parser extends Parsers {
     }
   }
 
+  def specPortExport: Parser[Ast.SpecPortExport] =
+    port ~>! ident ~! (equals ~>! node(qualIdent)) ^^ {
+      case name ~ underlying => Ast.SpecPortExport(name, underlying)
+    }
+
   def specImport: Parser[Ast.SpecImport] =
     importToken ~>! node(qualIdent) ^^ (top => Ast.SpecImport(top))
 
@@ -933,6 +938,7 @@ object Parser extends Parsers {
       node(specConnectionGraph) ^^ (n =>
         Ast.TopologyMember.SpecConnectionGraph(n)) |
       node(specInclude) ^^ (n => Ast.TopologyMember.SpecInclude(n)) |
+      node(specPortExport) ^^ (n => Ast.TopologyMember.SpecPortExport(n)) |
       node(specTlmPacketSet) ^^ (n =>
         Ast.TopologyMember.SpecTlmPacketSet(n)) |
       node(specImport) ^^ (n => Ast.TopologyMember.SpecTopImport(n)) |
