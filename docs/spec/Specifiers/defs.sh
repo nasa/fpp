@@ -19,6 +19,7 @@ Interface-Import-Specifiers.adoc
 Internal-Port-Specifiers.adoc
 Location-Specifiers.adoc
 Parameter-Specifiers.adoc
+Port-Export-Specifiers.adoc
 Port-Instance-Specifiers.adoc
 Port-Matching-Specifiers.adoc
 Record-Specifiers.adoc

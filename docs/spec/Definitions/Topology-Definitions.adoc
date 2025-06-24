@@ -98,12 +98,15 @@ connections C { a.b -> c.d, e.f -> g.h }
 
 . Compute the set _S_ of topologies transitively imported into _T_.
 
+. Compute the set _U_ of topologies directly imported into _T_.
+
 . For each topology _T'_ in _S_,
 <<Specifiers_Topology-Import-Specifiers,import the instances>>
 of _T'_ into _T_.
 
 . Check that the connections discovered in step 3 are between port
-instances present in _T_.
+instances present in _T_ or are <<Specifiers_Port-Export-Specifiers,exported ports>>
+in of <<Specifiers_Topology-Import-Specifiers,imported topologies>> in _U_.
 
 . For each topology _T'_ in _S_,
 <<Specifiers_Topology-Import-Specifiers,import the connections>>
@@ -117,6 +120,10 @@ For example, if a command pattern indicates a command
 registration connection between two ports, and there is already
 a command registration connection between those ports, then
 do not add the connection.
+
+.. Note: An exported port is also considered a connection. For example
+if a topology _T_ exports a port _p_ from instance _I_, a direct connection to port _I_ `.` _p_ can not
+be made to this port but rather only through the exported port _T_ `.` _p_.
 
 ===== Checking Telemetry Packet Set Specifiers
 
@@ -174,7 +181,7 @@ is *match constrained*. If a match constrained connection is marked
 
 ..  For each matched connection stem:[c_1] with an endpoint at _I_ `.` stem:[p_1]:
 
-... Let _I'_ be the component instance at the other endpoint
+... Let _I'_ be the component instance or imported topology at the other endpoint
 of stem:[c_1].
 
 ... Check that there is one and only one matched connection
@@ -243,14 +250,14 @@ For purposes of port numbering, FPP orders connections as follows.
 A *connection endpoint* is _I_ `.` _p_ or _I_ `.` _p_ `[` _n_ `]`, where
 
 * _I_ refers to a
-<<Definitions_Component-Instance-Definitions,component instance>> or
-an <<Specifiers_Topology-Import_Specifiers,imported>> <<Definitions_Topology-Definitions,topology definition>>.
+<<Definitions_Component-Instance-Definitions,component instance>> or an
+<<Specifiers_Topology-Import-Specifiers,imported topology>>.
 
 * If _I_ is a component instance, _p_ is an identifier that names a port instance specified in
 the component definition associated with _I_.
 
 * If _I_ is topology definition, _p_ is an identifier that names an <<Specifiers_Port-Export-Specifiers,exported port>> inside
-_I_. _I_ must be <<Specifiers_Topology-Import_Specifiers,imported>> into the parent topology of the connection.
+_I_. _I_ must be <<Specifiers_Topology-Import-Specifiers,imported>> into the parent topology of the connection.
 
 * _n_ is an optional port number that is present if and only
 if it appears in the model source.
@@ -467,6 +474,12 @@ topology Release {
   import CDH
   import Communication
   ...
+
+  # Connecting sub topologies together
+  connections CDH {
+    Communication.uplink -> CDH.dataUp
+    CDH.dataDown -> Communication.downlink
+  }
 
 }
 ----
