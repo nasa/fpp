@@ -49,6 +49,19 @@ object CheckComponentInstanceDefs
     def check(instances: List[ComponentInstance]): Result.Result[Unit] =
       instances match {
         case (i1 :: i2 :: tail) =>
+          // case where i2 has a non-empty range of identifiers, 
+          // check that there are no base id conflicts
+          if (i2.maxId >= i2.baseId && i1.baseId >= i2.baseId) 
+            return Left(
+              SemanticError.OverlappingIdRanges(
+                i1.baseId,
+                i1.aNode._2.data.name,
+                Locations.get(i1.aNode._2.id),
+                i2.baseId,
+                i2.aNode._2.data.name,
+                Locations.get(i2.aNode._2.id)
+              )
+            )
           if (i1.maxId < i2.baseId) check(i2 :: tail)
           else Left(
             SemanticError.OverlappingIdRanges(
