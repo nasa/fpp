@@ -1,0 +1,70 @@
+== Defining Interfaces
+
+In F Prime, the *interface* is group of <<Defining-Ports, port>> instances
+that define a set of functionality.
+
+In F Prime, a standard <<Defining-Components,component>> design pattern is to
+provide multiple components with a common set of ports. This set of ports is
+known as an interface. This common set of ports allows interchangeable usage of
+components at the point in a topology.
+
+For example, you may have a component that implements a driver for a serial interface
+and another SPI controller. Both components may implement the standard `ByteStreamDriver`
+component to allow standard F Prime uplink and downlink to pass through both types of drivers.
+
+=== Interface Definitions
+
+An FPP *interface definition* defines an F Prime interface.
+To write a interface definition, you write the following:
+
+* The keyword `interface`.
+* The <<Defining-Constants_Names,name>> of the interface.
+* A sequence of *interface members* enclosed in curly braces
+`{` ... `}`.
+
+As an example, here is a interface `I` with no members:
+
+[source,fpp]
+----
+@ An empty interface
+interface I {
+
+}
+----
+
+An interface definition and each of its members is an
+<<Writing-Comments-and-Annotations_Annotations,annotatable element>>.
+For example, you can annotate the interface as shown above.
+The members of a interface form an
+<<Defining-Constants_Multiple-Definitions-and-Element-Sequences,
+element sequence>> with a semicolon as the optional
+terminating punctuation.
+
+Interfaces can be `import`-ed into <<Defining-Components,components>> which
+effectively places all port instances defined in the interface into the parent
+component.
+
+Port instances in interfaces follow the same set of rules described for
+<<Defining-Components_Port-Instances,component port instances>>.
+
+[source,fpp]
+----
+module Svc { port ComDataWithContext }
+
+@ A partial set of the framer ports
+interface FramerPartial {
+    @ Port to receive data to frame, in a Fw::Buffer with optional context
+    sync input port dataIn: Svc.ComDataWithContext
+
+    @ Port to output framed data with optional context
+    output port dataOut: Svc.ComDataWithContext
+}
+
+passive component C {
+    @ Import the I interface to inherit it's port instances
+    import FramerPartial
+}
+----
+
+The above example is equivalent to simply writing the `dataIn` and `dataOut`
+port instances inside of the component `C` directly.

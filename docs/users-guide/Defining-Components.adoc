@@ -932,6 +932,22 @@ What do you think will happen if you run `fpp-check`
 on this code?
 Try it and see.
 
+==== Interfaces
+
+A common component design pattern in F Prime will re-use common
+port instance naming and type patterns across multiple components.
+This pattern is known as an interface. <<Defining-Interfaces,Interfaces>>
+in F Prime can be imported into component definitions to re-use common
+port patterns.
+
+Only <<Defining-Components_Port-Instances,general ports>> and
+<<Defining-Components_Special-Port-Instances,specials ports>> may be defined in
+an interface, <<Defining-Components_Internal-Ports, internal ports>> may
+only be defined inside the final component definition.
+
+See <<Defining-Interfaces,Interfaces>> for more detail about working
+with F Prime interfaces.
+
 === Commands
 
 When defining an F Prime component, you may specify one or more commands.
