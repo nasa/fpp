@@ -261,7 +261,7 @@ sealed trait Error {
         baseId1, name1, loc1, baseId2, maxId2, name2, loc2
       ) =>
         Error.print (None) (
-          s"base $baseId1 for instance $name1 lies inside the ID range [$baseId2, $maxId2] for instance $name2"
+          s"base ID $baseId1 for instance $name1 lies inside the ID range [$baseId2, $maxId2] for instance $name2"
         )
         System.err.println(s"$name1 is defined here")
         System.err.println(loc1)

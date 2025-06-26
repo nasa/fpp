@@ -1,5 +1,5 @@
 fpp-check
-error: base 256 for instance c1 lies inside the ID range [256, 256] for instance c2
+error: base ID 256 for instance c1 lies inside the ID range [256, 256] for instance c2
 c1 is defined here
 [ local path prefix ]/compiler/tools/fpp-check/test/component_instance_def/conflicting_ids.fpp:12.1
 instance c1: C base id 0x100
