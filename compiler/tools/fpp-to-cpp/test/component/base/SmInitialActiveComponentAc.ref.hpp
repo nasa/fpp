@@ -35,7 +35,7 @@ namespace FppTest {
       //! Friend class tester implementation to support white-box testing
       friend class SmInitialActiveTester;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Constants
@@ -53,7 +53,7 @@ namespace FppTest {
         smInitialNested,
       };
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Types for internal state machines
@@ -83,14 +83,14 @@ namespace FppTest {
           //! Get the state machine id
           SmInitialActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmInitialActiveComponentBase& m_component;
@@ -121,21 +121,21 @@ namespace FppTest {
           //! Get the state machine id
           SmInitialActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! Implementation for guard g
           bool guard_g(
               Signal signal //!< The signal
           ) const;
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmInitialActiveComponentBase& m_component;
@@ -166,14 +166,14 @@ namespace FppTest {
           //! Get the state machine id
           SmInitialActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmInitialActiveComponentBase& m_component;
@@ -204,14 +204,14 @@ namespace FppTest {
           //! Get the state machine id
           SmInitialActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmInitialActiveComponentBase& m_component;
@@ -242,21 +242,21 @@ namespace FppTest {
           //! Get the state machine id
           SmInitialActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! Implementation for guard g
           bool guard_g(
               Signal signal //!< The signal
           ) const;
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmInitialActiveComponentBase& m_component;
@@ -287,14 +287,14 @@ namespace FppTest {
           //! Get the state machine id
           SmInitialActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmInitialActiveComponentBase& m_component;
@@ -313,7 +313,7 @@ namespace FppTest {
           FwEnumStoreType instance = 0 //!< The instance number
       );
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Component construction and destruction
@@ -327,7 +327,7 @@ namespace FppTest {
       //! Destroy SmInitialActiveComponentBase object
       virtual ~SmInitialActiveComponentBase();
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // State getter functions
@@ -357,7 +357,7 @@ namespace FppTest {
       //! Get the state of state machine instance smInitialNested
       FppTest_SmInitial_Nested::State smInitialNested_getState() const;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Overflow hooks for internal state machine instances
@@ -374,7 +374,7 @@ namespace FppTest {
           Fw::SerializeBufferBase& buffer //!< The message buffer
       ) = 0;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Functions to implement for internal state machine actions
@@ -428,7 +428,7 @@ namespace FppTest {
           FppTest_SmInitialActive_Nested::Signal signal //!< The signal
       ) = 0;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Functions to implement for internal state machine guards
@@ -450,7 +450,7 @@ namespace FppTest {
           FppTest_SmInitialActive_Choice::Signal signal //!< The signal
       ) const = 0;
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Message dispatch functions
@@ -459,7 +459,7 @@ namespace FppTest {
       //! Called in the message loop to dispatch a message from the queue
       virtual MsgDispatchStatus doDispatch();
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Helper functions for state machine dispatch
@@ -519,7 +519,7 @@ namespace FppTest {
           FppTest_SmInitialActive_Nested::Signal signal //!< The signal
       );
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // State machine instances

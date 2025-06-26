@@ -66,7 +66,7 @@ class QueuedTestComponentBase :
     //! Friend class tester implementation to support white-box testing
     friend class QueuedTestTester;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Constants
@@ -243,7 +243,7 @@ class QueuedTestComponentBase :
       return sizeof(FwDpIdType) + sizeof(FwSizeStoreType) + arraySize * sizeof(U8);
     }
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Types for data products
@@ -353,7 +353,7 @@ class QueuedTestComponentBase :
 
         void setBaseId(FwDpIdType baseId) { this->m_baseId = baseId; }
 
-      PRIVATE:
+      private:
 
         //! The component base id
         FwDpIdType m_baseId;
@@ -773,7 +773,7 @@ class QueuedTestComponentBase :
     //! Connect the parameter first
     void loadParameters();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Component construction and destruction
@@ -787,7 +787,7 @@ class QueuedTestComponentBase :
     //! Destroy QueuedTestComponentBase object
     virtual ~QueuedTestComponentBase();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special input ports
@@ -803,7 +803,7 @@ class QueuedTestComponentBase :
     //! \return The number of productRecvIn input ports
     FwIndexType getNum_productRecvIn_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of typed input ports
@@ -904,7 +904,7 @@ class QueuedTestComponentBase :
     //! \return The number of typedSync input ports
     FwIndexType getNum_typedSync_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special output ports
@@ -964,7 +964,7 @@ class QueuedTestComponentBase :
     //! \return The number of tlmOut output ports
     FwIndexType getNum_tlmOut_OutputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of typed output ports
@@ -1010,7 +1010,7 @@ class QueuedTestComponentBase :
     //! \return The number of typedReturnOut output ports
     FwIndexType getNum_typedReturnOut_OutputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for special output ports
@@ -1090,7 +1090,7 @@ class QueuedTestComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for typed output ports
@@ -1152,7 +1152,7 @@ class QueuedTestComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for special input ports
@@ -1168,7 +1168,7 @@ class QueuedTestComponentBase :
         const Fw::Success& status //!< The status
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Handlers to implement for typed input ports
@@ -1353,7 +1353,7 @@ class QueuedTestComponentBase :
         const S& s //!< A struct
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for typed input ports
@@ -1540,7 +1540,7 @@ class QueuedTestComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Pre-message hooks for special async input ports
@@ -1558,7 +1558,7 @@ class QueuedTestComponentBase :
         const Fw::Success& status //!< The status
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Pre-message hooks for typed async input ports
@@ -1633,7 +1633,7 @@ class QueuedTestComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Invocation functions for special output ports
@@ -1653,7 +1653,7 @@ class QueuedTestComponentBase :
         const Fw::Buffer& buffer //!< The buffer
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Invocation functions for typed output ports
@@ -1734,7 +1734,7 @@ class QueuedTestComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Internal interface handlers
@@ -1771,7 +1771,7 @@ class QueuedTestComponentBase :
         const S& s //!< A struct
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Internal interface base-class functions
@@ -1808,7 +1808,7 @@ class QueuedTestComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Command response
@@ -1821,7 +1821,7 @@ class QueuedTestComponentBase :
         Fw::CmdResponse response //!< The command response
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Command handlers to implement
@@ -1981,7 +1981,7 @@ class QueuedTestComponentBase :
         U32 u32
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Command handler base-class functions
@@ -2142,7 +2142,7 @@ class QueuedTestComponentBase :
         Fw::CmdArgBuffer& args //!< The command argument buffer
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Pre-message hooks for async commands
@@ -2182,7 +2182,7 @@ class QueuedTestComponentBase :
         U32 cmdSeq //!< The command sequence number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Event logging functions
@@ -2236,7 +2236,7 @@ class QueuedTestComponentBase :
     //! A warning low, throttled event with no params
     void log_WARNING_LO_EventWarningLowThrottled();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Event throttle reset functions
@@ -2251,7 +2251,7 @@ class QueuedTestComponentBase :
     //! Reset throttle value for EventWarningLowThrottled
     void log_WARNING_LO_EventWarningLowThrottled_ThrottleClear();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Telemetry write functions
@@ -2345,7 +2345,7 @@ class QueuedTestComponentBase :
         Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Parameter update hook
@@ -2367,7 +2367,7 @@ class QueuedTestComponentBase :
     //! This function does nothing by default. You may override it.
     virtual void parametersLoaded();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Parameter get functions
@@ -2483,7 +2483,7 @@ class QueuedTestComponentBase :
         Fw::ParamValid& valid //!< Whether the parameter is valid
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // External parameter delegate initialization
@@ -2494,7 +2494,7 @@ class QueuedTestComponentBase :
         Fw::ParamExternalDelegate* paramExternalDelegatePtr //!< The delegate for externally managed parameters
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Functions for managing data products
@@ -2541,7 +2541,7 @@ class QueuedTestComponentBase :
         Fw::Time timeTag = Fw::ZERO_TIME //!< The time tag
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Handlers to implement for data products
@@ -2577,7 +2577,7 @@ class QueuedTestComponentBase :
         Fw::Success::T status //!< The container status
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Time
@@ -2588,7 +2588,7 @@ class QueuedTestComponentBase :
     //! \\return The current time
     Fw::Time getTime() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Mutex operations for guarded ports
@@ -2603,7 +2603,7 @@ class QueuedTestComponentBase :
     //! Unlock the guarded mutex
     virtual void unLock();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Message dispatch functions
@@ -2621,7 +2621,7 @@ class QueuedTestComponentBase :
     //! Dispatch all current messages unless ERROR or EXIT occurs
     MsgDispatchStatus dispatchCurrentMessages();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on special input ports
@@ -2645,7 +2645,7 @@ class QueuedTestComponentBase :
         const Fw::Success& status //!< The status
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on typed input ports
@@ -2849,7 +2849,7 @@ class QueuedTestComponentBase :
         const S& s //!< A struct
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Parameter set functions
@@ -2939,7 +2939,7 @@ class QueuedTestComponentBase :
         Fw::SerializeBufferBase& val //!< The serialization buffer
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Parameter save functions
@@ -3005,7 +3005,7 @@ class QueuedTestComponentBase :
     //! \return The command response
     Fw::CmdResponse paramSave_ParamStructExt();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Private data product handling functions
@@ -3025,7 +3025,7 @@ class QueuedTestComponentBase :
         const Fw::Success& status //!< The buffer status
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special input ports
@@ -3037,7 +3037,7 @@ class QueuedTestComponentBase :
     //! Input port productRecvIn
     Fw::InputDpResponsePort m_productRecvIn_InputPort[NUM_PRODUCTRECVIN_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Typed input ports
@@ -3100,7 +3100,7 @@ class QueuedTestComponentBase :
     //! Input port typedSync
     Ports::InputTypedPort m_typedSync_InputPort[NUM_TYPEDSYNC_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special output ports
@@ -3140,7 +3140,7 @@ class QueuedTestComponentBase :
     //! Output port tlmOut
     Fw::OutputTlmPort m_tlmOut_OutputPort[NUM_TLMOUT_OUTPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Typed output ports
@@ -3170,7 +3170,7 @@ class QueuedTestComponentBase :
     //! Output port typedReturnOut
     Ports::OutputTypedReturnPort m_typedReturnOut_OutputPort[NUM_TYPEDRETURNOUT_OUTPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Counter values for event throttling
@@ -3185,7 +3185,7 @@ class QueuedTestComponentBase :
     //! Throttle for EventWarningLowThrottled
     std::atomic<FwIndexType> m_EventWarningLowThrottledThrottle;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // First update flags for telemetry channels
@@ -3197,7 +3197,7 @@ class QueuedTestComponentBase :
     //! Initialized to true; cleared when channel ChannelEnumOnChange is first updated
     bool m_first_update_ChannelEnumOnChange;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Last value storage for telemetry channels
@@ -3209,7 +3209,7 @@ class QueuedTestComponentBase :
     //! Records the last emitted value for channel ChannelEnumOnChange
     E m_last_ChannelEnumOnChange;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Parameter validity flags
@@ -3233,7 +3233,7 @@ class QueuedTestComponentBase :
     //! True if ParamStruct was successfully received
     Fw::ParamValid m_param_ParamStruct_valid;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Parameter variables
@@ -3270,7 +3270,7 @@ class QueuedTestComponentBase :
     //! A parameter with struct data and set/save opcodes
     S m_ParamStruct;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Parameter delegates
@@ -3279,7 +3279,7 @@ class QueuedTestComponentBase :
     //! Delegate to serialize/deserialize an externally stored parameter
     Fw::ParamExternalDelegate* paramDelegatePtr;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Mutexes

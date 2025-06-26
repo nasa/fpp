@@ -27,7 +27,7 @@ class QueuedEvents final :
     //! Destroy QueuedEvents object
     ~QueuedEvents();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports

@@ -27,7 +27,7 @@ class QueuedCommands final :
     //! Destroy QueuedCommands object
     ~QueuedCommands();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports
@@ -250,7 +250,7 @@ class QueuedCommands final :
         const S& s //!< A struct
     ) override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for commands

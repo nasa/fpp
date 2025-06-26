@@ -57,7 +57,7 @@ case class ComponentParameters (
     if !hasParameters then Nil
     else List.concat(
       addAccessTagAndComment(
-        "PRIVATE",
+        "private",
         "Parameter validity flags",
         sortedParams.flatMap { case (_, param) =>
           guardedList (!param.isExternal) (
@@ -76,7 +76,7 @@ case class ComponentParameters (
         CppDoc.Lines.Hpp
       ),
       addAccessTagAndComment(
-        "PRIVATE",
+        "private",
         "Parameter variables",
         sortedParams.flatMap { case (_, param) =>
           guardedList (!param.isExternal) {
@@ -100,7 +100,7 @@ case class ComponentParameters (
       guardedList (hasExternalParameters) (
         List.concat(
           addAccessTagAndComment(
-            "PRIVATE",
+            "private",
             "Parameter delegates",
             List(
               linesClassMember(
@@ -247,7 +247,7 @@ case class ComponentParameters (
 
   private def getHookFunctions: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Parameter update hook",
       List(
         functionClassMember(
@@ -293,7 +293,7 @@ case class ComponentParameters (
 
   private def getGetterFunctions: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Parameter get functions",
       sortedParams.map((_, param) =>
         functionClassMember(
@@ -354,7 +354,7 @@ case class ComponentParameters (
 
   private def getSetters: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       "Parameter set functions",
       sortedParams.map((_, param) =>
         functionClassMember(
@@ -422,7 +422,7 @@ case class ComponentParameters (
 
   private def getSaveFunctions: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       "Parameter save functions",
       sortedParams.map((_, param) =>
         functionClassMember(
@@ -493,7 +493,7 @@ case class ComponentParameters (
   private def getExternalParameterFunctions: List[CppDoc.Class.Member] = {
     guardedList (hasExternalParameters) (
       addAccessTagAndComment(
-        "PROTECTED",
+        "protected",
         "External parameter delegate initialization",
         List(
           functionClassMember(

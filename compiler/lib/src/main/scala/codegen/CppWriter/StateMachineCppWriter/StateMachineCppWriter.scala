@@ -33,7 +33,7 @@ case class StateMachineCppWriter(
 
   private def getActionMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Actions",
       actionSymbols.map(getActionMember),
       CppDoc.Lines.Hpp
@@ -54,7 +54,7 @@ case class StateMachineCppWriter(
 
   private def getConstructorDestructorMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Constructors and Destructors",
       List(
         constructorClassMember(
@@ -85,7 +85,7 @@ case class StateMachineCppWriter(
 
   private def getEntryMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       "State and choice entry",
       StateMachineEntryFns(s, aNode).write
     )
@@ -137,7 +137,7 @@ case class StateMachineCppWriter(
 
   private def getGuardMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Guards",
       guardSymbols.map(getGuardMember),
       CppDoc.Lines.Hpp
@@ -278,7 +278,7 @@ case class StateMachineCppWriter(
 
   private def getVariableMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Member variables",
       List(
         linesClassMember(

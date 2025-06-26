@@ -58,12 +58,12 @@ case class ComponentExternalStateMachines(
       )
     }
 
-    addAccessTagAndComment("PROTECTED", "State getter functions", members)
+    addAccessTagAndComment("protected", "State getter functions", members)
   }
 
   private def getOverflowHooks: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       """|Overflow hooks for external state machine instances
          |
          |When sending a signal to a state machine instance, if
@@ -142,7 +142,7 @@ case class ComponentExternalStateMachines(
     }
 
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Functions for sending signals to external state machines",
       guardedList (hasExternalStateMachineInstances) (members)
     )

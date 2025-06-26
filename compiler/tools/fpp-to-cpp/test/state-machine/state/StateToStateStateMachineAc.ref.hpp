@@ -50,7 +50,7 @@ namespace FppTest {
           S2_to_S3,
         };
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Constructors and Destructors
@@ -97,7 +97,7 @@ namespace FppTest {
         //! Signal for going from S2 to S3
         void sendSignal_S2_to_S3();
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Actions
@@ -148,7 +148,7 @@ namespace FppTest {
             Signal signal //!< The signal
         ) = 0;
 
-      PRIVATE:
+      private:
 
         // ----------------------------------------------------------------------
         // State and choice entry
@@ -179,7 +179,7 @@ namespace FppTest {
             Signal signal //!< The signal
         );
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Member variables

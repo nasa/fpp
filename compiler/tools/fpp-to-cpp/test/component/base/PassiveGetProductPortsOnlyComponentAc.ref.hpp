@@ -31,7 +31,7 @@ class PassiveGetProductPortsOnlyComponentBase :
     //! Friend class tester implementation to support white-box testing
     friend class PassiveGetProductPortsOnlyTester;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Constants
@@ -88,7 +88,7 @@ class PassiveGetProductPortsOnlyComponentBase :
 
 #endif
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Component construction and destruction
@@ -102,7 +102,7 @@ class PassiveGetProductPortsOnlyComponentBase :
     //! Destroy PassiveGetProductPortsOnlyComponentBase object
     virtual ~PassiveGetProductPortsOnlyComponentBase();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special output ports
@@ -118,7 +118,7 @@ class PassiveGetProductPortsOnlyComponentBase :
     //! \return The number of productSendOut output ports
     FwIndexType getNum_productSendOut_OutputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for special output ports
@@ -138,7 +138,7 @@ class PassiveGetProductPortsOnlyComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Invocation functions for special output ports
@@ -159,7 +159,7 @@ class PassiveGetProductPortsOnlyComponentBase :
         const Fw::Buffer& buffer //!< The buffer
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special output ports

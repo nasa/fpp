@@ -27,7 +27,7 @@ class QueuedGuardedProducts final :
     //! Destroy QueuedGuardedProducts object
     ~QueuedGuardedProducts();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports
@@ -250,7 +250,7 @@ class QueuedGuardedProducts final :
         const S& s //!< A struct
     ) override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for data products

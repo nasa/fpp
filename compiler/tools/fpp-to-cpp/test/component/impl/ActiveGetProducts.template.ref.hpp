@@ -27,7 +27,7 @@ class ActiveGetProducts final :
     //! Destroy ActiveGetProducts object
     ~ActiveGetProducts();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports
