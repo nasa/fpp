@@ -16,11 +16,19 @@ object ConstructImpliedUseMap
     val id = aNode._2.id
     val typeNames = ImpliedUse.getTopologyTypes(a)
     val empty: ImpliedUse.Uses = Map()
-    val map = typeNames.foldLeft (empty) ((m, tn) => {
+    val typeMap = typeNames.foldLeft (empty) ((m, tn) => {
       val id1 = ImpliedUse.replicateId(id)
       val impliedUse = ImpliedUse.fromIdentListAndId(tn, id1)
       val set = m.get(ImpliedUse.Kind.Type).getOrElse(Set())
       m + (ImpliedUse.Kind.Type -> (set + impliedUse))
+    })
+
+    val constants = ImpliedUse.getTopologyConstants(a)
+    val map = constants.foldLeft (typeMap) ((m, c) => {
+      val id1 = ImpliedUse.replicateId(id)
+      val impliedUse = ImpliedUse.fromIdentListAndId(c, id1)
+      val set = m.get(ImpliedUse.Kind.Constant).getOrElse(Set())
+      m + (ImpliedUse.Kind.Constant -> (set + impliedUse))
     })
     Right(a.copy(impliedUseMap = a.impliedUseMap + (id -> map)))
   }
