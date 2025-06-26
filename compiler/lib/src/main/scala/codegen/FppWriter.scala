@@ -709,6 +709,16 @@ object FppWriter extends AstVisitor with LineUtils {
       )
   }
 
+  override def specTopPortExportAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecPortExport]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"port ${ident(data.name)} = ").
+      join("") (qualIdent(data.underylingPort.data))
+  }
+
   override def specTopImportAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecImport]]
