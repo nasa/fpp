@@ -16,5 +16,6 @@ queued_cpu
 queued_no_queue_size
 queued_priority
 queued_stack_size
+two_empty_ranges
 undef_component
 "
