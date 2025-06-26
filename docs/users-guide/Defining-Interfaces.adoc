@@ -15,7 +15,7 @@ component to allow standard F Prime uplink and downlink to pass through both typ
 === Interface Definitions
 
 An FPP *interface definition* defines an F Prime interface.
-To write a interface definition, you write the following:
+To write an interface definition, you write the following:
 
 * The keyword `interface`.
 * The <<Defining-Constants_Names,name>> of the interface.
