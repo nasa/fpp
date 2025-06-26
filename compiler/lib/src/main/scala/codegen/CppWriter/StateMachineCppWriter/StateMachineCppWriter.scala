@@ -41,6 +41,7 @@ case class StateMachineCppWriter(
 
   private def getClassMembers: List[CppDoc.Class.Member] =
     List.concat(
+      getFriendClassMembers,
       getTypeMembers,
       getConstructorDestructorMembers,
       getInitMembers,
@@ -294,5 +295,23 @@ case class StateMachineCppWriter(
       ),
       CppDoc.Lines.Hpp
     )
+
+  private def getFriendClassMembers: List[CppDoc.Class.Member] = {
+    List(
+      linesClassMember(
+        List(
+          CppDocWriter.writeBannerComment(
+            "Friend classes"
+          ),
+          lines(
+            s"""|
+                |//! Friend class tester implementation to support white-box testing
+                |friend class ${name}Tester;
+                |"""
+          )
+        ).flatten
+      )
+    )
+  }
 
 }
