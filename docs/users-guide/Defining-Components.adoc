@@ -932,7 +932,7 @@ What do you think will happen if you run `fpp-check`
 on this code?
 Try it and see.
 
-==== Interfaces
+==== Importing Interfaces
 
 A common component design pattern in F Prime will re-use common
 port instance naming and type patterns across multiple components.
@@ -945,8 +945,30 @@ Only <<Defining-Components_Port-Instances,general ports>> and
 an interface, <<Defining-Components_Internal-Ports, internal ports>> may
 only be defined inside the final component definition.
 
-See <<Defining-Interfaces,Interfaces>> for more detail about working
-with F Prime interfaces.
+Interfaces can be `import`-ed into <<Defining-Components,components>> which
+effectively places all port instances defined in the interface into the parent
+component.
+
+[source,fpp]
+----
+module Svc { port ComDataWithContext }
+
+@ A partial set of the framer ports
+interface FramerPartial {
+    @ Port to receive data to frame, in a Fw::Buffer with optional context
+    sync input port dataIn: Svc.ComDataWithContext
+
+    @ Port to output framed data with optional context
+    output port dataOut: Svc.ComDataWithContext
+}
+
+passive component C {
+    @ Import the I interface to inherit it's port instances
+    import FramerPartial
+}
+----
+
+See <<Defining-Interfaces,Interfaces>> for more detail about defining F Prime interfaces.
 
 === Commands
 

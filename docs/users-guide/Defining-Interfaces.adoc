@@ -40,10 +40,6 @@ The members of a interface form an
 element sequence>> with a semicolon as the optional
 terminating punctuation.
 
-Interfaces can be `import`-ed into <<Defining-Components,components>> which
-effectively places all port instances defined in the interface into the parent
-component.
-
 Port instances in interfaces follow the same set of rules described for
 <<Defining-Components_Port-Instances,component port instances>>.
 
