@@ -19,6 +19,13 @@ namespace FppTest {
     //! A basic state machine with a choice sequence
     class SequenceStateMachineBase {
 
+        // ----------------------------------------------------------------------
+        // Friend classes
+        // ----------------------------------------------------------------------
+
+        //! Friend class tester implementation to support white-box testing
+        friend class SequenceTester;
+
       public:
 
         // ----------------------------------------------------------------------

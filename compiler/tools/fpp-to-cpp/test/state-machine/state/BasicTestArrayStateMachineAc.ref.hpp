@@ -20,6 +20,13 @@ namespace FppTest {
     //! A basic state machine with TestArray actions
     class BasicTestArrayStateMachineBase {
 
+        // ----------------------------------------------------------------------
+        // Friend classes
+        // ----------------------------------------------------------------------
+
+        //! Friend class tester implementation to support white-box testing
+        friend class BasicTestArrayTester;
+
       public:
 
         // ----------------------------------------------------------------------

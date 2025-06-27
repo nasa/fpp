@@ -19,6 +19,13 @@ namespace FppTest {
     //! A basic state machine with an internal transition
     class BasicInternalStateMachineBase {
 
+        // ----------------------------------------------------------------------
+        // Friend classes
+        // ----------------------------------------------------------------------
+
+        //! Friend class tester implementation to support white-box testing
+        friend class BasicInternalTester;
+
       public:
 
         // ----------------------------------------------------------------------

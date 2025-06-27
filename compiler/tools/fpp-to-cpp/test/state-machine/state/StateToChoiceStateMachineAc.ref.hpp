@@ -20,6 +20,13 @@ namespace FppTest {
     //! with hierarchy
     class StateToChoiceStateMachineBase {
 
+        // ----------------------------------------------------------------------
+        // Friend classes
+        // ----------------------------------------------------------------------
+
+        //! Friend class tester implementation to support white-box testing
+        friend class StateToChoiceTester;
+
       public:
 
         // ----------------------------------------------------------------------

@@ -19,6 +19,13 @@ namespace FppTest {
     //! A state machine with two inputs to a choice
     class InputPairU16U32StateMachineBase {
 
+        // ----------------------------------------------------------------------
+        // Friend classes
+        // ----------------------------------------------------------------------
+
+        //! Friend class tester implementation to support white-box testing
+        friend class InputPairU16U32Tester;
+
       public:
 
         // ----------------------------------------------------------------------
