@@ -64,6 +64,14 @@ namespace FppTest {
         public FppTest::SmInitial::BasicStateMachineBase
       {
 
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmInitialActiveTesterBase;
+          friend class SmInitialActiveTester;
+
         public:
 
           //! Constructor
@@ -101,6 +109,14 @@ namespace FppTest {
       class FppTest_SmInitial_Choice :
         public FppTest::SmInitial::ChoiceStateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmInitialActiveTesterBase;
+          friend class SmInitialActiveTester;
 
         public:
 
@@ -147,6 +163,14 @@ namespace FppTest {
         public FppTest::SmInitial::NestedStateMachineBase
       {
 
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmInitialActiveTesterBase;
+          friend class SmInitialActiveTester;
+
         public:
 
           //! Constructor
@@ -185,6 +209,14 @@ namespace FppTest {
         public FppTest::SmInitialActive_BasicStateMachineBase
       {
 
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmInitialActiveTesterBase;
+          friend class SmInitialActiveTester;
+
         public:
 
           //! Constructor
@@ -222,6 +254,14 @@ namespace FppTest {
       class FppTest_SmInitialActive_Choice :
         public FppTest::SmInitialActive_ChoiceStateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmInitialActiveTesterBase;
+          friend class SmInitialActiveTester;
 
         public:
 
@@ -267,6 +307,14 @@ namespace FppTest {
       class FppTest_SmInitialActive_Nested :
         public FppTest::SmInitialActive_NestedStateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmInitialActiveTesterBase;
+          friend class SmInitialActiveTester;
 
         public:
 

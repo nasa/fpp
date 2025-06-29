@@ -104,6 +104,14 @@ namespace FppTest {
         public FppTest::SmState::BasicStateMachineBase
       {
 
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmStateQueuedTesterBase;
+          friend class SmStateQueuedTester;
+
         public:
 
           //! Constructor
@@ -141,6 +149,14 @@ namespace FppTest {
       class FppTest_SmState_BasicGuard :
         public FppTest::SmState::BasicGuardStateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmStateQueuedTesterBase;
+          friend class SmStateQueuedTester;
 
         public:
 
@@ -186,6 +202,14 @@ namespace FppTest {
       class FppTest_SmState_BasicGuardString :
         public FppTest::SmState::BasicGuardStringStateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmStateQueuedTesterBase;
+          friend class SmStateQueuedTester;
 
         public:
 
@@ -234,6 +258,14 @@ namespace FppTest {
         public FppTest::SmState::BasicGuardTestAbsTypeStateMachineBase
       {
 
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmStateQueuedTesterBase;
+          friend class SmStateQueuedTester;
+
         public:
 
           //! Constructor
@@ -280,6 +312,14 @@ namespace FppTest {
       class FppTest_SmState_BasicGuardTestArray :
         public FppTest::SmState::BasicGuardTestArrayStateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmStateQueuedTesterBase;
+          friend class SmStateQueuedTester;
 
         public:
 
@@ -328,6 +368,14 @@ namespace FppTest {
         public FppTest::SmState::BasicGuardTestEnumStateMachineBase
       {
 
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmStateQueuedTesterBase;
+          friend class SmStateQueuedTester;
+
         public:
 
           //! Constructor
@@ -374,6 +422,14 @@ namespace FppTest {
       class FppTest_SmState_BasicGuardTestStruct :
         public FppTest::SmState::BasicGuardTestStructStateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmStateQueuedTesterBase;
+          friend class SmStateQueuedTester;
 
         public:
 
@@ -422,6 +478,14 @@ namespace FppTest {
         public FppTest::SmState::BasicGuardU32StateMachineBase
       {
 
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmStateQueuedTesterBase;
+          friend class SmStateQueuedTester;
+
         public:
 
           //! Constructor
@@ -469,6 +533,14 @@ namespace FppTest {
         public FppTest::SmState::BasicInternalStateMachineBase
       {
 
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmStateQueuedTesterBase;
+          friend class SmStateQueuedTester;
+
         public:
 
           //! Constructor
@@ -507,6 +579,14 @@ namespace FppTest {
         public FppTest::SmState::BasicSelfStateMachineBase
       {
 
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmStateQueuedTesterBase;
+          friend class SmStateQueuedTester;
+
         public:
 
           //! Constructor
@@ -544,6 +624,14 @@ namespace FppTest {
       class FppTest_SmState_BasicString :
         public FppTest::SmState::BasicStringStateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmStateQueuedTesterBase;
+          friend class SmStateQueuedTester;
 
         public:
 
@@ -589,6 +677,14 @@ namespace FppTest {
         public FppTest::SmState::BasicTestAbsTypeStateMachineBase
       {
 
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmStateQueuedTesterBase;
+          friend class SmStateQueuedTester;
+
         public:
 
           //! Constructor
@@ -632,6 +728,14 @@ namespace FppTest {
       class FppTest_SmState_BasicTestArray :
         public FppTest::SmState::BasicTestArrayStateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmStateQueuedTesterBase;
+          friend class SmStateQueuedTester;
 
         public:
 
@@ -677,6 +781,14 @@ namespace FppTest {
         public FppTest::SmState::BasicTestEnumStateMachineBase
       {
 
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmStateQueuedTesterBase;
+          friend class SmStateQueuedTester;
+
         public:
 
           //! Constructor
@@ -720,6 +832,14 @@ namespace FppTest {
       class FppTest_SmState_BasicTestStruct :
         public FppTest::SmState::BasicTestStructStateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmStateQueuedTesterBase;
+          friend class SmStateQueuedTester;
 
         public:
 
@@ -765,6 +885,14 @@ namespace FppTest {
         public FppTest::SmState::BasicU32StateMachineBase
       {
 
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmStateQueuedTesterBase;
+          friend class SmStateQueuedTester;
+
         public:
 
           //! Constructor
@@ -809,6 +937,14 @@ namespace FppTest {
         public FppTest::SmState::InternalStateMachineBase
       {
 
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmStateQueuedTesterBase;
+          friend class SmStateQueuedTester;
+
         public:
 
           //! Constructor
@@ -847,6 +983,14 @@ namespace FppTest {
         public FppTest::SmState::PolymorphismStateMachineBase
       {
 
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmStateQueuedTesterBase;
+          friend class SmStateQueuedTester;
+
         public:
 
           //! Initialize the state machine
@@ -865,6 +1009,14 @@ namespace FppTest {
       class FppTest_SmState_StateToChild :
         public FppTest::SmState::StateToChildStateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmStateQueuedTesterBase;
+          friend class SmStateQueuedTester;
 
         public:
 
@@ -923,6 +1075,14 @@ namespace FppTest {
       class FppTest_SmState_StateToChoice :
         public FppTest::SmState::StateToChoiceStateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmStateQueuedTesterBase;
+          friend class SmStateQueuedTester;
 
         public:
 
@@ -1004,6 +1164,14 @@ namespace FppTest {
         public FppTest::SmState::StateToSelfStateMachineBase
       {
 
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmStateQueuedTesterBase;
+          friend class SmStateQueuedTester;
+
         public:
 
           //! Constructor
@@ -1071,6 +1239,14 @@ namespace FppTest {
       class FppTest_SmState_StateToState :
         public FppTest::SmState::StateToStateStateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmStateQueuedTesterBase;
+          friend class SmStateQueuedTester;
 
         public:
 
@@ -1149,6 +1325,14 @@ namespace FppTest {
       class FppTest_SmStateQueued_Basic :
         public FppTest::SmStateQueued_BasicStateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Friend class the same Tester friends as the enclosing component
+          friend class SmStateQueuedTesterBase;
+          friend class SmStateQueuedTester;
 
         public:
 
