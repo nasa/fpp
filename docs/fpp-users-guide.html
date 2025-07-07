@@ -622,11 +622,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Components_Matched-Ports">10.13. Matched Ports</a></li>
 </ul>
 </li>
-<li><a href="#Defining-and-Using-Interfaces">11. Defining and Using Interfaces</a>
+<li><a href="#Defining-and-Using-Port-Interfaces">11. Defining and Using Port Interfaces</a>
 <ul class="sectlevel2">
-<li><a href="#Defining-and-Using-Interfaces_Defining-Interfaces">11.1. Defining Interfaces</a></li>
-<li><a href="#Defining-and-Using-Interfaces_Using-Interfaces-in-Component-Definitions">11.2. Using Interfaces in Component Definitions</a></li>
-<li><a href="#Defining-and-Using-Interfaces_Using-Interfaces-in-Interface-Definitions">11.3. Using Interfaces in Interface Definitions</a></li>
+<li><a href="#Defining-and-Using-Port-Interfaces_Defining-Port-Interfaces">11.1. Defining Port Interfaces</a></li>
+<li><a href="#Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Component-Definitions">11.2. Using Port Interfaces in Component Definitions</a></li>
+<li><a href="#Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Interface-Definitions">11.3. Using Port Interfaces in Interface Definitions</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Component-Instances">12. Defining Component Instances</a>
@@ -5837,8 +5837,8 @@ The members of a component form an
 <a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element sequence</a> with a semicolon as the optional
 terminating punctuation.
 The following sections describe the available component members
-except for importing interfaces, which we describe in
-<a href="#Defining-and-Using-Interfaces_Using-Interfaces-in-Interface-Definitions">a separate section</a>.</p>
+except for importing port interfaces, which we describe in
+<a href="#Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Interface-Definitions">a separate section</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -8974,7 +8974,7 @@ queued component Health {
 </div>
 </div>
 <div class="sect1">
-<h2 id="Defining-and-Using-Interfaces">11. Defining and Using Interfaces</h2>
+<h2 id="Defining-and-Using-Port-Interfaces">11. Defining and Using Port Interfaces</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A common pattern in F Prime is to use an identical set of
@@ -8982,15 +8982,16 @@ queued component Health {
 in the definitions of each of several components.
 For example, each of several driver components may specify
 an identical set of ports for sending and receiving data.
-Such a set of port instances is called an <strong>interface</strong>.
-FPP has special support for defining and using interfaces,
+Such a set of port instances is called a <strong>port interface</strong>
+(interface for short).
+FPP has special support for defining and using port interfaces,
 which we describe in this section.</p>
 </div>
 <div class="sect2">
-<h3 id="Defining-and-Using-Interfaces_Defining-Interfaces">11.1. Defining Interfaces</h3>
+<h3 id="Defining-and-Using-Port-Interfaces_Defining-Port-Interfaces">11.1. Defining Port Interfaces</h3>
 <div class="paragraph">
-<p>An <strong>interface definition</strong> defines an interface.
-To write an interface definition, you write the following:</p>
+<p>A <strong>port interface definition</strong> defines a port interface.
+To write a port interface definition, you write the following:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -9001,16 +9002,16 @@ To write an interface definition, you write the following:</p>
 <p>The <a href="#Defining-Constants_Names">name</a> of the interface.</p>
 </li>
 <li>
-<p>A sequence of <strong>interface members</strong> enclosed in curly braces
+<p>A sequence of <strong>port interface members</strong> enclosed in curly braces
 <code>{</code> &#8230;&#8203; <code>}</code>.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>An interface member may directly specify a
+<p>A port interface member may directly specify a
 <a href="#Defining-Components_Port-Instances">general port instance</a> or a
 <a href="#Defining-Components_Special-Port-Instances">special port instance</a>.
-For example, here is an interface representing a binary operation
+For example, here is a port interface representing a binary operation
 that takes two <code>F32</code> inputs and produces an <code>F32</code> output:</p>
 </div>
 <div class="listingblock">
@@ -9039,9 +9040,9 @@ interface AsyncF32Binop {
 <div class="paragraph">
 <p>This interface represents the input and output ports for any
 binary operation: addition, multiplication, etc.
-An interface member may also refer to another interface definition;
+An interface member may also import the definition of another interface;
 we describe this option
-<a href="#Defining-and-Using-Interfaces_Using-Interfaces-in-Interface-Definitions">below</a>.</p>
+<a href="#Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Interface-Definitions">below</a>.</p>
 </div>
 <div class="paragraph">
 <p>An interface definition and each of its members is an
@@ -9052,7 +9053,7 @@ The members of a interface form an
 terminating punctuation.</p>
 </div>
 <div class="paragraph">
-<p>In general, port instances that appear in interfaces must follow the same rules
+<p>In general, port instances that appear in port interfaces must follow the same rules
 as
 <a href="#Defining-Components_Port-Instances">port instances that appear in
 components</a>.
@@ -9064,9 +9065,9 @@ is used in a component, as described in the next section.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-and-Using-Interfaces_Using-Interfaces-in-Component-Definitions">11.2. Using Interfaces in Component Definitions</h3>
+<h3 id="Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Component-Definitions">11.2. Using Port Interfaces in Component Definitions</h3>
 <div class="paragraph">
-<p>Once you have defined an interface, you can use it in a component definition.
+<p>Once you have defined a port interface, you can use it in a component definition.
 To do this you write a <a href="#Defining-Components_Component-Definitions">component
 member</a> consisting of the keyword <code>import</code> followed by the interface name.
 For example:</p>
@@ -9135,9 +9136,9 @@ passive component C {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-and-Using-Interfaces_Using-Interfaces-in-Interface-Definitions">11.3. Using Interfaces in Interface Definitions</h3>
+<h3 id="Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Interface-Definitions">11.3. Using Port Interfaces in Interface Definitions</h3>
 <div class="paragraph">
-<p>You can import an interface in another interface.
+<p>You can import a port interface into another interface.
 For example:</p>
 </div>
 <div class="listingblock">
@@ -15873,7 +15874,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-07-07 16:20:45 -0700
+Last updated 2025-07-07 16:39:05 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
