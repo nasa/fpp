@@ -574,11 +574,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Components_Special-Port-Instances_Data-Product-Ports">10.3.6. Data Product Ports</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Components_Internal-Ports">10.4. Internal Ports</a>
-<ul class="sectlevel3">
-<li><a href="#Defining-Components_Internal-Ports_Importing-Interfaces">10.4.1. Importing Interfaces</a></li>
-</ul>
-</li>
+<li><a href="#Defining-Components_Internal-Ports">10.4. Internal Ports</a></li>
 <li><a href="#Defining-Components_Commands">10.5. Commands</a>
 <ul class="sectlevel3">
 <li><a href="#Defining-Components_Commands_Basic-Commands">10.5.1. Basic Commands</a></li>
@@ -626,28 +622,30 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Components_Matched-Ports">10.13. Matched Ports</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Component-Instances">11. Defining Component Instances</a>
+<li><a href="#Defining-and-Using-Interfaces">11. Defining and Using Interfaces</a>
 <ul class="sectlevel2">
-<li><a href="#Defining-Component-Instances_Component-Instance-Definitions">11.1. Component Instance Definitions</a>
-<ul class="sectlevel3">
-<li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Passive-Components">11.1.1. Passive Components</a></li>
-<li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Queued-Components">11.1.2. Queued Components</a></li>
-<li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Active-Components">11.1.3. Active Components</a></li>
+<li><a href="#Defining-and-Using-Interfaces_Defining-Interfaces">11.1. Defining Interfaces</a></li>
+<li><a href="#Defining-and-Using-Interfaces_Using-Interfaces-in-Component-Definitions">11.2. Using Interfaces in Component Definitions</a></li>
+<li><a href="#Defining-and-Using-Interfaces_Using-Interfaces-in-Interface-Definitions">11.3. Using Interfaces in Interface Definitions</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Component-Instances_Specifying-the-Implementation">11.2. Specifying the Implementation</a></li>
-<li><a href="#Defining-Component-Instances_Init-Specifiers">11.3. Init Specifiers</a>
-<ul class="sectlevel3">
-<li><a href="#Defining-Component-Instances_Init-Specifiers_Execution-Phases">11.3.1. Execution Phases</a></li>
-<li><a href="#Defining-Component-Instances_Init-Specifiers_Writing-Init-Specifiers">11.3.2. Writing Init Specifiers</a></li>
-</ul>
-</li>
-<li><a href="#Defining-Component-Instances_Generation-of-Names">11.4. Generation of Names</a></li>
-</ul>
-</li>
-<li><a href="#Defining-Interfaces">12. Defining Interfaces</a>
+<li><a href="#Defining-Component-Instances">12. Defining Component Instances</a>
 <ul class="sectlevel2">
-<li><a href="#Defining-Interfaces_Interface-Definitions">12.1. Interface Definitions</a></li>
+<li><a href="#Defining-Component-Instances_Component-Instance-Definitions">12.1. Component Instance Definitions</a>
+<ul class="sectlevel3">
+<li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Passive-Components">12.1.1. Passive Components</a></li>
+<li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Queued-Components">12.1.2. Queued Components</a></li>
+<li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Active-Components">12.1.3. Active Components</a></li>
+</ul>
+</li>
+<li><a href="#Defining-Component-Instances_Specifying-the-Implementation">12.2. Specifying the Implementation</a></li>
+<li><a href="#Defining-Component-Instances_Init-Specifiers">12.3. Init Specifiers</a>
+<ul class="sectlevel3">
+<li><a href="#Defining-Component-Instances_Init-Specifiers_Execution-Phases">12.3.1. Execution Phases</a></li>
+<li><a href="#Defining-Component-Instances_Init-Specifiers_Writing-Init-Specifiers">12.3.2. Writing Init Specifiers</a></li>
+</ul>
+</li>
+<li><a href="#Defining-Component-Instances_Generation-of-Names">12.4. Generation of Names</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Topologies">13. Defining Topologies</a>
@@ -5838,7 +5836,9 @@ For example, you can annotate the component as shown above.
 The members of a component form an
 <a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element sequence</a> with a semicolon as the optional
 terminating punctuation.
-The following sections describe the available component members.</p>
+The following sections describe the available component members
+except for importing interfaces, which we describe in
+<a href="#Defining-and-Using-Interfaces_Using-Interfaces-in-Interface-Definitions">a separate section</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -6901,49 +6901,6 @@ passive component PassiveInternalPort {
 <p>What do you think will happen if you run <code>fpp-check</code>
 on this code?
 Try it and see.</p>
-</div>
-<div class="sect3">
-<h4 id="Defining-Components_Internal-Ports_Importing-Interfaces">10.4.1. Importing Interfaces</h4>
-<div class="paragraph">
-<p>A common component design pattern in F Prime will re-use common
-port instance naming and type patterns across multiple components.
-This pattern is known as an interface. <a href="#Defining-Interfaces">Interfaces</a>
-in F Prime can be imported into component definitions to re-use common
-port patterns.</p>
-</div>
-<div class="paragraph">
-<p>Only <a href="#Defining-Components_Port-Instances">general ports</a> and
-<a href="#Defining-Components_Special-Port-Instances">specials ports</a> may be defined in
-an interface, <a href="#Defining-Components_Internal-Ports">internal ports</a> may
-only be defined inside the final component definition.</p>
-</div>
-<div class="paragraph">
-<p>Interfaces can be <code>import</code>-ed into <a href="#Defining-Components">components</a> which
-effectively places all port instances defined in the interface into the parent
-component.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module Svc { port ComDataWithContext }
-
-@ A partial set of the framer ports
-interface FramerPartial {
-    @ Port to receive data to frame, in a Fw::Buffer with optional context
-    sync input port dataIn: Svc.ComDataWithContext
-
-    @ Port to output framed data with optional context
-    output port dataOut: Svc.ComDataWithContext
-}
-
-passive component C {
-    @ Import the I interface to inherit it's port instances
-    import FramerPartial
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>See <a href="#Defining-Interfaces">Interfaces</a> for more detail about defining F Prime interfaces.</p>
-</div>
 </div>
 </div>
 <div class="sect2">
@@ -9017,11 +8974,211 @@ queued component Health {
 </div>
 </div>
 <div class="sect1">
-<h2 id="Defining-Component-Instances">11. Defining Component Instances</h2>
+<h2 id="Defining-and-Using-Interfaces">11. Defining and Using Interfaces</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>As discussed in the previous section, in F Prime you
-define components and instantiate them.
+<p>A common pattern in F Prime is to use an identical set of
+<a href="#Defining-Components_Port-Instances">port instances</a>
+in the definitions of each of several components.
+For example, each of several driver components may specify
+an identical set of ports for sending and receiving data.
+Such a set of port instances is called an <strong>interface</strong>.
+FPP has special support for defining and using interfaces,
+which we describe in this section.</p>
+</div>
+<div class="sect2">
+<h3 id="Defining-and-Using-Interfaces_Defining-Interfaces">11.1. Defining Interfaces</h3>
+<div class="paragraph">
+<p>An <strong>interface definition</strong> defines an interface.
+To write an interface definition, you write the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The keyword <code>interface</code>.</p>
+</li>
+<li>
+<p>The <a href="#Defining-Constants_Names">name</a> of the interface.</p>
+</li>
+<li>
+<p>A sequence of <strong>interface members</strong> enclosed in curly braces
+<code>{</code> &#8230;&#8203; <code>}</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>An interface member may directly specify a
+<a href="#Defining-Components_Port-Instances">general port instance</a> or a
+<a href="#Defining-Components_Special-Port-Instances">special port instance</a>.
+For example, here is an interface representing a binary operation
+that takes two <code>F32</code> inputs and produces an <code>F32</code> output:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A port for carrying an F32 value
+port F32Value(value: F32)
+
+@ A priority constant for async F32 binary operation input
+constant AsyncF32BinopInputPriority = 10
+
+@ An active component for adding two F32 values with specified priorities
+interface AsyncF32Binop {
+
+  @ Input 1 at priority 10
+  async input port f32ValueIn1: F32Value priority AsyncF32BinopInputPriority
+
+  @ Input 2 at priority 20
+  async input port f32ValueIn2: F32Value priority AsyncF32BinopInputPriority
+
+  @ Output
+  output port f32ValueOut: F32Value
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This interface represents the input and output ports for any
+binary operation: addition, multiplication, etc.
+An interface member may also refer to another interface definition;
+we describe this option
+<a href="#Defining-and-Using-Interfaces_Using-Interfaces-in-Interface-Definitions">below</a>.</p>
+</div>
+<div class="paragraph">
+<p>An interface definition and each of its members is an
+<a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>.
+For example, you can annotate the interface as shown above.
+The members of a interface form an
+<a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element sequence</a> with a semicolon as the optional
+terminating punctuation.</p>
+</div>
+<div class="paragraph">
+<p>In general, port instances that appear in interfaces must follow the same rules
+as
+<a href="#Defining-Components_Port-Instances">port instances that appear in
+components</a>.
+For example, each port name appearing in the interface must
+be distinct.
+The rules specific to active, passive, and queued components
+do not apply to interfaces; those are checked when the interface
+is used in a component, as described in the next section.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-and-Using-Interfaces_Using-Interfaces-in-Component-Definitions">11.2. Using Interfaces in Component Definitions</h3>
+<div class="paragraph">
+<p>Once you have defined an interface, you can use it in a component definition.
+To do this you write a <a href="#Defining-Components_Component-Definitions">component
+member</a> consisting of the keyword <code>import</code> followed by the interface name.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ An active component for adding two F32 values
+active component ActiveF32Adder {
+
+  @ Import the AsyncF32Binop interface
+  import AsyncF32Binop
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This component is identical to the <code>ActiveF32Adder</code> component
+that we defined in the section on
+<a href="#Defining-Components_Port-Instances_Basic-Port-Instances">basic port instances</a>, except that we have factored the input
+and output ports into an interface.
+We can then use the same interface to define an <code>ActiveF32Multiplier</code>
+component:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ An active component for multiplying two F32 values
+active component ActiveF32Multiplier {
+
+  @ Import the AsyncF32Binop interface
+  import AsyncF32Binop
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This component is identical to <code>ActiveF32Adder</code>, except
+that it performs multiplication instead of addition.</p>
+</div>
+<div class="paragraph">
+<p>In general, a component member <code>import</code> <em>I</em> member is analyzed by (1)
+resolving the interface <em>I</em> to a set of port instances
+and (2) adding each of the port instances to the component.
+After this resolution, all the rules for component definition
+must be obeyed.
+For example, this component definition is illegal,
+because it has a duplicate port name:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">port P
+
+interface I {
+  sync input port p: P
+}
+
+passive component C {
+
+  @ Port instance p is imported here
+  import I
+
+  @ Port instance name p is a duplicate here
+  sync input port p: P
+
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-and-Using-Interfaces_Using-Interfaces-in-Interface-Definitions">11.3. Using Interfaces in Interface Definitions</h3>
+<div class="paragraph">
+<p>You can import an interface in another interface.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">port P
+
+interface I1 {
+  sync input port p1: P
+}
+
+interface I2 {
+  import I1
+  sync input port p2: P
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Either <code>I1</code> or <code>I2</code> may be imported into a component
+or into another interface.
+Interface <code>I2</code> is functionally equivalent to the
+following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">port P
+
+interface I2 {
+  sync input port p1: P
+  sync input port p2: P
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Defining-Component-Instances">12. Defining Component Instances</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As discussed in the section on <a href="#Defining-Components">defining-components</a>,
+in F Prime you define components and instantiate them.
 Then you construct a <strong>topology</strong>, which is a graph
 that specifies the connections between the components.
 This section explains how to define component instances.
@@ -9029,14 +9186,14 @@ In the next section, we will explain how to
 construct topologies.</p>
 </div>
 <div class="sect2">
-<h3 id="Defining-Component-Instances_Component-Instance-Definitions">11.1. Component Instance Definitions</h3>
+<h3 id="Defining-Component-Instances_Component-Instance-Definitions">12.1. Component Instance Definitions</h3>
 <div class="paragraph">
 <p>To instantiate a component, you write a <strong>component instance definition</strong>.
 The form of a component instance definition depends on the kind
 of the component you are instantiating: passive, queued, or active.</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-Component-Instances_Component-Instance-Definitions_Passive-Components">11.1.1. Passive Components</h4>
+<h4 id="Defining-Component-Instances_Component-Instance-Definitions_Passive-Components">12.1.1. Passive Components</h4>
 <div class="paragraph">
 <p>To instantiate a passive component, you write the following:</p>
 </div>
@@ -9194,7 +9351,7 @@ even if <em>I</em> defines no dictionary elements.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Component-Instances_Component-Instance-Definitions_Queued-Components">11.1.2. Queued Components</h4>
+<h4 id="Defining-Component-Instances_Component-Instance-Definitions_Queued-Components">12.1.2. Queued Components</h4>
 <div class="paragraph">
 <p>Instantiating a queued component is just like instantiating
 a passive component, except that you must also specify
@@ -9253,7 +9410,7 @@ In the component instance definition, we have specified a queue size of 10.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Component-Instances_Component-Instance-Definitions_Active-Components">11.1.3. Active Components</h4>
+<h4 id="Defining-Component-Instances_Component-Instance-Definitions_Active-Components">12.1.3. Active Components</h4>
 <div class="paragraph">
 <p>Instantiating an active component is like instantiating a queued
 component, except that you may specify additional parameters
@@ -9379,7 +9536,7 @@ associated with the instance should run on CPU 0.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Component-Instances_Specifying-the-Implementation">11.2. Specifying the Implementation</h3>
+<h3 id="Defining-Component-Instances_Specifying-the-Implementation">12.2. Specifying the Implementation</h3>
 <div class="paragraph">
 <p>When you define a component instance <em>I</em>, the FPP translator needs
 to know the following information about the C&#43;&#43; implementation of <em>I</em>:</p>
@@ -9513,7 +9670,7 @@ file <code>../../Svc/LinuxTime/LinuxTime.hpp</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Component-Instances_Init-Specifiers">11.3. Init Specifiers</h3>
+<h3 id="Defining-Component-Instances_Init-Specifiers">12.3. Init Specifiers</h3>
 <div class="paragraph">
 <p>In an F Prime FSW application, each component instance <em>I</em>
 has some associated C&#43;&#43; code
@@ -9544,7 +9701,7 @@ However, most of the code is in fact initialization code,
 and so FPP uses "init" as a shorthand name.)</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-Component-Instances_Init-Specifiers_Execution-Phases">11.3.1. Execution Phases</h4>
+<h4 id="Defining-Component-Instances_Init-Specifiers_Execution-Phases">12.3.1. Execution Phases</h4>
 <div class="paragraph">
 <p>The FPP translator uses init specifiers when it generates
 code for an F Prime topology.
@@ -9759,7 +9916,7 @@ instance needs to deallocate memory or release resources on program exit.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Component-Instances_Init-Specifiers_Writing-Init-Specifiers">11.3.2. Writing Init Specifiers</h4>
+<h4 id="Defining-Component-Instances_Init-Specifiers_Writing-Init-Specifiers">12.3.2. Writing Init Specifiers</h4>
 <div class="paragraph">
 <p>You may write one or more init specifiers as part of a component
 instance definition.
@@ -9898,7 +10055,7 @@ use the <code>state</code> value that we just mentioned.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Component-Instances_Generation-of-Names">11.4. Generation of Names</h3>
+<h3 id="Defining-Component-Instances_Generation-of-Names">12.4. Generation of Names</h3>
 <div class="paragraph">
 <p>FPP uses the following rules to generate the names associated with
 component instances.
@@ -9956,93 +10113,6 @@ constants for the instance <code>SystemReference::cmdSeq</code> are placed in
 the namespace <code>ConfigConstants::SystemReference_cmdSeq</code>.
 This namespace, in turn, is placed in the namespace <code>SystemReference</code>
 according to the previous paragraph.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="Defining-Interfaces">12. Defining Interfaces</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In F Prime, the <strong>interface</strong> is group of <a href="#Defining-Ports">port</a> instances
-that define a set of functionality.</p>
-</div>
-<div class="paragraph">
-<p>In F Prime, a standard <a href="#Defining-Components">component</a> design pattern is to
-provide multiple components with a common set of ports. This set of ports is
-known as an interface. This common set of ports allows interchangeable usage of
-components at the point in a topology.</p>
-</div>
-<div class="paragraph">
-<p>For example, you may have a component that implements a driver for a serial interface
-and another SPI controller. Both components may implement the standard <code>ByteStreamDriver</code>
-component to allow standard F Prime uplink and downlink to pass through both types of drivers.</p>
-</div>
-<div class="sect2">
-<h3 id="Defining-Interfaces_Interface-Definitions">12.1. Interface Definitions</h3>
-<div class="paragraph">
-<p>An FPP <strong>interface definition</strong> defines an F Prime interface.
-To write an interface definition, you write the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>The keyword <code>interface</code>.</p>
-</li>
-<li>
-<p>The <a href="#Defining-Constants_Names">name</a> of the interface.</p>
-</li>
-<li>
-<p>A sequence of <strong>interface members</strong> enclosed in curly braces
-<code>{</code> &#8230;&#8203; <code>}</code>.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>As an example, here is a interface <code>I</code> with no members:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">@ An empty interface
-interface I {
-
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>An interface definition and each of its members is an
-<a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>.
-For example, you can annotate the interface as shown above.
-The members of a interface form an
-<a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element sequence</a> with a semicolon as the optional
-terminating punctuation.</p>
-</div>
-<div class="paragraph">
-<p>Port instances in interfaces follow the same set of rules described for
-<a href="#Defining-Components_Port-Instances">component port instances</a>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module Svc { port ComDataWithContext }
-
-@ A partial set of the framer ports
-interface FramerPartial {
-    @ Port to receive data to frame, in a Fw::Buffer with optional context
-    sync input port dataIn: Svc.ComDataWithContext
-
-    @ Port to output framed data with optional context
-    output port dataOut: Svc.ComDataWithContext
-}
-
-passive component C {
-    @ Import the I interface to inherit it's port instances
-    import FramerPartial
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The above example is equivalent to simply writing the <code>dataIn</code> and <code>dataOut</code>
-port instances inside of the component <code>C</code> directly.</p>
 </div>
 </div>
 </div>
@@ -15803,7 +15873,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-07-07 11:17:38 -0700
+Last updated 2025-07-07 16:20:45 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

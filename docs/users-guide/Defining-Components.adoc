@@ -47,7 +47,10 @@ The members of a component form an
 <<Defining-Constants_Multiple-Definitions-and-Element-Sequences,
 element sequence>> with a semicolon as the optional
 terminating punctuation.
-The following sections describe the available component members.
+The following sections describe the available component members
+except for importing interfaces, which we describe in 
+<<Defining-and-Using-Interfaces_Using-Interfaces-in-Interface-Definitions,
+a separate section>>.
 
 === Port Instances
 
@@ -931,44 +934,6 @@ passive component PassiveInternalPort {
 What do you think will happen if you run `fpp-check`
 on this code?
 Try it and see.
-
-==== Importing Interfaces
-
-A common component design pattern in F Prime will re-use common
-port instance naming and type patterns across multiple components.
-This pattern is known as an interface. <<Defining-Interfaces,Interfaces>>
-in F Prime can be imported into component definitions to re-use common
-port patterns.
-
-Only <<Defining-Components_Port-Instances,general ports>> and
-<<Defining-Components_Special-Port-Instances,specials ports>> may be defined in
-an interface, <<Defining-Components_Internal-Ports, internal ports>> may
-only be defined inside the final component definition.
-
-Interfaces can be `import`-ed into <<Defining-Components,components>> which
-effectively places all port instances defined in the interface into the parent
-component.
-
-[source,fpp]
-----
-module Svc { port ComDataWithContext }
-
-@ A partial set of the framer ports
-interface FramerPartial {
-    @ Port to receive data to frame, in a Fw::Buffer with optional context
-    sync input port dataIn: Svc.ComDataWithContext
-
-    @ Port to output framed data with optional context
-    output port dataOut: Svc.ComDataWithContext
-}
-
-passive component C {
-    @ Import the I interface to inherit it's port instances
-    import FramerPartial
-}
-----
-
-See <<Defining-Interfaces,Interfaces>> for more detail about defining F Prime interfaces.
 
 === Commands
 
