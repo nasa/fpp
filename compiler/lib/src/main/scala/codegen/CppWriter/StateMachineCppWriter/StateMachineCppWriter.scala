@@ -305,7 +305,7 @@ case class StateMachineCppWriter(
           ),
           lines(
             s"""|
-                |//! Friend class tester implementation to support white-box testing
+                |//! Tester class for the state machine
                 |friend class ${name}Tester;
                 |"""
           )

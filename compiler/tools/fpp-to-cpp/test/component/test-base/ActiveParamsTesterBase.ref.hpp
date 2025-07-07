@@ -1456,7 +1456,7 @@ class ActiveParamsTesterBase :
     static void from_timeGetOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
         FwIndexType portNum, //!< The port number
-        Fw::Time& time //!< The time tag
+        Fw::Time& time //!< Reference to Time object
     );
 
     //! Static function for port from_noArgsOut

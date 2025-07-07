@@ -24,7 +24,7 @@ namespace FppTest {
         // Friend classes
         // ----------------------------------------------------------------------
 
-        //! Friend class tester implementation to support white-box testing
+        //! Tester class for the state machine
         friend class BasicGuardTestStructTester;
 
       public:

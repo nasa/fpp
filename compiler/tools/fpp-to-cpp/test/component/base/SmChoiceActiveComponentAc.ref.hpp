@@ -70,8 +70,9 @@ namespace FppTest {
           // Friend classes
           // ----------------------------------------------------------------------
 
-          //! Friend class the same Tester friends as the enclosing component
+          //! Autocoded test harness for the enclosing component
           friend class SmChoiceActiveTesterBase;
+          //! Test implementation for the enclosing component
           friend class SmChoiceActiveTester;
 
         public:
@@ -128,8 +129,9 @@ namespace FppTest {
           // Friend classes
           // ----------------------------------------------------------------------
 
-          //! Friend class the same Tester friends as the enclosing component
+          //! Autocoded test harness for the enclosing component
           friend class SmChoiceActiveTesterBase;
+          //! Test implementation for the enclosing component
           friend class SmChoiceActiveTester;
 
         public:
@@ -188,8 +190,9 @@ namespace FppTest {
           // Friend classes
           // ----------------------------------------------------------------------
 
-          //! Friend class the same Tester friends as the enclosing component
+          //! Autocoded test harness for the enclosing component
           friend class SmChoiceActiveTesterBase;
+          //! Test implementation for the enclosing component
           friend class SmChoiceActiveTester;
 
         public:
@@ -256,8 +259,9 @@ namespace FppTest {
           // Friend classes
           // ----------------------------------------------------------------------
 
-          //! Friend class the same Tester friends as the enclosing component
+          //! Autocoded test harness for the enclosing component
           friend class SmChoiceActiveTesterBase;
+          //! Test implementation for the enclosing component
           friend class SmChoiceActiveTester;
 
         public:
@@ -324,8 +328,9 @@ namespace FppTest {
           // Friend classes
           // ----------------------------------------------------------------------
 
-          //! Friend class the same Tester friends as the enclosing component
+          //! Autocoded test harness for the enclosing component
           friend class SmChoiceActiveTesterBase;
+          //! Test implementation for the enclosing component
           friend class SmChoiceActiveTester;
 
         public:
@@ -379,8 +384,9 @@ namespace FppTest {
           // Friend classes
           // ----------------------------------------------------------------------
 
-          //! Friend class the same Tester friends as the enclosing component
+          //! Autocoded test harness for the enclosing component
           friend class SmChoiceActiveTesterBase;
+          //! Test implementation for the enclosing component
           friend class SmChoiceActiveTester;
 
         public:
@@ -442,8 +448,9 @@ namespace FppTest {
           // Friend classes
           // ----------------------------------------------------------------------
 
-          //! Friend class the same Tester friends as the enclosing component
+          //! Autocoded test harness for the enclosing component
           friend class SmChoiceActiveTesterBase;
+          //! Test implementation for the enclosing component
           friend class SmChoiceActiveTester;
 
         public:
@@ -507,8 +514,9 @@ namespace FppTest {
           // Friend classes
           // ----------------------------------------------------------------------
 
-          //! Friend class the same Tester friends as the enclosing component
+          //! Autocoded test harness for the enclosing component
           friend class SmChoiceActiveTesterBase;
+          //! Test implementation for the enclosing component
           friend class SmChoiceActiveTester;
 
         public:

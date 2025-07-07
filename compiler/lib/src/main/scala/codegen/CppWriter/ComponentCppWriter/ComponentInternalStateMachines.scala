@@ -736,8 +736,9 @@ case class ComponentInternalStateMachines(
             ),
             lines(
               s"""|
-                  |//! Friend class the same Tester friends as the enclosing component
+                  |//! Autocoded test harness for the enclosing component
                   |friend class ${componentName}TesterBase;
+                  |//! Test implementation for the enclosing component
                   |friend class ${componentName}Tester;
                   |"""
             )
