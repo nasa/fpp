@@ -1,7 +1,7 @@
 == Defining Component Instances
 
-As discussed in the previous section, in F Prime you
-define components and instantiate them.
+As discussed in the section on <<Defining-Components,defining-components>>,
+in F Prime you define components and instantiate them.
 Then you construct a *topology*, which is a graph
 that specifies the connections between the components.
 This section explains how to define component instances.
