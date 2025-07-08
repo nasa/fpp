@@ -6,6 +6,7 @@ on:
   release:
     types: [ published ]
 
+
 jobs:
   run:
     if: github.event.pull_request.draft == false
