@@ -1,15 +1,14 @@
 name: Build Native Images
 
 on:
-  push:
-    branches: [ "main", "release/**", "feature/**" ]
   pull_request:
-    branches: [ "main", "release/**", "feature/**" ]
+    types: [opened, synchronize, reopened, ready_for_review]
   release:
     types: [ published ]
 
 jobs:
   run:
+    if: github.event.pull_request.draft == false
     name: "Package"
     uses: "./.github/workflows/native-build.yml"
     with:
