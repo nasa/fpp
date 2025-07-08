@@ -16,7 +16,7 @@ final case class ComponentInstance(
   priority: Option[BigInt],
   cpu: Option[BigInt],
   initSpecifierMap: Map[Int, InitSpecifier] = Map()
-) extends Ordered[ComponentInstance] {
+) extends Ordered[ComponentInstance], EndpointContainer {
 
   override def toString = qualifiedName.toString
 
@@ -37,6 +37,8 @@ final case class ComponentInstance(
 
   /** Gets the unqualified name of the component instance */
   def getUnqualifiedName = aNode._2.data.name
+
+  def getQualifiedName: Name.Qualified = qualifiedName
 
   /** Gets the location of the component instance */
   def getLoc: Location = Locations.get(aNode._2.id)

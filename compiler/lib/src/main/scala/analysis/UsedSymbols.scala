@@ -42,6 +42,12 @@ object UsedSymbols extends UseAnalyzer {
     use: Name.Qualified
   ) = addSymbol(a, node)
 
+  override def portIdentifierUse(
+    a: Analysis,
+    node: AstNode[Ast.QualIdent],
+    use: Name.Qualified
+  ) = addSymbol(a, node)
+
   override def typeUse(
     a: Analysis,
     node: AstNode[Ast.TypeName],

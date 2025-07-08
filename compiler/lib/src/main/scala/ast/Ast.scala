@@ -340,7 +340,7 @@ object Ast {
 
   /** Port instance identifier */
   final case class PortInstanceIdentifier(
-    componentInstance: AstNode[QualIdent],
+    parent: AstNode[QualIdent],
     portName: AstNode[Ident]
   )
 

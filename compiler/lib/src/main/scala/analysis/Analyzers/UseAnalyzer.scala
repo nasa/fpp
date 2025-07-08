@@ -8,9 +8,12 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
 
   /** A use of a component definition */
   def componentUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
- 
+
   /** A use of a component instance definition */
   def componentInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
+
+  /** A use of a component instance definition or topology definition as a connection endpoint */
+  def portIdentifierUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
 
   /** A use of a constant definition or enumerated constant definition */
   def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified): Result = default(a)
@@ -176,7 +179,15 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
   }
 
   private def portInstanceIdentifierNode(a: Analysis, node: AstNode[Ast.PortInstanceIdentifier]): Result =
-    qualIdentNode (componentInstanceUse) (a, node.data.componentInstance)
+    // Port instance identifiers (i.e. parents of port instances) can either refer to
+    // a component instance or an imported topology
+    // First try to match it to a component instance
+    (qualIdentNode (componentInstanceUse) (a, node.data.parent)) match {
+      case Left(_) =>
+        // This component instance does not exist, try with a topology
+        qualIdentNode (topologyUse) (a, node.data.parent)
+      case Right(a) => Right(a)
+    }
 
   private def qualIdentNode
     (f: (Analysis, AstNode[Ast.QualIdent], Name.Qualified) => Result) 

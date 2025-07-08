@@ -225,9 +225,26 @@ case class Analysis(
 
   /** Gets a component instance symbol from the use-def map */
   def getComponentInstanceSymbol(id: AstNode.Id):
-  Result.Result[Symbol.ComponentInstance] =
+  Result.Result[Symbol] =
     this.useDefMap(id) match {
       case cis: Symbol.ComponentInstance => Right(cis)
+      case cis: Symbol.Topology => Right(cis)
+      case s => Left(
+        SemanticError.InvalidSymbol(
+          s.getUnqualifiedName,
+          Locations.get(id),
+          "not a component instance symbol",
+          s.getLoc
+        )
+      )
+    }
+
+  /** Gets a component instance symbol from the use-def map */
+  def getPortIdentifierSymbol(id: AstNode.Id):
+  Result.Result[Symbol] =
+    this.useDefMap(id) match {
+      case cis: Symbol.ComponentInstance => Right(cis)
+      case ts: Symbol.Topology => Right(ts)
       case s => Left(
         SemanticError.InvalidSymbol(
           s.getUnqualifiedName,
