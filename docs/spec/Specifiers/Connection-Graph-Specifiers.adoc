@@ -37,7 +37,7 @@ A connection is the following:
 _[_
 `unmatched`
 _]_
-<<Component-Instance-Member-Identifiers_Port-Instance-Identifiers,_port-instance-id_>>
+<<Endpoint-Instance-Member-Identifiers_Port-Instance-Identifiers,_port-instance-id_>>
 _[_
 `[`
 <<Expressions,_expression_>>

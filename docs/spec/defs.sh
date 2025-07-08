@@ -18,6 +18,7 @@ Definitions/Definitions.adoc
 State-Machine-Behavior-Elements/State-Machine-Behavior-Elements.adoc
 Specifiers/Specifiers.adoc
 Component-Instance-Member-Identifiers.adoc
+Endpoint-Member-Identifiers.adoc
 Type-Names.adoc
 Expressions/Expressions.adoc
 Formal-Parameter-Lists.adoc

@@ -35,6 +35,8 @@ instance specifier>>
 
 * An <<Specifiers_Include-Specifiers,include specifier>>
 
+* A <<Definitions_Component-Instance-Definitions,component instance definition>>
+
 ==== Semantics
 
 A topology definition _D_ must be resolvable to a topology _T_,
@@ -103,6 +105,11 @@ connections C { a.b -> c.d, e.f -> g.h }
 . For each topology _T'_ in _S_,
 <<Specifiers_Topology-Import-Specifiers,import the instances>>
 of _T'_ into _T_.
+
+.. Note that only <<Specifiers_Component-Instance-Specifiers,component
+instance specifiers>> instances from _T'_ will be imported into _T_.
+<<Definitions_Component-Instance-Definitions,Component instance definitions>> inside _T'_
+will be hidden (and cannot be directly connected to) inside _T_.
 
 . Check that the connections discovered in step 3 are between port
 instances present in _T_ or are <<Specifiers_Port-Export-Specifiers,exported ports>>
@@ -246,20 +253,35 @@ See Example 4 in the <<Definitions_Topology-Definitions_Examples,Examples sectio
 
 For purposes of port numbering, FPP orders connections as follows.
 
-*Connection endpoints:*
+A connection endpoint in an FPP topology refers to either a
+<<Definitions_Component-Instance-Definitions,component instance>> or an
+<<Definitions_Topology-Definitions,topology definition>> as both have
+<<Endpoint-Instance-Member-Identifiers,endpoint instance members>>.
+
 A *connection endpoint* is _I_ `.` _p_ or _I_ `.` _p_ `[` _n_ `]`, where
 
-* _I_ refers to a
-<<Definitions_Component-Instance-Definitions,component instance>> or an
-<<Specifiers_Topology-Import-Specifiers,imported topology>>.
+. _I_ is one of the following
 
-* If _I_ is a component instance, _p_ is an identifier that names a port instance specified in
+.. A <<Definitions_Component-Instance-Definitions,component instance definition>> that is
+included in the topology via a <<Specifiers_Component-Instance-Specifiers,component instance specifier>>
+
+.. A <<Definitions_Component-Instance-Definitions,component instance definition>> defined _inside_ _T_
+
+... This is known as a "private component instance" as the endpoint cannot be connected to from
+outside its enclosing topology.
+
+.. A <<Definitions_Topology-Definitions,topology definition>> that is <<Specifiers_Topology-Import-Specifiers,imported>>
+into _T_.
+
+. And _p_ meets the following conditions:
+
+.. If _I_ refers to a **component instance**, _p_ is an identifier that names a port instance specified in
 the component definition associated with _I_.
 
-* If _I_ is topology definition, _p_ is an identifier that names an <<Specifiers_Port-Export-Specifiers,exported port>> inside
-_I_. _I_ must be <<Specifiers_Topology-Import-Specifiers,imported>> into the parent topology of the connection.
+.. If _I_ refers to a **topology definition**, _p_ identifiers an
+<<Specifiers_Port-Export-Specifiers,exported port>> inside _I_.
 
-* _n_ is an optional port number that is present if and only
+. _n_ is an optional port number that is present if and only
 if it appears in the model source.
 
 When a connection endpoint _e_ has the form _I_ `.` _p_ `[` _n_ `]`,
