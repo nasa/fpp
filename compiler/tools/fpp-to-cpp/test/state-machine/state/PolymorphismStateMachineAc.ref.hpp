@@ -19,6 +19,13 @@ namespace FppTest {
     //! A hierarchical state machine with behavioral polymorphism
     class PolymorphismStateMachineBase {
 
+        // ----------------------------------------------------------------------
+        // Friend classes
+        // ----------------------------------------------------------------------
+
+        //! Tester class for the state machine
+        friend class PolymorphismTester;
+
       public:
 
         // ----------------------------------------------------------------------

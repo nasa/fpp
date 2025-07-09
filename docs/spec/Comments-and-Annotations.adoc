@@ -36,13 +36,15 @@ Annotations can occur at the following syntax elements:
 
 * A <<Definitions,definition>>.
 
-* A <<Specifiers,specifier>>.
+* A <<Definitions_Port-Interface-Definitions,member of a port interface definition>>.
+
+* A <<Definitions_State-Machine-Definitions_Syntax,state machine member>>.
 
 * A <<Definitions_Struct-Definitions,member of a struct definition>>.
 
 * A <<Formal-Parameter-Lists,formal parameter>>.
 
-* A <<Definitions_State-Machine-Definitions_Syntax,state machine member>>.
+* A <<Specifiers,specifier>>.
 
 * A <<State-Machine-Behavior-Elements_State-Definitions_Syntax,state definition member>>.
 

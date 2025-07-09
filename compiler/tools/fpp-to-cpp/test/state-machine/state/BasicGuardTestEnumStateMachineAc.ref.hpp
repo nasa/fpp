@@ -20,6 +20,13 @@ namespace FppTest {
     //! A basic state machine with a TestEnum guard
     class BasicGuardTestEnumStateMachineBase {
 
+        // ----------------------------------------------------------------------
+        // Friend classes
+        // ----------------------------------------------------------------------
+
+        //! Tester class for the state machine
+        friend class BasicGuardTestEnumTester;
+
       public:
 
         // ----------------------------------------------------------------------
