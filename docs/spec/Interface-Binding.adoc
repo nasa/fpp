@@ -3,3 +3,10 @@
 <<Definitions_Port-Interface-Definitions,Interfaces>> in F Prime
 is a collection of <<Specifiers_Port-Instance-Specifiers,port
 instance specifiers>>.
+
+*Interface binding* refers to mapping a <<Definitions_Component-Instance-Definitions,
+component instance>> or <<Definitions_Topology-Definitions,topology>> to
+an interface. The interface is there a mechanism to abstract the
+implementation details of an F Prime component or topology.
+
+Interface binding happens during

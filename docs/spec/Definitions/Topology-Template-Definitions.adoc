@@ -12,12 +12,19 @@ topology definitions.
 `topology`
 <<Lexical-Elements_Identifiers,_identifier_>>
 `(` _topology-parameter-sequence_ `)`
+_[_ `implements` <<Scoping-of-Names_Qualified-Identifiers,_interface-ident>> _]_
 `{` _topology-template-member-sequence_ `}`
+
+The _identifier_ specifies the name of the topology template.
 
 _topology-parameter-sequence_ is an
 <<Template-Parameter-Lists,template parameter sequence>> in
 which each element is a *parameter*, and
 the the terminating punctuation is a comma.
+
+The optional _interface-ident_ refers to a <<Definitions_Port-Interface-Definitions,
+interface definition, _ID_>>. This optional clause is a compile-time check that
+verify that this topology definition fully <<Interface-Binding,implements>> _ID_.
 
 _topology-template-member-sequence_ is an
 <<Element-Sequences,element sequence>> in
@@ -42,4 +49,10 @@ instance specifier>>
 
 ==== Semantics
 
-TODO
+Topology _template_ definitions differ from topology definitions in that they
+cannot be resolved until they are instatiated inside a full topology.
+Topology _template_ definitions include a set of parameters which are passed
+concrete values when instantiating the template.
+
+===== Template Instantiation
+

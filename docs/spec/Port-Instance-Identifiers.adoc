@@ -4,7 +4,7 @@ A *port instance identifier* refers to a port instance that
 can act as an _endpoint_ inside a
 <<Specifiers_Connection-Graph-Specifiers,connection graph specifiers>>.
 
-Port instances are member either of *component instances* or
+Port instances are members of either *component instances* or
 *topology definitions*. The can also be referenced through
 an <<Interface-Binding,interface binding>>.
 

@@ -1,0 +1,14 @@
+=== Topology Template Instantiation Specifiers
+
+A *topology template instantiation specifier* takes a
+<<Definitions_Topology-Template-Definitions,topology template>> and
+applies a set of values to its <<Template-Parameter-Lists,parameters>>
+to generate a new <<Defines_Topology-Definitions,concrete topology>>.
+
+=== Syntax
+
+`topology`
+<<Lexical-Elements_Identifiers,_identifier_>>
+`=`
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident>>
+`(` _parameter-sequence_ `)`

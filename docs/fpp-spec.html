@@ -4306,13 +4306,21 @@ topology definitions.</p>
 <p><code>topology</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>(</code> <em>topology-parameter-sequence</em> <code>)</code>
+<em>[</em> <code>implements</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>interface-ident</a> _]</em>
 <code>{</code> <em>topology-template-member-sequence</em> <code>}</code></p>
+</div>
+<div class="paragraph">
+<p>The <em>identifier</em> specifies the name of the topology template.</p>
 </div>
 <div class="paragraph">
 <p><em>topology-parameter-sequence</em> is an
 <a href="#Template-Parameter-Lists">template parameter sequence</a> in
 which each element is a <strong>parameter</strong>, and
 the the terminating punctuation is a comma.</p>
+</div>
+<div class="paragraph">
+<p>The optional <em>interface-ident</em> refers to a <a href="#Definitions_Port-Interface-Definitions">interface definition, <em>ID</em></a>. This optional clause is a compile-time check that
+verify that this topology definition fully <a href="#Interface-Binding">implements</a> <em>ID</em>.</p>
 </div>
 <div class="paragraph">
 <p><em>topology-template-member-sequence</em> is an
@@ -4351,7 +4359,14 @@ instance specifier</a></p>
 <div class="sect3">
 <h4 id="Definitions_Topology-Template-Definitions_Semantics">5.15.2. Semantics</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>Topology <em>template</em> definitions differ from topology definitions in that they
+cannot be resolved until they are instatiated inside a full topology.
+Topology <em>template</em> definitions include a set of parameters which are passed
+concrete values when instantiating the template.</p>
+</div>
+<div class="sect4">
+<h5 id="Definitions_Topology-Template-Definitions_Semantics_Template-Instantiation">Template Instantiation</h5>
+
 </div>
 </div>
 </div>
@@ -8344,7 +8359,7 @@ can act as an <em>endpoint</em> inside a
 <a href="#Specifiers_Connection-Graph-Specifiers">connection graph specifiers</a>.</p>
 </div>
 <div class="paragraph">
-<p>Port instances are member either of <strong>component instances</strong> or
+<p>Port instances are members of either <strong>component instances</strong> or
 <strong>topology definitions</strong>. The can also be referenced through
 an <a href="#Interface-Binding">interface binding</a>.</p>
 </div>
@@ -8455,6 +8470,14 @@ port instance.</p>
 <p><a href="#Definitions_Port-Interface-Definitions">Interfaces</a> in F Prime
 is a collection of <a href="#Specifiers_Port-Instance-Specifiers">port
 instance specifiers</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Interface binding</strong> refers to mapping a <a href="#Definitions_Component-Instance-Definitions">component instance</a> or <a href="#Definitions_Topology-Definitions">topology</a> to
+an interface. The interface is there a mechanism to abstract the
+implementation details of an F Prime component or topology.</p>
+</div>
+<div class="paragraph">
+<p>Interface binding happens during</p>
 </div>
 </div>
 </div>
@@ -11995,7 +12018,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-07-09 10:57:29 -0700
+Last updated 2025-07-09 13:12:18 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
