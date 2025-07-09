@@ -1,12 +1,7 @@
 == Component Instance Member Identifiers
 
 A *compoent instance member identifier* refers to a member of an
-component instance. Component instances refer to a definition that
-contains **port instances** that can be connected to in a
-<<Specifiers_Connection-Graph-Specifiers,connection graph>>.
-
-The two types of endpoint instances are <<Definitions_Topology-Definitions,topologies>>
-and <<Definitions_Component-Instance-Definitions,component instances>>.
+component instance.
 
 === Telemetry Channel Identifiers
 
