@@ -20,6 +20,7 @@ Defining-Enums.adoc
 Defining-Ports.adoc
 Defining-State-Machines.adoc
 Defining-Components.adoc
+Defining-and-Using-Port-Interfaces.adoc
 Defining-Component-Instances.adoc
 Defining-Topologies.adoc
 Specifying-Models-as-Files.adoc

@@ -258,10 +258,10 @@ sealed trait Error {
         System.err.println("note: to be available, a port number must be in bounds and " ++
                            "unassigned at each of the matched ports")
       case SemanticError.OverlappingIdRanges(
-        maxId1, name1, loc1, baseId2, name2, loc2
+        baseId1, name1, loc1, baseId2, maxId2, name2, loc2
       ) =>
         Error.print (None) (
-          s"max ID $maxId1 for instance $name1 conflicts with base ID $baseId2 for instance $name2"
+          s"base ID $baseId1 for instance $name1 lies inside the ID range [$baseId2, $maxId2] for instance $name2"
         )
         System.err.println(s"$name1 is defined here")
         System.err.println(loc1)
@@ -649,10 +649,11 @@ object SemanticError {
   ) extends Error
   /** Overlapping ID ranges */
   final case class OverlappingIdRanges(
-    maxId1: BigInt,
+    baseId1: BigInt,
     name1: String,
     loc1: Location,
     baseId2: BigInt,
+    maxId2: BigInt,
     name2: String,
     loc2: Location
   ) extends Error

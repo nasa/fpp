@@ -1,0 +1,177 @@
+== Defining and Using Port Interfaces
+
+A common pattern in F Prime is to use an identical set of
+<<Defining-Components_Port-Instances,port instances>>
+in the definitions of each of several components.
+For example, each of several driver components may specify
+an identical set of ports for sending and receiving data.
+Such a set of port instances is called a *port interface*
+(interface for short).
+FPP has special support for defining and using port interfaces,
+which we describe in this section.
+
+=== Defining Port Interfaces
+
+A *port interface definition* defines a port interface.
+To write a port interface definition, you write the following:
+
+* The keyword `interface`.
+
+* The <<Defining-Constants_Names,name>> of the interface.
+
+* A sequence of *port interface members* enclosed in curly braces
+`{` ... `}`.
+
+A port interface member may directly specify a 
+<<Defining-Components_Port-Instances,general port instance>> or a
+<<Defining-Components_Special-Port-Instances,special port instance>>.
+For example, here is a port interface representing a binary operation
+that takes two `F32` inputs and produces an `F32` output:
+
+[source,fpp]
+----
+@ A port for carrying an F32 value
+port F32Value(value: F32)
+
+@ A priority constant for async F32 binary operation input
+constant AsyncF32BinopInputPriority = 10
+
+@ An active component for adding two F32 values with specified priorities
+interface AsyncF32Binop {
+
+  @ Input 1 at priority 10
+  async input port f32ValueIn1: F32Value priority AsyncF32BinopInputPriority
+
+  @ Input 2 at priority 20
+  async input port f32ValueIn2: F32Value priority AsyncF32BinopInputPriority
+
+  @ Output
+  output port f32ValueOut: F32Value
+
+}
+----
+
+This interface represents the input and output ports for any
+binary operation: addition, multiplication, etc.
+An interface member may also import the definition of another interface;
+we describe this option 
+<<Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Interface-Definitions,below>>.
+
+An interface definition and each of its members is an
+<<Writing-Comments-and-Annotations_Annotations,annotatable element>>.
+For example, you can annotate the interface as shown above.
+The members of a interface form an
+<<Defining-Constants_Multiple-Definitions-and-Element-Sequences,
+element sequence>> with a semicolon as the optional
+terminating punctuation.
+
+In general, port instances that appear in port interfaces must follow the same rules 
+as
+<<Defining-Components_Port-Instances,port instances that appear in 
+components>>.
+For example, each port name appearing in the interface must
+be distinct.
+The rules specific to active, passive, and queued components
+do not apply to interfaces; those are checked when the interface
+is used in a component, as described in the next section.
+
+=== Using Port Interfaces in Component Definitions
+
+Once you have defined a port interface, you can use it in a component definition.
+To do this you write a <<Defining-Components_Component-Definitions,component
+member>> consisting of the keyword `import` followed by the interface name.
+For example:
+
+[source,fpp]
+--------
+@ An active component for adding two F32 values
+active component ActiveF32Adder {
+
+  @ Import the AsyncF32Binop interface
+  import AsyncF32Binop
+
+}
+--------
+
+This component is identical to the `ActiveF32Adder` component
+that we defined in the section on 
+<<Defining-Components_Port-Instances_Basic-Port-Instances,
+basic port instances>>, except that we have factored the input
+and output ports into an interface.
+We can then use the same interface to define an `ActiveF32Multiplier`
+component:
+
+[source,fpp]
+--------
+@ An active component for multiplying two F32 values
+active component ActiveF32Multiplier {
+
+  @ Import the AsyncF32Binop interface
+  import AsyncF32Binop
+
+}
+--------
+
+This component is identical to `ActiveF32Adder`, except
+that it performs multiplication instead of addition.
+
+In general, a component member `import` _I_ member is analyzed by (1)
+resolving the interface _I_ to a set of port instances
+and (2) adding each of the port instances to the component.
+After this resolution, all the rules for component definition
+must be obeyed.
+For example, this component definition is illegal,
+because it has a duplicate port name:
+
+[source,fpp]
+--------
+port P
+
+interface I {
+  sync input port p: P
+}
+
+passive component C {
+
+  @ Port instance p is imported here
+  import I
+
+  @ Port instance name p is a duplicate here
+  sync input port p: P
+
+}
+--------
+
+=== Using Port Interfaces in Interface Definitions
+
+You can import a port interface into another interface.
+For example:
+
+[source,fpp]
+----
+port P
+
+interface I1 {
+  sync input port p1: P
+}
+
+interface I2 {
+  import I1
+  sync input port p2: P
+}
+----
+
+Either `I1` or `I2` may be imported into a component
+or into another interface.
+Interface `I2` is functionally equivalent to the
+following:
+
+[source,fpp]
+----
+port P
+
+interface I2 {
+  sync input port p1: P
+  sync input port p2: P
+}
+----

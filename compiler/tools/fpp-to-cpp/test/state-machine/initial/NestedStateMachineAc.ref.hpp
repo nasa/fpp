@@ -19,6 +19,13 @@ namespace FppTest {
     //! A state machine with nested initial transitions
     class NestedStateMachineBase {
 
+        // ----------------------------------------------------------------------
+        // Friend classes
+        // ----------------------------------------------------------------------
+
+        //! Tester class for the state machine
+        friend class NestedTester;
+
       public:
 
         // ----------------------------------------------------------------------

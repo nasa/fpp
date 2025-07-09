@@ -28,6 +28,7 @@ FwDpIdType
 FwDpPriorityType
 FwEnumStoreType
 FwEventIdType
+FwIdType
 FwIndexType
 FwOpcodeType
 FwPacketDescriptorType
@@ -36,6 +37,7 @@ FwQueuePriorityType
 FwSignedSizeType
 FwSizeStoreType
 FwSizeType
+FwTaskIdType
 FwTaskPriorityType
 FwTimeBaseStoreType
 FwTimeContextStoreType
@@ -43,12 +45,13 @@ FwTlmPacketizeIdType
 FwTraceIdType
 "
 fp_platform_aliases="
-PlatformSizeType
-PlatformSignedSizeType
-PlatformIndexType
 PlatformAssertArgType
-PlatformTaskPriorityType
+PlatformIndexType
 PlatformQueuePriorityType
+PlatformSignedSizeType
+PlatformSizeType
+PlatformTaskIdType
+PlatformTaskPriorityType
 "
 
 for base in ${fp_config_aliases}
@@ -74,6 +77,9 @@ do
 done
 mv Param*.hpp Param*.cpp Fw/Prm
 mv Sched*.hpp Sched*.cpp Svc/Sched
+
+# Move config files into place
+mv APIDEnum* config
 
 # Remaining files go into types
 mv *.hpp *.cpp Fw/Types

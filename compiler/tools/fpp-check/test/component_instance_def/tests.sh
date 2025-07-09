@@ -3,6 +3,8 @@ active_no_priority
 active_no_queue_size
 active_no_stack_size
 conflicting_ids
+conflicting_ids_empty_range_first
+conflicting_ids_empty_range_second
 invalid_negative_int
 large_int
 ok
@@ -14,5 +16,6 @@ queued_cpu
 queued_no_queue_size
 queued_priority
 queued_stack_size
+two_empty_ranges
 undef_component
 "

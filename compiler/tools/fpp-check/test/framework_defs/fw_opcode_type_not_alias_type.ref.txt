@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/framework_defs/fw_opcode_type_not_alias_type.fpp:1.1
+enum FwOpcodeType {
+^
+error: the F Prime framework type FwOpcodeType must be an alias type
