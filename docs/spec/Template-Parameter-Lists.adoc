@@ -1,0 +1,55 @@
+== Template Parameter Lists
+
+A *template parameter list* is an
+<<Element-Sequences,element sequence>>
+in which the elements are formal template parameters,
+and the terminating punctuation is a comma.
+
+A *template parameter* is an untyped symbol to which a
+value becomes bound at compile time. Constants and literals
+may be bound to template parameter. Template parameters can
+take a variety of symbol types including:
+
+* Constants
+* Interfaces
+* ?? I DONT THIS WE NEED THIS ?? Types
+
+=== Syntax
+
+There are three types of template parameters: *constant*, *interface* and *type*.
+
+* `constant` <<Lexical-Elements_Identifiers,_identifier_>>
+* `interface` <<Lexical-Elements_Identifiers,_identifier_>> `:` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+* `type` <<Lexical-Elements_Identifiers,_identifier_>>
+
+=== Semantics
+
+The identifier is the name of the template parameter.
+No two parameters in the same formal parameter list
+may have the same name.
+
+*Constant* template parameters accept any expression type.
+The expressions type is verified when evaluating the template
+that this parameter belongs to. If two uses of the template parameter
+require different types, an error will be emitted during template instantiation.
+
+The qualified identifier in the *interface* parameter definition must
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
+an
+<<Definitions_Port-Interface-Definitions,interface definition _I_>>.
+*Interface* template parameters accept any <<Definitions_Component-Instance-Definitions,
+component instance>> or <<Definitions_Topology-Definitions,topology>>
+that can <<Interface-Binding,bind to>> _I_.
+
+*Type* template parameters accept any <<Type-Names,_type-name_>> and can be used to
+parameterize ports and other types as well as pass type parameters down to these definitions.
+
+=== Examples
+
+[source,fpp]
+----
+constant i
+constant j, constant k
+interface i: MyInterface
+type T
+----

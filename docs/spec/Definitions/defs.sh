@@ -22,5 +22,6 @@ Port-Interface-Definitions.adoc
 State-Machine-Definitions.adoc
 Struct-Definitions.adoc
 Topology-Definitions.adoc
+Topology-Template-Definitions.adoc
 Framework-Definitions.adoc
 "

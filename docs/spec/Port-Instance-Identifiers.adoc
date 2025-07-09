@@ -1,0 +1,74 @@
+== Port Instance Identifiers
+
+A *port instance identifier* refers to a port instance that
+can act as an _endpoint_ inside a
+<<Specifiers_Connection-Graph-Specifiers,connection graph specifiers>>.
+
+Port instances are member either of *component instances* or
+*topology definitions*. The can also be referenced through
+an <<Interface-Binding,interface binding>>.
+
+=== Syntax
+
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+`.`
+<<Lexical-Elements_Identifiers,_identifier_>>
+
+=== Semantics
+
+For each port instance identifier _Q_ `.` _P_:
+
+. The qualified identifier _Q_ must
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
+a component instance _I_ or topology definition _I_.
+
+. _I_ must refer to a <<Definitions_Component-Instance-Definitions,component
+instance definition _I'_>>, a <<Definitions_Topology-Definitions,topology
+definition, _I'_>> or a <<Interface-Binding,bound interface, _I'_>>.
+
+. If _I_ refers to a *component instance*:
+
+.. _I_' must refer to a <<Definitions_Component-Definitions,component
+definition _C_>>.
+
+.. The identifier _P_
+must refer to a
+<<Specifiers_Port-Instance-Specifiers,port instance specifier>>
+of _C_.
+
+. If _I_ refers to a *topology definition*:
+
+.. _I_' must refer to a <<Definitions_Topology-Definitions,topology
+definition _T_>>.
+
+.. The identifier _P_
+must refer to a
+<<Specifiers_Port-Export-Specifiers,exported topology port instance>>
+of _T_.
+
+.. _I_' must be <<Specifiers_Topology-Import-Specifiers,imported>>
+into the enclosing context.
+
+. If _I_ refers to a *bound interface*. Interface binds are only valid
+if inside a <<Definitions_Topology-Template-Definitions,topology template>>:
+
+.. _I'_ must be refer to an <<Definitions_Port-Interface-Definitions,
+interface definition _D_>>.
+
+.. The identifier _P_
+must refer to a
+<<Specifiers_Port-Instance-Specifiers,port instance specifier>>
+of _D_.
+
+==== Examples
+
+[source,fpp]
+----
+a.b
+A.b.c
+----
+
+In the first example, `a` names a component instance, and `b` names a port
+instance.
+In the second example, `A.b` names a component instance, and `c` names a
+port instance.

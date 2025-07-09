@@ -6,7 +6,7 @@ of an internal port in a <<Definitions_Topology-Definitions,topology definition>
 ==== Syntax
 
 `export`
-<<Component-Instance-Member-Identifiers_Port-Instance-Identifiers,_port-instance-id_>>
+<<Port-Instance-Identifiers,_port-instance-id_>>
 _[_
 `as`
 <<Lexical-Elements_Identifiers,_identifier_>>

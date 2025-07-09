@@ -70,6 +70,8 @@ reside in the following *name groups*:
 
 . The *value name group*
 
+. The *endpoint name group*
+
 Definitions reside in name groups as follows:
 
 * Abstract type definitions reside in the type name group.
@@ -80,7 +82,7 @@ Definitions reside in name groups as follows:
 the value name group, the type name group, and the
 state machine name group.
 
-* Component instance definitions reside in the component instance name group.
+* Component instance definitions reside in the component instance and the endpoint name group.
 
 * Constant definitions reside in the value name group.
 
@@ -98,7 +100,7 @@ state machine name group.
 
 * Struct type definitions reside in the type name group.
 
-* Topology definitions reside in the topology name group.
+* Topology definitions reside in the topology and the endpoint name group.
 
 Notice that elements with scopes reside in the name groups of items
 that they may enclose.

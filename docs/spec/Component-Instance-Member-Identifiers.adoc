@@ -1,59 +1,12 @@
-== Endpoint Instance Member Identifiers
+== Component Instance Member Identifiers
 
-A *endpoint instance member identifier* refers to a member of an
-endpoint instance. Endpoint instances refer to a definition that
+A *compoent instance member identifier* refers to a member of an
+component instance. Component instances refer to a definition that
 contains **port instances** that can be connected to in a
 <<Specifiers_Connection-Graph-Specifiers,connection graph>>.
 
 The two types of endpoint instances are <<Definitions_Topology-Definitions,topologies>>
 and <<Definitions_Component-Instance-Definitions,component instances>>.
-
-=== Port Instance Identifiers
-
-A *port instance identifier* identifies a port instance
-that is part of a topology or component instance.
-Port instance identifiers appear in
-<<Specifiers_Connection-Graph-Specifiers,connection graph specifiers>>.
-
-==== Syntax
-
-<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
-`.`
-<<Lexical-Elements_Identifiers,_identifier_>>
-
-==== Semantics
-
-For each port instance identifier _Q_ `.` _P_:
-
-. The qualified identifier _Q_ must
-<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
-a component instance or _I_ or an imported topology _T_.
-
-.. If _Q_ refers to a component instance _I_
-
-. _I_ must refer to a <<Definitions_Component-Instance-Definitions,component
-instance definition _I'_>>.
-
-. _I'_ must refer to a <<Definitions_Component-Definitions,component
-definition _C_>>.
-
-. The identifier _P_
-must refer to a
-<<Specifiers_Port-Instance-Specifiers,port instance specifier>>
-of _C_.
-
-==== Examples
-
-[source,fpp]
-----
-a.b
-A.b.c
-----
-
-In the first example, `a` names a component instance, and `b` names a port
-instance.
-In the second example, `A.b` names a component instance, and `c` names a
-port instance.
 
 === Telemetry Channel Identifiers
 

@@ -14,7 +14,12 @@ The connections are merged graph by graph.
 
 `topology`
 <<Lexical-Elements_Identifiers,_identifier_>>
+_[_ `implements` <<Scoping-of-Names_Qualified-Identifiers,_interface-ident>> _]_
 `{` _topology-member-sequence_ `}`
+
+The optional _interface-ident_ refers to a <<Definitions_Port-Interface-Definitions,
+interface definition, _ID_>>. This optional clause is a compile-time check that
+verify that this topology definition fully <<Interface-Binding,implements>> _ID_.
 
 _topology-member-sequence_ is an
 <<Element-Sequences,element sequence>> in
@@ -253,10 +258,8 @@ See Example 4 in the <<Definitions_Topology-Definitions_Examples,Examples sectio
 
 For purposes of port numbering, FPP orders connections as follows.
 
-A connection endpoint in an FPP topology refers to either a
-<<Definitions_Component-Instance-Definitions,component instance>> or an
-<<Definitions_Topology-Definitions,topology definition>> as both have
-<<Endpoint-Instance-Member-Identifiers,endpoint instance members>>.
+A connection endpoint in an FPP topology refers to a
+<<Port-Instance-Identifiers,port instance identifier>>.
 
 A *connection endpoint* is _I_ `.` _p_ or _I_ `.` _p_ `[` _n_ `]`, where
 

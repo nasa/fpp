@@ -1,0 +1,5 @@
+== Interface Binding
+
+<<Definitions_Port-Interface-Definitions,Interfaces>> in F Prime
+is a collection of <<Specifiers_Port-Instance-Specifiers,port
+instance specifiers>>.
