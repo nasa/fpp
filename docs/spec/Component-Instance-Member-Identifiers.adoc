@@ -1,6 +1,6 @@
 == Component Instance Member Identifiers
 
-A *compoent instance member identifier* refers to a member of an
+A *component instance member identifier* refers to a member of an
 component instance.
 
 === Telemetry Channel Identifiers
