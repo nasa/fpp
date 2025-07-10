@@ -805,6 +805,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifiers_Topology-Import-Specifiers_Example">7.20.3. Example</a></li>
 </ul>
 </li>
+<li><a href="#Specifiers_Topology-Template-Instantiation-Specifiers">7.21. Topology Template Instantiation Specifiers</a></li>
+<li><a href="#Specifiers_Syntax">7.22. Syntax</a></li>
+<li><a href="#Specifiers_Semantics">7.23. Semantics</a>
+<ul class="sectlevel3">
+<li><a href="#Specifiers_Semantics_Checking-parameter-types">7.23.1. Checking parameter types</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#Component-Instance-Member-Identifiers">8. Component Instance Member Identifiers</a>
@@ -2308,7 +2315,7 @@ active component DeviceMgr {
 <p>A <strong>component instance definition</strong> defines an instance
 of a
 <a href="#Definitions_Component-Definitions">component</a>
-that you can refer to in a
+that you can define, or refer to in, a
 <a href="#Specifiers_Component-Instance-Specifiers">topology definition</a>.</p>
 </div>
 <div class="sect3">
@@ -3635,6 +3642,17 @@ instance specifier</a></p>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Topology-Definitions_Semantics">5.14.2. Semantics</h4>
+<div class="paragraph">
+<p>The identifier is the name of the topology.</p>
+</div>
+<div class="paragraph">
+<p>If <em>interface-ident</em> is provided, it must
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a> an
+<a href="#Definitions_Port-Interface-Definitions">interface definition <em>K</em></a>.
+And the set of
+<a href="#Specifiers_Port-Export-Specifiers">exported ports</a> in the topology
+definition must be a super-set of the ports in <em>K</em>.</p>
+</div>
 <div class="paragraph">
 <p>A topology definition <em>D</em> must be resolvable to a topology <em>T</em>,
 according to the following algorithm:</p>
@@ -8271,6 +8289,56 @@ of its connections appear in topology <code>B</code>.</p>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="Specifiers_Topology-Template-Instantiation-Specifiers">7.21. Topology Template Instantiation Specifiers</h3>
+<div class="paragraph">
+<p>A <strong>topology template instantiation specifier</strong> takes a
+<a href="#Definitions_Topology-Template-Definitions">topology template</a> and
+applies a set of values to its <a href="#Template-Parameter-Lists">parameters</a>
+to generate a new <a href="#Definitions_Topology-Definitions">concrete topology</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Specifiers_Syntax">7.22. Syntax</h3>
+<div class="paragraph">
+<p><code>topology</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<code>=</code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</a>
+<code>(</code> _parameter-sequence</em> <code>)</code></p>
+</div>
+<div class="paragraph">
+<p><em>parameter-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in
+which each element is an
+<a href="#Values">value expression</a> or qualified identifier,
+and the terminating punctuation is a semicolon.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Specifiers_Semantics">7.23. Semantics</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The identifier names a new <strong>topology</strong>.</p>
+</li>
+<li>
+<p>The qualified identifier must
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
+a
+<a href="#Definitions_Topology-Template-Definitions">topology template definition <em>T</em></a>.</p>
+</li>
+<li>
+<p>The parameter sequence is the set of parameters that map to
+the template parameters of the template <em>T</em>.</p>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Semantics_Checking-parameter-types">7.23.1. Checking parameter types</h4>
+
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -8471,7 +8539,7 @@ an interface. The interface is there a mechanism to abstract the
 implementation details of an F Prime component or topology.</p>
 </div>
 <div class="paragraph">
-<p>Interface binding happens during</p>
+<p>Interface binding happens during <a href="#Specifiers_Topology-Template-Instantiation-Specifiers">topology template instantiation</a>.</p>
 </div>
 </div>
 </div>
@@ -12012,7 +12080,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-07-09 13:19:52 -0700
+Last updated 2025-07-10 09:09:56 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

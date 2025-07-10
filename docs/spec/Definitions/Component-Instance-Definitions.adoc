@@ -3,7 +3,7 @@
 A *component instance definition* defines an instance
 of a
 <<Definitions_Component-Definitions,component>>
-that you can refer to in a
+that you can define, or refer to in, a
 <<Specifiers_Component-Instance-Specifiers,topology definition>>.
 
 ==== Syntax

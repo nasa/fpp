@@ -9,4 +9,5 @@ component instance>> or <<Definitions_Topology-Definitions,topology>> to
 an interface. The interface is there a mechanism to abstract the
 implementation details of an F Prime component or topology.
 
-Interface binding happens during
+Interface binding happens during <<Specifiers_Topology-Template-Instantiation-Specifiers,
+topology template instantiation>>.

@@ -44,6 +44,15 @@ instance specifier>>
 
 ==== Semantics
 
+The identifier is the name of the topology.
+
+If _interface-ident_ is provided, it must
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>> an
+<<Definitions_Port-Interface-Definitions,interface definition _K_>>.
+And the set of
+<<Specifiers_Port-Export-Specifiers,exported ports>> in the topology
+definition must be a super-set of the ports in _K_.
+
 A topology definition _D_ must be resolvable to a topology _T_,
 according to the following algorithm:
 
