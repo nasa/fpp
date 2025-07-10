@@ -25,7 +25,7 @@ A telemetry packet member is one of the following:
 
 * _non-annotatable-include-specifier_.
 
-* _<<Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers,
+* _<<Instance-Member-Identifiers_Telemetry-Channel-Identifiers,
 telemetry-channel-identifier>>_.
 
 A _non-annotatable-include-specifier_ is identical to an
