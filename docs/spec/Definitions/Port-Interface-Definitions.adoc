@@ -5,10 +5,9 @@ A port interface is a collection of
 <<Specifiers_Port-Instance-Specifiers,port instance specifiers>>
 that may be imported into a
 <<Definitions_Component-Definitions,component definition>>
-or another port interface definition. Interfaces may also be
-used in <<Definitions_Topology-Template-Definitions,topology template
-definitions>> as parameters to <<Interface-Binding,bind>> to
-concrete toplogies and component instances.
+or another port interface definition.
+
+Interface definitions name an FPP <<Interfaces,interface>>.
 
 ==== Syntax
 

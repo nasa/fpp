@@ -19,7 +19,6 @@ Interface-Import-Specifiers.adoc
 Internal-Port-Specifiers.adoc
 Location-Specifiers.adoc
 Parameter-Specifiers.adoc
-Port-Export-Specifiers.adoc
 Port-Instance-Specifiers.adoc
 Port-Matching-Specifiers.adoc
 Record-Specifiers.adoc
@@ -27,6 +26,7 @@ State-Machine-Instance-Specifiers.adoc
 Telemetry-Channel-Specifiers.adoc
 Telemetry-Packet-Set-Specifiers.adoc
 Telemetry-Packet-Specifiers.adoc
+Topology-Port-Specifiers.adoc
 Topology-Import-Specifiers.adoc
-Topology-Template-Instantiation-Specifiers.adoc
+Template-Instantiation-Specifiers.adoc
 "

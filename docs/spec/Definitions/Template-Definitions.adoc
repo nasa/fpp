@@ -1,0 +1,52 @@
+=== Template Definitions
+
+A *template definition* defines an FPP template.
+A template is a FPP construct that can generate another
+type of definition. In other words, templates are
+parameterized functions that generate definitions.
+
+==== Syntax
+
+`template`
+<<Lexical-Elements_Identifiers,_identifier_>>
+`(` _parameter-sequence_ `)`
+_template-definition_
+
+The _identifier_ specifies the name of the template.
+
+_parameter-sequence_ is a
+<<Template-Parameter-Lists,template parameter sequence>> in
+which each element is a *parameter*, and
+the terminating punctuation is a comma.
+
+The _template-definition_ corresponds to the definition that
+uses the _parameter-sequence_. The definition can be one of the
+following (_omitting_ the name identifier)
+**TODO(tumbar) Finalize the syntax, this omission is a little jenky
+but it makes the syntax cleaner**:
+
+. <<Definitions_Component-Definitions,Component>>
+. ?? ** Do we have a use case ** ?? <<Definitions_Port-Interface-Definitions,Interface>>
+. ?? ** This would be pretty powerful ** ?? <<Definitions_Port-Definitions,Port>>
+. <<Definitions_Topology-Definitions,Topology>>
+. ?? **Others** ??
+
+==== Semantics
+
+Topology _template_ definitions differ from topology definitions in that they
+cannot be resolved until they are instatiated inside a full topology.
+Topology _template_ definitions include a set of parameters which are passed
+concrete values when instantiating the template.
+
+==== Template Instantiation
+
+A template can be instantiated into a its corresponding definition
+through a <<Specifiers_Template-Instantiation-Specifiers,
+template instantiation specifier>>.
+
+==== Example
+
+[source,fpp]
+----
+
+----

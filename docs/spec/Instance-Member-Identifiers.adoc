@@ -1,7 +1,44 @@
-== Component Instance Member Identifiers
+== Instance Member Identifiers
 
-A *component instance member identifier* refers to a member of a
-component instance.
+A *instance member identifier* refers to a member of a
+instance of some definition.
+
+=== Port Instance Identifiers
+
+A port instance identifier identifies a port instance that
+is part of a <<Interfaces,interface>> instance. Port instance
+identifiers appear in connection graph specifiers.
+
+==== Syntax
+
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+`.`
+<<Lexical-Elements_Identifiers,_identifier_>>
+
+==== Semantics
+
+For each port instance identifier _Q_ `.` _P_:
+
+. The qualified identifier _Q_ must
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
+an <<Interfaces_Instance-Values,interface value _I_>>.
+
+. _I_ must refer to an <<Interfaces,interface _I'_>>
+
+. The identifier _P_ must refer to a port instance in _I'_
+
+==== Examples
+
+[source,fpp]
+----
+a.b
+A.b.c
+----
+
+In the first example, `a` names a topology, and `b` names an exported
+port instance.
+In the second example, `A.b` names a component instance, and `c` names a
+port instance.
 
 === Telemetry Channel Identifiers
 

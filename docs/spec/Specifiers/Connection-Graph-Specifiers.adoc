@@ -37,14 +37,14 @@ A connection is the following:
 _[_
 `unmatched`
 _]_
-<<Port-Instance-Identifiers,_port-instance-id_>>
+<<Instance-Member-Identifiers_Port-Instance-Identifiers,_port-instance-id_>>
 _[_
 `[`
 <<Expressions,_expression_>>
 `]`
 _]_
 `pass:[->]`
-<<Port-Instance-Identifiers,_port-instance-id_>>
+<<Instance-Member-Identifiers_Port-Instance-Identifiers,_port-instance-id_>>
 _[_
 `[`
 <<Expressions,_expression_>>
@@ -92,16 +92,8 @@ unmatched.
 
 .. For each of the two port instance identifiers _I_ appearing in _C_:
 
-... If the parent definition of _I_ is a component instance, the component instance
-must be available in the enclosing topology,
-either through
-<<Specifiers_Component-Instance-Specifiers,direct specification>>
-or through
-<<Specifiers_Topology-Import-Specifiers,import>>.
-
-... If the parent definition of _I_ is a topology definition, the topology
-must be imported through a <<Specifiers_Topology-Import-Specifiers,topology import>> and
-the port instance _I_ must be exported through a <<Specifiers_Port-Export-Specifiers,port export>>.
+... _I_ must name an <<Instance-Member-Identifiers_Port-Instance-Identifiers,
+port instance id>> available in the enclosing topology.
 
 ... The optional expression _e_ following the identifier, if it is present,
 represents a port number, i.e., an index into an

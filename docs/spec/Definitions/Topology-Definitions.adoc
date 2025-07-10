@@ -14,12 +14,13 @@ The connections are merged graph by graph.
 
 `topology`
 <<Lexical-Elements_Identifiers,_identifier_>>
-_[_ `implements` <<Scoping-of-Names_Qualified-Identifiers,_interface-ident>> _]_
+_[_ `implements` _interface-list_ _]_
 `{` _topology-member-sequence_ `}`
 
-The optional _interface-ident_ refers to a <<Definitions_Port-Interface-Definitions,
-interface definition, _ID_>>. This optional clause is a compile-time check that
-verify that this topology definition fully <<Interface-Binding,implements>> _ID_.
+The optional _interface-list_ is an
+<<Element-Sequences,element sequence>> in which
+each element is a <<Scoping-of-Names_Qualified-Identifiers,
+qualified identifier>> and the terminating puncuation is a comma.
 
 _topology-member-sequence_ is an
 <<Element-Sequences,element sequence>> in
@@ -36,7 +37,7 @@ instance specifier>>
 
 * A <<Specifiers_Topology-Import-Specifiers,topology import specifier>>
 
-* A <<Specifiers_Port-Export-Specifiers,topology port export specifier>>
+* A <<Specifiers_Topology-Port-Specifiers,topology port specifier>>
 
 * An <<Specifiers_Include-Specifiers,include specifier>>
 
@@ -46,12 +47,15 @@ instance specifier>>
 
 The identifier is the name of the topology.
 
-If _interface-ident_ is provided, it must
+If _interface-list_ is provided, each element of the list must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>> an
 <<Definitions_Port-Interface-Definitions,interface definition _K_>>.
 And the set of
-<<Specifiers_Port-Export-Specifiers,exported ports>> in the topology
+<<Specifiers_Topology-Port-Specifiers,ports>> in the topology
 definition must be a super-set of the ports in _K_.
+This optional clause is a compile-time check that
+verify that this <<Interfaces_Anonymous-Interfaces_Anonymous-Topology-Interfaces,
+topology's anonymous interface>> can <<Interfaces_Binding,bind>> to _ID_.
 
 A topology definition _D_ must be resolvable to a topology _T_,
 according to the following algorithm:
@@ -126,7 +130,7 @@ instance specifiers>> instances from _T'_ will be imported into _T_.
 will be hidden (and cannot be directly connected to) inside _T_.
 
 . Check that the connections discovered in step 3 are between port
-instances present in _T_ or are <<Specifiers_Port-Export-Specifiers,exported ports>>
+instances present in _T_ or are <<Specifiers_Topology-Port-Specifiers,topology ports>>
 in of <<Specifiers_Topology-Import-Specifiers,imported topologies>> in _U_.
 
 . For each topology _T'_ in _S_,
@@ -268,7 +272,7 @@ See Example 4 in the <<Definitions_Topology-Definitions_Examples,Examples sectio
 For purposes of port numbering, FPP orders connections as follows.
 
 A connection endpoint in an FPP topology refers to a
-<<Port-Instance-Identifiers,port instance identifier>>.
+<<Instance-Member-Identifiers_Port-Instance-Identifiers,port instance identifier>>.
 
 A *connection endpoint* is _I_ `.` _p_ or _I_ `.` _p_ `[` _n_ `]`, where
 
@@ -291,7 +295,7 @@ into _T_.
 the component definition associated with _I_.
 
 .. If _I_ refers to a **topology definition**, _p_ identifiers an
-<<Specifiers_Port-Export-Specifiers,exported port>> inside _I_.
+<<Specifiers_Topology-Port-Specifiers,topology port>> inside _I_.
 
 . _n_ is an optional port number that is present if and only
 if it appears in the model source.

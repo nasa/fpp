@@ -1,24 +1,22 @@
-=== Port Export Specifiers
+=== Topology Port Specifiers
 
-A port export specifier names a <<Specifiers_Port-Instance-Specifiers,port instance>>
-of an internal port in a <<Definitions_Topology-Definitions,topology definition>>.
+A topology port specifiers names a <<Specifiers_Port-Instance-Specifiers,
+port instance>> of an internal port in a <<Definitions_Topology-Definitions,
+topology definition>>.
 
 ==== Syntax
 
-`export`
-<<Port-Instance-Identifiers,_port-instance-id_>>
-_[_
-`as`
+`port`
 <<Lexical-Elements_Identifiers,_identifier_>>
-_]_
+`=`
+<<Instance-Member-Identifiers_Port-Instance-Identifiers,_port-instance-id_>>
 
 ==== Semantics
 
-. The port instance identifier references a <<Specifiers_Port-Instance-Specifiers,port instance>>
-endpoint named in the enclosing topology _T_.
+For each topology port specifier defined in an enclosing topology _T_:
 
-. The optional identifier _I2_, if provided, will rename the port being exported.
-If not provided, the name of the port being exported will match the name of the port instance identifier.
+. The port instance identifier references a <<Specifiers_Port-Instance-Specifiers,port instance>>
+endpoint in _T_.
 
 . The port referenced must be either a
 <<Specifiers_Port-Instance-Specifiers,output port instance>>
@@ -47,8 +45,8 @@ topology T {
         # [...] Internal connections
     }
 
-    export c1.portOut
-    export c2.portIn as customPortName
+    port portOut = c1.portOut
+    port customPortName = c2.portIn
 }
 
 topology Y {

@@ -17,9 +17,7 @@ Element-Sequences.adoc
 Definitions/Definitions.adoc
 State-Machine-Behavior-Elements/State-Machine-Behavior-Elements.adoc
 Specifiers/Specifiers.adoc
-Component-Instance-Member-Identifiers.adoc
-Port-Instance-Identifiers.adoc
-Interface-Binding.adoc
+Instance-Member-Identifiers.adoc
 Template-Parameter-Lists.adoc
 Type-Names.adoc
 Expressions/Expressions.adoc
@@ -29,6 +27,7 @@ Comments-and-Annotations.adoc
 Translation-Units-and-Models.adoc
 Scoping-of-Names.adoc
 Definitions-and-Uses.adoc
+Interfaces.adoc
 Types.adoc
 Type-Checking.adoc
 Type-Options.adoc

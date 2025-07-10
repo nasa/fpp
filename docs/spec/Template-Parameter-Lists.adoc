@@ -12,7 +12,7 @@ take a variety of symbol types including:
 
 * Constants
 * Interfaces
-* ?? I DONT THIS WE NEED THIS ?? Types
+* Types
 
 === Syntax
 
@@ -39,7 +39,7 @@ an
 <<Definitions_Port-Interface-Definitions,interface definition _I_>>.
 *Interface* template parameters accept any <<Definitions_Component-Instance-Definitions,
 component instance>> or <<Definitions_Topology-Definitions,topology>>
-that can <<Interface-Binding,bind to>> _I_.
+that can <<Interfaces_Binding,bind>> to _I_.
 
 *Type* template parameters accept any <<Type-Names,_type-name_>> and can be used to
 parameterize ports and other types as well as pass type parameters down to these definitions.
