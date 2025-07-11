@@ -27,7 +27,7 @@ class QueuedParams final :
     //! Destroy QueuedParams object
     ~QueuedParams();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports

@@ -27,7 +27,7 @@ class PassiveParams final :
     //! Destroy PassiveParams object
     ~PassiveParams();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports

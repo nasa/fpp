@@ -27,7 +27,7 @@ class PassiveCommands final :
     //! Destroy PassiveCommands object
     ~PassiveCommands();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports
@@ -173,7 +173,7 @@ class PassiveCommands final :
         const S& s //!< A struct
     ) override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for commands

@@ -54,7 +54,7 @@ class PassiveCommandsComponentBase :
     //! Friend class tester implementation to support white-box testing
     friend class PassiveCommandsTester;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Constants
@@ -450,7 +450,7 @@ class PassiveCommandsComponentBase :
     //! Connect the dispatcher first
     void regCommands();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Component construction and destruction
@@ -464,7 +464,7 @@ class PassiveCommandsComponentBase :
     //! Destroy PassiveCommandsComponentBase object
     virtual ~PassiveCommandsComponentBase();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special input ports
@@ -475,7 +475,7 @@ class PassiveCommandsComponentBase :
     //! \return The number of cmdIn input ports
     FwIndexType getNum_cmdIn_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of typed input ports
@@ -546,7 +546,7 @@ class PassiveCommandsComponentBase :
     //! \return The number of typedSync input ports
     FwIndexType getNum_typedSync_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special output ports
@@ -596,7 +596,7 @@ class PassiveCommandsComponentBase :
     //! \return The number of tlmOut output ports
     FwIndexType getNum_tlmOut_OutputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of typed output ports
@@ -642,7 +642,7 @@ class PassiveCommandsComponentBase :
     //! \return The number of typedReturnOut output ports
     FwIndexType getNum_typedReturnOut_OutputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for special output ports
@@ -708,7 +708,7 @@ class PassiveCommandsComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for typed output ports
@@ -770,7 +770,7 @@ class PassiveCommandsComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Handlers to implement for typed input ports
@@ -890,7 +890,7 @@ class PassiveCommandsComponentBase :
         const S& s //!< A struct
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for typed input ports
@@ -1012,7 +1012,7 @@ class PassiveCommandsComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Invocation functions for typed output ports
@@ -1093,7 +1093,7 @@ class PassiveCommandsComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Command response
@@ -1106,7 +1106,7 @@ class PassiveCommandsComponentBase :
         Fw::CmdResponse response //!< The command response
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Command handlers to implement
@@ -1224,7 +1224,7 @@ class PassiveCommandsComponentBase :
         S s //!< A struct
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Command handler base-class functions
@@ -1340,7 +1340,7 @@ class PassiveCommandsComponentBase :
         Fw::CmdArgBuffer& args //!< The command argument buffer
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Time
@@ -1351,7 +1351,7 @@ class PassiveCommandsComponentBase :
     //! \\return The current time
     Fw::Time getTime() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Mutex operations for guarded ports
@@ -1366,7 +1366,7 @@ class PassiveCommandsComponentBase :
     //! Unlock the guarded mutex
     virtual void unLock();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on special input ports
@@ -1381,7 +1381,7 @@ class PassiveCommandsComponentBase :
         Fw::CmdArgBuffer& args //!< Buffer containing arguments
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on typed input ports
@@ -1514,7 +1514,7 @@ class PassiveCommandsComponentBase :
         const S& s //!< A struct
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special input ports
@@ -1523,7 +1523,7 @@ class PassiveCommandsComponentBase :
     //! Input port cmdIn
     Fw::InputCmdPort m_cmdIn_InputPort[NUM_CMDIN_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Typed input ports
@@ -1568,7 +1568,7 @@ class PassiveCommandsComponentBase :
     //! Input port typedSync
     Ports::InputTypedPort m_typedSync_InputPort[NUM_TYPEDSYNC_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special output ports
@@ -1602,7 +1602,7 @@ class PassiveCommandsComponentBase :
     //! Output port tlmOut
     Fw::OutputTlmPort m_tlmOut_OutputPort[NUM_TLMOUT_OUTPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Typed output ports
@@ -1632,7 +1632,7 @@ class PassiveCommandsComponentBase :
     //! Output port typedReturnOut
     Ports::OutputTypedReturnPort m_typedReturnOut_OutputPort[NUM_TYPEDRETURNOUT_OUTPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Mutexes

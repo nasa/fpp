@@ -29,7 +29,7 @@ namespace ExternalSm {
       //! Destroy ActiveExternalStateMachines object
       ~ActiveExternalStateMachines();
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Overflow hook implementations for external state machines

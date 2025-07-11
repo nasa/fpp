@@ -27,7 +27,7 @@ class QueuedTelemetry final :
     //! Destroy QueuedTelemetry object
     ~QueuedTelemetry();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports

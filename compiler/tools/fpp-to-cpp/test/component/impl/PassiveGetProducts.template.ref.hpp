@@ -27,7 +27,7 @@ class PassiveGetProducts final :
     //! Destroy PassiveGetProducts object
     ~PassiveGetProducts();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports

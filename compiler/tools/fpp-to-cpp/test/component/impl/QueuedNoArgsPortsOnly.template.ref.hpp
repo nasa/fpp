@@ -27,7 +27,7 @@ class QueuedNoArgsPortsOnly final :
     //! Destroy QueuedNoArgsPortsOnly object
     ~QueuedNoArgsPortsOnly();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports

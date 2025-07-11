@@ -54,7 +54,7 @@ namespace FppTest {
           s,
         };
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Constructors and Destructors
@@ -97,7 +97,7 @@ namespace FppTest {
             U32 value //!< The value
         );
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Actions
@@ -114,7 +114,7 @@ namespace FppTest {
             Signal signal //!< The signal
         ) = 0;
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Guards
@@ -131,7 +131,7 @@ namespace FppTest {
             U32 value //!< The value
         ) const = 0;
 
-      PRIVATE:
+      private:
 
         // ----------------------------------------------------------------------
         // State and choice entry
@@ -169,7 +169,7 @@ namespace FppTest {
             Signal signal //!< The signal
         );
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Member variables

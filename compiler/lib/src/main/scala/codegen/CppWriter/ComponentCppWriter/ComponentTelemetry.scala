@@ -38,7 +38,7 @@ case class ComponentTelemetry (
   def getVariableMembers: List[CppDoc.Class.Member] = {
     List(
       addAccessTagAndComment(
-        "PRIVATE",
+        "private",
         "First update flags for telemetry channels",
         updateOnChangeChannels.map((_, channel) =>
           linesClassMember(
@@ -53,7 +53,7 @@ case class ComponentTelemetry (
         CppDoc.Lines.Hpp
       ),
       addAccessTagAndComment(
-        "PRIVATE",
+        "private",
         "Last value storage for telemetry channels",
         updateOnChangeChannels.map((_, channel) => {
           val channelName = channel.getName
@@ -142,7 +142,7 @@ case class ComponentTelemetry (
     )
 
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Telemetry write functions",
       sortedChannels.map((_, channel) =>
         functionClassMember(

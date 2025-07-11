@@ -54,7 +54,7 @@ class ActiveTelemetryComponentBase :
     //! Friend class tester implementation to support white-box testing
     friend class ActiveTelemetryTester;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Constants
@@ -487,7 +487,7 @@ class ActiveTelemetryComponentBase :
 
 #endif
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Component construction and destruction
@@ -501,7 +501,7 @@ class ActiveTelemetryComponentBase :
     //! Destroy ActiveTelemetryComponentBase object
     virtual ~ActiveTelemetryComponentBase();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special input ports
@@ -512,7 +512,7 @@ class ActiveTelemetryComponentBase :
     //! \return The number of cmdIn input ports
     FwIndexType getNum_cmdIn_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of typed input ports
@@ -613,7 +613,7 @@ class ActiveTelemetryComponentBase :
     //! \return The number of typedSync input ports
     FwIndexType getNum_typedSync_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special output ports
@@ -663,7 +663,7 @@ class ActiveTelemetryComponentBase :
     //! \return The number of tlmOut output ports
     FwIndexType getNum_tlmOut_OutputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of typed output ports
@@ -709,7 +709,7 @@ class ActiveTelemetryComponentBase :
     //! \return The number of typedReturnOut output ports
     FwIndexType getNum_typedReturnOut_OutputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for special output ports
@@ -775,7 +775,7 @@ class ActiveTelemetryComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for typed output ports
@@ -837,7 +837,7 @@ class ActiveTelemetryComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Handlers to implement for typed input ports
@@ -1022,7 +1022,7 @@ class ActiveTelemetryComponentBase :
         const S& s //!< A struct
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for typed input ports
@@ -1209,7 +1209,7 @@ class ActiveTelemetryComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Pre-message hooks for typed async input ports
@@ -1284,7 +1284,7 @@ class ActiveTelemetryComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Invocation functions for typed output ports
@@ -1365,7 +1365,7 @@ class ActiveTelemetryComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Telemetry write functions
@@ -1459,7 +1459,7 @@ class ActiveTelemetryComponentBase :
         Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Time
@@ -1470,7 +1470,7 @@ class ActiveTelemetryComponentBase :
     //! \\return The current time
     Fw::Time getTime() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Mutex operations for guarded ports
@@ -1485,7 +1485,7 @@ class ActiveTelemetryComponentBase :
     //! Unlock the guarded mutex
     virtual void unLock();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Message dispatch functions
@@ -1494,7 +1494,7 @@ class ActiveTelemetryComponentBase :
     //! Called in the message loop to dispatch a message from the queue
     virtual MsgDispatchStatus doDispatch();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on special input ports
@@ -1509,7 +1509,7 @@ class ActiveTelemetryComponentBase :
         Fw::CmdArgBuffer& args //!< Buffer containing arguments
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on typed input ports
@@ -1713,7 +1713,7 @@ class ActiveTelemetryComponentBase :
         const S& s //!< A struct
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special input ports
@@ -1722,7 +1722,7 @@ class ActiveTelemetryComponentBase :
     //! Input port cmdIn
     Fw::InputCmdPort m_cmdIn_InputPort[NUM_CMDIN_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Typed input ports
@@ -1785,7 +1785,7 @@ class ActiveTelemetryComponentBase :
     //! Input port typedSync
     Ports::InputTypedPort m_typedSync_InputPort[NUM_TYPEDSYNC_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special output ports
@@ -1819,7 +1819,7 @@ class ActiveTelemetryComponentBase :
     //! Output port tlmOut
     Fw::OutputTlmPort m_tlmOut_OutputPort[NUM_TLMOUT_OUTPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Typed output ports
@@ -1849,7 +1849,7 @@ class ActiveTelemetryComponentBase :
     //! Output port typedReturnOut
     Ports::OutputTypedReturnPort m_typedReturnOut_OutputPort[NUM_TYPEDRETURNOUT_OUTPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // First update flags for telemetry channels
@@ -1861,7 +1861,7 @@ class ActiveTelemetryComponentBase :
     //! Initialized to true; cleared when channel ChannelEnumOnChange is first updated
     bool m_first_update_ChannelEnumOnChange;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Last value storage for telemetry channels
@@ -1873,7 +1873,7 @@ class ActiveTelemetryComponentBase :
     //! Records the last emitted value for channel ChannelEnumOnChange
     E m_last_ChannelEnumOnChange;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Mutexes

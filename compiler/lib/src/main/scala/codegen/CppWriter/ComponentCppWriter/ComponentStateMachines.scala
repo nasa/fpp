@@ -63,7 +63,7 @@ case class ComponentStateMachines(
 
   private def getSmInstanceMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       s"State machine instances",
       smInstancesByName.map(getSmInstanceMember),
       CppDoc.Lines.Hpp

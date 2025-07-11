@@ -20,7 +20,7 @@ case class ComponentInternalPort (
 
   private def getOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       s"""|Hooks for internal ports
           |
           |Each of these functions is invoked just before dropping a message
@@ -42,7 +42,7 @@ case class ComponentInternalPort (
 
   private def getHandlers: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Internal interface handlers",
       internalPorts.map(p =>
         functionClassMember(
@@ -62,7 +62,7 @@ case class ComponentInternalPort (
 
   private def getHandlerBases: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Internal interface base-class functions",
       internalPorts.map(p =>
         functionClassMember(

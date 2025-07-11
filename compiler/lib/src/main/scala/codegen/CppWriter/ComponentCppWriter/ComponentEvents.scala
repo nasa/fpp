@@ -58,7 +58,7 @@ case class ComponentEvents (
 
   def getVariableMembers: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       "Counter values for event throttling",
       throttledEvents.map((_, event) =>
         linesClassMember(
@@ -277,7 +277,7 @@ case class ComponentEvents (
     )
 
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Event logging functions",
       sortedEvents.map((id, event) =>
         functionClassMember(
@@ -307,7 +307,7 @@ case class ComponentEvents (
 
   private def getThrottleFunctions: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Event throttle reset functions",
       throttledEvents.map((_, event) =>
         functionClassMember(

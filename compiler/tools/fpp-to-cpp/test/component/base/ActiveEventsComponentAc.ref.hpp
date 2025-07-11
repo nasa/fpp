@@ -56,7 +56,7 @@ class ActiveEventsComponentBase :
     //! Friend class tester implementation to support white-box testing
     friend class ActiveEventsTester;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Constants
@@ -492,7 +492,7 @@ class ActiveEventsComponentBase :
 
 #endif
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Component construction and destruction
@@ -506,7 +506,7 @@ class ActiveEventsComponentBase :
     //! Destroy ActiveEventsComponentBase object
     virtual ~ActiveEventsComponentBase();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special input ports
@@ -517,7 +517,7 @@ class ActiveEventsComponentBase :
     //! \return The number of cmdIn input ports
     FwIndexType getNum_cmdIn_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of typed input ports
@@ -618,7 +618,7 @@ class ActiveEventsComponentBase :
     //! \return The number of typedSync input ports
     FwIndexType getNum_typedSync_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special output ports
@@ -668,7 +668,7 @@ class ActiveEventsComponentBase :
     //! \return The number of tlmOut output ports
     FwIndexType getNum_tlmOut_OutputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of typed output ports
@@ -714,7 +714,7 @@ class ActiveEventsComponentBase :
     //! \return The number of typedReturnOut output ports
     FwIndexType getNum_typedReturnOut_OutputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for special output ports
@@ -780,7 +780,7 @@ class ActiveEventsComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for typed output ports
@@ -842,7 +842,7 @@ class ActiveEventsComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Handlers to implement for typed input ports
@@ -1027,7 +1027,7 @@ class ActiveEventsComponentBase :
         const S& s //!< A struct
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for typed input ports
@@ -1214,7 +1214,7 @@ class ActiveEventsComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Pre-message hooks for typed async input ports
@@ -1289,7 +1289,7 @@ class ActiveEventsComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Invocation functions for typed output ports
@@ -1370,7 +1370,7 @@ class ActiveEventsComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Event logging functions
@@ -1424,7 +1424,7 @@ class ActiveEventsComponentBase :
     //! A warning low, throttled event with no params
     void log_WARNING_LO_EventWarningLowThrottled();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Event throttle reset functions
@@ -1439,7 +1439,7 @@ class ActiveEventsComponentBase :
     //! Reset throttle value for EventWarningLowThrottled
     void log_WARNING_LO_EventWarningLowThrottled_ThrottleClear();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Time
@@ -1450,7 +1450,7 @@ class ActiveEventsComponentBase :
     //! \\return The current time
     Fw::Time getTime() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Mutex operations for guarded ports
@@ -1465,7 +1465,7 @@ class ActiveEventsComponentBase :
     //! Unlock the guarded mutex
     virtual void unLock();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Message dispatch functions
@@ -1474,7 +1474,7 @@ class ActiveEventsComponentBase :
     //! Called in the message loop to dispatch a message from the queue
     virtual MsgDispatchStatus doDispatch();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on special input ports
@@ -1489,7 +1489,7 @@ class ActiveEventsComponentBase :
         Fw::CmdArgBuffer& args //!< Buffer containing arguments
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on typed input ports
@@ -1693,7 +1693,7 @@ class ActiveEventsComponentBase :
         const S& s //!< A struct
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special input ports
@@ -1702,7 +1702,7 @@ class ActiveEventsComponentBase :
     //! Input port cmdIn
     Fw::InputCmdPort m_cmdIn_InputPort[NUM_CMDIN_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Typed input ports
@@ -1765,7 +1765,7 @@ class ActiveEventsComponentBase :
     //! Input port typedSync
     Ports::InputTypedPort m_typedSync_InputPort[NUM_TYPEDSYNC_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special output ports
@@ -1799,7 +1799,7 @@ class ActiveEventsComponentBase :
     //! Output port tlmOut
     Fw::OutputTlmPort m_tlmOut_OutputPort[NUM_TLMOUT_OUTPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Typed output ports
@@ -1829,7 +1829,7 @@ class ActiveEventsComponentBase :
     //! Output port typedReturnOut
     Ports::OutputTypedReturnPort m_typedReturnOut_OutputPort[NUM_TYPEDRETURNOUT_OUTPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Counter values for event throttling
@@ -1844,7 +1844,7 @@ class ActiveEventsComponentBase :
     //! Throttle for EventWarningLowThrottled
     std::atomic<FwIndexType> m_EventWarningLowThrottledThrottle;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Mutexes

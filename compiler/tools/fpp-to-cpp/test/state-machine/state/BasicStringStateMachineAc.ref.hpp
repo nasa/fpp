@@ -50,7 +50,7 @@ namespace FppTest {
           s,
         };
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Constructors and Destructors
@@ -93,7 +93,7 @@ namespace FppTest {
             const Fw::StringBase& value //!< The value
         );
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Actions
@@ -110,7 +110,7 @@ namespace FppTest {
             const Fw::StringBase& value //!< The value
         ) = 0;
 
-      PRIVATE:
+      private:
 
         // ----------------------------------------------------------------------
         // State and choice entry
@@ -126,7 +126,7 @@ namespace FppTest {
             Signal signal //!< The signal
         );
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Member variables

@@ -52,7 +52,7 @@ namespace FppTest {
       //! Friend class tester implementation to support white-box testing
       friend class SmStateActiveTester;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Constants
@@ -87,7 +87,7 @@ namespace FppTest {
         smStateStateToState,
       };
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Types for internal state machines
@@ -126,14 +126,14 @@ namespace FppTest {
           //! Get the state machine id
           SmStateActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmStateActiveComponentBase& m_component;
@@ -173,21 +173,21 @@ namespace FppTest {
           //! Get the state machine id
           SmStateActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! Implementation for guard g
           bool guard_g(
               Signal signal //!< The signal
           ) const;
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmStateActiveComponentBase& m_component;
@@ -227,7 +227,7 @@ namespace FppTest {
           //! Get the state machine id
           SmStateActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
@@ -235,7 +235,7 @@ namespace FppTest {
               const Fw::StringBase& value //!< The value
           );
 
-        PRIVATE:
+        private:
 
           //! Implementation for guard g
           bool guard_g(
@@ -243,7 +243,7 @@ namespace FppTest {
               const Fw::StringBase& value //!< The value
           ) const;
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmStateActiveComponentBase& m_component;
@@ -283,7 +283,7 @@ namespace FppTest {
           //! Get the state machine id
           SmStateActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
@@ -291,7 +291,7 @@ namespace FppTest {
               const FppTest::SmHarness::TestAbsType& value //!< The value
           );
 
-        PRIVATE:
+        private:
 
           //! Implementation for guard g
           bool guard_g(
@@ -299,7 +299,7 @@ namespace FppTest {
               const FppTest::SmHarness::TestAbsType& value //!< The value
           ) const;
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmStateActiveComponentBase& m_component;
@@ -339,7 +339,7 @@ namespace FppTest {
           //! Get the state machine id
           SmStateActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
@@ -347,7 +347,7 @@ namespace FppTest {
               const FppTest::SmHarness::TestArray& value //!< The value
           );
 
-        PRIVATE:
+        private:
 
           //! Implementation for guard g
           bool guard_g(
@@ -355,7 +355,7 @@ namespace FppTest {
               const FppTest::SmHarness::TestArray& value //!< The value
           ) const;
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmStateActiveComponentBase& m_component;
@@ -395,7 +395,7 @@ namespace FppTest {
           //! Get the state machine id
           SmStateActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
@@ -403,7 +403,7 @@ namespace FppTest {
               const FppTest::SmHarness::TestEnum& value //!< The value
           );
 
-        PRIVATE:
+        private:
 
           //! Implementation for guard g
           bool guard_g(
@@ -411,7 +411,7 @@ namespace FppTest {
               const FppTest::SmHarness::TestEnum& value //!< The value
           ) const;
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmStateActiveComponentBase& m_component;
@@ -451,7 +451,7 @@ namespace FppTest {
           //! Get the state machine id
           SmStateActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
@@ -459,7 +459,7 @@ namespace FppTest {
               const FppTest::SmHarness::TestStruct& value //!< The value
           );
 
-        PRIVATE:
+        private:
 
           //! Implementation for guard g
           bool guard_g(
@@ -467,7 +467,7 @@ namespace FppTest {
               const FppTest::SmHarness::TestStruct& value //!< The value
           ) const;
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmStateActiveComponentBase& m_component;
@@ -507,7 +507,7 @@ namespace FppTest {
           //! Get the state machine id
           SmStateActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
@@ -515,7 +515,7 @@ namespace FppTest {
               U32 value //!< The value
           );
 
-        PRIVATE:
+        private:
 
           //! Implementation for guard g
           bool guard_g(
@@ -523,7 +523,7 @@ namespace FppTest {
               U32 value //!< The value
           ) const;
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmStateActiveComponentBase& m_component;
@@ -563,14 +563,14 @@ namespace FppTest {
           //! Get the state machine id
           SmStateActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmStateActiveComponentBase& m_component;
@@ -610,14 +610,14 @@ namespace FppTest {
           //! Get the state machine id
           SmStateActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmStateActiveComponentBase& m_component;
@@ -657,7 +657,7 @@ namespace FppTest {
           //! Get the state machine id
           SmStateActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
@@ -670,7 +670,7 @@ namespace FppTest {
               const Fw::StringBase& value //!< The value
           );
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmStateActiveComponentBase& m_component;
@@ -710,7 +710,7 @@ namespace FppTest {
           //! Get the state machine id
           SmStateActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
@@ -723,7 +723,7 @@ namespace FppTest {
               const FppTest::SmHarness::TestAbsType& value //!< The value
           );
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmStateActiveComponentBase& m_component;
@@ -763,7 +763,7 @@ namespace FppTest {
           //! Get the state machine id
           SmStateActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
@@ -776,7 +776,7 @@ namespace FppTest {
               const FppTest::SmHarness::TestArray& value //!< The value
           );
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmStateActiveComponentBase& m_component;
@@ -816,7 +816,7 @@ namespace FppTest {
           //! Get the state machine id
           SmStateActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
@@ -829,7 +829,7 @@ namespace FppTest {
               const FppTest::SmHarness::TestEnum& value //!< The value
           );
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmStateActiveComponentBase& m_component;
@@ -869,7 +869,7 @@ namespace FppTest {
           //! Get the state machine id
           SmStateActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
@@ -882,7 +882,7 @@ namespace FppTest {
               const FppTest::SmHarness::TestStruct& value //!< The value
           );
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmStateActiveComponentBase& m_component;
@@ -922,7 +922,7 @@ namespace FppTest {
           //! Get the state machine id
           SmStateActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
@@ -935,7 +935,7 @@ namespace FppTest {
               U32 value //!< The value
           );
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmStateActiveComponentBase& m_component;
@@ -975,14 +975,14 @@ namespace FppTest {
           //! Get the state machine id
           SmStateActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmStateActiveComponentBase& m_component;
@@ -1050,7 +1050,7 @@ namespace FppTest {
           //! Get the state machine id
           SmStateActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action exitS2
           void action_exitS2(
@@ -1077,7 +1077,7 @@ namespace FppTest {
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmStateActiveComponentBase& m_component;
@@ -1117,7 +1117,7 @@ namespace FppTest {
           //! Get the state machine id
           SmStateActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action exitS1
           void action_exitS1(
@@ -1159,14 +1159,14 @@ namespace FppTest {
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! Implementation for guard g
           bool guard_g(
               Signal signal //!< The signal
           ) const;
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmStateActiveComponentBase& m_component;
@@ -1206,7 +1206,7 @@ namespace FppTest {
           //! Get the state machine id
           SmStateActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action exitS1
           void action_exitS1(
@@ -1243,7 +1243,7 @@ namespace FppTest {
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmStateActiveComponentBase& m_component;
@@ -1283,7 +1283,7 @@ namespace FppTest {
           //! Get the state machine id
           SmStateActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action exitS1
           void action_exitS1(
@@ -1330,7 +1330,7 @@ namespace FppTest {
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmStateActiveComponentBase& m_component;
@@ -1370,14 +1370,14 @@ namespace FppTest {
           //! Get the state machine id
           SmStateActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmStateActiveComponentBase& m_component;
@@ -1396,7 +1396,7 @@ namespace FppTest {
           FwEnumStoreType instance = 0 //!< The instance number
       );
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Component construction and destruction
@@ -1410,7 +1410,7 @@ namespace FppTest {
       //! Destroy SmStateActiveComponentBase object
       virtual ~SmStateActiveComponentBase();
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // State getter functions
@@ -1491,7 +1491,7 @@ namespace FppTest {
       //! Get the state of state machine instance smStateStateToState
       FppTest_SmState_StateToState::State smStateStateToState_getState() const;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Signal send functions
@@ -1620,7 +1620,7 @@ namespace FppTest {
       //! Send signal S2_to_S3 to state machine smStateStateToState
       void smStateStateToState_sendSignal_S2_to_S3();
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Overflow hooks for internal state machine instances
@@ -1637,7 +1637,7 @@ namespace FppTest {
           Fw::SerializeBufferBase& buffer //!< The message buffer
       ) = 0;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Functions to implement for internal state machine actions
@@ -2079,7 +2079,7 @@ namespace FppTest {
           FppTest_SmStateActive_Basic::Signal signal //!< The signal
       ) = 0;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Functions to implement for internal state machine guards
@@ -2155,7 +2155,7 @@ namespace FppTest {
           FppTest_SmState_StateToChoice::Signal signal //!< The signal
       ) const = 0;
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Message dispatch functions
@@ -2164,7 +2164,7 @@ namespace FppTest {
       //! Called in the message loop to dispatch a message from the queue
       virtual MsgDispatchStatus doDispatch();
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Send signal helper functions
@@ -2302,7 +2302,7 @@ namespace FppTest {
           Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
       );
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Helper functions for state machine dispatch
@@ -2481,7 +2481,7 @@ namespace FppTest {
           FppTest_SmStateActive_Basic::Signal signal //!< The signal
       );
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // State machine instances

@@ -98,7 +98,7 @@ case class ComponentCommands (
 
   private def getHandlers: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Command handlers to implement",
       nonParamCmds.map((opcode, cmd) =>
         functionClassMember(
@@ -121,7 +121,7 @@ case class ComponentCommands (
 
   private def getHandlerBases: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       """|Command handler base-class functions
          |
          |Call these functions directly to bypass the command input port
@@ -262,7 +262,7 @@ case class ComponentCommands (
 
   private def getResponseFunction: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Command response",
       List(
         functionClassMember(
@@ -292,7 +292,7 @@ case class ComponentCommands (
 
   private def getPreMsgHooks: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       """|Pre-message hooks for async commands
          |
          |Each of these functions is invoked just before processing the
@@ -322,7 +322,7 @@ case class ComponentCommands (
 
   private def getOverflowHooks: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       """|Overflow hooks for async commands
          |
          |Each of these functions is invoked after an overflow event

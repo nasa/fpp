@@ -27,7 +27,7 @@ class PassiveGuardedProducts final :
     //! Destroy PassiveGuardedProducts object
     ~PassiveGuardedProducts();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports
@@ -173,7 +173,7 @@ class PassiveGuardedProducts final :
         const S& s //!< A struct
     ) override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for data products

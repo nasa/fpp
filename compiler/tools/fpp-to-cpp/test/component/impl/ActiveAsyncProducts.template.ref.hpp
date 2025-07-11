@@ -27,7 +27,7 @@ class ActiveAsyncProducts final :
     //! Destroy ActiveAsyncProducts object
     ~ActiveAsyncProducts();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports
@@ -250,7 +250,7 @@ class ActiveAsyncProducts final :
         const S& s //!< A struct
     ) override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for data products

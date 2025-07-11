@@ -27,7 +27,7 @@ class ActiveNoArgsPortsOnly final :
     //! Destroy ActiveNoArgsPortsOnly object
     ~ActiveNoArgsPortsOnly();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports

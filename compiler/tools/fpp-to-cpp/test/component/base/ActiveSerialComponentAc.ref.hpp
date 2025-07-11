@@ -66,7 +66,7 @@ class ActiveSerialComponentBase :
     //! Friend class tester implementation to support white-box testing
     friend class ActiveSerialTester;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Constants
@@ -682,7 +682,7 @@ class ActiveSerialComponentBase :
     //! Connect the parameter first
     void loadParameters();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Component construction and destruction
@@ -696,7 +696,7 @@ class ActiveSerialComponentBase :
     //! Destroy ActiveSerialComponentBase object
     virtual ~ActiveSerialComponentBase();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special input ports
@@ -707,7 +707,7 @@ class ActiveSerialComponentBase :
     //! \return The number of cmdIn input ports
     FwIndexType getNum_cmdIn_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of typed input ports
@@ -808,7 +808,7 @@ class ActiveSerialComponentBase :
     //! \return The number of typedSync input ports
     FwIndexType getNum_typedSync_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of serial input ports
@@ -844,7 +844,7 @@ class ActiveSerialComponentBase :
     //! \return The number of serialSync input ports
     FwIndexType getNum_serialSync_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special output ports
@@ -894,7 +894,7 @@ class ActiveSerialComponentBase :
     //! \return The number of tlmOut output ports
     FwIndexType getNum_tlmOut_OutputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of typed output ports
@@ -940,7 +940,7 @@ class ActiveSerialComponentBase :
     //! \return The number of typedReturnOut output ports
     FwIndexType getNum_typedReturnOut_OutputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of serial output ports
@@ -951,7 +951,7 @@ class ActiveSerialComponentBase :
     //! \return The number of serialOut output ports
     FwIndexType getNum_serialOut_OutputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for special output ports
@@ -1017,7 +1017,7 @@ class ActiveSerialComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for typed output ports
@@ -1079,7 +1079,7 @@ class ActiveSerialComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for serial output ports
@@ -1092,7 +1092,7 @@ class ActiveSerialComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Handlers to implement for typed input ports
@@ -1277,7 +1277,7 @@ class ActiveSerialComponentBase :
         const S& s //!< A struct
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for typed input ports
@@ -1464,7 +1464,7 @@ class ActiveSerialComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Handlers to implement for serial input ports
@@ -1506,7 +1506,7 @@ class ActiveSerialComponentBase :
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for serial input ports
@@ -1550,7 +1550,7 @@ class ActiveSerialComponentBase :
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Pre-message hooks for typed async input ports
@@ -1625,7 +1625,7 @@ class ActiveSerialComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Pre-message hooks for serial async input ports
@@ -1659,7 +1659,7 @@ class ActiveSerialComponentBase :
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Invocation functions for typed output ports
@@ -1740,7 +1740,7 @@ class ActiveSerialComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Invocation functions for serial output ports
@@ -1752,7 +1752,7 @@ class ActiveSerialComponentBase :
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Internal interface handlers
@@ -1789,7 +1789,7 @@ class ActiveSerialComponentBase :
         const S& s //!< A struct
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Internal interface base-class functions
@@ -1826,7 +1826,7 @@ class ActiveSerialComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Command response
@@ -1839,7 +1839,7 @@ class ActiveSerialComponentBase :
         Fw::CmdResponse response //!< The command response
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Command handlers to implement
@@ -1999,7 +1999,7 @@ class ActiveSerialComponentBase :
         U32 u32
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Command handler base-class functions
@@ -2160,7 +2160,7 @@ class ActiveSerialComponentBase :
         Fw::CmdArgBuffer& args //!< The command argument buffer
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Pre-message hooks for async commands
@@ -2200,7 +2200,7 @@ class ActiveSerialComponentBase :
         U32 cmdSeq //!< The command sequence number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Event logging functions
@@ -2254,7 +2254,7 @@ class ActiveSerialComponentBase :
     //! A warning low, throttled event with no params
     void log_WARNING_LO_EventWarningLowThrottled();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Event throttle reset functions
@@ -2269,7 +2269,7 @@ class ActiveSerialComponentBase :
     //! Reset throttle value for EventWarningLowThrottled
     void log_WARNING_LO_EventWarningLowThrottled_ThrottleClear();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Telemetry write functions
@@ -2363,7 +2363,7 @@ class ActiveSerialComponentBase :
         Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Parameter update hook
@@ -2385,7 +2385,7 @@ class ActiveSerialComponentBase :
     //! This function does nothing by default. You may override it.
     virtual void parametersLoaded();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Parameter get functions
@@ -2501,7 +2501,7 @@ class ActiveSerialComponentBase :
         Fw::ParamValid& valid //!< Whether the parameter is valid
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // External parameter delegate initialization
@@ -2512,7 +2512,7 @@ class ActiveSerialComponentBase :
         Fw::ParamExternalDelegate* paramExternalDelegatePtr //!< The delegate for externally managed parameters
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Time
@@ -2523,7 +2523,7 @@ class ActiveSerialComponentBase :
     //! \\return The current time
     Fw::Time getTime() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Mutex operations for guarded ports
@@ -2538,7 +2538,7 @@ class ActiveSerialComponentBase :
     //! Unlock the guarded mutex
     virtual void unLock();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Message dispatch functions
@@ -2547,7 +2547,7 @@ class ActiveSerialComponentBase :
     //! Called in the message loop to dispatch a message from the queue
     virtual MsgDispatchStatus doDispatch();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on special input ports
@@ -2562,7 +2562,7 @@ class ActiveSerialComponentBase :
         Fw::CmdArgBuffer& args //!< Buffer containing arguments
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on typed input ports
@@ -2766,7 +2766,7 @@ class ActiveSerialComponentBase :
         const S& s //!< A struct
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on serial input ports
@@ -2818,7 +2818,7 @@ class ActiveSerialComponentBase :
 
 #endif
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Parameter set functions
@@ -2908,7 +2908,7 @@ class ActiveSerialComponentBase :
         Fw::SerializeBufferBase& val //!< The serialization buffer
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Parameter save functions
@@ -2974,7 +2974,7 @@ class ActiveSerialComponentBase :
     //! \return The command response
     Fw::CmdResponse paramSave_ParamStructExt();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special input ports
@@ -2983,7 +2983,7 @@ class ActiveSerialComponentBase :
     //! Input port cmdIn
     Fw::InputCmdPort m_cmdIn_InputPort[NUM_CMDIN_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Typed input ports
@@ -3046,7 +3046,7 @@ class ActiveSerialComponentBase :
     //! Input port typedSync
     Ports::InputTypedPort m_typedSync_InputPort[NUM_TYPEDSYNC_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Serial input ports
@@ -3070,7 +3070,7 @@ class ActiveSerialComponentBase :
     //! Input port serialSync
     Fw::InputSerializePort m_serialSync_InputPort[NUM_SERIALSYNC_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special output ports
@@ -3104,7 +3104,7 @@ class ActiveSerialComponentBase :
     //! Output port tlmOut
     Fw::OutputTlmPort m_tlmOut_OutputPort[NUM_TLMOUT_OUTPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Typed output ports
@@ -3134,7 +3134,7 @@ class ActiveSerialComponentBase :
     //! Output port typedReturnOut
     Ports::OutputTypedReturnPort m_typedReturnOut_OutputPort[NUM_TYPEDRETURNOUT_OUTPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Serial output ports
@@ -3143,7 +3143,7 @@ class ActiveSerialComponentBase :
     //! Output port serialOut
     Fw::OutputSerializePort m_serialOut_OutputPort[NUM_SERIALOUT_OUTPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Counter values for event throttling
@@ -3158,7 +3158,7 @@ class ActiveSerialComponentBase :
     //! Throttle for EventWarningLowThrottled
     std::atomic<FwIndexType> m_EventWarningLowThrottledThrottle;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // First update flags for telemetry channels
@@ -3170,7 +3170,7 @@ class ActiveSerialComponentBase :
     //! Initialized to true; cleared when channel ChannelEnumOnChange is first updated
     bool m_first_update_ChannelEnumOnChange;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Last value storage for telemetry channels
@@ -3182,7 +3182,7 @@ class ActiveSerialComponentBase :
     //! Records the last emitted value for channel ChannelEnumOnChange
     E m_last_ChannelEnumOnChange;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Parameter validity flags
@@ -3206,7 +3206,7 @@ class ActiveSerialComponentBase :
     //! True if ParamStruct was successfully received
     Fw::ParamValid m_param_ParamStruct_valid;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Parameter variables
@@ -3243,7 +3243,7 @@ class ActiveSerialComponentBase :
     //! A parameter with struct data and set/save opcodes
     S m_ParamStruct;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Parameter delegates
@@ -3252,12 +3252,12 @@ class ActiveSerialComponentBase :
     //! Delegate to serialize/deserialize an externally stored parameter
     Fw::ParamExternalDelegate* paramDelegatePtr;
 
-  PRIVATE:
+  private:
 
     //! Stores max message size
     FwSizeType m_msgSize;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Mutexes

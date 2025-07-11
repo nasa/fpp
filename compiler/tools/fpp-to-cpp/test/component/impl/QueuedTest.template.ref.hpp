@@ -27,7 +27,7 @@ class QueuedTest final :
     //! Destroy QueuedTest object
     ~QueuedTest();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports
@@ -250,7 +250,7 @@ class QueuedTest final :
         const S& s //!< A struct
     ) override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for commands
@@ -410,7 +410,7 @@ class QueuedTest final :
         U32 u32
     ) override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for user-defined internal interfaces
@@ -459,7 +459,7 @@ class QueuedTest final :
         const S& s //!< A struct
     ) override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for data products

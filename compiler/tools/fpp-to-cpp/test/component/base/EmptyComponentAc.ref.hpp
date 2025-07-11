@@ -38,7 +38,7 @@ class EmptyComponentBase :
         FwEnumStoreType instance = 0 //!< The instance number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Component construction and destruction

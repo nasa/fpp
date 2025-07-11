@@ -68,7 +68,7 @@ namespace M {
       //! Friend class tester implementation to support white-box testing
       friend class ActiveTestTester;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Constants
@@ -245,7 +245,7 @@ namespace M {
         return sizeof(FwDpIdType) + sizeof(FwSizeStoreType) + arraySize * sizeof(U8);
       }
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Types for data products
@@ -355,7 +355,7 @@ namespace M {
 
           void setBaseId(FwDpIdType baseId) { this->m_baseId = baseId; }
 
-        PRIVATE:
+        private:
 
           //! The component base id
           FwDpIdType m_baseId;
@@ -775,7 +775,7 @@ namespace M {
       //! Connect the parameter first
       void loadParameters();
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Component construction and destruction
@@ -789,7 +789,7 @@ namespace M {
       //! Destroy ActiveTestComponentBase object
       virtual ~ActiveTestComponentBase();
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Getters for numbers of special input ports
@@ -805,7 +805,7 @@ namespace M {
       //! \return The number of productRecvIn input ports
       FwIndexType getNum_productRecvIn_InputPorts() const;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Getters for numbers of typed input ports
@@ -906,7 +906,7 @@ namespace M {
       //! \return The number of typedSync input ports
       FwIndexType getNum_typedSync_InputPorts() const;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Getters for numbers of special output ports
@@ -966,7 +966,7 @@ namespace M {
       //! \return The number of tlmOut output ports
       FwIndexType getNum_tlmOut_OutputPorts() const;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Getters for numbers of typed output ports
@@ -1012,7 +1012,7 @@ namespace M {
       //! \return The number of typedReturnOut output ports
       FwIndexType getNum_typedReturnOut_OutputPorts() const;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Connection status queries for special output ports
@@ -1092,7 +1092,7 @@ namespace M {
           FwIndexType portNum //!< The port number
       );
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Connection status queries for typed output ports
@@ -1154,7 +1154,7 @@ namespace M {
           FwIndexType portNum //!< The port number
       );
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Port handler base-class functions for special input ports
@@ -1170,7 +1170,7 @@ namespace M {
           const Fw::Success& status //!< The status
       );
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Handlers to implement for typed input ports
@@ -1355,7 +1355,7 @@ namespace M {
           const S& s //!< A struct
       ) = 0;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Port handler base-class functions for typed input ports
@@ -1542,7 +1542,7 @@ namespace M {
           const S& s //!< A struct
       );
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Pre-message hooks for special async input ports
@@ -1560,7 +1560,7 @@ namespace M {
           const Fw::Success& status //!< The status
       );
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Pre-message hooks for typed async input ports
@@ -1635,7 +1635,7 @@ namespace M {
           const S& s //!< A struct
       );
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Invocation functions for special output ports
@@ -1655,7 +1655,7 @@ namespace M {
           const Fw::Buffer& buffer //!< The buffer
       );
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Invocation functions for typed output ports
@@ -1736,7 +1736,7 @@ namespace M {
           const S& s //!< A struct
       );
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Internal interface handlers
@@ -1773,7 +1773,7 @@ namespace M {
           const S& s //!< A struct
       ) = 0;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Internal interface base-class functions
@@ -1810,7 +1810,7 @@ namespace M {
           const S& s //!< A struct
       );
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Command response
@@ -1823,7 +1823,7 @@ namespace M {
           Fw::CmdResponse response //!< The command response
       );
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Command handlers to implement
@@ -1983,7 +1983,7 @@ namespace M {
           U32 u32
       ) = 0;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Command handler base-class functions
@@ -2144,7 +2144,7 @@ namespace M {
           Fw::CmdArgBuffer& args //!< The command argument buffer
       );
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Pre-message hooks for async commands
@@ -2184,7 +2184,7 @@ namespace M {
           U32 cmdSeq //!< The command sequence number
       );
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Event logging functions
@@ -2238,7 +2238,7 @@ namespace M {
       //! A warning low, throttled event with no params
       void log_WARNING_LO_EventWarningLowThrottled();
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Event throttle reset functions
@@ -2253,7 +2253,7 @@ namespace M {
       //! Reset throttle value for EventWarningLowThrottled
       void log_WARNING_LO_EventWarningLowThrottled_ThrottleClear();
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Telemetry write functions
@@ -2347,7 +2347,7 @@ namespace M {
           Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
       );
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Parameter update hook
@@ -2369,7 +2369,7 @@ namespace M {
       //! This function does nothing by default. You may override it.
       virtual void parametersLoaded();
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Parameter get functions
@@ -2485,7 +2485,7 @@ namespace M {
           Fw::ParamValid& valid //!< Whether the parameter is valid
       );
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // External parameter delegate initialization
@@ -2496,7 +2496,7 @@ namespace M {
           Fw::ParamExternalDelegate* paramExternalDelegatePtr //!< The delegate for externally managed parameters
       );
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Functions for managing data products
@@ -2543,7 +2543,7 @@ namespace M {
           Fw::Time timeTag = Fw::ZERO_TIME //!< The time tag
       );
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Handlers to implement for data products
@@ -2579,7 +2579,7 @@ namespace M {
           Fw::Success::T status //!< The container status
       ) = 0;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Time
@@ -2590,7 +2590,7 @@ namespace M {
       //! \\return The current time
       Fw::Time getTime() const;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Mutex operations for guarded ports
@@ -2605,7 +2605,7 @@ namespace M {
       //! Unlock the guarded mutex
       virtual void unLock();
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Message dispatch functions
@@ -2614,7 +2614,7 @@ namespace M {
       //! Called in the message loop to dispatch a message from the queue
       virtual MsgDispatchStatus doDispatch();
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Calls for messages received on special input ports
@@ -2638,7 +2638,7 @@ namespace M {
           const Fw::Success& status //!< The status
       );
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Calls for messages received on typed input ports
@@ -2842,7 +2842,7 @@ namespace M {
           const S& s //!< A struct
       );
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Parameter set functions
@@ -2932,7 +2932,7 @@ namespace M {
           Fw::SerializeBufferBase& val //!< The serialization buffer
       );
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Parameter save functions
@@ -2998,7 +2998,7 @@ namespace M {
       //! \return The command response
       Fw::CmdResponse paramSave_ParamStructExt();
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Private data product handling functions
@@ -3018,7 +3018,7 @@ namespace M {
           const Fw::Success& status //!< The buffer status
       );
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Special input ports
@@ -3030,7 +3030,7 @@ namespace M {
       //! Input port productRecvIn
       Fw::InputDpResponsePort m_productRecvIn_InputPort[NUM_PRODUCTRECVIN_INPUT_PORTS];
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Typed input ports
@@ -3093,7 +3093,7 @@ namespace M {
       //! Input port typedSync
       Ports::InputTypedPort m_typedSync_InputPort[NUM_TYPEDSYNC_INPUT_PORTS];
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Special output ports
@@ -3133,7 +3133,7 @@ namespace M {
       //! Output port tlmOut
       Fw::OutputTlmPort m_tlmOut_OutputPort[NUM_TLMOUT_OUTPUT_PORTS];
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Typed output ports
@@ -3163,7 +3163,7 @@ namespace M {
       //! Output port typedReturnOut
       Ports::OutputTypedReturnPort m_typedReturnOut_OutputPort[NUM_TYPEDRETURNOUT_OUTPUT_PORTS];
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Counter values for event throttling
@@ -3178,7 +3178,7 @@ namespace M {
       //! Throttle for EventWarningLowThrottled
       std::atomic<FwIndexType> m_EventWarningLowThrottledThrottle;
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // First update flags for telemetry channels
@@ -3190,7 +3190,7 @@ namespace M {
       //! Initialized to true; cleared when channel ChannelEnumOnChange is first updated
       bool m_first_update_ChannelEnumOnChange;
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Last value storage for telemetry channels
@@ -3202,7 +3202,7 @@ namespace M {
       //! Records the last emitted value for channel ChannelEnumOnChange
       E m_last_ChannelEnumOnChange;
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Parameter validity flags
@@ -3226,7 +3226,7 @@ namespace M {
       //! True if ParamStruct was successfully received
       Fw::ParamValid m_param_ParamStruct_valid;
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Parameter variables
@@ -3263,7 +3263,7 @@ namespace M {
       //! A parameter with struct data and set/save opcodes
       S m_ParamStruct;
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Parameter delegates
@@ -3272,7 +3272,7 @@ namespace M {
       //! Delegate to serialize/deserialize an externally stored parameter
       Fw::ParamExternalDelegate* paramDelegatePtr;
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Mutexes
