@@ -6878,7 +6878,7 @@ namespace M {
       return _time;
     }
     else {
-      return Fw::Time(TB_NONE, 0, 0);
+      return Fw::Time(TimeBase::TB_NONE, 0, 0);
     }
   }
 
