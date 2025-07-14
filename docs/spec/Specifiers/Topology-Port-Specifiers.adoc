@@ -2,7 +2,9 @@
 
 A topology port specifiers names a <<Specifiers_Port-Instance-Specifiers,
 port instance>> of an internal port in a <<Definitions_Topology-Definitions,
-topology definition>>.
+topology definition>>. This allows topology connections to be made directly
+on a topology rather than referencing the instances named inside. It also
+allows topologies to <<Interfaces_Binding,bind to interfaces>>.
 
 ==== Syntax
 

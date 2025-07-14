@@ -61,6 +61,31 @@ anonymous topology interface>>.
 === Binding
 
 Interface binding refers to converting an interface value to a value
-from another interface. This is done when passing arguments during
+from another interface. This is done when passing interface arguments during
 <<Specifiers_Template-Instantiation-Specifiers,template instantiation>>.
 
+For an interface instance value _A_ associated with an anonymous interface _A'_,
+the following conditions must be met for _A_ to bind to an interface _I_:
+
+. For every <<Specifiers_Port-Instance-Specifiers,port instance>> _P_ in _I_:
+
+.. There exists a port instance _P'_ in _A'_ that has the same name of _P_.
+
+.. If _P_ is a <<Specifiers_Port-Instance-Specifiers_Semantics_General-Port-Instances,
+general port instance>>, _P'_ must also be a general port instance:
+
+... _P_ and _P'_ have the same port type
+
+... If _P_ is an `input` port, _P'_ must also be an `input` port.
+
+.... _P'_ must have the same calling behavior as _P_ (i.e. `async`,
+`guarded`, `sync`).
+
+... If _P_ is an `output` port, _P'_ must also be an `output` port.
+
+... _P_ and _P'_ must share the same _number_ of ports.
+
+.. If _P_ is a <<Specifiers_Port-Instance-Specifiers_Semantics_Special-Port-Instances,
+special port instance>>, _P'_ must also be a special port instance:
+
+... _P_ and _P'_ must share the same _special-port-kind_ and _special-port-input-kind_.

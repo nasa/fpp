@@ -7145,9 +7145,8 @@ or a
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Port-Instance-Specifiers_Semantics">7.12.2. Semantics</h4>
-<div class="paragraph">
-<p><strong>General port instances:</strong></p>
-</div>
+<div class="sect4">
+<h5 id="Specifiers_Port-Instance-Specifiers_Semantics_General-Port-Instances">General Port Instances</h5>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -7226,9 +7225,11 @@ If no specifier appears, then the default behavior is <code>assert</code>.</p>
 </li>
 </ol>
 </div>
+</div>
+<div class="sect4">
+<h5 id="Specifiers_Port-Instance-Specifiers_Semantics_Special-Port-Instances">Special Port Instances</h5>
 <div class="paragraph">
-<p><strong>Special port instances:</strong>
-The special port instance have special functions in the code generated
+<p>The special port instance have special functions in the code generated
 from an FPP model.
 The types and other attributes of the special ports are specified by F Prime.
 The identifier specifies the name of the port.</p>
@@ -7321,6 +7322,7 @@ These ports are defined by the F Prime framework.</p>
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Port-Instance-Specifiers_Examples">7.12.3. Examples</h4>
@@ -8015,7 +8017,9 @@ packet ADCS group 2 {
 <div class="sect2">
 <h3 id="Specifiers_Topology-Port-Specifiers">7.19. Topology Port Specifiers</h3>
 <div class="paragraph">
-<p>A topology port specifiers names a <a href="#Specifiers_Port-Instance-Specifiers">port instance</a> of an internal port in a <a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
+<p>A topology port specifiers names a <a href="#Specifiers_Port-Instance-Specifiers">port instance</a> of an internal port in a <a href="#Definitions_Topology-Definitions">topology definition</a>. This allows topology connections to be made directly
+on a topology rather than referencing the instances named inside. It also
+allows topologies to <a href="#Interfaces_Binding">bind to interfaces</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Topology-Port-Specifiers_Syntax">7.19.1. Syntax</h4>
@@ -10424,8 +10428,63 @@ instance values:</p>
 <h3 id="Interfaces_Binding">18.4. Binding</h3>
 <div class="paragraph">
 <p>Interface binding refers to converting an interface value to a value
-from another interface. This is done when passing arguments during
+from another interface. This is done when passing interface arguments during
 <a href="#Specifiers_Template-Instantiation-Specifiers">template instantiation</a>.</p>
+</div>
+<div class="paragraph">
+<p>For an interface instance value <em>A</em> associated with an anonymous interface <em>A'</em>,
+the following conditions must be met for <em>A</em> to bind to an interface <em>I</em>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>For every <a href="#Specifiers_Port-Instance-Specifiers">port instance</a> <em>P</em> in <em>I</em>:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>There exists a port instance <em>P'</em> in <em>A'</em> that has the same name of <em>P</em>.</p>
+</li>
+<li>
+<p>If <em>P</em> is a <a href="#Specifiers_Port-Instance-Specifiers_Semantics_General-Port-Instances">general port instance</a>, <em>P'</em> must also be a general port instance:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><em>P</em> and <em>P'</em> have the same port type</p>
+</li>
+<li>
+<p>If <em>P</em> is an <code>input</code> port, <em>P'</em> must also be an <code>input</code> port.</p>
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p><em>P'</em> must have the same calling behavior as <em>P</em> (i.e. <code>async</code>,
+<code>guarded</code>, <code>sync</code>).</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>If <em>P</em> is an <code>output</code> port, <em>P'</em> must also be an <code>output</code> port.</p>
+</li>
+<li>
+<p><em>P</em> and <em>P'</em> must share the same <em>number</em> of ports.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>If <em>P</em> is a <a href="#Specifiers_Port-Instance-Specifiers_Semantics_Special-Port-Instances">special port instance</a>, <em>P'</em> must also be a special port instance:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p><em>P</em> and <em>P'</em> must share the same <em>special-port-kind</em> and <em>special-port-input-kind</em>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -12170,7 +12229,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-07-10 16:33:50 -0700
+Last updated 2025-07-14 09:49:54 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
