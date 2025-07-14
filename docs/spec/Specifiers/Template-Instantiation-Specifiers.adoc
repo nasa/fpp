@@ -50,6 +50,8 @@ expression that returns an integer.
 <<Interfaces_Instance-Values,interface instance value>>
 that can <<Interfaces_Binding,bind>> to _I_.
 
+. If the parameter type is `type`, the value must name a type.
+
 === Examples
 
 [source,fpp]
