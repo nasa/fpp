@@ -47,8 +47,8 @@ expression that returns an integer.
 
 . If the parameter type is `interface` _I_, the value must be a
 <<Scoping-of-Names_Qualified-Identifiers,_qualified-identifier_>> of a
-<<Interfaces_Instance-Values,interface instance value>>
-that can <<Interfaces_Binding,bind>> to _I_.
+<<Port-Interfaces_Port-Interface-Instance,port interface instance>>
+that can <<Port-Interfaces_Binding,bind>> to _I_.
 
 . If the parameter type is `type`, the value must name a type.
 
@@ -63,20 +63,6 @@ topology CDH {
   # ----------------------------------------------------------------------
 }
 
-topology Comm(
-    constant base,
-    interface driver: ByteStreamDriver
-) {
-    instance ......
-
-    connections {
-        framer.out -> driver.In
-    }
-}
-----
-
-template C1
-
 template (...) topology C implements ... {
     topology T1 = C1(0) // TODO(DO not add)
 }
@@ -88,3 +74,4 @@ template topology T(...) implements  {
     topology T1 = C1(0)
     instance I: FPPComponent
 }
+----

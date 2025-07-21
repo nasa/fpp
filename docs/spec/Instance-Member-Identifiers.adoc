@@ -6,7 +6,7 @@ instance of some definition.
 === Port Instance Identifiers
 
 A port instance identifier identifies a port instance that
-is part of a <<Interfaces,interface>> instance. Port instance
+is part of a <<Port-Interfaces,port interface>> instance. Port instance
 identifiers appear in connection graph specifiers.
 
 ==== Syntax
@@ -21,9 +21,9 @@ For each port instance identifier _Q_ `.` _P_:
 
 . The qualified identifier _Q_ must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
-an <<Interfaces_Instance-Values,interface value _I_>>.
+an <<Port-Interfaces_Port-Interface-Instance,interface instance _I_>>.
 
-. _I_ must refer to an <<Interfaces,interface _I'_>>
+. _I_ must refer to a <<Port-Interfaces,port interface _I'_>>
 
 . The identifier _P_ must refer to a port instance in _I'_
 

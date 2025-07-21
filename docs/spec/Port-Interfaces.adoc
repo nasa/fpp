@@ -1,70 +1,70 @@
-== Interfaces
+== Port Interfaces
 
-Interfaces in F Prime define a set of
+Port Interfaces in F Prime define a set of
 <<Specifiers_Port-Instance-Specifiers,port
 instances>>. Interfaces can be explicitely named
 through a <<Definitions_Port-Interface-Definitions,
 port interface definition>>.
 
-=== Named Interfaces
+=== Named Port Interfaces
 
-A named interface is an interface associated
+A named port interface is a port interface associated
 with an <<Definitions_Port-Interface-Definitions,
-interface definition>>. Named interfaces can be used
+interface definition>>. Named port interfaces can be used
 in <<Template-Parameter-Lists,template parameter lists>>.
 
-=== Anonymous Interfaces
+=== Anonymous Port Interfaces
 
-There are definitions in FPP that will implicitly define an interface
-so that instances of these definitions may be bound to an interface.
-These implicitly defined interfaces are known as anonymous interfaces
+There are definitions in FPP that will implicitly define a port interface
+so that instances of these definitions may be bound to a port interface.
+These implicitly defined port interfaces are known as anonymous port interfaces
 as they do not have explicit names associated with them.
 
-==== Anonymous Component Interfaces
+==== Anonymous Component Port Interfaces
 
 A <<Definitions_Component-Definitions,component definition>>
-will create a corresponding anonymous interface. This interface includes
-the set of all <<Specifiers_Port-Instance-Specifiers,port instances>>
+will create a corresponding anonymous port interface. This port interface
+includes the set of all <<Specifiers_Port-Instance-Specifiers,port instances>>
 inside the component definition (either explicitely, or via an
 <<Specifiers_Interface-Import-Specifiers,interface import>>).
 
-==== Anonymous Topology Interfaces
+==== Anonymous Topology Port Interfaces
 
 A <<Definitions_Topology-Definitions,topology definition>>
-will create a corresponding anonymous interface. This interface includes
+will create a corresponding anonymous port interface. This port interface includes
 the set of all <<Specifiers_Topology-Port-Specifiers,topology port specifiers>>
 inside the topology definition.
 
-=== Instance Values
+=== Port Interface Instance
 
-The interface concept is simply a set of port instances.
+The port interface concept is simply a set of port instances.
 F Prime applies this concept to abstract connections
 between ports in <<Specifiers_Connection-Graph-Specifiers,
 connection graphs>>.
 
-An *interface instance value* is a instance of a definition
-that contains port instances. FPP has two types of interface
-instance values:
+An *port interface instance* is a instance of a definition
+that contains port instances. FPP has two types of port interface
+instances:
 
 . <<Definitions_Component-Instance-Definitions,Component Instances>>
 
 .. Component instance values are bound to their corresponding
-<<Interfaces_Anonymous-Interfaces_Anonymous-Component-Interfaces,
-anonymous component interface>>.
+<<Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Component-Port-Interfaces,
+anonymous component port interface>>.
 
 . <<Definitions_Topology-Definitions,Topologies>>
 
 .. Topology values are bound to their corresponding
-<<Interfaces_Anonymous-Interfaces_Anonymous-Topology-Interfaces,
-anonymous topology interface>>.
+<<Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces,
+anonymous topology port interface>>.
 
 === Binding
 
-Interface binding refers to converting an interface value to a value
-from another interface. This is done when passing interface arguments during
+Port interface binding refers to converting a port interface instance to an instance
+from another port interface. This is done when passing interface arguments during
 <<Specifiers_Template-Instantiation-Specifiers,template instantiation>>.
 
-For an interface instance value _A_ associated with an anonymous interface _A'_,
+For an interface instance _A_ associated with an anonymous interface _A'_,
 the following conditions must be met for _A_ to bind to an interface _I_:
 
 . For every <<Specifiers_Port-Instance-Specifiers,port instance>> _P_ in _I_:

@@ -950,17 +950,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions-and-Uses_Order-of-Definitions-and-Uses">17.3. Order of Definitions and Uses</a></li>
 </ul>
 </li>
-<li><a href="#Interfaces">18. Interfaces</a>
+<li><a href="#Port-Interfaces">18. Port Interfaces</a>
 <ul class="sectlevel2">
-<li><a href="#Interfaces_Named-Interfaces">18.1. Named Interfaces</a></li>
-<li><a href="#Interfaces_Anonymous-Interfaces">18.2. Anonymous Interfaces</a>
+<li><a href="#Port-Interfaces_Named-Port-Interfaces">18.1. Named Port Interfaces</a></li>
+<li><a href="#Port-Interfaces_Anonymous-Port-Interfaces">18.2. Anonymous Port Interfaces</a>
 <ul class="sectlevel3">
-<li><a href="#Interfaces_Anonymous-Interfaces_Anonymous-Component-Interfaces">18.2.1. Anonymous Component Interfaces</a></li>
-<li><a href="#Interfaces_Anonymous-Interfaces_Anonymous-Topology-Interfaces">18.2.2. Anonymous Topology Interfaces</a></li>
+<li><a href="#Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Component-Port-Interfaces">18.2.1. Anonymous Component Port Interfaces</a></li>
+<li><a href="#Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces">18.2.2. Anonymous Topology Port Interfaces</a></li>
 </ul>
 </li>
-<li><a href="#Interfaces_Instance-Values">18.3. Instance Values</a></li>
-<li><a href="#Interfaces_Binding">18.4. Binding</a></li>
+<li><a href="#Port-Interfaces_Port-Interface-Instance">18.3. Port Interface Instance</a></li>
+<li><a href="#Port-Interfaces_Binding">18.4. Binding</a></li>
 </ul>
 </li>
 <li><a href="#Types">19. Types</a>
@@ -2948,7 +2948,7 @@ that may be imported into a
 or another port interface definition.</p>
 </div>
 <div class="paragraph">
-<p>Interface definitions name an FPP <a href="#Interfaces">interface</a>.</p>
+<p>Port interface definitions name an FPP <a href="#Port-Interfaces">port interface</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Port-Interface-Definitions_Syntax">5.11.1. Syntax</h4>
@@ -3669,7 +3669,7 @@ And the set of
 <a href="#Specifiers_Topology-Port-Specifiers">ports</a> in the topology
 definition must be a super-set of the ports in <em>K</em>.
 This optional clause is a compile-time check that
-verify that this <a href="#Interfaces_Anonymous-Interfaces_Anonymous-Topology-Interfaces">topology&#8217;s anonymous interface</a> can <a href="#Interfaces_Binding">bind</a> to <em>ID</em>.</p>
+verify that this <a href="#Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces">topology&#8217;s anonymous port interface</a> can <a href="#Port-Interfaces_Binding">bind</a> to <em>ID</em>.</p>
 </div>
 <div class="paragraph">
 <p>A topology definition <em>D</em> must be resolvable to a topology <em>T</em>,
@@ -8019,7 +8019,7 @@ packet ADCS group 2 {
 <div class="paragraph">
 <p>A topology port specifiers names a <a href="#Specifiers_Port-Instance-Specifiers">port instance</a> of an internal port in a <a href="#Definitions_Topology-Definitions">topology definition</a>. This allows topology connections to be made directly
 on a topology rather than referencing the instances named inside. It also
-allows topologies to <a href="#Interfaces_Binding">bind to interfaces</a>.</p>
+allows topologies to <a href="#Port-Interfaces_Binding">bind to interfaces</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Topology-Port-Specifiers_Syntax">7.19.1. Syntax</h4>
@@ -8370,8 +8370,8 @@ expression that returns an integer.</p>
 <li>
 <p>If the parameter type is <code>interface</code> <em>I</em>, the value must be a
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qualified-identifier</em></a> of a
-<a href="#Interfaces_Instance-Values">interface instance value</a>
-that can <a href="#Interfaces_Binding">bind</a> to <em>I</em>.</p>
+<a href="#Port-Interfaces_Port-Interface-Instance">port interface instance</a>
+that can <a href="#Port-Interfaces_Binding">bind</a> to <em>I</em>.</p>
 </li>
 <li>
 <p>If the parameter type is <code>type</code>, the value must name a type.</p>
@@ -8391,34 +8391,18 @@ topology CDH {
   # ----------------------------------------------------------------------
 }
 
-topology Comm(
-    constant base,
-    interface driver: ByteStreamDriver
-) {
-    instance ......
-
-    connections {
-        framer.out -&gt; driver.In
-    }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>template C1</p>
-</div>
-<div class="paragraph">
-<p>template (&#8230;&#8203;) topology C implements &#8230;&#8203; {
+template (...) topology C implements ... {
     topology T1 = C1(0) // TODO(DO not add)
-}</p>
-</div>
-<div class="paragraph">
-<p>topology T2 = C(1, )</p>
-</div>
-<div class="paragraph">
-<p>template topology T(&#8230;&#8203;) implements  {
+}
+
+
+topology T2 = C(1, )
+
+template topology T(...) implements  {
     topology T1 = C1(0)
     instance I: FPPComponent
-}</p>
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -8434,7 +8418,7 @@ instance of some definition.</p>
 <h3 id="Instance-Member-Identifiers_Port-Instance-Identifiers">8.1. Port Instance Identifiers</h3>
 <div class="paragraph">
 <p>A port instance identifier identifies a port instance that
-is part of a <a href="#Interfaces">interface</a> instance. Port instance
+is part of a <a href="#Port-Interfaces">port interface</a> instance. Port instance
 identifiers appear in connection graph specifiers.</p>
 </div>
 <div class="sect3">
@@ -8455,10 +8439,10 @@ identifiers appear in connection graph specifiers.</p>
 <li>
 <p>The qualified identifier <em>Q</em> must
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
-an <a href="#Interfaces_Instance-Values">interface value <em>I</em></a>.</p>
+an <a href="#Port-Interfaces_Port-Interface-Instance">interface instance <em>I</em></a>.</p>
 </li>
 <li>
-<p><em>I</em> must refer to an <a href="#Interfaces">interface <em>I'</em></a></p>
+<p><em>I</em> must refer to a <a href="#Port-Interfaces">port interface <em>I'</em></a></p>
 </li>
 <li>
 <p>The identifier <em>P</em> must refer to a port instance in <em>I'</em></p>
@@ -8612,7 +8596,7 @@ require different types, an error will be emitted during template instantiation.
 an
 <a href="#Definitions_Port-Interface-Definitions">interface definition <em>I</em></a>.
 <strong>Interface</strong> template parameters accept any <a href="#Definitions_Component-Instance-Definitions">component instance</a> or <a href="#Definitions_Topology-Definitions">topology</a>
-that can <a href="#Interfaces_Binding">bind</a> to <em>I</em>.</p>
+that can <a href="#Port-Interfaces_Binding">bind</a> to <em>I</em>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Type</strong> template parameters accept any <a href="#Type-Names"><em>type-name</em></a> and can be used to
@@ -10344,61 +10328,61 @@ translator does not matter.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Interfaces">18. Interfaces</h2>
+<h2 id="Port-Interfaces">18. Port Interfaces</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Interfaces in F Prime define a set of
+<p>Port Interfaces in F Prime define a set of
 <a href="#Specifiers_Port-Instance-Specifiers">port
 instances</a>. Interfaces can be explicitely named
 through a <a href="#Definitions_Port-Interface-Definitions">port interface definition</a>.</p>
 </div>
 <div class="sect2">
-<h3 id="Interfaces_Named-Interfaces">18.1. Named Interfaces</h3>
+<h3 id="Port-Interfaces_Named-Port-Interfaces">18.1. Named Port Interfaces</h3>
 <div class="paragraph">
-<p>A named interface is an interface associated
-with an <a href="#Definitions_Port-Interface-Definitions">interface definition</a>. Named interfaces can be used
+<p>A named port interface is a port interface associated
+with an <a href="#Definitions_Port-Interface-Definitions">interface definition</a>. Named port interfaces can be used
 in <a href="#Template-Parameter-Lists">template parameter lists</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Interfaces_Anonymous-Interfaces">18.2. Anonymous Interfaces</h3>
+<h3 id="Port-Interfaces_Anonymous-Port-Interfaces">18.2. Anonymous Port Interfaces</h3>
 <div class="paragraph">
-<p>There are definitions in FPP that will implicitly define an interface
-so that instances of these definitions may be bound to an interface.
-These implicitly defined interfaces are known as anonymous interfaces
+<p>There are definitions in FPP that will implicitly define a port interface
+so that instances of these definitions may be bound to a port interface.
+These implicitly defined port interfaces are known as anonymous port interfaces
 as they do not have explicit names associated with them.</p>
 </div>
 <div class="sect3">
-<h4 id="Interfaces_Anonymous-Interfaces_Anonymous-Component-Interfaces">18.2.1. Anonymous Component Interfaces</h4>
+<h4 id="Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Component-Port-Interfaces">18.2.1. Anonymous Component Port Interfaces</h4>
 <div class="paragraph">
 <p>A <a href="#Definitions_Component-Definitions">component definition</a>
-will create a corresponding anonymous interface. This interface includes
-the set of all <a href="#Specifiers_Port-Instance-Specifiers">port instances</a>
+will create a corresponding anonymous port interface. This port interface
+includes the set of all <a href="#Specifiers_Port-Instance-Specifiers">port instances</a>
 inside the component definition (either explicitely, or via an
 <a href="#Specifiers_Interface-Import-Specifiers">interface import</a>).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Interfaces_Anonymous-Interfaces_Anonymous-Topology-Interfaces">18.2.2. Anonymous Topology Interfaces</h4>
+<h4 id="Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces">18.2.2. Anonymous Topology Port Interfaces</h4>
 <div class="paragraph">
 <p>A <a href="#Definitions_Topology-Definitions">topology definition</a>
-will create a corresponding anonymous interface. This interface includes
+will create a corresponding anonymous port interface. This port interface includes
 the set of all <a href="#Specifiers_Topology-Port-Specifiers">topology port specifiers</a>
 inside the topology definition.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Interfaces_Instance-Values">18.3. Instance Values</h3>
+<h3 id="Port-Interfaces_Port-Interface-Instance">18.3. Port Interface Instance</h3>
 <div class="paragraph">
-<p>The interface concept is simply a set of port instances.
+<p>The port interface concept is simply a set of port instances.
 F Prime applies this concept to abstract connections
 between ports in <a href="#Specifiers_Connection-Graph-Specifiers">connection graphs</a>.</p>
 </div>
 <div class="paragraph">
-<p>An <strong>interface instance value</strong> is a instance of a definition
-that contains port instances. FPP has two types of interface
-instance values:</p>
+<p>An <strong>port interface instance</strong> is a instance of a definition
+that contains port instances. FPP has two types of port interface
+instances:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -10408,7 +10392,7 @@ instance values:</p>
 <ol class="loweralpha" type="a">
 <li>
 <p>Component instance values are bound to their corresponding
-<a href="#Interfaces_Anonymous-Interfaces_Anonymous-Component-Interfaces">anonymous component interface</a>.</p>
+<a href="#Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Component-Port-Interfaces">anonymous component port interface</a>.</p>
 </li>
 </ol>
 </div>
@@ -10419,7 +10403,7 @@ instance values:</p>
 <ol class="loweralpha" type="a">
 <li>
 <p>Topology values are bound to their corresponding
-<a href="#Interfaces_Anonymous-Interfaces_Anonymous-Topology-Interfaces">anonymous topology interface</a>.</p>
+<a href="#Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces">anonymous topology port interface</a>.</p>
 </li>
 </ol>
 </div>
@@ -10428,14 +10412,14 @@ instance values:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Interfaces_Binding">18.4. Binding</h3>
+<h3 id="Port-Interfaces_Binding">18.4. Binding</h3>
 <div class="paragraph">
-<p>Interface binding refers to converting an interface value to a value
-from another interface. This is done when passing interface arguments during
+<p>Port interface binding refers to converting a port interface instance to an instance
+from another port interface. This is done when passing interface arguments during
 <a href="#Specifiers_Template-Instantiation-Specifiers">template instantiation</a>.</p>
 </div>
 <div class="paragraph">
-<p>For an interface instance value <em>A</em> associated with an anonymous interface <em>A'</em>,
+<p>For an interface instance <em>A</em> associated with an anonymous interface <em>A'</em>,
 the following conditions must be met for <em>A</em> to bind to an interface <em>I</em>:</p>
 </div>
 <div class="olist arabic">
@@ -12232,7 +12216,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-07-14 09:57:47 -0700
+Last updated 2025-07-21 11:22:34 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

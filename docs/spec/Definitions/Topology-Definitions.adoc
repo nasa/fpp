@@ -54,8 +54,8 @@ And the set of
 <<Specifiers_Topology-Port-Specifiers,ports>> in the topology
 definition must be a super-set of the ports in _K_.
 This optional clause is a compile-time check that
-verify that this <<Interfaces_Anonymous-Interfaces_Anonymous-Topology-Interfaces,
-topology's anonymous interface>> can <<Interfaces_Binding,bind>> to _ID_.
+verify that this <<Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces,
+topology's anonymous port interface>> can <<Port-Interfaces_Binding,bind>> to _ID_.
 
 A topology definition _D_ must be resolvable to a topology _T_,
 according to the following algorithm:
