@@ -1,13 +1,16 @@
 == Instance Member Identifiers
 
-A *instance member identifier* refers to a member of a
-instance of some definition.
+A *instance member identifier* refers to a <<
+Instance-Member-Identifiers_Port-Instance-Identifiers,
+port instance identifier>> or a <Port-Interfaces_Telemetry-Channel-Identifiers,
+telemetry channel identifier>>.
 
 === Port Instance Identifiers
 
 A port instance identifier identifies a port instance that
 is part of a <<Port-Interfaces,port interface>> instance. Port instance
-identifiers appear in connection graph specifiers.
+identifiers appear in <<Specifiers_Connection-Graph-Specifiers,
+connection graph specifiers>>.
 
 ==== Syntax
 
@@ -25,7 +28,8 @@ an <<Port-Interfaces_Port-Interface-Instance,interface instance _I_>>.
 
 . _I_ must refer to a <<Port-Interfaces,port interface _I'_>>
 
-. The identifier _P_ must refer to a port instance in _I'_
+. The identifier _P_ must refer to a <<Specifiers_Port-Instance-Specifiers,
+port instance>> in _I'_.
 
 ==== Examples
 
