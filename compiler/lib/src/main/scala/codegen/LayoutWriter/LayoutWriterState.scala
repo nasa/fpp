@@ -15,15 +15,10 @@ case class LayoutWriterState(
   locationMap: Map[String, Location] = Map()
 ) {
 
-  /** Gets the unqualified name associated with a symbol. */
+  /** Gets the qualified name associated with a symbol. */
   def getName(symbol: Symbol): String = {
-    val name = symbol.getUnqualifiedName
-    a.parentSymbolMap.get(symbol) match {
-      case Some(cs: Symbol.Component) => s"${cs.getUnqualifiedName}_$name"
-      case _ => name
-    }
+    a.getQualifiedName(symbol).toString.replace(".", "_")
   }
-
 }
 
 case object LayoutWriterState {
