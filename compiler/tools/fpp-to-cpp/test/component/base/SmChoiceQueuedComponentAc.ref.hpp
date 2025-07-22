@@ -72,6 +72,15 @@ namespace FppTest {
         public FppTest::SmChoice::BasicStateMachineBase
       {
 
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Autocoded test harness for the enclosing component
+          friend class SmChoiceQueuedTesterBase;
+          //! Test implementation for the enclosing component
+          friend class SmChoiceQueuedTester;
+
         public:
 
           //! Constructor
@@ -121,6 +130,15 @@ namespace FppTest {
       class FppTest_SmChoice_BasicU32 :
         public FppTest::SmChoice::BasicU32StateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Autocoded test harness for the enclosing component
+          friend class SmChoiceQueuedTesterBase;
+          //! Test implementation for the enclosing component
+          friend class SmChoiceQueuedTester;
 
         public:
 
@@ -173,6 +191,15 @@ namespace FppTest {
       class FppTest_SmChoice_ChoiceToChoice :
         public FppTest::SmChoice::ChoiceToChoiceStateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Autocoded test harness for the enclosing component
+          friend class SmChoiceQueuedTesterBase;
+          //! Test implementation for the enclosing component
+          friend class SmChoiceQueuedTester;
 
         public:
 
@@ -234,6 +261,15 @@ namespace FppTest {
         public FppTest::SmChoice::ChoiceToStateStateMachineBase
       {
 
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Autocoded test harness for the enclosing component
+          friend class SmChoiceQueuedTesterBase;
+          //! Test implementation for the enclosing component
+          friend class SmChoiceQueuedTester;
+
         public:
 
           //! Constructor
@@ -294,6 +330,15 @@ namespace FppTest {
         public FppTest::SmChoice::InputPairU16U32StateMachineBase
       {
 
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Autocoded test harness for the enclosing component
+          friend class SmChoiceQueuedTesterBase;
+          //! Test implementation for the enclosing component
+          friend class SmChoiceQueuedTester;
+
         public:
 
           //! Constructor
@@ -340,6 +385,15 @@ namespace FppTest {
       class FppTest_SmChoice_Sequence :
         public FppTest::SmChoice::SequenceStateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Autocoded test harness for the enclosing component
+          friend class SmChoiceQueuedTesterBase;
+          //! Test implementation for the enclosing component
+          friend class SmChoiceQueuedTester;
 
         public:
 
@@ -395,6 +449,15 @@ namespace FppTest {
       class FppTest_SmChoice_SequenceU32 :
         public FppTest::SmChoice::SequenceU32StateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Autocoded test harness for the enclosing component
+          friend class SmChoiceQueuedTesterBase;
+          //! Test implementation for the enclosing component
+          friend class SmChoiceQueuedTester;
 
         public:
 
@@ -452,6 +515,15 @@ namespace FppTest {
       class FppTest_SmChoiceQueued_Basic :
         public FppTest::SmChoiceQueued_BasicStateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Autocoded test harness for the enclosing component
+          friend class SmChoiceQueuedTesterBase;
+          //! Test implementation for the enclosing component
+          friend class SmChoiceQueuedTester;
 
         public:
 

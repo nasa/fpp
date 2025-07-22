@@ -19,6 +19,13 @@ namespace FppTest {
     //! A basic state machine with a U32 choice sequence
     class SequenceU32StateMachineBase {
 
+        // ----------------------------------------------------------------------
+        // Friend classes
+        // ----------------------------------------------------------------------
+
+        //! Tester class for the state machine
+        friend class SequenceU32Tester;
+
       public:
 
         // ----------------------------------------------------------------------

@@ -19,6 +19,13 @@ namespace FppTest {
     //! A state machine with an initial choice
     class ChoiceStateMachineBase {
 
+        // ----------------------------------------------------------------------
+        // Friend classes
+        // ----------------------------------------------------------------------
+
+        //! Tester class for the state machine
+        friend class ChoiceTester;
+
       public:
 
         // ----------------------------------------------------------------------

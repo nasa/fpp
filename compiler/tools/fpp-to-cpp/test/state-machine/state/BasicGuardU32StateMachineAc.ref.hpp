@@ -19,6 +19,13 @@ namespace FppTest {
     //! A basic state machine with a U32 guard
     class BasicGuardU32StateMachineBase {
 
+        // ----------------------------------------------------------------------
+        // Friend classes
+        // ----------------------------------------------------------------------
+
+        //! Tester class for the state machine
+        friend class BasicGuardU32Tester;
+
       public:
 
         // ----------------------------------------------------------------------

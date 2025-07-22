@@ -19,6 +19,13 @@ namespace FppTest {
     //! A state machine with two inputs to a choice
     class InputPairU16U32StateMachineBase {
 
+        // ----------------------------------------------------------------------
+        // Friend classes
+        // ----------------------------------------------------------------------
+
+        //! Tester class for the state machine
+        friend class InputPairU16U32Tester;
+
       public:
 
         // ----------------------------------------------------------------------

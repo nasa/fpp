@@ -19,6 +19,13 @@ namespace FppTest {
     //! A hierarchical state machine with an internal transition
     class InternalStateMachineBase {
 
+        // ----------------------------------------------------------------------
+        // Friend classes
+        // ----------------------------------------------------------------------
+
+        //! Tester class for the state machine
+        friend class InternalTester;
+
       public:
 
         // ----------------------------------------------------------------------

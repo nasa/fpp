@@ -19,6 +19,13 @@ namespace FppTest {
     //! A state machine for testing state-to-child transitions
     class StateToChildStateMachineBase {
 
+        // ----------------------------------------------------------------------
+        // Friend classes
+        // ----------------------------------------------------------------------
+
+        //! Tester class for the state machine
+        friend class StateToChildTester;
+
       public:
 
         // ----------------------------------------------------------------------

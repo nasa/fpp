@@ -19,6 +19,13 @@ namespace FppTest {
     //! A basic state machine with string actions
     class BasicStringStateMachineBase {
 
+        // ----------------------------------------------------------------------
+        // Friend classes
+        // ----------------------------------------------------------------------
+
+        //! Tester class for the state machine
+        friend class BasicStringTester;
+
       public:
 
         // ----------------------------------------------------------------------

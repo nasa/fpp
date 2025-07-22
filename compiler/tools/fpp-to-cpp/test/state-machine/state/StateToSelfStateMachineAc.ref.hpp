@@ -20,6 +20,13 @@ namespace FppTest {
     //! with hierarchy
     class StateToSelfStateMachineBase {
 
+        // ----------------------------------------------------------------------
+        // Friend classes
+        // ----------------------------------------------------------------------
+
+        //! Tester class for the state machine
+        friend class StateToSelfTester;
+
       public:
 
         // ----------------------------------------------------------------------

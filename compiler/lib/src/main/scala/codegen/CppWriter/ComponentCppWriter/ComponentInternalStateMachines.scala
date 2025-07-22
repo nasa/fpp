@@ -717,12 +717,32 @@ case class ComponentInternalStateMachines(
         smClassName,
         Some(s"public $smBaseClassName"),
         List.concat(
+          getFriendClassMembers,
           getConstructorMembers,
           getInitMembers,
           getGetterMembers,
           getActionMembers,
           getGuardMembers,
           getVariableMembers
+        )
+      )
+
+    private def getFriendClassMembers: List[CppDoc.Class.Member] =
+      List(
+        linesClassMember(
+          List(
+            CppDocWriter.writeBannerComment(
+              "Friend classes"
+            ),
+            lines(
+              s"""|
+                  |//! Autocoded test harness for the enclosing component
+                  |friend class ${componentName}TesterBase;
+                  |//! Test implementation for the enclosing component
+                  |friend class ${componentName}Tester;
+                  |"""
+            )
+          ).flatten
         )
       )
 
