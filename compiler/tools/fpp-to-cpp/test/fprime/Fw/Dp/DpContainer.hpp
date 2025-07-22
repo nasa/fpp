@@ -10,14 +10,21 @@
 #include "Fw/Buffer/Buffer.hpp"
 #include "Fw/Dp/DpStateEnumAc.hpp"
 #include "Fw/Time/Time.hpp"
+#include "Fw/Types/SuccessEnumAc.hpp"
 #include "Utils/Hash/Hash.hpp"
 #include "config/FppConstantsAc.hpp"
 #include "config/ProcTypeEnumAc.hpp"
+
+// Forward declare for UTs
+namespace Fw { class DpContainerTester; }
 
 namespace Fw {
 
 //! A data product Container
 class DpContainer {
+
+  friend class Fw::DpContainerTester;
+
   public:
     // ----------------------------------------------------------------------
     // Constants and Types
@@ -44,7 +51,7 @@ class DpContainer {
         //! The offset for the data size field
         static constexpr FwSizeType DATA_SIZE_OFFSET = DP_STATE_OFFSET + DpState::SERIALIZED_SIZE;
         //! The header size
-        static constexpr FwSizeType SIZE = DATA_SIZE_OFFSET + sizeof(FwSizeType);
+        static constexpr FwSizeType SIZE = DATA_SIZE_OFFSET + sizeof(FwSizeStoreType);
     };
 
     //! The header hash offset
@@ -58,7 +65,7 @@ class DpContainer {
 
   public:
     // ----------------------------------------------------------------------
-    // Constructor
+    // Constructors and destructors
     // ----------------------------------------------------------------------
 
     //! Constructor for initialized container
@@ -68,6 +75,17 @@ class DpContainer {
 
     //! Constructor for container with default initialization
     DpContainer();
+
+    //! Destructor
+    virtual ~DpContainer() {}
+
+  protected:
+    // ----------------------------------------------------------------------
+    // Protected operators
+    // ----------------------------------------------------------------------
+
+    //! Copy assignment operator
+    DpContainer& operator=(const DpContainer& src) = default;
 
   public:
     // ----------------------------------------------------------------------
@@ -97,16 +115,25 @@ class DpContainer {
     //! \return The time tag
     Fw::Time getTimeTag() const { return this->m_timeTag; }
 
+    //! Get the product state
+    Fw::DpState getState() const { return this->m_dpState; }
+
     //! Get the processing types
     //! \return The processing types
     DpCfg::ProcType::SerialType getProcTypes() const { return this->m_procTypes; }
 
+    //! Get the data product state
+    DpState getDpState() const { return this->m_dpState; }
+
     //! Deserialize the header from the packet buffer
-    //! Buffer must be valid and large enough to hold a DP container packet
-    void deserializeHeader();
+    //! Buffer must be valid, and its size must be at least MIN_PACKET_SIZE
+    //! Before calling this function, you should call checkHeaderHash() to
+    //! check the header hash
+    //! \return The serialize status
+    Fw::SerializeStatus deserializeHeader();
 
     //! Serialize the header into the packet buffer and update the header hash
-    //! Buffer must be valid and large enough to hold a DP container packet
+    //! Buffer must be valid, and its size must be at least MIN_PACKET_SIZE
     void serializeHeader();
 
     //! Set the id
@@ -149,8 +176,32 @@ class DpContainer {
     void setBuffer(const Buffer& buffer  //!< The packet buffer
     );
 
-    //! Update the header hash
+    //! Invalidate the packet buffer
+    void invalidateBuffer() {
+        this->m_buffer = Fw::Buffer();
+        this->m_dataBuffer.clear();
+        this->m_dataSize = 0;
+    }
+
+    //! Get the stored header hash
+    //! \return The hash
+    Utils::HashBuffer getHeaderHash() const;
+
+    //! Compute the header hash from the header data
+    //! \return The hash
+    Utils::HashBuffer computeHeaderHash() const;
+
+    //! Set the header hash
+    void setHeaderHash(const Utils::HashBuffer& hash  //!< The hash
+    );
+
+    //! Compute and set the header hash
     void updateHeaderHash();
+
+    //! Check the header hash
+    Success::T checkHeaderHash(Utils::HashBuffer& storedHash,   //!< The stored hash (output)
+                               Utils::HashBuffer& computedHash  //!< The computed hash (output)
+    ) const;
 
     //! Get the data hash offset
     FwSizeType getDataHashOffset() const {
@@ -158,8 +209,25 @@ class DpContainer {
         return Header::SIZE + HASH_DIGEST_LENGTH + this->m_dataSize;
     }
 
+    //! Get the stored data hash
+    //! \return The hash
+    Utils::HashBuffer getDataHash() const;
+
+    //! Compute the data hash from the data
+    //! \return The hash
+    Utils::HashBuffer computeDataHash() const;
+
+    //! Set the data hash
+    void setDataHash(Utils::HashBuffer hash  //!< The hash
+    );
+
     //! Update the data hash
     void updateDataHash();
+
+    //! Check the data hash
+    Success::T checkDataHash(Utils::HashBuffer& storedHash,   //!< The stored hash (output)
+                             Utils::HashBuffer& computedHash  //!< The computed hash (output)
+    ) const;
 
   public:
     // ----------------------------------------------------------------------
@@ -172,7 +240,7 @@ class DpContainer {
         return Header::SIZE + dataSize + 2 * HASH_DIGEST_LENGTH;
     }
 
-  PRIVATE:
+  private:
     // ----------------------------------------------------------------------
     // Private member functions
     // ----------------------------------------------------------------------
@@ -188,7 +256,7 @@ class DpContainer {
     //! The user data
     Header::UserData m_userData;
 
-  PROTECTED:
+  protected:
     // ----------------------------------------------------------------------
     // Protected member variables
     // ----------------------------------------------------------------------
@@ -216,7 +284,9 @@ class DpContainer {
     Buffer m_buffer;
 
     //! The data buffer
-    Fw::ExternalSerializeBuffer m_dataBuffer;
+    //! We use member copy semantics because m_dataBuffer points into m_buffer,
+    //! which is owned by this object
+    Fw::ExternalSerializeBufferWithMemberCopy m_dataBuffer;
 };
 
 }  // end namespace Fw
