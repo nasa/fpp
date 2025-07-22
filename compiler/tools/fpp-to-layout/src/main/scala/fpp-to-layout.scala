@@ -38,11 +38,7 @@ object FPPToLayout {
                     case Some(dir1) => dir1
                     case None => "."
                 }
-                ComputeLayoutFiles.visitList(
-                    LayoutWriterState(a=a, dir=dir),
-                    tulFiles, 
-                    ComputeLayoutFiles.transUnit
-                )
+                Right(LayoutWriterState(a, dir))
             }
             _ <- {
                 LayoutWriter.visitList(

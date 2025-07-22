@@ -7,10 +7,10 @@ duplicate_port_num()
 numbering_unmatched()
 {
   run_test "" numbering_unmatched && \
-    compare T Case1 && \
-    compare T Case2 && \
-    compare T Case3 && \
-    compare T Case4 && \
-    compare T Case5 && \
+    compare M_T Case1 && \
+    compare M_T Case2 && \
+    compare M_T Case3 && \
+    compare M_T Case4 && \
+    compare M_T Case5 && \
     compare_out numbering_unmatched
 }
