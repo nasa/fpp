@@ -32,7 +32,7 @@ case class ComponentDataProducts (
 
   def getTypeMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Types for data products",
       List.concat(
         getContainerIds,
@@ -44,7 +44,7 @@ case class ComponentDataProducts (
 
   def getVirtualFunctionMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Handlers to implement for data products",
       productRequestPort match {
         case None => Nil
@@ -133,7 +133,7 @@ case class ComponentDataProducts (
       }
     )
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Functions for managing data products",
       guardedList (hasDataProducts) (
         List.concat(
@@ -286,7 +286,7 @@ case class ComponentDataProducts (
       )
     }
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       "Private data product handling functions",
       List.concat(
         guardedList (hasContainers && hasProductGetPort) (List(dpGet)),
@@ -591,7 +591,7 @@ case class ComponentDataProducts (
 
     private def getVariableMembers = List(
       linesClassMember(
-        CppDocHppWriter.writeAccessTag("PRIVATE") ++
+        CppDocHppWriter.writeAccessTag("private") ++
         CppDocWriter.writeDoxygenComment("The component base id") ++
         lines("FwDpIdType m_baseId;")
       )

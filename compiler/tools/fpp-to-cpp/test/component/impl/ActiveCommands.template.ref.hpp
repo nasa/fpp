@@ -27,7 +27,7 @@ class ActiveCommands final :
     //! Destroy ActiveCommands object
     ~ActiveCommands();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports
@@ -250,7 +250,7 @@ class ActiveCommands final :
         const S& s //!< A struct
     ) override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for commands

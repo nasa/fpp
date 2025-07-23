@@ -127,7 +127,7 @@ case class ComponentOutputPorts(
 
   def getInvokers(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       s"Invocation functions for ${getPortListTypeString(ports)} output ports",
       ports.map(p => {
         val invokeFunction = p.getType.get match {
@@ -201,7 +201,7 @@ case class ComponentOutputPorts(
 
   def getConnectionStatusQueries(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       s"Connection status queries for ${getPortListTypeString(ports)} output ports",
       generateConnectionStatusQueries(
         ports,

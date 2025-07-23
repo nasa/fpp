@@ -27,7 +27,7 @@ class PassiveSerial final :
     //! Destroy PassiveSerial object
     ~PassiveSerial();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports
@@ -173,7 +173,7 @@ class PassiveSerial final :
         const S& s //!< A struct
     ) override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for serial input ports
@@ -195,7 +195,7 @@ class PassiveSerial final :
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     ) override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for commands

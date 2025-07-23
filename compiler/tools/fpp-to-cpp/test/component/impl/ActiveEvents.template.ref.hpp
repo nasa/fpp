@@ -27,7 +27,7 @@ class ActiveEvents final :
     //! Destroy ActiveEvents object
     ~ActiveEvents();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports

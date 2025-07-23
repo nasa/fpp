@@ -55,7 +55,7 @@ class PassiveParamsComponentBase :
     //! Friend class tester implementation to support white-box testing
     friend class PassiveParamsTester;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Constants
@@ -473,7 +473,7 @@ class PassiveParamsComponentBase :
     //! Connect the parameter first
     void loadParameters();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Component construction and destruction
@@ -487,7 +487,7 @@ class PassiveParamsComponentBase :
     //! Destroy PassiveParamsComponentBase object
     virtual ~PassiveParamsComponentBase();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special input ports
@@ -498,7 +498,7 @@ class PassiveParamsComponentBase :
     //! \return The number of cmdIn input ports
     FwIndexType getNum_cmdIn_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of typed input ports
@@ -569,7 +569,7 @@ class PassiveParamsComponentBase :
     //! \return The number of typedSync input ports
     FwIndexType getNum_typedSync_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special output ports
@@ -619,7 +619,7 @@ class PassiveParamsComponentBase :
     //! \return The number of tlmOut output ports
     FwIndexType getNum_tlmOut_OutputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of typed output ports
@@ -665,7 +665,7 @@ class PassiveParamsComponentBase :
     //! \return The number of typedReturnOut output ports
     FwIndexType getNum_typedReturnOut_OutputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for special output ports
@@ -731,7 +731,7 @@ class PassiveParamsComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for typed output ports
@@ -793,7 +793,7 @@ class PassiveParamsComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Handlers to implement for typed input ports
@@ -913,7 +913,7 @@ class PassiveParamsComponentBase :
         const S& s //!< A struct
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for typed input ports
@@ -1035,7 +1035,7 @@ class PassiveParamsComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Invocation functions for typed output ports
@@ -1116,7 +1116,7 @@ class PassiveParamsComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Command response
@@ -1129,7 +1129,7 @@ class PassiveParamsComponentBase :
         Fw::CmdResponse response //!< The command response
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Parameter update hook
@@ -1151,7 +1151,7 @@ class PassiveParamsComponentBase :
     //! This function does nothing by default. You may override it.
     virtual void parametersLoaded();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Parameter get functions
@@ -1212,7 +1212,7 @@ class PassiveParamsComponentBase :
         Fw::ParamValid& valid //!< Whether the parameter is valid
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Time
@@ -1223,7 +1223,7 @@ class PassiveParamsComponentBase :
     //! \\return The current time
     Fw::Time getTime() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Mutex operations for guarded ports
@@ -1238,7 +1238,7 @@ class PassiveParamsComponentBase :
     //! Unlock the guarded mutex
     virtual void unLock();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on special input ports
@@ -1253,7 +1253,7 @@ class PassiveParamsComponentBase :
         Fw::CmdArgBuffer& args //!< Buffer containing arguments
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on typed input ports
@@ -1386,7 +1386,7 @@ class PassiveParamsComponentBase :
         const S& s //!< A struct
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Parameter set functions
@@ -1434,7 +1434,7 @@ class PassiveParamsComponentBase :
         Fw::SerializeBufferBase& val //!< The serialization buffer
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Parameter save functions
@@ -1470,7 +1470,7 @@ class PassiveParamsComponentBase :
     //! \return The command response
     Fw::CmdResponse paramSave_ParamStruct();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special input ports
@@ -1479,7 +1479,7 @@ class PassiveParamsComponentBase :
     //! Input port cmdIn
     Fw::InputCmdPort m_cmdIn_InputPort[NUM_CMDIN_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Typed input ports
@@ -1524,7 +1524,7 @@ class PassiveParamsComponentBase :
     //! Input port typedSync
     Ports::InputTypedPort m_typedSync_InputPort[NUM_TYPEDSYNC_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special output ports
@@ -1558,7 +1558,7 @@ class PassiveParamsComponentBase :
     //! Output port tlmOut
     Fw::OutputTlmPort m_tlmOut_OutputPort[NUM_TLMOUT_OUTPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Typed output ports
@@ -1588,7 +1588,7 @@ class PassiveParamsComponentBase :
     //! Output port typedReturnOut
     Ports::OutputTypedReturnPort m_typedReturnOut_OutputPort[NUM_TYPEDRETURNOUT_OUTPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Parameter validity flags
@@ -1612,7 +1612,7 @@ class PassiveParamsComponentBase :
     //! True if ParamStruct was successfully received
     Fw::ParamValid m_param_ParamStruct_valid;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Parameter variables
@@ -1649,7 +1649,7 @@ class PassiveParamsComponentBase :
     //! A parameter with struct data and set/save opcodes
     S m_ParamStruct;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Mutexes

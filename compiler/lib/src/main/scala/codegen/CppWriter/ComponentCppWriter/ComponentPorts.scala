@@ -139,7 +139,7 @@ case class ComponentPorts(
     }
 
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       s"Getters for numbers of ${getPortListTypeString(ports)} $dirStr ports",
       generateNumGetters(
         ports,
@@ -157,7 +157,7 @@ case class ComponentPorts(
     }
 
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       s"${getPortListTypeString(ports).capitalize} $dirStr ports",
       mapPorts(ports, p => {
         val typeName = getQualifiedPortTypeName(p, p.getDirection.get)

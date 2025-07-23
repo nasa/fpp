@@ -27,7 +27,7 @@ class ActiveGuardedProducts final :
     //! Destroy ActiveGuardedProducts object
     ~ActiveGuardedProducts();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports
@@ -250,7 +250,7 @@ class ActiveGuardedProducts final :
         const S& s //!< A struct
     ) override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for data products

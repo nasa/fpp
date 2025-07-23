@@ -27,7 +27,7 @@ class ActiveParams final :
     //! Destroy ActiveParams object
     ~ActiveParams();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports

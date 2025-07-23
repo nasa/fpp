@@ -83,7 +83,7 @@ case class ComponentInternalStateMachines(
   /** Gets the type members */
   def getTypeMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Types for internal state machines",
       getStateMachines
     )
@@ -240,7 +240,7 @@ case class ComponentInternalStateMachines(
 
   private def getOverflowHooks: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       """|Overflow hooks for internal state machine instances
          |
          |When sending a signal to a state machine instance, if
@@ -329,7 +329,7 @@ case class ComponentInternalStateMachines(
 
   private def getSendSignalFunctions: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Signal send functions",
       internalStateMachineInstances.flatMap(
         smi => {
@@ -341,7 +341,7 @@ case class ComponentInternalStateMachines(
 
   private def getSendSignalHelperFunctions: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       "Send signal helper functions",
       guardedList (hasSignals) (
         getSendSignalStartFunction ::
@@ -410,7 +410,7 @@ case class ComponentInternalStateMachines(
 
   private def getSmDispatchHelperFunctions =
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       "Helper functions for state machine dispatch",
       guardedList (hasInternalStateMachineInstances) (
         getGeneralSmDispatchFunction ::
@@ -526,7 +526,7 @@ case class ComponentInternalStateMachines(
 
   private def getStateGetterFunctions: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "State getter functions",
       internalStateMachineInstances.map(getStateGetterFunction)
     )
@@ -558,7 +558,7 @@ case class ComponentInternalStateMachines(
 
   private def getVirtualActions: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Functions to implement for internal state machine actions",
       internalSmSymbols.flatMap(getVirtualActionsForSm),
       CppDoc.Lines.Hpp
@@ -593,7 +593,7 @@ case class ComponentInternalStateMachines(
 
   private def getVirtualGuards: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Functions to implement for internal state machine guards",
       internalSmSymbols.flatMap(getVirtualGuardsForSm),
       CppDoc.Lines.Hpp
@@ -762,7 +762,7 @@ case class ComponentInternalStateMachines(
 
     private def getActionMembers: List[CppDoc.Class.Member] =
       guardedList (stateMachine.hasActions) (
-        linesClassMember(CppDocHppWriter.writeAccessTag("PRIVATE")) ::
+        linesClassMember(CppDocHppWriter.writeAccessTag("private")) ::
           stateMachine.actions.map(getActionMember)
       )
 
@@ -817,7 +817,7 @@ case class ComponentInternalStateMachines(
 
     private def getGuardMembers: List[CppDoc.Class.Member] =
       guardedList (stateMachine.hasGuards) (
-        linesClassMember(CppDocHppWriter.writeAccessTag("PRIVATE")) ::
+        linesClassMember(CppDocHppWriter.writeAccessTag("private")) ::
           stateMachine.guards.map(getGuardMember)
       )
 
@@ -841,7 +841,7 @@ case class ComponentInternalStateMachines(
 
     private def getVariableMembers: List[CppDoc.Class.Member] = {
       lazy val members =
-        linesClassMember(CppDocHppWriter.writeAccessTag("PRIVATE")) ::
+        linesClassMember(CppDocHppWriter.writeAccessTag("private")) ::
         List(
           linesClassMember(
             lines(

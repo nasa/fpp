@@ -27,7 +27,7 @@ class QueuedGetProducts final :
     //! Destroy QueuedGetProducts object
     ~QueuedGetProducts();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports

@@ -29,7 +29,7 @@ namespace M {
       //! Destroy ActiveTest object
       ~ActiveTest();
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Handler implementations for typed input ports
@@ -252,7 +252,7 @@ namespace M {
           const S& s //!< A struct
       ) override;
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Handler implementations for commands
@@ -412,7 +412,7 @@ namespace M {
           U32 u32
       ) override;
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Handler implementations for user-defined internal interfaces
@@ -461,7 +461,7 @@ namespace M {
           const S& s //!< A struct
       ) override;
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Handler implementations for data products
