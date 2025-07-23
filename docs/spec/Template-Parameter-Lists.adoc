@@ -18,7 +18,7 @@ take a variety of symbol types including:
 
 There are three types of template parameters: *constant*, *interface* and *type*.
 
-* `constant` <<Lexical-Elements_Identifiers,_identifier_>>
+* `constant` <<Lexical-Elements_Identifiers,_identifier_>> `:` <<Type-Names,_type-name_>>
 * `interface` <<Lexical-Elements_Identifiers,_identifier_>> `:` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 * `type` <<Lexical-Elements_Identifiers,_identifier_>>
 
@@ -28,10 +28,9 @@ The identifier is the name of the template parameter.
 No two parameters in the same formal parameter list
 may have the same name.
 
-*Constant* template parameters accept any expression type.
-The expressions type is verified when evaluating the template
-that this parameter belongs to. If two uses of the template parameter
-require different types, an error will be emitted during template instantiation.
+*Constant* template parameters accept <<Values,values>> whose type can be
+<<Type-Checking_Type-Conversion,converted to>> the type name in the parameter
+list.
 
 The qualified identifier in the *interface* parameter definition must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
@@ -48,8 +47,8 @@ parameterize ports and other types as well as pass type parameters down to these
 
 [source,fpp]
 ----
-constant i
-constant j, constant k
+constant i: U32
+constant j: FwOpcodeType, constant k: string
 interface i: MyInterface
 type T
 ----

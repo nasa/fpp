@@ -8574,7 +8574,7 @@ take a variety of symbol types including:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>constant</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
+<p><code>constant</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>:</code> <a href="#Type-Names"><em>type-name</em></a></p>
 </li>
 <li>
 <p><code>interface</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>:</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a></p>
@@ -8593,10 +8593,9 @@ No two parameters in the same formal parameter list
 may have the same name.</p>
 </div>
 <div class="paragraph">
-<p><strong>Constant</strong> template parameters accept any expression type.
-The expressions type is verified when evaluating the template
-that this parameter belongs to. If two uses of the template parameter
-require different types, an error will be emitted during template instantiation.</p>
+<p><strong>Constant</strong> template parameters accept <a href="#Values">values</a> whose type can be
+<a href="#Type-Checking_Type-Conversion">converted to</a> the type name in the parameter
+list.</p>
 </div>
 <div class="paragraph">
 <p>The qualified identifier in the <strong>interface</strong> parameter definition must
@@ -8615,8 +8614,8 @@ parameterize ports and other types as well as pass type parameters down to these
 <h3 id="Template-Parameter-Lists_Examples">9.3. Examples</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant i
-constant j, constant k
+<pre class="prettyprint highlight"><code data-lang="fpp">constant i: U32
+constant j: FwOpcodeType, constant k: string
 interface i: MyInterface
 type T</code></pre>
 </div>
@@ -12246,7 +12245,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-07-23 13:14:55 -0700
+Last updated 2025-07-23 13:18:07 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
