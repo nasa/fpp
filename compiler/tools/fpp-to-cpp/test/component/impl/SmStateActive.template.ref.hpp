@@ -29,7 +29,7 @@ namespace FppTest {
       //! Destroy SmStateActive object
       ~SmStateActive();
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Implementations for internal state machine actions
@@ -471,7 +471,7 @@ namespace FppTest {
           FppTest_SmStateActive_Basic::Signal signal //!< The signal
       ) override;
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Implementations for internal state machine guards
@@ -547,7 +547,7 @@ namespace FppTest {
           FppTest_SmState_StateToChoice::Signal signal //!< The signal
       ) const override;
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Overflow hook implementations for internal state machines

@@ -27,7 +27,7 @@ class ActiveExternalParams final :
     //! Destroy ActiveExternalParams object
     ~ActiveExternalParams();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports

@@ -27,7 +27,7 @@ class ActiveTelemetry final :
     //! Destroy ActiveTelemetry object
     ~ActiveTelemetry();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports

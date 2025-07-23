@@ -246,7 +246,7 @@ case class ComponentCppWriter (
       List(
         linesClassMember(
           List(
-            CppDocHppWriter.writeAccessTag("PROTECTED"),
+            CppDocHppWriter.writeAccessTag("protected"),
             CppDocWriter.writeBannerComment(
               "Constants"
             ),
@@ -527,7 +527,7 @@ case class ComponentCppWriter (
     }
 
     addAccessTagAndComment(
-    "PROTECTED",
+    "protected",
     "Component construction and destruction",
       List(
         constructorClassMember(
@@ -580,7 +580,7 @@ case class ComponentCppWriter (
   private def getMutexOperationMembers: List[CppDoc.Class.Member] = {
     if !(hasGuardedInputPorts || hasGuardedCommands) then Nil
     else addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       """|Mutex operations for guarded ports
          |
          |You can override these operations to provide more sophisticated
@@ -807,8 +807,8 @@ case class ComponentCppWriter (
 
       addAccessTagAndComment(
         componentData.kind match {
-          case Ast.ComponentKind.Active => "PRIVATE"
-          case Ast.ComponentKind.Queued => "PROTECTED"
+          case Ast.ComponentKind.Active => "private"
+          case Ast.ComponentKind.Queued => "protected"
           case _ => ""
         },
         "Message dispatch functions",
@@ -942,7 +942,7 @@ case class ComponentCppWriter (
       val name = portVariableName(timeGetPort.get)
 
       addAccessTagAndComment(
-        "PROTECTED",
+        "protected",
         "Time",
         List(
           functionClassMember(
@@ -979,7 +979,7 @@ case class ComponentCppWriter (
     else List(
       linesClassMember(
         List(
-          CppDocHppWriter.writeAccessTag("PRIVATE"),
+          CppDocHppWriter.writeAccessTag("private"),
           lines(
             """|
                |//! Stores max message size
@@ -996,7 +996,7 @@ case class ComponentCppWriter (
     else List(
       linesClassMember(
         List(
-          CppDocHppWriter.writeAccessTag("PRIVATE"),
+          CppDocHppWriter.writeAccessTag("private"),
           CppDocWriter.writeBannerComment(
             "Mutexes"
           ),

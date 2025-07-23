@@ -21,8 +21,6 @@ export LOCAL_CPP_FLAGS="
 -I../test-base
 -I../test-impl
 -I$FPRIME/googletest/googletest/include
--DPROTECTED=protected
--DPRIVATE=private
 -DBUILD_UT=1
 "
 

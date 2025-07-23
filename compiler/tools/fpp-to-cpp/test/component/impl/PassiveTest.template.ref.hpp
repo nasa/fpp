@@ -27,7 +27,7 @@ class PassiveTest final :
     //! Destroy PassiveTest object
     ~PassiveTest();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports
@@ -173,7 +173,7 @@ class PassiveTest final :
         const S& s //!< A struct
     ) override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for commands
@@ -291,7 +291,7 @@ class PassiveTest final :
         S s //!< A struct
     ) override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for data products

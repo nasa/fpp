@@ -36,7 +36,7 @@ namespace FppTest {
       //! Friend class tester implementation to support white-box testing
       friend class SmInitialQueuedTester;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Constants
@@ -59,7 +59,7 @@ namespace FppTest {
         smInitialNested,
       };
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Types for internal state machines
@@ -98,14 +98,14 @@ namespace FppTest {
           //! Get the state machine id
           SmInitialQueuedComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmInitialQueuedComponentBase& m_component;
@@ -145,21 +145,21 @@ namespace FppTest {
           //! Get the state machine id
           SmInitialQueuedComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! Implementation for guard g
           bool guard_g(
               Signal signal //!< The signal
           ) const;
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmInitialQueuedComponentBase& m_component;
@@ -199,14 +199,14 @@ namespace FppTest {
           //! Get the state machine id
           SmInitialQueuedComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmInitialQueuedComponentBase& m_component;
@@ -246,14 +246,14 @@ namespace FppTest {
           //! Get the state machine id
           SmInitialQueuedComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmInitialQueuedComponentBase& m_component;
@@ -293,21 +293,21 @@ namespace FppTest {
           //! Get the state machine id
           SmInitialQueuedComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! Implementation for guard g
           bool guard_g(
               Signal signal //!< The signal
           ) const;
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmInitialQueuedComponentBase& m_component;
@@ -347,14 +347,14 @@ namespace FppTest {
           //! Get the state machine id
           SmInitialQueuedComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmInitialQueuedComponentBase& m_component;
@@ -386,7 +386,7 @@ namespace FppTest {
           FwIndexType portNum //!< The port number
       );
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Component construction and destruction
@@ -400,7 +400,7 @@ namespace FppTest {
       //! Destroy SmInitialQueuedComponentBase object
       virtual ~SmInitialQueuedComponentBase();
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Getters for numbers of typed input ports
@@ -411,7 +411,7 @@ namespace FppTest {
       //! \return The number of schedIn input ports
       FwIndexType getNum_schedIn_InputPorts() const;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Handlers to implement for typed input ports
@@ -423,7 +423,7 @@ namespace FppTest {
           U32 context //!< The call order
       ) = 0;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Port handler base-class functions for typed input ports
@@ -437,7 +437,7 @@ namespace FppTest {
           U32 context //!< The call order
       );
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // State getter functions
@@ -467,7 +467,7 @@ namespace FppTest {
       //! Get the state of state machine instance smInitialNested
       FppTest_SmInitial_Nested::State smInitialNested_getState() const;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Overflow hooks for internal state machine instances
@@ -484,7 +484,7 @@ namespace FppTest {
           Fw::SerializeBufferBase& buffer //!< The message buffer
       ) = 0;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Functions to implement for internal state machine actions
@@ -538,7 +538,7 @@ namespace FppTest {
           FppTest_SmInitialQueued_Nested::Signal signal //!< The signal
       ) = 0;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Functions to implement for internal state machine guards
@@ -560,7 +560,7 @@ namespace FppTest {
           FppTest_SmInitialQueued_Choice::Signal signal //!< The signal
       ) const = 0;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Message dispatch functions
@@ -578,7 +578,7 @@ namespace FppTest {
       //! Dispatch all current messages unless ERROR or EXIT occurs
       MsgDispatchStatus dispatchCurrentMessages();
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Calls for messages received on typed input ports
@@ -591,7 +591,7 @@ namespace FppTest {
           U32 context //!< The call order
       );
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Helper functions for state machine dispatch
@@ -651,7 +651,7 @@ namespace FppTest {
           FppTest_SmInitialQueued_Nested::Signal signal //!< The signal
       );
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Typed input ports
@@ -660,7 +660,7 @@ namespace FppTest {
       //! Input port schedIn
       Svc::InputSchedPort m_schedIn_InputPort[NUM_SCHEDIN_INPUT_PORTS];
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // State machine instances

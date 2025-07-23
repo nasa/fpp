@@ -17,7 +17,7 @@ include_flags="
 -I../test-base
 -I../../fprime
 "
-define_flags="-DPROTECTED="protected" -DBUILD_UT=1"
+define_flags="-DBUILD_UT=1"
 
 ../../fprime/generate_cpp
 
