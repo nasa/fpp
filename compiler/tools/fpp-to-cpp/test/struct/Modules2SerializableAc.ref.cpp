@@ -133,7 +133,7 @@ namespace M {
   }
 
   void Modules2 ::
-    setx(const M::Modules1& x)
+    set_x(const M::Modules1& x)
   {
     this->m_x = x;
   }

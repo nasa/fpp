@@ -222,7 +222,7 @@ void Modules4 ::
 }
 
 void Modules4 ::
-  setarr1(const Type_of_arr1& arr1)
+  set_arr1(const Type_of_arr1& arr1)
 {
   for (FwSizeType i = 0; i < 3; i++) {
     this->m_arr1[i] = arr1[i];
@@ -230,7 +230,7 @@ void Modules4 ::
 }
 
 void Modules4 ::
-  setarr2(const Type_of_arr2& arr2)
+  set_arr2(const Type_of_arr2& arr2)
 {
   for (FwSizeType i = 0; i < 6; i++) {
     this->m_arr2[i] = arr2[i];

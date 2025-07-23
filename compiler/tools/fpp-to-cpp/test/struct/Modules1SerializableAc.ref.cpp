@@ -161,13 +161,13 @@ namespace M {
   }
 
   void Modules1 ::
-    setx(U32 x)
+    set_x(U32 x)
   {
     this->m_x = x;
   }
 
   void Modules1 ::
-    sety(F32 y)
+    set_y(F32 y)
   {
     this->m_y = y;
   }
