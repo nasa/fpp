@@ -100,7 +100,7 @@ state machine name group.
 
 * Struct type definitions reside in the type name group.
 
-* Topology definitions reside in the topology and the endpoint name group.
+* Topology definitions reside in all name groups.
 
 Notice that elements with scopes reside in the name groups of items
 that they may enclose.
@@ -156,6 +156,26 @@ module M { constant a = 0 }
 a = M.a
 b = M.b
 module M { constant b = 1 }
+----
+
+==== Topology Definitions
+
+Topology definitions allow <<Definitions_Topology-Definitions_Semantics,some>>
+definitions inside. Definitions inside topology definitions are qualified by
+the name of the definition.
+
+[source,fpp]
+----
+module M {
+  topology T{
+    instance commandDispatcher: Svc.CommandDispatcher base id 0x100
+  }
+}
+
+topology T {
+  import M.T
+  command connections instance M.T.commandDispatcher
+}
 ----
 
 ==== Conflicting Definitions

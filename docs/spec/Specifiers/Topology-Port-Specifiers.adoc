@@ -1,10 +1,10 @@
 === Topology Port Specifiers
 
 A topology port specifiers names a <<Specifiers_Port-Instance-Specifiers,
-port instance>> of an internal port in a <<Definitions_Topology-Definitions,
+port instance>> on a <<Definitions_Topology-Definitions,
 topology definition>>. This allows topology connections to be made directly
 on a topology rather than referencing the instances named inside. It also
-allows topologies to <<Port-Interfaces_Binding,bind to interfaces>>.
+allows topologies to <<Port-Interfaces_Binding,bind to port interfaces>>.
 
 ==== Syntax
 
@@ -29,11 +29,11 @@ or an
 type to the enclosing topology _T_. Any connections made on this exposed port will
 internally be mapped to the port instance identifier _I_.
 
-. An exported port allows another topology that <<Specifiers_Topology-Import-Specifiers, imports>> this topology
-to connect directly to this named port.
+. A topology port allows another topology that <<Specifiers_Topology-Import-Specifiers,
+imports>> this topology to connect directly to this named port.
 
-.. Providing a set of exported ports encapulates port instance names and component instance names from
-the interface of the parent topology.
+.. Providing a set of topology ports encapulates port instance names and component
+instance names from the interface of the parent topology.
 
 ==== Example
 

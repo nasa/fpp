@@ -936,7 +936,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Different-Name-Groups">16.4.1. Different Name Groups</a></li>
 <li><a href="#Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Module-Definitions">16.4.2. Module Definitions</a></li>
-<li><a href="#Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Conflicting-Definitions">16.4.3. Conflicting Definitions</a></li>
+<li><a href="#Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Topology-Definitions">16.4.3. Topology Definitions</a></li>
+<li><a href="#Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Conflicting-Definitions">16.4.4. Conflicting Definitions</a></li>
 </ul>
 </li>
 <li><a href="#Scoping-of-Names_Resolution-of-Identifiers">16.5. Resolution of Identifiers</a></li>
@@ -3828,7 +3829,7 @@ of the topology to a set of packets.</p>
 </div>
 <div class="paragraph">
 <p><strong>Check output port numbers:</strong>
-At each output port <em>p</em> of each component instance (or topology) <em>I</em>, check that</p>
+At each output port <em>p</em> of each <a href="#Port-Interfaces_Port-Interface-Instance">port interface instance <em>I</em></a>, check the following:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -3852,17 +3853,17 @@ a.p[0] -&gt; c.p</code></pre>
 <div class="paragraph">
 <p><strong>Apply matched numbering:</strong>
 Assign matching numbers to matched pairs of ports.
-For each instance <em>I</em> in the topology:</p>
+For each port interface instance <em>I</em> in the topology:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Let <em>C</em> be the component type or a topology type of <em>I</em>.</p>
+<p>Let <em>C</em> be the <a href="#Port-Interfaces">port interface</a> of <em>I</em>.</p>
 </li>
 <li>
 <p>For each
 <a href="#Specifiers_Port-Matching-Specifiers">port matching specifier</a>
-<code>match</code> \$p_1\$ <code>with</code> \$p_2\$ appearing in the definition of <em>C</em>:</p>
+<code>match</code> \$p_1\$ <code>with</code> \$p_2\$ appearing in <em>C</em>:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -3879,7 +3880,7 @@ is <strong>match constrained</strong>. If a match constrained connection is mark
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
-<p>Let <em>I'</em> be the component instance or imported topology at the other endpoint
+<p>Let <em>I'</em> be the port interface instance at the other endpoint
 of \$c_1\$.</p>
 </li>
 <li>
@@ -3988,6 +3989,10 @@ already assigned, then assign the port number zero.</p>
 <a href="#Instance-Member-Identifiers_Port-Instance-Identifiers">port instance identifier</a>.</p>
 </div>
 <div class="paragraph">
+<p><strong>TODO(tumbar)</strong> Should we just directly reference <a href="#Port-Interfaces">port interfaces</a>
+here and just call out to <a href="#Port-Interfaces_Port-Interface-Instance">port interface instance</a>?</p>
+</div>
+<div class="paragraph">
 <p>A <strong>connection endpoint</strong> is <em>I</em> <code>.</code> <em>p</em> or <em>I</em> <code>.</code> <em>p</em> <code>[</code> <em>n</em> <code>]</code>, where</p>
 </div>
 <div class="olist arabic">
@@ -4002,14 +4007,6 @@ included in the topology via a <a href="#Specifiers_Component-Instance-Specifier
 </li>
 <li>
 <p>A <a href="#Definitions_Component-Instance-Definitions">component instance definition</a> defined <em>inside</em> <em>T</em></p>
-<div class="olist lowerroman">
-<ol class="lowerroman" type="i">
-<li>
-<p>This is known as a "private component instance" as the endpoint cannot be connected to from
-outside its enclosing topology.</p>
-</li>
-</ol>
-</div>
 </li>
 <li>
 <p>A <a href="#Definitions_Topology-Definitions">topology definition</a> that is <a href="#Specifiers_Topology-Import-Specifiers">imported</a>
@@ -4136,7 +4133,6 @@ topology CDH {
   # Public instances
   # ----------------------------------------------------------------------
 
-  instance commandDispatcher
   instance commandSequencer
   instance engineeringRateGroup
   instance engineeringTelemetryLogger
@@ -4146,6 +4142,17 @@ topology CDH {
   instance rateGroupDriver
   instance telemetryDatabase
   instance timeSource
+
+  # ----------------------------------------------------------------------
+  # Local component instance definitions
+  # ----------------------------------------------------------------------
+
+  instance commandDispatcher: Svc.CommandDispatcher \
+    base id 0x100 \
+    queue size 10 \
+    stack size 4096 \
+    priority 30 \
+    cpu 0
 
   # ----------------------------------------------------------------------
   # Private instances
@@ -8017,9 +8024,9 @@ packet ADCS group 2 {
 <div class="sect2">
 <h3 id="Specifiers_Topology-Port-Specifiers">7.19. Topology Port Specifiers</h3>
 <div class="paragraph">
-<p>A topology port specifiers names a <a href="#Specifiers_Port-Instance-Specifiers">port instance</a> of an internal port in a <a href="#Definitions_Topology-Definitions">topology definition</a>. This allows topology connections to be made directly
+<p>A topology port specifiers names a <a href="#Specifiers_Port-Instance-Specifiers">port instance</a> on a <a href="#Definitions_Topology-Definitions">topology definition</a>. This allows topology connections to be made directly
 on a topology rather than referencing the instances named inside. It also
-allows topologies to <a href="#Port-Interfaces_Binding">bind to interfaces</a>.</p>
+allows topologies to <a href="#Port-Interfaces_Binding">bind to port interfaces</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Topology-Port-Specifiers_Syntax">7.19.1. Syntax</h4>
@@ -8057,13 +8064,12 @@ internally be mapped to the port instance identifier <em>I</em>.</p>
 </div>
 </li>
 <li>
-<p>An exported port allows another topology that <a href="#Specifiers_Topology-Import-Specifiers">imports</a> this topology
-to connect directly to this named port.</p>
+<p>A topology port allows another topology that <a href="#Specifiers_Topology-Import-Specifiers">imports</a> this topology to connect directly to this named port.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Providing a set of exported ports encapulates port instance names and component instance names from
-the interface of the parent topology.</p>
+<p>Providing a set of topology ports encapulates port instance names and component
+instance names from the interface of the parent topology.</p>
 </li>
 </ol>
 </div>
@@ -9908,7 +9914,7 @@ state machine name group.</p>
 <p>Struct type definitions reside in the type name group.</p>
 </li>
 <li>
-<p>Topology definitions reside in the topology and the endpoint name group.</p>
+<p>Topology definitions reside in all name groups.</p>
 </li>
 </ul>
 </div>
@@ -9977,7 +9983,29 @@ module M { constant b = 1 }</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Conflicting-Definitions">16.4.3. Conflicting Definitions</h4>
+<h4 id="Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Topology-Definitions">16.4.3. Topology Definitions</h4>
+<div class="paragraph">
+<p>Topology definitions allow <a href="#Definitions_Topology-Definitions_Semantics">some</a>
+definitions inside. Definitions inside topology definitions are qualified by
+the name of the definition.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+  topology T{
+    instance commandDispatcher: Svc.CommandDispatcher base id 0x100
+  }
+}
+
+topology T {
+  import M.T
+  command connections instance M.T.commandDispatcher
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Conflicting-Definitions">16.4.4. Conflicting Definitions</h4>
 <div class="paragraph">
 <p>Within the same name group, two definitions with the same
 qualified name are not allowed, unless they are both module definitions
@@ -12218,7 +12246,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-07-21 11:32:29 -0700
+Last updated 2025-07-23 13:14:55 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

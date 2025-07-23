@@ -172,7 +172,8 @@ of the topology to a set of packets.
 FPP automatically assigns port numbers as follows.
 
 *Check output port numbers:*
-At each output port _p_ of each component instance (or topology) _I_, check that
+At each output port _p_ of each <<Port-Interfaces_Port-Interface-Instance,
+port interface instance _I_>>, check the following:
 
 . The number of connections is in bounds for the
 size of _I_ `.` _p_.
@@ -189,13 +190,13 @@ a.p[0] -> c.p
 
 *Apply matched numbering:*
 Assign matching numbers to matched pairs of ports.
-For each instance _I_ in the topology:
+For each port interface instance _I_ in the topology:
 
-. Let _C_ be the component type or a topology type of _I_.
+. Let _C_ be the <<Port-Interfaces,port interface>> of _I_.
 
 .  For each
 <<Specifiers_Port-Matching-Specifiers,port matching specifier>>
-`match` stem:[p_1] `with` stem:[p_2] appearing in the definition of _C_:
+`match` stem:[p_1] `with` stem:[p_2] appearing in _C_:
 
 .. For each of _i_ = 1 and _i_ = 2, check that no two distinct connections
 at _I_ `.` stem:[p_i] have the same port number assigned to them.
@@ -206,7 +207,7 @@ is *match constrained*. If a match constrained connection is marked
 
 ..  For each matched connection stem:[c_1] with an endpoint at _I_ `.` stem:[p_1]:
 
-... Let _I'_ be the component instance or imported topology at the other endpoint
+... Let _I'_ be the port interface instance at the other endpoint
 of stem:[c_1].
 
 ... Check that there is one and only one matched connection
@@ -274,6 +275,9 @@ For purposes of port numbering, FPP orders connections as follows.
 A connection endpoint in an FPP topology refers to a
 <<Instance-Member-Identifiers_Port-Instance-Identifiers,port instance identifier>>.
 
+**TODO(tumbar)** Should we just directly reference <<Port-Interfaces,port interfaces>>
+here and just call out to <<Port-Interfaces_Port-Interface-Instance,port interface instance>>?
+
 A *connection endpoint* is _I_ `.` _p_ or _I_ `.` _p_ `[` _n_ `]`, where
 
 . _I_ is one of the following
@@ -282,9 +286,6 @@ A *connection endpoint* is _I_ `.` _p_ or _I_ `.` _p_ `[` _n_ `]`, where
 included in the topology via a <<Specifiers_Component-Instance-Specifiers,component instance specifier>>
 
 .. A <<Definitions_Component-Instance-Definitions,component instance definition>> defined _inside_ _T_
-
-... This is known as a "private component instance" as the endpoint cannot be connected to from
-outside its enclosing topology.
 
 .. A <<Definitions_Topology-Definitions,topology definition>> that is <<Specifiers_Topology-Import-Specifiers,imported>>
 into _T_.
@@ -372,7 +373,6 @@ topology CDH {
   # Public instances
   # ----------------------------------------------------------------------
 
-  instance commandDispatcher
   instance commandSequencer
   instance engineeringRateGroup
   instance engineeringTelemetryLogger
@@ -382,6 +382,17 @@ topology CDH {
   instance rateGroupDriver
   instance telemetryDatabase
   instance timeSource
+
+  # ----------------------------------------------------------------------
+  # Local component instance definitions
+  # ----------------------------------------------------------------------
+
+  instance commandDispatcher: Svc.CommandDispatcher \
+    base id 0x100 \
+    queue size 10 \
+    stack size 4096 \
+    priority 30 \
+    cpu 0
 
   # ----------------------------------------------------------------------
   # Private instances
