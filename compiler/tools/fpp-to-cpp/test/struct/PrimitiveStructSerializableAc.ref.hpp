@@ -107,13 +107,13 @@ class PrimitiveStruct :
     // ----------------------------------------------------------------------
 
     //! Get member s1
-    Primitive& gets1()
+    Primitive& get_s1()
     {
       return this->m_s1;
     }
 
     //! Get member s1 (const)
-    const Primitive& gets1() const
+    const Primitive& get_s1() const
     {
       return this->m_s1;
     }
@@ -126,7 +126,7 @@ class PrimitiveStruct :
     void set(const Primitive& s1);
 
     //! Set member s1
-    void sets1(const Primitive& s1);
+    void set_s1(const Primitive& s1);
 
   protected:
 

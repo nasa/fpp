@@ -199,13 +199,13 @@ void Modules3 ::
 }
 
 void Modules3 ::
-  setx(const M::Modules2& x)
+  set_x(const M::Modules2& x)
 {
   this->m_x = x;
 }
 
 void Modules3 ::
-  setarr(const Type_of_arr& arr)
+  set_arr(const Type_of_arr& arr)
 {
   for (FwSizeType i = 0; i < 3; i++) {
     this->m_arr[i] = arr[i];

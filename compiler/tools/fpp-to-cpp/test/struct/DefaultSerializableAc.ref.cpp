@@ -179,19 +179,19 @@ void Default ::
 }
 
 void Default ::
-  setmU32(U32 mU32)
+  set_mU32(U32 mU32)
 {
   this->m_mU32 = mU32;
 }
 
 void Default ::
-  setmS1(const Fw::StringBase& mS1)
+  set_mS1(const Fw::StringBase& mS1)
 {
   this->m_mS1 = mS1;
 }
 
 void Default ::
-  setmF64(F64 mF64)
+  set_mF64(F64 mF64)
 {
   this->m_mF64 = mF64;
 }

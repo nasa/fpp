@@ -129,25 +129,25 @@ class Modules4 :
     // ----------------------------------------------------------------------
 
     //! Get member arr1
-    Type_of_arr1& getarr1()
+    Type_of_arr1& get_arr1()
     {
       return this->m_arr1;
     }
 
     //! Get member arr1 (const)
-    const Type_of_arr1& getarr1() const
+    const Type_of_arr1& get_arr1() const
     {
       return this->m_arr1;
     }
 
     //! Get member arr2
-    Type_of_arr2& getarr2()
+    Type_of_arr2& get_arr2()
     {
       return this->m_arr2;
     }
 
     //! Get member arr2 (const)
-    const Type_of_arr2& getarr2() const
+    const Type_of_arr2& get_arr2() const
     {
       return this->m_arr2;
     }
@@ -163,10 +163,10 @@ class Modules4 :
     );
 
     //! Set member arr1
-    void setarr1(const Type_of_arr1& arr1);
+    void set_arr1(const Type_of_arr1& arr1);
 
     //! Set member arr2
-    void setarr2(const Type_of_arr2& arr2);
+    void set_arr2(const Type_of_arr2& arr2);
 
   protected:
 

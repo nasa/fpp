@@ -131,7 +131,7 @@ void S2 ::
 }
 
 void S2 ::
-  sets1(const M::S1& s1)
+  set_s1(const M::S1& s1)
 {
   this->m_s1 = s1;
 }

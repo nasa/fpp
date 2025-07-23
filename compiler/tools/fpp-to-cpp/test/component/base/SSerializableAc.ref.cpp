@@ -158,13 +158,13 @@ void S ::
 }
 
 void S ::
-  setx(U32 x)
+  set_x(U32 x)
 {
   this->m_x = x;
 }
 
 void S ::
-  sety(const Fw::StringBase& y)
+  set_y(const Fw::StringBase& y)
 {
   this->m_y = y;
 }

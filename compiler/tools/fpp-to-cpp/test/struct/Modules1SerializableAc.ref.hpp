@@ -112,13 +112,13 @@ namespace M {
       // ----------------------------------------------------------------------
 
       //! Get member x
-      U32 getx() const
+      U32 get_x() const
       {
         return this->m_x;
       }
 
       //! Get member y
-      F32 gety() const
+      F32 get_y() const
       {
         return this->m_y;
       }
@@ -134,10 +134,10 @@ namespace M {
       );
 
       //! Set member x
-      void setx(U32 x);
+      void set_x(U32 x);
 
       //! Set member y
-      void sety(F32 y);
+      void set_y(F32 y);
 
     protected:
 

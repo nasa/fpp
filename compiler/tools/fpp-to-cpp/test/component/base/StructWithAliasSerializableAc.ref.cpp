@@ -221,31 +221,31 @@ void StructWithAlias ::
 }
 
 void StructWithAlias ::
-  setx(AliasPrim1 x)
+  set_x(AliasPrim1 x)
 {
   this->m_x = x;
 }
 
 void StructWithAlias ::
-  sety(const Fw::StringBase& y)
+  set_y(const Fw::StringBase& y)
 {
   this->m_y = y;
 }
 
 void StructWithAlias ::
-  setz(const AliasArray& z)
+  set_z(const AliasArray& z)
 {
   this->m_z = z;
 }
 
 void StructWithAlias ::
-  setw(const AliasAliasArray& w)
+  set_w(const AliasAliasArray& w)
 {
   this->m_w = w;
 }
 
 void StructWithAlias ::
-  setq(const AliasArrayAliasArray& q)
+  set_q(const AliasArrayAliasArray& q)
 {
   this->m_q = q;
 }
