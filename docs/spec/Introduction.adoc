@@ -13,7 +13,7 @@ well-tailored to the domain.
 * To provide semantic checking and error reporting for F Prime models.
 
 * To generate code in the various formats that F Prime uses, e.g.,
-C++, Python, XML.
+C++, JSON.
 
 The purpose of this document is to describe FPP with enough precision and
 detail to guide an implementation.

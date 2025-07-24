@@ -37,7 +37,7 @@ Translation usually involves the following steps:
 
 FPP is intended to support a variety of translation
 strategies. For example, we need to generate (1) C++ code for FSW and
-(2) XML, Python, or other code to export to ground tools.
+(2) JSON or other code to export to ground tools.
 
 === Translation Tools
 
