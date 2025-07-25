@@ -254,7 +254,7 @@ On the other hand, if `c.fpp` depends on `a.fpp` and `b.fpp`, then run
 
 Notice that you provide the dependencies as a comma-separated list of
 arguments to the option `-i`.
-`-i` stands for "import."
+`-i` stands for _import_.
 This option tells the tool that you want to read the files in _D_ for their symbols,
 but you don't want to translate them.
 Only the files _F_ provided as arguments are translated.
@@ -1061,10 +1061,8 @@ passive component C {}
 % cat generated.txt
 AArrayAc.cpp
 AArrayAc.hpp
-AArrayAi.xml
 CComponentAc.cpp
 CComponentAc.hpp
-CComponentAi.xml
 % cat ut-generated.txt
 CGTestBase.cpp
 CGTestBase.hpp
@@ -1080,10 +1078,8 @@ passive component C {}
 % cat generated.txt
 AArrayAc.cpp
 AArrayAc.hpp
-AArrayAi.xml
 CComponentAc.cpp
 CComponentAc.hpp
-CComponentAi.xml
 % cat ut-generated.txt
 CGTestBase.cpp
 CGTestBase.hpp
@@ -1230,7 +1226,7 @@ location map only; it doesn't generate the Analysis data structure.
 Because semantic analysis is not run, you don't have to present
 a complete or semantically correct FPP model to the tool.
 
-=== Translating XML to FPP
+=== Translating Older XML to FPP
 
 Previous versions of F Prime used XML to represent model
 elements such as components and ports.
@@ -1238,7 +1234,7 @@ The FPP tool suite provides a capability to translate this
 older format to FPP.
 Its purpose is to address the following case:
 
-. You have already developed an F Prime model in XML.
+. You have an older F Prime model that was developed in XML.
 . You wish to translate the model to FPP in order to use FPP as the source
 language going forward.
 

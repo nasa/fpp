@@ -45,7 +45,7 @@ of files: for example, it covers the management of dependencies
 between files.
 Section 14 explains how to analyze FPP models and how
 to translate FPP models to {cpp} and JSON.
-It also explains how to translate an older XML format used
+It also explains how to translate an XML format previously used
 by F Prime into FPP.
 Section 15 explains how to write a {cpp} implementation
 against the code generated from an FPP model.

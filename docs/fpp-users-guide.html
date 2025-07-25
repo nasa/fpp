@@ -745,7 +745,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#Analyzing-and-Translating-Models_Generating-JSON-Models">15.7. Generating JSON Models</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Translating-XML-to-FPP">15.8. Translating XML to FPP</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Translating-Older-XML-to-FPP">15.8. Translating Older XML to FPP</a></li>
 </ul>
 </li>
 <li><a href="#Writing-C-Plus-Plus-Implementations">16. Writing C Plus Plus Implementations</a>
@@ -827,7 +827,7 @@ of files: for example, it covers the management of dependencies
 between files.
 Section 14 explains how to analyze FPP models and how
 to translate FPP models to C&#43;&#43; and JSON.
-It also explains how to translate an older XML format used
+It also explains how to translate an XML format previously used
 by F Prime into FPP.
 Section 15 explains how to write a C&#43;&#43; implementation
 against the code generated from an FPP model.</p>
@@ -13369,7 +13369,7 @@ If <code>c.fpp</code> has no dependencies, then run</p>
 <div class="paragraph">
 <p>Notice that you provide the dependencies as a comma-separated list of
 arguments to the option <code>-i</code>.
-<code>-i</code> stands for "import."
+<code>-i</code> stands for <em>import</em>.
 This option tells the tool that you want to read the files in <em>D</em> for their symbols,
 but you don&#8217;t want to translate them.
 Only the files <em>F</em> provided as arguments are translated.</p>
@@ -14394,10 +14394,8 @@ passive component C {}
 % cat generated.txt
 AArrayAc.cpp
 AArrayAc.hpp
-AArrayAi.xml
 CComponentAc.cpp
 CComponentAc.hpp
-CComponentAi.xml
 % cat ut-generated.txt
 CGTestBase.cpp
 CGTestBase.hpp
@@ -14414,10 +14412,8 @@ passive component C {}
 % cat generated.txt
 AArrayAc.cpp
 AArrayAc.hpp
-AArrayAi.xml
 CComponentAc.cpp
 CComponentAc.hpp
-CComponentAi.xml
 % cat ut-generated.txt
 CGTestBase.cpp
 CGTestBase.hpp
@@ -14617,7 +14613,7 @@ a complete or semantically correct FPP model to the tool.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Translating-XML-to-FPP">15.8. Translating XML to FPP</h3>
+<h3 id="Analyzing-and-Translating-Models_Translating-Older-XML-to-FPP">15.8. Translating Older XML to FPP</h3>
 <div class="paragraph">
 <p>Previous versions of F Prime used XML to represent model
 elements such as components and ports.
@@ -14628,7 +14624,7 @@ Its purpose is to address the following case:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>You have already developed an F Prime model in XML.</p>
+<p>You have an older F Prime model that was developed in XML.</p>
 </li>
 <li>
 <p>You wish to translate the model to FPP in order to use FPP as the source
@@ -15722,7 +15718,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-07-24 21:48:09 -0700
+Last updated 2025-07-24 22:03:05 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
