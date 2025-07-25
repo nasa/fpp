@@ -684,316 +684,6 @@ When using clang, the following flags must also be set:
 -Wno-vla-extension
 ----
 
-=== Translating XML to FPP
-
-The FPP tool suite provides a capability to translate F Prime
-XML files to FPP.
-Its purpose is to address the following case:
-
-. You have already developed an F Prime model in XML.
-. You wish to translate the model to FPP in order to use FPP as the source
-language going forward.
-
-The XML-to-FPP translation is designed to do most of the work in translating an
-XML model into FPP.
-As discussed below, some manual effort will still be required,
-because the FPP and XML representations are not identical.
-The good news is that this is a one-time effort: you can do it once
-and use the FPP version thereafter.
-
-*Tool name:* The tool for translating XML to FPP is called
-`fpp-from-xml`.
-
-*Tool behavior:*
-Unlike the tools described above, `fpp-from-xml` does not read
-from standard input.
-To use it, you must name one or more XML files on the command line.
-The reason is that the XML parsing library used by the tool requires
-named files.
-The tool reads the XML files you name, translates them, and
-writes the result to standard output.
-
-As an example, try this:
-
-----
-% fpp-to-xml
-struct S { x: U32, y: F32 }
-^D
-% fpp-from-xml SSerializableAi.xml
-struct S {
-  x: U32
-  y: F32
-}
-----
-
-*Default values:*
-There are two issues to note in connection with translating default
-values.
-
-First, in FPP, every definition has a default value, but
-the default value need not be given explicitly:
-if you provide no explicit default value, then an implicit default is used.
-By contrast, in F Prime XML, (1) you _must_ supply default values for array
-elements, and (2) you _may_ supply default values for struct members
-or enumerations.
-To keep the translation simple, if default values are present in the XML
-representation, then `fpp-from-xml` translates them to explicit values,
-even if they could be made implicit.
-
-Here is an example:
-
-----
-% fpp-to-xml
-array A = [3] U32
-^D
-% fpp-from-xml AArrayAi.xml
-array A = [3] U32 default [
-                            0
-                            0
-                            0
-                          ]
-----
-
-Notice that the implicit default value `[ 0, 0, 0 ]` becomes
-explicit when translating to XML and back to FPP.
-
-Second, to keep the translation simple, only literal numeric values,
-literal string values, literal Boolean values, and {cpp} qualified identifiers
-(e.g., `a` or `A::B`) are translated.
-Other values (e.g., values specified with {cpp} constructor calls), are not translated.
-The reason is that the types of these values cannot be easily inferred from the
-XML representation.
-When a default value is not translated, the translator inserts an annotation
-identifying what was not translated, so that you can do the translation
-yourself.
-
-For example, try this:
-
-----
-% fpp-to-xml
-type T
-array A = [3] T
-^D
-% fpp-from-xml AArrayAi.xml
-@ FPP from XML: could not translate array value [ T(), T(), T() ]
-array A = [3] T
-----
-
-The tool cannot translate the value `T()`.
-So it adds an annotation stating that.
-In this case, `T()` is the default value associated with the
-abstract type `T`, so using the implicit default is correct.
-So in this case, just delete the annotation.
-
-Here is another example:
-
-----
-% fpp-to-xml
-array A = [2] U32
-array B = [2] A default [ [ 1, 2 ], [ 3, 4 ] ]
-^D
-% fpp-from-xml BArrayAi.xml
-@ FPP from XML: could not translate array value [ A(1, 2), A(3, 4) ]
-array B = [2] A
-----
-
-Here the XML representation of the array values `[ 1, 2 ]` and `[ 3, 4 ]`
-uses the {cpp} constructor calls `A(1, 2)` and `A(3, 4)`.
-When translating `BArrayAi.xml`, `fpp-from-xml` doesn't know how to translate
-those values, because it doesn't have any information about the type `A`.
-So it omits the FPP default array value and reports the XML default element
-values in the annotation.
-That way, you can manually construct a default value in FPP.
-
-*Inline enum definitions:*
-The following F Prime XML formats may include inline
-enum definitions:
-
-* In the Serializable XML format,
-enumerations may appear as member types.
-
-* In the Port XML format, enumerations may appear
-as the types of arguments or as the return type.
-
-* In the XML formats for commands and for events,
-enumerations may appear as the types of arguments.
-
-* In the XML formats for telemetry channels and for
-parameters, enumerations may appear as the types of
-data elements.
-
-In each case, the enumerated constants are specified
-as part of the definition of the member, argument, return type, etc.
-
-FPP does not represent these inline enum definitions directly.
-In FPP, enum definitions are always named, so they can be reused.
-Therefore, when translating an F Prime XML file that contains inline enum
-definitions, `fpp-to-xml` does the following: (1) translate
-each inline definition to a named FPP enum; and (2) use the corresponding named
-types in the translated FPP struct or port.
-
-For example, here is an F Prime Serializable XML type
-`N::S1` containing a member `m` whose type is an enum
-`E` with three enumerated constants `A`, `B`, and `C`:
-
-----
-cat > S1SerializableAi.xml
-<serializable namespace="N" name="S1">
-  <members>
-    <member name="m" type="ENUM">
-      <enum name="E">
-        <item name="A"/>
-        <item name="B"/>
-        <item name="C"/>
-      </enum>
-    </member>
-  </members>
-</serializable>
-^D
-----
-
-(The formula `cat >` _file_ lets us enter input to
-the console and have it written to _file_.)
-
-Running `fpp-from-xml` on this file yields the following:
-
-----
-% fpp-from-xml S1SerializableAi.xml
-module N {
-
-  enum E {
-    A = 0
-    B = 1
-    C = 2
-  }
-
-  struct S1 {
-    m: E
-  }
-
-}
-----
-
-Notice the following:
-
-. The tool translates namespace `N` in XML to module `N` in FPP.
-
-. The tool translates Serializable type `S1` in namespace `N`
-to struct type `S1` in module `N`.
-
-. The tool generates an enum type `N.E` to represent the
-type of member `m` of struct `N.S1`.
-
-. The tool assigns member `m` of struct `N.S1` the type `N.E`.
-
-If you wish to translate an XML model to FPP, and that model contains
-inline enums, then we suggest the following procedure:
-
-. Run `fpp-from-xml` on the XML model as described above to convert all of the
-inline definitions to named XML types.
-
-. Refactor your XML model and FSW implementation to use the XML types generated
-in step 1.
-This may require changes to your {cpp} code.
-For example, inline XML enums and XML enum types generate
-slightly different code.
-Therefore, you will need to revise any
-uses of the old inline enums to match the new format.
-Do this step incrementally, making sure that all your regression tests pass at
-each step.
-
-. Once you have the XML model in the required form, run `fpp-from-xml`
-again to generate an FPP model _M_.
-If you have done step 2 correctly, then you should be able to
-replace your handwritten XML with the result of running `fpp-to-xml`
-on _M_.
-
-*Format strings:*
-`fpp-from-xml` translates XML format strings to FPP
-format strings, if it can.
-Here is an example:
-
-----
-% fpp-to-xml
-array A = [3] F32 format "{f}"
-^D
-----
-
-This will generate a file `AArrayAi.xml` containing the line
-
-----
-<format>%f</format>
-----
-
-which is the XML representation of the format.
-
-Now try this:
-
-----
-% fpp-from-xml AArrayAi.xml
-array A = [3] F32 default [
-                            0.0
-                            0.0
-                            0.0
-                          ] format "{f}"
-----
-
-The XML format `%f` is translated back to the FPP format `{f}`.
-
-If the tool cannot translate the format, it will insert an annotation
-stating that. For example, `%q` is not a format recognized by
-FPP, so a format containing this string won't be translated:
-
-----
-% cat > AArrayAi.xml
-<array name="A">
-  <type>F32</type>
-  <size>1</size>
-  <format>%q</format>
-  <default>
-    <value>0.0</value>
-  </default>
-</array>
-^D
-% fpp-from-xml AArrayAi.xml
-@ FPP from XML: could not translate format string "%q"
-array A = [1] F32 default [
-                            0.0
-                          ]
-----
-
-*Import directives:*
-XML directives that import symbols (such as `import_port_type`)
-are ignored in the translation.
-These directives represent dependencies between XML files, which
-become dependencies between FPP source files in the FPP translation.
-Once the XML-to-FPP translation is done, you can handle these
-dependencies in the ordinary way for FPP, as discussed in the
-section on <<Specifying-Models-as-Files,specifying models as files>>.
-
-XML directives that import XML dictionaries are translated
-to
-<<Specifying-Models-as-Files_Include-Specifiers,include specifiers>>.
-For example, suppose that `CComponentAi.xml` defines component `C`
-and contains the directive
-
-[source,xml]
-----
-<import_dictionary>Commands.xml</import_dictionary>
-----
-
-Running `fpp-from-xml` on `CComponentAi.xml` produces an
-FPP definition of a component `C`; the component definition
-contains the include specifier
-
-[source,fpp]
------
-include "Commands.fppi"
------
-
-Separately, you can use `fpp-to-xml` to translate `Commands.xml`
-to `Commands.fppi`.
-
 === Formatting FPP Source
 
 The tool `fpp-format` accepts FPP source files as input
@@ -1539,4 +1229,316 @@ With this option, `fpp-to-json` generates the AST and the
 location map only; it doesn't generate the Analysis data structure.
 Because semantic analysis is not run, you don't have to present
 a complete or semantically correct FPP model to the tool.
+
+=== Translating XML to FPP
+
+Previous versions of F Prime used XML to represent model
+elements such as components and ports.
+The FPP tool suite provides a capability to translate this
+older format to FPP.
+Its purpose is to address the following case:
+
+. You have already developed an F Prime model in XML.
+. You wish to translate the model to FPP in order to use FPP as the source
+language going forward.
+
+The XML-to-FPP translation is designed to do most of the work in translating an
+XML model into FPP.
+As discussed below, some manual effort will still be required,
+because the FPP and XML representations are not identical.
+The good news is that this is a one-time effort: you can do it once
+and use the FPP version thereafter.
+
+*Tool name:* The tool for translating XML to FPP is called
+`fpp-from-xml`.
+
+*Tool behavior:*
+Unlike the tools described above, `fpp-from-xml` does not read
+from standard input.
+To use it, you must name one or more XML files on the command line.
+The reason is that the XML parsing library used by the tool requires
+named files.
+The tool reads the XML files you name, translates them, and
+writes the result to standard output.
+
+As an example, try this:
+
+----
+% fpp-to-xml
+struct S { x: U32, y: F32 }
+^D
+% fpp-from-xml SSerializableAi.xml
+struct S {
+  x: U32
+  y: F32
+}
+----
+
+*Default values:*
+There are two issues to note in connection with translating default
+values.
+
+First, in FPP, every definition has a default value, but
+the default value need not be given explicitly:
+if you provide no explicit default value, then an implicit default is used.
+By contrast, in F Prime XML, (1) you _must_ supply default values for array
+elements, and (2) you _may_ supply default values for struct members
+or enumerations.
+To keep the translation simple, if default values are present in the XML
+representation, then `fpp-from-xml` translates them to explicit values,
+even if they could be made implicit.
+
+Here is an example:
+
+----
+% fpp-to-xml
+array A = [3] U32
+^D
+% fpp-from-xml AArrayAi.xml
+array A = [3] U32 default [
+                            0
+                            0
+                            0
+                          ]
+----
+
+Notice that the implicit default value `[ 0, 0, 0 ]` becomes
+explicit when translating to XML and back to FPP.
+
+Second, to keep the translation simple, only literal numeric values,
+literal string values, literal Boolean values, and {cpp} qualified identifiers
+(e.g., `a` or `A::B`) are translated.
+Other values (e.g., values specified with {cpp} constructor calls), are not translated.
+The reason is that the types of these values cannot be easily inferred from the
+XML representation.
+When a default value is not translated, the translator inserts an annotation
+identifying what was not translated, so that you can do the translation
+yourself.
+
+For example, try this:
+
+----
+% fpp-to-xml
+type T
+array A = [3] T
+^D
+% fpp-from-xml AArrayAi.xml
+@ FPP from XML: could not translate array value [ T(), T(), T() ]
+array A = [3] T
+----
+
+The tool cannot translate the value `T()`.
+So it adds an annotation stating that.
+In this case, `T()` is the default value associated with the
+abstract type `T`, so using the implicit default is correct.
+So in this case, just delete the annotation.
+
+Here is another example:
+
+----
+% fpp-to-xml
+array A = [2] U32
+array B = [2] A default [ [ 1, 2 ], [ 3, 4 ] ]
+^D
+% fpp-from-xml BArrayAi.xml
+@ FPP from XML: could not translate array value [ A(1, 2), A(3, 4) ]
+array B = [2] A
+----
+
+Here the XML representation of the array values `[ 1, 2 ]` and `[ 3, 4 ]`
+uses the {cpp} constructor calls `A(1, 2)` and `A(3, 4)`.
+When translating `BArrayAi.xml`, `fpp-from-xml` doesn't know how to translate
+those values, because it doesn't have any information about the type `A`.
+So it omits the FPP default array value and reports the XML default element
+values in the annotation.
+That way, you can manually construct a default value in FPP.
+
+*Inline enum definitions:*
+The following F Prime XML formats may include inline
+enum definitions:
+
+* In the Serializable XML format,
+enumerations may appear as member types.
+
+* In the Port XML format, enumerations may appear
+as the types of arguments or as the return type.
+
+* In the XML formats for commands and for events,
+enumerations may appear as the types of arguments.
+
+* In the XML formats for telemetry channels and for
+parameters, enumerations may appear as the types of
+data elements.
+
+In each case, the enumerated constants are specified
+as part of the definition of the member, argument, return type, etc.
+
+FPP does not represent these inline enum definitions directly.
+In FPP, enum definitions are always named, so they can be reused.
+Therefore, when translating an F Prime XML file that contains inline enum
+definitions, `fpp-to-xml` does the following: (1) translate
+each inline definition to a named FPP enum; and (2) use the corresponding named
+types in the translated FPP struct or port.
+
+For example, here is an F Prime Serializable XML type
+`N::S1` containing a member `m` whose type is an enum
+`E` with three enumerated constants `A`, `B`, and `C`:
+
+----
+cat > S1SerializableAi.xml
+<serializable namespace="N" name="S1">
+  <members>
+    <member name="m" type="ENUM">
+      <enum name="E">
+        <item name="A"/>
+        <item name="B"/>
+        <item name="C"/>
+      </enum>
+    </member>
+  </members>
+</serializable>
+^D
+----
+
+(The formula `cat >` _file_ lets us enter input to
+the console and have it written to _file_.)
+
+Running `fpp-from-xml` on this file yields the following:
+
+----
+% fpp-from-xml S1SerializableAi.xml
+module N {
+
+  enum E {
+    A = 0
+    B = 1
+    C = 2
+  }
+
+  struct S1 {
+    m: E
+  }
+
+}
+----
+
+Notice the following:
+
+. The tool translates namespace `N` in XML to module `N` in FPP.
+
+. The tool translates Serializable type `S1` in namespace `N`
+to struct type `S1` in module `N`.
+
+. The tool generates an enum type `N.E` to represent the
+type of member `m` of struct `N.S1`.
+
+. The tool assigns member `m` of struct `N.S1` the type `N.E`.
+
+If you wish to translate an XML model to FPP, and that model contains
+inline enums, then we suggest the following procedure:
+
+. Run `fpp-from-xml` on the XML model as described above to convert all of the
+inline definitions to named XML types.
+
+. Refactor your XML model and FSW implementation to use the XML types generated
+in step 1.
+This may require changes to your {cpp} code.
+For example, inline XML enums and XML enum types generate
+slightly different code.
+Therefore, you will need to revise any
+uses of the old inline enums to match the new format.
+Do this step incrementally, making sure that all your regression tests pass at
+each step.
+
+. Once you have the XML model in the required form, run `fpp-from-xml`
+again to generate an FPP model _M_.
+If you have done step 2 correctly, then you should be able to
+replace your handwritten XML with the result of running `fpp-to-xml`
+on _M_.
+
+*Format strings:*
+`fpp-from-xml` translates XML format strings to FPP
+format strings, if it can.
+Here is an example:
+
+----
+% fpp-to-xml
+array A = [3] F32 format "{f}"
+^D
+----
+
+This will generate a file `AArrayAi.xml` containing the line
+
+----
+<format>%f</format>
+----
+
+which is the XML representation of the format.
+
+Now try this:
+
+----
+% fpp-from-xml AArrayAi.xml
+array A = [3] F32 default [
+                            0.0
+                            0.0
+                            0.0
+                          ] format "{f}"
+----
+
+The XML format `%f` is translated back to the FPP format `{f}`.
+
+If the tool cannot translate the format, it will insert an annotation
+stating that. For example, `%q` is not a format recognized by
+FPP, so a format containing this string won't be translated:
+
+----
+% cat > AArrayAi.xml
+<array name="A">
+  <type>F32</type>
+  <size>1</size>
+  <format>%q</format>
+  <default>
+    <value>0.0</value>
+  </default>
+</array>
+^D
+% fpp-from-xml AArrayAi.xml
+@ FPP from XML: could not translate format string "%q"
+array A = [1] F32 default [
+                            0.0
+                          ]
+----
+
+*Import directives:*
+XML directives that import symbols (such as `import_port_type`)
+are ignored in the translation.
+These directives represent dependencies between XML files, which
+become dependencies between FPP source files in the FPP translation.
+Once the XML-to-FPP translation is done, you can handle these
+dependencies in the ordinary way for FPP, as discussed in the
+section on <<Specifying-Models-as-Files,specifying models as files>>.
+
+XML directives that import XML dictionaries are translated
+to
+<<Specifying-Models-as-Files_Include-Specifiers,include specifiers>>.
+For example, suppose that `CComponentAi.xml` defines component `C`
+and contains the directive
+
+[source,xml]
+----
+<import_dictionary>Commands.xml</import_dictionary>
+----
+
+Running `fpp-from-xml` on `CComponentAi.xml` produces an
+FPP definition of a component `C`; the component definition
+contains the include specifier
+
+[source,fpp]
+-----
+include "Commands.fppi"
+-----
+
+Separately, you can use `fpp-to-xml` to translate `Commands.xml`
+to `Commands.fppi`.
 

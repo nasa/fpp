@@ -735,17 +735,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Compiling-the-Generated-Code">15.2.5. Compiling the Generated Code</a></li>
 </ul>
 </li>
-<li><a href="#Analyzing-and-Translating-Models_Translating-XML-to-FPP">15.3. Translating XML to FPP</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Formatting-FPP-Source">15.4. Formatting FPP Source</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Visualizing-Topologies">15.5. Visualizing Topologies</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-Ground-Dictionaries">15.6. Generating Ground Dictionaries</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files">15.7. Identifying Generated Files</a>
+<li><a href="#Analyzing-and-Translating-Models_Formatting-FPP-Source">15.3. Formatting FPP Source</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Visualizing-Topologies">15.4. Visualizing Topologies</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-Ground-Dictionaries">15.5. Generating Ground Dictionaries</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files">15.6. Identifying Generated Files</a>
 <ul class="sectlevel3">
-<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-filenames">15.7.1. Using fpp-filenames</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-depend">15.7.2. Using fpp-depend</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-filenames">15.6.1. Using fpp-filenames</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-depend">15.6.2. Using fpp-depend</a></li>
 </ul>
 </li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-JSON-Models">15.8. Generating JSON Models</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-JSON-Models">15.7. Generating JSON Models</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Translating-XML-to-FPP">15.8. Translating XML to FPP</a></li>
 </ul>
 </li>
 <li><a href="#Writing-C-Plus-Plus-Implementations">16. Writing C Plus Plus Implementations</a>
@@ -790,7 +790,7 @@ well-tailored to its purpose.</p>
 </li>
 <li>
 <p>To generate code in the various languages that F Prime uses, e.g.,
-C&#43;&#43;, JSON, and XML.
+C&#43;&#43; and JSON.
 In this document, we will call these languages the <strong>target languages</strong>.</p>
 </li>
 </ul>
@@ -826,7 +826,9 @@ Section 13 explains how to specify a model as a collection
 of files: for example, it covers the management of dependencies
 between files.
 Section 14 explains how to analyze FPP models and how
-to translate FPP models to and from XML, to C&#43;&#43;, and to JSON.
+to translate FPP models to C&#43;&#43; and JSON.
+It also explains how to translate an older XML format used
+by F Prime into FPP.
 Section 15 explains how to write a C&#43;&#43; implementation
 against the code generated from an FPP model.</p>
 </div>
@@ -858,8 +860,7 @@ the program:</p>
 </div>
 <div class="paragraph">
 <p><code>fpp-check</code> is the tool for checking that an FPP model is valid.
-Like most FPP tools (except the ones that operate on XML files&#8201;&#8212;&#8201;more on this
-below),
+Like most FPP tools,
 <code>fpp-check</code> reads either from named files or from standard input.
 If one or more files are named on the command line, <code>fpp-check</code> reads those;
 otherwise it reads from standard input.
@@ -8800,7 +8801,8 @@ and prevents name clashes.</p>
 <p>In most cases, a qualified name such as <code>Switch.State</code>
 in FPP becomes a qualified name such as <code>Switch::State</code> when translating
 to C&#43;&#43;.
-However, the F Prime XML format does not support the definition
+However, the current C&#43;&#43; code generation strategy does not
+support the definition
 of constants and types as members of C&#43;&#43; components.
 Therefore, when translating the previous example to C&#43;&#43;,
 the following occurs:</p>
@@ -13906,10 +13908,721 @@ and clang compiler flags:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Translating-XML-to-FPP">15.3. Translating XML to FPP</h3>
+<h3 id="Analyzing-and-Translating-Models_Formatting-FPP-Source">15.3. Formatting FPP Source</h3>
 <div class="paragraph">
-<p>The FPP tool suite provides a capability to translate F Prime
-XML files to FPP.
+<p>The tool <code>fpp-format</code> accepts FPP source files as input
+and rewrites them as formatted output.
+You can use this tool to put your source files into
+a standard form.</p>
+</div>
+<div class="paragraph">
+<p>For example, try this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-format
+array A = [3] U32 default [ 1, 2, 3 ]
+^D
+array A = [3] U32 default [
+                            1
+                            2
+                            3
+                          ]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>fpp-format</code> has reformatted the default value so that each array
+element is on its own line.</p>
+</div>
+<div class="paragraph">
+<p>By default, <code>fpp-format</code> does not resolve include specifiers.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% echo 'constant a = 0' &gt; a.fppi
+% fpp-format
+include "a.fppi"
+^D
+include "a.fppi"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>-i</code> option causes <code>fpp-format</code> to resolve include specifiers.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% echo 'constant a = 0' &gt; a.fpp
+% fpp-format -i
+include "a.fppi"
+^D
+constant a = 0</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>fpp-format</code> has one big limitation: it goes through
+the FPP parser, so it deletes all
+<a href="#Writing-Comments-and-Annotations_Comments">comments</a>
+from the program
+(<a href="#Writing-Comments-and-Annotations_Annotations">annotations</a>
+are preserved).
+To preserve comments on their own lines that precede
+annotatable elements, you can run this script:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">#!/bin/sh
+sed 's/^\( *\)#/\1@ #/' | fpp-format $@ | sed 's/^\( *\)@ #/\1#/'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It converts comments to annotations, runs <code>fpp-format</code>, and converts the
+annotations back to comments.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Analyzing-and-Translating-Models_Visualizing-Topologies">15.4. Visualizing Topologies</h3>
+<div class="paragraph">
+<p>FPP provides a tool called <code>fpp-to-layout</code> for generating files
+that you can use to visualize topologies.
+Given a topology <em>T</em>, this tool generates a directory containing
+the <strong>layout input files</strong> for <em>T</em>.
+There is one file for each <a href="#Defining-Topologies_Connection-Graphs">connection
+graph</a> in <em>T</em>.
+The files are designed to work with a tool called <code>fprime-layout</code>, which
+we describe below.</p>
+</div>
+<div class="paragraph">
+<p><strong>Procedure:</strong>
+The usual procedure for running <code>fpp-to-layout</code> is as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Identify one or more files <em>F</em> containing topology definitions
+for which you wish to generate layout input files.</p>
+</li>
+<li>
+<p><a href="#Specifying-Models-as-Files_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
+</li>
+<li>
+<p>If <em>D</em> is empty, then run <code>fpp-to-layout</code> <em>F</em>.</p>
+</li>
+<li>
+<p>Otherwise run <code>fpp-to-layout -i</code> <em>D<sub>1</sub></em> <code>,</code> &#8230;&#8203; <code>,</code> <em>D<sub>n</sub></em> <em>F</em>, where <em>D<sub>i</sub></em> are the
+names of the dependencies.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Except for the tool name, this procedure is identical to the one given for
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">generating C&#43;&#43;</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Input:</strong> You can provide input to <code>fpp-to-layout</code>
+either through named files or through standard input.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tool behavior:</strong>
+For each topology <em>T</em> defined in the input files <em>F</em>, <code>fpp-to-layout</code> does
+the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If a directory named <em>T</em> <code>Layout</code> exists in the current directory, then
+remove it.</p>
+</li>
+<li>
+<p>Create a directory named <em>T</em> <code>Layout</code> in the current directory.</p>
+</li>
+<li>
+<p>In the directory created in step 2, write one layout input file
+for each of the connection graphs in <em>T</em>.
+The
+<a href="https://github.com/fprime-community/fprime-layout/wiki/Topology-Input"><code>fprime-layout</code> wiki</a>
+describes the file format.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Options:</strong>
+<code>fpp-to-layout</code> provides an option <code>-d</code> for selecting the current directory
+to use when writing layout input files.
+This option works in the same way as for
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions"><code>fpp-to-cpp</code></a>.
+See the <a href="https://github.com/nasa/fpp/wiki/fpp-to-layout">FPP wiki</a> for details.</p>
+</div>
+<div class="paragraph">
+<p><strong>Producing visualizations:</strong>
+Once you have generated layout input files, you can use a
+companion tool called <code>fprime-layout</code> to read the files and produce a
+<strong>topology visualization</strong>, i.e., a graphical rendering of the topology in which
+the component instances are shapes, the ports are smaller shapes, and the
+connections are arrows between the ports.
+Topology visualization is an important part of the FPP work flow:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>It provides a graphical representation of the instances and
+connections in each connection graph.
+This graphical representation is a useful complement to the
+textual representation provided by the FPP source.</p>
+</li>
+<li>
+<p>It makes explicit information that is only implicit in the
+FPP source, e.g., the auto-generated port numbers of the connections and
+the auto-generated connections of the pattern graph specifiers.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Using <code>fprime-layout</code>, you can do the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Render the connection graphs as EPS (Encapsulated PostScript),
+generating one EPS file for each connection graph.</p>
+</li>
+<li>
+<p>Generate a set of layouts, one for each layout input file,
+and view the layouts in a browser.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://github.com/fprime-community/fprime-layout"><code>fprime-layout</code>
+repository</a> for more details.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Analyzing-and-Translating-Models_Generating-Ground-Dictionaries">15.5. Generating Ground Dictionaries</h3>
+<div class="paragraph">
+<p>A <strong>ground dictionary</strong> specifies all the commands,
+events, telemetry, parameters, and data products in a FSW
+application.
+Typically a ground data system (GDS), such as the F Prime GDS,
+uses the ground dictionary to provide the operational
+interface to the application.
+The interface typically includes real-time commanding;
+real-time display of events and telemetry; logging of
+commands, events, and telemetry; uplink and downlink of files, including data
+products; and decoding of data products.
+This section explains how to generate ground dictionaries from
+FPP models.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tool name:</strong> The tool for generating ground dictionaries is called
+<code>fpp-to-dict</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Procedure:</strong>
+The usual procedure for running <code>fpp-to-dict</code> is as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Identify one or more files <em>F</em> that you want to translate.</p>
+</li>
+<li>
+<p><a href="#Specifying-Models-as-Files_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
+</li>
+<li>
+<p>If <em>D</em> is empty, then run <code>fpp-to-dict</code> <em>F</em>.</p>
+</li>
+<li>
+<p>Otherwise run <code>fpp-to-dict -i</code> <em>D<sub>1</sub></em> <code>,</code> &#8230;&#8203; <code>,</code> <em>D<sub>n</sub></em> <em>F</em>, where <em>D<sub>i</sub></em> are the
+names of the dependencies.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Except for the tool name, this procedure is identical to the one given for
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">generating C&#43;&#43;</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Input:</strong> As with the tools described above, you can provide input to
+<code>fpp-to-dict</code>
+either through named files or through standard input.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tool behavior:</strong>
+For each topology <em>T</em> defined in the input files <em>F</em>, <code>fpp-to-dict</code> writes a
+file
+<em>T</em> <code>TopologyDictionary.json</code>.
+The dictionary is specified in JavaScript Object Notation (JSON) format.
+The JSON format is specified in the
+<a href="https://fprime.jpl.nasa.gov/devel/docs/reference/fpp-json-dict/">F Prime design
+documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>Here is a common use case:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The input files <em>F</em> define a single topology <em>T</em>.
+<em>T</em> describes all the component instances and connections in a FSW
+application, and the generated dictionary <em>T</em> <code>TopologyDictionary.json</code>
+is the dictionary for the application.</p>
+</li>
+<li>
+<p>If <em>T</em> imports subtopologies, then those subtopologies are defined
+in the dependency files <em>D</em>.
+That way the subtopologies are part of the model, but no dictionaries
+are generated for them.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>F Prime configuration:</strong>
+When you run <code>fpp-to-dict</code> on an FPP model, the model must define the following
+types:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>FwChanIdType</code></p>
+</li>
+<li>
+<p><code>FwEventIdType</code></p>
+</li>
+<li>
+<p><code>FwOpcodeType</code></p>
+</li>
+<li>
+<p><code>FwPacketDescriptorType</code></p>
+</li>
+<li>
+<p><code>FwTlmPacketizeIdType</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These types are required by the F Prime GDS, so they are included in the
+dictionary.
+Each of these types must be an alias of an integer type.
+Typically you specify these types as part of F Prime configuration,
+in the file <code>config/FpConfig.fpp</code>.
+See the
+<a href="https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/">F
+Prime documentation</a> for details.</p>
+</div>
+<div class="paragraph">
+<p><strong>Options:</strong>
+<code>fpp-to-dict</code> provides the following options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>-d</code> and <code>-s</code> options work in the same way as for
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions"><code>fpp-to-cpp</code></a>.</p>
+</li>
+<li>
+<p>You can use the <code>-f</code> and <code>-p</code> options to specify a framework version
+and project version for the dictionary.
+That way the dictionary is stamped with information that connects
+it to the FSW version for which it is intended to be used.</p>
+</li>
+<li>
+<p>You can use the <code>-l</code> option to specify library versions used
+in the project.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://github.com/nasa/fpp/wiki/fpp-to-dict">FPP wiki</a> for details.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Analyzing-and-Translating-Models_Identifying-Generated-Files">15.6. Identifying Generated Files</h3>
+<div class="paragraph">
+<p>As discussed in the
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">section on generating
+C&#43;&#43;</a>,
+the <code>-n</code> option
+of <code>fpp-to-cpp</code> lets you collect the names of
+files generated from an FPP model as those files are generated.
+However, sometimes you need to know the names of the generated
+files up front.
+For example, the CMake build tool writes out a Makefile rule
+for every generated file, and it does this as an initial step
+before generating any files.
+There are two ways to collect the names of generated files:
+using <code>fpp-filenames</code> and using <code>fpp-depend</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-filenames">15.6.1. Using fpp-filenames</h4>
+<div class="paragraph">
+<p>Like <code>fpp-check</code>, <code>fpp-filenames</code> reads the files
+provided as command-line arguments if there are any;
+otherwise it reads from standard input.
+The FPP source presented to <code>fpp-filenames</code> need not be a complete
+model (i.e., it may contain undefined symbols).
+When run with no options, tool parses the FPP source that you give it.
+It identifies all definitions in the source that would cause
+C&#43;&#43; files to be generated when running
+<code>fpp-to-cpp</code> or <code>fpp-to-dict</code>.
+Then it writes the names of those files to standard output.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-filenames
+array A = [3] U32
+^D
+AArrayAc.cpp
+AArrayAc.hpp</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-filenames
+constant a = 0
+^D
+FppConstantsAc.cpp
+FppConstantsAc.hpp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can run <code>fpp-filenames</code> with the <code>-u</code> option, with the <code>-t</code> option,
+or with both options.
+In these cases <code>fpp-filenames</code> writes out the names of
+the files that would be generated by running <code>fpp-to-cpp</code> with the
+corresponding options.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-filenames -t
+array A = [3] U32
+passive component C {}
+^D
+C.template.cpp
+C.template.hpp</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-filenames -u
+array A = [3] U32
+passive component C {}
+^D
+array A = [3] U32
+passive component C {}
+AArrayAc.cpp
+AArrayAc.hpp
+CComponentAc.cpp
+CComponentAc.hpp
+CGTestBase.cpp
+CGTestBase.hpp
+CTesterBase.cpp
+CTesterBase.hpp</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-filenames -u -t
+array A = [3] U32
+passive component C {}
+^D
+CTestMain.cpp
+CTester.cpp
+CTester.hpp
+CTesterHelpers.cpp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also also run <code>fpp-filenames</code> with the <code>-a</code> option.
+Again the results correspond to running <code>fpp-to-cpp</code> with this option.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-filenames -a -u -t
+array A = [3] U32
+passive component C {}
+^D
+CTestMain.cpp
+CTester.cpp
+CTester.hpp</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-depend">15.6.2. Using fpp-depend</h4>
+<div class="paragraph">
+<p>Alternatively, you can use
+<a href="#Specifying-Models-as-Files_Computing-Dependencies"><code>fpp-depend</code></a>
+to write out the names of generated files during dependency analysis.
+The output is the same as for <code>fpp-filenames</code>, but this way you can
+run one tool (<code>fpp-depend</code>) instead of two (<code>fpp-depend</code> and
+<code>fpp-filenames</code>).
+Running one tool may help your build go faster.</p>
+</div>
+<div class="paragraph">
+<p>To write out the names of generated files, you can use the following
+options provided by <code>fpp-depend</code>:</p>
+</div>
+<div class="paragraph">
+<p><code>-a</code>: Report the generation of files with
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">unit
+test auto helpers enabled</a>.</p>
+</div>
+<div class="paragraph">
+<p><code>-g</code> <em>file</em>: Write the names of the generated autocode files
+ to the file <em>file</em>.</p>
+</div>
+<div class="paragraph">
+<p><code>-u</code> <em>file</em>: Write the names of the unit test support code
+files to <em>file</em>.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-depend -g generated.txt -u ut-generated.txt
+array A = [3] U32
+passive component C {}
+^D
+% cat generated.txt
+AArrayAc.cpp
+AArrayAc.hpp
+AArrayAi.xml
+CComponentAc.cpp
+CComponentAc.hpp
+CComponentAi.xml
+% cat ut-generated.txt
+CGTestBase.cpp
+CGTestBase.hpp
+CTesterBase.cpp
+CTesterBase.hpp</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-depend -a -g generated.txt -u ut-generated.txt
+array A = [3] U32
+passive component C {}
+^D
+% cat generated.txt
+AArrayAc.cpp
+AArrayAc.hpp
+AArrayAi.xml
+CComponentAc.cpp
+CComponentAc.hpp
+CComponentAi.xml
+% cat ut-generated.txt
+CGTestBase.cpp
+CGTestBase.hpp
+CTesterBase.cpp
+CTesterBase.hpp
+CTesterHelpers.cpp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>fpp-depend</code> does not have an option for writing out the names of
+implementation template files, since those file names are not
+needed during dependency analysis.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Analyzing-and-Translating-Models_Generating-JSON-Models">15.7. Generating JSON Models</h3>
+<div class="paragraph">
+<p>FPP provides a tool called <code>fpp-to-json</code> for converting FPP models to
+JavaScript Object Notation (JSON) format.
+Using this tool, you can import FPP models into programs written
+in any language that has a library for reading JSON, e.g., JavaScript,
+TypeScript, or Python.
+Generating and importing JSON may be convenient if you need to develop
+a simple analysis or translation tool for FPP models, and you don&#8217;t
+want to develop the tool in Scala.
+For more complex tools, we recommend that you develop in Scala
+against the FPP compiler data structures.</p>
+</div>
+<div class="paragraph">
+<p><strong>Procedure:</strong>
+The usual procedure for running <code>fpp-to-json</code> is as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Identify one or more files <em>F</em> that you want to analyze.</p>
+</li>
+<li>
+<p><a href="#Specifying-Models-as-Files_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
+</li>
+<li>
+<p>Run <code>fpp-to-json</code> <em>D</em> <em>F</em>. Note that <em>D</em> may be empty.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If you are using <code>fpp-to-json</code> with the <code>-s</code> option (see below),
+then you can run <code>fpp-to-json</code> <em>F</em>, without computing dependencies.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tool behavior:</strong> When you run <code>fpp-to-json</code>, the tool checks the
+syntax and semantics of the source model, reporting any errors that occur.
+If everything checks out, it generates three files:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>fpp-ast.json</code>: The abstract syntax tree (AST).
+This is a tree data structure that represents the source syntax.
+It contains AST nodes, each of which has a unique identifier.</p>
+</li>
+<li>
+<p><code>fpp-loc-map.json</code>: The location map.
+This object is a map from AST node IDs to the source
+locations (file, line number, and column number)
+of the corresponding AST nodes.</p>
+</li>
+<li>
+<p><code>fpp-analysis.json</code>: The Analysis data structure.
+This object contains semantic information
+inferred from the source model, e.g., the types of all the
+expressions and the constant values of all the numeric
+expressions.
+Only output data is included in the JSON; temporary
+data structures used during the analysis algorithm are
+omitted.
+For more information on the Analysis data structure,
+see the
+<a href="https://github.com/nasa/fpp/wiki/Analysis-Data-Structure">FPP wiki</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>JSON format:</strong>
+To understand this subsection, you need to know a little
+bit about case classes in Scala.
+For a primer, see
+<a href="https://github.com/nasa/fpp/wiki/Pure-Functional-Programming-in-Scala#use-case-classes-for-pattern-matching">this wiki page</a>.</p>
+</div>
+<div class="paragraph">
+<p>The JSON translation uses a Scala library called
+<a href="https://circe.github.io/circe/">Circe</a>.
+In general the translation follows a set of standard rules, so the
+output format can be easily inferred from the types of the data structures
+in the FPP source code:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A Scala case class <code>C</code> is translated as follows, unless
+it extends a sealed trait (see below).
+A value <code>v</code> of type <code>C</code> becomes
+a JSON dictionary with the field names as keys and the field
+values as their values.
+For example a value <code>C(1,"hello")</code> of type <code>case class C(n: Int, s: String)</code>
+becomes a JSON value <code>{ "n": 1, "s": "String" }</code>.</p>
+</li>
+<li>
+<p>A Scala case class <code>C</code> that extends a sealed trait <code>T</code> represents a
+named variant of type <code>T</code>.
+In this case a value <code>v</code> of type <code>C</code> is wrapped in a dictionary with one
+key (the variant name <code>C</code>) and one value (the value <code>v</code>).
+For example, a value <code>C(1)</code> of type <code>case class C(n: Int) extends T</code>
+becomes a JSON value <code>{ "C" : { "n" : 1 } }</code>, while a value
+<code>D("hello")</code> of type <code>case class D(s: String) extends T</code>
+becomes a JSON value <code>{ "D" : { "s" : "hello" } }</code>.
+In this way each variant is labeled with the variant name.</p>
+</li>
+<li>
+<p>A Scala list becomes a JSON array, and a Scala map becomes
+a JSON dictionary.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>There are a few exceptions, either because the standard translation
+does not work, or because we need special behavior for important
+cases:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We streamline the translation of the Scala Option type, translating
+<code>Some(v)</code> as <code>{ "Some" : v }</code> and <code>None</code> as <code>"None"</code>.</p>
+</li>
+<li>
+<p>In the AST, we translate
+the type AstNode as if it were a variant type, i.e., we translate
+<code>AstNode([data], [id])</code> to <code>"AstNode" : { "data" : [data], "id" : [id] } }</code>.
+The <code>AstNode</code> keys identify the AstNode objects.</p>
+</li>
+<li>
+<p>In the AST, to reduce clutter we skip over the <code>node</code>
+field of module, component, and topology member lists.
+This field is an artifact of the way the Scala code is written;
+deleting it does not lose information.</p>
+</li>
+<li>
+<p>In the Analysis data structure, to avoid repetition,
+we translate AstNode values as <code>{ "astNodeId" : [node id] }</code>,
+eliminating the data field of the node.
+We also omit annotations from annotated AST nodes.
+The data fields and the annotations can be looked up in the AST,
+by searching for the node ID.</p>
+</li>
+<li>
+<p>When translating an FPP symbol (i.e., a reference to a definition),
+we provide the information in the
+Symbol trait (the node ID and the unqualified name).
+All symbols extend this trait.
+We omit the AST node information stored in the concrete symbol.
+This information can be looked up with the AST node ID.</p>
+</li>
+<li>
+<p>When translating a component instance value, we replace
+the component stored in the value with the corresponding
+AST node ID.</p>
+</li>
+<li>
+<p>When the keys of a Scala map cannot easily be
+converted to strings, we convert the map to a list
+of pairs, represented as an array of JSON arrays.
+For example, this is how we translate the PortNumberMap
+in the Analysis data structure, which maps Connection objects to integers.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Options:</strong> The following options are available
+when running <code>fpp-to-json</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>-d</code> <em>dir</em> : Similar to the corresponding option of
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus"><code>fpp-to-cpp</code></a>.</p>
+</li>
+<li>
+<p><code>-s</code>: Analyze syntax only:
+With this option, <code>fpp-to-json</code> generates the AST and the
+location map only; it doesn&#8217;t generate the Analysis data structure.
+Because semantic analysis is not run, you don&#8217;t have to present
+a complete or semantically correct FPP model to the tool.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Analyzing-and-Translating-Models_Translating-XML-to-FPP">15.8. Translating XML to FPP</h3>
+<div class="paragraph">
+<p>Previous versions of F Prime used XML to represent model
+elements such as components and ports.
+The FPP tool suite provides a capability to translate this
+older format to FPP.
 Its purpose is to address the following case:</p>
 </div>
 <div class="olist arabic">
@@ -14286,715 +14999,6 @@ contains the include specifier</p>
 <div class="paragraph">
 <p>Separately, you can use <code>fpp-to-xml</code> to translate <code>Commands.xml</code>
 to <code>Commands.fppi</code>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Formatting-FPP-Source">15.4. Formatting FPP Source</h3>
-<div class="paragraph">
-<p>The tool <code>fpp-format</code> accepts FPP source files as input
-and rewrites them as formatted output.
-You can use this tool to put your source files into
-a standard form.</p>
-</div>
-<div class="paragraph">
-<p>For example, try this:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-format
-array A = [3] U32 default [ 1, 2, 3 ]
-^D
-array A = [3] U32 default [
-                            1
-                            2
-                            3
-                          ]</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>fpp-format</code> has reformatted the default value so that each array
-element is on its own line.</p>
-</div>
-<div class="paragraph">
-<p>By default, <code>fpp-format</code> does not resolve include specifiers.
-For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% echo 'constant a = 0' &gt; a.fppi
-% fpp-format
-include "a.fppi"
-^D
-include "a.fppi"</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The <code>-i</code> option causes <code>fpp-format</code> to resolve include specifiers.
-For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% echo 'constant a = 0' &gt; a.fpp
-% fpp-format -i
-include "a.fppi"
-^D
-constant a = 0</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>fpp-format</code> has one big limitation: it goes through
-the FPP parser, so it deletes all
-<a href="#Writing-Comments-and-Annotations_Comments">comments</a>
-from the program
-(<a href="#Writing-Comments-and-Annotations_Annotations">annotations</a>
-are preserved).
-To preserve comments on their own lines that precede
-annotatable elements, you can run this script:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">#!/bin/sh
-sed 's/^\( *\)#/\1@ #/' | fpp-format $@ | sed 's/^\( *\)@ #/\1#/'</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>It converts comments to annotations, runs <code>fpp-format</code>, and converts the
-annotations back to comments.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Visualizing-Topologies">15.5. Visualizing Topologies</h3>
-<div class="paragraph">
-<p>FPP provides a tool called <code>fpp-to-layout</code> for generating files
-that you can use to visualize topologies.
-Given a topology <em>T</em>, this tool generates a directory containing
-the <strong>layout input files</strong> for <em>T</em>.
-There is one file for each <a href="#Defining-Topologies_Connection-Graphs">connection
-graph</a> in <em>T</em>.
-The files are designed to work with a tool called <code>fprime-layout</code>, which
-we describe below.</p>
-</div>
-<div class="paragraph">
-<p><strong>Procedure:</strong>
-The usual procedure for running <code>fpp-to-layout</code> is as follows:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Identify one or more files <em>F</em> containing topology definitions
-for which you wish to generate layout input files.</p>
-</li>
-<li>
-<p><a href="#Specifying-Models-as-Files_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
-</li>
-<li>
-<p>If <em>D</em> is empty, then run <code>fpp-to-layout</code> <em>F</em>.</p>
-</li>
-<li>
-<p>Otherwise run <code>fpp-to-layout -i</code> <em>D<sub>1</sub></em> <code>,</code> &#8230;&#8203; <code>,</code> <em>D<sub>n</sub></em> <em>F</em>, where <em>D<sub>i</sub></em> are the
-names of the dependencies.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Except for the tool name, this procedure is identical to the one given for
-<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">generating C&#43;&#43;</a>.</p>
-</div>
-<div class="paragraph">
-<p><strong>Input:</strong> You can provide input to <code>fpp-to-layout</code>
-either through named files or through standard input.</p>
-</div>
-<div class="paragraph">
-<p><strong>Tool behavior:</strong>
-For each topology <em>T</em> defined in the input files <em>F</em>, <code>fpp-to-layout</code> does
-the following:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>If a directory named <em>T</em> <code>Layout</code> exists in the current directory, then
-remove it.</p>
-</li>
-<li>
-<p>Create a directory named <em>T</em> <code>Layout</code> in the current directory.</p>
-</li>
-<li>
-<p>In the directory created in step 2, write one layout input file
-for each of the connection graphs in <em>T</em>.
-The
-<a href="https://github.com/fprime-community/fprime-layout/wiki/Topology-Input"><code>fprime-layout</code> wiki</a>
-describes the file format.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><strong>Options:</strong>
-<code>fpp-to-layout</code> provides an option <code>-d</code> for selecting the current directory
-to use when writing layout input files.
-This option works in the same way as for
-<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions"><code>fpp-to-cpp</code></a>.
-See the <a href="https://github.com/nasa/fpp/wiki/fpp-to-layout">FPP wiki</a> for details.</p>
-</div>
-<div class="paragraph">
-<p><strong>Producing visualizations:</strong>
-Once you have generated layout input files, you can use a
-companion tool called <code>fprime-layout</code> to read the files and produce a
-<strong>topology visualization</strong>, i.e., a graphical rendering of the topology in which
-the component instances are shapes, the ports are smaller shapes, and the
-connections are arrows between the ports.
-Topology visualization is an important part of the FPP work flow:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>It provides a graphical representation of the instances and
-connections in each connection graph.
-This graphical representation is a useful complement to the
-textual representation provided by the FPP source.</p>
-</li>
-<li>
-<p>It makes explicit information that is only implicit in the
-FPP source, e.g., the auto-generated port numbers of the connections and
-the auto-generated connections of the pattern graph specifiers.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Using <code>fprime-layout</code>, you can do the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Render the connection graphs as EPS (Encapsulated PostScript),
-generating one EPS file for each connection graph.</p>
-</li>
-<li>
-<p>Generate a set of layouts, one for each layout input file,
-and view the layouts in a browser.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>See the <a href="https://github.com/fprime-community/fprime-layout"><code>fprime-layout</code>
-repository</a> for more details.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Generating-Ground-Dictionaries">15.6. Generating Ground Dictionaries</h3>
-<div class="paragraph">
-<p>A <strong>ground dictionary</strong> specifies all the commands,
-events, telemetry, parameters, and data products in a FSW
-application.
-Typically a ground data system (GDS), such as the F Prime GDS,
-uses the ground dictionary to provide the operational
-interface to the application.
-The interface typically includes real-time commanding;
-real-time display of events and telemetry; logging of
-commands, events, and telemetry; uplink and downlink of files, including data
-products; and decoding of data products.
-This section explains how to generate ground dictionaries from
-FPP models.</p>
-</div>
-<div class="paragraph">
-<p><strong>Tool name:</strong> The tool for generating ground dictionaries is called
-<code>fpp-to-dict</code>.</p>
-</div>
-<div class="paragraph">
-<p><strong>Procedure:</strong>
-The usual procedure for running <code>fpp-to-dict</code> is as follows:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Identify one or more files <em>F</em> that you want to translate.</p>
-</li>
-<li>
-<p><a href="#Specifying-Models-as-Files_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
-</li>
-<li>
-<p>If <em>D</em> is empty, then run <code>fpp-to-dict</code> <em>F</em>.</p>
-</li>
-<li>
-<p>Otherwise run <code>fpp-to-dict -i</code> <em>D<sub>1</sub></em> <code>,</code> &#8230;&#8203; <code>,</code> <em>D<sub>n</sub></em> <em>F</em>, where <em>D<sub>i</sub></em> are the
-names of the dependencies.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Except for the tool name, this procedure is identical to the one given for
-<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">generating C&#43;&#43;</a>.</p>
-</div>
-<div class="paragraph">
-<p><strong>Input:</strong> As with the tools described above, you can provide input to
-<code>fpp-to-dict</code>
-either through named files or through standard input.</p>
-</div>
-<div class="paragraph">
-<p><strong>Tool behavior:</strong>
-For each topology <em>T</em> defined in the input files <em>F</em>, <code>fpp-to-dict</code> writes a
-file
-<em>T</em> <code>TopologyDictionary.json</code>.
-The dictionary is specified in JavaScript Object Notation (JSON) format.
-The JSON format is specified in the
-<a href="https://fprime.jpl.nasa.gov/devel/docs/reference/fpp-json-dict/">F Prime design
-documentation</a>.</p>
-</div>
-<div class="paragraph">
-<p>Here is a common use case:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>The input files <em>F</em> define a single topology <em>T</em>.
-<em>T</em> describes all the component instances and connections in a FSW
-application, and the generated dictionary <em>T</em> <code>TopologyDictionary.json</code>
-is the dictionary for the application.</p>
-</li>
-<li>
-<p>If <em>T</em> imports subtopologies, then those subtopologies are defined
-in the dependency files <em>D</em>.
-That way the subtopologies are part of the model, but no dictionaries
-are generated for them.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><strong>F Prime configuration:</strong>
-When you run <code>fpp-to-dict</code> on an FPP model, the model must define the following
-types:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>FwChanIdType</code></p>
-</li>
-<li>
-<p><code>FwEventIdType</code></p>
-</li>
-<li>
-<p><code>FwOpcodeType</code></p>
-</li>
-<li>
-<p><code>FwPacketDescriptorType</code></p>
-</li>
-<li>
-<p><code>FwTlmPacketizeIdType</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>These types are required by the F Prime GDS, so they are included in the
-dictionary.
-Each of these types must be an alias of an integer type.
-Typically you specify these types as part of F Prime configuration,
-in the file <code>config/FpConfig.fpp</code>.
-See the
-<a href="https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/">F
-Prime documentation</a> for details.</p>
-</div>
-<div class="paragraph">
-<p><strong>Options:</strong>
-<code>fpp-to-dict</code> provides the following options:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>The <code>-d</code> and <code>-s</code> options work in the same way as for
-<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions"><code>fpp-to-cpp</code></a>.</p>
-</li>
-<li>
-<p>You can use the <code>-f</code> and <code>-p</code> options to specify a framework version
-and project version for the dictionary.
-That way the dictionary is stamped with information that connects
-it to the FSW version for which it is intended to be used.</p>
-</li>
-<li>
-<p>You can use the <code>-l</code> option to specify library versions used
-in the project.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>See the <a href="https://github.com/nasa/fpp/wiki/fpp-to-dict">FPP wiki</a> for details.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Identifying-Generated-Files">15.7. Identifying Generated Files</h3>
-<div class="paragraph">
-<p>As discussed in the
-<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">section on generating
-C&#43;&#43;</a>,
-the <code>-n</code> option
-of <code>fpp-to-cpp</code> lets you collect the names of
-files generated from an FPP model as those files are generated.
-However, sometimes you need to know the names of the generated
-files up front.
-For example, the CMake build tool writes out a Makefile rule
-for every generated file, and it does this as an initial step
-before generating any files.
-There are two ways to collect the names of generated files:
-using <code>fpp-filenames</code> and using <code>fpp-depend</code>.</p>
-</div>
-<div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-filenames">15.7.1. Using fpp-filenames</h4>
-<div class="paragraph">
-<p>Like <code>fpp-check</code>, <code>fpp-filenames</code> reads the files
-provided as command-line arguments if there are any;
-otherwise it reads from standard input.
-The FPP source presented to <code>fpp-filenames</code> need not be a complete
-model (i.e., it may contain undefined symbols).
-When run with no options, tool parses the FPP source that you give it.
-It identifies all definitions in the source that would cause
-C&#43;&#43; files to be generated when running
-<code>fpp-to-cpp</code> or <code>fpp-to-dict</code>.
-Then it writes the names of those files to standard output.</p>
-</div>
-<div class="paragraph">
-<p>For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-filenames
-array A = [3] U32
-^D
-AArrayAc.cpp
-AArrayAc.hpp</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-filenames
-constant a = 0
-^D
-FppConstantsAc.cpp
-FppConstantsAc.hpp</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You can run <code>fpp-filenames</code> with the <code>-u</code> option, with the <code>-t</code> option,
-or with both options.
-In these cases <code>fpp-filenames</code> writes out the names of
-the files that would be generated by running <code>fpp-to-cpp</code> with the
-corresponding options.
-For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-filenames -t
-array A = [3] U32
-passive component C {}
-^D
-C.template.cpp
-C.template.hpp</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-filenames -u
-array A = [3] U32
-passive component C {}
-^D
-array A = [3] U32
-passive component C {}
-AArrayAc.cpp
-AArrayAc.hpp
-CComponentAc.cpp
-CComponentAc.hpp
-CGTestBase.cpp
-CGTestBase.hpp
-CTesterBase.cpp
-CTesterBase.hpp</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-filenames -u -t
-array A = [3] U32
-passive component C {}
-^D
-CTestMain.cpp
-CTester.cpp
-CTester.hpp
-CTesterHelpers.cpp</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You can also also run <code>fpp-filenames</code> with the <code>-a</code> option.
-Again the results correspond to running <code>fpp-to-cpp</code> with this option.
-For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-filenames -a -u -t
-array A = [3] U32
-passive component C {}
-^D
-CTestMain.cpp
-CTester.cpp
-CTester.hpp</pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-depend">15.7.2. Using fpp-depend</h4>
-<div class="paragraph">
-<p>Alternatively, you can use
-<a href="#Specifying-Models-as-Files_Computing-Dependencies"><code>fpp-depend</code></a>
-to write out the names of generated files during dependency analysis.
-The output is the same as for <code>fpp-filenames</code>, but this way you can
-run one tool (<code>fpp-depend</code>) instead of two (<code>fpp-depend</code> and
-<code>fpp-filenames</code>).
-Running one tool may help your build go faster.</p>
-</div>
-<div class="paragraph">
-<p>To write out the names of generated files, you can use the following
-options provided by <code>fpp-depend</code>:</p>
-</div>
-<div class="paragraph">
-<p><code>-a</code>: Report the generation of files with
-<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">unit
-test auto helpers enabled</a>.</p>
-</div>
-<div class="paragraph">
-<p><code>-g</code> <em>file</em>: Write the names of the generated autocode files
- to the file <em>file</em>.</p>
-</div>
-<div class="paragraph">
-<p><code>-u</code> <em>file</em>: Write the names of the unit test support code
-files to <em>file</em>.</p>
-</div>
-<div class="paragraph">
-<p>For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-depend -g generated.txt -u ut-generated.txt
-array A = [3] U32
-passive component C {}
-^D
-% cat generated.txt
-AArrayAc.cpp
-AArrayAc.hpp
-AArrayAi.xml
-CComponentAc.cpp
-CComponentAc.hpp
-CComponentAi.xml
-% cat ut-generated.txt
-CGTestBase.cpp
-CGTestBase.hpp
-CTesterBase.cpp
-CTesterBase.hpp</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-depend -a -g generated.txt -u ut-generated.txt
-array A = [3] U32
-passive component C {}
-^D
-% cat generated.txt
-AArrayAc.cpp
-AArrayAc.hpp
-AArrayAi.xml
-CComponentAc.cpp
-CComponentAc.hpp
-CComponentAi.xml
-% cat ut-generated.txt
-CGTestBase.cpp
-CGTestBase.hpp
-CTesterBase.cpp
-CTesterBase.hpp
-CTesterHelpers.cpp</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>fpp-depend</code> does not have an option for writing out the names of
-implementation template files, since those file names are not
-needed during dependency analysis.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Generating-JSON-Models">15.8. Generating JSON Models</h3>
-<div class="paragraph">
-<p>FPP provides a tool called <code>fpp-to-json</code> for converting FPP models to
-JavaScript Object Notation (JSON) format.
-Using this tool, you can import FPP models into programs written
-in any language that has a library for reading JSON, e.g., JavaScript,
-TypeScript, or Python.
-Generating and importing JSON may be convenient if you need to develop
-a simple analysis or translation tool for FPP models, and you don&#8217;t
-want to develop the tool in Scala.
-For more complex tools, we recommend that you develop in Scala
-against the FPP compiler data structures.</p>
-</div>
-<div class="paragraph">
-<p><strong>Procedure:</strong>
-The usual procedure for running <code>fpp-to-json</code> is as follows:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Identify one or more files <em>F</em> that you want to analyze.</p>
-</li>
-<li>
-<p><a href="#Specifying-Models-as-Files_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
-</li>
-<li>
-<p>Run <code>fpp-to-json</code> <em>D</em> <em>F</em>. Note that <em>D</em> may be empty.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>If you are using <code>fpp-to-json</code> with the <code>-s</code> option (see below),
-then you can run <code>fpp-to-json</code> <em>F</em>, without computing dependencies.</p>
-</div>
-<div class="paragraph">
-<p><strong>Tool behavior:</strong> When you run <code>fpp-to-json</code>, the tool checks the
-syntax and semantics of the source model, reporting any errors that occur.
-If everything checks out, it generates three files:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>fpp-ast.json</code>: The abstract syntax tree (AST).
-This is a tree data structure that represents the source syntax.
-It contains AST nodes, each of which has a unique identifier.</p>
-</li>
-<li>
-<p><code>fpp-loc-map.json</code>: The location map.
-This object is a map from AST node IDs to the source
-locations (file, line number, and column number)
-of the corresponding AST nodes.</p>
-</li>
-<li>
-<p><code>fpp-analysis.json</code>: The Analysis data structure.
-This object contains semantic information
-inferred from the source model, e.g., the types of all the
-expressions and the constant values of all the numeric
-expressions.
-Only output data is included in the JSON; temporary
-data structures used during the analysis algorithm are
-omitted.
-For more information on the Analysis data structure,
-see the
-<a href="https://github.com/nasa/fpp/wiki/Analysis-Data-Structure">FPP wiki</a>.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><strong>JSON format:</strong>
-To understand this subsection, you need to know a little
-bit about case classes in Scala.
-For a primer, see
-<a href="https://github.com/nasa/fpp/wiki/Pure-Functional-Programming-in-Scala#use-case-classes-for-pattern-matching">this wiki page</a>.</p>
-</div>
-<div class="paragraph">
-<p>The JSON translation uses a Scala library called
-<a href="https://circe.github.io/circe/">Circe</a>.
-In general the translation follows a set of standard rules, so the
-output format can be easily inferred from the types of the data structures
-in the FPP source code:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>A Scala case class <code>C</code> is translated as follows, unless
-it extends a sealed trait (see below).
-A value <code>v</code> of type <code>C</code> becomes
-a JSON dictionary with the field names as keys and the field
-values as their values.
-For example a value <code>C(1,"hello")</code> of type <code>case class C(n: Int, s: String)</code>
-becomes a JSON value <code>{ "n": 1, "s": "String" }</code>.</p>
-</li>
-<li>
-<p>A Scala case class <code>C</code> that extends a sealed trait <code>T</code> represents a
-named variant of type <code>T</code>.
-In this case a value <code>v</code> of type <code>C</code> is wrapped in a dictionary with one
-key (the variant name <code>C</code>) and one value (the value <code>v</code>).
-For example, a value <code>C(1)</code> of type <code>case class C(n: Int) extends T</code>
-becomes a JSON value <code>{ "C" : { "n" : 1 } }</code>, while a value
-<code>D("hello")</code> of type <code>case class D(s: String) extends T</code>
-becomes a JSON value <code>{ "D" : { "s" : "hello" } }</code>.
-In this way each variant is labeled with the variant name.</p>
-</li>
-<li>
-<p>A Scala list becomes a JSON array, and a Scala map becomes
-a JSON dictionary.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>There are a few exceptions, either because the standard translation
-does not work, or because we need special behavior for important
-cases:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>We streamline the translation of the Scala Option type, translating
-<code>Some(v)</code> as <code>{ "Some" : v }</code> and <code>None</code> as <code>"None"</code>.</p>
-</li>
-<li>
-<p>In the AST, we translate
-the type AstNode as if it were a variant type, i.e., we translate
-<code>AstNode([data], [id])</code> to <code>"AstNode" : { "data" : [data], "id" : [id] } }</code>.
-The <code>AstNode</code> keys identify the AstNode objects.</p>
-</li>
-<li>
-<p>In the AST, to reduce clutter we skip over the <code>node</code>
-field of module, component, and topology member lists.
-This field is an artifact of the way the Scala code is written;
-deleting it does not lose information.</p>
-</li>
-<li>
-<p>In the Analysis data structure, to avoid repetition,
-we translate AstNode values as <code>{ "astNodeId" : [node id] }</code>,
-eliminating the data field of the node.
-We also omit annotations from annotated AST nodes.
-The data fields and the annotations can be looked up in the AST,
-by searching for the node ID.</p>
-</li>
-<li>
-<p>When translating an FPP symbol (i.e., a reference to a definition),
-we provide the information in the
-Symbol trait (the node ID and the unqualified name).
-All symbols extend this trait.
-We omit the AST node information stored in the concrete symbol.
-This information can be looked up with the AST node ID.</p>
-</li>
-<li>
-<p>When translating a component instance value, we replace
-the component stored in the value with the corresponding
-AST node ID.</p>
-</li>
-<li>
-<p>When the keys of a Scala map cannot easily be
-converted to strings, we convert the map to a list
-of pairs, represented as an array of JSON arrays.
-For example, this is how we translate the PortNumberMap
-in the Analysis data structure, which maps Connection objects to integers.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><strong>Options:</strong> The following options are available
-when running <code>fpp-to-json</code>:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>-d</code> <em>dir</em> : Similar to the corresponding option of
-<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus"><code>fpp-to-cpp</code></a>.</p>
-</li>
-<li>
-<p><code>-s</code>: Analyze syntax only:
-With this option, <code>fpp-to-json</code> generates the AST and the
-location map only; it doesn&#8217;t generate the Analysis data structure.
-Because semantic analysis is not run, you don&#8217;t have to present
-a complete or semantically correct FPP model to the tool.</p>
-</li>
-</ul>
 </div>
 </div>
 </div>
@@ -15706,7 +15710,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-07-24 21:20:28 -0700
+Last updated 2025-07-24 21:28:53 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
