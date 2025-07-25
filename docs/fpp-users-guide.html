@@ -726,27 +726,26 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Analyzing-and-Translating-Models">15. Analyzing and Translating Models</a>
 <ul class="sectlevel2">
 <li><a href="#Analyzing-and-Translating-Models_Checking-Models">15.1. Checking Models</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-XML">15.2. Generating XML</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">15.3. Generating C Plus Plus</a>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">15.2. Generating C Plus Plus</a>
 <ul class="sectlevel3">
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">15.3.1. Constant Definitions</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-State-Machines-and-Components">15.3.2. Types, Ports, State Machines, and Components</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">15.3.3. Component Implementation and Unit Test Code</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">15.3.4. Topology Definitions</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Compiling-the-Generated-Code">15.3.5. Compiling the Generated Code</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">15.2.1. Constant Definitions</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-State-Machines-and-Components">15.2.2. Types, Ports, State Machines, and Components</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">15.2.3. Component Implementation and Unit Test Code</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">15.2.4. Topology Definitions</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Compiling-the-Generated-Code">15.2.5. Compiling the Generated Code</a></li>
 </ul>
 </li>
-<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files">15.4. Identifying Generated Files</a>
+<li><a href="#Analyzing-and-Translating-Models_Translating-XML-to-FPP">15.3. Translating XML to FPP</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Formatting-FPP-Source">15.4. Formatting FPP Source</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Visualizing-Topologies">15.5. Visualizing Topologies</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-Ground-Dictionaries">15.6. Generating Ground Dictionaries</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files">15.7. Identifying Generated Files</a>
 <ul class="sectlevel3">
-<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-filenames">15.4.1. Using fpp-filenames</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-depend">15.4.2. Using fpp-depend</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-filenames">15.7.1. Using fpp-filenames</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-depend">15.7.2. Using fpp-depend</a></li>
 </ul>
 </li>
-<li><a href="#Analyzing-and-Translating-Models_Translating-XML-to-FPP">15.5. Translating XML to FPP</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Formatting-FPP-Source">15.6. Formatting FPP Source</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Visualizing-Topologies">15.7. Visualizing Topologies</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-Ground-Dictionaries">15.8. Generating Ground Dictionaries</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-JSON-Models">15.9. Generating JSON Models</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-JSON-Models">15.8. Generating JSON Models</a></li>
 </ul>
 </li>
 <li><a href="#Writing-C-Plus-Plus-Implementations">16. Writing C Plus Plus Implementations</a>
@@ -8820,9 +8819,7 @@ the following occurs:</p>
 <div class="paragraph">
 <p>Similarly, the FPP constant <code>SerialSplitter.splitFactor</code>
 becomes a C&#43;&#43; constant <code>SerialSplitter_SplitFactor</code>.
-We will have more to say about this issue in the sections on
-<a href="#Analyzing-and-Translating-Models_Generating-XML">generating XML</a>
-and
+We will have more to say about this issue in the section on
 <a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">generating C&#43;&#43;</a>.</p>
 </div>
 </div>
@@ -13179,322 +13176,7 @@ even though <code>c.Out</code> has two ports and only one of them is connected.<
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Generating-XML">15.2. Generating XML</h3>
-<div class="paragraph">
-<p>We are phasing out the use of XML in favor of generating
-JSON and directly generating C&#43;&#43;.
-However, for backwards compatibility, the F Prime XML representation is still available
-as of this FPP release.
-This section describes how to generate XML from FPP.</p>
-</div>
-<div class="paragraph">
-<p><strong>XML file names:</strong> The table <a href="#xml-file-names">XML File Names</a> shows how FPP definitions are
-translated to F Prime XML files.</p>
-</div>
-<table id="xml-file-names" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. XML File Names</caption>
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">FPP Definition</th>
-<th class="tableblock halign-left valign-top">F Prime XML File</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Array <em>A</em> outside any component</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>A</em> <code>ArrayAi.xml</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Array <em>A</em> in component <em>C</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>C</em> <code><em></code> _A</em> <code>ArrayAi.xml</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enum <em>E</em> outside any component</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>E</em> <code>EnumAi.xml</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enum <em>E</em> in component <em>C</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>C</em> <code><em></code> _E</em> <code>EnumAi.xml</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Struct <em>S</em> outside any component</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>S</em> <code>SerializableAi.xml</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Struct <em>S</em> in component <em>C</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>C</em> <code><em></code> _S</em> <code>SerializableAi.xml</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Port <em>P</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>P</em> <code>PortAi.xml</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Component <em>C</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>C</em> <code>ComponentAi.xml</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Topology <em>T</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>T</em> <code>TopologyAppAi.xml</code></p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>For example, consider the FPP array definition</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">array A = [3] U32</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Outside of any component definition, this definition is translated to
-an XML array with name <code>A</code> defined in a file <code>AArrayAi.xml</code>.
-Inside the definition of component <code>C</code>, it is translated to
-an XML array with name <code>C_A</code> defined in the file <code>C_AArrayAi.xml</code>.
-In either case the namespace in the XML file is given by the enclosing
-FPP modules, if any.
-For example, the following code</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module M {
-
-  array A = [3] U32
-
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>becomes an array with name <code>A</code> and namespace <code>M</code> in file
-<code>AArrayAi.xml</code>.</p>
-</div>
-<div class="paragraph">
-<p><strong>Tool name:</strong> The tool for translating FPP definitions to XML files
-is called <code>fpp-to-xml</code>.</p>
-</div>
-<div class="paragraph">
-<p><strong>Procedure:</strong>
-The usual procedure for running <code>fpp-to-xml</code> is as follows:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Identify one or more files <em>F</em> that you want to translate.</p>
-</li>
-<li>
-<p><a href="#Specifying-Models-as-Files_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
-</li>
-<li>
-<p>If <em>D</em> is empty, then run <code>fpp-to-xml</code> <em>F</em>.</p>
-</li>
-<li>
-<p>Otherwise run <code>fpp-to-xml -i</code> <em>D<sub>1</sub></em> <code>,</code> &#8230;&#8203; <code>,</code> <em>D<sub>n</sub></em> <em>F</em>, where <em>D<sub>i</sub></em> are the
-names of the dependencies.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>For example, suppose you want to generate XML for the definitions in <code>c.fpp</code>,
-If <code>c.fpp</code> has no dependencies, then run</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-to-xml c.fpp</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>On the other hand, if <code>c.fpp</code> depends on <code>a.fpp</code> and <code>b.fpp</code>, then run</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-to-xml -i a.fpp,b.fpp c.fpp</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Notice that you provide the dependencies as a comma-separated list of
-arguments to the option <code>-i</code>.
-<code>-i</code> stands for "import."
-This option tells the tool that you want to read the files in <em>D</em> for their symbols,
-but you don&#8217;t want to translate them.
-Only the files <em>F</em> provided as arguments are translated.</p>
-</div>
-<div class="paragraph">
-<p><strong>Tool behavior:</strong> When you run <code>fpp-to-xml</code>, the following occurs:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The tool runs the same analysis
-<a href="#Analyzing-and-Translating-Models_Checking-Models">as for <code>fpp-check</code></a>.
-If there is any problem, the tool prints an error message to
-standard error and halts with nonzero status.</p>
-</li>
-<li>
-<p>If the analysis succeeds, then the tool generates XML files, one
-for each definition appearing in <em>F</em>, with names as shown in the table above.
-The files are written to the current directory.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><strong>Generated import paths:</strong>
-When one FPP definition <code>A</code> depends on another definition <code>B</code>,
-the generated XML file for <code>A</code> contains an XML node that imports
-the generated XML file for <code>B</code>.
-The tool constructs the import path from the
-<a href="#Specifying-Models-as-Files_Locating-Definitions">location</a> of the imported FPP symbol.</p>
-</div>
-<div class="paragraph">
-<p>For example, suppose the file <code>[path prefix]/A/A.fpp</code> contains the following
-definition, where <code>[path prefix]</code> represents the path prefix of directory
-<code>A</code> starting from the root of the file system:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">array A = [3] B</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>And suppose the file <code>[path prefix]/B/B.fpp</code> contains the following definition:</p>
-</div>
-<div class="listingblock fpp">
-<div class="content">
-<pre class="prettyprint highlight"><code>array B = [3] U32</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If you run this command in directory <code>[path prefix]/A</code></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-to-xml -i ../B/B.fpp A.fpp</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>then in that directory the tool will generate a file <code>AArrayAi.xml</code> containing
-the following line:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="xml">&lt;import_array_type&gt;[path prefix]/B/BArrayAi.xml&lt;/import_array_type&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>Removing path prefixes:</strong>
-Usually when generating XML we don&#8217;t want to include the system-specific part
-of the path prefix.
-Instead, we want the path to be specified relative to some known place, for
-example
-the root of the F Prime repository or a project repository.</p>
-</div>
-<div class="paragraph">
-<p>To remove the prefix <em>prefix</em> from generated paths, use the option
-<code>-p</code> <em>prefix</em> .
-To continue the previous example, running</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>fpp-to-xml -i ../B/B.fpp -p [path prefix] A.fpp</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>generates a file <code>AArrayAi.xml</code> containing the line</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="xml">&lt;import_array_type&gt;B/BArrayAi.xml&lt;/import_array_type&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Notice that the path prefix <code>[path prefix]/</code> has been removed.</p>
-</div>
-<div class="paragraph">
-<p>To specify multiple prefixes, separate them with commas:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>fpp-to-xml -p prefix1,prefix2, ...</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>For each generated path, the tool will delete the longest prefix
-that matches a prefix in the list.</p>
-</div>
-<div class="paragraph">
-<p>As discussed in the section on
-<a href="#Specifying-Models-as-Files_Path-Name-Aliases_Relative-Paths-and-Symbolic-Links">relative paths and symbolic links</a>,
-when a file name is relative to a path <em>S</em> that includes symbolic links,
-the associated location is relative to the directory <em>D</em> pointed to by <em>S</em>.
-In this case, providing <em>S</em> as an argument to <code>-p</code> will not work as expected.
-To work around this issue, you can do one of the following:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Provide both <em>D</em> and <em>S</em> as arguments to <code>-p</code>.</p>
-</li>
-<li>
-<p>Use absolute paths when presenting files to FPP code generation tools
-with the <code>-p</code> option.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><strong>More options:</strong> The following additional options are available
-when running <code>fpp-to-xml</code>:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>-d</code> <em>dir</em> : Use <em>dir</em> instead of the current directory as
-the output directory for writing files.
-For example,</p>
-<div class="listingblock">
-<div class="content">
-<pre>fpp-to-xml -d xml ...</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>writes output files
-to the directory <code>xml</code> (which must already exist).</p>
-</div>
-</li>
-<li>
-<p><code>-n</code> <em>file</em> : Write the names of the generated XML files
-to <em>file</em>.
-This is useful for collecting autocoder build dependencies.</p>
-</li>
-<li>
-<p><code>-s</code> <em>size</em> : Specify a default string size.
-For example,</p>
-<div class="listingblock">
-<div class="content">
-<pre>fpp-to-xml -s 40 ...</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>FPP allows string types with no specified size, and F Prime XML
-does not.
-So when generating code we need to provide a default size
-to use when FPP doesn&#8217;t specify the size.
-If you don&#8217;t specify the <code>-s</code> option, then the tool uses
-an automatic default of 80.</p>
-</div>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><strong>Standard input:</strong> Instead of providing named files as arguments,
-you can provide FPP source on standard input, as described
-for <a href="#Analyzing-and-Translating-Models_Checking-Models"><code>fpp-check</code></a>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus">15.3. Generating C Plus Plus</h3>
+<h3 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus">15.2. Generating C Plus Plus</h3>
 <div class="paragraph">
 <p>This section describes how to generate C&#43;&#43; from FPP.</p>
 </div>
@@ -13503,7 +13185,7 @@ for <a href="#Analyzing-and-Translating-Models_Checking-Models"><code>fpp-check<
 translated to C&#43;&#43; files.</p>
 </div>
 <table id="cpp-file-names" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. C&#43;&#43; File Names</caption>
+<caption class="title">Table 3. C&#43;&#43; File Names</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -13668,17 +13350,55 @@ names of the dependencies.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>Except for the tool name, this procedure is identical to the one given for
-<a href="#Analyzing-and-Translating-Models_Generating-XML">generating XML</a>.
-See that section for examples of the procedure.</p>
+<p>For example, suppose you want to generate C&#43;&#43; for the definitions in <code>c.fpp</code>,
+If <code>c.fpp</code> has no dependencies, then run</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-to-cpp c.fpp</pre>
+</div>
 </div>
 <div class="paragraph">
-<p><strong>Input:</strong> As with the tools described above, you can provide input to
-<code>fpp-to-cpp</code>
-either through named files or through standard input.</p>
+<p>On the other hand, if <code>c.fpp</code> depends on <code>a.fpp</code> and <code>b.fpp</code>, then run</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-to-cpp -i a.fpp,b.fpp c.fpp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that you provide the dependencies as a comma-separated list of
+arguments to the option <code>-i</code>.
+<code>-i</code> stands for "import."
+This option tells the tool that you want to read the files in <em>D</em> for their symbols,
+but you don&#8217;t want to translate them.
+Only the files <em>F</em> provided as arguments are translated.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tool behavior:</strong> When you run <code>fpp-to-xml</code>, the following occurs:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The tool runs the same analysis
+<a href="#Analyzing-and-Translating-Models_Checking-Models">as for <code>fpp-check</code></a>.
+If there is any problem, the tool prints an error message to
+standard error and halts with nonzero status.</p>
+</li>
+<li>
+<p>If the analysis succeeds, then the tool generates C&#43;&#43;files, one
+for each definition appearing in <em>F</em>, with names as shown in the table above.
+The files are written to the current directory.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Standard input:</strong> Instead of providing named files as arguments,
+you can provide FPP source on standard input, as described
+for <a href="#Analyzing-and-Translating-Models_Checking-Models"><code>fpp-check</code></a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">15.3.1. Constant Definitions</h4>
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">15.2.1. Constant Definitions</h4>
 <div class="paragraph">
 <p><code>fpp-to-cpp</code> extracts <a href="#Defining-Constants">constant definitions</a>
 from the source files <em>F</em>.
@@ -13779,12 +13499,107 @@ and examine the results:</p>
 </div>
 <div class="paragraph">
 <p><strong>Generated header paths:</strong>
-The option <code>-p</code> <em>path-prefixes</em> removes the longest of one or more
-path prefixes from any generated header paths (for example,
-the path to <code>FppConstants.hpp</code> that is included in <code>FppConstants.cpp</code>).
-To specify multiple prefixes, separate them with commas (and no spaces).
-This is similar to the <code>-p</code> option for
-<a href="#Analyzing-and-Translating-Models_Generating-XML"><code>fpp-to-xml</code></a>.</p>
+When one FPP definition <code>A</code> refers to another definition <code>B</code>,
+the generated C&#43;&#43; file for <code>A</code> contains a directive to
+include the generated header file for <code>B</code>.
+The tool constructs the import path from the
+<a href="#Specifying-Models-as-Files_Locating-Definitions">location</a> of the
+definition of <code>B</code>.</p>
+</div>
+<div class="paragraph">
+<p>For example, suppose the file <code>[path prefix]/A/A.fpp</code> contains the following
+definition, where <code>[path prefix]</code> represents the path prefix of directory
+<code>A</code> starting from the root of the file system:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">array A = [3] B</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And suppose the file <code>[path prefix]/B/B.fpp</code> contains the following definition:</p>
+</div>
+<div class="listingblock fpp">
+<div class="content">
+<pre class="prettyprint highlight"><code>array B = [3] U32</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you run this command in directory <code>[path prefix]/A</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-to-cpp -i ../B/B.fpp A.fpp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>then in that directory the tool will generate a file <code>AArrayAc.hpp</code> containing
+the following line:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="cpp">#include "[path prefix]/B/BArrayAc.hpp"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Removing path prefixes:</strong>
+Usually when generating C&#43;&#43; we don&#8217;t want to include the system-specific path
+prefix.
+Instead, we want the path to be specified relative to some known place, for
+example
+the root of the F Prime repository or a project repository.</p>
+</div>
+<div class="paragraph">
+<p>To remove the prefix <em>prefix</em> from generated paths, use the option
+<code>-p</code> <em>prefix</em> .
+To continue the previous example, running</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>fpp-to-cpp -i ../B/B.fpp -p [path prefix] A.fpp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>generates a file <code>AArrayAc.hpp</code> containing the line</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="cpp">#include "B/BArrayAc.hpp"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that the path prefix <code>[path prefix]/</code> has been removed.</p>
+</div>
+<div class="paragraph">
+<p>To specify multiple prefixes, separate them with commas:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>fpp-to-xml -p prefix1,prefix2, ...</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For each generated path, the tool will delete the longest prefix
+that matches a prefix in the list.</p>
+</div>
+<div class="paragraph">
+<p>As discussed in the section on
+<a href="#Specifying-Models-as-Files_Path-Name-Aliases_Relative-Paths-and-Symbolic-Links">relative paths and symbolic links</a>,
+when a file name is relative to a path <em>S</em> that includes symbolic links,
+the associated location is relative to the directory <em>D</em> pointed to by <em>S</em>.
+In this case, providing <em>S</em> as an argument to <code>-p</code> will not work as expected.
+To work around this issue, you can do one of the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Provide both <em>D</em> and <em>S</em> as arguments to <code>-p</code>.</p>
+</li>
+<li>
+<p>Use absolute paths when presenting files to FPP code generation tools
+with the <code>-p</code> option.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p><strong>The include guard prefix:</strong> By default, the include guard
@@ -13817,25 +13632,43 @@ when running <code>fpp-to-cpp</code>:</p>
 <li>
 <p><code>-d</code> <em>dir</em> : Use <em>dir</em> instead of the current directory as
 the output directory for writing files.
-This is similar to the <code>-d</code> option for
-<a href="#Analyzing-and-Translating-Models_Generating-XML"><code>fpp-to-xml</code></a>.</p>
+For example,</p>
+<div class="listingblock">
+<div class="content">
+<pre>fpp-to-cpp -d cpp ...</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>writes output files
+to the directory <code>cpp</code> (which must already exist).</p>
+</div>
 </li>
 <li>
 <p><code>-n</code> <em>file</em> : Write the names of the generated C&#43;&#43; files
 to <em>file</em>.
-This is similar to the <code>-n</code> option for
-<a href="#Analyzing-and-Translating-Models_Generating-XML"><code>fpp-to-xml</code></a>.</p>
+This is useful for collecting autocoder build dependencies.</p>
 </li>
 <li>
 <p><code>-s</code> <em>size</em> : Specify a default string size.
-This is similar to the <code>-s</code> option for
-<a href="#Analyzing-and-Translating-Models_Generating-XML"><code>fpp-to-xml</code></a>.</p>
+For example,</p>
+<div class="listingblock">
+<div class="content">
+<pre>fpp-to-cpp -s 40 ...</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>FPP allows string types with no specified size.
+When generating code we need to provide a default size
+to use when FPP doesn&#8217;t specify the size.
+If you don&#8217;t specify the <code>-s</code> option, then the tool uses
+an automatic default of 80.</p>
+</div>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-State-Machines-and-Components">15.3.2. Types, Ports, State Machines, and Components</h4>
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-State-Machines-and-Components">15.2.2. Types, Ports, State Machines, and Components</h4>
 <div class="paragraph">
 <p><strong>Generating code:</strong>
 To generate code for type, port, state machine, and component definitions, you
@@ -13886,7 +13719,7 @@ Prime design documentation</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">15.3.3. Component Implementation and Unit Test Code</h4>
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">15.2.3. Component Implementation and Unit Test Code</h4>
 <div class="paragraph">
 <p><code>fpp-to-cpp</code> has options <code>-t</code> and <code>-u</code> for generating component &#8220;templates&#8221;
 or
@@ -13989,7 +13822,7 @@ build system does it for you.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">15.3.4. Topology Definitions</h4>
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">15.2.4. Topology Definitions</h4>
 <div class="paragraph">
 <p><code>fpp-to-cpp</code> also extracts <a href="#Defining-Topologies">topology definitions</a>
 from the source files.
@@ -14045,7 +13878,7 @@ the include guard prefix comes from the name of the topology.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Compiling-the-Generated-Code">15.3.5. Compiling the Generated Code</h4>
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Compiling-the-Generated-Code">15.2.5. Compiling the Generated Code</h4>
 <div class="paragraph">
 <p>The generated C&#43;&#43; is intended to compile with the following gcc
 and clang compiler flags:</p>
@@ -14075,202 +13908,7 @@ and clang compiler flags:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Identifying-Generated-Files">15.4. Identifying Generated Files</h3>
-<div class="paragraph">
-<p>As discussed in the previous section, the <code>-n</code> option
-of <code>fpp-to-xml</code> and <code>fpp-to-cpp</code> lets you collect the names of
-files generated from an FPP model as those files are generated.
-However, sometimes you need to know the names of the generated
-files up front.
-For example, the CMake build tool writes out a Makefile rule
-for every generated file, and it does this as an initial step
-before generating any files.
-There are two ways to collect the names of generated files:
-using <code>fpp-filenames</code> and using <code>fpp-depend</code>.</p>
-</div>
-<div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-filenames">15.4.1. Using fpp-filenames</h4>
-<div class="paragraph">
-<p>Like <code>fpp-check</code>, <code>fpp-filenames</code> reads the files
-provided as command-line arguments if there are any;
-otherwise it reads from standard input.
-The FPP source presented to <code>fpp-filenames</code> need not be a complete
-model (i.e., it may contain undefined symbols).
-When run with no options, tool parses the FPP source that you give it.
-It identifies all definitions in the source that would cause
-XML files to be generated when running <code>fpp-to-xml</code>
-or would cause C&#43;&#43; files to be generated when running
-<code>fpp-to-cpp</code>.
-Then it writes the names of those files to standard output.</p>
-</div>
-<div class="paragraph">
-<p>For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-filenames
-array A = [3] U32
-^D
-AArrayAi.xml</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-filenames
-constant a = 0
-^D
-FppConstantsAc.cpp
-FppConstantsAc.hpp</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You can run <code>fpp-filenames</code> with the <code>-u</code> option, with the <code>-t</code> option,
-or with both options.
-In these cases <code>fpp-filenames</code> writes out the names of
-the files that would be generated by running <code>fpp-to-cpp</code> with the
-corresponding options.
-For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-filenames -t
-array A = [3] U32
-passive component C {}
-^D
-C.template.cpp
-C.template.hpp</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-filenames -u
-array A = [3] U32
-passive component C {}
-^D
-array A = [3] U32
-passive component C {}
-AArrayAc.cpp
-AArrayAc.hpp
-AArrayAi.xml
-CComponentAc.cpp
-CComponentAc.hpp
-CComponentAi.xml
-CGTestBase.cpp
-CGTestBase.hpp
-CTesterBase.cpp
-CTesterBase.hpp</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-filenames -u -t
-array A = [3] U32
-passive component C {}
-^D
-CTestMain.cpp
-CTester.cpp
-CTester.hpp
-CTesterHelpers.cpp</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You can also also run <code>fpp-filenames</code> with the <code>-a</code> option.
-Again the results correspond to running <code>fpp-to-cpp</code> with this option.
-For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-filenames -a -u -t
-array A = [3] U32
-passive component C {}
-^D
-CTestMain.cpp
-CTester.cpp
-CTester.hpp</pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-depend">15.4.2. Using fpp-depend</h4>
-<div class="paragraph">
-<p>Alternatively, you can use
-<a href="#Specifying-Models-as-Files_Computing-Dependencies"><code>fpp-depend</code></a>
-to write out the names of generated files during dependency analysis.
-The output is the same as for <code>fpp-filenames</code>, but this way you can
-run one tool (<code>fpp-depend</code>) instead of two (<code>fpp-depend</code> and
-<code>fpp-filenames</code>).
-Running one tool may help your build go faster.</p>
-</div>
-<div class="paragraph">
-<p>To write out the names of generated files, you can use the following
-options provided by <code>fpp-depend</code>:</p>
-</div>
-<div class="paragraph">
-<p><code>-a</code>: Report the generation of files with
-<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">unit
-test auto helpers enabled</a>.</p>
-</div>
-<div class="paragraph">
-<p><code>-g</code> <em>file</em>: Write the names of the generated autocode files
- to the file <em>file</em>.</p>
-</div>
-<div class="paragraph">
-<p><code>-u</code> <em>file</em>: Write the names of the unit test support code
-files to <em>file</em>.</p>
-</div>
-<div class="paragraph">
-<p>For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-depend -g generated.txt -u ut-generated.txt
-array A = [3] U32
-passive component C {}
-^D
-% cat generated.txt
-AArrayAc.cpp
-AArrayAc.hpp
-AArrayAi.xml
-CComponentAc.cpp
-CComponentAc.hpp
-CComponentAi.xml
-% cat ut-generated.txt
-CGTestBase.cpp
-CGTestBase.hpp
-CTesterBase.cpp
-CTesterBase.hpp</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-depend -a -g generated.txt -u ut-generated.txt
-array A = [3] U32
-passive component C {}
-^D
-% cat generated.txt
-AArrayAc.cpp
-AArrayAc.hpp
-AArrayAi.xml
-CComponentAc.cpp
-CComponentAc.hpp
-CComponentAi.xml
-% cat ut-generated.txt
-CGTestBase.cpp
-CGTestBase.hpp
-CTesterBase.cpp
-CTesterBase.hpp
-CTesterHelpers.cpp</pre>
-</div>
-</div>
-<div class="paragraph">
-<p><code>fpp-depend</code> does not have an option for writing out the names of
-implementation template files, since those file names are not
-needed during dependency analysis.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Translating-XML-to-FPP">15.5. Translating XML to FPP</h3>
+<h3 id="Analyzing-and-Translating-Models_Translating-XML-to-FPP">15.3. Translating XML to FPP</h3>
 <div class="paragraph">
 <p>The FPP tool suite provides a capability to translate F Prime
 XML files to FPP.
@@ -14653,7 +14291,7 @@ to <code>Commands.fppi</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Formatting-FPP-Source">15.6. Formatting FPP Source</h3>
+<h3 id="Analyzing-and-Translating-Models_Formatting-FPP-Source">15.4. Formatting FPP Source</h3>
 <div class="paragraph">
 <p>The tool <code>fpp-format</code> accepts FPP source files as input
 and rewrites them as formatted output.
@@ -14727,7 +14365,7 @@ annotations back to comments.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Visualizing-Topologies">15.7. Visualizing Topologies</h3>
+<h3 id="Analyzing-and-Translating-Models_Visualizing-Topologies">15.5. Visualizing Topologies</h3>
 <div class="paragraph">
 <p>FPP provides a tool called <code>fpp-to-layout</code> for generating files
 that you can use to visualize topologies.
@@ -14844,7 +14482,7 @@ repository</a> for more details.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Generating-Ground-Dictionaries">15.8. Generating Ground Dictionaries</h3>
+<h3 id="Analyzing-and-Translating-Models_Generating-Ground-Dictionaries">15.6. Generating Ground Dictionaries</h3>
 <div class="paragraph">
 <p>A <strong>ground dictionary</strong> specifies all the commands,
 events, telemetry, parameters, and data products in a FSW
@@ -14983,7 +14621,203 @@ in the project.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Generating-JSON-Models">15.9. Generating JSON Models</h3>
+<h3 id="Analyzing-and-Translating-Models_Identifying-Generated-Files">15.7. Identifying Generated Files</h3>
+<div class="paragraph">
+<p>As discussed in the
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">section on generating
+C&#43;&#43;</a>,
+the <code>-n</code> option
+of <code>fpp-to-cpp</code> lets you collect the names of
+files generated from an FPP model as those files are generated.
+However, sometimes you need to know the names of the generated
+files up front.
+For example, the CMake build tool writes out a Makefile rule
+for every generated file, and it does this as an initial step
+before generating any files.
+There are two ways to collect the names of generated files:
+using <code>fpp-filenames</code> and using <code>fpp-depend</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-filenames">15.7.1. Using fpp-filenames</h4>
+<div class="paragraph">
+<p>Like <code>fpp-check</code>, <code>fpp-filenames</code> reads the files
+provided as command-line arguments if there are any;
+otherwise it reads from standard input.
+The FPP source presented to <code>fpp-filenames</code> need not be a complete
+model (i.e., it may contain undefined symbols).
+When run with no options, tool parses the FPP source that you give it.
+It identifies all definitions in the source that would cause
+C&#43;&#43; files to be generated when running
+<code>fpp-to-cpp</code> or <code>fpp-to-dict</code>.
+Then it writes the names of those files to standard output.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-filenames
+array A = [3] U32
+^D
+AArrayAc.cpp
+AArrayAc.hpp</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-filenames
+constant a = 0
+^D
+FppConstantsAc.cpp
+FppConstantsAc.hpp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can run <code>fpp-filenames</code> with the <code>-u</code> option, with the <code>-t</code> option,
+or with both options.
+In these cases <code>fpp-filenames</code> writes out the names of
+the files that would be generated by running <code>fpp-to-cpp</code> with the
+corresponding options.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-filenames -t
+array A = [3] U32
+passive component C {}
+^D
+C.template.cpp
+C.template.hpp</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-filenames -u
+array A = [3] U32
+passive component C {}
+^D
+array A = [3] U32
+passive component C {}
+AArrayAc.cpp
+AArrayAc.hpp
+CComponentAc.cpp
+CComponentAc.hpp
+CGTestBase.cpp
+CGTestBase.hpp
+CTesterBase.cpp
+CTesterBase.hpp</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-filenames -u -t
+array A = [3] U32
+passive component C {}
+^D
+CTestMain.cpp
+CTester.cpp
+CTester.hpp
+CTesterHelpers.cpp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also also run <code>fpp-filenames</code> with the <code>-a</code> option.
+Again the results correspond to running <code>fpp-to-cpp</code> with this option.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-filenames -a -u -t
+array A = [3] U32
+passive component C {}
+^D
+CTestMain.cpp
+CTester.cpp
+CTester.hpp</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-depend">15.7.2. Using fpp-depend</h4>
+<div class="paragraph">
+<p>Alternatively, you can use
+<a href="#Specifying-Models-as-Files_Computing-Dependencies"><code>fpp-depend</code></a>
+to write out the names of generated files during dependency analysis.
+The output is the same as for <code>fpp-filenames</code>, but this way you can
+run one tool (<code>fpp-depend</code>) instead of two (<code>fpp-depend</code> and
+<code>fpp-filenames</code>).
+Running one tool may help your build go faster.</p>
+</div>
+<div class="paragraph">
+<p>To write out the names of generated files, you can use the following
+options provided by <code>fpp-depend</code>:</p>
+</div>
+<div class="paragraph">
+<p><code>-a</code>: Report the generation of files with
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">unit
+test auto helpers enabled</a>.</p>
+</div>
+<div class="paragraph">
+<p><code>-g</code> <em>file</em>: Write the names of the generated autocode files
+ to the file <em>file</em>.</p>
+</div>
+<div class="paragraph">
+<p><code>-u</code> <em>file</em>: Write the names of the unit test support code
+files to <em>file</em>.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-depend -g generated.txt -u ut-generated.txt
+array A = [3] U32
+passive component C {}
+^D
+% cat generated.txt
+AArrayAc.cpp
+AArrayAc.hpp
+AArrayAi.xml
+CComponentAc.cpp
+CComponentAc.hpp
+CComponentAi.xml
+% cat ut-generated.txt
+CGTestBase.cpp
+CGTestBase.hpp
+CTesterBase.cpp
+CTesterBase.hpp</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-depend -a -g generated.txt -u ut-generated.txt
+array A = [3] U32
+passive component C {}
+^D
+% cat generated.txt
+AArrayAc.cpp
+AArrayAc.hpp
+AArrayAi.xml
+CComponentAc.cpp
+CComponentAc.hpp
+CComponentAi.xml
+% cat ut-generated.txt
+CGTestBase.cpp
+CGTestBase.hpp
+CTesterBase.cpp
+CTesterBase.hpp
+CTesterHelpers.cpp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>fpp-depend</code> does not have an option for writing out the names of
+implementation template files, since those file names are not
+needed during dependency analysis.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Analyzing-and-Translating-Models_Generating-JSON-Models">15.8. Generating JSON Models</h3>
 <div class="paragraph">
 <p>FPP provides a tool called <code>fpp-to-json</code> for converting FPP models to
 JavaScript Object Notation (JSON) format.
@@ -15147,13 +14981,13 @@ in the Analysis data structure, which maps Connection objects to integers.</p>
 </div>
 <div class="paragraph">
 <p><strong>Options:</strong> The following options are available
-when running <code>fpp-to-xml</code>:</p>
+when running <code>fpp-to-json</code>:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
 <p><code>-d</code> <em>dir</em> : Similar to the corresponding option of
-<a href="#Analyzing-and-Translating-Models_Generating-XML"><code>fpp-to-xml</code></a>.</p>
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus"><code>fpp-to-cpp</code></a>.</p>
 </li>
 <li>
 <p><code>-s</code>: Analyze syntax only:
@@ -15874,7 +15708,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-07-24 13:56:24 -0700
+Last updated 2025-07-24 21:13:25 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

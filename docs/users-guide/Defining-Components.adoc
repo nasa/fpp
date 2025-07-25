@@ -2685,10 +2685,7 @@ the following occurs:
 
 Similarly, the FPP constant `SerialSplitter.splitFactor`
 becomes a {cpp} constant `SerialSplitter_SplitFactor`.
-We will have more to say about this issue in the sections on
-<<Analyzing-and-Translating-Models_Generating-XML,
-generating XML>>
-and
+We will have more to say about this issue in the section on
 <<Analyzing-and-Translating-Models_Generating-C-Plus-Plus,
 generating {cpp}>>.
 
