@@ -9342,11 +9342,6 @@ identifier range of <em>I</em>.</p>
 identifier range for <code>leftEngineTemp</code>, which goes from
 0x100 to 0x101, inclusive.</p>
 </div>
-<div class="paragraph">
-<p><strong>XML limitation:</strong> The tool that generates the XML dictionary
-requires that each component instance <em>I</em> have a distinct base ID,
-even if <em>I</em> defines no dictionary elements.</p>
-</div>
 </div>
 <div class="sect3">
 <h4 id="Defining-Component-Instances_Component-Instance-Definitions_Queued-Components">12.1.2. Queued Components</h4>
@@ -12699,7 +12694,7 @@ When running analysis or code generation on <code>a.fpp</code>, you will need to
 <code>b.fpp</code> and <code>c.fpp</code> (see the
 <a href="#Specifying-Models-as-Files_Locating-Uses">next section</a>
 for an example).
-Further, if you have a build rule for translating <code>a.fpp</code> to XML, then you probably want to
+Further, if you have a build rule for translating <code>a.fpp</code> to C&#43;&#43;, then you probably want to
 re-run that rule if <code>c.fpp</code> changes.
 Therefore you need to report a dependency of <code>a.fpp</code> on <code>c.fpp</code>.</p>
 </div>
@@ -12857,11 +12852,14 @@ If <em>D</em> is the output of running <code>fpp-depend</code> on <em>F</em>, an
 then this property should hold.</p>
 </div>
 <div class="paragraph">
-<p>With <code>fpp-locate-uses</code>, you can automatically derive the equivalent of the <code>import</code>
-declarations that you construct by hand when writing F Prime XML.
+<p>With <code>fpp-locate-uses</code>, you can automatically derive the equivalent of the
+<code>include</code>
+declarations that you would normally write by hand when programming in C&#43;&#43;.
 For example, suppose you have specified a port <em>P</em> that uses a type <em>T</em>.
-To specify <em>P</em> in F Prime XML, you would write an <code>import</code> statement that
-imports <em>T</em> into <em>P</em>. In FPP you don&#8217;t do this. Instead, you can do the following:</p>
+To bring <em>P</em> into a C&#43;&#43; translation context, you would write an <code>include</code>
+directive that
+includes <em>T</em> into <em>P</em>. In FPP you don&#8217;t do this.
+Instead, you can do the following:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -12883,7 +12881,7 @@ the module that defines the types.</p>
 <p>The result is a location specifier that gives the location of <em>T</em>.
 If you wish, you can check the result in as part of the source code that
 defines <em>P</em>.
-Doing this provide as a kind of "import statement," if that is desired
+Doing this provide as a kind of &#8220;import statement,&#8221; if that is desired
 to make the dependencies explicit in the code.
 Or you can just use the procedure given above to generate the "import
 statement"
@@ -15708,7 +15706,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-07-24 21:13:25 -0700
+Last updated 2025-07-24 21:20:28 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

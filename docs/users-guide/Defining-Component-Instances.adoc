@@ -146,10 +146,6 @@ The base identifier 0x101 for `rightEngineTemp` is inside the
 identifier range for `leftEngineTemp`, which goes from
 0x100 to 0x101, inclusive.
 
-*XML limitation:* The tool that generates the XML dictionary
-requires that each component instance _I_ have a distinct base ID,
-even if _I_ defines no dictionary elements.
-
 ==== Queued Components
 
 Instantiating a queued component is just like instantiating

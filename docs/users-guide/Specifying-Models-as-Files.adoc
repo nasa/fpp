@@ -719,7 +719,7 @@ When running analysis or code generation on `a.fpp`, you will need to import
 `b.fpp` and `c.fpp` (see the
 <<Specifying-Models-as-Files_Locating-Uses,next section>>
 for an example).
-Further, if you have a build rule for translating `a.fpp` to XML, then you probably want to
+Further, if you have a build rule for translating `a.fpp` to {cpp}, then you probably want to
 re-run that rule if `c.fpp` changes.
 Therefore you need to report a dependency of `a.fpp` on `c.fpp`.
 
@@ -835,11 +835,14 @@ If _D_ is the output of running `fpp-depend` on _F_, and there are no
 missing dependencies>>,
 then this property should hold.
 
-With `fpp-locate-uses`, you can automatically derive the equivalent of the `import`
-declarations that you construct by hand when writing F Prime XML.
+With `fpp-locate-uses`, you can automatically derive the equivalent of the 
+`include`
+declarations that you would normally write by hand when programming in {cpp}.
 For example, suppose you have specified a port _P_ that uses a type _T_.
-To specify _P_ in F Prime XML, you would write an `import` statement that
-imports _T_ into _P_. In FPP you don't do this. Instead, you can do the following:
+To bring _P_ into a {cpp} translation context, you would write an `include` 
+directive that
+includes _T_ into _P_. In FPP you don't do this.
+Instead, you can do the following:
 
 . Run `fpp-locate-defs` to generate location specifiers _L_ for all the type 
 definitions.
@@ -853,7 +856,7 @@ the module that defines the types.
 The result is a location specifier that gives the location of _T_.
 If you wish, you can check the result in as part of the source code that 
 defines _P_.
-Doing this provide as a kind of "import statement," if that is desired
+Doing this provide as a kind of "`import statement,`" if that is desired
 to make the dependencies explicit in the code.
 Or you can just use the procedure given above to generate the "import 
 statement"
