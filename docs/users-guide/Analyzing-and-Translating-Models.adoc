@@ -259,7 +259,7 @@ This option tells the tool that you want to read the files in _D_ for their symb
 but you don't want to translate them.
 Only the files _F_ provided as arguments are translated.
 
-*Tool behavior:* When you run `fpp-to-xml`, the following occurs:
+*Tool behavior:* When you run `fpp-to-cpp`, the following occurs:
 
 . The tool runs the same analysis
 <<Analyzing-and-Translating-Models_Checking-Models,as for `fpp-check`>>.
@@ -421,7 +421,7 @@ Notice that the path prefix `[path prefix]/` has been removed.
 To specify multiple prefixes, separate them with commas:
 
 ----
-fpp-to-xml -p prefix1,prefix2, ...
+fpp-to-cpp -p prefix1,prefix2, ...
 ----
 
 For each generated path, the tool will delete the longest prefix
@@ -1264,8 +1264,15 @@ writes the result to standard output.
 As an example, try this:
 
 ----
-% fpp-to-xml
-struct S { x: U32, y: F32 }
+% cat > SSerializable.xml
+<serializable name="S">
+  <members>
+    <member name="x" type="U32">
+    </member>
+    <member name="y" type="F32">
+    </member>
+  </members>
+</serializable>
 ^D
 % fpp-from-xml SSerializableAi.xml
 struct S {
@@ -1273,6 +1280,9 @@ struct S {
   y: F32
 }
 ----
+
+(The formula `cat >` _file_ lets us enter input to
+the console and have it written to _file_.)
 
 *Default values:*
 There are two issues to note in connection with translating default
@@ -1291,8 +1301,17 @@ even if they could be made implicit.
 Here is an example:
 
 ----
-% fpp-to-xml
-array A = [3] U32
+% cat > AArrayAi.xml
+<array name="A">
+  <type>U32</type>
+  <size>3</size>
+  <format>%u</format>
+  <default>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+  </default>
+</array>
 ^D
 % fpp-from-xml AArrayAi.xml
 array A = [3] U32 default [
@@ -1318,9 +1337,18 @@ yourself.
 For example, try this:
 
 ----
-% fpp-to-xml
-type T
-array A = [3] T
+% cat > AArrayAi.xml
+<array name="A">
+  <include_header>T.hpp</include_header>
+  <type>T</type>
+  <size>3</size>
+  <format>%s</format>
+  <default>
+    <value>T()</value>
+    <value>T()</value>
+    <value>T()</value>
+  </default>
+</array>
 ^D
 % fpp-from-xml AArrayAi.xml
 @ FPP from XML: could not translate array value [ T(), T(), T() ]
@@ -1336,9 +1364,17 @@ So in this case, just delete the annotation.
 Here is another example:
 
 ----
-% fpp-to-xml
-array A = [2] U32
-array B = [2] A default [ [ 1, 2 ], [ 3, 4 ] ]
+% cat > BArrayAi.xml
+<array name="B">
+  <import_array_type>AArrayAi.xml</import_array_type>
+  <type>A</type>
+  <size>2</size>
+  <format>%s</format>
+  <default>
+    <value>A(1, 2)</value>
+    <value>A(3, 4)</value>
+  </default>
+</array>
 ^D
 % fpp-from-xml BArrayAi.xml
 @ FPP from XML: could not translate array value [ A(1, 2), A(3, 4) ]
@@ -1376,7 +1412,7 @@ as part of the definition of the member, argument, return type, etc.
 FPP does not represent these inline enum definitions directly.
 In FPP, enum definitions are always named, so they can be reused.
 Therefore, when translating an F Prime XML file that contains inline enum
-definitions, `fpp-to-xml` does the following: (1) translate
+definitions, `fpp-from-xml` does the following: (1) translate
 each inline definition to a named FPP enum; and (2) use the corresponding named
 types in the translated FPP struct or port.
 
@@ -1399,9 +1435,6 @@ cat > S1SerializableAi.xml
 </serializable>
 ^D
 ----
-
-(The formula `cat >` _file_ lets us enter input to
-the console and have it written to _file_.)
 
 Running `fpp-from-xml` on this file yields the following:
 
@@ -1434,40 +1467,27 @@ type of member `m` of struct `N.S1`.
 
 . The tool assigns member `m` of struct `N.S1` the type `N.E`.
 
-If you wish to translate an XML model to FPP, and that model contains
-inline enums, then we suggest the following procedure:
-
-. Run `fpp-from-xml` on the XML model as described above to convert all of the
-inline definitions to named XML types.
-
-. Refactor your XML model and FSW implementation to use the XML types generated
-in step 1.
-This may require changes to your {cpp} code.
-For example, inline XML enums and XML enum types generate
-slightly different code.
-Therefore, you will need to revise any
-uses of the old inline enums to match the new format.
-Do this step incrementally, making sure that all your regression tests pass at
-each step.
-
-. Once you have the XML model in the required form, run `fpp-from-xml`
-again to generate an FPP model _M_.
-If you have done step 2 correctly, then you should be able to
-replace your handwritten XML with the result of running `fpp-to-xml`
-on _M_.
-
 *Format strings:*
 `fpp-from-xml` translates XML format strings to FPP
 format strings, if it can.
 Here is an example:
 
 ----
-% fpp-to-xml
-array A = [3] F32 format "{f}"
+% cat > AArrayAi.xml
+<array name="A">
+  <type>F32</type>
+  <size>3</size>
+  <format>%f</format>
+  <default>
+    <value>0.0f</value>
+    <value>0.0f</value>
+    <value>0.0f</value>
+  </default>
+</array>
 ^D
 ----
 
-This will generate a file `AArrayAi.xml` containing the line
+Notice that this code contains the line
 
 ----
 <format>%f</format>
@@ -1539,6 +1559,6 @@ contains the include specifier
 include "Commands.fppi"
 -----
 
-Separately, you can use `fpp-to-xml` to translate `Commands.xml`
+Separately, you can use `fpp-from-xml` to translate `Commands.xml`
 to `Commands.fppi`.
 

@@ -13375,7 +13375,7 @@ but you don&#8217;t want to translate them.
 Only the files <em>F</em> provided as arguments are translated.</p>
 </div>
 <div class="paragraph">
-<p><strong>Tool behavior:</strong> When you run <code>fpp-to-xml</code>, the following occurs:</p>
+<p><strong>Tool behavior:</strong> When you run <code>fpp-to-cpp</code>, the following occurs:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -13575,7 +13575,7 @@ To continue the previous example, running</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>fpp-to-xml -p prefix1,prefix2, ...</pre>
+<pre>fpp-to-cpp -p prefix1,prefix2, ...</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -14663,8 +14663,15 @@ writes the result to standard output.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>% fpp-to-xml
-struct S { x: U32, y: F32 }
+<pre>% cat &gt; SSerializable.xml
+&lt;serializable name="S"&gt;
+  &lt;members&gt;
+    &lt;member name="x" type="U32"&gt;
+    &lt;/member&gt;
+    &lt;member name="y" type="F32"&gt;
+    &lt;/member&gt;
+  &lt;/members&gt;
+&lt;/serializable&gt;
 ^D
 % fpp-from-xml SSerializableAi.xml
 struct S {
@@ -14672,6 +14679,10 @@ struct S {
   y: F32
 }</pre>
 </div>
+</div>
+<div class="paragraph">
+<p>(The formula <code>cat &gt;</code> <em>file</em> lets us enter input to
+the console and have it written to <em>file</em>.)</p>
 </div>
 <div class="paragraph">
 <p><strong>Default values:</strong>
@@ -14694,8 +14705,17 @@ even if they could be made implicit.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>% fpp-to-xml
-array A = [3] U32
+<pre>% cat &gt; AArrayAi.xml
+&lt;array name="A"&gt;
+  &lt;type&gt;U32&lt;/type&gt;
+  &lt;size&gt;3&lt;/size&gt;
+  &lt;format&gt;%u&lt;/format&gt;
+  &lt;default&gt;
+    &lt;value&gt;0&lt;/value&gt;
+    &lt;value&gt;0&lt;/value&gt;
+    &lt;value&gt;0&lt;/value&gt;
+  &lt;/default&gt;
+&lt;/array&gt;
 ^D
 % fpp-from-xml AArrayAi.xml
 array A = [3] U32 default [
@@ -14725,9 +14745,18 @@ yourself.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>% fpp-to-xml
-type T
-array A = [3] T
+<pre>% cat &gt; AArrayAi.xml
+&lt;array name="A"&gt;
+  &lt;include_header&gt;T.hpp&lt;/include_header&gt;
+  &lt;type&gt;T&lt;/type&gt;
+  &lt;size&gt;3&lt;/size&gt;
+  &lt;format&gt;%s&lt;/format&gt;
+  &lt;default&gt;
+    &lt;value&gt;T()&lt;/value&gt;
+    &lt;value&gt;T()&lt;/value&gt;
+    &lt;value&gt;T()&lt;/value&gt;
+  &lt;/default&gt;
+&lt;/array&gt;
 ^D
 % fpp-from-xml AArrayAi.xml
 @ FPP from XML: could not translate array value [ T(), T(), T() ]
@@ -14746,9 +14775,17 @@ So in this case, just delete the annotation.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>% fpp-to-xml
-array A = [2] U32
-array B = [2] A default [ [ 1, 2 ], [ 3, 4 ] ]
+<pre>% cat &gt; BArrayAi.xml
+&lt;array name="B"&gt;
+  &lt;import_array_type&gt;AArrayAi.xml&lt;/import_array_type&gt;
+  &lt;type&gt;A&lt;/type&gt;
+  &lt;size&gt;2&lt;/size&gt;
+  &lt;format&gt;%s&lt;/format&gt;
+  &lt;default&gt;
+    &lt;value&gt;A(1, 2)&lt;/value&gt;
+    &lt;value&gt;A(3, 4)&lt;/value&gt;
+  &lt;/default&gt;
+&lt;/array&gt;
 ^D
 % fpp-from-xml BArrayAi.xml
 @ FPP from XML: could not translate array value [ A(1, 2), A(3, 4) ]
@@ -14798,7 +14835,7 @@ as part of the definition of the member, argument, return type, etc.</p>
 <p>FPP does not represent these inline enum definitions directly.
 In FPP, enum definitions are always named, so they can be reused.
 Therefore, when translating an F Prime XML file that contains inline enum
-definitions, <code>fpp-to-xml</code> does the following: (1) translate
+definitions, <code>fpp-from-xml</code> does the following: (1) translate
 each inline definition to a named FPP enum; and (2) use the corresponding named
 types in the translated FPP struct or port.</p>
 </div>
@@ -14823,10 +14860,6 @@ types in the translated FPP struct or port.</p>
 &lt;/serializable&gt;
 ^D</pre>
 </div>
-</div>
-<div class="paragraph">
-<p>(The formula <code>cat &gt;</code> <em>file</em> lets us enter input to
-the console and have it written to <em>file</em>.)</p>
 </div>
 <div class="paragraph">
 <p>Running <code>fpp-from-xml</code> on this file yields the following:</p>
@@ -14871,36 +14904,6 @@ type of member <code>m</code> of struct <code>N.S1</code>.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>If you wish to translate an XML model to FPP, and that model contains
-inline enums, then we suggest the following procedure:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Run <code>fpp-from-xml</code> on the XML model as described above to convert all of the
-inline definitions to named XML types.</p>
-</li>
-<li>
-<p>Refactor your XML model and FSW implementation to use the XML types generated
-in step 1.
-This may require changes to your C&#43;&#43; code.
-For example, inline XML enums and XML enum types generate
-slightly different code.
-Therefore, you will need to revise any
-uses of the old inline enums to match the new format.
-Do this step incrementally, making sure that all your regression tests pass at
-each step.</p>
-</li>
-<li>
-<p>Once you have the XML model in the required form, run <code>fpp-from-xml</code>
-again to generate an FPP model <em>M</em>.
-If you have done step 2 correctly, then you should be able to
-replace your handwritten XML with the result of running <code>fpp-to-xml</code>
-on <em>M</em>.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
 <p><strong>Format strings:</strong>
 <code>fpp-from-xml</code> translates XML format strings to FPP
 format strings, if it can.
@@ -14908,13 +14911,22 @@ Here is an example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>% fpp-to-xml
-array A = [3] F32 format "{f}"
+<pre>% cat &gt; AArrayAi.xml
+&lt;array name="A"&gt;
+  &lt;type&gt;F32&lt;/type&gt;
+  &lt;size&gt;3&lt;/size&gt;
+  &lt;format&gt;%f&lt;/format&gt;
+  &lt;default&gt;
+    &lt;value&gt;0.0f&lt;/value&gt;
+    &lt;value&gt;0.0f&lt;/value&gt;
+    &lt;value&gt;0.0f&lt;/value&gt;
+  &lt;/default&gt;
+&lt;/array&gt;
 ^D</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This will generate a file <code>AArrayAi.xml</code> containing the line</p>
+<p>Notice that this code contains the line</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -14997,7 +15009,7 @@ contains the include specifier</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Separately, you can use <code>fpp-to-xml</code> to translate <code>Commands.xml</code>
+<p>Separately, you can use <code>fpp-from-xml</code> to translate <code>Commands.xml</code>
 to <code>Commands.fppi</code>.</p>
 </div>
 </div>
@@ -15710,7 +15722,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-07-24 21:28:53 -0700
+Last updated 2025-07-24 21:48:09 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
