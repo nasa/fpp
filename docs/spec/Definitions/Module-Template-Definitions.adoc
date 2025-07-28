@@ -60,7 +60,8 @@ module template MT(
     toplogy T {
         instance comStub
 
-        # TODO(tumbar) What is this?
+        # TODO(tumbar) What is this? Do we need it
+        # (do we need `instance comStub`?)
         instance comDriver
 
         # Connect to the driver from the parameter list
