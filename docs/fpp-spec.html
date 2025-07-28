@@ -811,6 +811,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifiers_Semantics">7.23. Semantics</a>
 <ul class="sectlevel3">
 <li><a href="#Specifiers_Semantics_Checking-parameter-types">7.23.1. Checking parameter types</a></li>
+<li><a href="#Specifiers_Semantics_Template-Instantiation">7.23.2. Template Instantiation</a></li>
 </ul>
 </li>
 <li><a href="#Specifiers_Examples">7.24. Examples</a></li>
@@ -2913,6 +2914,11 @@ it is instatiated through a <a href="#Specifiers_Template-Instantiation-Specifie
 the set of parameters are applied to the template and the definitions inside the
 template are added to a new module definition.</p>
 </div>
+<div class="paragraph">
+<p>Because a template needs to apply its parameters during instantiation,
+analysis inside a template is limited since parameters are variable and
+therefore a full analysis cannot be performed.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Module-Template-Definitions_Example">5.10.3. Example</h4>
@@ -2943,6 +2949,8 @@ template are added to a new module definition.</p>
 
 instance comDriver: Drv.TcpClient base id 0x10300000 + 0x100
 
+# Instantiate template with topology inside
+# Pass an external component into the topology
 module M = MT(0x100, comDriver)
 
 topology T {
@@ -8306,27 +8314,11 @@ to generate a new concrete definition.</p>
 <div class="sect2">
 <h3 id="Specifiers_Syntax">7.22. Syntax</h3>
 <div class="paragraph">
-<p><em>definition-type</em>
+<p><code>module</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>=</code>
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</a>
 <code>(</code> _parameter-sequence</em> <code>)</code></p>
-</div>
-<div class="paragraph">
-<p><em>definition-type</em> is one of following keywords:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><code>component</code></p>
-</li>
-<li>
-<p><code>interface</code></p>
-</li>
-<li>
-<p><code>topology</code></p>
-</li>
-</ol>
 </div>
 <div class="paragraph">
 <p><em>parameter-sequence</em> is an
@@ -8341,7 +8333,7 @@ and the terminating punctuation is a semicolon.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The identifier names the new <strong>definition</strong>.</p>
+<p>The identifier names the new <strong>module definition</strong>.</p>
 </li>
 <li>
 <p>The qualified identifier must
@@ -8379,29 +8371,38 @@ that can <a href="#Port-Interfaces_Binding">bind</a> to <em>I</em>.</p>
 </ol>
 </div>
 </div>
+<div class="sect3">
+<h4 id="Specifiers_Semantics_Template-Instantiation">7.23.2. Template Instantiation</h4>
+<div class="paragraph">
+<p>When a template is instantiated, the set of parameters in the template are given
+concrete values. Each <em>local</em> definition inside the template applies the concrete
+parameter values and creates a new definition inside the newly defined module.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="Specifiers_Examples">7.24. Examples</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">@ Command and data handling topology
-topology CDH {
-  # ----------------------------------------------------------------------
-  # Private instances
-  # ----------------------------------------------------------------------
+<pre class="prettyprint highlight"><code data-lang="fpp">port P
+
+@ A basic template parameterizing an interface port count
+module template Templ(
+  constant numPorts: U32
+) {
+  interface I {
+    output port N[numPorts]: P
+  }
+
+  passive component C {
+    import I
+  }
 }
 
-template (...) topology C implements ... {
-    topology T1 = C1(0) // TODO(DO not add)
-}
-
-
-topology T2 = C(1, )
-
-template topology T(...) implements  {
-    topology T1 = C1(0)
-    instance I: FPPComponent
-}</code></pre>
+@ Instantiate the template giving the parameters concrete values
+module M = Templ(30)
+# M.I =&gt; interface { output port N[30]: P }
+# M.C =&gt; passive component { output port N[30]: P }</code></pre>
 </div>
 </div>
 </div>
@@ -12219,7 +12220,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-07-27 21:30:31 -0700
+Last updated 2025-07-28 09:25:00 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

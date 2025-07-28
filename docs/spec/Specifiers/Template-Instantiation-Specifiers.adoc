@@ -7,17 +7,11 @@ to generate a new concrete definition.
 
 === Syntax
 
-_definition-type_
+`module`
 <<Lexical-Elements_Identifiers,_identifier_>>
 `=`
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident>>
 `(` _parameter-sequence_ `)`
-
-_definition-type_ is one of following keywords:
-
-. `component`
-. `interface`
-. `topology`
 
 _parameter-sequence_ is an
 <<Element-Sequences,element sequence>> in
@@ -27,7 +21,7 @@ and the terminating punctuation is a semicolon.
 
 === Semantics
 
-. The identifier names the new *definition*.
+. The identifier names the new *module definition*.
 
 . The qualified identifier must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
@@ -52,26 +46,33 @@ that can <<Port-Interfaces_Binding,bind>> to _I_.
 
 . If the parameter type is `type`, the value must name a type.
 
+==== Template Instantiation
+
+When a template is instantiated, the set of parameters in the template are given
+concrete values. Each _local_ definition inside the template applies the concrete
+parameter values and creates a new definition inside the newly defined module.
+
 === Examples
 
 [source,fpp]
 ----
-@ Command and data handling topology
-topology CDH {
-  # ----------------------------------------------------------------------
-  # Private instances
-  # ----------------------------------------------------------------------
+port P
+
+@ A basic template parameterizing an interface port count
+module template Templ(
+  constant numPorts: U32
+) {
+  interface I {
+    output port N[numPorts]: P
+  }
+
+  passive component C {
+    import I
+  }
 }
 
-template (...) topology C implements ... {
-    topology T1 = C1(0) // TODO(DO not add)
-}
-
-
-topology T2 = C(1, )
-
-template topology T(...) implements  {
-    topology T1 = C1(0)
-    instance I: FPPComponent
-}
+@ Instantiate the template giving the parameters concrete values
+module M = Templ(30)
+# M.I => interface { output port N[30]: P }
+# M.C => passive component { output port N[30]: P }
 ----

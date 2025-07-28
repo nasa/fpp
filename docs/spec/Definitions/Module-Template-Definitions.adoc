@@ -42,6 +42,10 @@ template instantiation specifier>>. When a template is instantiated,
 the set of parameters are applied to the template and the definitions inside the
 template are added to a new module definition.
 
+Because a template needs to apply its parameters during instantiation,
+analysis inside a template is limited since parameters are variable and
+therefore a full analysis cannot be performed.
+
 ==== Example
 
 [source,fpp]
@@ -71,6 +75,8 @@ module template MT(
 
 instance comDriver: Drv.TcpClient base id 0x10300000 + 0x100
 
+# Instantiate template with topology inside
+# Pass an external component into the topology
 module M = MT(0x100, comDriver)
 
 topology T {
