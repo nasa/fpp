@@ -1,9 +1,10 @@
 == Instance Member Identifiers
 
-A *instance member identifier* refers to a <<
-Instance-Member-Identifiers_Port-Instance-Identifiers,
-port instance identifier>> or a <Port-Interfaces_Telemetry-Channel-Identifiers,
-telemetry channel identifier>>.
+A *instance member identifier* refers to the member of a <<Definitions_Component-Instance-Definitions,
+component instance definition>> or <<Definitions_Topology-Definitions,topology definition>>.
+There are two types of instance member identifiers: <<Instance-Member-Identifiers_Port-Instance-Identifiers,
+port instance identifiers>> and <Port-Interfaces_Telemetry-Channel-Identifiers,
+telemetry channel identifiers>>.
 
 === Port Instance Identifiers
 

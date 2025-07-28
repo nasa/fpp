@@ -1,0 +1,82 @@
+=== Module Template Definitions
+
+A *module template definition* defines an FPP module template.
+A module template is a FPP construct that can generate an FPP module
+with definitions inside parameterized with a set of types, constants,
+and interfaces.
+
+==== Syntax
+
+`module` `template`
+<<Lexical-Elements_Identifiers,_identifier_>>
+`(` _parameter-sequence_ `)`
+_module-template-member-sequence_
+
+The _identifier_ specifies the name of the template.
+
+_parameter-sequence_ is a
+<<Template-Parameter-Lists,template parameter sequence>> in
+which each element is a *parameter*, and
+the terminating punctuation is a comma.
+
+_module-member-sequence_ is an
+<<Element-Sequences,element sequence>> in
+which each element is a <<Definitions_Module-Definitions_Syntax,
+module member>>, and the terminating punctuation is a semicolon.
+
+==== Semantics
+
+_Template_ definitions differ from other definitions in that they
+do not define symbols in the way that others define symbols. All
+symbols defined inside a template (including it's parameters) are
+_local_ to that template. This means that the definitions _inside_
+the template definition cannot be refered to from outside the template
+definition.
+
+A _template_ definition will not generate any FPP definitions until
+it is instatiated through a <<Specifiers_Template-Instantiation-Specifiers,
+template instantiation specifier>>.
+
+A template can be instantiated through a <<Specifiers_Template-Instantiation-Specifiers,
+template instantiation specifier>>. When a template is instantiated,
+the set of parameters are applied to the template and the definitions inside the
+template are added to a new module definition.
+
+==== Example
+
+[source,fpp]
+----
+module template MT(
+    constant base_id: U32,
+    interface comDriver: ByteStreamDriver
+) {
+    instance comStub: Svc.ComStub base id \
+        base_id + 0x0800
+
+    toplogy T {
+        instance comStub
+
+        # TODO(tumbar) What is this?
+        instance comDriver
+
+        # Connect to the driver from the parameter list
+        connections Downlink {
+            # ComStub <-> ComDriver
+            comStub.drvSendOut      -> comDriver.$send
+            comDriver.sendReturnOut -> comStub.drvSendReturnIn
+            comDriver.ready         -> comStub.drvConnected
+        }
+    }
+}
+
+instance comDriver: Drv.TcpClient base id 0x10300000 + 0x100
+
+module M = MT(0x100, comDriver)
+
+topology T {
+    import M.T # Imports the instantiated template topology
+    import MT.T # Error: Cannot reference definitions inside a _template_
+
+    instance comDriver
+}
+----

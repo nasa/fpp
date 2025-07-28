@@ -41,8 +41,6 @@ instance specifier>>
 
 * An <<Specifiers_Include-Specifiers,include specifier>>
 
-* A <<Definitions_Component-Instance-Definitions,component instance definition>>
-
 ==== Semantics
 
 The identifier is the name of the topology.
@@ -126,8 +124,6 @@ of _T'_ into _T_.
 
 .. Note that only <<Specifiers_Component-Instance-Specifiers,component
 instance specifiers>> instances from _T'_ will be imported into _T_.
-<<Definitions_Component-Instance-Definitions,Component instance definitions>> inside _T'_
-will be hidden (and cannot be directly connected to) inside _T_.
 
 . Check that the connections discovered in step 3 are between port
 instances present in _T_ or are <<Specifiers_Topology-Port-Specifiers,topology ports>>
@@ -285,8 +281,6 @@ A *connection endpoint* is _I_ `.` _p_ or _I_ `.` _p_ `[` _n_ `]`, where
 .. A <<Definitions_Component-Instance-Definitions,component instance definition>> that is
 included in the topology via a <<Specifiers_Component-Instance-Specifiers,component instance specifier>>
 
-.. A <<Definitions_Component-Instance-Definitions,component instance definition>> defined _inside_ _T_
-
 .. A <<Definitions_Topology-Definitions,topology definition>> that is <<Specifiers_Topology-Import-Specifiers,imported>>
 into _T_.
 
@@ -382,17 +376,6 @@ topology CDH {
   instance rateGroupDriver
   instance telemetryDatabase
   instance timeSource
-
-  # ----------------------------------------------------------------------
-  # Local component instance definitions
-  # ----------------------------------------------------------------------
-
-  instance commandDispatcher: Svc.CommandDispatcher \
-    base id 0x100 \
-    queue size 10 \
-    stack size 4096 \
-    priority 30 \
-    cpu 0
 
   # ----------------------------------------------------------------------
   # Private instances

@@ -1,7 +1,7 @@
 === Template Instantiation Specifiers
 
 A *template instantiation specifier* takes a
-<<Definitions_Template-Definitions,template>> and
+<<Definitions_Module-Template-Definitions,template>> and
 applies a set of values to its <<Template-Parameter-Lists,parameters>>
 to generate a new concrete definition.
 
@@ -32,7 +32,7 @@ and the terminating punctuation is a semicolon.
 . The qualified identifier must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
 a
-<<Definitions_Template-Definitions,template definition _T_>>.
+<<Definitions_Module-Template-Definitions,module template definition _T_>>.
 
 . The parameter sequence is the set of parameters that map to
 the template parameters of the template _T_.
@@ -42,8 +42,8 @@ the template parameters of the template _T_.
 When passing values and references to template instantiation, each parameter
 is checked with the following rules:
 
-. If the parameter type is `constant`, the value must be a **constant integer** or an
-expression that returns an integer.
+. If the parameter type is `constant`, the type of the value will be
+<<Type-Checking_Type-Conversion,converted to>> the type specified in the parameter list.
 
 . If the parameter type is `interface` _I_, the value must be a
 <<Scoping-of-Names_Qualified-Identifiers,_qualified-identifier_>> of a

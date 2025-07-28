@@ -70,7 +70,7 @@ reside in the following *name groups*:
 
 . The *value name group*
 
-. The *endpoint name group*
+. The *interface instance name group*
 
 Definitions reside in name groups as follows:
 
@@ -82,7 +82,7 @@ Definitions reside in name groups as follows:
 the value name group, the type name group, and the
 state machine name group.
 
-* Component instance definitions reside in the component instance and the endpoint name group.
+* Component instance definitions reside in the component instance name group and the interface instance name group.
 
 * Constant definitions reside in the value name group.
 
@@ -100,7 +100,9 @@ state machine name group.
 
 * Struct type definitions reside in the type name group.
 
-* Topology definitions reside in all name groups.
+* Module template definitions reside in all name groups.
+
+* Topology definitions reside in the topology name group and the interface instance name group.
 
 Notice that elements with scopes reside in the name groups of items
 that they may enclose.
@@ -156,26 +158,6 @@ module M { constant a = 0 }
 a = M.a
 b = M.b
 module M { constant b = 1 }
-----
-
-==== Topology Definitions
-
-Topology definitions allow <<Definitions_Topology-Definitions_Semantics,some>>
-definitions inside. Definitions inside topology definitions are qualified by
-the name of the definition.
-
-[source,fpp]
-----
-module M {
-  topology T{
-    instance commandDispatcher: Svc.CommandDispatcher base id 0x100
-  }
-}
-
-topology T {
-  import M.T
-  command connections instance M.T.commandDispatcher
-}
 ----
 
 ==== Conflicting Definitions
