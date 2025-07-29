@@ -246,7 +246,7 @@ case class ComponentHistory(
         List.concat(
           portParamTypeMap(portName) match {
             case Nil => lines(s"this->$historySizeName++;")
-            case _ => pushHistoryEntry(p) 
+            case _ => pushHistoryEntry(p)
           },
           lines("this->fromPortHistorySize++;")
         )
@@ -476,7 +476,7 @@ case class ComponentHistory(
       ),
       CppDoc.Type("void"),
       lines(
-        """|const char* severityString = "UNKNOWN";
+        """|const char* severityString;
            |
            |switch (e.severity.e) {
            |  case Fw::LogSeverity::FATAL:

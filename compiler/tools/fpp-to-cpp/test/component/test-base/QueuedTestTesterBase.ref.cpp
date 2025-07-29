@@ -5064,7 +5064,7 @@ void QueuedTestTesterBase ::
       FILE* file
   )
 {
-  const char* severityString = "UNKNOWN";
+  const char* severityString;
 
   switch (e.severity.e) {
     case Fw::LogSeverity::FATAL:
