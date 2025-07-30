@@ -103,6 +103,14 @@ Fw::SerializeStatus PrimitiveStruct ::
   return status;
 }
 
+FwSizeType PrimitiveStruct ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  size += this->m_s1.serializedSize();
+  return size;
+}
+
 #if FW_SERIALIZABLE_TO_STRING
 
 void PrimitiveStruct ::

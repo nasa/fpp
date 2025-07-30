@@ -103,6 +103,14 @@ Fw::SerializeStatus Abs ::
   return status;
 }
 
+FwSizeType Abs ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  size += AbsType::SERIALIZED_SIZE;
+  return size;
+}
+
 #if FW_SERIALIZABLE_TO_STRING
 
 void Abs ::

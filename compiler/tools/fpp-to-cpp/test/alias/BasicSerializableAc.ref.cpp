@@ -147,6 +147,17 @@ Fw::SerializeStatus Basic ::
   return status;
 }
 
+FwSizeType Basic ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  size += sizeof(TU32);
+  size += sizeof(TF32);
+  size += this->m_C.serializedSize();
+  size += this->m_D.serializedSize();
+  return size;
+}
+
 #if FW_SERIALIZABLE_TO_STRING
 
 void Basic ::

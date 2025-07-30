@@ -160,6 +160,18 @@ Fw::SerializeStatus StructWithAlias ::
   return status;
 }
 
+FwSizeType StructWithAlias ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  size += sizeof(AliasPrim1);
+  size += this->m_y.serializedSize();
+  size += this->m_z.serializedSize();
+  size += this->m_w.serializedSize();
+  size += this->m_q.serializedSize();
+  return size;
+}
+
 #if FW_SERIALIZABLE_TO_STRING
 
 void StructWithAlias ::

@@ -163,6 +163,17 @@ Fw::SerializeStatus StringArray ::
   return status;
 }
 
+FwSizeType StringArray ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  size += this->m_s1.serializedSize();
+  for (U32 index = 0; index < 16; index++) {
+    size += this->m_s2[index].serializedSize();
+  }
+  return size;
+}
+
 #if FW_SERIALIZABLE_TO_STRING
 
 void StringArray ::

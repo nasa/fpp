@@ -178,6 +178,12 @@ namespace M {
     return status;
   }
 
+  FwSizeType PrimitiveF64 ::
+    serializedSize() const
+  {
+    return SERIALIZED_SIZE;
+  }
+
 #if FW_SERIALIZABLE_TO_STRING
 
   void PrimitiveF64 ::

@@ -134,6 +134,16 @@ Fw::SerializeStatus Default ::
   return status;
 }
 
+FwSizeType Default ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  size += sizeof(U32);
+  size += this->m_mS1.serializedSize();
+  size += sizeof(F64);
+  return size;
+}
+
 #if FW_SERIALIZABLE_TO_STRING
 
 void Default ::

@@ -104,6 +104,9 @@ class Basic :
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     );
 
+    //! Serialized Size
+    FwSizeType serializedSize() const;
+
 #if FW_SERIALIZABLE_TO_STRING
 
     //! Convert struct to string

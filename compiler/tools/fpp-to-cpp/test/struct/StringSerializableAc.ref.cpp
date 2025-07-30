@@ -121,6 +121,15 @@ Fw::SerializeStatus String ::
   return status;
 }
 
+FwSizeType String ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  size += this->m_s1.serializedSize();
+  size += this->m_s2.serializedSize();
+  return size;
+}
+
 #if FW_SERIALIZABLE_TO_STRING
 
 void String ::

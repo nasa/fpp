@@ -170,6 +170,12 @@ Fw::SerializeStatus C_A ::
   return status;
 }
 
+FwSizeType C_A ::
+  serializedSize() const
+{
+  return SERIALIZED_SIZE;
+}
+
 #if FW_SERIALIZABLE_TO_STRING
 
 void C_A ::
