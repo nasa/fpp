@@ -693,7 +693,7 @@ case class ComponentInternalStateMachines(
       t.getUnderlyingType match {
         case _: Type.String =>
           s"Fw::StringBase::STATIC_SERIALIZED_SIZE(${signalStringSize.toString})"
-        case _ => writeSerializedSizeExpr(s, t, TypeCppWriter.getName(s, t))
+        case _ => writeStaticSerializedSizeExpr(s, t, TypeCppWriter.getName(s, t))
       }
 
   }
