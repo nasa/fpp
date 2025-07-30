@@ -13,16 +13,17 @@ The qualified identifier must
 a
 <<Definitions_Topology-Definitions,topology definition>>.
 
-*Importing instances:*
-FPP uses the following algorithm to import the instances
+===== Importing Instances
+
+FPP uses the following algorithm to import the interface instances
 of topology _T'_ into topology _T_:
 
 . Let _I_ be the set of
-<<Specifiers_Component-Instance-Specifiers,instances>>
+<<Specifiers_Interface-Instance-Specifiers,instances>>
 of _T_.
 
 . Let _I'_ be the set of
-<<Specifiers_Component-Instance-Specifiers,public instances>>
+<<Specifiers_Interface-Instance-Specifiers,public instances>>
 of _T'_.
 
 . Let _I''_ be the set union of _I_ and _I'_.
@@ -31,7 +32,8 @@ then _I''_ contains the instance _S_ once.
 Each instance in _I''_ has private visibility if it is private
 in either _I_ or _I'_, otherwise public visibility.
 
-*Importing connections:*
+===== Importing Connections
+
 FPP uses the following algorithm to import the connections
 of topology _T'_ into topology _T_.
 

@@ -62,7 +62,7 @@ telemetry channel identifiers.
 For each telemetry channel identifier _I_ in _L_,
 the component instance referred to in _I_ must be
 available in the enclosing topology, either through
-<<Specifiers_Component-Instance-Specifiers,direct specification>>
+<<Specifiers_Interface-Instance-Specifiers,direct specification>>
 or through
 <<Specifiers_Topology-Import-Specifiers,import>>.
 

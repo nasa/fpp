@@ -49,7 +49,7 @@ FPP then checks the following:
 a distinct name and a distinct identifier.
 
 . For every component instance _I_ available in the enclosing topology, either through
-<<Specifiers_Component-Instance-Specifiers,direct specification>>
+<<Specifiers_Interface-Instance-Specifiers,direct specification>>
 or through
 <<Specifiers_Topology-Import-Specifiers,import>>,
 for every telemetry channel _T_ that is a member of _I_,

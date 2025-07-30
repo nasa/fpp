@@ -6,7 +6,7 @@ as part of a
 A connection graph is a named set of *connections*.
 A connection connects an <<Specifiers_Port-Instance-Specifiers,output port
 instance>> of one
-<<Specifiers_Component-Instance-Specifiers,component instance>> or <<Specifiers_Topology-Import-Specifiers,imported topology>>
+<<Specifiers_Interface-Instance-Specifiers,interface instance>> or <<Specifiers_Topology-Import-Specifiers,imported topology>>
 to an
 <<Specifiers_Port-Instance-Specifiers,input port instance>> of
 another.
@@ -134,9 +134,9 @@ target instances.
 
 . The qualified identifier following the keyword `instance` must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
-a component instance that is available in the enclosing topology,
+a interface instance that is available in the enclosing topology,
 either through
-<<Specifiers_Component-Instance-Specifiers,direct specification>>
+<<Specifiers_Interface-Instance-Specifiers,direct specification>>
 or through
 <<Specifiers_Topology-Import-Specifiers,import>>.
 

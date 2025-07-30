@@ -1,8 +1,8 @@
-=== Component Instance Specifiers
+=== Interface Instance Specifiers
 
-A *component instance specifier*
+A *interface instance specifier*
 specifies that a
-<<Definitions_Component-Instance-Definitions,component instance>>
+<<Port-Interfaces_Port-Interface-Instance,port interface instance>>
 is part of a
 <<Definitions_Topology-Definitions,topology>>.
 
@@ -17,7 +17,7 @@ _[_ `private` _]_
 * The qualified identifier must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
 a
-<<Definitions_Component-Instance-Definitions,component instance>>.
+<<Port-Interfaces_Port-Interface-Instance,port interface instance>>.
 
 * The optional keyword `private`, if present, specifies
 a *private instance* of a topology.
@@ -33,6 +33,24 @@ a *public instance*. This means the instance
 appears in each topology _T'_ into which _T_ is
 <<Specifiers_Topology-Import-Specifiers,imported>>.
 
+* The _qual-ident_ _I_ <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refers to>>
+an interface instance. Interface instances are definitions that expose port interfaces.
+FPP has two types of interface instances: <<Definitions_Component-Instance-Definitions,
+component instances>> and <<Definitions_Topology-Definitions,topologies>>.
+See <<Port-Interfaces_Port-Interface-Instance,port interface instance>>
+
+** If _I_ refers to a *component instance definition* _C_, connecting to _I_'s port interface
+will connect ports direct to the port instances in _C_.
+
+** If _I_ refers to a *topology definition* _T'_, connection to _I_'s port interface will
+connect to the underlying ports mapped via the <<Specifiers_Topology-Port-Specifiers,
+topology port specifiers>> in _T'_.
+
+***  _T_ will also import the connections of _T'_ according to the
+<<Specifiers_Topology-Import-Specifiers_Semantics_Importing-Connections,
+topology connection import semantics>>.
+
+
 ==== Example
 
 [source,fpp]
@@ -45,7 +63,12 @@ instance a: A base id 0x100 ...
 instance b: B base id 0x200 ...
 instance c: B base id 0x300 ...
 
-Topology T {
+topology SubTopology {
+  instance a
+  port a = a.out
+}
+
+topology T {
 
   # ----------------------------------------------------------------------
   # Public instances
@@ -53,6 +76,7 @@ Topology T {
 
   instance a
   instance b
+  instance SubTopology
 
   # ----------------------------------------------------------------------
   # Private instances

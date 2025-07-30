@@ -9,12 +9,12 @@ redo-ifchange defs.sh
 export FILES="
 Introduction.adoc
 Command-Specifiers.adoc
-Component-Instance-Specifiers.adoc
 Connection-Graph-Specifiers.adoc
 Container-Specifiers.adoc
 Event-Specifiers.adoc
 Include-Specifiers.adoc
 Init-Specifiers.adoc
+Interface-Instance-Specifiers.adoc
 Interface-Import-Specifiers.adoc
 Internal-Port-Specifiers.adoc
 Location-Specifiers.adoc

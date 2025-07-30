@@ -28,7 +28,7 @@ which each element is a *topology member*,
 and the terminating punctuation is a semicolon.
 A topology member is one of the following:
 
-* A <<Specifiers_Component-Instance-Specifiers,component
+* A <<Specifiers_Interface-Instance-Specifiers,interface
 instance specifier>>
 
 * A <<Specifiers_Connection-Graph-Specifiers,connection graph specifier>>
@@ -122,7 +122,7 @@ connections C { a.b -> c.d, e.f -> g.h }
 <<Specifiers_Topology-Import-Specifiers,import the instances>>
 of _T'_ into _T_.
 
-.. Note that only <<Specifiers_Component-Instance-Specifiers,component
+.. Note that only <<Specifiers_Interface-Instance-Specifiers,interface
 instance specifiers>> instances from _T'_ will be imported into _T_.
 
 . Check that the connections discovered in step 3 are between port
@@ -276,13 +276,10 @@ here and just call out to <<Port-Interfaces_Port-Interface-Instance,port interfa
 
 A *connection endpoint* is _I_ `.` _p_ or _I_ `.` _p_ `[` _n_ `]`, where
 
-. _I_ is one of the following
-
-.. A <<Definitions_Component-Instance-Definitions,component instance definition>> that is
-included in the topology via a <<Specifiers_Component-Instance-Specifiers,component instance specifier>>
-
-.. A <<Definitions_Topology-Definitions,topology definition>> that is <<Specifiers_Topology-Import-Specifiers,imported>>
-into _T_.
+. _I_ is an <<Port-Interfaces_Port-Interface-Instance,
+port interface instance>> that is included in the topology via a
+<<Specifiers_Interface-Instance-Specifiers,interface instance specifier>> or implicitely
+a <<Specifiers_Topology-Import-Specifiers,topology import specifier>>.
 
 . And _p_ meets the following conditions:
 
