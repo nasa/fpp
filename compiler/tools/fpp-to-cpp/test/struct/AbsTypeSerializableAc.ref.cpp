@@ -139,7 +139,7 @@ void AbsType ::
 }
 
 void AbsType ::
-  sett(const T& t)
+  set_t(const T& t)
 {
   this->m_t = t;
 }

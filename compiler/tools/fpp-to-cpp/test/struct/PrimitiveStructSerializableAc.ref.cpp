@@ -139,7 +139,7 @@ void PrimitiveStruct ::
 }
 
 void PrimitiveStruct ::
-  sets1(const Primitive& s1)
+  set_s1(const Primitive& s1)
 {
   this->m_s1 = s1;
 }

@@ -129,25 +129,25 @@ class Modules3 :
     // ----------------------------------------------------------------------
 
     //! Get member x
-    M::Modules2& getx()
+    M::Modules2& get_x()
     {
       return this->m_x;
     }
 
     //! Get member x (const)
-    const M::Modules2& getx() const
+    const M::Modules2& get_x() const
     {
       return this->m_x;
     }
 
     //! Get member arr
-    Type_of_arr& getarr()
+    Type_of_arr& get_arr()
     {
       return this->m_arr;
     }
 
     //! Get member arr (const)
-    const Type_of_arr& getarr() const
+    const Type_of_arr& get_arr() const
     {
       return this->m_arr;
     }
@@ -163,10 +163,10 @@ class Modules3 :
     );
 
     //! Set member x
-    void setx(const M::Modules2& x);
+    void set_x(const M::Modules2& x);
 
     //! Set member arr
-    void setarr(const Type_of_arr& arr);
+    void set_arr(const Type_of_arr& arr);
 
   protected:
 

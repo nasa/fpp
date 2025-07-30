@@ -110,13 +110,13 @@ class AbsType :
     // ----------------------------------------------------------------------
 
     //! Get member t
-    T& gett()
+    T& get_t()
     {
       return this->m_t;
     }
 
     //! Get member t (const)
-    const T& gett() const
+    const T& get_t() const
     {
       return this->m_t;
     }
@@ -129,7 +129,7 @@ class AbsType :
     void set(const T& t);
 
     //! Set member t
-    void sett(const T& t);
+    void set_t(const T& t);
 
   protected:
 

@@ -121,37 +121,37 @@ class Basic :
     // ----------------------------------------------------------------------
 
     //! Get member A
-    TU32 getA() const
+    TU32 get_A() const
     {
       return this->m_A;
     }
 
     //! Get member B
-    TF32 getB() const
+    TF32 get_B() const
     {
       return this->m_B;
     }
 
     //! Get member C
-    Fw::ExternalString& getC()
+    Fw::ExternalString& get_C()
     {
       return this->m_C;
     }
 
     //! Get member C (const)
-    const Fw::ExternalString& getC() const
+    const Fw::ExternalString& get_C() const
     {
       return this->m_C;
     }
 
     //! Get member D
-    Fw::ExternalString& getD()
+    Fw::ExternalString& get_D()
     {
       return this->m_D;
     }
 
     //! Get member D (const)
-    const Fw::ExternalString& getD() const
+    const Fw::ExternalString& get_D() const
     {
       return this->m_D;
     }
@@ -169,16 +169,16 @@ class Basic :
     );
 
     //! Set member A
-    void setA(TU32 A);
+    void set_A(TU32 A);
 
     //! Set member B
-    void setB(TF32 B);
+    void set_B(TF32 B);
 
     //! Set member C
-    void setC(const Fw::StringBase& C);
+    void set_C(const Fw::StringBase& C);
 
     //! Set member D
-    void setD(const Fw::StringBase& D);
+    void set_D(const Fw::StringBase& D);
 
   protected:
 

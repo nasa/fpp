@@ -576,7 +576,7 @@ case class StructCppWriter(
   }
 
   private def getGetterFunctionMembers: List[CppDoc.Class.Member] = {
-    def getGetterName(n: String) = s"get$n"
+    def getGetterName(n: String) = s"get_$n"
 
     memberList.flatMap((n, tn) => (sizes.contains(n), typeMembers(n).getUnderlyingType) match {
       case (false, _: Type.Enum) => List(
@@ -641,7 +641,7 @@ case class StructCppWriter(
       memberList.map((n, tn) =>
         functionClassMember(
           Some(s"Set member $n"),
-          s"set$n",
+          s"set_$n",
           List(
             writeMemberAsParam((n, tn))
           ),

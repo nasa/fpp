@@ -160,85 +160,85 @@ class Primitive :
     // ----------------------------------------------------------------------
 
     //! Get member mF32
-    Type_of_mF32& getmF32()
+    Type_of_mF32& get_mF32()
     {
       return this->m_mF32;
     }
 
     //! Get member mF32 (const)
-    const Type_of_mF32& getmF32() const
+    const Type_of_mF32& get_mF32() const
     {
       return this->m_mF32;
     }
 
     //! Get member mF64
-    F64 getmF64() const
+    F64 get_mF64() const
     {
       return this->m_mF64;
     }
 
     //! Get member mI16
-    I16 getmI16() const
+    I16 get_mI16() const
     {
       return this->m_mI16;
     }
 
     //! Get member mI32
-    I32 getmI32() const
+    I32 get_mI32() const
     {
       return this->m_mI32;
     }
 
     //! Get member mI64
-    I64 getmI64() const
+    I64 get_mI64() const
     {
       return this->m_mI64;
     }
 
     //! Get member mI8
-    I8 getmI8() const
+    I8 get_mI8() const
     {
       return this->m_mI8;
     }
 
     //! Get member mU16
-    U16 getmU16() const
+    U16 get_mU16() const
     {
       return this->m_mU16;
     }
 
     //! Get member mU32
-    U32 getmU32() const
+    U32 get_mU32() const
     {
       return this->m_mU32;
     }
 
     //! Get member mU64
-    U64 getmU64() const
+    U64 get_mU64() const
     {
       return this->m_mU64;
     }
 
     //! Get member mU8
-    U8 getmU8() const
+    U8 get_mU8() const
     {
       return this->m_mU8;
     }
 
     //! Get member m_bool
-    bool getm_bool() const
+    bool get_m_bool() const
     {
       return this->m_m_bool;
     }
 
     //! Get member m_string
-    Fw::ExternalString& getm_string()
+    Fw::ExternalString& get_m_string()
     {
       return this->m_m_string;
     }
 
     //! Get member m_string (const)
-    const Fw::ExternalString& getm_string() const
+    const Fw::ExternalString& get_m_string() const
     {
       return this->m_m_string;
     }
@@ -264,40 +264,40 @@ class Primitive :
     );
 
     //! Set member mF32
-    void setmF32(const Type_of_mF32& mF32);
+    void set_mF32(const Type_of_mF32& mF32);
 
     //! Set member mF64
-    void setmF64(F64 mF64);
+    void set_mF64(F64 mF64);
 
     //! Set member mI16
-    void setmI16(I16 mI16);
+    void set_mI16(I16 mI16);
 
     //! Set member mI32
-    void setmI32(I32 mI32);
+    void set_mI32(I32 mI32);
 
     //! Set member mI64
-    void setmI64(I64 mI64);
+    void set_mI64(I64 mI64);
 
     //! Set member mI8
-    void setmI8(I8 mI8);
+    void set_mI8(I8 mI8);
 
     //! Set member mU16
-    void setmU16(U16 mU16);
+    void set_mU16(U16 mU16);
 
     //! Set member mU32
-    void setmU32(U32 mU32);
+    void set_mU32(U32 mU32);
 
     //! Set member mU64
-    void setmU64(U64 mU64);
+    void set_mU64(U64 mU64);
 
     //! Set member mU8
-    void setmU8(U8 mU8);
+    void set_mU8(U8 mU8);
 
     //! Set member m_bool
-    void setm_bool(bool m_bool);
+    void set_m_bool(bool m_bool);
 
     //! Set member m_string
-    void setm_string(const Fw::StringBase& m_string);
+    void set_m_string(const Fw::StringBase& m_string);
 
   protected:
 

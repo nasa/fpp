@@ -139,7 +139,7 @@ void Included ::
 }
 
 void Included ::
-  setx(U32 x)
+  set_x(U32 x)
 {
   this->m_x = x;
 }

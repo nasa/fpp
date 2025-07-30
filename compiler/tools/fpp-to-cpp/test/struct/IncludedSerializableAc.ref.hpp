@@ -109,7 +109,7 @@ class Included :
     // ----------------------------------------------------------------------
 
     //! Get member x
-    U32 getx() const
+    U32 get_x() const
     {
       return this->m_x;
     }
@@ -122,7 +122,7 @@ class Included :
     void set(U32 x);
 
     //! Set member x
-    void setx(U32 x);
+    void set_x(U32 x);
 
   protected:
 

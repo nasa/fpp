@@ -139,7 +139,7 @@ void Abs ::
 }
 
 void Abs ::
-  setA(const AbsType& A)
+  set_A(const AbsType& A)
 {
   this->m_A = A;
 }

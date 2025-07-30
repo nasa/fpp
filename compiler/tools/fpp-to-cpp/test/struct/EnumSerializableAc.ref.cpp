@@ -208,13 +208,13 @@ void Enum ::
 }
 
 void Enum ::
-  sete(M::E::T e)
+  set_e(M::E::T e)
 {
   this->m_e = e;
 }
 
 void Enum ::
-  seteArr(const Type_of_eArr& eArr)
+  set_eArr(const Type_of_eArr& eArr)
 {
   for (FwSizeType i = 0; i < 3; i++) {
     this->m_eArr[i] = eArr[i];

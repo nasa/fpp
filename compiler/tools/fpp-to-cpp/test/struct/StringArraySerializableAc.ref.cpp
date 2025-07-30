@@ -224,13 +224,13 @@ void StringArray ::
 }
 
 void StringArray ::
-  sets1(const Fw::StringBase& s1)
+  set_s1(const Fw::StringBase& s1)
 {
   this->m_s1 = s1;
 }
 
 void StringArray ::
-  sets2(const Type_of_s2& s2)
+  set_s2(const Type_of_s2& s2)
 {
   for (FwSizeType i = 0; i < 16; i++) {
     this->m_s2[i] = s2[i];

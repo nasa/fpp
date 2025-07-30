@@ -165,13 +165,13 @@ void String ::
 }
 
 void String ::
-  sets1(const Fw::StringBase& s1)
+  set_s1(const Fw::StringBase& s1)
 {
   this->m_s1 = s1;
 }
 
 void String ::
-  sets2(const Fw::StringBase& s2)
+  set_s2(const Fw::StringBase& s2)
 {
   this->m_s2 = s2;
 }

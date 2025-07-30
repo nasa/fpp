@@ -139,7 +139,7 @@ void Including ::
 }
 
 void Including ::
-  setx(const Included& x)
+  set_x(const Included& x)
 {
   this->m_x = x;
 }

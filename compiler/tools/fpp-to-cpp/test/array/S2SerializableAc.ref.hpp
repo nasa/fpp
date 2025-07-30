@@ -110,13 +110,13 @@ class S2 :
     // ----------------------------------------------------------------------
 
     //! Get member s1
-    M::S1& gets1()
+    M::S1& get_s1()
     {
       return this->m_s1;
     }
 
     //! Get member s1 (const)
-    const M::S1& gets1() const
+    const M::S1& get_s1() const
     {
       return this->m_s1;
     }
@@ -129,7 +129,7 @@ class S2 :
     void set(const M::S1& s1);
 
     //! Set member s1
-    void sets1(const M::S1& s1);
+    void set_s1(const M::S1& s1);
 
   protected:
 

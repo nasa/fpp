@@ -212,25 +212,25 @@ void Namespace ::
 }
 
 void Namespace ::
-  setA(SimpleCType A)
+  set_A(SimpleCType A)
 {
   this->m_A = A;
 }
 
 void Namespace ::
-  setB(SimpleCType2 B)
+  set_B(SimpleCType2 B)
 {
   this->m_B = B;
 }
 
 void Namespace ::
-  setC(M::M2::NamespacedAliasType C)
+  set_C(M::M2::NamespacedAliasType C)
 {
   this->m_C = C;
 }
 
 void Namespace ::
-  setD(M::NamespacedAliasType2 D)
+  set_D(M::NamespacedAliasType2 D)
 {
   this->m_D = D;
 }

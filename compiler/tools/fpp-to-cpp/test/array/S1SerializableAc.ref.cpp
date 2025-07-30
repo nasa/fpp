@@ -389,73 +389,73 @@ namespace M {
   }
 
   void S1 ::
-    setmF32(F32 mF32)
+    set_mF32(F32 mF32)
   {
     this->m_mF32 = mF32;
   }
 
   void S1 ::
-    setmF64(F64 mF64)
+    set_mF64(F64 mF64)
   {
     this->m_mF64 = mF64;
   }
 
   void S1 ::
-    setmI16(I16 mI16)
+    set_mI16(I16 mI16)
   {
     this->m_mI16 = mI16;
   }
 
   void S1 ::
-    setmI32(I32 mI32)
+    set_mI32(I32 mI32)
   {
     this->m_mI32 = mI32;
   }
 
   void S1 ::
-    setmI64(I64 mI64)
+    set_mI64(I64 mI64)
   {
     this->m_mI64 = mI64;
   }
 
   void S1 ::
-    setmI8(I8 mI8)
+    set_mI8(I8 mI8)
   {
     this->m_mI8 = mI8;
   }
 
   void S1 ::
-    setmU16(U16 mU16)
+    set_mU16(U16 mU16)
   {
     this->m_mU16 = mU16;
   }
 
   void S1 ::
-    setmU32(U32 mU32)
+    set_mU32(U32 mU32)
   {
     this->m_mU32 = mU32;
   }
 
   void S1 ::
-    setmU64(U64 mU64)
+    set_mU64(U64 mU64)
   {
     this->m_mU64 = mU64;
   }
 
   void S1 ::
-    setmU8(U8 mU8)
+    set_mU8(U8 mU8)
   {
     this->m_mU8 = mU8;
   }
 
   void S1 ::
-    setmBool(bool mBool)
+    set_mBool(bool mBool)
   {
     this->m_mBool = mBool;
   }
 
   void S1 ::
-    setmString(const Fw::StringBase& mString)
+    set_mString(const Fw::StringBase& mString)
   {
     this->m_mString = mString;
   }

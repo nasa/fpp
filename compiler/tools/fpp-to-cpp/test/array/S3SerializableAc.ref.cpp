@@ -210,7 +210,7 @@ namespace S {
   }
 
   void S3 ::
-    setmU32Array(const Type_of_mU32Array& mU32Array)
+    set_mU32Array(const Type_of_mU32Array& mU32Array)
   {
     for (FwSizeType i = 0; i < 3; i++) {
       this->m_mU32Array[i] = mU32Array[i];
@@ -218,7 +218,7 @@ namespace S {
   }
 
   void S3 ::
-    setmF64(F64 mF64)
+    set_mF64(F64 mF64)
   {
     this->m_mF64 = mF64;
   }

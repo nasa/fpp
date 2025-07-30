@@ -110,13 +110,13 @@ class Including :
     // ----------------------------------------------------------------------
 
     //! Get member x
-    Included& getx()
+    Included& get_x()
     {
       return this->m_x;
     }
 
     //! Get member x (const)
-    const Included& getx() const
+    const Included& get_x() const
     {
       return this->m_x;
     }
@@ -129,7 +129,7 @@ class Including :
     void set(const Included& x);
 
     //! Set member x
-    void setx(const Included& x);
+    void set_x(const Included& x);
 
   protected:
 

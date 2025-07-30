@@ -251,19 +251,19 @@ void AliasType ::
 }
 
 void AliasType ::
-  setx(U16Alias x)
+  set_x(U16Alias x)
 {
   this->m_x = x;
 }
 
 void AliasType ::
-  sety(const TAlias& y)
+  set_y(const TAlias& y)
 {
   this->m_y = y;
 }
 
 void AliasType ::
-  setz(const Type_of_z& z)
+  set_z(const Type_of_z& z)
 {
   for (FwSizeType i = 0; i < 10; i++) {
     this->m_z[i] = z[i];

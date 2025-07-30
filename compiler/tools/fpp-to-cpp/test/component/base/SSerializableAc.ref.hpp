@@ -114,19 +114,19 @@ class S :
     // ----------------------------------------------------------------------
 
     //! Get member x
-    U32 getx() const
+    U32 get_x() const
     {
       return this->m_x;
     }
 
     //! Get member y
-    Fw::ExternalString& gety()
+    Fw::ExternalString& get_y()
     {
       return this->m_y;
     }
 
     //! Get member y (const)
-    const Fw::ExternalString& gety() const
+    const Fw::ExternalString& get_y() const
     {
       return this->m_y;
     }
@@ -142,10 +142,10 @@ class S :
     );
 
     //! Set member x
-    void setx(U32 x);
+    void set_x(U32 x);
 
     //! Set member y
-    void sety(const Fw::StringBase& y);
+    void set_y(const Fw::StringBase& y);
 
   protected:
 

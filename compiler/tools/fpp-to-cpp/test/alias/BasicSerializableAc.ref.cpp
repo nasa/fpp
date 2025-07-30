@@ -210,25 +210,25 @@ void Basic ::
 }
 
 void Basic ::
-  setA(TU32 A)
+  set_A(TU32 A)
 {
   this->m_A = A;
 }
 
 void Basic ::
-  setB(TF32 B)
+  set_B(TF32 B)
 {
   this->m_B = B;
 }
 
 void Basic ::
-  setC(const Fw::StringBase& C)
+  set_C(const Fw::StringBase& C)
 {
   this->m_C = C;
 }
 
 void Basic ::
-  setD(const Fw::StringBase& D)
+  set_D(const Fw::StringBase& D)
 {
   this->m_D = D;
 }
