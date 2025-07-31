@@ -1,13 +1,17 @@
 #ifndef FW_TIME_HPP
 #define FW_TIME_HPP
 
-#include <Fw/Types/BasicTypes.hpp>
+#include <Fw/FPrimeBasicTypes.hpp>
 #include <Fw/Types/Assert.hpp>
 #include <Fw/Types/Serializable.hpp>
-#include <FpConfig.hpp>
+#include <config/TimeBaseEnumAc.hpp>
+#include <Fw/Time/TimeValueSerializableAc.hpp>
 
 namespace Fw {
     class Time: public Serializable {
+
+        friend class TimeTester;
+
         public:
 
             enum {
@@ -16,41 +20,44 @@ namespace Fw {
                     + sizeof(U32) + sizeof(U32)
             };
 
-            Time(void); // !< Default constructor
+            Time(); // !< Default constructor
             Time(const Time& other); // !< Copy constructor
             Time(U32 seconds, U32 useconds); // !< Constructor with member values as arguments
             Time(TimeBase timeBase, U32 seconds, U32 useconds); // !< Constructor with member values as arguments
             Time(TimeBase timeBase, FwTimeContextStoreType context, U32 seconds, U32 useconds); // !< Constructor with member values as arguments
-            virtual ~Time(void); // !< Destructor
+            virtual ~Time(); // !< Destructor
             void set(U32 seconds, U32 useconds); // !< Sets value of time stored
             void set(TimeBase timeBase, U32 seconds, U32 useconds); // !< Sets value of time stored
             void set(TimeBase timeBase, FwTimeContextStoreType context, U32 seconds, U32 useconds); // !< Sets value of time stored
             void setTimeBase(TimeBase timeBase);
             void setTimeContext(FwTimeContextStoreType context);
-            U32 getSeconds(void) const; // !< Gets seconds part of time
-            U32 getUSeconds(void) const; // !< Gets microseconds part of time
-            TimeBase getTimeBase(void) const; // !< Time base of time. This is project specific and is meant for indicating different sources of time
-            FwTimeContextStoreType getContext(void) const; // !< get the context value
-            SerializeStatus serialize(SerializeBufferBase& buffer) const; // !< Serialize method
-            SerializeStatus deserialize(SerializeBufferBase& buffer); // !< Deserialize method
+            U32 getSeconds() const; // !< Gets seconds part of time
+            U32 getUSeconds() const; // !< Gets microseconds part of time
+            TimeBase getTimeBase() const; // !< Time base of time. This is project specific and is meant for indicating different sources of time
+            FwTimeContextStoreType getContext() const; // !< get the context value
+            SerializeStatus serializeTo(SerializeBufferBase& buffer) const override; // !< Serialize method
+            SerializeStatus deserializeFrom(SerializeBufferBase& buffer) override; // !< Deserialize method
+            SerializeStatus serialize(SerializeBufferBase& buffer) const override; // !< Serialize method (deprecated)
+            SerializeStatus deserialize(SerializeBufferBase& buffer) override; // !< Deserialize method (deprecated)
             bool operator==(const Time& other) const;
             bool operator!=(const Time& other) const;
             bool operator>(const Time& other) const;
             bool operator<(const Time& other) const;
             bool operator>=(const Time& other) const;
             bool operator<=(const Time& other) const;
-            const Time& operator=(const Time& other);
+            Time& operator=(const Time& other);
 
             // Static methods:
             //! The type of a comparison result
             typedef enum {
               LT = -1,
               EQ = 0,
-              GT = 1
+              GT = 1,
+              INCOMPARABLE = 2
             } Comparison;
 
             //! \return time zero
-            static Time zero(TimeBase timeBase=TB_NONE);
+            static Time zero(TimeBase timeBase=TimeBase::TB_NONE);
 
             //! Compare two times
             //! \return The result
@@ -79,13 +86,10 @@ namespace Fw {
 #ifdef BUILD_UT // Stream operators to support Googletest
             friend std::ostream& operator<<(std::ostream& os,  const Time& val);
 #endif
-        PRIVATE:
-            U32 m_seconds; // !< seconds portion
-            U32 m_useconds; // !< microseconds portion
-            TimeBase m_timeBase; // !< basis of time (defined by system)
-            FwTimeContextStoreType m_timeContext; // !< user settable value. Could be reboot count, node, etc
+        private:
+            TimeValue m_val; // !< Time value
     };
-    const static Time ZERO_TIME = Time();
+    extern const Time ZERO_TIME;
 
 }
 
