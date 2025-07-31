@@ -79,11 +79,11 @@ Your class definition should include the following:
 * An implementation of the virtual function
 +
 ----
-Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&) const
+Fw::SerializeStatus T::serializeTo(Fw::SerializeBufferBase&) const
 ----
 +
-that specifies how to *serialize* a class instance (i.e., convert a class
-instance to a byte string).
+that specifies a class instance should *serializeTo* a buffer
+(i.e., convert a class instance to a byte string).
 
 * An implementation of the function
 +

@@ -15271,12 +15271,12 @@ Your class definition should include the following:</p>
 <p>An implementation of the virtual function</p>
 <div class="listingblock">
 <div class="content">
-<pre>Fw::SerializeStatus T::serialize(Fw::SerializeBufferBase&amp;) const</pre>
+<pre>Fw::SerializeStatus T::serializeTo(Fw::SerializeBufferBase&amp;) const</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>that specifies how to <strong>serialize</strong> a class instance (i.e., convert a class
-instance to a byte string).</p>
+<p>that specifies a class instance should <strong>serializeTo</strong> a buffer
+(i.e., convert a class instance to a byte string).</p>
 </div>
 </li>
 <li>
@@ -15874,7 +15874,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-07-30 19:12:08 -0700
+Last updated 2025-07-30 19:20:40 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
