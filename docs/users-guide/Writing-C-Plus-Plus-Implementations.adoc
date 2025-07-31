@@ -82,7 +82,7 @@ Your class definition should include the following:
 Fw::SerializeStatus T::serializeTo(Fw::SerializeBufferBase&) const
 ----
 +
-that specifies a class instance should *serializeTo* a buffer
+that specifies how a class instance should *serializeTo* a buffer
 (i.e., convert a class instance to a byte string).
 
 * An implementation of the function
@@ -91,7 +91,7 @@ that specifies a class instance should *serializeTo* a buffer
 Fw::SerializeStatus T::deserializeFrom(Fw::SerializeBufferBase&)
 ----
 +
-that specifies a class instance should *deserializeFrom* a
+that specifies how a class instance should *deserializeFrom* a
 buffer (i.e., reconstruct a class instance from a byte string).
 
 * A constant `T::SERIALIZED_SIZE` that specifies the size in bytes
