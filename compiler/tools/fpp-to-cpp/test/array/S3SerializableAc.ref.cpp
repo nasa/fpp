@@ -116,17 +116,17 @@ namespace S {
   // ----------------------------------------------------------------------
 
   Fw::SerializeStatus S3 ::
-    serialize(Fw::SerializeBufferBase& buffer) const
+    serializeTo(Fw::SerializeBufferBase& buffer) const
   {
     Fw::SerializeStatus status;
 
     for (FwSizeType i = 0; i < 3; i++) {
-      status = buffer.serialize(this->m_mU32Array[i]);
+      status = buffer.serializeFrom(this->m_mU32Array[i]);
       if (status != Fw::FW_SERIALIZE_OK) {
         return status;
       }
     }
-    status = buffer.serialize(this->m_mF64);
+    status = buffer.serializeFrom(this->m_mF64);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -135,17 +135,17 @@ namespace S {
   }
 
   Fw::SerializeStatus S3 ::
-    deserialize(Fw::SerializeBufferBase& buffer)
+    deserializeFrom(Fw::SerializeBufferBase& buffer)
   {
     Fw::SerializeStatus status;
 
     for (FwSizeType i = 0; i < 3; i++) {
-      status = buffer.deserialize(this->m_mU32Array[i]);
+      status = buffer.deserializeTo(this->m_mU32Array[i]);
       if (status != Fw::FW_SERIALIZE_OK) {
         return status;
       }
     }
-    status = buffer.deserialize(this->m_mF64);
+    status = buffer.deserializeTo(this->m_mF64);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }

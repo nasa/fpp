@@ -15283,12 +15283,12 @@ instance to a byte string).</p>
 <p>An implementation of the function</p>
 <div class="listingblock">
 <div class="content">
-<pre>Fw::SerializeStatus T::deserialize(Fw::SerializeBufferBase&amp;)</pre>
+<pre>Fw::SerializeStatus T::deserializeFrom(Fw::SerializeBufferBase&amp;)</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>that specifies how to <strong>deserialize</strong> a class instance (i.e., reconstruct a class
-instance from a byte string).</p>
+<p>that specifies a class instance should <strong>deserializeFrom</strong> a
+buffer (i.e., reconstruct a class instance from a byte string).</p>
 </div>
 </li>
 <li>
@@ -15344,11 +15344,11 @@ struct T final : public Fw::Serializable { // Extend Fw::Serializable
   // Define a comparison operator
   bool operator==(const T&amp; that) const { return this-&gt;x == that.x; }
 
-  // Define the virtual serialize method
-  SS serialize(B&amp; b) const final { return b.serialize(x); }
+  // Define the virtual serializeTo method
+  SS serializeTo(B&amp; b) const final { return b.serializeFrom(x); }
 
-  // Define the virtual deserialize method
-  SS deserialize(B&amp; b) final { return b.deserialize(x); }
+  // Define the virtual deserializeFrom method
+  SS deserializeFrom(B&amp; b) final { return b.deserializeTo(x); }
 
   // Provide some data
   U32 x;
@@ -15364,10 +15364,10 @@ In some cases, you may want to define an abstract type <code>T</code> that repre
 a data buffer and that is used only in <a href="#Defining-Ports">port definitions</a>.
 In this case you can implement
 <code>T</code> as a class that extends <code>Fw::SerializeBufferBase</code>.
-Instead of implementing the <code>serialize</code> and <code>deserialize</code> functions
+Instead of implementing the <code>serializeTo</code> and <code>deserializeFrom</code> functions
 directly, you override functions that get the address and the capacity
 (allocated size) of the buffer; the base class <code>Fw::SerializeBufferBase</code>
-uses these functions to implement <code>serialize</code> and <code>deserialize</code>.
+uses these functions to implement <code>serializeTo</code> and <code>deserializeFrom</code>.
 For an example of how to do this, see the files <code>Fw/Cmd/CmdArgBuffer.hpp</code>
 and <code>Fw/Cmd/CmdArgBuffer.cpp</code> in the F Prime repository.
 Be careful, though: if you implement an abstract type <code>T</code> this way
@@ -15874,7 +15874,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-07-07 16:39:05 -0700
+Last updated 2025-07-30 19:12:08 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

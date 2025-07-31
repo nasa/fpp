@@ -80,11 +80,11 @@ namespace M {
   // ----------------------------------------------------------------------
 
   Fw::SerializeStatus Modules2 ::
-    serialize(Fw::SerializeBufferBase& buffer) const
+    serializeTo(Fw::SerializeBufferBase& buffer) const
   {
     Fw::SerializeStatus status;
 
-    status = buffer.serialize(this->m_x);
+    status = buffer.serializeFrom(this->m_x);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -93,11 +93,11 @@ namespace M {
   }
 
   Fw::SerializeStatus Modules2 ::
-    deserialize(Fw::SerializeBufferBase& buffer)
+    deserializeFrom(Fw::SerializeBufferBase& buffer)
   {
     Fw::SerializeStatus status;
 
-    status = buffer.deserialize(this->m_x);
+    status = buffer.deserializeTo(this->m_x);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }

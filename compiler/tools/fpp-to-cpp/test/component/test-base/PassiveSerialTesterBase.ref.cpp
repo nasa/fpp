@@ -29,27 +29,27 @@ Fw::SerializeStatus PassiveSerialTesterBase::PassiveSerialComponentBaseParamExte
   {
     // ParamI32Ext
     case PassiveSerialComponentBase::PARAMID_PARAMI32EXT:
-      stat = buff.deserialize(this->m_param_ParamI32Ext);
+      stat = buff.deserializeTo(this->m_param_ParamI32Ext);
       break;
     // ParamF64Ext
     case PassiveSerialComponentBase::PARAMID_PARAMF64EXT:
-      stat = buff.deserialize(this->m_param_ParamF64Ext);
+      stat = buff.deserializeTo(this->m_param_ParamF64Ext);
       break;
     // ParamStringExt
     case PassiveSerialComponentBase::PARAMID_PARAMSTRINGEXT:
-      stat = buff.deserialize(this->m_param_ParamStringExt);
+      stat = buff.deserializeTo(this->m_param_ParamStringExt);
       break;
     // ParamEnumExt
     case PassiveSerialComponentBase::PARAMID_PARAMENUMEXT:
-      stat = buff.deserialize(this->m_param_ParamEnumExt);
+      stat = buff.deserializeTo(this->m_param_ParamEnumExt);
       break;
     // ParamArrayExt
     case PassiveSerialComponentBase::PARAMID_PARAMARRAYEXT:
-      stat = buff.deserialize(this->m_param_ParamArrayExt);
+      stat = buff.deserializeTo(this->m_param_ParamArrayExt);
       break;
     // ParamStructExt
     case PassiveSerialComponentBase::PARAMID_PARAMSTRUCTEXT:
-      stat = buff.deserialize(this->m_param_ParamStructExt);
+      stat = buff.deserializeTo(this->m_param_ParamStructExt);
       break;
     default:
       // Unknown ID; should not have gotten here
@@ -74,27 +74,27 @@ Fw::SerializeStatus PassiveSerialTesterBase::PassiveSerialComponentBaseParamExte
   {
     // ParamI32Ext
     case PassiveSerialComponentBase::PARAMID_PARAMI32EXT:
-      stat = buff.serialize(this->m_param_ParamI32Ext);
+      stat = buff.serializeFrom(this->m_param_ParamI32Ext);
       break;
     // ParamF64Ext
     case PassiveSerialComponentBase::PARAMID_PARAMF64EXT:
-      stat = buff.serialize(this->m_param_ParamF64Ext);
+      stat = buff.serializeFrom(this->m_param_ParamF64Ext);
       break;
     // ParamStringExt
     case PassiveSerialComponentBase::PARAMID_PARAMSTRINGEXT:
-      stat = buff.serialize(this->m_param_ParamStringExt);
+      stat = buff.serializeFrom(this->m_param_ParamStringExt);
       break;
     // ParamEnumExt
     case PassiveSerialComponentBase::PARAMID_PARAMENUMEXT:
-      stat = buff.serialize(this->m_param_ParamEnumExt);
+      stat = buff.serializeFrom(this->m_param_ParamEnumExt);
       break;
     // ParamArrayExt
     case PassiveSerialComponentBase::PARAMID_PARAMARRAYEXT:
-      stat = buff.serialize(this->m_param_ParamArrayExt);
+      stat = buff.serializeFrom(this->m_param_ParamArrayExt);
       break;
     // ParamStructExt
     case PassiveSerialComponentBase::PARAMID_PARAMSTRUCTEXT:
-      stat = buff.serialize(this->m_param_ParamStructExt);
+      stat = buff.serializeFrom(this->m_param_ParamStructExt);
       break;
     default:
       // Unknown ID; should not have gotten here
@@ -2417,19 +2417,19 @@ void PassiveSerialTesterBase ::
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = buf.serialize(u32);
+  _status = buf.serializeFrom(u32);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
-  _status = buf.serialize(f32);
+  _status = buf.serializeFrom(f32);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
-  _status = buf.serialize(b);
+  _status = buf.serializeFrom(b);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2464,13 +2464,13 @@ void PassiveSerialTesterBase ::
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = str1.serialize(buf, FW_CMD_STRING_MAX_SIZE);
+  _status = str1.serializeTo(buf, FW_CMD_STRING_MAX_SIZE);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
-  _status = str2.serialize(buf, FW_CMD_STRING_MAX_SIZE);
+  _status = str2.serializeTo(buf, FW_CMD_STRING_MAX_SIZE);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2504,7 +2504,7 @@ void PassiveSerialTesterBase ::
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = buf.serialize(e);
+  _status = buf.serializeFrom(e);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2538,7 +2538,7 @@ void PassiveSerialTesterBase ::
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = buf.serialize(a);
+  _status = buf.serializeFrom(a);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2572,7 +2572,7 @@ void PassiveSerialTesterBase ::
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = buf.serialize(s);
+  _status = buf.serializeFrom(s);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2633,19 +2633,19 @@ void PassiveSerialTesterBase ::
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = buf.serialize(u32);
+  _status = buf.serializeFrom(u32);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
-  _status = buf.serialize(f32);
+  _status = buf.serializeFrom(f32);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
-  _status = buf.serialize(b);
+  _status = buf.serializeFrom(b);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2680,13 +2680,13 @@ void PassiveSerialTesterBase ::
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = str1.serialize(buf, FW_CMD_STRING_MAX_SIZE);
+  _status = str1.serializeTo(buf, FW_CMD_STRING_MAX_SIZE);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
-  _status = str2.serialize(buf, FW_CMD_STRING_MAX_SIZE);
+  _status = str2.serializeTo(buf, FW_CMD_STRING_MAX_SIZE);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2720,7 +2720,7 @@ void PassiveSerialTesterBase ::
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = buf.serialize(e);
+  _status = buf.serializeFrom(e);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2754,7 +2754,7 @@ void PassiveSerialTesterBase ::
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = buf.serialize(a);
+  _status = buf.serializeFrom(a);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2788,7 +2788,7 @@ void PassiveSerialTesterBase ::
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = buf.serialize(s);
+  _status = buf.serializeFrom(s);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2838,7 +2838,7 @@ void PassiveSerialTesterBase ::
       // For AMPCS, decode zero arguments
       Fw::SerializeStatus _zero_status = Fw::FW_SERIALIZE_OK;
       U8 _noArgs;
-      _zero_status = args.deserialize(_noArgs);
+      _zero_status = args.deserializeTo(_noArgs);
       FW_ASSERT(
         _zero_status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_zero_status)
@@ -2854,7 +2854,7 @@ void PassiveSerialTesterBase ::
 #if FW_AMPCS_COMPATIBLE
       // Deserialize the number of arguments.
       U8 _numArgs;
-      _status = args.deserialize(_numArgs);
+      _status = args.deserializeTo(_numArgs);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2872,7 +2872,7 @@ void PassiveSerialTesterBase ::
       {
         // Deserialize the argument size
         U8 _argSize;
-        _status = args.deserialize(_argSize);
+        _status = args.deserializeTo(_argSize);
         FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -2884,7 +2884,7 @@ void PassiveSerialTesterBase ::
         );
       }
 #endif
-      _status = args.deserialize(_event_arg_u32);
+      _status = args.deserializeTo(_event_arg_u32);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2895,7 +2895,7 @@ void PassiveSerialTesterBase ::
       {
         // Deserialize the argument size
         U8 _argSize;
-        _status = args.deserialize(_argSize);
+        _status = args.deserializeTo(_argSize);
         FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -2907,7 +2907,7 @@ void PassiveSerialTesterBase ::
         );
       }
 #endif
-      _status = args.deserialize(_event_arg_f32);
+      _status = args.deserializeTo(_event_arg_f32);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2918,7 +2918,7 @@ void PassiveSerialTesterBase ::
       {
         // Deserialize the argument size
         U8 _argSize;
-        _status = args.deserialize(_argSize);
+        _status = args.deserializeTo(_argSize);
         FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -2930,7 +2930,7 @@ void PassiveSerialTesterBase ::
         );
       }
 #endif
-      _status = args.deserialize(_event_arg_b);
+      _status = args.deserializeTo(_event_arg_b);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2945,7 +2945,7 @@ void PassiveSerialTesterBase ::
 #if FW_AMPCS_COMPATIBLE
       // Deserialize the number of arguments.
       U8 _numArgs;
-      _status = args.deserialize(_numArgs);
+      _status = args.deserializeTo(_numArgs);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2963,7 +2963,7 @@ void PassiveSerialTesterBase ::
       {
         // Deserialize the argument size
         U8 _argSize;
-        _status = args.deserialize(_argSize);
+        _status = args.deserializeTo(_argSize);
         FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -2975,7 +2975,7 @@ void PassiveSerialTesterBase ::
         );
       }
 #endif
-      _status = args.deserialize(_event_arg_str1);
+      _status = args.deserializeTo(_event_arg_str1);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2986,7 +2986,7 @@ void PassiveSerialTesterBase ::
       {
         // Deserialize the argument size
         U8 _argSize;
-        _status = args.deserialize(_argSize);
+        _status = args.deserializeTo(_argSize);
         FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -2998,7 +2998,7 @@ void PassiveSerialTesterBase ::
         );
       }
 #endif
-      _status = args.deserialize(_event_arg_str2);
+      _status = args.deserializeTo(_event_arg_str2);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -3013,7 +3013,7 @@ void PassiveSerialTesterBase ::
 #if FW_AMPCS_COMPATIBLE
       // Deserialize the number of arguments.
       U8 _numArgs;
-      _status = args.deserialize(_numArgs);
+      _status = args.deserializeTo(_numArgs);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -3031,7 +3031,7 @@ void PassiveSerialTesterBase ::
       {
         // Deserialize the argument size
         U8 _argSize;
-        _status = args.deserialize(_argSize);
+        _status = args.deserializeTo(_argSize);
         FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -3043,7 +3043,7 @@ void PassiveSerialTesterBase ::
         );
       }
 #endif
-      _status = args.deserialize(_event_arg_e);
+      _status = args.deserializeTo(_event_arg_e);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -3058,7 +3058,7 @@ void PassiveSerialTesterBase ::
 #if FW_AMPCS_COMPATIBLE
       // Deserialize the number of arguments.
       U8 _numArgs;
-      _status = args.deserialize(_numArgs);
+      _status = args.deserializeTo(_numArgs);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -3072,7 +3072,7 @@ void PassiveSerialTesterBase ::
 
       // For FATAL, there is a stack size of 4 and a dummy entry
       U8 stackArgLen;
-      _status = args.deserialize(stackArgLen);
+      _status = args.deserializeTo(stackArgLen);
       FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -3083,7 +3083,7 @@ void PassiveSerialTesterBase ::
       );
 
       U32 dummyStackArg;
-      _status = args.deserialize(dummyStackArg);
+      _status = args.deserializeTo(dummyStackArg);
       FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -3099,7 +3099,7 @@ void PassiveSerialTesterBase ::
       {
         // Deserialize the argument size
         U8 _argSize;
-        _status = args.deserialize(_argSize);
+        _status = args.deserializeTo(_argSize);
         FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -3111,7 +3111,7 @@ void PassiveSerialTesterBase ::
         );
       }
 #endif
-      _status = args.deserialize(_event_arg_a);
+      _status = args.deserializeTo(_event_arg_a);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -3126,7 +3126,7 @@ void PassiveSerialTesterBase ::
 #if FW_AMPCS_COMPATIBLE
       // Deserialize the number of arguments.
       U8 _numArgs;
-      _status = args.deserialize(_numArgs);
+      _status = args.deserializeTo(_numArgs);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -3144,7 +3144,7 @@ void PassiveSerialTesterBase ::
       {
         // Deserialize the argument size
         U8 _argSize;
-        _status = args.deserialize(_argSize);
+        _status = args.deserializeTo(_argSize);
         FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -3156,7 +3156,7 @@ void PassiveSerialTesterBase ::
         );
       }
 #endif
-      _status = args.deserialize(_event_arg_s);
+      _status = args.deserializeTo(_event_arg_s);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -3170,7 +3170,7 @@ void PassiveSerialTesterBase ::
       // For AMPCS, decode zero arguments
       Fw::SerializeStatus _zero_status = Fw::FW_SERIALIZE_OK;
       U8 _noArgs;
-      _zero_status = args.deserialize(_noArgs);
+      _zero_status = args.deserializeTo(_noArgs);
       FW_ASSERT(
         _zero_status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_zero_status)
@@ -3300,7 +3300,7 @@ void PassiveSerialTesterBase ::
   switch (id - idBase) {
     case PassiveSerialComponentBase::CHANNELID_CHANNELU32FORMAT: {
       U32 arg;
-      const Fw::SerializeStatus _status = val.deserialize(arg);
+      const Fw::SerializeStatus _status = val.deserializeTo(arg);
 
       if (_status != Fw::FW_SERIALIZE_OK) {
         printf("Error deserializing ChannelU32Format: %d\n", _status);
@@ -3313,7 +3313,7 @@ void PassiveSerialTesterBase ::
 
     case PassiveSerialComponentBase::CHANNELID_CHANNELF32FORMAT: {
       F32 arg;
-      const Fw::SerializeStatus _status = val.deserialize(arg);
+      const Fw::SerializeStatus _status = val.deserializeTo(arg);
 
       if (_status != Fw::FW_SERIALIZE_OK) {
         printf("Error deserializing ChannelF32Format: %d\n", _status);
@@ -3326,7 +3326,7 @@ void PassiveSerialTesterBase ::
 
     case PassiveSerialComponentBase::CHANNELID_CHANNELSTRINGFORMAT: {
       Fw::TlmString arg;
-      const Fw::SerializeStatus _status = val.deserialize(arg);
+      const Fw::SerializeStatus _status = val.deserializeTo(arg);
 
       if (_status != Fw::FW_SERIALIZE_OK) {
         printf("Error deserializing ChannelStringFormat: %d\n", _status);
@@ -3339,7 +3339,7 @@ void PassiveSerialTesterBase ::
 
     case PassiveSerialComponentBase::CHANNELID_CHANNELENUM: {
       E arg;
-      const Fw::SerializeStatus _status = val.deserialize(arg);
+      const Fw::SerializeStatus _status = val.deserializeTo(arg);
 
       if (_status != Fw::FW_SERIALIZE_OK) {
         printf("Error deserializing ChannelEnum: %d\n", _status);
@@ -3352,7 +3352,7 @@ void PassiveSerialTesterBase ::
 
     case PassiveSerialComponentBase::CHANNELID_CHANNELARRAYFREQ: {
       A arg;
-      const Fw::SerializeStatus _status = val.deserialize(arg);
+      const Fw::SerializeStatus _status = val.deserializeTo(arg);
 
       if (_status != Fw::FW_SERIALIZE_OK) {
         printf("Error deserializing ChannelArrayFreq: %d\n", _status);
@@ -3365,7 +3365,7 @@ void PassiveSerialTesterBase ::
 
     case PassiveSerialComponentBase::CHANNELID_CHANNELSTRUCTFREQ: {
       S arg;
-      const Fw::SerializeStatus _status = val.deserialize(arg);
+      const Fw::SerializeStatus _status = val.deserializeTo(arg);
 
       if (_status != Fw::FW_SERIALIZE_OK) {
         printf("Error deserializing ChannelStructFreq: %d\n", _status);
@@ -3378,7 +3378,7 @@ void PassiveSerialTesterBase ::
 
     case PassiveSerialComponentBase::CHANNELID_CHANNELU32LIMITS: {
       U32 arg;
-      const Fw::SerializeStatus _status = val.deserialize(arg);
+      const Fw::SerializeStatus _status = val.deserializeTo(arg);
 
       if (_status != Fw::FW_SERIALIZE_OK) {
         printf("Error deserializing ChannelU32Limits: %d\n", _status);
@@ -3391,7 +3391,7 @@ void PassiveSerialTesterBase ::
 
     case PassiveSerialComponentBase::CHANNELID_CHANNELF32LIMITS: {
       F32 arg;
-      const Fw::SerializeStatus _status = val.deserialize(arg);
+      const Fw::SerializeStatus _status = val.deserializeTo(arg);
 
       if (_status != Fw::FW_SERIALIZE_OK) {
         printf("Error deserializing ChannelF32Limits: %d\n", _status);
@@ -3404,7 +3404,7 @@ void PassiveSerialTesterBase ::
 
     case PassiveSerialComponentBase::CHANNELID_CHANNELF64: {
       F64 arg;
-      const Fw::SerializeStatus _status = val.deserialize(arg);
+      const Fw::SerializeStatus _status = val.deserializeTo(arg);
 
       if (_status != Fw::FW_SERIALIZE_OK) {
         printf("Error deserializing ChannelF64: %d\n", _status);
@@ -3417,7 +3417,7 @@ void PassiveSerialTesterBase ::
 
     case PassiveSerialComponentBase::CHANNELID_CHANNELU32ONCHANGE: {
       U32 arg;
-      const Fw::SerializeStatus _status = val.deserialize(arg);
+      const Fw::SerializeStatus _status = val.deserializeTo(arg);
 
       if (_status != Fw::FW_SERIALIZE_OK) {
         printf("Error deserializing ChannelU32OnChange: %d\n", _status);
@@ -3430,7 +3430,7 @@ void PassiveSerialTesterBase ::
 
     case PassiveSerialComponentBase::CHANNELID_CHANNELENUMONCHANGE: {
       E arg;
-      const Fw::SerializeStatus _status = val.deserialize(arg);
+      const Fw::SerializeStatus _status = val.deserializeTo(arg);
 
       if (_status != Fw::FW_SERIALIZE_OK) {
         printf("Error deserializing ChannelEnumOnChange: %d\n", _status);
@@ -3592,7 +3592,7 @@ void PassiveSerialTesterBase ::
   // Build command for parameter set
   Fw::CmdArgBuffer args;
   FW_ASSERT(
-    args.serialize(this->m_param_ParamU32) == Fw::FW_SERIALIZE_OK
+    args.serializeFrom(this->m_param_ParamU32) == Fw::FW_SERIALIZE_OK
   );
 
   const U32 idBase = this->getIdBase();
@@ -3651,7 +3651,7 @@ void PassiveSerialTesterBase ::
   // Build command for parameter set
   Fw::CmdArgBuffer args;
   FW_ASSERT(
-    args.serialize(this->m_param_ParamF64) == Fw::FW_SERIALIZE_OK
+    args.serializeFrom(this->m_param_ParamF64) == Fw::FW_SERIALIZE_OK
   );
 
   const U32 idBase = this->getIdBase();
@@ -3710,7 +3710,7 @@ void PassiveSerialTesterBase ::
   // Build command for parameter set
   Fw::CmdArgBuffer args;
   FW_ASSERT(
-    args.serialize(this->m_param_ParamString) == Fw::FW_SERIALIZE_OK
+    args.serializeFrom(this->m_param_ParamString) == Fw::FW_SERIALIZE_OK
   );
 
   const U32 idBase = this->getIdBase();
@@ -3769,7 +3769,7 @@ void PassiveSerialTesterBase ::
   // Build command for parameter set
   Fw::CmdArgBuffer args;
   FW_ASSERT(
-    args.serialize(this->m_param_ParamEnum) == Fw::FW_SERIALIZE_OK
+    args.serializeFrom(this->m_param_ParamEnum) == Fw::FW_SERIALIZE_OK
   );
 
   const U32 idBase = this->getIdBase();
@@ -3828,7 +3828,7 @@ void PassiveSerialTesterBase ::
   // Build command for parameter set
   Fw::CmdArgBuffer args;
   FW_ASSERT(
-    args.serialize(this->m_param_ParamArray) == Fw::FW_SERIALIZE_OK
+    args.serializeFrom(this->m_param_ParamArray) == Fw::FW_SERIALIZE_OK
   );
 
   const U32 idBase = this->getIdBase();
@@ -3887,7 +3887,7 @@ void PassiveSerialTesterBase ::
   // Build command for parameter set
   Fw::CmdArgBuffer args;
   FW_ASSERT(
-    args.serialize(this->m_param_ParamStruct) == Fw::FW_SERIALIZE_OK
+    args.serializeFrom(this->m_param_ParamStruct) == Fw::FW_SERIALIZE_OK
   );
 
   const U32 idBase = this->getIdBase();
@@ -3946,7 +3946,7 @@ void PassiveSerialTesterBase ::
   // Build command for parameter set
   Fw::CmdArgBuffer args;
   FW_ASSERT(
-    args.serialize(this->paramTesterDelegate.m_param_ParamI32Ext) == Fw::FW_SERIALIZE_OK
+    args.serializeFrom(this->paramTesterDelegate.m_param_ParamI32Ext) == Fw::FW_SERIALIZE_OK
   );
 
   const U32 idBase = this->getIdBase();
@@ -4005,7 +4005,7 @@ void PassiveSerialTesterBase ::
   // Build command for parameter set
   Fw::CmdArgBuffer args;
   FW_ASSERT(
-    args.serialize(this->paramTesterDelegate.m_param_ParamF64Ext) == Fw::FW_SERIALIZE_OK
+    args.serializeFrom(this->paramTesterDelegate.m_param_ParamF64Ext) == Fw::FW_SERIALIZE_OK
   );
 
   const U32 idBase = this->getIdBase();
@@ -4064,7 +4064,7 @@ void PassiveSerialTesterBase ::
   // Build command for parameter set
   Fw::CmdArgBuffer args;
   FW_ASSERT(
-    args.serialize(this->paramTesterDelegate.m_param_ParamStringExt) == Fw::FW_SERIALIZE_OK
+    args.serializeFrom(this->paramTesterDelegate.m_param_ParamStringExt) == Fw::FW_SERIALIZE_OK
   );
 
   const U32 idBase = this->getIdBase();
@@ -4123,7 +4123,7 @@ void PassiveSerialTesterBase ::
   // Build command for parameter set
   Fw::CmdArgBuffer args;
   FW_ASSERT(
-    args.serialize(this->paramTesterDelegate.m_param_ParamEnumExt) == Fw::FW_SERIALIZE_OK
+    args.serializeFrom(this->paramTesterDelegate.m_param_ParamEnumExt) == Fw::FW_SERIALIZE_OK
   );
 
   const U32 idBase = this->getIdBase();
@@ -4182,7 +4182,7 @@ void PassiveSerialTesterBase ::
   // Build command for parameter set
   Fw::CmdArgBuffer args;
   FW_ASSERT(
-    args.serialize(this->paramTesterDelegate.m_param_ParamArrayExt) == Fw::FW_SERIALIZE_OK
+    args.serializeFrom(this->paramTesterDelegate.m_param_ParamArrayExt) == Fw::FW_SERIALIZE_OK
   );
 
   const U32 idBase = this->getIdBase();
@@ -4241,7 +4241,7 @@ void PassiveSerialTesterBase ::
   // Build command for parameter set
   Fw::CmdArgBuffer args;
   FW_ASSERT(
-    args.serialize(this->paramTesterDelegate.m_param_ParamStructExt) == Fw::FW_SERIALIZE_OK
+    args.serializeFrom(this->paramTesterDelegate.m_param_ParamStructExt) == Fw::FW_SERIALIZE_OK
   );
 
   const U32 idBase = this->getIdBase();
@@ -4614,7 +4614,7 @@ Fw::ParamValid PassiveSerialTesterBase ::
 
   switch (id - idBase) {
     case PassiveSerialComponentBase::PARAMID_PARAMU32: {
-      _status = val.serialize(_testerBase->m_param_ParamU32);
+      _status = val.serializeFrom(_testerBase->m_param_ParamU32);
       _ret = _testerBase->m_param_ParamU32_valid;
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
@@ -4624,7 +4624,7 @@ Fw::ParamValid PassiveSerialTesterBase ::
     };
 
     case PassiveSerialComponentBase::PARAMID_PARAMF64: {
-      _status = val.serialize(_testerBase->m_param_ParamF64);
+      _status = val.serializeFrom(_testerBase->m_param_ParamF64);
       _ret = _testerBase->m_param_ParamF64_valid;
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
@@ -4634,7 +4634,7 @@ Fw::ParamValid PassiveSerialTesterBase ::
     };
 
     case PassiveSerialComponentBase::PARAMID_PARAMSTRING: {
-      _status = val.serialize(_testerBase->m_param_ParamString);
+      _status = val.serializeFrom(_testerBase->m_param_ParamString);
       _ret = _testerBase->m_param_ParamString_valid;
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
@@ -4644,7 +4644,7 @@ Fw::ParamValid PassiveSerialTesterBase ::
     };
 
     case PassiveSerialComponentBase::PARAMID_PARAMENUM: {
-      _status = val.serialize(_testerBase->m_param_ParamEnum);
+      _status = val.serializeFrom(_testerBase->m_param_ParamEnum);
       _ret = _testerBase->m_param_ParamEnum_valid;
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
@@ -4654,7 +4654,7 @@ Fw::ParamValid PassiveSerialTesterBase ::
     };
 
     case PassiveSerialComponentBase::PARAMID_PARAMARRAY: {
-      _status = val.serialize(_testerBase->m_param_ParamArray);
+      _status = val.serializeFrom(_testerBase->m_param_ParamArray);
       _ret = _testerBase->m_param_ParamArray_valid;
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
@@ -4664,7 +4664,7 @@ Fw::ParamValid PassiveSerialTesterBase ::
     };
 
     case PassiveSerialComponentBase::PARAMID_PARAMSTRUCT: {
-      _status = val.serialize(_testerBase->m_param_ParamStruct);
+      _status = val.serializeFrom(_testerBase->m_param_ParamStruct);
       _ret = _testerBase->m_param_ParamStruct_valid;
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
@@ -4674,7 +4674,7 @@ Fw::ParamValid PassiveSerialTesterBase ::
     };
 
     case PassiveSerialComponentBase::PARAMID_PARAMI32EXT: {
-      _status = val.serialize(_testerBase->paramTesterDelegate.m_param_ParamI32Ext);
+      _status = val.serializeFrom(_testerBase->paramTesterDelegate.m_param_ParamI32Ext);
       _ret = _testerBase->paramTesterDelegate.m_param_ParamI32Ext_valid;
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
@@ -4684,7 +4684,7 @@ Fw::ParamValid PassiveSerialTesterBase ::
     };
 
     case PassiveSerialComponentBase::PARAMID_PARAMF64EXT: {
-      _status = val.serialize(_testerBase->paramTesterDelegate.m_param_ParamF64Ext);
+      _status = val.serializeFrom(_testerBase->paramTesterDelegate.m_param_ParamF64Ext);
       _ret = _testerBase->paramTesterDelegate.m_param_ParamF64Ext_valid;
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
@@ -4694,7 +4694,7 @@ Fw::ParamValid PassiveSerialTesterBase ::
     };
 
     case PassiveSerialComponentBase::PARAMID_PARAMSTRINGEXT: {
-      _status = val.serialize(_testerBase->paramTesterDelegate.m_param_ParamStringExt);
+      _status = val.serializeFrom(_testerBase->paramTesterDelegate.m_param_ParamStringExt);
       _ret = _testerBase->paramTesterDelegate.m_param_ParamStringExt_valid;
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
@@ -4704,7 +4704,7 @@ Fw::ParamValid PassiveSerialTesterBase ::
     };
 
     case PassiveSerialComponentBase::PARAMID_PARAMENUMEXT: {
-      _status = val.serialize(_testerBase->paramTesterDelegate.m_param_ParamEnumExt);
+      _status = val.serializeFrom(_testerBase->paramTesterDelegate.m_param_ParamEnumExt);
       _ret = _testerBase->paramTesterDelegate.m_param_ParamEnumExt_valid;
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
@@ -4714,7 +4714,7 @@ Fw::ParamValid PassiveSerialTesterBase ::
     };
 
     case PassiveSerialComponentBase::PARAMID_PARAMARRAYEXT: {
-      _status = val.serialize(_testerBase->paramTesterDelegate.m_param_ParamArrayExt);
+      _status = val.serializeFrom(_testerBase->paramTesterDelegate.m_param_ParamArrayExt);
       _ret = _testerBase->paramTesterDelegate.m_param_ParamArrayExt_valid;
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
@@ -4724,7 +4724,7 @@ Fw::ParamValid PassiveSerialTesterBase ::
     };
 
     case PassiveSerialComponentBase::PARAMID_PARAMSTRUCTEXT: {
-      _status = val.serialize(_testerBase->paramTesterDelegate.m_param_ParamStructExt);
+      _status = val.serializeFrom(_testerBase->paramTesterDelegate.m_param_ParamStructExt);
       _ret = _testerBase->paramTesterDelegate.m_param_ParamStructExt_valid;
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
@@ -4762,7 +4762,7 @@ void PassiveSerialTesterBase ::
   switch (id - idBase) {
     case PassiveSerialComponentBase::PARAMID_PARAMU32: {
       U32 ParamU32Val;
-      _status = val.deserialize(ParamU32Val);
+      _status = val.deserializeTo(ParamU32Val);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -4776,7 +4776,7 @@ void PassiveSerialTesterBase ::
 
     case PassiveSerialComponentBase::PARAMID_PARAMF64: {
       F64 ParamF64Val;
-      _status = val.deserialize(ParamF64Val);
+      _status = val.deserializeTo(ParamF64Val);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -4790,7 +4790,7 @@ void PassiveSerialTesterBase ::
 
     case PassiveSerialComponentBase::PARAMID_PARAMSTRING: {
       Fw::ParamString ParamStringVal;
-      _status = val.deserialize(ParamStringVal);
+      _status = val.deserializeTo(ParamStringVal);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -4804,7 +4804,7 @@ void PassiveSerialTesterBase ::
 
     case PassiveSerialComponentBase::PARAMID_PARAMENUM: {
       E ParamEnumVal;
-      _status = val.deserialize(ParamEnumVal);
+      _status = val.deserializeTo(ParamEnumVal);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -4818,7 +4818,7 @@ void PassiveSerialTesterBase ::
 
     case PassiveSerialComponentBase::PARAMID_PARAMARRAY: {
       A ParamArrayVal;
-      _status = val.deserialize(ParamArrayVal);
+      _status = val.deserializeTo(ParamArrayVal);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -4832,7 +4832,7 @@ void PassiveSerialTesterBase ::
 
     case PassiveSerialComponentBase::PARAMID_PARAMSTRUCT: {
       S ParamStructVal;
-      _status = val.deserialize(ParamStructVal);
+      _status = val.deserializeTo(ParamStructVal);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -4846,7 +4846,7 @@ void PassiveSerialTesterBase ::
 
     case PassiveSerialComponentBase::PARAMID_PARAMI32EXT: {
       I32 ParamI32ExtVal;
-      _status = val.deserialize(ParamI32ExtVal);
+      _status = val.deserializeTo(ParamI32ExtVal);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -4860,7 +4860,7 @@ void PassiveSerialTesterBase ::
 
     case PassiveSerialComponentBase::PARAMID_PARAMF64EXT: {
       F64 ParamF64ExtVal;
-      _status = val.deserialize(ParamF64ExtVal);
+      _status = val.deserializeTo(ParamF64ExtVal);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -4874,7 +4874,7 @@ void PassiveSerialTesterBase ::
 
     case PassiveSerialComponentBase::PARAMID_PARAMSTRINGEXT: {
       Fw::ParamString ParamStringExtVal;
-      _status = val.deserialize(ParamStringExtVal);
+      _status = val.deserializeTo(ParamStringExtVal);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -4888,7 +4888,7 @@ void PassiveSerialTesterBase ::
 
     case PassiveSerialComponentBase::PARAMID_PARAMENUMEXT: {
       E ParamEnumExtVal;
-      _status = val.deserialize(ParamEnumExtVal);
+      _status = val.deserializeTo(ParamEnumExtVal);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -4902,7 +4902,7 @@ void PassiveSerialTesterBase ::
 
     case PassiveSerialComponentBase::PARAMID_PARAMARRAYEXT: {
       A ParamArrayExtVal;
-      _status = val.deserialize(ParamArrayExtVal);
+      _status = val.deserializeTo(ParamArrayExtVal);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -4916,7 +4916,7 @@ void PassiveSerialTesterBase ::
 
     case PassiveSerialComponentBase::PARAMID_PARAMSTRUCTEXT: {
       S ParamStructExtVal;
-      _status = val.deserialize(ParamStructExtVal);
+      _status = val.deserializeTo(ParamStructExtVal);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)

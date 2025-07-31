@@ -622,7 +622,7 @@ case class ComponentCppWriter (
                 lines(
                   s"""|// Deserialize argument $n
                       |$varDecl
-                      |_deserStatus = _msg.deserialize($n);
+                      |_deserStatus = _msg.deserializeTo($n);
                       |FW_ASSERT(
                       |  _deserStatus == Fw::FW_SERIALIZE_OK,
                       |  static_cast<FwAssertArgType>(_deserStatus)
@@ -646,7 +646,7 @@ case class ComponentCppWriter (
               |  handBuff,
               |  static_cast<Fw::Serializable::SizeType>(this->m_msgSize)
               |);
-              |_deserStatus = _msg.deserialize(serHandBuff);
+              |_deserStatus = _msg.deserializeTo(serHandBuff);
               |FW_ASSERT(
               |  _deserStatus == Fw::FW_SERIALIZE_OK,
               |  static_cast<FwAssertArgType>(_deserStatus)
@@ -672,7 +672,7 @@ case class ComponentCppWriter (
           lines(
             """|// Deserialize opcode
                |FwOpcodeType _opCode = 0;
-               |_deserStatus = _msg.deserialize(_opCode);
+               |_deserStatus = _msg.deserializeTo(_opCode);
                |FW_ASSERT (
                |  _deserStatus == Fw::FW_SERIALIZE_OK,
                |  static_cast<FwAssertArgType>(_deserStatus)
@@ -680,7 +680,7 @@ case class ComponentCppWriter (
                |
                |// Deserialize command sequence
                |U32 _cmdSeq = 0;
-               |_deserStatus = _msg.deserialize(_cmdSeq);
+               |_deserStatus = _msg.deserializeTo(_cmdSeq);
                |FW_ASSERT (
                |  _deserStatus == Fw::FW_SERIALIZE_OK,
                |  static_cast<FwAssertArgType>(_deserStatus)
@@ -688,7 +688,7 @@ case class ComponentCppWriter (
                |
                |// Deserialize command argument buffer
                |Fw::CmdArgBuffer args;
-               |_deserStatus = _msg.deserialize(args);
+               |_deserStatus = _msg.deserializeTo(args);
                |FW_ASSERT (
                |  _deserStatus == Fw::FW_SERIALIZE_OK,
                |  static_cast<FwAssertArgType>(_deserStatus)
@@ -703,7 +703,7 @@ case class ComponentCppWriter (
               lines(
                 s"""|// Deserialize argument $n
                     |$tn $n;
-                    |_deserStatus = args.deserialize($n);
+                    |_deserStatus = args.deserializeTo($n);
                     |if (_deserStatus != Fw::FW_SERIALIZE_OK) {
                     |  if (this->$cmdRespVarName[0].isConnected()) {
                     |    this->cmdResponse_out(
@@ -757,7 +757,7 @@ case class ComponentCppWriter (
             portParamTypeMap(p.getUnqualifiedName).map((n, tn, _) =>
               lines(
                 s"""|$tn $n;
-                    |_deserStatus = _msg.deserialize($n);
+                    |_deserStatus = _msg.deserializeTo($n);
                     |
                     |// Internal interface should always deserialize
                     |FW_ASSERT(
@@ -853,7 +853,7 @@ case class ComponentCppWriter (
                    |_msg.resetDeser();
                    |
                    |FwEnumStoreType _desMsg = 0;
-                   |Fw::SerializeStatus _deserStatus = _msg.deserialize(_desMsg);
+                   |Fw::SerializeStatus _deserStatus = _msg.deserializeTo(_desMsg);
                    |FW_ASSERT(
                    |  _deserStatus == Fw::FW_SERIALIZE_OK,
                    |  static_cast<FwAssertArgType>(_deserStatus)
@@ -869,7 +869,7 @@ case class ComponentCppWriter (
               lines(
                 """|
                    |FwIndexType portNum = 0;
-                   |_deserStatus = _msg.deserialize(portNum);
+                   |_deserStatus = _msg.deserializeTo(portNum);
                    |FW_ASSERT(
                    |  _deserStatus == Fw::FW_SERIALIZE_OK,
                    |  static_cast<FwAssertArgType>(_deserStatus)

@@ -203,7 +203,7 @@ case class ComponentParameters (
                       ),
                       wrapInIfElse(
                         s"this->${paramValidityFlagName(param.getName)} == Fw::ParamValid::VALID",
-                        line(s"_stat = _buff.deserialize(this->${paramVariableName(param.getName)});") ::
+                        line(s"_stat = _buff.deserializeTo(this->${paramVariableName(param.getName)});") ::
                           wrapInIf(
                             "_stat != Fw::FW_SERIALIZE_OK",
                             param.default match {
@@ -325,7 +325,7 @@ case class ComponentParameters (
                   |// Get the external parameter from the delegate
                   |Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
                   |if(_stat == Fw::FW_SERIALIZE_OK) {
-                  |  _stat = _getBuff.deserialize(_local);
+                  |  _stat = _getBuff.deserializeTo(_local);
                   |  FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
                   |  valid = Fw::ParamValid::VALID;
                   |} else {
@@ -398,7 +398,7 @@ case class ComponentParameters (
           } else {
             lines(
               s"""|${writeParamType(param.paramType, "Fw::ParamString")} _localVal{};
-                  |const Fw::SerializeStatus _stat = val.deserialize(_localVal);
+                  |const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
                   |if (_stat != Fw::FW_SERIALIZE_OK) {
                   |  return Fw::CmdResponse::VALIDATION_ERROR;
                   |}
@@ -460,7 +460,7 @@ case class ComponentParameters (
                   lines(
                     s"""|this->m_paramLock.lock();
                         |
-                        |_stat = _saveBuff.serialize(${paramVariableName(param.getName)});
+                        |_stat = _saveBuff.serializeFrom(${paramVariableName(param.getName)});
                         |
                         |this->m_paramLock.unLock();
                         |"""

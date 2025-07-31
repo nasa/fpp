@@ -93,19 +93,19 @@ std::ostream& operator<<(std::ostream& os, const Default& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus Default ::
-  serialize(Fw::SerializeBufferBase& buffer) const
+  serializeTo(Fw::SerializeBufferBase& buffer) const
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->m_mU32);
+  status = buffer.serializeFrom(this->m_mU32);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_mS1);
+  status = buffer.serializeFrom(this->m_mS1);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_mF64);
+  status = buffer.serializeFrom(this->m_mF64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -114,19 +114,19 @@ Fw::SerializeStatus Default ::
 }
 
 Fw::SerializeStatus Default ::
-  deserialize(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(Fw::SerializeBufferBase& buffer)
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->m_mU32);
+  status = buffer.deserializeTo(this->m_mU32);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_mS1);
+  status = buffer.deserializeTo(this->m_mS1);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_mF64);
+  status = buffer.deserializeTo(this->m_mF64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }

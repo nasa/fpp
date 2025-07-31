@@ -446,7 +446,7 @@ case class ArrayCppWriter (
       ),
       functionClassMember(
         Some("Serialization"),
-        "serialize",
+        "serializeTo",
         List(
           CppDoc.Function.Param(
             CppDoc.Type("Fw::SerializeBufferBase&"),
@@ -458,7 +458,7 @@ case class ArrayCppWriter (
         List(
           lines("Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;"),
           indexIterator(
-            line("status = buffer.serialize((*this)[index]);") ::
+            line("status = buffer.serializeFrom((*this)[index]);") ::
               wrapInIf("status != Fw::FW_SERIALIZE_OK", lines("return status;")),
           ),
           lines("return status;"),
@@ -468,7 +468,7 @@ case class ArrayCppWriter (
       ),
       functionClassMember(
         Some("Deserialization"),
-        "deserialize",
+        "deserializeFrom",
         List(
           CppDoc.Function.Param(
             CppDoc.Type("Fw::SerializeBufferBase&"),
@@ -480,7 +480,7 @@ case class ArrayCppWriter (
         List(
           lines("Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;"),
           indexIterator(
-            line("status = buffer.deserialize((*this)[index]);") ::
+            line("status = buffer.deserializeTo((*this)[index]);") ::
               wrapInIf("status != Fw::FW_SERIALIZE_OK", lines("return status;")),
           ),
           lines("return status;"),

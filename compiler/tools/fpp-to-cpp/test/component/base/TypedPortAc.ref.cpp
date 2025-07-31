@@ -108,44 +108,44 @@ namespace Ports {
     FW_ASSERT(this->m_func != nullptr);
 
     U32 u32;
-    _status = _buffer.deserialize(u32);
+    _status = _buffer.deserializeTo(u32);
     if (_status != Fw::FW_SERIALIZE_OK) {
       return _status;
     }
 
     F32 f32;
-    _status = _buffer.deserialize(f32);
+    _status = _buffer.deserializeTo(f32);
     if (_status != Fw::FW_SERIALIZE_OK) {
       return _status;
     }
 
     bool b;
-    _status = _buffer.deserialize(b);
+    _status = _buffer.deserializeTo(b);
     if (_status != Fw::FW_SERIALIZE_OK) {
       return _status;
     }
 
     char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
     Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
-    _status = _buffer.deserialize(str1);
+    _status = _buffer.deserializeTo(str1);
     if (_status != Fw::FW_SERIALIZE_OK) {
       return _status;
     }
 
     E e;
-    _status = _buffer.deserialize(e);
+    _status = _buffer.deserializeTo(e);
     if (_status != Fw::FW_SERIALIZE_OK) {
       return _status;
     }
 
     A a;
-    _status = _buffer.deserialize(a);
+    _status = _buffer.deserializeTo(a);
     if (_status != Fw::FW_SERIALIZE_OK) {
       return _status;
     }
 
     S s;
-    _status = _buffer.deserialize(s);
+    _status = _buffer.deserializeTo(s);
     if (_status != Fw::FW_SERIALIZE_OK) {
       return _status;
     }
@@ -213,25 +213,25 @@ namespace Ports {
       Fw::SerializeStatus _status;
       TypedPortBuffer _buffer;
 
-      _status = _buffer.serialize(u32);
+      _status = _buffer.serializeFrom(u32);
       FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-      _status = _buffer.serialize(f32);
+      _status = _buffer.serializeFrom(f32);
       FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-      _status = _buffer.serialize(b);
+      _status = _buffer.serializeFrom(b);
       FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-      _status = _buffer.serialize(str1);
+      _status = _buffer.serializeFrom(str1);
       FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-      _status = _buffer.serialize(e);
+      _status = _buffer.serializeFrom(e);
       FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-      _status = _buffer.serialize(a);
+      _status = _buffer.serializeFrom(a);
       FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-      _status = _buffer.serialize(s);
+      _status = _buffer.serializeFrom(s);
       FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
       _status = this->m_serPort->invokeSerial(_buffer);

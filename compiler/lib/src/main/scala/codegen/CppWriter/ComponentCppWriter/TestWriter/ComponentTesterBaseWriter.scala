@@ -746,7 +746,7 @@ case class ComponentTesterBaseWriter(
                   t.getUnderlyingType match {
                     case ts: Type.String =>
                       lines(
-                        s"""|_status = $varName.serialize(buf, FW_CMD_STRING_MAX_SIZE);
+                        s"""|_status = $varName.serializeTo(buf, FW_CMD_STRING_MAX_SIZE);
                             |FW_ASSERT(
                             |  _status == Fw::FW_SERIALIZE_OK,
                             |  static_cast<FwAssertArgType>(_status)
@@ -755,7 +755,7 @@ case class ComponentTesterBaseWriter(
                       )
                     case _ =>
                       lines(
-                        s"""|_status = buf.serialize($varName);
+                        s"""|_status = buf.serializeFrom($varName);
                             |FW_ASSERT(
                             |  _status == Fw::FW_SERIALIZE_OK,
                             |  static_cast<FwAssertArgType>(_status)
@@ -847,7 +847,7 @@ case class ComponentTesterBaseWriter(
                  |// For AMPCS, decode zero arguments
                  |Fw::SerializeStatus _zero_status = Fw::FW_SERIALIZE_OK;
                  |U8 _noArgs;
-                 |_zero_status = args.deserialize(_noArgs);
+                 |_zero_status = args.deserializeTo(_noArgs);
                  |FW_ASSERT(
                  |  _zero_status == Fw::FW_SERIALIZE_OK,
                  |  static_cast<FwAssertArgType>(_zero_status)
@@ -862,7 +862,7 @@ case class ComponentTesterBaseWriter(
                    |#if FW_AMPCS_COMPATIBLE
                    |// Deserialize the number of arguments.
                    |U8 _numArgs;
-                   |_status = args.deserialize(_numArgs);
+                   |_status = args.deserializeTo(_numArgs);
                    |FW_ASSERT(
                    |  _status == Fw::FW_SERIALIZE_OK,
                    |  static_cast<FwAssertArgType>(_status)
@@ -882,7 +882,7 @@ case class ComponentTesterBaseWriter(
                         |
                         |// For FATAL, there is a stack size of 4 and a dummy entry
                         |U8 stackArgLen;
-                        |_status = args.deserialize(stackArgLen);
+                        |_status = args.deserializeTo(stackArgLen);
                         |FW_ASSERT(
                         |    _status == Fw::FW_SERIALIZE_OK,
                         |    static_cast<FwAssertArgType>(_status)
@@ -893,7 +893,7 @@ case class ComponentTesterBaseWriter(
                         |);
                         |
                         |U32 dummyStackArg;
-                        |_status = args.deserialize(dummyStackArg);
+                        |_status = args.deserializeTo(dummyStackArg);
                         |FW_ASSERT(
                         |    _status == Fw::FW_SERIALIZE_OK,
                         |    static_cast<FwAssertArgType>(_status)
@@ -930,7 +930,7 @@ case class ComponentTesterBaseWriter(
                   |{
                   |  // Deserialize the argument size
                   |  U8 _argSize;
-                  |  _status = args.deserialize(_argSize);
+                  |  _status = args.deserializeTo(_argSize);
                   |  FW_ASSERT(
                   |    _status == Fw::FW_SERIALIZE_OK,
                   |    static_cast<FwAssertArgType>(_status)
@@ -942,7 +942,7 @@ case class ComponentTesterBaseWriter(
                   |  );
                   |}
                   |#endif
-                  |_status = args.deserialize($name);
+                  |_status = args.deserializeTo($name);
                   |FW_ASSERT(
                   |  _status == Fw::FW_SERIALIZE_OK,
                   |  static_cast<FwAssertArgType>(_status)
@@ -1105,7 +1105,7 @@ case class ComponentTesterBaseWriter(
             s"case $className::$constantName: {",
             lines(
               s"""|$channelType arg;
-                  |const Fw::SerializeStatus _status = val.deserialize(arg);
+                  |const Fw::SerializeStatus _status = val.deserializeTo(arg);
                   |
                   |if (_status != Fw::FW_SERIALIZE_OK) {
                   |  printf("Error deserializing $channelName: %d\\n", _status);
@@ -1276,7 +1276,7 @@ case class ComponentTesterBaseWriter(
                 s"""|// Build command for parameter set
                     |Fw::CmdArgBuffer args;
                     |FW_ASSERT(
-                    |  args.serialize(this->$paramVar) == Fw::FW_SERIALIZE_OK
+                    |  args.serializeFrom(this->$paramVar) == Fw::FW_SERIALIZE_OK
                     |);
                     |
                     |const U32 idBase = this->getIdBase();
@@ -1370,7 +1370,7 @@ case class ComponentTesterBaseWriter(
               wrapInScope(
                 s"case $className::$idConstantName: {",
                 lines(
-                  s"""|_status = $value.serialize(_testerBase->$varName);
+                  s"""|_status = $value.serializeFrom(_testerBase->$varName);
                       |_ret = _testerBase->$validityFlagName;
                       |FW_ASSERT(
                       |  _status == Fw::FW_SERIALIZE_OK,
@@ -1424,7 +1424,7 @@ case class ComponentTesterBaseWriter(
               s"case $className::$idConstantName: {",
               lines(
                 s"""|$paramType $paramNameVal;
-                    |_status = $value.deserialize($paramNameVal);
+                    |_status = $value.deserializeTo($paramNameVal);
                     |FW_ASSERT(
                     |  _status == Fw::FW_SERIALIZE_OK,
                     |  static_cast<FwAssertArgType>(_status)
@@ -1750,7 +1750,7 @@ case class ExternalParameterDelegate(
                 lines(
                   s"""|  // ${prm.getName}
                       |  case ${componentClassName}::${paramIdConstantName(prm.getName)}:
-                      |    stat = buff.deserialize(this->${paramVariableName(prm.getName)});
+                      |    stat = buff.deserializeTo(this->${paramVariableName(prm.getName)});
                       |    break;
                       |
                       |"""
@@ -1806,7 +1806,7 @@ case class ExternalParameterDelegate(
                 lines(
                   s"""|  // ${prm.getName}
                       |  case ${componentClassName}::${paramIdConstantName(prm.getName)}:
-                      |    stat = buff.serialize(this->${paramVariableName(prm.getName)});
+                      |    stat = buff.serializeFrom(this->${paramVariableName(prm.getName)});
                       |    break;
                       |
                       |"""

@@ -88,11 +88,11 @@ instance to a byte string).
 * An implementation of the function
 +
 ----
-Fw::SerializeStatus T::deserialize(Fw::SerializeBufferBase&)
+Fw::SerializeStatus T::deserializeFrom(Fw::SerializeBufferBase&)
 ----
 +
-that specifies how to *deserialize* a class instance (i.e., reconstruct a class
-instance from a byte string).
+that specifies a class instance should *deserializeFrom* a
+buffer (i.e., reconstruct a class instance from a byte string).
 
 * A constant `T::SERIALIZED_SIZE` that specifies the size in bytes
 of a byte string serialized from the class.
@@ -139,11 +139,11 @@ struct T final : public Fw::Serializable { // Extend Fw::Serializable
   // Define a comparison operator
   bool operator==(const T& that) const { return this->x == that.x; }
 
-  // Define the virtual serialize method
-  SS serialize(B& b) const final { return b.serialize(x); }
+  // Define the virtual serializeTo method
+  SS serializeTo(B& b) const final { return b.serializeFrom(x); }
 
-  // Define the virtual deserialize method
-  SS deserialize(B& b) final { return b.deserialize(x); }
+  // Define the virtual deserializeFrom method
+  SS deserializeFrom(B& b) final { return b.deserializeTo(x); }
 
   // Provide some data
   U32 x;
@@ -158,10 +158,10 @@ In some cases, you may want to define an abstract type `T` that represents
 a data buffer and that is used only in <<Defining-Ports,port definitions>>.
 In this case you can implement
 `T` as a class that extends `Fw::SerializeBufferBase`.
-Instead of implementing the `serialize` and `deserialize` functions
+Instead of implementing the `serializeTo` and `deserializeFrom` functions
 directly, you override functions that get the address and the capacity
 (allocated size) of the buffer; the base class `Fw::SerializeBufferBase`
-uses these functions to implement `serialize` and `deserialize`.
+uses these functions to implement `serializeTo` and `deserializeFrom`.
 For an example of how to do this, see the files `Fw/Cmd/CmdArgBuffer.hpp`
 and `Fw/Cmd/CmdArgBuffer.cpp` in the F Prime repository.
 Be careful, though: if you implement an abstract type `T` this way

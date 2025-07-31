@@ -1894,7 +1894,7 @@ void PassiveEventsTesterBase ::
       // For AMPCS, decode zero arguments
       Fw::SerializeStatus _zero_status = Fw::FW_SERIALIZE_OK;
       U8 _noArgs;
-      _zero_status = args.deserialize(_noArgs);
+      _zero_status = args.deserializeTo(_noArgs);
       FW_ASSERT(
         _zero_status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_zero_status)
@@ -1910,7 +1910,7 @@ void PassiveEventsTesterBase ::
 #if FW_AMPCS_COMPATIBLE
       // Deserialize the number of arguments.
       U8 _numArgs;
-      _status = args.deserialize(_numArgs);
+      _status = args.deserializeTo(_numArgs);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -1928,7 +1928,7 @@ void PassiveEventsTesterBase ::
       {
         // Deserialize the argument size
         U8 _argSize;
-        _status = args.deserialize(_argSize);
+        _status = args.deserializeTo(_argSize);
         FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -1940,7 +1940,7 @@ void PassiveEventsTesterBase ::
         );
       }
 #endif
-      _status = args.deserialize(_event_arg_u32);
+      _status = args.deserializeTo(_event_arg_u32);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -1951,7 +1951,7 @@ void PassiveEventsTesterBase ::
       {
         // Deserialize the argument size
         U8 _argSize;
-        _status = args.deserialize(_argSize);
+        _status = args.deserializeTo(_argSize);
         FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -1963,7 +1963,7 @@ void PassiveEventsTesterBase ::
         );
       }
 #endif
-      _status = args.deserialize(_event_arg_f32);
+      _status = args.deserializeTo(_event_arg_f32);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -1974,7 +1974,7 @@ void PassiveEventsTesterBase ::
       {
         // Deserialize the argument size
         U8 _argSize;
-        _status = args.deserialize(_argSize);
+        _status = args.deserializeTo(_argSize);
         FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -1986,7 +1986,7 @@ void PassiveEventsTesterBase ::
         );
       }
 #endif
-      _status = args.deserialize(_event_arg_b);
+      _status = args.deserializeTo(_event_arg_b);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2001,7 +2001,7 @@ void PassiveEventsTesterBase ::
 #if FW_AMPCS_COMPATIBLE
       // Deserialize the number of arguments.
       U8 _numArgs;
-      _status = args.deserialize(_numArgs);
+      _status = args.deserializeTo(_numArgs);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2019,7 +2019,7 @@ void PassiveEventsTesterBase ::
       {
         // Deserialize the argument size
         U8 _argSize;
-        _status = args.deserialize(_argSize);
+        _status = args.deserializeTo(_argSize);
         FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -2031,7 +2031,7 @@ void PassiveEventsTesterBase ::
         );
       }
 #endif
-      _status = args.deserialize(_event_arg_str1);
+      _status = args.deserializeTo(_event_arg_str1);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2042,7 +2042,7 @@ void PassiveEventsTesterBase ::
       {
         // Deserialize the argument size
         U8 _argSize;
-        _status = args.deserialize(_argSize);
+        _status = args.deserializeTo(_argSize);
         FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -2054,7 +2054,7 @@ void PassiveEventsTesterBase ::
         );
       }
 #endif
-      _status = args.deserialize(_event_arg_str2);
+      _status = args.deserializeTo(_event_arg_str2);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2069,7 +2069,7 @@ void PassiveEventsTesterBase ::
 #if FW_AMPCS_COMPATIBLE
       // Deserialize the number of arguments.
       U8 _numArgs;
-      _status = args.deserialize(_numArgs);
+      _status = args.deserializeTo(_numArgs);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2087,7 +2087,7 @@ void PassiveEventsTesterBase ::
       {
         // Deserialize the argument size
         U8 _argSize;
-        _status = args.deserialize(_argSize);
+        _status = args.deserializeTo(_argSize);
         FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -2099,7 +2099,7 @@ void PassiveEventsTesterBase ::
         );
       }
 #endif
-      _status = args.deserialize(_event_arg_e);
+      _status = args.deserializeTo(_event_arg_e);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2114,7 +2114,7 @@ void PassiveEventsTesterBase ::
 #if FW_AMPCS_COMPATIBLE
       // Deserialize the number of arguments.
       U8 _numArgs;
-      _status = args.deserialize(_numArgs);
+      _status = args.deserializeTo(_numArgs);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2128,7 +2128,7 @@ void PassiveEventsTesterBase ::
 
       // For FATAL, there is a stack size of 4 and a dummy entry
       U8 stackArgLen;
-      _status = args.deserialize(stackArgLen);
+      _status = args.deserializeTo(stackArgLen);
       FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -2139,7 +2139,7 @@ void PassiveEventsTesterBase ::
       );
 
       U32 dummyStackArg;
-      _status = args.deserialize(dummyStackArg);
+      _status = args.deserializeTo(dummyStackArg);
       FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -2155,7 +2155,7 @@ void PassiveEventsTesterBase ::
       {
         // Deserialize the argument size
         U8 _argSize;
-        _status = args.deserialize(_argSize);
+        _status = args.deserializeTo(_argSize);
         FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -2167,7 +2167,7 @@ void PassiveEventsTesterBase ::
         );
       }
 #endif
-      _status = args.deserialize(_event_arg_a);
+      _status = args.deserializeTo(_event_arg_a);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2182,7 +2182,7 @@ void PassiveEventsTesterBase ::
 #if FW_AMPCS_COMPATIBLE
       // Deserialize the number of arguments.
       U8 _numArgs;
-      _status = args.deserialize(_numArgs);
+      _status = args.deserializeTo(_numArgs);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2200,7 +2200,7 @@ void PassiveEventsTesterBase ::
       {
         // Deserialize the argument size
         U8 _argSize;
-        _status = args.deserialize(_argSize);
+        _status = args.deserializeTo(_argSize);
         FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -2212,7 +2212,7 @@ void PassiveEventsTesterBase ::
         );
       }
 #endif
-      _status = args.deserialize(_event_arg_s);
+      _status = args.deserializeTo(_event_arg_s);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2226,7 +2226,7 @@ void PassiveEventsTesterBase ::
       // For AMPCS, decode zero arguments
       Fw::SerializeStatus _zero_status = Fw::FW_SERIALIZE_OK;
       U8 _noArgs;
-      _zero_status = args.deserialize(_noArgs);
+      _zero_status = args.deserializeTo(_noArgs);
       FW_ASSERT(
         _zero_status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_zero_status)

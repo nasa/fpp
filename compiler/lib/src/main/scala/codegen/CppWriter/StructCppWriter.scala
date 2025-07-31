@@ -433,9 +433,9 @@ case class StructCppWriter(
         lines("return status;")
       )
     def writeSerializeCall(n: String) =
-      line(s"status = buffer.serialize(this->m_$n);") :: writeSerializeStatusCheck
+      line(s"status = buffer.serializeFrom(this->m_$n);") :: writeSerializeStatusCheck
     def writeDeserializeCall(n: String) =
-      line(s"status = buffer.deserialize(this->m_$n);") :: writeSerializeStatusCheck
+      line(s"status = buffer.deserializeTo(this->m_$n);") :: writeSerializeStatusCheck
 
     List(
       List(
@@ -448,7 +448,7 @@ case class StructCppWriter(
         ),
         functionClassMember(
           Some("Serialization"),
-          "serialize",
+          "serializeTo",
           List(
             CppDoc.Function.Param(
               CppDoc.Type("Fw::SerializeBufferBase&"),
@@ -472,7 +472,7 @@ case class StructCppWriter(
         ),
         functionClassMember(
           Some("Deserialization"),
-          "deserialize",
+          "deserializeFrom",
           List(
             CppDoc.Function.Param(
               CppDoc.Type("Fw::SerializeBufferBase&"),

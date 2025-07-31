@@ -158,7 +158,7 @@ case class ComponentCommands (
                       |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
                       |
                       |// Serialize for IPC
-                      |_status = msg.serialize(static_cast<FwEnumStoreType>(${commandCppConstantName(cmd)}));
+                      |_status = msg.serializeFrom(static_cast<FwEnumStoreType>(${commandCppConstantName(cmd)}));
                       |FW_ASSERT (
                       |  _status == Fw::FW_SERIALIZE_OK,
                       |  static_cast<FwAssertArgType>(_status)
@@ -171,7 +171,7 @@ case class ComponentCommands (
                 intersperseBlankLines(
                   List("port", "opCode", "cmdSeq", "args").map(s =>
                     lines(
-                      s"""|_status = msg.serialize($s);
+                      s"""|_status = msg.serializeFrom($s);
                           |FW_ASSERT (
                           |  _status == Fw::FW_SERIALIZE_OK,
                           |  static_cast<FwAssertArgType>(_status)
@@ -207,7 +207,7 @@ case class ComponentCommands (
                   cmdParamTypeMap(opcode).map((n, tn, _) =>
                     lines(
                       s"""|$tn $n;
-                          |_status = args.deserialize($n);
+                          |_status = args.deserializeTo($n);
                           |if (_status != Fw::FW_SERIALIZE_OK) {
                           |  if (this->${portVariableName(cmdRespPort.get)}[0].isConnected()) {
                           |    this->${portVariableName(cmdRespPort.get)}[0].invoke(
