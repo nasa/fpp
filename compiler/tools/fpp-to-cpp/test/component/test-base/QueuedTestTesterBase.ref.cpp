@@ -5064,7 +5064,7 @@ void QueuedTestTesterBase ::
       FILE* file
   )
 {
-  const char* severityString = "UNKNOWN";
+  const char* severityString = nullptr;
 
   switch (e.severity.e) {
     case Fw::LogSeverity::FATAL:
@@ -5086,7 +5086,7 @@ void QueuedTestTesterBase ::
       severityString = "ACTIVITY_LO";
       break;
     case Fw::LogSeverity::DIAGNOSTIC:
-     severityString = "DIAGNOSTIC";
+      severityString = "DIAGNOSTIC";
       break;
     default:
       severityString = "SEVERITY ERROR";
