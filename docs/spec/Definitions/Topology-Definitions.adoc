@@ -52,7 +52,7 @@ And the set of
 <<Specifiers_Topology-Port-Specifiers,ports>> in the topology
 definition must be a super-set of the ports in _K_.
 This optional clause is a compile-time check that
-verify that this <<Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces,
+verifies that this <<Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces,
 topology's anonymous port interface>> can <<Port-Interfaces_Binding,bind>> to _ID_.
 
 A topology definition _D_ must be resolvable to a topology _T_,
@@ -87,6 +87,11 @@ Check that _n_ is in bounds for the port instance being numbered.
 
 . Recursively resolve all the topologies directly imported into _D_.
 
+.. A topology is imported either explicitely through an
+<<Specifiers_Topology-Import-Specifiers,import specifier>>
+or implicitely through a <<Specifiers_Interface-Instance-Specifiers,
+instance specifier>>.
+
 . Construct the connection graphs of _T_ given by the
 <<Specifiers_Connection-Graph-Specifiers,direct connection graphs>>
 appearing in
@@ -114,20 +119,26 @@ connections C { a.b -> c.d, e.f -> g.h }
 ----
 +
 
+. Compute the set _U_ of topologies directly imported into _T_.
+
+.. A direct import is an import in which an <<Specifiers_Topology-Import-Specifiers,
+import specifier>> or <<Specifiers_Interface-Instance-Specifiers,instance specifier>>
+inside _D_ directly refers another topology.
+
 . Compute the set _S_ of topologies transitively imported into _T_.
 
-. Compute the set _U_ of topologies directly imported into _T_.
+.. For each topology stem:[T_i] in _U_:
+
+... Compute the set stem:[U_i] of topologies directly imported into stem:[T_i].
+
+.. The set _S_ is the set union of all stem:[U_i]
 
 . For each topology _T'_ in _S_,
 <<Specifiers_Topology-Import-Specifiers,import the instances>>
 of _T'_ into _T_.
 
-.. Note that only <<Specifiers_Interface-Instance-Specifiers,interface
-instance specifiers>> instances from _T'_ will be imported into _T_.
-
 . Check that the connections discovered in step 3 are between port
-instances present in _T_ or are <<Specifiers_Topology-Port-Specifiers,topology ports>>
-in of <<Specifiers_Topology-Import-Specifiers,imported topologies>> in _U_.
+instances present on interface instances available in _T_.
 
 . For each topology _T'_ in _S_,
 <<Specifiers_Topology-Import-Specifiers,import the connections>>
@@ -142,9 +153,17 @@ registration connection between two ports, and there is already
 a command registration connection between those ports, then
 do not add the connection.
 
-.. Note: An exported port is also considered a connection. For example
-if a topology _T_ exports a port _p_ from instance _I_, a direct connection to port _I_ `.` _p_ can not
-be made to this port but rather only through the exported port _T_ `.` _p_.
+. For each <<Instance-Member-Identifiers_Port-Instance-Identifiers,
+connection endpoint>> _Q_ . _I_ in _T_, resolve the endpoint to a
+port instance in a <<Definitions_Component-Instance-Definitions,component instance>>:
+
+.. If _Q_ is a component instance, this endpoint is resolved.
+
+.. If _Q_ refers to a <<Definitions_Topology-Definitions,
+topology definition>>, find the <<Specifiers_Topology-Port-Specifiers,
+topology port specifier>> that corresponds to _I_ in the topology referenced
+by _Q_. Re-apply these rules with the port instance refered to in the topology
+port specifier.
 
 ===== Checking Telemetry Packet Set Specifiers
 
@@ -168,8 +187,8 @@ of the topology to a set of packets.
 FPP automatically assigns port numbers as follows.
 
 *Check output port numbers:*
-At each output port _p_ of each <<Port-Interfaces_Port-Interface-Instance,
-port interface instance _I_>>, check the following:
+At each output port _p_ of each <<Definitions_Component-Instance-Definitions,
+component instance _I_>>, check the following:
 
 . The number of connections is in bounds for the
 size of _I_ `.` _p_.
@@ -186,9 +205,9 @@ a.p[0] -> c.p
 
 *Apply matched numbering:*
 Assign matching numbers to matched pairs of ports.
-For each port interface instance _I_ in the topology:
+For each component instance definition _I_ in the topology:
 
-. Let _C_ be the <<Port-Interfaces,port interface>> of _I_.
+. Let _C_ be the <<Definitions_Component-Definitions,component definition>> of _I_.
 
 .  For each
 <<Specifiers_Port-Matching-Specifiers,port matching specifier>>
@@ -375,12 +394,6 @@ topology CDH {
   instance timeSource
 
   # ----------------------------------------------------------------------
-  # Private instances
-  # ----------------------------------------------------------------------
-
-  private instance socketGroundInterface
-
-  # ----------------------------------------------------------------------
   # Connection patterns
   # ----------------------------------------------------------------------
 
@@ -442,13 +455,8 @@ topology AttitudeControl {
 
   instance acsRateGroup
   instance attitudeControl
-  ...
-
-  # ----------------------------------------------------------------------
-  # Private instances
-  # ----------------------------------------------------------------------
-
   instance socketGroundInterface
+  ...
 
   # ----------------------------------------------------------------------
   # Connection patterns

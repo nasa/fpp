@@ -8,7 +8,6 @@ is part of a
 
 ==== Syntax
 
-_[_ `private` _]_
 `instance`
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 
@@ -18,20 +17,6 @@ _[_ `private` _]_
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
 a
 <<Port-Interfaces_Port-Interface-Instance,port interface instance>>.
-
-* The optional keyword `private`, if present, specifies
-a *private instance* of a topology.
-This means that
-the instance is private to the topology _T_ in which
-the specifier appears.
-A private instance appears only in _T_; it does not appear
-in any topology _T'_ into which _T_ is
-<<Specifiers_Topology-Import-Specifiers,imported>>.
-
-* If an instance is not declared private, then it is implicitly
-a *public instance*. This means the instance
-appears in each topology _T'_ into which _T_ is
-<<Specifiers_Topology-Import-Specifiers,imported>>.
 
 * The _qual-ident_ _I_ must <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
 a <<Port-Interfaces_Port-Interface-Instance,port interface instance>>.
@@ -58,19 +43,9 @@ topology SubTopology {
 
 topology T {
 
-  # ----------------------------------------------------------------------
-  # Public instances
-  # ----------------------------------------------------------------------
-
   instance a
   instance b
   instance SubTopology
-
-  # ----------------------------------------------------------------------
-  # Private instances
-  # ----------------------------------------------------------------------
-
-  private instance c
 
   ...
 

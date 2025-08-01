@@ -17,7 +17,14 @@ allows topologies to <<Port-Interfaces_Binding,bind to port interfaces>>.
 
 For each topology port specifier defined in an enclosing topology _T_:
 
-. The port instance identifier references a <<Specifiers_Port-Instance-Specifiers,port instance>>
+. The _identifier_ names the port on the enclosing topology's
+<<Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces,
+anonymous port interface>>.
+
+.. The _identifier_ must not conflict with any other topology port specifier in the
+enclosing topology.
+
+. The _port-instance-id_ references a <<Specifiers_Port-Instance-Specifiers,port instance>>
 endpoint in _T_.
 
 . The port referenced must be either a

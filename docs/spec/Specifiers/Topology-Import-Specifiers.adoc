@@ -23,14 +23,12 @@ of topology _T'_ into topology _T_:
 of _T_.
 
 . Let _I'_ be the set of
-<<Specifiers_Interface-Instance-Specifiers,public instances>>
+<<Specifiers_Interface-Instance-Specifiers,instances>>
 of _T'_.
 
 . Let _I''_ be the set union of _I_ and _I'_.
 That means that if either or both of _I_ and _I'_ contain the instance _S_,
 then _I''_ contains the instance _S_ once.
-Each instance in _I''_ has private visibility if it is private
-in either _I_ or _I'_, otherwise public visibility.
 
 ===== Importing Connections
 
@@ -79,7 +77,7 @@ and connections stem:[C''_i].
 topology A {
 
   instance a
-  private instance b
+  instance b
   instance c
 
   connections C1 {
@@ -122,6 +120,7 @@ After importing, topology `B` is equivalent to this topology:
 topology B {
 
   instance a
+  instance b
   instance c
   instance d
   instance e
@@ -146,7 +145,3 @@ topology B {
 Note the following:
 
 * The connections from topologies `A` and `B` are merged graph by graph.
-
-* Because instance b is private to topology `A`, neither it nor any
-of its connections appear in topology `B`.
-

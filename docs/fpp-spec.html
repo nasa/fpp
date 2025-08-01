@@ -1256,7 +1256,6 @@ passive
 phase
 port
 priority
-private
 product
 queue
 queued
@@ -3766,7 +3765,7 @@ And the set of
 <a href="#Specifiers_Topology-Port-Specifiers">ports</a> in the topology
 definition must be a super-set of the ports in <em>K</em>.
 This optional clause is a compile-time check that
-verify that this <a href="#Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces">topology&#8217;s anonymous port interface</a> can <a href="#Port-Interfaces_Binding">bind</a> to <em>ID</em>.</p>
+verifies that this <a href="#Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces">topology&#8217;s anonymous port interface</a> can <a href="#Port-Interfaces_Binding">bind</a> to <em>ID</em>.</p>
 </div>
 <div class="paragraph">
 <p>A topology definition <em>D</em> must be resolvable to a topology <em>T</em>,
@@ -3809,6 +3808,15 @@ Check that <em>n</em> is in bounds for the port instance being numbered.</p>
 </li>
 <li>
 <p>Recursively resolve all the topologies directly imported into <em>D</em>.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>A topology is imported either explicitely through an
+<a href="#Specifiers_Topology-Import-Specifiers">import specifier</a>
+or implicitely through a <a href="#Specifiers_Interface-Instance-Specifiers">instance specifier</a>.</p>
+</li>
+</ol>
+</div>
 </li>
 <li>
 <p>Construct the connection graphs of <em>T</em> given by the
@@ -3840,28 +3848,44 @@ For example, the two connection graphs</p>
 </div>
 </li>
 <li>
-<p>Compute the set <em>S</em> of topologies transitively imported into <em>T</em>.</p>
-</li>
-<li>
 <p>Compute the set <em>U</em> of topologies directly imported into <em>T</em>.</p>
-</li>
-<li>
-<p>For each topology <em>T'</em> in <em>S</em>,
-<a href="#Specifiers_Topology-Import-Specifiers">import the instances</a>
-of <em>T'</em> into <em>T</em>.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Note that only <a href="#Specifiers_Interface-Instance-Specifiers">interface
-instance specifiers</a> instances from <em>T'</em> will be imported into <em>T</em>.</p>
+<p>A direct import is an import in which an <a href="#Specifiers_Topology-Import-Specifiers">import specifier</a> or <a href="#Specifiers_Interface-Instance-Specifiers">instance specifier</a>
+inside <em>D</em> directly refers another topology.</p>
 </li>
 </ol>
 </div>
 </li>
 <li>
+<p>Compute the set <em>S</em> of topologies transitively imported into <em>T</em>.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>For each topology \$T_i\$ in <em>U</em>:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Compute the set \$U_i\$ of topologies directly imported into \$T_i\$.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>The set <em>S</em> is the set union of all \$U_i\$</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>For each topology <em>T'</em> in <em>S</em>,
+<a href="#Specifiers_Topology-Import-Specifiers">import the instances</a>
+of <em>T'</em> into <em>T</em>.</p>
+</li>
+<li>
 <p>Check that the connections discovered in step 3 are between port
-instances present in <em>T</em> or are <a href="#Specifiers_Topology-Port-Specifiers">topology ports</a>
-in of <a href="#Specifiers_Topology-Import-Specifiers">imported topologies</a> in <em>U</em>.</p>
+instances present on interface instances available in <em>T</em>.</p>
 </li>
 <li>
 <p>For each topology <em>T'</em> in <em>S</em>,
@@ -3877,12 +3901,19 @@ For example, if a command pattern indicates a command
 registration connection between two ports, and there is already
 a command registration connection between those ports, then
 do not add the connection.</p>
+</li>
+<li>
+<p>For each <a href="#Instance-Member-Identifiers_Port-Instance-Identifiers">connection endpoint</a> <em>Q</em> . <em>I</em> in <em>T</em>, resolve the endpoint to a
+port instance in a <a href="#Definitions_Component-Instance-Definitions">component instance</a>:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Note: An exported port is also considered a connection. For example
-if a topology <em>T</em> exports a port <em>p</em> from instance <em>I</em>, a direct connection to port <em>I</em> <code>.</code> <em>p</em> can not
-be made to this port but rather only through the exported port <em>T</em> <code>.</code> <em>p</em>.</p>
+<p>If <em>Q</em> is a component instance, this endpoint is resolved.</p>
+</li>
+<li>
+<p>If <em>Q</em> refers to a <a href="#Definitions_Topology-Definitions">topology definition</a>, find the <a href="#Specifiers_Topology-Port-Specifiers">topology port specifier</a> that corresponds to <em>I</em> in the topology referenced
+by <em>Q</em>. Re-apply these rules with the port instance refered to in the topology
+port specifier.</p>
 </li>
 </ol>
 </div>
@@ -3923,7 +3954,7 @@ of the topology to a set of packets.</p>
 </div>
 <div class="paragraph">
 <p><strong>Check output port numbers:</strong>
-At each output port <em>p</em> of each <a href="#Port-Interfaces_Port-Interface-Instance">port interface instance <em>I</em></a>, check the following:</p>
+At each output port <em>p</em> of each <a href="#Definitions_Component-Instance-Definitions">component instance <em>I</em></a>, check the following:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -3947,12 +3978,12 @@ a.p[0] -&gt; c.p</code></pre>
 <div class="paragraph">
 <p><strong>Apply matched numbering:</strong>
 Assign matching numbers to matched pairs of ports.
-For each port interface instance <em>I</em> in the topology:</p>
+For each component instance definition <em>I</em> in the topology:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Let <em>C</em> be the <a href="#Port-Interfaces">port interface</a> of <em>I</em>.</p>
+<p>Let <em>C</em> be the <a href="#Definitions_Component-Definitions">component definition</a> of <em>I</em>.</p>
 </li>
 <li>
 <p>For each
@@ -4225,12 +4256,6 @@ topology CDH {
   instance timeSource
 
   # ----------------------------------------------------------------------
-  # Private instances
-  # ----------------------------------------------------------------------
-
-  private instance socketGroundInterface
-
-  # ----------------------------------------------------------------------
   # Connection patterns
   # ----------------------------------------------------------------------
 
@@ -4293,13 +4318,8 @@ topology AttitudeControl {
 
   instance acsRateGroup
   instance attitudeControl
-  ...
-
-  # ----------------------------------------------------------------------
-  # Private instances
-  # ----------------------------------------------------------------------
-
   instance socketGroundInterface
+  ...
 
   # ----------------------------------------------------------------------
   # Connection patterns
@@ -6470,8 +6490,7 @@ is part of a
 <div class="sect3">
 <h4 id="Specifiers_Interface-Instance-Specifiers_Syntax">7.7.1. Syntax</h4>
 <div class="paragraph">
-<p><em>[</em> <code>private</code> <em>]</em>
-<code>instance</code>
+<p><code>instance</code>
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a></p>
 </div>
 </div>
@@ -6486,46 +6505,11 @@ a
 <a href="#Port-Interfaces_Port-Interface-Instance">port interface instance</a>.</p>
 </li>
 <li>
-<p>The optional keyword <code>private</code>, if present, specifies
-a <strong>private instance</strong> of a topology.
-This means that
-the instance is private to the topology <em>T</em> in which
-the specifier appears.
-A private instance appears only in <em>T</em>; it does not appear
-in any topology <em>T'</em> into which <em>T</em> is
-<a href="#Specifiers_Topology-Import-Specifiers">imported</a>.</p>
-</li>
-<li>
-<p>If an instance is not declared private, then it is implicitly
-a <strong>public instance</strong>. This means the instance
-appears in each topology <em>T'</em> into which <em>T</em> is
-<a href="#Specifiers_Topology-Import-Specifiers">imported</a>.</p>
-</li>
-<li>
-<p>The <em>qual-ident</em> <em>I</em> <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refers to</a>
-an interface instance. Interface instances are definitions that expose port interfaces.
-FPP has two types of interface instances: <a href="#Definitions_Component-Instance-Definitions">component instances</a> and <a href="#Definitions_Topology-Definitions">topologies</a>.
-See <a href="#Port-Interfaces_Port-Interface-Instance">port interface instance</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p>If <em>I</em> refers to a <strong>component instance definition</strong> <em>C</em>, connecting to <em>I</em>'s port interface
-will connect ports direct to the port instances in <em>C</em>.</p>
-</li>
-<li>
-<p>If <em>I</em> refers to a <strong>topology definition</strong> <em>T'</em>, connection to <em>I</em>'s port interface will
-connect to the underlying ports mapped via the <a href="#Specifiers_Topology-Port-Specifiers">topology port specifiers</a> in <em>T'</em>.</p>
-<div class="ulist">
-<ul>
-<li>
-<p><em>T</em> will also import the connections of <em>T'</em> according to the
-<a href="#Specifiers_Topology-Import-Specifiers_Semantics_Importing-Connections">topology connection import semantics</a>.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
+<p>The <em>qual-ident</em> <em>I</em> must <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
+a <a href="#Port-Interfaces_Port-Interface-Instance">port interface instance</a>.
+If the port interface instance is a <a href="#Definitions_Topology-Definitions">topology definition</a>,
+<a href="#Specifiers_Topology-Import-Specifiers_Semantics_Importing-Connections">import</a> the connections
+into the enclosing topology.</p>
 </li>
 </ul>
 </div>
@@ -6549,19 +6533,9 @@ topology SubTopology {
 
 topology T {
 
-  # ----------------------------------------------------------------------
-  # Public instances
-  # ----------------------------------------------------------------------
-
   instance a
   instance b
   instance SubTopology
-
-  # ----------------------------------------------------------------------
-  # Private instances
-  # ----------------------------------------------------------------------
-
-  private instance c
 
   ...
 
@@ -8069,7 +8043,19 @@ allows topologies to <a href="#Port-Interfaces_Binding">bind to port interfaces<
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The port instance identifier references a <a href="#Specifiers_Port-Instance-Specifiers">port instance</a>
+<p>The <em>identifier</em> names the port on the enclosing topology&#8217;s
+<a href="#Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces">anonymous port interface</a>.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>The <em>identifier</em> must not conflict with any other topology port specifier in the
+enclosing topology.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>The <em>port-instance-id</em> references a <a href="#Specifiers_Port-Instance-Specifiers">port instance</a>
 endpoint in <em>T</em>.</p>
 </li>
 <li>
@@ -8168,15 +8154,13 @@ of <em>T</em>.</p>
 </li>
 <li>
 <p>Let <em>I'</em> be the set of
-<a href="#Specifiers_Interface-Instance-Specifiers">public instances</a>
+<a href="#Specifiers_Interface-Instance-Specifiers">instances</a>
 of <em>T'</em>.</p>
 </li>
 <li>
 <p>Let <em>I''</em> be the set union of <em>I</em> and <em>I'</em>.
 That means that if either or both of <em>I</em> and <em>I'</em> contain the instance <em>S</em>,
-then <em>I''</em> contains the instance <em>S</em> once.
-Each instance in <em>I''</em> has private visibility if it is private
-in either <em>I</em> or <em>I'</em>, otherwise public visibility.</p>
+then <em>I''</em> contains the instance <em>S</em> once.</p>
 </li>
 </ol>
 </div>
@@ -8247,7 +8231,7 @@ and connections \$C''_i\$.</p>
 <pre class="prettyprint highlight"><code data-lang="fpp">topology A {
 
   instance a
-  private instance b
+  instance b
   instance c
 
   connections C1 {
@@ -8291,6 +8275,7 @@ topology B {
 <pre class="prettyprint highlight"><code data-lang="fpp">topology B {
 
   instance a
+  instance b
   instance c
   instance d
   instance e
@@ -8319,10 +8304,6 @@ topology B {
 <ul>
 <li>
 <p>The connections from topologies <code>A</code> and <code>B</code> are merged graph by graph.</p>
-</li>
-<li>
-<p>Because instance b is private to topology <code>A</code>, neither it nor any
-of its connections appear in topology <code>B</code>.</p>
 </li>
 </ul>
 </div>
@@ -12246,7 +12227,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-07-30 13:02:35 -0700
+Last updated 2025-08-01 15:40:15 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
