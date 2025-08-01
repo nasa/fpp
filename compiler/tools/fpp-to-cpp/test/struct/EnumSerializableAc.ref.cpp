@@ -151,6 +151,15 @@ Fw::SerializeStatus Enum ::
   return status;
 }
 
+FwSizeType Enum ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  size += M::E::SERIALIZED_SIZE;
+  size += M::E::SERIALIZED_SIZE * 3;
+  return size;
+}
+
 #if FW_SERIALIZABLE_TO_STRING
 
 void Enum ::

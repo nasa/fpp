@@ -253,6 +253,25 @@ namespace M {
     return status;
   }
 
+  FwSizeType S1 ::
+    serializedSize() const
+  {
+    FwSizeType size = 0;
+    size += sizeof(F32);
+    size += sizeof(F64);
+    size += sizeof(I16);
+    size += sizeof(I32);
+    size += sizeof(I64);
+    size += sizeof(I8);
+    size += sizeof(U16);
+    size += sizeof(U32);
+    size += sizeof(U64);
+    size += sizeof(U8);
+    size += sizeof(U8);
+    size += this->m_mString.serializedSize();
+    return size;
+  }
+
 #if FW_SERIALIZABLE_TO_STRING
 
   void S1 ::

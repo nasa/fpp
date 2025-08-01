@@ -180,6 +180,18 @@ Fw::SerializeStatus AliasType ::
   return status;
 }
 
+FwSizeType AliasType ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  size += sizeof(U16Alias);
+  size += TAlias::SERIALIZED_SIZE;
+  for (U32 index = 0; index < 10; index++) {
+    size += this->m_z[index].serializedSize();
+  }
+  return size;
+}
+
 #if FW_SERIALIZABLE_TO_STRING
 
 void AliasType ::

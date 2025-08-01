@@ -153,6 +153,12 @@ Fw::SerializeStatus SingleElement ::
   return status;
 }
 
+FwSizeType SingleElement ::
+  serializedSize() const
+{
+  return SERIALIZED_SIZE;
+}
+
 #if FW_SERIALIZABLE_TO_STRING
 
 void SingleElement ::

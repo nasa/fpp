@@ -15,7 +15,7 @@ case class ComponentDataProducts (
       val data = record.aNode._2.data
       val constantName = s"SIZE_OF_${data.name}_RECORD"
       val typeName = TypeCppWriter.getName(s, record.recordType)
-      val eltSize = writeSerializedSizeExpr(s, record.recordType, typeName)
+      val eltSize = writeStaticSerializedSizeExpr(s, record.recordType, typeName)
       if record.isArray
       then s"""|static constexpr FwSizeType $constantName(FwSizeType arraySize) {
                |  return sizeof(FwDpIdType) + sizeof(FwSizeStoreType) + arraySize * $eltSize;
@@ -423,8 +423,14 @@ case class ComponentDataProducts (
               |const FwSizeType sizeDelta =
               |  sizeof(FwDpIdType) +
               |  elt.serializedTruncatedSize(stringSize);"""
+        case ts: (Type.Array | Type.Struct)  => {
+          val serialSize = "elt.serializedSize()"
+          s"""|const FwSizeType sizeDelta =
+              |  sizeof(FwDpIdType) +
+              |  $serialSize;"""
+        }
         case _ =>
-          val serialSize = writeSerializedSizeExpr(s, t, typeName)
+          val serialSize = writeStaticSerializedSizeExpr(s, t, typeName)
           s"""|const FwSizeType sizeDelta =
               |  sizeof(FwDpIdType) +
               |  $serialSize;"""

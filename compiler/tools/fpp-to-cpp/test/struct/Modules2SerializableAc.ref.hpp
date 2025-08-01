@@ -95,6 +95,9 @@ namespace M {
           Fw::SerializeBufferBase& buffer //!< The serial buffer
       );
 
+      //! Get the dynamic serialized size of the struct
+      FwSizeType serializedSize() const;
+
 #if FW_SERIALIZABLE_TO_STRING
 
       //! Convert struct to string

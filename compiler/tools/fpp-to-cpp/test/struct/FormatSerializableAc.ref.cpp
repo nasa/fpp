@@ -316,6 +316,30 @@ Fw::SerializeStatus Format ::
   return status;
 }
 
+FwSizeType Format ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  size += sizeof(I32);
+  size += sizeof(U32);
+  size += sizeof(I32);
+  size += sizeof(U32);
+  size += sizeof(I32);
+  size += sizeof(U32);
+  size += sizeof(I32);
+  size += sizeof(U32);
+  size += sizeof(I32);
+  size += sizeof(U32);
+  size += sizeof(F32);
+  size += sizeof(F32);
+  size += sizeof(F32);
+  size += sizeof(F32);
+  size += sizeof(F32);
+  size += sizeof(F32);
+  size += sizeof(F32);
+  return size;
+}
+
 #if FW_SERIALIZABLE_TO_STRING
 
 void Format ::

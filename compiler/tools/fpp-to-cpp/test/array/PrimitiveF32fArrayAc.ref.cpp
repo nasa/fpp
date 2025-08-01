@@ -172,6 +172,12 @@ namespace M {
     return status;
   }
 
+  FwSizeType PrimitiveF32f ::
+    serializedSize() const
+  {
+    return SERIALIZED_SIZE;
+  }
+
 #if FW_SERIALIZABLE_TO_STRING
 
   void PrimitiveF32f ::

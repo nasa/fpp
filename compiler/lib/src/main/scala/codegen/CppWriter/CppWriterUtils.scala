@@ -302,7 +302,7 @@ trait CppWriterUtils extends LineUtils {
       getOrElse(s.defaultStringSize.toString)
 
   /** Write a C++ expression for static serialized size */
-  def writeSerializedSizeExpr(s: CppWriterState, t: Type, typeName: String): String =
+  def writeStaticSerializedSizeExpr(s: CppWriterState, t: Type, typeName: String): String =
     (t.getUnderlyingType, s.isPrimitive(t, typeName))  match {
       // sizeof(bool) is not defined in C++
       // F Prime serializes bool as U8

@@ -103,6 +103,14 @@ Fw::SerializeStatus Included ::
   return status;
 }
 
+FwSizeType Included ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  size += sizeof(U32);
+  return size;
+}
+
 #if FW_SERIALIZABLE_TO_STRING
 
 void Included ::
