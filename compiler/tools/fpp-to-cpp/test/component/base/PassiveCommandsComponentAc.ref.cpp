@@ -2317,7 +2317,7 @@ void PassiveCommandsComponentBase ::
   args.resetDeser();
 
   U32 u32;
-  _status = args.deserialize(u32);
+  _status = args.deserializeTo(u32);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
@@ -2330,7 +2330,7 @@ void PassiveCommandsComponentBase ::
   }
 
   F32 f32;
-  _status = args.deserialize(f32);
+  _status = args.deserializeTo(f32);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
@@ -2343,7 +2343,7 @@ void PassiveCommandsComponentBase ::
   }
 
   bool b;
-  _status = args.deserialize(b);
+  _status = args.deserializeTo(b);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
@@ -2392,7 +2392,7 @@ void PassiveCommandsComponentBase ::
   args.resetDeser();
 
   Fw::CmdStringArg str1;
-  _status = args.deserialize(str1);
+  _status = args.deserializeTo(str1);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
@@ -2405,7 +2405,7 @@ void PassiveCommandsComponentBase ::
   }
 
   Fw::CmdStringArg str2;
-  _status = args.deserialize(str2);
+  _status = args.deserializeTo(str2);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
@@ -2453,7 +2453,7 @@ void PassiveCommandsComponentBase ::
   args.resetDeser();
 
   E e;
-  _status = args.deserialize(e);
+  _status = args.deserializeTo(e);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
@@ -2500,7 +2500,7 @@ void PassiveCommandsComponentBase ::
   args.resetDeser();
 
   A a;
-  _status = args.deserialize(a);
+  _status = args.deserializeTo(a);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
@@ -2547,7 +2547,7 @@ void PassiveCommandsComponentBase ::
   args.resetDeser();
 
   S s;
-  _status = args.deserialize(s);
+  _status = args.deserializeTo(s);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
@@ -2623,7 +2623,7 @@ void PassiveCommandsComponentBase ::
   args.resetDeser();
 
   U32 u32;
-  _status = args.deserialize(u32);
+  _status = args.deserializeTo(u32);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
@@ -2636,7 +2636,7 @@ void PassiveCommandsComponentBase ::
   }
 
   F32 f32;
-  _status = args.deserialize(f32);
+  _status = args.deserializeTo(f32);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
@@ -2649,7 +2649,7 @@ void PassiveCommandsComponentBase ::
   }
 
   bool b;
-  _status = args.deserialize(b);
+  _status = args.deserializeTo(b);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
@@ -2702,7 +2702,7 @@ void PassiveCommandsComponentBase ::
   args.resetDeser();
 
   Fw::CmdStringArg str1;
-  _status = args.deserialize(str1);
+  _status = args.deserializeTo(str1);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
@@ -2715,7 +2715,7 @@ void PassiveCommandsComponentBase ::
   }
 
   Fw::CmdStringArg str2;
-  _status = args.deserialize(str2);
+  _status = args.deserializeTo(str2);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
@@ -2767,7 +2767,7 @@ void PassiveCommandsComponentBase ::
   args.resetDeser();
 
   E e;
-  _status = args.deserialize(e);
+  _status = args.deserializeTo(e);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
@@ -2818,7 +2818,7 @@ void PassiveCommandsComponentBase ::
   args.resetDeser();
 
   A a;
-  _status = args.deserialize(a);
+  _status = args.deserializeTo(a);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
@@ -2869,7 +2869,7 @@ void PassiveCommandsComponentBase ::
   args.resetDeser();
 
   S s;
-  _status = args.deserialize(s);
+  _status = args.deserializeTo(s);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(

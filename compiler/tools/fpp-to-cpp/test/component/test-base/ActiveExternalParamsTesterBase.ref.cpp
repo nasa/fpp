@@ -29,27 +29,27 @@ Fw::SerializeStatus ActiveExternalParamsTesterBase::ActiveExternalParamsComponen
   {
     // ParamI32Ext
     case ActiveExternalParamsComponentBase::PARAMID_PARAMI32EXT:
-      stat = buff.deserialize(this->m_param_ParamI32Ext);
+      stat = buff.deserializeTo(this->m_param_ParamI32Ext);
       break;
     // ParamF64Ext
     case ActiveExternalParamsComponentBase::PARAMID_PARAMF64EXT:
-      stat = buff.deserialize(this->m_param_ParamF64Ext);
+      stat = buff.deserializeTo(this->m_param_ParamF64Ext);
       break;
     // ParamStringExt
     case ActiveExternalParamsComponentBase::PARAMID_PARAMSTRINGEXT:
-      stat = buff.deserialize(this->m_param_ParamStringExt);
+      stat = buff.deserializeTo(this->m_param_ParamStringExt);
       break;
     // ParamEnumExt
     case ActiveExternalParamsComponentBase::PARAMID_PARAMENUMEXT:
-      stat = buff.deserialize(this->m_param_ParamEnumExt);
+      stat = buff.deserializeTo(this->m_param_ParamEnumExt);
       break;
     // ParamArrayExt
     case ActiveExternalParamsComponentBase::PARAMID_PARAMARRAYEXT:
-      stat = buff.deserialize(this->m_param_ParamArrayExt);
+      stat = buff.deserializeTo(this->m_param_ParamArrayExt);
       break;
     // ParamStructExt
     case ActiveExternalParamsComponentBase::PARAMID_PARAMSTRUCTEXT:
-      stat = buff.deserialize(this->m_param_ParamStructExt);
+      stat = buff.deserializeTo(this->m_param_ParamStructExt);
       break;
     default:
       // Unknown ID; should not have gotten here
@@ -74,27 +74,27 @@ Fw::SerializeStatus ActiveExternalParamsTesterBase::ActiveExternalParamsComponen
   {
     // ParamI32Ext
     case ActiveExternalParamsComponentBase::PARAMID_PARAMI32EXT:
-      stat = buff.serialize(this->m_param_ParamI32Ext);
+      stat = buff.serializeFrom(this->m_param_ParamI32Ext);
       break;
     // ParamF64Ext
     case ActiveExternalParamsComponentBase::PARAMID_PARAMF64EXT:
-      stat = buff.serialize(this->m_param_ParamF64Ext);
+      stat = buff.serializeFrom(this->m_param_ParamF64Ext);
       break;
     // ParamStringExt
     case ActiveExternalParamsComponentBase::PARAMID_PARAMSTRINGEXT:
-      stat = buff.serialize(this->m_param_ParamStringExt);
+      stat = buff.serializeFrom(this->m_param_ParamStringExt);
       break;
     // ParamEnumExt
     case ActiveExternalParamsComponentBase::PARAMID_PARAMENUMEXT:
-      stat = buff.serialize(this->m_param_ParamEnumExt);
+      stat = buff.serializeFrom(this->m_param_ParamEnumExt);
       break;
     // ParamArrayExt
     case ActiveExternalParamsComponentBase::PARAMID_PARAMARRAYEXT:
-      stat = buff.serialize(this->m_param_ParamArrayExt);
+      stat = buff.serializeFrom(this->m_param_ParamArrayExt);
       break;
     // ParamStructExt
     case ActiveExternalParamsComponentBase::PARAMID_PARAMSTRUCTEXT:
-      stat = buff.serialize(this->m_param_ParamStructExt);
+      stat = buff.serializeFrom(this->m_param_ParamStructExt);
       break;
     default:
       // Unknown ID; should not have gotten here
@@ -2523,7 +2523,7 @@ void ActiveExternalParamsTesterBase ::
   // Build command for parameter set
   Fw::CmdArgBuffer args;
   FW_ASSERT(
-    args.serialize(this->paramTesterDelegate.m_param_ParamI32Ext) == Fw::FW_SERIALIZE_OK
+    args.serializeFrom(this->paramTesterDelegate.m_param_ParamI32Ext) == Fw::FW_SERIALIZE_OK
   );
 
   const U32 idBase = this->getIdBase();
@@ -2582,7 +2582,7 @@ void ActiveExternalParamsTesterBase ::
   // Build command for parameter set
   Fw::CmdArgBuffer args;
   FW_ASSERT(
-    args.serialize(this->paramTesterDelegate.m_param_ParamF64Ext) == Fw::FW_SERIALIZE_OK
+    args.serializeFrom(this->paramTesterDelegate.m_param_ParamF64Ext) == Fw::FW_SERIALIZE_OK
   );
 
   const U32 idBase = this->getIdBase();
@@ -2641,7 +2641,7 @@ void ActiveExternalParamsTesterBase ::
   // Build command for parameter set
   Fw::CmdArgBuffer args;
   FW_ASSERT(
-    args.serialize(this->paramTesterDelegate.m_param_ParamStringExt) == Fw::FW_SERIALIZE_OK
+    args.serializeFrom(this->paramTesterDelegate.m_param_ParamStringExt) == Fw::FW_SERIALIZE_OK
   );
 
   const U32 idBase = this->getIdBase();
@@ -2700,7 +2700,7 @@ void ActiveExternalParamsTesterBase ::
   // Build command for parameter set
   Fw::CmdArgBuffer args;
   FW_ASSERT(
-    args.serialize(this->paramTesterDelegate.m_param_ParamEnumExt) == Fw::FW_SERIALIZE_OK
+    args.serializeFrom(this->paramTesterDelegate.m_param_ParamEnumExt) == Fw::FW_SERIALIZE_OK
   );
 
   const U32 idBase = this->getIdBase();
@@ -2759,7 +2759,7 @@ void ActiveExternalParamsTesterBase ::
   // Build command for parameter set
   Fw::CmdArgBuffer args;
   FW_ASSERT(
-    args.serialize(this->paramTesterDelegate.m_param_ParamArrayExt) == Fw::FW_SERIALIZE_OK
+    args.serializeFrom(this->paramTesterDelegate.m_param_ParamArrayExt) == Fw::FW_SERIALIZE_OK
   );
 
   const U32 idBase = this->getIdBase();
@@ -2818,7 +2818,7 @@ void ActiveExternalParamsTesterBase ::
   // Build command for parameter set
   Fw::CmdArgBuffer args;
   FW_ASSERT(
-    args.serialize(this->paramTesterDelegate.m_param_ParamStructExt) == Fw::FW_SERIALIZE_OK
+    args.serializeFrom(this->paramTesterDelegate.m_param_ParamStructExt) == Fw::FW_SERIALIZE_OK
   );
 
   const U32 idBase = this->getIdBase();
@@ -3106,7 +3106,7 @@ Fw::ParamValid ActiveExternalParamsTesterBase ::
 
   switch (id - idBase) {
     case ActiveExternalParamsComponentBase::PARAMID_PARAMI32EXT: {
-      _status = val.serialize(_testerBase->paramTesterDelegate.m_param_ParamI32Ext);
+      _status = val.serializeFrom(_testerBase->paramTesterDelegate.m_param_ParamI32Ext);
       _ret = _testerBase->paramTesterDelegate.m_param_ParamI32Ext_valid;
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
@@ -3116,7 +3116,7 @@ Fw::ParamValid ActiveExternalParamsTesterBase ::
     };
 
     case ActiveExternalParamsComponentBase::PARAMID_PARAMF64EXT: {
-      _status = val.serialize(_testerBase->paramTesterDelegate.m_param_ParamF64Ext);
+      _status = val.serializeFrom(_testerBase->paramTesterDelegate.m_param_ParamF64Ext);
       _ret = _testerBase->paramTesterDelegate.m_param_ParamF64Ext_valid;
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
@@ -3126,7 +3126,7 @@ Fw::ParamValid ActiveExternalParamsTesterBase ::
     };
 
     case ActiveExternalParamsComponentBase::PARAMID_PARAMSTRINGEXT: {
-      _status = val.serialize(_testerBase->paramTesterDelegate.m_param_ParamStringExt);
+      _status = val.serializeFrom(_testerBase->paramTesterDelegate.m_param_ParamStringExt);
       _ret = _testerBase->paramTesterDelegate.m_param_ParamStringExt_valid;
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
@@ -3136,7 +3136,7 @@ Fw::ParamValid ActiveExternalParamsTesterBase ::
     };
 
     case ActiveExternalParamsComponentBase::PARAMID_PARAMENUMEXT: {
-      _status = val.serialize(_testerBase->paramTesterDelegate.m_param_ParamEnumExt);
+      _status = val.serializeFrom(_testerBase->paramTesterDelegate.m_param_ParamEnumExt);
       _ret = _testerBase->paramTesterDelegate.m_param_ParamEnumExt_valid;
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
@@ -3146,7 +3146,7 @@ Fw::ParamValid ActiveExternalParamsTesterBase ::
     };
 
     case ActiveExternalParamsComponentBase::PARAMID_PARAMARRAYEXT: {
-      _status = val.serialize(_testerBase->paramTesterDelegate.m_param_ParamArrayExt);
+      _status = val.serializeFrom(_testerBase->paramTesterDelegate.m_param_ParamArrayExt);
       _ret = _testerBase->paramTesterDelegate.m_param_ParamArrayExt_valid;
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
@@ -3156,7 +3156,7 @@ Fw::ParamValid ActiveExternalParamsTesterBase ::
     };
 
     case ActiveExternalParamsComponentBase::PARAMID_PARAMSTRUCTEXT: {
-      _status = val.serialize(_testerBase->paramTesterDelegate.m_param_ParamStructExt);
+      _status = val.serializeFrom(_testerBase->paramTesterDelegate.m_param_ParamStructExt);
       _ret = _testerBase->paramTesterDelegate.m_param_ParamStructExt_valid;
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
@@ -3194,7 +3194,7 @@ void ActiveExternalParamsTesterBase ::
   switch (id - idBase) {
     case ActiveExternalParamsComponentBase::PARAMID_PARAMI32EXT: {
       I32 ParamI32ExtVal;
-      _status = val.deserialize(ParamI32ExtVal);
+      _status = val.deserializeTo(ParamI32ExtVal);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -3208,7 +3208,7 @@ void ActiveExternalParamsTesterBase ::
 
     case ActiveExternalParamsComponentBase::PARAMID_PARAMF64EXT: {
       F64 ParamF64ExtVal;
-      _status = val.deserialize(ParamF64ExtVal);
+      _status = val.deserializeTo(ParamF64ExtVal);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -3222,7 +3222,7 @@ void ActiveExternalParamsTesterBase ::
 
     case ActiveExternalParamsComponentBase::PARAMID_PARAMSTRINGEXT: {
       Fw::ParamString ParamStringExtVal;
-      _status = val.deserialize(ParamStringExtVal);
+      _status = val.deserializeTo(ParamStringExtVal);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -3236,7 +3236,7 @@ void ActiveExternalParamsTesterBase ::
 
     case ActiveExternalParamsComponentBase::PARAMID_PARAMENUMEXT: {
       E ParamEnumExtVal;
-      _status = val.deserialize(ParamEnumExtVal);
+      _status = val.deserializeTo(ParamEnumExtVal);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -3250,7 +3250,7 @@ void ActiveExternalParamsTesterBase ::
 
     case ActiveExternalParamsComponentBase::PARAMID_PARAMARRAYEXT: {
       A ParamArrayExtVal;
-      _status = val.deserialize(ParamArrayExtVal);
+      _status = val.deserializeTo(ParamArrayExtVal);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -3264,7 +3264,7 @@ void ActiveExternalParamsTesterBase ::
 
     case ActiveExternalParamsComponentBase::PARAMID_PARAMSTRUCTEXT: {
       S ParamStructExtVal;
-      _status = val.deserialize(ParamStructExtVal);
+      _status = val.deserializeTo(ParamStructExtVal);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)

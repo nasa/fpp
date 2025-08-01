@@ -375,7 +375,7 @@ namespace FppTest {
     _msg.resetDeser();
 
     FwEnumStoreType _desMsg = 0;
-    Fw::SerializeStatus _deserStatus = _msg.deserialize(_desMsg);
+    Fw::SerializeStatus _deserStatus = _msg.deserializeTo(_desMsg);
     FW_ASSERT(
       _deserStatus == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_deserStatus)
@@ -388,7 +388,7 @@ namespace FppTest {
     }
 
     FwIndexType portNum = 0;
-    _deserStatus = _msg.deserialize(portNum);
+    _deserStatus = _msg.deserializeTo(portNum);
     FW_ASSERT(
       _deserStatus == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_deserStatus)
@@ -482,11 +482,11 @@ namespace FppTest {
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
 
     // Deserialize the state machine ID
-    status = buffer.deserialize(smId);
+    status = buffer.deserializeTo(smId);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
 
     // Deserialize the signal
-    status = buffer.deserialize(signal);
+    status = buffer.deserializeTo(signal);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
   }
 

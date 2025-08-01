@@ -439,8 +439,8 @@ case class ComponentDataProducts (
       // For strings this is a truncated serialization
       val serialExpr = t.getUnderlyingType match {
         case ts: Type.String =>
-          "elt.serialize(this->m_dataBuffer, stringSize)"
-        case _ => "this->m_dataBuffer.serialize(elt)"
+          "elt.serializeTo(this->m_dataBuffer, stringSize)"
+        case _ => "this->m_dataBuffer.serializeFrom(elt)"
       }
       // Construct the function body
       val body = lines(
@@ -448,7 +448,7 @@ case class ComponentDataProducts (
             |Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
             |if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
             |  const FwDpIdType id = this->m_baseId + RecordId::$name;
-            |  status = this->m_dataBuffer.serialize(id);
+            |  status = this->m_dataBuffer.serializeFrom(id);
             |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
             |  status = $serialExpr;
             |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
@@ -509,20 +509,20 @@ case class ComponentDataProducts (
       val serializeElts = (t.getUnderlyingType match {
         // Optimize the U8 case
         case Type.U8 =>
-          """|  status = this->m_dataBuffer.serialize(array, size, Fw::Serialization::OMIT_LENGTH);
+          """|  status = this->m_dataBuffer.serializeFrom(array, size, Fw::Serialization::OMIT_LENGTH);
              |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));"""
         // Handle the string case
         case ts: Type.String =>
           s"""|  for (FwSizeType i = 0; i < size; i++) {
               |    const Fw::StringBase *const sbPtr = array[i];
               |    FW_ASSERT(sbPtr != nullptr);
-              |    status = sbPtr->serialize(this->m_dataBuffer, stringSize);
+              |    status = sbPtr->serializeTo(this->m_dataBuffer, stringSize);
               |    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
               |  }"""
         // Handle the general case
         case _ =>
           """|  for (FwSizeType i = 0; i < size; i++) {
-             |    status = this->m_dataBuffer.serialize(array[i]);
+             |    status = this->m_dataBuffer.serializeFrom(array[i]);
              |    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
              |  }"""
       }).stripMargin
@@ -535,7 +535,7 @@ case class ComponentDataProducts (
             |Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
             |if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
             |  const FwDpIdType id = this->m_baseId + RecordId::$name;
-            |  status = this->m_dataBuffer.serialize(id);
+            |  status = this->m_dataBuffer.serializeFrom(id);
             |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
             |  status = this->m_dataBuffer.serializeSize(size);
             |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
