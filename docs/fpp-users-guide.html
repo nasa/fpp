@@ -15275,8 +15275,8 @@ Your class definition should include the following:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>that specifies how a class instance should <strong>serializeTo</strong> a buffer
-(i.e., convert a class instance to a byte string).</p>
+<p>that specifies how to <strong>serialize</strong> a class instance to a buffer
+(i.e., convert a class instance to a byte string stored in a buffer).</p>
 </div>
 </li>
 <li>
@@ -15287,8 +15287,9 @@ Your class definition should include the following:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>that specifies how a class instance should <strong>deserializeFrom</strong> a
-buffer (i.e., reconstruct a class instance from a byte string).</p>
+<p>that specifies how to <strong>deserialize</strong> a class instance from a
+buffer (i.e., reconstruct a class instance from a byte string stored in a
+buffer).</p>
 </div>
 </li>
 <li>
@@ -15317,7 +15318,9 @@ of a byte string serialized from the class.</p>
 It has one member variable <code>x</code> of type <code>U32</code> and no methods other than
 those required by F Prime.
 We have made <code>T</code> a C&#43;&#43; struct (rather than a class) so that
-all members are public by default.</p>
+all members are public by default.
+To implement <code>serializeTo</code>, we use the <code>serializeFrom</code> function
+provided by <code>Fw::SerializeBufferBase</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -15332,8 +15335,8 @@ all members are public by default.</p>
 struct T final : public Fw::Serializable { // Extend Fw::Serializable
 
   // Define some shorthand for F Prime types
-  typedef Fw::SerializeStatus SS;
-  typedef Fw::SerializeBufferBase B;
+  using SS = Fw::SerializeStatus SS;
+  using B = Fw::SerializeBufferBase B;
 
   // Define the constant SERIALIZED_SIZE
   enum Constants { SERIALIZED_SIZE = sizeof(U32) };
@@ -15874,7 +15877,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-07-30 19:25:14 -0700
+Last updated 2025-08-01 13:28:27 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

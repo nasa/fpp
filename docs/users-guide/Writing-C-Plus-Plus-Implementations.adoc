@@ -115,6 +115,8 @@ It has one member variable `x` of type `U32` and no methods other than
 those required by F Prime.
 We have made `T` a {cpp} struct (rather than a class) so that
 all members are public by default.
+To implement `serializeTo`, we use the `serializeFrom` function
+provided by `Fw::SerializeBufferBase`.
 
 ----
 // A minimal implementation of abstract type T
@@ -128,8 +130,8 @@ all members are public by default.
 struct T final : public Fw::Serializable { // Extend Fw::Serializable
 
   // Define some shorthand for F Prime types
-  typedef Fw::SerializeStatus SS;
-  typedef Fw::SerializeBufferBase B;
+  using SS = Fw::SerializeStatus SS;
+  using B = Fw::SerializeBufferBase B;
 
   // Define the constant SERIALIZED_SIZE
   enum Constants { SERIALIZED_SIZE = sizeof(U32) };
