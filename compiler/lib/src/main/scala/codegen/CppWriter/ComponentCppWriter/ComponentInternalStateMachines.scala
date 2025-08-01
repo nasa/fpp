@@ -184,11 +184,11 @@ case class ComponentInternalStateMachines(
             |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
             |
             |// Deserialize the state machine ID
-            |status = buffer.deserialize(smId);
+            |status = buffer.deserializeTo(smId);
             |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
             |
             |// Deserialize the signal
-            |status = buffer.deserialize(signal);
+            |status = buffer.deserializeTo(signal);
             |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));"""
       ),
       CppDoc.Function.Static
@@ -309,8 +309,8 @@ case class ComponentInternalStateMachines(
             val serializeExpr = s.a.typeMap(id).getUnderlyingType match {
               case t: Type.String =>
                 val serialSize = writeStringSize(s, t)
-                s"$paramName.serialize(buffer, $serialSize)"
-              case _ => s"buffer.serialize($paramName)"
+                s"$paramName.serializeTo(buffer, $serialSize)"
+              case _ => s"buffer.serializeFrom($paramName)"
             }
             lines(
               s"""|// Serialize the signal data
@@ -375,19 +375,19 @@ case class ComponentInternalStateMachines(
         s"""|Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
             |
             |// Serialize the message type
-            |status = buffer.serialize(static_cast<FwEnumStoreType>($internalStateMachineMsgType));
+            |status = buffer.serializeFrom(static_cast<FwEnumStoreType>($internalStateMachineMsgType));
             |FW_ASSERT (status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
             |
             |// Serialize the port number
-            |status = buffer.serialize(static_cast<FwIndexType>(0));
+            |status = buffer.serializeFrom(static_cast<FwIndexType>(0));
             |FW_ASSERT (status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
             |
             |// Serialize the state machine ID
-            |status = buffer.serialize(static_cast<FwEnumStoreType>(smId));
+            |status = buffer.serializeFrom(static_cast<FwEnumStoreType>(smId));
             |FW_ASSERT (status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
             |
             |// Serialize the signal
-            |status = buffer.serialize(static_cast<FwEnumStoreType>(signal));
+            |status = buffer.serializeFrom(static_cast<FwEnumStoreType>(signal));
             |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));"""
       )
     )
@@ -480,7 +480,7 @@ case class ComponentInternalStateMachines(
                       lines(
                         s"""|// Deserialize the data
                             |${writeVarDecl(s, cppTypeName, "value", t)}
-                            |const Fw::SerializeStatus status = buffer.deserialize(value);
+                            |const Fw::SerializeStatus status = buffer.deserializeTo(value);
                             |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));"""
                       )
                     case None => Nil
@@ -693,7 +693,7 @@ case class ComponentInternalStateMachines(
       t.getUnderlyingType match {
         case _: Type.String =>
           s"Fw::StringBase::STATIC_SERIALIZED_SIZE(${signalStringSize.toString})"
-        case _ => writeSerializedSizeExpr(s, t, TypeCppWriter.getName(s, t))
+        case _ => writeStaticSerializedSizeExpr(s, t, TypeCppWriter.getName(s, t))
       }
 
   }

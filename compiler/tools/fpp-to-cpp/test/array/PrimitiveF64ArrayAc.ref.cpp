@@ -153,11 +153,11 @@ namespace M {
   // ----------------------------------------------------------------------
 
   Fw::SerializeStatus PrimitiveF64 ::
-    serialize(Fw::SerializeBufferBase& buffer) const
+    serializeTo(Fw::SerializeBufferBase& buffer) const
   {
     Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
     for (U32 index = 0; index < SIZE; index++) {
-      status = buffer.serialize((*this)[index]);
+      status = buffer.serializeFrom((*this)[index]);
       if (status != Fw::FW_SERIALIZE_OK) {
         return status;
       }
@@ -166,16 +166,22 @@ namespace M {
   }
 
   Fw::SerializeStatus PrimitiveF64 ::
-    deserialize(Fw::SerializeBufferBase& buffer)
+    deserializeFrom(Fw::SerializeBufferBase& buffer)
   {
     Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
     for (U32 index = 0; index < SIZE; index++) {
-      status = buffer.deserialize((*this)[index]);
+      status = buffer.deserializeTo((*this)[index]);
       if (status != Fw::FW_SERIALIZE_OK) {
         return status;
       }
     }
     return status;
+  }
+
+  FwSizeType PrimitiveF64 ::
+    serializedSize() const
+  {
+    return SERIALIZED_SIZE;
   }
 
 #if FW_SERIALIZABLE_TO_STRING

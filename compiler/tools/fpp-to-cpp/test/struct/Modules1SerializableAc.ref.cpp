@@ -90,15 +90,15 @@ namespace M {
   // ----------------------------------------------------------------------
 
   Fw::SerializeStatus Modules1 ::
-    serialize(Fw::SerializeBufferBase& buffer) const
+    serializeTo(Fw::SerializeBufferBase& buffer) const
   {
     Fw::SerializeStatus status;
 
-    status = buffer.serialize(this->m_x);
+    status = buffer.serializeFrom(this->m_x);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.serialize(this->m_y);
+    status = buffer.serializeFrom(this->m_y);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -107,20 +107,29 @@ namespace M {
   }
 
   Fw::SerializeStatus Modules1 ::
-    deserialize(Fw::SerializeBufferBase& buffer)
+    deserializeFrom(Fw::SerializeBufferBase& buffer)
   {
     Fw::SerializeStatus status;
 
-    status = buffer.deserialize(this->m_x);
+    status = buffer.deserializeTo(this->m_x);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.deserialize(this->m_y);
+    status = buffer.deserializeTo(this->m_y);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
 
     return status;
+  }
+
+  FwSizeType Modules1 ::
+    serializedSize() const
+  {
+    FwSizeType size = 0;
+    size += sizeof(U32);
+    size += sizeof(F32);
+    return size;
   }
 
 #if FW_SERIALIZABLE_TO_STRING

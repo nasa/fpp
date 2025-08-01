@@ -2225,7 +2225,7 @@ void PassiveEventsComponentBase ::
 #if FW_AMPCS_COMPATIBLE
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
     // Serialize the number of arguments
-    _status = _logBuff.serialize(static_cast<U8>(0));
+    _status = _logBuff.serializeFrom(static_cast<U8>(0));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -2302,7 +2302,7 @@ void PassiveEventsComponentBase ::
 
 #if FW_AMPCS_COMPATIBLE
     // Serialize the number of arguments
-    _status = _logBuff.serialize(static_cast<U8>(3));
+    _status = _logBuff.serializeFrom(static_cast<U8>(3));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -2311,7 +2311,7 @@ void PassiveEventsComponentBase ::
 
 #if FW_AMPCS_COMPATIBLE
     // Serialize the argument size
-    _status = _logBuff.serialize(
+    _status = _logBuff.serializeFrom(
       static_cast<U8>(sizeof(U32))
     );
     FW_ASSERT(
@@ -2319,7 +2319,7 @@ void PassiveEventsComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 #endif
-    _status = _logBuff.serialize(u32);
+    _status = _logBuff.serializeFrom(u32);
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -2327,7 +2327,7 @@ void PassiveEventsComponentBase ::
 
 #if FW_AMPCS_COMPATIBLE
     // Serialize the argument size
-    _status = _logBuff.serialize(
+    _status = _logBuff.serializeFrom(
       static_cast<U8>(sizeof(F32))
     );
     FW_ASSERT(
@@ -2335,7 +2335,7 @@ void PassiveEventsComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 #endif
-    _status = _logBuff.serialize(f32);
+    _status = _logBuff.serializeFrom(f32);
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -2343,7 +2343,7 @@ void PassiveEventsComponentBase ::
 
 #if FW_AMPCS_COMPATIBLE
     // Serialize the argument size
-    _status = _logBuff.serialize(
+    _status = _logBuff.serializeFrom(
       static_cast<U8>(sizeof(U8))
     );
     FW_ASSERT(
@@ -2351,7 +2351,7 @@ void PassiveEventsComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 #endif
-    _status = _logBuff.serialize(b);
+    _status = _logBuff.serializeFrom(b);
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -2421,20 +2421,20 @@ void PassiveEventsComponentBase ::
 
 #if FW_AMPCS_COMPATIBLE
     // Serialize the number of arguments
-    _status = _logBuff.serialize(static_cast<U8>(2));
+    _status = _logBuff.serializeFrom(static_cast<U8>(2));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 #endif
 
-    _status = str1.serialize(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, 80));
+    _status = str1.serializeTo(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, 80));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = str2.serialize(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, 100));
+    _status = str2.serializeTo(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, 100));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -2500,7 +2500,7 @@ void PassiveEventsComponentBase ::
 
 #if FW_AMPCS_COMPATIBLE
     // Serialize the number of arguments
-    _status = _logBuff.serialize(static_cast<U8>(1));
+    _status = _logBuff.serializeFrom(static_cast<U8>(1));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -2509,7 +2509,7 @@ void PassiveEventsComponentBase ::
 
 #if FW_AMPCS_COMPATIBLE
     // Serialize the argument size
-    _status = _logBuff.serialize(
+    _status = _logBuff.serializeFrom(
       static_cast<U8>(E::SERIALIZED_SIZE)
     );
     FW_ASSERT(
@@ -2517,7 +2517,7 @@ void PassiveEventsComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 #endif
-    _status = _logBuff.serialize(e);
+    _status = _logBuff.serializeFrom(e);
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -2593,20 +2593,20 @@ void PassiveEventsComponentBase ::
 
 #if FW_AMPCS_COMPATIBLE
     // Serialize the number of arguments
-    _status = _logBuff.serialize(static_cast<U8>(1 + 1));
+    _status = _logBuff.serializeFrom(static_cast<U8>(1 + 1));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
     // For FATAL, add stack size of 4 and a dummy entry. No support for stacks yet.
-    _status = _logBuff.serialize(static_cast<U8>(4));
+    _status = _logBuff.serializeFrom(static_cast<U8>(4));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = _logBuff.serialize(static_cast<U32>(0));
+    _status = _logBuff.serializeFrom(static_cast<U32>(0));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -2615,7 +2615,7 @@ void PassiveEventsComponentBase ::
 
 #if FW_AMPCS_COMPATIBLE
     // Serialize the argument size
-    _status = _logBuff.serialize(
+    _status = _logBuff.serializeFrom(
       static_cast<U8>(A::SERIALIZED_SIZE)
     );
     FW_ASSERT(
@@ -2623,7 +2623,7 @@ void PassiveEventsComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 #endif
-    _status = _logBuff.serialize(a);
+    _status = _logBuff.serializeFrom(a);
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -2691,7 +2691,7 @@ void PassiveEventsComponentBase ::
 
 #if FW_AMPCS_COMPATIBLE
     // Serialize the number of arguments
-    _status = _logBuff.serialize(static_cast<U8>(1));
+    _status = _logBuff.serializeFrom(static_cast<U8>(1));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -2700,7 +2700,7 @@ void PassiveEventsComponentBase ::
 
 #if FW_AMPCS_COMPATIBLE
     // Serialize the argument size
-    _status = _logBuff.serialize(
+    _status = _logBuff.serializeFrom(
       static_cast<U8>(S::SERIALIZED_SIZE)
     );
     FW_ASSERT(
@@ -2708,7 +2708,7 @@ void PassiveEventsComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 #endif
-    _status = _logBuff.serialize(s);
+    _status = _logBuff.serializeFrom(s);
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -2784,7 +2784,7 @@ void PassiveEventsComponentBase ::
 #if FW_AMPCS_COMPATIBLE
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
     // Serialize the number of arguments
-    _status = _logBuff.serialize(static_cast<U8>(0));
+    _status = _logBuff.serializeFrom(static_cast<U8>(0));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)

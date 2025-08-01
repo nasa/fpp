@@ -149,7 +149,7 @@ case class ArrayCppWriter (
                     |ELEMENT_SERIALIZED_SIZE = Fw::StringBase::STATIC_SERIALIZED_SIZE(ELEMENT_STRING_SIZE),"""
               case _ =>
                 s"""|//! The serialized size of each element
-                    |ELEMENT_SERIALIZED_SIZE = ${writeSerializedSizeExpr(s, eltType, eltTypeName)},"""
+                    |ELEMENT_SERIALIZED_SIZE = ${writeStaticSerializedSizeExpr(s, eltType, eltTypeName)},"""
             }
             lines(s"""|//! The size of the array
                       |SIZE = $arraySize,
@@ -435,6 +435,18 @@ case class ArrayCppWriter (
           |}
           |"""
     ))
+    val serializedSize = eltType.getUnderlyingType match {
+      case ts: (Type.String | Type.Array | Type.Struct) => {
+        List.concat(
+          lines("FwSizeType size = 0;"),
+          indexIterator(lines(
+            "size += this->elements[index].serializedSize();"
+          )),
+          lines("return size;")
+        )
+      }
+      case _ => lines("return SERIALIZED_SIZE;")
+    }
 
     List(
       linesClassMember(
@@ -446,7 +458,7 @@ case class ArrayCppWriter (
       ),
       functionClassMember(
         Some("Serialization"),
-        "serialize",
+        "serializeTo",
         List(
           CppDoc.Function.Param(
             CppDoc.Type("Fw::SerializeBufferBase&"),
@@ -458,7 +470,7 @@ case class ArrayCppWriter (
         List(
           lines("Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;"),
           indexIterator(
-            line("status = buffer.serialize((*this)[index]);") ::
+            line("status = buffer.serializeFrom((*this)[index]);") ::
               wrapInIf("status != Fw::FW_SERIALIZE_OK", lines("return status;")),
           ),
           lines("return status;"),
@@ -468,7 +480,7 @@ case class ArrayCppWriter (
       ),
       functionClassMember(
         Some("Deserialization"),
-        "deserialize",
+        "deserializeFrom",
         List(
           CppDoc.Function.Param(
             CppDoc.Type("Fw::SerializeBufferBase&"),
@@ -480,12 +492,21 @@ case class ArrayCppWriter (
         List(
           lines("Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;"),
           indexIterator(
-            line("status = buffer.deserialize((*this)[index]);") ::
+            line("status = buffer.deserializeTo((*this)[index]);") ::
               wrapInIf("status != Fw::FW_SERIALIZE_OK", lines("return status;")),
           ),
           lines("return status;"),
         ).flatten,
-    )
+      ),
+      functionClassMember(
+        Some("Get the dynamic serialized size of the array"),
+        "serializedSize",
+        List(),
+        CppDoc.Type("FwSizeType"),
+        serializedSize,
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const
+      )
     ) ++
       wrapClassMembersInIfDirective(
         "\n#if FW_SERIALIZABLE_TO_STRING",

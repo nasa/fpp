@@ -2223,7 +2223,7 @@ void PassiveTelemetryComponentBase ::
     }
 
     Fw::TlmBuffer _tlmBuff;
-    Fw::SerializeStatus _stat = _tlmBuff.serialize(arg);
+    Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
       _stat == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_stat)
@@ -2256,7 +2256,7 @@ void PassiveTelemetryComponentBase ::
     }
 
     Fw::TlmBuffer _tlmBuff;
-    Fw::SerializeStatus _stat = _tlmBuff.serialize(arg);
+    Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
       _stat == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_stat)
@@ -2289,7 +2289,7 @@ void PassiveTelemetryComponentBase ::
     }
 
     Fw::TlmBuffer _tlmBuff;
-    Fw::SerializeStatus _stat = arg.serialize(_tlmBuff, FW_MIN(FW_TLM_STRING_MAX_SIZE, 80));
+    Fw::SerializeStatus _stat = arg.serializeTo(_tlmBuff, FW_MIN(FW_TLM_STRING_MAX_SIZE, 80));
     FW_ASSERT(
       _stat == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_stat)
@@ -2322,7 +2322,7 @@ void PassiveTelemetryComponentBase ::
     }
 
     Fw::TlmBuffer _tlmBuff;
-    Fw::SerializeStatus _stat = _tlmBuff.serialize(arg);
+    Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
       _stat == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_stat)
@@ -2355,7 +2355,7 @@ void PassiveTelemetryComponentBase ::
     }
 
     Fw::TlmBuffer _tlmBuff;
-    Fw::SerializeStatus _stat = _tlmBuff.serialize(arg);
+    Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
       _stat == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_stat)
@@ -2388,7 +2388,7 @@ void PassiveTelemetryComponentBase ::
     }
 
     Fw::TlmBuffer _tlmBuff;
-    Fw::SerializeStatus _stat = _tlmBuff.serialize(arg);
+    Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
       _stat == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_stat)
@@ -2421,7 +2421,7 @@ void PassiveTelemetryComponentBase ::
     }
 
     Fw::TlmBuffer _tlmBuff;
-    Fw::SerializeStatus _stat = _tlmBuff.serialize(arg);
+    Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
       _stat == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_stat)
@@ -2454,7 +2454,7 @@ void PassiveTelemetryComponentBase ::
     }
 
     Fw::TlmBuffer _tlmBuff;
-    Fw::SerializeStatus _stat = _tlmBuff.serialize(arg);
+    Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
       _stat == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_stat)
@@ -2487,7 +2487,7 @@ void PassiveTelemetryComponentBase ::
     }
 
     Fw::TlmBuffer _tlmBuff;
-    Fw::SerializeStatus _stat = _tlmBuff.serialize(arg);
+    Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
       _stat == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_stat)
@@ -2535,7 +2535,7 @@ void PassiveTelemetryComponentBase ::
     }
 
     Fw::TlmBuffer _tlmBuff;
-    Fw::SerializeStatus _stat = _tlmBuff.serialize(arg);
+    Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
       _stat == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_stat)
@@ -2583,7 +2583,7 @@ void PassiveTelemetryComponentBase ::
     }
 
     Fw::TlmBuffer _tlmBuff;
-    Fw::SerializeStatus _stat = _tlmBuff.serialize(arg);
+    Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
     FW_ASSERT(
       _stat == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_stat)

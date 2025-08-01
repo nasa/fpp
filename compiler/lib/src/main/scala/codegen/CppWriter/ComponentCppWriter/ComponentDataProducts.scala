@@ -15,7 +15,7 @@ case class ComponentDataProducts (
       val data = record.aNode._2.data
       val constantName = s"SIZE_OF_${data.name}_RECORD"
       val typeName = TypeCppWriter.getName(s, record.recordType)
-      val eltSize = writeSerializedSizeExpr(s, record.recordType, typeName)
+      val eltSize = writeStaticSerializedSizeExpr(s, record.recordType, typeName)
       if record.isArray
       then s"""|static constexpr FwSizeType $constantName(FwSizeType arraySize) {
                |  return sizeof(FwDpIdType) + sizeof(FwSizeStoreType) + arraySize * $eltSize;
@@ -423,8 +423,14 @@ case class ComponentDataProducts (
               |const FwSizeType sizeDelta =
               |  sizeof(FwDpIdType) +
               |  elt.serializedTruncatedSize(stringSize);"""
+        case ts: (Type.Array | Type.Struct)  => {
+          val serialSize = "elt.serializedSize()"
+          s"""|const FwSizeType sizeDelta =
+              |  sizeof(FwDpIdType) +
+              |  $serialSize;"""
+        }
         case _ =>
-          val serialSize = writeSerializedSizeExpr(s, t, typeName)
+          val serialSize = writeStaticSerializedSizeExpr(s, t, typeName)
           s"""|const FwSizeType sizeDelta =
               |  sizeof(FwDpIdType) +
               |  $serialSize;"""
@@ -433,8 +439,8 @@ case class ComponentDataProducts (
       // For strings this is a truncated serialization
       val serialExpr = t.getUnderlyingType match {
         case ts: Type.String =>
-          "elt.serialize(this->m_dataBuffer, stringSize)"
-        case _ => "this->m_dataBuffer.serialize(elt)"
+          "elt.serializeTo(this->m_dataBuffer, stringSize)"
+        case _ => "this->m_dataBuffer.serializeFrom(elt)"
       }
       // Construct the function body
       val body = lines(
@@ -442,7 +448,7 @@ case class ComponentDataProducts (
             |Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
             |if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
             |  const FwDpIdType id = this->m_baseId + RecordId::$name;
-            |  status = this->m_dataBuffer.serialize(id);
+            |  status = this->m_dataBuffer.serializeFrom(id);
             |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
             |  status = $serialExpr;
             |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
@@ -503,20 +509,20 @@ case class ComponentDataProducts (
       val serializeElts = (t.getUnderlyingType match {
         // Optimize the U8 case
         case Type.U8 =>
-          """|  status = this->m_dataBuffer.serialize(array, size, Fw::Serialization::OMIT_LENGTH);
+          """|  status = this->m_dataBuffer.serializeFrom(array, size, Fw::Serialization::OMIT_LENGTH);
              |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));"""
         // Handle the string case
         case ts: Type.String =>
           s"""|  for (FwSizeType i = 0; i < size; i++) {
               |    const Fw::StringBase *const sbPtr = array[i];
               |    FW_ASSERT(sbPtr != nullptr);
-              |    status = sbPtr->serialize(this->m_dataBuffer, stringSize);
+              |    status = sbPtr->serializeTo(this->m_dataBuffer, stringSize);
               |    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
               |  }"""
         // Handle the general case
         case _ =>
           """|  for (FwSizeType i = 0; i < size; i++) {
-             |    status = this->m_dataBuffer.serialize(array[i]);
+             |    status = this->m_dataBuffer.serializeFrom(array[i]);
              |    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
              |  }"""
       }).stripMargin
@@ -529,7 +535,7 @@ case class ComponentDataProducts (
             |Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
             |if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
             |  const FwDpIdType id = this->m_baseId + RecordId::$name;
-            |  status = this->m_dataBuffer.serialize(id);
+            |  status = this->m_dataBuffer.serializeFrom(id);
             |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
             |  status = this->m_dataBuffer.serializeSize(size);
             |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));

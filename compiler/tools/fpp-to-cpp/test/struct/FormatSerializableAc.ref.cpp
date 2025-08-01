@@ -163,75 +163,75 @@ std::ostream& operator<<(std::ostream& os, const Format& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus Format ::
-  serialize(Fw::SerializeBufferBase& buffer) const
+  serializeTo(Fw::SerializeBufferBase& buffer) const
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->m_m1);
+  status = buffer.serializeFrom(this->m_m1);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_m2);
+  status = buffer.serializeFrom(this->m_m2);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_m3);
+  status = buffer.serializeFrom(this->m_m3);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_m4);
+  status = buffer.serializeFrom(this->m_m4);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_m5);
+  status = buffer.serializeFrom(this->m_m5);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_m6);
+  status = buffer.serializeFrom(this->m_m6);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_m7);
+  status = buffer.serializeFrom(this->m_m7);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_m8);
+  status = buffer.serializeFrom(this->m_m8);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_m9);
+  status = buffer.serializeFrom(this->m_m9);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_m10);
+  status = buffer.serializeFrom(this->m_m10);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_m11);
+  status = buffer.serializeFrom(this->m_m11);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_m12);
+  status = buffer.serializeFrom(this->m_m12);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_m13);
+  status = buffer.serializeFrom(this->m_m13);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_m14);
+  status = buffer.serializeFrom(this->m_m14);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_m15);
+  status = buffer.serializeFrom(this->m_m15);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_m16);
+  status = buffer.serializeFrom(this->m_m16);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_m17);
+  status = buffer.serializeFrom(this->m_m17);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -240,80 +240,104 @@ Fw::SerializeStatus Format ::
 }
 
 Fw::SerializeStatus Format ::
-  deserialize(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(Fw::SerializeBufferBase& buffer)
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->m_m1);
+  status = buffer.deserializeTo(this->m_m1);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_m2);
+  status = buffer.deserializeTo(this->m_m2);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_m3);
+  status = buffer.deserializeTo(this->m_m3);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_m4);
+  status = buffer.deserializeTo(this->m_m4);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_m5);
+  status = buffer.deserializeTo(this->m_m5);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_m6);
+  status = buffer.deserializeTo(this->m_m6);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_m7);
+  status = buffer.deserializeTo(this->m_m7);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_m8);
+  status = buffer.deserializeTo(this->m_m8);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_m9);
+  status = buffer.deserializeTo(this->m_m9);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_m10);
+  status = buffer.deserializeTo(this->m_m10);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_m11);
+  status = buffer.deserializeTo(this->m_m11);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_m12);
+  status = buffer.deserializeTo(this->m_m12);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_m13);
+  status = buffer.deserializeTo(this->m_m13);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_m14);
+  status = buffer.deserializeTo(this->m_m14);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_m15);
+  status = buffer.deserializeTo(this->m_m15);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_m16);
+  status = buffer.deserializeTo(this->m_m16);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_m17);
+  status = buffer.deserializeTo(this->m_m17);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
 
   return status;
+}
+
+FwSizeType Format ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  size += sizeof(I32);
+  size += sizeof(U32);
+  size += sizeof(I32);
+  size += sizeof(U32);
+  size += sizeof(I32);
+  size += sizeof(U32);
+  size += sizeof(I32);
+  size += sizeof(U32);
+  size += sizeof(I32);
+  size += sizeof(U32);
+  size += sizeof(F32);
+  size += sizeof(F32);
+  size += sizeof(F32);
+  size += sizeof(F32);
+  size += sizeof(F32);
+  size += sizeof(F32);
+  size += sizeof(F32);
+  return size;
 }
 
 #if FW_SERIALIZABLE_TO_STRING

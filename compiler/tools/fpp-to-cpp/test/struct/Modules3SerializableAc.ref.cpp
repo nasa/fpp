@@ -114,16 +114,16 @@ std::ostream& operator<<(std::ostream& os, const Modules3& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus Modules3 ::
-  serialize(Fw::SerializeBufferBase& buffer) const
+  serializeTo(Fw::SerializeBufferBase& buffer) const
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->m_x);
+  status = buffer.serializeFrom(this->m_x);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
   for (FwSizeType i = 0; i < 3; i++) {
-    status = buffer.serialize(this->m_arr[i]);
+    status = buffer.serializeFrom(this->m_arr[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -133,22 +133,33 @@ Fw::SerializeStatus Modules3 ::
 }
 
 Fw::SerializeStatus Modules3 ::
-  deserialize(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(Fw::SerializeBufferBase& buffer)
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->m_x);
+  status = buffer.deserializeTo(this->m_x);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
   for (FwSizeType i = 0; i < 3; i++) {
-    status = buffer.deserialize(this->m_arr[i]);
+    status = buffer.deserializeTo(this->m_arr[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
   }
 
   return status;
+}
+
+FwSizeType Modules3 ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  size += this->m_x.serializedSize();
+  for (U32 index = 0; index < 3; index++) {
+    size += this->m_arr[index].serializedSize();
+  }
+  return size;
 }
 
 #if FW_SERIALIZABLE_TO_STRING

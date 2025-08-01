@@ -98,7 +98,7 @@ Fw::SerializeStatus InputKwdNamePort ::
   FW_ASSERT(this->m_func != nullptr);
 
   U32 time;
-  _status = _buffer.deserialize(time);
+  _status = _buffer.deserializeTo(time);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
@@ -158,7 +158,7 @@ void OutputKwdNamePort ::
     Fw::SerializeStatus _status;
     KwdNamePortBuffer _buffer;
 
-    _status = _buffer.serialize(time);
+    _status = _buffer.serializeFrom(time);
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
     _status = this->m_serPort->invokeSerial(_buffer);

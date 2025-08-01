@@ -151,11 +151,11 @@ std::ostream& operator<<(std::ostream& os, const Enum2& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus Enum2 ::
-  serialize(Fw::SerializeBufferBase& buffer) const
+  serializeTo(Fw::SerializeBufferBase& buffer) const
 {
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   for (U32 index = 0; index < SIZE; index++) {
-    status = buffer.serialize((*this)[index]);
+    status = buffer.serializeFrom((*this)[index]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -164,16 +164,22 @@ Fw::SerializeStatus Enum2 ::
 }
 
 Fw::SerializeStatus Enum2 ::
-  deserialize(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(Fw::SerializeBufferBase& buffer)
 {
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   for (U32 index = 0; index < SIZE; index++) {
-    status = buffer.deserialize((*this)[index]);
+    status = buffer.deserializeTo((*this)[index]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
   }
   return status;
+}
+
+FwSizeType Enum2 ::
+  serializedSize() const
+{
+  return SERIALIZED_SIZE;
 }
 
 #if FW_SERIALIZABLE_TO_STRING

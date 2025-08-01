@@ -88,15 +88,15 @@ std::ostream& operator<<(std::ostream& os, const String& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus String ::
-  serialize(Fw::SerializeBufferBase& buffer) const
+  serializeTo(Fw::SerializeBufferBase& buffer) const
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->m_s1);
+  status = buffer.serializeFrom(this->m_s1);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_s2);
+  status = buffer.serializeFrom(this->m_s2);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -105,20 +105,29 @@ Fw::SerializeStatus String ::
 }
 
 Fw::SerializeStatus String ::
-  deserialize(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(Fw::SerializeBufferBase& buffer)
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->m_s1);
+  status = buffer.deserializeTo(this->m_s1);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_s2);
+  status = buffer.deserializeTo(this->m_s2);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
 
   return status;
+}
+
+FwSizeType String ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  size += this->m_s1.serializedSize();
+  size += this->m_s2.serializedSize();
+  return size;
 }
 
 #if FW_SERIALIZABLE_TO_STRING

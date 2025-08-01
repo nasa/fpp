@@ -139,7 +139,7 @@ case class StructCppWriter(
                 lines("//! The size of the serial representation"),
                 lines("SERIALIZED_SIZE ="),
                 lines(memberList.map((n, tn) =>
-                  writeSerializedSizeExpr(s, typeMembers(n), tn) + (
+                  writeStaticSerializedSizeExpr(s, typeMembers(n), tn) + (
                     if sizes.contains(n) then s" * ${sizes(n)}"
                     else ""
                     )).mkString(" +\n")).map(indentIn),
@@ -427,15 +427,48 @@ case class StructCppWriter(
           getMemberToString(node, n, tn),
       ))
 
+    def sizeIterator(size: Int, ll: List[Line]): List[Line] =
+      wrapInForLoop(
+        "U32 index = 0",
+        s"index < $size",
+        "index++",
+        ll,
+      )
+
+    def getSerializedSize(n: String, tn: String) = 
+      typeMembers(n).getUnderlyingType match {
+        case ts: (Type.Array | Type.Struct | Type.String) => {
+          if sizes.contains(n) then
+            sizeIterator(
+              sizes(n),
+              lines(s"size += this->m_$n[index].serializedSize();")
+            ).mkString("\n")
+          else s"size += this->m_$n.serializedSize();"
+        }
+        case ts => s"size += ${writeStaticSerializedSizeExpr(s, ts, tn) + (
+            if sizes.contains(n) then s" * ${sizes(n)};"
+            else ";"
+        )}"
+      }
+
+    val serializedSize = 
+      List.concat(
+        lines("FwSizeType size = 0;"),
+        lines(memberList.map((n, tn) => 
+          s"${getSerializedSize(n, tn)}"
+        ).mkString("\n")),
+        lines("return size;")
+      )
+
     def writeSerializeStatusCheck =
       wrapInIf(
         "status != Fw::FW_SERIALIZE_OK",
         lines("return status;")
       )
     def writeSerializeCall(n: String) =
-      line(s"status = buffer.serialize(this->m_$n);") :: writeSerializeStatusCheck
+      line(s"status = buffer.serializeFrom(this->m_$n);") :: writeSerializeStatusCheck
     def writeDeserializeCall(n: String) =
-      line(s"status = buffer.deserialize(this->m_$n);") :: writeSerializeStatusCheck
+      line(s"status = buffer.deserializeTo(this->m_$n);") :: writeSerializeStatusCheck
 
     List(
       List(
@@ -448,7 +481,7 @@ case class StructCppWriter(
         ),
         functionClassMember(
           Some("Serialization"),
-          "serialize",
+          "serializeTo",
           List(
             CppDoc.Function.Param(
               CppDoc.Type("Fw::SerializeBufferBase&"),
@@ -472,7 +505,7 @@ case class StructCppWriter(
         ),
         functionClassMember(
           Some("Deserialization"),
-          "deserialize",
+          "deserializeFrom",
           List(
             CppDoc.Function.Param(
               CppDoc.Type("Fw::SerializeBufferBase&"),
@@ -491,6 +524,15 @@ case class StructCppWriter(
             ),
             Line.blank :: lines("return status;"),
           ).flatten
+        ),
+        functionClassMember(
+          Some("Get the dynamic serialized size of the struct"),
+          "serializedSize",
+          List(),
+          CppDoc.Type("FwSizeType"),
+          serializedSize,
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
         )
       ),
       wrapClassMembersInIfDirective(
