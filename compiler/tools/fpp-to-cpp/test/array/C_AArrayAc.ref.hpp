@@ -138,7 +138,7 @@ class C_A :
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     );
 
-    //! Serialized Size
+    //! Get the dynamic serialized size of the array
     FwSizeType serializedSize() const;
 
 #if FW_SERIALIZABLE_TO_STRING

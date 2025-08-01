@@ -117,7 +117,7 @@ class AliasType :
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     );
 
-    //! Serialized Size
+    //! Get the dynamic serialized size of the struct
     FwSizeType serializedSize() const;
 
 #if FW_SERIALIZABLE_TO_STRING

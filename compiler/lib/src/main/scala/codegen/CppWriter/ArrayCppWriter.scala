@@ -437,7 +437,7 @@ case class ArrayCppWriter (
     ))
     val serializedSize = eltType.getUnderlyingType match {
       case ts: (Type.String | Type.Array | Type.Struct) => {
-        List(
+        List.concat(
           lines("FwSizeType size = 0;"),
           indexIterator(lines(
             "size += this->elements[index].serializedSize();"
@@ -445,7 +445,7 @@ case class ArrayCppWriter (
           lines("return size;")
         )
       }
-      case _ => List(lines("return SERIALIZED_SIZE;"))
+      case _ => lines("return SERIALIZED_SIZE;")
     }
 
     List(
@@ -499,11 +499,11 @@ case class ArrayCppWriter (
         ).flatten,
       ),
       functionClassMember(
-        Some("Serialized Size"),
+        Some("Get the dynamic serialized size of the array"),
         "serializedSize",
         List(),
         CppDoc.Type("FwSizeType"),
-        serializedSize.flatten,
+        serializedSize,
         CppDoc.Function.NonSV,
         CppDoc.Function.Const
       )

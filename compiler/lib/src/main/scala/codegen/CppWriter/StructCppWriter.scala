@@ -452,7 +452,7 @@ case class StructCppWriter(
       }
 
     val serializedSize = 
-      List(
+      List.concat(
         lines("FwSizeType size = 0;"),
         lines(memberList.map((n, tn) => 
           s"${getSerializedSize(n, tn)}"
@@ -526,11 +526,11 @@ case class StructCppWriter(
           ).flatten
         ),
         functionClassMember(
-          Some("Serialized Size"),
+          Some("Get the dynamic serialized size of the struct"),
           "serializedSize",
           List(),
           CppDoc.Type("FwSizeType"),
-          serializedSize.flatten,
+          serializedSize,
           CppDoc.Function.NonSV,
           CppDoc.Function.Const
         )
