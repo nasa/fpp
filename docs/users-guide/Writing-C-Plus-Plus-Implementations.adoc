@@ -66,12 +66,12 @@ You should see the following line in the generated {cpp}:
 #include "T.hpp"
 ----
 
-This line says that in order to compile `AArrayAc.cpp`, 
+This line says that in order to compile `AArrayAc.cpp`,
 a header file `T.hpp` must exist in the current directory.
 It is up to you to provide that header file.
 
 *General implementations:*
-In most cases, when implementing an abstract type `T` in {cpp}, you 
+In most cases, when implementing an abstract type `T` in {cpp}, you
 will define
 a class that extends `Fw::Serializable` from the F Prime framework.
 Your class definition should include the following:
@@ -82,8 +82,8 @@ Your class definition should include the following:
 Fw::SerializeStatus T::serializeTo(Fw::SerializeBufferBase&) const
 ----
 +
-that specifies how a class instance should *serializeTo* a buffer
-(i.e., convert a class instance to a byte string).
+that specifies how to *serialize* a class instance to a buffer
+(i.e., convert a class instance to a byte string stored in a buffer).
 
 * An implementation of the function
 +
@@ -91,8 +91,9 @@ that specifies how a class instance should *serializeTo* a buffer
 Fw::SerializeStatus T::deserializeFrom(Fw::SerializeBufferBase&)
 ----
 +
-that specifies how a class instance should *deserializeFrom* a
-buffer (i.e., reconstruct a class instance from a byte string).
+that specifies how to *deserialize* a class instance from a
+buffer (i.e., reconstruct a class instance from a byte string stored in a
+buffer).
 
 * A constant `T::SERIALIZED_SIZE` that specifies the size in bytes
 of a byte string serialized from the class.
@@ -105,7 +106,7 @@ of a byte string serialized from the class.
 bool operator==(const T& that) const;
 ----
 
-For more on serialization, see the section on 
+For more on serialization, see the section on
 <<Writing-C-Plus-Plus-Implementations_Serialization-of-FPP-Values,
 serialization of FPP values>>.
 
@@ -173,8 +174,8 @@ the generated {cpp} may not compile.
 An <<Defining-State-Machines_Writing-a-State-Machine-Definition,
 external state machine>> refers to a state machine implementation
 supplied outside the FPP model.
-To implement an external state machine, you can use 
-the https://github.com/JPLOpenSource/STARS/tree/main[State Autocoding for 
+To implement an external state machine, you can use
+the https://github.com/JPLOpenSource/STARS/tree/main[State Autocoding for
 Real-Time Systems (STARS)]
 tool.
 STARS provides several ways to specify state machines, and it
@@ -474,7 +475,7 @@ function, you may.
 
 === Serialization of FPP Values
 
-Every value represented in FPP can be *serialized*, i.e., converted into a 
+Every value represented in FPP can be *serialized*, i.e., converted into a
 machine-independent sequence of bytes.
 Serialization provides a consistent way to store data (e.g.,
 to onboard storage) and to transmit data (e.g., to or from the ground).
@@ -544,18 +545,18 @@ is serialized member-by-member, in the order
 that the members appear in the FPP struct definition,
 with no padding.
 
-.. Except for 
+.. Except for
 <<Defining-Types_Struct-Type-Definitions_Member-Arrays,member arrays>>,
 each member is serialized using these rules.
 
 .. Each member array is serialized as stated in rule 5.
 
-. A value of <<Defining-Enums,enum type>> is converted to a primitive 
-integer value of the <<Defining-Enums_The-Representation-Type,representation 
+. A value of <<Defining-Enums,enum type>> is converted to a primitive
+integer value of the <<Defining-Enums_The-Representation-Type,representation
 type>> specified in the enum definition.
 This value is serialized as stated in rule 1.
 
 . A value of <<Defining-Types_Abstract-Type-Definitions,abstract type>> is
-serialized according to its 
+serialized according to its
 <<Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types,
 {cpp} implementation>>.
