@@ -72,7 +72,7 @@ Fw::SerializeStatus PassiveGetProductsComponentBase::DpContainer ::
 {
   const FwSizeType sizeDelta =
     sizeof(FwDpIdType) +
-    PassiveGetProducts_Data::SERIALIZED_SIZE;
+    elt.serializedSize();
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::DataRecord;

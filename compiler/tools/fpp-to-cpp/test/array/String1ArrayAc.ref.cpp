@@ -175,6 +175,16 @@ Fw::SerializeStatus String1 ::
   return status;
 }
 
+FwSizeType String1 ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  for (U32 index = 0; index < SIZE; index++) {
+    size += this->elements[index].serializedSize();
+  }
+  return size;
+}
+
 #if FW_SERIALIZABLE_TO_STRING
 
 void String1 ::

@@ -170,6 +170,12 @@ Fw::SerializeStatus HeaderPath ::
   return status;
 }
 
+FwSizeType HeaderPath ::
+  serializedSize() const
+{
+  return SERIALIZED_SIZE;
+}
+
 #if FW_SERIALIZABLE_TO_STRING
 
 void HeaderPath ::

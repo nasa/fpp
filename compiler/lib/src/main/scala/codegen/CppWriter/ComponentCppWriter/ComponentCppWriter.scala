@@ -346,7 +346,7 @@ case class ComponentCppWriter (
           s"BYTE ${p.getUnqualifiedName}IntIfSize[",
           lines(
             p.aNode._2.data.params.map(param =>
-              writeSerializedSizeExpr(
+              writeStaticSerializedSizeExpr(
                 s,
                 s.a.typeMap(param._2.data.typeName.id),
                 writeInternalPortParamType(param._2.data)

@@ -123,6 +123,15 @@ namespace M {
     return status;
   }
 
+  FwSizeType Modules1 ::
+    serializedSize() const
+  {
+    FwSizeType size = 0;
+    size += sizeof(U32);
+    size += sizeof(F32);
+    return size;
+  }
+
 #if FW_SERIALIZABLE_TO_STRING
 
   void Modules1 ::

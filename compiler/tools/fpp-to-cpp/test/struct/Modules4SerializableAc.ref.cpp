@@ -165,6 +165,19 @@ Fw::SerializeStatus Modules4 ::
   return status;
 }
 
+FwSizeType Modules4 ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  for (U32 index = 0; index < 3; index++) {
+    size += this->m_arr1[index].serializedSize();
+  }
+  for (U32 index = 0; index < 6; index++) {
+    size += this->m_arr2[index].serializedSize();
+  }
+  return size;
+}
+
 #if FW_SERIALIZABLE_TO_STRING
 
 void Modules4 ::

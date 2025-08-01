@@ -147,6 +147,17 @@ Fw::SerializeStatus Namespace ::
   return status;
 }
 
+FwSizeType Namespace ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  size += sizeof(SimpleCType);
+  size += sizeof(SimpleCType2);
+  size += sizeof(M::M2::NamespacedAliasType);
+  size += sizeof(M::NamespacedAliasType2);
+  return size;
+}
+
 #if FW_SERIALIZABLE_TO_STRING
 
 void Namespace ::

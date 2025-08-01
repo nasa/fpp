@@ -142,7 +142,7 @@ case class ComponentEvents (
                         s"""|#if FW_AMPCS_COMPATIBLE
                             |// Serialize the argument size
                             |_status = _logBuff.serializeFrom(
-                            |  static_cast<U8>(${writeSerializedSizeExpr(s, t, typeName)})
+                            |  static_cast<U8>(${writeStaticSerializedSizeExpr(s, t, typeName)})
                             |);
                             |FW_ASSERT(
                             |  _status == Fw::FW_SERIALIZE_OK,

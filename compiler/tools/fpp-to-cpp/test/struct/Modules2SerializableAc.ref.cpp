@@ -105,6 +105,14 @@ namespace M {
     return status;
   }
 
+  FwSizeType Modules2 ::
+    serializedSize() const
+  {
+    FwSizeType size = 0;
+    size += this->m_x.serializedSize();
+    return size;
+  }
+
 #if FW_SERIALIZABLE_TO_STRING
 
   void Modules2 ::

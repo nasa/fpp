@@ -178,7 +178,7 @@ case class TlmPacketSetCppWriter(
       val nameStr = CppWriter.identFromQualifiedName(name)
       val t = entry.tlmChannel.channelType
       val tn = TypeCppWriter.getName(s, t)
-      val sizeStr = writeSerializedSizeExpr(s, t, tn)
+      val sizeStr = writeStaticSerializedSizeExpr(s, t, tn)
       lines(
         s"""|
             |//! The serialized size of channel $name

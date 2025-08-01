@@ -218,7 +218,7 @@ case class PortCppWriter (
                 else
                   line("SERIALIZED_SIZE =") ::
                     lines(paramList.map((n, tn, _) =>
-                      writeSerializedSizeExpr(s, paramTypeMap(n), tn)
+                      writeStaticSerializedSizeExpr(s, paramTypeMap(n), tn)
                     ).mkString(" +\n")).map(indentIn)
               ).flatten
             )

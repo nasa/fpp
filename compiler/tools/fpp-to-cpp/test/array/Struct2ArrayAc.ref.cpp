@@ -170,6 +170,16 @@ Fw::SerializeStatus Struct2 ::
   return status;
 }
 
+FwSizeType Struct2 ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  for (U32 index = 0; index < SIZE; index++) {
+    size += this->elements[index].serializedSize();
+  }
+  return size;
+}
+
 #if FW_SERIALIZABLE_TO_STRING
 
 void Struct2 ::
