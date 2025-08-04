@@ -806,12 +806,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifiers_Topology-Import-Specifiers_Example">7.20.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Template-Instantiation-Specifiers">7.21. Template Instantiation Specifiers</a></li>
+<li><a href="#Specifiers_Template-Expansion-Specifiers">7.21. Template Expansion Specifiers</a></li>
 <li><a href="#Specifiers_Syntax">7.22. Syntax</a></li>
 <li><a href="#Specifiers_Semantics">7.23. Semantics</a>
 <ul class="sectlevel3">
 <li><a href="#Specifiers_Semantics_Checking-parameter-types">7.23.1. Checking parameter types</a></li>
-<li><a href="#Specifiers_Semantics_Template-Instantiation">7.23.2. Template Instantiation</a></li>
+<li><a href="#Specifiers_Semantics_Template-Expansion">7.23.2. Template Expansion</a></li>
 </ul>
 </li>
 <li><a href="#Specifiers_Examples">7.24. Examples</a></li>
@@ -2812,6 +2812,9 @@ A module member is one of the following:</p>
 <p>A <a href="#Definitions_Module-Template-Definitions">module template definition</a></p>
 </li>
 <li>
+<p>A <a href="#Specifiers_Template-Expansion-Specifiers">template expansion specifier</a></p>
+</li>
+<li>
 <p>A <a href="#Specifiers_Location-Specifiers">location specifier</a></p>
 </li>
 <li>
@@ -2866,15 +2869,16 @@ constant e = a # Error: a is not in scope here</code></pre>
 <div class="sect2">
 <h3 id="Definitions_Module-Template-Definitions">5.10. Module Template Definitions</h3>
 <div class="paragraph">
-<p>A <strong>module template definition</strong> defines an FPP module template.
-A module template is a FPP construct that can generate an FPP module
-with definitions inside parameterized with a set of types, constants,
-and interfaces.</p>
+<p>A <strong>module template definition</strong> defines an FPP template that can
+hold reduce FPP model code duplication.
+A module template is an FPP construct with definitions inside
+parameterized with a set of types, constants, and interfaces that
+can be expanded into a module.</p>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Module-Template-Definitions_Syntax">5.10.1. Syntax</h4>
 <div class="paragraph">
-<p><code>module</code> <code>template</code>
+<p><code>template</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>(</code> <em>parameter-sequence</em> <code>)</code>
 <em>module-template-member-sequence</em></p>
@@ -2897,21 +2901,17 @@ which each element is a <a href="#Definitions_Module-Definitions_Syntax">module 
 <div class="sect3">
 <h4 id="Definitions_Module-Template-Definitions_Semantics">5.10.2. Semantics</h4>
 <div class="paragraph">
-<p><em>Template</em> definitions differ from other definitions in that they
-do not define symbols in the way that others define symbols. All
-symbols defined inside a template (including it&#8217;s parameters) are
-<em>local</em> to that template. This means that the definitions <em>inside</em>
+<p><em>Template</em> definitions differ from other definitions in that symbols
+defined inside a template are not symbols added to the global symbol
+namespace. All symbols defined inside a template (including it&#8217;s parameters)
+are <em>local</em> to that template. This means that the definitions <em>inside</em>
 the template definition cannot be refered to from outside the template
 definition.</p>
 </div>
 <div class="paragraph">
-<p>A <em>template</em> definition will not generate any FPP definitions until
-it is instatiated through a <a href="#Specifiers_Template-Instantiation-Specifiers">template instantiation specifier</a>.</p>
-</div>
-<div class="paragraph">
-<p>A template can be instantiated through a <a href="#Specifiers_Template-Instantiation-Specifiers">template instantiation specifier</a>. When a template is instantiated,
-the set of parameters are applied to the template and the definitions inside the
-template are added to a new module definition.</p>
+<p>A template can be expanded through a <a href="#Specifiers_Template-Expansion-Specifiers">template expansion specifier</a>. When a template is expanded,
+the set of parameters are applied to the template and the newly concrete definitions
+inside the template are placed into the scope of the expansion specifier.</p>
 </div>
 <div class="paragraph">
 <p>Because a template needs to apply its parameters during instantiation,
@@ -2923,7 +2923,7 @@ therefore a full analysis cannot be performed.</p>
 <h4 id="Definitions_Module-Template-Definitions_Example">5.10.3. Example</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module template MT(
+<pre class="prettyprint highlight"><code data-lang="fpp">template MT(
     constant base_id: U32,
     interface comDriver: ByteStreamDriver
 ) {
@@ -2949,9 +2949,11 @@ therefore a full analysis cannot be performed.</p>
 
 instance comDriver: Drv.TcpClient base id 0x10300000 + 0x100
 
-# Instantiate template with topology inside
-# Pass an external component into the topology
-module M = MT(0x100, comDriver)
+module M {
+    # Instantiate template with topology inside
+    # Pass an external component into the topology
+    expand MT(0x100, comDriver)
+}
 
 topology T {
     import M.T # Imports the instantiated template topology
@@ -8310,20 +8312,18 @@ topology B {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Template-Instantiation-Specifiers">7.21. Template Instantiation Specifiers</h3>
+<h3 id="Specifiers_Template-Expansion-Specifiers">7.21. Template Expansion Specifiers</h3>
 <div class="paragraph">
-<p>A <strong>template instantiation specifier</strong> takes a
+<p>A <strong>template expansion specifier</strong> takes a
 <a href="#Definitions_Module-Template-Definitions">template</a> and
 applies a set of values to its <a href="#Template-Parameter-Lists">parameters</a>
-to generate a new concrete definition.</p>
+to generate concrete definitions.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="Specifiers_Syntax">7.22. Syntax</h3>
 <div class="paragraph">
-<p><code>module</code>
-<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<code>=</code>
+<p><code>expand</code>
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</a>
 <code>(</code> _parameter-sequence</em> <code>)</code></p>
 </div>
@@ -8340,9 +8340,6 @@ and the terminating punctuation is a semicolon.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The identifier names the new <strong>module definition</strong>.</p>
-</li>
-<li>
 <p>The qualified identifier must
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
 a
@@ -8357,7 +8354,7 @@ the template parameters of the template <em>T</em>.</p>
 <div class="sect3">
 <h4 id="Specifiers_Semantics_Checking-parameter-types">7.23.1. Checking parameter types</h4>
 <div class="paragraph">
-<p>When passing values and references to template instantiation, each parameter
+<p>When passing values and references to template expansion, each parameter
 is checked with the following rules:</p>
 </div>
 <div class="olist arabic">
@@ -8379,11 +8376,11 @@ that can <a href="#Port-Interfaces_Binding">bind</a> to <em>I</em>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Semantics_Template-Instantiation">7.23.2. Template Instantiation</h4>
+<h4 id="Specifiers_Semantics_Template-Expansion">7.23.2. Template Expansion</h4>
 <div class="paragraph">
-<p>When a template is instantiated, the set of parameters in the template are given
+<p>When a template is expanded, the set of parameters in the template are given
 concrete values. Each <em>local</em> definition inside the template applies the concrete
-parameter values and creates a new definition inside the newly defined module.</p>
+parameter values. The templated module member definitions</p>
 </div>
 </div>
 </div>
@@ -8394,7 +8391,7 @@ parameter values and creates a new definition inside the newly defined module.</
 <pre class="prettyprint highlight"><code data-lang="fpp">port P
 
 @ A basic template parameterizing an interface port count
-module template Templ(
+template Templ(
   constant numPorts: U32
 ) {
   interface I {
@@ -8407,7 +8404,9 @@ module template Templ(
 }
 
 @ Instantiate the template giving the parameters concrete values
-module M = Templ(30)
+module M {
+  expand Templ(30)
+}
 # M.I =&gt; interface { output port N[30]: P }
 # M.C =&gt; passive component { output port N[30]: P }</code></pre>
 </div>
@@ -10427,7 +10426,7 @@ instances:</p>
 <div class="paragraph">
 <p>Port interface binding refers to converting a port interface instance to an instance
 from another port interface. This is done when passing interface arguments during
-<a href="#Specifiers_Template-Instantiation-Specifiers">template instantiation</a>.</p>
+<a href="#Specifiers_Template-Expansion-Specifiers">template expansion</a>.</p>
 </div>
 <div class="paragraph">
 <p>For an interface instance <em>A</em> associated with an anonymous interface <em>A'</em>,
@@ -12227,7 +12226,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-08-01 15:40:15 -0700
+Last updated 2025-08-04 09:25:39 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

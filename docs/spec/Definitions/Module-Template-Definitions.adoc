@@ -1,13 +1,14 @@
 === Module Template Definitions
 
-A *module template definition* defines an FPP module template.
-A module template is a FPP construct that can generate an FPP module
-with definitions inside parameterized with a set of types, constants,
-and interfaces.
+A *module template definition* defines an FPP template that can
+hold reduce FPP model code duplication.
+A module template is an FPP construct with definitions inside
+parameterized with a set of types, constants, and interfaces that
+can be expanded into a module.
 
 ==== Syntax
 
-`module` `template`
+`template`
 <<Lexical-Elements_Identifiers,_identifier_>>
 `(` _parameter-sequence_ `)`
 _module-template-member-sequence_
@@ -26,21 +27,17 @@ module member>>, and the terminating punctuation is a semicolon.
 
 ==== Semantics
 
-_Template_ definitions differ from other definitions in that they
-do not define symbols in the way that others define symbols. All
-symbols defined inside a template (including it's parameters) are
-_local_ to that template. This means that the definitions _inside_
+_Template_ definitions differ from other definitions in that symbols
+defined inside a template are not symbols added to the global symbol
+namespace. All symbols defined inside a template (including it's parameters)
+are _local_ to that template. This means that the definitions _inside_
 the template definition cannot be refered to from outside the template
 definition.
 
-A _template_ definition will not generate any FPP definitions until
-it is instatiated through a <<Specifiers_Template-Instantiation-Specifiers,
-template instantiation specifier>>.
-
-A template can be instantiated through a <<Specifiers_Template-Instantiation-Specifiers,
-template instantiation specifier>>. When a template is instantiated,
-the set of parameters are applied to the template and the definitions inside the
-template are added to a new module definition.
+A template can be expanded through a <<Specifiers_Template-Expansion-Specifiers,
+template expansion specifier>>. When a template is expanded,
+the set of parameters are applied to the template and the newly concrete definitions
+inside the template are placed into the scope of the expansion specifier.
 
 Because a template needs to apply its parameters during instantiation,
 analysis inside a template is limited since parameters are variable and
@@ -50,7 +47,7 @@ therefore a full analysis cannot be performed.
 
 [source,fpp]
 ----
-module template MT(
+template MT(
     constant base_id: U32,
     interface comDriver: ByteStreamDriver
 ) {
@@ -76,9 +73,11 @@ module template MT(
 
 instance comDriver: Drv.TcpClient base id 0x10300000 + 0x100
 
-# Instantiate template with topology inside
-# Pass an external component into the topology
-module M = MT(0x100, comDriver)
+module M {
+    # Instantiate template with topology inside
+    # Pass an external component into the topology
+    expand MT(0x100, comDriver)
+}
 
 topology T {
     import M.T # Imports the instantiated template topology

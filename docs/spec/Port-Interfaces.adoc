@@ -62,7 +62,7 @@ anonymous topology port interface>>.
 
 Port interface binding refers to converting a port interface instance to an instance
 from another port interface. This is done when passing interface arguments during
-<<Specifiers_Template-Instantiation-Specifiers,template instantiation>>.
+<<Specifiers_Template-Expansion-Specifiers,template expansion>>.
 
 For an interface instance _A_ associated with an anonymous interface _A'_,
 the following conditions must be met for _A_ to bind to an interface _I_:
