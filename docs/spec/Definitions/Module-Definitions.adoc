@@ -34,6 +34,10 @@ A module member is one of the following:
 
 * A <<Definitions_Topology-Definitions,topology definition>>
 
+* A <<Definitions_Module-Template-Definitions,module template definition>>
+
+* A <<Specifiers_Template-Expansion-Specifiers,template expansion specifier>>
+
 * A <<Specifiers_Location-Specifiers,location specifier>>
 
 * An <<Definitions_Abstract-Type-Definitions,abstract type definition>>
