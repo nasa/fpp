@@ -534,7 +534,7 @@ case class ComponentDataProducts (
           s"""|  for (FwSizeType i = 0; i < size; i++) {
               |    const $typeName *const ptr = array[i];
               |    FW_ASSERT(ptr != nullptr);
-              |    status = ptr->serialize(this->m_dataBuffer);
+              |    status = ptr->serializeTo(this->m_dataBuffer);
               |    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
               |  }"""
         // Handle the general case
