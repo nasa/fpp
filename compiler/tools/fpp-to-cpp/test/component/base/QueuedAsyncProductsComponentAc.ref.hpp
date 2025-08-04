@@ -199,7 +199,7 @@ class QueuedAsyncProductsComponentBase :
         //! Serialize a DataArrayRecord record into the packet buffer
         //! \return The serialize status
         Fw::SerializeStatus serializeRecord_DataArrayRecord(
-            const QueuedAsyncProducts_Data* array, //!< An array of QueuedAsyncProducts_Data elements
+            const QueuedAsyncProducts_Data** array, //!< An array of QueuedAsyncProducts_Data elements
             FwSizeType size //!< The array size
         );
 

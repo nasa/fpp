@@ -37,16 +37,19 @@ PassiveSyncProductsComponentBase::DpContainer ::
 
 Fw::SerializeStatus PassiveSyncProductsComponentBase::DpContainer ::
   serializeRecord_DataArrayRecord(
-      const PassiveSyncProducts_Data* array,
+      const PassiveSyncProducts_Data** array,
       FwSizeType size
   )
 {
   FW_ASSERT(array != nullptr);
   // Compute the size delta
-  const FwSizeType sizeDelta =
-    sizeof(FwDpIdType) +
-    sizeof(FwSizeStoreType) +
-    size * PassiveSyncProducts_Data::SERIALIZED_SIZE;
+  FwSizeType sizeDelta =
+    sizeof(FwDpIdType) + sizeof(FwSizeStoreType);
+  for (FwSizeType i = 0; i < size; i++) {
+    const PassiveSyncProducts_Data *const ptr = array[i];
+    FW_ASSERT(ptr != nullptr);
+    sizeDelta += ptr->serializedSize();
+  }
   // Serialize the elements if they will fit
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
@@ -56,7 +59,9 @@ Fw::SerializeStatus PassiveSyncProductsComponentBase::DpContainer ::
     status = this->m_dataBuffer.serializeSize(size);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     for (FwSizeType i = 0; i < size; i++) {
-      status = this->m_dataBuffer.serialize(array[i]);
+      const PassiveSyncProducts_Data *const ptr = array[i];
+      FW_ASSERT(ptr != nullptr);
+      status = ptr->serialize(this->m_dataBuffer);
       FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     }
     this->m_dataSize += sizeDelta;

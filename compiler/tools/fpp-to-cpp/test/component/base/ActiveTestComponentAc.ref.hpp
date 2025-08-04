@@ -308,7 +308,7 @@ namespace M {
           //! Serialize a DataArrayRecord record into the packet buffer
           //! \return The serialize status
           Fw::SerializeStatus serializeRecord_DataArrayRecord(
-              const M::ActiveTest_Data* array, //!< An array of M::ActiveTest_Data elements
+              const M::ActiveTest_Data** array, //!< An array of M::ActiveTest_Data elements
               FwSizeType size //!< The array size
           );
 
