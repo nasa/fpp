@@ -481,7 +481,6 @@ case class ComponentDataProducts (
       val typeName = TypeCppWriter.getName(s, t)
       val paramType = t.getUnderlyingType match {
         case Type.String(_) => "const Fw::StringBase**"
-        case _: (Type.Array | Type.Struct) => s"const $typeName**"
         case _ => s"const ${typeName}*"
       }
       // Generate the code for computing the size delta
@@ -501,9 +500,7 @@ case class ComponentDataProducts (
           s"""|FwSizeType sizeDelta =
               |  sizeof(FwDpIdType) + sizeof(FwSizeStoreType);
               |for (FwSizeType i = 0; i < size; i++) {
-              |  const $typeName *const ptr = array[i];
-              |  FW_ASSERT(ptr != nullptr);
-              |  sizeDelta += ptr->serializedSize();
+              |  sizeDelta += array[i].serializedSize();
               |}"""
         }
         case _ =>
@@ -527,14 +524,6 @@ case class ComponentDataProducts (
               |    const Fw::StringBase *const sbPtr = array[i];
               |    FW_ASSERT(sbPtr != nullptr);
               |    status = sbPtr->serializeTo(this->m_dataBuffer, stringSize);
-              |    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
-              |  }"""
-        // Handle the array and struct case
-        case ts: (Type.Array | Type.Struct) =>
-          s"""|  for (FwSizeType i = 0; i < size; i++) {
-              |    const $typeName *const ptr = array[i];
-              |    FW_ASSERT(ptr != nullptr);
-              |    status = ptr->serializeTo(this->m_dataBuffer);
               |    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
               |  }"""
         // Handle the general case
