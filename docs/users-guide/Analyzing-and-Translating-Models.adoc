@@ -140,6 +140,53 @@ even though `c.Out` has two ports and only one of them is connected.
 
 This section describes how to generate {cpp} from FPP.
 
+*Tool name:* The tool for translating FPP to {cpp} is called
+`fpp-to-cpp`.
+
+*Procedure:*
+The usual procedure for running `fpp-to-cpp` is as follows:
+
+. Identify one or more files _F_ that you want to translate.
+. <<Specifying-Models-as-Files_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
+. If _D_ is empty, then run `fpp-to-cpp` _F_.
+. Otherwise run `fpp-to-cpp -i` _D~1~_ `,` ... `,` _D~n~_ _F_, where _D~i~_ are the
+names of the dependencies.
+
+For example, suppose you want to generate {cpp} for the definitions in `c.fpp`,
+If `c.fpp` has no dependencies, then run
+
+----
+% fpp-to-cpp c.fpp
+----
+
+On the other hand, if `c.fpp` depends on `a.fpp` and `b.fpp`, then run
+
+----
+% fpp-to-cpp -i a.fpp,b.fpp c.fpp
+----
+
+Notice that you provide the dependencies as a comma-separated list of
+arguments to the option `-i`.
+`-i` stands for _import_.
+This option tells the tool that you want to read the files in _D_ for their symbols,
+but you don't want to translate them.
+Only the files _F_ provided as arguments are translated.
+
+*Tool behavior:* When you run `fpp-to-cpp`, the following occurs:
+
+. The tool runs the same analysis
+<<Analyzing-and-Translating-Models_Checking-Models,as for `fpp-check`>>.
+If there is any problem, the tool prints an error message to
+standard error and halts with nonzero status.
+
+. If the analysis succeeds, then the tool generates {cpp}files, one
+for each definition appearing in _F_, with names as shown in the table above.
+The files are written to the current directory.
+
+*Standard input:* Instead of providing named files as arguments,
+you can provide FPP source on standard input, as described
+for <<Analyzing-and-Translating-Models_Checking-Models,`fpp-check`>>.
+
 *{cpp} file names:* The table <<cpp-file-names>> shows how FPP definitions are
 translated to {cpp} files.
 
@@ -226,53 +273,6 @@ type T3 = A # A is not C-compatible
 
 When both headers are generated, you should include the `.h` header in your
 C programs and the `.hpp` header in your {cpp} programs.
-
-*Tool name:* The tool for translating FPP to {cpp} is called
-`fpp-to-cpp`.
-
-*Procedure:*
-The usual procedure for running `fpp-to-cpp` is as follows:
-
-. Identify one or more files _F_ that you want to translate.
-. <<Specifying-Models-as-Files_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
-. If _D_ is empty, then run `fpp-to-cpp` _F_.
-. Otherwise run `fpp-to-cpp -i` _D~1~_ `,` ... `,` _D~n~_ _F_, where _D~i~_ are the
-names of the dependencies.
-
-For example, suppose you want to generate {cpp} for the definitions in `c.fpp`,
-If `c.fpp` has no dependencies, then run
-
-----
-% fpp-to-cpp c.fpp
-----
-
-On the other hand, if `c.fpp` depends on `a.fpp` and `b.fpp`, then run
-
-----
-% fpp-to-cpp -i a.fpp,b.fpp c.fpp
-----
-
-Notice that you provide the dependencies as a comma-separated list of
-arguments to the option `-i`.
-`-i` stands for _import_.
-This option tells the tool that you want to read the files in _D_ for their symbols,
-but you don't want to translate them.
-Only the files _F_ provided as arguments are translated.
-
-*Tool behavior:* When you run `fpp-to-cpp`, the following occurs:
-
-. The tool runs the same analysis
-<<Analyzing-and-Translating-Models_Checking-Models,as for `fpp-check`>>.
-If there is any problem, the tool prints an error message to
-standard error and halts with nonzero status.
-
-. If the analysis succeeds, then the tool generates {cpp}files, one
-for each definition appearing in _F_, with names as shown in the table above.
-The files are written to the current directory.
-
-*Standard input:* Instead of providing named files as arguments,
-you can provide FPP source on standard input, as described
-for <<Analyzing-and-Translating-Models_Checking-Models,`fpp-check`>>.
 
 ==== Constant Definitions
 

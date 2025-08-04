@@ -13181,6 +13181,79 @@ even though <code>c.Out</code> has two ports and only one of them is connected.<
 <p>This section describes how to generate C&#43;&#43; from FPP.</p>
 </div>
 <div class="paragraph">
+<p><strong>Tool name:</strong> The tool for translating FPP to C&#43;&#43; is called
+<code>fpp-to-cpp</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Procedure:</strong>
+The usual procedure for running <code>fpp-to-cpp</code> is as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Identify one or more files <em>F</em> that you want to translate.</p>
+</li>
+<li>
+<p><a href="#Specifying-Models-as-Files_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
+</li>
+<li>
+<p>If <em>D</em> is empty, then run <code>fpp-to-cpp</code> <em>F</em>.</p>
+</li>
+<li>
+<p>Otherwise run <code>fpp-to-cpp -i</code> <em>D<sub>1</sub></em> <code>,</code> &#8230;&#8203; <code>,</code> <em>D<sub>n</sub></em> <em>F</em>, where <em>D<sub>i</sub></em> are the
+names of the dependencies.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For example, suppose you want to generate C&#43;&#43; for the definitions in <code>c.fpp</code>,
+If <code>c.fpp</code> has no dependencies, then run</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-to-cpp c.fpp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On the other hand, if <code>c.fpp</code> depends on <code>a.fpp</code> and <code>b.fpp</code>, then run</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-to-cpp -i a.fpp,b.fpp c.fpp</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that you provide the dependencies as a comma-separated list of
+arguments to the option <code>-i</code>.
+<code>-i</code> stands for <em>import</em>.
+This option tells the tool that you want to read the files in <em>D</em> for their symbols,
+but you don&#8217;t want to translate them.
+Only the files <em>F</em> provided as arguments are translated.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tool behavior:</strong> When you run <code>fpp-to-cpp</code>, the following occurs:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The tool runs the same analysis
+<a href="#Analyzing-and-Translating-Models_Checking-Models">as for <code>fpp-check</code></a>.
+If there is any problem, the tool prints an error message to
+standard error and halts with nonzero status.</p>
+</li>
+<li>
+<p>If the analysis succeeds, then the tool generates C&#43;&#43;files, one
+for each definition appearing in <em>F</em>, with names as shown in the table above.
+The files are written to the current directory.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Standard input:</strong> Instead of providing named files as arguments,
+you can provide FPP source on standard input, as described
+for <a href="#Analyzing-and-Translating-Models_Checking-Models"><code>fpp-check</code></a>.</p>
+</div>
+<div class="paragraph">
 <p><strong>C&#43;&#43; file names:</strong> The table <a href="#cpp-file-names">C&#43;&#43; File Names</a> shows how FPP definitions are
 translated to C&#43;&#43; files.</p>
 </div>
@@ -13323,79 +13396,6 @@ type T3 = A # A is not C-compatible</code></pre>
 <div class="paragraph">
 <p>When both headers are generated, you should include the <code>.h</code> header in your
 C programs and the <code>.hpp</code> header in your C&#43;&#43; programs.</p>
-</div>
-<div class="paragraph">
-<p><strong>Tool name:</strong> The tool for translating FPP to C&#43;&#43; is called
-<code>fpp-to-cpp</code>.</p>
-</div>
-<div class="paragraph">
-<p><strong>Procedure:</strong>
-The usual procedure for running <code>fpp-to-cpp</code> is as follows:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Identify one or more files <em>F</em> that you want to translate.</p>
-</li>
-<li>
-<p><a href="#Specifying-Models-as-Files_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
-</li>
-<li>
-<p>If <em>D</em> is empty, then run <code>fpp-to-cpp</code> <em>F</em>.</p>
-</li>
-<li>
-<p>Otherwise run <code>fpp-to-cpp -i</code> <em>D<sub>1</sub></em> <code>,</code> &#8230;&#8203; <code>,</code> <em>D<sub>n</sub></em> <em>F</em>, where <em>D<sub>i</sub></em> are the
-names of the dependencies.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>For example, suppose you want to generate C&#43;&#43; for the definitions in <code>c.fpp</code>,
-If <code>c.fpp</code> has no dependencies, then run</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-to-cpp c.fpp</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>On the other hand, if <code>c.fpp</code> depends on <code>a.fpp</code> and <code>b.fpp</code>, then run</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-to-cpp -i a.fpp,b.fpp c.fpp</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Notice that you provide the dependencies as a comma-separated list of
-arguments to the option <code>-i</code>.
-<code>-i</code> stands for <em>import</em>.
-This option tells the tool that you want to read the files in <em>D</em> for their symbols,
-but you don&#8217;t want to translate them.
-Only the files <em>F</em> provided as arguments are translated.</p>
-</div>
-<div class="paragraph">
-<p><strong>Tool behavior:</strong> When you run <code>fpp-to-cpp</code>, the following occurs:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The tool runs the same analysis
-<a href="#Analyzing-and-Translating-Models_Checking-Models">as for <code>fpp-check</code></a>.
-If there is any problem, the tool prints an error message to
-standard error and halts with nonzero status.</p>
-</li>
-<li>
-<p>If the analysis succeeds, then the tool generates C&#43;&#43;files, one
-for each definition appearing in <em>F</em>, with names as shown in the table above.
-The files are written to the current directory.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><strong>Standard input:</strong> Instead of providing named files as arguments,
-you can provide FPP source on standard input, as described
-for <a href="#Analyzing-and-Translating-Models_Checking-Models"><code>fpp-check</code></a>.</p>
 </div>
 <div class="sect3">
 <h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">15.2.1. Constant Definitions</h4>
@@ -15721,7 +15721,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-08-01 14:15:26 -0700
+Last updated 2025-08-04 14:01:49 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
