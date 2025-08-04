@@ -105,37 +105,37 @@ Fw::SerializeStatus InputPrimitivePort ::
   FW_ASSERT(this->m_func != nullptr);
 
   U32 u32;
-  _status = _buffer.deserialize(u32);
+  _status = _buffer.deserializeTo(u32);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
   U32 u32Ref;
-  _status = _buffer.deserialize(u32Ref);
+  _status = _buffer.deserializeTo(u32Ref);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
   F32 f32;
-  _status = _buffer.deserialize(f32);
+  _status = _buffer.deserializeTo(f32);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
   F32 f32Ref;
-  _status = _buffer.deserialize(f32Ref);
+  _status = _buffer.deserializeTo(f32Ref);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
   bool b;
-  _status = _buffer.deserialize(b);
+  _status = _buffer.deserializeTo(b);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
   bool bRef;
-  _status = _buffer.deserialize(bRef);
+  _status = _buffer.deserializeTo(bRef);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
@@ -202,22 +202,22 @@ void OutputPrimitivePort ::
     Fw::SerializeStatus _status;
     PrimitivePortBuffer _buffer;
 
-    _status = _buffer.serialize(u32);
+    _status = _buffer.serializeFrom(u32);
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-    _status = _buffer.serialize(u32Ref);
+    _status = _buffer.serializeFrom(u32Ref);
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-    _status = _buffer.serialize(f32);
+    _status = _buffer.serializeFrom(f32);
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-    _status = _buffer.serialize(f32Ref);
+    _status = _buffer.serializeFrom(f32Ref);
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-    _status = _buffer.serialize(b);
+    _status = _buffer.serializeFrom(b);
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-    _status = _buffer.serialize(bRef);
+    _status = _buffer.serializeFrom(bRef);
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
     _status = this->m_serPort->invokeSerial(_buffer);

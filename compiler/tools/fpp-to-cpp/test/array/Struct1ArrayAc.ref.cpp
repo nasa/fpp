@@ -151,11 +151,11 @@ std::ostream& operator<<(std::ostream& os, const Struct1& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus Struct1 ::
-  serialize(Fw::SerializeBufferBase& buffer) const
+  serializeTo(Fw::SerializeBufferBase& buffer) const
 {
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   for (U32 index = 0; index < SIZE; index++) {
-    status = buffer.serialize((*this)[index]);
+    status = buffer.serializeFrom((*this)[index]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -164,11 +164,11 @@ Fw::SerializeStatus Struct1 ::
 }
 
 Fw::SerializeStatus Struct1 ::
-  deserialize(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(Fw::SerializeBufferBase& buffer)
 {
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   for (U32 index = 0; index < SIZE; index++) {
-    status = buffer.deserialize((*this)[index]);
+    status = buffer.deserializeTo((*this)[index]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }

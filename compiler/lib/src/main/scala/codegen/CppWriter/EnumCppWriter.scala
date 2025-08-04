@@ -310,7 +310,7 @@ case class EnumCppWriter(
       ),
       functionClassMember(
         Some(s"Serialize raw enum value to SerialType"),
-        "serialize",
+        "serializeTo",
         List(
           CppDoc.Function.Param(
             CppDoc.Type("Fw::SerializeBufferBase&"),
@@ -320,7 +320,7 @@ case class EnumCppWriter(
         ),
         CppDoc.Type("Fw::SerializeStatus"),
         lines(
-          s"""|const Fw::SerializeStatus status = buffer.serialize(
+          s"""|const Fw::SerializeStatus status = buffer.serializeFrom(
               |    static_cast<SerialType>(this->e)
               |);
               |return status;"""
@@ -330,7 +330,7 @@ case class EnumCppWriter(
       ),
       functionClassMember(
         Some(s"Deserialize raw enum value from SerialType"),
-        "deserialize",
+        "deserializeFrom",
         List(
           CppDoc.Function.Param(
             CppDoc.Type("Fw::SerializeBufferBase&"),
@@ -341,7 +341,7 @@ case class EnumCppWriter(
         CppDoc.Type("Fw::SerializeStatus"),
         lines(
           s"""|SerialType es;
-              |Fw::SerializeStatus status = buffer.deserialize(es);
+              |Fw::SerializeStatus status = buffer.deserializeTo(es);
               |if (status == Fw::FW_SERIALIZE_OK) {
               |  this->e = static_cast<T>(es);
               |  if (!this->isValid()) {

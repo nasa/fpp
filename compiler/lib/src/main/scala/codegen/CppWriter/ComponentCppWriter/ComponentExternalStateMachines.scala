@@ -89,32 +89,32 @@ case class ComponentExternalStateMachines(
               |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
               |
               |// Serialize the message ID
-              |_status = _msg.serialize(static_cast<FwEnumStoreType>($externalStateMachineCppConstantName));
+              |_status = _msg.serializeFrom(static_cast<FwEnumStoreType>($externalStateMachineCppConstantName));
               |FW_ASSERT (
               |  _status == Fw::FW_SERIALIZE_OK,
               |  static_cast<FwAssertArgType>(_status)
               |);
               |
               |// Fake port number to make message dequeue work
-              |_status = _msg.serialize(static_cast<FwIndexType>(0));
+              |_status = _msg.serializeFrom(static_cast<FwIndexType>(0));
               |FW_ASSERT (
               |  _status == Fw::FW_SERIALIZE_OK,
               |  static_cast<FwAssertArgType>(_status)
               |);
               |
-              |_status = _msg.serialize(static_cast<FwEnumStoreType>(${writeSmIdName(smi.getName)}));
+              |_status = _msg.serializeFrom(static_cast<FwEnumStoreType>(${writeSmIdName(smi.getName)}));
               |FW_ASSERT(
               |  _status == Fw::FW_SERIALIZE_OK,
               |  static_cast<FwAssertArgType>(_status)
               |);
               |
-              |_status = _msg.serialize(static_cast<FwEnumStoreType>(signal));
+              |_status = _msg.serializeFrom(static_cast<FwEnumStoreType>(signal));
               |FW_ASSERT(
               |  _status == Fw::FW_SERIALIZE_OK,
               |  static_cast<FwAssertArgType>(_status)
               |);
               |
-              |_status = _msg.serialize(data);
+              |_status = _msg.serializeFrom(data);
               |FW_ASSERT(
               |  _status == Fw::FW_SERIALIZE_OK,
               |  static_cast<FwAssertArgType>(_status)
@@ -151,7 +151,7 @@ case class ComponentExternalStateMachines(
   private val writeDeserializeSmVars = lines(
     """|// Deserialize the state machine ID to an FwEnumStoreType
        |FwEnumStoreType enumStoreSmId = 0;
-       |_deserStatus = _msg.deserialize(enumStoreSmId);
+       |_deserStatus = _msg.deserializeTo(enumStoreSmId);
        |FW_ASSERT(
        |  _deserStatus == Fw::FW_SERIALIZE_OK,
        |  static_cast<FwAssertArgType>(_deserStatus)
@@ -163,7 +163,7 @@ case class ComponentExternalStateMachines(
        |// This value will be cast to the correct type in the
        |// switch statement that calls the state machine update function.
        |FwEnumStoreType enumStoreSmSignal = 0;
-       |_deserStatus = _msg.deserialize(enumStoreSmSignal);
+       |_deserStatus = _msg.deserializeTo(enumStoreSmSignal);
        |FW_ASSERT(
        |  _deserStatus == Fw::FW_SERIALIZE_OK,
        |  static_cast<FwAssertArgType>(_deserStatus)
@@ -171,7 +171,7 @@ case class ComponentExternalStateMachines(
        |
        |// Deserialize the state machine data
        |Fw::SmSignalBuffer data;
-       |_deserStatus = _msg.deserialize(data);
+       |_deserStatus = _msg.deserializeTo(data);
        |FW_ASSERT(
        |  Fw::FW_SERIALIZE_OK == _deserStatus,
        |  static_cast<FwAssertArgType>(_deserStatus)

@@ -126,16 +126,16 @@ std::ostream& operator<<(std::ostream& os, const StringArray& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus StringArray ::
-  serialize(Fw::SerializeBufferBase& buffer) const
+  serializeTo(Fw::SerializeBufferBase& buffer) const
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->m_s1);
+  status = buffer.serializeFrom(this->m_s1);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
   for (FwSizeType i = 0; i < 16; i++) {
-    status = buffer.serialize(this->m_s2[i]);
+    status = buffer.serializeFrom(this->m_s2[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -145,16 +145,16 @@ Fw::SerializeStatus StringArray ::
 }
 
 Fw::SerializeStatus StringArray ::
-  deserialize(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(Fw::SerializeBufferBase& buffer)
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->m_s1);
+  status = buffer.deserializeTo(this->m_s1);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
   for (FwSizeType i = 0; i < 16; i++) {
-    status = buffer.deserialize(this->m_s2[i]);
+    status = buffer.deserializeTo(this->m_s2[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }

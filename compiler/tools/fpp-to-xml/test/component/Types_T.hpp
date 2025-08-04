@@ -27,9 +27,9 @@ class Types_T :
     bool operator==(const Types_T& other) const;
     bool operator!=(const Types_T& other) const;
 
-    Fw::SerializeStatus serialize(Fw::SerializeBufferBase& buffer) const;
+    Fw::SerializeStatus serializeTo(Fw::SerializeBufferBase& buffer) const;
 
-    Fw::SerializeStatus deserialize(Fw::SerializeBufferBase& buffer);
+    Fw::SerializeStatus deserializeFrom(Fw::SerializeBufferBase& buffer);
 
 };
 

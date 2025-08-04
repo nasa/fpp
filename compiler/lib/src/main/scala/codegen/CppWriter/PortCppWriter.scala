@@ -282,7 +282,7 @@ case class PortCppWriter (
             lines(
               s"""|
                   |$varDecl
-                  |_status = _buffer.deserialize($n);
+                  |_status = _buffer.deserializeTo($n);
                   |if (_status != Fw::FW_SERIALIZE_OK) {
                   |  return _status;
                   |}
@@ -431,7 +431,7 @@ case class PortCppWriter (
         paramList.flatMap((n, _, _) => {
           lines(
             s"""|
-                |  _status = _buffer.serialize($n);
+                |  _status = _buffer.serializeFrom($n);
                 |  FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
                 |"""
           )

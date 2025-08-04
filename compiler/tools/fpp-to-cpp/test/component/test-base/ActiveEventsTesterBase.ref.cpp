@@ -2345,7 +2345,7 @@ void ActiveEventsTesterBase ::
       // For AMPCS, decode zero arguments
       Fw::SerializeStatus _zero_status = Fw::FW_SERIALIZE_OK;
       U8 _noArgs;
-      _zero_status = args.deserialize(_noArgs);
+      _zero_status = args.deserializeTo(_noArgs);
       FW_ASSERT(
         _zero_status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_zero_status)
@@ -2361,7 +2361,7 @@ void ActiveEventsTesterBase ::
 #if FW_AMPCS_COMPATIBLE
       // Deserialize the number of arguments.
       U8 _numArgs;
-      _status = args.deserialize(_numArgs);
+      _status = args.deserializeTo(_numArgs);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2379,7 +2379,7 @@ void ActiveEventsTesterBase ::
       {
         // Deserialize the argument size
         U8 _argSize;
-        _status = args.deserialize(_argSize);
+        _status = args.deserializeTo(_argSize);
         FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -2391,7 +2391,7 @@ void ActiveEventsTesterBase ::
         );
       }
 #endif
-      _status = args.deserialize(_event_arg_u32);
+      _status = args.deserializeTo(_event_arg_u32);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2402,7 +2402,7 @@ void ActiveEventsTesterBase ::
       {
         // Deserialize the argument size
         U8 _argSize;
-        _status = args.deserialize(_argSize);
+        _status = args.deserializeTo(_argSize);
         FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -2414,7 +2414,7 @@ void ActiveEventsTesterBase ::
         );
       }
 #endif
-      _status = args.deserialize(_event_arg_f32);
+      _status = args.deserializeTo(_event_arg_f32);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2425,7 +2425,7 @@ void ActiveEventsTesterBase ::
       {
         // Deserialize the argument size
         U8 _argSize;
-        _status = args.deserialize(_argSize);
+        _status = args.deserializeTo(_argSize);
         FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -2437,7 +2437,7 @@ void ActiveEventsTesterBase ::
         );
       }
 #endif
-      _status = args.deserialize(_event_arg_b);
+      _status = args.deserializeTo(_event_arg_b);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2452,7 +2452,7 @@ void ActiveEventsTesterBase ::
 #if FW_AMPCS_COMPATIBLE
       // Deserialize the number of arguments.
       U8 _numArgs;
-      _status = args.deserialize(_numArgs);
+      _status = args.deserializeTo(_numArgs);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2470,7 +2470,7 @@ void ActiveEventsTesterBase ::
       {
         // Deserialize the argument size
         U8 _argSize;
-        _status = args.deserialize(_argSize);
+        _status = args.deserializeTo(_argSize);
         FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -2482,7 +2482,7 @@ void ActiveEventsTesterBase ::
         );
       }
 #endif
-      _status = args.deserialize(_event_arg_str1);
+      _status = args.deserializeTo(_event_arg_str1);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2493,7 +2493,7 @@ void ActiveEventsTesterBase ::
       {
         // Deserialize the argument size
         U8 _argSize;
-        _status = args.deserialize(_argSize);
+        _status = args.deserializeTo(_argSize);
         FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -2505,7 +2505,7 @@ void ActiveEventsTesterBase ::
         );
       }
 #endif
-      _status = args.deserialize(_event_arg_str2);
+      _status = args.deserializeTo(_event_arg_str2);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2520,7 +2520,7 @@ void ActiveEventsTesterBase ::
 #if FW_AMPCS_COMPATIBLE
       // Deserialize the number of arguments.
       U8 _numArgs;
-      _status = args.deserialize(_numArgs);
+      _status = args.deserializeTo(_numArgs);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2538,7 +2538,7 @@ void ActiveEventsTesterBase ::
       {
         // Deserialize the argument size
         U8 _argSize;
-        _status = args.deserialize(_argSize);
+        _status = args.deserializeTo(_argSize);
         FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -2550,7 +2550,7 @@ void ActiveEventsTesterBase ::
         );
       }
 #endif
-      _status = args.deserialize(_event_arg_e);
+      _status = args.deserializeTo(_event_arg_e);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2565,7 +2565,7 @@ void ActiveEventsTesterBase ::
 #if FW_AMPCS_COMPATIBLE
       // Deserialize the number of arguments.
       U8 _numArgs;
-      _status = args.deserialize(_numArgs);
+      _status = args.deserializeTo(_numArgs);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2579,7 +2579,7 @@ void ActiveEventsTesterBase ::
 
       // For FATAL, there is a stack size of 4 and a dummy entry
       U8 stackArgLen;
-      _status = args.deserialize(stackArgLen);
+      _status = args.deserializeTo(stackArgLen);
       FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -2590,7 +2590,7 @@ void ActiveEventsTesterBase ::
       );
 
       U32 dummyStackArg;
-      _status = args.deserialize(dummyStackArg);
+      _status = args.deserializeTo(dummyStackArg);
       FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -2606,7 +2606,7 @@ void ActiveEventsTesterBase ::
       {
         // Deserialize the argument size
         U8 _argSize;
-        _status = args.deserialize(_argSize);
+        _status = args.deserializeTo(_argSize);
         FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -2618,7 +2618,7 @@ void ActiveEventsTesterBase ::
         );
       }
 #endif
-      _status = args.deserialize(_event_arg_a);
+      _status = args.deserializeTo(_event_arg_a);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2633,7 +2633,7 @@ void ActiveEventsTesterBase ::
 #if FW_AMPCS_COMPATIBLE
       // Deserialize the number of arguments.
       U8 _numArgs;
-      _status = args.deserialize(_numArgs);
+      _status = args.deserializeTo(_numArgs);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2651,7 +2651,7 @@ void ActiveEventsTesterBase ::
       {
         // Deserialize the argument size
         U8 _argSize;
-        _status = args.deserialize(_argSize);
+        _status = args.deserializeTo(_argSize);
         FW_ASSERT(
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
@@ -2663,7 +2663,7 @@ void ActiveEventsTesterBase ::
         );
       }
 #endif
-      _status = args.deserialize(_event_arg_s);
+      _status = args.deserializeTo(_event_arg_s);
       FW_ASSERT(
         _status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_status)
@@ -2677,7 +2677,7 @@ void ActiveEventsTesterBase ::
       // For AMPCS, decode zero arguments
       Fw::SerializeStatus _zero_status = Fw::FW_SERIALIZE_OK;
       U8 _noArgs;
-      _zero_status = args.deserialize(_noArgs);
+      _zero_status = args.deserializeTo(_noArgs);
       FW_ASSERT(
         _zero_status == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_zero_status)
@@ -2979,7 +2979,7 @@ void ActiveEventsTesterBase ::
       FILE* file
   )
 {
-  const char* severityString = "UNKNOWN";
+  const char* severityString = nullptr;
 
   switch (e.severity.e) {
     case Fw::LogSeverity::FATAL:
@@ -3001,7 +3001,7 @@ void ActiveEventsTesterBase ::
       severityString = "ACTIVITY_LO";
       break;
     case Fw::LogSeverity::DIAGNOSTIC:
-     severityString = "DIAGNOSTIC";
+      severityString = "DIAGNOSTIC";
       break;
     default:
       severityString = "SEVERITY ERROR";
