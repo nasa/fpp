@@ -193,7 +193,7 @@ class PassiveSyncProductsComponentBase :
         //! Serialize a DataArrayRecord record into the packet buffer
         //! \return The serialize status
         Fw::SerializeStatus serializeRecord_DataArrayRecord(
-            const PassiveSyncProducts_Data** array, //!< An array of PassiveSyncProducts_Data elements
+            const PassiveSyncProducts_Data* array, //!< An array of PassiveSyncProducts_Data elements
             FwSizeType size //!< The array size
         );
 

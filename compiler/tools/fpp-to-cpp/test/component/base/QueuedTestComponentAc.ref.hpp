@@ -306,7 +306,7 @@ class QueuedTestComponentBase :
         //! Serialize a DataArrayRecord record into the packet buffer
         //! \return The serialize status
         Fw::SerializeStatus serializeRecord_DataArrayRecord(
-            const QueuedTest_Data** array, //!< An array of QueuedTest_Data elements
+            const QueuedTest_Data* array, //!< An array of QueuedTest_Data elements
             FwSizeType size //!< The array size
         );
 

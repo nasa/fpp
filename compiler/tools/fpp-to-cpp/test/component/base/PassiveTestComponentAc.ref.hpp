@@ -294,7 +294,7 @@ class PassiveTestComponentBase :
         //! Serialize a DataArrayRecord record into the packet buffer
         //! \return The serialize status
         Fw::SerializeStatus serializeRecord_DataArrayRecord(
-            const PassiveTest_Data** array, //!< An array of PassiveTest_Data elements
+            const PassiveTest_Data* array, //!< An array of PassiveTest_Data elements
             FwSizeType size //!< The array size
         );
 

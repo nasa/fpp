@@ -131,7 +131,7 @@ QueuedTestComponentBase::DpContainer ::
 
 Fw::SerializeStatus QueuedTestComponentBase::DpContainer ::
   serializeRecord_DataArrayRecord(
-      const QueuedTest_Data** array,
+      const QueuedTest_Data* array,
       FwSizeType size
   )
 {
@@ -140,9 +140,7 @@ Fw::SerializeStatus QueuedTestComponentBase::DpContainer ::
   FwSizeType sizeDelta =
     sizeof(FwDpIdType) + sizeof(FwSizeStoreType);
   for (FwSizeType i = 0; i < size; i++) {
-    const QueuedTest_Data *const ptr = array[i];
-    FW_ASSERT(ptr != nullptr);
-    sizeDelta += ptr->serializedSize();
+    sizeDelta += array[i].serializedSize();
   }
   // Serialize the elements if they will fit
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
@@ -153,9 +151,7 @@ Fw::SerializeStatus QueuedTestComponentBase::DpContainer ::
     status = this->m_dataBuffer.serializeSize(size);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     for (FwSizeType i = 0; i < size; i++) {
-      const QueuedTest_Data *const ptr = array[i];
-      FW_ASSERT(ptr != nullptr);
-      status = ptr->serializeTo(this->m_dataBuffer);
+      status = this->m_dataBuffer.serializeFrom(array[i]);
       FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     }
     this->m_dataSize += sizeDelta;

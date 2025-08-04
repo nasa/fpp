@@ -97,7 +97,7 @@ ActiveAsyncProductsComponentBase::DpContainer ::
 
 Fw::SerializeStatus ActiveAsyncProductsComponentBase::DpContainer ::
   serializeRecord_DataArrayRecord(
-      const ActiveAsyncProducts_Data** array,
+      const ActiveAsyncProducts_Data* array,
       FwSizeType size
   )
 {
@@ -106,9 +106,7 @@ Fw::SerializeStatus ActiveAsyncProductsComponentBase::DpContainer ::
   FwSizeType sizeDelta =
     sizeof(FwDpIdType) + sizeof(FwSizeStoreType);
   for (FwSizeType i = 0; i < size; i++) {
-    const ActiveAsyncProducts_Data *const ptr = array[i];
-    FW_ASSERT(ptr != nullptr);
-    sizeDelta += ptr->serializedSize();
+    sizeDelta += array[i].serializedSize();
   }
   // Serialize the elements if they will fit
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
@@ -119,9 +117,7 @@ Fw::SerializeStatus ActiveAsyncProductsComponentBase::DpContainer ::
     status = this->m_dataBuffer.serializeSize(size);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     for (FwSizeType i = 0; i < size; i++) {
-      const ActiveAsyncProducts_Data *const ptr = array[i];
-      FW_ASSERT(ptr != nullptr);
-      status = ptr->serializeTo(this->m_dataBuffer);
+      status = this->m_dataBuffer.serializeFrom(array[i]);
       FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     }
     this->m_dataSize += sizeDelta;

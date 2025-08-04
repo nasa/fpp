@@ -199,7 +199,7 @@ class ActiveGuardedProductsComponentBase :
         //! Serialize a DataArrayRecord record into the packet buffer
         //! \return The serialize status
         Fw::SerializeStatus serializeRecord_DataArrayRecord(
-            const ActiveGuardedProducts_Data** array, //!< An array of ActiveGuardedProducts_Data elements
+            const ActiveGuardedProducts_Data* array, //!< An array of ActiveGuardedProducts_Data elements
             FwSizeType size //!< The array size
         );
 

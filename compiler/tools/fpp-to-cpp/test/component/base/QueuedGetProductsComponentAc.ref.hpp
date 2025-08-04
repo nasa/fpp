@@ -197,7 +197,7 @@ class QueuedGetProductsComponentBase :
         //! Serialize a DataArrayRecord record into the packet buffer
         //! \return The serialize status
         Fw::SerializeStatus serializeRecord_DataArrayRecord(
-            const QueuedGetProducts_Data** array, //!< An array of QueuedGetProducts_Data elements
+            const QueuedGetProducts_Data* array, //!< An array of QueuedGetProducts_Data elements
             FwSizeType size //!< The array size
         );
 
