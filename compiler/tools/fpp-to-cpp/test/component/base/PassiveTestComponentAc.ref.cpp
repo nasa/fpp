@@ -43,10 +43,11 @@ Fw::SerializeStatus PassiveTestComponentBase::DpContainer ::
 {
   FW_ASSERT(array != nullptr);
   // Compute the size delta
-  const FwSizeType sizeDelta =
-    sizeof(FwDpIdType) +
-    sizeof(FwSizeStoreType) +
-    size * PassiveTest_Data::SERIALIZED_SIZE;
+  FwSizeType sizeDelta =
+    sizeof(FwDpIdType) + sizeof(FwSizeStoreType);
+  for (FwSizeType i = 0; i < size; i++) {
+    sizeDelta += array[i].serializedSize();
+  }
   // Serialize the elements if they will fit
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {

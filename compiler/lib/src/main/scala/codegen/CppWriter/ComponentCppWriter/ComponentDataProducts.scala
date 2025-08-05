@@ -496,6 +496,13 @@ case class ComponentDataProducts (
               |  FW_ASSERT(sbPtr != nullptr);
               |  sizeDelta += sbPtr->serializedTruncatedSize(stringSize);
               |}"""
+        case ts: (Type.Array | Type.Struct)  => {
+          s"""|FwSizeType sizeDelta =
+              |  sizeof(FwDpIdType) + sizeof(FwSizeStoreType);
+              |for (FwSizeType i = 0; i < size; i++) {
+              |  sizeDelta += array[i].serializedSize();
+              |}"""
+        }
         case _ =>
           val eltSize = if s.isPrimitive(t, typeName)
                         then s"sizeof($typeName)"
