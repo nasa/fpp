@@ -18,8 +18,7 @@ the program:
 ----
 
 `fpp-check` is the tool for checking that an FPP model is valid.
-Like most FPP tools (except the ones that operate on XML files -- more on this 
-below),
+Like most FPP tools,
 `fpp-check` reads either from named files or from standard input.
 If one or more files are named on the command line, `fpp-check` reads those;
 otherwise it reads from standard input.

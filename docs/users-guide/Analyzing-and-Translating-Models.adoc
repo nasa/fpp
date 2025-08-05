@@ -136,225 +136,56 @@ On the other hand, in topology `T2`, both `c.pOut` and `c.pIn`
 are considered connected (so not reported as unconnected)
 even though `c.Out` has two ports and only one of them is connected.
 
-=== Generating XML
+=== Generating C Plus Plus
 
-We are phasing out the use of XML in favor of generating
-JSON and directly generating {cpp}.
-However, for backwards compatibility, the F Prime XML representation is still available
-as of this FPP release.
-This section describes how to generate XML from FPP.
+This section describes how to generate {cpp} from FPP.
 
-*XML file names:* The table <<xml-file-names>> shows how FPP definitions are
-translated to F Prime XML files.
-
-[[xml-file-names]]
-.XML File Names
-|===
-|FPP Definition|F Prime XML File
-
-|Array _A_ outside any component|_A_ `ArrayAi.xml`
-|Array _A_ in component _C_|_C_ `_` _A_ `ArrayAi.xml`
-|Enum _E_ outside any component|_E_ `EnumAi.xml`
-|Enum _E_ in component _C_|_C_ `_` _E_ `EnumAi.xml`
-|Struct _S_ outside any component|_S_ `SerializableAi.xml`
-|Struct _S_ in component _C_|_C_ `_` _S_ `SerializableAi.xml`
-|Port _P_|_P_ `PortAi.xml`
-|Component _C_|_C_ `ComponentAi.xml`
-|Topology _T_|_T_ `TopologyAppAi.xml`
-|===
-
-For example, consider the FPP array definition
-
-[source,fpp]
-----
-array A = [3] U32
-----
-
-Outside of any component definition, this definition is translated to
-an XML array with name `A` defined in a file `AArrayAi.xml`.
-Inside the definition of component `C`, it is translated to
-an XML array with name `C_A` defined in the file `C_AArrayAi.xml`.
-In either case the namespace in the XML file is given by the enclosing
-FPP modules, if any.
-For example, the following code
-
-[source,fpp]
-----
-module M {
-
-  array A = [3] U32
-
-}
-----
-
-becomes an array with name `A` and namespace `M` in file
-`AArrayAi.xml`.
-
-*Tool name:* The tool for translating FPP definitions to XML files
-is called `fpp-to-xml`.
+*Tool name:* The tool for translating FPP to {cpp} is called
+`fpp-to-cpp`.
 
 *Procedure:*
-The usual procedure for running `fpp-to-xml` is as follows:
+The usual procedure for running `fpp-to-cpp` is as follows:
 
 . Identify one or more files _F_ that you want to translate.
 . <<Specifying-Models-as-Files_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
-. If _D_ is empty, then run `fpp-to-xml` _F_.
-. Otherwise run `fpp-to-xml -i` _D~1~_ `,` ... `,` _D~n~_ _F_, where _D~i~_ are the
+. If _D_ is empty, then run `fpp-to-cpp` _F_.
+. Otherwise run `fpp-to-cpp -i` _D~1~_ `,` ... `,` _D~n~_ _F_, where _D~i~_ are the
 names of the dependencies.
 
-For example, suppose you want to generate XML for the definitions in `c.fpp`,
+For example, suppose you want to generate {cpp} for the definitions in `c.fpp`,
 If `c.fpp` has no dependencies, then run
 
 ----
-% fpp-to-xml c.fpp
+% fpp-to-cpp c.fpp
 ----
 
 On the other hand, if `c.fpp` depends on `a.fpp` and `b.fpp`, then run
 
 ----
-% fpp-to-xml -i a.fpp,b.fpp c.fpp
+% fpp-to-cpp -i a.fpp,b.fpp c.fpp
 ----
 
 Notice that you provide the dependencies as a comma-separated list of
 arguments to the option `-i`.
-`-i` stands for "import."
+`-i` stands for _import_.
 This option tells the tool that you want to read the files in _D_ for their symbols,
 but you don't want to translate them.
 Only the files _F_ provided as arguments are translated.
 
-*Tool behavior:* When you run `fpp-to-xml`, the following occurs:
+*Tool behavior:* When you run `fpp-to-cpp`, the following occurs:
 
 . The tool runs the same analysis
 <<Analyzing-and-Translating-Models_Checking-Models,as for `fpp-check`>>.
 If there is any problem, the tool prints an error message to
 standard error and halts with nonzero status.
 
-. If the analysis succeeds, then the tool generates XML files, one
+. If the analysis succeeds, then the tool generates {cpp}files, one
 for each definition appearing in _F_, with names as shown in the table above.
 The files are written to the current directory.
-
-*Generated import paths:*
-When one FPP definition `A` depends on another definition `B`,
-the generated XML file for `A` contains an XML node that imports
-the generated XML file for `B`.
-The tool constructs the import path from the
-<<Specifying-Models-as-Files_Locating-Definitions,location>> of the imported FPP symbol.
-
-For example, suppose the file `[path prefix]/A/A.fpp` contains the following
-definition, where `[path prefix]` represents the path prefix of directory
-`A` starting from the root of the file system:
-
-[source,fpp]
---------
-array A = [3] B
---------
-
-And suppose the file `[path prefix]/B/B.fpp` contains the following definition:
-
-[source.fpp]
-----
-array B = [3] U32
-----
-
-If you run this command in directory `[path prefix]/A`
-
-----
-% fpp-to-xml -i ../B/B.fpp A.fpp
-----
-
-then in that directory the tool will generate a file `AArrayAi.xml` containing
-the following line:
-
-[source,xml]
-----
-<import_array_type>[path prefix]/B/BArrayAi.xml</import_array_type>
-----
-
-*Removing path prefixes:*
-Usually when generating XML we don't want to include the system-specific part
-of the path prefix.
-Instead, we want the path to be specified relative to some known place, for
-example
-the root of the F Prime repository or a project repository.
-
-To remove the prefix _prefix_ from generated paths, use the option
-`-p` _prefix_ .
-To continue the previous example, running
-
-----
-fpp-to-xml -i ../B/B.fpp -p [path prefix] A.fpp
-----
-
-generates a file `AArrayAi.xml` containing the line
-
-[source,xml]
-----
-<import_array_type>B/BArrayAi.xml</import_array_type>
-----
-
-Notice that the path prefix `[path prefix]/` has been removed.
-
-To specify multiple prefixes, separate them with commas:
-
-----
-fpp-to-xml -p prefix1,prefix2, ...
-----
-
-For each generated path, the tool will delete the longest prefix
-that matches a prefix in the list.
-
-As discussed in the section on
-<<Specifying-Models-as-Files_Path-Name-Aliases_Relative-Paths-and-Symbolic-Links,
-relative paths and symbolic links>>,
-when a file name is relative to a path _S_ that includes symbolic links,
-the associated location is relative to the directory _D_ pointed to by _S_.
-In this case, providing _S_ as an argument to `-p` will not work as expected.
-To work around this issue, you can do one of the following:
-
-. Provide both _D_ and _S_ as arguments to `-p`.
-
-. Use absolute paths when presenting files to FPP code generation tools
-  with the `-p` option.
-
-*More options:* The following additional options are available
-when running `fpp-to-xml`:
-
-* `-d` _dir_ : Use _dir_ instead of the current directory as
-the output directory for writing files.
-For example,
-+
-----
-fpp-to-xml -d xml ...
-----
-+
-writes output files
-to the directory `xml` (which must already exist).
-
-* `-n` _file_ : Write the names of the generated XML files
-to _file_.
-This is useful for collecting autocoder build dependencies.
-
-* `-s` _size_ : Specify a default string size.
-For example,
-+
-----
-fpp-to-xml -s 40 ...
-----
-+
-FPP allows string types with no specified size, and F Prime XML
-does not.
-So when generating code we need to provide a default size
-to use when FPP doesn't specify the size.
-If you don't specify the `-s` option, then the tool uses
-an automatic default of 80.
 
 *Standard input:* Instead of providing named files as arguments,
 you can provide FPP source on standard input, as described
 for <<Analyzing-and-Translating-Models_Checking-Models,`fpp-check`>>.
-
-=== Generating C Plus Plus
-
-This section describes how to generate {cpp} from FPP.
 
 *{cpp} file names:* The table <<cpp-file-names>> shows how FPP definitions are
 translated to {cpp} files.
@@ -443,26 +274,6 @@ type T3 = A # A is not C-compatible
 When both headers are generated, you should include the `.h` header in your
 C programs and the `.hpp` header in your {cpp} programs.
 
-*Tool name:* The tool for translating FPP to {cpp} is called
-`fpp-to-cpp`.
-
-*Procedure:*
-The usual procedure for running `fpp-to-cpp` is as follows:
-
-. Identify one or more files _F_ that you want to translate.
-. <<Specifying-Models-as-Files_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
-. If _D_ is empty, then run `fpp-to-cpp` _F_.
-. Otherwise run `fpp-to-cpp -i` _D~1~_ `,` ... `,` _D~n~_ _F_, where _D~i~_ are the
-names of the dependencies.
-
-Except for the tool name, this procedure is identical to the one given for
-<<Analyzing-and-Translating-Models_Generating-XML,generating XML>>.
-See that section for examples of the procedure.
-
-*Input:* As with the tools described above, you can provide input to
-`fpp-to-cpp`
-either through named files or through standard input.
-
 ==== Constant Definitions
 
 `fpp-to-cpp` extracts <<Defining-Constants,constant definitions>>
@@ -546,12 +357,88 @@ passive component C {
 ----
 
 *Generated header paths:*
-The option `-p` _path-prefixes_ removes the longest of one or more
-path prefixes from any generated header paths (for example,
-the path to `FppConstants.hpp` that is included in `FppConstants.cpp`).
-To specify multiple prefixes, separate them with commas (and no spaces).
-This is similar to the `-p` option for
-<<Analyzing-and-Translating-Models_Generating-XML, `fpp-to-xml`>>.
+When one FPP definition `A` refers to another definition `B`,
+the generated {cpp} file for `A` contains a directive to
+include the generated header file for `B`.
+The tool constructs the import path from the
+<<Specifying-Models-as-Files_Locating-Definitions,location>> of the
+definition of `B`.
+
+For example, suppose the file `[path prefix]/A/A.fpp` contains the following
+definition, where `[path prefix]` represents the path prefix of directory
+`A` starting from the root of the file system:
+
+[source,fpp]
+--------
+array A = [3] B
+--------
+
+And suppose the file `[path prefix]/B/B.fpp` contains the following definition:
+
+[source.fpp]
+----
+array B = [3] U32
+----
+
+If you run this command in directory `[path prefix]/A`
+
+----
+% fpp-to-cpp -i ../B/B.fpp A.fpp
+----
+
+then in that directory the tool will generate a file `AArrayAc.hpp` containing
+the following line:
+
+[source,cpp]
+----
+#include "[path prefix]/B/BArrayAc.hpp"
+----
+
+*Removing path prefixes:*
+Usually when generating {cpp} we don't want to include the system-specific path
+prefix.
+Instead, we want the path to be specified relative to some known place, for
+example
+the root of the F Prime repository or a project repository.
+
+To remove the prefix _prefix_ from generated paths, use the option
+`-p` _prefix_ .
+To continue the previous example, running
+
+----
+fpp-to-cpp -i ../B/B.fpp -p [path prefix] A.fpp
+----
+
+generates a file `AArrayAc.hpp` containing the line
+
+[source,cpp]
+----
+#include "B/BArrayAc.hpp"
+----
+
+Notice that the path prefix `[path prefix]/` has been removed.
+
+To specify multiple prefixes, separate them with commas:
+
+----
+fpp-to-cpp -p prefix1,prefix2, ...
+----
+
+For each generated path, the tool will delete the longest prefix
+that matches a prefix in the list.
+
+As discussed in the section on
+<<Specifying-Models-as-Files_Path-Name-Aliases_Relative-Paths-and-Symbolic-Links,
+relative paths and symbolic links>>,
+when a file name is relative to a path _S_ that includes symbolic links,
+the associated location is relative to the directory _D_ pointed to by _S_.
+In this case, providing _S_ as an argument to `-p` will not work as expected.
+To work around this issue, you can do one of the following:
+
+. Provide both _D_ and _S_ as arguments to `-p`.
+
+. Use absolute paths when presenting files to FPP code generation tools
+  with the `-p` option.
 
 *The include guard prefix:* By default, the include guard
 for `FppConstantsAc.hpp` is _guard-prefix_ `pass:[_]FppConstantsAc_HPP`,
@@ -577,17 +464,31 @@ when running `fpp-to-cpp`:
 
 * `-d` _dir_ : Use _dir_ instead of the current directory as
 the output directory for writing files.
-This is similar to the `-d` option for
-<<Analyzing-and-Translating-Models_Generating-XML, `fpp-to-xml`>>.
+For example,
++
+----
+fpp-to-cpp -d cpp ...
+----
++
+writes output files
+to the directory `cpp` (which must already exist).
 
 * `-n` _file_ : Write the names of the generated {cpp} files
 to _file_.
-This is similar to the `-n` option for
-<<Analyzing-and-Translating-Models_Generating-XML, `fpp-to-xml`>>.
+This is useful for collecting autocoder build dependencies.
 
 * `-s` _size_ : Specify a default string size.
-This is similar to the `-s` option for
-<<Analyzing-and-Translating-Models_Generating-XML, `fpp-to-xml`>>.
+For example,
++
+----
+fpp-to-cpp -s 40 ...
+----
++
+FPP allows string types with no specified size.
+When generating code we need to provide a default size
+to use when FPP doesn't specify the size.
+If you don't specify the `-s` option, then the tool uses
+an automatic default of 80.
 
 ==== Types, Ports, State Machines, and Components
 
@@ -782,488 +683,6 @@ When using clang, the following flags must also be set:
 ----
 -Wno-vla-extension
 ----
-
-=== Identifying Generated Files
-
-As discussed in the previous section, the `-n` option
-of `fpp-to-xml` and `fpp-to-cpp` lets you collect the names of
-files generated from an FPP model as those files are generated.
-However, sometimes you need to know the names of the generated
-files up front.
-For example, the CMake build tool writes out a Makefile rule
-for every generated file, and it does this as an initial step
-before generating any files.
-There are two ways to collect the names of generated files:
-using `fpp-filenames` and using `fpp-depend`.
-
-==== Using fpp-filenames
-
-Like `fpp-check`, `fpp-filenames` reads the files
-provided as command-line arguments if there are any;
-otherwise it reads from standard input.
-The FPP source presented to `fpp-filenames` need not be a complete
-model (i.e., it may contain undefined symbols).
-When run with no options, tool parses the FPP source that you give it.
-It identifies all definitions in the source that would cause
-XML files to be generated when running `fpp-to-xml`
-or would cause {cpp} files to be generated when running
-`fpp-to-cpp`.
-Then it writes the names of those files to standard output.
-
-For example:
-
-----
-% fpp-filenames
-array A = [3] U32
-^D
-AArrayAi.xml
-----
-
-----
-% fpp-filenames
-constant a = 0
-^D
-FppConstantsAc.cpp
-FppConstantsAc.hpp
-----
-
-You can run `fpp-filenames` with the `-u` option, with the `-t` option,
-or with both options.
-In these cases `fpp-filenames` writes out the names of
-the files that would be generated by running `fpp-to-cpp` with the
-corresponding options.
-For example:
-
-----
-% fpp-filenames -t
-array A = [3] U32
-passive component C {}
-^D
-C.template.cpp
-C.template.hpp
-----
-
-----
-% fpp-filenames -u
-array A = [3] U32
-passive component C {}
-^D
-array A = [3] U32
-passive component C {}
-AArrayAc.cpp
-AArrayAc.hpp
-AArrayAi.xml
-CComponentAc.cpp
-CComponentAc.hpp
-CComponentAi.xml
-CGTestBase.cpp
-CGTestBase.hpp
-CTesterBase.cpp
-CTesterBase.hpp
-----
-
-----
-% fpp-filenames -u -t
-array A = [3] U32
-passive component C {}
-^D
-CTestMain.cpp
-CTester.cpp
-CTester.hpp
-CTesterHelpers.cpp
-----
-
-You can also also run `fpp-filenames` with the `-a` option.
-Again the results correspond to running `fpp-to-cpp` with this option.
-For example:
-
-----
-% fpp-filenames -a -u -t
-array A = [3] U32
-passive component C {}
-^D
-CTestMain.cpp
-CTester.cpp
-CTester.hpp
-----
-
-==== Using fpp-depend
-
-Alternatively, you can use
-<<Specifying-Models-as-Files_Computing-Dependencies,`fpp-depend`>>
-to write out the names of generated files during dependency analysis.
-The output is the same as for `fpp-filenames`, but this way you can
-run one tool (`fpp-depend`) instead of two (`fpp-depend` and
-`fpp-filenames`).
-Running one tool may help your build go faster.
-
-To write out the names of generated files, you can use the following
-options provided by `fpp-depend`:
-
-`-a`: Report the generation of files with
-<<Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code,unit
-test auto helpers enabled>>.
-
-`-g` _file_: Write the names of the generated autocode files
- to the file _file_.
-
-`-u` _file_: Write the names of the unit test support code
-files to _file_.
-
-For example:
-
-----
-% fpp-depend -g generated.txt -u ut-generated.txt
-array A = [3] U32
-passive component C {}
-^D
-% cat generated.txt
-AArrayAc.cpp
-AArrayAc.hpp
-AArrayAi.xml
-CComponentAc.cpp
-CComponentAc.hpp
-CComponentAi.xml
-% cat ut-generated.txt
-CGTestBase.cpp
-CGTestBase.hpp
-CTesterBase.cpp
-CTesterBase.hpp
-----
-
-----
-% fpp-depend -a -g generated.txt -u ut-generated.txt
-array A = [3] U32
-passive component C {}
-^D
-% cat generated.txt
-AArrayAc.cpp
-AArrayAc.hpp
-AArrayAi.xml
-CComponentAc.cpp
-CComponentAc.hpp
-CComponentAi.xml
-% cat ut-generated.txt
-CGTestBase.cpp
-CGTestBase.hpp
-CTesterBase.cpp
-CTesterBase.hpp
-CTesterHelpers.cpp
-----
-
-`fpp-depend` does not have an option for writing out the names of
-implementation template files, since those file names are not
-needed during dependency analysis.
-
-=== Translating XML to FPP
-
-The FPP tool suite provides a capability to translate F Prime
-XML files to FPP.
-Its purpose is to address the following case:
-
-. You have already developed an F Prime model in XML.
-. You wish to translate the model to FPP in order to use FPP as the source
-language going forward.
-
-The XML-to-FPP translation is designed to do most of the work in translating an
-XML model into FPP.
-As discussed below, some manual effort will still be required,
-because the FPP and XML representations are not identical.
-The good news is that this is a one-time effort: you can do it once
-and use the FPP version thereafter.
-
-*Tool name:* The tool for translating XML to FPP is called
-`fpp-from-xml`.
-
-*Tool behavior:*
-Unlike the tools described above, `fpp-from-xml` does not read
-from standard input.
-To use it, you must name one or more XML files on the command line.
-The reason is that the XML parsing library used by the tool requires
-named files.
-The tool reads the XML files you name, translates them, and
-writes the result to standard output.
-
-As an example, try this:
-
-----
-% fpp-to-xml
-struct S { x: U32, y: F32 }
-^D
-% fpp-from-xml SSerializableAi.xml
-struct S {
-  x: U32
-  y: F32
-}
-----
-
-*Default values:*
-There are two issues to note in connection with translating default
-values.
-
-First, in FPP, every definition has a default value, but
-the default value need not be given explicitly:
-if you provide no explicit default value, then an implicit default is used.
-By contrast, in F Prime XML, (1) you _must_ supply default values for array
-elements, and (2) you _may_ supply default values for struct members
-or enumerations.
-To keep the translation simple, if default values are present in the XML
-representation, then `fpp-from-xml` translates them to explicit values,
-even if they could be made implicit.
-
-Here is an example:
-
-----
-% fpp-to-xml
-array A = [3] U32
-^D
-% fpp-from-xml AArrayAi.xml
-array A = [3] U32 default [
-                            0
-                            0
-                            0
-                          ]
-----
-
-Notice that the implicit default value `[ 0, 0, 0 ]` becomes
-explicit when translating to XML and back to FPP.
-
-Second, to keep the translation simple, only literal numeric values,
-literal string values, literal Boolean values, and {cpp} qualified identifiers
-(e.g., `a` or `A::B`) are translated.
-Other values (e.g., values specified with {cpp} constructor calls), are not translated.
-The reason is that the types of these values cannot be easily inferred from the
-XML representation.
-When a default value is not translated, the translator inserts an annotation
-identifying what was not translated, so that you can do the translation
-yourself.
-
-For example, try this:
-
-----
-% fpp-to-xml
-type T
-array A = [3] T
-^D
-% fpp-from-xml AArrayAi.xml
-@ FPP from XML: could not translate array value [ T(), T(), T() ]
-array A = [3] T
-----
-
-The tool cannot translate the value `T()`.
-So it adds an annotation stating that.
-In this case, `T()` is the default value associated with the
-abstract type `T`, so using the implicit default is correct.
-So in this case, just delete the annotation.
-
-Here is another example:
-
-----
-% fpp-to-xml
-array A = [2] U32
-array B = [2] A default [ [ 1, 2 ], [ 3, 4 ] ]
-^D
-% fpp-from-xml BArrayAi.xml
-@ FPP from XML: could not translate array value [ A(1, 2), A(3, 4) ]
-array B = [2] A
-----
-
-Here the XML representation of the array values `[ 1, 2 ]` and `[ 3, 4 ]`
-uses the {cpp} constructor calls `A(1, 2)` and `A(3, 4)`.
-When translating `BArrayAi.xml`, `fpp-from-xml` doesn't know how to translate
-those values, because it doesn't have any information about the type `A`.
-So it omits the FPP default array value and reports the XML default element
-values in the annotation.
-That way, you can manually construct a default value in FPP.
-
-*Inline enum definitions:*
-The following F Prime XML formats may include inline
-enum definitions:
-
-* In the Serializable XML format,
-enumerations may appear as member types.
-
-* In the Port XML format, enumerations may appear
-as the types of arguments or as the return type.
-
-* In the XML formats for commands and for events,
-enumerations may appear as the types of arguments.
-
-* In the XML formats for telemetry channels and for
-parameters, enumerations may appear as the types of
-data elements.
-
-In each case, the enumerated constants are specified
-as part of the definition of the member, argument, return type, etc.
-
-FPP does not represent these inline enum definitions directly.
-In FPP, enum definitions are always named, so they can be reused.
-Therefore, when translating an F Prime XML file that contains inline enum
-definitions, `fpp-to-xml` does the following: (1) translate
-each inline definition to a named FPP enum; and (2) use the corresponding named
-types in the translated FPP struct or port.
-
-For example, here is an F Prime Serializable XML type
-`N::S1` containing a member `m` whose type is an enum
-`E` with three enumerated constants `A`, `B`, and `C`:
-
-----
-cat > S1SerializableAi.xml
-<serializable namespace="N" name="S1">
-  <members>
-    <member name="m" type="ENUM">
-      <enum name="E">
-        <item name="A"/>
-        <item name="B"/>
-        <item name="C"/>
-      </enum>
-    </member>
-  </members>
-</serializable>
-^D
-----
-
-(The formula `cat >` _file_ lets us enter input to
-the console and have it written to _file_.)
-
-Running `fpp-from-xml` on this file yields the following:
-
-----
-% fpp-from-xml S1SerializableAi.xml
-module N {
-
-  enum E {
-    A = 0
-    B = 1
-    C = 2
-  }
-
-  struct S1 {
-    m: E
-  }
-
-}
-----
-
-Notice the following:
-
-. The tool translates namespace `N` in XML to module `N` in FPP.
-
-. The tool translates Serializable type `S1` in namespace `N`
-to struct type `S1` in module `N`.
-
-. The tool generates an enum type `N.E` to represent the
-type of member `m` of struct `N.S1`.
-
-. The tool assigns member `m` of struct `N.S1` the type `N.E`.
-
-If you wish to translate an XML model to FPP, and that model contains
-inline enums, then we suggest the following procedure:
-
-. Run `fpp-from-xml` on the XML model as described above to convert all of the
-inline definitions to named XML types.
-
-. Refactor your XML model and FSW implementation to use the XML types generated
-in step 1.
-This may require changes to your {cpp} code.
-For example, inline XML enums and XML enum types generate
-slightly different code.
-Therefore, you will need to revise any
-uses of the old inline enums to match the new format.
-Do this step incrementally, making sure that all your regression tests pass at
-each step.
-
-. Once you have the XML model in the required form, run `fpp-from-xml`
-again to generate an FPP model _M_.
-If you have done step 2 correctly, then you should be able to
-replace your handwritten XML with the result of running `fpp-to-xml`
-on _M_.
-
-*Format strings:*
-`fpp-from-xml` translates XML format strings to FPP
-format strings, if it can.
-Here is an example:
-
-----
-% fpp-to-xml
-array A = [3] F32 format "{f}"
-^D
-----
-
-This will generate a file `AArrayAi.xml` containing the line
-
-----
-<format>%f</format>
-----
-
-which is the XML representation of the format.
-
-Now try this:
-
-----
-% fpp-from-xml AArrayAi.xml
-array A = [3] F32 default [
-                            0.0
-                            0.0
-                            0.0
-                          ] format "{f}"
-----
-
-The XML format `%f` is translated back to the FPP format `{f}`.
-
-If the tool cannot translate the format, it will insert an annotation
-stating that. For example, `%q` is not a format recognized by
-FPP, so a format containing this string won't be translated:
-
-----
-% cat > AArrayAi.xml
-<array name="A">
-  <type>F32</type>
-  <size>1</size>
-  <format>%q</format>
-  <default>
-    <value>0.0</value>
-  </default>
-</array>
-^D
-% fpp-from-xml AArrayAi.xml
-@ FPP from XML: could not translate format string "%q"
-array A = [1] F32 default [
-                            0.0
-                          ]
-----
-
-*Import directives:*
-XML directives that import symbols (such as `import_port_type`)
-are ignored in the translation.
-These directives represent dependencies between XML files, which
-become dependencies between FPP source files in the FPP translation.
-Once the XML-to-FPP translation is done, you can handle these
-dependencies in the ordinary way for FPP, as discussed in the
-section on <<Specifying-Models-as-Files,specifying models as files>>.
-
-XML directives that import XML dictionaries are translated
-to
-<<Specifying-Models-as-Files_Include-Specifiers,include specifiers>>.
-For example, suppose that `CComponentAi.xml` defines component `C`
-and contains the directive
-
-[source,xml]
-----
-<import_dictionary>Commands.xml</import_dictionary>
-----
-
-Running `fpp-from-xml` on `CComponentAi.xml` produces an
-FPP definition of a component `C`; the component definition
-contains the include specifier
-
-[source,fpp]
------
-include "Commands.fppi"
------
-
-Separately, you can use `fpp-to-xml` to translate `Commands.xml`
-to `Commands.fppi`.
 
 === Formatting FPP Source
 
@@ -1504,6 +923,175 @@ in the project.
 
 See the https://github.com/nasa/fpp/wiki/fpp-to-dict[FPP wiki] for details.
 
+=== Identifying Generated Files
+
+As discussed in the 
+<<Analyzing-and-Translating-Models_Generating-C-Plus-Plus,section on generating 
+{cpp}>>,
+the `-n` option
+of `fpp-to-cpp` lets you collect the names of
+files generated from an FPP model as those files are generated.
+However, sometimes you need to know the names of the generated
+files up front.
+For example, the CMake build tool writes out a Makefile rule
+for every generated file, and it does this as an initial step
+before generating any files.
+There are two ways to collect the names of generated files:
+using `fpp-filenames` and using `fpp-depend`.
+
+==== Using fpp-filenames
+
+Like `fpp-check`, `fpp-filenames` reads the files
+provided as command-line arguments if there are any;
+otherwise it reads from standard input.
+The FPP source presented to `fpp-filenames` need not be a complete
+model (i.e., it may contain undefined symbols).
+When run with no options, tool parses the FPP source that you give it.
+It identifies all definitions in the source that would cause
+{cpp} files to be generated when running
+`fpp-to-cpp` or `fpp-to-dict`.
+Then it writes the names of those files to standard output.
+
+For example:
+
+----
+% fpp-filenames
+array A = [3] U32
+^D
+AArrayAc.cpp
+AArrayAc.hpp
+----
+
+----
+% fpp-filenames
+constant a = 0
+^D
+FppConstantsAc.cpp
+FppConstantsAc.hpp
+----
+
+You can run `fpp-filenames` with the `-u` option, with the `-t` option,
+or with both options.
+In these cases `fpp-filenames` writes out the names of
+the files that would be generated by running `fpp-to-cpp` with the
+corresponding options.
+For example:
+
+----
+% fpp-filenames -t
+array A = [3] U32
+passive component C {}
+^D
+C.template.cpp
+C.template.hpp
+----
+
+----
+% fpp-filenames -u
+array A = [3] U32
+passive component C {}
+^D
+array A = [3] U32
+passive component C {}
+AArrayAc.cpp
+AArrayAc.hpp
+CComponentAc.cpp
+CComponentAc.hpp
+CGTestBase.cpp
+CGTestBase.hpp
+CTesterBase.cpp
+CTesterBase.hpp
+----
+
+----
+% fpp-filenames -u -t
+array A = [3] U32
+passive component C {}
+^D
+CTestMain.cpp
+CTester.cpp
+CTester.hpp
+CTesterHelpers.cpp
+----
+
+You can also also run `fpp-filenames` with the `-a` option.
+Again the results correspond to running `fpp-to-cpp` with this option.
+For example:
+
+----
+% fpp-filenames -a -u -t
+array A = [3] U32
+passive component C {}
+^D
+CTestMain.cpp
+CTester.cpp
+CTester.hpp
+----
+
+==== Using fpp-depend
+
+Alternatively, you can use
+<<Specifying-Models-as-Files_Computing-Dependencies,`fpp-depend`>>
+to write out the names of generated files during dependency analysis.
+The output is the same as for `fpp-filenames`, but this way you can
+run one tool (`fpp-depend`) instead of two (`fpp-depend` and
+`fpp-filenames`).
+Running one tool may help your build go faster.
+
+To write out the names of generated files, you can use the following
+options provided by `fpp-depend`:
+
+`-a`: Report the generation of files with
+<<Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code,unit
+test auto helpers enabled>>.
+
+`-g` _file_: Write the names of the generated autocode files
+ to the file _file_.
+
+`-u` _file_: Write the names of the unit test support code
+files to _file_.
+
+For example:
+
+----
+% fpp-depend -g generated.txt -u ut-generated.txt
+array A = [3] U32
+passive component C {}
+^D
+% cat generated.txt
+AArrayAc.cpp
+AArrayAc.hpp
+CComponentAc.cpp
+CComponentAc.hpp
+% cat ut-generated.txt
+CGTestBase.cpp
+CGTestBase.hpp
+CTesterBase.cpp
+CTesterBase.hpp
+----
+
+----
+% fpp-depend -a -g generated.txt -u ut-generated.txt
+array A = [3] U32
+passive component C {}
+^D
+% cat generated.txt
+AArrayAc.cpp
+AArrayAc.hpp
+CComponentAc.cpp
+CComponentAc.hpp
+% cat ut-generated.txt
+CGTestBase.cpp
+CGTestBase.hpp
+CTesterBase.cpp
+CTesterBase.hpp
+CTesterHelpers.cpp
+----
+
+`fpp-depend` does not have an option for writing out the names of
+implementation template files, since those file names are not
+needed during dependency analysis.
+
 === Generating JSON Models
 
 FPP provides a tool called `fpp-to-json` for converting FPP models to
@@ -1627,14 +1215,346 @@ For example, this is how we translate the PortNumberMap
 in the Analysis data structure, which maps Connection objects to integers.
 
 *Options:* The following options are available
-when running `fpp-to-xml`:
+when running `fpp-to-json`:
 
 * `-d` _dir_ : Similar to the corresponding option of
-<<Analyzing-and-Translating-Models_Generating-XML,`fpp-to-xml`>>.
+<<Analyzing-and-Translating-Models_Generating-C-Plus-Plus,`fpp-to-cpp`>>.
 
 * `-s`: Analyze syntax only:
 With this option, `fpp-to-json` generates the AST and the
 location map only; it doesn't generate the Analysis data structure.
 Because semantic analysis is not run, you don't have to present
 a complete or semantically correct FPP model to the tool.
+
+=== Translating Older XML to FPP
+
+Previous versions of F Prime used XML to represent model
+elements such as components and ports.
+The FPP tool suite provides a capability to translate this
+older format to FPP.
+Its purpose is to address the following case:
+
+. You have an older F Prime model that was developed in XML.
+. You wish to translate the model to FPP in order to use FPP as the source
+language going forward.
+
+The XML-to-FPP translation is designed to do most of the work in translating an
+XML model into FPP.
+As discussed below, some manual effort will still be required,
+because the FPP and XML representations are not identical.
+The good news is that this is a one-time effort: you can do it once
+and use the FPP version thereafter.
+
+*Tool name:* The tool for translating XML to FPP is called
+`fpp-from-xml`.
+
+*Tool behavior:*
+Unlike the tools described above, `fpp-from-xml` does not read
+from standard input.
+To use it, you must name one or more XML files on the command line.
+The reason is that the XML parsing library used by the tool requires
+named files.
+The tool reads the XML files you name, translates them, and
+writes the result to standard output.
+
+As an example, try this:
+
+----
+% cat > SSerializable.xml
+<serializable name="S">
+  <members>
+    <member name="x" type="U32">
+    </member>
+    <member name="y" type="F32">
+    </member>
+  </members>
+</serializable>
+^D
+% fpp-from-xml SSerializableAi.xml
+struct S {
+  x: U32
+  y: F32
+}
+----
+
+(The formula `cat >` _file_ lets us enter input to
+the console and have it written to _file_.)
+
+*Default values:*
+There are two issues to note in connection with translating default
+values.
+
+First, in FPP, every definition has a default value, but
+the default value need not be given explicitly:
+if you provide no explicit default value, then an implicit default is used.
+By contrast, in F Prime XML, (1) you _must_ supply default values for array
+elements, and (2) you _may_ supply default values for struct members
+or enumerations.
+To keep the translation simple, if default values are present in the XML
+representation, then `fpp-from-xml` translates them to explicit values,
+even if they could be made implicit.
+
+Here is an example:
+
+----
+% cat > AArrayAi.xml
+<array name="A">
+  <type>U32</type>
+  <size>3</size>
+  <format>%u</format>
+  <default>
+    <value>0</value>
+    <value>0</value>
+    <value>0</value>
+  </default>
+</array>
+^D
+% fpp-from-xml AArrayAi.xml
+array A = [3] U32 default [
+                            0
+                            0
+                            0
+                          ]
+----
+
+Notice that the implicit default value `[ 0, 0, 0 ]` becomes
+explicit when translating to XML and back to FPP.
+
+Second, to keep the translation simple, only literal numeric values,
+literal string values, literal Boolean values, and {cpp} qualified identifiers
+(e.g., `a` or `A::B`) are translated.
+Other values (e.g., values specified with {cpp} constructor calls), are not translated.
+The reason is that the types of these values cannot be easily inferred from the
+XML representation.
+When a default value is not translated, the translator inserts an annotation
+identifying what was not translated, so that you can do the translation
+yourself.
+
+For example, try this:
+
+----
+% cat > AArrayAi.xml
+<array name="A">
+  <include_header>T.hpp</include_header>
+  <type>T</type>
+  <size>3</size>
+  <format>%s</format>
+  <default>
+    <value>T()</value>
+    <value>T()</value>
+    <value>T()</value>
+  </default>
+</array>
+^D
+% fpp-from-xml AArrayAi.xml
+@ FPP from XML: could not translate array value [ T(), T(), T() ]
+array A = [3] T
+----
+
+The tool cannot translate the value `T()`.
+So it adds an annotation stating that.
+In this case, `T()` is the default value associated with the
+abstract type `T`, so using the implicit default is correct.
+So in this case, just delete the annotation.
+
+Here is another example:
+
+----
+% cat > BArrayAi.xml
+<array name="B">
+  <import_array_type>AArrayAi.xml</import_array_type>
+  <type>A</type>
+  <size>2</size>
+  <format>%s</format>
+  <default>
+    <value>A(1, 2)</value>
+    <value>A(3, 4)</value>
+  </default>
+</array>
+^D
+% fpp-from-xml BArrayAi.xml
+@ FPP from XML: could not translate array value [ A(1, 2), A(3, 4) ]
+array B = [2] A
+----
+
+Here the XML representation of the array values `[ 1, 2 ]` and `[ 3, 4 ]`
+uses the {cpp} constructor calls `A(1, 2)` and `A(3, 4)`.
+When translating `BArrayAi.xml`, `fpp-from-xml` doesn't know how to translate
+those values, because it doesn't have any information about the type `A`.
+So it omits the FPP default array value and reports the XML default element
+values in the annotation.
+That way, you can manually construct a default value in FPP.
+
+*Inline enum definitions:*
+The following F Prime XML formats may include inline
+enum definitions:
+
+* In the Serializable XML format,
+enumerations may appear as member types.
+
+* In the Port XML format, enumerations may appear
+as the types of arguments or as the return type.
+
+* In the XML formats for commands and for events,
+enumerations may appear as the types of arguments.
+
+* In the XML formats for telemetry channels and for
+parameters, enumerations may appear as the types of
+data elements.
+
+In each case, the enumerated constants are specified
+as part of the definition of the member, argument, return type, etc.
+
+FPP does not represent these inline enum definitions directly.
+In FPP, enum definitions are always named, so they can be reused.
+Therefore, when translating an F Prime XML file that contains inline enum
+definitions, `fpp-from-xml` does the following: (1) translate
+each inline definition to a named FPP enum; and (2) use the corresponding named
+types in the translated FPP struct or port.
+
+For example, here is an F Prime Serializable XML type
+`N::S1` containing a member `m` whose type is an enum
+`E` with three enumerated constants `A`, `B`, and `C`:
+
+----
+cat > S1SerializableAi.xml
+<serializable namespace="N" name="S1">
+  <members>
+    <member name="m" type="ENUM">
+      <enum name="E">
+        <item name="A"/>
+        <item name="B"/>
+        <item name="C"/>
+      </enum>
+    </member>
+  </members>
+</serializable>
+^D
+----
+
+Running `fpp-from-xml` on this file yields the following:
+
+----
+% fpp-from-xml S1SerializableAi.xml
+module N {
+
+  enum E {
+    A = 0
+    B = 1
+    C = 2
+  }
+
+  struct S1 {
+    m: E
+  }
+
+}
+----
+
+Notice the following:
+
+. The tool translates namespace `N` in XML to module `N` in FPP.
+
+. The tool translates Serializable type `S1` in namespace `N`
+to struct type `S1` in module `N`.
+
+. The tool generates an enum type `N.E` to represent the
+type of member `m` of struct `N.S1`.
+
+. The tool assigns member `m` of struct `N.S1` the type `N.E`.
+
+*Format strings:*
+`fpp-from-xml` translates XML format strings to FPP
+format strings, if it can.
+Here is an example:
+
+----
+% cat > AArrayAi.xml
+<array name="A">
+  <type>F32</type>
+  <size>3</size>
+  <format>%f</format>
+  <default>
+    <value>0.0f</value>
+    <value>0.0f</value>
+    <value>0.0f</value>
+  </default>
+</array>
+^D
+----
+
+Notice that this code contains the line
+
+----
+<format>%f</format>
+----
+
+which is the XML representation of the format.
+
+Now try this:
+
+----
+% fpp-from-xml AArrayAi.xml
+array A = [3] F32 default [
+                            0.0
+                            0.0
+                            0.0
+                          ] format "{f}"
+----
+
+The XML format `%f` is translated back to the FPP format `{f}`.
+
+If the tool cannot translate the format, it will insert an annotation
+stating that. For example, `%q` is not a format recognized by
+FPP, so a format containing this string won't be translated:
+
+----
+% cat > AArrayAi.xml
+<array name="A">
+  <type>F32</type>
+  <size>1</size>
+  <format>%q</format>
+  <default>
+    <value>0.0</value>
+  </default>
+</array>
+^D
+% fpp-from-xml AArrayAi.xml
+@ FPP from XML: could not translate format string "%q"
+array A = [1] F32 default [
+                            0.0
+                          ]
+----
+
+*Import directives:*
+XML directives that import symbols (such as `import_port_type`)
+are ignored in the translation.
+These directives represent dependencies between XML files, which
+become dependencies between FPP source files in the FPP translation.
+Once the XML-to-FPP translation is done, you can handle these
+dependencies in the ordinary way for FPP, as discussed in the
+section on <<Specifying-Models-as-Files,specifying models as files>>.
+
+XML directives that import XML dictionaries are translated
+to
+<<Specifying-Models-as-Files_Include-Specifiers,include specifiers>>.
+For example, suppose that `CComponentAi.xml` defines component `C`
+and contains the directive
+
+[source,xml]
+----
+<import_dictionary>Commands.xml</import_dictionary>
+----
+
+Running `fpp-from-xml` on `CComponentAi.xml` produces an
+FPP definition of a component `C`; the component definition
+contains the include specifier
+
+[source,fpp]
+-----
+include "Commands.fppi"
+-----
+
+Separately, you can use `fpp-from-xml` to translate `Commands.xml`
+to `Commands.fppi`.
 

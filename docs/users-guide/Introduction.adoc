@@ -14,7 +14,7 @@ well-tailored to its purpose.
 * To provide semantic checking and error reporting for F Prime models.
 
 * To generate code in the various languages that F Prime uses, e.g.,
-{cpp}, JSON, and XML.
+{cpp} and JSON.
 In this document, we will call these languages the *target languages*.
 
 Developers may combine code generated from FPP with code written by hand to
@@ -44,6 +44,8 @@ Section 13 explains how to specify a model as a collection
 of files: for example, it covers the management of dependencies
 between files.
 Section 14 explains how to analyze FPP models and how
-to translate FPP models to and from XML, to {cpp}, and to JSON.
+to translate FPP models to {cpp} and JSON.
+It also explains how to translate an XML format previously used
+by F Prime into FPP.
 Section 15 explains how to write a {cpp} implementation
 against the code generated from an FPP model.
