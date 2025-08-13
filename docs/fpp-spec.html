@@ -2548,6 +2548,9 @@ model.</p>
 <div class="sect3">
 <h4 id="Definitions_Constant-Definitions_Semantics">5.6.2. Semantics</h4>
 <div class="paragraph">
+<p>The identifier <em>I</em> names the constant definition.</p>
+</div>
+<div class="paragraph">
 <p><em>expression</em> must
 <a href="#Evaluation">evaluate</a>
 to a compile-time constant value <em>v</em>. At any model point where the
@@ -2556,6 +2559,11 @@ the constant definition according to the
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">scoping
 rules for names</a>, you can use <em>Q</em> as a name for <em>v</em>.</p>
 </div>
+<div class="paragraph">
+<p>If <em>expression</em> is a <a href="#Expressions_Struct-Expressions">struct expression</a> <em>S</em>,
+each member <em>M</em> in <em>S</em> will be mapped to a constant definition <em>I</em> <code>.</code> <em>M</em> where
+it&#8217;s value is <em>S</em> <code>.</code> <em>M</em>.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Constant-Definitions_Examples">5.6.3. Examples</h4>
@@ -2563,7 +2571,12 @@ rules for names</a>, you can use <em>Q</em> as a name for <em>v</em>.</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant a = 0 # a has value 0
 constant b = 1.0 # b has value 1.0
-constant c = a # c has value 0</code></pre>
+constant c = a # c has value 0
+
+constant d = {
+    a: 0,
+    b: "str",
+} # d.a has value 0, d.b has value "str"</code></pre>
 </div>
 </div>
 </div>
@@ -2880,8 +2893,9 @@ can be expanded into a module.</p>
 <div class="paragraph">
 <p><code>template</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<code>(</code> <em>parameter-sequence</em> <code>)</code>
-<em>module-template-member-sequence</em></p>
+<code>(</code> <em>parameter-sequence</em> <code>)</code> <code>{</code>
+<em>module-member-sequence</em>
+<code>}</code></p>
 </div>
 <div class="paragraph">
 <p>The <em>identifier</em> specifies the name of the template.</p>
@@ -8405,8 +8419,7 @@ module M {
 <div class="sectionbody">
 <div class="paragraph">
 <p>A <strong>instance member identifier</strong> refers to the member of a <a href="#Definitions_Component-Instance-Definitions">component instance definition</a> or <a href="#Definitions_Topology-Definitions">topology definition</a>.
-There are two types of instance member identifiers: <a href="#Instance-Member-Identifiers_Port-Instance-Identifiers">port instance identifiers</a> and &lt;Port-Interfaces_Telemetry-Channel-Identifiers,
-telemetry channel identifiers&gt;&gt;.</p>
+There are two types of instance member identifiers: <a href="#Instance-Member-Identifiers_Port-Instance-Identifiers">port instance identifiers</a> and <a href="#Instance-Member-Identifiers_Telemetry-Channel-Identifiers">telemetry channel identifiers</a>.</p>
 </div>
 <div class="sect2">
 <h3 id="Instance-Member-Identifiers_Port-Instance-Identifiers">8.1. Port Instance Identifiers</h3>
@@ -12212,7 +12225,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-08-13 13:33:22 -0700
+Last updated 2025-08-13 14:20:37 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

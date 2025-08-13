@@ -10,8 +10,9 @@ can be expanded into a module.
 
 `template`
 <<Lexical-Elements_Identifiers,_identifier_>>
-`(` _parameter-sequence_ `)`
-_module-template-member-sequence_
+`(` _parameter-sequence_ `)` `{`
+_module-member-sequence_
+`}`
 
 The _identifier_ specifies the name of the template.
 
