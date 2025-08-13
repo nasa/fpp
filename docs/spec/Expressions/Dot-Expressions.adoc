@@ -5,7 +5,7 @@ A *dot expression* is a
 that refers to a
 <<Definitions_Constant-Definitions,constant definition>>
 or
-<<Definitions_Constant-Definitions,enumerated constant definition>>.
+<<Definitions_Enumerated-Constant-Definitions,enumerated constant definition>>.
 
 ==== Syntax
 

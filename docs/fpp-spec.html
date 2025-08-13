@@ -3810,15 +3810,6 @@ Check that <em>n</em> is in bounds for the port instance being numbered.</p>
 </li>
 <li>
 <p>Recursively resolve all the topologies directly imported into <em>D</em>.</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>A topology is imported either explicitely through an
-<a href="#Specifiers_Topology-Import-Specifiers">import specifier</a>
-or implicitely through a <a href="#Specifiers_Interface-Instance-Specifiers">instance specifier</a>.</p>
-</li>
-</ol>
-</div>
 </li>
 <li>
 <p>Construct the connection graphs of <em>T</em> given by the
@@ -3850,32 +3841,13 @@ For example, the two connection graphs</p>
 </div>
 </li>
 <li>
-<p>Compute the set <em>U</em> of topologies directly imported into <em>T</em>.</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>A direct import is an import in which an <a href="#Specifiers_Topology-Import-Specifiers">import specifier</a> or <a href="#Specifiers_Interface-Instance-Specifiers">instance specifier</a>
-inside <em>D</em> directly refers another topology.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
 <p>Compute the set <em>S</em> of topologies transitively imported into <em>T</em>.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>For each topology \$T_i\$ in <em>U</em>:</p>
-<div class="olist lowerroman">
-<ol class="lowerroman" type="i">
-<li>
-<p>Compute the set \$U_i\$ of topologies directly imported into \$T_i\$.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>The set <em>S</em> is the set union of all \$U_i\$</p>
+<p>A topology is imported either through an
+<a href="#Specifiers_Topology-Import-Specifiers">import specifier</a>
+or through an <a href="#Specifiers_Interface-Instance-Specifiers">instance specifier</a>.</p>
 </li>
 </ol>
 </div>
@@ -3887,7 +3859,21 @@ of <em>T'</em> into <em>T</em>.</p>
 </li>
 <li>
 <p>Check that the connections discovered in step 3 are between port
-instances present on interface instances available in <em>T</em>.</p>
+instances present on interface instances available in <em>T</em>. An interface
+instance <em>I</em> is available in <em>T</em> if:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><em>I</em> is a topology definition in <em>S</em>.</p>
+</li>
+<li>
+<p><em>I</em> is named through a <a href="#Specifiers_Interface-Instance-Specifiers">instance specifier</a> in <em>T</em>.</p>
+</li>
+<li>
+<p><em>I</em> is an instance interface available in a topology in <em>S</em>.</p>
+</li>
+</ol>
+</div>
 </li>
 <li>
 <p>For each topology <em>T'</em> in <em>S</em>,
@@ -8878,7 +8864,7 @@ elements to the common type.</p>
 that refers to a
 <a href="#Definitions_Constant-Definitions">constant definition</a>
 or
-<a href="#Definitions_Constant-Definitions">enumerated constant definition</a>.</p>
+<a href="#Definitions_Enumerated-Constant-Definitions">enumerated constant definition</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="Expressions_Dot-Expressions_Syntax">11.4.1. Syntax</h4>
@@ -12226,7 +12212,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-08-04 09:25:39 -0700
+Last updated 2025-08-13 12:59:02 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

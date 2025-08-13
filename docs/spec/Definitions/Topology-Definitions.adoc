@@ -87,11 +87,6 @@ Check that _n_ is in bounds for the port instance being numbered.
 
 . Recursively resolve all the topologies directly imported into _D_.
 
-.. A topology is imported either explicitely through an
-<<Specifiers_Topology-Import-Specifiers,import specifier>>
-or implicitely through a <<Specifiers_Interface-Instance-Specifiers,
-instance specifier>>.
-
 . Construct the connection graphs of _T_ given by the
 <<Specifiers_Connection-Graph-Specifiers,direct connection graphs>>
 appearing in
@@ -119,26 +114,27 @@ connections C { a.b -> c.d, e.f -> g.h }
 ----
 +
 
-. Compute the set _U_ of topologies directly imported into _T_.
-
-.. A direct import is an import in which an <<Specifiers_Topology-Import-Specifiers,
-import specifier>> or <<Specifiers_Interface-Instance-Specifiers,instance specifier>>
-inside _D_ directly refers another topology.
-
 . Compute the set _S_ of topologies transitively imported into _T_.
 
-.. For each topology stem:[T_i] in _U_:
-
-... Compute the set stem:[U_i] of topologies directly imported into stem:[T_i].
-
-.. The set _S_ is the set union of all stem:[U_i]
+.. A topology is imported either through an
+<<Specifiers_Topology-Import-Specifiers,import specifier>>
+or through an <<Specifiers_Interface-Instance-Specifiers,
+instance specifier>>.
 
 . For each topology _T'_ in _S_,
 <<Specifiers_Topology-Import-Specifiers,import the instances>>
 of _T'_ into _T_.
 
 . Check that the connections discovered in step 3 are between port
-instances present on interface instances available in _T_.
+instances present on interface instances available in _T_. An interface
+instance _I_ is available in _T_ if:
+
+.. _I_ is a topology definition in _S_.
+
+.. _I_ is named through a <<Specifiers_Interface-Instance-Specifiers,
+instance specifier>> in _T_.
+
+.. _I_ is an instance interface available in a topology in _S_.
 
 . For each topology _T'_ in _S_,
 <<Specifiers_Topology-Import-Specifiers,import the connections>>
