@@ -49,7 +49,7 @@ class ActiveOverflowComponentBase :
     //! Friend class tester implementation to support white-box testing
     friend class ActiveOverflowTester;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Constants
@@ -297,7 +297,7 @@ class ActiveOverflowComponentBase :
     //! Connect the dispatcher first
     void regCommands();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Component construction and destruction
@@ -311,7 +311,7 @@ class ActiveOverflowComponentBase :
     //! Destroy ActiveOverflowComponentBase object
     virtual ~ActiveOverflowComponentBase();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special input ports
@@ -327,7 +327,7 @@ class ActiveOverflowComponentBase :
     //! \return The number of productRecvInHook input ports
     FwIndexType getNum_productRecvInHook_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of typed input ports
@@ -353,7 +353,7 @@ class ActiveOverflowComponentBase :
     //! \return The number of hookAsync input ports
     FwIndexType getNum_hookAsync_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of serial input ports
@@ -364,7 +364,7 @@ class ActiveOverflowComponentBase :
     //! \return The number of serialAsyncHook input ports
     FwIndexType getNum_serialAsyncHook_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special output ports
@@ -414,7 +414,7 @@ class ActiveOverflowComponentBase :
     //! \return The number of tlmOut output ports
     FwIndexType getNum_tlmOut_OutputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for special output ports
@@ -480,7 +480,7 @@ class ActiveOverflowComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for special input ports
@@ -496,7 +496,7 @@ class ActiveOverflowComponentBase :
         const Fw::Success& status //!< The status
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Handlers to implement for typed input ports
@@ -550,7 +550,7 @@ class ActiveOverflowComponentBase :
         const S& s //!< A struct
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for typed input ports
@@ -606,7 +606,7 @@ class ActiveOverflowComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Handlers to implement for serial input ports
@@ -618,7 +618,7 @@ class ActiveOverflowComponentBase :
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for serial input ports
@@ -632,7 +632,7 @@ class ActiveOverflowComponentBase :
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Pre-message hooks for special async input ports
@@ -650,7 +650,7 @@ class ActiveOverflowComponentBase :
         const Fw::Success& status //!< The status
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Pre-message hooks for typed async input ports
@@ -708,7 +708,7 @@ class ActiveOverflowComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Pre-message hooks for serial async input ports
@@ -724,7 +724,7 @@ class ActiveOverflowComponentBase :
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Hooks for special async input ports
@@ -742,7 +742,7 @@ class ActiveOverflowComponentBase :
         const Fw::Success& status //!< The status
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Hooks for typed async input ports
@@ -764,7 +764,7 @@ class ActiveOverflowComponentBase :
         const S& s //!< A struct
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Hooks for serial async input ports
@@ -780,7 +780,7 @@ class ActiveOverflowComponentBase :
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Hooks for internal ports
@@ -793,7 +793,7 @@ class ActiveOverflowComponentBase :
     //! Overflow hook for async input port internalHookDrop
     virtual void internalHookDrop_overflowHook() = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Internal interface handlers
@@ -802,7 +802,7 @@ class ActiveOverflowComponentBase :
     //! Internal interface handler for internalHookDrop
     virtual void internalHookDrop_internalInterfaceHandler() = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Internal interface base-class functions
@@ -811,7 +811,7 @@ class ActiveOverflowComponentBase :
     //! Internal interface base-class function for internalHookDrop
     void internalHookDrop_internalInterfaceInvoke();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Command response
@@ -824,7 +824,7 @@ class ActiveOverflowComponentBase :
         Fw::CmdResponse response //!< The command response
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Command handlers to implement
@@ -847,7 +847,7 @@ class ActiveOverflowComponentBase :
         U32 u32
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Command handler base-class functions
@@ -873,7 +873,7 @@ class ActiveOverflowComponentBase :
         Fw::CmdArgBuffer& args //!< The command argument buffer
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Pre-message hooks for async commands
@@ -895,7 +895,7 @@ class ActiveOverflowComponentBase :
         U32 cmdSeq //!< The command sequence number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Overflow hooks for async commands
@@ -917,7 +917,7 @@ class ActiveOverflowComponentBase :
         U32 cmdSeq //!< The command sequence number
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Time
@@ -928,7 +928,7 @@ class ActiveOverflowComponentBase :
     //! \\return The current time
     Fw::Time getTime() const;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Message dispatch functions
@@ -937,7 +937,7 @@ class ActiveOverflowComponentBase :
     //! Called in the message loop to dispatch a message from the queue
     virtual MsgDispatchStatus doDispatch();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on special input ports
@@ -961,7 +961,7 @@ class ActiveOverflowComponentBase :
         const Fw::Success& status //!< The status
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on typed input ports
@@ -1019,7 +1019,7 @@ class ActiveOverflowComponentBase :
         const S& s //!< A struct
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on serial input ports
@@ -1036,7 +1036,7 @@ class ActiveOverflowComponentBase :
 
 #endif
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Private data product handling functions
@@ -1050,7 +1050,7 @@ class ActiveOverflowComponentBase :
         const Fw::Success& status //!< The buffer status
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special input ports
@@ -1062,7 +1062,7 @@ class ActiveOverflowComponentBase :
     //! Input port productRecvInHook
     Fw::InputDpResponsePort m_productRecvInHook_InputPort[NUM_PRODUCTRECVINHOOK_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Typed input ports
@@ -1080,7 +1080,7 @@ class ActiveOverflowComponentBase :
     //! Input port hookAsync
     Ports::InputTypedPort m_hookAsync_InputPort[NUM_HOOKASYNC_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Serial input ports
@@ -1089,7 +1089,7 @@ class ActiveOverflowComponentBase :
     //! Input port serialAsyncHook
     Fw::InputSerializePort m_serialAsyncHook_InputPort[NUM_SERIALASYNCHOOK_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special output ports
@@ -1123,7 +1123,7 @@ class ActiveOverflowComponentBase :
     //! Output port tlmOut
     Fw::OutputTlmPort m_tlmOut_OutputPort[NUM_TLMOUT_OUTPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     //! Stores max message size
     FwSizeType m_msgSize;

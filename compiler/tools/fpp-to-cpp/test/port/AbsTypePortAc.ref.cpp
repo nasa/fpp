@@ -101,13 +101,13 @@ Fw::SerializeStatus InputAbsTypePort ::
   FW_ASSERT(this->m_func != nullptr);
 
   T t;
-  _status = _buffer.deserialize(t);
+  _status = _buffer.deserializeTo(t);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
   T tRef;
-  _status = _buffer.deserialize(tRef);
+  _status = _buffer.deserializeTo(tRef);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
@@ -170,10 +170,10 @@ void OutputAbsTypePort ::
     Fw::SerializeStatus _status;
     AbsTypePortBuffer _buffer;
 
-    _status = _buffer.serialize(t);
+    _status = _buffer.serializeFrom(t);
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
-    _status = _buffer.serialize(tRef);
+    _status = _buffer.serializeFrom(tRef);
     FW_ASSERT(_status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_status));
 
     _status = this->m_serPort->invokeSerial(_buffer);

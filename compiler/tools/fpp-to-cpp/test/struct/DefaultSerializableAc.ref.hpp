@@ -89,14 +89,17 @@ class Default :
     // ----------------------------------------------------------------------
 
     //! Serialization
-    Fw::SerializeStatus serialize(
+    Fw::SerializeStatus serializeTo(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     ) const;
 
     //! Deserialization
-    Fw::SerializeStatus deserialize(
+    Fw::SerializeStatus deserializeFrom(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     );
+
+    //! Get the dynamic serialized size of the struct
+    FwSizeType serializedSize() const;
 
 #if FW_SERIALIZABLE_TO_STRING
 
@@ -112,25 +115,25 @@ class Default :
     // ----------------------------------------------------------------------
 
     //! Get member mU32
-    U32 getmU32() const
+    U32 get_mU32() const
     {
       return this->m_mU32;
     }
 
     //! Get member mS1
-    Fw::ExternalString& getmS1()
+    Fw::ExternalString& get_mS1()
     {
       return this->m_mS1;
     }
 
     //! Get member mS1 (const)
-    const Fw::ExternalString& getmS1() const
+    const Fw::ExternalString& get_mS1() const
     {
       return this->m_mS1;
     }
 
     //! Get member mF64
-    F64 getmF64() const
+    F64 get_mF64() const
     {
       return this->m_mF64;
     }
@@ -147,13 +150,13 @@ class Default :
     );
 
     //! Set member mU32
-    void setmU32(U32 mU32);
+    void set_mU32(U32 mU32);
 
     //! Set member mS1
-    void setmS1(const Fw::StringBase& mS1);
+    void set_mS1(const Fw::StringBase& mS1);
 
     //! Set member mF64
-    void setmF64(F64 mF64);
+    void set_mF64(F64 mF64);
 
   protected:
 

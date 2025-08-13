@@ -36,10 +36,6 @@ sealed trait Error {
         Error.print (Some(loc)) (s"duplicate JSON file ${file}")
         System.err.println("previous file would be generated here:")
         System.err.println(prevLoc)
-      case CodeGenError.DuplicateLayoutDirectory(dir, loc, prevLoc) =>
-        Error.print (Some(loc)) (s"duplicate topology layout directory ${dir}")
-        System.err.println("previous topology layout directory would be generated here:")
-        System.err.println(prevLoc)
       case CodeGenError.DuplicateXmlFile(file, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate XML file ${file}")
         System.err.println("previous file would be generated here:")
@@ -346,8 +342,6 @@ object CodeGenError {
   final case class DuplicateCppFile(file: String, loc: Location, prevLoc: Location) extends Error
   /** Duplicate JSON file path */
   final case class DuplicateJsonFile(file: String, loc: Location, prevLoc: Location) extends Error
-  /** Duplicate Layout file path */
-  final case class DuplicateLayoutDirectory(dir: String, loc: Location, prevLoc: Location) extends Error
   /** Duplicate XML file path */
   final case class DuplicateXmlFile(file: String, loc: Location, prevLoc: Location) extends Error
   /** Empty struct */

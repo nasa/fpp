@@ -55,7 +55,7 @@ class QueuedParamsComponentBase :
     //! Friend class tester implementation to support white-box testing
     friend class QueuedParamsTester;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Constants
@@ -522,7 +522,7 @@ class QueuedParamsComponentBase :
     //! Connect the parameter first
     void loadParameters();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Component construction and destruction
@@ -536,7 +536,7 @@ class QueuedParamsComponentBase :
     //! Destroy QueuedParamsComponentBase object
     virtual ~QueuedParamsComponentBase();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special input ports
@@ -547,7 +547,7 @@ class QueuedParamsComponentBase :
     //! \return The number of cmdIn input ports
     FwIndexType getNum_cmdIn_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of typed input ports
@@ -648,7 +648,7 @@ class QueuedParamsComponentBase :
     //! \return The number of typedSync input ports
     FwIndexType getNum_typedSync_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special output ports
@@ -698,7 +698,7 @@ class QueuedParamsComponentBase :
     //! \return The number of tlmOut output ports
     FwIndexType getNum_tlmOut_OutputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of typed output ports
@@ -744,7 +744,7 @@ class QueuedParamsComponentBase :
     //! \return The number of typedReturnOut output ports
     FwIndexType getNum_typedReturnOut_OutputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for special output ports
@@ -810,7 +810,7 @@ class QueuedParamsComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for typed output ports
@@ -872,7 +872,7 @@ class QueuedParamsComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Handlers to implement for typed input ports
@@ -1057,7 +1057,7 @@ class QueuedParamsComponentBase :
         const S& s //!< A struct
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for typed input ports
@@ -1244,7 +1244,7 @@ class QueuedParamsComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Pre-message hooks for typed async input ports
@@ -1319,7 +1319,7 @@ class QueuedParamsComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Invocation functions for typed output ports
@@ -1400,7 +1400,7 @@ class QueuedParamsComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Command response
@@ -1413,7 +1413,7 @@ class QueuedParamsComponentBase :
         Fw::CmdResponse response //!< The command response
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Parameter update hook
@@ -1435,7 +1435,7 @@ class QueuedParamsComponentBase :
     //! This function does nothing by default. You may override it.
     virtual void parametersLoaded();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Parameter get functions
@@ -1496,7 +1496,7 @@ class QueuedParamsComponentBase :
         Fw::ParamValid& valid //!< Whether the parameter is valid
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Time
@@ -1507,7 +1507,7 @@ class QueuedParamsComponentBase :
     //! \\return The current time
     Fw::Time getTime() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Mutex operations for guarded ports
@@ -1522,7 +1522,7 @@ class QueuedParamsComponentBase :
     //! Unlock the guarded mutex
     virtual void unLock();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Message dispatch functions
@@ -1540,7 +1540,7 @@ class QueuedParamsComponentBase :
     //! Dispatch all current messages unless ERROR or EXIT occurs
     MsgDispatchStatus dispatchCurrentMessages();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on special input ports
@@ -1555,7 +1555,7 @@ class QueuedParamsComponentBase :
         Fw::CmdArgBuffer& args //!< Buffer containing arguments
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on typed input ports
@@ -1759,7 +1759,7 @@ class QueuedParamsComponentBase :
         const S& s //!< A struct
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Parameter set functions
@@ -1807,7 +1807,7 @@ class QueuedParamsComponentBase :
         Fw::SerializeBufferBase& val //!< The serialization buffer
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Parameter save functions
@@ -1843,7 +1843,7 @@ class QueuedParamsComponentBase :
     //! \return The command response
     Fw::CmdResponse paramSave_ParamStruct();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special input ports
@@ -1852,7 +1852,7 @@ class QueuedParamsComponentBase :
     //! Input port cmdIn
     Fw::InputCmdPort m_cmdIn_InputPort[NUM_CMDIN_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Typed input ports
@@ -1915,7 +1915,7 @@ class QueuedParamsComponentBase :
     //! Input port typedSync
     Ports::InputTypedPort m_typedSync_InputPort[NUM_TYPEDSYNC_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special output ports
@@ -1949,7 +1949,7 @@ class QueuedParamsComponentBase :
     //! Output port tlmOut
     Fw::OutputTlmPort m_tlmOut_OutputPort[NUM_TLMOUT_OUTPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Typed output ports
@@ -1979,7 +1979,7 @@ class QueuedParamsComponentBase :
     //! Output port typedReturnOut
     Ports::OutputTypedReturnPort m_typedReturnOut_OutputPort[NUM_TYPEDRETURNOUT_OUTPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Parameter validity flags
@@ -2003,7 +2003,7 @@ class QueuedParamsComponentBase :
     //! True if ParamStruct was successfully received
     Fw::ParamValid m_param_ParamStruct_valid;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Parameter variables
@@ -2040,7 +2040,7 @@ class QueuedParamsComponentBase :
     //! A parameter with struct data and set/save opcodes
     S m_ParamStruct;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Mutexes

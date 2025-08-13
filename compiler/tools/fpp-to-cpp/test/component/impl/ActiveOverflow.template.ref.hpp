@@ -27,7 +27,7 @@ class ActiveOverflow final :
     //! Destroy ActiveOverflow object
     ~ActiveOverflow();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports
@@ -89,7 +89,7 @@ class ActiveOverflow final :
         const S& s //!< A struct
     ) override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for serial input ports
@@ -103,7 +103,7 @@ class ActiveOverflow final :
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     ) override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for commands
@@ -126,7 +126,7 @@ class ActiveOverflow final :
         U32 u32
     ) override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for user-defined internal interfaces
@@ -137,7 +137,7 @@ class ActiveOverflow final :
     //! An internal port with hook queue full behavior
     void internalHookDrop_internalInterfaceHandler() override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Overflow hook implementations for typed input ports
@@ -155,7 +155,7 @@ class ActiveOverflow final :
         const S& s //!< A struct
     ) override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Overflow hook implementations for serial input ports
@@ -167,7 +167,7 @@ class ActiveOverflow final :
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     ) override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Overflow hook implementations for special input ports
@@ -181,7 +181,7 @@ class ActiveOverflow final :
         const Fw::Success& status //!< The status
     ) override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Overflow hook implementations for internal ports
@@ -190,7 +190,7 @@ class ActiveOverflow final :
     //! Overflow hook implementation for internalHookDrop
     void internalHookDrop_overflowHook() override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Overflow hook implementations for commands

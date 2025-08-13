@@ -32,7 +32,7 @@ class PassiveSyncProductPortsOnlyComponentBase :
     //! Friend class tester implementation to support white-box testing
     friend class PassiveSyncProductPortsOnlyTester;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Constants
@@ -113,7 +113,7 @@ class PassiveSyncProductPortsOnlyComponentBase :
 
 #endif
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Component construction and destruction
@@ -127,7 +127,7 @@ class PassiveSyncProductPortsOnlyComponentBase :
     //! Destroy PassiveSyncProductPortsOnlyComponentBase object
     virtual ~PassiveSyncProductPortsOnlyComponentBase();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special input ports
@@ -138,7 +138,7 @@ class PassiveSyncProductPortsOnlyComponentBase :
     //! \return The number of productRecvIn input ports
     FwIndexType getNum_productRecvIn_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special output ports
@@ -154,7 +154,7 @@ class PassiveSyncProductPortsOnlyComponentBase :
     //! \return The number of productSendOut output ports
     FwIndexType getNum_productSendOut_OutputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for special output ports
@@ -174,7 +174,7 @@ class PassiveSyncProductPortsOnlyComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for special input ports
@@ -190,7 +190,7 @@ class PassiveSyncProductPortsOnlyComponentBase :
         const Fw::Success& status //!< The status
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Invocation functions for special output ports
@@ -210,7 +210,7 @@ class PassiveSyncProductPortsOnlyComponentBase :
         const Fw::Buffer& buffer //!< The buffer
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on special input ports
@@ -225,7 +225,7 @@ class PassiveSyncProductPortsOnlyComponentBase :
         const Fw::Success& status //!< The status
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Private data product handling functions
@@ -239,7 +239,7 @@ class PassiveSyncProductPortsOnlyComponentBase :
         const Fw::Success& status //!< The buffer status
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special input ports
@@ -248,7 +248,7 @@ class PassiveSyncProductPortsOnlyComponentBase :
     //! Input port productRecvIn
     Fw::InputDpResponsePort m_productRecvIn_InputPort[NUM_PRODUCTRECVIN_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special output ports

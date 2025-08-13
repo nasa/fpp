@@ -98,14 +98,17 @@ class StructWithAlias :
     // ----------------------------------------------------------------------
 
     //! Serialization
-    Fw::SerializeStatus serialize(
+    Fw::SerializeStatus serializeTo(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     ) const;
 
     //! Deserialization
-    Fw::SerializeStatus deserialize(
+    Fw::SerializeStatus deserializeFrom(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     );
+
+    //! Get the dynamic serialized size of the struct
+    FwSizeType serializedSize() const;
 
 #if FW_SERIALIZABLE_TO_STRING
 
@@ -121,55 +124,55 @@ class StructWithAlias :
     // ----------------------------------------------------------------------
 
     //! Get member x
-    AliasPrim1 getx() const
+    AliasPrim1 get_x() const
     {
       return this->m_x;
     }
 
     //! Get member y
-    Fw::ExternalString& gety()
+    Fw::ExternalString& get_y()
     {
       return this->m_y;
     }
 
     //! Get member y (const)
-    const Fw::ExternalString& gety() const
+    const Fw::ExternalString& get_y() const
     {
       return this->m_y;
     }
 
     //! Get member z
-    AliasArray& getz()
+    AliasArray& get_z()
     {
       return this->m_z;
     }
 
     //! Get member z (const)
-    const AliasArray& getz() const
+    const AliasArray& get_z() const
     {
       return this->m_z;
     }
 
     //! Get member w
-    AliasAliasArray& getw()
+    AliasAliasArray& get_w()
     {
       return this->m_w;
     }
 
     //! Get member w (const)
-    const AliasAliasArray& getw() const
+    const AliasAliasArray& get_w() const
     {
       return this->m_w;
     }
 
     //! Get member q
-    AliasArrayAliasArray& getq()
+    AliasArrayAliasArray& get_q()
     {
       return this->m_q;
     }
 
     //! Get member q (const)
-    const AliasArrayAliasArray& getq() const
+    const AliasArrayAliasArray& get_q() const
     {
       return this->m_q;
     }
@@ -188,19 +191,19 @@ class StructWithAlias :
     );
 
     //! Set member x
-    void setx(AliasPrim1 x);
+    void set_x(AliasPrim1 x);
 
     //! Set member y
-    void sety(const Fw::StringBase& y);
+    void set_y(const Fw::StringBase& y);
 
     //! Set member z
-    void setz(const AliasArray& z);
+    void set_z(const AliasArray& z);
 
     //! Set member w
-    void setw(const AliasAliasArray& w);
+    void set_w(const AliasAliasArray& w);
 
     //! Set member q
-    void setq(const AliasArrayAliasArray& q);
+    void set_q(const AliasArrayAliasArray& q);
 
   protected:
 

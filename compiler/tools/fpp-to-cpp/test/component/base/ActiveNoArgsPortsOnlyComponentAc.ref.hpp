@@ -32,7 +32,7 @@ class ActiveNoArgsPortsOnlyComponentBase :
     //! Friend class tester implementation to support white-box testing
     friend class ActiveNoArgsPortsOnlyTester;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Constants
@@ -132,7 +132,7 @@ class ActiveNoArgsPortsOnlyComponentBase :
 
 #endif
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Component construction and destruction
@@ -146,7 +146,7 @@ class ActiveNoArgsPortsOnlyComponentBase :
     //! Destroy ActiveNoArgsPortsOnlyComponentBase object
     virtual ~ActiveNoArgsPortsOnlyComponentBase();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of typed input ports
@@ -172,7 +172,7 @@ class ActiveNoArgsPortsOnlyComponentBase :
     //! \return The number of noArgsReturnSync input ports
     FwIndexType getNum_noArgsReturnSync_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of typed output ports
@@ -188,7 +188,7 @@ class ActiveNoArgsPortsOnlyComponentBase :
     //! \return The number of noArgsReturnOut output ports
     FwIndexType getNum_noArgsReturnOut_OutputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for typed output ports
@@ -208,7 +208,7 @@ class ActiveNoArgsPortsOnlyComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Handlers to implement for typed input ports
@@ -234,7 +234,7 @@ class ActiveNoArgsPortsOnlyComponentBase :
         FwIndexType portNum //!< The port number
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for typed input ports
@@ -262,7 +262,7 @@ class ActiveNoArgsPortsOnlyComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Pre-message hooks for typed async input ports
@@ -277,7 +277,7 @@ class ActiveNoArgsPortsOnlyComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Invocation functions for typed output ports
@@ -293,7 +293,7 @@ class ActiveNoArgsPortsOnlyComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Mutex operations for guarded ports
@@ -308,7 +308,7 @@ class ActiveNoArgsPortsOnlyComponentBase :
     //! Unlock the guarded mutex
     virtual void unLock();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Message dispatch functions
@@ -317,7 +317,7 @@ class ActiveNoArgsPortsOnlyComponentBase :
     //! Called in the message loop to dispatch a message from the queue
     virtual MsgDispatchStatus doDispatch();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on typed input ports
@@ -347,7 +347,7 @@ class ActiveNoArgsPortsOnlyComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Typed input ports
@@ -365,7 +365,7 @@ class ActiveNoArgsPortsOnlyComponentBase :
     //! Input port noArgsReturnSync
     Ports::InputNoArgsReturnPort m_noArgsReturnSync_InputPort[NUM_NOARGSRETURNSYNC_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Typed output ports
@@ -377,7 +377,7 @@ class ActiveNoArgsPortsOnlyComponentBase :
     //! Output port noArgsReturnOut
     Ports::OutputNoArgsReturnPort m_noArgsReturnOut_OutputPort[NUM_NOARGSRETURNOUT_OUTPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Mutexes

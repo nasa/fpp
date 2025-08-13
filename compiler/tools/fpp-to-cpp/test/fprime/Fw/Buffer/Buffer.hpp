@@ -12,16 +12,20 @@
 #ifndef BUFFER_HPP_
 #define BUFFER_HPP_
 
-#include <FpConfig.hpp>
+#include <Fw/FPrimeBasicTypes.hpp>
 #include <Fw/Types/Serializable.hpp>
 #if FW_SERIALIZABLE_TO_STRING
-    #include <Fw/Types/StringType.hpp>
-    #include <cstdio> // snprintf
-    #ifdef BUILD_UT
-        #include <iostream>
-        #include <Fw/Types/String.hpp>
-    #endif
+#include <Fw/Types/StringType.hpp>
+#ifdef BUILD_UT
+#include <Fw/Types/String.hpp>
+#include <iostream>
 #endif
+#endif
+
+// Forward declaration for UTs
+namespace Fw {
+class BufferTester;
+}
 
 namespace Fw {
 
@@ -41,12 +45,15 @@ namespace Fw {
 //! prevent excessive copying.
 //!
 class Buffer : public Fw::Serializable {
+    friend class Fw::BufferTester;
 
-public:
+  public:
+    //! The size type for a buffer - for backwards compatibility
+    using SizeType = FwSizeType;
 
     enum {
-        SERIALIZED_SIZE = sizeof(U32) + sizeof(U32) + sizeof(U8*), //!< Size of Fw::Buffer when serialized
-        NO_CONTEXT = 0xFFFFFFFF //!< Value representing no context
+        SERIALIZED_SIZE = sizeof(SizeType) + sizeof(U32) + sizeof(U8*),  //!< Size of Fw::Buffer when serialized
+        NO_CONTEXT = 0xFFFFFFFF                                          //!< Value representing no context
     };
 
     //! Construct a buffer with no context nor data
@@ -66,7 +73,7 @@ public:
     //! \param data: data pointer to wrap
     //! \param size: size of data located at data pointer
     //! \param context: user-specified context to track creation. Default: no context
-    Buffer(U8* data, U32 size, U32 context=NO_CONTEXT);
+    Buffer(U8* data, FwSizeType size, U32 context = NO_CONTEXT);
 
     //! Assignment operator to set given buffer's members from another without copying wrapped data
     //!
@@ -91,7 +98,24 @@ public:
     //! to the wrapped buffer. Once obtained the user should call one of two functions: `sbb.resetSer();` to setup for
     //! serialization, or `sbb.setBuffLen(buffer.getSize());` to setup for deserializing.
     //! \return representation of the wrapped data to aid in serializing to it
-    SerializeBufferBase& getSerializeRepr();
+    DEPRECATED(SerializeBufferBase& getSerializeRepr(), "Switch to .getSerializer() and .getDeserializer()");
+
+    //! Returns a ExternalSerializeBufferWithMemberCopy representation of the wrapped data for serializing
+    //!
+    //! \warning The serialization pointer of the returned ExternalSerializeBufferWithMemberCopy object is set to zero
+    //! \warning so that serialization will start at the beginning of the memory pointed to by the Fw::Buffer. If that
+    //! \warning behavior is not desired the caller may manipulate the serialization offsets with moveSerToOffset
+    //! \warning and serializeSkip methods prior to serialization.
+    //!
+    //! \return representation of the wrapped data to aid in serializing to it
+    ExternalSerializeBufferWithMemberCopy getSerializer();
+
+    //! Returns a ExternalSerializeBufferWithMemberCopy representation of the wrapped data for deserializing
+    //!
+    //! \warning The entire buffer (up to getSize) is available for deserialization.
+    //!
+    //! \return representation of the wrapped data to aid in deserializing to it
+    ExternalSerializeBufferWithMemberCopy getDeserializer();
 
     //! Serializes this buffer to a SerializeBufferBase
     //!
@@ -101,7 +125,7 @@ public:
     //! or the serialize buffer base representation and serialize from that.
     //! \param serialBuffer: serialize buffer to write data into
     //! \return: status of serialization
-    Fw::SerializeStatus serialize(Fw::SerializeBufferBase& serialBuffer) const;
+    Fw::SerializeStatus serializeTo(Fw::SerializeBufferBase& serialBuffer) const;
 
     //! Deserializes this buffer from a SerializeBufferBase
     //!
@@ -111,12 +135,15 @@ public:
     //! or the serialize buffer base representation and deserialize from that.
     //! \param buffer: serialize buffer to read data into
     //! \return: status of serialization
-    Fw::SerializeStatus deserialize(Fw::SerializeBufferBase& buffer);
-
+    Fw::SerializeStatus deserializeFrom(Fw::SerializeBufferBase& buffer);
 
     // ----------------------------------------------------------------------
     // Accessor functions
     // ----------------------------------------------------------------------
+
+    //! Returns true if the buffer is valid (data pointer != nullptr and size > 0)
+    //!
+    bool isValid() const;
 
     //! Returns wrapped data pointer
     //!
@@ -124,7 +151,7 @@ public:
 
     //! Returns size of wrapped data
     //!
-    U32 getSize() const;
+    FwSizeType getSize() const;
 
     //! Returns creation context
     //!
@@ -136,7 +163,7 @@ public:
 
     //! Sets pointer to wrapped data and the size of the given data
     //!
-    void setSize(U32 size);
+    void setSize(FwSizeType size);
 
     //! Sets creation context
     //!
@@ -146,7 +173,7 @@ public:
     //! \param data: data pointer to wrap
     //! \param size: size of data located at data pointer
     //! \param context: user-specified context to track creation. Default: no context
-    void set(U8* data, U32 size, U32 context=NO_CONTEXT);
+    void set(U8* data, FwSizeType size, U32 context = NO_CONTEXT);
 
 #if FW_SERIALIZABLE_TO_STRING || BUILD_UT
     //! Supports writing this buffer to a string representation
@@ -159,13 +186,11 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Buffer& obj);
 #endif
 
-PRIVATE:
-    Fw::ExternalSerializeBuffer m_serialize_repr; //<! Representation for serialization and deserialization functions
-    U8* m_bufferData; //<! data - A pointer to the data
-    U32 m_size; //<! size - The data size in bytes
-    U32 m_context; //!< Creation context for disposal
-
+  private:
+    Fw::ExternalSerializeBuffer m_serialize_repr;  //<! Representation for serialization and deserialization functions
+    U8* m_bufferData;                              //<! data - A pointer to the data
+    FwSizeType m_size;                             //<! size - The data size in bytes
+    U32 m_context;                                 //!< Creation context for disposal
 };
-} // end namespace Fw
+}  // end namespace Fw
 #endif /* BUFFER_HPP_ */
-

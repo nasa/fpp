@@ -2321,7 +2321,7 @@ void ActiveTelemetryTesterBase ::
   switch (id - idBase) {
     case ActiveTelemetryComponentBase::CHANNELID_CHANNELU32FORMAT: {
       U32 arg;
-      const Fw::SerializeStatus _status = val.deserialize(arg);
+      const Fw::SerializeStatus _status = val.deserializeTo(arg);
 
       if (_status != Fw::FW_SERIALIZE_OK) {
         printf("Error deserializing ChannelU32Format: %d\n", _status);
@@ -2334,7 +2334,7 @@ void ActiveTelemetryTesterBase ::
 
     case ActiveTelemetryComponentBase::CHANNELID_CHANNELF32FORMAT: {
       F32 arg;
-      const Fw::SerializeStatus _status = val.deserialize(arg);
+      const Fw::SerializeStatus _status = val.deserializeTo(arg);
 
       if (_status != Fw::FW_SERIALIZE_OK) {
         printf("Error deserializing ChannelF32Format: %d\n", _status);
@@ -2347,7 +2347,7 @@ void ActiveTelemetryTesterBase ::
 
     case ActiveTelemetryComponentBase::CHANNELID_CHANNELSTRINGFORMAT: {
       Fw::TlmString arg;
-      const Fw::SerializeStatus _status = val.deserialize(arg);
+      const Fw::SerializeStatus _status = val.deserializeTo(arg);
 
       if (_status != Fw::FW_SERIALIZE_OK) {
         printf("Error deserializing ChannelStringFormat: %d\n", _status);
@@ -2360,7 +2360,7 @@ void ActiveTelemetryTesterBase ::
 
     case ActiveTelemetryComponentBase::CHANNELID_CHANNELENUM: {
       E arg;
-      const Fw::SerializeStatus _status = val.deserialize(arg);
+      const Fw::SerializeStatus _status = val.deserializeTo(arg);
 
       if (_status != Fw::FW_SERIALIZE_OK) {
         printf("Error deserializing ChannelEnum: %d\n", _status);
@@ -2373,7 +2373,7 @@ void ActiveTelemetryTesterBase ::
 
     case ActiveTelemetryComponentBase::CHANNELID_CHANNELARRAYFREQ: {
       A arg;
-      const Fw::SerializeStatus _status = val.deserialize(arg);
+      const Fw::SerializeStatus _status = val.deserializeTo(arg);
 
       if (_status != Fw::FW_SERIALIZE_OK) {
         printf("Error deserializing ChannelArrayFreq: %d\n", _status);
@@ -2386,7 +2386,7 @@ void ActiveTelemetryTesterBase ::
 
     case ActiveTelemetryComponentBase::CHANNELID_CHANNELSTRUCTFREQ: {
       S arg;
-      const Fw::SerializeStatus _status = val.deserialize(arg);
+      const Fw::SerializeStatus _status = val.deserializeTo(arg);
 
       if (_status != Fw::FW_SERIALIZE_OK) {
         printf("Error deserializing ChannelStructFreq: %d\n", _status);
@@ -2399,7 +2399,7 @@ void ActiveTelemetryTesterBase ::
 
     case ActiveTelemetryComponentBase::CHANNELID_CHANNELU32LIMITS: {
       U32 arg;
-      const Fw::SerializeStatus _status = val.deserialize(arg);
+      const Fw::SerializeStatus _status = val.deserializeTo(arg);
 
       if (_status != Fw::FW_SERIALIZE_OK) {
         printf("Error deserializing ChannelU32Limits: %d\n", _status);
@@ -2412,7 +2412,7 @@ void ActiveTelemetryTesterBase ::
 
     case ActiveTelemetryComponentBase::CHANNELID_CHANNELF32LIMITS: {
       F32 arg;
-      const Fw::SerializeStatus _status = val.deserialize(arg);
+      const Fw::SerializeStatus _status = val.deserializeTo(arg);
 
       if (_status != Fw::FW_SERIALIZE_OK) {
         printf("Error deserializing ChannelF32Limits: %d\n", _status);
@@ -2425,7 +2425,7 @@ void ActiveTelemetryTesterBase ::
 
     case ActiveTelemetryComponentBase::CHANNELID_CHANNELF64: {
       F64 arg;
-      const Fw::SerializeStatus _status = val.deserialize(arg);
+      const Fw::SerializeStatus _status = val.deserializeTo(arg);
 
       if (_status != Fw::FW_SERIALIZE_OK) {
         printf("Error deserializing ChannelF64: %d\n", _status);
@@ -2438,7 +2438,7 @@ void ActiveTelemetryTesterBase ::
 
     case ActiveTelemetryComponentBase::CHANNELID_CHANNELU32ONCHANGE: {
       U32 arg;
-      const Fw::SerializeStatus _status = val.deserialize(arg);
+      const Fw::SerializeStatus _status = val.deserializeTo(arg);
 
       if (_status != Fw::FW_SERIALIZE_OK) {
         printf("Error deserializing ChannelU32OnChange: %d\n", _status);
@@ -2451,7 +2451,7 @@ void ActiveTelemetryTesterBase ::
 
     case ActiveTelemetryComponentBase::CHANNELID_CHANNELENUMONCHANGE: {
       E arg;
-      const Fw::SerializeStatus _status = val.deserialize(arg);
+      const Fw::SerializeStatus _status = val.deserializeTo(arg);
 
       if (_status != Fw::FW_SERIALIZE_OK) {
         printf("Error deserializing ChannelEnumOnChange: %d\n", _status);

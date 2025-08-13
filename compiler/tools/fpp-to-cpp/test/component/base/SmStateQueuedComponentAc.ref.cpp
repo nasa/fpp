@@ -1321,7 +1321,7 @@ namespace FppTest {
     // Serialize the message type, port number, state ID, and signal
     this->sendSignalStart(SmId::smStateBasicGuardString, static_cast<FwEnumStoreType>(FppTest_SmState_BasicGuardString::Signal::s), buffer);
     // Serialize the signal data
-    const Fw::SerializeStatus status = value.serialize(buffer, 80);
+    const Fw::SerializeStatus status = value.serializeTo(buffer, 80);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     // Send the message and handle overflow
     this->smStateBasicGuardString_sendSignalFinish(buffer);
@@ -1334,7 +1334,7 @@ namespace FppTest {
     // Serialize the message type, port number, state ID, and signal
     this->sendSignalStart(SmId::smStateBasicGuardTestAbsType, static_cast<FwEnumStoreType>(FppTest_SmState_BasicGuardTestAbsType::Signal::s), buffer);
     // Serialize the signal data
-    const Fw::SerializeStatus status = buffer.serialize(value);
+    const Fw::SerializeStatus status = buffer.serializeFrom(value);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     // Send the message and handle overflow
     this->smStateBasicGuardTestAbsType_sendSignalFinish(buffer);
@@ -1347,7 +1347,7 @@ namespace FppTest {
     // Serialize the message type, port number, state ID, and signal
     this->sendSignalStart(SmId::smStateBasicGuardTestArray, static_cast<FwEnumStoreType>(FppTest_SmState_BasicGuardTestArray::Signal::s), buffer);
     // Serialize the signal data
-    const Fw::SerializeStatus status = buffer.serialize(value);
+    const Fw::SerializeStatus status = buffer.serializeFrom(value);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     // Send the message and handle overflow
     this->smStateBasicGuardTestArray_sendSignalFinish(buffer);
@@ -1360,7 +1360,7 @@ namespace FppTest {
     // Serialize the message type, port number, state ID, and signal
     this->sendSignalStart(SmId::smStateBasicGuardTestEnum, static_cast<FwEnumStoreType>(FppTest_SmState_BasicGuardTestEnum::Signal::s), buffer);
     // Serialize the signal data
-    const Fw::SerializeStatus status = buffer.serialize(value);
+    const Fw::SerializeStatus status = buffer.serializeFrom(value);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     // Send the message and handle overflow
     this->smStateBasicGuardTestEnum_sendSignalFinish(buffer);
@@ -1373,7 +1373,7 @@ namespace FppTest {
     // Serialize the message type, port number, state ID, and signal
     this->sendSignalStart(SmId::smStateBasicGuardTestStruct, static_cast<FwEnumStoreType>(FppTest_SmState_BasicGuardTestStruct::Signal::s), buffer);
     // Serialize the signal data
-    const Fw::SerializeStatus status = buffer.serialize(value);
+    const Fw::SerializeStatus status = buffer.serializeFrom(value);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     // Send the message and handle overflow
     this->smStateBasicGuardTestStruct_sendSignalFinish(buffer);
@@ -1386,7 +1386,7 @@ namespace FppTest {
     // Serialize the message type, port number, state ID, and signal
     this->sendSignalStart(SmId::smStateBasicGuardU32, static_cast<FwEnumStoreType>(FppTest_SmState_BasicGuardU32::Signal::s), buffer);
     // Serialize the signal data
-    const Fw::SerializeStatus status = buffer.serialize(value);
+    const Fw::SerializeStatus status = buffer.serializeFrom(value);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     // Send the message and handle overflow
     this->smStateBasicGuardU32_sendSignalFinish(buffer);
@@ -1419,7 +1419,7 @@ namespace FppTest {
     // Serialize the message type, port number, state ID, and signal
     this->sendSignalStart(SmId::smStateBasicString, static_cast<FwEnumStoreType>(FppTest_SmState_BasicString::Signal::s), buffer);
     // Serialize the signal data
-    const Fw::SerializeStatus status = value.serialize(buffer, 80);
+    const Fw::SerializeStatus status = value.serializeTo(buffer, 80);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     // Send the message and handle overflow
     this->smStateBasicString_sendSignalFinish(buffer);
@@ -1432,7 +1432,7 @@ namespace FppTest {
     // Serialize the message type, port number, state ID, and signal
     this->sendSignalStart(SmId::smStateBasicTestAbsType, static_cast<FwEnumStoreType>(FppTest_SmState_BasicTestAbsType::Signal::s), buffer);
     // Serialize the signal data
-    const Fw::SerializeStatus status = buffer.serialize(value);
+    const Fw::SerializeStatus status = buffer.serializeFrom(value);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     // Send the message and handle overflow
     this->smStateBasicTestAbsType_sendSignalFinish(buffer);
@@ -1445,7 +1445,7 @@ namespace FppTest {
     // Serialize the message type, port number, state ID, and signal
     this->sendSignalStart(SmId::smStateBasicTestArray, static_cast<FwEnumStoreType>(FppTest_SmState_BasicTestArray::Signal::s), buffer);
     // Serialize the signal data
-    const Fw::SerializeStatus status = buffer.serialize(value);
+    const Fw::SerializeStatus status = buffer.serializeFrom(value);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     // Send the message and handle overflow
     this->smStateBasicTestArray_sendSignalFinish(buffer);
@@ -1458,7 +1458,7 @@ namespace FppTest {
     // Serialize the message type, port number, state ID, and signal
     this->sendSignalStart(SmId::smStateBasicTestEnum, static_cast<FwEnumStoreType>(FppTest_SmState_BasicTestEnum::Signal::s), buffer);
     // Serialize the signal data
-    const Fw::SerializeStatus status = buffer.serialize(value);
+    const Fw::SerializeStatus status = buffer.serializeFrom(value);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     // Send the message and handle overflow
     this->smStateBasicTestEnum_sendSignalFinish(buffer);
@@ -1471,7 +1471,7 @@ namespace FppTest {
     // Serialize the message type, port number, state ID, and signal
     this->sendSignalStart(SmId::smStateBasicTestStruct, static_cast<FwEnumStoreType>(FppTest_SmState_BasicTestStruct::Signal::s), buffer);
     // Serialize the signal data
-    const Fw::SerializeStatus status = buffer.serialize(value);
+    const Fw::SerializeStatus status = buffer.serializeFrom(value);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     // Send the message and handle overflow
     this->smStateBasicTestStruct_sendSignalFinish(buffer);
@@ -1484,7 +1484,7 @@ namespace FppTest {
     // Serialize the message type, port number, state ID, and signal
     this->sendSignalStart(SmId::smStateBasicU32, static_cast<FwEnumStoreType>(FppTest_SmState_BasicU32::Signal::s), buffer);
     // Serialize the signal data
-    const Fw::SerializeStatus status = buffer.serialize(value);
+    const Fw::SerializeStatus status = buffer.serializeFrom(value);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     // Send the message and handle overflow
     this->smStateBasicU32_sendSignalFinish(buffer);
@@ -1659,7 +1659,7 @@ namespace FppTest {
     _msg.resetDeser();
 
     FwEnumStoreType _desMsg = 0;
-    Fw::SerializeStatus _deserStatus = _msg.deserialize(_desMsg);
+    Fw::SerializeStatus _deserStatus = _msg.deserializeTo(_desMsg);
     FW_ASSERT(
       _deserStatus == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_deserStatus)
@@ -1672,7 +1672,7 @@ namespace FppTest {
     }
 
     FwIndexType portNum = 0;
-    _deserStatus = _msg.deserialize(portNum);
+    _deserStatus = _msg.deserializeTo(portNum);
     FW_ASSERT(
       _deserStatus == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_deserStatus)
@@ -1744,19 +1744,19 @@ namespace FppTest {
     Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
 
     // Serialize the message type
-    status = buffer.serialize(static_cast<FwEnumStoreType>(INTERNAL_STATE_MACHINE_SIGNAL));
+    status = buffer.serializeFrom(static_cast<FwEnumStoreType>(INTERNAL_STATE_MACHINE_SIGNAL));
     FW_ASSERT (status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
 
     // Serialize the port number
-    status = buffer.serialize(static_cast<FwIndexType>(0));
+    status = buffer.serializeFrom(static_cast<FwIndexType>(0));
     FW_ASSERT (status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
 
     // Serialize the state machine ID
-    status = buffer.serialize(static_cast<FwEnumStoreType>(smId));
+    status = buffer.serializeFrom(static_cast<FwEnumStoreType>(smId));
     FW_ASSERT (status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
 
     // Serialize the signal
-    status = buffer.serialize(static_cast<FwEnumStoreType>(signal));
+    status = buffer.serializeFrom(static_cast<FwEnumStoreType>(signal));
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
   }
 
@@ -2269,11 +2269,11 @@ namespace FppTest {
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
 
     // Deserialize the state machine ID
-    status = buffer.deserialize(smId);
+    status = buffer.deserializeTo(smId);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
 
     // Deserialize the signal
-    status = buffer.deserialize(signal);
+    status = buffer.deserializeTo(signal);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
   }
 
@@ -2331,7 +2331,7 @@ namespace FppTest {
         // Deserialize the data
         char __fprime_ac_value_buffer[Fw::StringBase::BUFFER_SIZE(80)];
         Fw::ExternalString value(__fprime_ac_value_buffer, sizeof __fprime_ac_value_buffer);
-        const Fw::SerializeStatus status = buffer.deserialize(value);
+        const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
         FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
@@ -2356,7 +2356,7 @@ namespace FppTest {
       case FppTest_SmState_BasicGuardTestAbsType::Signal::s: {
         // Deserialize the data
         FppTest::SmHarness::TestAbsType value;
-        const Fw::SerializeStatus status = buffer.deserialize(value);
+        const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
         FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
@@ -2381,7 +2381,7 @@ namespace FppTest {
       case FppTest_SmState_BasicGuardTestArray::Signal::s: {
         // Deserialize the data
         FppTest::SmHarness::TestArray value;
-        const Fw::SerializeStatus status = buffer.deserialize(value);
+        const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
         FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
@@ -2406,7 +2406,7 @@ namespace FppTest {
       case FppTest_SmState_BasicGuardTestEnum::Signal::s: {
         // Deserialize the data
         FppTest::SmHarness::TestEnum value;
-        const Fw::SerializeStatus status = buffer.deserialize(value);
+        const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
         FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
@@ -2431,7 +2431,7 @@ namespace FppTest {
       case FppTest_SmState_BasicGuardTestStruct::Signal::s: {
         // Deserialize the data
         FppTest::SmHarness::TestStruct value;
-        const Fw::SerializeStatus status = buffer.deserialize(value);
+        const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
         FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
@@ -2456,7 +2456,7 @@ namespace FppTest {
       case FppTest_SmState_BasicGuardU32::Signal::s: {
         // Deserialize the data
         U32 value;
-        const Fw::SerializeStatus status = buffer.deserialize(value);
+        const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
         FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
@@ -2524,7 +2524,7 @@ namespace FppTest {
         // Deserialize the data
         char __fprime_ac_value_buffer[Fw::StringBase::BUFFER_SIZE(80)];
         Fw::ExternalString value(__fprime_ac_value_buffer, sizeof __fprime_ac_value_buffer);
-        const Fw::SerializeStatus status = buffer.deserialize(value);
+        const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
         FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
@@ -2549,7 +2549,7 @@ namespace FppTest {
       case FppTest_SmState_BasicTestAbsType::Signal::s: {
         // Deserialize the data
         FppTest::SmHarness::TestAbsType value;
-        const Fw::SerializeStatus status = buffer.deserialize(value);
+        const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
         FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
@@ -2574,7 +2574,7 @@ namespace FppTest {
       case FppTest_SmState_BasicTestArray::Signal::s: {
         // Deserialize the data
         FppTest::SmHarness::TestArray value;
-        const Fw::SerializeStatus status = buffer.deserialize(value);
+        const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
         FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
@@ -2599,7 +2599,7 @@ namespace FppTest {
       case FppTest_SmState_BasicTestEnum::Signal::s: {
         // Deserialize the data
         FppTest::SmHarness::TestEnum value;
-        const Fw::SerializeStatus status = buffer.deserialize(value);
+        const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
         FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
@@ -2624,7 +2624,7 @@ namespace FppTest {
       case FppTest_SmState_BasicTestStruct::Signal::s: {
         // Deserialize the data
         FppTest::SmHarness::TestStruct value;
-        const Fw::SerializeStatus status = buffer.deserialize(value);
+        const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
         FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
@@ -2649,7 +2649,7 @@ namespace FppTest {
       case FppTest_SmState_BasicU32::Signal::s: {
         // Deserialize the data
         U32 value;
-        const Fw::SerializeStatus status = buffer.deserialize(value);
+        const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
         FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));

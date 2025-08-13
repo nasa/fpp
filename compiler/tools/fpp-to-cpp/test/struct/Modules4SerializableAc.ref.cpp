@@ -124,18 +124,18 @@ std::ostream& operator<<(std::ostream& os, const Modules4& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus Modules4 ::
-  serialize(Fw::SerializeBufferBase& buffer) const
+  serializeTo(Fw::SerializeBufferBase& buffer) const
 {
   Fw::SerializeStatus status;
 
   for (FwSizeType i = 0; i < 3; i++) {
-    status = buffer.serialize(this->m_arr1[i]);
+    status = buffer.serializeFrom(this->m_arr1[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
   }
   for (FwSizeType i = 0; i < 6; i++) {
-    status = buffer.serialize(this->m_arr2[i]);
+    status = buffer.serializeFrom(this->m_arr2[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -145,24 +145,37 @@ Fw::SerializeStatus Modules4 ::
 }
 
 Fw::SerializeStatus Modules4 ::
-  deserialize(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(Fw::SerializeBufferBase& buffer)
 {
   Fw::SerializeStatus status;
 
   for (FwSizeType i = 0; i < 3; i++) {
-    status = buffer.deserialize(this->m_arr1[i]);
+    status = buffer.deserializeTo(this->m_arr1[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
   }
   for (FwSizeType i = 0; i < 6; i++) {
-    status = buffer.deserialize(this->m_arr2[i]);
+    status = buffer.deserializeTo(this->m_arr2[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
   }
 
   return status;
+}
+
+FwSizeType Modules4 ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  for (U32 index = 0; index < 3; index++) {
+    size += this->m_arr1[index].serializedSize();
+  }
+  for (U32 index = 0; index < 6; index++) {
+    size += this->m_arr2[index].serializedSize();
+  }
+  return size;
 }
 
 #if FW_SERIALIZABLE_TO_STRING
@@ -222,7 +235,7 @@ void Modules4 ::
 }
 
 void Modules4 ::
-  setarr1(const Type_of_arr1& arr1)
+  set_arr1(const Type_of_arr1& arr1)
 {
   for (FwSizeType i = 0; i < 3; i++) {
     this->m_arr1[i] = arr1[i];
@@ -230,7 +243,7 @@ void Modules4 ::
 }
 
 void Modules4 ::
-  setarr2(const Type_of_arr2& arr2)
+  set_arr2(const Type_of_arr2& arr2)
 {
   for (FwSizeType i = 0; i < 6; i++) {
     this->m_arr2[i] = arr2[i];

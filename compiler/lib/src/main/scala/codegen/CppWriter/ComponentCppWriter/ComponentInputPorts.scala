@@ -82,7 +82,7 @@ case class ComponentInputPorts(
 
   def getHandlers(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       s"Handlers to implement for ${getPortListTypeString(ports)} input ports",
       generateHandlers(
         ports,
@@ -134,7 +134,7 @@ case class ComponentInputPorts(
           },
           lines(
             s"""|// Serialize message ID
-                |_status = $bufferName.serialize(
+                |_status = $bufferName.serializeFrom(
                 |  static_cast<FwEnumStoreType>(${portCppConstantName(p)})
                 |);
                 |FW_ASSERT(
@@ -143,7 +143,7 @@ case class ComponentInputPorts(
                 |);
                 |
                 |// Serialize port number
-                |_status = $bufferName.serialize(portNum);
+                |_status = $bufferName.serializeFrom(portNum);
                 |FW_ASSERT(
                 |  _status == Fw::FW_SERIALIZE_OK,
                 |  static_cast<FwAssertArgType>(_status)
@@ -155,8 +155,8 @@ case class ComponentInputPorts(
               val serializeExpr = tyOpt match {
                 case Some(t: Type.String) =>
                   val serialSize = writeStringSize(s, t)
-                  s"$n.serialize($bufferName, $serialSize)"
-                case _ => s"$bufferName.serialize($n)"
+                  s"$n.serializeTo($bufferName, $serialSize)"
+                case _ => s"$bufferName.serializeFrom($n)"
               }
               lines(
               s"""|// Serialize argument $n
@@ -182,7 +182,7 @@ case class ComponentInputPorts(
     }
 
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       s"""|Port handler base-class functions for ${getPortListTypeString(ports)} input ports
           |
           |Call these functions directly to bypass the corresponding ports
@@ -383,7 +383,7 @@ case class ComponentInputPorts(
       })
 
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       s"Calls for messages received on ${getPortListTypeString(ports)} input ports",
       ports match {
         case Nil => Nil
@@ -401,7 +401,7 @@ case class ComponentInputPorts(
 
   def getPreMsgHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       s"""|Pre-message hooks for ${getPortListTypeString(ports)} async input ports
           |
           |Each of these functions is invoked just before processing a message
@@ -423,7 +423,7 @@ case class ComponentInputPorts(
 
   def getOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       s"""|Hooks for ${getPortListTypeString(ports)} async input ports
           |
           |Each of these functions is invoked when placing a message on the

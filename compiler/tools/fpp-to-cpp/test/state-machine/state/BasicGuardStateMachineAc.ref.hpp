@@ -50,7 +50,7 @@ namespace FppTest {
           s,
         };
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Constructors and Destructors
@@ -91,7 +91,7 @@ namespace FppTest {
         //! Signal s
         void sendSignal_s();
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Actions
@@ -102,7 +102,7 @@ namespace FppTest {
             Signal signal //!< The signal
         ) = 0;
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Guards
@@ -113,7 +113,7 @@ namespace FppTest {
             Signal signal //!< The signal
         ) const = 0;
 
-      PRIVATE:
+      private:
 
         // ----------------------------------------------------------------------
         // State and choice entry
@@ -129,7 +129,7 @@ namespace FppTest {
             Signal signal //!< The signal
         );
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Member variables

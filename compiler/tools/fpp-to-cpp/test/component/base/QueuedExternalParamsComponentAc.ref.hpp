@@ -56,7 +56,7 @@ class QueuedExternalParamsComponentBase :
     //! Friend class tester implementation to support white-box testing
     friend class QueuedExternalParamsTester;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Constants
@@ -523,7 +523,7 @@ class QueuedExternalParamsComponentBase :
     //! Connect the parameter first
     void loadParameters();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Component construction and destruction
@@ -537,7 +537,7 @@ class QueuedExternalParamsComponentBase :
     //! Destroy QueuedExternalParamsComponentBase object
     virtual ~QueuedExternalParamsComponentBase();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special input ports
@@ -548,7 +548,7 @@ class QueuedExternalParamsComponentBase :
     //! \return The number of cmdIn input ports
     FwIndexType getNum_cmdIn_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of typed input ports
@@ -649,7 +649,7 @@ class QueuedExternalParamsComponentBase :
     //! \return The number of typedSync input ports
     FwIndexType getNum_typedSync_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special output ports
@@ -699,7 +699,7 @@ class QueuedExternalParamsComponentBase :
     //! \return The number of tlmOut output ports
     FwIndexType getNum_tlmOut_OutputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of typed output ports
@@ -745,7 +745,7 @@ class QueuedExternalParamsComponentBase :
     //! \return The number of typedReturnOut output ports
     FwIndexType getNum_typedReturnOut_OutputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for special output ports
@@ -811,7 +811,7 @@ class QueuedExternalParamsComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for typed output ports
@@ -873,7 +873,7 @@ class QueuedExternalParamsComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Handlers to implement for typed input ports
@@ -1058,7 +1058,7 @@ class QueuedExternalParamsComponentBase :
         const S& s //!< A struct
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for typed input ports
@@ -1245,7 +1245,7 @@ class QueuedExternalParamsComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Pre-message hooks for typed async input ports
@@ -1320,7 +1320,7 @@ class QueuedExternalParamsComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Invocation functions for typed output ports
@@ -1401,7 +1401,7 @@ class QueuedExternalParamsComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Command response
@@ -1414,7 +1414,7 @@ class QueuedExternalParamsComponentBase :
         Fw::CmdResponse response //!< The command response
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Parameter update hook
@@ -1436,7 +1436,7 @@ class QueuedExternalParamsComponentBase :
     //! This function does nothing by default. You may override it.
     virtual void parametersLoaded();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Parameter get functions
@@ -1497,7 +1497,7 @@ class QueuedExternalParamsComponentBase :
         Fw::ParamValid& valid //!< Whether the parameter is valid
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // External parameter delegate initialization
@@ -1508,7 +1508,7 @@ class QueuedExternalParamsComponentBase :
         Fw::ParamExternalDelegate* paramExternalDelegatePtr //!< The delegate for externally managed parameters
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Time
@@ -1519,7 +1519,7 @@ class QueuedExternalParamsComponentBase :
     //! \\return The current time
     Fw::Time getTime() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Mutex operations for guarded ports
@@ -1534,7 +1534,7 @@ class QueuedExternalParamsComponentBase :
     //! Unlock the guarded mutex
     virtual void unLock();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Message dispatch functions
@@ -1552,7 +1552,7 @@ class QueuedExternalParamsComponentBase :
     //! Dispatch all current messages unless ERROR or EXIT occurs
     MsgDispatchStatus dispatchCurrentMessages();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on special input ports
@@ -1567,7 +1567,7 @@ class QueuedExternalParamsComponentBase :
         Fw::CmdArgBuffer& args //!< Buffer containing arguments
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on typed input ports
@@ -1771,7 +1771,7 @@ class QueuedExternalParamsComponentBase :
         const S& s //!< A struct
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Parameter set functions
@@ -1819,7 +1819,7 @@ class QueuedExternalParamsComponentBase :
         Fw::SerializeBufferBase& val //!< The serialization buffer
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Parameter save functions
@@ -1855,7 +1855,7 @@ class QueuedExternalParamsComponentBase :
     //! \return The command response
     Fw::CmdResponse paramSave_ParamStructExt();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special input ports
@@ -1864,7 +1864,7 @@ class QueuedExternalParamsComponentBase :
     //! Input port cmdIn
     Fw::InputCmdPort m_cmdIn_InputPort[NUM_CMDIN_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Typed input ports
@@ -1927,7 +1927,7 @@ class QueuedExternalParamsComponentBase :
     //! Input port typedSync
     Ports::InputTypedPort m_typedSync_InputPort[NUM_TYPEDSYNC_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special output ports
@@ -1961,7 +1961,7 @@ class QueuedExternalParamsComponentBase :
     //! Output port tlmOut
     Fw::OutputTlmPort m_tlmOut_OutputPort[NUM_TLMOUT_OUTPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Typed output ports
@@ -1991,7 +1991,7 @@ class QueuedExternalParamsComponentBase :
     //! Output port typedReturnOut
     Ports::OutputTypedReturnPort m_typedReturnOut_OutputPort[NUM_TYPEDRETURNOUT_OUTPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Parameter delegates
@@ -2000,7 +2000,7 @@ class QueuedExternalParamsComponentBase :
     //! Delegate to serialize/deserialize an externally stored parameter
     Fw::ParamExternalDelegate* paramDelegatePtr;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Mutexes

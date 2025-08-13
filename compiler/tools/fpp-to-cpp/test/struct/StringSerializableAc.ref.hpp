@@ -87,14 +87,17 @@ class String :
     // ----------------------------------------------------------------------
 
     //! Serialization
-    Fw::SerializeStatus serialize(
+    Fw::SerializeStatus serializeTo(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     ) const;
 
     //! Deserialization
-    Fw::SerializeStatus deserialize(
+    Fw::SerializeStatus deserializeFrom(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     );
+
+    //! Get the dynamic serialized size of the struct
+    FwSizeType serializedSize() const;
 
 #if FW_SERIALIZABLE_TO_STRING
 
@@ -110,25 +113,25 @@ class String :
     // ----------------------------------------------------------------------
 
     //! Get member s1
-    Fw::ExternalString& gets1()
+    Fw::ExternalString& get_s1()
     {
       return this->m_s1;
     }
 
     //! Get member s1 (const)
-    const Fw::ExternalString& gets1() const
+    const Fw::ExternalString& get_s1() const
     {
       return this->m_s1;
     }
 
     //! Get member s2
-    Fw::ExternalString& gets2()
+    Fw::ExternalString& get_s2()
     {
       return this->m_s2;
     }
 
     //! Get member s2 (const)
-    const Fw::ExternalString& gets2() const
+    const Fw::ExternalString& get_s2() const
     {
       return this->m_s2;
     }
@@ -144,10 +147,10 @@ class String :
     );
 
     //! Set member s1
-    void sets1(const Fw::StringBase& s1);
+    void set_s1(const Fw::StringBase& s1);
 
     //! Set member s2
-    void sets2(const Fw::StringBase& s2);
+    void set_s2(const Fw::StringBase& s2);
 
   protected:
 

@@ -2673,7 +2673,8 @@ and prevents name clashes.
 In most cases, a qualified name such as `Switch.State`
 in FPP becomes a qualified name such as `Switch::State` when translating
 to {cpp}.
-However, the F Prime XML format does not support the definition
+However, the current {cpp} code generation strategy does not
+support the definition
 of constants and types as members of {cpp} components.
 Therefore, when translating the previous example to {cpp},
 the following occurs:
@@ -2685,10 +2686,7 @@ the following occurs:
 
 Similarly, the FPP constant `SerialSplitter.splitFactor`
 becomes a {cpp} constant `SerialSplitter_SplitFactor`.
-We will have more to say about this issue in the sections on
-<<Analyzing-and-Translating-Models_Generating-XML,
-generating XML>>
-and
+We will have more to say about this issue in the section on
 <<Analyzing-and-Translating-Models_Generating-C-Plus-Plus,
 generating {cpp}>>.
 

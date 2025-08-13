@@ -58,7 +58,7 @@ case class ComponentEvents (
 
   def getVariableMembers: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       "Counter values for event throttling",
       throttledEvents.map((_, event) =>
         linesClassMember(
@@ -96,20 +96,20 @@ case class ComponentEvents (
                 event.aNode._2.data.severity match {
                   case Ast.SpecEvent.Fatal if eventParamTypeMap(id).nonEmpty => lines(
                     s"""|// Serialize the number of arguments
-                        |_status = _logBuff.serialize(static_cast<U8>(${eventParamTypeMap(id).length} + 1));
+                        |_status = _logBuff.serializeFrom(static_cast<U8>(${eventParamTypeMap(id).length} + 1));
                         |FW_ASSERT(
                         |  _status == Fw::FW_SERIALIZE_OK,
                         |  static_cast<FwAssertArgType>(_status)
                         |);
                         |
                         |// For FATAL, add stack size of 4 and a dummy entry. No support for stacks yet.
-                        |_status = _logBuff.serialize(static_cast<U8>(4));
+                        |_status = _logBuff.serializeFrom(static_cast<U8>(4));
                         |FW_ASSERT(
                         |  _status == Fw::FW_SERIALIZE_OK,
                         |  static_cast<FwAssertArgType>(_status)
                         |);
                         |
-                        |_status = _logBuff.serialize(static_cast<U32>(0));
+                        |_status = _logBuff.serializeFrom(static_cast<U32>(0));
                         |FW_ASSERT(
                         |  _status == Fw::FW_SERIALIZE_OK,
                         |  static_cast<FwAssertArgType>(_status)
@@ -118,7 +118,7 @@ case class ComponentEvents (
                   )
                   case _ => lines(
                     s"""|// Serialize the number of arguments
-                        |_status = _logBuff.serialize(static_cast<U8>(${eventParamTypeMap(id).length}));
+                        |_status = _logBuff.serializeFrom(static_cast<U8>(${eventParamTypeMap(id).length}));
                         |FW_ASSERT(
                         |  _status == Fw::FW_SERIALIZE_OK,
                         |  static_cast<FwAssertArgType>(_status)
@@ -136,20 +136,20 @@ case class ComponentEvents (
                       case t: Type.String =>
                         val serialSize = writeStringSize(s, t)
                         lines(
-                          s"_status = $name.serialize(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, $serialSize));"
+                          s"_status = $name.serializeTo(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, $serialSize));"
                         )
                       case t => lines(
                         s"""|#if FW_AMPCS_COMPATIBLE
                             |// Serialize the argument size
-                            |_status = _logBuff.serialize(
-                            |  static_cast<U8>(${writeSerializedSizeExpr(s, t, typeName)})
+                            |_status = _logBuff.serializeFrom(
+                            |  static_cast<U8>(${writeStaticSerializedSizeExpr(s, t, typeName)})
                             |);
                             |FW_ASSERT(
                             |  _status == Fw::FW_SERIALIZE_OK,
                             |  static_cast<FwAssertArgType>(_status)
                             |);
                             |#endif
-                            |_status = _logBuff.serialize($name);
+                            |_status = _logBuff.serializeFrom($name);
                             |"""
                       )
                     },
@@ -277,7 +277,7 @@ case class ComponentEvents (
     )
 
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Event logging functions",
       sortedEvents.map((id, event) =>
         functionClassMember(
@@ -307,7 +307,7 @@ case class ComponentEvents (
 
   private def getThrottleFunctions: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Event throttle reset functions",
       throttledEvents.map((_, event) =>
         functionClassMember(

@@ -32,7 +32,7 @@ class QueuedAsyncProductPortsOnlyComponentBase :
     //! Friend class tester implementation to support white-box testing
     friend class QueuedAsyncProductPortsOnlyTester;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Constants
@@ -114,7 +114,7 @@ class QueuedAsyncProductPortsOnlyComponentBase :
 
 #endif
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Component construction and destruction
@@ -128,7 +128,7 @@ class QueuedAsyncProductPortsOnlyComponentBase :
     //! Destroy QueuedAsyncProductPortsOnlyComponentBase object
     virtual ~QueuedAsyncProductPortsOnlyComponentBase();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special input ports
@@ -139,7 +139,7 @@ class QueuedAsyncProductPortsOnlyComponentBase :
     //! \return The number of productRecvIn input ports
     FwIndexType getNum_productRecvIn_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special output ports
@@ -155,7 +155,7 @@ class QueuedAsyncProductPortsOnlyComponentBase :
     //! \return The number of productSendOut output ports
     FwIndexType getNum_productSendOut_OutputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for special output ports
@@ -175,7 +175,7 @@ class QueuedAsyncProductPortsOnlyComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for special input ports
@@ -191,7 +191,7 @@ class QueuedAsyncProductPortsOnlyComponentBase :
         const Fw::Success& status //!< The status
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Pre-message hooks for special async input ports
@@ -209,7 +209,7 @@ class QueuedAsyncProductPortsOnlyComponentBase :
         const Fw::Success& status //!< The status
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Invocation functions for special output ports
@@ -229,7 +229,7 @@ class QueuedAsyncProductPortsOnlyComponentBase :
         const Fw::Buffer& buffer //!< The buffer
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Message dispatch functions
@@ -247,7 +247,7 @@ class QueuedAsyncProductPortsOnlyComponentBase :
     //! Dispatch all current messages unless ERROR or EXIT occurs
     MsgDispatchStatus dispatchCurrentMessages();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on special input ports
@@ -262,7 +262,7 @@ class QueuedAsyncProductPortsOnlyComponentBase :
         const Fw::Success& status //!< The status
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Private data product handling functions
@@ -276,7 +276,7 @@ class QueuedAsyncProductPortsOnlyComponentBase :
         const Fw::Success& status //!< The buffer status
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special input ports
@@ -285,7 +285,7 @@ class QueuedAsyncProductPortsOnlyComponentBase :
     //! Input port productRecvIn
     Fw::InputDpResponsePort m_productRecvIn_InputPort[NUM_PRODUCTRECVIN_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special output ports

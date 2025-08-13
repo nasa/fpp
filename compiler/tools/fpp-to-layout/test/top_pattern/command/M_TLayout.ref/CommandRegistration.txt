@@ -1,0 +1,14 @@
+c1
+cmdRegOut
+0
+commands
+cmdRegIn
+0
+
+c2
+cmdRegOut
+0
+commands
+cmdRegIn
+1
+

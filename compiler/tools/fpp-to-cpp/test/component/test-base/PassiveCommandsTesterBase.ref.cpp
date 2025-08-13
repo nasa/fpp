@@ -1944,19 +1944,19 @@ void PassiveCommandsTesterBase ::
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = buf.serialize(u32);
+  _status = buf.serializeFrom(u32);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
-  _status = buf.serialize(f32);
+  _status = buf.serializeFrom(f32);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
-  _status = buf.serialize(b);
+  _status = buf.serializeFrom(b);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -1991,13 +1991,13 @@ void PassiveCommandsTesterBase ::
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = str1.serialize(buf, FW_CMD_STRING_MAX_SIZE);
+  _status = str1.serializeTo(buf, FW_CMD_STRING_MAX_SIZE);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
-  _status = str2.serialize(buf, FW_CMD_STRING_MAX_SIZE);
+  _status = str2.serializeTo(buf, FW_CMD_STRING_MAX_SIZE);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2031,7 +2031,7 @@ void PassiveCommandsTesterBase ::
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = buf.serialize(e);
+  _status = buf.serializeFrom(e);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2065,7 +2065,7 @@ void PassiveCommandsTesterBase ::
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = buf.serialize(a);
+  _status = buf.serializeFrom(a);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2099,7 +2099,7 @@ void PassiveCommandsTesterBase ::
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = buf.serialize(s);
+  _status = buf.serializeFrom(s);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2160,19 +2160,19 @@ void PassiveCommandsTesterBase ::
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = buf.serialize(u32);
+  _status = buf.serializeFrom(u32);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
-  _status = buf.serialize(f32);
+  _status = buf.serializeFrom(f32);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
-  _status = buf.serialize(b);
+  _status = buf.serializeFrom(b);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2207,13 +2207,13 @@ void PassiveCommandsTesterBase ::
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = str1.serialize(buf, FW_CMD_STRING_MAX_SIZE);
+  _status = str1.serializeTo(buf, FW_CMD_STRING_MAX_SIZE);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
-  _status = str2.serialize(buf, FW_CMD_STRING_MAX_SIZE);
+  _status = str2.serializeTo(buf, FW_CMD_STRING_MAX_SIZE);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2247,7 +2247,7 @@ void PassiveCommandsTesterBase ::
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = buf.serialize(e);
+  _status = buf.serializeFrom(e);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2281,7 +2281,7 @@ void PassiveCommandsTesterBase ::
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = buf.serialize(a);
+  _status = buf.serializeFrom(a);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2315,7 +2315,7 @@ void PassiveCommandsTesterBase ::
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = buf.serialize(s);
+  _status = buf.serializeFrom(s);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)

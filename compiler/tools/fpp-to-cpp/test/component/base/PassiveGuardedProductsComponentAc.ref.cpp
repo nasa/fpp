@@ -43,20 +43,21 @@ Fw::SerializeStatus PassiveGuardedProductsComponentBase::DpContainer ::
 {
   FW_ASSERT(array != nullptr);
   // Compute the size delta
-  const FwSizeType sizeDelta =
-    sizeof(FwDpIdType) +
-    sizeof(FwSizeStoreType) +
-    size * PassiveGuardedProducts_Data::SERIALIZED_SIZE;
+  FwSizeType sizeDelta =
+    sizeof(FwDpIdType) + sizeof(FwSizeStoreType);
+  for (FwSizeType i = 0; i < size; i++) {
+    sizeDelta += array[i].serializedSize();
+  }
   // Serialize the elements if they will fit
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::DataArrayRecord;
-    status = this->m_dataBuffer.serialize(id);
+    status = this->m_dataBuffer.serializeFrom(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     status = this->m_dataBuffer.serializeSize(size);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     for (FwSizeType i = 0; i < size; i++) {
-      status = this->m_dataBuffer.serialize(array[i]);
+      status = this->m_dataBuffer.serializeFrom(array[i]);
       FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     }
     this->m_dataSize += sizeDelta;
@@ -72,13 +73,13 @@ Fw::SerializeStatus PassiveGuardedProductsComponentBase::DpContainer ::
 {
   const FwSizeType sizeDelta =
     sizeof(FwDpIdType) +
-    PassiveGuardedProducts_Data::SERIALIZED_SIZE;
+    elt.serializedSize();
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::DataRecord;
-    status = this->m_dataBuffer.serialize(id);
+    status = this->m_dataBuffer.serializeFrom(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
-    status = this->m_dataBuffer.serialize(elt);
+    status = this->m_dataBuffer.serializeFrom(elt);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     this->m_dataSize += sizeDelta;
   }
@@ -109,14 +110,14 @@ Fw::SerializeStatus PassiveGuardedProductsComponentBase::DpContainer ::
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::StringArrayRecord;
-    status = this->m_dataBuffer.serialize(id);
+    status = this->m_dataBuffer.serializeFrom(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     status = this->m_dataBuffer.serializeSize(size);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     for (FwSizeType i = 0; i < size; i++) {
       const Fw::StringBase *const sbPtr = array[i];
       FW_ASSERT(sbPtr != nullptr);
-      status = sbPtr->serialize(this->m_dataBuffer, stringSize);
+      status = sbPtr->serializeTo(this->m_dataBuffer, stringSize);
       FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     }
     this->m_dataSize += sizeDelta;
@@ -137,9 +138,9 @@ Fw::SerializeStatus PassiveGuardedProductsComponentBase::DpContainer ::
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::StringRecord;
-    status = this->m_dataBuffer.serialize(id);
+    status = this->m_dataBuffer.serializeFrom(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
-    status = elt.serialize(this->m_dataBuffer, stringSize);
+    status = elt.serializeTo(this->m_dataBuffer, stringSize);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     this->m_dataSize += sizeDelta;
   }
@@ -165,12 +166,12 @@ Fw::SerializeStatus PassiveGuardedProductsComponentBase::DpContainer ::
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::U32ArrayRecord;
-    status = this->m_dataBuffer.serialize(id);
+    status = this->m_dataBuffer.serializeFrom(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     status = this->m_dataBuffer.serializeSize(size);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     for (FwSizeType i = 0; i < size; i++) {
-      status = this->m_dataBuffer.serialize(array[i]);
+      status = this->m_dataBuffer.serializeFrom(array[i]);
       FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     }
     this->m_dataSize += sizeDelta;
@@ -190,9 +191,9 @@ Fw::SerializeStatus PassiveGuardedProductsComponentBase::DpContainer ::
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::U32Record;
-    status = this->m_dataBuffer.serialize(id);
+    status = this->m_dataBuffer.serializeFrom(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
-    status = this->m_dataBuffer.serialize(elt);
+    status = this->m_dataBuffer.serializeFrom(elt);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     this->m_dataSize += sizeDelta;
   }
@@ -218,11 +219,11 @@ Fw::SerializeStatus PassiveGuardedProductsComponentBase::DpContainer ::
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::U8ArrayRecord;
-    status = this->m_dataBuffer.serialize(id);
+    status = this->m_dataBuffer.serializeFrom(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     status = this->m_dataBuffer.serializeSize(size);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
-    status = this->m_dataBuffer.serialize(array, size, Fw::Serialization::OMIT_LENGTH);
+    status = this->m_dataBuffer.serializeFrom(array, size, Fw::Serialization::OMIT_LENGTH);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     this->m_dataSize += sizeDelta;
   }
@@ -2717,7 +2718,7 @@ Fw::Time PassiveGuardedProductsComponentBase ::
     return _time;
   }
   else {
-    return Fw::Time(TB_NONE, 0, 0);
+    return Fw::Time(TimeBase::TB_NONE, 0, 0);
   }
 }
 

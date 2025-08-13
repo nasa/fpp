@@ -84,14 +84,17 @@ class Including :
     // ----------------------------------------------------------------------
 
     //! Serialization
-    Fw::SerializeStatus serialize(
+    Fw::SerializeStatus serializeTo(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     ) const;
 
     //! Deserialization
-    Fw::SerializeStatus deserialize(
+    Fw::SerializeStatus deserializeFrom(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     );
+
+    //! Get the dynamic serialized size of the struct
+    FwSizeType serializedSize() const;
 
 #if FW_SERIALIZABLE_TO_STRING
 
@@ -107,13 +110,13 @@ class Including :
     // ----------------------------------------------------------------------
 
     //! Get member x
-    Included& getx()
+    Included& get_x()
     {
       return this->m_x;
     }
 
     //! Get member x (const)
-    const Included& getx() const
+    const Included& get_x() const
     {
       return this->m_x;
     }
@@ -126,7 +129,7 @@ class Including :
     void set(const Included& x);
 
     //! Set member x
-    void setx(const Included& x);
+    void set_x(const Included& x);
 
   protected:
 

@@ -27,7 +27,7 @@ class PassiveTelemetry final :
     //! Destroy PassiveTelemetry object
     ~PassiveTelemetry();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports

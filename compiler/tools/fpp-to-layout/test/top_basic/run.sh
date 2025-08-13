@@ -1,6 +1,6 @@
 basic()
 {
   run_test "" basic && \
-    compare T C && \
+    compare M_T C && \
     compare_out basic
 }

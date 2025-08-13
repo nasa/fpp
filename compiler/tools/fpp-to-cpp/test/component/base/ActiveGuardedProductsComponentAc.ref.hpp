@@ -55,7 +55,7 @@ class ActiveGuardedProductsComponentBase :
     //! Friend class tester implementation to support white-box testing
     friend class ActiveGuardedProductsTester;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Constants
@@ -136,7 +136,7 @@ class ActiveGuardedProductsComponentBase :
       return sizeof(FwDpIdType) + sizeof(FwSizeStoreType) + arraySize * sizeof(U8);
     }
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Types for data products
@@ -246,7 +246,7 @@ class ActiveGuardedProductsComponentBase :
 
         void setBaseId(FwDpIdType baseId) { this->m_baseId = baseId; }
 
-      PRIVATE:
+      private:
 
         //! The component base id
         FwDpIdType m_baseId;
@@ -644,7 +644,7 @@ class ActiveGuardedProductsComponentBase :
 
 #endif
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Component construction and destruction
@@ -658,7 +658,7 @@ class ActiveGuardedProductsComponentBase :
     //! Destroy ActiveGuardedProductsComponentBase object
     virtual ~ActiveGuardedProductsComponentBase();
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special input ports
@@ -674,7 +674,7 @@ class ActiveGuardedProductsComponentBase :
     //! \return The number of productRecvIn input ports
     FwIndexType getNum_productRecvIn_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of typed input ports
@@ -775,7 +775,7 @@ class ActiveGuardedProductsComponentBase :
     //! \return The number of typedSync input ports
     FwIndexType getNum_typedSync_InputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of special output ports
@@ -835,7 +835,7 @@ class ActiveGuardedProductsComponentBase :
     //! \return The number of tlmOut output ports
     FwIndexType getNum_tlmOut_OutputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Getters for numbers of typed output ports
@@ -881,7 +881,7 @@ class ActiveGuardedProductsComponentBase :
     //! \return The number of typedReturnOut output ports
     FwIndexType getNum_typedReturnOut_OutputPorts() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for special output ports
@@ -961,7 +961,7 @@ class ActiveGuardedProductsComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Connection status queries for typed output ports
@@ -1023,7 +1023,7 @@ class ActiveGuardedProductsComponentBase :
         FwIndexType portNum //!< The port number
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for special input ports
@@ -1039,7 +1039,7 @@ class ActiveGuardedProductsComponentBase :
         const Fw::Success& status //!< The status
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Handlers to implement for typed input ports
@@ -1224,7 +1224,7 @@ class ActiveGuardedProductsComponentBase :
         const S& s //!< A struct
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for typed input ports
@@ -1411,7 +1411,7 @@ class ActiveGuardedProductsComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Pre-message hooks for typed async input ports
@@ -1486,7 +1486,7 @@ class ActiveGuardedProductsComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Invocation functions for special output ports
@@ -1506,7 +1506,7 @@ class ActiveGuardedProductsComponentBase :
         const Fw::Buffer& buffer //!< The buffer
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Invocation functions for typed output ports
@@ -1587,7 +1587,7 @@ class ActiveGuardedProductsComponentBase :
         const S& s //!< A struct
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Functions for managing data products
@@ -1634,7 +1634,7 @@ class ActiveGuardedProductsComponentBase :
         Fw::Time timeTag = Fw::ZERO_TIME //!< The time tag
     );
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Handlers to implement for data products
@@ -1670,7 +1670,7 @@ class ActiveGuardedProductsComponentBase :
         Fw::Success::T status //!< The container status
     ) = 0;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Time
@@ -1681,7 +1681,7 @@ class ActiveGuardedProductsComponentBase :
     //! \\return The current time
     Fw::Time getTime() const;
 
-  PROTECTED:
+  protected:
 
     // ----------------------------------------------------------------------
     // Mutex operations for guarded ports
@@ -1696,7 +1696,7 @@ class ActiveGuardedProductsComponentBase :
     //! Unlock the guarded mutex
     virtual void unLock();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Message dispatch functions
@@ -1705,7 +1705,7 @@ class ActiveGuardedProductsComponentBase :
     //! Called in the message loop to dispatch a message from the queue
     virtual MsgDispatchStatus doDispatch();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on special input ports
@@ -1729,7 +1729,7 @@ class ActiveGuardedProductsComponentBase :
         const Fw::Success& status //!< The status
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Calls for messages received on typed input ports
@@ -1933,7 +1933,7 @@ class ActiveGuardedProductsComponentBase :
         const S& s //!< A struct
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Private data product handling functions
@@ -1953,7 +1953,7 @@ class ActiveGuardedProductsComponentBase :
         const Fw::Success& status //!< The buffer status
     );
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special input ports
@@ -1965,7 +1965,7 @@ class ActiveGuardedProductsComponentBase :
     //! Input port productRecvIn
     Fw::InputDpResponsePort m_productRecvIn_InputPort[NUM_PRODUCTRECVIN_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Typed input ports
@@ -2028,7 +2028,7 @@ class ActiveGuardedProductsComponentBase :
     //! Input port typedSync
     Ports::InputTypedPort m_typedSync_InputPort[NUM_TYPEDSYNC_INPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Special output ports
@@ -2068,7 +2068,7 @@ class ActiveGuardedProductsComponentBase :
     //! Output port tlmOut
     Fw::OutputTlmPort m_tlmOut_OutputPort[NUM_TLMOUT_OUTPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Typed output ports
@@ -2098,7 +2098,7 @@ class ActiveGuardedProductsComponentBase :
     //! Output port typedReturnOut
     Ports::OutputTypedReturnPort m_typedReturnOut_OutputPort[NUM_TYPEDRETURNOUT_OUTPUT_PORTS];
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Mutexes

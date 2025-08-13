@@ -106,14 +106,17 @@ class Modules4 :
     // ----------------------------------------------------------------------
 
     //! Serialization
-    Fw::SerializeStatus serialize(
+    Fw::SerializeStatus serializeTo(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     ) const;
 
     //! Deserialization
-    Fw::SerializeStatus deserialize(
+    Fw::SerializeStatus deserializeFrom(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     );
+
+    //! Get the dynamic serialized size of the struct
+    FwSizeType serializedSize() const;
 
 #if FW_SERIALIZABLE_TO_STRING
 
@@ -129,25 +132,25 @@ class Modules4 :
     // ----------------------------------------------------------------------
 
     //! Get member arr1
-    Type_of_arr1& getarr1()
+    Type_of_arr1& get_arr1()
     {
       return this->m_arr1;
     }
 
     //! Get member arr1 (const)
-    const Type_of_arr1& getarr1() const
+    const Type_of_arr1& get_arr1() const
     {
       return this->m_arr1;
     }
 
     //! Get member arr2
-    Type_of_arr2& getarr2()
+    Type_of_arr2& get_arr2()
     {
       return this->m_arr2;
     }
 
     //! Get member arr2 (const)
-    const Type_of_arr2& getarr2() const
+    const Type_of_arr2& get_arr2() const
     {
       return this->m_arr2;
     }
@@ -163,10 +166,10 @@ class Modules4 :
     );
 
     //! Set member arr1
-    void setarr1(const Type_of_arr1& arr1);
+    void set_arr1(const Type_of_arr1& arr1);
 
     //! Set member arr2
-    void setarr2(const Type_of_arr2& arr2);
+    void set_arr2(const Type_of_arr2& arr2);
 
   protected:
 

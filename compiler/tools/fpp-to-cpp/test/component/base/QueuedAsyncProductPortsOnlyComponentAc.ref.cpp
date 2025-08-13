@@ -328,7 +328,7 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize message ID
-  _status = msg.serialize(
+  _status = msg.serializeFrom(
     static_cast<FwEnumStoreType>(PRODUCTRECVIN_DPRESPONSE)
   );
   FW_ASSERT(
@@ -337,28 +337,28 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
   );
 
   // Serialize port number
-  _status = msg.serialize(portNum);
+  _status = msg.serializeFrom(portNum);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
   // Serialize argument id
-  _status = msg.serialize(id);
+  _status = msg.serializeFrom(id);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
   // Serialize argument buffer
-  _status = msg.serialize(buffer);
+  _status = msg.serializeFrom(buffer);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
   // Serialize argument status
-  _status = msg.serialize(status);
+  _status = msg.serializeFrom(status);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -470,7 +470,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedAsyncProductPortsOnlyComponentB
   _msg.resetDeser();
 
   FwEnumStoreType _desMsg = 0;
-  Fw::SerializeStatus _deserStatus = _msg.deserialize(_desMsg);
+  Fw::SerializeStatus _deserStatus = _msg.deserializeTo(_desMsg);
   FW_ASSERT(
     _deserStatus == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_deserStatus)
@@ -483,7 +483,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedAsyncProductPortsOnlyComponentB
   }
 
   FwIndexType portNum = 0;
-  _deserStatus = _msg.deserialize(portNum);
+  _deserStatus = _msg.deserializeTo(portNum);
   FW_ASSERT(
     _deserStatus == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_deserStatus)
@@ -494,7 +494,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedAsyncProductPortsOnlyComponentB
     case PRODUCTRECVIN_DPRESPONSE: {
       // Deserialize argument id
       FwDpIdType id;
-      _deserStatus = _msg.deserialize(id);
+      _deserStatus = _msg.deserializeTo(id);
       FW_ASSERT(
         _deserStatus == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_deserStatus)
@@ -502,7 +502,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedAsyncProductPortsOnlyComponentB
 
       // Deserialize argument buffer
       Fw::Buffer buffer;
-      _deserStatus = _msg.deserialize(buffer);
+      _deserStatus = _msg.deserializeTo(buffer);
       FW_ASSERT(
         _deserStatus == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_deserStatus)
@@ -510,7 +510,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedAsyncProductPortsOnlyComponentB
 
       // Deserialize argument status
       Fw::Success status;
-      _deserStatus = _msg.deserialize(status);
+      _deserStatus = _msg.deserializeTo(status);
       FW_ASSERT(
         _deserStatus == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_deserStatus)

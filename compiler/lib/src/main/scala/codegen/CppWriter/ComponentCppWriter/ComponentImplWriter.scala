@@ -58,7 +58,7 @@ case class ComponentImplWriter(
 
   private def getActionImpls: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       "Implementations for internal state machine actions",
       internalSmSymbols.flatMap(getActionImplsForSm)
     )
@@ -99,7 +99,7 @@ case class ComponentImplWriter(
 
   private def getCommandHandlers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       s"Handler implementations for commands",
       nonParamCmds.map(getCommandHandler)
     )
@@ -117,7 +117,7 @@ case class ComponentImplWriter(
 
   private def getCommandOverflowHooks: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       "Overflow hook implementations for commands",
       hookCmds.map(getCommandOverflowHook)
     )
@@ -172,7 +172,7 @@ case class ComponentImplWriter(
 
   private def getDataProductHandlers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       s"Handler implementations for data products",
       productRequestPort match {
         case None => Nil
@@ -201,7 +201,7 @@ case class ComponentImplWriter(
 
   private def getExternalSmOverflowHooks: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       "Overflow hook implementations for external state machines",
       externalStateMachineInstances.filter(_.queueFull == Ast.QueueFull.Hook).map(
         getExternalSmOverflowHook
@@ -231,7 +231,7 @@ case class ComponentImplWriter(
 
   private def getGuardImpls: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       "Implementations for internal state machine guards",
       internalSmSymbols.flatMap(getGuardImplsForSm)
     )
@@ -281,7 +281,7 @@ case class ComponentImplWriter(
   List[CppDoc.Class.Member] = {
     val kind = getPortListTypeString(ports)
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       s"Handler implementations for $kind input ports",
       ports.map(getInputPortHandler)
     )
@@ -304,7 +304,7 @@ case class ComponentImplWriter(
   List[CppDoc.Class.Member] = {
     val kind = getPortListTypeString(ports)
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       s"Overflow hook implementations for $kind input ports",
       ports.map(getInputPortOverflowHook)
     )
@@ -330,7 +330,7 @@ case class ComponentImplWriter(
 
   private def getInternalInterfaceHandlers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       s"Handler implementations for user-defined internal interfaces",
       internalPorts.map(getInternalInterfaceHandler)
     )
@@ -350,7 +350,7 @@ case class ComponentImplWriter(
 
   private def getInternalPortOverflowHooks: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       s"Overflow hook implementations for internal ports",
       internalHookPorts.map(getInternalPortOverflowHook)
     )
@@ -368,7 +368,7 @@ case class ComponentImplWriter(
 
   private def getInternalSmOverflowHooks: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       "Overflow hook implementations for internal state machines",
       internalSmWriter.hookInstances.map(getInternalSmOverflowHook)
     )

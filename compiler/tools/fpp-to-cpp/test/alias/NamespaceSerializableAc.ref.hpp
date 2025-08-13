@@ -95,14 +95,17 @@ class Namespace :
     // ----------------------------------------------------------------------
 
     //! Serialization
-    Fw::SerializeStatus serialize(
+    Fw::SerializeStatus serializeTo(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     ) const;
 
     //! Deserialization
-    Fw::SerializeStatus deserialize(
+    Fw::SerializeStatus deserializeFrom(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     );
+
+    //! Get the dynamic serialized size of the struct
+    FwSizeType serializedSize() const;
 
 #if FW_SERIALIZABLE_TO_STRING
 
@@ -118,25 +121,25 @@ class Namespace :
     // ----------------------------------------------------------------------
 
     //! Get member A
-    SimpleCType getA() const
+    SimpleCType get_A() const
     {
       return this->m_A;
     }
 
     //! Get member B
-    SimpleCType2 getB() const
+    SimpleCType2 get_B() const
     {
       return this->m_B;
     }
 
     //! Get member C
-    M::M2::NamespacedAliasType getC() const
+    M::M2::NamespacedAliasType get_C() const
     {
       return this->m_C;
     }
 
     //! Get member D
-    M::NamespacedAliasType2 getD() const
+    M::NamespacedAliasType2 get_D() const
     {
       return this->m_D;
     }
@@ -154,16 +157,16 @@ class Namespace :
     );
 
     //! Set member A
-    void setA(SimpleCType A);
+    void set_A(SimpleCType A);
 
     //! Set member B
-    void setB(SimpleCType2 B);
+    void set_B(SimpleCType2 B);
 
     //! Set member C
-    void setC(M::M2::NamespacedAliasType C);
+    void set_C(M::M2::NamespacedAliasType C);
 
     //! Set member D
-    void setD(M::NamespacedAliasType2 D);
+    void set_D(M::NamespacedAliasType2 D);
 
   protected:
 

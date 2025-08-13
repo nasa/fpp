@@ -20,7 +20,7 @@ case class ComponentInternalPort (
 
   private def getOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       s"""|Hooks for internal ports
           |
           |Each of these functions is invoked just before dropping a message
@@ -42,7 +42,7 @@ case class ComponentInternalPort (
 
   private def getHandlers: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Internal interface handlers",
       internalPorts.map(p =>
         functionClassMember(
@@ -62,7 +62,7 @@ case class ComponentInternalPort (
 
   private def getHandlerBases: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Internal interface base-class functions",
       internalPorts.map(p =>
         functionClassMember(
@@ -79,14 +79,14 @@ case class ComponentInternalPort (
                     |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
                     |
                     |// Serialize the message ID
-                    |_status = msg.serialize(static_cast<FwEnumStoreType>(${internalPortCppConstantName(p)}));
+                    |_status = msg.serializeFrom(static_cast<FwEnumStoreType>(${internalPortCppConstantName(p)}));
                     |FW_ASSERT (
                     |  _status == Fw::FW_SERIALIZE_OK,
                     |  static_cast<FwAssertArgType>(_status)
                     |);
                     |
                     |// Fake port number to make message dequeue work
-                    |_status = msg.serialize(static_cast<FwIndexType>(0));
+                    |_status = msg.serializeFrom(static_cast<FwIndexType>(0));
                     |FW_ASSERT (
                     |  _status == Fw::FW_SERIALIZE_OK,
                     |  static_cast<FwAssertArgType>(_status)
@@ -96,7 +96,7 @@ case class ComponentInternalPort (
               intersperseBlankLines(
                 getPortParams(p).map((n, _, _) =>
                   lines(
-                    s"""|_status = msg.serialize($n);
+                    s"""|_status = msg.serializeFrom($n);
                         |FW_ASSERT(
                         |  _status == Fw::FW_SERIALIZE_OK,
                         |  static_cast<FwAssertArgType>(_status)

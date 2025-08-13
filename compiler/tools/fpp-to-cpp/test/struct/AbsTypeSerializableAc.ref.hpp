@@ -84,14 +84,17 @@ class AbsType :
     // ----------------------------------------------------------------------
 
     //! Serialization
-    Fw::SerializeStatus serialize(
+    Fw::SerializeStatus serializeTo(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     ) const;
 
     //! Deserialization
-    Fw::SerializeStatus deserialize(
+    Fw::SerializeStatus deserializeFrom(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     );
+
+    //! Get the dynamic serialized size of the struct
+    FwSizeType serializedSize() const;
 
 #if FW_SERIALIZABLE_TO_STRING
 
@@ -107,13 +110,13 @@ class AbsType :
     // ----------------------------------------------------------------------
 
     //! Get member t
-    T& gett()
+    T& get_t()
     {
       return this->m_t;
     }
 
     //! Get member t (const)
-    const T& gett() const
+    const T& get_t() const
     {
       return this->m_t;
     }
@@ -126,7 +129,7 @@ class AbsType :
     void set(const T& t);
 
     //! Set member t
-    void sett(const T& t);
+    void set_t(const T& t);
 
   protected:
 
