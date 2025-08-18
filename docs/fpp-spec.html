@@ -8373,9 +8373,8 @@ elements to the common type.</p>
 <div class="sect2">
 <h3 id="Expressions_Dot-Expressions">10.4. Dot Expressions</h3>
 <div class="paragraph">
-<p>A <strong>dot expression</strong> is a
-<a href="#Definitions-and-Uses_Uses">use</a>
-that refers to a
+<p>A <strong>dot expression</strong> is an expression that selects a
+member of a <a href="#Types_Struct-Types">struct</a> or <a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct</a> typed expression or a <a href="#Definitions-and-Uses_Uses">use</a> that refers to a
 <a href="#Definitions_Constant-Definitions">constant definition</a>
 or
 <a href="#Definitions_Enumerated-Constant-Definitions">enumerated constant definition</a>.</p>
@@ -8395,6 +8394,12 @@ or
 </div>
 <div class="olist arabic">
 <ol class="arabic">
+<li>
+<p>If \$e\$ is an <a href="#Expressions">expression</a> of <a href="#Types_Struct-Types">struct type</a>
+or <a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct type</a>
+where <code>x</code> is a member, then it evaluates to the value stored in the member of the
+corresponding <a href="#Values_Struct-Values">struct value</a>.</p>
+</li>
 <li>
 <p>If \$e\$<code>.x</code> is a
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified
@@ -8429,6 +8434,20 @@ constant b = M.a # M.a evaluates to 1</code></pre>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">enum E { X = 0, Y = 1 }
 constant a = E.X # E.X evaluates to 0</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="Expressions_Dot-Expressions_Examples_Example-3">Example 3</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+  constant a = {
+    b = 10.2,
+    c = "string",
+  }
+}
+constant a = M.a.b # M.a.b evaluates to 10.2</code></pre>
 </div>
 </div>
 </div>
@@ -10289,7 +10308,9 @@ for resolving qualified identifiers</a>, and the use is a valid
 expression</a>, then use the type given in the definition.</p>
 </li>
 <li>
-<p>Otherwise \$e\$<code>.x</code> is invalid. Throw an error.</p>
+<p>Evaluate \$e\$'s type <em>T</em>. If <em>T</em> is not a <a href="#Types_Struct-Types">struct type</a>
+or <a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct type</a>, throw an error.
+If <code>x</code> is not a member of <em>T</em>, throw an error. Use the type from the <code>x</code> member of <em>T</em>.</p>
 </li>
 </ol>
 </div>
@@ -10300,9 +10321,16 @@ expression</a>, then use the type given in the definition.</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">module M {
   constant a = 0 # The constant M.a has type Integer
+  constant b = {
+    c = "string1",
+    d = "string2",
+  }
 }
 constant b = M.a # Expression M.a represents a use of the definition M.a.
-                 # Its type is Integer.</code></pre>
+                 # Its type is Integer.
+
+constant c = M.b.c # Expression M.b.c uses M.b and selects member `c`.
+                   # Its type is string.</code></pre>
 </div>
 </div>
 </div>
@@ -11571,7 +11599,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-08-13 12:59:51 -0700
+Last updated 2025-08-18 13:15:09 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
