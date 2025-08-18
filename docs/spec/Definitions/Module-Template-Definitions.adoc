@@ -44,6 +44,21 @@ Because a template needs to apply its parameters during instantiation,
 analysis inside a template is limited since parameters are variable and
 therefore a full analysis cannot be performed.
 
+A template definition _D_ must be resolvable to a template _T_, according to the
+following algorithm:
+
+. Recursively resolve any template definitions inside of _D_.
+
+. Check that _parameter-sequence_ does not have any duplicate names.
+
+. For each <<Definitions-and-Uses_Uses,use>> of a qualified identifier _Q_ of kind,
+_S_:
+
+.. If _S_ is a <<Definitions_Constant-Definitions,constant definition>>, check that _Q_ is,
+defined in _D_ or named in the _parameter-sequence_.
+
+.. If _S_ is a 
+
 ==== Example
 
 [source,fpp]

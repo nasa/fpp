@@ -134,7 +134,7 @@ target instances.
 
 . The qualified identifier following the keyword `instance` must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
-a interface instance that is available in the enclosing topology,
+a component instance that is available in the enclosing topology,
 either through
 <<Specifiers_Interface-Instance-Specifiers,direct specification>>
 or through
@@ -143,16 +143,16 @@ or through
 . If the instance sequence _I_ appears, then each qualified identifier
 _Q_ appearing in _I_ must refer to a component instance that is available
 in the enclosing topology or a topology definition that is imported into
-the enclosing topology, and each instance must be valid for the pattern
+the enclosing topology, and each component instance must be valid for the pattern
 (i.e., must have a port of the type required for the pattern).
-The instances in the sequence name the target instances for the
-pattern. If no instance sequence appears, then the target instances are
-all instances specified directly in the enclosing topology (not via import)
+The component instances in the sequence name the target component instances for the
+pattern. If no component instance sequence appears, then the target component instances
+are all component instances specified directly in the enclosing topology (not via import)
 that are valid for the pattern.
 
 The meaning of specifier depends on the pattern kind, as follows:
 
-. `command`: The source instance _I_ is a command dispatcher.
+. `command`: The source component instance _I_ is a command dispatcher.
 The following connection graphs are generated:
 
 .. A connection graph named `Command` consisting of all connections
@@ -168,44 +168,44 @@ to the command registration input port of _I_.
 from the command response output port of each target component
 to the command response input port of _I_.
 
-. `event`: The source instance _I_ is an event logger
+. `event`: The source component instance _I_ is an event logger
 with an input port of type `Fw.Log`.
 The generated connection graph has name `Events` and contains
 all connections for sending events to _I_ through an event
 output port.
 
-. `health`: The source instance _I_ is a health component.
+. `health`: The source component instance _I_ is a health component.
 The generated connection graph has name `Health` and contains
 all connections between the health component and ping
 ports of the target components of type `Svc.Ping`.
 
-. `param`: The source instance _I_ is a parameter database
+. `param`: The source component instance _I_ is a parameter database
 component.
 The generate connection graph has name `Parameters`
 and contains all connections for (a) getting
 parameters from the database and (b) saving
 parameters to the database.
 
-. `telemetry`: The source instance _I_ is a telemetry database
+. `telemetry`: The source component instance _I_ is a telemetry database
 with an input port of type `Fw.Tlm`.
 The generated connection graph has name `Telemetry`
 and contains all connections for sending telemetry to _I_
 through a telemetry output port.
 
-. `text event`: The source instance _I_ is a text event
+. `text event`: The source component instance _I_ is a text event
 logger with an input port of type `Fw.LogText`.
 The generated connection graph has name `TextEvents` and contains
 all connections for sending events to _I_ through an event
 output port.
 
-. `time`: The source instance _I_ is a time component.
+. `time`: The source component instance _I_ is a time component.
 The generated connection graph has name `Time` and contains
 all connections for getting the time from _I_ through
 a time get output port.
 
 ==== Example
 
-Assume the following instances are available in the enclosing topology,
+Assume the following component instances are available in the enclosing topology,
 and all have command ports:
 
 [source,fpp]

@@ -2396,38 +2396,38 @@ It associates a base identifier with the component instance.</p>
 <li>
 <p>For each component instance, for each
 command, event, telemetry, or parameter identifier,
-the identifier associated with the instance
+the identifier associated with the component instance
 is computed by adding the base identifier specified here to the relative
 identifier specified in the component.
 For this purpose, command opcodes are identifiers.</p>
 </li>
 <li>
-<p>For each instance, this procedure creates a range of identifiers,
+<p>For each component instance, this procedure creates a range of identifiers,
 from the base identifier to the largest identifier associated
-with the instance.
+with the component instance.
 If the component has no identifiers, then this range is empty.</p>
 </li>
 <li>
-<p>No instance may have a base identifier that lies within
-the identifier range of another instance.</p>
+<p>No component instance may have a base identifier that lies within
+the identifier range of another component instance.</p>
 </li>
 </ol>
 </div>
 </li>
 <li>
 <p>If present, the string literal following the keyword <code>type</code>
-names the implementation type of the instance.
+names the implementation type of the component instance.
 The type must be a valid type in the target language (e.g., a type name
 in C&#43;&#43;).
 If the implementation type is not present, then the code generator
 infers the name of the implementation type from the component name when
-generating the constructor for the instance.
+generating the constructor for the component instance.
 For example:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
 <p>Suppose an FPP model has a component <code>C</code> defined in module <code>M</code>.
-Suppose <em>I</em> is an instance of component <code>M.C</code>.
+Suppose <em>I</em> is a component instance of component <code>M.C</code>.
 By default, the implementation type associated with <em>I</em> is <code>M::C</code>.</p>
 </li>
 <li>
@@ -2510,7 +2510,7 @@ for further information.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>This example defines an instance <code>commandDispatcher</code>
+<p>This example defines a component instance <code>commandDispatcher</code>
 of component <code>Svc.CommandDispatcher</code>.
 It specifies the base identifier, queue size, stack size,
 priority, and CPU.</p>
@@ -2521,11 +2521,11 @@ priority, and CPU.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>This example defines an instance <code>timer</code> of component <code>Svc.Timer</code>.
+<p>This example defines a component instance <code>timer</code> of component <code>Svc.Timer</code>.
 It specifies that the component implementation is located at
 path <code>../../Timers/HardwareTimer.hpp</code> instead of in the default location for the
 component.
-The path is resolved relative to the location of the instance definition.</p>
+The path is resolved relative to the location of the component instance definition.</p>
 </div>
 </div>
 </div>
@@ -2547,10 +2547,12 @@ model.</p>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Constant-Definitions_Semantics">5.6.2. Semantics</h4>
-<div class="paragraph">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
 <p>The identifier <em>I</em> names the constant definition.</p>
-</div>
-<div class="paragraph">
+</li>
+<li>
 <p><em>expression</em> must
 <a href="#Evaluation">evaluate</a>
 to a compile-time constant value <em>v</em>. At any model point where the
@@ -2558,11 +2560,13 @@ to a compile-time constant value <em>v</em>. At any model point where the
 the constant definition according to the
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">scoping
 rules for names</a>, you can use <em>Q</em> as a name for <em>v</em>.</p>
-</div>
-<div class="paragraph">
+</li>
+<li>
 <p>If <em>expression</em> is a <a href="#Expressions_Struct-Expressions">struct expression</a> <em>S</em>,
 each member <em>M</em> in <em>S</em> will be mapped to a constant definition <em>I</em> <code>.</code> <em>M</em> where
 it&#8217;s value is <em>S</em> <code>.</code> <em>M</em>.</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
@@ -2931,6 +2935,35 @@ inside the template are placed into the scope of the expansion specifier.</p>
 <p>Because a template needs to apply its parameters during instantiation,
 analysis inside a template is limited since parameters are variable and
 therefore a full analysis cannot be performed.</p>
+</div>
+<div class="paragraph">
+<p>A template definition <em>D</em> must be resolvable to a template <em>T</em>, according to the
+following algorithm:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Recursively resolve any template definitions inside of <em>D</em>.</p>
+</li>
+<li>
+<p>Check that <em>parameter-sequence</em> does not have any duplicate names.</p>
+</li>
+<li>
+<p>For each <a href="#Definitions-and-Uses_Uses">use</a> of a qualified identifier <em>Q</em> of kind,
+<em>S</em>:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If <em>S</em> is a <a href="#Definitions_Constant-Definitions">constant definition</a>, check that <em>Q</em> is,
+defined in <em>D</em> or named in the <em>parameter-sequence</em>.</p>
+</li>
+<li>
+<p>If <em>S</em> is a</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
@@ -3872,16 +3905,14 @@ or through an <a href="#Specifiers_Interface-Instance-Specifiers">instance speci
 of <em>T'</em> into <em>T</em>.</p>
 </li>
 <li>
-<p>Check that the connections discovered in step 3 are between port
-instances present on interface instances available in <em>T</em>. An interface
-instance <em>I</em> is available in <em>T</em> if:</p>
+<p>For each connection discovered in step 3, check that each endpoint <em>I</em> <code>.</code> <em>P</em> is available
+in <em>T</em> through at least one of the following conditions:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p><em>I</em> is a topology definition in <em>S</em>.</p>
-</li>
-<li>
-<p><em>I</em> is named through a <a href="#Specifiers_Interface-Instance-Specifiers">instance specifier</a> in <em>T</em>.</p>
+<p><em>I</em> is <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">referred to</a>
+in an <a href="#Specifiers_Interface-Instance-Specifiers">instance specifier</a> or <a href="#Specifiers_Topology-Import-Specifiers">import specifier</a>
+in <em>T</em> and <em>P</em> exists in the <a href="#Port-Interfaces">port interface</a> of <em>I</em>.</p>
 </li>
 <li>
 <p><em>I</em> is an instance interface available in a topology in <em>S</em>.</p>
@@ -3893,16 +3924,6 @@ instance <em>I</em> is available in <em>T</em> if:</p>
 <p>For each topology <em>T'</em> in <em>S</em>,
 <a href="#Specifiers_Topology-Import-Specifiers">import the connections</a>
 of <em>T'</em> into <em>T</em>.</p>
-</li>
-<li>
-<p>Resolve
-<a href="#Specifiers_Connection-Graph-Specifiers">graph pattern specifiers</a>,
-adding connections to <em>T</em>.
-Add only connections that are not already present in <em>T</em>.
-For example, if a command pattern indicates a command
-registration connection between two ports, and there is already
-a command registration connection between those ports, then
-do not add the connection.</p>
 </li>
 <li>
 <p>For each <a href="#Instance-Member-Identifiers_Port-Instance-Identifiers">connection endpoint</a> <em>Q</em> . <em>I</em> in <em>T</em>, resolve the endpoint to a
@@ -3919,6 +3940,16 @@ port specifier.</p>
 </li>
 </ol>
 </div>
+</li>
+<li>
+<p>Resolve
+<a href="#Specifiers_Connection-Graph-Specifiers">graph pattern specifiers</a>,
+adding connections to <em>T</em>.
+Add only connections that are not already present in <em>T</em>.
+For example, if a command pattern indicates a command
+registration connection between two ports, and there is already
+a command registration connection between those ports, then
+do not add the connection.</p>
 </li>
 </ol>
 </div>
@@ -5919,7 +5950,7 @@ target instances.</p>
 <li>
 <p>The qualified identifier following the keyword <code>instance</code> must
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
-a interface instance that is available in the enclosing topology,
+a component instance that is available in the enclosing topology,
 either through
 <a href="#Specifiers_Interface-Instance-Specifiers">direct specification</a>
 or through
@@ -5929,11 +5960,11 @@ or through
 <p>If the instance sequence <em>I</em> appears, then each qualified identifier
 <em>Q</em> appearing in <em>I</em> must refer to a component instance that is available
 in the enclosing topology or a topology definition that is imported into
-the enclosing topology, and each instance must be valid for the pattern
+the enclosing topology, and each component instance must be valid for the pattern
 (i.e., must have a port of the type required for the pattern).
-The instances in the sequence name the target instances for the
-pattern. If no instance sequence appears, then the target instances are
-all instances specified directly in the enclosing topology (not via import)
+The component instances in the sequence name the target component instances for the
+pattern. If no component instance sequence appears, then the target component instances
+are all component instances specified directly in the enclosing topology (not via import)
 that are valid for the pattern.</p>
 </li>
 </ol>
@@ -5944,7 +5975,7 @@ that are valid for the pattern.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><code>command</code>: The source instance <em>I</em> is a command dispatcher.
+<p><code>command</code>: The source component instance <em>I</em> is a command dispatcher.
 The following connection graphs are generated:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
@@ -5968,20 +5999,20 @@ to the command response input port of <em>I</em>.</p>
 </div>
 </li>
 <li>
-<p><code>event</code>: The source instance <em>I</em> is an event logger
+<p><code>event</code>: The source component instance <em>I</em> is an event logger
 with an input port of type <code>Fw.Log</code>.
 The generated connection graph has name <code>Events</code> and contains
 all connections for sending events to <em>I</em> through an event
 output port.</p>
 </li>
 <li>
-<p><code>health</code>: The source instance <em>I</em> is a health component.
+<p><code>health</code>: The source component instance <em>I</em> is a health component.
 The generated connection graph has name <code>Health</code> and contains
 all connections between the health component and ping
 ports of the target components of type <code>Svc.Ping</code>.</p>
 </li>
 <li>
-<p><code>param</code>: The source instance <em>I</em> is a parameter database
+<p><code>param</code>: The source component instance <em>I</em> is a parameter database
 component.
 The generate connection graph has name <code>Parameters</code>
 and contains all connections for (a) getting
@@ -5989,21 +6020,21 @@ parameters from the database and (b) saving
 parameters to the database.</p>
 </li>
 <li>
-<p><code>telemetry</code>: The source instance <em>I</em> is a telemetry database
+<p><code>telemetry</code>: The source component instance <em>I</em> is a telemetry database
 with an input port of type <code>Fw.Tlm</code>.
 The generated connection graph has name <code>Telemetry</code>
 and contains all connections for sending telemetry to <em>I</em>
 through a telemetry output port.</p>
 </li>
 <li>
-<p><code>text event</code>: The source instance <em>I</em> is a text event
+<p><code>text event</code>: The source component instance <em>I</em> is a text event
 logger with an input port of type <code>Fw.LogText</code>.
 The generated connection graph has name <code>TextEvents</code> and contains
 all connections for sending events to <em>I</em> through an event
 output port.</p>
 </li>
 <li>
-<p><code>time</code>: The source instance <em>I</em> is a time component.
+<p><code>time</code>: The source component instance <em>I</em> is a time component.
 The generated connection graph has name <code>Time</code> and contains
 all connections for getting the time from <em>I</em> through
 a time get output port.</p>
@@ -6014,7 +6045,7 @@ a time get output port.</p>
 <div class="sect3">
 <h4 id="Specifiers_Connection-Graph-Specifiers_Example">7.2.3. Example</h4>
 <div class="paragraph">
-<p>Assume the following instances are available in the enclosing topology,
+<p>Assume the following component instances are available in the enclosing topology,
 and all have command ports:</p>
 </div>
 <div class="listingblock">
@@ -12225,7 +12256,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-08-13 14:20:37 -0700
+Last updated 2025-08-18 08:54:46 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
