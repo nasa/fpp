@@ -1,8 +1,8 @@
 === Dot Expressions
 
-A *dot expression* is a
-<<Definitions-and-Uses_Uses,use>>
-that refers to a
+A *dot expression* is an expression that selects a
+<<Values_Struct-Values,struct member value>> or a
+<<Definitions-and-Uses_Uses,use>> that refers to a
 <<Definitions_Constant-Definitions,constant definition>>
 or
 <<Definitions_Enumerated-Constant-Definitions,enumerated constant definition>>.
