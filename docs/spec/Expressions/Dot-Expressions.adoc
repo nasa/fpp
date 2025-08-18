@@ -17,7 +17,11 @@ or
 
 The following rules give the meaning of a dot expression stem:[e]`.x`:
 
-.  If stem:[e]`.x` is a
+. stem:[e] is an <<Expressions,expression>> that evaluates to a
+<<Values_Struct-Values,struct value>> where `x` is a member of the
+associated <<Types_Struct-Types,struct type>>.
+
+. If stem:[e]`.x` is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified
 identifier>> that represents one of the uses listed above according to
 the
