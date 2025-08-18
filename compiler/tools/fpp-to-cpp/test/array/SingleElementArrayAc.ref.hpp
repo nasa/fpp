@@ -50,7 +50,7 @@ class SingleElement :
     //! Constructor (default value)
     SingleElement();
 
-    //! Constructor (user-provided value)
+    //! Constructor (primitive array)
     SingleElement(
         const ElementType (&a)[SIZE] //!< The array
     );
@@ -86,7 +86,7 @@ class SingleElement :
         const SingleElement& obj //!< The source object
     );
 
-    //! Copy assignment operator (raw array)
+    //! Copy assignment operator (primitive array)
     SingleElement& operator=(
         const ElementType (&a)[SIZE] //!< The source array
     );

@@ -51,7 +51,7 @@ namespace M {
       //! Constructor (default value)
       PrimitiveU16();
 
-      //! Constructor (user-provided value)
+      //! Constructor (primitive array)
       PrimitiveU16(
           const ElementType (&a)[SIZE] //!< The array
       );
@@ -94,7 +94,7 @@ namespace M {
           const PrimitiveU16& obj //!< The source object
       );
 
-      //! Copy assignment operator (raw array)
+      //! Copy assignment operator (primitive array)
       PrimitiveU16& operator=(
           const ElementType (&a)[SIZE] //!< The source array
       );

@@ -51,7 +51,7 @@ class AliasType :
     //! Constructor (default value)
     AliasType();
 
-    //! Constructor (user-provided value)
+    //! Constructor (primitive array)
     AliasType(
         const ElementType (&a)[SIZE] //!< The array
     );
@@ -94,7 +94,7 @@ class AliasType :
         const AliasType& obj //!< The source object
     );
 
-    //! Copy assignment operator (raw array)
+    //! Copy assignment operator (primitive array)
     AliasType& operator=(
         const ElementType (&a)[SIZE] //!< The source array
     );

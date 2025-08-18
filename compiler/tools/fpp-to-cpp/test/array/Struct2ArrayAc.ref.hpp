@@ -51,7 +51,7 @@ class Struct2 :
     //! Constructor (default value)
     Struct2();
 
-    //! Constructor (user-provided value)
+    //! Constructor (primitive array)
     Struct2(
         const ElementType (&a)[SIZE] //!< The array
     );
@@ -94,7 +94,7 @@ class Struct2 :
         const Struct2& obj //!< The source object
     );
 
-    //! Copy assignment operator (raw array)
+    //! Copy assignment operator (primitive array)
     Struct2& operator=(
         const ElementType (&a)[SIZE] //!< The source array
     );

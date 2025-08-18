@@ -52,7 +52,7 @@ namespace M {
       //! Constructor (default value)
       PrimitiveI32();
 
-      //! Constructor (user-provided value)
+      //! Constructor (primitive array)
       PrimitiveI32(
           const ElementType (&a)[SIZE] //!< The array
       );
@@ -95,7 +95,7 @@ namespace M {
           const PrimitiveI32& obj //!< The source object
       );
 
-      //! Copy assignment operator (raw array)
+      //! Copy assignment operator (primitive array)
       PrimitiveI32& operator=(
           const ElementType (&a)[SIZE] //!< The source array
       );

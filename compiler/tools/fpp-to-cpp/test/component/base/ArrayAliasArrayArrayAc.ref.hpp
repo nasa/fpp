@@ -50,7 +50,7 @@ class ArrayAliasArray :
     //! Constructor (default value)
     ArrayAliasArray();
 
-    //! Constructor (user-provided value)
+    //! Constructor (primitive array)
     ArrayAliasArray(
         const ElementType (&a)[SIZE] //!< The array
     );
@@ -93,7 +93,7 @@ class ArrayAliasArray :
         const ArrayAliasArray& obj //!< The source object
     );
 
-    //! Copy assignment operator (raw array)
+    //! Copy assignment operator (primitive array)
     ArrayAliasArray& operator=(
         const ElementType (&a)[SIZE] //!< The source array
     );

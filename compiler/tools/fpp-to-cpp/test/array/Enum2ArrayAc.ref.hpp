@@ -50,7 +50,7 @@ class Enum2 :
     //! Constructor (default value)
     Enum2();
 
-    //! Constructor (user-provided value)
+    //! Constructor (primitive array)
     Enum2(
         const ElementType (&a)[SIZE] //!< The array
     );
@@ -95,7 +95,7 @@ class Enum2 :
         const Enum2& obj //!< The source object
     );
 
-    //! Copy assignment operator (raw array)
+    //! Copy assignment operator (primitive array)
     Enum2& operator=(
         const ElementType (&a)[SIZE] //!< The source array
     );

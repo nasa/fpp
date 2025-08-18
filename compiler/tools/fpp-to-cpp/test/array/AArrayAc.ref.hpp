@@ -50,7 +50,7 @@ class A :
     //! Constructor (default value)
     A();
 
-    //! Constructor (user-provided value)
+    //! Constructor (primitive array)
     A(
         const ElementType (&a)[SIZE] //!< The array
     );
@@ -93,7 +93,7 @@ class A :
         const A& obj //!< The source object
     );
 
-    //! Copy assignment operator (raw array)
+    //! Copy assignment operator (primitive array)
     A& operator=(
         const ElementType (&a)[SIZE] //!< The source array
     );

@@ -210,7 +210,7 @@ case class ArrayCppWriter (
           )
         ),
         constructorClassMember(
-          Some("Constructor (user-provided value)"),
+          Some("Constructor (primitive array)"),
           List(
             CppDoc.Function.Param(
               CppDoc.Type(s"const ElementType"),
@@ -323,7 +323,7 @@ case class ArrayCppWriter (
         ).flatten,
       ),
       functionClassMember(
-        Some("Copy assignment operator (raw array)"),
+        Some("Copy assignment operator (primitive array)"),
         "operator=",
         List(
           CppDoc.Function.Param(

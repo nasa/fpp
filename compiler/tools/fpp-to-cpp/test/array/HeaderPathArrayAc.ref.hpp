@@ -51,7 +51,7 @@ class HeaderPath :
     //! Constructor (default value)
     HeaderPath();
 
-    //! Constructor (user-provided value)
+    //! Constructor (primitive array)
     HeaderPath(
         const ElementType (&a)[SIZE] //!< The array
     );
@@ -94,7 +94,7 @@ class HeaderPath :
         const HeaderPath& obj //!< The source object
     );
 
-    //! Copy assignment operator (raw array)
+    //! Copy assignment operator (primitive array)
     HeaderPath& operator=(
         const ElementType (&a)[SIZE] //!< The source array
     );

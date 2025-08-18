@@ -51,7 +51,7 @@ class AbsType :
     //! Constructor (default value)
     AbsType();
 
-    //! Constructor (user-provided value)
+    //! Constructor (primitive array)
     AbsType(
         const ElementType (&a)[SIZE] //!< The array
     );
@@ -94,7 +94,7 @@ class AbsType :
         const AbsType& obj //!< The source object
     );
 
-    //! Copy assignment operator (raw array)
+    //! Copy assignment operator (primitive array)
     AbsType& operator=(
         const ElementType (&a)[SIZE] //!< The source array
     );

@@ -51,7 +51,7 @@ class PrimitiveArray :
     //! Constructor (default value)
     PrimitiveArray();
 
-    //! Constructor (user-provided value)
+    //! Constructor (primitive array)
     PrimitiveArray(
         const ElementType (&a)[SIZE] //!< The array
     );
@@ -96,7 +96,7 @@ class PrimitiveArray :
         const PrimitiveArray& obj //!< The source object
     );
 
-    //! Copy assignment operator (raw array)
+    //! Copy assignment operator (primitive array)
     PrimitiveArray& operator=(
         const ElementType (&a)[SIZE] //!< The source array
     );

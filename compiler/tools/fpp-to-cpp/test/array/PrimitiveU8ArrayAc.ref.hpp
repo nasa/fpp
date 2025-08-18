@@ -51,7 +51,7 @@ namespace M {
       //! Constructor (default value)
       PrimitiveU8();
 
-      //! Constructor (user-provided value)
+      //! Constructor (primitive array)
       PrimitiveU8(
           const ElementType (&a)[SIZE] //!< The array
       );
@@ -94,7 +94,7 @@ namespace M {
           const PrimitiveU8& obj //!< The source object
       );
 
-      //! Copy assignment operator (raw array)
+      //! Copy assignment operator (primitive array)
       PrimitiveU8& operator=(
           const ElementType (&a)[SIZE] //!< The source array
       );

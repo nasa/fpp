@@ -51,7 +51,7 @@ class Enum1 :
     //! Constructor (default value)
     Enum1();
 
-    //! Constructor (user-provided value)
+    //! Constructor (primitive array)
     Enum1(
         const ElementType (&a)[SIZE] //!< The array
     );
@@ -93,7 +93,7 @@ class Enum1 :
         const Enum1& obj //!< The source object
     );
 
-    //! Copy assignment operator (raw array)
+    //! Copy assignment operator (primitive array)
     Enum1& operator=(
         const ElementType (&a)[SIZE] //!< The source array
     );

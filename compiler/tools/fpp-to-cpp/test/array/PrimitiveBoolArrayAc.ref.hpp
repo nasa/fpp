@@ -51,7 +51,7 @@ namespace M {
       //! Constructor (default value)
       PrimitiveBool();
 
-      //! Constructor (user-provided value)
+      //! Constructor (primitive array)
       PrimitiveBool(
           const ElementType (&a)[SIZE] //!< The array
       );
@@ -94,7 +94,7 @@ namespace M {
           const PrimitiveBool& obj //!< The source object
       );
 
-      //! Copy assignment operator (raw array)
+      //! Copy assignment operator (primitive array)
       PrimitiveBool& operator=(
           const ElementType (&a)[SIZE] //!< The source array
       );

@@ -54,7 +54,7 @@ class String2 :
     //! Constructor (default value)
     String2();
 
-    //! Constructor (user-provided value)
+    //! Constructor (primitive array)
     String2(
         const ElementType (&a)[SIZE] //!< The array
     );
@@ -96,7 +96,7 @@ class String2 :
         const String2& obj //!< The source object
     );
 
-    //! Copy assignment operator (raw array)
+    //! Copy assignment operator (primitive array)
     String2& operator=(
         const ElementType (&a)[SIZE] //!< The source array
     );

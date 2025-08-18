@@ -52,7 +52,7 @@ namespace M {
       //! Constructor (default value)
       PrimitiveF64();
 
-      //! Constructor (user-provided value)
+      //! Constructor (primitive array)
       PrimitiveF64(
           const ElementType (&a)[SIZE] //!< The array
       );
@@ -97,7 +97,7 @@ namespace M {
           const PrimitiveF64& obj //!< The source object
       );
 
-      //! Copy assignment operator (raw array)
+      //! Copy assignment operator (primitive array)
       PrimitiveF64& operator=(
           const ElementType (&a)[SIZE] //!< The source array
       );

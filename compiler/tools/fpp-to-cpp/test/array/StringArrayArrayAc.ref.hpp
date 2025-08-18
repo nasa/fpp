@@ -51,7 +51,7 @@ class StringArray :
     //! Constructor (default value)
     StringArray();
 
-    //! Constructor (user-provided value)
+    //! Constructor (primitive array)
     StringArray(
         const ElementType (&a)[SIZE] //!< The array
     );
@@ -96,7 +96,7 @@ class StringArray :
         const StringArray& obj //!< The source object
     );
 
-    //! Copy assignment operator (raw array)
+    //! Copy assignment operator (primitive array)
     StringArray& operator=(
         const ElementType (&a)[SIZE] //!< The source array
     );
