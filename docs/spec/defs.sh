@@ -18,10 +18,10 @@ Definitions/Definitions.adoc
 State-Machine-Behavior-Elements/State-Machine-Behavior-Elements.adoc
 Specifiers/Specifiers.adoc
 Instance-Member-Identifiers.adoc
-Template-Parameter-Lists.adoc
 Type-Names.adoc
 Expressions/Expressions.adoc
 Formal-Parameter-Lists.adoc
+Template-Parameter-Lists.adoc
 Format-Strings.adoc
 Comments-and-Annotations.adoc
 Translation-Units-and-Models.adoc
