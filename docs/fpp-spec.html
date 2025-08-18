@@ -2547,12 +2547,7 @@ model.</p>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Constant-Definitions_Semantics">5.6.2. Semantics</h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The identifier <em>I</em> names the constant definition.</p>
-</li>
-<li>
+<div class="paragraph">
 <p><em>expression</em> must
 <a href="#Evaluation">evaluate</a>
 to a compile-time constant value <em>v</em>. At any model point where the
@@ -2560,13 +2555,6 @@ to a compile-time constant value <em>v</em>. At any model point where the
 the constant definition according to the
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">scoping
 rules for names</a>, you can use <em>Q</em> as a name for <em>v</em>.</p>
-</li>
-<li>
-<p>If <em>expression</em> is a <a href="#Expressions_Struct-Expressions">struct expression</a> <em>S</em>,
-each member <em>M</em> in <em>S</em> will be mapped to a constant definition <em>I</em> <code>.</code> <em>M</em> where
-it&#8217;s value is <em>S</em> <code>.</code> <em>M</em>.</p>
-</li>
-</ol>
 </div>
 </div>
 <div class="sect3">
@@ -2575,12 +2563,7 @@ it&#8217;s value is <em>S</em> <code>.</code> <em>M</em>.</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant a = 0 # a has value 0
 constant b = 1.0 # b has value 1.0
-constant c = a # c has value 0
-
-constant d = {
-    a: 0,
-    b: "str",
-} # d.a has value 0, d.b has value "str"</code></pre>
+constant c = a # c has value 0</code></pre>
 </div>
 </div>
 </div>
@@ -12256,7 +12239,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-08-18 08:54:46 -0700
+Last updated 2025-08-18 08:57:21 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
