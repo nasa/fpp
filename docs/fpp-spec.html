@@ -8950,6 +8950,20 @@ constant a = E.X # E.X evaluates to 0</code></pre>
 </div>
 </div>
 </div>
+<div class="sect4">
+<h5 id="Expressions_Dot-Expressions_Examples_Example-3">Example 3</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+  constant a = {
+    b: 10.2,
+    c: "string",
+  }
+}
+constant a = M.a.b # M.a.b evaluates to 10.2</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -12244,7 +12258,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-08-18 09:15:30 -0700
+Last updated 2025-08-18 09:16:51 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

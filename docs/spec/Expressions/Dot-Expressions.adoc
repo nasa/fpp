@@ -50,3 +50,16 @@ constant b = M.a # M.a evaluates to 1
 enum E { X = 0, Y = 1 }
 constant a = E.X # E.X evaluates to 0
 ----
+
+===== Example 3
+
+[source,fpp]
+----
+module M {
+  constant a = {
+    b: 10.2,
+    c: "string",
+  }
+}
+constant a = M.a.b # M.a.b evaluates to 10.2
+----
