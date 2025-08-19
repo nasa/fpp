@@ -138,7 +138,7 @@ object CheckUses extends UseAnalyzer {
         for {
           _ <- {
             Result.annotateResult(
-              constantUse(a, itu.asExprNode, itu.name),
+              exprNode(a, itu.asExprNode),
               s"when constructing a dictionary, the constant ${itu.name} must be defined"
             )
           }

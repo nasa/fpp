@@ -210,7 +210,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
 
   private def visitImpliedConstantUses(a: Analysis, id: AstNode.Id) = {
     val uses = a.getImpliedUses(ImpliedUse.Kind.Constant, id).toList
-    def visit(a: Analysis, iu: ImpliedUse) = constantUse(a, iu.asExprNode, iu.name)
+    def visit(a: Analysis, iu: ImpliedUse) = exprNode(a, iu.asExprNode)
     visitList(a, uses, visit)
   }
 
