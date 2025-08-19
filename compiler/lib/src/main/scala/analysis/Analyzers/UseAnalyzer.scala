@@ -2,7 +2,6 @@ package fpp.compiler.analysis
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
-import java.lang.InternalError
 
 /** Analyze uses */
 trait UseAnalyzer extends TypeExpressionAnalyzer {
