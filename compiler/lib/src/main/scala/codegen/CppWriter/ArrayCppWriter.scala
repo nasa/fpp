@@ -209,7 +209,7 @@ case class ArrayCppWriter (
       Some("Constructor (initializer list)"),
       List(
         CppDoc.Function.Param(
-          CppDoc.Type(s"std::initializer_list<$initializerListEltType>"),
+          CppDoc.Type(s"const std::initializer_list<$initializerListEltType>&"),
           "il",
           Some("The initializer list"),
         ),
@@ -336,7 +336,7 @@ case class ArrayCppWriter (
         "operator=",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type(s"std::initializer_list<$initializerListEltType>"),
+            CppDoc.Type(s"const std::initializer_list<$initializerListEltType>&"),
             "il",
             Some("The initializer list"),
           ),

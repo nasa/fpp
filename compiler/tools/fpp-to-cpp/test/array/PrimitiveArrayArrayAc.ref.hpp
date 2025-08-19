@@ -65,7 +65,7 @@ class PrimitiveArray :
 
     //! Constructor (initializer list)
     PrimitiveArray(
-        std::initializer_list<ElementType> il //!< The initializer list
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy constructor
@@ -101,7 +101,7 @@ class PrimitiveArray :
 
     //! Copy assignment operator (initializer list)
     PrimitiveArray& operator=(
-        std::initializer_list<ElementType> il //!< The initializer list
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)

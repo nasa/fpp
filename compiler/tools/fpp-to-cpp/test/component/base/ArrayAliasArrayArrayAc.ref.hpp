@@ -64,7 +64,7 @@ class ArrayAliasArray :
 
     //! Constructor (initializer list)
     ArrayAliasArray(
-        std::initializer_list<ElementType> il //!< The initializer list
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy constructor
@@ -100,7 +100,7 @@ class ArrayAliasArray :
 
     //! Copy assignment operator (initializer list)
     ArrayAliasArray& operator=(
-        std::initializer_list<ElementType> il //!< The initializer list
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)

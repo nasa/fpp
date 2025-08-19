@@ -63,7 +63,7 @@ class C_A :
 
     //! Constructor (initializer list)
     C_A(
-        std::initializer_list<ElementType> il //!< The initializer list
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy constructor
@@ -99,7 +99,7 @@ class C_A :
 
     //! Copy assignment operator (initializer list)
     C_A& operator=(
-        std::initializer_list<ElementType> il //!< The initializer list
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)

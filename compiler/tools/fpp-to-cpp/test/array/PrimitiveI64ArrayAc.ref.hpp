@@ -66,7 +66,7 @@ namespace M {
 
       //! Constructor (initializer list)
       PrimitiveI64(
-          std::initializer_list<ElementType> il //!< The initializer list
+          const std::initializer_list<ElementType>& il //!< The initializer list
       );
 
       //! Copy constructor
@@ -102,7 +102,7 @@ namespace M {
 
       //! Copy assignment operator (initializer list)
       PrimitiveI64& operator=(
-          std::initializer_list<ElementType> il //!< The initializer list
+          const std::initializer_list<ElementType>& il //!< The initializer list
       );
 
       //! Copy assignment operator (single element)

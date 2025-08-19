@@ -65,7 +65,7 @@ namespace M {
 
       //! Constructor (initializer list)
       PrimitiveBool(
-          std::initializer_list<ElementType> il //!< The initializer list
+          const std::initializer_list<ElementType>& il //!< The initializer list
       );
 
       //! Copy constructor
@@ -101,7 +101,7 @@ namespace M {
 
       //! Copy assignment operator (initializer list)
       PrimitiveBool& operator=(
-          std::initializer_list<ElementType> il //!< The initializer list
+          const std::initializer_list<ElementType>& il //!< The initializer list
       );
 
       //! Copy assignment operator (single element)

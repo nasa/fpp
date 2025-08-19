@@ -65,7 +65,7 @@ class HeaderPath :
 
     //! Constructor (initializer list)
     HeaderPath(
-        std::initializer_list<ElementType> il //!< The initializer list
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy constructor
@@ -101,7 +101,7 @@ class HeaderPath :
 
     //! Copy assignment operator (initializer list)
     HeaderPath& operator=(
-        std::initializer_list<ElementType> il //!< The initializer list
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)

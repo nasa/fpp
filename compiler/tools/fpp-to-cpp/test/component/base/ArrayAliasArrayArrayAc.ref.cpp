@@ -37,7 +37,7 @@ ArrayAliasArray ::
 }
 
 ArrayAliasArray ::
-  ArrayAliasArray(std::initializer_list<ElementType> il) :
+  ArrayAliasArray(const std::initializer_list<ElementType>& il) :
     Serializable()
 {
   *this = il;
@@ -93,7 +93,7 @@ ArrayAliasArray& ArrayAliasArray ::
 }
 
 ArrayAliasArray& ArrayAliasArray ::
-  operator=(std::initializer_list<ElementType> il)
+  operator=(const std::initializer_list<ElementType>& il)
 {
   // Since we are required to use C++11, this has to be a runtime check
   // In C++14, it can be a static check

@@ -65,7 +65,7 @@ class AbsType :
 
     //! Constructor (initializer list)
     AbsType(
-        std::initializer_list<ElementType> il //!< The initializer list
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy constructor
@@ -101,7 +101,7 @@ class AbsType :
 
     //! Copy assignment operator (initializer list)
     AbsType& operator=(
-        std::initializer_list<ElementType> il //!< The initializer list
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)

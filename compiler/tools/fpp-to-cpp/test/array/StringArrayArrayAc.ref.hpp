@@ -65,7 +65,7 @@ class StringArray :
 
     //! Constructor (initializer list)
     StringArray(
-        std::initializer_list<ElementType> il //!< The initializer list
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy constructor
@@ -101,7 +101,7 @@ class StringArray :
 
     //! Copy assignment operator (initializer list)
     StringArray& operator=(
-        std::initializer_list<ElementType> il //!< The initializer list
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)

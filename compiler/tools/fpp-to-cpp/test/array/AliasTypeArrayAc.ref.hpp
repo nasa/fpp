@@ -65,7 +65,7 @@ class AliasType :
 
     //! Constructor (initializer list)
     AliasType(
-        std::initializer_list<ElementType> il //!< The initializer list
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy constructor
@@ -101,7 +101,7 @@ class AliasType :
 
     //! Copy assignment operator (initializer list)
     AliasType& operator=(
-        std::initializer_list<ElementType> il //!< The initializer list
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)

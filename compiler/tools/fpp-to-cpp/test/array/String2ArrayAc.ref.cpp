@@ -40,7 +40,7 @@ String2 ::
 }
 
 String2 ::
-  String2(std::initializer_list<Fw::String> il) :
+  String2(const std::initializer_list<Fw::String>& il) :
     Serializable()
 {
   this->initElements();
@@ -98,7 +98,7 @@ String2& String2 ::
 }
 
 String2& String2 ::
-  operator=(std::initializer_list<Fw::String> il)
+  operator=(const std::initializer_list<Fw::String>& il)
 {
   // Since we are required to use C++11, this has to be a runtime check
   // In C++14, it can be a static check

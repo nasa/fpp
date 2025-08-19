@@ -65,7 +65,7 @@ class Struct3 :
 
     //! Constructor (initializer list)
     Struct3(
-        std::initializer_list<ElementType> il //!< The initializer list
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy constructor
@@ -101,7 +101,7 @@ class Struct3 :
 
     //! Copy assignment operator (initializer list)
     Struct3& operator=(
-        std::initializer_list<ElementType> il //!< The initializer list
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)

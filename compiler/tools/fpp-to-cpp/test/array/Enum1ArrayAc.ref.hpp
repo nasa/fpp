@@ -65,7 +65,7 @@ class Enum1 :
 
     //! Constructor (initializer list)
     Enum1(
-        std::initializer_list<ElementType> il //!< The initializer list
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy constructor
@@ -101,7 +101,7 @@ class Enum1 :
 
     //! Copy assignment operator (initializer list)
     Enum1& operator=(
-        std::initializer_list<ElementType> il //!< The initializer list
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)

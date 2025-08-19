@@ -39,7 +39,7 @@ namespace M {
   }
 
   PrimitiveF32e ::
-    PrimitiveF32e(std::initializer_list<ElementType> il) :
+    PrimitiveF32e(const std::initializer_list<ElementType>& il) :
       Serializable()
   {
     *this = il;
@@ -95,7 +95,7 @@ namespace M {
   }
 
   PrimitiveF32e& PrimitiveF32e ::
-    operator=(std::initializer_list<ElementType> il)
+    operator=(const std::initializer_list<ElementType>& il)
   {
     // Since we are required to use C++11, this has to be a runtime check
     // In C++14, it can be a static check
