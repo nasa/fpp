@@ -65,16 +65,7 @@ class Struct1 :
 
     //! Constructor (initializer list)
     Struct1(
-        const std::initializer_list<ElementType>& il //!< The initializer list
-    );
-
-    //! Constructor (multiple elements)
-    Struct1(
-        const ElementType& e1, //!< Element 1
-        const ElementType& e2, //!< Element 2
-        const ElementType& e3, //!< Element 3
-        const ElementType& e4, //!< Element 4
-        const ElementType& e5 //!< Element 5
+        std::initializer_list<ElementType> il //!< The initializer list
     );
 
     //! Copy constructor
@@ -110,7 +101,7 @@ class Struct1 :
 
     //! Copy assignment operator (initializer list)
     Struct1& operator=(
-        const std::initializer_list<ElementType>& il //!< The initializer list
+        std::initializer_list<ElementType> il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)

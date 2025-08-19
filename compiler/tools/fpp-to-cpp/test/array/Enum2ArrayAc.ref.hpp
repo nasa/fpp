@@ -64,16 +64,7 @@ class Enum2 :
 
     //! Constructor (initializer list)
     Enum2(
-        const std::initializer_list<ElementType>& il //!< The initializer list
-    );
-
-    //! Constructor (multiple elements)
-    Enum2(
-        const ElementType& e1, //!< Element 1
-        const ElementType& e2, //!< Element 2
-        const ElementType& e3, //!< Element 3
-        const ElementType& e4, //!< Element 4
-        const ElementType& e5 //!< Element 5
+        std::initializer_list<ElementType> il //!< The initializer list
     );
 
     //! Copy constructor
@@ -109,7 +100,7 @@ class Enum2 :
 
     //! Copy assignment operator (initializer list)
     Enum2& operator=(
-        const std::initializer_list<ElementType>& il //!< The initializer list
+        std::initializer_list<ElementType> il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)

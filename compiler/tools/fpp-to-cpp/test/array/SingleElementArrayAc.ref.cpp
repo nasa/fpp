@@ -28,17 +28,19 @@ SingleElement ::
 }
 
 SingleElement ::
-  SingleElement(const std::initializer_list<ElementType>& il) :
+  SingleElement(const ElementType& e) :
     Serializable()
 {
-  *this = il;
+  for (FwSizeType index = 0; index < SIZE; index++) {
+    this->elements[index] = e;
+  }
 }
 
 SingleElement ::
-  SingleElement(const ElementType& e1) :
+  SingleElement(std::initializer_list<ElementType> il) :
     Serializable()
 {
-  this->elements[0] = e1;
+  *this = il;
 }
 
 SingleElement ::
@@ -91,7 +93,7 @@ SingleElement& SingleElement ::
 }
 
 SingleElement& SingleElement ::
-  operator=(const std::initializer_list<ElementType>& il)
+  operator=(std::initializer_list<ElementType> il)
 {
   // Since we are required to use C++11, this has to be a runtime check
   // In C++14, it can be a static check

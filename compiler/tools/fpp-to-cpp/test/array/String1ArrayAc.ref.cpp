@@ -40,25 +40,11 @@ String1 ::
 }
 
 String1 ::
-  String1(const std::initializer_list<ElementType>& il) :
+  String1(std::initializer_list<Fw::String> il) :
     Serializable()
 {
   this->initElements();
   *this = il;
-}
-
-String1 ::
-  String1(
-      const Fw::StringBase& e1,
-      const Fw::StringBase& e2,
-      const Fw::StringBase& e3
-  ) :
-    Serializable()
-{
-  this->initElements();
-  this->elements[0] = e1;
-  this->elements[1] = e2;
-  this->elements[2] = e3;
 }
 
 String1 ::
@@ -112,7 +98,7 @@ String1& String1 ::
 }
 
 String1& String1 ::
-  operator=(const std::initializer_list<ElementType>& il)
+  operator=(std::initializer_list<Fw::String> il)
 {
   // Since we are required to use C++11, this has to be a runtime check
   // In C++14, it can be a static check

@@ -39,23 +39,10 @@ namespace M {
   }
 
   PrimitiveF32f ::
-    PrimitiveF32f(const std::initializer_list<ElementType>& il) :
+    PrimitiveF32f(std::initializer_list<ElementType> il) :
       Serializable()
   {
     *this = il;
-  }
-
-  PrimitiveF32f ::
-    PrimitiveF32f(
-        const ElementType& e1,
-        const ElementType& e2,
-        const ElementType& e3
-    ) :
-      Serializable()
-  {
-    this->elements[0] = e1;
-    this->elements[1] = e2;
-    this->elements[2] = e3;
   }
 
   PrimitiveF32f ::
@@ -108,7 +95,7 @@ namespace M {
   }
 
   PrimitiveF32f& PrimitiveF32f ::
-    operator=(const std::initializer_list<ElementType>& il)
+    operator=(std::initializer_list<ElementType> il)
   {
     // Since we are required to use C++11, this has to be a runtime check
     // In C++14, it can be a static check

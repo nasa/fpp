@@ -68,13 +68,7 @@ class String2 :
 
     //! Constructor (initializer list)
     String2(
-        const std::initializer_list<ElementType>& il //!< The initializer list
-    );
-
-    //! Constructor (multiple elements)
-    String2(
-        const Fw::StringBase& e1, //!< Element 1
-        const Fw::StringBase& e2 //!< Element 2
+        std::initializer_list<Fw::String> il //!< The initializer list
     );
 
     //! Copy constructor
@@ -110,7 +104,7 @@ class String2 :
 
     //! Copy assignment operator (initializer list)
     String2& operator=(
-        const std::initializer_list<ElementType>& il //!< The initializer list
+        std::initializer_list<Fw::String> il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)

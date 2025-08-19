@@ -37,23 +37,10 @@ A ::
 }
 
 A ::
-  A(const std::initializer_list<ElementType>& il) :
+  A(std::initializer_list<ElementType> il) :
     Serializable()
 {
   *this = il;
-}
-
-A ::
-  A(
-      const ElementType& e1,
-      const ElementType& e2,
-      const ElementType& e3
-  ) :
-    Serializable()
-{
-  this->elements[0] = e1;
-  this->elements[1] = e2;
-  this->elements[2] = e3;
 }
 
 A ::
@@ -106,7 +93,7 @@ A& A ::
 }
 
 A& A ::
-  operator=(const std::initializer_list<ElementType>& il)
+  operator=(std::initializer_list<ElementType> il)
 {
   // Since we are required to use C++11, this has to be a runtime check
   // In C++14, it can be a static check

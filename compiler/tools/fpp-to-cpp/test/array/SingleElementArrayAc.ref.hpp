@@ -57,14 +57,14 @@ class SingleElement :
         const ElementType (&a)[SIZE] //!< The array
     );
 
-    //! Constructor (initializer list)
+    //! Constructor (single element)
     SingleElement(
-        const std::initializer_list<ElementType>& il //!< The initializer list
+        const ElementType& e //!< The element
     );
 
-    //! Constructor (multiple elements)
+    //! Constructor (initializer list)
     SingleElement(
-        const ElementType& e1 //!< Element 1
+        std::initializer_list<ElementType> il //!< The initializer list
     );
 
     //! Copy constructor
@@ -100,7 +100,7 @@ class SingleElement :
 
     //! Copy assignment operator (initializer list)
     SingleElement& operator=(
-        const std::initializer_list<ElementType>& il //!< The initializer list
+        std::initializer_list<ElementType> il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)

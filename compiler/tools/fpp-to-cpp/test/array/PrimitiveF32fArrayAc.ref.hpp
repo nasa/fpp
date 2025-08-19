@@ -66,14 +66,7 @@ namespace M {
 
       //! Constructor (initializer list)
       PrimitiveF32f(
-          const std::initializer_list<ElementType>& il //!< The initializer list
-      );
-
-      //! Constructor (multiple elements)
-      PrimitiveF32f(
-          const ElementType& e1, //!< Element 1
-          const ElementType& e2, //!< Element 2
-          const ElementType& e3 //!< Element 3
+          std::initializer_list<ElementType> il //!< The initializer list
       );
 
       //! Copy constructor
@@ -109,7 +102,7 @@ namespace M {
 
       //! Copy assignment operator (initializer list)
       PrimitiveF32f& operator=(
-          const std::initializer_list<ElementType>& il //!< The initializer list
+          std::initializer_list<ElementType> il //!< The initializer list
       );
 
       //! Copy assignment operator (single element)

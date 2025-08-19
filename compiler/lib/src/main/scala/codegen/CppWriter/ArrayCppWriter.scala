@@ -36,6 +36,8 @@ case class ArrayCppWriter (
 
   private val constructorEltType = if hasStringEltType then "Fw::StringBase" else "ElementType"
 
+  private val initializerListEltType = if hasStringEltType then "Fw::String" else constructorEltType
+
   private val arraySize = arrayType.getArraySize.get
 
   private val formatStr = FormatCppWriter.write(
@@ -173,7 +175,7 @@ case class ArrayCppWriter (
         }
       )
     )
-    lazy val singleElementConstructor = constructorClassMember(
+    val singleElementConstructor = constructorClassMember(
       Some("Constructor (single element)"),
       List(
         CppDoc.Function.Param(
@@ -207,7 +209,7 @@ case class ArrayCppWriter (
       Some("Constructor (initializer list)"),
       List(
         CppDoc.Function.Param(
-          CppDoc.Type(s"const std::initializer_list<ElementType>&"),
+          CppDoc.Type(s"std::initializer_list<$initializerListEltType>"),
           "il",
           Some("The initializer list"),
         ),
@@ -216,21 +218,6 @@ case class ArrayCppWriter (
       List.concat(
         initElementsCall,
         lines("*this = il;")
-      )
-    )
-    val multipleElementConstructor = constructorClassMember(
-      Some("Constructor (multiple elements)"),
-      List.range(1, arraySize + 1).map(i => CppDoc.Function.Param(
-        CppDoc.Type(s"const $constructorEltType&"),
-        s"e$i",
-        Some(s"Element $i"),
-      )),
-      List("Serializable()"),
-      List.concat(
-        initElementsCall,
-        List.range(1, arraySize + 1).map(i => line(
-          s"this->elements[${i - 1}] = e$i;"
-        ))
       )
     )
     val copyConstructor = constructorClassMember(
@@ -259,13 +246,9 @@ case class ArrayCppWriter (
           CppDoc.Lines.Both
         ),
         defaultValueConstructor,
-        primitiveArrayConstructor
-      ),
-      // TODO: Remove the guard once we remove the element-argument constructor
-      guardedList (arraySize != 1) (List(singleElementConstructor)),
-      List(
+        primitiveArrayConstructor,
+        singleElementConstructor,
         initializerListConstructor,
-        multipleElementConstructor,
         copyConstructor
       )
     )
@@ -353,7 +336,7 @@ case class ArrayCppWriter (
         "operator=",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type(s"const std::initializer_list<ElementType>&"),
+            CppDoc.Type(s"std::initializer_list<$initializerListEltType>"),
             "il",
             Some("The initializer list"),
           ),

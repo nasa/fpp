@@ -66,16 +66,7 @@ namespace M {
 
       //! Constructor (initializer list)
       PrimitiveF64(
-          const std::initializer_list<ElementType>& il //!< The initializer list
-      );
-
-      //! Constructor (multiple elements)
-      PrimitiveF64(
-          const ElementType& e1, //!< Element 1
-          const ElementType& e2, //!< Element 2
-          const ElementType& e3, //!< Element 3
-          const ElementType& e4, //!< Element 4
-          const ElementType& e5 //!< Element 5
+          std::initializer_list<ElementType> il //!< The initializer list
       );
 
       //! Copy constructor
@@ -111,7 +102,7 @@ namespace M {
 
       //! Copy assignment operator (initializer list)
       PrimitiveF64& operator=(
-          const std::initializer_list<ElementType>& il //!< The initializer list
+          std::initializer_list<ElementType> il //!< The initializer list
       );
 
       //! Copy assignment operator (single element)
