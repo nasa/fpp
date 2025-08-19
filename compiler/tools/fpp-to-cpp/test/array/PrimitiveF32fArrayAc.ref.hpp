@@ -71,7 +71,7 @@ namespace M {
           const ElementType& e3 //!< Element 3
       );
 
-      //! Copy Constructor
+      //! Copy constructor
       PrimitiveF32f(
           const PrimitiveF32f& obj //!< The source object
       );

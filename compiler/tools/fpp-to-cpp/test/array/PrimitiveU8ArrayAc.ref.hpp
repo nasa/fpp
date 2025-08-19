@@ -70,7 +70,7 @@ namespace M {
           const ElementType& e3 //!< Element 3
       );
 
-      //! Copy Constructor
+      //! Copy constructor
       PrimitiveU8(
           const PrimitiveU8& obj //!< The source object
       );

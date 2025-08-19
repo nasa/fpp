@@ -70,7 +70,7 @@ namespace M {
           const ElementType& e3 //!< Element 3
       );
 
-      //! Copy Constructor
+      //! Copy constructor
       PrimitiveBool(
           const PrimitiveBool& obj //!< The source object
       );

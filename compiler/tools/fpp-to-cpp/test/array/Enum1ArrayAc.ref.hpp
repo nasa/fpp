@@ -69,7 +69,7 @@ class Enum1 :
         const ElementType& e2 //!< Element 2
     );
 
-    //! Copy Constructor
+    //! Copy constructor
     Enum1(
         const Enum1& obj //!< The source object
     );

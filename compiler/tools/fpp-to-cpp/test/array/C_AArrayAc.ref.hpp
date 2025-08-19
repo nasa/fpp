@@ -68,7 +68,7 @@ class C_A :
         const ElementType& e3 //!< Element 3
     );
 
-    //! Copy Constructor
+    //! Copy constructor
     C_A(
         const C_A& obj //!< The source object
     );

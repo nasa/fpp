@@ -70,7 +70,7 @@ class AliasType :
         const ElementType& e3 //!< Element 3
     );
 
-    //! Copy Constructor
+    //! Copy constructor
     AliasType(
         const AliasType& obj //!< The source object
     );

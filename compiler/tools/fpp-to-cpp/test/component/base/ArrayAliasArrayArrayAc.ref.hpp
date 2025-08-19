@@ -69,7 +69,7 @@ class ArrayAliasArray :
         const ElementType& e3 //!< Element 3
     );
 
-    //! Copy Constructor
+    //! Copy constructor
     ArrayAliasArray(
         const ArrayAliasArray& obj //!< The source object
     );

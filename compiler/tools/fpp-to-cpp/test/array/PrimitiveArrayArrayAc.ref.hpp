@@ -72,7 +72,7 @@ class PrimitiveArray :
         const ElementType& e5 //!< Element 5
     );
 
-    //! Copy Constructor
+    //! Copy constructor
     PrimitiveArray(
         const PrimitiveArray& obj //!< The source object
     );

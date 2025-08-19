@@ -70,7 +70,7 @@ class AbsType :
         const ElementType& e3 //!< Element 3
     );
 
-    //! Copy Constructor
+    //! Copy constructor
     AbsType(
         const AbsType& obj //!< The source object
     );

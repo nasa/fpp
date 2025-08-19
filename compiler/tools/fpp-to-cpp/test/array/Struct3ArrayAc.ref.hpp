@@ -70,7 +70,7 @@ class Struct3 :
         const ElementType& e3 //!< Element 3
     );
 
-    //! Copy Constructor
+    //! Copy constructor
     Struct3(
         const Struct3& obj //!< The source object
     );

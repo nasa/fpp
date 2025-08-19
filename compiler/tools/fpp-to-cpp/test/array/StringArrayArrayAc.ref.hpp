@@ -72,7 +72,7 @@ class StringArray :
         const ElementType& e5 //!< Element 5
     );
 
-    //! Copy Constructor
+    //! Copy constructor
     StringArray(
         const StringArray& obj //!< The source object
     );

@@ -69,7 +69,7 @@ class A :
         const ElementType& e3 //!< Element 3
     );
 
-    //! Copy Constructor
+    //! Copy constructor
     A(
         const A& obj //!< The source object
     );

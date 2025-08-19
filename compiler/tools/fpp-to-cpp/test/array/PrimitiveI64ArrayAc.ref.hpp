@@ -71,7 +71,7 @@ namespace M {
           const ElementType& e3 //!< Element 3
       );
 
-      //! Copy Constructor
+      //! Copy constructor
       PrimitiveI64(
           const PrimitiveI64& obj //!< The source object
       );

@@ -73,7 +73,7 @@ class String1 :
         const Fw::StringBase& e3 //!< Element 3
     );
 
-    //! Copy Constructor
+    //! Copy constructor
     String1(
         const String1& obj //!< The source object
     );

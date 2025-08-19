@@ -73,7 +73,7 @@ namespace M {
           const ElementType& e5 //!< Element 5
       );
 
-      //! Copy Constructor
+      //! Copy constructor
       PrimitiveF64(
           const PrimitiveF64& obj //!< The source object
       );

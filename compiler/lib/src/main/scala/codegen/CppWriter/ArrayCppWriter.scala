@@ -161,26 +161,78 @@ case class ArrayCppWriter (
   private val initElementsCall = guardedList (hasStringEltType) (lines("this->initElements();"))
 
   private def getConstructorMembers: List[CppDoc.Class.Member] = {
-    // Only write this constructor if the array has more than one element
-    val singleElementConstructor =
-      if arraySize == 1 then Nil
-      else List(
-        constructorClassMember(
-          Some("Constructor (single element)"),
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type(s"const $constructorEltType&"),
-              "e",
-              Some("The element"),
-            )
-          ),
-          List("Serializable()"),
-          List.concat(
-            initElementsCall,
-            indexIterator(lines("this->elements[index] = e;"))
-          )
-        )
+    val defaultValueConstructor = constructorClassMember(
+      Some("Constructor (default value)"),
+      Nil,
+      List("Serializable()"),
+      List.concat(
+        initElementsCall,
+        {
+          val valueString = ValueCppWriter.write(s, arrayType.getDefaultValue.get)
+          lines(s"*this = $valueString;")
+        }
       )
+    )
+    lazy val singleElementConstructor = constructorClassMember(
+      Some("Constructor (single element)"),
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type(s"const $constructorEltType&"),
+          "e",
+          Some("The element"),
+        )
+      ),
+      List("Serializable()"),
+      List.concat(
+        initElementsCall,
+        indexIterator(lines("this->elements[index] = e;"))
+      )
+    )
+    val primitiveArrayConstructor = constructorClassMember(
+      Some("Constructor (primitive array)"),
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type(s"const ElementType"),
+          "(&a)[SIZE]",
+          Some("The array"),
+        )
+      ),
+      List("Serializable()"),
+      List.concat(
+        initElementsCall,
+        indexIterator(lines("this->elements[index] = a[index];"))
+      )
+    )
+    val multipleElementConstructor = constructorClassMember(
+      Some("Constructor (multiple elements)"),
+      List.range(1, arraySize + 1).map(i => CppDoc.Function.Param(
+        CppDoc.Type(s"const $constructorEltType&"),
+        s"e$i",
+        Some(s"Element $i"),
+      )),
+      List("Serializable()"),
+      List.concat(
+        initElementsCall,
+        List.range(1, arraySize + 1).map(i => line(
+          s"this->elements[${i - 1}] = e$i;"
+        ))
+      )
+    )
+    val copyConstructor = constructorClassMember(
+      Some("Copy constructor"),
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type(s"const $name&"),
+          "obj",
+          Some("The source object"),
+        )
+      ),
+      List("Serializable()"),
+      List.concat(
+        initElementsCall,
+        indexIterator(lines("this->elements[index] = obj.elements[index];"))
+      )
+    )
 
     List.concat(
       List(
@@ -191,66 +243,13 @@ case class ArrayCppWriter (
           CppDocWriter.writeBannerComment("Constructors"),
           CppDoc.Lines.Both
         ),
-        constructorClassMember(
-          Some("Constructor (default value)"),
-          Nil,
-          List("Serializable()"),
-          List.concat(
-            initElementsCall,
-            {
-              val valueString = ValueCppWriter.write(s, arrayType.getDefaultValue.get)
-              lines(s"*this = $valueString;")
-            }
-          )
-        ),
-        constructorClassMember(
-          Some("Constructor (primitive array)"),
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type(s"const ElementType"),
-              "(&a)[SIZE]",
-              Some("The array"),
-            )
-          ),
-          List("Serializable()"),
-          List.concat(
-            initElementsCall,
-            indexIterator(lines("this->elements[index] = a[index];"))
-          )
-        )
+        defaultValueConstructor,
+        primitiveArrayConstructor
       ),
-      singleElementConstructor,
+      guardedList (arraySize != 1) (List(singleElementConstructor)),
       List(
-        constructorClassMember(
-          Some("Constructor (multiple elements)"),
-          List.range(1, arraySize + 1).map(i => CppDoc.Function.Param(
-            CppDoc.Type(s"const $constructorEltType&"),
-            s"e$i",
-            Some(s"Element $i"),
-          )),
-          List("Serializable()"),
-          List.concat(
-            initElementsCall,
-            List.range(1, arraySize + 1).map(i => line(
-              s"this->elements[${i - 1}] = e$i;"
-            ))
-          )
-        ),
-        constructorClassMember(
-          Some("Copy Constructor"),
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type(s"const $name&"),
-              "obj",
-              Some("The source object"),
-            )
-          ),
-          List("Serializable()"),
-          List.concat(
-            initElementsCall,
-            indexIterator(lines("this->elements[index] = obj.elements[index];"))
-          )
-        )
+        multipleElementConstructor,
+        copyConstructor
       )
     )
   }

@@ -62,7 +62,7 @@ class SingleElement :
         const ElementType& e1 //!< Element 1
     );
 
-    //! Copy Constructor
+    //! Copy constructor
     SingleElement(
         const SingleElement& obj //!< The source object
     );

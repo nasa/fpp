@@ -70,7 +70,7 @@ class HeaderPath :
         const ElementType& e3 //!< Element 3
     );
 
-    //! Copy Constructor
+    //! Copy constructor
     HeaderPath(
         const HeaderPath& obj //!< The source object
     );
