@@ -7,6 +7,8 @@
 #ifndef Enum1ArrayAc_HPP
 #define Enum1ArrayAc_HPP
 
+#include <initializer_list>
+
 #include "E1EnumAc.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
@@ -80,12 +82,12 @@ class Enum1 :
 
     //! Subscript operator
     ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     );
 
     //! Const subscript operator
     const ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     ) const;
 
     //! Copy assignment operator (object)
@@ -96,6 +98,11 @@ class Enum1 :
     //! Copy assignment operator (primitive array)
     Enum1& operator=(
         const ElementType (&a)[SIZE] //!< The source array
+    );
+
+    //! Copy assignment operator (initializer list)
+    Enum1& operator=(
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)

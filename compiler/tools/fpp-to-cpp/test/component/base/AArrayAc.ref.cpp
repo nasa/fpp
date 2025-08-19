@@ -22,7 +22,7 @@ A ::
   A(const ElementType (&a)[SIZE]) :
     Serializable()
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = a[index];
   }
 }
@@ -31,7 +31,7 @@ A ::
   A(const ElementType& e) :
     Serializable()
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = e;
   }
 }
@@ -53,7 +53,7 @@ A ::
   A(const A& obj) :
     Serializable()
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = obj.elements[index];
   }
 }
@@ -63,14 +63,14 @@ A ::
 // ----------------------------------------------------------------------
 
 A::ElementType& A ::
-  operator[](const U32 i)
+  operator[](const FwSizeType i)
 {
   FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
   return this->elements[i];
 }
 
 const A::ElementType& A ::
-  operator[](const U32 i) const
+  operator[](const FwSizeType i) const
 {
   FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
   return this->elements[i];
@@ -83,7 +83,7 @@ A& A ::
     return *this;
   }
 
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = obj.elements[index];
   }
   return *this;
@@ -92,8 +92,23 @@ A& A ::
 A& A ::
   operator=(const ElementType (&a)[SIZE])
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = a[index];
+  }
+  return *this;
+}
+
+A& A ::
+  operator=(const std::initializer_list<ElementType>& il)
+{
+  // Since we are required to use C++11, this has to be a runtime check
+  // In C++14, it can be a static check
+  FW_ASSERT(il.size() == SIZE, static_cast<FwAssertArgType>(il.size()), static_cast<FwAssertArgType>(SIZE));
+  FwSizeType i = 0;
+  for (const auto& e : il) {
+    FW_ASSERT(i < SIZE);
+    this->elements[i] = e;
+    i++;
   }
   return *this;
 }
@@ -101,7 +116,7 @@ A& A ::
 A& A ::
   operator=(const ElementType& e)
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = e;
   }
   return *this;
@@ -110,7 +125,7 @@ A& A ::
 bool A ::
   operator==(const A& obj) const
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     if (!((*this)[index] == obj[index])) {
       return false;
     }
@@ -143,7 +158,7 @@ Fw::SerializeStatus A ::
   serializeTo(Fw::SerializeBufferBase& buffer) const
 {
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     status = buffer.serializeFrom((*this)[index]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
@@ -156,7 +171,7 @@ Fw::SerializeStatus A ::
   deserializeFrom(Fw::SerializeBufferBase& buffer)
 {
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     status = buffer.deserializeTo((*this)[index]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
@@ -186,7 +201,7 @@ void A ::
     return;
   }
 
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     Fw::String tmp;
     tmp.format("%" PRIu32 "", this->elements[index]);
 

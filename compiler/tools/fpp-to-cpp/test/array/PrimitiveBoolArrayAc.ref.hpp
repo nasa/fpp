@@ -7,6 +7,8 @@
 #ifndef M_PrimitiveBoolArrayAc_HPP
 #define M_PrimitiveBoolArrayAc_HPP
 
+#include <initializer_list>
+
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
@@ -81,12 +83,12 @@ namespace M {
 
       //! Subscript operator
       ElementType& operator[](
-          const U32 i //!< The subscript index
+          const FwSizeType i //!< The subscript index
       );
 
       //! Const subscript operator
       const ElementType& operator[](
-          const U32 i //!< The subscript index
+          const FwSizeType i //!< The subscript index
       ) const;
 
       //! Copy assignment operator (object)
@@ -97,6 +99,11 @@ namespace M {
       //! Copy assignment operator (primitive array)
       PrimitiveBool& operator=(
           const ElementType (&a)[SIZE] //!< The source array
+      );
+
+      //! Copy assignment operator (initializer list)
+      PrimitiveBool& operator=(
+          const std::initializer_list<ElementType>& il //!< The initializer list
       );
 
       //! Copy assignment operator (single element)

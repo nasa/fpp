@@ -79,15 +79,20 @@ case class ArrayCppWriter (
   }
 
   private def getHppIncludes: CppDoc.Member = {
-    val standardHeaders = List(
-      "Fw/FPrimeBasicTypes.hpp",
-      "Fw/Types/ExternalString.hpp",
-      "Fw/Types/Serializable.hpp",
-      "Fw/Types/String.hpp"
-    ).map(CppWriter.headerString)
-    val symbolHeaders = writeIncludeDirectives(s, aNode)
-    val headers = standardHeaders ++ symbolHeaders
-    linesMember(addBlankPrefix(headers.sorted.map(line)))
+    val systemHeaders = List(
+      "initializer_list"
+    ).map(CppWriter.systemHeaderString).map(line)
+    val userHeaders = {
+      val standardHeaders = List(
+        "Fw/FPrimeBasicTypes.hpp",
+        "Fw/Types/ExternalString.hpp",
+        "Fw/Types/Serializable.hpp",
+        "Fw/Types/String.hpp"
+      ).map(CppWriter.headerString)
+      val symbolHeaders = writeIncludeDirectives(s, aNode)
+      (standardHeaders ++ symbolHeaders).sorted.map(line)
+    }
+    linesMember(addBlankPrefix(systemHeaders) ++ addBlankPrefix(userHeaders))
   }
 
   private def getCppIncludes: CppDoc.Member = {
@@ -264,7 +269,7 @@ case class ArrayCppWriter (
         "operator[]",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type("const U32"),
+            CppDoc.Type("const FwSizeType"),
             "i",
             Some("The subscript index"),
           ),
@@ -280,7 +285,7 @@ case class ArrayCppWriter (
         "operator[]",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type("const U32"),
+            CppDoc.Type("const FwSizeType"),
             "i",
             Some("The subscript index"),
           ),
@@ -326,6 +331,28 @@ case class ArrayCppWriter (
           indexIterator(lines("this->elements[index] = a[index];")),
           lines("return *this;"),
         ).flatten
+      ),
+      functionClassMember(
+        Some("Copy assignment operator (initializer list)"),
+        "operator=",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type(s"const std::initializer_list<ElementType>&"),
+            "il",
+            Some("The initializer list"),
+          ),
+        ),
+        CppDoc.Type(s"$name&"),
+        lines("""|// Since we are required to use C++11, this has to be a runtime check
+                 |// In C++14, it can be a static check
+                 |FW_ASSERT(il.size() == SIZE, static_cast<FwAssertArgType>(il.size()), static_cast<FwAssertArgType>(SIZE));
+                 |FwSizeType i = 0;
+                 |for (const auto& e : il) {
+                 |  FW_ASSERT(i < SIZE);
+                 |  this->elements[i] = e;
+                 |  i++;
+                 |}
+                 |return *this;""")
       ),
       functionClassMember(
         Some("Copy assignment operator (single element)"),
@@ -588,7 +615,7 @@ case class ArrayCppWriter (
   // Writes a for loop to iterate over all indices of the array
   private def indexIterator(ll: List[Line]): List[Line] =
     wrapInForLoop(
-      "U32 index = 0",
+      "FwSizeType index = 0",
       "index < SIZE",
       "index++",
       ll,

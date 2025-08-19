@@ -7,6 +7,8 @@
 #ifndef ArrayAliasArrayArrayAc_HPP
 #define ArrayAliasArrayArrayAc_HPP
 
+#include <initializer_list>
+
 #include "AliasAliasArrayAliasAc.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
@@ -80,12 +82,12 @@ class ArrayAliasArray :
 
     //! Subscript operator
     ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     );
 
     //! Const subscript operator
     const ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     ) const;
 
     //! Copy assignment operator (object)
@@ -96,6 +98,11 @@ class ArrayAliasArray :
     //! Copy assignment operator (primitive array)
     ArrayAliasArray& operator=(
         const ElementType (&a)[SIZE] //!< The source array
+    );
+
+    //! Copy assignment operator (initializer list)
+    ArrayAliasArray& operator=(
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)

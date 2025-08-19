@@ -24,7 +24,7 @@ String1 ::
     Serializable()
 {
   this->initElements();
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = a[index];
   }
 }
@@ -34,7 +34,7 @@ String1 ::
     Serializable()
 {
   this->initElements();
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = e;
   }
 }
@@ -58,7 +58,7 @@ String1 ::
     Serializable()
 {
   this->initElements();
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = obj.elements[index];
   }
 }
@@ -68,14 +68,14 @@ String1 ::
 // ----------------------------------------------------------------------
 
 String1::ElementType& String1 ::
-  operator[](const U32 i)
+  operator[](const FwSizeType i)
 {
   FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
   return this->elements[i];
 }
 
 const String1::ElementType& String1 ::
-  operator[](const U32 i) const
+  operator[](const FwSizeType i) const
 {
   FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
   return this->elements[i];
@@ -88,7 +88,7 @@ String1& String1 ::
     return *this;
   }
 
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = obj.elements[index];
   }
   return *this;
@@ -97,8 +97,23 @@ String1& String1 ::
 String1& String1 ::
   operator=(const ElementType (&a)[SIZE])
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = a[index];
+  }
+  return *this;
+}
+
+String1& String1 ::
+  operator=(const std::initializer_list<ElementType>& il)
+{
+  // Since we are required to use C++11, this has to be a runtime check
+  // In C++14, it can be a static check
+  FW_ASSERT(il.size() == SIZE, static_cast<FwAssertArgType>(il.size()), static_cast<FwAssertArgType>(SIZE));
+  FwSizeType i = 0;
+  for (const auto& e : il) {
+    FW_ASSERT(i < SIZE);
+    this->elements[i] = e;
+    i++;
   }
   return *this;
 }
@@ -106,7 +121,7 @@ String1& String1 ::
 String1& String1 ::
   operator=(const ElementType& e)
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = e;
   }
   return *this;
@@ -115,7 +130,7 @@ String1& String1 ::
 bool String1 ::
   operator==(const String1& obj) const
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     if (!((*this)[index] == obj[index])) {
       return false;
     }
@@ -148,7 +163,7 @@ Fw::SerializeStatus String1 ::
   serializeTo(Fw::SerializeBufferBase& buffer) const
 {
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     status = buffer.serializeFrom((*this)[index]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
@@ -161,7 +176,7 @@ Fw::SerializeStatus String1 ::
   deserializeFrom(Fw::SerializeBufferBase& buffer)
 {
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     status = buffer.deserializeTo((*this)[index]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
@@ -174,7 +189,7 @@ FwSizeType String1 ::
   serializedSize() const
 {
   FwSizeType size = 0;
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     size += this->elements[index].serializedSize();
   }
   return size;
@@ -195,7 +210,7 @@ void String1 ::
     return;
   }
 
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     Fw::String tmp;
     tmp = this->elements[index];
 
@@ -225,7 +240,7 @@ void String1 ::
 void String1 ::
   initElements()
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index].setBuffer(&this->buffers[index][0], sizeof this->buffers[index]);
   }
 }

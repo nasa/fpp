@@ -22,7 +22,7 @@ PrimitiveArray ::
   PrimitiveArray(const ElementType (&a)[SIZE]) :
     Serializable()
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = a[index];
   }
 }
@@ -31,7 +31,7 @@ PrimitiveArray ::
   PrimitiveArray(const ElementType& e) :
     Serializable()
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = e;
   }
 }
@@ -57,7 +57,7 @@ PrimitiveArray ::
   PrimitiveArray(const PrimitiveArray& obj) :
     Serializable()
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = obj.elements[index];
   }
 }
@@ -67,14 +67,14 @@ PrimitiveArray ::
 // ----------------------------------------------------------------------
 
 PrimitiveArray::ElementType& PrimitiveArray ::
-  operator[](const U32 i)
+  operator[](const FwSizeType i)
 {
   FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
   return this->elements[i];
 }
 
 const PrimitiveArray::ElementType& PrimitiveArray ::
-  operator[](const U32 i) const
+  operator[](const FwSizeType i) const
 {
   FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
   return this->elements[i];
@@ -87,7 +87,7 @@ PrimitiveArray& PrimitiveArray ::
     return *this;
   }
 
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = obj.elements[index];
   }
   return *this;
@@ -96,8 +96,23 @@ PrimitiveArray& PrimitiveArray ::
 PrimitiveArray& PrimitiveArray ::
   operator=(const ElementType (&a)[SIZE])
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = a[index];
+  }
+  return *this;
+}
+
+PrimitiveArray& PrimitiveArray ::
+  operator=(const std::initializer_list<ElementType>& il)
+{
+  // Since we are required to use C++11, this has to be a runtime check
+  // In C++14, it can be a static check
+  FW_ASSERT(il.size() == SIZE, static_cast<FwAssertArgType>(il.size()), static_cast<FwAssertArgType>(SIZE));
+  FwSizeType i = 0;
+  for (const auto& e : il) {
+    FW_ASSERT(i < SIZE);
+    this->elements[i] = e;
+    i++;
   }
   return *this;
 }
@@ -105,7 +120,7 @@ PrimitiveArray& PrimitiveArray ::
 PrimitiveArray& PrimitiveArray ::
   operator=(const ElementType& e)
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = e;
   }
   return *this;
@@ -114,7 +129,7 @@ PrimitiveArray& PrimitiveArray ::
 bool PrimitiveArray ::
   operator==(const PrimitiveArray& obj) const
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     if (!((*this)[index] == obj[index])) {
       return false;
     }
@@ -147,7 +162,7 @@ Fw::SerializeStatus PrimitiveArray ::
   serializeTo(Fw::SerializeBufferBase& buffer) const
 {
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     status = buffer.serializeFrom((*this)[index]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
@@ -160,7 +175,7 @@ Fw::SerializeStatus PrimitiveArray ::
   deserializeFrom(Fw::SerializeBufferBase& buffer)
 {
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     status = buffer.deserializeTo((*this)[index]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
@@ -173,7 +188,7 @@ FwSizeType PrimitiveArray ::
   serializedSize() const
 {
   FwSizeType size = 0;
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     size += this->elements[index].serializedSize();
   }
   return size;
@@ -194,7 +209,7 @@ void PrimitiveArray ::
     return;
   }
 
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     Fw::String tmp;
     this->elements[index].toString(tmp);
 
