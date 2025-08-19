@@ -62,6 +62,11 @@ class ArrayAliasArray :
         const ElementType& e //!< The element
     );
 
+    //! Constructor (initializer list)
+    ArrayAliasArray(
+        const std::initializer_list<ElementType>& il //!< The initializer list
+    );
+
     //! Constructor (multiple elements)
     ArrayAliasArray(
         const ElementType& e1, //!< Element 1

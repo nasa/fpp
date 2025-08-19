@@ -63,6 +63,11 @@ class PrimitiveArray :
         const ElementType& e //!< The element
     );
 
+    //! Constructor (initializer list)
+    PrimitiveArray(
+        const std::initializer_list<ElementType>& il //!< The initializer list
+    );
+
     //! Constructor (multiple elements)
     PrimitiveArray(
         const ElementType& e1, //!< Element 1

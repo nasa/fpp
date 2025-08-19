@@ -37,6 +37,13 @@ Struct3 ::
 }
 
 Struct3 ::
+  Struct3(const std::initializer_list<ElementType>& il) :
+    Serializable()
+{
+  *this = il;
+}
+
+Struct3 ::
   Struct3(
       const ElementType& e1,
       const ElementType& e2,

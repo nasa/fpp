@@ -39,6 +39,13 @@ namespace M {
   }
 
   PrimitiveU8 ::
+    PrimitiveU8(const std::initializer_list<ElementType>& il) :
+      Serializable()
+  {
+    *this = il;
+  }
+
+  PrimitiveU8 ::
     PrimitiveU8(
         const ElementType& e1,
         const ElementType& e2,

@@ -63,6 +63,11 @@ class Enum1 :
         const ElementType& e //!< The element
     );
 
+    //! Constructor (initializer list)
+    Enum1(
+        const std::initializer_list<ElementType>& il //!< The initializer list
+    );
+
     //! Constructor (multiple elements)
     Enum1(
         const ElementType& e1, //!< Element 1

@@ -37,6 +37,13 @@ PrimitiveArray ::
 }
 
 PrimitiveArray ::
+  PrimitiveArray(const std::initializer_list<ElementType>& il) :
+    Serializable()
+{
+  *this = il;
+}
+
+PrimitiveArray ::
   PrimitiveArray(
       const ElementType& e1,
       const ElementType& e2,

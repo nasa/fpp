@@ -37,6 +37,13 @@ StringArray ::
 }
 
 StringArray ::
+  StringArray(const std::initializer_list<ElementType>& il) :
+    Serializable()
+{
+  *this = il;
+}
+
+StringArray ::
   StringArray(
       const ElementType& e1,
       const ElementType& e2,

@@ -63,6 +63,11 @@ class Struct2 :
         const ElementType& e //!< The element
     );
 
+    //! Constructor (initializer list)
+    Struct2(
+        const std::initializer_list<ElementType>& il //!< The initializer list
+    );
+
     //! Constructor (multiple elements)
     Struct2(
         const ElementType& e1, //!< Element 1

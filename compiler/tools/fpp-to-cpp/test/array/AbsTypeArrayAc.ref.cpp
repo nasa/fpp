@@ -37,6 +37,13 @@ AbsType ::
 }
 
 AbsType ::
+  AbsType(const std::initializer_list<ElementType>& il) :
+    Serializable()
+{
+  *this = il;
+}
+
+AbsType ::
   AbsType(
       const ElementType& e1,
       const ElementType& e2,

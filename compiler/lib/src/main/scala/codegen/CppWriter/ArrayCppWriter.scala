@@ -72,10 +72,10 @@ case class ArrayCppWriter (
       Some("public Fw::Serializable"),
       getClassMembers
     )
-    List(
+    List.concat(
       List(hppIncludes, cppIncludes),
       wrapInNamespaces(namespaceIdentList, List(cls))
-    ).flatten
+    )
   }
 
   private def getHppIncludes: CppDoc.Member = {
@@ -117,7 +117,7 @@ case class ArrayCppWriter (
   private def getTypeMembers: List[CppDoc.Class.Member] =
     List(
       linesClassMember(
-        List(
+        List.concat(
           CppDocHppWriter.writeAccessTag("public"),
           CppDocWriter.writeBannerComment("Types"),
           lines(
@@ -125,7 +125,7 @@ case class ArrayCppWriter (
                 |//! The element type
                 |using ElementType = $eltTypeName;"""
           ),
-        ).flatten
+        )
       )
     )
 
@@ -203,6 +203,21 @@ case class ArrayCppWriter (
         indexIterator(lines("this->elements[index] = a[index];"))
       )
     )
+    val initializerListConstructor = constructorClassMember(
+      Some("Constructor (initializer list)"),
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type(s"const std::initializer_list<ElementType>&"),
+          "il",
+          Some("The initializer list"),
+        ),
+      ),
+      List("Serializable()"),
+      List.concat(
+        initElementsCall,
+        lines("*this = il;")
+      )
+    )
     val multipleElementConstructor = constructorClassMember(
       Some("Constructor (multiple elements)"),
       List.range(1, arraySize + 1).map(i => CppDoc.Function.Param(
@@ -249,6 +264,7 @@ case class ArrayCppWriter (
       // TODO: Remove the guard once we remove the element-argument constructor
       guardedList (arraySize != 1) (List(singleElementConstructor)),
       List(
+        initializerListConstructor,
         multipleElementConstructor,
         copyConstructor
       )
@@ -309,12 +325,12 @@ case class ArrayCppWriter (
           ),
         ),
         CppDoc.Type(s"$name&"),
-        List(
+        List.concat(
           wrapInIf("this == &obj", lines("return *this;")),
           Line.blank ::
           indexIterator(lines("this->elements[index] = obj.elements[index];")),
           lines("return *this;"),
-        ).flatten,
+        ),
       ),
       functionClassMember(
         Some("Copy assignment operator (primitive array)"),
@@ -327,10 +343,10 @@ case class ArrayCppWriter (
           ),
         ),
         CppDoc.Type(s"$name&"),
-        List(
+        List.concat(
           indexIterator(lines("this->elements[index] = a[index];")),
           lines("return *this;"),
-        ).flatten
+        )
       ),
       functionClassMember(
         Some("Copy assignment operator (initializer list)"),
@@ -365,10 +381,10 @@ case class ArrayCppWriter (
           ),
         ),
         CppDoc.Type(s"$name&"),
-        List(
+        List.concat(
           indexIterator(lines("this->elements[index] = e;")),
           lines("return *this;"),
-        ).flatten
+        )
       ),
       functionClassMember(
         Some("Equality operator"),
@@ -381,13 +397,13 @@ case class ArrayCppWriter (
           ),
         ),
         CppDoc.Type("bool"),
-        List(
+        List.concat(
           indexIterator(wrapInIf(
             "!((*this)[index] == obj[index])",
             lines("return false;"),
           )),
           lines("return true;"),
-        ).flatten,
+        ),
         CppDoc.Function.NonSV,
         CppDoc.Function.Const,
       ),
@@ -483,14 +499,14 @@ case class ArrayCppWriter (
           )
         ),
         CppDoc.Type("Fw::SerializeStatus"),
-        List(
+        List.concat(
           lines("Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;"),
           indexIterator(
             line("status = buffer.serializeFrom((*this)[index]);") ::
               wrapInIf("status != Fw::FW_SERIALIZE_OK", lines("return status;")),
           ),
           lines("return status;"),
-        ).flatten,
+        ),
         CppDoc.Function.NonSV,
         CppDoc.Function.Const
       ),
@@ -505,14 +521,14 @@ case class ArrayCppWriter (
           )
         ),
         CppDoc.Type("Fw::SerializeStatus"),
-        List(
+        List.concat(
           lines("Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;"),
           indexIterator(
             line("status = buffer.deserializeTo((*this)[index]);") ::
               wrapInIf("status != Fw::FW_SERIALIZE_OK", lines("return status;")),
           ),
           lines("return status;"),
-        ).flatten,
+        ),
       ),
       functionClassMember(
         Some("Get the dynamic serialized size of the array"),

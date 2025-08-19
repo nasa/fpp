@@ -63,6 +63,11 @@ class AliasType :
         const ElementType& e //!< The element
     );
 
+    //! Constructor (initializer list)
+    AliasType(
+        const std::initializer_list<ElementType>& il //!< The initializer list
+    );
+
     //! Constructor (multiple elements)
     AliasType(
         const ElementType& e1, //!< Element 1

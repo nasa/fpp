@@ -39,6 +39,13 @@ namespace M {
   }
 
   PrimitiveF64 ::
+    PrimitiveF64(const std::initializer_list<ElementType>& il) :
+      Serializable()
+  {
+    *this = il;
+  }
+
+  PrimitiveF64 ::
     PrimitiveF64(
         const ElementType& e1,
         const ElementType& e2,

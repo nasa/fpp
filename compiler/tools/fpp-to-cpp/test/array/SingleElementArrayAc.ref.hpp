@@ -57,6 +57,11 @@ class SingleElement :
         const ElementType (&a)[SIZE] //!< The array
     );
 
+    //! Constructor (initializer list)
+    SingleElement(
+        const std::initializer_list<ElementType>& il //!< The initializer list
+    );
+
     //! Constructor (multiple elements)
     SingleElement(
         const ElementType& e1 //!< Element 1

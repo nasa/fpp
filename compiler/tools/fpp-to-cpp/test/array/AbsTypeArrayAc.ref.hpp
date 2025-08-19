@@ -63,6 +63,11 @@ class AbsType :
         const ElementType& e //!< The element
     );
 
+    //! Constructor (initializer list)
+    AbsType(
+        const std::initializer_list<ElementType>& il //!< The initializer list
+    );
+
     //! Constructor (multiple elements)
     AbsType(
         const ElementType& e1, //!< Element 1

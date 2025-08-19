@@ -66,6 +66,11 @@ class String2 :
         const Fw::StringBase& e //!< The element
     );
 
+    //! Constructor (initializer list)
+    String2(
+        const std::initializer_list<ElementType>& il //!< The initializer list
+    );
+
     //! Constructor (multiple elements)
     String2(
         const Fw::StringBase& e1, //!< Element 1

@@ -63,6 +63,11 @@ namespace M {
           const ElementType& e //!< The element
       );
 
+      //! Constructor (initializer list)
+      PrimitiveU8(
+          const std::initializer_list<ElementType>& il //!< The initializer list
+      );
+
       //! Constructor (multiple elements)
       PrimitiveU8(
           const ElementType& e1, //!< Element 1

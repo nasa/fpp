@@ -64,6 +64,11 @@ namespace M {
           const ElementType& e //!< The element
       );
 
+      //! Constructor (initializer list)
+      PrimitiveI32(
+          const std::initializer_list<ElementType>& il //!< The initializer list
+      );
+
       //! Constructor (multiple elements)
       PrimitiveI32(
           const ElementType& e1, //!< Element 1

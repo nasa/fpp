@@ -37,6 +37,13 @@ A ::
 }
 
 A ::
+  A(const std::initializer_list<ElementType>& il) :
+    Serializable()
+{
+  *this = il;
+}
+
+A ::
   A(
       const ElementType& e1,
       const ElementType& e2,

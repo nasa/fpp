@@ -39,6 +39,13 @@ namespace M {
   }
 
   PrimitiveBool ::
+    PrimitiveBool(const std::initializer_list<ElementType>& il) :
+      Serializable()
+  {
+    *this = il;
+  }
+
+  PrimitiveBool ::
     PrimitiveBool(
         const ElementType& e1,
         const ElementType& e2,

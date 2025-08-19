@@ -39,6 +39,13 @@ namespace M {
   }
 
   PrimitiveF32e ::
+    PrimitiveF32e(const std::initializer_list<ElementType>& il) :
+      Serializable()
+  {
+    *this = il;
+  }
+
+  PrimitiveF32e ::
     PrimitiveF32e(
         const ElementType& e1,
         const ElementType& e2,

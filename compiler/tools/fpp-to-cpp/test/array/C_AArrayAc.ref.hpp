@@ -61,6 +61,11 @@ class C_A :
         const ElementType& e //!< The element
     );
 
+    //! Constructor (initializer list)
+    C_A(
+        const std::initializer_list<ElementType>& il //!< The initializer list
+    );
+
     //! Constructor (multiple elements)
     C_A(
         const ElementType& e1, //!< Element 1

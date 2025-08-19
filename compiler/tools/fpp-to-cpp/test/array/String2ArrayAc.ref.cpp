@@ -40,6 +40,14 @@ String2 ::
 }
 
 String2 ::
+  String2(const std::initializer_list<ElementType>& il) :
+    Serializable()
+{
+  this->initElements();
+  *this = il;
+}
+
+String2 ::
   String2(
       const Fw::StringBase& e1,
       const Fw::StringBase& e2

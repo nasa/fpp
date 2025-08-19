@@ -37,6 +37,13 @@ AliasType ::
 }
 
 AliasType ::
+  AliasType(const std::initializer_list<ElementType>& il) :
+    Serializable()
+{
+  *this = il;
+}
+
+AliasType ::
   AliasType(
       const ElementType& e1,
       const ElementType& e2,

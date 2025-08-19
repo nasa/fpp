@@ -37,6 +37,13 @@ Enum2 ::
 }
 
 Enum2 ::
+  Enum2(const std::initializer_list<ElementType>& il) :
+    Serializable()
+{
+  *this = il;
+}
+
+Enum2 ::
   Enum2(
       const ElementType& e1,
       const ElementType& e2,

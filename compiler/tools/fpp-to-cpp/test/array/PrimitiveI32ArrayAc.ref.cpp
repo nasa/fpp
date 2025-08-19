@@ -39,6 +39,13 @@ namespace M {
   }
 
   PrimitiveI32 ::
+    PrimitiveI32(const std::initializer_list<ElementType>& il) :
+      Serializable()
+  {
+    *this = il;
+  }
+
+  PrimitiveI32 ::
     PrimitiveI32(
         const ElementType& e1,
         const ElementType& e2,

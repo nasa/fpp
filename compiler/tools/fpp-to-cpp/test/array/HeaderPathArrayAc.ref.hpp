@@ -63,6 +63,11 @@ class HeaderPath :
         const ElementType& e //!< The element
     );
 
+    //! Constructor (initializer list)
+    HeaderPath(
+        const std::initializer_list<ElementType>& il //!< The initializer list
+    );
+
     //! Constructor (multiple elements)
     HeaderPath(
         const ElementType& e1, //!< Element 1

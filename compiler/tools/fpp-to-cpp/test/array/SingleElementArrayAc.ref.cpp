@@ -28,6 +28,13 @@ SingleElement ::
 }
 
 SingleElement ::
+  SingleElement(const std::initializer_list<ElementType>& il) :
+    Serializable()
+{
+  *this = il;
+}
+
+SingleElement ::
   SingleElement(const ElementType& e1) :
     Serializable()
 {
