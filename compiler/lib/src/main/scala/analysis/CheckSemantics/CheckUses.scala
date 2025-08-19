@@ -45,21 +45,14 @@ object CheckUses extends UseAnalyzer {
           // we are not creating another use.
           case Some(Symbol.Constant(_)) => Right(None)
 
-          // The left side is some symbol other than a constant, create a new use-def entry
+          // The left side is some symbol other than a constant (a qualifier),
+          // look up this symbol and add it to the use-def entries
           case Some(qual) =>
-            a.symbolScopeMap.get(qual) match {
-              case Some(scope) =>
-                val mapping = scope.get (NameGroup.Value) _
-                helpers.getSymbolForName(mapping)(e.id.id, e.id.data) match {
-                  case Right(value) => Right(Some(value))
-                  case Left(err) => Left(err)
-                }
-              case None => Left(SemanticError.InvalidSymbol(
-                qual.getUnqualifiedName,
-                Locations.get(node.id),
-                "not a qualifier",
-                qual.getLoc
-              ))
+            val scope = a.symbolScopeMap(qual)
+            val mapping = scope.get (NameGroup.Value) _
+            helpers.getSymbolForName(mapping)(e.id.id, e.id.data) match {
+              case Right(value) => Right(Some(value))
+              case Left(err) => Left(err)
             }
 
           // Left-hand side is not a symbol
