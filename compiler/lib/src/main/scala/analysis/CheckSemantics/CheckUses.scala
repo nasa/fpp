@@ -2,6 +2,8 @@ package fpp.compiler.analysis
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
+import fpp.compiler.ast.Ast.Expr
+import fpp.compiler.ast.Ast.ExprIdent
 
 /** Match uses to their definitions */
 object CheckUses extends UseAnalyzer {
@@ -23,47 +25,57 @@ object CheckUses extends UseAnalyzer {
   override def stateMachineUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     helpers.visitQualIdentNode (NameGroup.StateMachine) (a, node)
 
-  override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = {
-    def visitExprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = {
-      def visitExprIdent(a: Analysis, node: AstNode[Ast.Expr], name: Name.Unqualified) = {
-        val mapping = a.nestedScope.get (NameGroup.Value) _
-        for (symbol <- helpers.getSymbolForName(mapping)(node.id, name)) yield {
-          val useDefMap = a.useDefMap + (node.id -> symbol)
-          a.copy(useDefMap = useDefMap)
-        }
-      }
-      def visitExprDot(a: Analysis, node: AstNode[Ast.Expr], e: AstNode[Ast.Expr], id: AstNode[String]) = {
-        for {
-          a <- visitExprNode(a, e)
-          scope <- {
-            val symbol = a.useDefMap(e.id)
-            a.symbolScopeMap.get(symbol) match {
-              case Some(scope) => Right(scope)
+  override def exprIdentNode(a: Analysis, node: AstNode[Expr], e: ExprIdent): Out = {
+    val mapping = a.nestedScope.get (NameGroup.Value) _
+    for (symbol <- helpers.getSymbolForName(mapping)(node.id, e.value)) yield {
+      val useDefMap = a.useDefMap + (node.id -> symbol)
+      a.copy(useDefMap = useDefMap)
+    }
+  }
+
+  override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot): Out = {
+    for {
+      // Visit the left side of the dot recursively
+      a <- exprNode(a, e.e)
+
+      // Find the symbol referred to by the left side (if-any)
+      symbol <- {
+        a.useDefMap.get(e.e.id) match {
+          // Left side is a constant, we are selecting a member of this constant
+          // we are not creating another use.
+          case Some(Symbol.Constant(_)) => Right(None)
+
+          // The left side is some symbol other than a constant, create a new use-def entry
+          case Some(qual) =>
+            a.symbolScopeMap.get(qual) match {
+              case Some(scope) =>
+                val mapping = scope.get (NameGroup.Value) _
+                helpers.getSymbolForName(mapping)(e.id.id, e.id.data) match {
+                  case Right(value) => Right(Some(value))
+                  case Left(err) => Left(err)
+                }
               case None => Left(SemanticError.InvalidSymbol(
-                symbol.getUnqualifiedName,
+                qual.getUnqualifiedName,
                 Locations.get(node.id),
                 "not a qualifier",
-                symbol.getLoc
+                qual.getLoc
               ))
             }
-          }
-          symbol <- {
-            val mapping = scope.get (NameGroup.Value) _
-            helpers.getSymbolForName(mapping)(id.id, id.data)
-          }
-        } yield {
-          val useDefMap = a.useDefMap + (node.id -> symbol)
-          a.copy(useDefMap = useDefMap)
+
+          // Left-hand side is not a symbol
+          // There is no resolution on the dot expression
+          case None => Right(None)
         }
       }
-      val data = node.data
-      data match {
-        case Ast.ExprIdent(name) => visitExprIdent(a, node, name)
-        case Ast.ExprDot(e, id) => visitExprDot(a, node, e, id)
-        case _ => throw InternalError("constant use should be qualified identifier")
+    } yield {
+      symbol match {
+        case Some(sym) => {
+          val useDefMap = a.useDefMap + (node.id -> sym)
+          a.copy(useDefMap = useDefMap)
+        }
+        case None => a
       }
     }
-    visitExprNode(a, node)
   }
 
   override def defComponentAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefComponent]]) = {

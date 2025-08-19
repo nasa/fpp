@@ -2,6 +2,7 @@ package fpp.compiler.analysis
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
+import java.lang.InternalError
 
 /** Analyze uses */
 trait UseAnalyzer extends TypeExpressionAnalyzer {
@@ -48,20 +49,30 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
   }
 
   override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot) = {
-    def nameOpt(e: Ast.Expr, qualifier: List[Name.Unqualified]): Option[Name.Qualified] = {
-      e match {
+    def nameOpt(cNode: AstNode[Ast.Expr], cE: Ast.Expr, qualifier: List[Name.Unqualified]): Result.Result[Name.Qualified] = {
+      cE match {
         case Ast.ExprIdent(id) => {
           val list = id :: qualifier
-          val use = Name.Qualified.fromIdentList(list)
-          Some(use)
+          Right(Name.Qualified.fromIdentList(list))
         }
-        case Ast.ExprDot(e1, id) => nameOpt(e1.data, id.data :: qualifier)
-        case _ => None
+        case Ast.ExprDot(e1, id) => nameOpt(e1, e1.data, id.data :: qualifier)
+        case _ => Left(SemanticError.InvalidExpression(
+          Locations.get(node.id),
+          "expression does not refer to a definition or struct literal"
+        ))
       }
     }
-    nameOpt(e, Nil) match {
-      case Some(use) => constantUse(a, node, use)
-      case None => Right(a)
+
+    a.useDefMap.get(node.id) match {
+      // Check if this entire expression is constant use
+      case Some(Symbol.Constant(_) | Symbol.EnumConstant(_)) =>
+        for {
+          use <- nameOpt(node, e, Nil)
+          a <- constantUse(a, node, use)
+        } yield a
+
+      // Analyze this expression in pieces
+      case _ => exprNode(a, e.e)
     }
   }
 

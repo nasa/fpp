@@ -177,6 +177,8 @@ sealed trait Error {
         Error.print (Some(loc)) (s"invalid component instance definition $name: $msg")
       case SemanticError.InvalidEnumConstants(loc) =>
         Error.print (Some(loc)) ("enum constants must be all explicit or all implied")
+      case SemanticError.InvalidExpression(loc, msg) =>
+        Error.print (Some(loc)) (s"invalid expression: $msg")
       case SemanticError.InvalidEvent(loc, msg) =>
         Error.print (Some(loc)) (msg)
       case SemanticError.InvalidFormatString(loc, msg) =>
@@ -212,6 +214,12 @@ sealed trait Error {
         Error.print (Some(loc)) (msg)
       case SemanticError.InvalidStringSize(loc, size) =>
         Error.print (Some(loc)) (s"invalid string size $size")
+      case SemanticError.InvalidAnonStructMember(memberName, loc) =>
+        Error.print (Some(loc)) (s"no member $memberName in anonymous struct value")
+      case SemanticError.InvalidStructMember(memberName, loc, structTypeName) =>
+        Error.print (Some(loc)) (s"no member $memberName in struct type $structTypeName")
+      case SemanticError.InvalidTypeForMemberSelection(memberName, loc) =>
+        Error.print (Some(loc)) (s"no member $memberName in value")
       case SemanticError.InvalidSymbol(name, loc, msg, defLoc) =>
         Error.print (Some(loc)) (s"invalid symbol $name: $msg")
         System.err.println("symbol is defined here:")
@@ -537,6 +545,8 @@ object SemanticError {
   ) extends Error
   /** Invalid enum constants */
   final case class InvalidEnumConstants(loc: Location) extends Error
+  /** Invalid expression */
+  final case class InvalidExpression(loc: Location, msg: String) extends Error
   /** Invalid event */
   final case class InvalidEvent(loc: Location, msg: String) extends Error
   /** Invalid format string  */
@@ -590,6 +600,22 @@ object SemanticError {
   final case class InvalidSpecialPort(loc: Location, msg: String) extends Error
   /** Invalid string size */
   final case class InvalidStringSize(loc: Location, size: BigInt) extends Error
+  /** No member in struct type */
+  final case class InvalidStructMember(
+    memberName: String,
+    loc: Location,
+    structTypeName: String,
+  ) extends Error
+  /** No member in anonymous struct type */
+  final case class InvalidAnonStructMember(
+    memberName: String,
+    loc: Location,
+  ) extends Error
+  /** No member in anonymous struct type */
+  final case class InvalidTypeForMemberSelection(
+    memberName: String,
+    loc: Location,
+  ) extends Error
   /** Invalid symbol */
   final case class InvalidSymbol(
     name: String,
