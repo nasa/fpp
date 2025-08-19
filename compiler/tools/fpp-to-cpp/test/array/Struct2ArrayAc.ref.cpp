@@ -15,12 +15,7 @@ Struct2 ::
   Struct2() :
     Serializable()
 {
-  // Construct using element-wise constructor
-  *this = Struct2(
-    S2(M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String(""))),
-    S2(M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String(""))),
-    S2(M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String("")))
-  );
+  *this = Struct2(S2(M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String(""))), S2(M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String(""))), S2(M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String(""))));
 }
 
 Struct2 ::

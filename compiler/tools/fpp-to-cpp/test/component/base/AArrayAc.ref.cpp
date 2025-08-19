@@ -15,12 +15,7 @@ A ::
   A() :
     Serializable()
 {
-  // Construct using element-wise constructor
-  *this = A(
-    0,
-    0,
-    0
-  );
+  *this = A(0, 0, 0);
 }
 
 A ::

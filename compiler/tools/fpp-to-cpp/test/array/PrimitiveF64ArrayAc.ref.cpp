@@ -17,14 +17,7 @@ namespace M {
     PrimitiveF64() :
       Serializable()
   {
-    // Construct using element-wise constructor
-    *this = PrimitiveF64(
-      1.0,
-      2.0,
-      3.0,
-      4.0,
-      5.0
-    );
+    *this = M::PrimitiveF64(1.0, 2.0, 3.0, 4.0, 5.0);
   }
 
   PrimitiveF64 ::

@@ -15,11 +15,7 @@ Enum1 ::
   Enum1() :
     Serializable()
 {
-  // Construct using element-wise constructor
-  *this = Enum1(
-    M::E1::X,
-    M::E1::Y
-  );
+  *this = Enum1(M::E1::X, M::E1::Y);
 }
 
 Enum1 ::

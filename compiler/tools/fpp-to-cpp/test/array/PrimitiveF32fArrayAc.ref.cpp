@@ -17,12 +17,7 @@ namespace M {
     PrimitiveF32f() :
       Serializable()
   {
-    // Construct using element-wise constructor
-    *this = PrimitiveF32f(
-      0.0f,
-      0.0f,
-      0.0f
-    );
+    *this = M::PrimitiveF32f(0.0f, 0.0f, 0.0f);
   }
 
   PrimitiveF32f ::

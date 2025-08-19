@@ -15,12 +15,7 @@ C_A ::
   C_A() :
     Serializable()
 {
-  // Construct using element-wise constructor
-  *this = C_A(
-    0,
-    0,
-    0
-  );
+  *this = C_A(0, 0, 0);
 }
 
 C_A ::

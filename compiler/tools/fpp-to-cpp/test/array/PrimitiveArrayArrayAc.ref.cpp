@@ -15,14 +15,7 @@ PrimitiveArray ::
   PrimitiveArray() :
     Serializable()
 {
-  // Construct using element-wise constructor
-  *this = PrimitiveArray(
-    M::PrimitiveF64(1.0, 2.0, 3.0, 4.0, 5.0),
-    M::PrimitiveF64(1.0, 2.0, 3.0, 4.0, 5.0),
-    M::PrimitiveF64(1.0, 2.0, 3.0, 4.0, 5.0),
-    M::PrimitiveF64(1.0, 2.0, 3.0, 4.0, 5.0),
-    M::PrimitiveF64(1.0, 2.0, 3.0, 4.0, 5.0)
-  );
+  *this = PrimitiveArray(M::PrimitiveF64(1.0, 2.0, 3.0, 4.0, 5.0), M::PrimitiveF64(1.0, 2.0, 3.0, 4.0, 5.0), M::PrimitiveF64(1.0, 2.0, 3.0, 4.0, 5.0), M::PrimitiveF64(1.0, 2.0, 3.0, 4.0, 5.0), M::PrimitiveF64(1.0, 2.0, 3.0, 4.0, 5.0));
 }
 
 PrimitiveArray ::

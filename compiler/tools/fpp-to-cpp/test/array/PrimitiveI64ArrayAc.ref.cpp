@@ -17,12 +17,7 @@ namespace M {
     PrimitiveI64() :
       Serializable()
   {
-    // Construct using element-wise constructor
-    *this = PrimitiveI64(
-      0,
-      0,
-      0
-    );
+    *this = M::PrimitiveI64(0, 0, 0);
   }
 
   PrimitiveI64 ::

@@ -16,12 +16,7 @@ String1 ::
     Serializable()
 {
   this->initElements();
-  // Construct using element-wise constructor
-  *this = String1(
-    Fw::String(""),
-    Fw::String(""),
-    Fw::String("")
-  );
+  *this = String1(Fw::String(""), Fw::String(""), Fw::String(""));
 }
 
 String1 ::

@@ -17,12 +17,7 @@ namespace M {
     PrimitiveBool() :
       Serializable()
   {
-    // Construct using element-wise constructor
-    *this = PrimitiveBool(
-      false,
-      false,
-      false
-    );
+    *this = M::PrimitiveBool(false, false, false);
   }
 
   PrimitiveBool ::

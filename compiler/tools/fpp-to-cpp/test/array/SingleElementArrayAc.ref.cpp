@@ -15,10 +15,7 @@ SingleElement ::
   SingleElement() :
     Serializable()
 {
-  // Construct using element-wise constructor
-  *this = SingleElement(
-    0
-  );
+  *this = SingleElement(0);
 }
 
 SingleElement ::

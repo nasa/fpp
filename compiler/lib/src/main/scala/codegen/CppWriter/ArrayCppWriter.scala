@@ -201,12 +201,10 @@ case class ArrayCppWriter (
           List("Serializable()"),
           List.concat(
             initElementsCall,
-            lines("// Construct using element-wise constructor"),
-            wrapInScope(
-              s"*this = $name(",
-              lines(defaultValues.map(v => s"$v").mkString(",\n")),
-              ");",
-            ),
+            {
+              val valueString = ValueCppWriter.write(s, arrayType.getDefaultValue.get)
+              lines(s"*this = $valueString;")
+            }
           )
         ),
         constructorClassMember(

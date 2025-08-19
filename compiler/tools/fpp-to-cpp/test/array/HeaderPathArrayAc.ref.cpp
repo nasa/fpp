@@ -15,12 +15,7 @@ HeaderPath ::
   HeaderPath() :
     Serializable()
 {
-  // Construct using element-wise constructor
-  *this = HeaderPath(
-    T(),
-    T(),
-    T()
-  );
+  *this = HeaderPath(T(), T(), T());
 }
 
 HeaderPath ::

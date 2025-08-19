@@ -15,12 +15,7 @@ AbsType ::
   AbsType() :
     Serializable()
 {
-  // Construct using element-wise constructor
-  *this = AbsType(
-    T(),
-    T(),
-    T()
-  );
+  *this = AbsType(T(), T(), T());
 }
 
 AbsType ::

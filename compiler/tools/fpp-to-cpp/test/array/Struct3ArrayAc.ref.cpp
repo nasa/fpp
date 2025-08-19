@@ -15,12 +15,7 @@ Struct3 ::
   Struct3() :
     Serializable()
 {
-  // Construct using element-wise constructor
-  *this = Struct3(
-    S::S3(0, 0.0),
-    S::S3(0, 0.0),
-    S::S3(0, 0.0)
-  );
+  *this = Struct3(S::S3(0, 0.0), S::S3(0, 0.0), S::S3(0, 0.0));
 }
 
 Struct3 ::

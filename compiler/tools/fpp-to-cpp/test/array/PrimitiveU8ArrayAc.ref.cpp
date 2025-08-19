@@ -17,12 +17,7 @@ namespace M {
     PrimitiveU8() :
       Serializable()
   {
-    // Construct using element-wise constructor
-    *this = PrimitiveU8(
-      0,
-      0,
-      0
-    );
+    *this = M::PrimitiveU8(0, 0, 0);
   }
 
   PrimitiveU8 ::

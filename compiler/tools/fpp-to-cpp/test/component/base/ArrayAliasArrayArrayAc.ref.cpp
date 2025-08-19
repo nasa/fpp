@@ -15,12 +15,7 @@ ArrayAliasArray ::
   ArrayAliasArray() :
     Serializable()
 {
-  // Construct using element-wise constructor
-  *this = ArrayAliasArray(
-    A(0, 0, 0),
-    A(0, 0, 0),
-    A(0, 0, 0)
-  );
+  *this = ArrayAliasArray(A(0, 0, 0), A(0, 0, 0), A(0, 0, 0));
 }
 
 ArrayAliasArray ::

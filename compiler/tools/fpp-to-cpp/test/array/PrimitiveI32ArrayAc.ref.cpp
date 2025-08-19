@@ -17,12 +17,7 @@ namespace M {
     PrimitiveI32() :
       Serializable()
   {
-    // Construct using element-wise constructor
-    *this = PrimitiveI32(
-      0,
-      0,
-      0
-    );
+    *this = M::PrimitiveI32(0, 0, 0);
   }
 
   PrimitiveI32 ::

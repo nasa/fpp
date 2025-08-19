@@ -15,12 +15,7 @@ AliasType ::
   AliasType() :
     Serializable()
 {
-  // Construct using element-wise constructor
-  *this = AliasType(
-    0,
-    2,
-    3
-  );
+  *this = AliasType(0, 2, 3);
 }
 
 AliasType ::

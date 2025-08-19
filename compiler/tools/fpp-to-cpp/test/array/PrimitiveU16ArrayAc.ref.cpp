@@ -17,12 +17,7 @@ namespace M {
     PrimitiveU16() :
       Serializable()
   {
-    // Construct using element-wise constructor
-    *this = PrimitiveU16(
-      1,
-      2,
-      3
-    );
+    *this = M::PrimitiveU16(1, 2, 3);
   }
 
   PrimitiveU16 ::
