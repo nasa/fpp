@@ -15,7 +15,7 @@ HeaderPath ::
   HeaderPath() :
     Serializable()
 {
-  *this = HeaderPath(T(), T(), T());
+  *this = HeaderPath(T());
 }
 
 HeaderPath ::

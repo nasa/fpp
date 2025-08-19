@@ -15,7 +15,7 @@ C_A ::
   C_A() :
     Serializable()
 {
-  *this = C_A(0, 0, 0);
+  *this = C_A(0);
 }
 
 C_A ::

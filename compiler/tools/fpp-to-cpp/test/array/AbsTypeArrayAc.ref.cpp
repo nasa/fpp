@@ -15,7 +15,7 @@ AbsType ::
   AbsType() :
     Serializable()
 {
-  *this = AbsType(T(), T(), T());
+  *this = AbsType(T());
 }
 
 AbsType ::

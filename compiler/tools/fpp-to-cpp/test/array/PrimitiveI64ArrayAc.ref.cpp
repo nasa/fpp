@@ -17,7 +17,7 @@ namespace M {
     PrimitiveI64() :
       Serializable()
   {
-    *this = M::PrimitiveI64(0, 0, 0);
+    *this = M::PrimitiveI64(0);
   }
 
   PrimitiveI64 ::

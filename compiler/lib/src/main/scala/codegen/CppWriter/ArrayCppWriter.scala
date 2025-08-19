@@ -246,6 +246,7 @@ case class ArrayCppWriter (
         defaultValueConstructor,
         primitiveArrayConstructor
       ),
+      // TODO: Remove the guard once we remove the element-argument constructor
       guardedList (arraySize != 1) (List(singleElementConstructor)),
       List(
         multipleElementConstructor,

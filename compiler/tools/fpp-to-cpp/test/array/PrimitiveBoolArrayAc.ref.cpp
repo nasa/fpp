@@ -17,7 +17,7 @@ namespace M {
     PrimitiveBool() :
       Serializable()
   {
-    *this = M::PrimitiveBool(false, false, false);
+    *this = M::PrimitiveBool(false);
   }
 
   PrimitiveBool ::

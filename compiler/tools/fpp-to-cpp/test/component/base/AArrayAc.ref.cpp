@@ -15,7 +15,7 @@ A ::
   A() :
     Serializable()
 {
-  *this = A(0, 0, 0);
+  *this = A(0);
 }
 
 A ::

@@ -15,7 +15,7 @@ Enum2 ::
   Enum2() :
     Serializable()
 {
-  *this = Enum2(E2::C, E2::C, E2::C, E2::C, E2::C);
+  *this = Enum2(E2::C);
 }
 
 Enum2 ::
