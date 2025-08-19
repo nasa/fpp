@@ -61,7 +61,10 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     }
     nameOpt(e, Nil) match {
       case Some(use) => constantUse(a, node, use)
-      case None => Right(a)
+      case None => Left(SemanticError.InvalidExpression(
+        Locations.get(node.id),
+        "expression does not refer to a definition"
+      ))
     }
   }
 
