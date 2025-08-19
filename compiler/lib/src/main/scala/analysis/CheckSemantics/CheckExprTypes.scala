@@ -19,13 +19,12 @@ object CheckExprTypes extends UseAnalyzer {
         case Symbol.EnumConstant(node) => Right(a)
         // Invalid use of a symbol in an expression
         case _ =>
-          throw InternalError(s"not a constant symbol ${symbol.getClass.getName()}")
           Left(SemanticError.InvalidSymbol(
-          symbol.getUnqualifiedName,
-          Locations.get(node.id),
-          s"not a constant symbol ${symbol.getClass.getName()}",
-          symbol.getLoc
-        ))
+            symbol.getUnqualifiedName,
+            Locations.get(node.id),
+            "not a constant symbol",
+            symbol.getLoc
+          ))
       }
     } yield {
       val t = a.typeMap(symbol.getNodeId)
@@ -211,7 +210,8 @@ object CheckExprTypes extends UseAnalyzer {
                   case None => Left(SemanticError.InvalidStructMember(
                     e.id.data,
                     Locations.get(e.id.id),
-                    sNode._2.data.name
+                    sNode._2.data.name,
+                    Locations.get(sNode._2.id),
                   ))
                 }
               case Type.AnonStruct(members) =>
@@ -220,11 +220,13 @@ object CheckExprTypes extends UseAnalyzer {
                   case None => Left(SemanticError.InvalidAnonStructMember(
                     e.id.data,
                     Locations.get(e.id.id),
+                    a.useDefMap(e.e.id).getLoc
                   ))
                 }
               case x => Left(SemanticError.InvalidTypeForMemberSelection(
                 e.id.data,
-                Locations.get(e.id.id)
+                Locations.get(e.id.id),
+                x.toString(),
               ))
             }
         }

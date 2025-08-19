@@ -214,12 +214,16 @@ sealed trait Error {
         Error.print (Some(loc)) (msg)
       case SemanticError.InvalidStringSize(loc, size) =>
         Error.print (Some(loc)) (s"invalid string size $size")
-      case SemanticError.InvalidAnonStructMember(memberName, loc) =>
+      case SemanticError.InvalidAnonStructMember(memberName, loc, defLoc) =>
         Error.print (Some(loc)) (s"no member $memberName in anonymous struct value")
-      case SemanticError.InvalidStructMember(memberName, loc, structTypeName) =>
+        System.err.println("symbol is defined here:")
+        System.err.println(defLoc)
+      case SemanticError.InvalidStructMember(memberName, loc, structTypeName, defLoc) =>
         Error.print (Some(loc)) (s"no member $memberName in struct type $structTypeName")
-      case SemanticError.InvalidTypeForMemberSelection(memberName, loc) =>
-        Error.print (Some(loc)) (s"no member $memberName in value")
+        System.err.println("symbol is defined here:")
+        System.err.println(defLoc)
+      case SemanticError.InvalidTypeForMemberSelection(memberName, loc, typeName) =>
+        Error.print (Some(loc)) (s"no member $memberName in value of type $typeName")
       case SemanticError.InvalidSymbol(name, loc, msg, defLoc) =>
         Error.print (Some(loc)) (s"invalid symbol $name: $msg")
         System.err.println("symbol is defined here:")
@@ -605,16 +609,19 @@ object SemanticError {
     memberName: String,
     loc: Location,
     structTypeName: String,
+    defLoc: Location
   ) extends Error
   /** No member in anonymous struct type */
   final case class InvalidAnonStructMember(
     memberName: String,
     loc: Location,
+    defLoc: Location
   ) extends Error
   /** No member in anonymous struct type */
   final case class InvalidTypeForMemberSelection(
     memberName: String,
     loc: Location,
+    typeName: String,
   ) extends Error
   /** Invalid symbol */
   final case class InvalidSymbol(

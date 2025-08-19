@@ -185,9 +185,10 @@ object EvalConstantExprs extends UseAnalyzer {
               Right(members(e.id.data))
             case Value.Struct(v, ty) =>
               Right(v.members(e.id.data))
-            case _ => Left(SemanticError.InvalidTypeForMemberSelection(
+            case x => Left(SemanticError.InvalidTypeForMemberSelection(
               e.id.data,
-              Locations.get(e.id.id)
+              Locations.get(e.id.id),
+              x.getType.toString(),
             ))
           }
         }
