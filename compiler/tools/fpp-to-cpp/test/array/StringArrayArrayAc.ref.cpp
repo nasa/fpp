@@ -15,7 +15,7 @@ StringArray ::
   StringArray() :
     Serializable()
 {
-  *this = StringArray(String2(Fw::String("\"\\"), Fw::String("abc\ndef\n")));
+  *this = StringArray(String2({Fw::String("\"\\"), Fw::String("abc\ndef\n")}));
 }
 
 StringArray ::

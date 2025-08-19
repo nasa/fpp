@@ -26,7 +26,7 @@ object ValueCppWriter {
         val elements = v.anonArray.elements
         if useSingleElement(elements)
           then write(s, elements.head)
-          else elements.map(write(s, _)).mkString(", ")
+          else s"{${elements.map(write(s, _)).mkString(", ")}}"
       }
       s"$name($args)"
     }

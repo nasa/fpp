@@ -16,7 +16,7 @@ String2 ::
     Serializable()
 {
   this->initElements();
-  *this = String2(Fw::String("\"\\"), Fw::String("abc\ndef\n"));
+  *this = String2({Fw::String("\"\\"), Fw::String("abc\ndef\n")});
 }
 
 String2 ::
