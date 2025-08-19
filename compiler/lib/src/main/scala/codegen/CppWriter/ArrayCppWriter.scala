@@ -52,14 +52,6 @@ case class ArrayCppWriter (
     s.writeIncludeDirectives(a.usedSymbolSet)
   }
 
-  private def getDefaultValues: List[String] = {
-    val defaultValue = arrayType.getDefaultValue match {
-      case Some(a) => Some(a.anonArray)
-      case None => arrayType.anonArray.getDefaultValue
-    }
-    defaultValue.get.elements.map(ValueCppWriter.write(s, _))
-  }
-
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
     CppWriter.createCppDoc(
@@ -164,7 +156,6 @@ case class ArrayCppWriter (
   private val initElementsCall = guardedList (hasStringEltType) (lines("this->initElements();"))
 
   private def getConstructorMembers: List[CppDoc.Class.Member] = {
-    val defaultValues = getDefaultValues
     // Only write this constructor if the array has more than one element
     val singleElementConstructor =
       if arraySize == 1 then Nil
