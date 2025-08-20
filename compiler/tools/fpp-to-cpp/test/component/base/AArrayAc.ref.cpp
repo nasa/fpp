@@ -22,9 +22,7 @@ A ::
   A(const ElementType (&a)[SIZE]) :
     Serializable()
 {
-  for (FwSizeType index = 0; index < SIZE; index++) {
-    this->elements[index] = a[index];
-  }
+  *this = a;
 }
 
 A ::
@@ -47,9 +45,7 @@ A ::
   A(const A& obj) :
     Serializable()
 {
-  for (FwSizeType index = 0; index < SIZE; index++) {
-    this->elements[index] = obj.elements[index];
-  }
+  *this = obj;
 }
 
 // ----------------------------------------------------------------------
@@ -73,12 +69,10 @@ const A::ElementType& A ::
 A& A ::
   operator=(const A& obj)
 {
-  if (this == &obj) {
-    return *this;
-  }
-
-  for (FwSizeType index = 0; index < SIZE; index++) {
-    this->elements[index] = obj.elements[index];
+  if (this != &obj) {
+    for (FwSizeType index = 0; index < SIZE; index++) {
+      this->elements[index] = obj.elements[index];
+    }
   }
   return *this;
 }

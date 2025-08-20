@@ -22,9 +22,7 @@ LargeSize ::
   LargeSize(const ElementType (&a)[SIZE]) :
     Serializable()
 {
-  for (FwSizeType index = 0; index < SIZE; index++) {
-    this->elements[index] = a[index];
-  }
+  *this = a;
 }
 
 LargeSize ::
@@ -47,9 +45,7 @@ LargeSize ::
   LargeSize(const LargeSize& obj) :
     Serializable()
 {
-  for (FwSizeType index = 0; index < SIZE; index++) {
-    this->elements[index] = obj.elements[index];
-  }
+  *this = obj;
 }
 
 // ----------------------------------------------------------------------
@@ -73,12 +69,10 @@ const LargeSize::ElementType& LargeSize ::
 LargeSize& LargeSize ::
   operator=(const LargeSize& obj)
 {
-  if (this == &obj) {
-    return *this;
-  }
-
-  for (FwSizeType index = 0; index < SIZE; index++) {
-    this->elements[index] = obj.elements[index];
+  if (this != &obj) {
+    for (FwSizeType index = 0; index < SIZE; index++) {
+      this->elements[index] = obj.elements[index];
+    }
   }
   return *this;
 }

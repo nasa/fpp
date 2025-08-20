@@ -22,9 +22,7 @@ Struct1 ::
   Struct1(const ElementType (&a)[SIZE]) :
     Serializable()
 {
-  for (FwSizeType index = 0; index < SIZE; index++) {
-    this->elements[index] = a[index];
-  }
+  *this = a;
 }
 
 Struct1 ::
@@ -47,9 +45,7 @@ Struct1 ::
   Struct1(const Struct1& obj) :
     Serializable()
 {
-  for (FwSizeType index = 0; index < SIZE; index++) {
-    this->elements[index] = obj.elements[index];
-  }
+  *this = obj;
 }
 
 // ----------------------------------------------------------------------
@@ -73,12 +69,10 @@ const Struct1::ElementType& Struct1 ::
 Struct1& Struct1 ::
   operator=(const Struct1& obj)
 {
-  if (this == &obj) {
-    return *this;
-  }
-
-  for (FwSizeType index = 0; index < SIZE; index++) {
-    this->elements[index] = obj.elements[index];
+  if (this != &obj) {
+    for (FwSizeType index = 0; index < SIZE; index++) {
+      this->elements[index] = obj.elements[index];
+    }
   }
   return *this;
 }

@@ -22,9 +22,7 @@ Struct2 ::
   Struct2(const ElementType (&a)[SIZE]) :
     Serializable()
 {
-  for (FwSizeType index = 0; index < SIZE; index++) {
-    this->elements[index] = a[index];
-  }
+  *this = a;
 }
 
 Struct2 ::
@@ -47,9 +45,7 @@ Struct2 ::
   Struct2(const Struct2& obj) :
     Serializable()
 {
-  for (FwSizeType index = 0; index < SIZE; index++) {
-    this->elements[index] = obj.elements[index];
-  }
+  *this = obj;
 }
 
 // ----------------------------------------------------------------------
@@ -73,12 +69,10 @@ const Struct2::ElementType& Struct2 ::
 Struct2& Struct2 ::
   operator=(const Struct2& obj)
 {
-  if (this == &obj) {
-    return *this;
-  }
-
-  for (FwSizeType index = 0; index < SIZE; index++) {
-    this->elements[index] = obj.elements[index];
+  if (this != &obj) {
+    for (FwSizeType index = 0; index < SIZE; index++) {
+      this->elements[index] = obj.elements[index];
+    }
   }
   return *this;
 }

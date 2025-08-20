@@ -24,9 +24,7 @@ namespace M {
     PrimitiveU16(const ElementType (&a)[SIZE]) :
       Serializable()
   {
-    for (FwSizeType index = 0; index < SIZE; index++) {
-      this->elements[index] = a[index];
-    }
+    *this = a;
   }
 
   PrimitiveU16 ::
@@ -49,9 +47,7 @@ namespace M {
     PrimitiveU16(const PrimitiveU16& obj) :
       Serializable()
   {
-    for (FwSizeType index = 0; index < SIZE; index++) {
-      this->elements[index] = obj.elements[index];
-    }
+    *this = obj;
   }
 
   // ----------------------------------------------------------------------
@@ -75,12 +71,10 @@ namespace M {
   PrimitiveU16& PrimitiveU16 ::
     operator=(const PrimitiveU16& obj)
   {
-    if (this == &obj) {
-      return *this;
-    }
-
-    for (FwSizeType index = 0; index < SIZE; index++) {
-      this->elements[index] = obj.elements[index];
+    if (this != &obj) {
+      for (FwSizeType index = 0; index < SIZE; index++) {
+        this->elements[index] = obj.elements[index];
+      }
     }
     return *this;
   }

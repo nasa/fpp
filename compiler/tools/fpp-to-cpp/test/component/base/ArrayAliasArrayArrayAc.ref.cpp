@@ -22,9 +22,7 @@ ArrayAliasArray ::
   ArrayAliasArray(const ElementType (&a)[SIZE]) :
     Serializable()
 {
-  for (FwSizeType index = 0; index < SIZE; index++) {
-    this->elements[index] = a[index];
-  }
+  *this = a;
 }
 
 ArrayAliasArray ::
@@ -47,9 +45,7 @@ ArrayAliasArray ::
   ArrayAliasArray(const ArrayAliasArray& obj) :
     Serializable()
 {
-  for (FwSizeType index = 0; index < SIZE; index++) {
-    this->elements[index] = obj.elements[index];
-  }
+  *this = obj;
 }
 
 // ----------------------------------------------------------------------
@@ -73,12 +69,10 @@ const ArrayAliasArray::ElementType& ArrayAliasArray ::
 ArrayAliasArray& ArrayAliasArray ::
   operator=(const ArrayAliasArray& obj)
 {
-  if (this == &obj) {
-    return *this;
-  }
-
-  for (FwSizeType index = 0; index < SIZE; index++) {
-    this->elements[index] = obj.elements[index];
+  if (this != &obj) {
+    for (FwSizeType index = 0; index < SIZE; index++) {
+      this->elements[index] = obj.elements[index];
+    }
   }
   return *this;
 }

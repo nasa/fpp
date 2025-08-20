@@ -202,7 +202,7 @@ case class ArrayCppWriter (
       List("Serializable()"),
       List.concat(
         initElementsCall,
-        indexIterator(lines("this->elements[index] = a[index];"))
+        lines(s"*this = a;")
       )
     )
     val initializerListConstructor = constructorClassMember(
@@ -232,7 +232,7 @@ case class ArrayCppWriter (
       List("Serializable()"),
       List.concat(
         initElementsCall,
-        indexIterator(lines("this->elements[index] = obj.elements[index];"))
+        lines("*this = obj;")
       )
     )
 
@@ -309,9 +309,10 @@ case class ArrayCppWriter (
         ),
         CppDoc.Type(s"$name&"),
         List.concat(
-          wrapInIf("this == &obj", lines("return *this;")),
-          Line.blank ::
-          indexIterator(lines("this->elements[index] = obj.elements[index];")),
+          wrapInIf(
+            "this != &obj",
+            indexIterator(lines("this->elements[index] = obj.elements[index];")),
+          ),
           lines("return *this;"),
         ),
       ),
