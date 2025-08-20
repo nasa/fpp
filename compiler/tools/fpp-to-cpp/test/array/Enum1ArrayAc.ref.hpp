@@ -59,7 +59,7 @@ class Enum1 :
     );
 
     //! Constructor (single element)
-    Enum1(
+    explicit Enum1(
         const ElementType& e //!< The element
     );
 

@@ -59,7 +59,7 @@ class HeaderPath :
     );
 
     //! Constructor (single element)
-    HeaderPath(
+    explicit HeaderPath(
         const ElementType& e //!< The element
     );
 

@@ -62,7 +62,7 @@ class String2 :
     );
 
     //! Constructor (single element)
-    String2(
+    explicit String2(
         const Fw::StringBase& e //!< The element
     );
 

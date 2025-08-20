@@ -59,7 +59,7 @@ class AliasType :
     );
 
     //! Constructor (single element)
-    AliasType(
+    explicit AliasType(
         const ElementType& e //!< The element
     );
 

@@ -58,7 +58,7 @@ class SingleElement :
     );
 
     //! Constructor (single element)
-    SingleElement(
+    explicit SingleElement(
         const ElementType& e //!< The element
     );
 

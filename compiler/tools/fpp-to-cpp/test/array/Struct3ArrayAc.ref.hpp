@@ -59,7 +59,7 @@ class Struct3 :
     );
 
     //! Constructor (single element)
-    Struct3(
+    explicit Struct3(
         const ElementType& e //!< The element
     );
 

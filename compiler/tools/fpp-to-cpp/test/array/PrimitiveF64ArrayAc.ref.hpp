@@ -60,7 +60,7 @@ namespace M {
       );
 
       //! Constructor (single element)
-      PrimitiveF64(
+      explicit PrimitiveF64(
           const ElementType& e //!< The element
       );
 

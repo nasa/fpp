@@ -59,7 +59,7 @@ class PrimitiveArray :
     );
 
     //! Constructor (single element)
-    PrimitiveArray(
+    explicit PrimitiveArray(
         const ElementType& e //!< The element
     );
 

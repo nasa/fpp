@@ -188,7 +188,8 @@ case class ArrayCppWriter (
       List.concat(
         initElementsCall,
         indexIterator(lines("this->elements[index] = e;"))
-      )
+      ),
+      CppDoc.Class.Constructor.Explicit
     )
     val primitiveArrayConstructor = constructorClassMember(
       Some("Constructor (primitive array)"),

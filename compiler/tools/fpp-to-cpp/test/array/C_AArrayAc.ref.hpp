@@ -57,7 +57,7 @@ class C_A :
     );
 
     //! Constructor (single element)
-    C_A(
+    explicit C_A(
         const ElementType& e //!< The element
     );
 

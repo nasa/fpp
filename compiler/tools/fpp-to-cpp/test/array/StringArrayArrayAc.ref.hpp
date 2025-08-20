@@ -59,7 +59,7 @@ class StringArray :
     );
 
     //! Constructor (single element)
-    StringArray(
+    explicit StringArray(
         const ElementType& e //!< The element
     );
 

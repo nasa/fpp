@@ -59,7 +59,7 @@ namespace M {
       );
 
       //! Constructor (single element)
-      PrimitiveBool(
+      explicit PrimitiveBool(
           const ElementType& e //!< The element
       );
 

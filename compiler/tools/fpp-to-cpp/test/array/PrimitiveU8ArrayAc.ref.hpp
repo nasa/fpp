@@ -59,7 +59,7 @@ namespace M {
       );
 
       //! Constructor (single element)
-      PrimitiveU8(
+      explicit PrimitiveU8(
           const ElementType& e //!< The element
       );
 

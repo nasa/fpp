@@ -58,7 +58,7 @@ class ArrayAliasArray :
     );
 
     //! Constructor (single element)
-    ArrayAliasArray(
+    explicit ArrayAliasArray(
         const ElementType& e //!< The element
     );
 

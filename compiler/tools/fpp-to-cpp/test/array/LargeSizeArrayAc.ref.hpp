@@ -57,7 +57,7 @@ class LargeSize :
     );
 
     //! Constructor (single element)
-    LargeSize(
+    explicit LargeSize(
         const ElementType& e //!< The element
     );
 

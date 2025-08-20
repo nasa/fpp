@@ -59,7 +59,7 @@ class AbsType :
     );
 
     //! Constructor (single element)
-    AbsType(
+    explicit AbsType(
         const ElementType& e //!< The element
     );
 

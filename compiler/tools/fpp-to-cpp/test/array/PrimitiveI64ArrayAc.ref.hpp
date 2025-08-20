@@ -60,7 +60,7 @@ namespace M {
       );
 
       //! Constructor (single element)
-      PrimitiveI64(
+      explicit PrimitiveI64(
           const ElementType& e //!< The element
       );
 
