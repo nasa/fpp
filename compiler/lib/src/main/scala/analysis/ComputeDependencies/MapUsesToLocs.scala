@@ -6,7 +6,7 @@ import fpp.compiler.transform._
 import fpp.compiler.util._
 
 /** Map uses to locations */
-object MapUsesToLocs extends UseAnalyzer {
+object MapUsesToLocs extends BasicUseAnalyzer {
 
   override def componentInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     analyzeUse(a, Ast.SpecLoc.ComponentInstance, use)
@@ -30,32 +30,6 @@ object MapUsesToLocs extends UseAnalyzer {
         }
       }
     } yield a
-
-  override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot) = {
-    def nameOpt(e: Ast.Expr, qualifier: List[Name.Unqualified]): Result.Result[Option[Name.Qualified]] = {
-      e match {
-        case Ast.ExprIdent(id) => {
-          val list = id :: qualifier
-          val use = Name.Qualified.fromIdentList(list)
-          Right(Some(use))
-        }
-        case Ast.ExprDot(e1, id) => nameOpt(e1.data, id.data :: qualifier)
-        case Ast.ExprStruct(_) => Right(None)
-        case _ => Left(SemanticError.InvalidExpression(
-          Locations.get(node.id),
-          "expression does not refer to a definition or struct literal"
-        ))
-      }
-    }
-
-    nameOpt(e, Nil) match {
-      // Assume the entire qualified identifier is a use
-      case Right(Some(use)) => constantUse(a, node, use)
-      // This is some other type of dot expression (not qual ident), evaluate the left side
-      case Right(None) => exprNode(a, e.e)
-      case Left(err) => Left(err)
-    }
-  }
 
   override def portUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     analyzeUse(a, Ast.SpecLoc.Port, use)

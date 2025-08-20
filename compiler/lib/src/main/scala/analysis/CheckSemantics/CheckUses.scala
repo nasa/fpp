@@ -6,7 +6,7 @@ import fpp.compiler.ast.Ast.Expr
 import fpp.compiler.ast.Ast.ExprIdent
 
 /** Match uses to their definitions */
-object CheckUses extends UseAnalyzer {
+object CheckUses extends BasicUseAnalyzer {
 
   val helpers = CheckUsesHelpers(
     (a: Analysis) => a.nestedScope,
@@ -25,50 +25,60 @@ object CheckUses extends UseAnalyzer {
   override def stateMachineUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     helpers.visitQualIdentNode (NameGroup.StateMachine) (a, node)
 
-  override def exprIdentNode(a: Analysis, node: AstNode[Expr], e: ExprIdent): Out = {
-    val mapping = a.nestedScope.get (NameGroup.Value) _
-    for (symbol <- helpers.getSymbolForName(mapping)(node.id, e.value)) yield {
-      val useDefMap = a.useDefMap + (node.id -> symbol)
-      a.copy(useDefMap = useDefMap)
-    }
-  }
-
-  override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot): Out = {
-    for {
-      // Visit the left side of the dot recursively
-      a <- exprNode(a, e.e)
-
-      // Find the symbol referred to by the left side (if-any)
-      symbol <- {
-        a.useDefMap.get(e.e.id) match {
-          // Left side is a constant, we are selecting a member of this constant
-          // we are not creating another use.
-          case Some(Symbol.Constant(_)) => Right(None)
-
-          // The left side is some symbol other than a constant (a qualifier),
-          // look up this symbol and add it to the use-def entries
-          case Some(qual) =>
-            val scope = a.symbolScopeMap(qual)
-            val mapping = scope.get (NameGroup.Value) _
-            helpers.getSymbolForName(mapping)(e.id.id, e.id.data) match {
-              case Right(value) => Right(Some(value))
-              case Left(err) => Left(err)
-            }
-
-          // Left-hand side is not a symbol
-          // There is no resolution on the dot expression
-          case None => Right(None)
-        }
-      }
-    } yield {
-      symbol match {
-        case Some(sym) => {
-          val useDefMap = a.useDefMap + (node.id -> sym)
+  override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = {
+    def visitExprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = {
+      def visitExprIdent(a: Analysis, node: AstNode[Ast.Expr], name: Name.Unqualified) = {
+        val mapping = a.nestedScope.get (NameGroup.Value) _
+        for (symbol <- helpers.getSymbolForName(mapping)(node.id, name)) yield {
+          val useDefMap = a.useDefMap + (node.id -> symbol)
           a.copy(useDefMap = useDefMap)
         }
-        case None => a
+      }
+      def visitExprDot(a: Analysis, node: AstNode[Ast.Expr], e: AstNode[Ast.Expr], id: AstNode[String]) = {
+        for {
+          // Visit the left side of the dot recursively
+          a <- exprNode(a, e)
+
+          // Find the symbol referred to by the left side (if-any)
+          symbol <- {
+            a.useDefMap.get(e.id) match {
+              // Left side is a constant, we are selecting a member of this constant
+              // we are not creating another use.
+              case Some(Symbol.Constant(_)) => Right(None)
+
+              // The left side is some symbol other than a constant (a qualifier),
+              // look up this symbol and add it to the use-def entries
+              case Some(qual) =>
+                val scope = a.symbolScopeMap(qual)
+                val mapping = scope.get (NameGroup.Value) _
+                helpers.getSymbolForName(mapping)(id.id, id.data) match {
+                  case Right(value) => Right(Some(value))
+                  case Left(err) => Left(err)
+                }
+
+              // Left-hand side is not a symbol
+              // There is no resolution on the dot expression
+              case None => Right(None)
+            }
+          }
+        } yield {
+          symbol match {
+            case Some(sym) => {
+              val useDefMap = a.useDefMap + (node.id -> sym)
+              a.copy(useDefMap = useDefMap)
+            }
+            case None => a
+          }
+        }
+      }
+      val data = node.data
+      data match {
+        case Ast.ExprIdent(name) => visitExprIdent(a, node, name)
+        case Ast.ExprDot(e, id) => visitExprDot(a, node, e, id)
+        case _ => throw InternalError("constant use should be qualified identifier")
       }
     }
+    visitExprNode(a, node)
   }
 
   override def defComponentAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefComponent]]) = {
