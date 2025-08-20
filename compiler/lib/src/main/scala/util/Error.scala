@@ -737,9 +737,7 @@ object XmlError {
 
 object Error {
 
-  /** The max array size */
-  val maxArraySize = 256
-
+  /** The tool in use, if there is one */
   private var toolOpt: Option[Tool] = None
 
   /** Set the tool */
