@@ -187,7 +187,10 @@ case class ArrayCppWriter (
       List("Serializable()"),
       List.concat(
         initElementsCall,
-        indexIterator(lines("this->elements[index] = e;"))
+        if hasStringEltType
+        // String arrays do not provide an operator= with the required type
+        then indexIterator(lines("this->elements[index] = e;"))
+        else lines("*this = e;")
       ),
       CppDoc.Class.Constructor.Explicit
     )

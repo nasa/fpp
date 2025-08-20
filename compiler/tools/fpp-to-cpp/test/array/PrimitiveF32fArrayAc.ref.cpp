@@ -31,9 +31,7 @@ namespace M {
     PrimitiveF32f(const ElementType& e) :
       Serializable()
   {
-    for (FwSizeType index = 0; index < SIZE; index++) {
-      this->elements[index] = e;
-    }
+    *this = e;
   }
 
   PrimitiveF32f ::

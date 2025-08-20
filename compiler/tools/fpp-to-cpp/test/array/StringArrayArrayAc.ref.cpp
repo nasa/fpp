@@ -29,9 +29,7 @@ StringArray ::
   StringArray(const ElementType& e) :
     Serializable()
 {
-  for (FwSizeType index = 0; index < SIZE; index++) {
-    this->elements[index] = e;
-  }
+  *this = e;
 }
 
 StringArray ::
