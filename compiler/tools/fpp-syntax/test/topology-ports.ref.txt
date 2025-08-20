@@ -1,0 +1,8 @@
+def topology
+  ident T
+  spec comp instance
+    public
+    qual ident i
+  spec top port export
+    ident p1
+    qual ident i.p
