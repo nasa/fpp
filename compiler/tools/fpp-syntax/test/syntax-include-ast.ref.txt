@@ -450,7 +450,7 @@ def module
   @ Array Subscript
   def constant
     ident arraySubExp1
-    expr array
+    expr array subscript
       expr array
         literal int 1
         literal int 2
@@ -460,13 +460,30 @@ def module
   @ Array Subscript
   def constant
     ident arraySubExp2
-    expr array
+    expr array subscript
       expr dot
         expr dot
           ident a
           ident b
         ident c
       literal int 1
+  @< Array Subscript
+  @ Array Subscript with member selection
+  def constant
+    ident arraySubExp2
+    expr array subscript
+      expr dot
+        expr array subscript
+          expr array subscript
+            expr dot
+              expr dot
+                ident a
+                ident b
+              ident c
+            literal int 1
+          literal int 2
+        ident s
+      literal int 12
   @< Array Subscript
   @ Boolean literal
   def constant

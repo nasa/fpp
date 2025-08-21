@@ -263,7 +263,7 @@ object AstWriter extends AstVisitor with LineUtils {
     node: AstNode[Ast.Expr],
     e: Ast.ExprArraySubscript
   ) =
-    lines("expr array") ++
+    lines("expr array subscript") ++
     (exprNode(e.e) ++ exprNode(e.i)).map(indentIn)
 
   override def exprBinopNode(

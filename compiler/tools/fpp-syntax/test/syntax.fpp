@@ -255,6 +255,10 @@ module Expressions {
   constant arraySubExp2 = a.b.c[1]
   @< Array Subscript
 
+  @ Array Subscript with member selection
+  constant arraySubExp2 = a.b.c[1][2].s[12]
+  @< Array Subscript 
+
   @ Boolean literal
   constant booleanLiteralExp = true
   @< Boolean literal
