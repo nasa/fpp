@@ -92,7 +92,7 @@ StringArray& StringArray ::
   FW_ASSERT(il.size() == SIZE, static_cast<FwAssertArgType>(il.size()), static_cast<FwAssertArgType>(SIZE));
   FwSizeType i = 0;
   for (const auto& e : il) {
-    FW_ASSERT(i < SIZE);
+    FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
     this->elements[i] = e;
     i++;
   }
