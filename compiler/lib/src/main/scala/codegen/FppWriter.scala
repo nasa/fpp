@@ -348,6 +348,13 @@ object FppWriter extends AstVisitor with LineUtils {
   ) =
     (line("[") :: e.elts.flatMap(exprNode).map(indentIn)) :+ line("]")
 
+  override def exprArraySubscriptNode(
+    in: In,
+    node: AstNode[Ast.Expr],
+    e: Ast.ExprArraySubscript
+  ) =
+    List.concat(exprNode(e.e), lines("["), exprNode(e.i), lines("]"))
+
   override def exprBinopNode(
     in: In,
     node: AstNode[Ast.Expr],

@@ -62,6 +62,8 @@ trait AstVisitor {
 
   def exprArrayNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprArray): Out = default(in)
 
+  def exprArraySubscriptNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprArraySubscript): Out = default(in)
+
   def exprBinopNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprBinop): Out = default(in)
 
   def exprDotNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprDot): Out = default(in)
@@ -176,6 +178,7 @@ trait AstVisitor {
   final def matchExprNode(in: In, node: AstNode[Ast.Expr]): Out =
     node.data match {
       case e : Ast.ExprArray => exprArrayNode(in, node, e)
+      case e : Ast.ExprArraySubscript => exprArraySubscriptNode(in, node, e)
       case e : Ast.ExprBinop => exprBinopNode(in, node, e)
       case e : Ast.ExprDot => exprDotNode(in, node, e)
       case e : Ast.ExprIdent => exprIdentNode(in, node, e)

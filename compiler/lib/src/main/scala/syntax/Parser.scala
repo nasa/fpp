@@ -307,6 +307,10 @@ object Parser extends Parsers {
       def arrayExpr =
         lbracket ~>! elementSequence(exprNode, comma) <~! rbracket ^^ (es => Ast.ExprArray(es))
 
+      def arraySubscriptExpr = exprNode ~ (lbracket ~>! exprNode <~! rbracket) ^^ { case e ~ i =>
+        Ast.ExprArraySubscript(e, i)
+      }
+
       def falseExpr = falseToken ^^ (_ =>
         Ast.ExprLiteralBool(Ast.LiteralBool.False))
 
@@ -340,6 +344,7 @@ object Parser extends Parsers {
         stringExpr |
         structExpr |
         trueExpr |
+        arraySubscriptExpr |
         failure("expression expected")
     }
 
