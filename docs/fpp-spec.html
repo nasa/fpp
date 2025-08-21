@@ -839,30 +839,37 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Expressions_Dot-Expressions_Examples">10.4.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Floating-Point-Literals">10.5. Floating-Point Literals</a></li>
-<li><a href="#Expressions_Identifier-Expressions">10.6. Identifier Expressions</a></li>
-<li><a href="#Expressions_Integer-Literals">10.7. Integer Literals</a></li>
-<li><a href="#Expressions_Parenthesis-Expressions">10.8. Parenthesis Expressions</a>
+<li><a href="#Expressions_Array-Subscript-Expressions">10.5. Array Subscript Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Parenthesis-Expressions_Syntax">10.8.1. Syntax</a></li>
-<li><a href="#Expressions_Parenthesis-Expressions_Semantics">10.8.2. Semantics</a></li>
-<li><a href="#Expressions_Parenthesis-Expressions_Example">10.8.3. Example</a></li>
+<li><a href="#Expressions_Array-Subscript-Expressions_Syntax">10.5.1. Syntax</a></li>
+<li><a href="#Expressions_Array-Subscript-Expressions_Semantics">10.5.2. Semantics</a></li>
+<li><a href="#Expressions_Array-Subscript-Expressions_Example">10.5.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_String-Literals">10.9. String Literals</a>
+<li><a href="#Expressions_Floating-Point-Literals">10.6. Floating-Point Literals</a></li>
+<li><a href="#Expressions_Identifier-Expressions">10.7. Identifier Expressions</a></li>
+<li><a href="#Expressions_Integer-Literals">10.8. Integer Literals</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions">10.9. Parenthesis Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_String-Literals_Single-Line-String-Literals">10.9.1. Single-Line String Literals</a></li>
-<li><a href="#Expressions_String-Literals_Multiline-String-Literals">10.9.2. Multiline String Literals</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions_Syntax">10.9.1. Syntax</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions_Semantics">10.9.2. Semantics</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions_Example">10.9.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Struct-Expressions">10.10. Struct Expressions</a>
+<li><a href="#Expressions_String-Literals">10.10. String Literals</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Struct-Expressions_Syntax">10.10.1. Syntax</a></li>
-<li><a href="#Expressions_Struct-Expressions_Semantics">10.10.2. Semantics</a></li>
-<li><a href="#Expressions_Struct-Expressions_Example">10.10.3. Example</a></li>
+<li><a href="#Expressions_String-Literals_Single-Line-String-Literals">10.10.1. Single-Line String Literals</a></li>
+<li><a href="#Expressions_String-Literals_Multiline-String-Literals">10.10.2. Multiline String Literals</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Precedence-and-Associativity">10.11. Precedence and Associativity</a></li>
+<li><a href="#Expressions_Struct-Expressions">10.11. Struct Expressions</a>
+<ul class="sectlevel3">
+<li><a href="#Expressions_Struct-Expressions_Syntax">10.11.1. Syntax</a></li>
+<li><a href="#Expressions_Struct-Expressions_Semantics">10.11.2. Semantics</a></li>
+<li><a href="#Expressions_Struct-Expressions_Example">10.11.3. Example</a></li>
+</ul>
+</li>
+<li><a href="#Expressions_Precedence-and-Associativity">10.12. Precedence and Associativity</a></li>
 </ul>
 </li>
 <li><a href="#Formal-Parameter-Lists">11. Formal Parameter Lists</a>
@@ -8435,7 +8442,70 @@ constant a = E.X # E.X evaluates to 0</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Floating-Point-Literals">10.5. Floating-Point Literals</h3>
+<h3 id="Expressions_Array-Subscript-Expressions">10.5. Array Subscript Expressions</h3>
+<div class="paragraph">
+<p>An <strong>array subscript expression</strong> is an expression that selects an element from an
+expression with array type.</p>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Array-Subscript-Expressions_Syntax">10.5.1. Syntax</h4>
+<div class="paragraph">
+<p><a href="#Expressions"><em>expression</em></a> <code>[</code> <a href="#Expressions"><em>expression</em></a> <code>]</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Array-Subscript-Expressions_Semantics">10.5.2. Semantics</h4>
+<div class="paragraph">
+<p>The following rules give the meaning of an array subscript expression
+\$e\$ <code>[</code> \$i\$ <code>]</code>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>\$e\$ must have <a href="#Types_Array-Types">array type</a> or
+<a href="#Types_Internal-Types_Anonymous-Array-Types">anonymous array type</a>, <em>T</em>.</p>
+</li>
+<li>
+<p>\$i\$ must have <a href="#Types_Internal-Types_Integer">integer type</a></p>
+</li>
+<li>
+<p>\$e\$ <code>[</code> \$i\$ <code>]</code> evaluates to an expression with the type
+being the element type of <em>T</em>.</p>
+</li>
+<li>
+<p>\$e\$ <code>[</code> \$i\$ <code>]</code> has a value of the \$i\$'th index of
+\$e\$, where the first element is at index 0.</p>
+</li>
+<li>
+<p>\$i\$ is invalid if it is:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Negative</p>
+</li>
+<li>
+<p>Greater than or equal to the length of \$e\$</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Array-Subscript-Expressions_Example">10.5.3. Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ 2, 4, 6 ] # a is an array value with elements 0, 1, 2
+constant b = a[1] # b is an integer with value 4
+constant c = [ 0, 1, 2 ][-1] # error, index is out of bounds (negative)
+constant d = [ 0, 1, 2 ][3] # error, index is out of bounds (past end)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Floating-Point-Literals">10.6. Floating-Point Literals</h3>
 <div class="paragraph">
 <p>A <strong>floating-point literal expression</strong> is a C-style representation of an
 IEEE floating-point number.</p>
@@ -8453,7 +8523,7 @@ IEEE floating-point number.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Identifier-Expressions">10.6. Identifier Expressions</h3>
+<h3 id="Expressions_Identifier-Expressions">10.7. Identifier Expressions</h3>
 <div class="paragraph">
 <p>An <strong>identifier expression</strong> is an
 <a href="#Lexical-Elements_Identifiers">identifier</a>
@@ -8475,7 +8545,7 @@ constant b = a # a is an identifier expression</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Integer-Literals">10.7. Integer Literals</h3>
+<h3 id="Expressions_Integer-Literals">10.8. Integer Literals</h3>
 <div class="paragraph">
 <p>An <strong>integer literal expression</strong> is one of the following:</p>
 </div>
@@ -8510,14 +8580,14 @@ less than or equal to 64 bits.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Parenthesis-Expressions">10.8. Parenthesis Expressions</h3>
+<h3 id="Expressions_Parenthesis-Expressions">10.9. Parenthesis Expressions</h3>
 <div class="paragraph">
 <p>A <strong>parenthesis expression</strong> is an expression surrounded
 by parentheses in order to group subexpressions and to
 force evaluation order.</p>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Parenthesis-Expressions_Syntax">10.8.1. Syntax</h4>
+<h4 id="Expressions_Parenthesis-Expressions_Syntax">10.9.1. Syntax</h4>
 <div class="paragraph">
 <p><code>(</code>
 <a href="#Expressions"><em>expression</em></a>
@@ -8525,13 +8595,13 @@ force evaluation order.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Parenthesis-Expressions_Semantics">10.8.2. Semantics</h4>
+<h4 id="Expressions_Parenthesis-Expressions_Semantics">10.9.2. Semantics</h4>
 <div class="paragraph">
 <p>The type and value of the expression are the type and value of the subexpression.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Parenthesis-Expressions_Example">10.8.3. Example</h4>
+<h4 id="Expressions_Parenthesis-Expressions_Example">10.9.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant a = (1 + 2) * 3</code></pre>
@@ -8544,7 +8614,7 @@ force evaluation order.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_String-Literals">10.9. String Literals</h3>
+<h3 id="Expressions_String-Literals">10.10. String Literals</h3>
 <div class="paragraph">
 <p>A <strong>string literal expression</strong> is a single-line string literal
 or a multiline string literal.
@@ -8574,7 +8644,7 @@ optionally preceded by a CR character (ASCII code 0x0D).</p>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="Expressions_String-Literals_Single-Line-String-Literals">10.9.1. Single-Line String Literals</h4>
+<h4 id="Expressions_String-Literals_Single-Line-String-Literals">10.10.1. Single-Line String Literals</h4>
 <div class="paragraph">
 <p>A <strong>single-line string literal</strong> is a sequence of <strong>single-line literal characters</strong>
 enclosed in double
@@ -8630,7 +8700,7 @@ unmatched double quote character.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_String-Literals_Multiline-String-Literals">10.9.2. Multiline String Literals</h4>
+<h4 id="Expressions_String-Literals_Multiline-String-Literals">10.10.2. Multiline String Literals</h4>
 <div class="paragraph">
 <p>A <strong>multiline string literal</strong> is a sequence of <strong>multiline literal characters</strong> enclosed
 in sequences <code>"""</code> of three double quote characters.
@@ -8717,12 +8787,12 @@ The value of the string constant <code>s</code> is <code>"""</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Struct-Expressions">10.10. Struct Expressions</h3>
+<h3 id="Expressions_Struct-Expressions">10.11. Struct Expressions</h3>
 <div class="paragraph">
 <p>An <strong>struct expression</strong> is an expression that represents a struct value.</p>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Syntax">10.10.1. Syntax</h4>
+<h4 id="Expressions_Struct-Expressions_Syntax">10.11.1. Syntax</h4>
 <div class="paragraph">
 <p><code>{</code> <em>struct-element-sequence</em> <code>}</code></p>
 </div>
@@ -8737,7 +8807,7 @@ A <strong>struct element</strong> has the following syntax:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Semantics">10.10.2. Semantics</h4>
+<h4 id="Expressions_Struct-Expressions_Semantics">10.11.2. Semantics</h4>
 <div class="paragraph">
 <p>The following must be true of the struct element sequence <em>S</em>:</p>
 </div>
@@ -8758,7 +8828,7 @@ corresponding member names and values.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Example">10.10.3. Example</h4>
+<h4 id="Expressions_Struct-Expressions_Example">10.11.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp"># s is a struct value with members x = 0, y = 1
@@ -8771,7 +8841,7 @@ constant s = {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Precedence-and-Associativity">10.11. Precedence and Associativity</h3>
+<h3 id="Expressions_Precedence-and-Associativity">10.12. Precedence and Associativity</h3>
 <div class="paragraph">
 <p>Ambiguity in parsing expressions is resolved with the following
 precedence table. Expressions appearing earlier in the table
@@ -11571,7 +11641,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-08-13 12:59:51 -0700
+Last updated 2025-08-21 07:26:38 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

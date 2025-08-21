@@ -1,0 +1,40 @@
+=== Array Subscript Expressions
+
+An *array subscript expression* is an expression that selects an element from an
+expression with array type.
+
+==== Syntax
+
+<<Expressions,_expression_>> `[` <<Expressions,_expression_>> `]`
+
+==== Semantics
+
+The following rules give the meaning of an array subscript expression
+stem:[e] `[` stem:[i] `]`:
+
+. stem:[e] must have <<Types_Array-Types,array type>> or
+<<Types_Internal-Types_Anonymous-Array-Types,anonymous array type>>, _T_.
+
+. stem:[i] must have <<Types_Internal-Types_Integer,integer type>>
+
+. stem:[e] `[` stem:[i] `]` evaluates to an expression with the type
+being the element type of _T_.
+
+. stem:[e] `[` stem:[i] `]` has a value of the stem:[i]'th index of
+stem:[e], where the first element is at index 0.
+
+. stem:[i] is invalid if it is:
+
+.. Negative
+
+.. Greater than or equal to the length of stem:[e]
+
+==== Example
+
+[source,fpp]
+----
+constant a = [ 2, 4, 6 ] # a is an array value with elements 0, 1, 2
+constant b = a[1] # b is an integer with value 4
+constant c = [ 0, 1, 2 ][-1] # error, index is out of bounds (negative)
+constant d = [ 0, 1, 2 ][3] # error, index is out of bounds (past end)
+----

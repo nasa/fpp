@@ -12,6 +12,7 @@ Arithmetic-Expressions.adoc
 Array-Expressions.adoc
 Boolean-Literals.adoc
 Dot-Expressions.adoc
+Array-Subscript-Expressions.adoc
 Floating-Point-Literals.adoc
 Identifier-Expressions.adoc
 Integer-Literals.adoc
