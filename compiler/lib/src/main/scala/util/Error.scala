@@ -177,8 +177,6 @@ sealed trait Error {
         Error.print (Some(loc)) (s"invalid component instance definition $name: $msg")
       case SemanticError.InvalidEnumConstants(loc) =>
         Error.print (Some(loc)) ("enum constants must be all explicit or all implied")
-      case SemanticError.InvalidExpression(loc, msg) =>
-        Error.print (Some(loc)) (s"invalid expression: $msg")
       case SemanticError.InvalidEvent(loc, msg) =>
         Error.print (Some(loc)) (msg)
       case SemanticError.InvalidFormatString(loc, msg) =>
@@ -549,8 +547,6 @@ object SemanticError {
   ) extends Error
   /** Invalid enum constants */
   final case class InvalidEnumConstants(loc: Location) extends Error
-  /** Invalid expression */
-  final case class InvalidExpression(loc: Location, msg: String) extends Error
   /** Invalid event */
   final case class InvalidEvent(loc: Location, msg: String) extends Error
   /** Invalid format string  */

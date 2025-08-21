@@ -4,8 +4,8 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /**
- * Analyze uses
- * ...assumes all qualified identifiers are constant uses
+ * Basic use analysis
+ * Assumes all qualified identifiers are constant uses
  */
 trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
 
@@ -66,7 +66,8 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
     nameOpt(e, Nil) match {
       // Assume the entire qualified identifier is a use
       case Some(use) => constantUse(a, node, use)
-      // This is some other type of dot expression (not qual ident), evaluate the left side
+      // This is some other type of dot expression (not a qual ident)
+      // Analyze the left side, which may contain constant uses
       case None => exprNode(a, e.e)
     }
   }

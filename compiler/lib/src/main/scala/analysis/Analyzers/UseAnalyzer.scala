@@ -5,37 +5,32 @@ import fpp.compiler.util._
 
 /**
  * Analyze uses
- * CheckUses must have already been run since we must know what
- * is and isn't a constant.
+ * This analyzer assumes that CheckUses has already been run to populate the use-def map
  */
 trait UseAnalyzer extends BasicUseAnalyzer {
 
-  override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot) = {
-    def nameOpt(cNode: AstNode[Ast.Expr], cE: Ast.Expr, qualifier: List[Name.Unqualified]): Result.Result[Name.Qualified] = {
-      cE match {
-        case Ast.ExprIdent(id) => {
-          val list = id :: qualifier
-          Right(Name.Qualified.fromIdentList(list))
-        }
-        case Ast.ExprDot(e1, id) => nameOpt(e1, e1.data, id.data :: qualifier)
-        case _ => Left(SemanticError.InvalidExpression(
-          Locations.get(node.id),
-          "expression does not refer to a definition or struct literal"
-        ))
-      }
-    }
-
-    a.useDefMap.get(node.id) match {
-      // Check if this entire expression is constant use
-      case Some(Symbol.Constant(_) | Symbol.EnumConstant(_)) =>
-        for {
-          use <- nameOpt(node, e, Nil)
-          a <- constantUse(a, node, use)
-        } yield a
-
-      // Analyze this expression in pieces
-      case _ => exprNode(a, e.e)
-    }
+  /** Gets a qualified name from a dot expression */
+  private def getQualifiedName(
+    e: Ast.Expr,
+    qualifier: List[Name.Unqualified] = Nil
+  ): Name.Qualified = e match {
+    case Ast.ExprIdent(id) =>
+      Name.Qualified.fromIdentList(id :: qualifier)
+    case Ast.ExprDot(e1, id) =>
+      getQualifiedName(e1.data, id.data :: qualifier)
+    case _ => throw new InternalError("expected a qualified name")
   }
+
+  override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot) =
+    a.useDefMap.get(node.id) match {
+      case Some(_) =>
+        // e is a use, so it must be a constant use
+        val use = getQualifiedName(e)
+        constantUse(a, node, use)
+      case None =>
+        // e is not a use, so it selects a member of a struct value
+        // Analyze the left-hand expression representing the struct value
+        exprNode(a, e.e)
+    }
 
 }
