@@ -8373,12 +8373,22 @@ elements to the common type.</p>
 <div class="sect2">
 <h3 id="Expressions_Dot-Expressions">10.4. Dot Expressions</h3>
 <div class="paragraph">
-<p>A <strong>dot expression</strong> is a
-<a href="#Definitions-and-Uses_Uses">use</a>
-that refers to a
+<p>A <strong>dot expression</strong> is one of the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A <a href="#Definitions-and-Uses_Uses">use</a> that refers to a
 <a href="#Definitions_Constant-Definitions">constant definition</a>
 or
 <a href="#Definitions_Enumerated-Constant-Definitions">enumerated constant definition</a>.</p>
+</li>
+<li>
+<p>An expression that selects a
+member of a <a href="#Values_Struct-Values">struct value</a> or
+<a href="#Values_Anonymous-Struct-Values">anonymous struct value</a>.</p>
+</li>
+</ol>
 </div>
 <div class="sect3">
 <h4 id="Expressions_Dot-Expressions_Syntax">10.4.1. Syntax</h4>
@@ -8398,11 +8408,33 @@ or
 <li>
 <p>If \$e\$<code>.x</code> is a
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified
-identifier</a> that represents one of the uses listed above according to
-the
+identifier</a> that refers to a constant definition or an enumerated
+constant definition according to the
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">rules
 for resolving qualified identifiers</a>, then it evaluates to the value
-stored in the corresponding <a href="#Definitions">definition</a>.</p>
+associated with the corresponding <a href="#Definitions">definition</a>.</p>
+</li>
+<li>
+<p>Otherwise if \$e\$ is an <a href="#Expressions">expression</a> of type \$T\$,
+where
+\$T\$ is a <a href="#Types_Struct-Types">struct type</a>
+or <a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct type</a>
+and \$T\$ has <code>x</code> as a member, then the expression \$e\$<code>.x</code>
+is evaluated as follows:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Evaluate \$e\$ to a <a href="#Values_Struct-Values">struct value</a>
+or <a href="#Values_Anonymous-Struct-Values">anonymous struct value</a>
+\$v\$.
+If \$e\$ itself is a dot expression, then apply this rule recursively.</p>
+</li>
+<li>
+<p>Evaluate the entire expression to the value stored in the
+member <code>x</code> of the value \$v\$.</p>
+</li>
+</ol>
+</div>
 </li>
 <li>
 <p>Otherwise \$e\$<code>.x</code> is invalid.</p>
@@ -8429,6 +8461,20 @@ constant b = M.a # M.a evaluates to 1</code></pre>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">enum E { X = 0, Y = 1 }
 constant a = E.X # E.X evaluates to 0</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="Expressions_Dot-Expressions_Examples_Example-3">Example 3</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+  constant a = {
+    b = 10.2,
+    c = "string",
+  }
+}
+constant a = M.a.b # M.a.b evaluates to 10.2</code></pre>
 </div>
 </div>
 </div>
@@ -10289,7 +10335,22 @@ for resolving qualified identifiers</a>, and the use is a valid
 expression</a>, then use the type given in the definition.</p>
 </li>
 <li>
-<p>Otherwise \$e\$<code>.x</code> is invalid. Throw an error.</p>
+<p>Otherwise do the following:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Compute the type \$T\$ of \$e\$.</p>
+</li>
+<li>
+<p>If \$T\$ is a <a href="#Types_Struct-Types">struct type</a>
+or <a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct type</a>
+with a member <code>x</code>, then use the type associated with <code>x</code>.</p>
+</li>
+<li>
+<p>Otherwise throw an error.</p>
+</li>
+</ol>
+</div>
 </li>
 </ol>
 </div>
@@ -10300,9 +10361,16 @@ expression</a>, then use the type given in the definition.</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">module M {
   constant a = 0 # The constant M.a has type Integer
+  constant b = {
+    c = "string1"
+    d = "string2"
+  }
 }
 constant b = M.a # Expression M.a represents a use of the definition M.a.
-                 # Its type is Integer.</code></pre>
+                 # Its type is Integer.
+
+constant c = M.b.c # Expression M.b.c uses M.b and selects member `c`.
+                   # Its type is string.</code></pre>
 </div>
 </div>
 </div>
@@ -11183,7 +11251,11 @@ We write an anonymous struct value \$v\$ similarly to a
 a struct value has the form <code>{</code> \$m_1\$ <code>=</code> \$v_1\$ <code>,</code> \$...\$ <code>,</code>
 \$m_n\$ <code>=</code> \$v_n\$ <code>}</code>,
 where for each \$i in [1,n\$], \$v_i\$ is a value of type \$T_i\$.
-Each type \$T_i\$ must be a <a href="#Types_Canonical-Types">canonical type</a>.
+The elements \$m_i\$ <code>=</code> \$v_i\$ are called the
+<strong>members</strong> of the value.</p>
+</div>
+<div class="paragraph">
+<p>Each type \$T_i\$ must be a <a href="#Types_Canonical-Types">canonical type</a>.
 The canonical type of the value is <em>{</em> \$m_1\$ <em>:</em> \$T_1\$ <em>,</em> \$...\$
 <em>,</em> \$m_n\$ <em>:</em> \$T_n\$ <em>}</em>.</p>
 </div>
@@ -11571,7 +11643,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-08-13 12:59:51 -0700
+Last updated 2025-08-20 17:13:20 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
