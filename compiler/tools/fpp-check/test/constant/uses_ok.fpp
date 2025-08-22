@@ -2,6 +2,7 @@ constant a = 0
 constant b = a
 constant c = M.a
 constant d = M.N.a
+constant e = M.N.g[1]
 
 constant hex1 = 0xFF
 constant hex2 = 0xff
@@ -19,6 +20,8 @@ module M {
     constant a = 0
     constant e = E.X
     enum E { X = M.a, Y = a + 1, Z = Y + 2 }
+
+    constant g = [ 1, 2, 3 ]
 
   }
 
