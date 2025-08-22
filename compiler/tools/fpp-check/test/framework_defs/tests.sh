@@ -6,4 +6,6 @@ fw_index_type_not_signed
 fw_opcode_type_not_alias_type
 fw_size_type_not_unsigned
 user_data_size_not_integer
+user_data_size_not_defined
+user_data_size_not_constant_symbol
 "

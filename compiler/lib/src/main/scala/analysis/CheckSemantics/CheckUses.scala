@@ -136,24 +136,54 @@ object CheckUses extends BasicUseAnalyzer {
     val impliedTypeUses = a.getImpliedUses(ImpliedUse.Kind.Type, node._2.id).toList
     val impliedConstantUses = a.getImpliedUses(ImpliedUse.Kind.Constant, node._2.id).toList
     for {
+      _ <- Result.foldLeft (impliedConstantUses) (()) ((_, itu) => {
+        val impliedUse = itu.asUniqueExprNode
+
+        for {
+          a <- {
+            Result.annotateResult(
+              constantUse(a, impliedUse, itu.name),
+              s"when constructing a dictionary, the constant ${itu.name} must be defined"
+            )
+          }
+
+          // Check to make sure this implied use is actually a constant
+          // ...rather than a member of a constant.
+          a <- {
+            a.useDefMap.get(impliedUse.id) match {
+              case Some(Symbol.Constant(_) | Symbol.EnumConstant(_)) => Right(a)
+              case Some(_) => throw new InternalError("not a constant use or member")
+              case x =>
+                // Get the parent symbol to make the error reporting better
+                def getSymbolOfExpr(e: AstNode[Expr]): Symbol = {
+                  (a.useDefMap.get(e.id), e.data) match {
+                    case (Some(sym), _) => sym
+                    case (None, Ast.ExprDot(ee, eid)) => getSymbolOfExpr(ee)
+                    case _ => throw new InternalError("expected a constant use")
+                  }
+                }
+
+                val sym = getSymbolOfExpr(impliedUse)
+                Left(SemanticError.InvalidSymbol(
+                  sym.getUnqualifiedName,
+                  Locations.get(impliedUse.id),
+                  s"${itu.name} must be a constant symbol",
+                  sym.getLoc
+                ))
+            }
+          }
+        } yield ()
+      })
+
       _ <- Result.foldLeft (impliedTypeUses) (()) ((_, itu) => {
         for {
-          _ <- Result.annotateResult(
+          a <- Result.annotateResult(
             typeUse(a, itu.asTypeNameNode, itu.name),
             s"when constructing a dictionary, the type ${itu.name} must be defined"
           )
         } yield ()
       })
-      _ <- Result.foldLeft (impliedConstantUses) (()) ((_, itu) => {
-        for {
-          _ <- {
-            Result.annotateResult(
-              exprNode(a, itu.asExprNode),
-              s"when constructing a dictionary, the constant ${itu.name} must be defined"
-            )
-          }
-        } yield ()
-      })
+
       a <- super.defTopologyAnnotatedNode(a, node)
     } yield a
   }
