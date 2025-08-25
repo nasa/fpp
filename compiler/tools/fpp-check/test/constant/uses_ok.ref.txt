@@ -1,9 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/constant/uses_ok.fpp:30.1
-constant e = C.b
-^
-error: redefinition of symbol e
-previous definition is here:
-[ local path prefix ]/compiler/tools/fpp-check/test/constant/uses_ok.fpp:5.1
-constant e = M.N.g[1]
-^

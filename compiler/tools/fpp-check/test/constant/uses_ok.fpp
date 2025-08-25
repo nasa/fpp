@@ -2,7 +2,6 @@ constant a = 0
 constant b = a
 constant c = M.a
 constant d = M.N.a
-constant e = M.N.g[1]
 
 constant hex1 = 0xFF
 constant hex2 = 0xff
@@ -28,6 +27,7 @@ module M {
 }
 
 constant e = C.b
+constant f = M.N.g[1]
 
 passive component C {
 
