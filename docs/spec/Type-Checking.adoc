@@ -120,6 +120,25 @@ constant a = [ 1, 2, 3 ] # Type is [3] Integer
 constant b = [ 1, 2, 3.0 ] # Type is [3] F64
 ----
 
+=== Array Subscript Expressions
+
+To type an
+<<Expressions_Array-Subscript-Expressions,array subscript expression>>
+stem:[e_1] `[` stem:[e_2] `]`, the semantic analyzer does the following:
+
+. Compute the type stem:[T_1] of stem:[e_1].
+
+. Check that stem:[T_1] is an <<Types_Array-Types,array type>> or
+<<Types_Internal-Types_Anonymous-Array-Types,anonymous array type>>
+with element type stem:[T] and size stem:[n].
+
+. Compute the type stem:[T_2] of stem:[e_2].
+
+. Check that stem:[T_2] <<Type-Checking_Type-Conversion,may be converted to>>
+_Integer_.
+  
+. Use stem:[T] as the type of the expression.
+
 === Struct Expressions
 
 To type a
