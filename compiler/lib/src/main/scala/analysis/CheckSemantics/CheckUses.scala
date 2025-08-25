@@ -149,7 +149,7 @@ object CheckUses extends BasicUseAnalyzer {
 
           // Check to make sure this implied use is actually a constant
           // ...rather than a member of a constant.
-          a <- {
+          _ <- {
             a.useDefMap.get(impliedUse.id) match {
               case Some(Symbol.Constant(_) | Symbol.EnumConstant(_)) => Right(a)
               case Some(_) => throw new InternalError("not a constant use or member")
@@ -177,7 +177,7 @@ object CheckUses extends BasicUseAnalyzer {
 
       _ <- Result.foldLeft (impliedTypeUses) (()) ((_, itu) => {
         for {
-          a <- Result.annotateResult(
+          _ <- Result.annotateResult(
             typeUse(a, itu.asTypeNameNode, itu.name),
             s"when constructing a dictionary, the type ${itu.name} must be defined"
           )
