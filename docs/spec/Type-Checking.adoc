@@ -85,9 +85,15 @@ for resolving qualified identifiers>>, and the use is a valid
 <<Expressions_Dot-Expressions,dot
 expression>>, then use the type given in the definition.
 
-. Evaluate stem:[e]'s type _T_. If _T_ is not a <<Types_Struct-Types,struct type>>
-or <<Types_Internal-Types_Anonymous-Struct-Types,anonymous struct type>>, throw an error.
-If `x` is not a member of _T_, throw an error. Use the type from the `x` member of _T_.
+. Otherwise do the following:
+
+.. Compute the type stem:[T] of stem:[e].
+
+.. If stem:[T] is a <<Types_Struct-Types,struct type>>
+or <<Types_Internal-Types_Anonymous-Struct-Types,anonymous struct type>>
+with a member `x`, then use the type associated with `x`.
+
+.. Otherwise throw an error.
 
 *Example:*
 
@@ -96,8 +102,8 @@ If `x` is not a member of _T_, throw an error. Use the type from the `x` member 
 module M {
   constant a = 0 # The constant M.a has type Integer
   constant b = {
-    c = "string1",
-    d = "string2",
+    c = "string1"
+    d = "string2"
   }
 }
 constant b = M.a # Expression M.a represents a use of the definition M.a.
