@@ -1,0 +1,2 @@
+constant binop = 0+1+a-b
+constant complex = -{x=1,y=2}.x + a[0][1]*a[0].x[12].y.x
