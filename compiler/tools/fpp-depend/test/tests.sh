@@ -16,6 +16,7 @@ expr_dot
 expr_ident
 expr_paren
 expr_struct
+expr_struct_dot
 expr_unop
 filenames
 filenames_auto

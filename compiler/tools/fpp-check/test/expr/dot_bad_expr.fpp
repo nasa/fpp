@@ -1,1 +1,1 @@
-constant a = { x = 1 }.x
+constant a = false.x

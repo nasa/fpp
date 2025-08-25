@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/constant_integer_as_qualifier.fpp:2.16
+constant b = a.c
+               ^
+error: no member c in value of type Integer

@@ -1,6 +1,6 @@
 tests="
-constant_as_qualifier
 constant_as_type
+constant_integer_as_qualifier
 module_as_component
 module_as_component_instance
 module_as_constant

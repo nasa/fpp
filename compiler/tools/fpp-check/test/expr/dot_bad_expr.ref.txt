@@ -1,5 +1,5 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/expr/dot_bad_expr.fpp:1.14
-constant a = { x = 1 }.x
-             ^
-error: invalid expression: expression does not refer to a definition
+[ local path prefix ]/compiler/tools/fpp-check/test/expr/dot_bad_expr.fpp:1.20
+constant a = false.x
+                   ^
+error: no member x in value of type bool
