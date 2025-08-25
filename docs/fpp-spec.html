@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>The F Prime Prime (FPP) Language Specification, v3.0.0</title>
+<title>The F Prime Prime (FPP) Language Specification, Unreleased, after v3.0.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>The F Prime Prime (FPP) Language Specification, v3.0.0</h1>
+<h1>The F Prime Prime (FPP) Language Specification, Unreleased, after v3.0.0</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -8373,11 +8373,22 @@ elements to the common type.</p>
 <div class="sect2">
 <h3 id="Expressions_Dot-Expressions">10.4. Dot Expressions</h3>
 <div class="paragraph">
-<p>A <strong>dot expression</strong> is an expression that selects a
-member of a <a href="#Types_Struct-Types">struct</a> or <a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct</a> typed expression or a <a href="#Definitions-and-Uses_Uses">use</a> that refers to a
+<p>A <strong>dot expression</strong> is one of the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A <a href="#Definitions-and-Uses_Uses">use</a> that refers to a
 <a href="#Definitions_Constant-Definitions">constant definition</a>
 or
 <a href="#Definitions_Enumerated-Constant-Definitions">enumerated constant definition</a>.</p>
+</li>
+<li>
+<p>An expression that selects a
+member of a <a href="#Values_Struct-Values">struct value</a> or
+<a href="#Values_Anonymous-Struct-Values">anonymous struct value</a>.</p>
+</li>
+</ol>
 </div>
 <div class="sect3">
 <h4 id="Expressions_Dot-Expressions_Syntax">10.4.1. Syntax</h4>
@@ -8395,19 +8406,35 @@ or
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>If \$e\$ is an <a href="#Expressions">expression</a> of <a href="#Types_Struct-Types">struct type</a>
-or <a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct type</a>
-where <code>x</code> is a member, then it evaluates to the value stored in the member of the
-corresponding <a href="#Values_Struct-Values">struct value</a>.</p>
-</li>
-<li>
 <p>If \$e\$<code>.x</code> is a
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified
-identifier</a> that represents one of the uses listed above according to
-the
+identifier</a> that refers to a constant definition or an enumerated
+constant definition according to the
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">rules
 for resolving qualified identifiers</a>, then it evaluates to the value
-stored in the corresponding <a href="#Definitions">definition</a>.</p>
+associated with the corresponding <a href="#Definitions">definition</a>.</p>
+</li>
+<li>
+<p>Otherwise if \$e\$ is an <a href="#Expressions">expression</a> of type \$T\$,
+where
+\$T\$ is a <a href="#Types_Struct-Types">struct type</a>
+or <a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct type</a>
+and \$T\$ has <code>x</code> as a member, then the expression \$e\$<code>.x</code>
+is evaluated as follows:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Evaluate \$e\$ to a <a href="#Values_Struct-Values">struct value</a>
+or <a href="#Values_Anonymous-Struct-Values">anonymous struct value</a>
+\$v\$.
+If \$e\$ itself is a dot expression, then apply this rule recursively.</p>
+</li>
+<li>
+<p>Evaluate the entire expression to the value stored in the
+member <code>x</code> of the value \$v\$.</p>
+</li>
+</ol>
+</div>
 </li>
 <li>
 <p>Otherwise \$e\$<code>.x</code> is invalid.</p>
@@ -10308,9 +10335,22 @@ for resolving qualified identifiers</a>, and the use is a valid
 expression</a>, then use the type given in the definition.</p>
 </li>
 <li>
-<p>Evaluate \$e\$'s type <em>T</em>. If <em>T</em> is not a <a href="#Types_Struct-Types">struct type</a>
-or <a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct type</a>, throw an error.
-If <code>x</code> is not a member of <em>T</em>, throw an error. Use the type from the <code>x</code> member of <em>T</em>.</p>
+<p>Otherwise do the following:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Compute the type \$T\$ of \$e\$.</p>
+</li>
+<li>
+<p>If \$T\$ is a <a href="#Types_Struct-Types">struct type</a>
+or <a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct type</a>
+with a member <code>x</code>, then use the type associated with <code>x</code>.</p>
+</li>
+<li>
+<p>Otherwise throw an error.</p>
+</li>
+</ol>
+</div>
 </li>
 </ol>
 </div>
@@ -10322,8 +10362,8 @@ If <code>x</code> is not a member of <em>T</em>, throw an error. Use the type fr
 <pre class="prettyprint highlight"><code data-lang="fpp">module M {
   constant a = 0 # The constant M.a has type Integer
   constant b = {
-    c = "string1",
-    d = "string2",
+    c = "string1"
+    d = "string2"
   }
 }
 constant b = M.a # Expression M.a represents a use of the definition M.a.
@@ -11211,7 +11251,11 @@ We write an anonymous struct value \$v\$ similarly to a
 a struct value has the form <code>{</code> \$m_1\$ <code>=</code> \$v_1\$ <code>,</code> \$...\$ <code>,</code>
 \$m_n\$ <code>=</code> \$v_n\$ <code>}</code>,
 where for each \$i in [1,n\$], \$v_i\$ is a value of type \$T_i\$.
-Each type \$T_i\$ must be a <a href="#Types_Canonical-Types">canonical type</a>.
+The elements \$m_i\$ <code>=</code> \$v_i\$ are called the
+<strong>members</strong> of the value.</p>
+</div>
+<div class="paragraph">
+<p>Each type \$T_i\$ must be a <a href="#Types_Canonical-Types">canonical type</a>.
 The canonical type of the value is <em>{</em> \$m_1\$ <em>:</em> \$T_1\$ <em>,</em> \$...\$
 <em>,</em> \$m_n\$ <em>:</em> \$T_n\$ <em>}</em>.</p>
 </div>
@@ -11599,7 +11643,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-08-18 13:15:09 -0700
+Last updated 2025-08-25 10:23:03 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
