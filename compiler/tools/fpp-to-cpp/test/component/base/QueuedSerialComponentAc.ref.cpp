@@ -2114,13 +2114,13 @@ void QueuedSerialComponentBase ::
     if (_stat != Fw::FW_SERIALIZE_OK) {
       this->m_param_ParamArray_valid = Fw::ParamValid::DEFAULT;
       // Set default value
-      this->m_ParamArray = A(1, 2, 3);
+      this->m_ParamArray = A({1, 2, 3});
     }
   }
   else {
     // Set default value
     this->m_param_ParamArray_valid = Fw::ParamValid::DEFAULT;
-    this->m_ParamArray = A(1, 2, 3);
+    this->m_ParamArray = A({1, 2, 3});
   }
 
   this->m_paramLock.unLock();

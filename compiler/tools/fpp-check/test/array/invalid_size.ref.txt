@@ -3,3 +3,4 @@ fpp-check
 array A = [-1] U32
            ^
 error: invalid array size -1
+note: size must be greater than zero

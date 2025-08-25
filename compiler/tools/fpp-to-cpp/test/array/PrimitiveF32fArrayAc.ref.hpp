@@ -7,6 +7,8 @@
 #ifndef M_PrimitiveF32fArrayAc_HPP
 #define M_PrimitiveF32fArrayAc_HPP
 
+#include <initializer_list>
+
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
@@ -52,24 +54,22 @@ namespace M {
       //! Constructor (default value)
       PrimitiveF32f();
 
-      //! Constructor (user-provided value)
+      //! Constructor (primitive array)
       PrimitiveF32f(
           const ElementType (&a)[SIZE] //!< The array
       );
 
       //! Constructor (single element)
-      PrimitiveF32f(
+      explicit PrimitiveF32f(
           const ElementType& e //!< The element
       );
 
-      //! Constructor (multiple elements)
+      //! Constructor (initializer list)
       PrimitiveF32f(
-          const ElementType& e1, //!< Element 1
-          const ElementType& e2, //!< Element 2
-          const ElementType& e3 //!< Element 3
+          const std::initializer_list<ElementType>& il //!< The initializer list
       );
 
-      //! Copy Constructor
+      //! Copy constructor
       PrimitiveF32f(
           const PrimitiveF32f& obj //!< The source object
       );
@@ -82,12 +82,12 @@ namespace M {
 
       //! Subscript operator
       ElementType& operator[](
-          const U32 i //!< The subscript index
+          const FwSizeType i //!< The subscript index
       );
 
       //! Const subscript operator
       const ElementType& operator[](
-          const U32 i //!< The subscript index
+          const FwSizeType i //!< The subscript index
       ) const;
 
       //! Copy assignment operator (object)
@@ -95,9 +95,14 @@ namespace M {
           const PrimitiveF32f& obj //!< The source object
       );
 
-      //! Copy assignment operator (raw array)
+      //! Copy assignment operator (primitive array)
       PrimitiveF32f& operator=(
           const ElementType (&a)[SIZE] //!< The source array
+      );
+
+      //! Copy assignment operator (initializer list)
+      PrimitiveF32f& operator=(
+          const std::initializer_list<ElementType>& il //!< The initializer list
       );
 
       //! Copy assignment operator (single element)

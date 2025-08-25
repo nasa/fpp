@@ -7,6 +7,8 @@
 #ifndef C_C_AArrayAc_HPP
 #define C_C_AArrayAc_HPP
 
+#include <initializer_list>
+
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
@@ -49,24 +51,22 @@ class C_A :
     //! Constructor (default value)
     C_A();
 
-    //! Constructor (user-provided value)
+    //! Constructor (primitive array)
     C_A(
         const ElementType (&a)[SIZE] //!< The array
     );
 
     //! Constructor (single element)
-    C_A(
+    explicit C_A(
         const ElementType& e //!< The element
     );
 
-    //! Constructor (multiple elements)
+    //! Constructor (initializer list)
     C_A(
-        const ElementType& e1, //!< Element 1
-        const ElementType& e2, //!< Element 2
-        const ElementType& e3 //!< Element 3
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
-    //! Copy Constructor
+    //! Copy constructor
     C_A(
         const C_A& obj //!< The source object
     );
@@ -79,12 +79,12 @@ class C_A :
 
     //! Subscript operator
     ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     );
 
     //! Const subscript operator
     const ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     ) const;
 
     //! Copy assignment operator (object)
@@ -92,9 +92,14 @@ class C_A :
         const C_A& obj //!< The source object
     );
 
-    //! Copy assignment operator (raw array)
+    //! Copy assignment operator (primitive array)
     C_A& operator=(
         const ElementType (&a)[SIZE] //!< The source array
+    );
+
+    //! Copy assignment operator (initializer list)
+    C_A& operator=(
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)

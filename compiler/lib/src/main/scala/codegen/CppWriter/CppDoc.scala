@@ -63,8 +63,14 @@ object CppDoc {
       params: List[Function.Param],
       initializers: List[String],
       body: List[Line],
-      cppFileNameBaseOpt: Option[String] = None,
+      explicitQualifier: Constructor.ExplicitQualifier = Constructor.NotExplicit,
+      cppFileNameBaseOpt: Option[String] = None
     )
+    object Constructor {
+      sealed trait ExplicitQualifier
+      case object NotExplicit extends ExplicitQualifier
+      case object Explicit extends ExplicitQualifier
+    }
     case class Destructor(
       comment: Option[String],
       body: List[Line],

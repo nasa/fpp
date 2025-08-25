@@ -87,8 +87,13 @@ object CppDocHppWriter extends CppDocWriter {
     val outputLines = {
       val lines1 = CppDocWriter.writeDoxygenCommentOpt(constructor.comment)
       val lines2 = {
+        import CppDoc.Class.Constructor._
         val params = writeParams(unqualifiedClassName, constructor.params)
-        Line.addSuffix(params, ";")
+        val nameAndParams = Line.addSuffix(params, ";")
+        constructor.explicitQualifier match {
+          case Explicit => Line.addPrefix("explicit ", nameAndParams)
+          case NotExplicit => nameAndParams
+        }
       }
       lines1 ++ lines2
     }

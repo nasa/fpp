@@ -7,6 +7,8 @@
 #ifndef PrimitiveArrayArrayAc_HPP
 #define PrimitiveArrayArrayAc_HPP
 
+#include <initializer_list>
+
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
@@ -51,26 +53,22 @@ class PrimitiveArray :
     //! Constructor (default value)
     PrimitiveArray();
 
-    //! Constructor (user-provided value)
+    //! Constructor (primitive array)
     PrimitiveArray(
         const ElementType (&a)[SIZE] //!< The array
     );
 
     //! Constructor (single element)
-    PrimitiveArray(
+    explicit PrimitiveArray(
         const ElementType& e //!< The element
     );
 
-    //! Constructor (multiple elements)
+    //! Constructor (initializer list)
     PrimitiveArray(
-        const ElementType& e1, //!< Element 1
-        const ElementType& e2, //!< Element 2
-        const ElementType& e3, //!< Element 3
-        const ElementType& e4, //!< Element 4
-        const ElementType& e5 //!< Element 5
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
-    //! Copy Constructor
+    //! Copy constructor
     PrimitiveArray(
         const PrimitiveArray& obj //!< The source object
     );
@@ -83,12 +81,12 @@ class PrimitiveArray :
 
     //! Subscript operator
     ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     );
 
     //! Const subscript operator
     const ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     ) const;
 
     //! Copy assignment operator (object)
@@ -96,9 +94,14 @@ class PrimitiveArray :
         const PrimitiveArray& obj //!< The source object
     );
 
-    //! Copy assignment operator (raw array)
+    //! Copy assignment operator (primitive array)
     PrimitiveArray& operator=(
         const ElementType (&a)[SIZE] //!< The source array
+    );
+
+    //! Copy assignment operator (initializer list)
+    PrimitiveArray& operator=(
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)

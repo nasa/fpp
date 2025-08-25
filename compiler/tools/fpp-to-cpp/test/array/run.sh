@@ -34,6 +34,12 @@ header_path()
     diff_cpp HeaderPathArray
 }
 
+large_size()
+{
+  run_test "-p $PWD" large_size && \
+    diff_cpp LargeSizeArray
+}
+
 primitive()
 {
   run_test "-p $PWD" primitive && \

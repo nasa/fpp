@@ -7,6 +7,8 @@
 #ifndef Enum2ArrayAc_HPP
 #define Enum2ArrayAc_HPP
 
+#include <initializer_list>
+
 #include "E2EnumAc.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
@@ -50,26 +52,22 @@ class Enum2 :
     //! Constructor (default value)
     Enum2();
 
-    //! Constructor (user-provided value)
+    //! Constructor (primitive array)
     Enum2(
         const ElementType (&a)[SIZE] //!< The array
     );
 
     //! Constructor (single element)
-    Enum2(
+    explicit Enum2(
         const ElementType& e //!< The element
     );
 
-    //! Constructor (multiple elements)
+    //! Constructor (initializer list)
     Enum2(
-        const ElementType& e1, //!< Element 1
-        const ElementType& e2, //!< Element 2
-        const ElementType& e3, //!< Element 3
-        const ElementType& e4, //!< Element 4
-        const ElementType& e5 //!< Element 5
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
-    //! Copy Constructor
+    //! Copy constructor
     Enum2(
         const Enum2& obj //!< The source object
     );
@@ -82,12 +80,12 @@ class Enum2 :
 
     //! Subscript operator
     ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     );
 
     //! Const subscript operator
     const ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     ) const;
 
     //! Copy assignment operator (object)
@@ -95,9 +93,14 @@ class Enum2 :
         const Enum2& obj //!< The source object
     );
 
-    //! Copy assignment operator (raw array)
+    //! Copy assignment operator (primitive array)
     Enum2& operator=(
         const ElementType (&a)[SIZE] //!< The source array
+    );
+
+    //! Copy assignment operator (initializer list)
+    Enum2& operator=(
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)

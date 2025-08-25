@@ -24,6 +24,9 @@ sealed trait Error {
     System.err.println(prevLoc)
   }
   
+  /** Print a note */
+  def printNote(note: String) = System.err.println(s"note: $note")
+
   /*** Print the error */
   def print: Unit = {
     this match {
@@ -83,7 +86,7 @@ sealed trait Error {
         Error.print (Some(loc)) ("duplicate connection between a matched port array and a single instance")
         printPrevLoc(prevLoc)
         printMatchingLoc(matchingLoc)
-        System.err.println("note: each port in a matched port array must be connected to a separate instance")
+        printNote("each port in a matched port array must be connected to a separate instance")
       case SemanticError.DuplicateOpcodeValue(value, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate opcode value ${value}")
         printPrevLoc(prevLoc)
@@ -149,6 +152,7 @@ sealed trait Error {
         System.err.println(s"actual location is ${actualLoc}")
       case SemanticError.InvalidArraySize(loc, size) =>
         Error.print (Some(loc)) (s"invalid array size $size")
+        printNote("size must be greater than zero")
       case SemanticError.InvalidCommand(loc, msg) =>
         Error.print (Some(loc)) (msg)
       case SemanticError.InvalidComponentInstance(loc, instanceName, topName) =>
@@ -253,8 +257,7 @@ sealed trait Error {
         System.err.println(loc1)
         System.err.println(loc2)
         printMatchingLoc(matchingLoc)
-        System.err.println("note: to be available, a port number must be in bounds and " ++
-                           "unassigned at each of the matched ports")
+        printNote("to be available, a port number must be in bounds and unassigned at each of the matched ports")
       case SemanticError.OverlappingIdRanges(
         baseId1, name1, loc1, baseId2, maxId2, name2, loc2
       ) =>
@@ -327,7 +330,7 @@ sealed trait Error {
       case XmlError.SemanticError(file, msg) => Error.printXml (file) (msg)
       case AnnotatedError(error, note) => 
         error.print
-        System.err.println(s"note: ${note}")
+        printNote(note)
     }
   }
 
@@ -741,9 +744,7 @@ object XmlError {
 
 object Error {
 
-  /** The max array size */
-  val maxArraySize = 256
-
+  /** The tool in use, if there is one */
   private var toolOpt: Option[Tool] = None
 
   /** Set the tool */

@@ -7,6 +7,8 @@
 #ifndef AliasTypeArrayAc_HPP
 #define AliasTypeArrayAc_HPP
 
+#include <initializer_list>
+
 #include "ATAliasAc.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
@@ -51,24 +53,22 @@ class AliasType :
     //! Constructor (default value)
     AliasType();
 
-    //! Constructor (user-provided value)
+    //! Constructor (primitive array)
     AliasType(
         const ElementType (&a)[SIZE] //!< The array
     );
 
     //! Constructor (single element)
-    AliasType(
+    explicit AliasType(
         const ElementType& e //!< The element
     );
 
-    //! Constructor (multiple elements)
+    //! Constructor (initializer list)
     AliasType(
-        const ElementType& e1, //!< Element 1
-        const ElementType& e2, //!< Element 2
-        const ElementType& e3 //!< Element 3
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
-    //! Copy Constructor
+    //! Copy constructor
     AliasType(
         const AliasType& obj //!< The source object
     );
@@ -81,12 +81,12 @@ class AliasType :
 
     //! Subscript operator
     ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     );
 
     //! Const subscript operator
     const ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     ) const;
 
     //! Copy assignment operator (object)
@@ -94,9 +94,14 @@ class AliasType :
         const AliasType& obj //!< The source object
     );
 
-    //! Copy assignment operator (raw array)
+    //! Copy assignment operator (primitive array)
     AliasType& operator=(
         const ElementType (&a)[SIZE] //!< The source array
+    );
+
+    //! Copy assignment operator (initializer list)
+    AliasType& operator=(
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)

@@ -17,52 +17,35 @@ namespace M {
     PrimitiveI64() :
       Serializable()
   {
-    // Construct using element-wise constructor
-    *this = PrimitiveI64(
-      0,
-      0,
-      0
-    );
+    *this = M::PrimitiveI64(0);
   }
 
   PrimitiveI64 ::
     PrimitiveI64(const ElementType (&a)[SIZE]) :
       Serializable()
   {
-    for (U32 index = 0; index < SIZE; index++) {
-      this->elements[index] = a[index];
-    }
+    *this = a;
   }
 
   PrimitiveI64 ::
     PrimitiveI64(const ElementType& e) :
       Serializable()
   {
-    for (U32 index = 0; index < SIZE; index++) {
-      this->elements[index] = e;
-    }
+    *this = e;
   }
 
   PrimitiveI64 ::
-    PrimitiveI64(
-        const ElementType& e1,
-        const ElementType& e2,
-        const ElementType& e3
-    ) :
+    PrimitiveI64(const std::initializer_list<ElementType>& il) :
       Serializable()
   {
-    this->elements[0] = e1;
-    this->elements[1] = e2;
-    this->elements[2] = e3;
+    *this = il;
   }
 
   PrimitiveI64 ::
     PrimitiveI64(const PrimitiveI64& obj) :
       Serializable()
   {
-    for (U32 index = 0; index < SIZE; index++) {
-      this->elements[index] = obj.elements[index];
-    }
+    *this = obj;
   }
 
   // ----------------------------------------------------------------------
@@ -70,14 +53,14 @@ namespace M {
   // ----------------------------------------------------------------------
 
   PrimitiveI64::ElementType& PrimitiveI64 ::
-    operator[](const U32 i)
+    operator[](const FwSizeType i)
   {
     FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
     return this->elements[i];
   }
 
   const PrimitiveI64::ElementType& PrimitiveI64 ::
-    operator[](const U32 i) const
+    operator[](const FwSizeType i) const
   {
     FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
     return this->elements[i];
@@ -86,12 +69,10 @@ namespace M {
   PrimitiveI64& PrimitiveI64 ::
     operator=(const PrimitiveI64& obj)
   {
-    if (this == &obj) {
-      return *this;
-    }
-
-    for (U32 index = 0; index < SIZE; index++) {
-      this->elements[index] = obj.elements[index];
+    if (this != &obj) {
+      for (FwSizeType index = 0; index < SIZE; index++) {
+        this->elements[index] = obj.elements[index];
+      }
     }
     return *this;
   }
@@ -99,8 +80,23 @@ namespace M {
   PrimitiveI64& PrimitiveI64 ::
     operator=(const ElementType (&a)[SIZE])
   {
-    for (U32 index = 0; index < SIZE; index++) {
+    for (FwSizeType index = 0; index < SIZE; index++) {
       this->elements[index] = a[index];
+    }
+    return *this;
+  }
+
+  PrimitiveI64& PrimitiveI64 ::
+    operator=(const std::initializer_list<ElementType>& il)
+  {
+    // Since we are required to use C++11, this has to be a runtime check
+    // In C++14, it can be a static check
+    FW_ASSERT(il.size() == SIZE, static_cast<FwAssertArgType>(il.size()), static_cast<FwAssertArgType>(SIZE));
+    FwSizeType i = 0;
+    for (const auto& e : il) {
+      FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
+      this->elements[i] = e;
+      i++;
     }
     return *this;
   }
@@ -108,7 +104,7 @@ namespace M {
   PrimitiveI64& PrimitiveI64 ::
     operator=(const ElementType& e)
   {
-    for (U32 index = 0; index < SIZE; index++) {
+    for (FwSizeType index = 0; index < SIZE; index++) {
       this->elements[index] = e;
     }
     return *this;
@@ -117,7 +113,7 @@ namespace M {
   bool PrimitiveI64 ::
     operator==(const PrimitiveI64& obj) const
   {
-    for (U32 index = 0; index < SIZE; index++) {
+    for (FwSizeType index = 0; index < SIZE; index++) {
       if (!((*this)[index] == obj[index])) {
         return false;
       }
@@ -150,7 +146,7 @@ namespace M {
     serializeTo(Fw::SerializeBufferBase& buffer) const
   {
     Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-    for (U32 index = 0; index < SIZE; index++) {
+    for (FwSizeType index = 0; index < SIZE; index++) {
       status = buffer.serializeFrom((*this)[index]);
       if (status != Fw::FW_SERIALIZE_OK) {
         return status;
@@ -163,7 +159,7 @@ namespace M {
     deserializeFrom(Fw::SerializeBufferBase& buffer)
   {
     Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-    for (U32 index = 0; index < SIZE; index++) {
+    for (FwSizeType index = 0; index < SIZE; index++) {
       status = buffer.deserializeTo((*this)[index]);
       if (status != Fw::FW_SERIALIZE_OK) {
         return status;
@@ -193,7 +189,7 @@ namespace M {
       return;
     }
 
-    for (U32 index = 0; index < SIZE; index++) {
+    for (FwSizeType index = 0; index < SIZE; index++) {
       Fw::String tmp;
       tmp.format("%" PRIx64 "", this->elements[index]);
 

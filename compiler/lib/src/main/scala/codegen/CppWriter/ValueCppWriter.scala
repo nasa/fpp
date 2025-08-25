@@ -19,9 +19,16 @@ object ValueCppWriter {
     }
 
     override def array(s: CppWriterState, v: Value.Array) = {
-      val elements = v.anonArray.elements.map(write(s, _))
-      val stringify = elements.mkString(", ")
-      TypeCppWriter.getName(s, v.getType) ++ "(" ++ stringify ++ ")"
+      def useSingleElement(elements: List[Value]) =
+        elements.tail.forall(_ == elements.head)
+      val name = TypeCppWriter.getName(s, v.getType)
+      val args = {
+        val elements = v.anonArray.elements
+        if useSingleElement(elements)
+          then write(s, elements.head)
+          else s"{${elements.map(write(s, _)).mkString(", ")}}"
+      }
+      s"$name($args)"
     }
 
     override def boolean(s: CppWriterState, v: Value.Boolean) = v.value.toString

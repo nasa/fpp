@@ -20,6 +20,7 @@ format_ok
 format_precision_too_large
 format_too_many_repls
 invalid_size
+large_size
 string_size_default_ok
 struct_default_ok
 struct_no_default_ok

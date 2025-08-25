@@ -15,58 +15,35 @@ Enum2 ::
   Enum2() :
     Serializable()
 {
-  // Construct using element-wise constructor
-  *this = Enum2(
-    E2::C,
-    E2::C,
-    E2::C,
-    E2::C,
-    E2::C
-  );
+  *this = Enum2(E2::C);
 }
 
 Enum2 ::
   Enum2(const ElementType (&a)[SIZE]) :
     Serializable()
 {
-  for (U32 index = 0; index < SIZE; index++) {
-    this->elements[index] = a[index];
-  }
+  *this = a;
 }
 
 Enum2 ::
   Enum2(const ElementType& e) :
     Serializable()
 {
-  for (U32 index = 0; index < SIZE; index++) {
-    this->elements[index] = e;
-  }
+  *this = e;
 }
 
 Enum2 ::
-  Enum2(
-      const ElementType& e1,
-      const ElementType& e2,
-      const ElementType& e3,
-      const ElementType& e4,
-      const ElementType& e5
-  ) :
+  Enum2(const std::initializer_list<ElementType>& il) :
     Serializable()
 {
-  this->elements[0] = e1;
-  this->elements[1] = e2;
-  this->elements[2] = e3;
-  this->elements[3] = e4;
-  this->elements[4] = e5;
+  *this = il;
 }
 
 Enum2 ::
   Enum2(const Enum2& obj) :
     Serializable()
 {
-  for (U32 index = 0; index < SIZE; index++) {
-    this->elements[index] = obj.elements[index];
-  }
+  *this = obj;
 }
 
 // ----------------------------------------------------------------------
@@ -74,14 +51,14 @@ Enum2 ::
 // ----------------------------------------------------------------------
 
 Enum2::ElementType& Enum2 ::
-  operator[](const U32 i)
+  operator[](const FwSizeType i)
 {
   FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
   return this->elements[i];
 }
 
 const Enum2::ElementType& Enum2 ::
-  operator[](const U32 i) const
+  operator[](const FwSizeType i) const
 {
   FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
   return this->elements[i];
@@ -90,12 +67,10 @@ const Enum2::ElementType& Enum2 ::
 Enum2& Enum2 ::
   operator=(const Enum2& obj)
 {
-  if (this == &obj) {
-    return *this;
-  }
-
-  for (U32 index = 0; index < SIZE; index++) {
-    this->elements[index] = obj.elements[index];
+  if (this != &obj) {
+    for (FwSizeType index = 0; index < SIZE; index++) {
+      this->elements[index] = obj.elements[index];
+    }
   }
   return *this;
 }
@@ -103,8 +78,23 @@ Enum2& Enum2 ::
 Enum2& Enum2 ::
   operator=(const ElementType (&a)[SIZE])
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = a[index];
+  }
+  return *this;
+}
+
+Enum2& Enum2 ::
+  operator=(const std::initializer_list<ElementType>& il)
+{
+  // Since we are required to use C++11, this has to be a runtime check
+  // In C++14, it can be a static check
+  FW_ASSERT(il.size() == SIZE, static_cast<FwAssertArgType>(il.size()), static_cast<FwAssertArgType>(SIZE));
+  FwSizeType i = 0;
+  for (const auto& e : il) {
+    FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
+    this->elements[i] = e;
+    i++;
   }
   return *this;
 }
@@ -112,7 +102,7 @@ Enum2& Enum2 ::
 Enum2& Enum2 ::
   operator=(const ElementType& e)
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = e;
   }
   return *this;
@@ -121,7 +111,7 @@ Enum2& Enum2 ::
 bool Enum2 ::
   operator==(const Enum2& obj) const
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     if (!((*this)[index] == obj[index])) {
       return false;
     }
@@ -154,7 +144,7 @@ Fw::SerializeStatus Enum2 ::
   serializeTo(Fw::SerializeBufferBase& buffer) const
 {
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     status = buffer.serializeFrom((*this)[index]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
@@ -167,7 +157,7 @@ Fw::SerializeStatus Enum2 ::
   deserializeFrom(Fw::SerializeBufferBase& buffer)
 {
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     status = buffer.deserializeTo((*this)[index]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
@@ -197,7 +187,7 @@ void Enum2 ::
     return;
   }
 
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     Fw::String tmp;
     this->elements[index].toString(tmp);
 
