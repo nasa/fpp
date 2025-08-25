@@ -88,6 +88,46 @@ object EvalConstantExprs extends UseAnalyzer {
         a.assignValue(node -> v)
       }
 
+  override def exprArraySubscriptNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArraySubscript) = {
+    for {
+      a <- super.exprNode(a, e.e)
+      a <- super.exprNode(a, e.i)
+
+      elements <- {
+        a.valueMap(e.e.id) match {
+          case Value.AnonArray(elements) => Right(elements)
+          case Value.Array(Value.AnonArray(elements), _) => Right(elements)
+          case _ => throw InternalError("expected array value")
+        }
+      }
+
+      index <- {
+        a.valueMap(e.i.id) match {
+          case Value.PrimitiveInt(value, _) => Right(value)
+          case Value.Integer(value) => Right(value)
+          case _ => throw InternalError("type of index should be an integer type")
+        }
+      }
+
+      // Check if the index is in bounds
+      _ <- {
+        if index < 0
+        then Left(SemanticError.InvalidIntValue(
+          Locations.get(e.i.id),
+          index,
+          "value may not be negative"
+        ))
+        else if index >= elements.length
+        then Left(SemanticError.InvalidIntValue(
+          Locations.get(e.i.id),
+          index,
+          s"index value out of array bounds"
+        ))
+        else Right(None)
+      }
+    } yield a.assignValue(node -> elements(index.toInt))
+  }
+
   override def exprBinopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprBinop) =
     for {
       a <- super.exprBinopNode(a, node, e)

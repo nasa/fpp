@@ -112,6 +112,35 @@ object CheckExprTypes extends UseAnalyzer {
     } yield a.assignType(node -> Type.AnonArray(Some(e.elts.size), t))
   }
 
+  override def exprArraySubscriptNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArraySubscript): Out = {
+    for {
+      a <- super.exprNode(a, e.e)
+
+      eltType <- {
+        a.typeMap(e.e.id).getUnderlyingType match {
+          case Type.AnonArray(_, eltType) => Right(eltType)
+          case Type.Array(_, anonArr, _, _) => Right(anonArr.eltType)
+          case _ => Left(SemanticError.InvalidType(
+            Locations.get(e.e.id),
+            "expected an array type"
+          ))
+        }
+      }
+
+      a <- super.exprNode(a, e.i)
+      _ <- {
+        if a.typeMap(e.i.id).getUnderlyingType.isInt
+        then Right(None)
+        else Left(
+          SemanticError.InvalidType(
+            Locations.get(e.i.id),
+            "array index must be integer type"
+          )
+        )
+      }
+    } yield a.assignType(node -> eltType)
+  }
+
   override def exprBinopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprBinop) = {
     val loc = Locations.get(node.id)
     for {
