@@ -831,19 +831,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Expressions_Array-Expressions_Example">10.2.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Boolean-Literals">10.3. Boolean Literals</a></li>
-<li><a href="#Expressions_Dot-Expressions">10.4. Dot Expressions</a>
+<li><a href="#Expressions_Array-Subscript-Expressions">10.3. Array Subscript Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Dot-Expressions_Syntax">10.4.1. Syntax</a></li>
-<li><a href="#Expressions_Dot-Expressions_Semantics">10.4.2. Semantics</a></li>
-<li><a href="#Expressions_Dot-Expressions_Examples">10.4.3. Examples</a></li>
+<li><a href="#Expressions_Array-Subscript-Expressions_Syntax">10.3.1. Syntax</a></li>
+<li><a href="#Expressions_Array-Subscript-Expressions_Semantics">10.3.2. Semantics</a></li>
+<li><a href="#Expressions_Array-Subscript-Expressions_Example">10.3.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Array-Subscript-Expressions">10.5. Array Subscript Expressions</a>
+<li><a href="#Expressions_Boolean-Literals">10.4. Boolean Literals</a></li>
+<li><a href="#Expressions_Dot-Expressions">10.5. Dot Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Array-Subscript-Expressions_Syntax">10.5.1. Syntax</a></li>
-<li><a href="#Expressions_Array-Subscript-Expressions_Semantics">10.5.2. Semantics</a></li>
-<li><a href="#Expressions_Array-Subscript-Expressions_Example">10.5.3. Example</a></li>
+<li><a href="#Expressions_Dot-Expressions_Syntax">10.5.1. Syntax</a></li>
+<li><a href="#Expressions_Dot-Expressions_Semantics">10.5.2. Semantics</a></li>
+<li><a href="#Expressions_Dot-Expressions_Examples">10.5.3. Examples</a></li>
 </ul>
 </li>
 <li><a href="#Expressions_Floating-Point-Literals">10.6. Floating-Point Literals</a></li>
@@ -8372,89 +8372,19 @@ elements to the common type.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Boolean-Literals">10.3. Boolean Literals</h3>
-<div class="paragraph">
-<p>A <strong>Boolean literal expression</strong> is one of the values <code>true</code> and <code>false</code>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Expressions_Dot-Expressions">10.4. Dot Expressions</h3>
-<div class="paragraph">
-<p>A <strong>dot expression</strong> is a
-<a href="#Definitions-and-Uses_Uses">use</a>
-that refers to a
-<a href="#Definitions_Constant-Definitions">constant definition</a>
-or
-<a href="#Definitions_Enumerated-Constant-Definitions">enumerated constant definition</a>.</p>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Dot-Expressions_Syntax">10.4.1. Syntax</h4>
-<div class="paragraph">
-<p><a href="#Expressions"><em>expression</em></a>
-<code>.</code>
-<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Dot-Expressions_Semantics">10.4.2. Semantics</h4>
-<div class="paragraph">
-<p>The following rules give the meaning of a dot expression \$e\$<code>.x</code>:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>If \$e\$<code>.x</code> is a
-<a href="#Scoping-of-Names_Qualified-Identifiers">qualified
-identifier</a> that represents one of the uses listed above according to
-the
-<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">rules
-for resolving qualified identifiers</a>, then it evaluates to the value
-stored in the corresponding <a href="#Definitions">definition</a>.</p>
-</li>
-<li>
-<p>Otherwise \$e\$<code>.x</code> is invalid.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Expressions_Dot-Expressions_Examples">10.4.3. Examples</h4>
-<div class="sect4">
-<h5 id="Expressions_Dot-Expressions_Examples_Example-1">Example 1</h5>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module M {
-  constant a = 1
-}
-constant b = M.a # M.a evaluates to 1</code></pre>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="Expressions_Dot-Expressions_Examples_Example-2">Example 2</h5>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">enum E { X = 0, Y = 1 }
-constant a = E.X # E.X evaluates to 0</code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Expressions_Array-Subscript-Expressions">10.5. Array Subscript Expressions</h3>
+<h3 id="Expressions_Array-Subscript-Expressions">10.3. Array Subscript Expressions</h3>
 <div class="paragraph">
 <p>An <strong>array subscript expression</strong> is an expression that selects an element from an
 expression with array type.</p>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Array-Subscript-Expressions_Syntax">10.5.1. Syntax</h4>
+<h4 id="Expressions_Array-Subscript-Expressions_Syntax">10.3.1. Syntax</h4>
 <div class="paragraph">
 <p><a href="#Expressions"><em>expression</em></a> <code>[</code> <a href="#Expressions"><em>expression</em></a> <code>]</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Array-Subscript-Expressions_Semantics">10.5.2. Semantics</h4>
+<h4 id="Expressions_Array-Subscript-Expressions_Semantics">10.3.2. Semantics</h4>
 <div class="paragraph">
 <p>The following rules give the meaning of an array subscript expression
 \$e\$ <code>[</code> \$i\$ <code>]</code>:</p>
@@ -8493,13 +8423,83 @@ being the element type of <em>T</em>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Array-Subscript-Expressions_Example">10.5.3. Example</h4>
+<h4 id="Expressions_Array-Subscript-Expressions_Example">10.3.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ 2, 4, 6 ] # a is an array value with elements 0, 1, 2
 constant b = a[1] # b is an integer with value 4
 constant c = [ 0, 1, 2 ][-1] # error, index is out of bounds (negative)
 constant d = [ 0, 1, 2 ][3] # error, index is out of bounds (past end)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Boolean-Literals">10.4. Boolean Literals</h3>
+<div class="paragraph">
+<p>A <strong>Boolean literal expression</strong> is one of the values <code>true</code> and <code>false</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Dot-Expressions">10.5. Dot Expressions</h3>
+<div class="paragraph">
+<p>A <strong>dot expression</strong> is a
+<a href="#Definitions-and-Uses_Uses">use</a>
+that refers to a
+<a href="#Definitions_Constant-Definitions">constant definition</a>
+or
+<a href="#Definitions_Enumerated-Constant-Definitions">enumerated constant definition</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Dot-Expressions_Syntax">10.5.1. Syntax</h4>
+<div class="paragraph">
+<p><a href="#Expressions"><em>expression</em></a>
+<code>.</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Dot-Expressions_Semantics">10.5.2. Semantics</h4>
+<div class="paragraph">
+<p>The following rules give the meaning of a dot expression \$e\$<code>.x</code>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If \$e\$<code>.x</code> is a
+<a href="#Scoping-of-Names_Qualified-Identifiers">qualified
+identifier</a> that represents one of the uses listed above according to
+the
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">rules
+for resolving qualified identifiers</a>, then it evaluates to the value
+stored in the corresponding <a href="#Definitions">definition</a>.</p>
+</li>
+<li>
+<p>Otherwise \$e\$<code>.x</code> is invalid.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Dot-Expressions_Examples">10.5.3. Examples</h4>
+<div class="sect4">
+<h5 id="Expressions_Dot-Expressions_Examples_Example-1">Example 1</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+  constant a = 1
+}
+constant b = M.a # M.a evaluates to 1</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="Expressions_Dot-Expressions_Examples_Example-2">Example 2</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">enum E { X = 0, Y = 1 }
+constant a = E.X # E.X evaluates to 0</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -11641,7 +11641,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-08-21 07:26:38 -0700
+Last updated 2025-08-25 09:25:16 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
