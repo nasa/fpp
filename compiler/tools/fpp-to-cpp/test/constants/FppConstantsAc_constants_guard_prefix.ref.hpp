@@ -7,7 +7,7 @@
 #ifndef GUARD_PREFIX_FppConstantsAc_HPP
 #define GUARD_PREFIX_FppConstantsAc_HPP
 
-#include "Fw/FPrimeBasicTypes.hpp"
+#include "Fw/Types/BasicTypes.h"
 
 //! Constant a
 enum FppConstant_a {
