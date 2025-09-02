@@ -46,7 +46,7 @@ object FinalizeTypeDefs
         // Visit the element type of A, to update its members
         eltType <- TypeVisitor.ty(a, arrayType.anonArray.eltType)
         // Update the size and element type in A
-        size <- a.getBoundedArraySize(data.size.id)
+        size <- a.getArraySize(data.size.id)
         arrayType <- {
           val anonArray = Type.AnonArray(Some(size.toInt), eltType)
           Right(arrayType.copy(anonArray = anonArray))
@@ -137,7 +137,7 @@ object FinalizeTypeDefs
         // Compute the sizes
         sizes <- {
           def mapping(member: Ast.StructTypeMember) = for {
-            intOpt <- a.getUnboundedArraySizeOpt(member.size)
+            intOpt <- a.getArraySizeOpt(member.size)
           } yield (intOpt.map(n => (member.name, n)))
           for (pairs <- Result.map(members, mapping)) yield {
             pairs.filter(_.isDefined).map(_.get).toMap

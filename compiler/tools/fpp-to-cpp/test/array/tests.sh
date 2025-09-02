@@ -5,6 +5,7 @@ component
 duplicate
 enum
 header_path
+large_size
 primitive
 single_element
 string

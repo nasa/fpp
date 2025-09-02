@@ -16,9 +16,9 @@ StructWithAlias ::
     Serializable(),
     m_x(0),
     m_y(m___fprime_ac_y_buffer, sizeof m___fprime_ac_y_buffer, Fw::String("")),
-    m_z(A(0, 0, 0)),
-    m_w(A(0, 0, 0)),
-    m_q(ArrayAliasArray(A(0, 0, 0), A(0, 0, 0), A(0, 0, 0)))
+    m_z(A(0)),
+    m_w(A(0)),
+    m_q(ArrayAliasArray(A(0)))
 {
 
 }
