@@ -1267,9 +1267,6 @@ at zero.</p>
 That is, <code>[]</code> is not a valid array value.</p>
 </li>
 <li>
-<p>An array value may have at most 256 elements.</p>
-</li>
-<li>
 <p>The types of the elements must match.
 For example, the following code is illegal, because the value <code>1</code> (which has type <code>Integer</code>)
 and the value <code>"abcd"</code> (which has type <code>string</code>) are incompatible:</p>
@@ -2076,11 +2073,6 @@ For example:</p>
 array A = [numElements] U32</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>As for <a href="#Defining-Constants_Expressions_Array-Values">array values</a>,
-an array type must have size greater than zero and less than
-or equal to 256.</p>
-</div>
 </div>
 <div class="sect3">
 <h4 id="Defining-Types_Array-Type-Definitions_Type-Names">6.1.2. Type Names</h4>
@@ -2529,19 +2521,9 @@ Member arrays let you include an array
 of elements as a member of a struct type,
 without defining a separate
 <a href="#Defining-Types_Array-Type-Definitions">named array type</a>.
-Also:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Member arrays generate less code than named arrays.
+Also, member arrays generate less code than named arrays.
 Whereas a member size array is a native C&#43;&#43; array,
 each named array is a C&#43;&#43; class.</p>
-</li>
-<li>
-<p>The size of a member array is not limited to 256 elements.</p>
-</li>
-</ul>
 </div>
 <div class="paragraph">
 <p>On the other hand, defining a named array is usually
@@ -2549,9 +2531,6 @@ a good choice when</p>
 </div>
 <div class="ulist">
 <ul>
-<li>
-<p>You want to define a small reusable array.</p>
-</li>
 <li>
 <p>You want to use the array outside of any structure.</p>
 </li>
@@ -15721,7 +15700,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-08-25 10:07:30 -0700
+Last updated 2025-09-02 19:09:39 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

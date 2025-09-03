@@ -60,11 +60,6 @@ constant numElements = 10
 array A = [numElements] U32
 ----
 
-As for <<Defining-Constants_Expressions_Array-Values,
-array values>>,
-an array type must have size greater than zero and less than
-or equal to 256.
-
 ==== Type Names
 
 The following type names are available for the element types:
@@ -437,18 +432,12 @@ Member arrays let you include an array
 of elements as a member of a struct type,
 without defining a separate
 <<Defining-Types_Array-Type-Definitions,named array type>>.
-Also:
-
-* Member arrays generate less code than named arrays.
+Also, member arrays generate less code than named arrays.
 Whereas a member size array is a native {cpp} array,
 each named array is a {cpp} class.
 
-* The size of a member array is not limited to 256 elements.
-
 On the other hand, defining a named array is usually
 a good choice when
-
-* You want to define a small reusable array.
 
 * You want to use the array outside of any structure.
 

@@ -7,6 +7,8 @@
 #ifndef Struct3ArrayAc_HPP
 #define Struct3ArrayAc_HPP
 
+#include <initializer_list>
+
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
@@ -51,24 +53,22 @@ class Struct3 :
     //! Constructor (default value)
     Struct3();
 
-    //! Constructor (user-provided value)
+    //! Constructor (primitive array)
     Struct3(
         const ElementType (&a)[SIZE] //!< The array
     );
 
     //! Constructor (single element)
-    Struct3(
+    explicit Struct3(
         const ElementType& e //!< The element
     );
 
-    //! Constructor (multiple elements)
+    //! Constructor (initializer list)
     Struct3(
-        const ElementType& e1, //!< Element 1
-        const ElementType& e2, //!< Element 2
-        const ElementType& e3 //!< Element 3
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
-    //! Copy Constructor
+    //! Copy constructor
     Struct3(
         const Struct3& obj //!< The source object
     );
@@ -81,12 +81,12 @@ class Struct3 :
 
     //! Subscript operator
     ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     );
 
     //! Const subscript operator
     const ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     ) const;
 
     //! Copy assignment operator (object)
@@ -94,9 +94,14 @@ class Struct3 :
         const Struct3& obj //!< The source object
     );
 
-    //! Copy assignment operator (raw array)
+    //! Copy assignment operator (primitive array)
     Struct3& operator=(
         const ElementType (&a)[SIZE] //!< The source array
+    );
+
+    //! Copy assignment operator (initializer list)
+    Struct3& operator=(
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)

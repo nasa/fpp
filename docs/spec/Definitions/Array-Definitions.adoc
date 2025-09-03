@@ -18,7 +18,7 @@ _]_
 
 The identifier is the name _N_ of the new type.
 The first expression must evaluate to a compile-time constant numeric value _n_
-whose value is greater than zero and less than or equal to 256.
+whose value is greater than zero.
 _type-name_ names the type _T_ of each array element.
 
 The definition associates the name _N_ with a new type _T'_
