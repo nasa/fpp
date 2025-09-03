@@ -7,6 +7,8 @@
 #ifndef String2ArrayAc_HPP
 #define String2ArrayAc_HPP
 
+#include <initializer_list>
+
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
@@ -54,23 +56,22 @@ class String2 :
     //! Constructor (default value)
     String2();
 
-    //! Constructor (user-provided value)
+    //! Constructor (primitive array)
     String2(
         const ElementType (&a)[SIZE] //!< The array
     );
 
     //! Constructor (single element)
-    String2(
+    explicit String2(
         const Fw::StringBase& e //!< The element
     );
 
-    //! Constructor (multiple elements)
+    //! Constructor (initializer list)
     String2(
-        const Fw::StringBase& e1, //!< Element 1
-        const Fw::StringBase& e2 //!< Element 2
+        const std::initializer_list<Fw::String>& il //!< The initializer list
     );
 
-    //! Copy Constructor
+    //! Copy constructor
     String2(
         const String2& obj //!< The source object
     );
@@ -83,12 +84,12 @@ class String2 :
 
     //! Subscript operator
     ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     );
 
     //! Const subscript operator
     const ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     ) const;
 
     //! Copy assignment operator (object)
@@ -96,9 +97,14 @@ class String2 :
         const String2& obj //!< The source object
     );
 
-    //! Copy assignment operator (raw array)
+    //! Copy assignment operator (primitive array)
     String2& operator=(
         const ElementType (&a)[SIZE] //!< The source array
+    );
+
+    //! Copy assignment operator (initializer list)
+    String2& operator=(
+        const std::initializer_list<Fw::String>& il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)

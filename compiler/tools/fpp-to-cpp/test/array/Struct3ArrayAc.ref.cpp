@@ -15,52 +15,35 @@ Struct3 ::
   Struct3() :
     Serializable()
 {
-  // Construct using element-wise constructor
-  *this = Struct3(
-    S::S3(0, 0.0),
-    S::S3(0, 0.0),
-    S::S3(0, 0.0)
-  );
+  *this = Struct3(S::S3(0, 0.0));
 }
 
 Struct3 ::
   Struct3(const ElementType (&a)[SIZE]) :
     Serializable()
 {
-  for (U32 index = 0; index < SIZE; index++) {
-    this->elements[index] = a[index];
-  }
+  *this = a;
 }
 
 Struct3 ::
   Struct3(const ElementType& e) :
     Serializable()
 {
-  for (U32 index = 0; index < SIZE; index++) {
-    this->elements[index] = e;
-  }
+  *this = e;
 }
 
 Struct3 ::
-  Struct3(
-      const ElementType& e1,
-      const ElementType& e2,
-      const ElementType& e3
-  ) :
+  Struct3(const std::initializer_list<ElementType>& il) :
     Serializable()
 {
-  this->elements[0] = e1;
-  this->elements[1] = e2;
-  this->elements[2] = e3;
+  *this = il;
 }
 
 Struct3 ::
   Struct3(const Struct3& obj) :
     Serializable()
 {
-  for (U32 index = 0; index < SIZE; index++) {
-    this->elements[index] = obj.elements[index];
-  }
+  *this = obj;
 }
 
 // ----------------------------------------------------------------------
@@ -68,14 +51,14 @@ Struct3 ::
 // ----------------------------------------------------------------------
 
 Struct3::ElementType& Struct3 ::
-  operator[](const U32 i)
+  operator[](const FwSizeType i)
 {
   FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
   return this->elements[i];
 }
 
 const Struct3::ElementType& Struct3 ::
-  operator[](const U32 i) const
+  operator[](const FwSizeType i) const
 {
   FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
   return this->elements[i];
@@ -84,12 +67,10 @@ const Struct3::ElementType& Struct3 ::
 Struct3& Struct3 ::
   operator=(const Struct3& obj)
 {
-  if (this == &obj) {
-    return *this;
-  }
-
-  for (U32 index = 0; index < SIZE; index++) {
-    this->elements[index] = obj.elements[index];
+  if (this != &obj) {
+    for (FwSizeType index = 0; index < SIZE; index++) {
+      this->elements[index] = obj.elements[index];
+    }
   }
   return *this;
 }
@@ -97,8 +78,23 @@ Struct3& Struct3 ::
 Struct3& Struct3 ::
   operator=(const ElementType (&a)[SIZE])
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = a[index];
+  }
+  return *this;
+}
+
+Struct3& Struct3 ::
+  operator=(const std::initializer_list<ElementType>& il)
+{
+  // Since we are required to use C++11, this has to be a runtime check
+  // In C++14, it can be a static check
+  FW_ASSERT(il.size() == SIZE, static_cast<FwAssertArgType>(il.size()), static_cast<FwAssertArgType>(SIZE));
+  FwSizeType i = 0;
+  for (const auto& e : il) {
+    FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
+    this->elements[i] = e;
+    i++;
   }
   return *this;
 }
@@ -106,7 +102,7 @@ Struct3& Struct3 ::
 Struct3& Struct3 ::
   operator=(const ElementType& e)
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = e;
   }
   return *this;
@@ -115,7 +111,7 @@ Struct3& Struct3 ::
 bool Struct3 ::
   operator==(const Struct3& obj) const
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     if (!((*this)[index] == obj[index])) {
       return false;
     }
@@ -148,7 +144,7 @@ Fw::SerializeStatus Struct3 ::
   serializeTo(Fw::SerializeBufferBase& buffer) const
 {
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     status = buffer.serializeFrom((*this)[index]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
@@ -161,7 +157,7 @@ Fw::SerializeStatus Struct3 ::
   deserializeFrom(Fw::SerializeBufferBase& buffer)
 {
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     status = buffer.deserializeTo((*this)[index]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
@@ -174,7 +170,7 @@ FwSizeType Struct3 ::
   serializedSize() const
 {
   FwSizeType size = 0;
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     size += this->elements[index].serializedSize();
   }
   return size;
@@ -195,7 +191,7 @@ void Struct3 ::
     return;
   }
 
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     Fw::String tmp;
     this->elements[index].toString(tmp);
 

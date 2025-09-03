@@ -7,6 +7,8 @@
 #ifndef ArrayAliasArrayArrayAc_HPP
 #define ArrayAliasArrayArrayAc_HPP
 
+#include <initializer_list>
+
 #include "AliasAliasArrayAliasAc.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
@@ -50,24 +52,22 @@ class ArrayAliasArray :
     //! Constructor (default value)
     ArrayAliasArray();
 
-    //! Constructor (user-provided value)
+    //! Constructor (primitive array)
     ArrayAliasArray(
         const ElementType (&a)[SIZE] //!< The array
     );
 
     //! Constructor (single element)
-    ArrayAliasArray(
+    explicit ArrayAliasArray(
         const ElementType& e //!< The element
     );
 
-    //! Constructor (multiple elements)
+    //! Constructor (initializer list)
     ArrayAliasArray(
-        const ElementType& e1, //!< Element 1
-        const ElementType& e2, //!< Element 2
-        const ElementType& e3 //!< Element 3
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
-    //! Copy Constructor
+    //! Copy constructor
     ArrayAliasArray(
         const ArrayAliasArray& obj //!< The source object
     );
@@ -80,12 +80,12 @@ class ArrayAliasArray :
 
     //! Subscript operator
     ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     );
 
     //! Const subscript operator
     const ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     ) const;
 
     //! Copy assignment operator (object)
@@ -93,9 +93,14 @@ class ArrayAliasArray :
         const ArrayAliasArray& obj //!< The source object
     );
 
-    //! Copy assignment operator (raw array)
+    //! Copy assignment operator (primitive array)
     ArrayAliasArray& operator=(
         const ElementType (&a)[SIZE] //!< The source array
+    );
+
+    //! Copy assignment operator (initializer list)
+    ArrayAliasArray& operator=(
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)

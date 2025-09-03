@@ -15,35 +15,35 @@ SingleElement ::
   SingleElement() :
     Serializable()
 {
-  // Construct using element-wise constructor
-  *this = SingleElement(
-    0
-  );
+  *this = SingleElement(0);
 }
 
 SingleElement ::
   SingleElement(const ElementType (&a)[SIZE]) :
     Serializable()
 {
-  for (U32 index = 0; index < SIZE; index++) {
-    this->elements[index] = a[index];
-  }
+  *this = a;
 }
 
 SingleElement ::
-  SingleElement(const ElementType& e1) :
+  SingleElement(const ElementType& e) :
     Serializable()
 {
-  this->elements[0] = e1;
+  *this = e;
+}
+
+SingleElement ::
+  SingleElement(const std::initializer_list<ElementType>& il) :
+    Serializable()
+{
+  *this = il;
 }
 
 SingleElement ::
   SingleElement(const SingleElement& obj) :
     Serializable()
 {
-  for (U32 index = 0; index < SIZE; index++) {
-    this->elements[index] = obj.elements[index];
-  }
+  *this = obj;
 }
 
 // ----------------------------------------------------------------------
@@ -51,14 +51,14 @@ SingleElement ::
 // ----------------------------------------------------------------------
 
 SingleElement::ElementType& SingleElement ::
-  operator[](const U32 i)
+  operator[](const FwSizeType i)
 {
   FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
   return this->elements[i];
 }
 
 const SingleElement::ElementType& SingleElement ::
-  operator[](const U32 i) const
+  operator[](const FwSizeType i) const
 {
   FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
   return this->elements[i];
@@ -67,12 +67,10 @@ const SingleElement::ElementType& SingleElement ::
 SingleElement& SingleElement ::
   operator=(const SingleElement& obj)
 {
-  if (this == &obj) {
-    return *this;
-  }
-
-  for (U32 index = 0; index < SIZE; index++) {
-    this->elements[index] = obj.elements[index];
+  if (this != &obj) {
+    for (FwSizeType index = 0; index < SIZE; index++) {
+      this->elements[index] = obj.elements[index];
+    }
   }
   return *this;
 }
@@ -80,8 +78,23 @@ SingleElement& SingleElement ::
 SingleElement& SingleElement ::
   operator=(const ElementType (&a)[SIZE])
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = a[index];
+  }
+  return *this;
+}
+
+SingleElement& SingleElement ::
+  operator=(const std::initializer_list<ElementType>& il)
+{
+  // Since we are required to use C++11, this has to be a runtime check
+  // In C++14, it can be a static check
+  FW_ASSERT(il.size() == SIZE, static_cast<FwAssertArgType>(il.size()), static_cast<FwAssertArgType>(SIZE));
+  FwSizeType i = 0;
+  for (const auto& e : il) {
+    FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
+    this->elements[i] = e;
+    i++;
   }
   return *this;
 }
@@ -89,7 +102,7 @@ SingleElement& SingleElement ::
 SingleElement& SingleElement ::
   operator=(const ElementType& e)
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = e;
   }
   return *this;
@@ -98,7 +111,7 @@ SingleElement& SingleElement ::
 bool SingleElement ::
   operator==(const SingleElement& obj) const
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     if (!((*this)[index] == obj[index])) {
       return false;
     }
@@ -131,7 +144,7 @@ Fw::SerializeStatus SingleElement ::
   serializeTo(Fw::SerializeBufferBase& buffer) const
 {
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     status = buffer.serializeFrom((*this)[index]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
@@ -144,7 +157,7 @@ Fw::SerializeStatus SingleElement ::
   deserializeFrom(Fw::SerializeBufferBase& buffer)
 {
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     status = buffer.deserializeTo((*this)[index]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
@@ -174,7 +187,7 @@ void SingleElement ::
     return;
   }
 
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     Fw::String tmp;
     tmp.format("%" PRIu32 "", this->elements[index]);
 
