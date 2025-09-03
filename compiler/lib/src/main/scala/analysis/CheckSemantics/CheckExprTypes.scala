@@ -128,16 +128,7 @@ object CheckExprTypes extends UseAnalyzer {
       }
 
       a <- super.exprNode(a, e.i)
-      _ <- {
-        if a.typeMap(e.i.id).getUnderlyingType.isInt
-        then Right(None)
-        else Left(
-          SemanticError.InvalidType(
-            Locations.get(e.i.id),
-            "array index must be integer type"
-          )
-        )
-      }
+      _ <- convertNodeToNumeric(a, e.i)
     } yield a.assignType(node -> eltType)
   }
 
