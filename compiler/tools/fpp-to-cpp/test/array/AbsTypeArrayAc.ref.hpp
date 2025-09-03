@@ -7,6 +7,8 @@
 #ifndef AbsTypeArrayAc_HPP
 #define AbsTypeArrayAc_HPP
 
+#include <initializer_list>
+
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
@@ -51,24 +53,22 @@ class AbsType :
     //! Constructor (default value)
     AbsType();
 
-    //! Constructor (user-provided value)
+    //! Constructor (primitive array)
     AbsType(
         const ElementType (&a)[SIZE] //!< The array
     );
 
     //! Constructor (single element)
-    AbsType(
+    explicit AbsType(
         const ElementType& e //!< The element
     );
 
-    //! Constructor (multiple elements)
+    //! Constructor (initializer list)
     AbsType(
-        const ElementType& e1, //!< Element 1
-        const ElementType& e2, //!< Element 2
-        const ElementType& e3 //!< Element 3
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
-    //! Copy Constructor
+    //! Copy constructor
     AbsType(
         const AbsType& obj //!< The source object
     );
@@ -81,12 +81,12 @@ class AbsType :
 
     //! Subscript operator
     ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     );
 
     //! Const subscript operator
     const ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     ) const;
 
     //! Copy assignment operator (object)
@@ -94,9 +94,14 @@ class AbsType :
         const AbsType& obj //!< The source object
     );
 
-    //! Copy assignment operator (raw array)
+    //! Copy assignment operator (primitive array)
     AbsType& operator=(
         const ElementType (&a)[SIZE] //!< The source array
+    );
+
+    //! Copy assignment operator (initializer list)
+    AbsType& operator=(
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)
