@@ -114,21 +114,21 @@ object CheckExprTypes extends UseAnalyzer {
 
   override def exprArraySubscriptNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArraySubscript): Out = {
     for {
-      a <- super.exprNode(a, e.e)
+      a <- super.exprNode(a, e.e1)
 
       eltType <- {
-        a.typeMap(e.e.id).getUnderlyingType match {
+        a.typeMap(e.e1.id).getUnderlyingType match {
           case Type.AnonArray(_, eltType) => Right(eltType)
           case Type.Array(_, anonArr, _, _) => Right(anonArr.eltType)
           case _ => Left(SemanticError.InvalidType(
-            Locations.get(e.e.id),
+            Locations.get(e.e1.id),
             "expected an array type"
           ))
         }
       }
 
-      a <- super.exprNode(a, e.i)
-      _ <- convertNodeToNumeric(a, e.i)
+      a <- super.exprNode(a, e.e2)
+      _ <- convertNodeToNumeric(a, e.e2)
     } yield a.assignType(node -> eltType)
   }
 

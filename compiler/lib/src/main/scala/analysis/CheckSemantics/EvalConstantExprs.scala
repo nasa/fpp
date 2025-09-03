@@ -90,11 +90,11 @@ object EvalConstantExprs extends UseAnalyzer {
 
   override def exprArraySubscriptNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArraySubscript) = {
     for {
-      a <- super.exprNode(a, e.e)
-      a <- super.exprNode(a, e.i)
+      a <- super.exprNode(a, e.e1)
+      a <- super.exprNode(a, e.e2)
 
       elements <- {
-        a.valueMap(e.e.id) match {
+        a.valueMap(e.e1.id) match {
           case Value.AnonArray(elements) => Right(elements)
           case Value.Array(Value.AnonArray(elements), _) => Right(elements)
           case _ => throw InternalError("expected array value")
@@ -102,7 +102,7 @@ object EvalConstantExprs extends UseAnalyzer {
       }
 
       index <- {
-        a.valueMap(e.i.id) match {
+        a.valueMap(e.e2.id) match {
           case Value.PrimitiveInt(value, _) => Right(value)
           case Value.Integer(value) => Right(value)
           case _ => throw InternalError("type of index should be an integer type")
@@ -113,13 +113,13 @@ object EvalConstantExprs extends UseAnalyzer {
       _ <- {
         if index < 0
         then Left(SemanticError.InvalidIntValue(
-          Locations.get(e.i.id),
+          Locations.get(e.e2.id),
           index,
           "value may not be negative"
         ))
         else if index >= elements.length
         then Left(SemanticError.InvalidIntValue(
-          Locations.get(e.i.id),
+          Locations.get(e.e2.id),
           index,
           s"index value out of array bounds"
         ))
