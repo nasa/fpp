@@ -353,7 +353,7 @@ object FppWriter extends AstVisitor with LineUtils {
     node: AstNode[Ast.Expr],
     e: Ast.ExprArraySubscript
   ) =
-    exprNode(e.e).join ("") (Line.addPrefixAndSuffix("[", exprNode(e.i), "]"))
+    exprNode(e.e1).join ("") (Line.addPrefixAndSuffix("[", exprNode(e.e2), "]"))
 
   override def exprBinopNode(
     in: In,

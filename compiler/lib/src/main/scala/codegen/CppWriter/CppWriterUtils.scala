@@ -398,6 +398,7 @@ trait CppWriterUtils extends LineUtils {
     params: List[CppDoc.Function.Param],
     initializers: List[String],
     body: List[Line],
+    explicitQualifier: CppDoc.Class.Constructor.ExplicitQualifier = CppDoc.Class.Constructor.NotExplicit,
     cppFileNameBaseOpt: Option[String] = None
   ): CppDoc.Class.Member.Constructor =
     CppDoc.Class.Member.Constructor(
@@ -406,6 +407,7 @@ trait CppWriterUtils extends LineUtils {
         params,
         initializers,
         body,
+        explicitQualifier,
         cppFileNameBaseOpt
       )
     )

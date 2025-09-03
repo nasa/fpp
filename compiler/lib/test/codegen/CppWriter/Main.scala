@@ -209,6 +209,7 @@ object Program extends LineUtils {
                       params = Nil,
                       initializers = Nil,
                       body = lines("// line1\n// line2"),
+                      CppDoc.Class.Constructor.NotExplicit,
                       Some("Other")
                     )
                   ),

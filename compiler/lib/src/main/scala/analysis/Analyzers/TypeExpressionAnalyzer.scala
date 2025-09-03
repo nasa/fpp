@@ -134,8 +134,8 @@ trait TypeExpressionAnalyzer
 
   override def exprArraySubscriptNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArraySubscript) =
     for {
-      a <- exprNode(a, e.e)
-      a <- exprNode(a, e.i)
+      a <- exprNode(a, e.e1)
+      a <- exprNode(a, e.e2)
     } yield a
 
   override def exprBinopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprBinop) =
