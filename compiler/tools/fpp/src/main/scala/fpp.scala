@@ -23,7 +23,6 @@ object FPP {
       case "to-dict"     => FPPToDict.toolMain(options.args)
       case "to-json"     => FPPtoJson.toolMain(options.args)
       case "to-layout"   => FPPToLayout.toolMain(options.args)
-      case "to-xml"      => FPPToXml.toolMain(options.args)
     }
 
     Right(None)
@@ -79,7 +78,7 @@ to-layout   writes layout text files for connection graphs within F Prime topolo
           c match {
             case "check" | "depend" | "filenames" | "format" | "from-xml" |
                 "locate-defs" | "locate-uses" | "syntax" |
-                "to-cpp" | "to-dict" | "to-json" | "to-layout" | "to-xml" =>
+                "to-cpp" | "to-dict" | "to-json" | "to-layout" =>
               Right(None)
             case _ => Left(s"invalid fpp command '$c'")
           }

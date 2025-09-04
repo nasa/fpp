@@ -62,7 +62,6 @@ locate-uses
 syntax
 to-cpp
 to-json
-to-xml
 to-dict
 to-layout
 "
