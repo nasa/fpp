@@ -150,27 +150,28 @@ jobs:
           path: ${{ inputs.trace-directory }}
       - name: "Build Native Images"
         run: |
-          get_tool_names()
-          {
-            prefix="fpp-"
-            dir=$1
-            for file in $dir/$prefix*
-            do
-              base=`basename $file`
-              result="${base#$prefix}"
-              echo $result
-            done
-          }
-
           export CLASSPATH="`cd ${{ inputs.trace-directory }}/../..; pwd`:${CLASSPATH}"
           cd ${{ inputs.working-directory }}
-          $NATIVE_IMAGE_TOOLS_PATH/native-images ${{ inputs.output-directory }}
-          tool_names=`get_tool_names ${{ inputs.output-directory }}`
-          echo "$tool_names"
+          $NATIVE_IMAGE_TOOLSPATH/native-images ${{ inputs.output-directory }}
+          tool_names="
+          check
+          depend
+          filenames
+          format
+          from-xml
+          locate-defs
+          locate-uses
+          syntax
+          to-cpp
+          to-json
+          to-xml
+          to-dict
+          to-layout
+          "
           ls ${{ inputs.output-directory }}
-          ls ${{ inputs.working-directory }}
-          for tool in $tool_names
+          for tool in $tool_name
           do
+            echo "Generating wrapper for fpp-$tool in ${{ inputs.output-directory }}/fpp-$tool"
             echo '#!/bin/sh
             "`dirname $0`/fpp" '$tool' "$@"' > ${{ inputs.output-directory }}/fpp-$tool
             chmod +x ${{ inputs.output-directory }}/fpp-$tool
