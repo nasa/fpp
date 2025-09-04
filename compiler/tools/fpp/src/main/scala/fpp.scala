@@ -15,6 +15,7 @@ object FPP {
       case "depend"      => FPPDepend.toolMain(options.args)
       case "filenames"   => FPPFilenames.toolMain(options.args)
       case "format"      => FPPFormat.toolMain(options.args)
+      case "from-xml"    => FPPFromXml.toolMain(options.args)
       case "locate-defs" => FPPLocateDefs.toolMain(options.args)
       case "locate-uses" => FPPLocateUses.toolMain(options.args)
       case "syntax"      => FPPSyntax.toolMain(options.args)
@@ -59,6 +60,7 @@ check       performs semantic checking of FPP models
 depend      computes dependencies for FPP source files
 filenames   writes out the names of C++ files generated from FPP source files
 format      parses FPP source files and writes out formatted source files
+from-xml    parses older F Prime XML files and converts them to FPP files
 locate-defs parses FPP source files and reports the locations of symbol definitions
 locate-uses parses FPP source files and reports the locations of symbols used in the files
 syntax      parses FPP source files into an abstract syntax tree (AST) and optionally writes out the AST
@@ -74,7 +76,7 @@ to-layout   writes layout text files for connection graphs within F Prime topolo
         .action((f, c) => c.copy(command = f))
         .validate(c =>
           c match {
-            case "check" | "depend" | "filenames" | "format" |
+            case "check" | "depend" | "filenames" | "format" | "from-xml" |
                 "locate-defs" | "locate-uses" | "syntax" |
                 "to-cpp" | "to-dict" | "to-json" | "to-layout" =>
               Right(None)

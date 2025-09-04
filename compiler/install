@@ -56,6 +56,7 @@ check
 depend
 filenames
 format
+from-xml
 locate-defs
 locate-uses
 syntax
