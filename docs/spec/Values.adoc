@@ -24,14 +24,13 @@ A *value* is one of the following:
 
 * A struct value
 
-Every value _v_ belongs to exactly one <<Types_Canonical-Types,canonical type>> 
-_T_, except as follows:
+Every value _v_ belongs to exactly one <<Types_Canonical-Types,canonical type>>
+_T_, except that
+every string value belongs to the type `string` and to
+all types `string size` _n_, for any _n_.
 
-* Every string value belongs to the type `string` and to
-all types `string` _n_, for any _n_.
-
-* Every value that belongs to type _T_ also belongs to every 
-<<Types_Alias-Types,alias type>> whose 
+Every value that belongs to type _T_ also belongs to every
+<<Types_Alias-Types,alias type>> whose
 <<Types_Underlying-Types,underlying type>> is _T_.
 
 When a value _v_ belongs to a type _T_, we say that _v_ is a value
@@ -57,7 +56,7 @@ stem:[[0, 255\]].
 stem:[[-2^(w-1), 2^(w-1)-1\]]. For example, `I8` represents the integers
 stem:[[-128, 127\]].
 
-We represent a primitive integer value as an expression followed by a colon and 
+We represent a primitive integer value as an expression followed by a colon and
 a primitive integer type.
 For example, we write the value 1 at type `U32` as `1: U32`. The value `1:
 U32` is distinct from the value `1: U8`.
@@ -94,17 +93,30 @@ A *string value* is a sequence of characters that can be
 represented as a <<Expressions_String-Literals,string literal expression>>.
 It is written in the same way as a string literal expression,
 e.g., `"abc"`.
-A string value belongs to the following canonical types:
+Every string value _v_ has a *length*, which is the number of
+characters in the sequence.
+
+A string value _v_ belongs to the following canonical types:
 
 * `string`
 
-* `string` _n_ for any _n_
+* `string size` _n_ for any _n_.
+
+Note that _v_ may have length _m_ and type `string size` _n_,
+with stem:[m > n].
+In this case, the behavior is defined by the code generation strategy.
+In particular, when code is generated for the F Prime framework,
+the value _v_ may be stored into a buffer that
+can hold a maximum string length of _n_.
+If this happens, the framework will *truncate* the value _v_
+to _n_ characters before storing it.
+That means that the first _n_ characters of _v_ are stored in the buffer.
 
 === Abstract Type Values
 
 An *abstract type value* is a value associated with an abstract
 type.
-For each abstract type stem:[T], there is one 
+For each abstract type stem:[T], there is one
 value with canonical type stem:[T].
 This value is not represented explicitly in the model, but it
 may be represented in the generated code, e.g., as an object
@@ -117,7 +129,7 @@ An *anonymous array value* is a value associated with an anonymous
 array type.
 We write an anonymous array value similarly to an
 <<Expressions_Array-Expressions,array expression>>:
-an anonymous array value stem:[v] has the form `[` stem:[v_1] `,` stem:[...] 
+an anonymous array value stem:[v] has the form `[` stem:[v_1] `,` stem:[...]
 `,`
 stem:[v_n] `]`, where for each stem:[i in [1,n]], stem:[v_i] is a value of type
 stem:[T] for some <<Types_Canonical-Types,canonical type>> stem:[T].
@@ -126,7 +138,7 @@ The canonical type of stem:[v] is _[_ stem:[n] _]_ stem:[T].
 Note that for an anonymous array value stem:[v] to be well-formed, the member
 values must have identical types.
 If an array expression appearing in the source syntax has
-member values with non-identical types, then one or more members must be 
+member values with non-identical types, then one or more members must be
 converted to a different type before forming stem:[v].
 
 === Array Values
@@ -175,7 +187,7 @@ a struct value has the form `{` stem:[m_1] `=` stem:[v_1] `,` stem:[...] `,`
 stem:[m_n] `=` stem:[v_n] `}`,
 where for each stem:[i in [1,n]], stem:[v_i] is a value of type stem:[T_i].
 Each type stem:[T_i] must be a <<Types_Canonical-Types,canonical type>>.
-The canonical type of the value is _{_ stem:[m_1] _:_ stem:[T_1] _,_ stem:[...] 
+The canonical type of the value is _{_ stem:[m_1] _:_ stem:[T_1] _,_ stem:[...]
 _,_ stem:[m_n] _:_ stem:[T_n] _}_.
 
 === Struct Values

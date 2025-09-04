@@ -1010,8 +1010,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Evaluation_Type-Conversion_Primitive-Integer-Values-of-Mixed-Sign">21.2.3. Primitive Integer Values of Mixed Sign</a></li>
 <li><a href="#Evaluation_Type-Conversion_Primitive-and-Non-Primitive-Integer-Values">21.2.4. Primitive and Non-Primitive Integer Values</a></li>
 <li><a href="#Evaluation_Type-Conversion_Floating-Point-Values">21.2.5. Floating-Point Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Array-Values">21.2.6. Array Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Structure-Values">21.2.7. Structure Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_String-Values">21.2.6. String Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Array-Values">21.2.7. Array Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Structure-Values">21.2.8. Structure Values</a></li>
 </ul>
 </li>
 </ul>
@@ -9884,8 +9885,15 @@ are called the <strong>primitive types</strong>.</p>
 <a href="#Type-Names_String-Type-Names">string type names</a>.
 A string type is written <code>string</code> or <code>string size</code> <em>n</em>,
 where <em>n</em> is an integer value in the range [1,2^31-1].
-There is one string type <code>string</code> and one string type <code>string</code> <em>n</em>
+There is one string type <code>string</code> and one string type <code>string size</code> <em>n</em>
 for each legal value of <em>n</em>.</p>
+</div>
+<div class="paragraph">
+<p>The value <em>n</em>, if present, is called the <strong>size</strong> associated with the string
+type.
+The size provides a maximum string length that the code generator can use
+for allocating memory and serializing data.
+If no explicit size is present, then the code generator uses a default size.</p>
 </div>
 </div>
 <div class="sect2">
@@ -10566,11 +10574,11 @@ may be converted to the anonymous array type
 if \$n = m\$ and \$T'_1\$ may be converted to \$T'_2\$.</p>
 </li>
 <li>
-<p>A <a href="#Types_Internal-Types_Numeric-Types">numeric type</a> type, <a href="#Types_The-Boolean-Type">Boolean
-type</a>,
-<a href="#Types_Enum-Types">enum type</a>, or <a href="#Types_String-Types">string types</a> \$T\$
-may be converted to an anonymous array type
-\$T_1\$ may be converted to the member type of \$T_2\$.</p>
+<p>A <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>,
+  <a href="#Types_The-Boolean-Type">Boolean type</a>, <a href="#Types_Enum-Types">enum type</a>, or
+<a href="#Types_String-Types">string type</a> \$T_1\$ may be converted to an anonymous
+array type \$T_2\$ if \$T_1\$ may be converted to the member type of
+\$T_2\$.</p>
 </li>
 <li>
 <p>If \$T_1\$ or \$T_2\$ or both are
@@ -10978,20 +10986,14 @@ Throw an error.</p>
 </div>
 <div class="paragraph">
 <p>Every value <em>v</em> belongs to exactly one <a href="#Types_Canonical-Types">canonical type</a>
-<em>T</em>, except as follows:</p>
+<em>T</em>, except that
+every string value belongs to the type <code>string</code> and to
+all types <code>string size</code> <em>n</em>, for any <em>n</em>.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Every string value belongs to the type <code>string</code> and to
-all types <code>string</code> <em>n</em>, for any <em>n</em>.</p>
-</li>
-<li>
+<div class="paragraph">
 <p>Every value that belongs to type <em>T</em> also belongs to every
 <a href="#Types_Alias-Types">alias type</a> whose
 <a href="#Types_Underlying-Types">underlying type</a> is <em>T</em>.</p>
-</li>
-</ul>
 </div>
 <div class="paragraph">
 <p>When a value <em>v</em> belongs to a type <em>T</em>, we say that <em>v</em> is a value
@@ -11078,7 +11080,11 @@ Its canonical type is <code>bool</code>.</p>
 represented as a <a href="#Expressions_String-Literals">string literal expression</a>.
 It is written in the same way as a string literal expression,
 e.g., <code>"abc"</code>.
-A string value belongs to the following canonical types:</p>
+Every string value <em>v</em> has a <strong>length</strong>, which is the number of
+characters in the sequence.</p>
+</div>
+<div class="paragraph">
+<p>A string value <em>v</em> belongs to the following canonical types:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -11086,9 +11092,20 @@ A string value belongs to the following canonical types:</p>
 <p><code>string</code></p>
 </li>
 <li>
-<p><code>string</code> <em>n</em> for any <em>n</em></p>
+<p><code>string size</code> <em>n</em> for any <em>n</em>.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Note that <em>v</em> may have length <em>m</em> and type <code>string size</code> <em>n</em>,
+with \$m &gt; n\$.
+In this case, the behavior is defined by the code generation strategy.
+In particular, when code is generated for the F Prime framework,
+the value <em>v</em> may be stored into a buffer that
+can hold a maximum string length of <em>n</em>.
+If this happens, the framework will <strong>truncate</strong> the value <em>v</em>
+to <em>n</em> characters before storing it.
+That means that the first <em>n</em> characters of <em>v</em> are stored in the buffer.</p>
 </div>
 </div>
 <div class="sect2">
@@ -11306,9 +11323,9 @@ arithmetic.</p>
 <div class="sect2">
 <h3 id="Evaluation_Type-Conversion">21.2. Type Conversion</h3>
 <div class="paragraph">
-<p>The following rules govern the conversion of a value \$v_1\$ of type
+<p>The following rules govern the conversion of a value \$v_1\$ of canonical type
 \$T_1\$
-to a value \$v_2\$ of type \$T_2\$.</p>
+to a value \$v_2\$ of canonical type \$T_2\$.</p>
 </div>
 <div class="sect3">
 <h4 id="Evaluation_Type-Conversion_Unsigned-Primitive-Integer-Values">21.2.1. Unsigned Primitive Integer Values</h4>
@@ -11401,10 +11418,44 @@ floating-point values to and from each other.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Array-Values">21.2.6. Array Values</h4>
+<h4 id="Evaluation_Type-Conversion_String-Values">21.2.6. String Values</h4>
+<div class="paragraph">
+<p>If \$T_1\$ is a string type and \$T_2\$ is a string type,
+then let \$v_2 = v_1\$.</p>
+</div>
+<div class="paragraph">
+<p>As noted in the section on <a href="#Values_String-Values">string values</a>, if the size
+of type \$T_2\$ is less than the length of value \$v_1\$, then string
+truncation may occur.
+Any such truncation is handled by the generated code.
+The FPP type system does not perform any truncation.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Evaluation_Type-Conversion_Array-Values">21.2.7. Array Values</h4>
 <div class="paragraph">
 <p>If \$T_2\$ is an array type and \$T_1 = T_2\$, then
 let \$v_2 = v_1\$.</p>
+</div>
+<div class="paragraph">
+<p>Otherwise if \$T_1\$ is
+a numeric type, Boolean type, enum type, or string type
+and \$T_2\$ is an anonymous array type or array type with \$n\$
+elements, then</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Let \$T'_2\$ be the element type of \$T_2\$.</p>
+</li>
+<li>
+<p>Let \$w\$ be the result of converting \$v_1\$ to type \$T'_2\$.</p>
+</li>
+<li>
+<p>Let \$v_2\$ be the unique array value of type \$T_2\$
+with value \$w\$ at each element.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p>Otherwise if \$T_1\$ is an anonymous array type and \$T_2\$ is an
@@ -11416,11 +11467,12 @@ anonymous array type or array type, both with \$n\$ elements, then</p>
 <p>Let \$T'_2\$ be the element type of \$T_2\$.</p>
 </li>
 <li>
-<p>For each \$i in [1,n]\$, \$v'_i\$ be the result of converting \$v_i\$ to type \$T'_2\$.</p>
+<p>For each \$i in [0,n-1]\$, let \$w_i\$ be the result of converting
+element \$i\$ of \$v_1\$ to type \$T'_2\$.</p>
 </li>
 <li>
 <p>Let \$v_2\$ be the unique array value of type \$T_2\$
-with value \$v'_i\$ at each element.</p>
+with value \$w_i\$ at each element \$i\$.</p>
 </li>
 </ol>
 </div>
@@ -11429,7 +11481,7 @@ with value \$v'_i\$ at each element.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Structure-Values">21.2.7. Structure Values</h4>
+<h4 id="Evaluation_Type-Conversion_Structure-Values">21.2.8. Structure Values</h4>
 <div class="paragraph">
 <p>If \$T_2\$ is a struct type and \$T_1 = T_2\$, then
 let \$v_2 = v_1\$.</p>
@@ -11571,7 +11623,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-08-20 10:47:02 -0700
+Last updated 2025-09-04 14:25:35 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
