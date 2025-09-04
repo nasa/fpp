@@ -11416,6 +11416,13 @@ floating-point values to and from each other.</p>
 <p>If \$T_1\$ is a string type and \$T_2\$ is a string type,
 then let \$v_2 = v_1\$.</p>
 </div>
+<div class="paragraph">
+<p>As noted in the section on <a href="#Values_String-Values">string values</a>, if the size
+of type \$T_2\$ is less than the length of value \$v_1\$, then string
+truncation may occur.
+Any such truncation is handled by the generated code.
+The FPP type system does not perform any truncation.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="Evaluation_Type-Conversion_Array-Values">21.2.7. Array Values</h4>
@@ -11609,7 +11616,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-03 19:48:44 -0700
+Last updated 2025-09-04 11:06:23 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
