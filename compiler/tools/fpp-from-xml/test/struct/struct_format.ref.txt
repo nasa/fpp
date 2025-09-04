@@ -1,0 +1,17 @@
+module A {
+
+  module B {
+
+    struct StructFormat {
+      m1: I32
+      @ FPP from XML: could not translate format string "%q"
+      m2: bool
+      m3: string size 23
+      m4: [10] F32 format "{.3e}"
+      m5: [10] F32 format "{.3f}"
+      m6: [10] F32 format "{.3g}"
+    }
+
+  }
+
+}

@@ -1,0 +1,24 @@
+module A {
+
+  module B {
+
+    enum E {
+      X = 0
+      Y = 3 @< Inline comment
+      Z = 4
+    }
+
+    @ Top-level comment, line 1
+    @ Top-level comment, line 2
+    struct StructOK {
+      m1: C.D @< Inline comment
+      m2: I32
+      m3: bool
+      m4: string size 23
+      m5: E
+      m6: [10] U32
+    }
+
+  }
+
+}

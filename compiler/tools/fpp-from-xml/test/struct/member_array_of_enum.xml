@@ -1,0 +1,15 @@
+<serializable namespace="A::B" name="StructOK">
+  <comment>
+  Top-level comment, line 1
+  Top-level comment, line 2
+  </comment>
+  <members>
+    <member name="m" type="ENUM" array_size="3" format="the value is %d">
+      <enum name="E">
+        <item name="X"/>
+        <item name="Y"/>
+        <item name="Z"/>
+      </enum>
+    </member>
+  </members>
+</serializable>

@@ -1,0 +1,12 @@
+tests="
+commands
+events
+general_ports_active
+general_ports_passive
+import_dictionary
+internal_ports
+parameters
+special_ports
+telemetry
+telemetry_bad_limit
+"

@@ -1,0 +1,28 @@
+@ Channel C1
+telemetry C1: U32 id 0x0 update always
+
+telemetry C2: U32 id 0x1 update always
+
+telemetry C3: U32 id 0x2 update on change
+
+telemetry C4: string size 80 id 0x3 update always
+
+telemetry C5: I32 id 0x4 update always \
+  low {
+    red -3
+    orange -2
+    yellow -1
+  } \
+  high {
+    red 3
+    orange 2
+    yellow 1
+  }
+
+enum E {
+  A = 0
+  B = 1
+  C = 2
+}
+
+telemetry C6: E id 0x5 update always

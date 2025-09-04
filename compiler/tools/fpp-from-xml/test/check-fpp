@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+. ../../../scripts/utils.sh
+
+for target in `find . -mindepth 2 -name check-fpp`
+do
+  dir=`dirname $target`
+  echo "[ $dir ]"
+  (cd $dir; ./check-fpp)
+done

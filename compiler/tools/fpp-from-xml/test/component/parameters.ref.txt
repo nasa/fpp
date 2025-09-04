@@ -1,0 +1,27 @@
+@ A test parameter
+param P1: U8 default 12 id 0 \
+  set opcode 0 \
+  save opcode 1
+
+@ A test parameter
+param P2: F32 default 13.14 id 1 \
+  set opcode 2 \
+  save opcode 3
+
+enum EventLevel {
+  FILTER_WARNING_HI = 0
+  FILTER_WARNING_LO = 1
+  FILTER_COMMAND = 2
+  FILTER_ACTIVITY_HI = 3
+  FILTER_ACTIVITY_LO = 4
+  FILTER_DIAGNOSTIC = 5
+}
+
+param P3: EventLevel default FILTER_ACTIVITY_LO id 2 \
+  set opcode 4 \
+  save opcode 5
+
+@ FPP from XML: could not translate default value T()
+param P4: T id 3 \
+  set opcode 6 \
+  save opcode 7

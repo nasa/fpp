@@ -1,0 +1,28 @@
+#!/bin/sh -e
+
+fpp_syntax=../../../../bin/fpp-syntax
+
+# These tests are component fragments
+fragments="commands|events|internal_ports|parameters|telemetry\.ref"
+# These tests do not generate valid FPP
+skip="telemetry_bad_limit"
+
+# Check whole components
+files=`find . -name '*.ref.txt' | egrep -v "error|missing|$fragments|$skip"`
+for file in $files
+do
+  echo "checking $file"
+  $fpp_syntax < $file
+done
+
+# Check component fragments
+files=`find . -name '*.ref.txt' | egrep "$fragments"`
+for file in $files
+do
+  echo "checking $file"
+  {
+    echo 'passive component C {'
+    cat $file
+    echo '}'
+  } | $fpp_syntax
+done

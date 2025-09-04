@@ -1,0 +1,13 @@
+module A {
+
+  module B {
+
+    @ Array with string args
+    array ArrayString = [2] string size 80 default [
+                                                     "abcd"
+                                                     "abcd"
+                                                   ]
+
+  }
+
+}

@@ -1,0 +1,10 @@
+<serializable namespace="A::B" name="StructFormat">
+  <members>
+    <member name="m1" type="I32" format="%u"/>
+    <member name="m2" type="bool" format="%q"/>
+    <member name="m3" type="string" size="23" format="%s"/>
+    <member name="m4" type="F32" array_size="10" format="%.3e"/>
+    <member name="m5" type="F32" array_size="10" format="%.3f"/>
+    <member name="m6" type="F32" array_size="10" format="%.3g"/>
+  </members>
+</serializable>

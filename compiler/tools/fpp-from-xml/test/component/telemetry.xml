@@ -1,0 +1,18 @@
+<telemetry>
+  <channel id="0x0" name="C1" data_type="U32" update="always">
+    <comment>
+    Channel C1
+    </comment>
+  </channel>
+  <channel id="0x1" name="C2" data_type="U32" update="always" format_string="%u"/>
+  <channel id="0x2" name="C3" data_type="U32" update="on_change"/>
+  <channel id="0x3" name="C4" data_type="string" size="80" update="always"/>
+  <channel id="0x4" name="C5" data_type="I32" update="always" low_orange="-2" low_red="-3" low_yellow="-1" high_orange="2" high_red="3" high_yellow="1"/>
+  <channel id="0x5" name="C6" data_type="ENUM" update="always">
+    <enum name="E">
+      <item name="A"/>
+      <item name="B"/>
+      <item name="C"/>
+    </enum>
+  </channel>
+</telemetry>

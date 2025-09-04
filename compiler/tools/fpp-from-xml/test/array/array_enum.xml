@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<array name="ArrayEnum">
+  <type>A::B</type>
+  <size>3</size>
+  <format>%s</format>
+  <default>
+    <value>A::B::C</value>
+  </default>
+</array>

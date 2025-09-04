@@ -1,0 +1,13 @@
+module A {
+
+  module B {
+
+    enum OK {
+      X = 0 @< Annotation line 1 Annotation line 2
+      Y = 1
+      Z = 2
+    }
+
+  }
+
+}

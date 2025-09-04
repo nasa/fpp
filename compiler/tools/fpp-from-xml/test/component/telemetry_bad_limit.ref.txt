@@ -1,0 +1,3 @@
+fpp-from-xml
+file: [ local path prefix ]/tools/fpp-from-xml/test/component/telemetry_bad_limit.xml
+error: non-numeric type in limit for channel C

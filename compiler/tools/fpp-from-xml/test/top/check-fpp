@@ -1,0 +1,15 @@
+#!/bin/sh -e
+
+fpp_syntax=../../../../bin/fpp-syntax
+
+files=`find . -name '*.ref.txt' | egrep -v 'error|missing'`
+for file in $files
+do
+  echo "checking $file"
+  if echo $file | grep -q "fprime_ref_packets\.ref\.txt$"
+  then
+    $fpp_syntax -i < fprime_ref_packets.fpp
+  else
+    $fpp_syntax < $file
+  fi
+done

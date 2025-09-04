@@ -1,0 +1,3 @@
+fpp-from-xml
+file: [ local path prefix ]/tools/fpp-from-xml/test/struct/struct_missing_member_name.xml
+error: missing attribute name for node <member/>

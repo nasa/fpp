@@ -1,0 +1,3 @@
+fpp-from-xml
+file: [ local path prefix ]/tools/fpp-from-xml/test/enum/enum_missing_name.xml
+error: missing attribute name for node <enum/>

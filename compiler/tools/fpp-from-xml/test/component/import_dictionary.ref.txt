@@ -1,0 +1,12 @@
+module M {
+
+  passive component ImportDictionary {
+
+    include "A.fppi"
+
+    @ FPP from XML: original path was B/C.xml
+    include "C.fppi"
+
+  }
+
+}

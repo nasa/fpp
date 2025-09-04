@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+. ../../../scripts/utils.sh
+
+for target in `find . -mindepth 2 -name clean`
+do
+  dir=`dirname $target`
+  (cd $dir; ./clean)
+done
+clean
