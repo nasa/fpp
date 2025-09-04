@@ -9885,7 +9885,7 @@ are called the <strong>primitive types</strong>.</p>
 <a href="#Type-Names_String-Type-Names">string type names</a>.
 A string type is written <code>string</code> or <code>string size</code> <em>n</em>,
 where <em>n</em> is an integer value in the range [1,2^31-1].
-There is one string type <code>string</code> and one string type <code>string</code> <em>n</em>
+There is one string type <code>string</code> and one string type <code>string size</code> <em>n</em>
 for each legal value of <em>n</em>.</p>
 </div>
 </div>
@@ -10981,7 +10981,7 @@ Throw an error.</p>
 <p>Every value <em>v</em> belongs to exactly one <a href="#Types_Canonical-Types">canonical type</a>
 <em>T</em>, except that
 every string value belongs to the type <code>string</code> and to
-all types <code>string</code> <em>n</em>, for any <em>n</em>.</p>
+all types <code>string size</code> <em>n</em>, for any <em>n</em>.</p>
 </div>
 <div class="paragraph">
 <p>Every value that belongs to type <em>T</em> also belongs to every
@@ -11085,12 +11085,12 @@ characters in the sequence.</p>
 <p><code>string</code></p>
 </li>
 <li>
-<p><code>string</code> <em>n</em> for any <em>n</em>.</p>
+<p><code>string size</code> <em>n</em> for any <em>n</em>.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Note that <em>v</em> may have length <em>m</em> and type <code>string</code> <em>n</em>,
+<p>Note that <em>v</em> may have length <em>m</em> and type <code>string size</code> <em>n</em>,
 with \$m &gt; n\$.
 In this case, the behavior is defined by the code generation strategy.
 In particular, when code is generated for the F Prime framework,
@@ -11616,7 +11616,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-04 11:06:23 -0700
+Last updated 2025-09-04 11:14:29 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -39,7 +39,7 @@ The *string types* correspond to the
 <<Type-Names_String-Type-Names,string type names>>.
 A string type is written `string` or `string size` _n_,
 where _n_ is an integer value in the range [1,2^31-1].
-There is one string type `string` and one string type `string` _n_
+There is one string type `string` and one string type `string size` _n_
 for each legal value of _n_.
 
 === Array Types

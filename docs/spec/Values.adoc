@@ -27,7 +27,7 @@ A *value* is one of the following:
 Every value _v_ belongs to exactly one <<Types_Canonical-Types,canonical type>>
 _T_, except that
 every string value belongs to the type `string` and to
-all types `string` _n_, for any _n_.
+all types `string size` _n_, for any _n_.
 
 Every value that belongs to type _T_ also belongs to every
 <<Types_Alias-Types,alias type>> whose
@@ -100,9 +100,9 @@ A string value _v_ belongs to the following canonical types:
 
 * `string`
 
-* `string` _n_ for any _n_.
+* `string size` _n_ for any _n_.
 
-Note that _v_ may have length _m_ and type `string` _n_,
+Note that _v_ may have length _m_ and type `string size` _n_,
 with stem:[m > n].
 In this case, the behavior is defined by the code generation strategy.
 In particular, when code is generated for the F Prime framework,
