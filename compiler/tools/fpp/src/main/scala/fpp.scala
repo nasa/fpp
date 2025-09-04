@@ -1,8 +1,5 @@
 package fpp.compiler.tools
 
-import fpp.compiler.analysis._
-import fpp.compiler.ast._
-import fpp.compiler.syntax._
 import fpp.compiler.util._
 import scopt.OParser
 
