@@ -166,6 +166,9 @@ jobs:
           cd ${{ inputs.working-directory }}
           $NATIVE_IMAGE_TOOLS_PATH/native-images ${{ inputs.output-directory }}
           tool_names=`get_tool_names ${{ inputs.output-directory }}`
+          echo "$tool_names"
+          ls ${{ inputs.output-directory }}
+          ls ${{ inputs.working-directory }}
           for tool in $tool_names
           do
             echo '#!/bin/sh
