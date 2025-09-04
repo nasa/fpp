@@ -162,7 +162,7 @@ jobs:
             chmod +x ${{ inputs.output-directory }}/fpp-$tool
           done
 
-          $NATIVE_IMAGE_TOOLSPATH/native-images ${{ inputs.output-directory }}
+          $NATIVE_IMAGE_TOOLS_PATH/native-images ${{ inputs.output-directory }}
         shell: bash
       - name: "Archive Native Images"
         uses: actions/upload-artifact@v4
