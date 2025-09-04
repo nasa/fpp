@@ -150,9 +150,28 @@ jobs:
           path: ${{ inputs.trace-directory }}
       - name: "Build Native Images"
         run: |
+          get_tool_names()
+          {
+            prefix="fpp-"
+            dir=$1
+            for file in $dir/$prefix*
+            do
+              base=`basename $file`
+              result="${base#$prefix}"
+              echo $result
+            done
+          }
+
           export CLASSPATH="`cd ${{ inputs.trace-directory }}/../..; pwd`:${CLASSPATH}"
           cd ${{ inputs.working-directory }}
-          $NATIVE_IMAGE_TOOLS_PATH/native-images ${{ inputs.output-directory }} ${{ inputs.tools }}
+          $NATIVE_IMAGE_TOOLS_PATH/native-images ${{ inputs.output-directory }}
+          tool_names=`get_tool_names bin`
+          for tool in $tool_names
+          do
+            echo '#!/bin/sh
+            "`dirname $0`/fpp" '$tool' "$@"' > ${{ inputs.output-directory }}/fpp-$tool
+            chmod +x ${{ inputs.output-directory }}/fpp-$tool
+          done
         shell: bash
       - name: "Archive Native Images"
         uses: actions/upload-artifact@v4
