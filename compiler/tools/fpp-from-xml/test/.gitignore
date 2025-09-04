@@ -1,4 +1,0 @@
-*.out.txt
-*.diff.txt
-default-tests.sh
-default-update-ref.sh

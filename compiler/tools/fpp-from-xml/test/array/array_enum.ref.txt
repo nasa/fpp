@@ -1,3 +1,0 @@
-array ArrayEnum = [3] A.B default [
-                                    A.B.C
-                                  ]

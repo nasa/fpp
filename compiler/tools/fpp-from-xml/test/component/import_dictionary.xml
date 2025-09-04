@@ -1,6 +1,0 @@
-<component namespace="M" name="ImportDictionary" kind="passive">
-
-  <import_dictionary>A.xml</import_dictionary>
-  <import_dictionary>B/C.xml</import_dictionary>
-
-</component>

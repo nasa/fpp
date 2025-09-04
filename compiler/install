@@ -56,13 +56,11 @@ check
 depend
 filenames
 format
-from-xml
 locate-defs
 locate-uses
 syntax
 to-cpp
 to-json
-to-xml
 to-dict
 to-layout
 "
