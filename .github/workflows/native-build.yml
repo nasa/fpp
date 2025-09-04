@@ -152,30 +152,17 @@ jobs:
         run: |
           export CLASSPATH="`cd ${{ inputs.trace-directory }}/../..; pwd`:${CLASSPATH}"
           cd ${{ inputs.working-directory }}
-          $NATIVE_IMAGE_TOOLSPATH/native-images ${{ inputs.output-directory }}
-          tool_names="
-          check
-          depend
-          filenames
-          format
-          from-xml
-          locate-defs
-          locate-uses
-          syntax
-          to-cpp
-          to-json
-          to-xml
-          to-dict
-          to-layout
-          "
+          TOOL_NAMES="check depend filenames format from-xml locate-defs locate-uses syntax to-cpp to-json to-xml to-dict to-layout"
           ls ${{ inputs.output-directory }}
-          for tool in $tool_name
+          for tool in $TOOL_NAMES
           do
             echo "Generating wrapper for fpp-$tool in ${{ inputs.output-directory }}/fpp-$tool"
             echo '#!/bin/sh
             "`dirname $0`/fpp" '$tool' "$@"' > ${{ inputs.output-directory }}/fpp-$tool
             chmod +x ${{ inputs.output-directory }}/fpp-$tool
           done
+
+          $NATIVE_IMAGE_TOOLSPATH/native-images ${{ inputs.output-directory }}
         shell: bash
       - name: "Archive Native Images"
         uses: actions/upload-artifact@v4
