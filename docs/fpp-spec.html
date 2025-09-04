@@ -10980,8 +10980,8 @@ Throw an error.</p>
 <div class="paragraph">
 <p>Every value <em>v</em> belongs to exactly one <a href="#Types_Canonical-Types">canonical type</a>
 <em>T</em>, except that
-every string value of length <em>m</em> belongs to the type <code>string</code> and to
-all types <code>string</code> <em>n</em>, for any <em>n</em> such that \$n &gt;= m\$.</p>
+every string value belongs to the type <code>string</code> and to
+all types <code>string</code> <em>n</em>, for any <em>n</em>.</p>
 </div>
 <div class="paragraph">
 <p>Every value that belongs to type <em>T</em> also belongs to every
@@ -11074,8 +11074,10 @@ represented as a <a href="#Expressions_String-Literals">string literal expressio
 It is written in the same way as a string literal expression,
 e.g., <code>"abc"</code>.
 Every string value <em>v</em> has a <strong>length</strong>, which is the number of
-characters in the sequence.
-A string value belongs to the following canonical types:</p>
+characters in the sequence.</p>
+</div>
+<div class="paragraph">
+<p>A string value <em>v</em> belongs to the following canonical types:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -11083,10 +11085,20 @@ A string value belongs to the following canonical types:</p>
 <p><code>string</code></p>
 </li>
 <li>
-<p><code>string</code> <em>n</em> for any <em>n</em> such that \$n &gt;= m\$, where <em>m</em> is the length of
-<em>v</em>.</p>
+<p><code>string</code> <em>n</em> for any <em>n</em>.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Note that <em>v</em> may have length <em>m</em> and type <code>string</code> <em>n</em>,
+with \$m &gt; n\$.
+In this case, the behavior is defined by the code generation strategy.
+In particular, when code is generated for the F Prime framework,
+the value <em>v</em> may be stored into a buffer that
+can hold a maximum string length of <em>n</em>.
+If this happens, the framework will <strong>truncate</strong> the value <em>v</em>
+to <em>n</em> characters before storing it.
+That means that the first <em>n</em> characters of <em>v</em> are stored in the buffer.</p>
 </div>
 </div>
 <div class="sect2">
@@ -11401,22 +11413,8 @@ floating-point values to and from each other.</p>
 <div class="sect3">
 <h4 id="Evaluation_Type-Conversion_String-Values">21.2.6. String Values</h4>
 <div class="paragraph">
-<p>If \$T_1\$ is a string type and \$T_2\$ is <code>string</code>,
+<p>If \$T_1\$ is a string type and \$T_2\$ is a string type,
 then let \$v_2 = v_1\$.</p>
-</div>
-<div class="paragraph">
-<p>Otherwise if \$T_1\$ is a string type and \$T_2\$ is <code>string</code> <em>n</em>
-and \$v_1\$ has length \$m\$, then</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>If \$n &gt;= m\$, then let \$v_2 = v_1\$.</p>
-</li>
-<li>
-<p>Otherwise form \$v_2\$ by taking the first <em>n</em> characters of \$v_1\$.</p>
-</li>
-</ol>
 </div>
 </div>
 <div class="sect3">
@@ -11611,7 +11609,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-03 18:23:25 -0700
+Last updated 2025-09-03 19:48:44 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

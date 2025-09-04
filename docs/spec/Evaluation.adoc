@@ -85,15 +85,8 @@ floating-point values to and from each other.
 
 ==== String Values
 
-If stem:[T_1] is a string type and stem:[T_2] is `string`,
+If stem:[T_1] is a string type and stem:[T_2] is a string type,
 then let stem:[v_2 = v_1].
-
-Otherwise if stem:[T_1] is a string type and stem:[T_2] is `string` _n_
-and stem:[v_1] has length stem:[m], then
-
-. If stem:[n >= m], then let stem:[v_2 = v_1].
-
-. Otherwise form stem:[v_2] by taking the first _n_ characters of stem:[v_1].
 
 ==== Array Values
 
