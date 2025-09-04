@@ -165,7 +165,7 @@ jobs:
           export CLASSPATH="`cd ${{ inputs.trace-directory }}/../..; pwd`:${CLASSPATH}"
           cd ${{ inputs.working-directory }}
           $NATIVE_IMAGE_TOOLS_PATH/native-images ${{ inputs.output-directory }}
-          tool_names=`get_tool_names bin`
+          tool_names=`get_tool_names ${{ inputs.output-directory }}`
           for tool in $tool_names
           do
             echo '#!/bin/sh
