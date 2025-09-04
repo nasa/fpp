@@ -25,12 +25,11 @@ A *value* is one of the following:
 * A struct value
 
 Every value _v_ belongs to exactly one <<Types_Canonical-Types,canonical type>> 
-_T_, except as follows:
+_T_, except that
+every string value of length _m_ belongs to the type `string` and to
+all types `string` _n_, for any _n_ such that stem:[n >= m].
 
-* Every string value belongs to the type `string` and to
-all types `string` _n_, for any _n_.
-
-* Every value that belongs to type _T_ also belongs to every 
+Every value that belongs to type _T_ also belongs to every 
 <<Types_Alias-Types,alias type>> whose 
 <<Types_Underlying-Types,underlying type>> is _T_.
 
@@ -94,11 +93,14 @@ A *string value* is a sequence of characters that can be
 represented as a <<Expressions_String-Literals,string literal expression>>.
 It is written in the same way as a string literal expression,
 e.g., `"abc"`.
+Every string value _v_ has a *length*, which is the number of
+characters in the sequence.
 A string value belongs to the following canonical types:
 
 * `string`
 
-* `string` _n_ for any _n_
+* `string` _n_ for any _n_ such that stem:[n >= m], where _m_ is the length of 
+  _v_.
 
 === Abstract Type Values
 

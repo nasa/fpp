@@ -1010,8 +1010,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Evaluation_Type-Conversion_Primitive-Integer-Values-of-Mixed-Sign">21.2.3. Primitive Integer Values of Mixed Sign</a></li>
 <li><a href="#Evaluation_Type-Conversion_Primitive-and-Non-Primitive-Integer-Values">21.2.4. Primitive and Non-Primitive Integer Values</a></li>
 <li><a href="#Evaluation_Type-Conversion_Floating-Point-Values">21.2.5. Floating-Point Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Array-Values">21.2.6. Array Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Structure-Values">21.2.7. Structure Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_String-Values">21.2.6. String Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Array-Values">21.2.7. Array Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Structure-Values">21.2.8. Structure Values</a></li>
 </ul>
 </li>
 </ul>
@@ -10566,11 +10567,11 @@ may be converted to the anonymous array type
 if \$n = m\$ and \$T'_1\$ may be converted to \$T'_2\$.</p>
 </li>
 <li>
-<p>A <a href="#Types_Internal-Types_Numeric-Types">numeric type</a> type, <a href="#Types_The-Boolean-Type">Boolean
-type</a>,
-<a href="#Types_Enum-Types">enum type</a>, or <a href="#Types_String-Types">string types</a> \$T\$
-may be converted to an anonymous array type
-\$T_1\$ may be converted to the member type of \$T_2\$.</p>
+<p>A <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>,
+  <a href="#Types_The-Boolean-Type">Boolean type</a>, <a href="#Types_Enum-Types">enum type</a>, or
+<a href="#Types_String-Types">string type</a> \$T_1\$ may be converted to an anonymous
+array type \$T_2\$ if \$T_1\$ may be converted to the member type of
+\$T_2\$.</p>
 </li>
 <li>
 <p>If \$T_1\$ or \$T_2\$ or both are
@@ -10978,20 +10979,14 @@ Throw an error.</p>
 </div>
 <div class="paragraph">
 <p>Every value <em>v</em> belongs to exactly one <a href="#Types_Canonical-Types">canonical type</a>
-<em>T</em>, except as follows:</p>
+<em>T</em>, except that
+every string value of length <em>m</em> belongs to the type <code>string</code> and to
+all types <code>string</code> <em>n</em>, for any <em>n</em> such that \$n &gt;= m\$.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Every string value belongs to the type <code>string</code> and to
-all types <code>string</code> <em>n</em>, for any <em>n</em>.</p>
-</li>
-<li>
+<div class="paragraph">
 <p>Every value that belongs to type <em>T</em> also belongs to every
 <a href="#Types_Alias-Types">alias type</a> whose
 <a href="#Types_Underlying-Types">underlying type</a> is <em>T</em>.</p>
-</li>
-</ul>
 </div>
 <div class="paragraph">
 <p>When a value <em>v</em> belongs to a type <em>T</em>, we say that <em>v</em> is a value
@@ -11078,6 +11073,8 @@ Its canonical type is <code>bool</code>.</p>
 represented as a <a href="#Expressions_String-Literals">string literal expression</a>.
 It is written in the same way as a string literal expression,
 e.g., <code>"abc"</code>.
+Every string value <em>v</em> has a <strong>length</strong>, which is the number of
+characters in the sequence.
 A string value belongs to the following canonical types:</p>
 </div>
 <div class="ulist">
@@ -11086,7 +11083,8 @@ A string value belongs to the following canonical types:</p>
 <p><code>string</code></p>
 </li>
 <li>
-<p><code>string</code> <em>n</em> for any <em>n</em></p>
+<p><code>string</code> <em>n</em> for any <em>n</em> such that \$n &gt;= m\$, where <em>m</em> is the length of
+<em>v</em>.</p>
 </li>
 </ul>
 </div>
@@ -11306,9 +11304,9 @@ arithmetic.</p>
 <div class="sect2">
 <h3 id="Evaluation_Type-Conversion">21.2. Type Conversion</h3>
 <div class="paragraph">
-<p>The following rules govern the conversion of a value \$v_1\$ of type
+<p>The following rules govern the conversion of a value \$v_1\$ of canonical type
 \$T_1\$
-to a value \$v_2\$ of type \$T_2\$.</p>
+to a value \$v_2\$ of canonical type \$T_2\$.</p>
 </div>
 <div class="sect3">
 <h4 id="Evaluation_Type-Conversion_Unsigned-Primitive-Integer-Values">21.2.1. Unsigned Primitive Integer Values</h4>
@@ -11401,10 +11399,51 @@ floating-point values to and from each other.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Array-Values">21.2.6. Array Values</h4>
+<h4 id="Evaluation_Type-Conversion_String-Values">21.2.6. String Values</h4>
+<div class="paragraph">
+<p>If \$T_1\$ is a string type and \$T_2\$ is <code>string</code>,
+then let \$v_2 = v_1\$.</p>
+</div>
+<div class="paragraph">
+<p>Otherwise if \$T_1\$ is a string type \$T_2\$ is <code>string</code> <em>n</em>
+and \$v_1\$ has length \$m\$, then</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If \$n &gt;= m\$, then let \$v_2 = v_1\$.</p>
+</li>
+<li>
+<p>Otherwise form \$v_2\$ by taking the first <em>n</em> characters of \$v_1\$.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Evaluation_Type-Conversion_Array-Values">21.2.7. Array Values</h4>
 <div class="paragraph">
 <p>If \$T_2\$ is an array type and \$T_1 = T_2\$, then
 let \$v_2 = v_1\$.</p>
+</div>
+<div class="paragraph">
+<p>Otherwise if \$T_1\$ is
+a numeric type, Boolean type, enum type, or string type
+and \$T_2\$ is an anonymous array type or array type with \$n\$
+elements, then</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Let \$T'_2\$ be the element type of \$T_2\$.</p>
+</li>
+<li>
+<p>Let \$w\$ be the result of converting \$v_1\$ to type \$T'_2\$.</p>
+</li>
+<li>
+<p>Let \$v_2\$ be the unique array value of type \$T_2\$
+with value \$w\$ at each element.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p>Otherwise if \$T_1\$ is an anonymous array type and \$T_2\$ is an
@@ -11416,11 +11455,12 @@ anonymous array type or array type, both with \$n\$ elements, then</p>
 <p>Let \$T'_2\$ be the element type of \$T_2\$.</p>
 </li>
 <li>
-<p>For each \$i in [1,n]\$, \$v'_i\$ be the result of converting \$v_i\$ to type \$T'_2\$.</p>
+<p>For each \$i in [0,n-1]\$, let \$w_i\$ be the result of converting
+element \$i\$ of \$v_1\$ to type \$T'_2\$.</p>
 </li>
 <li>
 <p>Let \$v_2\$ be the unique array value of type \$T_2\$
-with value \$v'_i\$ at each element.</p>
+with value \$w_i\$ at each element \$i\$.</p>
 </li>
 </ol>
 </div>
@@ -11429,7 +11469,7 @@ with value \$v'_i\$ at each element.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Structure-Values">21.2.7. Structure Values</h4>
+<h4 id="Evaluation_Type-Conversion_Structure-Values">21.2.8. Structure Values</h4>
 <div class="paragraph">
 <p>If \$T_2\$ is a struct type and \$T_1 = T_2\$, then
 let \$v_2 = v_1\$.</p>
@@ -11571,7 +11611,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-08-20 10:47:02 -0700
+Last updated 2025-09-03 18:17:32 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
