@@ -28,7 +28,6 @@ abstract class ComponentTestUtils(
 
   val hasHistories: Boolean =
     hasCommands ||
-    hasCommands ||
     hasDataProducts ||
     hasEvents ||
     hasParameters ||
