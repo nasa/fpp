@@ -150,9 +150,48 @@ jobs:
           path: ${{ inputs.trace-directory }}
       - name: "Build Native Images"
         run: |
+          # Print and evaluate
+          evalp()
+          {
+              echo "$@"
+              "$@"
+          }
+
           export CLASSPATH="`cd ${{ inputs.trace-directory }}/../..; pwd`:${CLASSPATH}"
           cd ${{ inputs.working-directory }}
-          $NATIVE_IMAGE_TOOLS_PATH/native-images ${{ inputs.output-directory }} ${{ inputs.tools }}
+
+          tool_dir="${{ inputs.output-directory }}"
+          native_dir="${tool_dir}-native"
+          native_final="${tool_dir}-final"
+          mkdir -p "${native_dir}"
+          mkdir -p "${native_final}"
+
+          jar_file="$tool_dir/fpp.jar"
+          out_file="$native_dir/fpp"
+          echo "Building $out_file"
+          class_path="${CLASSPATH}"
+          evalp "$GRAALVM_JAVA_HOME/bin/native-image" -H:PageSize=65536 -cp "${class_path}" $FPP_NATIVE_IMAGE_FLAGS \
+            --no-fallback --install-exit-handlers \
+            -jar "$jar_file" "$out_file"
+          if [ $? -ne 0 ]
+          then
+              echo "[ERROR] Failed to build $out_file"
+              exit 1
+          fi
+          sync; sync; sync; # Magic to fix filesystem woes
+          cp "${out_file}" "${native_final}"
+
+          TOOL_NAMES=`cat ${{ inputs.working-directory }}/compiler/tools.txt`
+          for tool in $TOOL_NAMES
+          do
+            echo "Generating wrapper for fpp-$tool in ${native_final}/fpp-$tool"
+            echo '#!/bin/sh
+            "`dirname $0`/fpp" '$tool' "$@"' > ${native_final}/fpp-$tool
+            chmod +x ${native_final}/fpp-$tool
+          done
+
+          mv "$tool_dir" "$tool_dir.old"
+          mv "$native_final" "$tool_dir"
         shell: bash
       - name: "Archive Native Images"
         uses: actions/upload-artifact@v4
