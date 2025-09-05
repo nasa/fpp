@@ -51,20 +51,7 @@ dir=`cd $dir; pwd`
 base=`basename $dest`
 dest=$dir/$base
 
-tools="
-check
-depend
-filenames
-format
-from-xml
-locate-defs
-locate-uses
-syntax
-to-cpp
-to-json
-to-dict
-to-layout
-"
+tools=`cat ./tools.txt`
 
 if git describe --tags --always > /dev/null 2>&1
 then

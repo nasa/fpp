@@ -150,21 +150,52 @@ jobs:
           path: ${{ inputs.trace-directory }}
       - name: "Build Native Images"
         run: |
+          # Print and evaluate
+          evalp()
+          {
+              echo "$@"
+              "$@"
+          }
+
           export CLASSPATH="`cd ${{ inputs.trace-directory }}/../..; pwd`:${CLASSPATH}"
           cd ${{ inputs.working-directory }}
-          echo "WD ${{ inputs.working-directory }}"
-          echo "OD ${{ inputs.output-directory }}"
-          echo "II ${{ inputs }}"
-          TOOL_NAMES="check depend filenames format from-xml locate-defs locate-uses syntax to-cpp to-json to-dict to-layout"
+
+          tool_dir="${{ inputs.output-directory }}"
+          native_dir="${tool_dir}-native"
+          native_final="${tool_dir}-final"
+          mkdir -p "${native_dir}"
+          mkdir -p "${native_final}"
+          # Remove $1
+          shift;
+          tool_names="$@"
+          if [[ "${tool_names}" == "" ]]
+          then
+              tool_names="$(get_tool_names ${tool_dir})"
+          fi
+
+          jar_file="$tool_dir/fpp.jar"
+          out_file="$native_dir/fpp"
+          echo "Building $out_file"
+          class_path="${CLASSPATH}"
+          evalp "$GRAALVM_JAVA_HOME/bin/native-image" -H:PageSize=65536 -cp "${class_path}" $FPP_NATIVE_IMAGE_FLAGS \
+            --no-fallback --install-exit-handlers \
+            -jar "$jar_file" "$out_file"
+          if [ $? -ne 0 ]
+          then
+              echo "[ERROR] Failed to build $out_file"
+              exit 1
+          fi
+          sync; sync; sync; # Magic to fix filesystem woes
+          cp "${out_file}" "${native_final}"
+
+          TOOL_NAMES=`cat ${{ inputs.working-directory }}/compiler/tools.txt`
           for tool in $TOOL_NAMES
           do
-            echo "Generating wrapper for fpp-$tool in ${{ inputs.output-directory }}/fpp-$tool"
+            echo "Generating wrapper for fpp-$tool in ${native_final}/fpp-$tool"
             echo '#!/bin/sh
-            "`dirname $0`/fpp" '$tool' "$@"' > ${{ inputs.output-directory }}/fpp-$tool
-            chmod +x ${{ inputs.output-directory }}/fpp-$tool
+            "`dirname $0`/fpp" '$tool' "$@"' > ${native_final}/fpp-$tool
+            chmod +x ${native_final}/fpp-$tool
           done
-
-          $NATIVE_IMAGE_TOOLS_PATH/native-images ${{ inputs.output-directory }}
         shell: bash
       - name: "Archive Native Images"
         uses: actions/upload-artifact@v4
