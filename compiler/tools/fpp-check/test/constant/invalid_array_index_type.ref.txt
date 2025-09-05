@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/constant/invalid_array_index_type.fpp:1.26
+constant f = [ 1, 2, 3 ][false]
+                         ^
+error: cannot convert bool to a numeric type

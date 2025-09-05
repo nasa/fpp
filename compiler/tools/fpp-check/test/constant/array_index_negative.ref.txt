@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/constant/array_index_negative.fpp:1.26
+constant f = [ 1, 2, 3 ][-1]
+                         ^
+error: invalid integer value -1
+value may not be negative
