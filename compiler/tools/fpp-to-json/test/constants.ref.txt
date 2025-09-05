@@ -297,7 +297,7 @@
                     "AstNode" : {
                       "data" : {
                         "ExprArraySubscript" : {
-                          "e" : {
+                          "e1" : {
                             "AstNode" : {
                               "data" : {
                                 "ExprIdent" : {
@@ -307,7 +307,7 @@
                               "id" : 23
                             }
                           },
-                          "i" : {
+                          "e2" : {
                             "AstNode" : {
                               "data" : {
                                 "ExprLiteralInt" : {
@@ -344,11 +344,11 @@
                     "AstNode" : {
                       "data" : {
                         "ExprArraySubscript" : {
-                          "e" : {
+                          "e1" : {
                             "AstNode" : {
                               "data" : {
                                 "ExprArraySubscript" : {
-                                  "e" : {
+                                  "e1" : {
                                     "AstNode" : {
                                       "data" : {
                                         "ExprIdent" : {
@@ -358,7 +358,7 @@
                                       "id" : 27
                                     }
                                   },
-                                  "i" : {
+                                  "e2" : {
                                     "AstNode" : {
                                       "data" : {
                                         "ExprLiteralInt" : {
@@ -373,7 +373,7 @@
                               "id" : 30
                             }
                           },
-                          "i" : {
+                          "e2" : {
                             "AstNode" : {
                               "data" : {
                                 "ExprLiteralInt" : {
