@@ -184,10 +184,11 @@ jobs:
           TOOL_NAMES=`cat ${{ inputs.working-directory }}/compiler/tools.txt`
           for tool in $TOOL_NAMES
           do
-            echo "Generating wrapper for fpp-$tool in ${native_final}/fpp-$tool"
+            echo "Generating wrapper for fpp-$tool in ${native_dir}/fpp-$tool"
             echo '#!/bin/sh
-            "`dirname $0`/fpp" '$tool' "$@"' > ${native_final}/fpp-$tool
-            chmod +x ${native_final}/fpp-$tool
+            "`dirname $0`/fpp" '$tool' "$@"' > ${native_dir}/fpp-$tool
+            chmod +x ${native_dir}/fpp-$tool
+            cp "${native_dir}/fpp-$tool" "${native_final}"
           done
         shell: bash
       - name: "Archive Native Images"
