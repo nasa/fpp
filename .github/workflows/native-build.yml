@@ -152,8 +152,10 @@ jobs:
         run: |
           export CLASSPATH="`cd ${{ inputs.trace-directory }}/../..; pwd`:${CLASSPATH}"
           cd ${{ inputs.working-directory }}
-          TOOL_NAMES="check depend filenames format from-xml locate-defs locate-uses syntax to-cpp to-json to-xml to-dict to-layout"
-          ls ${{ inputs.output-directory }}
+          echo "WD ${{ inputs.working-directory }}"
+          echo "OD ${{ inputs.output-directory }}"
+          echo "II ${{ inputs }}"
+          TOOL_NAMES="check depend filenames format from-xml locate-defs locate-uses syntax to-cpp to-json to-dict to-layout"
           for tool in $TOOL_NAMES
           do
             echo "Generating wrapper for fpp-$tool in ${{ inputs.output-directory }}/fpp-$tool"
