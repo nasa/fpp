@@ -165,13 +165,6 @@ jobs:
           native_final="${tool_dir}-final"
           mkdir -p "${native_dir}"
           mkdir -p "${native_final}"
-          # Remove $1
-          shift;
-          tool_names="$@"
-          if [[ "${tool_names}" == "" ]]
-          then
-              tool_names="$(get_tool_names ${tool_dir})"
-          fi
 
           jar_file="$tool_dir/fpp.jar"
           out_file="$native_dir/fpp"
