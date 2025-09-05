@@ -27,12 +27,13 @@ abstract class ComponentTestUtils(
   val hasTypedOutputPorts = typedOutputPorts.nonEmpty
 
   val hasHistories: Boolean =
-    hasTypedOutputPorts ||
     hasCommands ||
-    hasParameters ||
+    hasCommands ||
+    hasDataProducts ||
     hasEvents ||
-    hasCommands ||
-    hasDataProducts
+    hasParameters ||
+    hasTelemetry ||
+    hasTypedOutputPorts
 
   val inputPorts: List[PortInstance] = List.concat(
     specialInputPorts,
