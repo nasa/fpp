@@ -186,7 +186,22 @@ class ParserSpec extends AnyWordSpec {
     parseAllOK(
       Parser.defStateMachine,
       List(
-        "state machine S",
+        "state machine M",
+        """state machine M {
+          constant c = 0
+          type T
+          array A = [3] U32
+          struct S { x: U32 }
+          enum E { A, B }
+          action a
+          signal s
+          guard g
+          initial enter S
+          state S {
+            on g enter T
+          }
+          state T
+        }"""
       )
     )
   }

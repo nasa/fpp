@@ -172,8 +172,14 @@ object Ast {
   final case class StateMachineMember(node: Annotated[StateMachineMember.Node])
   object StateMachineMember {
     sealed trait Node
+    final case class DefAbsType(node: AstNode[Ast.DefAbsType]) extends Node
     final case class DefAction(node: AstNode[Ast.DefAction]) extends Node
+    final case class DefAliasType(node: AstNode[Ast.DefAliasType]) extends Node
+    final case class DefArray(node: AstNode[Ast.DefArray]) extends Node
     final case class DefChoice(node: AstNode[Ast.DefChoice]) extends Node
+    final case class DefConstant(node: AstNode[Ast.DefConstant]) extends Node
+    final case class DefEnum(node: AstNode[Ast.DefEnum]) extends Node
+    final case class DefStruct(node: AstNode[Ast.DefStruct]) extends Node
     final case class DefGuard(node: AstNode[Ast.DefGuard]) extends Node
     final case class DefSignal(node: AstNode[Ast.DefSignal]) extends Node
     final case class DefState(node: AstNode[Ast.DefState]) extends Node
