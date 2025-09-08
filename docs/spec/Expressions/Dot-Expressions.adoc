@@ -1,8 +1,8 @@
 === Dot Expressions
 
-A *dot expression* is an expression that selects a
-<<Values_Struct-Values,struct member value>> or a
-<<Definitions-and-Uses_Uses,use>> that refers to a
+A *dot expression* is a
+<<Definitions-and-Uses_Uses,use>>
+that refers to a
 <<Definitions_Constant-Definitions,constant definition>>
 or
 <<Definitions_Enumerated-Constant-Definitions,enumerated constant definition>>.
@@ -17,12 +17,7 @@ or
 
 The following rules give the meaning of a dot expression stem:[e]`.x`:
 
-. If stem:[e] is an <<Expressions,expression>> of <<Types_Struct-Types,struct type>>
-or <<Types_Internal-Types_Anonymous-Struct-Types,anonymous struct type>>
-where `x` is a member, then it evaluates to the value stored in the member of the
-corresponding <<Values_Struct-Values,struct value>>.
-
-. If stem:[e]`.x` is a
+.  If stem:[e]`.x` is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified
 identifier>> that represents one of the uses listed above according to
 the
@@ -50,17 +45,4 @@ constant b = M.a # M.a evaluates to 1
 ----
 enum E { X = 0, Y = 1 }
 constant a = E.X # E.X evaluates to 0
-----
-
-===== Example 3
-
-[source,fpp]
-----
-module M {
-  constant a = {
-    b = 10.2,
-    c = "string",
-  }
-}
-constant a = M.a.b # M.a.b evaluates to 10.2
 ----
