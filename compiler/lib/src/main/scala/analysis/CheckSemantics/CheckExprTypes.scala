@@ -120,9 +120,9 @@ object CheckExprTypes extends UseAnalyzer {
         a.typeMap(e.e1.id).getUnderlyingType match {
           case Type.AnonArray(_, eltType) => Right(eltType)
           case Type.Array(_, anonArr, _, _) => Right(anonArr.eltType)
-          case _ => Left(SemanticError.InvalidType(
+          case t => Left(SemanticError.InvalidType(
             Locations.get(e.e1.id),
-            "expected an array type"
+            s"expected an array type, got '${t.toString()}'"
           ))
         }
       }
