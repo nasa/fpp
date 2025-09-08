@@ -10,8 +10,7 @@ port interface definition>>.
 
 A named port interface is a port interface associated
 with an <<Definitions_Port-Interface-Definitions,
-interface definition>>. Named port interfaces can be used
-in <<Template-Parameter-Lists,template parameter lists>>.
+interface definition>>.
 
 === Anonymous Port Interfaces
 
@@ -61,8 +60,7 @@ anonymous topology port interface>>.
 === Binding
 
 Port interface binding refers to converting a port interface instance to an instance
-from another port interface. This is done when passing interface arguments during
-<<Specifiers_Template-Expansion-Specifiers,template expansion>>.
+from another port interface.
 
 For an interface instance _A_ associated with an anonymous interface _A'_,
 the following conditions must be met for _A_ to bind to an interface _I_:

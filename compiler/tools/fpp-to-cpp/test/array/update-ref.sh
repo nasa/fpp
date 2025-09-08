@@ -34,6 +34,12 @@ header_path()
   move_cpp HeaderPathArray
 }
 
+large_size()
+{
+  update "-p $PWD" large_size
+  move_cpp LargeSizeArray
+}
+
 primitive()
 {
   update "-p $PWD" primitive
