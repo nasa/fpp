@@ -27,4 +27,5 @@ Telemetry-Channel-Specifiers.adoc
 Telemetry-Packet-Set-Specifiers.adoc
 Telemetry-Packet-Specifiers.adoc
 Topology-Import-Specifiers.adoc
+Template-Expansion-Specifiers.adoc
 "
