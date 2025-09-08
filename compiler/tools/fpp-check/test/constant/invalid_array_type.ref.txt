@@ -2,4 +2,4 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/constant/invalid_array_type.fpp:2.14
 constant j = k[0]
              ^
-error: expected an array type
+error: { x: Integer } is not an array type
