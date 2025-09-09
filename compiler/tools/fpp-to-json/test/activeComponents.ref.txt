@@ -2287,6 +2287,11 @@
         }
       }
     },
+    "124" : {
+      "map" : {
+        
+      }
+    },
     "59" : {
       "map" : {
         "Component" : {
@@ -2329,6 +2334,11 @@
             }
           }
         }
+      }
+    },
+    "116" : {
+      "map" : {
+        
       }
     },
     "138" : {
@@ -2474,6 +2484,38 @@
     "137" : {
       "map" : {
         "StateMachine" : {
+          "map" : {
+            "S1" : {
+              "StateMachine" : {
+                "nodeId" : 116,
+                "unqualifiedName" : "S1"
+              }
+            },
+            "S2" : {
+              "StateMachine" : {
+                "nodeId" : 124,
+                "unqualifiedName" : "S2"
+              }
+            }
+          }
+        },
+        "Type" : {
+          "map" : {
+            "S1" : {
+              "StateMachine" : {
+                "nodeId" : 116,
+                "unqualifiedName" : "S1"
+              }
+            },
+            "S2" : {
+              "StateMachine" : {
+                "nodeId" : 124,
+                "unqualifiedName" : "S2"
+              }
+            }
+          }
+        },
+        "Value" : {
           "map" : {
             "S1" : {
               "StateMachine" : {

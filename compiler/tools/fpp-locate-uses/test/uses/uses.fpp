@@ -37,10 +37,10 @@ active component C3 {
   telemetry port tlmOut
   text event port textEventOut
   time get port timeGetOut
-  state machine instance S_use: S
-  state machine instance M_S_use: M.S
-  state machine instance C1_S_use: C1.S
-  state machine instance M_C1_S_use: M.C1.S
+  state machine instance SM_use: SM
+  state machine instance M_S_use: M.SM
+  state machine instance C1_S_use: C1.SM
+  state machine instance M_C1_S_use: M.C1.SM
 }
 
 active component C4 {
@@ -88,7 +88,7 @@ module M {
 
 }
 
-state machine SM {
+state machine SM1 {
 
   action a: ActionType
   guard g: GuardType
