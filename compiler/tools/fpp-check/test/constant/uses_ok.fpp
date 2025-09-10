@@ -20,11 +20,14 @@ module M {
     constant e = E.X
     enum E { X = M.a, Y = a + 1, Z = Y + 2 }
 
+    constant g = [ 1, 2, 3 ]
+
   }
 
 }
 
 constant e = C.b
+constant f = M.N.g[1]
 
 passive component C {
 

@@ -15,6 +15,9 @@ enum E1 { X = 3 }
 @ Constant e
 constant e = E1.X
 
+@ Constant f
+constant f = [ 1, 2, 3 ]
+
 module M {
 
   @ Constant a
@@ -54,5 +57,8 @@ passive component C {
 
   @ Constant e
   constant e = E3.X
+
+  @ Constant f
+  constant g = f[1]
 
 }
