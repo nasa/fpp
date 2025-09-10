@@ -12,6 +12,8 @@ A token is one of the following:
 
 * An <<Lexical-Elements_Identifiers,identifier>>.
 
+* A <<Lexical-Elements_Durations,duration>>.
+
 * An <<Expressions_Integer-Literals,integer literal>>.
 
 * A <<Expressions_Floating-Point-Literals,floating-point literal>>.
@@ -197,6 +199,26 @@ For example:
 treated as an identifier and not as a reserved word.
 
 * `time` is a reserved word. It may not be used as an identifier.
+
+=== Durations
+
+*Definition:* A duration is a token consisting of a numerical element
+and a duration unit suffix. Durations denote an length of time elapsed.
+Time durations support the following unit suffixes:
+
+* `ps`: Pico-seconds (1e-12 seconds)
+* `ns`: Nano-seconds (1e-9 seconds)
+* `us`: Micro-seconds (1e-6 seconds)
+* `ms`: Milli-seconds (1e-3 seconds)
+* `s`: Seconds
+* `m`: Minutes (60 seconds)
+* `h`: Hours (60 minutes, 3600 seconds)
+
+For example:
+
+* `10ps` denotes 10 pico-seconds or 10e-11 seconds
+* `20m` denotes 20 minutes or 1200 seconds
+* `1.5m` denotes 1 and a half minutes or 90 seconds
 
 === End-of-Line Tokens
 
