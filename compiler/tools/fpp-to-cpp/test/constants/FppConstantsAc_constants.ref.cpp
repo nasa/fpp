@@ -6,24 +6,8 @@
 
 #include "FppConstantsAc.hpp"
 
-const F64 b = 1.0;
+const char *const s1 = "\"Hello,\" he said.";
 
-const bool c = true;
+const char *const s2 = "Line 1.\nLine 2.";
 
-const char *const d = "abc";
-
-namespace M {
-
-  const F64 b = 1.0;
-
-  const bool c = true;
-
-  const char *const d = "abc";
-
-}
-
-const F64 C_b = 1.0;
-
-const bool C_c = true;
-
-const char *const C_d = "abc";
+const char *const s3 = "\\";

@@ -7,8 +7,30 @@ import fpp.compiler.util._
  *  and default values */
 object CheckExprTypes extends UseAnalyzer {
 
-  override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) =
-    visitUse(a, node)
+  override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = {
+    val symbol = a.useDefMap(node.id)
+    for {
+      a <- symbol match {
+        // Unqualified constant symbol: visit the constant definition
+        // to ensure it has a type
+        case Symbol.Constant(node) => defConstantAnnotatedNode(a, node)
+        // Unqualified enum symbol: if this is in scope, then we are in
+        // the enum definition, so it already has a type
+        case Symbol.EnumConstant(node) => Right(a)
+        // Invalid use of a symbol in an expression
+        case _ =>
+          Left(SemanticError.InvalidSymbol(
+            symbol.getUnqualifiedName,
+            Locations.get(node.id),
+            "not a constant symbol",
+            symbol.getLoc
+          ))
+      }
+    } yield {
+      val t = a.typeMap(symbol.getNodeId)
+      a.assignType(node -> t)
+    }
+  }
 
   override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node, _) = aNode
@@ -183,6 +205,51 @@ object CheckExprTypes extends UseAnalyzer {
       t <- {
         val t1 = a.typeMap(e.e.id)
         convertToNumeric(loc, t1)
+      }
+    } yield a.assignType(node -> t)
+  }
+
+  override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot) = {
+    for {
+      a <- super.exprDotNode(a, node, e)
+
+      t <- {
+        a.typeMap.get(node.id) match {
+          // Type for this entire dot expression is already resolved
+          // This means its actually a _use_ of some sort of symbol (constant/enum constant)
+          // We can just use the type that was already resolved
+          case Some(ty) => Right(ty)
+
+          // The type was not resolved, this is some sort of member selection
+          // Look at the left-hand side of the dot expression to determine the type
+          case None =>
+            a.typeMap(e.e.id).getUnderlyingType match {
+              case Type.Struct(sNode, anonStruct, _, _, _) =>
+                anonStruct.members.get(e.id.data) match {
+                  case Some(value) => Right(value)
+                  case None => Left(SemanticError.InvalidStructMember(
+                    e.id.data,
+                    Locations.get(e.id.id),
+                    sNode._2.data.name,
+                    Locations.get(sNode._2.id),
+                  ))
+                }
+              case Type.AnonStruct(members) =>
+                members.get(e.id.data) match {
+                  case Some(value) => Right(value)
+                  case None => Left(SemanticError.InvalidAnonStructMember(
+                    e.id.data,
+                    Locations.get(e.id.id),
+                    a.useDefMap(e.e.id).getLoc
+                  ))
+                }
+              case x => Left(SemanticError.InvalidTypeForMemberSelection(
+                e.id.data,
+                Locations.get(e.id.id),
+                x.toString(),
+              ))
+            }
+        }
       }
     } yield a.assignType(node -> t)
   }
@@ -363,30 +430,6 @@ object CheckExprTypes extends UseAnalyzer {
       a <- super.typeNameStringNode(a, node, tn)
       _ <- convertNodeToNumericOpt(a, tn.size)
     } yield a
-
-  private def visitUse[T](a: Analysis, node: AstNode[T]): Result = {
-    val symbol = a.useDefMap(node.id)
-    for {
-      a <- symbol match {
-        // Unqualified constant symbol: visit the constant definition
-        // to ensure it has a type
-        case Symbol.Constant(node) => defConstantAnnotatedNode(a, node)
-        // Unqualified enum symbol: if this is in scope, then we are in
-        // the enum definition, so it already has a type
-        case Symbol.EnumConstant(node) => Right(a)
-        // Invalid use of a symbol in an expression
-        case _ => Left(SemanticError.InvalidSymbol(
-          symbol.getUnqualifiedName,
-          Locations.get(node.id),
-          "not a constant symbol",
-          symbol.getLoc
-        ))
-      }
-    } yield {
-      val t = a.typeMap(symbol.getNodeId)
-      a.assignType(node -> t)
-    }
-  }
 
   private def convertNodeToNumeric[T](a: Analysis, node: AstNode[T]) = {
     val id = node.id

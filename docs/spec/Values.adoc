@@ -193,6 +193,9 @@ We write an anonymous struct value stem:[v] similarly to a
 a struct value has the form `{` stem:[m_1] `=` stem:[v_1] `,` stem:[...] `,`
 stem:[m_n] `=` stem:[v_n] `}`,
 where for each stem:[i in [1,n]], stem:[v_i] is a value of type stem:[T_i].
+The elements stem:[m_i] `=` stem:[v_i] are called the
+*members* of the value.
+
 Each type stem:[T_i] must be a <<Types_Canonical-Types,canonical type>>.
 The canonical type of the value is _{_ stem:[m_1] _:_ stem:[T_1] _,_ stem:[...]
 _,_ stem:[m_n] _:_ stem:[T_n] _}_.

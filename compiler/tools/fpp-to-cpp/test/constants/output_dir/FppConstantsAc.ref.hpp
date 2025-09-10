@@ -70,9 +70,4 @@ enum FppConstant_C_e {
   C_e = 3
 };
 
-//! Constant f
-enum FppConstant_C_g {
-  C_g = 2
-};
-
 #endif

@@ -24,7 +24,7 @@ module M {
   constant a = 0
 
   @ Constant b
-  constant b = 1.0
+  constant b = 1.5
 
   @ Constant c
   constant c = true
@@ -37,6 +37,7 @@ module M {
   @ Constant e
   constant e = E2.X
 
+  constant f = { a = b, b = { a = b + 1 } }
 }
 
 passive component C {
@@ -59,6 +60,17 @@ passive component C {
   constant e = E3.X
 
   @ Constant f
+  constant f = M.f
+
+  @ Constant g
   constant g = f[1]
 
+  @ Constant h
+  constant h = M.f.b
+
+  @ Constant j
+  constant j = M.f.b.a + 1
+
+  @ Constant k
+  constant k = { x = 1.2 + M.f.b.a }.x
 }

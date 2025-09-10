@@ -21,6 +21,7 @@ run_test()
     outfile=$infile
   fi
   $fpp_to_dict $args $infile.fpp 2>&1 | remove_author | remove_path_prefix > $outfile.out.txt
+  compare $outfile
 }
 
 . ./tests.sh

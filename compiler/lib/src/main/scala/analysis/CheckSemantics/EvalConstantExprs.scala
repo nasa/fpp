@@ -6,8 +6,19 @@ import fpp.compiler.util._
 /** Compute the values of constants symbols and expressions */
 object EvalConstantExprs extends UseAnalyzer {
 
-  override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = 
-    visitUse(a, node)
+  override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = {
+    val symbol = a.useDefMap(node.id)
+    for {
+      a <- symbol match {
+        case Symbol.EnumConstant(node) => defEnumConstantAnnotatedNode(a, node)
+        case Symbol.Constant(node) => defConstantAnnotatedNode(a, node)
+        case _ => throw InternalError(s"invalid constant use symbol ${symbol} (${symbol.getClass.getName()})")
+      }
+    } yield {
+      val v = a.valueMap(symbol.getNodeId)
+      a.assignValue(node -> v)
+    }
+  }
 
   override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
     val (_, node,_) = aNode
@@ -195,18 +206,35 @@ object EvalConstantExprs extends UseAnalyzer {
       }
   }
 
-  private def visitUse[T](a: Analysis, node: AstNode[T]): Result = {
-    val symbol = a.useDefMap(node.id)
+  override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot) = {
     for {
-      a <- symbol match {
-        case Symbol.EnumConstant(node) => defEnumConstantAnnotatedNode(a, node)
-        case Symbol.Constant(node) => defConstantAnnotatedNode(a, node)
-        case _ => Right(a)
+      // Ensure that the parent selector has a type
+      a <- super.exprDotNode(a, node, e)
+
+      // Get the value of the selected member
+      v <- {
+        if (a.valueMap.contains(node.id)) {
+          // If the entire dot expression was already resolved by
+          // a constantUse, the value will already be in this map
+          Right(a.valueMap(node.id))
+        } else {
+          // The value is not already resolved, this is some sort of
+          // member selection.
+          a.valueMap(e.e.id) match {
+            case Value.AnonStruct(members) =>
+              Right(members(e.id.data))
+            case Value.Struct(v, ty) =>
+              Right(v.members(e.id.data))
+            case x => Left(SemanticError.InvalidTypeForMemberSelection(
+              e.id.data,
+              Locations.get(e.id.id),
+              x.getType.toString(),
+            ))
+          }
+        }
       }
     } yield {
-      val v = a.valueMap(symbol.getNodeId)
       a.assignValue(node -> v)
     }
   }
-
 }
