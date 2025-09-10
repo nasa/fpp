@@ -71,6 +71,7 @@ enter
 entry
 enum
 event
+every
 exit
 external
 false
