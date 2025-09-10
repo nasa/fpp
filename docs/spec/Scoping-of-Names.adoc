@@ -7,8 +7,10 @@ A *qualified identifier* is one of the following:
 1.  An
 <<Lexical-Elements_Identifiers,identifier>>.
 
-2.  _Q_ `.` _I_, where _Q_ is a qualified identifier and _I_ is an
-identifier.
+2.  _Q_ `.` _I_, where _Q_ is a qualified identifier in the form
+(1) or (2) and _I_ is an identifier.
+
+3. `.` _Q_, where _Q_ is a qualified identifier in the form (1) or (2).
 
 Examples:
 
@@ -17,6 +19,7 @@ Examples:
 a
 a.b
 a.b.c
+.a.b.c
 ----
 
 === Names of Definitions
@@ -181,6 +184,38 @@ module M {
 }
 ----
 
+=== Fully Qualified Identifiers
+
+A fully qualfied identifier is a special type of qualified identfier
+that begins with `.`. This type of identifier 
+
+Name shadowing can happen if a definition in an inner scope overlaps the
+unqualified name of a definition in an outer scope. For example:
+
+[source,fpp]
+----
+constant a = 0
+module M {
+  constant a = 1 # M.a shadows a
+}
+----
+
+In this case, `a` is shadowed by `M.a` while inside the module `M`.
+To refer to the global `a`, a global qualifier is needed to disambiguate
+the name:
+
+[source,fpp]
+----
+constant a = 0
+module M {
+  constant a = 1 # M.a shadows a
+
+  constant b1 = a # Refers to M.a (1)
+  constant b2 = M.a # Refers to M.a (1)
+  constant b3 = .a # Refers to a (0)
+}
+----
+
 === Resolution of Identifiers
 
 The following rules govern the resolution of identifiers, i.e.,
@@ -267,7 +302,7 @@ associating qualified identifiers with definitions:
 stated in the
 <<Scoping-of-Names_Resolution-of-Identifiers,previous section>>.
 
-. Otherwise, the qualified identifier has the form _Q_ `.` _I_, where
+. If a qualified identifier is of the form _Q_ `.` _I_, where
 _Q_ is a qualified identifier and _I_ is an identifier. Do the
 following:
 
@@ -283,6 +318,13 @@ _I_.
     If there is none, issue an error.
 
 .. Otherwise the qualified identifier is invalid. Issue an error.
+
+. If a qualfied identifier is of the form `.` _Q_, where _Q_ is a qualfied identifer,
+Do the following:
+
+.. Find the definition _D_ with the fully qualfied name _Q_.
+   If there is none, issue an error.
+
 
 *Example:*
 

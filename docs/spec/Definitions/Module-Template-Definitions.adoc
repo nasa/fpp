@@ -51,13 +51,24 @@ following algorithm:
 
 . Check that _parameter-sequence_ does not have any duplicate names.
 
-. For each <<Definitions-and-Uses_Uses,use>> of a qualified identifier _Q_ of kind,
-_S_:
+. Perform the following analysis on the inside of the template:
 
-.. If _S_ is a <<Definitions_Constant-Definitions,constant definition>>, check that _Q_ is,
-defined in _D_ or named in the _parameter-sequence_.
+.. Enter symbols. Symbols entered in the template definition will
+not effect analysis outside the template definition.
 
-.. If _S_ is a 
+.. Construct implied use map.
+
+.. Check uses. Uses inside the template definition will be promoted to
+<<Scoping-of-Names_Fully-Qualified-Identifiers,fully qualified names>>
+after they are resolved.
+
+.. Check use-definition cycles.
+
+.. Check type uses. All type parameters are assumed to be
+<<Types_Abstract-Types,abstract types>> during this phase of analysis.
+
+.. Check expression types. All type parameters are assumed to be
+<<Types_Abstract-Types,abstract types>> during this phase of analysis.
 
 ==== Example
 
