@@ -4,13 +4,16 @@
 
 A *qualified identifier* is one of the following:
 
+1. _R_
+
+2. `.` _R_
+
+where _R_ is one of the following:
+
 1.  An
 <<Lexical-Elements_Identifiers,identifier>>.
 
-2.  _Q_ `.` _I_, where _Q_ is a qualified identifier in the form
-(1) or (2) and _I_ is an identifier.
-
-3. `.` _Q_, where _Q_ is a qualified identifier in the form (1) or (2).
+2.  _R_ `.` _I_, where _R_ is a qualified identifier.
 
 Examples:
 
