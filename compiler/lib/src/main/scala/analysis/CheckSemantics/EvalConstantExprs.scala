@@ -121,7 +121,7 @@ object EvalConstantExprs extends UseAnalyzer {
         then Left(SemanticError.InvalidIntValue(
           Locations.get(e.e2.id),
           index,
-          s"index value out of array bounds"
+          s"index value is not in the range [0, ${elements.length-1}]"
         ))
         else Right(None)
       }

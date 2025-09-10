@@ -3,4 +3,4 @@ fpp-check
 constant f = [ 1, 2, 3 ][3]
                          ^
 error: invalid integer value 3
-index value out of array bounds
+index value is not in the range [0, 2]
