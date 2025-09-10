@@ -614,10 +614,16 @@ object Parser extends Parsers {
         failure("severity level expected")
     }
 
+    def throttleClause = {
+      (throttle ~>! exprNode) ~! opt(every ~>! node(duration)) ^^ {
+        case throttle ~ duration => Ast.EventThrottle(throttle, duration)
+      }
+    }
+
     (event ~> ident) ~! formalParamList ~! (severity ~>! severityLevel) ~!
       opt(id ~>! exprNode) ~!
       (format ~>! node(literalString)) ~!
-      opt(throttle ~>! exprNode) ^^ {
+      opt(throttleClause) ^^ {
       case name ~ params ~ severity ~ id ~ format ~ throttle =>
         Ast.SpecEvent(name, params, severity, id, format, throttle)
     }
@@ -1125,6 +1131,8 @@ object Parser extends Parsers {
 
   private def event = accept("event", { case t: Token.EVENT => t })
 
+  private def every = accept("every", { case t: Token.EVERY => t })
+
   private def exit = accept("exit", { case t: Token.EXIT => t })
 
   private def external = accept("external", { case t : Token.EXTERNAL => t })
@@ -1184,6 +1192,20 @@ object Parser extends Parsers {
 
   private def literalString: Parser[String] =
     accept("string literal", { case Token.LITERAL_STRING(s) => s })
+
+  private def duration: Parser[Ast.Duration] =
+    accept("duration literal", { case Token.LITERAL_DURATION(value, scale) => {
+      scale match {
+        case DurationScale.PICO_SECONDS => Ast.Duration(value, Ast.Duration.PicoSeconds)
+        case DurationScale.NANO_SECONDS => Ast.Duration(value, Ast.Duration.NanoSeconds)
+        case DurationScale.MICRO_SECONDS => Ast.Duration(value, Ast.Duration.MicroSeconds)
+        case DurationScale.MILLI_SECONDS => Ast.Duration(value, Ast.Duration.MilliSeconds)
+        case DurationScale.SECONDS => Ast.Duration(value, Ast.Duration.Seconds)
+        case DurationScale.MINUTES => Ast.Duration(value, Ast.Duration.Minutes)
+        case DurationScale.HOURS => Ast.Duration(value, Ast.Duration.Hours)
+      }
+    }
+  })
 
   private def locate = accept("locate", { case t: Token.LOCATE => t })
 

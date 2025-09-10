@@ -315,7 +315,11 @@ object ComponentXmlFppWriter extends LineUtils {
                 severity,
                 id,
                 AstNode.create(format),
-                throttle
+                throttle match {
+                  case Some(count) =>
+                    Some(Ast.EventThrottle(count, None))
+                  case None => None
+                },
               )
               val node = AstNode.create(event)
               val memberNode = Ast.ComponentMember.SpecEvent(node)

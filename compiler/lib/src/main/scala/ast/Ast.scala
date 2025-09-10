@@ -516,6 +516,38 @@ object Ast {
     defaultPriority: Option[AstNode[Expr]]
   )
 
+  final case class Duration(value: String, scale: Duration.Scale)
+  object Duration {
+    /** Duration time scale */
+    sealed trait Scale
+    case object PicoSeconds extends Scale {
+      override def toString = "ps"
+    }
+    case object NanoSeconds extends Scale {
+      override def toString = "ns"
+    }
+    case object MicroSeconds extends Scale {
+      override def toString = "us"
+    }
+    case object MilliSeconds extends Scale {
+      override def toString = "ms"
+    }
+    case object Seconds extends Scale {
+      override def toString = "s"
+    }
+    case object Minutes extends Scale {
+      override def toString = "m"
+    }
+    case object Hours extends Scale {
+      override def toString = "h"
+    }
+  }
+
+  final case class EventThrottle(
+    count: AstNode[Expr],
+    every: Option[AstNode[Duration]]
+  )
+
   /** Event specifier */
   final case class SpecEvent(
     name: Ident,
@@ -523,7 +555,7 @@ object Ast {
     severity: SpecEvent.Severity,
     id: Option[AstNode[Expr]],
     format: AstNode[String],
-    throttle: Option[AstNode[Expr]]
+    throttle: Option[EventThrottle]
   )
   object SpecEvent {
     /** Event severity */
