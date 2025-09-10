@@ -131,7 +131,12 @@ We write an anonymous array value similarly to an
 <<Expressions_Array-Expressions,array expression>>:
 an anonymous array value stem:[v] has the form `[` stem:[v_1] `,` stem:[...]
 `,`
-stem:[v_n] `]`, where for each stem:[i in [1,n]], stem:[v_i] is a value of type
+stem:[v_{n-1}] `]`, where
+
+. stem:[n] is a positive integer called the *size* of the anonymous array 
+  value.
+
+. For each stem:[i in [0,n-1]], stem:[v_i] is a value of type
 stem:[T] for some <<Types_Canonical-Types,canonical type>> stem:[T].
 The canonical type of stem:[v] is _[_ stem:[n] _]_ stem:[T].
 
@@ -148,9 +153,11 @@ We write an array value like an <<Values_Anonymous-Array-Values,anonymous array
 value>>, except that the value is annotated with an
 <<Types_Array-Types,array type>>.
 
-An array value has the form `[` stem:[v_1] `,` stem:[...] `,`
-stem:[v_n] `]` `:` stem:[Q],
+An array value has the form `[` stem:[v_0] `,` stem:[...] `,`
+stem:[v_{n-1}] `]` `:` stem:[Q],
 where
+
+. stem:[n] is a positive integer called the *size* of the array value.
 
 . stem:[Q] is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>>
@@ -158,11 +165,11 @@ that refers to a
 <<Definitions_Array-Definitions,array definition>>
 with member type stem:[T].
 
-. For each stem:[i in [1,n]], stem:[v_i] is a value of type stem:[T].
+. For each stem:[i in [0,n-1]], stem:[v_i] is a value of type stem:[T].
 Note that stem:[T] need not be a canonical type.
 For example, it is permissible for stem:[T] to be `T`, for
-`T` to be an alias of `U32`, and for stem:[v] to be the value `[ 1: U32, 2: U32 ]`.
-In this case `1: U32` and `2: U32` are values of type `T`, as required.
+`T` to be an alias of `U32`, and for stem:[v] to be the value `[ 0: U32, 1: U32 ]`.
+In this case `0: U32` and `1: U32` are values of type `T`, as required.
 
 The canonical type of the value is stem:[Q].
 
