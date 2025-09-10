@@ -57,7 +57,7 @@ jobs:
         with:
           submodules: recursive
       - name: "Setup Native Image Tools"
-        uses: Kronos3/native-images-action@unified-tool
+        uses: fprime-community/native-images-action@unified-tool
       - name: "Building JAR files"
         run: |
           cd ${{ inputs.working-directory }}
@@ -136,7 +136,7 @@ jobs:
         with:
           submodules: recursive
       - name: "Setup Native Image Tools"
-        uses: Kronos3/native-images-action@unified-tool
+        uses: fprime-community/native-images-action@unified-tool
       - name: "Download JARs"
         uses: actions/download-artifact@v4
         with:
@@ -152,8 +152,17 @@ jobs:
         run: |
           export CLASSPATH="`cd ${{ inputs.trace-directory }}/../..; pwd`:${CLASSPATH}"
           cd ${{ inputs.working-directory }}
+          $NATIVE_IMAGE_TOOLS_PATH/native-images ${{ inputs.output-directory }}
+
+          # Generate wrappers for tools
           tool_names=`cat ${{ inputs.working-directory }}/compiler/tools.txt`
-          $NATIVE_IMAGE_TOOLS_PATH/native-images ${{ inputs.output-directory }} ${tool_names}
+          for tool in $tool_names
+          do
+              echo "Generating wrapper for fpp-$tool in ${native_final}/fpp-$tool"
+              echo '#!/bin/sh
+              "`dirname $0`/fpp" '$tool' "$@"' > ${native_final}/fpp-$tool
+              chmod +x ${native_final}/fpp-$tool
+          done
         shell: bash
       - name: "Archive Native Images"
         uses: actions/upload-artifact@v4
@@ -212,7 +221,7 @@ jobs:
     runs-on: ${{ matrix.run.runner }}
     steps:
       - name: "Setup Native Image Tools"
-        uses: Kronos3/native-images-action@unified-tool
+        uses: fprime-community/native-images-action@unified-tool
       - name: "Download Native Wheels"
         uses: actions/download-artifact@v4
         with:
