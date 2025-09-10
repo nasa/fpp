@@ -545,7 +545,7 @@ object Ast {
 
   final case class EventThrottle(
     count: AstNode[Expr],
-    every: Option[AstNode[Duration]]
+    every: Option[AstNode[Expr]]
   )
 
   /** Event specifier */

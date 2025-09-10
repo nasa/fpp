@@ -615,7 +615,7 @@ object Parser extends Parsers {
     }
 
     def throttleClause = {
-      (throttle ~>! exprNode) ~! opt(every ~>! node(duration)) ^^ {
+      (throttle ~>! exprNode) ~! opt(every ~>! exprNode) ^^ {
         case throttle ~ duration => Ast.EventThrottle(throttle, duration)
       }
     }

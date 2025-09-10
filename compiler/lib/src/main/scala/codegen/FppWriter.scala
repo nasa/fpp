@@ -472,18 +472,16 @@ object FppWriter extends AstVisitor with LineUtils {
       joinOpt (data.defaultPriority) (" default priority ") (exprNode)
   }
 
-  private def eventThrottle(
-    throttle: Ast.EventThrottle
-  ) = {
-    string("throttle ")
-      .join ("") (exprNode(throttle.count))
-      .joinOptWithBreak (throttle.every) ("every ") (durationNode)
-  }
-
   override def specEventAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]
   ) = {
+    def eventThrottle(throttle: Ast.EventThrottle) = {
+      string("throttle ")
+        .join ("") (exprNode(throttle.count))
+        .joinOptWithBreak (throttle.every) ("every ") (exprNode)
+    }
+
     val (_, node, _) = aNode
     val data = node.data
     val severity = data.severity.toString
@@ -815,9 +813,6 @@ object FppWriter extends AstVisitor with LineUtils {
 
   private def exprNode(node: AstNode[Ast.Expr]): Out =
     matchExprNode((), node)
-
-  private def durationNode(node: AstNode[Ast.Duration]): Out =
-    string(node.data.value + node.data.scale.toString())
 
   private def formalParam(fp: Ast.FormalParam) = {
     val prefix = fp.kind match {
