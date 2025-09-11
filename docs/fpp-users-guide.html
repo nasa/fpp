@@ -1357,6 +1357,26 @@ For example, this code is allowed:</p>
 </li>
 </ol>
 </div>
+<div class="sect4">
+<h5 id="Defining-Constants_Expressions_Array-Values_Array-Members">Array Members</h5>
+<div class="paragraph">
+<p>The member of an array can be selected through an <strong>array subscript expression</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant s = [ 3, 2, 1 ]
+constant o = s[1] # equals 2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This code associates the name <code>s</code> with an array value and another name <code>o</code> with
+an element of <code>s</code>. The final value of <code>o</code> is <code>2</code>. The index in array subscript
+expressions are <code>0</code> indexed meaning the first element exists at index <code>0</code>.</p>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="Defining-Constants_Expressions_Struct-Values">3.3.4. Struct Values</h4>
@@ -1449,6 +1469,23 @@ So the code above is equivalent to the following:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ { x = 1, y = 2 }, { x = 3, y = 0 } ]</code></pre>
+</div>
+</div>
+<div class="sect4">
+<h5 id="Defining-Constants_Expressions_Struct-Values_Struct-Members">Struct Members</h5>
+<div class="paragraph">
+<p>A member of a struct may be selected through a <code>.</code> operator.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant s = { x = 1, y = [ 2, 3 ] }
+constant t = s.x # 1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This code associates <code>s</code> with a struct value with members <code>x</code> and <code>y</code>. It also
+associates <code>t</code> with the <code>x</code> member of <code>s</code>. <code>t</code> will have the value <code>1</code>.</p>
 </div>
 </div>
 </div>
@@ -15700,7 +15737,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-10 16:26:30 -0700
+Last updated 2025-09-10 18:54:25 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -356,6 +356,22 @@ It is equivalent to this:
 constant a  = [ [ 1, 2, 3 ], [ 0, 0, 0 ] ] 
 ----
 
+===== Array Members
+
+The member of an array can be selected through an *array subscript expression*.
+
+Here is an example:
+
+[source,fpp]
+----
+constant s = [ 3, 2, 1 ]
+constant o = s[1] # equals 2
+----
+
+This code associates the name `s` with an array value and another name `o` with
+an element of `s`. The final value of `o` is `2`. The index in array subscript
+expressions are `0` indexed meaning the first element exists at index `0`.
+
 ==== Struct Values
 
 A *struct value expression* represents a C- or {cpp}-style structure, i.e., a 
@@ -439,6 +455,20 @@ So the code above is equivalent to the following:
 ----
 constant a = [ { x = 1, y = 2 }, { x = 3, y = 0 } ]
 ----
+
+===== Struct Members
+
+A member of a struct may be selected through a `.` operator.
+For example:
+
+[source,fpp]
+----
+constant s = { x = 1, y = [ 2, 3 ] }
+constant t = s.x # 1
+----
+
+This code associates `s` with a struct value with members `x` and `y`. It also
+associates `t` with the `x` member of `s`. `t` will have the value `1`.
 
 ==== Name Expressions
 
