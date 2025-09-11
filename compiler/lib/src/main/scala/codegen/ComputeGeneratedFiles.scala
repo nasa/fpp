@@ -11,11 +11,10 @@ object ComputeGeneratedFiles {
   def getAutocodeFiles(tul: List[Ast.TransUnit]): Result.Result[List[String]] =
     for {
       a <- enterSymbols(tul)
-      xmlFiles <- getXmlFiles(a, tul)
       cppFiles <- getAutocodeCppFiles(a, tul)
       dictFiles <- getDictionaryJsonFiles(a, tul)
     }
-    yield xmlFiles ++ cppFiles ++ dictFiles
+    yield cppFiles ++ dictFiles
 
   /** Computes component implementation files */
   def getImplFiles(tul: List[Ast.TransUnit]): Result.Result[List[String]] =
@@ -103,17 +102,6 @@ object ComputeGeneratedFiles {
     }
     yield s.locationMap.toList.map(_._1)
   }
-
-  private def getXmlFiles(a: Analysis, tul: List[Ast.TransUnit]):
-  Result.Result[List[String]] =
-    for {
-      s <- ComputeXmlFiles.visitList(
-        XmlWriterState(a),
-        tul,
-        ComputeXmlFiles.transUnit
-      )
-    }
-    yield s.locationMap.toList.map(_._1)
 
   private def getDictionaryJsonFiles(a: Analysis, tul: List[Ast.TransUnit]):
   Result.Result[List[String]] =

@@ -1,2 +1,0 @@
-StructOK1SerializableAi.xml
-StructOK2SerializableAi.xml

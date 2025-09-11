@@ -1,3 +1,0 @@
-tests="
-pattern_command
-"
