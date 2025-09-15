@@ -7,15 +7,78 @@
 #ifndef FppConstantsAc_HPP
 #define FppConstantsAc_HPP
 
-#include "Fw/FPrimeBasicTypes.hpp"
+#include "Fw/Types/BasicTypes.hpp"
 
-//! Escaped quotation marks
-extern const char *const s1;
+//! Constant a
+enum FppConstant_a {
+  a = 0
+};
 
-//! Escaped newlines
-extern const char *const s2;
+//! Constant b
+extern const F64 b;
 
-//! Escaped backslashes
-extern const char *const s3;
+//! Constant c
+extern const bool c;
+
+//! Constant d
+extern const char *const d;
+
+//! Constant e
+enum FppConstant_e {
+  e = 3
+};
+
+namespace M {
+
+  //! Constant a
+  enum FppConstant_a {
+    a = 0
+  };
+
+  //! Constant b
+  extern const F64 b;
+
+  //! Constant c
+  extern const bool c;
+
+  //! Constant d
+  extern const char *const d;
+
+  //! Constant e
+  enum FppConstant_e {
+    e = 3
+  };
+
+}
+
+//! Constant a
+enum FppConstant_C_a {
+  C_a = 0
+};
+
+//! Constant b
+extern const F64 C_b;
+
+//! Constant c
+extern const bool C_c;
+
+//! Constant d
+extern const char *const C_d;
+
+//! Constant e
+enum FppConstant_C_e {
+  C_e = 3
+};
+
+//! Constant g
+enum FppConstant_C_g {
+  C_g = 1
+};
+
+//! Constant j
+extern const F64 C_j;
+
+//! Constant k
+extern const F64 C_k;
 
 #endif

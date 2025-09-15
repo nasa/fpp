@@ -1,5 +1,0 @@
-fpp-to-cpp
-[ local path prefix ]/tools/fpp-to-cpp/test/constants/constants.fpp:66.16
-  constant g = f[1]
-               ^
-error: { a: F64, b: { a: F64 } } is not an array type

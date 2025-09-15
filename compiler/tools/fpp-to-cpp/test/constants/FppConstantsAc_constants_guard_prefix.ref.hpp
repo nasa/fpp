@@ -7,7 +7,7 @@
 #ifndef GUARD_PREFIX_FppConstantsAc_HPP
 #define GUARD_PREFIX_FppConstantsAc_HPP
 
-#include "Fw/FPrimeBasicTypes.hpp"
+#include "Fw/Types/BasicTypes.hpp"
 
 //! Constant a
 enum FppConstant_a {
@@ -70,20 +70,15 @@ enum FppConstant_C_e {
   C_e = 3
 };
 
-<<<<<<< HEAD
-//! Constant f
-enum FppConstant_C_g {
-  C_g = 2
-};
-=======
 //! Constant g
-extern const F64 C_g;
+enum FppConstant_C_g {
+  C_g = 1
+};
 
 //! Constant j
 extern const F64 C_j;
 
 //! Constant k
 extern const F64 C_k;
->>>>>>> origin/feature/struct-member-expr
 
 #endif
