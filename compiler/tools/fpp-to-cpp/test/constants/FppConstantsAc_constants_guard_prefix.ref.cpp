@@ -28,8 +28,6 @@ const bool C_c = true;
 
 const char *const C_d = "abc";
 
-const F64 C_g = 1.5;
-
 const F64 C_j = 3.5;
 
 const F64 C_k = 3.7;

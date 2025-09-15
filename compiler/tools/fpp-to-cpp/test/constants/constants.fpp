@@ -37,7 +37,7 @@ module M {
   @ Constant e
   constant e = E2.X
 
-  constant f = { a = b, b = { a = b + 1 } }
+  constant f = { a = b, b = { a = b + 1 }, c = [ 0, 1, 2 ] }
 }
 
 passive component C {
@@ -63,7 +63,7 @@ passive component C {
   constant f = M.f
 
   @ Constant g
-  constant g = f[1]
+  constant g = f.c[1]
 
   @ Constant h
   constant h = M.f.b
