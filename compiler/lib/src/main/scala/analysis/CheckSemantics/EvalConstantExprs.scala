@@ -6,8 +6,19 @@ import fpp.compiler.util._
 /** Compute the values of constants symbols and expressions */
 object EvalConstantExprs extends UseAnalyzer {
 
-  override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = 
-    visitUse(a, node)
+  override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = {
+    val symbol = a.useDefMap(node.id)
+    for {
+      a <- symbol match {
+        case Symbol.EnumConstant(node) => defEnumConstantAnnotatedNode(a, node)
+        case Symbol.Constant(node) => defConstantAnnotatedNode(a, node)
+        case _ => throw InternalError(s"invalid constant use symbol ${symbol} (${symbol.getClass.getName()})")
+      }
+    } yield {
+      val v = a.valueMap(symbol.getNodeId)
+      a.assignValue(node -> v)
+    }
+  }
 
   override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
     val (_, node,_) = aNode
@@ -88,6 +99,46 @@ object EvalConstantExprs extends UseAnalyzer {
         a.assignValue(node -> v)
       }
 
+  override def exprArraySubscriptNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArraySubscript) = {
+    for {
+      a <- super.exprNode(a, e.e1)
+      a <- super.exprNode(a, e.e2)
+
+      elements <- {
+        a.valueMap(e.e1.id) match {
+          case Value.AnonArray(elements) => Right(elements)
+          case Value.Array(Value.AnonArray(elements), _) => Right(elements)
+          case _ => throw InternalError("expected array value")
+        }
+      }
+
+      index <- {
+        a.valueMap(e.e2.id) match {
+          case Value.PrimitiveInt(value, _) => Right(value)
+          case Value.Integer(value) => Right(value)
+          case _ => throw InternalError("type of index should be an integer type")
+        }
+      }
+
+      // Check if the index is in bounds
+      _ <- {
+        if index < 0
+        then Left(SemanticError.InvalidIntValue(
+          Locations.get(e.e2.id),
+          index,
+          "value may not be negative"
+        ))
+        else if index >= elements.length
+        then Left(SemanticError.InvalidIntValue(
+          Locations.get(e.e2.id),
+          index,
+          s"index value is not in the range [0, ${elements.length-1}]"
+        ))
+        else Right(None)
+      }
+    } yield a.assignValue(node -> elements(index.toInt))
+  }
+
   override def exprBinopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprBinop) =
     for {
       a <- super.exprBinopNode(a, node, e)
@@ -155,18 +206,35 @@ object EvalConstantExprs extends UseAnalyzer {
       }
   }
 
-  private def visitUse[T](a: Analysis, node: AstNode[T]): Result = {
-    val symbol = a.useDefMap(node.id)
+  override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot) = {
     for {
-      a <- symbol match {
-        case Symbol.EnumConstant(node) => defEnumConstantAnnotatedNode(a, node)
-        case Symbol.Constant(node) => defConstantAnnotatedNode(a, node)
-        case _ => Right(a)
+      // Ensure that the parent selector has a type
+      a <- super.exprDotNode(a, node, e)
+
+      // Get the value of the selected member
+      v <- {
+        if (a.valueMap.contains(node.id)) {
+          // If the entire dot expression was already resolved by
+          // a constantUse, the value will already be in this map
+          Right(a.valueMap(node.id))
+        } else {
+          // The value is not already resolved, this is some sort of
+          // member selection.
+          a.valueMap(e.e.id) match {
+            case Value.AnonStruct(members) =>
+              Right(members(e.id.data))
+            case Value.Struct(v, ty) =>
+              Right(v.members(e.id.data))
+            case x => Left(SemanticError.InvalidTypeForMemberSelection(
+              e.id.data,
+              Locations.get(e.id.id),
+              x.getType.toString(),
+            ))
+          }
+        }
       }
     } yield {
-      val v = a.valueMap(symbol.getNodeId)
       a.assignValue(node -> v)
     }
   }
-
 }

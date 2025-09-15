@@ -70,4 +70,15 @@ enum FppConstant_C_e {
   C_e = 3
 };
 
+//! Constant g
+enum FppConstant_C_g {
+  C_g = 1
+};
+
+//! Constant j
+extern const F64 C_j;
+
+//! Constant k
+extern const F64 C_k;
+
 #endif

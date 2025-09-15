@@ -831,38 +831,45 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Expressions_Array-Expressions_Example">10.2.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Boolean-Literals">10.3. Boolean Literals</a></li>
-<li><a href="#Expressions_Dot-Expressions">10.4. Dot Expressions</a>
+<li><a href="#Expressions_Array-Subscript-Expressions">10.3. Array Subscript Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Dot-Expressions_Syntax">10.4.1. Syntax</a></li>
-<li><a href="#Expressions_Dot-Expressions_Semantics">10.4.2. Semantics</a></li>
-<li><a href="#Expressions_Dot-Expressions_Examples">10.4.3. Examples</a></li>
+<li><a href="#Expressions_Array-Subscript-Expressions_Syntax">10.3.1. Syntax</a></li>
+<li><a href="#Expressions_Array-Subscript-Expressions_Semantics">10.3.2. Semantics</a></li>
+<li><a href="#Expressions_Array-Subscript-Expressions_Example">10.3.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Floating-Point-Literals">10.5. Floating-Point Literals</a></li>
-<li><a href="#Expressions_Identifier-Expressions">10.6. Identifier Expressions</a></li>
-<li><a href="#Expressions_Integer-Literals">10.7. Integer Literals</a></li>
-<li><a href="#Expressions_Parenthesis-Expressions">10.8. Parenthesis Expressions</a>
+<li><a href="#Expressions_Boolean-Literals">10.4. Boolean Literals</a></li>
+<li><a href="#Expressions_Dot-Expressions">10.5. Dot Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Parenthesis-Expressions_Syntax">10.8.1. Syntax</a></li>
-<li><a href="#Expressions_Parenthesis-Expressions_Semantics">10.8.2. Semantics</a></li>
-<li><a href="#Expressions_Parenthesis-Expressions_Example">10.8.3. Example</a></li>
+<li><a href="#Expressions_Dot-Expressions_Syntax">10.5.1. Syntax</a></li>
+<li><a href="#Expressions_Dot-Expressions_Semantics">10.5.2. Semantics</a></li>
+<li><a href="#Expressions_Dot-Expressions_Examples">10.5.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_String-Literals">10.9. String Literals</a>
+<li><a href="#Expressions_Floating-Point-Literals">10.6. Floating-Point Literals</a></li>
+<li><a href="#Expressions_Identifier-Expressions">10.7. Identifier Expressions</a></li>
+<li><a href="#Expressions_Integer-Literals">10.8. Integer Literals</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions">10.9. Parenthesis Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_String-Literals_Single-Line-String-Literals">10.9.1. Single-Line String Literals</a></li>
-<li><a href="#Expressions_String-Literals_Multiline-String-Literals">10.9.2. Multiline String Literals</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions_Syntax">10.9.1. Syntax</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions_Semantics">10.9.2. Semantics</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions_Example">10.9.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Struct-Expressions">10.10. Struct Expressions</a>
+<li><a href="#Expressions_String-Literals">10.10. String Literals</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Struct-Expressions_Syntax">10.10.1. Syntax</a></li>
-<li><a href="#Expressions_Struct-Expressions_Semantics">10.10.2. Semantics</a></li>
-<li><a href="#Expressions_Struct-Expressions_Example">10.10.3. Example</a></li>
+<li><a href="#Expressions_String-Literals_Single-Line-String-Literals">10.10.1. Single-Line String Literals</a></li>
+<li><a href="#Expressions_String-Literals_Multiline-String-Literals">10.10.2. Multiline String Literals</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Precedence-and-Associativity">10.11. Precedence and Associativity</a></li>
+<li><a href="#Expressions_Struct-Expressions">10.11. Struct Expressions</a>
+<ul class="sectlevel3">
+<li><a href="#Expressions_Struct-Expressions_Syntax">10.11.1. Syntax</a></li>
+<li><a href="#Expressions_Struct-Expressions_Semantics">10.11.2. Semantics</a></li>
+<li><a href="#Expressions_Struct-Expressions_Example">10.11.3. Example</a></li>
+</ul>
+</li>
+<li><a href="#Expressions_Precedence-and-Associativity">10.12. Precedence and Associativity</a></li>
 </ul>
 </li>
 <li><a href="#Formal-Parameter-Lists">11. Formal Parameter Lists</a>
@@ -959,16 +966,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Type-Checking_Identifier-Expressions">18.5. Identifier Expressions</a></li>
 <li><a href="#Type-Checking_Dot-Expressions">18.6. Dot Expressions</a></li>
 <li><a href="#Type-Checking_Array-Expressions">18.7. Array Expressions</a></li>
-<li><a href="#Type-Checking_Struct-Expressions">18.8. Struct Expressions</a></li>
-<li><a href="#Type-Checking_Unary-Negation-Expressions">18.9. Unary Negation Expressions</a></li>
-<li><a href="#Type-Checking_Binary-Arithmetic-Expressions">18.10. Binary Arithmetic Expressions</a></li>
-<li><a href="#Type-Checking_Parenthesis-Expressions">18.11. Parenthesis Expressions</a></li>
-<li><a href="#Type-Checking_Identical-Types">18.12. Identical Types</a></li>
-<li><a href="#Type-Checking_Type-Conversion">18.13. Type Conversion</a></li>
-<li><a href="#Type-Checking_Computing-a-Common-Type">18.14. Computing a Common Type</a>
+<li><a href="#Type-Checking_Array-Subscript-Expressions">18.8. Array Subscript Expressions</a></li>
+<li><a href="#Type-Checking_Struct-Expressions">18.9. Struct Expressions</a></li>
+<li><a href="#Type-Checking_Unary-Negation-Expressions">18.10. Unary Negation Expressions</a></li>
+<li><a href="#Type-Checking_Binary-Arithmetic-Expressions">18.11. Binary Arithmetic Expressions</a></li>
+<li><a href="#Type-Checking_Parenthesis-Expressions">18.12. Parenthesis Expressions</a></li>
+<li><a href="#Type-Checking_Identical-Types">18.13. Identical Types</a></li>
+<li><a href="#Type-Checking_Type-Conversion">18.14. Type Conversion</a></li>
+<li><a href="#Type-Checking_Computing-a-Common-Type">18.15. Computing a Common Type</a>
 <ul class="sectlevel3">
-<li><a href="#Type-Checking_Computing-a-Common-Type_Pairs-of-Types">18.14.1. Pairs of Types</a></li>
-<li><a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">18.14.2. Lists of Types</a></li>
+<li><a href="#Type-Checking_Computing-a-Common-Type_Pairs-of-Types">18.15.1. Pairs of Types</a></li>
+<li><a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">18.15.2. Lists of Types</a></li>
 </ul>
 </li>
 </ul>
@@ -1754,7 +1762,9 @@ whose value is greater than zero.
 </div>
 <div class="paragraph">
 <p>The definition associates the name <em>N</em> with a new type <em>T'</em>
-that represents an array of <em>n</em> elements of type <em>T</em>.</p>
+that represents an array of <em>n</em> elements of type <em>T</em>.
+The value <em>n</em> is called the <strong>size</strong> of the array type <em>T'</em>.
+The type <em>T</em> is called the <strong>element type</strong> of the array type <em>T'</em>.</p>
 </div>
 <div class="paragraph">
 <p>The expression following the keyword <code>default</code> is optional.
@@ -8366,23 +8376,99 @@ elements to the common type.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Boolean-Literals">10.3. Boolean Literals</h3>
+<h3 id="Expressions_Array-Subscript-Expressions">10.3. Array Subscript Expressions</h3>
+<div class="paragraph">
+<p>An <strong>array subscript expression</strong> is an expression that selects an element from
+an array value.</p>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Array-Subscript-Expressions_Syntax">10.3.1. Syntax</h4>
+<div class="paragraph">
+<p><a href="#Expressions"><em>expression</em></a> <code>[</code> <a href="#Expressions"><em>expression</em></a> <code>]</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Array-Subscript-Expressions_Semantics">10.3.2. Semantics</h4>
+<div class="paragraph">
+<p>The following rules give the meaning of an array subscript expression
+\$e_1\$ <code>[</code> \$e_2\$ <code>]</code>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The type of \$e_1\$ must be an <a href="#Types_Array-Types">array type</a> or
+<a href="#Types_Internal-Types_Anonymous-Array-Types">anonymous array type</a>
+with element type <em>T</em> and size <em>n</em>.</p>
+</li>
+<li>
+<p>The type of \$e_2\$ must be <a href="#Type-Checking_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
+\$e_2\$ must
+<a href="#Evaluation">evaluate</a> to a value <em>m</em> after
+<a href="#Evaluation_Type-Conversion">conversion</a> to <em>Integer</em>.
+<em>m</em> must be greater than or equal to zero and less than <em>n</em>.</p>
+</li>
+<li>
+<p>Evaluation of \$e_1\$ <code>[</code> \$e_2\$ <code>]</code> occurs as follows:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Evaluate \$e_1\$ to an <a href="#Values_Array-Values">array value</a> or
+<a href="#Values_Anonymous-Array-Values">anonymous array value</a> <em>v</em>.</p>
+</li>
+<li>
+<p>Evaluate \$e_2\$ to an <a href="#Values_Integer-Values">integer value</a> <em>m</em>.</p>
+</li>
+<li>
+<p>The value of the entire expression is the value associated with index <em>m</em> of <em>v</em>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Array-Subscript-Expressions_Example">10.3.3. Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ 2, 4, 6 ]
+constant b = a[1] # b is an integer with value 4
+constant c = [ 0, 1, 2 ][1] # c is an integer with value 1
+constant d = a[-1] # error, index is out of bounds (negative)
+constant e = [ 0, 1, 2 ][3] # error, index is out of bounds (past end)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_Boolean-Literals">10.4. Boolean Literals</h3>
 <div class="paragraph">
 <p>A <strong>Boolean literal expression</strong> is one of the values <code>true</code> and <code>false</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Dot-Expressions">10.4. Dot Expressions</h3>
+<h3 id="Expressions_Dot-Expressions">10.5. Dot Expressions</h3>
 <div class="paragraph">
-<p>A <strong>dot expression</strong> is a
-<a href="#Definitions-and-Uses_Uses">use</a>
-that refers to a
+<p>A <strong>dot expression</strong> is one of the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A <a href="#Definitions-and-Uses_Uses">use</a> that refers to a
 <a href="#Definitions_Constant-Definitions">constant definition</a>
 or
 <a href="#Definitions_Enumerated-Constant-Definitions">enumerated constant definition</a>.</p>
+</li>
+<li>
+<p>An expression that selects a
+member of a <a href="#Values_Struct-Values">struct value</a> or
+<a href="#Values_Anonymous-Struct-Values">anonymous struct value</a>.</p>
+</li>
+</ol>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Dot-Expressions_Syntax">10.4.1. Syntax</h4>
+<h4 id="Expressions_Dot-Expressions_Syntax">10.5.1. Syntax</h4>
 <div class="paragraph">
 <p><a href="#Expressions"><em>expression</em></a>
 <code>.</code>
@@ -8390,7 +8476,7 @@ or
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Dot-Expressions_Semantics">10.4.2. Semantics</h4>
+<h4 id="Expressions_Dot-Expressions_Semantics">10.5.2. Semantics</h4>
 <div class="paragraph">
 <p>The following rules give the meaning of a dot expression \$e\$<code>.x</code>:</p>
 </div>
@@ -8399,11 +8485,33 @@ or
 <li>
 <p>If \$e\$<code>.x</code> is a
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified
-identifier</a> that represents one of the uses listed above according to
-the
+identifier</a> that refers to a constant definition or an enumerated
+constant definition according to the
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">rules
 for resolving qualified identifiers</a>, then it evaluates to the value
-stored in the corresponding <a href="#Definitions">definition</a>.</p>
+associated with the corresponding <a href="#Definitions">definition</a>.</p>
+</li>
+<li>
+<p>Otherwise if \$e\$ is an <a href="#Expressions">expression</a> of type \$T\$,
+where
+\$T\$ is a <a href="#Types_Struct-Types">struct type</a>
+or <a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct type</a>
+and \$T\$ has <code>x</code> as a member, then the expression \$e\$<code>.x</code>
+is evaluated as follows:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Evaluate \$e\$ to a <a href="#Values_Struct-Values">struct value</a>
+or <a href="#Values_Anonymous-Struct-Values">anonymous struct value</a>
+\$v\$.
+If \$e\$ itself is a dot expression, then apply this rule recursively.</p>
+</li>
+<li>
+<p>Evaluate the entire expression to the value stored in the
+member <code>x</code> of the value \$v\$.</p>
+</li>
+</ol>
+</div>
 </li>
 <li>
 <p>Otherwise \$e\$<code>.x</code> is invalid.</p>
@@ -8412,7 +8520,7 @@ stored in the corresponding <a href="#Definitions">definition</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Dot-Expressions_Examples">10.4.3. Examples</h4>
+<h4 id="Expressions_Dot-Expressions_Examples">10.5.3. Examples</h4>
 <div class="sect4">
 <h5 id="Expressions_Dot-Expressions_Examples_Example-1">Example 1</h5>
 <div class="listingblock">
@@ -8433,10 +8541,24 @@ constant a = E.X # E.X evaluates to 0</code></pre>
 </div>
 </div>
 </div>
+<div class="sect4">
+<h5 id="Expressions_Dot-Expressions_Examples_Example-3">Example 3</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+  constant a = {
+    b = 10.2,
+    c = "string",
+  }
+}
+constant a = M.a.b # M.a.b evaluates to 10.2</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Floating-Point-Literals">10.5. Floating-Point Literals</h3>
+<h3 id="Expressions_Floating-Point-Literals">10.6. Floating-Point Literals</h3>
 <div class="paragraph">
 <p>A <strong>floating-point literal expression</strong> is a C-style representation of an
 IEEE floating-point number.</p>
@@ -8454,7 +8576,7 @@ IEEE floating-point number.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Identifier-Expressions">10.6. Identifier Expressions</h3>
+<h3 id="Expressions_Identifier-Expressions">10.7. Identifier Expressions</h3>
 <div class="paragraph">
 <p>An <strong>identifier expression</strong> is an
 <a href="#Lexical-Elements_Identifiers">identifier</a>
@@ -8476,7 +8598,7 @@ constant b = a # a is an identifier expression</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Integer-Literals">10.7. Integer Literals</h3>
+<h3 id="Expressions_Integer-Literals">10.8. Integer Literals</h3>
 <div class="paragraph">
 <p>An <strong>integer literal expression</strong> is one of the following:</p>
 </div>
@@ -8511,14 +8633,14 @@ less than or equal to 64 bits.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Parenthesis-Expressions">10.8. Parenthesis Expressions</h3>
+<h3 id="Expressions_Parenthesis-Expressions">10.9. Parenthesis Expressions</h3>
 <div class="paragraph">
 <p>A <strong>parenthesis expression</strong> is an expression surrounded
 by parentheses in order to group subexpressions and to
 force evaluation order.</p>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Parenthesis-Expressions_Syntax">10.8.1. Syntax</h4>
+<h4 id="Expressions_Parenthesis-Expressions_Syntax">10.9.1. Syntax</h4>
 <div class="paragraph">
 <p><code>(</code>
 <a href="#Expressions"><em>expression</em></a>
@@ -8526,13 +8648,13 @@ force evaluation order.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Parenthesis-Expressions_Semantics">10.8.2. Semantics</h4>
+<h4 id="Expressions_Parenthesis-Expressions_Semantics">10.9.2. Semantics</h4>
 <div class="paragraph">
 <p>The type and value of the expression are the type and value of the subexpression.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Parenthesis-Expressions_Example">10.8.3. Example</h4>
+<h4 id="Expressions_Parenthesis-Expressions_Example">10.9.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant a = (1 + 2) * 3</code></pre>
@@ -8545,7 +8667,7 @@ force evaluation order.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_String-Literals">10.9. String Literals</h3>
+<h3 id="Expressions_String-Literals">10.10. String Literals</h3>
 <div class="paragraph">
 <p>A <strong>string literal expression</strong> is a single-line string literal
 or a multiline string literal.
@@ -8575,7 +8697,7 @@ optionally preceded by a CR character (ASCII code 0x0D).</p>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="Expressions_String-Literals_Single-Line-String-Literals">10.9.1. Single-Line String Literals</h4>
+<h4 id="Expressions_String-Literals_Single-Line-String-Literals">10.10.1. Single-Line String Literals</h4>
 <div class="paragraph">
 <p>A <strong>single-line string literal</strong> is a sequence of <strong>single-line literal characters</strong>
 enclosed in double
@@ -8631,7 +8753,7 @@ unmatched double quote character.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_String-Literals_Multiline-String-Literals">10.9.2. Multiline String Literals</h4>
+<h4 id="Expressions_String-Literals_Multiline-String-Literals">10.10.2. Multiline String Literals</h4>
 <div class="paragraph">
 <p>A <strong>multiline string literal</strong> is a sequence of <strong>multiline literal characters</strong> enclosed
 in sequences <code>"""</code> of three double quote characters.
@@ -8718,12 +8840,12 @@ The value of the string constant <code>s</code> is <code>"""</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Struct-Expressions">10.10. Struct Expressions</h3>
+<h3 id="Expressions_Struct-Expressions">10.11. Struct Expressions</h3>
 <div class="paragraph">
 <p>An <strong>struct expression</strong> is an expression that represents a struct value.</p>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Syntax">10.10.1. Syntax</h4>
+<h4 id="Expressions_Struct-Expressions_Syntax">10.11.1. Syntax</h4>
 <div class="paragraph">
 <p><code>{</code> <em>struct-element-sequence</em> <code>}</code></p>
 </div>
@@ -8738,7 +8860,7 @@ A <strong>struct element</strong> has the following syntax:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Semantics">10.10.2. Semantics</h4>
+<h4 id="Expressions_Struct-Expressions_Semantics">10.11.2. Semantics</h4>
 <div class="paragraph">
 <p>The following must be true of the struct element sequence <em>S</em>:</p>
 </div>
@@ -8759,7 +8881,7 @@ corresponding member names and values.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Example">10.10.3. Example</h4>
+<h4 id="Expressions_Struct-Expressions_Example">10.11.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp"># s is a struct value with members x = 0, y = 1
@@ -8772,7 +8894,7 @@ constant s = {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Precedence-and-Associativity">10.11. Precedence and Associativity</h3>
+<h3 id="Expressions_Precedence-and-Associativity">10.12. Precedence and Associativity</h3>
 <div class="paragraph">
 <p>Ambiguity in parsing expressions is resolved with the following
 precedence table. Expressions appearing earlier in the table
@@ -9987,7 +10109,10 @@ the <strong>numeric types</strong>.</p>
 <div class="paragraph">
 <p>The type <em>[</em> <em>n</em> <em>]</em> <em>T</em>, where <em>n</em>
 is an integer and <em>T</em> is a type, represents an array of <em>n</em> elements,
-each of type <em>T</em>.</p>
+each of type <em>T</em>.
+The type <em>T</em> is called the <strong>element type</strong> of the
+anonymous array type.
+The integer <em>n</em> is called the <strong>size</strong> of the anonymous array type.</p>
 </div>
 </div>
 <div class="sect3">
@@ -10297,7 +10422,22 @@ for resolving qualified identifiers</a>, and the use is a valid
 expression</a>, then use the type given in the definition.</p>
 </li>
 <li>
-<p>Otherwise \$e\$<code>.x</code> is invalid. Throw an error.</p>
+<p>Otherwise do the following:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Compute the type \$T\$ of \$e\$.</p>
+</li>
+<li>
+<p>If \$T\$ is a <a href="#Types_Struct-Types">struct type</a>
+or <a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct type</a>
+with a member <code>x</code>, then use the type associated with <code>x</code>.</p>
+</li>
+<li>
+<p>Otherwise throw an error.</p>
+</li>
+</ol>
+</div>
 </li>
 </ol>
 </div>
@@ -10308,9 +10448,16 @@ expression</a>, then use the type given in the definition.</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">module M {
   constant a = 0 # The constant M.a has type Integer
+  constant b = {
+    c = "string1"
+    d = "string2"
+  }
 }
 constant b = M.a # Expression M.a represents a use of the definition M.a.
-                 # Its type is Integer.</code></pre>
+                 # Its type is Integer.
+
+constant c = M.b.c # Expression M.b.c uses M.b and selects member `c`.
+                   # Its type is string.</code></pre>
 </div>
 </div>
 </div>
@@ -10347,7 +10494,37 @@ constant b = [ 1, 2, 3.0 ] # Type is [3] F64</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Struct-Expressions">18.8. Struct Expressions</h3>
+<h3 id="Type-Checking_Array-Subscript-Expressions">18.8. Array Subscript Expressions</h3>
+<div class="paragraph">
+<p>To type an
+<a href="#Expressions_Array-Subscript-Expressions">array subscript expression</a>
+\$e_1\$ <code>[</code> \$e_2\$ <code>]</code>, the semantic analyzer does the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Compute the type \$T_1\$ of \$e_1\$.</p>
+</li>
+<li>
+<p>Check that \$T_1\$ is an <a href="#Types_Array-Types">array type</a> or
+<a href="#Types_Internal-Types_Anonymous-Array-Types">anonymous array type</a>
+with element type \$T\$ and size \$n\$.</p>
+</li>
+<li>
+<p>Compute the type \$T_2\$ of \$e_2\$.</p>
+</li>
+<li>
+<p>Check that \$T_2\$ <a href="#Type-Checking_Type-Conversion">may be converted to</a>
+<em>Integer</em>.</p>
+</li>
+<li>
+<p>Use \$T\$ as the type of the expression.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Type-Checking_Struct-Expressions">18.9. Struct Expressions</h3>
 <div class="paragraph">
 <p>To type a
 <a href="#Expressions_Struct-Expressions">struct expression</a>
@@ -10379,7 +10556,7 @@ constant b = { x = 1, x = 2 } # Error</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Unary-Negation-Expressions">18.9. Unary Negation Expressions</h3>
+<h3 id="Type-Checking_Unary-Negation-Expressions">18.10. Unary Negation Expressions</h3>
 <div class="paragraph">
 <p>To type a
 <a href="#Expressions_Arithmetic-Expressions">unary
@@ -10418,7 +10595,7 @@ constant f = -true # Error</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Binary-Arithmetic-Expressions">18.10. Binary Arithmetic Expressions</h3>
+<h3 id="Type-Checking_Binary-Arithmetic-Expressions">18.11. Binary Arithmetic Expressions</h3>
 <div class="paragraph">
 <p>To type a
 <a href="#Expressions_Arithmetic-Expressions">binary
@@ -10457,7 +10634,7 @@ constant e = true + "abcd" # Error</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Parenthesis-Expressions">18.11. Parenthesis Expressions</h3>
+<h3 id="Type-Checking_Parenthesis-Expressions">18.12. Parenthesis Expressions</h3>
 <div class="paragraph">
 <p>To type a
 <a href="#Expressions_Parenthesis-Expressions">parenthesis
@@ -10487,7 +10664,7 @@ constant e = ([ 1, 2, 3]) # Type is [3] Integer</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Identical-Types">18.12. Identical Types</h3>
+<h3 id="Type-Checking_Identical-Types">18.13. Identical Types</h3>
 <div class="paragraph">
 <p>We say that types \$T_1\$ and \$T_2\$ are <strong>identical</strong> if one
 of the following holds:</p>
@@ -10525,7 +10702,7 @@ and both types refer to the same definition.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Type-Conversion">18.13. Type Conversion</h3>
+<h3 id="Type-Checking_Type-Conversion">18.14. Type Conversion</h3>
 <div class="paragraph">
 <p>We say that a type \$T_1\$ <strong>may be converted to</strong> another type \$T_2\$ if
 every <a href="#Values">value</a> represented by type \$T_1\$ can be
@@ -10628,9 +10805,9 @@ may be converted to \$T_3\$.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Computing-a-Common-Type">18.14. Computing a Common Type</h3>
+<h3 id="Type-Checking_Computing-a-Common-Type">18.15. Computing a Common Type</h3>
 <div class="sect3">
-<h4 id="Type-Checking_Computing-a-Common-Type_Pairs-of-Types">18.14.1. Pairs of Types</h4>
+<h4 id="Type-Checking_Computing-a-Common-Type_Pairs-of-Types">18.15.1. Pairs of Types</h4>
 <div class="paragraph">
 <p>Here are the rules for resolving two types \$T_1\$ and \$T_2\$
 (e.g., the
@@ -10756,7 +10933,7 @@ whose member types are the corresponding common types.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Type-Checking_Computing-a-Common-Type_Lists-of-Types">18.14.2. Lists of Types</h4>
+<h4 id="Type-Checking_Computing-a-Common-Type_Lists-of-Types">18.15.2. Lists of Types</h4>
 <div class="paragraph">
 <p>To compute a common type for a list of types
 \$T_1, ... , T_n\$, do the following:</p>
@@ -11130,9 +11307,20 @@ We write an anonymous array value similarly to an
 <a href="#Expressions_Array-Expressions">array expression</a>:
 an anonymous array value \$v\$ has the form <code>[</code> \$v_1\$ <code>,</code> \$...\$
 <code>,</code>
-\$v_n\$ <code>]</code>, where for each \$i in [1,n\$], \$v_i\$ is a value of type
+\$v_{n-1}\$ <code>]</code>, where</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>\$n\$ is a positive integer called the <strong>size</strong> of the anonymous array
+value.</p>
+</li>
+<li>
+<p>For each \$i in [0,n-1\$], \$v_i\$ is a value of type
 \$T\$ for some <a href="#Types_Canonical-Types">canonical type</a> \$T\$.
 The canonical type of \$v\$ is <em>[</em> \$n\$ <em>]</em> \$T\$.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p>Note that for an anonymous array value \$v\$ to be well-formed, the member
@@ -11151,12 +11339,15 @@ value</a>, except that the value is annotated with an
 <a href="#Types_Array-Types">array type</a>.</p>
 </div>
 <div class="paragraph">
-<p>An array value has the form <code>[</code> \$v_1\$ <code>,</code> \$...\$ <code>,</code>
-\$v_n\$ <code>]</code> <code>:</code> \$Q\$,
+<p>An array value has the form <code>[</code> \$v_0\$ <code>,</code> \$...\$ <code>,</code>
+\$v_{n-1}\$ <code>]</code> <code>:</code> \$Q\$,
 where</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
+<li>
+<p>\$n\$ is a positive integer called the <strong>size</strong> of the array value.</p>
+</li>
 <li>
 <p>\$Q\$ is a
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a>
@@ -11165,11 +11356,11 @@ that refers to a
 with member type \$T\$.</p>
 </li>
 <li>
-<p>For each \$i in [1,n\$], \$v_i\$ is a value of type \$T\$.
+<p>For each \$i in [0,n-1\$], \$v_i\$ is a value of type \$T\$.
 Note that \$T\$ need not be a canonical type.
 For example, it is permissible for \$T\$ to be <code>T</code>, for
-<code>T</code> to be an alias of <code>U32</code>, and for \$v\$ to be the value <code>[ 1: U32, 2: U32 ]</code>.
-In this case <code>1: U32</code> and <code>2: U32</code> are values of type <code>T</code>, as required.</p>
+<code>T</code> to be an alias of <code>U32</code>, and for \$v\$ to be the value <code>[ 0: U32, 1: U32 ]</code>.
+In this case <code>0: U32</code> and <code>1: U32</code> are values of type <code>T</code>, as required.</p>
 </li>
 </ol>
 </div>
@@ -11200,7 +11391,11 @@ We write an anonymous struct value \$v\$ similarly to a
 a struct value has the form <code>{</code> \$m_1\$ <code>=</code> \$v_1\$ <code>,</code> \$...\$ <code>,</code>
 \$m_n\$ <code>=</code> \$v_n\$ <code>}</code>,
 where for each \$i in [1,n\$], \$v_i\$ is a value of type \$T_i\$.
-Each type \$T_i\$ must be a <a href="#Types_Canonical-Types">canonical type</a>.
+The elements \$m_i\$ <code>=</code> \$v_i\$ are called the
+<strong>members</strong> of the value.</p>
+</div>
+<div class="paragraph">
+<p>Each type \$T_i\$ must be a <a href="#Types_Canonical-Types">canonical type</a>.
 The canonical type of the value is <em>{</em> \$m_1\$ <em>:</em> \$T_1\$ <em>,</em> \$...\$
 <em>,</em> \$m_n\$ <em>:</em> \$T_n\$ <em>}</em>.</p>
 </div>
@@ -11623,7 +11818,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-04 14:25:35 -0700
+Last updated 2025-09-10 16:36:08 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
