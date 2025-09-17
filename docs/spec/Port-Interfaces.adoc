@@ -22,7 +22,7 @@ as they do not have explicit names associated with them.
 ==== Anonymous Component Port Interfaces
 
 A <<Definitions_Component-Definitions,component definition>>
-will create a corresponding anonymous port interface. This port interface
+defines a corresponding anonymous port interface. This port interface
 includes the set of all <<Specifiers_Port-Instance-Specifiers,port instances>>
 inside the component definition (either explicitely, or via an
 <<Specifiers_Interface-Import-Specifiers,interface import>>).
