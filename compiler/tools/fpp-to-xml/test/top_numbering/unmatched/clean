@@ -1,9 +1,0 @@
-#!/bin/sh -e
-
-export COMPILER_ROOT=../../../../..
-
-sh ../../scripts/clean.sh
-for file in `find . -name 'Case*.txt' -or -name '*.eps' -or -name '*.pdf'`
-do
-  rm $file
-done

@@ -1,8 +1,5 @@
 [
 {
-  "name":"[Lfpp.compiler.analysis.ComponentInstance;"
-},
-{
   "name":"[Lfpp.compiler.analysis.Connection;"
 },
 {
@@ -10,6 +7,9 @@
 },
 {
   "name":"[Lio.circe.Encoder;"
+},
+{
+  "name":"[Ljava.io.File;"
 },
 {
   "name":"[Ljava.lang.String;"
