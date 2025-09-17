@@ -21,9 +21,6 @@ For each topology port instance specifier defined in an enclosing topology _T_:
 <<Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces,
 anonymous port interface>>.
 
-.. The _identifier_ must not conflict with any other topology port specifier in the
-enclosing topology.
-
 . The _port-instance-id_ references a <<Specifiers_Port-Instance-Specifiers,port instance>>
 endpoint in _T_.
 

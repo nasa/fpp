@@ -1,8 +1,10 @@
 === Topology Definitions
 
 A *topology definition* defines an F Prime topology,
-that is, a set of interface instances, port instances,
+that is, a set of interface instances
 and the connections between their port instances.
+Topologies can include port instances which can connect to
+ports of interface instances inside the topology.
 The connections are divided into named *connection graphs*.
 The different graphs capture different aspects of FSW
 function, such as commanding and telemetry.
@@ -50,9 +52,13 @@ inside the topology must have a distinct name.
 
 The set of all <<Specifiers_Topology-Port-Instance-Specifiers,topology port instance specifiers>>
 make up the enclosing topology's <<Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces,
-anonymous port interface>>. Each port specifier maps an unqualified name to a port instance
-satifying the <<Specifiers_Topology-Port-Instance-Specifiers_Semantics,rules>>
-for topology port instance specifiers.
+anonymous port interface>>. To compute the interface port instance set is computed as follows:
+
+. For each topology port instance specifier with name _p'_ and _port-instance-id_ _I_ `.` _p_ in the topology:
+
+.. Resolve port instance identifier _I_ `.` _p_ to a port instance _P_.
+
+.. Construct new port instance  _P'_ by replacing _p_ with _p'_.
 
 If _interface-list_ is provided, each element of the list must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>> an

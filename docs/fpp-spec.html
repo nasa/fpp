@@ -3573,8 +3573,10 @@ struct D {
 <h3 id="Definitions_Topology-Definitions">5.14. Topology Definitions</h3>
 <div class="paragraph">
 <p>A <strong>topology definition</strong> defines an F Prime topology,
-that is, a set of interface instances, port instances,
+that is, a set of interface instances
 and the connections between their port instances.
+Topologies can include port instances which can connect to
+ports of interface instances inside the topology.
 The connections are divided into named <strong>connection graphs</strong>.
 The different graphs capture different aspects of FSW
 function, such as commanding and telemetry.</p>
@@ -3638,9 +3640,24 @@ inside the topology must have a distinct name.</p>
 </div>
 <div class="paragraph">
 <p>The set of all <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port instance specifiers</a>
-make up the enclosing topology&#8217;s <a href="#Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces">anonymous port interface</a>. Each port specifier maps an unqualified name to a port instance
-satifying the <a href="#Specifiers_Topology-Port-Instance-Specifiers_Semantics">rules</a>
-for topology port instance specifiers.</p>
+make up the enclosing topology&#8217;s <a href="#Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces">anonymous port interface</a>. To compute the interface port instance set is computed as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>For each topology port instance specifier with name <em>p'</em> and <em>port-instance-id</em> <em>I</em> <code>.</code> <em>p</em> in the topology:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Resolve port instance identifier <em>I</em> <code>.</code> <em>p</em> to a port instance <em>P</em>.</p>
+</li>
+<li>
+<p>Construct new port instance  <em>P'</em> by replacing <em>p</em> with <em>p'</em>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p>If <em>interface-list</em> is provided, each element of the list must
@@ -7911,14 +7928,6 @@ allows topologies to <a href="#Port-Interfaces_Binding">bind to port interfaces<
 <li>
 <p>The <em>identifier</em> names the port on the enclosing topology&#8217;s
 <a href="#Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces">anonymous port interface</a>.</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>The <em>identifier</em> must not conflict with any other topology port specifier in the
-enclosing topology.</p>
-</li>
-</ol>
-</div>
 </li>
 <li>
 <p>The <em>port-instance-id</em> references a <a href="#Specifiers_Port-Instance-Specifiers">port instance</a>
@@ -10034,7 +10043,7 @@ with an <a href="#Definitions_Port-Interface-Definitions">interface definition</
 <h3 id="Port-Interfaces_Anonymous-Port-Interfaces">17.2. Anonymous Port Interfaces</h3>
 <div class="paragraph">
 <p><a href="#Definitions_Component-Instance-Definitions">Component instance definitions</a>
-and <a href="#Definitions_Topology-Definitions">topology definitions</a> will implicitly
+and <a href="#Definitions_Topology-Definitions">topology definitions</a> implicitly
 define a port interface so that instances of these definitions may be bound to
 a port interface. These implicitly defined port interfaces are known as anonymous
 port interfaces as they do not have explicit names associated with them.</p>
@@ -11953,7 +11962,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-17 13:53:52 -0700
+Last updated 2025-09-17 15:25:28 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
