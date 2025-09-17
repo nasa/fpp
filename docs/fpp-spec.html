@@ -448,13 +448,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Lexical-Elements_Reserved-Words">3.1. Reserved Words</a></li>
 <li><a href="#Lexical-Elements_Symbols">3.2. Symbols</a></li>
 <li><a href="#Lexical-Elements_Identifiers">3.3. Identifiers</a></li>
-<li><a href="#Lexical-Elements_Durations">3.4. Durations</a></li>
-<li><a href="#Lexical-Elements_End-of-Line-Tokens">3.5. End-of-Line Tokens</a></li>
-<li><a href="#Lexical-Elements_Comments">3.6. Comments</a></li>
-<li><a href="#Lexical-Elements_Whitespace-and-Non-Printable-Characters">3.7. Whitespace and Non-Printable Characters</a></li>
-<li><a href="#Lexical-Elements_Explicit-Line-Continuations">3.8. Explicit Line Continuations</a></li>
-<li><a href="#Lexical-Elements_Automatic-Suppression-of-Newlines">3.9. Automatic Suppression of Newlines</a></li>
-<li><a href="#Lexical-Elements_Collapsing-of-Newlines">3.10. Collapsing of Newlines</a></li>
+<li><a href="#Lexical-Elements_End-of-Line-Tokens">3.4. End-of-Line Tokens</a></li>
+<li><a href="#Lexical-Elements_Comments">3.5. Comments</a></li>
+<li><a href="#Lexical-Elements_Whitespace-and-Non-Printable-Characters">3.6. Whitespace and Non-Printable Characters</a></li>
+<li><a href="#Lexical-Elements_Explicit-Line-Continuations">3.7. Explicit Line Continuations</a></li>
+<li><a href="#Lexical-Elements_Automatic-Suppression-of-Newlines">3.8. Automatic Suppression of Newlines</a></li>
+<li><a href="#Lexical-Elements_Collapsing-of-Newlines">3.9. Collapsing of Newlines</a></li>
 </ul>
 </li>
 <li><a href="#Element-Sequences">4. Element Sequences</a></li>
@@ -1113,9 +1112,6 @@ This process is called <strong>lexing</strong>.</p>
 <p>An <a href="#Lexical-Elements_Identifiers">identifier</a>.</p>
 </li>
 <li>
-<p>A <a href="#Lexical-Elements_Durations">duration</a>.</p>
-</li>
-<li>
 <p>An <a href="#Expressions_Integer-Literals">integer literal</a>.</p>
 </li>
 <li>
@@ -1333,56 +1329,7 @@ treated as an identifier and not as a reserved word.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Lexical-Elements_Durations">3.4. Durations</h3>
-<div class="paragraph">
-<p><strong>Definition:</strong> A duration is a token consisting of a numerical element
-and a duration unit suffix. Durations denote an length of time elapsed.
-Time durations support the following unit suffixes:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>ps</code>: Pico-seconds (1e-12 seconds)</p>
-</li>
-<li>
-<p><code>ns</code>: Nano-seconds (1e-9 seconds)</p>
-</li>
-<li>
-<p><code>us</code>: Micro-seconds (1e-6 seconds)</p>
-</li>
-<li>
-<p><code>ms</code>: Milli-seconds (1e-3 seconds)</p>
-</li>
-<li>
-<p><code>s</code>: Seconds</p>
-</li>
-<li>
-<p><code>m</code>: Minutes (60 seconds)</p>
-</li>
-<li>
-<p><code>h</code>: Hours (60 minutes, 3600 seconds)</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>For example:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>10ps</code> denotes 10 pico-seconds or 10e-11 seconds</p>
-</li>
-<li>
-<p><code>20m</code> denotes 20 minutes or 1200 seconds</p>
-</li>
-<li>
-<p><code>1.5m</code> denotes 1 and a half minutes or 90 seconds</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Lexical-Elements_End-of-Line-Tokens">3.5. End-of-Line Tokens</h3>
+<h3 id="Lexical-Elements_End-of-Line-Tokens">3.4. End-of-Line Tokens</h3>
 <div class="paragraph">
 <p>An <strong>end-of-line token</strong> is a sequence of one or more <strong>newlines</strong>.
 A newline (or line break) is the NL character (ASCII code 0x0A),
@@ -1392,7 +1339,7 @@ character (ASCII code 0x0D). End-of-line tokens separate the elements of
 </div>
 </div>
 <div class="sect2">
-<h3 id="Lexical-Elements_Comments">3.6. Comments</h3>
+<h3 id="Lexical-Elements_Comments">3.5. Comments</h3>
 <div class="paragraph">
 <p>The lexer ignores <a href="#Comments-and-Annotations_Comments">comments</a>.
 Specifically:</p>
@@ -1411,7 +1358,7 @@ treated as no text.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Lexical-Elements_Whitespace-and-Non-Printable-Characters">3.7. Whitespace and Non-Printable Characters</h3>
+<h3 id="Lexical-Elements_Whitespace-and-Non-Printable-Characters">3.6. Whitespace and Non-Printable Characters</h3>
 <div class="paragraph">
 <p>Apart from <a href="#Lexical-Elements_End-of-Line-Tokens">end-of-line tokens</a>, the
 lexer treats whitespace as follows:</p>
@@ -1431,7 +1378,7 @@ in an FPP model outside of a string, comment, or annotation.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Lexical-Elements_Explicit-Line-Continuations">3.8. Explicit Line Continuations</h3>
+<h3 id="Lexical-Elements_Explicit-Line-Continuations">3.7. Explicit Line Continuations</h3>
 <div class="paragraph">
 <p>The character <code>\</code>, when appearing before a
 <a href="#Lexical-Elements_End-of-Line-Tokens">newline</a>,
@@ -1471,7 +1418,7 @@ For example, the following is not syntactically correct:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Lexical-Elements_Automatic-Suppression-of-Newlines">3.9. Automatic Suppression of Newlines</h3>
+<h3 id="Lexical-Elements_Automatic-Suppression-of-Newlines">3.8. Automatic Suppression of Newlines</h3>
 <div class="paragraph">
 <p>The following symbols consume sequences of newlines that
 follow them, without creating an
@@ -1538,7 +1485,7 @@ is consumed by the <code>+</code> symbol:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Lexical-Elements_Collapsing-of-Newlines">3.10. Collapsing of Newlines</h3>
+<h3 id="Lexical-Elements_Collapsing-of-Newlines">3.9. Collapsing of Newlines</h3>
 <div class="paragraph">
 <p>To simplify parsing, the lexer may collapse a sequence of one or more
 <a href="#Lexical-Elements_End-of-Line-Tokens">end-of-line tokens</a>
@@ -6064,7 +6011,7 @@ product container Container2 default priority 10</code></pre>
 <code>format</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a>
 <em>[</em>
 <code>throttle</code> <a href="#Expressions"><em>expression</em></a>
-<em>[</em> <code>every</code> <a href="#Lexical-Elements_Durations">duration</a> <em>]</em>
+<em>[</em> <code>every</code> <a href="#Expressions"><em>expression</em></a> <em>]</em>
 <em>]</em></p>
 </div>
 <div class="paragraph">
@@ -6139,9 +6086,18 @@ in the range [0,2<sup>31</sup>).</p>
 </li>
 <li>
 <p>The optional expression <em>d</em> following <code>every</code> specifies the maximum time period
-to elapse before clearing the event throttle. <em>d</em> must be a valid time duration.</p>
+to elapse before clearing the event throttle. <em>d</em>. The type of <em>d</em> must be convertible
+to a <a href="#Types_Struct-Types">struct type</a> with shape:</p>
 </li>
 </ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">struct TimeIntervalValue {
+  seconds: U32
+  useconds: U32
+}</code></pre>
+</div>
 </div>
 </div>
 <div class="sect3">
@@ -11694,7 +11650,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-10 11:04:24 -0700
+Last updated 2025-09-17 10:06:23 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
