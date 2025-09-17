@@ -65,7 +65,7 @@ from another port interface.
 For an interface instance _A_ associated with an anonymous interface _A'_,
 the following conditions must be met for _A_ to bind to an interface _I_:
 
-. For every <<Specifiers_Port-Instance-Specifiers,port instance>> _P_ in _I_:
+. For every <<Specifiers_Port-Instance-Specifiers,port instance specifier>> _P_ in _I_:
 
 .. There exists a port instance specifier _P'_ in _A'_ that has the same name as the name of _P_.
 
