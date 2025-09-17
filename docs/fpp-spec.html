@@ -3573,8 +3573,8 @@ struct D {
 <h3 id="Definitions_Topology-Definitions">5.14. Topology Definitions</h3>
 <div class="paragraph">
 <p>A <strong>topology definition</strong> defines an F Prime topology,
-that is, a set of component instances and the connections
-between their ports.
+that is, a set of interface instances, port instances,
+and the connections between their port instances.
 The connections are divided into named <strong>connection graphs</strong>.
 The different graphs capture different aspects of FSW
 function, such as commanding and telemetry.</p>
@@ -3619,7 +3619,7 @@ instance specifier</a></p>
 <p>A <a href="#Specifiers_Topology-Import-Specifiers">topology import specifier</a></p>
 </li>
 <li>
-<p>A <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port specifier</a></p>
+<p>A <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port instance specifier</a></p>
 </li>
 <li>
 <p>An <a href="#Specifiers_Include-Specifiers">include specifier</a></p>
@@ -3633,14 +3633,21 @@ instance specifier</a></p>
 <p>The identifier is the name of the topology.</p>
 </div>
 <div class="paragraph">
+<p>All <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port instance specifiers</a>
+inside the topology must have a distinct name.</p>
+</div>
+<div class="paragraph">
+<p>The set of all <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port instance specifiers</a>
+make up the enclosing topology&#8217;s <a href="#Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces">anonymous port interface</a>. Each port specifier maps an unqualified name to a port instance
+satifying the <a href="#Specifiers_Topology-Port-Instance-Specifiers_Semantics">rules</a>
+for topology port instance specifiers.</p>
+</div>
+<div class="paragraph">
 <p>If <em>interface-list</em> is provided, each element of the list must
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a> an
-<a href="#Definitions_Port-Interface-Definitions">interface definition <em>K</em></a>,
-and the set of
-<a href="#Specifiers_Topology-Port-Instance-Specifiers">ports</a> in the topology
-definition must be a super-set of the ports in <em>K</em>.
+<a href="#Definitions_Port-Interface-Definitions">interface definition \$K_i\$</a>.
 This optional clause is a compile-time check that
-verifies that this <a href="#Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces">topology&#8217;s anonymous port interface</a> can <a href="#Port-Interfaces_Binding">bind</a> to <em>ID</em>.</p>
+verifies that this topology can <a href="#Port-Interfaces_Binding">bind to</a> all \$K_i\$.</p>
 </div>
 <div class="paragraph">
 <p>A topology definition <em>D</em> must be resolvable to a topology <em>T</em>,
@@ -3760,7 +3767,7 @@ port instance in a <a href="#Definitions_Component-Instance-Definitions">compone
 <p>If <em>Q</em> is a component instance, this endpoint is resolved.</p>
 </li>
 <li>
-<p>If <em>Q</em> refers to a <a href="#Definitions_Topology-Definitions">topology definition</a>, find the <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port specifier</a> that corresponds to <em>I</em> in the topology referenced
+<p>If <em>Q</em> refers to a <a href="#Definitions_Topology-Definitions">topology definition</a>, find the <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port instance specifier</a> that corresponds to <em>I</em> in the topology referenced
 by <em>Q</em>. Re-apply these rules with the port instance refered to in the topology
 port specifier.</p>
 </li>
@@ -3996,7 +4003,7 @@ the component definition associated with <em>I</em>.</p>
 </li>
 <li>
 <p>If <em>I</em> refers to a <strong>topology definition</strong>, <em>p</em> identifiers an
-<a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port</a> inside <em>I</em>.</p>
+<a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port instance</a> inside <em>I</em>.</p>
 </li>
 </ol>
 </div>
@@ -7925,7 +7932,7 @@ or an
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Exporting an input or output port will expose a port instance of the same
+<p>Naming an input or output port will expose a port instance of the same
 type to the enclosing topology <em>T</em>. Any connections made on this exposed port will
 internally be mapped to the port instance identifier <em>I</em>.</p>
 </li>
@@ -7955,7 +7962,7 @@ instance names from the interface of the parent topology.</p>
     instance c2
 
     connections {
-        # [...] Internal connections
+        c1.portInternal -&gt; c2.portInternal
     }
 
     port portOut = c1.portOut
@@ -10047,7 +10054,7 @@ inside the component definition (either explicitely, or via an
 <div class="paragraph">
 <p>A <a href="#Definitions_Topology-Definitions">topology definition</a>
 defines a corresponding anonymous port interface. This port interface includes
-the set of all <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port specifiers</a>
+the set of all <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port instance specifiers</a>
 inside the topology definition.</p>
 </div>
 </div>
@@ -10055,7 +10062,7 @@ inside the topology definition.</p>
 <div class="sect2">
 <h3 id="Port-Interfaces_Port-Interface-Instance">17.3. Port Interface Instance</h3>
 <div class="paragraph">
-<p>The port interface concept is simply a set of port instances.
+<p>A port interface is a named set of port instances.
 F Prime applies this concept to abstract connections
 between ports in <a href="#Specifiers_Connection-Graph-Specifiers">connection graphs</a>.</p>
 </div>
@@ -10094,7 +10101,7 @@ instances:</p>
 <div class="sect2">
 <h3 id="Port-Interfaces_Binding">17.4. Binding</h3>
 <div class="paragraph">
-<p>Port interface binding refers to converting a port interface instance to an instance
+<p><strong>Port interface binding</strong> means converting a port interface instance to an instance
 from another port interface.</p>
 </div>
 <div class="paragraph">
@@ -11946,7 +11953,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-17 10:23:22 -0700
+Last updated 2025-09-17 13:53:52 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -1,8 +1,8 @@
 === Topology Definitions
 
 A *topology definition* defines an F Prime topology,
-that is, a set of component instances and the connections
-between their ports.
+that is, a set of interface instances, port instances,
+and the connections between their port instances.
 The connections are divided into named *connection graphs*.
 The different graphs capture different aspects of FSW
 function, such as commanding and telemetry.
@@ -37,7 +37,7 @@ instance specifier>>
 
 * A <<Specifiers_Topology-Import-Specifiers,topology import specifier>>
 
-* A <<Specifiers_Topology-Port-Instance-Specifiers,topology port specifier>>
+* A <<Specifiers_Topology-Port-Instance-Specifiers,topology port instance specifier>>
 
 * An <<Specifiers_Include-Specifiers,include specifier>>
 
@@ -45,15 +45,20 @@ instance specifier>>
 
 The identifier is the name of the topology.
 
+All <<Specifiers_Topology-Port-Instance-Specifiers,topology port instance specifiers>>
+inside the topology must have a distinct name.
+
+The set of all <<Specifiers_Topology-Port-Instance-Specifiers,topology port instance specifiers>>
+make up the enclosing topology's <<Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces,
+anonymous port interface>>. Each port specifier maps an unqualified name to a port instance
+satifying the <<Specifiers_Topology-Port-Instance-Specifiers_Semantics,rules>>
+for topology port instance specifiers.
+
 If _interface-list_ is provided, each element of the list must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>> an
-<<Definitions_Port-Interface-Definitions,interface definition _K_>>,
-and the set of
-<<Specifiers_Topology-Port-Instance-Specifiers,ports>> in the topology
-definition must be a super-set of the ports in _K_.
+<<Definitions_Port-Interface-Definitions,interface definition stem:[K_i]>>.
 This optional clause is a compile-time check that
-verifies that this <<Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces,
-topology's anonymous port interface>> can <<Port-Interfaces_Binding,bind>> to _ID_.
+verifies that this topology can <<Port-Interfaces_Binding,bind to>> all stem:[K_i].
 
 A topology definition _D_ must be resolvable to a topology _T_,
 according to the following algorithm:
@@ -147,7 +152,7 @@ port instance in a <<Definitions_Component-Instance-Definitions,component instan
 
 .. If _Q_ refers to a <<Definitions_Topology-Definitions,
 topology definition>>, find the <<Specifiers_Topology-Port-Instance-Specifiers,
-topology port specifier>> that corresponds to _I_ in the topology referenced
+topology port instance specifier>> that corresponds to _I_ in the topology referenced
 by _Q_. Re-apply these rules with the port instance refered to in the topology
 port specifier.
 
@@ -301,7 +306,7 @@ a <<Specifiers_Topology-Import-Specifiers,topology import specifier>>.
 the component definition associated with _I_.
 
 .. If _I_ refers to a **topology definition**, _p_ identifiers an
-<<Specifiers_Topology-Port-Instance-Specifiers,topology port>> inside _I_.
+<<Specifiers_Topology-Port-Instance-Specifiers,topology port instance>> inside _I_.
 
 . _n_ is an optional port number that is present if and only
 if it appears in the model source.
