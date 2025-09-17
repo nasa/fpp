@@ -60,7 +60,7 @@ anonymous topology port interface>>.
 
 === Binding
 
-Port interface binding refers to converting a port interface instance to an instance
+*Port interface binding* means converting a port interface instance to an instance
 from another port interface.
 
 For an interface instance _A_ associated with an anonymous interface _A'_,
