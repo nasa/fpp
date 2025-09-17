@@ -15,7 +15,7 @@ allows topologies to <<Port-Interfaces_Binding,bind to port interfaces>>.
 
 ==== Semantics
 
-For each topology port specifier defined in an enclosing topology _T_:
+For each topology port instance specifier defined in an enclosing topology _T_:
 
 . The _identifier_ names the port on the enclosing topology's
 <<Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces,
