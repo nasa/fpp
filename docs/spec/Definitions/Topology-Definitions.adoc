@@ -47,8 +47,8 @@ The identifier is the name of the topology.
 
 If _interface-list_ is provided, each element of the list must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>> an
-<<Definitions_Port-Interface-Definitions,interface definition _K_>>.
-And the set of
+<<Definitions_Port-Interface-Definitions,interface definition _K_>>,
+and the set of
 <<Specifiers_Topology-Port-Specifiers,ports>> in the topology
 definition must be a super-set of the ports in _K_.
 This optional clause is a compile-time check that
