@@ -92,7 +92,7 @@ unmatched.
 
 .. For each of the two port instance identifiers _I_ appearing in _C_:
 
-... _I_ must name an <<Instance-Member-Identifiers_Port-Instance-Identifiers,
+... _I_ must name a <<Instance-Member-Identifiers_Port-Instance-Identifiers,
 port instance id>> available in the enclosing topology.
 
 ... The optional expression _e_ following the identifier, if it is present,
