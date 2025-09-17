@@ -81,7 +81,7 @@ general port instance>>, then _P'_ must also specify a general port instance:
 
 ... If _P_ is an `output` port, _P'_ must also be an `output` port.
 
-... _P_ and _P'_ must share the same _number_ of ports.
+... _P_ and _P'_ must have the same _number_ of port instances in their port instance arrays.
 
 .. If _P_ is a <<Specifiers_Port-Instance-Specifiers_Semantics_Special-Port-Instances,
 special port instance>>, _P'_ must also be a special port instance:
