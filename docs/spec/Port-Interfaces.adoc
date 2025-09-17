@@ -14,10 +14,11 @@ interface definition>>.
 
 === Anonymous Port Interfaces
 
-There are definitions in FPP that will implicitly define a port interface
-so that instances of these definitions may be bound to a port interface.
-These implicitly defined port interfaces are known as anonymous port interfaces
-as they do not have explicit names associated with them.
+<<Definitions_Component-Instance-Definitions,Component instance definitions>>
+and <<Definitions_Topology-Definitions,topology definitions>> will implicitly
+define a port interface so that instances of these definitions may be bound to
+a port interface. These implicitly defined port interfaces are known as anonymous
+port interfaces as they do not have explicit names associated with them.
 
 ==== Anonymous Component Port Interfaces
 
