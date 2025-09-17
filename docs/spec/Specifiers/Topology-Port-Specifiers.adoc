@@ -1,6 +1,6 @@
 === Topology Port Specifiers
 
-A topology port specifiers names a <<Specifiers_Port-Instance-Specifiers,
+A *topology port instance specifier* names a <<Specifiers_Port-Instance-Specifiers,
 port instance>> on a <<Definitions_Topology-Definitions,
 topology definition>>. This allows topology connections to be made directly
 on a topology rather than referencing the instances named inside. It also
