@@ -17,7 +17,7 @@ _]_
 `format` <<Expressions_String-Literals,_string-literal_>>
 _[_
 `throttle` <<Expressions,_expression_>>
-_[_ `every` <<Lexical-Elements_Durations,duration>> _]_
+_[_ `every` <<Expressions,_expression_>> _]_
 _]_
 
 _severity_ is one of the following:
@@ -64,7 +64,16 @@ The type of _e_ must be convertible to
 in the range [0,2^31^).
 
 * The optional expression _d_ following `every` specifies the maximum time period
-to elapse before clearing the event throttle. _d_ must be a valid time duration.
+to elapse before clearing the event throttle. _d_. The type of _d_ must be convertible
+to a <<Types_Struct-Types,struct type>> with shape:
+
+[source,fpp]
+----
+struct TimeIntervalValue {
+  seconds: U32
+  useconds: U32
+}
+----
 
 ==== Examples
 
@@ -112,5 +121,5 @@ event Event3(
   id 0x02 \
   format "Saw value {} for case {}" \
   throttle 10
-  every 20s
+  every {seconds=10}
 ----
