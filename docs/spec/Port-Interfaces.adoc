@@ -37,7 +37,7 @@ inside the topology definition.
 
 === Port Interface Instance
 
-The port interface concept is simply a set of port instances.
+A port interface is a named set of port instances.
 F Prime applies this concept to abstract connections
 between ports in <<Specifiers_Connection-Graph-Specifiers,
 connection graphs>>.
