@@ -21,6 +21,7 @@ Instance-Member-Identifiers.adoc
 Type-Names.adoc
 Expressions/Expressions.adoc
 Formal-Parameter-Lists.adoc
+Template-Parameter-Lists.adoc
 Format-Strings.adoc
 Comments-and-Annotations.adoc
 Translation-Units-and-Models.adoc

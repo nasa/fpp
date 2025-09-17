@@ -28,4 +28,5 @@ Telemetry-Packet-Set-Specifiers.adoc
 Telemetry-Packet-Specifiers.adoc
 Topology-Port-Instance-Specifiers.adoc
 Topology-Import-Specifiers.adoc
+Template-Expansion-Specifiers.adoc
 "
