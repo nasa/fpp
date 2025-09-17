@@ -1,4 +1,4 @@
-=== Topology Port Specifiers
+=== Topology Port Instance Specifiers
 
 A *topology port instance specifier* names a <<Specifiers_Port-Instance-Specifiers,
 port instance>> on a <<Definitions_Topology-Definitions,

@@ -785,11 +785,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifiers_Telemetry-Packet-Specifiers_Examples">7.18.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Topology-Port-Specifiers">7.19. Topology Port Specifiers</a>
+<li><a href="#Specifiers_Topology-Port-Instance-Specifiers">7.19. Topology Port Instance Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Topology-Port-Specifiers_Syntax">7.19.1. Syntax</a></li>
-<li><a href="#Specifiers_Topology-Port-Specifiers_Semantics">7.19.2. Semantics</a></li>
-<li><a href="#Specifiers_Topology-Port-Specifiers_Example">7.19.3. Example</a></li>
+<li><a href="#Specifiers_Topology-Port-Instance-Specifiers_Syntax">7.19.1. Syntax</a></li>
+<li><a href="#Specifiers_Topology-Port-Instance-Specifiers_Semantics">7.19.2. Semantics</a></li>
+<li><a href="#Specifiers_Topology-Port-Instance-Specifiers_Example">7.19.3. Example</a></li>
 </ul>
 </li>
 <li><a href="#Specifiers_Topology-Import-Specifiers">7.20. Topology Import Specifiers</a>
@@ -3619,7 +3619,7 @@ instance specifier</a></p>
 <p>A <a href="#Specifiers_Topology-Import-Specifiers">topology import specifier</a></p>
 </li>
 <li>
-<p>A <a href="#Specifiers_Topology-Port-Specifiers">topology port specifier</a></p>
+<p>A <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port specifier</a></p>
 </li>
 <li>
 <p>An <a href="#Specifiers_Include-Specifiers">include specifier</a></p>
@@ -3635,9 +3635,9 @@ instance specifier</a></p>
 <div class="paragraph">
 <p>If <em>interface-list</em> is provided, each element of the list must
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a> an
-<a href="#Definitions_Port-Interface-Definitions">interface definition <em>K</em></a>.
-And the set of
-<a href="#Specifiers_Topology-Port-Specifiers">ports</a> in the topology
+<a href="#Definitions_Port-Interface-Definitions">interface definition <em>K</em></a>,
+and the set of
+<a href="#Specifiers_Topology-Port-Instance-Specifiers">ports</a> in the topology
 definition must be a super-set of the ports in <em>K</em>.
 This optional clause is a compile-time check that
 verifies that this <a href="#Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces">topology&#8217;s anonymous port interface</a> can <a href="#Port-Interfaces_Binding">bind</a> to <em>ID</em>.</p>
@@ -3760,7 +3760,7 @@ port instance in a <a href="#Definitions_Component-Instance-Definitions">compone
 <p>If <em>Q</em> is a component instance, this endpoint is resolved.</p>
 </li>
 <li>
-<p>If <em>Q</em> refers to a <a href="#Definitions_Topology-Definitions">topology definition</a>, find the <a href="#Specifiers_Topology-Port-Specifiers">topology port specifier</a> that corresponds to <em>I</em> in the topology referenced
+<p>If <em>Q</em> refers to a <a href="#Definitions_Topology-Definitions">topology definition</a>, find the <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port specifier</a> that corresponds to <em>I</em> in the topology referenced
 by <em>Q</em>. Re-apply these rules with the port instance refered to in the topology
 port specifier.</p>
 </li>
@@ -3996,7 +3996,7 @@ the component definition associated with <em>I</em>.</p>
 </li>
 <li>
 <p>If <em>I</em> refers to a <strong>topology definition</strong>, <em>p</em> identifiers an
-<a href="#Specifiers_Topology-Port-Specifiers">topology port</a> inside <em>I</em>.</p>
+<a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port</a> inside <em>I</em>.</p>
 </li>
 </ol>
 </div>
@@ -5717,7 +5717,7 @@ unmatched.</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
-<p><em>I</em> must name an <a href="#Instance-Member-Identifiers_Port-Instance-Identifiers">port instance id</a> available in the enclosing topology.</p>
+<p><em>I</em> must name a <a href="#Instance-Member-Identifiers_Port-Instance-Identifiers">port instance id</a> <a href="#Definitions_Topology-Definitions_Semantics_Resolving-to-a-Partially-Numbered-Topology">available</a> in the enclosing topology.</p>
 </li>
 <li>
 <p>The optional expression <em>e</em> following the identifier, if it is present,
@@ -7879,14 +7879,14 @@ packet ADCS group 2 {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Topology-Port-Specifiers">7.19. Topology Port Specifiers</h3>
+<h3 id="Specifiers_Topology-Port-Instance-Specifiers">7.19. Topology Port Instance Specifiers</h3>
 <div class="paragraph">
-<p>A topology port specifiers names a <a href="#Specifiers_Port-Instance-Specifiers">port instance</a> on a <a href="#Definitions_Topology-Definitions">topology definition</a>. This allows topology connections to be made directly
+<p>A <strong>topology port instance specifier</strong> names a <a href="#Specifiers_Port-Instance-Specifiers">port instance</a> on a <a href="#Definitions_Topology-Definitions">topology definition</a>. This allows topology connections to be made directly
 on a topology rather than referencing the instances named inside. It also
 allows topologies to <a href="#Port-Interfaces_Binding">bind to port interfaces</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Topology-Port-Specifiers_Syntax">7.19.1. Syntax</h4>
+<h4 id="Specifiers_Topology-Port-Instance-Specifiers_Syntax">7.19.1. Syntax</h4>
 <div class="paragraph">
 <p><code>port</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
@@ -7895,9 +7895,9 @@ allows topologies to <a href="#Port-Interfaces_Binding">bind to port interfaces<
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Topology-Port-Specifiers_Semantics">7.19.2. Semantics</h4>
+<h4 id="Specifiers_Topology-Port-Instance-Specifiers_Semantics">7.19.2. Semantics</h4>
 <div class="paragraph">
-<p>For each topology port specifier defined in an enclosing topology <em>T</em>:</p>
+<p>For each topology port instance specifier defined in an enclosing topology <em>T</em>:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -7947,7 +7947,7 @@ instance names from the interface of the parent topology.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Topology-Port-Specifiers_Example">7.19.3. Example</h4>
+<h4 id="Specifiers_Topology-Port-Instance-Specifiers_Example">7.19.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">topology T {
@@ -10026,16 +10026,17 @@ with an <a href="#Definitions_Port-Interface-Definitions">interface definition</
 <div class="sect2">
 <h3 id="Port-Interfaces_Anonymous-Port-Interfaces">17.2. Anonymous Port Interfaces</h3>
 <div class="paragraph">
-<p>There are definitions in FPP that will implicitly define a port interface
-so that instances of these definitions may be bound to a port interface.
-These implicitly defined port interfaces are known as anonymous port interfaces
-as they do not have explicit names associated with them.</p>
+<p><a href="#Definitions_Component-Instance-Definitions">Component instance definitions</a>
+and <a href="#Definitions_Topology-Definitions">topology definitions</a> will implicitly
+define a port interface so that instances of these definitions may be bound to
+a port interface. These implicitly defined port interfaces are known as anonymous
+port interfaces as they do not have explicit names associated with them.</p>
 </div>
 <div class="sect3">
 <h4 id="Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Component-Port-Interfaces">17.2.1. Anonymous Component Port Interfaces</h4>
 <div class="paragraph">
 <p>A <a href="#Definitions_Component-Definitions">component definition</a>
-will create a corresponding anonymous port interface. This port interface
+defines a corresponding anonymous port interface. This port interface
 includes the set of all <a href="#Specifiers_Port-Instance-Specifiers">port instances</a>
 inside the component definition (either explicitely, or via an
 <a href="#Specifiers_Interface-Import-Specifiers">interface import</a>).</p>
@@ -10045,8 +10046,8 @@ inside the component definition (either explicitely, or via an
 <h4 id="Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces">17.2.2. Anonymous Topology Port Interfaces</h4>
 <div class="paragraph">
 <p>A <a href="#Definitions_Topology-Definitions">topology definition</a>
-will create a corresponding anonymous port interface. This port interface includes
-the set of all <a href="#Specifiers_Topology-Port-Specifiers">topology port specifiers</a>
+defines a corresponding anonymous port interface. This port interface includes
+the set of all <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port specifiers</a>
 inside the topology definition.</p>
 </div>
 </div>
@@ -10103,14 +10104,14 @@ the following conditions must be met for <em>A</em> to bind to an interface <em>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>For every <a href="#Specifiers_Port-Instance-Specifiers">port instance</a> <em>P</em> in <em>I</em>:</p>
+<p>For every <a href="#Specifiers_Port-Instance-Specifiers">port instance specifier</a> <em>P</em> in <em>I</em>:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>There exists a port instance <em>P'</em> in <em>A'</em> that has the same name of <em>P</em>.</p>
+<p>There exists a port instance specifier <em>P'</em> in <em>A'</em> that has the same name as the name of <em>P</em>.</p>
 </li>
 <li>
-<p>If <em>P</em> is a <a href="#Specifiers_Port-Instance-Specifiers_Semantics_General-Port-Instances">general port instance</a>, <em>P'</em> must also be a general port instance:</p>
+<p>If <em>P</em> specifies a <a href="#Specifiers_Port-Instance-Specifiers_Semantics_General-Port-Instances">general port instance</a>, then <em>P'</em> must also specify a general port instance:</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
@@ -10131,7 +10132,7 @@ the following conditions must be met for <em>A</em> to bind to an interface <em>
 <p>If <em>P</em> is an <code>output</code> port, <em>P'</em> must also be an <code>output</code> port.</p>
 </li>
 <li>
-<p><em>P</em> and <em>P'</em> must share the same <em>number</em> of ports.</p>
+<p><em>P</em> and <em>P'</em> must have the same <em>number</em> of port instances in their port instance arrays.</p>
 </li>
 </ol>
 </div>
@@ -11945,7 +11946,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-08 09:47:10 -0700
+Last updated 2025-09-17 10:23:22 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

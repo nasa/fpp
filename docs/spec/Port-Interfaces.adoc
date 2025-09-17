@@ -32,7 +32,7 @@ inside the component definition (either explicitely, or via an
 
 A <<Definitions_Topology-Definitions,topology definition>>
 defines a corresponding anonymous port interface. This port interface includes
-the set of all <<Specifiers_Topology-Port-Specifiers,topology port specifiers>>
+the set of all <<Specifiers_Topology-Port-Instance-Specifiers,topology port specifiers>>
 inside the topology definition.
 
 === Port Interface Instance

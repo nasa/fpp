@@ -37,7 +37,7 @@ instance specifier>>
 
 * A <<Specifiers_Topology-Import-Specifiers,topology import specifier>>
 
-* A <<Specifiers_Topology-Port-Specifiers,topology port specifier>>
+* A <<Specifiers_Topology-Port-Instance-Specifiers,topology port specifier>>
 
 * An <<Specifiers_Include-Specifiers,include specifier>>
 
@@ -49,7 +49,7 @@ If _interface-list_ is provided, each element of the list must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>> an
 <<Definitions_Port-Interface-Definitions,interface definition _K_>>,
 and the set of
-<<Specifiers_Topology-Port-Specifiers,ports>> in the topology
+<<Specifiers_Topology-Port-Instance-Specifiers,ports>> in the topology
 definition must be a super-set of the ports in _K_.
 This optional clause is a compile-time check that
 verifies that this <<Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces,
@@ -146,7 +146,7 @@ port instance in a <<Definitions_Component-Instance-Definitions,component instan
 .. If _Q_ is a component instance, this endpoint is resolved.
 
 .. If _Q_ refers to a <<Definitions_Topology-Definitions,
-topology definition>>, find the <<Specifiers_Topology-Port-Specifiers,
+topology definition>>, find the <<Specifiers_Topology-Port-Instance-Specifiers,
 topology port specifier>> that corresponds to _I_ in the topology referenced
 by _Q_. Re-apply these rules with the port instance refered to in the topology
 port specifier.
@@ -301,7 +301,7 @@ a <<Specifiers_Topology-Import-Specifiers,topology import specifier>>.
 the component definition associated with _I_.
 
 .. If _I_ refers to a **topology definition**, _p_ identifiers an
-<<Specifiers_Topology-Port-Specifiers,topology port>> inside _I_.
+<<Specifiers_Topology-Port-Instance-Specifiers,topology port>> inside _I_.
 
 . _n_ is an optional port number that is present if and only
 if it appears in the model source.
