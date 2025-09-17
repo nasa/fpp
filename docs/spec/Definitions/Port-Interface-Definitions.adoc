@@ -7,6 +7,8 @@ that may be imported into a
 <<Definitions_Component-Definitions,component definition>>
 or another port interface definition.
 
+Port interface definitions name an FPP <<Port-Interfaces,port interface>>.
+
 ==== Syntax
 
 `interface` <<Lexical-Elements_Identifiers,_identifier_>>

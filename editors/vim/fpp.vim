@@ -73,7 +73,6 @@ syn keyword fppKeyword passive
 syn keyword fppKeyword phase
 syn keyword fppKeyword port
 syn keyword fppKeyword priority
-syn keyword fppKeyword private
 syn keyword fppKeyword product
 syn keyword fppKeyword queue
 syn keyword fppKeyword queued

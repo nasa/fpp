@@ -1,0 +1,53 @@
+=== Interface Instance Specifiers
+
+A *interface instance specifier*
+specifies that a
+<<Port-Interfaces_Port-Interface-Instance,port interface instance>>
+is part of a
+<<Definitions_Topology-Definitions,topology>>.
+
+==== Syntax
+
+`instance`
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+
+==== Semantics
+
+* The qualified identifier must
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
+a
+<<Port-Interfaces_Port-Interface-Instance,port interface instance>>.
+
+* The _qual-ident_ _I_ must <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
+a <<Port-Interfaces_Port-Interface-Instance,port interface instance>>.
+If the port interface instance is a <<Definitions_Topology-Definitions,topology definition>>,
+<<Specifiers_Topology-Import-Specifiers_Semantics_Importing-Connections, import>> the connections
+into the enclosing topology.
+
+==== Example
+
+[source,fpp]
+----
+component A { ... }
+component B { ... }
+component C { ... }
+
+instance a: A base id 0x100 ...
+instance b: B base id 0x200 ...
+instance c: B base id 0x300 ...
+
+topology SubTopology {
+  instance a
+  port a = a.out
+}
+
+topology T {
+
+  instance a
+  instance b
+  instance SubTopology
+
+  ...
+
+}
+----

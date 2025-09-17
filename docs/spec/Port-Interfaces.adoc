@@ -1,0 +1,90 @@
+== Port Interfaces
+
+Port Interfaces in F Prime define a set of
+<<Specifiers_Port-Instance-Specifiers,port
+instances>>. Interfaces can be explicitely named
+through a <<Definitions_Port-Interface-Definitions,
+port interface definition>>.
+
+=== Named Port Interfaces
+
+A named port interface is a port interface associated
+with an <<Definitions_Port-Interface-Definitions,
+interface definition>>.
+
+=== Anonymous Port Interfaces
+
+<<Definitions_Component-Instance-Definitions,Component instance definitions>>
+and <<Definitions_Topology-Definitions,topology definitions>> will implicitly
+define a port interface so that instances of these definitions may be bound to
+a port interface. These implicitly defined port interfaces are known as anonymous
+port interfaces as they do not have explicit names associated with them.
+
+==== Anonymous Component Port Interfaces
+
+A <<Definitions_Component-Definitions,component definition>>
+defines a corresponding anonymous port interface. This port interface
+includes the set of all <<Specifiers_Port-Instance-Specifiers,port instances>>
+inside the component definition (either explicitely, or via an
+<<Specifiers_Interface-Import-Specifiers,interface import>>).
+
+==== Anonymous Topology Port Interfaces
+
+A <<Definitions_Topology-Definitions,topology definition>>
+defines a corresponding anonymous port interface. This port interface includes
+the set of all <<Specifiers_Topology-Port-Instance-Specifiers,topology port instance specifiers>>
+inside the topology definition.
+
+=== Port Interface Instance
+
+A port interface is a named set of port instances.
+F Prime applies this concept to abstract connections
+between ports in <<Specifiers_Connection-Graph-Specifiers,
+connection graphs>>.
+
+An *port interface instance* is a instance of a definition
+that contains port instances. FPP has two types of port interface
+instances:
+
+. <<Definitions_Component-Instance-Definitions,Component Instances>>
+
+.. Component instance values are bound to their corresponding
+<<Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Component-Port-Interfaces,
+anonymous component port interface>>.
+
+. <<Definitions_Topology-Definitions,Topologies>>
+
+.. Topology values are bound to their corresponding
+<<Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces,
+anonymous topology port interface>>.
+
+=== Binding
+
+*Port interface binding* means converting a port interface instance to an instance
+from another port interface.
+
+For an interface instance _A_ associated with an anonymous interface _A'_,
+the following conditions must be met for _A_ to bind to an interface _I_:
+
+. For every <<Specifiers_Port-Instance-Specifiers,port instance specifier>> _P_ in _I_:
+
+.. There exists a port instance specifier _P'_ in _A'_ that has the same name as the name of _P_.
+
+.. If _P_ specifies a <<Specifiers_Port-Instance-Specifiers_Semantics_General-Port-Instances,
+general port instance>>, then _P'_ must also specify a general port instance:
+
+... _P_ and _P'_ have the same port type
+
+... If _P_ is an `input` port, _P'_ must also be an `input` port.
+
+.... _P'_ must have the same calling behavior as _P_ (i.e. `async`,
+`guarded`, `sync`).
+
+... If _P_ is an `output` port, _P'_ must also be an `output` port.
+
+... _P_ and _P'_ must have the same _number_ of port instances in their port instance arrays.
+
+.. If _P_ is a <<Specifiers_Port-Instance-Specifiers_Semantics_Special-Port-Instances,
+special port instance>>, _P'_ must also be a special port instance:
+
+... _P_ and _P'_ must share the same _special-port-kind_ and _special-port-input-kind_.
