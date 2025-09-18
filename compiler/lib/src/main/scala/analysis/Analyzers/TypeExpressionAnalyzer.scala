@@ -45,7 +45,6 @@ trait TypeExpressionAnalyzer
     } yield a
   }
 
-
   def typeNameNode(a: Analysis, node: AstNode[Ast.TypeName]): Result = matchTypeNameNode(a, node)
 
   override def typeNameStringNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString) =
@@ -132,6 +131,12 @@ trait TypeExpressionAnalyzer
 
   override def exprArrayNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArray) =
     visitList(a, e.elts, exprNode)
+
+  override def exprArraySubscriptNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprArraySubscript) =
+    for {
+      a <- exprNode(a, e.e1)
+      a <- exprNode(a, e.e2)
+    } yield a
 
   override def exprBinopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprBinop) =
     for {

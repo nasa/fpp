@@ -303,7 +303,7 @@ object Parser extends Parsers {
       es.foldLeft(e)(f)
     }
 
-    def dotOperand = node {
+    def primaryExpr = node {
       def arrayExpr =
         lbracket ~>! elementSequence(exprNode, comma) <~! rbracket ^^ (es => Ast.ExprArray(es))
 
@@ -343,33 +343,39 @@ object Parser extends Parsers {
         failure("expression expected")
     }
 
-    def unaryMinus = node {
-      minus ~>! unaryMinusOperand ^^ (e =>
-        Ast.ExprUnop(Ast.Unop.Minus, e))
-    }
-
-    def unaryMinusOperand = {
-      def dotSelectors(
+    def postFixExpr =
+      def memberSelectors(
                         e: AstNode[Ast.Expr],
-                        ss: List[Token ~ AstNode[String]]
+                        ss: List[AstNode[String | Ast.Expr]]
                       ) = {
-        def f(e: AstNode[Ast.Expr], s: Token ~ AstNode[String]) = {
-          val _ ~ id = s
-          val dot = AstNode.create(Ast.ExprDot(e, id))
+        def f(e: AstNode[Ast.Expr], s: AstNode[String | Ast.Expr]) = {
+          val o = s.data match {
+            // Array subscript
+            case i: Ast.Expr => Ast.ExprArraySubscript(e, AstNode.create(i, s.id))
+
+            // Member/Dot
+            case id: String => Ast.ExprDot(e, AstNode.create(id, s.id))
+          }
+
+          val node = AstNode.create(o)
           val loc = Locations.get(e.id)
-          Locations.put(dot.id, loc)
-          dot
+          Locations.put(node.id, loc)
+          node
         }
 
         ss.foldLeft(e)(f)
       }
 
-      dotOperand ~ rep(dot ~! node(ident)) ^^ { case e ~ ss =>
-        dotSelectors(e, ss)
+      primaryExpr ~ rep(dot ~> node(ident) | (lbracket ~> exprNode <~! rbracket)) ^^ { case e ~ ss =>
+        memberSelectors(e, ss)
       }
+
+    def unaryMinus = node {
+      minus ~>! postFixExpr ^^ (e =>
+        Ast.ExprUnop(Ast.Unop.Minus, e))
     }
 
-    def mulDivOperand = unaryMinus | unaryMinusOperand
+    def mulDivOperand = unaryMinus | postFixExpr
 
     def addSubOperand =
       mulDivOperand ~ rep((star | slash) ~! mulDivOperand) ^^ { case e ~ es =>
