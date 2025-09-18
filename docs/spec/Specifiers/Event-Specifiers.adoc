@@ -17,6 +17,7 @@ _]_
 `format` <<Expressions_String-Literals,_string-literal_>>
 _[_
 `throttle` <<Expressions,_expression_>>
+_[_ `every` <<Expressions,_expression_>> _]_
 _]_
 
 _severity_ is one of the following:
@@ -62,6 +63,18 @@ The type of _e_ must be convertible to
 <<Types_Internal-Types_Integer,_Integer_>> and must evaluate to an integer
 in the range [0,2^31^).
 
+* The optional expression _e_ following `every` specifies the maximum time period
+to elapse before clearing the event throttle. _e_ must satisfy the following
+rules:
+
+** Convertible to a <<Types_Struct-Types,struct type>> with shape `{seconds: U32, useconds: U32}`
+
+** `seconds` must evaluate to an integer in the range [0,2^31^)
+
+** `useconds` must evaluate to an integer in the range [0,10^6^)
+
+** `seconds` + `useconds` must be greater than zero
+
 ==== Examples
 
 [source,fpp]
@@ -97,4 +110,16 @@ event Event2(
   id 0x02 \
   format "Saw value {} for case {}" \
   throttle 10
+
+@ Event 3
+@ Sample output: "Saw value [ 0.001, 0.002, 0.003 ] for case A"
+event Event3(
+  case: Case @< The case
+  value: F64x3 @< The value
+) \
+  severity warning low \
+  id 0x02 \
+  format "Saw value {} for case {}" \
+  throttle 10
+  every {seconds=10}
 ----

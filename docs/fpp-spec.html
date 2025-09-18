@@ -1184,6 +1184,7 @@ enter
 entry
 enum
 event
+every
 exit
 external
 false
@@ -6020,6 +6021,7 @@ product container Container2 default priority 10</code></pre>
 <code>format</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a>
 <em>[</em>
 <code>throttle</code> <a href="#Expressions"><em>expression</em></a>
+<em>[</em> <code>every</code> <a href="#Expressions"><em>expression</em></a> <em>]</em>
 <em>]</em></p>
 </div>
 <div class="paragraph">
@@ -6092,6 +6094,27 @@ The type of <em>e</em> must be convertible to
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a> and must evaluate to an integer
 in the range [0,2<sup>31</sup>).</p>
 </li>
+<li>
+<p>The optional expression <em>e</em> following <code>every</code> specifies the maximum time period
+to elapse before clearing the event throttle. <em>e</em> must satisfy the following
+rules:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Convertible to a <a href="#Types_Struct-Types">struct type</a> with shape <code>{seconds: U32, useconds: U32}</code></p>
+</li>
+<li>
+<p><code>seconds</code> must evaluate to an integer in the range [0,2<sup>31</sup>)</p>
+</li>
+<li>
+<p><code>useconds</code> must evaluate to an integer in the range [0,10<sup>6</sup>)</p>
+</li>
+<li>
+<p><code>seconds</code> + <code>useconds</code> must be greater than zero</p>
+</li>
+</ul>
+</div>
+</li>
 </ul>
 </div>
 </div>
@@ -6129,7 +6152,19 @@ event Event2(
   severity warning low \
   id 0x02 \
   format "Saw value {} for case {}" \
-  throttle 10</code></pre>
+  throttle 10
+
+@ Event 3
+@ Sample output: "Saw value [ 0.001, 0.002, 0.003 ] for case A"
+event Event3(
+  case: Case @&lt; The case
+  value: F64x3 @&lt; The value
+) \
+  severity warning low \
+  id 0x02 \
+  format "Saw value {} for case {}" \
+  throttle 10
+  every {seconds=10}</code></pre>
 </div>
 </div>
 </div>
@@ -11818,7 +11853,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-10 16:36:08 -0700
+Last updated 2025-09-18 10:56:03 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
