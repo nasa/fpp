@@ -63,17 +63,17 @@ The type of _e_ must be convertible to
 <<Types_Internal-Types_Integer,_Integer_>> and must evaluate to an integer
 in the range [0,2^31^).
 
-* The optional expression _d_ following `every` specifies the maximum time period
-to elapse before clearing the event throttle. _d_. The type of _d_ must be convertible
-to a <<Types_Struct-Types,struct type>> with shape:
+* The optional expression _e_ following `every` specifies the maximum time period
+to elapse before clearing the event throttle. _e_ must satisfy the following
+rules:
 
-[source,fpp]
-----
-struct TimeIntervalValue {
-  seconds: U32
-  useconds: U32
-}
-----
+** Convertible to a <<Types_Struct-Types,struct type>> with shape `{seconds: U32, useconds: U32}`
+
+** `seconds` must evaluate to an integer in the range [0,2^31^)
+
+** `useconds` must evaluate to an integer in the range [0,10^6^)
+
+** `seconds` + `useconds` must be greater than zero
 
 ==== Examples
 
