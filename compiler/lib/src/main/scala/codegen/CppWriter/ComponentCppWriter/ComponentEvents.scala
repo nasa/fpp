@@ -60,12 +60,23 @@ case class ComponentEvents (
     addAccessTagAndComment(
       "private",
       "Counter values for event throttling",
-      throttledEvents.map((_, event) =>
-        linesClassMember(
-          Line.blank :: lines(
-            s"""|//! Throttle for ${event.getName}
-                |std::atomic<FwIndexType> ${eventThrottleCounterName(event.getName)};
-                |"""
+      List.concat(
+        throttledEvents.map((_, event) =>
+          linesClassMember(
+            Line.blank :: lines(
+              s"""|//! Throttle for ${event.getName}
+                  |std::atomic<FwIndexType> ${eventThrottleCounterName(event.getName)};
+                  |"""
+            )
+          )
+        ),
+        intervalThrottledEvents.map((_, event) =>
+          linesClassMember(
+            Line.blank :: lines(
+              s"""|//! Throttle time ${event.getName}
+                  |Fw::Time ${eventThrottleTimeName(event.getName)};
+                  |"""
+            )
           )
         )
       ),
@@ -246,9 +257,10 @@ case class ComponentEvents (
     )
     def writeBody(id: Event.Id, event: Event) = intersperseBlankLines(
       List(
+        // Hard throttle counter can be checked immediately
+        // We don't need to get time
         event.throttle match {
-          case None => Nil
-          case Some(_) => lines(
+          case Some(Event.Throttle(_, None)) => lines(
             s"""|// Check throttle value
                 |if (this->${eventThrottleCounterName(event.getName)} >= ${eventThrottleConstantName(event.getName)}) {
                 |  return;
@@ -258,6 +270,7 @@ case class ComponentEvents (
                 |}
                 |"""
           )
+          case _ => Nil
         },
         lines(
           s"""|// Get the time
@@ -271,6 +284,27 @@ case class ComponentEvents (
               |_id = this->getIdBase() + ${eventIdConstantName(event.getName)};
               |"""
         ),
+        // Time based throttle timeout needs above time
+        event.throttle match {
+          case Some(Event.Throttle(_, Some(Event.TimeInterval(seconds, useconds)))) => lines(
+            s"""|// Check throttle value & throttle timeout
+                |if (this->${eventThrottleCounterName(event.getName)} >= ${eventThrottleConstantName(event.getName)}) {
+                |  if (Fw::TimeInterval(this->${eventThrottleTimeName(event.getName)}, _logTime) >= Fw::TimeInterval($seconds, $useconds)) {
+                |    // Reset the throttle count & timeout
+                |    this->${eventThrottleTimeName(event.getName)} = _logTime;
+                |    this->${eventThrottleCounterName(event.getName)} = 0;
+                |  }
+                |  else {
+                |    return;
+                |  }
+                |}
+                |else {
+                |  (void) this->${eventThrottleCounterName(event.getName)}.fetch_add(1);
+                |}
+                |"""
+          )
+          case _ => Nil
+        },
         writeLogBody(id, event),
         writeTextLogBody(event)
       )

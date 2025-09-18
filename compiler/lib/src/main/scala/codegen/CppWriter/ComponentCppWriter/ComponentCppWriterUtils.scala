@@ -202,6 +202,14 @@ abstract class ComponentCppWriterUtils(
     }
   )
 
+  /** List of throttled events */
+  val intervalThrottledEvents: List[(Event.Id, Event)] = sortedEvents.filter((_, event) =>
+    event.throttle match {
+      case Some(Event.Throttle(_, Some(_))) => true
+      case _ => false
+    }
+  )
+
   /** List of channels sorted by ID */
   val sortedChannels: List[(TlmChannel.Id, TlmChannel)] = component.tlmChannelMap.toList.sortBy(_._1)
 
@@ -814,6 +822,10 @@ abstract class ComponentCppWriterUtils(
   /** Get the name for an event throttle counter variable */
   def eventThrottleCounterName(name: String) =
     s"m_${name}Throttle"
+
+  /** Get the name for an event throttle timeout interval variable */
+  def eventThrottleTimeName(name: String) =
+    s"m_${name}ThrottleTime"
 
   /** Get the name for an event ID constant */
   def eventIdConstantName(name: String) =

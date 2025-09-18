@@ -1233,6 +1233,9 @@ PassiveEventsComponentBase ::
   this->m_EventActivityLowThrottledThrottle = 0;
   this->m_EventFatalThrottledThrottle = 0;
   this->m_EventWarningLowThrottledThrottle = 0;
+  this->m_EventWarningLowThrottledIntervalThrottle = 0;
+
+  this->m_EventWarningLowThrottledIntervalThrottleTime.set(0, 0);
 }
 
 PassiveEventsComponentBase ::
@@ -2829,6 +2832,86 @@ void PassiveEventsComponentBase ::
 #endif
 }
 
+void PassiveEventsComponentBase ::
+  log_WARNING_LO_EventWarningLowThrottledInterval()
+{
+  // Get the time
+  Fw::Time _logTime;
+  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  }
+
+  FwEventIdType _id = static_cast<FwEventIdType>(0);
+
+  _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL;
+
+  // Check throttle value & throttle timeout
+  if (this->m_EventWarningLowThrottledIntervalThrottle >= EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL_THROTTLE) {
+    if (Fw::TimeInterval(this->m_EventWarningLowThrottledIntervalThrottleTime, _logTime) >= Fw::TimeInterval(10, 0)) {
+      // Reset the throttle count & timeout
+      this->m_EventWarningLowThrottledIntervalThrottleTime = _logTime;
+      this->m_EventWarningLowThrottledIntervalThrottle = 0;
+    }
+    else {
+      return;
+    }
+  }
+  else {
+    (void) this->m_EventWarningLowThrottledIntervalThrottle.fetch_add(1);
+  }
+
+  // Emit the event on the log port
+  if (this->m_eventOut_OutputPort[0].isConnected()) {
+    Fw::LogBuffer _logBuff;
+
+#if FW_AMPCS_COMPATIBLE
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+    // Serialize the number of arguments
+    _status = _logBuff.serializeFrom(static_cast<U8>(0));
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+
+    this->m_eventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::WARNING_LO,
+      _logBuff
+    );
+  }
+
+  // Emit the event on the text log port
+#if FW_ENABLE_TEXT_LOGGING
+  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+#if FW_OBJECT_NAMES == 1
+    const char* _formatString =
+      "(%s) %s: Event Warning Low occurred";
+#else
+    const char* _formatString =
+      "%s: Event Warning Low occurred";
+#endif
+
+    Fw::TextLogString _logString;
+    _logString.format(
+      _formatString,
+#if FW_OBJECT_NAMES == 1
+      this->m_objName.toChar(),
+#endif
+      "EventWarningLowThrottledInterval "
+    );
+
+    this->m_textEventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::WARNING_LO,
+      _logString
+    );
+  }
+#endif
+}
+
 // ----------------------------------------------------------------------
 // Event throttle reset functions
 // ----------------------------------------------------------------------
@@ -2852,6 +2935,13 @@ void PassiveEventsComponentBase ::
 {
   // Reset throttle counter
   this->m_EventWarningLowThrottledThrottle = 0;
+}
+
+void PassiveEventsComponentBase ::
+  log_WARNING_LO_EventWarningLowThrottledInterval_ThrottleClear()
+{
+  // Reset throttle counter
+  this->m_EventWarningLowThrottledIntervalThrottle = 0;
 }
 
 // ----------------------------------------------------------------------
