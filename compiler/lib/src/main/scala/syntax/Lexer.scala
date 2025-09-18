@@ -751,15 +751,12 @@ object Lexer {
         putChar('.')
         nextChar()
         fetchFraction()
-      } else {
+      } else
         (ch: @switch) match {
-          // Exponential form
           case 'e' | 'E' =>
             if (base == 10) fetchFraction()
+          case _ =>
         }
-
-        checkNoLetter()
-      }
 
       setStrVal()
     }
@@ -774,26 +771,23 @@ object Lexer {
         nextChar()
       }
 
-      (ch: @switch) match {
-        case 'e' | 'E' => {
-          val lookahead = lookaheadReader()
+      if (ch == 'e' || ch == 'E') {
+        val lookahead = lookaheadReader()
+        lookahead.nextChar()
+        if (lookahead.ch == '+' || lookahead.ch == '-')
           lookahead.nextChar()
-          if (lookahead.ch == '+' || lookahead.ch == '-')
-            lookahead.nextChar()
-          if ('0' <= lookahead.ch && lookahead.ch <= '9') {
+        if ('0' <= lookahead.ch && lookahead.ch <= '9') {
+          putChar(ch)
+          nextChar()
+          if (ch == '+' || ch == '-') {
             putChar(ch)
             nextChar()
-            if (ch == '+' || ch == '-') {
-              putChar(ch)
-              nextChar()
-            }
-            while ('0' <= ch && ch <= '9') {
-              putChar(ch)
-              nextChar()
-            }
+          }
+          while ('0' <= ch && ch <= '9') {
+            putChar(ch)
+            nextChar()
           }
         }
-        case _ =>
       }
 
       checkNoLetter()
@@ -801,11 +795,7 @@ object Lexer {
 
     private def checkNoLetter(): Unit = {
       if (isIdentifierPart(ch) && ch >= ' ')
-        token match {
-          case LITERAL_FLOAT => error(s"Invalid literal number")
-          case LITERAL_INT => error(s"Invalid literal integer")
-          case _ => error("Unexpected letter")
-        }
+        error("Invalid literal number")
     }
   }
 }
