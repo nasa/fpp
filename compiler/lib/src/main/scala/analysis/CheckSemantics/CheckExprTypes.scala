@@ -282,10 +282,17 @@ object CheckExprTypes extends UseAnalyzer {
   override def specEventAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]) = {
     val (_, node, _) = aNode
     val data = node.data
+    def checkThrottle (a: Analysis) (throttle: Ast.EventThrottle) = {
+      for {
+        _ <- convertNodeToNumeric(a, throttle.count)
+        _ <- convertNodeToNumericOpt(a, throttle.every)
+      } yield a
+    }
+
     for {
       a <- super.specEventAnnotatedNode(a, aNode)
       _ <- convertNodeToNumericOpt(a, data.id)
-      _ <- convertNodeToNumericOpt(a, data.throttle)
+      _ <- Result.mapOpt(data.throttle, checkThrottle(a))
     }
     yield a
   }

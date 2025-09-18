@@ -21,7 +21,7 @@ case class ComponentEvents (
           throttledEvents.flatMap((_, event) =>
             writeEnumConstant(
               eventThrottleConstantName(event.getName),
-              event.throttle.get,
+              event.throttle.get.count,
               Some(s"Throttle reset count for ${event.getName}")
             )
           )

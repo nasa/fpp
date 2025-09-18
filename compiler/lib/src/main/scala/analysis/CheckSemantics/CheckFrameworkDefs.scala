@@ -2,6 +2,7 @@ package fpp.compiler.analysis
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
+import fpp.compiler.analysis.Type.PrimitiveInt
 
 /** Check F Prime framework definitions */
 object CheckFrameworkDefs
@@ -84,6 +85,7 @@ object CheckFrameworkDefs
       case "FwTimeContextStoreType" => requireAliasType(a, name, id)
       case "FwTlmPacketizeIdType" => requireAliasType(a, name, id)
       case "FwTraceIdType" => requireAliasType(a, name, id)
+      case "Fw.TimeIntervalValue" => requireFwTimeIntervalValue(a, name, id)
       case "Fw.DpState" => requireEnum(a, name, id)
       case "Fw.DpCfg.ProcType" => requireEnum(a, name, id)
       case _ => Right(a)
@@ -109,6 +111,42 @@ object CheckFrameworkDefs
           s"the F Prime framework type ${name} must be an alias type"
         )
       )
+    }
+  }
+
+  private def requireFwTimeIntervalValue(a: Analysis, name: String, id: AstNode.Id) = {
+    val invalidType = SemanticError.InvalidType(
+      Locations.get(id),
+      s"the F Prime framework type ${name} must a struct of shape {seconds: U32, useconds: U32}"
+    )
+
+    val t = a.typeMap(id)
+    t match {
+      case Type.Struct(_, struct, _, sizes, _) => {
+        val seconds = struct.members.get("seconds")
+        val useconds = struct.members.get("useconds")
+
+        if (
+          struct.members.size != 2 ||
+          seconds.isEmpty ||
+          useconds.isEmpty
+        ) {
+          Left(invalidType)
+        } else {
+          def requireU32(a: Analysis, t: Type) = {
+            t match {
+              case PrimitiveInt(PrimitiveInt.U32) => Right(a)
+              case _ => Left(invalidType)
+            }
+          }
+
+          for {
+            _ <- requireU32(a, seconds.get)
+            _ <- requireU32(a, useconds.get)
+          } yield a
+        }
+      }
+      case _ =>  Left(invalidType)
     }
   }
 
