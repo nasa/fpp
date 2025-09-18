@@ -349,11 +349,19 @@ case class ComponentEvents (
           eventThrottleResetName(event),
           Nil,
           CppDoc.Type("void"),
-          lines(
-            s"""|// Reset throttle counter
-                |this->${eventThrottleCounterName(event.getName)} = 0;
-                |"""
-          )
+          List(
+            lines(
+              s"""|// Reset throttle counter
+                  |this->${eventThrottleCounterName(event.getName)} = 0;
+                  |"""
+            ),
+            if event.throttle.get.every.isDefined
+            then lines(
+              s"""|// Reset throttle timeout
+                  |this->${eventThrottleTimeName(event.getName)}.set(0, 0);
+                  |"""
+            ) else Nil
+          ).flatten
         )
       )
     )

@@ -4562,6 +4562,8 @@ void PassiveTestComponentBase ::
 {
   // Reset throttle counter
   this->m_EventWarningLowThrottledIntervalThrottle = 0;
+  // Reset throttle timeout
+  this->m_EventWarningLowThrottledIntervalThrottleTime.set(0, 0);
 }
 
 // ----------------------------------------------------------------------
