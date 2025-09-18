@@ -1199,20 +1199,6 @@ object Parser extends Parsers {
   private def literalString: Parser[String] =
     accept("string literal", { case Token.LITERAL_STRING(s) => s })
 
-  private def duration: Parser[Ast.Duration] =
-    accept("duration literal", { case Token.LITERAL_DURATION(value, scale) => {
-      scale match {
-        case DurationScale.PICO_SECONDS => Ast.Duration(value, Ast.Duration.PicoSeconds)
-        case DurationScale.NANO_SECONDS => Ast.Duration(value, Ast.Duration.NanoSeconds)
-        case DurationScale.MICRO_SECONDS => Ast.Duration(value, Ast.Duration.MicroSeconds)
-        case DurationScale.MILLI_SECONDS => Ast.Duration(value, Ast.Duration.MilliSeconds)
-        case DurationScale.SECONDS => Ast.Duration(value, Ast.Duration.Seconds)
-        case DurationScale.MINUTES => Ast.Duration(value, Ast.Duration.Minutes)
-        case DurationScale.HOURS => Ast.Duration(value, Ast.Duration.Hours)
-      }
-    }
-  })
-
   private def locate = accept("locate", { case t: Token.LOCATE => t })
 
   private def low = accept("low", { case t: Token.LOW => t })

@@ -160,9 +160,6 @@ object Lexer {
     /** the base of a number */
     var base: Int = 0
 
-    /** duration suffix unit */
-    var durationScale: DurationScale = DurationScale.SECONDS
-
     def copyFrom(td: TokenData): Unit = {
       this.token = td.token
       this.offset = td.offset
@@ -287,7 +284,6 @@ object Lexer {
         case LITERAL_FLOAT => Token.LITERAL_FLOAT(strVal)
         case LITERAL_INT => Token.LITERAL_INT(strVal)
         case LITERAL_STRING => Token.LITERAL_STRING(strVal)
-        case LITERAL_DURATION => Token.LITERAL_DURATION(strVal, durationScale)
         case LOCATE => Token.LOCATE()
         case LOW => Token.LOW()
         case LPAREN => Token.LPAREN()
@@ -758,9 +754,7 @@ object Lexer {
       } else {
         (ch: @switch) match {
           // Exponential form
-          case 'e' | 'E' |
-          // Time duration
-          'p' | 'n' | 'u' | 'm' | 's' | 'h' =>
+          case 'e' | 'E' =>
             if (base == 10) fetchFraction()
         }
 
@@ -799,41 +793,6 @@ object Lexer {
             }
           }
         }
-        // Seconds
-        case 's' =>
-          token = LITERAL_DURATION
-          durationScale = DurationScale.SECONDS
-          nextChar()
-        // Pico, nano, micro
-        case 'p' | 'n' | 'u' =>
-          (ch: @switch) match {
-            case 'p' => durationScale = DurationScale.PICO_SECONDS
-            case 'n' => durationScale = DurationScale.NANO_SECONDS
-            case 'u' => durationScale = DurationScale.MICRO_SECONDS
-          }
-
-          token = LITERAL_DURATION
-          nextChar()
-          if (ch != 's') {
-            error("Invalid duration suffix")
-          } else {
-            nextChar()
-          }
-        // Milli, minute
-        case 'm' =>
-          token = LITERAL_DURATION
-          nextChar()
-          if (ch == 's') {
-            // Milli-seconds
-            durationScale = DurationScale.MILLI_SECONDS
-          } else {
-            durationScale = DurationScale.MILLI_SECONDS
-          }
-        // Hour
-        case 'h' =>
-          token = LITERAL_DURATION
-          durationScale = DurationScale.HOURS
-          nextChar()
         case _ =>
       }
 
@@ -845,7 +804,6 @@ object Lexer {
         token match {
           case LITERAL_FLOAT => error(s"Invalid literal number")
           case LITERAL_INT => error(s"Invalid literal integer")
-          case LITERAL_DURATION => error(s"Invalid literal duration")
           case _ => error("Unexpected letter")
         }
     }

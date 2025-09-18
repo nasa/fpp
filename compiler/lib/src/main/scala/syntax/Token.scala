@@ -4,16 +4,6 @@ import scala.util.parsing.input.Positional
 
 sealed trait Token extends Positional
 
-enum DurationScale {
-  case PICO_SECONDS
-  case NANO_SECONDS
-  case MICRO_SECONDS
-  case MILLI_SECONDS
-  case SECONDS
-  case MINUTES
-  case HOURS
-}
-
 object Token {
   case object EOF extends Token
 
@@ -84,7 +74,6 @@ object Token {
   final case class LITERAL_FLOAT(str: String) extends Token
   final case class LITERAL_INT(str: String) extends Token
   final case class LITERAL_STRING(str: String) extends Token
-  final case class LITERAL_DURATION(str: String, scale: DurationScale) extends Token
   final case class LOCATE() extends Token
   final case class LOW() extends Token
   final case class LPAREN() extends Token
@@ -169,7 +158,6 @@ enum TokenId {
   case LITERAL_FLOAT
   case LITERAL_INT
   case LITERAL_STRING
-  case LITERAL_DURATION
 
   // Keywords
   case ACTION
