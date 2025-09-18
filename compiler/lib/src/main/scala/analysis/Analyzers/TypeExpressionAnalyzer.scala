@@ -192,8 +192,8 @@ trait TypeExpressionAnalyzer
   }
 
   override def specEventAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecEvent]]) = {
-    def eventThrottle(a: Analysis, node: Ast.EventThrottle) = {
-      exprNode(a, node.count)
+    def eventThrottle(a: Analysis, node: AstNode[Ast.EventThrottle]) = {
+      exprNode(a, node.data.count)
     }
 
     val (_, node1, _) = node
