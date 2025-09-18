@@ -46,15 +46,37 @@ object Event {
         else Right(())
       }
       def getEveryIntervalValue(every: AstNode[Ast.Expr]) = {
-        every.data match {
-          case Ast.ExprStruct(members) => {
-            for {
-              seconds <- a.getNonnegativeIntValue(members.find(_.data.name == "seconds").get.id)
-              useconds <- a.getNonnegativeIntValue(members.find(_.data.name == "useconds").get.id)
-            } yield TimeInterval(seconds, useconds)
+        val loc = Locations.get(every.id)
+        val Value.AnonStruct(intervalValue) = Analysis.convertValueToType(a.valueMap(every.id), Type.AnonStruct(
+          Map(
+            ("seconds", Type.U32),
+            ("useconds", Type.U32),
+          )
+        ))
+        def getNonZeroMember(member: String, maxValue: Option[Int] = None) = {
+          val Value.PrimitiveInt(v, Type.PrimitiveInt.U32) = Analysis.convertValueToType(
+            intervalValue.get(member).get,
+            Type.U32
+          )
+
+          if (v < 0) {
+            Left(SemanticError.InvalidIntValue(
+              loc, v, s"$member may not be negative"
+            ))
+          } else {
+            maxValue match {
+              case Some(m) => if v >= m then
+                Left(SemanticError.InvalidIntValue(
+                  loc, v, s"$member must be smaller than $m"
+                )) else Right(v.intValue)
+              case None => Right(v.intValue)
+            }
           }
-          case _ => throw InternalError("invalid interval value")
         }
+        for {
+          seconds <- getNonZeroMember("seconds")
+          useconds <- getNonZeroMember("useconds", Some(1_000_000))
+        } yield TimeInterval(seconds, useconds)
       }
       def checkEventThrottle(throttle: Ast.EventThrottle) = {
         for {

@@ -7,6 +7,7 @@ import fpp.compiler.util._
 object ConstructImpliedUseMap
   extends Analyzer
   with ModuleAnalyzer
+  with ComponentAnalyzer
 {
 
   override def defTopologyAnnotatedNode(
