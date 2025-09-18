@@ -1,3 +1,0 @@
-tests="
-import_pattern
-"
