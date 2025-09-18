@@ -529,7 +529,7 @@ object Ast {
     severity: SpecEvent.Severity,
     id: Option[AstNode[Expr]],
     format: AstNode[String],
-    throttle: Option[EventThrottle]
+    throttle: Option[AstNode[EventThrottle]]
   )
   object SpecEvent {
     /** Event severity */

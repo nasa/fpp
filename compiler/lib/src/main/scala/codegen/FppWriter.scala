@@ -483,9 +483,9 @@ object FppWriter extends AstVisitor with LineUtils {
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]
   ) = {
-    def eventThrottle(throttle: Ast.EventThrottle) = {
-      exprNode(throttle.count).
-        joinOptWithBreak (throttle.every) ("every ") (exprNode)
+    def eventThrottle(throttle: AstNode[Ast.EventThrottle]) = {
+      exprNode(throttle.data.count).
+        joinOptWithBreak (throttle.data.every) ("every ") (exprNode)
     }
 
     val (_, node, _) = aNode

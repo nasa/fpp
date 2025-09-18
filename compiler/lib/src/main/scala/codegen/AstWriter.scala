@@ -429,10 +429,10 @@ object AstWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
 
-    def throttleClause(throttle: Ast.EventThrottle) = {
+    def throttleClause(throttle: AstNode[Ast.EventThrottle]) = {
       List.concat(
-        addPrefix("throttle", exprNode) (throttle.count),
-        linesOpt(addPrefix("every", exprNode), throttle.every),
+        addPrefix("throttle", exprNode) (throttle.data.count),
+        linesOpt(addPrefix("every", exprNode), throttle.data.every),
       )
     }
 

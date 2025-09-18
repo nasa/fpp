@@ -317,7 +317,7 @@ object ComponentXmlFppWriter extends LineUtils {
                 AstNode.create(format),
                 throttle match {
                   case Some(count) =>
-                    Some(Ast.EventThrottle(count, None))
+                    Some(AstNode.create(Ast.EventThrottle(count, None)))
                   case None => None
                 },
               )
