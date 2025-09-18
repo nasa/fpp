@@ -58,9 +58,7 @@ not effect analysis outside the template definition.
 
 .. Construct implied use map.
 
-.. Check uses. Uses inside the template definition will be promoted to
-<<Scoping-of-Names_Fully-Qualified-Identifiers,fully qualified names>>
-after they are resolved.
+.. Check uses.
 
 .. Check use-definition cycles.
 

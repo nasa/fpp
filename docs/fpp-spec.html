@@ -939,9 +939,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Conflicting-Definitions">16.4.3. Conflicting Definitions</a></li>
 </ul>
 </li>
-<li><a href="#Scoping-of-Names_Fully-Qualified-Identifiers">16.5. Fully Qualified Identifiers</a></li>
-<li><a href="#Scoping-of-Names_Resolution-of-Identifiers">16.6. Resolution of Identifiers</a></li>
-<li><a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">16.7. Resolution of Qualified Identifiers</a></li>
+<li><a href="#Scoping-of-Names_Resolution-of-Identifiers">16.5. Resolution of Identifiers</a></li>
+<li><a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">16.6. Resolution of Qualified Identifiers</a></li>
 </ul>
 </li>
 <li><a href="#Definitions-and-Uses">17. Definitions and Uses</a>
@@ -2945,9 +2944,7 @@ not effect analysis outside the template definition.</p>
 <p>Construct implied use map.</p>
 </li>
 <li>
-<p>Check uses. Uses inside the template definition will be promoted to
-<a href="#Scoping-of-Names_Fully-Qualified-Identifiers">fully qualified names</a>
-after they are resolved.</p>
+<p>Check uses.</p>
 </li>
 <li>
 <p>Check use-definition cycles.</p>
@@ -9810,15 +9807,15 @@ directory in the environment where the analysis occurs.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><em>R</em></p>
+<p><em>Q</em></p>
 </li>
 <li>
-<p><code>.</code> <em>R</em></p>
+<p><code>.</code> <em>Q</em></p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>where <em>R</em> is one of the following:</p>
+<p>where <em>Q</em> is one of the following:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -9827,9 +9824,13 @@ directory in the environment where the analysis occurs.</p>
 <a href="#Lexical-Elements_Identifiers">identifier</a>.</p>
 </li>
 <li>
-<p><em>R</em> <code>.</code> <em>I</em>, where <em>R</em> is a qualified identifier.</p>
+<p><em>Q</em> <code>.</code> <em>I</em>.</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>A qualified identifier <em>Q</em> is <strong>scope relative</strong>.
+A qualified identifier <code>.</code> <em>Q</em> is <strong>absolute</strong>.</p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -10064,43 +10065,7 @@ module M {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Scoping-of-Names_Fully-Qualified-Identifiers">16.5. Fully Qualified Identifiers</h3>
-<div class="paragraph">
-<p>A fully qualfied identifier is a special type of qualified identfier
-that begins with <code>.</code>. This type of identifier</p>
-</div>
-<div class="paragraph">
-<p>Name shadowing can happen if a definition in an inner scope overlaps the
-unqualified name of a definition in an outer scope. For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 0
-module M {
-  constant a = 1 # M.a shadows a
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In this case, <code>a</code> is shadowed by <code>M.a</code> while inside the module <code>M</code>.
-To refer to the global <code>a</code>, a global qualifier is needed to disambiguate
-the name:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 0
-module M {
-  constant a = 1 # M.a shadows a
-
-  constant b1 = a # Refers to M.a (1)
-  constant b2 = M.a # Refers to M.a (1)
-  constant b3 = .a # Refers to a (0)
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="Scoping-of-Names_Resolution-of-Identifiers">16.6. Resolution of Identifiers</h3>
+<h3 id="Scoping-of-Names_Resolution-of-Identifiers">16.5. Resolution of Identifiers</h3>
 <div class="paragraph">
 <p>The following rules govern the resolution of identifiers, i.e.,
 associating identifiers with definitions:</p>
@@ -10201,7 +10166,7 @@ module M {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Scoping-of-Names_Resolution-of-Qualified-Identifiers">16.7. Resolution of Qualified Identifiers</h3>
+<h3 id="Scoping-of-Names_Resolution-of-Qualified-Identifiers">16.6. Resolution of Qualified Identifiers</h3>
 <div class="paragraph">
 <p>The following rules govern the resolution of
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifiers</a>, i.e.,
@@ -10213,6 +10178,12 @@ associating qualified identifiers with definitions:</p>
 <p>If a qualified identifier is an identifier, then resolve it as
 stated in the
 <a href="#Scoping-of-Names_Resolution-of-Identifiers">previous section</a>.</p>
+</li>
+<li>
+<p>If a qualified identifier is of the form <code>.</code> <em>I</em>, then resolve it as
+stated in the
+<a href="#Scoping-of-Names_Resolution-of-Identifiers">previous section</a> as if <em>I</em> were
+appearing at the top level.</p>
 </li>
 <li>
 <p>If a qualified identifier is of the form <em>Q</em> <code>.</code> <em>I</em>, where
@@ -10241,18 +10212,6 @@ If there is none, issue an error.</p>
 </li>
 <li>
 <p>Otherwise the qualified identifier is invalid. Issue an error.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>If a qualfied identifier is of the form <code>.</code> <em>Q</em>, where <em>Q</em> is a qualfied identifer,
-Do the following:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Find the definition <em>D</em> with the fully qualfied name <em>Q</em>.
-If there is none, issue an error.</p>
 </li>
 </ol>
 </div>
@@ -12374,7 +12333,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-17 14:32:45 -0700
+Last updated 2025-09-17 16:09:51 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
