@@ -19,4 +19,5 @@ not_displayable
 ok
 ref_params
 throttle_too_large
+zero_throttle_interval
 "

@@ -76,6 +76,12 @@ object Event {
         for {
           seconds <- getNonZeroMember("seconds")
           useconds <- getNonZeroMember("useconds", Some(1_000_000))
+          _ <- {
+            if (seconds + useconds) > 0 then Right(())
+            else Left(SemanticError.InvalidIntValue(
+              loc, 0, s"time interval must be greater than 0"
+            ))
+          }
         } yield TimeInterval(seconds, useconds)
       }
       def checkEventThrottle(throttle: Ast.EventThrottle) = {
