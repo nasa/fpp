@@ -2395,7 +2395,10 @@
             ]
           },
           "throttle" : {
-            "Some" : 10
+            "Some" : {
+              "count" : 10,
+              "every" : "None"
+            }
           }
         },
         "2" : {
@@ -2416,7 +2419,15 @@
             ]
           },
           "throttle" : {
-            "Some" : 10
+            "Some" : {
+              "count" : 10,
+              "every" : {
+                "Some" : {
+                  "seconds" : 10,
+                  "useconds" : 10
+                }
+              }
+            }
           }
         },
         "9" : {
@@ -2624,13 +2635,6 @@
     
   },
   "typeMap" : {
-    "193" : {
-      "Int" : {
-        "Integer" : {
-          
-        }
-      }
-    },
     "141" : {
       "Int" : {
         "Integer" : {
@@ -2646,6 +2650,13 @@
               
             }
           }
+        }
+      }
+    },
+    "155" : {
+      "Int" : {
+        "Integer" : {
+          
         }
       }
     },
@@ -2682,6 +2693,40 @@
       }
     },
     "172" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "157" : {
+      "AnonStruct" : {
+        "members" : {
+          "seconds" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          },
+          "useconds" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          }
+        }
+      }
+    },
+    "193" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "153" : {
       "Int" : {
         "Integer" : {
           
@@ -2786,14 +2831,14 @@
     }
   },
   "valueMap" : {
-    "193" : {
-      "Integer" : {
-        "value" : 6
-      }
-    },
     "141" : {
       "Integer" : {
         "value" : 16
+      }
+    },
+    "155" : {
+      "Integer" : {
+        "value" : 10
       }
     },
     "152" : {
@@ -2814,6 +2859,32 @@
     "172" : {
       "Integer" : {
         "value" : 9
+      }
+    },
+    "157" : {
+      "AnonStruct" : {
+        "members" : {
+          "seconds" : {
+            "Integer" : {
+              "value" : 10
+            }
+          },
+          "useconds" : {
+            "Integer" : {
+              "value" : 10
+            }
+          }
+        }
+      }
+    },
+    "193" : {
+      "Integer" : {
+        "value" : 6
+      }
+    },
+    "153" : {
+      "Integer" : {
+        "value" : 10
       }
     },
     "150" : {
