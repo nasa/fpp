@@ -84,10 +84,10 @@ object Event {
           }
         } yield TimeInterval(seconds, useconds)
       }
-      def checkEventThrottle(throttle: Ast.EventThrottle) = {
+      def checkEventThrottle(throttle: AstNode[Ast.EventThrottle]) = {
         for {
-          count <- a.getNonnegativeIntValue(throttle.count.id)
-          every <- Result.mapOpt(throttle.every, getEveryIntervalValue)
+          count <- a.getNonnegativeIntValue(throttle.data.count.id)
+          every <- Result.mapOpt(throttle.data.every, getEveryIntervalValue)
         } yield Throttle(count, every)
       }
       for {

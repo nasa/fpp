@@ -293,10 +293,10 @@ object CheckExprTypes extends UseAnalyzer {
         )
       ))
     }
-    def checkThrottle (a: Analysis) (throttle: Ast.EventThrottle) = {
+    def checkThrottle (a: Analysis) (throttle: AstNode[Ast.EventThrottle]) = {
       for {
-        _ <- convertNodeToNumeric(a, throttle.count)
-        _ <- Result.mapOpt(throttle.every, checkThrottleInterval(a))
+        _ <- convertNodeToNumeric(a, throttle.data.count)
+        _ <- Result.mapOpt(throttle.data.every, checkThrottleInterval(a))
       } yield a
     }
     for {
