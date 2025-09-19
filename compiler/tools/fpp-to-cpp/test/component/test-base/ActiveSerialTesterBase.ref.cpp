@@ -4038,6 +4038,21 @@ void ActiveSerialTesterBase ::
       break;
     }
 
+    case ActiveSerialComponentBase::EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL: {
+#if FW_AMPCS_COMPATIBLE
+      // For AMPCS, decode zero arguments
+      Fw::SerializeStatus _zero_status = Fw::FW_SERIALIZE_OK;
+      U8 _noArgs;
+      _zero_status = args.deserializeTo(_noArgs);
+      FW_ASSERT(
+        _zero_status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_zero_status)
+      );
+#endif
+      this->logIn_WARNING_LO_EventWarningLowThrottledInterval();
+      break;
+    }
+
     default: {
       FW_ASSERT(0, static_cast<FwAssertArgType>(id));
       break;
@@ -4132,6 +4147,13 @@ void ActiveSerialTesterBase ::
   logIn_WARNING_LO_EventWarningLowThrottled()
 {
   this->eventsSize_EventWarningLowThrottled++;
+  this->eventsSize++;
+}
+
+void ActiveSerialTesterBase ::
+  logIn_WARNING_LO_EventWarningLowThrottledInterval()
+{
+  this->eventsSize_EventWarningLowThrottledInterval++;
   this->eventsSize++;
 }
 
@@ -5326,6 +5348,7 @@ void ActiveSerialTesterBase ::
   this->eventHistory_EventFatalThrottled->clear();
   this->eventHistory_EventWarningHigh->clear();
   this->eventsSize_EventWarningLowThrottled = 0;
+  this->eventsSize_EventWarningLowThrottledInterval = 0;
 }
 
 #if FW_ENABLE_TEXT_LOGGING
