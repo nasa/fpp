@@ -64,7 +64,8 @@ module M {
     @ Event 1
     event Event1 severity activity low \
       id 0x10 \
-      format "Event 1 occurred"
+      format "Event 1 occurred" \
+      throttle 10
 
     @ Event 2
     event Event2(
@@ -72,7 +73,9 @@ module M {
     ) \
       severity command \
       id 2 \
-      format "Port {}"
+      format "Port {}" \
+      throttle 10 \
+      every {seconds=10,useconds=10}
 
     @ Event 3
     @ Event with 3 args

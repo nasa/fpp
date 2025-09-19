@@ -42,7 +42,7 @@ object Event {
           data.format,
           data.params.map(aNode => a.typeMap(aNode._2.data.typeName.id))
         )
-        throttle <- a.getNonnegativeIntValueOpt(data.throttle)
+        throttle <- a.getNonnegativeIntValueOpt(data.throttle.map(_.data.count))
       }
       yield Event(aNode, format, throttle)
    }
