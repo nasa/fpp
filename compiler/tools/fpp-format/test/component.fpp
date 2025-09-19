@@ -33,7 +33,7 @@ active component C {
   @< Telemetry channel specifier
 
   @ Event specifier
-  event E(a: U32, b: F32) severity activity low id 0x00 format "{} counts" throttle 10 every 40 seconds
+  event E(a: U32, b: F32) severity activity low id 0x00 format "{} counts" throttle 10
   @< Event specifier
 
   @ Internal port specifier
