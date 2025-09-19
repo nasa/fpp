@@ -25,10 +25,13 @@ evalp()
 # Get tool names from a directory
 get_tool_names()
 {
+  prefix="fpp-"
   dir=$1
-  for file in $dir/*.jar
+  for file in $dir/$prefix*
   do
-    basename $file .jar
+    base=`basename $file`
+    result="${base#$prefix}"
+    echo $result
   done
 }
 
@@ -86,26 +89,30 @@ print_phase "Constructing binary tools in $native_bin"
 # Get the tool names from bin
 tool_names=`get_tool_names bin`
 
+jar_file="bin/fpp.jar"
+out_file="$native_bin/fpp"
+echo "Building fpp"
+evalp "$native_image" $FPP_NATIVE_IMAGE_FLAGS \
+  --no-fallback --install-exit-handlers \
+  -jar "$jar_file" "$out_file"
+if [ $? -ne 0 ]
+then
+    echo "[ERROR] Failed to build $out_file"
+    exit 1
+fi
+sync; sync; sync;
+if ! $out_file --help 1>/dev/null
+then
+    echo "[ERROR] $out_file not executable"
+    exit 1
+fi
+
 # Use GraalVM to convert the jar files to native binaries
-for tool_name in $tool_names
+for tool in $tool_names
 do
-    jar_file="bin/$tool_name.jar"
-    out_file="$native_bin/$tool_name"
-    echo "Building $out_file"
-    evalp "$native_image" $FPP_NATIVE_IMAGE_FLAGS \
-      --no-fallback --install-exit-handlers \
-      -jar "$jar_file" "$out_file"
-    if [ $? -ne 0 ]
-    then
-        echo "[ERROR] Failed to build $out_file"
-        exit 1
-    fi
-    sync; sync; sync;
-    if ! $out_file --help 1>/dev/null
-    then
-        echo "[ERROR] $out_file not executable"
-        exit 1
-    fi
+  echo '#!/bin/sh
+  "`dirname $0`/fpp" '$tool' "$@"' > $native_bin/fpp-$tool
+  chmod +x $native_bin/fpp-$tool
 done
 sync; sync; sync;
 
