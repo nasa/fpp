@@ -81,6 +81,13 @@ object ImpliedUse {
     )
     else Nil
 
+  def getEventTimeIntervalTypes(a: Analysis) =
+    if (a.dictionaryGeneration) then List(
+      List("Fw", "TimeIntervalValue"),
+      List("Fw", "TimeInterval")
+    )
+    else Nil
+
   def replicateId(id: AstNode.Id) = {
     val loc = Locations.get(id)
     val id1 = AstNode.getId

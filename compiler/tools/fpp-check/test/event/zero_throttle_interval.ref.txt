@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/event/zero_throttle_interval.fpp:5.11
+    every {seconds=0}
+          ^
+error: invalid integer value 0
+time interval must be greater than 0
