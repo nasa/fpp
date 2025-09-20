@@ -2,7 +2,6 @@ package fpp.compiler.analysis
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
-import fpp.compiler.analysis.Type.PrimitiveInt
 
 /** Check F Prime framework definitions */
 object CheckFrameworkDefs
