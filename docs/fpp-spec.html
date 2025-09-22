@@ -6004,7 +6004,9 @@ product container Container2 default priority 10</code></pre>
 <h3 id="Specifiers_Event-Specifiers">7.5. Event Specifiers</h3>
 <div class="paragraph">
 <p>An <strong>event specifier</strong> specifies an event report as part of a
-<a href="#Definitions_Component-Definitions">component definition</a>.</p>
+<a href="#Definitions_Component-Definitions">component definition</a>.
+An event report conforming to an event specifier <em>E</em> is called
+an <strong>instance</strong> of <em>E</em>.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Event-Specifiers_Syntax">7.5.1. Syntax</h4>
@@ -6080,7 +6082,7 @@ If there are no parameters, the list may be omitted.
 </li>
 <li>
 <p>The optional expression <em>e</em> following <code>id</code> specifies the numeric
-identifier for the event.
+identifier for instances of the event.
 If <em>e</em> is present, then the type of <em>e</em> must be convertible to
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
 to a nonnegative integer.
@@ -6096,24 +6098,22 @@ parameters. A numeric format is allowed for any
 argument whose type is a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.</p>
 </li>
 <li>
-<p>The optional <em>throttle</em> syntax is for throttling events.
-It has the following meaning:</p>
+<p>The optional <em>throttle</em> syntax has the following meaning for an event <em>E</em>:</p>
 <div class="ulist">
 <ul>
 <li>
 <p>The expression <em>e</em> following <code>throttle</code> specifies the <strong>maximum throttle
-count</strong> for events with the specified numeric identifier.
+count</strong> for instances of <em>E</em>.
 The type of <em>e</em> must be convertible to
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a> and must evaluate to an integer
 in the range \$[0, 2^31)\$.
-For each event identifier <em>I</em> for which throttling is specified,
-the framework maintains a <strong>throttle count</strong>.
-The throttle count for identifier <em>I</em>
-starts at zero and goes up by one with each event emitted with identifier <em>I</em>.
-When the throttle count for identifier <em>I</em> equals the maximum throttle count
-for <em>I</em>, no more events
-with identifier <em>I</em> are emitted until the throttle count for identifier <em>I</em> is
-reset.</p>
+When throttling is specified for an event <em>E</em>,
+the framework maintains a <strong>throttle count</strong> for <em>E</em>.
+The throttle count
+starts at zero and goes up by one with each instance of <em>E</em> that is emitted.
+When the throttle count for <em>E</em> equals the maximum throttle count
+for <em>E</em>, no more instances of <em>E</em> are emitted until the throttle
+count for identifier <em>E</em> is reset.</p>
 </li>
 <li>
 <p>The optional expression <em>e</em> following <code>every</code> specifies the <strong>throttle
@@ -6137,15 +6137,15 @@ period</strong>.
 </ul>
 </div>
 <div class="paragraph">
-<p>If a throttle period \$p\$ is specified for event <em>I</em>, and the throttle
+<p>If a throttle period \$p\$ is specified for event <em>E</em>, and the throttle
 count
-for <em>I</em> goes from zero to nonzero at time \$t\$, and a request
-to emit event <em>I</em> occurs at or after time \$t + p\$, then the event is
-emitted,
-regardless of the throttle count for <em>I</em>, and the throttle count
-for <em>I</em> is automatically reset to zero.
-If no throttle period is specified for event <em>I</em>, then the throttle count
-for <em>I</em> must be reset in some other way (typically this is done by command).</p>
+for <em>E</em> goes from zero to nonzero at time \$t\$, and a request
+to emit an instance of <em>E</em> occurs at or after time \$t + p\$, then the
+instance is emitted,
+regardless of the throttle count for <em>E</em>, and the throttle count
+for <em>E</em> is automatically reset to zero.
+If no throttle period is specified for event <em>E</em>, then the throttle count
+for <em>E</em> must be reset in some other way (typically this is done by command).</p>
 </div>
 </li>
 </ul>
@@ -11889,7 +11889,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-22 13:21:26 -0700
+Last updated 2025-09-22 13:49:57 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

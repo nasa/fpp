@@ -2,6 +2,8 @@
 
 An *event specifier* specifies an event report as part of a
 <<Definitions_Component-Definitions,component definition>>.
+An event report conforming to an event specifier _E_ is called
+an *instance* of _E_.
 
 ==== Syntax
 
@@ -49,7 +51,7 @@ If there are no parameters, the list may be omitted.
 `ref` may not appear in any of the parameters.
 
 * The optional expression _e_ following `id` specifies the numeric
-identifier for the event.
+identifier for instances of the event.
 If _e_ is present, then the type of _e_ must be convertible to
 <<Types_Internal-Types_Integer,_Integer_>>, and _e_ must evaluate
 to a nonnegative integer.
@@ -63,22 +65,20 @@ ground. The arguments to the format string are the values bound to the event
 parameters. A numeric format is allowed for any
 argument whose type is a <<Types_Internal-Types_Numeric-Types,numeric type>>.
 
-* The optional _throttle_ syntax is for throttling events.
-It has the following meaning:
+* The optional _throttle_ syntax has the following meaning for an event _E_:
 
 ** The expression _e_ following `throttle` specifies the *maximum throttle
-count* for events with the specified numeric identifier.
+count* for instances of _E_.
 The type of _e_ must be convertible to
 <<Types_Internal-Types_Integer,_Integer_>> and must evaluate to an integer
 in the range stem:[[0, 2^31)].
-For each event identifier _I_ for which throttling is specified,
-the framework maintains a *throttle count*.
-The throttle count for identifier _I_
-starts at zero and goes up by one with each event emitted with identifier _I_.
-When the throttle count for identifier _I_ equals the maximum throttle count
-for _I_, no more events
-with identifier _I_ are emitted until the throttle count for identifier _I_ is 
-reset.
+When throttling is specified for an event _E_,
+the framework maintains a *throttle count* for _E_.
+The throttle count
+starts at zero and goes up by one with each instance of _E_ that is emitted.
+When the throttle count for _E_ equals the maximum throttle count
+for _E_, no more instances of _E_ are emitted until the throttle
+count for identifier _E_ is reset.
 
 ** The optional expression _e_ following `every` specifies the *throttle
 period*.
@@ -97,15 +97,15 @@ stem:[[0,10^6)], and stem:[s + u] must be greater than zero.
 
 +
 +
-If a throttle period stem:[p] is specified for event _I_, and the throttle 
+If a throttle period stem:[p] is specified for event _E_, and the throttle 
 count
-for _I_ goes from zero to nonzero at time stem:[t], and a request
-to emit event _I_ occurs at or after time stem:[t + p], then the event is 
-emitted,
-regardless of the throttle count for _I_, and the throttle count
-for _I_ is automatically reset to zero.
-If no throttle period is specified for event _I_, then the throttle count
-for _I_ must be reset in some other way (typically this is done by command).
+for _E_ goes from zero to nonzero at time stem:[t], and a request
+to emit an instance of _E_ occurs at or after time stem:[t + p], then the
+instance is emitted,
+regardless of the throttle count for _E_, and the throttle count
+for _E_ is automatically reset to zero.
+If no throttle period is specified for event _E_, then the throttle count
+for _E_ must be reset in some other way (typically this is done by command).
 
 ==== Examples
 
