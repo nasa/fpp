@@ -356,21 +356,43 @@ It is equivalent to this:
 constant a  = [ [ 1, 2, 3 ], [ 0, 0, 0 ] ] 
 ----
 
-===== Array Members
+==== Array Elements
 
-The member of an array can be selected through an *array subscript expression*.
+An *array element expression* represents an element of an array value.
+To write an array element expression, you write an array value
+followed by an index expression enclosed in square brackets.
+The index expression must resolve to a number.
+The number specifies the index of the array element, where the
+array indices start at zero.
 
 Here is an example:
 
 [source,fpp]
 ----
-constant s = [ 3, 2, 1 ]
-constant o = s[1] # equals 2
+constant a = [ 1, 2, 3 ]
+constant b = a[1]
 ----
 
-This code associates the name `s` with an array value and another name `o` with
-an element of `s`. The final value of `o` is `2`. The index in array subscript
-expressions are `0` indexed meaning the first element exists at index `0`.
+In this example, the constant `b` has the value 2.
+
+The index expression must resolve to a number that is in range
+for the array.
+For example, the following code is incorrect, because `"hello"` is not a number:
+
+[source,fpp]
+--------
+constant a = [ 1, 2, 3 ]
+constant b = a["hello"]
+constant c = a[3]
+--------
+
+The following code is incorrect because 3 is not in the range [0, 2]:
+
+[source,fpp]
+--------
+constant a = [ 1, 2, 3 ]
+constant b = a[3]
+--------
 
 ==== Struct Values
 

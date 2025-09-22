@@ -457,10 +457,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Constants_Expressions_Primitive-Values">3.3.1. Primitive Values</a></li>
 <li><a href="#Defining-Constants_Expressions_String-Values">3.3.2. String Values</a></li>
 <li><a href="#Defining-Constants_Expressions_Array-Values">3.3.3. Array Values</a></li>
-<li><a href="#Defining-Constants_Expressions_Struct-Values">3.3.4. Struct Values</a></li>
-<li><a href="#Defining-Constants_Expressions_Name-Expressions">3.3.5. Name Expressions</a></li>
-<li><a href="#Defining-Constants_Expressions_Value-Arithmetic-Expressions">3.3.6. Value Arithmetic Expressions</a></li>
-<li><a href="#Defining-Constants_Expressions_Compound-Expressions">3.3.7. Compound Expressions</a></li>
+<li><a href="#Defining-Constants_Expressions_Array-Elements">3.3.4. Array Elements</a></li>
+<li><a href="#Defining-Constants_Expressions_Struct-Values">3.3.5. Struct Values</a></li>
+<li><a href="#Defining-Constants_Expressions_Name-Expressions">3.3.6. Name Expressions</a></li>
+<li><a href="#Defining-Constants_Expressions_Value-Arithmetic-Expressions">3.3.7. Value Arithmetic Expressions</a></li>
+<li><a href="#Defining-Constants_Expressions_Compound-Expressions">3.3.8. Compound Expressions</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">3.4. Multiple Definitions and Element Sequences</a></li>
@@ -1357,29 +1358,53 @@ For example, this code is allowed:</p>
 </li>
 </ol>
 </div>
-<div class="sect4">
-<h5 id="Defining-Constants_Expressions_Array-Values_Array-Members">Array Members</h5>
+</div>
+<div class="sect3">
+<h4 id="Defining-Constants_Expressions_Array-Elements">3.3.4. Array Elements</h4>
 <div class="paragraph">
-<p>The member of an array can be selected through an <strong>array subscript expression</strong>.</p>
+<p>An <strong>array element expression</strong> represents an element of an array value.
+To write an array element expression, you write an array value
+followed by an index expression enclosed in square brackets.
+The index expression must resolve to a number.
+The number specifies the index of the array element, where the
+array indices start at zero.</p>
 </div>
 <div class="paragraph">
 <p>Here is an example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant s = [ 3, 2, 1 ]
-constant o = s[1] # equals 2</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ 1, 2, 3 ]
+constant b = a[1]</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This code associates the name <code>s</code> with an array value and another name <code>o</code> with
-an element of <code>s</code>. The final value of <code>o</code> is <code>2</code>. The index in array subscript
-expressions are <code>0</code> indexed meaning the first element exists at index <code>0</code>.</p>
+<p>In this example, the constant <code>b</code> has the value 2.</p>
+</div>
+<div class="paragraph">
+<p>The index expression must resolve to a number that is in range
+for the array.
+For example, the following code is incorrect, because <code>"hello"</code> is not a number:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ 1, 2, 3 ]
+constant b = a["hello"]
+constant c = a[3]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following code is incorrect because 3 is not in the range [0, 2]:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ 1, 2, 3 ]
+constant b = a[3]</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Constants_Expressions_Struct-Values">3.3.4. Struct Values</h4>
+<h4 id="Defining-Constants_Expressions_Struct-Values">3.3.5. Struct Values</h4>
 <div class="paragraph">
 <p>A <strong>struct value expression</strong> represents a C- or C&#43;&#43;-style structure, i.e., a
 mapping
@@ -1490,7 +1515,7 @@ associates <code>t</code> with the <code>x</code> member of <code>s</code>. <cod
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Constants_Expressions_Name-Expressions">3.3.5. Name Expressions</h4>
+<h4 id="Defining-Constants_Expressions_Name-Expressions">3.3.6. Name Expressions</h4>
 <div class="paragraph">
 <p>A <strong>name expression</strong> is a use of a name appearing in a constant definition.
 It stands for the associated constant value.
@@ -1538,7 +1563,7 @@ module definitions and enum definitions below.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Constants_Expressions_Value-Arithmetic-Expressions">3.3.6. Value Arithmetic Expressions</h4>
+<h4 id="Defining-Constants_Expressions_Value-Arithmetic-Expressions">3.3.7. Value Arithmetic Expressions</h4>
 <div class="paragraph">
 <p>A <strong>value arithmetic expression</strong> performs arithmetic on values.
 It is one of the following:</p>
@@ -1596,7 +1621,7 @@ floating-point values) very close to zero.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Constants_Expressions_Compound-Expressions">3.3.7. Compound Expressions</h4>
+<h4 id="Defining-Constants_Expressions_Compound-Expressions">3.3.8. Compound Expressions</h4>
 <div class="paragraph">
 <p>Wherever you can write a value inside an expression, you can write
 a more complex expression there, so long as the types work out.
@@ -15737,7 +15762,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-10 18:54:25 -0700
+Last updated 2025-09-22 09:22:57 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
