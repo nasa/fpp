@@ -428,6 +428,14 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
+
+    def throttleClause(throttle: AstNode[Ast.EventThrottle]) = {
+      List.concat(
+        addPrefix("throttle", exprNode) (throttle.data.count),
+        linesOpt(addPrefix("every", exprNode), throttle.data.every),
+      )
+    }
+
     lines("spec event") ++
     List.concat(
       ident(data.name),
@@ -435,7 +443,7 @@ object AstWriter extends AstVisitor with LineUtils {
       lines(s"severity ${data.severity.toString}"),
       linesOpt(addPrefix("id", exprNode), data.id),
       addPrefix("format", string) (data.format.data),
-      linesOpt(addPrefix("throttle", exprNode), data.throttle),
+      linesOpt(throttleClause, data.throttle)
     ).map(indentIn)
   }
 

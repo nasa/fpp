@@ -285,7 +285,7 @@ object CheckExprTypes extends UseAnalyzer {
     for {
       a <- super.specEventAnnotatedNode(a, aNode)
       _ <- convertNodeToNumericOpt(a, data.id)
-      _ <- convertNodeToNumericOpt(a, data.throttle)
+      _ <- convertNodeToNumericOpt(a, data.throttle.map(_.data.count))
     }
     yield a
   }
