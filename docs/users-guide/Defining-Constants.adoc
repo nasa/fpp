@@ -383,7 +383,6 @@ For example, this code is incorrect, because `"hello"` is not a number:
 --------
 constant a = [ 1, 2, 3 ]
 constant b = a["hello"]
-constant c = a[3]
 --------
 
 This code is incorrect because 3 is not in the range [0, 2]:
