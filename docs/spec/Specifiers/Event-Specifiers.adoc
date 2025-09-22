@@ -2,6 +2,8 @@
 
 An *event specifier* specifies an event report as part of a
 <<Definitions_Component-Definitions,component definition>>.
+An event report conforming to an event specifier _E_ is called
+an *instance* of _E_.
 
 ==== Syntax
 
@@ -16,7 +18,7 @@ _[_
 _]_
 `format` <<Expressions_String-Literals,_string-literal_>>
 _[_
-`throttle` <<Expressions,_expression_>>
+`throttle` _throttle_
 _]_
 
 _severity_ is one of the following:
@@ -28,6 +30,13 @@ _severity_ is one of the following:
 * `fatal`
 * `warning` `high`
 * `warning` `low`
+
+_throttle_ is defined as follows:
+
+<<Expressions,_expression_>>
+_[_
+`every` <<Expressions,_expression_>>
+_]_
 
 ==== Semantics
 
@@ -42,7 +51,7 @@ If there are no parameters, the list may be omitted.
 `ref` may not appear in any of the parameters.
 
 * The optional expression _e_ following `id` specifies the numeric
-identifier for the event.
+identifier for instances of the event.
 If _e_ is present, then the type of _e_ must be convertible to
 <<Types_Internal-Types_Integer,_Integer_>>, and _e_ must evaluate
 to a nonnegative integer.
@@ -56,11 +65,47 @@ ground. The arguments to the format string are the values bound to the event
 parameters. A numeric format is allowed for any
 argument whose type is a <<Types_Internal-Types_Numeric-Types,numeric type>>.
 
-* The optional expression _e_ following `throttle` specifies the maximum number
-of times to emit the event before throttling it.
+* The optional _throttle_ syntax has the following meaning for an event _E_:
+
+** The expression _e_ following `throttle` specifies the *maximum throttle
+count* for instances of _E_.
 The type of _e_ must be convertible to
 <<Types_Internal-Types_Integer,_Integer_>> and must evaluate to an integer
-in the range [0,2^31^).
+in the range stem:[[0, 2^31)].
+When throttling is specified for an event _E_,
+the framework maintains a *throttle count* for _E_.
+The throttle count
+starts at zero and goes up by one with each instance of _E_ that is emitted.
+When the throttle count for _E_ equals the maximum throttle count
+for _E_, no more instances of _E_ are emitted until the throttle
+count for identifier _E_ is reset.
+
+** The optional expression _e_ following `every` specifies the *throttle
+period*.
+_e_ must satisfy the following rules:
+
+*** The type of _e_ must be convertible to the
+<<Types_Internal-Types_Anonymous-Struct-Types,
+anonymous struct type>> _T =_ `{ seconds: U32, useconds: U32 }`.
+
+*** After conversion to _T_, _e_ must evaluate to an
+<<Values_Anonymous-Struct-Values,anonymous struct value>>
+`{ seconds =` _s_ `:U32, useconds =` _u_ `:U32 }`.
+
+*** _s_ must be in the range stem:[[0, 2^31)], _u_ must be in the range
+stem:[[0,10^6)], and stem:[s + u] must be greater than zero.
+
++
++
+If a throttle period stem:[p] is specified for event _E_, and the throttle 
+count
+for _E_ goes from zero to nonzero at time stem:[t], and a request
+to emit an instance of _E_ occurs at or after time stem:[t + p], then the
+instance is emitted,
+regardless of the throttle count for _E_, and the throttle count
+for _E_ is automatically reset to zero.
+If no throttle period is specified for event _E_, then the throttle count
+for _E_ must be reset in some other way (typically this is done by command).
 
 ==== Examples
 
@@ -97,4 +142,16 @@ event Event2(
   id 0x02 \
   format "Saw value {} for case {}" \
   throttle 10
+
+@ Event 3
+@ Sample output: "Saw value [ 0.001, 0.002, 0.003 ] for case A"
+event Event3(
+  case: Case @< The case
+  value: F64x3 @< The value
+) \
+  severity warning low \
+  id 0x02 \
+  format "Saw value {} for case {}" \
+  throttle 10
+  every {seconds=10}
 ----
