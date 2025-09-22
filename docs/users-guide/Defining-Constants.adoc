@@ -377,7 +377,7 @@ In this example, the constant `b` has the value 2.
 
 The index expression must resolve to a number that is in range
 for the array.
-For example, the following code is incorrect, because `"hello"` is not a number:
+For example, this code is incorrect, because `"hello"` is not a number:
 
 [source,fpp]
 --------
@@ -386,7 +386,7 @@ constant b = a["hello"]
 constant c = a[3]
 --------
 
-The following code is incorrect because 3 is not in the range [0, 2]:
+This code is incorrect because 3 is not in the range [0, 2]:
 
 [source,fpp]
 --------
@@ -478,19 +478,38 @@ So the code above is equivalent to the following:
 constant a = [ { x = 1, y = 2 }, { x = 3, y = 0 } ]
 ----
 
-===== Struct Members
+==== Struct Members
 
-A member of a struct may be selected through a `.` operator.
+A *struct member expression* represents a member of a struct value.
+To write a struct member expression, you write a struct value followed
+by a dot and the member name.
 For example:
 
 [source,fpp]
 ----
-constant s = { x = 1, y = [ 2, 3 ] }
-constant t = s.x # 1
+constant a = { x = 1, y = [ 2, 3 ] }
+constant b = a.y
 ----
 
-This code associates `s` with a struct value with members `x` and `y`. It also
-associates `t` with the `x` member of `s`. `t` will have the value `1`.
+Here `a` is a struct value with members `x` and `y`
+The constant `b` has the array value `[ 2, 3 ]`, which is the
+value stored in member `y` of `a`.
+
+This code is incorrect because `a` is not a struct value:
+
+[source,fpp]
+--------
+constant a = 0
+constant b = a.y
+--------
+
+This code is incorrect because `z` is not a member of `a`:
+
+[source,fpp]
+--------
+constant a = { x = 1, y = [ 2, 3 ] }
+constant b = a.z
+--------
 
 ==== Name Expressions
 
