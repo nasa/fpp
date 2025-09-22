@@ -66,7 +66,7 @@ argument whose type is a <<Types_Internal-Types_Numeric-Types,numeric type>>.
 * The optional _throttle_ syntax is for throttling events.
 It has the following meaning:
 
-** The expression _e_ following `throttle` specifies the *maximum throttle 
+** The expression _e_ following `throttle` specifies the *maximum throttle
 count*.
 The type of _e_ must be convertible to
 <<Types_Internal-Types_Integer,_Integer_>> and must evaluate to an integer
@@ -76,25 +76,25 @@ starts at zero and goes up by one with each event emitted.
 When the throttle count equals the maximum throttle count, no more events
 are emitted until the throttle count is reset.
 
-** The optional expression _e_ following `every` specifies the *throttle 
+** The optional expression _e_ following `every` specifies the *throttle
 period*.
 _e_ must satisfy the following rules:
 
-*** The type of _e_ must be convertible to the 
+*** The type of _e_ must be convertible to the
 <<Types_Internal-Types_Anonymous-Struct-Types,
 anonymous struct type>> _T =_ `{ seconds: U32, useconds: U32 }`.
 
-*** After conversion to _T_, _e_ must evaluate to an 
+*** After conversion to _T_, _e_ must evaluate to an
 <<Values_Anonymous-Struct-Values,anonymous struct value>>
 `{ seconds =` _s_ `:U32, useconds =` _u_ `:U32 }`.
 
-*** _s_ must be in the range stem:[[0, 2^31)], _u_ must be in the range 
+*** _s_ must be in the range stem:[[0, 2^31)], _u_ must be in the range
 stem:[[0,10^6)], and stem:[s + u] must be greater than zero.
 
 +
 +
 If a throttle period stem:[p] is specified, and the throttle count
-goes from zero to nonzero at time stem:[t], then the throttle count is 
+goes from zero to nonzero at time stem:[t], then the throttle count is
 automatically reset to zero at time stem:[t + p].
 If no throttle period is specified, then the throttle count must be
 reset in some other way (typically this is done by command).
