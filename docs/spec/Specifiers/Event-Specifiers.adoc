@@ -67,7 +67,8 @@ in the range [0,2^31^).
 to elapse before clearing the event throttle. _e_ must satisfy the following
 rules:
 
-** Convertible to a <<Types_Struct-Types,struct type>> with shape `{seconds: U32, useconds: U32}`
+** Convertible to the <<Types_Internal-Types_Anonymous-Struct-Types,
+anonymous struct type>> `{seconds: U32, useconds: U32}`
 
 ** `seconds` must evaluate to an integer in the range [0,2^31^)
 
