@@ -67,14 +67,18 @@ argument whose type is a <<Types_Internal-Types_Numeric-Types,numeric type>>.
 It has the following meaning:
 
 ** The expression _e_ following `throttle` specifies the *maximum throttle
-count*.
+count* for events with the specified numeric identifier.
 The type of _e_ must be convertible to
 <<Types_Internal-Types_Integer,_Integer_>> and must evaluate to an integer
 in the range stem:[[0, 2^31)].
-When the FSW asks the framework to emit events, a *throttle count*
-starts at zero and goes up by one with each event emitted.
-When the throttle count equals the maximum throttle count, no more events
-are emitted until the throttle count is reset.
+For each event identifier _I_ for which throttling is specified,
+the framework maintains a *throttle count*.
+The throttle count for identifier _I_
+starts at zero and goes up by one with each event emitted with identifier _I_.
+When the throttle count for identifier _I_ equals the maximum throttle count
+for _I_, no more events
+with identifier _I_ are emitted until the throttle count for identifier _I_ is 
+reset.
 
 ** The optional expression _e_ following `every` specifies the *throttle
 period*.
@@ -93,12 +97,15 @@ stem:[[0,10^6)], and stem:[s + u] must be greater than zero.
 
 +
 +
-If a throttle period stem:[p] is specified, and the throttle count
-goes from zero to nonzero at time stem:[t], and an event request
-occurs at or after time stem:[t + p], then the throttle count is
-automatically reset to zero.
-If no throttle period is specified, then the throttle count must be
-reset in some other way (typically this is done by command).
+If a throttle period stem:[p] is specified for event _I_, and the throttle 
+count
+for _I_ goes from zero to nonzero at time stem:[t], and a request
+to emit event _I_ occurs at or after time stem:[t + p], then the event is 
+emitted,
+regardless of the throttle count for _I_, and the throttle count
+for _I_ is automatically reset to zero.
+If no throttle period is specified for event _I_, then the throttle count
+for _I_ must be reset in some other way (typically this is done by command).
 
 ==== Examples
 

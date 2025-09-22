@@ -6102,14 +6102,18 @@ It has the following meaning:</p>
 <ul>
 <li>
 <p>The expression <em>e</em> following <code>throttle</code> specifies the <strong>maximum throttle
-count</strong>.
+count</strong> for events with the specified numeric identifier.
 The type of <em>e</em> must be convertible to
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a> and must evaluate to an integer
 in the range \$[0, 2^31)\$.
-When the FSW asks the framework to emit events, a <strong>throttle count</strong>
-starts at zero and goes up by one with each event emitted.
-When the throttle count equals the maximum throttle count, no more events
-are emitted until the throttle count is reset.</p>
+For each event identifier <em>I</em> for which throttling is specified,
+the framework maintains a <strong>throttle count</strong>.
+The throttle count for identifier <em>I</em>
+starts at zero and goes up by one with each event emitted with identifier <em>I</em>.
+When the throttle count for identifier <em>I</em> equals the maximum throttle count
+for <em>I</em>, no more events
+with identifier <em>I</em> are emitted until the throttle count for identifier <em>I</em> is
+reset.</p>
 </li>
 <li>
 <p>The optional expression <em>e</em> following <code>every</code> specifies the <strong>throttle
@@ -6133,12 +6137,15 @@ period</strong>.
 </ul>
 </div>
 <div class="paragraph">
-<p>If a throttle period \$p\$ is specified, and the throttle count
-goes from zero to nonzero at time \$t\$, and an event request
-occurs at or after time \$t + p\$, then the throttle count is
-automatically reset to zero.
-If no throttle period is specified, then the throttle count must be
-reset in some other way (typically this is done by command).</p>
+<p>If a throttle period \$p\$ is specified for event <em>I</em>, and the throttle
+count
+for <em>I</em> goes from zero to nonzero at time \$t\$, and a request
+to emit event <em>I</em> occurs at or after time \$t + p\$, then the event is
+emitted,
+regardless of the throttle count for <em>I</em>, and the throttle count
+for <em>I</em> is automatically reset to zero.
+If no throttle period is specified for event <em>I</em>, then the throttle count
+for <em>I</em> must be reset in some other way (typically this is done by command).</p>
 </div>
 </li>
 </ul>
@@ -11882,7 +11889,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-22 12:00:45 -0700
+Last updated 2025-09-22 13:21:26 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
