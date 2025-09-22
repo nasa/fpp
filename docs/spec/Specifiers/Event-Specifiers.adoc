@@ -94,8 +94,9 @@ stem:[[0,10^6)], and stem:[s + u] must be greater than zero.
 +
 +
 If a throttle period stem:[p] is specified, and the throttle count
-goes from zero to nonzero at time stem:[t], then the throttle count is
-automatically reset to zero at time stem:[t + p].
+goes from zero to nonzero at time stem:[t], and an event request
+occurs at or after time stem:[t + p], then the throttle count is
+automatically reset to zero.
 If no throttle period is specified, then the throttle count must be
 reset in some other way (typically this is done by command).
 

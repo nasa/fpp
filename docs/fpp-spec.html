@@ -6134,8 +6134,9 @@ period</strong>.
 </div>
 <div class="paragraph">
 <p>If a throttle period \$p\$ is specified, and the throttle count
-goes from zero to nonzero at time \$t\$, then the throttle count is
-automatically reset to zero at time \$t + p\$.
+goes from zero to nonzero at time \$t\$, and an event request
+occurs at or after time \$t + p\$, then the throttle count is
+automatically reset to zero.
 If no throttle period is specified, then the throttle count must be
 reset in some other way (typically this is done by command).</p>
 </div>
@@ -11881,7 +11882,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-22 11:57:45 -0700
+Last updated 2025-09-22 12:00:45 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
