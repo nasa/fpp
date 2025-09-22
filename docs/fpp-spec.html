@@ -6020,8 +6020,7 @@ product container Container2 default priority 10</code></pre>
 <em>]</em>
 <code>format</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a>
 <em>[</em>
-<code>throttle</code> <a href="#Expressions"><em>expression</em></a>
-<em>[</em> <code>every</code> <a href="#Expressions"><em>expression</em></a> <em>]</em>
+<code>throttle</code> <em>throttle</em>
 <em>]</em></p>
 </div>
 <div class="paragraph">
@@ -6051,6 +6050,15 @@ product container Container2 default priority 10</code></pre>
 <p><code>warning</code> <code>low</code></p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p><em>throttle</em> is defined as follows:</p>
+</div>
+<div class="paragraph">
+<p><a href="#Expressions"><em>expression</em></a>
+<em>[</em>
+<code>every</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em></p>
 </div>
 </div>
 <div class="sect3">
@@ -6088,29 +6096,49 @@ parameters. A numeric format is allowed for any
 argument whose type is a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.</p>
 </li>
 <li>
-<p>The optional expression <em>e</em> following <code>throttle</code> specifies the maximum number
-of times to emit the event before throttling it.
-The type of <em>e</em> must be convertible to
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a> and must evaluate to an integer
-in the range [0,2<sup>31</sup>).</p>
-</li>
-<li>
-<p>The optional expression <em>e</em> following <code>every</code> specifies the maximum time period
-to elapse before clearing the event throttle. <em>e</em> must satisfy the following
-rules:</p>
+<p>The optional <em>throttle</em> syntax is for throttling events.
+It has the following meaning:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Convertible to the <a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct type</a> <code>{seconds: U32, useconds: U32}</code></p>
+<p>The expression <em>e</em> following <code>throttle</code> specifies the <strong>maximum throttle
+count</strong>.
+The type of <em>e</em> must be convertible to
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a> and must evaluate to an integer
+in the range \$[0, 2^31)\$.
+When the FSW asks the framework to emit events, a <strong>throttle count</strong>
+starts at zero and goes up by one with each event emitted.
+When the throttle count equals the maximum throttle count, no more events
+are emitted until the throttle count is reset.</p>
 </li>
 <li>
-<p><code>seconds</code> must evaluate to an integer in the range [0,2<sup>31</sup>)</p>
+<p>The optional expression <em>e</em> following <code>every</code> specifies the <strong>throttle
+period</strong>.
+<em>e</em> must satisfy the following rules:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The type of <em>e</em> must be convertible to the
+<a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct type</a> <em>T =</em> <code>{ seconds: U32, useconds: U32 }</code>.</p>
 </li>
 <li>
-<p><code>useconds</code> must evaluate to an integer in the range [0,10<sup>6</sup>)</p>
+<p>After conversion to <em>T</em>, <em>e</em> must evaluate to an
+<a href="#Values_Anonymous-Struct-Values">anonymous struct value</a>
+<code>{ seconds =</code> <em>s</em> <code>:U32, useconds =</code> <em>u</em> <code>:U32 }</code>.</p>
 </li>
 <li>
-<p><code>seconds</code> + <code>useconds</code> must be greater than zero</p>
+<p><em>s</em> must be in the range \$[0, 2^31)\$, <em>u</em> must be in the range
+\$[0,10^6)\$, and \$s + u\$ must be greater than zero.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If a throttle period \$p\$ is specified, and the throttle count
+goes from zero to nonzero at time \$t\$, then the throttle count is
+automatically reset to zero at time \$t + p\$.
+If no throttle period is specified, then the throttle count must be
+reset in some other way (typically this is done by command).</p>
+</div>
 </li>
 </ul>
 </div>
@@ -11853,7 +11881,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-22 10:15:59 -0700
+Last updated 2025-09-22 11:54:34 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
