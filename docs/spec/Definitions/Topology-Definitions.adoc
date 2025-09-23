@@ -50,9 +50,12 @@ The identifier is the name of the topology.
 All <<Specifiers_Topology-Port-Instance-Specifiers,topology port instance specifiers>>
 inside the topology must have a distinct name.
 
-The set of all <<Specifiers_Topology-Port-Instance-Specifiers,topology port instance specifiers>>
-make up the enclosing topology's <<Ports_Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces,
-anonymous port interface>>. To compute the interface port instance set is computed as follows:
+The set of all <<Specifiers_Topology-Port-Instance-Specifiers,topology port 
+instance specifiers>>
+make up the enclosing topology's 
+anonymous port interface. (TODO)
+To compute the interface port instance set is 
+computed as follows:
 
 . For each topology port instance specifier with name _p'_ and _port-instance-id_ _I_ `.` _p_ in the topology:
 
@@ -64,7 +67,7 @@ If _interface-list_ is provided, each element of the list must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>> an
 <<Definitions_Port-Interface-Definitions,interface definition stem:[K_i]>>.
 This optional clause is a compile-time check that
-verifies that this topology can <<Ports_Binding-of-Port-Interfaces,bind to>> all 
+verifies that this topology can bind to (TODO) all 
 stem:[K_i].
 
 A topology definition _D_ must be resolvable to a topology _T_,

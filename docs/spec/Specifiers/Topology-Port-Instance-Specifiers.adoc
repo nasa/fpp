@@ -1,10 +1,10 @@
 === Topology Port Instance Specifiers
 
-A *topology port instance specifier* names a <<Specifiers_Port-Instance-Specifiers,
-port instance>> on a <<Definitions_Topology-Definitions,
-topology definition>>. This allows topology connections to be made directly
-on a topology rather than referencing the instances named inside. It also
-allows topologies to <<Ports_Binding-of-Port-Interfaces,bind to port interfaces>>.
+A *topology port instance specifier* specifies a
+port instance for a <<Definitions_Topology-Definitions,topology definition>>
+that is analogous to a port instance specifier in a
+<<Definitions_Component-Definitions,component definition>>.
+In this way a topology may have a component-like interface.
 
 ==== Syntax
 
@@ -15,29 +15,14 @@ allows topologies to <<Ports_Binding-of-Port-Interfaces,bind to port interfaces>
 
 ==== Semantics
 
-For each topology port instance specifier defined in an enclosing topology _T_:
+. The identifier specifies the name _N_ of the port instance.
 
-. The _identifier_ names the port on the enclosing topology's
-<<Ports_Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces,
-anonymous port interface>>.
+. The port instance identifier must be valid and must resolve to a port 
+  instance _I_.
 
-. The _port-instance-id_ references a <<Specifiers_Port-Instance-Specifiers,port instance>>
-endpoint in _T_.
-
-. The port referenced must be either a
-<<Specifiers_Port-Instance-Specifiers,output port instance>>
-or an
-<<Specifiers_Port-Instance-Specifiers,input port instance>>.
-
-.. Naming an input or output port will expose a port instance of the same
-type to the enclosing topology _T_. Any connections made on this exposed port will
-internally be mapped to the port instance identifier _I_.
-
-. A topology port allows another topology that <<Specifiers_Topology-Import-Specifiers,
-imports>> this topology to connect directly to this named port.
-
-.. Providing a set of topology ports encapsulates port instance names and component
-instance names from the interface of the parent topology.
+. The whole specifier makes _I_ part of the 
+  <<Ports_Port-Interfaces_Topology-Definitions,interface of the enclosing 
+topology>>, after renaming it with name _N_.
 
 ==== Example
 

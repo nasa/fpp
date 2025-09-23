@@ -1031,13 +1031,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Ports_Port-Interfaces_Port-Interface-Definitions">22.2.1. Port Interface Definitions</a></li>
 <li><a href="#Ports_Port-Interfaces_Component-Definitions">22.2.2. Component Definitions</a></li>
-<li><a href="#Ports_Port-Interfaces_Topology-Definitions">22.2.3. Topology Definitions</a></li>
-<li><a href="#Ports_Port-Interfaces_Named-Port-Interfaces">22.2.4. Named Port Interfaces</a></li>
-<li><a href="#Ports_Port-Interfaces_Anonymous-Port-Interfaces">22.2.5. Anonymous Port Interfaces</a></li>
+<li><a href="#Ports_Port-Interfaces_Component-Instance-Definitions">22.2.3. Component Instance Definitions</a></li>
+<li><a href="#Ports_Port-Interfaces_Topology-Definitions">22.2.4. Topology Definitions</a></li>
 </ul>
 </li>
 <li><a href="#Ports_Port-Interface-Instances">22.3. Port Interface Instances</a></li>
-<li><a href="#Ports_Binding-of-Port-Interfaces">22.4. Binding of Port Interfaces</a></li>
+<li><a href="#Ports_Sub-Interfaces">22.4. Sub-Interfaces</a></li>
 </ul>
 </li>
 <li><a href="#Analysis-and-Translation">23. Analysis and Translation</a>
@@ -3637,8 +3636,12 @@ instance specifier</a></p>
 inside the topology must have a distinct name.</p>
 </div>
 <div class="paragraph">
-<p>The set of all <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port instance specifiers</a>
-make up the enclosing topology&#8217;s <a href="#Ports_Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces">anonymous port interface</a>. To compute the interface port instance set is computed as follows:</p>
+<p>The set of all <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port
+instance specifiers</a>
+make up the enclosing topology&#8217;s
+anonymous port interface. (TODO)
+To compute the interface port instance set is
+computed as follows:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -3662,7 +3665,7 @@ make up the enclosing topology&#8217;s <a href="#Ports_Port-Interfaces_Anonymous
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a> an
 <a href="#Definitions_Port-Interface-Definitions">interface definition \$K_i\$</a>.
 This optional clause is a compile-time check that
-verifies that this topology can <a href="#Ports_Binding-of-Port-Interfaces">bind to</a> all
+verifies that this topology can bind to (TODO) all
 \$K_i\$.</p>
 </div>
 <div class="paragraph">
@@ -7908,9 +7911,11 @@ packet ADCS group 2 {
 <div class="sect2">
 <h3 id="Specifiers_Topology-Port-Instance-Specifiers">7.19. Topology Port Instance Specifiers</h3>
 <div class="paragraph">
-<p>A <strong>topology port instance specifier</strong> names a <a href="#Specifiers_Port-Instance-Specifiers">port instance</a> on a <a href="#Definitions_Topology-Definitions">topology definition</a>. This allows topology connections to be made directly
-on a topology rather than referencing the instances named inside. It also
-allows topologies to <a href="#Ports_Binding-of-Port-Interfaces">bind to port interfaces</a>.</p>
+<p>A <strong>topology port instance specifier</strong> specifies a
+port instance for a <a href="#Definitions_Topology-Definitions">topology definition</a>
+that is analogous to a port instance specifier in a
+<a href="#Definitions_Component-Definitions">component definition</a>.
+In this way a topology may have a component-like interface.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Topology-Port-Instance-Specifiers_Syntax">7.19.1. Syntax</h4>
@@ -7923,44 +7928,19 @@ allows topologies to <a href="#Ports_Binding-of-Port-Interfaces">bind to port in
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Topology-Port-Instance-Specifiers_Semantics">7.19.2. Semantics</h4>
-<div class="paragraph">
-<p>For each topology port instance specifier defined in an enclosing topology <em>T</em>:</p>
-</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The <em>identifier</em> names the port on the enclosing topology&#8217;s
-<a href="#Ports_Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces">anonymous port interface</a>.</p>
+<p>The identifier specifies the name <em>N</em> of the port instance.</p>
 </li>
 <li>
-<p>The <em>port-instance-id</em> references a <a href="#Specifiers_Port-Instance-Specifiers">port instance</a>
-endpoint in <em>T</em>.</p>
+<p>The port instance identifier must be valid and must resolve to a port
+instance <em>I</em>.</p>
 </li>
 <li>
-<p>The port referenced must be either a
-<a href="#Specifiers_Port-Instance-Specifiers">output port instance</a>
-or an
-<a href="#Specifiers_Port-Instance-Specifiers">input port instance</a>.</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Naming an input or output port will expose a port instance of the same
-type to the enclosing topology <em>T</em>. Any connections made on this exposed port will
-internally be mapped to the port instance identifier <em>I</em>.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>A topology port allows another topology that <a href="#Specifiers_Topology-Import-Specifiers">imports</a> this topology to connect directly to this named port.</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Providing a set of topology ports encapsulates port instance names and component
-instance names from the interface of the parent topology.</p>
-</li>
-</ol>
-</div>
+<p>The whole specifier makes <em>I</em> part of the
+  <a href="#Ports_Port-Interfaces_Topology-Definitions">interface of the enclosing
+topology</a>, after renaming it with name <em>N</em>.</p>
 </li>
 </ol>
 </div>
@@ -11754,6 +11734,9 @@ Each of the following FPP elements has an associated port interface:</p>
 <p>A <a href="#Definitions_Component-Definitions">component definition</a>.</p>
 </li>
 <li>
+<p>A <a href="#Definitions_Component-Instance-Definitions">component instance definition</a>.</p>
+</li>
+<li>
 <p>A <a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
 </li>
 </ul>
@@ -11799,7 +11782,15 @@ described in the section on
 </div>
 </div>
 <div class="sect3">
-<h4 id="Ports_Port-Interfaces_Topology-Definitions">22.2.3. Topology Definitions</h4>
+<h4 id="Ports_Port-Interfaces_Component-Instance-Definitions">22.2.3. Component Instance Definitions</h4>
+<div class="paragraph">
+<p>For every component instance definition <em>D</em>, there is an associated port
+interface <em>I</em>.
+It is the port interface associated with the component definition referred to in <em>I</em>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Ports_Port-Interfaces_Topology-Definitions">22.2.4. Topology Definitions</h4>
 <div class="paragraph">
 <p>For every topology definition <em>D</em>, there is an associated port interface <em>I</em>.
 This port interface is computed as follows.
@@ -11821,145 +11812,23 @@ with the port name in <em>n</em>.</p>
 </ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="Ports_Port-Interfaces_Named-Port-Interfaces">22.2.4. Named Port Interfaces</h4>
-<div class="paragraph">
-<p>A <strong>named port interface</strong> is a port interface associated
-with a <a href="#Definitions_Port-Interface-Definitions">port interface definition</a>.
-A named port interface is written using its
-<a href="#Scoping-of-Names_Names-of-Definitions">unique qualified
-name</a>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Ports_Port-Interfaces_Anonymous-Port-Interfaces">22.2.5. Anonymous Port Interfaces</h4>
-<div class="paragraph">
-<p><a href="#Definitions_Component-Instance-Definitions">Component instance definitions</a>
-and <a href="#Definitions_Topology-Definitions">topology definitions</a> implicitly
-define a port interface so that instances of these definitions may be bound to
-a port interface. These implicitly defined port interfaces are known as anonymous
-port interfaces as they do not have explicit names associated with them.</p>
-</div>
-<div class="sect4">
-<h5 id="Ports_Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Component-Port-Interfaces">Anonymous Component Port Interfaces</h5>
-<div class="paragraph">
-<p>A <a href="#Definitions_Component-Definitions">component definition</a>
-defines a corresponding anonymous port interface. This port interface
-includes the set of all <a href="#Specifiers_Port-Instance-Specifiers">port instances</a>
-inside the component definition (either explicitly, or via an
-<a href="#Specifiers_Interface-Import-Specifiers">interface import</a>).</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="Ports_Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces">Anonymous Topology Port Interfaces</h5>
-<div class="paragraph">
-<p>A <a href="#Definitions_Topology-Definitions">topology definition</a>
-defines a corresponding anonymous port interface. This port interface includes
-the set of all <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port instance specifiers</a>
-inside the topology definition.</p>
-</div>
-</div>
-</div>
 </div>
 <div class="sect2">
 <h3 id="Ports_Port-Interface-Instances">22.3. Port Interface Instances</h3>
 <div class="paragraph">
-<p>A port interface is a named set of port instances.
-F Prime applies this concept to abstract connections
-between ports in <a href="#Specifiers_Connection-Graph-Specifiers">connection graphs</a>.</p>
-</div>
-<div class="paragraph">
-<p>An <strong>port interface instance</strong> is a instance of a definition
-that contains port instances. FPP has two types of port interface
-instances:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><a href="#Definitions_Component-Instance-Definitions">Component Instances</a></p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Component instance values are bound to their corresponding
-<a href="#Ports_Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Component-Port-Interfaces">anonymous component port interface</a>.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p><a href="#Definitions_Topology-Definitions">Topologies</a></p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Topology values are bound to their corresponding
-<a href="#Ports_Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces">anonymous topology port interface</a>.</p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
+<p>A <strong>port interface instance</strong> is either a
+<a href="#Definitions_Component-Instance-Definitions">component instance definition</a>
+or a <a href="#Definitions_Topology-Definitions">topology definition</a>.
+Each of these elements provides concrete port instances
+that can serve as the endpoints of topology connections.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Ports_Binding-of-Port-Interfaces">22.4. Binding of Port Interfaces</h3>
+<h3 id="Ports_Sub-Interfaces">22.4. Sub-Interfaces</h3>
 <div class="paragraph">
-<p><strong>Port interface binding</strong> means converting a port interface instance to an instance
-from another port interface.</p>
-</div>
-<div class="paragraph">
-<p>For an interface instance <em>A</em> associated with an anonymous interface <em>A'</em>,
-the following conditions must be met for <em>A</em> to bind to an interface <em>I</em>:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>For every <a href="#Specifiers_Port-Instance-Specifiers">port instance specifier</a> <em>P</em> in <em>I</em>:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>There exists a port instance specifier <em>P'</em> in <em>A'</em> that has the same name as the name of <em>P</em>.</p>
-</li>
-<li>
-<p>If <em>P</em> specifies a <a href="#Specifiers_Port-Instance-Specifiers_Semantics_General-Port-Instances">general port instance</a>, then <em>P'</em> must also specify a general port instance:</p>
-<div class="olist lowerroman">
-<ol class="lowerroman" type="i">
-<li>
-<p><em>P</em> and <em>P'</em> have the same port type</p>
-</li>
-<li>
-<p>If <em>P</em> is an <code>input</code> port, <em>P'</em> must also be an <code>input</code> port.</p>
-<div class="olist upperalpha">
-<ol class="upperalpha" type="A">
-<li>
-<p><em>P'</em> must have the same calling behavior as <em>P</em> (i.e. <code>async</code>,
-<code>guarded</code>, <code>sync</code>).</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>If <em>P</em> is an <code>output</code> port, <em>P'</em> must also be an <code>output</code> port.</p>
-</li>
-<li>
-<p><em>P</em> and <em>P'</em> must have the same <em>number</em> of port instances in their port instance arrays.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>If <em>P</em> is a <a href="#Specifiers_Port-Instance-Specifiers_Semantics_Special-Port-Instances">special port instance</a>, <em>P'</em> must also be a special port instance:</p>
-<div class="olist lowerroman">
-<ol class="lowerroman" type="i">
-<li>
-<p><em>P</em> and <em>P'</em> must share the same <em>special-port-kind</em> and <em>special-port-input-kind</em>.</p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-</li>
-</ol>
+<p>An interface <em>I</em> is a <strong>sub-interface</strong> of an interface <em>I'</em> if
+the set of port instances represented by <em>I</em> is a subset of the set of
+port instances represented by <em>I'</em>.</p>
 </div>
 </div>
 </div>
@@ -12073,7 +11942,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-22 20:28:07 -0700
+Last updated 2025-09-22 21:00:40 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
