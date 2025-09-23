@@ -3832,15 +3832,14 @@ void QueuedEventsComponentBase ::
   _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL;
 
   // Check throttle value & throttle timeout
-  if (this->m_EventWarningLowThrottledIntervalThrottle >= EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL_THROTTLE) {
-    if (Fw::TimeInterval(this->m_EventWarningLowThrottledIntervalThrottleTime, _logTime) >= Fw::TimeInterval(10, 0)) {
-      // Reset the throttle count & timeout
-      this->m_EventWarningLowThrottledIntervalThrottleTime = _logTime;
-      this->m_EventWarningLowThrottledIntervalThrottle = 0;
-    }
-    else {
-      return;
-    }
+  if (this->m_EventWarningLowThrottledIntervalThrottle == 0 ||
+      Fw::TimeInterval(this->m_EventWarningLowThrottledIntervalThrottleTime, _logTime) >= Fw::TimeInterval(10, 0)) {
+    // Reset the throttle count & timeout
+    this->m_EventWarningLowThrottledIntervalThrottleTime = _logTime;
+    this->m_EventWarningLowThrottledIntervalThrottle = 1;
+  }
+  else if (this->m_EventWarningLowThrottledIntervalThrottle >= EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL_THROTTLE) {
+    return;
   }
   else {
     (void) this->m_EventWarningLowThrottledIntervalThrottle.fetch_add(1);

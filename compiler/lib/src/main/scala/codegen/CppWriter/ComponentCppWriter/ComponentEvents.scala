@@ -73,7 +73,7 @@ case class ComponentEvents (
         intervalThrottledEvents.map((_, event) =>
           linesClassMember(
             Line.blank :: lines(
-              s"""|//! Throttle time ${event.getName}
+              s"""|//! Throttle time for ${event.getName}
                   |Fw::Time ${eventThrottleTimeName(event.getName)};
                   |"""
             )
@@ -288,15 +288,14 @@ case class ComponentEvents (
         event.throttle match {
           case Some(Event.Throttle(_, Some(Event.TimeInterval(seconds, useconds)))) => lines(
             s"""|// Check throttle value & throttle timeout
-                |if (this->${eventThrottleCounterName(event.getName)} >= ${eventThrottleConstantName(event.getName)}) {
-                |  if (Fw::TimeInterval(this->${eventThrottleTimeName(event.getName)}, _logTime) >= Fw::TimeInterval($seconds, $useconds)) {
-                |    // Reset the throttle count & timeout
-                |    this->${eventThrottleTimeName(event.getName)} = _logTime;
-                |    this->${eventThrottleCounterName(event.getName)} = 0;
-                |  }
-                |  else {
-                |    return;
-                |  }
+                |if (this->${eventThrottleCounterName(event.getName)} == 0 ||
+                |    Fw::TimeInterval(this->${eventThrottleTimeName(event.getName)}, _logTime) >= Fw::TimeInterval($seconds, $useconds)) {
+                |  // Reset the throttle count & timeout
+                |  this->${eventThrottleTimeName(event.getName)} = _logTime;
+                |  this->${eventThrottleCounterName(event.getName)} = 1;
+                |}
+                |else if (this->${eventThrottleCounterName(event.getName)} >= ${eventThrottleConstantName(event.getName)}) {
+                |  return;
                 |}
                 |else {
                 |  (void) this->${eventThrottleCounterName(event.getName)}.fetch_add(1);
