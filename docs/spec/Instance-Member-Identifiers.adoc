@@ -9,7 +9,7 @@ telemetry channel identifiers>>.
 === Port Instance Identifiers
 
 A port instance identifier identifies a port instance that
-is part of a <<Port-Interfaces,port interface>> instance. Port instance
+is part of a <<Ports_Port-Interfaces,port interface>> instance. Port instance
 identifiers appear in <<Specifiers_Connection-Graph-Specifiers,
 connection graph specifiers>>.
 
@@ -25,9 +25,9 @@ For each port instance identifier _Q_ `.` _P_:
 
 . The qualified identifier _Q_ must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
-an <<Port-Interfaces_Port-Interface-Instance,interface instance _I_>>.
+an <<Ports_Port-Interface-Instances,interface instance _I_>>.
 
-. _I_ must refer to a <<Port-Interfaces,port interface _I'_>>
+. _I_ must refer to a <<Ports_Port-Interfaces,port interface _I'_>>
 
 . The identifier _P_ must refer to a <<Specifiers_Port-Instance-Specifiers,
 port instance>> in _I'_.

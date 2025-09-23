@@ -22,7 +22,7 @@ _[_ `implements` _interface-list_ _]_
 The optional _interface-list_ is an
 <<Element-Sequences,element sequence>> in which
 each element is a <<Scoping-of-Names_Qualified-Identifiers,
-qualified identifier>> and the terminating puncuation is a comma.
+qualified identifier>> and the terminating punctuation is a comma.
 
 _topology-member-sequence_ is an
 <<Element-Sequences,element sequence>> in
@@ -51,7 +51,7 @@ All <<Specifiers_Topology-Port-Instance-Specifiers,topology port instance specif
 inside the topology must have a distinct name.
 
 The set of all <<Specifiers_Topology-Port-Instance-Specifiers,topology port instance specifiers>>
-make up the enclosing topology's <<Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces,
+make up the enclosing topology's <<Ports_Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces,
 anonymous port interface>>. To compute the interface port instance set is computed as follows:
 
 . For each topology port instance specifier with name _p'_ and _port-instance-id_ _I_ `.` _p_ in the topology:
@@ -64,7 +64,8 @@ If _interface-list_ is provided, each element of the list must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>> an
 <<Definitions_Port-Interface-Definitions,interface definition stem:[K_i]>>.
 This optional clause is a compile-time check that
-verifies that this topology can <<Port-Interfaces_Binding,bind to>> all stem:[K_i].
+verifies that this topology can <<Ports_Binding-of-Port-Interfaces,bind to>> all 
+stem:[K_i].
 
 A topology definition _D_ must be resolvable to a topology _T_,
 according to the following algorithm:
@@ -142,7 +143,7 @@ in _T_ through at least one of the following conditions:
 .. _I_ is <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,referred to>>
 in an <<Specifiers_Interface-Instance-Specifiers,
 instance specifier>> or <<Specifiers_Topology-Import-Specifiers,import specifier>>
-in _T_ and _P_ exists in the <<Port-Interfaces,port interface>> of _I_.
+in _T_ and _P_ exists in the <<Ports_Port-Interfaces,port interface>> of _I_.
 
 .. _I_ is an instance interface available in a topology in _S_.
 
@@ -159,7 +160,7 @@ port instance in a <<Definitions_Component-Instance-Definitions,component instan
 .. If _Q_ refers to a <<Definitions_Topology-Definitions,
 topology definition>>, find the <<Specifiers_Topology-Port-Instance-Specifiers,
 topology port instance specifier>> that corresponds to _I_ in the topology referenced
-by _Q_. Re-apply these rules with the port instance refered to in the topology
+by _Q_. Re-apply these rules with the port instance referred to in the topology
 port specifier.
 
 . Resolve
@@ -296,14 +297,14 @@ For purposes of port numbering, FPP orders connections as follows.
 A connection endpoint in an FPP topology refers to a
 <<Instance-Member-Identifiers_Port-Instance-Identifiers,port instance identifier>>.
 
-**TODO(tumbar)** Should we just directly reference <<Port-Interfaces,port interfaces>>
-here and just call out to <<Port-Interfaces_Port-Interface-Instance,port interface instance>>?
+**TODO(tumbar)** Should we just directly reference <<Ports_Port-Interfaces,port interfaces>>
+here and just call out to <<Ports_Port-Interface-Instances,port interface instance>>?
 
 A *connection endpoint* is _I_ `.` _p_ or _I_ `.` _p_ `[` _n_ `]`, where
 
-. _I_ is an <<Port-Interfaces_Port-Interface-Instance,
+. _I_ is an <<Ports_Port-Interface-Instances,
 port interface instance>> that is included in the topology via a
-<<Specifiers_Interface-Instance-Specifiers,interface instance specifier>> or implicitely
+<<Specifiers_Interface-Instance-Specifiers,interface instance specifier>> or implicitly
 a <<Specifiers_Topology-Import-Specifiers,topology import specifier>>.
 
 . And _p_ meets the following conditions:

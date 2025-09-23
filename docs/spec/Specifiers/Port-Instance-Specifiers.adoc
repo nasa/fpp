@@ -32,6 +32,9 @@ _[_
 _queue-full-behavior_
 _]_
 
+The first kind of port instance specifier is called a *general port instance specifier*.
+The second kind is called a *special port instance specifier*.
+
 _general-port-kind_ is one of the following:
 
 . `async` `input`

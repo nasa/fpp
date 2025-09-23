@@ -4,7 +4,7 @@ A *topology port instance specifier* names a <<Specifiers_Port-Instance-Specifie
 port instance>> on a <<Definitions_Topology-Definitions,
 topology definition>>. This allows topology connections to be made directly
 on a topology rather than referencing the instances named inside. It also
-allows topologies to <<Port-Interfaces_Binding,bind to port interfaces>>.
+allows topologies to <<Ports_Binding-of-Port-Interfaces,bind to port interfaces>>.
 
 ==== Syntax
 
@@ -18,7 +18,7 @@ allows topologies to <<Port-Interfaces_Binding,bind to port interfaces>>.
 For each topology port instance specifier defined in an enclosing topology _T_:
 
 . The _identifier_ names the port on the enclosing topology's
-<<Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces,
+<<Ports_Port-Interfaces_Anonymous-Port-Interfaces_Anonymous-Topology-Port-Interfaces,
 anonymous port interface>>.
 
 . The _port-instance-id_ references a <<Specifiers_Port-Instance-Specifiers,port instance>>
@@ -36,7 +36,7 @@ internally be mapped to the port instance identifier _I_.
 . A topology port allows another topology that <<Specifiers_Topology-Import-Specifiers,
 imports>> this topology to connect directly to this named port.
 
-.. Providing a set of topology ports encapulates port instance names and component
+.. Providing a set of topology ports encapsulates port instance names and component
 instance names from the interface of the parent topology.
 
 ==== Example
