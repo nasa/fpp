@@ -557,8 +557,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Definitions_Topology-Definitions_Syntax">5.14.1. Syntax</a></li>
 <li><a href="#Definitions_Topology-Definitions_Semantics">5.14.2. Semantics</a></li>
-<li><a href="#Definitions_Topology-Definitions_Implied-Uses">5.14.3. Implied Uses</a></li>
-<li><a href="#Definitions_Topology-Definitions_Examples">5.14.4. Examples</a></li>
+<li><a href="#Definitions_Topology-Definitions_Importing-Subtopologies">5.14.3. Importing Subtopologies</a></li>
+<li><a href="#Definitions_Topology-Definitions_Ordering-of-Connections">5.14.4. Ordering of Connections</a></li>
+<li><a href="#Definitions_Topology-Definitions_Implied-Uses">5.14.5. Implied Uses</a></li>
+<li><a href="#Definitions_Topology-Definitions_Examples">5.14.6. Examples</a></li>
 </ul>
 </li>
 <li><a href="#Definitions_Framework-Definitions">5.15. Framework Definitions</a>
@@ -790,13 +792,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifiers_Topology-Port-Instance-Specifiers_Syntax">7.19.1. Syntax</a></li>
 <li><a href="#Specifiers_Topology-Port-Instance-Specifiers_Semantics">7.19.2. Semantics</a></li>
 <li><a href="#Specifiers_Topology-Port-Instance-Specifiers_Example">7.19.3. Example</a></li>
-</ul>
-</li>
-<li><a href="#Specifiers_Topology-Import-Specifiers">7.20. Topology Import Specifiers</a>
-<ul class="sectlevel3">
-<li><a href="#Specifiers_Topology-Import-Specifiers_Syntax">7.20.1. Syntax</a></li>
-<li><a href="#Specifiers_Topology-Import-Specifiers_Semantics">7.20.2. Semantics</a></li>
-<li><a href="#Specifiers_Topology-Import-Specifiers_Example">7.20.3. Example</a></li>
 </ul>
 </li>
 </ul>
@@ -3572,13 +3567,15 @@ struct D {
 <p>A <strong>topology definition</strong> defines an F Prime topology,
 that is, a set of component instances and subtopologies
 and the connections among them.
-In the FPP source, connections can have either component
-instances or topologies as their endpoints.
-Before generating code, connections with topologies as endpoints are flattened
-into connections between component instances.
 The connections are divided into named <strong>connection graphs</strong>.
 The different graphs capture different aspects of FSW
 function, such as commanding and telemetry.</p>
+</div>
+<div class="paragraph">
+<p>In the FPP source, connections can have ports of either component
+instances or topologies as their endpoints.
+Before generating code, connections with topology ports as endpoints are flattened
+into connections between component instance ports.</p>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Topology-Definitions_Syntax">5.14.1. Syntax</h4>
@@ -3611,9 +3608,6 @@ instance specifier</a></p>
 </li>
 <li>
 <p>A <a href="#Specifiers_Telemetry-Packet-Set-Specifiers">telemetry packet set specifier</a></p>
-</li>
-<li>
-<p>A <a href="#Specifiers_Topology-Import-Specifiers">topology import specifier</a></p>
 </li>
 <li>
 <p>A <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port instance specifier</a></p>
@@ -3656,21 +3650,24 @@ to <em>T'</em>.</p>
 <div class="sect4">
 <h5 id="Definitions_Topology-Definitions_Semantics_Resolving-to-a-Partially-Numbered-Topology">Resolving to a Partially Numbered Topology</h5>
 <div class="paragraph">
-<p>A <strong>partially numbered topology</strong> is a topology in which (a) all connections go
-between component instances and (b) port number
-assignments may or may not exist for each connection.
+<p>A <strong>partially numbered topology</strong> is a topology in which (a) all connection
+endpoints are <a href="#Specifiers_Connection-Graph-Specifiers_Semantics">component
+instance endpoints</a>
+and (b) port number assignments may or may not exist for each connection.
 A port number assignment exists if
 it is specified in the model source.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>For each endpoint <em>E</em> (output or input) in each connection <em>C</em>
-appearing in <em>D</em>,
+<p>For each <a href="#Specifiers_Connection-Graph-Specifiers_Syntax">endpoint</a> <em>E</em>
+(output or input) in each connection <em>C</em>
+appearing in a
+<a href="#Specifiers_Connection-Graph-Specifiers">direct connection graph</a> of <em>D</em>,
 if <em>E</em> has a port number  expression <em>e</em> in the FPP source, then
 <a href="#Evaluation">evaluate</a> <em>e</em>,
 <a href="#Type-Checking_Type-Conversion">convert</a> the result to a value <em>n</em> of type
-<em>Integer</em>, and assign the port number <em>n</em> at that position.
+<em>Integer</em>, and assign the port number <em>n</em> at endpoint <em>E</em> of connection <em>C</em>.
 Check that <em>n</em> is in bounds for the port instance being numbered.</p>
 </li>
 <li>
@@ -3709,54 +3706,65 @@ For example, the two connection graphs</p>
 </div>
 </li>
 <li>
-<p>For each topology <em>T'</em> in <em>S</em>,
-<a href="#Specifiers_Topology-Import-Specifiers">import the instances</a>
-of <em>T'</em> into <em>T</em>.</p>
+<p>Let the set of instances of <em>T</em> be the
+<a href="#Specifiers_Port-Interface-Instance-Specifiers">port interface instances</a>
+specified in the definition of <em>T</em>.
+For each topology <em>T'</em> in <em>S</em> (step 2),
+<a href="#Definitions_Topology-Definitions_Importing-Subtopologies_Importing-Interface-Instances">import
+the instances</a>
+of <em>T'</em> into <em>T</em>.
+Note that <em>T'</em> is resolved (step 2), so the set of instances of <em>T'</em> contains
+all topologies transitively
+imported by the definition of <em>T'</em>.</p>
 </li>
 <li>
-<p>For each connection discovered in step 3, check that for each endpoint <em>I</em> <code>.</code> <em>P</em>
-in <em>T</em>, at least one of the following holds:</p>
+<p>For each connection <em>C</em> discovered in step 3, check that each
+<a href="#Specifiers_Connection-Graph-Specifiers_Syntax">endpoint</a> of <em>C</em>
+refers to one of the instances computed in the previous step.</p>
+</li>
+<li>
+<p>For each topology <em>T'</em> in <em>S</em>,
+<a href="#Definitions_Topology-Definitions_Importing-Subtopologies_Importing-Connections">import
+the connections</a>
+of <em>T'</em> into <em>T</em>.
+Note that <em>T'</em> is resolved (step 2), so all the connections in <em>T'</em>
+have port instances of component instances as their endpoints.</p>
+</li>
+<li>
+<p>For each
+<a href="#Specifiers_Connection-Graph-Specifiers_Syntax">connection endpoint</a>
+<em>E</em> of a connection <em>C</em> in <em>T</em>, do the following:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p><em>I</em> is <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">referred to</a>
-in a <a href="#Specifiers_Port-Interface-Instance-Specifiers">port interface instance specifier</a>  of <em>T</em>; or</p>
+<p>If <em>E</em> is a <a href="#Specifiers_Connection-Graph-Specifiers_Semantics">component instance endpoint</a>,
+then do nothing.</p>
 </li>
 <li>
-<p><em>I</em> is an instance interface available in a topology in <em>S</em>.</p>
+<p>Otherwise the port instance identifier <em>P</em> appearing in <em>E</em> has the form <em>Q</em>
+<code>.</code> <em>I</em>, where <em>Q</em> refers to a topology <em>T'</em>, and
+<em>I</em> names a port of <em>T'</em>.</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Find the <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port instance specifier</a> <code>port</code> <em>I</em> <code>=</code> <em>E'</em> in <em>T'</em>.</p>
+</li>
+<li>
+<p>Replace <em>P</em> with <em>P'</em> in the endpoint <em>E</em>.
+Retain the port number assignment, if any, at <em>E</em> computed in step 1.</p>
+</li>
+<li>
+<p>Reapply steps i and ii to the endpoint <em>E</em>.</p>
+</li>
+</ol>
+</div>
 </li>
 </ol>
 </div>
 </li>
 <li>
-<p>For each topology <em>T'</em> in <em>S</em>,
-<a href="#Specifiers_Topology-Import-Specifiers">import the connections</a>
-of <em>T'</em> into <em>T</em>.</p>
-</li>
-<li>
-<p>For each <a href="#Instance-Member-Identifiers_Port-Instance-Identifiers">connection endpoint</a> <em>Q</em> . <em>I</em> in <em>T</em>, resolve the endpoint to a
-port instance in a <a href="#Definitions_Component-Instance-Definitions">component instance</a>:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>If <em>Q</em> is a component instance, this endpoint is resolved.</p>
-</li>
-<li>
-<p>If <em>Q</em> refers to a <a href="#Definitions_Topology-Definitions">topology definition</a>, find the <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port instance specifier</a> that corresponds to <em>I</em> in the topology referenced
-by <em>Q</em>. Re-apply these rules with the port instance referred to in the topology
-port specifier.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>If necessary, replace the endpoint <em>Q</em> <code>.</code> <em>I</em> with the corresponding endpoint
-at a component instance.</p>
-</div>
-</li>
-<li>
-<p>At this point all connections in the topology are between port instances
-of component instances.
-There are no connections to topologies.</p>
+<p>At this point all connection endpoints are component instance endpoints.
+There are no connections whose endpoints are topology endpoints.</p>
 </li>
 <li>
 <p>Resolve
@@ -3911,7 +3919,7 @@ then assign <em>n</em> to \$c_1\$ at <em>I</em> <code>.</code> \$p_1\$.</p>
 </li>
 <li>
 <p>Traverse the pairs \$(c_1,c_2)\$ computed in step c according to the
-<a href="#Definitions_Topology-Definitions_Semantics_Ordering-of-Connections">order</a> of the connections \$c_1\$, least to greatest.
+<a href="#Definitions_Topology-Definitions_Ordering-of-Connections">order</a> of the connections \$c_1\$, least to greatest.
 For each pair \$(c_1,c_2)\$ that does not yet have assigned
 port numbers, find the lowest available port number
 and assign it at <em>I</em> <code>.</code> \$p_1\$ and <em>I</em> <code>.</code> \$p_2\$.
@@ -3937,7 +3945,7 @@ Fill in any remaining port numbers.</p>
 <ol class="arabic">
 <li>
 <p>Traverse the connections
-<a href="#Definitions_Topology-Definitions_Semantics_Ordering-of-Connections">in order</a>, least to greatest.</p>
+<a href="#Definitions_Topology-Definitions_Ordering-of-Connections">in order</a>, least to greatest.</p>
 </li>
 <li>
 <p>For each output endpoint <em>P</em> in each connection <em>C</em>,
@@ -3955,7 +3963,139 @@ already assigned, then assign the port number zero.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="Definitions_Topology-Definitions_Semantics_Ordering-of-Connections">Ordering of Connections</h5>
+<h5 id="Definitions_Topology-Definitions_Semantics_Topology-Interface">Topology Interface</h5>
+<div class="paragraph">
+<p>The FPP analyzer checks the topology interface as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Check that each <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port
+instance specifier</a>
+in the topology definition is valid and has a distinct name.</p>
+</li>
+<li>
+<p><a href="#Ports_Port-Interfaces_Topology-Definitions">Compute the port interface</a>
+<em>I</em> for the topology definition.</p>
+</li>
+<li>
+<p>If the optional <code>implements</code> keyword is present, then do the
+following for each qualified identifier <em>Q</em> that appears
+after <code>implements</code>:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Check that <em>Q</em>
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refers to</a> a
+<a href="#Definitions_Port-Interface-Definitions">port interface definition</a> <em>D</em>
+with <a href="#Ports_Port-Interfaces_Port-Interface-Definitions">associated port
+interface</a> <em>I'</em>.</p>
+</li>
+<li>
+<p>Check that <em>I'</em> is a
+<a href="#Ports_Sub-Interfaces">sub-interface</a> of <em>I</em>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Topology-Definitions_Importing-Subtopologies">5.14.3. Importing Subtopologies</h4>
+<div class="paragraph">
+<p>When a topology <em>T</em> contains a port interface instance specifier <code>interface</code> <em>Q</em>,
+and <em>Q</em> refers to a topology
+<em>T'</em>, <em>T'</em> is called a <strong>subtopology</strong> of <em>T</em>.
+In this case the instances and connections are imported from <em>T'</em> into <em>T</em>.</p>
+</div>
+<div class="sect4">
+<h5 id="Definitions_Topology-Definitions_Importing-Subtopologies_Importing-Interface-Instances">Importing Interface Instances</h5>
+<div class="paragraph">
+<p>FPP uses the following algorithm to import the port interface instances
+of topology <em>T'</em> into topology <em>T</em>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Let <em>I</em> be the set of
+ <a href="#Ports_Port-Interface-Instances">port interface instances</a>
+of <em>T</em>.</p>
+</li>
+<li>
+<p>Let <em>I'</em> be the set of <a href="#Ports_Port-Interface-Instances">port interface instances</a>
+of <em>T'</em>.</p>
+</li>
+<li>
+<p>Let <em>I''</em> be the set union of <em>I</em> and <em>I'</em>.
+That means that if either or both of <em>I</em> and <em>I'</em> contain the instance <em>S</em>,
+then <em>I''</em> contains the instance <em>S</em> once.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="Definitions_Topology-Definitions_Importing-Subtopologies_Importing-Connections">Importing Connections</h5>
+<div class="paragraph">
+<p>FPP uses the following algorithm to import the connections
+of topology <em>T'</em> into topology <em>T</em>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>For each
+<a href="#Specifiers_Connection-Graph-Specifiers">connection graph name</a> \$N_i\$
+that appears in either <em>T</em> or <em>T'</em>:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Let \$G_i\$ be the connection graph named \$N_i\$ in <em>T</em>.
+If no such graph exists, then let \$G_i\$ be the empty connection graph
+with name \$N_i\$.</p>
+</li>
+<li>
+<p>Let \$G'_i\$ be the connection graph named \$N_i\$ in <em>T'</em>.
+If no such graph exists, then let \$G'_i\$ be the empty connection graph
+with name \$N_i\$.</p>
+</li>
+<li>
+<p>Let \$C_i\$ be the set of
+<a href="#Specifiers_Connection-Graph-Specifiers">connections</a>
+of \$G_i\$ such that each of the two instances at
+the ends of the connection is in <em>I''</em>.</p>
+</li>
+<li>
+<p>Let \$C'_i\$ be the set of
+<a href="#Specifiers_Connection-Graph-Specifiers">connections</a>
+of \$G'_i\$ such that each of the two the instances at
+the ends of the connection is in <em>I''</em>, and the connection
+is defined by a direct or pattern specifier in <em>T'</em>
+(i.e., not imported into <em>T'</em> from another topology).</p>
+</li>
+<li>
+<p>Let \$C''_i\$ be the disjoint union of \$C_i\$ and \$C'_i\$.
+That means that if \$C_i\$ contains <em>n</em> connections between port
+<em>p</em> and port <em>p'</em>, and \$C'_i\$ contains <em>m</em> connections between
+port <em>p</em> and port <em>p'</em>, then \$C_i\$ contains <em>n + m</em> connections
+between port <em>p</em> and port <em>p'</em>.</p>
+</li>
+<li>
+<p>Let \$G''_i\$ be the connection graph with name \$N_i\$
+and connections \$C''_i\$.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Return the connection graphs \$G''_i\$.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Topology-Definitions_Ordering-of-Connections">5.14.4. Ordering of Connections</h4>
 <div class="paragraph">
 <p>For purposes of port numbering, FPP orders connections as follows.</p>
 </div>
@@ -4043,48 +4183,8 @@ then \$c_1\$ is less than (respectively greater than) \$c_2\$.</p>
 </ol>
 </div>
 </div>
-<div class="sect4">
-<h5 id="Definitions_Topology-Definitions_Semantics_Topology-Interface">Topology Interface</h5>
-<div class="paragraph">
-<p>The FPP analyzer checks the topology interface as follows:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Check that each <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port
-instance specifier</a>
-in the topology definition is valid and has a distinct name.</p>
-</li>
-<li>
-<p><a href="#Ports_Port-Interfaces_Topology-Definitions">Compute the port interface</a>
-<em>I</em> for the topology definition.</p>
-</li>
-<li>
-<p>If the optional <code>implements</code> keyword is present, then do the
-following for each qualified identifier <em>Q</em> that appears
-after <code>implements</code>:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Check that <em>Q</em>
-<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refers to</a> a
-<a href="#Definitions_Port-Interface-Definitions">port interface definition</a> <em>D</em>
-with <a href="#Ports_Port-Interfaces_Port-Interface-Definitions">associated port
-interface</a> <em>I'</em>.</p>
-</li>
-<li>
-<p>Check that <em>I'</em> is a
-<a href="#Ports_Sub-Interfaces">sub-interface</a> of <em>I</em>.</p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-</div>
-</div>
 <div class="sect3">
-<h4 id="Definitions_Topology-Definitions_Implied-Uses">5.14.3. Implied Uses</h4>
+<h4 id="Definitions_Topology-Definitions_Implied-Uses">5.14.5. Implied Uses</h4>
 <div class="paragraph">
 <p>When generating a dictionary from a topology <em>T</em>, the analyzer may
 treat the definition of <em>T</em> as if it contained uses of
@@ -4102,7 +4202,7 @@ dictionary specification</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Topology-Definitions_Examples">5.14.4. Examples</h4>
+<h4 id="Definitions_Topology-Definitions_Examples">5.14.6. Examples</h4>
 <div class="paragraph">
 <p><strong>Example 1.</strong></p>
 </div>
@@ -4258,11 +4358,93 @@ topology Release {
 <div class="paragraph">
 <p><strong>Example 4.</strong></p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
+
+  instance a
+  instance b
+  instance c
+
+  connections C1 {
+    a.p1 -&gt; c.p
+  }
+
+  connections C2 {
+    b.p -&gt; c.p
+  }
+
+}
+
+topology B {
+
+  import A
+
+  instance d
+  instance e
+  instance f
+
+  connections C1 {
+    a.p1 -&gt; d.p
+  }
+
+  connections C2 {
+    a.p2 -&gt; e.p
+  }
+
+  connections C3 {
+    a.p3 -&gt; f.p
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After importing, topology <code>B</code> is equivalent to this topology:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">topology B {
+
+  instance a
+  instance b
+  instance c
+  instance d
+  instance e
+  instance f
+
+  connections C1 {
+    a.p1 -&gt; c.p
+    a.p2 -&gt; d.p
+  }
+
+  connections C2 {
+    a.p2 -&gt; e.p
+  }
+
+  connections C3 {
+    a.p3 -&gt; f.p
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The connections from topologies <code>A</code> and <code>B</code> are merged graph by graph.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Example 5.</strong></p>
+</div>
 <div class="paragraph">
 <p>Here is the topology that results from automatic numbering of ports
-applied to topology <code>B</code> in the
-<a href="#Specifiers_Topology-Import-Specifiers_Example">example for topology import
-specifiers</a>:</p>
+applied to topology <code>B</code> in Example 3.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -5665,6 +5847,12 @@ A connection is the following:</p>
 <em>]</em></p>
 </div>
 <div class="paragraph">
+<p>The syntax from the optional <code>unmatched</code> to the arrow is called the
+<strong>output endpoint</strong> of the connection.
+The syntax following the arrow is called the
+<strong>input endpoint</strong> of the connection.</p>
+</div>
+<div class="paragraph">
 <p><em>pattern-kind</em> is one of the following:</p>
 </div>
 <div class="olist arabic">
@@ -5724,14 +5912,24 @@ In this case, if the keyword <code>unmatched</code> is present, then <em>C</em> 
 unmatched.</p>
 </li>
 <li>
-<p>For each of the two port instance identifiers <em>I</em> appearing in <em>C</em>:</p>
+<p>For each of the two endpoints <em>E</em> in <em>C</em>:</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
-<p><em>I</em> must name a <a href="#Instance-Member-Identifiers_Port-Instance-Identifiers">port instance id</a> <a href="#Definitions_Topology-Definitions_Semantics_Resolving-to-a-Partially-Numbered-Topology">available</a> in the enclosing topology.</p>
+<p>Let <em>I</em> be the
+   <a href="#Instance-Member-Identifiers_Port-Instance-Identifiers">port instance
+identifiers</a> <em>I</em> appearing in <em>E</em>.</p>
 </li>
 <li>
-<p>The optional expression <em>e</em> following the identifier, if it is present,
+<p>The port interface instance <em>P</em> named in <em>I</em> must exist in the enclosing
+topology,
+after
+<a href="#Definitions_Topology-Definitions_Semantics_Resolving-to-a-Partially-Numbered-Topology">resolution to a partially numbered topology</a>.
+If <em>P</em> is a component instance, then <em>E</em> is a <strong>component instance endpoint</strong>.
+Otherwise <em>P</em> is a topology, and <em>E</em> is a <strong>topology endpoint</strong>.</p>
+</li>
+<li>
+<p>The optional expression <em>e</em> following <em>I</em>, if it is present,
 represents a port number, i.e., an index into an
 array of port instances.
 The type of <em>e</em> must be a
@@ -7207,67 +7405,61 @@ product send port productSendOut</code></pre>
 <div class="sect2">
 <h3 id="Specifiers_Port-Interface-Instance-Specifiers">7.12. Port Interface Instance Specifiers</h3>
 <div class="paragraph">
-<p><em>TODO: Consolidate this section with the topology import specifier section.
-<code>import</code> should be an alternate syntax for backwards compatibility.</em></p>
-</div>
-<div class="paragraph">
 <p>A <strong>port interface instance specifier</strong>
 specifies that a
-<a href="#Ports_Port-Interface-Instances">port interface instance</a>
-is part of a
-<a href="#Definitions_Topology-Definitions">topology</a>.</p>
+<a href="#Definitions_Component-Instance-Definitions">component instance</a>
+or a
+<a href="#Definitions_Topology-Definitions">topology</a>
+is part of a topology.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Port-Interface-Instance-Specifiers_Syntax">7.12.1. Syntax</h4>
 <div class="paragraph">
-<p><code>instance</code>
+<p><em>instance-or-import</em>
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a></p>
+</div>
+<div class="paragraph">
+<p><em>instance-or-import</em> is one of <code>instance</code> or <code>import</code>.
+The syntax <code>instance</code> is standard.
+The syntax <code>import</code> exists for backwards compatibility with previous versions
+of FPP.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Port-Interface-Instance-Specifiers_Semantics">7.12.2. Semantics</h4>
-<div class="ulist">
-<ul>
-<li>
+<div class="paragraph">
 <p>The qualified identifier must
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
 a
-<a href="#Ports_Port-Interface-Instances">port interface instance</a>.</p>
-</li>
-<li>
-<p>The <em>qual-ident</em> <em>I</em> must <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
-a <a href="#Ports_Port-Interface-Instances">port interface instance</a>.
-If the port interface instance is a <a href="#Definitions_Topology-Definitions">topology definition</a>,
-<a href="#Specifiers_Topology-Import-Specifiers_Semantics_Importing-Connections">import</a> the connections
-into the enclosing topology.</p>
-</li>
-</ul>
+<a href="#Ports_Port-Interface-Instances">port interface instance</a>,
+i.e., a component instance definition or a topology definition.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Port-Interface-Instance-Specifiers_Example">7.12.3. Example</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">component A { ... }
-component B { ... }
-component C { ... }
+<pre class="prettyprint highlight"><code data-lang="fpp">port P
 
-instance a: A base id 0x100 ...
-instance b: B base id 0x200 ...
-instance c: B base id 0x300 ...
+passive component A { output port p: P }
+passive component B { sync input port p: P }
 
-topology Subtopology {
+instance a: A base id 0x100
+instance b: B base id 0x200
+
+topology T1 {
   instance a
-  port a = a.out
+  port a = a.p
 }
 
-topology T {
+topology T2 {
 
-  instance a
   instance b
-  instance Subtopology
+  instance T1
 
-  ...
+  connections C {
+    T.p -&gt; b.p
+  }
 
 }</code></pre>
 </div>
@@ -7743,7 +7935,7 @@ a distinct name and a distinct identifier.</p>
 <p>For every component instance <em>I</em> in the enclosing topology after
 <a href="#Definitions_Topology-Definitions">resolving it to a partially numbered
 topology</a>,
-<a href="#Specifiers_Topology-Import-Specifiers">import</a>,
+<a href="#Specifiers_Port-Interface-Instance-Specifiers">import</a>,
 for every telemetry channel <em>T</em> that is a member of <em>I</em>,
 exactly one of the following is true:</p>
 <div class="olist loweralpha">
@@ -7919,8 +8111,7 @@ In this way a topology may have a component-like interface.</p>
 <p>The identifier specifies the name <em>N</em> of the port instance.</p>
 </li>
 <li>
-<p>The port instance identifier must be valid and must resolve to a port
-instance <em>I</em>.</p>
+<p>The port instance identifier must be valid.</p>
 </li>
 <li>
 <p>The whole specifier makes <em>I</em> part of the
@@ -7963,200 +8154,6 @@ definitions</a>.</p>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="Specifiers_Topology-Import-Specifiers">7.20. Topology Import Specifiers</h3>
-<div class="paragraph">
-<p><em>TODO: Consolidate this section with the port interface instance specifier
-section. <code>import</code> should be an alternate syntax for backwards compatibility.</em></p>
-</div>
-<div class="paragraph">
-<p>A <strong>topology import specifier</strong> imports one topology into another one.</p>
-</div>
-<div class="sect3">
-<h4 id="Specifiers_Topology-Import-Specifiers_Syntax">7.20.1. Syntax</h4>
-<div class="paragraph">
-<p><code>import</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Specifiers_Topology-Import-Specifiers_Semantics">7.20.2. Semantics</h4>
-<div class="paragraph">
-<p>The qualified identifier must
-<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
-a
-<a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
-</div>
-<div class="sect4">
-<h5 id="Specifiers_Topology-Import-Specifiers_Semantics_Importing-Interface-Instances">Importing Interface Instances</h5>
-<div class="paragraph">
-<p>FPP uses the following algorithm to import the component instances
-of topology <em>T'</em> into topology <em>T</em>:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Let <em>I</em> be the set of
- <a href="#Ports_Port-Interface-Instances">port interface instances</a>
-of <em>T</em>.</p>
-</li>
-<li>
-<p>Let <em>I'</em> be the set of <a href="#Ports_Port-Interface-Instances">port interface instances</a>
-of <em>T'</em>.</p>
-</li>
-<li>
-<p>Let <em>I''</em> be the set union of <em>I</em> and <em>I'</em>.
-That means that if either or both of <em>I</em> and <em>I'</em> contain the instance <em>S</em>,
-then <em>I''</em> contains the instance <em>S</em> once.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect4">
-<h5 id="Specifiers_Topology-Import-Specifiers_Semantics_Importing-Connections">Importing Connections</h5>
-<div class="paragraph">
-<p>Let <em>T'</em> be a <a href="#Definitions_Topology-Definitions_Semantics">partially numbered topology</a>,
-so that all connections go between component instances.
-FPP uses the following algorithm to import the connections
-of topology <em>T'</em> into topology <em>T</em>.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>For each
-<a href="#Specifiers_Connection-Graph-Specifiers">connection graph name</a> \$N_i\$
-that appears in either <em>T</em> or <em>T'</em>:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Let \$G_i\$ be the connection graph named \$N_i\$ in <em>T</em>.
-If no such graph exists, then let \$G_i\$ be the empty connection graph
-with name \$N_i\$.</p>
-</li>
-<li>
-<p>Let \$G'_i\$ be the connection graph named \$N_i\$ in <em>T'</em>.
-If no such graph exists, then let \$G'_i\$ be the empty connection graph
-with name \$N_i\$.</p>
-</li>
-<li>
-<p>Let \$C_i\$ be the set of
-<a href="#Specifiers_Connection-Graph-Specifiers">connections</a>
-of \$G_i\$ such that each of the two instances at
-the ends of the connection is in <em>I''</em>.</p>
-</li>
-<li>
-<p>Let \$C'_i\$ be the set of
-<a href="#Specifiers_Connection-Graph-Specifiers">connections</a>
-of \$G'_i\$ such that each of the two the instances at
-the ends of the connection is in <em>I''</em>, and the connection
-is defined by a direct or pattern specifier in <em>T'</em>
-(i.e., not imported into <em>T'</em> from another topology).</p>
-</li>
-<li>
-<p>Let \$C''_i\$ be the disjoint union of \$C_i\$ and \$C'_i\$.
-That means that if \$C_i\$ contains <em>n</em> connections between port
-<em>p</em> and port <em>p'</em>, and \$C'_i\$ contains <em>m</em> connections between
-port <em>p</em> and port <em>p'</em>, then \$C_i\$ contains <em>n + m</em> connections
-between port <em>p</em> and port <em>p'</em>.</p>
-</li>
-<li>
-<p>Let \$G''_i\$ be the connection graph with name \$N_i\$
-and connections \$C''_i\$.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Return the connection graphs \$G''_i\$.</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Specifiers_Topology-Import-Specifiers_Example">7.20.3. Example</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">topology A {
-
-  instance a
-  instance b
-  instance c
-
-  connections C1 {
-    a.p1 -&gt; c.p
-  }
-
-  connections C2 {
-    b.p -&gt; c.p
-  }
-
-}
-
-topology B {
-
-  import A
-
-  instance d
-  instance e
-  instance f
-
-  connections C1 {
-    a.p1 -&gt; d.p
-  }
-
-  connections C2 {
-    a.p2 -&gt; e.p
-  }
-
-  connections C3 {
-    a.p3 -&gt; f.p
-  }
-
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>After importing, topology <code>B</code> is equivalent to this topology:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">topology B {
-
-  instance a
-  instance b
-  instance c
-  instance d
-  instance e
-  instance f
-
-  connections C1 {
-    a.p1 -&gt; c.p
-    a.p2 -&gt; d.p
-  }
-
-  connections C2 {
-    a.p2 -&gt; e.p
-  }
-
-  connections C3 {
-    a.p3 -&gt; f.p
-  }
-
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Note the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>The connections from topologies <code>A</code> and <code>B</code> are merged graph by graph.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -8196,6 +8193,18 @@ Port instance identifiers appear in <a href="#Specifiers_Connection-Graph-Specif
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
 a <a href="#Ports_Port-Interface-Instances">port interface instance</a>
 with associated port interface <em>I</em>.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If <em>Q</em> refers to a component instance definition, then <em>Q</em> <code>.</code> <em>P</em> is called
+a <strong>component instance port</strong>.</p>
+</li>
+<li>
+<p>If <em>Q</em> refers to a topology definition, then <em>Q</em> <code>.</code> <em>P</em> is called
+a <strong>topology port</strong>.</p>
+</li>
+</ol>
+</div>
 </li>
 <li>
 <p>The identifier <em>P</em> must refer to a <a href="#Ports_Port-Instances">port instance</a> in
@@ -8206,9 +8215,6 @@ with associated port interface <em>I</em>.</p>
 </div>
 <div class="sect3">
 <h4 id="Instance-Member-Identifiers_Port-Instance-Identifiers_Example">8.1.3. Example</h4>
-<div class="paragraph">
-<p>Consider the following code:</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">passive component C {
@@ -11980,7 +11986,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-22 23:44:55 -0700
+Last updated 2025-09-23 12:01:13 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

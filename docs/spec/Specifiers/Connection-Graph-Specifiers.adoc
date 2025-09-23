@@ -51,6 +51,11 @@ _[_
 `]`
 _]_
 
+The syntax from the optional `unmatched` to the arrow is called the
+*output endpoint* of the connection.
+The syntax following the arrow is called the
+*input endpoint* of the connection.
+
 _pattern-kind_ is one of the following:
 
 . `command`
@@ -90,13 +95,21 @@ match constrained>>.
 In this case, if the keyword `unmatched` is present, then _C_ is
 unmatched.
 
-.. For each of the two port instance identifiers _I_ appearing in _C_:
+.. For each of the two endpoints _E_ in _C_:
 
-... _I_ must name a <<Instance-Member-Identifiers_Port-Instance-Identifiers,
-port instance id>> <<Definitions_Topology-Definitions_Semantics_Resolving-to-a-Partially-Numbered-Topology,
-available>> in the enclosing topology.
+... Let _I_ be the 
+   <<Instance-Member-Identifiers_Port-Instance-Identifiers,port instance
+identifiers>> _I_ appearing in _E_.
 
-... The optional expression _e_ following the identifier, if it is present,
+... The port interface instance _P_ named in _I_ must exist in the enclosing 
+topology,
+after 
+<<Definitions_Topology-Definitions_Semantics_Resolving-to-a-Partially-Numbered-Topology,
+resolution to a partially numbered topology>>.
+If _P_ is a component instance, then _E_ is a *component instance endpoint*.
+Otherwise _P_ is a topology, and _E_ is a *topology endpoint*.
+
+... The optional expression _e_ following _I_, if it is present,
 represents a port number, i.e., an index into an
 array of port instances.
 The type of _e_ must be a

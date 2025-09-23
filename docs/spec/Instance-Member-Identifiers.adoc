@@ -31,12 +31,16 @@ For each port instance identifier _Q_ `.` _P_:
 a <<Ports_Port-Interface-Instances,port interface instance>>
 with associated port interface _I_.
 
+.. If _Q_ refers to a component instance definition, then _Q_ `.` _P_ is called
+   a *component instance port*.
+
+.. If _Q_ refers to a topology definition, then _Q_ `.` _P_ is called
+   a *topology port*.
+
 . The identifier _P_ must refer to a <<Ports_Port-Instances,port instance>> in
   _I_.
 
 ==== Example
-
-Consider the following code:
 
 [source,fpp]
 ----

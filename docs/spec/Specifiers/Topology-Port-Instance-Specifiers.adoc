@@ -17,8 +17,7 @@ In this way a topology may have a component-like interface.
 
 . The identifier specifies the name _N_ of the port instance.
 
-. The port instance identifier must be valid and must resolve to a port 
-  instance _I_.
+. The port instance identifier must be valid.
 
 . The whole specifier makes _I_ part of the 
   <<Ports_Port-Interfaces_Topology-Definitions,interface of the enclosing 

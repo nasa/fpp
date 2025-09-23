@@ -51,7 +51,7 @@ a distinct name and a distinct identifier.
 . For every component instance _I_ in the enclosing topology after 
 <<Definitions_Topology-Definitions,resolving it to a partially numbered 
 topology>>,
-<<Specifiers_Topology-Import-Specifiers,import>>,
+<<Specifiers_Port-Interface-Instance-Specifiers,import>>,
 for every telemetry channel _T_ that is a member of _I_,
 exactly one of the following is true:
 

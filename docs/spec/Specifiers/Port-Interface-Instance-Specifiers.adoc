@@ -1,56 +1,56 @@
 === Port Interface Instance Specifiers
 
-_TODO: Consolidate this section with the topology import specifier section.
-`import` should be an alternate syntax for backwards compatibility._
-
 A *port interface instance specifier*
 specifies that a
-<<Ports_Port-Interface-Instances,port interface instance>>
-is part of a
-<<Definitions_Topology-Definitions,topology>>.
+<<Definitions_Component-Instance-Definitions,component instance>>
+or a
+<<Definitions_Topology-Definitions,topology>>
+is part of a topology.
 
 ==== Syntax
 
-`instance`
+_instance-or-import_
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+
+_instance-or-import_ is one of `instance` or `import`.
+The syntax `instance` is standard.
+The syntax `import` exists for backwards compatibility with previous versions
+of FPP.
 
 ==== Semantics
 
-* The qualified identifier must
+The qualified identifier must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
 a
-<<Ports_Port-Interface-Instances,port interface instance>>.
-
-* The _qual-ident_ _I_ must <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
-a <<Ports_Port-Interface-Instances,port interface instance>>.
-If the port interface instance is a <<Definitions_Topology-Definitions,topology definition>>,
-<<Specifiers_Topology-Import-Specifiers_Semantics_Importing-Connections, import>> the connections
-into the enclosing topology.
+<<Ports_Port-Interface-Instances,port interface instance>>,
+i.e., a component instance definition or a topology definition.
 
 ==== Example
 
 [source,fpp]
 ----
-component A { ... }
-component B { ... }
-component C { ... }
+port P
 
-instance a: A base id 0x100 ...
-instance b: B base id 0x200 ...
-instance c: B base id 0x300 ...
+passive component A { output port p: P }
+passive component B { sync input port p: P }
 
-topology Subtopology {
+instance a: A base id 0x100
+instance b: B base id 0x200
+
+topology T1 {
   instance a
-  port a = a.out
+  port a = a.p
 }
 
-topology T {
+topology T2 {
 
-  instance a
   instance b
-  instance Subtopology
+  instance T1
 
-  ...
+  connections C {
+    T.p -> b.p
+  }
 
 }
 ----
+
