@@ -558,7 +558,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions_Topology-Definitions_Syntax">5.14.1. Syntax</a></li>
 <li><a href="#Definitions_Topology-Definitions_Semantics">5.14.2. Semantics</a></li>
 <li><a href="#Definitions_Topology-Definitions_Importing-Subtopologies">5.14.3. Importing Subtopologies</a></li>
-<li><a href="#Definitions_Topology-Definitions_Ordering-of-Connections">5.14.4. Ordering of Connections</a></li>
+<li><a href="#Definitions_Topology-Definitions_Ordering-of-Component-Instance-Connections">5.14.4. Ordering of Component Instance Connections</a></li>
 <li><a href="#Definitions_Topology-Definitions_Implied-Uses">5.14.5. Implied Uses</a></li>
 <li><a href="#Definitions_Topology-Definitions_Examples">5.14.6. Examples</a></li>
 </ul>
@@ -3574,7 +3574,8 @@ function, such as commanding and telemetry.</p>
 <div class="paragraph">
 <p>In the FPP source, connections can have ports of either component
 instances or topologies as their endpoints.
-Before generating code, connections with topology ports as endpoints are flattened
+Before generating code, connections with topology ports as endpoints are
+flattened
 into connections between component instance ports.</p>
 </div>
 <div class="sect3">
@@ -3720,7 +3721,7 @@ imported by the definition of <em>T'</em>.</p>
 <li>
 <p>For each connection <em>C</em> discovered in step 3, check that each
 <a href="#Specifiers_Connection-Graph-Specifiers_Syntax">endpoint</a> of <em>C</em>
-refers to one of the instances computed in the previous step.</p>
+refers to one of the port interface instances computed in the previous step.</p>
 </li>
 <li>
 <p>For each topology <em>T'</em> in <em>S</em>,
@@ -3733,7 +3734,7 @@ have port instances of component instances as their endpoints.</p>
 <li>
 <p>For each
 <a href="#Specifiers_Connection-Graph-Specifiers_Syntax">connection endpoint</a>
-<em>E</em> of a connection <em>C</em> in <em>T</em>, do the following:</p>
+<em>E</em> of a connection computed in step 3, do the following:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -3754,7 +3755,7 @@ then do nothing.</p>
 Retain the port number assignment, if any, at <em>E</em> computed in step 1.</p>
 </li>
 <li>
-<p>Reapply steps i and ii to the endpoint <em>E</em>.</p>
+<p>Reapply steps a and b to the endpoint <em>E</em>.</p>
 </li>
 </ol>
 </div>
@@ -3919,7 +3920,7 @@ then assign <em>n</em> to \$c_1\$ at <em>I</em> <code>.</code> \$p_1\$.</p>
 </li>
 <li>
 <p>Traverse the pairs \$(c_1,c_2)\$ computed in step c according to the
-<a href="#Definitions_Topology-Definitions_Ordering-of-Connections">order</a> of the connections \$c_1\$, least to greatest.
+<a href="#Definitions_Topology-Definitions_Ordering-of-Component-Instance-Connections">order</a> of the connections \$c_1\$, least to greatest.
 For each pair \$(c_1,c_2)\$ that does not yet have assigned
 port numbers, find the lowest available port number
 and assign it at <em>I</em> <code>.</code> \$p_1\$ and <em>I</em> <code>.</code> \$p_2\$.
@@ -3945,7 +3946,7 @@ Fill in any remaining port numbers.</p>
 <ol class="arabic">
 <li>
 <p>Traverse the connections
-<a href="#Definitions_Topology-Definitions_Ordering-of-Connections">in order</a>, least to greatest.</p>
+<a href="#Definitions_Topology-Definitions_Ordering-of-Component-Instance-Connections">in order</a>, least to greatest.</p>
 </li>
 <li>
 <p>For each output endpoint <em>P</em> in each connection <em>C</em>,
@@ -4062,14 +4063,12 @@ with name \$N_i\$.</p>
 <li>
 <p>Let \$C_i\$ be the set of
 <a href="#Specifiers_Connection-Graph-Specifiers">connections</a>
-of \$G_i\$ such that each of the two instances at
-the ends of the connection is in <em>I''</em>.</p>
+of \$G_i\$.</p>
 </li>
 <li>
 <p>Let \$C'_i\$ be the set of
 <a href="#Specifiers_Connection-Graph-Specifiers">connections</a>
-of \$G'_i\$ such that each of the two the instances at
-the ends of the connection is in <em>I''</em>, and the connection
+of \$G'_i\$ such that the connection
 is defined by a direct or pattern specifier in <em>T'</em>
 (i.e., not imported into <em>T'</em> from another topology).</p>
 </li>
@@ -4095,13 +4094,14 @@ and connections \$C''_i\$.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Topology-Definitions_Ordering-of-Connections">5.14.4. Ordering of Connections</h4>
+<h4 id="Definitions_Topology-Definitions_Ordering-of-Component-Instance-Connections">5.14.4. Ordering of Component Instance Connections</h4>
 <div class="paragraph">
-<p>For purposes of port numbering, FPP orders connections as follows.</p>
+<p>For purposes of port numbering, FPP orders connections between
+component instances as follows.</p>
 </div>
 <div class="paragraph">
-<p><strong>Connection endpoints:</strong>
-A <strong>connection endpoint</strong> is <em>I</em> <code>.</code> <em>p</em> or <em>I</em> <code>.</code> <em>p</em> <code>[</code> <em>n</em> <code>]</code>, where</p>
+<p><strong>Component instance endpoints:</strong>
+A <strong>component instance endpoint</strong> is <em>I</em> <code>.</code> <em>p</em> or <em>I</em> <code>.</code> <em>p</em> <code>[</code> <em>n</em> <code>]</code>, where</p>
 </div>
 <div class="ulist">
 <ul>
@@ -4114,23 +4114,22 @@ A <strong>connection endpoint</strong> is <em>I</em> <code>.</code> <em>p</em> o
 the component definition associated with <em>I</em>.</p>
 </li>
 <li>
-<p><em>n</em> is an optional port number that is present if and only
-if it appears in the model source.</p>
+<p><em>n</em> is an optional port number.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>When a connection endpoint <em>e</em> has the form <em>I</em> <code>.</code> <em>p</em> <code>[</code> <em>n</em> <code>]</code>,
+<p>When a component instance endpoint <em>e</em> has the form <em>I</em> <code>.</code> <em>p</em> <code>[</code> <em>n</em> <code>]</code>,
 we say that the endpoint <strong>has source port number</strong> <em>n</em>.</p>
 </div>
 <div class="paragraph">
-<p>Each connection endpoint has a <strong>fully qualified name</strong>.
+<p>Each component instance endpoint has a <strong>fully qualified name</strong>.
 The fully qualified name is <em>Q</em> <code>.</code> <em>p</em>, where <em>Q</em> is the
 <a href="#Scoping-of-Names_Names-of-Definitions">fully qualified name</a>
 of the instance <em>I</em>.</p>
 </div>
 <div class="paragraph">
-<p>FPP orders connection endpoints \$e_1\$ and \$e_2\$ as follows:</p>
+<p>FPP orders component instance endpoints \$e_1\$ and \$e_2\$ as follows:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -4152,10 +4151,10 @@ and \$n_2\$.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p><strong>Connections:</strong> A <strong>connection</strong> is \$e_1\$ <code>-></code>
-\$e_2\$,
-where \$e_1\$ and \$e_2\$ are the connection endpoints.
-FPP orders connections \$c_1\$ and \$c_2\$ as follows:</p>
+<p><strong>Component instance connections:</strong> A <strong>component instance connection</strong> is
+\$e_1\$ <code>-></code> \$e_2\$,
+where \$e_1\$ and \$e_2\$ are component instance endpoints.
+FPP orders component instance connections \$c_1\$ and \$c_2\$ as follows:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -11986,7 +11985,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-23 12:01:13 -0700
+Last updated 2025-09-23 13:21:23 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
