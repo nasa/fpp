@@ -318,8 +318,8 @@ interface>> _I'_.
 
 ==== Importing Subtopologies
 
-When a topology _T_ contains a port interface instance specifier `interface` _Q_,
-and _Q_ refers to a topology
+When a topology _T_ has a port interface instance specifier `interface` _Q_
+as a member, and _Q_ refers to a topology
 _T'_, _T'_ is called a *subtopology* of _T_.
 In this case the instances and connections are imported from _T'_ into _T_.
 

@@ -1,11 +1,11 @@
 === Topology Port Instance Specifiers
 
 A *topology port instance specifier* specifies a
-port instance for a <<Definitions_Topology-Definitions,topology definition>>
+port instance in a <<Definitions_Topology-Definitions,topology definition>>
 that is analogous to a port instance in a
 <<Definitions_Component-Definitions,component definition>>.
-Topology instance port specifiers allow 
-a topology to have a component-like interface.
+These specifiers can be the endpoints of 
+<<Specifiers_Connection-Graph-Specifiers,connections>>
 
 ==== Syntax
 

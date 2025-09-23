@@ -4013,8 +4013,8 @@ interface</a> <em>I'</em>.</p>
 <div class="sect3">
 <h4 id="Definitions_Topology-Definitions_Importing-Subtopologies">5.14.3. Importing Subtopologies</h4>
 <div class="paragraph">
-<p>When a topology <em>T</em> contains a port interface instance specifier <code>interface</code> <em>Q</em>,
-and <em>Q</em> refers to a topology
+<p>When a topology <em>T</em> has a port interface instance specifier <code>interface</code> <em>Q</em>
+as a member, and <em>Q</em> refers to a topology
 <em>T'</em>, <em>T'</em> is called a <strong>subtopology</strong> of <em>T</em>.
 In this case the instances and connections are imported from <em>T'</em> into <em>T</em>.</p>
 </div>
@@ -5797,11 +5797,9 @@ part of a
 <a href="#Definitions_Topology-Definitions">topology definition</a>.
 A connection graph is a named set of <strong>connections</strong>.
 A connection connects an
-<a href="#Specifiers_Port-Instance-Specifiers_Input-and-Output-Port-Instance-Specifiers">output
-port instance</a> of one
+<a href="#Ports_Port-Instances">output port instance</a> of one
 component instance or topology to an
-<a href="#Specifiers_Port-Instance-Specifiers_Input-and-Output-Port-Instance-Specifiers">input
-port instance</a> of
+<a href="#Ports_Port-Instances">input port instance</a> of
 another one.</p>
 </div>
 <div class="sect3">
@@ -5956,11 +5954,9 @@ array size of the port instance <em>P</em>.</p>
 </li>
 <li>
 <p>The connection must go from an
-<a href="#Specifiers_Port-Instance-Specifiers_Input-and-Output-Port-Instance-Specifiers">output
-port instance</a>
+<a href="#Ports_Port-Instances">output port instance</a>
 to an
-<a href="#Specifiers_Port-Instance-Specifiers_Input-and-Output-Port-Instance-Specifiers">input
-port instance</a>.</p>
+<a href="#Ports_Port-Instances">input port instance</a>.</p>
 </li>
 <li>
 <p>The <a href="#Specifiers_Port-Instance-Specifiers">port instance types</a>
@@ -8106,11 +8102,11 @@ packet ADCS group 2 {
 <h3 id="Specifiers_Topology-Port-Instance-Specifiers">7.19. Topology Port Instance Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>topology port instance specifier</strong> specifies a
-port instance for a <a href="#Definitions_Topology-Definitions">topology definition</a>
+port instance in a <a href="#Definitions_Topology-Definitions">topology definition</a>
 that is analogous to a port instance in a
 <a href="#Definitions_Component-Definitions">component definition</a>.
-Topology instance port specifiers allow
-a topology to have a component-like interface.</p>
+These specifiers can be the endpoints of
+<a href="#Specifiers_Connection-Graph-Specifiers">connections</a></p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Topology-Port-Instance-Specifiers_Syntax">7.19.1. Syntax</h4>
@@ -12010,7 +12006,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-23 14:41:27 -0700
+Last updated 2025-09-23 14:53:37 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

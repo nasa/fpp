@@ -5,11 +5,9 @@ part of a
 <<Definitions_Topology-Definitions,topology definition>>.
 A connection graph is a named set of *connections*.
 A connection connects an 
-<<Specifiers_Port-Instance-Specifiers_Input-and-Output-Port-Instance-Specifiers,output 
-port instance>> of one
+<<Ports_Port-Instances,output port instance>> of one
 component instance or topology to an
-<<Specifiers_Port-Instance-Specifiers_Input-and-Output-Port-Instance-Specifiers,input 
-port instance>> of
+<<Ports_Port-Instances,input port instance>> of
 another one.
 
 ==== Syntax
@@ -125,11 +123,9 @@ array size of the port instance _P_.
 .. The arrow represents the direction of the connection (left to right).
 
 .. The connection must go from an
-<<Specifiers_Port-Instance-Specifiers_Input-and-Output-Port-Instance-Specifiers,output 
-port instance>>
+<<Ports_Port-Instances,output port instance>>
 to an
-<<Specifiers_Port-Instance-Specifiers_Input-and-Output-Port-Instance-Specifiers,input 
-port instance>>.
+<<Ports_Port-Instances,input port instance>>.
 
 .. The <<Specifiers_Port-Instance-Specifiers,port instance types>>
 specified in the two port instances must be identical,
