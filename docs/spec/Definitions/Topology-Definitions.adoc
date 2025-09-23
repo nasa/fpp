@@ -81,9 +81,10 @@ if _E_ has a port number  expression _e_ in the FPP source, then
 _Integer_, and assign the port number _n_ at that position.
 Check that _n_ is in bounds for the port instance being numbered.
 
-. Recursively resolve all the topologies that are named as 
+. Let _S_ be the set of all topologies that are named as
 <<Specifiers_Port-Interface-Instance-Specifiers,instances>>
 in _D_.
+Recursively resolve all the topologies in _S_.
 
 . Construct the connection graphs of _T_ given by the
 <<Specifiers_Connection-Graph-Specifiers,direct connection graphs>>
@@ -111,10 +112,6 @@ are treated as the single graph
 connections C { a.b -> c.d, e.f -> g.h }
 ----
 +
-
-. Compute the set _S_ of topologies named as
-<<Specifiers_Port-Interface-Instance-Specifiers,
-instances>> in this topology.
 
 . For each topology _T'_ in _S_,
 <<Specifiers_Topology-Import-Specifiers,import the instances>>
@@ -144,11 +141,12 @@ topology definition>>, find the <<Specifiers_Topology-Port-Instance-Specifiers,
 topology port instance specifier>> that corresponds to _I_ in the topology referenced
 by _Q_. Re-apply these rules with the port instance referred to in the topology
 port specifier.
-Replace the endpoint _Q_ `.` _I_ with the corresponding endpoint
-at a component instance.
 
 +
-At this point all connections in the topology are between port instances
+If necessary, replace the endpoint _Q_ `.` _I_ with the corresponding endpoint
+at a component instance.
+
+. At this point all connections in the topology are between port instances
 of component instances.
 There are no connections to topologies.
 

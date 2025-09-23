@@ -3674,9 +3674,10 @@ if <em>E</em> has a port number  expression <em>e</em> in the FPP source, then
 Check that <em>n</em> is in bounds for the port instance being numbered.</p>
 </li>
 <li>
-<p>Recursively resolve all the topologies that are named as
+<p>Let <em>S</em> be the set of all topologies that are named as
 <a href="#Specifiers_Port-Interface-Instance-Specifiers">instances</a>
-in <em>D</em>.</p>
+in <em>D</em>.
+Recursively resolve all the topologies in <em>S</em>.</p>
 </li>
 <li>
 <p>Construct the connection graphs of <em>T</em> given by the
@@ -3706,10 +3707,6 @@ For example, the two connection graphs</p>
 <pre class="prettyprint highlight"><code data-lang="fpp">connections C { a.b -&gt; c.d, e.f -&gt; g.h }</code></pre>
 </div>
 </div>
-</li>
-<li>
-<p>Compute the set <em>S</em> of topologies named as
-<a href="#Specifiers_Port-Interface-Instance-Specifiers">instances</a> in this topology.</p>
 </li>
 <li>
 <p>For each topology <em>T'</em> in <em>S</em>,
@@ -3747,17 +3744,19 @@ port instance in a <a href="#Definitions_Component-Instance-Definitions">compone
 <li>
 <p>If <em>Q</em> refers to a <a href="#Definitions_Topology-Definitions">topology definition</a>, find the <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port instance specifier</a> that corresponds to <em>I</em> in the topology referenced
 by <em>Q</em>. Re-apply these rules with the port instance referred to in the topology
-port specifier.
-Replace the endpoint <em>Q</em> <code>.</code> <em>I</em> with the corresponding endpoint
-at a component instance.</p>
+port specifier.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
+<p>If necessary, replace the endpoint <em>Q</em> <code>.</code> <em>I</em> with the corresponding endpoint
+at a component instance.</p>
+</div>
+</li>
+<li>
 <p>At this point all connections in the topology are between port instances
 of component instances.
 There are no connections to topologies.</p>
-</div>
 </li>
 <li>
 <p>Resolve
@@ -11981,7 +11980,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-22 23:38:15 -0700
+Last updated 2025-09-22 23:44:55 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
