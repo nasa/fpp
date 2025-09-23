@@ -21,7 +21,7 @@ final case class Event(
 object Event {
 
   case class TimeInterval(
-    seconds: Int,
+    seconds: Long,
     useconds: Int,
   )
 
@@ -53,7 +53,7 @@ object Event {
             ("useconds", Type.U32),
           )
         ))
-        def getNonZeroMember(member: String, maxValue: Option[Int] = None) = {
+        def getMember(member: String, maxValue: BigInt) = {
           val Value.PrimitiveInt(v, Type.PrimitiveInt.U32) = Analysis.convertValueToType(
             intervalValue.get(member).get,
             Type.U32
@@ -64,25 +64,22 @@ object Event {
               loc, v, s"$member may not be negative"
             ))
           } else {
-            maxValue match {
-              case Some(m) => if v >= m then
-                Left(SemanticError.InvalidIntValue(
-                  loc, v, s"$member must be smaller than $m"
-                )) else Right(v.intValue)
-              case None => Right(v.intValue)
-            }
+            if v >= maxValue then
+            Left(SemanticError.InvalidIntValue(
+              loc, v, s"$member must be smaller than $maxValue"
+            )) else Right(v.longValue)
           }
         }
         for {
-          seconds <- getNonZeroMember("seconds")
-          useconds <- getNonZeroMember("useconds", Some(1_000_000))
+          seconds <- getMember("seconds", 4294967295L)
+          useconds <- getMember("useconds", 1_000_000)
           _ <- {
             if (seconds + useconds) > 0 then Right(())
             else Left(SemanticError.InvalidIntValue(
               loc, 0, s"time interval must be greater than 0"
             ))
           }
-        } yield TimeInterval(seconds, useconds)
+        } yield TimeInterval(seconds, useconds.toInt)
       }
       def checkEventThrottle(throttle: AstNode[Ast.EventThrottle]) = {
         for {

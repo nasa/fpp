@@ -6004,7 +6004,9 @@ product container Container2 default priority 10</code></pre>
 <h3 id="Specifiers_Event-Specifiers">7.5. Event Specifiers</h3>
 <div class="paragraph">
 <p>An <strong>event specifier</strong> specifies an event report as part of a
-<a href="#Definitions_Component-Definitions">component definition</a>.</p>
+<a href="#Definitions_Component-Definitions">component definition</a>.
+An event report conforming to an event specifier <em>E</em> is called
+an <strong>instance</strong> of <em>E</em>.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Event-Specifiers_Syntax">7.5.1. Syntax</h4>
@@ -6020,8 +6022,7 @@ product container Container2 default priority 10</code></pre>
 <em>]</em>
 <code>format</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a>
 <em>[</em>
-<code>throttle</code> <a href="#Expressions"><em>expression</em></a>
-<em>[</em> <code>every</code> <a href="#Expressions"><em>expression</em></a> <em>]</em>
+<code>throttle</code> <em>throttle</em>
 <em>]</em></p>
 </div>
 <div class="paragraph">
@@ -6052,6 +6053,15 @@ product container Container2 default priority 10</code></pre>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p><em>throttle</em> is defined as follows:</p>
+</div>
+<div class="paragraph">
+<p><a href="#Expressions"><em>expression</em></a>
+<em>[</em>
+<code>every</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em></p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Event-Specifiers_Semantics">7.5.2. Semantics</h4>
@@ -6072,7 +6082,7 @@ If there are no parameters, the list may be omitted.
 </li>
 <li>
 <p>The optional expression <em>e</em> following <code>id</code> specifies the numeric
-identifier for the event.
+identifier for instances of the event.
 If <em>e</em> is present, then the type of <em>e</em> must be convertible to
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
 to a nonnegative integer.
@@ -6088,29 +6098,55 @@ parameters. A numeric format is allowed for any
 argument whose type is a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.</p>
 </li>
 <li>
-<p>The optional expression <em>e</em> following <code>throttle</code> specifies the maximum number
-of times to emit the event before throttling it.
-The type of <em>e</em> must be convertible to
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a> and must evaluate to an integer
-in the range [0,2<sup>31</sup>).</p>
-</li>
-<li>
-<p>The optional expression <em>e</em> following <code>every</code> specifies the maximum time period
-to elapse before clearing the event throttle. <em>e</em> must satisfy the following
-rules:</p>
+<p>The optional <em>throttle</em> syntax has the following meaning for an event <em>E</em>:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Convertible to a <a href="#Types_Struct-Types">struct type</a> with shape <code>{seconds: U32, useconds: U32}</code></p>
+<p>The expression <em>e</em> following <code>throttle</code> specifies the <strong>maximum throttle
+count</strong> for instances of <em>E</em>.
+The type of <em>e</em> must be convertible to
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a> and must evaluate to an integer
+in the range \$[0, 2^31)\$.
+When throttling is specified for an event <em>E</em>,
+the framework maintains a <strong>throttle count</strong> for <em>E</em>.
+The throttle count
+starts at zero and goes up by one with each instance of <em>E</em> that is emitted.
+When the throttle count for <em>E</em> equals the maximum throttle count
+for <em>E</em>, no more instances of <em>E</em> are emitted until the throttle
+count for identifier <em>E</em> is reset.</p>
 </li>
 <li>
-<p><code>seconds</code> must evaluate to an integer in the range [0,2<sup>31</sup>)</p>
+<p>The optional expression <em>e</em> following <code>every</code> specifies the <strong>throttle
+period</strong>.
+<em>e</em> must satisfy the following rules:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The type of <em>e</em> must be convertible to the
+<a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct type</a> <em>T =</em> <code>{ seconds: U32, useconds: U32 }</code>.</p>
 </li>
 <li>
-<p><code>useconds</code> must evaluate to an integer in the range [0,10<sup>6</sup>)</p>
+<p>After conversion to <em>T</em>, <em>e</em> must evaluate to an
+<a href="#Values_Anonymous-Struct-Values">anonymous struct value</a>
+<code>{ seconds =</code> <em>s</em> <code>:U32, useconds =</code> <em>u</em> <code>:U32 }</code>.</p>
 </li>
 <li>
-<p><code>seconds</code> + <code>useconds</code> must be greater than zero</p>
+<p><em>s</em> must be in the range \$[0, 2^32)\$, <em>u</em> must be in the range
+\$[0,10^6)\$, and \$s + u\$ must be greater than zero.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If a throttle period \$p\$ is specified for event <em>E</em>, and the throttle
+count
+for <em>E</em> goes from zero to nonzero at time \$t\$, and a request
+to emit an instance of <em>E</em> occurs at or after time \$t + p\$, then the
+instance is emitted,
+regardless of the throttle count for <em>E</em>, and the throttle count
+for <em>E</em> is automatically reset to zero.
+If no throttle period is specified for event <em>E</em>, then the throttle count
+for <em>E</em> must be reset in some other way (typically this is done by command).</p>
+</div>
 </li>
 </ul>
 </div>
@@ -11853,7 +11889,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-18 10:56:03 -0700
+Last updated 2025-09-22 16:49:32 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
