@@ -119,7 +119,7 @@ connections C { a.b -> c.d, e.f -> g.h }
 ----
 +
 
-. Let the set of instances of _T_ be the
+. Let the initial set of instances of _T_ be the
 <<Specifiers_Port-Interface-Instance-Specifiers,port interface instances>>
 specified in the definition of _T_.
 For each topology _T'_ in _S_ (step 2),
@@ -139,7 +139,8 @@ refers to one of the port interface instances computed in the previous step.
 the connections>>
 of _T'_ into _T_.
 Note that _T'_ is resolved (step 2), so all the connections in _T'_
-have port instances of component instances as their endpoints.
+have <<Specifiers_Connection-Graph-Specifiers_Semantics,component instance 
+endpoints>>.
 
 . For each 
 <<Specifiers_Connection-Graph-Specifiers_Syntax,connection endpoint>>
@@ -148,12 +149,13 @@ _E_ of a connection computed in step 3, do the following:
 .. If _E_ is a <<Specifiers_Connection-Graph-Specifiers_Semantics,component instance endpoint>>,
 then do nothing.
 
-.. Otherwise the port instance identifier _P_ appearing in _E_ has the form _Q_ 
+.. Otherwise the <<Instance-Member-Identifiers_Port-Instance-Identifiers,port instance identifier>>
+_P_ appearing in _E_ has the form _Q_ 
 `.` _I_, where _Q_ refers to a topology _T'_, and
 _I_ names a port of _T'_.
 
 ... Find the <<Specifiers_Topology-Port-Instance-Specifiers,
-topology port instance specifier>> `port` _I_ `=` _E'_ in _T'_.
+topology port instance specifier>> `port` _I_ `=` _P'_ in _T'_.
 
 ...  Replace _P_ with _P'_ in the endpoint _E_.
 Retain the port number assignment, if any, at _E_ computed in step 1.

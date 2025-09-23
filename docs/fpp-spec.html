@@ -3712,7 +3712,7 @@ For example, the two connection graphs</p>
 </div>
 </li>
 <li>
-<p>Let the set of instances of <em>T</em> be the
+<p>Let the initial set of instances of <em>T</em> be the
 <a href="#Specifiers_Port-Interface-Instance-Specifiers">port interface instances</a>
 specified in the definition of <em>T</em>.
 For each topology <em>T'</em> in <em>S</em> (step 2),
@@ -3734,7 +3734,8 @@ refers to one of the port interface instances computed in the previous step.</p>
 the connections</a>
 of <em>T'</em> into <em>T</em>.
 Note that <em>T'</em> is resolved (step 2), so all the connections in <em>T'</em>
-have port instances of component instances as their endpoints.</p>
+have <a href="#Specifiers_Connection-Graph-Specifiers_Semantics">component instance
+endpoints</a>.</p>
 </li>
 <li>
 <p>For each
@@ -3747,13 +3748,14 @@ have port instances of component instances as their endpoints.</p>
 then do nothing.</p>
 </li>
 <li>
-<p>Otherwise the port instance identifier <em>P</em> appearing in <em>E</em> has the form <em>Q</em>
+<p>Otherwise the <a href="#Instance-Member-Identifiers_Port-Instance-Identifiers">port instance identifier</a>
+<em>P</em> appearing in <em>E</em> has the form <em>Q</em>
 <code>.</code> <em>I</em>, where <em>Q</em> refers to a topology <em>T'</em>, and
 <em>I</em> names a port of <em>T'</em>.</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
-<p>Find the <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port instance specifier</a> <code>port</code> <em>I</em> <code>=</code> <em>E'</em> in <em>T'</em>.</p>
+<p>Find the <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port instance specifier</a> <code>port</code> <em>I</em> <code>=</code> <em>P'</em> in <em>T'</em>.</p>
 </li>
 <li>
 <p>Replace <em>P</em> with <em>P'</em> in the endpoint <em>E</em>.
@@ -7421,9 +7423,11 @@ product send port productSendOut</code></pre>
 <p>A <strong>port interface instance specifier</strong>
 specifies that a
 <a href="#Definitions_Component-Instance-Definitions">component instance</a>
-or a
-<a href="#Definitions_Topology-Definitions">topology</a>
-is part of a topology.</p>
+<em>I</em> or a
+<a href="#Definitions_Topology-Definitions">topology</a> <em>T'</em>
+is part of a topology <em>T</em>.
+<em>I</em> or <em>T'</em> provides a <a href="#Ports_Port-Interfaces">port interface</a>
+that can be used in connections in <em>T</em>.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Port-Interface-Instance-Specifiers_Syntax">7.12.1. Syntax</h4>
@@ -8105,7 +8109,8 @@ packet ADCS group 2 {
 port instance for a <a href="#Definitions_Topology-Definitions">topology definition</a>
 that is analogous to a port instance in a
 <a href="#Definitions_Component-Definitions">component definition</a>.
-In this way a topology may have a component-like interface.</p>
+Topology instance port specifiers allow
+a topology to have a component-like interface.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Topology-Port-Instance-Specifiers_Syntax">7.19.1. Syntax</h4>
@@ -12005,7 +12010,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-23 14:29:11 -0700
+Last updated 2025-09-23 14:41:27 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -4,7 +4,8 @@ A *topology port instance specifier* specifies a
 port instance for a <<Definitions_Topology-Definitions,topology definition>>
 that is analogous to a port instance in a
 <<Definitions_Component-Definitions,component definition>>.
-In this way a topology may have a component-like interface.
+Topology instance port specifiers allow 
+a topology to have a component-like interface.
 
 ==== Syntax
 
