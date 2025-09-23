@@ -1,15 +1,16 @@
 === Connection Graph Specifiers
 
-A *connection graph specifier* specifies one or more *connection graphs*
-as part of a
+A *connection graph specifier* specifies one or more *connection graphs* as 
+part of a
 <<Definitions_Topology-Definitions,topology definition>>.
 A connection graph is a named set of *connections*.
-A connection connects an <<Specifiers_Port-Instance-Specifiers,output port
-instance>> of one
-<<Specifiers_Port-Interface-Instance-Specifiers,component instance or topology>>
-to an
-<<Specifiers_Port-Instance-Specifiers,input port instance>> of
-another.
+A connection connects an 
+<<Specifiers_Port-Instance-Specifiers_Input-and-Output-Port-Instance-Specifiers,output 
+port instance>> of one
+component instance or topology to an
+<<Specifiers_Port-Instance-Specifiers_Input-and-Output-Port-Instance-Specifiers,input 
+port instance>> of
+another one.
 
 ==== Syntax
 

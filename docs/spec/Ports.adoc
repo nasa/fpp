@@ -18,6 +18,13 @@ identifier _Q_, then replace _port-instance-type_ with the fully-qualified name 
 Making these transformations is called *resolving* the port instance specifier _P_
 to the port instance _I_.
 
+A port instance _I_ is an *input port instance* if it is resolved from an
+<<Specifiers_Port-Instance-Specifiers_Input-and-Output-Port-Instance-Specifiers,
+input port instance specifier>>.
+It is an *output port instance* if it is resolved from an
+<<Specifiers_Port-Instance-Specifiers_Input-and-Output-Port-Instance-Specifiers,
+output port instance specifier>>.
+
 === Port Interfaces
 
 A *port interface* is a set _I_ of

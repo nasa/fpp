@@ -733,8 +733,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifiers_Port-Instance-Specifiers">7.11. Port Instance Specifiers</a>
 <ul class="sectlevel3">
 <li><a href="#Specifiers_Port-Instance-Specifiers_Syntax">7.11.1. Syntax</a></li>
-<li><a href="#Specifiers_Port-Instance-Specifiers_Semantics">7.11.2. Semantics</a></li>
-<li><a href="#Specifiers_Port-Instance-Specifiers_Examples">7.11.3. Examples</a></li>
+<li><a href="#Specifiers_Port-Instance-Specifiers_Input-and-Output-Port-Instance-Specifiers">7.11.2. Input and Output Port Instance Specifiers</a></li>
+<li><a href="#Specifiers_Port-Instance-Specifiers_Semantics">7.11.3. Semantics</a></li>
+<li><a href="#Specifiers_Port-Instance-Specifiers_Examples">7.11.4. Examples</a></li>
 </ul>
 </li>
 <li><a href="#Specifiers_Port-Interface-Instance-Specifiers">7.12. Port Interface Instance Specifiers</a>
@@ -3565,18 +3566,17 @@ struct D {
 <h3 id="Definitions_Topology-Definitions">5.14. Topology Definitions</h3>
 <div class="paragraph">
 <p>A <strong>topology definition</strong> defines an F Prime topology,
-that is, a set of component instances and subtopologies
-and the connections among them.
+that is, a set of objects with ports (component instances and subtopologies)
+and the connections among the ports.
 The connections are divided into named <strong>connection graphs</strong>.
 The different graphs capture different aspects of FSW
 function, such as commanding and telemetry.</p>
 </div>
 <div class="paragraph">
-<p>In the FPP source, connections can have ports of either component
-instances or topologies as their endpoints.
-Before generating code, connections with topology ports as endpoints are
-flattened
-into connections between component instance ports.</p>
+<p>In the FPP source, connections can go from or to either component
+instances or topologies.
+Before generating code, connections to topologies are flattened,
+so that all connections go from and to the ports of component instances.</p>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Topology-Definitions_Syntax">5.14.1. Syntax</h4>
@@ -5785,16 +5785,17 @@ async command AsyncPriorityDrop(
 <div class="sect2">
 <h3 id="Specifiers_Connection-Graph-Specifiers">7.2. Connection Graph Specifiers</h3>
 <div class="paragraph">
-<p>A <strong>connection graph specifier</strong> specifies one or more <strong>connection graphs</strong>
-as part of a
+<p>A <strong>connection graph specifier</strong> specifies one or more <strong>connection graphs</strong> as
+part of a
 <a href="#Definitions_Topology-Definitions">topology definition</a>.
 A connection graph is a named set of <strong>connections</strong>.
-A connection connects an <a href="#Specifiers_Port-Instance-Specifiers">output port
-instance</a> of one
-<a href="#Specifiers_Port-Interface-Instance-Specifiers">component instance or topology</a>
-to an
-<a href="#Specifiers_Port-Instance-Specifiers">input port instance</a> of
-another.</p>
+A connection connects an
+<a href="#Specifiers_Port-Instance-Specifiers_Input-and-Output-Port-Instance-Specifiers">output
+port instance</a> of one
+component instance or topology to an
+<a href="#Specifiers_Port-Instance-Specifiers_Input-and-Output-Port-Instance-Specifiers">input
+port instance</a> of
+another one.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Connection-Graph-Specifiers_Syntax">7.2.1. Syntax</h4>
@@ -7134,8 +7135,11 @@ The second kind is called a <strong>special port instance specifier</strong>.</p
 </li>
 </ol>
 </div>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Port-Instance-Specifiers_Input-and-Output-Port-Instance-Specifiers">7.11.2. Input and Output Port Instance Specifiers</h4>
 <div class="paragraph">
-<p>The following port instances are <strong>input port instances</strong>:</p>
+<p>The following port instance specifiers are <strong>input port instance specifiers</strong>:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -7148,11 +7152,11 @@ The second kind is called a <strong>special port instance specifier</strong>.</p
 </ul>
 </div>
 <div class="paragraph">
-<p>The others are <strong>output port instances</strong>.</p>
+<p>The others are <strong>output port instance specifiers</strong>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Port-Instance-Specifiers_Semantics">7.11.2. Semantics</h4>
+<h4 id="Specifiers_Port-Instance-Specifiers_Semantics">7.11.3. Semantics</h4>
 <div class="sect4">
 <h5 id="Specifiers_Port-Instance-Specifiers_Semantics_General-Port-Instances">General Port Instances</h5>
 <div class="olist arabic">
@@ -7333,7 +7337,7 @@ These ports are defined by the F Prime framework.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Port-Instance-Specifiers_Examples">7.11.3. Examples</h4>
+<h4 id="Specifiers_Port-Instance-Specifiers_Examples">7.11.4. Examples</h4>
 <div class="paragraph">
 <p><strong>General ports:</strong></p>
 </div>
@@ -11752,6 +11756,12 @@ identifier <em>Q</em>, then replace <em>port-instance-type</em> with the fully-q
 <p>Making these transformations is called <strong>resolving</strong> the port instance specifier <em>P</em>
 to the port instance <em>I</em>.</p>
 </div>
+<div class="paragraph">
+<p>A port instance <em>I</em> is an <strong>input port instance</strong> if it is resolved from an
+<a href="#Specifiers_Port-Instance-Specifiers_Input-and-Output-Port-Instance-Specifiers">input port instance specifier</a>.
+It is an <strong>output port instance</strong> if it is resolved from an
+<a href="#Specifiers_Port-Instance-Specifiers_Input-and-Output-Port-Instance-Specifiers">output port instance specifier</a>.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="Ports_Port-Interfaces">22.2. Port Interfaces</h3>
@@ -11985,7 +11995,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-23 13:31:31 -0700
+Last updated 2025-09-23 13:53:14 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
