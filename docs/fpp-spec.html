@@ -3650,7 +3650,7 @@ according to the following algorithm:</p>
 to <em>T'</em>.</p>
 </li>
 <li>
-<p>Compute the
+<p>Check the
 <a href="#Definitions_Topology-Definitions_Semantics_Topology-Interface">topology interface</a> for <em>T'</em>.</p>
 </li>
 </ol>
@@ -3658,7 +3658,8 @@ to <em>T'</em>.</p>
 <div class="sect4">
 <h5 id="Definitions_Topology-Definitions_Semantics_Resolving-to-a-Partially-Numbered-Topology">Resolving to a Partially Numbered Topology</h5>
 <div class="paragraph">
-<p>A <strong>partially numbered topology</strong> is a topology in which port number
+<p>A <strong>partially numbered topology</strong> is a topology in which (a) all connections
+are between component instances and (b) port number
 assignments may or may not exist for each connection.
 A port number assignment exists if
 it is specified in the model source.</p>
@@ -3707,16 +3708,10 @@ For example, the two connection graphs</p>
 </div>
 </li>
 <li>
-<p>Compute the set <em>S</em> of topologies transitively imported into <em>T</em>.</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>A topology is imported either through an
+<p>Compute the set <em>S</em> of topologies transitively imported into <em>T</em>.
+A topology is imported either through an
 <a href="#Specifiers_Topology-Import-Specifiers">import specifier</a>
 or through an <a href="#Specifiers_Interface-Instance-Specifiers">instance specifier</a>.</p>
-</li>
-</ol>
-</div>
 </li>
 <li>
 <p>For each topology <em>T'</em> in <em>S</em>,
@@ -3759,11 +3754,16 @@ port specifier.</p>
 </li>
 </ol>
 </div>
+<div class="paragraph">
+<p>At this point all connections in the topology are between port instances
+of component instances.
+There are no connections to topologies.</p>
+</div>
 </li>
 <li>
 <p>Resolve
 <a href="#Specifiers_Connection-Graph-Specifiers">graph pattern specifiers</a>,
-adding connections to <em>T</em>.
+adding connections between component instances in <em>T</em>.
 Add only connections that are not already present in <em>T</em>.
 For example, if a command pattern indicates a command
 registration connection between two ports, and there is already
@@ -3962,43 +3962,24 @@ already assigned, then assign the port number zero.</p>
 <p>For purposes of port numbering, FPP orders connections as follows.</p>
 </div>
 <div class="paragraph">
-<p>A connection endpoint in an FPP topology refers to a
-<a href="#Instance-Member-Identifiers_Port-Instance-Identifiers">port instance identifier</a>.</p>
+<p><strong>Connection endpoints:</strong>
+A <strong>connection endpoint</strong> is <em>I</em> <code>.</code> <em>p</em> or <em>I</em> <code>.</code> <em>p</em> <code>[</code> <em>n</em> <code>]</code>, where</p>
 </div>
-<div class="paragraph">
-<p><strong>TODO(tumbar)</strong> Should we just directly reference <a href="#Ports_Port-Interfaces">port interfaces</a>
-here and just call out to <a href="#Ports_Port-Interface-Instances">port interface instance</a>?</p>
-</div>
-<div class="paragraph">
-<p>A <strong>connection endpoint</strong> is <em>I</em> <code>.</code> <em>p</em> or <em>I</em> <code>.</code> <em>p</em> <code>[</code> <em>n</em> <code>]</code>, where</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="ulist">
+<ul>
 <li>
-<p><em>I</em> is an <a href="#Ports_Port-Interface-Instances">port interface instance</a> that is included in the topology via a
-<a href="#Specifiers_Interface-Instance-Specifiers">interface instance specifier</a> or implicitly
-a <a href="#Specifiers_Topology-Import-Specifiers">topology import specifier</a>.</p>
+<p><em>I</em> refers to a
+<a href="#Definitions_Component-Instance-Definitions">component instance</a>.</p>
 </li>
 <li>
-<p>And <em>p</em> meets the following conditions:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>If <em>I</em> refers to a <strong>component instance</strong>, <em>p</em> is an identifier that names a port instance specified in
+<p><em>p</em> is an identifier that names a port instance specified in
 the component definition associated with <em>I</em>.</p>
-</li>
-<li>
-<p>If <em>I</em> refers to a <strong>topology definition</strong>, <em>p</em> identifiers an
-<a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port instance</a> inside <em>I</em>.</p>
-</li>
-</ol>
-</div>
 </li>
 <li>
 <p><em>n</em> is an optional port number that is present if and only
 if it appears in the model source.</p>
 </li>
-</ol>
+</ul>
 </div>
 <div class="paragraph">
 <p>When a connection endpoint <em>e</em> has the form <em>I</em> <code>.</code> <em>p</em> <code>[</code> <em>n</em> <code>]</code>,
@@ -4081,13 +4062,14 @@ in the topology definition is valid and has a distinct name.</p>
 <em>I</em> for the topology definition.</p>
 </li>
 <li>
-<p>If the optional <code>implements</code> keyword is present, then check the
+<p>If the optional <code>implements</code> keyword is present, then do the
 following for each qualified identifier <em>Q</em> that appears
-qualified identifier appearing after <code>implements</code>:</p>
+after <code>implements</code>:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p><em>Q</em> <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refers to</a> a
+<p>Check that <em>Q</em>
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refers to</a> a
 <a href="#Definitions_Port-Interface-Definitions">port interface definition</a> <em>D</em>
 with <a href="#Ports_Port-Interfaces_Port-Interface-Definitions">associated port
 interface</a> <em>I'</em>.</p>
@@ -11947,7 +11929,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-22 21:31:27 -0700
+Last updated 2025-09-22 21:51:06 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

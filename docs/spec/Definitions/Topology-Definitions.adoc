@@ -68,7 +68,8 @@ topology interface>> for _T'_.
 
 ===== Resolving to a Partially Numbered Topology
 
-A *partially numbered topology* is a topology in which port number
+A *partially numbered topology* is a topology in which (a) all connections
+are between component instances and (b) port number
 assignments may or may not exist for each connection.
 A port number assignment exists if
 it is specified in the model source.
@@ -111,8 +112,7 @@ connections C { a.b -> c.d, e.f -> g.h }
 +
 
 . Compute the set _S_ of topologies transitively imported into _T_.
-
-.. A topology is imported either through an
+A topology is imported either through an
 <<Specifiers_Topology-Import-Specifiers,import specifier>>
 or through an <<Specifiers_Interface-Instance-Specifiers,
 instance specifier>>.
@@ -147,9 +147,14 @@ topology port instance specifier>> that corresponds to _I_ in the topology refer
 by _Q_. Re-apply these rules with the port instance referred to in the topology
 port specifier.
 
++
+At this point all connections in the topology are between port instances
+of component instances.
+There are no connections to topologies.
+
 . Resolve
 <<Specifiers_Connection-Graph-Specifiers,graph pattern specifiers>>,
-adding connections to _T_.
+adding connections between component instances in _T_.
 Add only connections that are not already present in _T_.
 For example, if a command pattern indicates a command
 registration connection between two ports, and there is already
@@ -278,28 +283,16 @@ See Example 4 in the <<Definitions_Topology-Definitions_Examples,Examples sectio
 
 For purposes of port numbering, FPP orders connections as follows.
 
-A connection endpoint in an FPP topology refers to a
-<<Instance-Member-Identifiers_Port-Instance-Identifiers,port instance identifier>>.
-
-**TODO(tumbar)** Should we just directly reference <<Ports_Port-Interfaces,port interfaces>>
-here and just call out to <<Ports_Port-Interface-Instances,port interface instance>>?
-
+*Connection endpoints:*
 A *connection endpoint* is _I_ `.` _p_ or _I_ `.` _p_ `[` _n_ `]`, where
 
-. _I_ is an <<Ports_Port-Interface-Instances,
-port interface instance>> that is included in the topology via a
-<<Specifiers_Interface-Instance-Specifiers,interface instance specifier>> or implicitly
-a <<Specifiers_Topology-Import-Specifiers,topology import specifier>>.
+* _I_ refers to a
+<<Definitions_Component-Instance-Definitions,component instance>>.
 
-. And _p_ meets the following conditions:
-
-.. If _I_ refers to a **component instance**, _p_ is an identifier that names a port instance specified in
+* _p_ is an identifier that names a port instance specified in
 the component definition associated with _I_.
 
-.. If _I_ refers to a **topology definition**, _p_ identifiers an
-<<Specifiers_Topology-Port-Instance-Specifiers,topology port instance>> inside _I_.
-
-. _n_ is an optional port number that is present if and only
+* _n_ is an optional port number that is present if and only
 if it appears in the model source.
 
 When a connection endpoint _e_ has the form _I_ `.` _p_ `[` _n_ `]`,
@@ -356,11 +349,12 @@ in the topology definition is valid and has a distinct name.
 . <<Ports_Port-Interfaces_Topology-Definitions,Compute the port interface>>
 _I_ for the topology definition.
 
-. If the optional `implements` keyword is present, then check the
+. If the optional `implements` keyword is present, then do the
 following for each qualified identifier _Q_ that appears
-qualified identifier appearing after `implements`:
+after `implements`:
 
-..  _Q_ <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refers to>> a
+..  Check that _Q_ 
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refers to>> a
 <<Definitions_Port-Interface-Definitions,port interface definition>> _D_
 with <<Ports_Port-Interfaces_Port-Interface-Definitions,associated port 
 interface>> _I'_.
