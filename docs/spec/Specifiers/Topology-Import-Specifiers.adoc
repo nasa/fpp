@@ -1,5 +1,8 @@
 === Topology Import Specifiers
 
+_TODO: Consolidate this section with the port interface instance specifier
+section. `import` should be an alternate syntax for backwards compatibility._
+
 A *topology import specifier* imports one topology into another one.
 
 ==== Syntax
@@ -13,17 +16,16 @@ The qualified identifier must
 a
 <<Definitions_Topology-Definitions,topology definition>>.
 
-===== Importing Instances
+===== Importing Interface Instances
 
-FPP uses the following algorithm to import the interface instances
+FPP uses the following algorithm to import the component instances
 of topology _T'_ into topology _T_:
 
 . Let _I_ be the set of
-<<Specifiers_Interface-Instance-Specifiers,instances>>
+ <<Ports_Port-Interface-Instances,port interface instances>>
 of _T_.
 
-. Let _I'_ be the set of
-<<Specifiers_Interface-Instance-Specifiers,instances>>
+. Let _I'_ be the set of <<Ports_Port-Interface-Instances,port interface instances>>
 of _T'_.
 
 . Let _I''_ be the set union of _I_ and _I'_.
@@ -32,6 +34,8 @@ then _I''_ contains the instance _S_ once.
 
 ===== Importing Connections
 
+Let _T'_ be a <<Definitions_Topology-Definitions_Semantics,partially numbered topology>>,
+so that all connections go between component instances.
 FPP uses the following algorithm to import the connections
 of topology _T'_ into topology _T_.
 

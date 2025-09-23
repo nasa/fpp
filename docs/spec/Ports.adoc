@@ -16,7 +16,7 @@ identifier _Q_, then replace _port-instance-type_ with the fully-qualified name 
 . Replace all numeric expressions with resolved constant numbers.
 
 Making these transformations is called *resolving* the port instance specifier _P_
-to the port interface _I_.
+to the port instance _I_.
 
 === Port Interfaces
 
@@ -86,6 +86,11 @@ A *port interface instance* is either a
 or a <<Definitions_Topology-Definitions,topology definition>>.
 Each of these elements provides concrete port instances
 that can serve as the endpoints of topology connections.
+A port interface instance has an associated port interface _I_;
+this is the port interface associated with the 
+<<Ports_Port-Interfaces_Component-Instance-Definitions,component instance 
+definition>> or
+<<Ports_Port-Interfaces_Topology-Definitions,topology definition>>.
 
 === Sub-Interfaces
 

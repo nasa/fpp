@@ -14,12 +14,12 @@ Container-Specifiers.adoc
 Event-Specifiers.adoc
 Include-Specifiers.adoc
 Init-Specifiers.adoc
-Interface-Instance-Specifiers.adoc
 Interface-Import-Specifiers.adoc
 Internal-Port-Specifiers.adoc
 Location-Specifiers.adoc
 Parameter-Specifiers.adoc
 Port-Instance-Specifiers.adoc
+Port-Interface-Instance-Specifiers.adoc
 Port-Matching-Specifiers.adoc
 Record-Specifiers.adoc
 State-Machine-Instance-Specifiers.adoc

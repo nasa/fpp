@@ -48,9 +48,9 @@ FPP then checks the following:
 . Each telemetry packet specifier in _L_ has
 a distinct name and a distinct identifier.
 
-. For every component instance _I_ available in the enclosing topology, either through
-<<Specifiers_Interface-Instance-Specifiers,direct specification>>
-or through
+. For every component instance _I_ in the enclosing topology after 
+<<Definitions_Topology-Definitions,resolving it to a partially numbered 
+topology>>,
 <<Specifiers_Topology-Import-Specifiers,import>>,
 for every telemetry channel _T_ that is a member of _I_,
 exactly one of the following is true:

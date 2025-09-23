@@ -1,6 +1,9 @@
-=== Interface Instance Specifiers
+=== Port Interface Instance Specifiers
 
-A *interface instance specifier*
+_TODO: Consolidate this section with the topology import specifier section.
+`import` should be an alternate syntax for backwards compatibility._
+
+A *port interface instance specifier*
 specifies that a
 <<Ports_Port-Interface-Instances,port interface instance>>
 is part of a

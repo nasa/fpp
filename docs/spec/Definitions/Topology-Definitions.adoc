@@ -1,16 +1,15 @@
 === Topology Definitions
 
 A *topology definition* defines an F Prime topology,
-that is, a set of interface instances
-and the connections between their port instances.
-Topologies can include port instances which can connect to
-ports of interface instances inside the topology.
+that is, a set of component instances and subtopologies
+and the connections among them.
+In the FPP source, connections can have either component
+instances or topologies as their endpoints.
+Before generating code, connections with topologies as endpoints are flattened
+into connections between component instances.
 The connections are divided into named *connection graphs*.
 The different graphs capture different aspects of FSW
 function, such as commanding and telemetry.
-
-One topology can be imported into another one.
-The connections are merged graph by graph.
 
 ==== Syntax
 
@@ -30,10 +29,10 @@ which each element is a *topology member*,
 and the terminating punctuation is a semicolon.
 A topology member is one of the following:
 
-* A <<Specifiers_Interface-Instance-Specifiers,interface
-instance specifier>>
-
 * A <<Specifiers_Connection-Graph-Specifiers,connection graph specifier>>
+
+* A <<Specifiers_Port-Interface-Instance-Specifiers,port interface
+instance specifier>>
 
 * A <<Specifiers_Telemetry-Packet-Set-Specifiers,telemetry packet set specifier>>
 
@@ -68,8 +67,8 @@ topology interface>> for _T'_.
 
 ===== Resolving to a Partially Numbered Topology
 
-A *partially numbered topology* is a topology in which (a) all connections
-are between component instances and (b) port number
+A *partially numbered topology* is a topology in which (a) all connections go
+between component instances and (b) port number
 assignments may or may not exist for each connection.
 A port number assignment exists if
 it is specified in the model source.
@@ -82,7 +81,9 @@ if _E_ has a port number  expression _e_ in the FPP source, then
 _Integer_, and assign the port number _n_ at that position.
 Check that _n_ is in bounds for the port instance being numbered.
 
-. Recursively resolve all the topologies directly imported into _D_.
+. Recursively resolve all the topologies that are named as 
+<<Specifiers_Port-Interface-Instance-Specifiers,instances>>
+in _D_.
 
 . Construct the connection graphs of _T_ given by the
 <<Specifiers_Connection-Graph-Specifiers,direct connection graphs>>
@@ -111,23 +112,20 @@ connections C { a.b -> c.d, e.f -> g.h }
 ----
 +
 
-. Compute the set _S_ of topologies transitively imported into _T_.
-A topology is imported either through an
-<<Specifiers_Topology-Import-Specifiers,import specifier>>
-or through an <<Specifiers_Interface-Instance-Specifiers,
-instance specifier>>.
+. Compute the set _S_ of topologies named as
+<<Specifiers_Port-Interface-Instance-Specifiers,
+instances>> in this topology.
 
 . For each topology _T'_ in _S_,
 <<Specifiers_Topology-Import-Specifiers,import the instances>>
 of _T'_ into _T_.
 
-. For each connection discovered in step 3, check that each endpoint _I_ `.` _P_ is available
-in _T_ through at least one of the following conditions:
+. For each connection discovered in step 3, check that for each endpoint _I_ `.` _P_
+in _T_, at least one of the following holds:
 
 .. _I_ is <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,referred to>>
-in an <<Specifiers_Interface-Instance-Specifiers,
-instance specifier>> or <<Specifiers_Topology-Import-Specifiers,import specifier>>
-in _T_ and _P_ exists in the <<Ports_Port-Interfaces,port interface>> of _I_.
+in a <<Specifiers_Port-Interface-Instance-Specifiers,
+port interface instance specifier>>  of _T_; or
 
 .. _I_ is an instance interface available in a topology in _S_.
 
@@ -146,6 +144,8 @@ topology definition>>, find the <<Specifiers_Topology-Port-Instance-Specifiers,
 topology port instance specifier>> that corresponds to _I_ in the topology referenced
 by _Q_. Re-apply these rules with the port instance referred to in the topology
 port specifier.
+Replace the endpoint _Q_ `.` _I_ with the corresponding endpoint
+at a component instance.
 
 +
 At this point all connections in the topology are between port instances
