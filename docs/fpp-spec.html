@@ -4297,7 +4297,7 @@ topology AttitudeControl {
   # Imported topologies
   # ----------------------------------------------------------------------
 
-  import CDH
+  instance CDH
 
   # ----------------------------------------------------------------------
   # Public instances
@@ -4358,12 +4358,12 @@ topology Release {
   # Imported topologies
   # ----------------------------------------------------------------------
 
-  import AttitudeControl
-  import CDH
-  import Communication
+  instance AttitudeControl
+  instance CDH
+  instance Communication
   ...
 
-  # Connecting sub topologies together
+  # Connecting subtopologies together
   connections CDH {
     Communication.uplink -&gt; CDH.dataUp
     CDH.dataDown -&gt; Communication.downlink
@@ -4395,7 +4395,7 @@ topology Release {
 
 topology B {
 
-  import A
+  instance A
 
   instance d
   instance e
@@ -8116,8 +8116,10 @@ packet ADCS group 2 {
 port instance in a <a href="#Definitions_Topology-Definitions">topology definition</a>
 that is analogous to a port instance in a
 <a href="#Definitions_Component-Definitions">component definition</a>.
-These specifiers can be the endpoints of
-<a href="#Specifiers_Connection-Graph-Specifiers">connections</a></p>
+A port instance specifier in a topology <em>T</em> maps a name to a port instance
+of a component instance that is part of <em>T</em>.
+Such a specifier can be the endpoint of a
+<a href="#Specifiers_Connection-Graph-Specifiers">connection</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Topology-Port-Instance-Specifiers_Syntax">7.19.1. Syntax</h4>
@@ -8163,9 +8165,10 @@ topology</a>, after renaming it with name <em>N</em>.</p>
 }
 
 topology Y {
-    import T
+    instance T
 
     instance c3
+
     connections {
         T.portOut -&gt; c3.portIn
         c3.portOut -&gt; T.customPortName
@@ -12202,7 +12205,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-23 16:20:09 -0700
+Last updated 2025-09-23 16:32:36 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

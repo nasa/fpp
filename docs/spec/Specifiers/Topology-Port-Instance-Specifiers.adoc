@@ -4,8 +4,10 @@ A *topology port instance specifier* specifies a
 port instance in a <<Definitions_Topology-Definitions,topology definition>>
 that is analogous to a port instance in a
 <<Definitions_Component-Definitions,component definition>>.
-These specifiers can be the endpoints of 
-<<Specifiers_Connection-Graph-Specifiers,connections>>
+A port instance specifier in a topology _T_ maps a name to a port instance
+of a component instance that is part of _T_.
+Such a specifier can be the endpoint of a
+<<Specifiers_Connection-Graph-Specifiers,connection>>.
 
 ==== Syntax
 
@@ -41,9 +43,10 @@ topology T {
 }
 
 topology Y {
-    import T
+    instance T
 
     instance c3
+
     connections {
         T.portOut -> c3.portIn
         c3.portOut -> T.customPortName

@@ -529,7 +529,7 @@ topology AttitudeControl {
   # Imported topologies
   # ----------------------------------------------------------------------
 
-  import CDH
+  instance CDH
 
   # ----------------------------------------------------------------------
   # Public instances
@@ -589,12 +589,12 @@ topology Release {
   # Imported topologies
   # ----------------------------------------------------------------------
 
-  import AttitudeControl
-  import CDH
-  import Communication
+  instance AttitudeControl
+  instance CDH
+  instance Communication
   ...
 
-  # Connecting sub topologies together
+  # Connecting subtopologies together
   connections CDH {
     Communication.uplink -> CDH.dataUp
     CDH.dataDown -> Communication.downlink
@@ -625,7 +625,7 @@ topology A {
 
 topology B {
 
-  import A
+  instance A
 
   instance d
   instance e
