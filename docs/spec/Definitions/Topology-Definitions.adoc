@@ -3,14 +3,18 @@
 A *topology definition* defines an F Prime topology,
 that is, a set of objects with ports (component instances and subtopologies)
 and the connections among the ports.
+Before generating code, connections involving topology ports are flattened,
+so that all connection endpoints occur at ports of component instances.
+
 The connections are divided into named *connection graphs*.
 The different graphs capture different aspects of FSW
 function, such as commanding and telemetry.
 
-In the FPP source, connections can go from or to either component
-instances or topologies.
-Before generating code, connections to topologies are flattened,
-so that all connections go from and to the ports of component instances.
+When one topology refers to another one, we say
+that the second topology is a *subtopology* of the first one.
+The component instances, topologies, and connections of the second
+topology are merged into the first one.
+The connections are merged graph by graph.
 
 ==== Syntax
 

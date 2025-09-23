@@ -3568,15 +3568,20 @@ struct D {
 <p>A <strong>topology definition</strong> defines an F Prime topology,
 that is, a set of objects with ports (component instances and subtopologies)
 and the connections among the ports.
-The connections are divided into named <strong>connection graphs</strong>.
+Before generating code, connections involving topology ports are flattened,
+so that all connection endpoints occur at ports of component instances.</p>
+</div>
+<div class="paragraph">
+<p>The connections are divided into named <strong>connection graphs</strong>.
 The different graphs capture different aspects of FSW
 function, such as commanding and telemetry.</p>
 </div>
 <div class="paragraph">
-<p>In the FPP source, connections can go from or to either component
-instances or topologies.
-Before generating code, connections to topologies are flattened,
-so that all connections go from and to the ports of component instances.</p>
+<p>When one topology refers to another one, we say
+that the second topology is a <strong>subtopology</strong> of the first one.
+The component instances, topologies, and connections of the second
+topology are merged into the first one.
+The connections are merged graph by graph.</p>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Topology-Definitions_Syntax">5.14.1. Syntax</h4>
@@ -5949,13 +5954,15 @@ array size of the port instance <em>P</em>.</p>
 </li>
 <li>
 <p>The connection must go from an
-<a href="#Specifiers_Port-Instance-Specifiers">output port instance</a>
+<a href="#Specifiers_Port-Instance-Specifiers_Input-and-Output-Port-Instance-Specifiers">output
+port instance</a>
 to an
-<a href="#Specifiers_Port-Instance-Specifiers">input port instance</a>.</p>
+<a href="#Specifiers_Port-Instance-Specifiers_Input-and-Output-Port-Instance-Specifiers">input
+port instance</a>.</p>
 </li>
 <li>
 <p>The <a href="#Specifiers_Port-Instance-Specifiers">port instance types</a>
-specified in the two port instances must match,
+specified in the two port instances must be identical,
 except that a <code>serial</code> port at either end can be connected
 to any port at the other end.</p>
 </li>
@@ -5985,18 +5992,21 @@ target instances.</p>
 <li>
 <p>The qualified identifier following the keyword <code>instance</code> must
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
-a component instance that is available in the enclosing topology,
+a component instance that exists in the enclosing topology,
 after resolving to a <a href="#Definitions_Topology-Definitions_Semantics">partially numbered topology</a>.</p>
 </li>
 <li>
 <p>If the instance sequence <em>I</em> appears, then each qualified identifier
-<em>Q</em> appearing in <em>I</em> must refer to a component instance that is available
-in the enclosing topology or a topology definition that is imported into
-the enclosing topology, and each component instance must be valid for the pattern
+<em>Q</em> appearing in <em>I</em> must refer to a component instance that exists
+in the enclosing topology, after resolving to a partially numbered topology,
+and each component instance must be valid for the pattern
 (i.e., must have a port of the type required for the pattern).
-The component instances in the sequence name the target component instances for the
-pattern. If no component instance sequence appears, then the target component instances
-are all component instances specified directly in the enclosing topology (not via import)
+The component instances in the sequence name the target component instances for
+the
+pattern. If no component instance sequence appears, then the target component
+instances
+are all component instances specified directly in the enclosing topology (not
+via import)
 that are valid for the pattern.</p>
 </li>
 </ol>
@@ -11995,7 +12005,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-23 13:53:14 -0700
+Last updated 2025-09-23 14:29:11 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

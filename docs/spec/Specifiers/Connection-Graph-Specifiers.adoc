@@ -125,12 +125,14 @@ array size of the port instance _P_.
 .. The arrow represents the direction of the connection (left to right).
 
 .. The connection must go from an
-<<Specifiers_Port-Instance-Specifiers,output port instance>>
+<<Specifiers_Port-Instance-Specifiers_Input-and-Output-Port-Instance-Specifiers,output 
+port instance>>
 to an
-<<Specifiers_Port-Instance-Specifiers,input port instance>>.
+<<Specifiers_Port-Instance-Specifiers_Input-and-Output-Port-Instance-Specifiers,input 
+port instance>>.
 
 .. The <<Specifiers_Port-Instance-Specifiers,port instance types>>
-specified in the two port instances must match,
+specified in the two port instances must be identical,
 except that a `serial` port at either end can be connected
 to any port at the other end.
 
@@ -149,18 +151,21 @@ target instances.
 
 . The qualified identifier following the keyword `instance` must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
-a component instance that is available in the enclosing topology,
+a component instance that exists in the enclosing topology,
 after resolving to a <<Definitions_Topology-Definitions_Semantics,
 partially numbered topology>>.
 
 . If the instance sequence _I_ appears, then each qualified identifier
-_Q_ appearing in _I_ must refer to a component instance that is available
-in the enclosing topology or a topology definition that is imported into
-the enclosing topology, and each component instance must be valid for the pattern
+_Q_ appearing in _I_ must refer to a component instance that exists
+in the enclosing topology, after resolving to a partially numbered topology,
+and each component instance must be valid for the pattern
 (i.e., must have a port of the type required for the pattern).
-The component instances in the sequence name the target component instances for the
-pattern. If no component instance sequence appears, then the target component instances
-are all component instances specified directly in the enclosing topology (not via import)
+The component instances in the sequence name the target component instances for 
+the
+pattern. If no component instance sequence appears, then the target component 
+instances
+are all component instances specified directly in the enclosing topology (not 
+via import)
 that are valid for the pattern.
 
 The meaning of specifier depends on the pattern kind, as follows:
