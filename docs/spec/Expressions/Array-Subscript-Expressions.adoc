@@ -1,0 +1,44 @@
+=== Array Subscript Expressions
+
+An *array subscript expression* is an expression that selects an element from 
+an array value.
+
+==== Syntax
+
+<<Expressions,_expression_>> `[` <<Expressions,_expression_>> `]`
+
+==== Semantics
+
+The following rules give the meaning of an array subscript expression
+stem:[e_1] `[` stem:[e_2] `]`:
+
+. The type of stem:[e_1] must be an <<Types_Array-Types,array type>> or
+<<Types_Internal-Types_Anonymous-Array-Types,anonymous array type>>
+with element type _T_ and size _n_.
+
+. The type of stem:[e_2] must be <<Type-Checking_Type-Conversion,convertible to>>
+<<Types_Internal-Types_Integer,_Integer_>>.
+stem:[e_2] must
+<<Evaluation,evaluate>> to a value _m_ after
+<<Evaluation_Type-Conversion,conversion>> to _Integer_.
+_m_ must be greater than or equal to zero and less than _n_.
+
+. Evaluation of stem:[e_1] `[` stem:[e_2] `]` occurs as follows:
+
+.. Evaluate stem:[e_1] to an <<Values_Array-Values,array value>> or
+<<Values_Anonymous-Array-Values,anonymous array value>> _v_.
+
+.. Evaluate stem:[e_2] to an <<Values_Integer-Values,integer value>> _m_.
+
+.. The value of the entire expression is the value associated with index _m_ of _v_.
+
+==== Example
+
+[source,fpp]
+----
+constant a = [ 2, 4, 6 ]
+constant b = a[1] # b is an integer with value 4
+constant c = [ 0, 1, 2 ][1] # c is an integer with value 1
+constant d = a[-1] # error, index is out of bounds (negative)
+constant e = [ 0, 1, 2 ][3] # error, index is out of bounds (past end)
+----

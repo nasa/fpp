@@ -1,9 +1,0 @@
-#!/bin/sh -e
-
-for file in `find . -mindepth 2 -name update-ref`
-do
-  dir=`dirname $file`
-  echo "[ $dir ]"
-  base=`basename $file`
-  (cd $dir; ./$base)
-done
