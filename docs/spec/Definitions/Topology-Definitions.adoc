@@ -47,30 +47,7 @@ instance specifier>>
 
 The identifier is the name of the topology.
 
-All <<Specifiers_Topology-Port-Instance-Specifiers,topology port instance specifiers>>
-inside the topology must have a distinct name.
-
-The set of all <<Specifiers_Topology-Port-Instance-Specifiers,topology port 
-instance specifiers>>
-make up the enclosing topology's 
-anonymous port interface. (TODO)
-To compute the interface port instance set is 
-computed as follows:
-
-. For each topology port instance specifier with name _p'_ and _port-instance-id_ _I_ `.` _p_ in the topology:
-
-.. Resolve port instance identifier _I_ `.` _p_ to a port instance _P_.
-
-.. Construct new port instance  _P'_ by replacing _p_ with _p'_.
-
-If _interface-list_ is provided, each element of the list must
-<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>> an
-<<Definitions_Port-Interface-Definitions,interface definition stem:[K_i]>>.
-This optional clause is a compile-time check that
-verifies that this topology can bind to (TODO) all 
-stem:[K_i].
-
-A topology definition _D_ must be resolvable to a topology _T_,
+The topology definition _D_ must be resolvable to a topology _T_,
 according to the following algorithm:
 
 . Resolve _D_ to a
@@ -84,6 +61,10 @@ Check telemetry packet set specifiers>> for _T'_.
 <<Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Ports,
 automatic numbering of ports>>
 to _T'_.
+
+. Check the
+<<Definitions_Topology-Definitions_Semantics_Topology-Interface,
+topology interface>> for _T'_.
 
 ===== Resolving to a Partially Numbered Topology
 
@@ -363,6 +344,29 @@ stem:[e'_2], then stem:[c_1] is less than (respectively greater than)
 stem:[c_2].
 
 . Otherwise stem:[c_1] and stem:[c_2] are equal in the ordering.
+
+===== Topology Interface
+
+The FPP analyzer checks the topology interface as follows:
+
+. Check that each <<Specifiers_Topology-Port-Instance-Specifiers,topology port 
+instance specifier>>
+in the topology definition is valid and has a distinct name.
+
+. <<Ports_Port-Interfaces_Topology-Definitions,Compute the port interface>>
+_I_ for the topology definition.
+
+. If the optional `implements` keyword is present, then check the
+following for each qualified identifier _Q_ that appears
+qualified identifier appearing after `implements`:
+
+..  _Q_ <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refers to>> a
+<<Definitions_Port-Interface-Definitions,port interface definition>> _D_
+with <<Ports_Port-Interfaces_Port-Interface-Definitions,associated port 
+interface>> _I'_.
+
+.. Check that _I'_ is a
+<<Ports_Sub-Interfaces,sub-interface>> of _I_.
 
 ==== Implied Uses
 

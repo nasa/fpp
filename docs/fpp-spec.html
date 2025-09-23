@@ -3632,44 +3632,7 @@ instance specifier</a></p>
 <p>The identifier is the name of the topology.</p>
 </div>
 <div class="paragraph">
-<p>All <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port instance specifiers</a>
-inside the topology must have a distinct name.</p>
-</div>
-<div class="paragraph">
-<p>The set of all <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port
-instance specifiers</a>
-make up the enclosing topology&#8217;s
-anonymous port interface. (TODO)
-To compute the interface port instance set is
-computed as follows:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>For each topology port instance specifier with name <em>p'</em> and <em>port-instance-id</em> <em>I</em> <code>.</code> <em>p</em> in the topology:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Resolve port instance identifier <em>I</em> <code>.</code> <em>p</em> to a port instance <em>P</em>.</p>
-</li>
-<li>
-<p>Construct new port instance  <em>P'</em> by replacing <em>p</em> with <em>p'</em>.</p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>If <em>interface-list</em> is provided, each element of the list must
-<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a> an
-<a href="#Definitions_Port-Interface-Definitions">interface definition \$K_i\$</a>.
-This optional clause is a compile-time check that
-verifies that this topology can bind to (TODO) all
-\$K_i\$.</p>
-</div>
-<div class="paragraph">
-<p>A topology definition <em>D</em> must be resolvable to a topology <em>T</em>,
+<p>The topology definition <em>D</em> must be resolvable to a topology <em>T</em>,
 according to the following algorithm:</p>
 </div>
 <div class="olist arabic">
@@ -3685,6 +3648,10 @@ according to the following algorithm:</p>
 <p>Apply
 <a href="#Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Ports">automatic numbering of ports</a>
 to <em>T'</em>.</p>
+</li>
+<li>
+<p>Compute the
+<a href="#Definitions_Topology-Definitions_Semantics_Topology-Interface">topology interface</a> for <em>T'</em>.</p>
 </li>
 </ol>
 </div>
@@ -4093,6 +4060,44 @@ then \$c_1\$ is less than (respectively greater than) \$c_2\$.</p>
 </li>
 <li>
 <p>Otherwise \$c_1\$ and \$c_2\$ are equal in the ordering.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="Definitions_Topology-Definitions_Semantics_Topology-Interface">Topology Interface</h5>
+<div class="paragraph">
+<p>The FPP analyzer checks the topology interface as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Check that each <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port
+instance specifier</a>
+in the topology definition is valid and has a distinct name.</p>
+</li>
+<li>
+<p><a href="#Ports_Port-Interfaces_Topology-Definitions">Compute the port interface</a>
+<em>I</em> for the topology definition.</p>
+</li>
+<li>
+<p>If the optional <code>implements</code> keyword is present, then check the
+following for each qualified identifier <em>Q</em> that appears
+qualified identifier appearing after <code>implements</code>:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><em>Q</em> <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refers to</a> a
+<a href="#Definitions_Port-Interface-Definitions">port interface definition</a> <em>D</em>
+with <a href="#Ports_Port-Interfaces_Port-Interface-Definitions">associated port
+interface</a> <em>I'</em>.</p>
+</li>
+<li>
+<p>Check that <em>I'</em> is a
+<a href="#Ports_Sub-Interfaces">sub-interface</a> of <em>I</em>.</p>
+</li>
+</ol>
+</div>
 </li>
 </ol>
 </div>
@@ -11942,7 +11947,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-22 21:00:40 -0700
+Last updated 2025-09-22 21:31:27 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
