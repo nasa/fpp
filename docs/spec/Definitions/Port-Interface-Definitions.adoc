@@ -24,9 +24,10 @@ A port interface member is one of the following:
 The identifier is the name of the interface.
 
 A port interface definition _D_ represents a set _S_ of
-<<Specifiers_Port-Instance-Specifiers,port instances specifiers>>, computed as follows:
+<<Specifiers_Port-Instance-Specifiers,port instance specifiers>>, computed as
+follows:
 
-. For each port instance specifier _P_ that is a member of _D_, 
+. For each port instance specifier _P_ that is a member of _D_,
   add _P_ to _S_.
 
 . For each interface import specifier _s_ that is a member of _D_,
