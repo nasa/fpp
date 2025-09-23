@@ -11682,7 +11682,7 @@ where \$v'_m\$ is the <a href="#Types_Default-Values">default value</a> at type 
 <h2 id="Ports">22. Ports</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This section specifies the semantics of F Prime ports.</p>
+<p>This section specifies the semantics of FPP ports.</p>
 </div>
 <div class="sect2">
 <h3 id="Ports_Port-Instances">22.1. Port Instances</h3>
@@ -11703,6 +11703,10 @@ identifier <em>Q</em>, then replace <em>port-instance-type</em> with the fully-q
 <p>Replace all numeric expressions with resolved constant numbers.</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>Making these transformations is called <strong>resolving</strong> the port instance specifier <em>P</em>
+to the port interface <em>I</em>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -11743,7 +11747,8 @@ described in the section on
 <a href="#Definitions_Port-Interface-Definitions_Semantics">port interface definitions</a>.</p>
 </li>
 <li>
-<p>Resolve each of the port interface specifiers in <em>S</em> to a port instance.</p>
+<p><a href="#Ports_Port-Instances">Resolve</a> each of the port interface specifiers in
+<em>S</em> to a port instance.</p>
 </li>
 </ol>
 </div>
@@ -11763,7 +11768,8 @@ described in the section on
 <a href="#Definitions_Component-Definitions_Semantics">component definitions</a>.</p>
 </li>
 <li>
-<p>Resolve each of the port interface specifiers in <em>S</em> to a port instance.</p>
+<p><a href="#Ports_Port-Instances">Resolve</a> each of the port interface specifiers in <em>S</em>
+to a port instance.</p>
 </li>
 </ol>
 </div>
@@ -11781,13 +11787,14 @@ It is the port interface associated with the component definition referred to in
 <div class="paragraph">
 <p>For every topology definition <em>D</em>, there is an associated port interface <em>I</em>.
 This port interface is computed as follows.
-For each <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port instance specifier</a>
-<em>s</em> appearing in <em>D</em></p>
+For each <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port instance
+specifier</a> <em>s</em> appearing in <em>D</em></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Resolve the port instance identifier <em>n</em> of <em>s</em> to a port instance <em>i</em>.</p>
+<p><a href="#Ports_Port-Instances">Resolve</a> the port instance specifier <em>n</em> appearing in
+<em>s</em> to a port instance <em>i</em>.</p>
 </li>
 <li>
 <p>Let <em>i'</em> be the port instance formed by replacing the port name in <em>i</em>
@@ -11929,7 +11936,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-22 21:51:06 -0700
+Last updated 2025-09-22 21:56:57 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
