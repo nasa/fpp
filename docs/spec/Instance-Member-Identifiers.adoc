@@ -37,8 +37,8 @@ with associated port interface _I_.
 .. If _Q_ refers to a topology definition, then _Q_ `.` _P_ is called
    a *topology port*.
 
-. The identifier _P_ must refer to a <<Ports_Port-Instances,port instance>> in
-  _I_.
+. The identifier _P_ must name a <<Ports_Port-Instances,port instance>> 
+  contained in _I_.
 
 ==== Example
 

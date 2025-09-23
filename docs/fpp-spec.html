@@ -5915,17 +5915,17 @@ unmatched.</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
-<p>Let <em>I</em> be the
+<p>Let <em>I</em> = <em>Q</em> <code>.</code> <em>P</em> be the
    <a href="#Instance-Member-Identifiers_Port-Instance-Identifiers">port instance
-identifiers</a> <em>I</em> appearing in <em>E</em>.</p>
+identifier</a> appearing in <em>E</em>.</p>
 </li>
 <li>
-<p>The port interface instance <em>P</em> named in <em>I</em> must exist in the enclosing
+<p>The port interface instance <em>Q</em> must exist in the enclosing
 topology,
 after
 <a href="#Definitions_Topology-Definitions_Semantics_Resolving-to-a-Partially-Numbered-Topology">resolution to a partially numbered topology</a>.
-If <em>P</em> is a component instance, then <em>E</em> is a <strong>component instance endpoint</strong>.
-Otherwise <em>P</em> is a topology, and <em>E</em> is a <strong>topology endpoint</strong>.</p>
+If <em>Q</em> is a component instance, then <em>E</em> is a <strong>component instance endpoint</strong>.
+Otherwise <em>Q</em> is a topology, and <em>E</em> is a <strong>topology endpoint</strong>.</p>
 </li>
 <li>
 <p>The optional expression <em>e</em> following <em>I</em>, if it is present,
@@ -5938,7 +5938,7 @@ The type of <em>e</em> must be a
 that becomes a non-negative integer <em>n</em> when
 <a href="#Evaluation_Type-Conversion">converted to</a> type <em>Integer</em>.
 <em>n</em> must lie in the range [0,2<sup>31</sup>) and must be in bounds for the
-array size of the port instance specifier named in <em>I</em>.</p>
+array size of the port instance <em>P</em>.</p>
 </li>
 </ol>
 </div>
@@ -8206,8 +8206,8 @@ a <strong>topology port</strong>.</p>
 </div>
 </li>
 <li>
-<p>The identifier <em>P</em> must refer to a <a href="#Ports_Port-Instances">port instance</a> in
-<em>I</em>.</p>
+<p>The identifier <em>P</em> must name a <a href="#Ports_Port-Instances">port instance</a>
+contained in <em>I</em>.</p>
 </li>
 </ol>
 </div>
@@ -11985,7 +11985,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-23 13:21:23 -0700
+Last updated 2025-09-23 13:31:31 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

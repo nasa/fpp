@@ -97,17 +97,17 @@ unmatched.
 
 .. For each of the two endpoints _E_ in _C_:
 
-... Let _I_ be the 
+... Let _I_ = _Q_ `.` _P_ be the 
    <<Instance-Member-Identifiers_Port-Instance-Identifiers,port instance
-identifiers>> _I_ appearing in _E_.
+identifier>> appearing in _E_.
 
-... The port interface instance _P_ named in _I_ must exist in the enclosing 
+... The port interface instance _Q_ must exist in the enclosing 
 topology,
 after 
 <<Definitions_Topology-Definitions_Semantics_Resolving-to-a-Partially-Numbered-Topology,
 resolution to a partially numbered topology>>.
-If _P_ is a component instance, then _E_ is a *component instance endpoint*.
-Otherwise _P_ is a topology, and _E_ is a *topology endpoint*.
+If _Q_ is a component instance, then _E_ is a *component instance endpoint*.
+Otherwise _Q_ is a topology, and _E_ is a *topology endpoint*.
 
 ... The optional expression _e_ following _I_, if it is present,
 represents a port number, i.e., an index into an
@@ -119,7 +119,7 @@ _e_ must
 that becomes a non-negative integer _n_ when
 <<Evaluation_Type-Conversion,converted to>> type _Integer_.
 _n_ must lie in the range [0,2^31^) and must be in bounds for the
-array size of the port instance specifier named in _I_.
+array size of the port instance _P_.
 
 .. The arrow represents the direction of the connection (left to right).
 
