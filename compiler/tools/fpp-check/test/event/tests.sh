@@ -1,5 +1,10 @@
 tests="
 bad_id
+bad_throttle_interval_extra_member
+bad_throttle_interval_seconds
+bad_throttle_interval_useconds
+bad_throttle_interval
+bad_throttle_seconds
 bad_throttle
 duplicate_id_explicit
 duplicate_id_implicit
@@ -15,4 +20,5 @@ not_displayable
 ok
 ref_params
 throttle_too_large
+zero_throttle_interval
 "

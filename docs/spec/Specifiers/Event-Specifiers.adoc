@@ -92,7 +92,7 @@ anonymous struct type>> _T =_ `{ seconds: U32, useconds: U32 }`.
 <<Values_Anonymous-Struct-Values,anonymous struct value>>
 `{ seconds =` _s_ `:U32, useconds =` _u_ `:U32 }`.
 
-*** _s_ must be in the range stem:[[0, 2^31)], _u_ must be in the range
+*** _s_ must be in the range stem:[[0, 2^32)], _u_ must be in the range
 stem:[[0,10^6)], and stem:[s + u] must be greater than zero.
 
 +

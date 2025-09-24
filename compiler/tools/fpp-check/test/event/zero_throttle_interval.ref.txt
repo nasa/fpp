@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/event/zero_throttle_interval.fpp:5.11
+    every {seconds=0}
+          ^
+error: time interval may not be zero
