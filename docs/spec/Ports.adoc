@@ -69,7 +69,9 @@ described in the section on
 
 For every component instance definition _D_, there is an associated port
 interface _I_.
-It is the port interface associated with the component definition referred to in _I_.
+It is the port interface associated with the
+<<Ports_Port-Interfaces_Component-Definitions,component definition>>
+referred to in _I_.
 
 ==== Topology Definitions
 
