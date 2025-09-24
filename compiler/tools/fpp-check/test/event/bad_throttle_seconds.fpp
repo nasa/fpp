@@ -2,6 +2,6 @@ active component C {
 
   event E severity activity low \
     format "" throttle 10 \
-    every {useconds=1000000}
+    every {seconds=4294967295 + 1}
 
 }

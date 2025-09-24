@@ -59,24 +59,21 @@ object Event {
             Type.U32
           )
 
-          if (v < 0) {
-            Left(SemanticError.InvalidIntValue(
-              loc, v, s"$member may not be negative"
-            ))
-          } else {
-            if v >= maxValue then
-            Left(SemanticError.InvalidIntValue(
-              loc, v, s"$member must be smaller than $maxValue"
-            )) else Right(v.longValue)
-          }
+          if v < 0 || v > maxValue
+          then Left(
+            SemanticError.InvalidIntValue(
+              loc, v, s"$member must be in the range [0, $maxValue]"
+            )
+          )
+          else Right(v.longValue)
         }
         for {
-          seconds <- getMember("seconds", 4294967295L)
-          useconds <- getMember("useconds", 1_000_000)
+          seconds <- getMember("seconds", UInt.MaxValue)
+          useconds <- getMember("useconds", 999_999)
           _ <- {
             if (seconds + useconds) > 0 then Right(())
-            else Left(SemanticError.InvalidIntValue(
-              loc, 0, s"time interval must be greater than 0"
+            else Left(SemanticError.InvalidEvent(
+              loc, "time interval may not be zero"
             ))
           }
         } yield TimeInterval(seconds, useconds.toInt)
