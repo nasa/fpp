@@ -3740,15 +3740,6 @@ imported by the definition of <em>T'</em>.</p>
 refers to one of the port interface instances computed in the previous step.</p>
 </li>
 <li>
-<p>For each topology <em>T'</em> in <em>S</em>,
-<a href="#Definitions_Topology-Definitions_Importing-Subtopologies_Importing-Connections">import
-the connections</a>
-of <em>T'</em> into <em>T</em>.
-Note that <em>T'</em> is resolved (step 2), so all the connections in <em>T'</em>
-have <a href="#Specifiers_Connection-Graph-Specifiers_Semantics">component instance
-endpoints</a>.</p>
-</li>
-<li>
 <p>For each
 <a href="#Specifiers_Connection-Graph-Specifiers_Syntax">connection endpoint</a>
 <em>E</em> of a connection computed in step 3, do the following:</p>
@@ -3780,6 +3771,15 @@ Retain the port number assignment, if any, at <em>E</em> computed in step 1.</p>
 </li>
 </ol>
 </div>
+</li>
+<li>
+<p>For each topology <em>T'</em> in <em>S</em>,
+<a href="#Definitions_Topology-Definitions_Importing-Subtopologies_Importing-Connections">import
+the connections</a>
+of <em>T'</em> into <em>T</em>.
+Note that <em>T'</em> is resolved (step 2), so all the connections in <em>T'</em>
+have <a href="#Specifiers_Connection-Graph-Specifiers_Semantics">component instance
+endpoints</a>.</p>
 </li>
 <li>
 <p>At this point all connection endpoints are component instance endpoints.
@@ -12199,7 +12199,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-24 09:18:51 -0700
+Last updated 2025-09-24 15:25:19 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

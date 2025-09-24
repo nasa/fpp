@@ -134,14 +134,6 @@ imported by the definition of _T'_.
 <<Specifiers_Connection-Graph-Specifiers_Syntax,endpoint>> of _C_
 refers to one of the port interface instances computed in the previous step.
 
-. For each topology _T'_ in _S_,
-<<Definitions_Topology-Definitions_Importing-Subtopologies_Importing-Connections,import 
-the connections>>
-of _T'_ into _T_.
-Note that _T'_ is resolved (step 2), so all the connections in _T'_
-have <<Specifiers_Connection-Graph-Specifiers_Semantics,component instance 
-endpoints>>.
-
 . For each 
 <<Specifiers_Connection-Graph-Specifiers_Syntax,connection endpoint>>
 _E_ of a connection computed in step 3, do the following:
@@ -161,6 +153,14 @@ topology port instance specifier>> `port` _I_ `=` _P'_ in _T'_.
 Retain the port number assignment, if any, at _E_ computed in step 1.
 
 ... Reapply steps a and b to the endpoint _E_.
+
+. For each topology _T'_ in _S_,
+<<Definitions_Topology-Definitions_Importing-Subtopologies_Importing-Connections,import 
+the connections>>
+of _T'_ into _T_.
+Note that _T'_ is resolved (step 2), so all the connections in _T'_
+have <<Specifiers_Connection-Graph-Specifiers_Semantics,component instance 
+endpoints>>.
 
 . At this point all connection endpoints are component instance endpoints.
 There are no connections whose endpoints are topology endpoints.
