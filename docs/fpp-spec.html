@@ -6106,7 +6106,7 @@ argument whose type is a <a href="#Types_Internal-Types_Numeric-Types">numeric t
 count</strong> for instances of <em>E</em>.
 The type of <em>e</em> must be convertible to
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a> and must evaluate to an integer
-in the range \$[0, 2^31)\$.
+in the range \$[1, 2^31)\$.
 When throttling is specified for an event <em>E</em>,
 the framework maintains a <strong>throttle count</strong> for <em>E</em>.
 The throttle count
@@ -6128,11 +6128,11 @@ period</strong>.
 <li>
 <p>After conversion to <em>T</em>, <em>e</em> must evaluate to an
 <a href="#Values_Anonymous-Struct-Values">anonymous struct value</a>
-<code>{ seconds =</code> <em>s</em> <code>:U32, useconds =</code> <em>u</em> <code>:U32 }</code>.</p>
+<code>{ seconds =</code> <em>s</em> <code>: U32, useconds =</code> <em>u</em> <code>: U32 }</code>.</p>
 </li>
 <li>
-<p><em>s</em> must be in the range \$[0, 2^32)\$, <em>u</em> must be in the range
-\$[0,10^6)\$, and \$s + u\$ must be greater than zero.</p>
+<p><em>s</em> must be in the range \$[0, 2^32)\$ and <em>u</em> must be in the range
+\$[0,10^6)\$.</p>
 </li>
 </ul>
 </div>
@@ -11889,7 +11889,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-22 16:49:32 -0700
+Last updated 2025-09-24 16:18:38 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
