@@ -3,4 +3,4 @@ fpp-check
     every {seconds=-1}
           ^
 error: invalid integer value -1
-seconds may not be negative
+seconds must be in the range [0, 4294967295]
