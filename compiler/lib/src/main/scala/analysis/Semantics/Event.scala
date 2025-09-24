@@ -71,7 +71,7 @@ object Event {
           }
         }
         for {
-          seconds <- getMember("seconds", 4294967295L)
+          seconds <- getMember("seconds", UInt.MaxValue)
           useconds <- getMember("useconds", 1_000_000)
           _ <- {
             if (seconds + useconds) > 0 then Right(())
