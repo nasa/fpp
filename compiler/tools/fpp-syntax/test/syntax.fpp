@@ -175,10 +175,6 @@ module DefinitionsAndSpecifiers {
     instance i1
     @< Public instance specifier
 
-    @ Private instance specifier
-    private instance i2
-    @< Private instance specifier
-
     @ Direct connection graph specifier
     connections C {
       i1.p[0] -> i2.p[1]
