@@ -1,13 +1,8 @@
 === Port Interface Definitions
 
-A *port interface definition* defines an F Prime port interface.
-A port interface is a collection of
-<<Specifiers_Port-Instance-Specifiers,port instance specifiers>>
-that may be imported into a
-<<Definitions_Component-Definitions,component definition>>
-or another port interface definition.
-
-Port interface definitions name an FPP <<Port-Interfaces,port interface>>.
+A *port interface definition* defines a
+<<Ports_Port-Interfaces,port interface>>
+and associates a name with it.
 
 ==== Syntax
 
@@ -28,21 +23,23 @@ A port interface member is one of the following:
 
 The identifier is the name of the interface.
 
-A port interface definition _D_ represents a set _S_ of port instance
-specifiers, computed as follows:
+A port interface definition _D_ represents a set _S_ of
+<<Specifiers_Port-Instance-Specifiers,port instance specifiers>>, computed as
+follows:
 
-. Add each port instance specifier that is a member of _D_ to _S_.
+. For each port instance specifier _P_ that is a member of _D_,
+  add _P_ to _S_.
 
 . For each interface import specifier _s_ that is a member of _D_,
 <<Specifiers_Interface-Import-Specifiers_Semantics,resolve>> _s_ to a set of port
 instance specifiers _S~s~_ and add _S~s~_ to _S_.
 
-The set of port instance specifiers represented by _D_ must satisfy
+The set of port instances represented by _D_ must satisfy
 the following rules:
 
 . Each port instance specifier must have a distinct name.
 
-. There must be at most one of each special port kind.
+. At most one of each special port kind may appear in the set.
 
 ==== Examples
 

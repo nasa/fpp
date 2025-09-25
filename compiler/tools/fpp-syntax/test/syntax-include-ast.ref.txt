@@ -447,6 +447,44 @@ def module
       literal int 2
       literal int 3
   @< Array
+  @ Array Subscript
+  def constant
+    ident arraySubExp1
+    expr array subscript
+      expr array
+        literal int 1
+        literal int 2
+        literal int 3
+      literal int 1
+  @< Array Subscript
+  @ Array Subscript
+  def constant
+    ident arraySubExp2
+    expr array subscript
+      expr dot
+        expr dot
+          ident a
+          ident b
+        ident c
+      literal int 1
+  @< Array Subscript
+  @ Array Subscript with member selection
+  def constant
+    ident arraySubExp2
+    expr array subscript
+      expr dot
+        expr array subscript
+          expr array subscript
+            expr dot
+              expr dot
+                ident a
+                ident b
+              ident c
+            literal int 1
+          literal int 2
+        ident s
+      literal int 12
+  @< Array Subscript
   @ Boolean literal
   def constant
     ident booleanLiteralExp

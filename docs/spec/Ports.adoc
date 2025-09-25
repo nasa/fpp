@@ -1,0 +1,108 @@
+== Ports
+
+This section specifies the semantics of FPP ports.
+
+=== Port Instances
+
+A *port instance* _I_ is an instantiated
+<<Specifiers_Port-Instance-Specifiers,port instance specifier>>.
+It is a port instance specifier _P_
+after making the following transformations:
+
+. If _P_ is a general port instance specifier, and _port-instance-type_ is a qualified
+identifier _Q_, then replace _port-instance-type_ with the fully-qualified name of the
+<<Definitions_Port-Definitions, port definition>> to which _Q_ refers.
+
+. Replace all numeric expressions with resolved constant numbers.
+
+Making these transformations is called *resolving* the port instance specifier _P_
+to the port instance _I_.
+
+A port instance _I_ is an *input port instance* if it is resolved from an
+<<Specifiers_Port-Instance-Specifiers_Input-and-Output-Port-Instance-Specifiers,
+input port instance specifier>>.
+It is an *output port instance* if it is resolved from an
+<<Specifiers_Port-Instance-Specifiers_Input-and-Output-Port-Instance-Specifiers,
+output port instance specifier>>.
+
+=== Port Interfaces
+
+A *port interface* is a set _I_ of
+<<Ports_Port-Instances,port instances>>.
+Each of the following FPP elements has an associated port interface:
+
+* A <<Definitions_Port-Interface-Definitions,port interface definition>>.
+
+* A <<Definitions_Component-Definitions,component definition>>.
+
+* A <<Definitions_Component-Instance-Definitions,component instance definition>>.
+
+* A <<Definitions_Topology-Definitions,topology definition>>.
+
+==== Port Interface Definitions
+
+For every port interface definition _D_, there is an associated
+port interface _I_.
+This port interface is computed as follows:
+
+. Compute the set _S_ of port interface specifiers associated with  _D_, as
+described in the section on
+<<Definitions_Port-Interface-Definitions_Semantics,port interface definitions>>.
+
+. <<Ports_Port-Instances,Resolve>> each of the port interface specifiers in
+  _S_ to a port instance.
+
+==== Component Definitions
+
+For every component definition _D_, there is an associated
+port interface _I_.
+This port interface is computed as follows:
+
+. Compute the set _S_ of port interface specifiers associated with _D_, as
+described in the section on
+<<Definitions_Component-Definitions_Semantics,component definitions>>.
+
+. <<Ports_Port-Instances,Resolve>> each of the port interface specifiers in _S_
+  to a port instance.
+
+==== Component Instance Definitions
+
+For every component instance definition _D_, there is an associated port
+interface _I_.
+It is the port interface associated with the
+<<Ports_Port-Interfaces_Component-Definitions,component definition>>
+referred to in _I_.
+
+==== Topology Definitions
+
+For every topology definition _D_, there is an associated port interface _I_.
+This port interface is computed as follows.
+For each <<Specifiers_Topology-Port-Instance-Specifiers,topology port instance
+specifier>> _s_ appearing in _D_
+
+. <<Ports_Port-Instances,Resolve>> the port instance specifier _n_ appearing in
+  _s_ to a port instance _i_.
+
+. Let _i'_ be the port instance formed by replacing the port name in _i_
+with the port name in _n_.
+
+. Add _i'_ to _I_.
+
+=== Port Interface Instances
+
+A *port interface instance* is either a
+<<Definitions_Component-Instance-Definitions,component instance definition>>
+or a <<Definitions_Topology-Definitions,topology definition>>.
+Each of these elements provides concrete port instances
+that can serve as the endpoints of topology connections.
+A port interface instance has an associated port interface _I_;
+this is the port interface associated with the 
+<<Ports_Port-Interfaces_Component-Instance-Definitions,component instance 
+definition>> or
+<<Ports_Port-Interfaces_Topology-Definitions,topology definition>>.
+
+=== Sub-Interfaces
+
+An interface _I_ is a *sub-interface* of an interface _I'_ if
+the set of port instances represented by _I_ is a subset of the set of
+port instances represented by _I'_.

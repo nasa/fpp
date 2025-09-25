@@ -63,23 +63,19 @@ module M { # Qualified name is M
 The qualified names of definitions and
 reside in the following *name groups*:
 
-. The *component instance name group*
-
 . The *component name group*
 
-. The *interface name group*
+. The *port interface instance name group*
+
+. The *port interface name group*
 
 . The *port name group*
 
 . The *state machine name group*
 
-. The *topology name group*
-
 . The *type name group*
 
 . The *value name group*
-
-. The *interface instance name group*
 
 Definitions reside in name groups as follows:
 
@@ -91,7 +87,7 @@ Definitions reside in name groups as follows:
 the value name group, the type name group, and the
 state machine name group.
 
-* Component instance definitions reside in the component instance name group and the interface instance name group.
+* Component instance definitions reside in the port interface instance name group.
 
 * Constant definitions reside in the value name group.
 
@@ -103,7 +99,7 @@ state machine name group.
 
 * Port definitions reside in the port name group.
 
-* Port interface definitions reside in the interface name group.
+* Port interface definitions reside in the port interface name group.
 
 * State machine definitions reside in the state machine name group.
 
@@ -111,7 +107,7 @@ state machine name group.
 
 * Module template definitions reside in all name groups.
 
-* Topology definitions reside in the topology name group and the interface instance name group.
+* Topology definitions reside in the topology name group.
 
 Notice that elements with scopes reside in the name groups of items
 that they may enclose.

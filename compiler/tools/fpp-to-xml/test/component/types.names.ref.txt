@@ -1,8 +1,0 @@
-TypesComponentAi.xml
-Types_AArrayAi.xml
-Types_AUseArrayAi.xml
-Types_EEnumAi.xml
-Types_EUseArrayAi.xml
-Types_SSerializableAi.xml
-Types_SUseArrayAi.xml
-Types_TUseArrayAi.xml

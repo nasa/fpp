@@ -32,6 +32,9 @@ _[_
 _queue-full-behavior_
 _]_
 
+The first kind of port instance specifier is called a *general port instance specifier*.
+The second kind is called a *special port instance specifier*.
+
 _general-port-kind_ is one of the following:
 
 . `async` `input`
@@ -94,13 +97,15 @@ _special-port-kind_ is one of the following:
 
 . `time` `get`
 
-The following port instances are *input port instances*:
+==== Input and Output Port Instance Specifiers
+
+The following port instance specifiers are *input port instance specifiers*:
 
 * Any general port with `input` in its name.
 
 * Special ports `command recv` and `product recv`.
 
-The others are *output port instances*.
+The others are *output port instance specifiers*.
 
 ==== Semantics
 

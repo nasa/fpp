@@ -1,5 +1,7 @@
 == Types
 
+A *type* is a set of <<Values,values>>.
+
 === Primitive Integer Types
 
 The *primitive integer types* correspond to the
@@ -122,6 +124,9 @@ the *numeric types*.
 The type _[_ _n_ _]_ _T_, where _n_
 is an integer and _T_ is a type, represents an array of _n_ elements,
 each of type _T_.
+The type _T_ is called the *element type* of the
+anonymous array type.
+The integer _n_ is called the *size* of the anonymous array type.
 
 ==== Anonymous Struct Types
 

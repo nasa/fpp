@@ -37,8 +37,8 @@ is checked with the following rules:
 
 . If the parameter type is `interface` _I_, the value must be a
 <<Scoping-of-Names_Qualified-Identifiers,_qualified-identifier_>> of a
-<<Port-Interfaces_Port-Interface-Instance,port interface instance>>
-that can <<Port-Interfaces_Binding,bind>> to _I_.
+<<Ports_Port-Interface-Instances,port interface instance>>
+which is a <<Ports_Sub-Interfaces,sub-interface>> to _I_.
 
 . If the parameter type is `type`, the value must name a type.
 

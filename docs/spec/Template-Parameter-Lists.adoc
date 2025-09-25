@@ -38,7 +38,7 @@ an
 <<Definitions_Port-Interface-Definitions,interface definition _I_>>.
 *Interface* template parameters accept any <<Definitions_Component-Instance-Definitions,
 component instance>> or <<Definitions_Topology-Definitions,topology>>
-that can <<Port-Interfaces_Binding,bind>> to _I_.
+which are <<Ports_Sub-Interfaces,sub-interface>> to _I_.
 
 *Type* template parameters accept any <<Type-Names,_type-name_>> and can be used to
 parameterize ports and other types as well as pass type parameters down to these definitions.

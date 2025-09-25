@@ -1,16 +1,19 @@
 == Instance Member Identifiers
 
-A *instance member identifier* refers to the member of a <<Definitions_Component-Instance-Definitions,
-component instance definition>> or <<Definitions_Topology-Definitions,topology definition>>.
-There are two types of instance member identifiers: <<Instance-Member-Identifiers_Port-Instance-Identifiers,
-port instance identifiers>> and <<Instance-Member-Identifiers_Telemetry-Channel-Identifiers,
+A *instance member identifier* is a unit of syntax that refers to a member of a
+<<Definitions_Component-Instance-Definitions,
+component instance>> or a <<Definitions_Topology-Definitions,topology>>.
+There are two kinds of instance member identifiers:
+<<Instance-Member-Identifiers_Port-Instance-Identifiers,
+port instance identifiers>> and
+<<Instance-Member-Identifiers_Telemetry-Channel-Identifiers,
 telemetry channel identifiers>>.
 
 === Port Instance Identifiers
 
-A port instance identifier identifies a port instance that
-is part of a <<Port-Interfaces,port interface>> instance. Port instance
-identifiers appear in <<Specifiers_Connection-Graph-Specifiers,
+A *port instance identifier* names a port instance that is part of a
+component instance or a topology.
+Port instance identifiers appear in <<Specifiers_Connection-Graph-Specifiers,
 connection graph specifiers>>.
 
 ==== Syntax
@@ -25,25 +28,48 @@ For each port instance identifier _Q_ `.` _P_:
 
 . The qualified identifier _Q_ must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
-an <<Port-Interfaces_Port-Interface-Instance,interface instance _I_>>.
+a <<Ports_Port-Interface-Instances,port interface instance>>
+with associated port interface _I_.
 
-. _I_ must refer to a <<Port-Interfaces,port interface _I'_>>
+.. If _Q_ refers to a component instance definition, then _Q_ `.` _P_ is called
+   a *component instance port*.
 
-. The identifier _P_ must refer to a <<Specifiers_Port-Instance-Specifiers,
-port instance>> in _I'_.
+.. If _Q_ refers to a topology definition, then _Q_ `.` _P_ is called
+   a *topology port*.
 
-==== Examples
+. The identifier _P_ must name a <<Ports_Port-Instances,port instance>> 
+  contained in _I_.
+
+==== Example
 
 [source,fpp]
 ----
-a.b
-A.b.c
+passive component C {
+
+  sync input port p: P
+
+}
+
+instance c: C base id 0x100
+
+module M {
+
+  topology T {
+
+    instance c
+
+    port p = c.p
+
+  }
+
+}
 ----
 
-In the first example, `a` names a topology, and `b` names an exported
-port instance.
-In the second example, `A.b` names a component instance, and `c` names a
-port instance.
+In this example,
+
+* `c.p` names the port instance `p` of the component instance `a`.
+
+* `M.T.p` names the port instance `p` of the topology `M.T`.
 
 === Telemetry Channel Identifiers
 
@@ -78,15 +104,20 @@ must refer to a
 <<Specifiers_Telemetry-Channel-Specifiers,telemetry channel specifier>>
 of _C_.
 
-==== Examples
+==== Example
 
 [source,fpp]
 ----
-a.b
-A.b.c
+passive component C {
+
+  time get port timeGetOut
+
+  telemetry T: U32
+
+}
+
+instance c: C base id 0x100
 ----
 
-In the first example, `a` names a component instance, and `b` names a
-telemetry channel.
-In the second example, `A.b` names a component instance, and `c` names a
-telemetry channel.
+In this example, `c.T` names the telemetry channel `T` of component instance
+`c`.

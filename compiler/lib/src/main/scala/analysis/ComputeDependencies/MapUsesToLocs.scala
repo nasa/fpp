@@ -6,7 +6,7 @@ import fpp.compiler.transform._
 import fpp.compiler.util._
 
 /** Map uses to locations */
-object MapUsesToLocs extends UseAnalyzer {
+object MapUsesToLocs extends BasicUseAnalyzer {
 
   override def componentInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     analyzeUse(a, Ast.SpecLoc.ComponentInstance, use)
