@@ -16,11 +16,7 @@ String2 ::
     Serializable()
 {
   this->initElements();
-  // Construct using element-wise constructor
-  *this = String2(
-    Fw::String("\"\\"),
-    Fw::String("abc\ndef\n")
-  );
+  *this = String2({Fw::String("\"\\"), Fw::String("abc\ndef\n")});
 }
 
 String2 ::
@@ -28,9 +24,7 @@ String2 ::
     Serializable()
 {
   this->initElements();
-  for (U32 index = 0; index < SIZE; index++) {
-    this->elements[index] = a[index];
-  }
+  *this = a;
 }
 
 String2 ::
@@ -38,21 +32,17 @@ String2 ::
     Serializable()
 {
   this->initElements();
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = e;
   }
 }
 
 String2 ::
-  String2(
-      const Fw::StringBase& e1,
-      const Fw::StringBase& e2
-  ) :
+  String2(const std::initializer_list<Fw::String>& il) :
     Serializable()
 {
   this->initElements();
-  this->elements[0] = e1;
-  this->elements[1] = e2;
+  *this = il;
 }
 
 String2 ::
@@ -60,9 +50,7 @@ String2 ::
     Serializable()
 {
   this->initElements();
-  for (U32 index = 0; index < SIZE; index++) {
-    this->elements[index] = obj.elements[index];
-  }
+  *this = obj;
 }
 
 // ----------------------------------------------------------------------
@@ -70,14 +58,14 @@ String2 ::
 // ----------------------------------------------------------------------
 
 String2::ElementType& String2 ::
-  operator[](const U32 i)
+  operator[](const FwSizeType i)
 {
   FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
   return this->elements[i];
 }
 
 const String2::ElementType& String2 ::
-  operator[](const U32 i) const
+  operator[](const FwSizeType i) const
 {
   FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
   return this->elements[i];
@@ -86,12 +74,10 @@ const String2::ElementType& String2 ::
 String2& String2 ::
   operator=(const String2& obj)
 {
-  if (this == &obj) {
-    return *this;
-  }
-
-  for (U32 index = 0; index < SIZE; index++) {
-    this->elements[index] = obj.elements[index];
+  if (this != &obj) {
+    for (FwSizeType index = 0; index < SIZE; index++) {
+      this->elements[index] = obj.elements[index];
+    }
   }
   return *this;
 }
@@ -99,8 +85,23 @@ String2& String2 ::
 String2& String2 ::
   operator=(const ElementType (&a)[SIZE])
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = a[index];
+  }
+  return *this;
+}
+
+String2& String2 ::
+  operator=(const std::initializer_list<Fw::String>& il)
+{
+  // Since we are required to use C++11, this has to be a runtime check
+  // In C++14, it can be a static check
+  FW_ASSERT(il.size() == SIZE, static_cast<FwAssertArgType>(il.size()), static_cast<FwAssertArgType>(SIZE));
+  FwSizeType i = 0;
+  for (const auto& e : il) {
+    FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
+    this->elements[i] = e;
+    i++;
   }
   return *this;
 }
@@ -108,7 +109,7 @@ String2& String2 ::
 String2& String2 ::
   operator=(const ElementType& e)
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index] = e;
   }
   return *this;
@@ -117,7 +118,7 @@ String2& String2 ::
 bool String2 ::
   operator==(const String2& obj) const
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     if (!((*this)[index] == obj[index])) {
       return false;
     }
@@ -147,11 +148,11 @@ std::ostream& operator<<(std::ostream& os, const String2& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus String2 ::
-  serialize(Fw::SerializeBufferBase& buffer) const
+  serializeTo(Fw::SerializeBufferBase& buffer) const
 {
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  for (U32 index = 0; index < SIZE; index++) {
-    status = buffer.serialize((*this)[index]);
+  for (FwSizeType index = 0; index < SIZE; index++) {
+    status = buffer.serializeFrom((*this)[index]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -160,16 +161,26 @@ Fw::SerializeStatus String2 ::
 }
 
 Fw::SerializeStatus String2 ::
-  deserialize(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(Fw::SerializeBufferBase& buffer)
 {
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  for (U32 index = 0; index < SIZE; index++) {
-    status = buffer.deserialize((*this)[index]);
+  for (FwSizeType index = 0; index < SIZE; index++) {
+    status = buffer.deserializeTo((*this)[index]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
   }
   return status;
+}
+
+FwSizeType String2 ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  for (FwSizeType index = 0; index < SIZE; index++) {
+    size += this->elements[index].serializedSize();
+  }
+  return size;
 }
 
 #if FW_SERIALIZABLE_TO_STRING
@@ -187,7 +198,7 @@ void String2 ::
     return;
   }
 
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     Fw::String tmp;
     tmp.format("a %s b", this->elements[index].toChar());
 
@@ -217,7 +228,7 @@ void String2 ::
 void String2 ::
   initElements()
 {
-  for (U32 index = 0; index < SIZE; index++) {
+  for (FwSizeType index = 0; index < SIZE; index++) {
     this->elements[index].setBuffer(&this->buffers[index][0], sizeof this->buffers[index]);
   }
 }

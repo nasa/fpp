@@ -19,6 +19,13 @@ namespace FppTest {
     //! A hierarchical state machine with behavioral polymorphism
     class PolymorphismStateMachineBase {
 
+        // ----------------------------------------------------------------------
+        // Friend classes
+        // ----------------------------------------------------------------------
+
+        //! Tester class for the state machine
+        friend class PolymorphismTester;
+
       public:
 
         // ----------------------------------------------------------------------
@@ -49,7 +56,7 @@ namespace FppTest {
           poly,
         };
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Constructors and Destructors
@@ -93,7 +100,7 @@ namespace FppTest {
         //! Signal for transition from S2 to S3
         void sendSignal_S2_to_S3();
 
-      PRIVATE:
+      private:
 
         // ----------------------------------------------------------------------
         // State and choice entry
@@ -124,7 +131,7 @@ namespace FppTest {
             Signal signal //!< The signal
         );
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Member variables

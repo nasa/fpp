@@ -57,7 +57,7 @@ case class ComponentParameters (
     if !hasParameters then Nil
     else List.concat(
       addAccessTagAndComment(
-        "PRIVATE",
+        "private",
         "Parameter validity flags",
         sortedParams.flatMap { case (_, param) =>
           guardedList (!param.isExternal) (
@@ -76,7 +76,7 @@ case class ComponentParameters (
         CppDoc.Lines.Hpp
       ),
       addAccessTagAndComment(
-        "PRIVATE",
+        "private",
         "Parameter variables",
         sortedParams.flatMap { case (_, param) =>
           guardedList (!param.isExternal) {
@@ -100,7 +100,7 @@ case class ComponentParameters (
       guardedList (hasExternalParameters) (
         List.concat(
           addAccessTagAndComment(
-            "PRIVATE",
+            "private",
             "Parameter delegates",
             List(
               linesClassMember(
@@ -203,7 +203,7 @@ case class ComponentParameters (
                       ),
                       wrapInIfElse(
                         s"this->${paramValidityFlagName(param.getName)} == Fw::ParamValid::VALID",
-                        line(s"_stat = _buff.deserialize(this->${paramVariableName(param.getName)});") ::
+                        line(s"_stat = _buff.deserializeTo(this->${paramVariableName(param.getName)});") ::
                           wrapInIf(
                             "_stat != Fw::FW_SERIALIZE_OK",
                             param.default match {
@@ -247,7 +247,7 @@ case class ComponentParameters (
 
   private def getHookFunctions: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Parameter update hook",
       List(
         functionClassMember(
@@ -293,7 +293,7 @@ case class ComponentParameters (
 
   private def getGetterFunctions: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Parameter get functions",
       sortedParams.map((_, param) =>
         functionClassMember(
@@ -325,7 +325,7 @@ case class ComponentParameters (
                   |// Get the external parameter from the delegate
                   |Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
                   |if(_stat == Fw::FW_SERIALIZE_OK) {
-                  |  _stat = _getBuff.deserialize(_local);
+                  |  _stat = _getBuff.deserializeTo(_local);
                   |  FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
                   |  valid = Fw::ParamValid::VALID;
                   |} else {
@@ -354,7 +354,7 @@ case class ComponentParameters (
 
   private def getSetters: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       "Parameter set functions",
       sortedParams.map((_, param) =>
         functionClassMember(
@@ -398,7 +398,7 @@ case class ComponentParameters (
           } else {
             lines(
               s"""|${writeParamType(param.paramType, "Fw::ParamString")} _localVal{};
-                  |const Fw::SerializeStatus _stat = val.deserialize(_localVal);
+                  |const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
                   |if (_stat != Fw::FW_SERIALIZE_OK) {
                   |  return Fw::CmdResponse::VALIDATION_ERROR;
                   |}
@@ -422,7 +422,7 @@ case class ComponentParameters (
 
   private def getSaveFunctions: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       "Parameter save functions",
       sortedParams.map((_, param) =>
         functionClassMember(
@@ -460,7 +460,7 @@ case class ComponentParameters (
                   lines(
                     s"""|this->m_paramLock.lock();
                         |
-                        |_stat = _saveBuff.serialize(${paramVariableName(param.getName)});
+                        |_stat = _saveBuff.serializeFrom(${paramVariableName(param.getName)});
                         |
                         |this->m_paramLock.unLock();
                         |"""
@@ -493,7 +493,7 @@ case class ComponentParameters (
   private def getExternalParameterFunctions: List[CppDoc.Class.Member] = {
     guardedList (hasExternalParameters) (
       addAccessTagAndComment(
-        "PROTECTED",
+        "protected",
         "External parameter delegate initialization",
         List(
           functionClassMember(

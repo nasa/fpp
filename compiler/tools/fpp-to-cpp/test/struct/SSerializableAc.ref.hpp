@@ -84,14 +84,17 @@ class S :
     // ----------------------------------------------------------------------
 
     //! Serialization
-    Fw::SerializeStatus serialize(
+    Fw::SerializeStatus serializeTo(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     ) const;
 
     //! Deserialization
-    Fw::SerializeStatus deserialize(
+    Fw::SerializeStatus deserializeFrom(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     );
+
+    //! Get the dynamic serialized size of the struct
+    FwSizeType serializedSize() const;
 
 #if FW_SERIALIZABLE_TO_STRING
 
@@ -107,7 +110,7 @@ class S :
     // ----------------------------------------------------------------------
 
     //! Get member x
-    U32 getx() const
+    U32 get_x() const
     {
       return this->m_x;
     }
@@ -120,7 +123,7 @@ class S :
     void set(U32 x);
 
     //! Set member x
-    void setx(U32 x);
+    void set_x(U32 x);
 
   protected:
 

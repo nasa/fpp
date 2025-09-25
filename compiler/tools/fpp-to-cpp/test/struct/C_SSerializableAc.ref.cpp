@@ -78,11 +78,11 @@ std::ostream& operator<<(std::ostream& os, const C_S& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus C_S ::
-  serialize(Fw::SerializeBufferBase& buffer) const
+  serializeTo(Fw::SerializeBufferBase& buffer) const
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->m_x);
+  status = buffer.serializeFrom(this->m_x);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -91,16 +91,24 @@ Fw::SerializeStatus C_S ::
 }
 
 Fw::SerializeStatus C_S ::
-  deserialize(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(Fw::SerializeBufferBase& buffer)
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->m_x);
+  status = buffer.deserializeTo(this->m_x);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
 
   return status;
+}
+
+FwSizeType C_S ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  size += sizeof(U32);
+  return size;
 }
 
 #if FW_SERIALIZABLE_TO_STRING
@@ -131,7 +139,7 @@ void C_S ::
 }
 
 void C_S ::
-  setx(U32 x)
+  set_x(U32 x)
 {
   this->m_x = x;
 }

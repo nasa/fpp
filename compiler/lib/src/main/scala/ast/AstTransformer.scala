@@ -81,6 +81,9 @@ trait AstTransformer {
   def exprArrayNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprArray): ResultNode[Ast.Expr] =
     Right(default(in), node)
 
+  def exprArraySubscriptNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprArraySubscript): ResultNode[Ast.Expr] =
+    Right(default(in), node)
+
   def exprBinopNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprBinop): ResultNode[Ast.Expr] =
     Right(default(in), node)
 
@@ -304,6 +307,7 @@ trait AstTransformer {
   final def matchExprNode(in: In, node: AstNode[Ast.Expr]): ResultNode[Ast.Expr] =
     node.data match {
       case e : Ast.ExprArray => exprArrayNode(in, node, e)
+      case e : Ast.ExprArraySubscript => exprArraySubscriptNode(in, node, e)
       case e : Ast.ExprBinop => exprBinopNode(in, node, e)
       case e : Ast.ExprDot => exprDotNode(in, node, e)
       case e : Ast.ExprIdent => exprIdentNode(in, node, e)

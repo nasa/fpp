@@ -1,5 +1,5 @@
 pattern_event()
 {
   update "" pattern_event
-  move_layout_files T Events
+  move_layout_files M_T Events
 }

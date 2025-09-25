@@ -1,6 +1,6 @@
 # ======================================================================
-# \title  Fw/FPrimeBasicTypes.hpp
-# \author tumbar, mstarch
+# \title  config/FpConfig.fpp
+# \author mstarch
 # \brief  FPP alias configuration file
 #
 # \copyright
@@ -13,8 +13,8 @@
 # ======================================================================
 
 ####
-# Interger type aliases:
-# Used for the project to override types supplied by the platform for things like sizes, indicies, etc.
+# Integer type aliases:
+# Used for the project to override types supplied by the platform for things like sizes, indices, etc.
 ####
 
 @ The unsigned type of larger sizes internal to the software,
@@ -25,19 +25,24 @@ type FwSizeType = PlatformSizeType
 @ for signed offsets, e.g., file seek offsets. Must be signed.
 type FwSignedSizeType = PlatformSignedSizeType
 
-@ The type of smaller indicies internal to the software, used
-@ for array indicies, e.g., port indicies. Must be signed.
+@ The type of smaller indices internal to the software, used
+@ for array indices, e.g., port indices. Must be signed.
 type FwIndexType = PlatformIndexType
 
 @ The type of arguments to assert functions.
 type FwAssertArgType = PlatformAssertArgType
 
 @ The type of task priorities used.
-type FwTaskPriorityType = PlatformTaskPriorityType;
+type FwTaskPriorityType = PlatformTaskPriorityType
 
 @ The type of queue priorities used.
 type FwQueuePriorityType = PlatformQueuePriorityType
 
+@ The id type.
+type FwIdType = U32
+
+@ The type of task priorities used.
+type FwTaskIdType = PlatformTaskIdType
 
 ####
 # GDS type aliases:
@@ -45,31 +50,29 @@ type FwQueuePriorityType = PlatformQueuePriorityType
 ####
 
 @ The type of a telemetry channel identifier
-type FwChanIdType = U32
+type FwChanIdType = FwIdType
 
 @ The type of a data product identifier
-type FwDpIdType = U32
+type FwDpIdType = FwIdType
 
 @ The type of a data product priority
 type FwDpPriorityType = U32
 
 @ The type of an event identifier
-type FwEventIdType = U32
+type FwEventIdType = FwIdType
 
 @ The type of a command opcode
-type FwOpcodeType = U32
+type FwOpcodeType = FwIdType
 
 @ The type of a com packet descriptor
-type FwPacketDescriptorType = U32
+type FwPacketDescriptorType = FwIdType
 
 @ The type of a parameter identifier
-type FwPrmIdType = U32
+type FwPrmIdType = FwIdType
 
 @ The type used to serialize a size value
 type FwSizeStoreType = U16
 
-@ The type used to serialize a time base value
-type FwTimeBaseStoreType = U16
 
 @ The type used to serialize a time context value
 type FwTimeContextStoreType = U8
@@ -83,3 +86,15 @@ type FwTraceIdType = U32
 @ The type used to serialize a C++ enumeration constant
 @ FPP enumerations are serialized according to their representation types
 type FwEnumStoreType = I32
+
+
+@ The type used to serialize a time base value
+type FwTimeBaseStoreType = U16
+
+@ Define enumeration for Time base types
+enum TimeBase : FwTimeBaseStoreType {
+    TB_NONE = 0              @< No time base has been established (Required)
+    TB_PROC_TIME = 1         @< Indicates time is processor cycle time. Not tied to external time
+    TB_WORKSTATION_TIME = 2  @< Time as reported on workstation where software is running. For testing. (Required)
+    TB_DONT_CARE = 0xFFFF    @< Don't care value for sequences. If FwTimeBaseStoreType is changed, value should be changed (Required)
+} default TB_NONE;

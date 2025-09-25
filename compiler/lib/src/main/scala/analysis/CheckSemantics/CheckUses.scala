@@ -2,9 +2,11 @@ package fpp.compiler.analysis
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
+import fpp.compiler.ast.Ast.Expr
+import fpp.compiler.ast.Ast.ExprIdent
 
 /** Match uses to their definitions */
-object CheckUses extends UseAnalyzer {
+object CheckUses extends BasicUseAnalyzer {
 
   val helpers = CheckUsesHelpers(
     (a: Analysis) => a.nestedScope,
@@ -34,26 +36,39 @@ object CheckUses extends UseAnalyzer {
       }
       def visitExprDot(a: Analysis, node: AstNode[Ast.Expr], e: AstNode[Ast.Expr], id: AstNode[String]) = {
         for {
-          a <- visitExprNode(a, e)
-          scope <- {
-            val symbol = a.useDefMap(e.id)
-            a.symbolScopeMap.get(symbol) match {
-              case Some(scope) => Right(scope)
-              case None => Left(SemanticError.InvalidSymbol(
-                symbol.getUnqualifiedName,
-                Locations.get(node.id),
-                "not a qualifier",
-                symbol.getLoc
-              ))
+          // Visit the left side of the dot recursively
+          a <- exprNode(a, e)
+
+          // Find the symbol referred to by the left side (if-any)
+          symbol <- {
+            a.useDefMap.get(e.id) match {
+              // Left side is a constant, we are selecting a member of this constant
+              // we are not creating another use.
+              case Some(Symbol.Constant(_)) => Right(None)
+
+              // The left side is some symbol other than a constant (a qualifier),
+              // look up this symbol and add it to the use-def entries
+              case Some(qual) =>
+                val scope = a.symbolScopeMap(qual)
+                val mapping = scope.get (NameGroup.Value) _
+                helpers.getSymbolForName(mapping)(id.id, id.data) match {
+                  case Right(value) => Right(Some(value))
+                  case Left(err) => Left(err)
+                }
+
+              // Left-hand side is not a symbol
+              // There is no resolution on the dot expression
+              case None => Right(None)
             }
           }
-          symbol <- {
-            val mapping = scope.get (NameGroup.Value) _
-            helpers.getSymbolForName(mapping)(id.id, id.data)
-          }
         } yield {
-          val useDefMap = a.useDefMap + (node.id -> symbol)
-          a.copy(useDefMap = useDefMap)
+          symbol match {
+            case Some(sym) => {
+              val useDefMap = a.useDefMap + (node.id -> sym)
+              a.copy(useDefMap = useDefMap)
+            }
+            case None => a
+          }
         }
       }
       val data = node.data
@@ -119,7 +134,47 @@ object CheckUses extends UseAnalyzer {
 
   override def defTopologyAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
     val impliedTypeUses = a.getImpliedUses(ImpliedUse.Kind.Type, node._2.id).toList
+    val impliedConstantUses = a.getImpliedUses(ImpliedUse.Kind.Constant, node._2.id).toList
     for {
+      _ <- Result.foldLeft (impliedConstantUses) (()) ((_, itu) => {
+        val impliedUse = itu.asUniqueExprNode
+
+        for {
+          a <- {
+            Result.annotateResult(
+              constantUse(a, impliedUse, itu.name),
+              s"when constructing a dictionary, the constant ${itu.name} must be defined"
+            )
+          }
+
+          // Check to make sure this implied use is actually a constant
+          // ...rather than a member of a constant.
+          _ <- {
+            a.useDefMap.get(impliedUse.id) match {
+              case Some(Symbol.Constant(_) | Symbol.EnumConstant(_)) => Right(a)
+              case Some(_) => throw new InternalError("not a constant use or member")
+              case x =>
+                // Get the parent symbol to make the error reporting better
+                def getSymbolOfExpr(e: AstNode[Expr]): Symbol = {
+                  (a.useDefMap.get(e.id), e.data) match {
+                    case (Some(sym), _) => sym
+                    case (None, Ast.ExprDot(ee, eid)) => getSymbolOfExpr(ee)
+                    case _ => throw new InternalError("expected a constant use")
+                  }
+                }
+
+                val sym = getSymbolOfExpr(impliedUse)
+                Left(SemanticError.InvalidSymbol(
+                  sym.getUnqualifiedName,
+                  Locations.get(impliedUse.id),
+                  s"${itu.name} must be a constant symbol",
+                  sym.getLoc
+                ))
+            }
+          }
+        } yield ()
+      })
+
       _ <- Result.foldLeft (impliedTypeUses) (()) ((_, itu) => {
         for {
           _ <- Result.annotateResult(
@@ -128,6 +183,7 @@ object CheckUses extends UseAnalyzer {
           )
         } yield ()
       })
+
       a <- super.defTopologyAnnotatedNode(a, node)
     } yield a
   }

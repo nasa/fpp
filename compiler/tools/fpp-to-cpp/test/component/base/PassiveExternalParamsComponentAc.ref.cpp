@@ -2483,7 +2483,7 @@ I32 PassiveExternalParamsComponentBase ::
   // Get the external parameter from the delegate
   Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
   if(_stat == Fw::FW_SERIALIZE_OK) {
-    _stat = _getBuff.deserialize(_local);
+    _stat = _getBuff.deserializeTo(_local);
     FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
     valid = Fw::ParamValid::VALID;
   } else {
@@ -2506,7 +2506,7 @@ F64 PassiveExternalParamsComponentBase ::
   // Get the external parameter from the delegate
   Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
   if(_stat == Fw::FW_SERIALIZE_OK) {
-    _stat = _getBuff.deserialize(_local);
+    _stat = _getBuff.deserializeTo(_local);
     FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
     valid = Fw::ParamValid::VALID;
   } else {
@@ -2529,7 +2529,7 @@ Fw::ParamString PassiveExternalParamsComponentBase ::
   // Get the external parameter from the delegate
   Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
   if(_stat == Fw::FW_SERIALIZE_OK) {
-    _stat = _getBuff.deserialize(_local);
+    _stat = _getBuff.deserializeTo(_local);
     FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
     valid = Fw::ParamValid::VALID;
   } else {
@@ -2552,7 +2552,7 @@ E PassiveExternalParamsComponentBase ::
   // Get the external parameter from the delegate
   Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
   if(_stat == Fw::FW_SERIALIZE_OK) {
-    _stat = _getBuff.deserialize(_local);
+    _stat = _getBuff.deserializeTo(_local);
     FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
     valid = Fw::ParamValid::VALID;
   } else {
@@ -2575,7 +2575,7 @@ A PassiveExternalParamsComponentBase ::
   // Get the external parameter from the delegate
   Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
   if(_stat == Fw::FW_SERIALIZE_OK) {
-    _stat = _getBuff.deserialize(_local);
+    _stat = _getBuff.deserializeTo(_local);
     FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
     valid = Fw::ParamValid::VALID;
   } else {
@@ -2598,7 +2598,7 @@ S PassiveExternalParamsComponentBase ::
   // Get the external parameter from the delegate
   Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
   if(_stat == Fw::FW_SERIALIZE_OK) {
-    _stat = _getBuff.deserialize(_local);
+    _stat = _getBuff.deserializeTo(_local);
     FW_ASSERT(_stat == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(_stat));
     valid = Fw::ParamValid::VALID;
   } else {
@@ -2631,7 +2631,7 @@ Fw::Time PassiveExternalParamsComponentBase ::
     return _time;
   }
   else {
-    return Fw::Time(TB_NONE, 0, 0);
+    return Fw::Time(TimeBase::TB_NONE, 0, 0);
   }
 }
 

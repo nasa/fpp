@@ -84,14 +84,17 @@ class PrimitiveStruct :
     // ----------------------------------------------------------------------
 
     //! Serialization
-    Fw::SerializeStatus serialize(
+    Fw::SerializeStatus serializeTo(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     ) const;
 
     //! Deserialization
-    Fw::SerializeStatus deserialize(
+    Fw::SerializeStatus deserializeFrom(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     );
+
+    //! Get the dynamic serialized size of the struct
+    FwSizeType serializedSize() const;
 
 #if FW_SERIALIZABLE_TO_STRING
 
@@ -107,13 +110,13 @@ class PrimitiveStruct :
     // ----------------------------------------------------------------------
 
     //! Get member s1
-    Primitive& gets1()
+    Primitive& get_s1()
     {
       return this->m_s1;
     }
 
     //! Get member s1 (const)
-    const Primitive& gets1() const
+    const Primitive& get_s1() const
     {
       return this->m_s1;
     }
@@ -126,7 +129,7 @@ class PrimitiveStruct :
     void set(const Primitive& s1);
 
     //! Set member s1
-    void sets1(const Primitive& s1);
+    void set_s1(const Primitive& s1);
 
   protected:
 

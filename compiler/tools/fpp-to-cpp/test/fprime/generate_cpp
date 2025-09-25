@@ -20,7 +20,7 @@ do
   done
 done
 
-# Move Fw aliases (FpConfig.h dependencies) into config
+# Move definitions from FpConfig.fpp and PlatformTypes.fpp into config
 fp_config_aliases="
 FwAssertArgType
 FwChanIdType
@@ -28,6 +28,7 @@ FwDpIdType
 FwDpPriorityType
 FwEnumStoreType
 FwEventIdType
+FwIdType
 FwIndexType
 FwOpcodeType
 FwPacketDescriptorType
@@ -36,19 +37,26 @@ FwQueuePriorityType
 FwSignedSizeType
 FwSizeStoreType
 FwSizeType
+FwTaskIdType
 FwTaskPriorityType
 FwTimeBaseStoreType
 FwTimeContextStoreType
 FwTlmPacketizeIdType
 FwTraceIdType
 "
+
+fp_config_enums="
+TimeBase
+"
+
 fp_platform_aliases="
-PlatformSizeType
-PlatformSignedSizeType
-PlatformIndexType
 PlatformAssertArgType
-PlatformTaskPriorityType
+PlatformIndexType
 PlatformQueuePriorityType
+PlatformSignedSizeType
+PlatformSizeType
+PlatformTaskIdType
+PlatformTaskPriorityType
 "
 
 for base in ${fp_config_aliases}
@@ -56,6 +64,14 @@ do
   for suffix in hpp h
   do
     mv ${base}AliasAc.$suffix config
+  done
+done
+
+for base in ${fp_config_enums}
+do
+  for suffix in cpp hpp
+  do
+    mv ${base}EnumAc.$suffix config
   done
 done
 
@@ -74,6 +90,9 @@ do
 done
 mv Param*.hpp Param*.cpp Fw/Prm
 mv Sched*.hpp Sched*.cpp Svc/Sched
+
+# Move config files into place
+mv APIDEnum* config
 
 # Remaining files go into types
 mv *.hpp *.cpp Fw/Types

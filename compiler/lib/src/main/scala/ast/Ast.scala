@@ -285,6 +285,7 @@ object Ast {
   /** Expression */
   sealed trait Expr
   final case class ExprArray(elts: List[AstNode[Expr]]) extends Expr
+  final case class ExprArraySubscript(e1: AstNode[Expr], e2: AstNode[Expr]) extends Expr
   final case class ExprBinop(e1: AstNode[Expr], op: Binop, e2: AstNode[Expr]) extends Expr
   final case class ExprDot(e: AstNode[Expr], id: AstNode[Ident]) extends Expr
   final case class ExprIdent(value: Ident) extends Expr

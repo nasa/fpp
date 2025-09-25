@@ -98,7 +98,7 @@ case class ComponentCommands (
 
   private def getHandlers: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Command handlers to implement",
       nonParamCmds.map((opcode, cmd) =>
         functionClassMember(
@@ -121,7 +121,7 @@ case class ComponentCommands (
 
   private def getHandlerBases: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       """|Command handler base-class functions
          |
          |Call these functions directly to bypass the command input port
@@ -158,7 +158,7 @@ case class ComponentCommands (
                       |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
                       |
                       |// Serialize for IPC
-                      |_status = msg.serialize(static_cast<FwEnumStoreType>(${commandCppConstantName(cmd)}));
+                      |_status = msg.serializeFrom(static_cast<FwEnumStoreType>(${commandCppConstantName(cmd)}));
                       |FW_ASSERT (
                       |  _status == Fw::FW_SERIALIZE_OK,
                       |  static_cast<FwAssertArgType>(_status)
@@ -171,7 +171,7 @@ case class ComponentCommands (
                 intersperseBlankLines(
                   List("port", "opCode", "cmdSeq", "args").map(s =>
                     lines(
-                      s"""|_status = msg.serialize($s);
+                      s"""|_status = msg.serializeFrom($s);
                           |FW_ASSERT (
                           |  _status == Fw::FW_SERIALIZE_OK,
                           |  static_cast<FwAssertArgType>(_status)
@@ -207,7 +207,7 @@ case class ComponentCommands (
                   cmdParamTypeMap(opcode).map((n, tn, _) =>
                     lines(
                       s"""|$tn $n;
-                          |_status = args.deserialize($n);
+                          |_status = args.deserializeTo($n);
                           |if (_status != Fw::FW_SERIALIZE_OK) {
                           |  if (this->${portVariableName(cmdRespPort.get)}[0].isConnected()) {
                           |    this->${portVariableName(cmdRespPort.get)}[0].invoke(
@@ -262,7 +262,7 @@ case class ComponentCommands (
 
   private def getResponseFunction: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Command response",
       List(
         functionClassMember(
@@ -292,7 +292,7 @@ case class ComponentCommands (
 
   private def getPreMsgHooks: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       """|Pre-message hooks for async commands
          |
          |Each of these functions is invoked just before processing the
@@ -322,7 +322,7 @@ case class ComponentCommands (
 
   private def getOverflowHooks: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       """|Overflow hooks for async commands
          |
          |Each of these functions is invoked after an overflow event

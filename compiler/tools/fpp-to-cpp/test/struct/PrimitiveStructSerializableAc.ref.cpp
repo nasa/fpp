@@ -78,11 +78,11 @@ std::ostream& operator<<(std::ostream& os, const PrimitiveStruct& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus PrimitiveStruct ::
-  serialize(Fw::SerializeBufferBase& buffer) const
+  serializeTo(Fw::SerializeBufferBase& buffer) const
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->m_s1);
+  status = buffer.serializeFrom(this->m_s1);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -91,16 +91,24 @@ Fw::SerializeStatus PrimitiveStruct ::
 }
 
 Fw::SerializeStatus PrimitiveStruct ::
-  deserialize(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(Fw::SerializeBufferBase& buffer)
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->m_s1);
+  status = buffer.deserializeTo(this->m_s1);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
 
   return status;
+}
+
+FwSizeType PrimitiveStruct ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  size += this->m_s1.serializedSize();
+  return size;
 }
 
 #if FW_SERIALIZABLE_TO_STRING
@@ -131,7 +139,7 @@ void PrimitiveStruct ::
 }
 
 void PrimitiveStruct ::
-  sets1(const Primitive& s1)
+  set_s1(const Primitive& s1)
 {
   this->m_s1 = s1;
 }

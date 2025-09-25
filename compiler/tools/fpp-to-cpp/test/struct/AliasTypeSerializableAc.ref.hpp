@@ -108,14 +108,17 @@ class AliasType :
     // ----------------------------------------------------------------------
 
     //! Serialization
-    Fw::SerializeStatus serialize(
+    Fw::SerializeStatus serializeTo(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     ) const;
 
     //! Deserialization
-    Fw::SerializeStatus deserialize(
+    Fw::SerializeStatus deserializeFrom(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     );
+
+    //! Get the dynamic serialized size of the struct
+    FwSizeType serializedSize() const;
 
 #if FW_SERIALIZABLE_TO_STRING
 
@@ -131,31 +134,31 @@ class AliasType :
     // ----------------------------------------------------------------------
 
     //! Get member x
-    U16Alias getx() const
+    U16Alias get_x() const
     {
       return this->m_x;
     }
 
     //! Get member y
-    TAlias& gety()
+    TAlias& get_y()
     {
       return this->m_y;
     }
 
     //! Get member y (const)
-    const TAlias& gety() const
+    const TAlias& get_y() const
     {
       return this->m_y;
     }
 
     //! Get member z
-    Type_of_z& getz()
+    Type_of_z& get_z()
     {
       return this->m_z;
     }
 
     //! Get member z (const)
-    const Type_of_z& getz() const
+    const Type_of_z& get_z() const
     {
       return this->m_z;
     }
@@ -172,13 +175,13 @@ class AliasType :
     );
 
     //! Set member x
-    void setx(U16Alias x);
+    void set_x(U16Alias x);
 
     //! Set member y
-    void sety(const TAlias& y);
+    void set_y(const TAlias& y);
 
     //! Set member z
-    void setz(const Type_of_z& z);
+    void set_z(const Type_of_z& z);
 
   protected:
 

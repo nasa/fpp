@@ -24,6 +24,9 @@ sealed trait Error {
     System.err.println(prevLoc)
   }
   
+  /** Print a note */
+  def printNote(note: String) = System.err.println(s"note: $note")
+
   /*** Print the error */
   def print: Unit = {
     this match {
@@ -35,10 +38,6 @@ sealed trait Error {
       case CodeGenError.DuplicateJsonFile(file, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate JSON file ${file}")
         System.err.println("previous file would be generated here:")
-        System.err.println(prevLoc)
-      case CodeGenError.DuplicateLayoutDirectory(dir, loc, prevLoc) =>
-        Error.print (Some(loc)) (s"duplicate topology layout directory ${dir}")
-        System.err.println("previous topology layout directory would be generated here:")
         System.err.println(prevLoc)
       case CodeGenError.DuplicateXmlFile(file, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate XML file ${file}")
@@ -87,7 +86,7 @@ sealed trait Error {
         Error.print (Some(loc)) ("duplicate connection between a matched port array and a single instance")
         printPrevLoc(prevLoc)
         printMatchingLoc(matchingLoc)
-        System.err.println("note: each port in a matched port array must be connected to a separate instance")
+        printNote("each port in a matched port array must be connected to a separate instance")
       case SemanticError.DuplicateOpcodeValue(value, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate opcode value ${value}")
         printPrevLoc(prevLoc)
@@ -153,6 +152,7 @@ sealed trait Error {
         System.err.println(s"actual location is ${actualLoc}")
       case SemanticError.InvalidArraySize(loc, size) =>
         Error.print (Some(loc)) (s"invalid array size $size")
+        printNote("size must be greater than zero")
       case SemanticError.InvalidCommand(loc, msg) =>
         Error.print (Some(loc)) (msg)
       case SemanticError.InvalidComponentInstance(loc, instanceName, topName) =>
@@ -216,6 +216,16 @@ sealed trait Error {
         Error.print (Some(loc)) (msg)
       case SemanticError.InvalidStringSize(loc, size) =>
         Error.print (Some(loc)) (s"invalid string size $size")
+      case SemanticError.InvalidAnonStructMember(memberName, loc, defLoc) =>
+        Error.print (Some(loc)) (s"no member $memberName in anonymous struct value")
+        System.err.println("symbol is defined here:")
+        System.err.println(defLoc)
+      case SemanticError.InvalidStructMember(memberName, loc, structTypeName, defLoc) =>
+        Error.print (Some(loc)) (s"no member $memberName in struct type $structTypeName")
+        System.err.println("symbol is defined here:")
+        System.err.println(defLoc)
+      case SemanticError.InvalidTypeForMemberSelection(memberName, loc, typeName) =>
+        Error.print (Some(loc)) (s"no member $memberName in value of type $typeName")
       case SemanticError.InvalidSymbol(name, loc, msg, defLoc) =>
         Error.print (Some(loc)) (s"invalid symbol $name: $msg")
         System.err.println("symbol is defined here:")
@@ -255,13 +265,12 @@ sealed trait Error {
         System.err.println(loc1)
         System.err.println(loc2)
         printMatchingLoc(matchingLoc)
-        System.err.println("note: to be available, a port number must be in bounds and " ++
-                           "unassigned at each of the matched ports")
+        printNote("to be available, a port number must be in bounds and unassigned at each of the matched ports")
       case SemanticError.OverlappingIdRanges(
-        maxId1, name1, loc1, baseId2, name2, loc2
+        baseId1, name1, loc1, baseId2, maxId2, name2, loc2
       ) =>
         Error.print (None) (
-          s"max ID $maxId1 for instance $name1 conflicts with base ID $baseId2 for instance $name2"
+          s"base ID $baseId1 for instance $name1 lies inside the ID range [$baseId2, $maxId2] for instance $name2"
         )
         System.err.println(s"$name1 is defined here")
         System.err.println(loc1)
@@ -329,7 +338,7 @@ sealed trait Error {
       case XmlError.SemanticError(file, msg) => Error.printXml (file) (msg)
       case AnnotatedError(error, note) => 
         error.print
-        System.err.println(s"note: ${note}")
+        printNote(note)
     }
   }
 
@@ -346,8 +355,6 @@ object CodeGenError {
   final case class DuplicateCppFile(file: String, loc: Location, prevLoc: Location) extends Error
   /** Duplicate JSON file path */
   final case class DuplicateJsonFile(file: String, loc: Location, prevLoc: Location) extends Error
-  /** Duplicate Layout file path */
-  final case class DuplicateLayoutDirectory(dir: String, loc: Location, prevLoc: Location) extends Error
   /** Duplicate XML file path */
   final case class DuplicateXmlFile(file: String, loc: Location, prevLoc: Location) extends Error
   /** Empty struct */
@@ -596,6 +603,25 @@ object SemanticError {
   final case class InvalidSpecialPort(loc: Location, msg: String) extends Error
   /** Invalid string size */
   final case class InvalidStringSize(loc: Location, size: BigInt) extends Error
+  /** No member in struct type */
+  final case class InvalidStructMember(
+    memberName: String,
+    loc: Location,
+    structTypeName: String,
+    defLoc: Location
+  ) extends Error
+  /** No member in anonymous struct type */
+  final case class InvalidAnonStructMember(
+    memberName: String,
+    loc: Location,
+    defLoc: Location
+  ) extends Error
+  /** No member in anonymous struct type */
+  final case class InvalidTypeForMemberSelection(
+    memberName: String,
+    loc: Location,
+    typeName: String,
+  ) extends Error
   /** Invalid symbol */
   final case class InvalidSymbol(
     name: String,
@@ -649,10 +675,11 @@ object SemanticError {
   ) extends Error
   /** Overlapping ID ranges */
   final case class OverlappingIdRanges(
-    maxId1: BigInt,
+    baseId1: BigInt,
     name1: String,
     loc1: Location,
     baseId2: BigInt,
+    maxId2: BigInt,
     name2: String,
     loc2: Location
   ) extends Error
@@ -742,9 +769,7 @@ object XmlError {
 
 object Error {
 
-  /** The max array size */
-  val maxArraySize = 256
-
+  /** The tool in use, if there is one */
   private var toolOpt: Option[Tool] = None
 
   /** Set the tool */

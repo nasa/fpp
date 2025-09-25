@@ -27,7 +27,7 @@ class PassiveEvents final :
     //! Destroy PassiveEvents object
     ~PassiveEvents();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports

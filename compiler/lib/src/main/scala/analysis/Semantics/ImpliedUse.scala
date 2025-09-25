@@ -11,6 +11,27 @@ case class ImpliedUse(
   id: AstNode.Id
 ) {
 
+  def asExprNode: AstNode[Ast.Expr] = {
+    val Name.Qualified(qualifier, base) = name
+    val head :: tail = name.toIdentList
+    val expr = tail.foldLeft (Ast.ExprIdent(head): Ast.Expr) ((e1, s) =>
+      Ast.ExprDot(AstNode.create(e1, id), AstNode.create(s, id))
+    )
+    AstNode.create(expr, id)
+  }
+
+  def asUniqueExprNode: AstNode[Ast.Expr] = {
+    val Name.Qualified(qualifier, base) = name
+    val head :: tail = name.toIdentList
+    val expr = tail.foldLeft (Ast.ExprIdent(head): Ast.Expr) ((e1, s) =>
+      Ast.ExprDot(
+        AstNode.create(e1, ImpliedUse.replicateId(id)),
+        AstNode.create(s, ImpliedUse.replicateId(id))
+      )
+    )
+    AstNode.create(expr, ImpliedUse.replicateId(id))
+  }
+
   def asQualIdentNode: AstNode[Ast.QualIdent] = {
     val nodeList = name.toIdentList.map(AstNode.create(_, id))
     val qualIdent = Ast.QualIdent.fromNodeList(nodeList)
@@ -34,13 +55,30 @@ object ImpliedUse {
   /** The qualified names of implied type uses.
    *  Each name is a list of identifiers */
   def getTopologyTypes(a: Analysis) =
+    if (a.dictionaryGeneration) then
+      List("Fw", "DpCfg", "ProcType") ::
+      List("Fw", "DpState") ::
+      List(
+        "FwChanIdType",
+        "FwDpIdType",
+        "FwDpPriorityType",
+        "FwEventIdType",
+        "FwOpcodeType",
+        "FwPacketDescriptorType",
+        "FwSizeType",
+        "FwSizeStoreType",
+        "FwTimeBaseStoreType",
+        "FwTimeContextStoreType",
+        "FwTlmPacketizeIdType"
+      ).map(List(_))
+    else Nil
+
+  /** The qualified names of implied constant uses.
+   *  Each name is a list of identifiers */
+  def getTopologyConstants(a: Analysis) =
     if (a.dictionaryGeneration) then List(
-      "FwChanIdType",
-      "FwEventIdType",
-      "FwOpcodeType",
-      "FwPacketDescriptorType",
-      "FwTlmPacketizeIdType"
-    ).map(List(_))
+      List("Fw", "DpCfg", "CONTAINER_USER_DATA_SIZE")
+    )
     else Nil
 
   def replicateId(id: AstNode.Id) = {

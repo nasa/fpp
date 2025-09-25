@@ -98,23 +98,23 @@ std::ostream& operator<<(std::ostream& os, const Namespace& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus Namespace ::
-  serialize(Fw::SerializeBufferBase& buffer) const
+  serializeTo(Fw::SerializeBufferBase& buffer) const
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->m_A);
+  status = buffer.serializeFrom(this->m_A);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_B);
+  status = buffer.serializeFrom(this->m_B);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_C);
+  status = buffer.serializeFrom(this->m_C);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_D);
+  status = buffer.serializeFrom(this->m_D);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -123,28 +123,39 @@ Fw::SerializeStatus Namespace ::
 }
 
 Fw::SerializeStatus Namespace ::
-  deserialize(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(Fw::SerializeBufferBase& buffer)
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->m_A);
+  status = buffer.deserializeTo(this->m_A);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_B);
+  status = buffer.deserializeTo(this->m_B);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_C);
+  status = buffer.deserializeTo(this->m_C);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_D);
+  status = buffer.deserializeTo(this->m_D);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
 
   return status;
+}
+
+FwSizeType Namespace ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  size += sizeof(SimpleCType);
+  size += sizeof(SimpleCType2);
+  size += sizeof(M::M2::NamespacedAliasType);
+  size += sizeof(M::NamespacedAliasType2);
+  return size;
 }
 
 #if FW_SERIALIZABLE_TO_STRING
@@ -201,25 +212,25 @@ void Namespace ::
 }
 
 void Namespace ::
-  setA(SimpleCType A)
+  set_A(SimpleCType A)
 {
   this->m_A = A;
 }
 
 void Namespace ::
-  setB(SimpleCType2 B)
+  set_B(SimpleCType2 B)
 {
   this->m_B = B;
 }
 
 void Namespace ::
-  setC(M::M2::NamespacedAliasType C)
+  set_C(M::M2::NamespacedAliasType C)
 {
   this->m_C = C;
 }
 
 void Namespace ::
-  setD(M::NamespacedAliasType2 D)
+  set_D(M::NamespacedAliasType2 D)
 {
   this->m_D = D;
 }

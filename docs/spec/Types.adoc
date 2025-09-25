@@ -1,5 +1,7 @@
 == Types
 
+A *type* is a set of <<Values,values>>.
+
 === Primitive Integer Types
 
 The *primitive integer types* correspond to the
@@ -39,8 +41,14 @@ The *string types* correspond to the
 <<Type-Names_String-Type-Names,string type names>>.
 A string type is written `string` or `string size` _n_,
 where _n_ is an integer value in the range [1,2^31-1].
-There is one string type `string` and one string type `string` _n_
+There is one string type `string` and one string type `string size` _n_
 for each legal value of _n_.
+
+The value _n_, if present, is called the *size* associated with the string 
+type.
+The size provides a maximum string length that the code generator can use
+for allocating memory and serializing data.
+If no explicit size is present, then the code generator uses a default size.
 
 === Array Types
 
@@ -116,6 +124,9 @@ the *numeric types*.
 The type _[_ _n_ _]_ _T_, where _n_
 is an integer and _T_ is a type, represents an array of _n_ elements,
 each of type _T_.
+The type _T_ is called the *element type* of the
+anonymous array type.
+The integer _n_ is called the *size* of the anonymous array type.
 
 ==== Anonymous Struct Types
 

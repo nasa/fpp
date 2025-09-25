@@ -22,10 +22,10 @@ struct T : public Fw::Serializable { // Extend Fw::Serializable
   bool operator==(const T& that) const { return this->x == that.x; }
 
   // Define the virtual serialize method
-  SS serialize(B& b) const { return b.serialize(x); }
+  SS serializeTo(B& b) const { return b.serializeFrom(x); }
 
-  // Define the virtual deserialize method
-  SS deserialize(B& b) { return b.deserialize(x); }
+  // Define the virtual deserializeFrom method
+  SS deserializeFrom(B& b) { return b.deserializeTo(x); }
 
   // Provide some data
   U32 x;

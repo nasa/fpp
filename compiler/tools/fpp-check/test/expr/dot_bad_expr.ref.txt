@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/expr/dot_bad_expr.fpp:1.20
+constant a = false.x
+                   ^
+error: no member x in value of type bool

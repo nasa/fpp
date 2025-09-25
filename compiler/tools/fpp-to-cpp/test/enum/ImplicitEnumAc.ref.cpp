@@ -52,19 +52,19 @@ namespace M {
   }
 
   Fw::SerializeStatus Implicit ::
-    serialize(Fw::SerializeBufferBase& buffer) const
+    serializeTo(Fw::SerializeBufferBase& buffer) const
   {
-    const Fw::SerializeStatus status = buffer.serialize(
+    const Fw::SerializeStatus status = buffer.serializeFrom(
         static_cast<SerialType>(this->e)
     );
     return status;
   }
 
   Fw::SerializeStatus Implicit ::
-    deserialize(Fw::SerializeBufferBase& buffer)
+    deserializeFrom(Fw::SerializeBufferBase& buffer)
   {
     SerialType es;
-    Fw::SerializeStatus status = buffer.deserialize(es);
+    Fw::SerializeStatus status = buffer.deserializeTo(es);
     if (status == Fw::FW_SERIALIZE_OK) {
       this->e = static_cast<T>(es);
       if (!this->isValid()) {

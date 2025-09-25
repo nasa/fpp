@@ -86,14 +86,17 @@ namespace M {
       // ----------------------------------------------------------------------
 
       //! Serialization
-      Fw::SerializeStatus serialize(
+      Fw::SerializeStatus serializeTo(
           Fw::SerializeBufferBase& buffer //!< The serial buffer
       ) const;
 
       //! Deserialization
-      Fw::SerializeStatus deserialize(
+      Fw::SerializeStatus deserializeFrom(
           Fw::SerializeBufferBase& buffer //!< The serial buffer
       );
+
+      //! Get the dynamic serialized size of the struct
+      FwSizeType serializedSize() const;
 
 #if FW_SERIALIZABLE_TO_STRING
 
@@ -109,13 +112,13 @@ namespace M {
       // ----------------------------------------------------------------------
 
       //! Get member x
-      M::Modules1& getx()
+      M::Modules1& get_x()
       {
         return this->m_x;
       }
 
       //! Get member x (const)
-      const M::Modules1& getx() const
+      const M::Modules1& get_x() const
       {
         return this->m_x;
       }
@@ -128,7 +131,7 @@ namespace M {
       void set(const M::Modules1& x);
 
       //! Set member x
-      void setx(const M::Modules1& x);
+      void set_x(const M::Modules1& x);
 
     protected:
 

@@ -19,6 +19,13 @@ namespace FppTest {
     //! A state machine with nested initial transitions
     class NestedStateMachineBase {
 
+        // ----------------------------------------------------------------------
+        // Friend classes
+        // ----------------------------------------------------------------------
+
+        //! Tester class for the state machine
+        friend class NestedTester;
+
       public:
 
         // ----------------------------------------------------------------------
@@ -39,7 +46,7 @@ namespace FppTest {
           __FPRIME_AC_INITIAL_TRANSITION,
         };
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Constructors and Destructors
@@ -71,7 +78,7 @@ namespace FppTest {
         //! Get the state
         NestedStateMachineBase::State getState() const;
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Actions
@@ -82,7 +89,7 @@ namespace FppTest {
             Signal signal //!< The signal
         ) = 0;
 
-      PRIVATE:
+      private:
 
         // ----------------------------------------------------------------------
         // State and choice entry
@@ -98,7 +105,7 @@ namespace FppTest {
             Signal signal //!< The signal
         );
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Member variables

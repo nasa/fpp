@@ -16,9 +16,9 @@ StructWithAlias ::
     Serializable(),
     m_x(0),
     m_y(m___fprime_ac_y_buffer, sizeof m___fprime_ac_y_buffer, Fw::String("")),
-    m_z(A(0, 0, 0)),
-    m_w(A(0, 0, 0)),
-    m_q(ArrayAliasArray(A(0, 0, 0), A(0, 0, 0), A(0, 0, 0)))
+    m_z(A(0)),
+    m_w(A(0)),
+    m_q(ArrayAliasArray(A(0)))
 {
 
 }
@@ -103,27 +103,27 @@ std::ostream& operator<<(std::ostream& os, const StructWithAlias& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus StructWithAlias ::
-  serialize(Fw::SerializeBufferBase& buffer) const
+  serializeTo(Fw::SerializeBufferBase& buffer) const
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->m_x);
+  status = buffer.serializeFrom(this->m_x);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_y);
+  status = buffer.serializeFrom(this->m_y);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_z);
+  status = buffer.serializeFrom(this->m_z);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_w);
+  status = buffer.serializeFrom(this->m_w);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_q);
+  status = buffer.serializeFrom(this->m_q);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -132,32 +132,44 @@ Fw::SerializeStatus StructWithAlias ::
 }
 
 Fw::SerializeStatus StructWithAlias ::
-  deserialize(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(Fw::SerializeBufferBase& buffer)
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->m_x);
+  status = buffer.deserializeTo(this->m_x);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_y);
+  status = buffer.deserializeTo(this->m_y);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_z);
+  status = buffer.deserializeTo(this->m_z);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_w);
+  status = buffer.deserializeTo(this->m_w);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_q);
+  status = buffer.deserializeTo(this->m_q);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
 
   return status;
+}
+
+FwSizeType StructWithAlias ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  size += sizeof(AliasPrim1);
+  size += this->m_y.serializedSize();
+  size += this->m_z.serializedSize();
+  size += this->m_w.serializedSize();
+  size += this->m_q.serializedSize();
+  return size;
 }
 
 #if FW_SERIALIZABLE_TO_STRING
@@ -221,31 +233,31 @@ void StructWithAlias ::
 }
 
 void StructWithAlias ::
-  setx(AliasPrim1 x)
+  set_x(AliasPrim1 x)
 {
   this->m_x = x;
 }
 
 void StructWithAlias ::
-  sety(const Fw::StringBase& y)
+  set_y(const Fw::StringBase& y)
 {
   this->m_y = y;
 }
 
 void StructWithAlias ::
-  setz(const AliasArray& z)
+  set_z(const AliasArray& z)
 {
   this->m_z = z;
 }
 
 void StructWithAlias ::
-  setw(const AliasAliasArray& w)
+  set_w(const AliasAliasArray& w)
 {
   this->m_w = w;
 }
 
 void StructWithAlias ::
-  setq(const AliasArrayAliasArray& q)
+  set_q(const AliasArrayAliasArray& q)
 {
   this->m_q = q;
 }

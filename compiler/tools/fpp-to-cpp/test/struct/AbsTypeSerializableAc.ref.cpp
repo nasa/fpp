@@ -78,11 +78,11 @@ std::ostream& operator<<(std::ostream& os, const AbsType& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus AbsType ::
-  serialize(Fw::SerializeBufferBase& buffer) const
+  serializeTo(Fw::SerializeBufferBase& buffer) const
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->m_t);
+  status = buffer.serializeFrom(this->m_t);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -91,16 +91,24 @@ Fw::SerializeStatus AbsType ::
 }
 
 Fw::SerializeStatus AbsType ::
-  deserialize(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(Fw::SerializeBufferBase& buffer)
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->m_t);
+  status = buffer.deserializeTo(this->m_t);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
 
   return status;
+}
+
+FwSizeType AbsType ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  size += T::SERIALIZED_SIZE;
+  return size;
 }
 
 #if FW_SERIALIZABLE_TO_STRING
@@ -131,7 +139,7 @@ void AbsType ::
 }
 
 void AbsType ::
-  sett(const T& t)
+  set_t(const T& t)
 {
   this->m_t = t;
 }

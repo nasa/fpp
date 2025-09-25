@@ -19,6 +19,13 @@ namespace FppTest {
     //! A basic state machine
     class BasicStateMachineBase {
 
+        // ----------------------------------------------------------------------
+        // Friend classes
+        // ----------------------------------------------------------------------
+
+        //! Tester class for the state machine
+        friend class BasicTester;
+
       public:
 
         // ----------------------------------------------------------------------
@@ -43,7 +50,7 @@ namespace FppTest {
           s,
         };
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Constructors and Destructors
@@ -84,7 +91,7 @@ namespace FppTest {
         //! Signal s
         void sendSignal_s();
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Actions
@@ -95,7 +102,7 @@ namespace FppTest {
             Signal signal //!< The signal
         ) = 0;
 
-      PRIVATE:
+      private:
 
         // ----------------------------------------------------------------------
         // State and choice entry
@@ -111,7 +118,7 @@ namespace FppTest {
             Signal signal //!< The signal
         );
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Member variables

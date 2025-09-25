@@ -7,6 +7,8 @@
 #ifndef HeaderPathArrayAc_HPP
 #define HeaderPathArrayAc_HPP
 
+#include <initializer_list>
+
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
@@ -51,24 +53,22 @@ class HeaderPath :
     //! Constructor (default value)
     HeaderPath();
 
-    //! Constructor (user-provided value)
+    //! Constructor (primitive array)
     HeaderPath(
         const ElementType (&a)[SIZE] //!< The array
     );
 
     //! Constructor (single element)
-    HeaderPath(
+    explicit HeaderPath(
         const ElementType& e //!< The element
     );
 
-    //! Constructor (multiple elements)
+    //! Constructor (initializer list)
     HeaderPath(
-        const ElementType& e1, //!< Element 1
-        const ElementType& e2, //!< Element 2
-        const ElementType& e3 //!< Element 3
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
-    //! Copy Constructor
+    //! Copy constructor
     HeaderPath(
         const HeaderPath& obj //!< The source object
     );
@@ -81,12 +81,12 @@ class HeaderPath :
 
     //! Subscript operator
     ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     );
 
     //! Const subscript operator
     const ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     ) const;
 
     //! Copy assignment operator (object)
@@ -94,9 +94,14 @@ class HeaderPath :
         const HeaderPath& obj //!< The source object
     );
 
-    //! Copy assignment operator (raw array)
+    //! Copy assignment operator (primitive array)
     HeaderPath& operator=(
         const ElementType (&a)[SIZE] //!< The source array
+    );
+
+    //! Copy assignment operator (initializer list)
+    HeaderPath& operator=(
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)
@@ -131,14 +136,17 @@ class HeaderPath :
     // ----------------------------------------------------------------------
 
     //! Serialization
-    Fw::SerializeStatus serialize(
+    Fw::SerializeStatus serializeTo(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     ) const;
 
     //! Deserialization
-    Fw::SerializeStatus deserialize(
+    Fw::SerializeStatus deserializeFrom(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     );
+
+    //! Get the dynamic serialized size of the array
+    FwSizeType serializedSize() const;
 
 #if FW_SERIALIZABLE_TO_STRING
 

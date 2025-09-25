@@ -4,6 +4,7 @@ array_empty
 array_error
 array_ok
 div_by_zero
+dot_bad_expr
 literal_ok
 neg_error
 neg_ok

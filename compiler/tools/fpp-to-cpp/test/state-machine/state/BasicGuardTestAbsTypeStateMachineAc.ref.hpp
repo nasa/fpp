@@ -20,6 +20,13 @@ namespace FppTest {
     //! A basic state machine with a TestAbsType guard
     class BasicGuardTestAbsTypeStateMachineBase {
 
+        // ----------------------------------------------------------------------
+        // Friend classes
+        // ----------------------------------------------------------------------
+
+        //! Tester class for the state machine
+        friend class BasicGuardTestAbsTypeTester;
+
       public:
 
         // ----------------------------------------------------------------------
@@ -44,7 +51,7 @@ namespace FppTest {
           s,
         };
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Constructors and Destructors
@@ -87,7 +94,7 @@ namespace FppTest {
             const FppTest::SmHarness::TestAbsType& value //!< The value
         );
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Actions
@@ -99,7 +106,7 @@ namespace FppTest {
             const FppTest::SmHarness::TestAbsType& value //!< The value
         ) = 0;
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Guards
@@ -111,7 +118,7 @@ namespace FppTest {
             const FppTest::SmHarness::TestAbsType& value //!< The value
         ) const = 0;
 
-      PRIVATE:
+      private:
 
         // ----------------------------------------------------------------------
         // State and choice entry
@@ -127,7 +134,7 @@ namespace FppTest {
             Signal signal //!< The signal
         );
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Member variables

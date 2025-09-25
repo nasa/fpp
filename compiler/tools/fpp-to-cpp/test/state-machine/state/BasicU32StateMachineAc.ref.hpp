@@ -19,6 +19,13 @@ namespace FppTest {
     //! A basic state machine with U32 actions
     class BasicU32StateMachineBase {
 
+        // ----------------------------------------------------------------------
+        // Friend classes
+        // ----------------------------------------------------------------------
+
+        //! Tester class for the state machine
+        friend class BasicU32Tester;
+
       public:
 
         // ----------------------------------------------------------------------
@@ -43,7 +50,7 @@ namespace FppTest {
           s,
         };
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Constructors and Destructors
@@ -86,7 +93,7 @@ namespace FppTest {
             U32 value //!< The value
         );
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Actions
@@ -103,7 +110,7 @@ namespace FppTest {
             U32 value //!< The value
         ) = 0;
 
-      PRIVATE:
+      private:
 
         // ----------------------------------------------------------------------
         // State and choice entry
@@ -119,7 +126,7 @@ namespace FppTest {
             Signal signal //!< The signal
         );
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Member variables

@@ -1,15 +1,14 @@
 === Connection Graph Specifiers
 
-A *connection graph specifier* specifies one or more *connection graphs*
-as part of a
+A *connection graph specifier* specifies one or more *connection graphs* as 
+part of a
 <<Definitions_Topology-Definitions,topology definition>>.
 A connection graph is a named set of *connections*.
-A connection connects an <<Specifiers_Port-Instance-Specifiers,output port
-instance>> of one
-<<Specifiers_Component-Instance-Specifiers,component instance>> or <<Specifiers_Topology-Import-Specifiers,imported topology>>
-to an
-<<Specifiers_Port-Instance-Specifiers,input port instance>> of
-another.
+A connection connects an 
+<<Ports_Port-Instances,output port instance>> of one
+component instance or topology to an
+<<Ports_Port-Instances,input port instance>> of
+another one.
 
 ==== Syntax
 
@@ -37,19 +36,24 @@ A connection is the following:
 _[_
 `unmatched`
 _]_
-<<Component-Instance-Member-Identifiers_Port-Instance-Identifiers,_port-instance-id_>>
+<<Instance-Member-Identifiers_Port-Instance-Identifiers,_port-instance-id_>>
 _[_
 `[`
 <<Expressions,_expression_>>
 `]`
 _]_
 `pass:[->]`
-<<Component-Instance-Member-Identifiers_Port-Instance-Identifiers,_port-instance-id_>>
+<<Instance-Member-Identifiers_Port-Instance-Identifiers,_port-instance-id_>>
 _[_
 `[`
 <<Expressions,_expression_>>
 `]`
 _]_
+
+The syntax from the optional `unmatched` to the arrow is called the
+*output endpoint* of the connection.
+The syntax following the arrow is called the
+*input endpoint* of the connection.
 
 _pattern-kind_ is one of the following:
 
@@ -90,20 +94,21 @@ match constrained>>.
 In this case, if the keyword `unmatched` is present, then _C_ is
 unmatched.
 
-.. For each of the two port instance identifiers _I_ appearing in _C_:
+.. For each of the two endpoints _E_ in _C_:
 
-... If the parent definition of _I_ is a component instance, the component instance
-must be available in the enclosing topology,
-either through
-<<Specifiers_Component-Instance-Specifiers,direct specification>>
-or through
-<<Specifiers_Topology-Import-Specifiers,import>>.
+... Let _I_ = _Q_ `.` _P_ be the 
+   <<Instance-Member-Identifiers_Port-Instance-Identifiers,port instance
+identifier>> appearing in _E_.
 
-... If the parent definition of _I_ is a topology definition, the topology
-must be imported through a <<Specifiers_Topology-Import-Specifiers,topology import>> and
-the port instance _I_ must be exported through a <<Specifiers_Port-Export-Specifiers,port export>>.
+... The port interface instance _Q_ must exist in the enclosing 
+topology,
+after 
+<<Definitions_Topology-Definitions_Semantics_Resolving-to-a-Partially-Numbered-Topology,
+resolution to a partially numbered topology>>.
+If _Q_ is a component instance, then _E_ is a *component instance endpoint*.
+Otherwise _Q_ is a topology, and _E_ is a *topology endpoint*.
 
-... The optional expression _e_ following the identifier, if it is present,
+... The optional expression _e_ following _I_, if it is present,
 represents a port number, i.e., an index into an
 array of port instances.
 The type of _e_ must be a
@@ -113,17 +118,17 @@ _e_ must
 that becomes a non-negative integer _n_ when
 <<Evaluation_Type-Conversion,converted to>> type _Integer_.
 _n_ must lie in the range [0,2^31^) and must be in bounds for the
-array size of the port instance specifier named in _I_.
+array size of the port instance _P_.
 
 .. The arrow represents the direction of the connection (left to right).
 
 .. The connection must go from an
-<<Specifiers_Port-Instance-Specifiers,output port instance>>
+<<Ports_Port-Instances,output port instance>>
 to an
-<<Specifiers_Port-Instance-Specifiers,input port instance>>.
+<<Ports_Port-Instances,input port instance>>.
 
 .. The <<Specifiers_Port-Instance-Specifiers,port instance types>>
-specified in the two port instances must match,
+specified in the two port instances must be identical,
 except that a `serial` port at either end can be connected
 to any port at the other end.
 
@@ -142,25 +147,26 @@ target instances.
 
 . The qualified identifier following the keyword `instance` must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
-a component instance that is available in the enclosing topology,
-either through
-<<Specifiers_Component-Instance-Specifiers,direct specification>>
-or through
-<<Specifiers_Topology-Import-Specifiers,import>>.
+a component instance that exists in the enclosing topology,
+after resolving to a <<Definitions_Topology-Definitions_Semantics,
+partially numbered topology>>.
 
 . If the instance sequence _I_ appears, then each qualified identifier
-_Q_ appearing in _I_ must refer to a component instance that is available
-in the enclosing topology or a topology definition that is imported into
-the enclosing topology, and each instance must be valid for the pattern
+_Q_ appearing in _I_ must refer to a component instance that exists
+in the enclosing topology, after resolving to a partially numbered topology,
+and each component instance must be valid for the pattern
 (i.e., must have a port of the type required for the pattern).
-The instances in the sequence name the target instances for the
-pattern. If no instance sequence appears, then the target instances are
-all instances specified directly in the enclosing topology (not via import)
+The component instances in the sequence name the target component instances for 
+the
+pattern. If no component instance sequence appears, then the target component 
+instances
+are all component instances specified directly in the enclosing topology (not 
+via import)
 that are valid for the pattern.
 
 The meaning of specifier depends on the pattern kind, as follows:
 
-. `command`: The source instance _I_ is a command dispatcher.
+. `command`: The source component instance _I_ is a command dispatcher.
 The following connection graphs are generated:
 
 .. A connection graph named `Command` consisting of all connections
@@ -176,44 +182,44 @@ to the command registration input port of _I_.
 from the command response output port of each target component
 to the command response input port of _I_.
 
-. `event`: The source instance _I_ is an event logger
+. `event`: The source component instance _I_ is an event logger
 with an input port of type `Fw.Log`.
 The generated connection graph has name `Events` and contains
 all connections for sending events to _I_ through an event
 output port.
 
-. `health`: The source instance _I_ is a health component.
+. `health`: The source component instance _I_ is a health component.
 The generated connection graph has name `Health` and contains
 all connections between the health component and ping
 ports of the target components of type `Svc.Ping`.
 
-. `param`: The source instance _I_ is a parameter database
+. `param`: The source component instance _I_ is a parameter database
 component.
 The generate connection graph has name `Parameters`
 and contains all connections for (a) getting
 parameters from the database and (b) saving
 parameters to the database.
 
-. `telemetry`: The source instance _I_ is a telemetry database
+. `telemetry`: The source component instance _I_ is a telemetry database
 with an input port of type `Fw.Tlm`.
 The generated connection graph has name `Telemetry`
 and contains all connections for sending telemetry to _I_
 through a telemetry output port.
 
-. `text event`: The source instance _I_ is a text event
+. `text event`: The source component instance _I_ is a text event
 logger with an input port of type `Fw.LogText`.
 The generated connection graph has name `TextEvents` and contains
 all connections for sending events to _I_ through an event
 output port.
 
-. `time`: The source instance _I_ is a time component.
+. `time`: The source component instance _I_ is a time component.
 The generated connection graph has name `Time` and contains
 all connections for getting the time from _I_ through
 a time get output port.
 
 ==== Example
 
-Assume the following instances are available in the enclosing topology,
+Assume the following component instances are available in the enclosing topology,
 and all have command ports:
 
 [source,fpp]

@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/constant/array_index_out_of_bounds.fpp:1.26
+constant f = [ 1, 2, 3 ][3]
+                         ^
+error: invalid integer value 3
+index value is not in the range [0, 2]

@@ -186,57 +186,57 @@ std::ostream& operator<<(std::ostream& os, const Primitive& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus Primitive ::
-  serialize(Fw::SerializeBufferBase& buffer) const
+  serializeTo(Fw::SerializeBufferBase& buffer) const
 {
   Fw::SerializeStatus status;
 
   for (FwSizeType i = 0; i < 3; i++) {
-    status = buffer.serialize(this->m_mF32[i]);
+    status = buffer.serializeFrom(this->m_mF32[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
   }
-  status = buffer.serialize(this->m_mF64);
+  status = buffer.serializeFrom(this->m_mF64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_mI16);
+  status = buffer.serializeFrom(this->m_mI16);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_mI32);
+  status = buffer.serializeFrom(this->m_mI32);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_mI64);
+  status = buffer.serializeFrom(this->m_mI64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_mI8);
+  status = buffer.serializeFrom(this->m_mI8);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_mU16);
+  status = buffer.serializeFrom(this->m_mU16);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_mU32);
+  status = buffer.serializeFrom(this->m_mU32);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_mU64);
+  status = buffer.serializeFrom(this->m_mU64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_mU8);
+  status = buffer.serializeFrom(this->m_mU8);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_m_bool);
+  status = buffer.serializeFrom(this->m_m_bool);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_m_string);
+  status = buffer.serializeFrom(this->m_m_string);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -245,62 +245,81 @@ Fw::SerializeStatus Primitive ::
 }
 
 Fw::SerializeStatus Primitive ::
-  deserialize(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(Fw::SerializeBufferBase& buffer)
 {
   Fw::SerializeStatus status;
 
   for (FwSizeType i = 0; i < 3; i++) {
-    status = buffer.deserialize(this->m_mF32[i]);
+    status = buffer.deserializeTo(this->m_mF32[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
   }
-  status = buffer.deserialize(this->m_mF64);
+  status = buffer.deserializeTo(this->m_mF64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_mI16);
+  status = buffer.deserializeTo(this->m_mI16);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_mI32);
+  status = buffer.deserializeTo(this->m_mI32);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_mI64);
+  status = buffer.deserializeTo(this->m_mI64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_mI8);
+  status = buffer.deserializeTo(this->m_mI8);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_mU16);
+  status = buffer.deserializeTo(this->m_mU16);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_mU32);
+  status = buffer.deserializeTo(this->m_mU32);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_mU64);
+  status = buffer.deserializeTo(this->m_mU64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_mU8);
+  status = buffer.deserializeTo(this->m_mU8);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_m_bool);
+  status = buffer.deserializeTo(this->m_m_bool);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_m_string);
+  status = buffer.deserializeTo(this->m_m_string);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
 
   return status;
+}
+
+FwSizeType Primitive ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  size += sizeof(F32) * 3;
+  size += sizeof(F64);
+  size += sizeof(I16);
+  size += sizeof(I32);
+  size += sizeof(I64);
+  size += sizeof(I8);
+  size += sizeof(U16);
+  size += sizeof(U32);
+  size += sizeof(U64);
+  size += sizeof(U8);
+  size += sizeof(U8);
+  size += this->m_m_string.serializedSize();
+  return size;
 }
 
 #if FW_SERIALIZABLE_TO_STRING
@@ -430,7 +449,7 @@ void Primitive ::
 }
 
 void Primitive ::
-  setmF32(const Type_of_mF32& mF32)
+  set_mF32(const Type_of_mF32& mF32)
 {
   for (FwSizeType i = 0; i < 3; i++) {
     this->m_mF32[i] = mF32[i];
@@ -438,67 +457,67 @@ void Primitive ::
 }
 
 void Primitive ::
-  setmF64(F64 mF64)
+  set_mF64(F64 mF64)
 {
   this->m_mF64 = mF64;
 }
 
 void Primitive ::
-  setmI16(I16 mI16)
+  set_mI16(I16 mI16)
 {
   this->m_mI16 = mI16;
 }
 
 void Primitive ::
-  setmI32(I32 mI32)
+  set_mI32(I32 mI32)
 {
   this->m_mI32 = mI32;
 }
 
 void Primitive ::
-  setmI64(I64 mI64)
+  set_mI64(I64 mI64)
 {
   this->m_mI64 = mI64;
 }
 
 void Primitive ::
-  setmI8(I8 mI8)
+  set_mI8(I8 mI8)
 {
   this->m_mI8 = mI8;
 }
 
 void Primitive ::
-  setmU16(U16 mU16)
+  set_mU16(U16 mU16)
 {
   this->m_mU16 = mU16;
 }
 
 void Primitive ::
-  setmU32(U32 mU32)
+  set_mU32(U32 mU32)
 {
   this->m_mU32 = mU32;
 }
 
 void Primitive ::
-  setmU64(U64 mU64)
+  set_mU64(U64 mU64)
 {
   this->m_mU64 = mU64;
 }
 
 void Primitive ::
-  setmU8(U8 mU8)
+  set_mU8(U8 mU8)
 {
   this->m_mU8 = mU8;
 }
 
 void Primitive ::
-  setm_bool(bool m_bool)
+  set_m_bool(bool m_bool)
 {
   this->m_m_bool = m_bool;
 }
 
 void Primitive ::
-  setm_string(const Fw::StringBase& m_string)
+  set_m_string(const Fw::StringBase& m_string)
 {
   this->m_m_string = m_string;
 }

@@ -83,7 +83,7 @@ case class ComponentInternalStateMachines(
   /** Gets the type members */
   def getTypeMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Types for internal state machines",
       getStateMachines
     )
@@ -184,11 +184,11 @@ case class ComponentInternalStateMachines(
             |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
             |
             |// Deserialize the state machine ID
-            |status = buffer.deserialize(smId);
+            |status = buffer.deserializeTo(smId);
             |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
             |
             |// Deserialize the signal
-            |status = buffer.deserialize(signal);
+            |status = buffer.deserializeTo(signal);
             |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));"""
       ),
       CppDoc.Function.Static
@@ -240,7 +240,7 @@ case class ComponentInternalStateMachines(
 
   private def getOverflowHooks: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       """|Overflow hooks for internal state machine instances
          |
          |When sending a signal to a state machine instance, if
@@ -309,8 +309,8 @@ case class ComponentInternalStateMachines(
             val serializeExpr = s.a.typeMap(id).getUnderlyingType match {
               case t: Type.String =>
                 val serialSize = writeStringSize(s, t)
-                s"$paramName.serialize(buffer, $serialSize)"
-              case _ => s"buffer.serialize($paramName)"
+                s"$paramName.serializeTo(buffer, $serialSize)"
+              case _ => s"buffer.serializeFrom($paramName)"
             }
             lines(
               s"""|// Serialize the signal data
@@ -329,7 +329,7 @@ case class ComponentInternalStateMachines(
 
   private def getSendSignalFunctions: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Signal send functions",
       internalStateMachineInstances.flatMap(
         smi => {
@@ -341,7 +341,7 @@ case class ComponentInternalStateMachines(
 
   private def getSendSignalHelperFunctions: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       "Send signal helper functions",
       guardedList (hasSignals) (
         getSendSignalStartFunction ::
@@ -375,19 +375,19 @@ case class ComponentInternalStateMachines(
         s"""|Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
             |
             |// Serialize the message type
-            |status = buffer.serialize(static_cast<FwEnumStoreType>($internalStateMachineMsgType));
+            |status = buffer.serializeFrom(static_cast<FwEnumStoreType>($internalStateMachineMsgType));
             |FW_ASSERT (status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
             |
             |// Serialize the port number
-            |status = buffer.serialize(static_cast<FwIndexType>(0));
+            |status = buffer.serializeFrom(static_cast<FwIndexType>(0));
             |FW_ASSERT (status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
             |
             |// Serialize the state machine ID
-            |status = buffer.serialize(static_cast<FwEnumStoreType>(smId));
+            |status = buffer.serializeFrom(static_cast<FwEnumStoreType>(smId));
             |FW_ASSERT (status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
             |
             |// Serialize the signal
-            |status = buffer.serialize(static_cast<FwEnumStoreType>(signal));
+            |status = buffer.serializeFrom(static_cast<FwEnumStoreType>(signal));
             |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));"""
       )
     )
@@ -410,7 +410,7 @@ case class ComponentInternalStateMachines(
 
   private def getSmDispatchHelperFunctions =
     addAccessTagAndComment(
-      "PRIVATE",
+      "private",
       "Helper functions for state machine dispatch",
       guardedList (hasInternalStateMachineInstances) (
         getGeneralSmDispatchFunction ::
@@ -480,7 +480,7 @@ case class ComponentInternalStateMachines(
                       lines(
                         s"""|// Deserialize the data
                             |${writeVarDecl(s, cppTypeName, "value", t)}
-                            |const Fw::SerializeStatus status = buffer.deserialize(value);
+                            |const Fw::SerializeStatus status = buffer.deserializeTo(value);
                             |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));"""
                       )
                     case None => Nil
@@ -526,7 +526,7 @@ case class ComponentInternalStateMachines(
 
   private def getStateGetterFunctions: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "State getter functions",
       internalStateMachineInstances.map(getStateGetterFunction)
     )
@@ -558,7 +558,7 @@ case class ComponentInternalStateMachines(
 
   private def getVirtualActions: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Functions to implement for internal state machine actions",
       internalSmSymbols.flatMap(getVirtualActionsForSm),
       CppDoc.Lines.Hpp
@@ -593,7 +593,7 @@ case class ComponentInternalStateMachines(
 
   private def getVirtualGuards: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PROTECTED",
+      "protected",
       "Functions to implement for internal state machine guards",
       internalSmSymbols.flatMap(getVirtualGuardsForSm),
       CppDoc.Lines.Hpp
@@ -693,7 +693,7 @@ case class ComponentInternalStateMachines(
       t.getUnderlyingType match {
         case _: Type.String =>
           s"Fw::StringBase::STATIC_SERIALIZED_SIZE(${signalStringSize.toString})"
-        case _ => writeSerializedSizeExpr(s, t, TypeCppWriter.getName(s, t))
+        case _ => writeStaticSerializedSizeExpr(s, t, TypeCppWriter.getName(s, t))
       }
 
   }
@@ -717,12 +717,32 @@ case class ComponentInternalStateMachines(
         smClassName,
         Some(s"public $smBaseClassName"),
         List.concat(
+          getFriendClassMembers,
           getConstructorMembers,
           getInitMembers,
           getGetterMembers,
           getActionMembers,
           getGuardMembers,
           getVariableMembers
+        )
+      )
+
+    private def getFriendClassMembers: List[CppDoc.Class.Member] =
+      List(
+        linesClassMember(
+          List(
+            CppDocWriter.writeBannerComment(
+              "Friend classes"
+            ),
+            lines(
+              s"""|
+                  |//! Autocoded test harness for the enclosing component
+                  |friend class ${componentName}TesterBase;
+                  |//! Test implementation for the enclosing component
+                  |friend class ${componentName}Tester;
+                  |"""
+            )
+          ).flatten
         )
       )
 
@@ -742,7 +762,7 @@ case class ComponentInternalStateMachines(
 
     private def getActionMembers: List[CppDoc.Class.Member] =
       guardedList (stateMachine.hasActions) (
-        linesClassMember(CppDocHppWriter.writeAccessTag("PRIVATE")) ::
+        linesClassMember(CppDocHppWriter.writeAccessTag("private")) ::
           stateMachine.actions.map(getActionMember)
       )
 
@@ -797,7 +817,7 @@ case class ComponentInternalStateMachines(
 
     private def getGuardMembers: List[CppDoc.Class.Member] =
       guardedList (stateMachine.hasGuards) (
-        linesClassMember(CppDocHppWriter.writeAccessTag("PRIVATE")) ::
+        linesClassMember(CppDocHppWriter.writeAccessTag("private")) ::
           stateMachine.guards.map(getGuardMember)
       )
 
@@ -821,7 +841,7 @@ case class ComponentInternalStateMachines(
 
     private def getVariableMembers: List[CppDoc.Class.Member] = {
       lazy val members =
-        linesClassMember(CppDocHppWriter.writeAccessTag("PRIVATE")) ::
+        linesClassMember(CppDocHppWriter.writeAccessTag("private")) ::
         List(
           linesClassMember(
             lines(

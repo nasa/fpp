@@ -33,7 +33,7 @@ namespace ExternalSm {
       //! Friend class tester implementation to support white-box testing
       friend class ActiveExternalStateMachinesTester;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Constants
@@ -61,7 +61,7 @@ namespace ExternalSm {
           FwEnumStoreType instance = 0 //!< The instance number
       );
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Component construction and destruction
@@ -75,7 +75,7 @@ namespace ExternalSm {
       //! Destroy ActiveExternalStateMachinesComponentBase object
       virtual ~ActiveExternalStateMachinesComponentBase();
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // State getter functions
@@ -99,7 +99,7 @@ namespace ExternalSm {
       //! Get the state of state machine instance sm6
       ExternalSm::ActiveExternalStateMachines_S2::ActiveExternalStateMachines_S2_States sm6_getState() const;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Overflow hooks for external state machine instances
@@ -115,7 +115,7 @@ namespace ExternalSm {
           const Fw::SmSignalBuffer& data //!< The state machine data
       ) = 0;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Functions for sending signals to external state machines
@@ -157,7 +157,7 @@ namespace ExternalSm {
           const Fw::SmSignalBuffer& data //!< The state machine data
       );
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Message dispatch functions
@@ -166,7 +166,7 @@ namespace ExternalSm {
       //! Called in the message loop to dispatch a message from the queue
       virtual MsgDispatchStatus doDispatch();
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // State machine instances

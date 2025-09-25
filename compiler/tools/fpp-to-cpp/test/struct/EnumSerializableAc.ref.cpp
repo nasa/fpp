@@ -114,16 +114,16 @@ std::ostream& operator<<(std::ostream& os, const Enum& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus Enum ::
-  serialize(Fw::SerializeBufferBase& buffer) const
+  serializeTo(Fw::SerializeBufferBase& buffer) const
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->m_e);
+  status = buffer.serializeFrom(this->m_e);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
   for (FwSizeType i = 0; i < 3; i++) {
-    status = buffer.serialize(this->m_eArr[i]);
+    status = buffer.serializeFrom(this->m_eArr[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -133,22 +133,31 @@ Fw::SerializeStatus Enum ::
 }
 
 Fw::SerializeStatus Enum ::
-  deserialize(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(Fw::SerializeBufferBase& buffer)
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->m_e);
+  status = buffer.deserializeTo(this->m_e);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
   for (FwSizeType i = 0; i < 3; i++) {
-    status = buffer.deserialize(this->m_eArr[i]);
+    status = buffer.deserializeTo(this->m_eArr[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
   }
 
   return status;
+}
+
+FwSizeType Enum ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  size += M::E::SERIALIZED_SIZE;
+  size += M::E::SERIALIZED_SIZE * 3;
+  return size;
 }
 
 #if FW_SERIALIZABLE_TO_STRING
@@ -199,13 +208,13 @@ void Enum ::
 }
 
 void Enum ::
-  sete(M::E::T e)
+  set_e(M::E::T e)
 {
   this->m_e = e;
 }
 
 void Enum ::
-  seteArr(const Type_of_eArr& eArr)
+  set_eArr(const Type_of_eArr& eArr)
 {
   for (FwSizeType i = 0; i < 3; i++) {
     this->m_eArr[i] = eArr[i];

@@ -20,6 +20,13 @@ namespace FppTest {
     //! A basic state machine with TestEnum actions
     class BasicTestEnumStateMachineBase {
 
+        // ----------------------------------------------------------------------
+        // Friend classes
+        // ----------------------------------------------------------------------
+
+        //! Tester class for the state machine
+        friend class BasicTestEnumTester;
+
       public:
 
         // ----------------------------------------------------------------------
@@ -44,7 +51,7 @@ namespace FppTest {
           s,
         };
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Constructors and Destructors
@@ -87,7 +94,7 @@ namespace FppTest {
             const FppTest::SmHarness::TestEnum& value //!< The value
         );
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Actions
@@ -104,7 +111,7 @@ namespace FppTest {
             const FppTest::SmHarness::TestEnum& value //!< The value
         ) = 0;
 
-      PRIVATE:
+      private:
 
         // ----------------------------------------------------------------------
         // State and choice entry
@@ -120,7 +127,7 @@ namespace FppTest {
             Signal signal //!< The signal
         );
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Member variables

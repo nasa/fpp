@@ -7,6 +7,8 @@
 #ifndef Struct1ArrayAc_HPP
 #define Struct1ArrayAc_HPP
 
+#include <initializer_list>
+
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
@@ -51,26 +53,22 @@ class Struct1 :
     //! Constructor (default value)
     Struct1();
 
-    //! Constructor (user-provided value)
+    //! Constructor (primitive array)
     Struct1(
         const ElementType (&a)[SIZE] //!< The array
     );
 
     //! Constructor (single element)
-    Struct1(
+    explicit Struct1(
         const ElementType& e //!< The element
     );
 
-    //! Constructor (multiple elements)
+    //! Constructor (initializer list)
     Struct1(
-        const ElementType& e1, //!< Element 1
-        const ElementType& e2, //!< Element 2
-        const ElementType& e3, //!< Element 3
-        const ElementType& e4, //!< Element 4
-        const ElementType& e5 //!< Element 5
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
-    //! Copy Constructor
+    //! Copy constructor
     Struct1(
         const Struct1& obj //!< The source object
     );
@@ -83,12 +81,12 @@ class Struct1 :
 
     //! Subscript operator
     ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     );
 
     //! Const subscript operator
     const ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     ) const;
 
     //! Copy assignment operator (object)
@@ -96,9 +94,14 @@ class Struct1 :
         const Struct1& obj //!< The source object
     );
 
-    //! Copy assignment operator (raw array)
+    //! Copy assignment operator (primitive array)
     Struct1& operator=(
         const ElementType (&a)[SIZE] //!< The source array
+    );
+
+    //! Copy assignment operator (initializer list)
+    Struct1& operator=(
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)
@@ -133,14 +136,17 @@ class Struct1 :
     // ----------------------------------------------------------------------
 
     //! Serialization
-    Fw::SerializeStatus serialize(
+    Fw::SerializeStatus serializeTo(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     ) const;
 
     //! Deserialization
-    Fw::SerializeStatus deserialize(
+    Fw::SerializeStatus deserializeFrom(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     );
+
+    //! Get the dynamic serialized size of the array
+    FwSizeType serializedSize() const;
 
 #if FW_SERIALIZABLE_TO_STRING
 

@@ -1,6 +1,7 @@
 tests="
 component
 escaped_strings
+expressions
 include
 interface
 kwd_names

@@ -19,6 +19,13 @@ namespace FppTest {
     //! A state machine with two inputs to a choice
     class InputPairU16U32StateMachineBase {
 
+        // ----------------------------------------------------------------------
+        // Friend classes
+        // ----------------------------------------------------------------------
+
+        //! Tester class for the state machine
+        friend class InputPairU16U32Tester;
+
       public:
 
         // ----------------------------------------------------------------------
@@ -47,7 +54,7 @@ namespace FppTest {
           s2,
         };
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Constructors and Destructors
@@ -95,7 +102,7 @@ namespace FppTest {
             U32 value //!< The value
         );
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Actions
@@ -107,7 +114,7 @@ namespace FppTest {
             U32 value //!< The value
         ) = 0;
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Guards
@@ -119,7 +126,7 @@ namespace FppTest {
             U32 value //!< The value
         ) const = 0;
 
-      PRIVATE:
+      private:
 
         // ----------------------------------------------------------------------
         // State and choice entry
@@ -146,7 +153,7 @@ namespace FppTest {
             Signal signal //!< The signal
         );
 
-      PROTECTED:
+      protected:
 
         // ----------------------------------------------------------------------
         // Member variables

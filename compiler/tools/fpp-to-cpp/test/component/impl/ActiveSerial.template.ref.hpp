@@ -27,7 +27,7 @@ class ActiveSerial final :
     //! Destroy ActiveSerial object
     ~ActiveSerial();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports
@@ -250,7 +250,7 @@ class ActiveSerial final :
         const S& s //!< A struct
     ) override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for serial input ports
@@ -304,7 +304,7 @@ class ActiveSerial final :
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     ) override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for commands
@@ -464,7 +464,7 @@ class ActiveSerial final :
         U32 u32
     ) override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for user-defined internal interfaces

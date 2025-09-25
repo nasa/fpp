@@ -27,7 +27,7 @@ class ActiveSyncProducts final :
     //! Destroy ActiveSyncProducts object
     ~ActiveSyncProducts();
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for typed input ports
@@ -250,7 +250,7 @@ class ActiveSyncProducts final :
         const S& s //!< A struct
     ) override;
 
-  PRIVATE:
+  private:
 
     // ----------------------------------------------------------------------
     // Handler implementations for data products

@@ -85,7 +85,15 @@ for resolving qualified identifiers>>, and the use is a valid
 <<Expressions_Dot-Expressions,dot
 expression>>, then use the type given in the definition.
 
-. Otherwise stem:[e]`.x` is invalid. Throw an error.
+. Otherwise do the following:
+
+.. Compute the type stem:[T] of stem:[e].
+
+.. If stem:[T] is a <<Types_Struct-Types,struct type>>
+or <<Types_Internal-Types_Anonymous-Struct-Types,anonymous struct type>>
+with a member `x`, then use the type associated with `x`.
+
+.. Otherwise throw an error.
 
 *Example:*
 
@@ -93,9 +101,16 @@ expression>>, then use the type given in the definition.
 ----
 module M {
   constant a = 0 # The constant M.a has type Integer
+  constant b = {
+    c = "string1"
+    d = "string2"
+  }
 }
 constant b = M.a # Expression M.a represents a use of the definition M.a.
                  # Its type is Integer.
+
+constant c = M.b.c # Expression M.b.c uses M.b and selects member `c`.
+                   # Its type is string.
 ----
 
 === Array Expressions
@@ -119,6 +134,25 @@ stem:[T] of the list of types stem:[T_i].
 constant a = [ 1, 2, 3 ] # Type is [3] Integer
 constant b = [ 1, 2, 3.0 ] # Type is [3] F64
 ----
+
+=== Array Subscript Expressions
+
+To type an
+<<Expressions_Array-Subscript-Expressions,array subscript expression>>
+stem:[e_1] `[` stem:[e_2] `]`, the semantic analyzer does the following:
+
+. Compute the type stem:[T_1] of stem:[e_1].
+
+. Check that stem:[T_1] is an <<Types_Array-Types,array type>> or
+<<Types_Internal-Types_Anonymous-Array-Types,anonymous array type>>
+with element type stem:[T] and size stem:[n].
+
+. Compute the type stem:[T_2] of stem:[e_2].
+
+. Check that stem:[T_2] <<Type-Checking_Type-Conversion,may be converted to>>
+_Integer_.
+  
+. Use stem:[T] as the type of the expression.
 
 === Struct Expressions
 
@@ -286,11 +320,11 @@ may be converted to the anonymous array type
 stem:[T_2 =] _[_ stem:[m] _]_ stem:[T'_2]
 if stem:[n = m] and stem:[T'_1] may be converted to stem:[T'_2].
 
-. A <<Types_Internal-Types_Numeric-Types,numeric type>> type, <<Types_The-Boolean-Type,Boolean
-type>>,
-<<Types_Enum-Types,enum type>>, or <<Types_String-Types,string types>> stem:[T]
-may be converted to an anonymous array type
-stem:[T_1] may be converted to the member type of stem:[T_2].
+. A <<Types_Internal-Types_Numeric-Types,numeric type>>,
+  <<Types_The-Boolean-Type,Boolean type>>, <<Types_Enum-Types,enum type>>, or
+<<Types_String-Types,string type>> stem:[T_1] may be converted to an anonymous
+array type stem:[T_2] if stem:[T_1] may be converted to the member type of
+stem:[T_2].
 
 . If stem:[T_1] or stem:[T_2] or both are
 <<Types_Struct-Types,struct types>>, then

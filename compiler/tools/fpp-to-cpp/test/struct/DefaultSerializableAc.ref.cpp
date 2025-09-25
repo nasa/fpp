@@ -93,19 +93,19 @@ std::ostream& operator<<(std::ostream& os, const Default& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus Default ::
-  serialize(Fw::SerializeBufferBase& buffer) const
+  serializeTo(Fw::SerializeBufferBase& buffer) const
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->m_mU32);
+  status = buffer.serializeFrom(this->m_mU32);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_mS1);
+  status = buffer.serializeFrom(this->m_mS1);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_mF64);
+  status = buffer.serializeFrom(this->m_mF64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -114,24 +114,34 @@ Fw::SerializeStatus Default ::
 }
 
 Fw::SerializeStatus Default ::
-  deserialize(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(Fw::SerializeBufferBase& buffer)
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->m_mU32);
+  status = buffer.deserializeTo(this->m_mU32);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_mS1);
+  status = buffer.deserializeTo(this->m_mS1);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_mF64);
+  status = buffer.deserializeTo(this->m_mF64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
 
   return status;
+}
+
+FwSizeType Default ::
+  serializedSize() const
+{
+  FwSizeType size = 0;
+  size += sizeof(U32);
+  size += this->m_mS1.serializedSize();
+  size += sizeof(F64);
+  return size;
 }
 
 #if FW_SERIALIZABLE_TO_STRING
@@ -179,19 +189,19 @@ void Default ::
 }
 
 void Default ::
-  setmU32(U32 mU32)
+  set_mU32(U32 mU32)
 {
   this->m_mU32 = mU32;
 }
 
 void Default ::
-  setmS1(const Fw::StringBase& mS1)
+  set_mS1(const Fw::StringBase& mS1)
 {
   this->m_mS1 = mS1;
 }
 
 void Default ::
-  setmF64(F64 mF64)
+  set_mF64(F64 mF64)
 {
   this->m_mF64 = mF64;
 }

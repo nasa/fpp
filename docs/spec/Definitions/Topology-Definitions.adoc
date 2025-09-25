@@ -1,20 +1,32 @@
 === Topology Definitions
 
 A *topology definition* defines an F Prime topology,
-that is, a set of component instances and the connections
-between their ports.
+that is, a set of objects with ports (component instances and subtopologies)
+and the connections among the ports.
+Before generating code, connections involving topology ports are flattened,
+so that all connection endpoints occur at ports of component instances.
+
 The connections are divided into named *connection graphs*.
 The different graphs capture different aspects of FSW
 function, such as commanding and telemetry.
 
-One topology can be imported into another one.
+When one topology refers to another one, we say
+that the second topology is a *subtopology* of the first one.
+The component instances, topologies, and connections of the second
+topology are merged into the first one.
 The connections are merged graph by graph.
 
 ==== Syntax
 
 `topology`
 <<Lexical-Elements_Identifiers,_identifier_>>
+_[_ `implements` _interface-list_ _]_
 `{` _topology-member-sequence_ `}`
+
+The optional _interface-list_ is an
+<<Element-Sequences,element sequence>> in which
+each element is a <<Scoping-of-Names_Qualified-Identifiers,
+qualified identifier>> and the terminating punctuation is a comma.
 
 _topology-member-sequence_ is an
 <<Element-Sequences,element sequence>> in
@@ -22,22 +34,22 @@ which each element is a *topology member*,
 and the terminating punctuation is a semicolon.
 A topology member is one of the following:
 
-* A <<Specifiers_Component-Instance-Specifiers,component
-instance specifier>>
-
 * A <<Specifiers_Connection-Graph-Specifiers,connection graph specifier>>
+
+* A <<Specifiers_Port-Interface-Instance-Specifiers,port interface
+instance specifier>>
 
 * A <<Specifiers_Telemetry-Packet-Set-Specifiers,telemetry packet set specifier>>
 
-* A <<Specifiers_Topology-Import-Specifiers,topology import specifier>>
-
-* A <<Specifiers_Port-Export-Specifiers,topology port export specifier>>
+* A <<Specifiers_Topology-Port-Instance-Specifiers,topology port instance specifier>>
 
 * An <<Specifiers_Include-Specifiers,include specifier>>
 
 ==== Semantics
 
-A topology definition _D_ must be resolvable to a topology _T_,
+The identifier is the name of the topology.
+
+The topology definition _D_ must be resolvable to a topology _T_,
 according to the following algorithm:
 
 . Resolve _D_ to a
@@ -52,22 +64,33 @@ Check telemetry packet set specifiers>> for _T'_.
 automatic numbering of ports>>
 to _T'_.
 
+. Check the
+<<Definitions_Topology-Definitions_Semantics_Topology-Interface,
+topology interface>> for _T'_.
+
 ===== Resolving to a Partially Numbered Topology
 
-A *partially numbered topology* is a topology in which port number
-assignments may or may not exist for each connection.
+A *partially numbered topology* is a topology in which (a) all connection 
+endpoints are <<Specifiers_Connection-Graph-Specifiers_Semantics,component 
+instance endpoints>>
+and (b) port number assignments may or may not exist for each connection.
 A port number assignment exists if
 it is specified in the model source.
 
-. For each endpoint _E_ (output or input) in each connection _C_
-appearing in _D_,
+. For each <<Specifiers_Connection-Graph-Specifiers_Syntax,endpoint>> _E_
+(output or input) in each connection _C_
+appearing in a 
+<<Specifiers_Connection-Graph-Specifiers,direct connection graph>> of _D_,
 if _E_ has a port number  expression _e_ in the FPP source, then
 <<Evaluation,evaluate>> _e_,
 <<Type-Checking_Type-Conversion,convert>> the result to a value _n_ of type
-_Integer_, and assign the port number _n_ at that position.
+_Integer_, and assign the port number _n_ at endpoint _E_ of connection _C_.
 Check that _n_ is in bounds for the port instance being numbered.
 
-. Recursively resolve all the topologies directly imported into _D_.
+. Let _S_ be the set of all topologies that are named as
+<<Specifiers_Port-Interface-Instance-Specifiers,instances>>
+in _D_.
+Recursively resolve all the topologies in _S_.
 
 . Construct the connection graphs of _T_ given by the
 <<Specifiers_Connection-Graph-Specifiers,direct connection graphs>>
@@ -96,34 +119,60 @@ connections C { a.b -> c.d, e.f -> g.h }
 ----
 +
 
-. Compute the set _S_ of topologies transitively imported into _T_.
+. Let the initial set of instances of _T_ be the
+<<Specifiers_Port-Interface-Instance-Specifiers,port interface instances>>
+specified in the definition of _T_.
+For each topology _T'_ in _S_ (step 2),
+<<Definitions_Topology-Definitions_Importing-Subtopologies_Importing-Interface-Instances,import 
+the instances>>
+of _T'_ into _T_.
+Note that _T'_ is resolved (step 2), so the set of instances of _T'_ contains 
+all topologies transitively
+imported by the definition of _T'_.
 
-. Compute the set _U_ of topologies directly imported into _T_.
+. For each connection _C_ discovered in step 3, check that each
+<<Specifiers_Connection-Graph-Specifiers_Syntax,endpoint>> of _C_
+refers to one of the port interface instances computed in the previous step.
+
+. For each 
+<<Specifiers_Connection-Graph-Specifiers_Syntax,connection endpoint>>
+_E_ of a connection computed in step 3, do the following:
+
+.. If _E_ is a <<Specifiers_Connection-Graph-Specifiers_Semantics,component instance endpoint>>,
+then do nothing.
+
+.. Otherwise the <<Instance-Member-Identifiers_Port-Instance-Identifiers,port instance identifier>>
+_P_ appearing in _E_ has the form _Q_ 
+`.` _I_, where _Q_ refers to a topology _T'_, and
+_I_ names a port of _T'_.
+
+... Find the <<Specifiers_Topology-Port-Instance-Specifiers,
+topology port instance specifier>> `port` _I_ `=` _P'_ in _T'_.
+
+...  Replace _P_ with _P'_ in the endpoint _E_.
+Retain the port number assignment, if any, at _E_ computed in step 1.
+
+... Reapply steps a and b to the endpoint _E_.
 
 . For each topology _T'_ in _S_,
-<<Specifiers_Topology-Import-Specifiers,import the instances>>
+<<Definitions_Topology-Definitions_Importing-Subtopologies_Importing-Connections,import 
+the connections>>
 of _T'_ into _T_.
+Note that _T'_ is resolved (step 2), so all the connections in _T'_
+have <<Specifiers_Connection-Graph-Specifiers_Semantics,component instance 
+endpoints>>.
 
-. Check that the connections discovered in step 3 are between port
-instances present in _T_ or are <<Specifiers_Port-Export-Specifiers,exported ports>>
-in of <<Specifiers_Topology-Import-Specifiers,imported topologies>> in _U_.
-
-. For each topology _T'_ in _S_,
-<<Specifiers_Topology-Import-Specifiers,import the connections>>
-of _T'_ into _T_.
+. At this point all connection endpoints are component instance endpoints.
+There are no connections whose endpoints are topology endpoints.
 
 . Resolve
 <<Specifiers_Connection-Graph-Specifiers,graph pattern specifiers>>,
-adding connections to _T_.
+adding connections between component instances in _T_.
 Add only connections that are not already present in _T_.
 For example, if a command pattern indicates a command
 registration connection between two ports, and there is already
 a command registration connection between those ports, then
 do not add the connection.
-
-.. Note: An exported port is also considered a connection. For example
-if a topology _T_ exports a port _p_ from instance _I_, a direct connection to port _I_ `.` _p_ can not
-be made to this port but rather only through the exported port _T_ `.` _p_.
 
 ===== Checking Telemetry Packet Set Specifiers
 
@@ -147,7 +196,8 @@ of the topology to a set of packets.
 FPP automatically assigns port numbers as follows.
 
 *Check output port numbers:*
-At each output port _p_ of each component instance (or topology) _I_, check that
+At each output port _p_ of each <<Definitions_Component-Instance-Definitions,
+component instance _I_>>, check the following:
 
 . The number of connections is in bounds for the
 size of _I_ `.` _p_.
@@ -164,13 +214,13 @@ a.p[0] -> c.p
 
 *Apply matched numbering:*
 Assign matching numbers to matched pairs of ports.
-For each instance _I_ in the topology:
+For each component instance definition _I_ in the topology:
 
-. Let _C_ be the component type or a topology type of _I_.
+. Let _C_ be the <<Definitions_Component-Definitions,component definition>> of _I_.
 
 .  For each
 <<Specifiers_Port-Matching-Specifiers,port matching specifier>>
-`match` stem:[p_1] `with` stem:[p_2] appearing in the definition of _C_:
+`match` stem:[p_1] `with` stem:[p_2] appearing in _C_:
 
 .. For each of _i_ = 1 and _i_ = 2, check that no two distinct connections
 at _I_ `.` stem:[p_i] have the same port number assigned to them.
@@ -181,7 +231,7 @@ is *match constrained*. If a match constrained connection is marked
 
 ..  For each matched connection stem:[c_1] with an endpoint at _I_ `.` stem:[p_1]:
 
-... Let _I'_ be the component instance or imported topology at the other endpoint
+... Let _I'_ be the port interface instance at the other endpoint
 of stem:[c_1].
 
 ... Check that there is one and only one matched connection
@@ -211,7 +261,7 @@ then assign _n_ to stem:[c_1] at _I_ `.` stem:[p_1].
 .... Otherwise an error occurs.
 
 .. Traverse the pairs stem:[(c_1,c_2)] computed in step c according to the
-<<Definitions_Topology-Definitions_Semantics_Ordering-of-Connections,
+<<Definitions_Topology-Definitions_Ordering-of-Component-Instance-Connections,
 order>> of the connections stem:[c_1], least to greatest.
 For each pair stem:[(c_1,c_2)] that does not yet have assigned
 port numbers, find the lowest available port number
@@ -229,7 +279,7 @@ same size for their port arrays>>.
 Fill in any remaining port numbers.
 
 . Traverse the connections
-<<Definitions_Topology-Definitions_Semantics_Ordering-of-Connections,
+<<Definitions_Topology-Definitions_Ordering-of-Component-Instance-Connections,
 in order>>, least to greatest.
 
 . For each output endpoint _P_ in each connection _C_,
@@ -242,35 +292,116 @@ already assigned, then assign the port number zero.
 
 See Example 4 in the <<Definitions_Topology-Definitions_Examples,Examples section>>.
 
-===== Ordering of Connections
+===== Topology Interface
 
-For purposes of port numbering, FPP orders connections as follows.
+The FPP analyzer checks the topology interface as follows:
 
-*Connection endpoints:*
-A *connection endpoint* is _I_ `.` _p_ or _I_ `.` _p_ `[` _n_ `]`, where
+. Check that each <<Specifiers_Topology-Port-Instance-Specifiers,topology port 
+instance specifier>>
+in the topology definition is valid and has a distinct name.
+
+. <<Ports_Port-Interfaces_Topology-Definitions,Compute the port interface>>
+_I_ for the topology definition.
+
+. If the optional `implements` keyword is present, then do the
+following for each qualified identifier _Q_ that appears
+after `implements`:
+
+..  Check that _Q_ 
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refers to>> a
+<<Definitions_Port-Interface-Definitions,port interface definition>> _D_
+with <<Ports_Port-Interfaces_Port-Interface-Definitions,associated port 
+interface>> _I'_.
+
+.. Check that _I'_ is a
+<<Ports_Sub-Interfaces,sub-interface>> of _I_.
+
+==== Importing Subtopologies
+
+When a topology _T_ has a port interface instance specifier `instance` _Q_
+as a member, and _Q_ refers to a topology
+_T'_, _T'_ is called a *subtopology* of _T_.
+In this case the instances and connections are imported from _T'_ into _T_.
+
+===== Importing Interface Instances
+
+FPP uses the following algorithm to import the port interface instances
+of topology _T'_ into topology _T_:
+
+. Let _I_ be the set of
+ <<Ports_Port-Interface-Instances,port interface instances>>
+of _T_.
+
+. Let _I'_ be the set of <<Ports_Port-Interface-Instances,port interface instances>>
+of _T'_.
+
+. Let _I''_ be the set union of _I_ and _I'_.
+That means that if either or both of _I_ and _I'_ contain the instance _S_,
+then _I''_ contains the instance _S_ once.
+
+===== Importing Connections
+
+FPP uses the following algorithm to import the connections
+of topology _T'_ into topology _T_.
+
+. For each
+<<Specifiers_Connection-Graph-Specifiers,connection graph name>> stem:[N_i]
+that appears in either _T_ or _T'_:
+
+.. Let stem:[G_i] be the connection graph named stem:[N_i] in _T_.
+If no such graph exists, then let stem:[G_i] be the empty connection graph
+with name stem:[N_i].
+
+.. Let stem:[G'_i] be the connection graph named stem:[N_i] in _T'_.
+If no such graph exists, then let stem:[G'_i] be the empty connection graph
+with name stem:[N_i].
+
+.. Let stem:[C_i] be the set of
+<<Specifiers_Connection-Graph-Specifiers,connections>>
+of stem:[G_i].
+
+.. Let stem:[C'_i] be the set of
+<<Specifiers_Connection-Graph-Specifiers,connections>>
+of stem:[G'_i] such that the connection
+is defined by a direct or pattern specifier in _T'_
+(i.e., not imported into _T'_ from another topology).
+
+.. Let stem:[C''_i] be the disjoint union of stem:[C_i] and stem:[C'_i].
+That means that if stem:[C_i] contains _n_ connections between port
+_p_ and port _p'_, and stem:[C'_i] contains _m_ connections between
+port _p_ and port _p'_, then stem:[C_i] contains _n + m_ connections
+between port _p_ and port _p'_.
+
+.. Let stem:[G''_i] be the connection graph with name stem:[N_i]
+and connections stem:[C''_i].
+
+. Return the connection graphs stem:[G''_i].
+
+==== Ordering of Component Instance Connections
+
+For purposes of port numbering, FPP orders connections between
+component instances as follows.
+
+*Component instance endpoints:*
+A *component instance endpoint* is _I_ `.` _p_ or _I_ `.` _p_ `[` _n_ `]`, where
 
 * _I_ refers to a
-<<Definitions_Component-Instance-Definitions,component instance>> or an
-<<Specifiers_Topology-Import-Specifiers,imported topology>>.
+<<Definitions_Component-Instance-Definitions,component instance>>.
 
-* If _I_ is a component instance, _p_ is an identifier that names a port instance specified in
+* _p_ is an identifier that names a port instance specified in
 the component definition associated with _I_.
 
-* If _I_ is topology definition, _p_ is an identifier that names an <<Specifiers_Port-Export-Specifiers,exported port>> inside
-_I_. _I_ must be <<Specifiers_Topology-Import-Specifiers,imported>> into the parent topology of the connection.
+* _n_ is an optional port number.
 
-* _n_ is an optional port number that is present if and only
-if it appears in the model source.
-
-When a connection endpoint _e_ has the form _I_ `.` _p_ `[` _n_ `]`,
+When a component instance endpoint _e_ has the form _I_ `.` _p_ `[` _n_ `]`,
 we say that the endpoint *has source port number* _n_.
 
-Each connection endpoint has a *fully qualified name*.
+Each component instance endpoint has a *fully qualified name*.
 The fully qualified name is _Q_ `.` _p_, where _Q_ is the
 <<Scoping-of-Names_Names-of-Definitions,fully qualified name>>
 of the instance _I_.
 
-FPP orders connection endpoints stem:[e_1] and stem:[e_2] as follows:
+FPP orders component instance endpoints stem:[e_1] and stem:[e_2] as follows:
 
 . If the fully qualified name of stem:[e_1] is lexically less
 than (respectively greater than) the fully qualified name of
@@ -284,10 +415,10 @@ and stem:[n_2].
 
 . Otherwise stem:[e_1] and stem:[e_2] are equal in the ordering.
 
-*Connections:* A *connection* is stem:[e_1] `pass:[->]`
-stem:[e_2],
-where stem:[e_1] and stem:[e_2] are the connection endpoints.
-FPP orders connections stem:[c_1] and stem:[c_2] as follows:
+*Component instance connections:* A *component instance connection* is 
+stem:[e_1] `pass:[->]` stem:[e_2],
+where stem:[e_1] and stem:[e_2] are component instance endpoints.
+FPP orders component instance connections stem:[c_1] and stem:[c_2] as follows:
 
 . Let connection stem:[c_1] be stem:[e_1] `pass:[->]`
 stem:[e'_1].
@@ -309,7 +440,7 @@ stem:[c_2].
 
 When generating a dictionary from a topology _T_, the analyzer may
 treat the definition of _T_ as if it contained uses of
-one or more <<Definitions_Alias-Type-Definitions_Framework-Definitions,
+one or more <<Definitions_Framework-Definitions,
 framework alias type definitions>> that are required by the dictionary.
 These uses are called *implied uses*.
 
@@ -334,7 +465,6 @@ topology CDH {
   # Public instances
   # ----------------------------------------------------------------------
 
-  instance commandDispatcher
   instance commandSequencer
   instance engineeringRateGroup
   instance engineeringTelemetryLogger
@@ -344,12 +474,6 @@ topology CDH {
   instance rateGroupDriver
   instance telemetryDatabase
   instance timeSource
-
-  # ----------------------------------------------------------------------
-  # Private instances
-  # ----------------------------------------------------------------------
-
-  private instance socketGroundInterface
 
   # ----------------------------------------------------------------------
   # Connection patterns
@@ -405,7 +529,7 @@ topology AttitudeControl {
   # Imported topologies
   # ----------------------------------------------------------------------
 
-  import CDH
+  instance CDH
 
   # ----------------------------------------------------------------------
   # Public instances
@@ -413,13 +537,8 @@ topology AttitudeControl {
 
   instance acsRateGroup
   instance attitudeControl
-  ...
-
-  # ----------------------------------------------------------------------
-  # Private instances
-  # ----------------------------------------------------------------------
-
   instance socketGroundInterface
+  ...
 
   # ----------------------------------------------------------------------
   # Connection patterns
@@ -470,12 +589,12 @@ topology Release {
   # Imported topologies
   # ----------------------------------------------------------------------
 
-  import AttitudeControl
-  import CDH
-  import Communication
+  instance AttitudeControl
+  instance CDH
+  instance Communication
   ...
 
-  # Connecting sub topologies together
+  # Connecting subtopologies together
   connections CDH {
     Communication.uplink -> CDH.dataUp
     CDH.dataDown -> Communication.downlink
@@ -486,10 +605,84 @@ topology Release {
 
 *Example 4.*
 
+[source,fpp]
+----
+topology A {
+
+  instance a
+  instance b
+  instance c
+
+  connections C1 {
+    a.p1 -> c.p
+  }
+
+  connections C2 {
+    b.p -> c.p
+  }
+
+}
+
+topology B {
+
+  instance A
+
+  instance d
+  instance e
+  instance f
+
+  connections C1 {
+    a.p1 -> d.p
+  }
+
+  connections C2 {
+    a.p2 -> e.p
+  }
+
+  connections C3 {
+    a.p3 -> f.p
+  }
+
+}
+----
+
+After importing, topology `B` is equivalent to this topology:
+
+[source,fpp]
+----
+topology B {
+
+  instance a
+  instance b
+  instance c
+  instance d
+  instance e
+  instance f
+
+  connections C1 {
+    a.p1 -> c.p
+    a.p2 -> d.p
+  }
+
+  connections C2 {
+    a.p2 -> e.p
+  }
+
+  connections C3 {
+    a.p3 -> f.p
+  }
+
+}
+----
+
+Note the following:
+
+* The connections from topologies `A` and `B` are merged graph by graph.
+
+*Example 5.*
+
 Here is the topology that results from automatic numbering of ports
-applied to topology `B` in the
-<<Specifiers_Topology-Import-Specifiers_Example,example for topology import
-specifiers>>:
+applied to topology `B` in Example 3.
 
 [source,fpp]
 ----

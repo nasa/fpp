@@ -36,6 +36,8 @@ case class ArrayCppWriter (
 
   private val constructorEltType = if hasStringEltType then "Fw::StringBase" else "ElementType"
 
+  private val initializerListEltType = if hasStringEltType then "Fw::String" else constructorEltType
+
   private val arraySize = arrayType.getArraySize.get
 
   private val formatStr = FormatCppWriter.write(
@@ -50,14 +52,6 @@ case class ArrayCppWriter (
   ): List[String] = {
     val Right(a) = UsedSymbols.defArrayAnnotatedNode(s.a, aNode)
     s.writeIncludeDirectives(a.usedSymbolSet)
-  }
-
-  private def getDefaultValues: List[String] = {
-    val defaultValue = arrayType.getDefaultValue match {
-      case Some(a) => Some(a.anonArray)
-      case None => arrayType.anonArray.getDefaultValue
-    }
-    defaultValue.get.elements.map(ValueCppWriter.write(s, _))
   }
 
   def write: CppDoc = {
@@ -80,22 +74,27 @@ case class ArrayCppWriter (
       Some("public Fw::Serializable"),
       getClassMembers
     )
-    List(
+    List.concat(
       List(hppIncludes, cppIncludes),
       wrapInNamespaces(namespaceIdentList, List(cls))
-    ).flatten
+    )
   }
 
   private def getHppIncludes: CppDoc.Member = {
-    val standardHeaders = List(
-      "Fw/FPrimeBasicTypes.hpp",
-      "Fw/Types/ExternalString.hpp",
-      "Fw/Types/Serializable.hpp",
-      "Fw/Types/String.hpp"
-    ).map(CppWriter.headerString)
-    val symbolHeaders = writeIncludeDirectives(s, aNode)
-    val headers = standardHeaders ++ symbolHeaders
-    linesMember(addBlankPrefix(headers.sorted.map(line)))
+    val systemHeaders = List(
+      "initializer_list"
+    ).map(CppWriter.systemHeaderString).map(line)
+    val userHeaders = {
+      val standardHeaders = List(
+        "Fw/FPrimeBasicTypes.hpp",
+        "Fw/Types/ExternalString.hpp",
+        "Fw/Types/Serializable.hpp",
+        "Fw/Types/String.hpp"
+      ).map(CppWriter.headerString)
+      val symbolHeaders = writeIncludeDirectives(s, aNode)
+      (standardHeaders ++ symbolHeaders).sorted.map(line)
+    }
+    linesMember(addBlankPrefix(systemHeaders) ++ addBlankPrefix(userHeaders))
   }
 
   private def getCppIncludes: CppDoc.Member = {
@@ -120,7 +119,7 @@ case class ArrayCppWriter (
   private def getTypeMembers: List[CppDoc.Class.Member] =
     List(
       linesClassMember(
-        List(
+        List.concat(
           CppDocHppWriter.writeAccessTag("public"),
           CppDocWriter.writeBannerComment("Types"),
           lines(
@@ -128,7 +127,7 @@ case class ArrayCppWriter (
                 |//! The element type
                 |using ElementType = $eltTypeName;"""
           ),
-        ).flatten
+        )
       )
     )
 
@@ -149,7 +148,7 @@ case class ArrayCppWriter (
                     |ELEMENT_SERIALIZED_SIZE = Fw::StringBase::STATIC_SERIALIZED_SIZE(ELEMENT_STRING_SIZE),"""
               case _ =>
                 s"""|//! The serialized size of each element
-                    |ELEMENT_SERIALIZED_SIZE = ${writeSerializedSizeExpr(s, eltType, eltTypeName)},"""
+                    |ELEMENT_SERIALIZED_SIZE = ${writeStaticSerializedSizeExpr(s, eltType, eltTypeName)},"""
             }
             lines(s"""|//! The size of the array
                       |SIZE = $arraySize,
@@ -164,27 +163,82 @@ case class ArrayCppWriter (
   private val initElementsCall = guardedList (hasStringEltType) (lines("this->initElements();"))
 
   private def getConstructorMembers: List[CppDoc.Class.Member] = {
-    val defaultValues = getDefaultValues
-    // Only write this constructor if the array has more than one element
-    val singleElementConstructor =
-      if arraySize == 1 then Nil
-      else List(
-        constructorClassMember(
-          Some("Constructor (single element)"),
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type(s"const $constructorEltType&"),
-              "e",
-              Some("The element"),
-            )
-          ),
-          List("Serializable()"),
-          List.concat(
-            initElementsCall,
-            indexIterator(lines("this->elements[index] = e;"))
-          )
-        )
+    val defaultValueConstructor = constructorClassMember(
+      Some("Constructor (default value)"),
+      Nil,
+      List("Serializable()"),
+      List.concat(
+        initElementsCall,
+        {
+          val valueString = ValueCppWriter.write(s, arrayType.getDefaultValue.get)
+          lines(s"*this = $valueString;")
+        }
       )
+    )
+    val singleElementConstructor = constructorClassMember(
+      Some("Constructor (single element)"),
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type(s"const $constructorEltType&"),
+          "e",
+          Some("The element"),
+        )
+      ),
+      List("Serializable()"),
+      List.concat(
+        initElementsCall,
+        if hasStringEltType
+        // String arrays do not provide an operator= with the required type
+        then indexIterator(lines("this->elements[index] = e;"))
+        else lines("*this = e;")
+      ),
+      CppDoc.Class.Constructor.Explicit
+    )
+    val primitiveArrayConstructor = constructorClassMember(
+      Some("Constructor (primitive array)"),
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type(s"const ElementType"),
+          "(&a)[SIZE]",
+          Some("The array"),
+        )
+      ),
+      List("Serializable()"),
+      List.concat(
+        initElementsCall,
+        lines(s"*this = a;")
+      )
+    )
+    val initializerListConstructor = constructorClassMember(
+      Some("Constructor (initializer list)"),
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type(s"const std::initializer_list<$initializerListEltType>&"),
+          "il",
+          Some("The initializer list"),
+        ),
+      ),
+      List("Serializable()"),
+      List.concat(
+        initElementsCall,
+        lines("*this = il;")
+      )
+    )
+    val copyConstructor = constructorClassMember(
+      Some("Copy constructor"),
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type(s"const $name&"),
+          "obj",
+          Some("The source object"),
+        )
+      ),
+      List("Serializable()"),
+      List.concat(
+        initElementsCall,
+        lines("*this = obj;")
+      )
+    )
 
     List.concat(
       List(
@@ -195,68 +249,11 @@ case class ArrayCppWriter (
           CppDocWriter.writeBannerComment("Constructors"),
           CppDoc.Lines.Both
         ),
-        constructorClassMember(
-          Some("Constructor (default value)"),
-          Nil,
-          List("Serializable()"),
-          List.concat(
-            initElementsCall,
-            lines("// Construct using element-wise constructor"),
-            wrapInScope(
-              s"*this = $name(",
-              lines(defaultValues.map(v => s"$v").mkString(",\n")),
-              ");",
-            ),
-          )
-        ),
-        constructorClassMember(
-          Some("Constructor (user-provided value)"),
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type(s"const ElementType"),
-              "(&a)[SIZE]",
-              Some("The array"),
-            )
-          ),
-          List("Serializable()"),
-          List.concat(
-            initElementsCall,
-            indexIterator(lines("this->elements[index] = a[index];"))
-          )
-        )
-      ),
-      singleElementConstructor,
-      List(
-        constructorClassMember(
-          Some("Constructor (multiple elements)"),
-          List.range(1, arraySize + 1).map(i => CppDoc.Function.Param(
-            CppDoc.Type(s"const $constructorEltType&"),
-            s"e$i",
-            Some(s"Element $i"),
-          )),
-          List("Serializable()"),
-          List.concat(
-            initElementsCall,
-            List.range(1, arraySize + 1).map(i => line(
-              s"this->elements[${i - 1}] = e$i;"
-            ))
-          )
-        ),
-        constructorClassMember(
-          Some("Copy Constructor"),
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type(s"const $name&"),
-              "obj",
-              Some("The source object"),
-            )
-          ),
-          List("Serializable()"),
-          List.concat(
-            initElementsCall,
-            indexIterator(lines("this->elements[index] = obj.elements[index];"))
-          )
-        )
+        defaultValueConstructor,
+        primitiveArrayConstructor,
+        singleElementConstructor,
+        initializerListConstructor,
+        copyConstructor
       )
     )
   }
@@ -275,7 +272,7 @@ case class ArrayCppWriter (
         "operator[]",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type("const U32"),
+            CppDoc.Type("const FwSizeType"),
             "i",
             Some("The subscript index"),
           ),
@@ -291,7 +288,7 @@ case class ArrayCppWriter (
         "operator[]",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type("const U32"),
+            CppDoc.Type("const FwSizeType"),
             "i",
             Some("The subscript index"),
           ),
@@ -315,15 +312,16 @@ case class ArrayCppWriter (
           ),
         ),
         CppDoc.Type(s"$name&"),
-        List(
-          wrapInIf("this == &obj", lines("return *this;")),
-          Line.blank ::
-          indexIterator(lines("this->elements[index] = obj.elements[index];")),
+        List.concat(
+          wrapInIf(
+            "this != &obj",
+            indexIterator(lines("this->elements[index] = obj.elements[index];")),
+          ),
           lines("return *this;"),
-        ).flatten,
+        ),
       ),
       functionClassMember(
-        Some("Copy assignment operator (raw array)"),
+        Some("Copy assignment operator (primitive array)"),
         "operator=",
         List(
           CppDoc.Function.Param(
@@ -333,10 +331,32 @@ case class ArrayCppWriter (
           ),
         ),
         CppDoc.Type(s"$name&"),
-        List(
+        List.concat(
           indexIterator(lines("this->elements[index] = a[index];")),
           lines("return *this;"),
-        ).flatten
+        )
+      ),
+      functionClassMember(
+        Some("Copy assignment operator (initializer list)"),
+        "operator=",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type(s"const std::initializer_list<$initializerListEltType>&"),
+            "il",
+            Some("The initializer list"),
+          ),
+        ),
+        CppDoc.Type(s"$name&"),
+        lines("""|// Since we are required to use C++11, this has to be a runtime check
+                 |// In C++14, it can be a static check
+                 |FW_ASSERT(il.size() == SIZE, static_cast<FwAssertArgType>(il.size()), static_cast<FwAssertArgType>(SIZE));
+                 |FwSizeType i = 0;
+                 |for (const auto& e : il) {
+                 |  FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
+                 |  this->elements[i] = e;
+                 |  i++;
+                 |}
+                 |return *this;""")
       ),
       functionClassMember(
         Some("Copy assignment operator (single element)"),
@@ -349,10 +369,10 @@ case class ArrayCppWriter (
           ),
         ),
         CppDoc.Type(s"$name&"),
-        List(
+        List.concat(
           indexIterator(lines("this->elements[index] = e;")),
           lines("return *this;"),
-        ).flatten
+        )
       ),
       functionClassMember(
         Some("Equality operator"),
@@ -365,13 +385,13 @@ case class ArrayCppWriter (
           ),
         ),
         CppDoc.Type("bool"),
-        List(
+        List.concat(
           indexIterator(wrapInIf(
             "!((*this)[index] == obj[index])",
             lines("return false;"),
           )),
           lines("return true;"),
-        ).flatten,
+        ),
         CppDoc.Function.NonSV,
         CppDoc.Function.Const,
       ),
@@ -435,6 +455,18 @@ case class ArrayCppWriter (
           |}
           |"""
     ))
+    val serializedSize = eltType.getUnderlyingType match {
+      case ts: (Type.String | Type.Array | Type.Struct) => {
+        List.concat(
+          lines("FwSizeType size = 0;"),
+          indexIterator(lines(
+            "size += this->elements[index].serializedSize();"
+          )),
+          lines("return size;")
+        )
+      }
+      case _ => lines("return SERIALIZED_SIZE;")
+    }
 
     List(
       linesClassMember(
@@ -446,7 +478,7 @@ case class ArrayCppWriter (
       ),
       functionClassMember(
         Some("Serialization"),
-        "serialize",
+        "serializeTo",
         List(
           CppDoc.Function.Param(
             CppDoc.Type("Fw::SerializeBufferBase&"),
@@ -455,20 +487,20 @@ case class ArrayCppWriter (
           )
         ),
         CppDoc.Type("Fw::SerializeStatus"),
-        List(
+        List.concat(
           lines("Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;"),
           indexIterator(
-            line("status = buffer.serialize((*this)[index]);") ::
+            line("status = buffer.serializeFrom((*this)[index]);") ::
               wrapInIf("status != Fw::FW_SERIALIZE_OK", lines("return status;")),
           ),
           lines("return status;"),
-        ).flatten,
+        ),
         CppDoc.Function.NonSV,
         CppDoc.Function.Const
       ),
       functionClassMember(
         Some("Deserialization"),
-        "deserialize",
+        "deserializeFrom",
         List(
           CppDoc.Function.Param(
             CppDoc.Type("Fw::SerializeBufferBase&"),
@@ -477,15 +509,24 @@ case class ArrayCppWriter (
           )
         ),
         CppDoc.Type("Fw::SerializeStatus"),
-        List(
+        List.concat(
           lines("Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;"),
           indexIterator(
-            line("status = buffer.deserialize((*this)[index]);") ::
+            line("status = buffer.deserializeTo((*this)[index]);") ::
               wrapInIf("status != Fw::FW_SERIALIZE_OK", lines("return status;")),
           ),
           lines("return status;"),
-        ).flatten,
-    )
+        ),
+      ),
+      functionClassMember(
+        Some("Get the dynamic serialized size of the array"),
+        "serializedSize",
+        List(),
+        CppDoc.Type("FwSizeType"),
+        serializedSize,
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const
+      )
     ) ++
       wrapClassMembersInIfDirective(
         "\n#if FW_SERIALIZABLE_TO_STRING",
@@ -578,7 +619,7 @@ case class ArrayCppWriter (
   // Writes a for loop to iterate over all indices of the array
   private def indexIterator(ll: List[Line]): List[Line] =
     wrapInForLoop(
-      "U32 index = 0",
+      "FwSizeType index = 0",
       "index < SIZE",
       "index++",
       ll,

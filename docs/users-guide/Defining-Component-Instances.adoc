@@ -1,7 +1,7 @@
 == Defining Component Instances
 
-As discussed in the previous section, in F Prime you
-define components and instantiate them.
+As discussed in the section on <<Defining-Components,defining-components>>,
+in F Prime you define components and instantiate them.
 Then you construct a *topology*, which is a graph
 that specifies the connections between the components.
 This section explains how to define component instances.
@@ -145,10 +145,6 @@ module FSW {
 The base identifier 0x101 for `rightEngineTemp` is inside the
 identifier range for `leftEngineTemp`, which goes from
 0x100 to 0x101, inclusive.
-
-*XML limitation:* The tool that generates the XML dictionary
-requires that each component instance _I_ have a distinct base ID,
-even if _I_ defines no dictionary elements.
 
 ==== Queued Components
 

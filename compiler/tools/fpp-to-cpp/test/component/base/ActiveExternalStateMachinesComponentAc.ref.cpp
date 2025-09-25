@@ -175,32 +175,32 @@ namespace ExternalSm {
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
     // Serialize the message ID
-    _status = _msg.serialize(static_cast<FwEnumStoreType>(EXTERNAL_STATE_MACHINE_SIGNAL));
+    _status = _msg.serializeFrom(static_cast<FwEnumStoreType>(EXTERNAL_STATE_MACHINE_SIGNAL));
     FW_ASSERT (
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
     // Fake port number to make message dequeue work
-    _status = _msg.serialize(static_cast<FwIndexType>(0));
+    _status = _msg.serializeFrom(static_cast<FwIndexType>(0));
     FW_ASSERT (
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = _msg.serialize(static_cast<FwEnumStoreType>(SmId::sm1));
+    _status = _msg.serializeFrom(static_cast<FwEnumStoreType>(SmId::sm1));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = _msg.serialize(static_cast<FwEnumStoreType>(signal));
+    _status = _msg.serializeFrom(static_cast<FwEnumStoreType>(signal));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = _msg.serialize(data);
+    _status = _msg.serializeFrom(data);
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -227,32 +227,32 @@ namespace ExternalSm {
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
     // Serialize the message ID
-    _status = _msg.serialize(static_cast<FwEnumStoreType>(EXTERNAL_STATE_MACHINE_SIGNAL));
+    _status = _msg.serializeFrom(static_cast<FwEnumStoreType>(EXTERNAL_STATE_MACHINE_SIGNAL));
     FW_ASSERT (
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
     // Fake port number to make message dequeue work
-    _status = _msg.serialize(static_cast<FwIndexType>(0));
+    _status = _msg.serializeFrom(static_cast<FwIndexType>(0));
     FW_ASSERT (
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = _msg.serialize(static_cast<FwEnumStoreType>(SmId::sm2));
+    _status = _msg.serializeFrom(static_cast<FwEnumStoreType>(SmId::sm2));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = _msg.serialize(static_cast<FwEnumStoreType>(signal));
+    _status = _msg.serializeFrom(static_cast<FwEnumStoreType>(signal));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = _msg.serialize(data);
+    _status = _msg.serializeFrom(data);
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -279,32 +279,32 @@ namespace ExternalSm {
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
     // Serialize the message ID
-    _status = _msg.serialize(static_cast<FwEnumStoreType>(EXTERNAL_STATE_MACHINE_SIGNAL));
+    _status = _msg.serializeFrom(static_cast<FwEnumStoreType>(EXTERNAL_STATE_MACHINE_SIGNAL));
     FW_ASSERT (
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
     // Fake port number to make message dequeue work
-    _status = _msg.serialize(static_cast<FwIndexType>(0));
+    _status = _msg.serializeFrom(static_cast<FwIndexType>(0));
     FW_ASSERT (
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = _msg.serialize(static_cast<FwEnumStoreType>(SmId::sm3));
+    _status = _msg.serializeFrom(static_cast<FwEnumStoreType>(SmId::sm3));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = _msg.serialize(static_cast<FwEnumStoreType>(signal));
+    _status = _msg.serializeFrom(static_cast<FwEnumStoreType>(signal));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = _msg.serialize(data);
+    _status = _msg.serializeFrom(data);
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -336,32 +336,32 @@ namespace ExternalSm {
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
     // Serialize the message ID
-    _status = _msg.serialize(static_cast<FwEnumStoreType>(EXTERNAL_STATE_MACHINE_SIGNAL));
+    _status = _msg.serializeFrom(static_cast<FwEnumStoreType>(EXTERNAL_STATE_MACHINE_SIGNAL));
     FW_ASSERT (
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
     // Fake port number to make message dequeue work
-    _status = _msg.serialize(static_cast<FwIndexType>(0));
+    _status = _msg.serializeFrom(static_cast<FwIndexType>(0));
     FW_ASSERT (
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = _msg.serialize(static_cast<FwEnumStoreType>(SmId::sm4));
+    _status = _msg.serializeFrom(static_cast<FwEnumStoreType>(SmId::sm4));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = _msg.serialize(static_cast<FwEnumStoreType>(signal));
+    _status = _msg.serializeFrom(static_cast<FwEnumStoreType>(signal));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = _msg.serialize(data);
+    _status = _msg.serializeFrom(data);
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -388,32 +388,32 @@ namespace ExternalSm {
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
     // Serialize the message ID
-    _status = _msg.serialize(static_cast<FwEnumStoreType>(EXTERNAL_STATE_MACHINE_SIGNAL));
+    _status = _msg.serializeFrom(static_cast<FwEnumStoreType>(EXTERNAL_STATE_MACHINE_SIGNAL));
     FW_ASSERT (
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
     // Fake port number to make message dequeue work
-    _status = _msg.serialize(static_cast<FwIndexType>(0));
+    _status = _msg.serializeFrom(static_cast<FwIndexType>(0));
     FW_ASSERT (
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = _msg.serialize(static_cast<FwEnumStoreType>(SmId::sm5));
+    _status = _msg.serializeFrom(static_cast<FwEnumStoreType>(SmId::sm5));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = _msg.serialize(static_cast<FwEnumStoreType>(signal));
+    _status = _msg.serializeFrom(static_cast<FwEnumStoreType>(signal));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = _msg.serialize(data);
+    _status = _msg.serializeFrom(data);
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -445,32 +445,32 @@ namespace ExternalSm {
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
     // Serialize the message ID
-    _status = _msg.serialize(static_cast<FwEnumStoreType>(EXTERNAL_STATE_MACHINE_SIGNAL));
+    _status = _msg.serializeFrom(static_cast<FwEnumStoreType>(EXTERNAL_STATE_MACHINE_SIGNAL));
     FW_ASSERT (
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
     // Fake port number to make message dequeue work
-    _status = _msg.serialize(static_cast<FwIndexType>(0));
+    _status = _msg.serializeFrom(static_cast<FwIndexType>(0));
     FW_ASSERT (
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = _msg.serialize(static_cast<FwEnumStoreType>(SmId::sm6));
+    _status = _msg.serializeFrom(static_cast<FwEnumStoreType>(SmId::sm6));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = _msg.serialize(static_cast<FwEnumStoreType>(signal));
+    _status = _msg.serializeFrom(static_cast<FwEnumStoreType>(signal));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = _msg.serialize(data);
+    _status = _msg.serializeFrom(data);
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -510,7 +510,7 @@ namespace ExternalSm {
     _msg.resetDeser();
 
     FwEnumStoreType _desMsg = 0;
-    Fw::SerializeStatus _deserStatus = _msg.deserialize(_desMsg);
+    Fw::SerializeStatus _deserStatus = _msg.deserializeTo(_desMsg);
     FW_ASSERT(
       _deserStatus == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_deserStatus)
@@ -523,7 +523,7 @@ namespace ExternalSm {
     }
 
     FwIndexType portNum = 0;
-    _deserStatus = _msg.deserialize(portNum);
+    _deserStatus = _msg.deserializeTo(portNum);
     FW_ASSERT(
       _deserStatus == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_deserStatus)
@@ -536,7 +536,7 @@ namespace ExternalSm {
 
         // Deserialize the state machine ID to an FwEnumStoreType
         FwEnumStoreType enumStoreSmId = 0;
-        _deserStatus = _msg.deserialize(enumStoreSmId);
+        _deserStatus = _msg.deserializeTo(enumStoreSmId);
         FW_ASSERT(
           _deserStatus == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_deserStatus)
@@ -548,7 +548,7 @@ namespace ExternalSm {
         // This value will be cast to the correct type in the
         // switch statement that calls the state machine update function.
         FwEnumStoreType enumStoreSmSignal = 0;
-        _deserStatus = _msg.deserialize(enumStoreSmSignal);
+        _deserStatus = _msg.deserializeTo(enumStoreSmSignal);
         FW_ASSERT(
           _deserStatus == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_deserStatus)
@@ -556,7 +556,7 @@ namespace ExternalSm {
 
         // Deserialize the state machine data
         Fw::SmSignalBuffer data;
-        _deserStatus = _msg.deserialize(data);
+        _deserStatus = _msg.deserializeTo(data);
         FW_ASSERT(
           Fw::FW_SERIALIZE_OK == _deserStatus,
           static_cast<FwAssertArgType>(_deserStatus)

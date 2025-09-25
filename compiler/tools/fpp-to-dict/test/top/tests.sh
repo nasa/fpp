@@ -4,7 +4,7 @@ basic
 dataProducts
 duplicate
 missingFwOpcodeType
-arrayFwEventIdType
-floatFwEventIdType
+missingUserDataSizeConstant
+invalidUserDataSizeConstant
 unqualifiedComponentInstances
 "

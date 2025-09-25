@@ -421,7 +421,7 @@ void QueuedNoArgsPortsOnlyComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize message ID
-  _status = msg.serialize(
+  _status = msg.serializeFrom(
     static_cast<FwEnumStoreType>(NOARGSASYNC_NOARGS)
   );
   FW_ASSERT(
@@ -430,7 +430,7 @@ void QueuedNoArgsPortsOnlyComponentBase ::
   );
 
   // Serialize port number
-  _status = msg.serialize(portNum);
+  _status = msg.serializeFrom(portNum);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -601,7 +601,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedNoArgsPortsOnlyComponentBase ::
   _msg.resetDeser();
 
   FwEnumStoreType _desMsg = 0;
-  Fw::SerializeStatus _deserStatus = _msg.deserialize(_desMsg);
+  Fw::SerializeStatus _deserStatus = _msg.deserializeTo(_desMsg);
   FW_ASSERT(
     _deserStatus == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_deserStatus)
@@ -614,7 +614,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedNoArgsPortsOnlyComponentBase ::
   }
 
   FwIndexType portNum = 0;
-  _deserStatus = _msg.deserialize(portNum);
+  _deserStatus = _msg.deserializeTo(portNum);
   FW_ASSERT(
     _deserStatus == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_deserStatus)

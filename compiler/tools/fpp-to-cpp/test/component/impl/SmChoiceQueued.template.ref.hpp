@@ -29,7 +29,7 @@ namespace FppTest {
       //! Destroy SmChoiceQueued object
       ~SmChoiceQueued();
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Handler implementations for typed input ports
@@ -41,7 +41,7 @@ namespace FppTest {
           U32 context //!< The call order
       ) override;
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Implementations for internal state machine actions
@@ -194,7 +194,7 @@ namespace FppTest {
           FppTest_SmChoiceQueued_Basic::Signal signal //!< The signal
       ) override;
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Implementations for internal state machine guards
@@ -291,7 +291,7 @@ namespace FppTest {
           FppTest_SmChoiceQueued_Basic::Signal signal //!< The signal
       ) const override;
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Overflow hook implementations for internal state machines

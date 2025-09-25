@@ -7,6 +7,8 @@
 #ifndef SingleElementArrayAc_HPP
 #define SingleElementArrayAc_HPP
 
+#include <initializer_list>
+
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
@@ -50,17 +52,22 @@ class SingleElement :
     //! Constructor (default value)
     SingleElement();
 
-    //! Constructor (user-provided value)
+    //! Constructor (primitive array)
     SingleElement(
         const ElementType (&a)[SIZE] //!< The array
     );
 
-    //! Constructor (multiple elements)
-    SingleElement(
-        const ElementType& e1 //!< Element 1
+    //! Constructor (single element)
+    explicit SingleElement(
+        const ElementType& e //!< The element
     );
 
-    //! Copy Constructor
+    //! Constructor (initializer list)
+    SingleElement(
+        const std::initializer_list<ElementType>& il //!< The initializer list
+    );
+
+    //! Copy constructor
     SingleElement(
         const SingleElement& obj //!< The source object
     );
@@ -73,12 +80,12 @@ class SingleElement :
 
     //! Subscript operator
     ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     );
 
     //! Const subscript operator
     const ElementType& operator[](
-        const U32 i //!< The subscript index
+        const FwSizeType i //!< The subscript index
     ) const;
 
     //! Copy assignment operator (object)
@@ -86,9 +93,14 @@ class SingleElement :
         const SingleElement& obj //!< The source object
     );
 
-    //! Copy assignment operator (raw array)
+    //! Copy assignment operator (primitive array)
     SingleElement& operator=(
         const ElementType (&a)[SIZE] //!< The source array
+    );
+
+    //! Copy assignment operator (initializer list)
+    SingleElement& operator=(
+        const std::initializer_list<ElementType>& il //!< The initializer list
     );
 
     //! Copy assignment operator (single element)
@@ -123,14 +135,17 @@ class SingleElement :
     // ----------------------------------------------------------------------
 
     //! Serialization
-    Fw::SerializeStatus serialize(
+    Fw::SerializeStatus serializeTo(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     ) const;
 
     //! Deserialization
-    Fw::SerializeStatus deserialize(
+    Fw::SerializeStatus deserializeFrom(
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     );
+
+    //! Get the dynamic serialized size of the array
+    FwSizeType serializedSize() const;
 
 #if FW_SERIALIZABLE_TO_STRING
 

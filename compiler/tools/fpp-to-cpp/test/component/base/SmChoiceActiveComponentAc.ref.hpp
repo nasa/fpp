@@ -37,7 +37,7 @@ namespace FppTest {
       //! Friend class tester implementation to support white-box testing
       friend class SmChoiceActiveTester;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Constants
@@ -55,7 +55,7 @@ namespace FppTest {
         smChoiceSequenceU32,
       };
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Types for internal state machines
@@ -65,6 +65,15 @@ namespace FppTest {
       class FppTest_SmChoice_Basic :
         public FppTest::SmChoice::BasicStateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Autocoded test harness for the enclosing component
+          friend class SmChoiceActiveTesterBase;
+          //! Test implementation for the enclosing component
+          friend class SmChoiceActiveTester;
 
         public:
 
@@ -85,7 +94,7 @@ namespace FppTest {
           //! Get the state machine id
           SmChoiceActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
@@ -97,14 +106,14 @@ namespace FppTest {
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! Implementation for guard g
           bool guard_g(
               Signal signal //!< The signal
           ) const;
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmChoiceActiveComponentBase& m_component;
@@ -115,6 +124,15 @@ namespace FppTest {
       class FppTest_SmChoice_BasicU32 :
         public FppTest::SmChoice::BasicU32StateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Autocoded test harness for the enclosing component
+          friend class SmChoiceActiveTesterBase;
+          //! Test implementation for the enclosing component
+          friend class SmChoiceActiveTester;
 
         public:
 
@@ -135,7 +153,7 @@ namespace FppTest {
           //! Get the state machine id
           SmChoiceActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
@@ -148,7 +166,7 @@ namespace FppTest {
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! Implementation for guard g
           bool guard_g(
@@ -156,7 +174,7 @@ namespace FppTest {
               U32 value //!< The value
           ) const;
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmChoiceActiveComponentBase& m_component;
@@ -167,6 +185,15 @@ namespace FppTest {
       class FppTest_SmChoice_ChoiceToChoice :
         public FppTest::SmChoice::ChoiceToChoiceStateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Autocoded test harness for the enclosing component
+          friend class SmChoiceActiveTesterBase;
+          //! Test implementation for the enclosing component
+          friend class SmChoiceActiveTester;
 
         public:
 
@@ -187,7 +214,7 @@ namespace FppTest {
           //! Get the state machine id
           SmChoiceActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action exitS1
           void action_exitS1(
@@ -204,7 +231,7 @@ namespace FppTest {
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! Implementation for guard g1
           bool guard_g1(
@@ -216,7 +243,7 @@ namespace FppTest {
               Signal signal //!< The signal
           ) const;
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmChoiceActiveComponentBase& m_component;
@@ -227,6 +254,15 @@ namespace FppTest {
       class FppTest_SmChoice_ChoiceToState :
         public FppTest::SmChoice::ChoiceToStateStateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Autocoded test harness for the enclosing component
+          friend class SmChoiceActiveTesterBase;
+          //! Test implementation for the enclosing component
+          friend class SmChoiceActiveTester;
 
         public:
 
@@ -247,7 +283,7 @@ namespace FppTest {
           //! Get the state machine id
           SmChoiceActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action exitS1
           void action_exitS1(
@@ -269,14 +305,14 @@ namespace FppTest {
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! Implementation for guard g
           bool guard_g(
               Signal signal //!< The signal
           ) const;
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmChoiceActiveComponentBase& m_component;
@@ -287,6 +323,15 @@ namespace FppTest {
       class FppTest_SmChoice_InputPairU16U32 :
         public FppTest::SmChoice::InputPairU16U32StateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Autocoded test harness for the enclosing component
+          friend class SmChoiceActiveTesterBase;
+          //! Test implementation for the enclosing component
+          friend class SmChoiceActiveTester;
 
         public:
 
@@ -307,7 +352,7 @@ namespace FppTest {
           //! Get the state machine id
           SmChoiceActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
@@ -315,7 +360,7 @@ namespace FppTest {
               U32 value //!< The value
           );
 
-        PRIVATE:
+        private:
 
           //! Implementation for guard g
           bool guard_g(
@@ -323,7 +368,7 @@ namespace FppTest {
               U32 value //!< The value
           ) const;
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmChoiceActiveComponentBase& m_component;
@@ -334,6 +379,15 @@ namespace FppTest {
       class FppTest_SmChoice_Sequence :
         public FppTest::SmChoice::SequenceStateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Autocoded test harness for the enclosing component
+          friend class SmChoiceActiveTesterBase;
+          //! Test implementation for the enclosing component
+          friend class SmChoiceActiveTester;
 
         public:
 
@@ -354,7 +408,7 @@ namespace FppTest {
           //! Get the state machine id
           SmChoiceActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
@@ -366,7 +420,7 @@ namespace FppTest {
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! Implementation for guard g1
           bool guard_g1(
@@ -378,7 +432,7 @@ namespace FppTest {
               Signal signal //!< The signal
           ) const;
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmChoiceActiveComponentBase& m_component;
@@ -389,6 +443,15 @@ namespace FppTest {
       class FppTest_SmChoice_SequenceU32 :
         public FppTest::SmChoice::SequenceU32StateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Autocoded test harness for the enclosing component
+          friend class SmChoiceActiveTesterBase;
+          //! Test implementation for the enclosing component
+          friend class SmChoiceActiveTester;
 
         public:
 
@@ -409,7 +472,7 @@ namespace FppTest {
           //! Get the state machine id
           SmChoiceActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
@@ -422,7 +485,7 @@ namespace FppTest {
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! Implementation for guard g1
           bool guard_g1(
@@ -435,7 +498,7 @@ namespace FppTest {
               U32 value //!< The value
           ) const;
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmChoiceActiveComponentBase& m_component;
@@ -446,6 +509,15 @@ namespace FppTest {
       class FppTest_SmChoiceActive_Basic :
         public FppTest::SmChoiceActive_BasicStateMachineBase
       {
+
+          // ----------------------------------------------------------------------
+          // Friend classes
+          // ----------------------------------------------------------------------
+
+          //! Autocoded test harness for the enclosing component
+          friend class SmChoiceActiveTesterBase;
+          //! Test implementation for the enclosing component
+          friend class SmChoiceActiveTester;
 
         public:
 
@@ -466,7 +538,7 @@ namespace FppTest {
           //! Get the state machine id
           SmChoiceActiveComponentBase::SmId getId() const;
 
-        PRIVATE:
+        private:
 
           //! Implementation for action a
           void action_a(
@@ -478,14 +550,14 @@ namespace FppTest {
               Signal signal //!< The signal
           );
 
-        PRIVATE:
+        private:
 
           //! Implementation for guard g
           bool guard_g(
               Signal signal //!< The signal
           ) const;
 
-        PRIVATE:
+        private:
 
           //! The enclosing component
           SmChoiceActiveComponentBase& m_component;
@@ -504,7 +576,7 @@ namespace FppTest {
           FwEnumStoreType instance = 0 //!< The instance number
       );
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Component construction and destruction
@@ -518,7 +590,7 @@ namespace FppTest {
       //! Destroy SmChoiceActiveComponentBase object
       virtual ~SmChoiceActiveComponentBase();
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // State getter functions
@@ -548,7 +620,7 @@ namespace FppTest {
       //! Get the state of state machine instance smChoiceSequenceU32
       FppTest_SmChoice_SequenceU32::State smChoiceSequenceU32_getState() const;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Signal send functions
@@ -589,7 +661,7 @@ namespace FppTest {
           U32 value //!< The value
       );
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Overflow hooks for internal state machine instances
@@ -606,7 +678,7 @@ namespace FppTest {
           Fw::SerializeBufferBase& buffer //!< The message buffer
       ) = 0;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Functions to implement for internal state machine actions
@@ -759,7 +831,7 @@ namespace FppTest {
           FppTest_SmChoiceActive_Basic::Signal signal //!< The signal
       ) = 0;
 
-    PROTECTED:
+    protected:
 
       // ----------------------------------------------------------------------
       // Functions to implement for internal state machine guards
@@ -856,7 +928,7 @@ namespace FppTest {
           FppTest_SmChoiceActive_Basic::Signal signal //!< The signal
       ) const = 0;
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Message dispatch functions
@@ -865,7 +937,7 @@ namespace FppTest {
       //! Called in the message loop to dispatch a message from the queue
       virtual MsgDispatchStatus doDispatch();
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Send signal helper functions
@@ -918,7 +990,7 @@ namespace FppTest {
           Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
       );
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // Helper functions for state machine dispatch
@@ -992,7 +1064,7 @@ namespace FppTest {
           FppTest_SmChoiceActive_Basic::Signal signal //!< The signal
       );
 
-    PRIVATE:
+    private:
 
       // ----------------------------------------------------------------------
       // State machine instances

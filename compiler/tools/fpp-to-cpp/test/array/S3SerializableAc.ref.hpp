@@ -105,14 +105,17 @@ namespace S {
       // ----------------------------------------------------------------------
 
       //! Serialization
-      Fw::SerializeStatus serialize(
+      Fw::SerializeStatus serializeTo(
           Fw::SerializeBufferBase& buffer //!< The serial buffer
       ) const;
 
       //! Deserialization
-      Fw::SerializeStatus deserialize(
+      Fw::SerializeStatus deserializeFrom(
           Fw::SerializeBufferBase& buffer //!< The serial buffer
       );
+
+      //! Get the dynamic serialized size of the struct
+      FwSizeType serializedSize() const;
 
 #if FW_SERIALIZABLE_TO_STRING
 
@@ -128,19 +131,19 @@ namespace S {
       // ----------------------------------------------------------------------
 
       //! Get member mU32Array
-      Type_of_mU32Array& getmU32Array()
+      Type_of_mU32Array& get_mU32Array()
       {
         return this->m_mU32Array;
       }
 
       //! Get member mU32Array (const)
-      const Type_of_mU32Array& getmU32Array() const
+      const Type_of_mU32Array& get_mU32Array() const
       {
         return this->m_mU32Array;
       }
 
       //! Get member mF64
-      F64 getmF64() const
+      F64 get_mF64() const
       {
         return this->m_mF64;
       }
@@ -156,10 +159,10 @@ namespace S {
       );
 
       //! Set member mU32Array
-      void setmU32Array(const Type_of_mU32Array& mU32Array);
+      void set_mU32Array(const Type_of_mU32Array& mU32Array);
 
       //! Set member mF64
-      void setmF64(F64 mF64);
+      void set_mF64(F64 mF64);
 
     protected:
 
