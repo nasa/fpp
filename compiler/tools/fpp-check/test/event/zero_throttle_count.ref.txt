@@ -3,4 +3,4 @@ fpp-check
   event E severity activity low \
   ^
 error: invalid integer value 0
-event throttle count must be greater than 0
+event throttle count must be greater than zero

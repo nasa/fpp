@@ -78,7 +78,7 @@ object Event {
           _ <- {
             if count > 0 then Right(())
             else Left(SemanticError.InvalidIntValue(
-              loc, 0, s"event throttle count must be greater than 0"
+              loc, 0, s"event throttle count must be greater than zero"
             ))
           }
           every <- Result.mapOpt(throttle.data.every, getEveryIntervalValue)
