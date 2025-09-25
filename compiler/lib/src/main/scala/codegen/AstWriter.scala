@@ -370,7 +370,6 @@ object AstWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines("spec comp instance") ++ (
-      lines(visibility(data.visibility)) ++
       qualIdent(data.instance.data)
     ).map(indentIn)
   }
@@ -953,7 +952,5 @@ object AstWriter extends AstVisitor with LineUtils {
     addPrefix("type name", matchTypeNameNode((), _)) (node)
 
   private def unop(op: Ast.Unop) = lines(s"unop ${op.toString}")
-
-  private def visibility(v: Ast.Visibility) = v.toString
 
 }

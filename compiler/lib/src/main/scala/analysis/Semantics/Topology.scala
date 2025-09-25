@@ -12,7 +12,7 @@ case class Topology(
   /** The transitively imported topologies */
   transitiveImportSet: Set[Symbol.Topology] = Set(),
   /** The instances of this topology */
-  instanceMap: Map[ComponentInstance, (Ast.Visibility, Location)] = Map(),
+  instanceMap: Map[ComponentInstance, Location] = Map(),
   /** The connection patterns of this topology */
   patternMap: Map[Ast.SpecConnectionGraph.Pattern.Kind, ConnectionPattern] = Map(),
   /** The connections of this topology, indexed by graph name */
@@ -121,38 +121,30 @@ case class Topology(
   /** Add an instance that may already be there */
   def addMergedInstance(
     instance: ComponentInstance,
-    vis: Ast.Visibility,
     loc: Location
   ): Topology = {
-    import Ast.Visibility._
     // Private overrides public
     val pairOpt = instanceMap.get(instance)
-    val mergedVis = (vis, pairOpt) match {
-      case (Private, _) => Private
-      case (_, Some((Private, _))) => Private
-      case _ => Public
-    }
     // Use the previous location, if it exists
-    val mergedLoc = pairOpt.map(_._2).getOrElse(loc)
-    val map = instanceMap + (instance -> (mergedVis, mergedLoc))
+    val mergedLoc = pairOpt.getOrElse(loc)
+    val map = instanceMap + (instance -> mergedLoc)
     this.copy(instanceMap = map)
   }
 
   /** Add an instance that must be unique */
   def addUniqueInstance(
     instance: ComponentInstance,
-    vis: Ast.Visibility,
     loc: Location
   ): Result.Result[Topology] =
     instanceMap.get(instance) match {
-      case Some((_, prevLoc)) => Left(
+      case Some(prevLoc) => Left(
         SemanticError.DuplicateInstance(
           instance.getUnqualifiedName,
           loc,
           prevLoc
         )
       )
-      case None => Right(addMergedInstance(instance, vis, loc))
+      case None => Right(addMergedInstance(instance, loc))
     }
 
   /** Assigns a port number to a connection at a port instance */
@@ -228,7 +220,7 @@ case class Topology(
   def lookUpInstanceAt(
     instance: ComponentInstance,
     loc: Location
-  ): Result.Result[(Ast.Visibility, Location)] =
+  ): Result.Result[Location] =
     instanceMap.get(instance) match {
       case Some(result) => Right(result)
       case None => Left(
