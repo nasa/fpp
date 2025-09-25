@@ -1,5 +1,5 @@
 @ Topology definition
-topology T {
+topology T implements I1, I2 {
 
   instance i1
 

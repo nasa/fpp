@@ -178,7 +178,7 @@ object TopologyXmlFppWriter extends LineUtils {
           graphAnnotated
         )
         val members = instanceMembers :+ graphMember
-        (Nil, Ast.DefTopology(name, members), Nil)
+        (Nil, Ast.DefTopology(name, members, None), Nil)
       }
 
   }

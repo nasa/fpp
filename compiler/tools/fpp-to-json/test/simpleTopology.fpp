@@ -1,5 +1,7 @@
 port P
 
+interface I {}
+
 passive component C {
   sync input port pIn: P
   output port pOut: P
@@ -9,7 +11,7 @@ instance c1: C base id 0x100
 instance c2: C base id 0x200
 
 @ A simple topology
-topology Simple {
+topology Simple implements I {
 
   @ This specifier says that instance c1 is part of the topology
   instance c1

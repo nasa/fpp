@@ -300,7 +300,8 @@ object Ast {
   /** Topology defintion */
   final case class DefTopology(
     name: Ident,
-    members: List[TopologyMember]
+    members: List[TopologyMember],
+    implements: Option[List[AstNode[QualIdent]]],
   )
 
   /** Topology member */
