@@ -26,4 +26,6 @@ topology Simple {
     c2.pOut -> c1.pIn
   }
 
+  port a = c1.a
+
 }

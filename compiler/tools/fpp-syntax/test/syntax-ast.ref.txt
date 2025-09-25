@@ -374,6 +374,11 @@ def module
       omitted
         qual ident i3.c3
     @< Telemetry packet group
+    @ Topology port specifier
+    spec top port
+      ident a
+      qual ident b.a
+    @< Topology port specifier
   @< Topology definition
   @ Location specifier
   spec loc

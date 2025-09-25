@@ -394,17 +394,17 @@
                                                     "name" : "c2"
                                                   }
                                                 },
-                                                "id" : 57
+                                                "id" : 39
                                               }
                                             },
                                             "portName" : {
                                               "AstNode" : {
                                                 "data" : "pOut",
-                                                "id" : 56
+                                                "id" : 38
                                               }
                                             }
                                           },
-                                          "id" : 58
+                                          "id" : 40
                                         }
                                       },
                                       "fromIndex" : "None",
@@ -418,17 +418,17 @@
                                                     "name" : "c1"
                                                   }
                                                 },
-                                                "id" : 61
+                                                "id" : 43
                                               }
                                             },
                                             "portName" : {
                                               "AstNode" : {
                                                 "data" : "pIn",
-                                                "id" : 60
+                                                "id" : 42
                                               }
                                             }
                                           },
-                                          "id" : 62
+                                          "id" : 44
                                         }
                                       },
                                       "toIndex" : "None"
@@ -436,7 +436,50 @@
                                   ]
                                 }
                               },
-                              "id" : 63
+                              "id" : 45
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecTopPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "a",
+                                "underylingPort" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "Qualified" : {
+                                        "qualifier" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "Unqualified" : {
+                                                "name" : "c1"
+                                              }
+                                            },
+                                            "id" : 54
+                                          }
+                                        },
+                                        "name" : {
+                                          "AstNode" : {
+                                            "data" : "a",
+                                            "id" : 55
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "id" : 56
+                                  }
+                                }
+                              },
+                              "id" : 57
                             }
                           }
                         }
@@ -446,7 +489,7 @@
                     ]
                   ]
                 },
-                "id" : 64
+                "id" : 58
               }
             }
           }
@@ -690,95 +733,65 @@
   },
   "46" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-    "pos" : "26.5",
+    "pos" : "29.12",
     "includingLoc" : "None"
   },
   "47" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-    "pos" : "26.8",
+    "pos" : "29.15",
     "includingLoc" : "None"
   },
   "48" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-    "pos" : "26.5",
+    "pos" : "29.12",
     "includingLoc" : "None"
   },
   "49" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-    "pos" : "26.5",
+    "pos" : "29.3",
     "includingLoc" : "None"
   },
   "50" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-    "pos" : "26.16",
+    "pos" : "29.12",
     "includingLoc" : "None"
   },
   "51" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-    "pos" : "26.19",
+    "pos" : "29.15",
     "includingLoc" : "None"
   },
   "52" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-    "pos" : "26.16",
+    "pos" : "29.12",
     "includingLoc" : "None"
   },
   "53" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-    "pos" : "26.16",
+    "pos" : "29.3",
     "includingLoc" : "None"
   },
   "54" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-    "pos" : "25.3",
+    "pos" : "29.12",
     "includingLoc" : "None"
   },
   "55" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-    "pos" : "26.5",
+    "pos" : "29.15",
     "includingLoc" : "None"
   },
   "56" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-    "pos" : "26.8",
+    "pos" : "29.12",
     "includingLoc" : "None"
   },
   "57" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-    "pos" : "26.5",
+    "pos" : "29.3",
     "includingLoc" : "None"
   },
   "58" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-    "pos" : "26.5",
-    "includingLoc" : "None"
-  },
-  "59" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-    "pos" : "26.16",
-    "includingLoc" : "None"
-  },
-  "60" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-    "pos" : "26.19",
-    "includingLoc" : "None"
-  },
-  "61" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-    "pos" : "26.16",
-    "includingLoc" : "None"
-  },
-  "62" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-    "pos" : "26.16",
-    "includingLoc" : "None"
-  },
-  "63" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-    "pos" : "25.3",
-    "includingLoc" : "None"
-  },
-  "64" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "12.1",
     "includingLoc" : "None"
@@ -971,9 +984,9 @@
     }
   },
   "topologyMap" : {
-    "64" : {
+    "58" : {
       "aNode" : {
-        "astNodeId" : 64
+        "astNodeId" : 58
       },
       "directImportMap" : {
         
@@ -3104,13 +3117,13 @@
         "unqualifiedName" : "c2"
       }
     },
-    "61" : {
+    "43" : {
       "ComponentInstance" : {
         "nodeId" : 17,
         "unqualifiedName" : "c1"
       }
     },
-    "57" : {
+    "39" : {
       "ComponentInstance" : {
         "nodeId" : 21,
         "unqualifiedName" : "c2"

@@ -687,14 +687,14 @@ object AstWriter extends AstVisitor with LineUtils {
     )
   }
 
-  override def specTopPortExportAnnotatedNode(
+  override def specTopPortAnnotatedNode(
     in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecPortExport]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecTopPort]]
   ) = {
     val (_, node, _) = aNode
     val data = node.data
     List.concat(
-      lines("spec top port export"),
+      lines("spec top port"),
       List.concat(
         ident(data.name),
         qualIdent(data.underylingPort.data)

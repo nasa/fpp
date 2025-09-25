@@ -194,10 +194,10 @@ trait AstTransformer {
     node: Ast.Annotated[AstNode[Ast.SpecTlmPacket]]
   ): ResultAnnotatedNode[Ast.SpecTlmPacket] = Right(default(in), node)
 
-  def specTopPortExportAnnotatedNode(
+  def specTopPortAnnotatedNode(
     in: In,
-    node: Ast.Annotated[AstNode[Ast.SpecPortExport]]
-  ): ResultAnnotatedNode[Ast.SpecPortExport] = Right(default(in), node)
+    node: Ast.Annotated[AstNode[Ast.SpecTopPort]]
+  ): ResultAnnotatedNode[Ast.SpecTopPort] = Right(default(in), node)
 
   def specTlmPacketSetAnnotatedNode(
     in: In,
@@ -402,8 +402,8 @@ trait AstTransformer {
         transform(specConnectionGraphAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecConnectionGraph(_))
       case Ast.TopologyMember.SpecInclude(node1) =>
         transform(specIncludeAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecInclude(_))
-      case Ast.TopologyMember.SpecPortExport(node1) =>
-        transform(specTopPortExportAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecPortExport(_))
+      case Ast.TopologyMember.SpecTopPort(node1) =>
+        transform(specTopPortAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecTopPort(_))
       case Ast.TopologyMember.SpecTlmPacketSet(node1) =>
         transform(specTlmPacketSetAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecTlmPacketSet(_))
       case Ast.TopologyMember.SpecTopImport(node1) =>

@@ -214,6 +214,9 @@ module DefinitionsAndSpecifiers {
     }
     @< Telemetry packet group
 
+    @ Topology port specifier
+    port a = b.a
+    @< Topology port specifier
   }
   @< Topology definition
 

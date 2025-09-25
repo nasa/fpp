@@ -310,7 +310,7 @@ object Ast {
     final case class SpecCompInstance(node: AstNode[Ast.SpecCompInstance]) extends Node
     final case class SpecConnectionGraph(node: AstNode[Ast.SpecConnectionGraph]) extends Node
     final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
-    final case class SpecPortExport(node: AstNode[Ast.SpecPortExport]) extends Node
+    final case class SpecTopPort(node: AstNode[Ast.SpecTopPort]) extends Node
     final case class SpecTlmPacketSet(node: AstNode[Ast.SpecTlmPacketSet]) extends Node
     final case class SpecTopImport(node: AstNode[Ast.SpecImport]) extends Node
   }
@@ -785,8 +785,8 @@ object Ast {
     omitted: List[AstNode[TlmChannelIdentifier]]
   )
 
-  /** Export port as topology port */
-  final case class SpecPortExport(
+  /** Topology port specifier */
+  final case class SpecTopPort(
     name: Ident,
     underylingPort: AstNode[QualIdent],
   )

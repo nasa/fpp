@@ -3,6 +3,6 @@ def topology
   spec comp instance
     public
     qual ident i
-  spec top port export
+  spec top port
     ident p1
     qual ident i.p

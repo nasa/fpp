@@ -252,6 +252,7 @@ class ParserSpec extends AnyWordSpec {
           instance i
           connections C {}
           import T
+          port p = a.b
           include "a.fpp"
         }""",
         """topology T {
@@ -634,6 +635,16 @@ class ParserSpec extends AnyWordSpec {
       List(
         "import a",
         "import a.b",
+      )
+    )
+  }
+
+  "spec topology port OK" should {
+    parseAllOK(
+      Parser.specTopPort,
+      List(
+        "port a = b",
+        "port b = c.b",
       )
     )
   }
