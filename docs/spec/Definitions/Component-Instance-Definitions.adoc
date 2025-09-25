@@ -4,7 +4,7 @@ A *component instance definition* defines an instance
 of a
 <<Definitions_Component-Definitions,component>>
 that you can refer to in a
-<<Specifiers_Component-Instance-Specifiers,topology definition>>.
+<<Definitions_Topology-Definitions,topology definition>>.
 
 ==== Syntax
 
@@ -62,30 +62,30 @@ It associates a base identifier with the component instance.
 
 .. For each component instance, for each
 command, event, telemetry, or parameter identifier,
-the identifier associated with the instance
+the identifier associated with the component instance
 is computed by adding the base identifier specified here to the relative
 identifier specified in the component.
 For this purpose, command opcodes are identifiers.
 
-.. For each instance, this procedure creates a range of identifiers,
+.. For each component instance, this procedure creates a range of identifiers,
 from the base identifier to the largest identifier associated
-with the instance.
+with the component instance.
 If the component has no identifiers, then this range is empty.
 
-.. No instance may have a base identifier that lies within
-the identifier range of another instance.
+.. No component instance may have a base identifier that lies within
+the identifier range of another component instance.
 
 . If present, the string literal following the keyword `type`
-names the implementation type of the instance.
+names the implementation type of the component instance.
 The type must be a valid type in the target language (e.g., a type name
 in {cpp}).
 If the implementation type is not present, then the code generator
 infers the name of the implementation type from the component name when
-generating the constructor for the instance.
+generating the constructor for the component instance.
 For example:
 
 .. Suppose an FPP model has a component `C` defined in module `M`.
-Suppose _I_ is an instance of component `M.C`.
+Suppose _I_ is a component instance of component `M.C`.
 By default, the implementation type associated with _I_ is `M::C`.
 
 .. Specifying `type "M::D"` causes FPP to generate a
@@ -154,7 +154,7 @@ instance commandDispatcher: Svc.CommandDispatcher \
   cpu 0
 ----
 
-This example defines an instance `commandDispatcher`
+This example defines a component instance `commandDispatcher`
 of component `Svc.CommandDispatcher`.
 It specifies the base identifier, queue size, stack size,
 priority, and CPU.
@@ -164,8 +164,8 @@ priority, and CPU.
 instance timer: Svc.Timer at "../../Timers/HardwareTimer.hpp"
 ----
 
-This example defines an instance `timer` of component `Svc.Timer`.
+This example defines a component instance `timer` of component `Svc.Timer`.
 It specifies that the component implementation is located at
 path `../../Timers/HardwareTimer.hpp` instead of in the default location for the
 component.
-The path is resolved relative to the location of the instance definition.
+The path is resolved relative to the location of the component instance definition.

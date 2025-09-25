@@ -1,0 +1,58 @@
+=== Topology Port Instance Specifiers
+
+A *topology port instance specifier* specifies a
+port instance in a <<Definitions_Topology-Definitions,topology definition>>
+that is analogous to a port instance in a
+<<Definitions_Component-Definitions,component definition>>.
+A port instance specifier in a topology _T_ maps a name to a port instance
+of a component instance that is part of _T_.
+Such a specifier can be the endpoint of a
+<<Specifiers_Connection-Graph-Specifiers,connection>>.
+
+==== Syntax
+
+`port`
+<<Lexical-Elements_Identifiers,_identifier_>>
+`=`
+<<Instance-Member-Identifiers_Port-Instance-Identifiers,_port-instance-id_>>
+
+==== Semantics
+
+. The identifier specifies the name _N_ of the port instance.
+
+. The port instance identifier must be valid.
+
+. The whole specifier makes _I_ part of the 
+  <<Ports_Port-Interfaces_Topology-Definitions,interface of the enclosing 
+topology>>, after renaming it with name _N_.
+
+==== Example
+
+[source,fpp]
+----
+topology T {
+    instance c1
+    instance c2
+
+    connections {
+        c1.portInternal -> c2.portInternal
+    }
+
+    port portOut = c1.portOut
+    port customPortName = c2.portIn
+}
+
+topology Y {
+    instance T
+
+    instance c3
+
+    connections {
+        T.portOut -> c3.portIn
+        c3.portOut -> T.customPortName
+    }
+}
+----
+
+See also the <<Definitions_Topology-Definitions_Examples,examples for topology
+definitions>>.

@@ -989,66 +989,6 @@ topology B {
 Notice that the `C1` connections of `A` are merged with the `C1`
 connections of `B`.
 
-==== Private Instances
-
-Often when importing topology `A` into topology `B`, you
-want to include one or more instances in `A` that exist just
-for running `A`, but that you don't want imported into `B`.
-For example, `A` could have an instance `cStub` which is a stub version of 
-a component `c` that is fully implemented in `B`.
-In this case
-
-* When running `A` you may need `cStub`; the topology
-may not run or may not even compile without it.
-
-* When importing `A` into `B` you don't want to import
-`cStub`, because it is superseded by the real implementation `c` in `B`.
-Also, any connections to `cStub` in `A` should be replaced
-by connections to `c` in `B`.
-
-To handle this case, you can make `cStub` a *private* instance
-of `A` and `c` an instance of `B`.
-When you import `B` into `A`, `cStub` will not become an instance
-of `B`.
-Further, no connections in `A` involving `cStub` will be imported
-into `B`.
-
-As an example, suppose we revise topology `A` from the previous
-section as follows:
-
-[source,fpp]
---------
-topology A {
-
-  instance a
-  instance b
-  private instance d
-
-  connections C1 {
-    a.p1 -> b.p
-  }
-
-  connections C2 {
-    a.p1 -> d.p
-  }
-
-}
---------
-
-Notice that we have added an instance `d` to topology
-`A`, and we have declared `d` private to `A`.
-We have also added a new connection to `d` in the
-connection graph `C2`.
-
-Now suppose that we use the same definition of `B` given 
-in the previous section.
-After import resolution, `B` will still be equivalent
-to the topology shown at the end of the last section:
-we have added an instance and a connection to `A`,
-but the instance is private and the connection goes
-from a private instance, so neither the instance nor
-the connection is imported into `B`.
-
 ==== Multiple Imports
 
 Multiple imports are allowed.

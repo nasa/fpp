@@ -469,7 +469,6 @@ var IN_GLOBAL_SCOPE = false;
           "phase," +
           "port," +
           "priority," +
-          "private," +
           "product," +
           "queue," +
           "queued," +
