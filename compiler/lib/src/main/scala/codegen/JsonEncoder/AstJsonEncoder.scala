@@ -25,27 +25,27 @@ object AstJsonEncoder extends JsonEncoder {
   // ----------------------------------------------------------------------
 
   // JSON encoder for expressions
-  implicit val exprEncoder: Encoder[Ast.Expr] =
+  implicit lazy val exprEncoder: Encoder[Ast.Expr] =
     io.circe.generic.semiauto.deriveEncoder[Ast.Expr]
 
   // JSON encoder for module member nodes
-  implicit val moduleMemberNodeEncoder: Encoder[Ast.ModuleMember.Node] =
+  implicit lazy val moduleMemberNodeEncoder: Encoder[Ast.ModuleMember.Node] =
     io.circe.generic.semiauto.deriveEncoder[Ast.ModuleMember.Node]
 
   // JSON encoder for qualified identifiers
-  implicit val qualIdentEncoder: Encoder[Ast.QualIdent] =
+  implicit lazy val qualIdentEncoder: Encoder[Ast.QualIdent] =
     io.circe.generic.semiauto.deriveEncoder[Ast.QualIdent]
 
   // JSON encoder for state machine member nodes
-  implicit val stateMachineMemberNodeEncoder: Encoder[Ast.StateMachineMember.Node] =
+  implicit lazy val stateMachineMemberNodeEncoder: Encoder[Ast.StateMachineMember.Node] =
     io.circe.generic.semiauto.deriveEncoder[Ast.StateMachineMember.Node]
 
   // JSON encoder for state member nodes
-  implicit val stateMemberNodeEncoder: Encoder[Ast.StateMember.Node] =
+  implicit lazy val stateMemberNodeEncoder: Encoder[Ast.StateMember.Node] =
     io.circe.generic.semiauto.deriveEncoder[Ast.StateMember.Node]
 
   // JSON encoder for type names
-  implicit val typeNameEncoder: Encoder[Ast.TypeName] =
+  implicit lazy val typeNameEncoder: Encoder[Ast.TypeName] =
     io.circe.generic.semiauto.deriveEncoder[Ast.TypeName]
 
   // ----------------------------------------------------------------------
@@ -54,23 +54,23 @@ object AstJsonEncoder extends JsonEncoder {
   // ----------------------------------------------------------------------
 
   // JSON encoder for component members
-  private implicit val componentMemberEncoder: Encoder[Ast.ComponentMember] =
+  private lazy implicit val componentMemberEncoder: Encoder[Ast.ComponentMember] =
     Encoder.instance((m: Ast.ComponentMember) => m.node.asJson)
 
   // JSON encoder for module members
-  private implicit val moduleMemberEncoder: Encoder[Ast.ModuleMember] =
+  private lazy implicit val moduleMemberEncoder: Encoder[Ast.ModuleMember] =
     Encoder.instance((m: Ast.ModuleMember) => m.node.asJson)
 
   // JSON encoder for state machine members
-  private implicit val stateMachineMemberEncoder: Encoder[Ast.StateMachineMember] =
+  private lazy implicit val stateMachineMemberEncoder: Encoder[Ast.StateMachineMember] =
     Encoder.instance((m: Ast.StateMachineMember) => m.node.asJson)
 
   // JSON encoder for state members
-  private implicit val stateMemberEncoder: Encoder[Ast.StateMember] =
+  private lazy implicit val stateMemberEncoder: Encoder[Ast.StateMember] =
     Encoder.instance((m: Ast.StateMember) => m.node.asJson)
 
   // JSON encoder for topology members
-  private implicit val topologyMemberEncoder: Encoder[Ast.TopologyMember] =
+  private lazy implicit val topologyMemberEncoder: Encoder[Ast.TopologyMember] =
     Encoder.instance((m: Ast.TopologyMember) => m.node.asJson)
 
   // ----------------------------------------------------------------------

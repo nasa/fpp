@@ -333,10 +333,12 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    val implementsClause = data.implements match {
-      case Some(implements) => " implements " ++ implements.map(q => qualIdentString(q.data)).mkString(", ")
-      case None => ""
+    val implementsList = data.implements.map(q => qualIdentString(q.data)).mkString(", ")
+    val implementsClause = implementsList.length() match {
+      case 0 => ""
+      case _ => " implements " ++ implementsList
     }
+
     List(line(s"topology ${ident(data.name)}$implementsClause {"), Line.blank) ++
       (Line.blankSeparated (topologyMember) (data.members)).map(indentIn) ++
       List(Line.blank, line("}"))

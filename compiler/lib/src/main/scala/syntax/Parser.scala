@@ -269,7 +269,8 @@ object Parser extends Parsers {
 
   def defTopology: Parser[Ast.DefTopology] = {
     (topology ~>! ident) ~! opt(implements ~>! elementSequence(node(qualIdent), comma)) ~! (lbrace ~>! topologyMembers <~! rbrace) ^^ {
-      case name ~ implements ~ members => Ast.DefTopology(name, members, implements)
+      case name ~ Some(implements) ~ members => Ast.DefTopology(name, members, implements)
+      case name ~ None ~ members => Ast.DefTopology(name, members, Nil)
     }
   }
 
