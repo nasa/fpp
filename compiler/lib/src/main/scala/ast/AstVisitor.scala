@@ -124,6 +124,8 @@ trait AstVisitor {
 
   def specTlmPacketAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTlmPacket]]): Out = default(in)
 
+  def specTopPortAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTopPort]]): Out = default(in)
+
   def specTlmPacketSetAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTlmPacketSet]]): Out = default(in)
 
   def specTopImportAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecImport]]): Out = default(in)
@@ -250,6 +252,7 @@ trait AstVisitor {
       case Ast.TopologyMember.SpecCompInstance(node1) => specCompInstanceAnnotatedNode(in, (pre, node1, post))
       case Ast.TopologyMember.SpecConnectionGraph(node1) => specConnectionGraphAnnotatedNode(in, (pre, node1, post))
       case Ast.TopologyMember.SpecInclude(node1) => specIncludeAnnotatedNode(in, (pre, node1, post))
+      case Ast.TopologyMember.SpecTopPort(node1) => specTopPortAnnotatedNode(in, (pre, node1, post))
       case Ast.TopologyMember.SpecTlmPacketSet(node1) => specTlmPacketSetAnnotatedNode(in, (pre, node1, post))
       case Ast.TopologyMember.SpecTopImport(node1) => specTopImportAnnotatedNode(in, (pre, node1, post))
     }

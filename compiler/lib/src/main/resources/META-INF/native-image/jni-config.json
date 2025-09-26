@@ -20,6 +20,10 @@
   "methods":[{"name":"main","parameterTypes":["java.lang.String[]"] }]
 },
 {
+  "name":"fpp.compiler.tools.FPP",
+  "methods":[{"name":"main","parameterTypes":["java.lang.String[]"] }]
+},
+{
   "name":"fpp.compiler.tools.FPPCheck",
   "methods":[{"name":"main","parameterTypes":["java.lang.String[]"] }]
 },
