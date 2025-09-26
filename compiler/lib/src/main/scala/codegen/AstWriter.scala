@@ -2,6 +2,7 @@ package fpp.compiler.codegen
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
+import fpp.compiler.ast.Ast.QualIdent
 
 /** Write out an FPP AST */
 object AstWriter extends AstVisitor with LineUtils {
@@ -243,8 +244,13 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
+    val implementsClause = data.implements.length match {
+      case 0 => Nil
+      case _ => lines("implements") ++ data.implements.flatMap(q => qualIdent(q.data)).map(indentIn)
+    }
+
     lines("def topology") ++
-    (ident(data.name) ++ data.members.flatMap(topologyMember)).map(indentIn)
+    (ident(data.name) ++ implementsClause ++ data.members.flatMap(topologyMember)).map(indentIn)
   }
 
   override def default(in: In) =
