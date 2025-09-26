@@ -317,14 +317,8 @@ def module
     ident T
     @ Public instance specifier
     spec comp instance
-      public
       qual ident i1
     @< Public instance specifier
-    @ Private instance specifier
-    spec comp instance
-      private
-      qual ident i2
-    @< Private instance specifier
     @ Direct connection graph specifier
     spec connection graph direct
       ident C
@@ -387,6 +381,14 @@ def module
       qual ident b.a
     @< Topology port specifier
   @< Topology definition
+  @ Topology definition with one implements
+  def topology
+    ident T
+  @< Topology definition with one implements
+  @ Topology definition with two implements
+  def topology
+    ident T
+  @< Topology definition with two implements
   @ Location specifier
   spec loc
     kind instance

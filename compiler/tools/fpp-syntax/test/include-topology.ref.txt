@@ -2,6 +2,5 @@ def topology
   ident T
   @ Included instance
   spec comp instance
-    public
     qual ident x
   @< Included instance

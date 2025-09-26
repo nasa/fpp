@@ -248,6 +248,9 @@ class ParserSpec extends AnyWordSpec {
       Parser.defTopology,
       List(
         "topology T {}",
+        "topology T implements I {}",
+        "topology T implements I1.I2 {}",
+        "topology T implements I1.I2, I3.I4 {}",
         """topology T {
           instance i
           connections C {}

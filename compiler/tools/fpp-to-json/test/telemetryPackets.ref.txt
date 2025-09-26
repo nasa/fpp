@@ -1,127 +1,2206 @@
-Exception in thread "main" java.lang.NoClassDefFoundError: fpp/compiler/ast/Ast$Visibility
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$328.encodeObject(AstJsonEncoder.scala:74)
-	at io.circe.Encoder$AsObject.apply(Encoder.scala:832)
-	at io.circe.Encoder$AsObject.apply$(Encoder.scala:831)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$328.apply(AstJsonEncoder.scala:45)
-	at io.circe.DerivedEncoder.encodeWith(Derivation.scala:237)
-	at io.circe.DerivedEncoder.encodeWith$(Derivation.scala:233)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$327.encodeWith(AstJsonEncoder.scala:45)
-	at io.circe.DerivedEncoder$$anon$2.next(Derivation.scala:246)
-	at io.circe.DerivedEncoder$$anon$2.next(Derivation.scala:245)
-	at io.circe.JsonObject$.fromIterable(JsonObject.scala:233)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$327.encodeObject(AstJsonEncoder.scala:74)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$327.encodeObject(AstJsonEncoder.scala:74)
-	at io.circe.Encoder$AsObject.apply(Encoder.scala:832)
-	at io.circe.Encoder$AsObject.apply$(Encoder.scala:831)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$327.apply(AstJsonEncoder.scala:45)
-	at io.circe.syntax.package$EncoderOps$.asJson$extension(package.scala:8)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$369.apply(AstJsonEncoder.scala:17)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$369.apply(AstJsonEncoder.scala:15)
-	at io.circe.DerivedEncoder.encodeWith(Derivation.scala:237)
-	at io.circe.DerivedEncoder.encodeWith$(Derivation.scala:233)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$326.encodeWith(AstJsonEncoder.scala:45)
-	at io.circe.DerivedEncoder$$anon$2.next(Derivation.scala:246)
-	at io.circe.DerivedEncoder$$anon$2.next(Derivation.scala:245)
-	at io.circe.JsonObject$.fromIterable(JsonObject.scala:233)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$326.encodeObject(AstJsonEncoder.scala:74)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$326.encodeObject(AstJsonEncoder.scala:74)
-	at io.circe.Encoder$AsObject.apply(Encoder.scala:832)
-	at io.circe.Encoder$AsObject.apply$(Encoder.scala:831)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$326.apply(AstJsonEncoder.scala:45)
-	at io.circe.DerivedEncoder.encodeWith(Derivation.scala:237)
-	at io.circe.DerivedEncoder.encodeWith$(Derivation.scala:233)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$325.encodeWith(AstJsonEncoder.scala:45)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$325.encodeObject(AstJsonEncoder.scala:74)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$325.encodeObject(AstJsonEncoder.scala:74)
-	at io.circe.Encoder$AsObject.apply(Encoder.scala:832)
-	at io.circe.Encoder$AsObject.apply$(Encoder.scala:831)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$325.apply(AstJsonEncoder.scala:45)
-	at io.circe.TupleEncoders$$anon$3.encodeArray(TupleEncoders.scala:24)
-	at io.circe.TupleEncoders$$anon$3.encodeArray(TupleEncoders.scala:24)
-	at io.circe.Encoder$AsArray.apply(Encoder.scala:752)
-	at io.circe.Encoder$AsArray.apply$(Encoder.scala:751)
-	at io.circe.TupleEncoders$$anon$3.apply(TupleEncoders.scala:23)
-	at io.circe.syntax.package$EncoderOps$.asJson$extension(package.scala:8)
-	at fpp.compiler.codegen.AstJsonEncoder$.$init$$$anonfun$5(AstJsonEncoder.scala:74)
-	at io.circe.Encoder$$anon$20.apply(Encoder.scala:129)
-	at io.circe.MidPriorityEncoders$IterableAsArrayEncoder.encodeArray(Encoder.scala:927)
-	at io.circe.Encoder$AsArray.apply(Encoder.scala:752)
-	at io.circe.Encoder$AsArray.apply$(Encoder.scala:751)
-	at io.circe.MidPriorityEncoders$IterableAsArrayEncoder.apply(Encoder.scala:919)
-	at io.circe.DerivedEncoder.encodeWith(Derivation.scala:237)
-	at io.circe.DerivedEncoder.encodeWith$(Derivation.scala:233)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$109.encodeWith(AstJsonEncoder.scala:45)
-	at io.circe.DerivedEncoder$$anon$2.next(Derivation.scala:246)
-	at io.circe.DerivedEncoder$$anon$2.next(Derivation.scala:245)
-	at io.circe.JsonObject$.fromIterable(JsonObject.scala:233)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$109.encodeObject(AstJsonEncoder.scala:33)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$109.encodeObject(AstJsonEncoder.scala:33)
-	at io.circe.Encoder$AsObject.apply(Encoder.scala:832)
-	at io.circe.Encoder$AsObject.apply$(Encoder.scala:831)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$109.apply(AstJsonEncoder.scala:45)
-	at io.circe.syntax.package$EncoderOps$.asJson$extension(package.scala:8)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$369.apply(AstJsonEncoder.scala:17)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$369.apply(AstJsonEncoder.scala:15)
-	at io.circe.DerivedEncoder.encodeWith(Derivation.scala:237)
-	at io.circe.DerivedEncoder.encodeWith$(Derivation.scala:233)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$108.encodeWith(AstJsonEncoder.scala:45)
-	at io.circe.DerivedEncoder$$anon$2.next(Derivation.scala:246)
-	at io.circe.DerivedEncoder$$anon$2.next(Derivation.scala:245)
-	at io.circe.JsonObject$.fromIterable(JsonObject.scala:233)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$108.encodeObject(AstJsonEncoder.scala:33)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$108.encodeObject(AstJsonEncoder.scala:33)
-	at io.circe.Encoder$AsObject.apply(Encoder.scala:832)
-	at io.circe.Encoder$AsObject.apply$(Encoder.scala:831)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$108.apply(AstJsonEncoder.scala:45)
-	at io.circe.DerivedEncoder.encodeWith(Derivation.scala:237)
-	at io.circe.DerivedEncoder.encodeWith$(Derivation.scala:233)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$26.encodeWith(AstJsonEncoder.scala:45)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$26.encodeObject(AstJsonEncoder.scala:33)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$26.encodeObject(AstJsonEncoder.scala:33)
-	at io.circe.Encoder$AsObject.apply(Encoder.scala:832)
-	at io.circe.Encoder$AsObject.apply$(Encoder.scala:831)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$26.apply(AstJsonEncoder.scala:45)
-	at io.circe.TupleEncoders$$anon$3.encodeArray(TupleEncoders.scala:24)
-	at io.circe.TupleEncoders$$anon$3.encodeArray(TupleEncoders.scala:24)
-	at io.circe.Encoder$AsArray.apply(Encoder.scala:752)
-	at io.circe.Encoder$AsArray.apply$(Encoder.scala:751)
-	at io.circe.TupleEncoders$$anon$3.apply(TupleEncoders.scala:23)
-	at io.circe.syntax.package$EncoderOps$.asJson$extension(package.scala:8)
-	at fpp.compiler.codegen.AstJsonEncoder$.$init$$$anonfun$2(AstJsonEncoder.scala:62)
-	at io.circe.Encoder$$anon$20.apply(Encoder.scala:129)
-	at io.circe.MidPriorityEncoders$IterableAsArrayEncoder.encodeArray(Encoder.scala:927)
-	at io.circe.Encoder$AsArray.apply(Encoder.scala:752)
-	at io.circe.Encoder$AsArray.apply$(Encoder.scala:751)
-	at io.circe.MidPriorityEncoders$IterableAsArrayEncoder.apply(Encoder.scala:919)
-	at io.circe.DerivedEncoder.encodeWith(Derivation.scala:237)
-	at io.circe.DerivedEncoder.encodeWith$(Derivation.scala:233)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$370.encodeWith(AstJsonEncoder.scala:45)
-	at io.circe.DerivedEncoder$$anon$2.next(Derivation.scala:246)
-	at io.circe.DerivedEncoder$$anon$2.next(Derivation.scala:245)
-	at io.circe.JsonObject$.fromIterable(JsonObject.scala:233)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$370.encodeObject(AstJsonEncoder.scala:81)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$370.encodeObject(AstJsonEncoder.scala:81)
-	at io.circe.Encoder$AsObject.apply(Encoder.scala:832)
-	at io.circe.Encoder$AsObject.apply$(Encoder.scala:831)
-	at fpp.compiler.codegen.AstJsonEncoder$$anon$370.apply(AstJsonEncoder.scala:45)
-	at io.circe.MidPriorityEncoders$IterableAsArrayEncoder.encodeArray(Encoder.scala:927)
-	at io.circe.Encoder$AsArray.apply(Encoder.scala:752)
-	at io.circe.Encoder$AsArray.apply$(Encoder.scala:751)
-	at io.circe.MidPriorityEncoders$IterableAsArrayEncoder.apply(Encoder.scala:919)
-	at io.circe.syntax.package$EncoderOps$.asJson$extension(package.scala:8)
-	at fpp.compiler.codegen.AstJsonEncoder$.astToJson(AstJsonEncoder.scala:81)
-	at fpp.compiler.FPPtoJson$.writeAst(fpp-to-json.scala:52)
-	at fpp.compiler.FPPtoJson$.command$$anonfun$2$$anonfun$1(fpp-to-json.scala:27)
-	at scala.util.Either.flatMap(Either.scala:352)
-	at fpp.compiler.FPPtoJson$.command$$anonfun$2(fpp-to-json.scala:30)
-	at scala.util.Either.flatMap(Either.scala:352)
-	at fpp.compiler.FPPtoJson$.command(fpp-to-json.scala:30)
-	at fpp.compiler.FPPtoJson$.main$$anonfun$1(fpp-to-json.scala:34)
-	at fpp.compiler.util.Tool.mainMethod(Tool.scala:20)
-	at fpp.compiler.FPPtoJson$.main(fpp-to-json.scala:34)
-	at fpp.compiler.FPPtoJson.main(fpp-to-json.scala)
-Caused by: java.lang.ClassNotFoundException: fpp.compiler.ast.Ast$Visibility
-	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:581)
-	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:178)
-	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:522)
-	... 121 more
+[
+  {
+    "members" : [
+      [
+        [
+        ],
+        {
+          "DefModule" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "Fw",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "Tlm",
+                                "params" : [
+                                ],
+                                "returnType" : "None"
+                              },
+                              "id" : 0
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "Time",
+                                "params" : [
+                                ],
+                                "returnType" : "None"
+                              },
+                              "id" : 3
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 4
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefPort" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "P",
+                  "params" : [
+                  ],
+                  "returnType" : "None"
+                },
+                "id" : 5
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefComponent" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "kind" : {
+                    "Passive" : {
+                      
+                    }
+                  },
+                  "name" : "C",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "General" : {
+                                  "kind" : {
+                                    "SyncInput" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "pIn",
+                                  "size" : "None",
+                                  "port" : {
+                                    "Some" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "Unqualified" : {
+                                            "name" : "P"
+                                          }
+                                        },
+                                        "id" : 7
+                                      }
+                                    }
+                                  },
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 8
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "General" : {
+                                  "kind" : {
+                                    "Output" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "pOut",
+                                  "size" : "None",
+                                  "port" : {
+                                    "Some" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "Unqualified" : {
+                                            "name" : "P"
+                                          }
+                                        },
+                                        "id" : 10
+                                      }
+                                    }
+                                  },
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 11
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "Special" : {
+                                  "inputKind" : "None",
+                                  "kind" : {
+                                    "Telemetry" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "tlmOut",
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 12
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "Special" : {
+                                  "inputKind" : "None",
+                                  "kind" : {
+                                    "TimeGet" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "timeGetOut",
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 13
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecTlmChannel" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "T",
+                                "typeName" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "TypeNameInt" : {
+                                        "name" : {
+                                          "U32" : {
+                                            
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "id" : 18
+                                  }
+                                },
+                                "id" : "None",
+                                "update" : "None",
+                                "format" : "None",
+                                "low" : [
+                                ],
+                                "high" : [
+                                ]
+                              },
+                              "id" : 19
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 20
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefComponentInstance" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "c1",
+                  "component" : {
+                    "AstNode" : {
+                      "data" : {
+                        "Unqualified" : {
+                          "name" : "C"
+                        }
+                      },
+                      "id" : 22
+                    }
+                  },
+                  "baseId" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "0x100"
+                        }
+                      },
+                      "id" : 23
+                    }
+                  },
+                  "implType" : "None",
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecs" : [
+                  ]
+                },
+                "id" : 24
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefComponentInstance" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "c2",
+                  "component" : {
+                    "AstNode" : {
+                      "data" : {
+                        "Unqualified" : {
+                          "name" : "C"
+                        }
+                      },
+                      "id" : 26
+                    }
+                  },
+                  "baseId" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "0x200"
+                        }
+                      },
+                      "id" : 27
+                    }
+                  },
+                  "implType" : "None",
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecs" : [
+                  ]
+                },
+                "id" : 28
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+          "A topology with telemetry packets"
+        ],
+        {
+          "DefTopology" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "TelemetryPackets",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "SpecCompInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "instance" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "Unqualified" : {
+                                        "name" : "c1"
+                                      }
+                                    },
+                                    "id" : 30
+                                  }
+                                }
+                              },
+                              "id" : 31
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecCompInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "instance" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "Unqualified" : {
+                                        "name" : "c2"
+                                      }
+                                    },
+                                    "id" : 33
+                                  }
+                                }
+                              },
+                              "id" : 34
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecTlmPacketSet" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "P",
+                                "members" : [
+                                  {
+                                    "node" : [
+                                      [
+                                      ],
+                                      {
+                                        "SpecTlmPacket" : {
+                                          "node" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "name" : "P1",
+                                                "id" : {
+                                                  "Some" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "ExprLiteralInt" : {
+                                                          "value" : "0"
+                                                        }
+                                                      },
+                                                      "id" : 101
+                                                    }
+                                                  }
+                                                },
+                                                "group" : {
+                                                  "AstNode" : {
+                                                    "data" : {
+                                                      "ExprLiteralInt" : {
+                                                        "value" : "0"
+                                                      }
+                                                    },
+                                                    "id" : 102
+                                                  }
+                                                },
+                                                "members" : [
+                                                  {
+                                                    "TlmChannelIdentifier" : {
+                                                      "node" : {
+                                                        "AstNode" : {
+                                                          "data" : {
+                                                            "componentInstance" : {
+                                                              "AstNode" : {
+                                                                "data" : {
+                                                                  "Unqualified" : {
+                                                                    "name" : "c1"
+                                                                  }
+                                                                },
+                                                                "id" : 105
+                                                              }
+                                                            },
+                                                            "channelName" : {
+                                                              "AstNode" : {
+                                                                "data" : "T",
+                                                                "id" : 104
+                                                              }
+                                                            }
+                                                          },
+                                                          "id" : 106
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                ]
+                                              },
+                                              "id" : 107
+                                            }
+                                          }
+                                        }
+                                      },
+                                      [
+                                      ]
+                                    ]
+                                  }
+                                ],
+                                "omitted" : [
+                                  {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "componentInstance" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "Unqualified" : {
+                                                "name" : "c2"
+                                              }
+                                            },
+                                            "id" : 110
+                                          }
+                                        },
+                                        "channelName" : {
+                                          "AstNode" : {
+                                            "data" : "T",
+                                            "id" : 109
+                                          }
+                                        }
+                                      },
+                                      "id" : 111
+                                    }
+                                  }
+                                ]
+                              },
+                              "id" : 112
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ],
+                  "implements" : [
+                  ]
+                },
+                "id" : 113
+              }
+            }
+          }
+        },
+        [
+        ]
+      ]
+    ]
+  }
+]
+{
+  "0" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "2.3",
+    "includingLoc" : "None"
+  },
+  "1" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "3.3",
+    "includingLoc" : "None"
+  },
+  "2" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "3.3",
+    "includingLoc" : "None"
+  },
+  "3" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "3.3",
+    "includingLoc" : "None"
+  },
+  "4" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "1.1",
+    "includingLoc" : "None"
+  },
+  "5" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "6.1",
+    "includingLoc" : "None"
+  },
+  "6" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "9.24",
+    "includingLoc" : "None"
+  },
+  "7" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "9.24",
+    "includingLoc" : "None"
+  },
+  "8" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "9.3",
+    "includingLoc" : "None"
+  },
+  "9" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "10.21",
+    "includingLoc" : "None"
+  },
+  "10" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "10.21",
+    "includingLoc" : "None"
+  },
+  "11" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "10.3",
+    "includingLoc" : "None"
+  },
+  "12" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "11.3",
+    "includingLoc" : "None"
+  },
+  "13" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "12.3",
+    "includingLoc" : "None"
+  },
+  "14" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "13.16",
+    "includingLoc" : "None"
+  },
+  "15" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "13.3",
+    "includingLoc" : "None"
+  },
+  "16" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "13.16",
+    "includingLoc" : "None"
+  },
+  "17" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "13.3",
+    "includingLoc" : "None"
+  },
+  "18" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "13.16",
+    "includingLoc" : "None"
+  },
+  "19" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "13.3",
+    "includingLoc" : "None"
+  },
+  "20" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "8.1",
+    "includingLoc" : "None"
+  },
+  "21" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "16.14",
+    "includingLoc" : "None"
+  },
+  "22" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "16.14",
+    "includingLoc" : "None"
+  },
+  "23" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "16.24",
+    "includingLoc" : "None"
+  },
+  "24" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "16.1",
+    "includingLoc" : "None"
+  },
+  "25" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "17.14",
+    "includingLoc" : "None"
+  },
+  "26" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "17.14",
+    "includingLoc" : "None"
+  },
+  "27" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "17.24",
+    "includingLoc" : "None"
+  },
+  "28" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "17.1",
+    "includingLoc" : "None"
+  },
+  "29" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "22.12",
+    "includingLoc" : "None"
+  },
+  "30" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "22.12",
+    "includingLoc" : "None"
+  },
+  "31" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "22.3",
+    "includingLoc" : "None"
+  },
+  "32" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "23.12",
+    "includingLoc" : "None"
+  },
+  "33" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "23.12",
+    "includingLoc" : "None"
+  },
+  "34" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "23.3",
+    "includingLoc" : "None"
+  },
+  "35" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.18",
+    "includingLoc" : "None"
+  },
+  "36" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.26",
+    "includingLoc" : "None"
+  },
+  "37" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "38" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.10",
+    "includingLoc" : "None"
+  },
+  "39" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "40" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "41" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.5",
+    "includingLoc" : "None"
+  },
+  "42" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.18",
+    "includingLoc" : "None"
+  },
+  "43" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.26",
+    "includingLoc" : "None"
+  },
+  "44" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "45" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.10",
+    "includingLoc" : "None"
+  },
+  "46" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "47" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "48" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.5",
+    "includingLoc" : "None"
+  },
+  "49" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.18",
+    "includingLoc" : "None"
+  },
+  "50" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.26",
+    "includingLoc" : "None"
+  },
+  "51" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "52" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.10",
+    "includingLoc" : "None"
+  },
+  "53" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "54" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "55" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.5",
+    "includingLoc" : "None"
+  },
+  "56" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "32.5",
+    "includingLoc" : "None"
+  },
+  "57" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "32.8",
+    "includingLoc" : "None"
+  },
+  "58" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "32.5",
+    "includingLoc" : "None"
+  },
+  "59" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "32.5",
+    "includingLoc" : "None"
+  },
+  "60" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "25.3",
+    "includingLoc" : "None"
+  },
+  "61" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.18",
+    "includingLoc" : "None"
+  },
+  "62" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.26",
+    "includingLoc" : "None"
+  },
+  "63" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "64" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.10",
+    "includingLoc" : "None"
+  },
+  "65" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "66" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "67" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.5",
+    "includingLoc" : "None"
+  },
+  "68" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.18",
+    "includingLoc" : "None"
+  },
+  "69" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.26",
+    "includingLoc" : "None"
+  },
+  "70" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "71" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.10",
+    "includingLoc" : "None"
+  },
+  "72" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "73" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "74" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.5",
+    "includingLoc" : "None"
+  },
+  "75" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.18",
+    "includingLoc" : "None"
+  },
+  "76" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.26",
+    "includingLoc" : "None"
+  },
+  "77" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "78" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.10",
+    "includingLoc" : "None"
+  },
+  "79" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "80" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "81" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.5",
+    "includingLoc" : "None"
+  },
+  "82" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "32.5",
+    "includingLoc" : "None"
+  },
+  "83" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "32.8",
+    "includingLoc" : "None"
+  },
+  "84" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "32.5",
+    "includingLoc" : "None"
+  },
+  "85" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "32.5",
+    "includingLoc" : "None"
+  },
+  "86" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "25.3",
+    "includingLoc" : "None"
+  },
+  "87" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.18",
+    "includingLoc" : "None"
+  },
+  "88" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.26",
+    "includingLoc" : "None"
+  },
+  "89" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "90" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.10",
+    "includingLoc" : "None"
+  },
+  "91" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "92" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "93" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.5",
+    "includingLoc" : "None"
+  },
+  "94" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.18",
+    "includingLoc" : "None"
+  },
+  "95" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.26",
+    "includingLoc" : "None"
+  },
+  "96" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "97" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.10",
+    "includingLoc" : "None"
+  },
+  "98" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "99" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "100" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.5",
+    "includingLoc" : "None"
+  },
+  "101" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.18",
+    "includingLoc" : "None"
+  },
+  "102" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.26",
+    "includingLoc" : "None"
+  },
+  "103" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "104" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.10",
+    "includingLoc" : "None"
+  },
+  "105" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "106" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "28.7",
+    "includingLoc" : "None"
+  },
+  "107" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "27.5",
+    "includingLoc" : "None"
+  },
+  "108" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "32.5",
+    "includingLoc" : "None"
+  },
+  "109" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "32.8",
+    "includingLoc" : "None"
+  },
+  "110" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "32.5",
+    "includingLoc" : "None"
+  },
+  "111" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "32.5",
+    "includingLoc" : "None"
+  },
+  "112" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "25.3",
+    "includingLoc" : "None"
+  },
+  "113" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+    "pos" : "20.1",
+    "includingLoc" : "None"
+  }
+}
+{
+  "componentInstanceMap" : {
+    "24" : {
+      "aNode" : {
+        "astNodeId" : 24
+      },
+      "qualifiedName" : {
+        "qualifier" : [
+        ],
+        "base" : "c1"
+      },
+      "component" : {
+        "astNodeId" : 20
+      },
+      "baseId" : 256,
+      "maxId" : 256,
+      "file" : "None",
+      "queueSize" : "None",
+      "stackSize" : "None",
+      "priority" : "None",
+      "cpu" : "None",
+      "initSpecifierMap" : {
+        
+      }
+    },
+    "28" : {
+      "aNode" : {
+        "astNodeId" : 28
+      },
+      "qualifiedName" : {
+        "qualifier" : [
+        ],
+        "base" : "c2"
+      },
+      "component" : {
+        "astNodeId" : 20
+      },
+      "baseId" : 512,
+      "maxId" : 512,
+      "file" : "None",
+      "queueSize" : "None",
+      "stackSize" : "None",
+      "priority" : "None",
+      "cpu" : "None",
+      "initSpecifierMap" : {
+        
+      }
+    }
+  },
+  "componentMap" : {
+    "20" : {
+      "aNode" : {
+        "astNodeId" : 20
+      },
+      "portMap" : {
+        "pIn" : {
+          "General" : {
+            "aNode" : {
+              "astNodeId" : 8
+            },
+            "specifier" : {
+              "kind" : {
+                "SyncInput" : {
+                  
+                }
+              },
+              "name" : "pIn",
+              "size" : "None",
+              "port" : {
+                "Some" : {
+                  "astNodeId" : 7
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "kind" : "SyncInput",
+            "size" : 1,
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 5,
+                    "unqualifiedName" : "P"
+                  }
+                }
+              }
+            },
+            "importNodeIds" : [
+            ]
+          }
+        },
+        "pOut" : {
+          "General" : {
+            "aNode" : {
+              "astNodeId" : 11
+            },
+            "specifier" : {
+              "kind" : {
+                "Output" : {
+                  
+                }
+              },
+              "name" : "pOut",
+              "size" : "None",
+              "port" : {
+                "Some" : {
+                  "astNodeId" : 10
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "kind" : "Output",
+            "size" : 1,
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 5,
+                    "unqualifiedName" : "P"
+                  }
+                }
+              }
+            },
+            "importNodeIds" : [
+            ]
+          }
+        },
+        "tlmOut" : {
+          "Special" : {
+            "aNode" : {
+              "astNodeId" : 12
+            },
+            "specifier" : {
+              "inputKind" : "None",
+              "kind" : {
+                "Telemetry" : {
+                  
+                }
+              },
+              "name" : "tlmOut",
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 0,
+                "unqualifiedName" : "Tlm"
+              }
+            },
+            "priority" : "None",
+            "queueFull" : "None",
+            "importNodeIds" : [
+            ]
+          }
+        },
+        "timeGetOut" : {
+          "Special" : {
+            "aNode" : {
+              "astNodeId" : 13
+            },
+            "specifier" : {
+              "inputKind" : "None",
+              "kind" : {
+                "TimeGet" : {
+                  
+                }
+              },
+              "name" : "timeGetOut",
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 3,
+                "unqualifiedName" : "Time"
+              }
+            },
+            "priority" : "None",
+            "queueFull" : "None",
+            "importNodeIds" : [
+            ]
+          }
+        }
+      },
+      "specialPortMap" : {
+        "telemetry" : {
+          "aNode" : {
+            "astNodeId" : 12
+          },
+          "specifier" : {
+            "inputKind" : "None",
+            "kind" : {
+              "Telemetry" : {
+                
+              }
+            },
+            "name" : "tlmOut",
+            "priority" : "None",
+            "queueFull" : "None"
+          },
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 0,
+              "unqualifiedName" : "Tlm"
+            }
+          },
+          "priority" : "None",
+          "queueFull" : "None",
+          "importNodeIds" : [
+          ]
+        },
+        "time get" : {
+          "aNode" : {
+            "astNodeId" : 13
+          },
+          "specifier" : {
+            "inputKind" : "None",
+            "kind" : {
+              "TimeGet" : {
+                
+              }
+            },
+            "name" : "timeGetOut",
+            "priority" : "None",
+            "queueFull" : "None"
+          },
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 3,
+              "unqualifiedName" : "Time"
+            }
+          },
+          "priority" : "None",
+          "queueFull" : "None",
+          "importNodeIds" : [
+          ]
+        }
+      },
+      "commandMap" : {
+        
+      },
+      "defaultOpcode" : 0,
+      "tlmChannelMap" : {
+        "0" : {
+          "aNode" : {
+            "astNodeId" : 19
+          },
+          "channelType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U32" : {
+                    
+                  }
+                }
+              }
+            }
+          },
+          "update" : {
+            "Always" : {
+              
+            }
+          },
+          "format" : "None",
+          "lowLimits" : {
+            
+          },
+          "highLimits" : {
+            
+          }
+        }
+      },
+      "tlmChannelNameMap" : {
+        "T" : {
+          "aNode" : {
+            "astNodeId" : 19
+          },
+          "channelType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U32" : {
+                    
+                  }
+                }
+              }
+            }
+          },
+          "update" : {
+            "Always" : {
+              
+            }
+          },
+          "format" : "None",
+          "lowLimits" : {
+            
+          },
+          "highLimits" : {
+            
+          }
+        }
+      },
+      "defaultTlmChannelId" : 1,
+      "eventMap" : {
+        
+      },
+      "defaultEventId" : 0,
+      "paramMap" : {
+        
+      },
+      "specPortMatchingList" : [
+      ],
+      "stateMachineInstanceMap" : {
+        
+      },
+      "portMatchingList" : [
+      ],
+      "defaultParamId" : 0,
+      "containerMap" : {
+        
+      },
+      "defaultContainerId" : 0,
+      "recordMap" : {
+        
+      },
+      "defaultRecordId" : 0
+    }
+  },
+  "includedFileSet" : [
+  ],
+  "inputFileSet" : [
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp"
+  ],
+  "locationSpecifierMap" : [
+  ],
+  "parentSymbolMap" : {
+    "0" : {
+      "Module" : {
+        "nodeId" : 4,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "3" : {
+      "Module" : {
+        "nodeId" : 4,
+        "unqualifiedName" : "Fw"
+      }
+    }
+  },
+  "symbolScopeMap" : {
+    "4" : {
+      "map" : {
+        "Port" : {
+          "map" : {
+            "Tlm" : {
+              "Port" : {
+                "nodeId" : 0,
+                "unqualifiedName" : "Tlm"
+              }
+            },
+            "Time" : {
+              "Port" : {
+                "nodeId" : 3,
+                "unqualifiedName" : "Time"
+              }
+            }
+          }
+        }
+      }
+    },
+    "20" : {
+      "map" : {
+        
+      }
+    }
+  },
+  "topologyMap" : {
+    "113" : {
+      "aNode" : {
+        "astNodeId" : 113
+      },
+      "directImportMap" : {
+        
+      },
+      "transitiveImportSet" : [
+      ],
+      "instanceMap" : [
+        [
+          {
+            "aNode" : {
+              "astNodeId" : 24
+            },
+            "qualifiedName" : {
+              "qualifier" : [
+              ],
+              "base" : "c1"
+            },
+            "component" : {
+              "astNodeId" : 20
+            },
+            "baseId" : 256,
+            "maxId" : 256,
+            "file" : "None",
+            "queueSize" : "None",
+            "stackSize" : "None",
+            "priority" : "None",
+            "cpu" : "None",
+            "initSpecifierMap" : {
+              
+            }
+          },
+          {
+            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+            "pos" : "22.3",
+            "includingLoc" : "None"
+          }
+        ],
+        [
+          {
+            "aNode" : {
+              "astNodeId" : 28
+            },
+            "qualifiedName" : {
+              "qualifier" : [
+              ],
+              "base" : "c2"
+            },
+            "component" : {
+              "astNodeId" : 20
+            },
+            "baseId" : 512,
+            "maxId" : 512,
+            "file" : "None",
+            "queueSize" : "None",
+            "stackSize" : "None",
+            "priority" : "None",
+            "cpu" : "None",
+            "initSpecifierMap" : {
+              
+            }
+          },
+          {
+            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetryPackets.fpp",
+            "pos" : "23.3",
+            "includingLoc" : "None"
+          }
+        ]
+      ],
+      "patternMap" : {
+        
+      },
+      "connectionMap" : {
+        
+      },
+      "localConnectionMap" : {
+        
+      },
+      "outputConnectionMap" : [
+      ],
+      "inputConnectionMap" : [
+      ],
+      "fromPortNumberMap" : [
+      ],
+      "toPortNumberMap" : [
+      ],
+      "unconnectedPortSet" : [
+        {
+          "componentInstance" : {
+            "aNode" : {
+              "astNodeId" : 28
+            },
+            "qualifiedName" : {
+              "qualifier" : [
+              ],
+              "base" : "c2"
+            },
+            "component" : {
+              "astNodeId" : 20
+            },
+            "baseId" : 512,
+            "maxId" : 512,
+            "file" : "None",
+            "queueSize" : "None",
+            "stackSize" : "None",
+            "priority" : "None",
+            "cpu" : "None",
+            "initSpecifierMap" : {
+              
+            }
+          },
+          "portInstance" : {
+            "General" : {
+              "aNode" : {
+                "astNodeId" : 11
+              },
+              "specifier" : {
+                "kind" : {
+                  "Output" : {
+                    
+                  }
+                },
+                "name" : "pOut",
+                "size" : "None",
+                "port" : {
+                  "Some" : {
+                    "astNodeId" : 10
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "kind" : "Output",
+              "size" : 1,
+              "ty" : {
+                "DefPort" : {
+                  "symbol" : {
+                    "Port" : {
+                      "nodeId" : 5,
+                      "unqualifiedName" : "P"
+                    }
+                  }
+                }
+              },
+              "importNodeIds" : [
+              ]
+            }
+          }
+        },
+        {
+          "componentInstance" : {
+            "aNode" : {
+              "astNodeId" : 28
+            },
+            "qualifiedName" : {
+              "qualifier" : [
+              ],
+              "base" : "c2"
+            },
+            "component" : {
+              "astNodeId" : 20
+            },
+            "baseId" : 512,
+            "maxId" : 512,
+            "file" : "None",
+            "queueSize" : "None",
+            "stackSize" : "None",
+            "priority" : "None",
+            "cpu" : "None",
+            "initSpecifierMap" : {
+              
+            }
+          },
+          "portInstance" : {
+            "General" : {
+              "aNode" : {
+                "astNodeId" : 8
+              },
+              "specifier" : {
+                "kind" : {
+                  "SyncInput" : {
+                    
+                  }
+                },
+                "name" : "pIn",
+                "size" : "None",
+                "port" : {
+                  "Some" : {
+                    "astNodeId" : 7
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "kind" : "SyncInput",
+              "size" : 1,
+              "ty" : {
+                "DefPort" : {
+                  "symbol" : {
+                    "Port" : {
+                      "nodeId" : 5,
+                      "unqualifiedName" : "P"
+                    }
+                  }
+                }
+              },
+              "importNodeIds" : [
+              ]
+            }
+          }
+        },
+        {
+          "componentInstance" : {
+            "aNode" : {
+              "astNodeId" : 24
+            },
+            "qualifiedName" : {
+              "qualifier" : [
+              ],
+              "base" : "c1"
+            },
+            "component" : {
+              "astNodeId" : 20
+            },
+            "baseId" : 256,
+            "maxId" : 256,
+            "file" : "None",
+            "queueSize" : "None",
+            "stackSize" : "None",
+            "priority" : "None",
+            "cpu" : "None",
+            "initSpecifierMap" : {
+              
+            }
+          },
+          "portInstance" : {
+            "General" : {
+              "aNode" : {
+                "astNodeId" : 11
+              },
+              "specifier" : {
+                "kind" : {
+                  "Output" : {
+                    
+                  }
+                },
+                "name" : "pOut",
+                "size" : "None",
+                "port" : {
+                  "Some" : {
+                    "astNodeId" : 10
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "kind" : "Output",
+              "size" : 1,
+              "ty" : {
+                "DefPort" : {
+                  "symbol" : {
+                    "Port" : {
+                      "nodeId" : 5,
+                      "unqualifiedName" : "P"
+                    }
+                  }
+                }
+              },
+              "importNodeIds" : [
+              ]
+            }
+          }
+        },
+        {
+          "componentInstance" : {
+            "aNode" : {
+              "astNodeId" : 24
+            },
+            "qualifiedName" : {
+              "qualifier" : [
+              ],
+              "base" : "c1"
+            },
+            "component" : {
+              "astNodeId" : 20
+            },
+            "baseId" : 256,
+            "maxId" : 256,
+            "file" : "None",
+            "queueSize" : "None",
+            "stackSize" : "None",
+            "priority" : "None",
+            "cpu" : "None",
+            "initSpecifierMap" : {
+              
+            }
+          },
+          "portInstance" : {
+            "Special" : {
+              "aNode" : {
+                "astNodeId" : 13
+              },
+              "specifier" : {
+                "inputKind" : "None",
+                "kind" : {
+                  "TimeGet" : {
+                    
+                  }
+                },
+                "name" : "timeGetOut",
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "symbol" : {
+                "Port" : {
+                  "nodeId" : 3,
+                  "unqualifiedName" : "Time"
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None",
+              "importNodeIds" : [
+              ]
+            }
+          }
+        },
+        {
+          "componentInstance" : {
+            "aNode" : {
+              "astNodeId" : 28
+            },
+            "qualifiedName" : {
+              "qualifier" : [
+              ],
+              "base" : "c2"
+            },
+            "component" : {
+              "astNodeId" : 20
+            },
+            "baseId" : 512,
+            "maxId" : 512,
+            "file" : "None",
+            "queueSize" : "None",
+            "stackSize" : "None",
+            "priority" : "None",
+            "cpu" : "None",
+            "initSpecifierMap" : {
+              
+            }
+          },
+          "portInstance" : {
+            "Special" : {
+              "aNode" : {
+                "astNodeId" : 12
+              },
+              "specifier" : {
+                "inputKind" : "None",
+                "kind" : {
+                  "Telemetry" : {
+                    
+                  }
+                },
+                "name" : "tlmOut",
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "symbol" : {
+                "Port" : {
+                  "nodeId" : 0,
+                  "unqualifiedName" : "Tlm"
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None",
+              "importNodeIds" : [
+              ]
+            }
+          }
+        },
+        {
+          "componentInstance" : {
+            "aNode" : {
+              "astNodeId" : 24
+            },
+            "qualifiedName" : {
+              "qualifier" : [
+              ],
+              "base" : "c1"
+            },
+            "component" : {
+              "astNodeId" : 20
+            },
+            "baseId" : 256,
+            "maxId" : 256,
+            "file" : "None",
+            "queueSize" : "None",
+            "stackSize" : "None",
+            "priority" : "None",
+            "cpu" : "None",
+            "initSpecifierMap" : {
+              
+            }
+          },
+          "portInstance" : {
+            "Special" : {
+              "aNode" : {
+                "astNodeId" : 12
+              },
+              "specifier" : {
+                "inputKind" : "None",
+                "kind" : {
+                  "Telemetry" : {
+                    
+                  }
+                },
+                "name" : "tlmOut",
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "symbol" : {
+                "Port" : {
+                  "nodeId" : 0,
+                  "unqualifiedName" : "Tlm"
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None",
+              "importNodeIds" : [
+              ]
+            }
+          }
+        },
+        {
+          "componentInstance" : {
+            "aNode" : {
+              "astNodeId" : 24
+            },
+            "qualifiedName" : {
+              "qualifier" : [
+              ],
+              "base" : "c1"
+            },
+            "component" : {
+              "astNodeId" : 20
+            },
+            "baseId" : 256,
+            "maxId" : 256,
+            "file" : "None",
+            "queueSize" : "None",
+            "stackSize" : "None",
+            "priority" : "None",
+            "cpu" : "None",
+            "initSpecifierMap" : {
+              
+            }
+          },
+          "portInstance" : {
+            "General" : {
+              "aNode" : {
+                "astNodeId" : 8
+              },
+              "specifier" : {
+                "kind" : {
+                  "SyncInput" : {
+                    
+                  }
+                },
+                "name" : "pIn",
+                "size" : "None",
+                "port" : {
+                  "Some" : {
+                    "astNodeId" : 7
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "kind" : "SyncInput",
+              "size" : 1,
+              "ty" : {
+                "DefPort" : {
+                  "symbol" : {
+                    "Port" : {
+                      "nodeId" : 5,
+                      "unqualifiedName" : "P"
+                    }
+                  }
+                }
+              },
+              "importNodeIds" : [
+              ]
+            }
+          }
+        },
+        {
+          "componentInstance" : {
+            "aNode" : {
+              "astNodeId" : 28
+            },
+            "qualifiedName" : {
+              "qualifier" : [
+              ],
+              "base" : "c2"
+            },
+            "component" : {
+              "astNodeId" : 20
+            },
+            "baseId" : 512,
+            "maxId" : 512,
+            "file" : "None",
+            "queueSize" : "None",
+            "stackSize" : "None",
+            "priority" : "None",
+            "cpu" : "None",
+            "initSpecifierMap" : {
+              
+            }
+          },
+          "portInstance" : {
+            "Special" : {
+              "aNode" : {
+                "astNodeId" : 13
+              },
+              "specifier" : {
+                "inputKind" : "None",
+                "kind" : {
+                  "TimeGet" : {
+                    
+                  }
+                },
+                "name" : "timeGetOut",
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "symbol" : {
+                "Port" : {
+                  "nodeId" : 3,
+                  "unqualifiedName" : "Time"
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None",
+              "importNodeIds" : [
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "typeMap" : {
+    "23" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "102" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "27" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "18" : {
+      "Int" : {
+        "PrimitiveInt" : {
+          "kind" : {
+            "U32" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "101" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    }
+  },
+  "useDefMap" : {
+    "12" : {
+      "Port" : {
+        "nodeId" : 0,
+        "unqualifiedName" : "Tlm"
+      }
+    },
+    "110" : {
+      "ComponentInstance" : {
+        "nodeId" : 28,
+        "unqualifiedName" : "c2"
+      }
+    },
+    "33" : {
+      "ComponentInstance" : {
+        "nodeId" : 28,
+        "unqualifiedName" : "c2"
+      }
+    },
+    "22" : {
+      "Component" : {
+        "nodeId" : 20,
+        "unqualifiedName" : "C"
+      }
+    },
+    "26" : {
+      "Component" : {
+        "nodeId" : 20,
+        "unqualifiedName" : "C"
+      }
+    },
+    "13" : {
+      "Port" : {
+        "nodeId" : 3,
+        "unqualifiedName" : "Time"
+      }
+    },
+    "10" : {
+      "Port" : {
+        "nodeId" : 5,
+        "unqualifiedName" : "P"
+      }
+    },
+    "105" : {
+      "ComponentInstance" : {
+        "nodeId" : 24,
+        "unqualifiedName" : "c1"
+      }
+    },
+    "30" : {
+      "ComponentInstance" : {
+        "nodeId" : 24,
+        "unqualifiedName" : "c1"
+      }
+    },
+    "7" : {
+      "Port" : {
+        "nodeId" : 5,
+        "unqualifiedName" : "P"
+      }
+    }
+  },
+  "valueMap" : {
+    "23" : {
+      "Integer" : {
+        "value" : 256
+      }
+    },
+    "27" : {
+      "Integer" : {
+        "value" : 512
+      }
+    },
+    "101" : {
+      "Integer" : {
+        "value" : 0
+      }
+    },
+    "102" : {
+      "Integer" : {
+        "value" : 0
+      }
+    }
+  },
+  "stateMachineMap" : {
+    
+  }
+}
