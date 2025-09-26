@@ -387,6 +387,14 @@ def module
       qual ident b.a
     @< Topology port specifier
   @< Topology definition
+  @ Topology definition with one implements
+  def topology
+    ident T
+  @< Topology definition with one implements
+  @ Topology definition with two implements
+  def topology
+    ident T
+  @< Topology definition with two implements
   @ Location specifier
   spec loc
     kind instance
