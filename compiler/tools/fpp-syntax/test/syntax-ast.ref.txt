@@ -383,10 +383,15 @@ def module
   @ Topology definition with one implements
   def topology
     ident T
+    implements
+      qual ident I
   @< Topology definition with one implements
   @ Topology definition with two implements
   def topology
     ident T
+    implements
+      qual ident I
+      qual ident I
   @< Topology definition with two implements
   @ Location specifier
   spec loc
