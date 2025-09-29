@@ -311,18 +311,20 @@ case class ComponentEvents (
         event.throttle match {
           case Some(Event.Throttle(_, Some(Event.TimeInterval(seconds, useconds)))) => lines(
             s"""|// Check throttle value & throttle timeout
-                |if (this->${eventThrottleCounterName(event.getName)}.load() >= ${eventThrottleConstantName(event.getName)}) {
+                |FwIndexType last_counter = this->${eventThrottleCounterName(event.getName)}.load();
+                |if (last_counter >= ${eventThrottleConstantName(event.getName)}) {
                 |  // The counter has overflown, check if time interval has passed
                 |  Fw::Time last_throttle = this->${eventThrottleTimeName(event.getName)}.load().toTime();
                 |  if (Fw::TimeInterval(last_throttle, _logTime) >= Fw::TimeInterval($seconds, $useconds)) {
-                |    this->${eventThrottleCounterName(event.getName)} = 0;
+                |    // Reset the count (lockless)
+                |    this->${eventThrottleCounterName(event.getName)}.compare_exchange_strong(last_counter, 0);
                 |  } else {
                 |    // Throttle the event
                 |    return;
                 |  }
                 |}
                 |
-                |FwIndexType last_counter = this->${eventThrottleCounterName(event.getName)}++;
+                |last_counter = this->${eventThrottleCounterName(event.getName)}++;
                 |if (last_counter == 0) {
                 |  // This is the first event since the counter was reset
                 |  this->${eventThrottleTimeName(event.getName)} = TimeWrapper(_logTime);

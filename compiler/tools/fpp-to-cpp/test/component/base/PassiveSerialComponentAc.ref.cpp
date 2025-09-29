@@ -4228,18 +4228,20 @@ void PassiveSerialComponentBase ::
   _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL;
 
   // Check throttle value & throttle timeout
-  if (this->m_EventWarningLowThrottledIntervalThrottle.load() >= EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL_THROTTLE) {
+  FwIndexType last_counter = this->m_EventWarningLowThrottledIntervalThrottle.load();
+  if (last_counter >= EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL_THROTTLE) {
     // The counter has overflown, check if time interval has passed
     Fw::Time last_throttle = this->m_EventWarningLowThrottledIntervalThrottleTime.load().toTime();
     if (Fw::TimeInterval(last_throttle, _logTime) >= Fw::TimeInterval(10, 0)) {
-      this->m_EventWarningLowThrottledIntervalThrottle = 0;
+      // Reset the count (lockless)
+      this->m_EventWarningLowThrottledIntervalThrottle.compare_exchange_strong(last_counter, 0);
     } else {
       // Throttle the event
       return;
     }
   }
 
-  FwIndexType last_counter = this->m_EventWarningLowThrottledIntervalThrottle++;
+  last_counter = this->m_EventWarningLowThrottledIntervalThrottle++;
   if (last_counter == 0) {
     // This is the first event since the counter was reset
     this->m_EventWarningLowThrottledIntervalThrottleTime = TimeWrapper(_logTime);
