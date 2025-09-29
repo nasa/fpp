@@ -44,6 +44,8 @@ values.
 
 * A <<Specifiers_Port-Instance-Specifiers,port instance specifier>>
 
+* A <<Specifiers_Port-Matching-Specifiers,port matching specifier>>
+
 * A <<Specifiers_Record-Specifiers,record specifier>>.
 All records specified in a component must have distinct names and identifier
 values.
