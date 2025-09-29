@@ -70,11 +70,34 @@ case class ComponentEvents (
             )
           )
         ),
+        if intervalThrottledEvents.length > 0 then
+          List(
+            linesClassMember(
+              Line.blank :: lines(
+                s"""|//! Wrapper struct for atomic Fw::Time
+                    |struct TimeWrapper {
+                    |  TimeWrapper() : seconds(0), useconds(0) {}
+                    |
+                    |  TimeWrapper(const Fw::Time& time)
+                    |    : seconds(time.getSeconds()), useconds(time.getUSeconds()) {}
+                    |
+                    |  Fw::Time toTime() const {
+                    |    return Fw::Time(seconds, useconds);
+                    |  }
+                    |
+                    |private:
+                    |  U32 seconds;
+                    |  U32 useconds;
+                    |};
+                    |"""
+            )
+          ))
+        else Nil,
         intervalThrottledEvents.map((_, event) =>
           linesClassMember(
             Line.blank :: lines(
-              s"""|//! Throttle time for ${event.getName} (in useconds)
-                  |std::atomic<U64> ${eventThrottleTimeName(event.getName)};
+              s"""|//! Throttle time for ${event.getName}
+                  |std::atomic<TimeWrapper> ${eventThrottleTimeName(event.getName)};
                   |"""
             )
           )
@@ -288,25 +311,21 @@ case class ComponentEvents (
         event.throttle match {
           case Some(Event.Throttle(_, Some(Event.TimeInterval(seconds, useconds)))) => lines(
             s"""|// Check throttle value & throttle timeout
-                |FwIndexType count = this->${eventThrottleCounterName(event.getName)}++;
-                |U64 throttle_time_us = this->${eventThrottleTimeName(event.getName)}.load();
-                |if ((count == 0) ||
-                |    (Fw::TimeInterval(
-                |       Fw::Time(static_cast<U32>(throttle_time_us / 1000000), static_cast<U32>(throttle_time_us % 1000000)),
-                |       _logTime
-                |    ) >= Fw::TimeInterval($seconds, $useconds))
-                |  ) {
-                |  // Reset the throttle count & timeout
-                |  this->${eventThrottleTimeName(event.getName)} = (
-                |    (static_cast<U64>(_logTime.getSeconds()) * 1000000) +
-                |    static_cast<U64>(_logTime.getUSeconds())
-                |  );
-                |  this->${eventThrottleCounterName(event.getName)} = 1;
+                |if (this->${eventThrottleCounterName(event.getName)}.load() >= ${eventThrottleConstantName(event.getName)}) {
+                |  // The counter has overflown, check if time interval has passed
+                |  Fw::Time last_throttle = this->${eventThrottleTimeName(event.getName)}.load().toTime();
+                |  if (Fw::TimeInterval(last_throttle, _logTime) >= Fw::TimeInterval($seconds, $useconds)) {
+                |    this->${eventThrottleCounterName(event.getName)} = 0;
+                |  } else {
+                |    // Throttle the event
+                |    return;
+                |  }
                 |}
-                |else if (count >= ${eventThrottleConstantName(event.getName)}) {
-                |  // Throttle this event
-                |  this->${eventThrottleCounterName(event.getName)}--;
-                |  return;
+                |
+                |FwIndexType last_counter = this->${eventThrottleCounterName(event.getName)}++;
+                |if (last_counter == 0) {
+                |  // This is the first event since the counter was reset
+                |  this->${eventThrottleTimeName(event.getName)} = TimeWrapper(_logTime);
                 |}
                 |"""
           )
@@ -365,7 +384,7 @@ case class ComponentEvents (
             if event.throttle.get.every.isDefined
             then lines(
               s"""|// Reset throttle timeout
-                  |this->${eventThrottleTimeName(event.getName)} = 0;
+                  |this->${eventThrottleTimeName(event.getName)} = TimeWrapper();
                   |"""
             ) else Nil
           ).flatten

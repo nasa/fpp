@@ -1475,8 +1475,24 @@ class PassiveEventsComponentBase :
     //! Throttle for EventWarningLowThrottledInterval
     std::atomic<FwIndexType> m_EventWarningLowThrottledIntervalThrottle;
 
-    //! Throttle time for EventWarningLowThrottledInterval (in useconds)
-    std::atomic<U64> m_EventWarningLowThrottledIntervalThrottleTime;
+    //! Wrapper struct for atomic Fw::Time
+    struct TimeWrapper {
+      TimeWrapper() : seconds(0), useconds(0) {}
+
+      TimeWrapper(const Fw::Time& time)
+        : seconds(time.getSeconds()), useconds(time.getUSeconds()) {}
+
+      Fw::Time toTime() const {
+        return Fw::Time(seconds, useconds);
+      }
+
+    private:
+      U32 seconds;
+      U32 useconds;
+    };
+
+    //! Throttle time for EventWarningLowThrottledInterval
+    std::atomic<TimeWrapper> m_EventWarningLowThrottledIntervalThrottleTime;
 
   private:
 

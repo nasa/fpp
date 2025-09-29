@@ -1846,7 +1846,7 @@ PassiveSerialComponentBase ::
   this->m_EventWarningLowThrottledThrottle = 0;
   this->m_EventWarningLowThrottledIntervalThrottle = 0;
 
-  this->m_EventWarningLowThrottledIntervalThrottleTime = 0;
+  this->m_EventWarningLowThrottledIntervalThrottleTime = TimeWrapper();
 
   this->m_param_ParamU32_valid = Fw::ParamValid::UNINIT;
   this->m_param_ParamF64_valid = Fw::ParamValid::UNINIT;
@@ -4228,25 +4228,21 @@ void PassiveSerialComponentBase ::
   _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL;
 
   // Check throttle value & throttle timeout
-  FwIndexType count = this->m_EventWarningLowThrottledIntervalThrottle++;
-  U64 throttle_time_us = this->m_EventWarningLowThrottledIntervalThrottleTime.load();
-  if ((count == 0) ||
-      (Fw::TimeInterval(
-         Fw::Time(static_cast<U32>(throttle_time_us / 1000000), static_cast<U32>(throttle_time_us % 1000000)),
-         _logTime
-      ) >= Fw::TimeInterval(10, 0))
-    ) {
-    // Reset the throttle count & timeout
-    this->m_EventWarningLowThrottledIntervalThrottleTime = (
-      (static_cast<U64>(_logTime.getSeconds()) * 1000000) +
-      static_cast<U64>(_logTime.getUSeconds())
-    );
-    this->m_EventWarningLowThrottledIntervalThrottle = 1;
+  if (this->m_EventWarningLowThrottledIntervalThrottle.load() >= EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL_THROTTLE) {
+    // The counter has overflown, check if time interval has passed
+    Fw::Time last_throttle = this->m_EventWarningLowThrottledIntervalThrottleTime.load().toTime();
+    if (Fw::TimeInterval(last_throttle, _logTime) >= Fw::TimeInterval(10, 0)) {
+      this->m_EventWarningLowThrottledIntervalThrottle = 0;
+    } else {
+      // Throttle the event
+      return;
+    }
   }
-  else if (count >= EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL_THROTTLE) {
-    // Throttle this event
-    this->m_EventWarningLowThrottledIntervalThrottle--;
-    return;
+
+  FwIndexType last_counter = this->m_EventWarningLowThrottledIntervalThrottle++;
+  if (last_counter == 0) {
+    // This is the first event since the counter was reset
+    this->m_EventWarningLowThrottledIntervalThrottleTime = TimeWrapper(_logTime);
   }
 
   // Emit the event on the log port
@@ -4332,7 +4328,7 @@ void PassiveSerialComponentBase ::
   // Reset throttle counter
   this->m_EventWarningLowThrottledIntervalThrottle = 0;
   // Reset throttle timeout
-  this->m_EventWarningLowThrottledIntervalThrottleTime = 0;
+  this->m_EventWarningLowThrottledIntervalThrottleTime = TimeWrapper();
 }
 
 // ----------------------------------------------------------------------
