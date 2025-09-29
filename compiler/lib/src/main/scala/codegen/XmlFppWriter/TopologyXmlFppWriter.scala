@@ -73,7 +73,7 @@ object TopologyXmlFppWriter extends LineUtils {
           val qid = XmlFppWriter.FppBuilder.translateQualIdent(name)
           (
             Nil,
-            Ast.SpecCompInstance(Ast.Visibility.Public, qid),
+            Ast.SpecCompInstance(qid),
             Nil
           )
         }

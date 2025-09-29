@@ -1064,11 +1064,6 @@
                                         "node" : {
                                           "AstNode" : {
                                             "data" : {
-                                              "visibility" : {
-                                                "Public" : {
-                                                  
-                                                }
-                                              },
                                               "instance" : {
                                                 "AstNode" : {
                                                   "data" : {
@@ -1096,11 +1091,6 @@
                                         "node" : {
                                           "AstNode" : {
                                             "data" : {
-                                              "visibility" : {
-                                                "Public" : {
-                                                  
-                                                }
-                                              },
                                               "instance" : {
                                                 "AstNode" : {
                                                   "data" : {
@@ -1128,11 +1118,6 @@
                                         "node" : {
                                           "AstNode" : {
                                             "data" : {
-                                              "visibility" : {
-                                                "Public" : {
-                                                  
-                                                }
-                                              },
                                               "instance" : {
                                                 "AstNode" : {
                                                   "data" : {
@@ -1160,11 +1145,6 @@
                                         "node" : {
                                           "AstNode" : {
                                             "data" : {
-                                              "visibility" : {
-                                                "Public" : {
-                                                  
-                                                }
-                                              },
                                               "instance" : {
                                                 "AstNode" : {
                                                   "data" : {
@@ -1192,11 +1172,6 @@
                                         "node" : {
                                           "AstNode" : {
                                             "data" : {
-                                              "visibility" : {
-                                                "Public" : {
-                                                  
-                                                }
-                                              },
                                               "instance" : {
                                                 "AstNode" : {
                                                   "data" : {
@@ -1224,11 +1199,6 @@
                                         "node" : {
                                           "AstNode" : {
                                             "data" : {
-                                              "visibility" : {
-                                                "Public" : {
-                                                  
-                                                }
-                                              },
                                               "instance" : {
                                                 "AstNode" : {
                                                   "data" : {
@@ -1256,11 +1226,6 @@
                                         "node" : {
                                           "AstNode" : {
                                             "data" : {
-                                              "visibility" : {
-                                                "Public" : {
-                                                  
-                                                }
-                                              },
                                               "instance" : {
                                                 "AstNode" : {
                                                   "data" : {

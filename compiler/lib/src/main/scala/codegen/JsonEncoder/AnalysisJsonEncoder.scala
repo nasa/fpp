@@ -306,7 +306,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
   // ----------------------------------------------------------------------
 
   private implicit val componentInstanceLocationMapEncoder:
-    Encoder[Map[ComponentInstance, (Ast.Visibility, Location)]] =
+    Encoder[Map[ComponentInstance, Location]] =
     Encoder.instance(_.toList.asJson)
 
   private implicit val connectionMapEncoder:

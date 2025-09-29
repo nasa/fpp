@@ -46,13 +46,11 @@ object CheckTopologyDefs
     aNode: Ast.Annotated[AstNode[Ast.SpecCompInstance]]
   ) = {
     val node = aNode._2
-    val visibility = node.data.visibility
     val instanceNode = node.data.instance
     for {
       instance <- a.getComponentInstance(instanceNode.id)
       topology <- a.topology.get.addUniqueInstance(
         instance,
-        visibility,
         Locations.get(node.id)
       )
     }

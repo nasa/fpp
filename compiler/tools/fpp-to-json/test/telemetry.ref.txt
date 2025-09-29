@@ -702,11 +702,6 @@
                                         "node" : {
                                           "AstNode" : {
                                             "data" : {
-                                              "visibility" : {
-                                                "Public" : {
-                                                  
-                                                }
-                                              },
                                               "instance" : {
                                                 "AstNode" : {
                                                   "data" : {
@@ -1988,18 +1983,11 @@
               
             }
           },
-          [
-            {
-              "Public" : {
-                
-              }
-            },
-            {
-              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
-              "pos" : "47.9",
-              "includingLoc" : "None"
-            }
-          ]
+          {
+            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+            "pos" : "47.9",
+            "includingLoc" : "None"
+          }
         ]
       ],
       "patternMap" : {
