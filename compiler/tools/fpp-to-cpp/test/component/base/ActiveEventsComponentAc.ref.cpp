@@ -1516,7 +1516,7 @@ ActiveEventsComponentBase ::
   this->m_EventWarningLowThrottledThrottle = 0;
   this->m_EventWarningLowThrottledIntervalThrottle = 0;
 
-  this->m_EventWarningLowThrottledIntervalThrottleTime.set(0, 0);
+  this->m_EventWarningLowThrottledIntervalThrottleTime = 0;
 }
 
 ActiveEventsComponentBase ::
@@ -3832,17 +3832,25 @@ void ActiveEventsComponentBase ::
   _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL;
 
   // Check throttle value & throttle timeout
-  if (this->m_EventWarningLowThrottledIntervalThrottle == 0 ||
-      Fw::TimeInterval(this->m_EventWarningLowThrottledIntervalThrottleTime, _logTime) >= Fw::TimeInterval(10, 0)) {
+  FwIndexType count = this->m_EventWarningLowThrottledIntervalThrottle++;
+  U64 throttle_time_us = this->m_EventWarningLowThrottledIntervalThrottleTime.load();
+  if ((count == 0) ||
+      (Fw::TimeInterval(
+         Fw::Time(static_cast<U32>(throttle_time_us / 1000000), static_cast<U32>(throttle_time_us % 1000000)),
+         _logTime
+      ) >= Fw::TimeInterval(10, 0))
+    ) {
     // Reset the throttle count & timeout
-    this->m_EventWarningLowThrottledIntervalThrottleTime = _logTime;
+    this->m_EventWarningLowThrottledIntervalThrottleTime = (
+      (static_cast<U64>(_logTime.getSeconds()) * 1000000) +
+      static_cast<U64>(_logTime.getUSeconds())
+    );
     this->m_EventWarningLowThrottledIntervalThrottle = 1;
   }
-  else if (this->m_EventWarningLowThrottledIntervalThrottle >= EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL_THROTTLE) {
+  else if (count >= EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL_THROTTLE) {
+    // Throttle this event
+    this->m_EventWarningLowThrottledIntervalThrottle--;
     return;
-  }
-  else {
-    (void) this->m_EventWarningLowThrottledIntervalThrottle.fetch_add(1);
   }
 
   // Emit the event on the log port
@@ -3928,7 +3936,7 @@ void ActiveEventsComponentBase ::
   // Reset throttle counter
   this->m_EventWarningLowThrottledIntervalThrottle = 0;
   // Reset throttle timeout
-  this->m_EventWarningLowThrottledIntervalThrottleTime.set(0, 0);
+  this->m_EventWarningLowThrottledIntervalThrottleTime = 0;
 }
 
 // ----------------------------------------------------------------------

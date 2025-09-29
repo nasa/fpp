@@ -73,8 +73,8 @@ case class ComponentEvents (
         intervalThrottledEvents.map((_, event) =>
           linesClassMember(
             Line.blank :: lines(
-              s"""|//! Throttle time for ${event.getName}
-                  |Fw::Time ${eventThrottleTimeName(event.getName)};
+              s"""|//! Throttle time for ${event.getName} (in useconds)
+                  |std::atomic<U64> ${eventThrottleTimeName(event.getName)};
                   |"""
             )
           )
@@ -288,17 +288,25 @@ case class ComponentEvents (
         event.throttle match {
           case Some(Event.Throttle(_, Some(Event.TimeInterval(seconds, useconds)))) => lines(
             s"""|// Check throttle value & throttle timeout
-                |if (this->${eventThrottleCounterName(event.getName)} == 0 ||
-                |    Fw::TimeInterval(this->${eventThrottleTimeName(event.getName)}, _logTime) >= Fw::TimeInterval($seconds, $useconds)) {
+                |FwIndexType count = this->${eventThrottleCounterName(event.getName)}++;
+                |U64 throttle_time_us = this->${eventThrottleTimeName(event.getName)}.load();
+                |if ((count == 0) ||
+                |    (Fw::TimeInterval(
+                |       Fw::Time(static_cast<U32>(throttle_time_us / 1000000), static_cast<U32>(throttle_time_us % 1000000)),
+                |       _logTime
+                |    ) >= Fw::TimeInterval($seconds, $useconds))
+                |  ) {
                 |  // Reset the throttle count & timeout
-                |  this->${eventThrottleTimeName(event.getName)} = _logTime;
+                |  this->${eventThrottleTimeName(event.getName)} = (
+                |    (static_cast<U64>(_logTime.getSeconds()) * 1000000) +
+                |    static_cast<U64>(_logTime.getUSeconds())
+                |  );
                 |  this->${eventThrottleCounterName(event.getName)} = 1;
                 |}
-                |else if (this->${eventThrottleCounterName(event.getName)} >= ${eventThrottleConstantName(event.getName)}) {
+                |else if (count >= ${eventThrottleConstantName(event.getName)}) {
+                |  // Throttle this event
+                |  this->${eventThrottleCounterName(event.getName)}--;
                 |  return;
-                |}
-                |else {
-                |  (void) this->${eventThrottleCounterName(event.getName)}.fetch_add(1);
                 |}
                 |"""
           )
@@ -357,7 +365,7 @@ case class ComponentEvents (
             if event.throttle.get.every.isDefined
             then lines(
               s"""|// Reset throttle timeout
-                  |this->${eventThrottleTimeName(event.getName)}.set(0, 0);
+                  |this->${eventThrottleTimeName(event.getName)} = 0;
                   |"""
             ) else Nil
           ).flatten

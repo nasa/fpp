@@ -1866,8 +1866,8 @@ class QueuedEventsComponentBase :
     //! Throttle for EventWarningLowThrottledInterval
     std::atomic<FwIndexType> m_EventWarningLowThrottledIntervalThrottle;
 
-    //! Throttle time for EventWarningLowThrottledInterval
-    Fw::Time m_EventWarningLowThrottledIntervalThrottleTime;
+    //! Throttle time for EventWarningLowThrottledInterval (in useconds)
+    std::atomic<U64> m_EventWarningLowThrottledIntervalThrottleTime;
 
   private:
 
