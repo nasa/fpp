@@ -61,7 +61,7 @@ case class ComponentEvents (
       "private",
       "Counter values for event throttling",
       List.concat(
-        throttledEvents.map((_, event) =>
+        throttledEventsNoTimeout.map((_, event) =>
           linesClassMember(
             Line.blank :: lines(
               s"""|//! Throttle for ${event.getName}
@@ -70,34 +70,17 @@ case class ComponentEvents (
             )
           )
         ),
-        if intervalThrottledEvents.length > 0 then
-          List(
-            linesClassMember(
-              Line.blank :: lines(
-                s"""|//! Wrapper struct for atomic Fw::Time
-                    |struct TimeWrapper {
-                    |  TimeWrapper() : seconds(0), useconds(0) {}
-                    |
-                    |  TimeWrapper(const Fw::Time& time)
-                    |    : seconds(time.getSeconds()), useconds(time.getUSeconds()) {}
-                    |
-                    |  Fw::Time toTime() const {
-                    |    return Fw::Time(seconds, useconds);
-                    |  }
-                    |
-                    |private:
-                    |  U32 seconds;
-                    |  U32 useconds;
-                    |};
-                    |"""
-            )
-          ))
-        else Nil,
-        intervalThrottledEvents.map((_, event) =>
+        throttledEventsWithTimeout.map((_, event) =>
           linesClassMember(
             Line.blank :: lines(
-              s"""|//! Throttle time for ${event.getName}
-                  |std::atomic<TimeWrapper> ${eventThrottleTimeName(event.getName)};
+              s"""|//! Throttle for ${event.getName}
+                  |FwIndexType ${eventThrottleCounterName(event.getName)};
+                  |
+                  |//! Throttle time for ${event.getName}
+                  |Fw::Time ${eventThrottleTimeName(event.getName)};
+                  |
+                  |//! Throttle lock for ${event.getName}
+                  |Os::Mutex ${eventThrottleLockName(event.getName)};
                   |"""
             )
           )
@@ -289,7 +272,7 @@ case class ComponentEvents (
                 |  return;
                 |}
                 |else {
-                |  (void) this->${eventThrottleCounterName(event.getName)}.fetch_add(1);
+                |  this->${eventThrottleCounterName(event.getName)}++;
                 |}
                 |"""
           )
@@ -311,23 +294,21 @@ case class ComponentEvents (
         event.throttle match {
           case Some(Event.Throttle(_, Some(Event.TimeInterval(seconds, useconds)))) => lines(
             s"""|// Check throttle value & throttle timeout
-                |FwIndexType last_counter = this->${eventThrottleCounterName(event.getName)}.load();
-                |if (last_counter >= ${eventThrottleConstantName(event.getName)}) {
-                |  // The counter has overflown, check if time interval has passed
-                |  Fw::Time last_throttle = this->${eventThrottleTimeName(event.getName)}.load().toTime();
-                |  if (Fw::TimeInterval(last_throttle, _logTime) >= Fw::TimeInterval($seconds, $useconds)) {
-                |    // Reset the count (lockless)
-                |    this->${eventThrottleCounterName(event.getName)}.compare_exchange_strong(last_counter, 0);
+                |{
+                |  Os::ScopeLock lock(this->${eventThrottleLockName(event.getName)});
+                |  if (this->${eventThrottleCounterName(event.getName)} < ${eventThrottleConstantName(event.getName)}) {
+                |    if (this->${eventThrottleCounterName(event.getName)} == 0) {
+                |      // First event, initialize the start time
+                |      this->${eventThrottleTimeName(event.getName)} = _logTime;
+                |    }
+                |    this->${eventThrottleCounterName(event.getName)}++;
+                |  } else if (Fw::TimeInterval(this->${eventThrottleTimeName(event.getName)}, _logTime) >= Fw::TimeInterval($seconds, $useconds)) {
+                |    // Interval has elapsed, reset the throttle
+                |    this->${eventThrottleTimeName(event.getName)} = _logTime;
+                |    this->${eventThrottleCounterName(event.getName)} = 1;
                 |  } else {
-                |    // Throttle the event
                 |    return;
                 |  }
-                |}
-                |
-                |last_counter = this->${eventThrottleCounterName(event.getName)}++;
-                |if (last_counter == 0) {
-                |  // This is the first event since the counter was reset
-                |  this->${eventThrottleTimeName(event.getName)} = TimeWrapper(_logTime);
                 |}
                 |"""
           )
@@ -371,25 +352,40 @@ case class ComponentEvents (
     addAccessTagAndComment(
       "protected",
       "Event throttle reset functions",
-      throttledEvents.map((_, event) =>
-        functionClassMember(
-          Some(s"Reset throttle value for ${event.getName}"),
-          eventThrottleResetName(event),
-          Nil,
-          CppDoc.Type("void"),
-          List(
-            lines(
-              s"""|// Reset throttle counter
-                  |this->${eventThrottleCounterName(event.getName)} = 0;
-                  |"""
-            ),
-            if event.throttle.get.every.isDefined
-            then lines(
-              s"""|// Reset throttle timeout
-                  |this->${eventThrottleTimeName(event.getName)} = TimeWrapper();
-                  |"""
-            ) else Nil
-          ).flatten
+      List.concat(
+        throttledEventsNoTimeout.map((_, event) =>
+          functionClassMember(
+            Some(s"Reset throttle value for ${event.getName}"),
+            eventThrottleResetName(event),
+            Nil,
+            CppDoc.Type("void"),
+            List(
+              lines(
+                s"""|// Reset throttle counter
+                    |this->${eventThrottleCounterName(event.getName)} = 0;
+                    |"""
+              )
+            ).flatten
+          )
+        ),
+        throttledEventsWithTimeout.map((_, event) =>
+          functionClassMember(
+            Some(s"Reset throttle value for ${event.getName}"),
+            eventThrottleResetName(event),
+            Nil,
+            CppDoc.Type("void"),
+            List(
+              lines(
+                s"""|// Reset throttle counter
+                    |{
+                    |  Os::ScopeLock lock(this->${eventThrottleLockName(event.getName)});
+                    |  this->${eventThrottleCounterName(event.getName)} = 0;
+                    |  this->${eventThrottleTimeName(event.getName)} = Fw::Time(0, 0);
+                    |}
+                    |"""
+              )
+            ).flatten
+          )
         )
       )
     )

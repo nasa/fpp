@@ -2580,26 +2580,13 @@ class PassiveTestComponentBase :
     std::atomic<FwIndexType> m_EventWarningLowThrottledThrottle;
 
     //! Throttle for EventWarningLowThrottledInterval
-    std::atomic<FwIndexType> m_EventWarningLowThrottledIntervalThrottle;
-
-    //! Wrapper struct for atomic Fw::Time
-    struct TimeWrapper {
-      TimeWrapper() : seconds(0), useconds(0) {}
-
-      TimeWrapper(const Fw::Time& time)
-        : seconds(time.getSeconds()), useconds(time.getUSeconds()) {}
-
-      Fw::Time toTime() const {
-        return Fw::Time(seconds, useconds);
-      }
-
-    private:
-      U32 seconds;
-      U32 useconds;
-    };
+    FwIndexType m_EventWarningLowThrottledIntervalThrottle;
 
     //! Throttle time for EventWarningLowThrottledInterval
-    std::atomic<TimeWrapper> m_EventWarningLowThrottledIntervalThrottleTime;
+    Fw::Time m_EventWarningLowThrottledIntervalThrottleTime;
+
+    //! Throttle lock for EventWarningLowThrottledInterval
+    Os::Mutex m_EventWarningLowThrottledIntervalThrottleLock;
 
   private:
 

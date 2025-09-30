@@ -202,8 +202,16 @@ abstract class ComponentCppWriterUtils(
     }
   )
 
-  /** List of throttled events */
-  val intervalThrottledEvents: List[(Event.Id, Event)] = sortedEvents.filter((_, event) =>
+  /** List of throttled events no timeout */
+  val throttledEventsNoTimeout: List[(Event.Id, Event)] = sortedEvents.filter((_, event) =>
+    event.throttle match {
+      case Some(Event.Throttle(_, None)) => true
+      case _ => false
+    }
+  )
+
+  /** List of throttled events with finite timeout intervals */
+  val throttledEventsWithTimeout: List[(Event.Id, Event)] = sortedEvents.filter((_, event) =>
     event.throttle match {
       case Some(Event.Throttle(_, Some(_))) => true
       case _ => false
@@ -826,6 +834,10 @@ abstract class ComponentCppWriterUtils(
   /** Get the name for an event throttle timeout interval variable */
   def eventThrottleTimeName(name: String) =
     s"m_${name}ThrottleTime"
+
+  /** Get the name for an event throttle lock variable */
+  def eventThrottleLockName(name: String) =
+    s"m_${name}ThrottleLock"
 
   /** Get the name for an event ID constant */
   def eventIdConstantName(name: String) =
