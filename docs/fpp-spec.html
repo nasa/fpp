@@ -567,6 +567,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions_Framework-Definitions_Type-Definitions">5.15.2. Type Definitions</a></li>
 </ul>
 </li>
+<li><a href="#Definitions_Dictionary-Definitions">5.16. Dictionary Definitions</a>
+<ul class="sectlevel3">
+<li><a href="#Definitions_Dictionary-Definitions_Semantics">5.16.1. Semantics</a></li>
+<li><a href="#Definitions_Dictionary-Definitions_Examples">5.16.2. Examples</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#State-Machine-Behavior-Elements">6. State Machine Behavior Elements</a>
@@ -1177,6 +1183,7 @@ container
 cpu
 default
 diagnostic
+dictionary
 do
 drop
 else
@@ -1704,7 +1711,10 @@ that is defined elsewhere.</p>
 <div class="sect3">
 <h4 id="Definitions_Alias-Type-Definitions_Syntax">5.2.1. Syntax</h4>
 <div class="paragraph">
-<p><code>type</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> = <a href="#Type-Names"><em>type-name</em></a></p>
+<p><em>[</em>
+<code>dictionary</code>
+<em>]</em>
+<code>type</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> = <a href="#Type-Names"><em>type-name</em></a></p>
 </div>
 </div>
 <div class="sect3">
@@ -1715,6 +1725,11 @@ The definition associates the name <em>N</em> with
 the type <em>T</em> specified after the <code>=</code> symbol.
 Elsewhere in the model, the name <em>N</em> may be used as alias of (i.e., an
 alternate name for) the type <em>T</em>.</p>
+</div>
+<div class="paragraph">
+<p>If the optional <code>dictionary</code> keyword is present, then the
+definition must conform to the rules stated in the
+<a href="#Definitions_Dictionary-Definitions">dictionary definitions</a> section.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1742,7 +1757,10 @@ it.</p>
 <div class="sect3">
 <h4 id="Definitions_Array-Definitions_Syntax">5.3.1. Syntax</h4>
 <div class="paragraph">
-<p><code>array</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>=</code>
+<p><em>[</em>
+<code>dictionary</code>
+<em>]</em>
+<code>array</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>=</code>
 <code>[</code> <a href="#Expressions"><em>expression</em></a> <code>]</code> <a href="#Type-Names"><em>type-name</em></a>
 <em>[</em>
 <code>default</code> <a href="#Expressions"><em>expression</em></a>
@@ -1762,9 +1780,7 @@ whose value is greater than zero.
 </div>
 <div class="paragraph">
 <p>The definition associates the name <em>N</em> with a new type <em>T'</em>
-that represents an array of <em>n</em> elements of type <em>T</em>.
-The value <em>n</em> is called the <strong>size</strong> of the array type <em>T'</em>.
-The type <em>T</em> is called the <strong>element type</strong> of the array type <em>T'</em>.</p>
+that represents an array of <em>n</em> elements of type <em>T</em>.</p>
 </div>
 <div class="paragraph">
 <p>The expression following the keyword <code>default</code> is optional.
@@ -1777,6 +1793,11 @@ The type of the expression must be
 <p>The optional format specifier specifies a <a href="#Format-Strings">format string</a>.
 When displaying the array, the format is applied to each element of the array.
 There is one argument to the format string, which is an array member.</p>
+</div>
+<div class="paragraph">
+<p>If the optional <code>dictionary</code> keyword is present, then the
+definition must conform to the rules stated in the
+<a href="#Definitions_Dictionary-Definitions">dictionary definitions</a> section.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2511,7 +2532,10 @@ model.</p>
 <div class="sect3">
 <h4 id="Definitions_Constant-Definitions_Syntax">5.6.1. Syntax</h4>
 <div class="paragraph">
-<p><code>constant</code>
+<p><em>[</em>
+<code>dictionary</code>
+<em>]</em>
+<code>constant</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>=</code>
 <a href="#Expressions"><em>expression</em></a></p>
@@ -2527,6 +2551,11 @@ to a compile-time constant value <em>v</em>. At any model point where the
 the constant definition according to the
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">scoping
 rules for names</a>, you can use <em>Q</em> as a name for <em>v</em>.</p>
+</div>
+<div class="paragraph">
+<p>If the optional <code>dictionary</code> keyword is present, then the
+definition must conform to the rules stated in the
+<a href="#Definitions_Dictionary-Definitions">dictionary definitions</a> section.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2566,7 +2595,10 @@ constants.</p>
 <div class="sect3">
 <h4 id="Definitions_Enum-Definitions_Syntax">5.7.1. Syntax</h4>
 <div class="paragraph">
-<p><code>enum</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<p><em>[</em>
+<code>dictionary</code>
+<em>]</em>
+<code>enum</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>[</em> <code>:</code> <a href="#Type-Names"><em>type-name</em></a> <em>]</em>
 <code>{</code> <em>enum-constant-sequence</em> <code>}</code>
 <em>[</em>
@@ -2603,6 +2635,11 @@ No two enumerated constants may have the same value after the conversion.</p>
 If present, it specifies the <a href="#Types_Default-Values">default value</a> associated
 with the enum definition.
 The type of the expression must be the type of the enum definition.</p>
+</div>
+<div class="paragraph">
+<p>If the optional <code>dictionary</code> keyword is present, then the
+definition must conform to the rules stated in the
+<a href="#Definitions_Dictionary-Definitions">dictionary definitions</a> section.</p>
 </div>
 </div>
 <div class="sect3">
@@ -3466,7 +3503,10 @@ with it.</p>
 <div class="sect3">
 <h4 id="Definitions_Struct-Definitions_Syntax">5.13.1. Syntax</h4>
 <div class="paragraph">
-<p><code>struct</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<p><em>[</em>
+<code>dictionary</code>
+<em>]</em>
+<code>struct</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>{</code> <em>struct-type-member-sequence</em> <code>}</code>
 <em>[</em> <code>default</code> <a href="#Expressions"><em>expression</em></a> <em>]</em></p>
 </div>
@@ -3523,6 +3563,11 @@ The type of the expression must be
 <a href="#Type-Checking_Type-Conversion">convertible to</a> <em>T</em>.
 If the expression specifies a value for a member with size
 greater than one, then the value is applied to each element.</p>
+</div>
+<div class="paragraph">
+<p>If the optional <code>dictionary</code> keyword is present, then the
+definition must conform to the rules stated in the
+<a href="#Definitions_Dictionary-Definitions">dictionary definitions</a> section.</p>
 </div>
 </div>
 <div class="sect3">
@@ -4329,6 +4374,53 @@ to the following rules.</p>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Definitions_Dictionary-Definitions">5.16. Dictionary Definitions</h3>
+<div class="paragraph">
+<p>If a type definition or a constant definition has the optional
+<code>dictionary</code> keyword, then it is called a <strong>dictionary definition</strong>.</p>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Dictionary-Definitions_Semantics">5.16.1. Semantics</h4>
+<div class="paragraph">
+<p>Type definitions that are included in the dictionary must be
+<a href="#Types_Displayable-Types">displayable</a>.</p>
+</div>
+<div class="paragraph">
+<p>Constants that are included in the dictionary must be one of
+the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <a href="#Types_Primitive-Integer-Types">primitive integer type</a>.</p>
+</li>
+<li>
+<p>A <a href="#Types_Floating-Point-Types">floating-point type</a>.</p>
+</li>
+<li>
+<p>A <a href="#Types_The-Boolean-Type">boolean type</a>.</p>
+</li>
+<li>
+<p>A <a href="#Types_String-Types">string type</a>.</p>
+</li>
+<li>
+<p>An <a href="#Types_Enum-Types">enum type</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Dictionary-Definitions_Examples">5.16.2. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">dictionary type T = U32
+dictionary array A = [3] string
+dictionary constant a = 0</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -6507,7 +6599,11 @@ of a <a href="#Definitions">definition</a>.</p>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 <li>
-<p>A <strong>constant location specifier</strong> <code>locate</code> <code>constant</code>
+<p>A <strong>constant location specifier</strong> <code>locate</code>
+<em>[</em>
+<code>dictionary</code>
+<em>]</em>
+<code>constant</code>
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
@@ -6527,11 +6623,19 @@ of a <a href="#Definitions">definition</a>.</p>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 <li>
-<p>A <strong>type location specifier</strong> <code>locate</code> <code>type</code>
+<p>A <strong>type location specifier</strong> <code>locate</code>
+<em>[</em>
+<code>dictionary</code>
+<em>]</em>
+<code>type</code>
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>A location specifier for a constant or type with the
+<code>dictionary</code> keyword is called a <strong>dictionary specifier</strong>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -6605,6 +6709,11 @@ location specifier.</p>
 <p>Multiple location specifiers for the same definition are allowed in a single
 <a href="#Translation-Units-and-Models_Models">model</a>, so long as the locations are all
 consistent.</p>
+</li>
+<li>
+<p>If a location specifier is a dictionary specifier and if <em>Q</em> refers to
+a constant or type definition, then the definition must be a
+<a href="#Definitions_Dictionary-Definitions">dictionary definition</a>.</p>
 </li>
 </ol>
 </div>
@@ -11821,7 +11930,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-09-29 08:20:16 -0700
+Last updated 2025-09-30 11:19:46 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

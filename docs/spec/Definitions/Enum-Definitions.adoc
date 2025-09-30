@@ -16,6 +16,9 @@ constants.
 
 ==== Syntax
 
+_[_
+`dictionary`
+_]_
 `enum` <<Lexical-Elements_Identifiers,_identifier_>>
 _[_ `:` <<Type-Names,_type-name_>> _]_
 `{` _enum-constant-sequence_ `}`
@@ -48,6 +51,10 @@ The expression following the keyword `default` is optional.
 If present, it specifies the <<Types_Default-Values,default value>> associated
 with the enum definition.
 The type of the expression must be the type of the enum definition.
+
+If the optional `dictionary` keyword is present, then the
+definition must conform to the rules stated in the 
+<<Definitions_Dictionary-Definitions,dictionary definitions>> section.
 
 ==== Inferred Representation Type
 
