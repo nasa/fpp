@@ -16,7 +16,11 @@ A location specifier is one of the following:
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
 
-* A *constant location specifier* `locate` `constant`
+* A *constant location specifier* `locate` 
+_[_
+`dictionary`
+_]_ 
+`constant`
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
 
@@ -32,9 +36,16 @@ A location specifier is one of the following:
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
 
-* A *type location specifier* `locate` `type`
+* A *type location specifier* `locate`
+_[_
+`dictionary`
+_]_
+`type`
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
+
+A location specifier for a constant or type with the
+`dictionary` keyword is called a *dictionary specifier*.
 
 ==== Semantics
 
@@ -89,6 +100,10 @@ location specifier.
 . Multiple location specifiers for the same definition are allowed in a single
 <<Translation-Units-and-Models_Models,model>>, so long as the locations are all
 consistent.
+
+. If a location specifier is a dictionary specifier and if _Q_ refers to 
+a constant or type definition, then the definition must be a
+<<Definitions_Dictionary-Definitions,dictionary definition>>.
 
 ==== Examples
 

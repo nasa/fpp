@@ -1,0 +1,27 @@
+=== Dictionary Definitions
+
+If a type definition or a constant definition has the optional 
+`dictionary` keyword, then it is called a *dictionary definition*.
+
+==== Semantics
+
+Type definitions that are included in the dictionary must be
+<<Types_Displayable-Types, displayable>>.
+
+Constants that are included in the dictionary must be one of
+the following:
+
+* A <<Types_Primitive-Integer-Types,primitive integer type>>.
+* A <<Types_Floating-Point-Types,floating-point type>>.
+* A <<Types_The-Boolean-Type,boolean type>>.
+* A <<Types_String-Types,string type>>.
+* An <<Types_Enum-Types,enum type>>.
+
+==== Examples
+
+[source,fpp]
+----
+dictionary type T = U32
+dictionary array A = [3] string
+dictionary constant a = 0
+----

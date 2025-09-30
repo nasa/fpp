@@ -28,6 +28,7 @@ syn keyword fppKeyword container
 syn keyword fppKeyword cpu
 syn keyword fppKeyword default
 syn keyword fppKeyword diagnostic
+syn keyword fppKeyword dictionary
 syn keyword fppKeyword do
 syn keyword fppKeyword drop
 syn keyword fppKeyword else
