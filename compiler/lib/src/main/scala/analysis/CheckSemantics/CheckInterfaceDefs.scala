@@ -14,14 +14,29 @@ object CheckInterfaceDefs
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefInterface]]
   ) = {
-    val a1 = a.copy(interface = Some(Interface(aNode)))
-    for {
-      a <- super.defInterfaceAnnotatedNode(a1, aNode)
+    val symbol = Symbol.Interface(aNode)
+    a.interfaceMap.get(symbol) match {
+      case None =>
+        // Interface is not in the map: visit it
+        val a1 = a.copy(interface = Some(Interface(aNode)))
+        for {
+          a <- super.defInterfaceAnnotatedNode(a1, aNode)
+          iface <- Right(a.interface.get)
+          a <- {
+            // Resolve interfaces directly imported by iface, updating a
+            val ifaces = iface.directImportMap.toList
+            Result.foldLeft (ifaces) (a) ((a, tl) => {
+              defInterfaceAnnotatedNode(a, tl._1.node)
+            })
+          }
+          // Use the updated analysis to resolve iface
+          iface <- ResolveInterface.resolve(a, iface)
+        } yield a.copy(interfaceMap = a.interfaceMap + (symbol -> iface))
+      
+      // Interface is already in the map: nothing to do
+      case _ => Right(a)
     }
-    yield {
-      val symbol = Symbol.Interface(aNode)
-      a.copy(interfaceMap = a.interfaceMap + (symbol -> a.interface.get))
-    }
+
   }
 
   override def specPortInstanceAnnotatedNode(
@@ -42,8 +57,8 @@ object CheckInterfaceDefs
     val node = aNode._2
     val ifaceNode = node.data.sym
     for {
-      iface <- a.getInterface(ifaceNode.id)
-      i <- a.interface.get.addImportedInterface(
+      iface <- a.getInterfaceSymbol(ifaceNode.id)
+      i <- a.interface.get.addImportedInterfaceSymbol(
         iface,
         node.id,
       )

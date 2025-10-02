@@ -7,6 +7,8 @@ import fpp.compiler.util.*
 case class Interface(
   /** The AST node defining the component */
   aNode: Ast.Annotated[AstNode[Ast.DefInterface]],
+  /** The directly imported topologies */
+  directImportMap: Map[Symbol.Interface, (AstNode.Id, Location)] = Map(),
   /** The map from port names to port instances */
   portMap: Map[Name.Unqualified, PortInstance] = Map(),
   /** The map from special port kinds to special port instances */
@@ -19,4 +21,21 @@ case class Interface(
     newSpecialPortMap: Map[Ast.SpecPortInstance.SpecialKind, PortInstance.Special]
   ): Interface = this.copy(specialPortMap = newSpecialPortMap)
 
+  def addImportedInterfaceSymbol(
+    symbol: Symbol.Interface,
+    importNodeId: AstNode.Id
+  ): Result.Result[Interface] = {
+    directImportMap.get(symbol) match {
+      case Some((_, prevLoc)) => Left(
+        SemanticError.DuplicateInterface(
+          symbol.getUnqualifiedName,
+          Locations.get(importNodeId),
+          prevLoc
+        )
+      )
+      case None =>
+        val map = directImportMap + (symbol -> (importNodeId, Locations.get(importNodeId)))
+        Right(this.copy(directImportMap = map))
+    }
+  }
 }
