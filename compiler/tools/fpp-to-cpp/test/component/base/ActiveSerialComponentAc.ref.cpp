@@ -2329,6 +2329,9 @@ ActiveSerialComponentBase ::
   this->m_EventActivityLowThrottledThrottle = 0;
   this->m_EventFatalThrottledThrottle = 0;
   this->m_EventWarningLowThrottledThrottle = 0;
+  this->m_EventWarningLowThrottledIntervalThrottle = 0;
+
+  this->m_EventWarningLowThrottledIntervalThrottleTime = TimeWrapper();
 
   this->m_param_ParamU32_valid = Fw::ParamValid::UNINIT;
   this->m_param_ParamF64_valid = Fw::ParamValid::UNINIT;
@@ -5756,7 +5759,7 @@ void ActiveSerialComponentBase ::
     return;
   }
   else {
-    (void) this->m_EventActivityLowThrottledThrottle.fetch_add(1);
+    this->m_EventActivityLowThrottledThrottle++;
   }
 
   // Get the time
@@ -6047,7 +6050,7 @@ void ActiveSerialComponentBase ::
     return;
   }
   else {
-    (void) this->m_EventFatalThrottledThrottle.fetch_add(1);
+    this->m_EventFatalThrottledThrottle++;
   }
 
   // Get the time
@@ -6238,7 +6241,7 @@ void ActiveSerialComponentBase ::
     return;
   }
   else {
-    (void) this->m_EventWarningLowThrottledThrottle.fetch_add(1);
+    this->m_EventWarningLowThrottledThrottle++;
   }
 
   // Get the time
@@ -6303,6 +6306,90 @@ void ActiveSerialComponentBase ::
 #endif
 }
 
+void ActiveSerialComponentBase ::
+  log_WARNING_LO_EventWarningLowThrottledInterval()
+{
+  // Get the time
+  Fw::Time _logTime;
+  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  }
+
+  FwEventIdType _id = static_cast<FwEventIdType>(0);
+
+  _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL;
+
+  // Check throttle value & throttle timeout
+  FwIndexType last_counter = this->m_EventWarningLowThrottledIntervalThrottle.load();
+  if (last_counter >= EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL_THROTTLE) {
+    // The counter has overflowed, check if time interval has passed
+    Fw::Time last_throttle = this->m_EventWarningLowThrottledIntervalThrottleTime.load().toTime();
+    if (Fw::TimeInterval(last_throttle, _logTime) >= Fw::TimeInterval(10, 0)) {
+      // Reset the count (lockless)
+      (void) this->m_EventWarningLowThrottledIntervalThrottle.compare_exchange_strong(last_counter, 0);
+    } else {
+      // Throttle the event
+      return;
+    }
+  }
+
+  // Increment the throttle count, reset the throttle time if this is the first event
+  if ((this->m_EventWarningLowThrottledIntervalThrottle++) == 0) {
+    this->m_EventWarningLowThrottledIntervalThrottleTime = TimeWrapper(_logTime);
+  }
+
+  // Emit the event on the log port
+  if (this->m_eventOut_OutputPort[0].isConnected()) {
+    Fw::LogBuffer _logBuff;
+
+#if FW_AMPCS_COMPATIBLE
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+    // Serialize the number of arguments
+    _status = _logBuff.serializeFrom(static_cast<U8>(0));
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+
+    this->m_eventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::WARNING_LO,
+      _logBuff
+    );
+  }
+
+  // Emit the event on the text log port
+#if FW_ENABLE_TEXT_LOGGING
+  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+#if FW_OBJECT_NAMES == 1
+    const char* _formatString =
+      "(%s) %s: Event Warning Low occurred";
+#else
+    const char* _formatString =
+      "%s: Event Warning Low occurred";
+#endif
+
+    Fw::TextLogString _logString;
+    _logString.format(
+      _formatString,
+#if FW_OBJECT_NAMES == 1
+      this->m_objName.toChar(),
+#endif
+      "EventWarningLowThrottledInterval "
+    );
+
+    this->m_textEventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::WARNING_LO,
+      _logString
+    );
+  }
+#endif
+}
+
 // ----------------------------------------------------------------------
 // Event throttle reset functions
 // ----------------------------------------------------------------------
@@ -6326,6 +6413,16 @@ void ActiveSerialComponentBase ::
 {
   // Reset throttle counter
   this->m_EventWarningLowThrottledThrottle = 0;
+}
+
+void ActiveSerialComponentBase ::
+  log_WARNING_LO_EventWarningLowThrottledInterval_ThrottleClear()
+{
+  // Reset throttle counter
+  this->m_EventWarningLowThrottledIntervalThrottle = 0;
+
+  // Reset the throttle time
+  this->m_EventWarningLowThrottledIntervalThrottleTime = TimeWrapper();
 }
 
 // ----------------------------------------------------------------------

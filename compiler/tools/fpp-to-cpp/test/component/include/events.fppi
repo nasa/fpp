@@ -54,3 +54,10 @@ event EventWarningLowThrottled \
   severity warning low \
   format "Event Warning Low occurred" \
   throttle 10
+
+@ A warning low, throttled event and timeout interval with no params
+event EventWarningLowThrottledInterval \
+  severity warning low \
+  format "Event Warning Low occurred" \
+  throttle 10 \
+  every {seconds=10}

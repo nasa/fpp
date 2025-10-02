@@ -60,12 +60,46 @@ case class ComponentEvents (
     addAccessTagAndComment(
       "private",
       "Counter values for event throttling",
-      throttledEvents.map((_, event) =>
-        linesClassMember(
-          Line.blank :: lines(
-            s"""|//! Throttle for ${event.getName}
-                |std::atomic<FwIndexType> ${eventThrottleCounterName(event.getName)};
-                |"""
+      List.concat(
+        throttledEvents.map((_, event) =>
+          linesClassMember(
+            Line.blank :: lines(
+              s"""|//! Throttle for ${event.getName}
+                  |std::atomic<FwIndexType> ${eventThrottleCounterName(event.getName)};
+                  |"""
+            )
+          )
+        ),
+        if !throttledEventsWithTimeout.isEmpty then
+          List(
+            linesClassMember(
+              Line.blank :: lines(
+                s"""|//! Wrapper struct for atomic Fw::Time
+                    |struct TimeWrapper {
+                    |  TimeWrapper() : seconds(0), useconds(0) {}
+                    |
+                    |  TimeWrapper(const Fw::Time& time)
+                    |    : seconds(time.getSeconds()), useconds(time.getUSeconds()) {}
+                    |
+                    |  Fw::Time toTime() const {
+                    |    return Fw::Time(seconds, useconds);
+                    |  }
+                    |
+                    |private:
+                    |  U32 seconds;
+                    |  U32 useconds;
+                    |};
+                    |"""
+            )
+          ))
+        else Nil,
+        throttledEventsWithTimeout.map((_, event) =>
+          linesClassMember(
+            Line.blank :: lines(
+              s"""|//! Throttle time for ${event.getName}
+                  |std::atomic<TimeWrapper> ${eventThrottleTimeName(event.getName)};
+                  |"""
+            )
           )
         )
       ),
@@ -246,18 +280,20 @@ case class ComponentEvents (
     )
     def writeBody(id: Event.Id, event: Event) = intersperseBlankLines(
       List(
+        // Hard throttle counter can be checked immediately
+        // We don't need to get time
         event.throttle match {
-          case None => Nil
-          case Some(_) => lines(
+          case Some(Event.Throttle(_, None)) => lines(
             s"""|// Check throttle value
                 |if (this->${eventThrottleCounterName(event.getName)} >= ${eventThrottleConstantName(event.getName)}) {
                 |  return;
                 |}
                 |else {
-                |  (void) this->${eventThrottleCounterName(event.getName)}.fetch_add(1);
+                |  this->${eventThrottleCounterName(event.getName)}++;
                 |}
                 |"""
           )
+          case _ => Nil
         },
         lines(
           s"""|// Get the time
@@ -271,6 +307,31 @@ case class ComponentEvents (
               |_id = this->getIdBase() + ${eventIdConstantName(event.getName)};
               |"""
         ),
+        // Time based throttle timeout needs above time
+        event.throttle match {
+          case Some(Event.Throttle(_, Some(Event.TimeInterval(seconds, useconds)))) => lines(
+            s"""|// Check throttle value & throttle timeout
+                |FwIndexType last_counter = this->${eventThrottleCounterName(event.getName)}.load();
+                |if (last_counter >= ${eventThrottleConstantName(event.getName)}) {
+                |  // The counter has overflowed, check if time interval has passed
+                |  Fw::Time last_throttle = this->${eventThrottleTimeName(event.getName)}.load().toTime();
+                |  if (Fw::TimeInterval(last_throttle, _logTime) >= Fw::TimeInterval($seconds, $useconds)) {
+                |    // Reset the count (lockless)
+                |    (void) this->${eventThrottleCounterName(event.getName)}.compare_exchange_strong(last_counter, 0);
+                |  } else {
+                |    // Throttle the event
+                |    return;
+                |  }
+                |}
+                |
+                |// Increment the throttle count, reset the throttle time if this is the first event
+                |if ((this->${eventThrottleCounterName(event.getName)}++) == 0) {
+                |  this->${eventThrottleTimeName(event.getName)} = TimeWrapper(_logTime);
+                |}
+                |"""
+          )
+          case _ => Nil
+        },
         writeLogBody(id, event),
         writeTextLogBody(event)
       )
@@ -309,16 +370,38 @@ case class ComponentEvents (
     addAccessTagAndComment(
       "protected",
       "Event throttle reset functions",
-      throttledEvents.map((_, event) =>
-        functionClassMember(
-          Some(s"Reset throttle value for ${event.getName}"),
-          eventThrottleResetName(event),
-          Nil,
-          CppDoc.Type("void"),
-          lines(
-            s"""|// Reset throttle counter
-                |this->${eventThrottleCounterName(event.getName)} = 0;
-                |"""
+      List.concat(
+        throttledEventsNoTimeout.map((_, event) =>
+          functionClassMember(
+            Some(s"Reset throttle value for ${event.getName}"),
+            eventThrottleResetName(event),
+            Nil,
+            CppDoc.Type("void"),
+            List(
+              lines(
+                s"""|// Reset throttle counter
+                    |this->${eventThrottleCounterName(event.getName)} = 0;
+                    |"""
+              )
+            ).flatten
+          )
+        ),
+        throttledEventsWithTimeout.map((_, event) =>
+          functionClassMember(
+            Some(s"Reset throttle value for ${event.getName}"),
+            eventThrottleResetName(event),
+            Nil,
+            CppDoc.Type("void"),
+            List(
+              lines(
+                s"""|// Reset throttle counter
+                    |this->${eventThrottleCounterName(event.getName)} = 0;
+                    |
+                    |// Reset the throttle time
+                    |this->${eventThrottleTimeName(event.getName)} = TimeWrapper();
+                    |"""
+              )
+            ).flatten
           )
         )
       )
