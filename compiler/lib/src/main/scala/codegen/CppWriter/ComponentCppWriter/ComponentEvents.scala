@@ -313,11 +313,11 @@ case class ComponentEvents (
             s"""|// Check throttle value & throttle timeout
                 |FwIndexType last_counter = this->${eventThrottleCounterName(event.getName)}.load();
                 |if (last_counter >= ${eventThrottleConstantName(event.getName)}) {
-                |  // The counter has overflown, check if time interval has passed
+                |  // The counter has overflowed, check if time interval has passed
                 |  Fw::Time last_throttle = this->${eventThrottleTimeName(event.getName)}.load().toTime();
                 |  if (Fw::TimeInterval(last_throttle, _logTime) >= Fw::TimeInterval($seconds, $useconds)) {
                 |    // Reset the count (lockless)
-                |    this->${eventThrottleCounterName(event.getName)}.compare_exchange_strong(last_counter, 0);
+                |    (void) this->${eventThrottleCounterName(event.getName)}.compare_exchange_strong(last_counter, 0);
                 |  } else {
                 |    // Throttle the event
                 |    return;

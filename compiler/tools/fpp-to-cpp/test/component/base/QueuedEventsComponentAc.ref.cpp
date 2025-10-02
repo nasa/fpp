@@ -3834,11 +3834,11 @@ void QueuedEventsComponentBase ::
   // Check throttle value & throttle timeout
   FwIndexType last_counter = this->m_EventWarningLowThrottledIntervalThrottle.load();
   if (last_counter >= EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL_THROTTLE) {
-    // The counter has overflown, check if time interval has passed
+    // The counter has overflowed, check if time interval has passed
     Fw::Time last_throttle = this->m_EventWarningLowThrottledIntervalThrottleTime.load().toTime();
     if (Fw::TimeInterval(last_throttle, _logTime) >= Fw::TimeInterval(10, 0)) {
       // Reset the count (lockless)
-      this->m_EventWarningLowThrottledIntervalThrottle.compare_exchange_strong(last_counter, 0);
+      (void) this->m_EventWarningLowThrottledIntervalThrottle.compare_exchange_strong(last_counter, 0);
     } else {
       // Throttle the event
       return;
