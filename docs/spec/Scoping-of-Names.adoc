@@ -4,11 +4,19 @@
 
 A *qualified identifier* is one of the following:
 
+1. _Q_
+
+2. `.` _Q_
+
+where _Q_ is one of the following:
+
 1.  An
 <<Lexical-Elements_Identifiers,identifier>>.
 
-2.  _Q_ `.` _I_, where _Q_ is a qualified identifier and _I_ is an
-identifier.
+2.  _Q_ `.` _I_.
+
+A qualified identifier _Q_ is *scope relative*.
+A qualified identifier `.` _Q_ is *absolute*.
 
 Examples:
 
@@ -17,6 +25,7 @@ Examples:
 a
 a.b
 a.b.c
+.a.b.c
 ----
 
 === Names of Definitions
@@ -267,7 +276,12 @@ associating qualified identifiers with definitions:
 stated in the
 <<Scoping-of-Names_Resolution-of-Identifiers,previous section>>.
 
-. Otherwise, the qualified identifier has the form _Q_ `.` _I_, where
+. If a qualified identifier is of the form `.` _I_, then resolve it as
+stated in the
+<<Scoping-of-Names_Resolution-of-Identifiers,previous section>> as if _I_ were
+appearing at the top level.
+
+. If a qualified identifier is of the form _Q_ `.` _I_, where
 _Q_ is a qualified identifier and _I_ is an identifier. Do the
 following:
 
@@ -283,6 +297,7 @@ _I_.
     If there is none, issue an error.
 
 .. Otherwise the qualified identifier is invalid. Issue an error.
+
 
 *Example:*
 
