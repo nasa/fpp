@@ -5,10 +5,10 @@ import fpp.compiler.util.*
 
 /** An FPP interface */
 case class Interface(
-  /** The AST node defining the component */
+  /** The AST node defining the interface */
   aNode: Ast.Annotated[AstNode[Ast.DefInterface]],
-  /** The directly imported topologies */
-  directImportMap: Map[Symbol.Interface, (AstNode.Id, Location)] = Map(),
+  /** The imported interfaces */
+  importMap: Map[Symbol.Interface, (AstNode.Id, Location)] = Map(),
   /** The map from port names to port instances */
   portMap: Map[Name.Unqualified, PortInstance] = Map(),
   /** The map from special port kinds to special port instances */
@@ -25,7 +25,7 @@ case class Interface(
     symbol: Symbol.Interface,
     importNodeId: AstNode.Id
   ): Result.Result[Interface] = {
-    directImportMap.get(symbol) match {
+    importMap.get(symbol) match {
       case Some((_, prevLoc)) => Left(
         SemanticError.DuplicateInterface(
           symbol.getUnqualifiedName,
@@ -34,8 +34,8 @@ case class Interface(
         )
       )
       case None =>
-        val map = directImportMap + (symbol -> (importNodeId, Locations.get(importNodeId)))
-        Right(this.copy(directImportMap = map))
+        val map = importMap + (symbol -> (importNodeId, Locations.get(importNodeId)))
+        Right(this.copy(importMap = map))
     }
   }
 }

@@ -10,7 +10,7 @@ object ResolveInterface {
     def resolveImport(i: Interface, ii: (Symbol.Interface, (AstNode.Id, Location))) =
       i.addImportedInterface(a.interfaceMap(ii._1), ii._2._1)
 
-    Result.foldLeft(List.from(i.directImportMap.iterator)) (i) (resolveImport)
+    Result.foldLeft(List.from(i.importMap)) (i) (resolveImport)
   }
 
 }
