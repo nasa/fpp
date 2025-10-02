@@ -2,7 +2,7 @@
 
 A *template expansion specifier* takes a
 <<Definitions_Module-Template-Definitions,template>> and
-applies a set of values to its <<Template-Parameter-Lists,parameters>>
+applies a set of values to its parameters
 to generate concrete definitions.
 
 === Syntax

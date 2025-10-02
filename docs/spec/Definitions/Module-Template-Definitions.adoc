@@ -16,15 +16,22 @@ _module-member-sequence_
 
 The _identifier_ specifies the name of the template.
 
-_parameter-sequence_ is a
-<<Template-Parameter-Lists,template parameter sequence>> in
-which each element is a *parameter*, and
-the terminating punctuation is a comma.
+_parameter-sequence_ is an
+<<Element-Sequences,element sequence>> in which the
+elements are one of the following and the terminating punctuation
+is a comma:
+
+* `constant` <<Lexical-Elements_Identifiers,_identifier_>> `:` <<Type-Names,_type-name_>>
+* `interface` <<Lexical-Elements_Identifiers,_identifier_>> `:` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+* `type` <<Lexical-Elements_Identifiers,_identifier_>>
 
 _module-member-sequence_ is an
 <<Element-Sequences,element sequence>> in
 which each element is a <<Definitions_Module-Definitions_Syntax,
 module member>>, and the terminating punctuation is a semicolon.
+
+. Note that <<Definitions_Module-Template-Definitions,template definition>> defined
+as members to template definitions will cause an error.
 
 ==== Semantics
 
@@ -35,38 +42,28 @@ are _local_ to that template. This means that the definitions _inside_
 the template definition cannot be refered to from outside the template
 definition.
 
+For each template parameter _P_ in the _parameter-sequence_, the parameter
+names a symbol that can be used inside the template definition.
+
 A template can be expanded through a <<Specifiers_Template-Expansion-Specifiers,
 template expansion specifier>>. When a template is expanded,
 the set of parameters are applied to the template and the newly concrete definitions
 inside the template are placed into the scope of the expansion specifier.
 
-Because a template needs to apply its parameters during instantiation,
-analysis inside a template is limited since parameters are variable and
-therefore a full analysis cannot be performed.
+==== Scoping of Names
 
-A template definition _D_ must be resolvable to a template _T_, according to the
-following algorithm:
+Inside the _module-member-sequence_, the following
+rules govern the assignment of names to definitions and the resolution
+of names in uses.
 
-. Recursively resolve any template definitions inside of _D_.
+. Definitions are _local_ to the template and cannot be referenced from
+outside.
 
-. Check that _parameter-sequence_ does not have any duplicate names.
+. Parameters are local symbols that can be used inside the template
 
-. Perform the following analysis on the inside of the template:
-
-.. Enter symbols. Symbols entered in the template definition will
-not effect analysis outside the template definition.
-
-.. Construct implied use map.
-
-.. Check uses.
-
-.. Check use-definition cycles.
-
-.. Check type uses. All type parameters are assumed to be
-<<Types_Abstract-Types,abstract types>> during this phase of analysis.
-
-.. Check expression types. All type parameters are assumed to be
-<<Types_Abstract-Types,abstract types>> during this phase of analysis.
+. All symbol uses are resolved relative to the template definitions scope
+rather than the <<Specifiers_Template-Expansion-Specifiers,expansion specifiers>>
+scope.
 
 ==== Example
 
