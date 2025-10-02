@@ -24,7 +24,7 @@ object CheckInterfaceDefs
           iface <- Right(a.interface.get)
           a <- {
             // Resolve interfaces directly imported by iface, updating a
-            val ifaces = iface.directImportMap.toList
+            val ifaces = iface.importMap.toList
             Result.foldLeft (ifaces) (a) ((a, tl) => {
               defInterfaceAnnotatedNode(a, tl._1.node)
             })
