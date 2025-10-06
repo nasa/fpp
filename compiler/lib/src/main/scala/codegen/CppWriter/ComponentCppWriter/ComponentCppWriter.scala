@@ -510,21 +510,12 @@ case class ComponentCppWriter (
   }
 
   private def getProtectedComponentFunctionMembers: List[CppDoc.Class.Member] = {
-    def writeChannelInit(channel: TlmChannel) = {
-      List(
-        lines(
-          s"""|// Write telemetry channel ${channel.getName}
-              |this->${channelUpdateFlagName(channel.getName)} = true;
-              |"""
-        ),
-        channel.channelType match {
-          case t if s.isPrimitive(t, writeChannelType(t)) => lines(
-            s"this->${channelStorageName(channel.getName)} = 0;"
-          )
-          case _ => Nil
-        }
-      ).flatten
-    }
+    def writeChannelInit(channel: TlmChannel) = lines(
+      s"""|// Write telemetry channel ${channel.getName}
+          |this->${channelUpdateFlagName(channel.getName)} = true;
+          |this->${channelStorageName(channel.getName)} = {};
+          |"""
+    )
 
     addAccessTagAndComment(
     "protected",
@@ -541,7 +532,7 @@ case class ComponentCppWriter (
             )
           ),
           List(s"Fw::${kindStr}ComponentBase(compName)") :::
-            (if (hasExternalParameters) List("paramDelegatePtr(NULL)") else Nil) :::
+            (if (hasExternalParameters) List("paramDelegatePtr(nullptr)") else Nil) :::
             smInstancesByName.map { (name, smi) =>
               val sm = s.a.stateMachineMap(smi.symbol)
               val hasActionsOrGuards = sm.hasActions || sm.hasGuards
