@@ -18,19 +18,44 @@ object CheckSpecLocs
   override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node, _) = aNode
     val name = node.data.name
-    checkSpecLoc(a, Ast.SpecLoc.Type, name, node)
+    val qualName = a.getQualifiedName(Symbol.Array(aNode))
+    val id = aNode._2.id
+    for {
+      a <- checkSpecLoc(a, Ast.SpecLoc.Type, name, node)
+      a <- checkDictionarySpecLoc(a, Ast.SpecLoc.Type, qualName, id, node.data.isDictionaryDef)
+    } yield a
+  }
+
+  override def defAliasTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]) = {
+    val (_, node, _) = aNode
+    val name = node.data.name
+    val qualName = a.getQualifiedName(Symbol.AliasType(aNode))
+    val id = aNode._2.id
+    for {
+      a <- checkDictionarySpecLoc(a, Ast.SpecLoc.Type, qualName, id, node.data.isDictionaryDef)
+    } yield a
   }
 
   override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
     val (_, node, _) = aNode
     val name = node.data.name
-    checkSpecLoc(a, Ast.SpecLoc.Constant, name, node)
+    val qualName = a.getQualifiedName(Symbol.Constant(aNode))
+    val id = aNode._2.id
+    for {
+      a <- checkSpecLoc(a, Ast.SpecLoc.Constant, name, node)
+      a <- checkDictionarySpecLoc(a, Ast.SpecLoc.Constant, qualName, id, node.data.isDictionaryDef)
+    } yield a
   }
 
   override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node, _) = aNode
     val name = node.data.name
-    checkSpecLoc(a, Ast.SpecLoc.Type, name, node)
+    val qualName = a.getQualifiedName(Symbol.Enum(aNode))
+    val id = aNode._2.id
+    for {
+      a <- checkSpecLoc(a, Ast.SpecLoc.Type, name, node)
+      a <- checkDictionarySpecLoc(a, Ast.SpecLoc.Type, qualName, id, node.data.isDictionaryDef)
+    } yield a
   }
 
   override def defPortAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) = {
@@ -42,7 +67,34 @@ object CheckSpecLocs
   override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     val (_, node, _) = aNode
     val name = node.data.name
-    checkSpecLoc(a, Ast.SpecLoc.Type, name, node)
+    val qualName = a.getQualifiedName(Symbol.Struct(aNode))
+    val id = aNode._2.id
+    for {
+      a <- checkSpecLoc(a, Ast.SpecLoc.Type, name, node)
+      a <- checkDictionarySpecLoc(a, Ast.SpecLoc.Type, qualName, id, node.data.isDictionaryDef)
+    } yield a
+  }
+
+  private def checkDictionarySpecLoc(
+    a: Analysis,
+    kind: Ast.SpecLoc.Kind,
+    name: Name.Qualified,
+    id: AstNode.Id,
+    isDictionary: Boolean
+  ) = {
+    val actualLoc = Locations.get(id)
+    a.locationSpecifierMap.get((kind, name)) match {
+      case Some(specLoc) => {
+        val specifierLoc = Locations.get(specLoc.file.id)
+        if(isDictionary == specLoc.isDictionaryDef) then 
+          Right(a)
+        else
+          Left(
+            SemanticError.IncorrectDictionarySpecLoc(specifierLoc, actualLoc)
+          )
+      }
+      case None => Right(a)
+    }
   }
 
   private def checkSpecLoc[T](

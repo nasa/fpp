@@ -36,7 +36,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    writeSpecLoc(s, Ast.SpecLoc.Type, data.name, node)
+    writeSpecLoc(s, Ast.SpecLoc.Type, data.name, node, data.isDictionaryDef)
   }
 
   override def defArrayAnnotatedNode(
@@ -45,7 +45,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    writeSpecLoc(s, Ast.SpecLoc.Type, data.name, node)
+    writeSpecLoc(s, Ast.SpecLoc.Type, data.name, node, data.isDictionaryDef)
   }
 
   override def defComponentAnnotatedNode(
@@ -92,7 +92,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    writeSpecLoc(s, Ast.SpecLoc.Constant, data.name, node)
+    writeSpecLoc(s, Ast.SpecLoc.Constant, data.name, node, data.isDictionaryDef)
   }
 
   override def defEnumAnnotatedNode(
@@ -101,7 +101,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    writeSpecLoc(s, Ast.SpecLoc.Type, data.name, node)
+    writeSpecLoc(s, Ast.SpecLoc.Type, data.name, node, data.isDictionaryDef)
   }
 
   override def defModuleAnnotatedNode(
@@ -129,7 +129,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    writeSpecLoc(s, Ast.SpecLoc.Type, data.name, node)
+    writeSpecLoc(s, Ast.SpecLoc.Type, data.name, node, data.isDictionaryDef)
   }
 
   override def defTopologyAnnotatedNode(
@@ -148,7 +148,8 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
     s: State,
     kind: Ast.SpecLoc.Kind,
     name: String,
-    node: AstNode[T]
+    node: AstNode[T],
+    isDictionaryDef: Boolean =  false
   ): Out = {
     val loc = Locations.get(node.id).tuLocation
     loc.file match {
@@ -162,7 +163,7 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
         val baseDirPath = java.nio.file.Paths.get(baseDir).toAbsolutePath
         val relativePath = baseDirPath.relativize(path)
         val fileNode = AstNode.create(relativePath.normalize.toString)
-        val specLocNode = AstNode.create(Ast.SpecLoc(kind, qualIdentNode, fileNode))
+        val specLocNode = AstNode.create(Ast.SpecLoc(kind, qualIdentNode, fileNode, dictionary))
         val specLocAnnotatedNode = (Nil, specLocNode, Nil)
         FppWriter.specLocAnnotatedNode((), specLocAnnotatedNode)
       }

@@ -143,10 +143,18 @@ sealed trait Error {
         System.err.println(matchingLoc)
         System.err.println("conflicting connection is here:")
         System.err.println(prevLoc)
-      case SemanticError.InconsistentSpecLoc(loc, path, prevLoc, prevPath) =>
+      case SemanticError.InconsistentSpecLocPath(loc, path, prevLoc, prevPath) =>
         Error.print (Some(loc)) (s"inconsistent location path ${path}")
-        System.err.println(prevLoc)
+        printPrevLoc(prevLoc)
         System.err.println(s"previous path is ${prevPath}")
+      case SemanticError.InconsistentDictionarySpecLoc(loc, prevLoc) =>
+        Error.print (Some(loc)) (s"inconsistent location specifier")
+        printPrevLoc(prevLoc)
+        printNote("one specifies dictionary and one does not")
+      case SemanticError.IncorrectDictionarySpecLoc(loc, actualLoc) =>
+        Error.print (Some(loc)) (s"incorrect location specifier")
+        printPrevLoc(actualLoc)
+        printNote("one specifies dictionary and one does not")
       case SemanticError.IncorrectSpecLoc(loc, specifiedPath, actualLoc) =>
         Error.print (Some(loc)) (s"incorrect location path ${specifiedPath}")
         System.err.println(s"actual location is ${actualLoc}")
@@ -506,11 +514,21 @@ object SemanticError {
     prevLoc: Location
   ) extends Error
   /** Inconsistent location specifiers */
-  final case class InconsistentSpecLoc(
+  final case class InconsistentSpecLocPath(
     loc: Location,
     path: String,
     prevLoc: Location,
     prevPath: String
+  ) extends Error
+  /** Inconsistent dictionary location specifiers */
+  final case class InconsistentDictionarySpecLoc(
+    loc: Location,
+    prevLoc: Location,
+  ) extends Error
+  /** Incorrect dictionary location specifiers */
+  final case class IncorrectDictionarySpecLoc(
+    loc: Location,
+    actualLoc: Location
   ) extends Error
   /** Incorrect location specifiers */
   final case class IncorrectSpecLoc(

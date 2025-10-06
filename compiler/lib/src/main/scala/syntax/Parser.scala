@@ -75,8 +75,9 @@ object Parser extends Parsers {
   }
 
   private def defAliasType: Parser[Ast.DefAliasType] = {
-    ((typeToken ~> ident) ~ (equals ~> node(typeName))) ^^ {
-      case ident ~ typeName => Ast.DefAliasType(ident, typeName)
+    (opt(dictionary) ~ (typeToken ~> ident) ~ (equals ~> node(typeName))) ^^ {
+      case dictionary ~ ident ~ typeName => 
+        Ast.DefAliasType(ident, typeName, dictionary.isDefined)
     }
   }
 
@@ -91,12 +92,12 @@ object Parser extends Parsers {
   }
 
   def defArray: Parser[Ast.DefArray] = {
-    (array ~>! ident <~! equals) ~!
+    opt(dictionary) ~ (array ~>! ident <~! equals) ~!
       index ~! node(typeName) ~!
       opt(default ~>! exprNode) ~!
       opt(format ~>! node(literalString)) ^^ {
-      case name ~ size ~ eltType ~ default ~ format =>
-        Ast.DefArray(name, size, eltType, default, format)
+      case dictionary ~ name ~ size ~ eltType ~ default ~ format =>
+        Ast.DefArray(name, size, eltType, default, format, dictionary.isDefined)
     }
   }
 
@@ -172,8 +173,9 @@ object Parser extends Parsers {
   }
 
   def defConstant: Parser[Ast.DefConstant] = {
-    (constant ~>! ident) ~! (equals ~>! exprNode) ^^ { case id ~ e =>
-      Ast.DefConstant(id, e)
+    opt(dictionary) ~ (constant ~>! ident) ~! (equals ~>! exprNode) ^^ { 
+      case dictionary ~ id ~ e =>
+        Ast.DefConstant(id, e, dictionary.isDefined)
     }
   }
 
@@ -182,12 +184,12 @@ object Parser extends Parsers {
 
     def constants = annotatedElementSequence(node(defEnumConstant), comma, id)
 
-    (enumeration ~>! ident) ~!
+    opt(dictionary) ~ (enumeration ~>! ident) ~!
       opt(colon ~>! node(typeName)) ~!
       (lbrace ~>! constants <~! rbrace) ~!
       opt(default ~>! exprNode) ^^ {
-      case name ~ typeName ~ constants ~ default =>
-        Ast.DefEnum(name, typeName, constants, default)
+      case dictionary ~ name ~ typeName ~ constants ~ default =>
+        Ast.DefEnum(name, typeName, constants, default, dictionary.isDefined)
     }
   }
 
@@ -241,10 +243,10 @@ object Parser extends Parsers {
 
     def members = annotatedElementSequence(node(structTypeMember), comma, id)
 
-    (struct ~>! ident) ~! (lbrace ~>! members <~! rbrace) ~! opt(
+    opt(dictionary) ~ (struct ~>! ident) ~! (lbrace ~>! members <~! rbrace) ~! opt(
       default ~>! exprNode
-    ) ^^ { case name ~ members ~ default =>
-      Ast.DefStruct(name, members, default)
+    ) ^^ { case dictionary ~ name ~ members ~ default =>
+      Ast.DefStruct(name, members, default, dictionary.isDefined)
     }
   }
 
@@ -675,8 +677,11 @@ object Parser extends Parsers {
         failure("location kind expected")
     }
 
-    (locate ~>! kind) ~! node(qualIdent) ~! (at ~>! node(literalString)) ^^ {
-      case kind ~ symbol ~ file => Ast.SpecLoc(kind, symbol, file)
+    // TODO: only allow dictionary for constant and type locations
+    (locate ~>! opt(dictionary) ~ kind) ~! node(qualIdent) ~! (at ~>! node(literalString)) ^^ {
+      case dictionary ~ kind ~ symbol ~ file => {
+        Ast.SpecLoc(kind, symbol, file, dictionary.isDefined)
+      }
     }
   }
 
@@ -1104,6 +1109,8 @@ object Parser extends Parsers {
 
   private def diagnostic =
     accept("diagnostic", { case t: Token.DIAGNOSTIC => t })
+
+  private def dictionary = accept("dictionary", { case t: Token.DICTIONARY => t })
 
   private def doToken = accept("do", { case t: Token.DO => t })
 

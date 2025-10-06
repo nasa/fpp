@@ -532,7 +532,11 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     val kind = data.kind.toString
-    lines(s"locate ${kind}").
+    val locateLine = 
+      if node.data.isDictionaryDef then 
+        s"locate dictionary ${kind}" 
+      else s"locate ${kind}"
+    lines(locateLine).
       join (" ") (qualIdent(data.symbol.data)).
       join (" at ") (string(data.file.data))
   }

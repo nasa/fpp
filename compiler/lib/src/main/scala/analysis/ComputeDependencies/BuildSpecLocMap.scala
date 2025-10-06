@@ -21,8 +21,26 @@ object BuildSpecLocMap extends ModuleAnalyzer {
         Right(a.copy(locationSpecifierMap = map))
       }
       case Some(spec1) => 
-        for { _ <- checkPathConsistency(spec, spec1) } yield a
+        for { 
+          _ <- checkPathConsistency(spec, spec1)
+          _ <- checkDictionarySpecifierConsistency(spec, spec1)
+        } yield a
     }
+  }
+
+  private def checkDictionarySpecifierConsistency(
+    spec1: Ast.SpecLoc,
+    spec2: Ast.SpecLoc
+  ): Result.Result[Unit] = {
+    if(spec1.isDictionaryDef == spec2.isDictionaryDef) then
+      Right(())
+    else
+      Left(
+        SemanticError.InconsistentDictionarySpecLoc(
+          Locations.get(spec1.symbol.id),
+          Locations.get(spec2.symbol.id),
+        )
+      )
   }
 
   private def checkPathConsistency(
@@ -34,7 +52,7 @@ object BuildSpecLocMap extends ModuleAnalyzer {
     if (path1 == path2)
       Right(())
     else Left(
-      SemanticError.InconsistentSpecLoc(
+      SemanticError.InconsistentSpecLocPath(
         Locations.get(spec1.file.id),
         path1,
         Locations.get(spec2.file.id),

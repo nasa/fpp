@@ -78,7 +78,8 @@ object Ast {
   /* Aliased type definition */
   final case class DefAliasType(
     name: Ident,
-    typeName: AstNode[TypeName]
+    typeName: AstNode[TypeName],
+    isDictionaryDef: Boolean = false
   )
 
   /* Array definition */
@@ -87,7 +88,8 @@ object Ast {
     size: AstNode[Expr],
     eltType: AstNode[TypeName],
     default: Option[AstNode[Expr]],
-    format: Option[AstNode[String]]
+    format: Option[AstNode[String]],
+    isDictionaryDef: Boolean = false
   )
 
   /** Component definition */
@@ -112,14 +114,19 @@ object Ast {
   )
 
   /** Constant definition */
-  final case class DefConstant(name: Ident, value: AstNode[Expr])
+  final case class DefConstant(
+    name: Ident, 
+    value: AstNode[Expr],
+    isDictionaryDef: Boolean = false
+)
 
   /** Enum definition */
   final case class DefEnum(
     name: Ident,
     typeName: Option[AstNode[TypeName]],
     constants: List[Annotated[AstNode[DefEnumConstant]]],
-    default: Option[AstNode[Expr]]
+    default: Option[AstNode[Expr]],
+    isDictionaryDef: Boolean = false
   )
 
   /** Enum constant definition */
@@ -279,7 +286,8 @@ object Ast {
   final case class DefStruct(
     name: Ident,
     members: List[Annotated[AstNode[StructTypeMember]]],
-    default: Option[AstNode[Expr]]
+    default: Option[AstNode[Expr]],
+    isDictionaryDef: Boolean = false
   )
 
   /** Expression */
@@ -573,7 +581,8 @@ object Ast {
   final case class SpecLoc(
     kind: SpecLoc.Kind,
     symbol: AstNode[QualIdent],
-    file: AstNode[String]
+    file: AstNode[String],
+    isDictionaryDef: Boolean = false
   )
   object SpecLoc {
     /** Location specifier kind */

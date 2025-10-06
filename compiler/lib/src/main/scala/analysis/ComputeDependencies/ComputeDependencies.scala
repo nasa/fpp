@@ -7,6 +7,19 @@ import fpp.compiler.transform._
 /** Compute dependencies for a list of translation units */
 object ComputeDependencies {
 
+  def checkDictionarySpecLocs(a: Analysis): Result.Result[Analysis] = {
+    if a.dictionaryGeneration then
+      val dictionaryFiles: Set[File] = 
+        a.locationSpecifierMap.values.filter(_.isDictionaryDef).map(
+          specLoc => {
+            Locations.get(specLoc.file.id).file
+          }
+        ).toSet
+      Right(a.copy(dependencyFileSet = a.dependencyFileSet ++ dictionaryFiles))
+    else 
+      Right(a)
+  }
+
   def tuList(a: Analysis, tul: List[Ast.TransUnit]): Result.Result[Analysis] = {
     for {
       pair <- ResolveSpecInclude.transformList(
@@ -23,6 +36,7 @@ object ComputeDependencies {
       a <- BuildSpecLocMap.visitList(a, tul, BuildSpecLocMap.transUnit)
       a <- ConstructImpliedUseMap.visitList(a, tul, ConstructImpliedUseMap.transUnit)
       a <- MapUsesToLocs.visitList(a, tul, MapUsesToLocs.transUnit)
+      a <- checkDictionarySpecLocs(a)
     }
     yield {
       val includedFileSet = a.includedFileSet

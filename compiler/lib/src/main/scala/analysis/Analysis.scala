@@ -80,7 +80,9 @@ case class Analysis(
   /** Whether dictionary generation is required */
   dictionaryGeneration: Boolean = false,
   /** The mapping from nodes to implied uses */
-  impliedUseMap: Map[AstNode.Id, ImpliedUse.Uses] = Map()
+  impliedUseMap: Map[AstNode.Id, ImpliedUse.Uses] = Map(),
+  /** The set of dictionary definition symbols */
+  dictionarySymbolSet: Set[Symbol] = Set()
 ) {
 
   /** Gets the qualified name of a symbol */
