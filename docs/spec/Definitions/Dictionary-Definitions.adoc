@@ -11,9 +11,7 @@ Type definitions that are included in the dictionary must be
 Constants that are included in the dictionary must be one of
 the following:
 
-* A <<Types_Primitive-Integer-Types,primitive integer type>>.
-* A <<Types_Floating-Point-Types,floating-point type>>.
-* A <<Types_The-Boolean-Type,boolean type>>.
+* A <<Types_Primitive-Types,primitive type>>.
 * A <<Types_String-Types,string type>>.
 * An <<Types_Enum-Types,enum type>>.
 
