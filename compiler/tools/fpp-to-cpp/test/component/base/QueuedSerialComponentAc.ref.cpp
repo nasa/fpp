@@ -2325,7 +2325,6 @@ QueuedSerialComponentBase ::
 
   // Write telemetry channel ChannelEnumOnChange
   this->m_first_update_ChannelEnumOnChange = true;
-  this->m_last_ChannelEnumOnChange = {};
 
   // Write telemetry channel ChannelBoolOnChange
   this->m_first_update_ChannelBoolOnChange = true;
