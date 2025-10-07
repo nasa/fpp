@@ -2,5 +2,4 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/event/zero_throttle_count.fpp:3.3
   event E severity activity low \
   ^
-error: invalid integer value 0
-event throttle count must be greater than zero
+error: event throttle count must be greater than zero
