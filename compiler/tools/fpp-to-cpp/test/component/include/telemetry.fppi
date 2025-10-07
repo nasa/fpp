@@ -48,6 +48,3 @@ telemetry ChannelU32OnChange: U32 \
 telemetry ChannelEnumOnChange: E \
   update on change
 
-@ A telemetry channel with Boolean data and update on change frequency
-telemetry ChannelBoolOnChange: bool \
-  update on change
