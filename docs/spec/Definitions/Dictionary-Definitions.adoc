@@ -32,6 +32,6 @@ dictionary constant b = E.X
 type T1
 dictionary type T2 = T1 # Error: T2 is not displayable
 
-# Error: c does not have primitve, string, or enum type
+# Error: c does not have primitive, string, or enum type
 dictionary constant c = { x = U32 } 
 ----
