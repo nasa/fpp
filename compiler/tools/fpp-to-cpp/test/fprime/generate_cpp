@@ -92,7 +92,7 @@ mv Param*.hpp Param*.cpp Fw/Prm
 mv Sched*.hpp Sched*.cpp Svc/Sched
 
 # Move config files into place
-mv APIDEnum* config
+mv ApidEnum* config
 
 # Remaining files go into types
 mv *.hpp *.cpp Fw/Types
