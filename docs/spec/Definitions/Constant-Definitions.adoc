@@ -6,6 +6,9 @@ model.
 
 ==== Syntax
 
+_[_
+`dictionary`
+_]_
 `constant`
 <<Lexical-Elements_Identifiers,_identifier_>>
 `=`
@@ -20,6 +23,10 @@ to a compile-time constant value _v_. At any model point where the
 the constant definition according to the
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,scoping
 rules for names>>, you can use _Q_ as a name for _v_.
+
+If the optional keyword `dictionary` is present, then the
+definition must conform to the rules stated in the 
+<<Definitions_Dictionary-Definitions,dictionary definitions>> section.
 
 ==== Examples
 

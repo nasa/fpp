@@ -5,6 +5,9 @@ that is defined elsewhere.
 
 ==== Syntax
 
+_[_
+`dictionary`
+_]_
 `type` <<Lexical-Elements_Identifiers,_identifier_>> = <<Type-Names,_type-name_>>
 
 ==== Semantics
@@ -14,6 +17,10 @@ The definition associates the name _N_ with
 the type _T_ specified after the `=` symbol.
 Elsewhere in the model, the name _N_ may be used as alias of (i.e., an
 alternate name for) the type _T_.
+
+If the optional keyword `dictionary` is present, then the
+definition must conform to the rules stated in the 
+<<Definitions_Dictionary-Definitions,dictionary definitions>> section.
 
 ==== Examples
 

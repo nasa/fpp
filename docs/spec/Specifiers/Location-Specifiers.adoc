@@ -16,7 +16,11 @@ A location specifier is one of the following:
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
 
-* A *constant location specifier* `locate` `constant`
+* A *constant location specifier* `locate` 
+_[_
+`dictionary`
+_]_ 
+`constant`
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
 
@@ -32,13 +36,23 @@ A location specifier is one of the following:
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
 
-* A *type location specifier* `locate` `type`
+* A *type location specifier* `locate`
+_[_
+`dictionary`
+_]_
+`type`
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
 
+If the optional keyword `dictionary` appears in a location specifier _S_,
+then _S_ is called a *dictionary specifier*.
+
 ==== Semantics
 
-. The qualified identifier _Q_ is resolved like a
+A location specifier _S_ with qualified identifier _Q_ must conform
+to the following rules:
+
+. _Q_ is resolved like a
 <<Definitions-and-Uses_Uses,use>> that refers to a <<Definitions,definition>>
 as follows:
 
@@ -71,11 +85,17 @@ as follows:
 _Q_ is implicitly qualified by the
 <<Scoping-of-Names_Names-of-Definitions,qualified name>>
 of _M_.
+This rule allows the resolution to occur during dependency analysis,
+before uses have been matched with their definitions.
 
 . _Q_ need not actually refer to any definition.
 This rule allows the specification of dependencies for a larger set
 of files than the ones involved in a particular analysis
 or translation.
+If _Q_ does refer to a definition _D_, then _S_
+must be a dictionary specifier if _D_ is a 
+<<Definitions_Dictionary-Definitions,dictionary definition>>;
+otherwise it must not be.
 
 . The string literal must specify the path of an FPP source file, relative to the
 <<Translation-Units-and-Models_Locations,location>>
@@ -87,8 +107,13 @@ the file must contain the definition referred to in the
 location specifier.
 
 . Multiple location specifiers for the same definition are allowed in a single
-<<Translation-Units-and-Models_Models,model>>, so long as the locations are all
-consistent.
+<<Translation-Units-and-Models_Models,model>>, so long as the following 
+conditions are met:
+
+.. All of the specifiers must be dictionary specifiers, or none of them must 
+   be.
+
+.. All the specifiers must have the same locations.
 
 ==== Examples
 
