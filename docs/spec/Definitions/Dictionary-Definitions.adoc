@@ -1,15 +1,18 @@
 === Dictionary Definitions
 
-If a type definition or a constant definition has the optional 
-`dictionary` keyword, then it is called a *dictionary definition*.
+If the optional keyword `dictionary` appears in a type definition or
+a constant definition, then that definition is called a 
+*dictionary definition*.
+A dictionary definition instructs the code generator to include
+the definition in the ground dictionary.
 
 ==== Semantics
 
-Type definitions that are included in the dictionary must be
-<<Types_Displayable-Types, displayable>>.
+If a type definition _D_ is a dictionary definition, then the type
+defined by _D_ must be a <<Types_Displayable-Types, displayable type>>.
 
-Constants that are included in the dictionary must be one of
-the following:
+If a constant definition _D_ is a dictionary definition, then the
+expression appearing in _D_ must have one of the following types:
 
 * A <<Types_Primitive-Types,primitive type>>.
 * A <<Types_String-Types,string type>>.
@@ -22,4 +25,13 @@ the following:
 dictionary type T = U32
 dictionary array A = [3] string
 dictionary constant a = 0
+
+enum E { X, Y }
+dictionary constant b = E.X
+
+type T1
+dictionary type T2 = T1 # Error: T2 is not displayable
+
+# Error: c does not have primitve, string, or enum type
+dictionary constant c = { x = U32 } 
 ----

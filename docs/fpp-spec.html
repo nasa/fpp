@@ -4381,18 +4381,21 @@ to the following rules.</p>
 <div class="sect2">
 <h3 id="Definitions_Dictionary-Definitions">5.16. Dictionary Definitions</h3>
 <div class="paragraph">
-<p>If a type definition or a constant definition has the optional
-<code>dictionary</code> keyword, then it is called a <strong>dictionary definition</strong>.</p>
+<p>If the optional keyword <code>dictionary</code> appears in a type definition or
+a constant definition, then that definition is called a
+<strong>dictionary definition</strong>.
+A dictionary definition instructs the code generator to include
+the definition in the ground dictionary.</p>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Dictionary-Definitions_Semantics">5.16.1. Semantics</h4>
 <div class="paragraph">
-<p>Type definitions that are included in the dictionary must be
-<a href="#Types_Displayable-Types">displayable</a>.</p>
+<p>If a type definition <em>D</em> is a dictionary definition, then the type
+defined by <em>D</em> must be a <a href="#Types_Displayable-Types">displayable type</a>.</p>
 </div>
 <div class="paragraph">
-<p>Constants that are included in the dictionary must be one of
-the following:</p>
+<p>If a constant definition <em>D</em> is a dictionary definition, then the
+expression appearing in <em>D</em> must have one of the following types:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -4414,7 +4417,16 @@ the following:</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">dictionary type T = U32
 dictionary array A = [3] string
-dictionary constant a = 0</code></pre>
+dictionary constant a = 0
+
+enum E { X, Y }
+dictionary constant b = E.X
+
+type T1
+dictionary type T2 = T1 # Error: T2 is not displayable
+
+# Error: c does not have primitve, string, or enum type
+dictionary constant c = { x = U32 }</code></pre>
 </div>
 </div>
 </div>
@@ -6630,16 +6642,20 @@ of a <a href="#Definitions">definition</a>.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>A location specifier for a constant or type with the
-<code>dictionary</code> keyword is called a <strong>dictionary specifier</strong>.</p>
+<p>If the optional keyword <code>dictionary</code> appears in a location specifier <em>S</em>,
+then <em>S</em> is called a <strong>dictionary specifier</strong>.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Location-Specifiers_Semantics">7.10.2. Semantics</h4>
+<div class="paragraph">
+<p>A location specifier <em>S</em> with qualified identifier <em>Q</em> must conform
+to the following rules:</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The qualified identifier <em>Q</em> is resolved like a
+<p><em>Q</em> is resolved like a
 <a href="#Definitions-and-Uses_Uses">use</a> that refers to a <a href="#Definitions">definition</a>
 as follows:</p>
 <div class="olist loweralpha">
@@ -6683,13 +6699,19 @@ as follows:</p>
 <a href="#Definitions_Module-Definitions">module definition <em>M</em></a>,
 <em>Q</em> is implicitly qualified by the
 <a href="#Scoping-of-Names_Names-of-Definitions">qualified name</a>
-of <em>M</em>.</p>
+of <em>M</em>.
+This rule allows the resolution to occur during dependency analysis,
+before uses have been matched with their definitions.</p>
 </li>
 <li>
 <p><em>Q</em> need not actually refer to any definition.
 This rule allows the specification of dependencies for a larger set
 of files than the ones involved in a particular analysis
-or translation.</p>
+or translation.
+If <em>Q</em> does refer to a definition <em>D</em>, then <em>S</em>
+must be a dictionary specifier if <em>D</em> is a
+<a href="#Definitions_Dictionary-Definitions">dictionary definition</a>;
+otherwise it must not be.</p>
 </li>
 <li>
 <p>The string literal must specify the path of an FPP source file, relative to the
@@ -6703,13 +6725,19 @@ location specifier.</p>
 </li>
 <li>
 <p>Multiple location specifiers for the same definition are allowed in a single
-<a href="#Translation-Units-and-Models_Models">model</a>, so long as the locations are all
-consistent.</p>
+<a href="#Translation-Units-and-Models_Models">model</a>, so long as the following
+conditions are met:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If any of the specifiers is a dictionary specifier, then all of them must be
+dictionary specifiers.</p>
 </li>
 <li>
-<p>If a location specifier is a dictionary specifier and if <em>Q</em> refers to
-a constant or type definition, then the definition must be a
-<a href="#Definitions_Dictionary-Definitions">dictionary definition</a>.</p>
+<p>All the specifiers must have the same locations.</p>
+</li>
+</ol>
+</div>
 </li>
 </ol>
 </div>
@@ -11926,7 +11954,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-10-06 16:54:06 -0700
+Last updated 2025-10-06 17:39:50 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

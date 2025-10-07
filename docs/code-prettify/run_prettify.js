@@ -425,6 +425,7 @@ var IN_GLOBAL_SCOPE = false;
           "cpu," +
           "default," +
           "diagnostic," +
+          "dictionary," +
           "do," +
           "drop," +
           "else," +
