@@ -510,11 +510,18 @@ case class ComponentCppWriter (
   }
 
   private def getProtectedComponentFunctionMembers: List[CppDoc.Class.Member] = {
-    def writeChannelInit(channel: TlmChannel) = lines(
-      s"""|// Write telemetry channel ${channel.getName}
-          |this->${channelUpdateFlagName(channel.getName)} = true;
-          |this->${channelStorageName(channel.getName)} = {};
-          |"""
+    def writeChannelInit(channel: TlmChannel) = List.concat(
+      lines(
+        s"""|// Write telemetry channel ${channel.getName}
+            |this->${channelUpdateFlagName(channel.getName)} = true;
+            |"""
+      ),
+      channel.channelType match {
+        case t if s.isPrimitive(t, writeChannelType(t)) => lines(
+          s"this->${channelStorageName(channel.getName)} = {};"
+        )
+        case _ => Nil
+      }
     )
 
     addAccessTagAndComment(
