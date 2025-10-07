@@ -110,8 +110,8 @@ location specifier.
 <<Translation-Units-and-Models_Models,model>>, so long as the following 
 conditions are met:
 
-.. If any of the specifiers is a dictionary specifier, then all of them must be
-dictionary specifiers.
+.. All of the specifiers must be dictionary specifiers, or none of them must 
+   be.
 
 .. All the specifiers must have the same locations.
 
