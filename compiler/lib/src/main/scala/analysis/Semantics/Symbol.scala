@@ -65,4 +65,6 @@ object Symbol {
     override def getUnqualifiedName = node._2.data.name
   }
 
+  type InterfaceInstance = ComponentInstance | Topology
+
 }

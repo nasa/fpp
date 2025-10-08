@@ -52,10 +52,10 @@ object LayoutWriter extends AstStateVisitor with LineUtils {
         cl: Seq[Connection]
     ): List[Line] = {
         cl.foldLeft(List[Line]()) ((l, c) => {
-            var fromCi = c.from.port.componentInstance
+            var fromCi = c.from.port.interfaceInstance
             var fromPi = c.from.port.portInstance
             var fromPn = topology.fromPortNumberMap(c) 
-            var toCi = c.to.port.componentInstance
+            var toCi = c.to.port.interfaceInstance
             var toPi = c.to.port.portInstance
             var toPn = topology.toPortNumberMap(c)
             l ++ List(

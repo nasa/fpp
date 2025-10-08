@@ -145,13 +145,16 @@ case class TopConfigObjects(
       }
       // Map the port numbers to ports, and compute the max port number
       mapAndMaxNum <- {
-        val pii = PortInstanceIdentifier(ci, pingOutPort)
+        val pii = PortInstanceIdentifier(InterfaceInstance.fromComponentInstance(ci), pingOutPort)
         val m0: Map[Int, ComponentInstance] = Map()
         val mn = t.getConnectionsFrom(pii).foldLeft ((m0, 0)) {
           case ((m, n), c) =>
             val n1 = t.getPortNumber(pii.portInstance, c).get
             (
-              m + (n1 -> c.to.port.componentInstance),
+              m + (n1 -> (c.to.port.interfaceInstance match {
+                case InterfaceInstance.InterfaceComponentInstance(ci) => ci
+                case _ => throw InternalError("topology connections not flattened")
+              })),
               if (n1 > n) n1 else n
             )
         }

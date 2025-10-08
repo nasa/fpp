@@ -1,7 +1,9 @@
 package fpp.compiler.analysis
 
-import fpp.compiler.ast._
-import fpp.compiler.util._
+import fpp.compiler.ast.*
+import fpp.compiler.util.*
+
+import scala.annotation.tailrec
 
 /**
  * Analyze uses
@@ -10,6 +12,7 @@ import fpp.compiler.util._
 trait UseAnalyzer extends BasicUseAnalyzer {
 
   /** Gets a qualified name from a dot expression */
+  @tailrec
   private def getQualifiedName(
     e: Ast.Expr,
     qualifier: List[Name.Unqualified] = Nil
@@ -18,7 +21,7 @@ trait UseAnalyzer extends BasicUseAnalyzer {
       Name.Qualified.fromIdentList(id :: qualifier)
     case Ast.ExprDot(e1, id) =>
       getQualifiedName(e1.data, id.data :: qualifier)
-    case _ => throw new InternalError("expected a qualified name")
+    case _ => throw InternalError("expected a qualified name")
   }
 
   override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot) =
@@ -29,7 +32,7 @@ trait UseAnalyzer extends BasicUseAnalyzer {
         constantUse(a, node, use)
       case Some(_) =>
         // This is some other type of symbol, which it shouldn't be
-        throw new InternalError("expected a constant use")
+        throw InternalError("expected a constant use")
       case None =>
         // e is not a use, so it selects a member of a struct value
         // Analyze the left-hand expression representing the struct value

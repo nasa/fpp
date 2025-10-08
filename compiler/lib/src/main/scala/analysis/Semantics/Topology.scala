@@ -7,12 +7,18 @@ import fpp.compiler.util._
 case class Topology(
   /** The AST node defining the topology */
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]],
+  /** Fully qualfied name of the topology */
+  qualifiedName: Name.Qualified,
   /** The directly imported topologies */
   directImportMap: Map[Symbol.Topology, Location] = Map(),
   /** The transitively imported topologies */
   transitiveImportSet: Set[Symbol.Topology] = Set(),
   /** The instances of this topology */
-  instanceMap: Map[ComponentInstance, Location] = Map(),
+  instanceMap: Map[InterfaceInstance, Location] = Map(),
+  /** The ports in the topology */
+  portMap: Map[Name.Unqualified, PortInstanceIdentifier] = Map(),
+  /** Port interface of the topology */
+  portInterface: PortInterface = PortInterface(),
   /** The connection patterns of this topology */
   patternMap: Map[Ast.SpecConnectionGraph.Pattern.Kind, ConnectionPattern] = Map(),
   /** The connections of this topology, indexed by graph name */
@@ -101,7 +107,7 @@ case class Topology(
   }
 
   /** Add an imported topology */
-  def addImportedTopology(
+  private def addImportedTopology(
     symbol: Symbol.Topology,
     loc: Location
   ): Result.Result[Topology] =
@@ -120,7 +126,7 @@ case class Topology(
 
   /** Add an instance that may already be there */
   def addMergedInstance(
-    instance: ComponentInstance,
+    instance: InterfaceInstance,
     loc: Location
   ): Topology = {
     // Private overrides public
@@ -133,19 +139,33 @@ case class Topology(
 
   /** Add an instance that must be unique */
   def addUniqueInstance(
-    instance: ComponentInstance,
+    symbol: Symbol.InterfaceInstance,
+    instance: InterfaceInstance,
     loc: Location
   ): Result.Result[Topology] =
-    instanceMap.get(instance) match {
-      case Some(prevLoc) => Left(
-        SemanticError.DuplicateInstance(
-          instance.getUnqualifiedName,
-          loc,
-          prevLoc
-        )
-      )
-      case None => Right(addMergedInstance(instance, loc))
-    }
+    for {
+      t <- {
+        symbol match {
+          case ci: Symbol.ComponentInstance =>
+            Right(this)
+          case top: Symbol.Topology =>
+            addImportedTopology(top, loc)
+        }
+      }
+
+      t <- {
+        t.instanceMap.get(instance) match {
+          case Some(prevLoc) => Left(
+            SemanticError.DuplicateInstance(
+              instance.getUnqualifiedName,
+              loc,
+              prevLoc
+            )
+          )
+          case None => Right(t.addMergedInstance(instance, loc))
+        }
+      }
+    } yield t
 
   /** Assigns a port number to a connection at a port instance */
   def assignPortNumber(
@@ -204,8 +224,21 @@ case class Topology(
     }
   }
 
+  def getQualifiedName = qualifiedName
+
   /** Gets the unqualified name of the topology */
   def getUnqualifiedName = aNode._2.data.name
+
+  /** Gets the location of the topology */
+  def getLoc: Location = Locations.get(aNode._2.id)
+
+  /** Get the full port interface of this instance */
+  def getInterface: PortInterface = portInterface
+
+  /** Precompute the set of component instances in the topology */
+  val componentInstanceMap: Map[ComponentInstance, Location] = {
+    instanceMap collect { case (InterfaceInstance.InterfaceComponentInstance(ci), loc: Location) => (ci, loc) }
+  }
 
   /** Gets the set of used port numbers */
   def getUsedPortNumbers(pi: PortInstance, cs: Iterable[Connection]): Set[Int] = 
@@ -216,15 +249,15 @@ case class Topology(
       }
     )
 
-  /** Look up a component instance used at a location */
+  /** Look up a interface instance used at a location */
   def lookUpInstanceAt(
-    instance: ComponentInstance,
+    instance: InterfaceInstance,
     loc: Location
   ): Result.Result[Location] =
     instanceMap.get(instance) match {
       case Some(result) => Right(result)
       case None => Left(
-        SemanticError.InvalidComponentInstance(
+        SemanticError.InvalidInterfaceInstance(
           loc,
           instance.getUnqualifiedName,
           this.getUnqualifiedName

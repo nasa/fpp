@@ -105,7 +105,7 @@ case class TopHelperFns(
 
   private def getConnectComponentsFn = {
     def getPortInfo(pii: PortInstanceIdentifier, c: Connection) = {
-      val cppQualifiedName = CppWriter.writeQualifiedName(pii.componentInstance.qualifiedName)
+      val cppQualifiedName = CppWriter.writeQualifiedName(pii.interfaceInstance.getQualifiedName)
       val portName = pii.portInstance.getUnqualifiedName
       val portNumber = t.getPortNumber(pii.portInstance, c).get
       (cppQualifiedName, portName, portNumber)

@@ -155,7 +155,7 @@ sealed trait Error {
         printNote("size must be greater than zero")
       case SemanticError.InvalidCommand(loc, msg) =>
         Error.print (Some(loc)) (msg)
-      case SemanticError.InvalidComponentInstance(loc, instanceName, topName) =>
+      case SemanticError.InvalidInterfaceInstance(loc, instanceName, topName) =>
         Error.print (Some(loc)) (s"instance $instanceName is not a member of topology $topName")
       case SemanticError.InvalidConnection(loc, msg, fromLoc, toLoc, fromPortDefLoc, toPortDefLoc) =>
         Error.print (Some(loc)) (msg)
@@ -196,8 +196,8 @@ sealed trait Error {
         Error.print (Some(loc)) (msg)
         System.err.println(s"port definition is here:")
         System.err.println(defLoc)
-      case SemanticError.InvalidPortInstanceId(loc, portName, componentName) =>
-        Error.print (Some(loc)) (s"$portName is not a port instance of component $componentName")
+      case SemanticError.InvalidPortInstanceId(loc, portName, interfaceName) =>
+        Error.print (Some(loc)) (s"$portName is not a port instance of interface $interfaceName")
       case SemanticError.InvalidPortKind(loc, msg, specLoc) =>
         Error.print (Some(loc)) (msg)
         System.err.println(s"port instance is specified here:")
@@ -522,8 +522,8 @@ object SemanticError {
   final case class InvalidArraySize(loc: Location, size: BigInt) extends Error
   /** Invalid command */
   final case class InvalidCommand(loc: Location, msg: String) extends Error
-  /** Invalid component instance */
-  final case class InvalidComponentInstance(
+  /** Invalid interface instance */
+  final case class InvalidInterfaceInstance(
     loc: Location,
     instanceName: String,
     topName: String
@@ -577,7 +577,7 @@ object SemanticError {
   final case class InvalidPortInstanceId(
     loc: Location,
     portName: String,
-    componentName: String
+    interfaceName: String
   ) extends Error
   /** Invalid port kind */
   final case class InvalidPortKind(

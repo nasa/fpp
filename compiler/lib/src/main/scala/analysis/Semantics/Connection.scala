@@ -109,12 +109,18 @@ case class Connection(
     def portMatchingExists(pml: List[Component.PortMatching], pi: PortInstance): Boolean =
       pml.exists(pm => pi.equals(pm.instance1) || pi.equals(pm.instance2))
 
-    val fromPi = from.port.portInstance
-    val toPi = to.port.portInstance
-    val fromPml = from.port.componentInstance.component.portMatchingList
-    val toPml = to.port.componentInstance.component.portMatchingList
+    from.port.interfaceInstance match {
+      case InterfaceInstance.InterfaceComponentInstance(ci) => {
+        val fromPi = from.port.portInstance
+        val toPi = to.port.portInstance
+        val fromPml = ci.component.portMatchingList
+        val toPml = ci.component.portMatchingList
 
-    portMatchingExists(fromPml, fromPi) || portMatchingExists(toPml, toPi)
+        portMatchingExists(fromPml, fromPi) || portMatchingExists(toPml, toPi)
+      }
+
+      case _ => false
+    }
   }
 
   /** Compare two connections */
@@ -173,7 +179,9 @@ object Connection {
     /** The port instance identifier */
     port: PortInstanceIdentifier,
     /** The port number */
-    portNumber: Option[Int] = None
+    portNumber: Option[Int] = None,
+    /** Topology port this mapped to */
+    topologyPort: Option[Endpoint] = None
   ) extends Ordered[Endpoint] {
 
     override def toString = portNumber match {
@@ -201,6 +209,20 @@ object Connection {
         if (n < size) Right(())
         else Left(SemanticError.InvalidPortNumber(loc, n, name, size, specLoc))
       case None => Right(())
+    }
+
+    /** Get underlying endpoint by stripping off topology port aliases */
+    def getUnderlyingEndpoint(): Endpoint = {
+      port.interfaceInstance match {
+        // This endpoint is already a component instance
+        case InterfaceInstance.InterfaceComponentInstance(ci) => this
+        case InterfaceInstance.InterfaceTopology(top) => this.copy(
+          // Look up the mapping for this port instance
+          port = top.portMap(port.portInstance.getUnqualifiedName),
+          topologyPort = Some(this)
+          // Recursively resolve the endpoint to a component instance
+        ).getUnderlyingEndpoint()
+      }
     }
 
   }

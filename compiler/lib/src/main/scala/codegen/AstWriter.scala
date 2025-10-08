@@ -369,13 +369,13 @@ object AstWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
-  override def specCompInstanceAnnotatedNode(
+  override def specInstanceAnnotatedNode(
     in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecCompInstance]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecInstance]]
   ) =  {
     val (_, node, _) = aNode
     val data = node.data
-    lines("spec comp instance") ++ (
+    lines("spec interface instance") ++ (
       qualIdent(data.instance.data)
     ).map(indentIn)
   }
@@ -707,16 +707,6 @@ object AstWriter extends AstVisitor with LineUtils {
     )
   }
 
-  override def specTopImportAnnotatedNode(
-    in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecImport]]
-  ) = {
-    val (_, node, _) = aNode
-    val data = node.data
-    lines("spec top import") ++
-    qualIdent(data.sym.data).map(indentIn)
-  }
-
   override def specInterfaceImportAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecImport]]
@@ -856,7 +846,7 @@ object AstWriter extends AstVisitor with LineUtils {
   }
 
   private def portInstanceIdentifier(pii: Ast.PortInstanceIdentifier): Out = {
-    val qid = Ast.QualIdent.Qualified(pii.componentInstance, pii.portName)
+    val qid = Ast.QualIdent.Qualified(pii.interfaceInstance, pii.portName)
     qualIdent(qid)
   }
 

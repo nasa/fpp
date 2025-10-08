@@ -24,6 +24,12 @@ object UsedSymbols extends UseAnalyzer {
     use: Name.Qualified
   ) = addSymbol(a, node)
 
+  override def interfaceInstanceUse(
+    a: Analysis,
+    node: AstNode[Ast.QualIdent],
+    use: Name.Qualified
+  ) = addSymbol(a, node)
+
   override def constantUse(
     a: Analysis,
     node: AstNode[Ast.Expr],

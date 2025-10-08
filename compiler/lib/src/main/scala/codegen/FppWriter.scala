@@ -435,9 +435,9 @@ object FppWriter extends AstVisitor with LineUtils {
       joinOptWithBreak (data.queueFull) ("") (applyToData(queueFull))
   }
 
-  override def specCompInstanceAnnotatedNode(
+  override def specInstanceAnnotatedNode(
     in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecCompInstance]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecInstance]]
   ) = {
     val (_, node, _) = aNode
     val data = node.data
@@ -728,15 +728,6 @@ object FppWriter extends AstVisitor with LineUtils {
       join("") (qualIdent(data.underylingPort.data))
   }
 
-  override def specTopImportAnnotatedNode(
-    in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecImport]]
-  ) = {
-    val (_, node, _) = aNode
-    val data = node.data
-    Line.addPrefix("import ", qualIdent(data.sym.data))
-  }
-
   override def specInterfaceImportAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecImport]]
@@ -851,7 +842,7 @@ object FppWriter extends AstVisitor with LineUtils {
   private def identAsLines = lines compose ident
 
   private def portInstanceId(pii: Ast.PortInstanceIdentifier) =
-    qualIdent(pii.componentInstance.data).
+    qualIdent(pii.interfaceInstance.data).
     addSuffix(s".${ident(pii.portName.data)}")
 
   private def qualIdent(qid: Ast.QualIdent): Out =

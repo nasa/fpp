@@ -547,9 +547,9 @@ object Parser extends Parsers {
     }
   }
 
-  def specCompInstance: Parser[Ast.SpecCompInstance] = {
-    instance ~>! node(qualIdent) ^^ {
-      case instance => Ast.SpecCompInstance(instance)
+  def specInstance: Parser[Ast.SpecInstance] = {
+    (instance | importToken) ~>! node(qualIdent) ^^ {
+      case instance => Ast.SpecInstance(instance)
     }
   }
 
@@ -940,15 +940,14 @@ object Parser extends Parsers {
     elementSequence(tlmPacketMember, comma)
 
   private def topologyMemberNode: Parser[Ast.TopologyMember.Node] = {
-    node(specCompInstance) ^^ (n =>
-      Ast.TopologyMember.SpecCompInstance(n)) |
+    node(specInstance) ^^ (n =>
+      Ast.TopologyMember.SpecInstance(n)) |
       node(specConnectionGraph) ^^ (n =>
         Ast.TopologyMember.SpecConnectionGraph(n)) |
       node(specInclude) ^^ (n => Ast.TopologyMember.SpecInclude(n)) |
       node(specTopPort) ^^ (n => Ast.TopologyMember.SpecTopPort(n)) |
       node(specTlmPacketSet) ^^ (n =>
         Ast.TopologyMember.SpecTlmPacketSet(n)) |
-      node(specImport) ^^ (n => Ast.TopologyMember.SpecTopImport(n)) |
       failure("topology member expected")
   }
 

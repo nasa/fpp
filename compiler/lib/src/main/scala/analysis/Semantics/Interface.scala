@@ -7,16 +7,23 @@ import fpp.compiler.util.*
 case class Interface(
   /** The AST node defining the component */
   aNode: Ast.Annotated[AstNode[Ast.DefInterface]],
-  /** The map from port names to port instances */
-  portMap: Map[Name.Unqualified, PortInstance] = Map(),
-  /** The map from special port kinds to special port instances */
-  specialPortMap: Map[Ast.SpecPortInstance.SpecialKind, PortInstance.Special] = Map(),
-) extends GenericPortInterface[Interface](aNode._2.data.name, portMap, specialPortMap) {
-  def withPortMap(newPortMap: Map[Name.Unqualified, PortInstance]): Interface =
-    this.copy(portMap = newPortMap)
+  /* The port interface of the component */
+  portInterface: PortInterface = PortInterface(),
+) {
+  /** Add a port instance */
+  def addPortInstance(instance: PortInstance): Result.Result[Interface] =
+    for {
+      pi <- portInterface.addPortInstance(instance)
+    }
+    yield this.copy(portInterface = pi)
 
-  def withSpecialPortMap(
-    newSpecialPortMap: Map[Ast.SpecPortInstance.SpecialKind, PortInstance.Special]
-  ): Interface = this.copy(specialPortMap = newSpecialPortMap)
-
+  def addImportedInterface(
+    interface: Interface,
+    importNodeId: AstNode.Id,
+  ): Result.Result[Interface] = {
+    for {
+      pi <- portInterface.addImportedInterface(interface, importNodeId)
+    }
+    yield this.copy(portInterface = pi)
+  }
 }

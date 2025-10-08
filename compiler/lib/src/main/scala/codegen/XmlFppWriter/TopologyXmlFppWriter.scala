@@ -67,13 +67,13 @@ object TopologyXmlFppWriter extends LineUtils {
     def specCompInstanceAnnotated(
       file: XmlFppWriter.File,
       node: scala.xml.Node
-    ): Result.Result[Ast.Annotated[Ast.SpecCompInstance]] =
+    ): Result.Result[Ast.Annotated[Ast.SpecInstance]] =
       for (name <- file.getAttribute(node, "name"))
         yield {
           val qid = XmlFppWriter.FppBuilder.translateQualIdent(name)
           (
             Nil,
-            Ast.SpecCompInstance(qid),
+            Ast.SpecInstance(qid),
             Nil
           )
         }
@@ -87,7 +87,7 @@ object TopologyXmlFppWriter extends LineUtils {
 
     /** Translates the component instance specifiers */
     def specCompInstanceAnnotatedList(file: XmlFppWriter.File):
-      Result.Result[List[Ast.Annotated[Ast.SpecCompInstance]]] = {
+      Result.Result[List[Ast.Annotated[Ast.SpecInstance]]] = {
         val instances = file.elem \ "instance"
         Result.map(instances.toList, specCompInstanceAnnotated(file, _))
       }
@@ -172,7 +172,7 @@ object TopologyXmlFppWriter extends LineUtils {
           Ast.TopologyMember(a1, memberNode, a2)
         }
         val instanceMembers = instancesAnnotated.map(
-          member(Ast.TopologyMember.SpecCompInstance.apply)
+          member(Ast.TopologyMember.SpecInstance.apply)
         )
         val graphMember = member(Ast.TopologyMember.SpecConnectionGraph.apply)(
           graphAnnotated

@@ -243,6 +243,29 @@ case class Analysis(
     for (cis <- getComponentInstanceSymbol(id))
       yield this.componentInstanceMap(cis)
 
+  /** Gets an interface instance symbol from the use-def map */
+  def getInterfaceInstanceSymbol(id: AstNode.Id): Result.Result[Symbol.InterfaceInstance] =
+    this.useDefMap(id) match {
+      case cis: Symbol.ComponentInstance => Right(cis)
+      case ts: Symbol.Topology => Right(ts)
+      case s => Left(
+        SemanticError.InvalidSymbol(
+          s.getUnqualifiedName,
+          Locations.get(id),
+          "not a component instance or topology symbol",
+          s.getLoc
+        )
+      )
+    }
+
+  /** Gets an interface instance from the topology or component instance map */
+  def getInterfaceInstance(id: AstNode.Id): Result.Result[InterfaceInstance] =
+    for (iis <- getInterfaceInstanceSymbol(id))
+      yield iis match {
+        case cis: Symbol.ComponentInstance => InterfaceInstance.fromComponentInstance(this.componentInstanceMap(cis))
+        case top: Symbol.Topology => InterfaceInstance.fromTopology(this.topologyMap(top))
+      }
+
   /** Gets an interface symbol from use-def map */
   def getInterfaceSymbol(id: AstNode.Id): Result.Result[Symbol.Interface] =
     this.useDefMap(id) match {

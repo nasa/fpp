@@ -15,6 +15,9 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
   /** A use of a component instance definition */
   def componentInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
 
+  /** A use of a interface instance (topology def or component instance def) */
+  def interfaceInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
+
   /** A use of a constant definition or enumerated constant definition */
   def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified): Result = default(a)
 
@@ -77,10 +80,10 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
     constantUse(a, node, use)
   }
 
-  override def specCompInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecCompInstance]]) = {
+  override def specInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecInstance]]) = {
     val (_, node1, _) = node
     val data = node1.data
-    qualIdentNode (componentInstanceUse) (a, data.instance)
+    qualIdentNode (interfaceInstanceUse) (a, data.instance)
   }
 
   override def specStateMachineInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]) = {
@@ -107,8 +110,8 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
     data match {
       case direct : Ast.SpecConnectionGraph.Direct => visitList(a, direct.connections, connection)
       case pattern : Ast.SpecConnectionGraph.Pattern => for {
-        a <- qualIdentNode (componentInstanceUse) (a, pattern.source)
-        a <- visitList(a, pattern.targets, qualIdentNode(componentInstanceUse))
+        a <- qualIdentNode (interfaceInstanceUse) (a, pattern.source)
+        a <- visitList(a, pattern.targets, qualIdentNode(interfaceInstanceUse))
       } yield a
     }
   }
@@ -165,12 +168,6 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
     a <- visitList(a, aNode._2.data.omitted, tlmChannelIdentifierNode)
   } yield a
 
-  override def specTopImportAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecImport]]) = {
-    val (_, node1, _) = node
-    val data = node1.data
-    qualIdentNode(topologyUse)(a, data.sym)
-  }
-
   override def specInterfaceImportAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecImport]]) = {
     val (_, node1, _) = node
     val data = node1.data
@@ -183,7 +180,7 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
   }
 
   private def portInstanceIdentifierNode(a: Analysis, node: AstNode[Ast.PortInstanceIdentifier]): Result =
-    qualIdentNode (componentInstanceUse) (a, node.data.componentInstance)
+    qualIdentNode (interfaceInstanceUse) (a, node.data.interfaceInstance)
 
   private def qualIdentNode
     (f: (Analysis, AstNode[Ast.QualIdent], Name.Qualified) => Result) 
