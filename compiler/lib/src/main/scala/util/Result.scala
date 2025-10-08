@@ -16,7 +16,7 @@ object Result {
   
   /** Left fold with a function that returns a result */
   @tailrec
-  def foldLeft[A,B]
+  def foldLeft[A, B]
     (as: List[A])
     (b: B)
     (f: (B, A) => Result.Result[B]): Result.Result[B] =
