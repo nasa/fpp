@@ -333,9 +333,13 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    List(line(s"topology ${ident(data.name)} {"), Line.blank) ++
-    (Line.blankSeparated (topologyMember) (data.members)).map(indentIn) ++
-    List(Line.blank, line("}"))
+    val implementsClause = if data.implements.nonEmpty
+    then Some(data.implements.map(_.data)) else None
+    lines(s"topology ${ident(data.name)} ${if (implementsClause.isDefined) "implements" else "{"}").
+      joinOptWithBreak (implementsClause) ("") (q => q.flatMap(qualIdent)) ++
+      (if (implementsClause.isDefined) List(line("{"), Line.blank) else List(Line.blank)) ++
+      Line.blankSeparated (topologyMember) (data.members).map(indentIn) ++
+      List(Line.blank, line("}"))
   }
 
   override def default(in: In) =
@@ -714,6 +718,16 @@ object FppWriter extends AstVisitor with LineUtils {
       joinNoIndent (" omit ") (
         addBracesIfNonempty(data.omitted.flatMap(applyToData(tlmChannelId)))
       )
+  }
+
+  override def specTopPortAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTopPort]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"port ${ident(data.name)} = ").
+      join("") (qualIdent(data.underlyingPort.data))
   }
 
   override def specTopImportAnnotatedNode(

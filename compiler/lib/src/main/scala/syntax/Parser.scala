@@ -268,8 +268,9 @@ object Parser extends Parsers {
   }
 
   def defTopology: Parser[Ast.DefTopology] = {
-    (topology ~>! ident) ~! (lbrace ~>! topologyMembers <~! rbrace) ^^ {
-      case name ~ members => Ast.DefTopology(name, members)
+    (topology ~>! ident) ~! opt(implements ~>! elementSequence(node(qualIdent), comma)) ~! (lbrace ~>! topologyMembers <~! rbrace) ^^ {
+      case name ~ Some(implements) ~ members => Ast.DefTopology(name, members, implements)
+      case name ~ None ~ members => Ast.DefTopology(name, members, Nil)
     }
   }
 
@@ -849,6 +850,11 @@ object Parser extends Parsers {
     }
   }
 
+  def specTopPort: Parser[Ast.SpecTopPort] =
+    port ~>! ident ~! (equals ~>! node(qualIdent)) ^^ {
+      case name ~ underlying => Ast.SpecTopPort(name, underlying)
+    }
+
   def specImport: Parser[Ast.SpecImport] =
     importToken ~>! node(qualIdent) ^^ (top => Ast.SpecImport(top))
 
@@ -939,6 +945,7 @@ object Parser extends Parsers {
       node(specConnectionGraph) ^^ (n =>
         Ast.TopologyMember.SpecConnectionGraph(n)) |
       node(specInclude) ^^ (n => Ast.TopologyMember.SpecInclude(n)) |
+      node(specTopPort) ^^ (n => Ast.TopologyMember.SpecTopPort(n)) |
       node(specTlmPacketSet) ^^ (n =>
         Ast.TopologyMember.SpecTlmPacketSet(n)) |
       node(specImport) ^^ (n => Ast.TopologyMember.SpecTopImport(n)) |
@@ -1165,6 +1172,8 @@ object Parser extends Parsers {
     accept("identifier", { case Token.IDENTIFIER(s) => s })
 
   private def ifToken = accept("if", { case t: Token.IF => t })
+
+  private def implements = accept("implements", { case t: Token.IMPLEMENTS => t })
 
   private def importToken = accept("import", { case t: Token.IMPORT => t })
 

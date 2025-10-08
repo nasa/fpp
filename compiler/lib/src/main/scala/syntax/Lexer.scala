@@ -68,6 +68,7 @@ object Lexer {
     ("hook", HOOK),
     ("id", ID),
     ("if", IF),
+    ("implements", IMPLEMENTS),
     ("import", IMPORT),
     ("include", INCLUDE),
     ("initial", INITIAL),
@@ -269,6 +270,7 @@ object Lexer {
         case ID => Token.ID()
         case IDENTIFIER => Token.IDENTIFIER(strVal)
         case IF => Token.IF()
+        case IMPLEMENTS => Token.IMPLEMENTS()
         case IMPORT => Token.IMPORT()
         case INCLUDE => Token.INCLUDE()
         case INITIAL => Token.INITIAL()

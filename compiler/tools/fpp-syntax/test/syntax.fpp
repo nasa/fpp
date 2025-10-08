@@ -214,8 +214,19 @@ module DefinitionsAndSpecifiers {
     }
     @< Telemetry packet group
 
+    @ Topology port specifier
+    port a = b.a
+    @< Topology port specifier
   }
   @< Topology definition
+
+  @ Topology definition with one implements
+  topology T implements I {}
+  @< Topology definition with one implements
+
+  @ Topology definition with two implements
+  topology T implements I, I {}
+  @< Topology definition with two implements
 
   @ Location specifier
   locate instance i at "instances.fpp"
