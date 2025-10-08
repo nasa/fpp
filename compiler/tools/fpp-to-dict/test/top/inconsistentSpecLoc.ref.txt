@@ -1,0 +1,10 @@
+fpp-to-dict
+[ local path prefix ]/tools/fpp-to-dict/test/top/inconsistentSpecLoc.fpp:2.13
+locate type A at "inconsistentSpecLoc.fpp"
+            ^
+error: inconsistent location specifier
+previous occurrence is here:
+[ local path prefix ]/tools/fpp-to-dict/test/top/inconsistentSpecLoc.fpp:1.24
+locate dictionary type A at "inconsistentSpecLoc.fpp"
+                       ^
+note: one specifies dictionary and one does not

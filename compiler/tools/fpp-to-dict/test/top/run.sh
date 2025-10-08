@@ -47,3 +47,27 @@ unqualifiedComponentInstances()
     diff_json QualifiedCompInst && \
     diff_json UnqualifiedCompInst
 }
+
+inconsistentSpecLoc()
+{
+  run_test "-i builtin.fpp,config.fpp -p 1.0.0 -f 3.4.3 -l lib1-1.0.0,lib2-2.0.0" inconsistentSpecLoc && \
+    compare inconsistentSpecLoc
+}
+
+incorrectSpecLoc()
+{
+  run_test "-i builtin.fpp,config.fpp -p 1.0.0 -f 3.4.3 -l lib1-1.0.0,lib2-2.0.0" incorrectSpecLoc && \
+    compare incorrectSpecLoc
+}
+
+invalidDictDefConstant()
+{
+  run_test "-i builtin.fpp,config.fpp -p 1.0.0 -f 3.4.3 -l lib1-1.0.0,lib2-2.0.0" invalidDictDefConstant && \
+    compare invalidDictDefConstant
+}
+
+invalidDictDefType()
+{
+  run_test "-i builtin.fpp,config.fpp -p 1.0.0 -f 3.4.3 -l lib1-1.0.0,lib2-2.0.0" invalidDictDefType && \
+    compare invalidDictDefType
+}
