@@ -5,8 +5,10 @@ import fpp.compiler.util.*
 
 /** An FPP interface */
 case class Interface(
-  /** The AST node defining the component */
+  /** The AST node defining the interface */
   aNode: Ast.Annotated[AstNode[Ast.DefInterface]],
+  /** The imported interfaces */
+  importMap: Map[Symbol.Interface, (AstNode.Id, Location)] = Map(),
   /* The port interface of the component */
   portInterface: PortInterface = PortInterface(),
 ) {
@@ -25,5 +27,23 @@ case class Interface(
       pi <- portInterface.addImportedInterface(interface, importNodeId)
     }
     yield this.copy(portInterface = pi)
+  }
+
+  def addImportedInterfaceSymbol(
+    symbol: Symbol.Interface,
+    importNodeId: AstNode.Id
+  ): Result.Result[Interface] = {
+    importMap.get(symbol) match {
+      case Some((_, prevLoc)) => Left(
+        SemanticError.DuplicateInterface(
+          symbol.getUnqualifiedName,
+          Locations.get(importNodeId),
+          prevLoc
+        )
+      )
+      case None =>
+        val map = importMap + (symbol -> (importNodeId, Locations.get(importNodeId)))
+        Right(this.copy(importMap = map))
+    }
   }
 }

@@ -126,6 +126,9 @@ sealed trait Error {
       case SemanticError.DuplicateTopology(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate topology ${name}")
         printPrevLoc(prevLoc)
+      case SemanticError.DuplicateInterface(name, loc, prevLoc) =>
+        Error.print (Some(loc)) (s"duplicate interface ${name}")
+        printPrevLoc(prevLoc)
       case SemanticError.EmptyArray(loc) =>
         Error.print (Some(loc)) ("array expression may not be empty")
       case SemanticError.ImplicitDuplicateConnectionAtMatchedPort(
@@ -492,6 +495,12 @@ object SemanticError {
   ) extends Error
   /** Duplicate topology */
   final case class DuplicateTopology(
+    name: String,
+    loc: Location,
+    prevLoc: Location
+  ) extends Error
+  /** Duplicate interface */
+  final case class DuplicateInterface(
     name: String,
     loc: Location,
     prevLoc: Location
