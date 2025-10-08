@@ -44,9 +44,10 @@ which is a <<Ports_Sub-Interfaces,sub-interface>> to _I_.
 
 ==== Template Expansion
 
-When a template is expanded, the set of parameters in the template are given
-concrete values. Each _local_ definition inside the template applies the concrete
-parameter values. The templated module member definitions 
+When a template is expanded, the uses of parameters are replaced with the values
+given in the parameter list. The syntax inside _T_ is cloned
+and placed into the scope of the template expansion. Uses are resolved relative to
+the _T_'s scope rather than the template expansion's.
 
 === Examples
 

@@ -35,35 +35,14 @@ as members to template definitions will cause an error.
 
 ==== Semantics
 
-_Template_ definitions differ from other definitions in that symbols
-defined inside a template are not symbols added to the global symbol
-namespace. All symbols defined inside a template (including it's parameters)
-are _local_ to that template. This means that the definitions _inside_
-the template definition cannot be refered to from outside the template
-definition.
-
-For each template parameter _P_ in the _parameter-sequence_, the parameter
-names a symbol that can be used inside the template definition.
-
-A template can be expanded through a <<Specifiers_Template-Expansion-Specifiers,
+Module template definitions define parameterized FPP syntax. A template can be expanded
+through a <<Specifiers_Template-Expansion-Specifiers,
 template expansion specifier>>. When a template is expanded,
 the set of parameters are applied to the template and the newly concrete definitions
 inside the template are placed into the scope of the expansion specifier.
 
-==== Scoping of Names
-
-Inside the _module-member-sequence_, the following
-rules govern the assignment of names to definitions and the resolution
-of names in uses.
-
-. Definitions are _local_ to the template and cannot be referenced from
-outside.
-
-. Parameters are local symbols that can be used inside the template
-
-. All symbol uses are resolved relative to the template definitions scope
-rather than the <<Specifiers_Template-Expansion-Specifiers,expansion specifiers>>
-scope.
+Uses inside the module template are resolved relative to the module template definition
+rather than to the expansion point.
 
 ==== Example
 
