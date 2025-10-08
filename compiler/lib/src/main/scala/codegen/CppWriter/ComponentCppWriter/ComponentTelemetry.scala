@@ -36,7 +36,7 @@ case class ComponentTelemetry (
   }
 
   def getVariableMembers: List[CppDoc.Class.Member] = {
-    List(
+    List.concat(
       addAccessTagAndComment(
         "private",
         "First update flags for telemetry channels",
@@ -70,7 +70,7 @@ case class ComponentTelemetry (
         }),
         CppDoc.Lines.Hpp
       )
-    ).flatten
+    )
   }
 
   private def getWriteFunctions: List[CppDoc.Class.Member] = {
