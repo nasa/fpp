@@ -9,6 +9,25 @@ object CheckFrameworkDefs
   with ModuleAnalyzer
 {
 
+  def getFrameworkDefUses(a: Analysis, s: Symbol) = {
+    val usedSymbols = s match
+      case Symbol.Array(aNode) =>
+        val Right(updatedAnalysis) = UsedSymbols.defArrayAnnotatedNode(a, aNode)
+        UsedSymbols.resolveUses(a, updatedAnalysis.usedSymbolSet)
+      case Symbol.AliasType(aNode) =>
+        val Right(updatedAnalysis) = UsedSymbols.defAliasTypeAnnotatedNode(a, aNode)
+        UsedSymbols.resolveUses(a, updatedAnalysis.usedSymbolSet)
+      case Symbol.Struct(aNode) =>
+        val Right(updatedAnalysis) = UsedSymbols.defStructAnnotatedNode(a, aNode)
+        UsedSymbols.resolveUses(a, updatedAnalysis.usedSymbolSet)
+      case Symbol.Constant(aNode) =>
+        a.typeMap(aNode._2.id) match
+          case Type.Enum(enumNode, _, _) => Set(Symbol.Enum(enumNode))
+          case _ => Set()
+      case _ => Set()
+    Right(a.copy(frameworkUsedSymbolSet = a.frameworkUsedSymbolSet ++ usedSymbols))
+  }
+
   override def defAbsTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]) = {
     val name = a.getQualifiedName (Symbol.AbsType(aNode)).toString
     val id = aNode._2.id
@@ -16,7 +35,8 @@ object CheckFrameworkDefs
   }
 
   override def defAliasTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]) = {
-    val name = a.getQualifiedName (Symbol.AliasType(aNode)).toString
+    val s = Symbol.AliasType(aNode)
+    val name = a.getQualifiedName (s).toString
     val id = aNode._2.id
     for {
       a <- checkFrameworkTypes(a, name, id)
@@ -42,25 +62,38 @@ object CheckFrameworkDefs
         case "FwTraceIdType" => requireIntegerTypeAlias(a, name, id)
         case _ => Right(a)
       }
+      a <- getFrameworkDefUses(a, s)
     } yield a
   }
 
   override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
-    val name = a.getQualifiedName (Symbol.Array(aNode)).toString
+    val s = Symbol.Array(aNode)
+    val name = a.getQualifiedName (s).toString
     val id = aNode._2.id
-    checkFrameworkTypes(a, name, id)
+    for {
+      a <- checkFrameworkTypes(a, name, id)
+      a <- getFrameworkDefUses(a, s)
+    } yield a
   }
 
   override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
-    val name = a.getQualifiedName (Symbol.Enum(aNode)).toString
+    val s = Symbol.Enum(aNode)
+    val name = a.getQualifiedName (s).toString
     val id = aNode._2.id
-    checkFrameworkTypes(a, name, id)
+    for {
+      a <- checkFrameworkTypes(a, name, id)
+      a <- getFrameworkDefUses(a, s)
+    } yield a
   }
 
   override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
-    val name = a.getQualifiedName (Symbol.Struct(aNode)).toString
+    val s = Symbol.Struct(aNode)
+    val name = a.getQualifiedName (s).toString
     val id = aNode._2.id
-    checkFrameworkTypes(a, name, id)
+    for {
+      a <- checkFrameworkTypes(a, name, id)
+      a <- getFrameworkDefUses(a, s)
+    } yield a
   }
 
   private def checkFrameworkTypes(a: Analysis, name: String, id: AstNode.Id) = {
@@ -91,12 +124,16 @@ object CheckFrameworkDefs
   }
 
   override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
-    val name = a.getQualifiedName (Symbol.Constant(aNode)).toString
+    val s = Symbol.Constant(aNode)
+    val name = a.getQualifiedName (s).toString
     val id = aNode._2.id
-    name match {
-      case "Fw.DpCfg.CONTAINER_USER_DATA_SIZE" => requireIntegerConstant(a, name, id)
-      case _ => Right(a)
-    }
+    for {
+      a <- name match {
+        case "Fw.DpCfg.CONTAINER_USER_DATA_SIZE" => requireIntegerConstant(a, name, id)
+        case _ => Right(a)
+      }
+      a <- getFrameworkDefUses(a, s)
+    } yield a
   }
 
   private def requireAliasType(a: Analysis, name: String, id: AstNode.Id) = {

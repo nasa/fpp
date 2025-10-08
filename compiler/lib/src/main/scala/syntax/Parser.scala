@@ -666,20 +666,27 @@ object Parser extends Parsers {
 
   def specLoc: Parser[Ast.SpecLoc] = {
     def kind = {
-      component ^^ (_ => Ast.SpecLoc.Component) |
-        constant ^^ (_ => Ast.SpecLoc.Constant) |
+      (
+        opt(dictionary) ~ (
+          constant ^^ (_ => Ast.SpecLoc.Constant) |
+          typeToken ^^ (_ => Ast.SpecLoc.Type)
+        )
+      ) ^^ {
+        case maybeDict ~ kind => (maybeDict, kind)
+      } | (
+        component ^^ (_ => Ast.SpecLoc.Component) |
         instance ^^ (_ => Ast.SpecLoc.ComponentInstance) |
         port ^^ (_ => Ast.SpecLoc.Port) |
         state ~! machine ^^ (_ => Ast.SpecLoc.StateMachine) |
         topology ^^ (_ => Ast.SpecLoc.Topology) |
-        typeToken ^^ (_ => Ast.SpecLoc.Type) |
-        interface ^^ (_ => Ast.SpecLoc.Interface) |
-        failure("location kind expected")
+        interface ^^ (_ => Ast.SpecLoc.Interface)
+      ) ^^ {
+        kind => (None, kind)
+      } | failure("location kind expected")
     }
 
-    // TODO: only allow dictionary for constant and type locations
-    (locate ~>! opt(dictionary) ~ kind) ~! node(qualIdent) ~! (at ~>! node(literalString)) ^^ {
-      case dictionary ~ kind ~ symbol ~ file => {
+    (locate ~>! kind) ~! node(qualIdent) ~! (at ~>! node(literalString)) ^^ {
+      case (dictionary, kind) ~ symbol ~ file => {
         Ast.SpecLoc(kind, symbol, file, dictionary.isDefined)
       }
     }

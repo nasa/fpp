@@ -82,7 +82,9 @@ case class Analysis(
   /** The mapping from nodes to implied uses */
   impliedUseMap: Map[AstNode.Id, ImpliedUse.Uses] = Map(),
   /** The set of dictionary definition symbols */
-  dictionarySymbolSet: Set[Symbol] = Set()
+  dictionarySymbolSet: Set[Symbol] = Set(),
+  /** The set of symbols used by framework definitions */
+  frameworkUsedSymbolSet: Set[Symbol] = Set()
 ) {
 
   /** Gets the qualified name of a symbol */
