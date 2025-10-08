@@ -1,0 +1,89 @@
+=== Module Template Definitions
+
+A *module template definition* defines an FPP template that can
+hold reduce FPP model code duplication.
+A module template is an FPP construct with definitions inside
+parameterized with a set of types, constants, and interfaces that
+can be expanded into a module.
+
+==== Syntax
+
+`template`
+<<Lexical-Elements_Identifiers,_identifier_>>
+`(` _parameter-sequence_ `)` `{`
+_module-member-sequence_
+`}`
+
+The _identifier_ specifies the name of the template.
+
+_parameter-sequence_ is an
+<<Element-Sequences,element sequence>> in which the
+elements are one of the following and the terminating punctuation
+is a comma:
+
+* `constant` <<Lexical-Elements_Identifiers,_identifier_>> `:` <<Type-Names,_type-name_>>
+* `interface` <<Lexical-Elements_Identifiers,_identifier_>> `:` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+* `type` <<Lexical-Elements_Identifiers,_identifier_>>
+
+_module-member-sequence_ is an
+<<Element-Sequences,element sequence>> in
+which each element is a <<Definitions_Module-Definitions_Syntax,
+module member>>, and the terminating punctuation is a semicolon.
+
+. Note that <<Definitions_Module-Template-Definitions,template definition>> defined
+as members to template definitions will cause an error.
+
+==== Semantics
+
+Module template definitions define parameterized FPP syntax. A template can be expanded
+through a <<Specifiers_Template-Expansion-Specifiers,
+template expansion specifier>>. When a template is expanded,
+the set of parameters are applied to the template and the newly concrete definitions
+inside the template are placed into the scope of the expansion specifier.
+
+Uses inside the module template are resolved relative to the module template definition
+rather than to the expansion point.
+
+==== Example
+
+[source,fpp]
+----
+template MT(
+    constant base_id: U32,
+    interface comDriver: ByteStreamDriver
+) {
+    instance comStub: Svc.ComStub base id \
+        base_id + 0x0800
+
+    toplogy T {
+        instance comStub
+
+        # TODO(tumbar) What is this? Do we need it
+        # (do we need `instance comStub`?)
+        instance comDriver
+
+        # Connect to the driver from the parameter list
+        connections Downlink {
+            # ComStub <-> ComDriver
+            comStub.drvSendOut      -> comDriver.$send
+            comDriver.sendReturnOut -> comStub.drvSendReturnIn
+            comDriver.ready         -> comStub.drvConnected
+        }
+    }
+}
+
+instance comDriver: Drv.TcpClient base id 0x10300000 + 0x100
+
+module M {
+    # Instantiate template with topology inside
+    # Pass an external component into the topology
+    expand MT(0x100, comDriver)
+}
+
+topology T {
+    import M.T # Imports the instantiated template topology
+    import MT.T # Error: Cannot reference definitions inside a _template_
+
+    instance comDriver
+}
+----
