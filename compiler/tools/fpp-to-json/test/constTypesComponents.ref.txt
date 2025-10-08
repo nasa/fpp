@@ -1,552 +1,645 @@
-[
-  {
-    "members" : [
-      [
+{
+  "fppVersion" : "6dbe24229",
+  "ast" : [
+    {
+      "members" : [
         [
-          "A switch with on and off state"
-        ],
-        {
-          "DefComponent" : {
-            "node" : {
-              "AstNode" : {
-                "data" : {
-                  "kind" : {
-                    "Active" : {
-                      
-                    }
-                  },
-                  "name" : "Switch",
-                  "members" : [
-                    [
+          [
+            "A switch with on and off state"
+          ],
+          {
+            "DefComponent" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "kind" : {
+                      "Active" : {
+                        
+                      }
+                    },
+                    "name" : "Switch",
+                    "members" : [
                       [
-                        "The state enumeration"
-                      ],
-                      {
-                        "DefEnum" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "State",
-                                "typeName" : "None",
-                                "constants" : [
-                                  [
+                        [
+                          "The state enumeration"
+                        ],
+                        {
+                          "DefEnum" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "name" : "State",
+                                  "typeName" : "None",
+                                  "constants" : [
                                     [
+                                      [
+                                      ],
+                                      {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "name" : "OFF",
+                                            "value" : "None"
+                                          },
+                                          "id" : 1
+                                        }
+                                      },
+                                      [
+                                        "The off state"
+                                      ]
                                     ],
-                                    {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "name" : "OFF",
-                                          "value" : "None"
-                                        },
-                                        "id" : 1
-                                      }
-                                    },
                                     [
-                                      "The off state"
+                                      [
+                                      ],
+                                      {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "name" : "ON",
+                                            "value" : "None"
+                                          },
+                                          "id" : 3
+                                        }
+                                      },
+                                      [
+                                        "The on state"
+                                      ]
                                     ]
                                   ],
-                                  [
-                                    [
-                                    ],
-                                    {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "name" : "ON",
-                                          "value" : "None"
-                                        },
-                                        "id" : 3
+                                  "default" : "None"
+                                },
+                                "id" : 4
+                              }
+                            }
+                          }
+                        },
+                        [
+                        ]
+                      ],
+                      [
+                        [
+                          "Command registration"
+                        ],
+                        {
+                          "SpecPortInstance" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "Special" : {
+                                    "inputKind" : "None",
+                                    "kind" : {
+                                      "CommandReg" : {
+                                        
                                       }
                                     },
-                                    [
-                                      "The on state"
-                                    ]
-                                  ]
-                                ],
-                                "default" : "None"
-                              },
-                              "id" : 4
-                            }
-                          }
-                        }
-                      },
-                      [
-                      ]
-                    ],
-                    [
-                      [
-                        "Command registration"
-                      ],
-                      {
-                        "SpecPortInstance" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "Special" : {
-                                  "inputKind" : "None",
-                                  "kind" : {
-                                    "CommandReg" : {
-                                      
-                                    }
-                                  },
-                                  "name" : "cmdRegOut",
-                                  "priority" : "None",
-                                  "queueFull" : "None"
-                                }
-                              },
-                              "id" : 5
-                            }
-                          }
-                        }
-                      },
-                      [
-                      ]
-                    ],
-                    [
-                      [
-                        "Command input"
-                      ],
-                      {
-                        "SpecPortInstance" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "Special" : {
-                                  "inputKind" : "None",
-                                  "kind" : {
-                                    "CommandRecv" : {
-                                      
-                                    }
-                                  },
-                                  "name" : "cmdIn",
-                                  "priority" : "None",
-                                  "queueFull" : "None"
-                                }
-                              },
-                              "id" : 6
-                            }
-                          }
-                        }
-                      },
-                      [
-                      ]
-                    ],
-                    [
-                      [
-                        "Command response"
-                      ],
-                      {
-                        "SpecPortInstance" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "Special" : {
-                                  "inputKind" : "None",
-                                  "kind" : {
-                                    "CommandResp" : {
-                                      
-                                    }
-                                  },
-                                  "name" : "cmdResponseOut",
-                                  "priority" : "None",
-                                  "queueFull" : "None"
-                                }
-                              },
-                              "id" : 7
-                            }
-                          }
-                        }
-                      },
-                      [
-                      ]
-                    ],
-                    [
-                      [
-                        "Set the state"
-                      ],
-                      {
-                        "SpecCommand" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "kind" : {
-                                  "Async" : {
-                                    
+                                    "name" : "cmdRegOut",
+                                    "priority" : "None",
+                                    "queueFull" : "None"
                                   }
                                 },
-                                "name" : "SET_STATE",
-                                "params" : [
-                                  [
-                                    [
-                                    ],
-                                    {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "kind" : {
-                                            "Value" : {
-                                              
-                                            }
-                                          },
-                                          "name" : "state",
-                                          "typeName" : {
-                                            "AstNode" : {
-                                              "data" : {
-                                                "TypeNameQualIdent" : {
-                                                  "name" : {
-                                                    "AstNode" : {
-                                                      "data" : {
-                                                        "Unqualified" : {
-                                                          "name" : "State"
-                                                        }
-                                                      },
-                                                      "id" : 31
-                                                    }
-                                                  }
-                                                }
-                                              },
-                                              "id" : 32
-                                            }
-                                          }
-                                        },
-                                        "id" : 33
+                                "id" : 5
+                              }
+                            }
+                          }
+                        },
+                        [
+                        ]
+                      ],
+                      [
+                        [
+                          "Command input"
+                        ],
+                        {
+                          "SpecPortInstance" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "Special" : {
+                                    "inputKind" : "None",
+                                    "kind" : {
+                                      "CommandRecv" : {
+                                        
                                       }
                                     },
+                                    "name" : "cmdIn",
+                                    "priority" : "None",
+                                    "queueFull" : "None"
+                                  }
+                                },
+                                "id" : 6
+                              }
+                            }
+                          }
+                        },
+                        [
+                        ]
+                      ],
+                      [
+                        [
+                          "Command response"
+                        ],
+                        {
+                          "SpecPortInstance" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "Special" : {
+                                    "inputKind" : "None",
+                                    "kind" : {
+                                      "CommandResp" : {
+                                        
+                                      }
+                                    },
+                                    "name" : "cmdResponseOut",
+                                    "priority" : "None",
+                                    "queueFull" : "None"
+                                  }
+                                },
+                                "id" : 7
+                              }
+                            }
+                          }
+                        },
+                        [
+                        ]
+                      ],
+                      [
+                        [
+                          "Set the state"
+                        ],
+                        {
+                          "SpecCommand" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "kind" : {
+                                    "Async" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "SET_STATE",
+                                  "params" : [
                                     [
-                                      "The new state"
+                                      [
+                                      ],
+                                      {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "kind" : {
+                                              "Value" : {
+                                                
+                                              }
+                                            },
+                                            "name" : "state",
+                                            "typeName" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "TypeNameQualIdent" : {
+                                                    "name" : {
+                                                      "AstNode" : {
+                                                        "data" : {
+                                                          "Unqualified" : {
+                                                            "name" : "State"
+                                                          }
+                                                        },
+                                                        "id" : 31
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                "id" : 32
+                                              }
+                                            }
+                                          },
+                                          "id" : 33
+                                        }
+                                      },
+                                      [
+                                        "The new state"
+                                      ]
                                     ]
-                                  ]
-                                ],
-                                "opcode" : "None",
-                                "priority" : "None",
-                                "queueFull" : "None"
-                              },
-                              "id" : 34
+                                  ],
+                                  "opcode" : "None",
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                },
+                                "id" : 34
+                              }
                             }
                           }
-                        }
-                      },
-                      [
+                        },
+                        [
+                        ]
                       ]
                     ]
-                  ]
-                },
-                "id" : 35
+                  },
+                  "id" : 35
+                }
               }
             }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
+          },
+          [
+          ]
         ],
-        {
-          "DefModule" : {
-            "node" : {
-              "AstNode" : {
-                "data" : {
-                  "name" : "Fw",
-                  "members" : [
-                    [
+        [
+          [
+          ],
+          {
+            "DefModule" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "Fw",
+                    "members" : [
                       [
-                      ],
-                      {
-                        "DefPort" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "Cmd",
-                                "params" : [
-                                ],
-                                "returnType" : "None"
-                              },
-                              "id" : 36
+                        [
+                        ],
+                        {
+                          "DefPort" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "name" : "Cmd",
+                                  "params" : [
+                                  ],
+                                  "returnType" : "None"
+                                },
+                                "id" : 36
+                              }
                             }
                           }
-                        }
-                      },
-                      [
-                      ]
-                    ],
-                    [
-                      [
+                        },
+                        [
+                        ]
                       ],
-                      {
-                        "DefPort" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "CmdReg",
-                                "params" : [
-                                ],
-                                "returnType" : "None"
-                              },
-                              "id" : 37
+                      [
+                        [
+                        ],
+                        {
+                          "DefPort" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "name" : "CmdReg",
+                                  "params" : [
+                                  ],
+                                  "returnType" : "None"
+                                },
+                                "id" : 37
+                              }
                             }
                           }
-                        }
-                      },
-                      [
-                      ]
-                    ],
-                    [
-                      [
+                        },
+                        [
+                        ]
                       ],
-                      {
-                        "DefPort" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "CmdResponse",
-                                "params" : [
-                                ],
-                                "returnType" : "None"
-                              },
-                              "id" : 40
+                      [
+                        [
+                        ],
+                        {
+                          "DefPort" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "name" : "CmdResponse",
+                                  "params" : [
+                                  ],
+                                  "returnType" : "None"
+                                },
+                                "id" : 40
+                              }
                             }
                           }
-                        }
-                      },
-                      [
+                        },
+                        [
+                        ]
                       ]
                     ]
-                  ]
-                },
-                "id" : 41
+                  },
+                  "id" : 41
+                }
               }
             }
-          }
-        },
-        [
+          },
+          [
+          ]
         ]
       ]
-    ]
-  }
-]
+    }
+  ]
+}
 {
-  "0" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "10.5",
-    "includingLoc" : "None"
-  },
-  "1" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "10.5",
-    "includingLoc" : "None"
-  },
-  "2" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "11.5",
-    "includingLoc" : "None"
-  },
-  "3" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "11.5",
-    "includingLoc" : "None"
-  },
-  "4" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "9.3",
-    "includingLoc" : "None"
-  },
-  "5" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "19.3",
-    "includingLoc" : "None"
-  },
-  "6" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "22.3",
-    "includingLoc" : "None"
-  },
-  "7" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "25.3",
-    "includingLoc" : "None"
-  },
-  "8" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.13",
-    "includingLoc" : "None"
-  },
-  "9" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.13",
-    "includingLoc" : "None"
-  },
-  "10" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.13",
-    "includingLoc" : "None"
-  },
-  "11" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.5",
-    "includingLoc" : "None"
-  },
-  "12" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.13",
-    "includingLoc" : "None"
-  },
-  "13" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.13",
-    "includingLoc" : "None"
-  },
-  "14" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.13",
-    "includingLoc" : "None"
-  },
-  "15" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.5",
-    "includingLoc" : "None"
-  },
-  "16" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "32.3",
-    "includingLoc" : "None"
-  },
-  "17" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.13",
-    "includingLoc" : "None"
-  },
-  "18" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.13",
-    "includingLoc" : "None"
-  },
-  "19" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.13",
-    "includingLoc" : "None"
-  },
-  "20" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.5",
-    "includingLoc" : "None"
-  },
-  "21" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.13",
-    "includingLoc" : "None"
-  },
-  "22" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.13",
-    "includingLoc" : "None"
-  },
-  "23" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.13",
-    "includingLoc" : "None"
-  },
-  "24" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.5",
-    "includingLoc" : "None"
-  },
-  "25" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "32.3",
-    "includingLoc" : "None"
-  },
-  "26" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.13",
-    "includingLoc" : "None"
-  },
-  "27" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.13",
-    "includingLoc" : "None"
-  },
-  "28" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.13",
-    "includingLoc" : "None"
-  },
-  "29" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.5",
-    "includingLoc" : "None"
-  },
-  "30" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.13",
-    "includingLoc" : "None"
-  },
-  "31" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.13",
-    "includingLoc" : "None"
-  },
-  "32" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.13",
-    "includingLoc" : "None"
-  },
-  "33" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.5",
-    "includingLoc" : "None"
-  },
-  "34" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "32.3",
-    "includingLoc" : "None"
-  },
-  "35" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "2.1",
-    "includingLoc" : "None"
-  },
-  "36" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "39.3",
-    "includingLoc" : "None"
-  },
-  "37" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "40.3",
-    "includingLoc" : "None"
-  },
-  "38" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "41.3",
-    "includingLoc" : "None"
-  },
-  "39" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "41.3",
-    "includingLoc" : "None"
-  },
-  "40" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "41.3",
-    "includingLoc" : "None"
-  },
-  "41" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "38.1",
-    "includingLoc" : "None"
+  "fppVersion" : "6dbe24229",
+  "locationMap" : {
+    "0" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "10.5",
+      "includingLoc" : "None"
+    },
+    "1" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "10.5",
+      "includingLoc" : "None"
+    },
+    "2" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "11.5",
+      "includingLoc" : "None"
+    },
+    "3" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "11.5",
+      "includingLoc" : "None"
+    },
+    "4" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "9.3",
+      "includingLoc" : "None"
+    },
+    "5" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "19.3",
+      "includingLoc" : "None"
+    },
+    "6" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "22.3",
+      "includingLoc" : "None"
+    },
+    "7" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "25.3",
+      "includingLoc" : "None"
+    },
+    "8" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "33.13",
+      "includingLoc" : "None"
+    },
+    "9" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "33.13",
+      "includingLoc" : "None"
+    },
+    "10" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "33.13",
+      "includingLoc" : "None"
+    },
+    "11" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "33.5",
+      "includingLoc" : "None"
+    },
+    "12" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "33.13",
+      "includingLoc" : "None"
+    },
+    "13" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "33.13",
+      "includingLoc" : "None"
+    },
+    "14" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "33.13",
+      "includingLoc" : "None"
+    },
+    "15" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "33.5",
+      "includingLoc" : "None"
+    },
+    "16" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "32.3",
+      "includingLoc" : "None"
+    },
+    "17" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "33.13",
+      "includingLoc" : "None"
+    },
+    "18" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "33.13",
+      "includingLoc" : "None"
+    },
+    "19" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "33.13",
+      "includingLoc" : "None"
+    },
+    "20" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "33.5",
+      "includingLoc" : "None"
+    },
+    "21" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "33.13",
+      "includingLoc" : "None"
+    },
+    "22" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "33.13",
+      "includingLoc" : "None"
+    },
+    "23" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "33.13",
+      "includingLoc" : "None"
+    },
+    "24" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "33.5",
+      "includingLoc" : "None"
+    },
+    "25" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "32.3",
+      "includingLoc" : "None"
+    },
+    "26" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "33.13",
+      "includingLoc" : "None"
+    },
+    "27" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "33.13",
+      "includingLoc" : "None"
+    },
+    "28" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "33.13",
+      "includingLoc" : "None"
+    },
+    "29" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "33.5",
+      "includingLoc" : "None"
+    },
+    "30" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "33.13",
+      "includingLoc" : "None"
+    },
+    "31" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "33.13",
+      "includingLoc" : "None"
+    },
+    "32" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "33.13",
+      "includingLoc" : "None"
+    },
+    "33" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "33.5",
+      "includingLoc" : "None"
+    },
+    "34" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "32.3",
+      "includingLoc" : "None"
+    },
+    "35" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "2.1",
+      "includingLoc" : "None"
+    },
+    "36" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "39.3",
+      "includingLoc" : "None"
+    },
+    "37" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "40.3",
+      "includingLoc" : "None"
+    },
+    "38" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "41.3",
+      "includingLoc" : "None"
+    },
+    "39" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "41.3",
+      "includingLoc" : "None"
+    },
+    "40" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "41.3",
+      "includingLoc" : "None"
+    },
+    "41" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
+      "pos" : "38.1",
+      "includingLoc" : "None"
+    }
   }
 }
 {
-  "componentInstanceMap" : {
-    
-  },
-  "componentMap" : {
-    "35" : {
-      "aNode" : {
-        "astNodeId" : 35
-      },
-      "portMap" : {
-        "cmdRegOut" : {
-          "Special" : {
+  "fppVersion" : "6dbe24229",
+  "analysis" : {
+    "componentInstanceMap" : {
+      
+    },
+    "componentMap" : {
+      "35" : {
+        "aNode" : {
+          "astNodeId" : 35
+        },
+        "portMap" : {
+          "cmdRegOut" : {
+            "Special" : {
+              "aNode" : {
+                "astNodeId" : 5
+              },
+              "specifier" : {
+                "inputKind" : "None",
+                "kind" : {
+                  "CommandReg" : {
+                    
+                  }
+                },
+                "name" : "cmdRegOut",
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "symbol" : {
+                "Port" : {
+                  "nodeId" : 37,
+                  "unqualifiedName" : "CmdReg"
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None",
+              "importNodeIds" : [
+              ]
+            }
+          },
+          "cmdIn" : {
+            "Special" : {
+              "aNode" : {
+                "astNodeId" : 6
+              },
+              "specifier" : {
+                "inputKind" : "None",
+                "kind" : {
+                  "CommandRecv" : {
+                    
+                  }
+                },
+                "name" : "cmdIn",
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "symbol" : {
+                "Port" : {
+                  "nodeId" : 36,
+                  "unqualifiedName" : "Cmd"
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None",
+              "importNodeIds" : [
+              ]
+            }
+          },
+          "cmdResponseOut" : {
+            "Special" : {
+              "aNode" : {
+                "astNodeId" : 7
+              },
+              "specifier" : {
+                "inputKind" : "None",
+                "kind" : {
+                  "CommandResp" : {
+                    
+                  }
+                },
+                "name" : "cmdResponseOut",
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "symbol" : {
+                "Port" : {
+                  "nodeId" : 40,
+                  "unqualifiedName" : "CmdResponse"
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None",
+              "importNodeIds" : [
+              ]
+            }
+          }
+        },
+        "specialPortMap" : {
+          "command reg" : {
             "aNode" : {
               "astNodeId" : 5
             },
@@ -571,10 +664,8 @@
             "queueFull" : "None",
             "importNodeIds" : [
             ]
-          }
-        },
-        "cmdIn" : {
-          "Special" : {
+          },
+          "command recv" : {
             "aNode" : {
               "astNodeId" : 6
             },
@@ -599,10 +690,8 @@
             "queueFull" : "None",
             "importNodeIds" : [
             ]
-          }
-        },
-        "cmdResponseOut" : {
-          "Special" : {
+          },
+          "command resp" : {
             "aNode" : {
               "astNodeId" : 7
             },
@@ -628,439 +717,359 @@
             "importNodeIds" : [
             ]
           }
-        }
-      },
-      "specialPortMap" : {
-        "command reg" : {
-          "aNode" : {
-            "astNodeId" : 5
-          },
-          "specifier" : {
-            "inputKind" : "None",
-            "kind" : {
-              "CommandReg" : {
-                
-              }
-            },
-            "name" : "cmdRegOut",
-            "priority" : "None",
-            "queueFull" : "None"
-          },
-          "symbol" : {
-            "Port" : {
-              "nodeId" : 37,
-              "unqualifiedName" : "CmdReg"
-            }
-          },
-          "priority" : "None",
-          "queueFull" : "None",
-          "importNodeIds" : [
-          ]
         },
-        "command recv" : {
-          "aNode" : {
-            "astNodeId" : 6
-          },
-          "specifier" : {
-            "inputKind" : "None",
-            "kind" : {
-              "CommandRecv" : {
-                
-              }
-            },
-            "name" : "cmdIn",
-            "priority" : "None",
-            "queueFull" : "None"
-          },
-          "symbol" : {
-            "Port" : {
-              "nodeId" : 36,
-              "unqualifiedName" : "Cmd"
-            }
-          },
-          "priority" : "None",
-          "queueFull" : "None",
-          "importNodeIds" : [
-          ]
-        },
-        "command resp" : {
-          "aNode" : {
-            "astNodeId" : 7
-          },
-          "specifier" : {
-            "inputKind" : "None",
-            "kind" : {
-              "CommandResp" : {
-                
-              }
-            },
-            "name" : "cmdResponseOut",
-            "priority" : "None",
-            "queueFull" : "None"
-          },
-          "symbol" : {
-            "Port" : {
-              "nodeId" : 40,
-              "unqualifiedName" : "CmdResponse"
-            }
-          },
-          "priority" : "None",
-          "queueFull" : "None",
-          "importNodeIds" : [
-          ]
-        }
-      },
-      "commandMap" : {
-        "0" : {
-          "NonParam" : {
-            "aNode" : {
-              "astNodeId" : 34
-            },
-            "kind" : {
-              "Async" : {
-                "priority" : "None",
-                "queueFull" : {
-                  "Assert" : {
-                    
+        "commandMap" : {
+          "0" : {
+            "NonParam" : {
+              "aNode" : {
+                "astNodeId" : 34
+              },
+              "kind" : {
+                "Async" : {
+                  "priority" : "None",
+                  "queueFull" : {
+                    "Assert" : {
+                      
+                    }
                   }
+                }
+              }
+            }
+          }
+        },
+        "defaultOpcode" : 1,
+        "tlmChannelMap" : {
+          
+        },
+        "tlmChannelNameMap" : {
+          
+        },
+        "defaultTlmChannelId" : 0,
+        "eventMap" : {
+          
+        },
+        "defaultEventId" : 0,
+        "paramMap" : {
+          
+        },
+        "specPortMatchingList" : [
+        ],
+        "stateMachineInstanceMap" : {
+          
+        },
+        "portMatchingList" : [
+        ],
+        "defaultParamId" : 0,
+        "containerMap" : {
+          
+        },
+        "defaultContainerId" : 0,
+        "recordMap" : {
+          
+        },
+        "defaultRecordId" : 0
+      }
+    },
+    "includedFileSet" : [
+    ],
+    "inputFileSet" : [
+      "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp"
+    ],
+    "locationSpecifierMap" : [
+    ],
+    "parentSymbolMap" : {
+      "37" : {
+        "Module" : {
+          "nodeId" : 41,
+          "unqualifiedName" : "Fw"
+        }
+      },
+      "3" : {
+        "Enum" : {
+          "nodeId" : 4,
+          "unqualifiedName" : "State"
+        }
+      },
+      "4" : {
+        "Component" : {
+          "nodeId" : 35,
+          "unqualifiedName" : "Switch"
+        }
+      },
+      "40" : {
+        "Module" : {
+          "nodeId" : 41,
+          "unqualifiedName" : "Fw"
+        }
+      },
+      "36" : {
+        "Module" : {
+          "nodeId" : 41,
+          "unqualifiedName" : "Fw"
+        }
+      },
+      "1" : {
+        "Enum" : {
+          "nodeId" : 4,
+          "unqualifiedName" : "State"
+        }
+      }
+    },
+    "symbolScopeMap" : {
+      "4" : {
+        "map" : {
+          "Value" : {
+            "map" : {
+              "OFF" : {
+                "EnumConstant" : {
+                  "nodeId" : 1,
+                  "unqualifiedName" : "OFF"
+                }
+              },
+              "ON" : {
+                "EnumConstant" : {
+                  "nodeId" : 3,
+                  "unqualifiedName" : "ON"
                 }
               }
             }
           }
         }
       },
-      "defaultOpcode" : 1,
-      "tlmChannelMap" : {
-        
-      },
-      "tlmChannelNameMap" : {
-        
-      },
-      "defaultTlmChannelId" : 0,
-      "eventMap" : {
-        
-      },
-      "defaultEventId" : 0,
-      "paramMap" : {
-        
-      },
-      "specPortMatchingList" : [
-      ],
-      "stateMachineInstanceMap" : {
-        
-      },
-      "portMatchingList" : [
-      ],
-      "defaultParamId" : 0,
-      "containerMap" : {
-        
-      },
-      "defaultContainerId" : 0,
-      "recordMap" : {
-        
-      },
-      "defaultRecordId" : 0
-    }
-  },
-  "includedFileSet" : [
-  ],
-  "inputFileSet" : [
-    "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp"
-  ],
-  "locationSpecifierMap" : [
-  ],
-  "parentSymbolMap" : {
-    "37" : {
-      "Module" : {
-        "nodeId" : 41,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "3" : {
-      "Enum" : {
-        "nodeId" : 4,
-        "unqualifiedName" : "State"
-      }
-    },
-    "4" : {
-      "Component" : {
-        "nodeId" : 35,
-        "unqualifiedName" : "Switch"
-      }
-    },
-    "40" : {
-      "Module" : {
-        "nodeId" : 41,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "36" : {
-      "Module" : {
-        "nodeId" : 41,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "1" : {
-      "Enum" : {
-        "nodeId" : 4,
-        "unqualifiedName" : "State"
-      }
-    }
-  },
-  "symbolScopeMap" : {
-    "4" : {
-      "map" : {
-        "Value" : {
-          "map" : {
-            "OFF" : {
-              "EnumConstant" : {
-                "nodeId" : 1,
-                "unqualifiedName" : "OFF"
+      "35" : {
+        "map" : {
+          "Type" : {
+            "map" : {
+              "State" : {
+                "Enum" : {
+                  "nodeId" : 4,
+                  "unqualifiedName" : "State"
+                }
               }
-            },
-            "ON" : {
-              "EnumConstant" : {
-                "nodeId" : 3,
-                "unqualifiedName" : "ON"
+            }
+          },
+          "Value" : {
+            "map" : {
+              "State" : {
+                "Enum" : {
+                  "nodeId" : 4,
+                  "unqualifiedName" : "State"
+                }
+              }
+            }
+          }
+        }
+      },
+      "41" : {
+        "map" : {
+          "Port" : {
+            "map" : {
+              "Cmd" : {
+                "Port" : {
+                  "nodeId" : 36,
+                  "unqualifiedName" : "Cmd"
+                }
+              },
+              "CmdReg" : {
+                "Port" : {
+                  "nodeId" : 37,
+                  "unqualifiedName" : "CmdReg"
+                }
+              },
+              "CmdResponse" : {
+                "Port" : {
+                  "nodeId" : 40,
+                  "unqualifiedName" : "CmdResponse"
+                }
               }
             }
           }
         }
       }
     },
-    "35" : {
-      "map" : {
-        "Type" : {
-          "map" : {
-            "State" : {
-              "Enum" : {
-                "nodeId" : 4,
-                "unqualifiedName" : "State"
+    "topologyMap" : {
+      
+    },
+    "typeMap" : {
+      "4" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 4
+          },
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : {
+            "Some" : {
+              "value" : [
+                "OFF",
+                0
+              ],
+              "t" : {
+                "node" : {
+                  "astNodeId" : 4
+                },
+                "repType" : {
+                  "kind" : {
+                    "I32" : {
+                      
+                    }
+                  }
+                },
+                "default" : "None"
               }
             }
           }
-        },
-        "Value" : {
-          "map" : {
-            "State" : {
-              "Enum" : {
-                "nodeId" : 4,
-                "unqualifiedName" : "State"
+        }
+      },
+      "1" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 4
+          },
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      },
+      "3" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 4
+          },
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      },
+      "32" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 4
+          },
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : {
+            "Some" : {
+              "value" : [
+                "OFF",
+                0
+              ],
+              "t" : {
+                "node" : {
+                  "astNodeId" : 4
+                },
+                "repType" : {
+                  "kind" : {
+                    "I32" : {
+                      
+                    }
+                  }
+                },
+                "default" : "None"
               }
             }
           }
         }
       }
     },
-    "41" : {
-      "map" : {
+    "useDefMap" : {
+      "5" : {
         "Port" : {
-          "map" : {
-            "Cmd" : {
-              "Port" : {
-                "nodeId" : 36,
-                "unqualifiedName" : "Cmd"
+          "nodeId" : 37,
+          "unqualifiedName" : "CmdReg"
+        }
+      },
+      "32" : {
+        "Enum" : {
+          "nodeId" : 4,
+          "unqualifiedName" : "State"
+        }
+      },
+      "6" : {
+        "Port" : {
+          "nodeId" : 36,
+          "unqualifiedName" : "Cmd"
+        }
+      },
+      "31" : {
+        "Enum" : {
+          "nodeId" : 4,
+          "unqualifiedName" : "State"
+        }
+      },
+      "7" : {
+        "Port" : {
+          "nodeId" : 40,
+          "unqualifiedName" : "CmdResponse"
+        }
+      }
+    },
+    "valueMap" : {
+      "1" : {
+        "EnumConstant" : {
+          "value" : [
+            "OFF",
+            0
+          ],
+          "t" : {
+            "node" : {
+              "astNodeId" : 4
+            },
+            "repType" : {
+              "kind" : {
+                "I32" : {
+                  
+                }
               }
             },
-            "CmdReg" : {
-              "Port" : {
-                "nodeId" : 37,
-                "unqualifiedName" : "CmdReg"
+            "default" : "None"
+          }
+        }
+      },
+      "3" : {
+        "EnumConstant" : {
+          "value" : [
+            "ON",
+            1
+          ],
+          "t" : {
+            "node" : {
+              "astNodeId" : 4
+            },
+            "repType" : {
+              "kind" : {
+                "I32" : {
+                  
+                }
               }
             },
-            "CmdResponse" : {
-              "Port" : {
-                "nodeId" : 40,
-                "unqualifiedName" : "CmdResponse"
-              }
-            }
+            "default" : "None"
           }
         }
       }
+    },
+    "stateMachineMap" : {
+      
     }
-  },
-  "topologyMap" : {
-    
-  },
-  "typeMap" : {
-    "4" : {
-      "Enum" : {
-        "node" : {
-          "astNodeId" : 4
-        },
-        "repType" : {
-          "kind" : {
-            "I32" : {
-              
-            }
-          }
-        },
-        "default" : {
-          "Some" : {
-            "value" : [
-              "OFF",
-              0
-            ],
-            "t" : {
-              "node" : {
-                "astNodeId" : 4
-              },
-              "repType" : {
-                "kind" : {
-                  "I32" : {
-                    
-                  }
-                }
-              },
-              "default" : "None"
-            }
-          }
-        }
-      }
-    },
-    "1" : {
-      "Enum" : {
-        "node" : {
-          "astNodeId" : 4
-        },
-        "repType" : {
-          "kind" : {
-            "I32" : {
-              
-            }
-          }
-        },
-        "default" : "None"
-      }
-    },
-    "3" : {
-      "Enum" : {
-        "node" : {
-          "astNodeId" : 4
-        },
-        "repType" : {
-          "kind" : {
-            "I32" : {
-              
-            }
-          }
-        },
-        "default" : "None"
-      }
-    },
-    "32" : {
-      "Enum" : {
-        "node" : {
-          "astNodeId" : 4
-        },
-        "repType" : {
-          "kind" : {
-            "I32" : {
-              
-            }
-          }
-        },
-        "default" : {
-          "Some" : {
-            "value" : [
-              "OFF",
-              0
-            ],
-            "t" : {
-              "node" : {
-                "astNodeId" : 4
-              },
-              "repType" : {
-                "kind" : {
-                  "I32" : {
-                    
-                  }
-                }
-              },
-              "default" : "None"
-            }
-          }
-        }
-      }
-    }
-  },
-  "useDefMap" : {
-    "5" : {
-      "Port" : {
-        "nodeId" : 37,
-        "unqualifiedName" : "CmdReg"
-      }
-    },
-    "32" : {
-      "Enum" : {
-        "nodeId" : 4,
-        "unqualifiedName" : "State"
-      }
-    },
-    "6" : {
-      "Port" : {
-        "nodeId" : 36,
-        "unqualifiedName" : "Cmd"
-      }
-    },
-    "31" : {
-      "Enum" : {
-        "nodeId" : 4,
-        "unqualifiedName" : "State"
-      }
-    },
-    "7" : {
-      "Port" : {
-        "nodeId" : 40,
-        "unqualifiedName" : "CmdResponse"
-      }
-    }
-  },
-  "valueMap" : {
-    "1" : {
-      "EnumConstant" : {
-        "value" : [
-          "OFF",
-          0
-        ],
-        "t" : {
-          "node" : {
-            "astNodeId" : 4
-          },
-          "repType" : {
-            "kind" : {
-              "I32" : {
-                
-              }
-            }
-          },
-          "default" : "None"
-        }
-      }
-    },
-    "3" : {
-      "EnumConstant" : {
-        "value" : [
-          "ON",
-          1
-        ],
-        "t" : {
-          "node" : {
-            "astNodeId" : 4
-          },
-          "repType" : {
-            "kind" : {
-              "I32" : {
-                
-              }
-            }
-          },
-          "default" : "None"
-        }
-      }
-    }
-  },
-  "stateMachineMap" : {
-    
   }
 }
