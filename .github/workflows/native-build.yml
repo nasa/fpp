@@ -57,7 +57,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: build-jar
-          path: ${{ inputs.output-directory }}/*
+          path: ${{ inputs.output-directory }}/*.jar
           retention-days: 5
           if-no-files-found: error
       - if: ${{ inputs.trace }}
@@ -187,11 +187,14 @@ jobs:
         run: |
           pip install build
           # Place the native files in the python package
-          cp -r ${{ inputs.output-directory }}/* python/fprime_fpp/
+          
           chmod +x python/fprime_fpp/fpp*
           PLATFORM_OPTIONS=""
           if [[ "${matrix.tag}" != "jar" ]]; then
             PLATFORM_OPTIONS="--config-setting=--build-option=--plat-name=${{ matrix.tag }}"
+            cp -r ${{ inputs.output-directory }}/fpp python/fprime_fpp/
+          else
+            cp -r ${{ inputs.output-directory }}/*.jar python/fprime_fpp/
           fi
           python3 -m build --wheel --outdir packages/dist $PLATFORM_OPTIONS .
         shell: bash
