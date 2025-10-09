@@ -46,6 +46,11 @@ run_test()
   {
     # Compare the output
     diff -u $outfile.ref.txt $outfile.out.txt > $outfile.diff.txt 2>&1
+    if test $? -ne 0
+    then
+      cat $outfile.diff.txt
+      return 1
+    fi
   }
 }
 

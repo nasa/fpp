@@ -1511,12 +1511,7 @@ ActiveTelemetryComponentBase ::
   ActiveTelemetryComponentBase(const char* compName) :
     Fw::ActiveComponentBase(compName)
 {
-  // Write telemetry channel ChannelU32OnChange
-  this->m_first_update_ChannelU32OnChange = true;
-  this->m_last_ChannelU32OnChange = 0;
 
-  // Write telemetry channel ChannelEnumOnChange
-  this->m_first_update_ChannelEnumOnChange = true;
 }
 
 ActiveTelemetryComponentBase ::
@@ -3578,6 +3573,54 @@ void ActiveTelemetryComponentBase ::
     FwChanIdType _id;
 
     _id = this->getIdBase() + CHANNELID_CHANNELENUMONCHANGE;
+
+    this->m_tlmOut_OutputPort[0].invoke(
+      _id,
+      _tlmTime,
+      _tlmBuff
+    );
+  }
+}
+
+void ActiveTelemetryComponentBase ::
+  tlmWrite_ChannelBoolOnChange(
+      bool arg,
+      Fw::Time _tlmTime
+  )
+{
+  // Check to see if it is the first time
+  if (not this->m_first_update_ChannelBoolOnChange) {
+    // Check to see if value has changed. If not, don't write it.
+    if (arg == this->m_last_ChannelBoolOnChange) {
+      return;
+    }
+    else {
+      this->m_last_ChannelBoolOnChange = arg;
+    }
+  }
+  else {
+    this->m_first_update_ChannelBoolOnChange = false;
+    this->m_last_ChannelBoolOnChange = arg;
+  }
+
+  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+    if (
+      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      (_tlmTime ==  Fw::ZERO_TIME)
+    ) {
+      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+    }
+
+    Fw::TlmBuffer _tlmBuff;
+    Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
+    FW_ASSERT(
+      _stat == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_stat)
+    );
+
+    FwChanIdType _id;
+
+    _id = this->getIdBase() + CHANNELID_CHANNELBOOLONCHANGE;
 
     this->m_tlmOut_OutputPort[0].invoke(
       _id,

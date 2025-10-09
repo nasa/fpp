@@ -463,7 +463,7 @@
                             "AstNode" : {
                               "data" : {
                                 "name" : "a",
-                                "underylingPort" : {
+                                "underlyingPort" : {
                                   "AstNode" : {
                                     "data" : {
                                       "Qualified" : {

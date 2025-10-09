@@ -7,7 +7,7 @@ trait LineUtils {
 
   def line(s: String): Line = Line(s)
 
-  def lines(s: String): List[Line] = s.stripMargin.split("\n").map(line(_)).toList
+  def lines(s: String): List[Line] = s.stripMargin.split("\n").map(line).toList
 
   def linesOpt[T](f: T => List[Line], o: Option[T]): List[Line] =
     o match {
@@ -19,11 +19,11 @@ trait LineUtils {
 
   val indentIncrement = 2
 
-  val addBlankPrefix: List[Line] => List[Line] = Line.addPrefixLine (Line.blank) _
+  val addBlankPrefix: List[Line] => List[Line] = Line.addPrefixLine(Line.blank)
 
-  val addBlankPostfix: List[Line] => List[Line] = Line.addPostfixLine (Line.blank) _
+  val addBlankPostfix: List[Line] => List[Line] = Line.addPostfixLine(Line.blank)
 
-  val flattenWithBlankPrefix: List[List[Line]] => List[Line] = Line.flattenWithPrefixLine (Line.blank) _
+  val flattenWithBlankPrefix: List[List[Line]] => List[Line] = Line.flattenWithPrefixLine(Line.blank)
 
   /** Insert element between each element of list l */
   def intersperseList[T](l: List[T], element: T): List[T] = l match {
