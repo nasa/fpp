@@ -1235,7 +1235,7 @@ PassiveEventsComponentBase ::
   this->m_EventWarningLowThrottledThrottle = 0;
   this->m_EventWarningLowThrottledIntervalThrottle = 0;
 
-  this->m_EventWarningLowThrottledIntervalThrottleTime = TimeWrapper();
+  this->m_EventWarningLowThrottledIntervalThrottleTime = Fw::Time();
 }
 
 PassiveEventsComponentBase ::
@@ -2846,22 +2846,28 @@ void PassiveEventsComponentBase ::
   _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL;
 
   // Check throttle value & throttle timeout
-  FwIndexType last_counter = this->m_EventWarningLowThrottledIntervalThrottle.load();
-  if (last_counter >= EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL_THROTTLE) {
-    // The counter has overflowed, check if time interval has passed
-    Fw::Time last_throttle = this->m_EventWarningLowThrottledIntervalThrottleTime.load().toTime();
-    if (Fw::TimeInterval(last_throttle, _logTime) >= Fw::TimeInterval(10, 0)) {
-      // Reset the count (lockless)
-      (void) this->m_EventWarningLowThrottledIntervalThrottle.compare_exchange_strong(last_counter, 0);
-    } else {
-      // Throttle the event
-      return;
-    }
-  }
+  {
+    Os::ScopeLock scopedLock(this->m_EventWarningLowThrottledIntervalThrottleLock);
 
-  // Increment the throttle count, reset the throttle time if this is the first event
-  if ((this->m_EventWarningLowThrottledIntervalThrottle++) == 0) {
-    this->m_EventWarningLowThrottledIntervalThrottleTime = TimeWrapper(_logTime);
+    if (this->m_EventWarningLowThrottledIntervalThrottle >= EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL_THROTTLE) {
+      // The counter has overflowed, check if time interval has passed
+      if (Fw::TimeInterval(this->m_EventWarningLowThrottledIntervalThrottleTime, _logTime) >= Fw::TimeInterval(10, 0)) {
+        // Reset the count
+        this->m_EventWarningLowThrottledIntervalThrottle = 0;
+      } else {
+        // Throttle the event
+        return;
+      }
+    }
+
+    // Reset the throttle time if needed
+    if (this->m_EventWarningLowThrottledIntervalThrottle == 0) {
+      // This is the first event, reset the throttle time
+      this->m_EventWarningLowThrottledIntervalThrottleTime = _logTime;
+    }
+
+    // Increment the count
+    this->m_EventWarningLowThrottledIntervalThrottle++;
   }
 
   // Emit the event on the log port
@@ -2944,11 +2950,15 @@ void PassiveEventsComponentBase ::
 void PassiveEventsComponentBase ::
   log_WARNING_LO_EventWarningLowThrottledInterval_ThrottleClear()
 {
-  // Reset throttle counter
-  this->m_EventWarningLowThrottledIntervalThrottle = 0;
+  {
+    Os::ScopeLock scopedLock(this->m_EventWarningLowThrottledIntervalThrottleLock);
 
-  // Reset the throttle time
-  this->m_EventWarningLowThrottledIntervalThrottleTime = TimeWrapper();
+    // Reset throttle counter
+    this->m_EventWarningLowThrottledIntervalThrottle = 0;
+
+    // Reset the throttle time
+    this->m_EventWarningLowThrottledIntervalThrottleTime = Fw::Time(0, 0);
+  }
 }
 
 // ----------------------------------------------------------------------

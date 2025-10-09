@@ -835,6 +835,10 @@ abstract class ComponentCppWriterUtils(
   def eventThrottleTimeName(name: String) =
     s"m_${name}ThrottleTime"
 
+  /** Get the name for an event throttle counter variable */
+  def eventThrottleLockName(name: String) =
+    s"m_${name}ThrottleLock"
+
   /** Get the name for an event ID constant */
   def eventIdConstantName(name: String) =
     s"EVENTID_${name.toUpperCase}"
