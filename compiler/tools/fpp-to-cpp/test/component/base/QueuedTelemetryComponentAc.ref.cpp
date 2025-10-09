@@ -1511,16 +1511,7 @@ QueuedTelemetryComponentBase ::
   QueuedTelemetryComponentBase(const char* compName) :
     Fw::QueuedComponentBase(compName)
 {
-  // Write telemetry channel ChannelU32OnChange
-  this->m_first_update_ChannelU32OnChange = true;
-  this->m_last_ChannelU32OnChange = {};
 
-  // Write telemetry channel ChannelEnumOnChange
-  this->m_first_update_ChannelEnumOnChange = true;
-
-  // Write telemetry channel ChannelBoolOnChange
-  this->m_first_update_ChannelBoolOnChange = true;
-  this->m_last_ChannelBoolOnChange = {};
 }
 
 QueuedTelemetryComponentBase ::
