@@ -14,7 +14,7 @@ runs:
   - name: "Setting up GraalVM/Java Environment"
     run: |
       echo "Run Native Image Build"
-      if [ "${{ inputs.trace-directory }}" != "" ]; then
+      if [ -d "${{ inputs.trace-directory }}" ]; then
         export CLASSPATH="`cd ${{ inputs.trace-directory }}/../..; pwd`:${CLASSPATH}"
       fi
       ${{ github.action_path }}/native-images ${{ inputs.binary-directory }}

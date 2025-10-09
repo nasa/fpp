@@ -144,7 +144,7 @@ jobs:
         uses: ./.github/actions/build-native-images
         with:
           binary-directory: ${{ inputs.output-directory }}
-          trace-directory: ${{ inputs.trace ? inputs.trace-directory : '' }}
+          trace-directory: ${{ inputs.trace-directory }}
       - name: "Archive Native Images"
         uses: actions/upload-artifact@v4
         with:
