@@ -1,0 +1,10 @@
+name: 'native-tools-setup'
+description: 'Set Up GraalVM Native Image Tools'
+runs:
+  using: "composite"
+  steps:
+  - name: "Setting up GraalVM/Java Environment"
+    run: |
+      echo "Setup GraalVM Environment"
+      ${{ github.action_path }}/env-setup
+    shell: bash

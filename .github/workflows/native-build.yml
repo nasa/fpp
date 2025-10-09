@@ -32,21 +32,11 @@ on:
         required: false
         default: trace/META-INF/native-image
         type: string
-      meta-package:
-        description: "Meta-package name to publish"
-        required: false
-        default: ""
-        type: string
       extra-tools:
         description: "Extra meta-package tools publish"
         required: false
         default: ""
         type: string
-      fast-hack:
-        description: "Publish fast (deprecated) packages"
-        required: false
-        default: false
-        type: boolean
 jobs:
   build-jars:
     runs-on: "ubuntu-22.04"
@@ -57,7 +47,7 @@ jobs:
         with:
           submodules: recursive
       - name: "Setup Native Image Tools"
-        uses: fprime-community/native-images-action@unified-tool
+        uses: ./.github/actions/native-tools-setup
       - name: "Building JAR files"
         run: |
           cd ${{ inputs.working-directory }}
@@ -102,8 +92,12 @@ jobs:
           matrix = {
             "run": [
               {
-                "runner": "macos-13",
-                "tag": "macosx_13_0_universal2"
+                "runner": "macos-14",
+                "tag": "macosx_14_0_arm64"
+              },
+              {
+                "runner": "macos-15-intel",
+                "tag": "macosx_15_0_x86_64"
               },
               {
                 "runner": "ubuntu-22.04",
@@ -135,8 +129,6 @@ jobs:
         uses: actions/checkout@v3
         with:
           submodules: recursive
-      - name: "Setup Native Image Tools"
-        uses: fprime-community/native-images-action@unified-tool
       - name: "Download JARs"
         uses: actions/download-artifact@v4
         with:
@@ -149,22 +141,7 @@ jobs:
           name: jar-traces
           path: ${{ inputs.trace-directory }}
       - name: "Build Native Images"
-        run: |
-          export CLASSPATH="`cd ${{ inputs.trace-directory }}/../..; pwd`:${CLASSPATH}"
-          cd ${{ inputs.working-directory }}
-          $NATIVE_IMAGE_TOOLS_PATH/native-images ${{ inputs.output-directory }}
-
-          # Generate wrappers for tools
-          tool_names=`cat ${{ inputs.working-directory }}/compiler/tools.txt`
-          for tool in $tool_names
-          do
-              tool_wrapper="${{ inputs.output-directory }}/fpp-$tool"
-              echo "Generating wrapper for fpp-$tool in $tool_wrapper"
-              echo '#!/bin/sh
-              "`dirname $0`/fpp" '$tool' "$@"' > $tool_wrapper
-              chmod +x $tool_wrapper
-          done
-        shell: bash
+        uses: ./.github/actions/build-native-images
       - name: "Archive Native Images"
         uses: actions/upload-artifact@v4
         with:
@@ -196,17 +173,10 @@ jobs:
         shell: bash
       - name: "Run Builder"
         run: |
-          FLAGS="--package-tag ${{ matrix.tag }} --extra-tools ${{ inputs.extra-tools }}"
-          if [[ "${{ matrix.tag }}" == "jar" ]] && [[ "${{ inputs.meta-package }}" != "" ]]
-          then
-              echo "[INFO] Generating Meta-Package: ${{ inputs.meta-package }}"
-              FLAGS="${FLAGS} --meta-package ${{ inputs.meta-package }}"
-          elif [[ "${{ inputs.fast-hack }}" == "true" ]]
-          then
-              echo "[INFO] Generating fast-hack packages"
-              FLAGS="${FLAGS} --fast-hack"
-          fi
-          fprime-native-packager ${{ inputs.output-directory }} ${FLAGS}
+          pip install build
+          # Place the native files in the python package
+          cp -r ${{ inputs.output-directory }}/* python/fprime_fpp/
+          python3 -m build --wheel --outdir packages/dist --config-setting=--build-option=--plat-name=${{ matrix.tag }} .
         shell: bash
       - name: "Archiving Wheels"
         uses: actions/upload-artifact@v4

@@ -1,0 +1,19 @@
+name: 'native-tools-setup'
+description: 'Set Up GraalVM Native Image Tools'
+inputs:
+  trace-directory:
+    required: false
+    default: ""
+runs:
+  using: "composite"
+  steps:
+  - name: "Setting up GraalVM/Java Environment"
+    uses: ./.github/actions/native-tools-setup
+  - name: "Setting up GraalVM/Java Environment"
+    run: |
+      echo "Run Native Image Build"
+      if [ "${{ inputs.trace-directory }}" != "" ]; then
+        export CLASSPATH="`cd ${{ inputs.trace-directory }}/../..; pwd`:${CLASSPATH}"
+      fi
+      ${{ github.action_path }}/native-images
+    shell: bash
