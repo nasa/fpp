@@ -2,7 +2,7 @@ name: Build Native Images
 
 on:
   push:
-    branches: [ "main", "release/**", "unified-tool" ]
+    branches: [ "main", "release/**" ]
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
   release:

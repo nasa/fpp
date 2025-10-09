@@ -23,7 +23,9 @@ fi
 
 
 # Download Graal
-curl -L "${graal_url}" | tar -xz
+echo "Downloading GraalVM from: ${graal_url}"
+curl -L "${graal_url}" > "${graal_ar}"
+tar -xzf "${graal_ar}"
 graal_bin="${graal_dir}/bin"
 if [ ! -d "${graal_bin}" ]
 then
