@@ -188,9 +188,7 @@ jobs:
       - name: "Run Builder"
         run: |
           pip install build
-          # Place the native files in the python package
-          
-          chmod +x python/fprime_fpp/fpp*
+          # Place the native files in the python package and determine platform options
           PLATFORM_OPTIONS=""
           if [[ "${matrix.tag}" != "jar" ]]; then
             PLATFORM_OPTIONS="--config-setting=--build-option=--plat-name=${{ matrix.tag }}"
@@ -198,6 +196,8 @@ jobs:
           else
             cp -vr ${{ inputs.output-directory }}/*.jar python/fprime_fpp/
           fi
+          # Github archiving clears executable flag, so put it back
+          chmod +x python/fprime_fpp/fpp*
           python3 -m build --wheel --outdir packages/dist $PLATFORM_OPTIONS .
         shell: bash
       - name: "Archiving Wheels"
