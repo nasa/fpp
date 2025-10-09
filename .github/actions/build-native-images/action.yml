@@ -1,6 +1,8 @@
 name: 'native-tools-setup'
 description: 'Set Up GraalVM Native Image Tools'
 inputs:
+  binary-directory:
+    required: true
   trace-directory:
     required: false
     default: ""
@@ -15,5 +17,5 @@ runs:
       if [ "${{ inputs.trace-directory }}" != "" ]; then
         export CLASSPATH="`cd ${{ inputs.trace-directory }}/../..; pwd`:${CLASSPATH}"
       fi
-      ${{ github.action_path }}/native-images
+      ${{ github.action_path }}/native-images ${{ inputs.binary-directory }}
     shell: bash
