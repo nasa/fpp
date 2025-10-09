@@ -156,6 +156,16 @@ jobs:
           if-no-files-found: error
       - name: "Testing Native Images via Unit-Tests"
         run: |
+          # Generate wrappers for tools
+          tool_names=`cat ${{ inputs.working-directory }}/compiler/tools.txt`
+          for tool in $tool_names
+          do
+              tool_wrapper="${{ inputs.output-directory }}/fpp-$tool"
+              echo "Generating wrapper for fpp-$tool in $tool_wrapper"
+              echo '#!/bin/sh
+              "`dirname $0`/fpp" '$tool' "$@"' > $tool_wrapper
+              chmod +x $tool_wrapper
+          done
           cd ${{ inputs.working-directory }}
           ${{ inputs.test }}
   build-wheels:
