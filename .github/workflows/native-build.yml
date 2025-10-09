@@ -190,7 +190,7 @@ jobs:
           pip install build
           # Place the native files in the python package and determine platform options
           PLATFORM_OPTIONS=""
-          if [[ "${matrix.tag}" != "jar" ]]; then
+          if [[ "${{ matrix.tag }}" != "jar" ]]; then
             PLATFORM_OPTIONS="--config-setting=--build-option=--plat-name=${{ matrix.tag }}"
             cp -vr ${{ inputs.output-directory }}/fpp python/fprime_fpp/
           else
