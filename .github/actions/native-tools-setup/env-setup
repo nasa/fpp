@@ -7,6 +7,9 @@ graal_arch="$(uname -m)"
 if [[ "$graal_arch" == "x86_64" ]] || [[ "$graal_arch" == "x64" ]]
 then
   graal_arch="amd64"
+elif [[ "$graal_arch" == "arm64" ]] || [[ "$graal_arch" == "aarch64" ]]
+then
+  graal_arch="aarch64"
 fi
 
 graal_ver="22.3.0"
