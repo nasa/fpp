@@ -484,13 +484,19 @@ case class ArrayCppWriter (
             CppDoc.Type("Fw::SerializeBufferBase&"),
             "buffer",
             Some("The serial buffer"),
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("Fw::Serialization::Endianness"),
+            "mode",
+            Some("Endianness of serialized buffer"),
+            Some("Fw::Serialization::BIG"),
           )
         ),
         CppDoc.Type("Fw::SerializeStatus"),
         List.concat(
           lines("Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;"),
           indexIterator(
-            line("status = buffer.serializeFrom((*this)[index]);") ::
+            line("status = buffer.serializeFrom((*this)[index], mode);") ::
               wrapInIf("status != Fw::FW_SERIALIZE_OK", lines("return status;")),
           ),
           lines("return status;"),
@@ -506,13 +512,19 @@ case class ArrayCppWriter (
             CppDoc.Type("Fw::SerializeBufferBase&"),
             "buffer",
             Some("The serial buffer"),
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("Fw::Serialization::Endianness"),
+            "mode",
+            Some("Endianness of serialized buffer"),
+            Some("Fw::Serialization::BIG"),
           )
         ),
         CppDoc.Type("Fw::SerializeStatus"),
         List.concat(
           lines("Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;"),
           indexIterator(
-            line("status = buffer.deserializeTo((*this)[index]);") ::
+            line("status = buffer.deserializeTo((*this)[index], mode);") ::
               wrapInIf("status != Fw::FW_SERIALIZE_OK", lines("return status;")),
           ),
           lines("return status;"),

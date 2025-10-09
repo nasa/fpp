@@ -104,12 +104,14 @@ class Enum :
 
     //! Serialization
     Fw::SerializeStatus serializeTo(
-        Fw::SerializeBufferBase& buffer //!< The serial buffer
+        Fw::SerializeBufferBase& buffer, //!< The serial buffer
+        Fw::Serialization::Endianness mode = Fw::Serialization::BIG //!< Endianness of serialized buffer
     ) const;
 
     //! Deserialization
     Fw::SerializeStatus deserializeFrom(
-        Fw::SerializeBufferBase& buffer //!< The serial buffer
+        Fw::SerializeBufferBase& buffer, //!< The serial buffer
+        Fw::Serialization::Endianness mode = Fw::Serialization::BIG //!< Endianness of serialized buffer
     );
 
     //! Get the dynamic serialized size of the struct

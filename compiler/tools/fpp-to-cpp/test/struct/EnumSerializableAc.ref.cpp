@@ -114,16 +114,19 @@ std::ostream& operator<<(std::ostream& os, const Enum& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus Enum ::
-  serializeTo(Fw::SerializeBufferBase& buffer) const
+  serializeTo(
+      Fw::SerializeBufferBase& buffer,
+      Fw::Serialization::Endianness mode
+  ) const
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serializeFrom(this->m_e);
+  status = buffer.serializeFrom(this->m_e, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
   for (FwSizeType i = 0; i < 3; i++) {
-    status = buffer.serializeFrom(this->m_eArr[i]);
+    status = buffer.serializeFrom(this->m_eArr[i], mode);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -133,16 +136,19 @@ Fw::SerializeStatus Enum ::
 }
 
 Fw::SerializeStatus Enum ::
-  deserializeFrom(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(
+      Fw::SerializeBufferBase& buffer,
+      Fw::Serialization::Endianness mode
+  )
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserializeTo(this->m_e);
+  status = buffer.deserializeTo(this->m_e, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
   for (FwSizeType i = 0; i < 3; i++) {
-    status = buffer.deserializeTo(this->m_eArr[i]);
+    status = buffer.deserializeTo(this->m_eArr[i], mode);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }

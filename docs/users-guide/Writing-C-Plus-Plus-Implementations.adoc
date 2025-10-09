@@ -79,7 +79,7 @@ Your class definition should include the following:
 * An implementation of the virtual function
 +
 ----
-Fw::SerializeStatus T::serializeTo(Fw::SerializeBufferBase&) const
+Fw::SerializeStatus T::serializeTo(Fw::SerializeBufferBase&, Fw::Serialization::Endianness) const
 ----
 +
 that specifies how to *serialize* a class instance to a buffer
@@ -88,7 +88,7 @@ that specifies how to *serialize* a class instance to a buffer
 * An implementation of the function
 +
 ----
-Fw::SerializeStatus T::deserializeFrom(Fw::SerializeBufferBase&)
+Fw::SerializeStatus T::deserializeFrom(Fw::SerializeBufferBase&, Fw::Serialization::Endianness)
 ----
 +
 that specifies how to *deserialize* a class instance from a
@@ -132,6 +132,7 @@ struct T final : public Fw::Serializable { // Extend Fw::Serializable
   // Define some shorthand for F Prime types
   using SS = Fw::SerializeStatus SS;
   using B = Fw::SerializeBufferBase B;
+  using E = Fw::Serialization::Endianness E;
 
   // Define the constant SERIALIZED_SIZE
   enum Constants { SERIALIZED_SIZE = sizeof(U32) };
@@ -143,10 +144,10 @@ struct T final : public Fw::Serializable { // Extend Fw::Serializable
   bool operator==(const T& that) const { return this->x == that.x; }
 
   // Define the virtual serializeTo method
-  SS serializeTo(B& b) const final { return b.serializeFrom(x); }
+  SS serializeTo(B& b, E e) const final { return b.serializeFrom(x, e); }
 
   // Define the virtual deserializeFrom method
-  SS deserializeFrom(B& b) final { return b.deserializeTo(x); }
+  SS deserializeFrom(B& b, E e) final { return b.deserializeTo(x, e); }
 
   // Provide some data
   U32 x;
@@ -493,10 +494,12 @@ F Prime uses the following rules for serializing data:
 . Values of primitive integer type are serialized as follows:
 
 .. A value of unsigned integer type (`U8`, `U16`, `U32`, or `U64`)
-is serialized in big-endian order (most significant byte first),
+is serialized into big-endian order (most significant byte first) by default,
 using the number of bytes implied by the bit width.
 For example, the `U16` value 10 (decimal) is serialized as the
 two bytes `00` `0A` (hex).
+
+If little-endian order is desired, the optional mode parameter can be specified as `Fw::Serialization::LITTLE`. This stores the data least significant byte order in the number of bytes implied by the bit width. The `U16` value 10 (decimal) is serialized in little-endian as the two bytes `0A` `00` (hex).
 
 .. A value of signed integer type (`I8`, `I16`, `I32`, or `I64`)
 is serialized by first converting the value to an unsigned value of the same bit

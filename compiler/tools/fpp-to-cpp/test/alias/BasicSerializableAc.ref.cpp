@@ -98,23 +98,26 @@ std::ostream& operator<<(std::ostream& os, const Basic& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus Basic ::
-  serializeTo(Fw::SerializeBufferBase& buffer) const
+  serializeTo(
+      Fw::SerializeBufferBase& buffer,
+      Fw::Serialization::Endianness mode
+  ) const
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serializeFrom(this->m_A);
+  status = buffer.serializeFrom(this->m_A, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serializeFrom(this->m_B);
+  status = buffer.serializeFrom(this->m_B, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serializeFrom(this->m_C);
+  status = buffer.serializeFrom(this->m_C, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serializeFrom(this->m_D);
+  status = buffer.serializeFrom(this->m_D, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -123,23 +126,26 @@ Fw::SerializeStatus Basic ::
 }
 
 Fw::SerializeStatus Basic ::
-  deserializeFrom(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(
+      Fw::SerializeBufferBase& buffer,
+      Fw::Serialization::Endianness mode
+  )
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserializeTo(this->m_A);
+  status = buffer.deserializeTo(this->m_A, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserializeTo(this->m_B);
+  status = buffer.deserializeTo(this->m_B, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserializeTo(this->m_C);
+  status = buffer.deserializeTo(this->m_C, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserializeTo(this->m_D);
+  status = buffer.deserializeTo(this->m_D, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
