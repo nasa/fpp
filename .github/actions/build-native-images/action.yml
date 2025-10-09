@@ -15,5 +15,14 @@ runs:
       if [ -d "${{ inputs.trace-directory }}" ]; then
         export CLASSPATH="`cd ${{ inputs.trace-directory }}/../..; pwd`:${CLASSPATH}"
       fi
-      ${{ github.action_path }}/native-images ${{ inputs.binary-directory }}
+      # Attempt to use the action path to find native-images. If this fails, use a relative path in hopes
+      # the working directory is the root of the repository.
+      #
+      # Docker containers don't seem to get the action path set correctly, so we need the relative path fallback.
+      if [ -f "${{ github.action_path }}/native-images" ]
+      then
+          "${{ github.action_path }}/native-images" ${{ inputs.binary-directory }}
+      else
+          ./.github/actions/build-native-images/native-images ${{ inputs.binary-directory }}
+      fi
     shell: bash
