@@ -183,14 +183,12 @@ jobs:
         with:
           name: build-${{ matrix.tag }}
           path: ${{ inputs.output-directory }}
-      - name: "Install Builder"
-        run: pip install fprime-native-images
-        shell: bash
       - name: "Run Builder"
         run: |
           pip install build
           # Place the native files in the python package
           cp -r ${{ inputs.output-directory }}/* python/fprime_fpp/
+          chmod +x python/fprime_fpp/fpp*
           python3 -m build --wheel --outdir packages/dist --config-setting=--build-option=--plat-name=${{ matrix.tag }} .
         shell: bash
       - name: "Archiving Wheels"
