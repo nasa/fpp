@@ -402,9 +402,6 @@ class ParserSpec extends AnyWordSpec {
         "instance a",
         "instance a.b",
         "instance a.b.c",
-        "private instance a",
-        "private instance a.b",
-        "private instance a.b.c",
       )
     )
   }

@@ -808,11 +808,6 @@
                                         "node" : {
                                           "AstNode" : {
                                             "data" : {
-                                              "visibility" : {
-                                                "Public" : {
-                                                  
-                                                }
-                                              },
                                               "instance" : {
                                                 "AstNode" : {
                                                   "data" : {
@@ -1829,18 +1824,11 @@
               
             }
           },
-          [
-            {
-              "Public" : {
-                
-              }
-            },
-            {
-              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
-              "pos" : "39.9",
-              "includingLoc" : "None"
-            }
-          ]
+          {
+            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
+            "pos" : "39.9",
+            "includingLoc" : "None"
+          }
         ]
       ],
       "patternMap" : {

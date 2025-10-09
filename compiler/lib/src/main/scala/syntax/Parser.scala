@@ -548,8 +548,8 @@ object Parser extends Parsers {
   }
 
   def specCompInstance: Parser[Ast.SpecCompInstance] = {
-    visibility ~ (instance ~>! node(qualIdent)) ^^ {
-      case visibility ~ instance => Ast.SpecCompInstance(visibility, instance)
+    instance ~>! node(qualIdent) ^^ {
+      case instance => Ast.SpecCompInstance(instance)
     }
   }
 
@@ -1001,13 +1001,6 @@ object Parser extends Parsers {
       typeNameInt |
       node(qualIdent) ^^ (qid => Ast.TypeNameQualIdent(qid)) |
       failure("type name expected")
-  }
-
-  def visibility: Parser[Ast.Visibility] = {
-    opt(accept("private", { case Token.PRIVATE() => () })) ^^ {
-      case Some(_) => Ast.Visibility.Private
-      case None => Ast.Visibility.Public
-    }
   }
 
   override def commit[T](p: => Parser[T]) = Parser { in =>

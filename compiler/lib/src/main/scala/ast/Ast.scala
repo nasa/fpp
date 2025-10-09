@@ -458,7 +458,6 @@ object Ast {
 
   /** Component instance specifier */
   final case class SpecCompInstance(
-    visibility: Visibility,
     instance: AstNode[QualIdent]
   )
 
@@ -887,17 +886,6 @@ object Ast {
   object Unop {
     case object Minus extends Unop {
       override def toString = "-"
-    }
-  }
-
-  /** Visibility */
-  sealed trait Visibility
-  object Visibility {
-    case object Private extends Visibility {
-      override def toString = "private"
-    }
-    case object Public extends Visibility {
-      override def toString = "public"
     }
   }
 }

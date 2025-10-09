@@ -316,14 +316,8 @@ def module
     ident T
     @ Public instance specifier
     spec comp instance
-      public
       qual ident i1
     @< Public instance specifier
-    @ Private instance specifier
-    spec comp instance
-      private
-      qual ident i2
-    @< Private instance specifier
     @ Direct connection graph specifier
     spec connection graph direct
       ident C

@@ -259,11 +259,6 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "visibility" : {
-                                  "Public" : {
-                                    
-                                  }
-                                },
                                 "instance" : {
                                   "AstNode" : {
                                     "data" : {
@@ -292,11 +287,6 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "visibility" : {
-                                  "Public" : {
-                                    
-                                  }
-                                },
                                 "instance" : {
                                   "AstNode" : {
                                     "data" : {
@@ -1065,18 +1055,11 @@
               
             }
           },
-          [
-            {
-              "Public" : {
-                
-              }
-            },
-            {
-              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-              "pos" : "17.3",
-              "includingLoc" : "None"
-            }
-          ]
+          {
+            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+            "pos" : "17.3",
+            "includingLoc" : "None"
+          }
         ],
         [
           {
@@ -1102,18 +1085,11 @@
               
             }
           },
-          [
-            {
-              "Public" : {
-                
-              }
-            },
-            {
-              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
-              "pos" : "19.3",
-              "includingLoc" : "None"
-            }
-          ]
+          {
+            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+            "pos" : "19.3",
+            "includingLoc" : "None"
+          }
         ]
       ],
       "patternMap" : {

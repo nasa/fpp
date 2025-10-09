@@ -439,12 +439,8 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    val visibility = data.visibility match {
-      case Ast.Visibility.Public => ""
-      case Ast.Visibility.Private => "private "
-    }
-    lines(visibility).
-    join ("instance ") (qualIdent(data.instance.data))
+    lines("instance ").
+    join ("") (qualIdent(data.instance.data))
   }
 
   override def specConnectionGraphAnnotatedNode(

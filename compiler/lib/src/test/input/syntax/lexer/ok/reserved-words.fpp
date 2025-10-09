@@ -57,7 +57,6 @@ passive
 phase
 port
 priority
-private
 product
 queue
 queued
