@@ -3,9 +3,8 @@ name: FPP CI
 on:
   push:
     branches: [ "main", "release/**" ]
-# DISABLED for native testing
-#  pull_request:
-#    types: [opened, synchronize, reopened, ready_for_review]
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
 
 permissions:
   contents: read
