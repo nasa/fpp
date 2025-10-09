@@ -140,6 +140,8 @@ jobs:
         with:
           name: jar-traces
           path: ${{ inputs.trace-directory }}
+      - name: "Setting up GraalVM/Java Environment"
+        uses: ./.github/actions/native-tools-setup
       - name: "Build Native Images"
         uses: ./.github/actions/build-native-images
         with:
