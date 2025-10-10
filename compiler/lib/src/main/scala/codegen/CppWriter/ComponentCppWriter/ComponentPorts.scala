@@ -97,7 +97,7 @@ case class ComponentPorts(
     ioe: ComponentCppWriterUtils.InternalOrExternal =
       ComponentCppWriterUtils.InternalOrExternal.Internal
   ) = {
-    val constantPrefix = ioe match {
+    lazy val constantPrefix = ioe match {
       case ComponentCppWriterUtils.InternalOrExternal.Internal => ""
       case ComponentCppWriterUtils.InternalOrExternal.External =>
         s"$componentClassName::"
@@ -112,12 +112,16 @@ case class ComponentPorts(
           |}
           |"""
     )
-    mapPorts(ports, p => List(linesClassMember(generateNumGetter(p))))
+    mapPorts(
+      ports,
+      p => List(linesClassMember(generateNumGetter(p))),
+      CppDoc.Lines.Hpp
+    )
   }
 
   private def getNumGetters(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    val direction = ports.headOption.map(_.getDirection.get.toString).getOrElse("")
-    val kind = getPortListTypeString(ports)
+    lazy val direction = ports.headOption.map(_.getDirection.get.toString).getOrElse("")
+    lazy val kind = getPortListTypeString(ports)
     def portName(p: PortInstance) =
       s"${p.getUnqualifiedName} ${p.getDirection.get.toString}"
     addAccessTagAndComment(
@@ -129,30 +133,26 @@ case class ComponentPorts(
   }
 
   private def getVariables(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    val dirStr = ports match {
-      case Nil => ""
-      case _ => ports.head.getDirection.get.toString
+    lazy val direction = ports.headOption.map(_.getDirection.get.toString).getOrElse("")
+    def variable(p: PortInstance) = {
+      val typeName = getQualifiedPortTypeName(p, p.getDirection.get)
+      val name = portVariableName(p)
+      val num = portConstantName(p)
+      lines(
+        s"""|
+            |//! ${p.getDirection.get.toString.capitalize} port ${p.getUnqualifiedName}
+            |$typeName $name[$num];
+            |"""
+      )
     }
-
     addAccessTagAndComment(
       "private",
-      s"${getPortListTypeString(ports).capitalize} $dirStr ports",
-      mapPorts(ports, p => {
-        val typeName = getQualifiedPortTypeName(p, p.getDirection.get)
-        val name = portVariableName(p)
-        val num = portConstantName(p)
-
-        List(
-          linesClassMember(
-            lines(
-              s"""|
-                  |//! ${p.getDirection.get.toString.capitalize} port ${p.getUnqualifiedName}
-                  |$typeName $name[$num];
-                  |"""
-            )
-          )
-        )
-      }, CppDoc.Lines.Hpp),
+      s"${getPortListTypeString(ports).capitalize} $direction ports",
+      mapPorts(
+        ports,
+        p => List(linesClassMember(variable(p))),
+        CppDoc.Lines.Hpp
+      ),
       CppDoc.Lines.Hpp
     )
   }
