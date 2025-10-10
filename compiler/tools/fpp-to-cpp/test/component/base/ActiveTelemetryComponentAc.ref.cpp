@@ -1520,10 +1520,6 @@ ActiveTelemetryComponentBase ::
 
 }
 
-#if FW_ENABLE_TEXT_LOGGING == 1
-
-#endif
-
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
