@@ -1078,7 +1078,7 @@ namespace FppTest {
   FwIndexType SmStateQueuedComponentBase ::
     getNum_schedIn_InputPorts() const
   {
-    return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_schedIn_InputPort));
+    return NUM_SCHEDIN_INPUT_PORTS;
   }
 
   // ----------------------------------------------------------------------

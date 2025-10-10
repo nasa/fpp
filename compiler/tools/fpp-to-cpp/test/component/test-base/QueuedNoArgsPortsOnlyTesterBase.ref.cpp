@@ -352,37 +352,37 @@ U32 QueuedNoArgsPortsOnlyTesterBase ::
 FwIndexType QueuedNoArgsPortsOnlyTesterBase ::
   getNum_to_noArgsAsync() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsAsync));
+  return QueuedNoArgsPortsOnlyComponentBase::NUM_NOARGSASYNC_INPUT_PORTS;
 }
 
 FwIndexType QueuedNoArgsPortsOnlyTesterBase ::
   getNum_to_noArgsGuarded() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
+  return QueuedNoArgsPortsOnlyComponentBase::NUM_NOARGSGUARDED_INPUT_PORTS;
 }
 
 FwIndexType QueuedNoArgsPortsOnlyTesterBase ::
   getNum_to_noArgsReturnGuarded() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnGuarded));
+  return QueuedNoArgsPortsOnlyComponentBase::NUM_NOARGSRETURNGUARDED_INPUT_PORTS;
 }
 
 FwIndexType QueuedNoArgsPortsOnlyTesterBase ::
   getNum_to_noArgsReturnSync() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnSync));
+  return QueuedNoArgsPortsOnlyComponentBase::NUM_NOARGSRETURNSYNC_INPUT_PORTS;
 }
 
 FwIndexType QueuedNoArgsPortsOnlyTesterBase ::
   getNum_from_noArgsOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsOut));
+  return QueuedNoArgsPortsOnlyComponentBase::NUM_NOARGSOUT_OUTPUT_PORTS;
 }
 
 FwIndexType QueuedNoArgsPortsOnlyTesterBase ::
   getNum_from_noArgsReturnOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsReturnOut));
+  return QueuedNoArgsPortsOnlyComponentBase::NUM_NOARGSRETURNOUT_OUTPUT_PORTS;
 }
 
 // ----------------------------------------------------------------------

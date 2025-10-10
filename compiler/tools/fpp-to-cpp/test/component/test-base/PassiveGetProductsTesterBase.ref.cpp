@@ -1536,127 +1536,127 @@ void PassiveGetProductsTesterBase ::
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_to_cmdIn() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
+  return PassiveGetProductsComponentBase::NUM_CMDIN_INPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_to_noArgsAliasStringReturnSync() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsAliasStringReturnSync));
+  return PassiveGetProductsComponentBase::NUM_NOARGSALIASSTRINGRETURNSYNC_INPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_to_noArgsGuarded() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
+  return PassiveGetProductsComponentBase::NUM_NOARGSGUARDED_INPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_to_noArgsReturnGuarded() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnGuarded));
+  return PassiveGetProductsComponentBase::NUM_NOARGSRETURNGUARDED_INPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_to_noArgsReturnSync() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnSync));
+  return PassiveGetProductsComponentBase::NUM_NOARGSRETURNSYNC_INPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_to_noArgsStringReturnSync() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsStringReturnSync));
+  return PassiveGetProductsComponentBase::NUM_NOARGSSTRINGRETURNSYNC_INPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_to_noArgsSync() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsSync));
+  return PassiveGetProductsComponentBase::NUM_NOARGSSYNC_INPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_to_typedAliasGuarded() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAliasGuarded));
+  return PassiveGetProductsComponentBase::NUM_TYPEDALIASGUARDED_INPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_to_typedAliasReturnSync() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAliasReturnSync));
+  return PassiveGetProductsComponentBase::NUM_TYPEDALIASRETURNSYNC_INPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_to_typedAliasStringReturnSync() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAliasStringReturnSync));
+  return PassiveGetProductsComponentBase::NUM_TYPEDALIASSTRINGRETURNSYNC_INPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_to_typedGuarded() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedGuarded));
+  return PassiveGetProductsComponentBase::NUM_TYPEDGUARDED_INPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_to_typedReturnGuarded() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnGuarded));
+  return PassiveGetProductsComponentBase::NUM_TYPEDRETURNGUARDED_INPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_to_typedReturnSync() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnSync));
+  return PassiveGetProductsComponentBase::NUM_TYPEDRETURNSYNC_INPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_to_typedSync() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedSync));
+  return PassiveGetProductsComponentBase::NUM_TYPEDSYNC_INPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_from_cmdRegOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdRegOut));
+  return PassiveGetProductsComponentBase::NUM_CMDREGOUT_OUTPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_from_cmdResponseOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdResponseOut));
+  return PassiveGetProductsComponentBase::NUM_CMDRESPONSEOUT_OUTPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_from_eventOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_eventOut));
+  return PassiveGetProductsComponentBase::NUM_EVENTOUT_OUTPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_from_prmGetOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmGetOut));
+  return PassiveGetProductsComponentBase::NUM_PRMGETOUT_OUTPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_from_prmSetOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmSetOut));
+  return PassiveGetProductsComponentBase::NUM_PRMSETOUT_OUTPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_from_productGetOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productGetOut));
+  return PassiveGetProductsComponentBase::NUM_PRODUCTGETOUT_OUTPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_from_productSendOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productSendOut));
+  return PassiveGetProductsComponentBase::NUM_PRODUCTSENDOUT_OUTPUT_PORTS;
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
@@ -1664,7 +1664,7 @@ FwIndexType PassiveGetProductsTesterBase ::
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_from_textEventOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_textEventOut));
+  return PassiveGetProductsComponentBase::NUM_TEXTEVENTOUT_OUTPUT_PORTS;
 }
 
 #endif
@@ -1672,61 +1672,61 @@ FwIndexType PassiveGetProductsTesterBase ::
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_from_timeGetOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_timeGetOut));
+  return PassiveGetProductsComponentBase::NUM_TIMEGETOUT_OUTPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_from_tlmOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
+  return PassiveGetProductsComponentBase::NUM_TLMOUT_OUTPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_from_noArgsOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsOut));
+  return PassiveGetProductsComponentBase::NUM_NOARGSOUT_OUTPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_from_noArgsReturnOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsReturnOut));
+  return PassiveGetProductsComponentBase::NUM_NOARGSRETURNOUT_OUTPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_from_noArgsStringReturnOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsStringReturnOut));
+  return PassiveGetProductsComponentBase::NUM_NOARGSSTRINGRETURNOUT_OUTPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_from_typedAliasOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedAliasOut));
+  return PassiveGetProductsComponentBase::NUM_TYPEDALIASOUT_OUTPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_from_typedAliasReturnOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedAliasReturnOut));
+  return PassiveGetProductsComponentBase::NUM_TYPEDALIASRETURNOUT_OUTPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_from_typedAliasReturnStringOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedAliasReturnStringOut));
+  return PassiveGetProductsComponentBase::NUM_TYPEDALIASRETURNSTRINGOUT_OUTPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_from_typedOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
+  return PassiveGetProductsComponentBase::NUM_TYPEDOUT_OUTPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductsTesterBase ::
   getNum_from_typedReturnOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
+  return PassiveGetProductsComponentBase::NUM_TYPEDRETURNOUT_OUTPUT_PORTS;
 }
 
 // ----------------------------------------------------------------------

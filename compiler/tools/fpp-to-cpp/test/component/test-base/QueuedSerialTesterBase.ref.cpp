@@ -2511,187 +2511,187 @@ void QueuedSerialTesterBase ::
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_cmdIn() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
+  return QueuedSerialComponentBase::NUM_CMDIN_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_aliasTypedAsync() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_aliasTypedAsync));
+  return QueuedSerialComponentBase::NUM_ALIASTYPEDASYNC_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_noArgsAliasStringReturnSync() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsAliasStringReturnSync));
+  return QueuedSerialComponentBase::NUM_NOARGSALIASSTRINGRETURNSYNC_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_noArgsAsync() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsAsync));
+  return QueuedSerialComponentBase::NUM_NOARGSASYNC_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_noArgsGuarded() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
+  return QueuedSerialComponentBase::NUM_NOARGSGUARDED_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_noArgsReturnGuarded() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnGuarded));
+  return QueuedSerialComponentBase::NUM_NOARGSRETURNGUARDED_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_noArgsReturnSync() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnSync));
+  return QueuedSerialComponentBase::NUM_NOARGSRETURNSYNC_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_noArgsStringReturnSync() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsStringReturnSync));
+  return QueuedSerialComponentBase::NUM_NOARGSSTRINGRETURNSYNC_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_noArgsSync() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsSync));
+  return QueuedSerialComponentBase::NUM_NOARGSSYNC_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_typedAliasGuarded() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAliasGuarded));
+  return QueuedSerialComponentBase::NUM_TYPEDALIASGUARDED_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_typedAliasReturnSync() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAliasReturnSync));
+  return QueuedSerialComponentBase::NUM_TYPEDALIASRETURNSYNC_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_typedAliasStringReturnSync() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAliasStringReturnSync));
+  return QueuedSerialComponentBase::NUM_TYPEDALIASSTRINGRETURNSYNC_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_typedAsync() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsync));
+  return QueuedSerialComponentBase::NUM_TYPEDASYNC_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_typedAsyncAssert() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncAssert));
+  return QueuedSerialComponentBase::NUM_TYPEDASYNCASSERT_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_typedAsyncBlockPriority() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncBlockPriority));
+  return QueuedSerialComponentBase::NUM_TYPEDASYNCBLOCKPRIORITY_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_typedAsyncDropPriority() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncDropPriority));
+  return QueuedSerialComponentBase::NUM_TYPEDASYNCDROPPRIORITY_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_typedGuarded() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedGuarded));
+  return QueuedSerialComponentBase::NUM_TYPEDGUARDED_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_typedReturnGuarded() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnGuarded));
+  return QueuedSerialComponentBase::NUM_TYPEDRETURNGUARDED_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_typedReturnSync() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnSync));
+  return QueuedSerialComponentBase::NUM_TYPEDRETURNSYNC_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_typedSync() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedSync));
+  return QueuedSerialComponentBase::NUM_TYPEDSYNC_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_serialAsync() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_serialAsync));
+  return QueuedSerialComponentBase::NUM_SERIALASYNC_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_serialAsyncAssert() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_serialAsyncAssert));
+  return QueuedSerialComponentBase::NUM_SERIALASYNCASSERT_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_serialAsyncBlockPriority() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_serialAsyncBlockPriority));
+  return QueuedSerialComponentBase::NUM_SERIALASYNCBLOCKPRIORITY_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_serialAsyncDropPriority() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_serialAsyncDropPriority));
+  return QueuedSerialComponentBase::NUM_SERIALASYNCDROPPRIORITY_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_serialGuarded() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_serialGuarded));
+  return QueuedSerialComponentBase::NUM_SERIALGUARDED_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_to_serialSync() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_serialSync));
+  return QueuedSerialComponentBase::NUM_SERIALSYNC_INPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_from_cmdRegOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdRegOut));
+  return QueuedSerialComponentBase::NUM_CMDREGOUT_OUTPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_from_cmdResponseOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdResponseOut));
+  return QueuedSerialComponentBase::NUM_CMDRESPONSEOUT_OUTPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_from_eventOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_eventOut));
+  return QueuedSerialComponentBase::NUM_EVENTOUT_OUTPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_from_prmGetOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmGetOut));
+  return QueuedSerialComponentBase::NUM_PRMGETOUT_OUTPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_from_prmSetOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmSetOut));
+  return QueuedSerialComponentBase::NUM_PRMSETOUT_OUTPUT_PORTS;
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
@@ -2699,7 +2699,7 @@ FwIndexType QueuedSerialTesterBase ::
 FwIndexType QueuedSerialTesterBase ::
   getNum_from_textEventOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_textEventOut));
+  return QueuedSerialComponentBase::NUM_TEXTEVENTOUT_OUTPUT_PORTS;
 }
 
 #endif
@@ -2707,67 +2707,67 @@ FwIndexType QueuedSerialTesterBase ::
 FwIndexType QueuedSerialTesterBase ::
   getNum_from_timeGetOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_timeGetOut));
+  return QueuedSerialComponentBase::NUM_TIMEGETOUT_OUTPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_from_tlmOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
+  return QueuedSerialComponentBase::NUM_TLMOUT_OUTPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_from_noArgsOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsOut));
+  return QueuedSerialComponentBase::NUM_NOARGSOUT_OUTPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_from_noArgsReturnOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsReturnOut));
+  return QueuedSerialComponentBase::NUM_NOARGSRETURNOUT_OUTPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_from_noArgsStringReturnOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsStringReturnOut));
+  return QueuedSerialComponentBase::NUM_NOARGSSTRINGRETURNOUT_OUTPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_from_typedAliasOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedAliasOut));
+  return QueuedSerialComponentBase::NUM_TYPEDALIASOUT_OUTPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_from_typedAliasReturnOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedAliasReturnOut));
+  return QueuedSerialComponentBase::NUM_TYPEDALIASRETURNOUT_OUTPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_from_typedAliasReturnStringOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedAliasReturnStringOut));
+  return QueuedSerialComponentBase::NUM_TYPEDALIASRETURNSTRINGOUT_OUTPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_from_typedOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
+  return QueuedSerialComponentBase::NUM_TYPEDOUT_OUTPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_from_typedReturnOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
+  return QueuedSerialComponentBase::NUM_TYPEDRETURNOUT_OUTPUT_PORTS;
 }
 
 FwIndexType QueuedSerialTesterBase ::
   getNum_from_serialOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_serialOut));
+  return QueuedSerialComponentBase::NUM_SERIALOUT_OUTPUT_PORTS;
 }
 
 // ----------------------------------------------------------------------

@@ -191,7 +191,7 @@ PassiveSyncProductPortsOnlyComponentBase ::
 FwIndexType PassiveSyncProductPortsOnlyComponentBase ::
   getNum_productRecvIn_InputPorts() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productRecvIn_InputPort));
+  return NUM_PRODUCTRECVIN_INPUT_PORTS;
 }
 
 // ----------------------------------------------------------------------
@@ -201,13 +201,13 @@ FwIndexType PassiveSyncProductPortsOnlyComponentBase ::
 FwIndexType PassiveSyncProductPortsOnlyComponentBase ::
   getNum_productRequestOut_OutputPorts() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productRequestOut_OutputPort));
+  return NUM_PRODUCTREQUESTOUT_OUTPUT_PORTS;
 }
 
 FwIndexType PassiveSyncProductPortsOnlyComponentBase ::
   getNum_productSendOut_OutputPorts() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productSendOut_OutputPort));
+  return NUM_PRODUCTSENDOUT_OUTPUT_PORTS;
 }
 
 // ----------------------------------------------------------------------

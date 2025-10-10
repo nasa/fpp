@@ -91,19 +91,19 @@ ActiveAsyncProductPortsOnlyTesterBase ::
 FwIndexType ActiveAsyncProductPortsOnlyTesterBase ::
   getNum_to_productRecvIn() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_productRecvIn));
+  return ActiveAsyncProductPortsOnlyComponentBase::NUM_PRODUCTRECVIN_INPUT_PORTS;
 }
 
 FwIndexType ActiveAsyncProductPortsOnlyTesterBase ::
   getNum_from_productRequestOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productRequestOut));
+  return ActiveAsyncProductPortsOnlyComponentBase::NUM_PRODUCTREQUESTOUT_OUTPUT_PORTS;
 }
 
 FwIndexType ActiveAsyncProductPortsOnlyTesterBase ::
   getNum_from_productSendOut() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productSendOut));
+  return ActiveAsyncProductPortsOnlyComponentBase::NUM_PRODUCTSENDOUT_OUTPUT_PORTS;
 }
 
 // ----------------------------------------------------------------------

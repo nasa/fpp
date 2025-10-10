@@ -785,13 +785,13 @@ QueuedOverflowComponentBase ::
 FwIndexType QueuedOverflowComponentBase ::
   getNum_cmdIn_InputPorts() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdIn_InputPort));
+  return NUM_CMDIN_INPUT_PORTS;
 }
 
 FwIndexType QueuedOverflowComponentBase ::
   getNum_productRecvInHook_InputPorts() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productRecvInHook_InputPort));
+  return NUM_PRODUCTRECVINHOOK_INPUT_PORTS;
 }
 
 // ----------------------------------------------------------------------
@@ -801,25 +801,25 @@ FwIndexType QueuedOverflowComponentBase ::
 FwIndexType QueuedOverflowComponentBase ::
   getNum_assertAsync_InputPorts() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_assertAsync_InputPort));
+  return NUM_ASSERTASYNC_INPUT_PORTS;
 }
 
 FwIndexType QueuedOverflowComponentBase ::
   getNum_blockAsync_InputPorts() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_blockAsync_InputPort));
+  return NUM_BLOCKASYNC_INPUT_PORTS;
 }
 
 FwIndexType QueuedOverflowComponentBase ::
   getNum_dropAsync_InputPorts() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_dropAsync_InputPort));
+  return NUM_DROPASYNC_INPUT_PORTS;
 }
 
 FwIndexType QueuedOverflowComponentBase ::
   getNum_hookAsync_InputPorts() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_hookAsync_InputPort));
+  return NUM_HOOKASYNC_INPUT_PORTS;
 }
 
 // ----------------------------------------------------------------------
@@ -829,7 +829,7 @@ FwIndexType QueuedOverflowComponentBase ::
 FwIndexType QueuedOverflowComponentBase ::
   getNum_serialAsyncHook_InputPorts() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_serialAsyncHook_InputPort));
+  return NUM_SERIALASYNCHOOK_INPUT_PORTS;
 }
 
 // ----------------------------------------------------------------------
@@ -839,31 +839,31 @@ FwIndexType QueuedOverflowComponentBase ::
 FwIndexType QueuedOverflowComponentBase ::
   getNum_cmdRegOut_OutputPorts() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdRegOut_OutputPort));
+  return NUM_CMDREGOUT_OUTPUT_PORTS;
 }
 
 FwIndexType QueuedOverflowComponentBase ::
   getNum_cmdResponseOut_OutputPorts() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdResponseOut_OutputPort));
+  return NUM_CMDRESPONSEOUT_OUTPUT_PORTS;
 }
 
 FwIndexType QueuedOverflowComponentBase ::
   getNum_eventOut_OutputPorts() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_eventOut_OutputPort));
+  return NUM_EVENTOUT_OUTPUT_PORTS;
 }
 
 FwIndexType QueuedOverflowComponentBase ::
   getNum_prmGetOut_OutputPorts() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_prmGetOut_OutputPort));
+  return NUM_PRMGETOUT_OUTPUT_PORTS;
 }
 
 FwIndexType QueuedOverflowComponentBase ::
   getNum_prmSetOut_OutputPorts() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_prmSetOut_OutputPort));
+  return NUM_PRMSETOUT_OUTPUT_PORTS;
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
@@ -871,7 +871,7 @@ FwIndexType QueuedOverflowComponentBase ::
 FwIndexType QueuedOverflowComponentBase ::
   getNum_textEventOut_OutputPorts() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_textEventOut_OutputPort));
+  return NUM_TEXTEVENTOUT_OUTPUT_PORTS;
 }
 
 #endif
@@ -879,13 +879,13 @@ FwIndexType QueuedOverflowComponentBase ::
 FwIndexType QueuedOverflowComponentBase ::
   getNum_timeGetOut_OutputPorts() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_timeGetOut_OutputPort));
+  return NUM_TIMEGETOUT_OUTPUT_PORTS;
 }
 
 FwIndexType QueuedOverflowComponentBase ::
   getNum_tlmOut_OutputPorts() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_tlmOut_OutputPort));
+  return NUM_TLMOUT_OUTPUT_PORTS;
 }
 
 // ----------------------------------------------------------------------

@@ -138,13 +138,13 @@ PassiveGetProductPortsOnlyComponentBase ::
 FwIndexType PassiveGetProductPortsOnlyComponentBase ::
   getNum_productGetOut_OutputPorts() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productGetOut_OutputPort));
+  return NUM_PRODUCTGETOUT_OUTPUT_PORTS;
 }
 
 FwIndexType PassiveGetProductPortsOnlyComponentBase ::
   getNum_productSendOut_OutputPorts() const
 {
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productSendOut_OutputPort));
+  return NUM_PRODUCTSENDOUT_OUTPUT_PORTS;
 }
 
 // ----------------------------------------------------------------------

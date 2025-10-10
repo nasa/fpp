@@ -110,8 +110,14 @@ case class ComponentPorts(
     ports: List[PortInstance],
     portName: PortInstance => String,
     numGetterName: PortInstance => String,
-    variableName: PortInstance => String
+    ioe: ComponentCppWriterUtils.InternalOrExternal =
+      ComponentCppWriterUtils.InternalOrExternal.Internal
   ) = {
+    val constantPrefix = ioe match {
+      case ComponentCppWriterUtils.InternalOrExternal.Internal => ""
+      case ComponentCppWriterUtils.InternalOrExternal.External =>
+        s"$componentClassName::"
+    }
     mapPorts(ports, p => List(
       functionClassMember(
         Some(
@@ -123,9 +129,7 @@ case class ComponentPorts(
         numGetterName(p),
         Nil,
         CppDoc.Type("FwIndexType"),
-        lines(
-          s"return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->${variableName(p)}));"
-        ),
+        lines(s"return ${constantPrefix}${portConstantName(p)};"),
         CppDoc.Function.NonSV,
         CppDoc.Function.Const
       )
@@ -144,8 +148,7 @@ case class ComponentPorts(
       generateNumGetters(
         ports,
         (p: PortInstance) => s"${p.getUnqualifiedName} ${p.getDirection.get.toString}",
-        portNumGetterName,
-        portVariableName
+        portNumGetterName
       )
     )
   }
