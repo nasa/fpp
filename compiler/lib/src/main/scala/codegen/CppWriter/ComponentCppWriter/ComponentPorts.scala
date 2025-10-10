@@ -118,22 +118,17 @@ case class ComponentPorts(
       case ComponentCppWriterUtils.InternalOrExternal.External =>
         s"$componentClassName::"
     }
-    mapPorts(ports, p => List(
-      functionClassMember(
-        Some(
-          s"""|Get the number of ${portName(p)} ports
-              |
-              |\\return The number of ${portName(p)} ports
-              |"""
-        ),
-        numGetterName(p),
-        Nil,
-        CppDoc.Type("FwIndexType"),
-        lines(s"return ${constantPrefix}${portConstantName(p)};"),
-        CppDoc.Function.NonSV,
-        CppDoc.Function.Const
-      )
-    ))
+    def generateNumGetter(p: PortInstance) = lines(
+      s"""|
+          |//! Get the number of ${portName(p)} ports
+          |//!
+          |//! \\return The number of ${portName(p)} ports
+          |static constexpr FwIndexType ${numGetterName(p)}() {
+          |  return ${constantPrefix}${portConstantName(p)};
+          |}
+          |"""
+    )
+    mapPorts(ports, pi => List(linesClassMember(generateNumGetter(pi))))
   }
 
   private def getNumGetters(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
@@ -149,7 +144,8 @@ case class ComponentPorts(
         ports,
         (p: PortInstance) => s"${p.getUnqualifiedName} ${p.getDirection.get.toString}",
         portNumGetterName
-      )
+      ),
+      CppDoc.Lines.Hpp
     )
   }
 

@@ -85,28 +85,6 @@ PassiveSyncProductPortsOnlyTesterBase ::
 }
 
 // ----------------------------------------------------------------------
-// Getters for port counts
-// ----------------------------------------------------------------------
-
-FwIndexType PassiveSyncProductPortsOnlyTesterBase ::
-  getNum_to_productRecvIn() const
-{
-  return PassiveSyncProductPortsOnlyComponentBase::NUM_PRODUCTRECVIN_INPUT_PORTS;
-}
-
-FwIndexType PassiveSyncProductPortsOnlyTesterBase ::
-  getNum_from_productRequestOut() const
-{
-  return PassiveSyncProductPortsOnlyComponentBase::NUM_PRODUCTREQUESTOUT_OUTPUT_PORTS;
-}
-
-FwIndexType PassiveSyncProductPortsOnlyTesterBase ::
-  getNum_from_productSendOut() const
-{
-  return PassiveSyncProductPortsOnlyComponentBase::NUM_PRODUCTSENDOUT_OUTPUT_PORTS;
-}
-
-// ----------------------------------------------------------------------
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
 

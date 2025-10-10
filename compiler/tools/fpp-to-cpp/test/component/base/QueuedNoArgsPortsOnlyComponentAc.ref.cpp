@@ -331,50 +331,6 @@ QueuedNoArgsPortsOnlyComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Getters for numbers of typed input ports
-// ----------------------------------------------------------------------
-
-FwIndexType QueuedNoArgsPortsOnlyComponentBase ::
-  getNum_noArgsAsync_InputPorts() const
-{
-  return NUM_NOARGSASYNC_INPUT_PORTS;
-}
-
-FwIndexType QueuedNoArgsPortsOnlyComponentBase ::
-  getNum_noArgsGuarded_InputPorts() const
-{
-  return NUM_NOARGSGUARDED_INPUT_PORTS;
-}
-
-FwIndexType QueuedNoArgsPortsOnlyComponentBase ::
-  getNum_noArgsReturnGuarded_InputPorts() const
-{
-  return NUM_NOARGSRETURNGUARDED_INPUT_PORTS;
-}
-
-FwIndexType QueuedNoArgsPortsOnlyComponentBase ::
-  getNum_noArgsReturnSync_InputPorts() const
-{
-  return NUM_NOARGSRETURNSYNC_INPUT_PORTS;
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of typed output ports
-// ----------------------------------------------------------------------
-
-FwIndexType QueuedNoArgsPortsOnlyComponentBase ::
-  getNum_noArgsOut_OutputPorts() const
-{
-  return NUM_NOARGSOUT_OUTPUT_PORTS;
-}
-
-FwIndexType QueuedNoArgsPortsOnlyComponentBase ::
-  getNum_noArgsReturnOut_OutputPorts() const
-{
-  return NUM_NOARGSRETURNOUT_OUTPUT_PORTS;
-}
-
-// ----------------------------------------------------------------------
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
 

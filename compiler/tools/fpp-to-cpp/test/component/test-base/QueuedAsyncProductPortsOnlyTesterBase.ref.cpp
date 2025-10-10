@@ -85,28 +85,6 @@ QueuedAsyncProductPortsOnlyTesterBase ::
 }
 
 // ----------------------------------------------------------------------
-// Getters for port counts
-// ----------------------------------------------------------------------
-
-FwIndexType QueuedAsyncProductPortsOnlyTesterBase ::
-  getNum_to_productRecvIn() const
-{
-  return QueuedAsyncProductPortsOnlyComponentBase::NUM_PRODUCTRECVIN_INPUT_PORTS;
-}
-
-FwIndexType QueuedAsyncProductPortsOnlyTesterBase ::
-  getNum_from_productRequestOut() const
-{
-  return QueuedAsyncProductPortsOnlyComponentBase::NUM_PRODUCTREQUESTOUT_OUTPUT_PORTS;
-}
-
-FwIndexType QueuedAsyncProductPortsOnlyTesterBase ::
-  getNum_from_productSendOut() const
-{
-  return QueuedAsyncProductPortsOnlyComponentBase::NUM_PRODUCTSENDOUT_OUTPUT_PORTS;
-}
-
-// ----------------------------------------------------------------------
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
 

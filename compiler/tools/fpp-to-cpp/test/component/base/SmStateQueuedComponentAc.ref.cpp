@@ -1072,16 +1072,6 @@ namespace FppTest {
   }
 
   // ----------------------------------------------------------------------
-  // Getters for numbers of typed input ports
-  // ----------------------------------------------------------------------
-
-  FwIndexType SmStateQueuedComponentBase ::
-    getNum_schedIn_InputPorts() const
-  {
-    return NUM_SCHEDIN_INPUT_PORTS;
-  }
-
-  // ----------------------------------------------------------------------
   // Port handler base-class functions for typed input ports
   //
   // Call these functions directly to bypass the corresponding ports

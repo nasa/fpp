@@ -506,7 +506,8 @@ case class ComponentTesterBaseWriter(
         testerPortName,
         testerPortNumGetterName,
         ComponentCppWriterUtils.InternalOrExternal.External
-      )
+      ),
+      CppDoc.Lines.Hpp
     )
   }
 

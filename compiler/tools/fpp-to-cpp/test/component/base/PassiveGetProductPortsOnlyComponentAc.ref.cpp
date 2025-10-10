@@ -132,22 +132,6 @@ PassiveGetProductPortsOnlyComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Getters for numbers of special output ports
-// ----------------------------------------------------------------------
-
-FwIndexType PassiveGetProductPortsOnlyComponentBase ::
-  getNum_productGetOut_OutputPorts() const
-{
-  return NUM_PRODUCTGETOUT_OUTPUT_PORTS;
-}
-
-FwIndexType PassiveGetProductPortsOnlyComponentBase ::
-  getNum_productSendOut_OutputPorts() const
-{
-  return NUM_PRODUCTSENDOUT_OUTPUT_PORTS;
-}
-
-// ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
 

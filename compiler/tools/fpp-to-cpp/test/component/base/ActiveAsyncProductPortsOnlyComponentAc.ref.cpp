@@ -246,32 +246,6 @@ ActiveAsyncProductPortsOnlyComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Getters for numbers of special input ports
-// ----------------------------------------------------------------------
-
-FwIndexType ActiveAsyncProductPortsOnlyComponentBase ::
-  getNum_productRecvIn_InputPorts() const
-{
-  return NUM_PRODUCTRECVIN_INPUT_PORTS;
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of special output ports
-// ----------------------------------------------------------------------
-
-FwIndexType ActiveAsyncProductPortsOnlyComponentBase ::
-  getNum_productRequestOut_OutputPorts() const
-{
-  return NUM_PRODUCTREQUESTOUT_OUTPUT_PORTS;
-}
-
-FwIndexType ActiveAsyncProductPortsOnlyComponentBase ::
-  getNum_productSendOut_OutputPorts() const
-{
-  return NUM_PRODUCTSENDOUT_OUTPUT_PORTS;
-}
-
-// ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
 

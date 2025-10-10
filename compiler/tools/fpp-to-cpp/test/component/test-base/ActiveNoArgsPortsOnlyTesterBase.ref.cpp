@@ -346,46 +346,6 @@ U32 ActiveNoArgsPortsOnlyTesterBase ::
 }
 
 // ----------------------------------------------------------------------
-// Getters for port counts
-// ----------------------------------------------------------------------
-
-FwIndexType ActiveNoArgsPortsOnlyTesterBase ::
-  getNum_to_noArgsAsync() const
-{
-  return ActiveNoArgsPortsOnlyComponentBase::NUM_NOARGSASYNC_INPUT_PORTS;
-}
-
-FwIndexType ActiveNoArgsPortsOnlyTesterBase ::
-  getNum_to_noArgsGuarded() const
-{
-  return ActiveNoArgsPortsOnlyComponentBase::NUM_NOARGSGUARDED_INPUT_PORTS;
-}
-
-FwIndexType ActiveNoArgsPortsOnlyTesterBase ::
-  getNum_to_noArgsReturnGuarded() const
-{
-  return ActiveNoArgsPortsOnlyComponentBase::NUM_NOARGSRETURNGUARDED_INPUT_PORTS;
-}
-
-FwIndexType ActiveNoArgsPortsOnlyTesterBase ::
-  getNum_to_noArgsReturnSync() const
-{
-  return ActiveNoArgsPortsOnlyComponentBase::NUM_NOARGSRETURNSYNC_INPUT_PORTS;
-}
-
-FwIndexType ActiveNoArgsPortsOnlyTesterBase ::
-  getNum_from_noArgsOut() const
-{
-  return ActiveNoArgsPortsOnlyComponentBase::NUM_NOARGSOUT_OUTPUT_PORTS;
-}
-
-FwIndexType ActiveNoArgsPortsOnlyTesterBase ::
-  getNum_from_noArgsReturnOut() const
-{
-  return ActiveNoArgsPortsOnlyComponentBase::NUM_NOARGSRETURNOUT_OUTPUT_PORTS;
-}
-
-// ----------------------------------------------------------------------
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
 

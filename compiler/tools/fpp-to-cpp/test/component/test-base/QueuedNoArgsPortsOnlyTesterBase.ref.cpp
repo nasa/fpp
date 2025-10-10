@@ -346,46 +346,6 @@ U32 QueuedNoArgsPortsOnlyTesterBase ::
 }
 
 // ----------------------------------------------------------------------
-// Getters for port counts
-// ----------------------------------------------------------------------
-
-FwIndexType QueuedNoArgsPortsOnlyTesterBase ::
-  getNum_to_noArgsAsync() const
-{
-  return QueuedNoArgsPortsOnlyComponentBase::NUM_NOARGSASYNC_INPUT_PORTS;
-}
-
-FwIndexType QueuedNoArgsPortsOnlyTesterBase ::
-  getNum_to_noArgsGuarded() const
-{
-  return QueuedNoArgsPortsOnlyComponentBase::NUM_NOARGSGUARDED_INPUT_PORTS;
-}
-
-FwIndexType QueuedNoArgsPortsOnlyTesterBase ::
-  getNum_to_noArgsReturnGuarded() const
-{
-  return QueuedNoArgsPortsOnlyComponentBase::NUM_NOARGSRETURNGUARDED_INPUT_PORTS;
-}
-
-FwIndexType QueuedNoArgsPortsOnlyTesterBase ::
-  getNum_to_noArgsReturnSync() const
-{
-  return QueuedNoArgsPortsOnlyComponentBase::NUM_NOARGSRETURNSYNC_INPUT_PORTS;
-}
-
-FwIndexType QueuedNoArgsPortsOnlyTesterBase ::
-  getNum_from_noArgsOut() const
-{
-  return QueuedNoArgsPortsOnlyComponentBase::NUM_NOARGSOUT_OUTPUT_PORTS;
-}
-
-FwIndexType QueuedNoArgsPortsOnlyTesterBase ::
-  getNum_from_noArgsReturnOut() const
-{
-  return QueuedNoArgsPortsOnlyComponentBase::NUM_NOARGSRETURNOUT_OUTPUT_PORTS;
-}
-
-// ----------------------------------------------------------------------
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
 
