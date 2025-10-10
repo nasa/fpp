@@ -496,7 +496,9 @@ class PassiveParamsComponentBase :
     //! Get the number of cmdIn input ports
     //!
     //! \return The number of cmdIn input ports
-    FwIndexType getNum_cmdIn_InputPorts() const;
+    static constexpr FwIndexType getNum_cmdIn_InputPorts() {
+      return NUM_CMDIN_INPUT_PORTS;
+    }
 
   protected:
 
@@ -507,67 +509,93 @@ class PassiveParamsComponentBase :
     //! Get the number of noArgsAliasStringReturnSync input ports
     //!
     //! \return The number of noArgsAliasStringReturnSync input ports
-    FwIndexType getNum_noArgsAliasStringReturnSync_InputPorts() const;
+    static constexpr FwIndexType getNum_noArgsAliasStringReturnSync_InputPorts() {
+      return NUM_NOARGSALIASSTRINGRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of noArgsGuarded input ports
     //!
     //! \return The number of noArgsGuarded input ports
-    FwIndexType getNum_noArgsGuarded_InputPorts() const;
+    static constexpr FwIndexType getNum_noArgsGuarded_InputPorts() {
+      return NUM_NOARGSGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of noArgsReturnGuarded input ports
     //!
     //! \return The number of noArgsReturnGuarded input ports
-    FwIndexType getNum_noArgsReturnGuarded_InputPorts() const;
+    static constexpr FwIndexType getNum_noArgsReturnGuarded_InputPorts() {
+      return NUM_NOARGSRETURNGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of noArgsReturnSync input ports
     //!
     //! \return The number of noArgsReturnSync input ports
-    FwIndexType getNum_noArgsReturnSync_InputPorts() const;
+    static constexpr FwIndexType getNum_noArgsReturnSync_InputPorts() {
+      return NUM_NOARGSRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of noArgsStringReturnSync input ports
     //!
     //! \return The number of noArgsStringReturnSync input ports
-    FwIndexType getNum_noArgsStringReturnSync_InputPorts() const;
+    static constexpr FwIndexType getNum_noArgsStringReturnSync_InputPorts() {
+      return NUM_NOARGSSTRINGRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of noArgsSync input ports
     //!
     //! \return The number of noArgsSync input ports
-    FwIndexType getNum_noArgsSync_InputPorts() const;
+    static constexpr FwIndexType getNum_noArgsSync_InputPorts() {
+      return NUM_NOARGSSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of typedAliasGuarded input ports
     //!
     //! \return The number of typedAliasGuarded input ports
-    FwIndexType getNum_typedAliasGuarded_InputPorts() const;
+    static constexpr FwIndexType getNum_typedAliasGuarded_InputPorts() {
+      return NUM_TYPEDALIASGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of typedAliasReturnSync input ports
     //!
     //! \return The number of typedAliasReturnSync input ports
-    FwIndexType getNum_typedAliasReturnSync_InputPorts() const;
+    static constexpr FwIndexType getNum_typedAliasReturnSync_InputPorts() {
+      return NUM_TYPEDALIASRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of typedAliasStringReturnSync input ports
     //!
     //! \return The number of typedAliasStringReturnSync input ports
-    FwIndexType getNum_typedAliasStringReturnSync_InputPorts() const;
+    static constexpr FwIndexType getNum_typedAliasStringReturnSync_InputPorts() {
+      return NUM_TYPEDALIASSTRINGRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of typedGuarded input ports
     //!
     //! \return The number of typedGuarded input ports
-    FwIndexType getNum_typedGuarded_InputPorts() const;
+    static constexpr FwIndexType getNum_typedGuarded_InputPorts() {
+      return NUM_TYPEDGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of typedReturnGuarded input ports
     //!
     //! \return The number of typedReturnGuarded input ports
-    FwIndexType getNum_typedReturnGuarded_InputPorts() const;
+    static constexpr FwIndexType getNum_typedReturnGuarded_InputPorts() {
+      return NUM_TYPEDRETURNGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of typedReturnSync input ports
     //!
     //! \return The number of typedReturnSync input ports
-    FwIndexType getNum_typedReturnSync_InputPorts() const;
+    static constexpr FwIndexType getNum_typedReturnSync_InputPorts() {
+      return NUM_TYPEDRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of typedSync input ports
     //!
     //! \return The number of typedSync input ports
-    FwIndexType getNum_typedSync_InputPorts() const;
+    static constexpr FwIndexType getNum_typedSync_InputPorts() {
+      return NUM_TYPEDSYNC_INPUT_PORTS;
+    }
 
   protected:
 
@@ -578,46 +606,62 @@ class PassiveParamsComponentBase :
     //! Get the number of cmdRegOut output ports
     //!
     //! \return The number of cmdRegOut output ports
-    FwIndexType getNum_cmdRegOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_cmdRegOut_OutputPorts() {
+      return NUM_CMDREGOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of cmdResponseOut output ports
     //!
     //! \return The number of cmdResponseOut output ports
-    FwIndexType getNum_cmdResponseOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_cmdResponseOut_OutputPorts() {
+      return NUM_CMDRESPONSEOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of eventOut output ports
     //!
     //! \return The number of eventOut output ports
-    FwIndexType getNum_eventOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_eventOut_OutputPorts() {
+      return NUM_EVENTOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of prmGetOut output ports
     //!
     //! \return The number of prmGetOut output ports
-    FwIndexType getNum_prmGetOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_prmGetOut_OutputPorts() {
+      return NUM_PRMGETOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of prmSetOut output ports
     //!
     //! \return The number of prmSetOut output ports
-    FwIndexType getNum_prmSetOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_prmSetOut_OutputPorts() {
+      return NUM_PRMSETOUT_OUTPUT_PORTS;
+    }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Get the number of textEventOut output ports
     //!
     //! \return The number of textEventOut output ports
-    FwIndexType getNum_textEventOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_textEventOut_OutputPorts() {
+      return NUM_TEXTEVENTOUT_OUTPUT_PORTS;
+    }
 
 #endif
 
     //! Get the number of timeGetOut output ports
     //!
     //! \return The number of timeGetOut output ports
-    FwIndexType getNum_timeGetOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_timeGetOut_OutputPorts() {
+      return NUM_TIMEGETOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of tlmOut output ports
     //!
     //! \return The number of tlmOut output ports
-    FwIndexType getNum_tlmOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_tlmOut_OutputPorts() {
+      return NUM_TLMOUT_OUTPUT_PORTS;
+    }
 
   protected:
 
@@ -628,42 +672,58 @@ class PassiveParamsComponentBase :
     //! Get the number of noArgsOut output ports
     //!
     //! \return The number of noArgsOut output ports
-    FwIndexType getNum_noArgsOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_noArgsOut_OutputPorts() {
+      return NUM_NOARGSOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of noArgsReturnOut output ports
     //!
     //! \return The number of noArgsReturnOut output ports
-    FwIndexType getNum_noArgsReturnOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_noArgsReturnOut_OutputPorts() {
+      return NUM_NOARGSRETURNOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of noArgsStringReturnOut output ports
     //!
     //! \return The number of noArgsStringReturnOut output ports
-    FwIndexType getNum_noArgsStringReturnOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_noArgsStringReturnOut_OutputPorts() {
+      return NUM_NOARGSSTRINGRETURNOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of typedAliasOut output ports
     //!
     //! \return The number of typedAliasOut output ports
-    FwIndexType getNum_typedAliasOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_typedAliasOut_OutputPorts() {
+      return NUM_TYPEDALIASOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of typedAliasReturnOut output ports
     //!
     //! \return The number of typedAliasReturnOut output ports
-    FwIndexType getNum_typedAliasReturnOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_typedAliasReturnOut_OutputPorts() {
+      return NUM_TYPEDALIASRETURNOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of typedAliasReturnStringOut output ports
     //!
     //! \return The number of typedAliasReturnStringOut output ports
-    FwIndexType getNum_typedAliasReturnStringOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_typedAliasReturnStringOut_OutputPorts() {
+      return NUM_TYPEDALIASRETURNSTRINGOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of typedOut output ports
     //!
     //! \return The number of typedOut output ports
-    FwIndexType getNum_typedOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_typedOut_OutputPorts() {
+      return NUM_TYPEDOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of typedReturnOut output ports
     //!
     //! \return The number of typedReturnOut output ports
-    FwIndexType getNum_typedReturnOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_typedReturnOut_OutputPorts() {
+      return NUM_TYPEDRETURNOUT_OUTPUT_PORTS;
+    }
 
   protected:
 

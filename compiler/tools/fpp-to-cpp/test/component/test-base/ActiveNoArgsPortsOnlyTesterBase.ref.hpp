@@ -251,32 +251,44 @@ class ActiveNoArgsPortsOnlyTesterBase :
     //! Get the number of to_noArgsAsync ports
     //!
     //! \return The number of to_noArgsAsync ports
-    FwIndexType getNum_to_noArgsAsync() const;
+    static constexpr FwIndexType getNum_to_noArgsAsync() {
+      return ActiveNoArgsPortsOnlyComponentBase::NUM_NOARGSASYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_noArgsGuarded ports
     //!
     //! \return The number of to_noArgsGuarded ports
-    FwIndexType getNum_to_noArgsGuarded() const;
+    static constexpr FwIndexType getNum_to_noArgsGuarded() {
+      return ActiveNoArgsPortsOnlyComponentBase::NUM_NOARGSGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of to_noArgsReturnGuarded ports
     //!
     //! \return The number of to_noArgsReturnGuarded ports
-    FwIndexType getNum_to_noArgsReturnGuarded() const;
+    static constexpr FwIndexType getNum_to_noArgsReturnGuarded() {
+      return ActiveNoArgsPortsOnlyComponentBase::NUM_NOARGSRETURNGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of to_noArgsReturnSync ports
     //!
     //! \return The number of to_noArgsReturnSync ports
-    FwIndexType getNum_to_noArgsReturnSync() const;
+    static constexpr FwIndexType getNum_to_noArgsReturnSync() {
+      return ActiveNoArgsPortsOnlyComponentBase::NUM_NOARGSRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of from_noArgsOut ports
     //!
     //! \return The number of from_noArgsOut ports
-    FwIndexType getNum_from_noArgsOut() const;
+    static constexpr FwIndexType getNum_from_noArgsOut() {
+      return ActiveNoArgsPortsOnlyComponentBase::NUM_NOARGSOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_noArgsReturnOut ports
     //!
     //! \return The number of from_noArgsReturnOut ports
-    FwIndexType getNum_from_noArgsReturnOut() const;
+    static constexpr FwIndexType getNum_from_noArgsReturnOut() {
+      return ActiveNoArgsPortsOnlyComponentBase::NUM_NOARGSRETURNOUT_OUTPUT_PORTS;
+    }
 
   protected:
 

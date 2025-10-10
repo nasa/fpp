@@ -320,12 +320,16 @@ class QueuedOverflowComponentBase :
     //! Get the number of cmdIn input ports
     //!
     //! \return The number of cmdIn input ports
-    FwIndexType getNum_cmdIn_InputPorts() const;
+    static constexpr FwIndexType getNum_cmdIn_InputPorts() {
+      return NUM_CMDIN_INPUT_PORTS;
+    }
 
     //! Get the number of productRecvInHook input ports
     //!
     //! \return The number of productRecvInHook input ports
-    FwIndexType getNum_productRecvInHook_InputPorts() const;
+    static constexpr FwIndexType getNum_productRecvInHook_InputPorts() {
+      return NUM_PRODUCTRECVINHOOK_INPUT_PORTS;
+    }
 
   protected:
 
@@ -336,22 +340,30 @@ class QueuedOverflowComponentBase :
     //! Get the number of assertAsync input ports
     //!
     //! \return The number of assertAsync input ports
-    FwIndexType getNum_assertAsync_InputPorts() const;
+    static constexpr FwIndexType getNum_assertAsync_InputPorts() {
+      return NUM_ASSERTASYNC_INPUT_PORTS;
+    }
 
     //! Get the number of blockAsync input ports
     //!
     //! \return The number of blockAsync input ports
-    FwIndexType getNum_blockAsync_InputPorts() const;
+    static constexpr FwIndexType getNum_blockAsync_InputPorts() {
+      return NUM_BLOCKASYNC_INPUT_PORTS;
+    }
 
     //! Get the number of dropAsync input ports
     //!
     //! \return The number of dropAsync input ports
-    FwIndexType getNum_dropAsync_InputPorts() const;
+    static constexpr FwIndexType getNum_dropAsync_InputPorts() {
+      return NUM_DROPASYNC_INPUT_PORTS;
+    }
 
     //! Get the number of hookAsync input ports
     //!
     //! \return The number of hookAsync input ports
-    FwIndexType getNum_hookAsync_InputPorts() const;
+    static constexpr FwIndexType getNum_hookAsync_InputPorts() {
+      return NUM_HOOKASYNC_INPUT_PORTS;
+    }
 
   protected:
 
@@ -362,7 +374,9 @@ class QueuedOverflowComponentBase :
     //! Get the number of serialAsyncHook input ports
     //!
     //! \return The number of serialAsyncHook input ports
-    FwIndexType getNum_serialAsyncHook_InputPorts() const;
+    static constexpr FwIndexType getNum_serialAsyncHook_InputPorts() {
+      return NUM_SERIALASYNCHOOK_INPUT_PORTS;
+    }
 
   protected:
 
@@ -373,46 +387,62 @@ class QueuedOverflowComponentBase :
     //! Get the number of cmdRegOut output ports
     //!
     //! \return The number of cmdRegOut output ports
-    FwIndexType getNum_cmdRegOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_cmdRegOut_OutputPorts() {
+      return NUM_CMDREGOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of cmdResponseOut output ports
     //!
     //! \return The number of cmdResponseOut output ports
-    FwIndexType getNum_cmdResponseOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_cmdResponseOut_OutputPorts() {
+      return NUM_CMDRESPONSEOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of eventOut output ports
     //!
     //! \return The number of eventOut output ports
-    FwIndexType getNum_eventOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_eventOut_OutputPorts() {
+      return NUM_EVENTOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of prmGetOut output ports
     //!
     //! \return The number of prmGetOut output ports
-    FwIndexType getNum_prmGetOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_prmGetOut_OutputPorts() {
+      return NUM_PRMGETOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of prmSetOut output ports
     //!
     //! \return The number of prmSetOut output ports
-    FwIndexType getNum_prmSetOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_prmSetOut_OutputPorts() {
+      return NUM_PRMSETOUT_OUTPUT_PORTS;
+    }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Get the number of textEventOut output ports
     //!
     //! \return The number of textEventOut output ports
-    FwIndexType getNum_textEventOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_textEventOut_OutputPorts() {
+      return NUM_TEXTEVENTOUT_OUTPUT_PORTS;
+    }
 
 #endif
 
     //! Get the number of timeGetOut output ports
     //!
     //! \return The number of timeGetOut output ports
-    FwIndexType getNum_timeGetOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_timeGetOut_OutputPorts() {
+      return NUM_TIMEGETOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of tlmOut output ports
     //!
     //! \return The number of tlmOut output ports
-    FwIndexType getNum_tlmOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_tlmOut_OutputPorts() {
+      return NUM_TLMOUT_OUTPUT_PORTS;
+    }
 
   protected:
 

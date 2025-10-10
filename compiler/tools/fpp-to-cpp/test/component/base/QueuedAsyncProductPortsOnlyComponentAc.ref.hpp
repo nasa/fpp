@@ -137,7 +137,9 @@ class QueuedAsyncProductPortsOnlyComponentBase :
     //! Get the number of productRecvIn input ports
     //!
     //! \return The number of productRecvIn input ports
-    FwIndexType getNum_productRecvIn_InputPorts() const;
+    static constexpr FwIndexType getNum_productRecvIn_InputPorts() {
+      return NUM_PRODUCTRECVIN_INPUT_PORTS;
+    }
 
   protected:
 
@@ -148,12 +150,16 @@ class QueuedAsyncProductPortsOnlyComponentBase :
     //! Get the number of productRequestOut output ports
     //!
     //! \return The number of productRequestOut output ports
-    FwIndexType getNum_productRequestOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_productRequestOut_OutputPorts() {
+      return NUM_PRODUCTREQUESTOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of productSendOut output ports
     //!
     //! \return The number of productSendOut output ports
-    FwIndexType getNum_productSendOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_productSendOut_OutputPorts() {
+      return NUM_PRODUCTSENDOUT_OUTPUT_PORTS;
+    }
 
   protected:
 

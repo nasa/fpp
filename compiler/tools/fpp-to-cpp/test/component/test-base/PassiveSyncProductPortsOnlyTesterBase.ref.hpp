@@ -88,17 +88,23 @@ class PassiveSyncProductPortsOnlyTesterBase :
     //! Get the number of to_productRecvIn ports
     //!
     //! \return The number of to_productRecvIn ports
-    FwIndexType getNum_to_productRecvIn() const;
+    static constexpr FwIndexType getNum_to_productRecvIn() {
+      return PassiveSyncProductPortsOnlyComponentBase::NUM_PRODUCTRECVIN_INPUT_PORTS;
+    }
 
     //! Get the number of from_productRequestOut ports
     //!
     //! \return The number of from_productRequestOut ports
-    FwIndexType getNum_from_productRequestOut() const;
+    static constexpr FwIndexType getNum_from_productRequestOut() {
+      return PassiveSyncProductPortsOnlyComponentBase::NUM_PRODUCTREQUESTOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_productSendOut ports
     //!
     //! \return The number of from_productSendOut ports
-    FwIndexType getNum_from_productSendOut() const;
+    static constexpr FwIndexType getNum_from_productSendOut() {
+      return PassiveSyncProductPortsOnlyComponentBase::NUM_PRODUCTSENDOUT_OUTPUT_PORTS;
+    }
 
   protected:
 
