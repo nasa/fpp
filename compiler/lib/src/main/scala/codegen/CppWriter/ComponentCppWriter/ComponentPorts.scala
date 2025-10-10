@@ -86,24 +86,20 @@ case class ComponentPorts(
   }
 
   private def getConstants(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    if ports.isEmpty then Nil
-    else List(
+    lazy val member = {
+      val kind = getPortListTypeString(ports)
+      val direction = ports.head.getDirection.get.toString
       linesClassMember(
-        List(
-          Line.blank :: lines(
-            s"//! Enumerations for numbers of ${getPortListTypeString(ports)} ${ports.head.getDirection.get.toString} ports"
-          ),
-          wrapInEnum(
-            ports.flatMap(p =>
-              writeEnumConstant(
-                portConstantName(p),
-                p.getArraySize,
-              )
-            )
+        Line.blank ::
+        line(s"//! Enumerations for numbers of $kind $direction ports") ::
+        wrapInEnum(
+          ports.flatMap(p =>
+            writeEnumConstant(portConstantName(p), p.getArraySize)
           )
-        ).flatten
+        )
       )
-    )
+    }
+    guardedList (!ports.isEmpty) (List(member))
   }
 
   def generateNumGetters(
