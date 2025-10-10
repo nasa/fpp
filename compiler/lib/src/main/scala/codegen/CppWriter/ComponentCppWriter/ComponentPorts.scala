@@ -14,89 +14,77 @@ case class ComponentPorts(
 
   private val outputPortWriter = ComponentOutputPorts(s, aNode)
 
-  def getConstantMembers: List[CppDoc.Class.Member] = {
-    List(
-      getConstants(specialInputPorts),
-      getConstants(typedInputPorts),
-      getConstants(serialInputPorts),
-      getConstants(specialOutputPorts),
-      getConstants(typedOutputPorts),
-      getConstants(serialOutputPorts),
-    ).flatten
-  }
+  def getConstantMembers: List[CppDoc.Class.Member] = List.concat(
+    getConstants(specialInputPorts),
+    getConstants(typedInputPorts),
+    getConstants(serialInputPorts),
+    getConstants(specialOutputPorts),
+    getConstants(typedOutputPorts),
+    getConstants(serialOutputPorts),
+  )
 
-  def getPublicFunctionMembers: List[CppDoc.Class.Member] = {
-    List(
-      inputPortWriter.getGetters(specialInputPorts),
-      inputPortWriter.getGetters(typedInputPorts),
-      inputPortWriter.getGetters(serialInputPorts),
-      outputPortWriter.getTypedConnectors(specialOutputPorts),
-      outputPortWriter.getTypedConnectors(typedOutputPorts),
-      outputPortWriter.getSerialConnectors(specialOutputPorts),
-      outputPortWriter.getSerialConnectors(typedOutputPorts),
-      outputPortWriter.getSerialConnectors(serialOutputPorts),
-    ).flatten
-  }
+  def getPublicFunctionMembers: List[CppDoc.Class.Member] = List.concat(
+    inputPortWriter.getGetters(specialInputPorts),
+    inputPortWriter.getGetters(typedInputPorts),
+    inputPortWriter.getGetters(serialInputPorts),
+    outputPortWriter.getTypedConnectors(specialOutputPorts),
+    outputPortWriter.getTypedConnectors(typedOutputPorts),
+    outputPortWriter.getSerialConnectors(specialOutputPorts),
+    outputPortWriter.getSerialConnectors(typedOutputPorts),
+    outputPortWriter.getSerialConnectors(serialOutputPorts),
+  )
 
-  def getProtectedFunctionMembers: List[CppDoc.Class.Member] = {
-    List(
-      getNumGetters(specialInputPorts),
-      getNumGetters(typedInputPorts),
-      getNumGetters(serialInputPorts),
-      getNumGetters(specialOutputPorts),
-      getNumGetters(typedOutputPorts),
-      getNumGetters(serialOutputPorts),
-      outputPortWriter.getConnectionStatusQueries(specialOutputPorts),
-      outputPortWriter.getConnectionStatusQueries(typedOutputPorts),
-      outputPortWriter.getConnectionStatusQueries(serialOutputPorts),
-      inputPortWriter.getHandlerBases(dataProductInputPorts),
-      inputPortWriter.getHandlers(typedInputPorts),
-      inputPortWriter.getHandlerBases(typedInputPorts),
-      inputPortWriter.getHandlers(serialInputPorts),
-      inputPortWriter.getHandlerBases(serialInputPorts),
-      inputPortWriter.getPreMsgHooks(dataProductAsyncInputPorts),
-      inputPortWriter.getPreMsgHooks(typedAsyncInputPorts),
-      inputPortWriter.getPreMsgHooks(serialAsyncInputPorts),
-      inputPortWriter.getOverflowHooks(dataProductHookPorts),
-      inputPortWriter.getOverflowHooks(typedHookPorts),
-      inputPortWriter.getOverflowHooks(serialHookPorts),
-      outputPortWriter.getInvokers(dataProductOutputPorts),
-      outputPortWriter.getInvokers(typedOutputPorts),
-      outputPortWriter.getInvokers(serialOutputPorts),
-    ).flatten
-  }
+  def getProtectedFunctionMembers: List[CppDoc.Class.Member] = List.concat(
+    getNumGetters(specialInputPorts),
+    getNumGetters(typedInputPorts),
+    getNumGetters(serialInputPorts),
+    getNumGetters(specialOutputPorts),
+    getNumGetters(typedOutputPorts),
+    getNumGetters(serialOutputPorts),
+    outputPortWriter.getConnectionStatusQueries(specialOutputPorts),
+    outputPortWriter.getConnectionStatusQueries(typedOutputPorts),
+    outputPortWriter.getConnectionStatusQueries(serialOutputPorts),
+    inputPortWriter.getHandlerBases(dataProductInputPorts),
+    inputPortWriter.getHandlers(typedInputPorts),
+    inputPortWriter.getHandlerBases(typedInputPorts),
+    inputPortWriter.getHandlers(serialInputPorts),
+    inputPortWriter.getHandlerBases(serialInputPorts),
+    inputPortWriter.getPreMsgHooks(dataProductAsyncInputPorts),
+    inputPortWriter.getPreMsgHooks(typedAsyncInputPorts),
+    inputPortWriter.getPreMsgHooks(serialAsyncInputPorts),
+    inputPortWriter.getOverflowHooks(dataProductHookPorts),
+    inputPortWriter.getOverflowHooks(typedHookPorts),
+    inputPortWriter.getOverflowHooks(serialHookPorts),
+    outputPortWriter.getInvokers(dataProductOutputPorts),
+    outputPortWriter.getInvokers(typedOutputPorts),
+    outputPortWriter.getInvokers(serialOutputPorts),
+  )
 
-  def getPrivateFunctionMembers: List[CppDoc.Class.Member] = {
-    List(
-      inputPortWriter.getCallbacks(specialInputPorts),
-      inputPortWriter.getCallbacks(typedInputPorts),
-      inputPortWriter.getCallbacks(serialInputPorts)
-    ).flatten
-  }
+  def getPrivateFunctionMembers: List[CppDoc.Class.Member] = List.concat(
+    inputPortWriter.getCallbacks(specialInputPorts),
+    inputPortWriter.getCallbacks(typedInputPorts),
+    inputPortWriter.getCallbacks(serialInputPorts)
+  )
 
-  def getVariableMembers: List[CppDoc.Class.Member] = {
-    List(
-      getVariables(specialInputPorts),
-      getVariables(typedInputPorts),
-      getVariables(serialInputPorts),
-      getVariables(specialOutputPorts),
-      getVariables(typedOutputPorts),
-      getVariables(serialOutputPorts),
-    ).flatten
-  }
+  def getVariableMembers: List[CppDoc.Class.Member] = List.concat(
+    getVariables(specialInputPorts),
+    getVariables(typedInputPorts),
+    getVariables(serialInputPorts),
+    getVariables(specialOutputPorts),
+    getVariables(typedOutputPorts),
+    getVariables(serialOutputPorts),
+  )
 
   private def getConstants(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     lazy val member = {
       val kind = getPortListTypeString(ports)
       val direction = ports.head.getDirection.get.toString
+      def enumConstant(p: PortInstance) =
+        writeEnumConstant(portConstantName(p), p.getArraySize)
       linesClassMember(
         Line.blank ::
         line(s"//! Enumerations for numbers of $kind $direction ports") ::
-        wrapInEnum(
-          ports.flatMap(p =>
-            writeEnumConstant(portConstantName(p), p.getArraySize)
-          )
-        )
+        wrapInEnum(ports.flatMap(enumConstant))
       )
     }
     guardedList (!ports.isEmpty) (List(member))
@@ -124,23 +112,18 @@ case class ComponentPorts(
           |}
           |"""
     )
-    mapPorts(ports, pi => List(linesClassMember(generateNumGetter(pi))))
+    mapPorts(ports, p => List(linesClassMember(generateNumGetter(p))))
   }
 
   private def getNumGetters(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    val dirStr = ports match {
-      case Nil => ""
-      case _ => ports.head.getDirection.get.toString
-    }
-
+    val direction = ports.headOption.map(_.getDirection.get.toString).getOrElse("")
+    val kind = getPortListTypeString(ports)
+    def portName(p: PortInstance) =
+      s"${p.getUnqualifiedName} ${p.getDirection.get.toString}"
     addAccessTagAndComment(
       "protected",
-      s"Getters for numbers of ${getPortListTypeString(ports)} $dirStr ports",
-      generateNumGetters(
-        ports,
-        (p: PortInstance) => s"${p.getUnqualifiedName} ${p.getDirection.get.toString}",
-        portNumGetterName
-      ),
+      s"Getters for numbers of $kind $direction ports",
+      generateNumGetters(ports, portName, portNumGetterName),
       CppDoc.Lines.Hpp
     )
   }
