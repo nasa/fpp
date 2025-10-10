@@ -70,17 +70,17 @@ object Event {
         for {
           seconds <- getMember("seconds", UInt.MaxValue)
           useconds <- getMember("useconds", 999_999)
-          _ <- {
-            if (seconds + useconds) > 0 then Right(())
-            else Left(SemanticError.InvalidEvent(
-              loc, "time interval may not be zero"
-            ))
-          }
         } yield TimeInterval(seconds, useconds.toInt)
       }
       def checkEventThrottle(throttle: AstNode[Ast.EventThrottle]) = {
         for {
           count <- a.getNonnegativeIntValue(throttle.data.count.id)
+          _ <- {
+            if count > 0 then Right(())
+            else Left(SemanticError.InvalidEvent(
+              loc, s"event throttle count must be greater than zero"
+            ))
+          }
           every <- Result.mapOpt(throttle.data.every, getEveryIntervalValue)
         } yield Throttle(count, every)
       }

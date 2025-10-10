@@ -71,7 +71,7 @@ argument whose type is a <<Types_Internal-Types_Numeric-Types,numeric type>>.
 count* for instances of _E_.
 The type of _e_ must be convertible to
 <<Types_Internal-Types_Integer,_Integer_>> and must evaluate to an integer
-in the range stem:[[0, 2^31)].
+in the range stem:[[1, 2^31)].
 When throttling is specified for an event _E_,
 the framework maintains a *throttle count* for _E_.
 The throttle count
@@ -90,10 +90,10 @@ anonymous struct type>> _T =_ `{ seconds: U32, useconds: U32 }`.
 
 *** After conversion to _T_, _e_ must evaluate to an
 <<Values_Anonymous-Struct-Values,anonymous struct value>>
-`{ seconds =` _s_ `:U32, useconds =` _u_ `:U32 }`.
+`{ seconds =` _s_ `: U32, useconds =` _u_ `: U32 }`.
 
-*** _s_ must be in the range stem:[[0, 2^32)], _u_ must be in the range
-stem:[[0,10^6)], and stem:[s + u] must be greater than zero.
+*** _s_ must be in the range stem:[[0, 2^32)] and _u_ must be in the range
+stem:[[0,10^6)].
 
 +
 +
