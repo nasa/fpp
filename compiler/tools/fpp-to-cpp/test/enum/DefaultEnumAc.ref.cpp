@@ -54,7 +54,7 @@ namespace M {
   Fw::SerializeStatus Default ::
     serializeTo(
         Fw::SerializeBufferBase& buffer,
-        Fw::Serialization::Endianness mode
+        Fw::Endianness mode
     ) const
   {
     const Fw::SerializeStatus status = buffer.serializeFrom(
@@ -67,7 +67,7 @@ namespace M {
   Fw::SerializeStatus Default ::
     deserializeFrom(
         Fw::SerializeBufferBase& buffer,
-        Fw::Serialization::Endianness mode
+        Fw::Endianness mode
     )
   {
     SerialType es;

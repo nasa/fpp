@@ -79,7 +79,7 @@ Your class definition should include the following:
 * An implementation of the virtual function
 +
 ----
-Fw::SerializeStatus T::serializeTo(Fw::SerializeBufferBase&, Fw::Serialization::Endianness = Fw::Serialization::BIG) const
+Fw::SerializeStatus T::serializeTo(Fw::SerializeBufferBase&, Fw::Endianness = Fw::Endianness::BIG) const
 ----
 +
 that specifies how to *serialize* a class instance to a buffer
@@ -88,7 +88,7 @@ that specifies how to *serialize* a class instance to a buffer
 * An implementation of the function
 +
 ----
-Fw::SerializeStatus T::deserializeFrom(Fw::SerializeBufferBase&, Fw::Serialization::Endianness = Fw::Serialization::BIG)
+Fw::SerializeStatus T::deserializeFrom(Fw::SerializeBufferBase&, Fw::Endianness = Fw::Endianness::BIG)
 ----
 +
 that specifies how to *deserialize* a class instance from a
@@ -132,7 +132,7 @@ struct T final : public Fw::Serializable { // Extend Fw::Serializable
   // Define some shorthand for F Prime types
   using SS = Fw::SerializeStatus SS;
   using B = Fw::SerializeBufferBase B;
-  using E = Fw::Serialization::Endianness E;
+  using E = Fw::Endianness E;
 
   // Define the constant SERIALIZED_SIZE
   enum Constants { SERIALIZED_SIZE = sizeof(U32) };

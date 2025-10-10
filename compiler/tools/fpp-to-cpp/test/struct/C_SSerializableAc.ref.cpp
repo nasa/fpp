@@ -80,7 +80,7 @@ std::ostream& operator<<(std::ostream& os, const C_S& obj) {
 Fw::SerializeStatus C_S ::
   serializeTo(
       Fw::SerializeBufferBase& buffer,
-      Fw::Serialization::Endianness mode
+      Fw::Endianness mode
   ) const
 {
   Fw::SerializeStatus status;
@@ -96,7 +96,7 @@ Fw::SerializeStatus C_S ::
 Fw::SerializeStatus C_S ::
   deserializeFrom(
       Fw::SerializeBufferBase& buffer,
-      Fw::Serialization::Endianness mode
+      Fw::Endianness mode
   )
 {
   Fw::SerializeStatus status;

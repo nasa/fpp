@@ -118,7 +118,7 @@ namespace S {
   Fw::SerializeStatus S3 ::
     serializeTo(
         Fw::SerializeBufferBase& buffer,
-        Fw::Serialization::Endianness mode
+        Fw::Endianness mode
     ) const
   {
     Fw::SerializeStatus status;
@@ -140,7 +140,7 @@ namespace S {
   Fw::SerializeStatus S3 ::
     deserializeFrom(
         Fw::SerializeBufferBase& buffer,
-        Fw::Serialization::Endianness mode
+        Fw::Endianness mode
     )
   {
     Fw::SerializeStatus status;

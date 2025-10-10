@@ -142,7 +142,7 @@ namespace M {
   Fw::SerializeStatus S1 ::
     serializeTo(
         Fw::SerializeBufferBase& buffer,
-        Fw::Serialization::Endianness mode
+        Fw::Endianness mode
     ) const
   {
     Fw::SerializeStatus status;
@@ -202,7 +202,7 @@ namespace M {
   Fw::SerializeStatus S1 ::
     deserializeFrom(
         Fw::SerializeBufferBase& buffer,
-        Fw::Serialization::Endianness mode
+        Fw::Endianness mode
     )
   {
     Fw::SerializeStatus status;

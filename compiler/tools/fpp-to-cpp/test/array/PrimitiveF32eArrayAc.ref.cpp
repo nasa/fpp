@@ -145,7 +145,7 @@ namespace M {
   Fw::SerializeStatus PrimitiveF32e ::
     serializeTo(
         Fw::SerializeBufferBase& buffer,
-        Fw::Serialization::Endianness mode
+        Fw::Endianness mode
     ) const
   {
     Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
@@ -161,7 +161,7 @@ namespace M {
   Fw::SerializeStatus PrimitiveF32e ::
     deserializeFrom(
         Fw::SerializeBufferBase& buffer,
-        Fw::Serialization::Endianness mode
+        Fw::Endianness mode
     )
   {
     Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;

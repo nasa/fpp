@@ -55,7 +55,7 @@ bool E2 ::
 Fw::SerializeStatus E2 ::
   serializeTo(
       Fw::SerializeBufferBase& buffer,
-      Fw::Serialization::Endianness mode
+      Fw::Endianness mode
   ) const
 {
   const Fw::SerializeStatus status = buffer.serializeFrom(
@@ -68,7 +68,7 @@ Fw::SerializeStatus E2 ::
 Fw::SerializeStatus E2 ::
   deserializeFrom(
       Fw::SerializeBufferBase& buffer,
-      Fw::Serialization::Endianness mode
+      Fw::Endianness mode
   )
 {
   SerialType es;

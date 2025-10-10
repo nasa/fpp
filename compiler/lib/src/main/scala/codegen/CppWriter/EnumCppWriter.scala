@@ -318,10 +318,10 @@ case class EnumCppWriter(
             Some("The serial buffer")
           ),
           CppDoc.Function.Param(
-            CppDoc.Type("Fw::Serialization::Endianness"),
+            CppDoc.Type("Fw::Endianness"),
             "mode",
             Some("Endianness of serialized buffer"),
-            Some("Fw::Serialization::BIG"),
+            Some("Fw::Endianness::BIG"),
           )
         ),
         CppDoc.Type("Fw::SerializeStatus"),
@@ -345,10 +345,10 @@ case class EnumCppWriter(
             Some("The serial buffer")
           ),
           CppDoc.Function.Param(
-            CppDoc.Type("Fw::Serialization::Endianness"),
+            CppDoc.Type("Fw::Endianness"),
             "mode",
             Some("Endianness of serialized buffer"),
-            Some("Fw::Serialization::BIG"),
+            Some("Fw::Endianness::BIG"),
           )
         ),
         CppDoc.Type("Fw::SerializeStatus"),

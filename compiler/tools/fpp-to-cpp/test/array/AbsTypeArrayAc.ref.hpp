@@ -138,13 +138,13 @@ class AbsType :
     //! Serialization
     Fw::SerializeStatus serializeTo(
         Fw::SerializeBufferBase& buffer, //!< The serial buffer
-        Fw::Serialization::Endianness mode = Fw::Serialization::BIG //!< Endianness of serialized buffer
+        Fw::Endianness mode = Fw::Endianness::BIG //!< Endianness of serialized buffer
     ) const;
 
     //! Deserialization
     Fw::SerializeStatus deserializeFrom(
         Fw::SerializeBufferBase& buffer, //!< The serial buffer
-        Fw::Serialization::Endianness mode = Fw::Serialization::BIG //!< Endianness of serialized buffer
+        Fw::Endianness mode = Fw::Endianness::BIG //!< Endianness of serialized buffer
     );
 
     //! Get the dynamic serialized size of the array

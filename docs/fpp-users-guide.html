@@ -15180,7 +15180,7 @@ Your class definition should include the following:</p>
 <p>An implementation of the virtual function</p>
 <div class="listingblock">
 <div class="content">
-<pre>Fw::SerializeStatus T::serializeTo(Fw::SerializeBufferBase&amp;, Fw::Serialization::Endianness = Fw::Serialization::BIG) const</pre>
+<pre>Fw::SerializeStatus T::serializeTo(Fw::SerializeBufferBase&amp;, Fw::Endianness = Fw::Endianness::BIG) const</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -15192,7 +15192,7 @@ Your class definition should include the following:</p>
 <p>An implementation of the function</p>
 <div class="listingblock">
 <div class="content">
-<pre>Fw::SerializeStatus T::deserializeFrom(Fw::SerializeBufferBase&amp;, Fw::Serialization::Endianness = Fw::Serialization::BIG)</pre>
+<pre>Fw::SerializeStatus T::deserializeFrom(Fw::SerializeBufferBase&amp;, Fw::Endianness = Fw::Endianness::BIG)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -15246,7 +15246,7 @@ struct T final : public Fw::Serializable { // Extend Fw::Serializable
   // Define some shorthand for F Prime types
   using SS = Fw::SerializeStatus SS;
   using B = Fw::SerializeBufferBase B;
-  using E = Fw::Serialization::Endianness E;
+  using E = Fw::Endianness E;
 
   // Define the constant SERIALIZED_SIZE
   enum Constants { SERIALIZED_SIZE = sizeof(U32) };
@@ -15786,7 +15786,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-10-10 12:57:06 -0500
+Last updated 2025-10-10 17:52:20 -0500
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
