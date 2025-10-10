@@ -79,7 +79,7 @@ Your class definition should include the following:
 * An implementation of the virtual function
 +
 ----
-Fw::SerializeStatus T::serializeTo(Fw::SerializeBufferBase&, Fw::Serialization::Endianness) const
+Fw::SerializeStatus T::serializeTo(Fw::SerializeBufferBase&, Fw::Serialization::Endianness = Fw::Serialization::BIG) const
 ----
 +
 that specifies how to *serialize* a class instance to a buffer
@@ -88,7 +88,7 @@ that specifies how to *serialize* a class instance to a buffer
 * An implementation of the function
 +
 ----
-Fw::SerializeStatus T::deserializeFrom(Fw::SerializeBufferBase&, Fw::Serialization::Endianness)
+Fw::SerializeStatus T::deserializeFrom(Fw::SerializeBufferBase&, Fw::Serialization::Endianness = Fw::Serialization::BIG)
 ----
 +
 that specifies how to *deserialize* a class instance from a
@@ -497,9 +497,7 @@ F Prime uses the following rules for serializing data:
 is serialized into big-endian order (most significant byte first) by default,
 using the number of bytes implied by the bit width.
 For example, the `U16` value 10 (decimal) is serialized as the
-two bytes `00` `0A` (hex).
-
-If little-endian order is desired, the optional mode parameter can be specified as `Fw::Serialization::LITTLE`. This stores the data least significant byte order in the number of bytes implied by the bit width. The `U16` value 10 (decimal) is serialized in little-endian as the two bytes `0A` `00` (hex).
+two bytes `00` `0A` (hex). If little-endian order is desired, the optional mode parameter can be specified as `Fw::Serialization::LITTLE`. This stores the data least significant byte order. The `U16` value 10 (decimal) is serialized in little-endian as the two bytes `0A` `00` (hex).
 
 .. A value of signed integer type (`I8`, `I16`, `I32`, or `I64`)
 is serialized by first converting the value to an unsigned value of the same bit
@@ -509,16 +507,15 @@ the same as the signed value.
 Otherwise the unsigned value is the two's complement of the signed value.
 For example:
 
-... The `I16` value 10 (decimal) is serialized as two bytes
-in big-endian order, yielding the bytes `00` `0A` (hex).
+... The `I16` value 10 (decimal) is serialized as two bytes, yielding the bytes `00` `0A` (hex) in big-endian and `0A` `00` (hex) in little-endian.
 
 ... The `I16` value -10 (decimal) is serialized by
 (1) computing the `U16` value 2^16^ - 10 = 65526
-and (2) serializing that value as two bytes in big-endian order,
-yielding the bytes `FF` `F6` (hex).
+and (2) serializing that value as two bytes in the selected byte order,
+yielding the bytes `FF` `F6` (hex) big-endian and `F6` `FF` (hex) little-endian.
 
 . A value of floating-point type (`F32` or `F64`)
-is serialized in big-endian order according to the IEEE
+is serialized in the selected byte order according to the IEEE
 standard for representing these values.
 
 . A value of Boolean type is serialized as a single byte.
