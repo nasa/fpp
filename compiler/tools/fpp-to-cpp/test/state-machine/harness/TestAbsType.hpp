@@ -49,14 +49,16 @@ struct TestAbsType final : public Fw::Serializable {
     
     //! Serialize function
     //! \return Status
-    Fw::SerializeStatus serializeTo(Fw::SerializeBufferBase& sbb  //!< The serialize buffer base
+    Fw::SerializeStatus serializeTo(Fw::SerializeBufferBase& sbb, //!< The serialize buffer base
+        Fw::Endianness mode
     ) const final {
         return sbb.serializeFrom(this->m_data);
     }
 
     //! Deserialize method
     //! \return status
-    Fw::SerializeStatus deserializeFrom(Fw::SerializeBufferBase& sbb  //!< The serialize buffer base
+    Fw::SerializeStatus deserializeFrom(Fw::SerializeBufferBase& sbb, //!< The serialize buffer base
+        Fw::Endianness mode
                                     ) final {
         return sbb.deserializeTo(this->m_data);
     }
