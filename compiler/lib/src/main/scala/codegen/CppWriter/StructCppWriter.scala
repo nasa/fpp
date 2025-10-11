@@ -466,9 +466,9 @@ case class StructCppWriter(
         lines("return status;")
       )
     def writeSerializeCall(n: String) =
-      line(s"status = buffer.serializeFrom(this->m_$n);") :: writeSerializeStatusCheck
+      line(s"status = buffer.serializeFrom(this->m_$n, mode);") :: writeSerializeStatusCheck
     def writeDeserializeCall(n: String) =
-      line(s"status = buffer.deserializeTo(this->m_$n);") :: writeSerializeStatusCheck
+      line(s"status = buffer.deserializeTo(this->m_$n, mode);") :: writeSerializeStatusCheck
 
     List(
       List(
@@ -487,6 +487,12 @@ case class StructCppWriter(
               CppDoc.Type("Fw::SerializeBufferBase&"),
               "buffer",
               Some("The serial buffer")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::Endianness"),
+              "mode",
+              Some("Endianness of serialized buffer"),
+              Some("Fw::Endianness::BIG"),
             )
           ),
           CppDoc.Type("Fw::SerializeStatus"),
@@ -511,6 +517,12 @@ case class StructCppWriter(
               CppDoc.Type("Fw::SerializeBufferBase&"),
               "buffer",
               Some("The serial buffer")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::Endianness"),
+              "mode",
+              Some("Endianness of serialized buffer"),
+              Some("Fw::Endianness::BIG"),
             )
           ),
           CppDoc.Type("Fw::SerializeStatus"),

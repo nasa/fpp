@@ -50,19 +50,26 @@ bool C_E ::
 }
 
 Fw::SerializeStatus C_E ::
-  serializeTo(Fw::SerializeBufferBase& buffer) const
+  serializeTo(
+      Fw::SerializeBufferBase& buffer,
+      Fw::Endianness mode
+  ) const
 {
   const Fw::SerializeStatus status = buffer.serializeFrom(
-      static_cast<SerialType>(this->e)
+      static_cast<SerialType>(this->e),
+      mode
   );
   return status;
 }
 
 Fw::SerializeStatus C_E ::
-  deserializeFrom(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(
+      Fw::SerializeBufferBase& buffer,
+      Fw::Endianness mode
+  )
 {
   SerialType es;
-  Fw::SerializeStatus status = buffer.deserializeTo(es);
+  Fw::SerializeStatus status = buffer.deserializeTo(es, mode);
   if (status == Fw::FW_SERIALIZE_OK) {
     this->e = static_cast<T>(es);
     if (!this->isValid()) {
