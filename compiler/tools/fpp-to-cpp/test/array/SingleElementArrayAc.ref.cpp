@@ -141,11 +141,14 @@ std::ostream& operator<<(std::ostream& os, const SingleElement& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus SingleElement ::
-  serializeTo(Fw::SerializeBufferBase& buffer) const
+  serializeTo(
+      Fw::SerializeBufferBase& buffer,
+      Fw::Endianness mode
+  ) const
 {
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   for (FwSizeType index = 0; index < SIZE; index++) {
-    status = buffer.serializeFrom((*this)[index]);
+    status = buffer.serializeFrom((*this)[index], mode);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -154,11 +157,14 @@ Fw::SerializeStatus SingleElement ::
 }
 
 Fw::SerializeStatus SingleElement ::
-  deserializeFrom(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(
+      Fw::SerializeBufferBase& buffer,
+      Fw::Endianness mode
+  )
 {
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   for (FwSizeType index = 0; index < SIZE; index++) {
-    status = buffer.deserializeTo((*this)[index]);
+    status = buffer.deserializeTo((*this)[index], mode);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }

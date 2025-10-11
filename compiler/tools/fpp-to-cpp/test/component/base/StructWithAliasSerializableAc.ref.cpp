@@ -103,27 +103,30 @@ std::ostream& operator<<(std::ostream& os, const StructWithAlias& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus StructWithAlias ::
-  serializeTo(Fw::SerializeBufferBase& buffer) const
+  serializeTo(
+      Fw::SerializeBufferBase& buffer,
+      Fw::Endianness mode
+  ) const
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serializeFrom(this->m_x);
+  status = buffer.serializeFrom(this->m_x, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serializeFrom(this->m_y);
+  status = buffer.serializeFrom(this->m_y, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serializeFrom(this->m_z);
+  status = buffer.serializeFrom(this->m_z, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serializeFrom(this->m_w);
+  status = buffer.serializeFrom(this->m_w, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serializeFrom(this->m_q);
+  status = buffer.serializeFrom(this->m_q, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -132,27 +135,30 @@ Fw::SerializeStatus StructWithAlias ::
 }
 
 Fw::SerializeStatus StructWithAlias ::
-  deserializeFrom(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(
+      Fw::SerializeBufferBase& buffer,
+      Fw::Endianness mode
+  )
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserializeTo(this->m_x);
+  status = buffer.deserializeTo(this->m_x, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserializeTo(this->m_y);
+  status = buffer.deserializeTo(this->m_y, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserializeTo(this->m_z);
+  status = buffer.deserializeTo(this->m_z, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserializeTo(this->m_w);
+  status = buffer.deserializeTo(this->m_w, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserializeTo(this->m_q);
+  status = buffer.deserializeTo(this->m_q, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
