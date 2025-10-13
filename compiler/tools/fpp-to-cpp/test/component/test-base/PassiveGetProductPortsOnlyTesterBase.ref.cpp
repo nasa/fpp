@@ -65,19 +65,3 @@ PassiveGetProductPortsOnlyTesterBase ::
 {
 
 }
-
-// ----------------------------------------------------------------------
-// Getters for port counts
-// ----------------------------------------------------------------------
-
-FwIndexType PassiveGetProductPortsOnlyTesterBase ::
-  getNum_from_productGetOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productGetOut));
-}
-
-FwIndexType PassiveGetProductPortsOnlyTesterBase ::
-  getNum_from_productSendOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productSendOut));
-}
