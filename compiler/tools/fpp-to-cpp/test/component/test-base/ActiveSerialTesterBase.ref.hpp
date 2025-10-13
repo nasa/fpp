@@ -326,6 +326,12 @@ class ActiveSerialTesterBase :
       E arg;
     };
 
+    //! A history entry for telemetry channel ChannelBoolOnChange
+    struct TlmEntry_ChannelBoolOnChange {
+      Fw::Time timeTag;
+      bool arg;
+    };
+
     //! External Parameter Delegate
     class ActiveSerialComponentBaseParamExternalDelegate :
       public Fw::ParamExternalDelegate
@@ -1830,6 +1836,12 @@ class ActiveSerialTesterBase :
         const E& val //!< The channel value
     );
 
+    //! Handle channel ChannelBoolOnChange
+    void tlmInput_ChannelBoolOnChange(
+        const Fw::Time& timeTag, //!< The time
+        const bool val //!< The channel value
+    );
+
   protected:
 
     // ----------------------------------------------------------------------
@@ -2447,6 +2459,9 @@ class ActiveSerialTesterBase :
 
     //! The history of ChannelEnumOnChange values
     History<TlmEntry_ChannelEnumOnChange>* tlmHistory_ChannelEnumOnChange;
+
+    //! The history of ChannelBoolOnChange values
+    History<TlmEntry_ChannelBoolOnChange>* tlmHistory_ChannelBoolOnChange;
 
   private:
 

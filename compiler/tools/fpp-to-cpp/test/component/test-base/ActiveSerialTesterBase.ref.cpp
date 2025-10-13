@@ -1631,6 +1631,7 @@ ActiveSerialTesterBase ::
   this->tlmHistory_ChannelF64 = new History<TlmEntry_ChannelF64>(maxHistorySize);
   this->tlmHistory_ChannelU32OnChange = new History<TlmEntry_ChannelU32OnChange>(maxHistorySize);
   this->tlmHistory_ChannelEnumOnChange = new History<TlmEntry_ChannelEnumOnChange>(maxHistorySize);
+  this->tlmHistory_ChannelBoolOnChange = new History<TlmEntry_ChannelBoolOnChange>(maxHistorySize);
 
   // Clear history
   this->clearHistory();
@@ -1671,6 +1672,7 @@ ActiveSerialTesterBase ::
   delete this->tlmHistory_ChannelF64;
   delete this->tlmHistory_ChannelU32OnChange;
   delete this->tlmHistory_ChannelEnumOnChange;
+  delete this->tlmHistory_ChannelBoolOnChange;
 }
 
 // ----------------------------------------------------------------------
@@ -4321,6 +4323,19 @@ void ActiveSerialTesterBase ::
       break;
     }
 
+    case ActiveSerialComponentBase::CHANNELID_CHANNELBOOLONCHANGE: {
+      bool arg;
+      const Fw::SerializeStatus _status = val.deserializeTo(arg);
+
+      if (_status != Fw::FW_SERIALIZE_OK) {
+        printf("Error deserializing ChannelBoolOnChange: %d\n", _status);
+        return;
+      }
+
+      this->tlmInput_ChannelBoolOnChange(timeTag, arg);
+      break;
+    }
+
     default: {
       FW_ASSERT(0, static_cast<FwAssertArgType>(id));
       break;
@@ -4446,6 +4461,17 @@ void ActiveSerialTesterBase ::
 {
   TlmEntry_ChannelEnumOnChange e = { timeTag, val };
   this->tlmHistory_ChannelEnumOnChange->push_back(e);
+  this->tlmSize++;
+}
+
+void ActiveSerialTesterBase ::
+  tlmInput_ChannelBoolOnChange(
+      const Fw::Time& timeTag,
+      const bool val
+  )
+{
+  TlmEntry_ChannelBoolOnChange e = { timeTag, val };
+  this->tlmHistory_ChannelBoolOnChange->push_back(e);
   this->tlmSize++;
 }
 
@@ -5428,6 +5454,7 @@ void ActiveSerialTesterBase ::
   this->tlmHistory_ChannelF64->clear();
   this->tlmHistory_ChannelU32OnChange->clear();
   this->tlmHistory_ChannelEnumOnChange->clear();
+  this->tlmHistory_ChannelBoolOnChange->clear();
 }
 
 // ----------------------------------------------------------------------

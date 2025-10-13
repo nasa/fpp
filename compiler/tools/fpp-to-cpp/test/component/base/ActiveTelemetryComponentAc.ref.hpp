@@ -125,6 +125,7 @@ class ActiveTelemetryComponentBase :
       CHANNELID_CHANNELF64 = 0x15, //!< Channel ID for ChannelF64
       CHANNELID_CHANNELU32ONCHANGE = 0x16, //!< Channel ID for ChannelU32OnChange
       CHANNELID_CHANNELENUMONCHANGE = 0x17, //!< Channel ID for ChannelEnumOnChange
+      CHANNELID_CHANNELBOOLONCHANGE = 0x18, //!< Channel ID for ChannelBoolOnChange
     };
 
   public:
@@ -1459,6 +1460,14 @@ class ActiveTelemetryComponentBase :
         Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
     );
 
+    //! Write telemetry channel ChannelBoolOnChange
+    //!
+    //! A telemetry channel with Boolean data and update on change frequency
+    void tlmWrite_ChannelBoolOnChange(
+        bool arg, //!< The telemetry value
+        Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
+    );
+
   protected:
 
     // ----------------------------------------------------------------------
@@ -1856,10 +1865,13 @@ class ActiveTelemetryComponentBase :
     // ----------------------------------------------------------------------
 
     //! Initialized to true; cleared when channel ChannelU32OnChange is first updated
-    bool m_first_update_ChannelU32OnChange;
+    bool m_first_update_ChannelU32OnChange = true;
 
     //! Initialized to true; cleared when channel ChannelEnumOnChange is first updated
-    bool m_first_update_ChannelEnumOnChange;
+    bool m_first_update_ChannelEnumOnChange = true;
+
+    //! Initialized to true; cleared when channel ChannelBoolOnChange is first updated
+    bool m_first_update_ChannelBoolOnChange = true;
 
   private:
 
@@ -1868,10 +1880,13 @@ class ActiveTelemetryComponentBase :
     // ----------------------------------------------------------------------
 
     //! Records the last emitted value for channel ChannelU32OnChange
-    U32 m_last_ChannelU32OnChange;
+    U32 m_last_ChannelU32OnChange = {};
 
     //! Records the last emitted value for channel ChannelEnumOnChange
-    E m_last_ChannelEnumOnChange;
+    E m_last_ChannelEnumOnChange = {};
+
+    //! Records the last emitted value for channel ChannelBoolOnChange
+    bool m_last_ChannelBoolOnChange = {};
 
   private:
 
