@@ -94,8 +94,7 @@ String2& String2 ::
 String2& String2 ::
   operator=(const std::initializer_list<Fw::String>& il)
 {
-  // Since we are required to use C++11, this has to be a runtime check
-  // In C++14, it can be a static check
+  // Check that the initializer has the expected size
   FW_ASSERT(il.size() == SIZE, static_cast<FwAssertArgType>(il.size()), static_cast<FwAssertArgType>(SIZE));
   FwSizeType i = 0;
   for (const auto& e : il) {
