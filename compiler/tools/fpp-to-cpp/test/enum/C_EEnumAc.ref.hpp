@@ -129,12 +129,14 @@ class C_E :
 
     //! Serialize raw enum value to SerialType
     Fw::SerializeStatus serializeTo(
-        Fw::SerializeBufferBase& buffer //!< The serial buffer
+        Fw::SerializeBufferBase& buffer, //!< The serial buffer
+        Fw::Endianness mode = Fw::Endianness::BIG //!< Endianness of serialized buffer
     ) const;
 
     //! Deserialize raw enum value from SerialType
     Fw::SerializeStatus deserializeFrom(
-        Fw::SerializeBufferBase& buffer //!< The serial buffer
+        Fw::SerializeBufferBase& buffer, //!< The serial buffer
+        Fw::Endianness mode = Fw::Endianness::BIG //!< Endianness of serialized buffer
     );
 
 #if FW_SERIALIZABLE_TO_STRING
