@@ -78,9 +78,6 @@ case class ComponentEvents (
                   |
                   |//! Throttle time for ${event.getName}
                   |Fw::Time ${eventThrottleTimeName(event.getName)};
-                  |
-                  |//! Throttle lock for ${event.getName}
-                  |Os::Mutex ${eventThrottleLockName(event.getName)};
                   |"""
             )
           )
@@ -295,7 +292,7 @@ case class ComponentEvents (
           case Some(Event.Throttle(_, Some(Event.TimeInterval(seconds, useconds)))) => lines(
             s"""|// Check throttle value & throttle timeout
                 |{
-                |  Os::ScopeLock scopedLock(this->${eventThrottleLockName(event.getName)});
+                |  Os::ScopeLock scopedLock(this->m_eventLock);
                 |
                 |  if (this->${eventThrottleCounterName(event.getName)} >= ${eventThrottleConstantName(event.getName)}) {
                 |    // The counter has overflowed, check if time interval has passed
@@ -383,7 +380,7 @@ case class ComponentEvents (
             CppDoc.Type("void"),
             lines(
               s"""|{
-                  |  Os::ScopeLock scopedLock(this->${eventThrottleLockName(event.getName)});
+                  |  Os::ScopeLock scopedLock(this->m_eventLock);
                   |
                   |  // Reset throttle counter
                   |  this->${eventThrottleCounterName(event.getName)} = 0;

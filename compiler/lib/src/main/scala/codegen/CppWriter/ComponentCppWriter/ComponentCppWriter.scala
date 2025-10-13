@@ -995,7 +995,7 @@ case class ComponentCppWriter (
   }
 
   private def getMutexVariableMembers: List[CppDoc.Class.Member] = {
-    if !(hasGuardedInputPorts || hasGuardedCommands || hasParameters) then Nil
+    if !(hasGuardedInputPorts || hasGuardedCommands || hasParameters || hasEventsWithTimeout) then Nil
     else List(
       linesClassMember(
         List(
@@ -1015,6 +1015,13 @@ case class ComponentCppWriter (
             """|
                |//! Mutex for locking parameters during sets and saves
                |Os::Mutex m_paramLock;
+               |"""
+          ),
+          if !hasEventsWithTimeout then Nil
+          else lines(
+            """|
+               |//! Mutex for locking event throttle timeout and counter
+               |Os::Mutex m_eventLock;
                |"""
           )
         ).flatten

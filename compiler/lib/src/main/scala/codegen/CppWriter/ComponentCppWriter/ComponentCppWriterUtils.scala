@@ -335,6 +335,8 @@ abstract class ComponentCppWriterUtils(
 
   val hasContainers: Boolean = containersByName != Nil
 
+  val hasEventsWithTimeout: Boolean = throttledEventsWithTimeout.nonEmpty
+
   val hasExternalStateMachineInstances: Boolean =
     component.hasStateMachineInstancesOfKind(StateMachine.Kind.External)
 
@@ -834,10 +836,6 @@ abstract class ComponentCppWriterUtils(
   /** Get the name for an event throttle timeout interval variable */
   def eventThrottleTimeName(name: String) =
     s"m_${name}ThrottleTime"
-
-  /** Get the name for an event throttle counter variable */
-  def eventThrottleLockName(name: String) =
-    s"m_${name}ThrottleLock"
 
   /** Get the name for an event ID constant */
   def eventIdConstantName(name: String) =

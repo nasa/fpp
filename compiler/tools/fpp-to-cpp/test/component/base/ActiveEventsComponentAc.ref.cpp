@@ -3833,7 +3833,7 @@ void ActiveEventsComponentBase ::
 
   // Check throttle value & throttle timeout
   {
-    Os::ScopeLock scopedLock(this->m_EventWarningLowThrottledIntervalThrottleLock);
+    Os::ScopeLock scopedLock(this->m_eventLock);
 
     if (this->m_EventWarningLowThrottledIntervalThrottle >= EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL_THROTTLE) {
       // The counter has overflowed, check if time interval has passed
@@ -3937,7 +3937,7 @@ void ActiveEventsComponentBase ::
   log_WARNING_LO_EventWarningLowThrottledInterval_ThrottleClear()
 {
   {
-    Os::ScopeLock scopedLock(this->m_EventWarningLowThrottledIntervalThrottleLock);
+    Os::ScopeLock scopedLock(this->m_eventLock);
 
     // Reset throttle counter
     this->m_EventWarningLowThrottledIntervalThrottle = 0;

@@ -1478,9 +1478,6 @@ class PassiveEventsComponentBase :
     //! Throttle time for EventWarningLowThrottledInterval
     Fw::Time m_EventWarningLowThrottledIntervalThrottleTime;
 
-    //! Throttle lock for EventWarningLowThrottledInterval
-    Os::Mutex m_EventWarningLowThrottledIntervalThrottleLock;
-
   private:
 
     // ----------------------------------------------------------------------
@@ -1489,6 +1486,9 @@ class PassiveEventsComponentBase :
 
     //! Mutex for guarded ports
     Os::Mutex m_guardedPortMutex;
+
+    //! Mutex for locking event throttle timeout and counter
+    Os::Mutex m_eventLock;
 
 };
 

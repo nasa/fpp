@@ -3194,9 +3194,6 @@ namespace M {
       //! Throttle time for EventWarningLowThrottledInterval
       Fw::Time m_EventWarningLowThrottledIntervalThrottleTime;
 
-      //! Throttle lock for EventWarningLowThrottledInterval
-      Os::Mutex m_EventWarningLowThrottledIntervalThrottleLock;
-
     private:
 
       // ----------------------------------------------------------------------
@@ -3302,6 +3299,9 @@ namespace M {
 
       //! Mutex for locking parameters during sets and saves
       Os::Mutex m_paramLock;
+
+      //! Mutex for locking event throttle timeout and counter
+      Os::Mutex m_eventLock;
 
   };
 
