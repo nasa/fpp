@@ -562,6 +562,9 @@ case class ComponentCppWriter (
               throttledEvents.map((_, event) => line(
                 s"this->${eventThrottleCounterName(event.getName)} = 0;"
               )),
+              throttledEventsWithTimeout.map((_, event) => line(
+                s"this->${eventThrottleTimeName(event.getName)} = Fw::Time();"
+              )),
               sortedParams.flatMap((_, param) => guardedList(!param.isExternal) (
                 lines(s"this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::UNINIT;")
               ))
@@ -992,7 +995,7 @@ case class ComponentCppWriter (
   }
 
   private def getMutexVariableMembers: List[CppDoc.Class.Member] = {
-    if !(hasGuardedInputPorts || hasGuardedCommands || hasParameters) then Nil
+    if !(hasGuardedInputPorts || hasGuardedCommands || hasParameters || hasEventsWithTimeout) then Nil
     else List(
       linesClassMember(
         List(
@@ -1012,6 +1015,13 @@ case class ComponentCppWriter (
             """|
                |//! Mutex for locking parameters during sets and saves
                |Os::Mutex m_paramLock;
+               |"""
+          ),
+          if !hasEventsWithTimeout then Nil
+          else lines(
+            """|
+               |//! Mutex for locking event throttle timeout and counter
+               |Os::Mutex m_eventLock;
                |"""
           )
         ).flatten
