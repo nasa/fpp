@@ -978,6 +978,12 @@ abstract class ComponentCppWriterUtils(
 
 object ComponentCppWriterUtils {
 
+  /** Whether code generation is internal or external to the component */
+  enum InternalOrExternal {
+    case Internal
+    case External 
+  }
+
   /** (  parameter name, parameter type name, parameter type ) **/
   type ParamTypeMapInfo = (String, String, Type)
   type CmdParamTypeMap = Map[Command.Opcode, List[ParamTypeMapInfo]]
