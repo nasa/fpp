@@ -207,6 +207,26 @@ def module
       format {} counts
       throttle literal int 10
     @< Event specifier
+    @ Event specifier with throttle timeout
+    spec event
+      ident ET
+      formal param
+        kind value
+        ident a
+        type name U32
+      formal param
+        kind value
+        ident b
+        type name F32
+      severity activity high
+      id literal int 0x00
+      format {} counts
+      throttle literal int 10
+      every expr struct
+              struct member
+                ident seconds
+                literal int 10
+    @< Event specifier
     @ Internal port specifier
     spec internal port
       ident I

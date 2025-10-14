@@ -100,6 +100,10 @@ module DefinitionsAndSpecifiers {
     event E(a: U32, b: F32) severity activity low id 0x00 format "{} counts" throttle 10
     @< Event specifier
 
+    @ Event specifier with throttle timeout
+    event ET(a: U32, b: F32) severity activity high id 0x00 format "{} counts" throttle 10 every {seconds=10}
+    @< Event specifier
+
     @ Internal port specifier
     internal port I(a: U32, b: F32) priority 10 assert
     @< Internal port specifier

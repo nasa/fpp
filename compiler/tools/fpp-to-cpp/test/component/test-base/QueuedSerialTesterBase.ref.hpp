@@ -1840,6 +1840,9 @@ class QueuedSerialTesterBase :
     //! Handle event EventWarningLowThrottled
     virtual void logIn_WARNING_LO_EventWarningLowThrottled();
 
+    //! Handle event EventWarningLowThrottledInterval
+    virtual void logIn_WARNING_LO_EventWarningLowThrottledInterval();
+
   protected:
 
     // ----------------------------------------------------------------------
@@ -2487,6 +2490,9 @@ class QueuedSerialTesterBase :
 
     //! Size of history for event EventWarningLowThrottled
     U32 eventsSize_EventWarningLowThrottled;
+
+    //! Size of history for event EventWarningLowThrottledInterval
+    U32 eventsSize_EventWarningLowThrottledInterval;
 
     //! The total number of telemetry inputs seen
     U32 tlmSize;

@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/event/bad_throttle_interval_seconds.fpp:5.11
+    every {seconds=-1}
+          ^
+error: invalid integer value -1
+seconds must be in the range [0, 4294967295]

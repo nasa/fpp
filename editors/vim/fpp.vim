@@ -35,6 +35,7 @@ syn keyword fppKeyword enter
 syn keyword fppKeyword entry
 syn keyword fppKeyword enum
 syn keyword fppKeyword event
+syn keyword fppKeyword every
 syn keyword fppKeyword exit
 syn keyword fppKeyword external
 syn keyword fppKeyword false
