@@ -94,8 +94,7 @@ String2& String2 ::
 String2& String2 ::
   operator=(const std::initializer_list<Fw::String>& il)
 {
-  // Since we are required to use C++11, this has to be a runtime check
-  // In C++14, it can be a static check
+  // Check that the initializer has the expected size
   FW_ASSERT(il.size() == SIZE, static_cast<FwAssertArgType>(il.size()), static_cast<FwAssertArgType>(SIZE));
   FwSizeType i = 0;
   for (const auto& e : il) {
@@ -148,11 +147,14 @@ std::ostream& operator<<(std::ostream& os, const String2& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus String2 ::
-  serializeTo(Fw::SerializeBufferBase& buffer) const
+  serializeTo(
+      Fw::SerializeBufferBase& buffer,
+      Fw::Endianness mode
+  ) const
 {
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   for (FwSizeType index = 0; index < SIZE; index++) {
-    status = buffer.serializeFrom((*this)[index]);
+    status = buffer.serializeFrom((*this)[index], mode);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -161,11 +163,14 @@ Fw::SerializeStatus String2 ::
 }
 
 Fw::SerializeStatus String2 ::
-  deserializeFrom(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(
+      Fw::SerializeBufferBase& buffer,
+      Fw::Endianness mode
+  )
 {
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   for (FwSizeType index = 0; index < SIZE; index++) {
-    status = buffer.deserializeTo((*this)[index]);
+    status = buffer.deserializeTo((*this)[index], mode);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
