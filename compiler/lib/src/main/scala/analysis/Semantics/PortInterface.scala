@@ -10,29 +10,29 @@ case class PortInterface(
   /** The map from special port kinds to special port instances */
   specialPortMap: Map[Ast.SpecPortInstance.SpecialKind, PortInstance.Special] = Map(),
 ) {
-  def withPortMap(newPortMap: Map[Name.Unqualified, PortInstance]) =
+  private def withPortMap(newPortMap: Map[Name.Unqualified, PortInstance]) =
     this.copy(portMap = newPortMap)
 
-  def withSpecialPortMap(newSpecialPortMap: Map[Ast.SpecPortInstance.SpecialKind, PortInstance.Special]) =
+  private def withSpecialPortMap(newSpecialPortMap: Map[Ast.SpecPortInstance.SpecialKind, PortInstance.Special]) =
     this.copy(specialPortMap = newSpecialPortMap)
 
   def isSubsetOf(other: PortInterface): Boolean =
     // Find the first point that does not exist or does not match in the other interface
-    portMap.find((name, pi) => {
+    !portMap.exists((name, pi) => {
       other.portMap.get(name) match {
         case Some(opi) =>
-          // The port exists, make sure its the same as ours
+          // The port exists, make sure it's the same as ours
           pi != opi
         case None => true
       }
-    }).isEmpty && specialPortMap.find((name, pi) => {
+    }) && !specialPortMap.exists((name, pi) => {
       other.specialPortMap.get(name) match {
         case Some(opi) =>
-          // The port exists, make sure its the same as ours
+          // The port exists, make sure it's the same as ours
           pi != opi
         case None => true
       }
-    }).isEmpty
+    })
 
   /** Gets a port instance by name */
   def getPortInstance(name: AstNode[Ast.Ident], interfaceName: String): Result.Result[PortInstance] =

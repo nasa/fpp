@@ -48,6 +48,16 @@ object AnalysisJsonEncoder extends JsonEncoder{
     )
   )
 
+  // JSON encoder for interface instances
+  // Report the interface instance kind and the info in the InterfaceInstance trait
+  private def interfaceInstanceAsJson(instance: InterfaceInstance) = addTypeNameKey(
+    instance,
+    Json.obj(
+      "qualifiedName" -> instance.getQualifiedName.asJson,
+      "unqualifiedName" -> instance.getUnqualifiedName.asJson
+    )
+  )
+
   // JSON encoder for component instances
   // Use the default Circe encoding, but replace the component instance
   // with its AST node. We can use the ID to look up the component
@@ -68,6 +78,12 @@ object AnalysisJsonEncoder extends JsonEncoder{
 
   private implicit val generalPortInstanceKindEncoder: Encoder[PortInstance.General.Kind] =
     Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+
+  private implicit val endpointEncoder: Encoder[Connection.Endpoint] =
+    io.circe.generic.semiauto.deriveEncoder[Connection.Endpoint]
+
+  private implicit val interfaceInstanceEncoder: Encoder[InterfaceInstance] =
+    Encoder.instance(interfaceInstanceAsJson)
 
   private implicit val portInstanceIdentifierEncoder: Encoder[PortInstanceIdentifier] =
     io.circe.generic.semiauto.deriveEncoder[PortInstanceIdentifier]
@@ -291,6 +307,9 @@ object AnalysisJsonEncoder extends JsonEncoder{
       def f2(t: Option[Type]) = t.asJson
       Encoder.instance (mapAsJsonMap(f1)(f2))
   }
+
+  private implicit val portInterfaceEncoder: Encoder[PortInterface] =
+    io.circe.generic.semiauto.deriveEncoder[PortInterface]
 
   private implicit val useDefMapEncoder: Encoder[Map[AstNode.Id, Symbol]] = {
     def f2(s: Symbol) = s.asJson
