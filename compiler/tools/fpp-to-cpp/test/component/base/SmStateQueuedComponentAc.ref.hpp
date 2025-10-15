@@ -1438,7 +1438,9 @@ namespace FppTest {
       //! Get the number of schedIn input ports
       //!
       //! \return The number of schedIn input ports
-      FwIndexType getNum_schedIn_InputPorts() const;
+      static constexpr FwIndexType getNum_schedIn_InputPorts() {
+        return NUM_SCHEDIN_INPUT_PORTS;
+      }
 
     protected:
 

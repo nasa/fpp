@@ -940,186 +940,258 @@ class QueuedExternalParamsTesterBase :
     //! Get the number of to_cmdIn ports
     //!
     //! \return The number of to_cmdIn ports
-    FwIndexType getNum_to_cmdIn() const;
+    static constexpr FwIndexType getNum_to_cmdIn() {
+      return QueuedExternalParamsComponentBase::NUM_CMDIN_INPUT_PORTS;
+    }
 
     //! Get the number of to_aliasTypedAsync ports
     //!
     //! \return The number of to_aliasTypedAsync ports
-    FwIndexType getNum_to_aliasTypedAsync() const;
+    static constexpr FwIndexType getNum_to_aliasTypedAsync() {
+      return QueuedExternalParamsComponentBase::NUM_ALIASTYPEDASYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_noArgsAliasStringReturnSync ports
     //!
     //! \return The number of to_noArgsAliasStringReturnSync ports
-    FwIndexType getNum_to_noArgsAliasStringReturnSync() const;
+    static constexpr FwIndexType getNum_to_noArgsAliasStringReturnSync() {
+      return QueuedExternalParamsComponentBase::NUM_NOARGSALIASSTRINGRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_noArgsAsync ports
     //!
     //! \return The number of to_noArgsAsync ports
-    FwIndexType getNum_to_noArgsAsync() const;
+    static constexpr FwIndexType getNum_to_noArgsAsync() {
+      return QueuedExternalParamsComponentBase::NUM_NOARGSASYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_noArgsGuarded ports
     //!
     //! \return The number of to_noArgsGuarded ports
-    FwIndexType getNum_to_noArgsGuarded() const;
+    static constexpr FwIndexType getNum_to_noArgsGuarded() {
+      return QueuedExternalParamsComponentBase::NUM_NOARGSGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of to_noArgsReturnGuarded ports
     //!
     //! \return The number of to_noArgsReturnGuarded ports
-    FwIndexType getNum_to_noArgsReturnGuarded() const;
+    static constexpr FwIndexType getNum_to_noArgsReturnGuarded() {
+      return QueuedExternalParamsComponentBase::NUM_NOARGSRETURNGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of to_noArgsReturnSync ports
     //!
     //! \return The number of to_noArgsReturnSync ports
-    FwIndexType getNum_to_noArgsReturnSync() const;
+    static constexpr FwIndexType getNum_to_noArgsReturnSync() {
+      return QueuedExternalParamsComponentBase::NUM_NOARGSRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_noArgsStringReturnSync ports
     //!
     //! \return The number of to_noArgsStringReturnSync ports
-    FwIndexType getNum_to_noArgsStringReturnSync() const;
+    static constexpr FwIndexType getNum_to_noArgsStringReturnSync() {
+      return QueuedExternalParamsComponentBase::NUM_NOARGSSTRINGRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_noArgsSync ports
     //!
     //! \return The number of to_noArgsSync ports
-    FwIndexType getNum_to_noArgsSync() const;
+    static constexpr FwIndexType getNum_to_noArgsSync() {
+      return QueuedExternalParamsComponentBase::NUM_NOARGSSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedAliasGuarded ports
     //!
     //! \return The number of to_typedAliasGuarded ports
-    FwIndexType getNum_to_typedAliasGuarded() const;
+    static constexpr FwIndexType getNum_to_typedAliasGuarded() {
+      return QueuedExternalParamsComponentBase::NUM_TYPEDALIASGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedAliasReturnSync ports
     //!
     //! \return The number of to_typedAliasReturnSync ports
-    FwIndexType getNum_to_typedAliasReturnSync() const;
+    static constexpr FwIndexType getNum_to_typedAliasReturnSync() {
+      return QueuedExternalParamsComponentBase::NUM_TYPEDALIASRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedAliasStringReturnSync ports
     //!
     //! \return The number of to_typedAliasStringReturnSync ports
-    FwIndexType getNum_to_typedAliasStringReturnSync() const;
+    static constexpr FwIndexType getNum_to_typedAliasStringReturnSync() {
+      return QueuedExternalParamsComponentBase::NUM_TYPEDALIASSTRINGRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedAsync ports
     //!
     //! \return The number of to_typedAsync ports
-    FwIndexType getNum_to_typedAsync() const;
+    static constexpr FwIndexType getNum_to_typedAsync() {
+      return QueuedExternalParamsComponentBase::NUM_TYPEDASYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedAsyncAssert ports
     //!
     //! \return The number of to_typedAsyncAssert ports
-    FwIndexType getNum_to_typedAsyncAssert() const;
+    static constexpr FwIndexType getNum_to_typedAsyncAssert() {
+      return QueuedExternalParamsComponentBase::NUM_TYPEDASYNCASSERT_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedAsyncBlockPriority ports
     //!
     //! \return The number of to_typedAsyncBlockPriority ports
-    FwIndexType getNum_to_typedAsyncBlockPriority() const;
+    static constexpr FwIndexType getNum_to_typedAsyncBlockPriority() {
+      return QueuedExternalParamsComponentBase::NUM_TYPEDASYNCBLOCKPRIORITY_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedAsyncDropPriority ports
     //!
     //! \return The number of to_typedAsyncDropPriority ports
-    FwIndexType getNum_to_typedAsyncDropPriority() const;
+    static constexpr FwIndexType getNum_to_typedAsyncDropPriority() {
+      return QueuedExternalParamsComponentBase::NUM_TYPEDASYNCDROPPRIORITY_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedGuarded ports
     //!
     //! \return The number of to_typedGuarded ports
-    FwIndexType getNum_to_typedGuarded() const;
+    static constexpr FwIndexType getNum_to_typedGuarded() {
+      return QueuedExternalParamsComponentBase::NUM_TYPEDGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedReturnGuarded ports
     //!
     //! \return The number of to_typedReturnGuarded ports
-    FwIndexType getNum_to_typedReturnGuarded() const;
+    static constexpr FwIndexType getNum_to_typedReturnGuarded() {
+      return QueuedExternalParamsComponentBase::NUM_TYPEDRETURNGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedReturnSync ports
     //!
     //! \return The number of to_typedReturnSync ports
-    FwIndexType getNum_to_typedReturnSync() const;
+    static constexpr FwIndexType getNum_to_typedReturnSync() {
+      return QueuedExternalParamsComponentBase::NUM_TYPEDRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedSync ports
     //!
     //! \return The number of to_typedSync ports
-    FwIndexType getNum_to_typedSync() const;
+    static constexpr FwIndexType getNum_to_typedSync() {
+      return QueuedExternalParamsComponentBase::NUM_TYPEDSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of from_cmdRegOut ports
     //!
     //! \return The number of from_cmdRegOut ports
-    FwIndexType getNum_from_cmdRegOut() const;
+    static constexpr FwIndexType getNum_from_cmdRegOut() {
+      return QueuedExternalParamsComponentBase::NUM_CMDREGOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_cmdResponseOut ports
     //!
     //! \return The number of from_cmdResponseOut ports
-    FwIndexType getNum_from_cmdResponseOut() const;
+    static constexpr FwIndexType getNum_from_cmdResponseOut() {
+      return QueuedExternalParamsComponentBase::NUM_CMDRESPONSEOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_eventOut ports
     //!
     //! \return The number of from_eventOut ports
-    FwIndexType getNum_from_eventOut() const;
+    static constexpr FwIndexType getNum_from_eventOut() {
+      return QueuedExternalParamsComponentBase::NUM_EVENTOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_prmGetOut ports
     //!
     //! \return The number of from_prmGetOut ports
-    FwIndexType getNum_from_prmGetOut() const;
+    static constexpr FwIndexType getNum_from_prmGetOut() {
+      return QueuedExternalParamsComponentBase::NUM_PRMGETOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_prmSetOut ports
     //!
     //! \return The number of from_prmSetOut ports
-    FwIndexType getNum_from_prmSetOut() const;
+    static constexpr FwIndexType getNum_from_prmSetOut() {
+      return QueuedExternalParamsComponentBase::NUM_PRMSETOUT_OUTPUT_PORTS;
+    }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Get the number of from_textEventOut ports
     //!
     //! \return The number of from_textEventOut ports
-    FwIndexType getNum_from_textEventOut() const;
+    static constexpr FwIndexType getNum_from_textEventOut() {
+      return QueuedExternalParamsComponentBase::NUM_TEXTEVENTOUT_OUTPUT_PORTS;
+    }
 
 #endif
 
     //! Get the number of from_timeGetOut ports
     //!
     //! \return The number of from_timeGetOut ports
-    FwIndexType getNum_from_timeGetOut() const;
+    static constexpr FwIndexType getNum_from_timeGetOut() {
+      return QueuedExternalParamsComponentBase::NUM_TIMEGETOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_tlmOut ports
     //!
     //! \return The number of from_tlmOut ports
-    FwIndexType getNum_from_tlmOut() const;
+    static constexpr FwIndexType getNum_from_tlmOut() {
+      return QueuedExternalParamsComponentBase::NUM_TLMOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_noArgsOut ports
     //!
     //! \return The number of from_noArgsOut ports
-    FwIndexType getNum_from_noArgsOut() const;
+    static constexpr FwIndexType getNum_from_noArgsOut() {
+      return QueuedExternalParamsComponentBase::NUM_NOARGSOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_noArgsReturnOut ports
     //!
     //! \return The number of from_noArgsReturnOut ports
-    FwIndexType getNum_from_noArgsReturnOut() const;
+    static constexpr FwIndexType getNum_from_noArgsReturnOut() {
+      return QueuedExternalParamsComponentBase::NUM_NOARGSRETURNOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_noArgsStringReturnOut ports
     //!
     //! \return The number of from_noArgsStringReturnOut ports
-    FwIndexType getNum_from_noArgsStringReturnOut() const;
+    static constexpr FwIndexType getNum_from_noArgsStringReturnOut() {
+      return QueuedExternalParamsComponentBase::NUM_NOARGSSTRINGRETURNOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_typedAliasOut ports
     //!
     //! \return The number of from_typedAliasOut ports
-    FwIndexType getNum_from_typedAliasOut() const;
+    static constexpr FwIndexType getNum_from_typedAliasOut() {
+      return QueuedExternalParamsComponentBase::NUM_TYPEDALIASOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_typedAliasReturnOut ports
     //!
     //! \return The number of from_typedAliasReturnOut ports
-    FwIndexType getNum_from_typedAliasReturnOut() const;
+    static constexpr FwIndexType getNum_from_typedAliasReturnOut() {
+      return QueuedExternalParamsComponentBase::NUM_TYPEDALIASRETURNOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_typedAliasReturnStringOut ports
     //!
     //! \return The number of from_typedAliasReturnStringOut ports
-    FwIndexType getNum_from_typedAliasReturnStringOut() const;
+    static constexpr FwIndexType getNum_from_typedAliasReturnStringOut() {
+      return QueuedExternalParamsComponentBase::NUM_TYPEDALIASRETURNSTRINGOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_typedOut ports
     //!
     //! \return The number of from_typedOut ports
-    FwIndexType getNum_from_typedOut() const;
+    static constexpr FwIndexType getNum_from_typedOut() {
+      return QueuedExternalParamsComponentBase::NUM_TYPEDOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_typedReturnOut ports
     //!
     //! \return The number of from_typedReturnOut ports
-    FwIndexType getNum_from_typedReturnOut() const;
+    static constexpr FwIndexType getNum_from_typedReturnOut() {
+      return QueuedExternalParamsComponentBase::NUM_TYPEDRETURNOUT_OUTPUT_PORTS;
+    }
 
   protected:
 
