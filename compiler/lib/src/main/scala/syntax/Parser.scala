@@ -667,10 +667,9 @@ object Parser extends Parsers {
     def kind = {
       component ^^ (_ => Ast.SpecLoc.Component) |
         constant ^^ (_ => Ast.SpecLoc.Constant) |
-        instance ^^ (_ => Ast.SpecLoc.ComponentInstance) |
+        instance ^^ (_ => Ast.SpecLoc.Instance) |
         port ^^ (_ => Ast.SpecLoc.Port) |
         state ~! machine ^^ (_ => Ast.SpecLoc.StateMachine) |
-        topology ^^ (_ => Ast.SpecLoc.Topology) |
         typeToken ^^ (_ => Ast.SpecLoc.Type) |
         interface ^^ (_ => Ast.SpecLoc.Interface) |
         failure("location kind expected")

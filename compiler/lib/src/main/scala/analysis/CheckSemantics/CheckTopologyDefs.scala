@@ -25,7 +25,7 @@ object CheckTopologyDefs
           top <- Right(a.topology.get)
           a <- {
             // Resolve topologies directly imported by top, updating a
-            val tops = top.directImportMap.toList
+            val tops = top.directTopologies.toList
             Result.foldLeft (tops) (a) ((a, tl) => {
               defTopologyAnnotatedNode(a, tl._1.node)
             })
@@ -49,10 +49,7 @@ object CheckTopologyDefs
     val instanceNode = node.data.instance
     for {
       symbol <- a.getInterfaceInstanceSymbol(instanceNode.id)
-      instance <- a.getInterfaceInstance(instanceNode.id)
-      topology <- a.topology.get.addUniqueInstance(
-        symbol, instance, Locations.get(node.id)
-      )
+      topology <- a.topology.get.addInstanceSymbol(symbol, Locations.get(node.id))
     }
     yield a.copy(topology = Some(topology))
   }

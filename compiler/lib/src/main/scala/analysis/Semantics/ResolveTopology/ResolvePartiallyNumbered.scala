@@ -47,7 +47,7 @@ object ResolvePartiallyNumbered {
 
   /** Compute the transitively imported topologies */
   private def computeTransitiveImports(a: Analysis, t: Topology) = {
-    val tis = t.directImportMap.keys.foldLeft (Set[Symbol.Topology]()) ((tis, ts) => {
+    val tis = t.directTopologies.keys.foldLeft (Set[Symbol.Topology]()) ((tis, ts) => {
       val t = a.topologyMap(ts)
       tis.union(t.transitiveImportSet) + ts
     })
@@ -133,11 +133,11 @@ object ResolvePartiallyNumbered {
       mapEntry: (InterfaceInstance, Location)
     ) = {
       val (instance, loc) = mapEntry
-      t.addMergedInstance(instance, loc)
+      t.addInstance(instance, loc)
     }
     def importInstances(into: Topology, fromSymbol: Symbol.Topology) =
       a.topologyMap(fromSymbol).instanceMap.foldLeft (into) (importInstance)
-    Right(t.directImportMap.keys.foldLeft (t) (importInstances))
+    Right(t.directTopologies.keys.foldLeft (t) (importInstances))
   }
 
   /** Resolve this topology to a partially numbered topology */

@@ -16,9 +16,6 @@ object CheckUses extends BasicUseAnalyzer {
     (a: Analysis, udm: Map[AstNode.Id, Symbol]) => a.copy(useDefMap = udm)
   )
 
-  override def componentInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
-    helpers.visitQualIdentNode (NameGroup.ComponentInstance) (a, node)
-
   override def componentUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     helpers.visitQualIdentNode (NameGroup.Component) (a, node)
 
@@ -191,8 +188,8 @@ object CheckUses extends BasicUseAnalyzer {
   override def portUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     helpers.visitQualIdentNode (NameGroup.Port) (a, node)
 
-  override def topologyUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
-    helpers.visitQualIdentNode (NameGroup.Topology) (a, node)
+  override def interfaceInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
+    helpers.visitQualIdentNode (NameGroup.Instance) (a, node)
 
   override def interfaceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     helpers.visitQualIdentNode (NameGroup.Interface) (a, node)

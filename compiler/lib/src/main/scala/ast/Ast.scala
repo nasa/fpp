@@ -581,7 +581,7 @@ object Ast {
     case object Component extends Kind {
       override def toString = "component"
     }
-    case object ComponentInstance extends Kind {
+    case object Instance extends Kind {
       override def toString = "instance"
     }
     case object Constant extends Kind {
@@ -592,9 +592,6 @@ object Ast {
     }
     case object StateMachine extends Kind {
       override def toString = "state machine"
-    }
-    case object Topology extends Kind {
-      override def toString = "topology"
     }
     case object Type extends Kind {
       override def toString = "type"

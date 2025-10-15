@@ -5,7 +5,7 @@ passive component C {
 }
 instance c: C base id 0x100
 topology B {
-  import A 
+  import A
   connections C {
     c.pOut -> c.pIn
   }

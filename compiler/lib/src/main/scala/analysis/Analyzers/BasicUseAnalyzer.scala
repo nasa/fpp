@@ -11,9 +11,6 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
 
   /** A use of a component definition */
   def componentUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
- 
-  /** A use of a component instance definition */
-  def componentInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
 
   /** A use of a interface instance (topology def or component instance def) */
   def interfaceInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
@@ -23,9 +20,6 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
 
   /** A use of a port definition */
   def portUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
-
-  /** A use of a topology definition */
-  def topologyUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
 
   /** A use of an interface definition */
   def interfaceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
@@ -193,7 +187,7 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
     a: Analysis,
     node: AstNode[Ast.TlmChannelIdentifier]
   ): Result =
-    qualIdentNode (componentInstanceUse) (a, node.data.componentInstance)
+    qualIdentNode (interfaceInstanceUse) (a, node.data.componentInstance)
 
   private def tlmPacketMember(a: Analysis, member: Ast.TlmPacketMember) =
     member match {

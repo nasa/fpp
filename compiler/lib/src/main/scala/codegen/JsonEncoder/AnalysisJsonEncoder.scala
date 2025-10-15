@@ -154,8 +154,15 @@ object AnalysisJsonEncoder extends JsonEncoder{
     Encoder.instance (mapAsJsonMap(f1)(f2))
   }
 
-  private implicit val directImportMapEncoder:
+  private implicit val directTopologiesMapEncoder:
     Encoder[Map[Symbol.Topology, Location]] =
+  {
+    def f2(loc: Location) = loc.asJson
+    Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
+  }
+
+  private implicit val directComponentInstancesEncoder:
+    Encoder[Map[Symbol.ComponentInstance, Location]] =
   {
     def f2(loc: Location) = loc.asJson
     Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)

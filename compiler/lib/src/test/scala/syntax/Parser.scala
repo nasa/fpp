@@ -395,9 +395,9 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
-  "spec component instance OK" should {
+  "spec instance OK" should {
     parseAllOK(
-      Parser.specCompInstance,
+      Parser.specInstance,
       List(
         "instance a",
         "instance a.b",

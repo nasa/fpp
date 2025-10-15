@@ -123,9 +123,6 @@ sealed trait Error {
         Error.print (Some(loc)) (s"duplicate telemetry packet set ${name}")
         System.err.println("previous set is here:")
         System.err.println(prevLoc)
-      case SemanticError.DuplicateTopology(name, loc, prevLoc) =>
-        Error.print (Some(loc)) (s"duplicate topology ${name}")
-        printPrevLoc(prevLoc)
       case SemanticError.DuplicateInterface(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate interface ${name}")
         printPrevLoc(prevLoc)
@@ -489,12 +486,6 @@ object SemanticError {
   ) extends Error
   /** Duplicate telemetry packet set */
   final case class DuplicateTlmPacketSet(
-    name: String,
-    loc: Location,
-    prevLoc: Location
-  ) extends Error
-  /** Duplicate topology */
-  final case class DuplicateTopology(
     name: String,
     loc: Location,
     prevLoc: Location

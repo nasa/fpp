@@ -18,12 +18,6 @@ object UsedSymbols extends UseAnalyzer {
     use: Name.Qualified
   ) = addSymbol(a, node)
 
-  override def componentInstanceUse(
-    a: Analysis,
-    node: AstNode[Ast.QualIdent],
-    use: Name.Qualified
-  ) = addSymbol(a, node)
-
   override def interfaceInstanceUse(
     a: Analysis,
     node: AstNode[Ast.QualIdent],
@@ -33,12 +27,6 @@ object UsedSymbols extends UseAnalyzer {
   override def constantUse(
     a: Analysis,
     node: AstNode[Ast.Expr],
-    use: Name.Qualified
-  ) = addSymbol(a, node)
-
-  override def topologyUse(
-    a: Analysis,
-    node: AstNode[Ast.QualIdent],
     use: Name.Qualified
   ) = addSymbol(a, node)
 

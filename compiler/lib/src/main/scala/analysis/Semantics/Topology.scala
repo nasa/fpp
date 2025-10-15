@@ -10,7 +10,9 @@ case class Topology(
   /** Fully qualified name of the topology */
   qualifiedName: Name.Qualified,
   /** The directly imported topologies */
-  directImportMap: Map[Symbol.Topology, Location] = Map(),
+  directTopologies: Map[Symbol.Topology, Location] = Map(),
+  /** The directly imported component instances */
+  directComponentInstances: Map[Symbol.ComponentInstance, Location] = Map(),
   /** The transitively imported topologies */
   transitiveImportSet: Set[Symbol.Topology] = Set(),
   /** The instances of this topology */
@@ -106,26 +108,8 @@ case class Topology(
       Right(this.copy(patternMap = pm))
   }
 
-  /** Add an imported topology */
-  private def addImportedTopology(
-    symbol: Symbol.Topology,
-    loc: Location
-  ): Result.Result[Topology] =
-    directImportMap.get(symbol) match {
-      case Some(prevLoc) => Left(
-        SemanticError.DuplicateTopology(
-          symbol.getUnqualifiedName,
-          loc,
-          prevLoc
-        )
-      )
-      case None =>
-        val map = directImportMap + (symbol -> loc)
-        Right(this.copy(directImportMap = map))
-    }
-
   /** Add an instance that may already be there */
-  def addMergedInstance(
+  def addInstance(
     instance: InterfaceInstance,
     loc: Location
   ): Topology = {
@@ -138,31 +122,40 @@ case class Topology(
   }
 
   /** Add an instance that must be unique */
-  def addUniqueInstance(
+  def addInstanceSymbol(
     symbol: Symbol.InterfaceInstance,
-    instance: InterfaceInstance,
     loc: Location
   ): Result.Result[Topology] =
     for {
       t <- {
         symbol match {
           case ci: Symbol.ComponentInstance =>
-            Right(this)
-          case top: Symbol.Topology =>
-            addImportedTopology(top, loc)
-        }
-      }
+            directComponentInstances.get(ci) match {
+              case Some(prevLoc) => Left(
+                SemanticError.DuplicateInstance(
+                  symbol.getUnqualifiedName,
+                  loc,
+                  prevLoc
+                )
+              )
+              case None =>
+                val map = directComponentInstances + (ci -> loc)
+                Right(this.copy(directComponentInstances = map))
+            }
 
-      t <- {
-        t.instanceMap.get(instance) match {
-          case Some(prevLoc) => Left(
-            SemanticError.DuplicateInstance(
-              instance.getUnqualifiedName,
-              loc,
-              prevLoc
-            )
-          )
-          case None => Right(t.addMergedInstance(instance, loc))
+          case top: Symbol.Topology =>
+            directTopologies.get(top) match {
+              case Some(prevLoc) => Left(
+                SemanticError.DuplicateInstance(
+                  symbol.getUnqualifiedName,
+                  loc,
+                  prevLoc
+                )
+              )
+              case None =>
+                val map = directTopologies + (top -> loc)
+                Right(this.copy(directTopologies = map))
+            }
         }
       }
     } yield t
