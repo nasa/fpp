@@ -1165,7 +1165,11 @@ class PassiveSerialComponentBase :
         const S& s //!< A struct
     ) = 0;
 
+#if FW_DIRECT_PORT_CALLS
+  public:
+#else
   protected:
+#endif
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for typed input ports
@@ -1305,7 +1309,11 @@ class PassiveSerialComponentBase :
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     ) = 0;
 
+#if FW_DIRECT_PORT_CALLS
+  public:
+#else
   protected:
+#endif
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for serial input ports

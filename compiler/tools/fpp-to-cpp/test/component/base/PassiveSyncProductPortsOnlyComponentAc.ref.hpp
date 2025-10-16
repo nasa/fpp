@@ -192,7 +192,11 @@ class PassiveSyncProductPortsOnlyComponentBase :
         FwIndexType portNum //!< The port number
     );
 
+#if FW_DIRECT_PORT_CALLS
+  public:
+#else
   protected:
+#endif
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for special input ports

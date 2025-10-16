@@ -1462,7 +1462,11 @@ namespace FppTest {
           U32 context //!< The call order
       ) = 0;
 
+#if FW_DIRECT_PORT_CALLS
+    public:
+#else
     protected:
+#endif
 
       // ----------------------------------------------------------------------
       // Port handler base-class functions for typed input ports

@@ -1119,7 +1119,11 @@ class ActiveEventsComponentBase :
         const S& s //!< A struct
     ) = 0;
 
+#if FW_DIRECT_PORT_CALLS
+  public:
+#else
   protected:
+#endif
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for typed input ports

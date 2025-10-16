@@ -269,7 +269,17 @@ case class ComponentInputPorts(
           |"""
     val handlerBases = ports.map(getHandlerBaseForPort)
     guardedList (!handlerBases.isEmpty) (
-      linesClassMember(CppDocHppWriter.writeAccessTag("protected")) ::
+      linesClassMember(
+        lines(
+          """|
+             |#if FW_DIRECT_PORT_CALLS
+             |public:
+             |#else
+             |protected:
+             |#endif
+             |"""
+        ).map(_.indentOut(2))
+      ) ::
       addComment(comment, handlerBases)
     )
   }
