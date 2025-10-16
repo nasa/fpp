@@ -5,8 +5,6 @@ import fpp.compiler.util._
 import fpp.compiler.analysis._
 import io.circe._
 import io.circe.syntax._
-import fpp.compiler.analysis.Event.TimeInterval
-import fpp.compiler.analysis.Event.Throttle
 
 
 
@@ -465,16 +463,16 @@ case class DictionaryJsonEncoder(
 
     /** JSON Encoding for Event.Throttle */
     private implicit def eventThrottleEncoder: Encoder[Event.Throttle] = new Encoder[Event.Throttle] {
-        override def apply(throttle: Throttle): Json = {
+        override def apply(throttle: Event.Throttle): Json = {
             throttle match {
-                case Throttle(count, Some(every)) => Json.obj(
+                case Event.Throttle(count, Some(every)) => Json.obj(
                     "count" -> count.asJson,
                     "every" -> Json.obj(
                         "seconds" -> every.seconds.asJson,
                         "useconds" -> every.useconds.asJson
                     )
                 )
-                case Throttle(count, None) => Json.obj(
+                case Event.Throttle(count, None) => Json.obj(
                     "count" -> count.asJson,
                     "every" -> Json.Null
                 )
