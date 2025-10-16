@@ -132,6 +132,27 @@ module Module1 {
       severity activity high \
       format "Arg1 is {f}"
 
+    @ Event with throttle
+    @ Multiple lines of annotation
+    @ And not used on purpose
+    event Event4(
+      arg1: F64 @< description of arg1 formal param
+    ) \
+      severity activity high \
+      format "Arg1 is {}" \
+      throttle 10
+
+    @ Event with throttle and timeout
+    @ Multiple lines of annotation
+    @ And not used on purpose
+    event Event5(
+      arg1: F64 @< description of arg1 formal param
+    ) \
+      severity activity high \
+      format "Arg1 is {}" \
+      throttle 10 \
+      every {seconds=10}
+
 
     # Telemtry Channels
     @ Telemetry channel of type F64 with high and low limits
