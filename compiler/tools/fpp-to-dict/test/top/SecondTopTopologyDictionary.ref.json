@@ -979,6 +979,55 @@
       "annotation" : "Event with format specifier\nMultiple lines of annotation\nAnd not used on purpose"
     },
     {
+      "name" : "Module1.mySecondC1.Event4",
+      "severity" : "ACTIVITY_HI",
+      "formalParams" : [
+        {
+          "name" : "arg1",
+          "type" : {
+            "name" : "F64",
+            "kind" : "float",
+            "size" : 64
+          },
+          "ref" : false,
+          "annotation" : "description of arg1 formal param"
+        }
+      ],
+      "id" : 1283,
+      "format" : "Arg1 is {}",
+      "annotation" : "Event with throttle\nMultiple lines of annotation\nAnd not used on purpose",
+      "throttle" : {
+        "count" : 10,
+        "every" : null
+      }
+    },
+    {
+      "name" : "Module1.mySecondC1.Event5",
+      "severity" : "ACTIVITY_HI",
+      "formalParams" : [
+        {
+          "name" : "arg1",
+          "type" : {
+            "name" : "F64",
+            "kind" : "float",
+            "size" : 64
+          },
+          "ref" : false,
+          "annotation" : "description of arg1 formal param"
+        }
+      ],
+      "id" : 1284,
+      "format" : "Arg1 is {}",
+      "annotation" : "Event with throttle and timeout\nMultiple lines of annotation\nAnd not used on purpose",
+      "throttle" : {
+        "count" : 10,
+        "every" : {
+          "seconds" : 10,
+          "useconds" : 0
+        }
+      }
+    },
+    {
       "name" : "Module1.mySecondC2.Event1",
       "severity" : "WARNING_LO",
       "formalParams" : [
