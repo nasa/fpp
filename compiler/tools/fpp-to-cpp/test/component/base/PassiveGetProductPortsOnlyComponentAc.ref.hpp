@@ -141,14 +141,14 @@ class PassiveGetProductPortsOnlyComponentBase :
     //! \return Whether port productGetOut is connected
     bool isConnected_productGetOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port productSendOut is connected
     //!
     //! \return Whether port productSendOut is connected
     bool isConnected_productSendOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
   protected:
 

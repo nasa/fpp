@@ -183,14 +183,14 @@ class PassiveSyncProductPortsOnlyComponentBase :
     //! \return Whether port productRequestOut is connected
     bool isConnected_productRequestOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port productSendOut is connected
     //!
     //! \return Whether port productSendOut is connected
     bool isConnected_productSendOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
 #if FW_DIRECT_PORT_CALLS
   public:

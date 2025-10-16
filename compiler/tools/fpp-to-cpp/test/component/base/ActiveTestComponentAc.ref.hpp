@@ -1122,49 +1122,49 @@ namespace M {
       //! \return Whether port cmdRegOut is connected
       bool isConnected_cmdRegOut_OutputPort(
           FwIndexType portNum //!< The port number
-      );
+      ) const;
 
       //! Check whether port cmdResponseOut is connected
       //!
       //! \return Whether port cmdResponseOut is connected
       bool isConnected_cmdResponseOut_OutputPort(
           FwIndexType portNum //!< The port number
-      );
+      ) const;
 
       //! Check whether port eventOut is connected
       //!
       //! \return Whether port eventOut is connected
       bool isConnected_eventOut_OutputPort(
           FwIndexType portNum //!< The port number
-      );
+      ) const;
 
       //! Check whether port prmGetOut is connected
       //!
       //! \return Whether port prmGetOut is connected
       bool isConnected_prmGetOut_OutputPort(
           FwIndexType portNum //!< The port number
-      );
+      ) const;
 
       //! Check whether port prmSetOut is connected
       //!
       //! \return Whether port prmSetOut is connected
       bool isConnected_prmSetOut_OutputPort(
           FwIndexType portNum //!< The port number
-      );
+      ) const;
 
       //! Check whether port productRequestOut is connected
       //!
       //! \return Whether port productRequestOut is connected
       bool isConnected_productRequestOut_OutputPort(
           FwIndexType portNum //!< The port number
-      );
+      ) const;
 
       //! Check whether port productSendOut is connected
       //!
       //! \return Whether port productSendOut is connected
       bool isConnected_productSendOut_OutputPort(
           FwIndexType portNum //!< The port number
-      );
+      ) const;
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
@@ -1173,7 +1173,7 @@ namespace M {
       //! \return Whether port textEventOut is connected
       bool isConnected_textEventOut_OutputPort(
           FwIndexType portNum //!< The port number
-      );
+      ) const;
 
 #endif
 
@@ -1182,14 +1182,14 @@ namespace M {
       //! \return Whether port timeGetOut is connected
       bool isConnected_timeGetOut_OutputPort(
           FwIndexType portNum //!< The port number
-      );
+      ) const;
 
       //! Check whether port tlmOut is connected
       //!
       //! \return Whether port tlmOut is connected
       bool isConnected_tlmOut_OutputPort(
           FwIndexType portNum //!< The port number
-      );
+      ) const;
 
     protected:
 
@@ -1202,56 +1202,56 @@ namespace M {
       //! \return Whether port noArgsOut is connected
       bool isConnected_noArgsOut_OutputPort(
           FwIndexType portNum //!< The port number
-      );
+      ) const;
 
       //! Check whether port noArgsReturnOut is connected
       //!
       //! \return Whether port noArgsReturnOut is connected
       bool isConnected_noArgsReturnOut_OutputPort(
           FwIndexType portNum //!< The port number
-      );
+      ) const;
 
       //! Check whether port noArgsStringReturnOut is connected
       //!
       //! \return Whether port noArgsStringReturnOut is connected
       bool isConnected_noArgsStringReturnOut_OutputPort(
           FwIndexType portNum //!< The port number
-      );
+      ) const;
 
       //! Check whether port typedAliasOut is connected
       //!
       //! \return Whether port typedAliasOut is connected
       bool isConnected_typedAliasOut_OutputPort(
           FwIndexType portNum //!< The port number
-      );
+      ) const;
 
       //! Check whether port typedAliasReturnOut is connected
       //!
       //! \return Whether port typedAliasReturnOut is connected
       bool isConnected_typedAliasReturnOut_OutputPort(
           FwIndexType portNum //!< The port number
-      );
+      ) const;
 
       //! Check whether port typedAliasReturnStringOut is connected
       //!
       //! \return Whether port typedAliasReturnStringOut is connected
       bool isConnected_typedAliasReturnStringOut_OutputPort(
           FwIndexType portNum //!< The port number
-      );
+      ) const;
 
       //! Check whether port typedOut is connected
       //!
       //! \return Whether port typedOut is connected
       bool isConnected_typedOut_OutputPort(
           FwIndexType portNum //!< The port number
-      );
+      ) const;
 
       //! Check whether port typedReturnOut is connected
       //!
       //! \return Whether port typedReturnOut is connected
       bool isConnected_typedReturnOut_OutputPort(
           FwIndexType portNum //!< The port number
-      );
+      ) const;
 
 #if FW_DIRECT_PORT_CALLS
     public:

@@ -223,14 +223,14 @@ class ActiveNoArgsPortsOnlyComponentBase :
     //! \return Whether port noArgsOut is connected
     bool isConnected_noArgsOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port noArgsReturnOut is connected
     //!
     //! \return Whether port noArgsReturnOut is connected
     bool isConnected_noArgsReturnOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
   protected:
 

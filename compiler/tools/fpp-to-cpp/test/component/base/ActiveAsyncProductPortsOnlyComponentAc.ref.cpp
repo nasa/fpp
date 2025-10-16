@@ -257,8 +257,10 @@ ActiveAsyncProductPortsOnlyComponentBase ::
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
 
+#if !FW_DIRECT_PORT_CALLS
+
 bool ActiveAsyncProductPortsOnlyComponentBase ::
-  isConnected_productRequestOut_OutputPort(FwIndexType portNum)
+  isConnected_productRequestOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
@@ -269,7 +271,7 @@ bool ActiveAsyncProductPortsOnlyComponentBase ::
 }
 
 bool ActiveAsyncProductPortsOnlyComponentBase ::
-  isConnected_productSendOut_OutputPort(FwIndexType portNum)
+  isConnected_productSendOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
@@ -278,6 +280,8 @@ bool ActiveAsyncProductPortsOnlyComponentBase ::
 
   return this->m_productSendOut_OutputPort[portNum].isConnected();
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Port handler base-class functions for special input ports

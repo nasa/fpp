@@ -475,35 +475,35 @@ class ActiveOverflowComponentBase :
     //! \return Whether port cmdRegOut is connected
     bool isConnected_cmdRegOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port cmdResponseOut is connected
     //!
     //! \return Whether port cmdResponseOut is connected
     bool isConnected_cmdResponseOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port eventOut is connected
     //!
     //! \return Whether port eventOut is connected
     bool isConnected_eventOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port prmGetOut is connected
     //!
     //! \return Whether port prmGetOut is connected
     bool isConnected_prmGetOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port prmSetOut is connected
     //!
     //! \return Whether port prmSetOut is connected
     bool isConnected_prmSetOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
@@ -512,7 +512,7 @@ class ActiveOverflowComponentBase :
     //! \return Whether port textEventOut is connected
     bool isConnected_textEventOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
 #endif
 
@@ -521,14 +521,14 @@ class ActiveOverflowComponentBase :
     //! \return Whether port timeGetOut is connected
     bool isConnected_timeGetOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port tlmOut is connected
     //!
     //! \return Whether port tlmOut is connected
     bool isConnected_tlmOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
 #if FW_DIRECT_PORT_CALLS
   public:

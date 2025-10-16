@@ -2447,8 +2447,10 @@ namespace M {
   // Connection status queries for special output ports
   // ----------------------------------------------------------------------
 
+#if !FW_DIRECT_PORT_CALLS
+
   bool ActiveTestComponentBase ::
-    isConnected_cmdRegOut_OutputPort(FwIndexType portNum)
+    isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
@@ -2459,7 +2461,7 @@ namespace M {
   }
 
   bool ActiveTestComponentBase ::
-    isConnected_cmdResponseOut_OutputPort(FwIndexType portNum)
+    isConnected_cmdResponseOut_OutputPort(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
@@ -2470,7 +2472,7 @@ namespace M {
   }
 
   bool ActiveTestComponentBase ::
-    isConnected_eventOut_OutputPort(FwIndexType portNum)
+    isConnected_eventOut_OutputPort(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
@@ -2481,7 +2483,7 @@ namespace M {
   }
 
   bool ActiveTestComponentBase ::
-    isConnected_prmGetOut_OutputPort(FwIndexType portNum)
+    isConnected_prmGetOut_OutputPort(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
@@ -2492,7 +2494,7 @@ namespace M {
   }
 
   bool ActiveTestComponentBase ::
-    isConnected_prmSetOut_OutputPort(FwIndexType portNum)
+    isConnected_prmSetOut_OutputPort(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
@@ -2503,7 +2505,7 @@ namespace M {
   }
 
   bool ActiveTestComponentBase ::
-    isConnected_productRequestOut_OutputPort(FwIndexType portNum)
+    isConnected_productRequestOut_OutputPort(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
@@ -2514,7 +2516,7 @@ namespace M {
   }
 
   bool ActiveTestComponentBase ::
-    isConnected_productSendOut_OutputPort(FwIndexType portNum)
+    isConnected_productSendOut_OutputPort(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
@@ -2527,7 +2529,7 @@ namespace M {
 #if FW_ENABLE_TEXT_LOGGING == 1
 
   bool ActiveTestComponentBase ::
-    isConnected_textEventOut_OutputPort(FwIndexType portNum)
+    isConnected_textEventOut_OutputPort(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
@@ -2540,7 +2542,7 @@ namespace M {
 #endif
 
   bool ActiveTestComponentBase ::
-    isConnected_timeGetOut_OutputPort(FwIndexType portNum)
+    isConnected_timeGetOut_OutputPort(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
@@ -2551,7 +2553,7 @@ namespace M {
   }
 
   bool ActiveTestComponentBase ::
-    isConnected_tlmOut_OutputPort(FwIndexType portNum)
+    isConnected_tlmOut_OutputPort(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
@@ -2561,12 +2563,16 @@ namespace M {
     return this->m_tlmOut_OutputPort[portNum].isConnected();
   }
 
+#endif
+
   // ----------------------------------------------------------------------
   // Connection status queries for typed output ports
   // ----------------------------------------------------------------------
 
+#if !FW_DIRECT_PORT_CALLS
+
   bool ActiveTestComponentBase ::
-    isConnected_noArgsOut_OutputPort(FwIndexType portNum)
+    isConnected_noArgsOut_OutputPort(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
@@ -2577,7 +2583,7 @@ namespace M {
   }
 
   bool ActiveTestComponentBase ::
-    isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum)
+    isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
@@ -2588,7 +2594,7 @@ namespace M {
   }
 
   bool ActiveTestComponentBase ::
-    isConnected_noArgsStringReturnOut_OutputPort(FwIndexType portNum)
+    isConnected_noArgsStringReturnOut_OutputPort(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
@@ -2599,7 +2605,7 @@ namespace M {
   }
 
   bool ActiveTestComponentBase ::
-    isConnected_typedAliasOut_OutputPort(FwIndexType portNum)
+    isConnected_typedAliasOut_OutputPort(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
@@ -2610,7 +2616,7 @@ namespace M {
   }
 
   bool ActiveTestComponentBase ::
-    isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum)
+    isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
@@ -2621,7 +2627,7 @@ namespace M {
   }
 
   bool ActiveTestComponentBase ::
-    isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum)
+    isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
@@ -2632,7 +2638,7 @@ namespace M {
   }
 
   bool ActiveTestComponentBase ::
-    isConnected_typedOut_OutputPort(FwIndexType portNum)
+    isConnected_typedOut_OutputPort(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
@@ -2643,7 +2649,7 @@ namespace M {
   }
 
   bool ActiveTestComponentBase ::
-    isConnected_typedReturnOut_OutputPort(FwIndexType portNum)
+    isConnected_typedReturnOut_OutputPort(FwIndexType portNum) const
   {
     FW_ASSERT(
       (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
@@ -2652,6 +2658,8 @@ namespace M {
 
     return this->m_typedReturnOut_OutputPort[portNum].isConnected();
   }
+
+#endif
 
   // ----------------------------------------------------------------------
   // Port handler base-class functions for special input ports

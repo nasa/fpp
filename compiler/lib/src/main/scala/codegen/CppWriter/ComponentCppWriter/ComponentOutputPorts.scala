@@ -177,30 +177,37 @@ case class ComponentOutputPorts(
     isConnectedName: String => String,
     numGetterName: PortInstance => String,
     variableName: PortInstance => String
-  ): List[CppDoc.Class.Member] = {
-    mapPorts(ports, p => List(
-      functionClassMember(
-        Some(
-          s"""|Check whether port ${portName(p.getUnqualifiedName)} is connected
-              |
-              |\\return Whether port ${portName(p.getUnqualifiedName)} is connected
-              |"""
-        ),
-        isConnectedName(p.getUnqualifiedName),
-        List(portNumParam),
-        CppDoc.Type("bool"),
-        lines(
-          s"""|FW_ASSERT(
-              |  (0 <= portNum) && (portNum < this->${numGetterName(p)}()),
-              |  static_cast<FwAssertArgType>(portNum)
-              |);
-              |
-              |return this->${variableName(p)}[portNum].isConnected();
-              |"""
+  ): List[CppDoc.Class.Member] = wrapClassMembersInIfDirective(
+    "#if !FW_DIRECT_PORT_CALLS",
+    mapPorts(
+      ports,
+      p => List(
+        functionClassMember(
+          Some(
+            s"""|Check whether port ${portName(p.getUnqualifiedName)} is connected
+                |
+                |\\return Whether port ${portName(p.getUnqualifiedName)} is connected
+                |"""
+          ),
+          isConnectedName(p.getUnqualifiedName),
+          List(portNumParam),
+          CppDoc.Type("bool"),
+          lines(
+            s"""|FW_ASSERT(
+                |  (0 <= portNum) && (portNum < this->${numGetterName(p)}()),
+                |  static_cast<FwAssertArgType>(portNum)
+                |);
+                |
+                |return this->${variableName(p)}[portNum].isConnected();
+                |"""
+          ),
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
         )
       )
-    ))
-  }
+    ),
+    CppDoc.Lines.Cpp
+  )
 
   def getConnectionStatusQueries(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     addAccessTagAndComment(

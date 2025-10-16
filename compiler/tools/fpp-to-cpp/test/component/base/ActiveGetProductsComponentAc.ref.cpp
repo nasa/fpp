@@ -1842,8 +1842,10 @@ ActiveGetProductsComponentBase ::
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
 
+#if !FW_DIRECT_PORT_CALLS
+
 bool ActiveGetProductsComponentBase ::
-  isConnected_cmdRegOut_OutputPort(FwIndexType portNum)
+  isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
@@ -1854,7 +1856,7 @@ bool ActiveGetProductsComponentBase ::
 }
 
 bool ActiveGetProductsComponentBase ::
-  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum)
+  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
@@ -1865,7 +1867,7 @@ bool ActiveGetProductsComponentBase ::
 }
 
 bool ActiveGetProductsComponentBase ::
-  isConnected_eventOut_OutputPort(FwIndexType portNum)
+  isConnected_eventOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
@@ -1876,7 +1878,7 @@ bool ActiveGetProductsComponentBase ::
 }
 
 bool ActiveGetProductsComponentBase ::
-  isConnected_prmGetOut_OutputPort(FwIndexType portNum)
+  isConnected_prmGetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
@@ -1887,7 +1889,7 @@ bool ActiveGetProductsComponentBase ::
 }
 
 bool ActiveGetProductsComponentBase ::
-  isConnected_prmSetOut_OutputPort(FwIndexType portNum)
+  isConnected_prmSetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
@@ -1898,7 +1900,7 @@ bool ActiveGetProductsComponentBase ::
 }
 
 bool ActiveGetProductsComponentBase ::
-  isConnected_productGetOut_OutputPort(FwIndexType portNum)
+  isConnected_productGetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_productGetOut_OutputPorts()),
@@ -1909,7 +1911,7 @@ bool ActiveGetProductsComponentBase ::
 }
 
 bool ActiveGetProductsComponentBase ::
-  isConnected_productSendOut_OutputPort(FwIndexType portNum)
+  isConnected_productSendOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
@@ -1922,7 +1924,7 @@ bool ActiveGetProductsComponentBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 bool ActiveGetProductsComponentBase ::
-  isConnected_textEventOut_OutputPort(FwIndexType portNum)
+  isConnected_textEventOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
@@ -1935,7 +1937,7 @@ bool ActiveGetProductsComponentBase ::
 #endif
 
 bool ActiveGetProductsComponentBase ::
-  isConnected_timeGetOut_OutputPort(FwIndexType portNum)
+  isConnected_timeGetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
@@ -1946,7 +1948,7 @@ bool ActiveGetProductsComponentBase ::
 }
 
 bool ActiveGetProductsComponentBase ::
-  isConnected_tlmOut_OutputPort(FwIndexType portNum)
+  isConnected_tlmOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
@@ -1956,12 +1958,16 @@ bool ActiveGetProductsComponentBase ::
   return this->m_tlmOut_OutputPort[portNum].isConnected();
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
 
+#if !FW_DIRECT_PORT_CALLS
+
 bool ActiveGetProductsComponentBase ::
-  isConnected_noArgsOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
@@ -1972,7 +1978,7 @@ bool ActiveGetProductsComponentBase ::
 }
 
 bool ActiveGetProductsComponentBase ::
-  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
@@ -1983,7 +1989,7 @@ bool ActiveGetProductsComponentBase ::
 }
 
 bool ActiveGetProductsComponentBase ::
-  isConnected_noArgsStringReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsStringReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
@@ -1994,7 +2000,7 @@ bool ActiveGetProductsComponentBase ::
 }
 
 bool ActiveGetProductsComponentBase ::
-  isConnected_typedAliasOut_OutputPort(FwIndexType portNum)
+  isConnected_typedAliasOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
@@ -2005,7 +2011,7 @@ bool ActiveGetProductsComponentBase ::
 }
 
 bool ActiveGetProductsComponentBase ::
-  isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
@@ -2016,7 +2022,7 @@ bool ActiveGetProductsComponentBase ::
 }
 
 bool ActiveGetProductsComponentBase ::
-  isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum)
+  isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
@@ -2027,7 +2033,7 @@ bool ActiveGetProductsComponentBase ::
 }
 
 bool ActiveGetProductsComponentBase ::
-  isConnected_typedOut_OutputPort(FwIndexType portNum)
+  isConnected_typedOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
@@ -2038,7 +2044,7 @@ bool ActiveGetProductsComponentBase ::
 }
 
 bool ActiveGetProductsComponentBase ::
-  isConnected_typedReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_typedReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
@@ -2047,6 +2053,8 @@ bool ActiveGetProductsComponentBase ::
 
   return this->m_typedReturnOut_OutputPort[portNum].isConnected();
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Port handler base-class functions for typed input ports

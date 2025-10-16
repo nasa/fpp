@@ -342,8 +342,10 @@ ActiveNoArgsPortsOnlyComponentBase ::
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
 
+#if !FW_DIRECT_PORT_CALLS
+
 bool ActiveNoArgsPortsOnlyComponentBase ::
-  isConnected_noArgsOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
@@ -354,7 +356,7 @@ bool ActiveNoArgsPortsOnlyComponentBase ::
 }
 
 bool ActiveNoArgsPortsOnlyComponentBase ::
-  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
@@ -363,6 +365,8 @@ bool ActiveNoArgsPortsOnlyComponentBase ::
 
   return this->m_noArgsReturnOut_OutputPort[portNum].isConnected();
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Port handler base-class functions for typed input ports

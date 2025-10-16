@@ -798,8 +798,10 @@ QueuedOverflowComponentBase ::
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
 
+#if !FW_DIRECT_PORT_CALLS
+
 bool QueuedOverflowComponentBase ::
-  isConnected_cmdRegOut_OutputPort(FwIndexType portNum)
+  isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
@@ -810,7 +812,7 @@ bool QueuedOverflowComponentBase ::
 }
 
 bool QueuedOverflowComponentBase ::
-  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum)
+  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
@@ -821,7 +823,7 @@ bool QueuedOverflowComponentBase ::
 }
 
 bool QueuedOverflowComponentBase ::
-  isConnected_eventOut_OutputPort(FwIndexType portNum)
+  isConnected_eventOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
@@ -832,7 +834,7 @@ bool QueuedOverflowComponentBase ::
 }
 
 bool QueuedOverflowComponentBase ::
-  isConnected_prmGetOut_OutputPort(FwIndexType portNum)
+  isConnected_prmGetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
@@ -843,7 +845,7 @@ bool QueuedOverflowComponentBase ::
 }
 
 bool QueuedOverflowComponentBase ::
-  isConnected_prmSetOut_OutputPort(FwIndexType portNum)
+  isConnected_prmSetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
@@ -856,7 +858,7 @@ bool QueuedOverflowComponentBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 bool QueuedOverflowComponentBase ::
-  isConnected_textEventOut_OutputPort(FwIndexType portNum)
+  isConnected_textEventOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
@@ -869,7 +871,7 @@ bool QueuedOverflowComponentBase ::
 #endif
 
 bool QueuedOverflowComponentBase ::
-  isConnected_timeGetOut_OutputPort(FwIndexType portNum)
+  isConnected_timeGetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
@@ -880,7 +882,7 @@ bool QueuedOverflowComponentBase ::
 }
 
 bool QueuedOverflowComponentBase ::
-  isConnected_tlmOut_OutputPort(FwIndexType portNum)
+  isConnected_tlmOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
@@ -889,6 +891,8 @@ bool QueuedOverflowComponentBase ::
 
   return this->m_tlmOut_OutputPort[portNum].isConnected();
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Port handler base-class functions for special input ports
