@@ -22,8 +22,12 @@
 #if FW_ENABLE_TEXT_LOGGING == 1
 #include "Fw/Log/LogTextPortAc.hpp"
 #endif
+#ifndef FW_DIRECT_PORT_CALLS
 #include "Fw/Port/InputSerializePort.hpp"
+#endif
+#ifndef FW_DIRECT_PORT_CALLS
 #include "Fw/Port/OutputSerializePort.hpp"
+#endif
 #include "Fw/Prm/PrmExternalTypes.hpp"
 #include "Fw/Prm/PrmGetPortAc.hpp"
 #include "Fw/Prm/PrmSetPortAc.hpp"

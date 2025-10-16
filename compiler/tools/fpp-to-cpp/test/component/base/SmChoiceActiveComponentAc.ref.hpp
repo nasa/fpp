@@ -9,8 +9,12 @@
 
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#ifndef FW_DIRECT_PORT_CALLS
 #include "Fw/Port/InputSerializePort.hpp"
+#endif
+#ifndef FW_DIRECT_PORT_CALLS
 #include "Fw/Port/OutputSerializePort.hpp"
+#endif
 #include "SmChoiceActive_BasicStateMachineAc.hpp"
 #include "state-machine/choice/BasicStateMachineAc.hpp"
 #include "state-machine/choice/BasicU32StateMachineAc.hpp"

@@ -9,8 +9,12 @@
 
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#ifndef FW_DIRECT_PORT_CALLS
 #include "Fw/Port/InputSerializePort.hpp"
+#endif
+#ifndef FW_DIRECT_PORT_CALLS
 #include "Fw/Port/OutputSerializePort.hpp"
+#endif
 #include "NoArgsPortAc.hpp"
 #include "NoArgsReturnPortAc.hpp"
 #include "Os/Mutex.hpp"

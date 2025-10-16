@@ -9,8 +9,12 @@
 
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#ifndef FW_DIRECT_PORT_CALLS
 #include "Fw/Port/InputSerializePort.hpp"
+#endif
+#ifndef FW_DIRECT_PORT_CALLS
 #include "Fw/Port/OutputSerializePort.hpp"
+#endif
 #include "SmInitialQueued_BasicStateMachineAc.hpp"
 #include "SmInitialQueued_ChoiceStateMachineAc.hpp"
 #include "SmInitialQueued_NestedStateMachineAc.hpp"

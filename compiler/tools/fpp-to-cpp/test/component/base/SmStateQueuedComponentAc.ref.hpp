@@ -9,8 +9,12 @@
 
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#ifndef FW_DIRECT_PORT_CALLS
 #include "Fw/Port/InputSerializePort.hpp"
+#endif
+#ifndef FW_DIRECT_PORT_CALLS
 #include "Fw/Port/OutputSerializePort.hpp"
+#endif
 #include "SmStateQueued_BasicStateMachineAc.hpp"
 #include "Svc/Sched/SchedPortAc.hpp"
 #include "state-machine/state/BasicGuardStateMachineAc.hpp"
