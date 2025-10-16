@@ -34,6 +34,26 @@ trait CppWriterUtils extends LineUtils {
   /** Guards an option type with a Boolean condition */
   def guardedOption[T] = guardedValue (None: Option[T]) _
 
+  /** Add an access tag to a nonempty list of class members */
+  def addAccessTag(
+    accessTag: String,
+    members: List[CppDoc.Class.Member]
+  ): List[CppDoc.Class.Member] = guardedList (!members.isEmpty) (
+    linesClassMember(CppDocHppWriter.writeAccessTag(accessTag)) ::
+    members
+  )
+
+  /** Add a comment to a nonempty list of class members */
+  def addComment(
+    comment: String,
+    members: List[CppDoc.Class.Member],
+    output: CppDoc.Lines.Output = CppDoc.Lines.Both,
+    cppFileNameBaseOpt: Option[String] = None
+  ): List[CppDoc.Class.Member] = guardedList (!members.isEmpty) (
+    linesClassMember(CppDocWriter.writeBannerComment(comment), output, cppFileNameBaseOpt) ::
+    members
+  )
+
   /** Add an access tag and comment to a nonempty list of class members */
   def addAccessTagAndComment(
     accessTag: String,

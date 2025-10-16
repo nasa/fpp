@@ -94,179 +94,183 @@ case class ComponentInputPorts(
     )
   }
 
-  def getHandlerBases(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    def writeAsyncInputPort(
+  private def writeAsyncHandlerCall(
       p: PortInstance,
       params: List[(String, String, Option[Type])],
       queueFull: Ast.QueueFull,
       priority: Option[BigInt]
-    ) = {
-      val bufferName = p.getType.get match {
-        case PortInstance.Type.DefPort(_) => "msg"
-        case PortInstance.Type.Serial => "msgSerBuff"
-      }
+  ) = {
+    val bufferName = p.getType.get match {
+      case PortInstance.Type.DefPort(_) => "msg"
+      case PortInstance.Type.Serial => "msgSerBuff"
+    }
 
-      intersperseBlankLines(
-        List(
-          p.getType.get match {
-            case PortInstance.Type.DefPort(_) => List.concat(
-              line("// Call pre-message hook") ::
-                writeFunctionCall(
-                  s"${inputPortHookName(p.getUnqualifiedName)}",
-                  List("portNum"),
-                  params.map(_._1)
-                ),
-              lines(
-                s"""|ComponentIpcSerializableBuffer $bufferName;
-                    |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
-                    |"""
-              )
-            )
-            case PortInstance.Type.Serial => lines(
-              s"""|// Declare buffer for ${p.getUnqualifiedName}
-                  |U8 msgBuff[this->m_msgSize];
-                  |Fw::ExternalSerializeBuffer $bufferName(
-                  |  msgBuff,
-                  |  static_cast<Fw::Serializable::SizeType>(this->m_msgSize)
-                  |);
+    intersperseBlankLines(
+      List(
+        p.getType.get match {
+          case PortInstance.Type.DefPort(_) => List.concat(
+            line("// Call pre-message hook") ::
+              writeFunctionCall(
+                s"${inputPortHookName(p.getUnqualifiedName)}",
+                List("portNum"),
+                params.map(_._1)
+              ),
+            lines(
+              s"""|ComponentIpcSerializableBuffer $bufferName;
                   |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
                   |"""
             )
-          },
-          lines(
-            s"""|// Serialize message ID
-                |_status = $bufferName.serializeFrom(
-                |  static_cast<FwEnumStoreType>(${portCppConstantName(p)})
+          )
+          case PortInstance.Type.Serial => lines(
+            s"""|// Declare buffer for ${p.getUnqualifiedName}
+                |U8 msgBuff[this->m_msgSize];
+                |Fw::ExternalSerializeBuffer $bufferName(
+                |  msgBuff,
+                |  static_cast<Fw::Serializable::SizeType>(this->m_msgSize)
                 |);
-                |FW_ASSERT(
-                |  _status == Fw::FW_SERIALIZE_OK,
-                |  static_cast<FwAssertArgType>(_status)
-                |);
-                |
-                |// Serialize port number
-                |_status = $bufferName.serializeFrom(portNum);
+                |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+                |"""
+          )
+        },
+        lines(
+          s"""|// Serialize message ID
+              |_status = $bufferName.serializeFrom(
+              |  static_cast<FwEnumStoreType>(${portCppConstantName(p)})
+              |);
+              |FW_ASSERT(
+              |  _status == Fw::FW_SERIALIZE_OK,
+              |  static_cast<FwAssertArgType>(_status)
+              |);
+              |
+              |// Serialize port number
+              |_status = $bufferName.serializeFrom(portNum);
+              |FW_ASSERT(
+              |  _status == Fw::FW_SERIALIZE_OK,
+              |  static_cast<FwAssertArgType>(_status)
+              |);
+              |"""
+        ),
+        intersperseBlankLines(
+          getPortParams(p).map((n, _, tyOpt) => {
+            val serializeExpr = tyOpt match {
+              case Some(t: Type.String) =>
+                val serialSize = writeStringSize(s, t)
+                s"$n.serializeTo($bufferName, $serialSize)"
+              case _ => s"$bufferName.serializeFrom($n)"
+            }
+            lines(
+            s"""|// Serialize argument $n
+                |_status = $serializeExpr;
                 |FW_ASSERT(
                 |  _status == Fw::FW_SERIALIZE_OK,
                 |  static_cast<FwAssertArgType>(_status)
                 |);
                 |"""
-          ),
-          intersperseBlankLines(
-            getPortParams(p).map((n, _, tyOpt) => {
-              val serializeExpr = tyOpt match {
-                case Some(t: Type.String) =>
-                  val serialSize = writeStringSize(s, t)
-                  s"$n.serializeTo($bufferName, $serialSize)"
-                case _ => s"$bufferName.serializeFrom($n)"
-              }
-              lines(
-              s"""|// Serialize argument $n
-                  |_status = $serializeExpr;
-                  |FW_ASSERT(
-                  |  _status == Fw::FW_SERIALIZE_OK,
-                  |  static_cast<FwAssertArgType>(_status)
-                  |);
-                  |"""
-              )
-            })
-          ),
-          writeSendMessageLogic(
-            bufferName,
-            queueFull,
-            priority,
-            MessageType.Port,
-            p.getUnqualifiedName,
-            portNumParam :: getPortFunctionParams(p)
-          )
+            )
+          })
+        ),
+        writeSendMessageLogic(
+          bufferName,
+          queueFull,
+          priority,
+          MessageType.Port,
+          p.getUnqualifiedName,
+          portNumParam :: getPortFunctionParams(p)
         )
       )
-    }
+    )
+  }
 
-    addAccessTagAndComment(
-      "protected",
+  def getHandlerBaseForPort(p: PortInstance) = {
+    val params = getPortParams(p)
+    val returnType = getPortReturnType(p)
+    val retValAssignment = returnType match {
+      case Some(_) => s"retVal = "
+      case None => ""
+    }
+    val portName = p.getUnqualifiedName
+    val handlerName = inputPortHandlerName(portName)
+    lazy val handlerCall =
+      line("// Call handler function") ::
+        writeFunctionCall(
+          s"${retValAssignment}this->$handlerName",
+          List("portNum"),
+          params.map(_._1)
+        )
+    lazy val guardedHandlerCall =
+      List.concat(
+        lines(
+          """|// Lock guard mutex before calling
+             |this->lock();
+             |"""
+        ),
+        Line.blank :: handlerCall,
+        lines(
+          """|
+             |// Unlock guard mutex
+             |this->unLock();
+             |"""
+        )
+      )
+
+    functionClassMember(
+      Some(s"Handler base-class function for input port ${p.getUnqualifiedName}"),
+      inputPortHandlerBaseName(p.getUnqualifiedName),
+      portNumParam :: getPortFunctionParams(p),
+      getPortReturnTypeAsCppDocType(p),
+      intersperseBlankLines(
+        List(
+          lines(
+            s"""|// Make sure port number is valid
+                |FW_ASSERT(
+                |  (0 <= portNum) && (portNum < this->${portNumGetterName(p)}()),
+                |  static_cast<FwAssertArgType>(portNum)
+                |);
+                |"""
+          ),
+          returnType match {
+            case Some(tn) => lines(s"$tn retVal;")
+            case None => Nil
+          },
+          p match {
+            case i: PortInstance.General => i.kind match {
+              case PortInstance.General.Kind.AsyncInput(priority, queueFull) =>
+                writeAsyncHandlerCall(i, params, queueFull, priority)
+              case PortInstance.General.Kind.GuardedInput => guardedHandlerCall
+              case PortInstance.General.Kind.SyncInput => handlerCall
+              case _ => Nil
+            }
+            case special: PortInstance.Special => special.specifier.inputKind match {
+              case Some(Ast.SpecPortInstance.Async) =>
+                writeAsyncHandlerCall(
+                  special, params, special.queueFull.get,
+                  special.priority
+                )
+              case Some(Ast.SpecPortInstance.Guarded) => guardedHandlerCall
+              case Some(Ast.SpecPortInstance.Sync) => handlerCall
+              case _ => Nil
+            }
+            case _ => Nil
+          },
+          returnType match {
+            case Some(_) => lines("return retVal;")
+            case None => Nil
+          }
+        )
+      )
+    )
+  }
+
+  def getHandlerBases(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    lazy val comment =
       s"""|Port handler base-class functions for ${getPortListTypeString(ports)} input ports
           |
           |Call these functions directly to bypass the corresponding ports
-          |""",
-      ports.map(p => {
-        val params = getPortParams(p)
-        val returnType = getPortReturnType(p)
-        val retValAssignment = returnType match {
-          case Some(_) => s"retVal = "
-          case None => ""
-        }
-        val portName = p.getUnqualifiedName
-        val handlerName = inputPortHandlerName(portName)
-        def handlerCall =
-          line("// Call handler function") ::
-            writeFunctionCall(
-              s"${retValAssignment}this->$handlerName",
-              List("portNum"),
-              params.map(_._1)
-            )
-        def guardedHandlerCall =
-          List.concat(
-            lines(
-              """|// Lock guard mutex before calling
-                 |this->lock();
-                 |"""
-            ),
-            Line.blank :: handlerCall,
-            lines(
-              """|
-                 |// Unlock guard mutex
-                 |this->unLock();
-                 |"""
-            )
-          )
-
-        functionClassMember(
-          Some(s"Handler base-class function for input port ${p.getUnqualifiedName}"),
-          inputPortHandlerBaseName(p.getUnqualifiedName),
-          portNumParam :: getPortFunctionParams(p),
-          getPortReturnTypeAsCppDocType(p),
-          intersperseBlankLines(
-            List(
-              lines(
-                s"""|// Make sure port number is valid
-                    |FW_ASSERT(
-                    |  (0 <= portNum) && (portNum < this->${portNumGetterName(p)}()),
-                    |  static_cast<FwAssertArgType>(portNum)
-                    |);
-                    |"""
-              ),
-              returnType match {
-                case Some(tn) => lines(s"$tn retVal;")
-                case None => Nil
-              },
-              p match {
-                case i: PortInstance.General => i.kind match {
-                  case PortInstance.General.Kind.AsyncInput(priority, queueFull) =>
-                    writeAsyncInputPort(i, params, queueFull, priority)
-                  case PortInstance.General.Kind.GuardedInput => guardedHandlerCall
-                  case PortInstance.General.Kind.SyncInput => handlerCall
-                  case _ => Nil
-                }
-                case special: PortInstance.Special => special.specifier.inputKind match {
-                  case Some(Ast.SpecPortInstance.Async) =>
-                    writeAsyncInputPort(
-                      special, params, special.queueFull.get,
-                      special.priority
-                    )
-                  case Some(Ast.SpecPortInstance.Guarded) => guardedHandlerCall
-                  case Some(Ast.SpecPortInstance.Sync) => handlerCall
-                  case _ => Nil
-                }
-                case _ => Nil
-              },
-              returnType match {
-                case Some(_) => lines("return retVal;")
-                case None => Nil
-              }
-            )
-          )
-        )
-      })
+          |"""
+    val handlerBases = ports.map(getHandlerBaseForPort)
+    guardedList (!handlerBases.isEmpty) (
+      linesClassMember(CppDocHppWriter.writeAccessTag("protected")) ::
+      addComment(comment, handlerBases)
     )
   }
 
