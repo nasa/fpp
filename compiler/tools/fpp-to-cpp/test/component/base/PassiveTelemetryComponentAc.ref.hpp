@@ -21,10 +21,10 @@
 #if FW_ENABLE_TEXT_LOGGING == 1
 #include "Fw/Log/LogTextPortAc.hpp"
 #endif
-#ifndef FW_DIRECT_PORT_CALLS
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/InputSerializePort.hpp"
 #endif
-#ifndef FW_DIRECT_PORT_CALLS
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/OutputSerializePort.hpp"
 #endif
 #include "Fw/Prm/PrmGetPortAc.hpp"
@@ -137,7 +137,7 @@ class PassiveTelemetryComponentBase :
         FwEnumStoreType instance = 0 //!< The instance number
     );
 
-#ifndef FW_DIRECT_PORT_CALLS
+#if !FW_DIRECT_PORT_CALLS
 
   public:
 
@@ -154,7 +154,7 @@ class PassiveTelemetryComponentBase :
 
 #endif
 
-#ifndef FW_DIRECT_PORT_CALLS
+#if !FW_DIRECT_PORT_CALLS
 
   public:
 
@@ -255,6 +255,8 @@ class PassiveTelemetryComponentBase :
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -313,6 +315,10 @@ class PassiveTelemetryComponentBase :
         Fw::InputTlmPort* port //!< The input port
     );
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -367,7 +373,9 @@ class PassiveTelemetryComponentBase :
         Ports::InputTypedReturnPort* port //!< The input port
     );
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
   public:
 
@@ -423,7 +431,7 @@ class PassiveTelemetryComponentBase :
 
 #endif
 
-#if FW_PORT_SERIALIZATION
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
   public:
 

@@ -12,10 +12,10 @@
 #include "Fw/Dp/DpResponsePortAc.hpp"
 #include "Fw/Dp/DpSendPortAc.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
-#ifndef FW_DIRECT_PORT_CALLS
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/InputSerializePort.hpp"
 #endif
-#ifndef FW_DIRECT_PORT_CALLS
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/OutputSerializePort.hpp"
 #endif
 
@@ -65,7 +65,7 @@ class ActiveAsyncProductPortsOnlyComponentBase :
         FwEnumStoreType instance = 0 //!< The instance number
     );
 
-#ifndef FW_DIRECT_PORT_CALLS
+#if !FW_DIRECT_PORT_CALLS
 
   public:
 
@@ -81,6 +81,8 @@ class ActiveAsyncProductPortsOnlyComponentBase :
     );
 
 #endif
+
+#if !FW_DIRECT_PORT_CALLS
 
   public:
 
@@ -100,7 +102,9 @@ class ActiveAsyncProductPortsOnlyComponentBase :
         Fw::InputDpSendPort* port //!< The input port
     );
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
   public:
 

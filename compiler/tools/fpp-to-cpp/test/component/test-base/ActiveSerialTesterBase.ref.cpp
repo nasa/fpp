@@ -1387,7 +1387,7 @@ void ActiveSerialTesterBase ::
   this->m_to_serialSync[portNum].registerSerialPort(port);
 }
 
-#ifndef FW_DIRECT_PORT_CALLS
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for from ports

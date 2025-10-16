@@ -487,7 +487,7 @@ namespace FppTest {
     );
   }
 
-#ifndef FW_DIRECT_PORT_CALLS
+#if !FW_DIRECT_PORT_CALLS
 
   // ----------------------------------------------------------------------
   // Getters for typed input ports

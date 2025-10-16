@@ -20,7 +20,7 @@ void PassiveGetProductPortsOnlyTesterBase ::
   Fw::PassiveComponentBase::init(instance);
 }
 
-#ifndef FW_DIRECT_PORT_CALLS
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for from ports

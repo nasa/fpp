@@ -145,7 +145,7 @@ void ActiveAsyncProductPortsOnlyComponentBase ::
   );
 }
 
-#ifndef FW_DIRECT_PORT_CALLS
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for special input ports
@@ -163,6 +163,8 @@ Fw::InputDpResponsePort* ActiveAsyncProductPortsOnlyComponentBase ::
 }
 
 #endif
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Connect input ports to special output ports
@@ -196,7 +198,9 @@ void ActiveAsyncProductPortsOnlyComponentBase ::
   this->m_productSendOut_OutputPort[portNum].addCallPort(port);
 }
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
 // Connect serial input ports to special output ports

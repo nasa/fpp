@@ -424,7 +424,7 @@ void QueuedOverflowComponentBase ::
   );
 }
 
-#ifndef FW_DIRECT_PORT_CALLS
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for special input ports
@@ -454,7 +454,7 @@ Fw::InputDpResponsePort* QueuedOverflowComponentBase ::
 
 #endif
 
-#ifndef FW_DIRECT_PORT_CALLS
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for typed input ports
@@ -506,7 +506,7 @@ Ports::InputTypedPort* QueuedOverflowComponentBase ::
 
 #endif
 
-#ifndef FW_DIRECT_PORT_CALLS
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for serial input ports
@@ -524,6 +524,8 @@ Fw::InputSerializePort* QueuedOverflowComponentBase ::
 }
 
 #endif
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Connect input ports to special output ports
@@ -645,7 +647,9 @@ void QueuedOverflowComponentBase ::
   this->m_tlmOut_OutputPort[portNum].addCallPort(port);
 }
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
 // Connect serial input ports to special output ports

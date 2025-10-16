@@ -38,7 +38,7 @@ void PassiveSyncProductPortsOnlyTesterBase ::
   this->m_to_productRecvIn[portNum].addCallPort(port);
 }
 
-#ifndef FW_DIRECT_PORT_CALLS
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for from ports

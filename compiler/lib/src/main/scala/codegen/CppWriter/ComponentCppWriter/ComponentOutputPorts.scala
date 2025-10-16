@@ -69,12 +69,15 @@ case class ComponentOutputPorts(
         s"Connect input ports to $typeStr output ports"
       else
         s"Connect $typeStr input ports to $typeStr output ports"
-    generateConnectors(
-      ports,
-      comment,
-      outputPortConnectorName,
-      portNumGetterName,
-      portVariableName
+    wrapClassMembersInIfDirective(
+      "#if !FW_DIRECT_PORT_CALLS",
+      generateConnectors(
+        ports,
+        comment,
+        outputPortConnectorName,
+        portNumGetterName,
+        portVariableName
+      )
     )
   }
 
@@ -83,7 +86,7 @@ case class ComponentOutputPorts(
     val typeStr = getPortListTypeString(ports)
 
     wrapClassMembersInIfDirective(
-      "#if FW_PORT_SERIALIZATION",
+      "#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION",
       addAccessTagAndComment(
         "public",
         s"Connect serial input ports to $typeStr output ports",

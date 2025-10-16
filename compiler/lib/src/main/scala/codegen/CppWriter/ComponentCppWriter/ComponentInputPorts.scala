@@ -37,7 +37,7 @@ case class ComponentInputPorts(
     numGetterName: PortInstance => String,
     variableName: PortInstance => String
   ): List[CppDoc.Class.Member] = wrapClassMembersInIfDirective(
-    "#ifndef FW_DIRECT_PORT_CALLS",
+    "#if !FW_DIRECT_PORT_CALLS",
     addAccessTagAndComment(
       "public",
       s"Getters for $portType ports",

@@ -948,7 +948,7 @@ void ActiveCommandsTesterBase ::
   this->m_to_typedSync[portNum].addCallPort(port);
 }
 
-#ifndef FW_DIRECT_PORT_CALLS
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for from ports

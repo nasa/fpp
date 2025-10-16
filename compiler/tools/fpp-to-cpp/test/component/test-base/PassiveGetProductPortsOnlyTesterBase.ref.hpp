@@ -32,7 +32,7 @@ class PassiveGetProductPortsOnlyTesterBase :
         FwEnumStoreType instance = 0 //!< The instance number
     );
 
-#ifndef FW_DIRECT_PORT_CALLS
+#if !FW_DIRECT_PORT_CALLS
 
   public:
 

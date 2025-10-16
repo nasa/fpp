@@ -211,7 +211,7 @@ void ActiveNoArgsPortsOnlyComponentBase ::
   );
 }
 
-#ifndef FW_DIRECT_PORT_CALLS
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for typed input ports
@@ -263,6 +263,8 @@ Ports::InputNoArgsReturnPort* ActiveNoArgsPortsOnlyComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connect typed input ports to typed output ports
 // ----------------------------------------------------------------------
@@ -295,7 +297,9 @@ void ActiveNoArgsPortsOnlyComponentBase ::
   this->m_noArgsReturnOut_OutputPort[portNum].addCallPort(port);
 }
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
 // Connect serial input ports to typed output ports

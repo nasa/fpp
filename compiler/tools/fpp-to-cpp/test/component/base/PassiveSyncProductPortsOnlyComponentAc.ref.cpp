@@ -84,7 +84,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
   }
 }
 
-#ifndef FW_DIRECT_PORT_CALLS
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for special input ports
@@ -102,6 +102,8 @@ Fw::InputDpResponsePort* PassiveSyncProductPortsOnlyComponentBase ::
 }
 
 #endif
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Connect input ports to special output ports
@@ -135,7 +137,9 @@ void PassiveSyncProductPortsOnlyComponentBase ::
   this->m_productSendOut_OutputPort[portNum].addCallPort(port);
 }
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
 // Connect serial input ports to special output ports

@@ -368,7 +368,7 @@ class ActiveGuardedProductsTesterBase :
         Ports::InputTypedPort* port //!< The input port
     );
 
-#ifndef FW_DIRECT_PORT_CALLS
+#if !FW_DIRECT_PORT_CALLS
 
   public:
 
