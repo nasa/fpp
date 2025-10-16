@@ -1121,6 +1121,8 @@ class QueuedOverflowComponentBase :
         const Fw::Success& status //!< The buffer status
     );
 
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -1132,6 +1134,10 @@ class QueuedOverflowComponentBase :
 
     //! Input port productRecvInHook
     Fw::InputDpResponsePort m_productRecvInHook_InputPort[NUM_PRODUCTRECVINHOOK_INPUT_PORTS];
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
   private:
 
@@ -1151,6 +1157,10 @@ class QueuedOverflowComponentBase :
     //! Input port hookAsync
     Ports::InputTypedPort m_hookAsync_InputPort[NUM_HOOKASYNC_INPUT_PORTS];
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -1159,6 +1169,10 @@ class QueuedOverflowComponentBase :
 
     //! Input port serialAsyncHook
     Fw::InputSerializePort m_serialAsyncHook_InputPort[NUM_SERIALASYNCHOOK_INPUT_PORTS];
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
   private:
 
@@ -1193,6 +1207,8 @@ class QueuedOverflowComponentBase :
 
     //! Output port tlmOut
     Fw::OutputTlmPort m_tlmOut_OutputPort[NUM_TLMOUT_OUTPUT_PORTS];
+
+#endif
 
   private:
 

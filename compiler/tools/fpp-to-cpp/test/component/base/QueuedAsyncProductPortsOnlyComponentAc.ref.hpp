@@ -298,6 +298,8 @@ class QueuedAsyncProductPortsOnlyComponentBase :
         const Fw::Success& status //!< The buffer status
     );
 
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -306,6 +308,10 @@ class QueuedAsyncProductPortsOnlyComponentBase :
 
     //! Input port productRecvIn
     Fw::InputDpResponsePort m_productRecvIn_InputPort[NUM_PRODUCTRECVIN_INPUT_PORTS];
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
   private:
 
@@ -318,6 +324,8 @@ class QueuedAsyncProductPortsOnlyComponentBase :
 
     //! Output port productSendOut
     Fw::OutputDpSendPort m_productSendOut_OutputPort[NUM_PRODUCTSENDOUT_OUTPUT_PORTS];
+
+#endif
 
 };
 

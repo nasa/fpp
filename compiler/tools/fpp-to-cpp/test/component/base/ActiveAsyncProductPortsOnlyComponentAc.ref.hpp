@@ -289,6 +289,8 @@ class ActiveAsyncProductPortsOnlyComponentBase :
         const Fw::Success& status //!< The buffer status
     );
 
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -297,6 +299,10 @@ class ActiveAsyncProductPortsOnlyComponentBase :
 
     //! Input port productRecvIn
     Fw::InputDpResponsePort m_productRecvIn_InputPort[NUM_PRODUCTRECVIN_INPUT_PORTS];
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
   private:
 
@@ -309,6 +315,8 @@ class ActiveAsyncProductPortsOnlyComponentBase :
 
     //! Output port productSendOut
     Fw::OutputDpSendPort m_productSendOut_OutputPort[NUM_PRODUCTSENDOUT_OUTPUT_PORTS];
+
+#endif
 
 };
 

@@ -171,6 +171,8 @@ class PassiveGetProductPortsOnlyComponentBase :
         const Fw::Buffer& buffer //!< The buffer
     );
 
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -182,6 +184,8 @@ class PassiveGetProductPortsOnlyComponentBase :
 
     //! Output port productSendOut
     Fw::OutputDpSendPort m_productSendOut_OutputPort[NUM_PRODUCTSENDOUT_OUTPUT_PORTS];
+
+#endif
 
 };
 

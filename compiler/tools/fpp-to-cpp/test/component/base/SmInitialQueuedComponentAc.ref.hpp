@@ -665,6 +665,8 @@ namespace FppTest {
           FppTest_SmInitialQueued_Nested::Signal signal //!< The signal
       );
 
+#if !FW_DIRECT_PORT_CALLS
+
     private:
 
       // ----------------------------------------------------------------------
@@ -673,6 +675,8 @@ namespace FppTest {
 
       //! Input port schedIn
       Svc::InputSchedPort m_schedIn_InputPort[NUM_SCHEDIN_INPUT_PORTS];
+
+#endif
 
     private:
 

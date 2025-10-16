@@ -384,6 +384,8 @@ class QueuedNoArgsPortsOnlyComponentBase :
         FwIndexType portNum //!< The port number
     );
 
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -402,6 +404,10 @@ class QueuedNoArgsPortsOnlyComponentBase :
     //! Input port noArgsReturnSync
     Ports::InputNoArgsReturnPort m_noArgsReturnSync_InputPort[NUM_NOARGSRETURNSYNC_INPUT_PORTS];
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -413,6 +419,8 @@ class QueuedNoArgsPortsOnlyComponentBase :
 
     //! Output port noArgsReturnOut
     Ports::OutputNoArgsReturnPort m_noArgsReturnOut_OutputPort[NUM_NOARGSRETURNOUT_OUTPUT_PORTS];
+
+#endif
 
   private:
 

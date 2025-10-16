@@ -145,12 +145,16 @@ case class ComponentPorts(
             |"""
       )
     }
-    addAccessTagAndComment(
-      "private",
-      s"${getPortListTypeString(ports).capitalize} $direction ports",
-      mapPorts(
-        ports,
-        p => List(linesClassMember(variable(p))),
+    wrapClassMembersInIfDirective(
+      "#if !FW_DIRECT_PORT_CALLS",
+      addAccessTagAndComment(
+        "private",
+        s"${getPortListTypeString(ports).capitalize} $direction ports",
+        mapPorts(
+          ports,
+          p => List(linesClassMember(variable(p))),
+          CppDoc.Lines.Hpp
+        ),
         CppDoc.Lines.Hpp
       ),
       CppDoc.Lines.Hpp

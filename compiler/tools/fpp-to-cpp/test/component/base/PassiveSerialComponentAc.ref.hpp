@@ -2347,6 +2347,8 @@ class PassiveSerialComponentBase :
     //! \return The command response
     Fw::CmdResponse paramSave_ParamStructExt();
 
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -2355,6 +2357,10 @@ class PassiveSerialComponentBase :
 
     //! Input port cmdIn
     Fw::InputCmdPort m_cmdIn_InputPort[NUM_CMDIN_INPUT_PORTS];
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
   private:
 
@@ -2401,6 +2407,10 @@ class PassiveSerialComponentBase :
     //! Input port typedSync
     Ports::InputTypedPort m_typedSync_InputPort[NUM_TYPEDSYNC_INPUT_PORTS];
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -2412,6 +2422,10 @@ class PassiveSerialComponentBase :
 
     //! Input port serialSync
     Fw::InputSerializePort m_serialSync_InputPort[NUM_SERIALSYNC_INPUT_PORTS];
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
   private:
 
@@ -2447,6 +2461,10 @@ class PassiveSerialComponentBase :
     //! Output port tlmOut
     Fw::OutputTlmPort m_tlmOut_OutputPort[NUM_TLMOUT_OUTPUT_PORTS];
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -2477,6 +2495,10 @@ class PassiveSerialComponentBase :
     //! Output port typedReturnOut
     Ports::OutputTypedReturnPort m_typedReturnOut_OutputPort[NUM_TYPEDRETURNOUT_OUTPUT_PORTS];
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -2485,6 +2507,8 @@ class PassiveSerialComponentBase :
 
     //! Output port serialOut
     Fw::OutputSerializePort m_serialOut_OutputPort[NUM_SERIALOUT_OUTPUT_PORTS];
+
+#endif
 
   private:
 
