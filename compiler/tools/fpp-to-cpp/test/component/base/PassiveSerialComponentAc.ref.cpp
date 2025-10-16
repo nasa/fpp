@@ -731,6 +731,8 @@ void PassiveSerialComponentBase ::
   }
 }
 
+#ifndef FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Getters for special input ports
 // ----------------------------------------------------------------------
@@ -745,6 +747,10 @@ Fw::InputCmdPort* PassiveSerialComponentBase ::
 
   return &this->m_cmdIn_InputPort[portNum];
 }
+
+#endif
+
+#ifndef FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for typed input ports
@@ -893,6 +899,10 @@ Ports::InputTypedPort* PassiveSerialComponentBase ::
   return &this->m_typedSync_InputPort[portNum];
 }
 
+#endif
+
+#ifndef FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Getters for serial input ports
 // ----------------------------------------------------------------------
@@ -918,6 +928,8 @@ Fw::InputSerializePort* PassiveSerialComponentBase ::
 
   return &this->m_serialSync_InputPort[portNum];
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Connect input ports to special output ports

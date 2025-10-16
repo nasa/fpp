@@ -145,6 +145,8 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
   );
 }
 
+#ifndef FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Getters for special input ports
 // ----------------------------------------------------------------------
@@ -159,6 +161,8 @@ Fw::InputDpResponsePort* QueuedAsyncProductPortsOnlyComponentBase ::
 
   return &this->m_productRecvIn_InputPort[portNum];
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Connect input ports to special output ports

@@ -109,6 +109,8 @@ class QueuedOverflowComponentBase :
         FwEnumStoreType instance = 0 //!< The instance number
     );
 
+#ifndef FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -128,6 +130,10 @@ class QueuedOverflowComponentBase :
     Fw::InputDpResponsePort* get_productRecvInHook_InputPort(
         FwIndexType portNum //!< The port number
     );
+
+#endif
+
+#ifndef FW_DIRECT_PORT_CALLS
 
   public:
 
@@ -163,6 +169,10 @@ class QueuedOverflowComponentBase :
         FwIndexType portNum //!< The port number
     );
 
+#endif
+
+#ifndef FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -175,6 +185,8 @@ class QueuedOverflowComponentBase :
     Fw::InputSerializePort* get_serialAsyncHook_InputPort(
         FwIndexType portNum //!< The port number
     );
+
+#endif
 
   public:
 

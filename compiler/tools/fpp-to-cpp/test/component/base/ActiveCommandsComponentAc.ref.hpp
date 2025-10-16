@@ -149,6 +149,8 @@ class ActiveCommandsComponentBase :
         FwEnumStoreType instance = 0 //!< The instance number
     );
 
+#ifndef FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -161,6 +163,10 @@ class ActiveCommandsComponentBase :
     Fw::InputCmdPort* get_cmdIn_InputPort(
         FwIndexType portNum //!< The port number
     );
+
+#endif
+
+#ifndef FW_DIRECT_PORT_CALLS
 
   public:
 
@@ -300,6 +306,8 @@ class ActiveCommandsComponentBase :
     Ports::InputTypedPort* get_typedSync_InputPort(
         FwIndexType portNum //!< The port number
     );
+
+#endif
 
   public:
 

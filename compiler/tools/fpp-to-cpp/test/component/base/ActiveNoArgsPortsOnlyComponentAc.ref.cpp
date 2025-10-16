@@ -211,6 +211,8 @@ void ActiveNoArgsPortsOnlyComponentBase ::
   );
 }
 
+#ifndef FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Getters for typed input ports
 // ----------------------------------------------------------------------
@@ -258,6 +260,8 @@ Ports::InputNoArgsReturnPort* ActiveNoArgsPortsOnlyComponentBase ::
 
   return &this->m_noArgsReturnSync_InputPort[portNum];
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Connect typed input ports to typed output ports

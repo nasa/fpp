@@ -38,6 +38,8 @@ void ActiveAsyncProductPortsOnlyTesterBase ::
   this->m_to_productRecvIn[portNum].addCallPort(port);
 }
 
+#ifndef FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Getters for from ports
 // ----------------------------------------------------------------------
@@ -63,6 +65,8 @@ Fw::InputDpSendPort* ActiveAsyncProductPortsOnlyTesterBase ::
 
   return &this->m_from_productSendOut[portNum];
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

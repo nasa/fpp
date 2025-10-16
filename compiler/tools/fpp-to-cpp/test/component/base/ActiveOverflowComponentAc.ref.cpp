@@ -424,6 +424,8 @@ void ActiveOverflowComponentBase ::
   );
 }
 
+#ifndef FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Getters for special input ports
 // ----------------------------------------------------------------------
@@ -449,6 +451,10 @@ Fw::InputDpResponsePort* ActiveOverflowComponentBase ::
 
   return &this->m_productRecvInHook_InputPort[portNum];
 }
+
+#endif
+
+#ifndef FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for typed input ports
@@ -498,6 +504,10 @@ Ports::InputTypedPort* ActiveOverflowComponentBase ::
   return &this->m_hookAsync_InputPort[portNum];
 }
 
+#endif
+
+#ifndef FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Getters for serial input ports
 // ----------------------------------------------------------------------
@@ -512,6 +522,8 @@ Fw::InputSerializePort* ActiveOverflowComponentBase ::
 
   return &this->m_serialAsyncHook_InputPort[portNum];
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Connect input ports to special output ports

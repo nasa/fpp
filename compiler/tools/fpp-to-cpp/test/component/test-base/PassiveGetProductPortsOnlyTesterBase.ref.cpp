@@ -20,6 +20,8 @@ void PassiveGetProductPortsOnlyTesterBase ::
   Fw::PassiveComponentBase::init(instance);
 }
 
+#ifndef FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Getters for from ports
 // ----------------------------------------------------------------------
@@ -45,6 +47,8 @@ Fw::InputDpSendPort* PassiveGetProductPortsOnlyTesterBase ::
 
   return &this->m_from_productSendOut[portNum];
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

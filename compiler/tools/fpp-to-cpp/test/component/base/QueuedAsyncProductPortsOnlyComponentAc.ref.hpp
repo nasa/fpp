@@ -65,6 +65,8 @@ class QueuedAsyncProductPortsOnlyComponentBase :
         FwEnumStoreType instance = 0 //!< The instance number
     );
 
+#ifndef FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -77,6 +79,8 @@ class QueuedAsyncProductPortsOnlyComponentBase :
     Fw::InputDpResponsePort* get_productRecvIn_InputPort(
         FwIndexType portNum //!< The port number
     );
+
+#endif
 
   public:
 

@@ -586,6 +586,8 @@ namespace FppTest {
           FwEnumStoreType instance = 0 //!< The instance number
       );
 
+#ifndef FW_DIRECT_PORT_CALLS
+
     public:
 
       // ----------------------------------------------------------------------
@@ -598,6 +600,8 @@ namespace FppTest {
       Svc::InputSchedPort* get_schedIn_InputPort(
           FwIndexType portNum //!< The port number
       );
+
+#endif
 
     protected:
 

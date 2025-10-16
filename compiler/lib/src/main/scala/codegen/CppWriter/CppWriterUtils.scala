@@ -154,7 +154,7 @@ trait CppWriterUtils extends LineUtils {
     linesOutput: CppDoc.Lines.Output = CppDoc.Lines.Both
   ): List[CppDoc.Class.Member] =
     wrapInIfDirective(
-      directive,
+      s"\n$directive",
       body,
       CppDoc.Class.Member.Lines.apply,
       linesOutput

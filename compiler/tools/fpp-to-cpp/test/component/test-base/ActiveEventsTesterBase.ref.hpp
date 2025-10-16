@@ -389,6 +389,8 @@ class ActiveEventsTesterBase :
         Ports::InputTypedPort* port //!< The input port
     );
 
+#ifndef FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -510,6 +512,8 @@ class ActiveEventsTesterBase :
     Ports::InputTypedReturnPort* get_from_typedReturnOut(
         FwIndexType portNum //!< The port number
     );
+
+#endif
 
   protected:
 

@@ -948,6 +948,8 @@ void PassiveSyncProductsComponentBase ::
   }
 }
 
+#ifndef FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Getters for special input ports
 // ----------------------------------------------------------------------
@@ -973,6 +975,10 @@ Fw::InputDpResponsePort* PassiveSyncProductsComponentBase ::
 
   return &this->m_productRecvIn_InputPort[portNum];
 }
+
+#endif
+
+#ifndef FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for typed input ports
@@ -1120,6 +1126,8 @@ Ports::InputTypedPort* PassiveSyncProductsComponentBase ::
 
   return &this->m_typedSync_InputPort[portNum];
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Connect input ports to special output ports

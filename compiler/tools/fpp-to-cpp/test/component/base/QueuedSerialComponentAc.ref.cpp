@@ -1086,6 +1086,8 @@ void QueuedSerialComponentBase ::
   );
 }
 
+#ifndef FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Getters for special input ports
 // ----------------------------------------------------------------------
@@ -1100,6 +1102,10 @@ Fw::InputCmdPort* QueuedSerialComponentBase ::
 
   return &this->m_cmdIn_InputPort[portNum];
 }
+
+#endif
+
+#ifndef FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for typed input ports
@@ -1314,6 +1320,10 @@ Ports::InputTypedPort* QueuedSerialComponentBase ::
   return &this->m_typedSync_InputPort[portNum];
 }
 
+#endif
+
+#ifndef FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Getters for serial input ports
 // ----------------------------------------------------------------------
@@ -1383,6 +1393,8 @@ Fw::InputSerializePort* QueuedSerialComponentBase ::
 
   return &this->m_serialSync_InputPort[portNum];
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Connect input ports to special output ports

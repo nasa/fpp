@@ -594,6 +594,8 @@ class QueuedSerialTesterBase :
         Fw::InputSerializePort* port //!< The input port
     );
 
+#ifndef FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -722,6 +724,8 @@ class QueuedSerialTesterBase :
     Fw::InputSerializePort* get_from_serialOut(
         FwIndexType portNum //!< The port number
     );
+
+#endif
 
   protected:
 

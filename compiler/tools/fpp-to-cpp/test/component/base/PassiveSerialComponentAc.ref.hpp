@@ -235,6 +235,8 @@ class PassiveSerialComponentBase :
         FwEnumStoreType instance = 0 //!< The instance number
     );
 
+#ifndef FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -247,6 +249,10 @@ class PassiveSerialComponentBase :
     Fw::InputCmdPort* get_cmdIn_InputPort(
         FwIndexType portNum //!< The port number
     );
+
+#endif
+
+#ifndef FW_DIRECT_PORT_CALLS
 
   public:
 
@@ -345,6 +351,10 @@ class PassiveSerialComponentBase :
         FwIndexType portNum //!< The port number
     );
 
+#endif
+
+#ifndef FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -364,6 +374,8 @@ class PassiveSerialComponentBase :
     Fw::InputSerializePort* get_serialSync_InputPort(
         FwIndexType portNum //!< The port number
     );
+
+#endif
 
   public:
 

@@ -68,6 +68,8 @@ class QueuedNoArgsPortsOnlyComponentBase :
         FwEnumStoreType instance = 0 //!< The instance number
     );
 
+#ifndef FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -101,6 +103,8 @@ class QueuedNoArgsPortsOnlyComponentBase :
     Ports::InputNoArgsReturnPort* get_noArgsReturnSync_InputPort(
         FwIndexType portNum //!< The port number
     );
+
+#endif
 
   public:
 

@@ -1387,6 +1387,8 @@ void QueuedSerialTesterBase ::
   this->m_to_serialSync[portNum].registerSerialPort(port);
 }
 
+#ifndef FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Getters for from ports
 // ----------------------------------------------------------------------
@@ -1581,6 +1583,8 @@ Fw::InputSerializePort* QueuedSerialTesterBase ::
 
   return &this->m_from_serialOut[portNum];
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

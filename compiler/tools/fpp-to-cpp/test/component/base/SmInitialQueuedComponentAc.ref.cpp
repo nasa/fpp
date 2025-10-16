@@ -298,6 +298,8 @@ namespace FppTest {
     );
   }
 
+#ifndef FW_DIRECT_PORT_CALLS
+
   // ----------------------------------------------------------------------
   // Getters for typed input ports
   // ----------------------------------------------------------------------
@@ -312,6 +314,8 @@ namespace FppTest {
 
     return &this->m_schedIn_InputPort[portNum];
   }
+
+#endif
 
   // ----------------------------------------------------------------------
   // Component construction and destruction

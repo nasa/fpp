@@ -367,7 +367,7 @@ case class PortCppWriter (
       ),
     ) ++
       wrapClassMembersInIfDirective(
-        "\n#if FW_PORT_SERIALIZATION == 1",
+        "#if FW_PORT_SERIALIZATION == 1",
         List(
           functionClassMember(
             Some("Invoke the port with serialized arguments"),

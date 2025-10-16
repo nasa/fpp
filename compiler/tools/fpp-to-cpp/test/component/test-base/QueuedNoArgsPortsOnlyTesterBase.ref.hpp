@@ -148,6 +148,8 @@ class QueuedNoArgsPortsOnlyTesterBase :
         Ports::InputNoArgsReturnPort* port //!< The input port
     );
 
+#ifndef FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -167,6 +169,8 @@ class QueuedNoArgsPortsOnlyTesterBase :
     Ports::InputNoArgsReturnPort* get_from_noArgsReturnOut(
         FwIndexType portNum //!< The port number
     );
+
+#endif
 
   protected:
 

@@ -204,6 +204,8 @@ void QueuedNoArgsPortsOnlyTesterBase ::
   this->m_to_noArgsReturnSync[portNum].addCallPort(port);
 }
 
+#ifndef FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Getters for from ports
 // ----------------------------------------------------------------------
@@ -229,6 +231,8 @@ Ports::InputNoArgsReturnPort* QueuedNoArgsPortsOnlyTesterBase ::
 
   return &this->m_from_noArgsReturnOut[portNum];
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

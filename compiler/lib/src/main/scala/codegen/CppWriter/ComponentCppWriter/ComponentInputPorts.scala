@@ -36,7 +36,8 @@ case class ComponentInputPorts(
     getterName: String => String,
     numGetterName: PortInstance => String,
     variableName: PortInstance => String
-  ): List[CppDoc.Class.Member] = {
+  ): List[CppDoc.Class.Member] = wrapClassMembersInIfDirective(
+    "#ifndef FW_DIRECT_PORT_CALLS",
     addAccessTagAndComment(
       "public",
       s"Getters for $portType ports",
@@ -65,7 +66,7 @@ case class ComponentInputPorts(
         )
       ))
     )
-  }
+  )
 
   def getGetters(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     val typeStr = getPortListTypeString(ports)
@@ -391,7 +392,7 @@ case class ComponentInputPorts(
           case PortInstance.Type.DefPort(_) => functions
           case PortInstance.Type.Serial =>
             wrapClassMembersInIfDirective(
-              "\n#if FW_PORT_SERIALIZATION",
+              "#if FW_PORT_SERIALIZATION",
               functions
             )
         }

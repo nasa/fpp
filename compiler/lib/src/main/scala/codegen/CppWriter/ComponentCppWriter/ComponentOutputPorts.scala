@@ -83,7 +83,7 @@ case class ComponentOutputPorts(
     val typeStr = getPortListTypeString(ports)
 
     wrapClassMembersInIfDirective(
-      "\n#if FW_PORT_SERIALIZATION",
+      "#if FW_PORT_SERIALIZATION",
       addAccessTagAndComment(
         "public",
         s"Connect serial input ports to $typeStr output ports",

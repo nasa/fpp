@@ -579,6 +579,8 @@ namespace M {
           Ports::InputTypedPort* port //!< The input port
       );
 
+#ifndef FW_DIRECT_PORT_CALLS
+
     public:
 
       // ----------------------------------------------------------------------
@@ -714,6 +716,8 @@ namespace M {
       Ports::InputTypedReturnPort* get_from_typedReturnOut(
           FwIndexType portNum //!< The port number
       );
+
+#endif
 
     protected:
 

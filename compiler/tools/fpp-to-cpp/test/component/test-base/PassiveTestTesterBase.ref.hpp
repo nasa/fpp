@@ -541,6 +541,8 @@ class PassiveTestTesterBase :
         Ports::InputTypedPort* port //!< The input port
     );
 
+#ifndef FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -676,6 +678,8 @@ class PassiveTestTesterBase :
     Ports::InputTypedReturnPort* get_from_typedReturnOut(
         FwIndexType portNum //!< The port number
     );
+
+#endif
 
   protected:
 

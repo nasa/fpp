@@ -253,6 +253,8 @@ class QueuedSerialComponentBase :
         FwEnumStoreType instance = 0 //!< The instance number
     );
 
+#ifndef FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -265,6 +267,10 @@ class QueuedSerialComponentBase :
     Fw::InputCmdPort* get_cmdIn_InputPort(
         FwIndexType portNum //!< The port number
     );
+
+#endif
+
+#ifndef FW_DIRECT_PORT_CALLS
 
   public:
 
@@ -405,6 +411,10 @@ class QueuedSerialComponentBase :
         FwIndexType portNum //!< The port number
     );
 
+#endif
+
+#ifndef FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -452,6 +462,8 @@ class QueuedSerialComponentBase :
     Fw::InputSerializePort* get_serialSync_InputPort(
         FwIndexType portNum //!< The port number
     );
+
+#endif
 
   public:
 

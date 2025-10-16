@@ -121,20 +121,20 @@ case class ComponentCppWriter (
         internalStrHeaders
       ).map(CppWriter.headerString)
       val symbolHeaders = writeIncludeDirectives
-      def addConditional(c: String, s: String) = lines(
-        s"""|$c
-            |$s
+      def addConditional(condition: String, header: String) = lines(
+        s"""|$condition
+            |$header
             |#endif
             |""".stripMargin
       )
       (standardHeaders ++ symbolHeaders).sorted.flatMap({
-        case s: "#include \"Fw/Log/LogTextPortAc.hpp\"" =>
-              addConditional("#if FW_ENABLE_TEXT_LOGGING == 1", s)
-        case s: "#include \"Fw/Port/InputSerializePort.hpp\"" =>
-              addConditional("#ifndef FW_DIRECT_PORT_CALLS", s)
-        case s: "#include \"Fw/Port/OutputSerializePort.hpp\"" =>
-              addConditional("#ifndef FW_DIRECT_PORT_CALLS", s)
-        case s => lines(s)
+        case h: "#include \"Fw/Log/LogTextPortAc.hpp\"" =>
+              addConditional("#if FW_ENABLE_TEXT_LOGGING == 1", h)
+        case h: "#include \"Fw/Port/InputSerializePort.hpp\"" =>
+              addConditional("#ifndef FW_DIRECT_PORT_CALLS", h)
+        case h: "#include \"Fw/Port/OutputSerializePort.hpp\"" =>
+              addConditional("#ifndef FW_DIRECT_PORT_CALLS", h)
+        case h => lines(h)
       })
     }
     linesMember(
