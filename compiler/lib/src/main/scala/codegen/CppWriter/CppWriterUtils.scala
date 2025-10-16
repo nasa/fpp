@@ -61,21 +61,14 @@ trait CppWriterUtils extends LineUtils {
     members: List[CppDoc.Class.Member],
     output: CppDoc.Lines.Output = CppDoc.Lines.Both,
     cppFileNameBaseOpt: Option[String] = None
-  ): List[CppDoc.Class.Member] = members match {
-    case Nil => Nil
-    case _ =>
-      linesClassMember(CppDocHppWriter.writeAccessTag(accessTag)) ::
-      linesClassMember(CppDocWriter.writeBannerComment(comment), output, cppFileNameBaseOpt) ::
-      members
-  }
+  ): List[CppDoc.Class.Member] = addAccessTag(
+    accessTag,
+    addComment(comment, members, output, cppFileNameBaseOpt)
+  )
 
   /** Add an optional string separated by two newlines */
-  def addSeparatedString(str: String, strOpt: Option[String]): String = {
-    strOpt match {
-      case Some(s) => s"$str\n\n$s"
-      case None => str
-    }
-  }
+  def addSeparatedString(str: String, strOpt: Option[String]): String =
+    strOpt.map(s => s"$str\n\n$s").getOrElse(str)
 
   /** Add an optional pre comment separated by two newlines */
   def addSeparatedPreComment(str: String, commentOpt: Option[String]): List[Line] = {
@@ -138,17 +131,21 @@ trait CppWriterUtils extends LineUtils {
   def wrapInForLoop(init: String, condition: String, step: String, body: List[Line]): List[Line] =
     wrapInScope(s"for ($init; $condition; $step) {", body, "}")
 
-  def wrapInForLoopStaggered(init: String, condition: String, step: String, body: List[Line]): List[Line] =
-    wrapInScope(
-      s"""|for (
-          |  $init;
-          |  $condition;
-          |  $step
-          |) {
-          |""",
-      body,
-      "}"
-    )
+  def wrapInForLoopStaggered(
+    init: String,
+    condition: String,
+    step: String,
+    body: List[Line]
+  ): List[Line] = wrapInScope(
+    s"""|for (
+        |  $init;
+        |  $condition;
+        |  $step
+        |) {
+        |""",
+    body,
+    "}"
+  )
 
   def wrapInIf(condition: String, body: List[Line]): List[Line] =
     wrapInScope(s"if ($condition) {", body, "}")
@@ -185,28 +182,18 @@ trait CppWriterUtils extends LineUtils {
     body: List[T],
     constructMemberLines: CppDoc.Lines => T,
     linesOutput: CppDoc.Lines.Output = CppDoc.Lines.Both
-  ): List[T] = body match {
-    case Nil => Nil
-    case _ => List(
-      List(
-        constructMemberLines(
-          CppDoc.Lines(
-            lines(directive),
-            linesOutput
-          )
-        )
-      ),
-      body,
-      List(
-        constructMemberLines(
-          CppDoc.Lines(
-            Line.blank :: lines("#endif"),
-            linesOutput
-          )
-        )
-      ),
-    ).flatten
-  }
+  ): List[T] = guardedList (!body.isEmpty) (
+    (
+      constructMemberLines( CppDoc.Lines(lines(directive), linesOutput)) ::
+      body
+    ) :+
+    constructMemberLines(
+      CppDoc.Lines(
+        Line.blank :: lines("#endif"),
+        linesOutput
+      )
+    )
+  )
 
   def writeOstreamOperator(
     name: String,
