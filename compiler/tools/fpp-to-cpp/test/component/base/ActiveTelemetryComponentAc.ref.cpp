@@ -50,7 +50,7 @@ namespace {
         SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
       };
 
-      Fw::Serializable::SizeType getBuffCapacity() const {
+      Fw::Serializable::SizeType getCapacity() const {
         return sizeof(m_buff);
       }
 

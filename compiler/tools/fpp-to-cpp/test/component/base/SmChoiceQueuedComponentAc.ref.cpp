@@ -62,7 +62,7 @@ namespace FppTest {
           SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
         };
 
-        Fw::Serializable::SizeType getBuffCapacity() const {
+        Fw::Serializable::SizeType getCapacity() const {
           return sizeof(m_buff);
         }
 
@@ -1056,7 +1056,7 @@ namespace FppTest {
     switch (signal) {
       case FppTest_SmChoice_Basic::Signal::s: {
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s
         sm.sendSignal_s();
         break;
@@ -1081,7 +1081,7 @@ namespace FppTest {
         const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s
         sm.sendSignal_s(value);
         break;
@@ -1102,7 +1102,7 @@ namespace FppTest {
     switch (signal) {
       case FppTest_SmChoice_ChoiceToChoice::Signal::s: {
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s
         sm.sendSignal_s();
         break;
@@ -1123,7 +1123,7 @@ namespace FppTest {
     switch (signal) {
       case FppTest_SmChoice_ChoiceToState::Signal::s: {
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s
         sm.sendSignal_s();
         break;
@@ -1148,7 +1148,7 @@ namespace FppTest {
         const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s1
         sm.sendSignal_s1(value);
         break;
@@ -1159,7 +1159,7 @@ namespace FppTest {
         const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s2
         sm.sendSignal_s2(value);
         break;
@@ -1180,7 +1180,7 @@ namespace FppTest {
     switch (signal) {
       case FppTest_SmChoice_Sequence::Signal::s: {
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s
         sm.sendSignal_s();
         break;
@@ -1205,7 +1205,7 @@ namespace FppTest {
         const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s
         sm.sendSignal_s(value);
         break;
@@ -1226,7 +1226,7 @@ namespace FppTest {
     switch (signal) {
       case FppTest_SmChoiceQueued_Basic::Signal::s: {
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s
         sm.sendSignal_s();
         break;

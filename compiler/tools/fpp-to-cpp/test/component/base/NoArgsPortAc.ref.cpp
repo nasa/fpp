@@ -20,7 +20,7 @@ namespace Ports {
 
       public:
 
-        Fw::Serializable::SizeType getBuffCapacity() const {
+        Fw::Serializable::SizeType getCapacity() const {
           return InputNoArgsPort::SERIALIZED_SIZE;
         }
 
