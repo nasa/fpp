@@ -2732,7 +2732,7 @@ void PassiveSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -2802,7 +2802,7 @@ void PassiveSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -2864,7 +2864,7 @@ void PassiveSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -2912,7 +2912,7 @@ void PassiveSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -2959,7 +2959,7 @@ void PassiveSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3006,7 +3006,7 @@ void PassiveSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3034,7 +3034,7 @@ void PassiveSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3108,7 +3108,7 @@ void PassiveSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3174,7 +3174,7 @@ void PassiveSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3226,7 +3226,7 @@ void PassiveSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3277,7 +3277,7 @@ void PassiveSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -3328,7 +3328,7 @@ void PassiveSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,

@@ -488,7 +488,7 @@ case class ComponentInternalStateMachines(
                 ),
                 lines(
                   s"""|// Assert no data left in buffer
-                      |FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+                      |FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
                       |// Call the sendSignal function for sm and $signalName
                       |sm.sendSignal_$signalName($sendSignalArgs);
                       |break;"""

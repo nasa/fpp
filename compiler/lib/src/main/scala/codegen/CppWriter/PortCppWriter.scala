@@ -174,7 +174,7 @@ case class PortCppWriter (
       List(
         CppDocHppWriter.writeAccessTag("public"),
         Line.blank :: lines(
-          s"""|Fw::Serializable::SizeType getBuffCapacity() const {
+          s"""|Fw::Serializable::SizeType getCapacity() const {
               |  return ${PortCppWriter.inputPortName(name)}::SERIALIZED_SIZE;
               |}
               |
