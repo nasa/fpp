@@ -446,23 +446,23 @@ case class ComponentInputPorts(
 
   // Writes the handler call for a command input port
   private def writeCommandInputPortHandlerCall =
-    if !hasCommands then lines(
-      """|FW_ASSERT(callComp);
-         |
-         |const U32 idBase = callComp->getIdBase();
-         |FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
-         |"""
-    )
-    else List.concat(
+    List.concat(
+      lines("FW_ASSERT(callComp);"),
+      guardedList (hasCommands) (
+        lines(s"$componentClassName* compPtr = static_cast<$componentClassName*>(callComp);")
+      ),
       lines(
-        s"""|FW_ASSERT(callComp);
-            |$componentClassName* compPtr = static_cast<$componentClassName*>(callComp);
-            |
-            |const U32 idBase = callComp->getIdBase();
-            |FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
-            |
-            |// Select base class function based on opcode
-            |"""
+        """|
+           |const U32 idBase = callComp->getIdBase();
+           |FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+           |"""
+      ),
+      guardedList (hasCommands) (
+        lines(
+          s"""|
+              |// Select base class function based on opcode
+              |"""
+        )
       ),
       wrapInSwitch(
         "opCode - idBase",
