@@ -141,17 +141,13 @@ case class ComponentInputPorts(
     addAccessTagAndComment(
       "private",
       s"Calls for messages received on ${getPortListTypeString(ports)} input ports",
-      ports match {
-        case Nil => Nil
-        case _ => ports.head.getType.get match {
+      guardedList (!ports.isEmpty) (
+        ports.head.getType.get match {
           case PortInstance.Type.DefPort(_) => functions
           case PortInstance.Type.Serial =>
-            wrapClassMembersInIfDirective(
-              "#if FW_PORT_SERIALIZATION",
-              functions
-            )
+            wrapClassMembersInIfDirective("#if FW_PORT_SERIALIZATION", functions)
         }
-      }
+      )
     )
   }
 
