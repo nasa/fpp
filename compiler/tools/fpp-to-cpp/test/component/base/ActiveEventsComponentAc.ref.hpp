@@ -1385,6 +1385,8 @@ class ActiveEventsComponentBase :
         const S& s //!< A struct
     );
 
+#if !FW_DIRECT_PORT_CALLS
+
   protected:
 
     // ----------------------------------------------------------------------
@@ -1465,6 +1467,8 @@ class ActiveEventsComponentBase :
         const A& a, //!< An array
         const S& s //!< A struct
     );
+
+#endif
 
   protected:
 

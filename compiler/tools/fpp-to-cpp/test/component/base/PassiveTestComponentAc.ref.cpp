@@ -2714,6 +2714,8 @@ void PassiveTestComponentBase ::
   );
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Invocation functions for special output ports
 // ----------------------------------------------------------------------
@@ -2761,6 +2763,10 @@ void PassiveTestComponentBase ::
     buffer
   );
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Invocation functions for typed output ports
@@ -2970,6 +2976,8 @@ F32 PassiveTestComponentBase ::
     s
   );
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Command response

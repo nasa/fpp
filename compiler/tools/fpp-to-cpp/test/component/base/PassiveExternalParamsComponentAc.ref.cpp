@@ -2049,6 +2049,8 @@ void PassiveExternalParamsComponentBase ::
   );
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Invocation functions for typed output ports
 // ----------------------------------------------------------------------
@@ -2257,6 +2259,8 @@ F32 PassiveExternalParamsComponentBase ::
     s
   );
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Command response

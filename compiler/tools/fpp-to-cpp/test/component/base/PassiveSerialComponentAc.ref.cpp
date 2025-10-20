@@ -2500,6 +2500,8 @@ void PassiveSerialComponentBase ::
   );
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Invocation functions for typed output ports
 // ----------------------------------------------------------------------
@@ -2709,6 +2711,10 @@ F32 PassiveSerialComponentBase ::
   );
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Invocation functions for serial output ports
 // ----------------------------------------------------------------------
@@ -2732,6 +2738,8 @@ Fw::SerializeStatus PassiveSerialComponentBase ::
     buffer
   );
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Command response

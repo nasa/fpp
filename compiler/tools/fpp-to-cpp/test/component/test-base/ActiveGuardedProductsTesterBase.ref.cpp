@@ -1919,8 +1919,10 @@ void ActiveGuardedProductsTesterBase ::
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
 
+#if !FW_DIRECT_PORT_CALLS
+
 bool ActiveGuardedProductsTesterBase ::
-  isConnected_to_cmdIn(FwIndexType portNum)
+  isConnected_to_cmdIn(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_cmdIn()),
@@ -1931,7 +1933,7 @@ bool ActiveGuardedProductsTesterBase ::
 }
 
 bool ActiveGuardedProductsTesterBase ::
-  isConnected_to_productRecvIn(FwIndexType portNum)
+  isConnected_to_productRecvIn(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_productRecvIn()),
@@ -1942,7 +1944,7 @@ bool ActiveGuardedProductsTesterBase ::
 }
 
 bool ActiveGuardedProductsTesterBase ::
-  isConnected_to_aliasTypedAsync(FwIndexType portNum)
+  isConnected_to_aliasTypedAsync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_aliasTypedAsync()),
@@ -1953,7 +1955,7 @@ bool ActiveGuardedProductsTesterBase ::
 }
 
 bool ActiveGuardedProductsTesterBase ::
-  isConnected_to_noArgsAliasStringReturnSync(FwIndexType portNum)
+  isConnected_to_noArgsAliasStringReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsAliasStringReturnSync()),
@@ -1964,7 +1966,7 @@ bool ActiveGuardedProductsTesterBase ::
 }
 
 bool ActiveGuardedProductsTesterBase ::
-  isConnected_to_noArgsAsync(FwIndexType portNum)
+  isConnected_to_noArgsAsync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsAsync()),
@@ -1975,7 +1977,7 @@ bool ActiveGuardedProductsTesterBase ::
 }
 
 bool ActiveGuardedProductsTesterBase ::
-  isConnected_to_noArgsGuarded(FwIndexType portNum)
+  isConnected_to_noArgsGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsGuarded()),
@@ -1986,7 +1988,7 @@ bool ActiveGuardedProductsTesterBase ::
 }
 
 bool ActiveGuardedProductsTesterBase ::
-  isConnected_to_noArgsReturnGuarded(FwIndexType portNum)
+  isConnected_to_noArgsReturnGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnGuarded()),
@@ -1997,7 +1999,7 @@ bool ActiveGuardedProductsTesterBase ::
 }
 
 bool ActiveGuardedProductsTesterBase ::
-  isConnected_to_noArgsReturnSync(FwIndexType portNum)
+  isConnected_to_noArgsReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnSync()),
@@ -2008,7 +2010,7 @@ bool ActiveGuardedProductsTesterBase ::
 }
 
 bool ActiveGuardedProductsTesterBase ::
-  isConnected_to_noArgsStringReturnSync(FwIndexType portNum)
+  isConnected_to_noArgsStringReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsStringReturnSync()),
@@ -2019,7 +2021,7 @@ bool ActiveGuardedProductsTesterBase ::
 }
 
 bool ActiveGuardedProductsTesterBase ::
-  isConnected_to_noArgsSync(FwIndexType portNum)
+  isConnected_to_noArgsSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsSync()),
@@ -2030,7 +2032,7 @@ bool ActiveGuardedProductsTesterBase ::
 }
 
 bool ActiveGuardedProductsTesterBase ::
-  isConnected_to_typedAliasGuarded(FwIndexType portNum)
+  isConnected_to_typedAliasGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAliasGuarded()),
@@ -2041,7 +2043,7 @@ bool ActiveGuardedProductsTesterBase ::
 }
 
 bool ActiveGuardedProductsTesterBase ::
-  isConnected_to_typedAliasReturnSync(FwIndexType portNum)
+  isConnected_to_typedAliasReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAliasReturnSync()),
@@ -2052,7 +2054,7 @@ bool ActiveGuardedProductsTesterBase ::
 }
 
 bool ActiveGuardedProductsTesterBase ::
-  isConnected_to_typedAliasStringReturnSync(FwIndexType portNum)
+  isConnected_to_typedAliasStringReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAliasStringReturnSync()),
@@ -2063,7 +2065,7 @@ bool ActiveGuardedProductsTesterBase ::
 }
 
 bool ActiveGuardedProductsTesterBase ::
-  isConnected_to_typedAsync(FwIndexType portNum)
+  isConnected_to_typedAsync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAsync()),
@@ -2074,7 +2076,7 @@ bool ActiveGuardedProductsTesterBase ::
 }
 
 bool ActiveGuardedProductsTesterBase ::
-  isConnected_to_typedAsyncAssert(FwIndexType portNum)
+  isConnected_to_typedAsyncAssert(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAsyncAssert()),
@@ -2085,7 +2087,7 @@ bool ActiveGuardedProductsTesterBase ::
 }
 
 bool ActiveGuardedProductsTesterBase ::
-  isConnected_to_typedAsyncBlockPriority(FwIndexType portNum)
+  isConnected_to_typedAsyncBlockPriority(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAsyncBlockPriority()),
@@ -2096,7 +2098,7 @@ bool ActiveGuardedProductsTesterBase ::
 }
 
 bool ActiveGuardedProductsTesterBase ::
-  isConnected_to_typedAsyncDropPriority(FwIndexType portNum)
+  isConnected_to_typedAsyncDropPriority(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAsyncDropPriority()),
@@ -2107,7 +2109,7 @@ bool ActiveGuardedProductsTesterBase ::
 }
 
 bool ActiveGuardedProductsTesterBase ::
-  isConnected_to_typedGuarded(FwIndexType portNum)
+  isConnected_to_typedGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedGuarded()),
@@ -2118,7 +2120,7 @@ bool ActiveGuardedProductsTesterBase ::
 }
 
 bool ActiveGuardedProductsTesterBase ::
-  isConnected_to_typedReturnGuarded(FwIndexType portNum)
+  isConnected_to_typedReturnGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedReturnGuarded()),
@@ -2129,7 +2131,7 @@ bool ActiveGuardedProductsTesterBase ::
 }
 
 bool ActiveGuardedProductsTesterBase ::
-  isConnected_to_typedReturnSync(FwIndexType portNum)
+  isConnected_to_typedReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedReturnSync()),
@@ -2140,7 +2142,7 @@ bool ActiveGuardedProductsTesterBase ::
 }
 
 bool ActiveGuardedProductsTesterBase ::
-  isConnected_to_typedSync(FwIndexType portNum)
+  isConnected_to_typedSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedSync()),
@@ -2149,6 +2151,8 @@ bool ActiveGuardedProductsTesterBase ::
 
   return this->m_to_typedSync[portNum].isConnected();
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Functions to test time

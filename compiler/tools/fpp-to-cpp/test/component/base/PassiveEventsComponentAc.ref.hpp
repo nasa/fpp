@@ -1089,6 +1089,8 @@ class PassiveEventsComponentBase :
         const S& s //!< A struct
     );
 
+#if !FW_DIRECT_PORT_CALLS
+
   protected:
 
     // ----------------------------------------------------------------------
@@ -1169,6 +1171,8 @@ class PassiveEventsComponentBase :
         const A& a, //!< An array
         const S& s //!< A struct
     );
+
+#endif
 
   protected:
 

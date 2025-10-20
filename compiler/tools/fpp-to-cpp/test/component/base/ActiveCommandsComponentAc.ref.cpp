@@ -2847,6 +2847,8 @@ void ActiveCommandsComponentBase ::
   // Default: no-op
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Invocation functions for typed output ports
 // ----------------------------------------------------------------------
@@ -3055,6 +3057,8 @@ F32 ActiveCommandsComponentBase ::
     s
   );
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Command response

@@ -3915,6 +3915,8 @@ void QueuedSerialComponentBase ::
   // Default: no-op
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Invocation functions for typed output ports
 // ----------------------------------------------------------------------
@@ -4124,6 +4126,10 @@ F32 QueuedSerialComponentBase ::
   );
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Invocation functions for serial output ports
 // ----------------------------------------------------------------------
@@ -4147,6 +4153,8 @@ Fw::SerializeStatus QueuedSerialComponentBase ::
     buffer
   );
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Internal interface base-class functions

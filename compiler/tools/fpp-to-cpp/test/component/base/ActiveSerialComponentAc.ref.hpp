@@ -1778,6 +1778,8 @@ class ActiveSerialComponentBase :
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
 
+#if !FW_DIRECT_PORT_CALLS
+
   protected:
 
     // ----------------------------------------------------------------------
@@ -1859,6 +1861,10 @@ class ActiveSerialComponentBase :
         const S& s //!< A struct
     );
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   protected:
 
     // ----------------------------------------------------------------------
@@ -1870,6 +1876,8 @@ class ActiveSerialComponentBase :
         FwIndexType portNum, //!< The port number
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
+
+#endif
 
   protected:
 

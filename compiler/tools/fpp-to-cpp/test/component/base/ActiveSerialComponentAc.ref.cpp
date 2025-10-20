@@ -3915,6 +3915,8 @@ void ActiveSerialComponentBase ::
   // Default: no-op
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Invocation functions for typed output ports
 // ----------------------------------------------------------------------
@@ -4124,6 +4126,10 @@ F32 ActiveSerialComponentBase ::
   );
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Invocation functions for serial output ports
 // ----------------------------------------------------------------------
@@ -4147,6 +4153,8 @@ Fw::SerializeStatus ActiveSerialComponentBase ::
     buffer
   );
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Internal interface base-class functions

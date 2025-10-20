@@ -379,6 +379,8 @@ void ActiveAsyncProductPortsOnlyComponentBase ::
   // Default: no-op
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Invocation functions for special output ports
 // ----------------------------------------------------------------------
@@ -426,6 +428,8 @@ void ActiveAsyncProductPortsOnlyComponentBase ::
     buffer
   );
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Message dispatch functions

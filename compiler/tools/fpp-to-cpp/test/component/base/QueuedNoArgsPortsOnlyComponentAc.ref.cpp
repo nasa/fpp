@@ -487,6 +487,8 @@ void QueuedNoArgsPortsOnlyComponentBase ::
   // Default: no-op
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Invocation functions for typed output ports
 // ----------------------------------------------------------------------
@@ -520,6 +522,8 @@ U32 QueuedNoArgsPortsOnlyComponentBase ::
   );
   return this->m_noArgsReturnOut_OutputPort[portNum].invoke();
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Mutex operations for guarded ports

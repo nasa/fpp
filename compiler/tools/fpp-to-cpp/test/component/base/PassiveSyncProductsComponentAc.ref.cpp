@@ -2216,6 +2216,8 @@ void PassiveSyncProductsComponentBase ::
   );
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Invocation functions for special output ports
 // ----------------------------------------------------------------------
@@ -2263,6 +2265,10 @@ void PassiveSyncProductsComponentBase ::
     buffer
   );
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Invocation functions for typed output ports
@@ -2472,6 +2478,8 @@ F32 PassiveSyncProductsComponentBase ::
     s
   );
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Functions for managing data products

@@ -1511,8 +1511,10 @@ void PassiveTelemetryTesterBase ::
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
 
+#if !FW_DIRECT_PORT_CALLS
+
 bool PassiveTelemetryTesterBase ::
-  isConnected_to_cmdIn(FwIndexType portNum)
+  isConnected_to_cmdIn(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_cmdIn()),
@@ -1523,7 +1525,7 @@ bool PassiveTelemetryTesterBase ::
 }
 
 bool PassiveTelemetryTesterBase ::
-  isConnected_to_noArgsAliasStringReturnSync(FwIndexType portNum)
+  isConnected_to_noArgsAliasStringReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsAliasStringReturnSync()),
@@ -1534,7 +1536,7 @@ bool PassiveTelemetryTesterBase ::
 }
 
 bool PassiveTelemetryTesterBase ::
-  isConnected_to_noArgsGuarded(FwIndexType portNum)
+  isConnected_to_noArgsGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsGuarded()),
@@ -1545,7 +1547,7 @@ bool PassiveTelemetryTesterBase ::
 }
 
 bool PassiveTelemetryTesterBase ::
-  isConnected_to_noArgsReturnGuarded(FwIndexType portNum)
+  isConnected_to_noArgsReturnGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnGuarded()),
@@ -1556,7 +1558,7 @@ bool PassiveTelemetryTesterBase ::
 }
 
 bool PassiveTelemetryTesterBase ::
-  isConnected_to_noArgsReturnSync(FwIndexType portNum)
+  isConnected_to_noArgsReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnSync()),
@@ -1567,7 +1569,7 @@ bool PassiveTelemetryTesterBase ::
 }
 
 bool PassiveTelemetryTesterBase ::
-  isConnected_to_noArgsStringReturnSync(FwIndexType portNum)
+  isConnected_to_noArgsStringReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsStringReturnSync()),
@@ -1578,7 +1580,7 @@ bool PassiveTelemetryTesterBase ::
 }
 
 bool PassiveTelemetryTesterBase ::
-  isConnected_to_noArgsSync(FwIndexType portNum)
+  isConnected_to_noArgsSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsSync()),
@@ -1589,7 +1591,7 @@ bool PassiveTelemetryTesterBase ::
 }
 
 bool PassiveTelemetryTesterBase ::
-  isConnected_to_typedAliasGuarded(FwIndexType portNum)
+  isConnected_to_typedAliasGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAliasGuarded()),
@@ -1600,7 +1602,7 @@ bool PassiveTelemetryTesterBase ::
 }
 
 bool PassiveTelemetryTesterBase ::
-  isConnected_to_typedAliasReturnSync(FwIndexType portNum)
+  isConnected_to_typedAliasReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAliasReturnSync()),
@@ -1611,7 +1613,7 @@ bool PassiveTelemetryTesterBase ::
 }
 
 bool PassiveTelemetryTesterBase ::
-  isConnected_to_typedAliasStringReturnSync(FwIndexType portNum)
+  isConnected_to_typedAliasStringReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAliasStringReturnSync()),
@@ -1622,7 +1624,7 @@ bool PassiveTelemetryTesterBase ::
 }
 
 bool PassiveTelemetryTesterBase ::
-  isConnected_to_typedGuarded(FwIndexType portNum)
+  isConnected_to_typedGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedGuarded()),
@@ -1633,7 +1635,7 @@ bool PassiveTelemetryTesterBase ::
 }
 
 bool PassiveTelemetryTesterBase ::
-  isConnected_to_typedReturnGuarded(FwIndexType portNum)
+  isConnected_to_typedReturnGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedReturnGuarded()),
@@ -1644,7 +1646,7 @@ bool PassiveTelemetryTesterBase ::
 }
 
 bool PassiveTelemetryTesterBase ::
-  isConnected_to_typedReturnSync(FwIndexType portNum)
+  isConnected_to_typedReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedReturnSync()),
@@ -1655,7 +1657,7 @@ bool PassiveTelemetryTesterBase ::
 }
 
 bool PassiveTelemetryTesterBase ::
-  isConnected_to_typedSync(FwIndexType portNum)
+  isConnected_to_typedSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedSync()),
@@ -1664,6 +1666,8 @@ bool PassiveTelemetryTesterBase ::
 
   return this->m_to_typedSync[portNum].isConnected();
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Functions for testing telemetry

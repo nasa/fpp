@@ -1333,6 +1333,8 @@ class PassiveSerialComponentBase :
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
 
+#if !FW_DIRECT_PORT_CALLS
+
   protected:
 
     // ----------------------------------------------------------------------
@@ -1414,6 +1416,10 @@ class PassiveSerialComponentBase :
         const S& s //!< A struct
     );
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   protected:
 
     // ----------------------------------------------------------------------
@@ -1425,6 +1431,8 @@ class PassiveSerialComponentBase :
         FwIndexType portNum, //!< The port number
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
+
+#endif
 
   protected:
 

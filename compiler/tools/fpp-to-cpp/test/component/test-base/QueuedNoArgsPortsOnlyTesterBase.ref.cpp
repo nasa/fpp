@@ -353,8 +353,10 @@ U32 QueuedNoArgsPortsOnlyTesterBase ::
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
 
+#if !FW_DIRECT_PORT_CALLS
+
 bool QueuedNoArgsPortsOnlyTesterBase ::
-  isConnected_to_noArgsAsync(FwIndexType portNum)
+  isConnected_to_noArgsAsync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsAsync()),
@@ -365,7 +367,7 @@ bool QueuedNoArgsPortsOnlyTesterBase ::
 }
 
 bool QueuedNoArgsPortsOnlyTesterBase ::
-  isConnected_to_noArgsGuarded(FwIndexType portNum)
+  isConnected_to_noArgsGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsGuarded()),
@@ -376,7 +378,7 @@ bool QueuedNoArgsPortsOnlyTesterBase ::
 }
 
 bool QueuedNoArgsPortsOnlyTesterBase ::
-  isConnected_to_noArgsReturnGuarded(FwIndexType portNum)
+  isConnected_to_noArgsReturnGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnGuarded()),
@@ -387,7 +389,7 @@ bool QueuedNoArgsPortsOnlyTesterBase ::
 }
 
 bool QueuedNoArgsPortsOnlyTesterBase ::
-  isConnected_to_noArgsReturnSync(FwIndexType portNum)
+  isConnected_to_noArgsReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnSync()),
@@ -396,6 +398,8 @@ bool QueuedNoArgsPortsOnlyTesterBase ::
 
   return this->m_to_noArgsReturnSync[portNum].isConnected();
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // History functions

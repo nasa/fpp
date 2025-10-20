@@ -3088,6 +3088,8 @@ void QueuedGetProductsComponentBase ::
   // Default: no-op
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Invocation functions for special output ports
 // ----------------------------------------------------------------------
@@ -3137,6 +3139,10 @@ void QueuedGetProductsComponentBase ::
     buffer
   );
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Invocation functions for typed output ports
@@ -3346,6 +3352,8 @@ F32 QueuedGetProductsComponentBase ::
     s
   );
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Functions for managing data products

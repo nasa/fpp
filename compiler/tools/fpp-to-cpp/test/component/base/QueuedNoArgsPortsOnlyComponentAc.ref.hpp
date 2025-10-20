@@ -305,6 +305,8 @@ class QueuedNoArgsPortsOnlyComponentBase :
         FwIndexType portNum //!< The port number
     );
 
+#if !FW_DIRECT_PORT_CALLS
+
   protected:
 
     // ----------------------------------------------------------------------
@@ -320,6 +322,8 @@ class QueuedNoArgsPortsOnlyComponentBase :
     U32 noArgsReturnOut_out(
         FwIndexType portNum //!< The port number
     );
+
+#endif
 
   protected:
 

@@ -1529,8 +1529,10 @@ void PassiveEventsTesterBase ::
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
 
+#if !FW_DIRECT_PORT_CALLS
+
 bool PassiveEventsTesterBase ::
-  isConnected_to_cmdIn(FwIndexType portNum)
+  isConnected_to_cmdIn(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_cmdIn()),
@@ -1541,7 +1543,7 @@ bool PassiveEventsTesterBase ::
 }
 
 bool PassiveEventsTesterBase ::
-  isConnected_to_noArgsAliasStringReturnSync(FwIndexType portNum)
+  isConnected_to_noArgsAliasStringReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsAliasStringReturnSync()),
@@ -1552,7 +1554,7 @@ bool PassiveEventsTesterBase ::
 }
 
 bool PassiveEventsTesterBase ::
-  isConnected_to_noArgsGuarded(FwIndexType portNum)
+  isConnected_to_noArgsGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsGuarded()),
@@ -1563,7 +1565,7 @@ bool PassiveEventsTesterBase ::
 }
 
 bool PassiveEventsTesterBase ::
-  isConnected_to_noArgsReturnGuarded(FwIndexType portNum)
+  isConnected_to_noArgsReturnGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnGuarded()),
@@ -1574,7 +1576,7 @@ bool PassiveEventsTesterBase ::
 }
 
 bool PassiveEventsTesterBase ::
-  isConnected_to_noArgsReturnSync(FwIndexType portNum)
+  isConnected_to_noArgsReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnSync()),
@@ -1585,7 +1587,7 @@ bool PassiveEventsTesterBase ::
 }
 
 bool PassiveEventsTesterBase ::
-  isConnected_to_noArgsStringReturnSync(FwIndexType portNum)
+  isConnected_to_noArgsStringReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsStringReturnSync()),
@@ -1596,7 +1598,7 @@ bool PassiveEventsTesterBase ::
 }
 
 bool PassiveEventsTesterBase ::
-  isConnected_to_noArgsSync(FwIndexType portNum)
+  isConnected_to_noArgsSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsSync()),
@@ -1607,7 +1609,7 @@ bool PassiveEventsTesterBase ::
 }
 
 bool PassiveEventsTesterBase ::
-  isConnected_to_typedAliasGuarded(FwIndexType portNum)
+  isConnected_to_typedAliasGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAliasGuarded()),
@@ -1618,7 +1620,7 @@ bool PassiveEventsTesterBase ::
 }
 
 bool PassiveEventsTesterBase ::
-  isConnected_to_typedAliasReturnSync(FwIndexType portNum)
+  isConnected_to_typedAliasReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAliasReturnSync()),
@@ -1629,7 +1631,7 @@ bool PassiveEventsTesterBase ::
 }
 
 bool PassiveEventsTesterBase ::
-  isConnected_to_typedAliasStringReturnSync(FwIndexType portNum)
+  isConnected_to_typedAliasStringReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAliasStringReturnSync()),
@@ -1640,7 +1642,7 @@ bool PassiveEventsTesterBase ::
 }
 
 bool PassiveEventsTesterBase ::
-  isConnected_to_typedGuarded(FwIndexType portNum)
+  isConnected_to_typedGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedGuarded()),
@@ -1651,7 +1653,7 @@ bool PassiveEventsTesterBase ::
 }
 
 bool PassiveEventsTesterBase ::
-  isConnected_to_typedReturnGuarded(FwIndexType portNum)
+  isConnected_to_typedReturnGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedReturnGuarded()),
@@ -1662,7 +1664,7 @@ bool PassiveEventsTesterBase ::
 }
 
 bool PassiveEventsTesterBase ::
-  isConnected_to_typedReturnSync(FwIndexType portNum)
+  isConnected_to_typedReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedReturnSync()),
@@ -1673,7 +1675,7 @@ bool PassiveEventsTesterBase ::
 }
 
 bool PassiveEventsTesterBase ::
-  isConnected_to_typedSync(FwIndexType portNum)
+  isConnected_to_typedSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedSync()),
@@ -1682,6 +1684,8 @@ bool PassiveEventsTesterBase ::
 
   return this->m_to_typedSync[portNum].isConnected();
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Functions for testing events

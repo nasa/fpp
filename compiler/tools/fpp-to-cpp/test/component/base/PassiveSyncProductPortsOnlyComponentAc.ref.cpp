@@ -251,6 +251,8 @@ void PassiveSyncProductPortsOnlyComponentBase ::
   );
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Invocation functions for special output ports
 // ----------------------------------------------------------------------
@@ -298,6 +300,8 @@ void PassiveSyncProductPortsOnlyComponentBase ::
     buffer
   );
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Calls for messages received on special input ports

@@ -92,8 +92,10 @@ PassiveSyncProductPortsOnlyTesterBase ::
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
 
+#if !FW_DIRECT_PORT_CALLS
+
 bool PassiveSyncProductPortsOnlyTesterBase ::
-  isConnected_to_productRecvIn(FwIndexType portNum)
+  isConnected_to_productRecvIn(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_productRecvIn()),
@@ -102,3 +104,5 @@ bool PassiveSyncProductPortsOnlyTesterBase ::
 
   return this->m_to_productRecvIn[portNum].isConnected();
 }
+
+#endif

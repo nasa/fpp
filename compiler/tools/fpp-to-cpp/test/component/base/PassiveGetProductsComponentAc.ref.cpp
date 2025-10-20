@@ -2138,6 +2138,8 @@ void PassiveGetProductsComponentBase ::
   );
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Invocation functions for special output ports
 // ----------------------------------------------------------------------
@@ -2187,6 +2189,10 @@ void PassiveGetProductsComponentBase ::
     buffer
   );
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Invocation functions for typed output ports
@@ -2396,6 +2402,8 @@ F32 PassiveGetProductsComponentBase ::
     s
   );
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Functions for managing data products

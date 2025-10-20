@@ -165,6 +165,8 @@ bool PassiveGetProductPortsOnlyComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Invocation functions for special output ports
 // ----------------------------------------------------------------------
@@ -214,3 +216,5 @@ void PassiveGetProductPortsOnlyComponentBase ::
     buffer
   );
 }
+
+#endif

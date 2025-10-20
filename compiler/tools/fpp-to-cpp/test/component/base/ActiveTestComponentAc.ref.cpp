@@ -3789,6 +3789,8 @@ namespace M {
     // Default: no-op
   }
 
+#if !FW_DIRECT_PORT_CALLS
+
   // ----------------------------------------------------------------------
   // Invocation functions for special output ports
   // ----------------------------------------------------------------------
@@ -3836,6 +3838,10 @@ namespace M {
       buffer
     );
   }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
   // ----------------------------------------------------------------------
   // Invocation functions for typed output ports
@@ -4045,6 +4051,8 @@ namespace M {
       s
     );
   }
+
+#endif
 
   // ----------------------------------------------------------------------
   // Internal interface base-class functions

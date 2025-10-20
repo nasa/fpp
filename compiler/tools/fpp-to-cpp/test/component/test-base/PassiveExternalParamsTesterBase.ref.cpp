@@ -1675,8 +1675,10 @@ void PassiveExternalParamsTesterBase ::
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
 
+#if !FW_DIRECT_PORT_CALLS
+
 bool PassiveExternalParamsTesterBase ::
-  isConnected_to_cmdIn(FwIndexType portNum)
+  isConnected_to_cmdIn(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_cmdIn()),
@@ -1687,7 +1689,7 @@ bool PassiveExternalParamsTesterBase ::
 }
 
 bool PassiveExternalParamsTesterBase ::
-  isConnected_to_noArgsAliasStringReturnSync(FwIndexType portNum)
+  isConnected_to_noArgsAliasStringReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsAliasStringReturnSync()),
@@ -1698,7 +1700,7 @@ bool PassiveExternalParamsTesterBase ::
 }
 
 bool PassiveExternalParamsTesterBase ::
-  isConnected_to_noArgsGuarded(FwIndexType portNum)
+  isConnected_to_noArgsGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsGuarded()),
@@ -1709,7 +1711,7 @@ bool PassiveExternalParamsTesterBase ::
 }
 
 bool PassiveExternalParamsTesterBase ::
-  isConnected_to_noArgsReturnGuarded(FwIndexType portNum)
+  isConnected_to_noArgsReturnGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnGuarded()),
@@ -1720,7 +1722,7 @@ bool PassiveExternalParamsTesterBase ::
 }
 
 bool PassiveExternalParamsTesterBase ::
-  isConnected_to_noArgsReturnSync(FwIndexType portNum)
+  isConnected_to_noArgsReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnSync()),
@@ -1731,7 +1733,7 @@ bool PassiveExternalParamsTesterBase ::
 }
 
 bool PassiveExternalParamsTesterBase ::
-  isConnected_to_noArgsStringReturnSync(FwIndexType portNum)
+  isConnected_to_noArgsStringReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsStringReturnSync()),
@@ -1742,7 +1744,7 @@ bool PassiveExternalParamsTesterBase ::
 }
 
 bool PassiveExternalParamsTesterBase ::
-  isConnected_to_noArgsSync(FwIndexType portNum)
+  isConnected_to_noArgsSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsSync()),
@@ -1753,7 +1755,7 @@ bool PassiveExternalParamsTesterBase ::
 }
 
 bool PassiveExternalParamsTesterBase ::
-  isConnected_to_typedAliasGuarded(FwIndexType portNum)
+  isConnected_to_typedAliasGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAliasGuarded()),
@@ -1764,7 +1766,7 @@ bool PassiveExternalParamsTesterBase ::
 }
 
 bool PassiveExternalParamsTesterBase ::
-  isConnected_to_typedAliasReturnSync(FwIndexType portNum)
+  isConnected_to_typedAliasReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAliasReturnSync()),
@@ -1775,7 +1777,7 @@ bool PassiveExternalParamsTesterBase ::
 }
 
 bool PassiveExternalParamsTesterBase ::
-  isConnected_to_typedAliasStringReturnSync(FwIndexType portNum)
+  isConnected_to_typedAliasStringReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAliasStringReturnSync()),
@@ -1786,7 +1788,7 @@ bool PassiveExternalParamsTesterBase ::
 }
 
 bool PassiveExternalParamsTesterBase ::
-  isConnected_to_typedGuarded(FwIndexType portNum)
+  isConnected_to_typedGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedGuarded()),
@@ -1797,7 +1799,7 @@ bool PassiveExternalParamsTesterBase ::
 }
 
 bool PassiveExternalParamsTesterBase ::
-  isConnected_to_typedReturnGuarded(FwIndexType portNum)
+  isConnected_to_typedReturnGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedReturnGuarded()),
@@ -1808,7 +1810,7 @@ bool PassiveExternalParamsTesterBase ::
 }
 
 bool PassiveExternalParamsTesterBase ::
-  isConnected_to_typedReturnSync(FwIndexType portNum)
+  isConnected_to_typedReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedReturnSync()),
@@ -1819,7 +1821,7 @@ bool PassiveExternalParamsTesterBase ::
 }
 
 bool PassiveExternalParamsTesterBase ::
-  isConnected_to_typedSync(FwIndexType portNum)
+  isConnected_to_typedSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedSync()),
@@ -1828,6 +1830,8 @@ bool PassiveExternalParamsTesterBase ::
 
   return this->m_to_typedSync[portNum].isConnected();
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Functions for testing commands

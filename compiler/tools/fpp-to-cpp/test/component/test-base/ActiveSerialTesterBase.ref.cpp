@@ -2512,8 +2512,10 @@ void ActiveSerialTesterBase ::
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
 
+#if !FW_DIRECT_PORT_CALLS
+
 bool ActiveSerialTesterBase ::
-  isConnected_to_cmdIn(FwIndexType portNum)
+  isConnected_to_cmdIn(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_cmdIn()),
@@ -2524,7 +2526,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_aliasTypedAsync(FwIndexType portNum)
+  isConnected_to_aliasTypedAsync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_aliasTypedAsync()),
@@ -2535,7 +2537,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_noArgsAliasStringReturnSync(FwIndexType portNum)
+  isConnected_to_noArgsAliasStringReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsAliasStringReturnSync()),
@@ -2546,7 +2548,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_noArgsAsync(FwIndexType portNum)
+  isConnected_to_noArgsAsync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsAsync()),
@@ -2557,7 +2559,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_noArgsGuarded(FwIndexType portNum)
+  isConnected_to_noArgsGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsGuarded()),
@@ -2568,7 +2570,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_noArgsReturnGuarded(FwIndexType portNum)
+  isConnected_to_noArgsReturnGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnGuarded()),
@@ -2579,7 +2581,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_noArgsReturnSync(FwIndexType portNum)
+  isConnected_to_noArgsReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsReturnSync()),
@@ -2590,7 +2592,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_noArgsStringReturnSync(FwIndexType portNum)
+  isConnected_to_noArgsStringReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsStringReturnSync()),
@@ -2601,7 +2603,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_noArgsSync(FwIndexType portNum)
+  isConnected_to_noArgsSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_noArgsSync()),
@@ -2612,7 +2614,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_typedAliasGuarded(FwIndexType portNum)
+  isConnected_to_typedAliasGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAliasGuarded()),
@@ -2623,7 +2625,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_typedAliasReturnSync(FwIndexType portNum)
+  isConnected_to_typedAliasReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAliasReturnSync()),
@@ -2634,7 +2636,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_typedAliasStringReturnSync(FwIndexType portNum)
+  isConnected_to_typedAliasStringReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAliasStringReturnSync()),
@@ -2645,7 +2647,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_typedAsync(FwIndexType portNum)
+  isConnected_to_typedAsync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAsync()),
@@ -2656,7 +2658,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_typedAsyncAssert(FwIndexType portNum)
+  isConnected_to_typedAsyncAssert(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAsyncAssert()),
@@ -2667,7 +2669,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_typedAsyncBlockPriority(FwIndexType portNum)
+  isConnected_to_typedAsyncBlockPriority(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAsyncBlockPriority()),
@@ -2678,7 +2680,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_typedAsyncDropPriority(FwIndexType portNum)
+  isConnected_to_typedAsyncDropPriority(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedAsyncDropPriority()),
@@ -2689,7 +2691,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_typedGuarded(FwIndexType portNum)
+  isConnected_to_typedGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedGuarded()),
@@ -2700,7 +2702,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_typedReturnGuarded(FwIndexType portNum)
+  isConnected_to_typedReturnGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedReturnGuarded()),
@@ -2711,7 +2713,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_typedReturnSync(FwIndexType portNum)
+  isConnected_to_typedReturnSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedReturnSync()),
@@ -2722,7 +2724,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_typedSync(FwIndexType portNum)
+  isConnected_to_typedSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_typedSync()),
@@ -2733,7 +2735,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_serialAsync(FwIndexType portNum)
+  isConnected_to_serialAsync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_serialAsync()),
@@ -2744,7 +2746,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_serialAsyncAssert(FwIndexType portNum)
+  isConnected_to_serialAsyncAssert(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_serialAsyncAssert()),
@@ -2755,7 +2757,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_serialAsyncBlockPriority(FwIndexType portNum)
+  isConnected_to_serialAsyncBlockPriority(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_serialAsyncBlockPriority()),
@@ -2766,7 +2768,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_serialAsyncDropPriority(FwIndexType portNum)
+  isConnected_to_serialAsyncDropPriority(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_serialAsyncDropPriority()),
@@ -2777,7 +2779,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_serialGuarded(FwIndexType portNum)
+  isConnected_to_serialGuarded(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_serialGuarded()),
@@ -2788,7 +2790,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_serialSync(FwIndexType portNum)
+  isConnected_to_serialSync(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_serialSync()),
@@ -2797,6 +2799,8 @@ bool ActiveSerialTesterBase ::
 
   return this->m_to_serialSync[portNum].isConnected();
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Functions for testing commands

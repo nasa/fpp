@@ -129,45 +129,49 @@ case class ComponentOutputPorts(
   }
 
   def getInvokers(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    addAccessTagAndComment(
-      "protected",
-      s"Invocation functions for ${getPortListTypeString(ports)} output ports",
-      ports.map(p => {
-        val invokeFunction = p.getType.get match {
-          case PortInstance.Type.DefPort(_) => "invoke"
-          case PortInstance.Type.Serial => "invokeSerial"
-        }
+    def getInvokerForPortInstance(p: PortInstance) = {
+      val invokeFunction = p.getType.get match {
+        case PortInstance.Type.DefPort(_) => "invoke"
+        case PortInstance.Type.Serial => "invokeSerial"
+      }
 
-        functionClassMember(
-          Some(s"Invoke output port ${p.getUnqualifiedName}"),
-          outputPortInvokerName(p),
-          portNumParam :: getPortFunctionParams(p),
-          getReturnType(p),
-          List.concat(
-            lines(
-              s"""|FW_ASSERT(
-                  |  (0 <= portNum) && (portNum < this->${portNumGetterName(p)}()),
-                  |  static_cast<FwAssertArgType>(portNum)
-                  |);
-                  |
-                  |FW_ASSERT(
-                  |  this->${portVariableName(p)}[portNum].isConnected(),
-                  |  static_cast<FwAssertArgType>(portNum)
-                  |);
-                  |
-                  |"""
+      functionClassMember(
+        Some(s"Invoke output port ${p.getUnqualifiedName}"),
+        outputPortInvokerName(p),
+        portNumParam :: getPortFunctionParams(p),
+        getReturnType(p),
+        List.concat(
+          lines(
+            s"""|FW_ASSERT(
+                |  (0 <= portNum) && (portNum < this->${portNumGetterName(p)}()),
+                |  static_cast<FwAssertArgType>(portNum)
+                |);
+                |
+                |FW_ASSERT(
+                |  this->${portVariableName(p)}[portNum].isConnected(),
+                |  static_cast<FwAssertArgType>(portNum)
+                |);
+                |"""
+          ),
+          writeFunctionCall(
+            addReturnKeyword(
+              s"this->${portVariableName(p)}[portNum].$invokeFunction",
+              p
             ),
-            writeFunctionCall(
-              addReturnKeyword(
-                s"this->${portVariableName(p)}[portNum].$invokeFunction",
-                p
-              ),
-              Nil,
-              getPortParams(p).map(_._1)
-            )
+            Nil,
+            getPortParams(p).map(_._1)
           )
         )
-      })
+      )
+    }
+    wrapClassMembersInIfDirective(
+      "#if !FW_DIRECT_PORT_CALLS",
+      addAccessTagAndComment(
+        "protected",
+        s"Invocation functions for ${getPortListTypeString(ports)} output ports",
+        ports.map(getInvokerForPortInstance)
+      ),
+      CppDoc.Lines.Both
     )
   }
 
