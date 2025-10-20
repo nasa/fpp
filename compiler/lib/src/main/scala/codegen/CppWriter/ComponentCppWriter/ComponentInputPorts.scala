@@ -10,24 +10,6 @@ case class ComponentInputPorts(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  /** Generates the port handler functions for a component base class or tester base class */
-  def generateHandlers(
-    ports: List[PortInstance],
-    getPortName: String => String,
-    getHandlerName: String => String
-  ): List[CppDoc.Class.Member] = {
-    ports.map(p =>
-      functionClassMember(
-        Some(s"Handler for input port ${getPortName(p.getUnqualifiedName)}"),
-        getHandlerName(p.getUnqualifiedName),
-        portNumParam :: getPortFunctionParams(p),
-        getPortReturnTypeAsCppDocType(p),
-        Nil,
-        CppDoc.Function.PureVirtual
-      )
-    )
-  }
-
   /** Generates the port getter functions for a component base class or tester base class */
   def generateGetters(
     ports: List[PortInstance],
@@ -53,6 +35,85 @@ case class ComponentInputPorts(
       )
     )
   )
+
+  /** Generates the port handler functions for a component base class or tester base class */
+  def generateHandlers(
+    ports: List[PortInstance],
+    getPortName: String => String,
+    getHandlerName: String => String
+  ): List[CppDoc.Class.Member] = {
+    ports.map(p =>
+      functionClassMember(
+        Some(s"Handler for input port ${getPortName(p.getUnqualifiedName)}"),
+        getHandlerName(p.getUnqualifiedName),
+        portNumParam :: getPortFunctionParams(p),
+        getPortReturnTypeAsCppDocType(p),
+        Nil,
+        CppDoc.Function.PureVirtual
+      )
+    )
+  }
+
+  /** Gets the callback functions for a component base class */
+  def getCallbacks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    val functions = mapPorts(ports, p => List(getCallbackForPort(p)))
+    addAccessTagAndComment(
+      "private",
+      s"Calls for messages received on ${getPortListTypeString(ports)} input ports",
+      guardedList (!ports.isEmpty) (
+        ports.head.getType.get match {
+          case PortInstance.Type.DefPort(_) => functions
+          case PortInstance.Type.Serial =>
+            wrapClassMembersInIfDirective("#if FW_PORT_SERIALIZATION", functions)
+        }
+      )
+    )
+  }
+
+  /** Gets the handler base functions for a component base class */
+  def getHandlerBases(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    lazy val comment =
+      s"""|Port handler base-class functions for ${getPortListTypeString(ports)} input ports
+          |
+          |Call these functions directly to bypass the corresponding ports
+          |"""
+    val handlerBases = ports.map(getHandlerBaseForPort)
+    guardedList (!handlerBases.isEmpty) (
+      linesClassMember(
+        lines(
+          """|
+             |#if FW_DIRECT_PORT_CALLS
+             |public:
+             |#else
+             |protected:
+             |#endif
+             |"""
+        ).map(_.indentOut(2))
+      ) ::
+      addComment(comment, handlerBases)
+    )
+  }
+
+  /** Gets the overflow hooks for a component base class */
+  def getOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "protected",
+      s"""|Hooks for ${getPortListTypeString(ports)} async input ports
+          |
+          |Each of these functions is invoked when placing a message on the
+          |queue would cause the queue to overlow. You should override them to provide
+          |specific overflow behavior.
+          |""",
+      ports.map(
+        p => getVirtualOverflowHook(
+          p.getUnqualifiedName,
+          MessageType.Port,
+          portNumParam :: getPortFunctionParams(p)
+        )
+      ),
+      CppDoc.Lines.Hpp
+    )
+  }
 
   /** Gets the port getter functions for a component base class */
   def getGetters(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
@@ -85,27 +146,26 @@ case class ComponentInputPorts(
     )
   }
 
-  /** Gets the handler base functions for a component base class */
-  def getHandlerBases(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    lazy val comment =
-      s"""|Port handler base-class functions for ${getPortListTypeString(ports)} input ports
+  /** Gets the pre-message hooks for a component base class */
+  def getPreMsgHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "protected",
+      s"""|Pre-message hooks for ${getPortListTypeString(ports)} async input ports
           |
-          |Call these functions directly to bypass the corresponding ports
-          |"""
-    val handlerBases = ports.map(getHandlerBaseForPort)
-    guardedList (!handlerBases.isEmpty) (
-      linesClassMember(
-        lines(
-          """|
-             |#if FW_DIRECT_PORT_CALLS
-             |public:
-             |#else
-             |protected:
-             |#endif
-             |"""
-        ).map(_.indentOut(2))
-      ) ::
-      addComment(comment, handlerBases)
+          |Each of these functions is invoked just before processing a message
+          |on the corresponding port. By default, they do nothing. You can
+          |override them to provide specific pre-message behavior.
+          |""",
+      ports.map(p =>
+        functionClassMember(
+          Some(s"Pre-message hook for async input port ${p.getUnqualifiedName}"),
+          inputPortHookName(p.getUnqualifiedName),
+          portNumParam :: getPortFunctionParams(p),
+          CppDoc.Type("void"),
+          lines("// Default: no-op"),
+          CppDoc.Function.Virtual
+        )
+      )
     )
   }
 
@@ -135,64 +195,6 @@ case class ComponentInputPorts(
     CppDoc.Function.Static
   )
 
-  /** Gets the callback functions for a component base class */
-  def getCallbacks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    val functions = mapPorts(ports, p => List(getCallbackForPort(p)))
-    addAccessTagAndComment(
-      "private",
-      s"Calls for messages received on ${getPortListTypeString(ports)} input ports",
-      guardedList (!ports.isEmpty) (
-        ports.head.getType.get match {
-          case PortInstance.Type.DefPort(_) => functions
-          case PortInstance.Type.Serial =>
-            wrapClassMembersInIfDirective("#if FW_PORT_SERIALIZATION", functions)
-        }
-      )
-    )
-  }
-
-  def getPreMsgHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    addAccessTagAndComment(
-      "protected",
-      s"""|Pre-message hooks for ${getPortListTypeString(ports)} async input ports
-          |
-          |Each of these functions is invoked just before processing a message
-          |on the corresponding port. By default, they do nothing. You can
-          |override them to provide specific pre-message behavior.
-          |""",
-      ports.map(p =>
-        functionClassMember(
-          Some(s"Pre-message hook for async input port ${p.getUnqualifiedName}"),
-          inputPortHookName(p.getUnqualifiedName),
-          portNumParam :: getPortFunctionParams(p),
-          CppDoc.Type("void"),
-          lines("// Default: no-op"),
-          CppDoc.Function.Virtual
-        )
-      )
-    )
-  }
-
-  def getOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    addAccessTagAndComment(
-      "protected",
-      s"""|Hooks for ${getPortListTypeString(ports)} async input ports
-          |
-          |Each of these functions is invoked when placing a message on the
-          |queue would cause the queue to overlow. You should override them to provide
-          |specific overflow behavior.
-          |""",
-      ports.map(
-        p => getVirtualOverflowHook(
-          p.getUnqualifiedName,
-          MessageType.Port,
-          portNumParam :: getPortFunctionParams(p)
-        )
-      ),
-      CppDoc.Lines.Hpp
-    )
-  }
-
   // Writes an async handler call
   private def writeAsyncHandlerCall(
       p: PortInstance,
@@ -204,7 +206,6 @@ case class ComponentInputPorts(
       case PortInstance.Type.DefPort(_) => "msg"
       case PortInstance.Type.Serial => "msgSerBuff"
     }
-
     intersperseBlankLines(
       List(
         p.getType.get match {
@@ -394,12 +395,9 @@ case class ComponentInputPorts(
   // Writes the handler call for a general input port
   private def writeInputPortHandlerCall(p: PortInstance) = {
     val params = getPortParams(p)
-    val returnKeyword = getPortReturnType(p) match {
-      case Some(_) => "return "
-      case None => ""
-    }
-
-    List(
+    val returnPrefix = getPortReturnType(p).map(_ => "return ").getOrElse("")
+    val handlerBaseName = inputPortHandlerBaseName(p.getUnqualifiedName)
+    List.concat(
       lines(
         s"""|FW_ASSERT(callComp);
             |$componentClassName* compPtr = static_cast<$componentClassName*>(callComp);
@@ -407,11 +405,11 @@ case class ComponentInputPorts(
             |"""
       ),
       writeFunctionCall(
-        s"${returnKeyword}compPtr->${inputPortHandlerBaseName(p.getUnqualifiedName)}",
+        s"${returnPrefix}compPtr->$handlerBaseName",
         List("portNum"),
         params.map(_._1)
       )
-    ).flatten
+    )
   }
 
   // Writes the handler call for a command input port
