@@ -10,6 +10,25 @@ case class ComponentOutputPorts(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
+  /** Generates connection status queries for a component or tester base class */
+  def generateConnectionStatusQueries(
+    ports: List[PortInstance],
+    portName: String => String,
+    getIsConnectedName: String => String,
+    getNumGetterName: PortInstance => String,
+    getVariableName: PortInstance => String
+  ): List[CppDoc.Class.Member] = mapPorts(
+    ports,
+    p => List(
+      generateConnectionStatusQuery(
+        portName(p.getUnqualifiedName),
+        getIsConnectedName(p.getUnqualifiedName),
+        getNumGetterName(p),
+        getVariableName(p)
+      )
+    )
+  )
+
   /** Generates the connectors for a component or tester base class.
    *  Ports may be typed or serial. */
   def generateConnectors(
@@ -32,6 +51,19 @@ case class ComponentOutputPorts(
     )
   )
 
+  /** Gets component base-class connectors for a list of serial (untyped) ports */
+  def getSerialConnectors(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    val typeString = getPortListTypeString(ports)
+    wrapClassMembersInIfDirective(
+      "#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION",
+      addAccessTagAndComment(
+        "public",
+        s"Connect serial input ports to $typeString output ports",
+        mapPorts(ports, getSerialConnectorForPort)
+      )
+    )
+  }
+
   /** Gets component base-class connectors for a list of typed ports */
   def getTypedConnectors(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     val typeStr = getPortListTypeString(ports)
@@ -52,19 +84,6 @@ case class ComponentOutputPorts(
     )
   }
 
-  /** Gets component base-class connectors for a list of serial (untyped) ports */
-  def getSerialConnectors(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    val typeString = getPortListTypeString(ports)
-    wrapClassMembersInIfDirective(
-      "#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION",
-      addAccessTagAndComment(
-        "public",
-        s"Connect serial input ports to $typeString output ports",
-        mapPorts(ports, getSerialConnectorForPort)
-      )
-    )
-  }
-
   /** Gets component base-class invokers for a list of ports */
   def getInvokers(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     val typeString = getPortListTypeString(ports)
@@ -78,25 +97,6 @@ case class ComponentOutputPorts(
       CppDoc.Lines.Both
     )
   }
-
-  /** Generates connection status queries for a component or tester base class */
-  def generateConnectionStatusQueries(
-    ports: List[PortInstance],
-    portName: String => String,
-    getIsConnectedName: String => String,
-    getNumGetterName: PortInstance => String,
-    getVariableName: PortInstance => String
-  ): List[CppDoc.Class.Member] = mapPorts(
-    ports,
-    p => List(
-      generateConnectionStatusQuery(
-        portName(p.getUnqualifiedName),
-        getIsConnectedName(p.getUnqualifiedName),
-        getNumGetterName(p),
-        getVariableName(p)
-      )
-    )
-  )
 
   /** Gets the connection status queries for a component base class */
   def getConnectionStatusQueries(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
@@ -117,76 +117,34 @@ case class ComponentOutputPorts(
     )
   }
 
-  // Gets an invoker for a port instance
-  private def getInvokerForPortInstance(p: PortInstance) = {
-    val invokeFunction = p.getType.get match {
-      case PortInstance.Type.DefPort(_) => "invoke"
-      case PortInstance.Type.Serial => "invokeSerial"
-    }
-    functionClassMember(
-      Some(s"Invoke output port ${p.getUnqualifiedName}"),
-      outputPortInvokerName(p),
-      portNumParam :: getPortFunctionParams(p),
-      getReturnType(p),
-      List.concat(
-        lines(
-          s"""|FW_ASSERT(
-              |  (0 <= portNum) && (portNum < this->${portNumGetterName(p)}()),
-              |  static_cast<FwAssertArgType>(portNum)
-              |);
-              |
-              |FW_ASSERT(
-              |  this->${portVariableName(p)}[portNum].isConnected(),
-              |  static_cast<FwAssertArgType>(portNum)
-              |);
-              |"""
-        ),
-        writeFunctionCall(
-          addReturnKeyword(
-            s"this->${portVariableName(p)}[portNum].$invokeFunction",
-            p
-          ),
-          Nil,
-          getPortParams(p).map(_._1)
-        )
-      )
-    )
-  }
-
-  // Gets the serial connector for a port
-  private def getSerialConnectorForPort(p: PortInstance) =
-    getPortReturnType(p) match {
-      case None => List(
-        functionClassMember(
-          Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
-          outputPortConnectorName(p.getUnqualifiedName),
-          List(
-            portNumParam,
-            CppDoc.Function.Param(
-              p.getType.get match {
-                case PortInstance.Type.DefPort(_) =>
-                  CppDoc.Type("Fw::InputSerializePort*")
-                case PortInstance.Type.Serial =>
-                  CppDoc.Type("Fw::InputPortBase*")
-              },
-              "port",
-              Some("The port")
-            )
-          ),
-          CppDoc.Type("void"),
-          lines(
-            s"""|FW_ASSERT(
-                |  (0 <= portNum) && (portNum < this->${portNumGetterName(p)}()),
-                |  static_cast<FwAssertArgType>(portNum)
-                |);
-                |
-                |this->${portVariableName(p)}[portNum].registerSerialPort(port);
-                |"""
-          ),
-        )
-      )
-      case Some(_) => Nil
-    }
+  // Generates a connection status query
+  private def generateConnectionStatusQuery(
+    portName: String,
+    isConnectedName: String,
+    numGetterName: String,
+    variableName: String
+  ) = functionClassMember(
+    Some(
+      s"""|Check whether port $portName is connected
+          |
+          |\\return Whether port $portName is connected
+          |"""
+    ),
+    isConnectedName,
+    List(portNumParam),
+    CppDoc.Type("bool"),
+    lines(
+      s"""|FW_ASSERT(
+          |  (0 <= portNum) && (portNum < this->$numGetterName()),
+          |  static_cast<FwAssertArgType>(portNum)
+          |);
+          |
+          |return this->$variableName[portNum].isConnected();
+          |"""
+    ),
+    CppDoc.Function.NonSV,
+    CppDoc.Function.Const
+  )
 
   // Generates a connector
   private def generateConnector(
@@ -232,46 +190,87 @@ case class ComponentOutputPorts(
     )
   }
 
-  // Generates a connection status query
-  private def generateConnectionStatusQuery(
-    portName: String,
-    isConnectedName: String,
-    numGetterName: String,
-    variableName: String
-  ) = functionClassMember(
-    Some(
-      s"""|Check whether port $portName is connected
-          |
-          |\\return Whether port $portName is connected
-          |"""
-    ),
-    isConnectedName,
-    List(portNumParam),
-    CppDoc.Type("bool"),
-    lines(
-      s"""|FW_ASSERT(
-          |  (0 <= portNum) && (portNum < this->$numGetterName()),
-          |  static_cast<FwAssertArgType>(portNum)
-          |);
-          |
-          |return this->$variableName[portNum].isConnected();
-          |"""
-    ),
-    CppDoc.Function.NonSV,
-    CppDoc.Function.Const
-  )
-
   // Gets a port return type as a CppDoc Type
   private def getReturnType(p: PortInstance): CppDoc.Type =
     p.getType.get match {
       case PortInstance.Type.DefPort(_) => getPortReturnTypeAsCppDocType(p)
-      case PortInstance.Type.Serial => CppDoc.Type(
-        "Fw::SerializeStatus"
-      )
+      case PortInstance.Type.Serial => CppDoc.Type("Fw::SerializeStatus")
     }
+
+  // Gets an invoker for a port instance
+  private def getInvokerForPortInstance(p: PortInstance) = {
+    val invokeFunction = p.getType.get match {
+      case PortInstance.Type.DefPort(_) => "invoke"
+      case PortInstance.Type.Serial => "invokeSerial"
+    }
+    functionClassMember(
+      Some(s"Invoke output port ${p.getUnqualifiedName}"),
+      outputPortInvokerName(p),
+      portNumParam :: getPortFunctionParams(p),
+      getReturnType(p),
+      List.concat(
+        lines(
+          s"""|FW_ASSERT(
+              |  (0 <= portNum) && (portNum < this->${portNumGetterName(p)}()),
+              |  static_cast<FwAssertArgType>(portNum)
+              |);
+              |
+              |FW_ASSERT(
+              |  this->${portVariableName(p)}[portNum].isConnected(),
+              |  static_cast<FwAssertArgType>(portNum)
+              |);
+              |"""
+        ),
+        writeFunctionCall(
+          addReturnKeyword(
+            s"this->${portVariableName(p)}[portNum].$invokeFunction",
+            p
+          ),
+          Nil,
+          getPortParams(p).map(_._1)
+        )
+      )
+    )
+  }
 
   // Gets the name for an output port connection status function
   private def outputPortIsConnectedName(name: String) =
     s"isConnected_${name}_OutputPort"
+
+  // Gets the serial connector for a port
+  private def getSerialConnectorForPort(p: PortInstance) =
+    getPortReturnType(p) match {
+      case None => List(
+        functionClassMember(
+          Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
+          outputPortConnectorName(p.getUnqualifiedName),
+          List(
+            portNumParam,
+            CppDoc.Function.Param(
+              p.getType.get match {
+                case PortInstance.Type.DefPort(_) =>
+                  CppDoc.Type("Fw::InputSerializePort*")
+                case PortInstance.Type.Serial =>
+                  CppDoc.Type("Fw::InputPortBase*")
+              },
+              "port",
+              Some("The port")
+            )
+          ),
+          CppDoc.Type("void"),
+          lines(
+            s"""|FW_ASSERT(
+                |  (0 <= portNum) && (portNum < this->${portNumGetterName(p)}()),
+                |  static_cast<FwAssertArgType>(portNum)
+                |);
+                |
+                |this->${portVariableName(p)}[portNum].registerSerialPort(port);
+                |"""
+          ),
+        )
+      )
+      case Some(_) => Nil
+    }
+
 
 }
