@@ -359,10 +359,7 @@ case class ComponentInputPorts(
                 |);
                 |"""
           ),
-          returnType match {
-            case Some(tn) => lines(s"$tn retVal;")
-            case None => Nil
-          },
+          returnType.map(tn => lines(s"$tn retVal;")).getOrElse(Nil),
           p match {
             case i: PortInstance.General => i.kind match {
               case PortInstance.General.Kind.AsyncInput(priority, queueFull) =>
@@ -383,10 +380,7 @@ case class ComponentInputPorts(
             }
             case _ => Nil
           },
-          returnType match {
-            case Some(_) => lines("return retVal;")
-            case None => Nil
-          }
+          returnType.map(_ => lines("return retVal;")).getOrElse(Nil)
         )
       )
     )
