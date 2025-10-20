@@ -10,8 +10,7 @@ case class ComponentInputPorts(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  private val className = componentClassName
-
+  /** Generates port handlers for a component base class or tester base class */
   def generateHandlers(
     ports: List[PortInstance],
     portName: String => String,
@@ -29,40 +28,59 @@ case class ComponentInputPorts(
     )
   }
 
+  // Generates the getter function for a port
+  private def generateGetterForPort(
+    p: PortInstance,
+    portType: String,
+    portName:String,
+    getterName: String,
+    numGetterName: String,
+    variableName: String
+  ) = functionClassMember(
+    Some(
+      s"""|Get $portType port at index
+          |
+          |\\return $portName[portNum]
+          |"""
+    ),
+    getterName,
+    List(portNumParam),
+    CppDoc.Type(s"${getQualifiedPortTypeName(p, PortInstance.Direction.Input)}*"),
+    lines(
+      s"""|FW_ASSERT(
+          |  (0 <= portNum) && (portNum < this->$numGetterName()),
+          |  static_cast<FwAssertArgType>(portNum)
+          |);
+          |
+          |return &this->$variableName[portNum];
+          |"""
+    )
+  )
+
+  /** Generates the port getters for a component base class or tester base class */
   def generateGetters(
     ports: List[PortInstance],
     portType: String,
-    portName: String => String,
-    getterName: String => String,
-    numGetterName: PortInstance => String,
-    variableName: PortInstance => String
+    getPortName: String => String,
+    getGetterName: String => String,
+    getNumGetterName: PortInstance => String,
+    getVariableName: PortInstance => String
   ): List[CppDoc.Class.Member] = addAccessTagAndComment(
     "public",
     s"Getters for $portType ports",
-    mapPorts(ports, p => List(
-      functionClassMember(
-        Some(
-          s"""|Get $portType port at index
-              |
-              |\\return ${portName(p.getUnqualifiedName)}[portNum]
-              |"""
-        ),
-        getterName(p.getUnqualifiedName),
-        List(
-          portNumParam
-        ),
-        CppDoc.Type(s"${getQualifiedPortTypeName(p, PortInstance.Direction.Input)}*"),
-        lines(
-          s"""|FW_ASSERT(
-              |  (0 <= portNum) && (portNum < this->${numGetterName(p)}()),
-              |  static_cast<FwAssertArgType>(portNum)
-              |);
-              |
-              |return &this->${variableName(p)}[portNum];
-              |"""
+    mapPorts(
+      ports,
+      p => List(
+        generateGetterForPort(
+          p,
+          portType,
+          getPortName(p.getUnqualifiedName),
+          getGetterName(p.getUnqualifiedName),
+          getNumGetterName(p),
+          getVariableName(p)
         )
       )
-    ))
+    )
   )
 
   def getGetters(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
@@ -294,7 +312,7 @@ case class ComponentInputPorts(
       List(
         lines(
           s"""|FW_ASSERT(callComp);
-              |$className* compPtr = static_cast<$className*>(callComp);
+              |$componentClassName* compPtr = static_cast<$componentClassName*>(callComp);
               |
               |"""
         ),
@@ -316,7 +334,7 @@ case class ComponentInputPorts(
       else List(
         lines(
           s"""|FW_ASSERT(callComp);
-              |$className* compPtr = static_cast<$className*>(callComp);
+              |$componentClassName* compPtr = static_cast<$componentClassName*>(callComp);
               |
               |const U32 idBase = callComp->getIdBase();
               |FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
