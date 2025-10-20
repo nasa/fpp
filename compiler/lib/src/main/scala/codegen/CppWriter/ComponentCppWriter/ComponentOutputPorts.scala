@@ -66,48 +66,15 @@ case class ComponentOutputPorts(
     addAccessTagAndComment(
       "public",
       comment,
-      mapPorts(ports, p => {
-        generateConnector(
+      mapPorts(
+        ports,
+        p => generateConnector(
           p,
           getConnectorName(p.getUnqualifiedName),
           getNumGetterName(p),
           getVariableName(p)
         )
-//        val connectionFunction = p.getType.get match {
-//          case PortInstance.Type.DefPort(_) => "addCallPort"
-//          case PortInstance.Type.Serial => "registerSerialPort"
-//        }
-//
-//        List(
-//          functionClassMember(
-//            Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
-//            connectorName(p.getUnqualifiedName),
-//            List(
-//              portNumParam,
-//              CppDoc.Function.Param(
-//                p.getType.get match {
-//                  case PortInstance.Type.DefPort(_) =>
-//                    CppDoc.Type(s"${getQualifiedPortTypeName(p, PortInstance.Direction.Input)}*")
-//                  case PortInstance.Type.Serial =>
-//                    CppDoc.Type("Fw::InputSerializePort*")
-//                },
-//                "port",
-//                Some("The input port")
-//              )
-//            ),
-//            CppDoc.Type("void"),
-//            lines(
-//              s"""|FW_ASSERT(
-//                  |  (0 <= portNum) && (portNum < this->${numGetterName(p)}()),
-//                  |  static_cast<FwAssertArgType>(portNum)
-//                  |);
-//                  |
-//                  |this->${variableName(p)}[portNum].$connectionFunction(port);
-//                  |"""
-//            )
-//          )
-//        )
-      })
+      )
     )
   }
 
