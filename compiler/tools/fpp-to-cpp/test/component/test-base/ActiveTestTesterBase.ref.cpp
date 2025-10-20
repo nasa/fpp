@@ -2265,8 +2265,6 @@ namespace M {
   // Connection status queries for to ports
   // ----------------------------------------------------------------------
 
-#if !FW_DIRECT_PORT_CALLS
-
   bool ActiveTestTesterBase ::
     isConnected_to_cmdIn(FwIndexType portNum) const
   {
@@ -2497,8 +2495,6 @@ namespace M {
 
     return this->m_to_typedSync[portNum].isConnected();
   }
-
-#endif
 
   // ----------------------------------------------------------------------
   // Functions for testing commands

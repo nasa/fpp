@@ -1532,8 +1532,6 @@ void PassiveCommandsTesterBase ::
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
 
-#if !FW_DIRECT_PORT_CALLS
-
 bool PassiveCommandsTesterBase ::
   isConnected_to_cmdIn(FwIndexType portNum) const
 {
@@ -1687,8 +1685,6 @@ bool PassiveCommandsTesterBase ::
 
   return this->m_to_typedSync[portNum].isConnected();
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Functions for testing commands

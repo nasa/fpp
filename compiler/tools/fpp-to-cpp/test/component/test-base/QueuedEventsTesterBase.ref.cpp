@@ -1878,8 +1878,6 @@ void QueuedEventsTesterBase ::
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
 
-#if !FW_DIRECT_PORT_CALLS
-
 bool QueuedEventsTesterBase ::
   isConnected_to_cmdIn(FwIndexType portNum) const
 {
@@ -2099,8 +2097,6 @@ bool QueuedEventsTesterBase ::
 
   return this->m_to_typedSync[portNum].isConnected();
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Functions for testing events

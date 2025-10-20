@@ -1570,8 +1570,6 @@ void PassiveSyncProductsTesterBase ::
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
 
-#if !FW_DIRECT_PORT_CALLS
-
 bool PassiveSyncProductsTesterBase ::
   isConnected_to_cmdIn(FwIndexType portNum) const
 {
@@ -1736,8 +1734,6 @@ bool PassiveSyncProductsTesterBase ::
 
   return this->m_to_typedSync[portNum].isConnected();
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Functions to test time

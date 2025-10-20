@@ -1886,8 +1886,6 @@ void QueuedGetProductsTesterBase ::
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
 
-#if !FW_DIRECT_PORT_CALLS
-
 bool QueuedGetProductsTesterBase ::
   isConnected_to_cmdIn(FwIndexType portNum) const
 {
@@ -2107,8 +2105,6 @@ bool QueuedGetProductsTesterBase ::
 
   return this->m_to_typedSync[portNum].isConnected();
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Functions to test time

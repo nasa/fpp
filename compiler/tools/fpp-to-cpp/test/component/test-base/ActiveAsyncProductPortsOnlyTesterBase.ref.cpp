@@ -92,8 +92,6 @@ ActiveAsyncProductPortsOnlyTesterBase ::
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
 
-#if !FW_DIRECT_PORT_CALLS
-
 bool ActiveAsyncProductPortsOnlyTesterBase ::
   isConnected_to_productRecvIn(FwIndexType portNum) const
 {
@@ -104,8 +102,6 @@ bool ActiveAsyncProductPortsOnlyTesterBase ::
 
   return this->m_to_productRecvIn[portNum].isConnected();
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Dispatching helper functions

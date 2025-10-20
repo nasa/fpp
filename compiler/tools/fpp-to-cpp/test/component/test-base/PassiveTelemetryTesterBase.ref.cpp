@@ -1511,8 +1511,6 @@ void PassiveTelemetryTesterBase ::
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
 
-#if !FW_DIRECT_PORT_CALLS
-
 bool PassiveTelemetryTesterBase ::
   isConnected_to_cmdIn(FwIndexType portNum) const
 {
@@ -1666,8 +1664,6 @@ bool PassiveTelemetryTesterBase ::
 
   return this->m_to_typedSync[portNum].isConnected();
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Functions for testing telemetry

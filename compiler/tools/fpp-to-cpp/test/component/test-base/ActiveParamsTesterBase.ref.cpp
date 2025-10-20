@@ -1935,8 +1935,6 @@ void ActiveParamsTesterBase ::
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
 
-#if !FW_DIRECT_PORT_CALLS
-
 bool ActiveParamsTesterBase ::
   isConnected_to_cmdIn(FwIndexType portNum) const
 {
@@ -2156,8 +2154,6 @@ bool ActiveParamsTesterBase ::
 
   return this->m_to_typedSync[portNum].isConnected();
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Functions for testing commands

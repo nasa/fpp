@@ -353,8 +353,6 @@ U32 QueuedNoArgsPortsOnlyTesterBase ::
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
 
-#if !FW_DIRECT_PORT_CALLS
-
 bool QueuedNoArgsPortsOnlyTesterBase ::
   isConnected_to_noArgsAsync(FwIndexType portNum) const
 {
@@ -398,8 +396,6 @@ bool QueuedNoArgsPortsOnlyTesterBase ::
 
   return this->m_to_noArgsReturnSync[portNum].isConnected();
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // History functions

@@ -2512,8 +2512,6 @@ void ActiveSerialTesterBase ::
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
 
-#if !FW_DIRECT_PORT_CALLS
-
 bool ActiveSerialTesterBase ::
   isConnected_to_cmdIn(FwIndexType portNum) const
 {
@@ -2799,8 +2797,6 @@ bool ActiveSerialTesterBase ::
 
   return this->m_to_serialSync[portNum].isConnected();
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Functions for testing commands

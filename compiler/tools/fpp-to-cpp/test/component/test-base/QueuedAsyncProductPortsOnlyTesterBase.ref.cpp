@@ -92,8 +92,6 @@ QueuedAsyncProductPortsOnlyTesterBase ::
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
 
-#if !FW_DIRECT_PORT_CALLS
-
 bool QueuedAsyncProductPortsOnlyTesterBase ::
   isConnected_to_productRecvIn(FwIndexType portNum) const
 {
@@ -104,5 +102,3 @@ bool QueuedAsyncProductPortsOnlyTesterBase ::
 
   return this->m_to_productRecvIn[portNum].isConnected();
 }
-
-#endif
