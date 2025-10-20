@@ -175,6 +175,34 @@ case class ComponentOutputPorts(
     )
   }
 
+  private def getConnectionStatusQuery(
+    portName: String,
+    isConnectedName: String,
+    numGetterName: String,
+    variableName: String
+  ) = functionClassMember(
+    Some(
+      s"""|Check whether port $portName is connected
+          |
+          |\\return Whether port $portName is connected
+          |"""
+    ),
+    isConnectedName,
+    List(portNumParam),
+    CppDoc.Type("bool"),
+    lines(
+      s"""|FW_ASSERT(
+          |  (0 <= portNum) && (portNum < this->$numGetterName()),
+          |  static_cast<FwAssertArgType>(portNum)
+          |);
+          |
+          |return this->$variableName[portNum].isConnected();
+          |"""
+    ),
+    CppDoc.Function.NonSV,
+    CppDoc.Function.Const
+  )
+
   def generateConnectionStatusQueries(
     ports: List[PortInstance],
     portName: String => String,
@@ -186,28 +214,34 @@ case class ComponentOutputPorts(
     mapPorts(
       ports,
       p => List(
-        functionClassMember(
-          Some(
-            s"""|Check whether port ${portName(p.getUnqualifiedName)} is connected
-                |
-                |\\return Whether port ${portName(p.getUnqualifiedName)} is connected
-                |"""
-          ),
+        getConnectionStatusQuery(
+          portName(p.getUnqualifiedName),
           isConnectedName(p.getUnqualifiedName),
-          List(portNumParam),
-          CppDoc.Type("bool"),
-          lines(
-            s"""|FW_ASSERT(
-                |  (0 <= portNum) && (portNum < this->${numGetterName(p)}()),
-                |  static_cast<FwAssertArgType>(portNum)
-                |);
-                |
-                |return this->${variableName(p)}[portNum].isConnected();
-                |"""
-          ),
-          CppDoc.Function.NonSV,
-          CppDoc.Function.Const
+          numGetterName(p),
+          variableName(p)
         )
+//        functionClassMember(
+//          Some(
+//            s"""|Check whether port ${portName(p.getUnqualifiedName)} is connected
+//                |
+//                |\\return Whether port ${portName(p.getUnqualifiedName)} is connected
+//                |"""
+//          ),
+//          isConnectedName(p.getUnqualifiedName),
+//          List(portNumParam),
+//          CppDoc.Type("bool"),
+//          lines(
+//            s"""|FW_ASSERT(
+//                |  (0 <= portNum) && (portNum < this->${numGetterName(p)}()),
+//                |  static_cast<FwAssertArgType>(portNum)
+//                |);
+//                |
+//                |return this->${variableName(p)}[portNum].isConnected();
+//                |"""
+//          ),
+//          CppDoc.Function.NonSV,
+//          CppDoc.Function.Const
+//        )
       )
     ),
     CppDoc.Lines.Cpp
