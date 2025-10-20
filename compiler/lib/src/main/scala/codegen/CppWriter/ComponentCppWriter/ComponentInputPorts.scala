@@ -406,6 +406,44 @@ case class ComponentInputPorts(
     )
   }
 
+  // Writes the handler call for a command
+  private def writeHandlerCallForCommand(cmd: Command) = {
+    val constantName = commandConstantName(cmd)
+    wrapInScope(
+      s"case $constantName: {",
+      cmd match {
+        case _: Command.NonParam =>
+          val handlerBaseName = commandHandlerBaseName(cmd.getName)
+          lines(
+            s"""|compPtr->$handlerBaseName(
+                |  opCode,
+                |  cmdSeq,
+                |  args
+                |);
+                |break;
+                |"""
+          )
+        case c: Command.Param =>
+          val handlerName = paramHandlerName(c.aNode._2.data.name, c.kind)
+          val args = c.kind match {
+            case Command.Param.Set => "args"
+            case Command.Param.Save => ""
+          }
+          lines(
+            s"""|Fw::CmdResponse _cstat = compPtr->$handlerName($args);
+                |compPtr->cmdResponse_out(
+                |  opCode,
+                |  cmdSeq,
+                |  _cstat
+                |);
+                |break;
+                |"""
+          )
+      },
+      "}"
+    )
+  }
+
   // Writes the handler call for a command input port
   private def writeCommandInputPortHandlerCall =
     if !hasCommands then lines(
@@ -429,40 +467,7 @@ case class ComponentInputPorts(
       wrapInSwitch(
         "opCode - idBase",
         intersperseBlankLines(
-          sortedCmds.map((_, cmd) =>
-            wrapInScope(
-              s"case ${commandConstantName(cmd)}: {",
-              cmd match {
-                case _: Command.NonParam => lines(
-                  s"""|compPtr->${commandHandlerBaseName(cmd.getName)}(
-                      |  opCode,
-                      |  cmdSeq,
-                      |  args
-                      |);
-                      |break;
-                      |""".stripMargin
-                )
-                case c: Command.Param =>
-                  val args =
-                    c.kind match {
-                      case Command.Param.Set => "args"
-                      case Command.Param.Save => ""
-                    }
-
-                  lines(
-                    s"""|Fw::CmdResponse _cstat = compPtr->${paramHandlerName(c.aNode._2.data.name, c.kind)}($args);
-                        |compPtr->cmdResponse_out(
-                        |  opCode,
-                        |  cmdSeq,
-                        |  _cstat
-                        |);
-                        |break;
-                        |"""
-                  )
-              },
-              "}"
-            )
-          )
+          sortedCmds.map((_, cmd) => writeHandlerCallForCommand(cmd))
         )
       )
     )
