@@ -798,8 +798,6 @@ void PassiveParamsTesterBase ::
   this->m_to_typedSync[portNum].addCallPort(port);
 }
 
-#if !FW_DIRECT_PORT_CALLS
-
 // ----------------------------------------------------------------------
 // Getters for from ports
 // ----------------------------------------------------------------------
@@ -983,8 +981,6 @@ Ports::InputTypedReturnPort* PassiveParamsTesterBase ::
 
   return &this->m_from_typedReturnOut[portNum];
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

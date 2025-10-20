@@ -362,8 +362,6 @@ class QueuedGetProductsTesterBase :
         Ports::InputTypedPort* port //!< The input port
     );
 
-#if !FW_DIRECT_PORT_CALLS
-
   public:
 
     // ----------------------------------------------------------------------
@@ -499,8 +497,6 @@ class QueuedGetProductsTesterBase :
     Ports::InputTypedReturnPort* get_from_typedReturnOut(
         FwIndexType portNum //!< The port number
     );
-
-#endif
 
   protected:
 

@@ -1387,8 +1387,6 @@ void ActiveSerialTesterBase ::
   this->m_to_serialSync[portNum].registerSerialPort(port);
 }
 
-#if !FW_DIRECT_PORT_CALLS
-
 // ----------------------------------------------------------------------
 // Getters for from ports
 // ----------------------------------------------------------------------
@@ -1583,8 +1581,6 @@ Fw::InputSerializePort* ActiveSerialTesterBase ::
 
   return &this->m_from_serialOut[portNum];
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

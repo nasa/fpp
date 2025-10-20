@@ -44,8 +44,6 @@ class QueuedAsyncProductPortsOnlyTesterBase :
         Fw::InputDpResponsePort* port //!< The input port
     );
 
-#if !FW_DIRECT_PORT_CALLS
-
   public:
 
     // ----------------------------------------------------------------------
@@ -65,8 +63,6 @@ class QueuedAsyncProductPortsOnlyTesterBase :
     Fw::InputDpSendPort* get_from_productSendOut(
         FwIndexType portNum //!< The port number
     );
-
-#endif
 
   protected:
 

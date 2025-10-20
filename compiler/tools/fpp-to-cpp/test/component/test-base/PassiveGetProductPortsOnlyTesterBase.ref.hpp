@@ -32,8 +32,6 @@ class PassiveGetProductPortsOnlyTesterBase :
         FwEnumStoreType instance = 0 //!< The instance number
     );
 
-#if !FW_DIRECT_PORT_CALLS
-
   public:
 
     // ----------------------------------------------------------------------
@@ -53,8 +51,6 @@ class PassiveGetProductPortsOnlyTesterBase :
     Fw::InputDpSendPort* get_from_productSendOut(
         FwIndexType portNum //!< The port number
     );
-
-#endif
 
   protected:
 

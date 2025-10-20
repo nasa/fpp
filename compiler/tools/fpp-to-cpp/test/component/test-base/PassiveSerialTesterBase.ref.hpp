@@ -534,8 +534,6 @@ class PassiveSerialTesterBase :
         Fw::InputSerializePort* port //!< The input port
     );
 
-#if !FW_DIRECT_PORT_CALLS
-
   public:
 
     // ----------------------------------------------------------------------
@@ -664,8 +662,6 @@ class PassiveSerialTesterBase :
     Fw::InputSerializePort* get_from_serialOut(
         FwIndexType portNum //!< The port number
     );
-
-#endif
 
   protected:
 

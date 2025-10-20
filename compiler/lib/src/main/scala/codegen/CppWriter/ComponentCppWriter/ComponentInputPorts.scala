@@ -36,48 +36,47 @@ case class ComponentInputPorts(
     getterName: String => String,
     numGetterName: PortInstance => String,
     variableName: PortInstance => String
-  ): List[CppDoc.Class.Member] = wrapClassMembersInIfDirective(
-    "#if !FW_DIRECT_PORT_CALLS",
-    addAccessTagAndComment(
-      "public",
-      s"Getters for $portType ports",
-      mapPorts(ports, p => List(
-        functionClassMember(
-          Some(
-            s"""|Get $portType port at index
-                |
-                |\\return ${portName(p.getUnqualifiedName)}[portNum]
-                |"""
-          ),
-          getterName(p.getUnqualifiedName),
-          List(
-            portNumParam
-          ),
-          CppDoc.Type(s"${getQualifiedPortTypeName(p, PortInstance.Direction.Input)}*"),
-          lines(
-            s"""|FW_ASSERT(
-                |  (0 <= portNum) && (portNum < this->${numGetterName(p)}()),
-                |  static_cast<FwAssertArgType>(portNum)
-                |);
-                |
-                |return &this->${variableName(p)}[portNum];
-                |"""
-          )
+  ): List[CppDoc.Class.Member] = addAccessTagAndComment(
+    "public",
+    s"Getters for $portType ports",
+    mapPorts(ports, p => List(
+      functionClassMember(
+        Some(
+          s"""|Get $portType port at index
+              |
+              |\\return ${portName(p.getUnqualifiedName)}[portNum]
+              |"""
+        ),
+        getterName(p.getUnqualifiedName),
+        List(
+          portNumParam
+        ),
+        CppDoc.Type(s"${getQualifiedPortTypeName(p, PortInstance.Direction.Input)}*"),
+        lines(
+          s"""|FW_ASSERT(
+              |  (0 <= portNum) && (portNum < this->${numGetterName(p)}()),
+              |  static_cast<FwAssertArgType>(portNum)
+              |);
+              |
+              |return &this->${variableName(p)}[portNum];
+              |"""
         )
-      ))
-    )
+      )
+    ))
   )
 
   def getGetters(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     val typeStr = getPortListTypeString(ports)
-
-    generateGetters(
-      ports,
-      s"$typeStr input",
-      (s: String) => s,
-      inputPortGetterName,
-      portNumGetterName,
-      portVariableName
+    wrapClassMembersInIfDirective(
+      "#if !FW_DIRECT_PORT_CALLS",
+      generateGetters(
+        ports,
+        s"$typeStr input",
+        (s: String) => s,
+        inputPortGetterName,
+        portNumGetterName,
+        portVariableName
+      )
     )
   }
 

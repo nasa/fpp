@@ -389,8 +389,6 @@ class QueuedEventsTesterBase :
         Ports::InputTypedPort* port //!< The input port
     );
 
-#if !FW_DIRECT_PORT_CALLS
-
   public:
 
     // ----------------------------------------------------------------------
@@ -512,8 +510,6 @@ class QueuedEventsTesterBase :
     Ports::InputTypedReturnPort* get_from_typedReturnOut(
         FwIndexType portNum //!< The port number
     );
-
-#endif
 
   protected:
 
