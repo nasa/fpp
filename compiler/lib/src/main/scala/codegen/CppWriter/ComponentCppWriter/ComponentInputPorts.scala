@@ -169,6 +169,35 @@ case class ComponentInputPorts(
     )
   }
 
+  // Generates the getter function for a port
+  private def generateGetterForPort(
+    p: PortInstance,
+    portType: String,
+    portName:String,
+    getterName: String,
+    numGetterName: String,
+    variableName: String
+  ) = functionClassMember(
+    Some(
+      s"""|Get $portType port at index
+          |
+          |\\return $portName[portNum]
+          |"""
+    ),
+    getterName,
+    List(portNumParam),
+    CppDoc.Type(s"${getQualifiedPortTypeName(p, PortInstance.Direction.Input)}*"),
+    lines(
+      s"""|FW_ASSERT(
+          |  (0 <= portNum) && (portNum < this->$numGetterName()),
+          |  static_cast<FwAssertArgType>(portNum)
+          |);
+          |
+          |return &this->$variableName[portNum];
+          |"""
+    )
+  )
+
   // Gets the callback function for a port
   private def getCallbackForPort(p: PortInstance) = functionClassMember(
     Some(s"Callback for port ${p.getUnqualifiedName}"),
@@ -194,6 +223,84 @@ case class ComponentInputPorts(
     },
     CppDoc.Function.Static
   )
+
+  // Gets the handler base function for a port
+  private def getHandlerBaseForPort(p: PortInstance) = {
+    val params = getPortParams(p)
+    val returnType = getPortReturnType(p)
+    val retValAssignment = returnType match {
+      case Some(_) => s"retVal = "
+      case None => ""
+    }
+    val portName = p.getUnqualifiedName
+    val handlerName = inputPortHandlerName(portName)
+    lazy val handlerCall =
+      line("// Call handler function") ::
+        writeFunctionCall(
+          s"${retValAssignment}this->$handlerName",
+          List("portNum"),
+          params.map(_._1)
+        )
+    lazy val guardedHandlerCall =
+      List.concat(
+        lines(
+          """|// Lock guard mutex before calling
+             |this->lock();
+             |"""
+        ),
+        Line.blank :: handlerCall,
+        lines(
+          """|
+             |// Unlock guard mutex
+             |this->unLock();
+             |"""
+        )
+      )
+    functionClassMember(
+      Some(s"Handler base-class function for input port ${p.getUnqualifiedName}"),
+      inputPortHandlerBaseName(p.getUnqualifiedName),
+      portNumParam :: getPortFunctionParams(p),
+      getPortReturnTypeAsCppDocType(p),
+      intersperseBlankLines(
+        List(
+          lines(
+            s"""|// Make sure port number is valid
+                |FW_ASSERT(
+                |  (0 <= portNum) && (portNum < this->${portNumGetterName(p)}()),
+                |  static_cast<FwAssertArgType>(portNum)
+                |);
+                |"""
+          ),
+          returnType.map(tn => lines(s"$tn retVal;")).getOrElse(Nil),
+          p match {
+            case i: PortInstance.General => i.kind match {
+              case PortInstance.General.Kind.AsyncInput(priority, queueFull) =>
+                writeAsyncHandlerCall(i, params, queueFull, priority)
+              case PortInstance.General.Kind.GuardedInput => guardedHandlerCall
+              case PortInstance.General.Kind.SyncInput => handlerCall
+              case _ => Nil
+            }
+            case special: PortInstance.Special => special.specifier.inputKind match {
+              case Some(Ast.SpecPortInstance.Async) =>
+                writeAsyncHandlerCall(
+                  special, params, special.queueFull.get,
+                  special.priority
+                )
+              case Some(Ast.SpecPortInstance.Guarded) => guardedHandlerCall
+              case Some(Ast.SpecPortInstance.Sync) => handlerCall
+              case _ => Nil
+            }
+            case _ => Nil
+          },
+          returnType.map(_ => lines("return retVal;")).getOrElse(Nil)
+        )
+      )
+    )
+  }
+
+  // Gets the name for a param command handler function
+  private def paramCmdHandlerName(cmd: Command.Param) =
+    s"param${getCmdParamKindString(cmd.kind).capitalize}_${cmd.getName}"
 
   // Writes an async handler call
   private def writeAsyncHandlerCall(
@@ -282,130 +389,6 @@ case class ComponentInputPorts(
     )
   }
 
-  // Generates the getter function for a port
-  private def generateGetterForPort(
-    p: PortInstance,
-    portType: String,
-    portName:String,
-    getterName: String,
-    numGetterName: String,
-    variableName: String
-  ) = functionClassMember(
-    Some(
-      s"""|Get $portType port at index
-          |
-          |\\return $portName[portNum]
-          |"""
-    ),
-    getterName,
-    List(portNumParam),
-    CppDoc.Type(s"${getQualifiedPortTypeName(p, PortInstance.Direction.Input)}*"),
-    lines(
-      s"""|FW_ASSERT(
-          |  (0 <= portNum) && (portNum < this->$numGetterName()),
-          |  static_cast<FwAssertArgType>(portNum)
-          |);
-          |
-          |return &this->$variableName[portNum];
-          |"""
-    )
-  )
-
-  // Gets the handler base function for a port
-  private def getHandlerBaseForPort(p: PortInstance) = {
-    val params = getPortParams(p)
-    val returnType = getPortReturnType(p)
-    val retValAssignment = returnType match {
-      case Some(_) => s"retVal = "
-      case None => ""
-    }
-    val portName = p.getUnqualifiedName
-    val handlerName = inputPortHandlerName(portName)
-    lazy val handlerCall =
-      line("// Call handler function") ::
-        writeFunctionCall(
-          s"${retValAssignment}this->$handlerName",
-          List("portNum"),
-          params.map(_._1)
-        )
-    lazy val guardedHandlerCall =
-      List.concat(
-        lines(
-          """|// Lock guard mutex before calling
-             |this->lock();
-             |"""
-        ),
-        Line.blank :: handlerCall,
-        lines(
-          """|
-             |// Unlock guard mutex
-             |this->unLock();
-             |"""
-        )
-      )
-
-    functionClassMember(
-      Some(s"Handler base-class function for input port ${p.getUnqualifiedName}"),
-      inputPortHandlerBaseName(p.getUnqualifiedName),
-      portNumParam :: getPortFunctionParams(p),
-      getPortReturnTypeAsCppDocType(p),
-      intersperseBlankLines(
-        List(
-          lines(
-            s"""|// Make sure port number is valid
-                |FW_ASSERT(
-                |  (0 <= portNum) && (portNum < this->${portNumGetterName(p)}()),
-                |  static_cast<FwAssertArgType>(portNum)
-                |);
-                |"""
-          ),
-          returnType.map(tn => lines(s"$tn retVal;")).getOrElse(Nil),
-          p match {
-            case i: PortInstance.General => i.kind match {
-              case PortInstance.General.Kind.AsyncInput(priority, queueFull) =>
-                writeAsyncHandlerCall(i, params, queueFull, priority)
-              case PortInstance.General.Kind.GuardedInput => guardedHandlerCall
-              case PortInstance.General.Kind.SyncInput => handlerCall
-              case _ => Nil
-            }
-            case special: PortInstance.Special => special.specifier.inputKind match {
-              case Some(Ast.SpecPortInstance.Async) =>
-                writeAsyncHandlerCall(
-                  special, params, special.queueFull.get,
-                  special.priority
-                )
-              case Some(Ast.SpecPortInstance.Guarded) => guardedHandlerCall
-              case Some(Ast.SpecPortInstance.Sync) => handlerCall
-              case _ => Nil
-            }
-            case _ => Nil
-          },
-          returnType.map(_ => lines("return retVal;")).getOrElse(Nil)
-        )
-      )
-    )
-  }
-
-  // Writes the handler call for a general input port
-  private def writeInputPortHandlerCall(p: PortInstance) = {
-    val params = getPortParams(p)
-    val returnPrefix = getPortReturnType(p).map(_ => "return ").getOrElse("")
-    val handlerBaseName = inputPortHandlerBaseName(p.getUnqualifiedName)
-    List.concat(
-      lines(
-        s"""|FW_ASSERT(callComp);
-            |$componentClassName* compPtr = static_cast<$componentClassName*>(callComp);
-            |
-            |"""
-      ),
-      writeFunctionCall(
-        s"${returnPrefix}compPtr->$handlerBaseName",
-        List("portNum"),
-        params.map(_._1)
-      )
-    )
-  }
-
   // Writes the handler call for a command
   private def writeHandlerCallForCommand(cmd: Command) = {
     val constantName = commandConstantName(cmd)
@@ -472,8 +455,24 @@ case class ComponentInputPorts(
       )
     )
 
-  // Gets the name for a param command handler function
-  private def paramCmdHandlerName(cmd: Command.Param) =
-    s"param${getCmdParamKindString(cmd.kind).capitalize}_${cmd.getName}"
+  // Writes the handler call for a general input port
+  private def writeInputPortHandlerCall(p: PortInstance) = {
+    val params = getPortParams(p)
+    val returnPrefix = getPortReturnType(p).map(_ => "return ").getOrElse("")
+    val handlerBaseName = inputPortHandlerBaseName(p.getUnqualifiedName)
+    List.concat(
+      lines(
+        s"""|FW_ASSERT(callComp);
+            |$componentClassName* compPtr = static_cast<$componentClassName*>(callComp);
+            |
+            |"""
+      ),
+      writeFunctionCall(
+        s"${returnPrefix}compPtr->$handlerBaseName",
+        List("portNum"),
+        params.map(_._1)
+      )
+    )
+  }
 
 }
