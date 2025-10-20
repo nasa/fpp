@@ -10,16 +10,16 @@ case class ComponentInputPorts(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  /** Generates port handlers for a component base class or tester base class */
+  /** Generates the port handler functions for a component base class or tester base class */
   def generateHandlers(
     ports: List[PortInstance],
-    portName: String => String,
-    handlerName: String => String
+    getPortName: String => String,
+    getHandlerName: String => String
   ): List[CppDoc.Class.Member] = {
     ports.map(p =>
       functionClassMember(
-        Some(s"Handler for input port ${portName(p.getUnqualifiedName)}"),
-        handlerName(p.getUnqualifiedName),
+        Some(s"Handler for input port ${getPortName(p.getUnqualifiedName)}"),
+        getHandlerName(p.getUnqualifiedName),
         portNumParam :: getPortFunctionParams(p),
         getPortReturnTypeAsCppDocType(p),
         Nil,
@@ -28,36 +28,7 @@ case class ComponentInputPorts(
     )
   }
 
-  // Generates the getter function for a port
-  private def generateGetterForPort(
-    p: PortInstance,
-    portType: String,
-    portName:String,
-    getterName: String,
-    numGetterName: String,
-    variableName: String
-  ) = functionClassMember(
-    Some(
-      s"""|Get $portType port at index
-          |
-          |\\return $portName[portNum]
-          |"""
-    ),
-    getterName,
-    List(portNumParam),
-    CppDoc.Type(s"${getQualifiedPortTypeName(p, PortInstance.Direction.Input)}*"),
-    lines(
-      s"""|FW_ASSERT(
-          |  (0 <= portNum) && (portNum < this->$numGetterName()),
-          |  static_cast<FwAssertArgType>(portNum)
-          |);
-          |
-          |return &this->$variableName[portNum];
-          |"""
-    )
-  )
-
-  /** Generates the port getters for a component base class or tester base class */
+  /** Generates the port getter functions for a component base class or tester base class */
   def generateGetters(
     ports: List[PortInstance],
     portType: String,
@@ -83,13 +54,14 @@ case class ComponentInputPorts(
     )
   )
 
+  /** Gets the port getter functions for a component base class */
   def getGetters(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    val typeStr = getPortListTypeString(ports)
+    val typeString = getPortListTypeString(ports)
     wrapClassMembersInIfDirective(
       "#if !FW_DIRECT_PORT_CALLS",
       generateGetters(
         ports,
-        s"$typeStr input",
+        s"$typeString input",
         (s: String) => s,
         inputPortGetterName,
         portNumGetterName,
@@ -98,10 +70,12 @@ case class ComponentInputPorts(
     )
   }
 
+  /** Gets the port handler functions for a component base class */
   def getHandlers(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    val typeString = getPortListTypeString(ports)
     addAccessTagAndComment(
       "protected",
-      s"Handlers to implement for ${getPortListTypeString(ports)} input ports",
+      s"Handlers to implement for $typeString input ports",
       generateHandlers(
         ports,
         (s: String) => s,
@@ -111,6 +85,119 @@ case class ComponentInputPorts(
     )
   }
 
+  /** Gets the handler base functions for a component base class */
+  def getHandlerBases(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    lazy val comment =
+      s"""|Port handler base-class functions for ${getPortListTypeString(ports)} input ports
+          |
+          |Call these functions directly to bypass the corresponding ports
+          |"""
+    val handlerBases = ports.map(getHandlerBaseForPort)
+    guardedList (!handlerBases.isEmpty) (
+      linesClassMember(
+        lines(
+          """|
+             |#if FW_DIRECT_PORT_CALLS
+             |public:
+             |#else
+             |protected:
+             |#endif
+             |"""
+        ).map(_.indentOut(2))
+      ) ::
+      addComment(comment, handlerBases)
+    )
+  }
+
+  // Gets the callback function for a port
+  private def getCallbackForPort(p: PortInstance) = functionClassMember(
+    Some(s"Callback for port ${p.getUnqualifiedName}"),
+    inputPortCallbackName(p.getUnqualifiedName),
+    List(
+      CppDoc.Function.Param(
+        CppDoc.Type("Fw::PassiveComponentBase*"),
+        "callComp",
+        Some("The component instance")
+      ),
+      portNumParam
+    ) ++ getPortFunctionParams(p),
+    getPortReturnTypeAsCppDocType(p),
+    p match {
+      case i: PortInstance.General => writeInputPortHandlerCall(i)
+      case special: PortInstance.Special =>
+        special.specifier.kind match {
+          case Ast.SpecPortInstance.CommandRecv => writeCommandInputPortHandlerCall
+          case Ast.SpecPortInstance.ProductRecv => writeInputPortHandlerCall(special)
+          case _ => Nil
+        }
+      case _ => Nil
+    },
+    CppDoc.Function.Static
+  )
+
+  /** Gets the callback functions for a component base class */
+  def getCallbacks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    val functions = mapPorts(ports, p => List(getCallbackForPort(p)))
+    addAccessTagAndComment(
+      "private",
+      s"Calls for messages received on ${getPortListTypeString(ports)} input ports",
+      ports match {
+        case Nil => Nil
+        case _ => ports.head.getType.get match {
+          case PortInstance.Type.DefPort(_) => functions
+          case PortInstance.Type.Serial =>
+            wrapClassMembersInIfDirective(
+              "#if FW_PORT_SERIALIZATION",
+              functions
+            )
+        }
+      }
+    )
+  }
+
+  def getPreMsgHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "protected",
+      s"""|Pre-message hooks for ${getPortListTypeString(ports)} async input ports
+          |
+          |Each of these functions is invoked just before processing a message
+          |on the corresponding port. By default, they do nothing. You can
+          |override them to provide specific pre-message behavior.
+          |""",
+      ports.map(p =>
+        functionClassMember(
+          Some(s"Pre-message hook for async input port ${p.getUnqualifiedName}"),
+          inputPortHookName(p.getUnqualifiedName),
+          portNumParam :: getPortFunctionParams(p),
+          CppDoc.Type("void"),
+          lines("// Default: no-op"),
+          CppDoc.Function.Virtual
+        )
+      )
+    )
+  }
+
+  def getOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "protected",
+      s"""|Hooks for ${getPortListTypeString(ports)} async input ports
+          |
+          |Each of these functions is invoked when placing a message on the
+          |queue would cause the queue to overlow. You should override them to provide
+          |specific overflow behavior.
+          |""",
+      ports.map(
+        p => getVirtualOverflowHook(
+          p.getUnqualifiedName,
+          MessageType.Port,
+          portNumParam :: getPortFunctionParams(p)
+        )
+      ),
+      CppDoc.Lines.Hpp
+    )
+  }
+
+  // Writes an async handler call
   private def writeAsyncHandlerCall(
       p: PortInstance,
       params: List[(String, String, Option[Type])],
@@ -198,7 +285,37 @@ case class ComponentInputPorts(
     )
   }
 
-  def getHandlerBaseForPort(p: PortInstance) = {
+  // Generates the getter function for a port
+  private def generateGetterForPort(
+    p: PortInstance,
+    portType: String,
+    portName:String,
+    getterName: String,
+    numGetterName: String,
+    variableName: String
+  ) = functionClassMember(
+    Some(
+      s"""|Get $portType port at index
+          |
+          |\\return $portName[portNum]
+          |"""
+    ),
+    getterName,
+    List(portNumParam),
+    CppDoc.Type(s"${getQualifiedPortTypeName(p, PortInstance.Direction.Input)}*"),
+    lines(
+      s"""|FW_ASSERT(
+          |  (0 <= portNum) && (portNum < this->$numGetterName()),
+          |  static_cast<FwAssertArgType>(portNum)
+          |);
+          |
+          |return &this->$variableName[portNum];
+          |"""
+    )
+  )
+
+  // Gets the handler base function for a port
+  private def getHandlerBaseForPort(p: PortInstance) = {
     val params = getPortParams(p)
     val returnType = getPortReturnType(p)
     val retValAssignment = returnType match {
@@ -278,202 +395,91 @@ case class ComponentInputPorts(
     )
   }
 
-  def getHandlerBases(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    lazy val comment =
-      s"""|Port handler base-class functions for ${getPortListTypeString(ports)} input ports
-          |
-          |Call these functions directly to bypass the corresponding ports
-          |"""
-    val handlerBases = ports.map(getHandlerBaseForPort)
-    guardedList (!handlerBases.isEmpty) (
-      linesClassMember(
-        lines(
-          """|
-             |#if FW_DIRECT_PORT_CALLS
-             |public:
-             |#else
-             |protected:
-             |#endif
-             |"""
-        ).map(_.indentOut(2))
-      ) ::
-      addComment(comment, handlerBases)
-    )
+  // Writes the handler call for a general input port
+  private def writeInputPortHandlerCall(p: PortInstance) = {
+    val params = getPortParams(p)
+    val returnKeyword = getPortReturnType(p) match {
+      case Some(_) => "return "
+      case None => ""
+    }
+
+    List(
+      lines(
+        s"""|FW_ASSERT(callComp);
+            |$componentClassName* compPtr = static_cast<$componentClassName*>(callComp);
+            |
+            |"""
+      ),
+      writeFunctionCall(
+        s"${returnKeyword}compPtr->${inputPortHandlerBaseName(p.getUnqualifiedName)}",
+        List("portNum"),
+        params.map(_._1)
+      )
+    ).flatten
   }
 
-  def getCallbacks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    def writeInputPort(p: PortInstance) = {
-      val params = getPortParams(p)
-      val returnKeyword = getPortReturnType(p) match {
-        case Some(_) => "return "
-        case None => ""
-      }
+  // Writes the handler call for a command input port
+  private def writeCommandInputPortHandlerCall =
+    if !hasCommands then lines(
+      """|FW_ASSERT(callComp);
+         |
+         |const U32 idBase = callComp->getIdBase();
+         |FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+         |"""
+    )
+    else List.concat(
+      lines(
+        s"""|FW_ASSERT(callComp);
+            |$componentClassName* compPtr = static_cast<$componentClassName*>(callComp);
+            |
+            |const U32 idBase = callComp->getIdBase();
+            |FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+            |
+            |// Select base class function based on opcode
+            |"""
+      ),
+      wrapInSwitch(
+        "opCode - idBase",
+        intersperseBlankLines(
+          sortedCmds.map((_, cmd) =>
+            wrapInScope(
+              s"case ${commandConstantName(cmd)}: {",
+              cmd match {
+                case _: Command.NonParam => lines(
+                  s"""|compPtr->${commandHandlerBaseName(cmd.getName)}(
+                      |  opCode,
+                      |  cmdSeq,
+                      |  args
+                      |);
+                      |break;
+                      |""".stripMargin
+                )
+                case c: Command.Param =>
+                  val args =
+                    c.kind match {
+                      case Command.Param.Set => "args"
+                      case Command.Param.Save => ""
+                    }
 
-      List(
-        lines(
-          s"""|FW_ASSERT(callComp);
-              |$componentClassName* compPtr = static_cast<$componentClassName*>(callComp);
-              |
-              |"""
-        ),
-        writeFunctionCall(
-          s"${returnKeyword}compPtr->${inputPortHandlerBaseName(p.getUnqualifiedName)}",
-          List("portNum"),
-          params.map(_._1)
-        )
-      ).flatten
-    }
-    def writeCommandInputPort() = {
-      if !hasCommands then lines(
-        """|FW_ASSERT(callComp);
-           |
-           |const U32 idBase = callComp->getIdBase();
-           |FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
-           |"""
-      )
-      else List(
-        lines(
-          s"""|FW_ASSERT(callComp);
-              |$componentClassName* compPtr = static_cast<$componentClassName*>(callComp);
-              |
-              |const U32 idBase = callComp->getIdBase();
-              |FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
-              |
-              |// Select base class function based on opcode
-              |"""
-        ),
-        wrapInSwitch(
-          "opCode - idBase",
-          intersperseBlankLines(
-            sortedCmds.map((_, cmd) =>
-              wrapInScope(
-                s"case ${commandConstantName(cmd)}: {",
-                cmd match {
-                  case _: Command.NonParam => lines(
-                    s"""|compPtr->${commandHandlerBaseName(cmd.getName)}(
+                  lines(
+                    s"""|Fw::CmdResponse _cstat = compPtr->${paramHandlerName(c.aNode._2.data.name, c.kind)}($args);
+                        |compPtr->cmdResponse_out(
                         |  opCode,
                         |  cmdSeq,
-                        |  args
+                        |  _cstat
                         |);
                         |break;
-                        |""".stripMargin
+                        |"""
                   )
-                  case c: Command.Param =>
-                    val args =
-                      c.kind match {
-                        case Command.Param.Set => "args"
-                        case Command.Param.Save => ""
-                      }
-
-                    lines(
-                      s"""|Fw::CmdResponse _cstat = compPtr->${paramHandlerName(c.aNode._2.data.name, c.kind)}($args);
-                          |compPtr->cmdResponse_out(
-                          |  opCode,
-                          |  cmdSeq,
-                          |  _cstat
-                          |);
-                          |break;
-                          |"""
-                    )
-                },
-                "}"
-              )
+              },
+              "}"
             )
           )
-        )
-      ).flatten
-    }
-
-    val functions =
-      mapPorts(ports, p => {
-        List(
-          functionClassMember(
-            Some(s"Callback for port ${p.getUnqualifiedName}"),
-            inputPortCallbackName(p.getUnqualifiedName),
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("Fw::PassiveComponentBase*"),
-                "callComp",
-                Some("The component instance")
-              ),
-              portNumParam
-            ) ++ getPortFunctionParams(p),
-            getPortReturnTypeAsCppDocType(p),
-            p match {
-              case i: PortInstance.General => writeInputPort(i)
-              case special: PortInstance.Special =>
-                special.specifier.kind match {
-                  case Ast.SpecPortInstance.CommandRecv => writeCommandInputPort()
-                  case Ast.SpecPortInstance.ProductRecv => writeInputPort(special)
-                  case _ => Nil
-                }
-              case _ => Nil
-            },
-            CppDoc.Function.Static
-          )
-        )
-      })
-
-    addAccessTagAndComment(
-      "private",
-      s"Calls for messages received on ${getPortListTypeString(ports)} input ports",
-      ports match {
-        case Nil => Nil
-        case _ => ports.head.getType.get match {
-          case PortInstance.Type.DefPort(_) => functions
-          case PortInstance.Type.Serial =>
-            wrapClassMembersInIfDirective(
-              "#if FW_PORT_SERIALIZATION",
-              functions
-            )
-        }
-      }
-    )
-  }
-
-  def getPreMsgHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    addAccessTagAndComment(
-      "protected",
-      s"""|Pre-message hooks for ${getPortListTypeString(ports)} async input ports
-          |
-          |Each of these functions is invoked just before processing a message
-          |on the corresponding port. By default, they do nothing. You can
-          |override them to provide specific pre-message behavior.
-          |""",
-      ports.map(p =>
-        functionClassMember(
-          Some(s"Pre-message hook for async input port ${p.getUnqualifiedName}"),
-          inputPortHookName(p.getUnqualifiedName),
-          portNumParam :: getPortFunctionParams(p),
-          CppDoc.Type("void"),
-          lines("// Default: no-op"),
-          CppDoc.Function.Virtual
         )
       )
     )
-  }
 
-  def getOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    addAccessTagAndComment(
-      "protected",
-      s"""|Hooks for ${getPortListTypeString(ports)} async input ports
-          |
-          |Each of these functions is invoked when placing a message on the
-          |queue would cause the queue to overlow. You should override them to provide
-          |specific overflow behavior.
-          |""",
-      ports.map(
-        p => getVirtualOverflowHook(
-          p.getUnqualifiedName,
-          MessageType.Port,
-          portNumParam :: getPortFunctionParams(p)
-        )
-      ),
-      CppDoc.Lines.Hpp
-    )
-  }
-
-  // Get the name for a param command handler function
+  // Gets the name for a param command handler function
   private def paramCmdHandlerName(cmd: Command.Param) =
     s"param${getCmdParamKindString(cmd.kind).capitalize}_${cmd.getName}"
 
