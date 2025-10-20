@@ -1550,8 +1550,6 @@ class QueuedGetProductsComponentBase :
         const S& s //!< A struct
     );
 
-#if !FW_DIRECT_PORT_CALLS
-
   protected:
 
     // ----------------------------------------------------------------------
@@ -1572,10 +1570,6 @@ class QueuedGetProductsComponentBase :
         FwDpIdType id, //!< The container ID
         const Fw::Buffer& buffer //!< The buffer
     );
-
-#endif
-
-#if !FW_DIRECT_PORT_CALLS
 
   protected:
 
@@ -1657,8 +1651,6 @@ class QueuedGetProductsComponentBase :
         const A& a, //!< An array
         const S& s //!< A struct
     );
-
-#endif
 
   protected:
 

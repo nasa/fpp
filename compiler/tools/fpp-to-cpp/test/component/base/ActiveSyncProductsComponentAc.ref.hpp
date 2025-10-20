@@ -1592,8 +1592,6 @@ class ActiveSyncProductsComponentBase :
         const S& s //!< A struct
     );
 
-#if !FW_DIRECT_PORT_CALLS
-
   protected:
 
     // ----------------------------------------------------------------------
@@ -1613,10 +1611,6 @@ class ActiveSyncProductsComponentBase :
         FwDpIdType id, //!< The container ID
         const Fw::Buffer& buffer //!< The buffer
     );
-
-#endif
-
-#if !FW_DIRECT_PORT_CALLS
 
   protected:
 
@@ -1698,8 +1692,6 @@ class ActiveSyncProductsComponentBase :
         const A& a, //!< An array
         const S& s //!< A struct
     );
-
-#endif
 
   protected:
 

@@ -146,7 +146,7 @@ case class ComponentTesterBaseWriter(
         testerPortVariableName,
         fromPortCallbackName,
         testerPortName,
-        ComponentCppWriter.ConnectionSense.Reversed
+        ComponentCppWriter.Mode.TesterBase
       )
       guardedList (portInstanceIsUsed(port)) (code)
     }

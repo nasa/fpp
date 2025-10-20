@@ -452,6 +452,7 @@ namespace FppTest {
     this->m_stateMachine_smChoiceSequence.init(SmId::smChoiceSequence);
     this->m_stateMachine_smChoiceSequenceU32.init(SmId::smChoiceSequenceU32);
 
+#if !FW_DIRECT_PORT_CALLS
     // Connect input port schedIn
     for (
       FwIndexType port = 0;
@@ -475,6 +476,7 @@ namespace FppTest {
       this->m_schedIn_InputPort[port].setObjName(portName.toChar());
 #endif
     }
+#endif
 
     // Create the queue
     Os::Queue::Status qStat = this->createQueue(

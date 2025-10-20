@@ -212,8 +212,6 @@ class PassiveSyncProductPortsOnlyComponentBase :
         const Fw::Success& status //!< The status
     );
 
-#if !FW_DIRECT_PORT_CALLS
-
   protected:
 
     // ----------------------------------------------------------------------
@@ -233,8 +231,6 @@ class PassiveSyncProductPortsOnlyComponentBase :
         FwDpIdType id, //!< The container ID
         const Fw::Buffer& buffer //!< The buffer
     );
-
-#endif
 
   private:
 

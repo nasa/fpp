@@ -150,8 +150,6 @@ class PassiveGetProductPortsOnlyComponentBase :
         FwIndexType portNum //!< The port number
     ) const;
 
-#if !FW_DIRECT_PORT_CALLS
-
   protected:
 
     // ----------------------------------------------------------------------
@@ -172,8 +170,6 @@ class PassiveGetProductPortsOnlyComponentBase :
         FwDpIdType id, //!< The container ID
         const Fw::Buffer& buffer //!< The buffer
     );
-
-#endif
 
 #if !FW_DIRECT_PORT_CALLS
 

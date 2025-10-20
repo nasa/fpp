@@ -1397,8 +1397,6 @@ class ActiveCommandsComponentBase :
         const S& s //!< A struct
     );
 
-#if !FW_DIRECT_PORT_CALLS
-
   protected:
 
     // ----------------------------------------------------------------------
@@ -1479,8 +1477,6 @@ class ActiveCommandsComponentBase :
         const A& a, //!< An array
         const S& s //!< A struct
     );
-
-#endif
 
   protected:
 

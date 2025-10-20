@@ -284,7 +284,7 @@ namespace M {
 #endif
     }
 
-#if FW_ENABLE_TEXT_LOGGING == 1
+#if FW_ENABLE_TEXT_LOGGING
     // Connect input port textEventOut
     for (
       FwIndexType port = 0;

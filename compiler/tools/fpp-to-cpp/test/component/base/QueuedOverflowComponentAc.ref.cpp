@@ -86,6 +86,7 @@ void QueuedOverflowComponentBase ::
   // Initialize base class
   Fw::QueuedComponentBase::init(instance);
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port cmdIn
   for (
     FwIndexType port = 0;
@@ -109,7 +110,9 @@ void QueuedOverflowComponentBase ::
     this->m_cmdIn_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port productRecvInHook
   for (
     FwIndexType port = 0;
@@ -133,7 +136,9 @@ void QueuedOverflowComponentBase ::
     this->m_productRecvInHook_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port assertAsync
   for (
     FwIndexType port = 0;
@@ -157,7 +162,9 @@ void QueuedOverflowComponentBase ::
     this->m_assertAsync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port blockAsync
   for (
     FwIndexType port = 0;
@@ -181,7 +188,9 @@ void QueuedOverflowComponentBase ::
     this->m_blockAsync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port dropAsync
   for (
     FwIndexType port = 0;
@@ -205,7 +214,9 @@ void QueuedOverflowComponentBase ::
     this->m_dropAsync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port hookAsync
   for (
     FwIndexType port = 0;
@@ -229,7 +240,9 @@ void QueuedOverflowComponentBase ::
     this->m_hookAsync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port serialAsyncHook
   for (
     FwIndexType port = 0;
@@ -253,7 +266,9 @@ void QueuedOverflowComponentBase ::
     this->m_serialAsyncHook_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port cmdRegOut
   for (
     FwIndexType port = 0;
@@ -272,7 +287,9 @@ void QueuedOverflowComponentBase ::
     this->m_cmdRegOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port cmdResponseOut
   for (
     FwIndexType port = 0;
@@ -291,7 +308,9 @@ void QueuedOverflowComponentBase ::
     this->m_cmdResponseOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port eventOut
   for (
     FwIndexType port = 0;
@@ -310,7 +329,9 @@ void QueuedOverflowComponentBase ::
     this->m_eventOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port prmGetOut
   for (
     FwIndexType port = 0;
@@ -329,7 +350,9 @@ void QueuedOverflowComponentBase ::
     this->m_prmGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port prmSetOut
   for (
     FwIndexType port = 0;
@@ -348,8 +371,9 @@ void QueuedOverflowComponentBase ::
     this->m_prmSetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
-#if FW_ENABLE_TEXT_LOGGING == 1
+#if !FW_DIRECT_PORT_CALLS && FW_ENABLE_TEXT_LOGGING
   // Connect output port textEventOut
   for (
     FwIndexType port = 0;
@@ -370,6 +394,7 @@ void QueuedOverflowComponentBase ::
   }
 #endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port timeGetOut
   for (
     FwIndexType port = 0;
@@ -388,7 +413,9 @@ void QueuedOverflowComponentBase ::
     this->m_timeGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port tlmOut
   for (
     FwIndexType port = 0;
@@ -407,6 +434,7 @@ void QueuedOverflowComponentBase ::
     this->m_tlmOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
   // Passed-in size added to port number and message type enumeration sizes.
   this->m_msgSize = FW_MAX(
@@ -1821,7 +1849,7 @@ void QueuedOverflowComponentBase ::
 Fw::Time QueuedOverflowComponentBase ::
   getTime() const
 {
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
     Fw::Time _time;
     this->m_timeGetOut_OutputPort[0].invoke(_time);
     return _time;

@@ -72,6 +72,7 @@ void ActiveAsyncProductPortsOnlyComponentBase ::
   // Initialize base class
   Fw::ActiveComponentBase::init(instance);
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port productRecvIn
   for (
     FwIndexType port = 0;
@@ -95,7 +96,9 @@ void ActiveAsyncProductPortsOnlyComponentBase ::
     this->m_productRecvIn_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port productRequestOut
   for (
     FwIndexType port = 0;
@@ -114,7 +117,9 @@ void ActiveAsyncProductPortsOnlyComponentBase ::
     this->m_productRequestOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port productSendOut
   for (
     FwIndexType port = 0;
@@ -133,6 +138,7 @@ void ActiveAsyncProductPortsOnlyComponentBase ::
     this->m_productSendOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
   // Create the queue
   Os::Queue::Status qStat = this->createQueue(

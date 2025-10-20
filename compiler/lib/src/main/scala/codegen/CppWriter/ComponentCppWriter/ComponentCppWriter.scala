@@ -924,7 +924,10 @@ case class ComponentCppWriter (
   private def getTimeFunctionMember: List[CppDoc.Class.Member] =
     if !hasTimeGetPort then Nil
     else {
-      val name = portVariableName(timeGetPort.get)
+      val portName = timeGetPort.get.getUnqualifiedName
+      val variableName = portVariableName(timeGetPort.get)
+      val isConnectedFunctionName =
+        ComponentOutputPorts.outputPortIsConnectedName(portName)
 
       addAccessTagAndComment(
         "protected",
@@ -941,10 +944,10 @@ case class ComponentCppWriter (
             Nil,
             CppDoc.Type("Fw::Time"),
             wrapInIfElse(
-              s"this->$name[0].isConnected()",
+              s"this->$isConnectedFunctionName(0)",
               lines(
                 s"""|Fw::Time _time;
-                    |this->$name[0].invoke(_time);
+                    |this->$variableName[0].invoke(_time);
                     |return _time;
                     |"""
               ),
@@ -1008,10 +1011,9 @@ case class ComponentCppWriter (
 
 object ComponentCppWriter extends CppWriterUtils {
 
-  sealed trait ConnectionSense
-  object ConnectionSense {
-    case object Forward extends ConnectionSense
-    case object Reversed extends ConnectionSense
+  enum Mode {
+    case Base
+    case TesterBase
   }
 
   def reverseDirection(direction: PortInstance.Direction) = {
@@ -1028,13 +1030,13 @@ object ComponentCppWriter extends CppWriterUtils {
     variableName: PortInstance => String,
     callbackName: String => String,
     printName: PortInstance => String,
-    connectionSense: ConnectionSense = ConnectionSense.Forward
+    mode: Mode = Mode.Base
   ): List[Line] = {
     val d = {
       val trueDirection = port.getDirection.get
-      connectionSense match {
-        case ConnectionSense.Forward => trueDirection
-        case ConnectionSense.Reversed => reverseDirection(trueDirection)
+      mode match {
+        case Mode.Base => trueDirection
+        case Mode.TesterBase => reverseDirection(trueDirection)
       }
     }
 
@@ -1043,7 +1045,7 @@ object ComponentCppWriter extends CppWriterUtils {
         "FwIndexType port = 0",
         s"port < static_cast<FwIndexType>(this->${numGetterName(port)}())",
         "port++",
-        List(
+        List.concat(
           lines(
             s"|this->${variableName(port)}[port].init();"
           ),
@@ -1070,23 +1072,32 @@ object ComponentCppWriter extends CppWriterUtils {
                 |#endif
                 |"""
           )
-        ).flatten
+        )
       )
 
-    port match {
-      case PortInstance.Special(aNode, _, _, _, _, _) => aNode._2.data match {
-        case Ast.SpecPortInstance.Special(_, kind, _, _, _) => kind match {
-          case Ast.SpecPortInstance.TextEvent => List.concat(
-            lines("#if FW_ENABLE_TEXT_LOGGING == 1"),
-            body,
-            lines("#endif")
-          )
-          case _ => body
+    val needTextEventGuard = port match {
+      case special: PortInstance.Special =>
+        special.aNode._2.data match {
+          case node: Ast.SpecPortInstance.Special => node.kind match {
+            case Ast.SpecPortInstance.TextEvent => true
+            case _ => false
+          }
+          case _ => false
         }
-        case _ => body
-      }
-      case _ => body
+      case _ => false
     }
+
+    val guardOpt = (needTextEventGuard, mode) match {
+      case (true, Mode.Base) => Some("!FW_DIRECT_PORT_CALLS && FW_ENABLE_TEXT_LOGGING")
+      case (false, Mode.Base) => Some("!FW_DIRECT_PORT_CALLS")
+      case (true, Mode.TesterBase) => Some("FW_ENABLE_TEXT_LOGGING")
+      case _ => None
+    }
+
+    guardOpt.map(
+      guard => List.concat(lines(s"#if $guard"), body, lines("#endif"))
+    ).getOrElse(body)
+
   }
 
 }

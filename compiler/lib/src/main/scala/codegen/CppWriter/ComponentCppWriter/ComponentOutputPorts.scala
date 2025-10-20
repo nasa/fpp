@@ -94,7 +94,7 @@ case class ComponentOutputPorts(
         s"Invocation functions for $typeString output ports",
         ports.map(getInvokerForPortInstance)
       ),
-      CppDoc.Lines.Both
+      CppDoc.Lines.Cpp
     )
   }
 
@@ -108,7 +108,7 @@ case class ComponentOutputPorts(
         generateConnectionStatusQueries(
           ports,
           (s: String) => s,
-          outputPortIsConnectedName,
+          ComponentOutputPorts.outputPortIsConnectedName,
           portNumGetterName,
           portVariableName
         ),
@@ -233,10 +233,6 @@ case class ComponentOutputPorts(
     )
   }
 
-  // Gets the name for an output port connection status function
-  private def outputPortIsConnectedName(name: String) =
-    s"isConnected_${name}_OutputPort"
-
   // Gets the serial connector for a port
   private def getSerialConnectorForPort(p: PortInstance) =
     getPortReturnType(p) match {
@@ -272,5 +268,13 @@ case class ComponentOutputPorts(
       case Some(_) => Nil
     }
 
+
+}
+
+object ComponentOutputPorts {
+
+  /** Gets the name for an output port connection status function */
+  def outputPortIsConnectedName(name: String) =
+    s"isConnected_${name}_OutputPort"
 
 }

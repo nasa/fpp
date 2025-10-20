@@ -1778,8 +1778,6 @@ class QueuedSerialComponentBase :
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
 
-#if !FW_DIRECT_PORT_CALLS
-
   protected:
 
     // ----------------------------------------------------------------------
@@ -1861,10 +1859,6 @@ class QueuedSerialComponentBase :
         const S& s //!< A struct
     );
 
-#endif
-
-#if !FW_DIRECT_PORT_CALLS
-
   protected:
 
     // ----------------------------------------------------------------------
@@ -1876,8 +1870,6 @@ class QueuedSerialComponentBase :
         FwIndexType portNum, //!< The port number
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
-
-#endif
 
   protected:
 
