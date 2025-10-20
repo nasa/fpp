@@ -133,8 +133,6 @@ module Module1 {
       format "Arg1 is {f}"
 
     @ Event with throttle
-    @ Multiple lines of annotation
-    @ And not used on purpose
     event Event4(
       arg1: F64 @< description of arg1 formal param
     ) \
@@ -143,8 +141,6 @@ module Module1 {
       throttle 10
 
     @ Event with throttle and timeout
-    @ Multiple lines of annotation
-    @ And not used on purpose
     event Event5(
       arg1: F64 @< description of arg1 formal param
     ) \

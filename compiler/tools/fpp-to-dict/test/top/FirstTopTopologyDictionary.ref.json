@@ -995,7 +995,7 @@
       ],
       "id" : 771,
       "format" : "Arg1 is {}",
-      "annotation" : "Event with throttle\nMultiple lines of annotation\nAnd not used on purpose",
+      "annotation" : "Event with throttle",
       "throttle" : {
         "count" : 10,
         "every" : null
@@ -1018,7 +1018,7 @@
       ],
       "id" : 772,
       "format" : "Arg1 is {}",
-      "annotation" : "Event with throttle and timeout\nMultiple lines of annotation\nAnd not used on purpose",
+      "annotation" : "Event with throttle and timeout",
       "throttle" : {
         "count" : 10,
         "every" : {
