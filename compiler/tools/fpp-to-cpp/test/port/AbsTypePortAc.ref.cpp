@@ -14,7 +14,7 @@ namespace {
   // Port buffer class
   // ----------------------------------------------------------------------
 
-  class AbsTypePortBuffer : public Fw::SerializeBufferBase {
+  class AbsTypePortBuffer : public Fw::LinearBufferBase {
 
     public:
 
@@ -89,7 +89,7 @@ void InputAbsTypePort ::
 #if FW_PORT_SERIALIZATION == 1
 
 Fw::SerializeStatus InputAbsTypePort ::
-  invokeSerial(Fw::SerializeBufferBase& _buffer)
+  invokeSerial(Fw::LinearBufferBase& _buffer)
 {
   Fw::SerializeStatus _status;
 

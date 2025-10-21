@@ -74,7 +74,7 @@ namespace {
   // Define a message buffer class large enough to handle all the
   // asynchronous inputs to the component
   class ComponentIpcSerializableBuffer :
-    public Fw::SerializeBufferBase
+    public Fw::LinearBufferBase
   {
 
     public:
@@ -3492,7 +3492,7 @@ void ActiveSerialComponentBase ::
 void ActiveSerialComponentBase ::
   serialAsync_handlerBase(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -3545,7 +3545,7 @@ void ActiveSerialComponentBase ::
 void ActiveSerialComponentBase ::
   serialAsyncAssert_handlerBase(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -3598,7 +3598,7 @@ void ActiveSerialComponentBase ::
 void ActiveSerialComponentBase ::
   serialAsyncBlockPriority_handlerBase(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -3651,7 +3651,7 @@ void ActiveSerialComponentBase ::
 void ActiveSerialComponentBase ::
   serialAsyncDropPriority_handlerBase(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -3709,7 +3709,7 @@ void ActiveSerialComponentBase ::
 void ActiveSerialComponentBase ::
   serialGuarded_handlerBase(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -3734,7 +3734,7 @@ void ActiveSerialComponentBase ::
 void ActiveSerialComponentBase ::
   serialSync_handlerBase(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -3850,7 +3850,7 @@ void ActiveSerialComponentBase ::
 void ActiveSerialComponentBase ::
   serialAsync_preMsgHook(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Default: no-op
@@ -3859,7 +3859,7 @@ void ActiveSerialComponentBase ::
 void ActiveSerialComponentBase ::
   serialAsyncAssert_preMsgHook(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Default: no-op
@@ -3868,7 +3868,7 @@ void ActiveSerialComponentBase ::
 void ActiveSerialComponentBase ::
   serialAsyncBlockPriority_preMsgHook(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Default: no-op
@@ -3877,7 +3877,7 @@ void ActiveSerialComponentBase ::
 void ActiveSerialComponentBase ::
   serialAsyncDropPriority_preMsgHook(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Default: no-op
@@ -4099,7 +4099,7 @@ F32 ActiveSerialComponentBase ::
 Fw::SerializeStatus ActiveSerialComponentBase ::
   serialOut_out(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   FW_ASSERT(
@@ -8528,7 +8528,7 @@ void ActiveSerialComponentBase ::
   m_p_serialAsync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   FW_ASSERT(callComp);
@@ -8543,7 +8543,7 @@ void ActiveSerialComponentBase ::
   m_p_serialAsyncAssert_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   FW_ASSERT(callComp);
@@ -8558,7 +8558,7 @@ void ActiveSerialComponentBase ::
   m_p_serialAsyncBlockPriority_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   FW_ASSERT(callComp);
@@ -8573,7 +8573,7 @@ void ActiveSerialComponentBase ::
   m_p_serialAsyncDropPriority_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   FW_ASSERT(callComp);
@@ -8588,7 +8588,7 @@ void ActiveSerialComponentBase ::
   m_p_serialGuarded_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   FW_ASSERT(callComp);
@@ -8603,7 +8603,7 @@ void ActiveSerialComponentBase ::
   m_p_serialSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   FW_ASSERT(callComp);
@@ -8621,7 +8621,7 @@ void ActiveSerialComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::CmdResponse ActiveSerialComponentBase ::
-  paramSet_ParamU32(Fw::SerializeBufferBase& val)
+  paramSet_ParamU32(Fw::LinearBufferBase& val)
 {
   U32 _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -8641,7 +8641,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
 }
 
 Fw::CmdResponse ActiveSerialComponentBase ::
-  paramSet_ParamF64(Fw::SerializeBufferBase& val)
+  paramSet_ParamF64(Fw::LinearBufferBase& val)
 {
   F64 _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -8661,7 +8661,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
 }
 
 Fw::CmdResponse ActiveSerialComponentBase ::
-  paramSet_ParamString(Fw::SerializeBufferBase& val)
+  paramSet_ParamString(Fw::LinearBufferBase& val)
 {
   Fw::ParamString _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -8681,7 +8681,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
 }
 
 Fw::CmdResponse ActiveSerialComponentBase ::
-  paramSet_ParamEnum(Fw::SerializeBufferBase& val)
+  paramSet_ParamEnum(Fw::LinearBufferBase& val)
 {
   E _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -8701,7 +8701,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
 }
 
 Fw::CmdResponse ActiveSerialComponentBase ::
-  paramSet_ParamArray(Fw::SerializeBufferBase& val)
+  paramSet_ParamArray(Fw::LinearBufferBase& val)
 {
   A _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -8721,7 +8721,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
 }
 
 Fw::CmdResponse ActiveSerialComponentBase ::
-  paramSet_ParamStruct(Fw::SerializeBufferBase& val)
+  paramSet_ParamStruct(Fw::LinearBufferBase& val)
 {
   S _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -8741,7 +8741,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
 }
 
 Fw::CmdResponse ActiveSerialComponentBase ::
-  paramSet_ParamI32Ext(Fw::SerializeBufferBase& val)
+  paramSet_ParamI32Ext(Fw::LinearBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMI32EXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -8764,7 +8764,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
 }
 
 Fw::CmdResponse ActiveSerialComponentBase ::
-  paramSet_ParamF64Ext(Fw::SerializeBufferBase& val)
+  paramSet_ParamF64Ext(Fw::LinearBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMF64EXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -8787,7 +8787,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
 }
 
 Fw::CmdResponse ActiveSerialComponentBase ::
-  paramSet_ParamStringExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamStringExt(Fw::LinearBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMSTRINGEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -8810,7 +8810,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
 }
 
 Fw::CmdResponse ActiveSerialComponentBase ::
-  paramSet_ParamEnumExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamEnumExt(Fw::LinearBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMENUMEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -8833,7 +8833,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
 }
 
 Fw::CmdResponse ActiveSerialComponentBase ::
-  paramSet_ParamArrayExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamArrayExt(Fw::LinearBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMARRAYEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -8856,7 +8856,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
 }
 
 Fw::CmdResponse ActiveSerialComponentBase ::
-  paramSet_ParamStructExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamStructExt(Fw::LinearBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMSTRUCTEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());

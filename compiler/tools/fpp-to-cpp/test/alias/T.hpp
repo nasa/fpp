@@ -10,7 +10,7 @@ struct T : public Fw::Serializable { // Extend Fw::Serializable
 
   // Define some shorthand for F Prime types
   typedef Fw::SerializeStatus SS;
-  typedef Fw::SerializeBufferBase B;
+  typedef Fw::LinearBufferBase B;
   typedef Fw::Endianness E;
 
   // Define the constant SERIALIZED_SIZE

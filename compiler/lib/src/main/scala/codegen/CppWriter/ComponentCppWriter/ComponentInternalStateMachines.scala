@@ -161,7 +161,7 @@ case class ComponentInternalStateMachines(
       "deserializeSmIdAndSignal",
       List(
         CppDoc.Function.Param(
-          CppDoc.Type("Fw::SerializeBufferBase&"),
+          CppDoc.Type("Fw::LinearBufferBase&"),
           "buffer",
           Some("The message buffer (input and output)")
         ),
@@ -200,7 +200,7 @@ case class ComponentInternalStateMachines(
       "smDispatch",
       List(
         CppDoc.Function.Param(
-          CppDoc.Type("Fw::SerializeBufferBase&"),
+          CppDoc.Type("Fw::LinearBufferBase&"),
           "buffer",
           Some("The message buffer")
         )
@@ -262,7 +262,7 @@ case class ComponentInternalStateMachines(
       s"${smi.getName}_sendSignalFinish",
       List(
         CppDoc.Function.Param(
-          CppDoc.Type("Fw::SerializeBufferBase&"),
+          CppDoc.Type("Fw::LinearBufferBase&"),
           "buffer",
           Some("The buffer with the data to send")
         )
@@ -365,7 +365,7 @@ case class ComponentInternalStateMachines(
           Some("The signal (input)")
         ),
         CppDoc.Function.Param(
-          CppDoc.Type("Fw::SerializeBufferBase&"),
+          CppDoc.Type("Fw::LinearBufferBase&"),
           "buffer",
           Some("The message buffer (output)")
         )
@@ -446,7 +446,7 @@ case class ComponentInternalStateMachines(
       s"${smName}_smDispatch",
       List(
         CppDoc.Function.Param(
-          CppDoc.Type("Fw::SerializeBufferBase&"),
+          CppDoc.Type("Fw::LinearBufferBase&"),
           "buffer",
           Some("The message buffer")
         ),
@@ -878,7 +878,7 @@ object ComponentInternalStateMachines {
       Some("The signal")
     ),
     CppDoc.Function.Param(
-      CppDoc.Type("Fw::SerializeBufferBase&"),
+      CppDoc.Type("Fw::LinearBufferBase&"),
       "buffer",
       Some("The message buffer")
     )

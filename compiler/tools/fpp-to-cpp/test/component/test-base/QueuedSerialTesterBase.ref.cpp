@@ -18,7 +18,7 @@ Fw::SerializeStatus QueuedSerialTesterBase::QueuedSerialComponentBaseParamExtern
       const FwPrmIdType baseId,
       const FwPrmIdType localId,
       const Fw::ParamValid prmStat,
-      Fw::SerializeBufferBase& buff
+      Fw::LinearBufferBase& buff
   )
 {
   Fw::SerializeStatus stat;
@@ -63,7 +63,7 @@ Fw::SerializeStatus QueuedSerialTesterBase::QueuedSerialComponentBaseParamExtern
   serializeParam(
       const FwPrmIdType baseId,
       const FwPrmIdType localId,
-      Fw::SerializeBufferBase& buff
+      Fw::LinearBufferBase& buff
   ) const
 {
   Fw::SerializeStatus stat;
@@ -1786,7 +1786,7 @@ F32 QueuedSerialTesterBase ::
 void QueuedSerialTesterBase ::
   from_serialOut_handler(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Default behavior is to do nothing
@@ -1977,7 +1977,7 @@ F32 QueuedSerialTesterBase ::
 void QueuedSerialTesterBase ::
   from_serialOut_handlerBase(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -2411,7 +2411,7 @@ void QueuedSerialTesterBase ::
 void QueuedSerialTesterBase ::
   invoke_to_serialAsync(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -2427,7 +2427,7 @@ void QueuedSerialTesterBase ::
 void QueuedSerialTesterBase ::
   invoke_to_serialAsyncAssert(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -2443,7 +2443,7 @@ void QueuedSerialTesterBase ::
 void QueuedSerialTesterBase ::
   invoke_to_serialAsyncBlockPriority(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -2459,7 +2459,7 @@ void QueuedSerialTesterBase ::
 void QueuedSerialTesterBase ::
   invoke_to_serialAsyncDropPriority(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -2475,7 +2475,7 @@ void QueuedSerialTesterBase ::
 void QueuedSerialTesterBase ::
   invoke_to_serialGuarded(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -2491,7 +2491,7 @@ void QueuedSerialTesterBase ::
 void QueuedSerialTesterBase ::
   invoke_to_serialSync(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -5767,7 +5767,7 @@ void QueuedSerialTesterBase ::
   from_serialOut_static(
       Fw::PassiveComponentBase* const callComp,
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   FW_ASSERT(callComp != nullptr);

@@ -14,7 +14,7 @@ namespace {
   // Port buffer class
   // ----------------------------------------------------------------------
 
-  class EmptyPortBuffer : public Fw::SerializeBufferBase {
+  class EmptyPortBuffer : public Fw::LinearBufferBase {
 
     public:
 
@@ -82,7 +82,7 @@ void InputEmptyPort ::
 #if FW_PORT_SERIALIZATION == 1
 
 Fw::SerializeStatus InputEmptyPort ::
-  invokeSerial(Fw::SerializeBufferBase& _buffer)
+  invokeSerial(Fw::LinearBufferBase& _buffer)
 {
   (void) _buffer;
 

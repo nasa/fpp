@@ -1730,7 +1730,7 @@ case class ExternalParameterDelegate(
               Some("The parameter validity status")
             ),
             CppDoc.Function.Param(
-              CppDoc.Type("Fw::SerializeBufferBase&"),
+              CppDoc.Type("Fw::LinearBufferBase&"),
               "buff",
               Some("The buffer containing the parameter to deserialize")
             )
@@ -1786,7 +1786,7 @@ case class ExternalParameterDelegate(
               Some("The parameter local ID to serialize")
             ),
             CppDoc.Function.Param(
-              CppDoc.Type("Fw::SerializeBufferBase&"),
+              CppDoc.Type("Fw::LinearBufferBase&"),
               "buff",
               Some("The buffer to serialize the parameter into")
             )

@@ -569,7 +569,7 @@ namespace FppTest {
       void smStateBasicGuardTestAbsType_stateMachineOverflowHook(
           SmId smId, //!< The state machine ID
           FwEnumStoreType signal, //!< The signal
-          Fw::SerializeBufferBase& buffer //!< The message buffer
+          Fw::LinearBufferBase& buffer //!< The message buffer
       ) override;
 
   };

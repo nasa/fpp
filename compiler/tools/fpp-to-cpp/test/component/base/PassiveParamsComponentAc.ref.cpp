@@ -2782,7 +2782,7 @@ void PassiveParamsComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::CmdResponse PassiveParamsComponentBase ::
-  paramSet_ParamU32(Fw::SerializeBufferBase& val)
+  paramSet_ParamU32(Fw::LinearBufferBase& val)
 {
   U32 _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -2802,7 +2802,7 @@ Fw::CmdResponse PassiveParamsComponentBase ::
 }
 
 Fw::CmdResponse PassiveParamsComponentBase ::
-  paramSet_ParamF64(Fw::SerializeBufferBase& val)
+  paramSet_ParamF64(Fw::LinearBufferBase& val)
 {
   F64 _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -2822,7 +2822,7 @@ Fw::CmdResponse PassiveParamsComponentBase ::
 }
 
 Fw::CmdResponse PassiveParamsComponentBase ::
-  paramSet_ParamString(Fw::SerializeBufferBase& val)
+  paramSet_ParamString(Fw::LinearBufferBase& val)
 {
   Fw::ParamString _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -2842,7 +2842,7 @@ Fw::CmdResponse PassiveParamsComponentBase ::
 }
 
 Fw::CmdResponse PassiveParamsComponentBase ::
-  paramSet_ParamEnum(Fw::SerializeBufferBase& val)
+  paramSet_ParamEnum(Fw::LinearBufferBase& val)
 {
   E _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -2862,7 +2862,7 @@ Fw::CmdResponse PassiveParamsComponentBase ::
 }
 
 Fw::CmdResponse PassiveParamsComponentBase ::
-  paramSet_ParamArray(Fw::SerializeBufferBase& val)
+  paramSet_ParamArray(Fw::LinearBufferBase& val)
 {
   A _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -2882,7 +2882,7 @@ Fw::CmdResponse PassiveParamsComponentBase ::
 }
 
 Fw::CmdResponse PassiveParamsComponentBase ::
-  paramSet_ParamStruct(Fw::SerializeBufferBase& val)
+  paramSet_ParamStruct(Fw::LinearBufferBase& val)
 {
   S _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);

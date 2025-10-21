@@ -84,13 +84,13 @@ class Included :
 
     //! Serialization
     Fw::SerializeStatus serializeTo(
-        Fw::SerializeBufferBase& buffer, //!< The serial buffer
+        Fw::LinearBufferBase& buffer, //!< The serial buffer
         Fw::Endianness mode = Fw::Endianness::BIG //!< Endianness of serialized buffer
     ) const;
 
     //! Deserialization
     Fw::SerializeStatus deserializeFrom(
-        Fw::SerializeBufferBase& buffer, //!< The serial buffer
+        Fw::LinearBufferBase& buffer, //!< The serial buffer
         Fw::Endianness mode = Fw::Endianness::BIG //!< Endianness of serialized buffer
     );
 

@@ -14,7 +14,7 @@ namespace {
   // Port buffer class
   // ----------------------------------------------------------------------
 
-  class KwdNamePortBuffer : public Fw::SerializeBufferBase {
+  class KwdNamePortBuffer : public Fw::LinearBufferBase {
 
     public:
 
@@ -86,7 +86,7 @@ void InputKwdNamePort ::
 #if FW_PORT_SERIALIZATION == 1
 
 Fw::SerializeStatus InputKwdNamePort ::
-  invokeSerial(Fw::SerializeBufferBase& _buffer)
+  invokeSerial(Fw::LinearBufferBase& _buffer)
 {
   Fw::SerializeStatus _status;
 

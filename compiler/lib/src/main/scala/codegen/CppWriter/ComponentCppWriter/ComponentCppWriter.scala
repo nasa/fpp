@@ -389,7 +389,7 @@ case class ComponentCppWriter (
       s"""|// Define a message buffer class large enough to handle all the
           |// asynchronous inputs to the component
           |class ComponentIpcSerializableBuffer :
-          |  public Fw::SerializeBufferBase
+          |  public Fw::LinearBufferBase
           |{
           |
           |  public:

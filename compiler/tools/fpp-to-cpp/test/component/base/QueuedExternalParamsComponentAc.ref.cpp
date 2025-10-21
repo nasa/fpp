@@ -36,7 +36,7 @@ namespace {
   // Define a message buffer class large enough to handle all the
   // asynchronous inputs to the component
   class ComponentIpcSerializableBuffer :
-    public Fw::SerializeBufferBase
+    public Fw::LinearBufferBase
   {
 
     public:
@@ -4405,7 +4405,7 @@ void QueuedExternalParamsComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::CmdResponse QueuedExternalParamsComponentBase ::
-  paramSet_ParamI32Ext(Fw::SerializeBufferBase& val)
+  paramSet_ParamI32Ext(Fw::LinearBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMI32EXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -4428,7 +4428,7 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
 }
 
 Fw::CmdResponse QueuedExternalParamsComponentBase ::
-  paramSet_ParamF64Ext(Fw::SerializeBufferBase& val)
+  paramSet_ParamF64Ext(Fw::LinearBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMF64EXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -4451,7 +4451,7 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
 }
 
 Fw::CmdResponse QueuedExternalParamsComponentBase ::
-  paramSet_ParamStringExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamStringExt(Fw::LinearBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMSTRINGEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -4474,7 +4474,7 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
 }
 
 Fw::CmdResponse QueuedExternalParamsComponentBase ::
-  paramSet_ParamEnumExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamEnumExt(Fw::LinearBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMENUMEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -4497,7 +4497,7 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
 }
 
 Fw::CmdResponse QueuedExternalParamsComponentBase ::
-  paramSet_ParamArrayExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamArrayExt(Fw::LinearBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMARRAYEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -4520,7 +4520,7 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
 }
 
 Fw::CmdResponse QueuedExternalParamsComponentBase ::
-  paramSet_ParamStructExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamStructExt(Fw::LinearBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMSTRUCTEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());

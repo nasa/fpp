@@ -39,7 +39,7 @@ namespace {
   // Define a message buffer class large enough to handle all the
   // asynchronous inputs to the component
   class ComponentIpcSerializableBuffer :
-    public Fw::SerializeBufferBase
+    public Fw::LinearBufferBase
   {
 
     public:
@@ -1409,7 +1409,7 @@ void ActiveOverflowComponentBase ::
 void ActiveOverflowComponentBase ::
   serialAsyncHook_handlerBase(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -1562,7 +1562,7 @@ void ActiveOverflowComponentBase ::
 void ActiveOverflowComponentBase ::
   serialAsyncHook_preMsgHook(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Default: no-op
@@ -2521,7 +2521,7 @@ void ActiveOverflowComponentBase ::
   m_p_serialAsyncHook_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   FW_ASSERT(callComp);

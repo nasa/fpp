@@ -75,7 +75,7 @@ namespace M {
 #if FW_PORT_SERIALIZATION == 1
 
       //! Invoke the port with serialized arguments
-      Fw::SerializeStatus invokeSerial(Fw::SerializeBufferBase& _buffer);
+      Fw::SerializeStatus invokeSerial(Fw::LinearBufferBase& _buffer);
 
 #endif
 

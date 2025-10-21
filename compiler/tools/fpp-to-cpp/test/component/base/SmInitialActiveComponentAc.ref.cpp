@@ -41,7 +41,7 @@ namespace FppTest {
     // Define a message buffer class large enough to handle all the
     // asynchronous inputs to the component
     class ComponentIpcSerializableBuffer :
-      public Fw::SerializeBufferBase
+      public Fw::LinearBufferBase
     {
 
       public:
@@ -413,7 +413,7 @@ namespace FppTest {
   // ----------------------------------------------------------------------
 
   void SmInitialActiveComponentBase ::
-    smDispatch(Fw::SerializeBufferBase& buffer)
+    smDispatch(Fw::LinearBufferBase& buffer)
   {
     // Deserialize the state machine ID and signal
     FwEnumStoreType storedSmId;
@@ -471,7 +471,7 @@ namespace FppTest {
 
   void SmInitialActiveComponentBase ::
     deserializeSmIdAndSignal(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FwEnumStoreType& smId,
         FwEnumStoreType& signal
     )
@@ -492,7 +492,7 @@ namespace FppTest {
 
   void SmInitialActiveComponentBase ::
     FppTest_SmInitial_Basic_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmInitial_Basic& sm,
         FppTest_SmInitial_Basic::Signal signal
     )
@@ -506,7 +506,7 @@ namespace FppTest {
 
   void SmInitialActiveComponentBase ::
     FppTest_SmInitial_Choice_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmInitial_Choice& sm,
         FppTest_SmInitial_Choice::Signal signal
     )
@@ -520,7 +520,7 @@ namespace FppTest {
 
   void SmInitialActiveComponentBase ::
     FppTest_SmInitial_Nested_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmInitial_Nested& sm,
         FppTest_SmInitial_Nested::Signal signal
     )
@@ -534,7 +534,7 @@ namespace FppTest {
 
   void SmInitialActiveComponentBase ::
     FppTest_SmInitialActive_Basic_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmInitialActive_Basic& sm,
         FppTest_SmInitialActive_Basic::Signal signal
     )
@@ -548,7 +548,7 @@ namespace FppTest {
 
   void SmInitialActiveComponentBase ::
     FppTest_SmInitialActive_Choice_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmInitialActive_Choice& sm,
         FppTest_SmInitialActive_Choice::Signal signal
     )
@@ -562,7 +562,7 @@ namespace FppTest {
 
   void SmInitialActiveComponentBase ::
     FppTest_SmInitialActive_Nested_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmInitialActive_Nested& sm,
         FppTest_SmInitialActive_Nested::Signal signal
     )

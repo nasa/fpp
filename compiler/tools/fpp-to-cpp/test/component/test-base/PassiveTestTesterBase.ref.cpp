@@ -18,7 +18,7 @@ Fw::SerializeStatus PassiveTestTesterBase::PassiveTestComponentBaseParamExternal
       const FwPrmIdType baseId,
       const FwPrmIdType localId,
       const Fw::ParamValid prmStat,
-      Fw::SerializeBufferBase& buff
+      Fw::LinearBufferBase& buff
   )
 {
   Fw::SerializeStatus stat;
@@ -63,7 +63,7 @@ Fw::SerializeStatus PassiveTestTesterBase::PassiveTestComponentBaseParamExternal
   serializeParam(
       const FwPrmIdType baseId,
       const FwPrmIdType localId,
-      Fw::SerializeBufferBase& buff
+      Fw::LinearBufferBase& buff
   ) const
 {
   Fw::SerializeStatus stat;

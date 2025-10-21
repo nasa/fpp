@@ -52,7 +52,7 @@ namespace FppTest {
     // Define a message buffer class large enough to handle all the
     // asynchronous inputs to the component
     class ComponentIpcSerializableBuffer :
-      public Fw::SerializeBufferBase
+      public Fw::LinearBufferBase
     {
 
       public:
@@ -1621,7 +1621,7 @@ namespace FppTest {
     sendSignalStart(
         SmId smId,
         FwEnumStoreType signal,
-        Fw::SerializeBufferBase& buffer
+        Fw::LinearBufferBase& buffer
     )
   {
     Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
@@ -1644,7 +1644,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    basic1_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    basic1_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1657,7 +1657,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    basic2_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    basic2_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1670,7 +1670,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    smStateBasic1_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasic1_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1683,7 +1683,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    smStateBasic2_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasic2_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1701,7 +1701,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    smStateBasicGuard_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicGuard_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::BLOCKING;
@@ -1714,7 +1714,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    smStateBasicGuardString_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicGuardString_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1732,7 +1732,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    smStateBasicGuardTestAbsType_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicGuardTestAbsType_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1760,7 +1760,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    smStateBasicGuardTestArray_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicGuardTestArray_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1773,7 +1773,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    smStateBasicGuardTestEnum_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicGuardTestEnum_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1786,7 +1786,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    smStateBasicGuardTestStruct_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicGuardTestStruct_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1799,7 +1799,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    smStateBasicGuardU32_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicGuardU32_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1812,7 +1812,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    smStateBasicInternal_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicInternal_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1825,7 +1825,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    smStateBasicSelf_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicSelf_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1838,7 +1838,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    smStateBasicString_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicString_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1851,7 +1851,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    smStateBasicTestAbsType_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicTestAbsType_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1864,7 +1864,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    smStateBasicTestArray_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicTestArray_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1877,7 +1877,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    smStateBasicTestEnum_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicTestEnum_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1890,7 +1890,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    smStateBasicTestStruct_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicTestStruct_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1903,7 +1903,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    smStateBasicU32_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicU32_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1916,7 +1916,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    smStateInternal_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateInternal_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1929,7 +1929,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    smStatePolymorphism_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStatePolymorphism_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1942,7 +1942,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    smStateStateToChild_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateStateToChild_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1955,7 +1955,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    smStateStateToChoice_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateStateToChoice_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1968,7 +1968,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    smStateStateToSelf_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateStateToSelf_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1981,7 +1981,7 @@ namespace FppTest {
   }
 
   void SmStateActiveComponentBase ::
-    smStateStateToState_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateStateToState_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1998,7 +1998,7 @@ namespace FppTest {
   // ----------------------------------------------------------------------
 
   void SmStateActiveComponentBase ::
-    smDispatch(Fw::SerializeBufferBase& buffer)
+    smDispatch(Fw::LinearBufferBase& buffer)
   {
     // Deserialize the state machine ID and signal
     FwEnumStoreType storedSmId;
@@ -2141,7 +2141,7 @@ namespace FppTest {
 
   void SmStateActiveComponentBase ::
     deserializeSmIdAndSignal(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FwEnumStoreType& smId,
         FwEnumStoreType& signal
     )
@@ -2162,7 +2162,7 @@ namespace FppTest {
 
   void SmStateActiveComponentBase ::
     FppTest_SmState_Basic_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmState_Basic& sm,
         FppTest_SmState_Basic::Signal signal
     )
@@ -2183,7 +2183,7 @@ namespace FppTest {
 
   void SmStateActiveComponentBase ::
     FppTest_SmState_BasicGuard_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmState_BasicGuard& sm,
         FppTest_SmState_BasicGuard::Signal signal
     )
@@ -2204,7 +2204,7 @@ namespace FppTest {
 
   void SmStateActiveComponentBase ::
     FppTest_SmState_BasicGuardString_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmState_BasicGuardString& sm,
         FppTest_SmState_BasicGuardString::Signal signal
     )
@@ -2230,7 +2230,7 @@ namespace FppTest {
 
   void SmStateActiveComponentBase ::
     FppTest_SmState_BasicGuardTestAbsType_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmState_BasicGuardTestAbsType& sm,
         FppTest_SmState_BasicGuardTestAbsType::Signal signal
     )
@@ -2255,7 +2255,7 @@ namespace FppTest {
 
   void SmStateActiveComponentBase ::
     FppTest_SmState_BasicGuardTestArray_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmState_BasicGuardTestArray& sm,
         FppTest_SmState_BasicGuardTestArray::Signal signal
     )
@@ -2280,7 +2280,7 @@ namespace FppTest {
 
   void SmStateActiveComponentBase ::
     FppTest_SmState_BasicGuardTestEnum_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmState_BasicGuardTestEnum& sm,
         FppTest_SmState_BasicGuardTestEnum::Signal signal
     )
@@ -2305,7 +2305,7 @@ namespace FppTest {
 
   void SmStateActiveComponentBase ::
     FppTest_SmState_BasicGuardTestStruct_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmState_BasicGuardTestStruct& sm,
         FppTest_SmState_BasicGuardTestStruct::Signal signal
     )
@@ -2330,7 +2330,7 @@ namespace FppTest {
 
   void SmStateActiveComponentBase ::
     FppTest_SmState_BasicGuardU32_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmState_BasicGuardU32& sm,
         FppTest_SmState_BasicGuardU32::Signal signal
     )
@@ -2355,7 +2355,7 @@ namespace FppTest {
 
   void SmStateActiveComponentBase ::
     FppTest_SmState_BasicInternal_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmState_BasicInternal& sm,
         FppTest_SmState_BasicInternal::Signal signal
     )
@@ -2376,7 +2376,7 @@ namespace FppTest {
 
   void SmStateActiveComponentBase ::
     FppTest_SmState_BasicSelf_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmState_BasicSelf& sm,
         FppTest_SmState_BasicSelf::Signal signal
     )
@@ -2397,7 +2397,7 @@ namespace FppTest {
 
   void SmStateActiveComponentBase ::
     FppTest_SmState_BasicString_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmState_BasicString& sm,
         FppTest_SmState_BasicString::Signal signal
     )
@@ -2423,7 +2423,7 @@ namespace FppTest {
 
   void SmStateActiveComponentBase ::
     FppTest_SmState_BasicTestAbsType_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmState_BasicTestAbsType& sm,
         FppTest_SmState_BasicTestAbsType::Signal signal
     )
@@ -2448,7 +2448,7 @@ namespace FppTest {
 
   void SmStateActiveComponentBase ::
     FppTest_SmState_BasicTestArray_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmState_BasicTestArray& sm,
         FppTest_SmState_BasicTestArray::Signal signal
     )
@@ -2473,7 +2473,7 @@ namespace FppTest {
 
   void SmStateActiveComponentBase ::
     FppTest_SmState_BasicTestEnum_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmState_BasicTestEnum& sm,
         FppTest_SmState_BasicTestEnum::Signal signal
     )
@@ -2498,7 +2498,7 @@ namespace FppTest {
 
   void SmStateActiveComponentBase ::
     FppTest_SmState_BasicTestStruct_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmState_BasicTestStruct& sm,
         FppTest_SmState_BasicTestStruct::Signal signal
     )
@@ -2523,7 +2523,7 @@ namespace FppTest {
 
   void SmStateActiveComponentBase ::
     FppTest_SmState_BasicU32_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmState_BasicU32& sm,
         FppTest_SmState_BasicU32::Signal signal
     )
@@ -2548,7 +2548,7 @@ namespace FppTest {
 
   void SmStateActiveComponentBase ::
     FppTest_SmState_Internal_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmState_Internal& sm,
         FppTest_SmState_Internal::Signal signal
     )
@@ -2576,7 +2576,7 @@ namespace FppTest {
 
   void SmStateActiveComponentBase ::
     FppTest_SmState_Polymorphism_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmState_Polymorphism& sm,
         FppTest_SmState_Polymorphism::Signal signal
     )
@@ -2604,7 +2604,7 @@ namespace FppTest {
 
   void SmStateActiveComponentBase ::
     FppTest_SmState_StateToChild_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmState_StateToChild& sm,
         FppTest_SmState_StateToChild::Signal signal
     )
@@ -2632,7 +2632,7 @@ namespace FppTest {
 
   void SmStateActiveComponentBase ::
     FppTest_SmState_StateToChoice_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmState_StateToChoice& sm,
         FppTest_SmState_StateToChoice::Signal signal
     )
@@ -2667,7 +2667,7 @@ namespace FppTest {
 
   void SmStateActiveComponentBase ::
     FppTest_SmState_StateToSelf_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmState_StateToSelf& sm,
         FppTest_SmState_StateToSelf::Signal signal
     )
@@ -2695,7 +2695,7 @@ namespace FppTest {
 
   void SmStateActiveComponentBase ::
     FppTest_SmState_StateToState_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmState_StateToState& sm,
         FppTest_SmState_StateToState::Signal signal
     )
@@ -2730,7 +2730,7 @@ namespace FppTest {
 
   void SmStateActiveComponentBase ::
     FppTest_SmStateActive_Basic_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::LinearBufferBase& buffer,
         FppTest_SmStateActive_Basic& sm,
         FppTest_SmStateActive_Basic::Signal signal
     )

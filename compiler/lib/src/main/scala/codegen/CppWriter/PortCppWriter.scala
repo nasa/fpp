@@ -170,7 +170,7 @@ case class PortCppWriter (
 
     List(
       CppDocWriter.writeBannerComment("Port buffer class"),
-      Line.blank :: lines(s"class ${name}PortBuffer : public Fw::SerializeBufferBase {"),
+      Line.blank :: lines(s"class ${name}PortBuffer : public Fw::LinearBufferBase {"),
       List(
         CppDocHppWriter.writeAccessTag("public"),
         Line.blank :: lines(
@@ -374,7 +374,7 @@ case class PortCppWriter (
             "invokeSerial",
             List(
               CppDoc.Function.Param(
-                CppDoc.Type("Fw::SerializeBufferBase&"),
+                CppDoc.Type("Fw::LinearBufferBase&"),
                 "_buffer"
               )
             ),

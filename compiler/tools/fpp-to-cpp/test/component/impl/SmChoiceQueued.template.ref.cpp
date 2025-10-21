@@ -321,7 +321,7 @@ namespace FppTest {
     smChoiceChoiceToChoice_stateMachineOverflowHook(
         SmId smId,
         FwEnumStoreType signal,
-        Fw::SerializeBufferBase& buffer
+        Fw::LinearBufferBase& buffer
     )
   {
     // TODO

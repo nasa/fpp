@@ -72,7 +72,7 @@ namespace {
   // Define a message buffer class large enough to handle all the
   // asynchronous inputs to the component
   class ComponentIpcSerializableBuffer :
-    public Fw::SerializeBufferBase
+    public Fw::LinearBufferBase
   {
 
     public:
@@ -8462,7 +8462,7 @@ void QueuedTestComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::CmdResponse QueuedTestComponentBase ::
-  paramSet_ParamU32(Fw::SerializeBufferBase& val)
+  paramSet_ParamU32(Fw::LinearBufferBase& val)
 {
   U32 _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -8482,7 +8482,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
-  paramSet_ParamF64(Fw::SerializeBufferBase& val)
+  paramSet_ParamF64(Fw::LinearBufferBase& val)
 {
   F64 _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -8502,7 +8502,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
-  paramSet_ParamString(Fw::SerializeBufferBase& val)
+  paramSet_ParamString(Fw::LinearBufferBase& val)
 {
   Fw::ParamString _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -8522,7 +8522,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
-  paramSet_ParamEnum(Fw::SerializeBufferBase& val)
+  paramSet_ParamEnum(Fw::LinearBufferBase& val)
 {
   E _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -8542,7 +8542,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
-  paramSet_ParamArray(Fw::SerializeBufferBase& val)
+  paramSet_ParamArray(Fw::LinearBufferBase& val)
 {
   A _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -8562,7 +8562,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
-  paramSet_ParamStruct(Fw::SerializeBufferBase& val)
+  paramSet_ParamStruct(Fw::LinearBufferBase& val)
 {
   S _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -8582,7 +8582,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
-  paramSet_ParamI32Ext(Fw::SerializeBufferBase& val)
+  paramSet_ParamI32Ext(Fw::LinearBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMI32EXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -8605,7 +8605,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
-  paramSet_ParamF64Ext(Fw::SerializeBufferBase& val)
+  paramSet_ParamF64Ext(Fw::LinearBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMF64EXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -8628,7 +8628,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
-  paramSet_ParamStringExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamStringExt(Fw::LinearBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMSTRINGEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -8651,7 +8651,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
-  paramSet_ParamEnumExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamEnumExt(Fw::LinearBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMENUMEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -8674,7 +8674,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
-  paramSet_ParamArrayExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamArrayExt(Fw::LinearBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMARRAYEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -8697,7 +8697,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
-  paramSet_ParamStructExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamStructExt(Fw::LinearBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMSTRUCTEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
