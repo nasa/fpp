@@ -7633,14 +7633,69 @@ passive component EventThrottling {
 </div>
 </div>
 <div class="paragraph">
-<p>In this example, event <code>E</code> will be throttled after the component
+<p>In this example, event <code>Event1</code> will be throttled after the component
 instance has emitted it ten times.</p>
 </div>
 <div class="paragraph">
 <p>Once an event is throttled, the component instance will no longer
-emit the event until the throttling is canceled.
-Typically, the canceling happens via a FSW command.
-For details, see the
+emit the event until the throttling is canceled. Throttle cancellation
+can happen after a specified time interval or via a FSW command.</p>
+</div>
+<div class="paragraph">
+<p>A throttle timeout can be specified using the <code>every</code> keyword and a time interval
+after the throttle clause.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ Component for illustrating event throttling with timeouts
+passive component EventThrottlingWithTimeout {
+
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
+  @ Event port
+  event port eventOut
+
+  @ Text event port
+  text event port textEventOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  # ----------------------------------------------------------------------
+  # Events
+  # ----------------------------------------------------------------------
+
+  @ Event 1
+  event Event1 severity warning high \
+    format "Event 1 occurred" \
+    throttle 10 \
+    every {seconds=2}
+
+  @ Event 2
+  event Event2 severity warning high \
+    format "Event 2 occurred" \
+    throttle 10 \
+    every {seconds=2, useconds=500000}
+
+  @ Event 3
+  event Event3 severity warning high \
+    format "Event 3 occurred" \
+    throttle 10 \
+    every {useconds=500000}
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example <code>Event1</code> will emit up to 10 events every 2 seconds, <code>Event2</code>
+will emit up to 10 events every 2.5 seconds and <code>Event3</code> up to 10 every 0.5 seconds.</p>
+</div>
+<div class="paragraph">
+<p>If a throttle timeout is not specified via the <code>every</code> clause, the component will not
+emit the event until the throttle is cleared through FSW command. For details, see the
 <a href="https://fprime.jpl.nasa.gov/devel/docs/user-manual/">F Prime User Manual</a>.</p>
 </div>
 </div>
@@ -15789,7 +15844,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-10-14 15:45:05 -0700
+Last updated 2025-10-21 13:49:37 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
