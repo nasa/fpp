@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/event/bad_throttle_interval_extra_member.fpp:5.11
+    every {seconds=1,minutes=10}
+          ^
+error: cannot convert { seconds: Integer, minutes: Integer } to { seconds: U32, useconds: U32 }

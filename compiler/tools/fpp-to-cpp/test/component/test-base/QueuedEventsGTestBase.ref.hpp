@@ -468,6 +468,9 @@
 #define ASSERT_EVENTS_EventWarningLowThrottled_SIZE(size) \
   this->assertEvents_EventWarningLowThrottled_size(__FILE__, __LINE__, size)
 
+#define ASSERT_EVENTS_EventWarningLowThrottledInterval_SIZE(size) \
+  this->assertEvents_EventWarningLowThrottledInterval_size(__FILE__, __LINE__, size)
+
 //! \class QueuedEventsGTestBase
 //! \brief Auto-generated base for QueuedEvents component Google Test harness
 class QueuedEventsGTestBase :
@@ -658,6 +661,13 @@ class QueuedEventsGTestBase :
 
     //! Event: EventWarningLowThrottled
     void assertEvents_EventWarningLowThrottled_size(
+        const char* const __callSiteFileName, //!< The name of the file containing the call site
+        const U32 __callSiteLineNumber, //!< The line number of the call site
+        const U32 size //!< The asserted size
+    ) const;
+
+    //! Event: EventWarningLowThrottledInterval
+    void assertEvents_EventWarningLowThrottledInterval_size(
         const char* const __callSiteFileName, //!< The name of the file containing the call site
         const U32 __callSiteLineNumber, //!< The line number of the call site
         const U32 size //!< The asserted size
