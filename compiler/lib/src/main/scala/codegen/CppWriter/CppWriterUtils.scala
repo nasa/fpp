@@ -262,6 +262,24 @@ trait CppWriterUtils extends LineUtils {
     )
   }
 
+  /** Write a sum of terms */
+  def writeSum(
+    terms: List[String],
+    empty: String = "0",
+    separator: String = "+",
+    terminator: String = ";"
+  ): List[Line] = {
+    def helper(
+      terms: List[String],
+      sum: List[Line]
+    ): List[Line] = terms match {
+      case Nil => lines(s"$empty$terminator")
+      case t :: Nil => line(s"$t$terminator") :: sum
+      case t :: tail => helper(tail, line(s"$t $separator") :: sum)
+    }
+    helper(terms, Nil).reverse
+  }
+
   /** Write a variable declaration */
   def writeVarDecl(s: CppWriterState, typeName: String, name: String, t: Type): String =
     t.getUnderlyingType match {

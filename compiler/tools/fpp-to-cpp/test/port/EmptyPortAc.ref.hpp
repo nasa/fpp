@@ -17,6 +17,13 @@
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
+//! Empty port constants
+struct EmptyPortConstants {
+  //! The size of the serial representations of the port arguments
+  static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
+    0;
+};
+
 #if !FW_DIRECT_PORT_CALLS || 1 // TODO
 
 //! Input Empty port
@@ -33,7 +40,7 @@ class InputEmptyPort :
 
     enum {
       //! The size of the serial representations of the port arguments
-      SERIALIZED_SIZE = 0
+      SERIALIZED_SIZE = EmptyPortConstants::INPUT_SERIALIZED_SIZE
     };
 
   public:

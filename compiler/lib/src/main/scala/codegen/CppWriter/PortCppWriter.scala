@@ -117,10 +117,13 @@ case class PortCppWriter (
       List(hppIncludes, cppIncludes),
       wrapInNamespaces(
         namespaceIdentList,
-        wrapMembersInIfDirective(
-          "#if !FW_DIRECT_PORT_CALLS || 1 // TODO",
-          classes,
-          CppDoc.Lines.Both
+        List.concat(
+          getPortConstants,
+          wrapMembersInIfDirective(
+            "#if !FW_DIRECT_PORT_CALLS || 1 // TODO",
+            classes,
+            CppDoc.Lines.Both
+          )
         )
       )
     )
@@ -166,6 +169,27 @@ case class PortCppWriter (
     )
   }
 
+  private def writeSerializedSize(
+    paramList: List[(String, String, Ast.FormalParam.Kind)],
+  ): List[Line] = writeSum(
+    paramList.map(
+      (n, tn, _) => writeStaticSerializedSizeExpr(s, paramTypeMap(n), tn)
+    )
+  )
+
+  private def getPortConstants: List[CppDoc.Member] = List(
+    linesMember(
+      Line.blank ::
+      line(s"//! $name port constants") ::
+      wrapInNamedStruct(
+        PortCppWriter.portConstantsName(name),
+        line("//! The size of the serial representations of the port arguments") ::
+        line(s"static constexpr FwSizeType INPUT_SERIALIZED_SIZE =") ::
+        writeSerializedSize(paramList).map(indentIn)
+      )
+    )
+  )
+
   private def getPortBufferClass: List[Line] = {
     val privateMemberVariables =
       if params.isEmpty then Nil
@@ -175,10 +199,10 @@ case class PortCppWriter (
     val buffAddr =
       if params.isEmpty then "nullptr" else "m_buff"
 
-    List(
+    List.concat(
       CppDocWriter.writeBannerComment("Port buffer class"),
       Line.blank :: lines(s"class ${name}PortBuffer : public Fw::SerializeBufferBase {"),
-      List(
+      List.concat(
         CppDocHppWriter.writeAccessTag("public"),
         Line.blank :: lines(
           s"""|Fw::Serializable::SizeType getBuffCapacity() const {
@@ -195,45 +219,36 @@ case class PortCppWriter (
               |"""
         ),
         privateMemberVariables
-      ).flatten.map(indentIn).map(indentIn),
+      ).map(indentIn).map(indentIn),
       Line.blank :: lines("};"),
       List(Line.blank)
-    ).flatten
+    )
   }
 
-  private def getInputPortClassMembers: List[CppDoc.Class.Member] = {
-    List(
+  private def getInputPortClassMembers: List[CppDoc.Class.Member] =
+    List.concat(
       getInputPortConstantMembers,
       getInputPortTypeMembers,
       getInputPortFunctionMembers,
       getInputPortVariableMembers
-    ).flatten
-  }
+    )
 
-  private def getInputPortConstantMembers: List[CppDoc.Class.Member] = {
-    List(
-      linesClassMember(
-        List(
-          CppDocHppWriter.writeAccessTag("public"),
-          CppDocWriter.writeBannerComment("Constants"),
-          addBlankPrefix(
-            wrapInEnum(
-              List(
-                lines("//! The size of the serial representations of the port arguments"),
-                if params.isEmpty then
-                  lines("SERIALIZED_SIZE = 0")
-                else
-                  line("SERIALIZED_SIZE =") ::
-                    lines(paramList.map((n, tn, _) =>
-                      writeStaticSerializedSizeExpr(s, paramTypeMap(n), tn)
-                    ).mkString(" +\n")).map(indentIn)
-              ).flatten
+  private def getInputPortConstantMembers: List[CppDoc.Class.Member] = List(
+    linesClassMember(
+      List.concat(
+        CppDocHppWriter.writeAccessTag("public"),
+        CppDocWriter.writeBannerComment("Constants"),
+        addBlankPrefix(
+          wrapInEnum(
+            lines(
+              s"""|//! The size of the serial representations of the port arguments
+                  |SERIALIZED_SIZE = ${PortCppWriter.portConstantsName(name)}::INPUT_SERIALIZED_SIZE"""
             )
           )
-        ).flatten
+        )
       )
     )
-  }
+  )
 
   private def getInputPortTypeMembers: List[CppDoc.Class.Member] = {
     val compFuncParams = 
@@ -248,14 +263,14 @@ case class PortCppWriter (
 
     List(
       linesClassMember(
-        List(
+        List.concat(
           CppDocHppWriter.writeAccessTag("public"),
           CppDocWriter.writeBannerComment("Types"),
           Line.blank :: lines("//! The port callback function type"),
           lines(s"typedef $returnType (*CompFuncPtr)("),
           compFuncParams.map(indentIn),
           lines(");")
-        ).flatten
+        )
       )
     )
   }
@@ -395,21 +410,21 @@ case class PortCppWriter (
   private def getInputPortVariableMembers: List[CppDoc.Class.Member] = {
     List(
       linesClassMember(
-        List(
+        List.concat(
           CppDocHppWriter.writeAccessTag("private"),
           CppDocWriter.writeBannerComment("Member variables"),
           Line.blank :: lines("//! The pointer to the port callback function"),
           lines("CompFuncPtr m_func;")
-        ).flatten
+        )
       )
     )
   }
 
   private def getOutputPortClassMembers: List[CppDoc.Class.Member] = {
-    List(
+    List.concat(
       getOutputPortFunctionMembers,
       getOutputPortVariableMembers
-    ).flatten
+    )
   }
 
   private def getOutputPortFunctionMembers: List[CppDoc.Class.Member] = {
@@ -421,7 +436,7 @@ case class PortCppWriter (
             |return $invokeCall
             |"""
       )
-      case None => List(
+      case None => List.concat(
         lines(
           s"""|
               |#if FW_PORT_SERIALIZATION
@@ -454,7 +469,7 @@ case class PortCppWriter (
               |#endif
               |"""
         )
-      ).flatten
+      )
     }
 
     List(
@@ -524,12 +539,12 @@ case class PortCppWriter (
   private def getOutputPortVariableMembers: List[CppDoc.Class.Member] = {
     List(
       linesClassMember(
-        List(
+        List.concat(
           CppDocHppWriter.writeAccessTag("private"),
           CppDocWriter.writeBannerComment("Member variables"),
           Line.blank :: lines("//! The pointer to the input port"),
           lines(s"${PortCppWriter.inputPortName(name)}* m_port;")
-        ).flatten
+        )
       )
     )
   }
@@ -537,6 +552,8 @@ case class PortCppWriter (
 }
 
 object PortCppWriter {
+
+  private def portConstantsName(name: String) = s"${name}PortConstants"
 
   private def inputPortName(name: String) = s"Input${name}Port"
 

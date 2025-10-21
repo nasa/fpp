@@ -22,6 +22,19 @@
 
 namespace Ports {
 
+  //! Typed port constants
+  struct TypedPortConstants {
+    //! The size of the serial representations of the port arguments
+    static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
+      sizeof(U32) +
+      sizeof(F32) +
+      sizeof(U8) +
+      Fw::StringBase::STATIC_SERIALIZED_SIZE(80) +
+      E::SERIALIZED_SIZE +
+      A::SERIALIZED_SIZE +
+      S::SERIALIZED_SIZE;
+  };
+
 #if !FW_DIRECT_PORT_CALLS || 1 // TODO
 
   //! Input Typed port
@@ -38,14 +51,7 @@ namespace Ports {
 
       enum {
         //! The size of the serial representations of the port arguments
-        SERIALIZED_SIZE =
-          sizeof(U32) +
-          sizeof(F32) +
-          sizeof(U8) +
-          Fw::StringBase::STATIC_SERIALIZED_SIZE(80) +
-          E::SERIALIZED_SIZE +
-          A::SERIALIZED_SIZE +
-          S::SERIALIZED_SIZE
+        SERIALIZED_SIZE = TypedPortConstants::INPUT_SERIALIZED_SIZE
       };
 
     public:

@@ -17,6 +17,16 @@
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
+//! String port constants
+struct StringPortConstants {
+  //! The size of the serial representations of the port arguments
+  static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
+    Fw::StringBase::STATIC_SERIALIZED_SIZE(80) +
+    Fw::StringBase::STATIC_SERIALIZED_SIZE(80) +
+    Fw::StringBase::STATIC_SERIALIZED_SIZE(100) +
+    Fw::StringBase::STATIC_SERIALIZED_SIZE(100);
+};
+
 #if !FW_DIRECT_PORT_CALLS || 1 // TODO
 
 //! Input String port
@@ -33,11 +43,7 @@ class InputStringPort :
 
     enum {
       //! The size of the serial representations of the port arguments
-      SERIALIZED_SIZE =
-        Fw::StringBase::STATIC_SERIALIZED_SIZE(80) +
-        Fw::StringBase::STATIC_SERIALIZED_SIZE(80) +
-        Fw::StringBase::STATIC_SERIALIZED_SIZE(100) +
-        Fw::StringBase::STATIC_SERIALIZED_SIZE(100)
+      SERIALIZED_SIZE = StringPortConstants::INPUT_SERIALIZED_SIZE
     };
 
   public:

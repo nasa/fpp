@@ -18,6 +18,14 @@
 #include "Fw/Types/String.hpp"
 #include "include/T.hpp"
 
+//! AbsType port constants
+struct AbsTypePortConstants {
+  //! The size of the serial representations of the port arguments
+  static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
+    T::SERIALIZED_SIZE +
+    T::SERIALIZED_SIZE;
+};
+
 #if !FW_DIRECT_PORT_CALLS || 1 // TODO
 
 //! Input AbsType port
@@ -34,9 +42,7 @@ class InputAbsTypePort :
 
     enum {
       //! The size of the serial representations of the port arguments
-      SERIALIZED_SIZE =
-        T::SERIALIZED_SIZE +
-        T::SERIALIZED_SIZE
+      SERIALIZED_SIZE = AbsTypePortConstants::INPUT_SERIALIZED_SIZE
     };
 
   public:

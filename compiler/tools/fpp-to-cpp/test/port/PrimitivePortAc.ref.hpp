@@ -17,6 +17,18 @@
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
+//! Primitive port constants
+struct PrimitivePortConstants {
+  //! The size of the serial representations of the port arguments
+  static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
+    sizeof(U32) +
+    sizeof(U32) +
+    sizeof(F32) +
+    sizeof(F32) +
+    sizeof(U8) +
+    sizeof(U8);
+};
+
 #if !FW_DIRECT_PORT_CALLS || 1 // TODO
 
 //! Input Primitive port
@@ -33,13 +45,7 @@ class InputPrimitivePort :
 
     enum {
       //! The size of the serial representations of the port arguments
-      SERIALIZED_SIZE =
-        sizeof(U32) +
-        sizeof(U32) +
-        sizeof(F32) +
-        sizeof(F32) +
-        sizeof(U8) +
-        sizeof(U8)
+      SERIALIZED_SIZE = PrimitivePortConstants::INPUT_SERIALIZED_SIZE
     };
 
   public:

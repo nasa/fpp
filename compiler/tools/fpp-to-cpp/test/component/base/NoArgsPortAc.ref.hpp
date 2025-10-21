@@ -19,6 +19,13 @@
 
 namespace Ports {
 
+  //! NoArgs port constants
+  struct NoArgsPortConstants {
+    //! The size of the serial representations of the port arguments
+    static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
+      0;
+  };
+
 #if !FW_DIRECT_PORT_CALLS || 1 // TODO
 
   //! Input NoArgs port
@@ -35,7 +42,7 @@ namespace Ports {
 
       enum {
         //! The size of the serial representations of the port arguments
-        SERIALIZED_SIZE = 0
+        SERIALIZED_SIZE = NoArgsPortConstants::INPUT_SERIALIZED_SIZE
       };
 
     public:

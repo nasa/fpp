@@ -20,6 +20,18 @@
 #include "Fw/Types/String.hpp"
 #include "SSerializableAc.hpp"
 
+//! FppType port constants
+struct FppTypePortConstants {
+  //! The size of the serial representations of the port arguments
+  static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
+    E::SERIALIZED_SIZE +
+    E::SERIALIZED_SIZE +
+    A::SERIALIZED_SIZE +
+    A::SERIALIZED_SIZE +
+    S::SERIALIZED_SIZE +
+    S::SERIALIZED_SIZE;
+};
+
 #if !FW_DIRECT_PORT_CALLS || 1 // TODO
 
 //! Input FppType port
@@ -36,13 +48,7 @@ class InputFppTypePort :
 
     enum {
       //! The size of the serial representations of the port arguments
-      SERIALIZED_SIZE =
-        E::SERIALIZED_SIZE +
-        E::SERIALIZED_SIZE +
-        A::SERIALIZED_SIZE +
-        A::SERIALIZED_SIZE +
-        S::SERIALIZED_SIZE +
-        S::SERIALIZED_SIZE
+      SERIALIZED_SIZE = FppTypePortConstants::INPUT_SERIALIZED_SIZE
     };
 
   public:

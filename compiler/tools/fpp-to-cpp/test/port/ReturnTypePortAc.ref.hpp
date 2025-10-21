@@ -18,6 +18,13 @@
 
 namespace M {
 
+  //! ReturnType port constants
+  struct ReturnTypePortConstants {
+    //! The size of the serial representations of the port arguments
+    static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
+      sizeof(U32);
+  };
+
 #if !FW_DIRECT_PORT_CALLS || 1 // TODO
 
   //! Input ReturnType port
@@ -34,8 +41,7 @@ namespace M {
 
       enum {
         //! The size of the serial representations of the port arguments
-        SERIALIZED_SIZE =
-          sizeof(U32)
+        SERIALIZED_SIZE = ReturnTypePortConstants::INPUT_SERIALIZED_SIZE
       };
 
     public:
