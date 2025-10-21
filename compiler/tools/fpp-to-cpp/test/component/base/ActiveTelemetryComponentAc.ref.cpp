@@ -1606,11 +1606,11 @@ ActiveTelemetryComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
 bool ActiveTelemetryComponentBase ::
   isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const
@@ -1706,11 +1706,11 @@ bool ActiveTelemetryComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
 bool ActiveTelemetryComponentBase ::
   isConnected_noArgsOut_OutputPort(FwIndexType portNum) const
@@ -3047,6 +3047,8 @@ F32 ActiveTelemetryComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Telemetry write functions
 // ----------------------------------------------------------------------
@@ -3492,6 +3494,10 @@ void ActiveTelemetryComponentBase ::
   }
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Time
 // ----------------------------------------------------------------------
@@ -3508,6 +3514,8 @@ Fw::Time ActiveTelemetryComponentBase ::
     return Fw::Time(TimeBase::TB_NONE, 0, 0);
   }
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Mutex operations for guarded ports

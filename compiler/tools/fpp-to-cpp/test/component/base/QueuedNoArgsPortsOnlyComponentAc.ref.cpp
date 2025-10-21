@@ -350,11 +350,11 @@ QueuedNoArgsPortsOnlyComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
 bool QueuedNoArgsPortsOnlyComponentBase ::
   isConnected_noArgsOut_OutputPort(FwIndexType portNum) const

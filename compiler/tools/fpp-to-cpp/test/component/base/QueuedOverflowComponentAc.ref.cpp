@@ -787,6 +787,8 @@ void QueuedOverflowComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Command registration
 // ----------------------------------------------------------------------
@@ -794,7 +796,7 @@ void QueuedOverflowComponentBase ::
 void QueuedOverflowComponentBase ::
   regCommands()
 {
-  FW_ASSERT(this->m_cmdRegOut_OutputPort[0].isConnected());
+  FW_ASSERT(this->isConnected_cmdRegOut_OutputPort(0));
 
   this->m_cmdRegOut_OutputPort[0].invoke(
     this->getIdBase() + OPCODE_CMD_HOOK
@@ -804,6 +806,8 @@ void QueuedOverflowComponentBase ::
     this->getIdBase() + OPCODE_CMD_PARAMS_PRIORITY_HOOK
   );
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Component construction and destruction
@@ -822,11 +826,11 @@ QueuedOverflowComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
 bool QueuedOverflowComponentBase ::
   isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const
@@ -1663,6 +1667,8 @@ void QueuedOverflowComponentBase ::
   );
 }
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Command response
 // ----------------------------------------------------------------------
@@ -1677,6 +1683,10 @@ void QueuedOverflowComponentBase ::
   FW_ASSERT(this->m_cmdResponseOut_OutputPort[0].isConnected());
   this->m_cmdResponseOut_OutputPort[0].invoke(opCode, cmdSeq, response);
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS // TODO
 
 // ----------------------------------------------------------------------
 // Command handler base-class functions
@@ -1812,6 +1822,8 @@ void QueuedOverflowComponentBase ::
   );
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Pre-message hooks for async commands
 //
@@ -1842,6 +1854,8 @@ void QueuedOverflowComponentBase ::
   (void) cmdSeq;
 }
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Time
 // ----------------------------------------------------------------------
@@ -1858,6 +1872,8 @@ Fw::Time QueuedOverflowComponentBase ::
     return Fw::Time(TimeBase::TB_NONE, 0, 0);
   }
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Message dispatch functions
@@ -2291,7 +2307,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedOverflowComponentBase ::
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
       if (args.getBuffLeft() != 0) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
@@ -2338,7 +2354,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedOverflowComponentBase ::
       U32 u32;
       _deserStatus = args.deserializeTo(u32);
       if (_deserStatus != Fw::FW_SERIALIZE_OK) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(
               _opCode,
               _cmdSeq,
@@ -2353,7 +2369,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedOverflowComponentBase ::
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
       if (args.getBuffLeft() != 0) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground

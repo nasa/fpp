@@ -1421,6 +1421,8 @@ void PassiveSerialComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Command registration
 // ----------------------------------------------------------------------
@@ -1428,7 +1430,7 @@ void PassiveSerialComponentBase ::
 void PassiveSerialComponentBase ::
   regCommands()
 {
-  FW_ASSERT(this->m_cmdRegOut_OutputPort[0].isConnected());
+  FW_ASSERT(this->isConnected_cmdRegOut_OutputPort(0));
 
   this->m_cmdRegOut_OutputPort[0].invoke(
     this->getIdBase() + OPCODE_CMD_SYNC
@@ -1574,6 +1576,10 @@ void PassiveSerialComponentBase ::
     this->getIdBase() + OPCODE_PARAMSTRUCTEXT_SAVE
   );
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS // TODO
 
 // ----------------------------------------------------------------------
 // Parameter loading
@@ -1909,6 +1915,8 @@ void PassiveSerialComponentBase ::
   this->parametersLoaded();
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Component construction and destruction
 // ----------------------------------------------------------------------
@@ -1936,11 +1944,11 @@ PassiveSerialComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
 bool PassiveSerialComponentBase ::
   isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const
@@ -2036,11 +2044,11 @@ bool PassiveSerialComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
 bool PassiveSerialComponentBase ::
   isConnected_noArgsOut_OutputPort(FwIndexType portNum) const
@@ -2132,11 +2140,11 @@ bool PassiveSerialComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for serial output ports
 // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
 bool PassiveSerialComponentBase ::
   isConnected_serialOut_OutputPort(FwIndexType portNum) const
@@ -2805,6 +2813,8 @@ Fw::SerializeStatus PassiveSerialComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Command response
 // ----------------------------------------------------------------------
@@ -2819,6 +2829,10 @@ void PassiveSerialComponentBase ::
   FW_ASSERT(this->m_cmdResponseOut_OutputPort[0].isConnected());
   this->m_cmdResponseOut_OutputPort[0].invoke(opCode, cmdSeq, response);
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS // TODO
 
 // ----------------------------------------------------------------------
 // Command handler base-class functions
@@ -3454,6 +3468,10 @@ void PassiveSerialComponentBase ::
   this->unLock();
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Event logging functions
 // ----------------------------------------------------------------------
@@ -4082,6 +4100,8 @@ void PassiveSerialComponentBase ::
 #endif
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Event throttle reset functions
 // ----------------------------------------------------------------------
@@ -4106,6 +4126,8 @@ void PassiveSerialComponentBase ::
   // Reset throttle counter
   this->m_EventWarningLowThrottledThrottle = 0;
 }
+
+#if !FW_DIRECT_PORT_CALLS // TODO
 
 // ----------------------------------------------------------------------
 // Telemetry write functions
@@ -4552,6 +4574,8 @@ void PassiveSerialComponentBase ::
   }
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Parameter update hook
 // ----------------------------------------------------------------------
@@ -4787,6 +4811,8 @@ void PassiveSerialComponentBase ::
   this->paramDelegatePtr = paramExternalDelegatePtr;
 }
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Time
 // ----------------------------------------------------------------------
@@ -4803,6 +4829,8 @@ Fw::Time PassiveSerialComponentBase ::
     return Fw::Time(TimeBase::TB_NONE, 0, 0);
   }
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Mutex operations for guarded ports
@@ -5753,6 +5781,8 @@ Fw::CmdResponse PassiveSerialComponentBase ::
   return Fw::CmdResponse::OK;
 }
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Parameter save functions
 // ----------------------------------------------------------------------
@@ -6122,6 +6152,8 @@ Fw::CmdResponse PassiveSerialComponentBase ::
 
   return Fw::CmdResponse::EXECUTION_ERROR;
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Parameter delegates

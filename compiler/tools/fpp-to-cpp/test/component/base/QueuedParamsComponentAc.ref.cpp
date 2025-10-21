@@ -1589,6 +1589,8 @@ void QueuedParamsComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Command registration
 // ----------------------------------------------------------------------
@@ -1596,7 +1598,7 @@ void QueuedParamsComponentBase ::
 void QueuedParamsComponentBase ::
   regCommands()
 {
-  FW_ASSERT(this->m_cmdRegOut_OutputPort[0].isConnected());
+  FW_ASSERT(this->isConnected_cmdRegOut_OutputPort(0));
 
   this->m_cmdRegOut_OutputPort[0].invoke(
     this->getIdBase() + OPCODE_PARAMU32_SET
@@ -1646,6 +1648,10 @@ void QueuedParamsComponentBase ::
     this->getIdBase() + OPCODE_PARAMSTRUCT_SAVE
   );
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS // TODO
 
 // ----------------------------------------------------------------------
 // Parameter loading
@@ -1823,6 +1829,8 @@ void QueuedParamsComponentBase ::
   this->parametersLoaded();
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Component construction and destruction
 // ----------------------------------------------------------------------
@@ -1845,11 +1853,11 @@ QueuedParamsComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
 bool QueuedParamsComponentBase ::
   isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const
@@ -1945,11 +1953,11 @@ bool QueuedParamsComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
 bool QueuedParamsComponentBase ::
   isConnected_noArgsOut_OutputPort(FwIndexType portNum) const
@@ -3286,6 +3294,8 @@ F32 QueuedParamsComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Command response
 // ----------------------------------------------------------------------
@@ -3300,6 +3310,8 @@ void QueuedParamsComponentBase ::
   FW_ASSERT(this->m_cmdResponseOut_OutputPort[0].isConnected());
   this->m_cmdResponseOut_OutputPort[0].invoke(opCode, cmdSeq, response);
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Parameter update hook
@@ -3387,6 +3399,8 @@ S QueuedParamsComponentBase ::
   return _local;
 }
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Time
 // ----------------------------------------------------------------------
@@ -3403,6 +3417,8 @@ Fw::Time QueuedParamsComponentBase ::
     return Fw::Time(TimeBase::TB_NONE, 0, 0);
   }
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Mutex operations for guarded ports
@@ -4543,6 +4559,8 @@ Fw::CmdResponse QueuedParamsComponentBase ::
   return Fw::CmdResponse::OK;
 }
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Parameter save functions
 // ----------------------------------------------------------------------
@@ -4726,3 +4744,5 @@ Fw::CmdResponse QueuedParamsComponentBase ::
 
   return Fw::CmdResponse::EXECUTION_ERROR;
 }
+
+#endif

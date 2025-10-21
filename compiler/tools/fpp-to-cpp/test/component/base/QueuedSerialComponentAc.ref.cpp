@@ -1906,6 +1906,8 @@ void QueuedSerialComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Command registration
 // ----------------------------------------------------------------------
@@ -1913,7 +1915,7 @@ void QueuedSerialComponentBase ::
 void QueuedSerialComponentBase ::
   regCommands()
 {
-  FW_ASSERT(this->m_cmdRegOut_OutputPort[0].isConnected());
+  FW_ASSERT(this->isConnected_cmdRegOut_OutputPort(0));
 
   this->m_cmdRegOut_OutputPort[0].invoke(
     this->getIdBase() + OPCODE_CMD_SYNC
@@ -2079,6 +2081,10 @@ void QueuedSerialComponentBase ::
     this->getIdBase() + OPCODE_PARAMSTRUCTEXT_SAVE
   );
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS // TODO
 
 // ----------------------------------------------------------------------
 // Parameter loading
@@ -2414,6 +2420,8 @@ void QueuedSerialComponentBase ::
   this->parametersLoaded();
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Component construction and destruction
 // ----------------------------------------------------------------------
@@ -2441,11 +2449,11 @@ QueuedSerialComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
 bool QueuedSerialComponentBase ::
   isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const
@@ -2541,11 +2549,11 @@ bool QueuedSerialComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
 bool QueuedSerialComponentBase ::
   isConnected_noArgsOut_OutputPort(FwIndexType portNum) const
@@ -2637,11 +2645,11 @@ bool QueuedSerialComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for serial output ports
 // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
 bool QueuedSerialComponentBase ::
   isConnected_serialOut_OutputPort(FwIndexType portNum) const
@@ -4489,6 +4497,8 @@ void QueuedSerialComponentBase ::
   );
 }
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Command response
 // ----------------------------------------------------------------------
@@ -4503,6 +4513,10 @@ void QueuedSerialComponentBase ::
   FW_ASSERT(this->m_cmdResponseOut_OutputPort[0].isConnected());
   this->m_cmdResponseOut_OutputPort[0].invoke(opCode, cmdSeq, response);
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS // TODO
 
 // ----------------------------------------------------------------------
 // Command handler base-class functions
@@ -5443,6 +5457,8 @@ void QueuedSerialComponentBase ::
   );
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Pre-message hooks for async commands
 //
@@ -5505,6 +5521,8 @@ void QueuedSerialComponentBase ::
   (void) opCode;
   (void) cmdSeq;
 }
+
+#if !FW_DIRECT_PORT_CALLS // TODO
 
 // ----------------------------------------------------------------------
 // Event logging functions
@@ -6134,6 +6152,8 @@ void QueuedSerialComponentBase ::
 #endif
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Event throttle reset functions
 // ----------------------------------------------------------------------
@@ -6158,6 +6178,8 @@ void QueuedSerialComponentBase ::
   // Reset throttle counter
   this->m_EventWarningLowThrottledThrottle = 0;
 }
+
+#if !FW_DIRECT_PORT_CALLS // TODO
 
 // ----------------------------------------------------------------------
 // Telemetry write functions
@@ -6604,6 +6626,8 @@ void QueuedSerialComponentBase ::
   }
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Parameter update hook
 // ----------------------------------------------------------------------
@@ -6839,6 +6863,8 @@ void QueuedSerialComponentBase ::
   this->paramDelegatePtr = paramExternalDelegatePtr;
 }
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Time
 // ----------------------------------------------------------------------
@@ -6855,6 +6881,8 @@ Fw::Time QueuedSerialComponentBase ::
     return Fw::Time(TimeBase::TB_NONE, 0, 0);
   }
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Mutex operations for guarded ports
@@ -7406,7 +7434,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
       if (args.getBuffLeft() != 0) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
@@ -7453,7 +7481,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
       if (args.getBuffLeft() != 0) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
@@ -7500,7 +7528,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
       U32 u32;
       _deserStatus = args.deserializeTo(u32);
       if (_deserStatus != Fw::FW_SERIALIZE_OK) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(
               _opCode,
               _cmdSeq,
@@ -7515,7 +7543,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
       if (args.getBuffLeft() != 0) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
@@ -7565,7 +7593,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
       if (args.getBuffLeft() != 0) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
@@ -7612,7 +7640,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
       U32 u32;
       _deserStatus = args.deserializeTo(u32);
       if (_deserStatus != Fw::FW_SERIALIZE_OK) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(
               _opCode,
               _cmdSeq,
@@ -7627,7 +7655,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
       if (args.getBuffLeft() != 0) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
@@ -9026,6 +9054,8 @@ Fw::CmdResponse QueuedSerialComponentBase ::
   return Fw::CmdResponse::OK;
 }
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Parameter save functions
 // ----------------------------------------------------------------------
@@ -9395,6 +9425,8 @@ Fw::CmdResponse QueuedSerialComponentBase ::
 
   return Fw::CmdResponse::EXECUTION_ERROR;
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Parameter delegates

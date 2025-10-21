@@ -99,23 +99,22 @@ case class ComponentOutputPorts(
   }
 
   /** Gets the connection status queries for a component base class */
-  def getConnectionStatusQueries(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    addAccessTagAndComment(
-      "protected",
-      s"Connection status queries for ${getPortListTypeString(ports)} output ports",
-      wrapClassMembersInIfDirective(
-        "#if !FW_DIRECT_PORT_CALLS",
-        generateConnectionStatusQueries(
-          ports,
-          (s: String) => s,
-          ComponentOutputPorts.outputPortIsConnectedName,
-          portNumGetterName,
-          portVariableName
-        ),
-        CppDoc.Lines.Cpp
-      )
+  def getConnectionStatusQueries(ports: List[PortInstance]): List[CppDoc.Class.Member] =
+    wrapClassMembersInIfDirective(
+      "#if !FW_DIRECT_PORT_CALLS",
+      addAccessTagAndComment(
+        "protected",
+        s"Connection status queries for ${getPortListTypeString(ports)} output ports",
+          generateConnectionStatusQueries(
+            ports,
+            (s: String) => s,
+            outputPortIsConnectedName,
+            portNumGetterName,
+            portVariableName
+          )
+      ),
+      CppDoc.Lines.Cpp
     )
-  }
 
   // Generates a connection status query
   private def generateConnectionStatusQuery(
@@ -268,13 +267,5 @@ case class ComponentOutputPorts(
       case Some(_) => Nil
     }
 
-
-}
-
-object ComponentOutputPorts {
-
-  /** Gets the name for an output port connection status function */
-  def outputPortIsConnectedName(name: String) =
-    s"isConnected_${name}_OutputPort"
 
 }

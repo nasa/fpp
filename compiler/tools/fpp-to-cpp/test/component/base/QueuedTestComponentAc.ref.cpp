@@ -1982,6 +1982,8 @@ void QueuedTestComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Command registration
 // ----------------------------------------------------------------------
@@ -1989,7 +1991,7 @@ void QueuedTestComponentBase ::
 void QueuedTestComponentBase ::
   regCommands()
 {
-  FW_ASSERT(this->m_cmdRegOut_OutputPort[0].isConnected());
+  FW_ASSERT(this->isConnected_cmdRegOut_OutputPort(0));
 
   this->m_cmdRegOut_OutputPort[0].invoke(
     this->getIdBase() + OPCODE_CMD_SYNC
@@ -2155,6 +2157,10 @@ void QueuedTestComponentBase ::
     this->getIdBase() + OPCODE_PARAMSTRUCTEXT_SAVE
   );
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS // TODO
 
 // ----------------------------------------------------------------------
 // Parameter loading
@@ -2490,6 +2496,8 @@ void QueuedTestComponentBase ::
   this->parametersLoaded();
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Component construction and destruction
 // ----------------------------------------------------------------------
@@ -2517,11 +2525,11 @@ QueuedTestComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
 bool QueuedTestComponentBase ::
   isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const
@@ -2639,11 +2647,11 @@ bool QueuedTestComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
 bool QueuedTestComponentBase ::
   isConnected_noArgsOut_OutputPort(FwIndexType portNum) const
@@ -4377,6 +4385,8 @@ void QueuedTestComponentBase ::
   );
 }
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Command response
 // ----------------------------------------------------------------------
@@ -4391,6 +4401,10 @@ void QueuedTestComponentBase ::
   FW_ASSERT(this->m_cmdResponseOut_OutputPort[0].isConnected());
   this->m_cmdResponseOut_OutputPort[0].invoke(opCode, cmdSeq, response);
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS // TODO
 
 // ----------------------------------------------------------------------
 // Command handler base-class functions
@@ -5331,6 +5345,8 @@ void QueuedTestComponentBase ::
   );
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Pre-message hooks for async commands
 //
@@ -5393,6 +5409,8 @@ void QueuedTestComponentBase ::
   (void) opCode;
   (void) cmdSeq;
 }
+
+#if !FW_DIRECT_PORT_CALLS // TODO
 
 // ----------------------------------------------------------------------
 // Event logging functions
@@ -6022,6 +6040,8 @@ void QueuedTestComponentBase ::
 #endif
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Event throttle reset functions
 // ----------------------------------------------------------------------
@@ -6046,6 +6066,8 @@ void QueuedTestComponentBase ::
   // Reset throttle counter
   this->m_EventWarningLowThrottledThrottle = 0;
 }
+
+#if !FW_DIRECT_PORT_CALLS // TODO
 
 // ----------------------------------------------------------------------
 // Telemetry write functions
@@ -6492,6 +6514,8 @@ void QueuedTestComponentBase ::
   }
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Parameter update hook
 // ----------------------------------------------------------------------
@@ -6759,6 +6783,8 @@ void QueuedTestComponentBase ::
   this->productSendOut_out(0, container.getId(), buffer);
 }
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Time
 // ----------------------------------------------------------------------
@@ -6775,6 +6801,8 @@ Fw::Time QueuedTestComponentBase ::
     return Fw::Time(TimeBase::TB_NONE, 0, 0);
   }
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Mutex operations for guarded ports
@@ -7286,7 +7314,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
       if (args.getBuffLeft() != 0) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
@@ -7333,7 +7361,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
       if (args.getBuffLeft() != 0) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
@@ -7380,7 +7408,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
       U32 u32;
       _deserStatus = args.deserializeTo(u32);
       if (_deserStatus != Fw::FW_SERIALIZE_OK) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(
               _opCode,
               _cmdSeq,
@@ -7395,7 +7423,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
       if (args.getBuffLeft() != 0) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
@@ -7445,7 +7473,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
       if (args.getBuffLeft() != 0) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
@@ -7492,7 +7520,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
       U32 u32;
       _deserStatus = args.deserializeTo(u32);
       if (_deserStatus != Fw::FW_SERIALIZE_OK) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(
               _opCode,
               _cmdSeq,
@@ -7507,7 +7535,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
       if (args.getBuffLeft() != 0) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
@@ -8827,6 +8855,8 @@ Fw::CmdResponse QueuedTestComponentBase ::
   return Fw::CmdResponse::OK;
 }
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Parameter save functions
 // ----------------------------------------------------------------------
@@ -9196,6 +9226,8 @@ Fw::CmdResponse QueuedTestComponentBase ::
 
   return Fw::CmdResponse::EXECUTION_ERROR;
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Private data product handling functions

@@ -276,32 +276,36 @@ case class ComponentEvents (
       )
     )
 
-    addAccessTagAndComment(
-      "protected",
-      "Event logging functions",
-      sortedEvents.map((id, event) =>
-        functionClassMember(
-          Some(
-            addSeparatedString(
-              s"Log event ${event.getName}",
-              AnnotationCppWriter.asStringOpt(event.aNode)
-            )
-          ),
-          eventLogName(event),
-          formalParamsCppWriter.write(
-            event.aNode._2.data.params,
-            "Fw::StringBase",
-            FormalParamsCppWriter.Value
-          ),
-          CppDoc.Type("void"),
-          writeBody(id, event),
-          CppDoc.Function.NonSV,
-          event.throttle match {
-            case Some(_) => CppDoc.Function.NonConst
-            case None => CppDoc.Function.Const
-          }
+    wrapClassMembersInIfDirective(
+      "#if !FW_DIRECT_PORT_CALLS // TODO",
+      addAccessTagAndComment(
+        "protected",
+        "Event logging functions",
+        sortedEvents.map((id, event) =>
+          functionClassMember(
+            Some(
+              addSeparatedString(
+                s"Log event ${event.getName}",
+                AnnotationCppWriter.asStringOpt(event.aNode)
+              )
+            ),
+            eventLogName(event),
+            formalParamsCppWriter.write(
+              event.aNode._2.data.params,
+              "Fw::StringBase",
+              FormalParamsCppWriter.Value
+            ),
+            CppDoc.Type("void"),
+            writeBody(id, event),
+            CppDoc.Function.NonSV,
+            event.throttle match {
+              case Some(_) => CppDoc.Function.NonConst
+              case None => CppDoc.Function.Const
+            }
+          )
         )
-      )
+      ),
+      CppDoc.Lines.Cpp
     )
   }
 

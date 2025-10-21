@@ -1594,6 +1594,8 @@ void ActiveCommandsComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Command registration
 // ----------------------------------------------------------------------
@@ -1601,7 +1603,7 @@ void ActiveCommandsComponentBase ::
 void ActiveCommandsComponentBase ::
   regCommands()
 {
-  FW_ASSERT(this->m_cmdRegOut_OutputPort[0].isConnected());
+  FW_ASSERT(this->isConnected_cmdRegOut_OutputPort(0));
 
   this->m_cmdRegOut_OutputPort[0].invoke(
     this->getIdBase() + OPCODE_CMD_SYNC
@@ -1672,6 +1674,8 @@ void ActiveCommandsComponentBase ::
   );
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Component construction and destruction
 // ----------------------------------------------------------------------
@@ -1689,11 +1693,11 @@ ActiveCommandsComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
 bool ActiveCommandsComponentBase ::
   isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const
@@ -1789,11 +1793,11 @@ bool ActiveCommandsComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
 bool ActiveCommandsComponentBase ::
   isConnected_noArgsOut_OutputPort(FwIndexType portNum) const
@@ -3130,6 +3134,8 @@ F32 ActiveCommandsComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Command response
 // ----------------------------------------------------------------------
@@ -3144,6 +3150,10 @@ void ActiveCommandsComponentBase ::
   FW_ASSERT(this->m_cmdResponseOut_OutputPort[0].isConnected());
   this->m_cmdResponseOut_OutputPort[0].invoke(opCode, cmdSeq, response);
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS // TODO
 
 // ----------------------------------------------------------------------
 // Command handler base-class functions
@@ -4084,6 +4094,8 @@ void ActiveCommandsComponentBase ::
   );
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Pre-message hooks for async commands
 //
@@ -4147,6 +4159,8 @@ void ActiveCommandsComponentBase ::
   (void) cmdSeq;
 }
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Time
 // ----------------------------------------------------------------------
@@ -4163,6 +4177,8 @@ Fw::Time ActiveCommandsComponentBase ::
     return Fw::Time(TimeBase::TB_NONE, 0, 0);
   }
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Mutex operations for guarded ports
@@ -4633,7 +4649,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveCommandsComponentBase ::
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
       if (args.getBuffLeft() != 0) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
@@ -4680,7 +4696,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveCommandsComponentBase ::
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
       if (args.getBuffLeft() != 0) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
@@ -4727,7 +4743,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveCommandsComponentBase ::
       U32 u32;
       _deserStatus = args.deserializeTo(u32);
       if (_deserStatus != Fw::FW_SERIALIZE_OK) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(
               _opCode,
               _cmdSeq,
@@ -4742,7 +4758,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveCommandsComponentBase ::
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
       if (args.getBuffLeft() != 0) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
@@ -4792,7 +4808,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveCommandsComponentBase ::
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
       if (args.getBuffLeft() != 0) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
@@ -4839,7 +4855,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveCommandsComponentBase ::
       U32 u32;
       _deserStatus = args.deserializeTo(u32);
       if (_deserStatus != Fw::FW_SERIALIZE_OK) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(
               _opCode,
               _cmdSeq,
@@ -4854,7 +4870,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveCommandsComponentBase ::
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
       if (args.getBuffLeft() != 0) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground

@@ -774,6 +774,10 @@ abstract class ComponentCppWriterUtils(
   def outputPortConnectorName(name: String) =
     s"set_${name}_OutputPort"
 
+  /** Gets the name for an output port connection status function */
+  def outputPortIsConnectedName(name: String) =
+    s"isConnected_${name}_OutputPort"
+
   /** Get the name for an output port invocation function */
   def outputPortInvokerName(name: String) =
     s"${name}_out"

@@ -40,8 +40,6 @@ gcc_flags="$include_flags $warning_flags $LOCAL_CPP_FLAGS"
 
 # Find all guards used in generated component base class files
 guards=`grep '#if.*FW_' *.ref.hpp *.ref.cpp | sed 's/^.*[^A-Za-z_]\(FW_[A-Za-z0-9_]*\).*$/\1/' | sort -u | sed 's/^/-D/g'`
-# TODO: Reenable this guard once the code gen is complete
-#guards=`echo $guards | sed -e 's/-DFW_DIRECT_PORT_CALLS//' -e 's/  */ /g'`
 # All guards set to 1
 guards_on=`echo $guards | sed 's/ /\n/g' | sed 's/$/=1/g'`' -DBUILD_UT'
 # All guards set to 0

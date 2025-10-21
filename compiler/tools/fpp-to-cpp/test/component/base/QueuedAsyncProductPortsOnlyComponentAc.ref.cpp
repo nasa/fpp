@@ -259,11 +259,11 @@ QueuedAsyncProductPortsOnlyComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
 bool QueuedAsyncProductPortsOnlyComponentBase ::
   isConnected_productRequestOut_OutputPort(FwIndexType portNum) const

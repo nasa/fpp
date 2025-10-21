@@ -139,11 +139,11 @@ PassiveGetProductPortsOnlyComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
 bool PassiveGetProductPortsOnlyComponentBase ::
   isConnected_productGetOut_OutputPort(FwIndexType portNum) const

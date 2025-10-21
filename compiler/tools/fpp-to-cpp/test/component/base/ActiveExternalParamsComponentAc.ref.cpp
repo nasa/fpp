@@ -1589,6 +1589,8 @@ void ActiveExternalParamsComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Command registration
 // ----------------------------------------------------------------------
@@ -1596,7 +1598,7 @@ void ActiveExternalParamsComponentBase ::
 void ActiveExternalParamsComponentBase ::
   regCommands()
 {
-  FW_ASSERT(this->m_cmdRegOut_OutputPort[0].isConnected());
+  FW_ASSERT(this->isConnected_cmdRegOut_OutputPort(0));
 
   this->m_cmdRegOut_OutputPort[0].invoke(
     this->getIdBase() + OPCODE_PARAMI32EXT_SET
@@ -1646,6 +1648,10 @@ void ActiveExternalParamsComponentBase ::
     this->getIdBase() + OPCODE_PARAMSTRUCTEXT_SAVE
   );
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS // TODO
 
 // ----------------------------------------------------------------------
 // Parameter loading
@@ -1823,6 +1829,8 @@ void ActiveExternalParamsComponentBase ::
   this->parametersLoaded();
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Component construction and destruction
 // ----------------------------------------------------------------------
@@ -1841,11 +1849,11 @@ ActiveExternalParamsComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
 bool ActiveExternalParamsComponentBase ::
   isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const
@@ -1941,11 +1949,11 @@ bool ActiveExternalParamsComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
 bool ActiveExternalParamsComponentBase ::
   isConnected_noArgsOut_OutputPort(FwIndexType portNum) const
@@ -3282,6 +3290,8 @@ F32 ActiveExternalParamsComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Command response
 // ----------------------------------------------------------------------
@@ -3296,6 +3306,8 @@ void ActiveExternalParamsComponentBase ::
   FW_ASSERT(this->m_cmdResponseOut_OutputPort[0].isConnected());
   this->m_cmdResponseOut_OutputPort[0].invoke(opCode, cmdSeq, response);
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Parameter update hook
@@ -3466,6 +3478,8 @@ void ActiveExternalParamsComponentBase ::
   this->paramDelegatePtr = paramExternalDelegatePtr;
 }
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Time
 // ----------------------------------------------------------------------
@@ -3482,6 +3496,8 @@ Fw::Time ActiveExternalParamsComponentBase ::
     return Fw::Time(TimeBase::TB_NONE, 0, 0);
   }
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Mutex operations for guarded ports
@@ -4616,6 +4632,8 @@ Fw::CmdResponse ActiveExternalParamsComponentBase ::
   return Fw::CmdResponse::OK;
 }
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Parameter save functions
 // ----------------------------------------------------------------------
@@ -4805,6 +4823,8 @@ Fw::CmdResponse ActiveExternalParamsComponentBase ::
 
   return Fw::CmdResponse::EXECUTION_ERROR;
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Parameter delegates

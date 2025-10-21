@@ -1653,6 +1653,8 @@ void PassiveTestComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Command registration
 // ----------------------------------------------------------------------
@@ -1660,7 +1662,7 @@ void PassiveTestComponentBase ::
 void PassiveTestComponentBase ::
   regCommands()
 {
-  FW_ASSERT(this->m_cmdRegOut_OutputPort[0].isConnected());
+  FW_ASSERT(this->isConnected_cmdRegOut_OutputPort(0));
 
   this->m_cmdRegOut_OutputPort[0].invoke(
     this->getIdBase() + OPCODE_CMD_SYNC
@@ -1806,6 +1808,10 @@ void PassiveTestComponentBase ::
     this->getIdBase() + OPCODE_PARAMSTRUCTEXT_SAVE
   );
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS // TODO
 
 // ----------------------------------------------------------------------
 // Parameter loading
@@ -2141,6 +2147,8 @@ void PassiveTestComponentBase ::
   this->parametersLoaded();
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Component construction and destruction
 // ----------------------------------------------------------------------
@@ -2168,11 +2176,11 @@ PassiveTestComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
 bool PassiveTestComponentBase ::
   isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const
@@ -2290,11 +2298,11 @@ bool PassiveTestComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
 bool PassiveTestComponentBase ::
   isConnected_noArgsOut_OutputPort(FwIndexType portNum) const
@@ -3043,6 +3051,8 @@ F32 PassiveTestComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Command response
 // ----------------------------------------------------------------------
@@ -3057,6 +3067,10 @@ void PassiveTestComponentBase ::
   FW_ASSERT(this->m_cmdResponseOut_OutputPort[0].isConnected());
   this->m_cmdResponseOut_OutputPort[0].invoke(opCode, cmdSeq, response);
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS // TODO
 
 // ----------------------------------------------------------------------
 // Command handler base-class functions
@@ -3692,6 +3706,10 @@ void PassiveTestComponentBase ::
   this->unLock();
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Event logging functions
 // ----------------------------------------------------------------------
@@ -4320,6 +4338,8 @@ void PassiveTestComponentBase ::
 #endif
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Event throttle reset functions
 // ----------------------------------------------------------------------
@@ -4344,6 +4364,8 @@ void PassiveTestComponentBase ::
   // Reset throttle counter
   this->m_EventWarningLowThrottledThrottle = 0;
 }
+
+#if !FW_DIRECT_PORT_CALLS // TODO
 
 // ----------------------------------------------------------------------
 // Telemetry write functions
@@ -4790,6 +4812,8 @@ void PassiveTestComponentBase ::
   }
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Parameter update hook
 // ----------------------------------------------------------------------
@@ -5057,6 +5081,8 @@ void PassiveTestComponentBase ::
   this->productSendOut_out(0, container.getId(), buffer);
 }
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Time
 // ----------------------------------------------------------------------
@@ -5073,6 +5099,8 @@ Fw::Time PassiveTestComponentBase ::
     return Fw::Time(TimeBase::TB_NONE, 0, 0);
   }
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Mutex operations for guarded ports
@@ -6004,6 +6032,8 @@ Fw::CmdResponse PassiveTestComponentBase ::
   return Fw::CmdResponse::OK;
 }
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Parameter save functions
 // ----------------------------------------------------------------------
@@ -6373,6 +6403,8 @@ Fw::CmdResponse PassiveTestComponentBase ::
 
   return Fw::CmdResponse::EXECUTION_ERROR;
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Private data product handling functions

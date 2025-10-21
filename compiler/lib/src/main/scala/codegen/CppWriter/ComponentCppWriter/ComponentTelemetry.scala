@@ -141,40 +141,45 @@ case class ComponentTelemetry (
       )
     )
 
-    addAccessTagAndComment(
-      "protected",
-      "Telemetry write functions",
-      sortedChannels.map((_, channel) =>
-        functionClassMember(
-          Some(
-            addSeparatedString(
-              s"Write telemetry channel ${channel.getName}",
-              AnnotationCppWriter.asStringOpt(channel.aNode)
-            )
-          ),
-          channelWriteFunctionName(channel.getName),
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type(writeChannelParam(channel.channelType)),
-              "arg",
-              Some("The telemetry value")
+
+    wrapClassMembersInIfDirective(
+      "#if !FW_DIRECT_PORT_CALLS // TODO",
+      addAccessTagAndComment(
+        "protected",
+        "Telemetry write functions",
+        sortedChannels.map((_, channel) =>
+          functionClassMember(
+            Some(
+              addSeparatedString(
+                s"Write telemetry channel ${channel.getName}",
+                AnnotationCppWriter.asStringOpt(channel.aNode)
+              )
             ),
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::Time"),
-              "_tlmTime",
-              Some("Timestamp. Default: unspecified, request from getTime port"),
-              Some("Fw::Time()")
-            )
-          ),
-          CppDoc.Type("void"),
-          writeBody(channel),
-          CppDoc.Function.NonSV,
-          channel.update match {
-            case Ast.SpecTlmChannel.OnChange => CppDoc.Function.NonConst
-            case _ => CppDoc.Function.Const
-          }
+            channelWriteFunctionName(channel.getName),
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type(writeChannelParam(channel.channelType)),
+                "arg",
+                Some("The telemetry value")
+              ),
+              CppDoc.Function.Param(
+                CppDoc.Type("Fw::Time"),
+                "_tlmTime",
+                Some("Timestamp. Default: unspecified, request from getTime port"),
+                Some("Fw::Time()")
+              )
+            ),
+            CppDoc.Type("void"),
+            writeBody(channel),
+            CppDoc.Function.NonSV,
+            channel.update match {
+              case Ast.SpecTlmChannel.OnChange => CppDoc.Function.NonConst
+              case _ => CppDoc.Function.Const
+            }
+          )
         )
-      )
+      ),
+      CppDoc.Lines.Cpp
     )
   }
 

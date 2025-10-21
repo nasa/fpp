@@ -1984,6 +1984,8 @@ namespace M {
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
   // ----------------------------------------------------------------------
   // Command registration
   // ----------------------------------------------------------------------
@@ -1991,7 +1993,7 @@ namespace M {
   void ActiveTestComponentBase ::
     regCommands()
   {
-    FW_ASSERT(this->m_cmdRegOut_OutputPort[0].isConnected());
+    FW_ASSERT(this->isConnected_cmdRegOut_OutputPort(0));
 
     this->m_cmdRegOut_OutputPort[0].invoke(
       this->getIdBase() + OPCODE_CMD_SYNC
@@ -2157,6 +2159,10 @@ namespace M {
       this->getIdBase() + OPCODE_PARAMSTRUCTEXT_SAVE
     );
   }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS // TODO
 
   // ----------------------------------------------------------------------
   // Parameter loading
@@ -2492,6 +2498,8 @@ namespace M {
     this->parametersLoaded();
   }
 
+#endif
+
   // ----------------------------------------------------------------------
   // Component construction and destruction
   // ----------------------------------------------------------------------
@@ -2519,11 +2527,11 @@ namespace M {
 
   }
 
+#if !FW_DIRECT_PORT_CALLS
+
   // ----------------------------------------------------------------------
   // Connection status queries for special output ports
   // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
   bool ActiveTestComponentBase ::
     isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const
@@ -2641,11 +2649,11 @@ namespace M {
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS
+
   // ----------------------------------------------------------------------
   // Connection status queries for typed output ports
   // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
   bool ActiveTestComponentBase ::
     isConnected_noArgsOut_OutputPort(FwIndexType portNum) const
@@ -4379,6 +4387,8 @@ namespace M {
     );
   }
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
   // ----------------------------------------------------------------------
   // Command response
   // ----------------------------------------------------------------------
@@ -4393,6 +4403,10 @@ namespace M {
     FW_ASSERT(this->m_cmdResponseOut_OutputPort[0].isConnected());
     this->m_cmdResponseOut_OutputPort[0].invoke(opCode, cmdSeq, response);
   }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS // TODO
 
   // ----------------------------------------------------------------------
   // Command handler base-class functions
@@ -5333,6 +5347,8 @@ namespace M {
     );
   }
 
+#endif
+
   // ----------------------------------------------------------------------
   // Pre-message hooks for async commands
   //
@@ -5395,6 +5411,8 @@ namespace M {
     (void) opCode;
     (void) cmdSeq;
   }
+
+#if !FW_DIRECT_PORT_CALLS // TODO
 
   // ----------------------------------------------------------------------
   // Event logging functions
@@ -6024,6 +6042,8 @@ namespace M {
 #endif
   }
 
+#endif
+
   // ----------------------------------------------------------------------
   // Event throttle reset functions
   // ----------------------------------------------------------------------
@@ -6048,6 +6068,8 @@ namespace M {
     // Reset throttle counter
     this->m_EventWarningLowThrottledThrottle = 0;
   }
+
+#if !FW_DIRECT_PORT_CALLS // TODO
 
   // ----------------------------------------------------------------------
   // Telemetry write functions
@@ -6494,6 +6516,8 @@ namespace M {
     }
   }
 
+#endif
+
   // ----------------------------------------------------------------------
   // Parameter update hook
   // ----------------------------------------------------------------------
@@ -6761,6 +6785,8 @@ namespace M {
     this->productSendOut_out(0, container.getId(), buffer);
   }
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
   // ----------------------------------------------------------------------
   // Time
   // ----------------------------------------------------------------------
@@ -6777,6 +6803,8 @@ namespace M {
       return Fw::Time(TimeBase::TB_NONE, 0, 0);
     }
   }
+
+#endif
 
   // ----------------------------------------------------------------------
   // Mutex operations for guarded ports
@@ -7283,7 +7311,7 @@ namespace M {
         // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
         if (args.getBuffLeft() != 0) {
-          if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+          if (this->isConnected_cmdResponseOut_OutputPort(0)) {
             this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
           }
           // Don't crash the task if bad arguments were passed from the ground
@@ -7330,7 +7358,7 @@ namespace M {
         // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
         if (args.getBuffLeft() != 0) {
-          if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+          if (this->isConnected_cmdResponseOut_OutputPort(0)) {
             this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
           }
           // Don't crash the task if bad arguments were passed from the ground
@@ -7377,7 +7405,7 @@ namespace M {
         U32 u32;
         _deserStatus = args.deserializeTo(u32);
         if (_deserStatus != Fw::FW_SERIALIZE_OK) {
-          if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+          if (this->isConnected_cmdResponseOut_OutputPort(0)) {
             this->cmdResponse_out(
                 _opCode,
                 _cmdSeq,
@@ -7392,7 +7420,7 @@ namespace M {
         // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
         if (args.getBuffLeft() != 0) {
-          if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+          if (this->isConnected_cmdResponseOut_OutputPort(0)) {
             this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
           }
           // Don't crash the task if bad arguments were passed from the ground
@@ -7442,7 +7470,7 @@ namespace M {
         // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
         if (args.getBuffLeft() != 0) {
-          if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+          if (this->isConnected_cmdResponseOut_OutputPort(0)) {
             this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
           }
           // Don't crash the task if bad arguments were passed from the ground
@@ -7489,7 +7517,7 @@ namespace M {
         U32 u32;
         _deserStatus = args.deserializeTo(u32);
         if (_deserStatus != Fw::FW_SERIALIZE_OK) {
-          if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+          if (this->isConnected_cmdResponseOut_OutputPort(0)) {
             this->cmdResponse_out(
                 _opCode,
                 _cmdSeq,
@@ -7504,7 +7532,7 @@ namespace M {
         // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
         if (args.getBuffLeft() != 0) {
-          if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+          if (this->isConnected_cmdResponseOut_OutputPort(0)) {
             this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
           }
           // Don't crash the task if bad arguments were passed from the ground
@@ -8805,6 +8833,8 @@ namespace M {
     return Fw::CmdResponse::OK;
   }
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
   // ----------------------------------------------------------------------
   // Parameter save functions
   // ----------------------------------------------------------------------
@@ -9174,6 +9204,8 @@ namespace M {
 
     return Fw::CmdResponse::EXECUTION_ERROR;
   }
+
+#endif
 
   // ----------------------------------------------------------------------
   // Private data product handling functions

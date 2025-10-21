@@ -651,7 +651,9 @@ case class ComponentCppWriter (
         )
     }
     def writeAsyncCommandDispatch(opcode: Command.Opcode, cmd: Command) = {
+      val cmdRespName = cmdRespPort.get.getUnqualifiedName
       val cmdRespVarName = portVariableName(cmdRespPort.get)
+      val cmdRespIsConnectedName = outputPortIsConnectedName(cmdRespName)
       val body = intersperseBlankLines(
         List(
           lines(
@@ -690,7 +692,7 @@ case class ComponentCppWriter (
                     |$tn $n;
                     |_deserStatus = args.deserializeTo($n);
                     |if (_deserStatus != Fw::FW_SERIALIZE_OK) {
-                    |  if (this->$cmdRespVarName[0].isConnected()) {
+                    |  if (this->$cmdRespIsConnectedName(0)) {
                     |    this->cmdResponse_out(
                     |        _opCode,
                     |        _cmdSeq,
@@ -709,7 +711,7 @@ case class ComponentCppWriter (
                 |// That means the argument buffer size was incorrect.
                 |#if FW_CMD_CHECK_RESIDUAL
                 |if (args.getBuffLeft() != 0) {
-                |  if (this->$cmdRespVarName[0].isConnected()) {
+                |  if (this->$cmdRespIsConnectedName(0)) {
                 |    this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
                 |  }
                 |  // Don't crash the task if bad arguments were passed from the ground
@@ -922,45 +924,44 @@ case class ComponentCppWriter (
   }
 
   private def getTimeFunctionMember: List[CppDoc.Class.Member] =
-    if !hasTimeGetPort then Nil
-    else {
+    guardedList (hasTimeGetPort) ({
       val portName = timeGetPort.get.getUnqualifiedName
+      val isConnectedFunctionName = outputPortIsConnectedName(portName)
       val variableName = portVariableName(timeGetPort.get)
-      val isConnectedFunctionName =
-        ComponentOutputPorts.outputPortIsConnectedName(portName)
-
-      addAccessTagAndComment(
-        "protected",
-        "Time",
-        List(
-          functionClassMember(
-            Some(
-              """|Get the time
-                 |
-                 |\\return The current time
-                 |"""
-            ),
-            "getTime",
-            Nil,
-            CppDoc.Type("Fw::Time"),
-            wrapInIfElse(
-              s"this->$isConnectedFunctionName(0)",
-              lines(
-                s"""|Fw::Time _time;
-                    |this->$variableName[0].invoke(_time);
-                    |return _time;
-                    |"""
+      wrapClassMembersInIfDirective(
+        "#if !FW_DIRECT_PORT_CALLS // TODO",
+        addAccessTagAndComment(
+          "protected",
+          "Time",
+          List(
+            functionClassMember(
+              Some(
+                """|Get the time
+                   |
+                   |\\return The current time
+                   |"""
               ),
-              lines(
-                "return Fw::Time(TimeBase::TB_NONE, 0, 0);"
-              )
-            ),
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
+              "getTime",
+              Nil,
+              CppDoc.Type("Fw::Time"),
+              wrapInIfElse(
+                s"this->$isConnectedFunctionName(0)",
+                lines(
+                  s"""|Fw::Time _time;
+                      |this->$variableName[0].invoke(_time);
+                      |return _time;
+                      |"""
+                ),
+                lines("return Fw::Time(TimeBase::TB_NONE, 0, 0);")
+              ),
+              CppDoc.Function.NonSV,
+              CppDoc.Function.Const
+            )
           )
-        )
+        ),
+        CppDoc.Lines.Cpp
       )
-    }
+    })
 
   private def getMsgSizeVariableMember: List[CppDoc.Class.Member] = {
     if !hasSerialAsyncInputPorts then Nil

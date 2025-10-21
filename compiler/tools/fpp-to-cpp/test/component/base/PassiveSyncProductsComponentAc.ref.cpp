@@ -1670,11 +1670,11 @@ PassiveSyncProductsComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
 bool PassiveSyncProductsComponentBase ::
   isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const
@@ -1792,11 +1792,11 @@ bool PassiveSyncProductsComponentBase ::
 
 #endif
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
-
-#if !FW_DIRECT_PORT_CALLS
 
 bool PassiveSyncProductsComponentBase ::
   isConnected_noArgsOut_OutputPort(FwIndexType portNum) const
@@ -2577,6 +2577,8 @@ void PassiveSyncProductsComponentBase ::
   this->productSendOut_out(0, container.getId(), buffer);
 }
 
+#if !FW_DIRECT_PORT_CALLS // TODO
+
 // ----------------------------------------------------------------------
 // Time
 // ----------------------------------------------------------------------
@@ -2593,6 +2595,8 @@ Fw::Time PassiveSyncProductsComponentBase ::
     return Fw::Time(TimeBase::TB_NONE, 0, 0);
   }
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Mutex operations for guarded ports
