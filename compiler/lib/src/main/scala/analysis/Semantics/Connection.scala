@@ -109,12 +109,12 @@ case class Connection(
     def portMatchingExists(pml: List[Component.PortMatching], pi: PortInstance): Boolean =
       pml.exists(pm => pi.equals(pm.instance1) || pi.equals(pm.instance2))
 
-    from.port.interfaceInstance match {
-      case InterfaceInstance.InterfaceComponentInstance(ci) => {
+    (from.port.interfaceInstance, to.port.interfaceInstance) match {
+      case (InterfaceInstance.InterfaceComponentInstance(fromCi), InterfaceInstance.InterfaceComponentInstance(toCi)) => {
         val fromPi = from.port.portInstance
         val toPi = to.port.portInstance
-        val fromPml = ci.component.portMatchingList
-        val toPml = ci.component.portMatchingList
+        val fromPml = fromCi.component.portMatchingList
+        val toPml = toCi.component.portMatchingList
 
         portMatchingExists(fromPml, fromPi) || portMatchingExists(toPml, toPi)
       }
@@ -127,7 +127,11 @@ case class Connection(
   override def compare(that: Connection) = {
     val fromCompare = this.from.compare(that.from)
     if (fromCompare != 0) fromCompare
-    else this.to.compare(that.to)
+    else {
+      val toCompare = this.to.compare(that.to)
+      if (toCompare != 0) toCompare
+      else this.from.loc.compare(that.from.loc)
+    }
   }
 
   /** Gets the location of the connection */
