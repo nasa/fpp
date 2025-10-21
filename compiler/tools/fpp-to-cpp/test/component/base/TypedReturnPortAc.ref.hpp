@@ -21,6 +21,8 @@
 
 namespace Ports {
 
+#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+
   //! Input TypedReturn port
   //! A typed port with a return type
   class InputTypedReturnPort :
@@ -157,6 +159,8 @@ namespace Ports {
       InputTypedReturnPort* m_port;
 
   };
+
+#endif
 
 }
 

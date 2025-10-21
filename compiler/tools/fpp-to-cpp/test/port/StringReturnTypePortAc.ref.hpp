@@ -18,6 +18,8 @@
 
 namespace M {
 
+#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+
   //! Input StringReturnType port
   //! A port with a string return type
   class InputStringReturnTypePort :
@@ -124,6 +126,8 @@ namespace M {
       InputStringReturnTypePort* m_port;
 
   };
+
+#endif
 
 }
 

@@ -96,7 +96,7 @@ case class PortCppWriter (
         )
       )
     }
-    val classes = List(
+    val classes = List.concat(
       portBufferClass,
       List(
         classMember(
@@ -112,11 +112,18 @@ case class PortCppWriter (
           getOutputPortClassMembers
         ),
       )
-    ).flatten
-    List(
+    )
+    List.concat(
       List(hppIncludes, cppIncludes),
-      wrapInNamespaces(namespaceIdentList, classes)
-    ).flatten
+      wrapInNamespaces(
+        namespaceIdentList,
+        wrapMembersInIfDirective(
+          "#if !FW_DIRECT_PORT_CALLS || 1 // TODO",
+          classes,
+          CppDoc.Lines.Both
+        )
+      )
+    )
   }
 
   private def getHppIncludes: CppDoc.Member = {

@@ -19,6 +19,8 @@
 
 namespace Ports {
 
+#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+
   //! Input NoArgs port
   //! A typed port with no arguments
   class InputNoArgsPort :
@@ -125,6 +127,8 @@ namespace Ports {
       InputNoArgsPort* m_port;
 
   };
+
+#endif
 
 }
 

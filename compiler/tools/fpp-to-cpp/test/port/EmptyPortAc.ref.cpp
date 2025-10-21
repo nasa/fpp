@@ -8,6 +8,8 @@
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
 
+#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+
 namespace {
 
   // ----------------------------------------------------------------------
@@ -156,3 +158,5 @@ void OutputEmptyPort ::
   this->m_port->invoke();
 #endif
 }
+
+#endif

@@ -17,6 +17,8 @@
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
+#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+
 //! Input Primitive port
 //! A port with primitive parameters
 class InputPrimitivePort :
@@ -149,5 +151,7 @@ class OutputPrimitivePort :
     InputPrimitivePort* m_port;
 
 };
+
+#endif
 
 #endif

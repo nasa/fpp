@@ -8,6 +8,8 @@
 #include "Fw/Types/ExternalString.hpp"
 #include "KwdNamePortAc.hpp"
 
+#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+
 namespace {
 
   // ----------------------------------------------------------------------
@@ -169,3 +171,5 @@ void OutputKwdNamePort ::
   this->m_port->invoke(time);
 #endif
 }
+
+#endif

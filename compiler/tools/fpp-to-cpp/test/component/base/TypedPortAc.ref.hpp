@@ -22,6 +22,8 @@
 
 namespace Ports {
 
+#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+
   //! Input Typed port
   //! A typed port
   class InputTypedPort :
@@ -158,6 +160,8 @@ namespace Ports {
       InputTypedPort* m_port;
 
   };
+
+#endif
 
 }
 

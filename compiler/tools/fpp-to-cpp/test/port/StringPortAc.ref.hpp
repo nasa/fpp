@@ -17,6 +17,8 @@
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
+#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+
 //! Input String port
 //! A port with string parameters
 class InputStringPort :
@@ -141,5 +143,7 @@ class OutputStringPort :
     InputStringPort* m_port;
 
 };
+
+#endif
 
 #endif

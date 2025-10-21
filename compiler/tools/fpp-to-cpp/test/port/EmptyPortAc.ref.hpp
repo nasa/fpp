@@ -17,6 +17,8 @@
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
+#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+
 //! Input Empty port
 //! An empty port
 class InputEmptyPort :
@@ -123,5 +125,7 @@ class OutputEmptyPort :
     InputEmptyPort* m_port;
 
 };
+
+#endif
 
 #endif

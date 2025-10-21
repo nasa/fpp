@@ -18,6 +18,8 @@
 #include "Fw/Types/String.hpp"
 #include "include/T.hpp"
 
+#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+
 //! Input AbsType port
 //! A port with abstract type parameters
 class InputAbsTypePort :
@@ -134,5 +136,7 @@ class OutputAbsTypePort :
     InputAbsTypePort* m_port;
 
 };
+
+#endif
 
 #endif

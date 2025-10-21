@@ -20,6 +20,8 @@
 #include "Fw/Types/String.hpp"
 #include "SSerializableAc.hpp"
 
+#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+
 //! Input FppType port
 //! A port with FPP type parameters
 class InputFppTypePort :
@@ -156,5 +158,7 @@ class OutputFppTypePort :
     InputFppTypePort* m_port;
 
 };
+
+#endif
 
 #endif

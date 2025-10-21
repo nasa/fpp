@@ -8,6 +8,8 @@
 #include "Fw/Types/ExternalString.hpp"
 #include "StringPortAc.hpp"
 
+#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+
 namespace {
 
   // ----------------------------------------------------------------------
@@ -210,3 +212,5 @@ void OutputStringPort ::
   this->m_port->invoke(str80, str80Ref, str100, str100Ref);
 #endif
 }
+
+#endif

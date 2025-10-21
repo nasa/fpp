@@ -18,6 +18,8 @@
 
 namespace M {
 
+#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+
   //! Input ReturnType port
   //! A port with a return type
   class InputReturnTypePort :
@@ -126,6 +128,8 @@ namespace M {
       InputReturnTypePort* m_port;
 
   };
+
+#endif
 
 }
 

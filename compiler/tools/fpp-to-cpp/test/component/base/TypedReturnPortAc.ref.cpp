@@ -10,6 +10,8 @@
 
 namespace Ports {
 
+#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+
   // ----------------------------------------------------------------------
   // Input Port Member functions
   // ----------------------------------------------------------------------
@@ -126,5 +128,7 @@ namespace Ports {
     FW_ASSERT(this->m_port != nullptr);
     return this->m_port->invoke(u32, f32, b, str2, e, a, s);
   }
+
+#endif
 
 }

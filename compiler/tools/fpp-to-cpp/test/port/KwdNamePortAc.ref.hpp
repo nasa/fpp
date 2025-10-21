@@ -17,6 +17,8 @@
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
+#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+
 //! Input KwdName port
 //! A port with a keyword name
 class InputKwdNamePort :
@@ -125,5 +127,7 @@ class OutputKwdNamePort :
     InputKwdNamePort* m_port;
 
 };
+
+#endif
 
 #endif

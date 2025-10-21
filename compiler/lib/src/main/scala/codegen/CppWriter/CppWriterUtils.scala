@@ -171,7 +171,7 @@ trait CppWriterUtils extends LineUtils {
     linesOutput: CppDoc.Lines.Output = CppDoc.Lines.Both
   ): List[CppDoc.Class.Member] =
     wrapInIfDirective(
-      s"\n$directive",
+      directive,
       body,
       CppDoc.Class.Member.Lines.apply,
       linesOutput
@@ -184,7 +184,9 @@ trait CppWriterUtils extends LineUtils {
     linesOutput: CppDoc.Lines.Output = CppDoc.Lines.Both
   ): List[T] = guardedList (!body.isEmpty) (
     (
-      constructMemberLines( CppDoc.Lines(lines(directive), linesOutput)) ::
+      constructMemberLines(
+        CppDoc.Lines(lines(s"\n$directive"), linesOutput)
+      ) ::
       body
     ) :+
     constructMemberLines(

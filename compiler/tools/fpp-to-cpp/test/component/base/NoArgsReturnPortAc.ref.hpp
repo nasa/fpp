@@ -18,6 +18,8 @@
 
 namespace Ports {
 
+#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+
   //! Input NoArgsReturn port
   //! A typed port with no arguments and a return type
   class InputNoArgsReturnPort :
@@ -124,6 +126,8 @@ namespace Ports {
       InputNoArgsReturnPort* m_port;
 
   };
+
+#endif
 
 }
 

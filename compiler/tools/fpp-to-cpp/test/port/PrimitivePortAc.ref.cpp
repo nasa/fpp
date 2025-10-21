@@ -8,6 +8,8 @@
 #include "Fw/Types/ExternalString.hpp"
 #include "PrimitivePortAc.hpp"
 
+#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+
 namespace {
 
   // ----------------------------------------------------------------------
@@ -228,3 +230,5 @@ void OutputPrimitivePort ::
   this->m_port->invoke(u32, u32Ref, f32, f32Ref, b, bRef);
 #endif
 }
+
+#endif

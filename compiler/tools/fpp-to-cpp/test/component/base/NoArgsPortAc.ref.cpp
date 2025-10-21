@@ -10,6 +10,8 @@
 
 namespace Ports {
 
+#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+
   namespace {
 
     // ----------------------------------------------------------------------
@@ -158,5 +160,7 @@ namespace Ports {
     this->m_port->invoke();
 #endif
   }
+
+#endif
 
 }
