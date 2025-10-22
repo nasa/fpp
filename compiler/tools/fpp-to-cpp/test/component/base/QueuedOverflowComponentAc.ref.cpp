@@ -1854,8 +1854,6 @@ void QueuedOverflowComponentBase ::
   (void) cmdSeq;
 }
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Time
 // ----------------------------------------------------------------------
@@ -1865,15 +1863,13 @@ Fw::Time QueuedOverflowComponentBase ::
 {
   if (this->isConnected_timeGetOut_OutputPort(0)) {
     Fw::Time _time;
-    this->m_timeGetOut_OutputPort[0].invoke(_time);
+    this->timeGetOut_out(0, _time);
     return _time;
   }
   else {
     return Fw::Time(TimeBase::TB_NONE, 0, 0);
   }
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Message dispatch functions
@@ -2617,6 +2613,34 @@ void QueuedOverflowComponentBase ::
   compPtr->serialAsyncHook_handlerBase(
     portNum,
     buffer
+  );
+}
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
+// ----------------------------------------------------------------------
+// Invocation functions for special output ports
+// ----------------------------------------------------------------------
+
+void QueuedOverflowComponentBase ::
+  timeGetOut_out(
+      FwIndexType portNum,
+      Fw::Time& time
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_timeGetOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_timeGetOut_OutputPort[portNum].invoke(
+    time
   );
 }
 

@@ -1098,6 +1098,18 @@ class ActiveOverflowComponentBase :
 
 #endif
 
+  protected:
+
+    // ----------------------------------------------------------------------
+    // Invocation functions for special output ports
+    // ----------------------------------------------------------------------
+
+    //! Invoke output port timeGetOut
+    void timeGetOut_out(
+        FwIndexType portNum, //!< The port number
+        Fw::Time& time //!< Reference to Time object
+    ) const;
+
   private:
 
     // ----------------------------------------------------------------------

@@ -3259,7 +3259,7 @@ void QueuedGuardedProductsComponentBase ::
       FwIndexType portNum,
       FwDpIdType id,
       FwSizeType dataSize
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
@@ -3281,7 +3281,7 @@ void QueuedGuardedProductsComponentBase ::
       FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
@@ -3307,7 +3307,7 @@ void QueuedGuardedProductsComponentBase ::
 // ----------------------------------------------------------------------
 
 void QueuedGuardedProductsComponentBase ::
-  noArgsOut_out(FwIndexType portNum)
+  noArgsOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
@@ -3322,7 +3322,7 @@ void QueuedGuardedProductsComponentBase ::
 }
 
 U32 QueuedGuardedProductsComponentBase ::
-  noArgsReturnOut_out(FwIndexType portNum)
+  noArgsReturnOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
@@ -3337,7 +3337,7 @@ U32 QueuedGuardedProductsComponentBase ::
 }
 
 Fw::String QueuedGuardedProductsComponentBase ::
-  noArgsStringReturnOut_out(FwIndexType portNum)
+  noArgsStringReturnOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
@@ -3361,7 +3361,7 @@ void QueuedGuardedProductsComponentBase ::
       const AliasEnum& e,
       const AliasArray& a,
       const AliasStruct& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
@@ -3393,7 +3393,7 @@ AliasPrim2 QueuedGuardedProductsComponentBase ::
       const AliasEnum& e,
       const AliasArray& a,
       const AliasStruct& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
@@ -3425,7 +3425,7 @@ Fw::String QueuedGuardedProductsComponentBase ::
       const AliasEnum& e,
       const AliasArray& a,
       const AnotherAliasStruct& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
@@ -3457,7 +3457,7 @@ void QueuedGuardedProductsComponentBase ::
       const E& e,
       const A& a,
       const S& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
@@ -3489,7 +3489,7 @@ F32 QueuedGuardedProductsComponentBase ::
       const E& e,
       const A& a,
       const S& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
@@ -3545,8 +3545,6 @@ void QueuedGuardedProductsComponentBase ::
   this->productSendOut_out(0, container.getId(), buffer);
 }
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Time
 // ----------------------------------------------------------------------
@@ -3556,15 +3554,13 @@ Fw::Time QueuedGuardedProductsComponentBase ::
 {
   if (this->isConnected_timeGetOut_OutputPort(0)) {
     Fw::Time _time;
-    this->m_timeGetOut_OutputPort[0].invoke(_time);
+    this->timeGetOut_out(0, _time);
     return _time;
   }
   else {
     return Fw::Time(TimeBase::TB_NONE, 0, 0);
   }
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Mutex operations for guarded ports
@@ -4451,6 +4447,34 @@ void QueuedGuardedProductsComponentBase ::
     s
   );
 }
+
+#if !FW_DIRECT_PORT_CALLS
+
+// ----------------------------------------------------------------------
+// Invocation functions for special output ports
+// ----------------------------------------------------------------------
+
+void QueuedGuardedProductsComponentBase ::
+  timeGetOut_out(
+      FwIndexType portNum,
+      Fw::Time& time
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_timeGetOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_timeGetOut_OutputPort[portNum].invoke(
+    time
+  );
+}
+
+#endif
 
 // ----------------------------------------------------------------------
 // Private data product handling functions

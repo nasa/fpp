@@ -1129,17 +1129,17 @@ class PassiveExternalParamsComponentBase :
     //! Invoke output port noArgsOut
     void noArgsOut_out(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Invoke output port noArgsReturnOut
     U32 noArgsReturnOut_out(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Invoke output port noArgsStringReturnOut
     Fw::String noArgsStringReturnOut_out(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Invoke output port typedAliasOut
     void typedAliasOut_out(
@@ -1151,7 +1151,7 @@ class PassiveExternalParamsComponentBase :
         const AliasEnum& e, //!< An enum
         const AliasArray& a, //!< An array
         const AliasStruct& s //!< A struct
-    );
+    ) const;
 
     //! Invoke output port typedAliasReturnOut
     AliasPrim2 typedAliasReturnOut_out(
@@ -1163,7 +1163,7 @@ class PassiveExternalParamsComponentBase :
         const AliasEnum& e, //!< An enum
         const AliasArray& a, //!< An array
         const AliasStruct& s //!< A struct
-    );
+    ) const;
 
     //! Invoke output port typedAliasReturnStringOut
     Fw::String typedAliasReturnStringOut_out(
@@ -1175,7 +1175,7 @@ class PassiveExternalParamsComponentBase :
         const AliasEnum& e, //!< An enum
         const AliasArray& a, //!< An array
         const AnotherAliasStruct& s //!< A struct
-    );
+    ) const;
 
     //! Invoke output port typedOut
     void typedOut_out(
@@ -1187,7 +1187,7 @@ class PassiveExternalParamsComponentBase :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) const;
 
     //! Invoke output port typedReturnOut
     F32 typedReturnOut_out(
@@ -1199,7 +1199,7 @@ class PassiveExternalParamsComponentBase :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) const;
 
   protected:
 
@@ -1481,6 +1481,18 @@ class PassiveExternalParamsComponentBase :
         const A& a, //!< An array
         const S& s //!< A struct
     );
+
+  protected:
+
+    // ----------------------------------------------------------------------
+    // Invocation functions for special output ports
+    // ----------------------------------------------------------------------
+
+    //! Invoke output port timeGetOut
+    void timeGetOut_out(
+        FwIndexType portNum, //!< The port number
+        Fw::Time& time //!< Reference to Time object
+    ) const;
 
   private:
 

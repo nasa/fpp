@@ -935,39 +935,35 @@ case class ComponentCppWriter (
     guardedList (hasTimeGetPort) ({
       val portName = timeGetPort.get.getUnqualifiedName
       val isConnectedFunctionName = outputPortIsConnectedName(portName)
-      val variableName = portVariableName(timeGetPort.get)
-      wrapClassMembersInIfDirective(
-        "#if !FW_DIRECT_PORT_CALLS // TODO",
-        addAccessTagAndComment(
-          "protected",
-          "Time",
-          List(
-            functionClassMember(
-              Some(
-                """|Get the time
-                   |
-                   |\\return The current time
-                   |"""
+      val invokerName = outputPortInvokerName(portName)
+      addAccessTagAndComment(
+        "protected",
+        "Time",
+        List(
+          functionClassMember(
+            Some(
+              """|Get the time
+                 |
+                 |\\return The current time
+                 |"""
+            ),
+            "getTime",
+            Nil,
+            CppDoc.Type("Fw::Time"),
+            wrapInIfElse(
+              s"this->$isConnectedFunctionName(0)",
+              lines(
+                s"""|Fw::Time _time;
+                    |this->$invokerName(0, _time);
+                    |return _time;
+                    |"""
               ),
-              "getTime",
-              Nil,
-              CppDoc.Type("Fw::Time"),
-              wrapInIfElse(
-                s"this->$isConnectedFunctionName(0)",
-                lines(
-                  s"""|Fw::Time _time;
-                      |this->$variableName[0].invoke(_time);
-                      |return _time;
-                      |"""
-                ),
-                lines("return Fw::Time(TimeBase::TB_NONE, 0, 0);")
-              ),
-              CppDoc.Function.NonSV,
-              CppDoc.Function.Const
-            )
+              lines("return Fw::Time(TimeBase::TB_NONE, 0, 0);")
+            ),
+            CppDoc.Function.NonSV,
+            CppDoc.Function.Const
           )
-        ),
-        CppDoc.Lines.Cpp
+        )
       )
     })
 

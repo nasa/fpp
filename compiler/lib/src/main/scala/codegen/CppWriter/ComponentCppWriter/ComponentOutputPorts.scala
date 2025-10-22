@@ -85,8 +85,11 @@ case class ComponentOutputPorts(
   }
 
   /** Gets component base-class invokers for a list of ports */
-  def getInvokers(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    val typeString = getPortListTypeString(ports)
+  def getInvokers(
+    ports: List[PortInstance],
+    typeStringOpt: Option[String] = None
+  ): List[CppDoc.Class.Member] = {
+    val typeString = typeStringOpt.getOrElse(getPortListTypeString(ports))
     wrapClassMembersInIfDirective(
       "#if !FW_DIRECT_PORT_CALLS",
       addAccessTagAndComment(
@@ -198,9 +201,9 @@ case class ComponentOutputPorts(
 
   // Gets an invoker for a port instance
   private def getInvokerForPortInstance(p: PortInstance) = {
-    val invokeFunction = p.getType.get match {
-      case PortInstance.Type.DefPort(_) => "invoke"
-      case PortInstance.Type.Serial => "invokeSerial"
+    val (invokeFunction, constQualifier) = p.getType.get match {
+      case PortInstance.Type.DefPort(_) => ("invoke", CppDoc.Function.Const)
+      case PortInstance.Type.Serial => ("invokeSerial", CppDoc.Function.NonConst)
     }
     functionClassMember(
       Some(s"Invoke output port ${p.getUnqualifiedName}"),
@@ -226,9 +229,11 @@ case class ComponentOutputPorts(
             p
           ),
           Nil,
-          getPortParams(p).map(_._1)
+          getPortParams(p).map(_._1),
         )
-      )
+      ),
+      CppDoc.Function.NonSV,
+      constQualifier
     )
   }
 

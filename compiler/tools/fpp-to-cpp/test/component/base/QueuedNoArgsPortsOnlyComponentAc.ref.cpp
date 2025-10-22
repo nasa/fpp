@@ -506,7 +506,7 @@ void QueuedNoArgsPortsOnlyComponentBase ::
 // ----------------------------------------------------------------------
 
 void QueuedNoArgsPortsOnlyComponentBase ::
-  noArgsOut_out(FwIndexType portNum)
+  noArgsOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
@@ -521,7 +521,7 @@ void QueuedNoArgsPortsOnlyComponentBase ::
 }
 
 U32 QueuedNoArgsPortsOnlyComponentBase ::
-  noArgsReturnOut_out(FwIndexType portNum)
+  noArgsReturnOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),

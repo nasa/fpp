@@ -181,7 +181,7 @@ Fw::Success PassiveGetProductPortsOnlyComponentBase ::
       FwDpIdType id,
       FwSizeType dataSize,
       Fw::Buffer& buffer
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_productGetOut_OutputPorts()),
@@ -204,7 +204,7 @@ void PassiveGetProductPortsOnlyComponentBase ::
       FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),

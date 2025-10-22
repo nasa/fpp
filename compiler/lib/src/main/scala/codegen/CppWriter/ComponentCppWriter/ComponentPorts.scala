@@ -63,7 +63,13 @@ case class ComponentPorts(
   def getPrivateFunctionMembers: List[CppDoc.Class.Member] = List.concat(
     inputPortWriter.getCallbacks(specialInputPorts),
     inputPortWriter.getCallbacks(typedInputPorts),
-    inputPortWriter.getCallbacks(serialInputPorts)
+    inputPortWriter.getCallbacks(serialInputPorts),
+    {
+      val ports = List.concat(
+        timeGetPort.map(List(_)).getOrElse(Nil)
+      )
+      outputPortWriter.getInvokers(ports, Some("special"))
+    }
   )
 
   def getVariableMembers: List[CppDoc.Class.Member] = List.concat(

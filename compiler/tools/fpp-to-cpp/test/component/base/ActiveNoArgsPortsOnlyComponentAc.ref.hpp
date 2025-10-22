@@ -314,12 +314,12 @@ class ActiveNoArgsPortsOnlyComponentBase :
     //! Invoke output port noArgsOut
     void noArgsOut_out(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Invoke output port noArgsReturnOut
     U32 noArgsReturnOut_out(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
   protected:
 
