@@ -16,8 +16,7 @@ object CheckFrameworkDefs
   }
 
   override def defAliasTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]) = {
-    val s = Symbol.AliasType(aNode)
-    val name = a.getQualifiedName (s).toString
+    val name = a.getQualifiedName (Symbol.AliasType(aNode)).toString
     val id = aNode._2.id
     for {
       a <- checkFrameworkTypes(a, name, id)
@@ -47,22 +46,19 @@ object CheckFrameworkDefs
   }
 
   override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
-    val s = Symbol.Array(aNode)
-    val name = a.getQualifiedName (s).toString
+    val name = a.getQualifiedName (Symbol.Array(aNode)).toString
     val id = aNode._2.id
     checkFrameworkTypes(a, name, id)
   }
 
   override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
-    val s = Symbol.Enum(aNode)
-    val name = a.getQualifiedName (s).toString
+    val name = a.getQualifiedName (Symbol.Enum(aNode)).toString
     val id = aNode._2.id
     checkFrameworkTypes(a, name, id)
   }
 
   override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
-    val s = Symbol.Struct(aNode)
-    val name = a.getQualifiedName (s).toString
+    val name = a.getQualifiedName (Symbol.Struct(aNode)).toString
     val id = aNode._2.id
     checkFrameworkTypes(a, name, id)
   }
@@ -95,8 +91,7 @@ object CheckFrameworkDefs
   }
 
   override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
-    val s = Symbol.Constant(aNode)
-    val name = a.getQualifiedName (s).toString
+    val name = a.getQualifiedName (Symbol.Constant(aNode)).toString
     val id = aNode._2.id
     name match {
       case "Fw.DpCfg.CONTAINER_USER_DATA_SIZE" => requireIntegerConstant(a, name, id)
