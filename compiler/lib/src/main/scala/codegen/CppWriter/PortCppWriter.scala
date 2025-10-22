@@ -182,7 +182,7 @@ case class PortCppWriter (
       Line.blank ::
       line(s"//! $name port constants") ::
       wrapInNamedStruct(
-        PortCppWriter.portConstantsName(name),
+        PortCppWriter.getPortConstantsName(name),
         line("//! The size of the serial representations of the port arguments") ::
         line(s"static constexpr FwSizeType INPUT_SERIALIZED_SIZE =") ::
         writeSerializedSize(paramList).map(indentIn)
@@ -242,7 +242,7 @@ case class PortCppWriter (
           wrapInEnum(
             lines(
               s"""|//! The size of the serial representations of the port arguments
-                  |SERIALIZED_SIZE = ${PortCppWriter.portConstantsName(name)}::INPUT_SERIALIZED_SIZE"""
+                  |SERIALIZED_SIZE = ${PortCppWriter.getPortConstantsName(name)}::INPUT_SERIALIZED_SIZE"""
             )
           )
         )
@@ -553,11 +553,12 @@ case class PortCppWriter (
 
 object PortCppWriter {
 
-  private def portConstantsName(name: String) = s"${name}PortConstants"
-
   private def inputPortName(name: String) = s"Input${name}Port"
 
   private def outputPortName(name: String) = s"Output${name}Port"
+
+  /** Gets the name of the port constants struct */
+  def getPortConstantsName(name: String) = s"${name}PortConstants"
 
   /** Get the name of a port type */
   def getPortName(name: String, direction: PortInstance.Direction): String =

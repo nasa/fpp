@@ -337,8 +337,10 @@ case class ComponentCppWriter (
       // Data product and typed async input ports
       asyncInputPortsWithFormalParams.flatMap(p => {
         val portName = p.getUnqualifiedName
-        val portTypeName = getQualifiedPortTypeName(p, p.getDirection.get)
-        lines(s"BYTE ${portName}PortSize[${portTypeName}::SERIALIZED_SIZE];")
+        val _ @ Some(PortInstance.Type.DefPort(symbol)) = p.getType
+        val cppPortName = s.writeSymbol(symbol)
+        val cppPortConstantsName = PortCppWriter.getPortConstantsName(cppPortName)
+        lines(s"BYTE ${portName}PortSize[$cppPortConstantsName::INPUT_SERIALIZED_SIZE];")
       }),
       // Command input port
       guardedList (cmdRecvPort.isDefined)
