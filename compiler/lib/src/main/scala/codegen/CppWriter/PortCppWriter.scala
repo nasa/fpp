@@ -139,21 +139,22 @@ case class PortCppWriter (
       writeIncludeDirectives
     ).sorted.map(line)
     val conditional = List.concat(
-      lines("#if !FW_DIRECT_PORT_CALLS"),
-      List.concat(
-        guardedList (!data.returnType.isDefined) (List("Fw/Types/Serializable.hpp")),
-        List(
-          "Fw/Comp/PassiveComponentBase.hpp",
-          "Fw/Port/InputPortBase.hpp",
-          "Fw/Port/OutputPortBase.hpp",
-          "Fw/Types/String.hpp",
-        )
-      ).map(CppWriter.headerString).sorted.map(line),
-      lines("#endif")
-    )
+      guardedList (!data.returnType.isDefined) (List("Fw/Types/Serializable.hpp")),
+      List(
+        "Fw/Comp/PassiveComponentBase.hpp",
+        "Fw/Port/InputPortBase.hpp",
+        "Fw/Port/OutputPortBase.hpp",
+        "Fw/Types/String.hpp",
+      )
+    ).map(CppWriter.headerString).sorted.map(line)
     linesMember(
       Line.blank ::
-      List.concat(unconditional, conditional)
+      List.concat(
+        unconditional,
+        lines("#if !FW_DIRECT_PORT_CALLS"),
+        conditional,
+        lines("#endif")
+      )
     )
   }
 
