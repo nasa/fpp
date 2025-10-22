@@ -25,7 +25,7 @@ namespace Ports {
       0;
   };
 
-#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+#if !FW_DIRECT_PORT_CALLS
 
   //! Input NoArgsReturn port
   //! A typed port with no arguments and a return type

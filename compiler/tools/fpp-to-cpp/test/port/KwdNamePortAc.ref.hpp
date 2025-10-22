@@ -24,7 +24,7 @@ struct KwdNamePortConstants {
     sizeof(U32);
 };
 
-#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+#if !FW_DIRECT_PORT_CALLS
 
 //! Input KwdName port
 //! A port with a keyword name

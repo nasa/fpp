@@ -10,7 +10,7 @@
 
 namespace M {
 
-#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+#if !FW_DIRECT_PORT_CALLS
 
   // ----------------------------------------------------------------------
   // Input Port Member functions

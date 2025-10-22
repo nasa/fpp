@@ -32,7 +32,7 @@ struct FppTypePortConstants {
     S::SERIALIZED_SIZE;
 };
 
-#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+#if !FW_DIRECT_PORT_CALLS
 
 //! Input FppType port
 //! A port with FPP type parameters

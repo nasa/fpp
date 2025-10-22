@@ -27,7 +27,7 @@ struct StringPortConstants {
     Fw::StringBase::STATIC_SERIALIZED_SIZE(100);
 };
 
-#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+#if !FW_DIRECT_PORT_CALLS
 
 //! Input String port
 //! A port with string parameters

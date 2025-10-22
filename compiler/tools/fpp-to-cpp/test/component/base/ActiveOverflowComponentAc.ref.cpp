@@ -33,7 +33,7 @@ namespace {
     BYTE blockAsyncPortSize[Ports::TypedPortConstants::INPUT_SERIALIZED_SIZE];
     BYTE dropAsyncPortSize[Ports::TypedPortConstants::INPUT_SERIALIZED_SIZE];
     BYTE hookAsyncPortSize[Ports::TypedPortConstants::INPUT_SERIALIZED_SIZE];
-    BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];
+    BYTE cmdPortSize[Fw::CmdPortConstants::INPUT_SERIALIZED_SIZE];
   };
 
   // Define a message buffer class large enough to handle all the

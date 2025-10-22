@@ -26,7 +26,7 @@ struct AbsTypePortConstants {
     T::SERIALIZED_SIZE;
 };
 
-#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+#if !FW_DIRECT_PORT_CALLS
 
 //! Input AbsType port
 //! A port with abstract type parameters

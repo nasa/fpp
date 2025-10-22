@@ -120,7 +120,7 @@ case class PortCppWriter (
         List.concat(
           getPortConstants,
           wrapMembersInIfDirective(
-            "#if !FW_DIRECT_PORT_CALLS || 1 // TODO",
+            "#if !FW_DIRECT_PORT_CALLS",
             classes,
             CppDoc.Lines.Both
           )

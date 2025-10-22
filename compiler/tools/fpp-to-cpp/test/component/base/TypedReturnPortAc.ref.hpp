@@ -34,7 +34,7 @@ namespace Ports {
       S::SERIALIZED_SIZE;
   };
 
-#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+#if !FW_DIRECT_PORT_CALLS
 
   //! Input TypedReturn port
   //! A typed port with a return type

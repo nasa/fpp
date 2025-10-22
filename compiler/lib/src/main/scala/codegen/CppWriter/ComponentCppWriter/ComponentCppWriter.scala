@@ -343,8 +343,11 @@ case class ComponentCppWriter (
         lines(s"BYTE ${portName}PortSize[$cppPortConstantsName::INPUT_SERIALIZED_SIZE];")
       }),
       // Command input port
-      guardedList (cmdRecvPort.isDefined)
-        (lines(s"BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];")),
+      {
+        val cppPortConstantsName = PortCppWriter.getPortConstantsName("Fw::Cmd")
+        guardedList (cmdRecvPort.isDefined)
+          (lines(s"BYTE cmdPortSize[$cppPortConstantsName::INPUT_SERIALIZED_SIZE];"))
+      },
       // Internal ports
       // Sum the sizes of the port arguments
       internalPortsWithFormalParams.flatMap(p =>

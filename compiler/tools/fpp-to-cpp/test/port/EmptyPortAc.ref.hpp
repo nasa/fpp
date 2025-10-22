@@ -24,7 +24,7 @@ struct EmptyPortConstants {
     0;
 };
 
-#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+#if !FW_DIRECT_PORT_CALLS
 
 //! Input Empty port
 //! An empty port

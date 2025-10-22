@@ -25,7 +25,7 @@ namespace M {
       0;
   };
 
-#if !FW_DIRECT_PORT_CALLS || 1 // TODO
+#if !FW_DIRECT_PORT_CALLS
 
   //! Input StringReturnType port
   //! A port with a string return type
