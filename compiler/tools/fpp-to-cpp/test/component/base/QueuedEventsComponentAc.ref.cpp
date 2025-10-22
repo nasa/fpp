@@ -1600,6 +1600,9 @@ QueuedEventsComponentBase ::
   this->m_EventActivityLowThrottledThrottle = 0;
   this->m_EventFatalThrottledThrottle = 0;
   this->m_EventWarningLowThrottledThrottle = 0;
+  this->m_EventWarningLowThrottledIntervalThrottle = 0;
+
+  this->m_EventWarningLowThrottledIntervalThrottleTime = Fw::Time();
 }
 
 QueuedEventsComponentBase ::
@@ -3132,7 +3135,7 @@ void QueuedEventsComponentBase ::
     return;
   }
   else {
-    (void) this->m_EventActivityLowThrottledThrottle.fetch_add(1);
+    this->m_EventActivityLowThrottledThrottle++;
   }
 
   // Get the time
@@ -3423,7 +3426,7 @@ void QueuedEventsComponentBase ::
     return;
   }
   else {
-    (void) this->m_EventFatalThrottledThrottle.fetch_add(1);
+    this->m_EventFatalThrottledThrottle++;
   }
 
   // Get the time
@@ -3614,7 +3617,7 @@ void QueuedEventsComponentBase ::
     return;
   }
   else {
-    (void) this->m_EventWarningLowThrottledThrottle.fetch_add(1);
+    this->m_EventWarningLowThrottledThrottle++;
   }
 
   // Get the time
@@ -3679,6 +3682,96 @@ void QueuedEventsComponentBase ::
 #endif
 }
 
+void QueuedEventsComponentBase ::
+  log_WARNING_LO_EventWarningLowThrottledInterval()
+{
+  // Get the time
+  Fw::Time _logTime;
+  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  }
+
+  FwEventIdType _id = static_cast<FwEventIdType>(0);
+
+  _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL;
+
+  // Check throttle value & throttle timeout
+  {
+    Os::ScopeLock scopedLock(this->m_eventLock);
+
+    if (this->m_EventWarningLowThrottledIntervalThrottle >= EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL_THROTTLE) {
+      // The counter has overflowed, check if time interval has passed
+      if (Fw::TimeInterval(this->m_EventWarningLowThrottledIntervalThrottleTime, _logTime) >= Fw::TimeInterval(10, 0)) {
+        // Reset the count
+        this->m_EventWarningLowThrottledIntervalThrottle = 0;
+      } else {
+        // Throttle the event
+        return;
+      }
+    }
+
+    // Reset the throttle time if needed
+    if (this->m_EventWarningLowThrottledIntervalThrottle == 0) {
+      // This is the first event, reset the throttle time
+      this->m_EventWarningLowThrottledIntervalThrottleTime = _logTime;
+    }
+
+    // Increment the count
+    this->m_EventWarningLowThrottledIntervalThrottle++;
+  }
+
+  // Emit the event on the log port
+  if (this->m_eventOut_OutputPort[0].isConnected()) {
+    Fw::LogBuffer _logBuff;
+
+#if FW_AMPCS_COMPATIBLE
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+    // Serialize the number of arguments
+    _status = _logBuff.serializeFrom(static_cast<U8>(0));
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+
+    this->m_eventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::WARNING_LO,
+      _logBuff
+    );
+  }
+
+  // Emit the event on the text log port
+#if FW_ENABLE_TEXT_LOGGING
+  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+#if FW_OBJECT_NAMES == 1
+    const char* _formatString =
+      "(%s) %s: Event Warning Low occurred";
+#else
+    const char* _formatString =
+      "%s: Event Warning Low occurred";
+#endif
+
+    Fw::TextLogString _logString;
+    _logString.format(
+      _formatString,
+#if FW_OBJECT_NAMES == 1
+      this->m_objName.toChar(),
+#endif
+      "EventWarningLowThrottledInterval "
+    );
+
+    this->m_textEventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::WARNING_LO,
+      _logString
+    );
+  }
+#endif
+}
+
 #endif
 
 // ----------------------------------------------------------------------
@@ -3704,6 +3797,20 @@ void QueuedEventsComponentBase ::
 {
   // Reset throttle counter
   this->m_EventWarningLowThrottledThrottle = 0;
+}
+
+void QueuedEventsComponentBase ::
+  log_WARNING_LO_EventWarningLowThrottledInterval_ThrottleClear()
+{
+  {
+    Os::ScopeLock scopedLock(this->m_eventLock);
+
+    // Reset throttle counter
+    this->m_EventWarningLowThrottledIntervalThrottle = 0;
+
+    // Reset the throttle time
+    this->m_EventWarningLowThrottledIntervalThrottleTime = Fw::Time(0, 0);
+  }
 }
 
 #if !FW_DIRECT_PORT_CALLS // TODO

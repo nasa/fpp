@@ -202,6 +202,22 @@ abstract class ComponentCppWriterUtils(
     }
   )
 
+  /** List of throttled events no timeout */
+  val throttledEventsNoTimeout: List[(Event.Id, Event)] = sortedEvents.filter((_, event) =>
+    event.throttle match {
+      case Some(Event.Throttle(_, None)) => true
+      case _ => false
+    }
+  )
+
+  /** List of throttled events with finite timeout intervals */
+  val throttledEventsWithTimeout: List[(Event.Id, Event)] = sortedEvents.filter((_, event) =>
+    event.throttle match {
+      case Some(Event.Throttle(_, Some(_))) => true
+      case _ => false
+    }
+  )
+
   /** List of channels sorted by ID */
   val sortedChannels: List[(TlmChannel.Id, TlmChannel)] = component.tlmChannelMap.toList.sortBy(_._1)
 
@@ -318,6 +334,8 @@ abstract class ComponentCppWriterUtils(
   val hasDataProducts: Boolean = component.hasDataProducts
 
   val hasContainers: Boolean = containersByName != Nil
+
+  val hasEventsWithTimeout: Boolean = throttledEventsWithTimeout.nonEmpty
 
   val hasExternalStateMachineInstances: Boolean =
     component.hasStateMachineInstancesOfKind(StateMachine.Kind.External)
@@ -818,6 +836,10 @@ abstract class ComponentCppWriterUtils(
   /** Get the name for an event throttle counter variable */
   def eventThrottleCounterName(name: String) =
     s"m_${name}Throttle"
+
+  /** Get the name for an event throttle timeout interval variable */
+  def eventThrottleTimeName(name: String) =
+    s"m_${name}ThrottleTime"
 
   /** Get the name for an event ID constant */
   def eventIdConstantName(name: String) =
