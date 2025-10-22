@@ -4,13 +4,13 @@
 // \brief  cpp file for NoArgsReturn port
 // ======================================================================
 
+#if !FW_DIRECT_PORT_CALLS
+
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "base/NoArgsReturnPortAc.hpp"
 
 namespace Ports {
-
-#if !FW_DIRECT_PORT_CALLS
 
   // ----------------------------------------------------------------------
   // Input Port Member functions
@@ -113,6 +113,6 @@ namespace Ports {
     return this->m_port->invoke();
   }
 
-#endif
-
 }
+
+#endif

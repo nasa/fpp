@@ -4,13 +4,13 @@
 // \brief  cpp file for StringReturnType port
 // ======================================================================
 
+#if !FW_DIRECT_PORT_CALLS
+
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "StringReturnTypePortAc.hpp"
 
 namespace M {
-
-#if !FW_DIRECT_PORT_CALLS
 
   // ----------------------------------------------------------------------
   // Input Port Member functions
@@ -113,6 +113,6 @@ namespace M {
     return this->m_port->invoke();
   }
 
-#endif
-
 }
+
+#endif

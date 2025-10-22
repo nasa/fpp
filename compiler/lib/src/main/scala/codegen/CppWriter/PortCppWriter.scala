@@ -113,19 +113,23 @@ case class PortCppWriter (
         ),
       )
     )
-    List.concat(
-      List(hppIncludes, cppIncludes),
-      wrapInNamespaces(
-        namespaceIdentList,
-        List.concat(
-          getPortConstants,
-          wrapMembersInIfDirective(
-            "#if !FW_DIRECT_PORT_CALLS",
-            classes,
-            CppDoc.Lines.Both
+    wrapMembersInIfDirective(
+      "#if !FW_DIRECT_PORT_CALLS",
+      List.concat(
+        List(hppIncludes, cppIncludes),
+        wrapInNamespaces(
+          namespaceIdentList,
+          List.concat(
+            getPortConstants,
+            wrapMembersInIfDirective(
+              "#if !FW_DIRECT_PORT_CALLS",
+              classes,
+              CppDoc.Lines.Hpp
+            )
           )
         )
-      )
+      ),
+      CppDoc.Lines.Cpp
     )
   }
 

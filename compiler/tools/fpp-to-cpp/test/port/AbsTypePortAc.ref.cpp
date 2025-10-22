@@ -4,11 +4,11 @@
 // \brief  cpp file for AbsType port
 // ======================================================================
 
+#if !FW_DIRECT_PORT_CALLS
+
 #include "AbsTypePortAc.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
-
-#if !FW_DIRECT_PORT_CALLS
 
 namespace {
 

@@ -4,13 +4,13 @@
 // \brief  cpp file for Typed port
 // ======================================================================
 
+#if !FW_DIRECT_PORT_CALLS
+
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "base/TypedPortAc.hpp"
 
 namespace Ports {
-
-#if !FW_DIRECT_PORT_CALLS
 
   namespace {
 
@@ -245,6 +245,6 @@ namespace Ports {
 #endif
   }
 
-#endif
-
 }
+
+#endif
