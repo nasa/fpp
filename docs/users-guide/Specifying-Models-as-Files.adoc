@@ -397,6 +397,29 @@ and suppose that file `b.fpp` contains the include specifier `include "a.fppi"`.
 When analyzing `b.fpp`, the location of the definition of the constant `a`
 is `b.fpp`, not `a.fppi`.
 
+==== Dictionary Specifiers
+
+Dictionary specifiers define the location of constant or type
+dictionary definitions. To write a dictionary specifier,
+write a location specifier and include the `dictionary` keyword
+before the `constant` or `type` keyword.
+
+For example, to write a dictionary specifier for type `T` located
+at `T.fpp`, write the following:
+
+[source,fpp]
+----
+locate dictionary type T at "T.fpp"
+----
+
+To write a dictionary specifier for constant `C` located
+at `C.fpp`, write the following:
+
+[source,fpp]
+----
+locate dictionary constant C at "C.fpp"
+----
+
 === Locating Definitions
 
 Given a collection of FPP source files _F_, you can generate location specifiers 

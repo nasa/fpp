@@ -281,6 +281,22 @@ array B3 = [2] A default [ 1, 2 ] # default value is [ [ 1, 1 ], [ 2, 2 ] ]
 array B4 = [2] A default [ [ 1, 2 ], [ 3, 4 ] ]
 ----
 
+==== Array Dictionary Definitions
+
+Prefixing an array definition with the `dicitionary` keyword 
+designates the array as a dictionary defintion. Dictionary 
+definitions are covered in more detail in the 
+<<Defining-Framework-and-Dictionary-Definitions,dictionary definitions>>
+section.
+
+For example, to define an array dictionary definition, you write
+the following:
+
+[source,fpp]
+----
+dictionary array A = [2] U32
+----
+
 === Struct Type Definitions
 
 A *struct type definition* associates a name with a *struct type*.
@@ -576,6 +592,22 @@ FPP struct _values_ have no inherent order associated with their members.
 However, once those values are assigned to a named struct _type_,
 the order becomes fixed.
 
+==== Struct Dictionary Definitions
+
+Prefixing a struct definition with the `dicitionary` keyword 
+designates the struct as a dictionary defintion. Dictionary 
+definitions are covered in more detail in the 
+<<Defining-Framework-and-Dictionary-Definitions,dictionary definitions>>
+section.
+
+For example, to define a struct dictionary definition, you write
+the following:
+
+[source,fpp]
+----
+dictionary struct S { x: U32, y: string }
+----
+
 === Abstract Type Definitions
 
 An array or struct type definition specifies a complete type:
@@ -691,3 +723,19 @@ defining `T`; elsewhere, configuration code can define
 F Prime uses this method to provide basic type whose definitions
 configure the framework.
 These types are defined in the file `config/FpConfig.fpp`.
+
+==== Alias Type Dictionary Definitions
+
+Prefixing an alias type definition with the `dicitionary` keyword 
+designates the alias type as a dictionary defintion. Dictionary 
+definitions are covered in more detail in the 
+<<Defining-Framework-and-Dictionary-Definitions,dictionary definitions>>
+section.
+
+For example, to define an alias type dictionary definition, you write
+the following:
+
+[source,fpp]
+----
+dictionary type T = U32
+----

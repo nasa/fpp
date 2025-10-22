@@ -198,3 +198,19 @@ enum Decision { YES, NO, MAYBE } default MAYBE
 Notice that when using the constant `MAYBE` as a default value, we
 don't need to qualify it with the enum name, because the
 use appears inside the enum where it is defined.
+
+=== Enum Dictionary Definitions
+
+Prefixing an enum definition with the `dicitionary` keyword 
+designates the enum as a dictionary defintion. Dictionary 
+definitions are covered in more detail in the 
+<<Defining-Framework-and-Dictionary-Definitions,dictionary definitions>>
+section.
+
+For example, to define an enum dictionary definition, you write
+the following:
+
+[source,fpp]
+----
+dictionary enum E { A, B, C }
+----
