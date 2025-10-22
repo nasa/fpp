@@ -8,16 +8,11 @@ import fpp.compiler.transform._
 object ComputeDependencies {
 
   def checkDictionarySpecLocs(a: Analysis): Result.Result[Analysis] = {
-    if a.dictionaryGeneration then
-      val dictionaryFiles: Set[File] = 
-        a.locationSpecifierMap.values.filter(_.isDictionaryDef).map(
-          specLoc => {
-            Locations.get(specLoc.file.id).file
-          }
-        ).toSet
-      Right(a.copy(dependencyFileSet = a.dependencyFileSet ++ dictionaryFiles))
-    else 
-      Right(a)
+    val dictionaryFiles: Set[File] = 
+      a.locationSpecifierMap.values.filter(_.isDictionaryDef).map(
+        specLoc => Locations.get(specLoc.file.id).file
+      ).toSet
+    Right(a.copy(dependencyFileSet = a.dependencyFileSet ++ dictionaryFiles))
   }
 
   def tuList(a: Analysis, tul: List[Ast.TransUnit]): Result.Result[Analysis] = {

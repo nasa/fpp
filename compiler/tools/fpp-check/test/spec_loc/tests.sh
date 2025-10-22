@@ -5,6 +5,9 @@ array_error
 array_ok
 constant_error
 constant_ok
+dictionary_inconsistent_spec
+dictionary_incorrect_spec
+dictionary_spec_ok
 enum_error
 enum_ok
 include_ok

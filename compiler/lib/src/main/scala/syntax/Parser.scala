@@ -74,7 +74,7 @@ object Parser extends Parsers {
     }
   }
 
-  private def defAliasType: Parser[Ast.DefAliasType] = {
+  def defAliasType: Parser[Ast.DefAliasType] = {
     (opt(dictionary) ~ (typeToken ~> ident) ~ (equals ~> node(typeName))) ^^ {
       case dictionary ~ ident ~ typeName => 
         Ast.DefAliasType(ident, typeName, dictionary.isDefined)

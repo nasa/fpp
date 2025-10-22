@@ -33,8 +33,8 @@ object CheckDictionaryDefs
   def checkTypeDictionaryDefs(a: Analysis, id: Int, s: Symbol, isDictionaryDef: Boolean) = {
     val t = a.typeMap(id)
     val loc = Locations.get(id)
-    if(isDictionaryDef) then
-      if(t.isDisplayable) then
+    (isDictionaryDef, t.isDisplayable) match
+      case (true, true) =>
         val usedSymbols = s match
           case Symbol.Array(aNode) =>
             val Right(updatedAnalysis) = UsedSymbols.defArrayAnnotatedNode(a, aNode)
@@ -47,10 +47,9 @@ object CheckDictionaryDefs
             UsedSymbols.resolveUses(a, updatedAnalysis.usedSymbolSet)
           case _ => Set()
         Right(a.copy(dictionarySymbolSet = (a.dictionarySymbolSet ++ usedSymbols) + s))
-      else
+      case (true, false) => 
         Left(SemanticError.InvalidType(loc, s"type dictionary defintion must be displayable"))
-    else
-      Right(a)
+      case _ => Right(a)
   }
 
   override def defAliasTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]) = {

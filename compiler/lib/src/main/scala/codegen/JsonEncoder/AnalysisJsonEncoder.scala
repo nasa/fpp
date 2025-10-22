@@ -353,7 +353,8 @@ object AnalysisJsonEncoder extends JsonEncoder{
       "typeMap" -> a.typeMap.asJson,
       "useDefMap" -> a.useDefMap.asJson,
       "valueMap" -> a.valueMap.asJson,
-      "stateMachineMap" -> a.stateMachineMap.asJson
+      "stateMachineMap" -> a.stateMachineMap.asJson,
+      "dictionarySymbolSet" -> a.dictionarySymbolSet.asJson
     )
   }
 

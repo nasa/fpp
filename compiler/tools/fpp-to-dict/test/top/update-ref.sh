@@ -29,16 +29,6 @@ unqualifiedComponentInstances()
   move_json UnqualifiedCompInst
 }
 
-inconsistentSpecLoc()
-{
-  update "-i builtin.fpp,config.fpp -p 1.0.0 -f 3.4.3 -l lib1-1.0.0,lib2-2.0.0" inconsistentSpecLoc
-}
-
-incorrectSpecLoc()
-{
-  update "-i builtin.fpp,config.fpp -p 1.0.0 -f 3.4.3 -l lib1-1.0.0,lib2-2.0.0" incorrectSpecLoc
-}
-
 invalidDictDefConstant()
 {
   update "-i builtin.fpp,config.fpp -p 1.0.0 -f 3.4.3 -l lib1-1.0.0,lib2-2.0.0" invalidDictDefConstant

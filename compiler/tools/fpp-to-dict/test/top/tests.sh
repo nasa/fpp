@@ -7,8 +7,6 @@ missingFwOpcodeType
 missingUserDataSizeConstant
 invalidUserDataSizeConstant
 unqualifiedComponentInstances
-inconsistentSpecLoc
-incorrectSpecLoc
 invalidDictDefConstant
 invalidDictDefType
 dictionaryDefs
