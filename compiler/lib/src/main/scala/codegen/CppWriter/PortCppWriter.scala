@@ -134,30 +134,26 @@ case class PortCppWriter (
   }
 
   private def getHppIncludes: CppDoc.Member = {
-    val systemHeaders = List(
-      "cstdio",
-      "cstring"
-    ).map(CppWriter.systemHeaderString).map(line)
-    val serializableHeader = data.returnType match {
-      case Some(_) => Nil
-      case None => List("Fw/Types/Serializable.hpp")
-    }
-    val standardHeaders = (
-      List(
-        "Fw/FPrimeBasicTypes.hpp",
-        "Fw/Comp/PassiveComponentBase.hpp",
-        "Fw/Port/InputPortBase.hpp",
-        "Fw/Port/OutputPortBase.hpp",
-        "Fw/Types/String.hpp",
-      ) ++ serializableHeader
-    ).map(CppWriter.headerString)
-    val symbolHeaders = writeIncludeDirectives
-    val userHeaders = (standardHeaders ++ symbolHeaders).sorted.map(line)
-    linesMember(
+    val unconditional = List.concat(
+      List("Fw/FPrimeBasicTypes.hpp").map(CppWriter.headerString),
+      writeIncludeDirectives
+    ).sorted.map(line)
+    val conditional = List.concat(
+      lines("#if !FW_DIRECT_PORT_CALLS"),
       List.concat(
-        addBlankPrefix(systemHeaders),
-        addBlankPrefix(userHeaders)
-      )
+        guardedList (!data.returnType.isDefined) (List("Fw/Types/Serializable.hpp")),
+        List(
+          "Fw/Comp/PassiveComponentBase.hpp",
+          "Fw/Port/InputPortBase.hpp",
+          "Fw/Port/OutputPortBase.hpp",
+          "Fw/Types/String.hpp",
+        )
+      ).map(CppWriter.headerString).sorted.map(line),
+      lines("#endif")
+    )
+    linesMember(
+      Line.blank ::
+      List.concat(unconditional, conditional)
     )
   }
 

@@ -7,14 +7,13 @@
 #ifndef M_ReturnTypePortAc_HPP
 #define M_ReturnTypePortAc_HPP
 
-#include <cstdio>
-#include <cstring>
-
-#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#if !FW_DIRECT_PORT_CALLS
+#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/String.hpp"
+#endif
 
 namespace M {
 

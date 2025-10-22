@@ -7,14 +7,13 @@
 #ifndef Ports_NoArgsReturnPortAc_HPP
 #define Ports_NoArgsReturnPortAc_HPP
 
-#include <cstdio>
-#include <cstring>
-
-#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#if !FW_DIRECT_PORT_CALLS
+#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/String.hpp"
+#endif
 
 namespace Ports {
 
