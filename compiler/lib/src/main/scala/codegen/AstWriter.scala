@@ -702,7 +702,7 @@ object AstWriter extends AstVisitor with LineUtils {
       lines("spec top port"),
       List.concat(
         ident(data.name),
-        qualIdent(data.underlyingPort.data)
+        portInstanceIdentifier(data.underlyingPort.data)
       ).map(indentIn)
     )
   }

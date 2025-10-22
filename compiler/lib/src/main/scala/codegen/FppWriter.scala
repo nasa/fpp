@@ -723,7 +723,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines(s"port ${ident(data.name)} = ").
-      join("") (qualIdent(data.underlyingPort.data))
+      join("") (portInstanceId(data.underlyingPort.data))
   }
 
   override def specInterfaceImportAnnotatedNode(

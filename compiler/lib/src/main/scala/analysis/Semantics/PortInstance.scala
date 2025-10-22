@@ -140,6 +140,29 @@ object PortInstance {
     def getImportNodeIds = importNodeIds
   }
 
+  final case class Topology(
+    aNode: Ast.Annotated[AstNode[Ast.SpecTopPort]],
+    underlyingPort: PortInstance
+  ) extends PortInstance {
+    override def getDirection = underlyingPort.getDirection
+
+    override def getArraySize = underlyingPort.getArraySize
+
+    override def getNodeId = aNode._2.id
+
+    override def getType = underlyingPort.getType
+
+    override def getUnqualifiedName = aNode._2.data.name
+
+    // Topology ports cannot be imported
+    def withImportSpecifier(importNode: AstNode.Id): PortInstance =
+      this
+
+    def getImportNodeIds = List()
+
+    override def toString = s"${getUnqualifiedName.toString} -> ${underlyingPort.toString}"
+  }
+
   /** A special port instance */
   final case class Special(
     aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]],

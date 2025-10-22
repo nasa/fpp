@@ -382,6 +382,7 @@ case class Component(
                 case _ => Right(())
               }
             case internal: PortInstance.Internal => Left(error)
+            case _: PortInstance.Topology => throw InternalError("topology port cannot exist in component")
           }
         }
       )

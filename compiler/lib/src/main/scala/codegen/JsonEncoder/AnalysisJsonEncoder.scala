@@ -85,6 +85,9 @@ object AnalysisJsonEncoder extends JsonEncoder{
   private implicit val interfaceInstanceEncoder: Encoder[InterfaceInstance] =
     Encoder.instance(interfaceInstanceAsJson)
 
+  private implicit val portInstanceEncoder: Encoder[PortInstance] =
+    io.circe.generic.semiauto.deriveEncoder[PortInstance]
+
   private implicit val portInstanceIdentifierEncoder: Encoder[PortInstanceIdentifier] =
     io.circe.generic.semiauto.deriveEncoder[PortInstanceIdentifier]
 

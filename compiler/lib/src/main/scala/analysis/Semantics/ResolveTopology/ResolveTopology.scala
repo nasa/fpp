@@ -9,6 +9,7 @@ object ResolveTopology {
   def resolve(a: Analysis, t: Topology): Result.Result[Topology] =
     for {
       t <- ResolveTopologyInstances.resolve(a, t)
+      t <- ResolveTopologyPortInterface.resolve(a, t)
       t <- ResolvePartiallyNumbered.resolve(a, t)
       t <- ResolvePortNumbers.resolve(t)
       t <- Right(ResolveUnconnectedPorts.resolve(t))

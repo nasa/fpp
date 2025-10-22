@@ -36,7 +36,7 @@ object InterfaceInstance {
     override def getQualifiedName: Name.Qualified = top.getQualifiedName
     override def getUnqualifiedName: String = top.getUnqualifiedName
     override def getLoc: Location = top.getLoc
-    override def getInterface: PortInterface = top.getInterface
+    override def getInterface: PortInterface = top.portInterface
   }
 
   def fromComponentInstance(ci: ComponentInstance) =

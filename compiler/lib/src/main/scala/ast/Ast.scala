@@ -784,7 +784,7 @@ object Ast {
   /** Topology port specifier */
   final case class SpecTopPort(
     name: Ident,
-    underlyingPort: AstNode[QualIdent],
+    underlyingPort: AstNode[PortInstanceIdentifier],
   )
 
   /** Import specifier */

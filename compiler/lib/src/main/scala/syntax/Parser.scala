@@ -850,7 +850,7 @@ object Parser extends Parsers {
   }
 
   def specTopPort: Parser[Ast.SpecTopPort] =
-    port ~>! ident ~! (equals ~>! node(qualIdent)) ^^ {
+    port ~>! ident ~! (equals ~>! node(portInstanceIdentifier)) ^^ {
       case name ~ underlying => Ast.SpecTopPort(name, underlying)
     }
 

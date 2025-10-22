@@ -65,6 +65,9 @@ case class Analysis(
   interfaceMap: Map[Symbol.Interface, Interface] = Map(),
   /** The interface under construction */
   interface: Option[Interface] = None,
+  /** The map from topology symbols to 'partial' topologies
+   * with only port interface/instance  information */
+  partialTopologyMap: Map[Symbol.Topology, Topology] = Map(),
   /** The map from topology symbols to topologies */
   topologyMap: Map[Symbol.Topology, Topology] = Map(),
   /** The topology under construction */

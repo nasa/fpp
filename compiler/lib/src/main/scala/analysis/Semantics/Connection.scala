@@ -222,7 +222,7 @@ object Connection {
         case InterfaceInstance.InterfaceComponentInstance(ci) => this
         case InterfaceInstance.InterfaceTopology(top) => this.copy(
           // Look up the mapping for this port instance
-          port = top.portMap(port.portInstance.getUnqualifiedName),
+          port = top.portMap(port.portInstance.getUnqualifiedName)._1,
           topologyPort = Some(this)
           // Recursively resolve the endpoint to a component instance
         ).getUnderlyingEndpoint()

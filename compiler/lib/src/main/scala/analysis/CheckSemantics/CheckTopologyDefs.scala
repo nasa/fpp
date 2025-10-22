@@ -5,7 +5,7 @@ import fpp.compiler.util._
 
 /** Check topology definitions */
 object CheckTopologyDefs
-  extends Analyzer 
+  extends Analyzer
   with ModuleAnalyzer
   with TopologyAnalyzer
 {
@@ -39,6 +39,13 @@ object CheckTopologyDefs
         Right(a)
       }
     }
+  }
+
+  override def specTopPortAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTopPort]]
+  ) = {
+    Right(a.copy(topology = Some(a.topology.get.addPortNode(aNode))))
   }
 
   override def specInstanceAnnotatedNode(

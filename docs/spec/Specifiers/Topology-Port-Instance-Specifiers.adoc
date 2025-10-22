@@ -22,6 +22,9 @@ Such a specifier can be the endpoint of a
 
 . The port instance identifier must be valid.
 
+. The port instance identifier must name a <<Specifiers_Port-Instance-Specifiers_Semantics_General-Port-Instances,
+general port instance>>.
+
 . The whole specifier makes _I_ part of the 
   <<Ports_Port-Interfaces_Topology-Definitions,interface of the enclosing 
 topology>>, after renaming it with name _N_.

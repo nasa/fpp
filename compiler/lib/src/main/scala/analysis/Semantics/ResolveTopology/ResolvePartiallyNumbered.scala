@@ -26,6 +26,24 @@ object ResolvePartiallyNumbered {
     yield ()
   }
 
+  /** Check that connection instances are legal */
+  private def checkPortInstances(t: Topology): Result.Result[Unit] = {
+    def checkPort(i: (PortInstanceIdentifier, Location)) = {
+      val (port, loc) = i
+      for {
+        _ <- t.lookUpInstanceAt(port.interfaceInstance, loc)
+      }
+      yield ()
+    }
+    for {
+      _ <- Result.map(
+        t.portMap.toList.map(_._2),
+        checkPort
+      )
+    }
+    yield ()
+  }
+
   /** Check the instances of a pattern */
   private def checkPatternInstances(t: Topology, pattern: ConnectionPattern) =
     for {
@@ -145,6 +163,7 @@ object ResolvePartiallyNumbered {
     for {
       t <- Right(computeTransitiveImports(a, t))
       t <- resolveInstances(a, t)
+      _ <- checkPortInstances(t)
       _ <- checkConnectionInstances(t)
       t <- resolveInterfacesToComponentInstances(a, t)
       t <- resolveImportedConnections(a, t)

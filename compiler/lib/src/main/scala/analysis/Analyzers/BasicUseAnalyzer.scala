@@ -168,6 +168,12 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
     qualIdentNode(interfaceUse)(a, data.sym)
   }
 
+  override def specTopPortAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecTopPort]]) = {
+    val (_, node1, _) = node
+    val data = node1.data
+    portInstanceIdentifierNode(a, data.underlyingPort)
+  }
+
   override def typeNameQualIdentNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent) = {
     val use = Name.Qualified.fromQualIdent(tn.name.data)
     typeUse(a, node, use)
