@@ -5536,13 +5536,11 @@ void ActiveSerialComponentBase ::
 {
   // Get the time
   Fw::Time _logTime;
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
-    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    this->timeGetOut_out(0, _logTime);
   }
 
-  FwEventIdType _id = static_cast<FwEventIdType>(0);
-
-  _id = this->getIdBase() + EVENTID_EVENTACTIVITYHIGH;
+  const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTACTIVITYHIGH;
 
   // Emit the event on the log port
   if (this->m_eventOut_OutputPort[0].isConnected()) {
@@ -5613,13 +5611,11 @@ void ActiveSerialComponentBase ::
 
   // Get the time
   Fw::Time _logTime;
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
-    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    this->timeGetOut_out(0, _logTime);
   }
 
-  FwEventIdType _id = static_cast<FwEventIdType>(0);
-
-  _id = this->getIdBase() + EVENTID_EVENTACTIVITYLOWTHROTTLED;
+  const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTACTIVITYLOWTHROTTLED;
 
   // Emit the event on the log port
   if (this->m_eventOut_OutputPort[0].isConnected()) {
@@ -5732,13 +5728,11 @@ void ActiveSerialComponentBase ::
 {
   // Get the time
   Fw::Time _logTime;
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
-    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    this->timeGetOut_out(0, _logTime);
   }
 
-  FwEventIdType _id = static_cast<FwEventIdType>(0);
-
-  _id = this->getIdBase() + EVENTID_EVENTCOMMAND;
+  const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTCOMMAND;
 
   // Emit the event on the log port
   if (this->m_eventOut_OutputPort[0].isConnected()) {
@@ -5811,13 +5805,11 @@ void ActiveSerialComponentBase ::
 {
   // Get the time
   Fw::Time _logTime;
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
-    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    this->timeGetOut_out(0, _logTime);
   }
 
-  FwEventIdType _id = static_cast<FwEventIdType>(0);
-
-  _id = this->getIdBase() + EVENTID_EVENTDIAGNOSTIC;
+  const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTDIAGNOSTIC;
 
   // Emit the event on the log port
   if (this->m_eventOut_OutputPort[0].isConnected()) {
@@ -5904,13 +5896,11 @@ void ActiveSerialComponentBase ::
 
   // Get the time
   Fw::Time _logTime;
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
-    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    this->timeGetOut_out(0, _logTime);
   }
 
-  FwEventIdType _id = static_cast<FwEventIdType>(0);
-
-  _id = this->getIdBase() + EVENTID_EVENTFATALTHROTTLED;
+  const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTFATALTHROTTLED;
 
   // Emit the event on the log port
   if (this->m_eventOut_OutputPort[0].isConnected()) {
@@ -6002,13 +5992,11 @@ void ActiveSerialComponentBase ::
 {
   // Get the time
   Fw::Time _logTime;
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
-    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    this->timeGetOut_out(0, _logTime);
   }
 
-  FwEventIdType _id = static_cast<FwEventIdType>(0);
-
-  _id = this->getIdBase() + EVENTID_EVENTWARNINGHIGH;
+  const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTWARNINGHIGH;
 
   // Emit the event on the log port
   if (this->m_eventOut_OutputPort[0].isConnected()) {
@@ -6095,13 +6083,11 @@ void ActiveSerialComponentBase ::
 
   // Get the time
   Fw::Time _logTime;
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
-    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    this->timeGetOut_out(0, _logTime);
   }
 
-  FwEventIdType _id = static_cast<FwEventIdType>(0);
-
-  _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLED;
+  const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLED;
 
   // Emit the event on the log port
   if (this->m_eventOut_OutputPort[0].isConnected()) {
@@ -6160,13 +6146,11 @@ void ActiveSerialComponentBase ::
 {
   // Get the time
   Fw::Time _logTime;
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
-    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    this->timeGetOut_out(0, _logTime);
   }
 
-  FwEventIdType _id = static_cast<FwEventIdType>(0);
-
-  _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL;
+  const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL;
 
   // Check throttle value & throttle timeout
   {

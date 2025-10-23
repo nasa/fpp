@@ -88,6 +88,76 @@ case class ComponentEvents (
     )
   }
 
+  private def writeCodeForThrottlingEventAndGettingTime(event: Event) = {
+    val throttleCounter = eventThrottleCounterName(event.getName)
+    val throttleConstant = eventThrottleConstantName(event.getName)
+    val timeGetPortName = timeGetPort.get.getUnqualifiedName
+    val timeGetPortInvoker = outputPortInvokerName(timeGetPortName)
+    val timeGetPortIsConnected = outputPortIsConnectedName(timeGetPortName)
+    val idConstant = eventIdConstantName(event.getName)
+    val timeName = eventThrottleTimeName(event.getName)
+    intersperseBlankLines(
+      List(
+        // Hard throttle counter can be checked immediately
+        // We don't need to get time
+        event.throttle match {
+          case Some(Event.Throttle(_, None)) => lines(
+            s"""|// Check throttle value
+                |if (this->$throttleCounter >= $throttleConstant) {
+                |  return;
+                |}
+                |else {
+                |  this->$throttleCounter++;
+                |}
+                |"""
+          )
+          case _ => Nil
+        },
+        lines(
+          s"""|// Get the time
+              |Fw::Time _logTime;
+              |if (this->$timeGetPortIsConnected(0)) {
+              |  this->$timeGetPortInvoker(0, _logTime);
+              |}
+              |
+              |const FwEventIdType _id = this->getIdBase() + $idConstant;
+              |"""
+        ),
+        // Time based throttle timeout needs above time
+        event.throttle match {
+          case Some(Event.Throttle(_, Some(Event.TimeInterval(seconds, useconds)))) => lines(
+            s"""|// Check throttle value & throttle timeout
+                |{
+                |  Os::ScopeLock scopedLock(this->m_eventLock);
+                |
+                |  if (this->$throttleCounter >= $throttleConstant) {
+                |    // The counter has overflowed, check if time interval has passed
+                |    if (Fw::TimeInterval(this->$timeName, _logTime) >= Fw::TimeInterval($seconds, $useconds)) {
+                |      // Reset the count
+                |      this->$throttleCounter = 0;
+                |    } else {
+                |      // Throttle the event
+                |      return;
+                |    }
+                |  }
+                |
+                |  // Reset the throttle time if needed
+                |  if (this->$throttleCounter == 0) {
+                |    // This is the first event, reset the throttle time
+                |    this->$timeName = _logTime;
+                |  }
+                |
+                |  // Increment the count
+                |  this->$throttleCounter++;
+                |}
+                |"""
+          )
+          case _ => Nil
+        }
+      )
+    )
+  }
+
   private def writeCodeForEmittingEvent(id: Event.Id, event: Event) =
     line("// Emit the event on the log port") ::
     wrapInIf(
@@ -140,7 +210,6 @@ case class ComponentEvents (
           ),
           intersperseBlankLines(
             eventParamTypeMap(id).map((name, typeName, ty) => {
-
               List.concat(
                 ty.getUnderlyingType match {
                   case t: Type.String =>
@@ -257,77 +326,7 @@ case class ComponentEvents (
       lines("#endif")
     )
 
-  def writeCodeForThrottlingEventAndGettingTime(event: Event) = intersperseBlankLines(
-    List(
-      // Hard throttle counter can be checked immediately
-      // We don't need to get time
-      event.throttle match {
-        case Some(Event.Throttle(_, None)) => lines(
-          s"""|// Check throttle value
-              |if (this->${eventThrottleCounterName(event.getName)} >= ${eventThrottleConstantName(event.getName)}) {
-              |  return;
-              |}
-              |else {
-              |  this->${eventThrottleCounterName(event.getName)}++;
-              |}
-              |"""
-        )
-        case _ => Nil
-      },
-      lines(
-        s"""|// Get the time
-            |Fw::Time _logTime;
-            |if (this->${portVariableName(timeGetPort.get)}[0].isConnected()) {
-            |  this->${portVariableName(timeGetPort.get)}[0].invoke(_logTime);
-            |}
-            |
-            |FwEventIdType _id = static_cast<FwEventIdType>(0);
-            |
-            |_id = this->getIdBase() + ${eventIdConstantName(event.getName)};
-            |"""
-      ),
-      // Time based throttle timeout needs above time
-      event.throttle match {
-        case Some(Event.Throttle(_, Some(Event.TimeInterval(seconds, useconds)))) => lines(
-          s"""|// Check throttle value & throttle timeout
-              |{
-              |  Os::ScopeLock scopedLock(this->m_eventLock);
-              |
-              |  if (this->${eventThrottleCounterName(event.getName)} >= ${eventThrottleConstantName(event.getName)}) {
-              |    // The counter has overflowed, check if time interval has passed
-              |    if (Fw::TimeInterval(this->${eventThrottleTimeName(event.getName)}, _logTime) >= Fw::TimeInterval($seconds, $useconds)) {
-              |      // Reset the count
-              |      this->${eventThrottleCounterName(event.getName)} = 0;
-              |    } else {
-              |      // Throttle the event
-              |      return;
-              |    }
-              |  }
-              |
-              |  // Reset the throttle time if needed
-              |  if (this->${eventThrottleCounterName(event.getName)} == 0) {
-              |    // This is the first event, reset the throttle time
-              |    this->${eventThrottleTimeName(event.getName)} = _logTime;
-              |  }
-              |
-              |  // Increment the count
-              |  this->${eventThrottleCounterName(event.getName)}++;
-              |}
-              |"""
-        )
-        case _ => Nil
-      }
-    )
-  )
-
   private def getLoggingFunction(id: Event.Id, event: Event) = {
-//    val body = intersperseBlankLines(
-//      List(
-//        writeCodeForThrottlingEvent(event),
-//        writeCodeForEmittingEvent(id, event),
-//        writeCodeForEmittingTextEvent(id, event),
-//      )
-//    )
     functionClassMember(
       Some(
         addSeparatedString(
