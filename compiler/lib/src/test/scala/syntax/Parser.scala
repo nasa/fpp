@@ -489,7 +489,6 @@ class ParserSpec extends AnyWordSpec {
         "locate instance a.b at \"c.fpp\"",
         "locate constant a.b at \"c.fpp\"",
         "locate port a.b at \"c.fpp\"",
-        "locate topology a.b at \"c.fpp\"",
         "locate type a.b at \"c.fpp\"",
       )
     )
@@ -643,7 +642,7 @@ class ParserSpec extends AnyWordSpec {
     parseAllOK(
       Parser.specTopPort,
       List(
-        "port a = b",
+        "port a = a.b.c.d",
         "port b = c.b",
       )
     )
