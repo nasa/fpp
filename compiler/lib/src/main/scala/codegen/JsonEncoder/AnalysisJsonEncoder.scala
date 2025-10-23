@@ -8,8 +8,6 @@ import io.circe.syntax._
 import io.circe._
 import io.circe.generic.semiauto._
 import io.circe.generic.auto._
-import io.circe.{ Decoder, Encoder }, io.circe.generic.auto._
-import io.circe.syntax._
 import scala.util.parsing.input.Position
 import AstJsonEncoder._
 import LocMapJsonEncoder._

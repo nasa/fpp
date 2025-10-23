@@ -8,7 +8,7 @@ of a <<Definitions,definition>>.
 
 A location specifier is one of the following:
 
-* A *component instance location specifier* `locate` `instance`
+* An *interface instance location specifier* `locate` `instance`
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
 
@@ -25,10 +25,6 @@ A location specifier is one of the following:
 <<Expressions_String-Literals,_string-literal_>>
 
 * A *state machine location specifier* `locate` `state` `machine`
-<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
-<<Expressions_String-Literals,_string-literal_>>
-
-* A *topology location specifier* `locate` `topology`
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
 
