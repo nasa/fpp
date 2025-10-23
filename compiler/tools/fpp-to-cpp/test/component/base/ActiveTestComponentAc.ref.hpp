@@ -2967,7 +2967,7 @@ namespace M {
           const S& s //!< A struct
       );
 
-    protected:
+    private:
 
       // ----------------------------------------------------------------------
       // Invocation functions for special output ports
@@ -2977,6 +2977,14 @@ namespace M {
       void timeGetOut_out(
           FwIndexType portNum, //!< The port number
           Fw::Time& time //!< Reference to Time object
+      ) const;
+
+      //! Invoke output port tlmOut
+      void tlmOut_out(
+          FwIndexType portNum, //!< The port number
+          FwChanIdType id, //!< Telemetry Channel ID
+          Fw::Time& timeTag, //!< Time Tag
+          Fw::TlmBuffer& val //!< Buffer containing serialized telemetry value
       ) const;
 
     private:

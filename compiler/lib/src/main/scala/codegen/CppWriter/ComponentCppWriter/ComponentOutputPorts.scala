@@ -87,13 +87,14 @@ case class ComponentOutputPorts(
   /** Gets component base-class invokers for a list of ports */
   def getInvokers(
     ports: List[PortInstance],
+    accessSpecifier: String = "protected",
     typeStringOpt: Option[String] = None
   ): List[CppDoc.Class.Member] = {
     val typeString = typeStringOpt.getOrElse(getPortListTypeString(ports))
     wrapClassMembersInIfDirective(
       "#if !FW_DIRECT_PORT_CALLS",
       addAccessTagAndComment(
-        "protected",
+        accessSpecifier,
         s"Invocation functions for $typeString output ports",
         ports.map(getInvokerForPortInstance)
       ),

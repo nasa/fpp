@@ -1098,7 +1098,7 @@ class ActiveOverflowComponentBase :
 
 #endif
 
-  protected:
+  private:
 
     // ----------------------------------------------------------------------
     // Invocation functions for special output ports

@@ -6174,8 +6174,6 @@ void QueuedTestComponentBase ::
   }
 }
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Telemetry write functions
 // ----------------------------------------------------------------------
@@ -6186,12 +6184,12 @@ void QueuedTestComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      this->isConnected_timeGetOut_OutputPort(0) &&
       (_tlmTime ==  Fw::ZERO_TIME)
     ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+      this->timeGetOut_out(0, _tlmTime);
     }
 
     Fw::TlmBuffer _tlmBuff;
@@ -6205,7 +6203,8 @@ void QueuedTestComponentBase ::
 
     _id = this->getIdBase() + CHANNELID_CHANNELU32FORMAT;
 
-    this->m_tlmOut_OutputPort[0].invoke(
+    this->tlmOut_out(
+      0,
       _id,
       _tlmTime,
       _tlmBuff
@@ -6219,12 +6218,12 @@ void QueuedTestComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      this->isConnected_timeGetOut_OutputPort(0) &&
       (_tlmTime ==  Fw::ZERO_TIME)
     ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+      this->timeGetOut_out(0, _tlmTime);
     }
 
     Fw::TlmBuffer _tlmBuff;
@@ -6238,7 +6237,8 @@ void QueuedTestComponentBase ::
 
     _id = this->getIdBase() + CHANNELID_CHANNELF32FORMAT;
 
-    this->m_tlmOut_OutputPort[0].invoke(
+    this->tlmOut_out(
+      0,
       _id,
       _tlmTime,
       _tlmBuff
@@ -6252,16 +6252,19 @@ void QueuedTestComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      this->isConnected_timeGetOut_OutputPort(0) &&
       (_tlmTime ==  Fw::ZERO_TIME)
     ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+      this->timeGetOut_out(0, _tlmTime);
     }
 
     Fw::TlmBuffer _tlmBuff;
-    Fw::SerializeStatus _stat = arg.serializeTo(_tlmBuff, FW_MIN(FW_TLM_STRING_MAX_SIZE, 80));
+    Fw::SerializeStatus _stat = arg.serializeTo(
+      _tlmBuff,
+      FW_MIN(FW_TLM_STRING_MAX_SIZE, 80)
+    );
     FW_ASSERT(
       _stat == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_stat)
@@ -6271,7 +6274,8 @@ void QueuedTestComponentBase ::
 
     _id = this->getIdBase() + CHANNELID_CHANNELSTRINGFORMAT;
 
-    this->m_tlmOut_OutputPort[0].invoke(
+    this->tlmOut_out(
+      0,
       _id,
       _tlmTime,
       _tlmBuff
@@ -6285,12 +6289,12 @@ void QueuedTestComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      this->isConnected_timeGetOut_OutputPort(0) &&
       (_tlmTime ==  Fw::ZERO_TIME)
     ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+      this->timeGetOut_out(0, _tlmTime);
     }
 
     Fw::TlmBuffer _tlmBuff;
@@ -6304,7 +6308,8 @@ void QueuedTestComponentBase ::
 
     _id = this->getIdBase() + CHANNELID_CHANNELENUM;
 
-    this->m_tlmOut_OutputPort[0].invoke(
+    this->tlmOut_out(
+      0,
       _id,
       _tlmTime,
       _tlmBuff
@@ -6318,12 +6323,12 @@ void QueuedTestComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      this->isConnected_timeGetOut_OutputPort(0) &&
       (_tlmTime ==  Fw::ZERO_TIME)
     ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+      this->timeGetOut_out(0, _tlmTime);
     }
 
     Fw::TlmBuffer _tlmBuff;
@@ -6337,7 +6342,8 @@ void QueuedTestComponentBase ::
 
     _id = this->getIdBase() + CHANNELID_CHANNELARRAYFREQ;
 
-    this->m_tlmOut_OutputPort[0].invoke(
+    this->tlmOut_out(
+      0,
       _id,
       _tlmTime,
       _tlmBuff
@@ -6351,12 +6357,12 @@ void QueuedTestComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      this->isConnected_timeGetOut_OutputPort(0) &&
       (_tlmTime ==  Fw::ZERO_TIME)
     ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+      this->timeGetOut_out(0, _tlmTime);
     }
 
     Fw::TlmBuffer _tlmBuff;
@@ -6370,7 +6376,8 @@ void QueuedTestComponentBase ::
 
     _id = this->getIdBase() + CHANNELID_CHANNELSTRUCTFREQ;
 
-    this->m_tlmOut_OutputPort[0].invoke(
+    this->tlmOut_out(
+      0,
       _id,
       _tlmTime,
       _tlmBuff
@@ -6384,12 +6391,12 @@ void QueuedTestComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      this->isConnected_timeGetOut_OutputPort(0) &&
       (_tlmTime ==  Fw::ZERO_TIME)
     ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+      this->timeGetOut_out(0, _tlmTime);
     }
 
     Fw::TlmBuffer _tlmBuff;
@@ -6403,7 +6410,8 @@ void QueuedTestComponentBase ::
 
     _id = this->getIdBase() + CHANNELID_CHANNELU32LIMITS;
 
-    this->m_tlmOut_OutputPort[0].invoke(
+    this->tlmOut_out(
+      0,
       _id,
       _tlmTime,
       _tlmBuff
@@ -6417,12 +6425,12 @@ void QueuedTestComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      this->isConnected_timeGetOut_OutputPort(0) &&
       (_tlmTime ==  Fw::ZERO_TIME)
     ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+      this->timeGetOut_out(0, _tlmTime);
     }
 
     Fw::TlmBuffer _tlmBuff;
@@ -6436,7 +6444,8 @@ void QueuedTestComponentBase ::
 
     _id = this->getIdBase() + CHANNELID_CHANNELF32LIMITS;
 
-    this->m_tlmOut_OutputPort[0].invoke(
+    this->tlmOut_out(
+      0,
       _id,
       _tlmTime,
       _tlmBuff
@@ -6450,12 +6459,12 @@ void QueuedTestComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      this->isConnected_timeGetOut_OutputPort(0) &&
       (_tlmTime ==  Fw::ZERO_TIME)
     ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+      this->timeGetOut_out(0, _tlmTime);
     }
 
     Fw::TlmBuffer _tlmBuff;
@@ -6469,7 +6478,8 @@ void QueuedTestComponentBase ::
 
     _id = this->getIdBase() + CHANNELID_CHANNELF64;
 
-    this->m_tlmOut_OutputPort[0].invoke(
+    this->tlmOut_out(
+      0,
       _id,
       _tlmTime,
       _tlmBuff
@@ -6498,12 +6508,12 @@ void QueuedTestComponentBase ::
     this->m_last_ChannelU32OnChange = arg;
   }
 
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      this->isConnected_timeGetOut_OutputPort(0) &&
       (_tlmTime ==  Fw::ZERO_TIME)
     ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+      this->timeGetOut_out(0, _tlmTime);
     }
 
     Fw::TlmBuffer _tlmBuff;
@@ -6517,7 +6527,8 @@ void QueuedTestComponentBase ::
 
     _id = this->getIdBase() + CHANNELID_CHANNELU32ONCHANGE;
 
-    this->m_tlmOut_OutputPort[0].invoke(
+    this->tlmOut_out(
+      0,
       _id,
       _tlmTime,
       _tlmBuff
@@ -6546,12 +6557,12 @@ void QueuedTestComponentBase ::
     this->m_last_ChannelEnumOnChange = arg;
   }
 
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      this->isConnected_timeGetOut_OutputPort(0) &&
       (_tlmTime ==  Fw::ZERO_TIME)
     ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+      this->timeGetOut_out(0, _tlmTime);
     }
 
     Fw::TlmBuffer _tlmBuff;
@@ -6565,7 +6576,8 @@ void QueuedTestComponentBase ::
 
     _id = this->getIdBase() + CHANNELID_CHANNELENUMONCHANGE;
 
-    this->m_tlmOut_OutputPort[0].invoke(
+    this->tlmOut_out(
+      0,
       _id,
       _tlmTime,
       _tlmBuff
@@ -6594,12 +6606,12 @@ void QueuedTestComponentBase ::
     this->m_last_ChannelBoolOnChange = arg;
   }
 
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      this->isConnected_timeGetOut_OutputPort(0) &&
       (_tlmTime ==  Fw::ZERO_TIME)
     ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+      this->timeGetOut_out(0, _tlmTime);
     }
 
     Fw::TlmBuffer _tlmBuff;
@@ -6613,15 +6625,14 @@ void QueuedTestComponentBase ::
 
     _id = this->getIdBase() + CHANNELID_CHANNELBOOLONCHANGE;
 
-    this->m_tlmOut_OutputPort[0].invoke(
+    this->tlmOut_out(
+      0,
       _id,
       _tlmTime,
       _tlmBuff
     );
   }
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Parameter update hook
@@ -8719,6 +8730,30 @@ void QueuedTestComponentBase ::
   );
   this->m_timeGetOut_OutputPort[portNum].invoke(
     time
+  );
+}
+
+void QueuedTestComponentBase ::
+  tlmOut_out(
+      FwIndexType portNum,
+      FwChanIdType id,
+      Fw::Time& timeTag,
+      Fw::TlmBuffer& val
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_tlmOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_tlmOut_OutputPort[portNum].invoke(
+    id,
+    timeTag,
+    val
   );
 }
 

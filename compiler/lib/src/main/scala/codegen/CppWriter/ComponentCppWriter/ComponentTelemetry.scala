@@ -74,112 +74,124 @@ case class ComponentTelemetry (
   }
 
   private def getWriteFunctions: List[CppDoc.Class.Member] = {
-    def writeBody(channel: TlmChannel) = intersperseBlankLines(
-      List(
-        channel.update match {
-          case Ast.SpecTlmChannel.OnChange => lines(
-            s"""|// Check to see if it is the first time
-                |if (not this->${channelUpdateFlagName(channel.getName)}) {
-                |  // Check to see if value has changed. If not, don't write it.
-                |  if (arg == this->${channelStorageName(channel.getName)}) {
-                |    return;
-                |  }
-                |  else {
-                |    this->${channelStorageName(channel.getName)} = arg;
-                |  }
-                |}
-                |else {
-                |  this->${channelUpdateFlagName(channel.getName)} = false;
-                |  this->${channelStorageName(channel.getName)} = arg;
-                |}
-                |"""
-          )
-          case _ => Nil
-        },
-        wrapInIf(
-          s"this->${portVariableName(tlmPort.get)}[0].isConnected()",
-          List.concat(
-            lines(
-              s"""|if (
-                  |  this->${portVariableName(timeGetPort.get)}[0].isConnected() &&
-                  |  (_tlmTime ==  Fw::ZERO_TIME)
-                  |) {
-                  |  this->${portVariableName(timeGetPort.get)}[0].invoke(_tlmTime);
-                  |}
-                  |
-                  |Fw::TlmBuffer _tlmBuff;
-                  |"""
-            ),
-            lines(
-              channel.channelType.getUnderlyingType match {
-                case t: Type.String =>
-                  val serialSize = writeStringSize(s, t)
-                  s"Fw::SerializeStatus _stat = arg.serializeTo(_tlmBuff, FW_MIN(FW_TLM_STRING_MAX_SIZE, $serialSize));"
-                case _ =>
-                  "Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);"
-              }
-            ),
-            lines(
-              s"""|FW_ASSERT(
-                  |  _stat == Fw::FW_SERIALIZE_OK,
-                  |  static_cast<FwAssertArgType>(_stat)
-                  |);
-                  |
-                  |FwChanIdType _id;
-                  |
-                  |_id = this->getIdBase() + ${channelIdConstantName(channel.getName)};
-                  |
-                  |this->${portVariableName(tlmPort.get)}[0].invoke(
-                  |  _id,
-                  |  _tlmTime,
-                  |  _tlmBuff
-                  |);
-                  |"""
+    def writeBody(channel: TlmChannel) = {
+      val timeGetPortName = timeGetPort.get.getUnqualifiedName
+      val timeGetPortInvokerName = outputPortInvokerName(timeGetPortName)
+      val timeGetPortIsConnected = outputPortIsConnectedName(timeGetPortName)
+      val tlmPortName = tlmPort.get.getUnqualifiedName
+      val tlmPortIsConnected = outputPortIsConnectedName(tlmPortName)
+      val tlmPortInvokerName = outputPortInvokerName(tlmPort.get)
+      val idConstantName = channelIdConstantName(channel.getName)
+      intersperseBlankLines(
+        List(
+          channel.update match {
+            case Ast.SpecTlmChannel.OnChange =>
+              val updateFlagName = channelUpdateFlagName(channel.getName)
+              val storageName = channelStorageName(channel.getName)
+              lines(
+                s"""|// Check to see if it is the first time
+                    |if (not this->$updateFlagName) {
+                    |  // Check to see if value has changed. If not, don't write it.
+                    |  if (arg == this->$storageName) {
+                    |    return;
+                    |  }
+                    |  else {
+                    |    this->$storageName = arg;
+                    |  }
+                    |}
+                    |else {
+                    |  this->$updateFlagName = false;
+                    |  this->$storageName = arg;
+                    |}
+                    |"""
+              )
+            case _ => Nil
+          },
+          wrapInIf(
+            s"this->$tlmPortIsConnected(0)",
+            List.concat(
+              lines(
+                s"""|if (
+                    |  this->$timeGetPortIsConnected(0) &&
+                    |  (_tlmTime ==  Fw::ZERO_TIME)
+                    |) {
+                    |  this->$timeGetPortInvokerName(0, _tlmTime);
+                    |}
+                    |
+                    |Fw::TlmBuffer _tlmBuff;
+                    |"""
+              ),
+              lines(
+                channel.channelType.getUnderlyingType match {
+                  case t: Type.String =>
+                    val serialSize = writeStringSize(s, t)
+                    s"""|Fw::SerializeStatus _stat = arg.serializeTo(
+                        |  _tlmBuff,
+                        |  FW_MIN(FW_TLM_STRING_MAX_SIZE, $serialSize)
+                        |);
+                        |"""
+                  case _ =>
+                    "Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);"
+                }
+              ),
+              lines(
+                s"""|FW_ASSERT(
+                    |  _stat == Fw::FW_SERIALIZE_OK,
+                    |  static_cast<FwAssertArgType>(_stat)
+                    |);
+                    |
+                    |FwChanIdType _id;
+                    |
+                    |_id = this->getIdBase() + $idConstantName;
+                    |
+                    |this->$tlmPortInvokerName(
+                    |  0,
+                    |  _id,
+                    |  _tlmTime,
+                    |  _tlmBuff
+                    |);
+                    |"""
+              )
             )
           )
         )
       )
-    )
+    }
 
-
-    wrapClassMembersInIfDirective(
-      "#if !FW_DIRECT_PORT_CALLS // TODO",
-      addAccessTagAndComment(
-        "protected",
-        "Telemetry write functions",
-        sortedChannels.map((_, channel) =>
-          functionClassMember(
-            Some(
-              addSeparatedString(
-                s"Write telemetry channel ${channel.getName}",
-                AnnotationCppWriter.asStringOpt(channel.aNode)
-              )
+    addAccessTagAndComment(
+      "protected",
+      "Telemetry write functions",
+      sortedChannels.map((_, channel) =>
+        functionClassMember(
+          Some(
+            addSeparatedString(
+              s"Write telemetry channel ${channel.getName}",
+              AnnotationCppWriter.asStringOpt(channel.aNode)
+            )
+          ),
+          channelWriteFunctionName(channel.getName),
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type(writeChannelParam(channel.channelType)),
+              "arg",
+              Some("The telemetry value")
             ),
-            channelWriteFunctionName(channel.getName),
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type(writeChannelParam(channel.channelType)),
-                "arg",
-                Some("The telemetry value")
-              ),
-              CppDoc.Function.Param(
-                CppDoc.Type("Fw::Time"),
-                "_tlmTime",
-                Some("Timestamp. Default: unspecified, request from getTime port"),
-                Some("Fw::Time()")
-              )
-            ),
-            CppDoc.Type("void"),
-            writeBody(channel),
-            CppDoc.Function.NonSV,
-            channel.update match {
-              case Ast.SpecTlmChannel.OnChange => CppDoc.Function.NonConst
-              case _ => CppDoc.Function.Const
-            }
-          )
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::Time"),
+              "_tlmTime",
+              Some("Timestamp. Default: unspecified, request from getTime port"),
+              Some("Fw::Time()")
+            )
+          ),
+          CppDoc.Type("void"),
+          writeBody(channel),
+          CppDoc.Function.NonSV,
+          channel.update match {
+            case Ast.SpecTlmChannel.OnChange => CppDoc.Function.NonConst
+            case _ => CppDoc.Function.Const
+          }
         )
-      ),
-      CppDoc.Lines.Cpp
+      )
     )
   }
 

@@ -1855,7 +1855,7 @@ class QueuedParamsComponentBase :
         const S& s //!< A struct
     );
 
-  protected:
+  private:
 
     // ----------------------------------------------------------------------
     // Invocation functions for special output ports

@@ -65,10 +65,11 @@ case class ComponentPorts(
     inputPortWriter.getCallbacks(typedInputPorts),
     inputPortWriter.getCallbacks(serialInputPorts),
     {
-      val ports = List.concat(
-        timeGetPort.map(List(_)).getOrElse(Nil)
-      )
-      outputPortWriter.getInvokers(ports, Some("special"))
+      val ports = List(
+        timeGetPort,
+        guardedOption (hasTelemetry) (tlmPort),
+      ).filter(_.isDefined).map(_.get)
+      outputPortWriter.getInvokers(ports, "private", Some("special"))
     }
   )
 
