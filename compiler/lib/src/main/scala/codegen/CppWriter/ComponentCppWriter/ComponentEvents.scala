@@ -158,25 +158,31 @@ case class ComponentEvents (
     )
   }
 
-  private def writeCodeForEmittingEvent(id: Event.Id, event: Event) =
+  private def writeCodeForEmittingEvent(id: Event.Id, event: Event) = {
+    val eventPortName = eventPort.get.getUnqualifiedName
+    val eventPortIsConnected = outputPortIsConnectedName(eventPortName)
+    val paramTypes = eventParamTypeMap(id)
+    val hasParams = !paramTypes.isEmpty
+    val numParams = paramTypes.length
+    val severity = writeSeverity(event)
     line("// Emit the event on the log port") ::
     wrapInIf(
-      s"this->${portVariableName(eventPort.get)}[0].isConnected()",
+      s"this->$eventPortIsConnected(0)",
       intersperseBlankLines(
         List(
           line("Fw::LogBuffer _logBuff;") ::
-          guardedList (!eventParamTypeMap(id).isEmpty) (
+          guardedList (hasParams) (
             lines("Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;")
           ),
           List.concat(
             lines("#if FW_AMPCS_COMPATIBLE"),
-            guardedList (eventParamTypeMap(id).isEmpty) (
+            guardedList (!hasParams) (
               lines("Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;\n")
             ),
             event.aNode._2.data.severity match {
-              case Ast.SpecEvent.Fatal if eventParamTypeMap(id).nonEmpty => lines(
+              case Ast.SpecEvent.Fatal if hasParams => lines(
                 s"""|// Serialize the number of arguments
-                    |_status = _logBuff.serializeFrom(static_cast<U8>(${eventParamTypeMap(id).length} + 1));
+                    |_status = _logBuff.serializeFrom(static_cast<U8>($numParams + 1));
                     |FW_ASSERT(
                     |  _status == Fw::FW_SERIALIZE_OK,
                     |  static_cast<FwAssertArgType>(_status)
@@ -198,7 +204,7 @@ case class ComponentEvents (
               )
               case _ => lines(
                 s"""|// Serialize the number of arguments
-                    |_status = _logBuff.serializeFrom(static_cast<U8>(${eventParamTypeMap(id).length}));
+                    |_status = _logBuff.serializeFrom(static_cast<U8>($numParams));
                     |FW_ASSERT(
                     |  _status == Fw::FW_SERIALIZE_OK,
                     |  static_cast<FwAssertArgType>(_status)
@@ -209,7 +215,7 @@ case class ComponentEvents (
             lines("#endif")
           ),
           intersperseBlankLines(
-            eventParamTypeMap(id).map((name, typeName, ty) => {
+            paramTypes.map((name, typeName, ty) => {
               List.concat(
                 ty.getUnderlyingType match {
                   case t: Type.String =>
@@ -217,20 +223,22 @@ case class ComponentEvents (
                     lines(
                       s"_status = $name.serializeTo(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, $serialSize));"
                     )
-                  case t => lines(
-                    s"""|#if FW_AMPCS_COMPATIBLE
-                        |// Serialize the argument size
-                        |_status = _logBuff.serializeFrom(
-                        |  static_cast<U8>(${writeStaticSerializedSizeExpr(s, t, typeName)})
-                        |);
-                        |FW_ASSERT(
-                        |  _status == Fw::FW_SERIALIZE_OK,
-                        |  static_cast<FwAssertArgType>(_status)
-                        |);
-                        |#endif
-                        |_status = _logBuff.serializeFrom($name);
-                        |"""
-                  )
+                  case t => 
+                    val sizeExpr = writeStaticSerializedSizeExpr(s, t, typeName)
+                    lines(
+                      s"""|#if FW_AMPCS_COMPATIBLE
+                          |// Serialize the argument size
+                          |_status = _logBuff.serializeFrom(
+                          |  static_cast<U8>($sizeExpr)
+                          |);
+                          |FW_ASSERT(
+                          |  _status == Fw::FW_SERIALIZE_OK,
+                          |  static_cast<FwAssertArgType>(_status)
+                          |);
+                          |#endif
+                          |_status = _logBuff.serializeFrom($name);
+                          |"""
+                    )
                 },
                 lines(
                   """|FW_ASSERT(
@@ -246,7 +254,7 @@ case class ComponentEvents (
             s"""|this->${portVariableName(eventPort.get)}[0].invoke(
                 |  _id,
                 |  _logTime,
-                |  Fw::LogSeverity::${writeSeverity(event)},
+                |  Fw::LogSeverity::$severity,
                 |  _logBuff
                 |);
                 |"""
@@ -254,6 +262,7 @@ case class ComponentEvents (
         )
       )
     )
+  }
 
   private def writeCodeForEmittingTextEvent(id: Event.Id, event: Event) =
     List.concat(

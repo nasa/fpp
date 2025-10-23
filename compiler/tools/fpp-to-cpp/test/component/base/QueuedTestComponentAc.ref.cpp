@@ -5431,7 +5431,7 @@ void QueuedTestComponentBase ::
   const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTACTIVITYHIGH;
 
   // Emit the event on the log port
-  if (this->m_eventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_eventOut_OutputPort(0)) {
     Fw::LogBuffer _logBuff;
 
 #if FW_AMPCS_COMPATIBLE
@@ -5506,7 +5506,7 @@ void QueuedTestComponentBase ::
   const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTACTIVITYLOWTHROTTLED;
 
   // Emit the event on the log port
-  if (this->m_eventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_eventOut_OutputPort(0)) {
     Fw::LogBuffer _logBuff;
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
@@ -5623,7 +5623,7 @@ void QueuedTestComponentBase ::
   const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTCOMMAND;
 
   // Emit the event on the log port
-  if (this->m_eventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_eventOut_OutputPort(0)) {
     Fw::LogBuffer _logBuff;
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
@@ -5700,7 +5700,7 @@ void QueuedTestComponentBase ::
   const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTDIAGNOSTIC;
 
   // Emit the event on the log port
-  if (this->m_eventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_eventOut_OutputPort(0)) {
     Fw::LogBuffer _logBuff;
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
@@ -5791,7 +5791,7 @@ void QueuedTestComponentBase ::
   const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTFATALTHROTTLED;
 
   // Emit the event on the log port
-  if (this->m_eventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_eventOut_OutputPort(0)) {
     Fw::LogBuffer _logBuff;
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
@@ -5887,7 +5887,7 @@ void QueuedTestComponentBase ::
   const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTWARNINGHIGH;
 
   // Emit the event on the log port
-  if (this->m_eventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_eventOut_OutputPort(0)) {
     Fw::LogBuffer _logBuff;
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
@@ -5978,7 +5978,7 @@ void QueuedTestComponentBase ::
   const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLED;
 
   // Emit the event on the log port
-  if (this->m_eventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_eventOut_OutputPort(0)) {
     Fw::LogBuffer _logBuff;
 
 #if FW_AMPCS_COMPATIBLE
@@ -6066,7 +6066,7 @@ void QueuedTestComponentBase ::
   }
 
   // Emit the event on the log port
-  if (this->m_eventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_eventOut_OutputPort(0)) {
     Fw::LogBuffer _logBuff;
 
 #if FW_AMPCS_COMPATIBLE
