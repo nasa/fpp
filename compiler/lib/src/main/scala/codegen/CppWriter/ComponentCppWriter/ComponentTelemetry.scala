@@ -11,24 +11,22 @@ case class ComponentTelemetry (
 ) extends ComponentCppWriterUtils(s, aNode) {
 
   def getConstantMembers: List[CppDoc.Class.Member] = {
-    if !hasChannels then Nil
-    else List(
-      linesClassMember(
-        List(
-          Line.blank :: lines(s"//! Channel IDs"),
-          wrapInEnum(
-            sortedChannels.flatMap((id, channel) =>
-              writeEnumConstant(
-                channelIdConstantName(channel.getName),
-                id,
-                Some(s"Channel ID for ${channel.getName}"),
-                CppWriterUtils.Hex
-              )
-            )
-          )
-        ).flatten
+    lazy val channelIds = sortedChannels.flatMap((id, channel) =>
+      writeEnumConstant(
+        channelIdConstantName(channel.getName),
+        id,
+        Some(s"Channel ID for ${channel.getName}"),
+        CppWriterUtils.Hex
       )
     )
+    lazy val member = linesClassMember(
+      Line.blank ::
+      List.concat(
+        lines(s"//! Channel IDs"),
+        wrapInEnum(channelIds)
+      )
+    )
+    guardedList (hasChannels) (List(member))
   }
 
   def getFunctionMembers: List[CppDoc.Class.Member] = {
@@ -73,8 +71,8 @@ case class ComponentTelemetry (
     )
   }
 
-  private def getWriteFunctions: List[CppDoc.Class.Member] = {
-    def writeBody(channel: TlmChannel) = {
+  private def getWriteFunction(channel: TlmChannel) = {
+    val body = {
       val timeGetPortName = timeGetPort.get.getUnqualifiedName
       val timeGetPortInvokerName = outputPortInvokerName(timeGetPortName)
       val timeGetPortIsConnected = outputPortIsConnectedName(timeGetPortName)
@@ -157,43 +155,43 @@ case class ComponentTelemetry (
         )
       )
     }
+    functionClassMember(
+      Some(
+        addSeparatedString(
+          s"Write telemetry channel ${channel.getName}",
+          AnnotationCppWriter.asStringOpt(channel.aNode)
+        )
+      ),
+      channelWriteFunctionName(channel.getName),
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type(writeChannelParam(channel.channelType)),
+          "arg",
+          Some("The telemetry value")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::Time"),
+          "_tlmTime",
+          Some("Timestamp. Default: unspecified, request from getTime port"),
+          Some("Fw::Time()")
+        )
+      ),
+      CppDoc.Type("void"),
+      body,
+      CppDoc.Function.NonSV,
+      channel.update match {
+        case Ast.SpecTlmChannel.OnChange => CppDoc.Function.NonConst
+        case _ => CppDoc.Function.Const
+      }
+    )
+  }
 
+  private def getWriteFunctions: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "protected",
       "Telemetry write functions",
-      sortedChannels.map((_, channel) =>
-        functionClassMember(
-          Some(
-            addSeparatedString(
-              s"Write telemetry channel ${channel.getName}",
-              AnnotationCppWriter.asStringOpt(channel.aNode)
-            )
-          ),
-          channelWriteFunctionName(channel.getName),
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type(writeChannelParam(channel.channelType)),
-              "arg",
-              Some("The telemetry value")
-            ),
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::Time"),
-              "_tlmTime",
-              Some("Timestamp. Default: unspecified, request from getTime port"),
-              Some("Fw::Time()")
-            )
-          ),
-          CppDoc.Type("void"),
-          writeBody(channel),
-          CppDoc.Function.NonSV,
-          channel.update match {
-            case Ast.SpecTlmChannel.OnChange => CppDoc.Function.NonConst
-            case _ => CppDoc.Function.Const
-          }
-        )
-      )
+      sortedChannels.map((_, channel) => getWriteFunction(channel))
     )
-  }
 
   private def writeChannelParam(t: Type) = {
     val typeName = writeChannelType(t)
