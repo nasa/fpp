@@ -13,7 +13,7 @@ case class ComponentEvents (
   def getConstantMembers: List[CppDoc.Class.Member] = {
     val throttleEnum =
       if throttledEvents.isEmpty then Nil
-      else List(
+      else List.concat(
         Line.blank :: lines(
           s"//! Event throttle values: sets initial value of countdown variables"
         ),
@@ -26,12 +26,12 @@ case class ComponentEvents (
             )
           )
         )
-      ).flatten
+      )
 
     if !hasEvents then Nil
     else List(
       linesClassMember(
-        List(
+        List.concat(
           Line.blank :: lines(s"//! Event IDs"),
           wrapInEnum(
             sortedEvents.flatMap((id, event) =>
@@ -44,16 +44,16 @@ case class ComponentEvents (
             )
           ),
           throttleEnum
-        ).flatten
+        )
       )
     )
   }
 
   def getFunctionMembers: List[CppDoc.Class.Member] = {
-    List(
+    List.concat(
       getLoggingFunctions,
       getThrottleFunctions
-    ).flatten
+    )
   }
 
   def getVariableMembers: List[CppDoc.Class.Member] = {
@@ -87,109 +87,106 @@ case class ComponentEvents (
     )
   }
 
-  private def getLoggingFunctions: List[CppDoc.Class.Member] = {
-    def writeLogBody(id: Event.Id, event: Event) =
-      line("// Emit the event on the log port") ::
-        wrapInIf(
-          s"this->${portVariableName(eventPort.get)}[0].isConnected()",
-          intersperseBlankLines(
-            List(
-              List.concat(
-                lines("Fw::LogBuffer _logBuff;"),
-                eventParamTypeMap(id) match {
-                  case Nil => Nil
-                  case _ => lines("Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;")
-                }
-              ),
-              List.concat(
-                lines("#if FW_AMPCS_COMPATIBLE"),
-                eventParamTypeMap(id) match {
-                  case Nil => lines("Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;\n")
-                  case _ => Nil
-                },
-                event.aNode._2.data.severity match {
-                  case Ast.SpecEvent.Fatal if eventParamTypeMap(id).nonEmpty => lines(
-                    s"""|// Serialize the number of arguments
-                        |_status = _logBuff.serializeFrom(static_cast<U8>(${eventParamTypeMap(id).length} + 1));
-                        |FW_ASSERT(
-                        |  _status == Fw::FW_SERIALIZE_OK,
-                        |  static_cast<FwAssertArgType>(_status)
-                        |);
-                        |
-                        |// For FATAL, add stack size of 4 and a dummy entry. No support for stacks yet.
-                        |_status = _logBuff.serializeFrom(static_cast<U8>(4));
-                        |FW_ASSERT(
-                        |  _status == Fw::FW_SERIALIZE_OK,
-                        |  static_cast<FwAssertArgType>(_status)
-                        |);
-                        |
-                        |_status = _logBuff.serializeFrom(static_cast<U32>(0));
-                        |FW_ASSERT(
-                        |  _status == Fw::FW_SERIALIZE_OK,
-                        |  static_cast<FwAssertArgType>(_status)
-                        |);
-                        |"""
-                  )
-                  case _ => lines(
-                    s"""|// Serialize the number of arguments
-                        |_status = _logBuff.serializeFrom(static_cast<U8>(${eventParamTypeMap(id).length}));
-                        |FW_ASSERT(
-                        |  _status == Fw::FW_SERIALIZE_OK,
-                        |  static_cast<FwAssertArgType>(_status)
-                        |);
-                        |"""
-                  )
-                },
-                lines("#endif")
-              ),
-              intersperseBlankLines(
-                eventParamTypeMap(id).map((name, typeName, ty) => {
-
-                  List.concat(
-                    ty.getUnderlyingType match {
-                      case t: Type.String =>
-                        val serialSize = writeStringSize(s, t)
-                        lines(
-                          s"_status = $name.serializeTo(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, $serialSize));"
-                        )
-                      case t => lines(
-                        s"""|#if FW_AMPCS_COMPATIBLE
-                            |// Serialize the argument size
-                            |_status = _logBuff.serializeFrom(
-                            |  static_cast<U8>(${writeStaticSerializedSizeExpr(s, t, typeName)})
-                            |);
-                            |FW_ASSERT(
-                            |  _status == Fw::FW_SERIALIZE_OK,
-                            |  static_cast<FwAssertArgType>(_status)
-                            |);
-                            |#endif
-                            |_status = _logBuff.serializeFrom($name);
-                            |"""
-                      )
-                    },
-                    lines(
-                      """|FW_ASSERT(
-                         |  _status == Fw::FW_SERIALIZE_OK,
-                         |  static_cast<FwAssertArgType>(_status)
-                         |);
-                         |"""
-                    )
-                  )
-                })
-              ),
-              lines(
-                s"""|this->${portVariableName(eventPort.get)}[0].invoke(
-                    |  _id,
-                    |  _logTime,
-                    |  Fw::LogSeverity::${writeSeverity(event)},
-                    |  _logBuff
+  private def writeCodeForEmittingEvent(id: Event.Id, event: Event) =
+    line("// Emit the event on the log port") ::
+    wrapInIf(
+      s"this->${portVariableName(eventPort.get)}[0].isConnected()",
+      intersperseBlankLines(
+        List(
+          line("Fw::LogBuffer _logBuff;") ::
+          guardedList (!eventParamTypeMap(id).isEmpty) (
+            lines("Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;")
+          ),
+          List.concat(
+            lines("#if FW_AMPCS_COMPATIBLE"),
+            guardedList (eventParamTypeMap(id).isEmpty) (
+              lines("Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;\n")
+            ),
+            event.aNode._2.data.severity match {
+              case Ast.SpecEvent.Fatal if eventParamTypeMap(id).nonEmpty => lines(
+                s"""|// Serialize the number of arguments
+                    |_status = _logBuff.serializeFrom(static_cast<U8>(${eventParamTypeMap(id).length} + 1));
+                    |FW_ASSERT(
+                    |  _status == Fw::FW_SERIALIZE_OK,
+                    |  static_cast<FwAssertArgType>(_status)
+                    |);
+                    |
+                    |// For FATAL, add stack size of 4 and a dummy entry. No support for stacks yet.
+                    |_status = _logBuff.serializeFrom(static_cast<U8>(4));
+                    |FW_ASSERT(
+                    |  _status == Fw::FW_SERIALIZE_OK,
+                    |  static_cast<FwAssertArgType>(_status)
+                    |);
+                    |
+                    |_status = _logBuff.serializeFrom(static_cast<U32>(0));
+                    |FW_ASSERT(
+                    |  _status == Fw::FW_SERIALIZE_OK,
+                    |  static_cast<FwAssertArgType>(_status)
                     |);
                     |"""
               )
-            )
+              case _ => lines(
+                s"""|// Serialize the number of arguments
+                    |_status = _logBuff.serializeFrom(static_cast<U8>(${eventParamTypeMap(id).length}));
+                    |FW_ASSERT(
+                    |  _status == Fw::FW_SERIALIZE_OK,
+                    |  static_cast<FwAssertArgType>(_status)
+                    |);
+                    |"""
+              )
+            },
+            lines("#endif")
+          ),
+          intersperseBlankLines(
+            eventParamTypeMap(id).map((name, typeName, ty) => {
+
+              List.concat(
+                ty.getUnderlyingType match {
+                  case t: Type.String =>
+                    val serialSize = writeStringSize(s, t)
+                    lines(
+                      s"_status = $name.serializeTo(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, $serialSize));"
+                    )
+                  case t => lines(
+                    s"""|#if FW_AMPCS_COMPATIBLE
+                        |// Serialize the argument size
+                        |_status = _logBuff.serializeFrom(
+                        |  static_cast<U8>(${writeStaticSerializedSizeExpr(s, t, typeName)})
+                        |);
+                        |FW_ASSERT(
+                        |  _status == Fw::FW_SERIALIZE_OK,
+                        |  static_cast<FwAssertArgType>(_status)
+                        |);
+                        |#endif
+                        |_status = _logBuff.serializeFrom($name);
+                        |"""
+                  )
+                },
+                lines(
+                  """|FW_ASSERT(
+                     |  _status == Fw::FW_SERIALIZE_OK,
+                     |  static_cast<FwAssertArgType>(_status)
+                     |);
+                     |"""
+                )
+              )
+            })
+          ),
+          lines(
+            s"""|this->${portVariableName(eventPort.get)}[0].invoke(
+                |  _id,
+                |  _logTime,
+                |  Fw::LogSeverity::${writeSeverity(event)},
+                |  _logBuff
+                |);
+                |"""
           )
         )
-    def writeTextLogBody(event: Event) = List.concat(
+      )
+    )
+
+  private def writeCodeForEmittingTextEvent(id: Event.Id, event: Event) =
+    List.concat(
       lines(
         s"""|// Emit the event on the text log port
             |#if FW_ENABLE_TEXT_LOGGING
@@ -258,7 +255,9 @@ case class ComponentEvents (
       ),
       lines("#endif")
     )
-    def writeBody(id: Event.Id, event: Event) = intersperseBlankLines(
+
+  private def getLoggingFunction(id: Event.Id, event: Event) = {
+    val body = intersperseBlankLines(
       List(
         // Hard throttle counter can be checked immediately
         // We don't need to get time
@@ -318,43 +317,43 @@ case class ComponentEvents (
           )
           case _ => Nil
         },
-        writeLogBody(id, event),
-        writeTextLogBody(event)
+        writeCodeForEmittingEvent(id, event),
+        writeCodeForEmittingTextEvent(id, event),
       )
     )
+    functionClassMember(
+      Some(
+        addSeparatedString(
+          s"Log event ${event.getName}",
+          AnnotationCppWriter.asStringOpt(event.aNode)
+        )
+      ),
+      eventLogName(event),
+      formalParamsCppWriter.write(
+        event.aNode._2.data.params,
+        "Fw::StringBase",
+        FormalParamsCppWriter.Value
+      ),
+      CppDoc.Type("void"),
+      body,
+      CppDoc.Function.NonSV,
+      event.throttle match {
+        case Some(_) => CppDoc.Function.NonConst
+        case None => CppDoc.Function.Const
+      }
+    )
+  }
 
+  private def getLoggingFunctions: List[CppDoc.Class.Member] =
     wrapClassMembersInIfDirective(
       "#if !FW_DIRECT_PORT_CALLS // TODO",
       addAccessTagAndComment(
         "protected",
         "Event logging functions",
-        sortedEvents.map((id, event) =>
-          functionClassMember(
-            Some(
-              addSeparatedString(
-                s"Log event ${event.getName}",
-                AnnotationCppWriter.asStringOpt(event.aNode)
-              )
-            ),
-            eventLogName(event),
-            formalParamsCppWriter.write(
-              event.aNode._2.data.params,
-              "Fw::StringBase",
-              FormalParamsCppWriter.Value
-            ),
-            CppDoc.Type("void"),
-            writeBody(id, event),
-            CppDoc.Function.NonSV,
-            event.throttle match {
-              case Some(_) => CppDoc.Function.NonConst
-              case None => CppDoc.Function.Const
-            }
-          )
-        )
+        sortedEvents.map(getLoggingFunction)
       ),
       CppDoc.Lines.Cpp
     )
-  }
 
   private def getThrottleFunctions: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
@@ -367,13 +366,13 @@ case class ComponentEvents (
             eventThrottleResetName(event),
             Nil,
             CppDoc.Type("void"),
-            List(
+            List.concat(
               lines(
                 s"""|// Reset throttle counter
                     |this->${eventThrottleCounterName(event.getName)} = 0;
                     |"""
               )
-            ).flatten
+            )
           )
         ),
         throttledEventsWithTimeout.map((_, event) =>
