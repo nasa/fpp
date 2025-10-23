@@ -11,39 +11,40 @@ case class ComponentEvents (
 ) extends ComponentCppWriterUtils(s, aNode) {
 
   def getConstantMembers: List[CppDoc.Class.Member] = {
-    val throttleEnum =
-      if throttledEvents.isEmpty then Nil
-      else List.concat(
-        Line.blank :: lines(
-          s"//! Event throttle values: sets initial value of countdown variables"
-        ),
-        wrapInEnum(
-          throttledEvents.flatMap((_, event) =>
-            writeEnumConstant(
-              eventThrottleConstantName(event.getName),
-              event.throttle.get.count,
-              Some(s"Throttle reset count for ${event.getName}")
+    lazy val throttleEnum =
+      guardedList (!throttledEvents.isEmpty) (
+        List.concat(
+          Line.blank :: lines(
+            s"//! Event throttle values: sets initial value of countdown variables"
+          ),
+          wrapInEnum(
+            throttledEvents.flatMap((_, event) =>
+              writeEnumConstant(
+                eventThrottleConstantName(event.getName),
+                event.throttle.get.count,
+                Some(s"Throttle reset count for ${event.getName}")
+              )
             )
           )
         )
       )
-
-    if !hasEvents then Nil
-    else List(
-      linesClassMember(
-        List.concat(
-          Line.blank :: lines(s"//! Event IDs"),
-          wrapInEnum(
-            sortedEvents.flatMap((id, event) =>
-              writeEnumConstant(
-                eventIdConstantName(event.getName),
-                id,
-                AnnotationCppWriter.asStringOpt(event.aNode),
-                CppWriterUtils.Hex
+    guardedList (hasEvents) (
+      List(
+        linesClassMember(
+          List.concat(
+            Line.blank :: lines(s"//! Event IDs"),
+            wrapInEnum(
+              sortedEvents.flatMap((id, event) =>
+                writeEnumConstant(
+                  eventIdConstantName(event.getName),
+                  id,
+                  AnnotationCppWriter.asStringOpt(event.aNode),
+                  CppWriterUtils.Hex
+                )
               )
-            )
-          ),
-          throttleEnum
+            ),
+            throttleEnum
+          )
         )
       )
     )
