@@ -62,7 +62,13 @@ case class Topology(
     for {
       // Check that the topology port for a general port
       pi <- underlyingPort.portInstance match {
-        case _: (PortInstance.General | PortInstance.Topology) => {
+        case _: PortInstance.Internal => Left(SemanticError.InvalidPortInstance(
+          loc,
+          "topology port cannot point to an internal port",
+          Locations.get(underlyingPort.portInstance.getNodeId)
+        ))
+
+        case _ => {
           for {
             iface <- this.portInterface.addPortInstance(
               PortInstance.Topology(
@@ -72,11 +78,6 @@ case class Topology(
             )
           } yield iface
         }
-        case _ => Left(SemanticError.InvalidPortInstance(
-          loc,
-          "topology port must name a general port or topology port",
-          Locations.get(underlyingPort.portInstance.getNodeId)
-        ))
       }
 
       t <- portMap.get(name) match {

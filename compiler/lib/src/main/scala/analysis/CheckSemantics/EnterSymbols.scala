@@ -94,7 +94,7 @@ object EnterSymbols
     val name = data.name
     val symbol = Symbol.ComponentInstance(aNode)
     val nestedScope = a.nestedScope
-    for (nestedScope <- nestedScope.put(NameGroup.Instance)(name, symbol))
+    for (nestedScope <- nestedScope.put(NameGroup.PortInterfaceInstance)(name, symbol))
       yield updateMap(a, symbol).copy(nestedScope = nestedScope)
   }
 
@@ -164,7 +164,7 @@ object EnterSymbols
     val name = data.name
     val symbol = Symbol.Interface(aNode)
     val nestedScope = a.nestedScope
-    for (nestedScope <- nestedScope.put(NameGroup.Interface)(name, symbol))
+    for (nestedScope <- nestedScope.put(NameGroup.PortInterface)(name, symbol))
       yield updateMap(a, symbol).copy(nestedScope = nestedScope)
   }
 
@@ -280,7 +280,7 @@ object EnterSymbols
     val name = data.name
     val symbol = Symbol.Topology(aNode)
     val nestedScope = a.nestedScope
-    for (nestedScope <- nestedScope.put(NameGroup.Instance)(name, symbol))
+    for (nestedScope <- nestedScope.put(NameGroup.PortInterfaceInstance)(name, symbol))
       yield updateMap(a, symbol).copy(nestedScope = nestedScope)
   }
 

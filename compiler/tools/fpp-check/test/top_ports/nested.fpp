@@ -1,10 +1,8 @@
 port P
 
-active component C1 {
+passive component C1 {
 
   output port pOut: [2] P
-
-  internal port P(x: U32)
 
 }
 
@@ -14,24 +12,31 @@ passive component C2 {
 
 }
 
-instance c1: C1 base id 0x100 queue size 10
+instance c1: C1 base id 0x100
 instance c2: C2 base id 0x200
 
 topology A {
   instance c1
   instance c2
 
-  port a = c1.pOut
-  port b = c2.pIn
-  port c = c1.P
+  port out = c1.pOut
+  port in = c2.pIn
 }
 
 topology B {
 
   instance A
 
+  port out = A.out
+
+}
+
+topology C {
+
+  instance B
+
   connections P {
-    A.a -> A.b
+    B.out -> A.in
   }
 
 }

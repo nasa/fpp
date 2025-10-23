@@ -249,10 +249,7 @@ object MatchedPortNumbering {
           Right(m)
         else {
           val piiRemote = c.getOtherEndpoint(pi).port
-          val ciRemote = piiRemote.interfaceInstance match {
-            case InterfaceInstance.InterfaceComponentInstance(ci) => ci
-            case _ => throw InternalError("topology connections not flattened")
-          }
+          val _ @ InterfaceInstance.InterfaceComponentInstance(ciRemote) = piiRemote.interfaceInstance
           m.get(ciRemote) match {
             case Some(cPrev) => Left(
               SemanticError.DuplicateMatchedConnection(

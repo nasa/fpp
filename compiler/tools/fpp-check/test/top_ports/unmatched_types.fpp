@@ -5,8 +5,6 @@ passive component C1 {
 
   output port pOut: [2] P1
 
-  internal port P(x: U32)
-
 }
 
 passive component C2 {
@@ -24,7 +22,6 @@ topology A {
 
   port a = c1.pOut
   port b = c2.pIn
-  port c = c1.P
 }
 
 topology B {
