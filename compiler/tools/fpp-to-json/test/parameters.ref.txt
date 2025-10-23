@@ -1,5 +1,5 @@
 {
-  "fppVersion" : "6dbe24229",
+  "fppVersion" : "[ fpp version ]",
   "ast" : [
     {
       "members" : [
@@ -633,7 +633,7 @@
   ]
 }
 {
-  "fppVersion" : "6dbe24229",
+  "fppVersion" : "[ fpp version ]",
   "locationMap" : {
     "0" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/parameters.fpp",
@@ -858,7 +858,7 @@
   }
 }
 {
-  "fppVersion" : "6dbe24229",
+  "fppVersion" : "[ fpp version ]",
   "analysis" : {
     "componentInstanceMap" : {
       
