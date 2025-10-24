@@ -10,54 +10,50 @@ case class ComponentCommands (
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  def getConstantMembers: List[CppDoc.Class.Member] = {
-    if !(hasCommands || hasParameters) then Nil
-    else List(
-      linesClassMember(
-        List.concat(
-          Line.blank :: lines(s"//! Command opcodes"),
-          wrapInEnum(
-            sortedCmds.flatMap((opcode, cmd) =>
-              writeEnumConstant(
-                commandConstantName(cmd),
-                opcode,
-                cmd match {
-                  case Command.NonParam(aNode, _) =>
-                    AnnotationCppWriter.asStringOpt(aNode)
-                  case Command.Param(aNode, kind) =>
-                    Some(s"Opcode to ${getCmdParamKindString(kind)} parameter ${aNode._2.data.name}")
-                },
-                CppWriterUtils.Hex
-              )
-            )
-          )
-        )
+  def getConstantMembers: List[CppDoc.Class.Member] =
+    guardedList (hasCommands || hasParameters) (List(getOpcodes))
+
+  def getPublicFunctionMembers: List[CppDoc.Class.Member] =
+    guardedList (hasCommands || hasParameters) (getRegFunction)
+
+  def getProtectedFunctionMembers: List[CppDoc.Class.Member] =
+    guardedList (hasCommands || hasParameters) (
+      List.concat(
+        getResponseFunction,
+        getFunctions
       )
     )
-  }
 
-  def getPublicFunctionMembers: List[CppDoc.Class.Member] = {
-    if !(hasCommands || hasParameters) then Nil
-    else
-      getRegFunction
-  }
+  private def getOpcodes = linesClassMember(
+    Line.blank ::
+    line(s"//! Command opcodes") ::
+    wrapInEnum(sortedCmds.flatMap(writeOpcodeConstant))
+  )
 
-  def getProtectedFunctionMembers: List[CppDoc.Class.Member] = {
-    if !(hasCommands || hasParameters) then Nil
-    else List(
-      getResponseFunction,
-      getFunctions
-    ).flatten
-  }
+  private def writeOpcodeConstant(
+    opcode: Command.Opcode,
+    cmd: Command
+  ) = writeEnumConstant(
+    commandConstantName(cmd),
+    opcode,
+    cmd match {
+      case Command.NonParam(aNode, _) =>
+        AnnotationCppWriter.asStringOpt(aNode)
+      case Command.Param(aNode, kind) =>
+        val kindString = getCmdParamKindString(kind)
+        val name = aNode._2.data.name
+        Some(s"Opcode to $kindString parameter $name")
+    },
+    CppWriterUtils.Hex
+  )
 
-  private def getFunctions: List[CppDoc.Class.Member] = {
-    List(
+  private def getFunctions: List[CppDoc.Class.Member] =
+    List.concat(
       getHandlers,
       getHandlerBases,
       getPreMsgHooks,
       getOverflowHooks,
-    ).flatten
-  }
+    )
 
   private def getRegFunction: List[CppDoc.Class.Member] = {
     val isConnectedName = outputPortIsConnectedName(cmdRegPort.get.getUnqualifiedName)
