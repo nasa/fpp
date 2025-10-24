@@ -1296,8 +1296,6 @@ void PassiveExternalParamsComponentBase ::
 
 #endif
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Command registration
 // ----------------------------------------------------------------------
@@ -1367,8 +1365,6 @@ void PassiveExternalParamsComponentBase ::
     this->getIdBase() + OPCODE_PARAMSTRUCTEXT_SAVE
   );
 }
-
-#endif
 
 #if !FW_DIRECT_PORT_CALLS // TODO
 

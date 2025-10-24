@@ -1589,8 +1589,6 @@ void QueuedParamsComponentBase ::
 
 #endif
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Command registration
 // ----------------------------------------------------------------------
@@ -1660,8 +1658,6 @@ void QueuedParamsComponentBase ::
     this->getIdBase() + OPCODE_PARAMSTRUCT_SAVE
   );
 }
-
-#endif
 
 #if !FW_DIRECT_PORT_CALLS // TODO
 

@@ -1421,8 +1421,6 @@ void PassiveSerialComponentBase ::
 
 #endif
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Command registration
 // ----------------------------------------------------------------------
@@ -1612,8 +1610,6 @@ void PassiveSerialComponentBase ::
     this->getIdBase() + OPCODE_PARAMSTRUCTEXT_SAVE
   );
 }
-
-#endif
 
 #if !FW_DIRECT_PORT_CALLS // TODO
 

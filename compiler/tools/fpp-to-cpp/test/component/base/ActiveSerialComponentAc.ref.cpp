@@ -1906,8 +1906,6 @@ void ActiveSerialComponentBase ::
 
 #endif
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Command registration
 // ----------------------------------------------------------------------
@@ -2122,8 +2120,6 @@ void ActiveSerialComponentBase ::
     this->getIdBase() + OPCODE_PARAMSTRUCTEXT_SAVE
   );
 }
-
-#endif
 
 #if !FW_DIRECT_PORT_CALLS // TODO
 

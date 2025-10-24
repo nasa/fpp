@@ -1984,8 +1984,6 @@ namespace M {
 
 #endif
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
   // ----------------------------------------------------------------------
   // Command registration
   // ----------------------------------------------------------------------
@@ -2200,8 +2198,6 @@ namespace M {
       this->getIdBase() + OPCODE_PARAMSTRUCTEXT_SAVE
     );
   }
-
-#endif
 
 #if !FW_DIRECT_PORT_CALLS // TODO
 

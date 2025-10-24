@@ -1594,8 +1594,6 @@ void QueuedCommandsComponentBase ::
 
 #endif
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Command registration
 // ----------------------------------------------------------------------
@@ -1690,8 +1688,6 @@ void QueuedCommandsComponentBase ::
     this->getIdBase() + OPCODE_CMD_PARAMS_PRIORITY_DROP
   );
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

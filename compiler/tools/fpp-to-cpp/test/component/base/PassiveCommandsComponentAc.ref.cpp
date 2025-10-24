@@ -1296,8 +1296,6 @@ void PassiveCommandsComponentBase ::
 
 #endif
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Command registration
 // ----------------------------------------------------------------------
@@ -1367,8 +1365,6 @@ void PassiveCommandsComponentBase ::
     this->getIdBase() + OPCODE_CMD_GUARDED_STRUCT
   );
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

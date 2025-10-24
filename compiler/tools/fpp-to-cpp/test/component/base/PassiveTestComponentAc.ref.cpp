@@ -1653,8 +1653,6 @@ void PassiveTestComponentBase ::
 
 #endif
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Command registration
 // ----------------------------------------------------------------------
@@ -1844,8 +1842,6 @@ void PassiveTestComponentBase ::
     this->getIdBase() + OPCODE_PARAMSTRUCTEXT_SAVE
   );
 }
-
-#endif
 
 #if !FW_DIRECT_PORT_CALLS // TODO
 

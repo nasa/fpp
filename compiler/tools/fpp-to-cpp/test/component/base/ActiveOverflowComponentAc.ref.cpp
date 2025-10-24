@@ -787,8 +787,6 @@ void ActiveOverflowComponentBase ::
 
 #endif
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Command registration
 // ----------------------------------------------------------------------
@@ -808,8 +806,6 @@ void ActiveOverflowComponentBase ::
     this->getIdBase() + OPCODE_CMD_PARAMS_PRIORITY_HOOK
   );
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

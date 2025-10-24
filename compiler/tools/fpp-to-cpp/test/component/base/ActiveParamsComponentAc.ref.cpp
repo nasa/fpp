@@ -1589,8 +1589,6 @@ void ActiveParamsComponentBase ::
 
 #endif
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Command registration
 // ----------------------------------------------------------------------
@@ -1660,8 +1658,6 @@ void ActiveParamsComponentBase ::
     this->getIdBase() + OPCODE_PARAMSTRUCT_SAVE
   );
 }
-
-#endif
 
 #if !FW_DIRECT_PORT_CALLS // TODO
 

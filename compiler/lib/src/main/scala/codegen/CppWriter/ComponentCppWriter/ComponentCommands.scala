@@ -75,27 +75,23 @@ case class ComponentCommands (
         )
       )
     )
-    wrapClassMembersInIfDirective(
-      "#if !FW_DIRECT_PORT_CALLS // TODO",
-      addAccessTagAndComment(
-        "public",
-        "Command registration",
-        List(
-          functionClassMember(
-            Some(
-              s"""|\\brief Register commands with the Command Dispatcher
-                  |
-                  |Connect the dispatcher first
-                  |"""
-            ),
-            "regCommands",
-            Nil,
-            CppDoc.Type("void"),
-            body
-          )
+    addAccessTagAndComment(
+      "public",
+      "Command registration",
+      List(
+        functionClassMember(
+          Some(
+            s"""|\\brief Register commands with the Command Dispatcher
+                |
+                |Connect the dispatcher first
+                |"""
+          ),
+          "regCommands",
+          Nil,
+          CppDoc.Type("void"),
+          body
         )
-      ),
-      CppDoc.Lines.Cpp
+      )
     )
   }
 
