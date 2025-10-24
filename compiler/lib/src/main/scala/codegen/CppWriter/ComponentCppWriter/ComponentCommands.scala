@@ -177,11 +177,12 @@ case class ComponentCommands (
   ) = {
     val cmdParamTypes = cmdParamTypeMap(opcode)
     val handlerName = commandHandlerName(cmd.getName)
+    val cmdHasParams = !cmdParamTypes.isEmpty
+    val cmdIsGuarded = cmd.kind == Command.NonParam.Guarded
     intersperseBlankLines(
       List(
-        cmdParamTypes match {
-          case Nil => Nil
-          case _ => lines(
+        guardedList (cmdHasParams) (
+          lines(
             """|// Deserialize the arguments
                |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
                |
@@ -189,7 +190,7 @@ case class ComponentCommands (
                |args.resetDeser();
                |"""
           )
-        },
+        ),
         intersperseBlankLines(
           cmdParamTypes.map((n, tn, _) =>
             lines(
@@ -226,19 +227,13 @@ case class ComponentCommands (
               |#endif
               |"""
         ),
-        cmd.kind match {
-          case Command.NonParam.Guarded => lines("this->lock();")
-          case _ => Nil
-        },
+        guardedList (cmdIsGuarded) (lines("this->lock();")),
         writeFunctionCall(
           s"this->${commandHandlerName(cmd.getName)}",
           List("opCode, cmdSeq"),
           cmdParamTypes.map(_._1)
         ),
-        cmd.kind match {
-          case Command.NonParam.Guarded => lines("this->unLock();")
-          case _ => Nil
-        }
+        guardedList (cmdIsGuarded) (lines("this->unLock();"))
       )
     )
   }
