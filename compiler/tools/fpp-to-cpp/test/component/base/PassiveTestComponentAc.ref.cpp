@@ -3711,8 +3711,6 @@ void PassiveTestComponentBase ::
 
 #endif
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Event logging functions
 // ----------------------------------------------------------------------
@@ -4430,8 +4428,6 @@ void PassiveTestComponentBase ::
   }
 #endif
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Event throttle reset functions

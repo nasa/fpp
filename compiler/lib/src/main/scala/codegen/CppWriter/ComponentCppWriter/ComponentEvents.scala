@@ -379,14 +379,10 @@ case class ComponentEvents (
   }
 
   private def getLoggingFunctions: List[CppDoc.Class.Member] =
-    wrapClassMembersInIfDirective(
-      "#if !FW_DIRECT_PORT_CALLS // TODO",
-      addAccessTagAndComment(
-        "protected",
-        "Event logging functions",
-        sortedEvents.map(getLoggingFunction)
-      ),
-      CppDoc.Lines.Cpp
+    addAccessTagAndComment(
+      "protected",
+      "Event logging functions",
+      sortedEvents.map(getLoggingFunction)
     )
 
   private def getThrottleFunctions: List[CppDoc.Class.Member] = {

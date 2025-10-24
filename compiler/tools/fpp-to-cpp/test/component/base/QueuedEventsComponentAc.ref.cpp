@@ -3052,8 +3052,6 @@ F32 QueuedEventsComponentBase ::
 
 #endif
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Event logging functions
 // ----------------------------------------------------------------------
@@ -3771,8 +3769,6 @@ void QueuedEventsComponentBase ::
   }
 #endif
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Event throttle reset functions

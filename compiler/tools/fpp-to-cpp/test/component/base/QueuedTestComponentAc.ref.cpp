@@ -5413,8 +5413,6 @@ void QueuedTestComponentBase ::
   (void) cmdSeq;
 }
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Event logging functions
 // ----------------------------------------------------------------------
@@ -6132,8 +6130,6 @@ void QueuedTestComponentBase ::
   }
 #endif
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Event throttle reset functions

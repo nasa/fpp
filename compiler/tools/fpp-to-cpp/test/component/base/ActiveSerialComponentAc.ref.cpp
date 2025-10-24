@@ -5525,8 +5525,6 @@ void ActiveSerialComponentBase ::
   (void) cmdSeq;
 }
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Event logging functions
 // ----------------------------------------------------------------------
@@ -6244,8 +6242,6 @@ void ActiveSerialComponentBase ::
   }
 #endif
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Event throttle reset functions

@@ -5525,8 +5525,6 @@ void QueuedSerialComponentBase ::
   (void) cmdSeq;
 }
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Event logging functions
 // ----------------------------------------------------------------------
@@ -6244,8 +6242,6 @@ void QueuedSerialComponentBase ::
   }
 #endif
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Event throttle reset functions
