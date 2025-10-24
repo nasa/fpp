@@ -500,17 +500,8 @@ trait CppWriterUtils extends LineUtils {
       List(namespaceMember(head, wrapInNamespaces(tail, members)))
   }
 
-  def isTextEventPort(pi: PortInstance) = pi match {
-    case special: PortInstance.Special =>
-      special.aNode._2.data match {
-        case node: Ast.SpecPortInstance.Special => node.kind match {
-          case Ast.SpecPortInstance.TextEvent => true
-          case _ => false
-        }
-        case _ => false
-      }
-    case _ => false
-  }
+  def isTextEventPort(pi: PortInstance) =
+    pi.getSpecialKind == Some(Ast.SpecPortInstance.TextEvent)
 
 }
 
