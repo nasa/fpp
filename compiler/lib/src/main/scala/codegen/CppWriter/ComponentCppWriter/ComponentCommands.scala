@@ -176,9 +176,9 @@ case class ComponentCommands (
     cmd: Command.NonParam
   ) = {
     val cmdParamTypes = cmdParamTypeMap(opcode)
-    val handlerName = commandHandlerName(cmd.getName)
     val cmdHasParams = !cmdParamTypes.isEmpty
     val cmdIsGuarded = cmd.kind == Command.NonParam.Guarded
+    val handlerName = commandHandlerName(cmd.getName)
     intersperseBlankLines(
       List(
         guardedList (cmdHasParams) (
@@ -229,7 +229,7 @@ case class ComponentCommands (
         ),
         guardedList (cmdIsGuarded) (lines("this->lock();")),
         writeFunctionCall(
-          s"this->${commandHandlerName(cmd.getName)}",
+          s"this->$handlerName",
           List("opCode, cmdSeq"),
           cmdParamTypes.map(_._1)
         ),
