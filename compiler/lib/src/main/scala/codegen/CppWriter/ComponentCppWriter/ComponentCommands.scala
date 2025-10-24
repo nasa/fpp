@@ -72,7 +72,6 @@ case class ComponentCommands (
         )
       )
     )
-
     wrapClassMembersInIfDirective(
       "#if !FW_DIRECT_PORT_CALLS // TODO",
       addAccessTagAndComment(
@@ -97,7 +96,7 @@ case class ComponentCommands (
     )
   }
 
-  private def getHandlers: List[CppDoc.Class.Member] = {
+  private def getHandlers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "protected",
       "Command handlers to implement",
@@ -118,7 +117,150 @@ case class ComponentCommands (
       ),
       CppDoc.Lines.Hpp
     )
+
+  private def writeAsyncHandlerBaseBody(
+    cmd: Command,
+    priority: Option[BigInt],
+    queueFull: Ast.QueueFull
+  ) = {
+    val hookName = inputPortHookName(cmd.getName)
+    val cppConstantName = commandCppConstantName(cmd)
+    intersperseBlankLines(
+      List(
+        lines(
+          s"""|// Call pre-message hook
+              |this->$hookName(opCode,cmdSeq);
+              |
+              |// Defer deserializing arguments to the message dispatcher
+              |// to avoid deserializing and reserializing just for IPC
+              |ComponentIpcSerializableBuffer msg;
+              |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+              |
+              |// Serialize for IPC
+              |_status = msg.serializeFrom(static_cast<FwEnumStoreType>($cppConstantName));
+              |FW_ASSERT (
+              |  _status == Fw::FW_SERIALIZE_OK,
+              |  static_cast<FwAssertArgType>(_status)
+              |);
+              |
+              |// Fake port number to make message dequeue work
+              |FwIndexType port = 0;
+              |"""
+        ),
+        intersperseBlankLines(
+          List("port", "opCode", "cmdSeq", "args").map(s =>
+            lines(
+              s"""|_status = msg.serializeFrom($s);
+                  |FW_ASSERT (
+                  |  _status == Fw::FW_SERIALIZE_OK,
+                  |  static_cast<FwAssertArgType>(_status)
+                  |);
+                  |"""
+            )
+          )
+        ),
+        writeSendMessageLogic(
+          "msg",
+          queueFull,
+          priority,
+          MessageType.Command,
+          cmd.getName,
+          opcodeParam :: cmdSeqParam :: Nil
+        )
+      )
+    )
   }
+
+  private def getHandlerBaseForNonParamCommand(
+    opcode: Command.Opcode,
+    cmd: Command.NonParam
+  ) = functionClassMember(
+    Some(
+      addSeparatedString(
+        s"Base-class handler function for command ${cmd.getName}",
+        AnnotationCppWriter.asStringOpt(cmd.aNode)
+      )
+    ),
+    commandHandlerBaseName(cmd.getName),
+    List(
+      opcodeParam,
+      cmdSeqParam,
+      CppDoc.Function.Param(
+        CppDoc.Type("Fw::CmdArgBuffer&"),
+        "args",
+        Some("The command argument buffer")
+      )
+    ),
+    CppDoc.Type("void"),
+    cmd.kind match {
+      case Command.NonParam.Async(priority, queueFull) => 
+        writeAsyncHandlerBaseBody(cmd, priority, queueFull)
+      case _ => intersperseBlankLines(
+        List(
+          cmdParamTypeMap(opcode) match {
+            case Nil => Nil
+            case _ => lines(
+              """|// Deserialize the arguments
+                 |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+                 |
+                 |// Reset the buffer
+                 |args.resetDeser();
+                 |"""
+            )
+          },
+          intersperseBlankLines(
+            cmdParamTypeMap(opcode).map((n, tn, _) =>
+              lines(
+                s"""|$tn $n;
+                    |_status = args.deserializeTo($n);
+                    |if (_status != Fw::FW_SERIALIZE_OK) {
+                    |  if (this->${portVariableName(cmdRespPort.get)}[0].isConnected()) {
+                    |    this->${portVariableName(cmdRespPort.get)}[0].invoke(
+                    |      opCode,
+                    |      cmdSeq,
+                    |      Fw::CmdResponse::FORMAT_ERROR
+                    |    );
+                    |  }
+                    |  return;
+                    |}
+                    |"""
+              )
+            )
+          ),
+          lines(
+            s"""|#if FW_CMD_CHECK_RESIDUAL
+                |// Make sure there was no data left over.
+                |// That means the argument buffer size was incorrect.
+                |if (args.getBuffLeft() != 0) {
+                |  if (this->${portVariableName(cmdRespPort.get)}[0].isConnected()) {
+                |    this->${portVariableName(cmdRespPort.get)}[0].invoke(
+                |      opCode,
+                |      cmdSeq,
+                |      Fw::CmdResponse::FORMAT_ERROR
+                |    );
+                |  }
+                |  return;
+                |}
+                |#endif
+                |"""
+          ),
+          cmd.kind match {
+            case Command.NonParam.Guarded => lines("this->lock();")
+            case _ => Nil
+          },
+          writeFunctionCall(
+            s"this->${commandHandlerName(cmd.getName)}",
+            List("opCode, cmdSeq"),
+            cmdParamTypeMap(opcode).map(_._1)
+          ),
+          cmd.kind match {
+            case Command.NonParam.Guarded => lines("this->unLock();")
+            case _ => Nil
+          }
+        )
+      )
+    }
+  )
 
   private def getHandlerBases: List[CppDoc.Class.Member] =
     wrapClassMembersInIfDirective(
@@ -129,137 +271,7 @@ case class ComponentCommands (
            |
            |Call these functions directly to bypass the command input port
            |""",
-        nonParamCmds.map((opcode, cmd) =>
-          functionClassMember(
-            Some(
-              addSeparatedString(
-                s"Base-class handler function for command ${cmd.getName}",
-                AnnotationCppWriter.asStringOpt(cmd.aNode)
-              )
-            ),
-            commandHandlerBaseName(cmd.getName),
-            List(
-              opcodeParam,
-              cmdSeqParam,
-              CppDoc.Function.Param(
-                CppDoc.Type("Fw::CmdArgBuffer&"),
-                "args",
-                Some("The command argument buffer")
-              )
-            ),
-            CppDoc.Type("void"),
-            cmd.kind match {
-              case Command.NonParam.Async(priority, queueFull) => intersperseBlankLines(
-                List(
-                  lines(
-                    s"""|// Call pre-message hook
-                        |this->${inputPortHookName(cmd.getName)}(opCode,cmdSeq);
-                        |
-                        |// Defer deserializing arguments to the message dispatcher
-                        |// to avoid deserializing and reserializing just for IPC
-                        |ComponentIpcSerializableBuffer msg;
-                        |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
-                        |
-                        |// Serialize for IPC
-                        |_status = msg.serializeFrom(static_cast<FwEnumStoreType>(${commandCppConstantName(cmd)}));
-                        |FW_ASSERT (
-                        |  _status == Fw::FW_SERIALIZE_OK,
-                        |  static_cast<FwAssertArgType>(_status)
-                        |);
-                        |
-                        |// Fake port number to make message dequeue work
-                        |FwIndexType port = 0;
-                        |"""
-                  ),
-                  intersperseBlankLines(
-                    List("port", "opCode", "cmdSeq", "args").map(s =>
-                      lines(
-                        s"""|_status = msg.serializeFrom($s);
-                            |FW_ASSERT (
-                            |  _status == Fw::FW_SERIALIZE_OK,
-                            |  static_cast<FwAssertArgType>(_status)
-                            |);
-                            |"""
-                      )
-                    )
-                  ),
-                  writeSendMessageLogic(
-                    "msg",
-                    queueFull,
-                    priority,
-                    MessageType.Command,
-                    cmd.getName,
-                    opcodeParam :: cmdSeqParam :: Nil
-                  )
-                )
-              )
-              case _ => intersperseBlankLines(
-                List(
-                  cmdParamTypeMap(opcode) match {
-                    case Nil => Nil
-                    case _ => lines(
-                      """|// Deserialize the arguments
-                         |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
-                         |
-                         |// Reset the buffer
-                         |args.resetDeser();
-                         |"""
-                    )
-                  },
-                  intersperseBlankLines(
-                    cmdParamTypeMap(opcode).map((n, tn, _) =>
-                      lines(
-                        s"""|$tn $n;
-                            |_status = args.deserializeTo($n);
-                            |if (_status != Fw::FW_SERIALIZE_OK) {
-                            |  if (this->${portVariableName(cmdRespPort.get)}[0].isConnected()) {
-                            |    this->${portVariableName(cmdRespPort.get)}[0].invoke(
-                            |      opCode,
-                            |      cmdSeq,
-                            |      Fw::CmdResponse::FORMAT_ERROR
-                            |    );
-                            |  }
-                            |  return;
-                            |}
-                            |"""
-                      )
-                    )
-                  ),
-                  lines(
-                    s"""|#if FW_CMD_CHECK_RESIDUAL
-                        |// Make sure there was no data left over.
-                        |// That means the argument buffer size was incorrect.
-                        |if (args.getBuffLeft() != 0) {
-                        |  if (this->${portVariableName(cmdRespPort.get)}[0].isConnected()) {
-                        |    this->${portVariableName(cmdRespPort.get)}[0].invoke(
-                        |      opCode,
-                        |      cmdSeq,
-                        |      Fw::CmdResponse::FORMAT_ERROR
-                        |    );
-                        |  }
-                        |  return;
-                        |}
-                        |#endif
-                        |"""
-                  ),
-                  cmd.kind match {
-                    case Command.NonParam.Guarded => lines("this->lock();")
-                    case _ => Nil
-                  },
-                  writeFunctionCall(
-                    s"this->${commandHandlerName(cmd.getName)}",
-                    List("opCode, cmdSeq"),
-                    cmdParamTypeMap(opcode).map(_._1)
-                  ),
-                  cmd.kind match {
-                    case Command.NonParam.Guarded => lines("this->unLock();")
-                    case _ => Nil
-                  }
-                )
-              )
-            }
-          )
-        )
+        nonParamCmds.map(getHandlerBaseForNonParamCommand)
       ),
       CppDoc.Lines.Cpp
     )
