@@ -2854,7 +2854,7 @@ void PassiveSerialComponentBase ::
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
   if (args.getBuffLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -2884,7 +2884,7 @@ void PassiveSerialComponentBase ::
   U32 u32;
   _status = args.deserializeTo(u32);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -2897,7 +2897,7 @@ void PassiveSerialComponentBase ::
   F32 f32;
   _status = args.deserializeTo(f32);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -2910,7 +2910,7 @@ void PassiveSerialComponentBase ::
   bool b;
   _status = args.deserializeTo(b);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -2924,7 +2924,7 @@ void PassiveSerialComponentBase ::
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
   if (args.getBuffLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -2959,7 +2959,7 @@ void PassiveSerialComponentBase ::
   Fw::CmdStringArg str1;
   _status = args.deserializeTo(str1);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -2972,7 +2972,7 @@ void PassiveSerialComponentBase ::
   Fw::CmdStringArg str2;
   _status = args.deserializeTo(str2);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -2986,7 +2986,7 @@ void PassiveSerialComponentBase ::
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
   if (args.getBuffLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -3020,7 +3020,7 @@ void PassiveSerialComponentBase ::
   E e;
   _status = args.deserializeTo(e);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -3034,7 +3034,7 @@ void PassiveSerialComponentBase ::
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
   if (args.getBuffLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -3067,7 +3067,7 @@ void PassiveSerialComponentBase ::
   A a;
   _status = args.deserializeTo(a);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -3081,7 +3081,7 @@ void PassiveSerialComponentBase ::
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
   if (args.getBuffLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -3114,7 +3114,7 @@ void PassiveSerialComponentBase ::
   S s;
   _status = args.deserializeTo(s);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -3128,7 +3128,7 @@ void PassiveSerialComponentBase ::
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
   if (args.getBuffLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -3156,7 +3156,7 @@ void PassiveSerialComponentBase ::
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
   if (args.getBuffLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -3190,7 +3190,7 @@ void PassiveSerialComponentBase ::
   U32 u32;
   _status = args.deserializeTo(u32);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -3203,7 +3203,7 @@ void PassiveSerialComponentBase ::
   F32 f32;
   _status = args.deserializeTo(f32);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -3216,7 +3216,7 @@ void PassiveSerialComponentBase ::
   bool b;
   _status = args.deserializeTo(b);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -3230,7 +3230,7 @@ void PassiveSerialComponentBase ::
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
   if (args.getBuffLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -3269,7 +3269,7 @@ void PassiveSerialComponentBase ::
   Fw::CmdStringArg str1;
   _status = args.deserializeTo(str1);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -3282,7 +3282,7 @@ void PassiveSerialComponentBase ::
   Fw::CmdStringArg str2;
   _status = args.deserializeTo(str2);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -3296,7 +3296,7 @@ void PassiveSerialComponentBase ::
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
   if (args.getBuffLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -3334,7 +3334,7 @@ void PassiveSerialComponentBase ::
   E e;
   _status = args.deserializeTo(e);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -3348,7 +3348,7 @@ void PassiveSerialComponentBase ::
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
   if (args.getBuffLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -3385,7 +3385,7 @@ void PassiveSerialComponentBase ::
   A a;
   _status = args.deserializeTo(a);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -3399,7 +3399,7 @@ void PassiveSerialComponentBase ::
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
   if (args.getBuffLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -3436,7 +3436,7 @@ void PassiveSerialComponentBase ::
   S s;
   _status = args.deserializeTo(s);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,
@@ -3450,7 +3450,7 @@ void PassiveSerialComponentBase ::
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
   if (args.getBuffLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
         cmdSeq,

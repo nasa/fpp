@@ -179,6 +179,7 @@ case class ComponentCommands (
     val cmdHasParams = !cmdParamTypes.isEmpty
     val cmdIsGuarded = cmd.kind == Command.NonParam.Guarded
     val handlerName = commandHandlerName(cmd.getName)
+    val isConnectedName = outputPortIsConnectedName(cmdRespPort.get.getUnqualifiedName)
     intersperseBlankLines(
       List(
         guardedList (cmdHasParams) (
@@ -197,7 +198,7 @@ case class ComponentCommands (
               s"""|$tn $n;
                   |_status = args.deserializeTo($n);
                   |if (_status != Fw::FW_SERIALIZE_OK) {
-                  |  if (this->${portVariableName(cmdRespPort.get)}[0].isConnected()) {
+                  |  if (this->$isConnectedName(0)) {
                   |    this->${portVariableName(cmdRespPort.get)}[0].invoke(
                   |      opCode,
                   |      cmdSeq,
@@ -215,7 +216,7 @@ case class ComponentCommands (
               |// Make sure there was no data left over.
               |// That means the argument buffer size was incorrect.
               |if (args.getBuffLeft() != 0) {
-              |  if (this->${portVariableName(cmdRespPort.get)}[0].isConnected()) {
+              |  if (this->$isConnectedName(0)) {
               |    this->${portVariableName(cmdRespPort.get)}[0].invoke(
               |      opCode,
               |      cmdSeq,
