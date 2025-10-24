@@ -798,11 +798,13 @@ void ActiveOverflowComponentBase ::
 {
   FW_ASSERT(this->isConnected_cmdRegOut_OutputPort(0));
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_HOOK
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_PARAMS_PRIORITY_HOOK
   );
 }
@@ -2599,6 +2601,26 @@ void ActiveOverflowComponentBase ::
 // ----------------------------------------------------------------------
 // Invocation functions for special output ports
 // ----------------------------------------------------------------------
+
+void ActiveOverflowComponentBase ::
+  cmdRegOut_out(
+      FwIndexType portNum,
+      FwOpcodeType opCode
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_cmdRegOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_cmdRegOut_OutputPort[portNum].invoke(
+    opCode
+  );
+}
 
 void ActiveOverflowComponentBase ::
   timeGetOut_out(

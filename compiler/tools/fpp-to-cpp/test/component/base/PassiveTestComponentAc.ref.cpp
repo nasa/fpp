@@ -1664,147 +1664,183 @@ void PassiveTestComponentBase ::
 {
   FW_ASSERT(this->isConnected_cmdRegOut_OutputPort(0));
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_SYNC
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_SYNC_PRIMITIVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_SYNC_STRING
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_SYNC_ENUM
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_SYNC_ARRAY
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_SYNC_STRUCT
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_GUARDED
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_GUARDED_PRIMITIVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_GUARDED_STRING
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_GUARDED_ENUM
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_GUARDED_ARRAY
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_GUARDED_STRUCT
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMU32_SET
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMU32_SAVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMF64_SET
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMF64_SAVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMSTRING_SET
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMSTRING_SAVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMENUM_SET
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMENUM_SAVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMARRAY_SET
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMARRAY_SAVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMSTRUCT_SET
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMSTRUCT_SAVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMI32EXT_SET
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMI32EXT_SAVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMF64EXT_SET
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMF64EXT_SAVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMSTRINGEXT_SET
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMSTRINGEXT_SAVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMENUMEXT_SET
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMENUMEXT_SAVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMARRAYEXT_SET
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMARRAYEXT_SAVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMSTRUCTEXT_SET
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMSTRUCTEXT_SAVE
   );
 }
@@ -5885,6 +5921,26 @@ void PassiveTestComponentBase ::
 // ----------------------------------------------------------------------
 // Invocation functions for special output ports
 // ----------------------------------------------------------------------
+
+void PassiveTestComponentBase ::
+  cmdRegOut_out(
+      FwIndexType portNum,
+      FwOpcodeType opCode
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_cmdRegOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_cmdRegOut_OutputPort[portNum].invoke(
+    opCode
+  );
+}
 
 void PassiveTestComponentBase ::
   eventOut_out(

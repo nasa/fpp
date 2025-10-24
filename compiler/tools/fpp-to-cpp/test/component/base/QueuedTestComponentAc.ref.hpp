@@ -2980,6 +2980,12 @@ class QueuedTestComponentBase :
     // Invocation functions for special output ports
     // ----------------------------------------------------------------------
 
+    //! Invoke output port cmdRegOut
+    void cmdRegOut_out(
+        FwIndexType portNum, //!< The port number
+        FwOpcodeType opCode //!< Command Op Code
+    ) const;
+
     //! Invoke output port eventOut
     void eventOut_out(
         FwIndexType portNum, //!< The port number

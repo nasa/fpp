@@ -1307,51 +1307,63 @@ void PassiveExternalParamsComponentBase ::
 {
   FW_ASSERT(this->isConnected_cmdRegOut_OutputPort(0));
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMI32EXT_SET
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMI32EXT_SAVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMF64EXT_SET
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMF64EXT_SAVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMSTRINGEXT_SET
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMSTRINGEXT_SAVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMENUMEXT_SET
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMENUMEXT_SAVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMARRAYEXT_SET
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMARRAYEXT_SAVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMSTRUCTEXT_SET
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_PARAMSTRUCTEXT_SAVE
   );
 }
@@ -2959,6 +2971,26 @@ void PassiveExternalParamsComponentBase ::
 // ----------------------------------------------------------------------
 // Invocation functions for special output ports
 // ----------------------------------------------------------------------
+
+void PassiveExternalParamsComponentBase ::
+  cmdRegOut_out(
+      FwIndexType portNum,
+      FwOpcodeType opCode
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_cmdRegOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_cmdRegOut_OutputPort[portNum].invoke(
+    opCode
+  );
+}
 
 void PassiveExternalParamsComponentBase ::
   timeGetOut_out(

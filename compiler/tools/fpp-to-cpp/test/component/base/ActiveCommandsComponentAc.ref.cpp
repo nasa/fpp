@@ -1605,71 +1605,88 @@ void ActiveCommandsComponentBase ::
 {
   FW_ASSERT(this->isConnected_cmdRegOut_OutputPort(0));
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_SYNC
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_SYNC_PRIMITIVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_SYNC_STRING
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_SYNC_ENUM
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_SYNC_ARRAY
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_SYNC_STRUCT
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_GUARDED
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_GUARDED_PRIMITIVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_GUARDED_STRING
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_GUARDED_ENUM
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_GUARDED_ARRAY
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_GUARDED_STRUCT
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_ASYNC
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_PRIORITY
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_PARAMS_PRIORITY
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_DROP
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_PARAMS_PRIORITY_DROP
   );
 }
@@ -5476,6 +5493,26 @@ void ActiveCommandsComponentBase ::
 // ----------------------------------------------------------------------
 // Invocation functions for special output ports
 // ----------------------------------------------------------------------
+
+void ActiveCommandsComponentBase ::
+  cmdRegOut_out(
+      FwIndexType portNum,
+      FwOpcodeType opCode
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_cmdRegOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_cmdRegOut_OutputPort[portNum].invoke(
+    opCode
+  );
+}
 
 void ActiveCommandsComponentBase ::
   timeGetOut_out(

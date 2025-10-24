@@ -56,14 +56,17 @@ case class ComponentCommands (
     )
 
   private def getRegFunction: List[CppDoc.Class.Member] = {
-    val isConnectedName = outputPortIsConnectedName(cmdRegPort.get.getUnqualifiedName)
+    val portName = cmdRegPort.get.getUnqualifiedName
+    val isConnectedName = outputPortIsConnectedName(portName)
+    val invoker = outputPortInvokerName(portName)
     val body = intersperseBlankLines(
       List(
         lines(s"FW_ASSERT(this->$isConnectedName(0));"),
         intersperseBlankLines(
           sortedCmds.map((_, cmd) =>
             lines(
-              s"""|this->${portVariableName(cmdRegPort.get)}[0].invoke(
+              s"""|this->$invoker(
+                  |  0,
                   |  this->getIdBase() + ${commandConstantName(cmd)}
                   |);
                   |"""
