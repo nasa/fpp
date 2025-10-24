@@ -3515,7 +3515,7 @@ void PassiveSerialComponentBase ::
 
   // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
     const char* _formatString =
       "(%s) %s: Event Activity High occurred";
@@ -3533,7 +3533,8 @@ void PassiveSerialComponentBase ::
       "EventActivityHigh "
     );
 
-    this->m_textEventOut_OutputPort[0].invoke(
+    this->textEventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::ACTIVITY_HI,
@@ -3639,7 +3640,7 @@ void PassiveSerialComponentBase ::
 
   // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
     const char* _formatString =
       "(%s) %s: Event Activity Low occurred with arguments: %" PRIu32 ", %f, %d";
@@ -3660,7 +3661,8 @@ void PassiveSerialComponentBase ::
       b
     );
 
-    this->m_textEventOut_OutputPort[0].invoke(
+    this->textEventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::ACTIVITY_LO,
@@ -3721,7 +3723,7 @@ void PassiveSerialComponentBase ::
 
   // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
     const char* _formatString =
       "(%s) %s: Event Command occurred with arguments: %s, %s";
@@ -3741,7 +3743,8 @@ void PassiveSerialComponentBase ::
       str2.toChar()
     );
 
-    this->m_textEventOut_OutputPort[0].invoke(
+    this->textEventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::COMMAND,
@@ -3803,7 +3806,7 @@ void PassiveSerialComponentBase ::
 
   // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
     const char* _formatString =
       "(%s) %s: Event Diagnostic occurred with argument: %s";
@@ -3825,7 +3828,8 @@ void PassiveSerialComponentBase ::
       eStr.toChar()
     );
 
-    this->m_textEventOut_OutputPort[0].invoke(
+    this->textEventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::DIAGNOSTIC,
@@ -3908,7 +3912,7 @@ void PassiveSerialComponentBase ::
 
   // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
     const char* _formatString =
       "(%s) %s: Event Fatal occurred with argument: %s";
@@ -3930,7 +3934,8 @@ void PassiveSerialComponentBase ::
       aStr.toChar()
     );
 
-    this->m_textEventOut_OutputPort[0].invoke(
+    this->textEventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::FATAL,
@@ -3992,7 +3997,7 @@ void PassiveSerialComponentBase ::
 
   // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
     const char* _formatString =
       "(%s) %s: Event Warning High occurred with argument: %s";
@@ -4014,7 +4019,8 @@ void PassiveSerialComponentBase ::
       sStr.toChar()
     );
 
-    this->m_textEventOut_OutputPort[0].invoke(
+    this->textEventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::WARNING_HI,
@@ -4068,7 +4074,7 @@ void PassiveSerialComponentBase ::
 
   // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
     const char* _formatString =
       "(%s) %s: Event Warning Low occurred";
@@ -4086,7 +4092,8 @@ void PassiveSerialComponentBase ::
       "EventWarningLowThrottled "
     );
 
-    this->m_textEventOut_OutputPort[0].invoke(
+    this->textEventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::WARNING_LO,
@@ -4157,7 +4164,7 @@ void PassiveSerialComponentBase ::
 
   // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
     const char* _formatString =
       "(%s) %s: Event Warning Low occurred";
@@ -4175,7 +4182,8 @@ void PassiveSerialComponentBase ::
       "EventWarningLowThrottledInterval "
     );
 
-    this->m_textEventOut_OutputPort[0].invoke(
+    this->textEventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::WARNING_LO,
@@ -5656,6 +5664,36 @@ void PassiveSerialComponentBase ::
     args
   );
 }
+
+#if FW_ENABLE_TEXT_LOGGING
+
+void PassiveSerialComponentBase ::
+  textEventOut_out(
+      FwIndexType portNum,
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity& severity,
+      Fw::TextLogString& text
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_textEventOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_textEventOut_OutputPort[portNum].invoke(
+    id,
+    timeTag,
+    severity,
+    text
+  );
+}
+
+#endif
 
 void PassiveSerialComponentBase ::
   timeGetOut_out(

@@ -2982,6 +2982,19 @@ namespace M {
           Fw::LogBuffer& args //!< Buffer containing serialized log entry
       ) const;
 
+#if FW_ENABLE_TEXT_LOGGING
+
+      //! Invoke output port textEventOut
+      void textEventOut_out(
+          FwIndexType portNum, //!< The port number
+          FwEventIdType id, //!< Log ID
+          Fw::Time& timeTag, //!< Time Tag
+          const Fw::LogSeverity& severity, //!< The severity argument
+          Fw::TextLogString& text //!< Text of log message
+      ) const;
+
+#endif
+
       //! Invoke output port timeGetOut
       void timeGetOut_out(
           FwIndexType portNum, //!< The port number

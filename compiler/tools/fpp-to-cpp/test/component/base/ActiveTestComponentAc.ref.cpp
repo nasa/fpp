@@ -5457,7 +5457,7 @@ namespace M {
 
     // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-    if (this->m_textEventOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
       const char* _formatString =
         "(%s) %s: Event Activity High occurred";
@@ -5475,7 +5475,8 @@ namespace M {
         "EventActivityHigh "
       );
 
-      this->m_textEventOut_OutputPort[0].invoke(
+      this->textEventOut_out(
+        0,
         _id,
         _logTime,
         Fw::LogSeverity::ACTIVITY_HI,
@@ -5581,7 +5582,7 @@ namespace M {
 
     // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-    if (this->m_textEventOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
       const char* _formatString =
         "(%s) %s: Event Activity Low occurred with arguments: %" PRIu32 ", %f, %d";
@@ -5602,7 +5603,8 @@ namespace M {
         b
       );
 
-      this->m_textEventOut_OutputPort[0].invoke(
+      this->textEventOut_out(
+        0,
         _id,
         _logTime,
         Fw::LogSeverity::ACTIVITY_LO,
@@ -5663,7 +5665,7 @@ namespace M {
 
     // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-    if (this->m_textEventOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
       const char* _formatString =
         "(%s) %s: Event Command occurred with arguments: %s, %s";
@@ -5683,7 +5685,8 @@ namespace M {
         str2.toChar()
       );
 
-      this->m_textEventOut_OutputPort[0].invoke(
+      this->textEventOut_out(
+        0,
         _id,
         _logTime,
         Fw::LogSeverity::COMMAND,
@@ -5745,7 +5748,7 @@ namespace M {
 
     // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-    if (this->m_textEventOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
       const char* _formatString =
         "(%s) %s: Event Diagnostic occurred with argument: %s";
@@ -5767,7 +5770,8 @@ namespace M {
         eStr.toChar()
       );
 
-      this->m_textEventOut_OutputPort[0].invoke(
+      this->textEventOut_out(
+        0,
         _id,
         _logTime,
         Fw::LogSeverity::DIAGNOSTIC,
@@ -5850,7 +5854,7 @@ namespace M {
 
     // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-    if (this->m_textEventOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
       const char* _formatString =
         "(%s) %s: Event Fatal occurred with argument: %s";
@@ -5872,7 +5876,8 @@ namespace M {
         aStr.toChar()
       );
 
-      this->m_textEventOut_OutputPort[0].invoke(
+      this->textEventOut_out(
+        0,
         _id,
         _logTime,
         Fw::LogSeverity::FATAL,
@@ -5934,7 +5939,7 @@ namespace M {
 
     // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-    if (this->m_textEventOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
       const char* _formatString =
         "(%s) %s: Event Warning High occurred with argument: %s";
@@ -5956,7 +5961,8 @@ namespace M {
         sStr.toChar()
       );
 
-      this->m_textEventOut_OutputPort[0].invoke(
+      this->textEventOut_out(
+        0,
         _id,
         _logTime,
         Fw::LogSeverity::WARNING_HI,
@@ -6010,7 +6016,7 @@ namespace M {
 
     // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-    if (this->m_textEventOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
       const char* _formatString =
         "(%s) %s: Event Warning Low occurred";
@@ -6028,7 +6034,8 @@ namespace M {
         "EventWarningLowThrottled "
       );
 
-      this->m_textEventOut_OutputPort[0].invoke(
+      this->textEventOut_out(
+        0,
         _id,
         _logTime,
         Fw::LogSeverity::WARNING_LO,
@@ -6099,7 +6106,7 @@ namespace M {
 
     // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-    if (this->m_textEventOut_OutputPort[0].isConnected()) {
+    if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
       const char* _formatString =
         "(%s) %s: Event Warning Low occurred";
@@ -6117,7 +6124,8 @@ namespace M {
         "EventWarningLowThrottledInterval "
       );
 
-      this->m_textEventOut_OutputPort[0].invoke(
+      this->textEventOut_out(
+        0,
         _id,
         _logTime,
         Fw::LogSeverity::WARNING_LO,
@@ -8708,6 +8716,36 @@ namespace M {
       args
     );
   }
+
+#if FW_ENABLE_TEXT_LOGGING
+
+  void ActiveTestComponentBase ::
+    textEventOut_out(
+        FwIndexType portNum,
+        FwEventIdType id,
+        Fw::Time& timeTag,
+        const Fw::LogSeverity& severity,
+        Fw::TextLogString& text
+    ) const
+  {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
+      static_cast<FwAssertArgType>(portNum)
+    );
+
+    FW_ASSERT(
+      this->m_textEventOut_OutputPort[portNum].isConnected(),
+      static_cast<FwAssertArgType>(portNum)
+    );
+    this->m_textEventOut_OutputPort[portNum].invoke(
+      id,
+      timeTag,
+      severity,
+      text
+    );
+  }
+
+#endif
 
   void ActiveTestComponentBase ::
     timeGetOut_out(

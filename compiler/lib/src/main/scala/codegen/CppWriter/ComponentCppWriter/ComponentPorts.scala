@@ -67,9 +67,10 @@ case class ComponentPorts(
     {
       val ports = List(
         guardedOption (hasEvents) (eventPort),
+        guardedOption (hasEvents) (textEventPort),
         timeGetPort,
         guardedOption (hasTelemetry) (tlmPort),
-      ).filter(_.isDefined).map(_.get)
+      ).filter(_.isDefined).map(_.get).sortBy(_.getUnqualifiedName)
       outputPortWriter.getInvokers(ports, "private", Some("special"))
     }
   )

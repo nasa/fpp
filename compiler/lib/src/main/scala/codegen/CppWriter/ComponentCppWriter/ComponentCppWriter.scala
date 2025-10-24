@@ -1087,19 +1087,7 @@ object ComponentCppWriter extends CppWriterUtils {
         )
       )
 
-    val needTextEventGuard = port match {
-      case special: PortInstance.Special =>
-        special.aNode._2.data match {
-          case node: Ast.SpecPortInstance.Special => node.kind match {
-            case Ast.SpecPortInstance.TextEvent => true
-            case _ => false
-          }
-          case _ => false
-        }
-      case _ => false
-    }
-
-    val guardOpt = (needTextEventGuard, mode) match {
+    val guardOpt = (isTextEventPort(port), mode) match {
       case (true, Mode.Base) => Some("!FW_DIRECT_PORT_CALLS && FW_ENABLE_TEXT_LOGGING")
       case (false, Mode.Base) => Some("!FW_DIRECT_PORT_CALLS")
       case (true, Mode.TesterBase) => Some("FW_ENABLE_TEXT_LOGGING")

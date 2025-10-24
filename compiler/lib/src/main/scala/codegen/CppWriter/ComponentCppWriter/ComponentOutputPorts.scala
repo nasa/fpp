@@ -96,7 +96,7 @@ case class ComponentOutputPorts(
       addAccessTagAndComment(
         accessSpecifier,
         s"Invocation functions for $typeString output ports",
-        ports.map(getInvokerForPortInstance)
+        ports.flatMap(getInvokerForPortInstance)
       ),
       CppDoc.Lines.Cpp
     )
@@ -206,36 +206,44 @@ case class ComponentOutputPorts(
       case PortInstance.Type.DefPort(_) => ("invoke", CppDoc.Function.Const)
       case PortInstance.Type.Serial => ("invokeSerial", CppDoc.Function.NonConst)
     }
-    functionClassMember(
-      Some(s"Invoke output port ${p.getUnqualifiedName}"),
-      outputPortInvokerName(p),
-      portNumParam :: getPortFunctionParams(p),
-      getReturnType(p),
-      List.concat(
-        lines(
-          s"""|FW_ASSERT(
-              |  (0 <= portNum) && (portNum < this->${portNumGetterName(p)}()),
-              |  static_cast<FwAssertArgType>(portNum)
-              |);
-              |
-              |FW_ASSERT(
-              |  this->${portVariableName(p)}[portNum].isConnected(),
-              |  static_cast<FwAssertArgType>(portNum)
-              |);
-              |"""
-        ),
-        writeFunctionCall(
-          addReturnKeyword(
-            s"this->${portVariableName(p)}[portNum].$invokeFunction",
-            p
+    val members = List(
+      functionClassMember(
+        Some(s"Invoke output port ${p.getUnqualifiedName}"),
+        outputPortInvokerName(p),
+        portNumParam :: getPortFunctionParams(p),
+        getReturnType(p),
+        List.concat(
+          lines(
+            s"""|FW_ASSERT(
+                |  (0 <= portNum) && (portNum < this->${portNumGetterName(p)}()),
+                |  static_cast<FwAssertArgType>(portNum)
+                |);
+                |
+                |FW_ASSERT(
+                |  this->${portVariableName(p)}[portNum].isConnected(),
+                |  static_cast<FwAssertArgType>(portNum)
+                |);
+                |"""
           ),
-          Nil,
-          getPortParams(p).map(_._1),
-        )
-      ),
-      CppDoc.Function.NonSV,
-      constQualifier
+          writeFunctionCall(
+            addReturnKeyword(
+              s"this->${portVariableName(p)}[portNum].$invokeFunction",
+              p
+            ),
+            Nil,
+            getPortParams(p).map(_._1),
+          )
+        ),
+        CppDoc.Function.NonSV,
+        constQualifier
+      )
     )
+    if isTextEventPort(p)
+    then wrapClassMembersInIfDirective(
+      "#if FW_ENABLE_TEXT_LOGGING",
+      members
+    )
+    else members
   }
 
   // Gets the serial connector for a port

@@ -266,7 +266,12 @@ case class ComponentEvents (
     )
   }
 
-  private def writeCodeForEmittingTextEvent(id: Event.Id, event: Event) =
+  private def writeCodeForEmittingTextEvent(event: Event) = {
+    val textEventPortName = textEventPort.get.getUnqualifiedName
+    val textEventPortIsConnected = outputPortIsConnectedName(textEventPortName)
+    val format = writeEventFormat(event)
+    val severity = writeSeverity(event)
+    val textEventPortInvoker = outputPortInvokerName(textEventPortName)
     List.concat(
       lines(
         s"""|// Emit the event on the text log port
@@ -274,26 +279,28 @@ case class ComponentEvents (
             |"""
       ),
       wrapInIf(
-        s"this->${portVariableName(textEventPort.get)}[0].isConnected()",
+        s"this->$textEventPortIsConnected(0)",
         intersperseBlankLines(
           List(
             lines(
               s"""|#if FW_OBJECT_NAMES == 1
                   |const char* _formatString =
-                  |  "(%s) %s: ${writeEventFormat(event)}";
+                  |  "(%s) %s: $format";
                   |#else
                   |const char* _formatString =
-                  |  "%s: ${writeEventFormat(event)}";
+                  |  "%s: $format";
                   |#endif
                   |"""
             ),
             event.aNode._2.data.params.flatMap(param =>
-              s.a.typeMap(param._2.data.typeName.id) match {
+              val data = param._2.data
+              val name = data.name
+              s.a.typeMap(data.typeName.id) match {
                 case Type.String(_) => Nil
-                case t if s.isPrimitive(t, writeFormalParamType(param._2.data)) => Nil
+                case t if s.isPrimitive(t, writeFormalParamType(data)) => Nil
                 case _ => lines(
-                  s"""|Fw::String ${param._2.data.name}Str;
-                      |${param._2.data.name}.toString(${param._2.data.name}Str);
+                  s"""|Fw::String ${name}Str;
+                      |$name.toString(${name}Str);
                       |"""
                 )
               }
@@ -311,22 +318,25 @@ case class ComponentEvents (
               lines(
                 (s"\"${event.getName} \"" ::
                   event.aNode._2.data.params.map(param => {
+                    val data = param._2.data
                     val name = param._2.data.name
-                    s.a.typeMap(param._2.data.typeName.id) match {
+                    s.a.typeMap(data.typeName.id) match {
                       case Type.String(_) => s"$name.toChar()"
-                      case t if s.isPrimitive(t, writeFormalParamType(param._2.data)) =>
+                      case t if s.isPrimitive(t, writeFormalParamType(data)) =>
                         promoteF32ToF64 (t) (name)
                       case _ => s"${name}Str.toChar()"
                     }
-                  })).mkString(",\n")
+                  })
+                ).mkString(",\n")
               ).map(indentIn),
               lines(");")
             ),
             lines(
-              s"""|this->${portVariableName(textEventPort.get)}[0].invoke(
+              s"""|this->$textEventPortInvoker(
+                  |  0,
                   |  _id,
                   |  _logTime,
-                  |  Fw::LogSeverity::${writeSeverity(event)},
+                  |  Fw::LogSeverity::$severity,
                   |  _logString
                   |);
                   |"""
@@ -336,6 +346,7 @@ case class ComponentEvents (
       ),
       lines("#endif")
     )
+  }
 
   private def getLoggingFunction(id: Event.Id, event: Event) = {
     functionClassMember(
@@ -356,7 +367,7 @@ case class ComponentEvents (
         List(
           writeCodeForThrottlingEventAndGettingTime(event),
           writeCodeForEmittingEvent(id, event),
-          writeCodeForEmittingTextEvent(id, event),
+          writeCodeForEmittingTextEvent(event),
         )
       ),
       CppDoc.Function.NonSV,
