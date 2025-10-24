@@ -5444,7 +5444,8 @@ void QueuedTestComponentBase ::
     );
 #endif
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::ACTIVITY_HI,
@@ -5567,7 +5568,8 @@ void QueuedTestComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::ACTIVITY_LO,
@@ -5648,7 +5650,8 @@ void QueuedTestComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::COMMAND,
@@ -5729,7 +5732,8 @@ void QueuedTestComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::DIAGNOSTIC,
@@ -5833,7 +5837,8 @@ void QueuedTestComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::FATAL,
@@ -5916,7 +5921,8 @@ void QueuedTestComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::WARNING_HI,
@@ -5991,7 +5997,8 @@ void QueuedTestComponentBase ::
     );
 #endif
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::WARNING_LO,
@@ -6079,7 +6086,8 @@ void QueuedTestComponentBase ::
     );
 #endif
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::WARNING_LO,
@@ -8696,6 +8704,32 @@ void QueuedTestComponentBase ::
 // ----------------------------------------------------------------------
 // Invocation functions for special output ports
 // ----------------------------------------------------------------------
+
+void QueuedTestComponentBase ::
+  eventOut_out(
+      FwIndexType portNum,
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity& severity,
+      Fw::LogBuffer& args
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_eventOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_eventOut_OutputPort[portNum].invoke(
+    id,
+    timeTag,
+    severity,
+    args
+  );
+}
 
 void QueuedTestComponentBase ::
   timeGetOut_out(

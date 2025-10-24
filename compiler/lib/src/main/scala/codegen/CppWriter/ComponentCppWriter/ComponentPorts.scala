@@ -66,6 +66,7 @@ case class ComponentPorts(
     inputPortWriter.getCallbacks(serialInputPorts),
     {
       val ports = List(
+        guardedOption (hasEvents) (eventPort),
         timeGetPort,
         guardedOption (hasTelemetry) (tlmPort),
       ).filter(_.isDefined).map(_.get)

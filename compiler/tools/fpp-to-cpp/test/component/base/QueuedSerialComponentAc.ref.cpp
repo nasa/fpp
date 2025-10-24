@@ -5556,7 +5556,8 @@ void QueuedSerialComponentBase ::
     );
 #endif
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::ACTIVITY_HI,
@@ -5679,7 +5680,8 @@ void QueuedSerialComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::ACTIVITY_LO,
@@ -5760,7 +5762,8 @@ void QueuedSerialComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::COMMAND,
@@ -5841,7 +5844,8 @@ void QueuedSerialComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::DIAGNOSTIC,
@@ -5945,7 +5949,8 @@ void QueuedSerialComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::FATAL,
@@ -6028,7 +6033,8 @@ void QueuedSerialComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::WARNING_HI,
@@ -6103,7 +6109,8 @@ void QueuedSerialComponentBase ::
     );
 #endif
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::WARNING_LO,
@@ -6191,7 +6198,8 @@ void QueuedSerialComponentBase ::
     );
 #endif
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::WARNING_LO,
@@ -8895,6 +8903,32 @@ void QueuedSerialComponentBase ::
 // ----------------------------------------------------------------------
 // Invocation functions for special output ports
 // ----------------------------------------------------------------------
+
+void QueuedSerialComponentBase ::
+  eventOut_out(
+      FwIndexType portNum,
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity& severity,
+      Fw::LogBuffer& args
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_eventOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_eventOut_OutputPort[portNum].invoke(
+    id,
+    timeTag,
+    severity,
+    args
+  );
+}
 
 void QueuedSerialComponentBase ::
   timeGetOut_out(

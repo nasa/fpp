@@ -2970,6 +2970,15 @@ class QueuedSerialComponentBase :
     // Invocation functions for special output ports
     // ----------------------------------------------------------------------
 
+    //! Invoke output port eventOut
+    void eventOut_out(
+        FwIndexType portNum, //!< The port number
+        FwEventIdType id, //!< Log ID
+        Fw::Time& timeTag, //!< Time Tag
+        const Fw::LogSeverity& severity, //!< The severity argument
+        Fw::LogBuffer& args //!< Buffer containing serialized log entry
+    ) const;
+
     //! Invoke output port timeGetOut
     void timeGetOut_out(
         FwIndexType portNum, //!< The port number

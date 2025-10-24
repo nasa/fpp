@@ -165,6 +165,7 @@ case class ComponentEvents (
     val hasParams = !paramTypes.isEmpty
     val numParams = paramTypes.length
     val severity = writeSeverity(event)
+    val eventPortInvokerName = outputPortInvokerName(eventPortName)
     line("// Emit the event on the log port") ::
     wrapInIf(
       s"this->$eventPortIsConnected(0)",
@@ -251,7 +252,8 @@ case class ComponentEvents (
             })
           ),
           lines(
-            s"""|this->${portVariableName(eventPort.get)}[0].invoke(
+            s"""|this->$eventPortInvokerName(
+                |  0,
                 |  _id,
                 |  _logTime,
                 |  Fw::LogSeverity::$severity,
