@@ -10,71 +10,57 @@ case class ComponentParameters (
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  def getConstantMembers: List[CppDoc.Class.Member] = {
-    if !hasParameters then Nil
-    else List(
-      linesClassMember(
-        List.concat(
-          Line.blank :: lines(s"//! Parameter IDs"),
-          wrapInEnum(
-            sortedParams.flatMap((id, param) =>
-              writeEnumConstant(
-                paramIdConstantName(param.getName),
-                id,
-                AnnotationCppWriter.asStringOpt(param.aNode),
-                CppWriterUtils.Hex
-              )
-            )
+  def getConstantMembers: List[CppDoc.Class.Member] =
+    guardedList (hasParameters) (List(getParamIds))
+
+  def getPublicFunctionMembers: List[CppDoc.Class.Member] =
+    guardedList (hasParameters) (getLoadFunction)
+
+  def getProtectedFunctionMembers: List[CppDoc.Class.Member] =
+    guardedList (hasParameters) (
+      List.concat(
+        getHookFunctions,
+        getGetterFunctions,
+        getExternalParameterFunctions
+      )
+    )
+
+  def getPrivateFunctionMembers: List[CppDoc.Class.Member] =
+    guardedList (hasParameters) (
+      List.concat(
+        getSetters,
+        getSaveFunctions
+      )
+    )
+
+  private def getValidityFlagForParam(param: Param) = {
+    val paramName = param.getName
+    val flagName = paramValidityFlagName(paramName)
+    guardedList (!param.isExternal) (
+      List(
+        linesClassMember(
+          lines(
+            s"""|
+                |//! True if $paramName was successfully received
+                |Fw::ParamValid $flagName;
+                |"""
           )
         )
       )
     )
   }
 
-  def getPublicFunctionMembers: List[CppDoc.Class.Member] = {
-    if !hasParameters then Nil
-    else getLoadFunction
-  }
-
-  def getProtectedFunctionMembers: List[CppDoc.Class.Member] = {
-    if !hasParameters then Nil
-    else List.concat(
-      getHookFunctions,
-      getGetterFunctions,
-      getExternalParameterFunctions
-    )
-  }
-
-  def getPrivateFunctionMembers: List[CppDoc.Class.Member] = {
-    if !hasParameters then Nil
-    else List.concat(
-      getSetters,
-      getSaveFunctions
-    )
-  }
+  private def getValidityFlags = addAccessTagAndComment(
+    "private",
+    "Parameter validity flags",
+    sortedParams.flatMap((_, param) => getValidityFlagForParam(param)),
+    CppDoc.Lines.Hpp
+  )
 
   def getVariableMembers: List[CppDoc.Class.Member] = {
     if !hasParameters then Nil
     else List.concat(
-      addAccessTagAndComment(
-        "private",
-        "Parameter validity flags",
-        sortedParams.flatMap { case (_, param) =>
-          guardedList (!param.isExternal) (
-            List(
-              linesClassMember(
-                lines(
-                  s"""|
-                      |//! True if ${param.getName} was successfully received
-                      |Fw::ParamValid ${paramValidityFlagName(param.getName)};
-                      |"""
-                )
-              )
-            )
-          )
-        },
-        CppDoc.Lines.Hpp
-      ),
+      getValidityFlags,
       addAccessTagAndComment(
         "private",
         "Parameter variables",
@@ -117,6 +103,23 @@ case class ComponentParameters (
       )
     )
   }
+
+  private def getParamIds = linesClassMember(
+    List.concat(
+      Line.blank :: lines(s"//! Parameter IDs"),
+      wrapInEnum(sortedParams.flatMap(writeParamIdConstant))
+    )
+  )
+
+  private def writeParamIdConstant(
+    id: Param.Id,
+    param: Param
+  ) = writeEnumConstant(
+    paramIdConstantName(param.getName),
+    id,
+    AnnotationCppWriter.asStringOpt(param.aNode),
+    CppWriterUtils.Hex
+  )
 
   private def getLoadFunction: List[CppDoc.Class.Member] =
     wrapClassMembersInIfDirective(
