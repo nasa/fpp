@@ -2967,6 +2967,14 @@ class ActiveSerialComponentBase :
         FwOpcodeType opCode //!< Command Op Code
     ) const;
 
+    //! Invoke output port cmdResponseOut
+    void cmdResponseOut_out(
+        FwIndexType portNum, //!< The port number
+        FwOpcodeType opCode, //!< Command Op Code
+        U32 cmdSeq, //!< Command Sequence
+        const Fw::CmdResponse& response //!< The command response argument
+    ) const;
+
     //! Invoke output port eventOut
     void eventOut_out(
         FwIndexType portNum, //!< The port number

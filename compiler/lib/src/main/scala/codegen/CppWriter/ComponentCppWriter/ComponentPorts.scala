@@ -67,6 +67,7 @@ case class ComponentPorts(
     {
       val ports = List(
         guardedOption (hasCommands || hasParameters) (cmdRegPort),
+        guardedOption (hasCommands || hasParameters) (cmdRespPort),
         guardedOption (hasEvents) (eventPort),
         guardedOption (hasEvents) (textEventPort),
         timeGetPort,

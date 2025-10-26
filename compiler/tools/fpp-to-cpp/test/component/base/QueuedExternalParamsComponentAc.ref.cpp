@@ -4545,6 +4545,30 @@ void QueuedExternalParamsComponentBase ::
 }
 
 void QueuedExternalParamsComponentBase ::
+  cmdResponseOut_out(
+      FwIndexType portNum,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      const Fw::CmdResponse& response
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_cmdResponseOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_cmdResponseOut_OutputPort[portNum].invoke(
+    opCode,
+    cmdSeq,
+    response
+  );
+}
+
+void QueuedExternalParamsComponentBase ::
   timeGetOut_out(
       FwIndexType portNum,
       Fw::Time& time

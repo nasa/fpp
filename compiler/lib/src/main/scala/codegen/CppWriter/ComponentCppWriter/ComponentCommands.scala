@@ -178,7 +178,9 @@ case class ComponentCommands (
     val cmdHasParams = !cmdParamTypes.isEmpty
     val cmdIsGuarded = cmd.kind == Command.NonParam.Guarded
     val handlerName = commandHandlerName(cmd.getName)
-    val isConnectedName = outputPortIsConnectedName(cmdRespPort.get.getUnqualifiedName)
+    val portName = cmdRespPort.get.getUnqualifiedName
+    val isConnectedName = outputPortIsConnectedName(portName)
+    val invoker = outputPortInvokerName(portName)
     intersperseBlankLines(
       List(
         guardedList (cmdHasParams) (
@@ -198,7 +200,8 @@ case class ComponentCommands (
                   |_status = args.deserializeTo($n);
                   |if (_status != Fw::FW_SERIALIZE_OK) {
                   |  if (this->$isConnectedName(0)) {
-                  |    this->${portVariableName(cmdRespPort.get)}[0].invoke(
+                  |    this->$invoker(
+                  |      0,
                   |      opCode,
                   |      cmdSeq,
                   |      Fw::CmdResponse::FORMAT_ERROR
@@ -216,7 +219,8 @@ case class ComponentCommands (
               |// That means the argument buffer size was incorrect.
               |if (args.getBuffLeft() != 0) {
               |  if (this->$isConnectedName(0)) {
-              |    this->${portVariableName(cmdRespPort.get)}[0].invoke(
+              |    this->$invoker(
+              |      0,
               |      opCode,
               |      cmdSeq,
               |      Fw::CmdResponse::FORMAT_ERROR
@@ -272,17 +276,13 @@ case class ComponentCommands (
   }
 
   private def getHandlerBases: List[CppDoc.Class.Member] =
-    wrapClassMembersInIfDirective(
-      "#if !FW_DIRECT_PORT_CALLS // TODO",
-      addAccessTagAndComment(
-        "protected",
-        """|Command handler base-class functions
-           |
-           |Call these functions directly to bypass the command input port
-           |""",
-        nonParamCmds.map(getHandlerBaseForNonParamCommand)
-      ),
-      CppDoc.Lines.Cpp
+    addAccessTagAndComment(
+      "protected",
+      """|Command handler base-class functions
+         |
+         |Call these functions directly to bypass the command input port
+         |""",
+      nonParamCmds.map(getHandlerBaseForNonParamCommand)
     )
 
   private def getResponseFunction: List[CppDoc.Class.Member] =

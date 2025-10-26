@@ -3105,8 +3105,6 @@ void PassiveTestComponentBase ::
 
 #endif
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Command handler base-class functions
 //
@@ -3125,7 +3123,8 @@ void PassiveTestComponentBase ::
   // That means the argument buffer size was incorrect.
   if (args.getBuffLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3155,7 +3154,8 @@ void PassiveTestComponentBase ::
   _status = args.deserializeTo(u32);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3168,7 +3168,8 @@ void PassiveTestComponentBase ::
   _status = args.deserializeTo(f32);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3181,7 +3182,8 @@ void PassiveTestComponentBase ::
   _status = args.deserializeTo(b);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3195,7 +3197,8 @@ void PassiveTestComponentBase ::
   // That means the argument buffer size was incorrect.
   if (args.getBuffLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3230,7 +3233,8 @@ void PassiveTestComponentBase ::
   _status = args.deserializeTo(str1);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3243,7 +3247,8 @@ void PassiveTestComponentBase ::
   _status = args.deserializeTo(str2);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3257,7 +3262,8 @@ void PassiveTestComponentBase ::
   // That means the argument buffer size was incorrect.
   if (args.getBuffLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3291,7 +3297,8 @@ void PassiveTestComponentBase ::
   _status = args.deserializeTo(e);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3305,7 +3312,8 @@ void PassiveTestComponentBase ::
   // That means the argument buffer size was incorrect.
   if (args.getBuffLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3338,7 +3346,8 @@ void PassiveTestComponentBase ::
   _status = args.deserializeTo(a);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3352,7 +3361,8 @@ void PassiveTestComponentBase ::
   // That means the argument buffer size was incorrect.
   if (args.getBuffLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3385,7 +3395,8 @@ void PassiveTestComponentBase ::
   _status = args.deserializeTo(s);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3399,7 +3410,8 @@ void PassiveTestComponentBase ::
   // That means the argument buffer size was incorrect.
   if (args.getBuffLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3427,7 +3439,8 @@ void PassiveTestComponentBase ::
   // That means the argument buffer size was incorrect.
   if (args.getBuffLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3461,7 +3474,8 @@ void PassiveTestComponentBase ::
   _status = args.deserializeTo(u32);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3474,7 +3488,8 @@ void PassiveTestComponentBase ::
   _status = args.deserializeTo(f32);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3487,7 +3502,8 @@ void PassiveTestComponentBase ::
   _status = args.deserializeTo(b);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3501,7 +3517,8 @@ void PassiveTestComponentBase ::
   // That means the argument buffer size was incorrect.
   if (args.getBuffLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3540,7 +3557,8 @@ void PassiveTestComponentBase ::
   _status = args.deserializeTo(str1);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3553,7 +3571,8 @@ void PassiveTestComponentBase ::
   _status = args.deserializeTo(str2);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3567,7 +3586,8 @@ void PassiveTestComponentBase ::
   // That means the argument buffer size was incorrect.
   if (args.getBuffLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3605,7 +3625,8 @@ void PassiveTestComponentBase ::
   _status = args.deserializeTo(e);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3619,7 +3640,8 @@ void PassiveTestComponentBase ::
   // That means the argument buffer size was incorrect.
   if (args.getBuffLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3656,7 +3678,8 @@ void PassiveTestComponentBase ::
   _status = args.deserializeTo(a);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3670,7 +3693,8 @@ void PassiveTestComponentBase ::
   // That means the argument buffer size was incorrect.
   if (args.getBuffLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3707,7 +3731,8 @@ void PassiveTestComponentBase ::
   _status = args.deserializeTo(s);
   if (_status != Fw::FW_SERIALIZE_OK) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3721,7 +3746,8 @@ void PassiveTestComponentBase ::
   // That means the argument buffer size was incorrect.
   if (args.getBuffLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -3740,8 +3766,6 @@ void PassiveTestComponentBase ::
 
   this->unLock();
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Event logging functions
@@ -5935,6 +5959,30 @@ void PassiveTestComponentBase ::
   );
   this->m_cmdRegOut_OutputPort[portNum].invoke(
     opCode
+  );
+}
+
+void PassiveTestComponentBase ::
+  cmdResponseOut_out(
+      FwIndexType portNum,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      const Fw::CmdResponse& response
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_cmdResponseOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_cmdResponseOut_OutputPort[portNum].invoke(
+    opCode,
+    cmdSeq,
+    response
   );
 }
 

@@ -1684,8 +1684,6 @@ void ActiveOverflowComponentBase ::
 
 #endif
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Command handler base-class functions
 //
@@ -1819,8 +1817,6 @@ void ActiveOverflowComponentBase ::
     static_cast<FwAssertArgType>(qStatus)
   );
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Pre-message hooks for async commands
@@ -2615,6 +2611,30 @@ void ActiveOverflowComponentBase ::
   );
   this->m_cmdRegOut_OutputPort[portNum].invoke(
     opCode
+  );
+}
+
+void ActiveOverflowComponentBase ::
+  cmdResponseOut_out(
+      FwIndexType portNum,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      const Fw::CmdResponse& response
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_cmdResponseOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_cmdResponseOut_OutputPort[portNum].invoke(
+    opCode,
+    cmdSeq,
+    response
   );
 }
 
