@@ -3302,8 +3302,6 @@ F32 QueuedParamsComponentBase ::
 
 #endif
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Command response
 // ----------------------------------------------------------------------
@@ -3315,11 +3313,9 @@ void QueuedParamsComponentBase ::
       Fw::CmdResponse response
   )
 {
-  FW_ASSERT(this->m_cmdResponseOut_OutputPort[0].isConnected());
-  this->m_cmdResponseOut_OutputPort[0].invoke(opCode, cmdSeq, response);
+  FW_ASSERT(this->isConnected_cmdResponseOut_OutputPort(0));
+  this->cmdResponseOut_out(0, opCode, cmdSeq, response);
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Parameter update hook

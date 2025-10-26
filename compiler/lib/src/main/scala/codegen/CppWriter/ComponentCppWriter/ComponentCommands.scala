@@ -286,34 +286,35 @@ case class ComponentCommands (
     )
 
   private def getResponseFunction: List[CppDoc.Class.Member] =
-    wrapClassMembersInIfDirective(
-      "#if !FW_DIRECT_PORT_CALLS // TODO",
-      addAccessTagAndComment(
-        "protected",
-        "Command response",
-        List(
-          functionClassMember(
-            Some("Emit command response"),
-            "cmdResponse_out",
-            List(
-              opcodeParam,
-              cmdSeqParam,
-              CppDoc.Function.Param(
-                CppDoc.Type("Fw::CmdResponse"),
-                "response",
-                Some("The command response")
-              )
-            ),
-            CppDoc.Type("void"),
+    addAccessTagAndComment(
+      "protected",
+      "Command response",
+      List(
+        functionClassMember(
+          Some("Emit command response"),
+          "cmdResponse_out",
+          List(
+            opcodeParam,
+            cmdSeqParam,
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::CmdResponse"),
+              "response",
+              Some("The command response")
+            )
+          ),
+          CppDoc.Type("void"),
+          {
+            val portName = cmdRespPort.get.getUnqualifiedName
+            val isConnectedName = outputPortIsConnectedName(portName)
+            val invoker = outputPortInvokerName(portName)
             lines(
-              s"""|FW_ASSERT(this->${portVariableName(cmdRespPort.get)}[0].isConnected());
-                  |this->${portVariableName(cmdRespPort.get)}[0].invoke(opCode, cmdSeq, response);
+              s"""|FW_ASSERT(this->$isConnectedName(0));
+                  |this->$invoker(0, opCode, cmdSeq, response);
                   |"""
             )
-          )
+          }
         )
-      ),
-      CppDoc.Lines.Cpp
+      )
     )
 
   private def getPreMsgHooks: List[CppDoc.Class.Member] = {
