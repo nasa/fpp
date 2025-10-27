@@ -3535,6 +3535,23 @@
         ],
         [
           {
+            "InterfaceTopology" : {
+              "qualifiedName" : {
+                "qualifier" : [
+                ],
+                "base" : "Simple1"
+              },
+              "unqualifiedName" : "Simple1"
+            }
+          },
+          {
+            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+            "pos" : "35.3",
+            "includingLoc" : "None"
+          }
+        ],
+        [
+          {
             "InterfaceComponentInstance" : {
               "qualifiedName" : {
                 "qualifier" : [
@@ -3564,23 +3581,6 @@
           {
             "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
             "pos" : "17.3",
-            "includingLoc" : "None"
-          }
-        ],
-        [
-          {
-            "InterfaceTopology" : {
-              "qualifiedName" : {
-                "qualifier" : [
-                ],
-                "base" : "Simple1"
-              },
-              "unqualifiedName" : "Simple1"
-            }
-          },
-          {
-            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
-            "pos" : "35.3",
             "includingLoc" : "None"
           }
         ],
@@ -6762,40 +6762,6 @@
         ],
         [
           {
-            "InterfaceComponentInstance" : {
-              "qualifiedName" : {
-                "qualifier" : [
-                ],
-                "base" : "c2"
-              },
-              "unqualifiedName" : "c2"
-            }
-          },
-          {
-            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
-            "pos" : "19.3",
-            "includingLoc" : "None"
-          }
-        ],
-        [
-          {
-            "InterfaceComponentInstance" : {
-              "qualifiedName" : {
-                "qualifier" : [
-                ],
-                "base" : "c1"
-              },
-              "unqualifiedName" : "c1"
-            }
-          },
-          {
-            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
-            "pos" : "17.3",
-            "includingLoc" : "None"
-          }
-        ],
-        [
-          {
             "InterfaceTopology" : {
               "qualifiedName" : {
                 "qualifier" : [
@@ -6817,6 +6783,23 @@
               "qualifiedName" : {
                 "qualifier" : [
                 ],
+                "base" : "c2"
+              },
+              "unqualifiedName" : "c2"
+            }
+          },
+          {
+            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+            "pos" : "19.3",
+            "includingLoc" : "None"
+          }
+        ],
+        [
+          {
+            "InterfaceComponentInstance" : {
+              "qualifiedName" : {
+                "qualifier" : [
+                ],
                 "base" : "c4"
               },
               "unqualifiedName" : "c4"
@@ -6825,6 +6808,23 @@
           {
             "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
             "pos" : "39.3",
+            "includingLoc" : "None"
+          }
+        ],
+        [
+          {
+            "InterfaceComponentInstance" : {
+              "qualifiedName" : {
+                "qualifier" : [
+                ],
+                "base" : "c1"
+              },
+              "unqualifiedName" : "c1"
+            }
+          },
+          {
+            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
+            "pos" : "17.3",
             "includingLoc" : "None"
           }
         ],
