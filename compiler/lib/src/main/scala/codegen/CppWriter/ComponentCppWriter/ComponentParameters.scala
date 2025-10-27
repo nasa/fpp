@@ -545,31 +545,30 @@ case class ComponentParameters (
     )
 
   private def getExternalParameterFunctions: List[CppDoc.Class.Member] = {
-    guardedList (hasExternalParameters) (
-      addAccessTagAndComment(
-        "protected",
-        "External parameter delegate initialization",
-        List(
-          functionClassMember(
-            Some("Initialize the external parameter delegate"),
-            "registerExternalParameters",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("Fw::ParamExternalDelegate*"),
-                "paramExternalDelegatePtr",
-                Some("The delegate for externally managed parameters")
-              )
-            ),
-            CppDoc.Type("void"),
-            lines(
-              """|FW_ASSERT(paramExternalDelegatePtr != nullptr);
-                 |this->paramDelegatePtr = paramExternalDelegatePtr;
-                 |"""
+    lazy val delegateInit = addAccessTagAndComment(
+      "protected",
+      "External parameter delegate initialization",
+      List(
+        functionClassMember(
+          Some("Initialize the external parameter delegate"),
+          "registerExternalParameters",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::ParamExternalDelegate*"),
+              "paramExternalDelegatePtr",
+              Some("The delegate for externally managed parameters")
             )
+          ),
+          CppDoc.Type("void"),
+          lines(
+            """|FW_ASSERT(paramExternalDelegatePtr != nullptr);
+               |this->paramDelegatePtr = paramExternalDelegatePtr;
+               |"""
           )
         )
       )
     )
+    guardedList (hasExternalParameters) (delegateInit)
   }
 
   private def paramGetterName(name: String) =
