@@ -2133,7 +2133,7 @@ void ActiveSerialComponentBase ::
   Fw::ParamBuffer _buff;
   Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_OK;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
-  FW_ASSERT(this->m_prmGetOut_OutputPort[0].isConnected());
+  FW_ASSERT(this->isConnected_prmGetOut_OutputPort(0));
 
   FwPrmIdType _id{};
 
@@ -9355,7 +9355,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
   Fw::ParamBuffer _saveBuff;
   FwPrmIdType _id;
   Fw::SerializeStatus _stat;
-  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_prmSetOut_OutputPort(0)) {
     this->m_paramLock.lock();
 
     _stat = _saveBuff.serializeFrom(m_ParamU32);
@@ -9385,7 +9385,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
   Fw::ParamBuffer _saveBuff;
   FwPrmIdType _id;
   Fw::SerializeStatus _stat;
-  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_prmSetOut_OutputPort(0)) {
     this->m_paramLock.lock();
 
     _stat = _saveBuff.serializeFrom(m_ParamF64);
@@ -9415,7 +9415,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
   Fw::ParamBuffer _saveBuff;
   FwPrmIdType _id;
   Fw::SerializeStatus _stat;
-  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_prmSetOut_OutputPort(0)) {
     this->m_paramLock.lock();
 
     _stat = _saveBuff.serializeFrom(m_ParamString);
@@ -9445,7 +9445,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
   Fw::ParamBuffer _saveBuff;
   FwPrmIdType _id;
   Fw::SerializeStatus _stat;
-  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_prmSetOut_OutputPort(0)) {
     this->m_paramLock.lock();
 
     _stat = _saveBuff.serializeFrom(m_ParamEnum);
@@ -9475,7 +9475,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
   Fw::ParamBuffer _saveBuff;
   FwPrmIdType _id;
   Fw::SerializeStatus _stat;
-  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_prmSetOut_OutputPort(0)) {
     this->m_paramLock.lock();
 
     _stat = _saveBuff.serializeFrom(m_ParamArray);
@@ -9505,7 +9505,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
   Fw::ParamBuffer _saveBuff;
   FwPrmIdType _id;
   Fw::SerializeStatus _stat;
-  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_prmSetOut_OutputPort(0)) {
     this->m_paramLock.lock();
 
     _stat = _saveBuff.serializeFrom(m_ParamStruct);
@@ -9535,7 +9535,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
   Fw::ParamBuffer _saveBuff;
   FwPrmIdType _id;
   Fw::SerializeStatus _stat;
-  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_prmSetOut_OutputPort(0)) {
     // Get the local and base ID to pass to the delegate
     _id = PARAMID_PARAMI32EXT;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -9566,7 +9566,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
   Fw::ParamBuffer _saveBuff;
   FwPrmIdType _id;
   Fw::SerializeStatus _stat;
-  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_prmSetOut_OutputPort(0)) {
     // Get the local and base ID to pass to the delegate
     _id = PARAMID_PARAMF64EXT;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -9597,7 +9597,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
   Fw::ParamBuffer _saveBuff;
   FwPrmIdType _id;
   Fw::SerializeStatus _stat;
-  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_prmSetOut_OutputPort(0)) {
     // Get the local and base ID to pass to the delegate
     _id = PARAMID_PARAMSTRINGEXT;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -9628,7 +9628,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
   Fw::ParamBuffer _saveBuff;
   FwPrmIdType _id;
   Fw::SerializeStatus _stat;
-  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_prmSetOut_OutputPort(0)) {
     // Get the local and base ID to pass to the delegate
     _id = PARAMID_PARAMENUMEXT;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -9659,7 +9659,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
   Fw::ParamBuffer _saveBuff;
   FwPrmIdType _id;
   Fw::SerializeStatus _stat;
-  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_prmSetOut_OutputPort(0)) {
     // Get the local and base ID to pass to the delegate
     _id = PARAMID_PARAMARRAYEXT;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -9690,7 +9690,7 @@ Fw::CmdResponse ActiveSerialComponentBase ::
   Fw::ParamBuffer _saveBuff;
   FwPrmIdType _id;
   Fw::SerializeStatus _stat;
-  if (this->m_prmSetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_prmSetOut_OutputPort(0)) {
     // Get the local and base ID to pass to the delegate
     _id = PARAMID_PARAMSTRUCTEXT;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());

@@ -434,14 +434,16 @@ case class ComponentParameters (
     )
   }
 
-  private def writeLoadFunctionBody =
+  private def writeLoadFunctionBody = {
+    val prmGetPortName = prmGetPort.get.getUnqualifiedName
+    val prmGetIsConnected = outputPortIsConnectedName(prmGetPortName)
     intersperseBlankLines(
       List(
         lines(
           s"""|Fw::ParamBuffer _buff;
               |Fw::SerializeStatus _stat = Fw::FW_SERIALIZE_OK;
               |const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
-              |FW_ASSERT(this->${portVariableName(prmGetPort.get)}[0].isConnected());
+              |FW_ASSERT(this->$prmGetIsConnected(0));
               |
               |FwPrmIdType _id{};
               |"""
@@ -461,6 +463,7 @@ case class ComponentParameters (
         )
       )
     )
+  }
 
   private def writeParamIdConstant(
     id: Param.Id,
@@ -475,6 +478,8 @@ case class ComponentParameters (
   private def writeSaveFunctionBodyForParam(param: Param) = {
     val idConstantName = paramIdConstantName(param.getName)
     val paramVarName = paramVariableName(param.getName)
+    val prmSetPortName = prmSetPort.get.getUnqualifiedName
+    val prmSetIsConnected = outputPortIsConnectedName(prmSetPortName)
     List.concat(
       lines(
         s"""|Fw::ParamBuffer _saveBuff;
@@ -484,7 +489,7 @@ case class ComponentParameters (
             |"""
       ),
       wrapInIf(
-        s"this->${portVariableName(prmSetPort.get)}[0].isConnected()",
+        s"this->$prmSetIsConnected(0)",
         List.concat(
           if (param.isExternal)
           then lines(
