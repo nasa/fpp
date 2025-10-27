@@ -1964,84 +1964,86 @@
       "aNode" : {
         "astNodeId" : 58
       },
-      "portMap" : {
-        "bufferSendIn" : {
-          "General" : {
-            "aNode" : {
-              "astNodeId" : 45
-            },
-            "specifier" : {
-              "kind" : {
-                "AsyncInput" : {
-                  
-                }
+      "portInterface" : {
+        "portMap" : {
+          "bufferSendIn" : {
+            "General" : {
+              "aNode" : {
+                "astNodeId" : 45
               },
-              "name" : "bufferSendIn",
-              "size" : "None",
-              "port" : {
-                "Some" : {
-                  "astNodeId" : 44
-                }
+              "specifier" : {
+                "kind" : {
+                  "AsyncInput" : {
+                    
+                  }
+                },
+                "name" : "bufferSendIn",
+                "size" : "None",
+                "port" : {
+                  "Some" : {
+                    "astNodeId" : 44
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None"
               },
-              "priority" : "None",
-              "queueFull" : "None"
-            },
-            "kind" : "AsyncInput",
-            "size" : 1,
-            "ty" : {
-              "DefPort" : {
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 2,
-                    "unqualifiedName" : "BufferSend"
+              "kind" : "AsyncInput",
+              "size" : 1,
+              "ty" : {
+                "DefPort" : {
+                  "symbol" : {
+                    "Port" : {
+                      "nodeId" : 2,
+                      "unqualifiedName" : "BufferSend"
+                    }
                   }
                 }
-              }
-            },
-            "importNodeIds" : [
-            ]
+              },
+              "importNodeIds" : [
+              ]
+            }
+          },
+          "bufferSendOut" : {
+            "General" : {
+              "aNode" : {
+                "astNodeId" : 57
+              },
+              "specifier" : {
+                "kind" : {
+                  "Output" : {
+                    
+                  }
+                },
+                "name" : "bufferSendOut",
+                "size" : "None",
+                "port" : {
+                  "Some" : {
+                    "astNodeId" : 56
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "kind" : "Output",
+              "size" : 1,
+              "ty" : {
+                "DefPort" : {
+                  "symbol" : {
+                    "Port" : {
+                      "nodeId" : 2,
+                      "unqualifiedName" : "BufferSend"
+                    }
+                  }
+                }
+              },
+              "importNodeIds" : [
+              ]
+            }
           }
         },
-        "bufferSendOut" : {
-          "General" : {
-            "aNode" : {
-              "astNodeId" : 57
-            },
-            "specifier" : {
-              "kind" : {
-                "Output" : {
-                  
-                }
-              },
-              "name" : "bufferSendOut",
-              "size" : "None",
-              "port" : {
-                "Some" : {
-                  "astNodeId" : 56
-                }
-              },
-              "priority" : "None",
-              "queueFull" : "None"
-            },
-            "kind" : "Output",
-            "size" : 1,
-            "ty" : {
-              "DefPort" : {
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 2,
-                    "unqualifiedName" : "BufferSend"
-                  }
-                }
-              }
-            },
-            "importNodeIds" : [
-            ]
-          }
+        "specialPortMap" : {
+          
         }
-      },
-      "specialPortMap" : {
-        
       },
       "commandMap" : {
         
@@ -2082,47 +2084,49 @@
       "aNode" : {
         "astNodeId" : 137
       },
-      "portMap" : {
-        "schedIn" : {
-          "General" : {
-            "aNode" : {
-              "astNodeId" : 115
-            },
-            "specifier" : {
-              "kind" : {
-                "AsyncInput" : {
-                  
-                }
+      "portInterface" : {
+        "portMap" : {
+          "schedIn" : {
+            "General" : {
+              "aNode" : {
+                "astNodeId" : 115
               },
-              "name" : "schedIn",
-              "size" : "None",
-              "port" : {
-                "Some" : {
-                  "astNodeId" : 114
-                }
+              "specifier" : {
+                "kind" : {
+                  "AsyncInput" : {
+                    
+                  }
+                },
+                "name" : "schedIn",
+                "size" : "None",
+                "port" : {
+                  "Some" : {
+                    "astNodeId" : 114
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None"
               },
-              "priority" : "None",
-              "queueFull" : "None"
-            },
-            "kind" : "AsyncInput",
-            "size" : 1,
-            "ty" : {
-              "DefPort" : {
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 6,
-                    "unqualifiedName" : "Sched"
+              "kind" : "AsyncInput",
+              "size" : 1,
+              "ty" : {
+                "DefPort" : {
+                  "symbol" : {
+                    "Port" : {
+                      "nodeId" : 6,
+                      "unqualifiedName" : "Sched"
+                    }
                   }
                 }
-              }
-            },
-            "importNodeIds" : [
-            ]
+              },
+              "importNodeIds" : [
+              ]
+            }
           }
+        },
+        "specialPortMap" : {
+          
         }
-      },
-      "specialPortMap" : {
-        
       },
       "commandMap" : {
         
@@ -2377,7 +2381,17 @@
     },
     "202" : {
       "map" : {
-        "ComponentInstance" : {
+        "StateMachine" : {
+          "map" : {
+            "Default" : {
+              "Module" : {
+                "nodeId" : 153,
+                "unqualifiedName" : "Default"
+              }
+            }
+          }
+        },
+        "PortInterfaceInstance" : {
           "map" : {
             "Default" : {
               "Module" : {
@@ -2399,36 +2413,6 @@
             }
           }
         },
-        "Topology" : {
-          "map" : {
-            "Default" : {
-              "Module" : {
-                "nodeId" : 153,
-                "unqualifiedName" : "Default"
-              }
-            }
-          }
-        },
-        "Interface" : {
-          "map" : {
-            "Default" : {
-              "Module" : {
-                "nodeId" : 153,
-                "unqualifiedName" : "Default"
-              }
-            }
-          }
-        },
-        "StateMachine" : {
-          "map" : {
-            "Default" : {
-              "Module" : {
-                "nodeId" : 153,
-                "unqualifiedName" : "Default"
-              }
-            }
-          }
-        },
         "Value" : {
           "map" : {
             "Default" : {
@@ -2440,6 +2424,16 @@
           }
         },
         "Port" : {
+          "map" : {
+            "Default" : {
+              "Module" : {
+                "nodeId" : 153,
+                "unqualifiedName" : "Default"
+              }
+            }
+          }
+        },
+        "PortInterface" : {
           "map" : {
             "Default" : {
               "Module" : {

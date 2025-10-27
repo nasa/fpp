@@ -13,6 +13,9 @@ object ResolveTopology {
       t <- ResolvePartiallyNumbered.resolve(a, t)
       t <- ResolvePortNumbers.resolve(t)
       t <- Right(ResolveUnconnectedPorts.resolve(t))
+
+      // Check the topologies interface against the `implements` clause
+      _ <- CheckTopologyInterface.check(a, t)
     }
     yield t
 

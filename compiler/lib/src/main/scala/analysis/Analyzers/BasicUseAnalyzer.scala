@@ -43,6 +43,13 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
     val id = node._2.id
     for {
       a <- visitImpliedUses(a, id)
+
+      // Visit port interface uses in the implements clause
+      a <- {
+        Result.foldLeft (node._2.data.implements) (a) ((a, impl) =>
+          qualIdentNode(interfaceUse) (a, impl)
+      )}
+
       a <- super.defTopologyAnnotatedNode(a, node)
     } yield a
   }

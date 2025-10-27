@@ -1060,7 +1060,7 @@
                                     [
                                     ],
                                     {
-                                      "SpecCompInstance" : {
+                                      "SpecInstance" : {
                                         "node" : {
                                           "AstNode" : {
                                             "data" : {
@@ -1087,7 +1087,7 @@
                                     [
                                     ],
                                     {
-                                      "SpecCompInstance" : {
+                                      "SpecInstance" : {
                                         "node" : {
                                           "AstNode" : {
                                             "data" : {
@@ -1114,7 +1114,7 @@
                                     [
                                     ],
                                     {
-                                      "SpecCompInstance" : {
+                                      "SpecInstance" : {
                                         "node" : {
                                           "AstNode" : {
                                             "data" : {
@@ -1141,7 +1141,7 @@
                                     [
                                     ],
                                     {
-                                      "SpecCompInstance" : {
+                                      "SpecInstance" : {
                                         "node" : {
                                           "AstNode" : {
                                             "data" : {
@@ -1168,7 +1168,7 @@
                                     [
                                     ],
                                     {
-                                      "SpecCompInstance" : {
+                                      "SpecInstance" : {
                                         "node" : {
                                           "AstNode" : {
                                             "data" : {
@@ -1195,7 +1195,7 @@
                                     [
                                     ],
                                     {
-                                      "SpecCompInstance" : {
+                                      "SpecInstance" : {
                                         "node" : {
                                           "AstNode" : {
                                             "data" : {
@@ -1222,7 +1222,7 @@
                                     [
                                     ],
                                     {
-                                      "SpecCompInstance" : {
+                                      "SpecInstance" : {
                                         "node" : {
                                           "AstNode" : {
                                             "data" : {
@@ -1261,7 +1261,7 @@
                                                     "fromPort" : {
                                                       "AstNode" : {
                                                         "data" : {
-                                                          "componentInstance" : {
+                                                          "interfaceInstance" : {
                                                             "AstNode" : {
                                                               "data" : {
                                                                 "Unqualified" : {
@@ -1285,7 +1285,7 @@
                                                     "toPort" : {
                                                       "AstNode" : {
                                                         "data" : {
-                                                          "componentInstance" : {
+                                                          "interfaceInstance" : {
                                                             "AstNode" : {
                                                               "data" : {
                                                                 "Unqualified" : {
@@ -1312,7 +1312,7 @@
                                                     "fromPort" : {
                                                       "AstNode" : {
                                                         "data" : {
-                                                          "componentInstance" : {
+                                                          "interfaceInstance" : {
                                                             "AstNode" : {
                                                               "data" : {
                                                                 "Unqualified" : {
@@ -1336,7 +1336,7 @@
                                                     "toPort" : {
                                                       "AstNode" : {
                                                         "data" : {
-                                                          "componentInstance" : {
+                                                          "interfaceInstance" : {
                                                             "AstNode" : {
                                                               "data" : {
                                                                 "Unqualified" : {
@@ -1363,7 +1363,7 @@
                                                     "fromPort" : {
                                                       "AstNode" : {
                                                         "data" : {
-                                                          "componentInstance" : {
+                                                          "interfaceInstance" : {
                                                             "AstNode" : {
                                                               "data" : {
                                                                 "Unqualified" : {
@@ -1387,7 +1387,7 @@
                                                     "toPort" : {
                                                       "AstNode" : {
                                                         "data" : {
-                                                          "componentInstance" : {
+                                                          "interfaceInstance" : {
                                                             "AstNode" : {
                                                               "data" : {
                                                                 "Unqualified" : {
@@ -1414,7 +1414,7 @@
                                                     "fromPort" : {
                                                       "AstNode" : {
                                                         "data" : {
-                                                          "componentInstance" : {
+                                                          "interfaceInstance" : {
                                                             "AstNode" : {
                                                               "data" : {
                                                                 "Unqualified" : {
@@ -1438,7 +1438,7 @@
                                                     "toPort" : {
                                                       "AstNode" : {
                                                         "data" : {
-                                                          "componentInstance" : {
+                                                          "interfaceInstance" : {
                                                             "AstNode" : {
                                                               "data" : {
                                                                 "Unqualified" : {
@@ -1465,7 +1465,7 @@
                                                     "fromPort" : {
                                                       "AstNode" : {
                                                         "data" : {
-                                                          "componentInstance" : {
+                                                          "interfaceInstance" : {
                                                             "AstNode" : {
                                                               "data" : {
                                                                 "Unqualified" : {
@@ -1489,7 +1489,7 @@
                                                     "toPort" : {
                                                       "AstNode" : {
                                                         "data" : {
-                                                          "componentInstance" : {
+                                                          "interfaceInstance" : {
                                                             "AstNode" : {
                                                               "data" : {
                                                                 "Unqualified" : {
@@ -1516,7 +1516,7 @@
                                                     "fromPort" : {
                                                       "AstNode" : {
                                                         "data" : {
-                                                          "componentInstance" : {
+                                                          "interfaceInstance" : {
                                                             "AstNode" : {
                                                               "data" : {
                                                                 "Unqualified" : {
@@ -1540,7 +1540,7 @@
                                                     "toPort" : {
                                                       "AstNode" : {
                                                         "data" : {
-                                                          "componentInstance" : {
+                                                          "interfaceInstance" : {
                                                             "AstNode" : {
                                                               "data" : {
                                                                 "Unqualified" : {

@@ -16,23 +16,49 @@ case class PortInterface(
   private def withSpecialPortMap(newSpecialPortMap: Map[Ast.SpecPortInstance.SpecialKind, PortInstance.Special]) =
     this.copy(specialPortMap = newSpecialPortMap)
 
-  def isSubsetOf(other: PortInterface): Boolean =
-    // Find the first point that does not exist or does not match in the other interface
-    !portMap.exists((name, pi) => {
-      other.portMap.get(name) match {
-        case Some(opi) =>
-          // The port exists, make sure it's the same as ours
-          pi != opi
-        case None => true
+  /* Check if 'this' port interface implements 'other' */
+  def implements(other: PortInterface): Result.Result[Unit] =
+    for {
+      _ <- {
+        // Check all the ports in 'other' to make sure they exist and match to 'this'
+        Result.foldLeft (other.portMap.toList) (()) ((_, pii) => {
+          val (name, pi) = pii
+          this.portMap.get(name) match {
+            case Some(found) =>
+              // Port exists, make sure it matches theirs
+              if found == pi then Right(())
+              else Left(SemanticError.PortInterfaceInvalidPort(
+                found.getLoc,
+                pi.getLoc
+              ))
+            case None =>
+              Left(SemanticError.PortInterfaceMissingPort(
+                pi.getLoc
+              ))
+          }
+        })
       }
-    }) && !specialPortMap.exists((name, pi) => {
-      other.specialPortMap.get(name) match {
-        case Some(opi) =>
-          // The port exists, make sure it's the same as ours
-          pi != opi
-        case None => true
+
+      _ <- {
+        Result.foldLeft (other.specialPortMap) (()) ((_, pii) => {
+          val (kind, pi) = pii
+
+          this.specialPortMap.get(kind) match {
+            case Some(found) =>
+              // The port exists, make sure it's the same theirs
+              if found == pi then Right(())
+              else Left(SemanticError.PortInterfaceInvalidPort(
+                found.getLoc,
+                pi.getLoc
+              ))
+            case None =>
+              Left(SemanticError.PortInterfaceMissingPort(
+                pi.getLoc
+              ))
+          }
+        })
       }
-    })
+    } yield ()
 
   /** Gets a port instance by name */
   def getPortInstance(name: AstNode[Ast.Ident], interfaceName: String): Result.Result[PortInstance] =

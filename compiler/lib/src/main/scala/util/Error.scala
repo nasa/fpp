@@ -333,6 +333,22 @@ sealed trait Error {
       ) =>
         Error.print (Some(importLoc)) (s"failed to import interface")
         err.print
+      case SemanticError.PortInterfaceMissingPort(
+        loc
+      ) =>
+        Error.print (Some(loc)) ("port instance missing definition")
+      case SemanticError.PortInterfaceInvalidPort(
+        loc,
+        defLoc
+      ) =>
+        Error.print (Some(loc)) ("port instance does not match definition in interface:")
+        System.err.println(defLoc)
+      case SemanticError.InterfaceImplements(
+        loc,
+        err
+      ) =>
+        Error.print (Some(loc)) ("port interface not implemented")
+        err.print
       case SemanticError.UseDefCycle(loc, msg) => Error.print (Some(loc)) (msg)
       case XmlError.ParseError(file, msg) => Error.printXml (file) (msg)
       case XmlError.SemanticError(file, msg) => Error.printXml (file) (msg)
@@ -686,6 +702,20 @@ object SemanticError {
   /** Error while importing an interface */
   final case class InterfaceImport(
     importLoc: Location,
+    err: Error
+  ) extends Error
+  /** A port is missing from a port interface */
+  final case class PortInterfaceMissingPort(
+    loc: Location
+  ) extends Error
+  /** A port does not match an expected signature */
+  final case class PortInterfaceInvalidPort(
+    loc: Location,
+    defLoc: Location
+  ) extends Error
+  /** Error while checking if instance implements interface */
+  final case class InterfaceImplements(
+    loc: Location,
     err: Error
   ) extends Error
   /** Passive async input */

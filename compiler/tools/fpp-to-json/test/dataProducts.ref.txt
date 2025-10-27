@@ -584,9 +584,135 @@
       "aNode" : {
         "astNodeId" : 28
       },
-      "portMap" : {
-        "productRequestOut" : {
-          "Special" : {
+      "portInterface" : {
+        "portMap" : {
+          "productRequestOut" : {
+            "Special" : {
+              "aNode" : {
+                "astNodeId" : 7
+              },
+              "specifier" : {
+                "inputKind" : "None",
+                "kind" : {
+                  "ProductRequest" : {
+                    
+                  }
+                },
+                "name" : "productRequestOut",
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "symbol" : {
+                "Port" : {
+                  "nodeId" : 0,
+                  "unqualifiedName" : "DpRequest"
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None",
+              "importNodeIds" : [
+              ]
+            }
+          },
+          "productRecvIn" : {
+            "Special" : {
+              "aNode" : {
+                "astNodeId" : 8
+              },
+              "specifier" : {
+                "inputKind" : {
+                  "Some" : {
+                    "Sync" : {
+                      
+                    }
+                  }
+                },
+                "kind" : {
+                  "ProductRecv" : {
+                    
+                  }
+                },
+                "name" : "productRecvIn",
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "symbol" : {
+                "Port" : {
+                  "nodeId" : 1,
+                  "unqualifiedName" : "DpResponse"
+                }
+              },
+              "priority" : "None",
+              "queueFull" : {
+                "Some" : {
+                  "Assert" : {
+                    
+                  }
+                }
+              },
+              "importNodeIds" : [
+              ]
+            }
+          },
+          "productSendOut" : {
+            "Special" : {
+              "aNode" : {
+                "astNodeId" : 9
+              },
+              "specifier" : {
+                "inputKind" : "None",
+                "kind" : {
+                  "ProductSend" : {
+                    
+                  }
+                },
+                "name" : "productSendOut",
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "symbol" : {
+                "Port" : {
+                  "nodeId" : 2,
+                  "unqualifiedName" : "DpSend"
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None",
+              "importNodeIds" : [
+              ]
+            }
+          },
+          "timeGetOut" : {
+            "Special" : {
+              "aNode" : {
+                "astNodeId" : 10
+              },
+              "specifier" : {
+                "inputKind" : "None",
+                "kind" : {
+                  "TimeGet" : {
+                    
+                  }
+                },
+                "name" : "timeGetOut",
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "symbol" : {
+                "Port" : {
+                  "nodeId" : 5,
+                  "unqualifiedName" : "Time"
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None",
+              "importNodeIds" : [
+              ]
+            }
+          }
+        },
+        "specialPortMap" : {
+          "product request" : {
             "aNode" : {
               "astNodeId" : 7
             },
@@ -611,10 +737,8 @@
             "queueFull" : "None",
             "importNodeIds" : [
             ]
-          }
-        },
-        "productRecvIn" : {
-          "Special" : {
+          },
+          "product recv" : {
             "aNode" : {
               "astNodeId" : 8
             },
@@ -651,10 +775,8 @@
             },
             "importNodeIds" : [
             ]
-          }
-        },
-        "productSendOut" : {
-          "Special" : {
+          },
+          "product send" : {
             "aNode" : {
               "astNodeId" : 9
             },
@@ -679,10 +801,8 @@
             "queueFull" : "None",
             "importNodeIds" : [
             ]
-          }
-        },
-        "timeGetOut" : {
-          "Special" : {
+          },
+          "time get" : {
             "aNode" : {
               "astNodeId" : 10
             },
@@ -708,124 +828,6 @@
             "importNodeIds" : [
             ]
           }
-        }
-      },
-      "specialPortMap" : {
-        "product request" : {
-          "aNode" : {
-            "astNodeId" : 7
-          },
-          "specifier" : {
-            "inputKind" : "None",
-            "kind" : {
-              "ProductRequest" : {
-                
-              }
-            },
-            "name" : "productRequestOut",
-            "priority" : "None",
-            "queueFull" : "None"
-          },
-          "symbol" : {
-            "Port" : {
-              "nodeId" : 0,
-              "unqualifiedName" : "DpRequest"
-            }
-          },
-          "priority" : "None",
-          "queueFull" : "None",
-          "importNodeIds" : [
-          ]
-        },
-        "product recv" : {
-          "aNode" : {
-            "astNodeId" : 8
-          },
-          "specifier" : {
-            "inputKind" : {
-              "Some" : {
-                "Sync" : {
-                  
-                }
-              }
-            },
-            "kind" : {
-              "ProductRecv" : {
-                
-              }
-            },
-            "name" : "productRecvIn",
-            "priority" : "None",
-            "queueFull" : "None"
-          },
-          "symbol" : {
-            "Port" : {
-              "nodeId" : 1,
-              "unqualifiedName" : "DpResponse"
-            }
-          },
-          "priority" : "None",
-          "queueFull" : {
-            "Some" : {
-              "Assert" : {
-                
-              }
-            }
-          },
-          "importNodeIds" : [
-          ]
-        },
-        "product send" : {
-          "aNode" : {
-            "astNodeId" : 9
-          },
-          "specifier" : {
-            "inputKind" : "None",
-            "kind" : {
-              "ProductSend" : {
-                
-              }
-            },
-            "name" : "productSendOut",
-            "priority" : "None",
-            "queueFull" : "None"
-          },
-          "symbol" : {
-            "Port" : {
-              "nodeId" : 2,
-              "unqualifiedName" : "DpSend"
-            }
-          },
-          "priority" : "None",
-          "queueFull" : "None",
-          "importNodeIds" : [
-          ]
-        },
-        "time get" : {
-          "aNode" : {
-            "astNodeId" : 10
-          },
-          "specifier" : {
-            "inputKind" : "None",
-            "kind" : {
-              "TimeGet" : {
-                
-              }
-            },
-            "name" : "timeGetOut",
-            "priority" : "None",
-            "queueFull" : "None"
-          },
-          "symbol" : {
-            "Port" : {
-              "nodeId" : 5,
-              "unqualifiedName" : "Time"
-            }
-          },
-          "priority" : "None",
-          "queueFull" : "None",
-          "importNodeIds" : [
-          ]
         }
       },
       "commandMap" : {

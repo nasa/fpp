@@ -11,7 +11,7 @@ instance c1: C base id 0x100
 instance c2: C base id 0x200
 
 @ A simple topology
-topology Simple {
+topology TopPorts implements I {
 
   @ This specifier says that instance c1 is part of the topology
   instance c1
