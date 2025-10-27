@@ -3475,7 +3475,7 @@ namespace M {
     private:
 
       // ----------------------------------------------------------------------
-      // Parameter delegates
+      // Parameter delegate
       // ----------------------------------------------------------------------
 
       //! Delegate to serialize/deserialize an externally stored parameter

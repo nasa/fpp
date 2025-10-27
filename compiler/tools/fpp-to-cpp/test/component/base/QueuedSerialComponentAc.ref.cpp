@@ -9748,5 +9748,5 @@ Fw::CmdResponse QueuedSerialComponentBase ::
 #endif
 
 // ----------------------------------------------------------------------
-// Parameter delegates
+// Parameter delegate
 // ----------------------------------------------------------------------

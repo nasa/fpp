@@ -3482,7 +3482,7 @@ class QueuedTestComponentBase :
   private:
 
     // ----------------------------------------------------------------------
-    // Parameter delegates
+    // Parameter delegate
     // ----------------------------------------------------------------------
 
     //! Delegate to serialize/deserialize an externally stored parameter

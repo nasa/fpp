@@ -4923,5 +4923,5 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
 #endif
 
 // ----------------------------------------------------------------------
-// Parameter delegates
+// Parameter delegate
 // ----------------------------------------------------------------------

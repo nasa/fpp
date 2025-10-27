@@ -4899,5 +4899,5 @@ Fw::CmdResponse ActiveExternalParamsComponentBase ::
 #endif
 
 // ----------------------------------------------------------------------
-// Parameter delegates
+// Parameter delegate
 // ----------------------------------------------------------------------

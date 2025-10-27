@@ -6470,5 +6470,5 @@ Fw::CmdResponse PassiveSerialComponentBase ::
 #endif
 
 // ----------------------------------------------------------------------
-// Parameter delegates
+// Parameter delegate
 // ----------------------------------------------------------------------

@@ -9724,5 +9724,5 @@ Fw::CmdResponse ActiveSerialComponentBase ::
 #endif
 
 // ----------------------------------------------------------------------
-// Parameter delegates
+// Parameter delegate
 // ----------------------------------------------------------------------
