@@ -18,6 +18,8 @@ final case class ComponentInstance(
   initSpecifierMap: Map[Int, InitSpecifier] = Map()
 ) extends Ordered[ComponentInstance] {
 
+  override def toString = qualifiedName.toString
+
   /** Adds an init specifier */
   def addInitSpecifier(initSpecifier: InitSpecifier):
   Result.Result[ComponentInstance] = {
