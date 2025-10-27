@@ -2352,7 +2352,7 @@ void PassiveExternalParamsComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Parameter update hook
+// Parameter hook functions
 // ----------------------------------------------------------------------
 
 void PassiveExternalParamsComponentBase ::

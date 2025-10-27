@@ -273,7 +273,7 @@ case class ComponentParameters (
   private def getHookFunctions: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
       "protected",
-      "Parameter update hook",
+      "Parameter hook functions",
       List(
         functionClassMember(
           Some(
@@ -293,11 +293,6 @@ case class ComponentParameters (
           CppDoc.Type("void"),
           lines("// Do nothing by default"),
           CppDoc.Function.Virtual
-        ),
-        linesClassMember(
-          CppDocWriter.writeBannerComment(
-            "Parameter load hook"
-          )
         ),
         functionClassMember(
           Some(

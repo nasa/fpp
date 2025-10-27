@@ -1512,7 +1512,7 @@ class ActiveParamsComponentBase :
   protected:
 
     // ----------------------------------------------------------------------
-    // Parameter update hook
+    // Parameter hook functions
     // ----------------------------------------------------------------------
 
     //! \brief Called whenever a parameter is updated
@@ -1521,10 +1521,6 @@ class ActiveParamsComponentBase :
     virtual void parameterUpdated(
         FwPrmIdType id //!< The parameter ID
     );
-
-    // ----------------------------------------------------------------------
-    // Parameter load hook
-    // ----------------------------------------------------------------------
 
     //! \brief Called whenever parameters are loaded
     //!

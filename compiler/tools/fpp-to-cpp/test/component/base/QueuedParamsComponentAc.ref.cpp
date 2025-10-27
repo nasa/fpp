@@ -3312,7 +3312,7 @@ void QueuedParamsComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Parameter update hook
+// Parameter hook functions
 // ----------------------------------------------------------------------
 
 void QueuedParamsComponentBase ::

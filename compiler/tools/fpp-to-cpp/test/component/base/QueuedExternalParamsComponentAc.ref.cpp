@@ -3314,7 +3314,7 @@ void QueuedExternalParamsComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Parameter update hook
+// Parameter hook functions
 // ----------------------------------------------------------------------
 
 void QueuedExternalParamsComponentBase ::

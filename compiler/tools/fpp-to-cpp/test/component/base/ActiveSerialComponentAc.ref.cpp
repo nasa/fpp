@@ -6794,7 +6794,7 @@ void ActiveSerialComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Parameter update hook
+// Parameter hook functions
 // ----------------------------------------------------------------------
 
 void ActiveSerialComponentBase ::

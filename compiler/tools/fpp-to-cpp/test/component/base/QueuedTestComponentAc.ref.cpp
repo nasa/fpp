@@ -6682,7 +6682,7 @@ void QueuedTestComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Parameter update hook
+// Parameter hook functions
 // ----------------------------------------------------------------------
 
 void QueuedTestComponentBase ::

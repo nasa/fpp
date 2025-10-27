@@ -6684,7 +6684,7 @@ namespace M {
   }
 
   // ----------------------------------------------------------------------
-  // Parameter update hook
+  // Parameter hook functions
   // ----------------------------------------------------------------------
 
   void ActiveTestComponentBase ::

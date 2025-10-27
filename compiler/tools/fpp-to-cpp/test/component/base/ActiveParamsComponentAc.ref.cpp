@@ -3312,7 +3312,7 @@ void ActiveParamsComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Parameter update hook
+// Parameter hook functions
 // ----------------------------------------------------------------------
 
 void ActiveParamsComponentBase ::

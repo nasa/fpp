@@ -4975,7 +4975,7 @@ void PassiveTestComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Parameter update hook
+// Parameter hook functions
 // ----------------------------------------------------------------------
 
 void PassiveTestComponentBase ::

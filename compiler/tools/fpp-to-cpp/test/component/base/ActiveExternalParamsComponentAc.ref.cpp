@@ -3314,7 +3314,7 @@ void ActiveExternalParamsComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Parameter update hook
+// Parameter hook functions
 // ----------------------------------------------------------------------
 
 void ActiveExternalParamsComponentBase ::

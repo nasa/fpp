@@ -1217,7 +1217,7 @@ class PassiveExternalParamsComponentBase :
   protected:
 
     // ----------------------------------------------------------------------
-    // Parameter update hook
+    // Parameter hook functions
     // ----------------------------------------------------------------------
 
     //! \brief Called whenever a parameter is updated
@@ -1226,10 +1226,6 @@ class PassiveExternalParamsComponentBase :
     virtual void parameterUpdated(
         FwPrmIdType id //!< The parameter ID
     );
-
-    // ----------------------------------------------------------------------
-    // Parameter load hook
-    // ----------------------------------------------------------------------
 
     //! \brief Called whenever parameters are loaded
     //!

@@ -4737,7 +4737,7 @@ void PassiveSerialComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Parameter update hook
+// Parameter hook functions
 // ----------------------------------------------------------------------
 
 void PassiveSerialComponentBase ::
