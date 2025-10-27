@@ -270,43 +270,47 @@ case class ComponentParameters (
       CppDoc.Lines.Cpp
     )
 
+  private def getParamUpdateHookFunction = functionClassMember(
+    Some(
+      s"""|\\brief Called whenever a parameter is updated
+          |
+          |This function does nothing by default. You may override it.
+          |"""
+    ),
+    "parameterUpdated",
+    List(
+      CppDoc.Function.Param(
+        CppDoc.Type("FwPrmIdType"),
+        "id",
+        Some("The parameter ID")
+      )
+    ),
+    CppDoc.Type("void"),
+    lines("// Do nothing by default"),
+    CppDoc.Function.Virtual
+  )
+
+  private def getParamLoadHookFunction = functionClassMember(
+    Some(
+      s"""|\\brief Called whenever parameters are loaded
+          |
+          |This function does nothing by default. You may override it.
+          |"""
+    ),
+    "parametersLoaded",
+    Nil,
+    CppDoc.Type("void"),
+    lines("// Do nothing by default"),
+    CppDoc.Function.Virtual
+  )
+
   private def getHookFunctions: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
       "protected",
       "Parameter hook functions",
       List(
-        functionClassMember(
-          Some(
-            s"""|\\brief Called whenever a parameter is updated
-                |
-                |This function does nothing by default. You may override it.
-                |"""
-          ),
-          "parameterUpdated",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("FwPrmIdType"),
-              "id",
-              Some("The parameter ID")
-            )
-          ),
-          CppDoc.Type("void"),
-          lines("// Do nothing by default"),
-          CppDoc.Function.Virtual
-        ),
-        functionClassMember(
-          Some(
-            s"""|\\brief Called whenever parameters are loaded
-                |
-                |This function does nothing by default. You may override it.
-                |"""
-          ),
-          "parametersLoaded",
-          Nil,
-          CppDoc.Type("void"),
-          lines("// Do nothing by default"),
-          CppDoc.Function.Virtual
-        )
+        getParamUpdateHookFunction,
+        getParamLoadHookFunction
       )
     )
   }
