@@ -187,9 +187,9 @@ module DefinitionsAndSpecifiers {
     command connections instance i1 { i2, i3, i4 }
     @< Graph pattern specifier
 
-    @ Topology import specifier
+    @ Topology instance specifier
     import T1
-    @< Topology import specifier
+    @< Topology instance specifier
 
     @ Telemetry packet group
     telemetry packets P {

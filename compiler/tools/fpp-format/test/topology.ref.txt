@@ -8,7 +8,7 @@ topology T implements \
 
   instance i2
 
-  import T2
+  instance T2
 
   port p2 = i1.p2
 

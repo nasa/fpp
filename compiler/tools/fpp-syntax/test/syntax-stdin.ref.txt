@@ -344,10 +344,10 @@ def module
       target qual ident i3
       target qual ident i4
     @< Graph pattern specifier
-    @ Topology import specifier
+    @ Topology instance specifier
     spec interface instance
       qual ident T1
-    @< Topology import specifier
+    @< Topology instance specifier
     @ Telemetry packet group
     spec tlm packet set
       ident P
