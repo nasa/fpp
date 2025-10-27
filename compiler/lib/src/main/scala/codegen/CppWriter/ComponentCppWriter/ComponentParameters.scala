@@ -465,75 +465,81 @@ case class ComponentParameters (
       sortedParams.map((_, param) => getSetterForParam(param))
     )
 
+  private def writeSaveFunctionBodyForParam(param: Param) = {
+    val idConstantName = paramIdConstantName(param.getName)
+    val paramVarName = paramVariableName(param.getName)
+    List.concat(
+      lines(
+        s"""|Fw::ParamBuffer _saveBuff;
+            |FwPrmIdType _id;
+            |Fw::SerializeStatus _stat;
+            |
+            |"""
+      ),
+      wrapInIf(
+        s"this->${portVariableName(prmSetPort.get)}[0].isConnected()",
+        List.concat(
+          if (param.isExternal)
+          then lines(
+            s"""|// Get the local and base ID to pass to the delegate
+                |_id = $idConstantName;
+                |const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
+                |
+                |FW_ASSERT(this->paramDelegatePtr != nullptr);
+                |_stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
+                |"""
+          )
+          else lines (
+            s"""|this->m_paramLock.lock();
+                |
+                |_stat = _saveBuff.serializeFrom($paramVarName);
+                |
+                |this->m_paramLock.unLock();
+                |"""
+          ),
+          lines(
+            s"""|if (_stat != Fw::FW_SERIALIZE_OK) {
+                |  return Fw::CmdResponse::VALIDATION_ERROR;
+                |}
+                |
+                |_id = static_cast<FwPrmIdType>(this->getIdBase() + $idConstantName);
+                |
+                |// Save the parameter
+                |this->${portVariableName(prmSetPort.get)}[0].invoke(
+                |  _id,
+                |  _saveBuff
+                |);
+                |
+                |return Fw::CmdResponse::OK;
+                |"""
+          )
+        )
+      ),
+      Line.blank :: lines("return Fw::CmdResponse::EXECUTION_ERROR;")
+    )
+  }
+
+  private def getSaveFunctionForParam(param: Param) =
+    functionClassMember(
+      Some(
+        s"""|Save parameter ${param.getName}
+            |
+            |\\return The command response
+            |"""
+      ),
+      paramHandlerName(param.getName, Command.Param.Save),
+      Nil,
+      CppDoc.Type("Fw::CmdResponse"),
+      writeSaveFunctionBodyForParam(param)
+    )
+
   private def getSaveFunctions: List[CppDoc.Class.Member] =
     wrapClassMembersInIfDirective(
       "#if !FW_DIRECT_PORT_CALLS // TODO",
       addAccessTagAndComment(
         "private",
         "Parameter save functions",
-        sortedParams.map((_, param) =>
-          functionClassMember(
-            Some(
-              s"""|Save parameter ${param.getName}
-                  |
-                  |\\return The command response
-                  |"""
-            ),
-            paramHandlerName(param.getName, Command.Param.Save),
-            Nil,
-            CppDoc.Type("Fw::CmdResponse"),
-            List.concat(
-              lines(
-                s"""|Fw::ParamBuffer _saveBuff;
-                    |FwPrmIdType _id;
-                    |Fw::SerializeStatus _stat;
-                    |
-                    |"""
-              ),
-              wrapInIf(
-                s"this->${portVariableName(prmSetPort.get)}[0].isConnected()",
-                List.concat(
-                  if (param.isExternal) {
-                    lines(
-                      s"""|// Get the local and base ID to pass to the delegate
-                          |_id = ${paramIdConstantName(param.getName)};
-                          |const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
-                          |
-                          |FW_ASSERT(this->paramDelegatePtr != nullptr);
-                          |_stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
-                          |"""
-                    )
-                  } else {
-                    lines(
-                      s"""|this->m_paramLock.lock();
-                          |
-                          |_stat = _saveBuff.serializeFrom(${paramVariableName(param.getName)});
-                          |
-                          |this->m_paramLock.unLock();
-                          |"""
-                    )
-                  }
-                ) ++ lines(
-                  s"""|if (_stat != Fw::FW_SERIALIZE_OK) {
-                      |  return Fw::CmdResponse::VALIDATION_ERROR;
-                      |}
-                      |
-                      |_id = static_cast<FwPrmIdType>(this->getIdBase() + ${paramIdConstantName(param.getName)});
-                      |
-                      |// Save the parameter
-                      |this->${portVariableName(prmSetPort.get)}[0].invoke(
-                      |  _id,
-                      |  _saveBuff
-                      |);
-                      |
-                      |return Fw::CmdResponse::OK;
-                      |"""
-                )
-              ),
-              Line.blank :: lines("return Fw::CmdResponse::EXECUTION_ERROR;")
-            )
-          )
-        )
+        sortedParams.map((_, param) => getSaveFunctionForParam(param))
       ),
       CppDoc.Lines.Cpp
     )
