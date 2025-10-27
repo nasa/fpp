@@ -121,27 +121,35 @@ case class ComponentParameters (
       )
     )
 
+  private def getParam(param: Param, validityFlag: String) = {
+    val paramName = param.getName
+    val idConstantName = paramIdConstantName(paramName)
+    lines(
+      s"""|_id = _baseId + $idConstantName;
+          |
+          |// Get parameter $paramName
+          |$validityFlag = this->${portVariableName(prmGetPort.get)}[0].invoke(
+          |  _id,
+          |  _buff
+          |);"""
+    )
+  }
+
   private def writeLoadForExternalParam(param: Param) = {
     val paramName = param.getName
     val idConstantName = paramIdConstantName(paramName)
     val varName = paramVariableName(paramName)
     List.concat(
+      getParam(param, "_paramValid"),
       lines(
-        s"""|_id = _baseId + $idConstantName;
-            |
-            |// Get parameter $paramName
-            |param_valid = this->${portVariableName(prmGetPort.get)}[0].invoke(
-            |  _id,
-            |  _buff
-            |);
-            |
+        s"""|
             |// Get the local ID to pass to the delegate
             |_id = $idConstantName;
             |// If there was a deserialization issue, mark it invalid
             |"""
       ),
       wrapInIfElse(
-        s"param_valid == Fw::ParamValid::VALID",
+        s"_paramValid == Fw::ParamValid::VALID",
         List.concat(
           lines(
             s"""|// Pass the local ID to the delegate
@@ -149,17 +157,17 @@ case class ComponentParameters (
                 |
                 |FW_ASSERT(this->paramDelegatePtr != nullptr);
                 |// Call the delegate deserialize function for $varName
-                |_stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
+                |_stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, _paramValid, _buff);
                 |"""
           ),
           wrapInIf(
             "_stat != Fw::FW_SERIALIZE_OK",
             lines(
-              s"param_valid = Fw::ParamValid::INVALID;"
+              s"_paramValid = Fw::ParamValid::INVALID;"
             )
           )
         ),
-        lines(s"param_valid = Fw::ParamValid::INVALID;")
+        lines(s"_paramValid = Fw::ParamValid::INVALID;")
       )
     )
   }
@@ -170,16 +178,9 @@ case class ComponentParameters (
     val validityFlagName = paramValidityFlagName(paramName)
     val varName = paramVariableName(paramName)
     List.concat(
+      getParam(param, s"this->$validityFlagName"),
       lines(
-        s"""|_id = _baseId + $idConstantName;
-            |
-            |// Get parameter $paramName
-            |this->$validityFlagName =
-            |  this->${portVariableName(prmGetPort.get)}[0].invoke(
-            |    _id,
-            |    _buff
-            |  );
-            |
+        s"""|
             |// Deserialize value
             |this->m_paramLock.lock();
             |
@@ -229,7 +230,7 @@ case class ComponentParameters (
               |FwPrmIdType _id{};
               |"""
         ),
-        guardedList (hasExternalParameters) (lines("Fw::ParamValid param_valid;")),
+        guardedList (hasExternalParameters) (lines("Fw::ParamValid _paramValid;")),
         intersperseBlankLines(
           sortedParams.map((_, param) =>
             if param.isExternal

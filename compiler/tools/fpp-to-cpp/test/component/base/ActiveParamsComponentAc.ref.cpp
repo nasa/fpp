@@ -1678,11 +1678,10 @@ void ActiveParamsComponentBase ::
   _id = _baseId + PARAMID_PARAMU32;
 
   // Get parameter ParamU32
-  this->m_param_ParamU32_valid =
-    this->m_prmGetOut_OutputPort[0].invoke(
-      _id,
-      _buff
-    );
+  this->m_param_ParamU32_valid = this->m_prmGetOut_OutputPort[0].invoke(
+    _id,
+    _buff
+  );
 
   // Deserialize value
   this->m_paramLock.lock();
@@ -1703,11 +1702,10 @@ void ActiveParamsComponentBase ::
   _id = _baseId + PARAMID_PARAMF64;
 
   // Get parameter ParamF64
-  this->m_param_ParamF64_valid =
-    this->m_prmGetOut_OutputPort[0].invoke(
-      _id,
-      _buff
-    );
+  this->m_param_ParamF64_valid = this->m_prmGetOut_OutputPort[0].invoke(
+    _id,
+    _buff
+  );
 
   // Deserialize value
   this->m_paramLock.lock();
@@ -1728,11 +1726,10 @@ void ActiveParamsComponentBase ::
   _id = _baseId + PARAMID_PARAMSTRING;
 
   // Get parameter ParamString
-  this->m_param_ParamString_valid =
-    this->m_prmGetOut_OutputPort[0].invoke(
-      _id,
-      _buff
-    );
+  this->m_param_ParamString_valid = this->m_prmGetOut_OutputPort[0].invoke(
+    _id,
+    _buff
+  );
 
   // Deserialize value
   this->m_paramLock.lock();
@@ -1757,11 +1754,10 @@ void ActiveParamsComponentBase ::
   _id = _baseId + PARAMID_PARAMENUM;
 
   // Get parameter ParamEnum
-  this->m_param_ParamEnum_valid =
-    this->m_prmGetOut_OutputPort[0].invoke(
-      _id,
-      _buff
-    );
+  this->m_param_ParamEnum_valid = this->m_prmGetOut_OutputPort[0].invoke(
+    _id,
+    _buff
+  );
 
   // Deserialize value
   this->m_paramLock.lock();
@@ -1782,11 +1778,10 @@ void ActiveParamsComponentBase ::
   _id = _baseId + PARAMID_PARAMARRAY;
 
   // Get parameter ParamArray
-  this->m_param_ParamArray_valid =
-    this->m_prmGetOut_OutputPort[0].invoke(
-      _id,
-      _buff
-    );
+  this->m_param_ParamArray_valid = this->m_prmGetOut_OutputPort[0].invoke(
+    _id,
+    _buff
+  );
 
   // Deserialize value
   this->m_paramLock.lock();
@@ -1811,11 +1806,10 @@ void ActiveParamsComponentBase ::
   _id = _baseId + PARAMID_PARAMSTRUCT;
 
   // Get parameter ParamStruct
-  this->m_param_ParamStruct_valid =
-    this->m_prmGetOut_OutputPort[0].invoke(
-      _id,
-      _buff
-    );
+  this->m_param_ParamStruct_valid = this->m_prmGetOut_OutputPort[0].invoke(
+    _id,
+    _buff
+  );
 
   // Deserialize value
   this->m_paramLock.lock();
