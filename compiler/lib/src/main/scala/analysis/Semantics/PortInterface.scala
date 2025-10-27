@@ -40,7 +40,7 @@ case class PortInterface(
       }
 
       _ <- {
-        Result.foldLeft (other.specialPortMap) (()) ((_, pii) => {
+        Result.foldLeft (other.specialPortMap.toList) (()) ((_, pii) => {
           val (kind, pi) = pii
 
           this.specialPortMap.get(kind) match {

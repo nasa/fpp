@@ -43,6 +43,18 @@ sealed trait PortInstance {
     loc: Location // The location whether the connection is requested
   ): Result.Result[Unit] = Right(())
 
+  override def equals(obj: Any): Boolean =
+    obj match {
+      case other: PortInstance =>
+        return (
+          this.getArraySize == other.getArraySize &&
+          this.getDirection == other.getDirection &&
+          this.getType == other.getType &&
+          this.getUnqualifiedName == other.getUnqualifiedName
+        )
+      case _ => false
+    }
+
 }
 
 object PortInstance {

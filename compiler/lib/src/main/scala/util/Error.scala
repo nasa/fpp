@@ -336,7 +336,7 @@ sealed trait Error {
       case SemanticError.PortInterfaceMissingPort(
         loc
       ) =>
-        Error.print (Some(loc)) ("port instance missing definition")
+        Error.print (Some(loc)) ("port instance missing")
       case SemanticError.PortInterfaceInvalidPort(
         loc,
         defLoc

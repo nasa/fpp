@@ -4,10 +4,7 @@ topology A implements I {
                       ^
 error: port interface not implemented
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/top_ports/implements_port_missing.fpp:27.3
-  port pOut = c1.pOutDifferentName
-  ^
-error: port instance does not match definition in interface:
-[ local path prefix ]/compiler/tools/fpp-check/test/top_ports/implements_port_missing.fpp:4.5
-    output port pOut: [2] P
+[ local path prefix ]/compiler/tools/fpp-check/test/top_ports/implements_port_missing.fpp:5.5
+    output port pOut2: [3] P
     ^
+error: port instance missing
