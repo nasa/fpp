@@ -164,52 +164,58 @@ case class ComponentParameters (
     )
   }
 
-  private def writeLoadForInternalParam(param: Param) = List.concat(
-    lines(
-      s"""|_id = _baseId + ${paramIdConstantName(param.getName)};
-          |
-          |// Get parameter ${param.getName}
-          |this->${paramValidityFlagName(param.getName)} =
-          |  this->${portVariableName(prmGetPort.get)}[0].invoke(
-          |    _id,
-          |    _buff
-          |  );
-          |
-          |// Deserialize value
-          |this->m_paramLock.lock();
-          |
-          |// If there was a deserialization issue, mark it invalid
-          |"""
-    ),
-    wrapInIfElse(
-      s"this->${paramValidityFlagName(param.getName)} == Fw::ParamValid::VALID",
-      line(s"_stat = _buff.deserializeTo(this->${paramVariableName(param.getName)});") ::
-      wrapInIf(
-        "_stat != Fw::FW_SERIALIZE_OK",
+  private def writeLoadForInternalParam(param: Param) = {
+    val paramName = param.getName
+    val idConstantName = paramIdConstantName(paramName)
+    val validityFlagName = paramValidityFlagName(paramName)
+    val varName = paramVariableName(paramName)
+    List.concat(
+      lines(
+        s"""|_id = _baseId + $idConstantName;
+            |
+            |// Get parameter $paramName
+            |this->$validityFlagName =
+            |  this->${portVariableName(prmGetPort.get)}[0].invoke(
+            |    _id,
+            |    _buff
+            |  );
+            |
+            |// Deserialize value
+            |this->m_paramLock.lock();
+            |
+            |// If there was a deserialization issue, mark it invalid
+            |"""
+      ),
+      wrapInIfElse(
+        s"this->$validityFlagName == Fw::ParamValid::VALID",
+        line(s"_stat = _buff.deserializeTo(this->$varName);") ::
+        wrapInIf(
+          "_stat != Fw::FW_SERIALIZE_OK",
+          param.default match {
+            case Some(value) => lines(
+              s"""|this->$validityFlagName = Fw::ParamValid::DEFAULT;
+                  |// Set default value
+                  |this->$varName = ${ValueCppWriter.write(s, value)};
+                  |"""
+            )
+            case None => lines(
+              s"this->$validityFlagName = Fw::ParamValid::INVALID;"
+            )
+          }
+        ),
         param.default match {
           case Some(value) => lines(
-            s"""|this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::DEFAULT;
-                |// Set default value
-                |this->${paramVariableName(param.getName)} = ${ValueCppWriter.write(s, value)};
+            s"""|// Set default value
+                |this->$validityFlagName = Fw::ParamValid::DEFAULT;
+                |this->$varName = ${ValueCppWriter.write(s, value)};
                 |"""
           )
-          case None => lines(
-            s"this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::INVALID;"
-          )
+          case None => lines("// No default")
         }
       ),
-      param.default match {
-        case Some(value) => lines(
-          s"""|// Set default value
-              |this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::DEFAULT;
-              |this->${paramVariableName(param.getName)} = ${ValueCppWriter.write(s, value)};
-              |"""
-        )
-        case None => lines("// No default")
-      }
-    ),
-    Line.blank :: lines("this->m_paramLock.unLock();")
-  )
+      Line.blank :: lines("this->m_paramLock.unLock();")
+    )
+  }
 
   private def writeLoadFunctionBody =
     intersperseBlankLines(
