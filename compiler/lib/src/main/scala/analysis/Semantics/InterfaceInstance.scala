@@ -5,6 +5,9 @@ import fpp.compiler.util._
 
 /** An FPP interface instance */
 sealed trait InterfaceInstance {
+
+  override def toString = getQualifiedName.toString
+
   /** Gets the qualified name of the interface instance */
   def getQualifiedName: Name.Qualified
 
