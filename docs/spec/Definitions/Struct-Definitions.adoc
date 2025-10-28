@@ -60,7 +60,7 @@ If the expression specifies a value for a member with size
 greater than one, then the value is applied to each element.
 
 If the optional keyword `dictionary` is present, then the
-definition must conform to the rules stated in the 
+definition must conform to the rules stated in the
 <<Definitions_Dictionary-Definitions,dictionary definitions>> section.
 
 ==== Examples

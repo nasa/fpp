@@ -19,7 +19,7 @@ Elsewhere in the model, the name _N_ may be used as alias of (i.e., an
 alternate name for) the type _T_.
 
 If the optional keyword `dictionary` is present, then the
-definition must conform to the rules stated in the 
+definition must conform to the rules stated in the
 <<Definitions_Dictionary-Definitions,dictionary definitions>> section.
 
 ==== Examples

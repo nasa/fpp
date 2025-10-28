@@ -25,7 +25,7 @@ the constant definition according to the
 rules for names>>, you can use _Q_ as a name for _v_.
 
 If the optional keyword `dictionary` is present, then the
-definition must conform to the rules stated in the 
+definition must conform to the rules stated in the
 <<Definitions_Dictionary-Definitions,dictionary definitions>> section.
 
 ==== Examples

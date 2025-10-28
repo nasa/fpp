@@ -53,7 +53,7 @@ with the enum definition.
 The type of the expression must be the type of the enum definition.
 
 If the optional keyword `dictionary` is present, then the
-definition must conform to the rules stated in the 
+definition must conform to the rules stated in the
 <<Definitions_Dictionary-Definitions,dictionary definitions>> section.
 
 ==== Inferred Representation Type

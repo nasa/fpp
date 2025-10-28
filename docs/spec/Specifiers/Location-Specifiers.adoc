@@ -16,10 +16,10 @@ A location specifier is one of the following:
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
 
-* A *constant location specifier* `locate` 
+* A *constant location specifier* `locate`
 _[_
 `dictionary`
-_]_ 
+_]_
 `constant`
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
@@ -93,7 +93,7 @@ This rule allows the specification of dependencies for a larger set
 of files than the ones involved in a particular analysis
 or translation.
 If _Q_ does refer to a definition _D_, then _S_
-must be a dictionary specifier if _D_ is a 
+must be a dictionary specifier if _D_ is a
 <<Definitions_Dictionary-Definitions,dictionary definition>>;
 otherwise it must not be.
 
@@ -107,10 +107,10 @@ the file must contain the definition referred to in the
 location specifier.
 
 . Multiple location specifiers for the same definition are allowed in a single
-<<Translation-Units-and-Models_Models,model>>, so long as the following 
+<<Translation-Units-and-Models_Models,model>>, so long as the following
 conditions are met:
 
-.. All of the specifiers must be dictionary specifiers, or none of them must 
+.. All of the specifiers must be dictionary specifiers, or none of them must
    be.
 
 .. All the specifiers must have the same locations.

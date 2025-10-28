@@ -1,7 +1,7 @@
 === Dictionary Definitions
 
 If the optional keyword `dictionary` appears in a type definition or
-a constant definition, then that definition is called a 
+a constant definition, then that definition is called a
 *dictionary definition*.
 A dictionary definition instructs the code generator to include
 the definition in the ground dictionary.
@@ -33,5 +33,5 @@ type T1
 dictionary type T2 = T1 # Error: T2 is not displayable
 
 # Error: c does not have primitive, string, or enum type
-dictionary constant c = { x = U32 } 
+dictionary constant c = { x = U32 }
 ----
