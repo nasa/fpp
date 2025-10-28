@@ -224,7 +224,7 @@ case class ComponentEvents (
                     lines(
                       s"_status = $name.serializeTo(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, $serialSize));"
                     )
-                  case t => 
+                  case t =>
                     val sizeExpr = writeStaticSerializedSizeExpr(s, t, typeName)
                     lines(
                       s"""|#if FW_AMPCS_COMPATIBLE

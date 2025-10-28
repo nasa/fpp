@@ -985,7 +985,7 @@ object ComponentCppWriterUtils {
   /** Whether code generation is internal or external to the component */
   enum InternalOrExternal {
     case Internal
-    case External 
+    case External
   }
 
   /** (  parameter name, parameter type name, parameter type ) **/
