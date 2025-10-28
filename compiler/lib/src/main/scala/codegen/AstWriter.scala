@@ -2,6 +2,7 @@ package fpp.compiler.codegen
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
+import fpp.compiler.ast.Ast.QualIdent
 
 /** Write out an FPP AST */
 object AstWriter extends AstVisitor with LineUtils {
@@ -243,8 +244,13 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
+    val implementsClause = data.implements.length match {
+      case 0 => Nil
+      case _ => lines("implements") ++ data.implements.flatMap(q => qualIdent(q.data)).map(indentIn)
+    }
+
     lines("def topology") ++
-    (ident(data.name) ++ data.members.flatMap(topologyMember)).map(indentIn)
+    (ident(data.name) ++ implementsClause ++ data.members.flatMap(topologyMember)).map(indentIn)
   }
 
   override def default(in: In) =
@@ -370,7 +376,6 @@ object AstWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines("spec comp instance") ++ (
-      lines(visibility(data.visibility)) ++
       qualIdent(data.instance.data)
     ).map(indentIn)
   }
@@ -428,6 +433,14 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
+
+    def throttleClause(throttle: AstNode[Ast.EventThrottle]) = {
+      List.concat(
+        addPrefix("throttle", exprNode) (throttle.data.count),
+        linesOpt(addPrefix("every", exprNode), throttle.data.every),
+      )
+    }
+
     lines("spec event") ++
     List.concat(
       ident(data.name),
@@ -435,7 +448,7 @@ object AstWriter extends AstVisitor with LineUtils {
       lines(s"severity ${data.severity.toString}"),
       linesOpt(addPrefix("id", exprNode), data.id),
       addPrefix("format", string) (data.format.data),
-      linesOpt(addPrefix("throttle", exprNode), data.throttle),
+      linesOpt(throttleClause, data.throttle)
     ).map(indentIn)
   }
 
@@ -683,6 +696,21 @@ object AstWriter extends AstVisitor with LineUtils {
           lines("omitted"),
           data.omitted.flatMap(applyToData(tlmChannelIdentifier)).map(indentIn)
         )
+      ).map(indentIn)
+    )
+  }
+
+  override def specTopPortAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTopPort]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    List.concat(
+      lines("spec top port"),
+      List.concat(
+        ident(data.name),
+        qualIdent(data.underlyingPort.data)
       ).map(indentIn)
     )
   }
@@ -938,7 +966,5 @@ object AstWriter extends AstVisitor with LineUtils {
     addPrefix("type name", matchTypeNameNode((), _)) (node)
 
   private def unop(op: Ast.Unop) = lines(s"unop ${op.toString}")
-
-  private def visibility(v: Ast.Visibility) = v.toString
 
 }

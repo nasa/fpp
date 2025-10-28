@@ -129,6 +129,11 @@ syntax_stdin()
   diff -u syntax-stdin.ref.txt syntax-stdin.out.txt > syntax-stdin.diff.txt 2>&1
 }
 
+topology_ports()
+{
+  run_test -ia topology-ports
+}
+
 two_input_files()
 {
   $fpp_syntax -ia include-module.fpp include-component.fpp 2>&1 > two-input-files.out.txt
@@ -158,6 +163,7 @@ syntax_ast
 syntax_include_ast
 syntax_kwd_names
 syntax_stdin
+topology_ports
 two_input_files
 "
 

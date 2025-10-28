@@ -300,7 +300,8 @@ object Ast {
   /** Topology defintion */
   final case class DefTopology(
     name: Ident,
-    members: List[TopologyMember]
+    members: List[TopologyMember],
+    implements: List[AstNode[QualIdent]],
   )
 
   /** Topology member */
@@ -310,6 +311,7 @@ object Ast {
     final case class SpecCompInstance(node: AstNode[Ast.SpecCompInstance]) extends Node
     final case class SpecConnectionGraph(node: AstNode[Ast.SpecConnectionGraph]) extends Node
     final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
+    final case class SpecTopPort(node: AstNode[Ast.SpecTopPort]) extends Node
     final case class SpecTlmPacketSet(node: AstNode[Ast.SpecTlmPacketSet]) extends Node
     final case class SpecTopImport(node: AstNode[Ast.SpecImport]) extends Node
   }
@@ -456,7 +458,6 @@ object Ast {
 
   /** Component instance specifier */
   final case class SpecCompInstance(
-    visibility: Visibility,
     instance: AstNode[QualIdent]
   )
 
@@ -517,6 +518,11 @@ object Ast {
     defaultPriority: Option[AstNode[Expr]]
   )
 
+  final case class EventThrottle(
+    count: AstNode[Expr],
+    every: Option[AstNode[Expr]]
+  )
+
   /** Event specifier */
   final case class SpecEvent(
     name: Ident,
@@ -524,7 +530,7 @@ object Ast {
     severity: SpecEvent.Severity,
     id: Option[AstNode[Expr]],
     format: AstNode[String],
-    throttle: Option[AstNode[Expr]]
+    throttle: Option[AstNode[EventThrottle]]
   )
   object SpecEvent {
     /** Event severity */
@@ -784,6 +790,12 @@ object Ast {
     omitted: List[AstNode[TlmChannelIdentifier]]
   )
 
+  /** Topology port specifier */
+  final case class SpecTopPort(
+    name: Ident,
+    underlyingPort: AstNode[QualIdent],
+  )
+
   /** Import specifier */
   final case class SpecImport(sym: AstNode[QualIdent])
 
@@ -879,17 +891,6 @@ object Ast {
   object Unop {
     case object Minus extends Unop {
       override def toString = "-"
-    }
-  }
-
-  /** Visibility */
-  sealed trait Visibility
-  object Visibility {
-    case object Private extends Visibility {
-      override def toString = "private"
-    }
-    case object Public extends Visibility {
-      override def toString = "public"
     }
   }
 }

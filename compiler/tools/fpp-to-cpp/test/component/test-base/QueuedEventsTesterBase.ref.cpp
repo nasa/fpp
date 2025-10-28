@@ -1871,230 +1871,6 @@ void QueuedEventsTesterBase ::
 }
 
 // ----------------------------------------------------------------------
-// Getters for port counts
-// ----------------------------------------------------------------------
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_to_cmdIn() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_to_aliasTypedAsync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_aliasTypedAsync));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_to_noArgsAliasStringReturnSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsAliasStringReturnSync));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_to_noArgsAsync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsAsync));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_to_noArgsGuarded() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_to_noArgsReturnGuarded() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnGuarded));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_to_noArgsReturnSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnSync));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_to_noArgsStringReturnSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsStringReturnSync));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_to_noArgsSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsSync));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_to_typedAliasGuarded() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAliasGuarded));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_to_typedAliasReturnSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAliasReturnSync));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_to_typedAliasStringReturnSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAliasStringReturnSync));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_to_typedAsync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsync));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_to_typedAsyncAssert() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncAssert));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_to_typedAsyncBlockPriority() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncBlockPriority));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_to_typedAsyncDropPriority() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncDropPriority));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_to_typedGuarded() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedGuarded));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_to_typedReturnGuarded() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnGuarded));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_to_typedReturnSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnSync));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_to_typedSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedSync));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_from_cmdRegOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdRegOut));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_from_cmdResponseOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdResponseOut));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_from_eventOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_eventOut));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_from_prmGetOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmGetOut));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_from_prmSetOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmSetOut));
-}
-
-#if FW_ENABLE_TEXT_LOGGING == 1
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_from_textEventOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_textEventOut));
-}
-
-#endif
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_from_timeGetOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_timeGetOut));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_from_tlmOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_from_noArgsOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsOut));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_from_noArgsReturnOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsReturnOut));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_from_noArgsStringReturnOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsStringReturnOut));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_from_typedAliasOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedAliasOut));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_from_typedAliasReturnOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedAliasReturnOut));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_from_typedAliasReturnStringOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedAliasReturnStringOut));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_from_typedOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
-}
-
-FwIndexType QueuedEventsTesterBase ::
-  getNum_from_typedReturnOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
-}
-
-// ----------------------------------------------------------------------
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
 
@@ -2687,6 +2463,21 @@ void QueuedEventsTesterBase ::
       break;
     }
 
+    case QueuedEventsComponentBase::EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL: {
+#if FW_AMPCS_COMPATIBLE
+      // For AMPCS, decode zero arguments
+      Fw::SerializeStatus _zero_status = Fw::FW_SERIALIZE_OK;
+      U8 _noArgs;
+      _zero_status = args.deserializeTo(_noArgs);
+      FW_ASSERT(
+        _zero_status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_zero_status)
+      );
+#endif
+      this->logIn_WARNING_LO_EventWarningLowThrottledInterval();
+      break;
+    }
+
     default: {
       FW_ASSERT(0, static_cast<FwAssertArgType>(id));
       break;
@@ -2781,6 +2572,13 @@ void QueuedEventsTesterBase ::
   logIn_WARNING_LO_EventWarningLowThrottled()
 {
   this->eventsSize_EventWarningLowThrottled++;
+  this->eventsSize++;
+}
+
+void QueuedEventsTesterBase ::
+  logIn_WARNING_LO_EventWarningLowThrottledInterval()
+{
+  this->eventsSize_EventWarningLowThrottledInterval++;
   this->eventsSize++;
 }
 
@@ -2969,6 +2767,7 @@ void QueuedEventsTesterBase ::
   this->eventHistory_EventFatalThrottled->clear();
   this->eventHistory_EventWarningHigh->clear();
   this->eventsSize_EventWarningLowThrottled = 0;
+  this->eventsSize_EventWarningLowThrottledInterval = 0;
 }
 
 #if FW_ENABLE_TEXT_LOGGING

@@ -47,11 +47,11 @@ object ResolveSpecInclude extends AstStateTransformer {
     node: Ast.Annotated[AstNode[Ast.DefTopology]]
   ) = {
     val (pre, node1, post) = node
-    val Ast.DefTopology(name, members) = node1.data
+    val Ast.DefTopology(name, members, implements) = node1.data
     for { result <- transformList(a, members, topologyMember) }
     yield {
       val (a1, members1) = result
-      val defTopology = Ast.DefTopology(name, members1.flatten)
+      val defTopology = Ast.DefTopology(name, members1.flatten, implements)
       val node2 = AstNode.create(defTopology, node1.id)
       (a1, (pre, node2, post))
     }

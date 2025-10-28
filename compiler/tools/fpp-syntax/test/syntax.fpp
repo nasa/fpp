@@ -100,6 +100,10 @@ module DefinitionsAndSpecifiers {
     event E(a: U32, b: F32) severity activity low id 0x00 format "{} counts" throttle 10
     @< Event specifier
 
+    @ Event specifier with throttle timeout
+    event ET(a: U32, b: F32) severity activity high id 0x00 format "{} counts" throttle 10 every {seconds=10}
+    @< Event specifier
+
     @ Internal port specifier
     internal port I(a: U32, b: F32) priority 10 assert
     @< Internal port specifier
@@ -175,10 +179,6 @@ module DefinitionsAndSpecifiers {
     instance i1
     @< Public instance specifier
 
-    @ Private instance specifier
-    private instance i2
-    @< Private instance specifier
-
     @ Direct connection graph specifier
     connections C {
       i1.p[0] -> i2.p[1]
@@ -214,8 +214,19 @@ module DefinitionsAndSpecifiers {
     }
     @< Telemetry packet group
 
+    @ Topology port specifier
+    port a = b.a
+    @< Topology port specifier
   }
   @< Topology definition
+
+  @ Topology definition with one implements
+  topology T implements I {}
+  @< Topology definition with one implements
+
+  @ Topology definition with two implements
+  topology T implements I, I {}
+  @< Topology definition with two implements
 
   @ Location specifier
   locate instance i at "instances.fpp"

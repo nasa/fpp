@@ -16,7 +16,7 @@ topology Simple1 {
   @ This specifier says that instance c1 is part of the topology
   instance c1
   @ This specifier says that instance c2 is part of the topology
-  private instance c2
+  instance c2
 
   @ This code specifies a connection graph C1
   connections C1 {

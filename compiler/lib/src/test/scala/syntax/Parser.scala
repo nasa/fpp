@@ -248,10 +248,14 @@ class ParserSpec extends AnyWordSpec {
       Parser.defTopology,
       List(
         "topology T {}",
+        "topology T implements I {}",
+        "topology T implements I1.I2 {}",
+        "topology T implements I1.I2, I3.I4 {}",
         """topology T {
           instance i
           connections C {}
           import T
+          port p = a.b
           include "a.fpp"
         }""",
         """topology T {
@@ -398,9 +402,6 @@ class ParserSpec extends AnyWordSpec {
         "instance a",
         "instance a.b",
         "instance a.b.c",
-        "private instance a",
-        "private instance a.b",
-        "private instance a.b.c",
       )
     )
   }
@@ -454,6 +455,7 @@ class ParserSpec extends AnyWordSpec {
         "event E severity activity high id 0x100 format \"event E\"",
         "event E (x: U32) severity activity high id 0x100 format \"x={}\"",
         "event E (x: U32) severity activity high id 0x100 format \"x={}\" throttle 10",
+        "event E (x: U32) severity activity high id 0x100 format \"x={}\" throttle 10 every {seconds=10,useconds=11}",
       )
     )
   }
@@ -634,6 +636,16 @@ class ParserSpec extends AnyWordSpec {
       List(
         "import a",
         "import a.b",
+      )
+    )
+  }
+
+  "spec topology port OK" should {
+    parseAllOK(
+      Parser.specTopPort,
+      List(
+        "port a = b",
+        "port b = c.b",
       )
     )
   }

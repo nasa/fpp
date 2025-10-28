@@ -333,9 +333,13 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    List(line(s"topology ${ident(data.name)} {"), Line.blank) ++
-    (Line.blankSeparated (topologyMember) (data.members)).map(indentIn) ++
-    List(Line.blank, line("}"))
+    val implementsClause = if data.implements.nonEmpty
+    then Some(data.implements.map(_.data)) else None
+    lines(s"topology ${ident(data.name)} ${if (implementsClause.isDefined) "implements" else "{"}").
+      joinOptWithBreak (implementsClause) ("") (q => q.flatMap(qualIdent)) ++
+      (if (implementsClause.isDefined) List(line("{"), Line.blank) else List(Line.blank)) ++
+      Line.blankSeparated (topologyMember) (data.members).map(indentIn) ++
+      List(Line.blank, line("}"))
   }
 
   override def default(in: In) =
@@ -435,12 +439,8 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    val visibility = data.visibility match {
-      case Ast.Visibility.Public => ""
-      case Ast.Visibility.Private => "private "
-    }
-    lines(visibility).
-    join ("instance ") (qualIdent(data.instance.data))
+    lines("instance ").
+    join ("") (qualIdent(data.instance.data))
   }
 
   override def specConnectionGraphAnnotatedNode(
@@ -483,6 +483,11 @@ object FppWriter extends AstVisitor with LineUtils {
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]
   ) = {
+    def eventThrottle(throttle: AstNode[Ast.EventThrottle]) = {
+      Line.addPrefix("throttle ", exprNode(throttle.data.count)).
+      joinOpt (throttle.data.every) (" every ") (exprNode)
+    }
+
     val (_, node, _) = aNode
     val data = node.data
     val severity = data.severity.toString
@@ -491,7 +496,7 @@ object FppWriter extends AstVisitor with LineUtils {
       joinWithBreak ("severity ") (lines(severity)).
       joinOptWithBreak (data.id) ("id ") (exprNode).
       joinWithBreak ("format ") (string(data.format.data)).
-      joinOptWithBreak (data.throttle) ("throttle ") (exprNode)
+      joinOptWithBreak (data.throttle) ("") (eventThrottle)
   }
 
   override def specIncludeAnnotatedNode(
@@ -714,6 +719,16 @@ object FppWriter extends AstVisitor with LineUtils {
       joinNoIndent (" omit ") (
         addBracesIfNonempty(data.omitted.flatMap(applyToData(tlmChannelId)))
       )
+  }
+
+  override def specTopPortAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTopPort]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"port ${ident(data.name)} = ").
+      join("") (qualIdent(data.underlyingPort.data))
   }
 
   override def specTopImportAnnotatedNode(

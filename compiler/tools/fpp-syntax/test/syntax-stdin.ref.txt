@@ -207,6 +207,26 @@ def module
       format {} counts
       throttle literal int 10
     @< Event specifier
+    @ Event specifier with throttle timeout
+    spec event
+      ident ET
+      formal param
+        kind value
+        ident a
+        type name U32
+      formal param
+        kind value
+        ident b
+        type name F32
+      severity activity high
+      id literal int 0x00
+      format {} counts
+      throttle literal int 10
+      every expr struct
+              struct member
+                ident seconds
+                literal int 10
+    @< Event specifier
     @ Internal port specifier
     spec internal port
       ident I
@@ -317,14 +337,8 @@ def module
     ident T
     @ Public instance specifier
     spec comp instance
-      public
       qual ident i1
     @< Public instance specifier
-    @ Private instance specifier
-    spec comp instance
-      private
-      qual ident i2
-    @< Private instance specifier
     @ Direct connection graph specifier
     spec connection graph direct
       ident C
@@ -381,7 +395,25 @@ def module
       omitted
         qual ident i3.c3
     @< Telemetry packet group
+    @ Topology port specifier
+    spec top port
+      ident a
+      qual ident b.a
+    @< Topology port specifier
   @< Topology definition
+  @ Topology definition with one implements
+  def topology
+    ident T
+    implements
+      qual ident I
+  @< Topology definition with one implements
+  @ Topology definition with two implements
+  def topology
+    ident T
+    implements
+      qual ident I
+      qual ident I
+  @< Topology definition with two implements
   @ Location specifier
   spec loc
     kind instance

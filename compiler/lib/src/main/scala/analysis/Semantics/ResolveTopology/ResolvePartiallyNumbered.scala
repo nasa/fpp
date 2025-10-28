@@ -105,14 +105,10 @@ object ResolvePartiallyNumbered {
   private def resolveInstances(a: Analysis, t: Topology): Result.Result[Topology] = {
     def importInstance(
       t: Topology,
-      mapEntry: (ComponentInstance, (Ast.Visibility, Location))
+      mapEntry: (ComponentInstance, Location)
     ) = {
-      val (instance, (vis, loc)) = mapEntry
-      vis match {
-        case Ast.Visibility.Public =>
-          t.addMergedInstance(instance, vis, loc)
-        case Ast.Visibility.Private => t
-      }
+      val (instance, loc) = mapEntry
+      t.addMergedInstance(instance, loc)
     }
     def importInstances(into: Topology, fromSymbol: Symbol.Topology) =
       a.topologyMap(fromSymbol).instanceMap.foldLeft (into) (importInstance)

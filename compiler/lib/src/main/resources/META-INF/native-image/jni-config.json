@@ -1,54 +1,6 @@
 [
 {
-  "name":"fpp.compiler.FPPFormat",
-  "methods":[{"name":"main","parameterTypes":["java.lang.String[]"] }]
-},
-{
-  "name":"fpp.compiler.FPPSyntax",
-  "methods":[{"name":"main","parameterTypes":["java.lang.String[]"] }]
-},
-{
-  "name":"fpp.compiler.FPPToDict",
-  "methods":[{"name":"main","parameterTypes":["java.lang.String[]"] }]
-},
-{
-  "name":"fpp.compiler.FPPToLayout",
-  "methods":[{"name":"main","parameterTypes":["java.lang.String[]"] }]
-},
-{
-  "name":"fpp.compiler.FPPtoJson",
-  "methods":[{"name":"main","parameterTypes":["java.lang.String[]"] }]
-},
-{
-  "name":"fpp.compiler.tools.FPPCheck",
-  "methods":[{"name":"main","parameterTypes":["java.lang.String[]"] }]
-},
-{
-  "name":"fpp.compiler.tools.FPPDepend",
-  "methods":[{"name":"main","parameterTypes":["java.lang.String[]"] }]
-},
-{
-  "name":"fpp.compiler.tools.FPPFilenames",
-  "methods":[{"name":"main","parameterTypes":["java.lang.String[]"] }]
-},
-{
-  "name":"fpp.compiler.tools.FPPFromXml",
-  "methods":[{"name":"main","parameterTypes":["java.lang.String[]"] }]
-},
-{
-  "name":"fpp.compiler.tools.FPPLocateDefs",
-  "methods":[{"name":"main","parameterTypes":["java.lang.String[]"] }]
-},
-{
-  "name":"fpp.compiler.tools.FPPLocateUses",
-  "methods":[{"name":"main","parameterTypes":["java.lang.String[]"] }]
-},
-{
-  "name":"fpp.compiler.tools.FPPToCpp",
-  "methods":[{"name":"main","parameterTypes":["java.lang.String[]"] }]
-},
-{
-  "name":"fpp.compiler.tools.FPPToXml",
+  "name":"fpp.compiler.tools.FPP",
   "methods":[{"name":"main","parameterTypes":["java.lang.String[]"] }]
 },
 {

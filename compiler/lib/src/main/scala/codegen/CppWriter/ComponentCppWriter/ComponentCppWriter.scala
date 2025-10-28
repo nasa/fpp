@@ -510,21 +510,6 @@ case class ComponentCppWriter (
   }
 
   private def getProtectedComponentFunctionMembers: List[CppDoc.Class.Member] = {
-    def writeChannelInit(channel: TlmChannel) = {
-      List(
-        lines(
-          s"""|// Write telemetry channel ${channel.getName}
-              |this->${channelUpdateFlagName(channel.getName)} = true;
-              |"""
-        ),
-        channel.channelType match {
-          case t if s.isPrimitive(t, writeChannelType(t)) => lines(
-            s"this->${channelStorageName(channel.getName)} = 0;"
-          )
-          case _ => Nil
-        }
-      ).flatten
-    }
 
     addAccessTagAndComment(
     "protected",
@@ -541,7 +526,7 @@ case class ComponentCppWriter (
             )
           ),
           List(s"Fw::${kindStr}ComponentBase(compName)") :::
-            (if (hasExternalParameters) List("paramDelegatePtr(NULL)") else Nil) :::
+            (if (hasExternalParameters) List("paramDelegatePtr(nullptr)") else Nil) :::
             smInstancesByName.map { (name, smi) =>
               val sm = s.a.stateMachineMap(smi.symbol)
               val hasActionsOrGuards = sm.hasActions || sm.hasGuards
@@ -554,13 +539,11 @@ case class ComponentCppWriter (
             },
           intersperseBlankLines(
             List(
-              intersperseBlankLines(
-                updateOnChangeChannels.map((_, channel) =>
-                  writeChannelInit(channel)
-                )
-              ),
               throttledEvents.map((_, event) => line(
                 s"this->${eventThrottleCounterName(event.getName)} = 0;"
+              )),
+              throttledEventsWithTimeout.map((_, event) => line(
+                s"this->${eventThrottleTimeName(event.getName)} = Fw::Time();"
               )),
               sortedParams.flatMap((_, param) => guardedList(!param.isExternal) (
                 lines(s"this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::UNINIT;")
@@ -992,7 +975,7 @@ case class ComponentCppWriter (
   }
 
   private def getMutexVariableMembers: List[CppDoc.Class.Member] = {
-    if !(hasGuardedInputPorts || hasGuardedCommands || hasParameters) then Nil
+    if !(hasGuardedInputPorts || hasGuardedCommands || hasParameters || hasEventsWithTimeout) then Nil
     else List(
       linesClassMember(
         List(
@@ -1012,6 +995,13 @@ case class ComponentCppWriter (
             """|
                |//! Mutex for locking parameters during sets and saves
                |Os::Mutex m_paramLock;
+               |"""
+          ),
+          if !hasEventsWithTimeout then Nil
+          else lines(
+            """|
+               |//! Mutex for locking event throttle timeout and counter
+               |Os::Mutex m_eventLock;
                |"""
           )
         ).flatten

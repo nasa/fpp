@@ -268,8 +268,9 @@ object Parser extends Parsers {
   }
 
   def defTopology: Parser[Ast.DefTopology] = {
-    (topology ~>! ident) ~! (lbrace ~>! topologyMembers <~! rbrace) ^^ {
-      case name ~ members => Ast.DefTopology(name, members)
+    (topology ~>! ident) ~! opt(implements ~>! elementSequence(node(qualIdent), comma)) ~! (lbrace ~>! topologyMembers <~! rbrace) ^^ {
+      case name ~ Some(implements) ~ members => Ast.DefTopology(name, members, implements)
+      case name ~ None ~ members => Ast.DefTopology(name, members, Nil)
     }
   }
 
@@ -547,8 +548,8 @@ object Parser extends Parsers {
   }
 
   def specCompInstance: Parser[Ast.SpecCompInstance] = {
-    visibility ~ (instance ~>! node(qualIdent)) ^^ {
-      case visibility ~ instance => Ast.SpecCompInstance(visibility, instance)
+    instance ~>! node(qualIdent) ^^ {
+      case instance => Ast.SpecCompInstance(instance)
     }
   }
 
@@ -620,10 +621,16 @@ object Parser extends Parsers {
         failure("severity level expected")
     }
 
+    def throttleClause = {
+      (throttle ~>! exprNode) ~! opt(every ~>! exprNode) ^^ {
+        case throttle ~ duration => Ast.EventThrottle(throttle, duration)
+      }
+    }
+
     (event ~> ident) ~! formalParamList ~! (severity ~>! severityLevel) ~!
       opt(id ~>! exprNode) ~!
       (format ~>! node(literalString)) ~!
-      opt(throttle ~>! exprNode) ^^ {
+      opt(node(throttleClause)) ^^ {
       case name ~ params ~ severity ~ id ~ format ~ throttle =>
         Ast.SpecEvent(name, params, severity, id, format, throttle)
     }
@@ -849,6 +856,11 @@ object Parser extends Parsers {
     }
   }
 
+  def specTopPort: Parser[Ast.SpecTopPort] =
+    port ~>! ident ~! (equals ~>! node(qualIdent)) ^^ {
+      case name ~ underlying => Ast.SpecTopPort(name, underlying)
+    }
+
   def specImport: Parser[Ast.SpecImport] =
     importToken ~>! node(qualIdent) ^^ (top => Ast.SpecImport(top))
 
@@ -939,6 +951,7 @@ object Parser extends Parsers {
       node(specConnectionGraph) ^^ (n =>
         Ast.TopologyMember.SpecConnectionGraph(n)) |
       node(specInclude) ^^ (n => Ast.TopologyMember.SpecInclude(n)) |
+      node(specTopPort) ^^ (n => Ast.TopologyMember.SpecTopPort(n)) |
       node(specTlmPacketSet) ^^ (n =>
         Ast.TopologyMember.SpecTlmPacketSet(n)) |
       node(specImport) ^^ (n => Ast.TopologyMember.SpecTopImport(n)) |
@@ -994,13 +1007,6 @@ object Parser extends Parsers {
       typeNameInt |
       node(qualIdent) ^^ (qid => Ast.TypeNameQualIdent(qid)) |
       failure("type name expected")
-  }
-
-  def visibility: Parser[Ast.Visibility] = {
-    opt(accept("private", { case Token.PRIVATE() => () })) ^^ {
-      case Some(_) => Ast.Visibility.Private
-      case None => Ast.Visibility.Public
-    }
   }
 
   override def commit[T](p: => Parser[T]) = Parser { in =>
@@ -1131,6 +1137,8 @@ object Parser extends Parsers {
 
   private def event = accept("event", { case t: Token.EVENT => t })
 
+  private def every = accept("every", { case t: Token.EVERY => t })
+
   private def exit = accept("exit", { case t: Token.EXIT => t })
 
   private def external = accept("external", { case t : Token.EXTERNAL => t })
@@ -1165,6 +1173,8 @@ object Parser extends Parsers {
     accept("identifier", { case Token.IDENTIFIER(s) => s })
 
   private def ifToken = accept("if", { case t: Token.IF => t })
+
+  private def implements = accept("implements", { case t: Token.IMPLEMENTS => t })
 
   private def importToken = accept("import", { case t: Token.IMPORT => t })
 

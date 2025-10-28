@@ -73,7 +73,7 @@ object TopologyXmlFppWriter extends LineUtils {
           val qid = XmlFppWriter.FppBuilder.translateQualIdent(name)
           (
             Nil,
-            Ast.SpecCompInstance(Ast.Visibility.Public, qid),
+            Ast.SpecCompInstance(qid),
             Nil
           )
         }
@@ -178,7 +178,7 @@ object TopologyXmlFppWriter extends LineUtils {
           graphAnnotated
         )
         val members = instanceMembers :+ graphMember
-        (Nil, Ast.DefTopology(name, members), Nil)
+        (Nil, Ast.DefTopology(name, members, Nil), Nil)
       }
 
   }

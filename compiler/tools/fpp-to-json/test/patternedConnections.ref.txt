@@ -1176,11 +1176,6 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "visibility" : {
-                                  "Public" : {
-                                    
-                                  }
-                                },
                                 "instance" : {
                                   "AstNode" : {
                                     "data" : {
@@ -1208,11 +1203,6 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "visibility" : {
-                                  "Public" : {
-                                    
-                                  }
-                                },
                                 "instance" : {
                                   "AstNode" : {
                                     "data" : {
@@ -1240,11 +1230,6 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "visibility" : {
-                                  "Public" : {
-                                    
-                                  }
-                                },
                                 "instance" : {
                                   "AstNode" : {
                                     "data" : {
@@ -1272,11 +1257,6 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "visibility" : {
-                                  "Public" : {
-                                    
-                                  }
-                                },
                                 "instance" : {
                                   "AstNode" : {
                                     "data" : {
@@ -1304,11 +1284,6 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "visibility" : {
-                                  "Public" : {
-                                    
-                                  }
-                                },
                                 "instance" : {
                                   "AstNode" : {
                                     "data" : {
@@ -1336,11 +1311,6 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "visibility" : {
-                                  "Public" : {
-                                    
-                                  }
-                                },
                                 "instance" : {
                                   "AstNode" : {
                                     "data" : {
@@ -1368,11 +1338,6 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "visibility" : {
-                                  "Public" : {
-                                    
-                                  }
-                                },
                                 "instance" : {
                                   "AstNode" : {
                                     "data" : {
@@ -1644,6 +1609,8 @@
                       [
                       ]
                     ]
+                  ],
+                  "implements" : [
                   ]
                 },
                 "id" : 285
@@ -4597,18 +4564,11 @@
               
             }
           },
-          [
-            {
-              "Public" : {
-                
-              }
-            },
-            {
-              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
-              "pos" : "47.5",
-              "includingLoc" : "None"
-            }
-          ]
+          {
+            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+            "pos" : "47.5",
+            "includingLoc" : "None"
+          }
         ],
         [
           {
@@ -4634,18 +4594,11 @@
               
             }
           },
-          [
-            {
-              "Public" : {
-                
-              }
-            },
-            {
-              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
-              "pos" : "49.5",
-              "includingLoc" : "None"
-            }
-          ]
+          {
+            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+            "pos" : "49.5",
+            "includingLoc" : "None"
+          }
         ],
         [
           {
@@ -4671,18 +4624,11 @@
               
             }
           },
-          [
-            {
-              "Public" : {
-                
-              }
-            },
-            {
-              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
-              "pos" : "48.5",
-              "includingLoc" : "None"
-            }
-          ]
+          {
+            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+            "pos" : "48.5",
+            "includingLoc" : "None"
+          }
         ],
         [
           {
@@ -4708,18 +4654,11 @@
               
             }
           },
-          [
-            {
-              "Public" : {
-                
-              }
-            },
-            {
-              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
-              "pos" : "46.5",
-              "includingLoc" : "None"
-            }
-          ]
+          {
+            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+            "pos" : "46.5",
+            "includingLoc" : "None"
+          }
         ],
         [
           {
@@ -4745,18 +4684,11 @@
               
             }
           },
-          [
-            {
-              "Public" : {
-                
-              }
-            },
-            {
-              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
-              "pos" : "43.5",
-              "includingLoc" : "None"
-            }
-          ]
+          {
+            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+            "pos" : "43.5",
+            "includingLoc" : "None"
+          }
         ],
         [
           {
@@ -4782,18 +4714,11 @@
               
             }
           },
-          [
-            {
-              "Public" : {
-                
-              }
-            },
-            {
-              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
-              "pos" : "44.5",
-              "includingLoc" : "None"
-            }
-          ]
+          {
+            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+            "pos" : "44.5",
+            "includingLoc" : "None"
+          }
         ],
         [
           {
@@ -4819,18 +4744,11 @@
               
             }
           },
-          [
-            {
-              "Public" : {
-                
-              }
-            },
-            {
-              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
-              "pos" : "45.5",
-              "includingLoc" : "None"
-            }
-          ]
+          {
+            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+            "pos" : "45.5",
+            "includingLoc" : "None"
+          }
         ]
       ],
       "patternMap" : {
