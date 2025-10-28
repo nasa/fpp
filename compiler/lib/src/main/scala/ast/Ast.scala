@@ -518,6 +518,11 @@ object Ast {
     defaultPriority: Option[AstNode[Expr]]
   )
 
+  final case class EventThrottle(
+    count: AstNode[Expr],
+    every: Option[AstNode[Expr]]
+  )
+
   /** Event specifier */
   final case class SpecEvent(
     name: Ident,
@@ -525,7 +530,7 @@ object Ast {
     severity: SpecEvent.Severity,
     id: Option[AstNode[Expr]],
     format: AstNode[String],
-    throttle: Option[AstNode[Expr]]
+    throttle: Option[AstNode[EventThrottle]]
   )
   object SpecEvent {
     /** Event severity */

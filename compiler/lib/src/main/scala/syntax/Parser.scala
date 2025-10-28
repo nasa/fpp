@@ -621,10 +621,16 @@ object Parser extends Parsers {
         failure("severity level expected")
     }
 
+    def throttleClause = {
+      (throttle ~>! exprNode) ~! opt(every ~>! exprNode) ^^ {
+        case throttle ~ duration => Ast.EventThrottle(throttle, duration)
+      }
+    }
+
     (event ~> ident) ~! formalParamList ~! (severity ~>! severityLevel) ~!
       opt(id ~>! exprNode) ~!
       (format ~>! node(literalString)) ~!
-      opt(throttle ~>! exprNode) ^^ {
+      opt(node(throttleClause)) ^^ {
       case name ~ params ~ severity ~ id ~ format ~ throttle =>
         Ast.SpecEvent(name, params, severity, id, format, throttle)
     }
@@ -1130,6 +1136,8 @@ object Parser extends Parsers {
   private def equals = accept("=", { case t: Token.EQUALS => t })
 
   private def event = accept("event", { case t: Token.EVENT => t })
+
+  private def every = accept("every", { case t: Token.EVERY => t })
 
   private def exit = accept("exit", { case t: Token.EXIT => t })
 

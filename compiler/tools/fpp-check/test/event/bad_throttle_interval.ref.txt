@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/event/bad_throttle_interval.fpp:3.61
+  event E severity activity low format "" throttle 10 every false
+                                                            ^
+error: cannot convert bool to { seconds: U32, useconds: U32 }
