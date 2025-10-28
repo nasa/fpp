@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools", "setuptools_scm[toml]>=6.2", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fprime-fpp"
+dynamic = ["version"]
+description = "FPP Modeling Language"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {file = "LICENSE.txt"}
+keywords = ["fprime", "embedded", "nasa", "flight", "software", "fpp", "modeling"]
+authors = [
+  {name = "Michael Starch", email = "Michael.D.Starch@jpl.nasa.gov"},
+]
+
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Operating System :: Unix",
+    "Operating System :: POSIX",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "License :: OSI Approved :: Apache Software License",
+]
+
+dependencies = []
+
+[project.urls]
+Homepage = "https://fprime.jpl.nasa.gov"
+Documentation = "https://nasa.github.io/fpp/fpp-users-guide.html"
+Repository = "https://github.com/nasa/fpp"
+
+[tool.setuptools.packages.find]
+where = ["python"]
+
+[project.scripts]
+fpp = "fprime_fpp.__main__:main"
+fpp-check = "fprime_fpp.__main__:main"
+fpp-depend = "fprime_fpp.__main__:main"
+fpp-filenames = "fprime_fpp.__main__:main"
+fpp-format = "fprime_fpp.__main__:main"
+fpp-from-xml = "fprime_fpp.__main__:main"
+fpp-locate-defs = "fprime_fpp.__main__:main"
+fpp-locate-uses = "fprime_fpp.__main__:main"
+fpp-syntax = "fprime_fpp.__main__:main"
+fpp-to-cpp = "fprime_fpp.__main__:main"
+fpp-to-dict = "fprime_fpp.__main__:main"
+fpp-to-json = "fprime_fpp.__main__:main"
+fpp-to-layout = "fprime_fpp.__main__:main"
+
+[tool.setuptools.package-data]
+fprime_fpp = ["fpp", "fpp.jar"]
+
+####
+[tool.setuptools_scm]

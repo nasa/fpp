@@ -46,4 +46,16 @@ passive component C {
     format "Saw value {} for case {}" \
     throttle 10
 
+  @ Event 3
+  @ Sample output: "Saw value [ 0.001, 0.002, 0.003 ] for case A"
+  event Event3(
+    case: Case @< The case
+    value: F64x3 @< The value
+  ) \
+    severity warning low \
+    id 0x03 \
+    format "Saw value {} for case {}" \
+    throttle 10 \
+    every {seconds=10,useconds=500000}
+
 }

@@ -40,7 +40,6 @@ os=`uname`
 case "$os" in
   Darwin)
     os_type=DARWIN
-    #os_flags='-ferror-limit=1'
     ;;
   Linux)
     os_type=LINUX
@@ -51,7 +50,7 @@ case "$os" in
     ;;
 esac
 
-g++ --std=c++11 \
+g++ --std=c++14 \
   $flags \
   $os_flags \
   -DTGT_OS_TYPE_$os_type \

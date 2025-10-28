@@ -433,6 +433,7 @@ var IN_GLOBAL_SCOPE = false;
           "entry," +
           "enum," +
           "event," +
+          "every," +
           "exit," +
           "external," +
           "fatal," +

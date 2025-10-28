@@ -450,3 +450,18 @@ void PassiveEventsGTestBase ::
     << "  Expected: " << size << "\n"
     << "  Actual:   " << this->eventsSize_EventWarningLowThrottled << "\n";
 }
+
+void PassiveEventsGTestBase ::
+  assertEvents_EventWarningLowThrottledInterval_size(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 size
+  ) const
+{
+  ASSERT_EQ(size, this->eventsSize_EventWarningLowThrottledInterval)
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Size of history for event EventWarningLowThrottledInterval\n"
+    << "  Expected: " << size << "\n"
+    << "  Actual:   " << this->eventsSize_EventWarningLowThrottledInterval << "\n";
+}

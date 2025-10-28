@@ -16,3 +16,4 @@ default-update-ref.sh
 
 !*/include/*
 !*.ref.h
+fpp-*.json

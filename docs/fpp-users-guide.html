@@ -15177,7 +15177,10 @@ Your class definition should include the following:</p>
 <p>An implementation of the virtual function</p>
 <div class="listingblock">
 <div class="content">
-<pre>Fw::SerializeStatus T::serializeTo(Fw::SerializeBufferBase&amp;) const</pre>
+<pre>Fw::SerializeStatus T::serializeTo(
+  Fw::SerializeBufferBase&amp;,
+  Fw::Endianness = Fw::Endianness::BIG
+) const</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -15189,7 +15192,10 @@ Your class definition should include the following:</p>
 <p>An implementation of the function</p>
 <div class="listingblock">
 <div class="content">
-<pre>Fw::SerializeStatus T::deserializeFrom(Fw::SerializeBufferBase&amp;)</pre>
+<pre>Fw::SerializeStatus T::deserializeFrom(
+  Fw::SerializeBufferBase&amp;,
+  Fw::Endianness = Fw::Endianness::BIG
+)</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -15243,6 +15249,7 @@ struct T final : public Fw::Serializable { // Extend Fw::Serializable
   // Define some shorthand for F Prime types
   using SS = Fw::SerializeStatus SS;
   using B = Fw::SerializeBufferBase B;
+  using E = Fw::Endianness E;
 
   // Define the constant SERIALIZED_SIZE
   enum Constants { SERIALIZED_SIZE = sizeof(U32) };
@@ -15254,10 +15261,10 @@ struct T final : public Fw::Serializable { // Extend Fw::Serializable
   bool operator==(const T&amp; that) const { return this-&gt;x == that.x; }
 
   // Define the virtual serializeTo method
-  SS serializeTo(B&amp; b) const final { return b.serializeFrom(x); }
+  SS serializeTo(B&amp; b, E e) const final { return b.serializeFrom(x, e); }
 
   // Define the virtual deserializeFrom method
-  SS deserializeFrom(B&amp; b) final { return b.deserializeTo(x); }
+  SS deserializeFrom(B&amp; b, E e) final { return b.deserializeTo(x, e); }
 
   // Provide some data
   U32 x;
@@ -15677,10 +15684,10 @@ when it is taken off the queue for processing.</p>
 <ol class="loweralpha" type="a">
 <li>
 <p>A value of unsigned integer type (<code>U8</code>, <code>U16</code>, <code>U32</code>, or <code>U64</code>)
-is serialized in big-endian order (most significant byte first),
+is serialized into big-endian order (most significant byte first) by default,
 using the number of bytes implied by the bit width.
 For example, the <code>U16</code> value 10 (decimal) is serialized as the
-two bytes <code>00</code> <code>0A</code> (hex).</p>
+two bytes <code>00</code> <code>0A</code> (hex). If little-endian order is desired, the optional mode parameter can be specified as <code>Fw::Serialization::LITTLE</code>. This stores the data least significant byte order. The <code>U16</code> value 10 (decimal) is serialized in little-endian as the two bytes <code>0A</code> <code>00</code> (hex).</p>
 </li>
 <li>
 <p>A value of signed integer type (<code>I8</code>, <code>I16</code>, <code>I32</code>, or <code>I64</code>)
@@ -15693,14 +15700,13 @@ For example:</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
-<p>The <code>I16</code> value 10 (decimal) is serialized as two bytes
-in big-endian order, yielding the bytes <code>00</code> <code>0A</code> (hex).</p>
+<p>The <code>I16</code> value 10 (decimal) is serialized as two bytes, yielding the bytes <code>00</code> <code>0A</code> (hex) in big-endian and <code>0A</code> <code>00</code> (hex) in little-endian.</p>
 </li>
 <li>
 <p>The <code>I16</code> value -10 (decimal) is serialized by
 (1) computing the <code>U16</code> value 2<sup>16</sup> - 10 = 65526
-and (2) serializing that value as two bytes in big-endian order,
-yielding the bytes <code>FF</code> <code>F6</code> (hex).</p>
+and (2) serializing that value as two bytes in the selected byte order,
+yielding the bytes <code>FF</code> <code>F6</code> (hex) big-endian and <code>F6</code> <code>FF</code> (hex) little-endian.</p>
 </li>
 </ol>
 </div>
@@ -15710,7 +15716,7 @@ yielding the bytes <code>FF</code> <code>F6</code> (hex).</p>
 </li>
 <li>
 <p>A value of floating-point type (<code>F32</code> or <code>F64</code>)
-is serialized in big-endian order according to the IEEE
+is serialized in the selected byte order according to the IEEE
 standard for representing these values.</p>
 </li>
 <li>
@@ -15783,7 +15789,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-10-06 16:54:41 -0700
+Last updated 2025-10-28 15:42:32 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

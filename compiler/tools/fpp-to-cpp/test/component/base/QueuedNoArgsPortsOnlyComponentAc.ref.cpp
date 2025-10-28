@@ -331,50 +331,6 @@ QueuedNoArgsPortsOnlyComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Getters for numbers of typed input ports
-// ----------------------------------------------------------------------
-
-FwIndexType QueuedNoArgsPortsOnlyComponentBase ::
-  getNum_noArgsAsync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsAsync_InputPort));
-}
-
-FwIndexType QueuedNoArgsPortsOnlyComponentBase ::
-  getNum_noArgsGuarded_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsGuarded_InputPort));
-}
-
-FwIndexType QueuedNoArgsPortsOnlyComponentBase ::
-  getNum_noArgsReturnGuarded_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnGuarded_InputPort));
-}
-
-FwIndexType QueuedNoArgsPortsOnlyComponentBase ::
-  getNum_noArgsReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnSync_InputPort));
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of typed output ports
-// ----------------------------------------------------------------------
-
-FwIndexType QueuedNoArgsPortsOnlyComponentBase ::
-  getNum_noArgsOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsOut_OutputPort));
-}
-
-FwIndexType QueuedNoArgsPortsOnlyComponentBase ::
-  getNum_noArgsReturnOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnOut_OutputPort));
-}
-
-// ----------------------------------------------------------------------
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
 
