@@ -108,37 +108,35 @@ case class ComponentParameters (
   }
 
   private def getLoadFunction: List[CppDoc.Class.Member] =
-    wrapClassMembersInIfDirective(
-      "#if !FW_DIRECT_PORT_CALLS // TODO",
-      addAccessTagAndComment(
-        "public",
-        "Parameter loading",
-        List(
-          functionClassMember(
-            Some(
-              s"""|\\brief Load the parameters from a parameter source
-                  |
-                  |Connect the parameter first
-                  |"""
-            ),
-            "loadParameters",
-            Nil,
-            CppDoc.Type("void"),
-            writeLoadFunctionBody
-          )
+    addAccessTagAndComment(
+      "public",
+      "Parameter loading",
+      List(
+        functionClassMember(
+          Some(
+            s"""|\\brief Load the parameters from a parameter source
+                |
+                |Connect the parameter first
+                |"""
+          ),
+          "loadParameters",
+          Nil,
+          CppDoc.Type("void"),
+          writeLoadFunctionBody
         )
-      ),
-      CppDoc.Lines.Cpp
+      )
     )
 
   private def getParam(param: Param, validityFlag: String) = {
     val paramName = param.getName
     val idConstantName = paramIdConstantName(paramName)
+    val prmGetPortInvokerName = outputPortInvokerName(prmGetPort.get)
     lines(
       s"""|_id = _baseId + $idConstantName;
           |
           |// Get parameter $paramName
-          |$validityFlag = this->${portVariableName(prmGetPort.get)}[0].invoke(
+          |$validityFlag = this->$prmGetPortInvokerName(
+          |  0,
           |  _id,
           |  _buff
           |);"""
@@ -241,14 +239,10 @@ case class ComponentParameters (
     )
 
   private def getSaveFunctions: List[CppDoc.Class.Member] =
-    wrapClassMembersInIfDirective(
-      "#if !FW_DIRECT_PORT_CALLS // TODO",
-      addAccessTagAndComment(
-        "private",
-        "Parameter save functions",
-        sortedParams.map((_, param) => getSaveFunctionForParam(param))
-      ),
-      CppDoc.Lines.Cpp
+    addAccessTagAndComment(
+      "private",
+      "Parameter save functions",
+      sortedParams.map((_, param) => getSaveFunctionForParam(param))
     )
 
   private def getSetterForParam(param: Param) =
@@ -480,6 +474,7 @@ case class ComponentParameters (
     val paramVarName = paramVariableName(param.getName)
     val prmSetPortName = prmSetPort.get.getUnqualifiedName
     val prmSetIsConnected = outputPortIsConnectedName(prmSetPortName)
+    val prmSetPortInvokerName = outputPortInvokerName(prmSetPort.get)
     List.concat(
       lines(
         s"""|Fw::ParamBuffer _saveBuff;
@@ -517,7 +512,8 @@ case class ComponentParameters (
                 |_id = static_cast<FwPrmIdType>(this->getIdBase() + $idConstantName);
                 |
                 |// Save the parameter
-                |this->${portVariableName(prmSetPort.get)}[0].invoke(
+                |this->$prmSetPortInvokerName(
+                |  0,
                 |  _id,
                 |  _saveBuff
                 |);

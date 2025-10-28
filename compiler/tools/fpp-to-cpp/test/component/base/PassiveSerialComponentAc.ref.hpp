@@ -2226,6 +2226,20 @@ class PassiveSerialComponentBase :
         Fw::LogBuffer& args //!< Buffer containing serialized log entry
     ) const;
 
+    //! Invoke output port prmGetOut
+    Fw::ParamValid prmGetOut_out(
+        FwIndexType portNum, //!< The port number
+        FwPrmIdType id, //!< Parameter ID
+        Fw::ParamBuffer& val //!< Buffer containing serialized parameter value
+    ) const;
+
+    //! Invoke output port prmSetOut
+    void prmSetOut_out(
+        FwIndexType portNum, //!< The port number
+        FwPrmIdType id, //!< Parameter ID
+        Fw::ParamBuffer& val //!< Buffer containing serialized parameter value
+    ) const;
+
 #if FW_ENABLE_TEXT_LOGGING
 
     //! Invoke output port textEventOut

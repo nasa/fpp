@@ -70,6 +70,8 @@ case class ComponentPorts(
         guardedOption (hasCommands || hasParameters) (cmdRespPort),
         guardedOption (hasEvents) (eventPort),
         guardedOption (hasEvents) (textEventPort),
+        guardedOption (hasParameters) (prmGetPort),
+        guardedOption (hasParameters) (prmSetPort),
         timeGetPort,
         guardedOption (hasTelemetry) (tlmPort),
       ).filter(_.isDefined).map(_.get).sortBy(_.getUnqualifiedName)

@@ -1871,6 +1871,20 @@ class QueuedParamsComponentBase :
         const Fw::CmdResponse& response //!< The command response argument
     ) const;
 
+    //! Invoke output port prmGetOut
+    Fw::ParamValid prmGetOut_out(
+        FwIndexType portNum, //!< The port number
+        FwPrmIdType id, //!< Parameter ID
+        Fw::ParamBuffer& val //!< Buffer containing serialized parameter value
+    ) const;
+
+    //! Invoke output port prmSetOut
+    void prmSetOut_out(
+        FwIndexType portNum, //!< The port number
+        FwPrmIdType id, //!< Parameter ID
+        Fw::ParamBuffer& val //!< Buffer containing serialized parameter value
+    ) const;
+
     //! Invoke output port timeGetOut
     void timeGetOut_out(
         FwIndexType portNum, //!< The port number

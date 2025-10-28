@@ -1659,8 +1659,6 @@ void QueuedExternalParamsComponentBase ::
   );
 }
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Parameter loading
 // ----------------------------------------------------------------------
@@ -1680,7 +1678,8 @@ void QueuedExternalParamsComponentBase ::
   _id = _baseId + PARAMID_PARAMI32EXT;
 
   // Get parameter ParamI32Ext
-  _paramValid = this->m_prmGetOut_OutputPort[0].invoke(
+  _paramValid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
@@ -1706,7 +1705,8 @@ void QueuedExternalParamsComponentBase ::
   _id = _baseId + PARAMID_PARAMF64EXT;
 
   // Get parameter ParamF64Ext
-  _paramValid = this->m_prmGetOut_OutputPort[0].invoke(
+  _paramValid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
@@ -1732,7 +1732,8 @@ void QueuedExternalParamsComponentBase ::
   _id = _baseId + PARAMID_PARAMSTRINGEXT;
 
   // Get parameter ParamStringExt
-  _paramValid = this->m_prmGetOut_OutputPort[0].invoke(
+  _paramValid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
@@ -1758,7 +1759,8 @@ void QueuedExternalParamsComponentBase ::
   _id = _baseId + PARAMID_PARAMENUMEXT;
 
   // Get parameter ParamEnumExt
-  _paramValid = this->m_prmGetOut_OutputPort[0].invoke(
+  _paramValid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
@@ -1784,7 +1786,8 @@ void QueuedExternalParamsComponentBase ::
   _id = _baseId + PARAMID_PARAMARRAYEXT;
 
   // Get parameter ParamArrayExt
-  _paramValid = this->m_prmGetOut_OutputPort[0].invoke(
+  _paramValid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
@@ -1810,7 +1813,8 @@ void QueuedExternalParamsComponentBase ::
   _id = _baseId + PARAMID_PARAMSTRUCTEXT;
 
   // Get parameter ParamStructExt
-  _paramValid = this->m_prmGetOut_OutputPort[0].invoke(
+  _paramValid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
@@ -1836,8 +1840,6 @@ void QueuedExternalParamsComponentBase ::
   // Call notifier
   this->parametersLoaded();
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Component construction and destruction
@@ -4564,6 +4566,50 @@ void QueuedExternalParamsComponentBase ::
   );
 }
 
+Fw::ParamValid QueuedExternalParamsComponentBase ::
+  prmGetOut_out(
+      FwIndexType portNum,
+      FwPrmIdType id,
+      Fw::ParamBuffer& val
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_prmGetOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_prmGetOut_OutputPort[portNum].invoke(
+    id,
+    val
+  );
+}
+
+void QueuedExternalParamsComponentBase ::
+  prmSetOut_out(
+      FwIndexType portNum,
+      FwPrmIdType id,
+      Fw::ParamBuffer& val
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_prmSetOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_prmSetOut_OutputPort[portNum].invoke(
+    id,
+    val
+  );
+}
+
 void QueuedExternalParamsComponentBase ::
   timeGetOut_out(
       FwIndexType portNum,
@@ -4728,8 +4774,6 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
   return Fw::CmdResponse::OK;
 }
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Parameter save functions
 // ----------------------------------------------------------------------
@@ -4754,7 +4798,8 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMI32EXT);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -4785,7 +4830,8 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMF64EXT);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -4816,7 +4862,8 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMSTRINGEXT);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -4847,7 +4894,8 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMENUMEXT);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -4878,7 +4926,8 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMARRAYEXT);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -4909,7 +4958,8 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMSTRUCTEXT);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -4919,8 +4969,6 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
 
   return Fw::CmdResponse::EXECUTION_ERROR;
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Parameter delegate

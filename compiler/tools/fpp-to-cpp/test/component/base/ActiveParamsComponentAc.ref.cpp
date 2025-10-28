@@ -1659,8 +1659,6 @@ void ActiveParamsComponentBase ::
   );
 }
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Parameter loading
 // ----------------------------------------------------------------------
@@ -1678,7 +1676,8 @@ void ActiveParamsComponentBase ::
   _id = _baseId + PARAMID_PARAMU32;
 
   // Get parameter ParamU32
-  this->m_param_ParamU32_valid = this->m_prmGetOut_OutputPort[0].invoke(
+  this->m_param_ParamU32_valid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
@@ -1702,7 +1701,8 @@ void ActiveParamsComponentBase ::
   _id = _baseId + PARAMID_PARAMF64;
 
   // Get parameter ParamF64
-  this->m_param_ParamF64_valid = this->m_prmGetOut_OutputPort[0].invoke(
+  this->m_param_ParamF64_valid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
@@ -1726,7 +1726,8 @@ void ActiveParamsComponentBase ::
   _id = _baseId + PARAMID_PARAMSTRING;
 
   // Get parameter ParamString
-  this->m_param_ParamString_valid = this->m_prmGetOut_OutputPort[0].invoke(
+  this->m_param_ParamString_valid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
@@ -1754,7 +1755,8 @@ void ActiveParamsComponentBase ::
   _id = _baseId + PARAMID_PARAMENUM;
 
   // Get parameter ParamEnum
-  this->m_param_ParamEnum_valid = this->m_prmGetOut_OutputPort[0].invoke(
+  this->m_param_ParamEnum_valid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
@@ -1778,7 +1780,8 @@ void ActiveParamsComponentBase ::
   _id = _baseId + PARAMID_PARAMARRAY;
 
   // Get parameter ParamArray
-  this->m_param_ParamArray_valid = this->m_prmGetOut_OutputPort[0].invoke(
+  this->m_param_ParamArray_valid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
@@ -1806,7 +1809,8 @@ void ActiveParamsComponentBase ::
   _id = _baseId + PARAMID_PARAMSTRUCT;
 
   // Get parameter ParamStruct
-  this->m_param_ParamStruct_valid = this->m_prmGetOut_OutputPort[0].invoke(
+  this->m_param_ParamStruct_valid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
@@ -1830,8 +1834,6 @@ void ActiveParamsComponentBase ::
   // Call notifier
   this->parametersLoaded();
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Component construction and destruction
@@ -4455,6 +4457,50 @@ void ActiveParamsComponentBase ::
   );
 }
 
+Fw::ParamValid ActiveParamsComponentBase ::
+  prmGetOut_out(
+      FwIndexType portNum,
+      FwPrmIdType id,
+      Fw::ParamBuffer& val
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_prmGetOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_prmGetOut_OutputPort[portNum].invoke(
+    id,
+    val
+  );
+}
+
+void ActiveParamsComponentBase ::
+  prmSetOut_out(
+      FwIndexType portNum,
+      FwPrmIdType id,
+      Fw::ParamBuffer& val
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_prmSetOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_prmSetOut_OutputPort[portNum].invoke(
+    id,
+    val
+  );
+}
+
 void ActiveParamsComponentBase ::
   timeGetOut_out(
       FwIndexType portNum,
@@ -4601,8 +4647,6 @@ Fw::CmdResponse ActiveParamsComponentBase ::
   return Fw::CmdResponse::OK;
 }
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Parameter save functions
 // ----------------------------------------------------------------------
@@ -4626,7 +4670,8 @@ Fw::CmdResponse ActiveParamsComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMU32);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -4656,7 +4701,8 @@ Fw::CmdResponse ActiveParamsComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMF64);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -4686,7 +4732,8 @@ Fw::CmdResponse ActiveParamsComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMSTRING);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -4716,7 +4763,8 @@ Fw::CmdResponse ActiveParamsComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMENUM);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -4746,7 +4794,8 @@ Fw::CmdResponse ActiveParamsComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMARRAY);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -4776,7 +4825,8 @@ Fw::CmdResponse ActiveParamsComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMSTRUCT);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -4786,5 +4836,3 @@ Fw::CmdResponse ActiveParamsComponentBase ::
 
   return Fw::CmdResponse::EXECUTION_ERROR;
 }
-
-#endif

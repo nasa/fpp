@@ -2121,8 +2121,6 @@ void QueuedSerialComponentBase ::
   );
 }
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Parameter loading
 // ----------------------------------------------------------------------
@@ -2142,7 +2140,8 @@ void QueuedSerialComponentBase ::
   _id = _baseId + PARAMID_PARAMU32;
 
   // Get parameter ParamU32
-  this->m_param_ParamU32_valid = this->m_prmGetOut_OutputPort[0].invoke(
+  this->m_param_ParamU32_valid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
@@ -2166,7 +2165,8 @@ void QueuedSerialComponentBase ::
   _id = _baseId + PARAMID_PARAMF64;
 
   // Get parameter ParamF64
-  this->m_param_ParamF64_valid = this->m_prmGetOut_OutputPort[0].invoke(
+  this->m_param_ParamF64_valid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
@@ -2190,7 +2190,8 @@ void QueuedSerialComponentBase ::
   _id = _baseId + PARAMID_PARAMSTRING;
 
   // Get parameter ParamString
-  this->m_param_ParamString_valid = this->m_prmGetOut_OutputPort[0].invoke(
+  this->m_param_ParamString_valid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
@@ -2218,7 +2219,8 @@ void QueuedSerialComponentBase ::
   _id = _baseId + PARAMID_PARAMENUM;
 
   // Get parameter ParamEnum
-  this->m_param_ParamEnum_valid = this->m_prmGetOut_OutputPort[0].invoke(
+  this->m_param_ParamEnum_valid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
@@ -2242,7 +2244,8 @@ void QueuedSerialComponentBase ::
   _id = _baseId + PARAMID_PARAMARRAY;
 
   // Get parameter ParamArray
-  this->m_param_ParamArray_valid = this->m_prmGetOut_OutputPort[0].invoke(
+  this->m_param_ParamArray_valid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
@@ -2270,7 +2273,8 @@ void QueuedSerialComponentBase ::
   _id = _baseId + PARAMID_PARAMSTRUCT;
 
   // Get parameter ParamStruct
-  this->m_param_ParamStruct_valid = this->m_prmGetOut_OutputPort[0].invoke(
+  this->m_param_ParamStruct_valid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
@@ -2294,7 +2298,8 @@ void QueuedSerialComponentBase ::
   _id = _baseId + PARAMID_PARAMI32EXT;
 
   // Get parameter ParamI32Ext
-  _paramValid = this->m_prmGetOut_OutputPort[0].invoke(
+  _paramValid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
@@ -2320,7 +2325,8 @@ void QueuedSerialComponentBase ::
   _id = _baseId + PARAMID_PARAMF64EXT;
 
   // Get parameter ParamF64Ext
-  _paramValid = this->m_prmGetOut_OutputPort[0].invoke(
+  _paramValid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
@@ -2346,7 +2352,8 @@ void QueuedSerialComponentBase ::
   _id = _baseId + PARAMID_PARAMSTRINGEXT;
 
   // Get parameter ParamStringExt
-  _paramValid = this->m_prmGetOut_OutputPort[0].invoke(
+  _paramValid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
@@ -2372,7 +2379,8 @@ void QueuedSerialComponentBase ::
   _id = _baseId + PARAMID_PARAMENUMEXT;
 
   // Get parameter ParamEnumExt
-  _paramValid = this->m_prmGetOut_OutputPort[0].invoke(
+  _paramValid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
@@ -2398,7 +2406,8 @@ void QueuedSerialComponentBase ::
   _id = _baseId + PARAMID_PARAMARRAYEXT;
 
   // Get parameter ParamArrayExt
-  _paramValid = this->m_prmGetOut_OutputPort[0].invoke(
+  _paramValid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
@@ -2424,7 +2433,8 @@ void QueuedSerialComponentBase ::
   _id = _baseId + PARAMID_PARAMSTRUCTEXT;
 
   // Get parameter ParamStructExt
-  _paramValid = this->m_prmGetOut_OutputPort[0].invoke(
+  _paramValid = this->prmGetOut_out(
+    0,
     _id,
     _buff
   );
@@ -2450,8 +2460,6 @@ void QueuedSerialComponentBase ::
   // Call notifier
   this->parametersLoaded();
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Component construction and destruction
@@ -9029,6 +9037,50 @@ void QueuedSerialComponentBase ::
   );
 }
 
+Fw::ParamValid QueuedSerialComponentBase ::
+  prmGetOut_out(
+      FwIndexType portNum,
+      FwPrmIdType id,
+      Fw::ParamBuffer& val
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_prmGetOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_prmGetOut_OutputPort[portNum].invoke(
+    id,
+    val
+  );
+}
+
+void QueuedSerialComponentBase ::
+  prmSetOut_out(
+      FwIndexType portNum,
+      FwPrmIdType id,
+      Fw::ParamBuffer& val
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_prmSetOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_prmSetOut_OutputPort[portNum].invoke(
+    id,
+    val
+  );
+}
+
 #if FW_ENABLE_TEXT_LOGGING
 
 void QueuedSerialComponentBase ::
@@ -9367,8 +9419,6 @@ Fw::CmdResponse QueuedSerialComponentBase ::
   return Fw::CmdResponse::OK;
 }
 
-#if !FW_DIRECT_PORT_CALLS // TODO
-
 // ----------------------------------------------------------------------
 // Parameter save functions
 // ----------------------------------------------------------------------
@@ -9392,7 +9442,8 @@ Fw::CmdResponse QueuedSerialComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMU32);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -9422,7 +9473,8 @@ Fw::CmdResponse QueuedSerialComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMF64);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -9452,7 +9504,8 @@ Fw::CmdResponse QueuedSerialComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMSTRING);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -9482,7 +9535,8 @@ Fw::CmdResponse QueuedSerialComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMENUM);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -9512,7 +9566,8 @@ Fw::CmdResponse QueuedSerialComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMARRAY);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -9542,7 +9597,8 @@ Fw::CmdResponse QueuedSerialComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMSTRUCT);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -9573,7 +9629,8 @@ Fw::CmdResponse QueuedSerialComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMI32EXT);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -9604,7 +9661,8 @@ Fw::CmdResponse QueuedSerialComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMF64EXT);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -9635,7 +9693,8 @@ Fw::CmdResponse QueuedSerialComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMSTRINGEXT);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -9666,7 +9725,8 @@ Fw::CmdResponse QueuedSerialComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMENUMEXT);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -9697,7 +9757,8 @@ Fw::CmdResponse QueuedSerialComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMARRAYEXT);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -9728,7 +9789,8 @@ Fw::CmdResponse QueuedSerialComponentBase ::
     _id = static_cast<FwPrmIdType>(this->getIdBase() + PARAMID_PARAMSTRUCTEXT);
 
     // Save the parameter
-    this->m_prmSetOut_OutputPort[0].invoke(
+    this->prmSetOut_out(
+      0,
       _id,
       _saveBuff
     );
@@ -9738,8 +9800,6 @@ Fw::CmdResponse QueuedSerialComponentBase ::
 
   return Fw::CmdResponse::EXECUTION_ERROR;
 }
-
-#endif
 
 // ----------------------------------------------------------------------
 // Parameter delegate
