@@ -32,6 +32,7 @@ object CheckSpecLocs
     val qualName = a.getQualifiedName(Symbol.AliasType(aNode))
     val id = aNode._2.id
     for {
+      a <- checkSpecLoc(a, Ast.SpecLoc.Type, name, node)
       a <- checkDictionarySpecLoc(a, Ast.SpecLoc.Type, qualName, id, node.data.isDictionaryDef)
     } yield a
   }
@@ -86,12 +87,11 @@ object CheckSpecLocs
     a.locationSpecifierMap.get((kind, name)) match {
       case Some(specLoc) => {
         val specifierLoc = Locations.get(specLoc.file.id)
-        if(isDictionary == specLoc.isDictionaryDef) then 
-          Right(a)
-        else
-          Left(
-            SemanticError.IncorrectDictionarySpecLoc(specifierLoc, actualLoc)
-          )
+        if(isDictionary == specLoc.isDictionaryDef)
+        then Right(a)
+        else Left(
+          SemanticError.IncorrectDictionarySpecLoc(specifierLoc, actualLoc)
+        )
       }
       case None => Right(a)
     }

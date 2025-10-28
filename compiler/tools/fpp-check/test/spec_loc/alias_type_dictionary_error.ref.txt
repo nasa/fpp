@@ -1,0 +1,10 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/alias_type_dictionary_error.fpp:1.18
+locate type T at "alias_type_dictionary_error.fpp"
+                 ^
+error: incorrect location specifier
+previous occurrence is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/alias_type_dictionary_error.fpp:2.1
+dictionary type T = U32
+^
+note: one specifies dictionary and one does not
