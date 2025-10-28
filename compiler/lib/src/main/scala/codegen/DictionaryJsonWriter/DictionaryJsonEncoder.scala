@@ -461,6 +461,25 @@ case class DictionaryJsonEncoder(
         }
     }
 
+    /** JSON Encoding for Event.Throttle */
+    private implicit def eventThrottleEncoder: Encoder[Event.Throttle] = new Encoder[Event.Throttle] {
+        override def apply(throttle: Event.Throttle): Json = {
+            throttle match {
+                case Event.Throttle(count, Some(every)) => Json.obj(
+                    "count" -> count.asJson,
+                    "every" -> Json.obj(
+                        "seconds" -> every.seconds.asJson,
+                        "useconds" -> every.useconds.asJson
+                    )
+                )
+                case Event.Throttle(count, None) => Json.obj(
+                    "count" -> count.asJson,
+                    "every" -> Json.Null
+                )
+            }
+        }
+    }
+
     /** JSON Encoding for TlmChannel.Limits */
     private implicit def channelLimitEncoder: Encoder[TlmChannel.Limits] = new Encoder[TlmChannel.Limits] {
         override def apply(limits: TlmChannel.Limits): Json = {
@@ -604,6 +623,7 @@ case class DictionaryJsonEncoder(
                 }
                 case x: Value => Json.obj(key -> valueAsJson(x)).deepMerge(json)
                 case x: Ast.QueueFull => Json.obj(key -> x.toString.asJson).deepMerge(json)
+                case x: Event.Throttle => Json.obj(key -> x.asJson).deepMerge(json)
             }
             case None => json
         }
