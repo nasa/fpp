@@ -953,7 +953,7 @@ object AstWriter extends AstVisitor with LineUtils {
 
   private def prefixWithDictionary(s: String, isDictionaryDef: Boolean) =
     if isDictionaryDef then
-      lines(s"dictionary ${s}")
+      lines(s"dictionary $s")
     else
       lines(s)
 }

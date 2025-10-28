@@ -899,7 +899,7 @@ object FppWriter extends AstVisitor with LineUtils {
 
   private def prefixWithDictionary(s: String, isDictionaryDef: Boolean) =
     if isDictionaryDef then
-      s"dictionary ${s}"
+      s"dictionary $s"
     else
       s
 }
