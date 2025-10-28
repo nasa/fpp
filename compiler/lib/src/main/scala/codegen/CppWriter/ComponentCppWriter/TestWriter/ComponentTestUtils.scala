@@ -167,7 +167,7 @@ abstract class ComponentTestUtils(
   def outputPortName(name: String) =
     s"to_$name"
 
-    /** Get the corresponding tester port name for a port in the component under test */
+  /** Get the corresponding tester port name for a port in the component under test */
   def testerPortName(p: PortInstance) =
     p.getDirection.get match {
       case PortInstance.Direction.Input => outputPortName(p.getUnqualifiedName)

@@ -55,6 +55,7 @@ object Lexer {
     ("entry", ENTRY),
     ("enum", ENUM),
     ("event", EVENT),
+    ("every", EVERY),
     ("exit", EXIT),
     ("external", EXTERNAL),
     ("false", FALSE),
@@ -250,6 +251,7 @@ object Lexer {
         case EOL => Token.EOL()
         case EQUALS => Token.EQUALS()
         case EVENT => Token.EVENT()
+        case EVERY => Token.EVERY()
         case EXIT => Token.EXIT()
         case EXTERNAL => Token.EXTERNAL()
         case F32 => Token.F32()

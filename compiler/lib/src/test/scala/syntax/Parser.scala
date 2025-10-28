@@ -469,6 +469,7 @@ class ParserSpec extends AnyWordSpec {
         "event E severity activity high id 0x100 format \"event E\"",
         "event E (x: U32) severity activity high id 0x100 format \"x={}\"",
         "event E (x: U32) severity activity high id 0x100 format \"x={}\" throttle 10",
+        "event E (x: U32) severity activity high id 0x100 format \"x={}\" throttle 10 every {seconds=10,useconds=11}",
       )
     )
   }
