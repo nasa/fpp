@@ -1747,26 +1747,6 @@ namespace M {
     protected:
 
       // ----------------------------------------------------------------------
-      // Invocation functions for special output ports
-      // ----------------------------------------------------------------------
-
-      //! Invoke output port productRequestOut
-      void productRequestOut_out(
-          FwIndexType portNum, //!< The port number
-          FwDpIdType id, //!< The container ID
-          FwSizeType dataSize //!< The data size of the requested buffer
-      ) const;
-
-      //! Invoke output port productSendOut
-      void productSendOut_out(
-          FwIndexType portNum, //!< The port number
-          FwDpIdType id, //!< The container ID
-          const Fw::Buffer& buffer //!< The buffer
-      ) const;
-
-    protected:
-
-      // ----------------------------------------------------------------------
       // Invocation functions for typed output ports
       // ----------------------------------------------------------------------
 
@@ -3004,6 +2984,20 @@ namespace M {
           FwIndexType portNum, //!< The port number
           FwPrmIdType id, //!< Parameter ID
           Fw::ParamBuffer& val //!< Buffer containing serialized parameter value
+      ) const;
+
+      //! Invoke output port productRequestOut
+      void productRequestOut_out(
+          FwIndexType portNum, //!< The port number
+          FwDpIdType id, //!< The container ID
+          FwSizeType dataSize //!< The data size of the requested buffer
+      ) const;
+
+      //! Invoke output port productSendOut
+      void productSendOut_out(
+          FwIndexType portNum, //!< The port number
+          FwDpIdType id, //!< The container ID
+          const Fw::Buffer& buffer //!< The buffer
       ) const;
 
 #if FW_ENABLE_TEXT_LOGGING

@@ -234,26 +234,6 @@ class QueuedAsyncProductPortsOnlyComponentBase :
   protected:
 
     // ----------------------------------------------------------------------
-    // Invocation functions for special output ports
-    // ----------------------------------------------------------------------
-
-    //! Invoke output port productRequestOut
-    void productRequestOut_out(
-        FwIndexType portNum, //!< The port number
-        FwDpIdType id, //!< The container ID
-        FwSizeType dataSize //!< The data size of the requested buffer
-    ) const;
-
-    //! Invoke output port productSendOut
-    void productSendOut_out(
-        FwIndexType portNum, //!< The port number
-        FwDpIdType id, //!< The container ID
-        const Fw::Buffer& buffer //!< The buffer
-    ) const;
-
-  protected:
-
-    // ----------------------------------------------------------------------
     // Message dispatch functions
     // ----------------------------------------------------------------------
 

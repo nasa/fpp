@@ -1553,27 +1553,6 @@ class QueuedGetProductsComponentBase :
   protected:
 
     // ----------------------------------------------------------------------
-    // Invocation functions for special output ports
-    // ----------------------------------------------------------------------
-
-    //! Invoke output port productGetOut
-    Fw::Success productGetOut_out(
-        FwIndexType portNum, //!< The port number
-        FwDpIdType id, //!< The container ID (input)
-        FwSizeType dataSize, //!< The data size of the requested buffer (input)
-        Fw::Buffer& buffer //!< The buffer (output)
-    ) const;
-
-    //! Invoke output port productSendOut
-    void productSendOut_out(
-        FwIndexType portNum, //!< The port number
-        FwDpIdType id, //!< The container ID
-        const Fw::Buffer& buffer //!< The buffer
-    ) const;
-
-  protected:
-
-    // ----------------------------------------------------------------------
     // Invocation functions for typed output ports
     // ----------------------------------------------------------------------
 
@@ -1993,6 +1972,21 @@ class QueuedGetProductsComponentBase :
     // ----------------------------------------------------------------------
     // Invocation functions for special output ports
     // ----------------------------------------------------------------------
+
+    //! Invoke output port productGetOut
+    Fw::Success productGetOut_out(
+        FwIndexType portNum, //!< The port number
+        FwDpIdType id, //!< The container ID (input)
+        FwSizeType dataSize, //!< The data size of the requested buffer (input)
+        Fw::Buffer& buffer //!< The buffer (output)
+    ) const;
+
+    //! Invoke output port productSendOut
+    void productSendOut_out(
+        FwIndexType portNum, //!< The port number
+        FwDpIdType id, //!< The container ID
+        const Fw::Buffer& buffer //!< The buffer
+    ) const;
 
     //! Invoke output port timeGetOut
     void timeGetOut_out(

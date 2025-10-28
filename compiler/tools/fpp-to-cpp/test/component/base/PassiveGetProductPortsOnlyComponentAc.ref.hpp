@@ -150,27 +150,6 @@ class PassiveGetProductPortsOnlyComponentBase :
         FwIndexType portNum //!< The port number
     ) const;
 
-  protected:
-
-    // ----------------------------------------------------------------------
-    // Invocation functions for special output ports
-    // ----------------------------------------------------------------------
-
-    //! Invoke output port productGetOut
-    Fw::Success productGetOut_out(
-        FwIndexType portNum, //!< The port number
-        FwDpIdType id, //!< The container ID (input)
-        FwSizeType dataSize, //!< The data size of the requested buffer (input)
-        Fw::Buffer& buffer //!< The buffer (output)
-    ) const;
-
-    //! Invoke output port productSendOut
-    void productSendOut_out(
-        FwIndexType portNum, //!< The port number
-        FwDpIdType id, //!< The container ID
-        const Fw::Buffer& buffer //!< The buffer
-    ) const;
-
 #if !FW_DIRECT_PORT_CALLS
 
   private:

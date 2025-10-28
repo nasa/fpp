@@ -3165,60 +3165,6 @@ void QueuedGetProductsComponentBase ::
 #if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
-// Invocation functions for special output ports
-// ----------------------------------------------------------------------
-
-Fw::Success QueuedGetProductsComponentBase ::
-  productGetOut_out(
-      FwIndexType portNum,
-      FwDpIdType id,
-      FwSizeType dataSize,
-      Fw::Buffer& buffer
-  ) const
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_productGetOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  FW_ASSERT(
-    this->m_productGetOut_OutputPort[portNum].isConnected(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-  return this->m_productGetOut_OutputPort[portNum].invoke(
-    id,
-    dataSize,
-    buffer
-  );
-}
-
-void QueuedGetProductsComponentBase ::
-  productSendOut_out(
-      FwIndexType portNum,
-      FwDpIdType id,
-      const Fw::Buffer& buffer
-  ) const
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  FW_ASSERT(
-    this->m_productSendOut_OutputPort[portNum].isConnected(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-  this->m_productSendOut_OutputPort[portNum].invoke(
-    id,
-    buffer
-  );
-}
-
-#endif
-
-#if !FW_DIRECT_PORT_CALLS
-
-// ----------------------------------------------------------------------
 // Invocation functions for typed output ports
 // ----------------------------------------------------------------------
 
@@ -4350,6 +4296,52 @@ void QueuedGetProductsComponentBase ::
 // ----------------------------------------------------------------------
 // Invocation functions for special output ports
 // ----------------------------------------------------------------------
+
+Fw::Success QueuedGetProductsComponentBase ::
+  productGetOut_out(
+      FwIndexType portNum,
+      FwDpIdType id,
+      FwSizeType dataSize,
+      Fw::Buffer& buffer
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_productGetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_productGetOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_productGetOut_OutputPort[portNum].invoke(
+    id,
+    dataSize,
+    buffer
+  );
+}
+
+void QueuedGetProductsComponentBase ::
+  productSendOut_out(
+      FwIndexType portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_productSendOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_productSendOut_OutputPort[portNum].invoke(
+    id,
+    buffer
+  );
+}
 
 void QueuedGetProductsComponentBase ::
   timeGetOut_out(
