@@ -17,42 +17,32 @@ object CheckSpecLocs
   override def defAliasTypeAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]
-  ) = {
-    val (_, node, _) = aNode
-    checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.AliasType(aNode), node.data.isDictionaryDef)
-  }
+  ) = checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.AliasType(aNode))
 
   override def defArrayAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefArray]]
-  ) = {
-    val (_, node, _) = aNode
-    checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.Array(aNode), node.data.isDictionaryDef)
-  }
+  ) = checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.Array(aNode))
 
   override def defComponentAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
-  ) = {
-    val (_, node, _) = aNode
-    checkSpecLoc(a, Ast.SpecLoc.Component, Symbol.Component(aNode))
-  }
+  ) = checkSpecLoc(a, Ast.SpecLoc.Component, Symbol.Component(aNode))
+
+  override def defComponentInstanceAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefComponentInstance]]
+  ) = checkSpecLoc(a, Ast.SpecLoc.ComponentInstance, Symbol.ComponentInstance(aNode))
 
   override def defConstantAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefConstant]]
-  ) = {
-    val (_, node, _) = aNode
-    checkSpecLoc(a, Ast.SpecLoc.Constant, Symbol.Constant(aNode), node.data.isDictionaryDef)
-  }
+  ) = checkSpecLoc(a, Ast.SpecLoc.Constant, Symbol.Constant(aNode))
 
   override def defEnumAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefEnum]]
-  ) = {
-    val (_, node, _) = aNode
-    checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.Enum(aNode), node.data.isDictionaryDef)
-  }
+  ) = checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.Enum(aNode))
 
   override def defInterfaceAnnotatedNode(
     a: Analysis,
@@ -67,10 +57,7 @@ object CheckSpecLocs
   override def defStructAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefStruct]]
-  ) = {
-    val (_, node, _) = aNode
-    checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.Struct(aNode), node.data.isDictionaryDef)
-  }
+  ) = checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.Struct(aNode))
 
   override def defTopologyAnnotatedNode(
     a: Analysis,
@@ -80,11 +67,10 @@ object CheckSpecLocs
   private def checkSpecLoc(
     a: Analysis,
     kind: Ast.SpecLoc.Kind,
-    symbol: Symbol,
-    isDictionary: Boolean = false
+    symbol: Symbol
   ) = for {
     a <- checkPath(a, kind, symbol)
-    a <- checkDictionarySpecifier(a, kind, symbol, isDictionary)
+    a <- checkDictionarySpecifier(a, kind, symbol)
   } yield a
 
   private def checkPath[T](
@@ -100,11 +86,18 @@ object CheckSpecLocs
       case Some(node) => {
         val specLoc = node.data
         val specifierLoc = Locations.get(specLoc.file.id)
-        val specifiedJavaPath = specifierLoc.getRelativePath(specLoc.file.data)
+        val specifiedJavaPath =
+          specifierLoc.getRelativePath(specLoc.file.data)
         val specifiedPath = File.Path(specifiedJavaPath).toString
         val actualPath = actualLoc.file.toString
         if (specifiedPath == actualPath) Right(a)
-          else Left(SemanticError.IncorrectLocationPath(specifierLoc, specifiedPath, actualLoc))
+          else Left(
+            SemanticError.IncorrectLocationPath(
+              specifierLoc,
+              specifiedPath,
+              actualLoc
+            )
+          )
       }
       case None => Right(a)
     }
@@ -113,8 +106,7 @@ object CheckSpecLocs
   private def checkDictionarySpecifier(
     a: Analysis,
     kind: Ast.SpecLoc.Kind,
-    symbol: Symbol,
-    isDictionary: Boolean
+    symbol: Symbol
   ) = {
     val name = a.getQualifiedName(symbol)
     val id = symbol.getNodeId
@@ -122,7 +114,7 @@ object CheckSpecLocs
     a.locationSpecifierMap.get((kind, name)) match {
       case Some(node) => {
         val specifierLoc = Locations.get(node.id)
-        if isDictionary == node.data.isDictionaryDef
+        if symbol.isDictionaryDef == node.data.isDictionaryDef
         then Right(a)
         else Left(
           SemanticError.IncorrectDictionarySpecifier(specifierLoc, defLoc)

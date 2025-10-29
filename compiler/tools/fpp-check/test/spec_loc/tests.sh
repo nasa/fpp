@@ -8,6 +8,8 @@ alias_type_path_error
 array_dictionary_error
 array_ok
 array_path_error
+component_instance_ok
+component_instance_path_error
 component_ok
 component_path_error
 constant_dictionary_error
