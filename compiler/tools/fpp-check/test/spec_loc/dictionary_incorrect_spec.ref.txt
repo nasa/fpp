@@ -1,8 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/dictionary_incorrect_spec.fpp:1.18
-locate type A at "incorrectSpecLoc.fpp"
-                 ^
-error: incorrect location path [ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/incorrectSpecLoc.fpp
-actual location is [ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/dictionary_incorrect_spec.fpp:3.1
-dictionary array A = [3] U32
-^
