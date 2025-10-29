@@ -9,10 +9,20 @@ final case class DictionaryUsedSymbols(a: Analysis, t: Topology) {
     d.copy(usedSymbolSet = getUsedSymbolSet)
 
   private def getUsedSymbolSet: Set[Symbol] =
-    val impliesUses = getImpliedUses()
-    t.instanceMap.keys.toSet.flatMap(getUsedSymbolsForInstance) ++
-    impliesUses ++ impliesUses.flatMap(getUsedSymbolsForImpliedUse) ++
-    a.dictionarySymbolSet
+    val impliedUses = Set.concat(
+      a.getImpliedUses(ImpliedUse.Kind.Type, t.aNode._2.id).map(
+        iu => a.useDefMap(iu.id)
+      ),
+      a.getImpliedUses(ImpliedUse.Kind.Constant, t.aNode._2.id).map(
+        iu => a.useDefMap(iu.id)
+      )
+    )
+    Set.concat(
+      t.instanceMap.keys.toSet.flatMap(getUsedSymbolsForInstance),
+      impliedUses,
+      impliedUses.flatMap(getUsedSymbolsForImpliedUse),
+      a.dictionarySymbolSet
+    )
 
   private def getUsedSymbolsForImpliedUse(s: Symbol) = {
     s match
@@ -30,11 +40,6 @@ final case class DictionaryUsedSymbols(a: Analysis, t: Topology) {
           case Type.Enum(enumNode, _, _) => Set(Symbol.Enum(enumNode))
           case _ => Set()
       case _ => Set()
-  }
-
-  private def getImpliedUses() = {
-    (a.getImpliedUses(ImpliedUse.Kind.Type, t.aNode._2.id).map(iu => a.useDefMap(iu.id)) ++ 
-    a.getImpliedUses(ImpliedUse.Kind.Constant, t.aNode._2.id).map(iu => a.useDefMap(iu.id))).toSet
   }
 
   private def getUsedSymbolsForInstance(ci: ComponentInstance) = {
