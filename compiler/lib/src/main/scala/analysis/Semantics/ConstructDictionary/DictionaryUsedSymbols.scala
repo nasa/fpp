@@ -9,38 +9,24 @@ final case class DictionaryUsedSymbols(a: Analysis, t: Topology) {
     d.copy(usedSymbolSet = getUsedSymbolSet)
 
   private def getUsedSymbolSet: Set[Symbol] =
-    val impliedUses = Set.concat(
-      a.getImpliedUses(ImpliedUse.Kind.Type, t.aNode._2.id).map(
-        iu => a.useDefMap(iu.id)
-      ),
-      a.getImpliedUses(ImpliedUse.Kind.Constant, t.aNode._2.id).map(
-        iu => a.useDefMap(iu.id)
-      )
+    val kinds = Set(ImpliedUse.Kind.Type, ImpliedUse.Kind.Constant)
+    val impliedUses = kinds.flatMap(
+      k => a.getImpliedUses(k, t.aNode._2.id).map(iu => a.useDefMap(iu.id))
     )
     Set.concat(
       t.instanceMap.keys.toSet.flatMap(getUsedSymbolsForInstance),
       impliedUses,
-      impliedUses.flatMap(getUsedSymbolsForImpliedUse),
+      impliedUses.flatMap(resolveUses),
       a.dictionarySymbolSet
     )
 
-  private def getUsedSymbolsForImpliedUse(s: Symbol) = {
+  private def resolveUses(s: Symbol) =
     s match
-      case Symbol.Array(aNode) =>
-        val Right(updatedAnalysis) = UsedSymbols.defArrayAnnotatedNode(a, aNode)
-        UsedSymbols.resolveUses(a, updatedAnalysis.usedSymbolSet)
-      case Symbol.AliasType(aNode) =>
-        val Right(updatedAnalysis) = UsedSymbols.defAliasTypeAnnotatedNode(a, aNode)
-        UsedSymbols.resolveUses(a, updatedAnalysis.usedSymbolSet)
-      case Symbol.Struct(aNode) =>
-        val Right(updatedAnalysis) = UsedSymbols.defStructAnnotatedNode(a, aNode)
-        UsedSymbols.resolveUses(a, updatedAnalysis.usedSymbolSet)
-      case Symbol.Constant(aNode) =>
-        a.typeMap(aNode._2.id) match
-          case Type.Enum(enumNode, _, _) => Set(Symbol.Enum(enumNode))
+      case _: Symbol.Constant =>
+        a.typeMap(s.getNodeId) match
+          case t: Type.Enum => Set(Symbol.Enum(t.node))
           case _ => Set()
-      case _ => Set()
-  }
+      case _ => UsedSymbols.resolveUses(a, Set(s))
 
   private def getUsedSymbolsForInstance(ci: ComponentInstance) = {
     val component = ci.component
