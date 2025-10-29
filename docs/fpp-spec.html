@@ -6687,6 +6687,12 @@ of a <a href="#Definitions">definition</a>.</p>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 <li>
+<p>A <strong>port interface specifier</strong> <code>locate</code>
+<code>interface</code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
+<a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+</li>
+<li>
 <p>A <strong>port location specifier</strong> <code>locate</code> <code>port</code>
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
@@ -6732,8 +6738,32 @@ as follows:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
+<p>A component instance location specifier refers to a
+<a href="#Definitions_Component-Instance-Definitions">component instance definition</a>.</p>
+</li>
+<li>
+<p>A component location specifier refers to a
+<a href="#Definitions_Component-Definitions">component definition</a>.</p>
+</li>
+<li>
 <p>A constant location specifier refers to a
 <a href="#Definitions_Constant-Definitions">constant definition</a>.</p>
+</li>
+<li>
+<p>A port interface location specifier refers to a
+<a href="#Definitions_Port-Interface-Definitions">port interface definition</a>.</p>
+</li>
+<li>
+<p>A port location specifier refers to a
+<a href="#Definitions_Port-Definitions">port definition</a>.</p>
+</li>
+<li>
+<p>A state machine location specifier refers to a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>.</p>
+</li>
+<li>
+<p>A topology location specifier refers to a
+<a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
 </li>
 <li>
 <p>A type location specifier refers to an
@@ -6741,26 +6771,6 @@ as follows:</p>
 <a href="#Definitions_Enum-Definitions">enum definition</a>,
 <a href="#Definitions_Struct-Definitions">struct definition</a>, or
 <a href="#Definitions_Abstract-Type-Definitions">abstract type definition</a>.</p>
-</li>
-<li>
-<p>A port location specifier refers to a
-<a href="#Definitions_Port-Definitions">port definition</a>.</p>
-</li>
-<li>
-<p>A component location specifier refers to a
-<a href="#Definitions_Component-Definitions">component definition</a>.</p>
-</li>
-<li>
-<p>A component instance location specifier refers to a
-<a href="#Definitions_Component-Instance-Definitions">component instance definition</a>.</p>
-</li>
-<li>
-<p>A topology location specifier refers to a
-<a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
-</li>
-<li>
-<p>A state machine location specifier refers to a
-<a href="#Definitions_State-Machine-Definitions">state machine definition</a>.</p>
 </li>
 </ol>
 </div>
@@ -12025,7 +12035,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-10-28 16:02:16 -0700
+Last updated 2025-10-28 20:24:16 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

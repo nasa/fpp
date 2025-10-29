@@ -24,6 +24,11 @@ _]_
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
 
+* A *port interface specifier* `locate`
+`interface`
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
+<<Expressions_String-Literals,_string-literal_>>
+
 * A *port location specifier* `locate` `port`
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
@@ -56,29 +61,32 @@ to the following rules:
 <<Definitions-and-Uses_Uses,use>> that refers to a <<Definitions,definition>>
 as follows:
 
+.. A component instance location specifier refers to a
+<<Definitions_Component-Instance-Definitions,component instance definition>>.
+
+.. A component location specifier refers to a
+<<Definitions_Component-Definitions,component definition>>.
+
 .. A constant location specifier refers to a
 <<Definitions_Constant-Definitions,constant definition>>.
+
+.. A port interface location specifier refers to a
+<<Definitions_Port-Interface-Definitions,port interface definition>>.
+
+.. A port location specifier refers to a
+<<Definitions_Port-Definitions,port definition>>.
+
+.. A state machine location specifier refers to a
+<<Definitions_State-Machine-Definitions,state machine definition>>.
+
+.. A topology location specifier refers to a
+<<Definitions_Topology-Definitions,topology definition>>.
 
 .. A type location specifier refers to an
 <<Definitions_Array-Definitions,array definition>>,
 <<Definitions_Enum-Definitions,enum definition>>,
 <<Definitions_Struct-Definitions,struct definition>>, or
 <<Definitions_Abstract-Type-Definitions,abstract type definition>>.
-
-.. A port location specifier refers to a
-<<Definitions_Port-Definitions,port definition>>.
-
-.. A component location specifier refers to a
-<<Definitions_Component-Definitions,component definition>>.
-
-.. A component instance location specifier refers to a
-<<Definitions_Component-Instance-Definitions,component instance definition>>.
-
-.. A topology location specifier refers to a
-<<Definitions_Topology-Definitions,topology definition>>.
-
-.. A state machine location specifier refers to a
-<<Definitions_State-Machine-Definitions,state machine definition>>.
 
 . When a location specifier appears inside a
 <<Definitions_Module-Definitions,module definition _M_>>,

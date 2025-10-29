@@ -10,16 +10,21 @@ object CheckSpecLocs
 {
 
   override def defAbsTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]) =
-    checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.AbsType(aNode), false)
+    checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.AbsType(aNode))
+
+  override def defAliasTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]) = {
+    val (_, node, _) = aNode
+    checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.AliasType(aNode), node.data.isDictionaryDef)
+  }
 
   override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
     val (_, node, _) = aNode
     checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.Array(aNode), node.data.isDictionaryDef)
   }
 
-  override def defAliasTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]) = {
+  override def defComponentAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefComponent]]) = {
     val (_, node, _) = aNode
-    checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.AliasType(aNode), node.data.isDictionaryDef)
+    checkSpecLoc(a, Ast.SpecLoc.Component, Symbol.Component(aNode))
   }
 
   override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
@@ -32,19 +37,25 @@ object CheckSpecLocs
     checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.Enum(aNode), node.data.isDictionaryDef)
   }
 
+  override def defInterfaceAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefInterface]]) =
+    checkSpecLoc(a, Ast.SpecLoc.Interface, Symbol.Interface(aNode))
+
   override def defPortAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) =
-    checkSpecLoc(a, Ast.SpecLoc.Port, Symbol.Port(aNode), false)
+    checkSpecLoc(a, Ast.SpecLoc.Port, Symbol.Port(aNode))
 
   override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     val (_, node, _) = aNode
     checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.Struct(aNode), node.data.isDictionaryDef)
   }
 
+  override def defTopologyAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefTopology]]) =
+    checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.Topology(aNode))
+
   private def checkSpecLoc(
     a: Analysis,
     kind: Ast.SpecLoc.Kind,
     symbol: Symbol,
-    isDictionary: Boolean
+    isDictionary: Boolean = false
   ) = for {
     a <- checkSpecLocPath(a, kind, symbol)
     a <- checkSpecLocDictionarySpecifier(a, kind, symbol, isDictionary)
