@@ -1,9 +1,10 @@
 tests="
-abs_type_error
+abs_type_dictionary_error
 abs_type_ok
+abs_type_path_error
 alias_type_dictionary_error
-alias_type_error
 alias_type_ok
+alias_type_path_error
 array_error
 array_ok
 constant_error

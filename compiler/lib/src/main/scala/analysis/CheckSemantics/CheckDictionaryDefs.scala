@@ -13,7 +13,8 @@ object CheckDictionaryDefs
     val Symbol.Constant(aNode) = s
     val id = aNode._2.id
     val loc = Locations.get(id)
-    if(aNode._2.data.isDictionaryDef) then
+    if aNode._2.data.isDictionaryDef
+    then
       a.typeMap(id) match
         case Type.Integer | _: Type.Float | Type.Boolean | _: Type.String =>
           Right(a.copy(dictionarySymbolSet = a.dictionarySymbolSet +  s))
