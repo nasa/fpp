@@ -232,6 +232,25 @@ module DefinitionsAndSpecifiers {
   locate instance i at "instances.fpp"
   @< Location specifier
 
+  template Tmpl(
+    @ Constant template parameter
+    constant c: SomeType @< Constant parameter
+
+    @ Type template parameter
+    type TypeParam @< Type parameter
+
+    @ Interface instance template parameter
+    interface inst: InterfaceDef @< Instance parameter
+  ) {
+    type Arr = [3] TypeParam
+
+    topology Top {
+      instance inst
+    }
+  }
+
+  expand Tmpl(10, Type, instance1)
+
 }
 @< Definitions and specifiers
 
