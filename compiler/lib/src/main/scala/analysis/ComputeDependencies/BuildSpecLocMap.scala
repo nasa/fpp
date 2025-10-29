@@ -38,7 +38,7 @@ object BuildSpecLocMap extends ModuleAnalyzer {
       Right(())
     else
       Left(
-        SemanticError.InconsistentDictionarySpecLoc(
+        SemanticError.InconsistentDictionarySpecifier(
           Locations.get(specNode1.id),
           Locations.get(specNode2.id),
         )
@@ -54,7 +54,7 @@ object BuildSpecLocMap extends ModuleAnalyzer {
     if (path1 == path2)
       Right(())
     else Left(
-      SemanticError.InconsistentSpecLocPath(
+      SemanticError.InconsistentLocationPath(
         Locations.get(spec1.file.id),
         path1,
         Locations.get(spec2.file.id),

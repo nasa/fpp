@@ -9,47 +9,73 @@ object CheckSpecLocs
   with ModuleAnalyzer
 {
 
-  override def defAbsTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]) =
-    checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.AbsType(aNode))
+  override def defAbsTypeAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]
+  ) = checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.AbsType(aNode))
 
-  override def defAliasTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]) = {
+  override def defAliasTypeAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]
+  ) = {
     val (_, node, _) = aNode
     checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.AliasType(aNode), node.data.isDictionaryDef)
   }
 
-  override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
+  override def defArrayAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefArray]]
+  ) = {
     val (_, node, _) = aNode
     checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.Array(aNode), node.data.isDictionaryDef)
   }
 
-  override def defComponentAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefComponent]]) = {
+  override def defComponentAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
+  ) = {
     val (_, node, _) = aNode
     checkSpecLoc(a, Ast.SpecLoc.Component, Symbol.Component(aNode))
   }
 
-  override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
+  override def defConstantAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefConstant]]
+  ) = {
     val (_, node, _) = aNode
     checkSpecLoc(a, Ast.SpecLoc.Constant, Symbol.Constant(aNode), node.data.isDictionaryDef)
   }
 
-  override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
+  override def defEnumAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefEnum]]
+  ) = {
     val (_, node, _) = aNode
     checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.Enum(aNode), node.data.isDictionaryDef)
   }
 
-  override def defInterfaceAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefInterface]]) =
-    checkSpecLoc(a, Ast.SpecLoc.Interface, Symbol.Interface(aNode))
+  override def defInterfaceAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefInterface]]
+  ) = checkSpecLoc(a, Ast.SpecLoc.Interface, Symbol.Interface(aNode))
 
-  override def defPortAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) =
-    checkSpecLoc(a, Ast.SpecLoc.Port, Symbol.Port(aNode))
+  override def defPortAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefPort]]
+  ) = checkSpecLoc(a, Ast.SpecLoc.Port, Symbol.Port(aNode))
 
-  override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
+  override def defStructAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefStruct]]
+  ) = {
     val (_, node, _) = aNode
     checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.Struct(aNode), node.data.isDictionaryDef)
   }
 
-  override def defTopologyAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefTopology]]) =
-    checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.Topology(aNode))
+  override def defTopologyAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
+  ) = checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.Topology(aNode))
 
   private def checkSpecLoc(
     a: Analysis,
@@ -57,11 +83,11 @@ object CheckSpecLocs
     symbol: Symbol,
     isDictionary: Boolean = false
   ) = for {
-    a <- checkSpecLocPath(a, kind, symbol)
-    a <- checkSpecLocDictionarySpecifier(a, kind, symbol, isDictionary)
+    a <- checkPath(a, kind, symbol)
+    a <- checkDictionarySpecifier(a, kind, symbol, isDictionary)
   } yield a
 
-  private def checkSpecLocPath[T](
+  private def checkPath[T](
     a: Analysis,
     kind: Ast.SpecLoc.Kind,
     symbol: Symbol
@@ -78,13 +104,13 @@ object CheckSpecLocs
         val specifiedPath = File.Path(specifiedJavaPath).toString
         val actualPath = actualLoc.file.toString
         if (specifiedPath == actualPath) Right(a)
-          else Left(SemanticError.IncorrectSpecLoc(specifierLoc, specifiedPath, actualLoc))
+          else Left(SemanticError.IncorrectLocationPath(specifierLoc, specifiedPath, actualLoc))
       }
       case None => Right(a)
     }
   }
 
-  private def checkSpecLocDictionarySpecifier(
+  private def checkDictionarySpecifier(
     a: Analysis,
     kind: Ast.SpecLoc.Kind,
     symbol: Symbol,
@@ -92,14 +118,14 @@ object CheckSpecLocs
   ) = {
     val name = a.getQualifiedName(symbol)
     val id = symbol.getNodeId
-    val actualLoc = Locations.get(id)
+    val defLoc = Locations.get(id)
     a.locationSpecifierMap.get((kind, name)) match {
       case Some(node) => {
         val specifierLoc = Locations.get(node.id)
         if isDictionary == node.data.isDictionaryDef
         then Right(a)
         else Left(
-          SemanticError.IncorrectDictionarySpecLoc(specifierLoc, actualLoc)
+          SemanticError.IncorrectDictionarySpecifier(specifierLoc, defLoc)
         )
       }
       case None => Right(a)

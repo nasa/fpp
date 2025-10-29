@@ -5,8 +5,8 @@ abs_type_path_error
 alias_type_dictionary_error
 alias_type_ok
 alias_type_path_error
-array_error
 array_ok
+array_path_error
 constant_error
 constant_ok
 dictionary_inconsistent_spec
