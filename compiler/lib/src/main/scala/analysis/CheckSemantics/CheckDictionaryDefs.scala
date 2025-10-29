@@ -9,50 +9,38 @@ object CheckDictionaryDefs
   with ModuleAnalyzer
 {
 
-  def checkConstantDef(a: Analysis, s: Symbol.Constant) = {
-    val id = s.getNodeId
-    val loc = Locations.get(id)
+  def checkConstantDef(a: Analysis, s: Symbol.Constant) =
     if s.isDictionaryDef
     then
-      a.typeMap(id) match
+      val id = s.getNodeId
+      a.typeMap(id) match {
         case Type.Integer | _: Type.Float | Type.Boolean | _: Type.String =>
-          Right(a.copy(dictionarySymbolSet = a.dictionarySymbolSet +  s))
+        Right(a.copy(dictionarySymbolSet = a.dictionarySymbolSet +  s))
         case Type.Enum(enumNode, _, _) =>
           val enumSymbol = Symbol.Enum(enumNode)
           Right(a.copy(dictionarySymbolSet = a.dictionarySymbolSet + s + enumSymbol))
         case _ =>
+          val loc = Locations.get(id)
           Left(
             SemanticError.InvalidType(
-              loc, s"constant dictionary defintion must have a primitive, string, or enum type"
+              loc, s"dictionary constant defintion must have a primitive, string, or enum type"
             )
           )
-    else
-      Right(a)
-  }
+      }
+    else Right(a)
 
-  def checkTypeDef(a: Analysis, s: Symbol) = {
-    val id = s.getNodeId
-    val t = a.typeMap(id)
-    val loc = Locations.get(id)
-    (s.isDictionaryDef, t.isDisplayable) match
-      case (true, true) =>
-        val usedSymbols = s match
-          case Symbol.Array(aNode) =>
-            val Right(updatedAnalysis) = UsedSymbols.defArrayAnnotatedNode(a, aNode)
-            UsedSymbols.resolveUses(a, updatedAnalysis.usedSymbolSet)
-          case Symbol.AliasType(aNode) =>
-            val Right(updatedAnalysis) = UsedSymbols.defAliasTypeAnnotatedNode(a, aNode)
-            UsedSymbols.resolveUses(a, updatedAnalysis.usedSymbolSet)
-          case Symbol.Struct(aNode) =>
-            val Right(updatedAnalysis) = UsedSymbols.defStructAnnotatedNode(a, aNode)
-            UsedSymbols.resolveUses(a, updatedAnalysis.usedSymbolSet)
-          case _ => Set()
-        Right(a.copy(dictionarySymbolSet = (a.dictionarySymbolSet ++ usedSymbols) + s))
-      case (true, false) => 
-        // TODO: Call checkDisplayableType to get the error message
-        Left(SemanticError.InvalidType(loc, s"type dictionary defintion must be displayable"))
-      case _ => Right(a)
-  }
+  def checkTypeDef(a: Analysis, s: Symbol) =
+    if (s.isDictionaryDef)
+    then for {
+      _ <- a.checkDisplayableType(
+        s.getNodeId,
+        "dictionary type definition must be displayable"
+      )
+    } yield {
+      val ss = UsedSymbols.resolveUses(a, Set(s))
+      a.copy(dictionarySymbolSet = a.dictionarySymbolSet ++ ss)
+    }
+    else Right(a)
 
   override def defAliasTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]) =
     checkTypeDef(a, Symbol.AliasType(aNode))
