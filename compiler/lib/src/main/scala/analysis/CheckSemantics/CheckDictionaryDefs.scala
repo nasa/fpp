@@ -9,11 +9,10 @@ object CheckDictionaryDefs
   with ModuleAnalyzer
 {
 
-  def checkConstantDictionaryDefs(a: Analysis, s: Symbol.Constant) = {
-    val Symbol.Constant(aNode) = s
-    val id = aNode._2.id
+  def checkConstantDef(a: Analysis, s: Symbol.Constant) = {
+    val id = s.getNodeId
     val loc = Locations.get(id)
-    if aNode._2.data.isDictionaryDef
+    if s.isDictionaryDef
     then
       a.typeMap(id) match
         case Type.Integer | _: Type.Float | Type.Boolean | _: Type.String =>
@@ -24,17 +23,18 @@ object CheckDictionaryDefs
         case _ =>
           Left(
             SemanticError.InvalidType(
-              loc, s"constant dictionary defintion must be a primitive type, string, or enum."
+              loc, s"constant dictionary defintion must have a primitive, string, or enum type"
             )
           )
     else
       Right(a)
   }
 
-  def checkTypeDictionaryDefs(a: Analysis, id: Int, s: Symbol, isDictionaryDef: Boolean) = {
+  def checkTypeDef(a: Analysis, s: Symbol) = {
+    val id = s.getNodeId
     val t = a.typeMap(id)
     val loc = Locations.get(id)
-    (isDictionaryDef, t.isDisplayable) match
+    (s.isDictionaryDef, t.isDisplayable) match
       case (true, true) =>
         val usedSymbols = s match
           case Symbol.Array(aNode) =>
@@ -49,43 +49,24 @@ object CheckDictionaryDefs
           case _ => Set()
         Right(a.copy(dictionarySymbolSet = (a.dictionarySymbolSet ++ usedSymbols) + s))
       case (true, false) => 
+        // TODO: Call checkDisplayableType to get the error message
         Left(SemanticError.InvalidType(loc, s"type dictionary defintion must be displayable"))
       case _ => Right(a)
   }
 
-  override def defAliasTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]) = {
-    val s = Symbol.AliasType(aNode)
-    val name = a.getQualifiedName(s)
-    val id = aNode._2.id
-    checkTypeDictionaryDefs(a, id, s, aNode._2.data.isDictionaryDef)
-  }
+  override def defAliasTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]) =
+    checkTypeDef(a, Symbol.AliasType(aNode))
 
-  override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) = {
-    val s = Symbol.Array(aNode)
-    val name = a.getQualifiedName(s)
-    val id = aNode._2.id
-    checkTypeDictionaryDefs(a, id, s, aNode._2.data.isDictionaryDef)
-  }
+  override def defArrayAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefArray]]) =
+    checkTypeDef(a, Symbol.Array(aNode))
 
-  override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
-    val s = Symbol.Enum(aNode)
-    val name = a.getQualifiedName(s)
-    val id = aNode._2.id
-    checkTypeDictionaryDefs(a, id, s, aNode._2.data.isDictionaryDef)
-  }
+  override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) =
+    checkTypeDef(a, Symbol.Enum(aNode))
 
-  override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
-    val s = Symbol.Struct(aNode)
-    val name = a.getQualifiedName(s)
-    val id = aNode._2.id
-    checkTypeDictionaryDefs(a, id, s, aNode._2.data.isDictionaryDef)
-  }
+  override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) =
+    checkTypeDef(a, Symbol.Struct(aNode))
 
-  override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
-    val s = Symbol.Constant(aNode)
-    val name = a.getQualifiedName(s)
-    val id = aNode._2.id
-    checkConstantDictionaryDefs(a, s)
-  }
+  override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) =
+    checkConstantDef(a, Symbol.Constant(aNode))
 
 }
