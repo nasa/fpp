@@ -467,7 +467,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">3.4. Multiple Definitions and Element Sequences</a></li>
 <li><a href="#Defining-Constants_Multiline-Definitions">3.5. Multiline Definitions</a></li>
-<li><a href="#Defining-Constants_Constant-Dictionary-Definitions">3.6. Constant Dictionary Definitions</a></li>
 </ul>
 </li>
 <li><a href="#Writing-Comments-and-Annotations">4. Writing Comments and Annotations</a>
@@ -486,7 +485,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Types_Array-Type-Definitions_Default-Values">6.1.3. Default Values</a></li>
 <li><a href="#Defining-Types_Array-Type-Definitions_Format-Strings">6.1.4. Format Strings</a></li>
 <li><a href="#Defining-Types_Array-Type-Definitions_Arrays-of-Arrays">6.1.5. Arrays of Arrays</a></li>
-<li><a href="#Defining-Types_Array-Type-Definitions_Array-Dictionary-Definitions">6.1.6. Array Dictionary Definitions</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Types_Struct-Type-Definitions">6.2. Struct Type Definitions</a>
@@ -498,15 +496,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Types_Struct-Type-Definitions_Member-Format-Strings">6.2.5. Member Format Strings</a></li>
 <li><a href="#Defining-Types_Struct-Type-Definitions_Struct-Types-Containing-Named-Types">6.2.6. Struct Types Containing Named Types</a></li>
 <li><a href="#Defining-Types_Struct-Type-Definitions_The-Order-of-Members">6.2.7. The Order of Members</a></li>
-<li><a href="#Defining-Types_Struct-Type-Definitions_Struct-Dictionary-Definitions">6.2.8. Struct Dictionary Definitions</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Types_Abstract-Type-Definitions">6.3. Abstract Type Definitions</a></li>
-<li><a href="#Defining-Types_Alias-Type-Definitions">6.4. Alias Type Definitions</a>
-<ul class="sectlevel3">
-<li><a href="#Defining-Types_Alias-Type-Definitions_Alias-Type-Dictionary-Definitions">6.4.1. Alias Type Dictionary Definitions</a></li>
-</ul>
-</li>
+<li><a href="#Defining-Types_Alias-Type-Definitions">6.4. Alias Type Definitions</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Enums">7. Defining Enums</a>
@@ -516,15 +509,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Enums_Numeric-Values">7.3. Numeric Values</a></li>
 <li><a href="#Defining-Enums_The-Representation-Type">7.4. The Representation Type</a></li>
 <li><a href="#Defining-Enums_The-Default-Value">7.5. The Default Value</a></li>
-<li><a href="#Defining-Enums_Enum-Dictionary-Definitions">7.6. Enum Dictionary Definitions</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Framework-and-Dictionary-Definitions">8. Defining Framework and Dictionary Definitions</a>
 <ul class="sectlevel2">
-<li><a href="#Defining-Framework-and-Dictionary-Definitions_Defining-Framework-Definitions">8.1. Defining Framework Definitions</a></li>
-<li><a href="#Defining-Framework-and-Dictionary-Definitions_Writing-a-Framework-Definition">8.2. Writing a Framework Definition</a></li>
-<li><a href="#Defining-Framework-and-Dictionary-Definitions_Defining-Dictionary-Definitions">8.3. Defining Dictionary Definitions</a></li>
-<li><a href="#Defining-Framework-and-Dictionary-Definitions_Writing-a-Dictionary-Definition">8.4. Writing a Dictionary Definition</a></li>
+<li><a href="#Defining-Framework-and-Dictionary-Definitions_Framework-Definitions">8.1. Framework Definitions</a></li>
+<li><a href="#Defining-Framework-and-Dictionary-Definitions_Dictionary-Definitions">8.2. Dictionary Definitions</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Ports">9. Defining Ports</a>
@@ -1839,25 +1829,6 @@ is not legal:</p>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="Defining-Constants_Constant-Dictionary-Definitions">3.6. Constant Dictionary Definitions</h3>
-<div class="paragraph">
-<p>Prefixing a constant definition with the <code>dicitionary</code> keyword
-designates the constant as a dictionary defintion. Dictionary
-definitions are covered in more detail in the
-<a href="#Defining-Framework-and-Dictionary-Definitions">dictionary definitions</a>
-section.</p>
-</div>
-<div class="paragraph">
-<p>For example, to define a constant dictionary definition, you write
-the following:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">dictionary constant a = 1</code></pre>
-</div>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -2461,25 +2432,6 @@ array B4 = [2] A default [ [ 1, 2 ], [ 3, 4 ] ]</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="Defining-Types_Array-Type-Definitions_Array-Dictionary-Definitions">6.1.6. Array Dictionary Definitions</h4>
-<div class="paragraph">
-<p>Prefixing an array definition with the <code>dicitionary</code> keyword
-designates the array as a dictionary defintion. Dictionary
-definitions are covered in more detail in the
-<a href="#Defining-Framework-and-Dictionary-Definitions">dictionary definitions</a>
-section.</p>
-</div>
-<div class="paragraph">
-<p>For example, to define an array dictionary definition, you write
-the following:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">dictionary array A = [2] U32</code></pre>
-</div>
-</div>
-</div>
 </div>
 <div class="sect2">
 <h3 id="Defining-Types_Struct-Type-Definitions">6.2. Struct Type Definitions</h3>
@@ -2829,25 +2781,6 @@ However, once those values are assigned to a named struct <em>type</em>,
 the order becomes fixed.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="Defining-Types_Struct-Type-Definitions_Struct-Dictionary-Definitions">6.2.8. Struct Dictionary Definitions</h4>
-<div class="paragraph">
-<p>Prefixing a struct definition with the <code>dicitionary</code> keyword
-designates the struct as a dictionary defintion. Dictionary
-definitions are covered in more detail in the
-<a href="#Defining-Framework-and-Dictionary-Definitions">dictionary definitions</a>
-section.</p>
-</div>
-<div class="paragraph">
-<p>For example, to define a struct dictionary definition, you write
-the following:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">dictionary struct S { x: U32, y: string }</code></pre>
-</div>
-</div>
-</div>
 </div>
 <div class="sect2">
 <h3 id="Defining-Types_Abstract-Type-Definitions">6.3. Abstract Type Definitions</h3>
@@ -2992,25 +2925,6 @@ defining <code>T</code>; elsewhere, configuration code can define
 F Prime uses this method to provide basic type whose definitions
 configure the framework.
 These types are defined in the file <code>config/FpConfig.fpp</code>.</p>
-</div>
-<div class="sect3">
-<h4 id="Defining-Types_Alias-Type-Definitions_Alias-Type-Dictionary-Definitions">6.4.1. Alias Type Dictionary Definitions</h4>
-<div class="paragraph">
-<p>Prefixing an alias type definition with the <code>dicitionary</code> keyword
-designates the alias type as a dictionary defintion. Dictionary
-definitions are covered in more detail in the
-<a href="#Defining-Framework-and-Dictionary-Definitions">dictionary definitions</a>
-section.</p>
-</div>
-<div class="paragraph">
-<p>For example, to define an alias type dictionary definition, you write
-the following:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">dictionary type T = U32</code></pre>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -3253,41 +3167,19 @@ don&#8217;t need to qualify it with the enum name, because the
 use appears inside the enum where it is defined.</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="Defining-Enums_Enum-Dictionary-Definitions">7.6. Enum Dictionary Definitions</h3>
-<div class="paragraph">
-<p>Prefixing an enum definition with the <code>dicitionary</code> keyword
-designates the enum as a dictionary defintion. Dictionary
-definitions are covered in more detail in the
-<a href="#Defining-Framework-and-Dictionary-Definitions">dictionary definitions</a>
-section.</p>
-</div>
-<div class="paragraph">
-<p>For example, to define an enum dictionary definition, you write
-the following:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">dictionary enum E { A, B, C }</code></pre>
-</div>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="Defining-Framework-and-Dictionary-Definitions">8. Defining Framework and Dictionary Definitions</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="Defining-Framework-and-Dictionary-Definitions_Defining-Framework-Definitions">8.1. Defining Framework Definitions</h3>
+<h3 id="Defining-Framework-and-Dictionary-Definitions_Framework-Definitions">8.1. Framework Definitions</h3>
 <div class="paragraph">
 <p><strong>Framework definitions</strong> are type and constant definitions that
 are specicially used by the F Prime Framework. If a model defines
 framework definitions, they must conform to the rules described
 in the the <em>FPP Specification</em>.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="Defining-Framework-and-Dictionary-Definitions_Writing-a-Framework-Definition">8.2. Writing a Framework Definition</h3>
 <div class="paragraph">
 <p>To write a framework definition, we write the type or constant
 and ensure that the defintion follows the rules for that
@@ -3319,16 +3211,13 @@ we would define modules <code>Fw</code> and <code>DpCfg</code> and write a const
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Framework-and-Dictionary-Definitions_Defining-Dictionary-Definitions">8.3. Defining Dictionary Definitions</h3>
+<h3 id="Defining-Framework-and-Dictionary-Definitions_Dictionary-Definitions">8.2. Dictionary Definitions</h3>
 <div class="paragraph">
 <p>An FPP model may include type and constant definitions
 that are <strong>dictionary definitions</strong>. These definitions describe
 type and constant definitions that will be output to the
 dictionary.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="Defining-Framework-and-Dictionary-Definitions_Writing-a-Dictionary-Definition">8.4. Writing a Dictionary Definition</h3>
 <div class="paragraph">
 <p>To write a dictionary definition, prefix an array, struct,
 alias, or constant definition with the <code>dictionary</code> keyword.
@@ -12543,9 +12432,9 @@ is <code>b.fpp</code>, not <code>a.fppi</code>.</p>
 <h4 id="Specifying-Models-as-Files_Location-Specifiers_Dictionary-Specifiers">15.4.5. Dictionary Specifiers</h4>
 <div class="paragraph">
 <p>Dictionary specifiers define the location of constant or type
-dictionary definitions. To write a dictionary specifier,
-write a location specifier and include the <code>dictionary</code> keyword
-before the <code>constant</code> or <code>type</code> keyword.</p>
+<a href="#Defining-Framework-and-Dictionary-Definitions">dictionary definitions</a>.
+To write a dictionary specifier, write a location specifier and include
+the <code>dictionary</code> keyword before the <code>constant</code> or <code>type</code> keyword.</p>
 </div>
 <div class="paragraph">
 <p>For example, to write a dictionary specifier for type <code>T</code> located
@@ -15999,7 +15888,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-10-22 12:46:04 -0700
+Last updated 2025-10-29 09:00:16 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

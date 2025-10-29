@@ -1,12 +1,10 @@
 == Defining Framework and Dictionary Definitions
 
-===  Defining Framework Definitions
+=== Framework Definitions
 *Framework definitions* are type and constant definitions that 
 are specicially used by the F Prime Framework. If a model defines 
 framework definitions, they must conform to the rules described 
 in the the _FPP Specification_.
-
-=== Writing a Framework Definition
 
 To write a framework definition, we write the type or constant
 and ensure that the defintion follows the rules for that
@@ -34,15 +32,12 @@ module Fw {
 }
 ----
 
-
-=== Defining Dictionary Definitions
+=== Dictionary Definitions
 
 An FPP model may include type and constant definitions
 that are *dictionary definitions*. These definitions describe
 type and constant definitions that will be output to the 
 dictionary.
-
-=== Writing a Dictionary Definition
 
 To write a dictionary definition, prefix an array, struct, 
 alias, or constant definition with the `dictionary` keyword.
