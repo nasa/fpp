@@ -19,71 +19,25 @@ object CheckSpecLocs
 
   override def defAliasTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]) = {
     val (_, node, _) = aNode
-    val name = node.data.name
-    for {
-      a <- checkSpecLocPath(a, Ast.SpecLoc.Type, Symbol.AliasType(aNode))
-      a <- checkSpecLocDictionary(a, Ast.SpecLoc.Type, Symbol.AliasType(aNode), node.data.isDictionaryDef)
-    } yield a
+    checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.AliasType(aNode), node.data.isDictionaryDef)
   }
 
   override def defConstantAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefConstant]]) = {
     val (_, node, _) = aNode
-    val name = node.data.name
-    val qualName = a.getQualifiedName(Symbol.Constant(aNode))
-    val id = aNode._2.id
-    for {
-      a <- checkSpecLocPath(a, Ast.SpecLoc.Constant, Symbol.Constant(aNode))
-      a <- checkDictionarySpecLoc(a, Ast.SpecLoc.Constant, qualName, id, node.data.isDictionaryDef)
-    } yield a
+    checkSpecLoc(a, Ast.SpecLoc.Constant, Symbol.Constant(aNode), node.data.isDictionaryDef)
   }
 
   override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node, _) = aNode
-    val name = node.data.name
-    val qualName = a.getQualifiedName(Symbol.Enum(aNode))
-    val id = aNode._2.id
-    for {
-      a <- checkSpecLocPath(a, Ast.SpecLoc.Type, Symbol.Enum(aNode))
-      a <- checkDictionarySpecLoc(a, Ast.SpecLoc.Type, qualName, id, node.data.isDictionaryDef)
-    } yield a
+    checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.Enum(aNode), node.data.isDictionaryDef)
   }
 
-  override def defPortAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) = {
-    val (_, node, _) = aNode
-    val name = node.data.name
-    checkSpecLocPath(a, Ast.SpecLoc.Port, Symbol.Port(aNode))
-  }
+  override def defPortAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefPort]]) =
+    checkSpecLoc(a, Ast.SpecLoc.Port, Symbol.Port(aNode), false)
 
   override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) = {
     val (_, node, _) = aNode
-    val name = node.data.name
-    val qualName = a.getQualifiedName(Symbol.Struct(aNode))
-    val id = aNode._2.id
-    for {
-      a <- checkSpecLocPath(a, Ast.SpecLoc.Type, Symbol.Struct(aNode))
-      a <- checkDictionarySpecLoc(a, Ast.SpecLoc.Type, qualName, id, node.data.isDictionaryDef)
-    } yield a
-  }
-
-  private def checkDictionarySpecLoc(
-    a: Analysis,
-    kind: Ast.SpecLoc.Kind,
-    name: Name.Qualified,
-    id: AstNode.Id,
-    isDictionary: Boolean
-  ) = {
-    val actualLoc = Locations.get(id)
-    a.locationSpecifierMap.get((kind, name)) match {
-      case Some(node) => {
-        val specifierLoc = Locations.get(node.id)
-        if isDictionary == node.data.isDictionaryDef
-        then Right(a)
-        else Left(
-          SemanticError.IncorrectDictionarySpecLoc(specifierLoc, actualLoc)
-        )
-      }
-      case None => Right(a)
-    }
+    checkSpecLoc(a, Ast.SpecLoc.Type, Symbol.Struct(aNode), node.data.isDictionaryDef)
   }
 
   private def checkSpecLoc(
@@ -92,31 +46,9 @@ object CheckSpecLocs
     symbol: Symbol,
     isDictionary: Boolean
   ) = for {
-    a <- checkSpecLocPath(a, Ast.SpecLoc.Type, symbol)
-    a <- checkSpecLocDictionary(a, Ast.SpecLoc.Type, symbol, isDictionary)
+    a <- checkSpecLocPath(a, kind, symbol)
+    a <- checkSpecLocDictionarySpecifier(a, kind, symbol, isDictionary)
   } yield a
-
-  private def checkSpecLocDictionary(
-    a: Analysis,
-    kind: Ast.SpecLoc.Kind,
-    symbol: Symbol,
-    isDictionary: Boolean
-  ) = {
-    val name = a.getQualifiedName(symbol)
-    val id = symbol.getNodeId
-    val actualLoc = Locations.get(id)
-    a.locationSpecifierMap.get((kind, name)) match {
-      case Some(node) => {
-        val specifierLoc = Locations.get(node.id)
-        if isDictionary == node.data.isDictionaryDef
-        then Right(a)
-        else Left(
-          SemanticError.IncorrectDictionarySpecLoc(specifierLoc, actualLoc)
-        )
-      }
-      case None => Right(a)
-    }
-  }
 
   private def checkSpecLocPath[T](
     a: Analysis,
@@ -136,6 +68,28 @@ object CheckSpecLocs
         val actualPath = actualLoc.file.toString
         if (specifiedPath == actualPath) Right(a)
           else Left(SemanticError.IncorrectSpecLoc(specifierLoc, specifiedPath, actualLoc))
+      }
+      case None => Right(a)
+    }
+  }
+
+  private def checkSpecLocDictionarySpecifier(
+    a: Analysis,
+    kind: Ast.SpecLoc.Kind,
+    symbol: Symbol,
+    isDictionary: Boolean
+  ) = {
+    val name = a.getQualifiedName(symbol)
+    val id = symbol.getNodeId
+    val actualLoc = Locations.get(id)
+    a.locationSpecifierMap.get((kind, name)) match {
+      case Some(node) => {
+        val specifierLoc = Locations.get(node.id)
+        if isDictionary == node.data.isDictionaryDef
+        then Right(a)
+        else Left(
+          SemanticError.IncorrectDictionarySpecLoc(specifierLoc, actualLoc)
+        )
       }
       case None => Right(a)
     }
