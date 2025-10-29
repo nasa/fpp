@@ -58,6 +58,11 @@ trait AstTransformer {
     node: Ast.Annotated[AstNode[Ast.DefModule]]
   ): ResultAnnotatedNode[Ast.DefModule] = Right(default(in), node)
 
+  def defModuleTemplateAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
+  ): ResultAnnotatedNode[Ast.DefModuleTemplate] = Right(default(in), node)
+
   def defPortAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefPort]]
@@ -158,6 +163,11 @@ trait AstTransformer {
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecLoc]]
   ): ResultAnnotatedNode[Ast.SpecLoc] = Right(default(in), node)
+
+  def specTemplateExpandAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
+  ): ResultAnnotatedNode[Ast.SpecTemplateExpand] = Right(default(in), node)
 
   def specParamAnnotatedNode(
     in: In,
@@ -345,6 +355,8 @@ trait AstTransformer {
         transform(defEnumAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefEnum(_))
       case Ast.ModuleMember.DefModule(node1) =>
         transform(defModuleAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefModule(_))
+      case Ast.ModuleMember.DefModuleTemplate(node1) =>
+        transform(defModuleTemplateAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefModuleTemplate(_))
       case Ast.ModuleMember.DefPort(node1) =>
         transform(defPortAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefPort(_))
       case Ast.ModuleMember.DefStateMachine(node1) =>
@@ -357,6 +369,8 @@ trait AstTransformer {
         transform(specIncludeAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.SpecInclude(_))
       case Ast.ModuleMember.SpecLoc(node1) =>
         transform(specLocAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.SpecLoc(_))
+      case Ast.ModuleMember.SpecTemplateExpand(node1) =>
+        transform(specTemplateExpandAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.SpecTemplateExpand(_))
     }
   }
 

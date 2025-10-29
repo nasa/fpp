@@ -4,6 +4,8 @@ import fpp.compiler.ast._
 import fpp.compiler.syntax._
 import fpp.compiler.util._
 import scala.language.implicitConversions
+import fpp.compiler.ast.Ast.Annotated
+import fpp.compiler.ast.Ast.SpecTemplateExpand
 
 /** Write out FPP source */
 object FppWriter extends AstVisitor with LineUtils {
@@ -259,6 +261,59 @@ object FppWriter extends AstVisitor with LineUtils {
     List(line(s"module ${ident(data.name)} {"), Line.blank) ++
     (Line.blankSeparated (moduleMember) (data.members)).map(indentIn) ++
     List(Line.blank, line("}"))
+  }
+
+  private def templateParam(fp: Ast.TemplateParam.Node) = {
+    fp match {
+      case Ast.TemplateParam.ConstantParam(name, typeName) =>
+        lines(s"constant $name: ").
+          join("") (typeNameNode(typeName))
+      case Ast.TemplateParam.TypeParam(name) =>
+        lines(s"type $name")
+      case Ast.TemplateParam.InterfaceParam(name, interface) =>
+        lines(s"interface $name: ").
+          join("") (qualIdent(interface.data))
+    }
+  }
+
+  private def templateParamList(fpl: Ast.TemplateParamList) =
+    fpl match {
+      case Nil => Nil
+      case _ =>
+        lines("(") ++
+        fpl.flatMap(annotateNode(templateParam)).map(indentIn) ++
+        lines(")")
+    }
+
+  override def defModuleTemplateAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines (s"template ${ident(data.name)}").
+      join("") (templateParamList(data.params)).
+      join("{") ((Line.blankSeparated (moduleMember) (data.members)).map(indentIn)) ++
+    lines("}")
+  }
+
+  override def specTemplateExpandAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[SpecTemplateExpand]]
+  ): Out = {
+    def templateParamValueList(fpl: List[AstNode[Ast.Expr]]) =
+      fpl match {
+        case Nil => Nil
+        case _ =>
+          lines("(") ++
+          fpl.flatMap(exprNode).map(indentIn) ++
+          lines(")")
+      }
+
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"expand ${qualIdent(data.template.data)}").
+      join ("") (templateParamValueList(data.params))
   }
 
   override def defPortAnnotatedNode(

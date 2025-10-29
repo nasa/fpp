@@ -425,6 +425,7 @@ object Parser extends Parsers {
       node(defConstant) ^^ (n => Ast.ModuleMember.DefConstant(n)) |
       node(defEnum) ^^ (n => Ast.ModuleMember.DefEnum(n)) |
       node(defModule) ^^ (n => Ast.ModuleMember.DefModule(n)) |
+      node(defTemplate) ^^ (n => Ast.ModuleMember.DefModuleTemplate(n)) |
       node(defPort) ^^ (n => Ast.ModuleMember.DefPort(n)) |
       node(defStateMachine) ^^ (n =>
         Ast.ModuleMember.DefStateMachine(n)) |
@@ -432,6 +433,7 @@ object Parser extends Parsers {
       node(defTopology) ^^ (n => Ast.ModuleMember.DefTopology(n)) |
       node(specInclude) ^^ (n => Ast.ModuleMember.SpecInclude(n)) |
       node(specLoc) ^^ (n => Ast.ModuleMember.SpecLoc(n)) |
+      node(specTemplateExpand) ^^ (n => Ast.ModuleMember.SpecTemplateExpand(n)) |
       failure("module member expected")
   }
 
@@ -1007,6 +1009,48 @@ object Parser extends Parsers {
       failure("type name expected")
   }
 
+  def templateConstantParam: Parser[Ast.TemplateParam.ConstantParam] = {
+    (constant ~>! ident) ~! (colon ~>! node(typeName)) ^^ {
+      case id ~ tn => Ast.TemplateParam.ConstantParam(id, tn)
+    }
+  }
+
+  def templateTypeParam: Parser[Ast.TemplateParam.TypeParam] = {
+    typeToken ~>! ident ^^ {
+      case id => Ast.TemplateParam.TypeParam(id)
+    }
+  }
+
+  def templateInterfaceParam: Parser[Ast.TemplateParam.InterfaceParam] = {
+    (interface ~>! ident) ~! (colon ~>! node(qualIdent)) ^^ {
+      case id ~ iface => Ast.TemplateParam.InterfaceParam(id, iface)
+    }
+  }
+
+  private def templateParam: Parser[AstNode[Ast.TemplateParam.Node]] = {
+    node(templateConstantParam) |
+      node(templateTypeParam) |
+      node(templateInterfaceParam) |
+      failure("template parameter expected")
+  }
+
+  def defTemplate: Parser[Ast.DefModuleTemplate] = {
+    def id(x: Ast.Annotated[AstNode[Ast.TemplateParam.Node]]) = x
+    def params = annotatedElementSequence(templateParam, comma, id)
+
+    (template ~>! ident) ~! (lparen ~>! params <~! rparen) ~! (lbrace ~>! moduleMembers <~! rbrace) ^^ {
+      case name ~ params ~ members => Ast.DefModuleTemplate(name, params, members)
+    }
+  }
+
+  def specTemplateExpand: Parser[Ast.SpecTemplateExpand] = {
+    def params = elementSequence(exprNode, comma)
+
+    (expand ~>! node(qualIdent)) ~! (lparen ~>! params <~! rparen) ^^ {
+      case id ~ params => Ast.SpecTemplateExpand(id, params)
+    }
+  }
+
   override def commit[T](p: => Parser[T]) = Parser { in =>
     def setError(e: Error) = {
       error match {
@@ -1138,6 +1182,8 @@ object Parser extends Parsers {
   private def every = accept("every", { case t: Token.EVERY => t })
 
   private def exit = accept("exit", { case t: Token.EXIT => t })
+
+  private def expand = accept("expand", { case t: Token.EXPAND => t })
 
   private def external = accept("external", { case t : Token.EXTERNAL => t })
 
@@ -1300,6 +1346,8 @@ object Parser extends Parsers {
   private def struct = accept("struct", { case t: Token.STRUCT => t })
 
   private def sync = accept("sync", { case t: Token.SYNC => t })
+
+  private def template = accept("template", { case t: Token.TEMPLATE => t })
 
   private def telemetry = accept("telemetry", { case t: Token.TELEMETRY => t })
 

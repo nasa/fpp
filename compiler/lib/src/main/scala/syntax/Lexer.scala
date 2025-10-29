@@ -56,6 +56,7 @@ object Lexer {
     ("event", EVENT),
     ("every", EVERY),
     ("exit", EXIT),
+    ("expand", EXPAND),
     ("external", EXTERNAL),
     ("false", FALSE),
     ("fatal", FATAL),
@@ -117,6 +118,7 @@ object Lexer {
     ("struct", STRUCT),
     ("sync", SYNC),
     ("telemetry", TELEMETRY),
+    ("template", TEMPLATE),
     ("text", TEXT),
     ("throttle", THROTTLE),
     ("time", TIME),
@@ -252,6 +254,7 @@ object Lexer {
         case EVERY => Token.EVERY()
         case EXIT => Token.EXIT()
         case EXTERNAL => Token.EXTERNAL()
+        case EXPAND => Token.EXPAND()
         case F32 => Token.F32()
         case F64 => Token.F64()
         case FALSE => Token.FALSE()
@@ -337,6 +340,7 @@ object Lexer {
         case STRUCT => Token.STRUCT()
         case SYNC => Token.SYNC()
         case TELEMETRY => Token.TELEMETRY()
+        case TEMPLATE => Token.TEMPLATE()
         case TEXT => Token.TEXT()
         case THROTTLE => Token.THROTTLE()
         case TIME => Token.TIME()
