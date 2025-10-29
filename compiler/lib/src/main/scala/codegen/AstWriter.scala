@@ -3,6 +3,8 @@ package fpp.compiler.codegen
 import fpp.compiler.ast._
 import fpp.compiler.util._
 import fpp.compiler.ast.Ast.QualIdent
+import fpp.compiler.ast.Ast.Annotated
+import fpp.compiler.ast.Ast.SpecTemplateExpand
 
 /** Write out an FPP AST */
 object AstWriter extends AstVisitor with LineUtils {
@@ -169,6 +171,46 @@ object AstWriter extends AstVisitor with LineUtils {
     val data = node.data
     lines("def module") ++
     (ident(data.name) ++ data.members.flatMap(moduleMember)).map(indentIn)
+  }
+
+  override def defModuleTemplateAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
+  ) = {
+    def templateParam(tp: Ast.TemplateParam.Node) = {
+      tp match {
+        case Ast.TemplateParam.ConstantParam(name, typeName) =>
+          addPrefix(s"constant $name", typeNameNode) (typeName)
+        case Ast.TemplateParam.TypeParam(name) =>
+          lines(s"type $name")
+        case Ast.TemplateParam.InterfaceParam(name, interface) =>
+          addPrefix(s"interface $name", qualIdent) (interface.data)
+      }
+    }
+
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("def module template") ++
+    List.concat(
+      ident(data.name),
+      addPrefix("params", (x: List[Ast.Annotated[AstNode[Ast.TemplateParam.Node]]]) =>
+        x.flatMap(annotateNode(templateParam))) (data.params),
+      data.members.flatMap(moduleMember)
+    ).map(indentIn)
+  }
+
+  override def specTemplateExpandAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+
+    lines("expand") ++
+    List.concat(
+      qualIdent(data.template.data),
+      data.params.flatMap(exprNode).map(indentIn)
+    )
   }
 
   override def defPortAnnotatedNode(

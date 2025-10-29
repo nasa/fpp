@@ -242,7 +242,7 @@ module DefinitionsAndSpecifiers {
     @ Interface instance template parameter
     interface inst: InterfaceDef @< Instance parameter
   ) {
-    type Arr = [3] TypeParam
+    array Arr = [3] TypeParam
 
     topology Top {
       instance inst

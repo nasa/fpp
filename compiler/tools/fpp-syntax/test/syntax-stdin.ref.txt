@@ -420,6 +420,30 @@ def module
     symbol qual ident i
     file instances.fpp
   @< Location specifier
+  def module template
+    ident Tmpl
+    params @ Constant template parameter
+           constant c type name qual ident SomeType
+           @< Constant parameter
+           @ Type template parameter
+           type TypeParam
+           @< Type parameter
+           @ Interface instance template parameter
+           interface inst qual ident InterfaceDef
+           @< Instance parameter
+    def array
+      ident Arr
+      size literal int 3
+      type name qual ident TypeParam
+    def topology
+      ident Top
+      spec interface instance
+        qual ident inst
+  expand
+  qual ident Tmpl
+    literal int 10
+    ident Type
+    ident instance1
 @< Definitions and specifiers
 @ Type names
 def module

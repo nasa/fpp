@@ -263,37 +263,32 @@ object FppWriter extends AstVisitor with LineUtils {
     List(Line.blank, line("}"))
   }
 
-  private def templateParam(fp: Ast.TemplateParam.Node) = {
-    fp match {
-      case Ast.TemplateParam.ConstantParam(name, typeName) =>
-        lines(s"constant $name: ").
-          join("") (typeNameNode(typeName))
-      case Ast.TemplateParam.TypeParam(name) =>
-        lines(s"type $name")
-      case Ast.TemplateParam.InterfaceParam(name, interface) =>
-        lines(s"interface $name: ").
-          join("") (qualIdent(interface.data))
-    }
-  }
-
-  private def templateParamList(fpl: Ast.TemplateParamList) =
-    fpl match {
-      case Nil => Nil
-      case _ =>
-        lines("(") ++
-        fpl.flatMap(annotateNode(templateParam)).map(indentIn) ++
-        lines(")")
-    }
-
   override def defModuleTemplateAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
   ) = {
+    def templateParam(tp: Ast.TemplateParam.Node) = {
+      tp match {
+        case Ast.TemplateParam.ConstantParam(name, typeName) =>
+          lines(s"constant $name: ").
+            join("") (typeNameNode(typeName))
+        case Ast.TemplateParam.TypeParam(name) =>
+          lines(s"type $name")
+        case Ast.TemplateParam.InterfaceParam(name, interface) =>
+          lines(s"interface $name: ").
+            join("") (qualIdent(interface.data))
+      }
+    }
+
     val (_, node, _) = aNode
     val data = node.data
     lines (s"template ${ident(data.name)}").
-      join("") (templateParamList(data.params)).
-      join("{") ((Line.blankSeparated (moduleMember) (data.members)).map(indentIn)) ++
+      join("") (
+        lines("(") ++
+        data.params.flatMap(annotateNode(templateParam)).map(indentIn) ++
+        lines(") {")
+      ) ++
+    ((Line.blankSeparated (moduleMember) (data.members)).map(indentIn)) ++
     lines("}")
   }
 
