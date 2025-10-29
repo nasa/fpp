@@ -1,10 +1,10 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/dictionary_inconsistent_spec.fpp:2.13
+[ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/dictionary_inconsistent_spec.fpp:2.1
 locate type A at "inconsistentSpecLoc.fpp"
-            ^
+^
 error: inconsistent location specifier
 previous occurrence is here:
-[ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/dictionary_inconsistent_spec.fpp:1.24
+[ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/dictionary_inconsistent_spec.fpp:1.1
 locate dictionary type A at "inconsistentSpecLoc.fpp"
-                       ^
+^
 note: one specifies dictionary and one does not

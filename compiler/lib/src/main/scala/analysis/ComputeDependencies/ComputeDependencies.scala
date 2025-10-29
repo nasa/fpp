@@ -9,8 +9,8 @@ object ComputeDependencies {
 
   def checkDictionarySpecLocs(a: Analysis): Result.Result[Analysis] = {
     val dictionaryFiles: Set[File] = 
-      a.locationSpecifierMap.values.filter(_.isDictionaryDef).map(
-        specLoc => Locations.get(specLoc.file.id).file
+      a.locationSpecifierMap.values.filter(_.data.isDictionaryDef).map(
+        node => Locations.get(node.data.file.id).file
       ).toSet
     Right(a.copy(dependencyFileSet = a.dependencyFileSet ++ dictionaryFiles))
   }

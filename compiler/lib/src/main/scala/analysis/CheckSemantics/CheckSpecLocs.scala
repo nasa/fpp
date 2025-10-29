@@ -85,9 +85,9 @@ object CheckSpecLocs
   ) = {
     val actualLoc = Locations.get(id)
     a.locationSpecifierMap.get((kind, name)) match {
-      case Some(specLoc) => {
-        val specifierLoc = Locations.get(specLoc.file.id)
-        if(isDictionary == specLoc.isDictionaryDef)
+      case Some(node) => {
+        val specifierLoc = Locations.get(node.data.file.id)
+        if(isDictionary == node.data.isDictionaryDef)
         then Right(a)
         else Left(
           SemanticError.IncorrectDictionarySpecLoc(specifierLoc, actualLoc)
@@ -106,7 +106,8 @@ object CheckSpecLocs
     val qualifiedName = Name.Qualified(a.scopeNameList.reverse, name)
     val actualLoc = Locations.get(node.id).tuLocation
     a.locationSpecifierMap.get((kind, qualifiedName)) match {
-      case Some(specLoc) => {
+      case Some(node) => {
+        val specLoc = node.data
         val specifierLoc = Locations.get(specLoc.file.id)
         val specifiedJavaPath = specifierLoc.getRelativePath(specLoc.file.data)
         val specifiedPath = File.Path(specifiedJavaPath).toString

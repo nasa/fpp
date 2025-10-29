@@ -22,7 +22,7 @@ case class Analysis(
   /** The set of files included when parsing input */
   includedFileSet: Set[File] = Set(),
   /** A map from pairs (spec loc kind, qualified name) to spec locs. */
-  locationSpecifierMap: Map[(Ast.SpecLoc.Kind, Name.Qualified), Ast.SpecLoc] = Map(),
+  locationSpecifierMap: Map[(Ast.SpecLoc.Kind, Name.Qualified), AstNode[Ast.SpecLoc]] = Map(),
   /** A list of unqualified names representing the enclosing scope names,
    *  with the innermost name at the head of the list. For exapmle, inside
    *  module B where B is inside A and A is at the top level, the module name

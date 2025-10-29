@@ -17,28 +17,30 @@ object BuildSpecLocMap extends ModuleAnalyzer {
     val key = (spec.kind, qualifiedName)
     a.locationSpecifierMap.get(key) match {
       case None => {
-        val map = a.locationSpecifierMap + (key -> spec)
+        val map = a.locationSpecifierMap + (key -> specNode)
         Right(a.copy(locationSpecifierMap = map))
       }
-      case Some(spec1) => 
-        for { 
-          _ <- checkPathConsistency(spec, spec1)
-          _ <- checkDictionarySpecifierConsistency(spec, spec1)
+      case Some(specNode1) =>
+        for {
+          _ <- checkPathConsistency(spec, specNode1.data)
+          _ <- checkDictionarySpecifierConsistency(specNode, specNode1)
         } yield a
     }
   }
 
   private def checkDictionarySpecifierConsistency(
-    spec1: Ast.SpecLoc,
-    spec2: Ast.SpecLoc
+    specNode1: AstNode[Ast.SpecLoc],
+    specNode2: AstNode[Ast.SpecLoc]
   ): Result.Result[Unit] = {
+    val spec1 = specNode1.data
+    val spec2 = specNode2.data
     if(spec1.isDictionaryDef == spec2.isDictionaryDef) then
       Right(())
     else
       Left(
         SemanticError.InconsistentDictionarySpecLoc(
-          Locations.get(spec1.symbol.id),
-          Locations.get(spec2.symbol.id),
+          Locations.get(specNode1.id),
+          Locations.get(specNode2.id),
         )
       )
   }
