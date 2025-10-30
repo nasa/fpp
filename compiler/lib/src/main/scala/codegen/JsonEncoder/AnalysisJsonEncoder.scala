@@ -334,9 +334,15 @@ object AnalysisJsonEncoder extends JsonEncoder{
   // We use this conversion when the keys cannot be converted to strings
   // ----------------------------------------------------------------------
 
+  implicit val locationComparator: java.util.Comparator[Location] =
+    new java.util.Comparator[Location] {
+      override def compare(o1: Location, o2: Location): Int =
+        o1.compare(o2)
+    }
+
   private implicit val interfaceInstanceLocationMapEncoder:
     Encoder[Map[InterfaceInstance, Location]] =
-    Encoder.instance(_.toList.asJson)
+    Encoder.instance(_.toList.sortBy(_._2).asJson)
 
   private implicit val connectionMapEncoder:
     Encoder[Map[PortInstanceIdentifier, Set[Connection]]] =
