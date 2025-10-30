@@ -76,7 +76,7 @@ object Parser extends Parsers {
 
   def defAliasType: Parser[Ast.DefAliasType] = {
     (opt(dictionary) ~ (typeToken ~> ident) ~ (equals ~> node(typeName))) ^^ {
-      case dictionary ~ ident ~ typeName => 
+      case dictionary ~ ident ~ typeName =>
         Ast.DefAliasType(ident, typeName, dictionary.isDefined)
     }
   }
@@ -173,7 +173,7 @@ object Parser extends Parsers {
   }
 
   def defConstant: Parser[Ast.DefConstant] = {
-    opt(dictionary) ~ (constant ~>! ident) ~! (equals ~>! exprNode) ^^ { 
+    opt(dictionary) ~ (constant ~>! ident) ~! (equals ~>! exprNode) ^^ {
       case dictionary ~ id ~ e =>
         Ast.DefConstant(id, e, dictionary.isDefined)
     }

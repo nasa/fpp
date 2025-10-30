@@ -115,7 +115,7 @@ object Ast {
 
   /** Constant definition */
   final case class DefConstant(
-    name: Ident, 
+    name: Ident,
     value: AstNode[Expr],
     isDictionaryDef: Boolean
 )
