@@ -20,7 +20,7 @@ object CheckDictionaryDefs
         Right(a1)
       def error =
         val loc = Locations.get(id)
-        val msg = "dictionary constant defintion must have a primitive, string, or enum type"
+        val msg = "dictionary constant must have a numeric, Boolean, string, or enum type"
         Left(SemanticError.InvalidType(loc, msg))
       t match
         case _: Type.String | Type.Boolean | _: Type.Enum => result
@@ -32,7 +32,7 @@ object CheckDictionaryDefs
       for {
         _ <- a.checkDisplayableType(
           s.getNodeId,
-          "dictionary type definition must be displayable"
+          "dictionary type is not displayable"
         )
       } yield a.copy(dictionarySymbolSet = a.dictionarySymbolSet + s)
     else Right(a)

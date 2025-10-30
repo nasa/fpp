@@ -397,6 +397,9 @@ case class Analysis(
       s"\n\n${Locations.get(id)}\nbecause this type is not displayable$reason"
     }
     this.typeMap(id) match {
+      case a: Type.AliasType =>
+        val id = a.node._2.data.typeName.id
+        getElementReason(id)
       case a: Type.Array =>
         val id = a.node._2.data.eltType.id
         getElementReason(id)

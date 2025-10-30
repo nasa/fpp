@@ -2,9 +2,14 @@ fpp-to-dict
 [ local path prefix ]/tools/fpp-to-dict/test/top/invalidDictDefType.fpp:2.1
 dictionary type A2 = A
 ^
-error: dictionary type definition must be displayable
+error: dictionary type is not displayable
 
-[ local path prefix ]/tools/fpp-to-dict/test/top/invalidDictDefType.fpp:2.1
+[ local path prefix ]/tools/fpp-to-dict/test/top/invalidDictDefType.fpp:2.22
 dictionary type A2 = A
+                     ^
+because this type is not displayable
+
+[ local path prefix ]/tools/fpp-to-dict/test/top/invalidDictDefType.fpp:1.1
+type A
 ^
 Type is defined here
