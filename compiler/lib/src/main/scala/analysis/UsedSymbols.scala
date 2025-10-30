@@ -59,16 +59,12 @@ object UsedSymbols extends UseAnalyzer {
     Right(a.copy(usedSymbolSet = a.usedSymbolSet + symbol))
   }
 
-  /** Resolves used symbols recursively */
+  /** Resolves used symbols recursively
+   *  Replaces uses of enum constants with uses of the corresponding enums */
   def resolveUses(a: Analysis, ss: Set[Symbol]): Set[Symbol] = {
+    // Helper function for recursive resolution
     val a1: Analysis = a.copy(usedSymbolSet = Set())
-    def addEnumTypeForEnumConstant(s: Symbol) =
-      s match
-        case Symbol.EnumConstant(node) =>
-          val t @ Type.Enum(enumNode, _, _) = a.typeMap(node._2.id)
-          Set(s, Symbol.Enum(enumNode))
-        case _ => Set(s)
-    def helper(s: Symbol): Set[Symbol] = {
+    def resolveNode(s: Symbol): Set[Symbol] = {
       val Right(a2) = s match {
         case Symbol.AbsType(node) => defAbsTypeAnnotatedNode(a1, node)
         case Symbol.AliasType(node) => defAliasTypeAnnotatedNode(a1, node)
@@ -85,9 +81,26 @@ object UsedSymbols extends UseAnalyzer {
         case Symbol.Struct(node) => defStructAnnotatedNode(a1, node)
         case Symbol.Topology(node) => defTopologyAnnotatedNode(a1, node)
       }
-      a2.usedSymbolSet.flatMap(helper) + s
+      a2.usedSymbolSet.flatMap(resolveNode) + s
     }
-    ss.flatMap(helper).flatMap(addEnumTypeForEnumConstant)
+    // When resolving uses, convert an enum constant use to a
+    // use of the corresponding enum. For example, the use
+    // E.A becomes a use of E. This is what we want, because
+    // E provides the definition of E.A.
+    def resolveEnumConstant(s: Symbol) =
+      s match
+        case Symbol.EnumConstant(node) =>
+          val t @ Type.Enum(enumNode, _, _) = a.typeMap(node._2.id)
+          Set(Symbol.Enum(enumNode))
+        case _ => Set(s)
+    // Iterate to a fixed point.
+    // We can't do the resolution recursively, because there is a
+    // cycle: the default value of E contains a resolved use of E.
+    def resolveSet(prev: Set[Symbol], input: Set[Symbol]): Set[Symbol] =
+      if prev.size == input.size
+      then input
+      else resolveSet(input, input.flatMap(resolveNode).flatMap(resolveEnumConstant))
+    resolveSet(Set(), ss)
   }
 
 }
