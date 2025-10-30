@@ -3,8 +3,32 @@ package fpp.compiler.analysis
 import fpp.compiler.ast.*
 import fpp.compiler.util.*
 
-/** Compute used symbols */
+/**
+ *  Compute used symbols
+ *
+ *  There are two forms of resolution:
+ *
+ *  1. Shallow resolution (don't follow uses from uses). This is used to
+ *     generate header files. You get this by calling a visitor method
+ *     of UsedSymbols.
+ *
+ *  2. Deep resolution (follow uses from uses). This is used to generate
+ *     dictionary symbols. You get this by calling UsedSymbols.resolveUses.
+ */
 object UsedSymbols extends UseAnalyzer {
+
+  // When resolving uses, don't visit the default value of an enum definition.
+  // The default value is an enum constant, which is ignored (for shallow resolution)
+  // or converted to a use of this enum (for deep resolution).
+  // So it adds nothing to the resolution.
+  override def defEnumAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
+    val (_, node1, _) = node
+    val data = node1.data
+    for {
+      a <- opt(typeNameNode)(a, data.typeName)
+      a <- visitList(a, data.constants, defEnumConstantAnnotatedNode)
+    } yield a
+  }
 
   override def componentUse(
     a: Analysis,
@@ -55,13 +79,27 @@ object UsedSymbols extends UseAnalyzer {
   ) = addSymbol(a, node)
 
   private def addSymbol[T](a: Analysis, node: AstNode[T]) = {
+    // We could convert enum constant symbols to enum symbols here.
+    // This would convert E.A to a use of E in shallow resolution.
+    // Currently we don't do this, because we convert E.A to a numeric
+    // constant in the generated code, so we don't need the dependency
+    // on E.
     val symbol = a.useDefMap(node.id)
     Right(a.copy(usedSymbolSet = a.usedSymbolSet + symbol))
   }
 
-  /** Resolves used symbols recursively
+  /** Deep resolution of used symbols
    *  Replaces uses of enum constants with uses of the corresponding enums */
   def resolveUses(a: Analysis, ss: Set[Symbol]): Set[Symbol] = {
+    // When resolving uses, convert an enum constant symbol to the corresponding
+    // enum symbol. For example, the use E.A becomes a use of E. This is what
+    // we want, because E provides the definition of E.A.
+    def resolveEnumConstant(s: Symbol) =
+      s match
+        case Symbol.EnumConstant(node) =>
+          val t @ Type.Enum(enumNode, _, _) = a.typeMap(node._2.id)
+          Symbol.Enum(enumNode)
+        case _ => s
     // Helper function for recursive resolution
     val a1: Analysis = a.copy(usedSymbolSet = Set())
     def resolveNode(s: Symbol): Set[Symbol] = {
@@ -81,26 +119,9 @@ object UsedSymbols extends UseAnalyzer {
         case Symbol.Struct(node) => defStructAnnotatedNode(a1, node)
         case Symbol.Topology(node) => defTopologyAnnotatedNode(a1, node)
       }
-      a2.usedSymbolSet.flatMap(resolveNode) + s
+      a2.usedSymbolSet.flatMap(resolveNode) + resolveEnumConstant(s)
     }
-    // When resolving uses, convert an enum constant use to a
-    // use of the corresponding enum. For example, the use
-    // E.A becomes a use of E. This is what we want, because
-    // E provides the definition of E.A.
-    def resolveEnumConstant(s: Symbol) =
-      s match
-        case Symbol.EnumConstant(node) =>
-          val t @ Type.Enum(enumNode, _, _) = a.typeMap(node._2.id)
-          Set(Symbol.Enum(enumNode))
-        case _ => Set(s)
-    // Iterate to a fixed point.
-    // We can't do the resolution recursively, because there is a
-    // cycle: the default value of E may contain a resolved use of E.
-    def resolveSet(prev: Set[Symbol], input: Set[Symbol]): Set[Symbol] =
-      if prev.size == input.size
-      then input
-      else resolveSet(input, input.flatMap(resolveNode).flatMap(resolveEnumConstant))
-    resolveSet(Set(), ss)
+    ss.flatMap(resolveNode)
   }
 
 }
