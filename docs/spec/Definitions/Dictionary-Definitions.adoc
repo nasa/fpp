@@ -14,7 +14,8 @@ defined by _D_ must be a <<Types_Displayable-Types, displayable type>>.
 If a constant definition _D_ is a dictionary definition, then the
 expression appearing in _D_ must have one of the following types:
 
-* A <<Types_Primitive-Types,primitive type>>.
+* A <<Types_Internal-Types_Numeric-Types,numeric type>>.
+* The <<Types_The-Boolean-Type,Boolean type>>.
 * A <<Types_String-Types,string type>>.
 * An <<Types_Enum-Types,enum type>>.
 
@@ -32,6 +33,5 @@ dictionary constant b = E.X
 type T1
 dictionary type T2 = T1 # Error: T2 is not displayable
 
-# Error: c does not have primitive, string, or enum type
-dictionary constant c = { x = U32 }
+dictionary constant c = { x = U32 } # Error: struct type is not allowed
 ----

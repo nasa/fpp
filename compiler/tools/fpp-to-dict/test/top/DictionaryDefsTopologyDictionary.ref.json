@@ -1,0 +1,408 @@
+{
+  "metadata" : {
+    "deploymentName" : "DictionaryDefs",
+    "projectVersion" : "1.0.0",
+    "frameworkVersion" : "3.4.3",
+    "libraryVersions" : [
+      "lib1-1.0.0",
+      "lib2-2.0.0"
+    ],
+    "dictionarySpecVersion" : "1.0.0"
+  },
+  "typeDefinitions" : [
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwTlmPacketizeIdType",
+      "type" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "enum",
+      "qualifiedName" : "Fw.DpState",
+      "representationType" : {
+        "name" : "U8",
+        "kind" : "integer",
+        "size" : 8,
+        "signed" : false
+      },
+      "enumeratedConstants" : [
+        {
+          "name" : "UNTRANSMITTED",
+          "value" : 0,
+          "annotation" : "The untransmitted state"
+        },
+        {
+          "name" : "PARTIAL",
+          "value" : 1,
+          "annotation" : "The partially transmitted state\nA data product is in this state from the start of transmission\nuntil transmission is complete."
+        },
+        {
+          "name" : "TRANSMITTED",
+          "value" : 2,
+          "annotation" : "The transmitted state"
+        }
+      ],
+      "default" : "Fw.DpState.UNTRANSMITTED"
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "f32Alias",
+      "type" : {
+        "name" : "F32",
+        "kind" : "float",
+        "size" : 32
+      },
+      "underlyingType" : {
+        "name" : "F32",
+        "kind" : "float",
+        "size" : 32
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "BaseIdType",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwTimeContextStoreType",
+      "type" : {
+        "name" : "U8",
+        "kind" : "integer",
+        "size" : 8,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U8",
+        "kind" : "integer",
+        "size" : 8,
+        "signed" : false
+      },
+      "annotation" : "The type used to serialize a time context value"
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwEventIdType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "enum",
+      "qualifiedName" : "E2",
+      "representationType" : {
+        "name" : "I32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : true
+      },
+      "enumeratedConstants" : [
+        {
+          "name" : "A",
+          "value" : 0
+        },
+        {
+          "name" : "B",
+          "value" : 1
+        },
+        {
+          "name" : "C",
+          "value" : 2
+        }
+      ],
+      "default" : "E2.A"
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwSizeStoreType",
+      "type" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwPacketDescriptorType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "struct",
+      "qualifiedName" : "S",
+      "members" : {
+        "X" : {
+          "type" : {
+            "name" : "A",
+            "kind" : "qualifiedIdentifier"
+          },
+          "index" : 0
+        },
+        "Y" : {
+          "type" : {
+            "name" : "stringAlias",
+            "kind" : "qualifiedIdentifier"
+          },
+          "index" : 1
+        }
+      },
+      "default" : {
+        "X" : [
+          0.0,
+          0.0
+        ],
+        "Y" : ""
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwDpIdType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwChanIdType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwOpcodeType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "enum",
+      "qualifiedName" : "Fw.DpCfg.ProcType",
+      "representationType" : {
+        "name" : "U8",
+        "kind" : "integer",
+        "size" : 8,
+        "signed" : false
+      },
+      "enumeratedConstants" : [
+        {
+          "name" : "PROC_TYPE_ZERO",
+          "value" : 1,
+          "annotation" : "Processing type 0"
+        },
+        {
+          "name" : "PROC_TYPE_ONE",
+          "value" : 2,
+          "annotation" : "Processing type 1"
+        },
+        {
+          "name" : "PROC_TYPE_TWO",
+          "value" : 4,
+          "annotation" : "Processing type 2"
+        }
+      ],
+      "default" : "Fw.DpCfg.ProcType.PROC_TYPE_ZERO",
+      "annotation" : "A bit mask for selecting the type of processing to perform on\na container before writing it to disk."
+    },
+    {
+      "kind" : "array",
+      "qualifiedName" : "A",
+      "size" : 2,
+      "elementType" : {
+        "name" : "f32Alias",
+        "kind" : "qualifiedIdentifier"
+      },
+      "default" : [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "stringAlias",
+      "type" : {
+        "name" : "string",
+        "kind" : "string",
+        "size" : 80
+      },
+      "underlyingType" : {
+        "name" : "string",
+        "kind" : "string",
+        "size" : 80
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwDpPriorityType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwSizeType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "array",
+      "qualifiedName" : "A2",
+      "size" : 3,
+      "elementType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "default" : [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwTimeBaseStoreType",
+      "type" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "annotation" : "The type used to serialize a time base value"
+    }
+  ],
+  "constants" : [
+    {
+      "kind" : "constant",
+      "qualifiedName" : "C2",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "value" : 1
+    },
+    {
+      "kind" : "constant",
+      "qualifiedName" : "Fw.DpCfg.CONTAINER_USER_DATA_SIZE",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "value" : 32,
+      "annotation" : "The container user data size"
+    },
+    {
+      "kind" : "constant",
+      "qualifiedName" : "C3",
+      "type" : {
+        "name" : "E2",
+        "kind" : "qualifiedIdentifier"
+      },
+      "value" : "E2.A"
+    }
+  ],
+  "commands" : [
+  ],
+  "parameters" : [
+  ],
+  "events" : [
+  ],
+  "telemetryChannels" : [
+  ],
+  "records" : [
+  ],
+  "containers" : [
+  ],
+  "telemetryPacketSets" : [
+  ]
+}
