@@ -6226,12 +6226,6 @@
   },
   "dictionarySymbolSet" : [
     {
-      "Array" : {
-        "nodeId" : 104,
-        "unqualifiedName" : "SignalPairSet"
-      }
-    },
-    {
       "Constant" : {
         "nodeId" : 1,
         "unqualifiedName" : "numElements"
@@ -6259,12 +6253,6 @@
       "Array" : {
         "nodeId" : 108,
         "unqualifiedName" : "SignalSet"
-      }
-    },
-    {
-      "Struct" : {
-        "nodeId" : 99,
-        "unqualifiedName" : "SignalPair"
       }
     }
   ]

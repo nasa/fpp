@@ -10,36 +10,31 @@ object CheckDictionaryDefs
 {
 
   def checkConstantDef(a: Analysis, s: Symbol.Constant) =
-    if s.isDictionaryDef
-    then
+    if !s.isDictionaryDef
+    then Right(a)
+    else
       val id = s.getNodeId
-      a.typeMap(id) match {
-        case Type.Integer | _: Type.Float | Type.Boolean | _: Type.String =>
-        Right(a.copy(dictionarySymbolSet = a.dictionarySymbolSet +  s))
-        case Type.Enum(enumNode, _, _) =>
-          val enumSymbol = Symbol.Enum(enumNode)
-          Right(a.copy(dictionarySymbolSet = a.dictionarySymbolSet + s + enumSymbol))
-        case _ =>
-          val loc = Locations.get(id)
-          Left(
-            SemanticError.InvalidType(
-              loc, s"dictionary constant defintion must have a primitive, string, or enum type"
-            )
-          )
-      }
-    else Right(a)
+      val t = a.typeMap(id)
+      def result =
+        val a1 = a.copy(dictionarySymbolSet = a.dictionarySymbolSet +  s)
+        Right(a1)
+      def error =
+        val loc = Locations.get(id)
+        val msg = "dictionary constant defintion must have a primitive, string, or enum type"
+        Left(SemanticError.InvalidType(loc, msg))
+      t match
+        case _: Type.String | Type.Boolean | _: Type.Enum => result
+        case _ => if t.isNumeric then result else error
 
   def checkTypeDef(a: Analysis, s: Symbol) =
-    if (s.isDictionaryDef)
-    then for {
-      _ <- a.checkDisplayableType(
-        s.getNodeId,
-        "dictionary type definition must be displayable"
-      )
-    } yield {
-      val ss = UsedSymbols.resolveUses(a, Set(s))
-      a.copy(dictionarySymbolSet = a.dictionarySymbolSet ++ ss)
-    }
+    if s.isDictionaryDef
+    then
+      for {
+        _ <- a.checkDisplayableType(
+          s.getNodeId,
+          "dictionary type definition must be displayable"
+        )
+      } yield a.copy(dictionarySymbolSet = a.dictionarySymbolSet + s)
     else Right(a)
 
   override def defAliasTypeAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]) =

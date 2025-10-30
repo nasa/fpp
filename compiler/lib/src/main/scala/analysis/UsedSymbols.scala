@@ -47,7 +47,7 @@ object UsedSymbols extends UseAnalyzer {
     node: AstNode[Ast.TypeName],
     use: Name.Qualified
   ) = addSymbol(a, node)
-  
+
   override def portUse(
     a: Analysis,
     node: AstNode[Ast.QualIdent],
@@ -62,6 +62,12 @@ object UsedSymbols extends UseAnalyzer {
   /** Resolves used symbols recursively */
   def resolveUses(a: Analysis, ss: Set[Symbol]): Set[Symbol] = {
     val a1: Analysis = a.copy(usedSymbolSet = Set())
+    def addEnumTypeForEnumConstant(s: Symbol) =
+      s match
+        case Symbol.EnumConstant(node) =>
+          val t @ Type.Enum(enumNode, _, _) = a.typeMap(node._2.id)
+          Set(s, Symbol.Enum(enumNode))
+        case _ => Set(s)
     def helper(s: Symbol): Set[Symbol] = {
       val Right(a2) = s match {
         case Symbol.AbsType(node) => defAbsTypeAnnotatedNode(a1, node)
@@ -81,7 +87,7 @@ object UsedSymbols extends UseAnalyzer {
       }
       a2.usedSymbolSet.flatMap(helper) + s
     }
-    ss.flatMap(helper)
+    ss.flatMap(helper).flatMap(addEnumTypeForEnumConstant)
   }
 
 }

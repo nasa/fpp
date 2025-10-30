@@ -4401,7 +4401,10 @@ expression appearing in <em>D</em> must have one of the following types:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>A <a href="#Types_Primitive-Types">primitive type</a>.</p>
+<p>A <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.</p>
+</li>
+<li>
+<p>The <a href="#Types_The-Boolean-Type">Boolean type</a>.</p>
 </li>
 <li>
 <p>A <a href="#Types_String-Types">string type</a>.</p>
@@ -4426,8 +4429,7 @@ dictionary constant b = E.X
 type T1
 dictionary type T2 = T1 # Error: T2 is not displayable
 
-# Error: c does not have primitive, string, or enum type
-dictionary constant c = { x = U32 }</code></pre>
+dictionary constant c = { x = U32 } # Error: struct type is not allowed</code></pre>
 </div>
 </div>
 </div>
@@ -12035,7 +12037,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-10-28 20:24:16 -0700
+Last updated 2025-10-29 18:57:16 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
