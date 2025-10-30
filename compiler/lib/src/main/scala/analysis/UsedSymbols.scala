@@ -95,7 +95,7 @@ object UsedSymbols extends UseAnalyzer {
         case _ => Set(s)
     // Iterate to a fixed point.
     // We can't do the resolution recursively, because there is a
-    // cycle: the default value of E contains a resolved use of E.
+    // cycle: the default value of E may contain a resolved use of E.
     def resolveSet(prev: Set[Symbol], input: Set[Symbol]): Set[Symbol] =
       if prev.size == input.size
       then input
