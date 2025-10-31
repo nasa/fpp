@@ -1191,6 +1191,7 @@ enter
 entry
 enum
 event
+every
 exit
 external
 false
@@ -1727,7 +1728,7 @@ Elsewhere in the model, the name <em>N</em> may be used as alias of (i.e., an
 alternate name for) the type <em>T</em>.</p>
 </div>
 <div class="paragraph">
-<p>If the optional <code>dictionary</code> keyword is present, then the
+<p>If the optional keyword <code>dictionary</code> is present, then the
 definition must conform to the rules stated in the
 <a href="#Definitions_Dictionary-Definitions">dictionary definitions</a> section.</p>
 </div>
@@ -1780,7 +1781,9 @@ whose value is greater than zero.
 </div>
 <div class="paragraph">
 <p>The definition associates the name <em>N</em> with a new type <em>T'</em>
-that represents an array of <em>n</em> elements of type <em>T</em>.</p>
+that represents an array of <em>n</em> elements of type <em>T</em>.
+The value <em>n</em> is called the <strong>size</strong> of the array type <em>T'</em>.
+The type <em>T</em> is called the <strong>element type</strong> of the array type <em>T'</em>.</p>
 </div>
 <div class="paragraph">
 <p>The expression following the keyword <code>default</code> is optional.
@@ -1795,7 +1798,7 @@ When displaying the array, the format is applied to each element of the array.
 There is one argument to the format string, which is an array member.</p>
 </div>
 <div class="paragraph">
-<p>If the optional <code>dictionary</code> keyword is present, then the
+<p>If the optional keyword <code>dictionary</code> is present, then the
 definition must conform to the rules stated in the
 <a href="#Definitions_Dictionary-Definitions">dictionary definitions</a> section.</p>
 </div>
@@ -2553,7 +2556,7 @@ the constant definition according to the
 rules for names</a>, you can use <em>Q</em> as a name for <em>v</em>.</p>
 </div>
 <div class="paragraph">
-<p>If the optional <code>dictionary</code> keyword is present, then the
+<p>If the optional keyword <code>dictionary</code> is present, then the
 definition must conform to the rules stated in the
 <a href="#Definitions_Dictionary-Definitions">dictionary definitions</a> section.</p>
 </div>
@@ -2637,7 +2640,7 @@ with the enum definition.
 The type of the expression must be the type of the enum definition.</p>
 </div>
 <div class="paragraph">
-<p>If the optional <code>dictionary</code> keyword is present, then the
+<p>If the optional keyword <code>dictionary</code> is present, then the
 definition must conform to the rules stated in the
 <a href="#Definitions_Dictionary-Definitions">dictionary definitions</a> section.</p>
 </div>
@@ -3565,7 +3568,7 @@ If the expression specifies a value for a member with size
 greater than one, then the value is applied to each element.</p>
 </div>
 <div class="paragraph">
-<p>If the optional <code>dictionary</code> keyword is present, then the
+<p>If the optional keyword <code>dictionary</code> is present, then the
 definition must conform to the rules stated in the
 <a href="#Definitions_Dictionary-Definitions">dictionary definitions</a> section.</p>
 </div>
@@ -4379,29 +4382,29 @@ to the following rules.</p>
 <div class="sect2">
 <h3 id="Definitions_Dictionary-Definitions">5.16. Dictionary Definitions</h3>
 <div class="paragraph">
-<p>If a type definition or a constant definition has the optional
-<code>dictionary</code> keyword, then it is called a <strong>dictionary definition</strong>.</p>
+<p>If the optional keyword <code>dictionary</code> appears in a type definition or
+a constant definition, then that definition is called a
+<strong>dictionary definition</strong>.
+A dictionary definition instructs the code generator to include
+the definition in the ground dictionary.</p>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Dictionary-Definitions_Semantics">5.16.1. Semantics</h4>
 <div class="paragraph">
-<p>Type definitions that are included in the dictionary must be
-<a href="#Types_Displayable-Types">displayable</a>.</p>
+<p>If a type definition <em>D</em> is a dictionary definition, then the type
+defined by <em>D</em> must be a <a href="#Types_Displayable-Types">displayable type</a>.</p>
 </div>
 <div class="paragraph">
-<p>Constants that are included in the dictionary must be one of
-the following:</p>
+<p>If a constant definition <em>D</em> is a dictionary definition, then the
+expression appearing in <em>D</em> must have one of the following types:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>A <a href="#Types_Primitive-Integer-Types">primitive integer type</a>.</p>
+<p>A <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.</p>
 </li>
 <li>
-<p>A <a href="#Types_Floating-Point-Types">floating-point type</a>.</p>
-</li>
-<li>
-<p>A <a href="#Types_The-Boolean-Type">boolean type</a>.</p>
+<p>The <a href="#Types_The-Boolean-Type">Boolean type</a>.</p>
 </li>
 <li>
 <p>A <a href="#Types_String-Types">string type</a>.</p>
@@ -4418,7 +4421,15 @@ the following:</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">dictionary type T = U32
 dictionary array A = [3] string
-dictionary constant a = 0</code></pre>
+dictionary constant a = 0
+
+enum E { X, Y }
+dictionary constant b = E.X
+
+type T1
+dictionary type T2 = T1 # Error: T2 is not displayable
+
+dictionary constant c = { x = U32 } # Error: struct type is not allowed</code></pre>
 </div>
 </div>
 </div>
@@ -6098,7 +6109,9 @@ product container Container2 default priority 10</code></pre>
 <h3 id="Specifiers_Event-Specifiers">7.5. Event Specifiers</h3>
 <div class="paragraph">
 <p>An <strong>event specifier</strong> specifies an event report as part of a
-<a href="#Definitions_Component-Definitions">component definition</a>.</p>
+<a href="#Definitions_Component-Definitions">component definition</a>.
+An event report conforming to an event specifier <em>E</em> is called
+an <strong>instance</strong> of <em>E</em>.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Event-Specifiers_Syntax">7.5.1. Syntax</h4>
@@ -6114,7 +6127,7 @@ product container Container2 default priority 10</code></pre>
 <em>]</em>
 <code>format</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a>
 <em>[</em>
-<code>throttle</code> <a href="#Expressions"><em>expression</em></a>
+<code>throttle</code> <em>throttle</em>
 <em>]</em></p>
 </div>
 <div class="paragraph">
@@ -6145,6 +6158,15 @@ product container Container2 default priority 10</code></pre>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p><em>throttle</em> is defined as follows:</p>
+</div>
+<div class="paragraph">
+<p><a href="#Expressions"><em>expression</em></a>
+<em>[</em>
+<code>every</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em></p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Event-Specifiers_Semantics">7.5.2. Semantics</h4>
@@ -6165,7 +6187,7 @@ If there are no parameters, the list may be omitted.
 </li>
 <li>
 <p>The optional expression <em>e</em> following <code>id</code> specifies the numeric
-identifier for the event.
+identifier for instances of the event.
 If <em>e</em> is present, then the type of <em>e</em> must be convertible to
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
 to a nonnegative integer.
@@ -6181,11 +6203,58 @@ parameters. A numeric format is allowed for any
 argument whose type is a <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.</p>
 </li>
 <li>
-<p>The optional expression <em>e</em> following <code>throttle</code> specifies the maximum number
-of times to emit the event before throttling it.
+<p>The optional <em>throttle</em> syntax has the following meaning for an event <em>E</em>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The expression <em>e</em> following <code>throttle</code> specifies the <strong>maximum throttle
+count</strong> for instances of <em>E</em>.
 The type of <em>e</em> must be convertible to
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a> and must evaluate to an integer
-in the range [0,2<sup>31</sup>).</p>
+in the range \$[1, 2^31)\$.
+When throttling is specified for an event <em>E</em>,
+the framework maintains a <strong>throttle count</strong> for <em>E</em>.
+The throttle count
+starts at zero and goes up by one with each instance of <em>E</em> that is emitted.
+When the throttle count for <em>E</em> equals the maximum throttle count
+for <em>E</em>, no more instances of <em>E</em> are emitted until the throttle
+count for identifier <em>E</em> is reset.</p>
+</li>
+<li>
+<p>The optional expression <em>e</em> following <code>every</code> specifies the <strong>throttle
+period</strong>.
+<em>e</em> must satisfy the following rules:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The type of <em>e</em> must be convertible to the
+<a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct type</a> <em>T =</em> <code>{ seconds: U32, useconds: U32 }</code>.</p>
+</li>
+<li>
+<p>After conversion to <em>T</em>, <em>e</em> must evaluate to an
+<a href="#Values_Anonymous-Struct-Values">anonymous struct value</a>
+<code>{ seconds =</code> <em>s</em> <code>: U32, useconds =</code> <em>u</em> <code>: U32 }</code>.</p>
+</li>
+<li>
+<p><em>s</em> must be in the range \$[0, 2^32)\$ and <em>u</em> must be in the range
+\$[0,10^6)\$.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If a throttle period \$p\$ is specified for event <em>E</em>, and the throttle
+count
+for <em>E</em> goes from zero to nonzero at time \$t\$, and a request
+to emit an instance of <em>E</em> occurs at or after time \$t + p\$, then the
+instance is emitted,
+regardless of the throttle count for <em>E</em>, and the throttle count
+for <em>E</em> is automatically reset to zero.
+If no throttle period is specified for event <em>E</em>, then the throttle count
+for <em>E</em> must be reset in some other way (typically this is done by command).</p>
+</div>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -6224,7 +6293,19 @@ event Event2(
   severity warning low \
   id 0x02 \
   format "Saw value {} for case {}" \
-  throttle 10</code></pre>
+  throttle 10
+
+@ Event 3
+@ Sample output: "Saw value [ 0.001, 0.002, 0.003 ] for case A"
+event Event3(
+  case: Case @&lt; The case
+  value: F64x3 @&lt; The value
+) \
+  severity warning low \
+  id 0x02 \
+  format "Saw value {} for case {}" \
+  throttle 10
+  every {seconds=10}</code></pre>
 </div>
 </div>
 </div>
@@ -6608,6 +6689,12 @@ of a <a href="#Definitions">definition</a>.</p>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 <li>
+<p>A <strong>port interface specifier</strong> <code>locate</code>
+<code>interface</code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
+<a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+</li>
+<li>
 <p>A <strong>port location specifier</strong> <code>locate</code> <code>port</code>
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
@@ -6634,23 +6721,51 @@ of a <a href="#Definitions">definition</a>.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>A location specifier for a constant or type with the
-<code>dictionary</code> keyword is called a <strong>dictionary specifier</strong>.</p>
+<p>If the optional keyword <code>dictionary</code> appears in a location specifier <em>S</em>,
+then <em>S</em> is called a <strong>dictionary specifier</strong>.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Location-Specifiers_Semantics">7.10.2. Semantics</h4>
+<div class="paragraph">
+<p>A location specifier <em>S</em> with qualified identifier <em>Q</em> must conform
+to the following rules:</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The qualified identifier <em>Q</em> is resolved like a
+<p><em>Q</em> is resolved like a
 <a href="#Definitions-and-Uses_Uses">use</a> that refers to a <a href="#Definitions">definition</a>
 as follows:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
+<p>A component instance location specifier refers to a
+<a href="#Definitions_Component-Instance-Definitions">component instance definition</a>.</p>
+</li>
+<li>
+<p>A component location specifier refers to a
+<a href="#Definitions_Component-Definitions">component definition</a>.</p>
+</li>
+<li>
 <p>A constant location specifier refers to a
 <a href="#Definitions_Constant-Definitions">constant definition</a>.</p>
+</li>
+<li>
+<p>A port interface location specifier refers to a
+<a href="#Definitions_Port-Interface-Definitions">port interface definition</a>.</p>
+</li>
+<li>
+<p>A port location specifier refers to a
+<a href="#Definitions_Port-Definitions">port definition</a>.</p>
+</li>
+<li>
+<p>A state machine location specifier refers to a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>.</p>
+</li>
+<li>
+<p>A topology location specifier refers to a
+<a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
 </li>
 <li>
 <p>A type location specifier refers to an
@@ -6658,26 +6773,6 @@ as follows:</p>
 <a href="#Definitions_Enum-Definitions">enum definition</a>,
 <a href="#Definitions_Struct-Definitions">struct definition</a>, or
 <a href="#Definitions_Abstract-Type-Definitions">abstract type definition</a>.</p>
-</li>
-<li>
-<p>A port location specifier refers to a
-<a href="#Definitions_Port-Definitions">port definition</a>.</p>
-</li>
-<li>
-<p>A component location specifier refers to a
-<a href="#Definitions_Component-Definitions">component definition</a>.</p>
-</li>
-<li>
-<p>A component instance location specifier refers to a
-<a href="#Definitions_Component-Instance-Definitions">component instance definition</a>.</p>
-</li>
-<li>
-<p>A topology location specifier refers to a
-<a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
-</li>
-<li>
-<p>A state machine location specifier refers to a
-<a href="#Definitions_State-Machine-Definitions">state machine definition</a>.</p>
 </li>
 </ol>
 </div>
@@ -6687,13 +6782,19 @@ as follows:</p>
 <a href="#Definitions_Module-Definitions">module definition <em>M</em></a>,
 <em>Q</em> is implicitly qualified by the
 <a href="#Scoping-of-Names_Names-of-Definitions">qualified name</a>
-of <em>M</em>.</p>
+of <em>M</em>.
+This rule allows the resolution to occur during dependency analysis,
+before uses have been matched with their definitions.</p>
 </li>
 <li>
 <p><em>Q</em> need not actually refer to any definition.
 This rule allows the specification of dependencies for a larger set
 of files than the ones involved in a particular analysis
-or translation.</p>
+or translation.
+If <em>Q</em> does refer to a definition <em>D</em>, then <em>S</em>
+must be a dictionary specifier if <em>D</em> is a
+<a href="#Definitions_Dictionary-Definitions">dictionary definition</a>;
+otherwise it must not be.</p>
 </li>
 <li>
 <p>The string literal must specify the path of an FPP source file, relative to the
@@ -6707,13 +6808,19 @@ location specifier.</p>
 </li>
 <li>
 <p>Multiple location specifiers for the same definition are allowed in a single
-<a href="#Translation-Units-and-Models_Models">model</a>, so long as the locations are all
-consistent.</p>
+<a href="#Translation-Units-and-Models_Models">model</a>, so long as the following
+conditions are met:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>All of the specifiers must be dictionary specifiers, or none of them must
+be.</p>
 </li>
 <li>
-<p>If a location specifier is a dictionary specifier and if <em>Q</em> refers to
-a constant or type definition, then the definition must be a
-<a href="#Definitions_Dictionary-Definitions">dictionary definition</a>.</p>
+<p>All the specifiers must have the same locations.</p>
+</li>
+</ol>
+</div>
 </li>
 </ol>
 </div>
@@ -11930,7 +12037,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-10-22 10:46:34 -0700
+Last updated 2025-10-30 17:14:10 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

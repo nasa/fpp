@@ -126,6 +126,9 @@ sealed trait Error {
       case SemanticError.DuplicateTopology(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate topology ${name}")
         printPrevLoc(prevLoc)
+      case SemanticError.DuplicateInterface(name, loc, prevLoc) =>
+        Error.print (Some(loc)) (s"duplicate interface ${name}")
+        printPrevLoc(prevLoc)
       case SemanticError.EmptyArray(loc) =>
         Error.print (Some(loc)) ("array expression may not be empty")
       case SemanticError.ImplicitDuplicateConnectionAtMatchedPort(
@@ -143,19 +146,20 @@ sealed trait Error {
         System.err.println(matchingLoc)
         System.err.println("conflicting connection is here:")
         System.err.println(prevLoc)
-      case SemanticError.InconsistentSpecLocPath(loc, path, prevLoc, prevPath) =>
-        Error.print (Some(loc)) (s"inconsistent location path ${path}")
-        printPrevLoc(prevLoc)
-        System.err.println(s"previous path is ${prevPath}")
-      case SemanticError.InconsistentDictionarySpecLoc(loc, prevLoc) =>
+      case SemanticError.InconsistentDictionarySpecifier(loc, prevLoc) =>
         Error.print (Some(loc)) (s"inconsistent location specifier")
         printPrevLoc(prevLoc)
         printNote("one specifies dictionary and one does not")
-      case SemanticError.IncorrectDictionarySpecLoc(loc, actualLoc) =>
+      case SemanticError.InconsistentLocationPath(loc, path, prevLoc, prevPath) =>
+        Error.print (Some(loc)) (s"inconsistent location path ${path}")
+        printPrevLoc(prevLoc)
+        System.err.println(s"previous path is ${prevPath}")
+      case SemanticError.IncorrectDictionarySpecifier(loc, defLoc) =>
         Error.print (Some(loc)) (s"incorrect location specifier")
-        printPrevLoc(actualLoc)
+        System.err.println(s"actual definition is here:")
+        System.err.println(defLoc)
         printNote("one specifies dictionary and one does not")
-      case SemanticError.IncorrectSpecLoc(loc, specifiedPath, actualLoc) =>
+      case SemanticError.IncorrectLocationPath(loc, specifiedPath, actualLoc) =>
         Error.print (Some(loc)) (s"incorrect location path ${specifiedPath}")
         System.err.println(s"actual location is ${actualLoc}")
       case SemanticError.InvalidArraySize(loc, size) =>
@@ -504,6 +508,12 @@ object SemanticError {
     loc: Location,
     prevLoc: Location
   ) extends Error
+  /** Duplicate interface */
+  final case class DuplicateInterface(
+    name: String,
+    loc: Location,
+    prevLoc: Location
+  ) extends Error
   /** Implicit duplicate connection at matched port */
   final case class ImplicitDuplicateConnectionAtMatchedPort(
     loc: Location,
@@ -513,25 +523,25 @@ object SemanticError {
     matchingLoc: Location,
     prevLoc: Location
   ) extends Error
+  /** Inconsistent dictionary specifiers in location specifiers */
+  final case class InconsistentDictionarySpecifier(
+    loc: Location,
+    prevLoc: Location,
+  ) extends Error
   /** Inconsistent location specifiers */
-  final case class InconsistentSpecLocPath(
+  final case class InconsistentLocationPath(
     loc: Location,
     path: String,
     prevLoc: Location,
     prevPath: String
   ) extends Error
-  /** Inconsistent dictionary location specifiers */
-  final case class InconsistentDictionarySpecLoc(
+  /** Incorrect dictionary specifier in location specifier */
+  final case class IncorrectDictionarySpecifier(
     loc: Location,
-    prevLoc: Location,
-  ) extends Error
-  /** Incorrect dictionary location specifiers */
-  final case class IncorrectDictionarySpecLoc(
-    loc: Location,
-    actualLoc: Location
+    defLoc: Location
   ) extends Error
   /** Incorrect location specifiers */
-  final case class IncorrectSpecLoc(
+  final case class IncorrectLocationPath(
     loc: Location,
     specifiedPath: String,
     actualLoc: Location

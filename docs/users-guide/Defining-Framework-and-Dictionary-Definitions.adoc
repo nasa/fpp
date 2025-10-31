@@ -2,12 +2,12 @@
 
 === Framework Definitions
 *Framework definitions* are type and constant definitions that 
-are specicially used by the F Prime Framework. If a model defines 
+are specially used by the F Prime Framework. If a model defines 
 framework definitions, they must conform to the rules described 
 in the the _FPP Specification_.
 
 To write a framework definition, we write the type or constant
-and ensure that the defintion follows the rules for that
+and ensure that the definition follows the rules for that
 framework definition.
 
 For example, to write the `FwDpIdType` framework definition, 

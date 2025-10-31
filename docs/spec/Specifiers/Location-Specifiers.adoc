@@ -16,11 +16,16 @@ A location specifier is one of the following:
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
 
-* A *constant location specifier* `locate` 
+* A *constant location specifier* `locate`
 _[_
 `dictionary`
-_]_ 
+_]_
 `constant`
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
+<<Expressions_String-Literals,_string-literal_>>
+
+* A *port interface specifier* `locate`
+`interface`
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
 
@@ -44,17 +49,38 @@ _]_
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
 
-A location specifier for a constant or type with the
-`dictionary` keyword is called a *dictionary specifier*.
+If the optional keyword `dictionary` appears in a location specifier _S_,
+then _S_ is called a *dictionary specifier*.
 
 ==== Semantics
 
-. The qualified identifier _Q_ is resolved like a
+A location specifier _S_ with qualified identifier _Q_ must conform
+to the following rules:
+
+. _Q_ is resolved like a
 <<Definitions-and-Uses_Uses,use>> that refers to a <<Definitions,definition>>
 as follows:
 
+.. A component instance location specifier refers to a
+<<Definitions_Component-Instance-Definitions,component instance definition>>.
+
+.. A component location specifier refers to a
+<<Definitions_Component-Definitions,component definition>>.
+
 .. A constant location specifier refers to a
 <<Definitions_Constant-Definitions,constant definition>>.
+
+.. A port interface location specifier refers to a
+<<Definitions_Port-Interface-Definitions,port interface definition>>.
+
+.. A port location specifier refers to a
+<<Definitions_Port-Definitions,port definition>>.
+
+.. A state machine location specifier refers to a
+<<Definitions_State-Machine-Definitions,state machine definition>>.
+
+.. A topology location specifier refers to a
+<<Definitions_Topology-Definitions,topology definition>>.
 
 .. A type location specifier refers to an
 <<Definitions_Array-Definitions,array definition>>,
@@ -62,31 +88,22 @@ as follows:
 <<Definitions_Struct-Definitions,struct definition>>, or
 <<Definitions_Abstract-Type-Definitions,abstract type definition>>.
 
-.. A port location specifier refers to a
-<<Definitions_Port-Definitions,port definition>>.
-
-.. A component location specifier refers to a
-<<Definitions_Component-Definitions,component definition>>.
-
-.. A component instance location specifier refers to a
-<<Definitions_Component-Instance-Definitions,component instance definition>>.
-
-.. A topology location specifier refers to a
-<<Definitions_Topology-Definitions,topology definition>>.
-
-.. A state machine location specifier refers to a
-<<Definitions_State-Machine-Definitions,state machine definition>>.
-
 . When a location specifier appears inside a
 <<Definitions_Module-Definitions,module definition _M_>>,
 _Q_ is implicitly qualified by the
 <<Scoping-of-Names_Names-of-Definitions,qualified name>>
 of _M_.
+This rule allows the resolution to occur during dependency analysis,
+before uses have been matched with their definitions.
 
 . _Q_ need not actually refer to any definition.
 This rule allows the specification of dependencies for a larger set
 of files than the ones involved in a particular analysis
 or translation.
+If _Q_ does refer to a definition _D_, then _S_
+must be a dictionary specifier if _D_ is a
+<<Definitions_Dictionary-Definitions,dictionary definition>>;
+otherwise it must not be.
 
 . The string literal must specify the path of an FPP source file, relative to the
 <<Translation-Units-and-Models_Locations,location>>
@@ -98,12 +115,13 @@ the file must contain the definition referred to in the
 location specifier.
 
 . Multiple location specifiers for the same definition are allowed in a single
-<<Translation-Units-and-Models_Models,model>>, so long as the locations are all
-consistent.
+<<Translation-Units-and-Models_Models,model>>, so long as the following
+conditions are met:
 
-. If a location specifier is a dictionary specifier and if _Q_ refers to 
-a constant or type definition, then the definition must be a
-<<Definitions_Dictionary-Definitions,dictionary definition>>.
+.. All of the specifiers must be dictionary specifiers, or none of them must
+   be.
+
+.. All the specifiers must have the same locations.
 
 ==== Examples
 

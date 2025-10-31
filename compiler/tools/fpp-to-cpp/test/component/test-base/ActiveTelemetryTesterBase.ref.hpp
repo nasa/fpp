@@ -278,6 +278,12 @@ class ActiveTelemetryTesterBase :
       E arg;
     };
 
+    //! A history entry for telemetry channel ChannelBoolOnChange
+    struct TlmEntry_ChannelBoolOnChange {
+      Fw::Time timeTag;
+      bool arg;
+    };
+
   public:
 
     // ----------------------------------------------------------------------
@@ -909,186 +915,258 @@ class ActiveTelemetryTesterBase :
     //! Get the number of to_cmdIn ports
     //!
     //! \return The number of to_cmdIn ports
-    FwIndexType getNum_to_cmdIn() const;
+    static constexpr FwIndexType getNum_to_cmdIn() {
+      return ActiveTelemetryComponentBase::NUM_CMDIN_INPUT_PORTS;
+    }
 
     //! Get the number of to_aliasTypedAsync ports
     //!
     //! \return The number of to_aliasTypedAsync ports
-    FwIndexType getNum_to_aliasTypedAsync() const;
+    static constexpr FwIndexType getNum_to_aliasTypedAsync() {
+      return ActiveTelemetryComponentBase::NUM_ALIASTYPEDASYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_noArgsAliasStringReturnSync ports
     //!
     //! \return The number of to_noArgsAliasStringReturnSync ports
-    FwIndexType getNum_to_noArgsAliasStringReturnSync() const;
+    static constexpr FwIndexType getNum_to_noArgsAliasStringReturnSync() {
+      return ActiveTelemetryComponentBase::NUM_NOARGSALIASSTRINGRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_noArgsAsync ports
     //!
     //! \return The number of to_noArgsAsync ports
-    FwIndexType getNum_to_noArgsAsync() const;
+    static constexpr FwIndexType getNum_to_noArgsAsync() {
+      return ActiveTelemetryComponentBase::NUM_NOARGSASYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_noArgsGuarded ports
     //!
     //! \return The number of to_noArgsGuarded ports
-    FwIndexType getNum_to_noArgsGuarded() const;
+    static constexpr FwIndexType getNum_to_noArgsGuarded() {
+      return ActiveTelemetryComponentBase::NUM_NOARGSGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of to_noArgsReturnGuarded ports
     //!
     //! \return The number of to_noArgsReturnGuarded ports
-    FwIndexType getNum_to_noArgsReturnGuarded() const;
+    static constexpr FwIndexType getNum_to_noArgsReturnGuarded() {
+      return ActiveTelemetryComponentBase::NUM_NOARGSRETURNGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of to_noArgsReturnSync ports
     //!
     //! \return The number of to_noArgsReturnSync ports
-    FwIndexType getNum_to_noArgsReturnSync() const;
+    static constexpr FwIndexType getNum_to_noArgsReturnSync() {
+      return ActiveTelemetryComponentBase::NUM_NOARGSRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_noArgsStringReturnSync ports
     //!
     //! \return The number of to_noArgsStringReturnSync ports
-    FwIndexType getNum_to_noArgsStringReturnSync() const;
+    static constexpr FwIndexType getNum_to_noArgsStringReturnSync() {
+      return ActiveTelemetryComponentBase::NUM_NOARGSSTRINGRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_noArgsSync ports
     //!
     //! \return The number of to_noArgsSync ports
-    FwIndexType getNum_to_noArgsSync() const;
+    static constexpr FwIndexType getNum_to_noArgsSync() {
+      return ActiveTelemetryComponentBase::NUM_NOARGSSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedAliasGuarded ports
     //!
     //! \return The number of to_typedAliasGuarded ports
-    FwIndexType getNum_to_typedAliasGuarded() const;
+    static constexpr FwIndexType getNum_to_typedAliasGuarded() {
+      return ActiveTelemetryComponentBase::NUM_TYPEDALIASGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedAliasReturnSync ports
     //!
     //! \return The number of to_typedAliasReturnSync ports
-    FwIndexType getNum_to_typedAliasReturnSync() const;
+    static constexpr FwIndexType getNum_to_typedAliasReturnSync() {
+      return ActiveTelemetryComponentBase::NUM_TYPEDALIASRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedAliasStringReturnSync ports
     //!
     //! \return The number of to_typedAliasStringReturnSync ports
-    FwIndexType getNum_to_typedAliasStringReturnSync() const;
+    static constexpr FwIndexType getNum_to_typedAliasStringReturnSync() {
+      return ActiveTelemetryComponentBase::NUM_TYPEDALIASSTRINGRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedAsync ports
     //!
     //! \return The number of to_typedAsync ports
-    FwIndexType getNum_to_typedAsync() const;
+    static constexpr FwIndexType getNum_to_typedAsync() {
+      return ActiveTelemetryComponentBase::NUM_TYPEDASYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedAsyncAssert ports
     //!
     //! \return The number of to_typedAsyncAssert ports
-    FwIndexType getNum_to_typedAsyncAssert() const;
+    static constexpr FwIndexType getNum_to_typedAsyncAssert() {
+      return ActiveTelemetryComponentBase::NUM_TYPEDASYNCASSERT_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedAsyncBlockPriority ports
     //!
     //! \return The number of to_typedAsyncBlockPriority ports
-    FwIndexType getNum_to_typedAsyncBlockPriority() const;
+    static constexpr FwIndexType getNum_to_typedAsyncBlockPriority() {
+      return ActiveTelemetryComponentBase::NUM_TYPEDASYNCBLOCKPRIORITY_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedAsyncDropPriority ports
     //!
     //! \return The number of to_typedAsyncDropPriority ports
-    FwIndexType getNum_to_typedAsyncDropPriority() const;
+    static constexpr FwIndexType getNum_to_typedAsyncDropPriority() {
+      return ActiveTelemetryComponentBase::NUM_TYPEDASYNCDROPPRIORITY_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedGuarded ports
     //!
     //! \return The number of to_typedGuarded ports
-    FwIndexType getNum_to_typedGuarded() const;
+    static constexpr FwIndexType getNum_to_typedGuarded() {
+      return ActiveTelemetryComponentBase::NUM_TYPEDGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedReturnGuarded ports
     //!
     //! \return The number of to_typedReturnGuarded ports
-    FwIndexType getNum_to_typedReturnGuarded() const;
+    static constexpr FwIndexType getNum_to_typedReturnGuarded() {
+      return ActiveTelemetryComponentBase::NUM_TYPEDRETURNGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedReturnSync ports
     //!
     //! \return The number of to_typedReturnSync ports
-    FwIndexType getNum_to_typedReturnSync() const;
+    static constexpr FwIndexType getNum_to_typedReturnSync() {
+      return ActiveTelemetryComponentBase::NUM_TYPEDRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedSync ports
     //!
     //! \return The number of to_typedSync ports
-    FwIndexType getNum_to_typedSync() const;
+    static constexpr FwIndexType getNum_to_typedSync() {
+      return ActiveTelemetryComponentBase::NUM_TYPEDSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of from_cmdRegOut ports
     //!
     //! \return The number of from_cmdRegOut ports
-    FwIndexType getNum_from_cmdRegOut() const;
+    static constexpr FwIndexType getNum_from_cmdRegOut() {
+      return ActiveTelemetryComponentBase::NUM_CMDREGOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_cmdResponseOut ports
     //!
     //! \return The number of from_cmdResponseOut ports
-    FwIndexType getNum_from_cmdResponseOut() const;
+    static constexpr FwIndexType getNum_from_cmdResponseOut() {
+      return ActiveTelemetryComponentBase::NUM_CMDRESPONSEOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_eventOut ports
     //!
     //! \return The number of from_eventOut ports
-    FwIndexType getNum_from_eventOut() const;
+    static constexpr FwIndexType getNum_from_eventOut() {
+      return ActiveTelemetryComponentBase::NUM_EVENTOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_prmGetOut ports
     //!
     //! \return The number of from_prmGetOut ports
-    FwIndexType getNum_from_prmGetOut() const;
+    static constexpr FwIndexType getNum_from_prmGetOut() {
+      return ActiveTelemetryComponentBase::NUM_PRMGETOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_prmSetOut ports
     //!
     //! \return The number of from_prmSetOut ports
-    FwIndexType getNum_from_prmSetOut() const;
+    static constexpr FwIndexType getNum_from_prmSetOut() {
+      return ActiveTelemetryComponentBase::NUM_PRMSETOUT_OUTPUT_PORTS;
+    }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Get the number of from_textEventOut ports
     //!
     //! \return The number of from_textEventOut ports
-    FwIndexType getNum_from_textEventOut() const;
+    static constexpr FwIndexType getNum_from_textEventOut() {
+      return ActiveTelemetryComponentBase::NUM_TEXTEVENTOUT_OUTPUT_PORTS;
+    }
 
 #endif
 
     //! Get the number of from_timeGetOut ports
     //!
     //! \return The number of from_timeGetOut ports
-    FwIndexType getNum_from_timeGetOut() const;
+    static constexpr FwIndexType getNum_from_timeGetOut() {
+      return ActiveTelemetryComponentBase::NUM_TIMEGETOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_tlmOut ports
     //!
     //! \return The number of from_tlmOut ports
-    FwIndexType getNum_from_tlmOut() const;
+    static constexpr FwIndexType getNum_from_tlmOut() {
+      return ActiveTelemetryComponentBase::NUM_TLMOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_noArgsOut ports
     //!
     //! \return The number of from_noArgsOut ports
-    FwIndexType getNum_from_noArgsOut() const;
+    static constexpr FwIndexType getNum_from_noArgsOut() {
+      return ActiveTelemetryComponentBase::NUM_NOARGSOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_noArgsReturnOut ports
     //!
     //! \return The number of from_noArgsReturnOut ports
-    FwIndexType getNum_from_noArgsReturnOut() const;
+    static constexpr FwIndexType getNum_from_noArgsReturnOut() {
+      return ActiveTelemetryComponentBase::NUM_NOARGSRETURNOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_noArgsStringReturnOut ports
     //!
     //! \return The number of from_noArgsStringReturnOut ports
-    FwIndexType getNum_from_noArgsStringReturnOut() const;
+    static constexpr FwIndexType getNum_from_noArgsStringReturnOut() {
+      return ActiveTelemetryComponentBase::NUM_NOARGSSTRINGRETURNOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_typedAliasOut ports
     //!
     //! \return The number of from_typedAliasOut ports
-    FwIndexType getNum_from_typedAliasOut() const;
+    static constexpr FwIndexType getNum_from_typedAliasOut() {
+      return ActiveTelemetryComponentBase::NUM_TYPEDALIASOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_typedAliasReturnOut ports
     //!
     //! \return The number of from_typedAliasReturnOut ports
-    FwIndexType getNum_from_typedAliasReturnOut() const;
+    static constexpr FwIndexType getNum_from_typedAliasReturnOut() {
+      return ActiveTelemetryComponentBase::NUM_TYPEDALIASRETURNOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_typedAliasReturnStringOut ports
     //!
     //! \return The number of from_typedAliasReturnStringOut ports
-    FwIndexType getNum_from_typedAliasReturnStringOut() const;
+    static constexpr FwIndexType getNum_from_typedAliasReturnStringOut() {
+      return ActiveTelemetryComponentBase::NUM_TYPEDALIASRETURNSTRINGOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_typedOut ports
     //!
     //! \return The number of from_typedOut ports
-    FwIndexType getNum_from_typedOut() const;
+    static constexpr FwIndexType getNum_from_typedOut() {
+      return ActiveTelemetryComponentBase::NUM_TYPEDOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_typedReturnOut ports
     //!
     //! \return The number of from_typedReturnOut ports
-    FwIndexType getNum_from_typedReturnOut() const;
+    static constexpr FwIndexType getNum_from_typedReturnOut() {
+      return ActiveTelemetryComponentBase::NUM_TYPEDRETURNOUT_OUTPUT_PORTS;
+    }
 
   protected:
 
@@ -1313,6 +1391,12 @@ class ActiveTelemetryTesterBase :
     void tlmInput_ChannelEnumOnChange(
         const Fw::Time& timeTag, //!< The time
         const E& val //!< The channel value
+    );
+
+    //! Handle channel ChannelBoolOnChange
+    void tlmInput_ChannelBoolOnChange(
+        const Fw::Time& timeTag, //!< The time
+        const bool val //!< The channel value
     );
 
   protected:
@@ -1594,6 +1678,9 @@ class ActiveTelemetryTesterBase :
 
     //! The history of ChannelEnumOnChange values
     History<TlmEntry_ChannelEnumOnChange>* tlmHistory_ChannelEnumOnChange;
+
+    //! The history of ChannelBoolOnChange values
+    History<TlmEntry_ChannelBoolOnChange>* tlmHistory_ChannelBoolOnChange;
 
   private:
 

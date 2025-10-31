@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/interface/cycles.fpp:1.1
+interface I {
+^
+error: encountered a use-def cycle:
+  use I at [ local path prefix ]/compiler/tools/fpp-check/test/interface/cycles.fpp:2.12 refers to definition I at [ local path prefix ]/compiler/tools/fpp-check/test/interface/cycles.fpp:1.1

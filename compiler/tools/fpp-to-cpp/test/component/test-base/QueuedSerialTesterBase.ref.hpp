@@ -326,6 +326,12 @@ class QueuedSerialTesterBase :
       E arg;
     };
 
+    //! A history entry for telemetry channel ChannelBoolOnChange
+    struct TlmEntry_ChannelBoolOnChange {
+      Fw::Time timeTag;
+      bool arg;
+    };
+
     //! External Parameter Delegate
     class QueuedSerialComponentBaseParamExternalDelegate :
       public Fw::ParamExternalDelegate
@@ -1144,221 +1150,307 @@ class QueuedSerialTesterBase :
     //! Get the number of to_cmdIn ports
     //!
     //! \return The number of to_cmdIn ports
-    FwIndexType getNum_to_cmdIn() const;
+    static constexpr FwIndexType getNum_to_cmdIn() {
+      return QueuedSerialComponentBase::NUM_CMDIN_INPUT_PORTS;
+    }
 
     //! Get the number of to_aliasTypedAsync ports
     //!
     //! \return The number of to_aliasTypedAsync ports
-    FwIndexType getNum_to_aliasTypedAsync() const;
+    static constexpr FwIndexType getNum_to_aliasTypedAsync() {
+      return QueuedSerialComponentBase::NUM_ALIASTYPEDASYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_noArgsAliasStringReturnSync ports
     //!
     //! \return The number of to_noArgsAliasStringReturnSync ports
-    FwIndexType getNum_to_noArgsAliasStringReturnSync() const;
+    static constexpr FwIndexType getNum_to_noArgsAliasStringReturnSync() {
+      return QueuedSerialComponentBase::NUM_NOARGSALIASSTRINGRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_noArgsAsync ports
     //!
     //! \return The number of to_noArgsAsync ports
-    FwIndexType getNum_to_noArgsAsync() const;
+    static constexpr FwIndexType getNum_to_noArgsAsync() {
+      return QueuedSerialComponentBase::NUM_NOARGSASYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_noArgsGuarded ports
     //!
     //! \return The number of to_noArgsGuarded ports
-    FwIndexType getNum_to_noArgsGuarded() const;
+    static constexpr FwIndexType getNum_to_noArgsGuarded() {
+      return QueuedSerialComponentBase::NUM_NOARGSGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of to_noArgsReturnGuarded ports
     //!
     //! \return The number of to_noArgsReturnGuarded ports
-    FwIndexType getNum_to_noArgsReturnGuarded() const;
+    static constexpr FwIndexType getNum_to_noArgsReturnGuarded() {
+      return QueuedSerialComponentBase::NUM_NOARGSRETURNGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of to_noArgsReturnSync ports
     //!
     //! \return The number of to_noArgsReturnSync ports
-    FwIndexType getNum_to_noArgsReturnSync() const;
+    static constexpr FwIndexType getNum_to_noArgsReturnSync() {
+      return QueuedSerialComponentBase::NUM_NOARGSRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_noArgsStringReturnSync ports
     //!
     //! \return The number of to_noArgsStringReturnSync ports
-    FwIndexType getNum_to_noArgsStringReturnSync() const;
+    static constexpr FwIndexType getNum_to_noArgsStringReturnSync() {
+      return QueuedSerialComponentBase::NUM_NOARGSSTRINGRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_noArgsSync ports
     //!
     //! \return The number of to_noArgsSync ports
-    FwIndexType getNum_to_noArgsSync() const;
+    static constexpr FwIndexType getNum_to_noArgsSync() {
+      return QueuedSerialComponentBase::NUM_NOARGSSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedAliasGuarded ports
     //!
     //! \return The number of to_typedAliasGuarded ports
-    FwIndexType getNum_to_typedAliasGuarded() const;
+    static constexpr FwIndexType getNum_to_typedAliasGuarded() {
+      return QueuedSerialComponentBase::NUM_TYPEDALIASGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedAliasReturnSync ports
     //!
     //! \return The number of to_typedAliasReturnSync ports
-    FwIndexType getNum_to_typedAliasReturnSync() const;
+    static constexpr FwIndexType getNum_to_typedAliasReturnSync() {
+      return QueuedSerialComponentBase::NUM_TYPEDALIASRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedAliasStringReturnSync ports
     //!
     //! \return The number of to_typedAliasStringReturnSync ports
-    FwIndexType getNum_to_typedAliasStringReturnSync() const;
+    static constexpr FwIndexType getNum_to_typedAliasStringReturnSync() {
+      return QueuedSerialComponentBase::NUM_TYPEDALIASSTRINGRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedAsync ports
     //!
     //! \return The number of to_typedAsync ports
-    FwIndexType getNum_to_typedAsync() const;
+    static constexpr FwIndexType getNum_to_typedAsync() {
+      return QueuedSerialComponentBase::NUM_TYPEDASYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedAsyncAssert ports
     //!
     //! \return The number of to_typedAsyncAssert ports
-    FwIndexType getNum_to_typedAsyncAssert() const;
+    static constexpr FwIndexType getNum_to_typedAsyncAssert() {
+      return QueuedSerialComponentBase::NUM_TYPEDASYNCASSERT_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedAsyncBlockPriority ports
     //!
     //! \return The number of to_typedAsyncBlockPriority ports
-    FwIndexType getNum_to_typedAsyncBlockPriority() const;
+    static constexpr FwIndexType getNum_to_typedAsyncBlockPriority() {
+      return QueuedSerialComponentBase::NUM_TYPEDASYNCBLOCKPRIORITY_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedAsyncDropPriority ports
     //!
     //! \return The number of to_typedAsyncDropPriority ports
-    FwIndexType getNum_to_typedAsyncDropPriority() const;
+    static constexpr FwIndexType getNum_to_typedAsyncDropPriority() {
+      return QueuedSerialComponentBase::NUM_TYPEDASYNCDROPPRIORITY_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedGuarded ports
     //!
     //! \return The number of to_typedGuarded ports
-    FwIndexType getNum_to_typedGuarded() const;
+    static constexpr FwIndexType getNum_to_typedGuarded() {
+      return QueuedSerialComponentBase::NUM_TYPEDGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedReturnGuarded ports
     //!
     //! \return The number of to_typedReturnGuarded ports
-    FwIndexType getNum_to_typedReturnGuarded() const;
+    static constexpr FwIndexType getNum_to_typedReturnGuarded() {
+      return QueuedSerialComponentBase::NUM_TYPEDRETURNGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedReturnSync ports
     //!
     //! \return The number of to_typedReturnSync ports
-    FwIndexType getNum_to_typedReturnSync() const;
+    static constexpr FwIndexType getNum_to_typedReturnSync() {
+      return QueuedSerialComponentBase::NUM_TYPEDRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_typedSync ports
     //!
     //! \return The number of to_typedSync ports
-    FwIndexType getNum_to_typedSync() const;
+    static constexpr FwIndexType getNum_to_typedSync() {
+      return QueuedSerialComponentBase::NUM_TYPEDSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_serialAsync ports
     //!
     //! \return The number of to_serialAsync ports
-    FwIndexType getNum_to_serialAsync() const;
+    static constexpr FwIndexType getNum_to_serialAsync() {
+      return QueuedSerialComponentBase::NUM_SERIALASYNC_INPUT_PORTS;
+    }
 
     //! Get the number of to_serialAsyncAssert ports
     //!
     //! \return The number of to_serialAsyncAssert ports
-    FwIndexType getNum_to_serialAsyncAssert() const;
+    static constexpr FwIndexType getNum_to_serialAsyncAssert() {
+      return QueuedSerialComponentBase::NUM_SERIALASYNCASSERT_INPUT_PORTS;
+    }
 
     //! Get the number of to_serialAsyncBlockPriority ports
     //!
     //! \return The number of to_serialAsyncBlockPriority ports
-    FwIndexType getNum_to_serialAsyncBlockPriority() const;
+    static constexpr FwIndexType getNum_to_serialAsyncBlockPriority() {
+      return QueuedSerialComponentBase::NUM_SERIALASYNCBLOCKPRIORITY_INPUT_PORTS;
+    }
 
     //! Get the number of to_serialAsyncDropPriority ports
     //!
     //! \return The number of to_serialAsyncDropPriority ports
-    FwIndexType getNum_to_serialAsyncDropPriority() const;
+    static constexpr FwIndexType getNum_to_serialAsyncDropPriority() {
+      return QueuedSerialComponentBase::NUM_SERIALASYNCDROPPRIORITY_INPUT_PORTS;
+    }
 
     //! Get the number of to_serialGuarded ports
     //!
     //! \return The number of to_serialGuarded ports
-    FwIndexType getNum_to_serialGuarded() const;
+    static constexpr FwIndexType getNum_to_serialGuarded() {
+      return QueuedSerialComponentBase::NUM_SERIALGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of to_serialSync ports
     //!
     //! \return The number of to_serialSync ports
-    FwIndexType getNum_to_serialSync() const;
+    static constexpr FwIndexType getNum_to_serialSync() {
+      return QueuedSerialComponentBase::NUM_SERIALSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of from_cmdRegOut ports
     //!
     //! \return The number of from_cmdRegOut ports
-    FwIndexType getNum_from_cmdRegOut() const;
+    static constexpr FwIndexType getNum_from_cmdRegOut() {
+      return QueuedSerialComponentBase::NUM_CMDREGOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_cmdResponseOut ports
     //!
     //! \return The number of from_cmdResponseOut ports
-    FwIndexType getNum_from_cmdResponseOut() const;
+    static constexpr FwIndexType getNum_from_cmdResponseOut() {
+      return QueuedSerialComponentBase::NUM_CMDRESPONSEOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_eventOut ports
     //!
     //! \return The number of from_eventOut ports
-    FwIndexType getNum_from_eventOut() const;
+    static constexpr FwIndexType getNum_from_eventOut() {
+      return QueuedSerialComponentBase::NUM_EVENTOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_prmGetOut ports
     //!
     //! \return The number of from_prmGetOut ports
-    FwIndexType getNum_from_prmGetOut() const;
+    static constexpr FwIndexType getNum_from_prmGetOut() {
+      return QueuedSerialComponentBase::NUM_PRMGETOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_prmSetOut ports
     //!
     //! \return The number of from_prmSetOut ports
-    FwIndexType getNum_from_prmSetOut() const;
+    static constexpr FwIndexType getNum_from_prmSetOut() {
+      return QueuedSerialComponentBase::NUM_PRMSETOUT_OUTPUT_PORTS;
+    }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Get the number of from_textEventOut ports
     //!
     //! \return The number of from_textEventOut ports
-    FwIndexType getNum_from_textEventOut() const;
+    static constexpr FwIndexType getNum_from_textEventOut() {
+      return QueuedSerialComponentBase::NUM_TEXTEVENTOUT_OUTPUT_PORTS;
+    }
 
 #endif
 
     //! Get the number of from_timeGetOut ports
     //!
     //! \return The number of from_timeGetOut ports
-    FwIndexType getNum_from_timeGetOut() const;
+    static constexpr FwIndexType getNum_from_timeGetOut() {
+      return QueuedSerialComponentBase::NUM_TIMEGETOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_tlmOut ports
     //!
     //! \return The number of from_tlmOut ports
-    FwIndexType getNum_from_tlmOut() const;
+    static constexpr FwIndexType getNum_from_tlmOut() {
+      return QueuedSerialComponentBase::NUM_TLMOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_noArgsOut ports
     //!
     //! \return The number of from_noArgsOut ports
-    FwIndexType getNum_from_noArgsOut() const;
+    static constexpr FwIndexType getNum_from_noArgsOut() {
+      return QueuedSerialComponentBase::NUM_NOARGSOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_noArgsReturnOut ports
     //!
     //! \return The number of from_noArgsReturnOut ports
-    FwIndexType getNum_from_noArgsReturnOut() const;
+    static constexpr FwIndexType getNum_from_noArgsReturnOut() {
+      return QueuedSerialComponentBase::NUM_NOARGSRETURNOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_noArgsStringReturnOut ports
     //!
     //! \return The number of from_noArgsStringReturnOut ports
-    FwIndexType getNum_from_noArgsStringReturnOut() const;
+    static constexpr FwIndexType getNum_from_noArgsStringReturnOut() {
+      return QueuedSerialComponentBase::NUM_NOARGSSTRINGRETURNOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_typedAliasOut ports
     //!
     //! \return The number of from_typedAliasOut ports
-    FwIndexType getNum_from_typedAliasOut() const;
+    static constexpr FwIndexType getNum_from_typedAliasOut() {
+      return QueuedSerialComponentBase::NUM_TYPEDALIASOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_typedAliasReturnOut ports
     //!
     //! \return The number of from_typedAliasReturnOut ports
-    FwIndexType getNum_from_typedAliasReturnOut() const;
+    static constexpr FwIndexType getNum_from_typedAliasReturnOut() {
+      return QueuedSerialComponentBase::NUM_TYPEDALIASRETURNOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_typedAliasReturnStringOut ports
     //!
     //! \return The number of from_typedAliasReturnStringOut ports
-    FwIndexType getNum_from_typedAliasReturnStringOut() const;
+    static constexpr FwIndexType getNum_from_typedAliasReturnStringOut() {
+      return QueuedSerialComponentBase::NUM_TYPEDALIASRETURNSTRINGOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_typedOut ports
     //!
     //! \return The number of from_typedOut ports
-    FwIndexType getNum_from_typedOut() const;
+    static constexpr FwIndexType getNum_from_typedOut() {
+      return QueuedSerialComponentBase::NUM_TYPEDOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_typedReturnOut ports
     //!
     //! \return The number of from_typedReturnOut ports
-    FwIndexType getNum_from_typedReturnOut() const;
+    static constexpr FwIndexType getNum_from_typedReturnOut() {
+      return QueuedSerialComponentBase::NUM_TYPEDRETURNOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_serialOut ports
     //!
     //! \return The number of from_serialOut ports
-    FwIndexType getNum_from_serialOut() const;
+    static constexpr FwIndexType getNum_from_serialOut() {
+      return QueuedSerialComponentBase::NUM_SERIALOUT_OUTPUT_PORTS;
+    }
 
   protected:
 
@@ -1748,6 +1840,9 @@ class QueuedSerialTesterBase :
     //! Handle event EventWarningLowThrottled
     virtual void logIn_WARNING_LO_EventWarningLowThrottled();
 
+    //! Handle event EventWarningLowThrottledInterval
+    virtual void logIn_WARNING_LO_EventWarningLowThrottledInterval();
+
   protected:
 
     // ----------------------------------------------------------------------
@@ -1825,6 +1920,12 @@ class QueuedSerialTesterBase :
     void tlmInput_ChannelEnumOnChange(
         const Fw::Time& timeTag, //!< The time
         const E& val //!< The channel value
+    );
+
+    //! Handle channel ChannelBoolOnChange
+    void tlmInput_ChannelBoolOnChange(
+        const Fw::Time& timeTag, //!< The time
+        const bool val //!< The channel value
     );
 
   protected:
@@ -2390,6 +2491,9 @@ class QueuedSerialTesterBase :
     //! Size of history for event EventWarningLowThrottled
     U32 eventsSize_EventWarningLowThrottled;
 
+    //! Size of history for event EventWarningLowThrottledInterval
+    U32 eventsSize_EventWarningLowThrottledInterval;
+
     //! The total number of telemetry inputs seen
     U32 tlmSize;
 
@@ -2425,6 +2529,9 @@ class QueuedSerialTesterBase :
 
     //! The history of ChannelEnumOnChange values
     History<TlmEntry_ChannelEnumOnChange>* tlmHistory_ChannelEnumOnChange;
+
+    //! The history of ChannelBoolOnChange values
+    History<TlmEntry_ChannelBoolOnChange>* tlmHistory_ChannelBoolOnChange;
 
   private:
 

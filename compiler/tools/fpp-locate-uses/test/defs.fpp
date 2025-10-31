@@ -22,6 +22,7 @@ enum Phases { setup, teardown }
 struct S { x: U32 }
 type T
 state machine S
+constant t = {seconds=10,useconds=20}
 
 module M {
   array A = [3] U32
