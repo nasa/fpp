@@ -754,7 +754,7 @@ For example, the file `default/config/DpCfg.fpp` provides a default value for
 You can override this default value by providing your own version of
 the file `DpCfg.fpp`.
 The 
-https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/,[F
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/[F
 Prime User Manual]
 explains how to do this configuration.
 
