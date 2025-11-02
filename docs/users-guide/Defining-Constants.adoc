@@ -737,3 +737,101 @@ is not legal:
 constant
   a = 1
 --------
+
+=== Framework Constants
+
+Certain constants defined in FPP have a special meaning in the
+F Prime framework.
+These constants are called *framework constants*.
+For example, the constant `Fw.DpCfg.CONTAINER_USER_DATA_SIZE`
+defines the size of the user data field in a data product container.
+(Data products are an F Prime feature that we describe
+<<Defining-Components_Data-Products,in a later section of this manual>>.)
+You typically set these constants by overriding configuration
+files provided in the directory `default/config` in the F Prime repository.
+For example, the file `default/config/DpCfg.fpp` provides a default value for 
+`Fw.DpCfg.CONTAINER_USER_DATA_SIZE`.
+You can override this default value by providing your own version of
+the file `DpCfg.fpp`.
+The 
+https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/,[F
+Prime User Manual]
+explains how to do this configuration.
+
+The FPP analyzer does not require that framework constants be defined
+unless they are used.
+For example, the following model is valid, because it neither defines nor users
+`Fw.DpCfg.CONTAINER_USER_DATA_SIZE`:
+
+[source,fpp]
+----
+constant a = 0
+----
+
+The following model is valid because it defines and uses `Fw.DpCfg.CONTAINER_USER_DATA_SIZE`:
+
+[source,fpp]
+----
+module Fw {
+
+  module DpCfg {
+
+    constant CONTAINER_USER_DATA_SIZE = 10
+
+  }
+
+}
+
+constant a = Fw.DpCfg.CONTAINER_USER_DATA_SIZE
+----
+
+The following model is invalid, because it uses `Fw.DpCfg.CONTAINER_USER_DATA_SIZE`
+without defining it:
+
+[source,fpp]
+--------
+constant a = Fw.DpCfg.CONTAINER_USER_DATA_SIZE
+--------
+
+If framework constants are defined in the FPP model, then
+then they must conform to certain rules.
+These rules are spelled out in detail in the
+https://nasa.github.io/fpp/fpp-spec.html#Definitions_Framework-Definitions[_The 
+FPP Language Specification_].
+For example, `Fw.DpCfg.CONTAINER_USER_DATA_SIZE` must have an integer type.
+So this model is invalid:
+
+[source,fpp]
+--------
+module Fw {
+
+  module DpCfg {
+
+    constant CONTAINER_USER_DATA_SIZE = "abc"
+
+  }
+
+}
+--------
+
+Here is what happens when you run this model through `fpp-check`:
+
+----
+% fpp-check
+module Fw {
+
+  module DpCfg {
+
+    constant CONTAINER_USER_DATA_SIZE = "abc"
+
+  }
+
+}
+^D
+fpp-check
+stdin:5.5
+    constant CONTAINER_USER_DATA_SIZE = "abc"
+    ^
+error: the F Prime framework constant Fw.DpCfg.CONTAINER_USER_DATA_SIZE must have an integer type
+----
+

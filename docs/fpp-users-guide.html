@@ -467,6 +467,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">3.4. Multiple Definitions and Element Sequences</a></li>
 <li><a href="#Defining-Constants_Multiline-Definitions">3.5. Multiline Definitions</a></li>
+<li><a href="#Defining-Constants_Framework-Constants">3.6. Framework Constants</a></li>
 </ul>
 </li>
 <li><a href="#Writing-Comments-and-Annotations">4. Writing Comments and Annotations</a>
@@ -1826,6 +1827,111 @@ is not legal:</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant
   a = 1</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Constants_Framework-Constants">3.6. Framework Constants</h3>
+<div class="paragraph">
+<p>Certain constants defined in FPP have a special meaning in the
+F Prime framework.
+These constants are called <strong>framework constants</strong>.
+For example, the constant <code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code>
+defines the size of the user data field in a data product container.
+(Data products are an F Prime feature that we describe
+<a href="#Defining-Components_Data-Products">in a later section of this manual</a>.)
+You typically set these constants by overriding configuration
+files provided in the directory <code>default/config</code> in the F Prime repository.
+For example, the file <code>default/config/DpCfg.fpp</code> provides a default value for
+<code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code>.
+You can override this default value by providing your own version of
+the file <code>DpCfg.fpp</code>.
+The
+<a href="https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/,">F
+Prime User Manual</a>
+explains how to do this configuration.</p>
+</div>
+<div class="paragraph">
+<p>The FPP analyzer does not require that framework constants be defined
+unless they are used.
+For example, the following model is valid, because it neither defines nor users
+<code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following model is valid because it defines and uses <code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module Fw {
+
+  module DpCfg {
+
+    constant CONTAINER_USER_DATA_SIZE = 10
+
+  }
+
+}
+
+constant a = Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following model is invalid, because it uses <code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code>
+without defining it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If framework constants are defined in the FPP model, then
+then they must conform to certain rules.
+These rules are spelled out in detail in the
+<a href="https://nasa.github.io/fpp/fpp-spec.html#Definitions_Framework-Definitions"><em>The
+FPP Language Specification</em></a>.
+For example, <code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code> must have an integer type.
+So this model is invalid:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module Fw {
+
+  module DpCfg {
+
+    constant CONTAINER_USER_DATA_SIZE = "abc"
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is what happens when you run this model through <code>fpp-check</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-check
+module Fw {
+
+  module DpCfg {
+
+    constant CONTAINER_USER_DATA_SIZE = "abc"
+
+  }
+
+}
+^D
+fpp-check
+stdin:5.5
+    constant CONTAINER_USER_DATA_SIZE = "abc"
+    ^
+error: the F Prime framework constant Fw.DpCfg.CONTAINER_USER_DATA_SIZE must have an integer type</pre>
 </div>
 </div>
 </div>
@@ -15894,7 +16000,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-10-30 17:21:37 -0700
+Last updated 2025-11-02 12:09:14 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
