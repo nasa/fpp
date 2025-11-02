@@ -796,7 +796,7 @@ constant a = Fw.DpCfg.CONTAINER_USER_DATA_SIZE
 If framework constants are defined in the FPP model, then
 then they must conform to certain rules.
 These rules are spelled out in detail in the
-https://nasa.github.io/fpp/fpp-spec.html#Definitions_Framework-Definitions[_The 
+https://nasa.github.io/fpp/fpp-spec.html#Definitions_Framework-Definitions_Constant-Definitions[_The
 FPP Language Specification_].
 For example, `Fw.DpCfg.CONTAINER_USER_DATA_SIZE` must have an integer type.
 So this model is invalid:
