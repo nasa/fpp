@@ -17,7 +17,7 @@ Writing-Comments-and-Annotations.adoc
 Defining-Modules.adoc
 Defining-Types.adoc
 Defining-Enums.adoc
-Defining-Framework-and-Dictionary-Definitions.adoc
+Dictionary-Definitions.adoc
 Defining-Ports.adoc
 Defining-State-Machines.adoc
 Defining-Components.adoc

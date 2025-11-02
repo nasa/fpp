@@ -399,8 +399,8 @@ is `b.fpp`, not `a.fppi`.
 
 ==== Dictionary Specifiers
 
-Dictionary specifiers define the location of constant or type
-<<Defining-Framework-and-Dictionary-Definitions,dictionary definitions>>. 
+A *dictionary specifier* defines the location of a
+<<Dictionary-Definitions,dictionary definition>>. 
 To write a dictionary specifier, write a location specifier and include 
 the `dictionary` keyword before the `constant` or `type` keyword.
 
