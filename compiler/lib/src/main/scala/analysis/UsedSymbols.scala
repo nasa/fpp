@@ -17,17 +17,22 @@ import fpp.compiler.util.*
  */
 object UsedSymbols extends UseAnalyzer {
 
-  // When resolving uses, don't visit the default value of an enum definition.
-  // The default value is an enum constant, which is ignored (for shallow resolution)
-  // or converted to a use of this enum (for deep resolution).
+  // When resolving uses, if the default value of an enum definition is an enum
+  // constant, then don't visit it. In this case the symbol is ignored (for
+  // shallow resolution) or converted to a use of this enum (for deep resolution).
   // So it adds nothing to the resolution.
   override def defEnumAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefEnum]]) = {
     val (_, node1, _) = node
     val data = node1.data
-    for {
+    for
       a <- opt(typeNameNode)(a, data.typeName)
       a <- visitList(a, data.constants, defEnumConstantAnnotatedNode)
-    } yield a
+      a <- node._2.data.default match
+        case Some(en) => a.useDefMap(en.id) match
+          case _: Symbol.EnumConstant => Right(a)
+          case _ => opt(exprNode)(a, data.default)
+        case None => Right(a)
+    yield a
   }
 
   override def componentUse(

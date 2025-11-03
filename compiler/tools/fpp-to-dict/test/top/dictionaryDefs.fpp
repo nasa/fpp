@@ -11,14 +11,14 @@ enum E {
     Z
 }
 
-enum E2 {
+dictionary enum E2 {
     A
     B
     C
-}
+} default C3
 
 dictionary constant C2 = 1
-dictionary constant C3 = E2.A
+constant C3 = E2.A
 
 dictionary struct S {
     X: A
