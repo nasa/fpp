@@ -24,13 +24,9 @@ in the FPP model.
 
 In this case you can mark a type or constant definition as a *dictionary 
 definition*.
-A dictionary definition tells the FPP analyzer two things:
-
-. The definition should be included in the model, even if it
-isn't used anywhere in the model.
-
-. Whenever a dictionary is generated from the model, the definition should be
-included in the dictionary.
+A dictionary definition tells the FPP analyzer that
+whenever a dictionary is generated from the model,
+the definition should be included in the dictionary.
 
 To write a dictionary definition, you write the keyword `dictionary`
 before the definition.
