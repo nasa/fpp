@@ -117,6 +117,7 @@ class PassiveEventsComponentBase :
       EVENTID_EVENTFATALTHROTTLED = 0x13, //!< A fatal, throttled event with array params
       EVENTID_EVENTWARNINGHIGH = 0x20, //!< A warning high event with struct params
       EVENTID_EVENTWARNINGLOWTHROTTLED = 0x21, //!< A warning low, throttled event with no params
+      EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL = 0x22, //!< A warning low, throttled event and timeout interval with no params
     };
 
     //! Event throttle values: sets initial value of countdown variables
@@ -124,6 +125,7 @@ class PassiveEventsComponentBase :
       EVENTID_EVENTACTIVITYLOWTHROTTLED_THROTTLE = 5, //!< Throttle reset count for EventActivityLowThrottled
       EVENTID_EVENTFATALTHROTTLED_THROTTLE = 10, //!< Throttle reset count for EventFatalThrottled
       EVENTID_EVENTWARNINGLOWTHROTTLED_THROTTLE = 10, //!< Throttle reset count for EventWarningLowThrottled
+      EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL_THROTTLE = 10, //!< Throttle reset count for EventWarningLowThrottledInterval
     };
 
   public:
@@ -1200,6 +1202,11 @@ class PassiveEventsComponentBase :
     //! A warning low, throttled event with no params
     void log_WARNING_LO_EventWarningLowThrottled();
 
+    //! Log event EventWarningLowThrottledInterval
+    //!
+    //! A warning low, throttled event and timeout interval with no params
+    void log_WARNING_LO_EventWarningLowThrottledInterval();
+
   protected:
 
     // ----------------------------------------------------------------------
@@ -1214,6 +1221,9 @@ class PassiveEventsComponentBase :
 
     //! Reset throttle value for EventWarningLowThrottled
     void log_WARNING_LO_EventWarningLowThrottled_ThrottleClear();
+
+    //! Reset throttle value for EventWarningLowThrottledInterval
+    void log_WARNING_LO_EventWarningLowThrottledInterval_ThrottleClear();
 
   protected:
 
@@ -1522,6 +1532,12 @@ class PassiveEventsComponentBase :
     //! Throttle for EventWarningLowThrottled
     std::atomic<FwIndexType> m_EventWarningLowThrottledThrottle;
 
+    //! Throttle for EventWarningLowThrottledInterval
+    FwIndexType m_EventWarningLowThrottledIntervalThrottle;
+
+    //! Throttle time for EventWarningLowThrottledInterval
+    Fw::Time m_EventWarningLowThrottledIntervalThrottleTime;
+
   private:
 
     // ----------------------------------------------------------------------
@@ -1530,6 +1546,9 @@ class PassiveEventsComponentBase :
 
     //! Mutex for guarded ports
     Os::Mutex m_guardedPortMutex;
+
+    //! Mutex for locking event throttle timeout and counter
+    Os::Mutex m_eventLock;
 
 };
 
