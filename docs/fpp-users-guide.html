@@ -700,7 +700,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifying-Models-as-Files_Location-Specifiers_Path-Names">15.4.2. Path Names</a></li>
 <li><a href="#Specifying-Models-as-Files_Location-Specifiers_Definition-Names">15.4.3. Definition Names</a></li>
 <li><a href="#Specifying-Models-as-Files_Location-Specifiers_Included-Files">15.4.4. Included Files</a></li>
-<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Dictionary-Specifiers">15.4.5. Dictionary Specifiers</a></li>
+<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Dictionary-Definitions">15.4.5. Dictionary Definitions</a></li>
+<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Repeated-Location-Specifiers">15.4.6. Repeated Location Specifiers</a></li>
 </ul>
 </li>
 <li><a href="#Specifying-Models-as-Files_Locating-Definitions">15.5. Locating Definitions</a>
@@ -7330,7 +7331,8 @@ for the following:</p>
 <a href="#Defining-Ports_Reference-Parameters">reference parameter</a>.</p>
 </li>
 <li>
-<p>Each parameter must have a <strong>displayable type</strong>, i.e., a
+<p>Each parameter must have a <a href="#Dictionary-Definitions">displayable type</a>, i.e.,
+a
 type that the F Prime ground data system knows how to display.
 For example, the type may not be an
 <a href="#Defining-Types_Abstract-Type-Definitions">abstract type</a>.
@@ -12445,10 +12447,23 @@ definitions</a>.</p>
 <div class="sect3">
 <h4 id="Specifying-Models-as-Files_Location-Specifiers_Syntax">15.4.1. Syntax</h4>
 <div class="paragraph">
-<p>A location specifier consists of the keyword <code>locate</code>, a kind of definition,
+<p>In general, a location specifier consists of the keyword <code>locate</code>, a kind of
+definition,
 the name of a definition, and a string representing a file path.
-For example, to locate the definition of constant <code>a</code> at <code>a.fpp</code>,
-we would write</p>
+For type and constant specifiers, there is also an optional <code>dictionary</code>
+specifier, which we will describe
+<a href="#Specifying-Models-as-Files_Location-Specifiers_Dictionary-Definitions">below</a>.</p>
+</div>
+<div class="paragraph">
+<p>For example, to locate the definition</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>appearing in the file <code>a.fpp</code>, we would write</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -12457,9 +12472,58 @@ locate constant a at "a.fpp"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>For the current version of FPP, the kind of definition can be <code>constant</code>,
-<code>type</code>, or <code>port</code>.
-To locate a type <code>T</code> in a file <code>T.fpp</code>, we would write the following:</p>
+<p>The kind of definition must be one of the following:</p>
+</div>
+<table id="location-specifier-kinds" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. Location Specifier Kinds</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Keyword</th>
+<th class="tableblock halign-left valign-top">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>component</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-Components">component definition</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>constant</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-Constants">constant definition</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>instance</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-Component-Instances">component instance definition</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>interface</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-and-Using-Port-Interfaces_Defining-Port-Interfaces">port interface definition</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>port</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-Ports">port definition</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>state</code> <code>machine</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-State-Machines">state machine definition</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>topology</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-Topologies">topology definition</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-Types">type</a> or <a href="#Defining-Enums">enum</a> definition</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>As a further example, to locate a type <code>T</code> in a file <code>T.fpp</code>, we would write the
+following:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -12486,6 +12550,9 @@ constants are then implied:</p>
 # including the enumerated constant definitions
 locate type E at "E.fpp"</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>The other kinds operate similarly.</p>
 </div>
 </div>
 <div class="sect3">
@@ -12579,30 +12646,62 @@ is <code>b.fpp</code>, not <code>a.fppi</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Location-Specifiers_Dictionary-Specifiers">15.4.5. Dictionary Specifiers</h4>
+<h4 id="Specifying-Models-as-Files_Location-Specifiers_Dictionary-Definitions">15.4.5. Dictionary Definitions</h4>
 <div class="paragraph">
-<p>A <strong>dictionary specifier</strong> defines the location of a
-<a href="#Dictionary-Definitions">dictionary definition</a>.
-To write a dictionary specifier, write a location specifier and include
-the <code>dictionary</code> keyword before the <code>constant</code> or <code>type</code> keyword.</p>
-</div>
-<div class="paragraph">
-<p>For example, to write a dictionary specifier for type <code>T</code> located
-at <code>T.fpp</code>, write the following:</p>
+<p>For type and constant specifiers only, if the definition being located
+is a
+<a href="#Dictionary-Definitions">dictionary definition</a>, then you must
+write the keyword <code>dictionary</code> after the keyword <code>locate</code>
+and before the definition kind.
+For example, to locate the dictionary definition</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">locate dictionary type T at "T.fpp"</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">dictionary constant b = 1</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>To write a dictionary specifier for constant <code>C</code> located
-at <code>C.fpp</code>, write the following:</p>
+<p>appearing in the file <code>b.fpp</code>, we would write</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">locate dictionary constant C at "C.fpp"</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp"># Locating a dictionary constant definition
+locate dictionary constant b at "b.fpp"</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>The <code>dictionary</code> keyword tells the analyzer that the definition is a dictionary
+definition and so should be included in the dependency files of the model,
+regardless of whether the definition is used in the model.</p>
+</div>
+<div class="paragraph">
+<p>If a definition is a dictionary definition and the corresponding location
+specifier does not specify <code>dictionary</code> (or vice versa), then the analyzer
+will report an error.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifying-Models-as-Files_Location-Specifiers_Repeated-Location-Specifiers">15.4.6. Repeated Location Specifiers</h4>
+<div class="paragraph">
+<p>An FPP model may contain any number of location specifiers for the same
+definition, so long as the following conditions are met:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>All the specifiers must be consistent.
+This means that all the specifiers for the same definition
+provide the same location, and either they all specify <code>dictionary</code>
+or none of them does.</p>
+</li>
+<li>
+<p>All the specifiers must agree with the definition, if it exists
+in the model.
+This means that the location specifiers specify the location
+of the definition, and the specifiers specify <code>dictionary</code>
+if and only if the definition is a dictionary definition.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -13575,7 +13674,7 @@ for <a href="#Analyzing-and-Translating-Models_Checking-Models"><code>fpp-check<
 translated to C&#43;&#43; files.</p>
 </div>
 <table id="cpp-file-names" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. C&#43;&#43; File Names</caption>
+<caption class="title">Table 4. C&#43;&#43; File Names</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -16044,7 +16143,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-11-02 13:13:09 -0800
+Last updated 2025-11-02 16:34:43 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
