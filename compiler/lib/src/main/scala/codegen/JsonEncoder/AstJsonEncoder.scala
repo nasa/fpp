@@ -29,6 +29,10 @@ object AstJsonEncoder extends JsonEncoder {
   implicit val exprEncoder: Encoder[Ast.Expr] =
     io.circe.generic.semiauto.deriveEncoder[Ast.Expr]
 
+  // JSON encoder for event throttle
+  implicit val eventThrottleEncoder: Encoder[Ast.EventThrottle] =
+    io.circe.generic.semiauto.deriveEncoder[Ast.EventThrottle]
+
   // JSON encoder for module member nodes
   implicit val moduleMemberNodeEncoder: Encoder[Ast.ModuleMember.Node] =
     io.circe.generic.semiauto.deriveEncoder[Ast.ModuleMember.Node]

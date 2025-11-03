@@ -407,7 +407,26 @@
                         "type": "string"
                     },
                     "throttle": {
-                        "type": "number"
+                        "type": "object",
+                        "properties": {
+                            "count": {
+                                "type": "integer",
+                                "minimum": 1
+                            },
+                            "interval": {
+                                "type": "object",
+                                "properties": {
+                                    "seconds": {
+                                        "type": "integer",
+                                        "minimum": 0
+                                    },
+                                    "useconds": {
+                                        "type": "integer",
+                                        "minimum": 0
+                                    }
+                                }
+                            }
+                        }
                     }
                 },
                 "required": [

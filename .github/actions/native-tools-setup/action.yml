@@ -1,0 +1,19 @@
+name: 'native-tools-setup'
+description: 'Set Up GraalVM Native Image Tools'
+runs:
+  using: "composite"
+  steps:
+  - name: "Setting up GraalVM/Java Environment"
+    run: |
+      echo "Setup GraalVM Environment"
+      # Attempt to use the action path to find env-setup. If this fails, use a relative path in hopes
+      # the working directory is the root of the repository.
+      #
+      # Docker containers don't seem to get the action path set correctly, so we need the relative path fallback.
+      if [ -f "${{ github.action_path }}/env-setup" ]
+      then
+          "${{ github.action_path }}/env-setup"
+      else
+          ./.github/actions/native-tools-setup/env-setup
+      fi
+    shell: bash

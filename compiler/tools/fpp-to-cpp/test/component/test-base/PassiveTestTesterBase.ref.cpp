@@ -1907,212 +1907,6 @@ void PassiveTestTesterBase ::
 }
 
 // ----------------------------------------------------------------------
-// Getters for port counts
-// ----------------------------------------------------------------------
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_to_cmdIn() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_to_productRecvIn() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_productRecvIn));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_to_noArgsAliasStringReturnSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsAliasStringReturnSync));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_to_noArgsGuarded() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_to_noArgsReturnGuarded() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnGuarded));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_to_noArgsReturnSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnSync));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_to_noArgsStringReturnSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsStringReturnSync));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_to_noArgsSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsSync));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_to_typedAliasGuarded() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAliasGuarded));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_to_typedAliasReturnSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAliasReturnSync));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_to_typedAliasStringReturnSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAliasStringReturnSync));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_to_typedGuarded() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedGuarded));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_to_typedReturnGuarded() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnGuarded));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_to_typedReturnSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnSync));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_to_typedSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedSync));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_from_cmdRegOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdRegOut));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_from_cmdResponseOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdResponseOut));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_from_eventOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_eventOut));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_from_prmGetOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmGetOut));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_from_prmSetOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmSetOut));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_from_productRequestOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productRequestOut));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_from_productSendOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productSendOut));
-}
-
-#if FW_ENABLE_TEXT_LOGGING == 1
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_from_textEventOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_textEventOut));
-}
-
-#endif
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_from_timeGetOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_timeGetOut));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_from_tlmOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_from_noArgsOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsOut));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_from_noArgsReturnOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsReturnOut));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_from_noArgsStringReturnOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsStringReturnOut));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_from_typedAliasOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedAliasOut));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_from_typedAliasReturnOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedAliasReturnOut));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_from_typedAliasReturnStringOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedAliasReturnStringOut));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_from_typedOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
-}
-
-FwIndexType PassiveTestTesterBase ::
-  getNum_from_typedReturnOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
-}
-
-// ----------------------------------------------------------------------
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
 
@@ -3118,6 +2912,21 @@ void PassiveTestTesterBase ::
       break;
     }
 
+    case PassiveTestComponentBase::EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL: {
+#if FW_AMPCS_COMPATIBLE
+      // For AMPCS, decode zero arguments
+      Fw::SerializeStatus _zero_status = Fw::FW_SERIALIZE_OK;
+      U8 _noArgs;
+      _zero_status = args.deserializeTo(_noArgs);
+      FW_ASSERT(
+        _zero_status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_zero_status)
+      );
+#endif
+      this->logIn_WARNING_LO_EventWarningLowThrottledInterval();
+      break;
+    }
+
     default: {
       FW_ASSERT(0, static_cast<FwAssertArgType>(id));
       break;
@@ -3212,6 +3021,13 @@ void PassiveTestTesterBase ::
   logIn_WARNING_LO_EventWarningLowThrottled()
 {
   this->eventsSize_EventWarningLowThrottled++;
+  this->eventsSize++;
+}
+
+void PassiveTestTesterBase ::
+  logIn_WARNING_LO_EventWarningLowThrottledInterval()
+{
+  this->eventsSize_EventWarningLowThrottledInterval++;
   this->eventsSize++;
 }
 
@@ -4486,6 +4302,7 @@ void PassiveTestTesterBase ::
   this->eventHistory_EventFatalThrottled->clear();
   this->eventHistory_EventWarningHigh->clear();
   this->eventsSize_EventWarningLowThrottled = 0;
+  this->eventsSize_EventWarningLowThrottledInterval = 0;
 }
 
 #if FW_ENABLE_TEXT_LOGGING

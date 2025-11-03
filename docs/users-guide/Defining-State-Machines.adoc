@@ -1536,10 +1536,10 @@ order of the traversal, do the entry actions of _S'_, if any.
 
 For example, suppose that _M_ has a state _A_ with substates
 _B_ and _C_, _B_ has substate _D_, and _C_ has substate _E_.
-Suppose that _T_ goes from _C_ to _E_.
+Suppose that _T_ goes from _D_ to _E_.
 Then least common ancestor is _A_, and the following actions
 would be done, in the following order:
-the exit actions of _C_, the exit actions of _B_,
+the exit actions of _D_, the exit actions of _B_,
 the actions of _T_, the entry actions of _C_, and the
 entry actions of _E_.
 

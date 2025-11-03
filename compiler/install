@@ -51,21 +51,7 @@ dir=`cd $dir; pwd`
 base=`basename $dest`
 dest=$dir/$base
 
-tools="
-fpp-check
-fpp-depend
-fpp-filenames
-fpp-format
-fpp-from-xml
-fpp-locate-defs
-fpp-locate-uses
-fpp-syntax
-fpp-to-cpp
-fpp-to-json
-fpp-to-xml
-fpp-to-dict
-fpp-to-layout
-"
+tools=`cat ./tools.txt`
 
 if git describe --tags --always > /dev/null 2>&1
 then
@@ -91,13 +77,18 @@ sed -i.restore.bak -e "s/val v = .*/val v = \"[unknown version]\"/" \
 
 mkdir -p $dest
 
+echo "Installing fpp at $dest"
+jar=`find tools/fpp -name "*$name*assembly*.jar" | grep "target/scala-$scala_version"`
+echo "  $jar"
+cp $jar $dest/fpp.jar
+echo '#!/bin/sh
+'$java' -jar "`dirname $0`/'fpp'.jar" "$@"' > $dest/fpp
+chmod +x $dest/fpp
+
 echo "Installing tools at $dest"
 for tool in $tools
 do
-  jar=`find tools/$tool -name "*$name*assembly*.jar" | grep "target/scala-$scala_version"`
-  echo "  $jar"
-  cp $jar $dest/$tool.jar
   echo '#!/bin/sh
-  '$java' -jar "`dirname $0`/'$tool'.jar" "$@"' > $dest/$tool
-  chmod +x $dest/$tool
+  '$java' -jar "`dirname $0`/'fpp'.jar" '$tool' "$@"' > $dest/fpp-$tool
+  chmod +x $dest/fpp-$tool
 done

@@ -40,6 +40,7 @@ object Token {
   final case class EOL() extends Token
   final case class EQUALS() extends Token
   final case class EVENT() extends Token
+  final case class EVERY() extends Token
   final case class EXIT() extends Token
   final case class EXTERNAL() extends Token
   final case class F32() extends Token
@@ -186,6 +187,7 @@ enum TokenId {
   case ENTRY
   case ENUM
   case EVENT
+  case EVERY
   case EXIT
   case EXTERNAL
   case F32
