@@ -461,77 +461,75 @@
                               "data" : {
                                 "name" : "P",
                                 "members" : [
-                                  {
-                                    "node" : [
-                                      [
-                                      ],
-                                      {
-                                        "SpecTlmPacket" : {
-                                          "node" : {
-                                            "AstNode" : {
-                                              "data" : {
-                                                "name" : "P1",
-                                                "id" : {
-                                                  "Some" : {
-                                                    "AstNode" : {
-                                                      "data" : {
-                                                        "ExprLiteralInt" : {
-                                                          "value" : "0"
-                                                        }
-                                                      },
-                                                      "id" : 101
-                                                    }
-                                                  }
-                                                },
-                                                "group" : {
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "SpecTlmPacket" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "name" : "P1",
+                                              "id" : {
+                                                "Some" : {
                                                   "AstNode" : {
                                                     "data" : {
                                                       "ExprLiteralInt" : {
                                                         "value" : "0"
                                                       }
                                                     },
-                                                    "id" : 102
+                                                    "id" : 101
                                                   }
-                                                },
-                                                "members" : [
-                                                  {
-                                                    "TlmChannelIdentifier" : {
-                                                      "node" : {
-                                                        "AstNode" : {
-                                                          "data" : {
-                                                            "componentInstance" : {
-                                                              "AstNode" : {
-                                                                "data" : {
-                                                                  "Unqualified" : {
-                                                                    "name" : "c1"
-                                                                  }
-                                                                },
-                                                                "id" : 105
-                                                              }
-                                                            },
-                                                            "channelName" : {
-                                                              "AstNode" : {
-                                                                "data" : "T",
-                                                                "id" : 104
-                                                              }
+                                                }
+                                              },
+                                              "group" : {
+                                                "AstNode" : {
+                                                  "data" : {
+                                                    "ExprLiteralInt" : {
+                                                      "value" : "0"
+                                                    }
+                                                  },
+                                                  "id" : 102
+                                                }
+                                              },
+                                              "members" : [
+                                                {
+                                                  "TlmChannelIdentifier" : {
+                                                    "node" : {
+                                                      "AstNode" : {
+                                                        "data" : {
+                                                          "componentInstance" : {
+                                                            "AstNode" : {
+                                                              "data" : {
+                                                                "Unqualified" : {
+                                                                  "name" : "c1"
+                                                                }
+                                                              },
+                                                              "id" : 105
                                                             }
                                                           },
-                                                          "id" : 106
-                                                        }
+                                                          "channelName" : {
+                                                            "AstNode" : {
+                                                              "data" : "T",
+                                                              "id" : 104
+                                                            }
+                                                          }
+                                                        },
+                                                        "id" : 106
                                                       }
                                                     }
                                                   }
-                                                ]
-                                              },
-                                              "id" : 107
-                                            }
+                                                }
+                                              ]
+                                            },
+                                            "id" : 107
                                           }
                                         }
-                                      },
-                                      [
-                                      ]
+                                      }
+                                    },
+                                    [
                                     ]
-                                  }
+                                  ]
                                 ],
                                 "omitted" : [
                                   {
@@ -2223,6 +2221,9 @@
     }
   },
   "stateMachineMap" : {
+    
+  },
+  "interfaceMap" : {
     
   }
 }

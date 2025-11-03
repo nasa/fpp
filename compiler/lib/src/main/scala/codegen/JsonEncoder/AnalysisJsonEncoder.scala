@@ -149,6 +149,20 @@ object AnalysisJsonEncoder extends JsonEncoder{
     Encoder.instance (mapAsJsonMap (f1) (f2) _)
   }
 
+  private implicit val interfaceMapEncoder:
+    Encoder[Map[Symbol.Interface, Interface]] =
+  {
+    def f2(i: Interface): Json = i.asJson
+    Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
+  }
+
+  private implicit val importMapEncoder:
+    Encoder[Map[Symbol.Interface, (AstNode.Id, Location)]] =
+  {
+    def f2(i: (AstNode.Id, Location)): Json = i.asJson
+    Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
+  }
+
   private implicit val limitsEncoder: Encoder[TlmChannel.Limits] = {
     def f1(kind: Ast.SpecTlmChannel.LimitKind) = kind.toString
     def f2(tlmPoint: (AstNode.Id, Value)) = tlmPoint.asJson
@@ -353,7 +367,8 @@ object AnalysisJsonEncoder extends JsonEncoder{
       "typeMap" -> a.typeMap.asJson,
       "useDefMap" -> a.useDefMap.asJson,
       "valueMap" -> a.valueMap.asJson,
-      "stateMachineMap" -> a.stateMachineMap.asJson
+      "stateMachineMap" -> a.stateMachineMap.asJson,
+      "interfaceMap" -> a.interfaceMap.asJson
     )
   }
 
