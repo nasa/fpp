@@ -8,9 +8,6 @@ the definition in the ground dictionary.
 
 ==== Semantics
 
-If a type definition _D_ is a dictionary definition, then the type
-defined by _D_ must be a <<Types_Displayable-Types, displayable type>>.
-
 If a constant definition _D_ is a dictionary definition, then the
 expression appearing in _D_ must have one of the following types:
 
@@ -18,6 +15,9 @@ expression appearing in _D_ must have one of the following types:
 * The <<Types_The-Boolean-Type,Boolean type>>.
 * A <<Types_String-Types,string type>>.
 * An <<Types_Enum-Types,enum type>>.
+
+If a type definition _D_ is a dictionary definition, then the type
+defined by _D_ must be a <<Types_Displayable-Types, displayable type>>.
 
 ==== Examples
 
