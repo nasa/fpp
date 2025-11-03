@@ -143,7 +143,7 @@ namespace M {
 
   Fw::SerializeStatus PrimitiveBool ::
     serializeTo(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         Fw::Endianness mode
     ) const
   {
@@ -159,7 +159,7 @@ namespace M {
 
   Fw::SerializeStatus PrimitiveBool ::
     deserializeFrom(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         Fw::Endianness mode
     )
   {

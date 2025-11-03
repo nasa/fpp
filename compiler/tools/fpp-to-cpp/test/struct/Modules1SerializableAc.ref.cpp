@@ -91,7 +91,7 @@ namespace M {
 
   Fw::SerializeStatus Modules1 ::
     serializeTo(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         Fw::Endianness mode
     ) const
   {
@@ -111,7 +111,7 @@ namespace M {
 
   Fw::SerializeStatus Modules1 ::
     deserializeFrom(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         Fw::Endianness mode
     )
   {

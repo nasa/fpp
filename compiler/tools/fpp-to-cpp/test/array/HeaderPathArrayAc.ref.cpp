@@ -141,7 +141,7 @@ std::ostream& operator<<(std::ostream& os, const HeaderPath& obj) {
 
 Fw::SerializeStatus HeaderPath ::
   serializeTo(
-      Fw::LinearBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -157,7 +157,7 @@ Fw::SerializeStatus HeaderPath ::
 
 Fw::SerializeStatus HeaderPath ::
   deserializeFrom(
-      Fw::LinearBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {

@@ -51,7 +51,7 @@ bool C_E ::
 
 Fw::SerializeStatus C_E ::
   serializeTo(
-      Fw::LinearBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -64,7 +64,7 @@ Fw::SerializeStatus C_E ::
 
 Fw::SerializeStatus C_E ::
   deserializeFrom(
-      Fw::LinearBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {

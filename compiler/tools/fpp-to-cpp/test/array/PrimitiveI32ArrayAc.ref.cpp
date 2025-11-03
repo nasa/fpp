@@ -143,7 +143,7 @@ namespace M {
 
   Fw::SerializeStatus PrimitiveI32 ::
     serializeTo(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         Fw::Endianness mode
     ) const
   {
@@ -159,7 +159,7 @@ namespace M {
 
   Fw::SerializeStatus PrimitiveI32 ::
     deserializeFrom(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         Fw::Endianness mode
     )
   {

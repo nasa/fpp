@@ -79,7 +79,7 @@ std::ostream& operator<<(std::ostream& os, const PrimitiveStruct& obj) {
 
 Fw::SerializeStatus PrimitiveStruct ::
   serializeTo(
-      Fw::LinearBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -95,7 +95,7 @@ Fw::SerializeStatus PrimitiveStruct ::
 
 Fw::SerializeStatus PrimitiveStruct ::
   deserializeFrom(
-      Fw::LinearBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {

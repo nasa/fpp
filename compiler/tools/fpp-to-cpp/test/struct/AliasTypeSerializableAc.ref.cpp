@@ -136,7 +136,7 @@ std::ostream& operator<<(std::ostream& os, const AliasType& obj) {
 
 Fw::SerializeStatus AliasType ::
   serializeTo(
-      Fw::LinearBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -162,7 +162,7 @@ Fw::SerializeStatus AliasType ::
 
 Fw::SerializeStatus AliasType ::
   deserializeFrom(
-      Fw::LinearBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {
