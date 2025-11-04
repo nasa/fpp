@@ -1,31 +1,44 @@
-type stringAlias = string
-type f32Alias = F32
-
-constant C = 1.0
-
-array A = [2] f32Alias
-
-enum E {
-    X
-    Y
-    Z
-}
-
-dictionary enum E2 {
-    A
-    B
-    C
-} default C3
-
-dictionary constant C2 = 1
-constant C3 = E2.A
+# Dictionary definitions (included in the dictionary)
+dictionary type T = T2
+dictionary array A = [3] U32
+dictionary enum E { 
+    A 
+    B 
+    C 
+} default C2
 
 dictionary struct S {
-    X: A
-    Y: stringAlias
+    X: string,
+    Y: A2,
+    Z: S2
 }
 
-dictionary array A2 = [3] U32
+dictionary constant C = E2.A
+
+# Defintions that are uses of dictionary definitions (included in the dictionary)
+type T2 = U32
+array A2 = [3] U32
+enum E2 { 
+    A 
+} default C
+
+struct S2 { 
+    X: T 
+}
+constant C2 = E.A
+
+# Non dictionary definitions (not included in the dictionary)
+type T3 = F32
+array A3 = [3] string
+enum E3 { 
+    X
+}
+
+struct S3 { 
+    X: string 
+}
+
+constant C3 = 1
 
 topology DictionaryDefs {
 
