@@ -161,7 +161,7 @@ case class ComponentInternalStateMachines(
       "deserializeSmIdAndSignal",
       List(
         CppDoc.Function.Param(
-          CppDoc.Type("Fw::SerializeBufferBase&"),
+          CppDoc.Type("Fw::SerialBufferBase&"),
           "buffer",
           Some("The message buffer (input and output)")
         ),
@@ -200,7 +200,7 @@ case class ComponentInternalStateMachines(
       "smDispatch",
       List(
         CppDoc.Function.Param(
-          CppDoc.Type("Fw::SerializeBufferBase&"),
+          CppDoc.Type("Fw::SerialBufferBase&"),
           "buffer",
           Some("The message buffer")
         )
@@ -262,7 +262,7 @@ case class ComponentInternalStateMachines(
       s"${smi.getName}_sendSignalFinish",
       List(
         CppDoc.Function.Param(
-          CppDoc.Type("Fw::SerializeBufferBase&"),
+          CppDoc.Type("Fw::LinearBufferBase&"),
           "buffer",
           Some("The buffer with the data to send")
         )
@@ -365,7 +365,7 @@ case class ComponentInternalStateMachines(
           Some("The signal (input)")
         ),
         CppDoc.Function.Param(
-          CppDoc.Type("Fw::SerializeBufferBase&"),
+          CppDoc.Type("Fw::SerialBufferBase&"),
           "buffer",
           Some("The message buffer (output)")
         )
@@ -446,7 +446,7 @@ case class ComponentInternalStateMachines(
       s"${smName}_smDispatch",
       List(
         CppDoc.Function.Param(
-          CppDoc.Type("Fw::SerializeBufferBase&"),
+          CppDoc.Type("Fw::SerialBufferBase&"),
           "buffer",
           Some("The message buffer")
         ),
@@ -488,7 +488,7 @@ case class ComponentInternalStateMachines(
                 ),
                 lines(
                   s"""|// Assert no data left in buffer
-                      |FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+                      |FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
                       |// Call the sendSignal function for sm and $signalName
                       |sm.sendSignal_$signalName($sendSignalArgs);
                       |break;"""
@@ -878,7 +878,7 @@ object ComponentInternalStateMachines {
       Some("The signal")
     ),
     CppDoc.Function.Param(
-      CppDoc.Type("Fw::SerializeBufferBase&"),
+      CppDoc.Type("Fw::SerialBufferBase&"),
       "buffer",
       Some("The message buffer")
     )

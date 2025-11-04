@@ -1841,42 +1841,42 @@ class QueuedParamsComponentBase :
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamU32(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamF64
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamF64(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamString
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamString(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamEnum
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamEnum(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamArray
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamArray(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamStruct
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamStruct(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
   private:
