@@ -7817,7 +7817,9 @@ or a few warnings.</p>
 <div class="paragraph">
 <p>To achieve this behavior, you can write the keyword <code>throttle</code> and a
 numeric expression after the format string.
-The expression must evaluate to a constant value <em>n</em>.
+The expression must evaluate to a constant value <em>n</em>, where <em>n</em> is a number
+greater than zero.
+<em>n</em> is called the <strong>maximum throttle count</strong>.
 After an instance of the component has emitted the event <em>n</em> times, it will
 stop emitting the event.
 Here is an example:</p>
@@ -7857,14 +7859,39 @@ passive component EventThrottling {
 instance has emitted it ten times.</p>
 </div>
 <div class="paragraph">
-<p>Once an event is throttled, the component instance will no longer
-emit the event until the throttling is canceled. Throttle cancellation
-can happen after a specified time interval or via a FSW command.</p>
+<p>Once an event is throttled, the component
+instance will no longer emit the event until the throttling is reset.
+There are two ways to reset the throttling of an event: manually and
+automatically.</p>
 </div>
 <div class="paragraph">
-<p>A throttle timeout can be specified using the <code>every</code> keyword and a time interval
-after the throttle clause.
-Here is an example:</p>
+<p><strong>Manual reset:</strong>
+To manually reset throttling for events,
+you can use a <a href="#Defining-Components_Commands">command</a>.
+For example, you can define a command <code>CLEAR_EVENT_THROTTLE</code>
+that resets throttling for all throttled events.
+You can implement this command by calling functions
+that reset the throttle counts to zero.
+The auto-generated C&#43;&#43; code provides one such function for
+each event with throttling.
+For details, see the
+<a href="https://fprime.jpl.nasa.gov/devel/docs/user-manual/">F Prime User Manual</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Automatic reset:</strong>
+You can also specify in FPP that the throttling for an event should be reset
+automatically after a specified amount of time.
+To do this, you write <code>every</code> and a time interval after the maximum throttle
+count.
+The time interval is a <a href="#Defining-Constants_Expressions_Struct-Values">struct
+value expression</a> with two members: <code>seconds</code> and <code>useconds</code>.
+<code>useconds</code> is short for &#8220;microseconds.&#8221;
+Each member must evaluate to an integer value.
+Either or both of the members can be omitted; an omitted member evaluates to
+zero.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -7891,32 +7918,37 @@ passive component EventThrottlingWithTimeout {
   @ Event 1
   event Event1 severity warning high \
     format "Event 1 occurred" \
-    throttle 10 \
-    every {seconds=2}
+    throttle 10 every { seconds = 2 }
 
   @ Event 2
   event Event2 severity warning high \
     format "Event 2 occurred" \
-    throttle 10 \
-    every {seconds=2, useconds=500000}
+    throttle 10 every { seconds = 2, useconds = 500000 }
 
   @ Event 3
   event Event3 severity warning high \
     format "Event 3 occurred" \
-    throttle 10 \
-    every {useconds=500000}
+    throttle 10 every { useconds = 500000 }
 
 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>In this example <code>Event1</code> will emit up to 10 events every 2 seconds, <code>Event2</code>
-will emit up to 10 events every 2.5 seconds and <code>Event3</code> up to 10 every 0.5 seconds.</p>
+<p>In this example, an instance of <code>EventThrottlingWithTimeout</code> will emit events
+at the following rates:</p>
 </div>
-<div class="paragraph">
-<p>If a throttle timeout is not specified via the <code>every</code> clause, the component will not
-emit the event until the throttle is cleared through FSW command. For details, see the
-<a href="https://fprime.jpl.nasa.gov/devel/docs/user-manual/">F Prime User Manual</a>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Event1</code>: Up to 10 events every 2 seconds.</p>
+</li>
+<li>
+<p><code>Event2</code>: Up to 10 events every 2.5 seconds.</p>
+</li>
+<li>
+<p><code>Event3</code>: Up to 10 events every 0.5 seconds.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -16188,7 +16220,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-11-04 13:47:00 -0800
+Last updated 2025-11-04 14:29:20 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
