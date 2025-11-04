@@ -367,7 +367,7 @@ case class ComponentParameters (
           paramHandlerName(param.getName, Command.Param.Set),
           List(
             CppDoc.Function.Param(
-              CppDoc.Type("Fw::LinearBufferBase&"),
+              CppDoc.Type("Fw::SerialBufferBase&"),
               "val",
               Some("The serialization buffer")
             ),
