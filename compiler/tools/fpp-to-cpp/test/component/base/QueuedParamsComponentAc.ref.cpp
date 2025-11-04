@@ -4326,7 +4326,7 @@ void QueuedParamsComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::CmdResponse QueuedParamsComponentBase ::
-  paramSet_ParamU32(Fw::LinearBufferBase& val)
+  paramSet_ParamU32(Fw::SerialBufferBase& val)
 {
   U32 _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -4346,7 +4346,7 @@ Fw::CmdResponse QueuedParamsComponentBase ::
 }
 
 Fw::CmdResponse QueuedParamsComponentBase ::
-  paramSet_ParamF64(Fw::LinearBufferBase& val)
+  paramSet_ParamF64(Fw::SerialBufferBase& val)
 {
   F64 _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -4366,7 +4366,7 @@ Fw::CmdResponse QueuedParamsComponentBase ::
 }
 
 Fw::CmdResponse QueuedParamsComponentBase ::
-  paramSet_ParamString(Fw::LinearBufferBase& val)
+  paramSet_ParamString(Fw::SerialBufferBase& val)
 {
   Fw::ParamString _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -4386,7 +4386,7 @@ Fw::CmdResponse QueuedParamsComponentBase ::
 }
 
 Fw::CmdResponse QueuedParamsComponentBase ::
-  paramSet_ParamEnum(Fw::LinearBufferBase& val)
+  paramSet_ParamEnum(Fw::SerialBufferBase& val)
 {
   E _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -4406,7 +4406,7 @@ Fw::CmdResponse QueuedParamsComponentBase ::
 }
 
 Fw::CmdResponse QueuedParamsComponentBase ::
-  paramSet_ParamArray(Fw::LinearBufferBase& val)
+  paramSet_ParamArray(Fw::SerialBufferBase& val)
 {
   A _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -4426,7 +4426,7 @@ Fw::CmdResponse QueuedParamsComponentBase ::
 }
 
 Fw::CmdResponse QueuedParamsComponentBase ::
-  paramSet_ParamStruct(Fw::LinearBufferBase& val)
+  paramSet_ParamStruct(Fw::SerialBufferBase& val)
 {
   S _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);

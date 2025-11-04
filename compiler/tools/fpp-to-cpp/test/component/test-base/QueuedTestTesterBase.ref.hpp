@@ -422,14 +422,14 @@ class QueuedTestTesterBase :
             const FwPrmIdType baseId, //!< The component base parameter ID to deserialize
             const FwPrmIdType localId, //!< The parameter local ID to deserialize
             const Fw::ParamValid prmStat, //!< The parameter validity status
-            Fw::LinearBufferBase& buff //!< The buffer containing the parameter to deserialize
+            Fw::SerialBufferBase& buff //!< The buffer containing the parameter to deserialize
         ) override;
 
         //! Parameter serialization function for external parameter unit testing
         Fw::SerializeStatus serializeParam(
             const FwPrmIdType baseId, //!< The component base parameter ID to serialize
             const FwPrmIdType localId, //!< The parameter local ID to serialize
-            Fw::LinearBufferBase& buff //!< The buffer to serialize the parameter into
+            Fw::SerialBufferBase& buff //!< The buffer to serialize the parameter into
         ) const override;
 
     };

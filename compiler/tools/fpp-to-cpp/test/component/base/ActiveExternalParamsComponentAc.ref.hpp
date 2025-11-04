@@ -1844,42 +1844,42 @@ class ActiveExternalParamsComponentBase :
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamI32Ext(
-        Fw::LinearBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamF64Ext
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamF64Ext(
-        Fw::LinearBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamStringExt
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamStringExt(
-        Fw::LinearBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamEnumExt
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamEnumExt(
-        Fw::LinearBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamArrayExt
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamArrayExt(
-        Fw::LinearBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamStructExt
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamStructExt(
-        Fw::LinearBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
   private:

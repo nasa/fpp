@@ -2949,84 +2949,84 @@ namespace M {
       //!
       //! \return The command response
       Fw::CmdResponse paramSet_ParamU32(
-          Fw::LinearBufferBase& val //!< The serialization buffer
+          Fw::SerialBufferBase& val //!< The serialization buffer
       );
 
       //! Set parameter ParamF64
       //!
       //! \return The command response
       Fw::CmdResponse paramSet_ParamF64(
-          Fw::LinearBufferBase& val //!< The serialization buffer
+          Fw::SerialBufferBase& val //!< The serialization buffer
       );
 
       //! Set parameter ParamString
       //!
       //! \return The command response
       Fw::CmdResponse paramSet_ParamString(
-          Fw::LinearBufferBase& val //!< The serialization buffer
+          Fw::SerialBufferBase& val //!< The serialization buffer
       );
 
       //! Set parameter ParamEnum
       //!
       //! \return The command response
       Fw::CmdResponse paramSet_ParamEnum(
-          Fw::LinearBufferBase& val //!< The serialization buffer
+          Fw::SerialBufferBase& val //!< The serialization buffer
       );
 
       //! Set parameter ParamArray
       //!
       //! \return The command response
       Fw::CmdResponse paramSet_ParamArray(
-          Fw::LinearBufferBase& val //!< The serialization buffer
+          Fw::SerialBufferBase& val //!< The serialization buffer
       );
 
       //! Set parameter ParamStruct
       //!
       //! \return The command response
       Fw::CmdResponse paramSet_ParamStruct(
-          Fw::LinearBufferBase& val //!< The serialization buffer
+          Fw::SerialBufferBase& val //!< The serialization buffer
       );
 
       //! Set parameter ParamI32Ext
       //!
       //! \return The command response
       Fw::CmdResponse paramSet_ParamI32Ext(
-          Fw::LinearBufferBase& val //!< The serialization buffer
+          Fw::SerialBufferBase& val //!< The serialization buffer
       );
 
       //! Set parameter ParamF64Ext
       //!
       //! \return The command response
       Fw::CmdResponse paramSet_ParamF64Ext(
-          Fw::LinearBufferBase& val //!< The serialization buffer
+          Fw::SerialBufferBase& val //!< The serialization buffer
       );
 
       //! Set parameter ParamStringExt
       //!
       //! \return The command response
       Fw::CmdResponse paramSet_ParamStringExt(
-          Fw::LinearBufferBase& val //!< The serialization buffer
+          Fw::SerialBufferBase& val //!< The serialization buffer
       );
 
       //! Set parameter ParamEnumExt
       //!
       //! \return The command response
       Fw::CmdResponse paramSet_ParamEnumExt(
-          Fw::LinearBufferBase& val //!< The serialization buffer
+          Fw::SerialBufferBase& val //!< The serialization buffer
       );
 
       //! Set parameter ParamArrayExt
       //!
       //! \return The command response
       Fw::CmdResponse paramSet_ParamArrayExt(
-          Fw::LinearBufferBase& val //!< The serialization buffer
+          Fw::SerialBufferBase& val //!< The serialization buffer
       );
 
       //! Set parameter ParamStructExt
       //!
       //! \return The command response
       Fw::CmdResponse paramSet_ParamStructExt(
-          Fw::LinearBufferBase& val //!< The serialization buffer
+          Fw::SerialBufferBase& val //!< The serialization buffer
       );
 
     private:

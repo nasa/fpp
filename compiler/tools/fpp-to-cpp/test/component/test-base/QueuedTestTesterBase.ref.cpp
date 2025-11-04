@@ -18,7 +18,7 @@ Fw::SerializeStatus QueuedTestTesterBase::QueuedTestComponentBaseParamExternalDe
       const FwPrmIdType baseId,
       const FwPrmIdType localId,
       const Fw::ParamValid prmStat,
-      Fw::LinearBufferBase& buff
+      Fw::SerialBufferBase& buff
   )
 {
   Fw::SerializeStatus stat;
@@ -63,7 +63,7 @@ Fw::SerializeStatus QueuedTestTesterBase::QueuedTestComponentBaseParamExternalDe
   serializeParam(
       const FwPrmIdType baseId,
       const FwPrmIdType localId,
-      Fw::LinearBufferBase& buff
+      Fw::SerialBufferBase& buff
   ) const
 {
   Fw::SerializeStatus stat;

@@ -1728,7 +1728,7 @@ namespace FppTest {
     sendSignalStart(
         SmId smId,
         FwEnumStoreType signal,
-        Fw::LinearBufferBase& buffer
+        Fw::SerialBufferBase& buffer
     )
   {
     Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
@@ -2105,7 +2105,7 @@ namespace FppTest {
   // ----------------------------------------------------------------------
 
   void SmStateQueuedComponentBase ::
-    smDispatch(Fw::LinearBufferBase& buffer)
+    smDispatch(Fw::SerialBufferBase& buffer)
   {
     // Deserialize the state machine ID and signal
     FwEnumStoreType storedSmId;
@@ -2248,7 +2248,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     deserializeSmIdAndSignal(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FwEnumStoreType& smId,
         FwEnumStoreType& signal
     )
@@ -2269,7 +2269,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_Basic_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_Basic& sm,
         FppTest_SmState_Basic::Signal signal
     )
@@ -2290,7 +2290,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicGuard_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicGuard& sm,
         FppTest_SmState_BasicGuard::Signal signal
     )
@@ -2311,7 +2311,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicGuardString_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicGuardString& sm,
         FppTest_SmState_BasicGuardString::Signal signal
     )
@@ -2337,7 +2337,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicGuardTestAbsType_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicGuardTestAbsType& sm,
         FppTest_SmState_BasicGuardTestAbsType::Signal signal
     )
@@ -2362,7 +2362,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicGuardTestArray_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicGuardTestArray& sm,
         FppTest_SmState_BasicGuardTestArray::Signal signal
     )
@@ -2387,7 +2387,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicGuardTestEnum_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicGuardTestEnum& sm,
         FppTest_SmState_BasicGuardTestEnum::Signal signal
     )
@@ -2412,7 +2412,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicGuardTestStruct_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicGuardTestStruct& sm,
         FppTest_SmState_BasicGuardTestStruct::Signal signal
     )
@@ -2437,7 +2437,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicGuardU32_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicGuardU32& sm,
         FppTest_SmState_BasicGuardU32::Signal signal
     )
@@ -2462,7 +2462,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicInternal_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicInternal& sm,
         FppTest_SmState_BasicInternal::Signal signal
     )
@@ -2483,7 +2483,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicSelf_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicSelf& sm,
         FppTest_SmState_BasicSelf::Signal signal
     )
@@ -2504,7 +2504,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicString_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicString& sm,
         FppTest_SmState_BasicString::Signal signal
     )
@@ -2530,7 +2530,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicTestAbsType_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicTestAbsType& sm,
         FppTest_SmState_BasicTestAbsType::Signal signal
     )
@@ -2555,7 +2555,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicTestArray_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicTestArray& sm,
         FppTest_SmState_BasicTestArray::Signal signal
     )
@@ -2580,7 +2580,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicTestEnum_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicTestEnum& sm,
         FppTest_SmState_BasicTestEnum::Signal signal
     )
@@ -2605,7 +2605,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicTestStruct_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicTestStruct& sm,
         FppTest_SmState_BasicTestStruct::Signal signal
     )
@@ -2630,7 +2630,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicU32_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicU32& sm,
         FppTest_SmState_BasicU32::Signal signal
     )
@@ -2655,7 +2655,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_Internal_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_Internal& sm,
         FppTest_SmState_Internal::Signal signal
     )
@@ -2683,7 +2683,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_Polymorphism_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_Polymorphism& sm,
         FppTest_SmState_Polymorphism::Signal signal
     )
@@ -2711,7 +2711,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_StateToChild_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_StateToChild& sm,
         FppTest_SmState_StateToChild::Signal signal
     )
@@ -2739,7 +2739,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_StateToChoice_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_StateToChoice& sm,
         FppTest_SmState_StateToChoice::Signal signal
     )
@@ -2774,7 +2774,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_StateToSelf_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_StateToSelf& sm,
         FppTest_SmState_StateToSelf::Signal signal
     )
@@ -2802,7 +2802,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_StateToState_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_StateToState& sm,
         FppTest_SmState_StateToState::Signal signal
     )
@@ -2837,7 +2837,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmStateQueued_Basic_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmStateQueued_Basic& sm,
         FppTest_SmStateQueued_Basic::Signal signal
     )

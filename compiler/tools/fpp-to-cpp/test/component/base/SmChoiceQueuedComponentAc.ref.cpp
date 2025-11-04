@@ -818,7 +818,7 @@ namespace FppTest {
     sendSignalStart(
         SmId smId,
         FwEnumStoreType signal,
-        Fw::LinearBufferBase& buffer
+        Fw::SerialBufferBase& buffer
     )
   {
     Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
@@ -969,7 +969,7 @@ namespace FppTest {
   // ----------------------------------------------------------------------
 
   void SmChoiceQueuedComponentBase ::
-    smDispatch(Fw::LinearBufferBase& buffer)
+    smDispatch(Fw::SerialBufferBase& buffer)
   {
     // Deserialize the state machine ID and signal
     FwEnumStoreType storedSmId;
@@ -1027,7 +1027,7 @@ namespace FppTest {
 
   void SmChoiceQueuedComponentBase ::
     deserializeSmIdAndSignal(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FwEnumStoreType& smId,
         FwEnumStoreType& signal
     )
@@ -1048,7 +1048,7 @@ namespace FppTest {
 
   void SmChoiceQueuedComponentBase ::
     FppTest_SmChoice_Basic_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmChoice_Basic& sm,
         FppTest_SmChoice_Basic::Signal signal
     )
@@ -1069,7 +1069,7 @@ namespace FppTest {
 
   void SmChoiceQueuedComponentBase ::
     FppTest_SmChoice_BasicU32_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmChoice_BasicU32& sm,
         FppTest_SmChoice_BasicU32::Signal signal
     )
@@ -1094,7 +1094,7 @@ namespace FppTest {
 
   void SmChoiceQueuedComponentBase ::
     FppTest_SmChoice_ChoiceToChoice_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmChoice_ChoiceToChoice& sm,
         FppTest_SmChoice_ChoiceToChoice::Signal signal
     )
@@ -1115,7 +1115,7 @@ namespace FppTest {
 
   void SmChoiceQueuedComponentBase ::
     FppTest_SmChoice_ChoiceToState_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmChoice_ChoiceToState& sm,
         FppTest_SmChoice_ChoiceToState::Signal signal
     )
@@ -1136,7 +1136,7 @@ namespace FppTest {
 
   void SmChoiceQueuedComponentBase ::
     FppTest_SmChoice_InputPairU16U32_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmChoice_InputPairU16U32& sm,
         FppTest_SmChoice_InputPairU16U32::Signal signal
     )
@@ -1172,7 +1172,7 @@ namespace FppTest {
 
   void SmChoiceQueuedComponentBase ::
     FppTest_SmChoice_Sequence_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmChoice_Sequence& sm,
         FppTest_SmChoice_Sequence::Signal signal
     )
@@ -1193,7 +1193,7 @@ namespace FppTest {
 
   void SmChoiceQueuedComponentBase ::
     FppTest_SmChoice_SequenceU32_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmChoice_SequenceU32& sm,
         FppTest_SmChoice_SequenceU32::Signal signal
     )
@@ -1218,7 +1218,7 @@ namespace FppTest {
 
   void SmChoiceQueuedComponentBase ::
     FppTest_SmChoiceQueued_Basic_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmChoiceQueued_Basic& sm,
         FppTest_SmChoiceQueued_Basic::Signal signal
     )

@@ -4381,7 +4381,7 @@ void ActiveExternalParamsComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::CmdResponse ActiveExternalParamsComponentBase ::
-  paramSet_ParamI32Ext(Fw::LinearBufferBase& val)
+  paramSet_ParamI32Ext(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMI32EXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -4404,7 +4404,7 @@ Fw::CmdResponse ActiveExternalParamsComponentBase ::
 }
 
 Fw::CmdResponse ActiveExternalParamsComponentBase ::
-  paramSet_ParamF64Ext(Fw::LinearBufferBase& val)
+  paramSet_ParamF64Ext(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMF64EXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -4427,7 +4427,7 @@ Fw::CmdResponse ActiveExternalParamsComponentBase ::
 }
 
 Fw::CmdResponse ActiveExternalParamsComponentBase ::
-  paramSet_ParamStringExt(Fw::LinearBufferBase& val)
+  paramSet_ParamStringExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMSTRINGEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -4450,7 +4450,7 @@ Fw::CmdResponse ActiveExternalParamsComponentBase ::
 }
 
 Fw::CmdResponse ActiveExternalParamsComponentBase ::
-  paramSet_ParamEnumExt(Fw::LinearBufferBase& val)
+  paramSet_ParamEnumExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMENUMEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -4473,7 +4473,7 @@ Fw::CmdResponse ActiveExternalParamsComponentBase ::
 }
 
 Fw::CmdResponse ActiveExternalParamsComponentBase ::
-  paramSet_ParamArrayExt(Fw::LinearBufferBase& val)
+  paramSet_ParamArrayExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMARRAYEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -4496,7 +4496,7 @@ Fw::CmdResponse ActiveExternalParamsComponentBase ::
 }
 
 Fw::CmdResponse ActiveExternalParamsComponentBase ::
-  paramSet_ParamStructExt(Fw::LinearBufferBase& val)
+  paramSet_ParamStructExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMSTRUCTEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());

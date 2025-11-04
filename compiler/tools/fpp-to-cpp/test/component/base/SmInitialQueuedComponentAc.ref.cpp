@@ -520,7 +520,7 @@ namespace FppTest {
   // ----------------------------------------------------------------------
 
   void SmInitialQueuedComponentBase ::
-    smDispatch(Fw::LinearBufferBase& buffer)
+    smDispatch(Fw::SerialBufferBase& buffer)
   {
     // Deserialize the state machine ID and signal
     FwEnumStoreType storedSmId;
@@ -578,7 +578,7 @@ namespace FppTest {
 
   void SmInitialQueuedComponentBase ::
     deserializeSmIdAndSignal(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FwEnumStoreType& smId,
         FwEnumStoreType& signal
     )
@@ -599,7 +599,7 @@ namespace FppTest {
 
   void SmInitialQueuedComponentBase ::
     FppTest_SmInitial_Basic_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmInitial_Basic& sm,
         FppTest_SmInitial_Basic::Signal signal
     )
@@ -613,7 +613,7 @@ namespace FppTest {
 
   void SmInitialQueuedComponentBase ::
     FppTest_SmInitial_Choice_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmInitial_Choice& sm,
         FppTest_SmInitial_Choice::Signal signal
     )
@@ -627,7 +627,7 @@ namespace FppTest {
 
   void SmInitialQueuedComponentBase ::
     FppTest_SmInitial_Nested_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmInitial_Nested& sm,
         FppTest_SmInitial_Nested::Signal signal
     )
@@ -641,7 +641,7 @@ namespace FppTest {
 
   void SmInitialQueuedComponentBase ::
     FppTest_SmInitialQueued_Basic_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmInitialQueued_Basic& sm,
         FppTest_SmInitialQueued_Basic::Signal signal
     )
@@ -655,7 +655,7 @@ namespace FppTest {
 
   void SmInitialQueuedComponentBase ::
     FppTest_SmInitialQueued_Choice_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmInitialQueued_Choice& sm,
         FppTest_SmInitialQueued_Choice::Signal signal
     )
@@ -669,7 +669,7 @@ namespace FppTest {
 
   void SmInitialQueuedComponentBase ::
     FppTest_SmInitialQueued_Nested_smDispatch(
-        Fw::LinearBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmInitialQueued_Nested& sm,
         FppTest_SmInitialQueued_Nested::Signal signal
     )

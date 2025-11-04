@@ -127,7 +127,7 @@ namespace FppTest {
       void smInitialNested_stateMachineOverflowHook(
           SmId smId, //!< The state machine ID
           FwEnumStoreType signal, //!< The signal
-          Fw::LinearBufferBase& buffer //!< The message buffer
+          Fw::SerialBufferBase& buffer //!< The message buffer
       ) override;
 
   };

@@ -675,7 +675,7 @@ namespace FppTest {
       virtual void smChoiceChoiceToChoice_stateMachineOverflowHook(
           SmId smId, //!< The state machine ID
           FwEnumStoreType signal, //!< The signal
-          Fw::LinearBufferBase& buffer //!< The message buffer
+          Fw::SerialBufferBase& buffer //!< The message buffer
       ) = 0;
 
     protected:
@@ -947,7 +947,7 @@ namespace FppTest {
       void sendSignalStart(
           SmId smId, //!< The state machine ID (input)
           FwEnumStoreType signal, //!< The signal (input)
-          Fw::LinearBufferBase& buffer //!< The message buffer (output)
+          Fw::SerialBufferBase& buffer //!< The message buffer (output)
       );
 
       //! Finish sending a signal to a state machine
@@ -998,68 +998,68 @@ namespace FppTest {
 
       //! Dispatch a signal to a state machine instance
       void smDispatch(
-          Fw::LinearBufferBase& buffer //!< The message buffer
+          Fw::SerialBufferBase& buffer //!< The message buffer
       );
 
       //! Deserialize the state machine ID and signal from the message buffer
       static void deserializeSmIdAndSignal(
-          Fw::LinearBufferBase& buffer, //!< The message buffer (input and output)
+          Fw::SerialBufferBase& buffer, //!< The message buffer (input and output)
           FwEnumStoreType& smId, //!< The state machine ID (output)
           FwEnumStoreType& signal //!< The signal (output)
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmChoice_Basic
       void FppTest_SmChoice_Basic_smDispatch(
-          Fw::LinearBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmChoice_Basic& sm, //!< The state machine
           FppTest_SmChoice_Basic::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmChoice_BasicU32
       void FppTest_SmChoice_BasicU32_smDispatch(
-          Fw::LinearBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmChoice_BasicU32& sm, //!< The state machine
           FppTest_SmChoice_BasicU32::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmChoice_ChoiceToChoice
       void FppTest_SmChoice_ChoiceToChoice_smDispatch(
-          Fw::LinearBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmChoice_ChoiceToChoice& sm, //!< The state machine
           FppTest_SmChoice_ChoiceToChoice::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmChoice_ChoiceToState
       void FppTest_SmChoice_ChoiceToState_smDispatch(
-          Fw::LinearBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmChoice_ChoiceToState& sm, //!< The state machine
           FppTest_SmChoice_ChoiceToState::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmChoice_InputPairU16U32
       void FppTest_SmChoice_InputPairU16U32_smDispatch(
-          Fw::LinearBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmChoice_InputPairU16U32& sm, //!< The state machine
           FppTest_SmChoice_InputPairU16U32::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmChoice_Sequence
       void FppTest_SmChoice_Sequence_smDispatch(
-          Fw::LinearBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmChoice_Sequence& sm, //!< The state machine
           FppTest_SmChoice_Sequence::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmChoice_SequenceU32
       void FppTest_SmChoice_SequenceU32_smDispatch(
-          Fw::LinearBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmChoice_SequenceU32& sm, //!< The state machine
           FppTest_SmChoice_SequenceU32::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmChoiceActive_Basic
       void FppTest_SmChoiceActive_Basic_smDispatch(
-          Fw::LinearBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmChoiceActive_Basic& sm, //!< The state machine
           FppTest_SmChoiceActive_Basic::Signal signal //!< The signal
       );

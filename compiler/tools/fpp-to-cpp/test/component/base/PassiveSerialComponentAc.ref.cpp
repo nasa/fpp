@@ -5499,7 +5499,7 @@ void PassiveSerialComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::CmdResponse PassiveSerialComponentBase ::
-  paramSet_ParamU32(Fw::LinearBufferBase& val)
+  paramSet_ParamU32(Fw::SerialBufferBase& val)
 {
   U32 _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -5519,7 +5519,7 @@ Fw::CmdResponse PassiveSerialComponentBase ::
 }
 
 Fw::CmdResponse PassiveSerialComponentBase ::
-  paramSet_ParamF64(Fw::LinearBufferBase& val)
+  paramSet_ParamF64(Fw::SerialBufferBase& val)
 {
   F64 _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -5539,7 +5539,7 @@ Fw::CmdResponse PassiveSerialComponentBase ::
 }
 
 Fw::CmdResponse PassiveSerialComponentBase ::
-  paramSet_ParamString(Fw::LinearBufferBase& val)
+  paramSet_ParamString(Fw::SerialBufferBase& val)
 {
   Fw::ParamString _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -5559,7 +5559,7 @@ Fw::CmdResponse PassiveSerialComponentBase ::
 }
 
 Fw::CmdResponse PassiveSerialComponentBase ::
-  paramSet_ParamEnum(Fw::LinearBufferBase& val)
+  paramSet_ParamEnum(Fw::SerialBufferBase& val)
 {
   E _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -5579,7 +5579,7 @@ Fw::CmdResponse PassiveSerialComponentBase ::
 }
 
 Fw::CmdResponse PassiveSerialComponentBase ::
-  paramSet_ParamArray(Fw::LinearBufferBase& val)
+  paramSet_ParamArray(Fw::SerialBufferBase& val)
 {
   A _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -5599,7 +5599,7 @@ Fw::CmdResponse PassiveSerialComponentBase ::
 }
 
 Fw::CmdResponse PassiveSerialComponentBase ::
-  paramSet_ParamStruct(Fw::LinearBufferBase& val)
+  paramSet_ParamStruct(Fw::SerialBufferBase& val)
 {
   S _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -5619,7 +5619,7 @@ Fw::CmdResponse PassiveSerialComponentBase ::
 }
 
 Fw::CmdResponse PassiveSerialComponentBase ::
-  paramSet_ParamI32Ext(Fw::LinearBufferBase& val)
+  paramSet_ParamI32Ext(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMI32EXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -5642,7 +5642,7 @@ Fw::CmdResponse PassiveSerialComponentBase ::
 }
 
 Fw::CmdResponse PassiveSerialComponentBase ::
-  paramSet_ParamF64Ext(Fw::LinearBufferBase& val)
+  paramSet_ParamF64Ext(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMF64EXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -5665,7 +5665,7 @@ Fw::CmdResponse PassiveSerialComponentBase ::
 }
 
 Fw::CmdResponse PassiveSerialComponentBase ::
-  paramSet_ParamStringExt(Fw::LinearBufferBase& val)
+  paramSet_ParamStringExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMSTRINGEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -5688,7 +5688,7 @@ Fw::CmdResponse PassiveSerialComponentBase ::
 }
 
 Fw::CmdResponse PassiveSerialComponentBase ::
-  paramSet_ParamEnumExt(Fw::LinearBufferBase& val)
+  paramSet_ParamEnumExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMENUMEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -5711,7 +5711,7 @@ Fw::CmdResponse PassiveSerialComponentBase ::
 }
 
 Fw::CmdResponse PassiveSerialComponentBase ::
-  paramSet_ParamArrayExt(Fw::LinearBufferBase& val)
+  paramSet_ParamArrayExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMARRAYEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -5734,7 +5734,7 @@ Fw::CmdResponse PassiveSerialComponentBase ::
 }
 
 Fw::CmdResponse PassiveSerialComponentBase ::
-  paramSet_ParamStructExt(Fw::LinearBufferBase& val)
+  paramSet_ParamStructExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMSTRUCTEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
