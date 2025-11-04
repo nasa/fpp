@@ -99,7 +99,7 @@ object StructXmlFppWriter extends LineUtils {
         structName <- file.getAttribute(file.elem, "name")
         members <- structTypeMemberAnnotatedNodeList(file)
       }
-      yield (comment, Ast.DefStruct(structName, members, None), Nil)
+      yield (comment, Ast.DefStruct(structName, members, None, false), Nil)
 
   }
 

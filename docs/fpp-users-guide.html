@@ -467,6 +467,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">3.4. Multiple Definitions and Element Sequences</a></li>
 <li><a href="#Defining-Constants_Multiline-Definitions">3.5. Multiline Definitions</a></li>
+<li><a href="#Defining-Constants_Framework-Constants">3.6. Framework Constants</a></li>
 </ul>
 </li>
 <li><a href="#Writing-Comments-and-Annotations">4. Writing Comments and Annotations</a>
@@ -500,6 +501,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#Defining-Types_Abstract-Type-Definitions">6.3. Abstract Type Definitions</a></li>
 <li><a href="#Defining-Types_Alias-Type-Definitions">6.4. Alias Type Definitions</a></li>
+<li><a href="#Defining-Types_Framework-Types">6.5. Framework Types</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Enums">7. Defining Enums</a>
@@ -511,257 +513,260 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Enums_The-Default-Value">7.5. The Default Value</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Ports">8. Defining Ports</a>
+<li><a href="#Dictionary-Definitions">8. Dictionary Definitions</a></li>
+<li><a href="#Defining-Ports">9. Defining Ports</a>
 <ul class="sectlevel2">
-<li><a href="#Defining-Ports_Port-Names">8.1. Port Names</a></li>
-<li><a href="#Defining-Ports_Formal-Parameters">8.2. Formal Parameters</a></li>
-<li><a href="#Defining-Ports_Handler-Functions">8.3. Handler Functions</a></li>
-<li><a href="#Defining-Ports_Reference-Parameters">8.4. Reference Parameters</a></li>
-<li><a href="#Defining-Ports_Returning-Values">8.5. Returning Values</a></li>
-<li><a href="#Defining-Ports_Pass-by-Reference-Semantics">8.6. Pass-by-Reference Semantics</a></li>
-<li><a href="#Defining-Ports_Annotating-a-Port-Definition">8.7. Annotating a Port Definition</a></li>
+<li><a href="#Defining-Ports_Port-Names">9.1. Port Names</a></li>
+<li><a href="#Defining-Ports_Formal-Parameters">9.2. Formal Parameters</a></li>
+<li><a href="#Defining-Ports_Handler-Functions">9.3. Handler Functions</a></li>
+<li><a href="#Defining-Ports_Reference-Parameters">9.4. Reference Parameters</a></li>
+<li><a href="#Defining-Ports_Returning-Values">9.5. Returning Values</a></li>
+<li><a href="#Defining-Ports_Pass-by-Reference-Semantics">9.6. Pass-by-Reference Semantics</a></li>
+<li><a href="#Defining-Ports_Annotating-a-Port-Definition">9.7. Annotating a Port Definition</a></li>
 </ul>
 </li>
-<li><a href="#Defining-State-Machines">9. Defining State Machines</a>
+<li><a href="#Defining-State-Machines">10. Defining State Machines</a>
 <ul class="sectlevel2">
-<li><a href="#Defining-State-Machines_Writing-a-State-Machine-Definition">9.1. Writing a State Machine Definition</a></li>
-<li><a href="#Defining-State-Machines_States-Signals-and-Transitions">9.2. States, Signals, and Transitions</a></li>
-<li><a href="#Defining-State-Machines_Actions">9.3. Actions</a>
+<li><a href="#Defining-State-Machines_Writing-a-State-Machine-Definition">10.1. Writing a State Machine Definition</a></li>
+<li><a href="#Defining-State-Machines_States-Signals-and-Transitions">10.2. States, Signals, and Transitions</a></li>
+<li><a href="#Defining-State-Machines_Actions">10.3. Actions</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-State-Machines_Actions_Actions-in-Transitions">9.3.1. Actions in Transitions</a></li>
-<li><a href="#Defining-State-Machines_Actions_Entry-and-Exit-Actions">9.3.2. Entry and Exit Actions</a></li>
-<li><a href="#Defining-State-Machines_Actions_Typed-Signals-and-Actions">9.3.3. Typed Signals and Actions</a></li>
-<li><a href="#Defining-State-Machines_Actions_Atomicity-of-Signal-Handling">9.3.4. Atomicity of Signal Handling</a></li>
+<li><a href="#Defining-State-Machines_Actions_Actions-in-Transitions">10.3.1. Actions in Transitions</a></li>
+<li><a href="#Defining-State-Machines_Actions_Entry-and-Exit-Actions">10.3.2. Entry and Exit Actions</a></li>
+<li><a href="#Defining-State-Machines_Actions_Typed-Signals-and-Actions">10.3.3. Typed Signals and Actions</a></li>
+<li><a href="#Defining-State-Machines_Actions_Atomicity-of-Signal-Handling">10.3.4. Atomicity of Signal Handling</a></li>
 </ul>
 </li>
-<li><a href="#Defining-State-Machines_More-on-State-Transitions">9.4. More on State Transitions</a>
+<li><a href="#Defining-State-Machines_More-on-State-Transitions">10.4. More on State Transitions</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-State-Machines_More-on-State-Transitions_Guarded-Transitions">9.4.1. Guarded Transitions</a></li>
-<li><a href="#Defining-State-Machines_More-on-State-Transitions_Self-Transitions">9.4.2. Self Transitions</a></li>
-<li><a href="#Defining-State-Machines_More-on-State-Transitions_Internal-Transitions">9.4.3. Internal Transitions</a></li>
+<li><a href="#Defining-State-Machines_More-on-State-Transitions_Guarded-Transitions">10.4.1. Guarded Transitions</a></li>
+<li><a href="#Defining-State-Machines_More-on-State-Transitions_Self-Transitions">10.4.2. Self Transitions</a></li>
+<li><a href="#Defining-State-Machines_More-on-State-Transitions_Internal-Transitions">10.4.3. Internal Transitions</a></li>
 </ul>
 </li>
-<li><a href="#Defining-State-Machines_Choices">9.5. Choices</a></li>
-<li><a href="#Defining-State-Machines_Hierarchy">9.6. Hierarchy</a>
+<li><a href="#Defining-State-Machines_Choices">10.5. Choices</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy">10.6. Hierarchy</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-State-Machines_Hierarchy_Substates">9.6.1. Substates</a></li>
-<li><a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">9.6.2. Inherited Transitions</a></li>
-<li><a href="#Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions">9.6.3. Entry and Exit Actions</a></li>
-<li><a href="#Defining-State-Machines_Hierarchy_Directly-Related-States">9.6.4. Directly Related States</a></li>
-<li><a href="#Defining-State-Machines_Hierarchy_Choices">9.6.5. Choices</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Substates">10.6.1. Substates</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">10.6.2. Inherited Transitions</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions">10.6.3. Entry and Exit Actions</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Directly-Related-States">10.6.4. Directly Related States</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Choices">10.6.5. Choices</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#Defining-Components">10. Defining Components</a>
+<li><a href="#Defining-Components">11. Defining Components</a>
 <ul class="sectlevel2">
-<li><a href="#Defining-Components_Component-Definitions">10.1. Component Definitions</a></li>
-<li><a href="#Defining-Components_Port-Instances">10.2. Port Instances</a>
+<li><a href="#Defining-Components_Component-Definitions">11.1. Component Definitions</a></li>
+<li><a href="#Defining-Components_Port-Instances">11.2. Port Instances</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-Components_Port-Instances_Basic-Port-Instances">10.2.1. Basic Port Instances</a></li>
-<li><a href="#Defining-Components_Port-Instances_Rules-for-Port-Instances">10.2.2. Rules for Port Instances</a></li>
-<li><a href="#Defining-Components_Port-Instances_Arrays-of-Port-Instances">10.2.3. Arrays of Port Instances</a></li>
-<li><a href="#Defining-Components_Port-Instances_Priority">10.2.4. Priority</a></li>
-<li><a href="#Defining-Components_Port-Instances_Queue-Full-Behavior">10.2.5. Queue Full Behavior</a></li>
-<li><a href="#Defining-Components_Port-Instances_Serial-Port-Instances">10.2.6. Serial Port Instances</a></li>
+<li><a href="#Defining-Components_Port-Instances_Basic-Port-Instances">11.2.1. Basic Port Instances</a></li>
+<li><a href="#Defining-Components_Port-Instances_Rules-for-Port-Instances">11.2.2. Rules for Port Instances</a></li>
+<li><a href="#Defining-Components_Port-Instances_Arrays-of-Port-Instances">11.2.3. Arrays of Port Instances</a></li>
+<li><a href="#Defining-Components_Port-Instances_Priority">11.2.4. Priority</a></li>
+<li><a href="#Defining-Components_Port-Instances_Queue-Full-Behavior">11.2.5. Queue Full Behavior</a></li>
+<li><a href="#Defining-Components_Port-Instances_Serial-Port-Instances">11.2.6. Serial Port Instances</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Components_Special-Port-Instances">10.3. Special Port Instances</a>
+<li><a href="#Defining-Components_Special-Port-Instances">11.3. Special Port Instances</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-Components_Special-Port-Instances_Command-Ports">10.3.1. Command Ports</a></li>
-<li><a href="#Defining-Components_Special-Port-Instances_Event-Ports">10.3.2. Event Ports</a></li>
-<li><a href="#Defining-Components_Special-Port-Instances_Telemetry-Ports">10.3.3. Telemetry Ports</a></li>
-<li><a href="#Defining-Components_Special-Port-Instances_Parameter-Ports">10.3.4. Parameter Ports</a></li>
-<li><a href="#Defining-Components_Special-Port-Instances_Time-Get-Ports">10.3.5. Time Get Ports</a></li>
-<li><a href="#Defining-Components_Special-Port-Instances_Data-Product-Ports">10.3.6. Data Product Ports</a></li>
+<li><a href="#Defining-Components_Special-Port-Instances_Command-Ports">11.3.1. Command Ports</a></li>
+<li><a href="#Defining-Components_Special-Port-Instances_Event-Ports">11.3.2. Event Ports</a></li>
+<li><a href="#Defining-Components_Special-Port-Instances_Telemetry-Ports">11.3.3. Telemetry Ports</a></li>
+<li><a href="#Defining-Components_Special-Port-Instances_Parameter-Ports">11.3.4. Parameter Ports</a></li>
+<li><a href="#Defining-Components_Special-Port-Instances_Time-Get-Ports">11.3.5. Time Get Ports</a></li>
+<li><a href="#Defining-Components_Special-Port-Instances_Data-Product-Ports">11.3.6. Data Product Ports</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Components_Internal-Ports">10.4. Internal Ports</a></li>
-<li><a href="#Defining-Components_Commands">10.5. Commands</a>
+<li><a href="#Defining-Components_Internal-Ports">11.4. Internal Ports</a></li>
+<li><a href="#Defining-Components_Commands">11.5. Commands</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-Components_Commands_Basic-Commands">10.5.1. Basic Commands</a></li>
-<li><a href="#Defining-Components_Commands_Formal-Parameters">10.5.2. Formal Parameters</a></li>
-<li><a href="#Defining-Components_Commands_Opcodes">10.5.3. Opcodes</a></li>
-<li><a href="#Defining-Components_Commands_Priority-and-Queue-Full-Behavior">10.5.4. Priority and Queue Full Behavior</a></li>
+<li><a href="#Defining-Components_Commands_Basic-Commands">11.5.1. Basic Commands</a></li>
+<li><a href="#Defining-Components_Commands_Formal-Parameters">11.5.2. Formal Parameters</a></li>
+<li><a href="#Defining-Components_Commands_Opcodes">11.5.3. Opcodes</a></li>
+<li><a href="#Defining-Components_Commands_Priority-and-Queue-Full-Behavior">11.5.4. Priority and Queue Full Behavior</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Components_Events">10.6. Events</a>
+<li><a href="#Defining-Components_Events">11.6. Events</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-Components_Events_Basic-Events">10.6.1. Basic Events</a></li>
-<li><a href="#Defining-Components_Events_Formal-Parameters">10.6.2. Formal Parameters</a></li>
-<li><a href="#Defining-Components_Events_Identifiers">10.6.3. Identifiers</a></li>
-<li><a href="#Defining-Components_Events_Throttling">10.6.4. Throttling</a></li>
+<li><a href="#Defining-Components_Events_Basic-Events">11.6.1. Basic Events</a></li>
+<li><a href="#Defining-Components_Events_Formal-Parameters">11.6.2. Formal Parameters</a></li>
+<li><a href="#Defining-Components_Events_Identifiers">11.6.3. Identifiers</a></li>
+<li><a href="#Defining-Components_Events_Throttling">11.6.4. Throttling</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Components_Telemetry">10.7. Telemetry</a>
+<li><a href="#Defining-Components_Telemetry">11.7. Telemetry</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-Components_Telemetry_Basic-Telemetry">10.7.1. Basic Telemetry</a></li>
-<li><a href="#Defining-Components_Telemetry_Identifiers">10.7.2. Identifiers</a></li>
-<li><a href="#Defining-Components_Telemetry_Update-Frequency">10.7.3. Update Frequency</a></li>
-<li><a href="#Defining-Components_Telemetry_Format-Strings">10.7.4. Format Strings</a></li>
-<li><a href="#Defining-Components_Telemetry_Limits">10.7.5. Limits</a></li>
+<li><a href="#Defining-Components_Telemetry_Basic-Telemetry">11.7.1. Basic Telemetry</a></li>
+<li><a href="#Defining-Components_Telemetry_Identifiers">11.7.2. Identifiers</a></li>
+<li><a href="#Defining-Components_Telemetry_Update-Frequency">11.7.3. Update Frequency</a></li>
+<li><a href="#Defining-Components_Telemetry_Format-Strings">11.7.4. Format Strings</a></li>
+<li><a href="#Defining-Components_Telemetry_Limits">11.7.5. Limits</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Components_Parameters">10.8. Parameters</a>
+<li><a href="#Defining-Components_Parameters">11.8. Parameters</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-Components_Parameters_Basic-Parameters">10.8.1. Basic Parameters</a></li>
-<li><a href="#Defining-Components_Parameters_Default-Values">10.8.2. Default Values</a></li>
-<li><a href="#Defining-Components_Parameters_Identifiers">10.8.3. Identifiers</a></li>
-<li><a href="#Defining-Components_Parameters_Set-and-Save-Opcodes">10.8.4. Set and Save Opcodes</a></li>
-<li><a href="#Defining-Components_Parameters_External-Parameters">10.8.5. External Parameters</a></li>
+<li><a href="#Defining-Components_Parameters_Basic-Parameters">11.8.1. Basic Parameters</a></li>
+<li><a href="#Defining-Components_Parameters_Default-Values">11.8.2. Default Values</a></li>
+<li><a href="#Defining-Components_Parameters_Identifiers">11.8.3. Identifiers</a></li>
+<li><a href="#Defining-Components_Parameters_Set-and-Save-Opcodes">11.8.4. Set and Save Opcodes</a></li>
+<li><a href="#Defining-Components_Parameters_External-Parameters">11.8.5. External Parameters</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Components_Data-Products">10.9. Data Products</a>
+<li><a href="#Defining-Components_Data-Products">11.9. Data Products</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-Components_Data-Products_Basic-Data-Products">10.9.1. Basic Data Products</a></li>
-<li><a href="#Defining-Components_Data-Products_Identifiers">10.9.2. Identifiers</a></li>
-<li><a href="#Defining-Components_Data-Products_Array-Records">10.9.3. Array Records</a></li>
+<li><a href="#Defining-Components_Data-Products_Basic-Data-Products">11.9.1. Basic Data Products</a></li>
+<li><a href="#Defining-Components_Data-Products_Identifiers">11.9.2. Identifiers</a></li>
+<li><a href="#Defining-Components_Data-Products_Array-Records">11.9.3. Array Records</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Components_State-Machine-Instances">10.10. State Machine Instances</a></li>
-<li><a href="#Defining-Components_Constants-Types-Enums-and-State-Machines">10.11. Constants, Types, Enums, and State Machines</a></li>
-<li><a href="#Defining-Components_Include-Specifiers">10.12. Include Specifiers</a></li>
-<li><a href="#Defining-Components_Matched-Ports">10.13. Matched Ports</a></li>
+<li><a href="#Defining-Components_State-Machine-Instances">11.10. State Machine Instances</a></li>
+<li><a href="#Defining-Components_Constants-Types-Enums-and-State-Machines">11.11. Constants, Types, Enums, and State Machines</a></li>
+<li><a href="#Defining-Components_Include-Specifiers">11.12. Include Specifiers</a></li>
+<li><a href="#Defining-Components_Matched-Ports">11.13. Matched Ports</a></li>
 </ul>
 </li>
-<li><a href="#Defining-and-Using-Port-Interfaces">11. Defining and Using Port Interfaces</a>
+<li><a href="#Defining-and-Using-Port-Interfaces">12. Defining and Using Port Interfaces</a>
 <ul class="sectlevel2">
-<li><a href="#Defining-and-Using-Port-Interfaces_Defining-Port-Interfaces">11.1. Defining Port Interfaces</a></li>
-<li><a href="#Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Component-Definitions">11.2. Using Port Interfaces in Component Definitions</a></li>
-<li><a href="#Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Interface-Definitions">11.3. Using Port Interfaces in Interface Definitions</a></li>
+<li><a href="#Defining-and-Using-Port-Interfaces_Defining-Port-Interfaces">12.1. Defining Port Interfaces</a></li>
+<li><a href="#Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Component-Definitions">12.2. Using Port Interfaces in Component Definitions</a></li>
+<li><a href="#Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Interface-Definitions">12.3. Using Port Interfaces in Interface Definitions</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Component-Instances">12. Defining Component Instances</a>
+<li><a href="#Defining-Component-Instances">13. Defining Component Instances</a>
 <ul class="sectlevel2">
-<li><a href="#Defining-Component-Instances_Component-Instance-Definitions">12.1. Component Instance Definitions</a>
+<li><a href="#Defining-Component-Instances_Component-Instance-Definitions">13.1. Component Instance Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Passive-Components">12.1.1. Passive Components</a></li>
-<li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Queued-Components">12.1.2. Queued Components</a></li>
-<li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Active-Components">12.1.3. Active Components</a></li>
+<li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Passive-Components">13.1.1. Passive Components</a></li>
+<li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Queued-Components">13.1.2. Queued Components</a></li>
+<li><a href="#Defining-Component-Instances_Component-Instance-Definitions_Active-Components">13.1.3. Active Components</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Component-Instances_Specifying-the-Implementation">12.2. Specifying the Implementation</a></li>
-<li><a href="#Defining-Component-Instances_Init-Specifiers">12.3. Init Specifiers</a>
+<li><a href="#Defining-Component-Instances_Specifying-the-Implementation">13.2. Specifying the Implementation</a></li>
+<li><a href="#Defining-Component-Instances_Init-Specifiers">13.3. Init Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-Component-Instances_Init-Specifiers_Execution-Phases">12.3.1. Execution Phases</a></li>
-<li><a href="#Defining-Component-Instances_Init-Specifiers_Writing-Init-Specifiers">12.3.2. Writing Init Specifiers</a></li>
+<li><a href="#Defining-Component-Instances_Init-Specifiers_Execution-Phases">13.3.1. Execution Phases</a></li>
+<li><a href="#Defining-Component-Instances_Init-Specifiers_Writing-Init-Specifiers">13.3.2. Writing Init Specifiers</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Component-Instances_Generation-of-Names">12.4. Generation of Names</a></li>
+<li><a href="#Defining-Component-Instances_Generation-of-Names">13.4. Generation of Names</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Topologies">13. Defining Topologies</a>
+<li><a href="#Defining-Topologies">14. Defining Topologies</a>
 <ul class="sectlevel2">
-<li><a href="#Defining-Topologies_A-Simple-Example">13.1. A Simple Example</a></li>
-<li><a href="#Defining-Topologies_Connection-Graphs">13.2. Connection Graphs</a>
+<li><a href="#Defining-Topologies_A-Simple-Example">14.1. A Simple Example</a></li>
+<li><a href="#Defining-Topologies_Connection-Graphs">14.2. Connection Graphs</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-Topologies_Connection-Graphs_Direct-Graph-Specifiers">13.2.1. Direct Graph Specifiers</a></li>
-<li><a href="#Defining-Topologies_Connection-Graphs_Pattern-Graph-Specifiers">13.2.2. Pattern Graph Specifiers</a></li>
+<li><a href="#Defining-Topologies_Connection-Graphs_Direct-Graph-Specifiers">14.2.1. Direct Graph Specifiers</a></li>
+<li><a href="#Defining-Topologies_Connection-Graphs_Pattern-Graph-Specifiers">14.2.2. Pattern Graph Specifiers</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Topologies_Port-Numbering">13.3. Port Numbering</a>
+<li><a href="#Defining-Topologies_Port-Numbering">14.3. Port Numbering</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-Topologies_Port-Numbering_Explicit-Numbering">13.3.1. Explicit Numbering</a></li>
-<li><a href="#Defining-Topologies_Port-Numbering_Matched-Numbering">13.3.2. Matched Numbering</a></li>
-<li><a href="#Defining-Topologies_Port-Numbering_General-Numbering">13.3.3. General Numbering</a></li>
+<li><a href="#Defining-Topologies_Port-Numbering_Explicit-Numbering">14.3.1. Explicit Numbering</a></li>
+<li><a href="#Defining-Topologies_Port-Numbering_Matched-Numbering">14.3.2. Matched Numbering</a></li>
+<li><a href="#Defining-Topologies_Port-Numbering_General-Numbering">14.3.3. General Numbering</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Topologies_Importing-Topologies">13.4. Importing Topologies</a>
+<li><a href="#Defining-Topologies_Importing-Topologies">14.4. Importing Topologies</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-Topologies_Importing-Topologies_Importing-Instances-and-Connections">13.4.1. Importing Instances and Connections</a></li>
-<li><a href="#Defining-Topologies_Importing-Topologies_Private-Instances">13.4.2. Private Instances</a></li>
-<li><a href="#Defining-Topologies_Importing-Topologies_Multiple-Imports">13.4.3. Multiple Imports</a></li>
-<li><a href="#Defining-Topologies_Importing-Topologies_Transitive-Imports">13.4.4. Transitive Imports</a></li>
+<li><a href="#Defining-Topologies_Importing-Topologies_Importing-Instances-and-Connections">14.4.1. Importing Instances and Connections</a></li>
+<li><a href="#Defining-Topologies_Importing-Topologies_Private-Instances">14.4.2. Private Instances</a></li>
+<li><a href="#Defining-Topologies_Importing-Topologies_Multiple-Imports">14.4.3. Multiple Imports</a></li>
+<li><a href="#Defining-Topologies_Importing-Topologies_Transitive-Imports">14.4.4. Transitive Imports</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Topologies_Include-Specifiers">13.5. Include Specifiers</a></li>
-<li><a href="#Defining-Topologies_Telemetry-Packets">13.6. Telemetry Packets</a>
+<li><a href="#Defining-Topologies_Include-Specifiers">14.5. Include Specifiers</a></li>
+<li><a href="#Defining-Topologies_Telemetry-Packets">14.6. Telemetry Packets</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Sets">13.6.1. Telemetry Packet Sets</a></li>
-<li><a href="#Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Identifiers">13.6.2. Telemetry Packet Identifiers</a></li>
-<li><a href="#Defining-Topologies_Telemetry-Packets_Omitting-Channels">13.6.3. Omitting Channels</a></li>
-<li><a href="#Defining-Topologies_Telemetry-Packets_Specifying-Multiple-Telemetry-Packet-Sets">13.6.4. Specifying Multiple Telemetry Packet Sets</a></li>
-<li><a href="#Defining-Topologies_Telemetry-Packets_Include-Specifiers">13.6.5. Include Specifiers</a></li>
+<li><a href="#Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Sets">14.6.1. Telemetry Packet Sets</a></li>
+<li><a href="#Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Identifiers">14.6.2. Telemetry Packet Identifiers</a></li>
+<li><a href="#Defining-Topologies_Telemetry-Packets_Omitting-Channels">14.6.3. Omitting Channels</a></li>
+<li><a href="#Defining-Topologies_Telemetry-Packets_Specifying-Multiple-Telemetry-Packet-Sets">14.6.4. Specifying Multiple Telemetry Packet Sets</a></li>
+<li><a href="#Defining-Topologies_Telemetry-Packets_Include-Specifiers">14.6.5. Include Specifiers</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#Specifying-Models-as-Files">14. Specifying Models as Files</a>
+<li><a href="#Specifying-Models-as-Files">15. Specifying Models as Files</a>
 <ul class="sectlevel2">
-<li><a href="#Specifying-Models-as-Files_Dividing-Models-into-Files">14.1. Dividing Models into Files</a></li>
-<li><a href="#Specifying-Models-as-Files_Include-Specifiers">14.2. Include Specifiers</a></li>
-<li><a href="#Specifying-Models-as-Files_Dependencies">14.3. Dependencies</a></li>
-<li><a href="#Specifying-Models-as-Files_Location-Specifiers">14.4. Location Specifiers</a>
+<li><a href="#Specifying-Models-as-Files_Dividing-Models-into-Files">15.1. Dividing Models into Files</a></li>
+<li><a href="#Specifying-Models-as-Files_Include-Specifiers">15.2. Include Specifiers</a></li>
+<li><a href="#Specifying-Models-as-Files_Dependencies">15.3. Dependencies</a></li>
+<li><a href="#Specifying-Models-as-Files_Location-Specifiers">15.4. Location Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Syntax">14.4.1. Syntax</a></li>
-<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Path-Names">14.4.2. Path Names</a></li>
-<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Definition-Names">14.4.3. Definition Names</a></li>
-<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Included-Files">14.4.4. Included Files</a></li>
+<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Syntax">15.4.1. Syntax</a></li>
+<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Path-Names">15.4.2. Path Names</a></li>
+<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Definition-Names">15.4.3. Definition Names</a></li>
+<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Included-Files">15.4.4. Included Files</a></li>
+<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Dictionary-Definitions">15.4.5. Dictionary Definitions</a></li>
+<li><a href="#Specifying-Models-as-Files_Location-Specifiers_Repeated-Location-Specifiers">15.4.6. Repeated Location Specifiers</a></li>
 </ul>
 </li>
-<li><a href="#Specifying-Models-as-Files_Locating-Definitions">14.5. Locating Definitions</a>
+<li><a href="#Specifying-Models-as-Files_Locating-Definitions">15.5. Locating Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Specifying-Models-as-Files_Locating-Definitions_Running-fpp-locate-defs">14.5.1. Running fpp-locate-defs</a></li>
-<li><a href="#Specifying-Models-as-Files_Locating-Definitions_Location-Paths">14.5.2. Location Paths</a></li>
-<li><a href="#Specifying-Models-as-Files_Locating-Definitions_Included-Definitions">14.5.3. Included Definitions</a></li>
+<li><a href="#Specifying-Models-as-Files_Locating-Definitions_Running-fpp-locate-defs">15.5.1. Running fpp-locate-defs</a></li>
+<li><a href="#Specifying-Models-as-Files_Locating-Definitions_Location-Paths">15.5.2. Location Paths</a></li>
+<li><a href="#Specifying-Models-as-Files_Locating-Definitions_Included-Definitions">15.5.3. Included Definitions</a></li>
 </ul>
 </li>
-<li><a href="#Specifying-Models-as-Files_Computing-Dependencies">14.6. Computing Dependencies</a>
+<li><a href="#Specifying-Models-as-Files_Computing-Dependencies">15.6. Computing Dependencies</a>
 <ul class="sectlevel3">
-<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Running-fpp-depend">14.6.1. Running fpp-depend</a></li>
-<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Transitive-Dependencies">14.6.2. Transitive Dependencies</a></li>
-<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Missing-Dependencies">14.6.3. Missing Dependencies</a></li>
-<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Included-Files">14.6.4. Included Files</a></li>
-<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Dependencies-Between-Build-Modules">14.6.5. Dependencies Between Build Modules</a></li>
-<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Framework-Dependencies">14.6.6. Framework Dependencies</a></li>
+<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Running-fpp-depend">15.6.1. Running fpp-depend</a></li>
+<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Transitive-Dependencies">15.6.2. Transitive Dependencies</a></li>
+<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Missing-Dependencies">15.6.3. Missing Dependencies</a></li>
+<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Included-Files">15.6.4. Included Files</a></li>
+<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Dependencies-Between-Build-Modules">15.6.5. Dependencies Between Build Modules</a></li>
+<li><a href="#Specifying-Models-as-Files_Computing-Dependencies_Framework-Dependencies">15.6.6. Framework Dependencies</a></li>
 </ul>
 </li>
-<li><a href="#Specifying-Models-as-Files_Locating-Uses">14.7. Locating Uses</a></li>
-<li><a href="#Specifying-Models-as-Files_Path-Name-Aliases">14.8. Path Name Aliases</a>
+<li><a href="#Specifying-Models-as-Files_Locating-Uses">15.7. Locating Uses</a></li>
+<li><a href="#Specifying-Models-as-Files_Path-Name-Aliases">15.8. Path Name Aliases</a>
 <ul class="sectlevel3">
-<li><a href="#Specifying-Models-as-Files_Path-Name-Aliases_Relative-Paths-and-Symbolic-Links">14.8.1. Relative Paths and Symbolic Links</a></li>
-<li><a href="#Specifying-Models-as-Files_Path-Name-Aliases_Unique-Locations">14.8.2. Unique Locations</a></li>
+<li><a href="#Specifying-Models-as-Files_Path-Name-Aliases_Relative-Paths-and-Symbolic-Links">15.8.1. Relative Paths and Symbolic Links</a></li>
+<li><a href="#Specifying-Models-as-Files_Path-Name-Aliases_Unique-Locations">15.8.2. Unique Locations</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#Analyzing-and-Translating-Models">15. Analyzing and Translating Models</a>
+<li><a href="#Analyzing-and-Translating-Models">16. Analyzing and Translating Models</a>
 <ul class="sectlevel2">
-<li><a href="#Analyzing-and-Translating-Models_Checking-Models">15.1. Checking Models</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">15.2. Generating C Plus Plus</a>
+<li><a href="#Analyzing-and-Translating-Models_Checking-Models">16.1. Checking Models</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">16.2. Generating C Plus Plus</a>
 <ul class="sectlevel3">
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">15.2.1. Constant Definitions</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-State-Machines-and-Components">15.2.2. Types, Ports, State Machines, and Components</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">15.2.3. Component Implementation and Unit Test Code</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">15.2.4. Topology Definitions</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Compiling-the-Generated-Code">15.2.5. Compiling the Generated Code</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">16.2.1. Constant Definitions</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-State-Machines-and-Components">16.2.2. Types, Ports, State Machines, and Components</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">16.2.3. Component Implementation and Unit Test Code</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">16.2.4. Topology Definitions</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Compiling-the-Generated-Code">16.2.5. Compiling the Generated Code</a></li>
 </ul>
 </li>
-<li><a href="#Analyzing-and-Translating-Models_Formatting-FPP-Source">15.3. Formatting FPP Source</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Visualizing-Topologies">15.4. Visualizing Topologies</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-Ground-Dictionaries">15.5. Generating Ground Dictionaries</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files">15.6. Identifying Generated Files</a>
+<li><a href="#Analyzing-and-Translating-Models_Formatting-FPP-Source">16.3. Formatting FPP Source</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Visualizing-Topologies">16.4. Visualizing Topologies</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-Ground-Dictionaries">16.5. Generating Ground Dictionaries</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files">16.6. Identifying Generated Files</a>
 <ul class="sectlevel3">
-<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-filenames">15.6.1. Using fpp-filenames</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-depend">15.6.2. Using fpp-depend</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-filenames">16.6.1. Using fpp-filenames</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-depend">16.6.2. Using fpp-depend</a></li>
 </ul>
 </li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-JSON-Models">15.7. Generating JSON Models</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Translating-Older-XML-to-FPP">15.8. Translating Older XML to FPP</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-JSON-Models">16.7. Generating JSON Models</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Translating-Older-XML-to-FPP">16.8. Translating Older XML to FPP</a></li>
 </ul>
 </li>
-<li><a href="#Writing-C-Plus-Plus-Implementations">16. Writing C Plus Plus Implementations</a>
+<li><a href="#Writing-C-Plus-Plus-Implementations">17. Writing C Plus Plus Implementations</a>
 <ul class="sectlevel2">
-<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types">16.1. Implementing Abstract Types</a></li>
-<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-External-State-Machines">16.2. Implementing External State Machines</a></li>
-<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments">16.3. Implementing Deployments</a>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types">17.1. Implementing Abstract Types</a></li>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-External-State-Machines">17.2. Implementing External State Machines</a></li>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments">17.3. Implementing Deployments</a>
 <ul class="sectlevel3">
-<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Application-Specific-Definitions">16.3.1. Application-Specific Definitions</a></li>
-<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_The-Main-Function">16.3.2. The Main Function</a></li>
-<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Public-Symbols">16.3.3. Public Symbols</a></li>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Application-Specific-Definitions">17.3.1. Application-Specific Definitions</a></li>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_The-Main-Function">17.3.2. The Main Function</a></li>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Public-Symbols">17.3.3. Public Symbols</a></li>
 </ul>
 </li>
-<li><a href="#Writing-C-Plus-Plus-Implementations_Serialization-of-FPP-Values">16.4. Serialization of FPP Values</a></li>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Serialization-of-FPP-Values">17.4. Serialization of FPP Values</a></li>
 </ul>
 </li>
 </ul>
@@ -1819,6 +1824,111 @@ is not legal:</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant
   a = 1</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Constants_Framework-Constants">3.6. Framework Constants</h3>
+<div class="paragraph">
+<p>Certain constants defined in FPP have a special meaning in the
+F Prime framework.
+These constants are called <strong>framework constants</strong>.
+For example, the constant <code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code>
+defines the size of the user data field in a data product container.
+(Data products are an F Prime feature that we describe
+<a href="#Defining-Components_Data-Products">in a later section of this manual</a>.)
+You typically set these constants by overriding configuration
+files provided in the directory <code>default/config</code> in the F Prime repository.
+For example, the file <code>default/config/DpCfg.fpp</code> provides a default value for
+<code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code>.
+You can override this default value by providing your own version of
+the file <code>DpCfg.fpp</code>.
+The
+<a href="https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/">F
+Prime User Manual</a>
+explains how to do this configuration.</p>
+</div>
+<div class="paragraph">
+<p>The FPP analyzer does not require that framework constants be defined
+unless they are used.
+For example, the following model is valid, because it neither defines nor users
+<code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following model is valid because it defines and uses <code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module Fw {
+
+  module DpCfg {
+
+    constant CONTAINER_USER_DATA_SIZE = 10
+
+  }
+
+}
+
+constant a = Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following model is invalid, because it uses <code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code>
+without defining it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If framework constants are defined in the FPP model, then
+then they must conform to certain rules.
+These rules are spelled out in detail in the
+<a href="https://nasa.github.io/fpp/fpp-spec.html#Definitions_Framework-Definitions_Constant-Definitions"><em>The
+FPP Language Specification</em></a>.
+For example, <code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code> must have an integer type.
+So this model is invalid:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module Fw {
+
+  module DpCfg {
+
+    constant CONTAINER_USER_DATA_SIZE = "abc"
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here is what happens when you run this model through <code>fpp-check</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-check
+module Fw {
+
+  module DpCfg {
+
+    constant CONTAINER_USER_DATA_SIZE = "abc"
+
+  }
+
+}
+^D
+fpp-check
+stdin:5.5
+    constant CONTAINER_USER_DATA_SIZE = "abc"
+    ^
+error: the F Prime framework constant Fw.DpCfg.CONTAINER_USER_DATA_SIZE must have an integer type</pre>
 </div>
 </div>
 </div>
@@ -2920,6 +3030,27 @@ configure the framework.
 These types are defined in the file <code>config/FpConfig.fpp</code>.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="Defining-Types_Framework-Types">6.5. Framework Types</h3>
+<div class="paragraph">
+<p>Certain types defined in FPP have a special meaning in the F Prime
+framework.
+These types are called <strong>framework types</strong>.
+For example, the type <code>FwOpcodeType</code> defines the type of
+a command opcode.
+(Commands are an F Prime feature that we describe
+<a href="#Defining-Components_Commands">in a later section of this manual</a>.)</p>
+</div>
+<div class="paragraph">
+<p>Framework types are like <a href="#Defining-Constants_Framework-Constants">framework
+constants</a>:
+you typically define them by overriding configuration files
+provided by F Prime, and if they are defined, then they must
+conform to certain rules.
+<a href="https://nasa.github.io/fpp/fpp-spec.html#Definitions_Framework-Definitions_Type-Definitions"><em>The
+FPP Language Specification</em></a> has all the details.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -3163,7 +3294,95 @@ use appears inside the enum where it is defined.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Defining-Ports">8. Defining Ports</h2>
+<h2 id="Dictionary-Definitions">8. Dictionary Definitions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>One of the artifacts generated from an FPP model is a <strong>dictionary</strong>
+that tells the ground data system how to interpret and display
+the data produced by the FSW.
+By default, the dictionary contains representations of the following
+types and constants defined in FPP:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Types and constants that are known to the framework and that are
+needed by every dictionary, e.g., <code>FwOpcodeType</code>.</p>
+</li>
+<li>
+<p>Types and constants that appear in the definitions of the data produced
+by the FSW, e.g., event specifiers or telemetry specifiers.
+(In later sections of this manual we will explain how to define
+<a href="#Defining-Components_Events">event reports</a> and
+<a href="#Defining-Components_Telemetry">telemetry channels</a>.)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Sometimes you will need the dictionary to include the definition of a type or
+constant
+that does not satisfy either of these conditions.
+For example, a downlink configuration parameter may be
+shared by the FSW implementation and the GDS and may be otherwise unused
+in the FPP model.</p>
+</div>
+<div class="paragraph">
+<p>In this case you can mark a type or constant definition as a <strong>dictionary
+definition</strong>.
+A dictionary definition tells the FPP analyzer that
+whenever a dictionary is generated from the model,
+the definition should be included in the dictionary.</p>
+</div>
+<div class="paragraph">
+<p>To write a dictionary definition, you write the keyword <code>dictionary</code>
+before the definition.
+You can do this for a constant definition, a type definition,
+or an enum definition.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">dictionary constant a = 1
+dictionary array A = [3] U32
+dictionary struct S { x: U32, y: F32 }
+dictionary type T = S
+dictionary enum E { A, B }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Each dictionary definition must observe the following rules:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A dictionary constant definition must have a numeric value (integer or
+floating point),
+a Boolean value (true or false), a string value such as <code>"abc"</code>, or an
+enumerated constant value such as <code>E.A</code>.</p>
+</li>
+<li>
+<p>A dictionary type definition must define a <strong>displayable type</strong>, i.e., a
+type that the F Prime ground data system knows how to display.
+For example, the type may not be an
+<a href="#Defining-Types_Abstract-Type-Definitions">abstract type</a>.
+Nor may it be an array or struct type that has an abstract type
+as a member type.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For example, the following dictionary definitions are invalid:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">dictionary constant a = { x = 1, y = 2.0 } # Error: a has struct type
+dictionary type T # Error: T is an abstract type</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Defining-Ports">9. Defining Ports</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A <strong>port definition</strong> defines an F Prime port.
@@ -3177,7 +3396,7 @@ carried
 on the port, and (3) an optional return type.</p>
 </div>
 <div class="sect2">
-<h3 id="Defining-Ports_Port-Names">8.1. Port Names</h3>
+<h3 id="Defining-Ports_Port-Names">9.1. Port Names</h3>
 <div class="paragraph">
 <p>The simplest port definition consists of the keyword <code>port</code> followed
 by a name.
@@ -3195,7 +3414,7 @@ This kind of port can be useful for sending or receiving a triggering event.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Ports_Formal-Parameters">8.2. Formal Parameters</h3>
+<h3 id="Defining-Ports_Formal-Parameters">9.2. Formal Parameters</h3>
 <div class="paragraph">
 <p>More often, a port will carry data.
 To specify the data, you write <strong>formal parameters</strong>
@@ -3246,7 +3465,7 @@ port P(
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Ports_Handler-Functions">8.3. Handler Functions</h3>
+<h3 id="Defining-Ports_Handler-Functions">9.3. Handler Functions</h3>
 <div class="paragraph">
 <p>As discussed further in the sections on
 <a href="#Defining-Components">defining components</a>
@@ -3432,7 +3651,7 @@ consisting of the first 40 characters of the original string.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Ports_Reference-Parameters">8.4. Reference Parameters</h3>
+<h3 id="Defining-Ports_Reference-Parameters">9.4. Reference Parameters</h3>
 <div class="paragraph">
 <p>You may write the keyword <code>ref</code> in front of any formal parameter <em>p</em>
 of a port definition.
@@ -3491,7 +3710,7 @@ We discuss this pattern in the section on
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Ports_Returning-Values">8.5. Returning Values</h3>
+<h3 id="Defining-Ports_Returning-Values">9.5. Returning Values</h3>
 <div class="paragraph">
 <p>Optionally, you can give a port definition a return type.
 To do this you write an arrow <code>-></code> and a type
@@ -3612,7 +3831,7 @@ port P(ref result: U32) -&gt; Status</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Ports_Pass-by-Reference-Semantics">8.6. Pass-by-Reference Semantics</h3>
+<h3 id="Defining-Ports_Pass-by-Reference-Semantics">9.6. Pass-by-Reference Semantics</h3>
 <div class="paragraph">
 <p>Whenever a C&#43;&#43; formal parameter <em>p</em> enables sharing of data between
 an invoking component and a handler function <code>pIn_handler</code>,
@@ -3679,7 +3898,7 @@ reference and transfer ownership from <code>A</code> to <code>B</code> and vice 
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Ports_Annotating-a-Port-Definition">8.7. Annotating a Port Definition</h3>
+<h3 id="Defining-Ports_Annotating-a-Port-Definition">9.7. Annotating a Port Definition</h3>
 <div class="paragraph">
 <p>A port definition is an
 <a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>.
@@ -3701,7 +3920,7 @@ port P(
 </div>
 </div>
 <div class="sect1">
-<h2 id="Defining-State-Machines">9. Defining State Machines</h2>
+<h2 id="Defining-State-Machines">10. Defining State Machines</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A <strong>hierarchical state machine</strong> (state machine for short)
@@ -3766,7 +3985,7 @@ The component also provides the functions that are called when
 the state machine does actions and evaluates guards.</p>
 </div>
 <div class="sect2">
-<h3 id="Defining-State-Machines_Writing-a-State-Machine-Definition">9.1. Writing a State Machine Definition</h3>
+<h3 id="Defining-State-Machines_Writing-a-State-Machine-Definition">10.1. Writing a State Machine Definition</h3>
 <div class="paragraph">
 <p><strong>External state machines:</strong>
 To define an external state machine, you write the keywords
@@ -3815,7 +4034,7 @@ Prime design documentation</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-State-Machines_States-Signals-and-Transitions">9.2. States, Signals, and Transitions</h3>
+<h3 id="Defining-State-Machines_States-Signals-and-Transitions">10.2. States, Signals, and Transitions</h3>
 <div class="paragraph">
 <p>In this and the following sections, we explain how to define
 internal state machines, i.e., state machines that are fully
@@ -4017,7 +4236,7 @@ state machine Device {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-State-Machines_Actions">9.3. Actions</h3>
+<h3 id="Defining-State-Machines_Actions">10.3. Actions</h3>
 <div class="paragraph">
 <p>An <strong>action</strong> is a function that a state machine calls at a
 specified point in its behavior.
@@ -4028,7 +4247,7 @@ When a state machine instance calls the function associated with
 an action <em>A</em>, we say that it <strong>does</strong> <em>A</em>.</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_Actions_Actions-in-Transitions">9.3.1. Actions in Transitions</h4>
+<h4 id="Defining-State-Machines_Actions_Actions-in-Transitions">10.3.1. Actions in Transitions</h4>
 <div class="paragraph">
 <p>To define an action, you write the keyword <code>action</code> followed
 by the name of the action.
@@ -4134,7 +4353,7 @@ terminating punctuation.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_Actions_Entry-and-Exit-Actions">9.3.2. Entry and Exit Actions</h4>
+<h4 id="Defining-State-Machines_Actions_Entry-and-Exit-Actions">10.3.2. Entry and Exit Actions</h4>
 <div class="paragraph">
 <p>In addition to doing actions on transitions, a state machine
 can do actions on entry to or exit from a state.
@@ -4253,7 +4472,7 @@ exit specifier.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_Actions_Typed-Signals-and-Actions">9.3.3. Typed Signals and Actions</h4>
+<h4 id="Defining-State-Machines_Actions_Typed-Signals-and-Actions">10.3.3. Typed Signals and Actions</h4>
 <div class="paragraph">
 <p>Optionally, signals and actions may carry data values.
 To specify that a signal or action carries a data value,
@@ -4362,7 +4581,7 @@ In this case the value is ignored when doing the action.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_Actions_Atomicity-of-Signal-Handling">9.3.4. Atomicity of Signal Handling</h4>
+<h4 id="Defining-State-Machines_Actions_Atomicity-of-Signal-Handling">10.3.4. Atomicity of Signal Handling</h4>
 <div class="paragraph">
 <p>When an FPP state machine receives a signal, the handling of
 that signal is <strong>atomic</strong>.
@@ -4404,14 +4623,14 @@ Prime design documentation</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-State-Machines_More-on-State-Transitions">9.4. More on State Transitions</h3>
+<h3 id="Defining-State-Machines_More-on-State-Transitions">10.4. More on State Transitions</h3>
 <div class="paragraph">
 <p>In this section, we provide more details on how to write
 <a href="#Defining-State-Machines_States-Signals-and-Transitions">state transitions</a>
 in FPP state machines.</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_More-on-State-Transitions_Guarded-Transitions">9.4.1. Guarded Transitions</h4>
+<h4 id="Defining-State-Machines_More-on-State-Transitions_Guarded-Transitions">10.4.1. Guarded Transitions</h4>
 <div class="paragraph">
 <p>Sometimes it is useful to specify that a transition should occur
 only if a certain condition is true.
@@ -4537,7 +4756,7 @@ it passes in the value as an argument to the function.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_More-on-State-Transitions_Self-Transitions">9.4.2. Self Transitions</h4>
+<h4 id="Defining-State-Machines_More-on-State-Transitions_Self-Transitions">10.4.2. Self Transitions</h4>
 <div class="paragraph">
 <p>When a state transition has the same state <em>S</em> as its source
 and its target, and <em>S</em> has no substates, we call the transition
@@ -4654,7 +4873,7 @@ it receives a <code>cmdReset</code> signal, the following behavior occurs:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_More-on-State-Transitions_Internal-Transitions">9.4.3. Internal Transitions</h4>
+<h4 id="Defining-State-Machines_More-on-State-Transitions_Internal-Transitions">10.4.3. Internal Transitions</h4>
 <div class="paragraph">
 <p>An <strong>internal transition</strong> is like a
 <a href="#Defining-State-Machines_More-on-State-Transitions_Self-Transitions">self transition</a>,
@@ -4751,7 +4970,7 @@ carry data of a compatible type.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-State-Machines_Choices">9.5. Choices</h3>
+<h3 id="Defining-State-Machines_Choices">10.5. Choices</h3>
 <div class="paragraph">
 <p>A <strong>choice definition</strong> is a state machine member that
 defines a branch point for one or more transitions.
@@ -5050,7 +5269,7 @@ go to <code>C3</code>, and <code>C3</code> to go to <code>C1</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-State-Machines_Hierarchy">9.6. Hierarchy</h3>
+<h3 id="Defining-State-Machines_Hierarchy">10.6. Hierarchy</h3>
 <div class="paragraph">
 <p>As with UML state machines, FPP state machines can have <strong>hierarchy</strong>.
 That is, we can do the following:</p>
@@ -5096,7 +5315,7 @@ In the following subsections, we explain how to define
 hierarchical state machines in FPP.</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_Hierarchy_Substates">9.6.1. Substates</h4>
+<h4 id="Defining-State-Machines_Hierarchy_Substates">10.6.1. Substates</h4>
 <div class="paragraph">
 <p>In this section we explain how to define and use substates.</p>
 </div>
@@ -5304,7 +5523,7 @@ In particular, <em>M</em> is the root node of the hierarchy tree.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_Hierarchy_Inherited-Transitions">9.6.2. Inherited Transitions</h4>
+<h4 id="Defining-State-Machines_Hierarchy_Inherited-Transitions">10.6.2. Inherited Transitions</h4>
 <div class="paragraph">
 <p>In general, when a transition <em>T</em> is defined in a parent state <em>S</em>,
 <em>T</em> behaves as if it were defined in each of the
@@ -5493,7 +5712,7 @@ by behavioral polymorphism.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions">9.6.3. Entry and Exit Actions</h4>
+<h4 id="Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions">10.6.3. Entry and Exit Actions</h4>
 <div class="paragraph">
 <p>In previous sections on
 <a href="#Defining-State-Machines_Actions_Entry-and-Exit-Actions">entry and exit actions</a> and on
@@ -5590,7 +5809,7 @@ reenter <em>S</em>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_Hierarchy_Directly-Related-States">9.6.4. Directly Related States</h4>
+<h4 id="Defining-State-Machines_Hierarchy_Directly-Related-States">10.6.4. Directly Related States</h4>
 <div class="paragraph">
 <p>Let <em>S</em><sub>1</sub> and <em>S</em><sub>2</sub> be states.
 If <em>S</em><sub>1</sub> is equal to S<sub>2</sub>, or <em>S</em><sub>1</sub> is an ancestor of S<sub>2</sub>, or S<sub>2</sub>
@@ -5716,7 +5935,7 @@ be overridden.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_Hierarchy_Choices">9.6.5. Choices</h4>
+<h4 id="Defining-State-Machines_Hierarchy_Choices">10.6.5. Choices</h4>
 <div class="paragraph">
 <p>Like state definitions, choice definitions are hierarchical.
 That is, you may define a choice inside a state.
@@ -5834,7 +6053,7 @@ entry actions of <em>B'</em>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Defining-Components">10. Defining Components</h2>
+<h2 id="Defining-Components">11. Defining Components</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In F Prime, the <strong>component</strong> is the basic unit of FSW function.
@@ -5857,7 +6076,7 @@ A passive component has no thread of control and no
 message queue; it is like a non-threaded function library.</p>
 </div>
 <div class="sect2">
-<h3 id="Defining-Components_Component-Definitions">10.1. Component Definitions</h3>
+<h3 id="Defining-Components_Component-Definitions">11.1. Component Definitions</h3>
 <div class="paragraph">
 <p>An FPP <strong>component definition</strong> defines an F Prime component.
 To write a component definition, you write the following:</p>
@@ -5904,7 +6123,7 @@ except for importing port interfaces, which we describe in
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Components_Port-Instances">10.2. Port Instances</h3>
+<h3 id="Defining-Components_Port-Instances">11.2. Port Instances</h3>
 <div class="paragraph">
 <p>A <strong>port instance</strong> is a component member that specifies an instance of an FPP
 <a href="#Defining-Ports">port</a> used by the instances of the component.
@@ -5920,7 +6139,7 @@ as the name of the instance and the direction of invocation
 (input or output).</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Port-Instances_Basic-Port-Instances">10.2.1. Basic Port Instances</h4>
+<h4 id="Defining-Components_Port-Instances_Basic-Port-Instances">11.2.1. Basic Port Instances</h4>
 <div class="paragraph">
 <p>The simplest port instance specifies a kind, a name, and a type.
 The kind is one of the following:</p>
@@ -6029,7 +6248,7 @@ of type <code>F32Value</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Port-Instances_Rules-for-Port-Instances">10.2.2. Rules for Port Instances</h4>
+<h4 id="Defining-Components_Port-Instances_Rules-for-Port-Instances">11.2.2. Rules for Port Instances</h4>
 <div class="paragraph">
 <p>The port instances appearing in a component definition must
 satisfy certain rules.
@@ -6112,7 +6331,7 @@ active component Error {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Port-Instances_Arrays-of-Port-Instances">10.2.3. Arrays of Port Instances</h4>
+<h4 id="Defining-Components_Port-Instances_Arrays-of-Port-Instances">11.2.3. Arrays of Port Instances</h4>
 <div class="paragraph">
 <p>When you specify a port instance as part of an FPP component, you
 are actually specifying an <em>array</em> of port instances.
@@ -6157,7 +6376,7 @@ passive component F32Adder {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Port-Instances_Priority">10.2.4. Priority</h4>
+<h4 id="Defining-Components_Port-Instances_Priority">11.2.4. Priority</h4>
 <div class="paragraph">
 <p>For <code>async</code> <code>input</code> ports, you may specify a priority.
 The priority specification is not allowed for other kinds of ports.
@@ -6197,7 +6416,7 @@ from the message queue.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Port-Instances_Queue-Full-Behavior">10.2.5. Queue Full Behavior</h4>
+<h4 id="Defining-Components_Port-Instances_Queue-Full-Behavior">11.2.5. Queue Full Behavior</h4>
 <div class="paragraph">
 <p>By default, if an invocation of an <code>async</code> <code>input</code> port causes
 a message queue to overflow, then a <strong>FSW assertion</strong> fails.
@@ -6265,7 +6484,7 @@ for <code>async</code> <code>input</code> ports.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Port-Instances_Serial-Port-Instances">10.2.6. Serial Port Instances</h4>
+<h4 id="Defining-Components_Port-Instances_Serial-Port-Instances">11.2.6. Serial Port Instances</h4>
 <div class="paragraph">
 <p>When writing a port instance, instead of specifying a named port type,
 you may write the keyword <code>serial</code>.
@@ -6312,7 +6531,7 @@ the <a href="https://fprime.jpl.nasa.gov/devel/docs/user-manual/">F Prime User M
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Components_Special-Port-Instances">10.3. Special Port Instances</h3>
+<h3 id="Defining-Components_Special-Port-Instances">11.3. Special Port Instances</h3>
 <div class="paragraph">
 <p>A <strong>special port instance</strong> is a port instance that has a special
 behavior in F Prime.
@@ -6328,7 +6547,7 @@ commands, events, telemetry, parameters, time,
 and data products.</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Special-Port-Instances_Command-Ports">10.3.1. Command Ports</h4>
+<h4 id="Defining-Components_Special-Port-Instances_Command-Ports">11.3.1. Command Ports</h4>
 <div class="paragraph">
 <p>A <strong>command</strong> is an instruction to the spacecraft to perform an action.
 Each component instance <em>C</em> that specifies commands has the following
@@ -6450,7 +6669,7 @@ response, and implementing command handlers, see the
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Special-Port-Instances_Event-Ports">10.3.2. Event Ports</h4>
+<h4 id="Defining-Components_Special-Port-Instances_Event-Ports">11.3.2. Event Ports</h4>
 <div class="paragraph">
 <p>An <strong>event</strong> is a report that something happened, for example,
 that a file was successfully uplinked.
@@ -6531,7 +6750,7 @@ simplified definitions of these ports:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Special-Port-Instances_Telemetry-Ports">10.3.3. Telemetry Ports</h4>
+<h4 id="Defining-Components_Special-Port-Instances_Telemetry-Ports">11.3.3. Telemetry Ports</h4>
 <div class="paragraph">
 <p><strong>Telemetry</strong> is data regarding the state of the system.
 A <strong>telemetry port</strong> allows a component to emit telemetry.
@@ -6580,7 +6799,7 @@ simplified definition of this port:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Special-Port-Instances_Parameter-Ports">10.3.4. Parameter Ports</h4>
+<h4 id="Defining-Components_Special-Port-Instances_Parameter-Ports">11.3.4. Parameter Ports</h4>
 <div class="paragraph">
 <p>A <strong>parameter</strong> is a configurable constant that may be updated
 from the ground.
@@ -6665,7 +6884,7 @@ simplified definitions of these ports:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Special-Port-Instances_Time-Get-Ports">10.3.5. Time Get Ports</h4>
+<h4 id="Defining-Components_Special-Port-Instances_Time-Get-Ports">11.3.5. Time Get Ports</h4>
 <div class="paragraph">
 <p>A <strong>time get port</strong> allows a component to get the system time from a
 time component.
@@ -6715,7 +6934,7 @@ simplified definition of this port:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Special-Port-Instances_Data-Product-Ports">10.3.6. Data Product Ports</h4>
+<h4 id="Defining-Components_Special-Port-Instances_Data-Product-Ports">11.3.6. Data Product Ports</h4>
 <div class="paragraph">
 <p>A <strong>data product</strong> is a collection of data that can be stored to an
 onboard file system, given a priority, and downlinked in priority
@@ -6840,7 +7059,7 @@ Prime design documentation</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Components_Internal-Ports">10.4. Internal Ports</h3>
+<h3 id="Defining-Components_Internal-Ports">11.4. Internal Ports</h3>
 <div class="paragraph">
 <p>An <strong>internal port</strong> is a port that a component can use to send a
 message to itself.
@@ -6966,7 +7185,7 @@ Try it and see.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Components_Commands">10.5. Commands</h3>
+<h3 id="Defining-Components_Commands">11.5. Commands</h3>
 <div class="paragraph">
 <p>When defining an F Prime component, you may specify one or more commands.
 When you are operating the FSW, you use the F Prime Ground Data System
@@ -6983,7 +7202,7 @@ handling, see the
 Here we concentrate on how to specify commands in FPP.</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Commands_Basic-Commands">10.5.1. Basic Commands</h4>
+<h4 id="Defining-Components_Commands_Basic-Commands">11.5.1. Basic Commands</h4>
 <div class="paragraph">
 <p>The simplest command consists of a kind followed by the keyword
 <code>command</code> and a name.
@@ -7081,7 +7300,7 @@ running the result through <code>fpp-check</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Commands_Formal-Parameters">10.5.2. Formal Parameters</h4>
+<h4 id="Defining-Components_Commands_Formal-Parameters">11.5.2. Formal Parameters</h4>
 <div class="paragraph">
 <p>When specifying a command, you may specify one or more
 formal parameters.
@@ -7102,7 +7321,8 @@ for the following:</p>
 <a href="#Defining-Ports_Reference-Parameters">reference parameter</a>.</p>
 </li>
 <li>
-<p>Each parameter must have a <strong>displayable type</strong>, i.e., a
+<p>Each parameter must have a <a href="#Dictionary-Definitions">displayable type</a>, i.e.,
+a
 type that the F Prime ground data system knows how to display.
 For example, the type may not be an
 <a href="#Defining-Types_Abstract-Type-Definitions">abstract type</a>.
@@ -7167,7 +7387,7 @@ stubs for the special command ports</a> that are required by
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Commands_Opcodes">10.5.3. Opcodes</h4>
+<h4 id="Defining-Components_Commands_Opcodes">11.5.3. Opcodes</h4>
 <div class="paragraph">
 <p>Every command in an F Prime FSW application has an <strong>opcode</strong>.
 The opcode is a number that uniquely identifies the command.
@@ -7277,7 +7497,7 @@ active component DuplicateOpcode {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Commands_Priority-and-Queue-Full-Behavior">10.5.4. Priority and Queue Full Behavior</h4>
+<h4 id="Defining-Components_Commands_Priority-and-Queue-Full-Behavior">11.5.4. Priority and Queue Full Behavior</h4>
 <div class="paragraph">
 <p>When specifying an async command, you may specify
 <a href="#Defining-Components_Port-Instances_Priority">priority</a> and
@@ -7331,7 +7551,7 @@ to <code>sync</code> and see what <code>fpp-check</code> has to say about it.</p
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Components_Events">10.6. Events</h3>
+<h3 id="Defining-Components_Events">11.6. Events</h3>
 <div class="paragraph">
 <p>When defining an F Prime component, you may specify one or more events.
 The F Prime framework converts each event into a C&#43;&#43;
@@ -7346,7 +7566,7 @@ handling, see the
 Here we concentrate on how to specify events in FPP.</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Events_Basic-Events">10.6.1. Basic Events</h4>
+<h4 id="Defining-Components_Events_Basic-Events">11.6.1. Basic Events</h4>
 <div class="paragraph">
 <p>The simplest event consists of the keyword <code>event</code>, a name, a severity,
 and a format string.
@@ -7434,7 +7654,7 @@ code above and running the result through <code>fpp-check</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Events_Formal-Parameters">10.6.2. Formal Parameters</h4>
+<h4 id="Defining-Components_Events_Formal-Parameters">11.6.2. Formal Parameters</h4>
 <div class="paragraph">
 <p>When specifying an event, you may specify one or more
 formal parameters.
@@ -7511,7 +7731,7 @@ passive component EventParameters {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Events_Identifiers">10.6.3. Identifiers</h4>
+<h4 id="Defining-Components_Events_Identifiers">11.6.3. Identifiers</h4>
 <div class="paragraph">
 <p>Every event in an F Prime FSW application has a unique
 numeric identifier.
@@ -7582,7 +7802,7 @@ passive component EventIdentifiers {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Events_Throttling">10.6.4. Throttling</h4>
+<h4 id="Defining-Components_Events_Throttling">11.6.4. Throttling</h4>
 <div class="paragraph">
 <p>Sometimes it is necessary to throttle events, to ensure that
 they do not flood the system.
@@ -7646,7 +7866,7 @@ For details, see the
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Components_Telemetry">10.7. Telemetry</h3>
+<h3 id="Defining-Components_Telemetry">11.7. Telemetry</h3>
 <div class="paragraph">
 <p>When defining an F Prime component, you may specify one or more
 <strong>telemetry channels</strong>.
@@ -7666,7 +7886,7 @@ handling, see the
 Here we concentrate on how to specify telemetry channels in FPP.</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Telemetry_Basic-Telemetry">10.7.1. Basic Telemetry</h4>
+<h4 id="Defining-Components_Telemetry_Basic-Telemetry">11.7.1. Basic Telemetry</h4>
 <div class="paragraph">
 <p>The simplest telemetry channel consists of the keyword <code>telemetry</code>,
 a name, and a data type.
@@ -7723,7 +7943,7 @@ Both ports are required for any component that has telemetry.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Telemetry_Identifiers">10.7.2. Identifiers</h4>
+<h4 id="Defining-Components_Telemetry_Identifiers">11.7.2. Identifiers</h4>
 <div class="paragraph">
 <p>Every telemetry channel in an F Prime FSW application has a unique
 numeric identifier.
@@ -7788,7 +8008,7 @@ passive component TlmIdentifiers {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Telemetry_Update-Frequency">10.7.3. Update Frequency</h4>
+<h4 id="Defining-Components_Telemetry_Update-Frequency">11.7.3. Update Frequency</h4>
 <div class="paragraph">
 <p>You can specify how often the telemetry is emitted on a channel <em>C</em>.
 There are two possibilities:</p>
@@ -7869,7 +8089,7 @@ passive component TlmUpdate {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Telemetry_Format-Strings">10.7.4. Format Strings</h4>
+<h4 id="Defining-Components_Telemetry_Format-Strings">11.7.4. Format Strings</h4>
 <div class="paragraph">
 <p>You may specify how a telemetry channel is formatted in the
 ground display.
@@ -7921,7 +8141,7 @@ passive component TlmFormat {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Telemetry_Limits">10.7.5. Limits</h4>
+<h4 id="Defining-Components_Telemetry_Limits">11.7.5. Limits</h4>
 <div class="paragraph">
 <p>You may specify <strong>limits</strong>, or bounds, on the expected values
 carried on a telemetry channel.
@@ -8008,7 +8228,7 @@ condition (2).</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Components_Parameters">10.8. Parameters</h3>
+<h3 id="Defining-Components_Parameters">11.8. Parameters</h3>
 <div class="paragraph">
 <p>When defining an F Prime component, you may specify one or more
 <strong>parameters</strong>.
@@ -8026,7 +8246,7 @@ For complete information about F Prime parameters, see the
 Here we concentrate on how to specify parameters in FPP.</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Parameters_Basic-Parameters">10.8.1. Basic Parameters</h4>
+<h4 id="Defining-Components_Parameters_Basic-Parameters">11.8.1. Basic Parameters</h4>
 <div class="paragraph">
 <p>The simplest parameter consists of the keyword <code>param</code>,
 a name, and a data type.
@@ -8103,7 +8323,7 @@ above and see what <code>fpp-check</code> does.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Parameters_Default-Values">10.8.2. Default Values</h4>
+<h4 id="Defining-Components_Parameters_Default-Values">11.8.2. Default Values</h4>
 <div class="paragraph">
 <p>You can specify a default value for any parameter.
 This is the value that F Prime will use if no value is
@@ -8164,7 +8384,7 @@ passive component ParamDefaults {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Parameters_Identifiers">10.8.3. Identifiers</h4>
+<h4 id="Defining-Components_Parameters_Identifiers">11.8.3. Identifiers</h4>
 <div class="paragraph">
 <p>Every parameter in an F Prime FSW application has a unique
 numeric identifier.
@@ -8240,7 +8460,7 @@ passive component ParamIdentifiers {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Parameters_Set-and-Save-Opcodes">10.8.4. Set and Save Opcodes</h4>
+<h4 id="Defining-Components_Parameters_Set-and-Save-Opcodes">11.8.4. Set and Save Opcodes</h4>
 <div class="paragraph">
 <p>Each parameter that you specify has two implied commands: one
 for setting the value bound to the parameter locally in the
@@ -8341,7 +8561,7 @@ passive component ParamOpcodes {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Parameters_External-Parameters">10.8.5. External Parameters</h4>
+<h4 id="Defining-Components_Parameters_External-Parameters">11.8.5. External Parameters</h4>
 <div class="paragraph">
 <p>In the default case, when you specify a parameter <em>P</em> in a component
 <em>C</em>, the FPP code generator produces code for storing
@@ -8410,7 +8630,7 @@ Prime User Manual</a> explains how to do this.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Components_Data-Products">10.9. Data Products</h3>
+<h3 id="Defining-Components_Data-Products">11.9. Data Products</h3>
 <div class="paragraph">
 <p>When defining an F Prime component, you may specify the <strong>data products</strong>
 produced by that component.
@@ -8425,7 +8645,7 @@ For more information about these F Prime features, see the
 Prime User Manual</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Data-Products_Basic-Data-Products">10.9.1. Basic Data Products</h4>
+<h4 id="Defining-Components_Data-Products_Basic-Data-Products">11.9.1. Basic Data Products</h4>
 <div class="paragraph">
 <p>In F Prime, a data product is represented as a <strong>container</strong>.
 One container holds one data product, and each data product
@@ -8530,7 +8750,7 @@ specifier, and vice versa.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Data-Products_Identifiers">10.9.2. Identifiers</h4>
+<h4 id="Defining-Components_Data-Products_Identifiers">11.9.2. Identifiers</h4>
 <div class="paragraph">
 <p>Every record in an F Prime FSW application has a unique
 numeric identifier.
@@ -8611,7 +8831,7 @@ and the container identifiers must be unique.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Data-Products_Array-Records">10.9.3. Array Records</h4>
+<h4 id="Defining-Components_Data-Products_Array-Records">11.9.3. Array Records</h4>
 <div class="paragraph">
 <p>In the basic form of a record described above, each record that
 does not have
@@ -8678,7 +8898,7 @@ it is provided when the record is serialized into a container.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Components_State-Machine-Instances">10.10. State Machine Instances</h3>
+<h3 id="Defining-Components_State-Machine-Instances">11.10. State Machine Instances</h3>
 <div class="paragraph">
 <p>A <strong>state machine instance</strong> is a component member that instantiates
 an FPP <a href="#Defining-State-Machines">state machine</a>.
@@ -8749,7 +8969,7 @@ Prime design documentation</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Components_Constants-Types-Enums-and-State-Machines">10.11. Constants, Types, Enums, and State Machines</h3>
+<h3 id="Defining-Components_Constants-Types-Enums-and-State-Machines">11.11. Constants, Types, Enums, and State Machines</h3>
 <div class="paragraph">
 <p>You can write a <a href="#Defining-Constants">constant definition</a>,
 <a href="#Defining-Types">type definition</a>,
@@ -8888,7 +9108,7 @@ We will have more to say about this issue in the section on
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Components_Include-Specifiers">10.12. Include Specifiers</h3>
+<h3 id="Defining-Components_Include-Specifiers">11.12. Include Specifiers</h3>
 <div class="paragraph">
 <p>Component definitions can become long, especially when there
 are many commands, events, telemetry channels, and parameters.
@@ -8941,7 +9161,7 @@ We discuss include specifiers further in the section on
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Components_Matched-Ports">10.13. Matched Ports</h3>
+<h3 id="Defining-Components_Matched-Ports">11.13. Matched Ports</h3>
 <div class="paragraph">
 <p>Some F Prime components employ the following pattern:</p>
 </div>
@@ -9035,7 +9255,7 @@ queued component Health {
 </div>
 </div>
 <div class="sect1">
-<h2 id="Defining-and-Using-Port-Interfaces">11. Defining and Using Port Interfaces</h2>
+<h2 id="Defining-and-Using-Port-Interfaces">12. Defining and Using Port Interfaces</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A common pattern in F Prime is to use an identical set of
@@ -9049,7 +9269,7 @@ FPP has special support for defining and using port interfaces,
 which we describe in this section.</p>
 </div>
 <div class="sect2">
-<h3 id="Defining-and-Using-Port-Interfaces_Defining-Port-Interfaces">11.1. Defining Port Interfaces</h3>
+<h3 id="Defining-and-Using-Port-Interfaces_Defining-Port-Interfaces">12.1. Defining Port Interfaces</h3>
 <div class="paragraph">
 <p>A <strong>port interface definition</strong> defines a port interface.
 To write a port interface definition, you write the following:</p>
@@ -9126,7 +9346,7 @@ is used in a component, as described in the next section.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Component-Definitions">11.2. Using Port Interfaces in Component Definitions</h3>
+<h3 id="Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Component-Definitions">12.2. Using Port Interfaces in Component Definitions</h3>
 <div class="paragraph">
 <p>Once you have defined a port interface, you can use it in a component definition.
 To do this you write a <a href="#Defining-Components_Component-Definitions">component
@@ -9197,7 +9417,7 @@ passive component C {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Interface-Definitions">11.3. Using Port Interfaces in Interface Definitions</h3>
+<h3 id="Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Interface-Definitions">12.3. Using Port Interfaces in Interface Definitions</h3>
 <div class="paragraph">
 <p>You can import a port interface into another interface.
 For example:</p>
@@ -9236,7 +9456,7 @@ interface I2 {
 </div>
 </div>
 <div class="sect1">
-<h2 id="Defining-Component-Instances">12. Defining Component Instances</h2>
+<h2 id="Defining-Component-Instances">13. Defining Component Instances</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>As discussed in the section on <a href="#Defining-Components">defining-components</a>,
@@ -9248,14 +9468,14 @@ In the next section, we will explain how to
 construct topologies.</p>
 </div>
 <div class="sect2">
-<h3 id="Defining-Component-Instances_Component-Instance-Definitions">12.1. Component Instance Definitions</h3>
+<h3 id="Defining-Component-Instances_Component-Instance-Definitions">13.1. Component Instance Definitions</h3>
 <div class="paragraph">
 <p>To instantiate a component, you write a <strong>component instance definition</strong>.
 The form of a component instance definition depends on the kind
 of the component you are instantiating: passive, queued, or active.</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-Component-Instances_Component-Instance-Definitions_Passive-Components">12.1.1. Passive Components</h4>
+<h4 id="Defining-Component-Instances_Component-Instance-Definitions_Passive-Components">13.1.1. Passive Components</h4>
 <div class="paragraph">
 <p>To instantiate a passive component, you write the following:</p>
 </div>
@@ -9408,7 +9628,7 @@ identifier range for <code>leftEngineTemp</code>, which goes from
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Component-Instances_Component-Instance-Definitions_Queued-Components">12.1.2. Queued Components</h4>
+<h4 id="Defining-Component-Instances_Component-Instance-Definitions_Queued-Components">13.1.2. Queued Components</h4>
 <div class="paragraph">
 <p>Instantiating a queued component is just like instantiating
 a passive component, except that you must also specify
@@ -9467,7 +9687,7 @@ In the component instance definition, we have specified a queue size of 10.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Component-Instances_Component-Instance-Definitions_Active-Components">12.1.3. Active Components</h4>
+<h4 id="Defining-Component-Instances_Component-Instance-Definitions_Active-Components">13.1.3. Active Components</h4>
 <div class="paragraph">
 <p>Instantiating an active component is like instantiating a queued
 component, except that you may specify additional parameters
@@ -9593,7 +9813,7 @@ associated with the instance should run on CPU 0.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Component-Instances_Specifying-the-Implementation">12.2. Specifying the Implementation</h3>
+<h3 id="Defining-Component-Instances_Specifying-the-Implementation">13.2. Specifying the Implementation</h3>
 <div class="paragraph">
 <p>When you define a component instance <em>I</em>, the FPP translator needs
 to know the following information about the C&#43;&#43; implementation of <em>I</em>:</p>
@@ -9727,7 +9947,7 @@ file <code>../../Svc/LinuxTime/LinuxTime.hpp</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Component-Instances_Init-Specifiers">12.3. Init Specifiers</h3>
+<h3 id="Defining-Component-Instances_Init-Specifiers">13.3. Init Specifiers</h3>
 <div class="paragraph">
 <p>In an F Prime FSW application, each component instance <em>I</em>
 has some associated C&#43;&#43; code
@@ -9758,7 +9978,7 @@ However, most of the code is in fact initialization code,
 and so FPP uses "init" as a shorthand name.)</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-Component-Instances_Init-Specifiers_Execution-Phases">12.3.1. Execution Phases</h4>
+<h4 id="Defining-Component-Instances_Init-Specifiers_Execution-Phases">13.3.1. Execution Phases</h4>
 <div class="paragraph">
 <p>The FPP translator uses init specifiers when it generates
 code for an F Prime topology.
@@ -9973,7 +10193,7 @@ instance needs to deallocate memory or release resources on program exit.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Component-Instances_Init-Specifiers_Writing-Init-Specifiers">12.3.2. Writing Init Specifiers</h4>
+<h4 id="Defining-Component-Instances_Init-Specifiers_Writing-Init-Specifiers">13.3.2. Writing Init Specifiers</h4>
 <div class="paragraph">
 <p>You may write one or more init specifiers as part of a component
 instance definition.
@@ -10112,7 +10332,7 @@ use the <code>state</code> value that we just mentioned.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Component-Instances_Generation-of-Names">12.4. Generation of Names</h3>
+<h3 id="Defining-Component-Instances_Generation-of-Names">13.4. Generation of Names</h3>
 <div class="paragraph">
 <p>FPP uses the following rules to generate the names associated with
 component instances.
@@ -10175,7 +10395,7 @@ according to the previous paragraph.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Defining-Topologies">13. Defining Topologies</h2>
+<h2 id="Defining-Topologies">14. Defining Topologies</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In F Prime, a <strong>topology</strong> or connection graph is the
@@ -10196,7 +10416,7 @@ C&#43;&#43; code.
 In this section we explain how to define a topology in FPP.</p>
 </div>
 <div class="sect2">
-<h3 id="Defining-Topologies_A-Simple-Example">13.1. A Simple Example</h3>
+<h3 id="Defining-Topologies_A-Simple-Example">14.1. A Simple Example</h3>
 <div class="paragraph">
 <p>We begin with a simple example that shows how many of the pieces
 fit together.</p>
@@ -10326,7 +10546,7 @@ terminating punctuation is a semicolon.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Topologies_Connection-Graphs">13.2. Connection Graphs</h3>
+<h3 id="Defining-Topologies_Connection-Graphs">14.2. Connection Graphs</h3>
 <div class="paragraph">
 <p>In general, an FPP topology consists of a list of instances
 and a set of named connection graphs.
@@ -10334,7 +10554,7 @@ There are two ways to specify connection graphs:
 <strong>direct graph specifiers</strong> and <strong>pattern graph specifiers</strong>.</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Connection-Graphs_Direct-Graph-Specifiers">13.2.1. Direct Graph Specifiers</h4>
+<h4 id="Defining-Topologies_Connection-Graphs_Direct-Graph-Specifiers">14.2.1. Direct Graph Specifiers</h4>
 <div class="paragraph">
 <p>A direct graph specifier provides a name and a list
 of connections.
@@ -10455,7 +10675,7 @@ then the port type of <em>P</em> may not specify a
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Connection-Graphs_Pattern-Graph-Specifiers">13.2.2. Pattern Graph Specifiers</h4>
+<h4 id="Defining-Topologies_Connection-Graphs_Pattern-Graph-Specifiers">14.2.2. Pattern Graph Specifiers</h4>
 <div class="paragraph">
 <p>A few connection patterns are so common in F Prime that they
 get special treatment in FPP.
@@ -10777,7 +10997,7 @@ each on its own line, or you can separate them with commas:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Topologies_Port-Numbering">13.3. Port Numbering</h3>
+<h3 id="Defining-Topologies_Port-Numbering">14.3. Port Numbering</h3>
 <div class="paragraph">
 <p>As discussed in the
 <a href="#Defining-Components_Port-Instances_Arrays-of-Port-Instances">section on defining components</a>,
@@ -10790,7 +11010,7 @@ In FPP, there are three ways to specify port numbers:
 explicit numbering, matched numbering, and general numbering.</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Port-Numbering_Explicit-Numbering">13.3.1. Explicit Numbering</h4>
+<h4 id="Defining-Topologies_Port-Numbering_Explicit-Numbering">14.3.1. Explicit Numbering</h4>
 <div class="paragraph">
 <p>To use explicit numbering, you provide an explicit port number
 for a connection endpoint.
@@ -10937,7 +11157,7 @@ For example, this is what we did in the section on
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Port-Numbering_Matched-Numbering">13.3.2. Matched Numbering</h4>
+<h4 id="Defining-Topologies_Port-Numbering_Matched-Numbering">14.3.2. Matched Numbering</h4>
 <div class="paragraph">
 <p><strong>Automatic matching:</strong>
 After resolving
@@ -11130,7 +11350,7 @@ and use that twice to do the matching by hand.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Port-Numbering_General-Numbering">13.3.3. General Numbering</h4>
+<h4 id="Defining-Topologies_Port-Numbering_General-Numbering">14.3.3. General Numbering</h4>
 <div class="paragraph">
 <p>After resolving
 <a href="#Defining-Topologies_Port-Numbering_Explicit-Numbering">explicit numbering</a> and
@@ -11185,7 +11405,7 @@ a.p[1] -&gt; c.p[0]</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Topologies_Importing-Topologies">13.4. Importing Topologies</h3>
+<h3 id="Defining-Topologies_Importing-Topologies">14.4. Importing Topologies</h3>
 <div class="paragraph">
 <p>It is often useful to decompose a flight software project
 into several topologies.
@@ -11221,7 +11441,7 @@ one topology into another one.
 In this section of the User Guide, we explain how to do that.</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Importing-Topologies_Importing-Instances-and-Connections">13.4.1. Importing Instances and Connections</h4>
+<h4 id="Defining-Topologies_Importing-Topologies_Importing-Instances-and-Connections">14.4.1. Importing Instances and Connections</h4>
 <div class="paragraph">
 <p>To import a topology <code>A</code> into a topology <code>B</code>, you write
 <code>import A</code> inside topology <code>B</code>, like this:</p>
@@ -11333,7 +11553,7 @@ connections of <code>B</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Importing-Topologies_Private-Instances">13.4.2. Private Instances</h4>
+<h4 id="Defining-Topologies_Importing-Topologies_Private-Instances">14.4.2. Private Instances</h4>
 <div class="paragraph">
 <p>Often when importing topology <code>A</code> into topology <code>B</code>, you
 want to include one or more instances in <code>A</code> that exist just
@@ -11405,7 +11625,7 @@ the connection is imported into <code>B</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Importing-Topologies_Multiple-Imports">13.4.3. Multiple Imports</h4>
+<h4 id="Defining-Topologies_Importing-Topologies_Multiple-Imports">14.4.3. Multiple Imports</h4>
 <div class="paragraph">
 <p>Multiple imports are allowed.
 For example:</p>
@@ -11443,7 +11663,7 @@ For example, this is incorrect:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Importing-Topologies_Transitive-Imports">13.4.4. Transitive Imports</h4>
+<h4 id="Defining-Topologies_Importing-Topologies_Transitive-Imports">14.4.4. Transitive Imports</h4>
 <div class="paragraph">
 <p>In general, transitive imports are allowed.
 For example, topology <code>A</code> may import topology <code>B</code>,
@@ -11460,7 +11680,7 @@ and <code>C</code> imports <code>A</code>, you will get an error.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Topologies_Include-Specifiers">13.5. Include Specifiers</h3>
+<h3 id="Defining-Topologies_Include-Specifiers">14.5. Include Specifiers</h3>
 <div class="paragraph">
 <p>You can include code from another file in a topology definition.
 You do this by writing an <strong>include specifier</strong>.
@@ -11484,7 +11704,7 @@ below.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Topologies_Telemetry-Packets">13.6. Telemetry Packets</h3>
+<h3 id="Defining-Topologies_Telemetry-Packets">14.6. Telemetry Packets</h3>
 <div class="paragraph">
 <p>When defining a topology, you may (but are not required to)
 specify how the <a href="#Defining-Components_Telemetry">telemetry channels</a>
@@ -11497,7 +11717,7 @@ individual channels.
 In this section we explain how to specify telemetry packets in FPP.</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Sets">13.6.1. Telemetry Packet Sets</h4>
+<h4 id="Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Sets">14.6.1. Telemetry Packet Sets</h4>
 <div class="paragraph">
 <p>To group the channels of a topology <em>T</em> into packets, you write a
 <strong>telemetry packet set</strong> as part of the definition of <em>T</em>.
@@ -11652,7 +11872,7 @@ channel <code>M.c1.T</code> instead of channel <code>c1.T</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Identifiers">13.6.2. Telemetry Packet Identifiers</h4>
+<h4 id="Defining-Topologies_Telemetry-Packets_Telemetry-Packet-Identifiers">14.6.2. Telemetry Packet Identifiers</h4>
 <div class="paragraph">
 <p>Within a telemetry packet set, every packet has a unique numeric identifier.
 Typically the identifiers start at zero and count up by one.
@@ -11688,7 +11908,7 @@ packet P2 id 1 group 1 {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Telemetry-Packets_Omitting-Channels">13.6.3. Omitting Channels</h4>
+<h4 id="Defining-Topologies_Telemetry-Packets_Omitting-Channels">14.6.3. Omitting Channels</h4>
 <div class="paragraph">
 <p>By default, every telemetry channel in the topology must appear
 in at least one telemetry packet.
@@ -11753,7 +11973,7 @@ packet and also to appear in the omitted list.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Telemetry-Packets_Specifying-Multiple-Telemetry-Packet-Sets">13.6.4. Specifying Multiple Telemetry Packet Sets</h4>
+<h4 id="Defining-Topologies_Telemetry-Packets_Specifying-Multiple-Telemetry-Packet-Sets">14.6.4. Specifying Multiple Telemetry Packet Sets</h4>
 <div class="paragraph">
 <p>You may specify more than one telemetry packet set in a topology.
 Each telemetry packet set must have a distinct name.
@@ -11812,7 +12032,7 @@ telemetry packet set to use to decode the packets.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Topologies_Telemetry-Packets_Include-Specifiers">13.6.5. Include Specifiers</h4>
+<h4 id="Defining-Topologies_Telemetry-Packets_Include-Specifiers">14.6.5. Include Specifiers</h4>
 <div class="paragraph">
 <p>When writing a telemetry packet set, you can
 <a href="#Defining-Topologies_Include-Specifiers">include code
@@ -11858,7 +12078,7 @@ from other files, if you wish.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Specifying-Models-as-Files">14. Specifying Models as Files</h2>
+<h2 id="Specifying-Models-as-Files">15. Specifying Models as Files</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The previous sections have explained the syntactic and semantic elements
@@ -11877,7 +12097,7 @@ For more comprehensive coverage, see
 <a href="https://github.com/nasa/fpp/wiki/Tools">the FPP wiki</a>.</p>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models-as-Files_Dividing-Models-into-Files">14.1. Dividing Models into Files</h3>
+<h3 id="Specifying-Models-as-Files_Dividing-Models-into-Files">15.1. Dividing Models into Files</h3>
 <div class="paragraph">
 <p>FPP does not require any particular division of model
 elements into files.
@@ -11953,7 +12173,7 @@ multiple blocks
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models-as-Files_Include-Specifiers">14.2. Include Specifiers</h3>
+<h3 id="Specifying-Models-as-Files_Include-Specifiers">15.2. Include Specifiers</h3>
 <div class="paragraph">
 <p>As part of an FPP model, you can write one or more <strong>include specifiers</strong>.
 An include specifier is an instruction to include FPP source elements
@@ -12104,7 +12324,7 @@ error: identifier expected
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models-as-Files_Dependencies">14.3. Dependencies</h3>
+<h3 id="Specifying-Models-as-Files_Dependencies">15.3. Dependencies</h3>
 <div class="paragraph">
 <p>Whenever a model spans two or more files, one file <em>F</em> may use
 one or more definitions appearing in other files.
@@ -12201,7 +12421,7 @@ the CMake build process included in the F Prime distribution.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models-as-Files_Location-Specifiers">14.4. Location Specifiers</h3>
+<h3 id="Specifying-Models-as-Files_Location-Specifiers">15.4. Location Specifiers</h3>
 <div class="paragraph">
 <p>A location specifier is a unit of syntax in an FPP model.
 It specifies the location of a definition used in the model.</p>
@@ -12215,12 +12435,25 @@ in the section on <a href="#Specifying-Models-as-Files_Locating-Definitions">loc
 definitions</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Location-Specifiers_Syntax">14.4.1. Syntax</h4>
+<h4 id="Specifying-Models-as-Files_Location-Specifiers_Syntax">15.4.1. Syntax</h4>
 <div class="paragraph">
-<p>A location specifier consists of the keyword <code>locate</code>, a kind of definition,
+<p>In general, a location specifier consists of the keyword <code>locate</code>, a kind of
+definition,
 the name of a definition, and a string representing a file path.
-For example, to locate the definition of constant <code>a</code> at <code>a.fpp</code>,
-we would write</p>
+For type and constant specifiers, there is also an optional <code>dictionary</code>
+specifier, which we will describe
+<a href="#Specifying-Models-as-Files_Location-Specifiers_Dictionary-Definitions">below</a>.</p>
+</div>
+<div class="paragraph">
+<p>For example, to locate the definition</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = 0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>appearing in the file <code>a.fpp</code>, we would write</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -12229,9 +12462,58 @@ locate constant a at "a.fpp"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>For the current version of FPP, the kind of definition can be <code>constant</code>,
-<code>type</code>, or <code>port</code>.
-To locate a type <code>T</code> in a file <code>T.fpp</code>, we would write the following:</p>
+<p>The kind of definition must be one of the following:</p>
+</div>
+<table id="location-specifier-kinds" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 3. Location Specifier Kinds</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Keyword</th>
+<th class="tableblock halign-left valign-top">Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>component</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-Components">component definition</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>constant</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-Constants">constant definition</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>instance</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-Component-Instances">component instance definition</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>interface</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-and-Using-Port-Interfaces_Defining-Port-Interfaces">port interface definition</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>port</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-Ports">port definition</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>state</code> <code>machine</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-State-Machines">state machine definition</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>topology</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-Topologies">topology definition</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>type</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <a href="#Defining-Types">type</a> or <a href="#Defining-Enums">enum</a> definition</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>As a further example, to locate a type <code>T</code> in a file <code>T.fpp</code>, we would write the
+following:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -12259,9 +12541,12 @@ constants are then implied:</p>
 locate type E at "E.fpp"</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>The other kinds operate similarly.</p>
+</div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Location-Specifiers_Path-Names">14.4.2. Path Names</h4>
+<h4 id="Specifying-Models-as-Files_Location-Specifiers_Path-Names">15.4.2. Path Names</h4>
 <div class="paragraph">
 <p>As with
 <a href="#Specifying-Models-as-Files_Include-Specifiers">include specifiers</a>,
@@ -12290,7 +12575,7 @@ Then in <code>b.fpp</code> we could write this:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Location-Specifiers_Definition-Names">14.4.3. Definition Names</h4>
+<h4 id="Specifying-Models-as-Files_Location-Specifiers_Definition-Names">15.4.3. Definition Names</h4>
 <div class="paragraph">
 <p>The definition name appearing after the keyword <code>locate</code>
 may be a qualified name.
@@ -12337,7 +12622,7 @@ definitions and their uses.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Location-Specifiers_Included-Files">14.4.4. Included Files</h4>
+<h4 id="Specifying-Models-as-Files_Location-Specifiers_Included-Files">15.4.4. Included Files</h4>
 <div class="paragraph">
 <p>When you write a file that contains definitions and you
 <a href="#Specifying-Models-as-Files_Include-Specifiers">include that file in another file</a>,
@@ -12350,9 +12635,68 @@ When analyzing <code>b.fpp</code>, the location of the definition of the constan
 is <code>b.fpp</code>, not <code>a.fppi</code>.</p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="Specifying-Models-as-Files_Location-Specifiers_Dictionary-Definitions">15.4.5. Dictionary Definitions</h4>
+<div class="paragraph">
+<p>For type and constant specifiers only, if the definition being located
+is a
+<a href="#Dictionary-Definitions">dictionary definition</a>, then you must
+write the keyword <code>dictionary</code> after the keyword <code>locate</code>
+and before the definition kind.
+For example, to locate the dictionary definition</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">dictionary constant b = 1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>appearing in the file <code>b.fpp</code>, we would write</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp"># Locating a dictionary constant definition
+locate dictionary constant b at "b.fpp"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>dictionary</code> keyword tells the analyzer that the definition is a dictionary
+definition and so should be included in the dependency files of the model,
+regardless of whether the definition is used in the model.</p>
+</div>
+<div class="paragraph">
+<p>If a definition is a dictionary definition and the corresponding location
+specifier does not specify <code>dictionary</code> (or vice versa), then the analyzer
+will report an error.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifying-Models-as-Files_Location-Specifiers_Repeated-Location-Specifiers">15.4.6. Repeated Location Specifiers</h4>
+<div class="paragraph">
+<p>An FPP model may contain any number of location specifiers for the same
+definition, so long as the following conditions are met:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>All the specifiers must be consistent.
+This means that all the specifiers for the same definition
+provide the same location, and either they all specify <code>dictionary</code>
+or none of them does.</p>
+</li>
+<li>
+<p>All the specifiers must agree with the definition, if it exists
+in the model.
+This means that the location specifiers specify the location
+of the definition, and the specifiers specify <code>dictionary</code>
+if and only if the definition is a dictionary definition.</p>
+</li>
+</ol>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models-as-Files_Locating-Definitions">14.5. Locating Definitions</h3>
+<h3 id="Specifying-Models-as-Files_Locating-Definitions">15.5. Locating Definitions</h3>
 <div class="paragraph">
 <p>Given a collection of FPP source files <em>F</em>, you can generate location specifiers
 for all the definitions in <em>F</em>.
@@ -12364,7 +12708,7 @@ When analyzing other files that use the constants, you can use the location
 specifiers to discover dependencies on individual files within <code>Constants</code>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Locating-Definitions_Running-fpp-locate-defs">14.5.1. Running fpp-locate-defs</h4>
+<h4 id="Specifying-Models-as-Files_Locating-Definitions_Running-fpp-locate-defs">15.5.1. Running fpp-locate-defs</h4>
 <div class="paragraph">
 <p>To locate definitions, do the following:</p>
 </div>
@@ -12401,7 +12745,7 @@ Running</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Locating-Definitions_Location-Paths">14.5.2. Location Paths</h4>
+<h4 id="Specifying-Models-as-Files_Locating-Definitions_Location-Paths">15.5.2. Location Paths</h4>
 <div class="paragraph">
 <p>By default, the location path is relative to the current
 directory.
@@ -12423,7 +12767,7 @@ For example, running</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Locating-Definitions_Included-Definitions">14.5.3. Included Definitions</h4>
+<h4 id="Specifying-Models-as-Files_Locating-Definitions_Included-Definitions">15.5.3. Included Definitions</h4>
 <div class="paragraph">
 <p>Consider the case where you write a definition in one file and
 include that file in another file via an
@@ -12479,7 +12823,7 @@ If your main FPP files end with <code>.fpp</code> and your included FPP files en
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models-as-Files_Computing-Dependencies">14.6. Computing Dependencies</h3>
+<h3 id="Specifying-Models-as-Files_Computing-Dependencies">15.6. Computing Dependencies</h3>
 <div class="paragraph">
 <p>Given files <em>F</em> and location specifiers <em>L</em> that locate the definitions used in
 <em>F</em>, you can
@@ -12487,7 +12831,7 @@ generate the dependencies of <em>F</em>.
 The tool for doing this is called <code>fpp-depend</code>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Running-fpp-depend">14.6.1. Running fpp-depend</h4>
+<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Running-fpp-depend">15.6.1. Running fpp-depend</h4>
 <div class="paragraph">
 <p>To run <code>fpp-depend</code>, you pass it as input (1) files <em>F</em> that you want to
 analyze
@@ -12559,7 +12903,7 @@ So the following is equivalent:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Transitive-Dependencies">14.6.2. Transitive Dependencies</h4>
+<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Transitive-Dependencies">15.6.2. Transitive Dependencies</h4>
 <div class="paragraph">
 <p><code>fpp-depend</code> computes dependencies transitively.
 This means that if <em>A</em> depends on <em>B</em> and <em>B</em>
@@ -12618,7 +12962,7 @@ produces both dependencies:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Missing-Dependencies">14.6.3. Missing Dependencies</h4>
+<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Missing-Dependencies">15.6.3. Missing Dependencies</h4>
 <div class="paragraph">
 <p>Suppose we construct the files <code>locations.fpp</code> and <code>a.fpp</code>, <code>b.fpp</code>, and <code>c.fpp</code>
 as described in the previous section, but then we temporarily remove <code>b.fpp</code>.
@@ -12681,7 +13025,7 @@ the dependency <code>[path-prefix]/b.fpp</code> to standard output.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Included-Files">14.6.4. Included Files</h4>
+<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Included-Files">15.6.4. Included Files</h4>
 <div class="paragraph">
 <p>Suppose file <code>a.fpp</code> contains the
 <a href="#Specifying-Models-as-Files_Include-Specifiers">include specifier</a>
@@ -12747,7 +13091,7 @@ to the output plus the contents of <em>file</em>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Dependencies-Between-Build-Modules">14.6.5. Dependencies Between Build Modules</h4>
+<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Dependencies-Between-Build-Modules">15.6.5. Dependencies Between Build Modules</h4>
 <div class="paragraph">
 <p>As discussed
 <a href="#Specifying-Models-as-Files_Computing-Dependencies_Transitive-Dependencies">above</a>, the standard output of <code>fpp-depend</code> reports transitive dependencies.
@@ -12841,7 +13185,7 @@ included files are already present in <code>direct.txt</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Framework-Dependencies">14.6.6. Framework Dependencies</h4>
+<h4 id="Specifying-Models-as-Files_Computing-Dependencies_Framework-Dependencies">15.6.6. Framework Dependencies</h4>
 <div class="paragraph">
 <p>Certain FPP constructs imply dependencies on parts of the F Prime framework
 that may not be available on all platforms.
@@ -12877,7 +13221,7 @@ be provided to the linker.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models-as-Files_Locating-Uses">14.7. Locating Uses</h3>
+<h3 id="Specifying-Models-as-Files_Locating-Uses">15.7. Locating Uses</h3>
 <div class="paragraph">
 <p>Given a collection of files <em>F</em> and their dependencies <em>D</em>, you can generate
 the locations of the definitions appearing in <em>D</em> and used in <em>F</em>.
@@ -12957,7 +13301,7 @@ for the location specifiers.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models-as-Files_Path-Name-Aliases">14.8. Path Name Aliases</h3>
+<h3 id="Specifying-Models-as-Files_Path-Name-Aliases">15.8. Path Name Aliases</h3>
 <div class="paragraph">
 <p>Because FPP associates locations with symbols, and the locations
 are path names, care is required when using path names that are
@@ -12966,7 +13310,7 @@ There are two issues to consider:
 relative paths and unique locations.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Path-Name-Aliases_Relative-Paths-and-Symbolic-Links">14.8.1. Relative Paths and Symbolic Links</h4>
+<h4 id="Specifying-Models-as-Files_Path-Name-Aliases_Relative-Paths-and-Symbolic-Links">15.8.1. Relative Paths and Symbolic Links</h4>
 <div class="paragraph">
 <p>A <strong>relative path</strong> is a path that does not start with a slash and is
 relative to the current directory path, which is
@@ -13032,7 +13376,7 @@ See that section for details, and for suggested workarounds.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Path-Name-Aliases_Unique-Locations">14.8.2. Unique Locations</h4>
+<h4 id="Specifying-Models-as-Files_Path-Name-Aliases_Unique-Locations">15.8.2. Unique Locations</h4>
 <div class="paragraph">
 <p>The FPP analyzers assume that each symbol <em>s</em> has
 a unique path defining the location of the source file where
@@ -13056,7 +13400,7 @@ time, after resolving relative paths as described above.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Analyzing-and-Translating-Models">15. Analyzing and Translating Models</h2>
+<h2 id="Analyzing-and-Translating-Models">16. Analyzing and Translating Models</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The previous section explained how to specify an FPP model
@@ -13068,7 +13412,7 @@ translation on part or all of an FPP model, after specifying
 the model and computing its dependencies.</p>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Checking-Models">15.1. Checking Models</h3>
+<h3 id="Analyzing-and-Translating-Models_Checking-Models">16.1. Checking Models</h3>
 <div class="paragraph">
 <p>It is often useful to check a model for correctness, without
 doing any translation.
@@ -13238,7 +13582,7 @@ even though <code>c.Out</code> has two ports and only one of them is connected.<
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus">15.2. Generating C Plus Plus</h3>
+<h3 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus">16.2. Generating C Plus Plus</h3>
 <div class="paragraph">
 <p>This section describes how to generate C&#43;&#43; from FPP.</p>
 </div>
@@ -13320,7 +13664,7 @@ for <a href="#Analyzing-and-Translating-Models_Checking-Models"><code>fpp-check<
 translated to C&#43;&#43; files.</p>
 </div>
 <table id="cpp-file-names" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. C&#43;&#43; File Names</caption>
+<caption class="title">Table 4. C&#43;&#43; File Names</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -13460,7 +13804,7 @@ type T3 = A # A is not C-compatible</code></pre>
 C programs and the <code>.hpp</code> header in your C&#43;&#43; programs.</p>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">15.2.1. Constant Definitions</h4>
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">16.2.1. Constant Definitions</h4>
 <div class="paragraph">
 <p><code>fpp-to-cpp</code> extracts <a href="#Defining-Constants">constant definitions</a>
 from the source files <em>F</em>.
@@ -13730,7 +14074,7 @@ an automatic default of 80.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-State-Machines-and-Components">15.2.2. Types, Ports, State Machines, and Components</h4>
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-State-Machines-and-Components">16.2.2. Types, Ports, State Machines, and Components</h4>
 <div class="paragraph">
 <p><strong>Generating code:</strong>
 To generate code for type, port, state machine, and component definitions, you
@@ -13781,7 +14125,7 @@ Prime design documentation</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">15.2.3. Component Implementation and Unit Test Code</h4>
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">16.2.3. Component Implementation and Unit Test Code</h4>
 <div class="paragraph">
 <p><code>fpp-to-cpp</code> has options <code>-t</code> and <code>-u</code> for generating component &#8220;templates&#8221;
 or
@@ -13884,7 +14228,7 @@ build system does it for you.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">15.2.4. Topology Definitions</h4>
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">16.2.4. Topology Definitions</h4>
 <div class="paragraph">
 <p><code>fpp-to-cpp</code> also extracts <a href="#Defining-Topologies">topology definitions</a>
 from the source files.
@@ -13940,7 +14284,7 @@ the include guard prefix comes from the name of the topology.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Compiling-the-Generated-Code">15.2.5. Compiling the Generated Code</h4>
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Compiling-the-Generated-Code">16.2.5. Compiling the Generated Code</h4>
 <div class="paragraph">
 <p>The generated C&#43;&#43; is intended to compile with the following gcc
 and clang compiler flags:</p>
@@ -13970,7 +14314,7 @@ and clang compiler flags:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Formatting-FPP-Source">15.3. Formatting FPP Source</h3>
+<h3 id="Analyzing-and-Translating-Models_Formatting-FPP-Source">16.3. Formatting FPP Source</h3>
 <div class="paragraph">
 <p>The tool <code>fpp-format</code> accepts FPP source files as input
 and rewrites them as formatted output.
@@ -14044,7 +14388,7 @@ annotations back to comments.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Visualizing-Topologies">15.4. Visualizing Topologies</h3>
+<h3 id="Analyzing-and-Translating-Models_Visualizing-Topologies">16.4. Visualizing Topologies</h3>
 <div class="paragraph">
 <p>FPP provides a tool called <code>fpp-to-layout</code> for generating files
 that you can use to visualize topologies.
@@ -14161,7 +14505,7 @@ repository</a> for more details.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Generating-Ground-Dictionaries">15.5. Generating Ground Dictionaries</h3>
+<h3 id="Analyzing-and-Translating-Models_Generating-Ground-Dictionaries">16.5. Generating Ground Dictionaries</h3>
 <div class="paragraph">
 <p>A <strong>ground dictionary</strong> specifies all the commands,
 events, telemetry, parameters, and data products in a FSW
@@ -14300,7 +14644,7 @@ in the project.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Identifying-Generated-Files">15.6. Identifying Generated Files</h3>
+<h3 id="Analyzing-and-Translating-Models_Identifying-Generated-Files">16.6. Identifying Generated Files</h3>
 <div class="paragraph">
 <p>As discussed in the
 <a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">section on generating
@@ -14317,7 +14661,7 @@ There are two ways to collect the names of generated files:
 using <code>fpp-filenames</code> and using <code>fpp-depend</code>.</p>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-filenames">15.6.1. Using fpp-filenames</h4>
+<h4 id="Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-filenames">16.6.1. Using fpp-filenames</h4>
 <div class="paragraph">
 <p>Like <code>fpp-check</code>, <code>fpp-filenames</code> reads the files
 provided as command-line arguments if there are any;
@@ -14417,7 +14761,7 @@ CTester.hpp</pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-depend">15.6.2. Using fpp-depend</h4>
+<h4 id="Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-depend">16.6.2. Using fpp-depend</h4>
 <div class="paragraph">
 <p>Alternatively, you can use
 <a href="#Specifying-Models-as-Files_Computing-Dependencies"><code>fpp-depend</code></a>
@@ -14492,7 +14836,7 @@ needed during dependency analysis.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Generating-JSON-Models">15.7. Generating JSON Models</h3>
+<h3 id="Analyzing-and-Translating-Models_Generating-JSON-Models">16.7. Generating JSON Models</h3>
 <div class="paragraph">
 <p>FPP provides a tool called <code>fpp-to-json</code> for converting FPP models to
 JavaScript Object Notation (JSON) format.
@@ -14675,7 +15019,7 @@ a complete or semantically correct FPP model to the tool.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Translating-Older-XML-to-FPP">15.8. Translating Older XML to FPP</h3>
+<h3 id="Analyzing-and-Translating-Models_Translating-Older-XML-to-FPP">16.8. Translating Older XML to FPP</h3>
 <div class="paragraph">
 <p>Previous versions of F Prime used XML to represent model
 elements such as components and ports.
@@ -15074,7 +15418,7 @@ to <code>Commands.fppi</code>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Writing-C-Plus-Plus-Implementations">16. Writing C Plus Plus Implementations</h2>
+<h2 id="Writing-C-Plus-Plus-Implementations">17. Writing C Plus Plus Implementations</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>When constructing an F Prime deployment in C&#43;&#43;, there are generally
@@ -15118,7 +15462,7 @@ We also discuss <strong>serialization</strong> of data values, i.e., representin
 FPP data values as binary data for storage and transmission.</p>
 </div>
 <div class="sect2">
-<h3 id="Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types">16.1. Implementing Abstract Types</h3>
+<h3 id="Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types">17.1. Implementing Abstract Types</h3>
 <div class="paragraph">
 <p>When translating to C&#43;&#43;, an
 <a href="#Defining-Types_Abstract-Type-Definitions">abstract type definition</a>
@@ -15292,7 +15636,7 @@ the generated C&#43;&#43; may not compile.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Writing-C-Plus-Plus-Implementations_Implementing-External-State-Machines">16.2. Implementing External State Machines</h3>
+<h3 id="Writing-C-Plus-Plus-Implementations_Implementing-External-State-Machines">17.2. Implementing External State Machines</h3>
 <div class="paragraph">
 <p>An <a href="#Defining-State-Machines_Writing-a-State-Machine-Definition">external state machine</a> refers to a state machine implementation
 supplied outside the FPP model.
@@ -15310,7 +15654,7 @@ see <code>FppTest/state_machine</code> in the F Prime repository.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments">16.3. Implementing Deployments</h3>
+<h3 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments">17.3. Implementing Deployments</h3>
 <div class="paragraph">
 <p>At the highest level of an F Prime implementation, you write
 two units of C&#43;&#43; code:</p>
@@ -15331,7 +15675,7 @@ topology code.</p>
 <p>We describe each of these code units below.</p>
 </div>
 <div class="sect3">
-<h4 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Application-Specific-Definitions">16.3.1. Application-Specific Definitions</h4>
+<h4 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Application-Specific-Definitions">17.3.1. Application-Specific Definitions</h4>
 <div class="paragraph">
 <p>As discussed in the section on
 <a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">generating C&#43;&#43; topology definitions</a>, when you translate an FPP
@@ -15513,7 +15857,7 @@ The corresponding link-time symbol is defined in <code>SystemReferenceTopologyDe
 </div>
 </div>
 <div class="sect3">
-<h4 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments_The-Main-Function">16.3.2. The Main Function</h4>
+<h4 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments_The-Main-Function">17.3.2. The Main Function</h4>
 <div class="paragraph">
 <p>You must write a main function that performs application-specific
 and system-specific tasks such as parsing command-line arguments,
@@ -15597,7 +15941,7 @@ F Prime system reference repository.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Public-Symbols">16.3.3. Public Symbols</h4>
+<h4 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Public-Symbols">17.3.3. Public Symbols</h4>
 <div class="paragraph">
 <p>The header file <em>T</em> <code>TopologyAc.hpp</code> declares several public
 symbols that you can use when writing your main function.</p>
@@ -15660,7 +16004,7 @@ function, you may.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Writing-C-Plus-Plus-Implementations_Serialization-of-FPP-Values">16.4. Serialization of FPP Values</h3>
+<h3 id="Writing-C-Plus-Plus-Implementations_Serialization-of-FPP-Values">17.4. Serialization of FPP Values</h3>
 <div class="paragraph">
 <p>Every value represented in FPP can be <strong>serialized</strong>, i.e., converted into a
 machine-independent sequence of bytes.
@@ -15789,7 +16133,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-10-30 13:48:01 -0700
+Last updated 2025-11-03 15:40:06 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

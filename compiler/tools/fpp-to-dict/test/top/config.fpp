@@ -1,11 +1,12 @@
-type FwChanIdType = U32
-type FwDpIdType = U32
-type FwDpPriorityType = U32
-type FwEventIdType = U32
-type FwOpcodeType = U32
-type FwPacketDescriptorType = U32
+type BaseIdType = U32
+type FwChanIdType = BaseIdType
+type FwDpIdType = BaseIdType
+type FwDpPriorityType = BaseIdType
+type FwEventIdType = BaseIdType
+type FwOpcodeType = BaseIdType
+type FwPacketDescriptorType = BaseIdType
 type FwTlmPacketizeIdType = U16
-type FwSizeType = U32
+type FwSizeType = BaseIdType
 type FwSizeStoreType = U16
 
 @ The type used to serialize a time base value

@@ -7,4 +7,7 @@ missingFwOpcodeType
 missingUserDataSizeConstant
 invalidUserDataSizeConstant
 unqualifiedComponentInstances
+invalidDictDefConstant
+invalidDictDefType
+dictionaryDefs
 "
