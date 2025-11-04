@@ -15,7 +15,7 @@ module Fw {
   port Tlm
 }
 
-array A = [3] U32
+dictionary array A = [3] U32
 constant a = 0
 enum E { X, Y }
 enum Phases { setup, teardown }
@@ -26,7 +26,7 @@ constant t = {seconds=10,useconds=20}
 
 module M {
   array A = [3] U32
-  constant a = 0
+  dictionary constant a = 0
   enum E { X, Y }
   struct S { x: U32 }
   type T
@@ -40,7 +40,7 @@ active component C1 {
   array A = [3] U32
   constant a = 0
   enum E { X, Y }
-  struct S { x: U32 }
+  dictionary struct S { x: U32 }
   type T
   state machine S
 }
@@ -60,7 +60,7 @@ module M {
   passive component C1 {
     array A = [3] U32
     constant a = 0
-    enum E { X, Y }
+    dictionary enum E { X, Y }
     struct S { x: U32 }
     type T
     state machine S
@@ -80,8 +80,8 @@ constant stack_size_def = 10
 constant priority_def = 10
 constant cpu_def = 0
 constant record_id = 0
-array RecordType = [3] U32
-constant container_id = 0
+dictionary array RecordType = [3] U32
+dictionary constant container_id = 0
 constant container_priority = 0
 constant product_recv_priority = 0
 

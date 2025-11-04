@@ -133,7 +133,7 @@ an anonymous array value stem:[v] has the form `[` stem:[v_1] `,` stem:[...]
 `,`
 stem:[v_{n-1}] `]`, where
 
-. stem:[n] is a positive integer called the *size* of the anonymous array 
+. stem:[n] is a positive integer called the *size* of the anonymous array
   value.
 
 . For each stem:[i in [0,n-1]], stem:[v_i] is a value of type

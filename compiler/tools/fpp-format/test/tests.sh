@@ -7,4 +7,5 @@ interface
 kwd_names
 no_include
 state_machine
+dictionary_specifier
 "

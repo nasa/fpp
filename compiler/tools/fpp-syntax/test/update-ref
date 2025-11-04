@@ -29,6 +29,7 @@ update "" illegal-character
 update "" parse-error
 update "" syntax
 update "" syntax-kwd-names
+update -a dictionary-specifier
 update -a state-machine
 update -a empty
 update -a escaped-strings

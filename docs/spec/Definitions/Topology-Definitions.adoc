@@ -183,7 +183,7 @@ step are all the matched connections at _I_ `.` stem:[p_2].
 
 .. For each pair stem:[(c_1,c_2)] computed in step c:
 
-... If stem:[c_1] has a port number stem:[n_1] assigned at _I_ `.` stem:[p_1] and 
+... If stem:[c_1] has a port number stem:[n_1] assigned at _I_ `.` stem:[p_1] and
 stem:[c_2] has a port number stem:[n_2] assigned at
 _I_ `.` stem:[p_2], then check that stem:[n_1 = n_2].
 
@@ -305,7 +305,7 @@ The only requirement levied here is that, when generating a dictionary,
 the FPP implementation must guarantee that all the framework definitions
 required by the dictionary specification are available in the model.
 Those framework definitions are specified
-in the https://fprime.jpl.nasa.gov/latest/docs/reference/fpp-json-dict/[F Prime 
+in the https://fprime.jpl.nasa.gov/latest/docs/reference/fpp-json-dict/[F Prime
 dictionary specification].
 
 ==== Examples
