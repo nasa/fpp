@@ -279,10 +279,21 @@ definitions>>.
 
 ==== Syntax
 
-A location specifier consists of the keyword `locate`, a kind of definition,
+In general, a location specifier consists of the keyword `locate`, a kind of 
+definition,
 the name of a definition, and a string representing a file path.
-For example, to locate the definition of constant `a` at `a.fpp`,
-we would write
+For type and constant specifiers, there is also an optional `dictionary`
+specifier, which we will describe 
+<<Specifying-Models-as-Files_Location-Specifiers_Dictionary-Definitions,below>>.
+
+For example, to locate the definition
+
+[source,fpp]
+----
+constant a = 0
+----
+
+appearing in the file `a.fpp`, we would write
 
 [source,fpp]
 ----
@@ -290,9 +301,40 @@ we would write
 locate constant a at "a.fpp"
 ----
 
-For the current version of FPP, the kind of definition can be `constant`, 
-`type`, or `port`.
-To locate a type `T` in a file `T.fpp`, we would write the following:
+The kind of definition must be one of the following:
+
+[[location-specifier-kinds]]
+.Location Specifier Kinds
+|===
+|Keyword|Meaning
+
+|`component`
+|A <<Defining-Components,component definition>>
+
+|`constant`
+|A <<Defining-Constants,constant definition>>
+
+|`instance`
+|A <<Defining-Component-Instances,component instance definition>>
+
+|`interface`
+|A <<Defining-and-Using-Port-Interfaces_Defining-Port-Interfaces,port interface definition>>
+
+|`port`
+|A <<Defining-Ports,port definition>>
+
+|`state` `machine`
+|A <<Defining-State-Machines,state machine definition>>
+
+|`topology`
+|A <<Defining-Topologies,topology definition>>
+
+|`type`
+|A <<Defining-Types,type>> or <<Defining-Enums,enum>> definition
+|===
+
+As a further example, to locate a type `T` in a file `T.fpp`, we would write the 
+following:
 
 [source,fpp]
 ----
@@ -317,6 +359,8 @@ constants are then implied:
 # including the enumerated constant definitions
 locate type E at "E.fpp"
 ----
+
+The other kinds operate similarly.
 
 ==== Path Names
 
@@ -396,6 +440,52 @@ definition `constant a = 0`,
 and suppose that file `b.fpp` contains the include specifier `include "a.fppi"`.
 When analyzing `b.fpp`, the location of the definition of the constant `a`
 is `b.fpp`, not `a.fppi`.
+
+==== Dictionary Definitions
+
+For type and constant specifiers only, if the definition being located
+is a
+<<Dictionary-Definitions,dictionary definition>>, then you must
+write the keyword `dictionary` after the keyword `locate`
+and before the definition kind.
+For example, to locate the dictionary definition
+
+[source,fpp]
+----
+dictionary constant b = 1
+----
+
+appearing in the file `b.fpp`, we would write
+
+[source,fpp]
+----
+# Locating a dictionary constant definition
+locate dictionary constant b at "b.fpp"
+----
+
+The `dictionary` keyword tells the analyzer that the definition is a dictionary
+definition and so should be included in the dependency files of the model,
+regardless of whether the definition is used in the model.
+
+If a definition is a dictionary definition and the corresponding location
+specifier does not specify `dictionary` (or vice versa), then the analyzer
+will report an error.
+
+==== Repeated Location Specifiers
+
+An FPP model may contain any number of location specifiers for the same
+definition, so long as the following conditions are met:
+
+. All the specifiers must be consistent.
+This means that all the specifiers for the same definition
+provide the same location, and either they all specify `dictionary`
+or none of them does.
+
+. All the specifiers must agree with the definition, if it exists
+in the model.
+This means that the location specifiers specify the location
+of the definition, and the specifiers specify `dictionary`
+if and only if the definition is a dictionary definition.
 
 === Locating Definitions
 

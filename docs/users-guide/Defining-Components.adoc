@@ -1051,7 +1051,8 @@ for the following:
 . None of the parameters may be a
 <<Defining-Ports_Reference-Parameters,reference parameter>>.
 
-. Each parameter must have a *displayable type*, i.e., a
+. Each parameter must have a <<Dictionary-Definitions,displayable type>>, i.e., 
+a
 type that the F Prime ground data system knows how to display.
 For example, the type may not be an
 <<Defining-Types_Abstract-Type-Definitions,abstract type>>.
