@@ -5,6 +5,9 @@ with it.
 
 ==== Syntax
 
+_[_
+`dictionary`
+_]_
 `struct` <<Lexical-Elements_Identifiers,_identifier_>>
 `{` _struct-type-member-sequence_ `}`
 _[_ `default` <<Expressions,_expression_>> _]_
@@ -55,6 +58,10 @@ The type of the expression must be
 <<Type-Checking_Type-Conversion,convertible to>> _T_.
 If the expression specifies a value for a member with size
 greater than one, then the value is applied to each element.
+
+If the optional keyword `dictionary` is present, then the
+definition must conform to the rules stated in the
+<<Definitions_Dictionary-Definitions,dictionary definitions>> section.
 
 ==== Examples
 

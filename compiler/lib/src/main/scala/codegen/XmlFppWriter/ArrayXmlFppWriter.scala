@@ -59,7 +59,8 @@ object ArrayXmlFppWriter extends LineUtils {
           AstNode.create(Ast.ExprLiteralInt(xmlSize.text)),
           AstNode.create(eltType),
           fppDefaultsOpt,
-          fppFormatOpt.map(AstNode.create(_))
+          fppFormatOpt.map(AstNode.create(_)),
+          false
         )
         (note ++ comment, node, Nil)
       }
