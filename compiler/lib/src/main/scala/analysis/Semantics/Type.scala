@@ -189,7 +189,6 @@ object Type {
   case class AliasType(
     /** The AST node giving the definition */
     node: Ast.Annotated[AstNode[Ast.DefAliasType]],
-
     /** Type that this typedef points to */
     aliasType: Type
   ) extends Type {

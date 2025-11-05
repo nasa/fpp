@@ -1,0 +1,10 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/struct_dictionary_error.fpp:1.1
+locate type S at "struct_dictionary_error.fpp"
+^
+error: incorrect location specifier
+actual definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/spec_loc/struct_dictionary_error.fpp:3.1
+dictionary struct S { x: U32 }
+^
+note: one specifies dictionary and one does not

@@ -1,4 +1,6 @@
 tests="
+alias_dictionary_not_displayable
+alias_dictionary_ok
 alias_type_ok
 string_size_negative
 string_size_not_numeric

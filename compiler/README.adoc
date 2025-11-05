@@ -2,8 +2,30 @@
 
 == Requirements
 
-* A Unix environment, such as Linux, Mac OS, or the Windows Subsystem for Linux.
-* The https://www.scala-sbt.org[Simple Build Tool (sbt)] for Scala.
+. A Unix environment, such as Linux, Mac OS, or the Windows Subsystem for Linux.
+
+. The https://www.scala-sbt.org[Simple Build Tool (sbt)] for Scala.
+
+. Version 11 of the Java Development Kit (JDK).
+If you have a different version of Java installed on your system, then
+you can do the following:
+
+.. Install version 11 of the JDK.
+For example, in MacPorts you can run
++
+[source,bash]
+----
+% sudo port install openjdk11-graalvm
+----
+
+.. Set the environment variable `JAVA_HOME` to the home directory associated
+with the installation.
+For example, on Mac OS:
++
+[source,bash]
+----
+% export JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk11-graalvm/Contents/Home
+----
 
 == Installing
 
@@ -117,7 +139,7 @@ For example, on Mac OS:
 +
 [source,bash]
 ----
-% export GRAALVM_JAVA_HOME=Library/Java/JavaVirtualMachines/openjdk11-graalvm/Contents/Home
+% export GRAALVM_JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk11-graalvm/Contents/Home
 ----
 
 . Run `sudo $GRAALVM_JAVA_HOME/bin/gu install native-image`

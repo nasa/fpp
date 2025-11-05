@@ -97,7 +97,7 @@ stem:[[0,10^6)].
 
 +
 +
-If a throttle period stem:[p] is specified for event _E_, and the throttle 
+If a throttle period stem:[p] is specified for event _E_, and the throttle
 count
 for _E_ goes from zero to nonzero at time stem:[t], and a request
 to emit an instance of _E_ occurs at or after time stem:[t + p], then the

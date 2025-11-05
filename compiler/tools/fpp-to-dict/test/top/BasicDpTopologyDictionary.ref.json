@@ -85,23 +85,7 @@
     },
     {
       "kind" : "alias",
-      "qualifiedName" : "FwEventIdType",
-      "type" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
-      },
-      "underlyingType" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
-      }
-    },
-    {
-      "kind" : "alias",
-      "qualifiedName" : "FwSizeType",
+      "qualifiedName" : "BaseIdType",
       "type" : {
         "name" : "U32",
         "kind" : "integer",
@@ -134,12 +118,10 @@
     },
     {
       "kind" : "alias",
-      "qualifiedName" : "FwDpIdType",
+      "qualifiedName" : "FwEventIdType",
       "type" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
       },
       "underlyingType" : {
         "name" : "U32",
@@ -195,22 +177,6 @@
     },
     {
       "kind" : "alias",
-      "qualifiedName" : "FwPacketDescriptorType",
-      "type" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
-      },
-      "underlyingType" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
-      }
-    },
-    {
-      "kind" : "alias",
       "qualifiedName" : "FppTest.DpTestComponent.AliasU16",
       "type" : {
         "name" : "U16",
@@ -228,12 +194,10 @@
     },
     {
       "kind" : "alias",
-      "qualifiedName" : "FwDpPriorityType",
+      "qualifiedName" : "FwPacketDescriptorType",
       "type" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
       },
       "underlyingType" : {
         "name" : "U32",
@@ -244,12 +208,10 @@
     },
     {
       "kind" : "alias",
-      "qualifiedName" : "FwOpcodeType",
+      "qualifiedName" : "FwDpIdType",
       "type" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
       },
       "underlyingType" : {
         "name" : "U32",
@@ -262,10 +224,50 @@
       "kind" : "alias",
       "qualifiedName" : "FwChanIdType",
       "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
         "name" : "U32",
         "kind" : "integer",
         "size" : 32,
         "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwOpcodeType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwDpPriorityType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwSizeType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
       },
       "underlyingType" : {
         "name" : "U32",

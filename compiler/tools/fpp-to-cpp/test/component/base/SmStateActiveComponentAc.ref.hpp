@@ -1638,7 +1638,7 @@ namespace FppTest {
       virtual void smStateBasicGuardTestAbsType_stateMachineOverflowHook(
           SmId smId, //!< The state machine ID
           FwEnumStoreType signal, //!< The signal
-          Fw::SerializeBufferBase& buffer //!< The message buffer
+          Fw::SerialBufferBase& buffer //!< The message buffer
       ) = 0;
 
     protected:
@@ -2178,132 +2178,132 @@ namespace FppTest {
       void sendSignalStart(
           SmId smId, //!< The state machine ID (input)
           FwEnumStoreType signal, //!< The signal (input)
-          Fw::SerializeBufferBase& buffer //!< The message buffer (output)
+          Fw::SerialBufferBase& buffer //!< The message buffer (output)
       );
 
       //! Finish sending a signal to a state machine
       void basic1_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void basic2_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smStateBasic1_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smStateBasic2_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smStateBasicGuard_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smStateBasicGuardString_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smStateBasicGuardTestAbsType_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smStateBasicGuardTestArray_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smStateBasicGuardTestEnum_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smStateBasicGuardTestStruct_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smStateBasicGuardU32_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smStateBasicInternal_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smStateBasicSelf_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smStateBasicString_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smStateBasicTestAbsType_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smStateBasicTestArray_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smStateBasicTestEnum_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smStateBasicTestStruct_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smStateBasicU32_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smStateInternal_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smStatePolymorphism_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smStateStateToChild_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smStateStateToChoice_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smStateStateToSelf_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
       void smStateStateToState_sendSignalFinish(
-          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+          Fw::LinearBufferBase& buffer //!< The buffer with the data to send
       );
 
     private:
@@ -2314,173 +2314,173 @@ namespace FppTest {
 
       //! Dispatch a signal to a state machine instance
       void smDispatch(
-          Fw::SerializeBufferBase& buffer //!< The message buffer
+          Fw::SerialBufferBase& buffer //!< The message buffer
       );
 
       //! Deserialize the state machine ID and signal from the message buffer
       static void deserializeSmIdAndSignal(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer (input and output)
+          Fw::SerialBufferBase& buffer, //!< The message buffer (input and output)
           FwEnumStoreType& smId, //!< The state machine ID (output)
           FwEnumStoreType& signal //!< The signal (output)
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmState_Basic
       void FppTest_SmState_Basic_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmState_Basic& sm, //!< The state machine
           FppTest_SmState_Basic::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmState_BasicGuard
       void FppTest_SmState_BasicGuard_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmState_BasicGuard& sm, //!< The state machine
           FppTest_SmState_BasicGuard::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmState_BasicGuardString
       void FppTest_SmState_BasicGuardString_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmState_BasicGuardString& sm, //!< The state machine
           FppTest_SmState_BasicGuardString::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmState_BasicGuardTestAbsType
       void FppTest_SmState_BasicGuardTestAbsType_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmState_BasicGuardTestAbsType& sm, //!< The state machine
           FppTest_SmState_BasicGuardTestAbsType::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmState_BasicGuardTestArray
       void FppTest_SmState_BasicGuardTestArray_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmState_BasicGuardTestArray& sm, //!< The state machine
           FppTest_SmState_BasicGuardTestArray::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmState_BasicGuardTestEnum
       void FppTest_SmState_BasicGuardTestEnum_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmState_BasicGuardTestEnum& sm, //!< The state machine
           FppTest_SmState_BasicGuardTestEnum::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmState_BasicGuardTestStruct
       void FppTest_SmState_BasicGuardTestStruct_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmState_BasicGuardTestStruct& sm, //!< The state machine
           FppTest_SmState_BasicGuardTestStruct::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmState_BasicGuardU32
       void FppTest_SmState_BasicGuardU32_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmState_BasicGuardU32& sm, //!< The state machine
           FppTest_SmState_BasicGuardU32::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmState_BasicInternal
       void FppTest_SmState_BasicInternal_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmState_BasicInternal& sm, //!< The state machine
           FppTest_SmState_BasicInternal::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmState_BasicSelf
       void FppTest_SmState_BasicSelf_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmState_BasicSelf& sm, //!< The state machine
           FppTest_SmState_BasicSelf::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmState_BasicString
       void FppTest_SmState_BasicString_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmState_BasicString& sm, //!< The state machine
           FppTest_SmState_BasicString::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmState_BasicTestAbsType
       void FppTest_SmState_BasicTestAbsType_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmState_BasicTestAbsType& sm, //!< The state machine
           FppTest_SmState_BasicTestAbsType::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmState_BasicTestArray
       void FppTest_SmState_BasicTestArray_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmState_BasicTestArray& sm, //!< The state machine
           FppTest_SmState_BasicTestArray::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmState_BasicTestEnum
       void FppTest_SmState_BasicTestEnum_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmState_BasicTestEnum& sm, //!< The state machine
           FppTest_SmState_BasicTestEnum::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmState_BasicTestStruct
       void FppTest_SmState_BasicTestStruct_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmState_BasicTestStruct& sm, //!< The state machine
           FppTest_SmState_BasicTestStruct::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmState_BasicU32
       void FppTest_SmState_BasicU32_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmState_BasicU32& sm, //!< The state machine
           FppTest_SmState_BasicU32::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmState_Internal
       void FppTest_SmState_Internal_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmState_Internal& sm, //!< The state machine
           FppTest_SmState_Internal::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmState_Polymorphism
       void FppTest_SmState_Polymorphism_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmState_Polymorphism& sm, //!< The state machine
           FppTest_SmState_Polymorphism::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmState_StateToChild
       void FppTest_SmState_StateToChild_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmState_StateToChild& sm, //!< The state machine
           FppTest_SmState_StateToChild::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmState_StateToChoice
       void FppTest_SmState_StateToChoice_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmState_StateToChoice& sm, //!< The state machine
           FppTest_SmState_StateToChoice::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmState_StateToSelf
       void FppTest_SmState_StateToSelf_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmState_StateToSelf& sm, //!< The state machine
           FppTest_SmState_StateToSelf::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmState_StateToState
       void FppTest_SmState_StateToState_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmState_StateToState& sm, //!< The state machine
           FppTest_SmState_StateToState::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmStateActive_Basic
       void FppTest_SmStateActive_Basic_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmStateActive_Basic& sm, //!< The state machine
           FppTest_SmStateActive_Basic::Signal signal //!< The signal
       );
