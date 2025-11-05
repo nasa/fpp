@@ -31,7 +31,7 @@ object EnumXmlFppWriter extends LineUtils {
       yield {
         val repType = FppBuilder.repType(file)
         val default = FppBuilder.default(file)
-        Ast.DefEnum(name, repType, constants, default)
+        Ast.DefEnum(name, repType, constants, default, false)
       }
 
     def defEnumConstant(

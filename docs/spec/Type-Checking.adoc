@@ -151,7 +151,7 @@ with element type stem:[T] and size stem:[n].
 
 . Check that stem:[T_2] <<Type-Checking_Type-Conversion,may be converted to>>
 _Integer_.
-  
+
 . Use stem:[T] as the type of the expression.
 
 === Struct Expressions
@@ -295,7 +295,7 @@ are <<Type-Checking_Identical-Types,identical types>>.
 
 . If either stem:[T_1] or stem:[T_2] or both is an
 <<Types_Alias-Types,alias type>>, then stem:[T_1]
-may be converted to stem:[T_2] if the <<Types_Underlying-Types,underlying 
+may be converted to stem:[T_2] if the <<Types_Underlying-Types,underlying
 type>> of stem:[T_1] may be converted to
 the <<Types_Underlying-Types,underlying type>> of stem:[T_2].
 
@@ -373,16 +373,16 @@ the whole expression):
 <<Type-Checking_Identical-Types,identical types>>, then let
 stem:[T] be stem:[T_1].
 
-. Otherwise if stem:[T_1] or stem:[T_2] or both are <<Types_Alias-Types,alias 
+. Otherwise if stem:[T_1] or stem:[T_2] or both are <<Types_Alias-Types,alias
 types>>, then do the following:
 
 .. Let stem:[L_1] be the <<Types_Alias-Lists,alias list>> of stem:[T_1].
 
 .. Let stem:[L_2] be the <<Types_Alias-Lists,alias list>> of stem:[T_2].
 
-.. If there is no type in stem:[L_1] that is 
+.. If there is no type in stem:[L_1] that is
 <<Type-Checking_Identical-Types,identical>>
-to a type in stem:[L_2], then replace each each alias type with its 
+to a type in stem:[L_2], then replace each each alias type with its
 <<Types_Underlying-Types,underlying type>> and reapply these rules.
 
 .. Otherwise let stem:[T] be the first type in stem:[L_2] that is identical

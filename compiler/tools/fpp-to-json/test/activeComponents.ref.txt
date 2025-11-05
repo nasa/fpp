@@ -543,7 +543,8 @@
                                                   },
                                                   "id" : 139
                                                 }
-                                              }
+                                              },
+                                              "isDictionaryDef" : false
                                             },
                                             "id" : 140
                                           }
@@ -596,7 +597,8 @@
                                                   },
                                                   "id" : 151
                                                 }
-                                              }
+                                              },
+                                              "isDictionaryDef" : false
                                             },
                                             "id" : 152
                                           }
@@ -2936,5 +2938,7 @@
         }
       }
     }
-  }
+  },
+  "dictionarySymbolSet" : [
+  ]
 }
