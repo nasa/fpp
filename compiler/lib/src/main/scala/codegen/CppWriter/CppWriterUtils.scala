@@ -44,6 +44,17 @@ trait CppWriterUtils extends LineUtils {
     members
   )
 
+  /** Add a comment to a nonempty list of members */
+  def addMemberComment(
+    comment: String,
+    members: List[CppDoc.Member],
+    output: CppDoc.Lines.Output = CppDoc.Lines.Both,
+    cppFileNameBaseOpt: Option[String] = None
+  ): List[CppDoc.Member] = guardedList (!members.isEmpty) (
+    linesMember(CppDocWriter.writeBannerComment(comment), output, cppFileNameBaseOpt) ::
+    members
+  )
+
   /** Add a comment to a nonempty list of class members */
   def addComment(
     comment: String,
