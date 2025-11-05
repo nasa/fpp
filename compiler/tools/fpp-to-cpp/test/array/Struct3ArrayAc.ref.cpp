@@ -13,9 +13,10 @@
 
 Struct3 ::
   Struct3() :
-    Serializable()
+    Serializable(),
+    elements{}
 {
-  *this = Struct3(S::S3(0, 0.0));
+
 }
 
 Struct3 ::

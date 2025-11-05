@@ -16,11 +16,10 @@ namespace S {
   S3 ::
     S3() :
       Serializable(),
-      m_mF64(0.0)
+      m_mU32Array{},
+      m_mF64{}
   {
-    for (FwSizeType i = 0; i < 3; i++) {
-      this->m_mU32Array[i] = 0;
-    }
+
   }
 
   S3 ::

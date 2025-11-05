@@ -15,9 +15,10 @@ namespace M {
 
   PrimitiveU8 ::
     PrimitiveU8() :
-      Serializable()
+      Serializable(),
+      elements{}
   {
-    *this = M::PrimitiveU8(0);
+
   }
 
   PrimitiveU8 ::

@@ -14,8 +14,8 @@
 AliasType ::
   AliasType() :
     Serializable(),
-    m_x(0),
-    m_y()
+    m_x{},
+    m_y{}
 {
   for (FwSizeType i = 0; i < 10; i++) {
     // Initialize the external string

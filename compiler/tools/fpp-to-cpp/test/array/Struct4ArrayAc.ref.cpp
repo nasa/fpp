@@ -13,9 +13,10 @@
 
 Struct4 ::
   Struct4() :
-    Serializable()
+    Serializable(),
+    elements{}
 {
-  *this = Struct4(SWrapper(SDefault(42)));
+
 }
 
 Struct4 ::

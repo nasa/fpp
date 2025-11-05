@@ -13,9 +13,10 @@
 
 HeaderPath ::
   HeaderPath() :
-    Serializable()
+    Serializable(),
+    elements{}
 {
-  *this = HeaderPath(T());
+
 }
 
 HeaderPath ::

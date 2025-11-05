@@ -13,9 +13,10 @@
 
 SingleElement ::
   SingleElement() :
-    Serializable()
+    Serializable(),
+    elements{}
 {
-  *this = SingleElement(0);
+
 }
 
 SingleElement ::

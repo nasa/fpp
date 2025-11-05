@@ -13,9 +13,10 @@
 
 Struct2 ::
   Struct2() :
-    Serializable()
+    Serializable(),
+    elements{}
 {
-  *this = Struct2(S2(M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String(""))));
+
 }
 
 Struct2 ::

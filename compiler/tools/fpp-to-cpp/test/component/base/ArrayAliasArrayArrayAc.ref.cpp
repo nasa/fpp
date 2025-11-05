@@ -13,9 +13,10 @@
 
 ArrayAliasArray ::
   ArrayAliasArray() :
-    Serializable()
+    Serializable(),
+    elements{}
 {
-  *this = ArrayAliasArray(A(0));
+
 }
 
 ArrayAliasArray ::

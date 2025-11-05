@@ -14,21 +14,20 @@
 Primitive ::
   Primitive() :
     Serializable(),
-    m_mF64(0.0),
-    m_mI16(0),
-    m_mI32(0),
-    m_mI64(0),
-    m_mI8(0),
-    m_mU16(0),
-    m_mU32(0),
-    m_mU64(0),
-    m_mU8(0),
-    m_m_bool(false),
+    m_mF32{},
+    m_mF64{},
+    m_mI16{},
+    m_mI32{},
+    m_mI64{},
+    m_mI8{},
+    m_mU16{},
+    m_mU32{},
+    m_mU64{},
+    m_mU8{},
+    m_m_bool{},
     m_m_string(m___fprime_ac_m_string_buffer, sizeof m___fprime_ac_m_string_buffer, Fw::String(""))
 {
-  for (FwSizeType i = 0; i < 3; i++) {
-    this->m_mF32[i] = 0.0f;
-  }
+
 }
 
 Primitive ::

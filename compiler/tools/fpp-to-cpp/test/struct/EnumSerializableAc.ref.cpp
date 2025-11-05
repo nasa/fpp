@@ -14,11 +14,10 @@
 Enum ::
   Enum() :
     Serializable(),
-    m_e(M::E::X)
+    m_e{},
+    m_eArr{}
 {
-  for (FwSizeType i = 0; i < 3; i++) {
-    this->m_eArr[i] = M::E::X;
-  }
+
 }
 
 Enum ::
