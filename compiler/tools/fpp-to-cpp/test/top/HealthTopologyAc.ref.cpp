@@ -75,6 +75,8 @@ namespace M {
 
   void connectComponents() {
 
+#ifndef FW_DIRECT_PORT_CALLS
+
     // Health
     M::c1.set_pingOut_OutputPort(
         0,
@@ -92,6 +94,9 @@ namespace M {
         1,
         M::c2.get_pingIn_InputPort(0)
     );
+
+#endif
+
   }
 
   void regCommands() {
@@ -144,3 +149,27 @@ namespace M {
   }
 
 }
+
+#ifdef FW_DIRECT_PORT_CALLS
+
+// ----------------------------------------------------------------------
+// Topology-dependent component implementation
+// ----------------------------------------------------------------------
+
+namespace M {
+
+  // TODO: isConnected function for component M.C
+
+  // TODO: Invocation functions for component M.C
+
+}
+
+namespace Svc {
+
+  // TODO: isConnected function for component Svc.Health
+
+  // TODO: Invocation functions for component Svc.Health
+
+}
+
+#endif

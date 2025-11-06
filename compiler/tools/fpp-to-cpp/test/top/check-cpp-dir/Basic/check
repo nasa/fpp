@@ -16,5 +16,10 @@ do
   cp ../../BasicTopologyAc.ref.$suffix BasicTopologyAc.$suffix
 done
 
+flags="-I.. -I../../../fprime -I../../../fprime/config -Wno-unused-parameter -c"
 echo '  compiling C++'
-$fprime_gcc -I.. -I../../../fprime -I../../../fprime/config -Wno-unused-parameter -c BasicTopologyAc.cpp
+for variable_flags in '' '-DFW_DIRECT_PORT_CALLS'
+do
+  echo "    variable_flags=$variable_flags"
+  $fprime_gcc $variable_flags $flags BasicTopologyAc.cpp
+done

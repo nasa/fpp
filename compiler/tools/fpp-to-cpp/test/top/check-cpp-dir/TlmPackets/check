@@ -38,5 +38,9 @@ do
   -I../../../fprime/Fw/Tlm
   "
   echo "    compiling $file"
-  $fprime_gcc $include_paths -Wno-unused-parameter -c $file
+  for variable_flags in '' '-DFW_DIRECT_PORT_CALLS'
+  do
+    echo "      variable_flags=$variable_flags"
+    $fprime_gcc $variable_flags $include_paths -Wno-unused-parameter -c $file
+  done
 done

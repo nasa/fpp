@@ -75,6 +75,8 @@ namespace M {
 
   void connectComponents() {
 
+#ifndef FW_DIRECT_PORT_CALLS
+
     // C1
     M::passive1.set_p_OutputPort(
         0,
@@ -86,6 +88,9 @@ namespace M {
         0,
         M::active2.get_p_InputPort(0)
     );
+
+#endif
+
   }
 
   void regCommands() {
@@ -154,3 +159,19 @@ namespace M {
   }
 
 }
+
+#ifdef FW_DIRECT_PORT_CALLS
+
+// ----------------------------------------------------------------------
+// Topology-dependent component implementation
+// ----------------------------------------------------------------------
+
+namespace M {
+
+  // TODO: isConnected function for component M.Passive
+
+  // TODO: Invocation functions for component M.Passive
+
+}
+
+#endif

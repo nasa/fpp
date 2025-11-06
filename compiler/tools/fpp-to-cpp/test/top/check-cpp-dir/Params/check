@@ -18,4 +18,10 @@ do
 done
 
 echo '  compiling C++'
-$fprime_gcc -I.. -I../../../fprime -I../../../fprime/config -Wno-unused-parameter -c ParamsTopologyAc.cpp
+flags="-I.. -I../../../fprime -I../../../fprime/config -Wno-unused-parameter -c"
+echo '  compiling C++'
+for variable_flags in '' '-DFW_DIRECT_PORT_CALLS'
+do
+  echo "    variable_flags=$variable_flags"
+  $fprime_gcc $variable_flags $flags ParamsTopologyAc.cpp
+done
