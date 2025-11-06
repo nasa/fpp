@@ -39,7 +39,8 @@ case class TopComponents(
     c: Component,
     pnm: TopComponents.PortNameMap
   ) = {
-    val writer = TopComponentCppWriter(s, c.aNode, pnm)
+    val t = s.a.topologyMap(Symbol.Topology(aNode))
+    val writer = TopComponentCppWriter(s, c.aNode, t, pnm)
     val qualifiedName = s.a.getQualifiedName(Symbol.Component(c.aNode))
     val member = linesMember(
       Line.blank ::

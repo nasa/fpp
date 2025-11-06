@@ -168,7 +168,23 @@ namespace M {
 
 namespace M {
 
-  // TODO: PassiveComponentBase::isConnected_p_OutputPort
+  bool PassiveComponentBase::isConnected_p_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT((0 <= portNum) && (portNum < NUM_P_OUTPUT_PORTS), static_cast<FwAssertArgType>(portNum));
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_passive1:
+        // TODO
+        break;
+      case ::M::InstanceIds::M_passive2:
+        // TODO
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
 
   // TODO: PassiveComponentBase::p_out
 

@@ -9,10 +9,22 @@ import fpp.compiler.util._
 case class TopComponentCppWriter (
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]],
+  topology: Topology,
   portNameMap: TopComponents.PortNameMap
 ) extends ComponentCppWriterUtils(s, aNode) {
 
   private val sortedPortNameList = portNameMap.toList.sortWith(_._1 < _._1)
+
+  private val topologyQualifiedName = s.a.getQualifiedName(Symbol.Topology(topology.aNode))
+
+  private val topologyQualifier = topologyQualifiedName.qualifier
+
+  private val topologyQualifierAsIdent = CppWriterState.identFromQualifier(topologyQualifier)
+  
+  private val topologyQualifierPrefix = topologyQualifier match {
+    case Nil => ""
+    case _ => s"::$topologyQualifierAsIdent::"
+  }
 
   def writeIsConnectedFns =
     sortedPortNameList.flatMap(writeIsConnectedFnForPort)
@@ -20,17 +32,70 @@ case class TopComponentCppWriter (
   def writeInvocationFns =
     sortedPortNameList.flatMap(writeInvocationFnForPort)
 
+
+  private def componentInstanceMapToSortedList(
+    componentInstanceMap: TopComponents.ComponentInstanceMap
+  ) = componentInstanceMap.toList.sortWith {
+    case ((ci1, _), (ci2, _)) =>
+      ci1.qualifiedName.toString < ci2.qualifiedName.toString
+  }
+
   private def writeIsConnectedFnForPort(
     portName: Name.Unqualified,
     componentInstanceMap: TopComponents.ComponentInstanceMap
   ) = {
     val shortName = outputPortIsConnectedName(portName)
     val name = s"$componentClassName::$shortName"
-    lines(
-      s"""|
-          |// TODO: $name"""
+    val prototype = s"bool $name(FwIndexType portNum) const"
+    Line.blank ::
+    wrapInScope(
+      s"$prototype {",
+      writeIsConnectedFnBody(portName, componentInstanceMap),
+      "}"
     )
   }
+
+  private def writeIsConnectedFnBody(
+    portName: Name.Unqualified,
+    componentInstanceMap: TopComponents.ComponentInstanceMap
+  ) = {
+    val portInstance = component.portMap(portName)
+    val numPorts = numPortsConstantName(portInstance)
+    val sortedList = componentInstanceMapToSortedList(componentInstanceMap)
+    List.concat(
+      lines(
+      s"""|FW_ASSERT((0 <= portNum) && (portNum < $numPorts), static_cast<FwAssertArgType>(portNum));
+          |bool result = false;
+          |const auto instance = this->getInstance();"""
+      ),
+      wrapInSwitch(
+        "instance",
+        List.concat(
+          sortedList.flatMap(writeIsConnectedCase),
+          lines(
+            """|default:
+               |  FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+               |  break;"""
+          )
+        )
+      ),
+      lines("return result;")
+    )
+  }
+
+  private def writeIsConnectedCase(
+    componentInstance: ComponentInstance,
+    portNumberMap: TopComponents.PortNumberMap
+  ) = {
+    val ident = CppWriterState.identFromQualifiedName(componentInstance.qualifiedName)
+    val instanceIds = s"${topologyQualifierPrefix}InstanceIds"
+    lines(
+      s"""|case $instanceIds::$ident:
+          |  // TODO
+          |  break;"""
+    )
+  }
+
 
   private def writeInvocationFnForPort(
     portName: Name.Unqualified,

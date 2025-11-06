@@ -95,7 +95,7 @@ case class ComponentPorts(
       val kind = getPortListTypeString(ports)
       val direction = ports.head.getDirection.get.toString
       def enumConstant(p: PortInstance) =
-        writeEnumConstant(portConstantName(p), p.getArraySize)
+        writeEnumConstant(numPortsConstantName(p), p.getArraySize)
       linesClassMember(
         Line.blank ::
         line(s"//! Enumerations for numbers of $kind $direction ports") ::
@@ -123,7 +123,7 @@ case class ComponentPorts(
           |//!
           |//! \\return The number of ${portName(p)} ports
           |static constexpr FwIndexType ${numGetterName(p)}() {
-          |  return ${constantPrefix}${portConstantName(p)};
+          |  return ${constantPrefix}${numPortsConstantName(p)};
           |}
           |"""
     )
@@ -152,7 +152,7 @@ case class ComponentPorts(
     def variable(p: PortInstance) = {
       val typeName = getQualifiedPortTypeName(p, p.getDirection.get)
       val name = portVariableName(p)
-      val num = portConstantName(p)
+      val num = numPortsConstantName(p)
       lines(
         s"""|
             |//! ${p.getDirection.get.toString.capitalize} port ${p.getUnqualifiedName}
@@ -175,9 +175,5 @@ case class ComponentPorts(
       CppDoc.Lines.Hpp
     )
   }
-
-  // Get the name for a port enumerated constant
-  private def portConstantName(p: PortInstance) =
-    s"NUM_${p.getUnqualifiedName.toUpperCase}_${p.getDirection.get.toString.toUpperCase}_PORTS"
 
 }

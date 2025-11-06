@@ -738,6 +738,10 @@ abstract class ComponentCppWriterUtils(
   def portCppConstantName(p: PortInstance) =
     s"${p.getUnqualifiedName}_${getPortTypeBaseName(p)}".toUpperCase
 
+  /** Get the name for a NUM_PORTS constant */
+  def numPortsConstantName(p: PortInstance) =
+    s"NUM_${p.getUnqualifiedName.toUpperCase}_${p.getDirection.get.toString.toUpperCase}_PORTS"
+
   /** Get the name for an internal port enumerated constant in cpp file */
   def internalPortCppConstantName(p: PortInstance.Internal) =
     s"INT_IF_${p.getUnqualifiedName.toUpperCase}"

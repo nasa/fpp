@@ -104,10 +104,13 @@ trait CppWriterUtils extends LineUtils {
     s1: String,
     ll: List[Line],
     s2: String
-  ): List[Line] = ll match {
-    case Nil => Nil
-    case _ => List(lines(s1), ll.map(indentIn), lines(s2)).flatten
-  }
+  ): List[Line] = guardedList (!ll.isEmpty) (
+    List.concat(
+      lines(s1),
+      ll.map(indentIn),
+      lines(s2)
+    )
+  )
 
   def wrapInAnonymousNamespace(ll: List[Line]): List[Line] =
     wrapInScope("namespace {", ll, "}")
@@ -145,8 +148,8 @@ trait CppWriterUtils extends LineUtils {
     wrapInScope(prefix, ll, "};")
   }
 
-  def wrapInSwitch(condition: String, body: List[Line]) =
-    wrapInScope(s"switch ($condition) {", body, "}")
+  def wrapInSwitch(selector: String, body: List[Line]) =
+    wrapInScope(s"switch ($selector) {", body, "}")
 
   def wrapInForLoop(init: String, condition: String, step: String, body: List[Line]): List[Line] =
     wrapInScope(s"for ($init; $condition; $step) {", body, "}")

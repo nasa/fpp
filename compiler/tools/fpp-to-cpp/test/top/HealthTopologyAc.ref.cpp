@@ -158,7 +158,23 @@ namespace M {
 
 namespace M {
 
-  // TODO: CComponentBase::isConnected_pingOut_OutputPort
+  bool CComponentBase::isConnected_pingOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT((0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS), static_cast<FwAssertArgType>(portNum));
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_c1:
+        // TODO
+        break;
+      case ::M::InstanceIds::M_c2:
+        // TODO
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
 
   // TODO: CComponentBase::pingOut_out
 
@@ -166,7 +182,20 @@ namespace M {
 
 namespace Svc {
 
-  // TODO: HealthComponentBase::isConnected_pingOut_OutputPort
+  bool HealthComponentBase::isConnected_pingOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT((0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS), static_cast<FwAssertArgType>(portNum));
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_health:
+        // TODO
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
 
   // TODO: HealthComponentBase::pingOut_out
 
