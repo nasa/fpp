@@ -20,7 +20,8 @@ Such a specifier can be the endpoint of a
 
 . The identifier specifies the name _N_ of the port instance.
 
-. The port instance identifier must be valid.
+. The port instance identifier must be valid and <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,
+refer to>> a port instance _I_.
 
 . The whole specifier makes _I_ part of the 
   <<Ports_Port-Interfaces_Topology-Definitions,interface of the enclosing 

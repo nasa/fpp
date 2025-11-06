@@ -1,0 +1,13 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/top_ports/out_to_out.fpp:31.5
+    A.a -> A.a
+    ^
+error: invalid directions output -> output (should be output -> input)
+from port is specified here:
+[ local path prefix ]/compiler/tools/fpp-check/test/top_ports/out_to_out.fpp:22.3
+  port a = c1.pOut
+  ^
+to port is specified here:
+[ local path prefix ]/compiler/tools/fpp-check/test/top_ports/out_to_out.fpp:22.3
+  port a = c1.pOut
+  ^

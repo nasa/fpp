@@ -359,25 +359,27 @@
       "aNode" : {
         "astNodeId" : 43
       },
-      "portMap" : {
-        "pInternal" : {
-          "Internal" : {
-            "aNode" : {
-              "astNodeId" : 42
-            },
-            "priority" : {
-              "Some" : 10
-            },
-            "queueFull" : {
-              "Drop" : {
-                
+      "portInterface" : {
+        "portMap" : {
+          "pInternal" : {
+            "Internal" : {
+              "aNode" : {
+                "astNodeId" : 42
+              },
+              "priority" : {
+                "Some" : 10
+              },
+              "queueFull" : {
+                "Drop" : {
+                  
+                }
               }
             }
           }
+        },
+        "specialPortMap" : {
+          
         }
-      },
-      "specialPortMap" : {
-        
       },
       "commandMap" : {
         

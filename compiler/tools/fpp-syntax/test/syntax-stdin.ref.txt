@@ -336,7 +336,7 @@ def module
   def topology
     ident T
     @ Public instance specifier
-    spec comp instance
+    spec interface instance
       qual ident i1
     @< Public instance specifier
     @ Direct connection graph specifier
@@ -364,10 +364,10 @@ def module
       target qual ident i3
       target qual ident i4
     @< Graph pattern specifier
-    @ Topology import specifier
-    spec top import
+    @ Topology instance specifier
+    spec interface instance
       qual ident T1
-    @< Topology import specifier
+    @< Topology instance specifier
     @ Telemetry packet group
     spec tlm packet set
       ident P

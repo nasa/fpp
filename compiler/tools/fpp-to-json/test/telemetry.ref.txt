@@ -698,7 +698,7 @@
                                     [
                                     ],
                                     {
-                                      "SpecCompInstance" : {
+                                      "SpecInstance" : {
                                         "node" : {
                                           "AstNode" : {
                                             "data" : {
@@ -1274,9 +1274,67 @@
       "aNode" : {
         "astNodeId" : 58
       },
-      "portMap" : {
-        "tlmOut" : {
-          "Special" : {
+      "portInterface" : {
+        "portMap" : {
+          "tlmOut" : {
+            "Special" : {
+              "aNode" : {
+                "astNodeId" : 0
+              },
+              "specifier" : {
+                "inputKind" : "None",
+                "kind" : {
+                  "Telemetry" : {
+                    
+                  }
+                },
+                "name" : "tlmOut",
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "symbol" : {
+                "Port" : {
+                  "nodeId" : 59,
+                  "unqualifiedName" : "Tlm"
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None",
+              "importNodeIds" : [
+              ]
+            }
+          },
+          "timeGetOut" : {
+            "Special" : {
+              "aNode" : {
+                "astNodeId" : 1
+              },
+              "specifier" : {
+                "inputKind" : "None",
+                "kind" : {
+                  "TimeGet" : {
+                    
+                  }
+                },
+                "name" : "timeGetOut",
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "symbol" : {
+                "Port" : {
+                  "nodeId" : 62,
+                  "unqualifiedName" : "Time"
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None",
+              "importNodeIds" : [
+              ]
+            }
+          }
+        },
+        "specialPortMap" : {
+          "telemetry" : {
             "aNode" : {
               "astNodeId" : 0
             },
@@ -1301,10 +1359,8 @@
             "queueFull" : "None",
             "importNodeIds" : [
             ]
-          }
-        },
-        "timeGetOut" : {
-          "Special" : {
+          },
+          "time get" : {
             "aNode" : {
               "astNodeId" : 1
             },
@@ -1330,60 +1386,6 @@
             "importNodeIds" : [
             ]
           }
-        }
-      },
-      "specialPortMap" : {
-        "telemetry" : {
-          "aNode" : {
-            "astNodeId" : 0
-          },
-          "specifier" : {
-            "inputKind" : "None",
-            "kind" : {
-              "Telemetry" : {
-                
-              }
-            },
-            "name" : "tlmOut",
-            "priority" : "None",
-            "queueFull" : "None"
-          },
-          "symbol" : {
-            "Port" : {
-              "nodeId" : 59,
-              "unqualifiedName" : "Tlm"
-            }
-          },
-          "priority" : "None",
-          "queueFull" : "None",
-          "importNodeIds" : [
-          ]
-        },
-        "time get" : {
-          "aNode" : {
-            "astNodeId" : 1
-          },
-          "specifier" : {
-            "inputKind" : "None",
-            "kind" : {
-              "TimeGet" : {
-                
-              }
-            },
-            "name" : "timeGetOut",
-            "priority" : "None",
-            "queueFull" : "None"
-          },
-          "symbol" : {
-            "Port" : {
-              "nodeId" : 62,
-              "unqualifiedName" : "Time"
-            }
-          },
-          "priority" : "None",
-          "queueFull" : "None",
-          "importNodeIds" : [
-          ]
         }
       },
       "commandMap" : {
@@ -1935,7 +1937,7 @@
     },
     "98" : {
       "map" : {
-        "Topology" : {
+        "PortInterfaceInstance" : {
           "map" : {
             "T" : {
               "Topology" : {
@@ -1953,34 +1955,34 @@
       "aNode" : {
         "astNodeId" : 97
       },
-      "directImportMap" : {
+      "qualifiedName" : {
+        "qualifier" : [
+          "M"
+        ],
+        "base" : "T"
+      },
+      "directTopologies" : {
         
+      },
+      "directComponentInstances" : {
+        "67" : {
+          "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp",
+          "pos" : "47.9",
+          "includingLoc" : "None"
+        }
       },
       "transitiveImportSet" : [
       ],
       "instanceMap" : [
         [
           {
-            "aNode" : {
-              "astNodeId" : 67
-            },
-            "qualifiedName" : {
-              "qualifier" : [
-              ],
-              "base" : "i"
-            },
-            "component" : {
-              "astNodeId" : 58
-            },
-            "baseId" : 18944,
-            "maxId" : 18961,
-            "file" : "None",
-            "queueSize" : "None",
-            "stackSize" : "None",
-            "priority" : "None",
-            "cpu" : "None",
-            "initSpecifierMap" : {
-              
+            "InterfaceComponentInstance" : {
+              "qualifiedName" : {
+                "qualifier" : [
+                ],
+                "base" : "i"
+              },
+              "unqualifiedName" : "i"
             }
           },
           {
@@ -1990,6 +1992,19 @@
           }
         ]
       ],
+      "ports" : [
+      ],
+      "portMap" : {
+        
+      },
+      "portInterface" : {
+        "portMap" : {
+          
+        },
+        "specialPortMap" : {
+          
+        }
+      },
       "patternMap" : {
         
       },
@@ -2009,27 +2024,14 @@
       ],
       "unconnectedPortSet" : [
         {
-          "componentInstance" : {
-            "aNode" : {
-              "astNodeId" : 67
-            },
-            "qualifiedName" : {
-              "qualifier" : [
-              ],
-              "base" : "i"
-            },
-            "component" : {
-              "astNodeId" : 58
-            },
-            "baseId" : 18944,
-            "maxId" : 18961,
-            "file" : "None",
-            "queueSize" : "None",
-            "stackSize" : "None",
-            "priority" : "None",
-            "cpu" : "None",
-            "initSpecifierMap" : {
-              
+          "interfaceInstance" : {
+            "InterfaceComponentInstance" : {
+              "qualifiedName" : {
+                "qualifier" : [
+                ],
+                "base" : "i"
+              },
+              "unqualifiedName" : "i"
             }
           },
           "portInstance" : {
@@ -2062,27 +2064,14 @@
           }
         },
         {
-          "componentInstance" : {
-            "aNode" : {
-              "astNodeId" : 67
-            },
-            "qualifiedName" : {
-              "qualifier" : [
-              ],
-              "base" : "i"
-            },
-            "component" : {
-              "astNodeId" : 58
-            },
-            "baseId" : 18944,
-            "maxId" : 18961,
-            "file" : "None",
-            "queueSize" : "None",
-            "stackSize" : "None",
-            "priority" : "None",
-            "cpu" : "None",
-            "initSpecifierMap" : {
-              
+          "interfaceInstance" : {
+            "InterfaceComponentInstance" : {
+              "qualifiedName" : {
+                "qualifier" : [
+                ],
+                "base" : "i"
+              },
+              "unqualifiedName" : "i"
             }
           },
           "portInstance" : {

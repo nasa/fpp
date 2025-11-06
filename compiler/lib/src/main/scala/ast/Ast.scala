@@ -316,12 +316,11 @@ object Ast {
   final case class TopologyMember(node: Annotated[TopologyMember.Node])
   object TopologyMember {
     sealed trait Node
-    final case class SpecCompInstance(node: AstNode[Ast.SpecCompInstance]) extends Node
+    final case class SpecInstance(node: AstNode[Ast.SpecInstance]) extends Node
     final case class SpecConnectionGraph(node: AstNode[Ast.SpecConnectionGraph]) extends Node
     final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
     final case class SpecTopPort(node: AstNode[Ast.SpecTopPort]) extends Node
     final case class SpecTlmPacketSet(node: AstNode[Ast.SpecTlmPacketSet]) extends Node
-    final case class SpecTopImport(node: AstNode[Ast.SpecImport]) extends Node
   }
 
   /** Formal parameter */
@@ -350,7 +349,7 @@ object Ast {
 
   /** Port instance identifier */
   final case class PortInstanceIdentifier(
-    componentInstance: AstNode[QualIdent],
+    interfaceInstance: AstNode[QualIdent],
     portName: AstNode[Ident]
   )
 
@@ -465,7 +464,7 @@ object Ast {
   }
 
   /** Component instance specifier */
-  final case class SpecCompInstance(
+  final case class SpecInstance(
     instance: AstNode[QualIdent]
   )
 
@@ -596,7 +595,7 @@ object Ast {
     case object Component extends Kind {
       override def toString = "component"
     }
-    case object ComponentInstance extends Kind {
+    case object Instance extends Kind {
       override def toString = "instance"
     }
     case object Constant extends Kind {
@@ -607,9 +606,6 @@ object Ast {
     }
     case object StateMachine extends Kind {
       override def toString = "state machine"
-    }
-    case object Topology extends Kind {
-      override def toString = "topology"
     }
     case object Type extends Kind {
       override def toString = "type"
@@ -802,7 +798,7 @@ object Ast {
   /** Topology port specifier */
   final case class SpecTopPort(
     name: Ident,
-    underlyingPort: AstNode[QualIdent],
+    underlyingPort: AstNode[PortInstanceIdentifier],
   )
 
   /** Import specifier */
