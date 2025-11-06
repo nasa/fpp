@@ -30,6 +30,7 @@ update "" parse-error
 update "" syntax
 update "" syntax-kwd-names
 update -ia topology-ports
+update -a dictionary-specifier
 update -a state-machine
 update -a empty
 update -a escaped-strings

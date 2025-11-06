@@ -84,7 +84,15 @@ object FPPLocateUses {
           case _: Symbol.Struct => Ast.SpecLoc.Type
           case _: Symbol.Topology => Ast.SpecLoc.Instance
         }
-        val specLocNode = AstNode.create(Ast.SpecLoc(kind, qualIdentNode, fileNode))
+        val isDictionaryDef = s match {
+          case Symbol.Array(aNode) => aNode._2.data.isDictionaryDef
+          case Symbol.AliasType(aNode) => aNode._2.data.isDictionaryDef
+          case Symbol.Struct(aNode) => aNode._2.data.isDictionaryDef
+          case Symbol.Enum(aNode) => aNode._2.data.isDictionaryDef
+          case Symbol.Constant(aNode) => aNode._2.data.isDictionaryDef
+          case _ => false
+        }
+        val specLocNode = AstNode.create(Ast.SpecLoc(kind, qualIdentNode, fileNode, isDictionaryDef))
         val specLocAnnotatedNode = (Nil, specLocNode, Nil)
         FppWriter.specLocAnnotatedNode((), specLocAnnotatedNode)
       }

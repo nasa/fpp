@@ -3,6 +3,8 @@ array_default_error
 array_default_ok
 array_no_default_ok
 default_ok
+dictionary_not_displayable
+dictionary_ok
 enum_default_error
 enum_default_ok
 enum_no_default_ok

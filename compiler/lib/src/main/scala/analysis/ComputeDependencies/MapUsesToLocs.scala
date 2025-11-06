@@ -57,7 +57,7 @@ object MapUsesToLocs extends BasicUseAnalyzer {
       nameList match {
         case Nil => None
         case head :: tail => a.locationSpecifierMap.get((kind, head)) match {
-          case specLoc @ Some(_) => specLoc
+          case opt @ Some(_) => opt.map(_.data)
           case None => findLocation(tail)
         }
       }

@@ -36,7 +36,8 @@
                     }
                   },
                   "default" : "None",
-                  "format" : "None"
+                  "format" : "None",
+                  "isDictionaryDef" : false
                 },
                 "id" : 2
               }
@@ -2148,5 +2149,7 @@
   },
   "stateMachineMap" : {
     
-  }
+  },
+  "dictionarySymbolSet" : [
+  ]
 }

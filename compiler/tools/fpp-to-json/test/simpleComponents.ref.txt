@@ -567,7 +567,8 @@
                       },
                       "id" : 59
                     }
-                  }
+                  },
+                  "isDictionaryDef" : false
                 },
                 "id" : 60
               }
@@ -1797,5 +1798,7 @@
   },
   "stateMachineMap" : {
     
-  }
+  },
+  "dictionarySymbolSet" : [
+  ]
 }

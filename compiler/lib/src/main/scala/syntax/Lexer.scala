@@ -47,6 +47,7 @@ object Lexer {
     ("cpu", CPU),
     ("default", DEFAULT),
     ("diagnostic", DIAGNOSTIC),
+    ("dictionary", DICTIONARY),
     ("do", DO),
     ("drop", DROP),
     ("else", ELSE),
@@ -239,6 +240,7 @@ object Lexer {
         case CPU => Token.CPU()
         case DEFAULT => Token.DEFAULT()
         case DIAGNOSTIC => Token.DIAGNOSTIC()
+        case DICTIONARY => Token.DICTIONARY()
         case DO => Token.DO()
         case DOT => Token.DOT()
         case DROP => Token.DROP()

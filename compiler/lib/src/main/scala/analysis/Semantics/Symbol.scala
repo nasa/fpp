@@ -4,7 +4,9 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** A data structure that represents a definition */
-sealed trait Symbol extends SymbolInterface
+sealed trait Symbol extends SymbolInterface {
+  def isDictionaryDef = false
+}
 
 object Symbol {
 
@@ -13,10 +15,12 @@ object Symbol {
     override def getUnqualifiedName = node._2.data.name
   }
   final case class AliasType(node: Ast.Annotated[AstNode[Ast.DefAliasType]]) extends Symbol {
+    override def isDictionaryDef = node._2.data.isDictionaryDef
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name
   }
   final case class Array(node: Ast.Annotated[AstNode[Ast.DefArray]]) extends Symbol {
+    override def isDictionaryDef = node._2.data.isDictionaryDef
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name
   }
@@ -29,10 +33,12 @@ object Symbol {
     override def getUnqualifiedName = node._2.data.name
   }
   final case class Constant(node: Ast.Annotated[AstNode[Ast.DefConstant]]) extends Symbol {
+    override def isDictionaryDef = node._2.data.isDictionaryDef
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name
   }
   final case class Enum(node: Ast.Annotated[AstNode[Ast.DefEnum]]) extends Symbol {
+    override def isDictionaryDef = node._2.data.isDictionaryDef
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name
   }
@@ -57,6 +63,7 @@ object Symbol {
     override def getUnqualifiedName = node._2.data.name
   }
   final case class Struct(node: Ast.Annotated[AstNode[Ast.DefStruct]]) extends Symbol {
+    override def isDictionaryDef = node._2.data.isDictionaryDef
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name
   }

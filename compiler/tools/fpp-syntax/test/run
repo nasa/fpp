@@ -140,6 +140,11 @@ two_input_files()
   diff -u two-input-files.ref.txt two-input-files.out.txt > two-input-files.diff.txt 2>&1
 }
 
+dictionary_specifier()
+{
+  run_test -a dictionary-specifier
+}
+
 tests="
 comments
 embedded_tab
@@ -165,6 +170,7 @@ syntax_kwd_names
 syntax_stdin
 topology_ports
 two_input_files
+dictionary_specifier
 "
 
 run_suite $tests

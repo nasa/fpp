@@ -349,7 +349,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
     Encoder.instance(_.toList.asJson)
 
   private implicit val locationSpecifierMapEncoder:
-    Encoder[Map[(Ast.SpecLoc.Kind, Name.Qualified), Ast.SpecLoc]] =
+    Encoder[Map[(Ast.SpecLoc.Kind, Name.Qualified), AstNode[Ast.SpecLoc]]] =
     Encoder.instance(_.toList.asJson)
 
   private implicit val portNumberMapEncoder: Encoder[Map[Connection, Int]] =
@@ -388,7 +388,8 @@ object AnalysisJsonEncoder extends JsonEncoder{
       "typeMap" -> a.typeMap.asJson,
       "useDefMap" -> a.useDefMap.asJson,
       "valueMap" -> a.valueMap.asJson,
-      "stateMachineMap" -> a.stateMachineMap.asJson
+      "stateMachineMap" -> a.stateMachineMap.asJson,
+      "dictionarySymbolSet" -> a.dictionarySymbolSet.asJson
     )
   }
 
