@@ -40,18 +40,28 @@ case class TopComponentCppWriter (
       ci1.qualifiedName.toString < ci2.qualifiedName.toString
   }
 
-  private def writeIsConnectedFnForPort(
+  private def writeInvocationFnForPort(
     portName: Name.Unqualified,
     componentInstanceMap: TopComponents.ComponentInstanceMap
   ) = {
-    val shortName = outputPortIsConnectedName(portName)
+    val shortName = outputPortInvokerName(portName)
     val name = s"$componentClassName::$shortName"
-    val prototype = s"bool $name(FwIndexType portNum) const"
-    Line.blank ::
-    wrapInScope(
-      s"$prototype {",
-      writeIsConnectedFnBody(portName, componentInstanceMap),
-      "}"
+    lines(
+      s"""|
+          |// TODO: Implementation for $name"""
+    )
+  }
+
+  private def writeIsConnectedCase(
+    componentInstance: ComponentInstance,
+    portNumberMap: TopComponents.PortNumberMap
+  ) = {
+    val ident = CppWriterState.identFromQualifiedName(componentInstance.qualifiedName)
+    val instanceIds = s"${topologyQualifierPrefix}InstanceIds"
+    List.concat(
+      line(s"case $instanceIds::$ident:") ::
+      writeIsConnectedPortNumCase(portNumberMap).map(indentIn),
+      lines("  break;")
     )
   }
 
@@ -83,16 +93,18 @@ case class TopComponentCppWriter (
     )
   }
 
-  private def writeIsConnectedCase(
-    componentInstance: ComponentInstance,
-    portNumberMap: TopComponents.PortNumberMap
+  private def writeIsConnectedFnForPort(
+    portName: Name.Unqualified,
+    componentInstanceMap: TopComponents.ComponentInstanceMap
   ) = {
-    val ident = CppWriterState.identFromQualifiedName(componentInstance.qualifiedName)
-    val instanceIds = s"${topologyQualifierPrefix}InstanceIds"
-    List.concat(
-      line(s"case $instanceIds::$ident:") ::
-      writeIsConnectedPortNumCase(portNumberMap).map(indentIn),
-      lines("  break;")
+    val shortName = outputPortIsConnectedName(portName)
+    val name = s"$componentClassName::$shortName"
+    val prototype = s"bool $name(FwIndexType portNum) const"
+    Line.blank ::
+    wrapInScope(
+      s"$prototype {",
+      writeIsConnectedFnBody(portName, componentInstanceMap),
+      "}"
     )
   }
 
@@ -115,19 +127,6 @@ case class TopComponentCppWriter (
              |  break;"""
         )
       )
-    )
-  }
-
-
-  private def writeInvocationFnForPort(
-    portName: Name.Unqualified,
-    componentInstanceMap: TopComponents.ComponentInstanceMap
-  ) = {
-    val shortName = outputPortInvokerName(portName)
-    val name = s"$componentClassName::$shortName"
-    lines(
-      s"""|
-          |// TODO: Implementation for $name"""
     )
   }
 
