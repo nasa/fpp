@@ -193,13 +193,6 @@ case class ComponentOutputPorts(
     )
   }
 
-  // Gets a port return type as a CppDoc Type
-  private def getReturnType(p: PortInstance): CppDoc.Type =
-    p.getType.get match {
-      case PortInstance.Type.DefPort(_) => getPortReturnTypeAsCppDocType(p)
-      case PortInstance.Type.Serial => CppDoc.Type("Fw::SerializeStatus")
-    }
-
   // Gets an invoker for a port instance
   private def getInvokerForPortInstance(p: PortInstance) = {
     val (invokeFunction, constQualifier) = p.getType.get match {
@@ -211,7 +204,7 @@ case class ComponentOutputPorts(
         Some(s"Invoke output port ${p.getUnqualifiedName}"),
         outputPortInvokerName(p),
         portNumParam :: getPortFunctionParams(p),
-        getReturnType(p),
+        getInvokerReturnType(p),
         List.concat(
           lines(
             s"""|FW_ASSERT(
@@ -280,6 +273,5 @@ case class ComponentOutputPorts(
       )
       case Some(_) => Nil
     }
-
 
 }

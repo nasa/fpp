@@ -19,7 +19,7 @@ namespace M {
 
       }
 
-      virtual void pingIn_handler(FwIndexType portNum) {
+      virtual void pingIn_handler(FwIndexType portNum, U32 key) {
 
       }
 

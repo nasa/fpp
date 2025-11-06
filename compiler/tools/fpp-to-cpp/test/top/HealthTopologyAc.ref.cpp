@@ -188,7 +188,12 @@ namespace M {
     return result;
   }
 
-  // TODO: Implementation for CComponentBase::pingOut_out
+  void CComponentBase::pingOut_out(
+      FwIndexType portNum,
+      U32 key
+  ) const {
+    // TODO
+  }
 
 }
 
@@ -218,7 +223,12 @@ namespace Svc {
     return result;
   }
 
-  // TODO: Implementation for HealthComponentBase::pingOut_out
+  void HealthComponentBase::pingOut_out(
+      FwIndexType portNum,
+      U32 key
+  ) const {
+    // TODO
+  }
 
 }
 

@@ -198,7 +198,9 @@ namespace M {
     return result;
   }
 
-  // TODO: Implementation for PassiveComponentBase::p_out
+  void PassiveComponentBase::p_out(FwIndexType portNum) const {
+    // TODO
+  }
 
 }
 

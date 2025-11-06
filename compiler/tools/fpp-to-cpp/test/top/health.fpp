@@ -1,5 +1,5 @@
 module Svc {
-  port Ping
+  port Ping(key: U32)
 }
 module Svc {
   passive component Health {

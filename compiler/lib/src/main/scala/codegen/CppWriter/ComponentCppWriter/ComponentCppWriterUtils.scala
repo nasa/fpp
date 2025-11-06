@@ -898,6 +898,13 @@ abstract class ComponentCppWriterUtils(
       }
     )
 
+  // Gets an invoker return type as a CppDoc Type
+  def getInvokerReturnType(p: PortInstance): CppDoc.Type =
+    p.getType.get match {
+      case PortInstance.Type.DefPort(_) => getPortReturnTypeAsCppDocType(p)
+      case PortInstance.Type.Serial => CppDoc.Type("Fw::SerializeStatus")
+    }
+
   def getVirtualOverflowHook(
     name: String,
     msgType: MessageType,

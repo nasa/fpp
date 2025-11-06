@@ -44,12 +44,30 @@ case class TopComponentCppWriter (
     portName: Name.Unqualified,
     componentInstanceMap: TopComponents.ComponentInstanceMap
   ) = {
+    val portInstance = component.portMap(portName)
+    val returnType = getInvokerReturnType(portInstance).getCppType
     val shortName = outputPortInvokerName(portName)
     val name = s"$componentClassName::$shortName"
-    lines(
-      s"""|
-          |// TODO: Implementation for $name"""
+    val prototypeLines = {
+      val ll = CppDocCppWriter.writeParams(
+        s"$returnType $name",
+        portNumParam :: getPortFunctionParams(portInstance)
+      )
+      Line.addSuffix(ll, " const")
+    }
+    List.concat(
+      Line.blank ::
+      Line.addSuffix(prototypeLines, " {"),
+      writeInvocationFnBody(portName, componentInstanceMap).map(indentIn),
+      lines("}")
     )
+  }
+
+  private def writeInvocationFnBody(
+    portName: Name.Unqualified,
+    componentInstanceMap: TopComponents.ComponentInstanceMap
+  ) = {
+    lines("// TODO")
   }
 
   private def writeIsConnectedCase(
