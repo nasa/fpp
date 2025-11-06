@@ -158,17 +158,17 @@ namespace M {
 
 namespace M {
 
-  // TODO: isConnected functions for component M.C
+  // TODO: CComponentBase::isConnected_pingOut_OutputPort
 
-  // TODO: Invocation functions for component M.C
+  // TODO: CComponentBase::pingOut_out
 
 }
 
 namespace Svc {
 
-  // TODO: isConnected functions for component Svc.Health
+  // TODO: HealthComponentBase::isConnected_pingOut_OutputPort
 
-  // TODO: Invocation functions for component Svc.Health
+  // TODO: HealthComponentBase::pingOut_out
 
 }
 

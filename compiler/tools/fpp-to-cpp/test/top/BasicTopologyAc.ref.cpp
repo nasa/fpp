@@ -168,9 +168,9 @@ namespace M {
 
 namespace M {
 
-  // TODO: isConnected functions for component M.Passive
+  // TODO: PassiveComponentBase::isConnected_p_OutputPort
 
-  // TODO: Invocation functions for component M.Passive
+  // TODO: PassiveComponentBase::p_out
 
 }
 

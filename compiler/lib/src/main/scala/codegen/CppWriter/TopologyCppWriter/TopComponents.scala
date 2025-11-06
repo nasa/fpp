@@ -10,9 +10,16 @@ case class TopComponents(
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
 ) extends TopologyCppWriterUtils(s, aNode) {
 
-  val componentMap = t.connectionMap.values.foldLeft
+  private val componentMap = t.connectionMap.values.foldLeft
     (Map(): TopComponents.ComponentMap)
     (addConnectionsToMap)
+
+  private val sortedComponentList = componentMap.toList.sortWith {
+    case ((c1, _), (c2, _)) =>
+      val name1 = s.a.getQualifiedName(Symbol.Component(c1.aNode))
+      val name2 = s.a.getQualifiedName(Symbol.Component(c2.aNode))
+      name1.toString < name2.toString
+  }
 
   def getMembers: List[CppDoc.Member] = 
     wrapMembersInIfDirective(
@@ -26,7 +33,7 @@ case class TopComponents(
     )
 
   private def getComponentMembers =
-    componentMap.toList.flatMap(getMembersForComponent)
+    sortedComponentList.flatMap(getMembersForComponent)
 
   private def getMembersForComponent(
     c: Component,
