@@ -38,8 +38,8 @@ case class TopComponents(
       wrapInNamespaceLines(
         qualifiedName.qualifier,
         List.concat(
-          getIsConnectedFn(c, cim),
-          getInvocationFns(c, cim),
+          writeIsConnectedFn(c, cim),
+          writeInvocationFns(c, cim),
           List(Line.blank)
         )
       ),
@@ -48,7 +48,7 @@ case class TopComponents(
     List(member)
   }
 
-  private def getIsConnectedFn(
+  private def writeIsConnectedFn(
     c: Component,
     cim: TopComponents.ComponentInstanceMap
   ) = {
@@ -59,7 +59,7 @@ case class TopComponents(
     )
   }
 
-  private def getInvocationFns(
+  private def writeInvocationFns(
     c: Component,
     cim: TopComponents.ComponentInstanceMap
   ) = {
