@@ -158,7 +158,7 @@ namespace M {
 
 namespace M {
 
-  // TODO: isConnected function for component M.C
+  // TODO: isConnected functions for component M.C
 
   // TODO: Invocation functions for component M.C
 
@@ -166,7 +166,7 @@ namespace M {
 
 namespace Svc {
 
-  // TODO: isConnected function for component Svc.Health
+  // TODO: isConnected functions for component Svc.Health
 
   // TODO: Invocation functions for component Svc.Health
 

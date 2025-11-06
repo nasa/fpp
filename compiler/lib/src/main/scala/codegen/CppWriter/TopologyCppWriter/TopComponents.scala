@@ -32,42 +32,21 @@ case class TopComponents(
     c: Component,
     cim: TopComponents.ComponentInstanceMap
   ) = {
+    val writer = TopComponentCppWriter(s, c.aNode, cim)
     val qualifiedName = s.a.getQualifiedName(Symbol.Component(c.aNode))
     val member = linesMember(
       Line.blank ::
       wrapInNamespaceLines(
         qualifiedName.qualifier,
         List.concat(
-          writeIsConnectedFn(c, cim),
-          writeInvocationFns(c, cim),
+          writer.writeIsConnectedFns,
+          writer.writeInvocationFns,
           List(Line.blank)
         )
       ),
       CppDoc.Lines.Cpp
     )
     List(member)
-  }
-
-  private def writeIsConnectedFn(
-    c: Component,
-    cim: TopComponents.ComponentInstanceMap
-  ) = {
-    val qualifiedName = s.a.getQualifiedName(Symbol.Component(c.aNode))
-    lines(
-      s"""|
-          |// TODO: isConnected function for component $qualifiedName"""
-    )
-  }
-
-  private def writeInvocationFns(
-    c: Component,
-    cim: TopComponents.ComponentInstanceMap
-  ) = {
-    val qualifiedName = s.a.getQualifiedName(Symbol.Component(c.aNode))
-    lines(
-      s"""|
-          |// TODO: Invocation functions for component $qualifiedName"""
-    )
   }
 
   private def addConnectionsToMap(

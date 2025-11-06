@@ -168,7 +168,7 @@ namespace M {
 
 namespace M {
 
-  // TODO: isConnected function for component M.Passive
+  // TODO: isConnected functions for component M.Passive
 
   // TODO: Invocation functions for component M.Passive
 

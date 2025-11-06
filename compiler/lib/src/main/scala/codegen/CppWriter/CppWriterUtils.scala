@@ -55,6 +55,14 @@ trait CppWriterUtils extends LineUtils {
     members
   )
 
+  /** Add a banner comment to a nonempty list of lines */
+  def addBannerComment(comment: String, ll: List[Line]): List[Line] =
+    guardedList (!ll.isEmpty) (CppDocWriter.writeBannerComment(comment) ++ ll)
+
+  /** Add a comment to a nonempty list of lines */
+  def addComment(comment: String, ll: List[Line]): List[Line] =
+    guardedList (!ll.isEmpty) (CppDocWriter.writeComment(comment) ++ ll)
+
   /** Add a comment to a nonempty list of class members */
   def addComment(
     comment: String,
