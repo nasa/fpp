@@ -29,8 +29,8 @@ case class TopComponentCppWriter (
   def writeIsConnectedFns =
     sortedPortNameList.flatMap(writeIsConnectedFnForPort)
 
-  def writeInvocationFns =
-    sortedPortNameList.flatMap(writeInvocationFnForPort)
+  def writeOutFns =
+    sortedPortNameList.flatMap(writeOutFnForPort)
 
 
   private def componentInstanceMapToSortedList(
@@ -38,36 +38,6 @@ case class TopComponentCppWriter (
   ) = componentInstanceMap.toList.sortWith {
     case ((ci1, _), (ci2, _)) =>
       ci1.qualifiedName.toString < ci2.qualifiedName.toString
-  }
-
-  private def writeInvocationFnForPort(
-    portName: Name.Unqualified,
-    componentInstanceMap: TopComponents.ComponentInstanceMap
-  ) = {
-    val portInstance = component.portMap(portName)
-    val returnType = getInvokerReturnType(portInstance).getCppType
-    val shortName = outputPortInvokerName(portName)
-    val name = s"$componentClassName::$shortName"
-    val prototypeLines = {
-      val ll = CppDocCppWriter.writeParams(
-        s"$returnType $name",
-        portNumParam :: getPortFunctionParams(portInstance)
-      )
-      Line.addSuffix(ll, " const")
-    }
-    List.concat(
-      Line.blank ::
-      Line.addSuffix(prototypeLines, " {"),
-      writeInvocationFnBody(portName, componentInstanceMap).map(indentIn),
-      lines("}")
-    )
-  }
-
-  private def writeInvocationFnBody(
-    portName: Name.Unqualified,
-    componentInstanceMap: TopComponents.ComponentInstanceMap
-  ) = {
-    lines("// TODO")
   }
 
   private def writeIsConnectedCase(
@@ -82,6 +52,70 @@ case class TopComponentCppWriter (
       lines("  break;")
     )
   }
+
+  private def writeIsConnectedFnForPort(
+    portName: Name.Unqualified,
+    componentInstanceMap: TopComponents.ComponentInstanceMap
+  ) = {
+    val shortName = outputPortIsConnectedName(portName)
+    val name = s"$componentClassName::$shortName"
+    val prototype = s"bool $name(FwIndexType portNum) const"
+    Line.blank ::
+    wrapInScope(
+      s"$prototype {",
+      writeIsConnectedFnBody(portName, componentInstanceMap),
+      "}"
+    )
+  }
+
+  private def writePortNumCase
+    (f: Int => List[Line])
+    (portNumberMap: TopComponents.PortNumberMap) =
+  {
+    val portNumberList = portNumberMap.keys.toList.sorted
+    wrapInSwitch(
+      "portNum",
+      List.concat(
+        portNumberList.flatMap (n =>
+          List.concat(
+            line(s"case $n") ::
+            f(n).map(indentIn),
+            lines("  break")
+          )
+        ),
+        lines(
+          """|default:
+             |  break;"""
+        )
+      )
+    )
+  }
+
+//  private def writeIsConnectedPortNumCase(
+//    portNumberMap: TopComponents.PortNumberMap
+//  ) = {
+//    val portNumberList = portNumberMap.keys.toList.sorted
+//    wrapInSwitch(
+//      "portNum",
+//      List.concat(
+//        portNumberList.flatMap (n => {
+//          lines(
+//            s"""|case $n:
+//                |  result = true;
+//                |  break;"""
+//          )
+//        }),
+//        lines(
+//          """|default:
+//             |  break;"""
+//        )
+//      )
+//    )
+//  }
+
+  private val writeIsConnectedPortNumCase =
+    writePortNumCase (_ => lines("result = true;"))
+
 
   private def writeIsConnectedFnBody(
     portName: Name.Unqualified,
@@ -111,40 +145,42 @@ case class TopComponentCppWriter (
     )
   }
 
-  private def writeIsConnectedFnForPort(
+  private def writeOutFnBody(
     portName: Name.Unqualified,
     componentInstanceMap: TopComponents.ComponentInstanceMap
   ) = {
-    val shortName = outputPortIsConnectedName(portName)
-    val name = s"$componentClassName::$shortName"
-    val prototype = s"bool $name(FwIndexType portNum) const"
-    Line.blank ::
-    wrapInScope(
-      s"$prototype {",
-      writeIsConnectedFnBody(portName, componentInstanceMap),
-      "}"
+    val portInstance = component.portMap(portName)
+    val numPorts = numPortsConstantName(portInstance)
+    val sortedList = componentInstanceMapToSortedList(componentInstanceMap)
+    List.concat(
+      lines(
+      s"""|FW_ASSERT((0 <= portNum) && (portNum < $numPorts), static_cast<FwAssertArgType>(portNum));
+          |const auto instance = this->getInstance();"""
+      ),
+      lines("// TODO")
     )
   }
 
-  private def writeIsConnectedPortNumCase(
-    portNumberMap: TopComponents.PortNumberMap
+  private def writeOutFnForPort(
+    portName: Name.Unqualified,
+    componentInstanceMap: TopComponents.ComponentInstanceMap
   ) = {
-    val portNumberList = portNumberMap.keys.toList.sorted
-    wrapInSwitch(
-      "portNum",
-      List.concat(
-        portNumberList.flatMap (n => {
-          lines(
-            s"""|case $n:
-                |  result = true;
-                |  break;"""
-          )
-        }),
-        lines(
-          """|default:
-             |  break;"""
-        )
+    val portInstance = component.portMap(portName)
+    val returnType = getInvokerReturnType(portInstance).getCppType
+    val shortName = outputPortInvokerName(portName)
+    val name = s"$componentClassName::$shortName"
+    val prototypeLines = {
+      val ll = CppDocCppWriter.writeParams(
+        s"$returnType $name",
+        portNumParam :: getPortFunctionParams(portInstance)
       )
+      Line.addSuffix(ll, " const")
+    }
+    List.concat(
+      Line.blank ::
+      Line.addSuffix(prototypeLines, " {"),
+      writeOutFnBody(portName, componentInstanceMap).map(indentIn),
+      lines("}")
     )
   }
 

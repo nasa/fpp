@@ -48,7 +48,7 @@ case class TopComponents(
         qualifiedName.qualifier,
         List.concat(
           writer.writeIsConnectedFns,
-          writer.writeInvocationFns,
+          writer.writeOutFns,
           List(Line.blank)
         )
       ),
