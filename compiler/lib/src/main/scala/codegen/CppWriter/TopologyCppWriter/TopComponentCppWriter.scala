@@ -9,7 +9,7 @@ import fpp.compiler.util._
 case class TopComponentCppWriter (
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]],
-  componentInstanceMap: TopComponents.ComponentInstanceMap
+  portNameMap: TopComponents.PortNameMap
 ) extends ComponentCppWriterUtils(s, aNode) {
 
   def writeIsConnectedFns = {

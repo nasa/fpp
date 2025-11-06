@@ -30,9 +30,9 @@ case class TopComponents(
 
   private def getMembersForComponent(
     c: Component,
-    cim: TopComponents.ComponentInstanceMap
+    pnm: TopComponents.PortNameMap
   ) = {
-    val writer = TopComponentCppWriter(s, c.aNode, cim)
+    val writer = TopComponentCppWriter(s, c.aNode, pnm)
     val qualifiedName = s.a.getQualifiedName(Symbol.Component(c.aNode))
     val member = linesMember(
       Line.blank ::
@@ -64,13 +64,13 @@ case class TopComponents(
     val component = componentInstance.component
     val portName = portInstance.getUnqualifiedName
     val portNumber = t.fromPortNumberMap(connection)
-    val componentInstanceMap = componentMap.get(component).getOrElse(Map())
-    val portNameMap = componentInstanceMap.get(componentInstance).getOrElse(Map())
-    val portNumberMap = portNameMap.get(portName).getOrElse(Map())
+    val portNameMap = componentMap.get(component).getOrElse(Map())
+    val componentInstanceMap = portNameMap.get(portName).getOrElse(Map())
+    val portNumberMap = componentInstanceMap.get(componentInstance).getOrElse(Map())
     val portNumberMap1 = portNumberMap + (portNumber -> connection)
-    val portNameMap1 = portNameMap + (portName -> portNumberMap1)
-    val componentInstanceMap1 = componentInstanceMap + (componentInstance -> portNameMap1)
-    componentMap + (component -> componentInstanceMap1)
+    val componentInstanceMap1 = componentInstanceMap + (componentInstance -> portNumberMap1)
+    val portNameMap1 = portNameMap + (portName -> componentInstanceMap1)
+    componentMap + (component -> portNameMap1)
   }
 
 }
@@ -80,13 +80,13 @@ object TopComponents {
   /** port number -> connection */
   type PortNumberMap = Map[Int, Connection]
 
-  /** output port name -> port number -> connection */
-  type PortNameMap = Map[Name.Unqualified, PortNumberMap]
+  /** component instance -> port number -> connection */
+  type ComponentInstanceMap = Map[ComponentInstance, PortNumberMap]
 
-  /** component instance -> output port name -> port number -> connection */
-  type ComponentInstanceMap = Map[ComponentInstance, PortNameMap]
+  /** output port name -> component instance -> port number -> connection */
+  type PortNameMap = Map[Name.Unqualified, ComponentInstanceMap]
 
-  /** component -> component instance -> output port name -> port number -> connection */
-  type ComponentMap = Map[Component, ComponentInstanceMap]
+  /** component -> output port name -> component instance -> port number -> connection */
+  type ComponentMap = Map[Component, PortNameMap]
 
 }
