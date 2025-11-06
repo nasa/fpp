@@ -89,10 +89,32 @@ case class TopComponentCppWriter (
   ) = {
     val ident = CppWriterState.identFromQualifiedName(componentInstance.qualifiedName)
     val instanceIds = s"${topologyQualifierPrefix}InstanceIds"
-    lines(
-      s"""|case $instanceIds::$ident:
-          |  // TODO
-          |  break;"""
+    List.concat(
+      line(s"case $instanceIds::$ident:") ::
+      writeIsConnectedPortNumCase(portNumberMap).map(indentIn),
+      lines("  break;")
+    )
+  }
+
+  private def writeIsConnectedPortNumCase(
+    portNumberMap: TopComponents.PortNumberMap
+  ) = {
+    val portNumberList = portNumberMap.keys.toList.sorted
+    wrapInSwitch(
+      "portNum",
+      List.concat(
+        portNumberList.flatMap (n => {
+          lines(
+            s"""|case $n:
+                |  result = true;
+                |  break;"""
+          )
+        }),
+        lines(
+          """|default:
+             |  break;"""
+        )
+      )
     )
   }
 
@@ -105,7 +127,7 @@ case class TopComponentCppWriter (
     val name = s"$componentClassName::$shortName"
     lines(
       s"""|
-          |// TODO: $name"""
+          |// TODO: Implementation for $name"""
     )
   }
 

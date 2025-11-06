@@ -164,10 +164,22 @@ namespace M {
     const auto instance = this->getInstance();
     switch (instance) {
       case ::M::InstanceIds::M_c1:
-        // TODO
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          default:
+            break;
+        }
         break;
       case ::M::InstanceIds::M_c2:
-        // TODO
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          default:
+            break;
+        }
         break;
       default:
         FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
@@ -176,7 +188,7 @@ namespace M {
     return result;
   }
 
-  // TODO: CComponentBase::pingOut_out
+  // TODO: Implementation for CComponentBase::pingOut_out
 
 }
 
@@ -188,7 +200,16 @@ namespace Svc {
     const auto instance = this->getInstance();
     switch (instance) {
       case ::M::InstanceIds::M_health:
-        // TODO
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          case 1:
+            result = true;
+            break;
+          default:
+            break;
+        }
         break;
       default:
         FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
@@ -197,7 +218,7 @@ namespace Svc {
     return result;
   }
 
-  // TODO: HealthComponentBase::pingOut_out
+  // TODO: Implementation for HealthComponentBase::pingOut_out
 
 }
 

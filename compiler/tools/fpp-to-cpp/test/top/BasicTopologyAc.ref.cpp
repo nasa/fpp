@@ -174,10 +174,22 @@ namespace M {
     const auto instance = this->getInstance();
     switch (instance) {
       case ::M::InstanceIds::M_passive1:
-        // TODO
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          default:
+            break;
+        }
         break;
       case ::M::InstanceIds::M_passive2:
-        // TODO
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          default:
+            break;
+        }
         break;
       default:
         FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
@@ -186,7 +198,7 @@ namespace M {
     return result;
   }
 
-  // TODO: PassiveComponentBase::p_out
+  // TODO: Implementation for PassiveComponentBase::p_out
 
 }
 
