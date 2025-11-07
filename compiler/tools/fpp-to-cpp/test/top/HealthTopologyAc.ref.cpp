@@ -194,8 +194,31 @@ namespace M {
   ) const {
     FW_ASSERT((0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS), static_cast<FwAssertArgType>(portNum));
     const auto instance = this->getInstance();
-    (void) instance;
-    // TODO
+    switch (instance) {
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          case 0:
+            // TODO
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          case 0:
+            // TODO
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
   }
 
 }
@@ -232,8 +255,24 @@ namespace Svc {
   ) const {
     FW_ASSERT((0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS), static_cast<FwAssertArgType>(portNum));
     const auto instance = this->getInstance();
-    (void) instance;
-    // TODO
+    switch (instance) {
+      case ::M::InstanceIds::M_health:
+        switch (portNum) {
+          case 0:
+            // TODO
+            break;
+          case 1:
+            // TODO
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
   }
 
 }
