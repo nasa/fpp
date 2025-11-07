@@ -15609,7 +15609,7 @@ Your class definition should include the following:</p>
 <div class="listingblock">
 <div class="content">
 <pre>Fw::SerializeStatus T::serializeTo(
-  Fw::SerializeBufferBase&amp;,
+  Fw::SerialBufferBase&amp;,
   Fw::Endianness = Fw::Endianness::BIG
 ) const</pre>
 </div>
@@ -15624,7 +15624,7 @@ Your class definition should include the following:</p>
 <div class="listingblock">
 <div class="content">
 <pre>Fw::SerializeStatus T::deserializeFrom(
-  Fw::SerializeBufferBase&amp;,
+  Fw::SerialBufferBase&amp;,
   Fw::Endianness = Fw::Endianness::BIG
 )</pre>
 </div>
@@ -15663,7 +15663,7 @@ those required by F Prime.
 We have made <code>T</code> a C&#43;&#43; struct (rather than a class) so that
 all members are public by default.
 To implement <code>serializeTo</code>, we use the <code>serializeFrom</code> function
-provided by <code>Fw::SerializeBufferBase</code>.</p>
+provided by <code>Fw::SerialBufferBase</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -15679,7 +15679,7 @@ struct T final : public Fw::Serializable { // Extend Fw::Serializable
 
   // Define some shorthand for F Prime types
   using SS = Fw::SerializeStatus SS;
-  using B = Fw::SerializeBufferBase B;
+  using B = Fw::SerialBufferBase B;
   using E = Fw::Endianness E;
 
   // Define the constant SERIALIZED_SIZE
@@ -15710,10 +15710,10 @@ struct T final : public Fw::Serializable { // Extend Fw::Serializable
 In some cases, you may want to define an abstract type <code>T</code> that represents
 a data buffer and that is used only in <a href="#Defining-Ports">port definitions</a>.
 In this case you can implement
-<code>T</code> as a class that extends <code>Fw::SerializeBufferBase</code>.
+<code>T</code> as a class that extends <code>Fw::SerialBufferBase</code>.
 Instead of implementing the <code>serializeTo</code> and <code>deserializeFrom</code> functions
 directly, you override functions that get the address and the capacity
-(allocated size) of the buffer; the base class <code>Fw::SerializeBufferBase</code>
+(allocated size) of the buffer; the base class <code>Fw::SerialBufferBase</code>
 uses these functions to implement <code>serializeTo</code> and <code>deserializeFrom</code>.
 For an example of how to do this, see the files <code>Fw/Cmd/CmdArgBuffer.hpp</code>
 and <code>Fw/Cmd/CmdArgBuffer.cpp</code> in the F Prime repository.
@@ -16220,7 +16220,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-11-04 14:29:20 -0800
+Last updated 2025-11-06 16:00:29 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

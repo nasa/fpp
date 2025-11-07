@@ -53,7 +53,7 @@ namespace M {
 
   Fw::SerializeStatus Implicit ::
     serializeTo(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         Fw::Endianness mode
     ) const
   {
@@ -66,7 +66,7 @@ namespace M {
 
   Fw::SerializeStatus Implicit ::
     deserializeFrom(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         Fw::Endianness mode
     )
   {

@@ -52,7 +52,7 @@ namespace FppTest {
     // Define a message buffer class large enough to handle all the
     // asynchronous inputs to the component
     class ComponentIpcSerializableBuffer :
-      public Fw::SerializeBufferBase
+      public Fw::LinearBufferBase
     {
 
       public:
@@ -66,7 +66,7 @@ namespace FppTest {
           SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
         };
 
-        Fw::Serializable::SizeType getBuffCapacity() const {
+        Fw::Serializable::SizeType getCapacity() const {
           return sizeof(m_buff);
         }
 
@@ -1728,7 +1728,7 @@ namespace FppTest {
     sendSignalStart(
         SmId smId,
         FwEnumStoreType signal,
-        Fw::SerializeBufferBase& buffer
+        Fw::SerialBufferBase& buffer
     )
   {
     Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
@@ -1751,7 +1751,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    basic1_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    basic1_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1764,7 +1764,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    basic2_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    basic2_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1777,7 +1777,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateBasic1_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasic1_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1790,7 +1790,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateBasic2_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasic2_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1808,7 +1808,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateBasicGuard_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicGuard_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::BLOCKING;
@@ -1821,7 +1821,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateBasicGuardString_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicGuardString_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1839,7 +1839,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateBasicGuardTestAbsType_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicGuardTestAbsType_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1867,7 +1867,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateBasicGuardTestArray_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicGuardTestArray_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1880,7 +1880,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateBasicGuardTestEnum_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicGuardTestEnum_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1893,7 +1893,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateBasicGuardTestStruct_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicGuardTestStruct_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1906,7 +1906,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateBasicGuardU32_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicGuardU32_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1919,7 +1919,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateBasicInternal_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicInternal_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1932,7 +1932,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateBasicSelf_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicSelf_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1945,7 +1945,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateBasicString_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicString_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1958,7 +1958,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateBasicTestAbsType_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicTestAbsType_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1971,7 +1971,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateBasicTestArray_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicTestArray_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1984,7 +1984,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateBasicTestEnum_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicTestEnum_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -1997,7 +1997,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateBasicTestStruct_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicTestStruct_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -2010,7 +2010,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateBasicU32_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateBasicU32_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -2023,7 +2023,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateInternal_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateInternal_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -2036,7 +2036,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStatePolymorphism_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStatePolymorphism_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -2049,7 +2049,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateStateToChild_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateStateToChild_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -2062,7 +2062,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateStateToChoice_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateStateToChoice_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -2075,7 +2075,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateStateToSelf_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateStateToSelf_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -2088,7 +2088,7 @@ namespace FppTest {
   }
 
   void SmStateQueuedComponentBase ::
-    smStateStateToState_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+    smStateStateToState_sendSignalFinish(Fw::LinearBufferBase& buffer)
   {
     // Send message
     Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
@@ -2105,7 +2105,7 @@ namespace FppTest {
   // ----------------------------------------------------------------------
 
   void SmStateQueuedComponentBase ::
-    smDispatch(Fw::SerializeBufferBase& buffer)
+    smDispatch(Fw::SerialBufferBase& buffer)
   {
     // Deserialize the state machine ID and signal
     FwEnumStoreType storedSmId;
@@ -2248,7 +2248,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     deserializeSmIdAndSignal(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FwEnumStoreType& smId,
         FwEnumStoreType& signal
     )
@@ -2269,7 +2269,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_Basic_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_Basic& sm,
         FppTest_SmState_Basic::Signal signal
     )
@@ -2277,7 +2277,7 @@ namespace FppTest {
     switch (signal) {
       case FppTest_SmState_Basic::Signal::s: {
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s
         sm.sendSignal_s();
         break;
@@ -2290,7 +2290,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicGuard_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicGuard& sm,
         FppTest_SmState_BasicGuard::Signal signal
     )
@@ -2298,7 +2298,7 @@ namespace FppTest {
     switch (signal) {
       case FppTest_SmState_BasicGuard::Signal::s: {
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s
         sm.sendSignal_s();
         break;
@@ -2311,7 +2311,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicGuardString_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicGuardString& sm,
         FppTest_SmState_BasicGuardString::Signal signal
     )
@@ -2324,7 +2324,7 @@ namespace FppTest {
         const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s
         sm.sendSignal_s(value);
         break;
@@ -2337,7 +2337,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicGuardTestAbsType_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicGuardTestAbsType& sm,
         FppTest_SmState_BasicGuardTestAbsType::Signal signal
     )
@@ -2349,7 +2349,7 @@ namespace FppTest {
         const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s
         sm.sendSignal_s(value);
         break;
@@ -2362,7 +2362,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicGuardTestArray_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicGuardTestArray& sm,
         FppTest_SmState_BasicGuardTestArray::Signal signal
     )
@@ -2374,7 +2374,7 @@ namespace FppTest {
         const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s
         sm.sendSignal_s(value);
         break;
@@ -2387,7 +2387,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicGuardTestEnum_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicGuardTestEnum& sm,
         FppTest_SmState_BasicGuardTestEnum::Signal signal
     )
@@ -2399,7 +2399,7 @@ namespace FppTest {
         const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s
         sm.sendSignal_s(value);
         break;
@@ -2412,7 +2412,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicGuardTestStruct_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicGuardTestStruct& sm,
         FppTest_SmState_BasicGuardTestStruct::Signal signal
     )
@@ -2424,7 +2424,7 @@ namespace FppTest {
         const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s
         sm.sendSignal_s(value);
         break;
@@ -2437,7 +2437,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicGuardU32_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicGuardU32& sm,
         FppTest_SmState_BasicGuardU32::Signal signal
     )
@@ -2449,7 +2449,7 @@ namespace FppTest {
         const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s
         sm.sendSignal_s(value);
         break;
@@ -2462,7 +2462,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicInternal_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicInternal& sm,
         FppTest_SmState_BasicInternal::Signal signal
     )
@@ -2470,7 +2470,7 @@ namespace FppTest {
     switch (signal) {
       case FppTest_SmState_BasicInternal::Signal::s: {
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s
         sm.sendSignal_s();
         break;
@@ -2483,7 +2483,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicSelf_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicSelf& sm,
         FppTest_SmState_BasicSelf::Signal signal
     )
@@ -2491,7 +2491,7 @@ namespace FppTest {
     switch (signal) {
       case FppTest_SmState_BasicSelf::Signal::s: {
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s
         sm.sendSignal_s();
         break;
@@ -2504,7 +2504,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicString_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicString& sm,
         FppTest_SmState_BasicString::Signal signal
     )
@@ -2517,7 +2517,7 @@ namespace FppTest {
         const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s
         sm.sendSignal_s(value);
         break;
@@ -2530,7 +2530,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicTestAbsType_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicTestAbsType& sm,
         FppTest_SmState_BasicTestAbsType::Signal signal
     )
@@ -2542,7 +2542,7 @@ namespace FppTest {
         const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s
         sm.sendSignal_s(value);
         break;
@@ -2555,7 +2555,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicTestArray_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicTestArray& sm,
         FppTest_SmState_BasicTestArray::Signal signal
     )
@@ -2567,7 +2567,7 @@ namespace FppTest {
         const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s
         sm.sendSignal_s(value);
         break;
@@ -2580,7 +2580,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicTestEnum_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicTestEnum& sm,
         FppTest_SmState_BasicTestEnum::Signal signal
     )
@@ -2592,7 +2592,7 @@ namespace FppTest {
         const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s
         sm.sendSignal_s(value);
         break;
@@ -2605,7 +2605,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicTestStruct_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicTestStruct& sm,
         FppTest_SmState_BasicTestStruct::Signal signal
     )
@@ -2617,7 +2617,7 @@ namespace FppTest {
         const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s
         sm.sendSignal_s(value);
         break;
@@ -2630,7 +2630,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_BasicU32_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_BasicU32& sm,
         FppTest_SmState_BasicU32::Signal signal
     )
@@ -2642,7 +2642,7 @@ namespace FppTest {
         const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s
         sm.sendSignal_s(value);
         break;
@@ -2655,7 +2655,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_Internal_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_Internal& sm,
         FppTest_SmState_Internal::Signal signal
     )
@@ -2663,14 +2663,14 @@ namespace FppTest {
     switch (signal) {
       case FppTest_SmState_Internal::Signal::S1_internal: {
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and S1_internal
         sm.sendSignal_S1_internal();
         break;
       }
       case FppTest_SmState_Internal::Signal::S2_to_S3: {
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and S2_to_S3
         sm.sendSignal_S2_to_S3();
         break;
@@ -2683,7 +2683,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_Polymorphism_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_Polymorphism& sm,
         FppTest_SmState_Polymorphism::Signal signal
     )
@@ -2691,14 +2691,14 @@ namespace FppTest {
     switch (signal) {
       case FppTest_SmState_Polymorphism::Signal::poly: {
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and poly
         sm.sendSignal_poly();
         break;
       }
       case FppTest_SmState_Polymorphism::Signal::S2_to_S3: {
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and S2_to_S3
         sm.sendSignal_S2_to_S3();
         break;
@@ -2711,7 +2711,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_StateToChild_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_StateToChild& sm,
         FppTest_SmState_StateToChild::Signal signal
     )
@@ -2719,14 +2719,14 @@ namespace FppTest {
     switch (signal) {
       case FppTest_SmState_StateToChild::Signal::S1_to_S2: {
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and S1_to_S2
         sm.sendSignal_S1_to_S2();
         break;
       }
       case FppTest_SmState_StateToChild::Signal::S2_to_S3: {
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and S2_to_S3
         sm.sendSignal_S2_to_S3();
         break;
@@ -2739,7 +2739,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_StateToChoice_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_StateToChoice& sm,
         FppTest_SmState_StateToChoice::Signal signal
     )
@@ -2747,21 +2747,21 @@ namespace FppTest {
     switch (signal) {
       case FppTest_SmState_StateToChoice::Signal::S1_to_S4: {
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and S1_to_S4
         sm.sendSignal_S1_to_S4();
         break;
       }
       case FppTest_SmState_StateToChoice::Signal::S1_to_C: {
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and S1_to_C
         sm.sendSignal_S1_to_C();
         break;
       }
       case FppTest_SmState_StateToChoice::Signal::S2_to_S3: {
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and S2_to_S3
         sm.sendSignal_S2_to_S3();
         break;
@@ -2774,7 +2774,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_StateToSelf_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_StateToSelf& sm,
         FppTest_SmState_StateToSelf::Signal signal
     )
@@ -2782,14 +2782,14 @@ namespace FppTest {
     switch (signal) {
       case FppTest_SmState_StateToSelf::Signal::S1_to_S1: {
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and S1_to_S1
         sm.sendSignal_S1_to_S1();
         break;
       }
       case FppTest_SmState_StateToSelf::Signal::S2_to_S3: {
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and S2_to_S3
         sm.sendSignal_S2_to_S3();
         break;
@@ -2802,7 +2802,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmState_StateToState_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmState_StateToState& sm,
         FppTest_SmState_StateToState::Signal signal
     )
@@ -2810,21 +2810,21 @@ namespace FppTest {
     switch (signal) {
       case FppTest_SmState_StateToState::Signal::S1_to_S4: {
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and S1_to_S4
         sm.sendSignal_S1_to_S4();
         break;
       }
       case FppTest_SmState_StateToState::Signal::S1_to_S5: {
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and S1_to_S5
         sm.sendSignal_S1_to_S5();
         break;
       }
       case FppTest_SmState_StateToState::Signal::S2_to_S3: {
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and S2_to_S3
         sm.sendSignal_S2_to_S3();
         break;
@@ -2837,7 +2837,7 @@ namespace FppTest {
 
   void SmStateQueuedComponentBase ::
     FppTest_SmStateQueued_Basic_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmStateQueued_Basic& sm,
         FppTest_SmStateQueued_Basic::Signal signal
     )
@@ -2845,7 +2845,7 @@ namespace FppTest {
     switch (signal) {
       case FppTest_SmStateQueued_Basic::Signal::s: {
         // Assert no data left in buffer
-        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        FW_ASSERT(buffer.getDeserializeSizeLeft() == 0, static_cast<FwAssertArgType>(buffer.getDeserializeSizeLeft()));
         // Call the sendSignal function for sm and s
         sm.sendSignal_s();
         break;
