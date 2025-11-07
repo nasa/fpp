@@ -482,6 +482,8 @@
   "stateMachineMap" : {
     
   },
+  "dictionarySymbolSet" : [
+  ],
   "interfaceMap" : {
     
   }

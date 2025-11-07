@@ -47,3 +47,22 @@ unqualifiedComponentInstances()
     diff_json QualifiedCompInst && \
     diff_json UnqualifiedCompInst
 }
+
+invalidDictDefConstant()
+{
+  run_test "-i builtin.fpp,config.fpp -p 1.0.0 -f 3.4.3 -l lib1-1.0.0,lib2-2.0.0" invalidDictDefConstant && \
+    compare invalidDictDefConstant
+}
+
+invalidDictDefType()
+{
+  run_test "-i builtin.fpp,config.fpp -p 1.0.0 -f 3.4.3 -l lib1-1.0.0,lib2-2.0.0" invalidDictDefType && \
+    compare invalidDictDefType
+}
+
+dictionaryDefs()
+{
+  run_test "-i builtin.fpp,config.fpp -p 1.0.0 -f 3.4.3 -l lib1-1.0.0,lib2-2.0.0" dictionaryDefs && \
+    validate_json_schema DictionaryDefs && \
+    diff_json DictionaryDefs
+}

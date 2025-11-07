@@ -370,7 +370,7 @@ object XmlFppWriter extends LineUtils {
           name <- file.getAttribute(node, "name")
           constants <- defEnumConstantNodeAnnotatedList(file)(node)
         }
-        yield (Nil, Ast.DefEnum(name, None, constants, None), Nil)
+        yield (Nil, Ast.DefEnum(name, None, constants, None, false), Nil)
 
       /** Translates an enum if present in the node */
       def defEnumAnnotatedOpt(file: XmlFppWriter.File)(node: scala.xml.Node):

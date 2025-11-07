@@ -1449,6 +1449,8 @@
   "stateMachineMap" : {
     
   },
+  "dictionarySymbolSet" : [
+  ],
   "interfaceMap" : {
     "12" : {
       "aNode" : {

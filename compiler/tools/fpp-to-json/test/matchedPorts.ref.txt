@@ -20,7 +20,8 @@
                       },
                       "id" : 0
                     }
-                  }
+                  },
+                  "isDictionaryDef" : false
                 },
                 "id" : 1
               }
@@ -745,6 +746,8 @@
   "stateMachineMap" : {
     
   },
+  "dictionarySymbolSet" : [
+  ],
   "interfaceMap" : {
     
   }

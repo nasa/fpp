@@ -21,10 +21,10 @@ stem:[O_2] in the following cases.
 
 .. stem:[T_1] and stem:[T_2] are <<Type-Checking_Identical-Types,identical types>>.
 
-.. Either or both of stem:[T_1] and stem:[T_2] is an <<Types_Alias-Types,alias 
+.. Either or both of stem:[T_1] and stem:[T_2] is an <<Types_Alias-Types,alias
 type>>,
 and _Some_ stem:[T'_1] may be converted to _Some_ stem:[T'_2], where
-stem:[T'_1] is the <<Types_Underlying-Types,underlying type>> of stem:[T_1], 
+stem:[T'_1] is the <<Types_Underlying-Types,underlying type>> of stem:[T_1],
 and
 stem:[T'_2] is the <<Types_Underlying-Types,underlying type>> of stem:[T_2].
 

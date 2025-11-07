@@ -567,6 +567,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions_Framework-Definitions_Type-Definitions">5.15.2. Type Definitions</a></li>
 </ul>
 </li>
+<li><a href="#Definitions_Dictionary-Definitions">5.16. Dictionary Definitions</a>
+<ul class="sectlevel3">
+<li><a href="#Definitions_Dictionary-Definitions_Semantics">5.16.1. Semantics</a></li>
+<li><a href="#Definitions_Dictionary-Definitions_Examples">5.16.2. Examples</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#State-Machine-Behavior-Elements">6. State Machine Behavior Elements</a>
@@ -1177,6 +1183,7 @@ container
 cpu
 default
 diagnostic
+dictionary
 do
 drop
 else
@@ -1705,7 +1712,10 @@ that is defined elsewhere.</p>
 <div class="sect3">
 <h4 id="Definitions_Alias-Type-Definitions_Syntax">5.2.1. Syntax</h4>
 <div class="paragraph">
-<p><code>type</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> = <a href="#Type-Names"><em>type-name</em></a></p>
+<p><em>[</em>
+<code>dictionary</code>
+<em>]</em>
+<code>type</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> = <a href="#Type-Names"><em>type-name</em></a></p>
 </div>
 </div>
 <div class="sect3">
@@ -1716,6 +1726,11 @@ The definition associates the name <em>N</em> with
 the type <em>T</em> specified after the <code>=</code> symbol.
 Elsewhere in the model, the name <em>N</em> may be used as alias of (i.e., an
 alternate name for) the type <em>T</em>.</p>
+</div>
+<div class="paragraph">
+<p>If the optional keyword <code>dictionary</code> is present, then the
+definition must conform to the rules stated in the
+<a href="#Definitions_Dictionary-Definitions">dictionary definitions</a> section.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1743,7 +1758,10 @@ it.</p>
 <div class="sect3">
 <h4 id="Definitions_Array-Definitions_Syntax">5.3.1. Syntax</h4>
 <div class="paragraph">
-<p><code>array</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>=</code>
+<p><em>[</em>
+<code>dictionary</code>
+<em>]</em>
+<code>array</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>=</code>
 <code>[</code> <a href="#Expressions"><em>expression</em></a> <code>]</code> <a href="#Type-Names"><em>type-name</em></a>
 <em>[</em>
 <code>default</code> <a href="#Expressions"><em>expression</em></a>
@@ -1778,6 +1796,11 @@ The type of the expression must be
 <p>The optional format specifier specifies a <a href="#Format-Strings">format string</a>.
 When displaying the array, the format is applied to each element of the array.
 There is one argument to the format string, which is an array member.</p>
+</div>
+<div class="paragraph">
+<p>If the optional keyword <code>dictionary</code> is present, then the
+definition must conform to the rules stated in the
+<a href="#Definitions_Dictionary-Definitions">dictionary definitions</a> section.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2512,7 +2535,10 @@ model.</p>
 <div class="sect3">
 <h4 id="Definitions_Constant-Definitions_Syntax">5.6.1. Syntax</h4>
 <div class="paragraph">
-<p><code>constant</code>
+<p><em>[</em>
+<code>dictionary</code>
+<em>]</em>
+<code>constant</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>=</code>
 <a href="#Expressions"><em>expression</em></a></p>
@@ -2528,6 +2554,11 @@ to a compile-time constant value <em>v</em>. At any model point where the
 the constant definition according to the
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">scoping
 rules for names</a>, you can use <em>Q</em> as a name for <em>v</em>.</p>
+</div>
+<div class="paragraph">
+<p>If the optional keyword <code>dictionary</code> is present, then the
+definition must conform to the rules stated in the
+<a href="#Definitions_Dictionary-Definitions">dictionary definitions</a> section.</p>
 </div>
 </div>
 <div class="sect3">
@@ -2567,7 +2598,10 @@ constants.</p>
 <div class="sect3">
 <h4 id="Definitions_Enum-Definitions_Syntax">5.7.1. Syntax</h4>
 <div class="paragraph">
-<p><code>enum</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<p><em>[</em>
+<code>dictionary</code>
+<em>]</em>
+<code>enum</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>[</em> <code>:</code> <a href="#Type-Names"><em>type-name</em></a> <em>]</em>
 <code>{</code> <em>enum-constant-sequence</em> <code>}</code>
 <em>[</em>
@@ -2604,6 +2638,11 @@ No two enumerated constants may have the same value after the conversion.</p>
 If present, it specifies the <a href="#Types_Default-Values">default value</a> associated
 with the enum definition.
 The type of the expression must be the type of the enum definition.</p>
+</div>
+<div class="paragraph">
+<p>If the optional keyword <code>dictionary</code> is present, then the
+definition must conform to the rules stated in the
+<a href="#Definitions_Dictionary-Definitions">dictionary definitions</a> section.</p>
 </div>
 </div>
 <div class="sect3">
@@ -3467,7 +3506,10 @@ with it.</p>
 <div class="sect3">
 <h4 id="Definitions_Struct-Definitions_Syntax">5.13.1. Syntax</h4>
 <div class="paragraph">
-<p><code>struct</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<p><em>[</em>
+<code>dictionary</code>
+<em>]</em>
+<code>struct</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>{</code> <em>struct-type-member-sequence</em> <code>}</code>
 <em>[</em> <code>default</code> <a href="#Expressions"><em>expression</em></a> <em>]</em></p>
 </div>
@@ -3524,6 +3566,11 @@ The type of the expression must be
 <a href="#Type-Checking_Type-Conversion">convertible to</a> <em>T</em>.
 If the expression specifies a value for a member with size
 greater than one, then the value is applied to each element.</p>
+</div>
+<div class="paragraph">
+<p>If the optional keyword <code>dictionary</code> is present, then the
+definition must conform to the rules stated in the
+<a href="#Definitions_Dictionary-Definitions">dictionary definitions</a> section.</p>
 </div>
 </div>
 <div class="sect3">
@@ -4330,6 +4377,61 @@ to the following rules.</p>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Definitions_Dictionary-Definitions">5.16. Dictionary Definitions</h3>
+<div class="paragraph">
+<p>If the optional keyword <code>dictionary</code> appears in a type definition or
+a constant definition, then that definition is called a
+<strong>dictionary definition</strong>.
+A dictionary definition instructs the code generator to include
+the definition in the ground dictionary.</p>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Dictionary-Definitions_Semantics">5.16.1. Semantics</h4>
+<div class="paragraph">
+<p>If a constant definition <em>D</em> is a dictionary definition, then the
+expression appearing in <em>D</em> must have one of the following types:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>.</p>
+</li>
+<li>
+<p>The <a href="#Types_The-Boolean-Type">Boolean type</a>.</p>
+</li>
+<li>
+<p>A <a href="#Types_String-Types">string type</a>.</p>
+</li>
+<li>
+<p>An <a href="#Types_Enum-Types">enum type</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If a type definition <em>D</em> is a dictionary definition, then the type
+defined by <em>D</em> must be a <a href="#Types_Displayable-Types">displayable type</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_Dictionary-Definitions_Examples">5.16.2. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">dictionary type T = U32
+dictionary array A = [3] string
+dictionary constant a = 0
+
+enum E { X, Y }
+dictionary constant b = E.X
+
+type T1
+dictionary type T2 = T1 # Error: T2 is not displayable
+
+dictionary constant c = { x = U32 } # Error: struct type is not allowed</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -6578,7 +6680,17 @@ of a <a href="#Definitions">definition</a>.</p>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 <li>
-<p>A <strong>constant location specifier</strong> <code>locate</code> <code>constant</code>
+<p>A <strong>constant location specifier</strong> <code>locate</code>
+<em>[</em>
+<code>dictionary</code>
+<em>]</em>
+<code>constant</code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
+<a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+</li>
+<li>
+<p>A <strong>port interface specifier</strong> <code>locate</code>
+<code>interface</code>
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
@@ -6598,26 +6710,62 @@ of a <a href="#Definitions">definition</a>.</p>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 <li>
-<p>A <strong>type location specifier</strong> <code>locate</code> <code>type</code>
+<p>A <strong>type location specifier</strong> <code>locate</code>
+<em>[</em>
+<code>dictionary</code>
+<em>]</em>
+<code>type</code>
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>If the optional keyword <code>dictionary</code> appears in a location specifier <em>S</em>,
+then <em>S</em> is called a <strong>dictionary specifier</strong>.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_Location-Specifiers_Semantics">7.10.2. Semantics</h4>
+<div class="paragraph">
+<p>A location specifier <em>S</em> with qualified identifier <em>Q</em> must conform
+to the following rules:</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The qualified identifier <em>Q</em> is resolved like a
+<p><em>Q</em> is resolved like a
 <a href="#Definitions-and-Uses_Uses">use</a> that refers to a <a href="#Definitions">definition</a>
 as follows:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
+<p>A component instance location specifier refers to a
+<a href="#Definitions_Component-Instance-Definitions">component instance definition</a>.</p>
+</li>
+<li>
+<p>A component location specifier refers to a
+<a href="#Definitions_Component-Definitions">component definition</a>.</p>
+</li>
+<li>
 <p>A constant location specifier refers to a
 <a href="#Definitions_Constant-Definitions">constant definition</a>.</p>
+</li>
+<li>
+<p>A port interface location specifier refers to a
+<a href="#Definitions_Port-Interface-Definitions">port interface definition</a>.</p>
+</li>
+<li>
+<p>A port location specifier refers to a
+<a href="#Definitions_Port-Definitions">port definition</a>.</p>
+</li>
+<li>
+<p>A state machine location specifier refers to a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>.</p>
+</li>
+<li>
+<p>A topology location specifier refers to a
+<a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
 </li>
 <li>
 <p>A type location specifier refers to an
@@ -6625,26 +6773,6 @@ as follows:</p>
 <a href="#Definitions_Enum-Definitions">enum definition</a>,
 <a href="#Definitions_Struct-Definitions">struct definition</a>, or
 <a href="#Definitions_Abstract-Type-Definitions">abstract type definition</a>.</p>
-</li>
-<li>
-<p>A port location specifier refers to a
-<a href="#Definitions_Port-Definitions">port definition</a>.</p>
-</li>
-<li>
-<p>A component location specifier refers to a
-<a href="#Definitions_Component-Definitions">component definition</a>.</p>
-</li>
-<li>
-<p>A component instance location specifier refers to a
-<a href="#Definitions_Component-Instance-Definitions">component instance definition</a>.</p>
-</li>
-<li>
-<p>A topology location specifier refers to a
-<a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
-</li>
-<li>
-<p>A state machine location specifier refers to a
-<a href="#Definitions_State-Machine-Definitions">state machine definition</a>.</p>
 </li>
 </ol>
 </div>
@@ -6654,13 +6782,19 @@ as follows:</p>
 <a href="#Definitions_Module-Definitions">module definition <em>M</em></a>,
 <em>Q</em> is implicitly qualified by the
 <a href="#Scoping-of-Names_Names-of-Definitions">qualified name</a>
-of <em>M</em>.</p>
+of <em>M</em>.
+This rule allows the resolution to occur during dependency analysis,
+before uses have been matched with their definitions.</p>
 </li>
 <li>
 <p><em>Q</em> need not actually refer to any definition.
 This rule allows the specification of dependencies for a larger set
 of files than the ones involved in a particular analysis
-or translation.</p>
+or translation.
+If <em>Q</em> does refer to a definition <em>D</em>, then <em>S</em>
+must be a dictionary specifier if <em>D</em> is a
+<a href="#Definitions_Dictionary-Definitions">dictionary definition</a>;
+otherwise it must not be.</p>
 </li>
 <li>
 <p>The string literal must specify the path of an FPP source file, relative to the
@@ -6674,8 +6808,19 @@ location specifier.</p>
 </li>
 <li>
 <p>Multiple location specifiers for the same definition are allowed in a single
-<a href="#Translation-Units-and-Models_Models">model</a>, so long as the locations are all
-consistent.</p>
+<a href="#Translation-Units-and-Models_Models">model</a>, so long as the following
+conditions are met:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>All of the specifiers must be dictionary specifiers, or none of them must
+be.</p>
+</li>
+<li>
+<p>All the specifiers must have the same locations.</p>
+</li>
+</ol>
+</div>
 </li>
 </ol>
 </div>
@@ -11892,7 +12037,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-10-13 11:49:07 -0700
+Last updated 2025-11-06 15:59:49 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

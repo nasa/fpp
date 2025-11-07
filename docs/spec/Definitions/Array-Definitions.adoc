@@ -5,6 +5,9 @@ it.
 
 ==== Syntax
 
+_[_
+`dictionary`
+_]_
 `array` <<Lexical-Elements_Identifiers,_identifier_>> `=`
 `[` <<Expressions,_expression_>> `]` <<Type-Names,_type-name_>>
 _[_
@@ -35,6 +38,10 @@ The type of the expression must be
 The optional format specifier specifies a <<Format-Strings,format string>>.
 When displaying the array, the format is applied to each element of the array.
 There is one argument to the format string, which is an array member.
+
+If the optional keyword `dictionary` is present, then the
+definition must conform to the rules stated in the
+<<Definitions_Dictionary-Definitions,dictionary definitions>> section.
 
 ==== Examples
 

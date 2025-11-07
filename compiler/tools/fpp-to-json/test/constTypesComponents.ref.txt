@@ -62,7 +62,8 @@
                                     ]
                                   ]
                                 ],
-                                "default" : "None"
+                                "default" : "None",
+                                "isDictionaryDef" : false
                               },
                               "id" : 4
                             }
@@ -1063,6 +1064,8 @@
   "stateMachineMap" : {
     
   },
+  "dictionarySymbolSet" : [
+  ],
   "interfaceMap" : {
     
   }

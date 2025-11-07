@@ -60,6 +60,11 @@ state_machine()
   update '' ../../fpp-syntax/test/state-machine state_machine
 }
 
+dictionary_specifier()
+{
+  update '' ../../fpp-syntax/test/dictionary-specifier dictionary_specifier
+}
+
 for t in $tests
 do
   echo "updating ref output for $t"

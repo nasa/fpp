@@ -141,7 +141,7 @@ std::ostream& operator<<(std::ostream& os, const StringArray& obj) {
 
 Fw::SerializeStatus StringArray ::
   serializeTo(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -157,7 +157,7 @@ Fw::SerializeStatus StringArray ::
 
 Fw::SerializeStatus StringArray ::
   deserializeFrom(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {
