@@ -64,7 +64,6 @@ case class TopComponentCppWriter (
   ) = {
     val portInstance = component.portMap(portName)
     val numPorts = numPortsConstantName(portInstance)
-    val sortedList = componentInstanceMapToSortedList(componentInstanceMap)
     List.concat(
       lines(
       s"""|FW_ASSERT((0 <= portNum) && (portNum < $numPorts), static_cast<FwAssertArgType>(portNum));
@@ -100,7 +99,6 @@ case class TopComponentCppWriter (
   ) = {
     val portInstance = component.portMap(portName)
     val numPorts = numPortsConstantName(portInstance)
-    val sortedList = componentInstanceMapToSortedList(componentInstanceMap)
     List.concat(
       lines(
       s"""|FW_ASSERT((0 <= portNum) && (portNum < $numPorts), static_cast<FwAssertArgType>(portNum));
