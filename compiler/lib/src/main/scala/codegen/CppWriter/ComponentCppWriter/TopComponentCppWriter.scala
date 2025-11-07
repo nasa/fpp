@@ -41,14 +41,14 @@ case class TopComponentCppWriter (
 
   private def writeInstanceSwitch(
     componentInstanceMap: TopComponents.ComponentInstanceMap,
-    innerCaseLines: (Int, Connection) => List[Line],
+    writeInnerCaseLines: (Int, Connection) => List[Line],
     innerDefaultLines: List[Line] = Nil
   ) = {
     val sortedList = componentInstanceMapToSortedList(componentInstanceMap)
     wrapInSwitch(
       "instance",
       List.concat(
-        sortedList.flatMap(writePortNumCase (innerCaseLines) (innerDefaultLines)),
+        sortedList.flatMap(writePortNumCase (writeInnerCaseLines) (innerDefaultLines)),
         lines(
           """|default:
              |  FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
@@ -138,7 +138,7 @@ case class TopComponentCppWriter (
   }
 
   private def writePortNumCase
-    (innerCaseLines: (Int, Connection) => List[Line])
+    (writeInnerCaseLines: (Int, Connection) => List[Line])
     (innerDefaultLines: List[Line])
     (pair: (ComponentInstance, TopComponents.PortNumberMap)) =
   {
@@ -147,13 +147,13 @@ case class TopComponentCppWriter (
     val instanceIds = s"${topologyQualifierPrefix}InstanceIds"
     List.concat(
       line(s"case $instanceIds::$ident:") ::
-      (writePortNumSwitch (innerCaseLines, innerDefaultLines, portNumberMap)).map(indentIn),
+      (writePortNumSwitch (writeInnerCaseLines, innerDefaultLines, portNumberMap)).map(indentIn),
       lines("  break;")
     )
   }
 
   private def writePortNumSwitch(
-    caseLines: (Int, Connection) => List[Line],
+    writeCaseLines: (Int, Connection) => List[Line],
     defaultLines: List[Line],
     portNumberMap: TopComponents.PortNumberMap
   ) = {
@@ -164,7 +164,7 @@ case class TopComponentCppWriter (
         portNumberList.flatMap ((n, c) =>
           List.concat(
             line(s"case $n:") ::
-            caseLines(n, c).map(indentIn),
+            writeCaseLines(n, c).map(indentIn),
             lines("  break;")
           )
         ),
