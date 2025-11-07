@@ -199,6 +199,9 @@ namespace M {
   }
 
   void PassiveComponentBase::p_out(FwIndexType portNum) const {
+    FW_ASSERT((0 <= portNum) && (portNum < NUM_P_OUTPUT_PORTS), static_cast<FwAssertArgType>(portNum));
+    const auto instance = this->getInstance();
+    (void) instance;
     // TODO
   }
 

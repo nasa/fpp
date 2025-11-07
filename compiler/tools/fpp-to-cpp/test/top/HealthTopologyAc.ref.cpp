@@ -192,6 +192,9 @@ namespace M {
       FwIndexType portNum,
       U32 key
   ) const {
+    FW_ASSERT((0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS), static_cast<FwAssertArgType>(portNum));
+    const auto instance = this->getInstance();
+    (void) instance;
     // TODO
   }
 
@@ -227,6 +230,9 @@ namespace Svc {
       FwIndexType portNum,
       U32 key
   ) const {
+    FW_ASSERT((0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS), static_cast<FwAssertArgType>(portNum));
+    const auto instance = this->getInstance();
+    (void) instance;
     // TODO
   }
 
