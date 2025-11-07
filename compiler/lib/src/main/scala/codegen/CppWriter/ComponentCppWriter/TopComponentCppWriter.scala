@@ -48,7 +48,7 @@ case class TopComponentCppWriter (
     wrapInSwitch(
       "instance",
       List.concat(
-        sortedList.flatMap(writePortNumCase (writeInnerCaseLines) (innerDefaultLines)),
+        sortedList.flatMap(writeInstanceCase (writeInnerCaseLines) (innerDefaultLines)),
         lines(
           """|default:
              |  FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
@@ -137,7 +137,7 @@ case class TopComponentCppWriter (
     )
   }
 
-  private def writePortNumCase
+  private def writeInstanceCase
     (writeInnerCaseLines: (Int, Connection) => List[Line])
     (innerDefaultLines: List[Line])
     (pair: (ComponentInstance, TopComponents.PortNumberMap)) =
