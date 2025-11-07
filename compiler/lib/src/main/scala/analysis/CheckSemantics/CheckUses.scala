@@ -194,6 +194,9 @@ object CheckUses extends BasicUseAnalyzer {
   override def interfaceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     helpers.visitQualIdentNode (NameGroup.PortInterface) (a, node)
 
+  override def templateUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
+    helpers.visitQualIdentNode (NameGroup.Template) (a, node)
+
   override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) = {
     val data = node.data
     data match {

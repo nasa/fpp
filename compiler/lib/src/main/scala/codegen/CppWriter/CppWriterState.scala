@@ -173,6 +173,8 @@ case class CppWriterState(
           case _: Symbol.EnumConstant => List()
           case _: Symbol.Module => List()
           case _: Symbol.ComponentInstance => List()
+          case _: Symbol.Template => List()
+          case _: Symbol.TemplateParam => List()
         }
       }
       yield filenames

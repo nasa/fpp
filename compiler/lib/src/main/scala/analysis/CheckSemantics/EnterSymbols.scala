@@ -232,6 +232,31 @@ object EnterSymbols
     }
   }
 
+  override def defModuleTemplateAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    val name = data.name
+    val symbol = Symbol.Template(aNode)
+    val nestedScope = a.nestedScope
+
+    for {
+      nestedScope <- nestedScope.put(NameGroup.Template)(name, symbol)
+      nestedScope <- {
+        Result.foldLeft(data.params) (nestedScope) ((nestedScope, param) => {
+          val paramSym = Symbol.TemplateParam(param)
+          for {
+            nestedScope <- nestedScope.put (NameGroup.Value) (paramSym.getUnqualifiedName, paramSym)
+            nestedScope <- nestedScope.put (NameGroup.Type) (paramSym.getUnqualifiedName, paramSym)
+            nestedScope <- nestedScope.put (NameGroup.PortInterfaceInstance) (paramSym.getUnqualifiedName, paramSym)
+          } yield nestedScope
+        })
+      }
+    } yield updateMap(a, symbol).copy(nestedScope = nestedScope)
+  }
+
   override def defPortAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefPort]]

@@ -83,7 +83,15 @@ case class Analysis(
   /** Whether dictionary generation is required */
   dictionaryGeneration: Boolean = false,
   /** The mapping from nodes to implied uses */
-  impliedUseMap: Map[AstNode.Id, ImpliedUse.Uses] = Map()
+  impliedUseMap: Map[AstNode.Id, ImpliedUse.Uses] = Map(),
+  /** Stack of templates currently being expanded for purposes of cycle detection */
+  templateStack: List[Symbol.Template] = List(),
+  /** Template currently being expanded */
+  template: Option[Symbol.Template] = None,
+  /** Template parameters applied to the current template */
+  templateParameters: Map[String, TemplateParameter] = Map(),
+  /** The map from template symbols to templates */
+  templateMap: Map[Symbol.Template, Template] = Map()
 ) {
 
   /** Gets the qualified name of a symbol */
@@ -287,6 +295,25 @@ case class Analysis(
   def getInterface(id: AstNode.Id): Result.Result[Interface] =
     for (cis <- getInterfaceSymbol(id))
       yield this.interfaceMap(cis)
+
+  /** Gets a template symbol from use-def map */
+  def getTemplateSymbol(id: AstNode.Id): Result.Result[Symbol.Template] =
+    this.useDefMap(id) match {
+      case ts: Symbol.Template => Right(ts)
+      case s => Left(
+        SemanticError.InvalidSymbol(
+          s.getUnqualifiedName,
+          Locations.get(id),
+          "not a template symbol",
+          s.getLoc
+        )
+      )
+    }
+
+  /** Gets a template from the template map */
+  def getTemplate(id: AstNode.Id): Result.Result[Template] =
+    for (ts <- getTemplateSymbol(id))
+      yield this.templateMap(ts)
 
   /** Gets a topology symbol from use-def map */
   def getTopologySymbol(id: AstNode.Id): Result.Result[Symbol.Topology] =

@@ -1,0 +1,32 @@
+def module template
+  ident T
+  params constant p type name U32
+  def constant
+    ident i1
+    expr binop
+      ident p
+      binop +
+      literal int 2
+  def constant
+    ident i2
+    expr binop
+      ident i1
+      binop +
+      literal int 3
+expand
+  qual ident T
+  params
+    literal int 10
+  members
+    def constant
+      ident i1
+      expr binop
+        ident p
+        binop +
+        literal int 2
+    def constant
+      ident i2
+      expr binop
+        ident i1
+        binop +
+        literal int 3

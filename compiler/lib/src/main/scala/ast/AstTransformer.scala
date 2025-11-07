@@ -17,225 +17,266 @@ trait AstTransformer {
 
   def default(in: In): Out
 
+  def defaultNode[T](
+      in: In,
+      node: AstNode[T]
+  ): ResultNode[T] =
+    Right(default(in), node)
+
+  def defaultAnnotatedNode[T](
+    in: In,
+    aNode: Ast.Annotated[AstNode[T]]
+  ): ResultAnnotatedNode[T] =
+    Right(default(in), aNode)
+
   def defAbsTypeAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefAbsType]]
   ): ResultAnnotatedNode[Ast.DefAbsType] =
-    Right(default(in), node)
+    defaultAnnotatedNode(in, node)
 
   def defAliasTypeAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefAliasType]]
   ): ResultAnnotatedNode[Ast.DefAliasType] =
-    Right(default(in), node)
+    defaultAnnotatedNode(in, node)
 
   def defArrayAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefArray]]): ResultAnnotatedNode[Ast.DefArray] =
-    Right(default(in), node)
+    defaultAnnotatedNode(in, node)
 
   def defComponentAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefComponent]]): ResultAnnotatedNode[Ast.DefComponent] =
-    Right(default(in), node)
+    defaultAnnotatedNode(in, node)
 
   def defComponentInstanceAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]
-  ): ResultAnnotatedNode[Ast.DefComponentInstance] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.DefComponentInstance] =
+    defaultAnnotatedNode(in, node)
 
   def defInterfaceAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefInterface]]): ResultAnnotatedNode[Ast.DefInterface] =
-    Right(default(in), node)
+    defaultAnnotatedNode(in, node)
 
   def defConstantAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefConstant]]
-  ): ResultAnnotatedNode[Ast.DefConstant] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.DefConstant] =
+    defaultAnnotatedNode(in, node)
 
   def defEnumAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefEnum]]
-  ): ResultAnnotatedNode[Ast.DefEnum] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.DefEnum] =
+    defaultAnnotatedNode(in, node)
 
   def defModuleAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefModule]]
-  ): ResultAnnotatedNode[Ast.DefModule] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.DefModule] =
+    defaultAnnotatedNode(in, node)
 
   def defModuleTemplateAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
-  ): ResultAnnotatedNode[Ast.DefModuleTemplate] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.DefModuleTemplate] =
+  defaultAnnotatedNode(in, node)
 
   def defPortAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefPort]]
-  ): ResultAnnotatedNode[Ast.DefPort] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.DefPort] =
+    defaultAnnotatedNode(in, node)
 
   def defStateMachineAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefStateMachine]]
-  ): ResultAnnotatedNode[Ast.DefStateMachine] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.DefStateMachine] =
+    defaultAnnotatedNode(in, node)
 
   def defStructAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefStruct]]
-  ): ResultAnnotatedNode[Ast.DefStruct] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.DefStruct] =
+    defaultAnnotatedNode(in, node)
 
   def defTopologyAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefTopology]]
-  ): ResultAnnotatedNode[Ast.DefTopology] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.DefTopology] =
+    defaultAnnotatedNode(in, node)
 
   def exprArrayNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprArray): ResultNode[Ast.Expr] =
-    Right(default(in), node)
+    defaultNode(in, node)
 
   def exprArraySubscriptNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprArraySubscript): ResultNode[Ast.Expr] =
-    Right(default(in), node)
+    defaultNode(in, node)
 
   def exprBinopNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprBinop): ResultNode[Ast.Expr] =
-    Right(default(in), node)
+    defaultNode(in, node)
 
   def exprDotNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprDot): ResultNode[Ast.Expr] =
-    Right(default(in), node)
+    defaultNode(in, node)
 
   def exprIdentNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprIdent): ResultNode[Ast.Expr] =
-    Right(default(in), node)
+    defaultNode(in, node)
 
   def exprLiteralBoolNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprLiteralBool): ResultNode[Ast.Expr] =
-    Right(default(in), node)
+    defaultNode(in, node)
 
   def exprLiteralFloatNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprLiteralFloat): ResultNode[Ast.Expr] =
-    Right(default(in), node)
+    defaultNode(in, node)
 
   def exprLiteralIntNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprLiteralInt): ResultNode[Ast.Expr] =
-    Right(default(in), node)
+    defaultNode(in, node)
 
   def exprLiteralStringNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprLiteralString): ResultNode[Ast.Expr] =
-    Right(default(in), node)
+    defaultNode(in, node)
 
   def exprParenNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprParen): ResultNode[Ast.Expr] =
-    Right(default(in), node)
+    defaultNode(in, node)
 
   def exprStructNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprStruct): ResultNode[Ast.Expr] =
-    Right(default(in), node)
+    defaultNode(in, node)
 
   def exprUnopNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprUnop): ResultNode[Ast.Expr] =
-    Right(default(in), node)
+    defaultNode(in, node)
 
   def specCommandAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecCommand]]
-  ): ResultAnnotatedNode[Ast.SpecCommand] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.SpecCommand] =
+    defaultAnnotatedNode(in, node)
 
   def specInstanceAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecInstance]]
-  ): ResultAnnotatedNode[Ast.SpecInstance] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.SpecInstance] =
+    defaultAnnotatedNode(in, node)
 
   def specConnectionGraphAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]
-  ): ResultAnnotatedNode[Ast.SpecConnectionGraph] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.SpecConnectionGraph] =
+    defaultAnnotatedNode(in, node)
 
   def specContainerAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecContainer]]
-  ): ResultAnnotatedNode[Ast.SpecContainer] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.SpecContainer] =
+    defaultAnnotatedNode(in, node)
 
   def specEventAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecEvent]]
-  ): ResultAnnotatedNode[Ast.SpecEvent] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.SpecEvent] =
+    defaultAnnotatedNode(in, node)
 
   def specIncludeAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecInclude]]
-  ): ResultAnnotatedNode[Ast.SpecInclude] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.SpecInclude] =
+    defaultAnnotatedNode(in, node)
 
   def specInitAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecInit]]
-  ): ResultAnnotatedNode[Ast.SpecInit] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.SpecInit] =
+    defaultAnnotatedNode(in, node)
 
   def specInternalPortAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecInternalPort]]
-  ): ResultAnnotatedNode[Ast.SpecInternalPort] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.SpecInternalPort] =
+    defaultAnnotatedNode(in, node)
 
   def specLocAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecLoc]]
-  ): ResultAnnotatedNode[Ast.SpecLoc] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.SpecLoc] =
+    defaultAnnotatedNode(in, node)
 
   def specTemplateExpandAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
-  ): ResultAnnotatedNode[Ast.SpecTemplateExpand] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.SpecTemplateExpand] =
+    defaultAnnotatedNode(in, node)
 
   def specParamAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecParam]]
-  ): ResultAnnotatedNode[Ast.SpecParam] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.SpecParam] =
+    defaultAnnotatedNode(in, node)
 
   def specPortInstanceAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecPortInstance]]
-  ): ResultAnnotatedNode[Ast.SpecPortInstance] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.SpecPortInstance] =
+    defaultAnnotatedNode(in, node)
 
   def specPortMatchingAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecPortMatching]]
-  ): ResultAnnotatedNode[Ast.SpecPortMatching] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.SpecPortMatching] =
+    defaultAnnotatedNode(in, node)
 
   def specRecordAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecRecord]]
-  ): ResultAnnotatedNode[Ast.SpecRecord] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.SpecRecord] =
+    defaultAnnotatedNode(in, node)
 
   def specStateMachineInstanceAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]
-  ): ResultAnnotatedNode[Ast.SpecStateMachineInstance] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.SpecStateMachineInstance] =
+    defaultAnnotatedNode(in, node)
 
   def specTlmChannelAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]
-  ): ResultAnnotatedNode[Ast.SpecTlmChannel] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.SpecTlmChannel] =
+    defaultAnnotatedNode(in, node)
 
   def specTlmPacketAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecTlmPacket]]
-  ): ResultAnnotatedNode[Ast.SpecTlmPacket] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.SpecTlmPacket] =
+    defaultAnnotatedNode(in, node)
 
   def specTopPortAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecTopPort]]
-  ): ResultAnnotatedNode[Ast.SpecTopPort] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.SpecTopPort] =
+    defaultAnnotatedNode(in, node)
 
   def specTlmPacketSetAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecTlmPacketSet]]
-  ): ResultAnnotatedNode[Ast.SpecTlmPacketSet] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.SpecTlmPacketSet] =
+    defaultAnnotatedNode(in, node)
 
   def specInterfaceImportAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecImport]]
-  ): ResultAnnotatedNode[Ast.SpecImport] = Right(default(in), node)
+  ): ResultAnnotatedNode[Ast.SpecImport] =
+    defaultAnnotatedNode(in, node)
+
+  def typeNameBoolNode(in: In, node: AstNode[Ast.TypeName]): ResultNode[Ast.TypeName] =
+    defaultNode(in, node)
+
+  def typeNameFloatNode(in: In, node: AstNode[Ast.TypeName], tn: Ast.TypeNameFloat): ResultNode[Ast.TypeName] =
+    defaultNode(in, node)
+
+  def typeNameIntNode(in: In, node: AstNode[Ast.TypeName], tn: Ast.TypeNameInt): ResultNode[Ast.TypeName] =
+    defaultNode(in, node)
+
+  def typeNameQualIdentNode(in: In, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent): ResultNode[Ast.TypeName] =
+    defaultNode(in, node)
+
+  def typeNameStringNode(in: In, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString): ResultNode[Ast.TypeName] =
+    defaultNode(in, node)
 
   def transUnit(in: In, tu: Ast.TransUnit): Result[Ast.TransUnit] =
     Right(default(in), tu)
-
-  def typeNameBoolNode(in: In, node: AstNode[Ast.TypeName]): ResultNode[Ast.TypeName] =
-    Right(default(in), node)
-
-  def typeNameFloatNode(in: In, node: AstNode[Ast.TypeName], tn: Ast.TypeNameFloat): ResultNode[Ast.TypeName] =
-    Right(default(in), node)
-
-  def typeNameIntNode(in: In, node: AstNode[Ast.TypeName], tn: Ast.TypeNameInt): ResultNode[Ast.TypeName] =
-    Right(default(in), node)
-
-  def typeNameQualIdentNode(in: In, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent): ResultNode[Ast.TypeName] =
-    Right(default(in), node)
-
-  def typeNameStringNode(in: In, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString): ResultNode[Ast.TypeName] =
-    Right(default(in), node)
 
   final def matchComponentMember(in: In, member: Ast.ComponentMember): Result[Ast.ComponentMember] = {
     def transform[T](
@@ -428,12 +469,6 @@ trait AstTransformer {
       case tn : Ast.TypeNameInt => typeNameIntNode(in, node, tn)
       case tn : Ast.TypeNameQualIdent => typeNameQualIdentNode(in, node, tn)
       case tn : Ast.TypeNameString => typeNameStringNode(in, node, tn)
-    }
-
-  private def transformNode[In,Out](rn: ResultNode[In], f: AstNode[In] => Out): Result[Out] =
-    for (pair <- rn) yield {
-      val (out, node) = pair
-      (out, f(node))
     }
 
 }

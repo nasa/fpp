@@ -129,6 +129,11 @@ syntax_stdin()
   diff -u syntax-stdin.ref.txt syntax-stdin.out.txt > syntax-stdin.diff.txt 2>&1
 }
 
+template()
+{
+  run_test -ita template
+}
+
 topology_ports()
 {
   run_test -ia topology-ports
@@ -163,6 +168,7 @@ syntax_ast
 syntax_include_ast
 syntax_kwd_names
 syntax_stdin
+template
 topology_ports
 two_input_files
 "

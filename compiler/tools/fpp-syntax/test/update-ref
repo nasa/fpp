@@ -29,7 +29,6 @@ update "" illegal-character
 update "" parse-error
 update "" syntax
 update "" syntax-kwd-names
-update -ia topology-ports
 update -a state-machine
 update -a empty
 update -a escaped-strings
@@ -43,6 +42,8 @@ update -ia include-constant-1 include-constant-1
 update -ia include-module
 update -ia include-subdir
 update -ia include-topology
+update -ia topology-ports
+update -ita template
 update -ia subdir/include-parent-dir
 update -ia syntax syntax-include-ast
 

@@ -680,6 +680,7 @@ object Parser extends Parsers {
         state ~! machine ^^ (_ => Ast.SpecLoc.StateMachine) |
         typeToken ^^ (_ => Ast.SpecLoc.Type) |
         interface ^^ (_ => Ast.SpecLoc.Interface) |
+        template ^^ (_ => Ast.SpecLoc.Template) |
         failure("location kind expected")
     }
 
@@ -1009,25 +1010,25 @@ object Parser extends Parsers {
       failure("type name expected")
   }
 
-  def templateConstantParam: Parser[Ast.TemplateParam.ConstantParam] = {
+  def templateConstantParam: Parser[Ast.TemplateParam.Constant] = {
     (constant ~>! ident) ~! (colon ~>! node(typeName)) ^^ {
-      case id ~ tn => Ast.TemplateParam.ConstantParam(id, tn)
+      case id ~ tn => Ast.TemplateParam.Constant(id, tn)
     }
   }
 
-  def templateTypeParam: Parser[Ast.TemplateParam.TypeParam] = {
+  def templateTypeParam: Parser[Ast.TemplateParam.Type] = {
     typeToken ~>! ident ^^ {
-      case id => Ast.TemplateParam.TypeParam(id)
+      case id => Ast.TemplateParam.Type(id)
     }
   }
 
-  def templateInterfaceParam: Parser[Ast.TemplateParam.InterfaceParam] = {
+  def templateInterfaceParam: Parser[Ast.TemplateParam.Interface] = {
     (interface ~>! ident) ~! (colon ~>! node(qualIdent)) ^^ {
-      case id ~ iface => Ast.TemplateParam.InterfaceParam(id, iface)
+      case id ~ iface => Ast.TemplateParam.Interface(id, iface)
     }
   }
 
-  private def templateParam: Parser[AstNode[Ast.TemplateParam.Node]] = {
+  private def templateParam: Parser[AstNode[Ast.TemplateParam]] = {
     node(templateConstantParam) |
       node(templateTypeParam) |
       node(templateInterfaceParam) |
@@ -1035,7 +1036,7 @@ object Parser extends Parsers {
   }
 
   def defTemplate: Parser[Ast.DefModuleTemplate] = {
-    def id(x: Ast.Annotated[AstNode[Ast.TemplateParam.Node]]) = x
+    def id(x: Ast.Annotated[AstNode[Ast.TemplateParam]]) = x
     def params = annotatedElementSequence(templateParam, comma, id)
 
     (template ~>! ident) ~! (lparen ~>! params <~! rparen) ~! (lbrace ~>! moduleMembers <~! rbrace) ^^ {
@@ -1047,7 +1048,7 @@ object Parser extends Parsers {
     def params = elementSequence(exprNode, comma)
 
     (expand ~>! node(qualIdent)) ~! (lparen ~>! params <~! rparen) ^^ {
-      case id ~ params => Ast.SpecTemplateExpand(id, params)
+      case id ~ params => Ast.SpecTemplateExpand(id, params, Nil)
     }
   }
 

@@ -1,6 +1,7 @@
 package fpp.compiler.ast
 
 import fpp.compiler.util._
+import fpp.compiler.ast.Ast.TemplateParam
 
 object Ast {
 
@@ -157,21 +158,25 @@ object Ast {
     final case class SpecTemplateExpand(node: AstNode[Ast.SpecTemplateExpand]) extends Node
   }
 
+  sealed trait TemplateParam
   object TemplateParam {
-    sealed trait Node
-
-    final case class ConstantParam(
+    /** Template constant parameter */
+    final case class Constant(
       name: Ident,
       typeName: AstNode[Ast.TypeName]
-    ) extends Node
-    final case class TypeParam(name: Ident) extends Node
-    final case class InterfaceParam(
+    ) extends TemplateParam
+
+    /** Template interface instance parameter */
+    final case class Interface(
       name: Ident,
       interface: AstNode[QualIdent],
-    ) extends Node
+    ) extends TemplateParam
+
+    /** Template type parameter */
+    final case class Type(name: Ident) extends TemplateParam
   }
 
-  type TemplateParamList = List[Annotated[AstNode[TemplateParam.Node]]]
+  type TemplateParamList = List[Annotated[AstNode[TemplateParam]]]
 
   /** Module template definition */
   final case class DefModuleTemplate(
@@ -182,7 +187,8 @@ object Ast {
 
   final case class SpecTemplateExpand(
     template: AstNode[QualIdent],
-    params: List[AstNode[Expr]]
+    params: List[AstNode[Expr]],
+    members: List[ModuleMember]
   )
 
   /** Port definition */
@@ -633,6 +639,9 @@ object Ast {
     }
     case object Interface extends Kind {
       override def toString = "interface"
+    }
+    case object Template extends Kind {
+      override def toString = "template"
     }
   }
 

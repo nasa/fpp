@@ -2,6 +2,8 @@ package fpp.compiler.analysis
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
+import fpp.compiler.ast.Ast.Annotated
+import fpp.compiler.ast.Ast.DefModuleTemplate
 
 /**
  * Basic use analysis
@@ -27,8 +29,11 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
   /** A use of a type definition */
   def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified): Result = default(a)
 
-  /** A use of a state machine definition*/
+  /** A use of a state machine definition */
   def stateMachineUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
+
+  /** A use of a template definition */
+  def templateUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
 
   override def defComponentInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]) = {
     val (_, node1, _) = node
@@ -184,6 +189,45 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
   override def typeNameQualIdentNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameQualIdent) = {
     val use = Name.Qualified.fromQualIdent(tn.name.data)
     typeUse(a, node, use)
+  }
+
+  override def specTemplateExpandAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    for {
+      a <- super.specTemplateExpandAnnotatedNode(a, aNode)
+      a <- templateUse(
+        a,
+        data.template,
+        Name.Qualified.fromQualIdent(data.template.data)
+      )
+
+      // TODO(tumbar) How do we analyize uses of parameters without knowing template parameters
+      // ... maybe we do this in a separate pass?
+    } yield a
+  }
+
+  override def defModuleTemplateAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
+  ) = {
+    def templateParam(
+      a: Analysis,
+      pNode: Ast.Annotated[AstNode[Ast.TemplateParam]]
+    ) = {
+      val (_, node, _) = pNode
+      node.data match {
+        case Ast.TemplateParam.Constant(_, tn) => typeNameNode(a, tn)
+        case Ast.TemplateParam.Interface(_, interface) =>
+          qualIdentNode(interfaceUse)(a, interface)
+        case _: Ast.TemplateParam.Type => Right(a)
+      }
+    }
+
+    Result.foldLeft (aNode._2.data.params) (a) (templateParam)
   }
 
   private def portInstanceIdentifierNode(a: Analysis, node: AstNode[Ast.PortInstanceIdentifier]): Result =

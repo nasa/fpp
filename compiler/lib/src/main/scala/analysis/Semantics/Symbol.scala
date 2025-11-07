@@ -64,6 +64,20 @@ object Symbol {
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name
   }
+  final case class Template(node: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]) extends Symbol {
+    override def getNodeId = node._2.id
+    override def getUnqualifiedName = node._2.data.name
+  }
+  final case class TemplateParam(node: Ast.Annotated[AstNode[Ast.TemplateParam]]) extends Symbol {
+    override def getNodeId = node._2.id
+    override def getUnqualifiedName = {
+      node._2.data match {
+        case Ast.TemplateParam.Type(name) => name
+        case Ast.TemplateParam.Constant(name, _) => name
+        case Ast.TemplateParam.Interface(name, _) => name
+      }
+    }
+  }
 
   type InterfaceInstance = Symbol.ComponentInstance | Symbol.Topology
 

@@ -177,13 +177,13 @@ object AstWriter extends AstVisitor with LineUtils {
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
   ) = {
-    def templateParam(tp: Ast.TemplateParam.Node) = {
+    def templateParam(tp: Ast.TemplateParam) = {
       tp match {
-        case Ast.TemplateParam.ConstantParam(name, typeName) =>
+        case Ast.TemplateParam.Constant(name, typeName) =>
           addPrefix(s"constant $name", typeNameNode) (typeName)
-        case Ast.TemplateParam.TypeParam(name) =>
+        case Ast.TemplateParam.Type(name) =>
           lines(s"type $name")
-        case Ast.TemplateParam.InterfaceParam(name, interface) =>
+        case Ast.TemplateParam.Interface(name, interface) =>
           addPrefix(s"interface $name", qualIdent) (interface.data)
       }
     }
@@ -193,7 +193,7 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("def module template") ++
     List.concat(
       ident(data.name),
-      addPrefix("params", (x: List[Ast.Annotated[AstNode[Ast.TemplateParam.Node]]]) =>
+      addPrefix("params", (x: List[Ast.Annotated[AstNode[Ast.TemplateParam]]]) =>
         x.flatMap(annotateNode(templateParam))) (data.params),
       data.members.flatMap(moduleMember)
     ).map(indentIn)
@@ -209,8 +209,11 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("expand") ++
     List.concat(
       qualIdent(data.template.data),
-      data.params.flatMap(exprNode).map(indentIn)
-    )
+      lines("params"),
+      data.params.flatMap(exprNode).map(indentIn),
+      lines("members"),
+      data.members.flatMap(moduleMember).map(indentIn)
+    ).map(indentIn)
   }
 
   override def defPortAnnotatedNode(

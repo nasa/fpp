@@ -83,6 +83,8 @@ object FPPLocateUses {
           case _: Symbol.StateMachine => Ast.SpecLoc.StateMachine
           case _: Symbol.Struct => Ast.SpecLoc.Type
           case _: Symbol.Topology => Ast.SpecLoc.Instance
+          case _: Symbol.Template => Ast.SpecLoc.Template
+          case _: Symbol.TemplateParam => throw InternalError("use should not be template parameter")
         }
         val specLocNode = AstNode.create(Ast.SpecLoc(kind, qualIdentNode, fileNode))
         val specLocAnnotatedNode = (Nil, specLocNode, Nil)

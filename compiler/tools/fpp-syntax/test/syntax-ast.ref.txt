@@ -433,10 +433,12 @@ def module
       spec interface instance
         qual ident inst
   expand
-  qual ident Tmpl
-    literal int 10
-    ident Type
-    ident instance1
+    qual ident Tmpl
+    params
+      literal int 10
+      ident Type
+      ident instance1
+    members
 @< Definitions and specifiers
 @ Type names
 def module

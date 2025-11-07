@@ -9,8 +9,12 @@ object NameGroup {
   case object StateMachine extends NameGroup
   case object PortInterfaceInstance extends NameGroup
   case object PortInterface extends NameGroup
+  case object Template extends NameGroup
   case object Type extends NameGroup
   case object Value extends NameGroup
+
+  // Template parameters can only be referred inside an expansion
+  case object TemplateParam extends NameGroup
 
   val groups: List[NameGroup] = List(
     Component,
@@ -18,6 +22,7 @@ object NameGroup {
     StateMachine,
     PortInterfaceInstance,
     PortInterface,
+    Template,
     Type,
     Value
   )

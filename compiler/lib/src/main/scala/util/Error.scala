@@ -46,6 +46,7 @@ sealed trait Error {
       case CodeGenError.EmptyStruct(loc) =>
         Error.print (Some(loc)) (s"cannot write XML for an empty struct")
       case IncludeError.Cycle(loc, msg) => Error.print (Some(loc)) (msg)
+      case TemplateExpansionError.Cycle(loc, msg) => Error.print (Some(loc)) (msg)
       case FileError.CannotOpen(locOpt, name) =>
         Error.print (locOpt) (s"cannot open file $name")
       case FileError.CannotResolvePath(loc, name) =>
@@ -380,6 +381,12 @@ object CodeGenError {
 /** An include error */
 object IncludeError {
   /** Include cycle */
+  final case class Cycle(loc: Location, msg: String) extends Error
+}
+
+/** A template expansion error */
+object TemplateExpansionError {
+  /** A template expansion cycle */
   final case class Cycle(loc: Location, msg: String) extends Error
 }
 
