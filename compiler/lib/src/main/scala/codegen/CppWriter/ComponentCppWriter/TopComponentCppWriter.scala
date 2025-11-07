@@ -39,16 +39,34 @@ case class TopComponentCppWriter (
       ci1.qualifiedName.toString < ci2.qualifiedName.toString
   }
 
-  private def writeIsConnectedCase(
+  private def writeInstanceCase(
     componentInstance: ComponentInstance,
-    portNumberMap: TopComponents.PortNumberMap
+    caseLines: List[Line]
   ) = {
     val ident = CppWriterState.identFromQualifiedName(componentInstance.qualifiedName)
     val instanceIds = s"${topologyQualifierPrefix}InstanceIds"
     List.concat(
       line(s"case $instanceIds::$ident:") ::
-      writeIsConnectedPortNumCase(portNumberMap).map(indentIn),
+      caseLines.map(indentIn),
       lines("  break;")
+    )
+  }
+
+  private def writeInstanceSwitch(
+    componentInstanceMap: TopComponents.ComponentInstanceMap,
+    caseLines: ((ComponentInstance, TopComponents.PortNumberMap)) => List[Line]
+  ) = {
+    val sortedList = componentInstanceMapToSortedList(componentInstanceMap)
+    wrapInSwitch(
+      "instance",
+      List.concat(
+        sortedList.flatMap(caseLines),
+        lines(
+          """|default:
+             |  FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+             |  break;"""
+        )
+      )
     )
   }
 
@@ -65,17 +83,7 @@ case class TopComponentCppWriter (
           |bool result = false;
           |const auto instance = this->getInstance();"""
       ),
-      wrapInSwitch(
-        "instance",
-        List.concat(
-          sortedList.flatMap(writeIsConnectedCase),
-          lines(
-            """|default:
-               |  FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
-               |  break;"""
-          )
-        )
-      ),
+      writeInstanceSwitch(componentInstanceMap, writeIsConnectedInstanceCase),
       lines("return result;")
     )
   }
@@ -94,6 +102,11 @@ case class TopComponentCppWriter (
       "}"
     )
   }
+
+  private def writeIsConnectedInstanceCase(
+    componentInstance: ComponentInstance,
+    portNumberMap: TopComponents.PortNumberMap
+  ) = writeInstanceCase(componentInstance, writeIsConnectedPortNumSwitch(portNumberMap))
 
   private def writeOutFnBody(
     portName: Name.Unqualified,
@@ -135,8 +148,8 @@ case class TopComponentCppWriter (
     )
   }
 
-  private def writePortNumCase
-    (f: Int => List[Line])
+  private def writePortNumSwitch
+    (caseLines: Int => List[Line])
     (portNumberMap: TopComponents.PortNumberMap) =
   {
     val portNumberList = portNumberMap.keys.toList.sorted
@@ -146,7 +159,7 @@ case class TopComponentCppWriter (
         portNumberList.flatMap (n =>
           List.concat(
             line(s"case $n:") ::
-            f(n).map(indentIn),
+            caseLines(n).map(indentIn),
             lines("  break;")
           )
         ),
@@ -158,7 +171,7 @@ case class TopComponentCppWriter (
     )
   }
 
-  private val writeIsConnectedPortNumCase =
-    writePortNumCase (_ => lines("result = true;"))
+  private val writeIsConnectedPortNumSwitch =
+    writePortNumSwitch (_ => lines("result = true;"))
 
 }
