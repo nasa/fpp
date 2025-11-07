@@ -211,8 +211,13 @@ object AstWriter extends AstVisitor with LineUtils {
       qualIdent(data.template.data),
       lines("params"),
       data.params.flatMap(exprNode).map(indentIn),
-      lines("members"),
-      data.members.flatMap(moduleMember).map(indentIn)
+      data.members match {
+        case Some(members) => List.concat(
+          lines("members"),
+          members.flatMap(moduleMember).map(indentIn)
+        )
+        case None => lines("unexpanded")
+      }
     ).map(indentIn)
   }
 

@@ -1048,7 +1048,7 @@ object Parser extends Parsers {
     def params = elementSequence(exprNode, comma)
 
     (expand ~>! node(qualIdent)) ~! (lparen ~>! params <~! rparen) ^^ {
-      case id ~ params => Ast.SpecTemplateExpand(id, params, Nil)
+      case id ~ params => Ast.SpecTemplateExpand(id, params, None)
     }
   }
 

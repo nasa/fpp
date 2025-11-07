@@ -88,6 +88,8 @@ case class Analysis(
   templateStack: List[Symbol.Template] = List(),
   /** Template currently being expanded */
   template: Option[Symbol.Template] = None,
+  /** The set of template expansion nodes that had their symbols already entered by `EnterSymbols` */
+  templateExpansionsEntered: Set[AstNode.Id] = Set(),
   /** Template parameters applied to the current template */
   templateParameters: Map[String, TemplateParameter] = Map(),
   /** The map from template symbols to templates */

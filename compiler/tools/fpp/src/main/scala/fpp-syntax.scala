@@ -72,8 +72,7 @@ object FPPSyntax {
         val a = Analysis()
         for {
           a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
-          a <- CheckTemplateUses.visitList(a, tul, CheckTemplateUses.transUnit)
-          a_tul <- ExpandTemplates.transformList(a, tul, ExpandTemplates.transUnit)
+          a_tul <- ResolveTemplates.resolve(a, tul)
           tul <- Right(a_tul._2)
         } yield tul
       }
