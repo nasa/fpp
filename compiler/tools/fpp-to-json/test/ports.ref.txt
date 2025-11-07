@@ -257,7 +257,8 @@
                         ]
                       ]
                     ],
-                    "default" : "None"
+                    "default" : "None",
+                    "isDictionaryDef" : false
                   },
                   "id" : 24
                 }
@@ -482,7 +483,8 @@
                         ]
                       ]
                     ],
-                    "default" : "None"
+                    "default" : "None",
+                    "isDictionaryDef" : false
                   },
                   "id" : 54
                 }
@@ -2414,6 +2416,8 @@
     },
     "stateMachineMap" : {
       
-    }
+    },
+    "dictionarySymbolSet" : [
+    ]
   }
 }

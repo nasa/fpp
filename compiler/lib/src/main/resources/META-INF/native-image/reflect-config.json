@@ -9,6 +9,9 @@
   "name":"[Lio.circe.Encoder;"
 },
 {
+  "name":"[Ljava.io.File;"
+},
+{
   "name":"[Ljava.lang.String;"
 },
 {
@@ -1258,42 +1261,6 @@
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1909",
   "fields":[{"name":"0bitmap$1769"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1910",
-  "fields":[{"name":"0bitmap$1768"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1911",
-  "fields":[{"name":"0bitmap$1760"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1912",
-  "fields":[{"name":"0bitmap$1761"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1913",
-  "fields":[{"name":"0bitmap$1762"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1914",
-  "fields":[{"name":"0bitmap$1763"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1915",
-  "fields":[{"name":"0bitmap$1764"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1916",
-  "fields":[{"name":"0bitmap$1765"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1917",
-  "fields":[{"name":"0bitmap$1766"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1918",
-  "fields":[{"name":"0bitmap$1767"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$192",

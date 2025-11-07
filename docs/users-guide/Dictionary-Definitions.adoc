@@ -1,0 +1,66 @@
+== Dictionary Definitions
+
+One of the artifacts generated from an FPP model is a *dictionary*
+that tells the ground data system how to interpret and display
+the data produced by the FSW.
+By default, the dictionary contains representations of the following
+types and constants defined in FPP:
+
+* Types and constants that are known to the framework and that are
+needed by every dictionary, e.g., `FwOpcodeType`.
+
+* Types and constants that appear in the definitions of the data produced
+by the FSW, e.g., event specifiers or telemetry specifiers.
+(In later sections of this manual we will explain how to define
+<<Defining-Components_Events,event reports>> and
+<<Defining-Components_Telemetry,telemetry channels>>.)
+
+Sometimes you will need the dictionary to include the definition of a type or 
+constant
+that does not satisfy either of these conditions.
+For example, a downlink configuration parameter may be
+shared by the FSW implementation and the GDS and may be otherwise unused
+in the FPP model.
+
+In this case you can mark a type or constant definition as a *dictionary 
+definition*.
+A dictionary definition tells the FPP analyzer that
+whenever a dictionary is generated from the model,
+the definition should be included in the dictionary.
+
+To write a dictionary definition, you write the keyword `dictionary`
+before the definition.
+You can do this for a constant definition, a type definition,
+or an enum definition.
+For example:
+
+[source,fpp]
+----
+dictionary constant a = 1
+dictionary array A = [3] U32
+dictionary struct S { x: U32, y: F32 }
+dictionary type T = S
+dictionary enum E { A, B }
+----
+
+Each dictionary definition must observe the following rules:
+
+. A dictionary constant definition must have a numeric value (integer or 
+floating point),
+a Boolean value (true or false), a string value such as `"abc"`, or an 
+enumerated constant value such as `E.A`.
+
+. A dictionary type definition must define a *displayable type*, i.e., a
+type that the F Prime ground data system knows how to display.
+For example, the type may not be an
+<<Defining-Types_Abstract-Type-Definitions,abstract type>>.
+Nor may it be an array or struct type that has an abstract type
+as a member type.
+
+For example, the following dictionary definitions are invalid:
+
+[source,fpp]
+--------
+dictionary constant a = { x = 1, y = 2.0 } # Error: a has struct type
+dictionary type T # Error: T is an abstract type
+--------

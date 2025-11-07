@@ -483,7 +483,7 @@ namespace FppTest {
       virtual void smInitialNested_stateMachineOverflowHook(
           SmId smId, //!< The state machine ID
           FwEnumStoreType signal, //!< The signal
-          Fw::SerializeBufferBase& buffer //!< The message buffer
+          Fw::SerialBufferBase& buffer //!< The message buffer
       ) = 0;
 
     protected:
@@ -601,54 +601,54 @@ namespace FppTest {
 
       //! Dispatch a signal to a state machine instance
       void smDispatch(
-          Fw::SerializeBufferBase& buffer //!< The message buffer
+          Fw::SerialBufferBase& buffer //!< The message buffer
       );
 
       //! Deserialize the state machine ID and signal from the message buffer
       static void deserializeSmIdAndSignal(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer (input and output)
+          Fw::SerialBufferBase& buffer, //!< The message buffer (input and output)
           FwEnumStoreType& smId, //!< The state machine ID (output)
           FwEnumStoreType& signal //!< The signal (output)
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmInitial_Basic
       void FppTest_SmInitial_Basic_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmInitial_Basic& sm, //!< The state machine
           FppTest_SmInitial_Basic::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmInitial_Choice
       void FppTest_SmInitial_Choice_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmInitial_Choice& sm, //!< The state machine
           FppTest_SmInitial_Choice::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmInitial_Nested
       void FppTest_SmInitial_Nested_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmInitial_Nested& sm, //!< The state machine
           FppTest_SmInitial_Nested::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmInitialQueued_Basic
       void FppTest_SmInitialQueued_Basic_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmInitialQueued_Basic& sm, //!< The state machine
           FppTest_SmInitialQueued_Basic::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmInitialQueued_Choice
       void FppTest_SmInitialQueued_Choice_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmInitialQueued_Choice& sm, //!< The state machine
           FppTest_SmInitialQueued_Choice::Signal signal //!< The signal
       );
 
       //! Dispatch a signal to a state machine instance of type FppTest_SmInitialQueued_Nested
       void FppTest_SmInitialQueued_Nested_smDispatch(
-          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Fw::SerialBufferBase& buffer, //!< The message buffer
           FppTest_SmInitialQueued_Nested& sm, //!< The state machine
           FppTest_SmInitialQueued_Nested::Signal signal //!< The signal
       );

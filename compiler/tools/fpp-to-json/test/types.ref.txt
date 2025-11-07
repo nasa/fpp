@@ -21,7 +21,8 @@
                         },
                         "id" : 0
                       }
-                    }
+                    },
+                    "isDictionaryDef" : true
                   },
                   "id" : 1
                 }
@@ -121,7 +122,8 @@
                           "id" : 9
                         }
                       }
-                    }
+                    },
+                    "isDictionaryDef" : false
                   },
                   "id" : 10
                 }
@@ -170,7 +172,8 @@
                       }
                     },
                     "default" : "None",
-                    "format" : "None"
+                    "format" : "None",
+                    "isDictionaryDef" : false
                   },
                   "id" : 15
                 }
@@ -252,7 +255,8 @@
                         ]
                       ]
                     ],
-                    "default" : "None"
+                    "default" : "None",
+                    "isDictionaryDef" : false
                   },
                   "id" : 33
                 }
@@ -318,7 +322,8 @@
                         },
                         "id" : 38
                       }
-                    }
+                    },
+                    "isDictionaryDef" : false
                   },
                   "id" : 39
                 }
@@ -406,7 +411,8 @@
                           "id" : 48
                         }
                       }
-                    }
+                    },
+                    "isDictionaryDef" : false
                   },
                   "id" : 49
                 }
@@ -494,7 +500,8 @@
                           "id" : 58
                         }
                       }
-                    }
+                    },
+                    "isDictionaryDef" : false
                   },
                   "id" : 59
                 }
@@ -561,7 +568,8 @@
                       }
                     },
                     "default" : "None",
-                    "format" : "None"
+                    "format" : "None",
+                    "isDictionaryDef" : false
                   },
                   "id" : 65
                 }
@@ -687,7 +695,8 @@
                         ]
                       ]
                     ],
-                    "default" : "None"
+                    "default" : "None",
+                    "isDictionaryDef" : true
                   },
                   "id" : 86
                 }
@@ -782,7 +791,8 @@
                         ]
                       ]
                     ],
-                    "default" : "None"
+                    "default" : "None",
+                    "isDictionaryDef" : false
                   },
                   "id" : 99
                 }
@@ -831,7 +841,8 @@
                       }
                     },
                     "default" : "None",
-                    "format" : "None"
+                    "format" : "None",
+                    "isDictionaryDef" : false
                   },
                   "id" : 104
                 }
@@ -882,7 +893,8 @@
                           "id" : 107
                         }
                       }
-                    }
+                    },
+                    "isDictionaryDef" : true
                   },
                   "id" : 108
                 }
@@ -964,9 +976,76 @@
                         ]
                       ]
                     ],
-                    "default" : "None"
+                    "default" : "None",
+                    "isDictionaryDef" : true
                   },
                   "id" : 115
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefAliasType" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "Alias1",
+                    "typeName" : {
+                      "AstNode" : {
+                        "data" : {
+                          "TypeNameInt" : {
+                            "name" : {
+                              "U32" : {
+                                
+                              }
+                            }
+                          }
+                        },
+                        "id" : 116
+                      }
+                    },
+                    "isDictionaryDef" : true
+                  },
+                  "id" : 117
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefAliasType" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "Alias2",
+                    "typeName" : {
+                      "AstNode" : {
+                        "data" : {
+                          "TypeNameInt" : {
+                            "name" : {
+                              "U32" : {
+                                
+                              }
+                            }
+                          }
+                        },
+                        "id" : 118
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 119
                 }
               }
             }
@@ -983,7 +1062,7 @@
   "locationMap" : {
     "0" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "1.24",
+      "pos" : "1.35",
       "includingLoc" : "None"
     },
     "1" : {
@@ -1508,17 +1587,17 @@
     },
     "105" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "34.20",
+      "pos" : "34.31",
       "includingLoc" : "None"
     },
     "106" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "34.23",
+      "pos" : "34.34",
       "includingLoc" : "None"
     },
     "107" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
-      "pos" : "34.34",
+      "pos" : "34.45",
       "includingLoc" : "None"
     },
     "108" : {
@@ -1559,6 +1638,26 @@
     "115" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
       "pos" : "36.1",
+      "includingLoc" : "None"
+    },
+    "116" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "43.26",
+      "includingLoc" : "None"
+    },
+    "117" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "43.1",
+      "includingLoc" : "None"
+    },
+    "118" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "44.15",
+      "includingLoc" : "None"
+    },
+    "119" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp",
+      "pos" : "44.1",
       "includingLoc" : "None"
     }
   }
@@ -1657,115 +1756,9 @@
           }
         }
       },
-      "33" : {
-        "Struct" : {
-          "node" : {
-            "astNodeId" : 33
-          },
-          "anonStruct" : {
-            "members" : {
-              "x" : {
-                "Int" : {
-                  "PrimitiveInt" : {
-                    "kind" : {
-                      "U32" : {
-                        
-                      }
-                    }
-                  }
-                }
-              },
-              "y" : {
-                "String" : {
-                  "size" : "None"
-                }
-              }
-            }
-          },
-          "default" : {
-            "Some" : {
-              "anonStruct" : {
-                "members" : {
-                  "x" : {
-                    "PrimitiveInt" : {
-                      "value" : 0,
-                      "kind" : {
-                        "U32" : {
-                          
-                        }
-                      }
-                    }
-                  },
-                  "y" : {
-                    "String" : {
-                      "value" : ""
-                    }
-                  }
-                }
-              },
-              "t" : {
-                "node" : {
-                  "astNodeId" : 33
-                },
-                "anonStruct" : {
-                  "members" : {
-                    "x" : {
-                      "Int" : {
-                        "PrimitiveInt" : {
-                          "kind" : {
-                            "U32" : {
-                              
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "y" : {
-                      "String" : {
-                        "size" : "None"
-                      }
-                    }
-                  }
-                },
-                "default" : "None",
-                "sizes" : {
-                  
-                },
-                "formats" : {
-                  
-                }
-              }
-            }
-          },
-          "sizes" : {
-            
-          },
-          "formats" : {
-            
-          }
-        }
-      },
       "56" : {
         "String" : {
           "size" : "None"
-        }
-      },
-      "48" : {
-        "AnonStruct" : {
-          "members" : {
-            "x" : {
-              "Int" : {
-                "Integer" : {
-                  
-                }
-              }
-            },
-            "y" : {
-              "String" : {
-                "size" : "None"
-              }
-            }
-          }
         }
       },
       "106" : {
@@ -1809,6 +1802,35 @@
                   }
                 },
                 "default" : "None"
+              }
+            }
+          }
+        }
+      },
+      "118" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U32" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "119" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 119
+          },
+          "aliasType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U32" : {
+                    
+                  }
+                }
               }
             }
           }
@@ -2822,6 +2844,112 @@
           "format" : "None"
         }
       },
+      "33" : {
+        "Struct" : {
+          "node" : {
+            "astNodeId" : 33
+          },
+          "anonStruct" : {
+            "members" : {
+              "x" : {
+                "Int" : {
+                  "PrimitiveInt" : {
+                    "kind" : {
+                      "U32" : {
+                        
+                      }
+                    }
+                  }
+                }
+              },
+              "y" : {
+                "String" : {
+                  "size" : "None"
+                }
+              }
+            }
+          },
+          "default" : {
+            "Some" : {
+              "anonStruct" : {
+                "members" : {
+                  "x" : {
+                    "PrimitiveInt" : {
+                      "value" : 0,
+                      "kind" : {
+                        "U32" : {
+                          
+                        }
+                      }
+                    }
+                  },
+                  "y" : {
+                    "String" : {
+                      "value" : ""
+                    }
+                  }
+                }
+              },
+              "t" : {
+                "node" : {
+                  "astNodeId" : 33
+                },
+                "anonStruct" : {
+                  "members" : {
+                    "x" : {
+                      "Int" : {
+                        "PrimitiveInt" : {
+                          "kind" : {
+                            "U32" : {
+                              
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "y" : {
+                      "String" : {
+                        "size" : "None"
+                      }
+                    }
+                  }
+                },
+                "default" : "None",
+                "sizes" : {
+                  
+                },
+                "formats" : {
+                  
+                }
+              }
+            }
+          },
+          "sizes" : {
+            
+          },
+          "formats" : {
+            
+          }
+        }
+      },
+      "117" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 117
+          },
+          "aliasType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U32" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "50" : {
         "Int" : {
           "PrimitiveInt" : {
@@ -3241,6 +3369,35 @@
           "Float" : {
             "kind" : {
               "F32" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "48" : {
+        "AnonStruct" : {
+          "members" : {
+            "x" : {
+              "Int" : {
+                "Integer" : {
+                  
+                }
+              }
+            },
+            "y" : {
+              "String" : {
+                "size" : "None"
+              }
+            }
+          }
+        }
+      },
+      "116" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U32" : {
                 
               }
             }
@@ -6074,6 +6231,38 @@
     },
     "stateMachineMap" : {
       
-    }
+    },
+    "dictionarySymbolSet" : [
+      {
+        "Constant" : {
+          "nodeId" : 1,
+          "unqualifiedName" : "numElements"
+        }
+      },
+      {
+        "Enum" : {
+          "nodeId" : 115,
+          "unqualifiedName" : "SignalType"
+        }
+      },
+      {
+        "AliasType" : {
+          "nodeId" : 117,
+          "unqualifiedName" : "Alias1"
+        }
+      },
+      {
+        "Struct" : {
+          "nodeId" : 86,
+          "unqualifiedName" : "SignalInfo"
+        }
+      },
+      {
+        "Array" : {
+          "nodeId" : 108,
+          "unqualifiedName" : "SignalSet"
+        }
+      }
+    ]
   }
 }

@@ -480,7 +480,7 @@ case class ArrayCppWriter (
         "serializeTo",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type("Fw::SerializeBufferBase&"),
+            CppDoc.Type("Fw::SerialBufferBase&"),
             "buffer",
             Some("The serial buffer"),
           ),
@@ -508,7 +508,7 @@ case class ArrayCppWriter (
         "deserializeFrom",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type("Fw::SerializeBufferBase&"),
+            CppDoc.Type("Fw::SerialBufferBase&"),
             "buffer",
             Some("The serial buffer"),
           ),
