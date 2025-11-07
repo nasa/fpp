@@ -2,8 +2,6 @@ package fpp.compiler.analysis
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
-import fpp.compiler.ast.Ast.Expr
-import fpp.compiler.ast.Ast.ExprIdent
 
 /** Match uses to their definitions */
 object CheckUses extends BasicUseAnalyzer {
@@ -42,6 +40,7 @@ object CheckUses extends BasicUseAnalyzer {
               // Left side is a constant, we are selecting a member of this constant
               // we are not creating another use.
               case Some(Symbol.Constant(_)) => Right(None)
+              case Some(Symbol.TemplateConstantParam(_, _)) => Right(None)
 
               // The left side is some symbol other than a constant (a qualifier),
               // look up this symbol and add it to the use-def entries
@@ -129,6 +128,42 @@ object CheckUses extends BasicUseAnalyzer {
     yield a.copy(nestedScope = a.nestedScope.pop)
   }
 
+  override def specTemplateExpandAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
+  ) = {
+    val node = aNode._2
+    val expansion = a.templateExpansionMap(node.id)
+    val Right(tmpl) = a.getTemplateSymbol(node.data.template.id)
+    val scope = expansion.scope
+
+    // We do use-analysis on the scope of the definition + param scope
+    // This is a bit unorthadox but we need to build a new nested scope from scratch
+    def getNestedScope(symbol: Symbol): NestedScope = {
+      val parentScope = a.parentSymbolMap.get(symbol) match {
+        case None => a.nestedScope.globalScope
+        case Some(parent) => getNestedScope(parent)
+      }
+
+      a.symbolScopeMap.get(symbol) match {
+        case None => parentScope
+        case Some(symbolScope) => parentScope.push(symbolScope)
+      } 
+    }
+
+    val oldNestedScope = a.nestedScope;
+    val newNestedScope = getNestedScope(tmpl).push(expansion.scope)
+    val Some(members) = node.data.members
+
+    for {
+      a <- {
+        val a1 = a.copy(nestedScope = newNestedScope)
+        visitList(a1, members, matchModuleMember)
+      }
+    }
+    yield a.copy(nestedScope = oldNestedScope)
+  }
+
   override def defTopologyAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
     val impliedTypeUses = a.getImpliedUses(ImpliedUse.Kind.Type, node._2.id).toList
     val impliedConstantUses = a.getImpliedUses(ImpliedUse.Kind.Constant, node._2.id).toList
@@ -152,7 +187,7 @@ object CheckUses extends BasicUseAnalyzer {
               case Some(_) => throw new InternalError("not a constant use or member")
               case x =>
                 // Get the parent symbol to make the error reporting better
-                def getSymbolOfExpr(e: AstNode[Expr]): Symbol = {
+                def getSymbolOfExpr(e: AstNode[Ast.Expr]): Symbol = {
                   (a.useDefMap.get(e.id), e.data) match {
                     case (Some(sym), _) => sym
                     case (None, Ast.ExprDot(ee, eid)) => getSymbolOfExpr(ee)

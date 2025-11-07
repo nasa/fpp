@@ -17,6 +17,8 @@ object CheckExprTypes extends UseAnalyzer {
         // Unqualified enum symbol: if this is in scope, then we are in
         // the enum definition, so it already has a type
         case Symbol.EnumConstant(node) => Right(a)
+        // Template parameter use
+        case Symbol.TemplateConstantParam(_, value) => exprNode(a, value)
         // Invalid use of a symbol in an expression
         case _ =>
           Left(SemanticError.InvalidSymbol(

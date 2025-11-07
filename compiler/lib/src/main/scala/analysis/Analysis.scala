@@ -86,14 +86,12 @@ case class Analysis(
   impliedUseMap: Map[AstNode.Id, ImpliedUse.Uses] = Map(),
   /** Stack of templates currently being expanded for purposes of cycle detection */
   templateStack: List[Symbol.Template] = List(),
-  /** Template currently being expanded */
-  template: Option[Symbol.Template] = None,
-  /** The set of template expansion nodes that had their symbols already entered by `EnterSymbols` */
-  templateExpansionsEntered: Set[AstNode.Id] = Set(),
-  /** Template parameters applied to the current template */
-  templateParameters: Map[String, TemplateParameter] = Map(),
-  /** The map from template symbols to templates */
-  templateMap: Map[Symbol.Template, Template] = Map()
+  /** Node ID of the template expansion currently */
+  template: Option[AstNode.Id] = None,
+  /** Maps template expansion AST nodes to their */
+  templateExpansionMap: Map[AstNode.Id, TemplateExpansion] = Map(),
+  /** Tracks the current expansion we are analyzing inside of */
+  templateExpansion: Option[TemplateExpansion] = None
 ) {
 
   /** Gets the qualified name of a symbol */
@@ -311,11 +309,6 @@ case class Analysis(
         )
       )
     }
-
-  /** Gets a template from the template map */
-  def getTemplate(id: AstNode.Id): Result.Result[Template] =
-    for (ts <- getTemplateSymbol(id))
-      yield this.templateMap(ts)
 
   /** Gets a topology symbol from use-def map */
   def getTopologySymbol(id: AstNode.Id): Result.Result[Symbol.Topology] =

@@ -22,8 +22,14 @@ trait ModuleAnalyzer extends Analyzer {
     aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
   ) = {
     val (_, node, _) = aNode
+    // Check if this template has been expanded
     node.data.members match {
-      case Some(members) => visitList(a, members, matchModuleMember)
+      case Some(members) => {
+        // Mark the analysis with the proper expansion
+        val a1 = a.copy(templateExpansion = Some(a.templateExpansionMap(node.id)))
+        for { a2 <- visitList(a, members, matchModuleMember) }
+        yield a2.copy(templateExpansion = a.templateExpansion)
+      }
       case None => Right(a)
     }
   }

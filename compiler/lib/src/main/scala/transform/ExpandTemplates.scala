@@ -52,9 +52,14 @@ object ExpandTemplates extends AstTransformer
   ) =
     a.template match {
       case None => Right(false, node)
-      case Some(_) => {
+      case Some(expansionNode) => {
         val out = AstNode.create(node.data)
-        Locations.put(out.id, Locations.get(node.id))
+        val inLoc = Locations.get(node.id)
+        Locations.put(out.id, Location(
+          inLoc.file,
+          inLoc.pos,
+          Some(LocationExpanded(Locations.get(expansionNode)))
+        ))
         Right(false, out)
       }
     }
@@ -134,7 +139,7 @@ object ExpandTemplates extends AstTransformer
               )
               case None => transformList(
                 a.copy(
-                  template=Some(tmpl),
+                  template=Some(node.id),
                   templateStack=tmpl :: a.templateStack
                 ),
                 tmpl.node._2.data.members,
@@ -142,7 +147,6 @@ object ExpandTemplates extends AstTransformer
               )
             }
           }
-
         } yield {
           // Paste the expanded template expansion specifier
           (members._1, (pre, AstNode.create(data.copy(members=Some(members._2)), node.id), post))

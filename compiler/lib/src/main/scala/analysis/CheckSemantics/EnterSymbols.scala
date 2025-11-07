@@ -242,19 +242,8 @@ object EnterSymbols
     val symbol = Symbol.Template(aNode)
     val nestedScope = a.nestedScope
 
-    for {
-      nestedScope <- nestedScope.put(NameGroup.Template)(name, symbol)
-      nestedScope <- {
-        Result.foldLeft(data.params) (nestedScope) ((nestedScope, param) => {
-          val paramSym = Symbol.TemplateParam(param)
-          for {
-            nestedScope <- nestedScope.put (NameGroup.Value) (paramSym.getUnqualifiedName, paramSym)
-            nestedScope <- nestedScope.put (NameGroup.Type) (paramSym.getUnqualifiedName, paramSym)
-            nestedScope <- nestedScope.put (NameGroup.PortInterfaceInstance) (paramSym.getUnqualifiedName, paramSym)
-          } yield nestedScope
-        })
-      }
-    } yield updateMap(a, symbol).copy(nestedScope = nestedScope)
+    for (nestedScope <- nestedScope.put(NameGroup.Template)(name, symbol))
+      yield updateMap(a, symbol).copy(nestedScope = nestedScope)
   }
 
   override def defPortAnnotatedNode(

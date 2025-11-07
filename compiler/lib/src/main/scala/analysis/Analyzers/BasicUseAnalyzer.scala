@@ -205,8 +205,20 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
         Name.Qualified.fromQualIdent(data.template.data)
       )
 
-      // TODO(tumbar) How do we analyize uses of parameters without knowing template parameters
-      // ... maybe we do this in a separate pass?
+      // Analyze the paramters on this template expansion
+      a <- {
+        val expansion = a.templateExpansionMap(node.id)
+        Result.foldLeft (expansion.params.toList) (a) ((a, i) => {
+          val (name, param) = i;
+          param match {
+            case Symbol.TemplateConstantParam(_, value) => this.exprNode(a, value)
+            case Symbol.TemplateTypeParam(_, tn) => this.typeNameNode(a, tn)
+            case Symbol.TemplateInterfaceParam(_, value) => {
+              qualIdentNode (interfaceInstanceUse) (a, value)
+            }
+          }
+        })
+      }
     } yield a
   }
 
@@ -233,7 +245,7 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
   private def portInstanceIdentifierNode(a: Analysis, node: AstNode[Ast.PortInstanceIdentifier]): Result =
     qualIdentNode (interfaceInstanceUse) (a, node.data.interfaceInstance)
 
-  private def qualIdentNode
+  protected def qualIdentNode
     (f: (Analysis, AstNode[Ast.QualIdent], Name.Qualified) => Result) 
     (a: Analysis, qualIdent: AstNode[Ast.QualIdent]): Result = {
     val use = Name.Qualified.fromQualIdent(qualIdent.data)

@@ -26,7 +26,7 @@ trait UseAnalyzer extends BasicUseAnalyzer {
 
   override def exprDotNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprDot) =
     a.useDefMap.get(node.id) match {
-      case Some(Symbol.Constant(_) | Symbol.EnumConstant(_)) =>
+      case Some(Symbol.Constant(_) | Symbol.EnumConstant(_) | Symbol.TemplateConstantParam(_, _)) =>
         // e is a use, so it must be a constant use
         val use = getQualifiedName(e)
         constantUse(a, node, use)

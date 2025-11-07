@@ -2,20 +2,28 @@ package fpp.compiler.util
 
 import scala.util.parsing.input.Position
 
+sealed trait LocationOrigin
+final case class LocationIncluded(loc: Location) extends LocationOrigin
+final case class LocationExpanded(loc: Location) extends LocationOrigin
+
 /** A location used in compilation */
 final case class Location(
   file: File, /* The file */
   pos: Position, /* The position */
-  includingLoc: Option[Location] = None /* Location where this location is included */
+  originLoc: Option[LocationOrigin] = None, /* Location where this location is included/expanded */
 ) {
 
   override def toString = {
-    def showIncludes(locOpt: Option[Location], s: String): String = { 
+    def showIncludes(locOpt: Option[LocationOrigin], s: String): String = { 
       locOpt match {
         case None => s
-        case Some(loc) => showIncludes(
-          loc.includingLoc, 
+        case Some(LocationIncluded(loc)) => showIncludes(
+          loc.originLoc, 
           s ++ s"\n  included at ${loc.file}:${loc.pos}"
+        )
+        case Some(LocationExpanded(loc)) => showIncludes(
+          loc.originLoc,
+          s ++ s"\n  template expanded at ${loc.file}:${loc.pos}"
         )
       }
     }
@@ -23,14 +31,15 @@ final case class Location(
       case scala.util.parsing.input.NoPosition => s"${file}: end of input"
       case _ => s"${file}:${pos.toString}\n${pos.longString}"
     }
-    val s2 = showIncludes(includingLoc, "")
+    val s2 = showIncludes(originLoc, "")
     s1 ++ s2
   }
 
   /** Get the location of the associated translation unit */
-  def tuLocation: Location = this.includingLoc match {
+  def tuLocation: Location = this.originLoc match {
     case None => this
-    case Some(loc) => loc.tuLocation
+    case Some(LocationIncluded(loc)) => loc.tuLocation
+    case Some(LocationExpanded(loc)) => loc.tuLocation
   }
 
   /** Get the path of a file that is a neighbor to this location */

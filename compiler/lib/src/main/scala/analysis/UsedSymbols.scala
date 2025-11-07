@@ -73,7 +73,9 @@ object UsedSymbols extends UseAnalyzer {
         case Symbol.Struct(node) => defStructAnnotatedNode(a1, node)
         case Symbol.Topology(node) => defTopologyAnnotatedNode(a1, node)
         case Symbol.Template(node) => defModuleTemplateAnnotatedNode(a1, node)
-        case Symbol.TemplateParam(_) => Right(a1)
+        case Symbol.TemplateConstantParam(_, expr) => exprNode(a, expr)
+        case Symbol.TemplateTypeParam(_, tn) => typeNameNode(a, tn)
+        case Symbol.TemplateInterfaceParam(_, name) => qualIdentNode (interfaceInstanceUse) (a, name)
       }
       a2.usedSymbolSet.flatMap(helper) + s
     }

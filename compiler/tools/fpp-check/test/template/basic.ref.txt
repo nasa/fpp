@@ -1,0 +1,10 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/basic.fpp:2.5
+    constant cOut = p + 2
+    ^
+  template expanded at [ local path prefix ]/compiler/tools/fpp-check/test/template/basic.fpp:5.1
+error: redefinition of symbol cOut
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/template/basic.fpp:9.1
+constant cOut = 3
+^

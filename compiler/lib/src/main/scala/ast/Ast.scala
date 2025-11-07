@@ -1,7 +1,6 @@
 package fpp.compiler.ast
 
 import fpp.compiler.util._
-import fpp.compiler.ast.Ast.TemplateParam
 
 object Ast {
 
@@ -158,7 +157,10 @@ object Ast {
     final case class SpecTemplateExpand(node: AstNode[Ast.SpecTemplateExpand]) extends Node
   }
 
-  sealed trait TemplateParam
+  sealed trait TemplateParam {
+    def name: Ident
+  }
+
   object TemplateParam {
     /** Template constant parameter */
     final case class Constant(

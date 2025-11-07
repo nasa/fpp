@@ -12,6 +12,7 @@ object EvalConstantExprs extends UseAnalyzer {
       a <- symbol match {
         case Symbol.EnumConstant(node) => defEnumConstantAnnotatedNode(a, node)
         case Symbol.Constant(node) => defConstantAnnotatedNode(a, node)
+        case Symbol.TemplateConstantParam(_, value) => exprNode(a, value)
         case _ => throw InternalError(s"invalid constant use symbol ${symbol} (${symbol.getClass.getName()})")
       }
     } yield {

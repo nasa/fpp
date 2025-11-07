@@ -93,22 +93,22 @@ object ResolveSpecInclude extends AstStateTransformer {
   }
 
   private def checkForCycle(includingLoc: Location, includedPath: String): Result.Result[Unit] = {
-    def checkLoc(locOpt: Option[Location], visitedPaths: List[String]): Result.Result[Unit] =
+    def checkLoc(locOpt: Option[LocationOrigin], visitedPaths: List[String]): Result.Result[Unit] =
       locOpt match {
-        case None => Right(())
-        case Some(loc) => {
+        case Some(LocationIncluded(loc)) => {
           val path = loc.file.toString
           val visitedPaths1 = path :: visitedPaths
           if (path == includedPath) {
             val msg = "include cycle:\n" ++ visitedPaths1.map("  " ++ _).mkString(" includes\n")
             Left(IncludeError.Cycle(includingLoc, msg))
           }
-          else checkLoc(loc.includingLoc, visitedPaths1)
+          else checkLoc(loc.originLoc, visitedPaths1)
         }
+        case _ => Right(())
       }
     includingLoc.file match {
       case File.StdIn => Right(())
-      case _ => checkLoc(Some(includingLoc), List(includedPath))
+      case _ => checkLoc(Some(LocationIncluded(includingLoc)), List(includedPath))
     }
   }
 
@@ -124,7 +124,7 @@ object ResolveSpecInclude extends AstStateTransformer {
     for {
       includedFile <- Right(File.Path(path))
       _ <- checkForCycle(includingLoc, path.toString)
-      members <- Parser.parseFile (parser) (Some(includingLoc)) (includedFile)
+      members <- Parser.parseFile (parser) (Some(LocationIncluded(includingLoc))) (includedFile)
       pair <- {
         val a1 = a.copy(includedFileSet = a.includedFileSet + includedFile)
         transformList(a1, members, transformer)
