@@ -17,8 +17,9 @@ object CheckExprTypes extends UseAnalyzer {
         // Unqualified enum symbol: if this is in scope, then we are in
         // the enum definition, so it already has a type
         case Symbol.EnumConstant(node) => Right(a)
-        // Template parameter use
-        case Symbol.TemplateConstantParam(_, value) => exprNode(a, value)
+        // Template parameter symbol: we are already inside the template expansion
+        // therefore this already has a type
+        case Symbol.TemplateConstantParam(_, _) => Right(a)
         // Invalid use of a symbol in an expression
         case _ =>
           Left(SemanticError.InvalidSymbol(
@@ -254,6 +255,23 @@ object CheckExprTypes extends UseAnalyzer {
         }
       }
     } yield a.assignType(node -> t)
+  }
+
+  override def templateConstantParam(
+    a: Analysis,
+    param: Symbol.TemplateConstantParam
+  ) = {
+    val Symbol.TemplateConstantParam(paramDef, value) = param
+    for {
+      // Visit the literal value
+      a <- super.templateConstantParam(a, param)
+
+      // Make sure the value can be converted into the type in the template
+      ty <- Analysis.convertTypes(
+        Locations.get(value.id),
+        a.typeMap(value.id) -> a.typeMap(paramDef.typeName.id)
+      )
+    } yield a.assignType(value -> ty)
   }
 
   override def specCommandAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecCommand]]) = {

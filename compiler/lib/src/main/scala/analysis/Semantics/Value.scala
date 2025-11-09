@@ -386,6 +386,7 @@ object Value {
         in match {
           case Nil => Some(out)
           case (m -> t) :: tail => {
+            println(s"converting member ${m} to $t")
             val vOpt = members.get(m) match {
               case Some(v) => v.convertToType(t)
               case None => t.getDefaultValue

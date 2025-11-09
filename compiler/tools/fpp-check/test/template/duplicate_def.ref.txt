@@ -1,0 +1,10 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/duplicate_def.fpp:3.5
+    constant cOut2 = p + 2
+    ^
+  template expanded at [ local path prefix ]/compiler/tools/fpp-check/test/template/duplicate_def.fpp:6.1
+error: redefinition of symbol cOut2
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/template/duplicate_def.fpp:8.1
+constant cOut2 = cOut1 + 2
+^

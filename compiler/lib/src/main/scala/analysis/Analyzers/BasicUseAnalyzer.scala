@@ -35,6 +35,21 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
   /** A use of a template definition */
   def templateUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
 
+  /** A use of a template constant parameter */
+  def templateConstantParam(a: Analysis, param: Symbol.TemplateConstantParam) = {
+    exprNode(a, param.value)
+  }
+
+  /** A use of a template type parameter */
+  def templateTypeParam(a: Analysis, param: Symbol.TemplateTypeParam) = {
+    typeNameNode(a, param.value)
+  }
+
+  /** A use of a template interface parameter */
+  def templateInterfaceParam(a: Analysis, param: Symbol.TemplateInterfaceParam) = {
+    qualIdentNode (interfaceInstanceUse) (a, param.value)
+  }
+
   override def defComponentInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]) = {
     val (_, node1, _) = node
     val data = node1.data
@@ -198,7 +213,6 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
     val (_, node, _) = aNode
     val data = node.data
     for {
-      a <- super.specTemplateExpandAnnotatedNode(a, aNode)
       a <- templateUse(
         a,
         data.template,
@@ -211,14 +225,14 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
         Result.foldLeft (expansion.params.toList) (a) ((a, i) => {
           val (name, param) = i;
           param match {
-            case Symbol.TemplateConstantParam(_, value) => this.exprNode(a, value)
-            case Symbol.TemplateTypeParam(_, tn) => this.typeNameNode(a, tn)
-            case Symbol.TemplateInterfaceParam(_, value) => {
-              qualIdentNode (interfaceInstanceUse) (a, value)
-            }
+            case param: Symbol.TemplateConstantParam => templateConstantParam(a, param)
+            case param: Symbol.TemplateTypeParam => templateTypeParam(a, param)
+            case param: Symbol.TemplateInterfaceParam => templateInterfaceParam(a, param)
           }
         })
       }
+
+      a <- super.specTemplateExpandAnnotatedNode(a, aNode)
     } yield a
   }
 
