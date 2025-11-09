@@ -29,7 +29,7 @@ object CheckUses extends BasicUseAnalyzer {
     def visitExprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = {
       def visitExprIdent(a: Analysis, node: AstNode[Ast.Expr], name: Name.Unqualified) = {
         val mapping = a.nestedScope.get (NameGroup.Value) _
-        for (symbol <- helpers.getSymbolForName(mapping)(node.id, name)) yield {
+        for (symbol <- helpers.getSymbolForName(NameGroup.Value, mapping)(node.id, name)) yield {
           val useDefMap = a.useDefMap + (node.id -> symbol)
           a.copy(useDefMap = useDefMap)
         }
@@ -51,7 +51,7 @@ object CheckUses extends BasicUseAnalyzer {
               case Some(qual) =>
                 val scope = a.symbolScopeMap(qual)
                 val mapping = scope.get (NameGroup.Value) _
-                helpers.getSymbolForName(mapping)(id.id, id.data) match {
+                helpers.getSymbolForName(NameGroup.Value, mapping)(id.id, id.data) match {
                   case Right(value) => Right(Some(value))
                   case Left(err) => Left(err)
                 }
@@ -120,7 +120,7 @@ object CheckUses extends BasicUseAnalyzer {
     for {
       symbol <- {
         val mapping = a.nestedScope.get (NameGroup.Value) _
-        helpers.getSymbolForName(mapping)(node.id, name)
+        helpers.getSymbolForName(NameGroup.Value, mapping)(node.id, name)
       }
       a <- {
         val scope = a.symbolScopeMap(symbol)

@@ -2,4 +2,4 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/port_instance/undef_product_send.fpp:3.3
   product send port productSendOut
   ^
-error: undefined symbol Fw
+error: cannot find port `Fw` in this scope

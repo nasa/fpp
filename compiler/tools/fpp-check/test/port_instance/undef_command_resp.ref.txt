@@ -2,4 +2,4 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/port_instance/undef_command_resp.fpp:3.3
   command resp port cmdResponseOut
   ^
-error: undefined symbol Fw
+error: cannot find port `Fw` in this scope

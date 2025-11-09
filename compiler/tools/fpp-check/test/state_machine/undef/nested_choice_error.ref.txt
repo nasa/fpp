@@ -2,4 +2,4 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/state_machine/undef/nested_choice_error.fpp:6.19
     initial enter C
                   ^
-error: undefined symbol C
+error: cannot find state `C` in this scope

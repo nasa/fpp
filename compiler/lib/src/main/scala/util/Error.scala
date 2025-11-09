@@ -1,8 +1,16 @@
 package fpp.compiler.util
 
 import fpp.compiler.util.Location
+import fpp.compiler.analysis.NameGroup
 import java.util.Locale
-import fpp.compiler.util.Location
+import fpp.compiler.analysis.NameGroup.Component
+import fpp.compiler.analysis.NameGroup.ComponentInstance
+import fpp.compiler.analysis.NameGroup.Interface
+import fpp.compiler.analysis.NameGroup.Port
+import fpp.compiler.analysis.NameGroup.StateMachine
+import fpp.compiler.analysis.NameGroup.Topology
+import fpp.compiler.analysis.NameGroup.Type
+import fpp.compiler.analysis.NameGroup.Value
 
 /** An exception for signaling internal compiler errors */
 final case class InternalError(val msg: String) extends Exception {
@@ -337,8 +345,8 @@ sealed trait Error {
         System.err.println("for this component instance:")
         System.err.println(instanceLoc)
       case SemanticError.TypeMismatch(loc, msg) => Error.print (Some(loc)) (msg)
-      case SemanticError.UndefinedSymbol(name, loc) =>
-        Error.print (Some(loc)) (s"undefined symbol ${name}")
+      case SemanticError.UndefinedSymbol(name, symbolKind, loc) =>
+        Error.print (Some(loc)) (s"cannot find $symbolKind `${name}` in this scope")
       case SemanticError.InterfaceImport(
         importLoc,
         err
@@ -782,7 +790,7 @@ object SemanticError {
   /** Type mismatch */
   final case class TypeMismatch(loc: Location, msg: String) extends Error
   /** Undefined symbol */
-  final case class UndefinedSymbol(name: String, loc: Location) extends Error
+  final case class UndefinedSymbol(name: String, symbolKind: String, loc: Location) extends Error
   /** Use-def cycle */
   final case class UseDefCycle(loc: Location, msg: String) extends Error
 }

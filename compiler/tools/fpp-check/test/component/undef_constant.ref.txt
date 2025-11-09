@@ -2,4 +2,4 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/component/undef_constant.fpp:2.16
   constant b = a
                ^
-error: undefined symbol a
+error: cannot find constant `a` in this scope

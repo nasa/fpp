@@ -2,4 +2,4 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/spec_init/undef_phase.fpp:7.9
   phase P "c phase P"
         ^
-error: undefined symbol P
+error: cannot find constant `P` in this scope
