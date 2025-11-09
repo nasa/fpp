@@ -1,16 +1,7 @@
 package fpp.compiler.util
 
 import fpp.compiler.util.Location
-import fpp.compiler.analysis.NameGroup
 import java.util.Locale
-import fpp.compiler.analysis.NameGroup.Component
-import fpp.compiler.analysis.NameGroup.ComponentInstance
-import fpp.compiler.analysis.NameGroup.Interface
-import fpp.compiler.analysis.NameGroup.Port
-import fpp.compiler.analysis.NameGroup.StateMachine
-import fpp.compiler.analysis.NameGroup.Topology
-import fpp.compiler.analysis.NameGroup.Type
-import fpp.compiler.analysis.NameGroup.Value
 
 /** An exception for signaling internal compiler errors */
 final case class InternalError(val msg: String) extends Exception {
