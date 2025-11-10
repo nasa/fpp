@@ -202,11 +202,11 @@ case class PortCppWriter (
 
     List.concat(
       CppDocWriter.writeBannerComment("Port buffer class"),
-      Line.blank :: lines(s"class ${name}PortBuffer : public Fw::SerializeBufferBase {"),
+      Line.blank :: lines(s"class ${name}PortBuffer : public Fw::LinearBufferBase {"),
       List.concat(
         CppDocHppWriter.writeAccessTag("public"),
         Line.blank :: lines(
-          s"""|Fw::Serializable::SizeType getBuffCapacity() const {
+          s"""|Fw::Serializable::SizeType getCapacity() const {
               |  return ${PortCppWriter.inputPortName(name)}::SERIALIZED_SIZE;
               |}
               |
@@ -397,7 +397,7 @@ case class PortCppWriter (
             "invokeSerial",
             List(
               CppDoc.Function.Param(
-                CppDoc.Type("Fw::SerializeBufferBase&"),
+                CppDoc.Type("Fw::LinearBufferBase&"),
                 "_buffer"
               )
             ),

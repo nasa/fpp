@@ -18,7 +18,7 @@ Fw::SerializeStatus PassiveSerialTesterBase::PassiveSerialComponentBaseParamExte
       const FwPrmIdType baseId,
       const FwPrmIdType localId,
       const Fw::ParamValid prmStat,
-      Fw::SerializeBufferBase& buff
+      Fw::SerialBufferBase& buff
   )
 {
   Fw::SerializeStatus stat;
@@ -63,7 +63,7 @@ Fw::SerializeStatus PassiveSerialTesterBase::PassiveSerialComponentBaseParamExte
   serializeParam(
       const FwPrmIdType baseId,
       const FwPrmIdType localId,
-      Fw::SerializeBufferBase& buff
+      Fw::SerialBufferBase& buff
   ) const
 {
   Fw::SerializeStatus stat;
@@ -1456,7 +1456,7 @@ F32 PassiveSerialTesterBase ::
 void PassiveSerialTesterBase ::
   from_serialOut_handler(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Default behavior is to do nothing
@@ -1647,7 +1647,7 @@ F32 PassiveSerialTesterBase ::
 void PassiveSerialTesterBase ::
   from_serialOut_handlerBase(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -1930,7 +1930,7 @@ void PassiveSerialTesterBase ::
 void PassiveSerialTesterBase ::
   invoke_to_serialGuarded(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -1946,7 +1946,7 @@ void PassiveSerialTesterBase ::
 void PassiveSerialTesterBase ::
   invoke_to_serialSync(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -4992,7 +4992,7 @@ void PassiveSerialTesterBase ::
   from_serialOut_static(
       Fw::PassiveComponentBase* const callComp,
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   FW_ASSERT(callComp != nullptr);

@@ -18,11 +18,11 @@ namespace Ports {
     // Port buffer class
     // ----------------------------------------------------------------------
 
-    class NoArgsPortBuffer : public Fw::SerializeBufferBase {
+    class NoArgsPortBuffer : public Fw::LinearBufferBase {
 
       public:
 
-        Fw::Serializable::SizeType getBuffCapacity() const {
+        Fw::Serializable::SizeType getCapacity() const {
           return InputNoArgsPort::SERIALIZED_SIZE;
         }
 
@@ -86,7 +86,7 @@ namespace Ports {
 #if FW_PORT_SERIALIZATION == 1
 
   Fw::SerializeStatus InputNoArgsPort ::
-    invokeSerial(Fw::SerializeBufferBase& _buffer)
+    invokeSerial(Fw::LinearBufferBase& _buffer)
   {
     (void) _buffer;
 
