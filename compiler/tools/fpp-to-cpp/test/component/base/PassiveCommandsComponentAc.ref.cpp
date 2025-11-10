@@ -2186,7 +2186,7 @@ void PassiveCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->cmdResponseOut_out(
         0,
@@ -2260,7 +2260,7 @@ void PassiveCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->cmdResponseOut_out(
         0,
@@ -2325,7 +2325,7 @@ void PassiveCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->cmdResponseOut_out(
         0,
@@ -2375,7 +2375,7 @@ void PassiveCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->cmdResponseOut_out(
         0,
@@ -2424,7 +2424,7 @@ void PassiveCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->cmdResponseOut_out(
         0,
@@ -2473,7 +2473,7 @@ void PassiveCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->cmdResponseOut_out(
         0,
@@ -2502,7 +2502,7 @@ void PassiveCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->cmdResponseOut_out(
         0,
@@ -2580,7 +2580,7 @@ void PassiveCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->cmdResponseOut_out(
         0,
@@ -2649,7 +2649,7 @@ void PassiveCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->cmdResponseOut_out(
         0,
@@ -2703,7 +2703,7 @@ void PassiveCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->cmdResponseOut_out(
         0,
@@ -2756,7 +2756,7 @@ void PassiveCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->cmdResponseOut_out(
         0,
@@ -2809,7 +2809,7 @@ void PassiveCommandsComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->cmdResponseOut_out(
         0,

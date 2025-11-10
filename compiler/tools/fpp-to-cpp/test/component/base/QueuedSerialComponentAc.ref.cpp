@@ -74,7 +74,7 @@ namespace {
   // Define a message buffer class large enough to handle all the
   // asynchronous inputs to the component
   class ComponentIpcSerializableBuffer :
-    public Fw::SerializeBufferBase
+    public Fw::LinearBufferBase
   {
 
     public:
@@ -88,7 +88,7 @@ namespace {
         SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
       };
 
-      Fw::Serializable::SizeType getBuffCapacity() const {
+      Fw::Serializable::SizeType getCapacity() const {
         return sizeof(m_buff);
       }
 
@@ -3658,7 +3658,7 @@ void QueuedSerialComponentBase ::
 void QueuedSerialComponentBase ::
   serialAsync_handlerBase(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -3711,7 +3711,7 @@ void QueuedSerialComponentBase ::
 void QueuedSerialComponentBase ::
   serialAsyncAssert_handlerBase(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -3764,7 +3764,7 @@ void QueuedSerialComponentBase ::
 void QueuedSerialComponentBase ::
   serialAsyncBlockPriority_handlerBase(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -3817,7 +3817,7 @@ void QueuedSerialComponentBase ::
 void QueuedSerialComponentBase ::
   serialAsyncDropPriority_handlerBase(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -3875,7 +3875,7 @@ void QueuedSerialComponentBase ::
 void QueuedSerialComponentBase ::
   serialGuarded_handlerBase(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -3900,7 +3900,7 @@ void QueuedSerialComponentBase ::
 void QueuedSerialComponentBase ::
   serialSync_handlerBase(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -4016,7 +4016,7 @@ void QueuedSerialComponentBase ::
 void QueuedSerialComponentBase ::
   serialAsync_preMsgHook(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Default: no-op
@@ -4025,7 +4025,7 @@ void QueuedSerialComponentBase ::
 void QueuedSerialComponentBase ::
   serialAsyncAssert_preMsgHook(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Default: no-op
@@ -4034,7 +4034,7 @@ void QueuedSerialComponentBase ::
 void QueuedSerialComponentBase ::
   serialAsyncBlockPriority_preMsgHook(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Default: no-op
@@ -4043,7 +4043,7 @@ void QueuedSerialComponentBase ::
 void QueuedSerialComponentBase ::
   serialAsyncDropPriority_preMsgHook(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Default: no-op
@@ -4271,7 +4271,7 @@ F32 QueuedSerialComponentBase ::
 Fw::SerializeStatus QueuedSerialComponentBase ::
   serialOut_out(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   FW_ASSERT(
@@ -4570,7 +4570,7 @@ void QueuedSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->cmdResponseOut_out(
         0,
@@ -4644,7 +4644,7 @@ void QueuedSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->cmdResponseOut_out(
         0,
@@ -4709,7 +4709,7 @@ void QueuedSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->cmdResponseOut_out(
         0,
@@ -4759,7 +4759,7 @@ void QueuedSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->cmdResponseOut_out(
         0,
@@ -4808,7 +4808,7 @@ void QueuedSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->cmdResponseOut_out(
         0,
@@ -4857,7 +4857,7 @@ void QueuedSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->cmdResponseOut_out(
         0,
@@ -4886,7 +4886,7 @@ void QueuedSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->cmdResponseOut_out(
         0,
@@ -4964,7 +4964,7 @@ void QueuedSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->cmdResponseOut_out(
         0,
@@ -5033,7 +5033,7 @@ void QueuedSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->cmdResponseOut_out(
         0,
@@ -5087,7 +5087,7 @@ void QueuedSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->cmdResponseOut_out(
         0,
@@ -5140,7 +5140,7 @@ void QueuedSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->cmdResponseOut_out(
         0,
@@ -5193,7 +5193,7 @@ void QueuedSerialComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->isConnected_cmdResponseOut_OutputPort(0)) {
       this->cmdResponseOut_out(
         0,
@@ -7602,7 +7602,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
       // Make sure there was no data left over.
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
-      if (args.getBuffLeft() != 0) {
+      if (args.getDeserializeSizeLeft() != 0) {
         if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
@@ -7649,7 +7649,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
       // Make sure there was no data left over.
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
-      if (args.getBuffLeft() != 0) {
+      if (args.getDeserializeSizeLeft() != 0) {
         if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
@@ -7711,7 +7711,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
       // Make sure there was no data left over.
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
-      if (args.getBuffLeft() != 0) {
+      if (args.getDeserializeSizeLeft() != 0) {
         if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
@@ -7761,7 +7761,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
       // Make sure there was no data left over.
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
-      if (args.getBuffLeft() != 0) {
+      if (args.getDeserializeSizeLeft() != 0) {
         if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
@@ -7823,7 +7823,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
       // Make sure there was no data left over.
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
-      if (args.getBuffLeft() != 0) {
+      if (args.getDeserializeSizeLeft() != 0) {
         if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
@@ -7855,8 +7855,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
       // Make sure there was no data left over.
       // That means the buffer size was incorrect.
       FW_ASSERT(
-        _msg.getBuffLeft() == 0,
-        static_cast<FwAssertArgType>(_msg.getBuffLeft())
+        _msg.getDeserializeSizeLeft() == 0,
+        static_cast<FwAssertArgType>(_msg.getDeserializeSizeLeft())
       );
 
       // Call handler function
@@ -7881,8 +7881,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
       // Make sure there was no data left over.
       // That means the buffer size was incorrect.
       FW_ASSERT(
-        _msg.getBuffLeft() == 0,
-        static_cast<FwAssertArgType>(_msg.getBuffLeft())
+        _msg.getDeserializeSizeLeft() == 0,
+        static_cast<FwAssertArgType>(_msg.getDeserializeSizeLeft())
       );
 
       // Call handler function
@@ -7925,8 +7925,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
       // Make sure there was no data left over.
       // That means the buffer size was incorrect.
       FW_ASSERT(
-        _msg.getBuffLeft() == 0,
-        static_cast<FwAssertArgType>(_msg.getBuffLeft())
+        _msg.getDeserializeSizeLeft() == 0,
+        static_cast<FwAssertArgType>(_msg.getDeserializeSizeLeft())
       );
 
       // Call handler function
@@ -7944,8 +7944,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
       // Make sure there was no data left over.
       // That means the buffer size was incorrect.
       FW_ASSERT(
-        _msg.getBuffLeft() == 0,
-        static_cast<FwAssertArgType>(_msg.getBuffLeft())
+        _msg.getDeserializeSizeLeft() == 0,
+        static_cast<FwAssertArgType>(_msg.getDeserializeSizeLeft())
       );
 
       // Call handler function
@@ -7977,8 +7977,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
       // Make sure there was no data left over.
       // That means the buffer size was incorrect.
       FW_ASSERT(
-        _msg.getBuffLeft() == 0,
-        static_cast<FwAssertArgType>(_msg.getBuffLeft())
+        _msg.getDeserializeSizeLeft() == 0,
+        static_cast<FwAssertArgType>(_msg.getDeserializeSizeLeft())
       );
 
       // Call handler function
@@ -8004,8 +8004,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
       // Make sure there was no data left over.
       // That means the buffer size was incorrect.
       FW_ASSERT(
-        _msg.getBuffLeft() == 0,
-        static_cast<FwAssertArgType>(_msg.getBuffLeft())
+        _msg.getDeserializeSizeLeft() == 0,
+        static_cast<FwAssertArgType>(_msg.getDeserializeSizeLeft())
       );
 
       // Call handler function
@@ -8873,7 +8873,7 @@ void QueuedSerialComponentBase ::
   m_p_serialAsync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   FW_ASSERT(callComp);
@@ -8888,7 +8888,7 @@ void QueuedSerialComponentBase ::
   m_p_serialAsyncAssert_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   FW_ASSERT(callComp);
@@ -8903,7 +8903,7 @@ void QueuedSerialComponentBase ::
   m_p_serialAsyncBlockPriority_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   FW_ASSERT(callComp);
@@ -8918,7 +8918,7 @@ void QueuedSerialComponentBase ::
   m_p_serialAsyncDropPriority_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   FW_ASSERT(callComp);
@@ -8933,7 +8933,7 @@ void QueuedSerialComponentBase ::
   m_p_serialGuarded_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   FW_ASSERT(callComp);
@@ -8948,7 +8948,7 @@ void QueuedSerialComponentBase ::
   m_p_serialSync_in(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   FW_ASSERT(callComp);
@@ -9162,7 +9162,7 @@ void QueuedSerialComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::CmdResponse QueuedSerialComponentBase ::
-  paramSet_ParamU32(Fw::SerializeBufferBase& val)
+  paramSet_ParamU32(Fw::SerialBufferBase& val)
 {
   U32 _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -9182,7 +9182,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
 }
 
 Fw::CmdResponse QueuedSerialComponentBase ::
-  paramSet_ParamF64(Fw::SerializeBufferBase& val)
+  paramSet_ParamF64(Fw::SerialBufferBase& val)
 {
   F64 _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -9202,7 +9202,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
 }
 
 Fw::CmdResponse QueuedSerialComponentBase ::
-  paramSet_ParamString(Fw::SerializeBufferBase& val)
+  paramSet_ParamString(Fw::SerialBufferBase& val)
 {
   Fw::ParamString _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -9222,7 +9222,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
 }
 
 Fw::CmdResponse QueuedSerialComponentBase ::
-  paramSet_ParamEnum(Fw::SerializeBufferBase& val)
+  paramSet_ParamEnum(Fw::SerialBufferBase& val)
 {
   E _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -9242,7 +9242,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
 }
 
 Fw::CmdResponse QueuedSerialComponentBase ::
-  paramSet_ParamArray(Fw::SerializeBufferBase& val)
+  paramSet_ParamArray(Fw::SerialBufferBase& val)
 {
   A _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -9262,7 +9262,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
 }
 
 Fw::CmdResponse QueuedSerialComponentBase ::
-  paramSet_ParamStruct(Fw::SerializeBufferBase& val)
+  paramSet_ParamStruct(Fw::SerialBufferBase& val)
 {
   S _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -9282,7 +9282,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
 }
 
 Fw::CmdResponse QueuedSerialComponentBase ::
-  paramSet_ParamI32Ext(Fw::SerializeBufferBase& val)
+  paramSet_ParamI32Ext(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMI32EXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -9305,7 +9305,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
 }
 
 Fw::CmdResponse QueuedSerialComponentBase ::
-  paramSet_ParamF64Ext(Fw::SerializeBufferBase& val)
+  paramSet_ParamF64Ext(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMF64EXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -9328,7 +9328,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
 }
 
 Fw::CmdResponse QueuedSerialComponentBase ::
-  paramSet_ParamStringExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamStringExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMSTRINGEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -9351,7 +9351,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
 }
 
 Fw::CmdResponse QueuedSerialComponentBase ::
-  paramSet_ParamEnumExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamEnumExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMENUMEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -9374,7 +9374,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
 }
 
 Fw::CmdResponse QueuedSerialComponentBase ::
-  paramSet_ParamArrayExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamArrayExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMARRAYEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
@@ -9397,7 +9397,7 @@ Fw::CmdResponse QueuedSerialComponentBase ::
 }
 
 Fw::CmdResponse QueuedSerialComponentBase ::
-  paramSet_ParamStructExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamStructExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMSTRUCTEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());

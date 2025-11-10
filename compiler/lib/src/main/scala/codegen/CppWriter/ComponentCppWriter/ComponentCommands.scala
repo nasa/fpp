@@ -217,7 +217,7 @@ case class ComponentCommands (
           s"""|#if FW_CMD_CHECK_RESIDUAL
               |// Make sure there was no data left over.
               |// That means the argument buffer size was incorrect.
-              |if (args.getBuffLeft() != 0) {
+              |if (args.getDeserializeSizeLeft() != 0) {
               |  if (this->$isConnectedName(0)) {
               |    this->$invoker(
               |      0,

@@ -68,7 +68,7 @@ namespace Ports {
 #if FW_PORT_SERIALIZATION == 1
 
   Fw::SerializeStatus InputTypedReturnPort ::
-    invokeSerial(Fw::SerializeBufferBase& _buffer)
+    invokeSerial(Fw::LinearBufferBase& _buffer)
   {
     // For ports with a return type, invokeSerial is not used
     (void) _buffer;

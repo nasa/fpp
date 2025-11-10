@@ -16,11 +16,11 @@ namespace {
   // Port buffer class
   // ----------------------------------------------------------------------
 
-  class KwdNamePortBuffer : public Fw::SerializeBufferBase {
+  class KwdNamePortBuffer : public Fw::LinearBufferBase {
 
     public:
 
-      Fw::Serializable::SizeType getBuffCapacity() const {
+      Fw::Serializable::SizeType getCapacity() const {
         return InputKwdNamePort::SERIALIZED_SIZE;
       }
 
@@ -88,7 +88,7 @@ void InputKwdNamePort ::
 #if FW_PORT_SERIALIZATION == 1
 
 Fw::SerializeStatus InputKwdNamePort ::
-  invokeSerial(Fw::SerializeBufferBase& _buffer)
+  invokeSerial(Fw::LinearBufferBase& _buffer)
 {
   Fw::SerializeStatus _status;
 
