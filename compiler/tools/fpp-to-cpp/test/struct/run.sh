@@ -5,6 +5,12 @@ primitive()
     diff_cpp PrimitiveStructSerializable
 }
 
+array()
+{
+  run_test "-p $PWD" array && \
+    diff_cpp AArray
+}
+
 string()
 {
   run_test "-p $PWD" string && \

@@ -6,7 +6,6 @@ choice_u32_bool
 choice_u32_bool_transitive
 choice_u32_none
 sm_initial_bad_action_type
-sm_initial_bad_guard_type
 sm_choice_bad_else_action_type
 sm_choice_bad_guard_type
 sm_choice_bad_if_action_type
