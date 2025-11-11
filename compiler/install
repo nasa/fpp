@@ -6,9 +6,8 @@
 # To pass flags to sbt, set the environment variable
 # FPP_SBT_FLAGS
 #
-# To override the java command and/or set java flags, set the
-# environment variable
-# FPP_INSTALL_JAVA
+# To pass flags to java, set the # environment variable
+# FPP_JAVA_FLAGS
 # ----------------------------------------------------------------------
 
 # Check arguments
@@ -38,11 +37,11 @@ cd $wd
 
 scala_version="3.1.2"
 
-if test -n "$FPP_INSTALL_JAVA"
+if test -n "$FPP_JAVA_HOME"
 then
-  java=$FPP_INSTALL_JAVA
+  java="$FPP_JAVA_HOME/bin/java $FPP_JAVA_FLAGS"
 else
-  java=java
+  java=java $FPP_JAVA_FLAGS
 fi
 echo "java command: $java"
 

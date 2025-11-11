@@ -18,13 +18,13 @@ For example, in MacPorts you can run
 % sudo port install openjdk11-graalvm
 ----
 
-.. Set the environment variable `JAVA_HOME` to the home directory associated
+.. Set the environment variable `FPP_JAVA_HOME` to the home directory associated
 with the installation.
 For example, on Mac OS:
 +
 [source,bash]
 ----
-% export JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk11-graalvm/Contents/Home
+% export FPP_JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk11-graalvm/Contents/Home
 ----
 
 == Installing
@@ -75,6 +75,11 @@ For example:
 % export FPP_SBT_FLAGS='--batch -Dsbt.server.forcestart=true'
 % ./install
 ----
+
+*Installing with custom java flags:*
+For some installations, you may need to pass special flags
+to the `java` command.
+To do this, set the environment variable `FPP_JAVA_FLAGS`.
 
 == Testing
 
