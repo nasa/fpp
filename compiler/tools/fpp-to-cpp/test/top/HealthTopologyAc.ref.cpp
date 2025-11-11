@@ -159,7 +159,7 @@ namespace M {
 namespace M {
 
   bool CComponentBase::isConnected_pingOut_OutputPort(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS), static_cast<FwAssertArgType>(portNum));
+    FW_ASSERT((0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS), static_cast<FwAssertArgType>(portNum), static_cast<FwAssertArgType>(NUM_PINGOUT_OUTPUT_PORTS));
     bool result = false;
     const auto instance = this->getInstance();
     switch (instance) {
@@ -192,7 +192,7 @@ namespace M {
       FwIndexType portNum,
       U32 key
   ) const {
-    FW_ASSERT((0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS), static_cast<FwAssertArgType>(portNum));
+    FW_ASSERT((0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS), static_cast<FwAssertArgType>(portNum), static_cast<FwAssertArgType>(NUM_PINGOUT_OUTPUT_PORTS));
     const auto instance = this->getInstance();
     switch (instance) {
       case ::M::InstanceIds::M_c1:
@@ -226,7 +226,7 @@ namespace M {
 namespace Svc {
 
   bool HealthComponentBase::isConnected_pingOut_OutputPort(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS), static_cast<FwAssertArgType>(portNum));
+    FW_ASSERT((0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS), static_cast<FwAssertArgType>(portNum), static_cast<FwAssertArgType>(NUM_PINGOUT_OUTPUT_PORTS));
     bool result = false;
     const auto instance = this->getInstance();
     switch (instance) {
@@ -253,7 +253,7 @@ namespace Svc {
       FwIndexType portNum,
       U32 key
   ) const {
-    FW_ASSERT((0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS), static_cast<FwAssertArgType>(portNum));
+    FW_ASSERT((0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS), static_cast<FwAssertArgType>(portNum), static_cast<FwAssertArgType>(NUM_PINGOUT_OUTPUT_PORTS));
     const auto instance = this->getInstance();
     switch (instance) {
       case ::M::InstanceIds::M_health:

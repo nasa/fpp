@@ -66,7 +66,7 @@ case class TopComponentCppWriter (
     val numPorts = numPortsConstantName(portInstance)
     List.concat(
       lines(
-      s"""|FW_ASSERT((0 <= portNum) && (portNum < $numPorts), static_cast<FwAssertArgType>(portNum));
+      s"""|FW_ASSERT((0 <= portNum) && (portNum < $numPorts), static_cast<FwAssertArgType>(portNum), static_cast<FwAssertArgType>($numPorts));
           |bool result = false;
           |const auto instance = this->getInstance();"""
       ),
@@ -101,7 +101,7 @@ case class TopComponentCppWriter (
     val numPorts = numPortsConstantName(portInstance)
     List.concat(
       lines(
-      s"""|FW_ASSERT((0 <= portNum) && (portNum < $numPorts), static_cast<FwAssertArgType>(portNum));
+      s"""|FW_ASSERT((0 <= portNum) && (portNum < $numPorts), static_cast<FwAssertArgType>(portNum), static_cast<FwAssertArgType>($numPorts));
           |const auto instance = this->getInstance();"""
       ),
       writeInstanceSwitch(
