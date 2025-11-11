@@ -1,5 +1,6 @@
 tests="
 default_ok
+default_error
 no_default_ok
 dictionary_not_displayable
 dictionary_ok
