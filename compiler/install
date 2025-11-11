@@ -10,7 +10,7 @@
 # To pass flags to sbt, set the environment variable
 # FPP_SBT_FLAGS
 #
-# To pass flags to java, set the # environment variable
+# To pass flags to java, set the environment variable
 # FPP_JAVA_FLAGS
 # ----------------------------------------------------------------------
 
