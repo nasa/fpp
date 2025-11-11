@@ -86,7 +86,7 @@ To do this, set the environment variable `FPP_JAVA_FLAGS`.
 There are two kinds of tests: unit tests written in Scala and
 unit tests that exercise the command-line tools.
 
-. Run `sbt test` to run all Scala unit tests.
+. Run `./fpp-sbt test` to run all Scala unit tests.
 
 . Run `./test` to run all command-line unit tests.
 Do this after running `./install`.
@@ -102,7 +102,7 @@ installed and available on the command line.
 +
 [source,bash]
 ----
-% sbt
+% ./fpp-sbt
 sbt:fpp-compiler>
 ----
 
