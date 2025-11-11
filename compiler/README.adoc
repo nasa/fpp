@@ -178,6 +178,9 @@ Occasionally when developing FPP, you may need to re-run the tracing
 agent to capture new runtime behavior.
 To do that, use the following procedure:
 
+. Ensure that `native-image` is installed and up-to-date,
+as described above.
+
 . Run `./install-trace` to install JVM versions of the FPP tools with
 tracing enabled in the `bin` directory.
 
@@ -194,7 +197,14 @@ is an errant `.lock` file left behind by the tracing agent.
 Run `find . -name .lock` in this directory to find the file;
 then delete it and retry.
 
-. Commit the updated trace files to the repository.
+. Set the environment variable `FPRIME` to point to the root of
+a local copy of the
+https://github.com/nasa/fprime[F Prime repository] or
+a fork of the repository.
+
+. Run `./trace-fprime` to trace F Prime projects that run in CI.
+
+. Commit the updated trace files to this repository.
 
 . Run `./install` to reinstall the standard version
 of the tools.

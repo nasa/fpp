@@ -1,0 +1,44 @@
+#!/bin/sh
+
+# Normalize the working directory
+wd=`dirname $0`
+cd $wd
+
+# Make is used because it is single-string and thus doesn't trip tracing's lock-file contention
+fprime_generate_flags="-f -DFPRIME_SKIP_TOOLS_VERSION_CHECK=ON --ut --make"
+fprime_project_paths=". ./FppTestProject/FppTest ./Ref"
+
+
+# Ensure the FPRIME environment variable was set
+if [[ "${FPRIME}" == "" ]]
+then
+    echo "[ERROR] Must set FPRIME variable to run $0"
+    exit 1
+fi
+
+# If a VIRTUAL_ENV is not set, then create one
+if [[ "${VIRTUAL_ENV}" == "" ]]
+then
+    python3 -m venv /tmp/fprime-venv
+    . /tmp/fprime-venv
+    pip install -r "${FPRIME}/requirements.txt"
+fi
+# Overlay the trace version of the tools
+export PATH="`pwd`/bin:${PATH}"
+
+# Perform each test in F Prime
+for project_path in ${fprime_project_paths}
+do
+    echo "Generating and Building UTs for: ${project_path}"
+    cd "${FPRIME}/${project_path}"
+
+    # Conduct tracing through FPP build 
+    fprime-util generate ${fprime_generate_flags}
+    fprime-util build --ut
+
+done
+# Add in tracing for the specific CI test for fpp-to-json as this seems to be particularly unhappy.
+cd ${FPRIME}/Ref/Top
+dependencies=`fpp-depend ../build-fprime-automatic-native-ut/locs.fpp *.fpp`
+fpp-to-json ${dependencies} *.fpp
+    
