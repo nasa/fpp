@@ -106,10 +106,14 @@ case class TopComponentCppWriter (
       ),
       writeInstanceSwitch(
         componentInstanceMap,
-        { case _ => lines("// TODO") },
+        writeOutFnCase,
         lines("FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));")
       )
     )
+  }
+
+  private def writeOutFnCase(portNum: Int, connection: Connection) = {
+    lines("// TODO")
   }
 
   private def writeOutFnForPort(
