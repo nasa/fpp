@@ -210,7 +210,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
 
   private implicit val signalStateTransitionMapEncoder: Encoder[StateMachineAnalysis.SignalStateTransitionMap] = {
     def f1(s: StateMachineSymbol.Signal) = s.getNodeId.toString
-    def f2(s: StateMachineSymbol.State) = s.getUnqualifiedName
+    def f2(s: StateMachineSymbol.State) = s.getNodeId.toString
     def f3(t: Transition.Guarded) = t.asJson
     Encoder.instance (mapAsJsonMap (f1) (mapAsJsonMap (f2) (f3) _) _)
   }
