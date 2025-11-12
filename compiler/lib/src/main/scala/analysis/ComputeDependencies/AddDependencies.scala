@@ -51,7 +51,6 @@ object AddDependencies extends BasicUseAnalyzer {
     analyzeUse(a, Ast.SpecLoc.Type, use)
 
   private def analyzeUse(a: Analysis, kind: Ast.SpecLoc.Kind, use: Name.Qualified): Result = {
-
     def computeNameList: List[Name.Qualified] = {
       def helper(prefix: List[Name.Unqualified], result: List[Name.Qualified]): List[Name.Qualified] = {
         prefix match {
