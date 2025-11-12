@@ -8,6 +8,7 @@ def_interface
 def_port
 def_state_machine
 def_struct
+dictionary
 direct
 enum_constant
 expr_array

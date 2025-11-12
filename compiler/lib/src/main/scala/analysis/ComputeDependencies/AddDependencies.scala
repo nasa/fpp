@@ -5,8 +5,15 @@ import fpp.compiler.syntax._
 import fpp.compiler.transform._
 import fpp.compiler.util._
 
-/** Map uses to locations */
-object MapUsesToLocs extends BasicUseAnalyzer {
+/** Add dependencies */
+object AddDependencies extends BasicUseAnalyzer {
+
+  override def specLocAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecLoc]]) = {
+    val specLoc = node._2.data
+    if specLoc.isDictionaryDef
+    then addDependencies (a) (specLoc)
+    else Right(a)
+  }
 
   override def componentInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     analyzeUse(a, Ast.SpecLoc.ComponentInstance, use)
@@ -44,6 +51,7 @@ object MapUsesToLocs extends BasicUseAnalyzer {
     analyzeUse(a, Ast.SpecLoc.Type, use)
 
   private def analyzeUse(a: Analysis, kind: Ast.SpecLoc.Kind, use: Name.Qualified): Result = {
+
     def computeNameList: List[Name.Qualified] = {
       def helper(prefix: List[Name.Unqualified], result: List[Name.Qualified]): List[Name.Qualified] = {
         prefix match {
@@ -65,47 +73,45 @@ object MapUsesToLocs extends BasicUseAnalyzer {
         }
       }
     }
-    def getFile(specLoc: Ast.SpecLoc): File = {
-      val loc = Locations.get(specLoc.file.id)
-      val path = loc.getRelativePath(specLoc.file.data)
-      File.Path(path)
-    }
-    def addDependency(specLoc: Ast.SpecLoc, file: File): Result = {
-      val dependencyFileSet = a.dependencyFileSet + file
-      val directDependencyFileSet = a.level match {
-        case 1 => a.directDependencyFileSet + file
-        case _ => a.directDependencyFileSet
-      }
-      val a1 = a.copy(
-        dependencyFileSet = dependencyFileSet,
-        directDependencyFileSet = directDependencyFileSet
-      )
-      val result = for {
-        tu <- Parser.parseFile (Parser.transUnit) (None) (file)
-        pair <- ResolveSpecInclude.transUnit(a1, tu)
-        a2 <- ComputeDependencies.tuList(
-          pair._1.copy(scopeNameList = Nil),
-          List(pair._2)
-        )
-      } yield a2.copy(scopeNameList = a1.scopeNameList)
-      result match {
-        case Left(FileError.CannotOpen(_, _)) => {
-          val a = a1.copy(missingDependencyFileSet = a1.missingDependencyFileSet + file)
-          Right(a)
-        }
-        case _ => result
-      }
-    }
     val nameList = computeNameList
     val location = findLocation(nameList)
-    location match {
-      case Some(specLoc) => 
-        val file = getFile(specLoc)
-        if (!a.inputFileSet.contains(file) && !a.dependencyFileSet.contains(file))
-          addDependency(specLoc, file)
-        else Right(a)
-      case None => Right(a)
+    location.map(addDependencies (a)).getOrElse(Right(a))
+  }
+
+  private def addDependenciesHelper(a: Analysis, specLoc: Ast.SpecLoc, file: File): Result = {
+    val dependencyFileSet = a.dependencyFileSet + file
+    val directDependencyFileSet = a.level match {
+      case 1 => a.directDependencyFileSet + file
+      case _ => a.directDependencyFileSet
     }
+    val a1 = a.copy(
+      dependencyFileSet = dependencyFileSet,
+      directDependencyFileSet = directDependencyFileSet
+    )
+    val result = for {
+      tu <- Parser.parseFile (Parser.transUnit) (None) (file)
+      pair <- ResolveSpecInclude.transUnit(a1, tu)
+      a2 <- ComputeDependencies.tuList(
+        pair._1.copy(scopeNameList = Nil),
+        List(pair._2)
+      )
+    } yield a2.copy(scopeNameList = a1.scopeNameList)
+    result match {
+      case Left(FileError.CannotOpen(_, _)) => {
+        val a = a1.copy(missingDependencyFileSet = a1.missingDependencyFileSet + file)
+        Right(a)
+      }
+      case _ => result
+    }
+  }
+
+  private def addDependencies (a: Analysis) (specLoc: Ast.SpecLoc): Result = {
+    val loc = Locations.get(specLoc.file.id)
+    val path = loc.getRelativePath(specLoc.file.data)
+    val file = File.Path(path)
+    if !a.inputFileSet.contains(file) && !a.dependencyFileSet.contains(file)
+    then addDependenciesHelper(a, specLoc, file)
+    else Right(a)
   }
 
 }
