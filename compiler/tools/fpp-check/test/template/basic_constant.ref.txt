@@ -1,5 +1,0 @@
-ASSIGNING PARAM VALUE
-FROM 10
-TO 10
-constant use of p
-value = 10

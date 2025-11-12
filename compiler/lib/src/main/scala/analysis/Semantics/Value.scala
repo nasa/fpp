@@ -381,15 +381,15 @@ object Value {
   /** Anonymous struct values */
   case class AnonStruct(members: Struct.Members) extends Value {
 
-    def convertToAnonStruct(anonStructType: Type.AnonStruct): Option[Value.AnonStruct] = {
+    def convertToAnonStruct(anonStructType: Type.AnonStruct, memberDefaults: Struct.Members): Option[Value.AnonStruct] = {
       def convertMembers(in: List[Type.Struct.Member], out: Struct.Members): Option[Struct.Members] =
         in match {
           case Nil => Some(out)
           case (m -> t) :: tail => {
-            println(s"converting member ${m} to $t")
-            val vOpt = members.get(m) match {
-              case Some(v) => v.convertToType(t)
-              case None => t.getDefaultValue
+            val vOpt = (members.get(m), memberDefaults.get(m)) match {
+              case (Some(v), _) => v.convertToType(t)
+              case (None, Some(v)) => Some(v)
+              case (None, None) => t.getDefaultValue
             }
             vOpt match {
               case Some(v) => convertMembers(tail, out + (m -> v))
@@ -402,14 +402,14 @@ object Value {
     }
 
     def convertToStruct(structType: Type.Struct): Option[Value.Struct] = {
-      val Type.Struct(_, anonStructType, _, _, _) = structType
-      for (anonStruct <- convertToAnonStruct(anonStructType))
+      val Type.Struct(_, anonStructType, default, _, _) = structType
+      for (anonStruct <- convertToAnonStruct(anonStructType, default.map(_.anonStruct.members).getOrElse(Map())))
         yield Struct(anonStruct, structType)
     }
 
     override def convertToDistinctType(t: Type) =
       t.getUnderlyingType match {
-        case anonStructType : Type.AnonStruct => convertToAnonStruct(anonStructType)
+        case anonStructType : Type.AnonStruct => convertToAnonStruct(anonStructType, Map())
         case structType : Type.Struct => convertToStruct(structType)
         case _ => None
       }
@@ -442,7 +442,7 @@ object Value {
   case class Struct(anonStruct: AnonStruct, t: Type.Struct) extends Value {
 
     def convertToAnonStruct(anonStructType: Type.AnonStruct): Option[Value.AnonStruct] =
-      anonStruct.convertToAnonStruct(anonStructType)
+      anonStruct.convertToAnonStruct(anonStructType, t.default.map(_.anonStruct.members).getOrElse(Map()))
     def convertToStruct(structType: Type.Struct): Option[Value.Struct] =
       anonStruct.convertToStruct(structType)
     override def convertToDistinctType(t: Type) =

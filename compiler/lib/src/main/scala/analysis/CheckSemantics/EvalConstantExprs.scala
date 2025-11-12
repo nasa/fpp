@@ -15,8 +15,6 @@ object EvalConstantExprs extends UseAnalyzer {
         // We must be inside a template expansion, the parameter's value
         // has already been added to the valueMap
         case Symbol.TemplateConstantParam(paramDef, value) => {
-          println(s"constant use of ${paramDef.name}")
-          println(s"value = ${a.valueMap(symbol.getNodeId)}")
           Right(a)
         }
         case _ => throw InternalError(s"invalid constant use symbol ${symbol} (${symbol.getClass.getName()})")
@@ -97,14 +95,16 @@ object EvalConstantExprs extends UseAnalyzer {
     val Symbol.TemplateConstantParam(paramDef, value) = param
     for {
       a <- super.templateConstantParam(a, param)
+      a <- FinalizeTypeDefs.typeNameNode(a, paramDef.typeName)
     } yield {
-      println("ASSIGNING PARAM VALUE")
-      println(s"FROM ${a.valueMap(value.id)}")
+      val paramTy = a.typeMap(paramDef.typeName.id)
+      a.assignType(value -> paramTy)
+
       val newVal = Analysis.convertValueToType(
         a.valueMap(value.id),
-        a.typeMap(value.id)
+        paramTy
       )
-      println(s"TO ${newVal}")
+
       a.assignValue(value -> newVal)
     }
   }

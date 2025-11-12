@@ -1,9 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/template/constant_with_default.fpp:16.27
-    constant newField = p.field2
-                          ^
-error: no member field2 in anonymous struct value
-symbol is defined here:
-[ local path prefix ]/compiler/tools/fpp-check/test/template/constant_with_default.fpp:20.10
-expand T({})
-         ^

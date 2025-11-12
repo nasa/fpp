@@ -11,10 +11,10 @@ object CheckExprTypes extends UseAnalyzer {
     val symbol = a.useDefMap(node.id)
     for {
       a <- symbol match {
-        // Unqualified constant symbol: visit the constant definition
+        // Constant symbol: visit the constant definition
         // to ensure it has a type
         case Symbol.Constant(node) => defConstantAnnotatedNode(a, node)
-        // Unqualified enum symbol: if this is in scope, then we are in
+        // Enum symbol: if this is in scope, then we are in
         // the enum definition, so it already has a type
         case Symbol.EnumConstant(node) => Right(a)
         // Template parameter symbol: we are already inside the template expansion
