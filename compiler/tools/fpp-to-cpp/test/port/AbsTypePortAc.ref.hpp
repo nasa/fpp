@@ -7,16 +7,25 @@
 #ifndef AbsTypePortAc_HPP
 #define AbsTypePortAc_HPP
 
-#include <cstdio>
-#include <cstring>
-
-#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#include "include/T.hpp"
+#if !FW_DIRECT_PORT_CALLS
+#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
-#include "include/T.hpp"
+#endif
+
+//! AbsType port constants
+struct AbsTypePortConstants {
+  //! The size of the serial representations of the port arguments
+  static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
+    T::SERIALIZED_SIZE +
+    T::SERIALIZED_SIZE;
+};
+
+#if !FW_DIRECT_PORT_CALLS
 
 //! Input AbsType port
 //! A port with abstract type parameters
@@ -32,9 +41,7 @@ class InputAbsTypePort :
 
     enum {
       //! The size of the serial representations of the port arguments
-      SERIALIZED_SIZE =
-        T::SERIALIZED_SIZE +
-        T::SERIALIZED_SIZE
+      SERIALIZED_SIZE = AbsTypePortConstants::INPUT_SERIALIZED_SIZE
     };
 
   public:
@@ -134,5 +141,7 @@ class OutputAbsTypePort :
     InputAbsTypePort* m_port;
 
 };
+
+#endif
 
 #endif

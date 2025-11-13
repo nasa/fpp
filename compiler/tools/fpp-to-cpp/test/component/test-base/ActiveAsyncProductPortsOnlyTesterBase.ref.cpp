@@ -89,7 +89,7 @@ ActiveAsyncProductPortsOnlyTesterBase ::
 // ----------------------------------------------------------------------
 
 bool ActiveAsyncProductPortsOnlyTesterBase ::
-  isConnected_to_productRecvIn(FwIndexType portNum)
+  isConnected_to_productRecvIn(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_to_productRecvIn()),

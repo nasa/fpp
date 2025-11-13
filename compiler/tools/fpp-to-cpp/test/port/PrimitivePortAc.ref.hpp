@@ -7,15 +7,28 @@
 #ifndef PrimitivePortAc_HPP
 #define PrimitivePortAc_HPP
 
-#include <cstdio>
-#include <cstring>
-
-#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#if !FW_DIRECT_PORT_CALLS
+#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
+#endif
+
+//! Primitive port constants
+struct PrimitivePortConstants {
+  //! The size of the serial representations of the port arguments
+  static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
+    sizeof(U32) +
+    sizeof(U32) +
+    sizeof(F32) +
+    sizeof(F32) +
+    sizeof(U8) +
+    sizeof(U8);
+};
+
+#if !FW_DIRECT_PORT_CALLS
 
 //! Input Primitive port
 //! A port with primitive parameters
@@ -31,13 +44,7 @@ class InputPrimitivePort :
 
     enum {
       //! The size of the serial representations of the port arguments
-      SERIALIZED_SIZE =
-        sizeof(U32) +
-        sizeof(U32) +
-        sizeof(F32) +
-        sizeof(F32) +
-        sizeof(U8) +
-        sizeof(U8)
+      SERIALIZED_SIZE = PrimitivePortConstants::INPUT_SERIALIZED_SIZE
     };
 
   public:
@@ -149,5 +156,7 @@ class OutputPrimitivePort :
     InputPrimitivePort* m_port;
 
 };
+
+#endif
 
 #endif

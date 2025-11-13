@@ -25,12 +25,12 @@ namespace {
   // Get the max size by constructing a union of the async input, command, and
   // internal port serialization sizes
   union BuffUnion {
-    BYTE aliasTypedAsyncPortSize[Ports::InputAliasTypedPort::SERIALIZED_SIZE];
-    BYTE typedAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedAsyncAssertPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedAsyncBlockPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedAsyncDropPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];
+    BYTE aliasTypedAsyncPortSize[Ports::AliasTypedPortConstants::INPUT_SERIALIZED_SIZE];
+    BYTE typedAsyncPortSize[Ports::TypedPortConstants::INPUT_SERIALIZED_SIZE];
+    BYTE typedAsyncAssertPortSize[Ports::TypedPortConstants::INPUT_SERIALIZED_SIZE];
+    BYTE typedAsyncBlockPriorityPortSize[Ports::TypedPortConstants::INPUT_SERIALIZED_SIZE];
+    BYTE typedAsyncDropPriorityPortSize[Ports::TypedPortConstants::INPUT_SERIALIZED_SIZE];
+    BYTE cmdPortSize[Fw::CmdPortConstants::INPUT_SERIALIZED_SIZE];
   };
 
   // Define a message buffer class large enough to handle all the
@@ -82,6 +82,7 @@ void ActiveEventsComponentBase ::
   // Initialize base class
   Fw::ActiveComponentBase::init(instance);
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port cmdIn
   for (
     FwIndexType port = 0;
@@ -105,7 +106,9 @@ void ActiveEventsComponentBase ::
     this->m_cmdIn_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port aliasTypedAsync
   for (
     FwIndexType port = 0;
@@ -129,7 +132,9 @@ void ActiveEventsComponentBase ::
     this->m_aliasTypedAsync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsAliasStringReturnSync
   for (
     FwIndexType port = 0;
@@ -153,7 +158,9 @@ void ActiveEventsComponentBase ::
     this->m_noArgsAliasStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsAsync
   for (
     FwIndexType port = 0;
@@ -177,7 +184,9 @@ void ActiveEventsComponentBase ::
     this->m_noArgsAsync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsGuarded
   for (
     FwIndexType port = 0;
@@ -201,7 +210,9 @@ void ActiveEventsComponentBase ::
     this->m_noArgsGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsReturnGuarded
   for (
     FwIndexType port = 0;
@@ -225,7 +236,9 @@ void ActiveEventsComponentBase ::
     this->m_noArgsReturnGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsReturnSync
   for (
     FwIndexType port = 0;
@@ -249,7 +262,9 @@ void ActiveEventsComponentBase ::
     this->m_noArgsReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsStringReturnSync
   for (
     FwIndexType port = 0;
@@ -273,7 +288,9 @@ void ActiveEventsComponentBase ::
     this->m_noArgsStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsSync
   for (
     FwIndexType port = 0;
@@ -297,7 +314,9 @@ void ActiveEventsComponentBase ::
     this->m_noArgsSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAliasGuarded
   for (
     FwIndexType port = 0;
@@ -321,7 +340,9 @@ void ActiveEventsComponentBase ::
     this->m_typedAliasGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAliasReturnSync
   for (
     FwIndexType port = 0;
@@ -345,7 +366,9 @@ void ActiveEventsComponentBase ::
     this->m_typedAliasReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAliasStringReturnSync
   for (
     FwIndexType port = 0;
@@ -369,7 +392,9 @@ void ActiveEventsComponentBase ::
     this->m_typedAliasStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAsync
   for (
     FwIndexType port = 0;
@@ -393,7 +418,9 @@ void ActiveEventsComponentBase ::
     this->m_typedAsync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAsyncAssert
   for (
     FwIndexType port = 0;
@@ -417,7 +444,9 @@ void ActiveEventsComponentBase ::
     this->m_typedAsyncAssert_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAsyncBlockPriority
   for (
     FwIndexType port = 0;
@@ -441,7 +470,9 @@ void ActiveEventsComponentBase ::
     this->m_typedAsyncBlockPriority_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAsyncDropPriority
   for (
     FwIndexType port = 0;
@@ -465,7 +496,9 @@ void ActiveEventsComponentBase ::
     this->m_typedAsyncDropPriority_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedGuarded
   for (
     FwIndexType port = 0;
@@ -489,7 +522,9 @@ void ActiveEventsComponentBase ::
     this->m_typedGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedReturnGuarded
   for (
     FwIndexType port = 0;
@@ -513,7 +548,9 @@ void ActiveEventsComponentBase ::
     this->m_typedReturnGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedReturnSync
   for (
     FwIndexType port = 0;
@@ -537,7 +574,9 @@ void ActiveEventsComponentBase ::
     this->m_typedReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedSync
   for (
     FwIndexType port = 0;
@@ -561,7 +600,9 @@ void ActiveEventsComponentBase ::
     this->m_typedSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port cmdRegOut
   for (
     FwIndexType port = 0;
@@ -580,7 +621,9 @@ void ActiveEventsComponentBase ::
     this->m_cmdRegOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port cmdResponseOut
   for (
     FwIndexType port = 0;
@@ -599,7 +642,9 @@ void ActiveEventsComponentBase ::
     this->m_cmdResponseOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port eventOut
   for (
     FwIndexType port = 0;
@@ -618,7 +663,9 @@ void ActiveEventsComponentBase ::
     this->m_eventOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port prmGetOut
   for (
     FwIndexType port = 0;
@@ -637,7 +684,9 @@ void ActiveEventsComponentBase ::
     this->m_prmGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port prmSetOut
   for (
     FwIndexType port = 0;
@@ -656,8 +705,9 @@ void ActiveEventsComponentBase ::
     this->m_prmSetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
-#if FW_ENABLE_TEXT_LOGGING == 1
+#if !FW_DIRECT_PORT_CALLS && FW_ENABLE_TEXT_LOGGING
   // Connect output port textEventOut
   for (
     FwIndexType port = 0;
@@ -678,6 +728,7 @@ void ActiveEventsComponentBase ::
   }
 #endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port timeGetOut
   for (
     FwIndexType port = 0;
@@ -696,7 +747,9 @@ void ActiveEventsComponentBase ::
     this->m_timeGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port tlmOut
   for (
     FwIndexType port = 0;
@@ -715,7 +768,9 @@ void ActiveEventsComponentBase ::
     this->m_tlmOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port noArgsOut
   for (
     FwIndexType port = 0;
@@ -734,7 +789,9 @@ void ActiveEventsComponentBase ::
     this->m_noArgsOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port noArgsReturnOut
   for (
     FwIndexType port = 0;
@@ -753,7 +810,9 @@ void ActiveEventsComponentBase ::
     this->m_noArgsReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port noArgsStringReturnOut
   for (
     FwIndexType port = 0;
@@ -772,7 +831,9 @@ void ActiveEventsComponentBase ::
     this->m_noArgsStringReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedAliasOut
   for (
     FwIndexType port = 0;
@@ -791,7 +852,9 @@ void ActiveEventsComponentBase ::
     this->m_typedAliasOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedAliasReturnOut
   for (
     FwIndexType port = 0;
@@ -810,7 +873,9 @@ void ActiveEventsComponentBase ::
     this->m_typedAliasReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedAliasReturnStringOut
   for (
     FwIndexType port = 0;
@@ -829,7 +894,9 @@ void ActiveEventsComponentBase ::
     this->m_typedAliasReturnStringOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedOut
   for (
     FwIndexType port = 0;
@@ -848,7 +915,9 @@ void ActiveEventsComponentBase ::
     this->m_typedOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedReturnOut
   for (
     FwIndexType port = 0;
@@ -867,6 +936,7 @@ void ActiveEventsComponentBase ::
     this->m_typedReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
   // Create the queue
   Os::Queue::Status qStat = this->createQueue(
@@ -878,6 +948,8 @@ void ActiveEventsComponentBase ::
     static_cast<FwAssertArgType>(qStat)
   );
 }
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for special input ports
@@ -893,6 +965,10 @@ Fw::InputCmdPort* ActiveEventsComponentBase ::
 
   return &this->m_cmdIn_InputPort[portNum];
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for typed input ports
@@ -1107,6 +1183,10 @@ Ports::InputTypedPort* ActiveEventsComponentBase ::
   return &this->m_typedSync_InputPort[portNum];
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connect input ports to special output ports
 // ----------------------------------------------------------------------
@@ -1227,6 +1307,10 @@ void ActiveEventsComponentBase ::
   this->m_tlmOut_OutputPort[portNum].addCallPort(port);
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connect typed input ports to typed output ports
 // ----------------------------------------------------------------------
@@ -1343,7 +1427,9 @@ void ActiveEventsComponentBase ::
   this->m_typedReturnOut_OutputPort[portNum].addCallPort(port);
 }
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
 // Connect serial input ports to special output ports
@@ -1453,7 +1539,7 @@ void ActiveEventsComponentBase ::
 
 #endif
 
-#if FW_PORT_SERIALIZATION
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
 // Connect serial input ports to typed output ports
@@ -1525,12 +1611,14 @@ ActiveEventsComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
 
 bool ActiveEventsComponentBase ::
-  isConnected_cmdRegOut_OutputPort(FwIndexType portNum)
+  isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
@@ -1541,7 +1629,7 @@ bool ActiveEventsComponentBase ::
 }
 
 bool ActiveEventsComponentBase ::
-  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum)
+  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
@@ -1552,7 +1640,7 @@ bool ActiveEventsComponentBase ::
 }
 
 bool ActiveEventsComponentBase ::
-  isConnected_eventOut_OutputPort(FwIndexType portNum)
+  isConnected_eventOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
@@ -1563,7 +1651,7 @@ bool ActiveEventsComponentBase ::
 }
 
 bool ActiveEventsComponentBase ::
-  isConnected_prmGetOut_OutputPort(FwIndexType portNum)
+  isConnected_prmGetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
@@ -1574,7 +1662,7 @@ bool ActiveEventsComponentBase ::
 }
 
 bool ActiveEventsComponentBase ::
-  isConnected_prmSetOut_OutputPort(FwIndexType portNum)
+  isConnected_prmSetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
@@ -1587,7 +1675,7 @@ bool ActiveEventsComponentBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 bool ActiveEventsComponentBase ::
-  isConnected_textEventOut_OutputPort(FwIndexType portNum)
+  isConnected_textEventOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
@@ -1600,7 +1688,7 @@ bool ActiveEventsComponentBase ::
 #endif
 
 bool ActiveEventsComponentBase ::
-  isConnected_timeGetOut_OutputPort(FwIndexType portNum)
+  isConnected_timeGetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
@@ -1611,7 +1699,7 @@ bool ActiveEventsComponentBase ::
 }
 
 bool ActiveEventsComponentBase ::
-  isConnected_tlmOut_OutputPort(FwIndexType portNum)
+  isConnected_tlmOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
@@ -1621,12 +1709,16 @@ bool ActiveEventsComponentBase ::
   return this->m_tlmOut_OutputPort[portNum].isConnected();
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
 
 bool ActiveEventsComponentBase ::
-  isConnected_noArgsOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
@@ -1637,7 +1729,7 @@ bool ActiveEventsComponentBase ::
 }
 
 bool ActiveEventsComponentBase ::
-  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
@@ -1648,7 +1740,7 @@ bool ActiveEventsComponentBase ::
 }
 
 bool ActiveEventsComponentBase ::
-  isConnected_noArgsStringReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsStringReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
@@ -1659,7 +1751,7 @@ bool ActiveEventsComponentBase ::
 }
 
 bool ActiveEventsComponentBase ::
-  isConnected_typedAliasOut_OutputPort(FwIndexType portNum)
+  isConnected_typedAliasOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
@@ -1670,7 +1762,7 @@ bool ActiveEventsComponentBase ::
 }
 
 bool ActiveEventsComponentBase ::
-  isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
@@ -1681,7 +1773,7 @@ bool ActiveEventsComponentBase ::
 }
 
 bool ActiveEventsComponentBase ::
-  isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum)
+  isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
@@ -1692,7 +1784,7 @@ bool ActiveEventsComponentBase ::
 }
 
 bool ActiveEventsComponentBase ::
-  isConnected_typedOut_OutputPort(FwIndexType portNum)
+  isConnected_typedOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
@@ -1703,7 +1795,7 @@ bool ActiveEventsComponentBase ::
 }
 
 bool ActiveEventsComponentBase ::
-  isConnected_typedReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_typedReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
@@ -1712,6 +1804,8 @@ bool ActiveEventsComponentBase ::
 
   return this->m_typedReturnOut_OutputPort[portNum].isConnected();
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Port handler base-class functions for typed input ports
@@ -2745,12 +2839,14 @@ void ActiveEventsComponentBase ::
   // Default: no-op
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Invocation functions for typed output ports
 // ----------------------------------------------------------------------
 
 void ActiveEventsComponentBase ::
-  noArgsOut_out(FwIndexType portNum)
+  noArgsOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
@@ -2765,7 +2861,7 @@ void ActiveEventsComponentBase ::
 }
 
 U32 ActiveEventsComponentBase ::
-  noArgsReturnOut_out(FwIndexType portNum)
+  noArgsReturnOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
@@ -2780,7 +2876,7 @@ U32 ActiveEventsComponentBase ::
 }
 
 Fw::String ActiveEventsComponentBase ::
-  noArgsStringReturnOut_out(FwIndexType portNum)
+  noArgsStringReturnOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
@@ -2804,7 +2900,7 @@ void ActiveEventsComponentBase ::
       const AliasEnum& e,
       const AliasArray& a,
       const AliasStruct& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
@@ -2836,7 +2932,7 @@ AliasPrim2 ActiveEventsComponentBase ::
       const AliasEnum& e,
       const AliasArray& a,
       const AliasStruct& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
@@ -2868,7 +2964,7 @@ Fw::String ActiveEventsComponentBase ::
       const AliasEnum& e,
       const AliasArray& a,
       const AnotherAliasStruct& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
@@ -2900,7 +2996,7 @@ void ActiveEventsComponentBase ::
       const E& e,
       const A& a,
       const S& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
@@ -2932,7 +3028,7 @@ F32 ActiveEventsComponentBase ::
       const E& e,
       const A& a,
       const S& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
@@ -2954,6 +3050,8 @@ F32 ActiveEventsComponentBase ::
   );
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Event logging functions
 // ----------------------------------------------------------------------
@@ -2963,16 +3061,14 @@ void ActiveEventsComponentBase ::
 {
   // Get the time
   Fw::Time _logTime;
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
-    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    this->timeGetOut_out(0, _logTime);
   }
 
-  FwEventIdType _id = static_cast<FwEventIdType>(0);
-
-  _id = this->getIdBase() + EVENTID_EVENTACTIVITYHIGH;
+  const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTACTIVITYHIGH;
 
   // Emit the event on the log port
-  if (this->m_eventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_eventOut_OutputPort(0)) {
     Fw::LogBuffer _logBuff;
 
 #if FW_AMPCS_COMPATIBLE
@@ -2985,7 +3081,8 @@ void ActiveEventsComponentBase ::
     );
 #endif
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::ACTIVITY_HI,
@@ -2995,7 +3092,7 @@ void ActiveEventsComponentBase ::
 
   // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
     const char* _formatString =
       "(%s) %s: Event Activity High occurred";
@@ -3013,7 +3110,8 @@ void ActiveEventsComponentBase ::
       "EventActivityHigh "
     );
 
-    this->m_textEventOut_OutputPort[0].invoke(
+    this->textEventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::ACTIVITY_HI,
@@ -3040,16 +3138,14 @@ void ActiveEventsComponentBase ::
 
   // Get the time
   Fw::Time _logTime;
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
-    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    this->timeGetOut_out(0, _logTime);
   }
 
-  FwEventIdType _id = static_cast<FwEventIdType>(0);
-
-  _id = this->getIdBase() + EVENTID_EVENTACTIVITYLOWTHROTTLED;
+  const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTACTIVITYLOWTHROTTLED;
 
   // Emit the event on the log port
-  if (this->m_eventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_eventOut_OutputPort(0)) {
     Fw::LogBuffer _logBuff;
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
@@ -3110,7 +3206,8 @@ void ActiveEventsComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::ACTIVITY_LO,
@@ -3120,7 +3217,7 @@ void ActiveEventsComponentBase ::
 
   // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
     const char* _formatString =
       "(%s) %s: Event Activity Low occurred with arguments: %" PRIu32 ", %f, %d";
@@ -3141,7 +3238,8 @@ void ActiveEventsComponentBase ::
       b
     );
 
-    this->m_textEventOut_OutputPort[0].invoke(
+    this->textEventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::ACTIVITY_LO,
@@ -3159,16 +3257,14 @@ void ActiveEventsComponentBase ::
 {
   // Get the time
   Fw::Time _logTime;
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
-    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    this->timeGetOut_out(0, _logTime);
   }
 
-  FwEventIdType _id = static_cast<FwEventIdType>(0);
-
-  _id = this->getIdBase() + EVENTID_EVENTCOMMAND;
+  const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTCOMMAND;
 
   // Emit the event on the log port
-  if (this->m_eventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_eventOut_OutputPort(0)) {
     Fw::LogBuffer _logBuff;
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
@@ -3193,7 +3289,8 @@ void ActiveEventsComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::COMMAND,
@@ -3203,7 +3300,7 @@ void ActiveEventsComponentBase ::
 
   // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
     const char* _formatString =
       "(%s) %s: Event Command occurred with arguments: %s, %s";
@@ -3223,7 +3320,8 @@ void ActiveEventsComponentBase ::
       str2.toChar()
     );
 
-    this->m_textEventOut_OutputPort[0].invoke(
+    this->textEventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::COMMAND,
@@ -3238,16 +3336,14 @@ void ActiveEventsComponentBase ::
 {
   // Get the time
   Fw::Time _logTime;
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
-    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    this->timeGetOut_out(0, _logTime);
   }
 
-  FwEventIdType _id = static_cast<FwEventIdType>(0);
-
-  _id = this->getIdBase() + EVENTID_EVENTDIAGNOSTIC;
+  const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTDIAGNOSTIC;
 
   // Emit the event on the log port
-  if (this->m_eventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_eventOut_OutputPort(0)) {
     Fw::LogBuffer _logBuff;
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
@@ -3276,7 +3372,8 @@ void ActiveEventsComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::DIAGNOSTIC,
@@ -3286,7 +3383,7 @@ void ActiveEventsComponentBase ::
 
   // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
     const char* _formatString =
       "(%s) %s: Event Diagnostic occurred with argument: %s";
@@ -3308,7 +3405,8 @@ void ActiveEventsComponentBase ::
       eStr.toChar()
     );
 
-    this->m_textEventOut_OutputPort[0].invoke(
+    this->textEventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::DIAGNOSTIC,
@@ -3331,16 +3429,14 @@ void ActiveEventsComponentBase ::
 
   // Get the time
   Fw::Time _logTime;
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
-    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    this->timeGetOut_out(0, _logTime);
   }
 
-  FwEventIdType _id = static_cast<FwEventIdType>(0);
-
-  _id = this->getIdBase() + EVENTID_EVENTFATALTHROTTLED;
+  const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTFATALTHROTTLED;
 
   // Emit the event on the log port
-  if (this->m_eventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_eventOut_OutputPort(0)) {
     Fw::LogBuffer _logBuff;
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
@@ -3382,7 +3478,8 @@ void ActiveEventsComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::FATAL,
@@ -3392,7 +3489,7 @@ void ActiveEventsComponentBase ::
 
   // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
     const char* _formatString =
       "(%s) %s: Event Fatal occurred with argument: %s";
@@ -3414,7 +3511,8 @@ void ActiveEventsComponentBase ::
       aStr.toChar()
     );
 
-    this->m_textEventOut_OutputPort[0].invoke(
+    this->textEventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::FATAL,
@@ -3429,16 +3527,14 @@ void ActiveEventsComponentBase ::
 {
   // Get the time
   Fw::Time _logTime;
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
-    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    this->timeGetOut_out(0, _logTime);
   }
 
-  FwEventIdType _id = static_cast<FwEventIdType>(0);
-
-  _id = this->getIdBase() + EVENTID_EVENTWARNINGHIGH;
+  const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTWARNINGHIGH;
 
   // Emit the event on the log port
-  if (this->m_eventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_eventOut_OutputPort(0)) {
     Fw::LogBuffer _logBuff;
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
@@ -3467,7 +3563,8 @@ void ActiveEventsComponentBase ::
       static_cast<FwAssertArgType>(_status)
     );
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::WARNING_HI,
@@ -3477,7 +3574,7 @@ void ActiveEventsComponentBase ::
 
   // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
     const char* _formatString =
       "(%s) %s: Event Warning High occurred with argument: %s";
@@ -3499,7 +3596,8 @@ void ActiveEventsComponentBase ::
       sStr.toChar()
     );
 
-    this->m_textEventOut_OutputPort[0].invoke(
+    this->textEventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::WARNING_HI,
@@ -3522,16 +3620,14 @@ void ActiveEventsComponentBase ::
 
   // Get the time
   Fw::Time _logTime;
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
-    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    this->timeGetOut_out(0, _logTime);
   }
 
-  FwEventIdType _id = static_cast<FwEventIdType>(0);
-
-  _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLED;
+  const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLED;
 
   // Emit the event on the log port
-  if (this->m_eventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_eventOut_OutputPort(0)) {
     Fw::LogBuffer _logBuff;
 
 #if FW_AMPCS_COMPATIBLE
@@ -3544,7 +3640,8 @@ void ActiveEventsComponentBase ::
     );
 #endif
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::WARNING_LO,
@@ -3554,7 +3651,7 @@ void ActiveEventsComponentBase ::
 
   // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
     const char* _formatString =
       "(%s) %s: Event Warning Low occurred";
@@ -3572,7 +3669,8 @@ void ActiveEventsComponentBase ::
       "EventWarningLowThrottled "
     );
 
-    this->m_textEventOut_OutputPort[0].invoke(
+    this->textEventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::WARNING_LO,
@@ -3587,13 +3685,11 @@ void ActiveEventsComponentBase ::
 {
   // Get the time
   Fw::Time _logTime;
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
-    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
+    this->timeGetOut_out(0, _logTime);
   }
 
-  FwEventIdType _id = static_cast<FwEventIdType>(0);
-
-  _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL;
+  const FwEventIdType _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL;
 
   // Check throttle value & throttle timeout
   {
@@ -3621,7 +3717,7 @@ void ActiveEventsComponentBase ::
   }
 
   // Emit the event on the log port
-  if (this->m_eventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_eventOut_OutputPort(0)) {
     Fw::LogBuffer _logBuff;
 
 #if FW_AMPCS_COMPATIBLE
@@ -3634,7 +3730,8 @@ void ActiveEventsComponentBase ::
     );
 #endif
 
-    this->m_eventOut_OutputPort[0].invoke(
+    this->eventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::WARNING_LO,
@@ -3644,7 +3741,7 @@ void ActiveEventsComponentBase ::
 
   // Emit the event on the text log port
 #if FW_ENABLE_TEXT_LOGGING
-  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_textEventOut_OutputPort(0)) {
 #if FW_OBJECT_NAMES == 1
     const char* _formatString =
       "(%s) %s: Event Warning Low occurred";
@@ -3662,7 +3759,8 @@ void ActiveEventsComponentBase ::
       "EventWarningLowThrottledInterval "
     );
 
-    this->m_textEventOut_OutputPort[0].invoke(
+    this->textEventOut_out(
+      0,
       _id,
       _logTime,
       Fw::LogSeverity::WARNING_LO,
@@ -3718,9 +3816,9 @@ void ActiveEventsComponentBase ::
 Fw::Time ActiveEventsComponentBase ::
   getTime() const
 {
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
     Fw::Time _time;
-    this->m_timeGetOut_OutputPort[0].invoke(_time);
+    this->timeGetOut_out(0, _time);
     return _time;
   }
   else {
@@ -4594,3 +4692,87 @@ void ActiveEventsComponentBase ::
     s
   );
 }
+
+#if !FW_DIRECT_PORT_CALLS
+
+// ----------------------------------------------------------------------
+// Invocation functions for special output ports
+// ----------------------------------------------------------------------
+
+void ActiveEventsComponentBase ::
+  eventOut_out(
+      FwIndexType portNum,
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity& severity,
+      Fw::LogBuffer& args
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_eventOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_eventOut_OutputPort[portNum].invoke(
+    id,
+    timeTag,
+    severity,
+    args
+  );
+}
+
+#if FW_ENABLE_TEXT_LOGGING
+
+void ActiveEventsComponentBase ::
+  textEventOut_out(
+      FwIndexType portNum,
+      FwEventIdType id,
+      Fw::Time& timeTag,
+      const Fw::LogSeverity& severity,
+      Fw::TextLogString& text
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_textEventOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_textEventOut_OutputPort[portNum].invoke(
+    id,
+    timeTag,
+    severity,
+    text
+  );
+}
+
+#endif
+
+void ActiveEventsComponentBase ::
+  timeGetOut_out(
+      FwIndexType portNum,
+      Fw::Time& time
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_timeGetOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_timeGetOut_OutputPort[portNum].invoke(
+    time
+  );
+}
+
+#endif

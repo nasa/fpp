@@ -28,12 +28,12 @@ namespace {
   // Get the max size by constructing a union of the async input, command, and
   // internal port serialization sizes
   union BuffUnion {
-    BYTE productRecvInHookPortSize[Fw::InputDpResponsePort::SERIALIZED_SIZE];
-    BYTE assertAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE blockAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE dropAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE hookAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];
+    BYTE productRecvInHookPortSize[Fw::DpResponsePortConstants::INPUT_SERIALIZED_SIZE];
+    BYTE assertAsyncPortSize[Ports::TypedPortConstants::INPUT_SERIALIZED_SIZE];
+    BYTE blockAsyncPortSize[Ports::TypedPortConstants::INPUT_SERIALIZED_SIZE];
+    BYTE dropAsyncPortSize[Ports::TypedPortConstants::INPUT_SERIALIZED_SIZE];
+    BYTE hookAsyncPortSize[Ports::TypedPortConstants::INPUT_SERIALIZED_SIZE];
+    BYTE cmdPortSize[Fw::CmdPortConstants::INPUT_SERIALIZED_SIZE];
   };
 
   // Define a message buffer class large enough to handle all the
@@ -86,6 +86,7 @@ void QueuedOverflowComponentBase ::
   // Initialize base class
   Fw::QueuedComponentBase::init(instance);
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port cmdIn
   for (
     FwIndexType port = 0;
@@ -109,7 +110,9 @@ void QueuedOverflowComponentBase ::
     this->m_cmdIn_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port productRecvInHook
   for (
     FwIndexType port = 0;
@@ -133,7 +136,9 @@ void QueuedOverflowComponentBase ::
     this->m_productRecvInHook_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port assertAsync
   for (
     FwIndexType port = 0;
@@ -157,7 +162,9 @@ void QueuedOverflowComponentBase ::
     this->m_assertAsync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port blockAsync
   for (
     FwIndexType port = 0;
@@ -181,7 +188,9 @@ void QueuedOverflowComponentBase ::
     this->m_blockAsync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port dropAsync
   for (
     FwIndexType port = 0;
@@ -205,7 +214,9 @@ void QueuedOverflowComponentBase ::
     this->m_dropAsync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port hookAsync
   for (
     FwIndexType port = 0;
@@ -229,7 +240,9 @@ void QueuedOverflowComponentBase ::
     this->m_hookAsync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port serialAsyncHook
   for (
     FwIndexType port = 0;
@@ -253,7 +266,9 @@ void QueuedOverflowComponentBase ::
     this->m_serialAsyncHook_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port cmdRegOut
   for (
     FwIndexType port = 0;
@@ -272,7 +287,9 @@ void QueuedOverflowComponentBase ::
     this->m_cmdRegOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port cmdResponseOut
   for (
     FwIndexType port = 0;
@@ -291,7 +308,9 @@ void QueuedOverflowComponentBase ::
     this->m_cmdResponseOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port eventOut
   for (
     FwIndexType port = 0;
@@ -310,7 +329,9 @@ void QueuedOverflowComponentBase ::
     this->m_eventOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port prmGetOut
   for (
     FwIndexType port = 0;
@@ -329,7 +350,9 @@ void QueuedOverflowComponentBase ::
     this->m_prmGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port prmSetOut
   for (
     FwIndexType port = 0;
@@ -348,8 +371,9 @@ void QueuedOverflowComponentBase ::
     this->m_prmSetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
-#if FW_ENABLE_TEXT_LOGGING == 1
+#if !FW_DIRECT_PORT_CALLS && FW_ENABLE_TEXT_LOGGING
   // Connect output port textEventOut
   for (
     FwIndexType port = 0;
@@ -370,6 +394,7 @@ void QueuedOverflowComponentBase ::
   }
 #endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port timeGetOut
   for (
     FwIndexType port = 0;
@@ -388,7 +413,9 @@ void QueuedOverflowComponentBase ::
     this->m_timeGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port tlmOut
   for (
     FwIndexType port = 0;
@@ -407,6 +434,7 @@ void QueuedOverflowComponentBase ::
     this->m_tlmOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
   // Passed-in size added to port number and message type enumeration sizes.
   this->m_msgSize = FW_MAX(
@@ -423,6 +451,8 @@ void QueuedOverflowComponentBase ::
     static_cast<FwAssertArgType>(qStat)
   );
 }
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for special input ports
@@ -449,6 +479,10 @@ Fw::InputDpResponsePort* QueuedOverflowComponentBase ::
 
   return &this->m_productRecvInHook_InputPort[portNum];
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for typed input ports
@@ -498,6 +532,10 @@ Ports::InputTypedPort* QueuedOverflowComponentBase ::
   return &this->m_hookAsync_InputPort[portNum];
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Getters for serial input ports
 // ----------------------------------------------------------------------
@@ -512,6 +550,10 @@ Fw::InputSerializePort* QueuedOverflowComponentBase ::
 
   return &this->m_serialAsyncHook_InputPort[portNum];
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Connect input ports to special output ports
@@ -633,7 +675,9 @@ void QueuedOverflowComponentBase ::
   this->m_tlmOut_OutputPort[portNum].addCallPort(port);
 }
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
 // Connect serial input ports to special output ports
@@ -750,13 +794,15 @@ void QueuedOverflowComponentBase ::
 void QueuedOverflowComponentBase ::
   regCommands()
 {
-  FW_ASSERT(this->m_cmdRegOut_OutputPort[0].isConnected());
+  FW_ASSERT(this->isConnected_cmdRegOut_OutputPort(0));
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_HOOK
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_PARAMS_PRIORITY_HOOK
   );
 }
@@ -778,12 +824,14 @@ QueuedOverflowComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
 
 bool QueuedOverflowComponentBase ::
-  isConnected_cmdRegOut_OutputPort(FwIndexType portNum)
+  isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
@@ -794,7 +842,7 @@ bool QueuedOverflowComponentBase ::
 }
 
 bool QueuedOverflowComponentBase ::
-  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum)
+  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
@@ -805,7 +853,7 @@ bool QueuedOverflowComponentBase ::
 }
 
 bool QueuedOverflowComponentBase ::
-  isConnected_eventOut_OutputPort(FwIndexType portNum)
+  isConnected_eventOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
@@ -816,7 +864,7 @@ bool QueuedOverflowComponentBase ::
 }
 
 bool QueuedOverflowComponentBase ::
-  isConnected_prmGetOut_OutputPort(FwIndexType portNum)
+  isConnected_prmGetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
@@ -827,7 +875,7 @@ bool QueuedOverflowComponentBase ::
 }
 
 bool QueuedOverflowComponentBase ::
-  isConnected_prmSetOut_OutputPort(FwIndexType portNum)
+  isConnected_prmSetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
@@ -840,7 +888,7 @@ bool QueuedOverflowComponentBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 bool QueuedOverflowComponentBase ::
-  isConnected_textEventOut_OutputPort(FwIndexType portNum)
+  isConnected_textEventOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
@@ -853,7 +901,7 @@ bool QueuedOverflowComponentBase ::
 #endif
 
 bool QueuedOverflowComponentBase ::
-  isConnected_timeGetOut_OutputPort(FwIndexType portNum)
+  isConnected_timeGetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
@@ -864,7 +912,7 @@ bool QueuedOverflowComponentBase ::
 }
 
 bool QueuedOverflowComponentBase ::
-  isConnected_tlmOut_OutputPort(FwIndexType portNum)
+  isConnected_tlmOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
@@ -873,6 +921,8 @@ bool QueuedOverflowComponentBase ::
 
   return this->m_tlmOut_OutputPort[portNum].isConnected();
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Port handler base-class functions for special input ports
@@ -1626,8 +1676,8 @@ void QueuedOverflowComponentBase ::
       Fw::CmdResponse response
   )
 {
-  FW_ASSERT(this->m_cmdResponseOut_OutputPort[0].isConnected());
-  this->m_cmdResponseOut_OutputPort[0].invoke(opCode, cmdSeq, response);
+  FW_ASSERT(this->isConnected_cmdResponseOut_OutputPort(0));
+  this->cmdResponseOut_out(0, opCode, cmdSeq, response);
 }
 
 // ----------------------------------------------------------------------
@@ -1801,9 +1851,9 @@ void QueuedOverflowComponentBase ::
 Fw::Time QueuedOverflowComponentBase ::
   getTime() const
 {
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
     Fw::Time _time;
-    this->m_timeGetOut_OutputPort[0].invoke(_time);
+    this->timeGetOut_out(0, _time);
     return _time;
   }
   else {
@@ -2243,7 +2293,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedOverflowComponentBase ::
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
       if (args.getDeserializeSizeLeft() != 0) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
@@ -2290,7 +2340,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedOverflowComponentBase ::
       U32 u32;
       _deserStatus = args.deserializeTo(u32);
       if (_deserStatus != Fw::FW_SERIALIZE_OK) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(
               _opCode,
               _cmdSeq,
@@ -2305,7 +2355,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedOverflowComponentBase ::
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
       if (args.getDeserializeSizeLeft() != 0) {
-        if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
+        if (this->isConnected_cmdResponseOut_OutputPort(0)) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
         // Don't crash the task if bad arguments were passed from the ground
@@ -2553,6 +2603,78 @@ void QueuedOverflowComponentBase ::
   compPtr->serialAsyncHook_handlerBase(
     portNum,
     buffer
+  );
+}
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
+// ----------------------------------------------------------------------
+// Invocation functions for special output ports
+// ----------------------------------------------------------------------
+
+void QueuedOverflowComponentBase ::
+  cmdRegOut_out(
+      FwIndexType portNum,
+      FwOpcodeType opCode
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_cmdRegOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_cmdRegOut_OutputPort[portNum].invoke(
+    opCode
+  );
+}
+
+void QueuedOverflowComponentBase ::
+  cmdResponseOut_out(
+      FwIndexType portNum,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      const Fw::CmdResponse& response
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_cmdResponseOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_cmdResponseOut_OutputPort[portNum].invoke(
+    opCode,
+    cmdSeq,
+    response
+  );
+}
+
+void QueuedOverflowComponentBase ::
+  timeGetOut_out(
+      FwIndexType portNum,
+      Fw::Time& time
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_timeGetOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_timeGetOut_OutputPort[portNum].invoke(
+    time
   );
 }
 

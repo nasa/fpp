@@ -7,16 +7,24 @@
 #ifndef Ports_NoArgsReturnPortAc_HPP
 #define Ports_NoArgsReturnPortAc_HPP
 
-#include <cstdio>
-#include <cstring>
-
-#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#if !FW_DIRECT_PORT_CALLS
+#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/String.hpp"
+#endif
 
 namespace Ports {
+
+  //! NoArgsReturn port constants
+  struct NoArgsReturnPortConstants {
+    //! The size of the serial representations of the port arguments
+    static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
+      0;
+  };
+
+#if !FW_DIRECT_PORT_CALLS
 
   //! Input NoArgsReturn port
   //! A typed port with no arguments and a return type
@@ -32,7 +40,7 @@ namespace Ports {
 
       enum {
         //! The size of the serial representations of the port arguments
-        SERIALIZED_SIZE = 0
+        SERIALIZED_SIZE = NoArgsReturnPortConstants::INPUT_SERIALIZED_SIZE
       };
 
     public:
@@ -124,6 +132,8 @@ namespace Ports {
       InputNoArgsReturnPort* m_port;
 
   };
+
+#endif
 
 }
 

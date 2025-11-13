@@ -21,6 +21,7 @@ void PassiveCommandsComponentBase ::
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port cmdIn
   for (
     FwIndexType port = 0;
@@ -44,7 +45,9 @@ void PassiveCommandsComponentBase ::
     this->m_cmdIn_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsAliasStringReturnSync
   for (
     FwIndexType port = 0;
@@ -68,7 +71,9 @@ void PassiveCommandsComponentBase ::
     this->m_noArgsAliasStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsGuarded
   for (
     FwIndexType port = 0;
@@ -92,7 +97,9 @@ void PassiveCommandsComponentBase ::
     this->m_noArgsGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsReturnGuarded
   for (
     FwIndexType port = 0;
@@ -116,7 +123,9 @@ void PassiveCommandsComponentBase ::
     this->m_noArgsReturnGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsReturnSync
   for (
     FwIndexType port = 0;
@@ -140,7 +149,9 @@ void PassiveCommandsComponentBase ::
     this->m_noArgsReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsStringReturnSync
   for (
     FwIndexType port = 0;
@@ -164,7 +175,9 @@ void PassiveCommandsComponentBase ::
     this->m_noArgsStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsSync
   for (
     FwIndexType port = 0;
@@ -188,7 +201,9 @@ void PassiveCommandsComponentBase ::
     this->m_noArgsSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAliasGuarded
   for (
     FwIndexType port = 0;
@@ -212,7 +227,9 @@ void PassiveCommandsComponentBase ::
     this->m_typedAliasGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAliasReturnSync
   for (
     FwIndexType port = 0;
@@ -236,7 +253,9 @@ void PassiveCommandsComponentBase ::
     this->m_typedAliasReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAliasStringReturnSync
   for (
     FwIndexType port = 0;
@@ -260,7 +279,9 @@ void PassiveCommandsComponentBase ::
     this->m_typedAliasStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedGuarded
   for (
     FwIndexType port = 0;
@@ -284,7 +305,9 @@ void PassiveCommandsComponentBase ::
     this->m_typedGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedReturnGuarded
   for (
     FwIndexType port = 0;
@@ -308,7 +331,9 @@ void PassiveCommandsComponentBase ::
     this->m_typedReturnGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedReturnSync
   for (
     FwIndexType port = 0;
@@ -332,7 +357,9 @@ void PassiveCommandsComponentBase ::
     this->m_typedReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedSync
   for (
     FwIndexType port = 0;
@@ -356,7 +383,9 @@ void PassiveCommandsComponentBase ::
     this->m_typedSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port cmdRegOut
   for (
     FwIndexType port = 0;
@@ -375,7 +404,9 @@ void PassiveCommandsComponentBase ::
     this->m_cmdRegOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port cmdResponseOut
   for (
     FwIndexType port = 0;
@@ -394,7 +425,9 @@ void PassiveCommandsComponentBase ::
     this->m_cmdResponseOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port eventOut
   for (
     FwIndexType port = 0;
@@ -413,7 +446,9 @@ void PassiveCommandsComponentBase ::
     this->m_eventOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port prmGetOut
   for (
     FwIndexType port = 0;
@@ -432,7 +467,9 @@ void PassiveCommandsComponentBase ::
     this->m_prmGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port prmSetOut
   for (
     FwIndexType port = 0;
@@ -451,8 +488,9 @@ void PassiveCommandsComponentBase ::
     this->m_prmSetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
-#if FW_ENABLE_TEXT_LOGGING == 1
+#if !FW_DIRECT_PORT_CALLS && FW_ENABLE_TEXT_LOGGING
   // Connect output port textEventOut
   for (
     FwIndexType port = 0;
@@ -473,6 +511,7 @@ void PassiveCommandsComponentBase ::
   }
 #endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port timeGetOut
   for (
     FwIndexType port = 0;
@@ -491,7 +530,9 @@ void PassiveCommandsComponentBase ::
     this->m_timeGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port tlmOut
   for (
     FwIndexType port = 0;
@@ -510,7 +551,9 @@ void PassiveCommandsComponentBase ::
     this->m_tlmOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port noArgsOut
   for (
     FwIndexType port = 0;
@@ -529,7 +572,9 @@ void PassiveCommandsComponentBase ::
     this->m_noArgsOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port noArgsReturnOut
   for (
     FwIndexType port = 0;
@@ -548,7 +593,9 @@ void PassiveCommandsComponentBase ::
     this->m_noArgsReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port noArgsStringReturnOut
   for (
     FwIndexType port = 0;
@@ -567,7 +614,9 @@ void PassiveCommandsComponentBase ::
     this->m_noArgsStringReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedAliasOut
   for (
     FwIndexType port = 0;
@@ -586,7 +635,9 @@ void PassiveCommandsComponentBase ::
     this->m_typedAliasOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedAliasReturnOut
   for (
     FwIndexType port = 0;
@@ -605,7 +656,9 @@ void PassiveCommandsComponentBase ::
     this->m_typedAliasReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedAliasReturnStringOut
   for (
     FwIndexType port = 0;
@@ -624,7 +677,9 @@ void PassiveCommandsComponentBase ::
     this->m_typedAliasReturnStringOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedOut
   for (
     FwIndexType port = 0;
@@ -643,7 +698,9 @@ void PassiveCommandsComponentBase ::
     this->m_typedOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedReturnOut
   for (
     FwIndexType port = 0;
@@ -662,7 +719,10 @@ void PassiveCommandsComponentBase ::
     this->m_typedReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 }
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for special input ports
@@ -678,6 +738,10 @@ Fw::InputCmdPort* PassiveCommandsComponentBase ::
 
   return &this->m_cmdIn_InputPort[portNum];
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for typed input ports
@@ -826,6 +890,10 @@ Ports::InputTypedPort* PassiveCommandsComponentBase ::
   return &this->m_typedSync_InputPort[portNum];
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connect input ports to special output ports
 // ----------------------------------------------------------------------
@@ -946,6 +1014,10 @@ void PassiveCommandsComponentBase ::
   this->m_tlmOut_OutputPort[portNum].addCallPort(port);
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connect typed input ports to typed output ports
 // ----------------------------------------------------------------------
@@ -1062,7 +1134,9 @@ void PassiveCommandsComponentBase ::
   this->m_typedReturnOut_OutputPort[portNum].addCallPort(port);
 }
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
 // Connect serial input ports to special output ports
@@ -1172,7 +1246,7 @@ void PassiveCommandsComponentBase ::
 
 #endif
 
-#if FW_PORT_SERIALIZATION
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
 // Connect serial input ports to typed output ports
@@ -1229,53 +1303,65 @@ void PassiveCommandsComponentBase ::
 void PassiveCommandsComponentBase ::
   regCommands()
 {
-  FW_ASSERT(this->m_cmdRegOut_OutputPort[0].isConnected());
+  FW_ASSERT(this->isConnected_cmdRegOut_OutputPort(0));
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_SYNC
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_SYNC_PRIMITIVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_SYNC_STRING
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_SYNC_ENUM
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_SYNC_ARRAY
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_SYNC_STRUCT
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_GUARDED
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_GUARDED_PRIMITIVE
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_GUARDED_STRING
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_GUARDED_ENUM
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_GUARDED_ARRAY
   );
 
-  this->m_cmdRegOut_OutputPort[0].invoke(
+  this->cmdRegOut_out(
+    0,
     this->getIdBase() + OPCODE_CMD_GUARDED_STRUCT
   );
 }
@@ -1297,12 +1383,14 @@ PassiveCommandsComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
 
 bool PassiveCommandsComponentBase ::
-  isConnected_cmdRegOut_OutputPort(FwIndexType portNum)
+  isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
@@ -1313,7 +1401,7 @@ bool PassiveCommandsComponentBase ::
 }
 
 bool PassiveCommandsComponentBase ::
-  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum)
+  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
@@ -1324,7 +1412,7 @@ bool PassiveCommandsComponentBase ::
 }
 
 bool PassiveCommandsComponentBase ::
-  isConnected_eventOut_OutputPort(FwIndexType portNum)
+  isConnected_eventOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
@@ -1335,7 +1423,7 @@ bool PassiveCommandsComponentBase ::
 }
 
 bool PassiveCommandsComponentBase ::
-  isConnected_prmGetOut_OutputPort(FwIndexType portNum)
+  isConnected_prmGetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
@@ -1346,7 +1434,7 @@ bool PassiveCommandsComponentBase ::
 }
 
 bool PassiveCommandsComponentBase ::
-  isConnected_prmSetOut_OutputPort(FwIndexType portNum)
+  isConnected_prmSetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
@@ -1359,7 +1447,7 @@ bool PassiveCommandsComponentBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 bool PassiveCommandsComponentBase ::
-  isConnected_textEventOut_OutputPort(FwIndexType portNum)
+  isConnected_textEventOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
@@ -1372,7 +1460,7 @@ bool PassiveCommandsComponentBase ::
 #endif
 
 bool PassiveCommandsComponentBase ::
-  isConnected_timeGetOut_OutputPort(FwIndexType portNum)
+  isConnected_timeGetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
@@ -1383,7 +1471,7 @@ bool PassiveCommandsComponentBase ::
 }
 
 bool PassiveCommandsComponentBase ::
-  isConnected_tlmOut_OutputPort(FwIndexType portNum)
+  isConnected_tlmOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
@@ -1393,12 +1481,16 @@ bool PassiveCommandsComponentBase ::
   return this->m_tlmOut_OutputPort[portNum].isConnected();
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
 
 bool PassiveCommandsComponentBase ::
-  isConnected_noArgsOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
@@ -1409,7 +1501,7 @@ bool PassiveCommandsComponentBase ::
 }
 
 bool PassiveCommandsComponentBase ::
-  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
@@ -1420,7 +1512,7 @@ bool PassiveCommandsComponentBase ::
 }
 
 bool PassiveCommandsComponentBase ::
-  isConnected_noArgsStringReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsStringReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
@@ -1431,7 +1523,7 @@ bool PassiveCommandsComponentBase ::
 }
 
 bool PassiveCommandsComponentBase ::
-  isConnected_typedAliasOut_OutputPort(FwIndexType portNum)
+  isConnected_typedAliasOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
@@ -1442,7 +1534,7 @@ bool PassiveCommandsComponentBase ::
 }
 
 bool PassiveCommandsComponentBase ::
-  isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
@@ -1453,7 +1545,7 @@ bool PassiveCommandsComponentBase ::
 }
 
 bool PassiveCommandsComponentBase ::
-  isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum)
+  isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
@@ -1464,7 +1556,7 @@ bool PassiveCommandsComponentBase ::
 }
 
 bool PassiveCommandsComponentBase ::
-  isConnected_typedOut_OutputPort(FwIndexType portNum)
+  isConnected_typedOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
@@ -1475,7 +1567,7 @@ bool PassiveCommandsComponentBase ::
 }
 
 bool PassiveCommandsComponentBase ::
-  isConnected_typedReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_typedReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
@@ -1484,6 +1576,8 @@ bool PassiveCommandsComponentBase ::
 
   return this->m_typedReturnOut_OutputPort[portNum].isConnected();
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Port handler base-class functions for typed input ports
@@ -1848,12 +1942,14 @@ void PassiveCommandsComponentBase ::
   );
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Invocation functions for typed output ports
 // ----------------------------------------------------------------------
 
 void PassiveCommandsComponentBase ::
-  noArgsOut_out(FwIndexType portNum)
+  noArgsOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
@@ -1868,7 +1964,7 @@ void PassiveCommandsComponentBase ::
 }
 
 U32 PassiveCommandsComponentBase ::
-  noArgsReturnOut_out(FwIndexType portNum)
+  noArgsReturnOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
@@ -1883,7 +1979,7 @@ U32 PassiveCommandsComponentBase ::
 }
 
 Fw::String PassiveCommandsComponentBase ::
-  noArgsStringReturnOut_out(FwIndexType portNum)
+  noArgsStringReturnOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
@@ -1907,7 +2003,7 @@ void PassiveCommandsComponentBase ::
       const AliasEnum& e,
       const AliasArray& a,
       const AliasStruct& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
@@ -1939,7 +2035,7 @@ AliasPrim2 PassiveCommandsComponentBase ::
       const AliasEnum& e,
       const AliasArray& a,
       const AliasStruct& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
@@ -1971,7 +2067,7 @@ Fw::String PassiveCommandsComponentBase ::
       const AliasEnum& e,
       const AliasArray& a,
       const AnotherAliasStruct& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
@@ -2003,7 +2099,7 @@ void PassiveCommandsComponentBase ::
       const E& e,
       const A& a,
       const S& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
@@ -2035,7 +2131,7 @@ F32 PassiveCommandsComponentBase ::
       const E& e,
       const A& a,
       const S& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
@@ -2057,6 +2153,8 @@ F32 PassiveCommandsComponentBase ::
   );
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Command response
 // ----------------------------------------------------------------------
@@ -2068,8 +2166,8 @@ void PassiveCommandsComponentBase ::
       Fw::CmdResponse response
   )
 {
-  FW_ASSERT(this->m_cmdResponseOut_OutputPort[0].isConnected());
-  this->m_cmdResponseOut_OutputPort[0].invoke(opCode, cmdSeq, response);
+  FW_ASSERT(this->isConnected_cmdResponseOut_OutputPort(0));
+  this->cmdResponseOut_out(0, opCode, cmdSeq, response);
 }
 
 // ----------------------------------------------------------------------
@@ -2089,8 +2187,9 @@ void PassiveCommandsComponentBase ::
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
   if (args.getDeserializeSizeLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2119,8 +2218,9 @@ void PassiveCommandsComponentBase ::
   U32 u32;
   _status = args.deserializeTo(u32);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2132,8 +2232,9 @@ void PassiveCommandsComponentBase ::
   F32 f32;
   _status = args.deserializeTo(f32);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2145,8 +2246,9 @@ void PassiveCommandsComponentBase ::
   bool b;
   _status = args.deserializeTo(b);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2159,8 +2261,9 @@ void PassiveCommandsComponentBase ::
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
   if (args.getDeserializeSizeLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2194,8 +2297,9 @@ void PassiveCommandsComponentBase ::
   Fw::CmdStringArg str1;
   _status = args.deserializeTo(str1);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2207,8 +2311,9 @@ void PassiveCommandsComponentBase ::
   Fw::CmdStringArg str2;
   _status = args.deserializeTo(str2);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2221,8 +2326,9 @@ void PassiveCommandsComponentBase ::
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
   if (args.getDeserializeSizeLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2255,8 +2361,9 @@ void PassiveCommandsComponentBase ::
   E e;
   _status = args.deserializeTo(e);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2269,8 +2376,9 @@ void PassiveCommandsComponentBase ::
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
   if (args.getDeserializeSizeLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2302,8 +2410,9 @@ void PassiveCommandsComponentBase ::
   A a;
   _status = args.deserializeTo(a);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2316,8 +2425,9 @@ void PassiveCommandsComponentBase ::
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
   if (args.getDeserializeSizeLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2349,8 +2459,9 @@ void PassiveCommandsComponentBase ::
   S s;
   _status = args.deserializeTo(s);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2363,8 +2474,9 @@ void PassiveCommandsComponentBase ::
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
   if (args.getDeserializeSizeLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2391,8 +2503,9 @@ void PassiveCommandsComponentBase ::
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
   if (args.getDeserializeSizeLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2425,8 +2538,9 @@ void PassiveCommandsComponentBase ::
   U32 u32;
   _status = args.deserializeTo(u32);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2438,8 +2552,9 @@ void PassiveCommandsComponentBase ::
   F32 f32;
   _status = args.deserializeTo(f32);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2451,8 +2566,9 @@ void PassiveCommandsComponentBase ::
   bool b;
   _status = args.deserializeTo(b);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2465,8 +2581,9 @@ void PassiveCommandsComponentBase ::
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
   if (args.getDeserializeSizeLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2504,8 +2621,9 @@ void PassiveCommandsComponentBase ::
   Fw::CmdStringArg str1;
   _status = args.deserializeTo(str1);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2517,8 +2635,9 @@ void PassiveCommandsComponentBase ::
   Fw::CmdStringArg str2;
   _status = args.deserializeTo(str2);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2531,8 +2650,9 @@ void PassiveCommandsComponentBase ::
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
   if (args.getDeserializeSizeLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2569,8 +2689,9 @@ void PassiveCommandsComponentBase ::
   E e;
   _status = args.deserializeTo(e);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2583,8 +2704,9 @@ void PassiveCommandsComponentBase ::
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
   if (args.getDeserializeSizeLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2620,8 +2742,9 @@ void PassiveCommandsComponentBase ::
   A a;
   _status = args.deserializeTo(a);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2634,8 +2757,9 @@ void PassiveCommandsComponentBase ::
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
   if (args.getDeserializeSizeLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2671,8 +2795,9 @@ void PassiveCommandsComponentBase ::
   S s;
   _status = args.deserializeTo(s);
   if (_status != Fw::FW_SERIALIZE_OK) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2685,8 +2810,9 @@ void PassiveCommandsComponentBase ::
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
   if (args.getDeserializeSizeLeft() != 0) {
-    if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
-      this->m_cmdResponseOut_OutputPort[0].invoke(
+    if (this->isConnected_cmdResponseOut_OutputPort(0)) {
+      this->cmdResponseOut_out(
+        0,
         opCode,
         cmdSeq,
         Fw::CmdResponse::FORMAT_ERROR
@@ -2713,9 +2839,9 @@ void PassiveCommandsComponentBase ::
 Fw::Time PassiveCommandsComponentBase ::
   getTime() const
 {
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
     Fw::Time _time;
-    this->m_timeGetOut_OutputPort[0].invoke(_time);
+    this->timeGetOut_out(0, _time);
     return _time;
   }
   else {
@@ -3131,3 +3257,75 @@ void PassiveCommandsComponentBase ::
     s
   );
 }
+
+#if !FW_DIRECT_PORT_CALLS
+
+// ----------------------------------------------------------------------
+// Invocation functions for special output ports
+// ----------------------------------------------------------------------
+
+void PassiveCommandsComponentBase ::
+  cmdRegOut_out(
+      FwIndexType portNum,
+      FwOpcodeType opCode
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_cmdRegOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_cmdRegOut_OutputPort[portNum].invoke(
+    opCode
+  );
+}
+
+void PassiveCommandsComponentBase ::
+  cmdResponseOut_out(
+      FwIndexType portNum,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      const Fw::CmdResponse& response
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_cmdResponseOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_cmdResponseOut_OutputPort[portNum].invoke(
+    opCode,
+    cmdSeq,
+    response
+  );
+}
+
+void PassiveCommandsComponentBase ::
+  timeGetOut_out(
+      FwIndexType portNum,
+      Fw::Time& time
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_timeGetOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_timeGetOut_OutputPort[portNum].invoke(
+    time
+  );
+}
+
+#endif

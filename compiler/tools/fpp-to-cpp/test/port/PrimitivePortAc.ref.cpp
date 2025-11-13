@@ -4,6 +4,8 @@
 // \brief  cpp file for Primitive port
 // ======================================================================
 
+#if !FW_DIRECT_PORT_CALLS
+
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "PrimitivePortAc.hpp"
@@ -228,3 +230,5 @@ void OutputPrimitivePort ::
   this->m_port->invoke(u32, u32Ref, f32, f32Ref, b, bRef);
 #endif
 }
+
+#endif

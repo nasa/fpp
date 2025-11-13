@@ -7,18 +7,31 @@
 #ifndef FppTypePortAc_HPP
 #define FppTypePortAc_HPP
 
-#include <cstdio>
-#include <cstring>
-
 #include "AArrayAc.hpp"
 #include "EEnumAc.hpp"
-#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#include "SSerializableAc.hpp"
+#if !FW_DIRECT_PORT_CALLS
+#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
-#include "SSerializableAc.hpp"
+#endif
+
+//! FppType port constants
+struct FppTypePortConstants {
+  //! The size of the serial representations of the port arguments
+  static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
+    E::SERIALIZED_SIZE +
+    E::SERIALIZED_SIZE +
+    A::SERIALIZED_SIZE +
+    A::SERIALIZED_SIZE +
+    S::SERIALIZED_SIZE +
+    S::SERIALIZED_SIZE;
+};
+
+#if !FW_DIRECT_PORT_CALLS
 
 //! Input FppType port
 //! A port with FPP type parameters
@@ -34,13 +47,7 @@ class InputFppTypePort :
 
     enum {
       //! The size of the serial representations of the port arguments
-      SERIALIZED_SIZE =
-        E::SERIALIZED_SIZE +
-        E::SERIALIZED_SIZE +
-        A::SERIALIZED_SIZE +
-        A::SERIALIZED_SIZE +
-        S::SERIALIZED_SIZE +
-        S::SERIALIZED_SIZE
+      SERIALIZED_SIZE = FppTypePortConstants::INPUT_SERIALIZED_SIZE
     };
 
   public:
@@ -156,5 +163,7 @@ class OutputFppTypePort :
     InputFppTypePort* m_port;
 
 };
+
+#endif
 
 #endif

@@ -1,6 +1,7 @@
 package fpp.compiler.codegen
 
 import fpp.compiler.analysis._
+import fpp.compiler.ast._
 
 /** Utilities for writing C++ */
 trait CppWriterUtils extends LineUtils {
@@ -34,6 +35,26 @@ trait CppWriterUtils extends LineUtils {
   /** Guards an option type with a Boolean condition */
   def guardedOption[T] = guardedValue (None: Option[T]) _
 
+  /** Add an access tag to a nonempty list of class members */
+  def addAccessTag(
+    accessTag: String,
+    members: List[CppDoc.Class.Member]
+  ): List[CppDoc.Class.Member] = guardedList (!members.isEmpty) (
+    linesClassMember(CppDocHppWriter.writeAccessTag(accessTag)) ::
+    members
+  )
+
+  /** Add a comment to a nonempty list of class members */
+  def addComment(
+    comment: String,
+    members: List[CppDoc.Class.Member],
+    output: CppDoc.Lines.Output = CppDoc.Lines.Both,
+    cppFileNameBaseOpt: Option[String] = None
+  ): List[CppDoc.Class.Member] = guardedList (!members.isEmpty) (
+    linesClassMember(CppDocWriter.writeBannerComment(comment), output, cppFileNameBaseOpt) ::
+    members
+  )
+
   /** Add an access tag and comment to a nonempty list of class members */
   def addAccessTagAndComment(
     accessTag: String,
@@ -41,21 +62,14 @@ trait CppWriterUtils extends LineUtils {
     members: List[CppDoc.Class.Member],
     output: CppDoc.Lines.Output = CppDoc.Lines.Both,
     cppFileNameBaseOpt: Option[String] = None
-  ): List[CppDoc.Class.Member] = members match {
-    case Nil => Nil
-    case _ =>
-      linesClassMember(CppDocHppWriter.writeAccessTag(accessTag)) ::
-      linesClassMember(CppDocWriter.writeBannerComment(comment), output, cppFileNameBaseOpt) ::
-      members
-  }
+  ): List[CppDoc.Class.Member] = addAccessTag(
+    accessTag,
+    addComment(comment, members, output, cppFileNameBaseOpt)
+  )
 
   /** Add an optional string separated by two newlines */
-  def addSeparatedString(str: String, strOpt: Option[String]): String = {
-    strOpt match {
-      case Some(s) => s"$str\n\n$s"
-      case None => str
-    }
-  }
+  def addSeparatedString(str: String, strOpt: Option[String]): String =
+    strOpt.map(s => s"$str\n\n$s").getOrElse(str)
 
   /** Add an optional pre comment separated by two newlines */
   def addSeparatedPreComment(str: String, commentOpt: Option[String]): List[Line] = {
@@ -118,17 +132,21 @@ trait CppWriterUtils extends LineUtils {
   def wrapInForLoop(init: String, condition: String, step: String, body: List[Line]): List[Line] =
     wrapInScope(s"for ($init; $condition; $step) {", body, "}")
 
-  def wrapInForLoopStaggered(init: String, condition: String, step: String, body: List[Line]): List[Line] =
-    wrapInScope(
-      s"""|for (
-          |  $init;
-          |  $condition;
-          |  $step
-          |) {
-          |""",
-      body,
-      "}"
-    )
+  def wrapInForLoopStaggered(
+    init: String,
+    condition: String,
+    step: String,
+    body: List[Line]
+  ): List[Line] = wrapInScope(
+    s"""|for (
+        |  $init;
+        |  $condition;
+        |  $step
+        |) {
+        |""",
+    body,
+    "}"
+  )
 
   def wrapInIf(condition: String, body: List[Line]): List[Line] =
     wrapInScope(s"if ($condition) {", body, "}")
@@ -165,28 +183,20 @@ trait CppWriterUtils extends LineUtils {
     body: List[T],
     constructMemberLines: CppDoc.Lines => T,
     linesOutput: CppDoc.Lines.Output = CppDoc.Lines.Both
-  ): List[T] = body match {
-    case Nil => Nil
-    case _ => List(
-      List(
-        constructMemberLines(
-          CppDoc.Lines(
-            lines(directive),
-            linesOutput
-          )
-        )
-      ),
-      body,
-      List(
-        constructMemberLines(
-          CppDoc.Lines(
-            Line.blank :: lines("#endif"),
-            linesOutput
-          )
-        )
-      ),
-    ).flatten
-  }
+  ): List[T] = guardedList (!body.isEmpty) (
+    (
+      constructMemberLines(
+        CppDoc.Lines(lines(s"\n$directive"), linesOutput)
+      ) ::
+      body
+    ) :+
+    constructMemberLines(
+      CppDoc.Lines(
+        Line.blank :: lines("#endif"),
+        linesOutput
+      )
+    )
+  )
 
   def writeOstreamOperator(
     name: String,
@@ -251,6 +261,24 @@ trait CppWriterUtils extends LineUtils {
       ),
       ");"
     )
+  }
+
+  /** Write a sum of terms */
+  def writeSum(
+    terms: List[String],
+    empty: String = "0",
+    separator: String = "+",
+    terminator: String = ";"
+  ): List[Line] = {
+    def helper(
+      terms: List[String],
+      sum: List[Line]
+    ): List[Line] = terms match {
+      case Nil => lines(s"$empty$terminator")
+      case t :: Nil => line(s"$t$terminator") :: sum
+      case t :: tail => helper(tail, line(s"$t $separator") :: sum)
+    }
+    helper(terms, Nil).reverse
   }
 
   /** Write a variable declaration */
@@ -471,6 +499,9 @@ trait CppWriterUtils extends LineUtils {
     case head :: tail =>
       List(namespaceMember(head, wrapInNamespaces(tail, members)))
   }
+
+  def isTextEventPort(pi: PortInstance) =
+    pi.getSpecialKind == Some(Ast.SpecPortInstance.TextEvent)
 
 }
 

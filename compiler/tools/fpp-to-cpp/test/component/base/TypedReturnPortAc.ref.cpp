@@ -4,6 +4,8 @@
 // \brief  cpp file for TypedReturn port
 // ======================================================================
 
+#if !FW_DIRECT_PORT_CALLS
+
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "base/TypedReturnPortAc.hpp"
@@ -128,3 +130,5 @@ namespace Ports {
   }
 
 }
+
+#endif

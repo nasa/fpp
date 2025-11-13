@@ -7,15 +7,23 @@
 #ifndef KwdNamePortAc_HPP
 #define KwdNamePortAc_HPP
 
-#include <cstdio>
-#include <cstring>
-
-#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#if !FW_DIRECT_PORT_CALLS
+#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
+#endif
+
+//! KwdName port constants
+struct KwdNamePortConstants {
+  //! The size of the serial representations of the port arguments
+  static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
+    sizeof(U32);
+};
+
+#if !FW_DIRECT_PORT_CALLS
 
 //! Input KwdName port
 //! A port with a keyword name
@@ -31,8 +39,7 @@ class InputKwdNamePort :
 
     enum {
       //! The size of the serial representations of the port arguments
-      SERIALIZED_SIZE =
-        sizeof(U32)
+      SERIALIZED_SIZE = KwdNamePortConstants::INPUT_SERIALIZED_SIZE
     };
 
   public:
@@ -125,5 +132,7 @@ class OutputKwdNamePort :
     InputKwdNamePort* m_port;
 
 };
+
+#endif
 
 #endif

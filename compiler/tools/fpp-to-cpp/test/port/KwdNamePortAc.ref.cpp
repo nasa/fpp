@@ -4,6 +4,8 @@
 // \brief  cpp file for KwdName port
 // ======================================================================
 
+#if !FW_DIRECT_PORT_CALLS
+
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "KwdNamePortAc.hpp"
@@ -169,3 +171,5 @@ void OutputKwdNamePort ::
   this->m_port->invoke(time);
 #endif
 }
+
+#endif

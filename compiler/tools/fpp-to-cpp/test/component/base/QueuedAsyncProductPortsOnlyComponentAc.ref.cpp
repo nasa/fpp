@@ -20,7 +20,7 @@ namespace {
   // Get the max size by constructing a union of the async input, command, and
   // internal port serialization sizes
   union BuffUnion {
-    BYTE productRecvInPortSize[Fw::InputDpResponsePort::SERIALIZED_SIZE];
+    BYTE productRecvInPortSize[Fw::DpResponsePortConstants::INPUT_SERIALIZED_SIZE];
   };
 
   // Define a message buffer class large enough to handle all the
@@ -72,6 +72,7 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
   // Initialize base class
   Fw::QueuedComponentBase::init(instance);
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port productRecvIn
   for (
     FwIndexType port = 0;
@@ -95,7 +96,9 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
     this->m_productRecvIn_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port productRequestOut
   for (
     FwIndexType port = 0;
@@ -114,7 +117,9 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
     this->m_productRequestOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port productSendOut
   for (
     FwIndexType port = 0;
@@ -133,6 +138,7 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
     this->m_productSendOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
   // Create the queue
   Os::Queue::Status qStat = this->createQueue(
@@ -144,6 +150,8 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
     static_cast<FwAssertArgType>(qStat)
   );
 }
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for special input ports
@@ -159,6 +167,10 @@ Fw::InputDpResponsePort* QueuedAsyncProductPortsOnlyComponentBase ::
 
   return &this->m_productRecvIn_InputPort[portNum];
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Connect input ports to special output ports
@@ -192,7 +204,9 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
   this->m_productSendOut_OutputPort[portNum].addCallPort(port);
 }
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
 // Connect serial input ports to special output ports
@@ -245,12 +259,14 @@ QueuedAsyncProductPortsOnlyComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
 
 bool QueuedAsyncProductPortsOnlyComponentBase ::
-  isConnected_productRequestOut_OutputPort(FwIndexType portNum)
+  isConnected_productRequestOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
@@ -261,7 +277,7 @@ bool QueuedAsyncProductPortsOnlyComponentBase ::
 }
 
 bool QueuedAsyncProductPortsOnlyComponentBase ::
-  isConnected_productSendOut_OutputPort(FwIndexType portNum)
+  isConnected_productSendOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
@@ -270,6 +286,8 @@ bool QueuedAsyncProductPortsOnlyComponentBase ::
 
   return this->m_productSendOut_OutputPort[portNum].isConnected();
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Port handler base-class functions for special input ports
@@ -365,54 +383,6 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
   )
 {
   // Default: no-op
-}
-
-// ----------------------------------------------------------------------
-// Invocation functions for special output ports
-// ----------------------------------------------------------------------
-
-void QueuedAsyncProductPortsOnlyComponentBase ::
-  productRequestOut_out(
-      FwIndexType portNum,
-      FwDpIdType id,
-      FwSizeType dataSize
-  )
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_productRequestOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  FW_ASSERT(
-    this->m_productRequestOut_OutputPort[portNum].isConnected(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-  this->m_productRequestOut_OutputPort[portNum].invoke(
-    id,
-    dataSize
-  );
-}
-
-void QueuedAsyncProductPortsOnlyComponentBase ::
-  productSendOut_out(
-      FwIndexType portNum,
-      FwDpIdType id,
-      const Fw::Buffer& buffer
-  )
-{
-  FW_ASSERT(
-    (0 <= portNum) && (portNum < this->getNum_productSendOut_OutputPorts()),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  FW_ASSERT(
-    this->m_productSendOut_OutputPort[portNum].isConnected(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-  this->m_productSendOut_OutputPort[portNum].invoke(
-    id,
-    buffer
-  );
 }
 
 // ----------------------------------------------------------------------

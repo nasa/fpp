@@ -7,19 +7,33 @@
 #ifndef Ports_TypedReturnPortAc_HPP
 #define Ports_TypedReturnPortAc_HPP
 
-#include <cstdio>
-#include <cstring>
-
 #include "AArrayAc.hpp"
 #include "EEnumAc.hpp"
-#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#include "SSerializableAc.hpp"
+#if !FW_DIRECT_PORT_CALLS
+#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/String.hpp"
-#include "SSerializableAc.hpp"
+#endif
 
 namespace Ports {
+
+  //! TypedReturn port constants
+  struct TypedReturnPortConstants {
+    //! The size of the serial representations of the port arguments
+    static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
+      sizeof(U32) +
+      sizeof(F32) +
+      sizeof(U8) +
+      Fw::StringBase::STATIC_SERIALIZED_SIZE(80) +
+      E::SERIALIZED_SIZE +
+      A::SERIALIZED_SIZE +
+      S::SERIALIZED_SIZE;
+  };
+
+#if !FW_DIRECT_PORT_CALLS
 
   //! Input TypedReturn port
   //! A typed port with a return type
@@ -35,14 +49,7 @@ namespace Ports {
 
       enum {
         //! The size of the serial representations of the port arguments
-        SERIALIZED_SIZE =
-          sizeof(U32) +
-          sizeof(F32) +
-          sizeof(U8) +
-          Fw::StringBase::STATIC_SERIALIZED_SIZE(80) +
-          E::SERIALIZED_SIZE +
-          A::SERIALIZED_SIZE +
-          S::SERIALIZED_SIZE
+        SERIALIZED_SIZE = TypedReturnPortConstants::INPUT_SERIALIZED_SIZE
       };
 
     public:
@@ -157,6 +164,8 @@ namespace Ports {
       InputTypedReturnPort* m_port;
 
   };
+
+#endif
 
 }
 

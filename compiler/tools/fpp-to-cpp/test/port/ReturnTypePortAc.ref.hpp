@@ -7,16 +7,24 @@
 #ifndef M_ReturnTypePortAc_HPP
 #define M_ReturnTypePortAc_HPP
 
-#include <cstdio>
-#include <cstring>
-
-#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#if !FW_DIRECT_PORT_CALLS
+#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/String.hpp"
+#endif
 
 namespace M {
+
+  //! ReturnType port constants
+  struct ReturnTypePortConstants {
+    //! The size of the serial representations of the port arguments
+    static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
+      sizeof(U32);
+  };
+
+#if !FW_DIRECT_PORT_CALLS
 
   //! Input ReturnType port
   //! A port with a return type
@@ -32,8 +40,7 @@ namespace M {
 
       enum {
         //! The size of the serial representations of the port arguments
-        SERIALIZED_SIZE =
-          sizeof(U32)
+        SERIALIZED_SIZE = ReturnTypePortConstants::INPUT_SERIALIZED_SIZE
       };
 
     public:
@@ -126,6 +133,8 @@ namespace M {
       InputReturnTypePort* m_port;
 
   };
+
+#endif
 
 }
 

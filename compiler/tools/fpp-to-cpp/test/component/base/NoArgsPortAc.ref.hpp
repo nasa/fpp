@@ -7,17 +7,25 @@
 #ifndef Ports_NoArgsPortAc_HPP
 #define Ports_NoArgsPortAc_HPP
 
-#include <cstdio>
-#include <cstring>
-
-#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#if !FW_DIRECT_PORT_CALLS
+#include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
+#endif
 
 namespace Ports {
+
+  //! NoArgs port constants
+  struct NoArgsPortConstants {
+    //! The size of the serial representations of the port arguments
+    static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
+      0;
+  };
+
+#if !FW_DIRECT_PORT_CALLS
 
   //! Input NoArgs port
   //! A typed port with no arguments
@@ -33,7 +41,7 @@ namespace Ports {
 
       enum {
         //! The size of the serial representations of the port arguments
-        SERIALIZED_SIZE = 0
+        SERIALIZED_SIZE = NoArgsPortConstants::INPUT_SERIALIZED_SIZE
       };
 
     public:
@@ -125,6 +133,8 @@ namespace Ports {
       InputNoArgsPort* m_port;
 
   };
+
+#endif
 
 }
 

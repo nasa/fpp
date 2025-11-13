@@ -18,8 +18,12 @@
 #if FW_ENABLE_TEXT_LOGGING == 1
 #include "Fw/Log/LogTextPortAc.hpp"
 #endif
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/InputSerializePort.hpp"
+#endif
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/OutputSerializePort.hpp"
+#endif
 #include "Fw/Prm/PrmGetPortAc.hpp"
 #include "Fw/Prm/PrmSetPortAc.hpp"
 #include "Fw/Time/TimePortAc.hpp"
@@ -105,6 +109,8 @@ class QueuedOverflowComponentBase :
         FwEnumStoreType instance = 0 //!< The instance number
     );
 
+#if !FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -124,6 +130,10 @@ class QueuedOverflowComponentBase :
     Fw::InputDpResponsePort* get_productRecvInHook_InputPort(
         FwIndexType portNum //!< The port number
     );
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
   public:
 
@@ -159,6 +169,10 @@ class QueuedOverflowComponentBase :
         FwIndexType portNum //!< The port number
     );
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -171,6 +185,10 @@ class QueuedOverflowComponentBase :
     Fw::InputSerializePort* get_serialAsyncHook_InputPort(
         FwIndexType portNum //!< The port number
     );
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
   public:
 
@@ -230,7 +248,9 @@ class QueuedOverflowComponentBase :
         Fw::InputTlmPort* port //!< The input port
     );
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
   public:
 
@@ -455,35 +475,35 @@ class QueuedOverflowComponentBase :
     //! \return Whether port cmdRegOut is connected
     bool isConnected_cmdRegOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port cmdResponseOut is connected
     //!
     //! \return Whether port cmdResponseOut is connected
     bool isConnected_cmdResponseOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port eventOut is connected
     //!
     //! \return Whether port eventOut is connected
     bool isConnected_eventOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port prmGetOut is connected
     //!
     //! \return Whether port prmGetOut is connected
     bool isConnected_prmGetOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port prmSetOut is connected
     //!
     //! \return Whether port prmSetOut is connected
     bool isConnected_prmSetOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
@@ -492,7 +512,7 @@ class QueuedOverflowComponentBase :
     //! \return Whether port textEventOut is connected
     bool isConnected_textEventOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
 #endif
 
@@ -501,16 +521,20 @@ class QueuedOverflowComponentBase :
     //! \return Whether port timeGetOut is connected
     bool isConnected_timeGetOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port tlmOut is connected
     //!
     //! \return Whether port tlmOut is connected
     bool isConnected_tlmOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
+#if FW_DIRECT_PORT_CALLS
+  public:
+#else
   protected:
+#endif
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for special input ports
@@ -580,7 +604,11 @@ class QueuedOverflowComponentBase :
         const S& s //!< A struct
     ) = 0;
 
+#if FW_DIRECT_PORT_CALLS
+  public:
+#else
   protected:
+#endif
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for typed input ports
@@ -648,7 +676,11 @@ class QueuedOverflowComponentBase :
         Fw::LinearBufferBase& buffer //!< The serialization buffer
     ) = 0;
 
+#if FW_DIRECT_PORT_CALLS
+  public:
+#else
   protected:
+#endif
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for serial input ports
@@ -1078,6 +1110,32 @@ class QueuedOverflowComponentBase :
   private:
 
     // ----------------------------------------------------------------------
+    // Invocation functions for special output ports
+    // ----------------------------------------------------------------------
+
+    //! Invoke output port cmdRegOut
+    void cmdRegOut_out(
+        FwIndexType portNum, //!< The port number
+        FwOpcodeType opCode //!< Command Op Code
+    ) const;
+
+    //! Invoke output port cmdResponseOut
+    void cmdResponseOut_out(
+        FwIndexType portNum, //!< The port number
+        FwOpcodeType opCode, //!< Command Op Code
+        U32 cmdSeq, //!< Command Sequence
+        const Fw::CmdResponse& response //!< The command response argument
+    ) const;
+
+    //! Invoke output port timeGetOut
+    void timeGetOut_out(
+        FwIndexType portNum, //!< The port number
+        Fw::Time& time //!< Reference to Time object
+    ) const;
+
+  private:
+
+    // ----------------------------------------------------------------------
     // Private data product handling functions
     // ----------------------------------------------------------------------
 
@@ -1088,6 +1146,8 @@ class QueuedOverflowComponentBase :
         const Fw::Buffer& buffer, //!< The buffer
         const Fw::Success& status //!< The buffer status
     );
+
+#if !FW_DIRECT_PORT_CALLS
 
   private:
 
@@ -1100,6 +1160,10 @@ class QueuedOverflowComponentBase :
 
     //! Input port productRecvInHook
     Fw::InputDpResponsePort m_productRecvInHook_InputPort[NUM_PRODUCTRECVINHOOK_INPUT_PORTS];
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
   private:
 
@@ -1119,6 +1183,10 @@ class QueuedOverflowComponentBase :
     //! Input port hookAsync
     Ports::InputTypedPort m_hookAsync_InputPort[NUM_HOOKASYNC_INPUT_PORTS];
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -1127,6 +1195,10 @@ class QueuedOverflowComponentBase :
 
     //! Input port serialAsyncHook
     Fw::InputSerializePort m_serialAsyncHook_InputPort[NUM_SERIALASYNCHOOK_INPUT_PORTS];
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
   private:
 
@@ -1161,6 +1233,8 @@ class QueuedOverflowComponentBase :
 
     //! Output port tlmOut
     Fw::OutputTlmPort m_tlmOut_OutputPort[NUM_TLMOUT_OUTPUT_PORTS];
+
+#endif
 
   private:
 

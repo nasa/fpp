@@ -23,6 +23,9 @@ sealed trait PortInstance {
   /** Gets the AST node ID of the port instance */
   def getNodeId: AstNode.Id
 
+  /** Gets the special kind of the port instance, if any */
+  def getSpecialKind: Option[Ast.SpecPortInstance.SpecialKind] = None
+
   /**
    * Gets the locations of the import specifiers (if this port was imported)
    * The first item is the import of the parent interface
@@ -165,6 +168,8 @@ object PortInstance {
     override def getType = Some(Type.DefPort(symbol))
 
     override def getUnqualifiedName = specifier.name
+
+    override def getSpecialKind = Some(specifier.kind)
 
     def withImportSpecifier(importNode: AstNode.Id): PortInstance =
       this.copy(importNodeIds = importNodeIds :+ importNode)

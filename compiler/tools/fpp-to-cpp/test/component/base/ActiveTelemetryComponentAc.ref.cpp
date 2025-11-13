@@ -25,12 +25,12 @@ namespace {
   // Get the max size by constructing a union of the async input, command, and
   // internal port serialization sizes
   union BuffUnion {
-    BYTE aliasTypedAsyncPortSize[Ports::InputAliasTypedPort::SERIALIZED_SIZE];
-    BYTE typedAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedAsyncAssertPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedAsyncBlockPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedAsyncDropPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];
+    BYTE aliasTypedAsyncPortSize[Ports::AliasTypedPortConstants::INPUT_SERIALIZED_SIZE];
+    BYTE typedAsyncPortSize[Ports::TypedPortConstants::INPUT_SERIALIZED_SIZE];
+    BYTE typedAsyncAssertPortSize[Ports::TypedPortConstants::INPUT_SERIALIZED_SIZE];
+    BYTE typedAsyncBlockPriorityPortSize[Ports::TypedPortConstants::INPUT_SERIALIZED_SIZE];
+    BYTE typedAsyncDropPriorityPortSize[Ports::TypedPortConstants::INPUT_SERIALIZED_SIZE];
+    BYTE cmdPortSize[Fw::CmdPortConstants::INPUT_SERIALIZED_SIZE];
   };
 
   // Define a message buffer class large enough to handle all the
@@ -82,6 +82,7 @@ void ActiveTelemetryComponentBase ::
   // Initialize base class
   Fw::ActiveComponentBase::init(instance);
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port cmdIn
   for (
     FwIndexType port = 0;
@@ -105,7 +106,9 @@ void ActiveTelemetryComponentBase ::
     this->m_cmdIn_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port aliasTypedAsync
   for (
     FwIndexType port = 0;
@@ -129,7 +132,9 @@ void ActiveTelemetryComponentBase ::
     this->m_aliasTypedAsync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsAliasStringReturnSync
   for (
     FwIndexType port = 0;
@@ -153,7 +158,9 @@ void ActiveTelemetryComponentBase ::
     this->m_noArgsAliasStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsAsync
   for (
     FwIndexType port = 0;
@@ -177,7 +184,9 @@ void ActiveTelemetryComponentBase ::
     this->m_noArgsAsync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsGuarded
   for (
     FwIndexType port = 0;
@@ -201,7 +210,9 @@ void ActiveTelemetryComponentBase ::
     this->m_noArgsGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsReturnGuarded
   for (
     FwIndexType port = 0;
@@ -225,7 +236,9 @@ void ActiveTelemetryComponentBase ::
     this->m_noArgsReturnGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsReturnSync
   for (
     FwIndexType port = 0;
@@ -249,7 +262,9 @@ void ActiveTelemetryComponentBase ::
     this->m_noArgsReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsStringReturnSync
   for (
     FwIndexType port = 0;
@@ -273,7 +288,9 @@ void ActiveTelemetryComponentBase ::
     this->m_noArgsStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port noArgsSync
   for (
     FwIndexType port = 0;
@@ -297,7 +314,9 @@ void ActiveTelemetryComponentBase ::
     this->m_noArgsSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAliasGuarded
   for (
     FwIndexType port = 0;
@@ -321,7 +340,9 @@ void ActiveTelemetryComponentBase ::
     this->m_typedAliasGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAliasReturnSync
   for (
     FwIndexType port = 0;
@@ -345,7 +366,9 @@ void ActiveTelemetryComponentBase ::
     this->m_typedAliasReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAliasStringReturnSync
   for (
     FwIndexType port = 0;
@@ -369,7 +392,9 @@ void ActiveTelemetryComponentBase ::
     this->m_typedAliasStringReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAsync
   for (
     FwIndexType port = 0;
@@ -393,7 +418,9 @@ void ActiveTelemetryComponentBase ::
     this->m_typedAsync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAsyncAssert
   for (
     FwIndexType port = 0;
@@ -417,7 +444,9 @@ void ActiveTelemetryComponentBase ::
     this->m_typedAsyncAssert_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAsyncBlockPriority
   for (
     FwIndexType port = 0;
@@ -441,7 +470,9 @@ void ActiveTelemetryComponentBase ::
     this->m_typedAsyncBlockPriority_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedAsyncDropPriority
   for (
     FwIndexType port = 0;
@@ -465,7 +496,9 @@ void ActiveTelemetryComponentBase ::
     this->m_typedAsyncDropPriority_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedGuarded
   for (
     FwIndexType port = 0;
@@ -489,7 +522,9 @@ void ActiveTelemetryComponentBase ::
     this->m_typedGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedReturnGuarded
   for (
     FwIndexType port = 0;
@@ -513,7 +548,9 @@ void ActiveTelemetryComponentBase ::
     this->m_typedReturnGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedReturnSync
   for (
     FwIndexType port = 0;
@@ -537,7 +574,9 @@ void ActiveTelemetryComponentBase ::
     this->m_typedReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect input port typedSync
   for (
     FwIndexType port = 0;
@@ -561,7 +600,9 @@ void ActiveTelemetryComponentBase ::
     this->m_typedSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port cmdRegOut
   for (
     FwIndexType port = 0;
@@ -580,7 +621,9 @@ void ActiveTelemetryComponentBase ::
     this->m_cmdRegOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port cmdResponseOut
   for (
     FwIndexType port = 0;
@@ -599,7 +642,9 @@ void ActiveTelemetryComponentBase ::
     this->m_cmdResponseOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port eventOut
   for (
     FwIndexType port = 0;
@@ -618,7 +663,9 @@ void ActiveTelemetryComponentBase ::
     this->m_eventOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port prmGetOut
   for (
     FwIndexType port = 0;
@@ -637,7 +684,9 @@ void ActiveTelemetryComponentBase ::
     this->m_prmGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port prmSetOut
   for (
     FwIndexType port = 0;
@@ -656,8 +705,9 @@ void ActiveTelemetryComponentBase ::
     this->m_prmSetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
-#if FW_ENABLE_TEXT_LOGGING == 1
+#if !FW_DIRECT_PORT_CALLS && FW_ENABLE_TEXT_LOGGING
   // Connect output port textEventOut
   for (
     FwIndexType port = 0;
@@ -678,6 +728,7 @@ void ActiveTelemetryComponentBase ::
   }
 #endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port timeGetOut
   for (
     FwIndexType port = 0;
@@ -696,7 +747,9 @@ void ActiveTelemetryComponentBase ::
     this->m_timeGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port tlmOut
   for (
     FwIndexType port = 0;
@@ -715,7 +768,9 @@ void ActiveTelemetryComponentBase ::
     this->m_tlmOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port noArgsOut
   for (
     FwIndexType port = 0;
@@ -734,7 +789,9 @@ void ActiveTelemetryComponentBase ::
     this->m_noArgsOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port noArgsReturnOut
   for (
     FwIndexType port = 0;
@@ -753,7 +810,9 @@ void ActiveTelemetryComponentBase ::
     this->m_noArgsReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port noArgsStringReturnOut
   for (
     FwIndexType port = 0;
@@ -772,7 +831,9 @@ void ActiveTelemetryComponentBase ::
     this->m_noArgsStringReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedAliasOut
   for (
     FwIndexType port = 0;
@@ -791,7 +852,9 @@ void ActiveTelemetryComponentBase ::
     this->m_typedAliasOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedAliasReturnOut
   for (
     FwIndexType port = 0;
@@ -810,7 +873,9 @@ void ActiveTelemetryComponentBase ::
     this->m_typedAliasReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedAliasReturnStringOut
   for (
     FwIndexType port = 0;
@@ -829,7 +894,9 @@ void ActiveTelemetryComponentBase ::
     this->m_typedAliasReturnStringOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedOut
   for (
     FwIndexType port = 0;
@@ -848,7 +915,9 @@ void ActiveTelemetryComponentBase ::
     this->m_typedOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
+#if !FW_DIRECT_PORT_CALLS
   // Connect output port typedReturnOut
   for (
     FwIndexType port = 0;
@@ -867,6 +936,7 @@ void ActiveTelemetryComponentBase ::
     this->m_typedReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
+#endif
 
   // Create the queue
   Os::Queue::Status qStat = this->createQueue(
@@ -878,6 +948,8 @@ void ActiveTelemetryComponentBase ::
     static_cast<FwAssertArgType>(qStat)
   );
 }
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for special input ports
@@ -893,6 +965,10 @@ Fw::InputCmdPort* ActiveTelemetryComponentBase ::
 
   return &this->m_cmdIn_InputPort[portNum];
 }
+
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Getters for typed input ports
@@ -1107,6 +1183,10 @@ Ports::InputTypedPort* ActiveTelemetryComponentBase ::
   return &this->m_typedSync_InputPort[portNum];
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connect input ports to special output ports
 // ----------------------------------------------------------------------
@@ -1227,6 +1307,10 @@ void ActiveTelemetryComponentBase ::
   this->m_tlmOut_OutputPort[portNum].addCallPort(port);
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connect typed input ports to typed output ports
 // ----------------------------------------------------------------------
@@ -1343,7 +1427,9 @@ void ActiveTelemetryComponentBase ::
   this->m_typedReturnOut_OutputPort[portNum].addCallPort(port);
 }
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
 // Connect serial input ports to special output ports
@@ -1453,7 +1539,7 @@ void ActiveTelemetryComponentBase ::
 
 #endif
 
-#if FW_PORT_SERIALIZATION
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
 // ----------------------------------------------------------------------
 // Connect serial input ports to typed output ports
@@ -1520,12 +1606,14 @@ ActiveTelemetryComponentBase ::
 
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for special output ports
 // ----------------------------------------------------------------------
 
 bool ActiveTelemetryComponentBase ::
-  isConnected_cmdRegOut_OutputPort(FwIndexType portNum)
+  isConnected_cmdRegOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_cmdRegOut_OutputPorts()),
@@ -1536,7 +1624,7 @@ bool ActiveTelemetryComponentBase ::
 }
 
 bool ActiveTelemetryComponentBase ::
-  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum)
+  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_cmdResponseOut_OutputPorts()),
@@ -1547,7 +1635,7 @@ bool ActiveTelemetryComponentBase ::
 }
 
 bool ActiveTelemetryComponentBase ::
-  isConnected_eventOut_OutputPort(FwIndexType portNum)
+  isConnected_eventOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_eventOut_OutputPorts()),
@@ -1558,7 +1646,7 @@ bool ActiveTelemetryComponentBase ::
 }
 
 bool ActiveTelemetryComponentBase ::
-  isConnected_prmGetOut_OutputPort(FwIndexType portNum)
+  isConnected_prmGetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_prmGetOut_OutputPorts()),
@@ -1569,7 +1657,7 @@ bool ActiveTelemetryComponentBase ::
 }
 
 bool ActiveTelemetryComponentBase ::
-  isConnected_prmSetOut_OutputPort(FwIndexType portNum)
+  isConnected_prmSetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_prmSetOut_OutputPorts()),
@@ -1582,7 +1670,7 @@ bool ActiveTelemetryComponentBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 bool ActiveTelemetryComponentBase ::
-  isConnected_textEventOut_OutputPort(FwIndexType portNum)
+  isConnected_textEventOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_textEventOut_OutputPorts()),
@@ -1595,7 +1683,7 @@ bool ActiveTelemetryComponentBase ::
 #endif
 
 bool ActiveTelemetryComponentBase ::
-  isConnected_timeGetOut_OutputPort(FwIndexType portNum)
+  isConnected_timeGetOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
@@ -1606,7 +1694,7 @@ bool ActiveTelemetryComponentBase ::
 }
 
 bool ActiveTelemetryComponentBase ::
-  isConnected_tlmOut_OutputPort(FwIndexType portNum)
+  isConnected_tlmOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
@@ -1616,12 +1704,16 @@ bool ActiveTelemetryComponentBase ::
   return this->m_tlmOut_OutputPort[portNum].isConnected();
 }
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
 
 bool ActiveTelemetryComponentBase ::
-  isConnected_noArgsOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
@@ -1632,7 +1724,7 @@ bool ActiveTelemetryComponentBase ::
 }
 
 bool ActiveTelemetryComponentBase ::
-  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
@@ -1643,7 +1735,7 @@ bool ActiveTelemetryComponentBase ::
 }
 
 bool ActiveTelemetryComponentBase ::
-  isConnected_noArgsStringReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_noArgsStringReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
@@ -1654,7 +1746,7 @@ bool ActiveTelemetryComponentBase ::
 }
 
 bool ActiveTelemetryComponentBase ::
-  isConnected_typedAliasOut_OutputPort(FwIndexType portNum)
+  isConnected_typedAliasOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
@@ -1665,7 +1757,7 @@ bool ActiveTelemetryComponentBase ::
 }
 
 bool ActiveTelemetryComponentBase ::
-  isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_typedAliasReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
@@ -1676,7 +1768,7 @@ bool ActiveTelemetryComponentBase ::
 }
 
 bool ActiveTelemetryComponentBase ::
-  isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum)
+  isConnected_typedAliasReturnStringOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
@@ -1687,7 +1779,7 @@ bool ActiveTelemetryComponentBase ::
 }
 
 bool ActiveTelemetryComponentBase ::
-  isConnected_typedOut_OutputPort(FwIndexType portNum)
+  isConnected_typedOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
@@ -1698,7 +1790,7 @@ bool ActiveTelemetryComponentBase ::
 }
 
 bool ActiveTelemetryComponentBase ::
-  isConnected_typedReturnOut_OutputPort(FwIndexType portNum)
+  isConnected_typedReturnOut_OutputPort(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
@@ -1707,6 +1799,8 @@ bool ActiveTelemetryComponentBase ::
 
   return this->m_typedReturnOut_OutputPort[portNum].isConnected();
 }
+
+#endif
 
 // ----------------------------------------------------------------------
 // Port handler base-class functions for typed input ports
@@ -2740,12 +2834,14 @@ void ActiveTelemetryComponentBase ::
   // Default: no-op
 }
 
+#if !FW_DIRECT_PORT_CALLS
+
 // ----------------------------------------------------------------------
 // Invocation functions for typed output ports
 // ----------------------------------------------------------------------
 
 void ActiveTelemetryComponentBase ::
-  noArgsOut_out(FwIndexType portNum)
+  noArgsOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsOut_OutputPorts()),
@@ -2760,7 +2856,7 @@ void ActiveTelemetryComponentBase ::
 }
 
 U32 ActiveTelemetryComponentBase ::
-  noArgsReturnOut_out(FwIndexType portNum)
+  noArgsReturnOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsReturnOut_OutputPorts()),
@@ -2775,7 +2871,7 @@ U32 ActiveTelemetryComponentBase ::
 }
 
 Fw::String ActiveTelemetryComponentBase ::
-  noArgsStringReturnOut_out(FwIndexType portNum)
+  noArgsStringReturnOut_out(FwIndexType portNum) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_noArgsStringReturnOut_OutputPorts()),
@@ -2799,7 +2895,7 @@ void ActiveTelemetryComponentBase ::
       const AliasEnum& e,
       const AliasArray& a,
       const AliasStruct& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasOut_OutputPorts()),
@@ -2831,7 +2927,7 @@ AliasPrim2 ActiveTelemetryComponentBase ::
       const AliasEnum& e,
       const AliasArray& a,
       const AliasStruct& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnOut_OutputPorts()),
@@ -2863,7 +2959,7 @@ Fw::String ActiveTelemetryComponentBase ::
       const AliasEnum& e,
       const AliasArray& a,
       const AnotherAliasStruct& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedAliasReturnStringOut_OutputPorts()),
@@ -2895,7 +2991,7 @@ void ActiveTelemetryComponentBase ::
       const E& e,
       const A& a,
       const S& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedOut_OutputPorts()),
@@ -2927,7 +3023,7 @@ F32 ActiveTelemetryComponentBase ::
       const E& e,
       const A& a,
       const S& s
-  )
+  ) const
 {
   FW_ASSERT(
     (0 <= portNum) && (portNum < this->getNum_typedReturnOut_OutputPorts()),
@@ -2949,6 +3045,8 @@ F32 ActiveTelemetryComponentBase ::
   );
 }
 
+#endif
+
 // ----------------------------------------------------------------------
 // Telemetry write functions
 // ----------------------------------------------------------------------
@@ -2959,12 +3057,12 @@ void ActiveTelemetryComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      this->isConnected_timeGetOut_OutputPort(0) &&
       (_tlmTime ==  Fw::ZERO_TIME)
     ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+      this->timeGetOut_out(0, _tlmTime);
     }
 
     Fw::TlmBuffer _tlmBuff;
@@ -2978,7 +3076,8 @@ void ActiveTelemetryComponentBase ::
 
     _id = this->getIdBase() + CHANNELID_CHANNELU32FORMAT;
 
-    this->m_tlmOut_OutputPort[0].invoke(
+    this->tlmOut_out(
+      0,
       _id,
       _tlmTime,
       _tlmBuff
@@ -2992,12 +3091,12 @@ void ActiveTelemetryComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      this->isConnected_timeGetOut_OutputPort(0) &&
       (_tlmTime ==  Fw::ZERO_TIME)
     ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+      this->timeGetOut_out(0, _tlmTime);
     }
 
     Fw::TlmBuffer _tlmBuff;
@@ -3011,7 +3110,8 @@ void ActiveTelemetryComponentBase ::
 
     _id = this->getIdBase() + CHANNELID_CHANNELF32FORMAT;
 
-    this->m_tlmOut_OutputPort[0].invoke(
+    this->tlmOut_out(
+      0,
       _id,
       _tlmTime,
       _tlmBuff
@@ -3025,16 +3125,19 @@ void ActiveTelemetryComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      this->isConnected_timeGetOut_OutputPort(0) &&
       (_tlmTime ==  Fw::ZERO_TIME)
     ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+      this->timeGetOut_out(0, _tlmTime);
     }
 
     Fw::TlmBuffer _tlmBuff;
-    Fw::SerializeStatus _stat = arg.serializeTo(_tlmBuff, FW_MIN(FW_TLM_STRING_MAX_SIZE, 80));
+    Fw::SerializeStatus _stat = arg.serializeTo(
+      _tlmBuff,
+      FW_MIN(FW_TLM_STRING_MAX_SIZE, 80)
+    );
     FW_ASSERT(
       _stat == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_stat)
@@ -3044,7 +3147,8 @@ void ActiveTelemetryComponentBase ::
 
     _id = this->getIdBase() + CHANNELID_CHANNELSTRINGFORMAT;
 
-    this->m_tlmOut_OutputPort[0].invoke(
+    this->tlmOut_out(
+      0,
       _id,
       _tlmTime,
       _tlmBuff
@@ -3058,12 +3162,12 @@ void ActiveTelemetryComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      this->isConnected_timeGetOut_OutputPort(0) &&
       (_tlmTime ==  Fw::ZERO_TIME)
     ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+      this->timeGetOut_out(0, _tlmTime);
     }
 
     Fw::TlmBuffer _tlmBuff;
@@ -3077,7 +3181,8 @@ void ActiveTelemetryComponentBase ::
 
     _id = this->getIdBase() + CHANNELID_CHANNELENUM;
 
-    this->m_tlmOut_OutputPort[0].invoke(
+    this->tlmOut_out(
+      0,
       _id,
       _tlmTime,
       _tlmBuff
@@ -3091,12 +3196,12 @@ void ActiveTelemetryComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      this->isConnected_timeGetOut_OutputPort(0) &&
       (_tlmTime ==  Fw::ZERO_TIME)
     ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+      this->timeGetOut_out(0, _tlmTime);
     }
 
     Fw::TlmBuffer _tlmBuff;
@@ -3110,7 +3215,8 @@ void ActiveTelemetryComponentBase ::
 
     _id = this->getIdBase() + CHANNELID_CHANNELARRAYFREQ;
 
-    this->m_tlmOut_OutputPort[0].invoke(
+    this->tlmOut_out(
+      0,
       _id,
       _tlmTime,
       _tlmBuff
@@ -3124,12 +3230,12 @@ void ActiveTelemetryComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      this->isConnected_timeGetOut_OutputPort(0) &&
       (_tlmTime ==  Fw::ZERO_TIME)
     ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+      this->timeGetOut_out(0, _tlmTime);
     }
 
     Fw::TlmBuffer _tlmBuff;
@@ -3143,7 +3249,8 @@ void ActiveTelemetryComponentBase ::
 
     _id = this->getIdBase() + CHANNELID_CHANNELSTRUCTFREQ;
 
-    this->m_tlmOut_OutputPort[0].invoke(
+    this->tlmOut_out(
+      0,
       _id,
       _tlmTime,
       _tlmBuff
@@ -3157,12 +3264,12 @@ void ActiveTelemetryComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      this->isConnected_timeGetOut_OutputPort(0) &&
       (_tlmTime ==  Fw::ZERO_TIME)
     ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+      this->timeGetOut_out(0, _tlmTime);
     }
 
     Fw::TlmBuffer _tlmBuff;
@@ -3176,7 +3283,8 @@ void ActiveTelemetryComponentBase ::
 
     _id = this->getIdBase() + CHANNELID_CHANNELU32LIMITS;
 
-    this->m_tlmOut_OutputPort[0].invoke(
+    this->tlmOut_out(
+      0,
       _id,
       _tlmTime,
       _tlmBuff
@@ -3190,12 +3298,12 @@ void ActiveTelemetryComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      this->isConnected_timeGetOut_OutputPort(0) &&
       (_tlmTime ==  Fw::ZERO_TIME)
     ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+      this->timeGetOut_out(0, _tlmTime);
     }
 
     Fw::TlmBuffer _tlmBuff;
@@ -3209,7 +3317,8 @@ void ActiveTelemetryComponentBase ::
 
     _id = this->getIdBase() + CHANNELID_CHANNELF32LIMITS;
 
-    this->m_tlmOut_OutputPort[0].invoke(
+    this->tlmOut_out(
+      0,
       _id,
       _tlmTime,
       _tlmBuff
@@ -3223,12 +3332,12 @@ void ActiveTelemetryComponentBase ::
       Fw::Time _tlmTime
   ) const
 {
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      this->isConnected_timeGetOut_OutputPort(0) &&
       (_tlmTime ==  Fw::ZERO_TIME)
     ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+      this->timeGetOut_out(0, _tlmTime);
     }
 
     Fw::TlmBuffer _tlmBuff;
@@ -3242,7 +3351,8 @@ void ActiveTelemetryComponentBase ::
 
     _id = this->getIdBase() + CHANNELID_CHANNELF64;
 
-    this->m_tlmOut_OutputPort[0].invoke(
+    this->tlmOut_out(
+      0,
       _id,
       _tlmTime,
       _tlmBuff
@@ -3271,12 +3381,12 @@ void ActiveTelemetryComponentBase ::
     this->m_last_ChannelU32OnChange = arg;
   }
 
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      this->isConnected_timeGetOut_OutputPort(0) &&
       (_tlmTime ==  Fw::ZERO_TIME)
     ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+      this->timeGetOut_out(0, _tlmTime);
     }
 
     Fw::TlmBuffer _tlmBuff;
@@ -3290,7 +3400,8 @@ void ActiveTelemetryComponentBase ::
 
     _id = this->getIdBase() + CHANNELID_CHANNELU32ONCHANGE;
 
-    this->m_tlmOut_OutputPort[0].invoke(
+    this->tlmOut_out(
+      0,
       _id,
       _tlmTime,
       _tlmBuff
@@ -3319,12 +3430,12 @@ void ActiveTelemetryComponentBase ::
     this->m_last_ChannelEnumOnChange = arg;
   }
 
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      this->isConnected_timeGetOut_OutputPort(0) &&
       (_tlmTime ==  Fw::ZERO_TIME)
     ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+      this->timeGetOut_out(0, _tlmTime);
     }
 
     Fw::TlmBuffer _tlmBuff;
@@ -3338,7 +3449,8 @@ void ActiveTelemetryComponentBase ::
 
     _id = this->getIdBase() + CHANNELID_CHANNELENUMONCHANGE;
 
-    this->m_tlmOut_OutputPort[0].invoke(
+    this->tlmOut_out(
+      0,
       _id,
       _tlmTime,
       _tlmBuff
@@ -3367,12 +3479,12 @@ void ActiveTelemetryComponentBase ::
     this->m_last_ChannelBoolOnChange = arg;
   }
 
-  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_tlmOut_OutputPort(0)) {
     if (
-      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      this->isConnected_timeGetOut_OutputPort(0) &&
       (_tlmTime ==  Fw::ZERO_TIME)
     ) {
-      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+      this->timeGetOut_out(0, _tlmTime);
     }
 
     Fw::TlmBuffer _tlmBuff;
@@ -3386,7 +3498,8 @@ void ActiveTelemetryComponentBase ::
 
     _id = this->getIdBase() + CHANNELID_CHANNELBOOLONCHANGE;
 
-    this->m_tlmOut_OutputPort[0].invoke(
+    this->tlmOut_out(
+      0,
       _id,
       _tlmTime,
       _tlmBuff
@@ -3401,9 +3514,9 @@ void ActiveTelemetryComponentBase ::
 Fw::Time ActiveTelemetryComponentBase ::
   getTime() const
 {
-  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+  if (this->isConnected_timeGetOut_OutputPort(0)) {
     Fw::Time _time;
-    this->m_timeGetOut_OutputPort[0].invoke(_time);
+    this->timeGetOut_out(0, _time);
     return _time;
   }
   else {
@@ -4277,3 +4390,55 @@ void ActiveTelemetryComponentBase ::
     s
   );
 }
+
+#if !FW_DIRECT_PORT_CALLS
+
+// ----------------------------------------------------------------------
+// Invocation functions for special output ports
+// ----------------------------------------------------------------------
+
+void ActiveTelemetryComponentBase ::
+  timeGetOut_out(
+      FwIndexType portNum,
+      Fw::Time& time
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_timeGetOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_timeGetOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_timeGetOut_OutputPort[portNum].invoke(
+    time
+  );
+}
+
+void ActiveTelemetryComponentBase ::
+  tlmOut_out(
+      FwIndexType portNum,
+      FwChanIdType id,
+      Fw::Time& timeTag,
+      Fw::TlmBuffer& val
+  ) const
+{
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < this->getNum_tlmOut_OutputPorts()),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  FW_ASSERT(
+    this->m_tlmOut_OutputPort[portNum].isConnected(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_tlmOut_OutputPort[portNum].invoke(
+    id,
+    timeTag,
+    val
+  );
+}
+
+#endif

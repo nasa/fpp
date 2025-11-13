@@ -55,7 +55,6 @@ case class ComponentPorts(
     inputPortWriter.getOverflowHooks(dataProductHookPorts),
     inputPortWriter.getOverflowHooks(typedHookPorts),
     inputPortWriter.getOverflowHooks(serialHookPorts),
-    outputPortWriter.getInvokers(dataProductOutputPorts),
     outputPortWriter.getInvokers(typedOutputPorts),
     outputPortWriter.getInvokers(serialOutputPorts),
   )
@@ -63,7 +62,23 @@ case class ComponentPorts(
   def getPrivateFunctionMembers: List[CppDoc.Class.Member] = List.concat(
     inputPortWriter.getCallbacks(specialInputPorts),
     inputPortWriter.getCallbacks(typedInputPorts),
-    inputPortWriter.getCallbacks(serialInputPorts)
+    inputPortWriter.getCallbacks(serialInputPorts),
+    {
+      val ports = List.concat(
+        guardedList (hasDataProducts) (dataProductOutputPorts),
+        List(
+          guardedOption (hasCommands || hasParameters) (cmdRegPort),
+          guardedOption (hasCommands || hasParameters) (cmdRespPort),
+          guardedOption (hasEvents) (eventPort),
+          guardedOption (hasEvents) (textEventPort),
+          guardedOption (hasParameters) (prmGetPort),
+          guardedOption (hasParameters) (prmSetPort),
+          timeGetPort,
+          guardedOption (hasTelemetry) (tlmPort),
+        ).filter(_.isDefined).map(_.get)
+      ).sortBy(_.getUnqualifiedName)
+      outputPortWriter.getInvokers(ports, "private", Some("special"))
+    }
   )
 
   def getVariableMembers: List[CppDoc.Class.Member] = List.concat(
@@ -145,12 +160,16 @@ case class ComponentPorts(
             |"""
       )
     }
-    addAccessTagAndComment(
-      "private",
-      s"${getPortListTypeString(ports).capitalize} $direction ports",
-      mapPorts(
-        ports,
-        p => List(linesClassMember(variable(p))),
+    wrapClassMembersInIfDirective(
+      "#if !FW_DIRECT_PORT_CALLS",
+      addAccessTagAndComment(
+        "private",
+        s"${getPortListTypeString(ports).capitalize} $direction ports",
+        mapPorts(
+          ports,
+          p => List(linesClassMember(variable(p))),
+          CppDoc.Lines.Hpp
+        ),
         CppDoc.Lines.Hpp
       ),
       CppDoc.Lines.Hpp

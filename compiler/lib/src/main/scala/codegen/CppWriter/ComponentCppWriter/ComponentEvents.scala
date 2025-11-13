@@ -11,49 +11,50 @@ case class ComponentEvents (
 ) extends ComponentCppWriterUtils(s, aNode) {
 
   def getConstantMembers: List[CppDoc.Class.Member] = {
-    val throttleEnum =
-      if throttledEvents.isEmpty then Nil
-      else List(
-        Line.blank :: lines(
-          s"//! Event throttle values: sets initial value of countdown variables"
-        ),
-        wrapInEnum(
-          throttledEvents.flatMap((_, event) =>
-            writeEnumConstant(
-              eventThrottleConstantName(event.getName),
-              event.throttle.get.count,
-              Some(s"Throttle reset count for ${event.getName}")
+    lazy val throttleEnum =
+      guardedList (!throttledEvents.isEmpty) (
+        List.concat(
+          Line.blank :: lines(
+            s"//! Event throttle values: sets initial value of countdown variables"
+          ),
+          wrapInEnum(
+            throttledEvents.flatMap((_, event) =>
+              writeEnumConstant(
+                eventThrottleConstantName(event.getName),
+                event.throttle.get.count,
+                Some(s"Throttle reset count for ${event.getName}")
+              )
             )
           )
         )
-      ).flatten
-
-    if !hasEvents then Nil
-    else List(
-      linesClassMember(
-        List(
-          Line.blank :: lines(s"//! Event IDs"),
-          wrapInEnum(
-            sortedEvents.flatMap((id, event) =>
-              writeEnumConstant(
-                eventIdConstantName(event.getName),
-                id,
-                AnnotationCppWriter.asStringOpt(event.aNode),
-                CppWriterUtils.Hex
+      )
+    guardedList (hasEvents) (
+      List(
+        linesClassMember(
+          List.concat(
+            Line.blank :: lines(s"//! Event IDs"),
+            wrapInEnum(
+              sortedEvents.flatMap((id, event) =>
+                writeEnumConstant(
+                  eventIdConstantName(event.getName),
+                  id,
+                  AnnotationCppWriter.asStringOpt(event.aNode),
+                  CppWriterUtils.Hex
+                )
               )
-            )
-          ),
-          throttleEnum
-        ).flatten
+            ),
+            throttleEnum
+          )
+        )
       )
     )
   }
 
   def getFunctionMembers: List[CppDoc.Class.Member] = {
-    List(
+    List.concat(
       getLoggingFunctions,
       getThrottleFunctions
-    ).flatten
+    )
   }
 
   def getVariableMembers: List[CppDoc.Class.Member] = {
@@ -87,135 +88,219 @@ case class ComponentEvents (
     )
   }
 
-  private def getLoggingFunctions: List[CppDoc.Class.Member] = {
-    def writeLogBody(id: Event.Id, event: Event) =
-      line("// Emit the event on the log port") ::
-        wrapInIf(
-          s"this->${portVariableName(eventPort.get)}[0].isConnected()",
-          intersperseBlankLines(
-            List(
-              List.concat(
-                lines("Fw::LogBuffer _logBuff;"),
-                eventParamTypeMap(id) match {
-                  case Nil => Nil
-                  case _ => lines("Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;")
-                }
-              ),
-              List.concat(
-                lines("#if FW_AMPCS_COMPATIBLE"),
-                eventParamTypeMap(id) match {
-                  case Nil => lines("Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;\n")
-                  case _ => Nil
-                },
-                event.aNode._2.data.severity match {
-                  case Ast.SpecEvent.Fatal if eventParamTypeMap(id).nonEmpty => lines(
-                    s"""|// Serialize the number of arguments
-                        |_status = _logBuff.serializeFrom(static_cast<U8>(${eventParamTypeMap(id).length} + 1));
-                        |FW_ASSERT(
-                        |  _status == Fw::FW_SERIALIZE_OK,
-                        |  static_cast<FwAssertArgType>(_status)
-                        |);
-                        |
-                        |// For FATAL, add stack size of 4 and a dummy entry. No support for stacks yet.
-                        |_status = _logBuff.serializeFrom(static_cast<U8>(4));
-                        |FW_ASSERT(
-                        |  _status == Fw::FW_SERIALIZE_OK,
-                        |  static_cast<FwAssertArgType>(_status)
-                        |);
-                        |
-                        |_status = _logBuff.serializeFrom(static_cast<U32>(0));
-                        |FW_ASSERT(
-                        |  _status == Fw::FW_SERIALIZE_OK,
-                        |  static_cast<FwAssertArgType>(_status)
-                        |);
-                        |"""
-                  )
-                  case _ => lines(
-                    s"""|// Serialize the number of arguments
-                        |_status = _logBuff.serializeFrom(static_cast<U8>(${eventParamTypeMap(id).length}));
-                        |FW_ASSERT(
-                        |  _status == Fw::FW_SERIALIZE_OK,
-                        |  static_cast<FwAssertArgType>(_status)
-                        |);
-                        |"""
-                  )
-                },
-                lines("#endif")
-              ),
-              intersperseBlankLines(
-                eventParamTypeMap(id).map((name, typeName, ty) => {
+  private def writeCodeForThrottlingEventAndGettingTime(event: Event) = {
+    val throttleCounter = eventThrottleCounterName(event.getName)
+    val throttleConstant = eventThrottleConstantName(event.getName)
+    val timeGetPortName = timeGetPort.get.getUnqualifiedName
+    val timeGetPortInvoker = outputPortInvokerName(timeGetPortName)
+    val timeGetPortIsConnected = outputPortIsConnectedName(timeGetPortName)
+    val idConstant = eventIdConstantName(event.getName)
+    val timeName = eventThrottleTimeName(event.getName)
+    intersperseBlankLines(
+      List(
+        // Hard throttle counter can be checked immediately
+        // We don't need to get time
+        event.throttle match {
+          case Some(Event.Throttle(_, None)) => lines(
+            s"""|// Check throttle value
+                |if (this->$throttleCounter >= $throttleConstant) {
+                |  return;
+                |}
+                |else {
+                |  this->$throttleCounter++;
+                |}
+                |"""
+          )
+          case _ => Nil
+        },
+        lines(
+          s"""|// Get the time
+              |Fw::Time _logTime;
+              |if (this->$timeGetPortIsConnected(0)) {
+              |  this->$timeGetPortInvoker(0, _logTime);
+              |}
+              |
+              |const FwEventIdType _id = this->getIdBase() + $idConstant;
+              |"""
+        ),
+        // Time based throttle timeout needs above time
+        event.throttle match {
+          case Some(Event.Throttle(_, Some(Event.TimeInterval(seconds, useconds)))) => lines(
+            s"""|// Check throttle value & throttle timeout
+                |{
+                |  Os::ScopeLock scopedLock(this->m_eventLock);
+                |
+                |  if (this->$throttleCounter >= $throttleConstant) {
+                |    // The counter has overflowed, check if time interval has passed
+                |    if (Fw::TimeInterval(this->$timeName, _logTime) >= Fw::TimeInterval($seconds, $useconds)) {
+                |      // Reset the count
+                |      this->$throttleCounter = 0;
+                |    } else {
+                |      // Throttle the event
+                |      return;
+                |    }
+                |  }
+                |
+                |  // Reset the throttle time if needed
+                |  if (this->$throttleCounter == 0) {
+                |    // This is the first event, reset the throttle time
+                |    this->$timeName = _logTime;
+                |  }
+                |
+                |  // Increment the count
+                |  this->$throttleCounter++;
+                |}
+                |"""
+          )
+          case _ => Nil
+        }
+      )
+    )
+  }
 
-                  List.concat(
-                    ty.getUnderlyingType match {
-                      case t: Type.String =>
-                        val serialSize = writeStringSize(s, t)
-                        lines(
-                          s"_status = $name.serializeTo(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, $serialSize));"
-                        )
-                      case t => lines(
-                        s"""|#if FW_AMPCS_COMPATIBLE
-                            |// Serialize the argument size
-                            |_status = _logBuff.serializeFrom(
-                            |  static_cast<U8>(${writeStaticSerializedSizeExpr(s, t, typeName)})
-                            |);
-                            |FW_ASSERT(
-                            |  _status == Fw::FW_SERIALIZE_OK,
-                            |  static_cast<FwAssertArgType>(_status)
-                            |);
-                            |#endif
-                            |_status = _logBuff.serializeFrom($name);
-                            |"""
-                      )
-                    },
-                    lines(
-                      """|FW_ASSERT(
-                         |  _status == Fw::FW_SERIALIZE_OK,
-                         |  static_cast<FwAssertArgType>(_status)
-                         |);
-                         |"""
-                    )
-                  )
-                })
-              ),
-              lines(
-                s"""|this->${portVariableName(eventPort.get)}[0].invoke(
-                    |  _id,
-                    |  _logTime,
-                    |  Fw::LogSeverity::${writeSeverity(event)},
-                    |  _logBuff
+  private def writeCodeForEmittingEvent(id: Event.Id, event: Event) = {
+    val eventPortName = eventPort.get.getUnqualifiedName
+    val eventPortIsConnected = outputPortIsConnectedName(eventPortName)
+    val paramTypes = eventParamTypeMap(id)
+    val hasParams = !paramTypes.isEmpty
+    val numParams = paramTypes.length
+    val severity = writeSeverity(event)
+    val eventPortInvokerName = outputPortInvokerName(eventPortName)
+    line("// Emit the event on the log port") ::
+    wrapInIf(
+      s"this->$eventPortIsConnected(0)",
+      intersperseBlankLines(
+        List(
+          line("Fw::LogBuffer _logBuff;") ::
+          guardedList (hasParams) (
+            lines("Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;")
+          ),
+          List.concat(
+            lines("#if FW_AMPCS_COMPATIBLE"),
+            guardedList (!hasParams) (
+              lines("Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;\n")
+            ),
+            event.aNode._2.data.severity match {
+              case Ast.SpecEvent.Fatal if hasParams => lines(
+                s"""|// Serialize the number of arguments
+                    |_status = _logBuff.serializeFrom(static_cast<U8>($numParams + 1));
+                    |FW_ASSERT(
+                    |  _status == Fw::FW_SERIALIZE_OK,
+                    |  static_cast<FwAssertArgType>(_status)
+                    |);
+                    |
+                    |// For FATAL, add stack size of 4 and a dummy entry. No support for stacks yet.
+                    |_status = _logBuff.serializeFrom(static_cast<U8>(4));
+                    |FW_ASSERT(
+                    |  _status == Fw::FW_SERIALIZE_OK,
+                    |  static_cast<FwAssertArgType>(_status)
+                    |);
+                    |
+                    |_status = _logBuff.serializeFrom(static_cast<U32>(0));
+                    |FW_ASSERT(
+                    |  _status == Fw::FW_SERIALIZE_OK,
+                    |  static_cast<FwAssertArgType>(_status)
                     |);
                     |"""
               )
-            )
+              case _ => lines(
+                s"""|// Serialize the number of arguments
+                    |_status = _logBuff.serializeFrom(static_cast<U8>($numParams));
+                    |FW_ASSERT(
+                    |  _status == Fw::FW_SERIALIZE_OK,
+                    |  static_cast<FwAssertArgType>(_status)
+                    |);
+                    |"""
+              )
+            },
+            lines("#endif")
+          ),
+          intersperseBlankLines(
+            paramTypes.map((name, typeName, ty) => {
+              List.concat(
+                ty.getUnderlyingType match {
+                  case t: Type.String =>
+                    val serialSize = writeStringSize(s, t)
+                    lines(
+                      s"_status = $name.serializeTo(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, $serialSize));"
+                    )
+                  case t =>
+                    val sizeExpr = writeStaticSerializedSizeExpr(s, t, typeName)
+                    lines(
+                      s"""|#if FW_AMPCS_COMPATIBLE
+                          |// Serialize the argument size
+                          |_status = _logBuff.serializeFrom(
+                          |  static_cast<U8>($sizeExpr)
+                          |);
+                          |FW_ASSERT(
+                          |  _status == Fw::FW_SERIALIZE_OK,
+                          |  static_cast<FwAssertArgType>(_status)
+                          |);
+                          |#endif
+                          |_status = _logBuff.serializeFrom($name);
+                          |"""
+                    )
+                },
+                lines(
+                  """|FW_ASSERT(
+                     |  _status == Fw::FW_SERIALIZE_OK,
+                     |  static_cast<FwAssertArgType>(_status)
+                     |);
+                     |"""
+                )
+              )
+            })
+          ),
+          lines(
+            s"""|this->$eventPortInvokerName(
+                |  0,
+                |  _id,
+                |  _logTime,
+                |  Fw::LogSeverity::$severity,
+                |  _logBuff
+                |);
+                |"""
           )
         )
-    def writeTextLogBody(event: Event) = List.concat(
+      )
+    )
+  }
+
+  private def writeCodeForEmittingTextEvent(event: Event) = {
+    val textEventPortName = textEventPort.get.getUnqualifiedName
+    val textEventPortIsConnected = outputPortIsConnectedName(textEventPortName)
+    val format = writeEventFormat(event)
+    val severity = writeSeverity(event)
+    val textEventPortInvoker = outputPortInvokerName(textEventPortName)
+    List.concat(
       lines(
         s"""|// Emit the event on the text log port
             |#if FW_ENABLE_TEXT_LOGGING
             |"""
       ),
       wrapInIf(
-        s"this->${portVariableName(textEventPort.get)}[0].isConnected()",
+        s"this->$textEventPortIsConnected(0)",
         intersperseBlankLines(
           List(
             lines(
               s"""|#if FW_OBJECT_NAMES == 1
                   |const char* _formatString =
-                  |  "(%s) %s: ${writeEventFormat(event)}";
+                  |  "(%s) %s: $format";
                   |#else
                   |const char* _formatString =
-                  |  "%s: ${writeEventFormat(event)}";
+                  |  "%s: $format";
                   |#endif
                   |"""
             ),
             event.aNode._2.data.params.flatMap(param =>
-              s.a.typeMap(param._2.data.typeName.id) match {
+              val data = param._2.data
+              val name = data.name
+              s.a.typeMap(data.typeName.id) match {
                 case Type.String(_) => Nil
-                case t if s.isPrimitive(t, writeFormalParamType(param._2.data)) => Nil
+                case t if s.isPrimitive(t, writeFormalParamType(data)) => Nil
                 case _ => lines(
-                  s"""|Fw::String ${param._2.data.name}Str;
-                      |${param._2.data.name}.toString(${param._2.data.name}Str);
+                  s"""|Fw::String ${name}Str;
+                      |$name.toString(${name}Str);
                       |"""
                 )
               }
@@ -233,22 +318,25 @@ case class ComponentEvents (
               lines(
                 (s"\"${event.getName} \"" ::
                   event.aNode._2.data.params.map(param => {
+                    val data = param._2.data
                     val name = param._2.data.name
-                    s.a.typeMap(param._2.data.typeName.id) match {
+                    s.a.typeMap(data.typeName.id) match {
                       case Type.String(_) => s"$name.toChar()"
-                      case t if s.isPrimitive(t, writeFormalParamType(param._2.data)) =>
+                      case t if s.isPrimitive(t, writeFormalParamType(data)) =>
                         promoteF32ToF64 (t) (name)
                       case _ => s"${name}Str.toChar()"
                     }
-                  })).mkString(",\n")
+                  })
+                ).mkString(",\n")
               ).map(indentIn),
               lines(");")
             ),
             lines(
-              s"""|this->${portVariableName(textEventPort.get)}[0].invoke(
+              s"""|this->$textEventPortInvoker(
+                  |  0,
                   |  _id,
                   |  _logTime,
-                  |  Fw::LogSeverity::${writeSeverity(event)},
+                  |  Fw::LogSeverity::$severity,
                   |  _logString
                   |);
                   |"""
@@ -258,99 +346,44 @@ case class ComponentEvents (
       ),
       lines("#endif")
     )
-    def writeBody(id: Event.Id, event: Event) = intersperseBlankLines(
-      List(
-        // Hard throttle counter can be checked immediately
-        // We don't need to get time
-        event.throttle match {
-          case Some(Event.Throttle(_, None)) => lines(
-            s"""|// Check throttle value
-                |if (this->${eventThrottleCounterName(event.getName)} >= ${eventThrottleConstantName(event.getName)}) {
-                |  return;
-                |}
-                |else {
-                |  this->${eventThrottleCounterName(event.getName)}++;
-                |}
-                |"""
-          )
-          case _ => Nil
-        },
-        lines(
-          s"""|// Get the time
-              |Fw::Time _logTime;
-              |if (this->${portVariableName(timeGetPort.get)}[0].isConnected()) {
-              |  this->${portVariableName(timeGetPort.get)}[0].invoke(_logTime);
-              |}
-              |
-              |FwEventIdType _id = static_cast<FwEventIdType>(0);
-              |
-              |_id = this->getIdBase() + ${eventIdConstantName(event.getName)};
-              |"""
-        ),
-        // Time based throttle timeout needs above time
-        event.throttle match {
-          case Some(Event.Throttle(_, Some(Event.TimeInterval(seconds, useconds)))) => lines(
-            s"""|// Check throttle value & throttle timeout
-                |{
-                |  Os::ScopeLock scopedLock(this->m_eventLock);
-                |
-                |  if (this->${eventThrottleCounterName(event.getName)} >= ${eventThrottleConstantName(event.getName)}) {
-                |    // The counter has overflowed, check if time interval has passed
-                |    if (Fw::TimeInterval(this->${eventThrottleTimeName(event.getName)}, _logTime) >= Fw::TimeInterval($seconds, $useconds)) {
-                |      // Reset the count
-                |      this->${eventThrottleCounterName(event.getName)} = 0;
-                |    } else {
-                |      // Throttle the event
-                |      return;
-                |    }
-                |  }
-                |
-                |  // Reset the throttle time if needed
-                |  if (this->${eventThrottleCounterName(event.getName)} == 0) {
-                |    // This is the first event, reset the throttle time
-                |    this->${eventThrottleTimeName(event.getName)} = _logTime;
-                |  }
-                |
-                |  // Increment the count
-                |  this->${eventThrottleCounterName(event.getName)}++;
-                |}
-                |"""
-          )
-          case _ => Nil
-        },
-        writeLogBody(id, event),
-        writeTextLogBody(event)
-      )
-    )
+  }
 
+  private def getLoggingFunction(id: Event.Id, event: Event) = {
+    functionClassMember(
+      Some(
+        addSeparatedString(
+          s"Log event ${event.getName}",
+          AnnotationCppWriter.asStringOpt(event.aNode)
+        )
+      ),
+      eventLogName(event),
+      formalParamsCppWriter.write(
+        event.aNode._2.data.params,
+        "Fw::StringBase",
+        FormalParamsCppWriter.Value
+      ),
+      CppDoc.Type("void"),
+      intersperseBlankLines(
+        List(
+          writeCodeForThrottlingEventAndGettingTime(event),
+          writeCodeForEmittingEvent(id, event),
+          writeCodeForEmittingTextEvent(event),
+        )
+      ),
+      CppDoc.Function.NonSV,
+      event.throttle match {
+        case Some(_) => CppDoc.Function.NonConst
+        case None => CppDoc.Function.Const
+      }
+    )
+  }
+
+  private def getLoggingFunctions: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "protected",
       "Event logging functions",
-      sortedEvents.map((id, event) =>
-        functionClassMember(
-          Some(
-            addSeparatedString(
-              s"Log event ${event.getName}",
-              AnnotationCppWriter.asStringOpt(event.aNode)
-            )
-          ),
-          eventLogName(event),
-          formalParamsCppWriter.write(
-            event.aNode._2.data.params,
-            "Fw::StringBase",
-            FormalParamsCppWriter.Value
-          ),
-          CppDoc.Type("void"),
-          writeBody(id, event),
-          CppDoc.Function.NonSV,
-          event.throttle match {
-            case Some(_) => CppDoc.Function.NonConst
-            case None => CppDoc.Function.Const
-          }
-        )
-      )
+      sortedEvents.map(getLoggingFunction)
     )
-  }
 
   private def getThrottleFunctions: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
@@ -363,13 +396,13 @@ case class ComponentEvents (
             eventThrottleResetName(event),
             Nil,
             CppDoc.Type("void"),
-            List(
+            List.concat(
               lines(
                 s"""|// Reset throttle counter
                     |this->${eventThrottleCounterName(event.getName)} = 0;
                     |"""
               )
-            ).flatten
+            )
           )
         ),
         throttledEventsWithTimeout.map((_, event) =>

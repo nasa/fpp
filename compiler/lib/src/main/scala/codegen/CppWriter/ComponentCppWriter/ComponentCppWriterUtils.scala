@@ -495,7 +495,7 @@ abstract class ComponentCppWriterUtils(
       case PortInstance.Special(aNode, _, _, _, _, _) => aNode._2.data match {
         case Ast.SpecPortInstance.Special(_, kind, _, _, _) => kind match {
           case Ast.SpecPortInstance.TextEvent => wrapClassMembersInIfDirective(
-            "\n#if FW_ENABLE_TEXT_LOGGING == 1",
+            "#if FW_ENABLE_TEXT_LOGGING == 1",
             writePort(p),
             output
           )
@@ -792,6 +792,10 @@ abstract class ComponentCppWriterUtils(
   def outputPortConnectorName(name: String) =
     s"set_${name}_OutputPort"
 
+  /** Gets the name for an output port connection status function */
+  def outputPortIsConnectedName(name: String) =
+    s"isConnected_${name}_OutputPort"
+
   /** Get the name for an output port invocation function */
   def outputPortInvokerName(name: String) =
     s"${name}_out"
@@ -981,7 +985,7 @@ object ComponentCppWriterUtils {
   /** Whether code generation is internal or external to the component */
   enum InternalOrExternal {
     case Internal
-    case External 
+    case External
   }
 
   /** (  parameter name, parameter type name, parameter type ) **/

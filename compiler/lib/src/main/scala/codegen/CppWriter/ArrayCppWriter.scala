@@ -409,18 +409,13 @@ case class ArrayCppWriter (
         CppDoc.Function.NonSV,
         CppDoc.Function.Const,
       )
-    ) ++ (
-      linesClassMember(
-        List(Line.blank),
-        CppDoc.Lines.Both
-      ) :: writeOstreamOperator(
-        name,
-        lines(
-          """|Fw::String s;
-             |obj.toString(s);
-             |os << s;
-             |return os;"""
-        )
+    ) ++ writeOstreamOperator(
+      name,
+      lines(
+        """|Fw::String s;
+           |obj.toString(s);
+           |os << s;
+           |return os;"""
       )
     )
 
@@ -540,7 +535,7 @@ case class ArrayCppWriter (
       )
     ) ++
       wrapClassMembersInIfDirective(
-        "\n#if FW_SERIALIZABLE_TO_STRING",
+        "#if FW_SERIALIZABLE_TO_STRING",
         List(
           functionClassMember(
             Some("Convert array to string"),

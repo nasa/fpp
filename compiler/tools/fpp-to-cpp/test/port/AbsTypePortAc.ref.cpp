@@ -4,6 +4,8 @@
 // \brief  cpp file for AbsType port
 // ======================================================================
 
+#if !FW_DIRECT_PORT_CALLS
+
 #include "AbsTypePortAc.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
@@ -184,3 +186,5 @@ void OutputAbsTypePort ::
   this->m_port->invoke(t, tRef);
 #endif
 }
+
+#endif

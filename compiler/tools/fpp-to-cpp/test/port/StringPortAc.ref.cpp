@@ -4,6 +4,8 @@
 // \brief  cpp file for String port
 // ======================================================================
 
+#if !FW_DIRECT_PORT_CALLS
+
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "StringPortAc.hpp"
@@ -210,3 +212,5 @@ void OutputStringPort ::
   this->m_port->invoke(str80, str80Ref, str100, str100Ref);
 #endif
 }
+
+#endif

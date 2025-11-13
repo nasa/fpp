@@ -9,8 +9,12 @@
 
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/InputSerializePort.hpp"
+#endif
+#if !FW_DIRECT_PORT_CALLS
 #include "Fw/Port/OutputSerializePort.hpp"
+#endif
 #include "NoArgsPortAc.hpp"
 #include "NoArgsReturnPortAc.hpp"
 #include "Os/Mutex.hpp"
@@ -64,6 +68,8 @@ class ActiveNoArgsPortsOnlyComponentBase :
         FwEnumStoreType instance = 0 //!< The instance number
     );
 
+#if !FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -98,6 +104,10 @@ class ActiveNoArgsPortsOnlyComponentBase :
         FwIndexType portNum //!< The port number
     );
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   public:
 
     // ----------------------------------------------------------------------
@@ -116,7 +126,9 @@ class ActiveNoArgsPortsOnlyComponentBase :
         Ports::InputNoArgsReturnPort* port //!< The input port
     );
 
-#if FW_PORT_SERIALIZATION
+#endif
+
+#if !FW_DIRECT_PORT_CALLS && FW_PORT_SERIALIZATION
 
   public:
 
@@ -211,14 +223,14 @@ class ActiveNoArgsPortsOnlyComponentBase :
     //! \return Whether port noArgsOut is connected
     bool isConnected_noArgsOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Check whether port noArgsReturnOut is connected
     //!
     //! \return Whether port noArgsReturnOut is connected
     bool isConnected_noArgsReturnOut_OutputPort(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
   protected:
 
@@ -246,7 +258,11 @@ class ActiveNoArgsPortsOnlyComponentBase :
         FwIndexType portNum //!< The port number
     ) = 0;
 
+#if FW_DIRECT_PORT_CALLS
+  public:
+#else
   protected:
+#endif
 
     // ----------------------------------------------------------------------
     // Port handler base-class functions for typed input ports
@@ -298,12 +314,12 @@ class ActiveNoArgsPortsOnlyComponentBase :
     //! Invoke output port noArgsOut
     void noArgsOut_out(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
     //! Invoke output port noArgsReturnOut
     U32 noArgsReturnOut_out(
         FwIndexType portNum //!< The port number
-    );
+    ) const;
 
   protected:
 
@@ -359,6 +375,8 @@ class ActiveNoArgsPortsOnlyComponentBase :
         FwIndexType portNum //!< The port number
     );
 
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -377,6 +395,10 @@ class ActiveNoArgsPortsOnlyComponentBase :
     //! Input port noArgsReturnSync
     Ports::InputNoArgsReturnPort m_noArgsReturnSync_InputPort[NUM_NOARGSRETURNSYNC_INPUT_PORTS];
 
+#endif
+
+#if !FW_DIRECT_PORT_CALLS
+
   private:
 
     // ----------------------------------------------------------------------
@@ -388,6 +410,8 @@ class ActiveNoArgsPortsOnlyComponentBase :
 
     //! Output port noArgsReturnOut
     Ports::OutputNoArgsReturnPort m_noArgsReturnOut_OutputPort[NUM_NOARGSRETURNOUT_OUTPUT_PORTS];
+
+#endif
 
   private:
 
