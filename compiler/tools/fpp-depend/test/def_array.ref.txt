@@ -4,4 +4,3 @@
 [ local path prefix ]/compiler/tools/fpp-depend/test/a.fpp
 [ local path prefix ]/compiler/tools/fpp-depend/test/b.fpp
 [ local path prefix ]/compiler/tools/fpp-depend/test/d.fpp
-[ local path prefix ]/compiler/tools/fpp-depend/test/def_array.fpp

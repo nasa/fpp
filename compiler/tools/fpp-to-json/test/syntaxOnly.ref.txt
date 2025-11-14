@@ -1872,131 +1872,129 @@
                                               "data" : {
                                                 "name" : "P",
                                                 "members" : [
-                                                  {
-                                                    "node" : [
-                                                      [
-                                                      ],
-                                                      {
-                                                        "SpecTlmPacket" : {
-                                                          "node" : {
-                                                            "AstNode" : {
-                                                              "data" : {
-                                                                "name" : "P1",
-                                                                "id" : {
-                                                                  "Some" : {
-                                                                    "AstNode" : {
-                                                                      "data" : {
-                                                                        "ExprLiteralInt" : {
-                                                                          "value" : "0"
-                                                                        }
-                                                                      },
-                                                                      "id" : 901
-                                                                    }
-                                                                  }
-                                                                },
-                                                                "group" : {
+                                                  [
+                                                    [
+                                                    ],
+                                                    {
+                                                      "SpecTlmPacket" : {
+                                                        "node" : {
+                                                          "AstNode" : {
+                                                            "data" : {
+                                                              "name" : "P1",
+                                                              "id" : {
+                                                                "Some" : {
                                                                   "AstNode" : {
                                                                     "data" : {
                                                                       "ExprLiteralInt" : {
                                                                         "value" : "0"
                                                                       }
                                                                     },
-                                                                    "id" : 902
+                                                                    "id" : 901
+                                                                  }
+                                                                }
+                                                              },
+                                                              "group" : {
+                                                                "AstNode" : {
+                                                                  "data" : {
+                                                                    "ExprLiteralInt" : {
+                                                                      "value" : "0"
+                                                                    }
+                                                                  },
+                                                                  "id" : 902
+                                                                }
+                                                              },
+                                                              "members" : [
+                                                                {
+                                                                  "TlmChannelIdentifier" : {
+                                                                    "node" : {
+                                                                      "AstNode" : {
+                                                                        "data" : {
+                                                                          "componentInstance" : {
+                                                                            "AstNode" : {
+                                                                              "data" : {
+                                                                                "Unqualified" : {
+                                                                                  "name" : "g"
+                                                                                }
+                                                                              },
+                                                                              "id" : 905
+                                                                            }
+                                                                          },
+                                                                          "channelName" : {
+                                                                            "AstNode" : {
+                                                                              "data" : "T",
+                                                                              "id" : 904
+                                                                            }
+                                                                          }
+                                                                        },
+                                                                        "id" : 906
+                                                                      }
+                                                                    }
                                                                   }
                                                                 },
-                                                                "members" : [
-                                                                  {
-                                                                    "TlmChannelIdentifier" : {
-                                                                      "node" : {
-                                                                        "AstNode" : {
-                                                                          "data" : {
-                                                                            "componentInstance" : {
-                                                                              "AstNode" : {
-                                                                                "data" : {
-                                                                                  "Unqualified" : {
-                                                                                    "name" : "g"
-                                                                                  }
-                                                                                },
-                                                                                "id" : 905
-                                                                              }
-                                                                            },
-                                                                            "channelName" : {
-                                                                              "AstNode" : {
-                                                                                "data" : "T",
-                                                                                "id" : 904
-                                                                              }
+                                                                {
+                                                                  "TlmChannelIdentifier" : {
+                                                                    "node" : {
+                                                                      "AstNode" : {
+                                                                        "data" : {
+                                                                          "componentInstance" : {
+                                                                            "AstNode" : {
+                                                                              "data" : {
+                                                                                "Unqualified" : {
+                                                                                  "name" : "h"
+                                                                                }
+                                                                              },
+                                                                              "id" : 909
                                                                             }
                                                                           },
-                                                                          "id" : 906
-                                                                        }
-                                                                      }
-                                                                    }
-                                                                  },
-                                                                  {
-                                                                    "TlmChannelIdentifier" : {
-                                                                      "node" : {
-                                                                        "AstNode" : {
-                                                                          "data" : {
-                                                                            "componentInstance" : {
-                                                                              "AstNode" : {
-                                                                                "data" : {
-                                                                                  "Unqualified" : {
-                                                                                    "name" : "h"
-                                                                                  }
-                                                                                },
-                                                                                "id" : 909
-                                                                              }
-                                                                            },
-                                                                            "channelName" : {
-                                                                              "AstNode" : {
-                                                                                "data" : "T",
-                                                                                "id" : 908
-                                                                              }
+                                                                          "channelName" : {
+                                                                            "AstNode" : {
+                                                                              "data" : "T",
+                                                                              "id" : 908
                                                                             }
-                                                                          },
-                                                                          "id" : 910
-                                                                        }
-                                                                      }
-                                                                    }
-                                                                  },
-                                                                  {
-                                                                    "TlmChannelIdentifier" : {
-                                                                      "node" : {
-                                                                        "AstNode" : {
-                                                                          "data" : {
-                                                                            "componentInstance" : {
-                                                                              "AstNode" : {
-                                                                                "data" : {
-                                                                                  "Unqualified" : {
-                                                                                    "name" : "i"
-                                                                                  }
-                                                                                },
-                                                                                "id" : 913
-                                                                              }
-                                                                            },
-                                                                            "channelName" : {
-                                                                              "AstNode" : {
-                                                                                "data" : "T",
-                                                                                "id" : 912
-                                                                              }
-                                                                            }
-                                                                          },
-                                                                          "id" : 914
-                                                                        }
+                                                                          }
+                                                                        },
+                                                                        "id" : 910
                                                                       }
                                                                     }
                                                                   }
-                                                                ]
-                                                              },
-                                                              "id" : 915
-                                                            }
+                                                                },
+                                                                {
+                                                                  "TlmChannelIdentifier" : {
+                                                                    "node" : {
+                                                                      "AstNode" : {
+                                                                        "data" : {
+                                                                          "componentInstance" : {
+                                                                            "AstNode" : {
+                                                                              "data" : {
+                                                                                "Unqualified" : {
+                                                                                  "name" : "i"
+                                                                                }
+                                                                              },
+                                                                              "id" : 913
+                                                                            }
+                                                                          },
+                                                                          "channelName" : {
+                                                                            "AstNode" : {
+                                                                              "data" : "T",
+                                                                              "id" : 912
+                                                                            }
+                                                                          }
+                                                                        },
+                                                                        "id" : 914
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              ]
+                                                            },
+                                                            "id" : 915
                                                           }
                                                         }
-                                                      },
-                                                      [
-                                                      ]
+                                                      }
+                                                    },
+                                                    [
                                                     ]
-                                                  }
+                                                  ]
                                                 ],
                                                 "omitted" : [
                                                   {

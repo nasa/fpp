@@ -6263,6 +6263,9 @@
           "unqualifiedName" : "SignalSet"
         }
       }
-    ]
+    ],
+    "interfaceMap" : {
+      
+    }
   }
 }
