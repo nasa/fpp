@@ -65,6 +65,10 @@ object AstJsonEncoder extends JsonEncoder {
   private implicit val moduleMemberEncoder: Encoder[Ast.ModuleMember] =
     Encoder.instance((m: Ast.ModuleMember) => m.node.asJson)
 
+  // JSON encoder for interface members
+  private implicit val interfaceMemberEncoder: Encoder[Ast.InterfaceMember] =
+    Encoder.instance((m: Ast.InterfaceMember) => m.node.asJson)
+
   // JSON encoder for state machine members
   private implicit val stateMachineMemberEncoder: Encoder[Ast.StateMachineMember] =
     Encoder.instance((m: Ast.StateMachineMember) => m.node.asJson)
@@ -72,6 +76,10 @@ object AstJsonEncoder extends JsonEncoder {
   // JSON encoder for state members
   private implicit val stateMemberEncoder: Encoder[Ast.StateMember] =
     Encoder.instance((m: Ast.StateMember) => m.node.asJson)
+
+  // JSON encoder for tlm packet set members
+  private implicit val tlmPacketSetMember: Encoder[Ast.TlmPacketSetMember] =
+    Encoder.instance((m: Ast.TlmPacketSetMember) => m.node.asJson)
 
   // JSON encoder for topology members
   private implicit val topologyMemberEncoder: Encoder[Ast.TopologyMember] =

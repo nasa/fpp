@@ -6255,5 +6255,8 @@
         "unqualifiedName" : "SignalSet"
       }
     }
-  ]
+  ],
+  "interfaceMap" : {
+    
+  }
 }
