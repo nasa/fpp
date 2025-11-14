@@ -356,20 +356,23 @@ object AnalysisJsonEncoder extends JsonEncoder{
   /** Converts the Analysis data structure to JSON */
   def analysisToJson(a: Analysis): Json = {
     Json.obj(
-      "componentInstanceMap" -> a.componentInstanceMap.asJson,
-      "componentMap" -> a.componentMap.asJson,
-      "includedFileSet" -> a.includedFileSet.asJson,
-      "inputFileSet" -> a.inputFileSet.asJson,
-      "locationSpecifierMap" -> a.locationSpecifierMap.asJson,
-      "parentSymbolMap" -> a.parentSymbolMap.asJson,
-      "symbolScopeMap" -> a.symbolScopeMap.asJson,
-      "topologyMap" -> a.topologyMap.asJson,
-      "typeMap" -> a.typeMap.asJson,
-      "useDefMap" -> a.useDefMap.asJson,
-      "valueMap" -> a.valueMap.asJson,
-      "stateMachineMap" -> a.stateMachineMap.asJson,
-      "dictionarySymbolSet" -> a.dictionarySymbolSet.asJson,
-      "interfaceMap" -> a.interfaceMap.asJson
+      "fppVersion" -> Version.v.asJson,
+      "analysis" -> Json.obj(
+        "componentInstanceMap" -> a.componentInstanceMap.asJson,
+        "componentMap" -> a.componentMap.asJson,
+        "includedFileSet" -> a.includedFileSet.asJson,
+        "inputFileSet" -> a.inputFileSet.asJson,
+        "locationSpecifierMap" -> a.locationSpecifierMap.asJson,
+        "parentSymbolMap" -> a.parentSymbolMap.asJson,
+        "symbolScopeMap" -> a.symbolScopeMap.asJson,
+        "topologyMap" -> a.topologyMap.asJson,
+        "typeMap" -> a.typeMap.asJson,
+        "useDefMap" -> a.useDefMap.asJson,
+        "valueMap" -> a.valueMap.asJson,
+        "stateMachineMap" -> a.stateMachineMap.asJson,
+        "dictionarySymbolSet" -> a.dictionarySymbolSet.asJson,
+        "interfaceMap" -> a.interfaceMap.asJson
+      )
     )
   }
 
