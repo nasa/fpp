@@ -33,6 +33,13 @@ case class StructCppWriter(
 
   private val formats = structType.formats
 
+  private val defaultValue = structType.getDefaultValue match {
+    case Some(s) => Some(s.anonStruct)
+    case None => structType.anonStruct.getDefaultValue
+  }
+
+  private def defaultValueMembers = defaultValue.get.members
+
   // List of tuples (<memberName>, <memberTypeName>)
   // Preserves ordering of struct members
   private val memberList = astMembers.map((_, node, _) => {
@@ -48,36 +55,26 @@ case class StructCppWriter(
 
   private val nonArrayMemberNames = memberNames.filterNot(sizes.contains)
 
-  private val defaultMemberNames = {
-    val defaultValue = getDefaultValues
+  private val defaultMemberNames =
     structType.anonStruct.members.filter((name, ty) => {
       ty.getUnderlyingType match {
         case _: Type.String => false
         case _ => {
-          val memberDefault = defaultValue(name);
+          val memberDefault = defaultValueMembers(name);
           ty.getDefaultValue match {
-            case Some(typeDefault) => {
+            case Some(typeDefault) =>
               typeDefault == memberDefault
-            }
             case None => false
           }
         }
       }
     }).map((n, _) => n).toList
-  }
 
-  private val nonInitializerListArrayMemberNames = memberNames.filter((name) => (sizes.contains(name) && !defaultMemberNames.contains(name)))
+  private val nonInitializerListArrayMemberNames = memberNames.filter((name) =>
+      (sizes.contains(name) && !defaultMemberNames.contains(name)))
 
-  private val initializerListMemberNames = memberNames.filter((name) => defaultMemberNames.contains(name) || !sizes.contains(name))
-
-  // Returns map from member name to its default value
-  private def getDefaultValues = {
-    val defaultValue = structType.getDefaultValue match {
-      case Some(s) => Some(s.anonStruct)
-      case None => structType.anonStruct.getDefaultValue
-    }
-    defaultValue.get.members
-  }
+  private val initializerListMemberNames = memberNames.filter((name) =>
+      defaultMemberNames.contains(name) || !sizes.contains(name))
 
   private def getFormatStr(n: String) =
     if formats.contains(n) then formats(n)
@@ -191,7 +188,6 @@ case class StructCppWriter(
   }
 
   private def getConstructorMembers: List[CppDoc.Class.Member] = {
-    val defaultValues = getDefaultValues
     // Write this constructor only if the struct has an array member
     // In this case, the constructor provides scalar initialization
     // of the array members.
@@ -219,14 +215,14 @@ case class StructCppWriter(
         Nil,
         "Serializable()" :: initializerListMemberNames.map(n => {
           if defaultMemberNames.contains(n) then s"m_$n{}"
-          else defaultValues(n) match {
+          else defaultValueMembers(n) match {
             case v: Value.Struct => s"m_$n(${ValueCppWriter.writeStructMembers(s, v)})"
             case _: Value.AbsType => s"m_$n()"
             case v => writeInitializer(n, ValueCppWriter.write(s, v))
           }
         }),
         nonInitializerListArrayMemberNames.flatMap(n => writeArrayMemberSetter(
-          n, ValueCppWriter.write(s, defaultValues(n)
+          n, ValueCppWriter.write(s, defaultValueMembers(n)
         )))
       ),
       constructorClassMember(
