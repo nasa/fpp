@@ -178,7 +178,7 @@ void PassiveSerial ::
 void PassiveSerial ::
   serialGuarded_handler(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // TODO
@@ -187,7 +187,7 @@ void PassiveSerial ::
 void PassiveSerial ::
   serialSync_handler(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // TODO

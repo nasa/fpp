@@ -22,26 +22,13 @@ object ComputeDependencies {
       }
       a <- BuildSpecLocMap.visitList(a, tul, BuildSpecLocMap.transUnit)
       a <- ConstructImpliedUseMap.visitList(a, tul, ConstructImpliedUseMap.transUnit)
-      a <- MapUsesToLocs.visitList(a, tul, MapUsesToLocs.transUnit)
-      a <- Right(addDictionaryDependencies(a))
+      a <- AddDependencies.visitList(a, tul, AddDependencies.transUnit)
     }
     yield {
       val includedFileSet = a.includedFileSet
       val dependencyFileSet = a.dependencyFileSet.diff(includedFileSet)
       a.copy(level = a.level - 1, dependencyFileSet = dependencyFileSet)
     }
-  }
-
-  // Adds the dictionary dependencies to the dependency file set
-  private def addDictionaryDependencies(a: Analysis) = {
-    val dfs = a.locationSpecifierMap.foldLeft (a.dependencyFileSet) {
-      case (s, (_, node)) => {
-        if node.data.isDictionaryDef
-        then s + Locations.get(node.data.file.id).file
-        else s
-      }
-    }
-    a.copy(dependencyFileSet = dfs)
   }
 
 }

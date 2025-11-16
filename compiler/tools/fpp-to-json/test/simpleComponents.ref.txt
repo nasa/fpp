@@ -1,1796 +1,1808 @@
-[
-  {
-    "members" : [
-      [
+{
+  "fppVersion" : "[ fpp version ]",
+  "ast" : [
+    {
+      "members" : [
         [
-          "A port for carrying an F32 value"
-        ],
-        {
-          "DefPort" : {
-            "node" : {
-              "AstNode" : {
-                "data" : {
-                  "name" : "F32Value",
-                  "params" : [
-                    [
+          [
+            "A port for carrying an F32 value"
+          ],
+          {
+            "DefPort" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "F32Value",
+                    "params" : [
                       [
-                      ],
-                      {
-                        "AstNode" : {
-                          "data" : {
-                            "kind" : {
-                              "Value" : {
-                                
+                        [
+                        ],
+                        {
+                          "AstNode" : {
+                            "data" : {
+                              "kind" : {
+                                "Value" : {
+                                  
+                                }
+                              },
+                              "name" : "value",
+                              "typeName" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "TypeNameFloat" : {
+                                      "name" : {
+                                        "F32" : {
+                                          
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "id" : 4
+                                }
                               }
                             },
-                            "name" : "value",
-                            "typeName" : {
+                            "id" : 5
+                          }
+                        },
+                        [
+                        ]
+                      ]
+                    ],
+                    "returnType" : "None"
+                  },
+                  "id" : 6
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+            "A passive component for adding two F32 values"
+          ],
+          {
+            "DefComponent" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "kind" : {
+                      "Passive" : {
+                        
+                      }
+                    },
+                    "name" : "PassiveF32Adder",
+                    "members" : [
+                      [
+                        [
+                          "Input 1"
+                        ],
+                        {
+                          "SpecPortInstance" : {
+                            "node" : {
                               "AstNode" : {
                                 "data" : {
-                                  "TypeNameFloat" : {
-                                    "name" : {
-                                      "F32" : {
+                                  "General" : {
+                                    "kind" : {
+                                      "SyncInput" : {
                                         
+                                      }
+                                    },
+                                    "name" : "f32ValueIn1",
+                                    "size" : "None",
+                                    "port" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "Unqualified" : {
+                                              "name" : "F32Value"
+                                            }
+                                          },
+                                          "id" : 8
+                                        }
+                                      }
+                                    },
+                                    "priority" : "None",
+                                    "queueFull" : "None"
+                                  }
+                                },
+                                "id" : 9
+                              }
+                            }
+                          }
+                        },
+                        [
+                        ]
+                      ],
+                      [
+                        [
+                          "Input 2"
+                        ],
+                        {
+                          "SpecPortInstance" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "General" : {
+                                    "kind" : {
+                                      "SyncInput" : {
+                                        
+                                      }
+                                    },
+                                    "name" : "f32ValueIn2",
+                                    "size" : "None",
+                                    "port" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "Unqualified" : {
+                                              "name" : "F32Value"
+                                            }
+                                          },
+                                          "id" : 11
+                                        }
+                                      }
+                                    },
+                                    "priority" : "None",
+                                    "queueFull" : "None"
+                                  }
+                                },
+                                "id" : 12
+                              }
+                            }
+                          }
+                        },
+                        [
+                        ]
+                      ],
+                      [
+                        [
+                          "Output"
+                        ],
+                        {
+                          "SpecPortInstance" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "General" : {
+                                    "kind" : {
+                                      "Output" : {
+                                        
+                                      }
+                                    },
+                                    "name" : "f32ValueOut",
+                                    "size" : "None",
+                                    "port" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "Unqualified" : {
+                                              "name" : "F32Value"
+                                            }
+                                          },
+                                          "id" : 20
+                                        }
+                                      }
+                                    },
+                                    "priority" : "None",
+                                    "queueFull" : "None"
+                                  }
+                                },
+                                "id" : 21
+                              }
+                            }
+                          }
+                        },
+                        [
+                        ]
+                      ]
+                    ]
+                  },
+                  "id" : 22
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+            "An active component for adding two F32 values"
+          ],
+          {
+            "DefComponent" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "kind" : {
+                      "Active" : {
+                        
+                      }
+                    },
+                    "name" : "ActiveF32Adder",
+                    "members" : [
+                      [
+                        [
+                          "Input 1"
+                        ],
+                        {
+                          "SpecPortInstance" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "General" : {
+                                    "kind" : {
+                                      "AsyncInput" : {
+                                        
+                                      }
+                                    },
+                                    "name" : "f32ValueIn1",
+                                    "size" : "None",
+                                    "port" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "Unqualified" : {
+                                              "name" : "F32Value"
+                                            }
+                                          },
+                                          "id" : 24
+                                        }
+                                      }
+                                    },
+                                    "priority" : "None",
+                                    "queueFull" : "None"
+                                  }
+                                },
+                                "id" : 25
+                              }
+                            }
+                          }
+                        },
+                        [
+                        ]
+                      ],
+                      [
+                        [
+                          "Input 2"
+                        ],
+                        {
+                          "SpecPortInstance" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "General" : {
+                                    "kind" : {
+                                      "AsyncInput" : {
+                                        
+                                      }
+                                    },
+                                    "name" : "f32ValueIn2",
+                                    "size" : "None",
+                                    "port" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "Unqualified" : {
+                                              "name" : "F32Value"
+                                            }
+                                          },
+                                          "id" : 27
+                                        }
+                                      }
+                                    },
+                                    "priority" : "None",
+                                    "queueFull" : "None"
+                                  }
+                                },
+                                "id" : 28
+                              }
+                            }
+                          }
+                        },
+                        [
+                        ]
+                      ],
+                      [
+                        [
+                          "Output"
+                        ],
+                        {
+                          "SpecPortInstance" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "General" : {
+                                    "kind" : {
+                                      "Output" : {
+                                        
+                                      }
+                                    },
+                                    "name" : "f32ValueOut",
+                                    "size" : "None",
+                                    "port" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "Unqualified" : {
+                                              "name" : "F32Value"
+                                            }
+                                          },
+                                          "id" : 36
+                                        }
+                                      }
+                                    },
+                                    "priority" : "None",
+                                    "queueFull" : "None"
+                                  }
+                                },
+                                "id" : 37
+                              }
+                            }
+                          }
+                        },
+                        [
+                        ]
+                      ]
+                    ]
+                  },
+                  "id" : 38
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+            "An active component for adding two F32 values",
+            "Uses specified priorities"
+          ],
+          {
+            "DefComponent" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "kind" : {
+                      "Active" : {
+                        
+                      }
+                    },
+                    "name" : "PriorityActiveF32Adder",
+                    "members" : [
+                      [
+                        [
+                          "Input 1 at priority 10"
+                        ],
+                        {
+                          "SpecPortInstance" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "General" : {
+                                    "kind" : {
+                                      "AsyncInput" : {
+                                        
+                                      }
+                                    },
+                                    "name" : "f32ValueIn1",
+                                    "size" : "None",
+                                    "port" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "Unqualified" : {
+                                              "name" : "F32Value"
+                                            }
+                                          },
+                                          "id" : 40
+                                        }
+                                      }
+                                    },
+                                    "priority" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "ExprLiteralInt" : {
+                                              "value" : "10"
+                                            }
+                                          },
+                                          "id" : 41
+                                        }
+                                      }
+                                    },
+                                    "queueFull" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "Block" : {
+                                              
+                                            }
+                                          },
+                                          "id" : 42
+                                        }
                                       }
                                     }
                                   }
                                 },
-                                "id" : 4
+                                "id" : 43
                               }
                             }
-                          },
-                          "id" : 5
-                        }
-                      },
-                      [
-                      ]
-                    ]
-                  ],
-                  "returnType" : "None"
-                },
-                "id" : 6
-              }
-            }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
-          "A passive component for adding two F32 values"
-        ],
-        {
-          "DefComponent" : {
-            "node" : {
-              "AstNode" : {
-                "data" : {
-                  "kind" : {
-                    "Passive" : {
-                      
-                    }
-                  },
-                  "name" : "PassiveF32Adder",
-                  "members" : [
-                    [
-                      [
-                        "Input 1"
-                      ],
-                      {
-                        "SpecPortInstance" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "General" : {
-                                  "kind" : {
-                                    "SyncInput" : {
-                                      
-                                    }
-                                  },
-                                  "name" : "f32ValueIn1",
-                                  "size" : "None",
-                                  "port" : {
-                                    "Some" : {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "Unqualified" : {
-                                            "name" : "F32Value"
-                                          }
-                                        },
-                                        "id" : 8
-                                      }
-                                    }
-                                  },
-                                  "priority" : "None",
-                                  "queueFull" : "None"
-                                }
-                              },
-                              "id" : 9
-                            }
                           }
-                        }
-                      },
-                      [
-                      ]
-                    ],
-                    [
-                      [
-                        "Input 2"
+                        },
+                        [
+                        ]
                       ],
-                      {
-                        "SpecPortInstance" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "General" : {
-                                  "kind" : {
-                                    "SyncInput" : {
-                                      
-                                    }
-                                  },
-                                  "name" : "f32ValueIn2",
-                                  "size" : "None",
-                                  "port" : {
-                                    "Some" : {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "Unqualified" : {
-                                            "name" : "F32Value"
-                                          }
-                                        },
-                                        "id" : 11
+                      [
+                        [
+                          "Input 2 at priority 20"
+                        ],
+                        {
+                          "SpecPortInstance" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "General" : {
+                                    "kind" : {
+                                      "AsyncInput" : {
+                                        
                                       }
-                                    }
-                                  },
-                                  "priority" : "None",
-                                  "queueFull" : "None"
-                                }
-                              },
-                              "id" : 12
-                            }
-                          }
-                        }
-                      },
-                      [
-                      ]
-                    ],
-                    [
-                      [
-                        "Output"
-                      ],
-                      {
-                        "SpecPortInstance" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "General" : {
-                                  "kind" : {
-                                    "Output" : {
-                                      
-                                    }
-                                  },
-                                  "name" : "f32ValueOut",
-                                  "size" : "None",
-                                  "port" : {
-                                    "Some" : {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "Unqualified" : {
-                                            "name" : "F32Value"
-                                          }
-                                        },
-                                        "id" : 20
+                                    },
+                                    "name" : "f32ValueIn2",
+                                    "size" : "None",
+                                    "port" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "Unqualified" : {
+                                              "name" : "F32Value"
+                                            }
+                                          },
+                                          "id" : 45
+                                        }
                                       }
-                                    }
-                                  },
-                                  "priority" : "None",
-                                  "queueFull" : "None"
-                                }
-                              },
-                              "id" : 21
-                            }
-                          }
-                        }
-                      },
-                      [
-                      ]
-                    ]
-                  ]
-                },
-                "id" : 22
-              }
-            }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
-          "An active component for adding two F32 values"
-        ],
-        {
-          "DefComponent" : {
-            "node" : {
-              "AstNode" : {
-                "data" : {
-                  "kind" : {
-                    "Active" : {
-                      
-                    }
-                  },
-                  "name" : "ActiveF32Adder",
-                  "members" : [
-                    [
-                      [
-                        "Input 1"
-                      ],
-                      {
-                        "SpecPortInstance" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "General" : {
-                                  "kind" : {
-                                    "AsyncInput" : {
-                                      
-                                    }
-                                  },
-                                  "name" : "f32ValueIn1",
-                                  "size" : "None",
-                                  "port" : {
-                                    "Some" : {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "Unqualified" : {
-                                            "name" : "F32Value"
-                                          }
-                                        },
-                                        "id" : 24
+                                    },
+                                    "priority" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "ExprLiteralInt" : {
+                                              "value" : "20"
+                                            }
+                                          },
+                                          "id" : 46
+                                        }
                                       }
-                                    }
-                                  },
-                                  "priority" : "None",
-                                  "queueFull" : "None"
-                                }
-                              },
-                              "id" : 25
-                            }
-                          }
-                        }
-                      },
-                      [
-                      ]
-                    ],
-                    [
-                      [
-                        "Input 2"
-                      ],
-                      {
-                        "SpecPortInstance" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "General" : {
-                                  "kind" : {
-                                    "AsyncInput" : {
-                                      
-                                    }
-                                  },
-                                  "name" : "f32ValueIn2",
-                                  "size" : "None",
-                                  "port" : {
-                                    "Some" : {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "Unqualified" : {
-                                            "name" : "F32Value"
-                                          }
-                                        },
-                                        "id" : 27
-                                      }
-                                    }
-                                  },
-                                  "priority" : "None",
-                                  "queueFull" : "None"
-                                }
-                              },
-                              "id" : 28
-                            }
-                          }
-                        }
-                      },
-                      [
-                      ]
-                    ],
-                    [
-                      [
-                        "Output"
-                      ],
-                      {
-                        "SpecPortInstance" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "General" : {
-                                  "kind" : {
-                                    "Output" : {
-                                      
-                                    }
-                                  },
-                                  "name" : "f32ValueOut",
-                                  "size" : "None",
-                                  "port" : {
-                                    "Some" : {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "Unqualified" : {
-                                            "name" : "F32Value"
-                                          }
-                                        },
-                                        "id" : 36
-                                      }
-                                    }
-                                  },
-                                  "priority" : "None",
-                                  "queueFull" : "None"
-                                }
-                              },
-                              "id" : 37
-                            }
-                          }
-                        }
-                      },
-                      [
-                      ]
-                    ]
-                  ]
-                },
-                "id" : 38
-              }
-            }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
-          "An active component for adding two F32 values",
-          "Uses specified priorities"
-        ],
-        {
-          "DefComponent" : {
-            "node" : {
-              "AstNode" : {
-                "data" : {
-                  "kind" : {
-                    "Active" : {
-                      
-                    }
-                  },
-                  "name" : "PriorityActiveF32Adder",
-                  "members" : [
-                    [
-                      [
-                        "Input 1 at priority 10"
-                      ],
-                      {
-                        "SpecPortInstance" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "General" : {
-                                  "kind" : {
-                                    "AsyncInput" : {
-                                      
-                                    }
-                                  },
-                                  "name" : "f32ValueIn1",
-                                  "size" : "None",
-                                  "port" : {
-                                    "Some" : {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "Unqualified" : {
-                                            "name" : "F32Value"
-                                          }
-                                        },
-                                        "id" : 40
-                                      }
-                                    }
-                                  },
-                                  "priority" : {
-                                    "Some" : {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "ExprLiteralInt" : {
-                                            "value" : "10"
-                                          }
-                                        },
-                                        "id" : 41
-                                      }
-                                    }
-                                  },
-                                  "queueFull" : {
-                                    "Some" : {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "Block" : {
-                                            
-                                          }
-                                        },
-                                        "id" : 42
+                                    },
+                                    "queueFull" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "Drop" : {
+                                              
+                                            }
+                                          },
+                                          "id" : 47
+                                        }
                                       }
                                     }
                                   }
-                                }
-                              },
-                              "id" : 43
+                                },
+                                "id" : 48
+                              }
                             }
                           }
-                        }
-                      },
-                      [
-                      ]
-                    ],
-                    [
-                      [
-                        "Input 2 at priority 20"
+                        },
+                        [
+                        ]
                       ],
-                      {
-                        "SpecPortInstance" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "General" : {
-                                  "kind" : {
-                                    "AsyncInput" : {
-                                      
-                                    }
-                                  },
-                                  "name" : "f32ValueIn2",
-                                  "size" : "None",
-                                  "port" : {
-                                    "Some" : {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "Unqualified" : {
-                                            "name" : "F32Value"
-                                          }
-                                        },
-                                        "id" : 45
+                      [
+                        [
+                          "Output"
+                        ],
+                        {
+                          "SpecPortInstance" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "General" : {
+                                    "kind" : {
+                                      "Output" : {
+                                        
                                       }
-                                    }
-                                  },
-                                  "priority" : {
-                                    "Some" : {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "ExprLiteralInt" : {
-                                            "value" : "20"
-                                          }
-                                        },
-                                        "id" : 46
+                                    },
+                                    "name" : "f32ValueOut",
+                                    "size" : "None",
+                                    "port" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "Unqualified" : {
+                                              "name" : "F32Value"
+                                            }
+                                          },
+                                          "id" : 56
+                                        }
                                       }
-                                    }
-                                  },
-                                  "queueFull" : {
-                                    "Some" : {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "Drop" : {
-                                            
-                                          }
-                                        },
-                                        "id" : 47
-                                      }
-                                    }
+                                    },
+                                    "priority" : "None",
+                                    "queueFull" : "None"
                                   }
-                                }
-                              },
-                              "id" : 48
+                                },
+                                "id" : 57
+                              }
                             }
                           }
-                        }
-                      },
-                      [
-                      ]
-                    ],
-                    [
-                      [
-                        "Output"
-                      ],
-                      {
-                        "SpecPortInstance" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "General" : {
-                                  "kind" : {
-                                    "Output" : {
-                                      
-                                    }
-                                  },
-                                  "name" : "f32ValueOut",
-                                  "size" : "None",
-                                  "port" : {
-                                    "Some" : {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "Unqualified" : {
-                                            "name" : "F32Value"
-                                          }
-                                        },
-                                        "id" : 56
-                                      }
-                                    }
-                                  },
-                                  "priority" : "None",
-                                  "queueFull" : "None"
-                                }
-                              },
-                              "id" : 57
-                            }
-                          }
-                        }
-                      },
-                      [
+                        },
+                        [
+                        ]
                       ]
                     ]
-                  ]
-                },
-                "id" : 58
+                  },
+                  "id" : 58
+                }
               }
             }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
-          "Split factor"
+          },
+          [
+          ]
         ],
-        {
-          "DefConstant" : {
-            "node" : {
-              "AstNode" : {
-                "data" : {
-                  "name" : "splitFactor",
-                  "value" : {
-                    "AstNode" : {
-                      "data" : {
-                        "ExprLiteralInt" : {
-                          "value" : "10"
-                        }
-                      },
-                      "id" : 59
-                    }
-                  },
-                  "isDictionaryDef" : false
-                },
-                "id" : 60
-              }
-            }
-          }
-        },
         [
-        ]
-      ],
-      [
-        [
-          "Component for splitting a serial data stream"
-        ],
-        {
-          "DefComponent" : {
-            "node" : {
-              "AstNode" : {
-                "data" : {
-                  "kind" : {
-                    "Passive" : {
-                      
-                    }
-                  },
-                  "name" : "SerialSplitter",
-                  "members" : [
-                    [
-                      [
-                        "Input"
-                      ],
-                      {
-                        "SpecPortInstance" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "General" : {
-                                  "kind" : {
-                                    "SyncInput" : {
-                                      
-                                    }
-                                  },
-                                  "name" : "serialIn",
-                                  "size" : "None",
-                                  "port" : "None",
-                                  "priority" : "None",
-                                  "queueFull" : "None"
-                                }
-                              },
-                              "id" : 61
-                            }
+          [
+            "Split factor"
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "splitFactor",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "10"
                           }
-                        }
-                      },
+                        },
+                        "id" : 59
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 60
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+            "Component for splitting a serial data stream"
+          ],
+          {
+            "DefComponent" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "kind" : {
+                      "Passive" : {
+                        
+                      }
+                    },
+                    "name" : "SerialSplitter",
+                    "members" : [
                       [
-                      ]
-                    ],
-                    [
-                      [
-                        "Output"
-                      ],
-                      {
-                        "SpecPortInstance" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "General" : {
-                                  "kind" : {
-                                    "Output" : {
-                                      
-                                    }
-                                  },
-                                  "name" : "serialOut",
-                                  "size" : {
-                                    "Some" : {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "ExprIdent" : {
-                                            "value" : "splitFactor"
-                                          }
-                                        },
-                                        "id" : 66
+                        [
+                          "Input"
+                        ],
+                        {
+                          "SpecPortInstance" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "General" : {
+                                    "kind" : {
+                                      "SyncInput" : {
+                                        
                                       }
-                                    }
-                                  },
-                                  "port" : "None",
-                                  "priority" : "None",
-                                  "queueFull" : "None"
-                                }
-                              },
-                              "id" : 67
+                                    },
+                                    "name" : "serialIn",
+                                    "size" : "None",
+                                    "port" : "None",
+                                    "priority" : "None",
+                                    "queueFull" : "None"
+                                  }
+                                },
+                                "id" : 61
+                              }
                             }
                           }
-                        }
-                      },
+                        },
+                        [
+                        ]
+                      ],
                       [
+                        [
+                          "Output"
+                        ],
+                        {
+                          "SpecPortInstance" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "General" : {
+                                    "kind" : {
+                                      "Output" : {
+                                        
+                                      }
+                                    },
+                                    "name" : "serialOut",
+                                    "size" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "ExprIdent" : {
+                                              "value" : "splitFactor"
+                                            }
+                                          },
+                                          "id" : 66
+                                        }
+                                      }
+                                    },
+                                    "port" : "None",
+                                    "priority" : "None",
+                                    "queueFull" : "None"
+                                  }
+                                },
+                                "id" : 67
+                              }
+                            }
+                          }
+                        },
+                        [
+                        ]
                       ]
                     ]
-                  ]
-                },
-                "id" : 68
+                  },
+                  "id" : 68
+                }
               }
             }
-          }
-        },
-        [
+          },
+          [
+          ]
         ]
       ]
-    ]
-  }
-]
+    }
+  ]
+}
 {
-  "0" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "2.22",
-    "includingLoc" : "None"
-  },
-  "1" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "2.15",
-    "includingLoc" : "None"
-  },
-  "2" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "2.22",
-    "includingLoc" : "None"
-  },
-  "3" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "2.15",
-    "includingLoc" : "None"
-  },
-  "4" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "2.22",
-    "includingLoc" : "None"
-  },
-  "5" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "2.15",
-    "includingLoc" : "None"
-  },
-  "6" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "2.1",
-    "includingLoc" : "None"
-  },
-  "7" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "8.32",
-    "includingLoc" : "None"
-  },
-  "8" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "8.32",
-    "includingLoc" : "None"
-  },
-  "9" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "8.3",
-    "includingLoc" : "None"
-  },
-  "10" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "11.32",
-    "includingLoc" : "None"
-  },
-  "11" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "11.32",
-    "includingLoc" : "None"
-  },
-  "12" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "11.3",
-    "includingLoc" : "None"
-  },
-  "13" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "14.28",
-    "includingLoc" : "None"
-  },
-  "14" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "14.28",
-    "includingLoc" : "None"
-  },
-  "15" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "14.3",
-    "includingLoc" : "None"
-  },
-  "16" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "14.28",
-    "includingLoc" : "None"
-  },
-  "17" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "14.28",
-    "includingLoc" : "None"
-  },
-  "18" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "14.3",
-    "includingLoc" : "None"
-  },
-  "19" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "14.28",
-    "includingLoc" : "None"
-  },
-  "20" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "14.28",
-    "includingLoc" : "None"
-  },
-  "21" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "14.3",
-    "includingLoc" : "None"
-  },
-  "22" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "5.1",
-    "includingLoc" : "None"
-  },
-  "23" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "22.33",
-    "includingLoc" : "None"
-  },
-  "24" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "22.33",
-    "includingLoc" : "None"
-  },
-  "25" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "22.3",
-    "includingLoc" : "None"
-  },
-  "26" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "25.33",
-    "includingLoc" : "None"
-  },
-  "27" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "25.33",
-    "includingLoc" : "None"
-  },
-  "28" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "25.3",
-    "includingLoc" : "None"
-  },
-  "29" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "28.28",
-    "includingLoc" : "None"
-  },
-  "30" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "28.28",
-    "includingLoc" : "None"
-  },
-  "31" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "28.3",
-    "includingLoc" : "None"
-  },
-  "32" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "28.28",
-    "includingLoc" : "None"
-  },
-  "33" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "28.28",
-    "includingLoc" : "None"
-  },
-  "34" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "28.3",
-    "includingLoc" : "None"
-  },
-  "35" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "28.28",
-    "includingLoc" : "None"
-  },
-  "36" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "28.28",
-    "includingLoc" : "None"
-  },
-  "37" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "28.3",
-    "includingLoc" : "None"
-  },
-  "38" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "19.1",
-    "includingLoc" : "None"
-  },
-  "39" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "38.33",
-    "includingLoc" : "None"
-  },
-  "40" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "38.33",
-    "includingLoc" : "None"
-  },
-  "41" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "38.51",
-    "includingLoc" : "None"
-  },
-  "42" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "38.54",
-    "includingLoc" : "None"
-  },
-  "43" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "38.3",
-    "includingLoc" : "None"
-  },
-  "44" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "41.33",
-    "includingLoc" : "None"
-  },
-  "45" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "41.33",
-    "includingLoc" : "None"
-  },
-  "46" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "41.51",
-    "includingLoc" : "None"
-  },
-  "47" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "41.54",
-    "includingLoc" : "None"
-  },
-  "48" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "41.3",
-    "includingLoc" : "None"
-  },
-  "49" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "44.28",
-    "includingLoc" : "None"
-  },
-  "50" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "44.28",
-    "includingLoc" : "None"
-  },
-  "51" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "44.3",
-    "includingLoc" : "None"
-  },
-  "52" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "44.28",
-    "includingLoc" : "None"
-  },
-  "53" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "44.28",
-    "includingLoc" : "None"
-  },
-  "54" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "44.3",
-    "includingLoc" : "None"
-  },
-  "55" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "44.28",
-    "includingLoc" : "None"
-  },
-  "56" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "44.28",
-    "includingLoc" : "None"
-  },
-  "57" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "44.3",
-    "includingLoc" : "None"
-  },
-  "58" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "35.1",
-    "includingLoc" : "None"
-  },
-  "59" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "50.24",
-    "includingLoc" : "None"
-  },
-  "60" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "50.1",
-    "includingLoc" : "None"
-  },
-  "61" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "56.3",
-    "includingLoc" : "None"
-  },
-  "62" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "59.27",
-    "includingLoc" : "None"
-  },
-  "63" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "59.3",
-    "includingLoc" : "None"
-  },
-  "64" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "59.27",
-    "includingLoc" : "None"
-  },
-  "65" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "59.3",
-    "includingLoc" : "None"
-  },
-  "66" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "59.27",
-    "includingLoc" : "None"
-  },
-  "67" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "59.3",
-    "includingLoc" : "None"
-  },
-  "68" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
-    "pos" : "53.1",
-    "includingLoc" : "None"
+  "fppVersion" : "[ fpp version ]",
+  "locationMap" : {
+    "0" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "2.22",
+      "includingLoc" : "None"
+    },
+    "1" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "2.15",
+      "includingLoc" : "None"
+    },
+    "2" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "2.22",
+      "includingLoc" : "None"
+    },
+    "3" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "2.15",
+      "includingLoc" : "None"
+    },
+    "4" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "2.22",
+      "includingLoc" : "None"
+    },
+    "5" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "2.15",
+      "includingLoc" : "None"
+    },
+    "6" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "2.1",
+      "includingLoc" : "None"
+    },
+    "7" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "8.32",
+      "includingLoc" : "None"
+    },
+    "8" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "8.32",
+      "includingLoc" : "None"
+    },
+    "9" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "8.3",
+      "includingLoc" : "None"
+    },
+    "10" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "11.32",
+      "includingLoc" : "None"
+    },
+    "11" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "11.32",
+      "includingLoc" : "None"
+    },
+    "12" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "11.3",
+      "includingLoc" : "None"
+    },
+    "13" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "14.28",
+      "includingLoc" : "None"
+    },
+    "14" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "14.28",
+      "includingLoc" : "None"
+    },
+    "15" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "14.3",
+      "includingLoc" : "None"
+    },
+    "16" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "14.28",
+      "includingLoc" : "None"
+    },
+    "17" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "14.28",
+      "includingLoc" : "None"
+    },
+    "18" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "14.3",
+      "includingLoc" : "None"
+    },
+    "19" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "14.28",
+      "includingLoc" : "None"
+    },
+    "20" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "14.28",
+      "includingLoc" : "None"
+    },
+    "21" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "14.3",
+      "includingLoc" : "None"
+    },
+    "22" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "5.1",
+      "includingLoc" : "None"
+    },
+    "23" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "22.33",
+      "includingLoc" : "None"
+    },
+    "24" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "22.33",
+      "includingLoc" : "None"
+    },
+    "25" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "22.3",
+      "includingLoc" : "None"
+    },
+    "26" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "25.33",
+      "includingLoc" : "None"
+    },
+    "27" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "25.33",
+      "includingLoc" : "None"
+    },
+    "28" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "25.3",
+      "includingLoc" : "None"
+    },
+    "29" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "28.28",
+      "includingLoc" : "None"
+    },
+    "30" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "28.28",
+      "includingLoc" : "None"
+    },
+    "31" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "28.3",
+      "includingLoc" : "None"
+    },
+    "32" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "28.28",
+      "includingLoc" : "None"
+    },
+    "33" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "28.28",
+      "includingLoc" : "None"
+    },
+    "34" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "28.3",
+      "includingLoc" : "None"
+    },
+    "35" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "28.28",
+      "includingLoc" : "None"
+    },
+    "36" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "28.28",
+      "includingLoc" : "None"
+    },
+    "37" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "28.3",
+      "includingLoc" : "None"
+    },
+    "38" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "19.1",
+      "includingLoc" : "None"
+    },
+    "39" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "38.33",
+      "includingLoc" : "None"
+    },
+    "40" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "38.33",
+      "includingLoc" : "None"
+    },
+    "41" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "38.51",
+      "includingLoc" : "None"
+    },
+    "42" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "38.54",
+      "includingLoc" : "None"
+    },
+    "43" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "38.3",
+      "includingLoc" : "None"
+    },
+    "44" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "41.33",
+      "includingLoc" : "None"
+    },
+    "45" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "41.33",
+      "includingLoc" : "None"
+    },
+    "46" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "41.51",
+      "includingLoc" : "None"
+    },
+    "47" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "41.54",
+      "includingLoc" : "None"
+    },
+    "48" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "41.3",
+      "includingLoc" : "None"
+    },
+    "49" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "44.28",
+      "includingLoc" : "None"
+    },
+    "50" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "44.28",
+      "includingLoc" : "None"
+    },
+    "51" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "44.3",
+      "includingLoc" : "None"
+    },
+    "52" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "44.28",
+      "includingLoc" : "None"
+    },
+    "53" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "44.28",
+      "includingLoc" : "None"
+    },
+    "54" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "44.3",
+      "includingLoc" : "None"
+    },
+    "55" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "44.28",
+      "includingLoc" : "None"
+    },
+    "56" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "44.28",
+      "includingLoc" : "None"
+    },
+    "57" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "44.3",
+      "includingLoc" : "None"
+    },
+    "58" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "35.1",
+      "includingLoc" : "None"
+    },
+    "59" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "50.24",
+      "includingLoc" : "None"
+    },
+    "60" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "50.1",
+      "includingLoc" : "None"
+    },
+    "61" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "56.3",
+      "includingLoc" : "None"
+    },
+    "62" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "59.27",
+      "includingLoc" : "None"
+    },
+    "63" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "59.3",
+      "includingLoc" : "None"
+    },
+    "64" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "59.27",
+      "includingLoc" : "None"
+    },
+    "65" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "59.3",
+      "includingLoc" : "None"
+    },
+    "66" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "59.27",
+      "includingLoc" : "None"
+    },
+    "67" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "59.3",
+      "includingLoc" : "None"
+    },
+    "68" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp",
+      "pos" : "53.1",
+      "includingLoc" : "None"
+    }
   }
 }
 {
-  "componentInstanceMap" : {
-    
-  },
-  "componentMap" : {
-    "22" : {
-      "aNode" : {
-        "astNodeId" : 22
-      },
-      "portMap" : {
-        "f32ValueIn1" : {
-          "General" : {
-            "aNode" : {
-              "astNodeId" : 9
-            },
-            "specifier" : {
-              "kind" : {
-                "SyncInput" : {
-                  
-                }
-              },
-              "name" : "f32ValueIn1",
-              "size" : "None",
-              "port" : {
-                "Some" : {
-                  "astNodeId" : 8
-                }
-              },
-              "priority" : "None",
-              "queueFull" : "None"
-            },
-            "kind" : "SyncInput",
-            "size" : 1,
-            "ty" : {
-              "DefPort" : {
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 6,
-                    "unqualifiedName" : "F32Value"
-                  }
-                }
-              }
-            },
-            "importNodeIds" : [
-            ]
-          }
-        },
-        "f32ValueIn2" : {
-          "General" : {
-            "aNode" : {
-              "astNodeId" : 12
-            },
-            "specifier" : {
-              "kind" : {
-                "SyncInput" : {
-                  
-                }
-              },
-              "name" : "f32ValueIn2",
-              "size" : "None",
-              "port" : {
-                "Some" : {
-                  "astNodeId" : 11
-                }
-              },
-              "priority" : "None",
-              "queueFull" : "None"
-            },
-            "kind" : "SyncInput",
-            "size" : 1,
-            "ty" : {
-              "DefPort" : {
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 6,
-                    "unqualifiedName" : "F32Value"
-                  }
-                }
-              }
-            },
-            "importNodeIds" : [
-            ]
-          }
-        },
-        "f32ValueOut" : {
-          "General" : {
-            "aNode" : {
-              "astNodeId" : 21
-            },
-            "specifier" : {
-              "kind" : {
-                "Output" : {
-                  
-                }
-              },
-              "name" : "f32ValueOut",
-              "size" : "None",
-              "port" : {
-                "Some" : {
-                  "astNodeId" : 20
-                }
-              },
-              "priority" : "None",
-              "queueFull" : "None"
-            },
-            "kind" : "Output",
-            "size" : 1,
-            "ty" : {
-              "DefPort" : {
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 6,
-                    "unqualifiedName" : "F32Value"
-                  }
-                }
-              }
-            },
-            "importNodeIds" : [
-            ]
-          }
-        }
-      },
-      "specialPortMap" : {
-        
-      },
-      "commandMap" : {
-        
-      },
-      "defaultOpcode" : 0,
-      "tlmChannelMap" : {
-        
-      },
-      "tlmChannelNameMap" : {
-        
-      },
-      "defaultTlmChannelId" : 0,
-      "eventMap" : {
-        
-      },
-      "defaultEventId" : 0,
-      "paramMap" : {
-        
-      },
-      "specPortMatchingList" : [
-      ],
-      "stateMachineInstanceMap" : {
-        
-      },
-      "portMatchingList" : [
-      ],
-      "defaultParamId" : 0,
-      "containerMap" : {
-        
-      },
-      "defaultContainerId" : 0,
-      "recordMap" : {
-        
-      },
-      "defaultRecordId" : 0
+  "fppVersion" : "[ fpp version ]",
+  "analysis" : {
+    "componentInstanceMap" : {
+      
     },
-    "38" : {
-      "aNode" : {
-        "astNodeId" : 38
-      },
-      "portMap" : {
-        "f32ValueIn1" : {
-          "General" : {
-            "aNode" : {
-              "astNodeId" : 25
-            },
-            "specifier" : {
-              "kind" : {
-                "AsyncInput" : {
-                  
-                }
+    "componentMap" : {
+      "22" : {
+        "aNode" : {
+          "astNodeId" : 22
+        },
+        "portMap" : {
+          "f32ValueIn1" : {
+            "General" : {
+              "aNode" : {
+                "astNodeId" : 9
               },
-              "name" : "f32ValueIn1",
-              "size" : "None",
-              "port" : {
-                "Some" : {
-                  "astNodeId" : 24
-                }
+              "specifier" : {
+                "kind" : {
+                  "SyncInput" : {
+                    
+                  }
+                },
+                "name" : "f32ValueIn1",
+                "size" : "None",
+                "port" : {
+                  "Some" : {
+                    "astNodeId" : 8
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None"
               },
-              "priority" : "None",
-              "queueFull" : "None"
-            },
-            "kind" : "AsyncInput",
-            "size" : 1,
-            "ty" : {
-              "DefPort" : {
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 6,
-                    "unqualifiedName" : "F32Value"
+              "kind" : "SyncInput",
+              "size" : 1,
+              "ty" : {
+                "DefPort" : {
+                  "symbol" : {
+                    "Port" : {
+                      "nodeId" : 6,
+                      "unqualifiedName" : "F32Value"
+                    }
                   }
                 }
-              }
-            },
-            "importNodeIds" : [
-            ]
+              },
+              "importNodeIds" : [
+              ]
+            }
+          },
+          "f32ValueIn2" : {
+            "General" : {
+              "aNode" : {
+                "astNodeId" : 12
+              },
+              "specifier" : {
+                "kind" : {
+                  "SyncInput" : {
+                    
+                  }
+                },
+                "name" : "f32ValueIn2",
+                "size" : "None",
+                "port" : {
+                  "Some" : {
+                    "astNodeId" : 11
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "kind" : "SyncInput",
+              "size" : 1,
+              "ty" : {
+                "DefPort" : {
+                  "symbol" : {
+                    "Port" : {
+                      "nodeId" : 6,
+                      "unqualifiedName" : "F32Value"
+                    }
+                  }
+                }
+              },
+              "importNodeIds" : [
+              ]
+            }
+          },
+          "f32ValueOut" : {
+            "General" : {
+              "aNode" : {
+                "astNodeId" : 21
+              },
+              "specifier" : {
+                "kind" : {
+                  "Output" : {
+                    
+                  }
+                },
+                "name" : "f32ValueOut",
+                "size" : "None",
+                "port" : {
+                  "Some" : {
+                    "astNodeId" : 20
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "kind" : "Output",
+              "size" : 1,
+              "ty" : {
+                "DefPort" : {
+                  "symbol" : {
+                    "Port" : {
+                      "nodeId" : 6,
+                      "unqualifiedName" : "F32Value"
+                    }
+                  }
+                }
+              },
+              "importNodeIds" : [
+              ]
+            }
           }
         },
-        "f32ValueIn2" : {
-          "General" : {
-            "aNode" : {
-              "astNodeId" : 28
-            },
-            "specifier" : {
-              "kind" : {
-                "AsyncInput" : {
-                  
-                }
+        "specialPortMap" : {
+          
+        },
+        "commandMap" : {
+          
+        },
+        "defaultOpcode" : 0,
+        "tlmChannelMap" : {
+          
+        },
+        "tlmChannelNameMap" : {
+          
+        },
+        "defaultTlmChannelId" : 0,
+        "eventMap" : {
+          
+        },
+        "defaultEventId" : 0,
+        "paramMap" : {
+          
+        },
+        "specPortMatchingList" : [
+        ],
+        "stateMachineInstanceMap" : {
+          
+        },
+        "portMatchingList" : [
+        ],
+        "defaultParamId" : 0,
+        "containerMap" : {
+          
+        },
+        "defaultContainerId" : 0,
+        "recordMap" : {
+          
+        },
+        "defaultRecordId" : 0
+      },
+      "38" : {
+        "aNode" : {
+          "astNodeId" : 38
+        },
+        "portMap" : {
+          "f32ValueIn1" : {
+            "General" : {
+              "aNode" : {
+                "astNodeId" : 25
               },
-              "name" : "f32ValueIn2",
-              "size" : "None",
-              "port" : {
-                "Some" : {
-                  "astNodeId" : 27
-                }
+              "specifier" : {
+                "kind" : {
+                  "AsyncInput" : {
+                    
+                  }
+                },
+                "name" : "f32ValueIn1",
+                "size" : "None",
+                "port" : {
+                  "Some" : {
+                    "astNodeId" : 24
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None"
               },
-              "priority" : "None",
-              "queueFull" : "None"
-            },
-            "kind" : "AsyncInput",
-            "size" : 1,
-            "ty" : {
-              "DefPort" : {
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 6,
-                    "unqualifiedName" : "F32Value"
+              "kind" : "AsyncInput",
+              "size" : 1,
+              "ty" : {
+                "DefPort" : {
+                  "symbol" : {
+                    "Port" : {
+                      "nodeId" : 6,
+                      "unqualifiedName" : "F32Value"
+                    }
                   }
                 }
-              }
-            },
-            "importNodeIds" : [
-            ]
+              },
+              "importNodeIds" : [
+              ]
+            }
+          },
+          "f32ValueIn2" : {
+            "General" : {
+              "aNode" : {
+                "astNodeId" : 28
+              },
+              "specifier" : {
+                "kind" : {
+                  "AsyncInput" : {
+                    
+                  }
+                },
+                "name" : "f32ValueIn2",
+                "size" : "None",
+                "port" : {
+                  "Some" : {
+                    "astNodeId" : 27
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "kind" : "AsyncInput",
+              "size" : 1,
+              "ty" : {
+                "DefPort" : {
+                  "symbol" : {
+                    "Port" : {
+                      "nodeId" : 6,
+                      "unqualifiedName" : "F32Value"
+                    }
+                  }
+                }
+              },
+              "importNodeIds" : [
+              ]
+            }
+          },
+          "f32ValueOut" : {
+            "General" : {
+              "aNode" : {
+                "astNodeId" : 37
+              },
+              "specifier" : {
+                "kind" : {
+                  "Output" : {
+                    
+                  }
+                },
+                "name" : "f32ValueOut",
+                "size" : "None",
+                "port" : {
+                  "Some" : {
+                    "astNodeId" : 36
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "kind" : "Output",
+              "size" : 1,
+              "ty" : {
+                "DefPort" : {
+                  "symbol" : {
+                    "Port" : {
+                      "nodeId" : 6,
+                      "unqualifiedName" : "F32Value"
+                    }
+                  }
+                }
+              },
+              "importNodeIds" : [
+              ]
+            }
           }
         },
-        "f32ValueOut" : {
-          "General" : {
-            "aNode" : {
-              "astNodeId" : 37
-            },
-            "specifier" : {
-              "kind" : {
-                "Output" : {
-                  
-                }
+        "specialPortMap" : {
+          
+        },
+        "commandMap" : {
+          
+        },
+        "defaultOpcode" : 0,
+        "tlmChannelMap" : {
+          
+        },
+        "tlmChannelNameMap" : {
+          
+        },
+        "defaultTlmChannelId" : 0,
+        "eventMap" : {
+          
+        },
+        "defaultEventId" : 0,
+        "paramMap" : {
+          
+        },
+        "specPortMatchingList" : [
+        ],
+        "stateMachineInstanceMap" : {
+          
+        },
+        "portMatchingList" : [
+        ],
+        "defaultParamId" : 0,
+        "containerMap" : {
+          
+        },
+        "defaultContainerId" : 0,
+        "recordMap" : {
+          
+        },
+        "defaultRecordId" : 0
+      },
+      "58" : {
+        "aNode" : {
+          "astNodeId" : 58
+        },
+        "portMap" : {
+          "f32ValueIn1" : {
+            "General" : {
+              "aNode" : {
+                "astNodeId" : 43
               },
-              "name" : "f32ValueOut",
-              "size" : "None",
-              "port" : {
-                "Some" : {
-                  "astNodeId" : 36
-                }
-              },
-              "priority" : "None",
-              "queueFull" : "None"
-            },
-            "kind" : "Output",
-            "size" : 1,
-            "ty" : {
-              "DefPort" : {
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 6,
-                    "unqualifiedName" : "F32Value"
+              "specifier" : {
+                "kind" : {
+                  "AsyncInput" : {
+                    
+                  }
+                },
+                "name" : "f32ValueIn1",
+                "size" : "None",
+                "port" : {
+                  "Some" : {
+                    "astNodeId" : 40
+                  }
+                },
+                "priority" : {
+                  "Some" : {
+                    "astNodeId" : 41
+                  }
+                },
+                "queueFull" : {
+                  "Some" : {
+                    "astNodeId" : 42
                   }
                 }
-              }
-            },
-            "importNodeIds" : [
-            ]
-          }
-        }
-      },
-      "specialPortMap" : {
-        
-      },
-      "commandMap" : {
-        
-      },
-      "defaultOpcode" : 0,
-      "tlmChannelMap" : {
-        
-      },
-      "tlmChannelNameMap" : {
-        
-      },
-      "defaultTlmChannelId" : 0,
-      "eventMap" : {
-        
-      },
-      "defaultEventId" : 0,
-      "paramMap" : {
-        
-      },
-      "specPortMatchingList" : [
-      ],
-      "stateMachineInstanceMap" : {
-        
-      },
-      "portMatchingList" : [
-      ],
-      "defaultParamId" : 0,
-      "containerMap" : {
-        
-      },
-      "defaultContainerId" : 0,
-      "recordMap" : {
-        
-      },
-      "defaultRecordId" : 0
-    },
-    "58" : {
-      "aNode" : {
-        "astNodeId" : 58
-      },
-      "portMap" : {
-        "f32ValueIn1" : {
-          "General" : {
-            "aNode" : {
-              "astNodeId" : 43
-            },
-            "specifier" : {
-              "kind" : {
-                "AsyncInput" : {
-                  
-                }
               },
-              "name" : "f32ValueIn1",
-              "size" : "None",
-              "port" : {
-                "Some" : {
-                  "astNodeId" : 40
-                }
-              },
-              "priority" : {
-                "Some" : {
-                  "astNodeId" : 41
-                }
-              },
-              "queueFull" : {
-                "Some" : {
-                  "astNodeId" : 42
-                }
-              }
-            },
-            "kind" : "AsyncInput",
-            "size" : 1,
-            "ty" : {
-              "DefPort" : {
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 6,
-                    "unqualifiedName" : "F32Value"
+              "kind" : "AsyncInput",
+              "size" : 1,
+              "ty" : {
+                "DefPort" : {
+                  "symbol" : {
+                    "Port" : {
+                      "nodeId" : 6,
+                      "unqualifiedName" : "F32Value"
+                    }
                   }
                 }
-              }
-            },
-            "importNodeIds" : [
-            ]
+              },
+              "importNodeIds" : [
+              ]
+            }
+          },
+          "f32ValueIn2" : {
+            "General" : {
+              "aNode" : {
+                "astNodeId" : 48
+              },
+              "specifier" : {
+                "kind" : {
+                  "AsyncInput" : {
+                    
+                  }
+                },
+                "name" : "f32ValueIn2",
+                "size" : "None",
+                "port" : {
+                  "Some" : {
+                    "astNodeId" : 45
+                  }
+                },
+                "priority" : {
+                  "Some" : {
+                    "astNodeId" : 46
+                  }
+                },
+                "queueFull" : {
+                  "Some" : {
+                    "astNodeId" : 47
+                  }
+                }
+              },
+              "kind" : "AsyncInput",
+              "size" : 1,
+              "ty" : {
+                "DefPort" : {
+                  "symbol" : {
+                    "Port" : {
+                      "nodeId" : 6,
+                      "unqualifiedName" : "F32Value"
+                    }
+                  }
+                }
+              },
+              "importNodeIds" : [
+              ]
+            }
+          },
+          "f32ValueOut" : {
+            "General" : {
+              "aNode" : {
+                "astNodeId" : 57
+              },
+              "specifier" : {
+                "kind" : {
+                  "Output" : {
+                    
+                  }
+                },
+                "name" : "f32ValueOut",
+                "size" : "None",
+                "port" : {
+                  "Some" : {
+                    "astNodeId" : 56
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "kind" : "Output",
+              "size" : 1,
+              "ty" : {
+                "DefPort" : {
+                  "symbol" : {
+                    "Port" : {
+                      "nodeId" : 6,
+                      "unqualifiedName" : "F32Value"
+                    }
+                  }
+                }
+              },
+              "importNodeIds" : [
+              ]
+            }
           }
         },
-        "f32ValueIn2" : {
-          "General" : {
-            "aNode" : {
-              "astNodeId" : 48
-            },
-            "specifier" : {
-              "kind" : {
-                "AsyncInput" : {
+        "specialPortMap" : {
+          
+        },
+        "commandMap" : {
+          
+        },
+        "defaultOpcode" : 0,
+        "tlmChannelMap" : {
+          
+        },
+        "tlmChannelNameMap" : {
+          
+        },
+        "defaultTlmChannelId" : 0,
+        "eventMap" : {
+          
+        },
+        "defaultEventId" : 0,
+        "paramMap" : {
+          
+        },
+        "specPortMatchingList" : [
+        ],
+        "stateMachineInstanceMap" : {
+          
+        },
+        "portMatchingList" : [
+        ],
+        "defaultParamId" : 0,
+        "containerMap" : {
+          
+        },
+        "defaultContainerId" : 0,
+        "recordMap" : {
+          
+        },
+        "defaultRecordId" : 0
+      },
+      "68" : {
+        "aNode" : {
+          "astNodeId" : 68
+        },
+        "portMap" : {
+          "serialIn" : {
+            "General" : {
+              "aNode" : {
+                "astNodeId" : 61
+              },
+              "specifier" : {
+                "kind" : {
+                  "SyncInput" : {
+                    
+                  }
+                },
+                "name" : "serialIn",
+                "size" : "None",
+                "port" : "None",
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "kind" : "SyncInput",
+              "size" : 1,
+              "ty" : {
+                "Serial" : {
                   
                 }
               },
-              "name" : "f32ValueIn2",
-              "size" : "None",
-              "port" : {
-                "Some" : {
-                  "astNodeId" : 45
-                }
+              "importNodeIds" : [
+              ]
+            }
+          },
+          "serialOut" : {
+            "General" : {
+              "aNode" : {
+                "astNodeId" : 67
               },
-              "priority" : {
-                "Some" : {
-                  "astNodeId" : 46
-                }
-              },
-              "queueFull" : {
-                "Some" : {
-                  "astNodeId" : 47
-                }
-              }
-            },
-            "kind" : "AsyncInput",
-            "size" : 1,
-            "ty" : {
-              "DefPort" : {
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 6,
-                    "unqualifiedName" : "F32Value"
+              "specifier" : {
+                "kind" : {
+                  "Output" : {
+                    
                   }
+                },
+                "name" : "serialOut",
+                "size" : {
+                  "Some" : {
+                    "astNodeId" : 66
+                  }
+                },
+                "port" : "None",
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "kind" : "Output",
+              "size" : 10,
+              "ty" : {
+                "Serial" : {
+                  
                 }
-              }
-            },
-            "importNodeIds" : [
-            ]
+              },
+              "importNodeIds" : [
+              ]
+            }
           }
         },
-        "f32ValueOut" : {
-          "General" : {
-            "aNode" : {
-              "astNodeId" : 57
-            },
-            "specifier" : {
-              "kind" : {
-                "Output" : {
-                  
-                }
-              },
-              "name" : "f32ValueOut",
-              "size" : "None",
-              "port" : {
-                "Some" : {
-                  "astNodeId" : 56
-                }
-              },
-              "priority" : "None",
-              "queueFull" : "None"
-            },
-            "kind" : "Output",
-            "size" : 1,
-            "ty" : {
-              "DefPort" : {
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 6,
-                    "unqualifiedName" : "F32Value"
-                  }
-                }
-              }
-            },
-            "importNodeIds" : [
-            ]
-          }
-        }
-      },
-      "specialPortMap" : {
-        
-      },
-      "commandMap" : {
-        
-      },
-      "defaultOpcode" : 0,
-      "tlmChannelMap" : {
-        
-      },
-      "tlmChannelNameMap" : {
-        
-      },
-      "defaultTlmChannelId" : 0,
-      "eventMap" : {
-        
-      },
-      "defaultEventId" : 0,
-      "paramMap" : {
-        
-      },
-      "specPortMatchingList" : [
-      ],
-      "stateMachineInstanceMap" : {
-        
-      },
-      "portMatchingList" : [
-      ],
-      "defaultParamId" : 0,
-      "containerMap" : {
-        
-      },
-      "defaultContainerId" : 0,
-      "recordMap" : {
-        
-      },
-      "defaultRecordId" : 0
-    },
-    "68" : {
-      "aNode" : {
-        "astNodeId" : 68
-      },
-      "portMap" : {
-        "serialIn" : {
-          "General" : {
-            "aNode" : {
-              "astNodeId" : 61
-            },
-            "specifier" : {
-              "kind" : {
-                "SyncInput" : {
-                  
-                }
-              },
-              "name" : "serialIn",
-              "size" : "None",
-              "port" : "None",
-              "priority" : "None",
-              "queueFull" : "None"
-            },
-            "kind" : "SyncInput",
-            "size" : 1,
-            "ty" : {
-              "Serial" : {
-                
-              }
-            },
-            "importNodeIds" : [
-            ]
-          }
+        "specialPortMap" : {
+          
         },
-        "serialOut" : {
-          "General" : {
-            "aNode" : {
-              "astNodeId" : 67
-            },
-            "specifier" : {
-              "kind" : {
-                "Output" : {
-                  
-                }
-              },
-              "name" : "serialOut",
-              "size" : {
-                "Some" : {
-                  "astNodeId" : 66
-                }
-              },
-              "port" : "None",
-              "priority" : "None",
-              "queueFull" : "None"
-            },
-            "kind" : "Output",
-            "size" : 10,
-            "ty" : {
-              "Serial" : {
-                
-              }
-            },
-            "importNodeIds" : [
-            ]
-          }
-        }
-      },
-      "specialPortMap" : {
-        
-      },
-      "commandMap" : {
-        
-      },
-      "defaultOpcode" : 0,
-      "tlmChannelMap" : {
-        
-      },
-      "tlmChannelNameMap" : {
-        
-      },
-      "defaultTlmChannelId" : 0,
-      "eventMap" : {
-        
-      },
-      "defaultEventId" : 0,
-      "paramMap" : {
-        
-      },
-      "specPortMatchingList" : [
-      ],
-      "stateMachineInstanceMap" : {
-        
-      },
-      "portMatchingList" : [
-      ],
-      "defaultParamId" : 0,
-      "containerMap" : {
-        
-      },
-      "defaultContainerId" : 0,
-      "recordMap" : {
-        
-      },
-      "defaultRecordId" : 0
-    }
-  },
-  "includedFileSet" : [
-  ],
-  "inputFileSet" : [
-    "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp"
-  ],
-  "locationSpecifierMap" : [
-  ],
-  "parentSymbolMap" : {
-    
-  },
-  "symbolScopeMap" : {
-    "22" : {
-      "map" : {
-        
+        "commandMap" : {
+          
+        },
+        "defaultOpcode" : 0,
+        "tlmChannelMap" : {
+          
+        },
+        "tlmChannelNameMap" : {
+          
+        },
+        "defaultTlmChannelId" : 0,
+        "eventMap" : {
+          
+        },
+        "defaultEventId" : 0,
+        "paramMap" : {
+          
+        },
+        "specPortMatchingList" : [
+        ],
+        "stateMachineInstanceMap" : {
+          
+        },
+        "portMatchingList" : [
+        ],
+        "defaultParamId" : 0,
+        "containerMap" : {
+          
+        },
+        "defaultContainerId" : 0,
+        "recordMap" : {
+          
+        },
+        "defaultRecordId" : 0
       }
     },
-    "38" : {
-      "map" : {
-        
-      }
+    "includedFileSet" : [
+    ],
+    "inputFileSet" : [
+      "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleComponents.fpp"
+    ],
+    "locationSpecifierMap" : [
+    ],
+    "parentSymbolMap" : {
+      
     },
-    "58" : {
-      "map" : {
-        
-      }
-    },
-    "68" : {
-      "map" : {
-        
-      }
-    }
-  },
-  "topologyMap" : {
-    
-  },
-  "typeMap" : {
-    "66" : {
-      "Int" : {
-        "Integer" : {
+    "symbolScopeMap" : {
+      "22" : {
+        "map" : {
+          
+        }
+      },
+      "38" : {
+        "map" : {
+          
+        }
+      },
+      "58" : {
+        "map" : {
+          
+        }
+      },
+      "68" : {
+        "map" : {
           
         }
       }
     },
-    "4" : {
-      "Primitive" : {
-        "Float" : {
-          "kind" : {
-            "F32" : {
-              
+    "topologyMap" : {
+      
+    },
+    "typeMap" : {
+      "66" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "4" : {
+        "Primitive" : {
+          "Float" : {
+            "kind" : {
+              "F32" : {
+                
+              }
             }
           }
         }
-      }
-    },
-    "46" : {
-      "Int" : {
-        "Integer" : {
-          
+      },
+      "46" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "59" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "60" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "41" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
         }
       }
     },
-    "59" : {
-      "Int" : {
-        "Integer" : {
-          
+    "useDefMap" : {
+      "45" : {
+        "Port" : {
+          "nodeId" : 6,
+          "unqualifiedName" : "F32Value"
+        }
+      },
+      "66" : {
+        "Constant" : {
+          "nodeId" : 60,
+          "unqualifiedName" : "splitFactor"
+        }
+      },
+      "8" : {
+        "Port" : {
+          "nodeId" : 6,
+          "unqualifiedName" : "F32Value"
+        }
+      },
+      "40" : {
+        "Port" : {
+          "nodeId" : 6,
+          "unqualifiedName" : "F32Value"
+        }
+      },
+      "11" : {
+        "Port" : {
+          "nodeId" : 6,
+          "unqualifiedName" : "F32Value"
+        }
+      },
+      "56" : {
+        "Port" : {
+          "nodeId" : 6,
+          "unqualifiedName" : "F32Value"
+        }
+      },
+      "24" : {
+        "Port" : {
+          "nodeId" : 6,
+          "unqualifiedName" : "F32Value"
+        }
+      },
+      "36" : {
+        "Port" : {
+          "nodeId" : 6,
+          "unqualifiedName" : "F32Value"
+        }
+      },
+      "20" : {
+        "Port" : {
+          "nodeId" : 6,
+          "unqualifiedName" : "F32Value"
+        }
+      },
+      "27" : {
+        "Port" : {
+          "nodeId" : 6,
+          "unqualifiedName" : "F32Value"
         }
       }
     },
-    "60" : {
-      "Int" : {
+    "valueMap" : {
+      "66" : {
         "Integer" : {
-          
+          "value" : 10
+        }
+      },
+      "46" : {
+        "Integer" : {
+          "value" : 20
+        }
+      },
+      "59" : {
+        "Integer" : {
+          "value" : 10
+        }
+      },
+      "60" : {
+        "Integer" : {
+          "value" : 10
+        }
+      },
+      "41" : {
+        "Integer" : {
+          "value" : 10
         }
       }
     },
-    "41" : {
-      "Int" : {
-        "Integer" : {
-          
-        }
-      }
+    "stateMachineMap" : {
+      
+    },
+    "dictionarySymbolSet" : [
+    ],
+    "interfaceMap" : {
+      
     }
-  },
-  "useDefMap" : {
-    "45" : {
-      "Port" : {
-        "nodeId" : 6,
-        "unqualifiedName" : "F32Value"
-      }
-    },
-    "66" : {
-      "Constant" : {
-        "nodeId" : 60,
-        "unqualifiedName" : "splitFactor"
-      }
-    },
-    "8" : {
-      "Port" : {
-        "nodeId" : 6,
-        "unqualifiedName" : "F32Value"
-      }
-    },
-    "40" : {
-      "Port" : {
-        "nodeId" : 6,
-        "unqualifiedName" : "F32Value"
-      }
-    },
-    "11" : {
-      "Port" : {
-        "nodeId" : 6,
-        "unqualifiedName" : "F32Value"
-      }
-    },
-    "56" : {
-      "Port" : {
-        "nodeId" : 6,
-        "unqualifiedName" : "F32Value"
-      }
-    },
-    "24" : {
-      "Port" : {
-        "nodeId" : 6,
-        "unqualifiedName" : "F32Value"
-      }
-    },
-    "36" : {
-      "Port" : {
-        "nodeId" : 6,
-        "unqualifiedName" : "F32Value"
-      }
-    },
-    "20" : {
-      "Port" : {
-        "nodeId" : 6,
-        "unqualifiedName" : "F32Value"
-      }
-    },
-    "27" : {
-      "Port" : {
-        "nodeId" : 6,
-        "unqualifiedName" : "F32Value"
-      }
-    }
-  },
-  "valueMap" : {
-    "66" : {
-      "Integer" : {
-        "value" : 10
-      }
-    },
-    "46" : {
-      "Integer" : {
-        "value" : 20
-      }
-    },
-    "59" : {
-      "Integer" : {
-        "value" : 10
-      }
-    },
-    "60" : {
-      "Integer" : {
-        "value" : 10
-      }
-    },
-    "41" : {
-      "Integer" : {
-        "value" : 10
-      }
-    }
-  },
-  "stateMachineMap" : {
-    
-  },
-  "dictionarySymbolSet" : [
-  ]
+  }
 }
