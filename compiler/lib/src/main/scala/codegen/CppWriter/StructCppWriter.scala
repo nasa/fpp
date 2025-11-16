@@ -768,7 +768,7 @@ case class StructCppWriter(
               case _ => Nil
             }
           },
-          lines(s"this->m_$memberName[i] = ${memberValue};")
+          lines(s"this->m_$memberName[i] = $memberValue;")
         )
       )
   }
