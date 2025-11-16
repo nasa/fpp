@@ -163,16 +163,13 @@ case class ArrayCppWriter (
   private val initElementsCall = guardedList (hasStringEltType) (lines("this->initElements();"))
 
   private val defaultElementInitialization: Boolean = {
-    if hasStringEltType then false
-    else {
-      val elements = arrayType.getDefaultValue.get.anonArray.elements
-      val elementType = arrayType.anonArray.eltType.getDefaultValue
-      elementType match {
-        case None => false
-        case Some(elementTypeDefault) =>
-          elements.head == elementTypeDefault &&
-          elements.tail.forall(_ == elements.head)
-      }
+    val elements = arrayType.getDefaultValue.get.anonArray.elements
+    val elementType = arrayType.anonArray.eltType.getDefaultValue
+    elementType match {
+      case None => false
+      case Some(elementTypeDefault) =>
+        elements.head == elementTypeDefault &&
+        elements.tail.forall(_ == elements.head)
     }
   }
 
@@ -180,9 +177,9 @@ case class ArrayCppWriter (
     val defaultValueConstructor = constructorClassMember(
       Some("Constructor (default value)"),
       Nil,
-      List.concat(
-        List("Serializable()"),
-        guardedList(defaultElementInitialization) (List("elements{}"))
+      List(
+        "Serializable()",
+        "elements{}"
       ),
       List.concat(
         initElementsCall,

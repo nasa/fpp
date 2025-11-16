@@ -13,7 +13,8 @@
 
 Enum1 ::
   Enum1() :
-    Serializable()
+    Serializable(),
+    elements{}
 {
   *this = Enum1({M::E1::X, M::E1::Y});
 }
