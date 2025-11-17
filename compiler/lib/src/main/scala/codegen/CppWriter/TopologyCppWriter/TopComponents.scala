@@ -23,7 +23,7 @@ case class TopComponents(
 
   def getMembers: List[CppDoc.Member] = 
     wrapMembersInIfDirective(
-      "#ifdef FW_DIRECT_PORT_CALLS",
+      "#if FW_DIRECT_PORT_CALLS",
       addMemberComment(
         "Topology-dependent component implementation",
         getComponentMembers,

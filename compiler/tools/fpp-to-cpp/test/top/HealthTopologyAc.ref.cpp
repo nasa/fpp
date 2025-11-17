@@ -150,7 +150,7 @@ namespace M {
 
 }
 
-#ifdef FW_DIRECT_PORT_CALLS
+#if FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Topology-dependent component implementation
@@ -159,7 +159,11 @@ namespace M {
 namespace M {
 
   bool CComponentBase::isConnected_pingOut_OutputPort(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS), static_cast<FwAssertArgType>(portNum), static_cast<FwAssertArgType>(NUM_PINGOUT_OUTPUT_PORTS));
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PINGOUT_OUTPUT_PORTS)
+    );
     bool result = false;
     const auto instance = this->getInstance();
     switch (instance) {
@@ -192,13 +196,20 @@ namespace M {
       FwIndexType portNum,
       U32 key
   ) const {
-    FW_ASSERT((0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS), static_cast<FwAssertArgType>(portNum), static_cast<FwAssertArgType>(NUM_PINGOUT_OUTPUT_PORTS));
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PINGOUT_OUTPUT_PORTS)
+    );
     const auto instance = this->getInstance();
     switch (instance) {
       case ::M::InstanceIds::M_c1:
         switch (portNum) {
           case 0:
-            // TODO
+            M::health.pingIn_handlerBase(
+              portNum,
+              key
+            );
             break;
           default:
             FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
@@ -208,7 +219,10 @@ namespace M {
       case ::M::InstanceIds::M_c2:
         switch (portNum) {
           case 0:
-            // TODO
+            M::health.pingIn_handlerBase(
+              portNum,
+              key
+            );
             break;
           default:
             FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
@@ -226,7 +240,11 @@ namespace M {
 namespace Svc {
 
   bool HealthComponentBase::isConnected_pingOut_OutputPort(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS), static_cast<FwAssertArgType>(portNum), static_cast<FwAssertArgType>(NUM_PINGOUT_OUTPUT_PORTS));
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PINGOUT_OUTPUT_PORTS)
+    );
     bool result = false;
     const auto instance = this->getInstance();
     switch (instance) {
@@ -253,16 +271,26 @@ namespace Svc {
       FwIndexType portNum,
       U32 key
   ) const {
-    FW_ASSERT((0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS), static_cast<FwAssertArgType>(portNum), static_cast<FwAssertArgType>(NUM_PINGOUT_OUTPUT_PORTS));
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PINGOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PINGOUT_OUTPUT_PORTS)
+    );
     const auto instance = this->getInstance();
     switch (instance) {
       case ::M::InstanceIds::M_health:
         switch (portNum) {
           case 0:
-            // TODO
+            M::c1.pingIn_handlerBase(
+              portNum,
+              key
+            );
             break;
           case 1:
-            // TODO
+            M::c2.pingIn_handlerBase(
+              portNum,
+              key
+            );
             break;
           default:
             FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));

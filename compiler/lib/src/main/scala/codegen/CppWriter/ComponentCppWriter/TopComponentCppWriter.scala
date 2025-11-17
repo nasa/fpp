@@ -58,6 +58,15 @@ case class TopComponentCppWriter (
     )
   }
 
+  private def writePortNumAssertion(numPorts: String) =
+    lines(
+      s"""|FW_ASSERT(
+          |  (0 <= portNum) && (portNum < $numPorts),
+          |  static_cast<FwAssertArgType>(portNum),
+          |  static_cast<FwAssertArgType>($numPorts)
+          |);"""
+    )
+
   private def writeIsConnectedFnBody(
     portName: Name.Unqualified,
     componentInstanceMap: TopComponents.ComponentInstanceMap
@@ -65,10 +74,10 @@ case class TopComponentCppWriter (
     val portInstance = component.portMap(portName)
     val numPorts = numPortsConstantName(portInstance)
     List.concat(
+      writePortNumAssertion(numPorts),
       lines(
-      s"""|FW_ASSERT((0 <= portNum) && (portNum < $numPorts), static_cast<FwAssertArgType>(portNum), static_cast<FwAssertArgType>($numPorts));
-          |bool result = false;
-          |const auto instance = this->getInstance();"""
+        """|bool result = false;
+           |const auto instance = this->getInstance();"""
       ),
       writeInstanceSwitch(
         componentInstanceMap,
@@ -100,26 +109,34 @@ case class TopComponentCppWriter (
     val portInstance = component.portMap(portName)
     val numPorts = numPortsConstantName(portInstance)
     val returnType = getInvokerReturnTypeAsString(portInstance)
-    val returnsNonVoid = returnType != "void"
+    val nonVoidReturn = returnType != "void"
     List.concat(
-      lines(
-      s"""|FW_ASSERT((0 <= portNum) && (portNum < $numPorts), static_cast<FwAssertArgType>(portNum), static_cast<FwAssertArgType>($numPorts));
-          |const auto instance = this->getInstance();"""
-      ),
-      guardedList (returnsNonVoid) (lines(s"$returnType _result = {};")),
+      writePortNumAssertion(numPorts),
+      lines("const auto instance = this->getInstance();"),
+      guardedList (nonVoidReturn) (lines(s"$returnType _result = {};")),
       writeInstanceSwitch(
         componentInstanceMap,
         writeOutFnCase,
         lines("FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));")
       ),
-      guardedList (returnsNonVoid) (lines(s"return _result;"))
+      guardedList (nonVoidReturn) (lines(s"return _result;"))
     )
   }
 
   private def writeOutFnCase(portNum: Int, connection: Connection) = {
     val toPort = connection.to.port
-    val fnName = CppWriter.writeQualifiedName(toPort.componentInstance.qualifiedName)
-    lines("// TODO")
+    val componentInstanceName = CppWriter.writeQualifiedName(toPort.componentInstance.qualifiedName)
+    val portName = toPort.portInstance.getUnqualifiedName
+    val handlerBaseName = inputPortHandlerBaseName(portName)
+    val fnName = s"$componentInstanceName.$handlerBaseName"
+    val returnType = getInvokerReturnTypeAsString(toPort.portInstance)
+    val nonVoidReturn = returnType != "void"
+    val addResultPrefix = addConditionalPrefix (nonVoidReturn) ("_result =")
+    writeFunctionCall(
+      addResultPrefix(fnName),
+      List("portNum"),
+      getPortParams(toPort.portInstance).map(_._1)
+    )
   }
 
   private def writeOutFnForPort(

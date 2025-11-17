@@ -160,7 +160,7 @@ namespace M {
 
 }
 
-#ifdef FW_DIRECT_PORT_CALLS
+#if FW_DIRECT_PORT_CALLS
 
 // ----------------------------------------------------------------------
 // Topology-dependent component implementation
@@ -169,7 +169,11 @@ namespace M {
 namespace M {
 
   bool PassiveComponentBase::isConnected_p_OutputPort(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < NUM_P_OUTPUT_PORTS), static_cast<FwAssertArgType>(portNum), static_cast<FwAssertArgType>(NUM_P_OUTPUT_PORTS));
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P_OUTPUT_PORTS)
+    );
     bool result = false;
     const auto instance = this->getInstance();
     switch (instance) {
@@ -199,13 +203,17 @@ namespace M {
   }
 
   void PassiveComponentBase::p_out(FwIndexType portNum) const {
-    FW_ASSERT((0 <= portNum) && (portNum < NUM_P_OUTPUT_PORTS), static_cast<FwAssertArgType>(portNum), static_cast<FwAssertArgType>(NUM_P_OUTPUT_PORTS));
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P_OUTPUT_PORTS)
+    );
     const auto instance = this->getInstance();
     switch (instance) {
       case ::M::InstanceIds::M_passive1:
         switch (portNum) {
           case 0:
-            // TODO
+            active1.p_handlerBase(portNum);
             break;
           default:
             FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
@@ -215,7 +223,7 @@ namespace M {
       case ::M::InstanceIds::M_passive2:
         switch (portNum) {
           case 0:
-            // TODO
+            M::active2.p_handlerBase(portNum);
             break;
           default:
             FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
