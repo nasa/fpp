@@ -459,7 +459,7 @@ case class ComponentInputPorts(
   private def writeInputPortHandlerCall(p: PortInstance) = {
     val params = getPortParams(p)
     val nonVoidReturn = getPortReturnTypeAsStringOption(p).isDefined
-    val addReturnPrefix = addConditionalPrefix (_ => nonVoidReturn) ("return") (())
+    val addReturnPrefix = addConditionalPrefix (nonVoidReturn) ("return")
     val handlerBaseName = inputPortHandlerBaseName(p.getUnqualifiedName)
     List.concat(
       lines(
@@ -469,7 +469,7 @@ case class ComponentInputPorts(
             |"""
       ),
       writeFunctionCall(
-        addReturnPrefix (s"compPtr->$handlerBaseName"),
+        addReturnPrefix(s"compPtr->$handlerBaseName"),
         List("portNum"),
         params.map(_._1)
       )
