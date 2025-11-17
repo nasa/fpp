@@ -227,7 +227,7 @@ case class ComponentInputPorts(
   // Gets the handler base function for a port
   private def getHandlerBaseForPort(p: PortInstance) = {
     val params = getPortParams(p)
-    val returnType = getPortReturnType(p)
+    val returnType = getPortReturnTypeAsStringOption(p)
     val retValAssignment = returnType match {
       case Some(_) => s"retVal = "
       case None => ""
@@ -458,7 +458,7 @@ case class ComponentInputPorts(
   // Writes the handler call for a general input port
   private def writeInputPortHandlerCall(p: PortInstance) = {
     val params = getPortParams(p)
-    val returnPrefix = getPortReturnType(p).map(_ => "return ").getOrElse("")
+    val returnPrefix = getPortReturnTypeAsStringOption(p).map(_ => "return ").getOrElse("")
     val handlerBaseName = inputPortHandlerBaseName(p.getUnqualifiedName)
     List.concat(
       lines(

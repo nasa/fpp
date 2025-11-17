@@ -566,29 +566,22 @@ abstract class ComponentCppWriterUtils(
   }
 
   /** Get the C++ return type of a port instance as a String option */
-  def getPortReturnType(pi: PortInstance): Option[String] = {
+  def getPortReturnTypeAsStringOption(pi: PortInstance): Option[String] = {
     def transformer (sym: Symbol.Port) (node: AstNode[Ast.TypeName]) =
       TypeCppWriter.getName(s, s.a.typeMap(node.id), "Fw::String")
     transformPortReturnType(pi, transformer)
   }
 
+  /** Get the C++ return type of a port instance as a String */
+  def getPortReturnTypeAsString(pi: PortInstance): String =
+    getPortReturnTypeAsStringOption(pi).getOrElse("void")
+
   /** Get a return type of a port as a CppDoc type */
   def getPortReturnTypeAsCppDocType(p: PortInstance): CppDoc.Type =
-    CppDoc.Type(
-      getPortReturnType(p) match {
-        case Some(tn) => tn
-        case None => "void"
-      }
-    )
+    CppDoc.Type(getPortReturnTypeAsString(p))
 
-  def addReturnKeyword(str: String, p: PortInstance): String =
-    p.getType match {
-      case Some(PortInstance.Type.Serial) => s"return $str"
-      case _ => getPortReturnType(p) match {
-          case Some(_) => s"return $str"
-          case None => str
-        }
-    }
+  def addReturnToInvocation(str: String, p: PortInstance): String =
+    if getInvokerReturnTypeAsString(p) != "void" then s"return $str" else str
 
   /** Get the port type as a string */
   def getPortTypeString(p: PortInstance): String =
@@ -900,9 +893,12 @@ abstract class ComponentCppWriterUtils(
 
   // Gets an invoker return type as a CppDoc Type
   def getInvokerReturnType(p: PortInstance): CppDoc.Type =
+    CppDoc.Type(getInvokerReturnTypeAsString(p))
+
+  def getInvokerReturnTypeAsString(p: PortInstance): String =
     p.getType.get match {
-      case PortInstance.Type.DefPort(_) => getPortReturnTypeAsCppDocType(p)
-      case PortInstance.Type.Serial => CppDoc.Type("Fw::SerializeStatus")
+      case PortInstance.Type.DefPort(_) => getPortReturnTypeAsString(p)
+      case PortInstance.Type.Serial => "Fw::SerializeStatus"
     }
 
   def getVirtualOverflowHook(

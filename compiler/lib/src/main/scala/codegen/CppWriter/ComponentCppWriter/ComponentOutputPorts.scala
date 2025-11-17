@@ -219,7 +219,7 @@ case class ComponentOutputPorts(
                 |"""
           ),
           writeFunctionCall(
-            addReturnKeyword(
+            addReturnToInvocation(
               s"this->${portVariableName(p)}[portNum].$invokeFunction",
               p
             ),
@@ -241,7 +241,7 @@ case class ComponentOutputPorts(
 
   // Gets the serial connector for a port
   private def getSerialConnectorForPort(p: PortInstance) =
-    getPortReturnType(p) match {
+    getPortReturnTypeAsStringOption(p) match {
       case None => List(
         functionClassMember(
           Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),

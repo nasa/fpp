@@ -258,7 +258,7 @@ case class ComponentImplWriter(
 
   private def getInputPortHandler(pi: PortInstance): CppDoc.Class.Member = {
     val portName = pi.getUnqualifiedName
-    val toDoMsg = getPortReturnType(pi) match {
+    val toDoMsg = getPortReturnTypeAsStringOption(pi) match {
       case Some(_) => "// TODO return"
       case None => "// TODO"
     }

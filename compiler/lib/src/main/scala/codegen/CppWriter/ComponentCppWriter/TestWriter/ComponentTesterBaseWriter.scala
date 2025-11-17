@@ -41,8 +41,8 @@ case class ComponentTesterBaseWriter(
     )
   }
 
-  private  def returnOrEmptyString(pi: PortInstance) =
-    getPortReturnType(pi).map(_ => "return ").getOrElse("")
+  private def returnOrEmptyString(pi: PortInstance) =
+    getPortReturnTypeAsStringOption(pi).map(_ => "return ").getOrElse("")
 
   private def getMembers: List[CppDoc.Member] = {
     val cls = classMember(
@@ -1467,7 +1467,7 @@ case class ComponentTesterBaseWriter(
                   |"""
             ),
             writeFunctionCall(
-              addReturnKeyword(s"_testerBase->$baseName", i),
+              addReturnToInvocation(s"_testerBase->$baseName", i),
               List("portNum"),
               getPortParams(i).map(_._1)
             )
