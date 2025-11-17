@@ -13,9 +13,10 @@
 
 Enum2 ::
   Enum2() :
-    Serializable()
+    Serializable(),
+    elements{}
 {
-  *this = Enum2(E2::C);
+
 }
 
 Enum2 ::
