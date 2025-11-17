@@ -583,8 +583,8 @@ abstract class ComponentCppWriterUtils(
   def invokerReturnsNonVoid(p: PortInstance): Boolean =
     getInvokerReturnTypeAsString(p) != "void"
 
-  def addReturnToInvocation(str: String, p: PortInstance): String =
-    addConditionalPrefix (invokerReturnsNonVoid) (p) ("return") (str)
+  val addReturnToInvocation =
+    addConditionalPrefix (invokerReturnsNonVoid) ("return")
 
   /** Get the port type as a string */
   def getPortTypeString(p: PortInstance): String =

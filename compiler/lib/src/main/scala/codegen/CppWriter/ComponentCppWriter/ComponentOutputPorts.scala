@@ -219,9 +219,8 @@ case class ComponentOutputPorts(
                 |"""
           ),
           writeFunctionCall(
-            addReturnToInvocation(
-              s"this->${portVariableName(p)}[portNum].$invokeFunction",
-              p
+            addReturnToInvocation (p) (
+              s"this->${portVariableName(p)}[portNum].$invokeFunction"
             ),
             Nil,
             getPortParams(p).map(_._1),

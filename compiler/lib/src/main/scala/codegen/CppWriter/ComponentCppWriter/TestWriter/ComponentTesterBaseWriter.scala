@@ -1467,7 +1467,7 @@ case class ComponentTesterBaseWriter(
                   |"""
             ),
             writeFunctionCall(
-              addReturnToInvocation(s"_testerBase->$baseName", i),
+              addReturnToInvocation (i) (s"_testerBase->$baseName"),
               List("portNum"),
               getPortParams(i).map(_._1)
             )
