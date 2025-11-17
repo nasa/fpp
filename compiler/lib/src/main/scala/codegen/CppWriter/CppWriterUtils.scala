@@ -74,6 +74,10 @@ trait CppWriterUtils extends LineUtils {
     members
   )
 
+  /** Adds a conditional prefix to a string */
+  def addConditionalPrefix[T] (condition: T => Boolean) (t: T) (prefix: String) (s: String): String =
+    if condition(t) then s"$prefix $s" else s
+
   /** Add an access tag and comment to a nonempty list of class members */
   def addAccessTagAndComment(
     accessTag: String,

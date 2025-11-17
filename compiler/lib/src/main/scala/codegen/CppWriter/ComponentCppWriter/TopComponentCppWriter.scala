@@ -99,20 +99,26 @@ case class TopComponentCppWriter (
   ) = {
     val portInstance = component.portMap(portName)
     val numPorts = numPortsConstantName(portInstance)
+    val returnType = getInvokerReturnTypeAsString(portInstance)
+    val returnsNonVoid = returnType != "void"
     List.concat(
       lines(
       s"""|FW_ASSERT((0 <= portNum) && (portNum < $numPorts), static_cast<FwAssertArgType>(portNum), static_cast<FwAssertArgType>($numPorts));
           |const auto instance = this->getInstance();"""
       ),
+      guardedList (returnsNonVoid) (lines(s"$returnType _result = {};")),
       writeInstanceSwitch(
         componentInstanceMap,
         writeOutFnCase,
         lines("FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));")
-      )
+      ),
+      guardedList (returnsNonVoid) (lines(s"return _result;"))
     )
   }
 
   private def writeOutFnCase(portNum: Int, connection: Connection) = {
+    val toPort = connection.to.port
+    val fnName = CppWriter.writeQualifiedName(toPort.componentInstance.qualifiedName)
     lines("// TODO")
   }
 
@@ -121,7 +127,7 @@ case class TopComponentCppWriter (
     componentInstanceMap: TopComponents.ComponentInstanceMap
   ) = {
     val portInstance = component.portMap(portName)
-    val returnType = getInvokerReturnType(portInstance).getCppType
+    val returnType = getInvokerReturnTypeAsString(portInstance)
     val shortName = outputPortInvokerName(portName)
     val name = s"$componentClassName::$shortName"
     val prototypeLines = {

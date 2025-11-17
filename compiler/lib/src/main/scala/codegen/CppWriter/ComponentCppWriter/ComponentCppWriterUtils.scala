@@ -580,8 +580,11 @@ abstract class ComponentCppWriterUtils(
   def getPortReturnTypeAsCppDocType(p: PortInstance): CppDoc.Type =
     CppDoc.Type(getPortReturnTypeAsString(p))
 
+  def invokerReturnsNonVoid(p: PortInstance): Boolean =
+    getInvokerReturnTypeAsString(p) != "void"
+
   def addReturnToInvocation(str: String, p: PortInstance): String =
-    if getInvokerReturnTypeAsString(p) != "void" then s"return $str" else str
+    addConditionalPrefix (invokerReturnsNonVoid) (p) ("return") (str)
 
   /** Get the port type as a string */
   def getPortTypeString(p: PortInstance): String =
