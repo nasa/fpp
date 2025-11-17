@@ -17,14 +17,14 @@ update()
   echo "updating $outfile.ref.txt"
   $fpp_to_json $infile.fpp $args 2>&1 | remove_path_prefix > $outfile.ref.txt
   
-  remove_path_prefix < fpp-ast.json >> $outfile.ref.txt
-  remove_path_prefix < fpp-loc-map.json >> $outfile.ref.txt
+  remove_fpp_version < fpp-ast.json | remove_path_prefix >> $outfile.ref.txt
+  remove_fpp_version < fpp-loc-map.json | remove_path_prefix >> $outfile.ref.txt
 
   if [ "$args" = "-s" ]; then
     rm fpp-ast.json fpp-loc-map.json
   
   else
-    remove_path_prefix < fpp-analysis.json >> $outfile.ref.txt
+    remove_fpp_version < fpp-analysis.json | remove_path_prefix >> $outfile.ref.txt
     # Delete the JSON files
     rm fpp-ast.json fpp-loc-map.json fpp-analysis.json
   fi

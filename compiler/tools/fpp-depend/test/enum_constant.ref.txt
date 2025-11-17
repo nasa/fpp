@@ -1,3 +1,2 @@
 [ local path prefix ]/compiler/tools/fpp-depend/test/E.fpp
 [ local path prefix ]/compiler/tools/fpp-depend/test/E2.fpp
-[ local path prefix ]/compiler/tools/fpp-depend/test/enum_constant.fpp
