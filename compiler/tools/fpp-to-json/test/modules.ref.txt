@@ -1,1175 +1,1187 @@
-[
-  {
-    "members" : [
-      [
+{
+  "fppVersion" : "[ fpp version ]",
+  "ast" : [
+    {
+      "members" : [
         [
-          "This is module M1"
-        ],
-        {
-          "DefModule" : {
-            "node" : {
-              "AstNode" : {
-                "data" : {
-                  "name" : "M1",
-                  "members" : [
-                    [
+          [
+            "This is module M1"
+          ],
+          {
+            "DefModule" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "M1",
+                    "members" : [
                       [
-                      ],
-                      {
-                        "DefConstant" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "a",
-                                "value" : {
-                                  "AstNode" : {
-                                    "data" : {
-                                      "ExprLiteralInt" : {
-                                        "value" : "1"
-                                      }
-                                    },
-                                    "id" : 0
-                                  }
-                                },
-                                "isDictionaryDef" : false
-                              },
-                              "id" : 1
-                            }
-                          }
-                        }
-                      },
-                      [
-                      ]
-                    ],
-                    [
-                      [
-                      ],
-                      {
-                        "DefConstant" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "b",
-                                "value" : {
-                                  "AstNode" : {
-                                    "data" : {
-                                      "ExprIdent" : {
-                                        "value" : "a"
-                                      }
-                                    },
-                                    "id" : 2
-                                  }
-                                },
-                                "isDictionaryDef" : false
-                              },
-                              "id" : 3
-                            }
-                          }
-                        }
-                      },
-                      [
-                      ]
-                    ],
-                    [
-                      [
-                      ],
-                      {
-                        "DefConstant" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "c",
-                                "value" : {
-                                  "AstNode" : {
-                                    "data" : {
-                                      "ExprDot" : {
-                                        "e" : {
-                                          "AstNode" : {
-                                            "data" : {
-                                              "ExprIdent" : {
-                                                "value" : "M1"
-                                              }
-                                            },
-                                            "id" : 12
-                                          }
-                                        },
-                                        "id" : {
-                                          "AstNode" : {
-                                            "data" : "b",
-                                            "id" : 13
-                                          }
+                        [
+                        ],
+                        {
+                          "DefConstant" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "name" : "a",
+                                  "value" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "ExprLiteralInt" : {
+                                          "value" : "1"
                                         }
-                                      }
-                                    },
-                                    "id" : 14
-                                  }
+                                      },
+                                      "id" : 0
+                                    }
+                                  },
+                                  "isDictionaryDef" : false
                                 },
-                                "isDictionaryDef" : false
-                              },
-                              "id" : 15
+                                "id" : 1
+                              }
                             }
                           }
-                        }
-                      },
-                      [
-                      ]
-                    ]
-                  ]
-                },
-                "id" : 16
-              }
-            }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
-        ],
-        {
-          "DefConstant" : {
-            "node" : {
-              "AstNode" : {
-                "data" : {
-                  "name" : "a",
-                  "value" : {
-                    "AstNode" : {
-                      "data" : {
-                        "ExprDot" : {
-                          "e" : {
-                            "AstNode" : {
-                              "data" : {
-                                "ExprIdent" : {
-                                  "value" : "M1"
-                                }
-                              },
-                              "id" : 17
-                            }
-                          },
-                          "id" : {
-                            "AstNode" : {
-                              "data" : "a",
-                              "id" : 18
-                            }
-                          }
-                        }
-                      },
-                      "id" : 19
-                    }
-                  },
-                  "isDictionaryDef" : false
-                },
-                "id" : 20
-              }
-            }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
-        ],
-        {
-          "DefModule" : {
-            "node" : {
-              "AstNode" : {
-                "data" : {
-                  "name" : "M2",
-                  "members" : [
-                    [
-                      [
+                        },
+                        [
+                        ]
                       ],
-                      {
-                        "DefConstant" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "a",
-                                "value" : {
-                                  "AstNode" : {
-                                    "data" : {
-                                      "ExprLiteralInt" : {
-                                        "value" : "0"
-                                      }
-                                    },
-                                    "id" : 25
-                                  }
-                                },
-                                "isDictionaryDef" : false
-                              },
-                              "id" : 26
-                            }
-                          }
-                        }
-                      },
                       [
-                      ]
-                    ]
-                  ]
-                },
-                "id" : 27
-              }
-            }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
-        ],
-        {
-          "DefModule" : {
-            "node" : {
-              "AstNode" : {
-                "data" : {
-                  "name" : "M2",
-                  "members" : [
-                    [
-                      [
-                      ],
-                      {
-                        "DefConstant" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "b",
-                                "value" : {
-                                  "AstNode" : {
-                                    "data" : {
-                                      "ExprLiteralInt" : {
-                                        "value" : "1"
-                                      }
-                                    },
-                                    "id" : 32
-                                  }
-                                },
-                                "isDictionaryDef" : false
-                              },
-                              "id" : 33
-                            }
-                          }
-                        }
-                      },
-                      [
-                      ]
-                    ]
-                  ]
-                },
-                "id" : 34
-              }
-            }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
-        ],
-        {
-          "DefModule" : {
-            "node" : {
-              "AstNode" : {
-                "data" : {
-                  "name" : "A",
-                  "members" : [
-                    [
-                      [
-                      ],
-                      {
-                        "DefModule" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "B",
-                                "members" : [
-                                  [
-                                    [
-                                    ],
-                                    {
-                                      "DefConstant" : {
-                                        "node" : {
-                                          "AstNode" : {
-                                            "data" : {
-                                              "name" : "c",
-                                              "value" : {
-                                                "AstNode" : {
-                                                  "data" : {
-                                                    "ExprLiteralInt" : {
-                                                      "value" : "0"
-                                                    }
-                                                  },
-                                                  "id" : 53
-                                                }
-                                              },
-                                              "isDictionaryDef" : false
-                                            },
-                                            "id" : 54
-                                          }
-                                        }
-                                      }
-                                    },
-                                    [
-                                    ]
-                                  ]
-                                ]
-                              },
-                              "id" : 55
-                            }
-                          }
-                        }
-                      },
-                      [
-                      ]
-                    ]
-                  ]
-                },
-                "id" : 56
-              }
-            }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
-        ],
-        {
-          "DefConstant" : {
-            "node" : {
-              "AstNode" : {
-                "data" : {
-                  "name" : "c",
-                  "value" : {
-                    "AstNode" : {
-                      "data" : {
-                        "ExprDot" : {
-                          "e" : {
-                            "AstNode" : {
-                              "data" : {
-                                "ExprDot" : {
-                                  "e" : {
+                        [
+                        ],
+                        {
+                          "DefConstant" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "name" : "b",
+                                  "value" : {
                                     "AstNode" : {
                                       "data" : {
                                         "ExprIdent" : {
-                                          "value" : "A"
+                                          "value" : "a"
                                         }
                                       },
-                                      "id" : 57
+                                      "id" : 2
                                     }
                                   },
-                                  "id" : {
-                                    "AstNode" : {
-                                      "data" : "B",
-                                      "id" : 58
-                                    }
-                                  }
-                                }
-                              },
-                              "id" : 60
-                            }
-                          },
-                          "id" : {
-                            "AstNode" : {
-                              "data" : "c",
-                              "id" : 59
+                                  "isDictionaryDef" : false
+                                },
+                                "id" : 3
+                              }
                             }
                           }
-                        }
-                      },
-                      "id" : 61
-                    }
+                        },
+                        [
+                        ]
+                      ],
+                      [
+                        [
+                        ],
+                        {
+                          "DefConstant" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "name" : "c",
+                                  "value" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "ExprDot" : {
+                                          "e" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "ExprIdent" : {
+                                                  "value" : "M1"
+                                                }
+                                              },
+                                              "id" : 12
+                                            }
+                                          },
+                                          "id" : {
+                                            "AstNode" : {
+                                              "data" : "b",
+                                              "id" : 13
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "id" : 14
+                                    }
+                                  },
+                                  "isDictionaryDef" : false
+                                },
+                                "id" : 15
+                              }
+                            }
+                          }
+                        },
+                        [
+                        ]
+                      ]
+                    ]
                   },
-                  "isDictionaryDef" : false
-                },
-                "id" : 62
+                  "id" : 16
+                }
               }
             }
-          }
-        },
+          },
+          [
+          ]
+        ],
         [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "a",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprDot" : {
+                            "e" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprIdent" : {
+                                    "value" : "M1"
+                                  }
+                                },
+                                "id" : 17
+                              }
+                            },
+                            "id" : {
+                              "AstNode" : {
+                                "data" : "a",
+                                "id" : 18
+                              }
+                            }
+                          }
+                        },
+                        "id" : 19
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 20
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefModule" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "M2",
+                    "members" : [
+                      [
+                        [
+                        ],
+                        {
+                          "DefConstant" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "name" : "a",
+                                  "value" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "ExprLiteralInt" : {
+                                          "value" : "0"
+                                        }
+                                      },
+                                      "id" : 25
+                                    }
+                                  },
+                                  "isDictionaryDef" : false
+                                },
+                                "id" : 26
+                              }
+                            }
+                          }
+                        },
+                        [
+                        ]
+                      ]
+                    ]
+                  },
+                  "id" : 27
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefModule" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "M2",
+                    "members" : [
+                      [
+                        [
+                        ],
+                        {
+                          "DefConstant" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "name" : "b",
+                                  "value" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "ExprLiteralInt" : {
+                                          "value" : "1"
+                                        }
+                                      },
+                                      "id" : 32
+                                    }
+                                  },
+                                  "isDictionaryDef" : false
+                                },
+                                "id" : 33
+                              }
+                            }
+                          }
+                        },
+                        [
+                        ]
+                      ]
+                    ]
+                  },
+                  "id" : 34
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefModule" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "A",
+                    "members" : [
+                      [
+                        [
+                        ],
+                        {
+                          "DefModule" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "name" : "B",
+                                  "members" : [
+                                    [
+                                      [
+                                      ],
+                                      {
+                                        "DefConstant" : {
+                                          "node" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "name" : "c",
+                                                "value" : {
+                                                  "AstNode" : {
+                                                    "data" : {
+                                                      "ExprLiteralInt" : {
+                                                        "value" : "0"
+                                                      }
+                                                    },
+                                                    "id" : 53
+                                                  }
+                                                },
+                                                "isDictionaryDef" : false
+                                              },
+                                              "id" : 54
+                                            }
+                                          }
+                                        }
+                                      },
+                                      [
+                                      ]
+                                    ]
+                                  ]
+                                },
+                                "id" : 55
+                              }
+                            }
+                          }
+                        },
+                        [
+                        ]
+                      ]
+                    ]
+                  },
+                  "id" : 56
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "c",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprDot" : {
+                            "e" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprDot" : {
+                                    "e" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "ExprIdent" : {
+                                            "value" : "A"
+                                          }
+                                        },
+                                        "id" : 57
+                                      }
+                                    },
+                                    "id" : {
+                                      "AstNode" : {
+                                        "data" : "B",
+                                        "id" : 58
+                                      }
+                                    }
+                                  }
+                                },
+                                "id" : 60
+                              }
+                            },
+                            "id" : {
+                              "AstNode" : {
+                                "data" : "c",
+                                "id" : 59
+                              }
+                            }
+                          }
+                        },
+                        "id" : 61
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 62
+                }
+              }
+            }
+          },
+          [
+          ]
         ]
       ]
-    ]
-  }
-]
+    }
+  ]
+}
 {
-  "0" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "3.16",
-    "includingLoc" : "None"
-  },
-  "1" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "3.3",
-    "includingLoc" : "None"
-  },
-  "2" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "4.16",
-    "includingLoc" : "None"
-  },
-  "3" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "4.3",
-    "includingLoc" : "None"
-  },
-  "4" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "5.16",
-    "includingLoc" : "None"
-  },
-  "5" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "5.19",
-    "includingLoc" : "None"
-  },
-  "6" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "5.16",
-    "includingLoc" : "None"
-  },
-  "7" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "5.3",
-    "includingLoc" : "None"
-  },
-  "8" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "5.16",
-    "includingLoc" : "None"
-  },
-  "9" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "5.19",
-    "includingLoc" : "None"
-  },
-  "10" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "5.16",
-    "includingLoc" : "None"
-  },
-  "11" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "5.3",
-    "includingLoc" : "None"
-  },
-  "12" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "5.16",
-    "includingLoc" : "None"
-  },
-  "13" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "5.19",
-    "includingLoc" : "None"
-  },
-  "14" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "5.16",
-    "includingLoc" : "None"
-  },
-  "15" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "5.3",
-    "includingLoc" : "None"
-  },
-  "16" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "2.1",
-    "includingLoc" : "None"
-  },
-  "17" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "8.14",
-    "includingLoc" : "None"
-  },
-  "18" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "8.17",
-    "includingLoc" : "None"
-  },
-  "19" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "8.14",
-    "includingLoc" : "None"
-  },
-  "20" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "8.1",
-    "includingLoc" : "None"
-  },
-  "21" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "11.16",
-    "includingLoc" : "None"
-  },
-  "22" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "11.3",
-    "includingLoc" : "None"
-  },
-  "23" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "11.16",
-    "includingLoc" : "None"
-  },
-  "24" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "11.3",
-    "includingLoc" : "None"
-  },
-  "25" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "11.16",
-    "includingLoc" : "None"
-  },
-  "26" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "11.3",
-    "includingLoc" : "None"
-  },
-  "27" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "10.1",
-    "includingLoc" : "None"
-  },
-  "28" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "14.16",
-    "includingLoc" : "None"
-  },
-  "29" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "14.3",
-    "includingLoc" : "None"
-  },
-  "30" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "14.16",
-    "includingLoc" : "None"
-  },
-  "31" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "14.3",
-    "includingLoc" : "None"
-  },
-  "32" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "14.16",
-    "includingLoc" : "None"
-  },
-  "33" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "14.3",
-    "includingLoc" : "None"
-  },
-  "34" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "13.1",
-    "includingLoc" : "None"
-  },
-  "35" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "19.18",
-    "includingLoc" : "None"
-  },
-  "36" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "19.5",
-    "includingLoc" : "None"
-  },
-  "37" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "19.18",
-    "includingLoc" : "None"
-  },
-  "38" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "19.5",
-    "includingLoc" : "None"
-  },
-  "39" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "19.18",
-    "includingLoc" : "None"
-  },
-  "40" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "19.5",
-    "includingLoc" : "None"
-  },
-  "41" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "18.3",
-    "includingLoc" : "None"
-  },
-  "42" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "19.18",
-    "includingLoc" : "None"
-  },
-  "43" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "19.5",
-    "includingLoc" : "None"
-  },
-  "44" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "19.18",
-    "includingLoc" : "None"
-  },
-  "45" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "19.5",
-    "includingLoc" : "None"
-  },
-  "46" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "19.18",
-    "includingLoc" : "None"
-  },
-  "47" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "19.5",
-    "includingLoc" : "None"
-  },
-  "48" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "18.3",
-    "includingLoc" : "None"
-  },
-  "49" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "19.18",
-    "includingLoc" : "None"
-  },
-  "50" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "19.5",
-    "includingLoc" : "None"
-  },
-  "51" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "19.18",
-    "includingLoc" : "None"
-  },
-  "52" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "19.5",
-    "includingLoc" : "None"
-  },
-  "53" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "19.18",
-    "includingLoc" : "None"
-  },
-  "54" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "19.5",
-    "includingLoc" : "None"
-  },
-  "55" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "18.3",
-    "includingLoc" : "None"
-  },
-  "56" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "17.1",
-    "includingLoc" : "None"
-  },
-  "57" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "22.14",
-    "includingLoc" : "None"
-  },
-  "58" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "22.16",
-    "includingLoc" : "None"
-  },
-  "59" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "22.18",
-    "includingLoc" : "None"
-  },
-  "60" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "22.14",
-    "includingLoc" : "None"
-  },
-  "61" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "22.14",
-    "includingLoc" : "None"
-  },
-  "62" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
-    "pos" : "22.1",
-    "includingLoc" : "None"
+  "fppVersion" : "[ fpp version ]",
+  "locationMap" : {
+    "0" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "3.16",
+      "includingLoc" : "None"
+    },
+    "1" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "3.3",
+      "includingLoc" : "None"
+    },
+    "2" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "4.16",
+      "includingLoc" : "None"
+    },
+    "3" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "4.3",
+      "includingLoc" : "None"
+    },
+    "4" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "5.16",
+      "includingLoc" : "None"
+    },
+    "5" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "5.19",
+      "includingLoc" : "None"
+    },
+    "6" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "5.16",
+      "includingLoc" : "None"
+    },
+    "7" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "5.3",
+      "includingLoc" : "None"
+    },
+    "8" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "5.16",
+      "includingLoc" : "None"
+    },
+    "9" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "5.19",
+      "includingLoc" : "None"
+    },
+    "10" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "5.16",
+      "includingLoc" : "None"
+    },
+    "11" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "5.3",
+      "includingLoc" : "None"
+    },
+    "12" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "5.16",
+      "includingLoc" : "None"
+    },
+    "13" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "5.19",
+      "includingLoc" : "None"
+    },
+    "14" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "5.16",
+      "includingLoc" : "None"
+    },
+    "15" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "5.3",
+      "includingLoc" : "None"
+    },
+    "16" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "2.1",
+      "includingLoc" : "None"
+    },
+    "17" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "8.14",
+      "includingLoc" : "None"
+    },
+    "18" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "8.17",
+      "includingLoc" : "None"
+    },
+    "19" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "8.14",
+      "includingLoc" : "None"
+    },
+    "20" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "8.1",
+      "includingLoc" : "None"
+    },
+    "21" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "11.16",
+      "includingLoc" : "None"
+    },
+    "22" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "11.3",
+      "includingLoc" : "None"
+    },
+    "23" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "11.16",
+      "includingLoc" : "None"
+    },
+    "24" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "11.3",
+      "includingLoc" : "None"
+    },
+    "25" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "11.16",
+      "includingLoc" : "None"
+    },
+    "26" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "11.3",
+      "includingLoc" : "None"
+    },
+    "27" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "10.1",
+      "includingLoc" : "None"
+    },
+    "28" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "14.16",
+      "includingLoc" : "None"
+    },
+    "29" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "14.3",
+      "includingLoc" : "None"
+    },
+    "30" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "14.16",
+      "includingLoc" : "None"
+    },
+    "31" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "14.3",
+      "includingLoc" : "None"
+    },
+    "32" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "14.16",
+      "includingLoc" : "None"
+    },
+    "33" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "14.3",
+      "includingLoc" : "None"
+    },
+    "34" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "13.1",
+      "includingLoc" : "None"
+    },
+    "35" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "19.18",
+      "includingLoc" : "None"
+    },
+    "36" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "19.5",
+      "includingLoc" : "None"
+    },
+    "37" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "19.18",
+      "includingLoc" : "None"
+    },
+    "38" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "19.5",
+      "includingLoc" : "None"
+    },
+    "39" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "19.18",
+      "includingLoc" : "None"
+    },
+    "40" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "19.5",
+      "includingLoc" : "None"
+    },
+    "41" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "18.3",
+      "includingLoc" : "None"
+    },
+    "42" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "19.18",
+      "includingLoc" : "None"
+    },
+    "43" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "19.5",
+      "includingLoc" : "None"
+    },
+    "44" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "19.18",
+      "includingLoc" : "None"
+    },
+    "45" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "19.5",
+      "includingLoc" : "None"
+    },
+    "46" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "19.18",
+      "includingLoc" : "None"
+    },
+    "47" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "19.5",
+      "includingLoc" : "None"
+    },
+    "48" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "18.3",
+      "includingLoc" : "None"
+    },
+    "49" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "19.18",
+      "includingLoc" : "None"
+    },
+    "50" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "19.5",
+      "includingLoc" : "None"
+    },
+    "51" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "19.18",
+      "includingLoc" : "None"
+    },
+    "52" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "19.5",
+      "includingLoc" : "None"
+    },
+    "53" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "19.18",
+      "includingLoc" : "None"
+    },
+    "54" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "19.5",
+      "includingLoc" : "None"
+    },
+    "55" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "18.3",
+      "includingLoc" : "None"
+    },
+    "56" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "17.1",
+      "includingLoc" : "None"
+    },
+    "57" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "22.14",
+      "includingLoc" : "None"
+    },
+    "58" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "22.16",
+      "includingLoc" : "None"
+    },
+    "59" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "22.18",
+      "includingLoc" : "None"
+    },
+    "60" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "22.14",
+      "includingLoc" : "None"
+    },
+    "61" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "22.14",
+      "includingLoc" : "None"
+    },
+    "62" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp",
+      "pos" : "22.1",
+      "includingLoc" : "None"
+    }
   }
 }
 {
-  "componentInstanceMap" : {
-    
-  },
-  "componentMap" : {
-    
-  },
-  "includedFileSet" : [
-  ],
-  "inputFileSet" : [
-    "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp"
-  ],
-  "locationSpecifierMap" : [
-  ],
-  "parentSymbolMap" : {
-    "15" : {
-      "Module" : {
-        "nodeId" : 16,
-        "unqualifiedName" : "M1"
+  "fppVersion" : "[ fpp version ]",
+  "analysis" : {
+    "componentInstanceMap" : {
+      
+    },
+    "componentMap" : {
+      
+    },
+    "includedFileSet" : [
+    ],
+    "inputFileSet" : [
+      "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp"
+    ],
+    "locationSpecifierMap" : [
+    ],
+    "parentSymbolMap" : {
+      "15" : {
+        "Module" : {
+          "nodeId" : 16,
+          "unqualifiedName" : "M1"
+        }
+      },
+      "33" : {
+        "Module" : {
+          "nodeId" : 27,
+          "unqualifiedName" : "M2"
+        }
+      },
+      "55" : {
+        "Module" : {
+          "nodeId" : 56,
+          "unqualifiedName" : "A"
+        }
+      },
+      "26" : {
+        "Module" : {
+          "nodeId" : 27,
+          "unqualifiedName" : "M2"
+        }
+      },
+      "54" : {
+        "Module" : {
+          "nodeId" : 55,
+          "unqualifiedName" : "B"
+        }
+      },
+      "1" : {
+        "Module" : {
+          "nodeId" : 16,
+          "unqualifiedName" : "M1"
+        }
+      },
+      "3" : {
+        "Module" : {
+          "nodeId" : 16,
+          "unqualifiedName" : "M1"
+        }
       }
     },
-    "33" : {
-      "Module" : {
-        "nodeId" : 27,
-        "unqualifiedName" : "M2"
+    "symbolScopeMap" : {
+      "16" : {
+        "map" : {
+          "Value" : {
+            "map" : {
+              "a" : {
+                "Constant" : {
+                  "nodeId" : 1,
+                  "unqualifiedName" : "a"
+                }
+              },
+              "b" : {
+                "Constant" : {
+                  "nodeId" : 3,
+                  "unqualifiedName" : "b"
+                }
+              },
+              "c" : {
+                "Constant" : {
+                  "nodeId" : 15,
+                  "unqualifiedName" : "c"
+                }
+              }
+            }
+          }
+        }
+      },
+      "27" : {
+        "map" : {
+          "Value" : {
+            "map" : {
+              "a" : {
+                "Constant" : {
+                  "nodeId" : 26,
+                  "unqualifiedName" : "a"
+                }
+              },
+              "b" : {
+                "Constant" : {
+                  "nodeId" : 33,
+                  "unqualifiedName" : "b"
+                }
+              }
+            }
+          }
+        }
+      },
+      "55" : {
+        "map" : {
+          "Value" : {
+            "map" : {
+              "c" : {
+                "Constant" : {
+                  "nodeId" : 54,
+                  "unqualifiedName" : "c"
+                }
+              }
+            }
+          }
+        }
+      },
+      "56" : {
+        "map" : {
+          "ComponentInstance" : {
+            "map" : {
+              "B" : {
+                "Module" : {
+                  "nodeId" : 55,
+                  "unqualifiedName" : "B"
+                }
+              }
+            }
+          },
+          "Topology" : {
+            "map" : {
+              "B" : {
+                "Module" : {
+                  "nodeId" : 55,
+                  "unqualifiedName" : "B"
+                }
+              }
+            }
+          },
+          "Interface" : {
+            "map" : {
+              "B" : {
+                "Module" : {
+                  "nodeId" : 55,
+                  "unqualifiedName" : "B"
+                }
+              }
+            }
+          },
+          "StateMachine" : {
+            "map" : {
+              "B" : {
+                "Module" : {
+                  "nodeId" : 55,
+                  "unqualifiedName" : "B"
+                }
+              }
+            }
+          },
+          "Value" : {
+            "map" : {
+              "B" : {
+                "Module" : {
+                  "nodeId" : 55,
+                  "unqualifiedName" : "B"
+                }
+              }
+            }
+          },
+          "Port" : {
+            "map" : {
+              "B" : {
+                "Module" : {
+                  "nodeId" : 55,
+                  "unqualifiedName" : "B"
+                }
+              }
+            }
+          },
+          "Component" : {
+            "map" : {
+              "B" : {
+                "Module" : {
+                  "nodeId" : 55,
+                  "unqualifiedName" : "B"
+                }
+              }
+            }
+          },
+          "Type" : {
+            "map" : {
+              "B" : {
+                "Module" : {
+                  "nodeId" : 55,
+                  "unqualifiedName" : "B"
+                }
+              }
+            }
+          }
+        }
       }
     },
-    "55" : {
-      "Module" : {
-        "nodeId" : 56,
-        "unqualifiedName" : "A"
+    "topologyMap" : {
+      
+    },
+    "typeMap" : {
+      "15" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "33" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "26" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "61" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "54" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "32" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "1" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "53" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "2" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "3" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "19" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "62" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "25" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "14" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "0" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "20" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
       }
     },
-    "26" : {
-      "Module" : {
-        "nodeId" : 27,
-        "unqualifiedName" : "M2"
+    "useDefMap" : {
+      "12" : {
+        "Module" : {
+          "nodeId" : 16,
+          "unqualifiedName" : "M1"
+        }
+      },
+      "19" : {
+        "Constant" : {
+          "nodeId" : 1,
+          "unqualifiedName" : "a"
+        }
+      },
+      "61" : {
+        "Constant" : {
+          "nodeId" : 54,
+          "unqualifiedName" : "c"
+        }
+      },
+      "57" : {
+        "Module" : {
+          "nodeId" : 56,
+          "unqualifiedName" : "A"
+        }
+      },
+      "2" : {
+        "Constant" : {
+          "nodeId" : 1,
+          "unqualifiedName" : "a"
+        }
+      },
+      "17" : {
+        "Module" : {
+          "nodeId" : 16,
+          "unqualifiedName" : "M1"
+        }
+      },
+      "60" : {
+        "Module" : {
+          "nodeId" : 55,
+          "unqualifiedName" : "B"
+        }
+      },
+      "14" : {
+        "Constant" : {
+          "nodeId" : 3,
+          "unqualifiedName" : "b"
+        }
       }
     },
-    "54" : {
-      "Module" : {
-        "nodeId" : 55,
-        "unqualifiedName" : "B"
+    "valueMap" : {
+      "15" : {
+        "Integer" : {
+          "value" : 1
+        }
+      },
+      "33" : {
+        "Integer" : {
+          "value" : 1
+        }
+      },
+      "26" : {
+        "Integer" : {
+          "value" : 0
+        }
+      },
+      "61" : {
+        "Integer" : {
+          "value" : 0
+        }
+      },
+      "54" : {
+        "Integer" : {
+          "value" : 0
+        }
+      },
+      "32" : {
+        "Integer" : {
+          "value" : 1
+        }
+      },
+      "1" : {
+        "Integer" : {
+          "value" : 1
+        }
+      },
+      "53" : {
+        "Integer" : {
+          "value" : 0
+        }
+      },
+      "2" : {
+        "Integer" : {
+          "value" : 1
+        }
+      },
+      "3" : {
+        "Integer" : {
+          "value" : 1
+        }
+      },
+      "19" : {
+        "Integer" : {
+          "value" : 1
+        }
+      },
+      "62" : {
+        "Integer" : {
+          "value" : 0
+        }
+      },
+      "25" : {
+        "Integer" : {
+          "value" : 0
+        }
+      },
+      "14" : {
+        "Integer" : {
+          "value" : 1
+        }
+      },
+      "0" : {
+        "Integer" : {
+          "value" : 1
+        }
+      },
+      "20" : {
+        "Integer" : {
+          "value" : 1
+        }
       }
     },
-    "1" : {
-      "Module" : {
-        "nodeId" : 16,
-        "unqualifiedName" : "M1"
-      }
+    "stateMachineMap" : {
+      
     },
-    "3" : {
-      "Module" : {
-        "nodeId" : 16,
-        "unqualifiedName" : "M1"
-      }
+    "dictionarySymbolSet" : [
+    ],
+    "interfaceMap" : {
+      
     }
-  },
-  "symbolScopeMap" : {
-    "16" : {
-      "map" : {
-        "Value" : {
-          "map" : {
-            "a" : {
-              "Constant" : {
-                "nodeId" : 1,
-                "unqualifiedName" : "a"
-              }
-            },
-            "b" : {
-              "Constant" : {
-                "nodeId" : 3,
-                "unqualifiedName" : "b"
-              }
-            },
-            "c" : {
-              "Constant" : {
-                "nodeId" : 15,
-                "unqualifiedName" : "c"
-              }
-            }
-          }
-        }
-      }
-    },
-    "27" : {
-      "map" : {
-        "Value" : {
-          "map" : {
-            "a" : {
-              "Constant" : {
-                "nodeId" : 26,
-                "unqualifiedName" : "a"
-              }
-            },
-            "b" : {
-              "Constant" : {
-                "nodeId" : 33,
-                "unqualifiedName" : "b"
-              }
-            }
-          }
-        }
-      }
-    },
-    "55" : {
-      "map" : {
-        "Value" : {
-          "map" : {
-            "c" : {
-              "Constant" : {
-                "nodeId" : 54,
-                "unqualifiedName" : "c"
-              }
-            }
-          }
-        }
-      }
-    },
-    "56" : {
-      "map" : {
-        "ComponentInstance" : {
-          "map" : {
-            "B" : {
-              "Module" : {
-                "nodeId" : 55,
-                "unqualifiedName" : "B"
-              }
-            }
-          }
-        },
-        "Topology" : {
-          "map" : {
-            "B" : {
-              "Module" : {
-                "nodeId" : 55,
-                "unqualifiedName" : "B"
-              }
-            }
-          }
-        },
-        "Interface" : {
-          "map" : {
-            "B" : {
-              "Module" : {
-                "nodeId" : 55,
-                "unqualifiedName" : "B"
-              }
-            }
-          }
-        },
-        "StateMachine" : {
-          "map" : {
-            "B" : {
-              "Module" : {
-                "nodeId" : 55,
-                "unqualifiedName" : "B"
-              }
-            }
-          }
-        },
-        "Value" : {
-          "map" : {
-            "B" : {
-              "Module" : {
-                "nodeId" : 55,
-                "unqualifiedName" : "B"
-              }
-            }
-          }
-        },
-        "Port" : {
-          "map" : {
-            "B" : {
-              "Module" : {
-                "nodeId" : 55,
-                "unqualifiedName" : "B"
-              }
-            }
-          }
-        },
-        "Component" : {
-          "map" : {
-            "B" : {
-              "Module" : {
-                "nodeId" : 55,
-                "unqualifiedName" : "B"
-              }
-            }
-          }
-        },
-        "Type" : {
-          "map" : {
-            "B" : {
-              "Module" : {
-                "nodeId" : 55,
-                "unqualifiedName" : "B"
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "topologyMap" : {
-    
-  },
-  "typeMap" : {
-    "15" : {
-      "Int" : {
-        "Integer" : {
-          
-        }
-      }
-    },
-    "33" : {
-      "Int" : {
-        "Integer" : {
-          
-        }
-      }
-    },
-    "26" : {
-      "Int" : {
-        "Integer" : {
-          
-        }
-      }
-    },
-    "61" : {
-      "Int" : {
-        "Integer" : {
-          
-        }
-      }
-    },
-    "54" : {
-      "Int" : {
-        "Integer" : {
-          
-        }
-      }
-    },
-    "32" : {
-      "Int" : {
-        "Integer" : {
-          
-        }
-      }
-    },
-    "1" : {
-      "Int" : {
-        "Integer" : {
-          
-        }
-      }
-    },
-    "53" : {
-      "Int" : {
-        "Integer" : {
-          
-        }
-      }
-    },
-    "2" : {
-      "Int" : {
-        "Integer" : {
-          
-        }
-      }
-    },
-    "3" : {
-      "Int" : {
-        "Integer" : {
-          
-        }
-      }
-    },
-    "19" : {
-      "Int" : {
-        "Integer" : {
-          
-        }
-      }
-    },
-    "62" : {
-      "Int" : {
-        "Integer" : {
-          
-        }
-      }
-    },
-    "25" : {
-      "Int" : {
-        "Integer" : {
-          
-        }
-      }
-    },
-    "14" : {
-      "Int" : {
-        "Integer" : {
-          
-        }
-      }
-    },
-    "0" : {
-      "Int" : {
-        "Integer" : {
-          
-        }
-      }
-    },
-    "20" : {
-      "Int" : {
-        "Integer" : {
-          
-        }
-      }
-    }
-  },
-  "useDefMap" : {
-    "12" : {
-      "Module" : {
-        "nodeId" : 16,
-        "unqualifiedName" : "M1"
-      }
-    },
-    "19" : {
-      "Constant" : {
-        "nodeId" : 1,
-        "unqualifiedName" : "a"
-      }
-    },
-    "61" : {
-      "Constant" : {
-        "nodeId" : 54,
-        "unqualifiedName" : "c"
-      }
-    },
-    "57" : {
-      "Module" : {
-        "nodeId" : 56,
-        "unqualifiedName" : "A"
-      }
-    },
-    "2" : {
-      "Constant" : {
-        "nodeId" : 1,
-        "unqualifiedName" : "a"
-      }
-    },
-    "17" : {
-      "Module" : {
-        "nodeId" : 16,
-        "unqualifiedName" : "M1"
-      }
-    },
-    "60" : {
-      "Module" : {
-        "nodeId" : 55,
-        "unqualifiedName" : "B"
-      }
-    },
-    "14" : {
-      "Constant" : {
-        "nodeId" : 3,
-        "unqualifiedName" : "b"
-      }
-    }
-  },
-  "valueMap" : {
-    "15" : {
-      "Integer" : {
-        "value" : 1
-      }
-    },
-    "33" : {
-      "Integer" : {
-        "value" : 1
-      }
-    },
-    "26" : {
-      "Integer" : {
-        "value" : 0
-      }
-    },
-    "61" : {
-      "Integer" : {
-        "value" : 0
-      }
-    },
-    "54" : {
-      "Integer" : {
-        "value" : 0
-      }
-    },
-    "32" : {
-      "Integer" : {
-        "value" : 1
-      }
-    },
-    "1" : {
-      "Integer" : {
-        "value" : 1
-      }
-    },
-    "53" : {
-      "Integer" : {
-        "value" : 0
-      }
-    },
-    "2" : {
-      "Integer" : {
-        "value" : 1
-      }
-    },
-    "3" : {
-      "Integer" : {
-        "value" : 1
-      }
-    },
-    "19" : {
-      "Integer" : {
-        "value" : 1
-      }
-    },
-    "62" : {
-      "Integer" : {
-        "value" : 0
-      }
-    },
-    "25" : {
-      "Integer" : {
-        "value" : 0
-      }
-    },
-    "14" : {
-      "Integer" : {
-        "value" : 1
-      }
-    },
-    "0" : {
-      "Integer" : {
-        "value" : 1
-      }
-    },
-    "20" : {
-      "Integer" : {
-        "value" : 1
-      }
-    }
-  },
-  "stateMachineMap" : {
-    
-  },
-  "dictionarySymbolSet" : [
-  ]
+  }
 }
