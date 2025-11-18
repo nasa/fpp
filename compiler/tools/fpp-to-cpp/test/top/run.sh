@@ -49,3 +49,8 @@ tlm_packets()
     diff_cpp TwoInstances_P1TlmPackets
 }
 
+typed_ports()
+{
+  run_test "-p $PWD" typed_ports && \
+    diff_cpp TypedPortsTopology
+}

@@ -1,0 +1,25 @@
+#!/bin/sh -e
+
+fpp_to_cpp=../../../../../../bin/fpp-to-cpp
+fprime_gcc=../../../../../../scripts/fprime-gcc
+
+echo '  removing old files'
+./clean
+
+dir=`cd ../..; echo $PWD`
+
+echo '  generating C++'
+$fpp_to_cpp -p $dir ../../typed_ports.fpp
+
+for suffix in hpp cpp
+do
+  cp ../../TypedPortsTopologyAc.ref.$suffix TypedPortsTopologyAc.$suffix
+done
+
+flags="-I.. -I../../../fprime -I../../../fprime/config -Wno-unused-parameter -c"
+echo '  compiling C++'
+for variable_flags in '' '-DFW_DIRECT_PORT_CALLS'
+do
+  echo "    variable_flags=$variable_flags"
+  $fprime_gcc $variable_flags $flags TypedPortsTopologyAc.cpp
+done

@@ -48,3 +48,9 @@ tlm_packets()
   move_cpp TwoInstancesTopology
   move_cpp TwoInstances_P1TlmPackets
 }
+
+typed_ports()
+{
+  update "-p $PWD" typed_ports
+  move_cpp TypedPortsTopology
+}
