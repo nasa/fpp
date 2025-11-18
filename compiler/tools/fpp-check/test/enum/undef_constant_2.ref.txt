@@ -2,5 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/enum/undef_constant_2.fpp:2.16
 constant a = E.X
                ^
-error: cannot find symbol `X`
+error: symbol X is not defined
 note: looking for a constant here

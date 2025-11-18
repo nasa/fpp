@@ -2,5 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/state_machine/types/signal_undef_type.fpp:3.13
   signal s: T
             ^
-error: cannot find symbol `T`
+error: symbol T is not defined
 note: looking for a type here

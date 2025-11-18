@@ -2,5 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/state_machine/undef/nested_choice_error.fpp:6.19
     initial enter C
                   ^
-error: cannot find symbol `C`
+error: symbol C is not defined
 note: looking for a state here

@@ -2,5 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/state_machine_instance/undef_state_machine.fpp:3.30
   state machine instance s1: S
                              ^
-error: cannot find symbol `S`
+error: symbol S is not defined
 note: looking for a state machine here

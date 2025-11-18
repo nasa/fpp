@@ -2,5 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/state_machine/undef/nested_state_error.fpp:4.19
     initial enter T
                   ^
-error: cannot find symbol `T`
+error: symbol T is not defined
 note: looking for a state here

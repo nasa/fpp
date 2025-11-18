@@ -2,5 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/state_machine/undef/guard_error.fpp:4.17
   choice C { if g enter S else enter S }
                 ^
-error: cannot find symbol `g`
+error: symbol g is not defined
 note: looking for a guard here

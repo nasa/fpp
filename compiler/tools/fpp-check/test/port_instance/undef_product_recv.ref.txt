@@ -2,5 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/port_instance/undef_product_recv.fpp:3.3
   async product recv port productRecvIn
   ^
-error: cannot find symbol `Fw`
+error: symbol Fw is not defined
 note: looking for a port here

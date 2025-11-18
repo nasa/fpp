@@ -2,5 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/spec_init/undef_phase.fpp:7.9
   phase P "c phase P"
         ^
-error: cannot find symbol `P`
+error: symbol P is not defined
 note: looking for a constant here

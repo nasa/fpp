@@ -2,5 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/top_import/undef_topology.fpp:3.10
   import A
          ^
-error: cannot find symbol `A`
+error: symbol A is not defined
 note: looking for a topology here

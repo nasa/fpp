@@ -2,5 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/state_machine/undef/action_error.fpp:3.16
   initial do { a } enter S
                ^
-error: cannot find symbol `a`
+error: symbol a is not defined
 note: looking for a action here
