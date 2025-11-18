@@ -13,9 +13,10 @@
 
 StringArray ::
   StringArray() :
-    Serializable()
+    Serializable(),
+    elements{}
 {
-  *this = StringArray(String2({Fw::String("\"\\"), Fw::String("abc\ndef\n")}));
+
 }
 
 StringArray ::

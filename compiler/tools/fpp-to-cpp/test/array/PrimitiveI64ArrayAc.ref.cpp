@@ -15,9 +15,10 @@ namespace M {
 
   PrimitiveI64 ::
     PrimitiveI64() :
-      Serializable()
+      Serializable(),
+      elements{}
   {
-    *this = M::PrimitiveI64(0);
+
   }
 
   PrimitiveI64 ::

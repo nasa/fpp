@@ -16,7 +16,7 @@ Default ::
     Serializable(),
     m_mU32(54),
     m_mS1(m___fprime_ac_mS1_buffer, sizeof m___fprime_ac_mS1_buffer, Fw::String("hello")),
-    m_mF64(0.0)
+    m_mF64{}
 {
 
 }

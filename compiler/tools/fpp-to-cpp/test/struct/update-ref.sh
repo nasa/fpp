@@ -5,6 +5,12 @@ primitive()
   move_cpp PrimitiveStructSerializable
 }
 
+array()
+{
+  update "-p $PWD" array
+  move_cpp AArray
+}
+
 string()
 {
   update "-p $PWD" string

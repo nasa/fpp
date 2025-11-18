@@ -20,8 +20,8 @@ run_test()
   {
     # Run fpp_to_json and concatenate the output files
     $fpp_to_json $infile.fpp $args 2>&1 | remove_path_prefix > $outfile.out.txt && \
-    remove_path_prefix < fpp-ast.json >> $outfile.out.txt && \
-    remove_path_prefix < fpp-loc-map.json >> $outfile.out.txt
+    remove_fpp_version < fpp-ast.json | remove_path_prefix >> $outfile.out.txt && \
+    remove_fpp_version < fpp-loc-map.json | remove_path_prefix >> $outfile.out.txt
   } && \
   {
     # Validate the location map
@@ -38,7 +38,7 @@ run_test()
     if [ "$args" = "-s" ]; then
       rm fpp-ast.json fpp-loc-map.json
     else
-      remove_path_prefix < fpp-analysis.json >> $outfile.out.txt
+      remove_fpp_version < fpp-analysis.json | remove_path_prefix >> $outfile.out.txt
       # Delete the JSON files
       rm fpp-ast.json fpp-loc-map.json fpp-analysis.json
     fi
