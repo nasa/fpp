@@ -7,8 +7,8 @@
 #ifndef M_TypedPortsPassiveTopologyAc_HPP
 #define M_TypedPortsPassiveTopologyAc_HPP
 
-#include "PassiveReceiver.hpp"
-#include "PassiveSender.hpp"
+#include "TypedPortsPassiveReceiver.hpp"
+#include "TypedPortsPassiveSender.hpp"
 #include "TypedPortsPassiveTopologyDefs.hpp"
 
 // ----------------------------------------------------------------------
@@ -17,15 +17,15 @@
 
 namespace M {
 
-  //! passiveReceiver
-  extern M::PassiveReceiver passiveReceiver;
+  //! receiver
+  extern M::TypedPortsPassiveReceiver receiver;
 
 }
 
 namespace M {
 
-  //! passiveSender
-  extern M::PassiveSender passiveSender;
+  //! sender
+  extern M::TypedPortsPassiveSender sender;
 
 }
 
@@ -37,15 +37,15 @@ namespace M {
 
   namespace BaseIds {
     enum {
-      M_passiveSender = 0x100,
-      M_passiveReceiver = 0x200,
+      M_sender = 0x100,
+      M_receiver = 0x200,
     };
   }
 
   namespace InstanceIds {
     enum {
-      M_passiveReceiver,
-      M_passiveSender,
+      M_receiver,
+      M_sender,
     };
   }
 

@@ -1,21 +1,21 @@
-#ifndef M_PassiveReceiver_HPP
-#define M_PassiveReceiver_HPP
+#ifndef M_TypedPortsPassiveReceiver_HPP
+#define M_TypedPortsPassiveReceiver_HPP
 
-#include "PassiveReceiverComponentAc.hpp"
+#include "TypedPortsPassiveReceiverComponentAc.hpp"
 
 namespace M {
 
-  class PassiveReceiver final :
-    public PassiveReceiverComponentBase
+  class TypedPortsPassiveReceiver final :
+    public TypedPortsPassiveReceiverComponentBase
   {
 
     public:
 
-      PassiveReceiver() {
+      TypedPortsPassiveReceiver() {
 
       }
 
-      PassiveReceiver(const char* name) {
+      TypedPortsPassiveReceiver(const char* name) {
 
       }
 

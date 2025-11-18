@@ -21,7 +21,7 @@ module M {
   port P7(x: E) -> E
   port P8(x: S) -> S
 
-  passive component PassiveSender {
+  passive component TypedPortsPassiveSender {
 
     output port p1: [2] P1
     output port p2: [2] P2
@@ -34,52 +34,52 @@ module M {
 
   }
 
-  passive component PassiveReceiver {
+  passive component TypedPortsPassiveReceiver {
 
     sync input port p1: [2] P1
     sync input port p2: [2] P2
     sync input port p3: [2] P3
     sync input port p4: [2] P4
-    sync input port p5: [2] P5
-    sync input port p6: [2] P6
-    sync input port p7: [2] P7
-    sync input port p8: [2] P8
+    guarded input port p5: [2] P5
+    guarded input port p6: [2] P6
+    guarded input port p7: [2] P7
+    guarded input port p8: [2] P8
 
   }
 
-  instance passiveSender: PassiveSender base id 0x100
-  instance passiveReceiver: PassiveReceiver base id 0x200
+  instance sender: TypedPortsPassiveSender base id 0x100
+  instance receiver: TypedPortsPassiveReceiver base id 0x200
 
   topology TypedPortsPassive {
 
-    instance passiveSender
-    instance passiveReceiver
+    instance sender
+    instance receiver
 
     connections C {
 
-      passiveSender.p1[0] -> passiveReceiver.p1[1]
-      passiveSender.p1[1] -> passiveReceiver.p1[0]
+      sender.p1[0] -> receiver.p1[1]
+      sender.p1[1] -> receiver.p1[0]
 
-      passiveSender.p2[0] -> passiveReceiver.p2[1]
-      passiveSender.p2[1] -> passiveReceiver.p2[0]
+      sender.p2[0] -> receiver.p2[1]
+      sender.p2[1] -> receiver.p2[0]
 
-      passiveSender.p3[0] -> passiveReceiver.p3[0]
-      passiveSender.p3[1] -> passiveReceiver.p3[1]
+      sender.p3[0] -> receiver.p3[0]
+      sender.p3[1] -> receiver.p3[1]
 
-      passiveSender.p4 -> passiveReceiver.p4
-      passiveSender.p4 -> passiveReceiver.p4
+      sender.p4 -> receiver.p4
+      sender.p4 -> receiver.p4
 
-      passiveSender.p5 -> passiveReceiver.p5
-      passiveSender.p5 -> passiveReceiver.p5
+      sender.p5 -> receiver.p5
+      sender.p5 -> receiver.p5
 
-      passiveSender.p6 -> passiveReceiver.p6
-      passiveSender.p6 -> passiveReceiver.p6
+      sender.p6 -> receiver.p6
+      sender.p6 -> receiver.p6
 
-      passiveSender.p7 -> passiveReceiver.p7
-      passiveSender.p7 -> passiveReceiver.p7
+      sender.p7 -> receiver.p7
+      sender.p7 -> receiver.p7
 
-      passiveSender.p8 -> passiveReceiver.p8
-      passiveSender.p8 -> passiveReceiver.p8
+      sender.p8 -> receiver.p8
+      sender.p8 -> receiver.p8
 
     }
 
