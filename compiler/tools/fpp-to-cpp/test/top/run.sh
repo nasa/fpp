@@ -49,6 +49,14 @@ tlm_packets()
     diff_cpp TwoInstances_P1TlmPackets
 }
 
+typed_ports_active()
+{
+  src_dir=$PWD/typed_ports_active
+  run_test "-d $src_dir -p $PWD,$src_dir -i $src_dir/components.fpp" \
+    $src_dir/topology && \
+    diff_cpp $src_dir/TypedPortsActiveTopology
+}
+
 typed_ports_passive()
 {
   src_dir=$PWD/typed_ports_passive
@@ -57,10 +65,10 @@ typed_ports_passive()
     diff_cpp $src_dir/TypedPortsPassiveTopology
 }
 
-typed_ports_active()
+typed_ports_queued()
 {
-  src_dir=$PWD/typed_ports_active
+  src_dir=$PWD/typed_ports_queued
   run_test "-d $src_dir -p $PWD,$src_dir -i $src_dir/components.fpp" \
     $src_dir/topology && \
-    diff_cpp $src_dir/TypedPortsActiveTopology
+    diff_cpp $src_dir/TypedPortsQueuedTopology
 }
