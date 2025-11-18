@@ -2,4 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/component/struct_undef_constant.fpp:2.37
   struct S { x: U32 } default { x = a }
                                     ^
-error: cannot find constant `a` in this scope
+error: cannot find symbol `a`
+note: looking for a constant here

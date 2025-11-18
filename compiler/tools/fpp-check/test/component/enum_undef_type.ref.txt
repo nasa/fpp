@@ -2,4 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/component/enum_undef_type.fpp:2.12
   enum E : T { X }
            ^
-error: cannot find type `T` in this scope
+error: cannot find symbol `T`
+note: looking for a type here

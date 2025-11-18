@@ -2,4 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/connection_pattern/undef_source.fpp:2.31
   health connections instance $health
                               ^
-error: cannot find component instance `health` in this scope
+error: cannot find symbol `health`
+note: looking for a component instance here

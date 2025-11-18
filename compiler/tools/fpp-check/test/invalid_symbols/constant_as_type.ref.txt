@@ -2,4 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/constant_as_type.fpp:2.15
 array A = [3] a
               ^
-error: cannot find type `a` in this scope
+error: cannot find symbol `a`
+note: looking for a type here

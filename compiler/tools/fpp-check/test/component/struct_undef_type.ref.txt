@@ -2,4 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/component/struct_undef_type.fpp:2.17
   struct S { x: T }
                 ^
-error: cannot find type `T` in this scope
+error: cannot find symbol `T`
+note: looking for a type here

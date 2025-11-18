@@ -2,4 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/state_machine/undef/signal_error.fpp:3.16
   state S { on s enter S }
                ^
-error: cannot find signal `s` in this scope
+error: cannot find symbol `s`
+note: looking for a signal here

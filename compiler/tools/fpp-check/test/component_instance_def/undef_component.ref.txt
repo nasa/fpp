@@ -2,4 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/component_instance_def/undef_component.fpp:1.13
 instance c: C base id 0x100
             ^
-error: cannot find component `C` in this scope
+error: cannot find symbol `C`
+note: looking for a component here

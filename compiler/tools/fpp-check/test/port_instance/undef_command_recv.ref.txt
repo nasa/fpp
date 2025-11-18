@@ -2,4 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/port_instance/undef_command_recv.fpp:3.3
   command recv port cmdIn
   ^
-error: cannot find port `Fw` in this scope
+error: cannot find symbol `Fw`
+note: looking for a port here

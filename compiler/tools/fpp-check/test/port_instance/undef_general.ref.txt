@@ -2,4 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/port_instance/undef_general.fpp:3.22
   sync input port p: P
                      ^
-error: cannot find port `P` in this scope
+error: cannot find symbol `P`
+note: looking for a port here

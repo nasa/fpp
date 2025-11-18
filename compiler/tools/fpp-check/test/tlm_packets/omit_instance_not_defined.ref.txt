@@ -2,4 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/tlm_packets/omit_instance_not_defined.fpp:6.5
     u.T
     ^
-error: cannot find component instance `u` in this scope
+error: cannot find symbol `u`
+note: looking for a component instance here

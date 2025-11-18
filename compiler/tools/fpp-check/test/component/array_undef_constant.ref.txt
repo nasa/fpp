@@ -2,4 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/component/array_undef_constant.fpp:2.29
   array A = [3] U32 default a
                             ^
-error: cannot find constant `a` in this scope
+error: cannot find symbol `a`
+note: looking for a constant here

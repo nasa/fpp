@@ -2,5 +2,6 @@ fpp-to-dict
 [ local path prefix ]/tools/fpp-to-dict/test/top/missingFwOpcodeType.fpp:26.1
 topology T {
 ^
-error: cannot find type `FwOpcodeType` in this scope
+error: cannot find symbol `FwOpcodeType`
+note: looking for a type here
 note: when constructing a dictionary, the type FwOpcodeType must be defined

@@ -2,4 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/state_machine/undef/action_error.fpp:3.16
   initial do { a } enter S
                ^
-error: cannot find action `a` in this scope
+error: cannot find symbol `a`
+note: looking for a action here

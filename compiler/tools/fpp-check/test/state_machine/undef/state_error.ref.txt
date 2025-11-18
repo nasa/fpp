@@ -2,4 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/state_machine/undef/state_error.fpp:2.17
   initial enter S
                 ^
-error: cannot find state `S` in this scope
+error: cannot find symbol `S`
+note: looking for a state here
