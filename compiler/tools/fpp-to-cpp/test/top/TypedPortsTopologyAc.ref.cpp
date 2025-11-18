@@ -71,14 +71,6 @@ namespace M {
         1,
         M::passiveReceiver.get_p3_InputPort(0)
     );
-    M::passiveSender.set_p4_OutputPort(
-        0,
-        M::passiveReceiver.get_p4_InputPort(0)
-    );
-    M::passiveSender.set_p4_OutputPort(
-        1,
-        M::passiveReceiver.get_p4_InputPort(0)
-    );
 
 #endif
 
@@ -227,37 +219,10 @@ namespace M {
     return result;
   }
 
-  bool PassiveSenderComponentBase::isConnected_p4_OutputPort(FwIndexType portNum) const {
-    FW_ASSERT(
-      (0 <= portNum) && (portNum < NUM_P4_OUTPUT_PORTS),
-      static_cast<FwAssertArgType>(portNum),
-      static_cast<FwAssertArgType>(NUM_P4_OUTPUT_PORTS)
-    );
-    bool result = false;
-    const auto instance = this->getInstance();
-    switch (instance) {
-      case ::M::InstanceIds::M_passiveSender:
-        switch (portNum) {
-          case 0:
-            result = true;
-            break;
-          case 1:
-            result = true;
-            break;
-          default:
-            break;
-        }
-        break;
-      default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
-        break;
-    }
-    return result;
-  }
-
   void PassiveSenderComponentBase::p1_out(
       FwIndexType portNum,
-      U32 x
+      U32 x1,
+      F32 x2
   ) const {
     FW_ASSERT(
       (0 <= portNum) && (portNum < NUM_P1_OUTPUT_PORTS),
@@ -271,13 +236,15 @@ namespace M {
           case 0:
             M::passiveReceiver.p1_handlerBase(
               0,
-              x
+              x1,
+              x2
             );
             break;
           case 1:
             M::passiveReceiver.p1_handlerBase(
               0,
-              x
+              x1,
+              x2
             );
             break;
           default:
@@ -329,7 +296,7 @@ namespace M {
     return _result;
   }
 
-  void PassiveSenderComponentBase::p3_out(
+  F32 PassiveSenderComponentBase::p3_out(
       FwIndexType portNum,
       F32 x
   ) const {
@@ -339,54 +306,18 @@ namespace M {
       static_cast<FwAssertArgType>(NUM_P3_OUTPUT_PORTS)
     );
     const auto instance = this->getInstance();
-    switch (instance) {
-      case ::M::InstanceIds::M_passiveSender:
-        switch (portNum) {
-          case 0:
-            M::passiveReceiver.p3_handlerBase(
-              0,
-              x
-            );
-            break;
-          case 1:
-            M::passiveReceiver.p3_handlerBase(
-              0,
-              x
-            );
-            break;
-          default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
-            break;
-        }
-        break;
-      default:
-        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
-        break;
-    }
-  }
-
-  F32 PassiveSenderComponentBase::p4_out(
-      FwIndexType portNum,
-      F32 x
-  ) const {
-    FW_ASSERT(
-      (0 <= portNum) && (portNum < NUM_P4_OUTPUT_PORTS),
-      static_cast<FwAssertArgType>(portNum),
-      static_cast<FwAssertArgType>(NUM_P4_OUTPUT_PORTS)
-    );
-    const auto instance = this->getInstance();
     F32 _result = {};
     switch (instance) {
       case ::M::InstanceIds::M_passiveSender:
         switch (portNum) {
           case 0:
-            _result = M::passiveReceiver.p4_handlerBase(
+            _result = M::passiveReceiver.p3_handlerBase(
               0,
               x
             );
             break;
           case 1:
-            _result = M::passiveReceiver.p4_handlerBase(
+            _result = M::passiveReceiver.p3_handlerBase(
               0,
               x
             );

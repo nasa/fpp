@@ -21,7 +21,8 @@ namespace M {
 
       virtual void p1_handler(
           FwIndexType portNum,
-          U32 x
+          U32 x1,
+          F32 x2
       ) {
 
       }
@@ -33,14 +34,7 @@ namespace M {
         return x;
       }
 
-      virtual void p3_handler(
-          FwIndexType portNum,
-          F32 x
-      ) {
-
-      }
-
-      virtual F32 p4_handler(
+      virtual F32 p3_handler(
           FwIndexType portNum,
           F32 x
       ) {
