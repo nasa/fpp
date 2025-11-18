@@ -207,7 +207,7 @@ namespace M {
         switch (portNum) {
           case 0:
             M::health.pingIn_handlerBase(
-              portNum,
+              0,
               key
             );
             break;
@@ -220,7 +220,7 @@ namespace M {
         switch (portNum) {
           case 0:
             M::health.pingIn_handlerBase(
-              portNum,
+              1,
               key
             );
             break;
@@ -282,13 +282,13 @@ namespace Svc {
         switch (portNum) {
           case 0:
             M::c1.pingIn_handlerBase(
-              portNum,
+              0,
               key
             );
             break;
           case 1:
             M::c2.pingIn_handlerBase(
-              portNum,
+              0,
               key
             );
             break;

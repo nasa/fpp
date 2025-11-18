@@ -213,7 +213,7 @@ namespace M {
       case ::M::InstanceIds::M_passive1:
         switch (portNum) {
           case 0:
-            active1.p_handlerBase(portNum);
+            active1.p_handlerBase(0);
             break;
           default:
             FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
@@ -223,7 +223,7 @@ namespace M {
       case ::M::InstanceIds::M_passive2:
         switch (portNum) {
           case 0:
-            M::active2.p_handlerBase(portNum);
+            M::active2.p_handlerBase(0);
             break;
           default:
             FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));

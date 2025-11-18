@@ -123,11 +123,12 @@ case class TopComponentCppWriter (
     )
   }
 
-  private def writeOutFnCase(portNum: Int, connection: Connection) = {
+  private def writeOutFnCase(fromPortNum: Int, connection: Connection) = {
     val fromPort = connection.from.port
     val fromPortInstance = connection.from.port.portInstance
     val toPort = connection.to.port
     val toPortInstance = connection.to.port.portInstance
+    val toPortNum = topology.toPortNumberMap(connection)
     val componentInstanceName = CppWriter.writeQualifiedName(toPort.componentInstance.qualifiedName)
     val portName = toPortInstance.getUnqualifiedName
     val handlerBaseName = inputPortHandlerBaseName(portName)
@@ -138,7 +139,7 @@ case class TopComponentCppWriter (
       case (_: PortInstance.Type.DefPort, _: PortInstance.Type.DefPort) =>
         writeFunctionCall(
           addResultPrefix(fnName),
-          List("portNum"),
+          List(toPortNum.toString),
           getPortParams(toPort.portInstance).map(_._1)
         )
       case (_: PortInstance.Type.DefPort, _) =>
