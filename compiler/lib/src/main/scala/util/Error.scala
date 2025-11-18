@@ -337,7 +337,7 @@ sealed trait Error {
         System.err.println(instanceLoc)
       case SemanticError.TypeMismatch(loc, msg) => Error.print (Some(loc)) (msg)
       case SemanticError.UndefinedSymbol(name, symbolKind, loc) =>
-        Error.print (Some(loc)) (s"cannot find symbol `${name}`")
+        Error.print (Some(loc)) (s"symbol ${name} is not defined")
         printNote(s"looking for a $symbolKind here")
       case SemanticError.InterfaceImport(
         importLoc,
