@@ -49,7 +49,7 @@ namespace M {
     // C
     M::passiveSender.set_p1_OutputPort(
         0,
-        M::passiveReceiver.get_p1_InputPort(0)
+        M::passiveReceiver.get_p1_InputPort(1)
     );
     M::passiveSender.set_p1_OutputPort(
         1,
@@ -69,7 +69,47 @@ namespace M {
     );
     M::passiveSender.set_p3_OutputPort(
         1,
-        M::passiveReceiver.get_p3_InputPort(0)
+        M::passiveReceiver.get_p3_InputPort(1)
+    );
+    M::passiveSender.set_p4_OutputPort(
+        0,
+        M::passiveReceiver.get_p4_InputPort(0)
+    );
+    M::passiveSender.set_p4_OutputPort(
+        1,
+        M::passiveReceiver.get_p4_InputPort(0)
+    );
+    M::passiveSender.set_p5_OutputPort(
+        0,
+        M::passiveReceiver.get_p5_InputPort(0)
+    );
+    M::passiveSender.set_p5_OutputPort(
+        1,
+        M::passiveReceiver.get_p5_InputPort(0)
+    );
+    M::passiveSender.set_p6_OutputPort(
+        0,
+        M::passiveReceiver.get_p6_InputPort(0)
+    );
+    M::passiveSender.set_p6_OutputPort(
+        1,
+        M::passiveReceiver.get_p6_InputPort(0)
+    );
+    M::passiveSender.set_p7_OutputPort(
+        0,
+        M::passiveReceiver.get_p7_InputPort(0)
+    );
+    M::passiveSender.set_p7_OutputPort(
+        1,
+        M::passiveReceiver.get_p7_InputPort(0)
+    );
+    M::passiveSender.set_p8_OutputPort(
+        0,
+        M::passiveReceiver.get_p8_InputPort(0)
+    );
+    M::passiveSender.set_p8_OutputPort(
+        1,
+        M::passiveReceiver.get_p8_InputPort(0)
     );
 
 #endif
@@ -219,10 +259,155 @@ namespace M {
     return result;
   }
 
+  bool PassiveSenderComponentBase::isConnected_p4_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P4_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P4_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_passiveSender:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          case 1:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
+  bool PassiveSenderComponentBase::isConnected_p5_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P5_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P5_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_passiveSender:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          case 1:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
+  bool PassiveSenderComponentBase::isConnected_p6_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P6_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P6_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_passiveSender:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          case 1:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
+  bool PassiveSenderComponentBase::isConnected_p7_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P7_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P7_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_passiveSender:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          case 1:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
+  bool PassiveSenderComponentBase::isConnected_p8_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P8_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P8_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_passiveSender:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          case 1:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
   void PassiveSenderComponentBase::p1_out(
       FwIndexType portNum,
       U32 x1,
-      F32 x2
+      F32 x2,
+      bool x3,
+      const Fw::StringBase& x4,
+      const M::A& x5,
+      const M::E& x6,
+      const M::S& x7
   ) const {
     FW_ASSERT(
       (0 <= portNum) && (portNum < NUM_P1_OUTPUT_PORTS),
@@ -235,16 +420,26 @@ namespace M {
         switch (portNum) {
           case 0:
             M::passiveReceiver.p1_handlerBase(
-              0,
+              1,
               x1,
-              x2
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7
             );
             break;
           case 1:
             M::passiveReceiver.p1_handlerBase(
               0,
               x1,
-              x2
+              x2,
+              x3,
+              x4,
+              x5,
+              x6,
+              x7
             );
             break;
           default:
@@ -318,6 +513,196 @@ namespace M {
             break;
           case 1:
             _result = M::passiveReceiver.p3_handlerBase(
+              1,
+              x
+            );
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return _result;
+  }
+
+  bool PassiveSenderComponentBase::p4_out(
+      FwIndexType portNum,
+      bool x
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P4_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P4_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    bool _result = {};
+    switch (instance) {
+      case ::M::InstanceIds::M_passiveSender:
+        switch (portNum) {
+          case 0:
+            _result = M::passiveReceiver.p4_handlerBase(
+              0,
+              x
+            );
+            break;
+          case 1:
+            _result = M::passiveReceiver.p4_handlerBase(
+              0,
+              x
+            );
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return _result;
+  }
+
+  Fw::String PassiveSenderComponentBase::p5_out(
+      FwIndexType portNum,
+      const Fw::StringBase& x
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P5_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P5_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    Fw::String _result = {};
+    switch (instance) {
+      case ::M::InstanceIds::M_passiveSender:
+        switch (portNum) {
+          case 0:
+            _result = M::passiveReceiver.p5_handlerBase(
+              0,
+              x
+            );
+            break;
+          case 1:
+            _result = M::passiveReceiver.p5_handlerBase(
+              0,
+              x
+            );
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return _result;
+  }
+
+  M::A PassiveSenderComponentBase::p6_out(
+      FwIndexType portNum,
+      const M::A& x
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P6_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P6_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    M::A _result = {};
+    switch (instance) {
+      case ::M::InstanceIds::M_passiveSender:
+        switch (portNum) {
+          case 0:
+            _result = M::passiveReceiver.p6_handlerBase(
+              0,
+              x
+            );
+            break;
+          case 1:
+            _result = M::passiveReceiver.p6_handlerBase(
+              0,
+              x
+            );
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return _result;
+  }
+
+  M::E PassiveSenderComponentBase::p7_out(
+      FwIndexType portNum,
+      const M::E& x
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P7_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P7_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    M::E _result = {};
+    switch (instance) {
+      case ::M::InstanceIds::M_passiveSender:
+        switch (portNum) {
+          case 0:
+            _result = M::passiveReceiver.p7_handlerBase(
+              0,
+              x
+            );
+            break;
+          case 1:
+            _result = M::passiveReceiver.p7_handlerBase(
+              0,
+              x
+            );
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return _result;
+  }
+
+  M::S PassiveSenderComponentBase::p8_out(
+      FwIndexType portNum,
+      const M::S& x
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_P8_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_P8_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    M::S _result = {};
+    switch (instance) {
+      case ::M::InstanceIds::M_passiveSender:
+        switch (portNum) {
+          case 0:
+            _result = M::passiveReceiver.p8_handlerBase(
+              0,
+              x
+            );
+            break;
+          case 1:
+            _result = M::passiveReceiver.p8_handlerBase(
               0,
               x
             );
