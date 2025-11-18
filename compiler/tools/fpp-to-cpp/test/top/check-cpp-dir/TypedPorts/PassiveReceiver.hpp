@@ -32,7 +32,7 @@ namespace M {
           FwIndexType portNum, //!< The port number
           U32 x
       ) {
-        return 0;
+        return x;
       }
 
   };
