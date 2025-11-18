@@ -2,11 +2,15 @@ module M {
 
   port P1(x: U32)
   port P2(x: U32) -> U32
+  port P3(x: F32)
+  port P4(x: F32) -> F32
 
   passive component PassiveSender {
 
     output port p1: [2] P1
     output port p2: [2] P2
+    output port p3: [2] P3
+    output port p4: [2] P4
 
   }
 
@@ -14,6 +18,8 @@ module M {
 
     sync input port p1: [2] P1
     sync input port p2: [2] P2
+    sync input port p3: [2] P3
+    sync input port p4: [2] P4
 
   }
 
@@ -32,6 +38,12 @@ module M {
 
       passiveSender.p2[0] -> passiveReceiver.p2[1]
       passiveSender.p2[1] -> passiveReceiver.p2[0]
+
+      passiveSender.p3 -> passiveReceiver.p3
+      passiveSender.p3 -> passiveReceiver.p3
+
+      passiveSender.p4 -> passiveReceiver.p4
+      passiveSender.p4 -> passiveReceiver.p4
 
     }
 

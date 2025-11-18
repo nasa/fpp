@@ -19,18 +19,30 @@ namespace M {
 
       }
 
-      //! Handler for input port p1
       virtual void p1_handler(
-          FwIndexType portNum, //!< The port number
+          FwIndexType portNum,
           U32 x
       ) {
 
       }
 
-      //! Handler for input port p2
       virtual U32 p2_handler(
-          FwIndexType portNum, //!< The port number
+          FwIndexType portNum,
           U32 x
+      ) {
+        return x;
+      }
+
+      virtual void p3_handler(
+          FwIndexType portNum,
+          F32 x
+      ) {
+
+      }
+
+      virtual F32 p4_handler(
+          FwIndexType portNum,
+          F32 x
       ) {
         return x;
       }
