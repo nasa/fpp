@@ -9,11 +9,11 @@ echo '  removing old files'
 dir=`cd ../..; echo $PWD`
 
 echo '  generating C++'
-$fpp_to_cpp -p $dir ../../typed_ports.fpp
+$fpp_to_cpp -p $dir ../../typed_ports_passive.fpp
 
 for suffix in hpp cpp
 do
-  cp ../../TypedPortsTopologyAc.ref.$suffix TypedPortsTopologyAc.$suffix
+  cp ../../TypedPortsPassiveTopologyAc.ref.$suffix TypedPortsPassiveTopologyAc.$suffix
 done
 
 flags="-I.. -I../../../fprime -I../../../fprime/config -Wno-unused-parameter -c"
@@ -21,5 +21,5 @@ echo '  compiling C++'
 for variable_flags in '' '-DFW_DIRECT_PORT_CALLS'
 do
   echo "    variable_flags=$variable_flags"
-  $fprime_gcc $variable_flags $flags TypedPortsTopologyAc.cpp
+  $fprime_gcc $variable_flags $flags TypedPortsPassiveTopologyAc.cpp
 done

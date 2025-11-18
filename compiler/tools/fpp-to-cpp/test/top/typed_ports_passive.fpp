@@ -50,7 +50,7 @@ module M {
   instance passiveSender: PassiveSender base id 0x100
   instance passiveReceiver: PassiveReceiver base id 0x200
 
-  topology TypedPorts {
+  topology TypedPortsPassive {
 
     instance passiveSender
     instance passiveReceiver

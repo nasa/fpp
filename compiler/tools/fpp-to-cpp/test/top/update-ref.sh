@@ -49,8 +49,8 @@ tlm_packets()
   move_cpp TwoInstances_P1TlmPackets
 }
 
-typed_ports()
+typed_ports_passive()
 {
-  update "-p $PWD" typed_ports
-  move_cpp TypedPortsTopology
+  update "-p $PWD" typed_ports_passive
+  move_cpp TypedPortsPassiveTopology
 }

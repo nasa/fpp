@@ -49,8 +49,8 @@ tlm_packets()
     diff_cpp TwoInstances_P1TlmPackets
 }
 
-typed_ports()
+typed_ports_passive()
 {
-  run_test "-p $PWD" typed_ports && \
-    diff_cpp TypedPortsTopology
+  run_test "-p $PWD" typed_ports_passive && \
+    diff_cpp TypedPortsPassiveTopology
 }
