@@ -6,5 +6,6 @@ nested_namespaces
 no_namespace
 params
 tlm_packets
+typed_ports_active
 typed_ports_passive
 "

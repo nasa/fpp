@@ -56,3 +56,11 @@ typed_ports_passive()
     $src_dir/topology && \
     diff_cpp $src_dir/TypedPortsPassiveTopology
 }
+
+typed_ports_active()
+{
+  src_dir=$PWD/typed_ports_active
+  run_test "-d $src_dir -p $PWD,$src_dir -i $src_dir/components.fpp" \
+    $src_dir/topology && \
+    diff_cpp $src_dir/TypedPortsActiveTopology
+}

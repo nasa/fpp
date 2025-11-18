@@ -1,0 +1,88 @@
+#ifndef TypedPortsActive_Receiver_HPP
+#define TypedPortsActive_Receiver_HPP
+
+#include "ReceiverComponentAc.hpp"
+
+namespace TypedPortsActive {
+
+  class Receiver final :
+    public ReceiverComponentBase
+  {
+
+    public:
+
+      Receiver() {
+
+      }
+
+      Receiver(const char* name) {
+
+      }
+
+      void p1_handler(
+          FwIndexType portNum,
+          U32 x1,
+          F32 x2,
+          bool x3,
+          const Fw::StringBase& x4,
+          const TypedPortsActive::A& x5,
+          const TypedPortsActive::E& x6,
+          const TypedPortsActive::S& x7
+      ) override {
+
+      }
+
+      U32 p2_handler(
+          FwIndexType portNum,
+          U32 x
+      ) override {
+        return x;
+      }
+
+      F32 p3_handler(
+          FwIndexType portNum,
+          F32 x
+      ) override {
+        return x;
+      }
+
+      bool p4_handler(
+          FwIndexType portNum,
+          bool x
+      ) override {
+        return x;
+      }
+
+      Fw::String p5_handler(
+          FwIndexType portNum,
+          const Fw::StringBase& x
+      ) override {
+        return x;
+      }
+
+      TypedPortsActive::A p6_handler(
+          FwIndexType portNum,
+          const TypedPortsActive::A& x
+      ) override {
+        return x;
+      }
+
+      TypedPortsActive::E p7_handler(
+          FwIndexType portNum,
+          const TypedPortsActive::E& x
+      ) override {
+        return x;
+      }
+
+      TypedPortsActive::S p8_handler(
+          FwIndexType portNum,
+          const TypedPortsActive::S& x
+      ) override {
+        return x;
+      }
+
+  };
+
+}
+
+#endif

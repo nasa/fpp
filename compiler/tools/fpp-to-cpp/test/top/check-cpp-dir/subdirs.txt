@@ -3,4 +3,5 @@ Commands
 Health
 Params
 TlmPackets
+TypedPortsActive
 TypedPortsPassive
