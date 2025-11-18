@@ -6,14 +6,16 @@ fprime_gcc=../../../../../../scripts/fprime-gcc
 echo '  removing old files'
 ./clean
 
-dir=`cd ../..; echo $PWD`
+base_dir=`cd ../..; echo $PWD`
+src_dir=$base_dir/typed_ports_passive
 
 echo '  generating C++'
-$fpp_to_cpp -p $dir ../../typed_ports_passive.fpp
+$fpp_to_cpp -p $base_dir,$src_dir $src_dir/components.fpp \
+  $src_dir/topology.fpp
 
 for suffix in hpp cpp
 do
-  cp ../../TypedPortsPassiveTopologyAc.ref.$suffix TypedPortsPassiveTopologyAc.$suffix
+  cp $src_dir/TypedPortsPassiveTopologyAc.ref.$suffix TypedPortsPassiveTopologyAc.$suffix
 done
 
 flags="-I.. -I../../../fprime -I../../../fprime/config -Wno-unused-parameter -c"

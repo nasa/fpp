@@ -51,6 +51,8 @@ tlm_packets()
 
 typed_ports_passive()
 {
-  run_test "-p $PWD" typed_ports_passive && \
-    diff_cpp TypedPortsPassiveTopology
+  src_dir=$PWD/typed_ports_passive
+  run_test "-d $src_dir -p $PWD,$src_dir -i $src_dir/components.fpp" \
+    $src_dir/topology && \
+    diff_cpp $src_dir/TypedPortsPassiveTopology
 }

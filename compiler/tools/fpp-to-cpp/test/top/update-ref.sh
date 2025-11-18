@@ -51,6 +51,8 @@ tlm_packets()
 
 typed_ports_passive()
 {
-  update "-p $PWD" typed_ports_passive
-  move_cpp TypedPortsPassiveTopology
+  src_dir=$PWD/typed_ports_passive
+  update "-d $src_dir -p $PWD,$src_dir -i $src_dir/components.fpp" \
+    $src_dir/topology
+  move_cpp $src_dir/TypedPortsPassiveTopology
 }

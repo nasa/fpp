@@ -1,5 +1,5 @@
 namespace M {
 
-  typedef int TopologyState;
+  using TopologyState = int;
 
 }
