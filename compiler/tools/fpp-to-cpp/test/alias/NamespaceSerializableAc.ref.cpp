@@ -14,10 +14,10 @@
 Namespace ::
   Namespace() :
     Serializable(),
-    m_A(0),
-    m_B(0),
-    m_C(0),
-    m_D(0)
+    m_A{},
+    m_B{},
+    m_C{},
+    m_D{}
 {
 
 }

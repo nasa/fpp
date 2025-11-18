@@ -15,9 +15,10 @@ namespace M {
 
   A ::
     A() :
-      Serializable()
+      Serializable(),
+      elements{}
   {
-    *this = M::A(0.0);
+
   }
 
   A ::

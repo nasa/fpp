@@ -13,9 +13,10 @@
 
 LargeSize ::
   LargeSize() :
-    Serializable()
+    Serializable(),
+    elements{}
 {
-  *this = LargeSize(0);
+
 }
 
 LargeSize ::
