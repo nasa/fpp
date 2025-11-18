@@ -1,21 +1,21 @@
-#ifndef M_TypedPortsPassiveReceiver_HPP
-#define M_TypedPortsPassiveReceiver_HPP
+#ifndef TypedPortsPassive_Receiver_HPP
+#define TypedPortsPassive_Receiver_HPP
 
-#include "TypedPortsPassiveReceiverComponentAc.hpp"
+#include "ReceiverComponentAc.hpp"
 
-namespace M {
+namespace TypedPortsPassive {
 
-  class TypedPortsPassiveReceiver final :
-    public TypedPortsPassiveReceiverComponentBase
+  class Receiver final :
+    public ReceiverComponentBase
   {
 
     public:
 
-      TypedPortsPassiveReceiver() {
+      Receiver() {
 
       }
 
-      TypedPortsPassiveReceiver(const char* name) {
+      Receiver(const char* name) {
 
       }
 
@@ -25,9 +25,9 @@ namespace M {
           F32 x2,
           bool x3,
           const Fw::StringBase& x4,
-          const M::A& x5,
-          const M::E& x6,
-          const M::S& x7
+          const TypedPortsPassive::A& x5,
+          const TypedPortsPassive::E& x6,
+          const TypedPortsPassive::S& x7
       ) override {
 
       }
@@ -60,23 +60,23 @@ namespace M {
         return x;
       }
 
-      M::A p6_handler(
+      TypedPortsPassive::A p6_handler(
           FwIndexType portNum,
-          const M::A& x
+          const TypedPortsPassive::A& x
       ) override {
         return x;
       }
 
-      M::E p7_handler(
+      TypedPortsPassive::E p7_handler(
           FwIndexType portNum,
-          const M::E& x
+          const TypedPortsPassive::E& x
       ) override {
         return x;
       }
 
-      M::S p8_handler(
+      TypedPortsPassive::S p8_handler(
           FwIndexType portNum,
-          const M::S& x
+          const TypedPortsPassive::S& x
       ) override {
         return x;
       }

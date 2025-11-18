@@ -1,4 +1,4 @@
-namespace M {
+namespace TypedPortsPassive {
 
   using TopologyState = int;
 

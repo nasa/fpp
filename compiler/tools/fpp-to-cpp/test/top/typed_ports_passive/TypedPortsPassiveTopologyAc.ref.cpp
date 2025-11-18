@@ -10,27 +10,27 @@
 // Component instances
 // ----------------------------------------------------------------------
 
-namespace M {
+namespace TypedPortsPassive {
 
-  M::TypedPortsPassiveReceiver receiver(FW_OPTIONAL_NAME("receiver"));
-
-}
-
-namespace M {
-
-  M::TypedPortsPassiveSender sender(FW_OPTIONAL_NAME("sender"));
+  TypedPortsPassive::Receiver receiver(FW_OPTIONAL_NAME("receiver"));
 
 }
 
-namespace M {
+namespace TypedPortsPassive {
+
+  TypedPortsPassive::Sender sender(FW_OPTIONAL_NAME("sender"));
+
+}
+
+namespace TypedPortsPassive {
 
   // ----------------------------------------------------------------------
   // Helper functions
   // ----------------------------------------------------------------------
 
   void initComponents(const TopologyState& state) {
-    M::receiver.init(InstanceIds::M_receiver);
-    M::sender.init(InstanceIds::M_sender);
+    TypedPortsPassive::receiver.init(InstanceIds::TypedPortsPassive_receiver);
+    TypedPortsPassive::sender.init(InstanceIds::TypedPortsPassive_sender);
   }
 
   void configComponents(const TopologyState& state) {
@@ -38,8 +38,8 @@ namespace M {
   }
 
   void setBaseIds() {
-    M::sender.setIdBase(BaseIds::M_sender);
-    M::receiver.setIdBase(BaseIds::M_receiver);
+    TypedPortsPassive::sender.setIdBase(BaseIds::TypedPortsPassive_sender);
+    TypedPortsPassive::receiver.setIdBase(BaseIds::TypedPortsPassive_receiver);
   }
 
   void connectComponents() {
@@ -47,69 +47,69 @@ namespace M {
 #ifndef FW_DIRECT_PORT_CALLS
 
     // C
-    M::sender.set_p1_OutputPort(
+    TypedPortsPassive::sender.set_p1_OutputPort(
         0,
-        M::receiver.get_p1_InputPort(1)
+        TypedPortsPassive::receiver.get_p1_InputPort(1)
     );
-    M::sender.set_p1_OutputPort(
+    TypedPortsPassive::sender.set_p1_OutputPort(
         1,
-        M::receiver.get_p1_InputPort(0)
+        TypedPortsPassive::receiver.get_p1_InputPort(0)
     );
-    M::sender.set_p2_OutputPort(
+    TypedPortsPassive::sender.set_p2_OutputPort(
         0,
-        M::receiver.get_p2_InputPort(1)
+        TypedPortsPassive::receiver.get_p2_InputPort(1)
     );
-    M::sender.set_p2_OutputPort(
+    TypedPortsPassive::sender.set_p2_OutputPort(
         1,
-        M::receiver.get_p2_InputPort(0)
+        TypedPortsPassive::receiver.get_p2_InputPort(0)
     );
-    M::sender.set_p3_OutputPort(
+    TypedPortsPassive::sender.set_p3_OutputPort(
         0,
-        M::receiver.get_p3_InputPort(0)
+        TypedPortsPassive::receiver.get_p3_InputPort(0)
     );
-    M::sender.set_p3_OutputPort(
+    TypedPortsPassive::sender.set_p3_OutputPort(
         1,
-        M::receiver.get_p3_InputPort(1)
+        TypedPortsPassive::receiver.get_p3_InputPort(1)
     );
-    M::sender.set_p4_OutputPort(
+    TypedPortsPassive::sender.set_p4_OutputPort(
         0,
-        M::receiver.get_p4_InputPort(0)
+        TypedPortsPassive::receiver.get_p4_InputPort(0)
     );
-    M::sender.set_p4_OutputPort(
+    TypedPortsPassive::sender.set_p4_OutputPort(
         1,
-        M::receiver.get_p4_InputPort(0)
+        TypedPortsPassive::receiver.get_p4_InputPort(0)
     );
-    M::sender.set_p5_OutputPort(
+    TypedPortsPassive::sender.set_p5_OutputPort(
         0,
-        M::receiver.get_p5_InputPort(0)
+        TypedPortsPassive::receiver.get_p5_InputPort(0)
     );
-    M::sender.set_p5_OutputPort(
+    TypedPortsPassive::sender.set_p5_OutputPort(
         1,
-        M::receiver.get_p5_InputPort(0)
+        TypedPortsPassive::receiver.get_p5_InputPort(0)
     );
-    M::sender.set_p6_OutputPort(
+    TypedPortsPassive::sender.set_p6_OutputPort(
         0,
-        M::receiver.get_p6_InputPort(0)
+        TypedPortsPassive::receiver.get_p6_InputPort(0)
     );
-    M::sender.set_p6_OutputPort(
+    TypedPortsPassive::sender.set_p6_OutputPort(
         1,
-        M::receiver.get_p6_InputPort(0)
+        TypedPortsPassive::receiver.get_p6_InputPort(0)
     );
-    M::sender.set_p7_OutputPort(
+    TypedPortsPassive::sender.set_p7_OutputPort(
         0,
-        M::receiver.get_p7_InputPort(0)
+        TypedPortsPassive::receiver.get_p7_InputPort(0)
     );
-    M::sender.set_p7_OutputPort(
+    TypedPortsPassive::sender.set_p7_OutputPort(
         1,
-        M::receiver.get_p7_InputPort(0)
+        TypedPortsPassive::receiver.get_p7_InputPort(0)
     );
-    M::sender.set_p8_OutputPort(
+    TypedPortsPassive::sender.set_p8_OutputPort(
         0,
-        M::receiver.get_p8_InputPort(0)
+        TypedPortsPassive::receiver.get_p8_InputPort(0)
     );
-    M::sender.set_p8_OutputPort(
+    TypedPortsPassive::sender.set_p8_OutputPort(
         1,
-        M::receiver.get_p8_InputPort(0)
+        TypedPortsPassive::receiver.get_p8_InputPort(0)
     );
 
 #endif
@@ -173,9 +173,9 @@ namespace M {
 // Topology-dependent component implementation
 // ----------------------------------------------------------------------
 
-namespace M {
+namespace TypedPortsPassive {
 
-  bool TypedPortsPassiveSenderComponentBase::isConnected_p1_OutputPort(FwIndexType portNum) const {
+  bool SenderComponentBase::isConnected_p1_OutputPort(FwIndexType portNum) const {
     FW_ASSERT(
       (0 <= portNum) && (portNum < NUM_P1_OUTPUT_PORTS),
       static_cast<FwAssertArgType>(portNum),
@@ -184,7 +184,7 @@ namespace M {
     bool result = false;
     const auto instance = this->getInstance();
     switch (instance) {
-      case ::M::InstanceIds::M_sender:
+      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
         switch (portNum) {
           case 0:
             result = true;
@@ -203,7 +203,7 @@ namespace M {
     return result;
   }
 
-  bool TypedPortsPassiveSenderComponentBase::isConnected_p2_OutputPort(FwIndexType portNum) const {
+  bool SenderComponentBase::isConnected_p2_OutputPort(FwIndexType portNum) const {
     FW_ASSERT(
       (0 <= portNum) && (portNum < NUM_P2_OUTPUT_PORTS),
       static_cast<FwAssertArgType>(portNum),
@@ -212,7 +212,7 @@ namespace M {
     bool result = false;
     const auto instance = this->getInstance();
     switch (instance) {
-      case ::M::InstanceIds::M_sender:
+      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
         switch (portNum) {
           case 0:
             result = true;
@@ -231,7 +231,7 @@ namespace M {
     return result;
   }
 
-  bool TypedPortsPassiveSenderComponentBase::isConnected_p3_OutputPort(FwIndexType portNum) const {
+  bool SenderComponentBase::isConnected_p3_OutputPort(FwIndexType portNum) const {
     FW_ASSERT(
       (0 <= portNum) && (portNum < NUM_P3_OUTPUT_PORTS),
       static_cast<FwAssertArgType>(portNum),
@@ -240,7 +240,7 @@ namespace M {
     bool result = false;
     const auto instance = this->getInstance();
     switch (instance) {
-      case ::M::InstanceIds::M_sender:
+      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
         switch (portNum) {
           case 0:
             result = true;
@@ -259,7 +259,7 @@ namespace M {
     return result;
   }
 
-  bool TypedPortsPassiveSenderComponentBase::isConnected_p4_OutputPort(FwIndexType portNum) const {
+  bool SenderComponentBase::isConnected_p4_OutputPort(FwIndexType portNum) const {
     FW_ASSERT(
       (0 <= portNum) && (portNum < NUM_P4_OUTPUT_PORTS),
       static_cast<FwAssertArgType>(portNum),
@@ -268,7 +268,7 @@ namespace M {
     bool result = false;
     const auto instance = this->getInstance();
     switch (instance) {
-      case ::M::InstanceIds::M_sender:
+      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
         switch (portNum) {
           case 0:
             result = true;
@@ -287,7 +287,7 @@ namespace M {
     return result;
   }
 
-  bool TypedPortsPassiveSenderComponentBase::isConnected_p5_OutputPort(FwIndexType portNum) const {
+  bool SenderComponentBase::isConnected_p5_OutputPort(FwIndexType portNum) const {
     FW_ASSERT(
       (0 <= portNum) && (portNum < NUM_P5_OUTPUT_PORTS),
       static_cast<FwAssertArgType>(portNum),
@@ -296,7 +296,7 @@ namespace M {
     bool result = false;
     const auto instance = this->getInstance();
     switch (instance) {
-      case ::M::InstanceIds::M_sender:
+      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
         switch (portNum) {
           case 0:
             result = true;
@@ -315,7 +315,7 @@ namespace M {
     return result;
   }
 
-  bool TypedPortsPassiveSenderComponentBase::isConnected_p6_OutputPort(FwIndexType portNum) const {
+  bool SenderComponentBase::isConnected_p6_OutputPort(FwIndexType portNum) const {
     FW_ASSERT(
       (0 <= portNum) && (portNum < NUM_P6_OUTPUT_PORTS),
       static_cast<FwAssertArgType>(portNum),
@@ -324,7 +324,7 @@ namespace M {
     bool result = false;
     const auto instance = this->getInstance();
     switch (instance) {
-      case ::M::InstanceIds::M_sender:
+      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
         switch (portNum) {
           case 0:
             result = true;
@@ -343,7 +343,7 @@ namespace M {
     return result;
   }
 
-  bool TypedPortsPassiveSenderComponentBase::isConnected_p7_OutputPort(FwIndexType portNum) const {
+  bool SenderComponentBase::isConnected_p7_OutputPort(FwIndexType portNum) const {
     FW_ASSERT(
       (0 <= portNum) && (portNum < NUM_P7_OUTPUT_PORTS),
       static_cast<FwAssertArgType>(portNum),
@@ -352,7 +352,7 @@ namespace M {
     bool result = false;
     const auto instance = this->getInstance();
     switch (instance) {
-      case ::M::InstanceIds::M_sender:
+      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
         switch (portNum) {
           case 0:
             result = true;
@@ -371,7 +371,7 @@ namespace M {
     return result;
   }
 
-  bool TypedPortsPassiveSenderComponentBase::isConnected_p8_OutputPort(FwIndexType portNum) const {
+  bool SenderComponentBase::isConnected_p8_OutputPort(FwIndexType portNum) const {
     FW_ASSERT(
       (0 <= portNum) && (portNum < NUM_P8_OUTPUT_PORTS),
       static_cast<FwAssertArgType>(portNum),
@@ -380,7 +380,7 @@ namespace M {
     bool result = false;
     const auto instance = this->getInstance();
     switch (instance) {
-      case ::M::InstanceIds::M_sender:
+      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
         switch (portNum) {
           case 0:
             result = true;
@@ -399,15 +399,15 @@ namespace M {
     return result;
   }
 
-  void TypedPortsPassiveSenderComponentBase::p1_out(
+  void SenderComponentBase::p1_out(
       FwIndexType portNum,
       U32 x1,
       F32 x2,
       bool x3,
       const Fw::StringBase& x4,
-      const M::A& x5,
-      const M::E& x6,
-      const M::S& x7
+      const TypedPortsPassive::A& x5,
+      const TypedPortsPassive::E& x6,
+      const TypedPortsPassive::S& x7
   ) const {
     FW_ASSERT(
       (0 <= portNum) && (portNum < NUM_P1_OUTPUT_PORTS),
@@ -416,10 +416,10 @@ namespace M {
     );
     const auto instance = this->getInstance();
     switch (instance) {
-      case ::M::InstanceIds::M_sender:
+      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
         switch (portNum) {
           case 0:
-            M::receiver.p1_handlerBase(
+            TypedPortsPassive::receiver.p1_handlerBase(
               1,
               x1,
               x2,
@@ -431,7 +431,7 @@ namespace M {
             );
             break;
           case 1:
-            M::receiver.p1_handlerBase(
+            TypedPortsPassive::receiver.p1_handlerBase(
               0,
               x1,
               x2,
@@ -453,7 +453,7 @@ namespace M {
     }
   }
 
-  U32 TypedPortsPassiveSenderComponentBase::p2_out(
+  U32 SenderComponentBase::p2_out(
       FwIndexType portNum,
       U32 x
   ) const {
@@ -465,16 +465,16 @@ namespace M {
     const auto instance = this->getInstance();
     U32 _result = {};
     switch (instance) {
-      case ::M::InstanceIds::M_sender:
+      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
         switch (portNum) {
           case 0:
-            _result = M::receiver.p2_handlerBase(
+            _result = TypedPortsPassive::receiver.p2_handlerBase(
               1,
               x
             );
             break;
           case 1:
-            _result = M::receiver.p2_handlerBase(
+            _result = TypedPortsPassive::receiver.p2_handlerBase(
               0,
               x
             );
@@ -491,7 +491,7 @@ namespace M {
     return _result;
   }
 
-  F32 TypedPortsPassiveSenderComponentBase::p3_out(
+  F32 SenderComponentBase::p3_out(
       FwIndexType portNum,
       F32 x
   ) const {
@@ -503,16 +503,16 @@ namespace M {
     const auto instance = this->getInstance();
     F32 _result = {};
     switch (instance) {
-      case ::M::InstanceIds::M_sender:
+      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
         switch (portNum) {
           case 0:
-            _result = M::receiver.p3_handlerBase(
+            _result = TypedPortsPassive::receiver.p3_handlerBase(
               0,
               x
             );
             break;
           case 1:
-            _result = M::receiver.p3_handlerBase(
+            _result = TypedPortsPassive::receiver.p3_handlerBase(
               1,
               x
             );
@@ -529,7 +529,7 @@ namespace M {
     return _result;
   }
 
-  bool TypedPortsPassiveSenderComponentBase::p4_out(
+  bool SenderComponentBase::p4_out(
       FwIndexType portNum,
       bool x
   ) const {
@@ -541,16 +541,16 @@ namespace M {
     const auto instance = this->getInstance();
     bool _result = {};
     switch (instance) {
-      case ::M::InstanceIds::M_sender:
+      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
         switch (portNum) {
           case 0:
-            _result = M::receiver.p4_handlerBase(
+            _result = TypedPortsPassive::receiver.p4_handlerBase(
               0,
               x
             );
             break;
           case 1:
-            _result = M::receiver.p4_handlerBase(
+            _result = TypedPortsPassive::receiver.p4_handlerBase(
               0,
               x
             );
@@ -567,7 +567,7 @@ namespace M {
     return _result;
   }
 
-  Fw::String TypedPortsPassiveSenderComponentBase::p5_out(
+  Fw::String SenderComponentBase::p5_out(
       FwIndexType portNum,
       const Fw::StringBase& x
   ) const {
@@ -579,16 +579,16 @@ namespace M {
     const auto instance = this->getInstance();
     Fw::String _result = {};
     switch (instance) {
-      case ::M::InstanceIds::M_sender:
+      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
         switch (portNum) {
           case 0:
-            _result = M::receiver.p5_handlerBase(
+            _result = TypedPortsPassive::receiver.p5_handlerBase(
               0,
               x
             );
             break;
           case 1:
-            _result = M::receiver.p5_handlerBase(
+            _result = TypedPortsPassive::receiver.p5_handlerBase(
               0,
               x
             );
@@ -605,9 +605,9 @@ namespace M {
     return _result;
   }
 
-  M::A TypedPortsPassiveSenderComponentBase::p6_out(
+  TypedPortsPassive::A SenderComponentBase::p6_out(
       FwIndexType portNum,
-      const M::A& x
+      const TypedPortsPassive::A& x
   ) const {
     FW_ASSERT(
       (0 <= portNum) && (portNum < NUM_P6_OUTPUT_PORTS),
@@ -615,18 +615,18 @@ namespace M {
       static_cast<FwAssertArgType>(NUM_P6_OUTPUT_PORTS)
     );
     const auto instance = this->getInstance();
-    M::A _result = {};
+    TypedPortsPassive::A _result = {};
     switch (instance) {
-      case ::M::InstanceIds::M_sender:
+      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
         switch (portNum) {
           case 0:
-            _result = M::receiver.p6_handlerBase(
+            _result = TypedPortsPassive::receiver.p6_handlerBase(
               0,
               x
             );
             break;
           case 1:
-            _result = M::receiver.p6_handlerBase(
+            _result = TypedPortsPassive::receiver.p6_handlerBase(
               0,
               x
             );
@@ -643,9 +643,9 @@ namespace M {
     return _result;
   }
 
-  M::E TypedPortsPassiveSenderComponentBase::p7_out(
+  TypedPortsPassive::E SenderComponentBase::p7_out(
       FwIndexType portNum,
-      const M::E& x
+      const TypedPortsPassive::E& x
   ) const {
     FW_ASSERT(
       (0 <= portNum) && (portNum < NUM_P7_OUTPUT_PORTS),
@@ -653,18 +653,18 @@ namespace M {
       static_cast<FwAssertArgType>(NUM_P7_OUTPUT_PORTS)
     );
     const auto instance = this->getInstance();
-    M::E _result = {};
+    TypedPortsPassive::E _result = {};
     switch (instance) {
-      case ::M::InstanceIds::M_sender:
+      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
         switch (portNum) {
           case 0:
-            _result = M::receiver.p7_handlerBase(
+            _result = TypedPortsPassive::receiver.p7_handlerBase(
               0,
               x
             );
             break;
           case 1:
-            _result = M::receiver.p7_handlerBase(
+            _result = TypedPortsPassive::receiver.p7_handlerBase(
               0,
               x
             );
@@ -681,9 +681,9 @@ namespace M {
     return _result;
   }
 
-  M::S TypedPortsPassiveSenderComponentBase::p8_out(
+  TypedPortsPassive::S SenderComponentBase::p8_out(
       FwIndexType portNum,
-      const M::S& x
+      const TypedPortsPassive::S& x
   ) const {
     FW_ASSERT(
       (0 <= portNum) && (portNum < NUM_P8_OUTPUT_PORTS),
@@ -691,18 +691,18 @@ namespace M {
       static_cast<FwAssertArgType>(NUM_P8_OUTPUT_PORTS)
     );
     const auto instance = this->getInstance();
-    M::S _result = {};
+    TypedPortsPassive::S _result = {};
     switch (instance) {
-      case ::M::InstanceIds::M_sender:
+      case ::TypedPortsPassive::InstanceIds::TypedPortsPassive_sender:
         switch (portNum) {
           case 0:
-            _result = M::receiver.p8_handlerBase(
+            _result = TypedPortsPassive::receiver.p8_handlerBase(
               0,
               x
             );
             break;
           case 1:
-            _result = M::receiver.p8_handlerBase(
+            _result = TypedPortsPassive::receiver.p8_handlerBase(
               0,
               x
             );

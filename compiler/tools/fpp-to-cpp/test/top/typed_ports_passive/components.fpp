@@ -1,4 +1,4 @@
-module M {
+module TypedPortsPassive {
 
   array A = [3] U32
   enum E { A, B }
@@ -21,7 +21,7 @@ module M {
   port P7(x: E) -> E
   port P8(x: S) -> S
 
-  passive component TypedPortsPassiveSender {
+  passive component Sender {
 
     output port p1: [2] P1
     output port p2: [2] P2
@@ -34,7 +34,7 @@ module M {
 
   }
 
-  passive component TypedPortsPassiveReceiver {
+  passive component Receiver {
 
     sync input port p1: [2] P1
     sync input port p2: [2] P2

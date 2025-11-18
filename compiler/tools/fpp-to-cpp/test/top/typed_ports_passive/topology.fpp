@@ -1,7 +1,7 @@
-module M {
+module TypedPortsPassive {
 
-  instance sender: TypedPortsPassiveSender base id 0x100
-  instance receiver: TypedPortsPassiveReceiver base id 0x200
+  instance sender: Sender base id 0x100
+  instance receiver: Receiver base id 0x200
 
   topology TypedPortsPassive {
 

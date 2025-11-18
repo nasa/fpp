@@ -4,32 +4,32 @@
 // \brief  hpp file for TypedPortsPassive topology
 // ======================================================================
 
-#ifndef M_TypedPortsPassiveTopologyAc_HPP
-#define M_TypedPortsPassiveTopologyAc_HPP
+#ifndef TypedPortsPassive_TypedPortsPassiveTopologyAc_HPP
+#define TypedPortsPassive_TypedPortsPassiveTopologyAc_HPP
 
-#include "TypedPortsPassiveReceiver.hpp"
-#include "TypedPortsPassiveSender.hpp"
+#include "Receiver.hpp"
+#include "Sender.hpp"
 #include "TypedPortsPassiveTopologyDefs.hpp"
 
 // ----------------------------------------------------------------------
 // Component instances
 // ----------------------------------------------------------------------
 
-namespace M {
+namespace TypedPortsPassive {
 
   //! receiver
-  extern M::TypedPortsPassiveReceiver receiver;
+  extern TypedPortsPassive::Receiver receiver;
 
 }
 
-namespace M {
+namespace TypedPortsPassive {
 
   //! sender
-  extern M::TypedPortsPassiveSender sender;
+  extern TypedPortsPassive::Sender sender;
 
 }
 
-namespace M {
+namespace TypedPortsPassive {
 
   // ----------------------------------------------------------------------
   // Constants
@@ -37,15 +37,15 @@ namespace M {
 
   namespace BaseIds {
     enum {
-      M_sender = 0x100,
-      M_receiver = 0x200,
+      TypedPortsPassive_sender = 0x100,
+      TypedPortsPassive_receiver = 0x200,
     };
   }
 
   namespace InstanceIds {
     enum {
-      M_receiver,
-      M_sender,
+      TypedPortsPassive_receiver,
+      TypedPortsPassive_sender,
     };
   }
 
