@@ -8,11 +8,19 @@ import fpp.compiler.util._
 /** Add dependencies */
 object AddDependencies extends BasicUseAnalyzer {
 
-  override def specLocAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecLoc]]) = {
-    val specLoc = node._2.data
-    if specLoc.isDictionaryDef
-    then addDependencies (a) (specLoc)
-    else Right(a)
+  override def defTopologyAnnotatedNode(
+    a: Analysis,
+    node: Ast.Annotated[AstNode[Ast.DefTopology]]
+  ) = {
+    for {
+      a <- super.defTopologyAnnotatedNode(a, node)
+      a <- {
+        val specLocs = a.locationSpecifierMap.values.map(_.data).filter(_.isDictionaryDef)
+        Result.foldLeft (specLocs.toList) (a) {
+          case (a, s) => addDependencies (a) (s)
+        }
+      }
+    } yield a
   }
 
   override def componentInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
