@@ -140,7 +140,7 @@ case class TopComponentCppWriter (
         writeFunctionCall(
           addResultPrefix(fnName),
           List(toPortNum.toString),
-          getPortParams(toPort.portInstance).map(_._1)
+          getPortParams(fromPort.portInstance).map(_._1)
         )
       case (_: PortInstance.Type.DefPort, _) =>
         lines(
