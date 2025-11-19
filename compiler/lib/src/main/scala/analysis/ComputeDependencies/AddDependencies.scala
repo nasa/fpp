@@ -13,10 +13,14 @@ object AddDependencies extends BasicUseAnalyzer {
     node: Ast.Annotated[AstNode[Ast.DefTopology]]
   ) = {
     for {
+      // Add dependencies based on explicit and implicit uses in the topology
       a <- super.defTopologyAnnotatedNode(a, node)
+      // Add dependencies on all dictionary definitions
+      // Every topology has all dictionary definitions in its dictionary
       a <- {
-        val specLocs = a.locationSpecifierMap.values.map(_.data).filter(_.isDictionaryDef)
-        Result.foldLeft (specLocs.toList) (a) {
+        val dictionarySpecLocs =
+          a.locationSpecifierMap.values.map(_.data).filter(_.isDictionaryDef)
+        Result.foldLeft (dictionarySpecLocs.toList) (a) {
           case (a, s) => addDependencies (a) (s)
         }
       }
