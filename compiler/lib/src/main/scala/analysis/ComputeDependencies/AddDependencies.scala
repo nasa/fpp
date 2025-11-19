@@ -8,6 +8,22 @@ import fpp.compiler.util._
 /** Add dependencies */
 object AddDependencies extends BasicUseAnalyzer {
 
+  override def specLocAnnotatedNode(
+    a: Analysis,
+    node: Ast.Annotated[AstNode[Ast.SpecLoc]]
+  ) = {
+    val specLoc = node._2.data
+    if a.includeDictionaryDeps && specLoc.isDictionaryDef
+    then
+      // We are visiting a dictionary specifier after visiting
+      // the first topology. Add the depdendencies for the specifier.
+      addDependencies (a) (specLoc)
+    else
+      // This is not a dictionary specifier, or we haven't seen a topology.
+      // Nothing to do.
+      Right(a)
+  }
+
   override def defTopologyAnnotatedNode(
     a: Analysis,
     node: Ast.Annotated[AstNode[Ast.DefTopology]]
@@ -15,15 +31,21 @@ object AddDependencies extends BasicUseAnalyzer {
     for {
       // Add dependencies based on explicit and implicit uses in the topology
       a <- super.defTopologyAnnotatedNode(a, node)
-      // Add dependencies on all dictionary definitions
-      // Every topology has all dictionary definitions in its dictionary
-      a <- {
-        val dictionarySpecLocs =
-          a.locationSpecifierMap.values.map(_.data).filter(_.isDictionaryDef)
-        Result.foldLeft (dictionarySpecLocs.toList) (a) {
-          case (a, s) => addDependencies (a) (s)
-        }
-      }
+      // Add dependencies based on dictionary specifiers
+      a <- if !a.includeDictionaryDeps
+           then
+             // This is the first topology we have visited.
+             // Set includeDictionaryDeps = true and add all dictionary dependencies
+             // discovered so far.
+             val a1 = a.copy(includeDictionaryDeps = true)
+             val dictionarySpecLocs =
+               a1.locationSpecifierMap.values.map(_.data).filter(_.isDictionaryDef)
+             Result.foldLeft (dictionarySpecLocs.toList) (a1) {
+               case (a, s) => addDependencies (a) (s)
+             }
+           else
+             // This is the second or later topology; nothing to do
+             Right(a)
     } yield a
   }
 
