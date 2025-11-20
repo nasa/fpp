@@ -12748,8 +12748,12 @@ locate dictionary constant b at "b.fpp"</code></pre>
 </div>
 <div class="paragraph">
 <p>The <code>dictionary</code> keyword tells the analyzer that the definition is a dictionary
-definition and so should be included in the dependency files of the model,
-regardless of whether the definition is used in the model.</p>
+definition.
+This fact is important when the model includes a topology definition.
+In this case, the analyzer includes all dictionary definitions as
+dependencies of the model.
+That way the definitions are available
+when generating the dictionary for the topology.</p>
 </div>
 <div class="paragraph">
 <p>If a definition is a dictionary definition and the corresponding location
@@ -16220,7 +16224,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-11-06 16:00:29 -0800
+Last updated 2025-11-18 16:24:17 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

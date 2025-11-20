@@ -6,6 +6,7 @@ import fpp.compiler.util._
 /** Check dictionary definitions */
 object CheckDictionaryDefs
   extends Analyzer
+  with ComponentAnalyzer
   with ModuleAnalyzer
 {
 
