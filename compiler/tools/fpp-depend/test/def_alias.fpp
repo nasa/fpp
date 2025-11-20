@@ -7,3 +7,5 @@ locate type T4 at "T4.fpp"
 type A1 = T
 type A2 = C.T
 type A3 = T2
+
+topology T {}

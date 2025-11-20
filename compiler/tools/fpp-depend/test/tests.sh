@@ -9,6 +9,7 @@ def_port
 def_state_machine
 def_struct
 dictionary
+dictionary_no_top
 direct
 enum_constant
 expr_array

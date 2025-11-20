@@ -2519,59 +2519,9 @@
               }
             },
             "arcMap" : {
-              "state S1" : [
+              "190" : [
               ],
-              "state S3" : [
-              ],
-              "choice C" : [
-                {
-                  "Choice" : {
-                    "startChoice" : {
-                      "node" : {
-                        "astNodeId" : 27
-                      }
-                    },
-                    "aNode" : {
-                      "astNodeId" : 23
-                    },
-                    "endNode" : {
-                      "soc" : {
-                        "State" : {
-                          "symbol" : {
-                            "node" : {
-                              "astNodeId" : 28
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                {
-                  "Choice" : {
-                    "startChoice" : {
-                      "node" : {
-                        "astNodeId" : 27
-                      }
-                    },
-                    "aNode" : {
-                      "astNodeId" : 26
-                    },
-                    "endNode" : {
-                      "soc" : {
-                        "State" : {
-                          "symbol" : {
-                            "node" : {
-                              "astNodeId" : 232
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              ],
-              "state S2" : [
+              "232" : [
                 {
                   "State" : {
                     "startState" : {
@@ -2687,6 +2637,104 @@
                     }
                   }
                 }
+              ],
+              "28" : [
+              ],
+              "189" : [
+                {
+                  "Choice" : {
+                    "startChoice" : {
+                      "node" : {
+                        "astNodeId" : 189
+                      }
+                    },
+                    "aNode" : {
+                      "astNodeId" : 182
+                    },
+                    "endNode" : {
+                      "soc" : {
+                        "State" : {
+                          "symbol" : {
+                            "node" : {
+                              "astNodeId" : 28
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "Choice" : {
+                    "startChoice" : {
+                      "node" : {
+                        "astNodeId" : 189
+                      }
+                    },
+                    "aNode" : {
+                      "astNodeId" : 188
+                    },
+                    "endNode" : {
+                      "soc" : {
+                        "State" : {
+                          "symbol" : {
+                            "node" : {
+                              "astNodeId" : 190
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ],
+              "27" : [
+                {
+                  "Choice" : {
+                    "startChoice" : {
+                      "node" : {
+                        "astNodeId" : 27
+                      }
+                    },
+                    "aNode" : {
+                      "astNodeId" : 23
+                    },
+                    "endNode" : {
+                      "soc" : {
+                        "State" : {
+                          "symbol" : {
+                            "node" : {
+                              "astNodeId" : 28
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "Choice" : {
+                    "startChoice" : {
+                      "node" : {
+                        "astNodeId" : 27
+                      }
+                    },
+                    "aNode" : {
+                      "astNodeId" : 26
+                    },
+                    "endNode" : {
+                      "soc" : {
+                        "State" : {
+                          "symbol" : {
+                            "node" : {
+                              "astNodeId" : 232
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
               ]
             }
           },
@@ -2705,7 +2753,80 @@
               }
             },
             "arcMap" : {
-              "state S1" : [
+              "190" : [
+                {
+                  "Choice" : {
+                    "startChoice" : {
+                      "node" : {
+                        "astNodeId" : 189
+                      }
+                    },
+                    "aNode" : {
+                      "astNodeId" : 188
+                    },
+                    "endNode" : {
+                      "soc" : {
+                        "State" : {
+                          "symbol" : {
+                            "node" : {
+                              "astNodeId" : 190
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "Initial" : {
+                    "startState" : {
+                      "node" : {
+                        "astNodeId" : 232
+                      }
+                    },
+                    "aNode" : {
+                      "astNodeId" : 176
+                    },
+                    "endNode" : {
+                      "soc" : {
+                        "State" : {
+                          "symbol" : {
+                            "node" : {
+                              "astNodeId" : 190
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ],
+              "232" : [
+                {
+                  "Choice" : {
+                    "startChoice" : {
+                      "node" : {
+                        "astNodeId" : 27
+                      }
+                    },
+                    "aNode" : {
+                      "astNodeId" : 26
+                    },
+                    "endNode" : {
+                      "soc" : {
+                        "State" : {
+                          "symbol" : {
+                            "node" : {
+                              "astNodeId" : 232
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              ],
+              "28" : [
                 {
                   "State" : {
                     "startState" : {
@@ -2822,46 +2943,23 @@
                   }
                 }
               ],
-              "state S3" : [
+              "189" : [
                 {
-                  "Choice" : {
-                    "startChoice" : {
-                      "node" : {
-                        "astNodeId" : 189
-                      }
-                    },
-                    "aNode" : {
-                      "astNodeId" : 188
-                    },
-                    "endNode" : {
-                      "soc" : {
-                        "State" : {
-                          "symbol" : {
-                            "node" : {
-                              "astNodeId" : 190
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                },
-                {
-                  "Initial" : {
+                  "State" : {
                     "startState" : {
                       "node" : {
                         "astNodeId" : 232
                       }
                     },
                     "aNode" : {
-                      "astNodeId" : 176
+                      "astNodeId" : 197
                     },
                     "endNode" : {
                       "soc" : {
-                        "State" : {
+                        "Choice" : {
                           "symbol" : {
                             "node" : {
-                              "astNodeId" : 190
+                              "astNodeId" : 189
                             }
                           }
                         }
@@ -2870,32 +2968,7 @@
                   }
                 }
               ],
-              "choice C" : [
-              ],
-              "state S2" : [
-                {
-                  "Choice" : {
-                    "startChoice" : {
-                      "node" : {
-                        "astNodeId" : 27
-                      }
-                    },
-                    "aNode" : {
-                      "astNodeId" : 26
-                    },
-                    "endNode" : {
-                      "soc" : {
-                        "State" : {
-                          "symbol" : {
-                            "node" : {
-                              "astNodeId" : 232
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
+              "27" : [
               ]
             }
           },

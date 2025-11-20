@@ -15,6 +15,12 @@ dictionary struct S {
 
 dictionary constant C = E2.A
 
+passive component P {
+
+  dictionary constant C = 0
+
+}
+
 # Defintions that are uses of dictionary definitions (included in the dictionary)
 type T2 = U32
 array A2 = [3] U32

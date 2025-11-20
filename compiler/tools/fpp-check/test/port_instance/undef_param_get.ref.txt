@@ -2,4 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/port_instance/undef_param_get.fpp:3.3
   param get port paramGetOut
   ^
-error: undefined symbol Fw
+error: symbol Fw is not defined
+note: looking for a port here
