@@ -162,17 +162,31 @@ case class ArrayCppWriter (
 
   private val initElementsCall = guardedList (hasStringEltType) (lines("this->initElements();"))
 
+  private val defaultElementInitialization: Boolean = {
+    val elements = arrayType.getDefaultValue.get.anonArray.elements
+    val elementType = arrayType.anonArray.eltType.getDefaultValue
+    elementType match {
+      case None => false
+      case Some(elementTypeDefault) =>
+        elements.head == elementTypeDefault &&
+        elements.tail.forall(_ == elements.head)
+    }
+  }
+
   private def getConstructorMembers: List[CppDoc.Class.Member] = {
     val defaultValueConstructor = constructorClassMember(
       Some("Constructor (default value)"),
       Nil,
-      List("Serializable()"),
+      List(
+        "Serializable()",
+        "elements{}"
+      ),
       List.concat(
         initElementsCall,
-        {
+        guardedList (!defaultElementInitialization) ({
           val valueString = ValueCppWriter.write(s, arrayType.getDefaultValue.get)
           lines(s"*this = $valueString;")
-        }
+        })
       )
     )
     val singleElementConstructor = constructorClassMember(

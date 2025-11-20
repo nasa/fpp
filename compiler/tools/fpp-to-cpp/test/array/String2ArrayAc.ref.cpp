@@ -13,7 +13,8 @@
 
 String2 ::
   String2() :
-    Serializable()
+    Serializable(),
+    elements{}
 {
   this->initElements();
   *this = String2({Fw::String("\"\\"), Fw::String("abc\ndef\n")});

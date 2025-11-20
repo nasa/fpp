@@ -13,10 +13,10 @@
 
 String1 ::
   String1() :
-    Serializable()
+    Serializable(),
+    elements{}
 {
   this->initElements();
-  *this = String1(Fw::String(""));
 }
 
 String1 ::

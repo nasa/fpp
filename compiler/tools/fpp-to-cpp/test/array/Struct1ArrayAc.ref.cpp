@@ -13,9 +13,10 @@
 
 Struct1 ::
   Struct1() :
-    Serializable()
+    Serializable(),
+    elements{}
 {
-  *this = Struct1(M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String("")));
+
 }
 
 Struct1 ::

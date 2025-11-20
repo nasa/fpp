@@ -13,9 +13,10 @@
 
 A ::
   A() :
-    Serializable()
+    Serializable(),
+    elements{}
 {
-  *this = A(0);
+
 }
 
 A ::
