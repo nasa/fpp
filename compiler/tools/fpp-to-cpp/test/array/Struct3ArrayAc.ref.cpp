@@ -14,7 +14,7 @@
 Struct3 ::
   Struct3() :
     Serializable(),
-    elements{}
+    elements()
 {
 
 }

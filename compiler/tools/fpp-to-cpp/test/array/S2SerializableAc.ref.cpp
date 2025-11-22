@@ -14,7 +14,7 @@
 S2 ::
   S2() :
     Serializable(),
-    m_s1{}
+    m_s1()
 {
 
 }

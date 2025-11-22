@@ -14,7 +14,7 @@
 LargeSize ::
   LargeSize() :
     Serializable(),
-    elements{}
+    elements()
 {
 
 }

@@ -14,7 +14,7 @@
 C_A ::
   C_A() :
     Serializable(),
-    elements{}
+    elements()
 {
 
 }

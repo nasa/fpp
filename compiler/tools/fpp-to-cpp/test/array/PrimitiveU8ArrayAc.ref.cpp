@@ -16,7 +16,7 @@ namespace M {
   PrimitiveU8 ::
     PrimitiveU8() :
       Serializable(),
-      elements{}
+      elements()
   {
 
   }

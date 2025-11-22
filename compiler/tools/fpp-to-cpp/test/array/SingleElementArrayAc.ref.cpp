@@ -14,7 +14,7 @@
 SingleElement ::
   SingleElement() :
     Serializable(),
-    elements{}
+    elements()
 {
 
 }
