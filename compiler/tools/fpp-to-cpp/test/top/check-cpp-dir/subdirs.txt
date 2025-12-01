@@ -2,6 +2,7 @@ Basic
 Commands
 Health
 Params
+SerialPortsPassive
 TlmPackets
 TypedPortsActive
 TypedPortsPassive
