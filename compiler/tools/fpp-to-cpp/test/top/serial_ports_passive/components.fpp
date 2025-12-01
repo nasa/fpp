@@ -17,7 +17,7 @@ module SerialPortsPassive {
   passive component Sender {
 
     output port pTyped: [4] PTyped
-    output port pSerial: [4] serial
+    output port pSerial: [8] serial
 
   }
 
@@ -25,8 +25,8 @@ module SerialPortsPassive {
 
     sync input port pTypedSync: [2] PTyped
     guarded input port pTypedGuarded: [2] PTyped
-    sync input port pSerialSync: [2] serial
-    guarded input port pSerialGuarded: [2] serial
+    sync input port pSerialSync: [4] serial
+    guarded input port pSerialGuarded: [4] serial
 
   }
 

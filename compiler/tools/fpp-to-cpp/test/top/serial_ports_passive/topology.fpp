@@ -28,6 +28,16 @@ module SerialPortsPassive {
 
     }
 
+    connections SerialToSerial {
+
+      sender.pSerial[4] -> receiver.pSerialSync[2]
+      sender.pSerial[5] -> receiver.pSerialSync[3]
+
+      sender.pSerial[6] -> receiver.pSerialGuarded[2]
+      sender.pSerial[7] -> receiver.pSerialGuarded[3]
+
+    }
+
   }
 
 }

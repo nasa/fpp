@@ -46,6 +46,24 @@ namespace SerialPortsPassive {
 
 #if !FW_DIRECT_PORT_CALLS
 
+    // SerialToSerial
+    SerialPortsPassive::sender.set_pSerial_OutputPort(
+        4,
+        SerialPortsPassive::receiver.get_pSerialSync_InputPort(2)
+    );
+    SerialPortsPassive::sender.set_pSerial_OutputPort(
+        5,
+        SerialPortsPassive::receiver.get_pSerialSync_InputPort(3)
+    );
+    SerialPortsPassive::sender.set_pSerial_OutputPort(
+        6,
+        SerialPortsPassive::receiver.get_pSerialGuarded_InputPort(2)
+    );
+    SerialPortsPassive::sender.set_pSerial_OutputPort(
+        7,
+        SerialPortsPassive::receiver.get_pSerialGuarded_InputPort(3)
+    );
+
     // SerialToTyped
     SerialPortsPassive::sender.set_pSerial_OutputPort(
         0,
@@ -168,6 +186,18 @@ namespace SerialPortsPassive {
           case 3:
             result = true;
             break;
+          case 4:
+            result = true;
+            break;
+          case 5:
+            result = true;
+            break;
+          case 6:
+            result = true;
+            break;
+          case 7:
+            result = true;
+            break;
           default:
             break;
         }
@@ -241,6 +271,22 @@ namespace SerialPortsPassive {
             break;
           case 3:
             // TODO: Serial to typed connection
+            FW_ASSERT(0);
+            break;
+          case 4:
+            // TODO: Serial to serial connection
+            FW_ASSERT(0);
+            break;
+          case 5:
+            // TODO: Serial to serial connection
+            FW_ASSERT(0);
+            break;
+          case 6:
+            // TODO: Serial to serial connection
+            FW_ASSERT(0);
+            break;
+          case 7:
+            // TODO: Serial to serial connection
             FW_ASSERT(0);
             break;
           default:
