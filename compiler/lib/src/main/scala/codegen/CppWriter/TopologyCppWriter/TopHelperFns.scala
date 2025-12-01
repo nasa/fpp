@@ -132,7 +132,7 @@ case class TopHelperFns(
     val body = guardedList (!connections.isEmpty) (
       List.concat(
         Line.blank ::
-        line("#ifndef FW_DIRECT_PORT_CALLS") ::
+        line("#if !FW_DIRECT_PORT_CALLS") ::
         connections,
         Line.blank ::
         line("#endif") ::

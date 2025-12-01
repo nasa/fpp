@@ -75,7 +75,7 @@ namespace M {
 
   void connectComponents() {
 
-#ifndef FW_DIRECT_PORT_CALLS
+#if !FW_DIRECT_PORT_CALLS
 
     // C1
     M::passive1.set_p_OutputPort(

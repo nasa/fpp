@@ -44,7 +44,7 @@ namespace TypedPortsQueued {
 
   void connectComponents() {
 
-#ifndef FW_DIRECT_PORT_CALLS
+#if !FW_DIRECT_PORT_CALLS
 
     // C
     TypedPortsQueued::sender.set_p1_OutputPort(

@@ -75,7 +75,7 @@ namespace M {
 
   void connectComponents() {
 
-#ifndef FW_DIRECT_PORT_CALLS
+#if !FW_DIRECT_PORT_CALLS
 
     // Health
     M::c1.set_pingOut_OutputPort(
