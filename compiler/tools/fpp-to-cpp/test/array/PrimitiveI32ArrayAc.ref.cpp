@@ -15,9 +15,10 @@ namespace M {
 
   PrimitiveI32 ::
     PrimitiveI32() :
-      Serializable()
+      Serializable(),
+      elements{}
   {
-    *this = M::PrimitiveI32(0);
+
   }
 
   PrimitiveI32 ::

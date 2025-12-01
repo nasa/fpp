@@ -13,7 +13,8 @@
 
 AliasType ::
   AliasType() :
-    Serializable()
+    Serializable(),
+    elements{}
 {
   *this = AliasType({0, 2, 3});
 }

@@ -288,7 +288,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
   }
 
   private implicit val transitionGraphArcMapEncoder: Encoder[TransitionGraph.ArcMap] = {
-    def f1(n: TransitionGraph.Node) = n.soc.getName
+    def f1(n: TransitionGraph.Node) = n.soc.getSymbol.getNodeId.toString
     def f2(as: Set[TransitionGraph.Arc]) = (as.map(elem => elem.asJson)).toList.asJson
     Encoder.instance (mapAsJsonMap (f1) (f2) _)
   }

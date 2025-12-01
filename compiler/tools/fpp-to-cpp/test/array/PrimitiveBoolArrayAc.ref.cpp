@@ -15,9 +15,10 @@ namespace M {
 
   PrimitiveBool ::
     PrimitiveBool() :
-      Serializable()
+      Serializable(),
+      elements{}
   {
-    *this = M::PrimitiveBool(false);
+
   }
 
   PrimitiveBool ::

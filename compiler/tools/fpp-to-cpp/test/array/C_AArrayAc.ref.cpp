@@ -13,9 +13,10 @@
 
 C_A ::
   C_A() :
-    Serializable()
+    Serializable(),
+    elements{}
 {
-  *this = C_A(0);
+
 }
 
 C_A ::

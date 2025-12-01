@@ -13,9 +13,10 @@
 
 AbsType ::
   AbsType() :
-    Serializable()
+    Serializable(),
+    elements{}
 {
-  *this = AbsType(T());
+
 }
 
 AbsType ::
