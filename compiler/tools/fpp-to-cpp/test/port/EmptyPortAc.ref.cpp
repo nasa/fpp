@@ -4,11 +4,11 @@
 // \brief  cpp file for Empty port
 // ======================================================================
 
-#if !FW_DIRECT_PORT_CALLS
-
 #include "EmptyPortAc.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
+
+#if !FW_DIRECT_PORT_CALLS
 
 namespace {
 
