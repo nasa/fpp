@@ -64,6 +64,24 @@ namespace SerialPortsPassive {
         SerialPortsPassive::receiver.get_pTypedGuarded_InputPort(1)
     );
 
+    // TypedToSerial
+    SerialPortsPassive::sender.set_pTyped_OutputPort(
+        0,
+        SerialPortsPassive::receiver.get_pSerialSync_InputPort(0)
+    );
+    SerialPortsPassive::sender.set_pTyped_OutputPort(
+        1,
+        SerialPortsPassive::receiver.get_pSerialSync_InputPort(1)
+    );
+    SerialPortsPassive::sender.set_pTyped_OutputPort(
+        2,
+        SerialPortsPassive::receiver.get_pSerialGuarded_InputPort(0)
+    );
+    SerialPortsPassive::sender.set_pTyped_OutputPort(
+        3,
+        SerialPortsPassive::receiver.get_pSerialGuarded_InputPort(1)
+    );
+
 #endif
 
   }
@@ -161,6 +179,40 @@ namespace SerialPortsPassive {
     return result;
   }
 
+  bool SenderComponentBase::isConnected_pTyped_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PTYPED_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PTYPED_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::SerialPortsPassive::InstanceIds::SerialPortsPassive_sender:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          case 1:
+            result = true;
+            break;
+          case 2:
+            result = true;
+            break;
+          case 3:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
   Fw::SerializeStatus SenderComponentBase::pSerial_out(
       FwIndexType portNum,
       Fw::LinearBufferBase& buffer
@@ -201,6 +253,52 @@ namespace SerialPortsPassive {
         break;
     }
     return _result;
+  }
+
+  void SenderComponentBase::pTyped_out(
+      FwIndexType portNum,
+      U32 x1,
+      F32 x2,
+      bool x3,
+      const Fw::StringBase& x4,
+      const SerialPortsPassive::A& x5,
+      const SerialPortsPassive::E& x6,
+      const SerialPortsPassive::S& x7
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PTYPED_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PTYPED_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::SerialPortsPassive::InstanceIds::SerialPortsPassive_sender:
+        switch (portNum) {
+          case 0:
+            // TODO: Typed to serial connection
+            FW_ASSERT(0);
+            break;
+          case 1:
+            // TODO: Typed to serial connection
+            FW_ASSERT(0);
+            break;
+          case 2:
+            // TODO: Typed to serial connection
+            FW_ASSERT(0);
+            break;
+          case 3:
+            // TODO: Typed to serial connection
+            FW_ASSERT(0);
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
   }
 
 }

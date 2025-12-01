@@ -18,6 +18,16 @@ module SerialPortsPassive {
 
     }
 
+    connections TypedToSerial {
+
+      sender.pTyped[0] -> receiver.pSerialSync[0]
+      sender.pTyped[1] -> receiver.pSerialSync[1]
+
+      sender.pTyped[2] -> receiver.pSerialGuarded[0]
+      sender.pTyped[3] -> receiver.pSerialGuarded[1]
+
+    }
+
   }
 
 }

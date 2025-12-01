@@ -16,7 +16,7 @@ module SerialPortsPassive {
 
   passive component Sender {
 
-    output port pTyped: [2] PTyped
+    output port pTyped: [4] PTyped
     output port pSerial: [4] serial
 
   }
