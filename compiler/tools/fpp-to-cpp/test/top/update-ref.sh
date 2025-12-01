@@ -35,6 +35,14 @@ params()
   move_cpp ParamsTopology
 }
 
+serial_ports_passive()
+{
+  src_dir=$PWD/serial_ports_passive
+  update "-d $src_dir -p $PWD,$src_dir -i $src_dir/components.fpp" \
+    $src_dir/topology
+  move_cpp $src_dir/SerialPortsPassiveTopology
+}
+
 tlm_packets()
 {
   update "-i builtin.fpp -p $PWD" tlm_packets

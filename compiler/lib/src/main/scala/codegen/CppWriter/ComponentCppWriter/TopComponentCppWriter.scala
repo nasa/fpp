@@ -173,7 +173,10 @@ case class TopComponentCppWriter (
         s"$returnType $name",
         portNumParam :: getPortFunctionParams(portInstance)
       )
-      Line.addSuffix(ll, " const")
+      portInstance.getType.get match {
+        case PortInstance.Type.DefPort(_) => Line.addSuffix(ll, " const")
+        case PortInstance.Type.Serial => ll
+      }
     }
     List.concat(
       Line.blank ::
