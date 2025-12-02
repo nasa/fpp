@@ -16,7 +16,7 @@ namespace M {
   A ::
     A() :
       Serializable(),
-      elements{}
+      elements()
   {
 
   }

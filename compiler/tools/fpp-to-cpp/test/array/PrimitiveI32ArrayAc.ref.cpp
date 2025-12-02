@@ -16,7 +16,7 @@ namespace M {
   PrimitiveI32 ::
     PrimitiveI32() :
       Serializable(),
-      elements{}
+      elements()
   {
 
   }

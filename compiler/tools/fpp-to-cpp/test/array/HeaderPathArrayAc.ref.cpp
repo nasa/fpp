@@ -14,7 +14,7 @@
 HeaderPath ::
   HeaderPath() :
     Serializable(),
-    elements{}
+    elements()
 {
 
 }

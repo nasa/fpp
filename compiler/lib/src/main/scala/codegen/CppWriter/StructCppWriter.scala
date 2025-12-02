@@ -214,7 +214,7 @@ case class StructCppWriter(
         Some("Constructor (default value)"),
         Nil,
         "Serializable()" :: initializerListMemberNames.map(n => {
-          if defaultMemberNames.contains(n) then s"m_$n{}"
+          if defaultMemberNames.contains(n) then s"m_$n()"
           else defaultValueMembers(n) match {
             case v: Value.Struct => s"m_$n(${ValueCppWriter.writeStructMembers(s, v)})"
             case _: Value.AbsType => s"m_$n()"

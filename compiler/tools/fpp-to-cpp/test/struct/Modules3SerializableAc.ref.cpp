@@ -14,8 +14,8 @@
 Modules3 ::
   Modules3() :
     Serializable(),
-    m_x{},
-    m_arr{}
+    m_x(),
+    m_arr()
 {
 
 }

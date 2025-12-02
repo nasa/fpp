@@ -14,8 +14,8 @@
 Basic ::
   Basic() :
     Serializable(),
-    m_A{},
-    m_B{},
+    m_A(),
+    m_B(),
     m_C(m___fprime_ac_C_buffer, sizeof m___fprime_ac_C_buffer, Fw::String("")),
     m_D(m___fprime_ac_D_buffer, sizeof m___fprime_ac_D_buffer, Fw::String(""))
 {

@@ -14,7 +14,7 @@
 Struct1 ::
   Struct1() :
     Serializable(),
-    elements{}
+    elements()
 {
 
 }
