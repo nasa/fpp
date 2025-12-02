@@ -157,21 +157,21 @@ object Ast {
     final case class SpecTemplateExpand(node: AstNode[Ast.SpecTemplateExpand]) extends Node
   }
 
-  object TemplateParam {
+  object DefTemplateParam {
     sealed trait Node
 
-    final case class ConstantParam(
+    final case class Constant(
       name: Ident,
       typeName: AstNode[Ast.TypeName]
     ) extends Node
-    final case class TypeParam(name: Ident) extends Node
-    final case class InterfaceParam(
+    final case class Type(name: Ident) extends Node
+    final case class Interface(
       name: Ident,
       interface: AstNode[QualIdent],
     ) extends Node
   }
 
-  type TemplateParamList = List[Annotated[AstNode[TemplateParam.Node]]]
+  type TemplateParamList = List[Annotated[AstNode[DefTemplateParam.Node]]]
 
   /** Module template definition */
   final case class DefModuleTemplate(
@@ -180,9 +180,14 @@ object Ast {
     members: List[ModuleMember]
   )
 
+  sealed trait TemplateParameter
+  final case class TemplateConstantParameter(expr: AstNode[Expr]) extends TemplateParameter
+  final case class TemplateTypeParameter(typeName: AstNode[TypeName]) extends TemplateParameter
+  final case class TemplateInterfaceParameter(instance: AstNode[QualIdent]) extends TemplateParameter
+
   final case class SpecTemplateExpand(
     template: AstNode[QualIdent],
-    params: List[AstNode[Expr]]
+    params: List[AstNode[TemplateParameter]]
   )
 
   /** Port definition */

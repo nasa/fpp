@@ -267,14 +267,14 @@ object FppWriter extends AstVisitor with LineUtils {
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
   ) = {
-    def templateParam(tp: Ast.TemplateParam.Node) = {
+    def templateParam(tp: Ast.DefTemplateParam.Node) = {
       tp match {
-        case Ast.TemplateParam.ConstantParam(name, typeName) =>
+        case Ast.DefTemplateParam.Constant(name, typeName) =>
           lines(s"constant $name: ").
             join("") (typeNameNode(typeName))
-        case Ast.TemplateParam.TypeParam(name) =>
+        case Ast.DefTemplateParam.Type(name) =>
           lines(s"type $name")
-        case Ast.TemplateParam.InterfaceParam(name, interface) =>
+        case Ast.DefTemplateParam.Interface(name, interface) =>
           lines(s"interface $name: ").
             join("") (qualIdent(interface.data))
       }
@@ -296,12 +296,22 @@ object FppWriter extends AstVisitor with LineUtils {
     in: In,
     aNode: Ast.Annotated[AstNode[SpecTemplateExpand]]
   ): Out = {
-    def templateParamValueList(fpl: List[AstNode[Ast.Expr]]) =
+    def templateParam(tp: AstNode[Ast.TemplateParameter]) =
+      tp.data match {
+        case Ast.TemplateConstantParameter(e) =>
+          lines("constant").join(" ") (exprNode(e))
+        case Ast.TemplateTypeParameter(name) =>
+          lines("type").join(" ") (typeNameNode(name))
+        case Ast.TemplateInterfaceParameter(i) =>
+          lines("interface").join(" ") (qualIdent(i.data))
+      }
+
+    def templateParamValueList(fpl: List[AstNode[Ast.TemplateParameter]]) =
       fpl match {
         case Nil => Nil
         case _ =>
           lines("(") ++
-          fpl.flatMap(exprNode).map(indentIn) ++
+          fpl.flatMap(templateParam).map(indentIn) ++
           lines(")")
       }
 
