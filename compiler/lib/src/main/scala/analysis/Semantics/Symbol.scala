@@ -90,7 +90,12 @@ object Symbol {
     override def getNodeId = value.id
   }
 
-  type InterfaceInstance = Symbol.ComponentInstance | Symbol.Topology
+  type InterfaceInstance = (
+    Symbol.ComponentInstance |
+    Symbol.Topology |
+    Symbol.TemplateInterfaceParam
+  )
+
   type TemplateParam = (
     Symbol.TemplateConstantParam |
     Symbol.TemplateTypeParam |

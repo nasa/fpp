@@ -156,12 +156,22 @@ object CheckUses extends BasicUseAnalyzer {
     val Some(members) = node.data.members
 
     for {
+      // Analyze the inside of the template expansion
       a <- {
         val a1 = a.copy(nestedScope = newNestedScope)
         visitList(a1, members, matchModuleMember)
       }
+
+      // Reset the use analysis scope back to the outer scope
+      a <- Right(a.copy(nestedScope = oldNestedScope))
+
+      // Analyze the parameter list
+      a <- {
+        val expansion = a.templateExpansionMap(node.id)
+        Result.foldLeft (expansion.params.values.toList) (a) (templateParam)
+      }
     }
-    yield a.copy(nestedScope = oldNestedScope)
+    yield a
   }
 
   override def defTopologyAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefTopology]]) = {

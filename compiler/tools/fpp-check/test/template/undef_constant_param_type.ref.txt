@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/undef_constant_param_type.fpp:1.24
+template T(constant c: S) {}
+                       ^
+error: undefined symbol S

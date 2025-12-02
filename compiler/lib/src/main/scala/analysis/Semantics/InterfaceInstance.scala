@@ -39,10 +39,20 @@ object InterfaceInstance {
     override def getInterface: PortInterface = top.portInterface
   }
 
+  final case class InterfaceTemplateParam(ii: InterfaceInstance) extends InterfaceInstance {
+    override def getQualifiedName: Name.Qualified = ii.getQualifiedName
+    override def getUnqualifiedName: String = ii.getUnqualifiedName
+    override def getLoc: Location = ii.getLoc
+    override def getInterface: PortInterface = ii.getInterface
+  }
+
   def fromComponentInstance(ci: ComponentInstance) =
     InterfaceComponentInstance(ci)
 
   def fromTopology(top: Topology) =
     InterfaceTopology(top)
+
+  def fromInterfaceTemplateParam(ii: InterfaceInstance) =
+    InterfaceTemplateParam(ii)
 
 }

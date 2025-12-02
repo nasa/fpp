@@ -2,4 +2,8 @@ tests="
 basic_constant
 constant_with_default
 duplicate_def
+types
+interfaces
+undef_constant_param_type
+undef_interface_param_type
 "

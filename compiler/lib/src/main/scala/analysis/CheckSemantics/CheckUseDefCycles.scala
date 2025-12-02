@@ -49,6 +49,18 @@ object CheckUseDefCycles extends UseAnalyzer {
     visitDefPost(a, symbol, node, super.defInterfaceAnnotatedNode)
   }
 
+  override def templateConstantParam(a: Analysis, param: Symbol.TemplateConstantParam) = {
+      visitDefPost(a, param, param, super.templateConstantParam)
+  }
+
+  override def templateTypeParam(a: Analysis, param: Symbol.TemplateTypeParam) = {
+      visitDefPost(a, param, param, super.templateTypeParam)
+  }
+
+  override def templateInterfaceParam(a: Analysis, param: Symbol.TemplateInterfaceParam) = {
+      visitDefPost(a, param, param, super.templateInterfaceParam)
+  }
+
   override def interfaceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     visitUse(a, node, use)
 
@@ -77,6 +89,9 @@ object CheckUseDefCycles extends UseAnalyzer {
       case Symbol.Interface(node) => defInterfaceAnnotatedNode(a, node)
       case Symbol.Struct(node) => defStructAnnotatedNode(a, node)
       case Symbol.Topology(node) => defTopologyAnnotatedNode(a, node)
+      case param: Symbol.TemplateConstantParam => templateConstantParam(a, param)
+      case param: Symbol.TemplateTypeParam => templateTypeParam(a, param)
+      case param: Symbol.TemplateInterfaceParam => templateInterfaceParam(a, param)
       case _ => Right(a)
     }
   }

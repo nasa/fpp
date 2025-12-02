@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/template/undef_interface_param_type.fpp:1.25
+template T(interface i: S) {}
+                        ^
+error: undefined symbol S

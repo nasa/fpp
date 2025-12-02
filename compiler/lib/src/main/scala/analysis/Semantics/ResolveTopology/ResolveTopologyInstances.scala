@@ -21,6 +21,14 @@ object ResolveTopologyInstances {
               t.addInstance(InterfaceInstance.fromComponentInstance(a.componentInstanceMap(ci._1)), ci._2)
             }))
         }
+
+        t <- {
+            val instances = t.directTemplateParameters.toList
+            Result.foldLeft(instances) (t) ((t, symI) => {
+              for (ii <- a.getInterfaceInstance(symI._1.value.id))
+                yield t.addInstance(InterfaceInstance.fromInterfaceTemplateParam(ii), symI._2)
+            })
+        }
     }
     yield t
 

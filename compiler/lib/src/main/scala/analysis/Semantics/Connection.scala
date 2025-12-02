@@ -215,9 +215,8 @@ object Connection {
       case None => Right(())
     }
 
-    /** Get underlying endpoint by stripping off topology port aliases */
-    def getUnderlyingEndpoint(): Endpoint = {
-      port.interfaceInstance match {
+    private def getUnderlyingEndpointImpl(ii: InterfaceInstance): Endpoint = {
+      ii match {
         // This endpoint is already a component instance
         case InterfaceInstance.InterfaceComponentInstance(ci) => this
         case InterfaceInstance.InterfaceTopology(top) => this.copy(
@@ -226,7 +225,13 @@ object Connection {
           topologyPort = Some(this)
           // Recursively resolve the endpoint to a component instance
         ).getUnderlyingEndpoint()
+        case InterfaceInstance.InterfaceTemplateParam(p) => getUnderlyingEndpointImpl(p)
       }
+    }
+
+    /** Get underlying endpoint by stripping off topology port aliases */
+    def getUnderlyingEndpoint(): Endpoint = {
+      getUnderlyingEndpointImpl(port.interfaceInstance)
     }
 
   }

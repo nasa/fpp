@@ -206,6 +206,14 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
     typeUse(a, node, use)
   }
 
+  def templateParam(a: Analysis, param: Symbol.TemplateParam) = {
+    param match {
+      case param: Symbol.TemplateConstantParam => templateConstantParam(a, param)
+      case param: Symbol.TemplateTypeParam => templateTypeParam(a, param)
+      case param: Symbol.TemplateInterfaceParam => templateInterfaceParam(a, param)
+    }
+  }
+
   override def specTemplateExpandAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
@@ -222,14 +230,7 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
       // Analyze the paramters on this template expansion
       a <- {
         val expansion = a.templateExpansionMap(node.id)
-        Result.foldLeft (expansion.params.toList) (a) ((a, i) => {
-          val (name, param) = i;
-          param match {
-            case param: Symbol.TemplateConstantParam => templateConstantParam(a, param)
-            case param: Symbol.TemplateTypeParam => templateTypeParam(a, param)
-            case param: Symbol.TemplateInterfaceParam => templateInterfaceParam(a, param)
-          }
-        })
+        Result.foldLeft (expansion.params.values.toList) (a) (templateParam)
       }
 
       a <- super.specTemplateExpandAnnotatedNode(a, aNode)

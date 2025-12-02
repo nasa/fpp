@@ -13,6 +13,8 @@ case class Topology(
   directTopologies: Map[Symbol.Topology, Location] = Map(),
   /** The directly imported component instances */
   directComponentInstances: Map[Symbol.ComponentInstance, Location] = Map(),
+  /** The directly imported template parameters */
+  directTemplateParameters: Map[Symbol.TemplateInterfaceParam, Location] = Map(),
   /** The transitively imported topologies */
   transitiveImportSet: Set[Symbol.Topology] = Set(),
   /** The instances of this topology */
@@ -208,6 +210,20 @@ case class Topology(
           case None =>
             val map = directTopologies + (top -> loc)
             Right(this.copy(directTopologies = map))
+        }
+
+      case param: Symbol.TemplateInterfaceParam =>
+        directTemplateParameters.get(param) match {
+          case Some(prevLoc) => Left(
+            SemanticError.DuplicateInstance(
+              symbol.getUnqualifiedName,
+              loc,
+              prevLoc
+            )
+          )
+          case None =>
+            val map = directTemplateParameters + (param -> loc)
+            Right(this.copy(directTemplateParameters = map))
         }
     }
 
