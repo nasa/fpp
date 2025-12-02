@@ -14,7 +14,7 @@
 PrimitiveArray ::
   PrimitiveArray() :
     Serializable(),
-    elements{}
+    elements()
 {
 
 }

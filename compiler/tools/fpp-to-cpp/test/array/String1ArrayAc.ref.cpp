@@ -14,7 +14,7 @@
 String1 ::
   String1() :
     Serializable(),
-    elements{}
+    elements()
 {
   this->initElements();
 }

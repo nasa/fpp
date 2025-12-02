@@ -14,7 +14,7 @@
 String2 ::
   String2() :
     Serializable(),
-    elements{}
+    elements()
 {
   this->initElements();
   *this = String2({Fw::String("\"\\"), Fw::String("abc\ndef\n")});

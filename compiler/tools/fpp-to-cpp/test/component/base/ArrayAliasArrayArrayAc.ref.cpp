@@ -14,7 +14,7 @@
 ArrayAliasArray ::
   ArrayAliasArray() :
     Serializable(),
-    elements{}
+    elements()
 {
 
 }

@@ -16,8 +16,8 @@ namespace S {
   S3 ::
     S3() :
       Serializable(),
-      m_mU32Array{},
-      m_mF64{}
+      m_mU32Array(),
+      m_mF64()
   {
 
   }

@@ -16,7 +16,7 @@ namespace M {
   PrimitiveI64 ::
     PrimitiveI64() :
       Serializable(),
-      elements{}
+      elements()
   {
 
   }

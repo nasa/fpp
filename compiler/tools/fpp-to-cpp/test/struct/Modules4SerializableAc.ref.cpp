@@ -14,8 +14,8 @@
 Modules4 ::
   Modules4() :
     Serializable(),
-    m_arr1{},
-    m_arr2{}
+    m_arr1(),
+    m_arr2()
 {
 
 }
