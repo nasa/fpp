@@ -13,9 +13,13 @@ to generate concrete definitions.
 
 _parameter-sequence_ is an
 <<Element-Sequences,element sequence>> in
-which each element is an
-<<Values,value expression>> or qualified identifier,
-and the terminating punctuation is a semicolon.
+which each element is one of the following:
+
+. `constant` <<Expressions,_expression_>>
+
+. `type` <<Type-Names,_type-name_>>
+
+. `interface` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 
 === Semantics
 
@@ -29,25 +33,17 @@ the template parameters of the template _T_.
 
 ==== Checking parameter types
 
-When passing values and references to template expansion, each parameter
-is checked with the following rules:
+For each template parameter _P_ and its corresponding parameter definition _D_ in _T_:
 
-. If the parameter type is `constant`, the type of the value will be
-<<Type-Checking_Type-Conversion,converted to>> the type specified in the parameter list.
+. If _P_ is `constant`, _D_ must be `constant and the expression is
+<<Type-Checking_Type-Conversion,converted to>> the type specified in _D_.
 
-. If the parameter type is `interface` _I_, the value must be a
+. If _P_ is `type`, _D_ must also be a `type` parameter.
+
+. If _P_ is `interface`, _D_ must also be `interface and the value must be a
 <<Scoping-of-Names_Qualified-Identifiers,_qualified-identifier_>> of a
 <<Ports_Port-Interface-Instances,port interface instance>>
-which is a <<Ports_Sub-Interfaces,sub-interface>> to _I_.
-
-. If the parameter type is `type`, the value must name a type.
-
-==== Template Expansion
-
-When a template is expanded, the uses of parameters are replaced with the values
-given in the parameter list. The syntax inside _T_ is cloned
-and placed into the scope of the template expansion. Uses are resolved relative to
-the _T_'s scope rather than the template expansion's.
+which is a <<Ports_Sub-Interfaces,sub-interface>> to _I_
 
 === Examples
 
@@ -70,7 +66,7 @@ template Templ(
 
 @ Instantiate the template giving the parameters concrete values
 module M {
-  expand Templ(30)
+  expand Templ(constant 30)
 }
 # M.I => interface { output port N[30]: P }
 # M.C => passive component { output port N[30]: P }

@@ -807,7 +807,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifiers_Semantics">7.22. Semantics</a>
 <ul class="sectlevel3">
 <li><a href="#Specifiers_Semantics_Checking-parameter-types">7.22.1. Checking parameter types</a></li>
-<li><a href="#Specifiers_Semantics_Template-Expansion">7.22.2. Template Expansion</a></li>
 </ul>
 </li>
 <li><a href="#Specifiers_Examples">7.23. Examples</a></li>
@@ -2876,7 +2875,7 @@ constant e = a # Error: a is not in scope here</code></pre>
 <h3 id="Definitions_Module-Template-Definitions">5.10. Module Template Definitions</h3>
 <div class="paragraph">
 <p>A <strong>module template definition</strong> defines an FPP template that can
-hold reduce FPP model code duplication.
+help reduce FPP model code duplication.
 A module template is an FPP construct with definitions inside
 parameterized with a set of types, constants, and interfaces that
 can be expanded into a module.</p>
@@ -2930,13 +2929,43 @@ as members to template definitions will cause an error.</p>
 <h4 id="Definitions_Module-Template-Definitions_Semantics">5.10.2. Semantics</h4>
 <div class="paragraph">
 <p>Module template definitions define parameterized FPP syntax. A template can be expanded
-through a <a href="#Specifiers_Template-Expansion-Specifiers">template expansion specifier</a>. When a template is expanded,
-the set of parameters are applied to the template and the newly concrete definitions
-inside the template are placed into the scope of the expansion specifier.</p>
+through a <a href="#Specifiers_Template-Expansion-Specifiers">template expansion specifier</a>.</p>
 </div>
 <div class="paragraph">
-<p>Uses inside the module template are resolved relative to the module template definition
-rather than to the expansion point.</p>
+<p>Templates are expanded with the following algorithm:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>For each template expansion specifier <em>E</em>:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Create a new empty scope <em>S</em> for <em>E</em>.</p>
+</li>
+<li>
+<p>Resolve the module template definition <em>T</em> which <em>E</em>
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refers to</a>.</p>
+</li>
+<li>
+<p>Enter template parameters of <em>T</em> into <em>S</em> with concrete values given in <em>E</em>.</p>
+</li>
+<li>
+<p>Duplicate the syntax contained in <em>T</em> into syntax <em>X</em> contained under <em>E</em>.</p>
+</li>
+<li>
+<p>Enter symbols discovered in <em>X</em> into <em>S</em>.</p>
+</li>
+<li>
+<p>For each template expansion specifier in <em>X</em>, apply these rules recursively.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>With templates expanded,</p>
 </div>
 </div>
 <div class="sect3">
@@ -2972,7 +3001,7 @@ instance comDriver: Drv.TcpClient base id 0x10300000 + 0x100
 module M {
     # Instantiate template with topology inside
     # Pass an external component into the topology
-    expand MT(0x100, comDriver)
+    expand MT(constant 0x100, interface comDriver)
 }
 
 topology T {
@@ -8410,9 +8439,20 @@ to generate concrete definitions.</p>
 <div class="paragraph">
 <p><em>parameter-sequence</em> is an
 <a href="#Element-Sequences">element sequence</a> in
-which each element is an
-<a href="#Values">value expression</a> or qualified identifier,
-and the terminating punctuation is a semicolon.</p>
+which each element is one of the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>constant</code> <a href="#Expressions"><em>expression</em></a></p>
+</li>
+<li>
+<p><code>type</code> <a href="#Type-Names"><em>type-name</em></a></p>
+</li>
+<li>
+<p><code>interface</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a></p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
@@ -8434,34 +8474,24 @@ the template parameters of the template <em>T</em>.</p>
 <div class="sect3">
 <h4 id="Specifiers_Semantics_Checking-parameter-types">7.22.1. Checking parameter types</h4>
 <div class="paragraph">
-<p>When passing values and references to template expansion, each parameter
-is checked with the following rules:</p>
+<p>For each template parameter <em>P</em> and its corresponding parameter definition <em>D</em> in <em>T</em>:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>If the parameter type is <code>constant</code>, the type of the value will be
-<a href="#Type-Checking_Type-Conversion">converted to</a> the type specified in the parameter list.</p>
+<p>If <em>P</em> is <code>constant</code>, <em>D</em> must be `constant and the expression is
+<a href="#Type-Checking_Type-Conversion">converted to</a> the type specified in <em>D</em>.</p>
 </li>
 <li>
-<p>If the parameter type is <code>interface</code> <em>I</em>, the value must be a
+<p>If <em>P</em> is <code>type</code>, <em>D</em> must also be a <code>type</code> parameter.</p>
+</li>
+<li>
+<p>If <em>P</em> is <code>interface</code>, <em>D</em> must also be `interface and the value must be a
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qualified-identifier</em></a> of a
 <a href="#Ports_Port-Interface-Instances">port interface instance</a>
-which is a <a href="#Ports_Sub-Interfaces">sub-interface</a> to <em>I</em>.</p>
-</li>
-<li>
-<p>If the parameter type is <code>type</code>, the value must name a type.</p>
+which is a <a href="#Ports_Sub-Interfaces">sub-interface</a> to <em>I</em></p>
 </li>
 </ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Specifiers_Semantics_Template-Expansion">7.22.2. Template Expansion</h4>
-<div class="paragraph">
-<p>When a template is expanded, the uses of parameters are replaced with the values
-given in the parameter list. The syntax inside <em>T</em> is cloned
-and placed into the scope of the template expansion. Uses are resolved relative to
-the <em>T</em>'s scope rather than the template expansion&#8217;s.</p>
 </div>
 </div>
 </div>
@@ -8486,7 +8516,7 @@ template Templ(
 
 @ Instantiate the template giving the parameters concrete values
 module M {
-  expand Templ(30)
+  expand Templ(constant 30)
 }
 # M.I =&gt; interface { output port N[30]: P }
 # M.C =&gt; passive component { output port N[30]: P }</code></pre>
@@ -12533,7 +12563,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-10-28 11:22:36 -0700
+Last updated 2025-12-02 10:41:25 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

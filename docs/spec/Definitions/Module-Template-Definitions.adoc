@@ -1,7 +1,7 @@
 === Module Template Definitions
 
 A *module template definition* defines an FPP template that can
-hold reduce FPP model code duplication.
+help reduce FPP model code duplication.
 A module template is an FPP construct with definitions inside
 parameterized with a set of types, constants, and interfaces that
 can be expanded into a module.
@@ -37,12 +37,26 @@ as members to template definitions will cause an error.
 
 Module template definitions define parameterized FPP syntax. A template can be expanded
 through a <<Specifiers_Template-Expansion-Specifiers,
-template expansion specifier>>. When a template is expanded,
-the set of parameters are applied to the template and the newly concrete definitions
-inside the template are placed into the scope of the expansion specifier.
+template expansion specifier>>.
 
-Uses inside the module template are resolved relative to the module template definition
-rather than to the expansion point.
+Templates are expanded with the following algorithm:
+
+. For each template expansion specifier _E_:
+
+.. Create a new empty scope _S_ for _E_.
+
+.. Resolve the module template definition _T_ which _E_
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refers to>>.
+
+.. Enter template parameters of _T_ into _S_ with concrete values given in _E_.
+
+.. Duplicate the syntax contained in _T_ into syntax _X_ contained under _E_.
+
+.. Enter symbols discovered in _X_ into _S_.
+
+.. For each template expansion specifier in _X_, apply these rules recursively.
+
+With templates expanded, 
 
 ==== Example
 
@@ -77,7 +91,7 @@ instance comDriver: Drv.TcpClient base id 0x10300000 + 0x100
 module M {
     # Instantiate template with topology inside
     # Pass an external component into the topology
-    expand MT(0x100, comDriver)
+    expand MT(constant 0x100, interface comDriver)
 }
 
 topology T {
