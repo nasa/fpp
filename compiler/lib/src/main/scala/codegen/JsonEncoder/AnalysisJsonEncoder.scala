@@ -162,6 +162,13 @@ object AnalysisJsonEncoder extends JsonEncoder{
     Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
   }
 
+  private implicit val templateInterfaceParamMapEncoder:
+    Encoder[Map[Symbol.TemplateInterfaceParam, Location]] =
+  {
+    def f2(loc: Location) = loc.asJson
+    Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
+  }
+
   private implicit val directComponentInstancesEncoder:
     Encoder[Map[Symbol.ComponentInstance, Location]] =
   {

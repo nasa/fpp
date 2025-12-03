@@ -243,14 +243,14 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
   ) = {
     def templateParam(
       a: Analysis,
-      pNode: Ast.Annotated[AstNode[Ast.TemplateParam]]
+      pNode: Ast.Annotated[AstNode[Ast.DefTemplateParam.Node]]
     ) = {
       val (_, node, _) = pNode
       node.data match {
-        case Ast.TemplateParam.Constant(_, tn) => typeNameNode(a, tn)
-        case Ast.TemplateParam.Interface(_, interface) =>
+        case Ast.DefTemplateParam.Constant(_, tn) => typeNameNode(a, tn)
+        case Ast.DefTemplateParam.Interface(_, interface) =>
           qualIdentNode(interfaceUse)(a, interface)
-        case _: Ast.TemplateParam.Type => Right(a)
+        case _: Ast.DefTemplateParam.Type => Right(a)
       }
     }
 

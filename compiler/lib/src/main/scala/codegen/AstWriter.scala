@@ -177,13 +177,13 @@ object AstWriter extends AstVisitor with LineUtils {
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
   ) = {
-    def templateParam(tp: Ast.TemplateParam) = {
+    def templateParam(tp: Ast.DefTemplateParam.Node) = {
       tp match {
-        case Ast.TemplateParam.Constant(name, typeName) =>
+        case Ast.DefTemplateParam.Constant(name, typeName) =>
           addPrefix(s"constant $name", typeNameNode) (typeName)
-        case Ast.TemplateParam.Type(name) =>
+        case Ast.DefTemplateParam.Type(name) =>
           lines(s"type $name")
-        case Ast.TemplateParam.Interface(name, interface) =>
+        case Ast.DefTemplateParam.Interface(name, interface) =>
           addPrefix(s"interface $name", qualIdent) (interface.data)
       }
     }
@@ -193,7 +193,7 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("def module template") ++
     List.concat(
       ident(data.name),
-      addPrefix("params", (x: List[Ast.Annotated[AstNode[Ast.TemplateParam]]]) =>
+      addPrefix("params", (x: List[Ast.Annotated[AstNode[Ast.DefTemplateParam.Node]]]) =>
         x.flatMap(annotateNode(templateParam))) (data.params),
       data.members.flatMap(moduleMember)
     ).map(indentIn)
@@ -206,11 +206,21 @@ object AstWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
 
+    def templateParam(tp: AstNode[Ast.TemplateParameter]): Out = {
+      tp.data match {
+        case Ast.TemplateConstantParameter(e) =>
+          addPrefix("constant", exprNode) (e)
+        case Ast.TemplateTypeParameter(name) =>
+          addPrefix("type", typeNameNode) (name)
+        case Ast.TemplateInterfaceParameter(i) =>
+          addPrefix(s"interface", qualIdent) (i.data)
+      }
+    }
+
     lines("expand") ++
     List.concat(
       qualIdent(data.template.data),
-      lines("params"),
-      data.params.flatMap(exprNode).map(indentIn),
+      data.params.flatMap(templateParam).map(indentIn),
       data.members match {
         case Some(members) => List.concat(
           lines("members"),
@@ -218,7 +228,7 @@ object AstWriter extends AstVisitor with LineUtils {
         )
         case None => lines("unexpanded")
       }
-    ).map(indentIn)
+    )
   }
 
   override def defPortAnnotatedNode(

@@ -249,7 +249,7 @@ module DefinitionsAndSpecifiers {
     }
   }
 
-  expand Tmpl(10, Type, instance1)
+  expand Tmpl(constant 10, type Type, interface instance1)
 
 }
 @< Definitions and specifiers

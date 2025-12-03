@@ -69,21 +69,21 @@ object Symbol {
     override def getUnqualifiedName = node._2.data.name
   }
   final case class TemplateConstantParam(
-    paramDef: Ast.TemplateParam.Constant,
+    paramDef: Ast.DefTemplateParam.Constant,
     value: AstNode[Ast.Expr]
   ) extends Symbol {
     override def getUnqualifiedName = paramDef.name
     override def getNodeId = value.id
   }
   final case class TemplateTypeParam(
-    paramDef: Ast.TemplateParam.Type,
+    paramDef: Ast.DefTemplateParam.Type,
     value: AstNode[Ast.TypeName]
   ) extends Symbol {
     override def getUnqualifiedName = paramDef.name
     override def getNodeId = value.id
   }
   final case class TemplateInterfaceParam(
-    paramDef: Ast.TemplateParam.Interface,
+    paramDef: Ast.DefTemplateParam.Interface,
     value: AstNode[Ast.QualIdent]
   ) extends Symbol {
     override def getUnqualifiedName = paramDef.name

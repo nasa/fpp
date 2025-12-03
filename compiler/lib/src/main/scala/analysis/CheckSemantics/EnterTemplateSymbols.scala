@@ -60,45 +60,40 @@ object EnterTemplateSymbols
             ))
           }
 
-          // The syntax allows parameters to be any expression
-          // This is to allow for constant expressions
-          // Type and interface instance parameters can only actually take qualified identifiers
-          // Make sure that these bounds are met
+          // Create the parameter symbols by mapping each argument together with the definition
+          // Make sure each argument is of the proper type
           params <- {
             Result.map[
-              (AstNode[Ast.Expr], Ast.Annotated[AstNode[Ast.TemplateParam]]),
+              (AstNode[Ast.TemplateParameter], Ast.Annotated[AstNode[Ast.DefTemplateParam.Node]]),
               Symbol.TemplateParam
             ](data.params zip defParams, (valueParam, defParam) => {
-              defParam._2.data match {
-                // Constants support all expressions
-                case defParam: Ast.TemplateParam.Constant => Right(Symbol.TemplateConstantParam(
-                  defParam,
-                  valueParam
-                ))
-                case defParam: Ast.TemplateParam.Type =>
-                  // TODO(tumbar) Create a ExprOrTypeName -> TypeName conversion
-                  for (identList <- exprToIdentList(valueParam))
-                  yield Symbol.TemplateTypeParam(
-                    defParam,
-                    AstNode.create(
-                      Ast.TypeNameQualIdent(
-                        AstNode.create(
-                          Ast.QualIdent.fromNodeList(identList),
-                          valueParam.id
-                        ),
-                      ),
-                      valueParam.id
-                    )
-                  )
-                case defParam: Ast.TemplateParam.Interface =>
-                  for (identList <- exprToIdentList(valueParam))
-                  yield Symbol.TemplateInterfaceParam(
-                    defParam,
-                    AstNode.create(
-                      Ast.QualIdent.fromNodeList(identList),
-                      valueParam.id
-                    )
-                  )
+              (defParam._2.data, valueParam.data) match {
+                case (defParam: Ast.DefTemplateParam.Constant, Ast.TemplateConstantParameter(value)) =>
+                  Right(Symbol.TemplateConstantParam(defParam, value))
+                case (defParam: Ast.DefTemplateParam.Type, Ast.TemplateTypeParameter(typeName)) =>
+                  Right(Symbol.TemplateTypeParam(defParam, typeName))
+                case (defParam: Ast.DefTemplateParam.Interface, Ast.TemplateInterfaceParameter(instance)) =>
+                  Right(Symbol.TemplateInterfaceParam(defParam, instance))
+                case (dp, vp) => {
+                  val defKind = dp match {
+                    case Ast.DefTemplateParam.Constant(_, _) => "constant"
+                    case Ast.DefTemplateParam.Type(_) => "type"
+                    case Ast.DefTemplateParam.Interface(_, _) => "interface"
+                  }
+
+                  val valKind = vp match {
+                    case Ast.TemplateConstantParameter(_) => "constant"
+                    case Ast.TemplateTypeParameter(_) => "type"
+                    case Ast.TemplateInterfaceParameter(_) => "interface"
+                  }
+
+                  Left(SemanticError.InvalidTemplateParameter(
+                    dp.name,
+                    Locations.get(valueParam.id),
+                    Locations.get(defParam._2.id),
+                    s"expected ${defKind} template parameter, got ${valKind} parameter"
+                  ))
+                }
               }
             })
           }
