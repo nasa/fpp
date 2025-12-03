@@ -288,11 +288,11 @@ module DefinitionsAndSpecifiers {
     }
   }
 
-  expand List(Tmpl)(
-                     constant 10
-                     type Type
-                     interface instance1
-                   )
+  expand Tmpl(
+               constant 10
+               type Type
+               interface instance1
+             )
 
 } @< Definitions and specifiers
 

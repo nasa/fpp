@@ -5,7 +5,6 @@ import fpp.compiler.syntax._
 import fpp.compiler.util._
 import scala.language.implicitConversions
 import fpp.compiler.ast.Ast.Annotated
-import fpp.compiler.ast.Ast.SpecTemplateExpand
 
 /** Write out FPP source */
 object FppWriter extends AstVisitor with LineUtils {
@@ -294,7 +293,7 @@ object FppWriter extends AstVisitor with LineUtils {
 
   override def specTemplateExpandAnnotatedNode(
     in: In,
-    aNode: Ast.Annotated[AstNode[SpecTemplateExpand]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
   ): Out = {
     def templateParam(tp: AstNode[Ast.TemplateParameter]) =
       tp.data match {
@@ -317,8 +316,8 @@ object FppWriter extends AstVisitor with LineUtils {
 
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"expand ${qualIdent(data.template.data)}").
-      join ("") (templateParamValueList(data.params))
+    Line.addPrefix("expand ", qualIdent(data.template.data)).
+      join("") (templateParamValueList(data.params))
   }
 
   override def defPortAnnotatedNode(
