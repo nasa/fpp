@@ -21,4 +21,4 @@ struct S {
     member: U32
 }
 
-expand T(S)
+expand T(type S)

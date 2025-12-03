@@ -17,4 +17,4 @@ template T(
     constant newField2 = p.field3[1]
 }
 
-expand T({})
+expand T(constant {})

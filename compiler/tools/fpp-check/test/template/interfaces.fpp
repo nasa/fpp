@@ -12,4 +12,4 @@ passive component C {}
 
 instance c: C base id 1
 
-expand T(c)
+expand T(interface c)

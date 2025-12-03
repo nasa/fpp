@@ -1,9 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/template/interfaces.fpp:7.18
-        instance i
-                 ^
-error: invalid symbol i: not a component instance or topology symbol
-symbol is defined here:
-[ local path prefix ]/compiler/tools/fpp-check/test/template/interfaces.fpp:15.10
-expand T(c)
-         ^
