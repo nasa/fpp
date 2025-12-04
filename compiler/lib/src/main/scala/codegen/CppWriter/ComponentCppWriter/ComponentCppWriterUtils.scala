@@ -616,6 +616,27 @@ abstract class ComponentCppWriterUtils(
       case Command.Param.Set => "set"
     }
 
+  /** Whether an invoker is required for a port instance */
+  def invokerRequired(portInstance: PortInstance) =
+    portInstance.getSpecialKind match {
+      case Some(Ast.SpecPortInstance.CommandReg) |
+           Some(Ast.SpecPortInstance.CommandResp) =>
+        hasCommands || hasParameters
+      case Some(Ast.SpecPortInstance.Event) |
+           Some(Ast.SpecPortInstance.TextEvent) =>
+        hasEvents
+      case Some(Ast.SpecPortInstance.ParamGet) |
+           Some(Ast.SpecPortInstance.ParamSet) =>
+        hasParameters
+      case Some(Ast.SpecPortInstance.ProductGet) |
+           Some(Ast.SpecPortInstance.ProductRequest) |
+           Some(Ast.SpecPortInstance.ProductSend) =>
+        hasDataProducts
+      case Some(Ast.SpecPortInstance.Telemetry) =>
+        hasTelemetry
+      case _ => true
+    }
+
   /** Write a state machine identifier name */
   def writeSmIdName(name: String) = s"SmId::${name}"
 

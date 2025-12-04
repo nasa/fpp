@@ -64,19 +64,8 @@ case class ComponentPorts(
     inputPortWriter.getCallbacks(typedInputPorts),
     inputPortWriter.getCallbacks(serialInputPorts),
     {
-      val ports = List.concat(
-        guardedList (hasDataProducts) (dataProductOutputPorts),
-        List(
-          guardedOption (hasCommands || hasParameters) (cmdRegPort),
-          guardedOption (hasCommands || hasParameters) (cmdRespPort),
-          guardedOption (hasEvents) (eventPort),
-          guardedOption (hasEvents) (textEventPort),
-          guardedOption (hasParameters) (prmGetPort),
-          guardedOption (hasParameters) (prmSetPort),
-          timeGetPort,
-          guardedOption (hasTelemetry) (tlmPort),
-        ).filter(_.isDefined).map(_.get)
-      ).sortBy(_.getUnqualifiedName)
+      val ports = specialOutputPorts.filter(invokerRequired).
+        sortBy(_.getUnqualifiedName)
       outputPortWriter.getInvokers(ports, "private", Some("special"))
     }
   )
