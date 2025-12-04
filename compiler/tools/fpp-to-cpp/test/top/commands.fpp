@@ -12,6 +12,16 @@ module M {
 
   }
 
+  passive component NoCommands {
+
+    command recv port cmdOut
+
+    command reg port cmdRegOut
+
+    command resp port cmdResponseOut
+
+  }
+
   instance c1: C base id 0x100 {
 
     phase Phases.regCommands """
@@ -22,10 +32,13 @@ module M {
 
   instance c2: C base id 0x200
 
+  instance c3: NoCommands base id 0x300
+
   topology Commands {
 
     instance c1
     instance c2
+    instance c3
 
   }
 
