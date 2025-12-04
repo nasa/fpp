@@ -1,23 +1,18 @@
 #!/bin/sh -e
 
-fpp_to_cpp=../../../../../../bin/fpp-to-cpp
-fprime_gcc=../../../../../../scripts/fprime-gcc
-
 echo '  removing old files'
 ./clean
 
-dir=`cd ../..; echo $PWD`
-fprime_dir=../../../fprime
-
 echo '  generating C++'
-$fpp_to_cpp -p $dir -i $fprime_dir/config/FpConfig.fpp,$fprime_dir/Platform/PlatformTypes.fpp,$fprime_dir/Fw/Prm/Prm.fpp,../../phases.fpp \
-  $fprime_dir/Fw/Cmd/Cmd.fpp ../../params.fpp
-for suffix in hpp cpp
-do
-  cp ../../ParamsTopologyAc.ref.$suffix ParamsTopologyAc.$suffix
-done
+(
+  cd ../..;
+  fpp_to_cpp=../../../../bin/fpp-to-cpp
+  fprime_dir=../fprime
+  $fpp_to_cpp -p $PWD -i $fprime_dir/config/FpConfig.fpp,$fprime_dir/Platform/PlatformTypes.fpp,$fprime_dir/Fw/Prm/Prm.fpp,phases.fpp \
+    $fprime_dir/Fw/Cmd/Cmd.fpp -d check-cpp-dir/Params params.fpp
+)
 
-echo '  compiling C++'
+fprime_gcc=../../../../../../scripts/fprime-gcc
 flags="-I.. -I../../../fprime -I../../../fprime/config -Wno-unused-parameter -c"
 echo '  compiling C++'
 for variable_flags in '' '-DFW_DIRECT_PORT_CALLS'
