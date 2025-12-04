@@ -88,3 +88,73 @@ namespace M {
   }
 
 }
+
+#if FW_DIRECT_PORT_CALLS
+
+// ----------------------------------------------------------------------
+// Topology-dependent component implementation
+// ----------------------------------------------------------------------
+
+
+bool CComponentBase::isConnected_timeGetOut_OutputPort(FwIndexType portNum) const {
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < NUM_TIMEGETOUT_OUTPUT_PORTS),
+    static_cast<FwAssertArgType>(portNum),
+    static_cast<FwAssertArgType>(NUM_TIMEGETOUT_OUTPUT_PORTS)
+  );
+  bool result = false;
+  const auto instance = this->getInstance();
+  switch (instance) {
+    default:
+      FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+      break;
+  }
+  return result;
+}
+
+bool CComponentBase::isConnected_tlmOut_OutputPort(FwIndexType portNum) const {
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < NUM_TLMOUT_OUTPUT_PORTS),
+    static_cast<FwAssertArgType>(portNum),
+    static_cast<FwAssertArgType>(NUM_TLMOUT_OUTPUT_PORTS)
+  );
+  bool result = false;
+  const auto instance = this->getInstance();
+  switch (instance) {
+    default:
+      FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+      break;
+  }
+  return result;
+}
+
+void CComponentBase::timeGetOut_out(FwIndexType portNum) const {
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < NUM_TIMEGETOUT_OUTPUT_PORTS),
+    static_cast<FwAssertArgType>(portNum),
+    static_cast<FwAssertArgType>(NUM_TIMEGETOUT_OUTPUT_PORTS)
+  );
+  const auto instance = this->getInstance();
+  switch (instance) {
+    default:
+      FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+      break;
+  }
+}
+
+void CComponentBase::tlmOut_out(FwIndexType portNum) const {
+  FW_ASSERT(
+    (0 <= portNum) && (portNum < NUM_TLMOUT_OUTPUT_PORTS),
+    static_cast<FwAssertArgType>(portNum),
+    static_cast<FwAssertArgType>(NUM_TLMOUT_OUTPUT_PORTS)
+  );
+  const auto instance = this->getInstance();
+  switch (instance) {
+    default:
+      FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+      break;
+  }
+}
+
+
+#endif

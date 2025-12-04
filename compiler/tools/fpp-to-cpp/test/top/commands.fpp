@@ -6,7 +6,7 @@ module M {
 
     command reg port cmdRegOut
 
-    command resp port cmdResponseIn
+    command resp port cmdResponseOut
 
     sync command C
 

@@ -10,9 +10,15 @@ case class TopComponents(
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
 ) extends TopologyCppWriterUtils(s, aNode) {
 
-  private val componentMap = t.connectionMap.values.foldLeft
-    (Map(): TopComponents.ComponentMap)
-    (addConnectionsToMap)
+  private val componentMap = {
+    val cm0 = Map(): TopComponents.ComponentMap
+    // Add empty ComponentInstanceMap entries for all output ports
+    // That way unconnected ports will be represented
+    val cm1 = addInstancesToMap(cm0, t.instanceMap.keys.toList)
+    // Update the ComponentInstanceMap entries for all connections
+    val cm2 = t.connectionMap.values.foldLeft (cm1) (addConnectionsToMap)
+    cm2
+  }
 
   private val sortedComponentList = componentMap.toList.sortWith {
     case ((c1, _), (c2, _)) =>
@@ -57,6 +63,29 @@ case class TopComponents(
     List(member)
   }
 
+  private def addInstancesToMap(
+    cm: TopComponents.ComponentMap,
+    is: List[ComponentInstance]
+  ) = is.foldLeft (cm) (addInstanceToMap)
+
+  private def addInstanceToMap(
+    componentMap: TopComponents.ComponentMap,
+    componentInstance: ComponentInstance
+  ) = {
+    val component = componentInstance.component
+    component.portMap.toList.foldLeft (componentMap) {
+      case (map, (portName, portInstance)) =>
+        portInstance.getDirection match {
+          case Some(PortInstance.Direction.Output) =>
+            val portNameMap = map.get(component).getOrElse(Map())
+            val componentInstanceMap = portNameMap.get(portName).getOrElse(Map())
+            val portNameMap1 = portNameMap + (portName -> componentInstanceMap)
+            map + (component -> portNameMap1)
+          case _ => map
+        }
+    }
+  }
+
   private def addConnectionsToMap(
     cm: TopComponents.ComponentMap,
     cs: List[Connection]
@@ -72,8 +101,8 @@ case class TopComponents(
     val component = componentInstance.component
     val portName = portInstance.getUnqualifiedName
     val portNumber = t.fromPortNumberMap(connection)
-    val portNameMap = componentMap.get(component).getOrElse(Map())
-    val componentInstanceMap = portNameMap.get(portName).getOrElse(Map())
+    val portNameMap = componentMap(component)
+    val componentInstanceMap = portNameMap(portName)
     val portNumberMap = componentInstanceMap.get(componentInstance).getOrElse(Map())
     val portNumberMap1 = portNumberMap + (portNumber -> connection)
     val componentInstanceMap1 = componentInstanceMap + (componentInstance -> portNumberMap1)
