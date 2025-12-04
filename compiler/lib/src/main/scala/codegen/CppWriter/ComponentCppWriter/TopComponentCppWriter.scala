@@ -29,8 +29,12 @@ case class TopComponentCppWriter (
   def writeIsConnectedFns =
     sortedPortNameList.flatMap(writeIsConnectedFnForPort)
 
-  def writeOutFns =
-    sortedPortNameList.flatMap(writeOutFnForPort)
+  def writeOutFns = {
+    val nameList = sortedPortNameList.filter {
+      case (n, _) => invokerRequired(component.portMap(n))
+    }
+    nameList.flatMap(writeOutFnForPort)
+  }
 
   private def componentInstanceMapToSortedList(
     componentInstanceMap: TopComponents.ComponentInstanceMap
