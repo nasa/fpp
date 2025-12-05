@@ -1,7 +1,11 @@
 #!/bin/sh -e
 
+cd `dirname $0`
+
+. ./check_topology.sh
+
 for dir in `cat subdirs.txt`
 do
   echo "checking $dir"
-  (cd $dir; ./check)
+  (cd $dir; check_topology)
 done
