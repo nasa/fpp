@@ -1,27 +1,5 @@
 #!/bin/sh -e
 
-fpp_to_cpp=../../../../../../bin/fpp-to-cpp
-fprime_gcc=../../../../../../scripts/fprime-gcc
+. `dirname $0`/../check_topology.sh
 
-echo '  removing old files'
-./clean
-
-base_dir=`cd ../..; echo $PWD`
-src_dir=$base_dir/typed_ports_passive
-
-echo '  generating C++'
-$fpp_to_cpp -p $base_dir,$src_dir $src_dir/components.fpp \
-  $src_dir/topology.fpp
-
-for suffix in hpp cpp
-do
-  cp $src_dir/TypedPortsPassiveTopologyAc.ref.$suffix TypedPortsPassiveTopologyAc.$suffix
-done
-
-flags="-I.. -I../../../fprime -I../../../fprime/config -Wno-unused-parameter -c"
-echo '  compiling C++'
-for variable_flags in '' '-DFW_DIRECT_PORT_CALLS'
-do
-  echo "    variable_flags=$variable_flags"
-  $fprime_gcc $variable_flags $flags TypedPortsPassiveTopologyAc.cpp
-done
+check_topology typed_ports_passive

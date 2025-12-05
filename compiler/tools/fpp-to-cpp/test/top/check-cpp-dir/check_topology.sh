@@ -1,7 +1,12 @@
 check_topology()
 {
 
-  src_dir=$1
+  if test -z "$1"
+  then
+    src_dir=`basename $PWD`
+  else
+    src_dir=$1
+  fi
 
   dir=`dirname $0`
   dir=`cd $dir; pwd`

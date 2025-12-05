@@ -2,4 +2,4 @@
 
 . `dirname $0`/../check_topology.sh
 
-check_topology health Health
+check_topology health
