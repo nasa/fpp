@@ -2,7 +2,6 @@ check_topology()
 {
 
   src_dir=$1
-  top_name=$2
 
   dir=`dirname $0`
   dir=`cd $dir; pwd`
@@ -20,12 +19,38 @@ check_topology()
     $FPP_TO_CPP -p $PWD -i $FPRIME_DEPS,../phases.fpp -d $dir components.fpp topology.fpp
   )
 
-  flags="-I$FPRIME_DIR -I$FPRIME_DIR/fprime/config -Wno-unused-parameter -c"
-  echo '  compiling C++'
-  for variable_flags in '' '-DFW_DIRECT_PORT_CALLS'
+  options="
+  -I..
+  -I$FPRIME_DIR
+  -I$FPRIME_DIR/config
+  -I$FPRIME_DIR/Fw/Time
+  -I$FPRIME_DIR/Fw/Tlm
+  -Wno-unused-parameter
+  -c
+  "
+
+  #flags="-I$FPRIME_DIR -I$FPRIME_DIR/config -Wno-unused-parameter -c"
+  top_files=`find . -maxdepth 1 -name '*TopologyAc.cpp'`
+  for top_file in $top_files
   do
-    echo "    variable_flags=$variable_flags"
-    $FPRIME_GCC $variable_flags $flags $top_name'TopologyAc.cpp'
+    top_name=`echo $top_file | sed -e 's;^\./;;' -e 's/TopologyAc\.cpp$//'`
+    echo '  compiling C++ for '$top_name
+    for variable_flags in '' '-DFW_DIRECT_PORT_CALLS'
+    do
+      echo "    variable_flags=$variable_flags"
+      $FPRIME_GCC $variable_flags $options $top_name'TopologyAc.cpp'
+    done
+  done
+
+  tlm_packet_files=`find . -maxdepth 1 -name '*TlmPacketsAc.cpp'`
+  for tlm_packet_file in $tlm_packet_files
+  do
+    echo "    compiling $tlm_packet_file"
+    for variable_flags in '' '-DFW_DIRECT_PORT_CALLS'
+    do
+      echo "      variable_flags=$variable_flags"
+      $FPRIME_GCC $variable_flags $options $tlm_packet_file
+    done
   done
 
 }

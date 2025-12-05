@@ -43,8 +43,8 @@ params()
 
 tlm_packets()
 {
-  cd $TOP_DIR
-  run_test "-i builtin.fpp -p $PWD" tlm_packets && \
+  cd $TOP_DIR/tlm_packets
+  run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology && \
     diff_cpp NoInstancesTopology && \
     diff_cpp NoInstances_P1TlmPackets && \
     diff_cpp NoInstances_P2TlmPackets && \

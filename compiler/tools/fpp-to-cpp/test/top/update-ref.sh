@@ -43,8 +43,8 @@ params()
 
 tlm_packets()
 {
-  cd $TOP_DIR
-  update "-i builtin.fpp -p $PWD" tlm_packets
+  cd $TOP_DIR/tlm_packets
+  update "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology
   move_cpp NoInstancesTopology
   move_cpp NoInstances_P1TlmPackets
   move_cpp NoInstances_P2TlmPackets
