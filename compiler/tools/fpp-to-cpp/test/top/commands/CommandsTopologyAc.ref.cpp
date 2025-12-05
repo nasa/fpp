@@ -146,7 +146,10 @@ namespace M {
     return result;
   }
 
-  void CComponentBase::cmdRegOut_out(FwIndexType portNum) const {
+  void CComponentBase::cmdRegOut_out(
+      FwIndexType portNum,
+      FwOpcodeType opCode
+  ) const {
     FW_ASSERT(
       (0 <= portNum) && (portNum < NUM_CMDREGOUT_OUTPUT_PORTS),
       static_cast<FwAssertArgType>(portNum),
@@ -160,7 +163,12 @@ namespace M {
     }
   }
 
-  void CComponentBase::cmdResponseOut_out(FwIndexType portNum) const {
+  void CComponentBase::cmdResponseOut_out(
+      FwIndexType portNum,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      const Fw::CmdResponse& response
+  ) const {
     FW_ASSERT(
       (0 <= portNum) && (portNum < NUM_CMDRESPONSEOUT_OUTPUT_PORTS),
       static_cast<FwAssertArgType>(portNum),

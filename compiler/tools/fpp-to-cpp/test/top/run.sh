@@ -7,8 +7,10 @@ basic()
 
 commands()
 {
-  run_test "-i builtin.fpp -p $PWD" commands && \
-    diff_cpp CommandsTopology
+  cd commands
+  run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology
+  diff_cpp CommandsTopology
+  cd ..
 }
 
 health()

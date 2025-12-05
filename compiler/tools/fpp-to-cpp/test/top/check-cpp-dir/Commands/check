@@ -1,15 +1,17 @@
 #!/bin/sh -e
 
+cd ../..
+. ./defs.sh
+cd check-cpp-dir/Commands
+
 echo '  removing old files'
 ./clean
 
 echo '  generating C++'
 (
-  cd ../..;
-  fpp_to_cpp=../../../../bin/fpp-to-cpp
-  fprime_dir=../fprime
-  $fpp_to_cpp -p $PWD -i $fprime_dir/config/FpConfig.fpp,$fprime_dir/Platform/PlatformTypes.fpp,$fprime_dir/Fw/Prm/Prm.fpp,phases.fpp \
-    $fprime_dir/Fw/Cmd/Cmd.fpp -d check-cpp-dir/Commands commands.fpp
+  cd ../../commands;
+  fpp_to_cpp=../../../../../bin/fpp-to-cpp
+  $fpp_to_cpp -p $PWD -i $FPRIME_DEPS,../phases.fpp -d ../check-cpp-dir/Commands components.fpp topology.fpp
 )
 
 fprime_gcc=../../../../../../scripts/fprime-gcc

@@ -7,8 +7,10 @@ basic()
 
 commands()
 {
-  update "-i builtin.fpp -p $PWD" commands
+  cd commands
+  update "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology
   move_cpp CommandsTopology
+  cd ..
 }
 
 health()
