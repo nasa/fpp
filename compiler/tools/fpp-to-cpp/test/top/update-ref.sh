@@ -17,8 +17,10 @@ commands()
 
 health()
 {
-  update "-i builtin.fpp -p $PWD" health
+  cd health
+  update "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology
   move_cpp HealthTopology
+  cd ..
 }
 
 nested_namespaces()

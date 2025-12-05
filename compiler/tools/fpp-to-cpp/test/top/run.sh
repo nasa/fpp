@@ -11,14 +11,17 @@ commands()
 {
   cd commands
   run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology && \
-  diff_cpp CommandsTopology
+    diff_cpp CommandsTopology
   cd ..
 }
 
 health()
 {
+  cd health
+  run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology && \
   run_test "-i builtin.fpp -p $PWD" health && \
     diff_cpp HealthTopology
+  cd ..
 }
 
 nested_namespaces()
