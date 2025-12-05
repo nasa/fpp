@@ -16,4 +16,18 @@ module M {
 
   }
 
+  passive component NoParams {
+
+    command recv port cmdOut
+
+    command reg port cmdRegOut
+
+    command resp port cmdResponseIn
+
+    param get port prmGetOut
+
+    param set port prmSetOut
+
+  }
+
 }

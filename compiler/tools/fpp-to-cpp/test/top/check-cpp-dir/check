@@ -2,10 +2,8 @@
 
 cd `dirname $0`
 
-. ./check_topology.sh
-
 for dir in `find . -mindepth 1 -type d`
 do
   echo "checking $dir"
-  (cd $dir; check_topology)
+  (cd $dir;./check)
 done

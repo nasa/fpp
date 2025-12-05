@@ -8,6 +8,7 @@
 #define M_ParamsTopologyAc_HPP
 
 #include "C.hpp"
+#include "NoParams.hpp"
 #include "ParamsTopologyDefs.hpp"
 
 // ----------------------------------------------------------------------
@@ -30,6 +31,13 @@ namespace M {
 
 namespace M {
 
+  //! c3
+  extern M::NoParams c3;
+
+}
+
+namespace M {
+
   // ----------------------------------------------------------------------
   // Constants
   // ----------------------------------------------------------------------
@@ -38,6 +46,7 @@ namespace M {
     enum {
       M_c1 = 0x100,
       M_c2 = 0x200,
+      M_c3 = 0x300,
     };
   }
 
@@ -45,6 +54,7 @@ namespace M {
     enum {
       M_c1,
       M_c2,
+      M_c3,
     };
   }
 
