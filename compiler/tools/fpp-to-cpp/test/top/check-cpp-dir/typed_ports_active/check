@@ -2,4 +2,4 @@
 
 . `dirname $0`/../check_topology.sh
 
-check_topology typed_ports_passive
+check_topology
