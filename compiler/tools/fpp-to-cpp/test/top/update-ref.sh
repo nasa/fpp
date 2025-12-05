@@ -29,8 +29,8 @@ nested_namespaces()
 
 no_namespace()
 {
-  cd $TOP_DIR
-  update "-p $PWD" no_namespace
+  cd $TOP_DIR/no_namespace
+  update "-p $PWD -i $FPRIME_DEPS,../phases.fpp" topology
   move_cpp NoNamespaceTopology
 }
 

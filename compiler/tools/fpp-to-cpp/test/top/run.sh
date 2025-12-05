@@ -29,8 +29,8 @@ nested_namespaces()
 
 no_namespace()
 {
-  cd $TOP_DIR
-  run_test "-p $PWD" no_namespace && \
+  cd $TOP_DIR/no_namespace
+  run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp" topology && \
     diff_cpp NoNamespaceTopology
 }
 
