@@ -1,6 +1,0 @@
-#!/bin/sh -e
-
-. `dirname $0`/../check_topology.sh
-
-check_topology
-
