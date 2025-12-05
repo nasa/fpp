@@ -1,7 +1,0 @@
-#!/bin/sh -e
-
-fpp_to_cpp=../../../../../../bin/fpp-to-cpp
-. `dirname $0`/../check_topology.sh
-
-check_topology tlm_packets
-

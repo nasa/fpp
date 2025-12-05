@@ -1,8 +1,8 @@
 basic
-Commands
-Health
-Params
-TlmPackets
+commands
+health
+params
+tlm_packets
 TypedPortsActive
 TypedPortsPassive
 TypedPortsQueued

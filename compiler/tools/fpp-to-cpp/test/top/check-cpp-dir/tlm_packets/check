@@ -2,4 +2,5 @@
 
 . `dirname $0`/../check_topology.sh
 
-check_topology params Params
+check_topology
+
