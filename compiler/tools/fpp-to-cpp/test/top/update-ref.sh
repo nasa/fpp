@@ -36,8 +36,8 @@ no_namespace()
 
 params()
 {
-  cd $TOP_DIR
-  update "-i builtin.fpp -p $PWD" params
+  cd $TOP_DIR/params
+  update "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology
   move_cpp ParamsTopology
 }
 

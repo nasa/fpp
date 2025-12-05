@@ -171,7 +171,10 @@ namespace M {
     return result;
   }
 
-  void CComponentBase::cmdRegOut_out(FwIndexType portNum) const {
+  void CComponentBase::cmdRegOut_out(
+      FwIndexType portNum,
+      FwOpcodeType opCode
+  ) const {
     FW_ASSERT(
       (0 <= portNum) && (portNum < NUM_CMDREGOUT_OUTPUT_PORTS),
       static_cast<FwAssertArgType>(portNum),
@@ -185,7 +188,12 @@ namespace M {
     }
   }
 
-  void CComponentBase::cmdResponseIn_out(FwIndexType portNum) const {
+  void CComponentBase::cmdResponseIn_out(
+      FwIndexType portNum,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      const Fw::CmdResponse& response
+  ) const {
     FW_ASSERT(
       (0 <= portNum) && (portNum < NUM_CMDRESPONSEIN_OUTPUT_PORTS),
       static_cast<FwAssertArgType>(portNum),
@@ -199,21 +207,31 @@ namespace M {
     }
   }
 
-  void CComponentBase::prmGetOut_out(FwIndexType portNum) const {
+  Fw::ParamValid CComponentBase::prmGetOut_out(
+      FwIndexType portNum,
+      FwPrmIdType id,
+      Fw::ParamBuffer& val
+  ) const {
     FW_ASSERT(
       (0 <= portNum) && (portNum < NUM_PRMGETOUT_OUTPUT_PORTS),
       static_cast<FwAssertArgType>(portNum),
       static_cast<FwAssertArgType>(NUM_PRMGETOUT_OUTPUT_PORTS)
     );
     const auto instance = this->getInstance();
+    Fw::ParamValid _result = {};
     switch (instance) {
       default:
         FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
     }
+    return _result;
   }
 
-  void CComponentBase::prmSetOut_out(FwIndexType portNum) const {
+  void CComponentBase::prmSetOut_out(
+      FwIndexType portNum,
+      FwPrmIdType id,
+      Fw::ParamBuffer& val
+  ) const {
     FW_ASSERT(
       (0 <= portNum) && (portNum < NUM_PRMSETOUT_OUTPUT_PORTS),
       static_cast<FwAssertArgType>(portNum),

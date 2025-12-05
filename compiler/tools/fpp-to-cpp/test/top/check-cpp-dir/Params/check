@@ -1,22 +1,5 @@
 #!/bin/sh -e
 
-echo '  removing old files'
-./clean
+. `dirname $0`/../check_topology.sh
 
-echo '  generating C++'
-(
-  cd ../..;
-  fpp_to_cpp=../../../../bin/fpp-to-cpp
-  fprime_dir=../fprime
-  $fpp_to_cpp -p $PWD -i $fprime_dir/config/FpConfig.fpp,$fprime_dir/Platform/PlatformTypes.fpp,$fprime_dir/Fw/Prm/Prm.fpp,phases.fpp \
-    $fprime_dir/Fw/Cmd/Cmd.fpp -d check-cpp-dir/Params params.fpp
-)
-
-fprime_gcc=../../../../../../scripts/fprime-gcc
-flags="-I.. -I../../../fprime -I../../../fprime/config -Wno-unused-parameter -c"
-echo '  compiling C++'
-for variable_flags in '' '-DFW_DIRECT_PORT_CALLS'
-do
-  echo "    variable_flags=$variable_flags"
-  $fprime_gcc $variable_flags $flags ParamsTopologyAc.cpp
-done
+check_topology params Params

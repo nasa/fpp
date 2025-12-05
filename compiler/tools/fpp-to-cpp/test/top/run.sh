@@ -36,8 +36,8 @@ no_namespace()
 
 params()
 {
-  cd $TOP_DIR
-  run_test "-i builtin.fpp -p $PWD" params && \
+  cd $TOP_DIR/params
+  run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology && \
     diff_cpp ParamsTopology
 }
 
