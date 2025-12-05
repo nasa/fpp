@@ -1,7 +1,7 @@
 check_topology()
 {
 
-  top_dir=$1
+  src_dir=$1
   top_name=$2
 
   dir=`dirname $0`
@@ -16,7 +16,7 @@ check_topology()
 
   echo '  generating C++'
   (
-    cd $dir/../../$top_dir;
+    cd $dir/../../$src_dir;
     $FPP_TO_CPP -p $PWD -i $FPRIME_DEPS,../phases.fpp -d $dir components.fpp topology.fpp
   )
 
