@@ -1,49 +1,49 @@
 basic()
 {
-  cd basic
+  cd $TOP_DIR/basic
   run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp -n basic.names.txt" topology && \
     diff -u basic.names.txt basic.names.ref.txt && \
     diff_cpp BasicTopology
-  cd ..
 }
 
 commands()
 {
-  cd commands
+  cd $TOP_DIR/commands
   run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology && \
     diff_cpp CommandsTopology
-  cd ..
 }
 
 health()
 {
-  cd health
+  cd $TOP_DIR/health
   run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology && \
-  run_test "-i builtin.fpp -p $PWD" health && \
     diff_cpp HealthTopology
-  cd ..
 }
 
 nested_namespaces()
 {
-  run_test "-p $PWD" nested_namespaces && \
+  cd $TOP_DIR/nested_namespaces
+  run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology && \
     diff_cpp NestedNamespacesTopology
 }
 
 no_namespace()
 {
+  cd $TOP_DIR
   run_test "-p $PWD" no_namespace && \
     diff_cpp NoNamespaceTopology
 }
 
 params()
 {
+  cd $TOP_DIR
   run_test "-i builtin.fpp -p $PWD" params && \
     diff_cpp ParamsTopology
 }
 
 tlm_packets()
 {
+  cd $TOP_DIR
   run_test "-i builtin.fpp -p $PWD" tlm_packets && \
     diff_cpp NoInstancesTopology && \
     diff_cpp NoInstances_P1TlmPackets && \
@@ -58,6 +58,7 @@ tlm_packets()
 
 typed_ports_active()
 {
+  cd $TOP_DIR
   src_dir=$PWD/typed_ports_active
   run_test "-d $src_dir -p $PWD,$src_dir -i $src_dir/components.fpp" \
     $src_dir/topology && \
@@ -66,6 +67,7 @@ typed_ports_active()
 
 typed_ports_passive()
 {
+  cd $TOP_DIR
   src_dir=$PWD/typed_ports_passive
   run_test "-d $src_dir -p $PWD,$src_dir -i $src_dir/components.fpp" \
     $src_dir/topology && \
@@ -74,6 +76,7 @@ typed_ports_passive()
 
 typed_ports_queued()
 {
+  cd $TOP_DIR
   src_dir=$PWD/typed_ports_queued
   run_test "-d $src_dir -p $PWD,$src_dir -i $src_dir/components.fpp" \
     $src_dir/topology && \

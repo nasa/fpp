@@ -25,8 +25,10 @@ health()
 
 nested_namespaces()
 {
-  update "-p $PWD" nested_namespaces
+  cd nested_namespaces
+  update "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology
   move_cpp NestedNamespacesTopology
+  cd ..
 }
 
 no_namespace()
