@@ -1,14 +1,16 @@
 basic()
 {
-  run_test "-i builtin.fpp -n basic.names.txt -p $PWD" basic && \
+  cd basic
+  run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp -n basic.names.txt" topology && \
     diff -u basic.names.txt basic.names.ref.txt && \
     diff_cpp BasicTopology
+  cd ..
 }
 
 commands()
 {
   cd commands
-  run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology
+  run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology && \
   diff_cpp CommandsTopology
   cd ..
 }

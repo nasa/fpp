@@ -1,8 +1,10 @@
 basic()
 {
-  update "-i builtin.fpp -n basic.names.txt -p $PWD" basic
+  cd basic
+  update "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp -n basic.names.txt" topology
   mv basic.names.txt basic.names.ref.txt
   move_cpp BasicTopology
+  cd ..
 }
 
 commands()
