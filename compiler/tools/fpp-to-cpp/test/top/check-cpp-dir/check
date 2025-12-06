@@ -1,7 +1,9 @@
 #!/bin/sh -e
 
-for dir in `cat subdirs.txt`
+cd `dirname $0`
+
+for dir in `find . -mindepth 1 -type d`
 do
   echo "checking $dir"
-  (cd $dir; ./check)
+  (cd $dir;./check)
 done
