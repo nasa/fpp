@@ -1517,6 +1517,7 @@ bool PassiveTelemetryComponentBase ::
 
 void PassiveTelemetryComponentBase ::
   cmdIn_handlerBase(
+      FwIndexType portNum,
       FwOpcodeType opCode,
       U32 cmdSeq,
       Fw::CmdArgBuffer& args
@@ -2620,9 +2621,13 @@ void PassiveTelemetryComponentBase ::
   )
 {
   FW_ASSERT(callComp);
-
-  const U32 idBase = callComp->getIdBase();
-  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+  PassiveTelemetryComponentBase* compPtr = static_cast<PassiveTelemetryComponentBase*>(callComp);
+  compPtr->cmdIn_handlerBase(
+    portNum,
+    opCode,
+    cmdSeq,
+    args
+  );
 }
 
 // ----------------------------------------------------------------------

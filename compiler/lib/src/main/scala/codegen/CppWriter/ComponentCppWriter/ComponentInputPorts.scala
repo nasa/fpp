@@ -217,7 +217,7 @@ case class ComponentInputPorts(
       case i: PortInstance.General => writeInputPortHandlerCall(i)
       case special: PortInstance.Special =>
         special.specifier.kind match {
-          case Ast.SpecPortInstance.CommandRecv => writeCommandInputPortHandlerCall
+          case Ast.SpecPortInstance.CommandRecv => writeInputPortHandlerCall(special)
           case Ast.SpecPortInstance.ProductRecv => writeInputPortHandlerCall(special)
           case _ => Nil
         }
@@ -438,35 +438,7 @@ case class ComponentInputPorts(
     )
   }
 
-  // Writes the handler call for a command input port
-  private def writeCommandInputPortHandlerCall =
-    List.concat(
-      lines("FW_ASSERT(callComp);"),
-      guardedList (hasCommands) (
-        lines(s"$componentClassName* compPtr = static_cast<$componentClassName*>(callComp);")
-      ),
-      lines(
-        """|
-           |const U32 idBase = callComp->getIdBase();
-           |FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
-           |"""
-      ),
-      guardedList (hasCommands) (
-        lines(
-          s"""|
-              |// Select base class function based on opcode
-              |"""
-        )
-      ),
-      wrapInSwitch(
-        "opCode - idBase",
-        intersperseBlankLines(
-          sortedCmds.map((_, cmd) => writeHandlerCallForCommand(cmd))
-        )
-      )
-    )
-
-  // Writes the handler call for a general input port
+  // Writes the handler call for an input port
   private def writeInputPortHandlerCall(p: PortInstance) = {
     val params = getPortParams(p)
     val nonVoidReturn = getPortReturnTypeAsStringOption(p).isDefined

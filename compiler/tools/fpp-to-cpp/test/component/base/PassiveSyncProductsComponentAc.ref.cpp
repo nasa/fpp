@@ -1896,6 +1896,7 @@ bool PassiveSyncProductsComponentBase ::
 
 void PassiveSyncProductsComponentBase ::
   cmdIn_handlerBase(
+      FwIndexType portNum,
       FwOpcodeType opCode,
       U32 cmdSeq,
       Fw::CmdArgBuffer& args
@@ -2594,9 +2595,13 @@ void PassiveSyncProductsComponentBase ::
   )
 {
   FW_ASSERT(callComp);
-
-  const U32 idBase = callComp->getIdBase();
-  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+  PassiveSyncProductsComponentBase* compPtr = static_cast<PassiveSyncProductsComponentBase*>(callComp);
+  compPtr->cmdIn_handlerBase(
+    portNum,
+    opCode,
+    cmdSeq,
+    args
+  );
 }
 
 void PassiveSyncProductsComponentBase ::

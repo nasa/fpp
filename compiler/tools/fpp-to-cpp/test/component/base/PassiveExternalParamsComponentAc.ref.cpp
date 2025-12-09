@@ -1770,6 +1770,7 @@ bool PassiveExternalParamsComponentBase ::
 
 void PassiveExternalParamsComponentBase ::
   cmdIn_handlerBase(
+      FwIndexType portNum,
       FwOpcodeType opCode,
       U32 cmdSeq,
       Fw::CmdArgBuffer& args
@@ -2717,132 +2718,12 @@ void PassiveExternalParamsComponentBase ::
 {
   FW_ASSERT(callComp);
   PassiveExternalParamsComponentBase* compPtr = static_cast<PassiveExternalParamsComponentBase*>(callComp);
-
-  const U32 idBase = callComp->getIdBase();
-  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
-
-  // Select base class function based on opcode
-  switch (opCode - idBase) {
-    case OPCODE_PARAMI32EXT_SET: {
-      Fw::CmdResponse _cstat = compPtr->paramSet_ParamI32Ext(args);
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-
-    case OPCODE_PARAMI32EXT_SAVE: {
-      Fw::CmdResponse _cstat = compPtr->paramSave_ParamI32Ext();
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-
-    case OPCODE_PARAMF64EXT_SET: {
-      Fw::CmdResponse _cstat = compPtr->paramSet_ParamF64Ext(args);
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-
-    case OPCODE_PARAMF64EXT_SAVE: {
-      Fw::CmdResponse _cstat = compPtr->paramSave_ParamF64Ext();
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-
-    case OPCODE_PARAMSTRINGEXT_SET: {
-      Fw::CmdResponse _cstat = compPtr->paramSet_ParamStringExt(args);
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-
-    case OPCODE_PARAMSTRINGEXT_SAVE: {
-      Fw::CmdResponse _cstat = compPtr->paramSave_ParamStringExt();
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-
-    case OPCODE_PARAMENUMEXT_SET: {
-      Fw::CmdResponse _cstat = compPtr->paramSet_ParamEnumExt(args);
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-
-    case OPCODE_PARAMENUMEXT_SAVE: {
-      Fw::CmdResponse _cstat = compPtr->paramSave_ParamEnumExt();
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-
-    case OPCODE_PARAMARRAYEXT_SET: {
-      Fw::CmdResponse _cstat = compPtr->paramSet_ParamArrayExt(args);
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-
-    case OPCODE_PARAMARRAYEXT_SAVE: {
-      Fw::CmdResponse _cstat = compPtr->paramSave_ParamArrayExt();
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-
-    case OPCODE_PARAMSTRUCTEXT_SET: {
-      Fw::CmdResponse _cstat = compPtr->paramSet_ParamStructExt(args);
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-
-    case OPCODE_PARAMSTRUCTEXT_SAVE: {
-      Fw::CmdResponse _cstat = compPtr->paramSave_ParamStructExt();
-      compPtr->cmdResponse_out(
-        opCode,
-        cmdSeq,
-        _cstat
-      );
-      break;
-    }
-  }
+  compPtr->cmdIn_handlerBase(
+    portNum,
+    opCode,
+    cmdSeq,
+    args
+  );
 }
 
 // ----------------------------------------------------------------------

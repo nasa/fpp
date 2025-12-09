@@ -932,6 +932,7 @@ bool QueuedOverflowComponentBase ::
 
 void QueuedOverflowComponentBase ::
   cmdIn_handlerBase(
+      FwIndexType portNum,
       FwOpcodeType opCode,
       U32 cmdSeq,
       Fw::CmdArgBuffer& args
@@ -2464,30 +2465,12 @@ void QueuedOverflowComponentBase ::
 {
   FW_ASSERT(callComp);
   QueuedOverflowComponentBase* compPtr = static_cast<QueuedOverflowComponentBase*>(callComp);
-
-  const U32 idBase = callComp->getIdBase();
-  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
-
-  // Select base class function based on opcode
-  switch (opCode - idBase) {
-    case OPCODE_CMD_HOOK: {
-      compPtr->CMD_HOOK_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_PARAMS_PRIORITY_HOOK: {
-      compPtr->CMD_PARAMS_PRIORITY_HOOK_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-  }
+  compPtr->cmdIn_handlerBase(
+    portNum,
+    opCode,
+    cmdSeq,
+    args
+  );
 }
 
 void QueuedOverflowComponentBase ::

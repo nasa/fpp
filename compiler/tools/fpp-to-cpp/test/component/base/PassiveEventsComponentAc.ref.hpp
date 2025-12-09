@@ -859,6 +859,7 @@ class PassiveEventsComponentBase :
 
     //! Handler base-class function for input port cmdIn
     void cmdIn_handlerBase(
+        FwIndexType portNum, //!< The port number
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         Fw::CmdArgBuffer& args //!< The command argument buffer

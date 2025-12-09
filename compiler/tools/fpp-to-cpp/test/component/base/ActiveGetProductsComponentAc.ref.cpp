@@ -2138,6 +2138,7 @@ bool ActiveGetProductsComponentBase ::
 
 void ActiveGetProductsComponentBase ::
   cmdIn_handlerBase(
+      FwIndexType portNum,
       FwOpcodeType opCode,
       U32 cmdSeq,
       Fw::CmdArgBuffer& args
@@ -3906,9 +3907,13 @@ void ActiveGetProductsComponentBase ::
   )
 {
   FW_ASSERT(callComp);
-
-  const U32 idBase = callComp->getIdBase();
-  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+  ActiveGetProductsComponentBase* compPtr = static_cast<ActiveGetProductsComponentBase*>(callComp);
+  compPtr->cmdIn_handlerBase(
+    portNum,
+    opCode,
+    cmdSeq,
+    args
+  );
 }
 
 // ----------------------------------------------------------------------

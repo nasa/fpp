@@ -1910,6 +1910,7 @@ bool ActiveCommandsComponentBase ::
 
 void ActiveCommandsComponentBase ::
   cmdIn_handlerBase(
+      FwIndexType portNum,
       FwOpcodeType opCode,
       U32 cmdSeq,
       Fw::CmdArgBuffer& args
@@ -5115,165 +5116,12 @@ void ActiveCommandsComponentBase ::
 {
   FW_ASSERT(callComp);
   ActiveCommandsComponentBase* compPtr = static_cast<ActiveCommandsComponentBase*>(callComp);
-
-  const U32 idBase = callComp->getIdBase();
-  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
-
-  // Select base class function based on opcode
-  switch (opCode - idBase) {
-    case OPCODE_CMD_SYNC: {
-      compPtr->CMD_SYNC_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_SYNC_PRIMITIVE: {
-      compPtr->CMD_SYNC_PRIMITIVE_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_SYNC_STRING: {
-      compPtr->CMD_SYNC_STRING_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_SYNC_ENUM: {
-      compPtr->CMD_SYNC_ENUM_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_SYNC_ARRAY: {
-      compPtr->CMD_SYNC_ARRAY_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_SYNC_STRUCT: {
-      compPtr->CMD_SYNC_STRUCT_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_GUARDED: {
-      compPtr->CMD_GUARDED_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_GUARDED_PRIMITIVE: {
-      compPtr->CMD_GUARDED_PRIMITIVE_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_GUARDED_STRING: {
-      compPtr->CMD_GUARDED_STRING_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_GUARDED_ENUM: {
-      compPtr->CMD_GUARDED_ENUM_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_GUARDED_ARRAY: {
-      compPtr->CMD_GUARDED_ARRAY_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_GUARDED_STRUCT: {
-      compPtr->CMD_GUARDED_STRUCT_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_ASYNC: {
-      compPtr->CMD_ASYNC_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_PRIORITY: {
-      compPtr->CMD_PRIORITY_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_PARAMS_PRIORITY: {
-      compPtr->CMD_PARAMS_PRIORITY_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_DROP: {
-      compPtr->CMD_DROP_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-
-    case OPCODE_CMD_PARAMS_PRIORITY_DROP: {
-      compPtr->CMD_PARAMS_PRIORITY_DROP_cmdHandlerBase(
-        opCode,
-        cmdSeq,
-        args
-      );
-      break;
-    }
-  }
+  compPtr->cmdIn_handlerBase(
+    portNum,
+    opCode,
+    cmdSeq,
+    args
+  );
 }
 
 // ----------------------------------------------------------------------

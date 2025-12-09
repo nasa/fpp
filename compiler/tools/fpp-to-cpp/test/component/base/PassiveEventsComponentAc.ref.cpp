@@ -1522,6 +1522,7 @@ bool PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   cmdIn_handlerBase(
+      FwIndexType portNum,
       FwOpcodeType opCode,
       U32 cmdSeq,
       Fw::CmdArgBuffer& args
@@ -2922,9 +2923,13 @@ void PassiveEventsComponentBase ::
   )
 {
   FW_ASSERT(callComp);
-
-  const U32 idBase = callComp->getIdBase();
-  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+  PassiveEventsComponentBase* compPtr = static_cast<PassiveEventsComponentBase*>(callComp);
+  compPtr->cmdIn_handlerBase(
+    portNum,
+    opCode,
+    cmdSeq,
+    args
+  );
 }
 
 // ----------------------------------------------------------------------

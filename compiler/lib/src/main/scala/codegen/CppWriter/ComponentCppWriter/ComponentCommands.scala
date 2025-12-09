@@ -256,6 +256,7 @@ case class ComponentCommands (
     functionClassMember(
       Some(comment),
       inputPortHandlerBaseName(p.getUnqualifiedName),
+      portNumParam ::
       cmdHandlerParams,
       CppDoc.Type("void"),
       List.concat(
