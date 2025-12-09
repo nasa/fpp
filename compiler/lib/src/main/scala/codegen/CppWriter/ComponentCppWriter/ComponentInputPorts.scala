@@ -213,16 +213,7 @@ case class ComponentInputPorts(
       portNumParam
     ) ++ getPortFunctionParams(p),
     getPortReturnTypeAsCppDocType(p),
-    p match {
-      case i: PortInstance.General => writeInputPortHandlerCall(i)
-      case special: PortInstance.Special =>
-        special.specifier.kind match {
-          case Ast.SpecPortInstance.CommandRecv => writeInputPortHandlerCall(special)
-          case Ast.SpecPortInstance.ProductRecv => writeInputPortHandlerCall(special)
-          case _ => Nil
-        }
-      case _ => Nil
-    },
+    writeInputPortHandlerCall(p),
     CppDoc.Function.Static
   )
 
@@ -309,10 +300,6 @@ case class ComponentInputPorts(
     )
   }
 
-  // Gets the name for a param command handler function
-  private def paramCmdHandlerName(cmd: Command.Param) =
-    s"param${getCmdParamKindString(cmd.kind).capitalize}_${cmd.getName}"
-
   // Writes an async handler call
   private def writeAsyncHandlerCall(
       p: PortInstance,
@@ -397,44 +384,6 @@ case class ComponentInputPorts(
           portNumParam :: getPortFunctionParams(p)
         )
       )
-    )
-  }
-
-  // Writes the handler call for a command
-  private def writeHandlerCallForCommand(cmd: Command) = {
-    val constantName = commandConstantName(cmd)
-    wrapInScope(
-      s"case $constantName: {",
-      cmd match {
-        case _: Command.NonParam =>
-          val handlerBaseName = commandHandlerBaseName(cmd.getName)
-          lines(
-            s"""|compPtr->$handlerBaseName(
-                |  opCode,
-                |  cmdSeq,
-                |  args
-                |);
-                |break;
-                |"""
-          )
-        case c: Command.Param =>
-          val handlerName = paramHandlerName(c.aNode._2.data.name, c.kind)
-          val args = c.kind match {
-            case Command.Param.Set => "args"
-            case Command.Param.Save => ""
-          }
-          lines(
-            s"""|Fw::CmdResponse _cstat = compPtr->$handlerName($args);
-                |compPtr->cmdResponse_out(
-                |  opCode,
-                |  cmdSeq,
-                |  _cstat
-                |);
-                |break;
-                |"""
-          )
-      },
-      "}"
     )
   }
 
