@@ -5,30 +5,16 @@
 
 namespace M {
 
-  class C :
-    public CComponentBase
-  {
+class C : public CComponentBase {
 
-    public:
+public:
+  C(const char *name) {}
 
-      C(const char* name) {
+  void regCommandsSpecial() {}
 
-      }
+  void C_cmdHandler(FwOpcodeType opCode, U32 cmdSeq) override {}
+};
 
-      void init(U32 instanceId) {
-
-      }
-
-      void regCommandsSpecial() {
-
-      }
-
-      void C_cmdHandler(FwOpcodeType opCode, U32 cmdSeq) {
-
-      }
-
-  };
-
-}
+} // namespace M
 
 #endif

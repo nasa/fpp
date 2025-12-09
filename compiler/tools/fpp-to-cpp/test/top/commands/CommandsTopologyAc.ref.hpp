@@ -8,6 +8,7 @@
 #define M_CommandsTopologyAc_HPP
 
 #include "C.hpp"
+#include "CmdDispatcher.hpp"
 #include "CommandsTopologyDefs.hpp"
 #include "NoCommands.hpp"
 
@@ -31,8 +32,15 @@ namespace M {
 
 namespace M {
 
-  //! c3
-  extern M::NoCommands c3;
+  //! cmdDispatcher
+  extern M::CmdDispatcher cmdDispatcher;
+
+}
+
+namespace M {
+
+  //! noCommands
+  extern M::NoCommands noCommands;
 
 }
 
@@ -46,7 +54,8 @@ namespace M {
     enum {
       M_c1 = 0x100,
       M_c2 = 0x200,
-      M_c3 = 0x300,
+      M_cmdDispatcher = 0x300,
+      M_noCommands = 0x400,
     };
   }
 
@@ -54,7 +63,8 @@ namespace M {
     enum {
       M_c1,
       M_c2,
-      M_c3,
+      M_cmdDispatcher,
+      M_noCommands,
     };
   }
 

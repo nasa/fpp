@@ -24,7 +24,13 @@ namespace M {
 
 namespace M {
 
-  M::NoCommands c3(FW_OPTIONAL_NAME("c3"));
+  M::CmdDispatcher cmdDispatcher(FW_OPTIONAL_NAME("cmdDispatcher"));
+
+}
+
+namespace M {
+
+  M::NoCommands noCommands(FW_OPTIONAL_NAME("noCommands"));
 
 }
 
@@ -37,7 +43,8 @@ namespace M {
   void initComponents(const TopologyState& state) {
     M::c1.init(InstanceIds::M_c1);
     M::c2.init(InstanceIds::M_c2);
-    M::c3.init(InstanceIds::M_c3);
+    M::cmdDispatcher.init(InstanceIds::M_cmdDispatcher);
+    M::noCommands.init(InstanceIds::M_noCommands);
   }
 
   void configComponents(const TopologyState& state) {
@@ -47,11 +54,30 @@ namespace M {
   void setBaseIds() {
     M::c1.setIdBase(BaseIds::M_c1);
     M::c2.setIdBase(BaseIds::M_c2);
-    M::c3.setIdBase(BaseIds::M_c3);
+    M::cmdDispatcher.setIdBase(BaseIds::M_cmdDispatcher);
+    M::noCommands.setIdBase(BaseIds::M_noCommands);
   }
 
   void connectComponents() {
-    // Nothing to do
+
+#if !FW_DIRECT_PORT_CALLS
+
+    // Commands
+    M::c1.set_cmdRegOut_OutputPort(
+        0,
+        M::cmdDispatcher.get_cmdRegIn_InputPort(0)
+    );
+    M::c1.set_cmdResponseOut_OutputPort(
+        0,
+        M::cmdDispatcher.get_cmdResponseIn_InputPort(0)
+    );
+    M::cmdDispatcher.set_cmdOut_OutputPort(
+        0,
+        M::c1.get_cmdIn_InputPort(0)
+    );
+
+#endif
+
   }
 
   void regCommands() {
@@ -123,6 +149,15 @@ namespace M {
     bool result = false;
     const auto instance = this->getInstance();
     switch (instance) {
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
       default:
         FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
@@ -139,6 +174,15 @@ namespace M {
     bool result = false;
     const auto instance = this->getInstance();
     switch (instance) {
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
       default:
         FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
@@ -157,6 +201,19 @@ namespace M {
     );
     const auto instance = this->getInstance();
     switch (instance) {
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          case 0:
+            M::cmdDispatcher.cmdRegIn_handlerBase(
+              0,
+              opCode
+            );
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
       default:
         FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
@@ -176,6 +233,84 @@ namespace M {
     );
     const auto instance = this->getInstance();
     switch (instance) {
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          case 0:
+            M::cmdDispatcher.cmdResponseIn_handlerBase(
+              0,
+              opCode,
+              cmdSeq,
+              response
+            );
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+  }
+
+}
+
+namespace M {
+
+  bool CmdDispatcherComponentBase::isConnected_cmdOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_CMDOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_CMDOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_cmdDispatcher:
+        switch (portNum) {
+          case 0:
+            result = true;
+            break;
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
+  void CmdDispatcherComponentBase::cmdOut_out(
+      FwIndexType portNum,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      Fw::CmdArgBuffer& args
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_CMDOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_CMDOUT_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_cmdDispatcher:
+        switch (portNum) {
+          case 0:
+            M::c1.cmdIn_handlerBase(
+              0,
+              opCode,
+              cmdSeq,
+              args
+            );
+            break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
       default:
         FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;

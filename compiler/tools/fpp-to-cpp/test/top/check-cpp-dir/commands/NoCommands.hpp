@@ -5,30 +5,13 @@
 
 namespace M {
 
-  class NoCommands :
-    public NoCommandsComponentBase
-  {
+class NoCommands : public NoCommandsComponentBase {
 
-    public:
+public:
+  NoCommands(const char *name) {}
 
-      NoCommands(const char* name) {
+};
 
-      }
-
-      void init(U32 instanceId) {
-
-      }
-
-      void regCommandsSpecial() {
-
-      }
-
-      void NoCommands_cmdHandler(FwOpcodeType opCode, U32 cmdSeq) {
-
-      }
-
-  };
-
-}
+} // namespace M
 
 #endif
