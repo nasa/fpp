@@ -2792,6 +2792,417 @@ bool QueuedTestComponentBase ::
 // ----------------------------------------------------------------------
 
 void QueuedTestComponentBase ::
+  cmdIn_handlerBase(
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      Fw::CmdArgBuffer& args
+  )
+{
+
+  const U32 idBase = this->getIdBase();
+  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+
+  // Select base class function based on opcode
+  switch (opCode - idBase) {
+    case OPCODE_CMD_SYNC: {
+      this->CMD_SYNC_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_SYNC_PRIMITIVE: {
+      this->CMD_SYNC_PRIMITIVE_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_SYNC_STRING: {
+      this->CMD_SYNC_STRING_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_SYNC_ENUM: {
+      this->CMD_SYNC_ENUM_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_SYNC_ARRAY: {
+      this->CMD_SYNC_ARRAY_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_SYNC_STRUCT: {
+      this->CMD_SYNC_STRUCT_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_GUARDED: {
+      this->CMD_GUARDED_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_GUARDED_PRIMITIVE: {
+      this->CMD_GUARDED_PRIMITIVE_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_GUARDED_STRING: {
+      this->CMD_GUARDED_STRING_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_GUARDED_ENUM: {
+      this->CMD_GUARDED_ENUM_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_GUARDED_ARRAY: {
+      this->CMD_GUARDED_ARRAY_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_GUARDED_STRUCT: {
+      this->CMD_GUARDED_STRUCT_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_ASYNC: {
+      this->CMD_ASYNC_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_PRIORITY: {
+      this->CMD_PRIORITY_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_PARAMS_PRIORITY: {
+      this->CMD_PARAMS_PRIORITY_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_DROP: {
+      this->CMD_DROP_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_PARAMS_PRIORITY_DROP: {
+      this->CMD_PARAMS_PRIORITY_DROP_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_PARAMU32_SET: {
+      Fw::CmdResponse _cstat = this->paramSet_ParamU32(args);
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMU32_SAVE: {
+      Fw::CmdResponse _cstat = this->paramSave_ParamU32();
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMF64_SET: {
+      Fw::CmdResponse _cstat = this->paramSet_ParamF64(args);
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMF64_SAVE: {
+      Fw::CmdResponse _cstat = this->paramSave_ParamF64();
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMSTRING_SET: {
+      Fw::CmdResponse _cstat = this->paramSet_ParamString(args);
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMSTRING_SAVE: {
+      Fw::CmdResponse _cstat = this->paramSave_ParamString();
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMENUM_SET: {
+      Fw::CmdResponse _cstat = this->paramSet_ParamEnum(args);
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMENUM_SAVE: {
+      Fw::CmdResponse _cstat = this->paramSave_ParamEnum();
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMARRAY_SET: {
+      Fw::CmdResponse _cstat = this->paramSet_ParamArray(args);
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMARRAY_SAVE: {
+      Fw::CmdResponse _cstat = this->paramSave_ParamArray();
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMSTRUCT_SET: {
+      Fw::CmdResponse _cstat = this->paramSet_ParamStruct(args);
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMSTRUCT_SAVE: {
+      Fw::CmdResponse _cstat = this->paramSave_ParamStruct();
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMI32EXT_SET: {
+      Fw::CmdResponse _cstat = this->paramSet_ParamI32Ext(args);
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMI32EXT_SAVE: {
+      Fw::CmdResponse _cstat = this->paramSave_ParamI32Ext();
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMF64EXT_SET: {
+      Fw::CmdResponse _cstat = this->paramSet_ParamF64Ext(args);
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMF64EXT_SAVE: {
+      Fw::CmdResponse _cstat = this->paramSave_ParamF64Ext();
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMSTRINGEXT_SET: {
+      Fw::CmdResponse _cstat = this->paramSet_ParamStringExt(args);
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMSTRINGEXT_SAVE: {
+      Fw::CmdResponse _cstat = this->paramSave_ParamStringExt();
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMENUMEXT_SET: {
+      Fw::CmdResponse _cstat = this->paramSet_ParamEnumExt(args);
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMENUMEXT_SAVE: {
+      Fw::CmdResponse _cstat = this->paramSave_ParamEnumExt();
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMARRAYEXT_SET: {
+      Fw::CmdResponse _cstat = this->paramSet_ParamArrayExt(args);
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMARRAYEXT_SAVE: {
+      Fw::CmdResponse _cstat = this->paramSave_ParamArrayExt();
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMSTRUCTEXT_SET: {
+      Fw::CmdResponse _cstat = this->paramSet_ParamStructExt(args);
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMSTRUCTEXT_SAVE: {
+      Fw::CmdResponse _cstat = this->paramSave_ParamStructExt();
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+    default:
+      // Unknown opcode: ignore it
+      break;
+  }
+}
+
+void QueuedTestComponentBase ::
   productRecvIn_handlerBase(
       FwIndexType portNum,
       FwDpIdType id,

@@ -1580,6 +1580,138 @@ bool PassiveCommandsComponentBase ::
 #endif
 
 // ----------------------------------------------------------------------
+// Port handler base-class functions for special input ports
+//
+// Call these functions directly to bypass the corresponding ports
+// ----------------------------------------------------------------------
+
+void PassiveCommandsComponentBase ::
+  cmdIn_handlerBase(
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      Fw::CmdArgBuffer& args
+  )
+{
+
+  const U32 idBase = this->getIdBase();
+  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+
+  // Select base class function based on opcode
+  switch (opCode - idBase) {
+    case OPCODE_CMD_SYNC: {
+      this->CMD_SYNC_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_SYNC_PRIMITIVE: {
+      this->CMD_SYNC_PRIMITIVE_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_SYNC_STRING: {
+      this->CMD_SYNC_STRING_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_SYNC_ENUM: {
+      this->CMD_SYNC_ENUM_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_SYNC_ARRAY: {
+      this->CMD_SYNC_ARRAY_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_SYNC_STRUCT: {
+      this->CMD_SYNC_STRUCT_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_GUARDED: {
+      this->CMD_GUARDED_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_GUARDED_PRIMITIVE: {
+      this->CMD_GUARDED_PRIMITIVE_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_GUARDED_STRING: {
+      this->CMD_GUARDED_STRING_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_GUARDED_ENUM: {
+      this->CMD_GUARDED_ENUM_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_GUARDED_ARRAY: {
+      this->CMD_GUARDED_ARRAY_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+
+    case OPCODE_CMD_GUARDED_STRUCT: {
+      this->CMD_GUARDED_STRUCT_cmdHandlerBase(
+        opCode,
+        cmdSeq,
+        args
+      );
+      break;
+    }
+    default:
+      // Unknown opcode: ignore it
+      break;
+  }
+}
+
+// ----------------------------------------------------------------------
 // Port handler base-class functions for typed input ports
 //
 // Call these functions directly to bypass the corresponding ports

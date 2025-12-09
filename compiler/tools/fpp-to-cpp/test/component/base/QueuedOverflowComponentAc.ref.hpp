@@ -542,6 +542,13 @@ class QueuedOverflowComponentBase :
     // Call these functions directly to bypass the corresponding ports
     // ----------------------------------------------------------------------
 
+    //! Handler base-class function for input port cmdIn
+    void cmdIn_handlerBase(
+        FwOpcodeType opCode, //!< The opcode
+        U32 cmdSeq, //!< The command sequence number
+        Fw::CmdArgBuffer& args //!< The command argument buffer
+    );
+
     //! Handler base-class function for input port productRecvInHook
     void productRecvInHook_handlerBase(
         FwIndexType portNum, //!< The port number

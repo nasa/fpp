@@ -1761,6 +1761,150 @@ bool PassiveParamsComponentBase ::
 #endif
 
 // ----------------------------------------------------------------------
+// Port handler base-class functions for special input ports
+//
+// Call these functions directly to bypass the corresponding ports
+// ----------------------------------------------------------------------
+
+void PassiveParamsComponentBase ::
+  cmdIn_handlerBase(
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      Fw::CmdArgBuffer& args
+  )
+{
+
+  const U32 idBase = this->getIdBase();
+  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+
+  // Select base class function based on opcode
+  switch (opCode - idBase) {
+    case OPCODE_PARAMU32_SET: {
+      Fw::CmdResponse _cstat = this->paramSet_ParamU32(args);
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMU32_SAVE: {
+      Fw::CmdResponse _cstat = this->paramSave_ParamU32();
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMF64_SET: {
+      Fw::CmdResponse _cstat = this->paramSet_ParamF64(args);
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMF64_SAVE: {
+      Fw::CmdResponse _cstat = this->paramSave_ParamF64();
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMSTRING_SET: {
+      Fw::CmdResponse _cstat = this->paramSet_ParamString(args);
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMSTRING_SAVE: {
+      Fw::CmdResponse _cstat = this->paramSave_ParamString();
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMENUM_SET: {
+      Fw::CmdResponse _cstat = this->paramSet_ParamEnum(args);
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMENUM_SAVE: {
+      Fw::CmdResponse _cstat = this->paramSave_ParamEnum();
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMARRAY_SET: {
+      Fw::CmdResponse _cstat = this->paramSet_ParamArray(args);
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMARRAY_SAVE: {
+      Fw::CmdResponse _cstat = this->paramSave_ParamArray();
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMSTRUCT_SET: {
+      Fw::CmdResponse _cstat = this->paramSet_ParamStruct(args);
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+
+    case OPCODE_PARAMSTRUCT_SAVE: {
+      Fw::CmdResponse _cstat = this->paramSave_ParamStruct();
+      this->cmdResponse_out(
+        opCode,
+        cmdSeq,
+        _cstat
+      );
+      break;
+    }
+    default:
+      // Unknown opcode: ignore it
+      break;
+  }
+}
+
+// ----------------------------------------------------------------------
 // Port handler base-class functions for typed input ports
 //
 // Call these functions directly to bypass the corresponding ports

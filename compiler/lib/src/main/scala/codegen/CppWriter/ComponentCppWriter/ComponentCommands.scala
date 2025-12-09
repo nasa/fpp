@@ -242,6 +242,47 @@ case class ComponentCommands (
     )
   }
 
+  private val cmdHandlerParams = List(
+    opcodeParam,
+    cmdSeqParam,
+    CppDoc.Function.Param(
+      CppDoc.Type("Fw::CmdArgBuffer&"),
+      "args",
+      Some("The command argument buffer")
+    )
+  )
+
+  def getHandlerBaseForCommandPort(comment: String, p: PortInstance) =
+    functionClassMember(
+      Some(comment),
+      inputPortHandlerBaseName(p.getUnqualifiedName),
+      cmdHandlerParams,
+      CppDoc.Type("void"),
+      List.concat(
+        lines(
+          """|
+             |const U32 idBase = this->getIdBase();
+             |FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+             |
+             |// Select base class function based on opcode
+             |"""
+        ),
+        wrapInSwitch(
+          "opCode - idBase",
+          List.concat(
+            intersperseBlankLines(
+              sortedCmds.map((_, cmd) => writeHandlerCallForCommand(cmd))
+            ),
+            lines(
+              """|default:
+                 |  // Unknown opcode: ignore it
+                 |  break;"""
+            )
+          )
+        )
+      )
+    )
+
   private def getHandlerBaseForNonParamCommand(
     opcode: Command.Opcode,
     cmd: Command.NonParam
@@ -256,15 +297,7 @@ case class ComponentCommands (
         )
       ),
       commandHandlerBaseName(cmd.getName),
-      List(
-        opcodeParam,
-        cmdSeqParam,
-        CppDoc.Function.Param(
-          CppDoc.Type("Fw::CmdArgBuffer&"),
-          "args",
-          Some("The command argument buffer")
-        )
-      ),
+      cmdHandlerParams,
       CppDoc.Type("void"),
       cmd.kind match {
         case Command.NonParam.Async(priority, queueFull) =>
@@ -272,6 +305,44 @@ case class ComponentCommands (
         case _ =>
           writeSyncOrGuardedHandlerBaseBody(opcode, cmd)
       }
+    )
+  }
+
+  // Writes the handler call for a command
+  private def writeHandlerCallForCommand(cmd: Command) = {
+    val constantName = commandConstantName(cmd)
+    wrapInScope(
+      s"case $constantName: {",
+      cmd match {
+        case _: Command.NonParam =>
+          val handlerBaseName = commandHandlerBaseName(cmd.getName)
+          lines(
+            s"""|this->$handlerBaseName(
+                |  opCode,
+                |  cmdSeq,
+                |  args
+                |);
+                |break;
+                |"""
+          )
+        case c: Command.Param =>
+          val handlerName = paramHandlerName(c.aNode._2.data.name, c.kind)
+          val args = c.kind match {
+            case Command.Param.Set => "args"
+            case Command.Param.Save => ""
+          }
+          lines(
+            s"""|Fw::CmdResponse _cstat = this->$handlerName($args);
+                |this->cmdResponse_out(
+                |  opCode,
+                |  cmdSeq,
+                |  _cstat
+                |);
+                |break;
+                |"""
+          )
+      },
+      "}"
     )
   }
 

@@ -2190,6 +2190,25 @@ bool ActiveAsyncProductsComponentBase ::
 // ----------------------------------------------------------------------
 
 void ActiveAsyncProductsComponentBase ::
+  cmdIn_handlerBase(
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      Fw::CmdArgBuffer& args
+  )
+{
+
+  const U32 idBase = this->getIdBase();
+  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+
+  // Select base class function based on opcode
+  switch (opCode - idBase) {
+    default:
+      // Unknown opcode: ignore it
+      break;
+  }
+}
+
+void ActiveAsyncProductsComponentBase ::
   productRecvIn_handlerBase(
       FwIndexType portNum,
       FwDpIdType id,

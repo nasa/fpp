@@ -10,6 +10,8 @@ case class ComponentInputPorts(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
+  val componentCommands = ComponentCommands(s, aNode)
+
   /** Generates the port getter functions for a component base class or tester base class */
   def generateGetters(
     ports: List[PortInstance],
@@ -226,6 +228,15 @@ case class ComponentInputPorts(
 
   // Gets the handler base function for a port
   private def getHandlerBaseForPort(p: PortInstance) = {
+    val comment = s"Handler base-class function for input port ${p.getUnqualifiedName}"
+    p.getSpecialKind match {
+      case Some(Ast.SpecPortInstance.CommandRecv) =>
+        componentCommands.getHandlerBaseForCommandPort(comment, p)
+      case _ => getHandlerBaseForNonCommandPort(comment, p)
+    }
+  }
+
+  private def getHandlerBaseForNonCommandPort(comment: String, p: PortInstance) = {
     val params = getPortParams(p)
     val returnType = getPortReturnTypeAsStringOption(p)
     val retValAssignment = returnType match {
@@ -257,7 +268,7 @@ case class ComponentInputPorts(
         )
       )
     functionClassMember(
-      Some(s"Handler base-class function for input port ${p.getUnqualifiedName}"),
+      Some(comment),
       inputPortHandlerBaseName(p.getUnqualifiedName),
       portNumParam :: getPortFunctionParams(p),
       getPortReturnTypeAsCppDocType(p),
