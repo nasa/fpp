@@ -490,22 +490,17 @@ abstract class ComponentCppWriterUtils(
     ports: List[PortInstance],
     writePort: PortInstance => List[CppDoc.Class.Member],
     output: CppDoc.Lines.Output = CppDoc.Lines.Both
-  ): List[CppDoc.Class.Member] = {
-    ports.flatMap(p => p match {
-      case PortInstance.Special(aNode, _, _, _, _, _) => aNode._2.data match {
-        case Ast.SpecPortInstance.Special(_, kind, _, _, _) => kind match {
-          case Ast.SpecPortInstance.TextEvent => wrapClassMembersInIfDirective(
-            "#if FW_ENABLE_TEXT_LOGGING == 1",
-            writePort(p),
-            output
-          )
-          case _ => writePort(p)
-        }
-        case _ => writePort(p)
-      }
-      case _ => writePort(p)
+  ): List[CppDoc.Class.Member] =
+    ports.flatMap(p => {
+      if isTextEventPort(p)
+      then
+        wrapClassMembersInIfDirective(
+          "#if FW_ENABLE_TEXT_LOGGING == 1",
+          writePort(p),
+          output
+        )
+      else writePort(p)
     })
-  }
 
   def getPortComment(p: PortInstance): Option[String] = {
     val aNode = p match {
