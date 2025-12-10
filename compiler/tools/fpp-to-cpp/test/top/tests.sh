@@ -1,6 +1,7 @@
 tests="
 basic
 commands
+events
 health
 nested_namespaces
 no_namespace
