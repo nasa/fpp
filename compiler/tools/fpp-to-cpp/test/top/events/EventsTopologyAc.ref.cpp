@@ -67,10 +67,6 @@ namespace M {
         0,
         M::eventManager.get_eventIn_InputPort(0)
     );
-    M::c1.set_textEventOut_OutputPort(
-        0,
-        M::eventManager.get_textEventIn_InputPort(0)
-    );
 
 #endif
 
@@ -169,15 +165,6 @@ namespace M {
     bool result = false;
     const auto instance = this->getInstance();
     switch (instance) {
-      case ::M::InstanceIds::M_c1:
-        switch (portNum) {
-          case 0:
-            result = true;
-            break;
-          default:
-            break;
-        }
-        break;
       default:
         FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
@@ -251,22 +238,6 @@ namespace M {
     );
     const auto instance = this->getInstance();
     switch (instance) {
-      case ::M::InstanceIds::M_c1:
-        switch (portNum) {
-          case 0:
-            M::eventManager.textEventIn_handlerBase(
-              0,
-              id,
-              timeTag,
-              severity,
-              text
-            );
-            break;
-          default:
-            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
-            break;
-        }
-        break;
       default:
         FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;

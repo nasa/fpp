@@ -17,7 +17,6 @@ module M {
 
     connections Events {
       c1.eventOut -> eventManager.eventIn
-      c1.textEventOut -> eventManager.textEventIn
     }
 
   }
