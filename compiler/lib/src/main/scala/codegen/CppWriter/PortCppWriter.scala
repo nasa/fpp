@@ -113,10 +113,10 @@ case class PortCppWriter (
         ),
       )
     )
-    wrapMembersInIfDirective(
-      "#if !FW_DIRECT_PORT_CALLS",
-      List.concat(
-        List(hppIncludes, cppIncludes),
+    List.concat(
+      List(hppIncludes, cppIncludes),
+      wrapMembersInIfDirective(
+        "#if !FW_DIRECT_PORT_CALLS",
         wrapInNamespaces(
           namespaceIdentList,
           List.concat(
@@ -127,15 +127,18 @@ case class PortCppWriter (
               CppDoc.Lines.Hpp
             )
           )
-        )
-      ),
-      CppDoc.Lines.Cpp
+        ),
+        CppDoc.Lines.Cpp
+      )
     )
   }
 
   private def getHppIncludes: CppDoc.Member = {
     val unconditional = List.concat(
-      List("Fw/FPrimeBasicTypes.hpp").map(CppWriter.headerString),
+      List(
+        "Fw/FPrimeBasicTypes.hpp",
+        "Fw/Types/String.hpp"
+      ).map(CppWriter.headerString),
       writeIncludeDirectives
     ).sorted.map(line)
     val conditional = List.concat(
@@ -144,7 +147,6 @@ case class PortCppWriter (
         "Fw/Comp/PassiveComponentBase.hpp",
         "Fw/Port/InputPortBase.hpp",
         "Fw/Port/OutputPortBase.hpp",
-        "Fw/Types/String.hpp",
       )
     ).map(CppWriter.headerString).sorted.map(line)
     linesMember(

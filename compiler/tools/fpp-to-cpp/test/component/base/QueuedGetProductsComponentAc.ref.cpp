@@ -2131,6 +2131,32 @@ bool QueuedGetProductsComponentBase ::
 #endif
 
 // ----------------------------------------------------------------------
+// Port handler base-class functions for special input ports
+//
+// Call these functions directly to bypass the corresponding ports
+// ----------------------------------------------------------------------
+
+void QueuedGetProductsComponentBase ::
+  cmdIn_handlerBase(
+      FwIndexType portNum,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      Fw::CmdArgBuffer& args
+  )
+{
+
+  const U32 idBase = this->getIdBase();
+  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+
+  // Select base class function based on opcode
+  switch (opCode - idBase) {
+    default:
+      // Unknown opcode: ignore it
+      break;
+  }
+}
+
+// ----------------------------------------------------------------------
 // Port handler base-class functions for typed input ports
 //
 // Call these functions directly to bypass the corresponding ports
@@ -3881,9 +3907,13 @@ void QueuedGetProductsComponentBase ::
   )
 {
   FW_ASSERT(callComp);
-
-  const U32 idBase = callComp->getIdBase();
-  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+  QueuedGetProductsComponentBase* compPtr = static_cast<QueuedGetProductsComponentBase*>(callComp);
+  compPtr->cmdIn_handlerBase(
+    portNum,
+    opCode,
+    cmdSeq,
+    args
+  );
 }
 
 // ----------------------------------------------------------------------

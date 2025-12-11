@@ -1,9 +1,13 @@
 tests="
 basic
 commands
+events
 health
 nested_namespaces
 no_namespace
 params
 tlm_packets
+typed_ports_active
+typed_ports_passive
+typed_ports_queued
 "

@@ -4,11 +4,11 @@
 // \brief  cpp file for NoArgs port
 // ======================================================================
 
-#if !FW_DIRECT_PORT_CALLS
-
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "base/NoArgsPortAc.hpp"
+
+#if !FW_DIRECT_PORT_CALLS
 
 namespace Ports {
 
