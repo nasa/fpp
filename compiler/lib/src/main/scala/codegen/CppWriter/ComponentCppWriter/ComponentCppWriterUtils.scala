@@ -504,23 +504,20 @@ abstract class ComponentCppWriterUtils(
       else members
     )
 
-  /** For each port in ports, (1) call writePortLines and (2) wrap the
-   *  result in a guard if necessary */
-  def writePortWithGuard(
-    ports: List[PortInstance],
-    writePort: PortInstance => List[Line]
+  /** Add a guard for a port, if necessary */
+  def addGuardForPort(
+    port: PortInstance,
+    portLines: List[Line]
   ): List[Line] =
-    ports.flatMap(p =>
-      val ll = writePort(p)
-      if isTextEventPort(p)
-      then
-        List.concat(
-          line("#if FW_ENABLE_TEXT_LOGGING == 1") ::
-          ll,
-          lines("#endif")
-        )
-      else ll
-    )
+    if isTextEventPort(port)
+    then
+      List.concat(
+        Line.blank ::
+        line("#if FW_ENABLE_TEXT_LOGGING == 1") ::
+        portLines,
+        lines("\n#endif")
+      )
+    else portLines
 
   def getPortComment(p: PortInstance): Option[String] = {
     val aNode = p match {

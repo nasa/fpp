@@ -95,14 +95,18 @@ case class TopComponentCppWriter (
     portName: Name.Unqualified,
     componentInstanceMap: TopComponents.ComponentInstanceMap
   ) = {
+    val portInstance = component.portMap(portName)
     val shortName = outputPortIsConnectedName(portName)
     val name = s"$componentClassName::$shortName"
     val prototype = s"bool $name(FwIndexType portNum) const"
-    Line.blank ::
-    wrapInScope(
-      s"$prototype {",
-      writeIsConnectedFnBody(portName, componentInstanceMap),
-      "}"
+    addGuardForPort(
+      portInstance,
+      Line.blank ::
+      wrapInScope(
+        s"$prototype {",
+        writeIsConnectedFnBody(portName, componentInstanceMap),
+        "}"
+      )
     )
   }
 
@@ -179,11 +183,14 @@ case class TopComponentCppWriter (
       )
       Line.addSuffix(ll, " const")
     }
-    List.concat(
-      Line.blank ::
-      Line.addSuffix(prototypeLines, " {"),
-      writeOutFnBody(portName, componentInstanceMap).map(indentIn),
-      lines("}")
+    addGuardForPort(
+      portInstance,
+      List.concat(
+        Line.blank ::
+        Line.addSuffix(prototypeLines, " {"),
+        writeOutFnBody(portName, componentInstanceMap).map(indentIn),
+        lines("}")
+      )
     )
   }
 

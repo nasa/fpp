@@ -156,6 +156,8 @@ namespace M {
     return result;
   }
 
+#if FW_ENABLE_TEXT_LOGGING == 1
+
   bool CComponentBase::isConnected_textEventOut_OutputPort(FwIndexType portNum) const {
     FW_ASSERT(
       (0 <= portNum) && (portNum < NUM_TEXTEVENTOUT_OUTPUT_PORTS),
@@ -171,6 +173,8 @@ namespace M {
     }
     return result;
   }
+
+#endif
 
   bool CComponentBase::isConnected_timeGetOut_OutputPort(FwIndexType portNum) const {
     FW_ASSERT(
@@ -224,6 +228,8 @@ namespace M {
     }
   }
 
+#if FW_ENABLE_TEXT_LOGGING == 1
+
   void CComponentBase::textEventOut_out(
       FwIndexType portNum,
       FwEventIdType id,
@@ -243,6 +249,8 @@ namespace M {
         break;
     }
   }
+
+#endif
 
   void CComponentBase::timeGetOut_out(
       FwIndexType portNum,
@@ -281,6 +289,8 @@ namespace M {
     return result;
   }
 
+#if FW_ENABLE_TEXT_LOGGING == 1
+
   bool NoEventsComponentBase::isConnected_textEventOut_OutputPort(FwIndexType portNum) const {
     FW_ASSERT(
       (0 <= portNum) && (portNum < NUM_TEXTEVENTOUT_OUTPUT_PORTS),
@@ -296,6 +306,8 @@ namespace M {
     }
     return result;
   }
+
+#endif
 
   bool NoEventsComponentBase::isConnected_timeGetOut_OutputPort(FwIndexType portNum) const {
     FW_ASSERT(
