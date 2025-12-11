@@ -23,7 +23,7 @@ case class ComponentInputPorts(
   ): List[CppDoc.Class.Member] = addAccessTagAndComment(
     "public",
     s"Getters for $portType ports",
-    mapPorts(
+    writePortMembersWithGuard(
       ports,
       p => List(
         generateGetterForPort(
@@ -58,7 +58,7 @@ case class ComponentInputPorts(
 
   /** Gets the callback functions for a component base class */
   def getCallbacks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    val functions = mapPorts(ports, p => List(getCallbackForPort(p)))
+    val functions = writePortMembersWithGuard(ports, p => List(getCallbackForPort(p)))
     addAccessTagAndComment(
       "private",
       s"Calls for messages received on ${getPortListTypeString(ports)} input ports",

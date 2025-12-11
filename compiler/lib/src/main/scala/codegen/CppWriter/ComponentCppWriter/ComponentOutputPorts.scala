@@ -17,7 +17,7 @@ case class ComponentOutputPorts(
     getIsConnectedName: String => String,
     getNumGetterName: PortInstance => String,
     getVariableName: PortInstance => String
-  ): List[CppDoc.Class.Member] = mapPorts(
+  ): List[CppDoc.Class.Member] = writePortMembersWithGuard(
     ports,
     p => List(
       generateConnectionStatusQuery(
@@ -40,7 +40,7 @@ case class ComponentOutputPorts(
   ): List[CppDoc.Class.Member] = addAccessTagAndComment(
     "public",
     comment,
-    mapPorts(
+    writePortMembersWithGuard(
       ports,
       p => generateConnector(
         p,
@@ -59,7 +59,7 @@ case class ComponentOutputPorts(
       addAccessTagAndComment(
         "public",
         s"Connect serial input ports to $typeString output ports",
-        mapPorts(ports, getSerialConnectorForPort)
+        writePortMembersWithGuard(ports, getSerialConnectorForPort)
       )
     )
   }

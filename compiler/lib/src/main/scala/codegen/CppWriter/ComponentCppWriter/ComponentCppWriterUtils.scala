@@ -485,22 +485,24 @@ abstract class ComponentCppWriterUtils(
     }
   }
 
-  /** Calls writePort() on each port in ports, wrapping the result in an if directive if necessary */
-  def mapPorts(
+  /** For each port in ports, (1) call writePortMembers and (2) wrap the
+   *  result in a guard if necessary */
+  def writePortMembersWithGuard(
     ports: List[PortInstance],
-    writePort: PortInstance => List[CppDoc.Class.Member],
+    writePortMembers: PortInstance => List[CppDoc.Class.Member],
     output: CppDoc.Lines.Output = CppDoc.Lines.Both
   ): List[CppDoc.Class.Member] =
-    ports.flatMap(p => {
+    ports.flatMap(p =>
+      val members = writePortMembers(p)
       if isTextEventPort(p)
       then
         wrapClassMembersInIfDirective(
           "#if FW_ENABLE_TEXT_LOGGING == 1",
-          writePort(p),
+          members,
           output
         )
-      else writePort(p)
-    })
+      else members
+    )
 
   def getPortComment(p: PortInstance): Option[String] = {
     val aNode = p match {

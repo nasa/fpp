@@ -116,7 +116,7 @@ case class ComponentPorts(
           |}
           |"""
     )
-    mapPorts(
+    writePortMembersWithGuard(
       ports,
       p => List(linesClassMember(generateNumGetter(p))),
       CppDoc.Lines.Hpp
@@ -154,7 +154,7 @@ case class ComponentPorts(
       addAccessTagAndComment(
         "private",
         s"${getPortListTypeString(ports).capitalize} $direction ports",
-        mapPorts(
+        writePortMembersWithGuard(
           ports,
           p => List(linesClassMember(variable(p))),
           CppDoc.Lines.Hpp
