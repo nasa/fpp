@@ -48,6 +48,13 @@ params()
   move_cpp ParamsTopology
 }
 
+tlm()
+{
+  cd $TOP_DIR/tlm
+  update "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology
+  move_cpp TlmTopology
+}
+
 tlm_packets()
 {
   cd $TOP_DIR/tlm_packets

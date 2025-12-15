@@ -48,6 +48,13 @@ params()
     diff_cpp ParamsTopology
 }
 
+tlm()
+{
+  cd $TOP_DIR/tlm
+  run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology && \
+    diff_cpp TlmTopology
+}
+
 tlm_packets()
 {
   cd $TOP_DIR/tlm_packets
