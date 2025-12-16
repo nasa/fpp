@@ -13,6 +13,13 @@ commands()
   move_cpp CommandsTopology
 }
 
+dp()
+{
+  cd $TOP_DIR/dp
+  update "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology
+  move_cpp DpTopology
+}
+
 events()
 {
   cd $TOP_DIR/events

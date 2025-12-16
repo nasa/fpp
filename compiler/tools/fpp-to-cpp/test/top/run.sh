@@ -13,6 +13,13 @@ commands()
     diff_cpp CommandsTopology
 }
 
+dp()
+{
+  cd $TOP_DIR/dp
+  run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology && \
+    diff_cpp DpTopology
+}
+
 events()
 {
   cd $TOP_DIR/events

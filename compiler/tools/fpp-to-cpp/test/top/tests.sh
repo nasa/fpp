@@ -1,6 +1,7 @@
 tests="
 basic
 commands
+dp
 events
 health
 nested_namespaces
