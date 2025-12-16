@@ -158,6 +158,12 @@ namespace M {
             break;
         }
         break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
       default:
         FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
@@ -179,6 +185,12 @@ namespace M {
           case 0:
             result = true;
             break;
+          default:
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
           default:
             break;
         }
@@ -214,6 +226,13 @@ namespace M {
             break;
         }
         break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
       default:
         FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
@@ -243,6 +262,13 @@ namespace M {
               response
             );
             break;
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
           default:
             FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
             break;
@@ -330,6 +356,12 @@ namespace M {
     bool result = false;
     const auto instance = this->getInstance();
     switch (instance) {
+      case ::M::InstanceIds::M_noCommands:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
       default:
         FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;
@@ -346,6 +378,12 @@ namespace M {
     bool result = false;
     const auto instance = this->getInstance();
     switch (instance) {
+      case ::M::InstanceIds::M_noCommands:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
       default:
         FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
         break;

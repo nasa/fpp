@@ -12,7 +12,7 @@ case class TopComponents(
 
   private val componentMap = {
     val cm0 = Map(): TopComponents.ComponentMap
-    // Add empty ComponentInstanceMap entries for all output ports
+    // Add empty PortNumberMap entries for all output ports of all instances
     // That way unconnected ports will be represented
     val cm1 = addInstancesToMap(cm0, t.instanceMap.keys.toList)
     // Update the ComponentInstanceMap entries for all connections
@@ -79,7 +79,9 @@ case class TopComponents(
           case Some(PortInstance.Direction.Output) =>
             val portNameMap = map.get(component).getOrElse(Map())
             val componentInstanceMap = portNameMap.get(portName).getOrElse(Map())
-            val portNameMap1 = portNameMap + (portName -> componentInstanceMap)
+            val portNumberMap = componentInstanceMap.get(componentInstance).getOrElse(Map())
+            val componentInstanceMap1 = componentInstanceMap + (componentInstance -> portNumberMap)
+            val portNameMap1 = portNameMap + (portName -> componentInstanceMap1)
             map + (component -> portNameMap1)
           case _ => map
         }

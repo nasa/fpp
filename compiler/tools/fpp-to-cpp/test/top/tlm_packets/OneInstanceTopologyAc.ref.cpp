@@ -105,6 +105,12 @@ bool CComponentBase::isConnected_timeGetOut_OutputPort(FwIndexType portNum) cons
   bool result = false;
   const auto instance = this->getInstance();
   switch (instance) {
+    case ::M::InstanceIds::M_c1:
+      switch (portNum) {
+        default:
+          break;
+      }
+      break;
     default:
       FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
       break;
@@ -121,6 +127,12 @@ bool CComponentBase::isConnected_tlmOut_OutputPort(FwIndexType portNum) const {
   bool result = false;
   const auto instance = this->getInstance();
   switch (instance) {
+    case ::M::InstanceIds::M_c1:
+      switch (portNum) {
+        default:
+          break;
+      }
+      break;
     default:
       FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
       break;
@@ -139,6 +151,13 @@ void CComponentBase::timeGetOut_out(
   );
   const auto instance = this->getInstance();
   switch (instance) {
+    case ::M::InstanceIds::M_c1:
+      switch (portNum) {
+        default:
+          FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+          break;
+      }
+      break;
     default:
       FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
       break;
@@ -158,6 +177,13 @@ void CComponentBase::tlmOut_out(
   );
   const auto instance = this->getInstance();
   switch (instance) {
+    case ::M::InstanceIds::M_c1:
+      switch (portNum) {
+        default:
+          FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+          break;
+      }
+      break;
     default:
       FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
       break;
