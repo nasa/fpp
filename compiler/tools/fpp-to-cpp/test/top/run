@@ -2,4 +2,6 @@
 
 . ./defs.sh
 
+dir=$PWD
 sh ../scripts/run.sh
+cd $dir
