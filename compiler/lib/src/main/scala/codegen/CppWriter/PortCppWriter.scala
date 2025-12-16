@@ -135,7 +135,10 @@ case class PortCppWriter (
 
   private def getHppIncludes: CppDoc.Member = {
     val unconditional = List.concat(
-      List("Fw/FPrimeBasicTypes.hpp").map(CppWriter.headerString),
+      List(
+        "Fw/FPrimeBasicTypes.hpp",
+        "Fw/Types/String.hpp"
+      ).map(CppWriter.headerString),
       writeIncludeDirectives
     ).sorted.map(line)
     val conditional = List.concat(
@@ -144,7 +147,6 @@ case class PortCppWriter (
         "Fw/Comp/PassiveComponentBase.hpp",
         "Fw/Port/InputPortBase.hpp",
         "Fw/Port/OutputPortBase.hpp",
-        "Fw/Types/String.hpp",
       )
     ).map(CppWriter.headerString).sorted.map(line)
     linesMember(

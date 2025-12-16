@@ -1548,7 +1548,7 @@ case class ComponentTesterBaseWriter(
     addAccessTagAndComment(
       "private",
       "Static functions for output ports",
-      mapPorts(outputPorts, getPortFunction)
+      getPortMembersWithGuard(outputPorts, getPortFunction)
     )
 
   }
@@ -1579,7 +1579,7 @@ case class ComponentTesterBaseWriter(
       addAccessTagAndComment(
         "private",
         "From ports",
-        mapPorts(
+        getPortMembersWithGuard(
           outputPorts,
           p => {
             val unqualifiedName = p.getUnqualifiedName

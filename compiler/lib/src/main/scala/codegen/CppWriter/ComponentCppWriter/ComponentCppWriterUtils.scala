@@ -485,27 +485,39 @@ abstract class ComponentCppWriterUtils(
     }
   }
 
-  /** Calls writePort() on each port in ports, wrapping the result in an if directive if necessary */
-  def mapPorts(
+  /** For each port in ports, (1) call getPortMembers and (2) wrap the
+   *  result in a guard if necessary */
+  def getPortMembersWithGuard(
     ports: List[PortInstance],
-    writePort: PortInstance => List[CppDoc.Class.Member],
+    getPortMembers: PortInstance => List[CppDoc.Class.Member],
     output: CppDoc.Lines.Output = CppDoc.Lines.Both
-  ): List[CppDoc.Class.Member] = {
-    ports.flatMap(p => p match {
-      case PortInstance.Special(aNode, _, _, _, _, _) => aNode._2.data match {
-        case Ast.SpecPortInstance.Special(_, kind, _, _, _) => kind match {
-          case Ast.SpecPortInstance.TextEvent => wrapClassMembersInIfDirective(
-            "#if FW_ENABLE_TEXT_LOGGING == 1",
-            writePort(p),
-            output
-          )
-          case _ => writePort(p)
-        }
-        case _ => writePort(p)
-      }
-      case _ => writePort(p)
-    })
-  }
+  ): List[CppDoc.Class.Member] =
+    ports.flatMap(p =>
+      val members = getPortMembers(p)
+      if isTextEventPort(p)
+      then
+        wrapClassMembersInIfDirective(
+          "#if FW_ENABLE_TEXT_LOGGING == 1",
+          members,
+          output
+        )
+      else members
+    )
+
+  /** Add a guard for a port, if necessary */
+  def addGuardForPort(
+    port: PortInstance,
+    portLines: List[Line]
+  ): List[Line] =
+    if isTextEventPort(port)
+    then
+      List.concat(
+        Line.blank ::
+        line("#if FW_ENABLE_TEXT_LOGGING == 1") ::
+        portLines,
+        lines("\n#endif")
+      )
+    else portLines
 
   def getPortComment(p: PortInstance): Option[String] = {
     val aNode = p match {
@@ -614,6 +626,27 @@ abstract class ComponentCppWriterUtils(
     kind match {
       case Command.Param.Save => "save"
       case Command.Param.Set => "set"
+    }
+
+  /** Whether an invoker is required for a port instance */
+  def invokerRequired(portInstance: PortInstance) =
+    portInstance.getSpecialKind match {
+      case Some(Ast.SpecPortInstance.CommandReg) |
+           Some(Ast.SpecPortInstance.CommandResp) =>
+        hasCommands || hasParameters
+      case Some(Ast.SpecPortInstance.Event) |
+           Some(Ast.SpecPortInstance.TextEvent) =>
+        hasEvents
+      case Some(Ast.SpecPortInstance.ParamGet) |
+           Some(Ast.SpecPortInstance.ParamSet) =>
+        hasParameters
+      case Some(Ast.SpecPortInstance.ProductGet) |
+           Some(Ast.SpecPortInstance.ProductRequest) |
+           Some(Ast.SpecPortInstance.ProductSend) =>
+        hasDataProducts
+      case Some(Ast.SpecPortInstance.Telemetry) =>
+        hasTelemetry
+      case _ => true
     }
 
   /** Write a state machine identifier name */

@@ -29,8 +29,12 @@ case class TopComponentCppWriter (
   def writeIsConnectedFns =
     sortedPortNameList.flatMap(writeIsConnectedFnForPort)
 
-  def writeOutFns =
-    sortedPortNameList.flatMap(writeOutFnForPort)
+  def writeOutFns = {
+    val nameList = sortedPortNameList.filter {
+      case (n, _) => invokerRequired(component.portMap(n))
+    }
+    nameList.flatMap(writeOutFnForPort)
+  }
 
   private def componentInstanceMapToSortedList(
     componentInstanceMap: TopComponents.ComponentInstanceMap
@@ -91,14 +95,18 @@ case class TopComponentCppWriter (
     portName: Name.Unqualified,
     componentInstanceMap: TopComponents.ComponentInstanceMap
   ) = {
+    val portInstance = component.portMap(portName)
     val shortName = outputPortIsConnectedName(portName)
     val name = s"$componentClassName::$shortName"
     val prototype = s"bool $name(FwIndexType portNum) const"
-    Line.blank ::
-    wrapInScope(
-      s"$prototype {",
-      writeIsConnectedFnBody(portName, componentInstanceMap),
-      "}"
+    addGuardForPort(
+      portInstance,
+      Line.blank ::
+      wrapInScope(
+        s"$prototype {",
+        writeIsConnectedFnBody(portName, componentInstanceMap),
+        "}"
+      )
     )
   }
 
@@ -178,11 +186,14 @@ case class TopComponentCppWriter (
         case PortInstance.Type.Serial => ll
       }
     }
-    List.concat(
-      Line.blank ::
-      Line.addSuffix(prototypeLines, " {"),
-      writeOutFnBody(portName, componentInstanceMap).map(indentIn),
-      lines("}")
+    addGuardForPort(
+      portInstance,
+      List.concat(
+        Line.blank ::
+        Line.addSuffix(prototypeLines, " {"),
+        writeOutFnBody(portName, componentInstanceMap).map(indentIn),
+        lines("}")
+      )
     )
   }
 
