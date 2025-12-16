@@ -72,6 +72,7 @@ namespace M {
     enum {
       M_c1 = 100,
       M_c2 = 100,
+      M_dpManager = 100,
     };
   }
 

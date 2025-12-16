@@ -18,13 +18,15 @@ module M {
 
   }
 
-  passive component DpManager {
+  queued component DpManager {
 
     sync input port productGetIn: Fw.DpGet
 
     sync input port productSendIn: Fw.DpSend
 
     output port productResponseOut: Fw.DpResponse
+
+    async input port productRequestIn: Fw.DpRequest
 
   }
 

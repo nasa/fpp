@@ -16,6 +16,9 @@ public:
 
   void productSendIn_handler(const FwIndexType portNum, FwDpIdType id,
                              const Fw::Buffer &buffer) override;
+
+  void productRequestIn_handler(const FwIndexType portNum, FwDpIdType id,
+                                FwSizeType size) override;
 };
 
 } // namespace M

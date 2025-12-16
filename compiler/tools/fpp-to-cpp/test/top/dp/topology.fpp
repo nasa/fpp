@@ -6,7 +6,8 @@ module M {
   instance c2: C base id 0x200 \
     queue size 100
 
-  instance dpManager: DpManager base id 0x300
+  instance dpManager: DpManager base id 0x300 \
+    queue size 100
 
   instance noDp: NoDp base id 0x400
 
@@ -20,6 +21,8 @@ module M {
     connections Dp {
       c1.productGetOut -> dpManager.productGetIn
       c1.productSendOut -> dpManager.productSendIn
+      c1.productRequestOut -> dpManager.productRequestIn
+      dpManager.productResponseOut -> c1.productRecvIn
     }
 
   }

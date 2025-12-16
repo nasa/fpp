@@ -43,7 +43,7 @@ namespace M {
   void initComponents(const TopologyState& state) {
     M::c1.init(QueueSizes::M_c1, InstanceIds::M_c1);
     M::c2.init(QueueSizes::M_c2, InstanceIds::M_c2);
-    M::dpManager.init(InstanceIds::M_dpManager);
+    M::dpManager.init(QueueSizes::M_dpManager, InstanceIds::M_dpManager);
     M::noDp.init(InstanceIds::M_noDp);
   }
 
@@ -67,9 +67,17 @@ namespace M {
         0,
         M::dpManager.get_productGetIn_InputPort(0)
     );
+    M::c1.set_productRequestOut_OutputPort(
+        0,
+        M::dpManager.get_productRequestIn_InputPort(0)
+    );
     M::c1.set_productSendOut_OutputPort(
         0,
         M::dpManager.get_productSendIn_InputPort(0)
+    );
+    M::dpManager.set_productResponseOut_OutputPort(
+        0,
+        M::c1.get_productRecvIn_InputPort(0)
     );
 
 #endif
@@ -177,6 +185,9 @@ namespace M {
     switch (instance) {
       case ::M::InstanceIds::M_c1:
         switch (portNum) {
+          case 0:
+            result = true;
+            break;
           default:
             break;
         }
@@ -310,6 +321,13 @@ namespace M {
     switch (instance) {
       case ::M::InstanceIds::M_c1:
         switch (portNum) {
+          case 0:
+            M::dpManager.productRequestIn_handlerBase(
+              0,
+              id,
+              dataSize
+            );
+            break;
           default:
             FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
             break;
@@ -413,6 +431,9 @@ namespace M {
     switch (instance) {
       case ::M::InstanceIds::M_dpManager:
         switch (portNum) {
+          case 0:
+            result = true;
+            break;
           default:
             break;
         }
@@ -439,6 +460,14 @@ namespace M {
     switch (instance) {
       case ::M::InstanceIds::M_dpManager:
         switch (portNum) {
+          case 0:
+            M::c1.productRecvIn_handlerBase(
+              0,
+              id,
+              buffer,
+              status
+            );
+            break;
           default:
             FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
             break;
