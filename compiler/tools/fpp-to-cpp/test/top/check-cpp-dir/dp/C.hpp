@@ -10,6 +10,7 @@ class C : public CComponentBase {
 public:
   C(const char *name) {}
 
+  void dpRecv_C_handler(DpContainer &container, Fw::Success::T) override;
 };
 
 } // namespace M

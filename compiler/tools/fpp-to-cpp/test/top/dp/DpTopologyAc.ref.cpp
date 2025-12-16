@@ -41,8 +41,8 @@ namespace M {
   // ----------------------------------------------------------------------
 
   void initComponents(const TopologyState& state) {
-    M::c1.init(InstanceIds::M_c1);
-    M::c2.init(InstanceIds::M_c2);
+    M::c1.init(QueueSizes::M_c1, InstanceIds::M_c1);
+    M::c2.init(QueueSizes::M_c2, InstanceIds::M_c2);
     M::dpManager.init(InstanceIds::M_dpManager);
     M::noDp.init(InstanceIds::M_noDp);
   }
@@ -166,6 +166,34 @@ namespace M {
     return result;
   }
 
+  bool CComponentBase::isConnected_productRequestOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PRODUCTREQUESTOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PRODUCTREQUESTOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
   bool CComponentBase::isConnected_productSendOut_OutputPort(FwIndexType portNum) const {
     FW_ASSERT(
       (0 <= portNum) && (portNum < NUM_PRODUCTSENDOUT_OUTPUT_PORTS),
@@ -268,6 +296,38 @@ namespace M {
     return _result;
   }
 
+  void CComponentBase::productRequestOut_out(
+      FwIndexType portNum,
+      FwDpIdType id,
+      FwSizeType dataSize
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PRODUCTREQUESTOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PRODUCTREQUESTOUT_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_c1:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+  }
+
   void CComponentBase::productSendOut_out(
       FwIndexType portNum,
       FwDpIdType id,
@@ -326,6 +386,58 @@ namespace M {
         }
         break;
       case ::M::InstanceIds::M_c2:
+        switch (portNum) {
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+  }
+
+}
+
+namespace M {
+
+  bool DpManagerComponentBase::isConnected_productResponseOut_OutputPort(FwIndexType portNum) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PRODUCTRESPONSEOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PRODUCTRESPONSEOUT_OUTPUT_PORTS)
+    );
+    bool result = false;
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_dpManager:
+        switch (portNum) {
+          default:
+            break;
+        }
+        break;
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(instance));
+        break;
+    }
+    return result;
+  }
+
+  void DpManagerComponentBase::productResponseOut_out(
+      FwIndexType portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      const Fw::Success& status
+  ) const {
+    FW_ASSERT(
+      (0 <= portNum) && (portNum < NUM_PRODUCTRESPONSEOUT_OUTPUT_PORTS),
+      static_cast<FwAssertArgType>(portNum),
+      static_cast<FwAssertArgType>(NUM_PRODUCTRESPONSEOUT_OUTPUT_PORTS)
+    );
+    const auto instance = this->getInstance();
+    switch (instance) {
+      case ::M::InstanceIds::M_dpManager:
         switch (portNum) {
           default:
             FW_ASSERT(0, static_cast<FwAssertArgType>(portNum));

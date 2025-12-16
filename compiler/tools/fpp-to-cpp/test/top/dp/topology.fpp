@@ -1,8 +1,10 @@
 module M {
 
-  instance c1: C base id 0x100
+  instance c1: C base id 0x100 \
+    queue size 100
 
-  instance c2: C base id 0x200
+  instance c2: C base id 0x200 \
+    queue size 100
 
   instance dpManager: DpManager base id 0x300
 

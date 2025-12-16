@@ -1,10 +1,14 @@
 module M {
 
-  passive component C {
+  queued component C {
 
     time get port timeGetOut
 
     product get port productGetOut
+
+    product request port productRequestOut
+
+    async product recv port productRecvIn
 
     product send port productSendOut
 
@@ -19,6 +23,8 @@ module M {
     sync input port productGetIn: Fw.DpGet
 
     sync input port productSendIn: Fw.DpSend
+
+    output port productResponseOut: Fw.DpResponse
 
   }
 
