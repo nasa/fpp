@@ -79,27 +79,21 @@ tlm_packets()
 
 typed_ports_active()
 {
-  cd $TOP_DIR
-  src_dir=$PWD/typed_ports_active
-  run_test "-d $src_dir -p $PWD,$src_dir -i $src_dir/components.fpp" \
-    $src_dir/topology && \
-    diff_cpp $src_dir/TypedPortsActiveTopology
+  cd $TOP_DIR/typed_ports_active
+  run_test "-p $PWD components.fpp" topology && \
+    diff_cpp TypedPortsActiveTopology
 }
 
 typed_ports_passive()
 {
-  cd $TOP_DIR
-  src_dir=$PWD/typed_ports_passive
-  run_test "-d $src_dir -p $PWD,$src_dir -i $src_dir/components.fpp" \
-    $src_dir/topology && \
-    diff_cpp $src_dir/TypedPortsPassiveTopology
+  cd $TOP_DIR/typed_ports_passive
+  run_test "-p $PWD components.fpp" topology && \
+    diff_cpp TypedPortsPassiveTopology
 }
 
 typed_ports_queued()
 {
-  cd $TOP_DIR
-  src_dir=$PWD/typed_ports_queued
-  run_test "-d $src_dir -p $PWD,$src_dir -i $src_dir/components.fpp" \
-    $src_dir/topology && \
-    diff_cpp $src_dir/TypedPortsQueuedTopology
+  cd $TOP_DIR/typed_ports_queued
+  run_test "-p $PWD components.fpp" topology && \
+    diff_cpp TypedPortsQueuedTopology
 }
