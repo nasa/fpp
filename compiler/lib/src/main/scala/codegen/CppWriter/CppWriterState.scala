@@ -228,6 +228,10 @@ object CppWriterState {
   def identFromQualifiedName(name: Name.Qualified): String =
     name.toString.replaceAll("\\.", "_")
 
+  /** Constructs a C++ identifier from name qualifier */
+  def identFromQualifier(qualifier: List[Name.Unqualified]): String =
+    qualifier.mkString("_")
+
   /** Writes a qualified name */
   def writeQualifiedName(name: Name.Qualified): String =
     name.toString.replaceAll("\\.", "::")

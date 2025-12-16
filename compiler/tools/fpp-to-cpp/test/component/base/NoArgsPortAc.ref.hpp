@@ -8,12 +8,12 @@
 #define Ports_NoArgsPortAc_HPP
 
 #include "Fw/FPrimeBasicTypes.hpp"
+#include "Fw/Types/String.hpp"
 #if !FW_DIRECT_PORT_CALLS
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/Serializable.hpp"
-#include "Fw/Types/String.hpp"
 #endif
 
 namespace Ports {

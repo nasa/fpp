@@ -936,6 +936,26 @@ class QueuedEventsComponentBase :
         FwIndexType portNum //!< The port number
     ) const;
 
+#if FW_DIRECT_PORT_CALLS
+  public:
+#else
+  protected:
+#endif
+
+    // ----------------------------------------------------------------------
+    // Port handler base-class functions for special input ports
+    //
+    // Call these functions directly to bypass the corresponding ports
+    // ----------------------------------------------------------------------
+
+    //! Handler base-class function for input port cmdIn
+    void cmdIn_handlerBase(
+        FwIndexType portNum, //!< The port number
+        FwOpcodeType opCode, //!< The opcode
+        U32 cmdSeq, //!< The command sequence number
+        Fw::CmdArgBuffer& args //!< The command argument buffer
+    );
+
   protected:
 
     // ----------------------------------------------------------------------
