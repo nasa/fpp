@@ -13,6 +13,13 @@ num_failed=0
     base=`basename $t`
     (cd $dir; ./$base)
     num_failed=`expr $num_failed + $?`
+    # TODO: Temporary diagnostic for CI
+    echo "num_failed=$num_failed"
+    if test "$num_failed" -ne 0
+    then
+      echo "$t failed"
+      exit 1
+    fi
   done
 
   echo 
