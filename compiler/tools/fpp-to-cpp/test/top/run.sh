@@ -55,6 +55,13 @@ params()
     diff_cpp ParamsTopology
 }
 
+serial_ports_passive()
+{
+  cd $TOP_DIR/serial_ports_passive
+  run_test "-p $PWD components.fpp" topology && \
+    diff_cpp SerialPortsPassiveTopology
+}
+
 tlm()
 {
   cd $TOP_DIR/tlm

@@ -55,6 +55,13 @@ params()
   move_cpp ParamsTopology
 }
 
+serial_ports_passive()
+{
+  cd $TOP_DIR/serial_ports_passive
+  update "-p $PWD components.fpp" topology
+  move_cpp SerialPortsPassiveTopology
+}
+
 tlm()
 {
   cd $TOP_DIR/tlm
