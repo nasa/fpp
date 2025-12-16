@@ -79,27 +79,21 @@ tlm_packets()
 
 typed_ports_active()
 {
-  cd $TOP_DIR
-  src_dir=$PWD/typed_ports_active
-  update "-d $src_dir -p $PWD,$src_dir -i $src_dir/components.fpp" \
-    $src_dir/topology
-  move_cpp $src_dir/TypedPortsActiveTopology
+  cd $TOP_DIR/typed_ports_active
+  update "-p $PWD components.fpp" topology
+  move_cpp TypedPortsActiveTopology
 }
 
 typed_ports_passive()
 {
-  cd $TOP_DIR
-  src_dir=$PWD/typed_ports_passive
-  update "-d $src_dir -p $PWD,$src_dir -i $src_dir/components.fpp" \
-    $src_dir/topology
-  move_cpp $src_dir/TypedPortsPassiveTopology
+  cd $TOP_DIR/typed_ports_passive
+  update "-p $PWD components.fpp" topology
+  move_cpp TypedPortsPassiveTopology
 }
 
 typed_ports_queued()
 {
-  cd $TOP_DIR
-  src_dir=$PWD/typed_ports_queued
-  update "-d $src_dir -p $PWD,$src_dir -i $src_dir/components.fpp" \
-    $src_dir/topology
-  move_cpp $src_dir/TypedPortsQueuedTopology
+  cd $TOP_DIR/typed_ports_queued
+  update "-p $PWD components.fpp" topology
+  move_cpp TypedPortsQueuedTopology
 }
