@@ -466,11 +466,11 @@ class ParserSpec extends AnyWordSpec {
       List(
         "expand T()",
         "expand M.T()",
-        "expand M.T(1)",
-        "expand M.T(1, 2)",
-        "expand M.T(1, 2, mod.$instance)",
-        "expand M.T(1, 2, mod.$instance, Type.Name)",
-        "expand M.T(1, 2, {member=1}, [1, 2])",
+        "expand M.T(constant 1)",
+        "expand M.T(constant 1, constant 2)",
+        "expand M.T(constant 1, constant 2, interface mod.$instance)",
+        "expand M.T(constant 1, constant 2, interface mod.$instance, type Type.Name)",
+        "expand M.T(constant 1, constant 2, constant {member=1}, constant [1, 2])",
       )
     )
   }
@@ -736,7 +736,7 @@ class ParserSpec extends AnyWordSpec {
         type T
         array A = [10] U32
         enum E { X, Y }
-        expand TT (1, 2, 3, {member=[1, 2, 3]}, TypeName)
+        expand TT (constant 1, constant 2, constant 3, constant {member=[1, 2, 3]}, type TypeName)
         include "a.fpp"
         """,
         """

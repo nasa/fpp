@@ -2,8 +2,6 @@ package fpp.compiler.analysis
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
-import fpp.compiler.ast.Ast.Annotated
-import fpp.compiler.ast.Ast.DefModuleTemplate
 
 /**
  * Basic use analysis
@@ -36,17 +34,17 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
   def templateUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
 
   /** A use of a template constant parameter */
-  def templateConstantParam(a: Analysis, param: Symbol.TemplateConstantParam) = {
+  override def templateConstantParam(a: Analysis, param: Symbol.TemplateConstantParam) = {
     exprNode(a, param.value)
   }
 
   /** A use of a template type parameter */
-  def templateTypeParam(a: Analysis, param: Symbol.TemplateTypeParam) = {
+  override def templateTypeParam(a: Analysis, param: Symbol.TemplateTypeParam) = {
     typeNameNode(a, param.value)
   }
 
   /** A use of a template interface parameter */
-  def templateInterfaceParam(a: Analysis, param: Symbol.TemplateInterfaceParam) = {
+  override def templateInterfaceParam(a: Analysis, param: Symbol.TemplateInterfaceParam) = {
     qualIdentNode (interfaceInstanceUse) (a, param.value)
   }
 
@@ -206,14 +204,6 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
     typeUse(a, node, use)
   }
 
-  def templateParam(a: Analysis, param: Symbol.TemplateParam) = {
-    param match {
-      case param: Symbol.TemplateConstantParam => templateConstantParam(a, param)
-      case param: Symbol.TemplateTypeParam => templateTypeParam(a, param)
-      case param: Symbol.TemplateInterfaceParam => templateInterfaceParam(a, param)
-    }
-  }
-
   override def specTemplateExpandAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
@@ -226,12 +216,6 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
         data.template,
         Name.Qualified.fromQualIdent(data.template.data)
       )
-
-      // Analyze the paramters on this template expansion
-      a <- {
-        val expansion = a.templateExpansionMap(node.id)
-        Result.foldLeft (expansion.params.values.toList) (a) (templateParam)
-      }
 
       a <- super.specTemplateExpandAnnotatedNode(a, aNode)
     } yield a

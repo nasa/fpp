@@ -1,0 +1,5 @@
+entering expand
+[ local path prefix ]/compiler/tools/fpp-check/test/template/types.fpp:24.1
+expand T(type S)
+^
+exiting expand

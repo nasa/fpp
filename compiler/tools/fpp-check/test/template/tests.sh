@@ -4,6 +4,7 @@ constant_with_default
 duplicate_def
 types
 interfaces
+interfaces_basic
 undef_constant_param_type
 undef_interface_param_type
 "

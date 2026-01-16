@@ -294,6 +294,8 @@ object EnterSymbols
     val name = data.name
     val symbol = Symbol.Topology(aNode)
     val nestedScope = a.nestedScope
+    println(s"topology ${aNode._2.data.name}")
+    println(a.nestedScope.scopes.length)
     for (nestedScope <- nestedScope.put(NameGroup.PortInterfaceInstance)(name, symbol))
       yield updateMap(a, symbol).copy(nestedScope = nestedScope)
   }

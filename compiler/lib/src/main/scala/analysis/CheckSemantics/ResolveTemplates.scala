@@ -22,11 +22,11 @@ object ResolveTemplates {
     a: Analysis,
     tul: List[Ast.TransUnit]
   ): Result.Result[(Analysis, List[Ast.TransUnit])] = {
-    // TODO(tumbar) Try to make this a for comprehension
-    val res = ResolveTemplates.pass(a, tul)
-    res match {
+    ResolveTemplates.pass(a, tul) match {
       case Left(err) => Left(err)
+      // No more 'expand' specifiers were seen while expanding templates
       case Right((a, tul, false)) => Right((a, tul))
+      // At least one 'expand' specifier was seen while expanding templates
       case Right((a, tul, true)) => this.transUnit(a, tul)
     }
   }

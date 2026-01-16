@@ -10,6 +10,32 @@ object EnterTemplateSymbols
   extends Analyzer
   with ModuleAnalyzer
 {
+  override def defModuleAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefModule]]
+  ) = {
+    val (_, node, _) = aNode
+    val Ast.DefModule(name, members) = node.data
+    val oldScopeNameList = a.scopeNameList
+    val newScopeNameList = name :: oldScopeNameList
+    val parentSymbol = a.parentSymbol
+
+    val symbol = a.nestedScope.innerScope.get (NameGroup.Value) (name).get
+    val scope = a.symbolScopeMap(symbol)
+    val a1 = a.copy(
+      scopeNameList = newScopeNameList,
+      nestedScope = a.nestedScope.push(scope),
+      parentSymbol = Some(symbol)
+    )
+
+    for (a <- super.defModuleAnnotatedNode(a1, aNode))
+      yield a.copy(
+        scopeNameList = oldScopeNameList,
+        nestedScope = a.nestedScope.pop,
+        parentSymbol = parentSymbol,
+      )
+  }
+
   override def specTemplateExpandAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
@@ -99,34 +125,27 @@ object EnterTemplateSymbols
           }
 
           // Enter the template parameters into a new scope
-          a <- {
+          nestedScope <- {
             val scope = Scope.empty
-            Result.foldLeft(params) (a.copy(nestedScope = a.nestedScope.push(scope))) ((a, param) => {
+            Result.foldLeft(params) (a.nestedScope.push(scope)) ((nestedScope, param) => {
               for {
-                nestedScope <- a.nestedScope.put(NameGroup.Value)(param.getUnqualifiedName, param)
+                nestedScope <- nestedScope.put(NameGroup.Value)(param.getUnqualifiedName, param)
                 nestedScope <- nestedScope.put(NameGroup.Type)(param.getUnqualifiedName, param)
                 nestedScope <- nestedScope.put(NameGroup.PortInterfaceInstance)(param.getUnqualifiedName, param)
-              } yield a.copy(nestedScope = nestedScope)
+              } yield nestedScope
             })
           }
 
-          // We should be entering symbols into the parent scope
-          a_scope <- {
-            val scope = a.nestedScope.innerScope
-            Right((a.copy( nestedScope = a.nestedScope.pop ), scope))
-          }
-
-          a <- {
-            val (a, scope) = a_scope
-            Right(a.copy(
-              templateExpansionMap = a.templateExpansionMap + (node.id -> TemplateExpansion(
-                tmpl.node,
-                aNode,
-                Map.from(params.map(p => (p.getUnqualifiedName, p))),
-                scope
-              )),
-            ))
-          }
+          scope <- Right(nestedScope.innerScope)
+          a <- Right(a.copy(
+            nestedScope = nestedScope.pop,
+            templateExpansionMap = a.templateExpansionMap + (node.id -> TemplateExpansion(
+              tmpl.node,
+              aNode,
+              Map.from(params.map(p => (p.getUnqualifiedName, p))),
+              scope
+            )),
+          ))
 
           // Enter the child symbols in to the analysis
           a <- EnterSymbols.visitList(a, List(Ast.TransUnit(members)), EnterSymbols.transUnit)
