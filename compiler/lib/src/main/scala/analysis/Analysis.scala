@@ -91,7 +91,9 @@ case class Analysis(
   /** Maps template expansion AST nodes to their */
   templateExpansionMap: Map[AstNode.Id, TemplateExpansion] = Map(),
   /** Tracks the current expansion we are analyzing inside of */
-  templateExpansion: Option[TemplateExpansion] = None
+  templateExpansion: Option[TemplateExpansion] = None,
+  /** Node ID of the template definition we are currently cloning inside of */
+  templateDefinition: Option[AstNode.Id] = None,
 ) {
 
   /** Gets the qualified name of a symbol */

@@ -448,18 +448,18 @@
                                                   {
                                                     "AstNode" : {
                                                       "data" : "a1",
-                                                      "id" : 165
+                                                      "id" : 167
                                                     }
                                                   },
                                                   {
                                                     "AstNode" : {
                                                       "data" : "a2",
-                                                      "id" : 166
+                                                      "id" : 168
                                                     }
                                                   }
                                                 ]
                                               },
-                                              "id" : 167
+                                              "id" : 169
                                             }
                                           }
                                         }
@@ -479,18 +479,18 @@
                                                   {
                                                     "AstNode" : {
                                                       "data" : "a1",
-                                                      "id" : 168
+                                                      "id" : 170
                                                     }
                                                   },
                                                   {
                                                     "AstNode" : {
                                                       "data" : "a2",
-                                                      "id" : 169
+                                                      "id" : 171
                                                     }
                                                   }
                                                 ]
                                               },
-                                              "id" : 170
+                                              "id" : 172
                                             }
                                           }
                                         }
@@ -514,13 +514,13 @@
                                                         {
                                                           "AstNode" : {
                                                             "data" : "a1",
-                                                            "id" : 171
+                                                            "id" : 173
                                                           }
                                                         },
                                                         {
                                                           "AstNode" : {
                                                             "data" : "a2",
-                                                            "id" : 172
+                                                            "id" : 174
                                                           }
                                                         }
                                                       ],
@@ -531,15 +531,15 @@
                                                               "name" : "S3"
                                                             }
                                                           },
-                                                          "id" : 174
+                                                          "id" : 176
                                                         }
                                                       }
                                                     },
-                                                    "id" : 175
+                                                    "id" : 177
                                                   }
                                                 }
                                               },
-                                              "id" : 176
+                                              "id" : 178
                                             }
                                           }
                                         }
@@ -560,7 +560,7 @@
                                                 "guard" : {
                                                   "AstNode" : {
                                                     "data" : "g1",
-                                                    "id" : 177
+                                                    "id" : 179
                                                   }
                                                 },
                                                 "ifTransition" : {
@@ -570,13 +570,13 @@
                                                         {
                                                           "AstNode" : {
                                                             "data" : "a1",
-                                                            "id" : 178
+                                                            "id" : 180
                                                           }
                                                         },
                                                         {
                                                           "AstNode" : {
                                                             "data" : "a2",
-                                                            "id" : 179
+                                                            "id" : 181
                                                           }
                                                         }
                                                       ],
@@ -587,11 +587,11 @@
                                                               "name" : "S1"
                                                             }
                                                           },
-                                                          "id" : 181
+                                                          "id" : 183
                                                         }
                                                       }
                                                     },
-                                                    "id" : 182
+                                                    "id" : 184
                                                   }
                                                 },
                                                 "elseTransition" : {
@@ -601,13 +601,13 @@
                                                         {
                                                           "AstNode" : {
                                                             "data" : "a2",
-                                                            "id" : 183
+                                                            "id" : 185
                                                           }
                                                         },
                                                         {
                                                           "AstNode" : {
                                                             "data" : "a3",
-                                                            "id" : 184
+                                                            "id" : 186
                                                           }
                                                         }
                                                       ],
@@ -622,26 +622,26 @@
                                                                       "name" : "S2"
                                                                     }
                                                                   },
-                                                                  "id" : 185
+                                                                  "id" : 189
                                                                 }
                                                               },
                                                               "name" : {
                                                                 "AstNode" : {
                                                                   "data" : "S3",
-                                                                  "id" : 186
+                                                                  "id" : 188
                                                                 }
                                                               }
                                                             }
                                                           },
-                                                          "id" : 187
+                                                          "id" : 190
                                                         }
                                                       }
                                                     },
-                                                    "id" : 188
+                                                    "id" : 191
                                                   }
                                                 }
                                               },
-                                              "id" : 189
+                                              "id" : 192
                                             }
                                           }
                                         }
@@ -662,7 +662,7 @@
                                                 "members" : [
                                                 ]
                                               },
-                                              "id" : 190
+                                              "id" : 193
                                             }
                                           }
                                         }
@@ -682,14 +682,14 @@
                                                 "signal" : {
                                                   "AstNode" : {
                                                     "data" : "s1",
-                                                    "id" : 191
+                                                    "id" : 194
                                                   }
                                                 },
                                                 "guard" : {
                                                   "Some" : {
                                                     "AstNode" : {
                                                       "data" : "g1",
-                                                      "id" : 192
+                                                      "id" : 195
                                                     }
                                                   }
                                                 },
@@ -702,7 +702,7 @@
                                                             {
                                                               "AstNode" : {
                                                                 "data" : "a1",
-                                                                "id" : 193
+                                                                "id" : 196
                                                               }
                                                             }
                                                           ],
@@ -713,17 +713,17 @@
                                                                   "name" : "C"
                                                                 }
                                                               },
-                                                              "id" : 195
+                                                              "id" : 198
                                                             }
                                                           }
                                                         },
-                                                        "id" : 196
+                                                        "id" : 199
                                                       }
                                                     }
                                                   }
                                                 }
                                               },
-                                              "id" : 197
+                                              "id" : 200
                                             }
                                           }
                                         }
@@ -742,14 +742,14 @@
                                                 "signal" : {
                                                   "AstNode" : {
                                                     "data" : "s2",
-                                                    "id" : 198
+                                                    "id" : 201
                                                   }
                                                 },
                                                 "guard" : {
                                                   "Some" : {
                                                     "AstNode" : {
                                                       "data" : "g1",
-                                                      "id" : 199
+                                                      "id" : 202
                                                     }
                                                   }
                                                 },
@@ -767,17 +767,17 @@
                                                                   "name" : "S1"
                                                                 }
                                                               },
-                                                              "id" : 201
+                                                              "id" : 204
                                                             }
                                                           }
                                                         },
-                                                        "id" : 202
+                                                        "id" : 205
                                                       }
                                                     }
                                                   }
                                                 }
                                               },
-                                              "id" : 203
+                                              "id" : 206
                                             }
                                           }
                                         }
@@ -797,14 +797,14 @@
                                                 "signal" : {
                                                   "AstNode" : {
                                                     "data" : "s3",
-                                                    "id" : 204
+                                                    "id" : 207
                                                   }
                                                 },
                                                 "guard" : {
                                                   "Some" : {
                                                     "AstNode" : {
                                                       "data" : "g1",
-                                                      "id" : 205
+                                                      "id" : 208
                                                     }
                                                   }
                                                 },
@@ -822,17 +822,17 @@
                                                                   "name" : "S1"
                                                                 }
                                                               },
-                                                              "id" : 207
+                                                              "id" : 210
                                                             }
                                                           }
                                                         },
-                                                        "id" : 208
+                                                        "id" : 211
                                                       }
                                                     }
                                                   }
                                                 }
                                               },
-                                              "id" : 209
+                                              "id" : 212
                                             }
                                           }
                                         }
@@ -852,7 +852,7 @@
                                                 "signal" : {
                                                   "AstNode" : {
                                                     "data" : "s4",
-                                                    "id" : 210
+                                                    "id" : 213
                                                   }
                                                 },
                                                 "guard" : "None",
@@ -870,17 +870,17 @@
                                                                   "name" : "S1"
                                                                 }
                                                               },
-                                                              "id" : 212
+                                                              "id" : 215
                                                             }
                                                           }
                                                         },
-                                                        "id" : 213
+                                                        "id" : 216
                                                       }
                                                     }
                                                   }
                                                 }
                                               },
-                                              "id" : 214
+                                              "id" : 217
                                             }
                                           }
                                         }
@@ -900,14 +900,14 @@
                                                 "signal" : {
                                                   "AstNode" : {
                                                     "data" : "s5",
-                                                    "id" : 215
+                                                    "id" : 218
                                                   }
                                                 },
                                                 "guard" : {
                                                   "Some" : {
                                                     "AstNode" : {
                                                       "data" : "g1",
-                                                      "id" : 216
+                                                      "id" : 219
                                                     }
                                                   }
                                                 },
@@ -917,14 +917,14 @@
                                                       {
                                                         "AstNode" : {
                                                           "data" : "a1",
-                                                          "id" : 218
+                                                          "id" : 221
                                                         }
                                                       }
                                                     ]
                                                   }
                                                 }
                                               },
-                                              "id" : 219
+                                              "id" : 222
                                             }
                                           }
                                         }
@@ -944,7 +944,7 @@
                                                 "signal" : {
                                                   "AstNode" : {
                                                     "data" : "s6",
-                                                    "id" : 228
+                                                    "id" : 231
                                                   }
                                                 },
                                                 "guard" : "None",
@@ -954,14 +954,14 @@
                                                       {
                                                         "AstNode" : {
                                                           "data" : "a1",
-                                                          "id" : 230
+                                                          "id" : 233
                                                         }
                                                       }
                                                     ]
                                                   }
                                                 }
                                               },
-                                              "id" : 231
+                                              "id" : 234
                                             }
                                           }
                                         }
@@ -971,7 +971,7 @@
                                     ]
                                   ]
                                 },
-                                "id" : 232
+                                "id" : 235
                               }
                             }
                           }
@@ -982,7 +982,7 @@
                     ]
                   }
                 },
-                "id" : 233
+                "id" : 236
               }
             }
           }
@@ -997,1172 +997,1424 @@
   "0" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "5.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "1" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "8.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "2" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "11.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "3" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "14.14",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "4" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "14.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "5" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "17.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "6" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "20.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "7" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "20.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "8" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "23.14",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "9" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "23.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "10" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "26.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "11" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "29.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "12" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "32.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "13" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "35.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "14" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "38.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "15" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "41.16",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "16" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "41.27",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "17" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "41.27",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "18" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "41.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "19" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "41.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "20" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "44.17",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "21" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "44.26",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "22" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "44.26",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "23" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "44.20",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "24" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "44.40",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "25" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "44.40",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "26" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "44.34",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "27" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "44.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "28" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "47.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "29" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "52.16",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "30" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "52.20",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "31" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "52.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "32" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "53.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "33" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "53.19",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "34" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "53.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "35" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "56.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "36" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "56.22",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "37" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "56.33",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "38" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "56.33",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "39" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "56.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "40" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "56.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "41" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "59.19",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "42" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "59.27",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "43" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "59.31",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "44" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "59.42",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "45" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "59.42",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "46" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "59.22",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "47" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "59.55",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "48" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "59.59",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "49" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "59.70",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "50" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "59.73",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "51" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "59.70",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "52" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.50",
-    "includingLoc" : "None"
+    "pos" : "59.70",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "53" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.5",
-    "includingLoc" : "None"
+    "pos" : "59.50",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "54" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "62.5",
-    "includingLoc" : "None"
+    "pos" : "59.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "55" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "65.8",
-    "includingLoc" : "None"
+    "pos" : "62.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "56" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "65.14",
-    "includingLoc" : "None"
+    "pos" : "65.8",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "57" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "65.22",
-    "includingLoc" : "None"
+    "pos" : "65.14",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "58" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "65.33",
-    "includingLoc" : "None"
+    "pos" : "65.22",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "59" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "65.33",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "60" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "65.17",
-    "includingLoc" : "None"
+    "pos" : "65.33",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "61" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "65.5",
-    "includingLoc" : "None"
+    "pos" : "65.17",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "62" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.8",
-    "includingLoc" : "None"
+    "pos" : "65.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "63" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.14",
-    "includingLoc" : "None"
+    "pos" : "66.8",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "64" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.23",
-    "includingLoc" : "None"
+    "pos" : "66.14",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "65" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "66.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "66" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.17",
-    "includingLoc" : "None"
+    "pos" : "66.23",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "67" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.5",
-    "includingLoc" : "None"
+    "pos" : "66.17",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "68" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.8",
-    "includingLoc" : "None"
+    "pos" : "66.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "69" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.14",
-    "includingLoc" : "None"
+    "pos" : "69.8",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "70" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.23",
-    "includingLoc" : "None"
+    "pos" : "69.14",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "71" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "69.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "72" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.17",
-    "includingLoc" : "None"
+    "pos" : "69.23",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "73" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.5",
-    "includingLoc" : "None"
+    "pos" : "69.17",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "74" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.8",
-    "includingLoc" : "None"
+    "pos" : "69.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "75" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.17",
-    "includingLoc" : "None"
+    "pos" : "72.8",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "76" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "72.17",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "77" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.11",
-    "includingLoc" : "None"
+    "pos" : "72.17",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "78" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.5",
-    "includingLoc" : "None"
+    "pos" : "72.11",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "79" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "75.8",
-    "includingLoc" : "None"
+    "pos" : "72.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "80" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "75.14",
-    "includingLoc" : "None"
+    "pos" : "75.8",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "81" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "75.22",
-    "includingLoc" : "None"
+    "pos" : "75.14",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "82" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "75.22",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "83" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "75.5",
-    "includingLoc" : "None"
+    "pos" : "75.22",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "84" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.8",
-    "includingLoc" : "None"
+    "pos" : "75.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "85" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.16",
-    "includingLoc" : "None"
+    "pos" : "78.8",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "86" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "78.16",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "87" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.5",
-    "includingLoc" : "None"
+    "pos" : "78.16",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "88" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.8",
-    "includingLoc" : "None"
+    "pos" : "78.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "89" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.16",
-    "includingLoc" : "None"
+    "pos" : "78.8",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "90" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "78.16",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "91" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.5",
-    "includingLoc" : "None"
+    "pos" : "78.16",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "92" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.8",
-    "includingLoc" : "None"
+    "pos" : "78.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "93" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.16",
-    "includingLoc" : "None"
+    "pos" : "78.8",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "94" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "78.16",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "95" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.5",
-    "includingLoc" : "None"
+    "pos" : "78.16",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "96" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.3",
-    "includingLoc" : "None"
+    "pos" : "78.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "97" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "52.16",
-    "includingLoc" : "None"
+    "pos" : "50.3",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "98" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "52.20",
-    "includingLoc" : "None"
+    "pos" : "52.16",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "99" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "52.5",
-    "includingLoc" : "None"
+    "pos" : "52.20",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "100" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.15",
-    "includingLoc" : "None"
+    "pos" : "52.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "101" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.19",
-    "includingLoc" : "None"
+    "pos" : "53.15",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "102" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.5",
-    "includingLoc" : "None"
+    "pos" : "53.19",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "103" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "56.18",
-    "includingLoc" : "None"
+    "pos" : "53.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "104" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "56.22",
-    "includingLoc" : "None"
+    "pos" : "56.18",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "105" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "56.33",
-    "includingLoc" : "None"
+    "pos" : "56.22",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "106" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "56.33",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "107" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "56.13",
-    "includingLoc" : "None"
+    "pos" : "56.33",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "108" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "56.5",
-    "includingLoc" : "None"
+    "pos" : "56.13",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "109" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.19",
-    "includingLoc" : "None"
+    "pos" : "56.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "110" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.27",
-    "includingLoc" : "None"
+    "pos" : "59.19",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "111" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.31",
-    "includingLoc" : "None"
+    "pos" : "59.27",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "112" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.42",
-    "includingLoc" : "None"
+    "pos" : "59.31",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "113" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "59.42",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "114" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.22",
-    "includingLoc" : "None"
+    "pos" : "59.42",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "115" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.55",
-    "includingLoc" : "None"
+    "pos" : "59.22",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "116" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.59",
-    "includingLoc" : "None"
+    "pos" : "59.55",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "117" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.70",
-    "includingLoc" : "None"
+    "pos" : "59.59",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "118" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.73",
-    "includingLoc" : "None"
+    "pos" : "59.70",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "119" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.70",
-    "includingLoc" : "None"
+    "pos" : "59.73",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "120" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.50",
-    "includingLoc" : "None"
+    "pos" : "59.70",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "121" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.5",
-    "includingLoc" : "None"
+    "pos" : "59.70",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "122" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "62.5",
-    "includingLoc" : "None"
+    "pos" : "59.50",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "123" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "65.8",
-    "includingLoc" : "None"
+    "pos" : "59.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "124" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "65.14",
-    "includingLoc" : "None"
+    "pos" : "62.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "125" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "65.22",
-    "includingLoc" : "None"
+    "pos" : "65.8",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "126" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "65.33",
-    "includingLoc" : "None"
+    "pos" : "65.14",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "127" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "65.33",
-    "includingLoc" : "None"
+    "pos" : "65.22",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "128" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "65.17",
-    "includingLoc" : "None"
+    "pos" : "65.33",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "129" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "65.5",
-    "includingLoc" : "None"
+    "pos" : "65.33",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "130" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.8",
-    "includingLoc" : "None"
+    "pos" : "65.17",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "131" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.14",
-    "includingLoc" : "None"
+    "pos" : "65.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "132" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.23",
-    "includingLoc" : "None"
+    "pos" : "66.8",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "133" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.23",
-    "includingLoc" : "None"
+    "pos" : "66.14",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "134" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.17",
-    "includingLoc" : "None"
+    "pos" : "66.23",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "135" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.5",
-    "includingLoc" : "None"
+    "pos" : "66.23",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "136" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.8",
-    "includingLoc" : "None"
+    "pos" : "66.17",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "137" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.14",
-    "includingLoc" : "None"
+    "pos" : "66.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "138" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.23",
-    "includingLoc" : "None"
+    "pos" : "69.8",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "139" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.23",
-    "includingLoc" : "None"
+    "pos" : "69.14",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "140" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.17",
-    "includingLoc" : "None"
+    "pos" : "69.23",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "141" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.5",
-    "includingLoc" : "None"
+    "pos" : "69.23",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "142" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.8",
-    "includingLoc" : "None"
+    "pos" : "69.17",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "143" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.17",
-    "includingLoc" : "None"
+    "pos" : "69.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "144" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.17",
-    "includingLoc" : "None"
+    "pos" : "72.8",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "145" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.11",
-    "includingLoc" : "None"
+    "pos" : "72.17",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "146" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.5",
-    "includingLoc" : "None"
+    "pos" : "72.17",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "147" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "75.8",
-    "includingLoc" : "None"
+    "pos" : "72.11",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "148" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "75.14",
-    "includingLoc" : "None"
+    "pos" : "72.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "149" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "75.22",
-    "includingLoc" : "None"
+    "pos" : "75.8",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "150" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "75.22",
-    "includingLoc" : "None"
+    "pos" : "75.14",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "151" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "75.5",
-    "includingLoc" : "None"
+    "pos" : "75.22",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "152" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.8",
-    "includingLoc" : "None"
+    "pos" : "75.22",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "153" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.16",
-    "includingLoc" : "None"
+    "pos" : "75.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "154" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.16",
-    "includingLoc" : "None"
+    "pos" : "78.8",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "155" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.5",
-    "includingLoc" : "None"
+    "pos" : "78.16",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "156" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.8",
-    "includingLoc" : "None"
+    "pos" : "78.16",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "157" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.16",
-    "includingLoc" : "None"
+    "pos" : "78.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "158" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.16",
-    "includingLoc" : "None"
+    "pos" : "78.8",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "159" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.5",
-    "includingLoc" : "None"
+    "pos" : "78.16",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "160" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.8",
-    "includingLoc" : "None"
+    "pos" : "78.16",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "161" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.16",
-    "includingLoc" : "None"
+    "pos" : "78.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "162" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.16",
-    "includingLoc" : "None"
+    "pos" : "78.8",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "163" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.5",
-    "includingLoc" : "None"
+    "pos" : "78.16",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "164" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.3",
-    "includingLoc" : "None"
+    "pos" : "78.16",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "165" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "52.16",
-    "includingLoc" : "None"
+    "pos" : "78.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "166" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "52.20",
-    "includingLoc" : "None"
+    "pos" : "50.3",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "167" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "52.5",
-    "includingLoc" : "None"
+    "pos" : "52.16",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "168" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.15",
-    "includingLoc" : "None"
+    "pos" : "52.20",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "169" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.19",
-    "includingLoc" : "None"
+    "pos" : "52.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "170" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.5",
-    "includingLoc" : "None"
+    "pos" : "53.15",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "171" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "56.18",
-    "includingLoc" : "None"
+    "pos" : "53.19",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "172" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "56.22",
-    "includingLoc" : "None"
+    "pos" : "53.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "173" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "56.33",
-    "includingLoc" : "None"
+    "pos" : "56.18",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "174" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "56.33",
-    "includingLoc" : "None"
+    "pos" : "56.22",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "175" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "56.13",
-    "includingLoc" : "None"
+    "pos" : "56.33",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "176" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "56.5",
-    "includingLoc" : "None"
+    "pos" : "56.33",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "177" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.19",
-    "includingLoc" : "None"
+    "pos" : "56.13",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "178" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.27",
-    "includingLoc" : "None"
+    "pos" : "56.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "179" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.31",
-    "includingLoc" : "None"
+    "pos" : "59.19",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "180" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.42",
-    "includingLoc" : "None"
+    "pos" : "59.27",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "181" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.42",
-    "includingLoc" : "None"
+    "pos" : "59.31",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "182" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.22",
-    "includingLoc" : "None"
+    "pos" : "59.42",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "183" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.55",
-    "includingLoc" : "None"
+    "pos" : "59.42",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "184" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.59",
-    "includingLoc" : "None"
+    "pos" : "59.22",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "185" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.70",
-    "includingLoc" : "None"
+    "pos" : "59.55",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "186" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.73",
-    "includingLoc" : "None"
+    "pos" : "59.59",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "187" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "59.70",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "188" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.50",
-    "includingLoc" : "None"
+    "pos" : "59.73",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "189" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.5",
-    "includingLoc" : "None"
+    "pos" : "59.70",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "190" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "62.5",
-    "includingLoc" : "None"
+    "pos" : "59.70",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "191" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "65.8",
-    "includingLoc" : "None"
+    "pos" : "59.50",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "192" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "65.14",
-    "includingLoc" : "None"
+    "pos" : "59.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "193" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "65.22",
-    "includingLoc" : "None"
+    "pos" : "62.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "194" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "65.33",
-    "includingLoc" : "None"
+    "pos" : "65.8",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "195" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "65.33",
-    "includingLoc" : "None"
+    "pos" : "65.14",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "196" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "65.17",
-    "includingLoc" : "None"
+    "pos" : "65.22",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "197" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "65.5",
-    "includingLoc" : "None"
+    "pos" : "65.33",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "198" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.8",
-    "includingLoc" : "None"
+    "pos" : "65.33",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "199" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.14",
-    "includingLoc" : "None"
+    "pos" : "65.17",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "200" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.23",
-    "includingLoc" : "None"
+    "pos" : "65.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "201" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.23",
-    "includingLoc" : "None"
+    "pos" : "66.8",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "202" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.17",
-    "includingLoc" : "None"
+    "pos" : "66.14",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "203" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.5",
-    "includingLoc" : "None"
+    "pos" : "66.23",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "204" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.8",
-    "includingLoc" : "None"
+    "pos" : "66.23",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "205" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.14",
-    "includingLoc" : "None"
+    "pos" : "66.17",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "206" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.23",
-    "includingLoc" : "None"
+    "pos" : "66.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "207" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.23",
-    "includingLoc" : "None"
+    "pos" : "69.8",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "208" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.17",
-    "includingLoc" : "None"
+    "pos" : "69.14",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "209" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.5",
-    "includingLoc" : "None"
+    "pos" : "69.23",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "210" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.8",
-    "includingLoc" : "None"
+    "pos" : "69.23",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "211" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.17",
-    "includingLoc" : "None"
+    "pos" : "69.17",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "212" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.17",
-    "includingLoc" : "None"
+    "pos" : "69.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "213" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.11",
-    "includingLoc" : "None"
+    "pos" : "72.8",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "214" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.5",
-    "includingLoc" : "None"
+    "pos" : "72.17",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "215" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "75.8",
-    "includingLoc" : "None"
+    "pos" : "72.17",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "216" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "75.14",
-    "includingLoc" : "None"
+    "pos" : "72.11",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "217" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "75.22",
-    "includingLoc" : "None"
+    "pos" : "72.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "218" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "75.22",
-    "includingLoc" : "None"
+    "pos" : "75.8",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "219" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "75.5",
-    "includingLoc" : "None"
+    "pos" : "75.14",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "220" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.8",
-    "includingLoc" : "None"
+    "pos" : "75.22",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "221" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.16",
-    "includingLoc" : "None"
+    "pos" : "75.22",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "222" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.16",
-    "includingLoc" : "None"
+    "pos" : "75.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "223" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.5",
-    "includingLoc" : "None"
+    "pos" : "78.8",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "224" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.8",
-    "includingLoc" : "None"
+    "pos" : "78.16",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "225" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "78.16",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "226" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.16",
-    "includingLoc" : "None"
+    "pos" : "78.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "227" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.5",
-    "includingLoc" : "None"
+    "pos" : "78.8",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "228" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.8",
-    "includingLoc" : "None"
+    "pos" : "78.16",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "229" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "78.16",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "230" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.16",
-    "includingLoc" : "None"
+    "pos" : "78.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "231" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "78.5",
-    "includingLoc" : "None"
+    "pos" : "78.8",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "232" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.3",
-    "includingLoc" : "None"
+    "pos" : "78.16",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "233" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
+    "pos" : "78.16",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
+  },
+  "234" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
+    "pos" : "78.5",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
+  },
+  "235" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
+    "pos" : "50.3",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
+  },
+  "236" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "2.1",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   }
 }
 {
@@ -2230,14 +2482,14 @@
     
   },
   "stateMachineMap" : {
-    "233" : {
+    "236" : {
       "aNode" : {
-        "astNodeId" : 233
+        "astNodeId" : 236
       },
       "sma" : {
         "symbol" : {
           "node" : {
-            "astNodeId" : 233
+            "astNodeId" : 236
           }
         },
         "symbolScopeMap" : {
@@ -2246,24 +2498,24 @@
               
             }
           },
-          "190" : {
+          "193" : {
             "map" : {
               
             }
           },
-          "232" : {
+          "235" : {
             "map" : {
               "State" : {
                 "map" : {
                   "C" : {
                     "Choice" : {
-                      "nodeId" : 189,
+                      "nodeId" : 192,
                       "unqualifiedName" : "C"
                     }
                   },
                   "S3" : {
                     "State" : {
-                      "nodeId" : 190,
+                      "nodeId" : 193,
                       "unqualifiedName" : "S3"
                     }
                   }
@@ -2273,88 +2525,88 @@
           }
         },
         "useDefMap" : {
-          "216" : {
-            "Guard" : {
-              "nodeId" : 5,
-              "unqualifiedName" : "g1"
+          "170" : {
+            "Action" : {
+              "nodeId" : 0,
+              "unqualifiedName" : "a1"
             }
           },
           "201" : {
-            "State" : {
-              "nodeId" : 28,
-              "unqualifiedName" : "S1"
+            "Signal" : {
+              "nodeId" : 10,
+              "unqualifiedName" : "s2"
             }
           },
           "174" : {
-            "State" : {
-              "nodeId" : 190,
-              "unqualifiedName" : "S3"
+            "Action" : {
+              "nodeId" : 1,
+              "unqualifiedName" : "a2"
             }
           },
-          "192" : {
-            "Guard" : {
-              "nodeId" : 5,
-              "unqualifiedName" : "g1"
+          "233" : {
+            "Action" : {
+              "nodeId" : 0,
+              "unqualifiedName" : "a1"
             }
           },
-          "199" : {
-            "Guard" : {
-              "nodeId" : 5,
-              "unqualifiedName" : "g1"
-            }
-          },
-          "228" : {
+          "231" : {
             "Signal" : {
               "nodeId" : 14,
               "unqualifiedName" : "s6"
             }
           },
-          "185" : {
-            "State" : {
-              "nodeId" : 232,
-              "unqualifiedName" : "S2"
-            }
-          },
-          "184" : {
+          "196" : {
             "Action" : {
-              "nodeId" : 2,
-              "unqualifiedName" : "a3"
+              "nodeId" : 0,
+              "unqualifiedName" : "a1"
             }
           },
-          "195" : {
-            "Choice" : {
-              "nodeId" : 189,
-              "unqualifiedName" : "C"
-            }
-          },
-          "207" : {
-            "State" : {
-              "nodeId" : 28,
-              "unqualifiedName" : "S1"
-            }
-          },
-          "172" : {
-            "Action" : {
-              "nodeId" : 1,
-              "unqualifiedName" : "a2"
-            }
-          },
-          "205" : {
+          "219" : {
             "Guard" : {
               "nodeId" : 5,
               "unqualifiedName" : "g1"
             }
           },
-          "169" : {
+          "190" : {
+            "State" : {
+              "nodeId" : 193,
+              "unqualifiedName" : "S3"
+            }
+          },
+          "195" : {
+            "Guard" : {
+              "nodeId" : 5,
+              "unqualifiedName" : "g1"
+            }
+          },
+          "167" : {
+            "Action" : {
+              "nodeId" : 0,
+              "unqualifiedName" : "a1"
+            }
+          },
+          "198" : {
+            "Choice" : {
+              "nodeId" : 192,
+              "unqualifiedName" : "C"
+            }
+          },
+          "171" : {
             "Action" : {
               "nodeId" : 1,
               "unqualifiedName" : "a2"
             }
           },
-          "193" : {
-            "Action" : {
-              "nodeId" : 0,
-              "unqualifiedName" : "a1"
+          "207" : {
+            "Signal" : {
+              "nodeId" : 11,
+              "unqualifiedName" : "s3"
+            }
+          },
+          "176" : {
+            "State" : {
+              "nodeId" : 193,
+              "unqualifiedName" : "S3"
             }
           },
           "15" : {
@@ -2364,9 +2616,15 @@
             }
           },
           "181" : {
-            "State" : {
-              "nodeId" : 28,
-              "unqualifiedName" : "S1"
+            "Action" : {
+              "nodeId" : 1,
+              "unqualifiedName" : "a2"
+            }
+          },
+          "186" : {
+            "Action" : {
+              "nodeId" : 2,
+              "unqualifiedName" : "a3"
             }
           },
           "22" : {
@@ -2375,19 +2633,31 @@
               "unqualifiedName" : "S1"
             }
           },
-          "212" : {
-            "State" : {
-              "nodeId" : 28,
-              "unqualifiedName" : "S1"
+          "213" : {
+            "Signal" : {
+              "nodeId" : 12,
+              "unqualifiedName" : "s4"
             }
           },
-          "166" : {
+          "202" : {
+            "Guard" : {
+              "nodeId" : 5,
+              "unqualifiedName" : "g1"
+            }
+          },
+          "185" : {
             "Action" : {
               "nodeId" : 1,
               "unqualifiedName" : "a2"
             }
           },
-          "177" : {
+          "173" : {
+            "Action" : {
+              "nodeId" : 0,
+              "unqualifiedName" : "a1"
+            }
+          },
+          "208" : {
             "Guard" : {
               "nodeId" : 5,
               "unqualifiedName" : "g1"
@@ -2399,22 +2669,28 @@
               "unqualifiedName" : "C"
             }
           },
-          "25" : {
-            "State" : {
-              "nodeId" : 232,
-              "unqualifiedName" : "S2"
-            }
-          },
-          "230" : {
+          "180" : {
             "Action" : {
               "nodeId" : 0,
               "unqualifiedName" : "a1"
             }
           },
-          "191" : {
-            "Signal" : {
-              "nodeId" : 9,
-              "unqualifiedName" : "s1"
+          "221" : {
+            "Action" : {
+              "nodeId" : 0,
+              "unqualifiedName" : "a1"
+            }
+          },
+          "25" : {
+            "State" : {
+              "nodeId" : 235,
+              "unqualifiedName" : "S2"
+            }
+          },
+          "189" : {
+            "State" : {
+              "nodeId" : 235,
+              "unqualifiedName" : "S2"
             }
           },
           "20" : {
@@ -2423,76 +2699,52 @@
               "unqualifiedName" : "g1"
             }
           },
-          "178" : {
-            "Action" : {
-              "nodeId" : 0,
-              "unqualifiedName" : "a1"
-            }
-          },
           "210" : {
-            "Signal" : {
-              "nodeId" : 12,
-              "unqualifiedName" : "s4"
-            }
-          },
-          "198" : {
-            "Signal" : {
-              "nodeId" : 10,
-              "unqualifiedName" : "s2"
-            }
-          },
-          "187" : {
             "State" : {
-              "nodeId" : 190,
-              "unqualifiedName" : "S3"
+              "nodeId" : 28,
+              "unqualifiedName" : "S1"
             }
           },
-          "171" : {
-            "Action" : {
-              "nodeId" : 0,
-              "unqualifiedName" : "a1"
-            }
-          },
-          "165" : {
-            "Action" : {
-              "nodeId" : 0,
-              "unqualifiedName" : "a1"
+          "194" : {
+            "Signal" : {
+              "nodeId" : 9,
+              "unqualifiedName" : "s1"
             }
           },
           "215" : {
+            "State" : {
+              "nodeId" : 28,
+              "unqualifiedName" : "S1"
+            }
+          },
+          "183" : {
+            "State" : {
+              "nodeId" : 28,
+              "unqualifiedName" : "S1"
+            }
+          },
+          "179" : {
+            "Guard" : {
+              "nodeId" : 5,
+              "unqualifiedName" : "g1"
+            }
+          },
+          "218" : {
             "Signal" : {
               "nodeId" : 13,
               "unqualifiedName" : "s5"
             }
           },
-          "183" : {
-            "Action" : {
-              "nodeId" : 1,
-              "unqualifiedName" : "a2"
-            }
-          },
-          "179" : {
-            "Action" : {
-              "nodeId" : 1,
-              "unqualifiedName" : "a2"
-            }
-          },
-          "218" : {
-            "Action" : {
-              "nodeId" : 0,
-              "unqualifiedName" : "a1"
-            }
-          },
           "168" : {
             "Action" : {
-              "nodeId" : 0,
-              "unqualifiedName" : "a1"
+              "nodeId" : 1,
+              "unqualifiedName" : "a2"
             }
           },
           "204" : {
-            "Signal" : {
-              "nodeId" : 11,
-              "unqualifiedName" : "s3"
+            "State" : {
+              "nodeId" : 28,
+              "unqualifiedName" : "S1"
             }
           }
         },
@@ -2520,11 +2772,11 @@
                 "Choice" : {
                   "startChoice" : {
                     "node" : {
-                      "astNodeId" : 27
+                      "astNodeId" : 192
                     }
                   },
                   "aNode" : {
-                    "astNodeId" : 23
+                    "astNodeId" : 184
                   },
                   "endNode" : {
                     "soc" : {
@@ -2543,18 +2795,18 @@
                 "Choice" : {
                   "startChoice" : {
                     "node" : {
-                      "astNodeId" : 27
+                      "astNodeId" : 192
                     }
                   },
                   "aNode" : {
-                    "astNodeId" : 26
+                    "astNodeId" : 191
                   },
                   "endNode" : {
                     "soc" : {
                       "State" : {
                         "symbol" : {
                           "node" : {
-                            "astNodeId" : 232
+                            "astNodeId" : 193
                           }
                         }
                       }
@@ -2568,41 +2820,18 @@
                 "State" : {
                   "startState" : {
                     "node" : {
-                      "astNodeId" : 232
+                      "astNodeId" : 235
                     }
                   },
                   "aNode" : {
-                    "astNodeId" : 214
-                  },
-                  "endNode" : {
-                    "soc" : {
-                      "State" : {
-                        "symbol" : {
-                          "node" : {
-                            "astNodeId" : 28
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              {
-                "State" : {
-                  "startState" : {
-                    "node" : {
-                      "astNodeId" : 232
-                    }
-                  },
-                  "aNode" : {
-                    "astNodeId" : 197
+                    "astNodeId" : 200
                   },
                   "endNode" : {
                     "soc" : {
                       "Choice" : {
                         "symbol" : {
                           "node" : {
-                            "astNodeId" : 189
+                            "astNodeId" : 192
                           }
                         }
                       }
@@ -2614,11 +2843,11 @@
                 "State" : {
                   "startState" : {
                     "node" : {
-                      "astNodeId" : 232
+                      "astNodeId" : 235
                     }
                   },
                   "aNode" : {
-                    "astNodeId" : 203
+                    "astNodeId" : 206
                   },
                   "endNode" : {
                     "soc" : {
@@ -2637,11 +2866,11 @@
                 "State" : {
                   "startState" : {
                     "node" : {
-                      "astNodeId" : 232
+                      "astNodeId" : 235
                     }
                   },
                   "aNode" : {
-                    "astNodeId" : 209
+                    "astNodeId" : 217
                   },
                   "endNode" : {
                     "soc" : {
@@ -2660,18 +2889,41 @@
                 "Initial" : {
                   "startState" : {
                     "node" : {
-                      "astNodeId" : 232
+                      "astNodeId" : 235
                     }
                   },
                   "aNode" : {
-                    "astNodeId" : 176
+                    "astNodeId" : 178
                   },
                   "endNode" : {
                     "soc" : {
                       "State" : {
                         "symbol" : {
                           "node" : {
-                            "astNodeId" : 190
+                            "astNodeId" : 193
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "State" : {
+                  "startState" : {
+                    "node" : {
+                      "astNodeId" : 235
+                    }
+                  },
+                  "aNode" : {
+                    "astNodeId" : 212
+                  },
+                  "endNode" : {
+                    "soc" : {
+                      "State" : {
+                        "symbol" : {
+                          "node" : {
+                            "astNodeId" : 28
                           }
                         }
                       }
@@ -2699,29 +2951,6 @@
           "arcMap" : {
             "state S1" : [
               {
-                "State" : {
-                  "startState" : {
-                    "node" : {
-                      "astNodeId" : 232
-                    }
-                  },
-                  "aNode" : {
-                    "astNodeId" : 214
-                  },
-                  "endNode" : {
-                    "soc" : {
-                      "State" : {
-                        "symbol" : {
-                          "node" : {
-                            "astNodeId" : 28
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              {
                 "Choice" : {
                   "startChoice" : {
                     "node" : {
@@ -2748,11 +2977,11 @@
                 "State" : {
                   "startState" : {
                     "node" : {
-                      "astNodeId" : 232
+                      "astNodeId" : 235
                     }
                   },
                   "aNode" : {
-                    "astNodeId" : 203
+                    "astNodeId" : 217
                   },
                   "endNode" : {
                     "soc" : {
@@ -2771,11 +3000,34 @@
                 "State" : {
                   "startState" : {
                     "node" : {
-                      "astNodeId" : 232
+                      "astNodeId" : 235
                     }
                   },
                   "aNode" : {
-                    "astNodeId" : 209
+                    "astNodeId" : 212
+                  },
+                  "endNode" : {
+                    "soc" : {
+                      "State" : {
+                        "symbol" : {
+                          "node" : {
+                            "astNodeId" : 28
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              {
+                "State" : {
+                  "startState" : {
+                    "node" : {
+                      "astNodeId" : 235
+                    }
+                  },
+                  "aNode" : {
+                    "astNodeId" : 206
                   },
                   "endNode" : {
                     "soc" : {
@@ -2794,11 +3046,11 @@
                 "Choice" : {
                   "startChoice" : {
                     "node" : {
-                      "astNodeId" : 189
+                      "astNodeId" : 192
                     }
                   },
                   "aNode" : {
-                    "astNodeId" : 182
+                    "astNodeId" : 184
                   },
                   "endNode" : {
                     "soc" : {
@@ -2816,21 +3068,21 @@
             ],
             "state S3" : [
               {
-                "Choice" : {
-                  "startChoice" : {
+                "Initial" : {
+                  "startState" : {
                     "node" : {
-                      "astNodeId" : 189
+                      "astNodeId" : 235
                     }
                   },
                   "aNode" : {
-                    "astNodeId" : 188
+                    "astNodeId" : 178
                   },
                   "endNode" : {
                     "soc" : {
                       "State" : {
                         "symbol" : {
                           "node" : {
-                            "astNodeId" : 190
+                            "astNodeId" : 193
                           }
                         }
                       }
@@ -2839,21 +3091,21 @@
                 }
               },
               {
-                "Initial" : {
-                  "startState" : {
+                "Choice" : {
+                  "startChoice" : {
                     "node" : {
-                      "astNodeId" : 232
+                      "astNodeId" : 192
                     }
                   },
                   "aNode" : {
-                    "astNodeId" : 176
+                    "astNodeId" : 191
                   },
                   "endNode" : {
                     "soc" : {
                       "State" : {
                         "symbol" : {
                           "node" : {
-                            "astNodeId" : 190
+                            "astNodeId" : 193
                           }
                         }
                       }
@@ -2863,6 +3115,29 @@
               }
             ],
             "choice C" : [
+              {
+                "State" : {
+                  "startState" : {
+                    "node" : {
+                      "astNodeId" : 235
+                    }
+                  },
+                  "aNode" : {
+                    "astNodeId" : 200
+                  },
+                  "endNode" : {
+                    "soc" : {
+                      "Choice" : {
+                        "symbol" : {
+                          "node" : {
+                            "astNodeId" : 192
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
             ],
             "state S2" : [
               {
@@ -2880,7 +3155,7 @@
                       "State" : {
                         "symbol" : {
                           "node" : {
-                            "astNodeId" : 232
+                            "astNodeId" : 235
                           }
                         }
                       }
@@ -2892,9 +3167,10 @@
           }
         },
         "typeOptionMap" : {
-          "170" : "None",
+          "169" : "None",
           "19" : "None",
-          "197" : {
+          "212" : "None",
+          "192" : {
             "Some" : {
               "Int" : {
                 "PrimitiveInt" : {
@@ -2907,14 +3183,10 @@
               }
             }
           },
-          "209" : "None",
-          "231" : "None",
-          "219" : "None",
-          "214" : "None",
-          "203" : "None",
-          "167" : "None",
-          "176" : "None",
-          "189" : {
+          "234" : "None",
+          "222" : "None",
+          "172" : "None",
+          "200" : {
             "Some" : {
               "Int" : {
                 "PrimitiveInt" : {
@@ -2927,6 +3199,9 @@
               }
             }
           },
+          "217" : "None",
+          "206" : "None",
+          "178" : "None",
           "27" : "None"
         },
         "flattenedStateTransitionMap" : {
@@ -3092,7 +3367,7 @@
                     "Choice" : {
                       "symbol" : {
                         "node" : {
-                          "astNodeId" : 189
+                          "astNodeId" : 192
                         }
                       }
                     }
@@ -3126,14 +3401,14 @@
                 "State" : {
                   "symbol" : {
                     "node" : {
-                      "astNodeId" : 232
+                      "astNodeId" : 235
                     }
                   }
                 }
               }
             }
           },
-          "182" : {
+          "184" : {
             "External" : {
               "actions" : [
                 {
@@ -3168,7 +3443,7 @@
               }
             }
           },
-          "188" : {
+          "191" : {
             "External" : {
               "actions" : [
                 {
@@ -3186,7 +3461,7 @@
                 "State" : {
                   "symbol" : {
                     "node" : {
-                      "astNodeId" : 190
+                      "astNodeId" : 193
                     }
                   }
                 }

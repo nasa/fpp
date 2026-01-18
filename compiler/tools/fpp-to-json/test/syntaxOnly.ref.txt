@@ -2070,4656 +2070,5587 @@
   "0" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "9.35",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "1" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "9.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "2" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "9.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "3" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "9.35",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "4" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "9.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "5" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "9.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "6" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "8.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "7" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "14.35",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "8" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "14.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "9" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "14.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "10" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "14.35",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "11" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "14.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "12" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "14.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "13" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "15.41",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "14" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "13.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "15" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "18.34",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "16" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "18.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "17" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "43.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "18" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "46.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "19" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "49.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "20" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "52.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "21" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "55.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "22" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "58.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "23" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "61.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "24" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "64.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "25" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "67.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "26" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "67.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "27" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "67.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "28" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "3.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "29" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "9.35",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "30" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "9.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "31" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "9.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "32" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "9.35",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "33" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "9.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "34" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "9.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "35" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "8.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "36" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "14.35",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "37" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "14.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "38" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "14.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "39" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "14.35",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "40" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "14.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "41" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "14.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "42" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "15.41",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "43" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "13.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "44" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "18.34",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "45" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "18.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "46" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "43.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "47" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "46.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "48" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "49.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "49" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "52.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "50" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "55.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "51" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "58.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "52" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "61.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "53" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "64.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "54" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "67.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "55" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "67.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "56" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "67.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "57" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "3.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "58" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "9.35",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "59" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "9.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "60" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "9.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "61" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "9.35",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "62" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "9.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "63" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "9.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "64" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "8.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "65" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "14.35",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "66" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "14.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "67" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "14.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "68" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "14.35",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "69" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "14.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "70" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "14.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "71" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "15.41",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "72" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "13.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "73" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "18.34",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "74" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "18.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "75" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "43.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "76" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "46.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "77" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "49.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "78" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "52.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "79" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "55.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "80" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "58.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "81" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "61.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "82" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "64.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "83" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "67.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "84" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "67.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "85" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "67.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "86" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "3.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "87" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "1.1",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "88" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "73.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "89" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "76.30",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "90" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "76.30",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "91" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "76.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "92" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "77.27",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "93" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "77.27",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "94" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "77.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "95" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "78.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "96" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "79.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "97" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "80.22",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "98" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "80.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "99" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "80.22",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "100" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "80.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "101" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "80.22",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "102" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "80.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "103" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "75.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "104" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "83.17",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "105" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "83.17",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "106" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "83.27",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "107" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "83.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "108" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "84.17",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "109" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "84.17",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "110" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "84.27",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "111" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "84.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "112" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "85.17",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "113" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "85.17",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "114" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "85.27",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "115" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "85.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "116" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "86.17",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "117" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "86.17",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "118" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "86.27",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "119" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "86.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "120" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "87.17",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "121" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "87.17",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "122" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "87.27",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "123" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "87.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "124" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "88.17",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "125" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "88.17",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "126" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "88.27",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "127" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "88.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "128" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "89.17",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "129" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "89.17",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "130" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "89.27",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "131" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "89.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "132" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "92.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "133" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "92.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "134" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "92.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "135" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "93.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "136" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "93.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "137" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "93.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "138" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "94.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "139" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "94.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "140" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "94.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "141" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "95.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "142" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "95.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "143" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "95.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "144" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "96.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "145" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "96.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "146" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "96.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "147" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "97.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "148" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "97.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "149" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "97.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "150" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "98.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "151" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "98.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "152" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "98.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "153" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "101.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "154" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "101.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "155" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "101.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "156" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "101.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "157" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "101.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "158" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "101.25",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "159" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "101.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "160" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "101.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "161" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "102.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "162" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "102.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "163" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "102.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "164" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "102.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "165" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "102.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "166" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "102.25",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "167" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "102.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "168" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "102.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "169" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "103.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "170" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "103.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "171" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "103.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "172" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "103.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "173" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "103.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "174" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "103.25",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "175" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "103.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "176" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "103.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "177" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "104.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "178" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "104.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "179" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "104.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "180" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "104.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "181" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "104.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "182" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "104.25",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "183" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "104.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "184" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "104.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "185" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "105.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "186" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "105.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "187" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "105.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "188" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "105.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "189" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "105.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "190" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "105.25",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "191" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "105.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "192" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "105.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "193" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "106.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "194" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "106.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "195" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "106.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "196" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "106.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "197" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "106.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "198" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "106.25",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "199" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "106.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "200" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "106.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "201" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "100.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "202" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "109.38",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "203" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "109.38",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "204" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "109.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "205" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "111.36",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "206" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "111.36",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "207" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "111.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "208" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "113.36",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "209" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "113.36",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "210" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "113.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "211" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "115.40",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "212" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "115.40",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "213" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "115.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "214" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "117.41",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "215" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "117.41",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "216" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "117.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "217" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "119.35",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "218" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "119.35",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "219" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "119.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "220" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "121.37",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "221" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "121.37",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "222" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "121.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "223" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "224" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "225" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "226" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "227" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "228" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "229" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "230" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "231" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "232" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "233" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "234" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "235" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "236" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "237" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "238" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "239" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "240" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "241" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "242" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "243" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "244" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "245" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "246" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "247" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "248" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "249" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "250" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "251" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "252" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "253" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "254" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "255" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "256" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "257" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "258" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "259" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "260" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "261" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "262" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "263" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "264" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "265" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "266" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "267" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "268" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "269" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "270" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "271" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "272" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "273" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "274" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "275" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "276" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "277" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "278" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "279" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "280" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "123.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "281" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "282" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "283" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "284" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "285" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "286" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "287" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "288" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "289" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "290" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "291" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "292" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "293" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "294" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "295" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "296" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "297" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "298" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "299" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "300" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "301" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "302" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "303" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "304" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "305" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "306" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "307" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "308" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "309" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "310" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "311" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "312" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "313" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "314" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "315" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "316" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "317" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "318" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "319" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "320" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "321" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "322" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "323" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "324" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "325" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "326" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "327" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "328" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "329" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "330" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "331" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "332" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "333" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "334" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "335" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "336" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "337" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "338" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "123.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "339" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "340" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "341" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "342" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "343" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "344" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "345" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "346" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "347" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "348" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "349" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "350" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "351" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "352" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "353" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "354" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "355" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "356" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "357" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "358" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "359" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "360" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "361" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "362" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "363" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "364" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "365" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "366" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "367" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "368" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "369" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "370" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "371" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "372" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "373" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "374" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "375" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "376" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "377" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "378" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "379" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "380" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "381" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "382" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "383" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "384" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "385" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "386" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "387" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "388" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "389" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "390" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "391" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "392" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "393" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "394" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "395" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "396" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "123.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "397" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "91.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "398" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "92.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "399" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "92.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "400" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "92.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "401" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "93.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "402" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "93.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "403" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "93.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "404" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "94.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "405" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "94.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "406" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "94.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "407" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "95.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "408" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "95.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "409" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "95.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "410" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "96.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "411" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "96.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "412" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "96.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "413" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "97.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "414" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "97.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "415" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "97.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "416" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "98.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "417" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "98.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "418" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "98.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "419" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "101.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "420" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "101.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "421" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "101.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "422" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "101.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "423" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "101.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "424" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "101.25",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "425" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "101.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "426" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "101.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "427" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "102.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "428" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "102.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "429" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "102.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "430" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "102.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "431" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "102.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "432" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "102.25",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "433" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "102.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "434" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "102.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "435" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "103.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "436" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "103.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "437" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "103.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "438" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "103.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "439" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "103.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "440" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "103.25",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "441" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "103.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "442" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "103.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "443" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "104.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "444" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "104.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "445" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "104.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "446" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "104.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "447" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "104.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "448" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "104.25",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "449" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "104.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "450" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "104.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "451" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "105.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "452" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "105.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "453" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "105.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "454" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "105.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "455" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "105.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "456" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "105.25",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "457" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "105.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "458" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "105.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "459" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "106.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "460" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "106.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "461" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "106.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "462" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "106.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "463" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "106.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "464" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "106.25",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "465" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "106.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "466" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "106.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "467" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "100.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "468" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "109.38",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "469" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "109.38",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "470" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "109.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "471" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "111.36",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "472" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "111.36",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "473" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "111.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "474" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "113.36",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "475" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "113.36",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "476" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "113.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "477" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "115.40",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "478" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "115.40",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "479" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "115.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "480" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "117.41",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "481" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "117.41",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "482" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "117.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "483" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "119.35",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "484" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "119.35",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "485" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "119.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "486" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "121.37",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "487" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "121.37",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "488" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "121.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "489" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "490" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "491" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "492" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "493" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "494" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "495" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "496" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "497" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "498" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "499" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "500" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "501" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "502" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "503" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "504" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "505" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "506" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "507" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "508" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "509" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "510" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "511" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "512" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "513" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "514" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "515" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "516" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "517" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "518" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "519" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "520" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "521" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "522" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "523" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "524" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "525" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "526" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "527" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "528" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "529" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "530" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "531" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "532" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "533" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "534" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "535" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "536" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "537" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "538" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "539" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "540" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "541" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "542" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "543" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "544" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "545" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "546" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "123.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "547" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "548" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "549" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "550" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "551" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "552" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "553" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "554" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "555" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "556" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "557" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "558" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "559" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "560" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "561" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "562" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "563" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "564" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "565" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "566" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "567" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "568" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "569" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "570" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "571" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "572" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "573" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "574" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "575" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "576" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "577" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "578" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "579" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "580" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "581" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "582" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "583" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "584" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "585" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "586" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "587" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "588" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "589" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "590" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "591" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "592" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "593" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "594" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "595" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "596" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "597" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "598" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "599" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "600" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "601" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "602" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "603" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "604" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "123.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "605" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "606" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "607" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "608" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "609" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "610" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "611" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "612" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "613" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "614" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "615" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "616" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "617" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "618" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "619" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "620" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "621" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "622" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "623" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "624" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "625" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "626" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "627" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "628" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "629" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "630" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "631" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "632" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "633" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "634" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "635" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "636" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "637" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "638" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "639" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "640" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "641" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "642" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "643" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "644" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "645" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "646" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "647" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "648" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "649" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "650" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "651" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "652" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "653" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "654" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "655" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "656" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "657" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "658" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "659" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "660" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "661" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "662" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "123.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "663" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "91.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "664" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "92.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "665" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "92.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "666" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "92.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "667" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "93.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "668" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "93.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "669" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "93.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "670" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "94.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "671" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "94.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "672" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "94.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "673" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "95.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "674" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "95.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "675" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "95.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "676" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "96.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "677" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "96.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "678" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "96.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "679" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "97.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "680" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "97.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "681" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "97.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "682" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "98.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "683" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "98.18",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "684" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "98.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "685" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "101.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "686" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "101.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "687" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "101.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "688" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "101.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "689" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "101.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "690" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "101.25",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "691" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "101.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "692" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "101.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "693" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "102.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "694" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "102.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "695" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "102.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "696" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "102.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "697" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "102.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "698" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "102.25",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "699" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "102.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "700" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "102.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "701" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "103.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "702" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "103.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "703" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "103.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "704" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "103.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "705" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "103.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "706" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "103.25",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "707" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "103.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "708" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "103.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "709" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "104.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "710" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "104.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "711" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "104.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "712" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "104.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "713" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "104.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "714" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "104.25",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "715" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "104.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "716" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "104.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "717" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "105.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "718" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "105.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "719" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "105.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "720" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "105.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "721" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "105.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "722" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "105.25",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "723" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "105.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "724" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "105.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "725" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "106.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "726" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "106.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "727" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "106.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "728" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "106.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "729" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "106.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "730" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "106.25",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "731" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "106.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "732" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "106.23",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "733" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "100.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "734" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "109.38",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "735" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "109.38",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "736" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "109.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "737" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "111.36",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "738" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "111.36",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "739" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "111.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "740" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "113.36",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "741" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "113.36",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "742" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "113.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "743" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "115.40",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "744" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "115.40",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "745" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "115.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "746" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "117.41",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "747" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "117.41",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "748" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "117.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "749" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "119.35",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "750" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "119.35",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "751" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "119.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "752" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "121.37",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "753" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "121.37",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "754" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "121.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "755" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "756" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "757" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "758" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "759" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "760" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "761" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "762" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "763" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "764" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "765" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "766" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "767" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "768" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "769" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "770" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "771" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "772" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "773" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "774" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "775" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "776" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "777" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "778" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "779" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "780" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "781" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "782" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "783" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "784" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "785" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "786" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "787" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "788" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "789" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "790" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "791" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "792" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "793" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "794" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "795" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "796" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "797" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "798" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "799" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "800" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "801" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "802" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "803" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "804" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "805" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "806" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "807" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "808" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "809" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "810" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "811" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "812" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "123.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "813" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "814" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "815" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "816" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "817" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "818" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "819" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "820" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "821" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "822" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "823" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "824" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "825" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "826" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "827" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "828" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "829" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "830" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "831" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "832" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "833" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "834" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "835" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "836" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "837" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "838" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "839" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "840" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "841" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "842" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "843" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "844" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "845" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "846" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "847" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "848" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "849" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "850" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "851" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "852" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "853" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "854" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "855" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "856" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "857" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "858" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "859" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "860" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "861" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "862" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "863" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "864" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "865" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "866" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "867" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "868" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "869" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "870" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "123.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "871" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "872" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "873" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "874" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "875" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "876" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "877" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "878" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "879" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "880" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "881" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "882" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "883" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "884" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "885" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "886" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "887" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "888" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "889" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "890" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "891" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "892" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "893" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "894" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "895" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "896" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "897" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "898" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "899" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "900" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "901" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "902" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.32",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "903" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "904" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "905" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "906" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "126.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "907" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "908" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "909" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "910" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "127.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "911" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "912" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.15",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "913" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "914" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "128.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "915" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "125.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "916" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "917" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "918" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "919" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "132.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "920" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "921" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "922" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "923" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "133.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "924" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "925" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "926" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "927" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "134.11",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "928" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "123.9",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "929" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "91.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "930" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
     "pos" : "72.1",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   }
 }

@@ -470,16 +470,13 @@ object Parser extends Parsers {
 
   def parseFile[T](
                     p: Parser[T]
-                  )(includingLoc: Option[LocationOrigin])(f: File): Result.Result[T] = {
+                  )(includingLoc: Option[Location])(f: File): Result.Result[T] = {
     ParserState.file = f
     ParserState.includingLoc = includingLoc
 
     for {
       // Read the file
-      file <- f.openRead(includingLoc match {
-        case Some(LocationIncluded(loc)) => Some(loc)
-        case _ => None
-      })
+      file <- f.openRead(includingLoc)
 
       ctx = Context()
 

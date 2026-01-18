@@ -2,44 +2,57 @@ package fpp.compiler.util
 
 import scala.util.parsing.input.Position
 
-sealed trait LocationOrigin
-final case class LocationIncluded(loc: Location) extends LocationOrigin
-final case class LocationExpanded(loc: Location) extends LocationOrigin
-
 /** A location used in compilation */
 final case class Location(
   file: File, /* The file */
   pos: Position, /* The position */
-  originLoc: Option[LocationOrigin] = None, /* Location where this location is included/expanded */
+  /* Location where this location is included */
+  includeLoc: Option[Location] = None,
+  /* Location where this location is included */
+  expandLoc: Option[Location] = None,
 ) {
 
   override def toString = {
-    def showIncludes(locOpt: Option[LocationOrigin], s: String): String = { 
-      locOpt match {
-        case None => s
-        case Some(LocationIncluded(loc)) => showIncludes(
-          loc.originLoc, 
-          s ++ s"\n  included at ${loc.file}:${loc.pos}"
-        )
-        case Some(LocationExpanded(loc)) => showIncludes(
-          loc.originLoc,
-          s ++ s"\n  template expanded at ${loc.file}:${loc.pos}"
-        )
-      }
+    def showIncludesExpands(
+        incLocOpt: Option[Location],
+        expandLocOpt: Option[Location],
+        s: String
+      ): String = {
+        val s1 = incLocOpt match {
+          case None => s
+          case Some(loc) =>
+            showIncludesExpands(
+              loc.includeLoc, loc.expandLoc,
+              s ++ s"\n  included at ${loc.file}:${loc.pos}"
+            )
+            
+        }
+
+        val s2 = expandLocOpt match {
+          case None => s1
+          case Some(loc) =>
+            showIncludesExpands(
+              loc.includeLoc, loc.expandLoc,
+              s1 ++ s"\n  expanded at ${loc.file}:${loc.pos}"
+            )
+            
+        }
+
+        s2
     }
     val s1 = pos match {
       case scala.util.parsing.input.NoPosition => s"${file}: end of input"
       case _ => s"${file}:${pos.toString}\n${pos.longString}"
     }
-    val s2 = showIncludes(originLoc, "")
+    val s2 = showIncludesExpands(includeLoc, expandLoc, "")
     s1 ++ s2
   }
 
   /** Get the location of the associated translation unit */
-  def tuLocation: Location = this.originLoc match {
-    case None => this
-    case Some(LocationIncluded(loc)) => loc.tuLocation
-    case Some(LocationExpanded(loc)) => loc.tuLocation
+  def tuLocation: Location = (includeLoc, expandLoc) match {
+    case (None, None) => this
+    case (Some(loc), _) => loc.tuLocation
+    case (_, Some(loc)) => loc.tuLocation
   }
 
   /** Get the path of a file that is a neighbor to this location */

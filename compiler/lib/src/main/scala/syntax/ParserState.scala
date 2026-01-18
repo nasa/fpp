@@ -9,6 +9,6 @@ object ParserState {
   var file: File = File.StdIn
 
   /** The including location */
-  var includingLoc: Option[LocationOrigin] = None
+  var includingLoc: Option[Location] = None
 
 }

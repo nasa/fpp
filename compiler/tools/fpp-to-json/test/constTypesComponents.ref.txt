@@ -327,212 +327,254 @@
   "0" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "10.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "1" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "10.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "2" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "11.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "3" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "11.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "4" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "9.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "5" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "19.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "6" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "22.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "7" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "25.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "8" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "9" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "10" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "11" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "12" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "13" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "14" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "15" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "16" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "32.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "17" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "18" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "19" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "20" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "21" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "22" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "23" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "24" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "25" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "32.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "26" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "27" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "28" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "29" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "30" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "31" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "32" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.13",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "33" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "34" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "32.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "35" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "2.1",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "36" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "39.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "37" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "40.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "38" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "41.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "39" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "41.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "40" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "41.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "41" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "38.1",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   }
 }
 {
@@ -987,10 +1029,22 @@
     }
   },
   "useDefMap" : {
+    "44" : {
+      "Module" : {
+        "nodeId" : 41,
+        "unqualifiedName" : "Fw"
+      }
+    },
     "5" : {
       "Port" : {
         "nodeId" : 37,
         "unqualifiedName" : "CmdReg"
+      }
+    },
+    "43" : {
+      "Module" : {
+        "nodeId" : 41,
+        "unqualifiedName" : "Fw"
       }
     },
     "32" : {
@@ -1009,6 +1063,12 @@
       "Enum" : {
         "nodeId" : 4,
         "unqualifiedName" : "State"
+      }
+    },
+    "42" : {
+      "Module" : {
+        "nodeId" : 41,
+        "unqualifiedName" : "Fw"
       }
     },
     "7" : {

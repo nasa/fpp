@@ -85,7 +85,7 @@
                                                     "name" : "Svc"
                                                   }
                                                 },
-                                                "id" : 3
+                                                "id" : 5
                                               }
                                             },
                                             "name" : {
@@ -96,7 +96,7 @@
                                             }
                                           }
                                         },
-                                        "id" : 5
+                                        "id" : 6
                                       }
                                     }
                                   },
@@ -104,7 +104,7 @@
                                   "queueFull" : "None"
                                 }
                               },
-                              "id" : 6
+                              "id" : 7
                             }
                           }
                         }
@@ -136,7 +136,7 @@
                                             "value" : "numPingPorts"
                                           }
                                         },
-                                        "id" : 7
+                                        "id" : 8
                                       }
                                     }
                                   },
@@ -152,18 +152,18 @@
                                                     "name" : "Svc"
                                                   }
                                                 },
-                                                "id" : 8
+                                                "id" : 11
                                               }
                                             },
                                             "name" : {
                                               "AstNode" : {
                                                 "data" : "Ping",
-                                                "id" : 9
+                                                "id" : 10
                                               }
                                             }
                                           }
                                         },
-                                        "id" : 10
+                                        "id" : 12
                                       }
                                     }
                                   },
@@ -171,7 +171,7 @@
                                   "queueFull" : "None"
                                 }
                               },
-                              "id" : 11
+                              "id" : 13
                             }
                           }
                         }
@@ -191,17 +191,17 @@
                                 "port1" : {
                                   "AstNode" : {
                                     "data" : "pingOut",
-                                    "id" : 18
+                                    "id" : 20
                                   }
                                 },
                                 "port2" : {
                                   "AstNode" : {
                                     "data" : "pingIn",
-                                    "id" : 19
+                                    "id" : 21
                                   }
                                 }
                               },
-                              "id" : 20
+                              "id" : 22
                             }
                           }
                         }
@@ -211,7 +211,7 @@
                     ]
                   ]
                 },
-                "id" : 21
+                "id" : 23
               }
             }
           }
@@ -242,7 +242,7 @@
                                 ],
                                 "returnType" : "None"
                               },
-                              "id" : 24
+                              "id" : 26
                             }
                           }
                         }
@@ -252,7 +252,7 @@
                     ]
                   ]
                 },
-                "id" : 25
+                "id" : 27
               }
             }
           }
@@ -267,132 +267,170 @@
   "0" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
     "pos" : "2.25",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "1" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
     "pos" : "2.1",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "2" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
     "pos" : "7.25",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "3" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
     "pos" : "7.39",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "4" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
     "pos" : "7.43",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "5" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
     "pos" : "7.39",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "6" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "7.3",
-    "includingLoc" : "None"
+    "pos" : "7.39",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "7" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "10.29",
-    "includingLoc" : "None"
+    "pos" : "7.3",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "8" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "10.43",
-    "includingLoc" : "None"
+    "pos" : "10.29",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "9" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "10.47",
-    "includingLoc" : "None"
+    "pos" : "10.43",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "10" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "10.43",
-    "includingLoc" : "None"
+    "pos" : "10.47",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "11" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "10.3",
-    "includingLoc" : "None"
+    "pos" : "10.43",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "12" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "13.9",
-    "includingLoc" : "None"
+    "pos" : "10.43",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "13" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "13.22",
-    "includingLoc" : "None"
+    "pos" : "10.3",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "14" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "13.3",
-    "includingLoc" : "None"
+    "pos" : "13.9",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "15" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "13.9",
-    "includingLoc" : "None"
+    "pos" : "13.22",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "16" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "13.22",
-    "includingLoc" : "None"
+    "pos" : "13.3",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "17" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "13.3",
-    "includingLoc" : "None"
+    "pos" : "13.9",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "18" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "13.9",
-    "includingLoc" : "None"
+    "pos" : "13.22",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "19" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "13.22",
-    "includingLoc" : "None"
+    "pos" : "13.3",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "20" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "13.3",
-    "includingLoc" : "None"
+    "pos" : "13.9",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "21" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "4.1",
-    "includingLoc" : "None"
+    "pos" : "13.22",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "22" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "18.3",
-    "includingLoc" : "None"
+    "pos" : "13.3",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "23" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "18.3",
-    "includingLoc" : "None"
+    "pos" : "4.1",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "24" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
     "pos" : "18.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "25" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+    "pos" : "18.3",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
+  },
+  "26" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+    "pos" : "18.3",
+    "includeLoc" : "None",
+    "expandLoc" : "None"
+  },
+  "27" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
     "pos" : "17.1",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   }
 }
 {
@@ -400,16 +438,16 @@
     
   },
   "componentMap" : {
-    "21" : {
+    "23" : {
       "aNode" : {
-        "astNodeId" : 21
+        "astNodeId" : 23
       },
       "portInterface" : {
         "portMap" : {
           "pingOut" : {
             "General" : {
               "aNode" : {
-                "astNodeId" : 6
+                "astNodeId" : 7
               },
               "specifier" : {
                 "kind" : {
@@ -425,7 +463,7 @@
                 },
                 "port" : {
                   "Some" : {
-                    "astNodeId" : 5
+                    "astNodeId" : 6
                   }
                 },
                 "priority" : "None",
@@ -437,7 +475,7 @@
                 "DefPort" : {
                   "symbol" : {
                     "Port" : {
-                      "nodeId" : 24,
+                      "nodeId" : 26,
                       "unqualifiedName" : "Ping"
                     }
                   }
@@ -450,7 +488,7 @@
           "pingIn" : {
             "General" : {
               "aNode" : {
-                "astNodeId" : 11
+                "astNodeId" : 13
               },
               "specifier" : {
                 "kind" : {
@@ -461,12 +499,12 @@
                 "name" : "pingIn",
                 "size" : {
                   "Some" : {
-                    "astNodeId" : 7
+                    "astNodeId" : 8
                   }
                 },
                 "port" : {
                   "Some" : {
-                    "astNodeId" : 10
+                    "astNodeId" : 12
                   }
                 },
                 "priority" : "None",
@@ -478,7 +516,7 @@
                 "DefPort" : {
                   "symbol" : {
                     "Port" : {
-                      "nodeId" : 24,
+                      "nodeId" : 26,
                       "unqualifiedName" : "Ping"
                     }
                   }
@@ -513,7 +551,7 @@
       },
       "specPortMatchingList" : [
         {
-          "astNodeId" : 20
+          "astNodeId" : 22
         }
       ],
       "stateMachineInstanceMap" : {
@@ -522,11 +560,11 @@
       "portMatchingList" : [
         {
           "aNode" : {
-            "astNodeId" : 20
+            "astNodeId" : 22
           },
           "instance1" : {
             "aNode" : {
-              "astNodeId" : 6
+              "astNodeId" : 7
             },
             "specifier" : {
               "kind" : {
@@ -542,7 +580,7 @@
               },
               "port" : {
                 "Some" : {
-                  "astNodeId" : 5
+                  "astNodeId" : 6
                 }
               },
               "priority" : "None",
@@ -554,7 +592,7 @@
               "DefPort" : {
                 "symbol" : {
                   "Port" : {
-                    "nodeId" : 24,
+                    "nodeId" : 26,
                     "unqualifiedName" : "Ping"
                   }
                 }
@@ -565,7 +603,7 @@
           },
           "instance2" : {
             "aNode" : {
-              "astNodeId" : 11
+              "astNodeId" : 13
             },
             "specifier" : {
               "kind" : {
@@ -576,12 +614,12 @@
               "name" : "pingIn",
               "size" : {
                 "Some" : {
-                  "astNodeId" : 7
+                  "astNodeId" : 8
                 }
               },
               "port" : {
                 "Some" : {
-                  "astNodeId" : 10
+                  "astNodeId" : 12
                 }
               },
               "priority" : "None",
@@ -593,7 +631,7 @@
               "DefPort" : {
                 "symbol" : {
                   "Port" : {
-                    "nodeId" : 24,
+                    "nodeId" : 26,
                     "unqualifiedName" : "Ping"
                   }
                 }
@@ -623,26 +661,26 @@
   "locationSpecifierMap" : [
   ],
   "parentSymbolMap" : {
-    "24" : {
+    "26" : {
       "Module" : {
-        "nodeId" : 25,
+        "nodeId" : 27,
         "unqualifiedName" : "Svc"
       }
     }
   },
   "symbolScopeMap" : {
-    "21" : {
+    "23" : {
       "map" : {
         
       }
     },
-    "25" : {
+    "27" : {
       "map" : {
         "Port" : {
           "map" : {
             "Ping" : {
               "Port" : {
-                "nodeId" : 24,
+                "nodeId" : 26,
                 "unqualifiedName" : "Ping"
               }
             }
@@ -676,7 +714,7 @@
         }
       }
     },
-    "7" : {
+    "8" : {
       "Int" : {
         "Integer" : {
           
@@ -685,21 +723,33 @@
     }
   },
   "useDefMap" : {
+    "12" : {
+      "Port" : {
+        "nodeId" : 26,
+        "unqualifiedName" : "Ping"
+      }
+    },
     "8" : {
+      "Constant" : {
+        "nodeId" : 1,
+        "unqualifiedName" : "numPingPorts"
+      }
+    },
+    "11" : {
       "Module" : {
-        "nodeId" : 25,
+        "nodeId" : 27,
         "unqualifiedName" : "Svc"
       }
     },
     "5" : {
-      "Port" : {
-        "nodeId" : 24,
-        "unqualifiedName" : "Ping"
+      "Module" : {
+        "nodeId" : 27,
+        "unqualifiedName" : "Svc"
       }
     },
-    "10" : {
+    "6" : {
       "Port" : {
-        "nodeId" : 24,
+        "nodeId" : 26,
         "unqualifiedName" : "Ping"
       }
     },
@@ -707,18 +757,6 @@
       "Constant" : {
         "nodeId" : 1,
         "unqualifiedName" : "numPingPorts"
-      }
-    },
-    "7" : {
-      "Constant" : {
-        "nodeId" : 1,
-        "unqualifiedName" : "numPingPorts"
-      }
-    },
-    "3" : {
-      "Module" : {
-        "nodeId" : 25,
-        "unqualifiedName" : "Svc"
       }
     }
   },
@@ -738,7 +776,7 @@
         "value" : 10
       }
     },
-    "7" : {
+    "8" : {
       "Integer" : {
         "value" : 10
       }

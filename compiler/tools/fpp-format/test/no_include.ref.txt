@@ -187,8 +187,12 @@ module DefinitionsAndSpecifiers {
 
   } @< Module definition
 
-  @ Include specifier
-  include "constant.fppi" @< Include specifier
+  module Constants {
+
+    @ Include specifier
+    include "constant.fppi" @< Include specifier
+
+  }
 
   @ Port definition
   port P(
@@ -249,7 +253,7 @@ module DefinitionsAndSpecifiers {
   } @< Topology definition
 
   @ Topology definition with one implements
-  topology T implements \
+  topology T2 implements \
     I
   {
 
@@ -257,7 +261,7 @@ module DefinitionsAndSpecifiers {
   } @< Topology definition with one implements
 
   @ Topology definition with two implements
-  topology T implements \
+  topology T3 implements \
     I
     I
   {
@@ -332,7 +336,7 @@ module Expressions {
   constant arraySubExp2 = a.b.c[1] @< Array Subscript
 
   @ Array Subscript with member selection
-  constant arraySubExp2 = a.b.c[1][2].s[12] @< Array Subscript
+  constant arraySubExp3 = a.b.c[1][2].s[12] @< Array Subscript
 
   @ Boolean literal
   constant booleanLiteralExp = true @< Boolean literal

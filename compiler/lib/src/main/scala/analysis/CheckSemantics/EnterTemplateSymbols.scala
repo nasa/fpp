@@ -5,7 +5,10 @@ import scala.annotation.tailrec
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
-/** Enter symbols from new template expansions (as well as the template expansion itself) */
+/**
+ * Enter symbols from new template expansions
+ * (as well as the template expansion itself)
+ */
 object EnterTemplateSymbols
   extends Analyzer
   with ModuleAnalyzer
@@ -19,21 +22,59 @@ object EnterTemplateSymbols
     val oldScopeNameList = a.scopeNameList
     val newScopeNameList = name :: oldScopeNameList
     val parentSymbol = a.parentSymbol
-
-    val symbol = a.nestedScope.innerScope.get (NameGroup.Value) (name).get
-    val scope = a.symbolScopeMap(symbol)
-    val a1 = a.copy(
-      scopeNameList = newScopeNameList,
-      nestedScope = a.nestedScope.push(scope),
-      parentSymbol = Some(symbol)
-    )
-
-    for (a <- super.defModuleAnnotatedNode(a1, aNode))
-      yield a.copy(
+    val a1 = a.copy(scopeNameList = newScopeNameList)
+    for {
+      triple <- a1.nestedScope.innerScope.get (NameGroup.Value) (name) match {
+        case Some(symbol: Symbol.Module) =>
+          // We found a module symbol with the same name at the current level.
+          // Re-open the scope.
+          val scope = a1.symbolScopeMap(symbol)
+          Right((a1, symbol, scope))
+        case Some(symbol) =>
+          // We found a non-module symbol with the same name at the current level.
+          // This is an error.
+          val error = SemanticError.RedefinedSymbol(
+            name,
+            Locations.get(node.id),
+            symbol.getLoc
+          )
+          Left(error)
+        case None =>
+          // We did not find a symbol with the same name at the current level.
+          // Create a new module symbol now.
+          val symbol = Symbol.Module(aNode)
+          val scope = Scope.empty
+          for {
+            nestedScope <- Result.foldLeft (NameGroup.groups) (a1.nestedScope) (
+              (ns, ng) => ns.put (ng) (name, symbol)
+            )
+          }
+          yield {
+            val a = a1.copy(nestedScope = nestedScope)
+            (a, symbol, scope)
+          }
+      }
+      a <- {
+        val (a2, symbol, scope) = triple
+        val a3 = a2.copy(
+          nestedScope = a2.nestedScope.push(scope),
+          parentSymbol = Some(symbol)
+        )
+        visitList(a3, members, matchModuleMember)
+      }
+    }
+    yield {
+      val symbol = triple._2
+      val scope = a.nestedScope.innerScope
+      val newSymbolScopeMap = a.symbolScopeMap + (symbol -> scope)
+      val a1 = a.copy(
         scopeNameList = oldScopeNameList,
         nestedScope = a.nestedScope.pop,
         parentSymbol = parentSymbol,
+        symbolScopeMap = newSymbolScopeMap
       )
+      updateMap(a1, symbol)
+    }
   }
 
   override def specTemplateExpandAnnotatedNode(
@@ -152,5 +193,12 @@ object EnterTemplateSymbols
         } yield a
       }
     }
+  }
+
+  private def updateMap(a: Analysis, s: Symbol): Analysis = {
+    val parentSymbolMap = a.parentSymbol.fold (a.parentSymbolMap) (ps =>
+      a.parentSymbolMap + (s -> ps)
+    )
+    a.copy(parentSymbolMap = parentSymbolMap)
   }
 }

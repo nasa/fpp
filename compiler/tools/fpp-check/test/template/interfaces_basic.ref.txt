@@ -1,7 +1,0 @@
-topology P
-1
-entering expand
-[ local path prefix ]/compiler/tools/fpp-check/test/template/interfaces_basic.fpp:15.1
-expand T(interface c)
-^
-exiting expand

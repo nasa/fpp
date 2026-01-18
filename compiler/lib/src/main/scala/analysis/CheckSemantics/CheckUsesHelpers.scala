@@ -18,6 +18,7 @@ case class CheckUsesHelpers[A,NG,S <: SymbolInterface](
     (mapping: Name.Unqualified => Option[S])
     (id: AstNode.Id, name: Name.Unqualified): Result.Result[S] =
     mapping(name).map(Right(_)).getOrElse({
+      // Thread.dumpStack()
       val loc = Locations.get(id)
       Left(SemanticError.UndefinedSymbol(name, loc))
     })

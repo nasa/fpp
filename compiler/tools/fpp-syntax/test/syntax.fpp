@@ -153,9 +153,11 @@ module DefinitionsAndSpecifiers {
   }
   @< Module definition
 
-  @ Include specifier
-  include "constant.fppi"
-  @< Include specifier
+  module Constants {
+    @ Include specifier
+    include "constant.fppi"
+    @< Include specifier
+  }
 
   @ Port definition
   port P(a: U32, b: F32) -> U32
@@ -221,11 +223,11 @@ module DefinitionsAndSpecifiers {
   @< Topology definition
 
   @ Topology definition with one implements
-  topology T implements I {}
+  topology T2 implements I {}
   @< Topology definition with one implements
 
   @ Topology definition with two implements
-  topology T implements I, I {}
+  topology T3 implements I, I {}
   @< Topology definition with two implements
 
   @ Location specifier
@@ -286,7 +288,7 @@ module Expressions {
   @< Array Subscript
 
   @ Array Subscript with member selection
-  constant arraySubExp2 = a.b.c[1][2].s[12]
+  constant arraySubExp3 = a.b.c[1][2].s[12]
   @< Array Subscript 
 
   @ Boolean literal

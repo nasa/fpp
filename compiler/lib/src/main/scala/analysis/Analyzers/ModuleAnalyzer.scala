@@ -27,7 +27,7 @@ trait ModuleAnalyzer extends Analyzer {
       case Some(members) => {
         // Mark the analysis with the proper expansion
         val a1 = a.copy(templateExpansion = Some(a.templateExpansionMap(node.id)))
-        for { a2 <- visitList(a, members, matchModuleMember) }
+        for { a2 <- visitList(a1, members, matchModuleMember) }
         yield a2.copy(templateExpansion = a.templateExpansion)
       }
       case None => Right(a)

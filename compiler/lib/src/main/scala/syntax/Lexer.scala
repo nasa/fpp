@@ -1,6 +1,6 @@
 package fpp.compiler.syntax
 
-import fpp.compiler.util.{File, Location, LocationOrigin, Result, CharBuffer}
+import fpp.compiler.util.{File, Location, Result, CharBuffer}
 import fpp.compiler.util.Chars.*
 
 import scala.collection.mutable
@@ -183,7 +183,7 @@ object Lexer {
   class Scanner(
                  file: File,
                  content: Array[Char],
-                 includingLoc: Option[LocationOrigin] = None
+                 includingLoc: Option[Location] = None
                )(using ctx: Context)
     extends CharArrayReader
       with TokenData

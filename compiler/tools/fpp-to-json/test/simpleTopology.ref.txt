@@ -473,332 +473,398 @@
   "0" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "1.1",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "1" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "3.1",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "2" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "6.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "3" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "6.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "4" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "6.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "5" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "7.21",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "6" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "7.21",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "7" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "7.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "8" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "7.21",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "9" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "7.21",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "10" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "7.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "11" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "7.21",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "12" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "7.21",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "13" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "7.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "14" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "5.1",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "15" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "10.14",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "16" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "10.14",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "17" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "10.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "18" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "10.1",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "19" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "11.14",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "20" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "11.14",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "21" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "11.24",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "22" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "11.1",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "23" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "17.12",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "24" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "17.12",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "25" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "17.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "26" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "19.12",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "27" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "19.12",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "28" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "19.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "29" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "23.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "30" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "23.8",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "31" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "23.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "32" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "23.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "33" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "23.16",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "34" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "23.19",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "35" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "23.16",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "36" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "23.16",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "37" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "22.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "38" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "28.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "39" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "28.8",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "40" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "28.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "41" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "28.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "42" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "28.16",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "43" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "28.19",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "44" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "28.16",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "45" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "28.16",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "46" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "27.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "47" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "28.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "48" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "28.8",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "49" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "28.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "50" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "28.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "51" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "28.16",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "52" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "28.19",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "53" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "28.16",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "54" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "28.16",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "55" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "27.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "56" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "28.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "57" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "28.8",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "58" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "28.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "59" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "28.5",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "60" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "28.16",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "61" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "28.19",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "62" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "28.16",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "63" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "28.16",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "64" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "27.3",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   },
   "65" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
     "pos" : "14.1",
-    "includingLoc" : "None"
+    "includeLoc" : "None",
+    "expandLoc" : "None"
   }
 }
 {
@@ -1006,13 +1072,18 @@
         "18" : {
           "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
           "pos" : "17.3",
-          "includingLoc" : "None"
+          "includeLoc" : "None",
+          "expandLoc" : "None"
         },
         "22" : {
           "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
           "pos" : "19.3",
-          "includingLoc" : "None"
+          "includeLoc" : "None",
+          "expandLoc" : "None"
         }
+      },
+      "directTemplateParameters" : {
+        
       },
       "transitiveImportSet" : [
       ],
@@ -1031,7 +1102,8 @@
           {
             "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
             "pos" : "17.3",
-            "includingLoc" : "None"
+            "includeLoc" : "None",
+            "expandLoc" : "None"
           }
         ],
         [
@@ -1048,7 +1120,8 @@
           {
             "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
             "pos" : "19.3",
-            "includingLoc" : "None"
+            "includeLoc" : "None",
+            "expandLoc" : "None"
           }
         ]
       ],
@@ -1075,7 +1148,8 @@
               "loc" : {
                 "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "23.5",
-                "includingLoc" : "None"
+                "includeLoc" : "None",
+                "expandLoc" : "None"
               },
               "port" : {
                 "interfaceInstance" : {
@@ -1133,7 +1207,8 @@
               "loc" : {
                 "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "23.16",
-                "includingLoc" : "None"
+                "includeLoc" : "None",
+                "expandLoc" : "None"
               },
               "port" : {
                 "interfaceInstance" : {
@@ -1196,7 +1271,8 @@
               "loc" : {
                 "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "28.5",
-                "includingLoc" : "None"
+                "includeLoc" : "None",
+                "expandLoc" : "None"
               },
               "port" : {
                 "interfaceInstance" : {
@@ -1254,7 +1330,8 @@
               "loc" : {
                 "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "28.16",
-                "includingLoc" : "None"
+                "includeLoc" : "None",
+                "expandLoc" : "None"
               },
               "port" : {
                 "interfaceInstance" : {
@@ -1319,7 +1396,8 @@
               "loc" : {
                 "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "23.5",
-                "includingLoc" : "None"
+                "includeLoc" : "None",
+                "expandLoc" : "None"
               },
               "port" : {
                 "interfaceInstance" : {
@@ -1377,7 +1455,8 @@
               "loc" : {
                 "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "23.16",
-                "includingLoc" : "None"
+                "includeLoc" : "None",
+                "expandLoc" : "None"
               },
               "port" : {
                 "interfaceInstance" : {
@@ -1440,7 +1519,8 @@
               "loc" : {
                 "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "28.5",
-                "includingLoc" : "None"
+                "includeLoc" : "None",
+                "expandLoc" : "None"
               },
               "port" : {
                 "interfaceInstance" : {
@@ -1498,7 +1578,8 @@
               "loc" : {
                 "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "28.16",
-                "includingLoc" : "None"
+                "includeLoc" : "None",
+                "expandLoc" : "None"
               },
               "port" : {
                 "interfaceInstance" : {
@@ -1613,7 +1694,8 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                   "pos" : "23.5",
-                  "includingLoc" : "None"
+                  "includeLoc" : "None",
+                  "expandLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
@@ -1671,7 +1753,8 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                   "pos" : "23.16",
-                  "includingLoc" : "None"
+                  "includeLoc" : "None",
+                  "expandLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
@@ -1785,7 +1868,8 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                   "pos" : "28.5",
-                  "includingLoc" : "None"
+                  "includeLoc" : "None",
+                  "expandLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
@@ -1843,7 +1927,8 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                   "pos" : "28.16",
-                  "includingLoc" : "None"
+                  "includeLoc" : "None",
+                  "expandLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
@@ -1959,7 +2044,8 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                   "pos" : "23.5",
-                  "includingLoc" : "None"
+                  "includeLoc" : "None",
+                  "expandLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
@@ -2017,7 +2103,8 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                   "pos" : "23.16",
-                  "includingLoc" : "None"
+                  "includeLoc" : "None",
+                  "expandLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
@@ -2131,7 +2218,8 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                   "pos" : "28.5",
-                  "includingLoc" : "None"
+                  "includeLoc" : "None",
+                  "expandLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
@@ -2189,7 +2277,8 @@
                 "loc" : {
                   "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                   "pos" : "28.16",
-                  "includingLoc" : "None"
+                  "includeLoc" : "None",
+                  "expandLoc" : "None"
                 },
                 "port" : {
                   "interfaceInstance" : {
@@ -2255,7 +2344,8 @@
               "loc" : {
                 "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "23.5",
-                "includingLoc" : "None"
+                "includeLoc" : "None",
+                "expandLoc" : "None"
               },
               "port" : {
                 "interfaceInstance" : {
@@ -2313,7 +2403,8 @@
               "loc" : {
                 "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "23.16",
-                "includingLoc" : "None"
+                "includeLoc" : "None",
+                "expandLoc" : "None"
               },
               "port" : {
                 "interfaceInstance" : {
@@ -2377,7 +2468,8 @@
               "loc" : {
                 "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "28.5",
-                "includingLoc" : "None"
+                "includeLoc" : "None",
+                "expandLoc" : "None"
               },
               "port" : {
                 "interfaceInstance" : {
@@ -2435,7 +2527,8 @@
               "loc" : {
                 "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "28.16",
-                "includingLoc" : "None"
+                "includeLoc" : "None",
+                "expandLoc" : "None"
               },
               "port" : {
                 "interfaceInstance" : {
@@ -2501,7 +2594,8 @@
               "loc" : {
                 "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "28.5",
-                "includingLoc" : "None"
+                "includeLoc" : "None",
+                "expandLoc" : "None"
               },
               "port" : {
                 "interfaceInstance" : {
@@ -2559,7 +2653,8 @@
               "loc" : {
                 "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "28.16",
-                "includingLoc" : "None"
+                "includeLoc" : "None",
+                "expandLoc" : "None"
               },
               "port" : {
                 "interfaceInstance" : {
@@ -2623,7 +2718,8 @@
               "loc" : {
                 "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "23.5",
-                "includingLoc" : "None"
+                "includeLoc" : "None",
+                "expandLoc" : "None"
               },
               "port" : {
                 "interfaceInstance" : {
@@ -2681,7 +2777,8 @@
               "loc" : {
                 "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
                 "pos" : "23.16",
-                "includingLoc" : "None"
+                "includeLoc" : "None",
+                "expandLoc" : "None"
               },
               "port" : {
                 "interfaceInstance" : {

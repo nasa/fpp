@@ -298,11 +298,13 @@ def module
       ident x
       literal int 0
   @< Module definition
-  @ Included constant
-  def constant
-    ident x
-    literal int 0
-  @< Included constant
+  def module
+    ident Constants
+    @ Included constant
+    def constant
+      ident x
+      literal int 0
+    @< Included constant
   @ Port definition
   def port
     ident P
@@ -403,13 +405,13 @@ def module
   @< Topology definition
   @ Topology definition with one implements
   def topology
-    ident T
+    ident T2
     implements
       qual ident I
   @< Topology definition with one implements
   @ Topology definition with two implements
   def topology
-    ident T
+    ident T3
     implements
       qual ident I
       qual ident I
@@ -440,19 +442,11 @@ def module
       spec interface instance
         qual ident inst
   expand
-<<<<<<< HEAD
-    qual ident Tmpl
-    params
-      literal int 10
-      ident Type
-      ident instance1
-    members
-=======
   qual ident Tmpl
     constant literal int 10
     type type name qual ident Type
     interface qual ident instance1
->>>>>>> origin/template-syntax
+  unexpanded
 @< Definitions and specifiers
 @ Type names
 def module
@@ -535,7 +529,7 @@ def module
   @< Array Subscript
   @ Array Subscript with member selection
   def constant
-    ident arraySubExp2
+    ident arraySubExp3
     expr array subscript
       expr dot
         expr array subscript

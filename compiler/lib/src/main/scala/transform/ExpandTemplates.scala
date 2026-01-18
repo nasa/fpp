@@ -58,7 +58,8 @@ object ExpandTemplates extends AstTransformer
         Locations.put(out.id, Location(
           inLoc.file,
           inLoc.pos,
-          Some(LocationExpanded(Locations.get(expansionNode)))
+          inLoc.includeLoc,
+          Some(Locations.get(expansionNode))
         ))
         Right(false, out)
       }
@@ -95,14 +96,15 @@ object ExpandTemplates extends AstTransformer
     data: T
   ) =
     a.template match {
-      case None => node
+      case None => AstNode.create(data, node.id)
       case Some(expansionNode) => {
         val out = AstNode.create(data)
         val inLoc = Locations.get(node.id)
         Locations.put(out.id, Location(
           inLoc.file,
           inLoc.pos,
-          Some(LocationExpanded(Locations.get(expansionNode)))
+          inLoc.includeLoc,
+          Some(Locations.get(expansionNode))
         ))
         out
       }
@@ -112,20 +114,10 @@ object ExpandTemplates extends AstTransformer
     a: Analysis,
     aNode: Ast.Annotated[AstNode[T]],
     data: T
-  ) =
-    a.template match {
-      case None => aNode
-      case Some(expansionNode) => {
-        val out = AstNode.create(data)
-        val inLoc = Locations.get(aNode._2.id)
-        Locations.put(out.id, Location(
-          inLoc.file,
-          inLoc.pos,
-          Some(LocationExpanded(Locations.get(expansionNode)))
-        ))
-        (aNode._1, out, aNode._3)
-      }
-    }
+  ) = {
+    val (pre, node, post) = aNode
+    (pre, cloneNode(a, node, data), post)
+  }
 
   override def exprArrayNode(a: In, node: AstNode[Ast.Expr], e: Ast.ExprArray): ResultNode[Ast.Expr] =
     for { result <- transformList(a, e.elts, matchExprNode) }
@@ -1022,18 +1014,57 @@ object ExpandTemplates extends AstTransformer
       sym = sym._2,
     ))))
 
+  override def defModuleTemplateAnnotatedNode(
+    a: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefModuleTemplate]]
+  ): ResultAnnotatedNode[Ast.DefModuleTemplate] =
+    val (_, node, _) = aNode
+    val data = node.data
+
+    def templateParam(
+      a: In,
+      param: Ast.Annotated[AstNode[Ast.DefTemplateParam.Node]]
+    ): ResultAnnotatedNode[Ast.DefTemplateParam.Node] = {
+      val (_, node, _) = param
+      node.data match {
+        case data @ Ast.DefTemplateParam.Constant(_, tn) =>
+          for (tn <- matchTypeName(a, tn))
+            yield (false, cloneAnnotatedNode(a, param, data.copy(typeName = tn._2)))
+        case data @ Ast.DefTemplateParam.Type(_) =>
+          Right((false, cloneAnnotatedNode(a, param, data)))
+        case data @ Ast.DefTemplateParam.Interface(_, interface) =>
+          for (interface <- qualIdentNode(a, interface))
+            yield (false, cloneAnnotatedNode(a, param, data.copy(interface = interface._2)))
+      }
+    }
+
+    val oldTemplateDef = a.templateDefinition
+
+    for {
+      a <- Right(a.copy(templateDefinition = Some(node.id)))
+      params <- transformList(a, data.params, templateParam)
+      members <- transformList(a, data.members, matchModuleMember)
+      a <- Right(a.copy(templateDefinition = oldTemplateDef))
+    }
+    yield {
+      val (_, params1) = params
+      val (_, members1) = members
+      (false, cloneAnnotatedNode(a, aNode, data.copy(
+        params = params1,
+        members = members1
+      )))
+    }
+
   override def defModuleAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefModule]]
   ) = {
-    val (pre, node, post) = aNode
-    val Ast.DefModule(name, members) = node.data
-    for { result <- transformList(a, members, matchModuleMember) }
+    val (_, node, _) = aNode
+    val data = node.data
+    for { result <- transformList(a, data.members, matchModuleMember) }
     yield {
       val (a1, members1) = result
-      val defModule = Ast.DefModule(name, members1)
-      val node2 = AstNode.create(defModule, node.id)
-      (a1, (pre, node2, post))
+      (a1, cloneAnnotatedNode(a, aNode, data.copy(members = members1)))
     }
   }
 
@@ -1045,6 +1076,23 @@ object ExpandTemplates extends AstTransformer
     val (pre, node, post) = aNode
     val data = node.data
 
+    def templateParameter(
+      a: In,
+      param: AstNode[Ast.TemplateParameter],
+    ): ResultNode[Ast.TemplateParameter] = {
+      param.data match {
+        case Ast.TemplateConstantParameter(e) =>
+          for (result <- matchExprNode(a, e))
+          yield (result._1, cloneNode(a, param, Ast.TemplateConstantParameter(result._2)))
+        case Ast.TemplateTypeParameter(tn) =>
+          for (result <- matchTypeName(a, tn))
+          yield (result._1, cloneNode(a, param, Ast.TemplateTypeParameter(result._2)))
+        case Ast.TemplateInterfaceParameter(iface) =>
+          for (result <- qualIdentNode(a, iface))
+          yield (result._1, cloneNode(a, param, Ast.TemplateInterfaceParameter(result._2)))
+      }
+    }
+
     // We are not quite ready to expand the template yet
     // We may _already_ be in the middle of a template expansion in which
     // case we should not be looking in the analysis for symbols since it's probably
@@ -1053,9 +1101,12 @@ object ExpandTemplates extends AstTransformer
     // the child nodes to make sure what we expanded last time is fully expanded now.
 
     // Check if we are currently expanding a template
-    a.template match {
-      case None => {
-        // Not currently inside a template expansion, we can expand
+    // ... and if we already expanded the this template
+    (a.template, a.templateDefinition) match {
+      case (None, None) => {
+        // Not currently inside a template expansion
+        // This template has not been expanded yet
+        // We can expand
         for {
           // Look up the template def
           tmpl <- a.getTemplateSymbol(data.template.id)
@@ -1076,19 +1127,23 @@ object ExpandTemplates extends AstTransformer
             data.members match {
               // This template expansion has already been expanded
               // We should pass over the inner nodes to make sure those are recursively expanded
-              case Some(members) => transformList(
-                a.copy(templateStack=tmpl :: a.templateStack),
-                members,
-                matchModuleMember
-              )
-              case None => transformList(
-                a.copy(
-                  template=Some(node.id),
-                  templateStack=tmpl :: a.templateStack
-                ),
-                tmpl.node._2.data.members,
-                matchModuleMember
-              )
+              case Some(members) => {
+                transformList(
+                  a.copy(templateStack=tmpl :: a.templateStack),
+                  members,
+                  matchModuleMember
+                )
+              }
+              case None => {
+                transformList(
+                  a.copy(
+                    template=Some(node.id),
+                    templateStack=tmpl :: a.templateStack
+                  ),
+                  tmpl.node._2.data.members,
+                  matchModuleMember
+                )
+              }
             }
           }
         } yield {
@@ -1096,10 +1151,32 @@ object ExpandTemplates extends AstTransformer
           (members._1, (pre, AstNode.create(data.copy(members=Some(members._2)), node.id), post))
         }
       }
-      case Some(value) => {
+      case (templateExpanding, templateDef) => {
         // We are currently expanding a parent template
-        // Tell the compiler to re-run this pass once it's done with this run
-        Right((true, aNode))
+        for {
+          template <- qualIdentNode(a, data.template)
+          params <- transformList(a, data.params, templateParameter)
+          members <- {
+            data.members match {
+              // Template is yet to be expanded, tell the compiler
+              // To re-run this pass
+              case None => Right((true, None))
+              case Some(members) => {
+                for (result <- transformList(a, members, matchModuleMember))
+                  yield (result._1, Some(result._2))
+              }
+            }
+          }
+        } yield {
+          // Tell the compiler to re-run this pass once it's done with this run
+          ((templateExpanding.isDefined || members._1) && templateDef.isEmpty,
+            cloneAnnotatedNode(a, aNode, data.copy(
+              template = template._2,
+              params = params._2,
+              members = members._2,
+            ))
+          )
+        }
       }
     }
   }
