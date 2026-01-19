@@ -15,25 +15,25 @@ import org.scalatest.wordspec.AnyWordSpec
 
 class TemplatesSpec extends AnyWordSpec {
 
-    // "simple" should {
-    //     expandUniqueString("""
-    //     template T(constant c: string) {
-    //         constant f = c
-    //     }
+    "simple" should {
+        expandUniqueString("""
+        template T(constant c: string) {
+            constant f = c
+        }
 
-    //     module M1 {
-    //         expand T(constant "a")
-    //     }
+        module M1 {
+            expand T(constant "a")
+        }
 
-    //     module M2 {
-    //         expand T(constant "b")
-    //     }
+        module M2 {
+            expand T(constant "b")
+        }
 
-    //     module M3 {
-    //         expand T(constant "c")
-    //     }
-    //     """)
-    // }
+        module M3 {
+            expand T(constant "c")
+        }
+        """)
+    }
 
     "OK" should {
         def ok(file: File): Unit = {
@@ -86,13 +86,6 @@ class TemplatesSpec extends AnyWordSpec {
             a_tul <- ResolveSpecInclude.transformList(a, List(tul), ResolveSpecInclude.transUnit)
             a <- Right(a_tul._1)
             tul <- Right(a_tul._2)
-
-            _ <- {
-                val j = AstJsonEncoder.astToJson(tul)
-                j.findAllByKey("AstNode").foldRight(Set())(checkNodeIsUnique)
-                // println()
-                Right(())
-            }
 
             a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
             a_tul <- ResolveTemplates.transUnit(a, tul)
