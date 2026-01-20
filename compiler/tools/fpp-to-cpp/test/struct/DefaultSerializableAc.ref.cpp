@@ -16,7 +16,7 @@ Default ::
     Serializable(),
     m_mU32(54),
     m_mS1(m___fprime_ac_mS1_buffer, sizeof m___fprime_ac_mS1_buffer, Fw::String("hello")),
-    m_mF64(0.0)
+    m_mF64()
 {
 
 }
@@ -93,19 +93,22 @@ std::ostream& operator<<(std::ostream& os, const Default& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus Default ::
-  serializeTo(Fw::SerializeBufferBase& buffer) const
+  serializeTo(
+      Fw::SerialBufferBase& buffer,
+      Fw::Endianness mode
+  ) const
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serializeFrom(this->m_mU32);
+  status = buffer.serializeFrom(this->m_mU32, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serializeFrom(this->m_mS1);
+  status = buffer.serializeFrom(this->m_mS1, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serializeFrom(this->m_mF64);
+  status = buffer.serializeFrom(this->m_mF64, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -114,19 +117,22 @@ Fw::SerializeStatus Default ::
 }
 
 Fw::SerializeStatus Default ::
-  deserializeFrom(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(
+      Fw::SerialBufferBase& buffer,
+      Fw::Endianness mode
+  )
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserializeTo(this->m_mU32);
+  status = buffer.deserializeTo(this->m_mU32, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserializeTo(this->m_mS1);
+  status = buffer.deserializeTo(this->m_mS1, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserializeTo(this->m_mF64);
+  status = buffer.deserializeTo(this->m_mF64, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }

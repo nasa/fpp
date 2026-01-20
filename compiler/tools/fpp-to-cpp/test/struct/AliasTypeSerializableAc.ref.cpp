@@ -14,7 +14,7 @@
 AliasType ::
   AliasType() :
     Serializable(),
-    m_x(0),
+    m_x(),
     m_y()
 {
   for (FwSizeType i = 0; i < 10; i++) {
@@ -135,20 +135,23 @@ std::ostream& operator<<(std::ostream& os, const AliasType& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus AliasType ::
-  serializeTo(Fw::SerializeBufferBase& buffer) const
+  serializeTo(
+      Fw::SerialBufferBase& buffer,
+      Fw::Endianness mode
+  ) const
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serializeFrom(this->m_x);
+  status = buffer.serializeFrom(this->m_x, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serializeFrom(this->m_y);
+  status = buffer.serializeFrom(this->m_y, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
   for (FwSizeType i = 0; i < 10; i++) {
-    status = buffer.serializeFrom(this->m_z[i]);
+    status = buffer.serializeFrom(this->m_z[i], mode);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -158,20 +161,23 @@ Fw::SerializeStatus AliasType ::
 }
 
 Fw::SerializeStatus AliasType ::
-  deserializeFrom(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(
+      Fw::SerialBufferBase& buffer,
+      Fw::Endianness mode
+  )
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserializeTo(this->m_x);
+  status = buffer.deserializeTo(this->m_x, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserializeTo(this->m_y);
+  status = buffer.deserializeTo(this->m_y, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
   for (FwSizeType i = 0; i < 10; i++) {
-    status = buffer.deserializeTo(this->m_z[i]);
+    status = buffer.deserializeTo(this->m_z[i], mode);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }

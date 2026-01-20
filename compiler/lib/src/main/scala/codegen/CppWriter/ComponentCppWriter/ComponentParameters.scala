@@ -169,7 +169,7 @@ case class ComponentParameters (
                           s"""|// Pass the local ID to the delegate
                               |_id = ${paramIdConstantName(param.getName)};
                               |
-                              |FW_ASSERT(this->paramDelegatePtr != NULL);
+                              |FW_ASSERT(this->paramDelegatePtr != nullptr);
                               |// Call the delegate deserialize function for ${paramVariableName(param.getName)}
                               |_stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
                               |"""
@@ -321,7 +321,7 @@ case class ComponentParameters (
                   |// Get the local ID to pass to the delegate
                   |const FwPrmIdType _localId = ${paramIdConstantName(param.getName)};
                   |
-                  |FW_ASSERT(this->paramDelegatePtr != NULL);
+                  |FW_ASSERT(this->paramDelegatePtr != nullptr);
                   |// Get the external parameter from the delegate
                   |Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
                   |if(_stat == Fw::FW_SERIALIZE_OK) {
@@ -367,7 +367,7 @@ case class ComponentParameters (
           paramHandlerName(param.getName, Command.Param.Set),
           List(
             CppDoc.Function.Param(
-              CppDoc.Type("Fw::SerializeBufferBase&"),
+              CppDoc.Type("Fw::SerialBufferBase&"),
               "val",
               Some("The serialization buffer")
             ),
@@ -378,7 +378,7 @@ case class ComponentParameters (
               s"""|const FwPrmIdType _localId = ${paramIdConstantName(param.getName)};
                   |const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
                   |
-                  |FW_ASSERT(this->paramDelegatePtr != NULL);
+                  |FW_ASSERT(this->paramDelegatePtr != nullptr);
                   |// Call the delegate serialize function for ${paramVariableName(param.getName)}
                   |const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
                   |  _baseId,
@@ -452,7 +452,7 @@ case class ComponentParameters (
                         |_id = ${paramIdConstantName(param.getName)};
                         |const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
                         |
-                        |FW_ASSERT(this->paramDelegatePtr != NULL);
+                        |FW_ASSERT(this->paramDelegatePtr != nullptr);
                         |_stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
                         |"""
                   )
@@ -508,7 +508,7 @@ case class ComponentParameters (
             ),
             CppDoc.Type("void"),
             lines(
-              """|FW_ASSERT(paramExternalDelegatePtr != NULL);
+              """|FW_ASSERT(paramExternalDelegatePtr != nullptr);
                  |this->paramDelegatePtr = paramExternalDelegatePtr;
                  |"""
             )

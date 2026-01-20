@@ -3,12 +3,15 @@
 # ----------------------------------------------------------------------
 # FPP installer
 # ----------------------------------------------------------------------
+# To select a version of java other than the system default,
+# set the environment variable
+# FPP_JAVA_HOME
+#
 # To pass flags to sbt, set the environment variable
 # FPP_SBT_FLAGS
 #
-# To override the java command and/or set java flags, set the
-# environment variable
-# FPP_INSTALL_JAVA
+# To pass flags to java, set the environment variable
+# FPP_JAVA_FLAGS
 # ----------------------------------------------------------------------
 
 # Check arguments
@@ -38,12 +41,15 @@ cd $wd
 
 scala_version="3.1.2"
 
-if test -n "$FPP_INSTALL_JAVA"
+if test -n "$FPP_JAVA_HOME"
 then
-  java=$FPP_INSTALL_JAVA
+  sbt="sbt --java-home $FPP_JAVA_HOME $FPP_SBT_FLAGS"
+  java="$FPP_JAVA_HOME/bin/java $FPP_JAVA_FLAGS"
 else
-  java=java
+  sbt="sbt $FPP_SBT_FLAGS"
+  java=java $FPP_JAVA_FLAGS
 fi
+echo "sbt command: $sbt"
 echo "java command: $java"
 
 dir=`dirname $dest`
@@ -51,21 +57,7 @@ dir=`cd $dir; pwd`
 base=`basename $dest`
 dest=$dir/$base
 
-tools="
-fpp-check
-fpp-depend
-fpp-filenames
-fpp-format
-fpp-from-xml
-fpp-locate-defs
-fpp-locate-uses
-fpp-syntax
-fpp-to-cpp
-fpp-to-json
-fpp-to-xml
-fpp-to-dict
-fpp-to-layout
-"
+tools=`cat ./tools.txt`
 
 if git describe --tags --always > /dev/null 2>&1
 then
@@ -81,7 +73,7 @@ sed -i.update.bak -e "s/val v = .*/val v = \"$version\"/" \
   $util/Version.scala
 
 echo "Building jar files"
-cmd="sbt $FPP_SBT_FLAGS assembly"
+cmd="$sbt assembly"
 echo $cmd
 $cmd
 
@@ -91,13 +83,18 @@ sed -i.restore.bak -e "s/val v = .*/val v = \"[unknown version]\"/" \
 
 mkdir -p $dest
 
+echo "Installing fpp at $dest"
+jar=`find tools/fpp -name "*$name*assembly*.jar" | grep "target/scala-$scala_version"`
+echo "  $jar"
+cp $jar $dest/fpp.jar
+echo '#!/bin/sh
+'$java' -jar "`dirname $0`/'fpp'.jar" "$@"' > $dest/fpp
+chmod +x $dest/fpp
+
 echo "Installing tools at $dest"
 for tool in $tools
 do
-  jar=`find tools/$tool -name "*$name*assembly*.jar" | grep "target/scala-$scala_version"`
-  echo "  $jar"
-  cp $jar $dest/$tool.jar
   echo '#!/bin/sh
-  '$java' -jar "`dirname $0`/'$tool'.jar" "$@"' > $dest/$tool
-  chmod +x $dest/$tool
+  '$java' -jar "`dirname $0`/'fpp'.jar" '$tool' "$@"' > $dest/fpp-$tool
+  chmod +x $dest/fpp-$tool
 done

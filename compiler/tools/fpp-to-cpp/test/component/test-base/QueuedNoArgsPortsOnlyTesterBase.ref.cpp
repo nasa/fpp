@@ -346,46 +346,6 @@ U32 QueuedNoArgsPortsOnlyTesterBase ::
 }
 
 // ----------------------------------------------------------------------
-// Getters for port counts
-// ----------------------------------------------------------------------
-
-FwIndexType QueuedNoArgsPortsOnlyTesterBase ::
-  getNum_to_noArgsAsync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsAsync));
-}
-
-FwIndexType QueuedNoArgsPortsOnlyTesterBase ::
-  getNum_to_noArgsGuarded() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
-}
-
-FwIndexType QueuedNoArgsPortsOnlyTesterBase ::
-  getNum_to_noArgsReturnGuarded() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnGuarded));
-}
-
-FwIndexType QueuedNoArgsPortsOnlyTesterBase ::
-  getNum_to_noArgsReturnSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnSync));
-}
-
-FwIndexType QueuedNoArgsPortsOnlyTesterBase ::
-  getNum_from_noArgsOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsOut));
-}
-
-FwIndexType QueuedNoArgsPortsOnlyTesterBase ::
-  getNum_from_noArgsReturnOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsReturnOut));
-}
-
-// ----------------------------------------------------------------------
 // Connection status queries for to ports
 // ----------------------------------------------------------------------
 

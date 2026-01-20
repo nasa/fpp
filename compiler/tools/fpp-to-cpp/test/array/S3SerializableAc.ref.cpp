@@ -16,11 +16,10 @@ namespace S {
   S3 ::
     S3() :
       Serializable(),
-      m_mF64(0.0)
+      m_mU32Array(),
+      m_mF64()
   {
-    for (FwSizeType i = 0; i < 3; i++) {
-      this->m_mU32Array[i] = 0;
-    }
+
   }
 
   S3 ::
@@ -116,17 +115,20 @@ namespace S {
   // ----------------------------------------------------------------------
 
   Fw::SerializeStatus S3 ::
-    serializeTo(Fw::SerializeBufferBase& buffer) const
+    serializeTo(
+        Fw::SerialBufferBase& buffer,
+        Fw::Endianness mode
+    ) const
   {
     Fw::SerializeStatus status;
 
     for (FwSizeType i = 0; i < 3; i++) {
-      status = buffer.serializeFrom(this->m_mU32Array[i]);
+      status = buffer.serializeFrom(this->m_mU32Array[i], mode);
       if (status != Fw::FW_SERIALIZE_OK) {
         return status;
       }
     }
-    status = buffer.serializeFrom(this->m_mF64);
+    status = buffer.serializeFrom(this->m_mF64, mode);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -135,17 +137,20 @@ namespace S {
   }
 
   Fw::SerializeStatus S3 ::
-    deserializeFrom(Fw::SerializeBufferBase& buffer)
+    deserializeFrom(
+        Fw::SerialBufferBase& buffer,
+        Fw::Endianness mode
+    )
   {
     Fw::SerializeStatus status;
 
     for (FwSizeType i = 0; i < 3; i++) {
-      status = buffer.deserializeTo(this->m_mU32Array[i]);
+      status = buffer.deserializeTo(this->m_mU32Array[i], mode);
       if (status != Fw::FW_SERIALIZE_OK) {
         return status;
       }
     }
-    status = buffer.deserializeTo(this->m_mF64);
+    status = buffer.deserializeTo(this->m_mF64, mode);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }

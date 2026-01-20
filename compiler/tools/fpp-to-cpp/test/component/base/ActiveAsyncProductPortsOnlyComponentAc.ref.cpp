@@ -26,7 +26,7 @@ namespace {
   // Define a message buffer class large enough to handle all the
   // asynchronous inputs to the component
   class ComponentIpcSerializableBuffer :
-    public Fw::SerializeBufferBase
+    public Fw::LinearBufferBase
   {
 
     public:
@@ -40,7 +40,7 @@ namespace {
         SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
       };
 
-      Fw::Serializable::SizeType getBuffCapacity() const {
+      Fw::Serializable::SizeType getCapacity() const {
         return sizeof(m_buff);
       }
 
@@ -243,32 +243,6 @@ ActiveAsyncProductPortsOnlyComponentBase ::
   ~ActiveAsyncProductPortsOnlyComponentBase()
 {
 
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of special input ports
-// ----------------------------------------------------------------------
-
-FwIndexType ActiveAsyncProductPortsOnlyComponentBase ::
-  getNum_productRecvIn_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productRecvIn_InputPort));
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of special output ports
-// ----------------------------------------------------------------------
-
-FwIndexType ActiveAsyncProductPortsOnlyComponentBase ::
-  getNum_productRequestOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productRequestOut_OutputPort));
-}
-
-FwIndexType ActiveAsyncProductPortsOnlyComponentBase ::
-  getNum_productSendOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productSendOut_OutputPort));
 }
 
 // ----------------------------------------------------------------------

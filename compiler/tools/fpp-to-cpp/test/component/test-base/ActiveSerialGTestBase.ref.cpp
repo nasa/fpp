@@ -514,6 +514,21 @@ void ActiveSerialGTestBase ::
     << "  Actual:   " << this->eventsSize_EventWarningLowThrottled << "\n";
 }
 
+void ActiveSerialGTestBase ::
+  assertEvents_EventWarningLowThrottledInterval_size(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 size
+  ) const
+{
+  ASSERT_EQ(size, this->eventsSize_EventWarningLowThrottledInterval)
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Size of history for event EventWarningLowThrottledInterval\n"
+    << "  Expected: " << size << "\n"
+    << "  Actual:   " << this->eventsSize_EventWarningLowThrottledInterval << "\n";
+}
+
 // ----------------------------------------------------------------------
 // Telemetry
 // ----------------------------------------------------------------------
@@ -991,6 +1006,48 @@ void ActiveSerialGTestBase ::
     << "  Value:    Value at index "
     << __index
     << " on telemetry channel ChannelEnumOnChange\n"
+    << "  Expected: " << val << "\n"
+    << "  Actual:   " << _e.arg << "\n";
+}
+
+void ActiveSerialGTestBase ::
+  assertTlm_ChannelBoolOnChange_size(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 size
+  ) const
+{
+  ASSERT_EQ(this->tlmHistory_ChannelBoolOnChange->size(), size)
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Size of history for telemetry channel ChannelBoolOnChange\n"
+    << "  Expected: " << size << "\n"
+    << "  Actual:   " << this->tlmHistory_ChannelBoolOnChange->size() << "\n";
+}
+
+void ActiveSerialGTestBase ::
+  assertTlm_ChannelBoolOnChange(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 __index,
+      const bool val
+  ) const
+{
+  ASSERT_LT(__index, this->tlmHistory_ChannelBoolOnChange->size())
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Index into history of telemetry channel ChannelBoolOnChange\n"
+    << "  Expected: Less than size of history ("
+    << this->tlmHistory_ChannelBoolOnChange->size() << ")\n"
+    << "  Actual:   " << __index << "\n";
+  const TlmEntry_ChannelBoolOnChange& _e =
+    this->tlmHistory_ChannelBoolOnChange->at(__index);
+  ASSERT_EQ(val, _e.arg)
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Value at index "
+    << __index
+    << " on telemetry channel ChannelBoolOnChange\n"
     << "  Expected: " << val << "\n"
     << "  Actual:   " << _e.arg << "\n";
 }

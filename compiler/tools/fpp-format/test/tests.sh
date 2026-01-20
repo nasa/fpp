@@ -1,9 +1,11 @@
 tests="
 component
 escaped_strings
+expressions
 include
 interface
 kwd_names
 no_include
 state_machine
+dictionary_specifier
 "

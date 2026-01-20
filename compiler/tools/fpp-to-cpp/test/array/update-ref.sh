@@ -74,8 +74,11 @@ struct()
   move_cpp Struct1Array
   move_cpp Struct2Array
   move_cpp Struct3Array
+  move_cpp Struct4Array
   move_cpp S1Serializable
   move_cpp S2Serializable
   move_cpp S3Serializable
+  move_cpp SWrapperSerializable
+  move_cpp SDefaultSerializable
 }
 

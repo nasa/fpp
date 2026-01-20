@@ -30,6 +30,7 @@ object Token {
   final case class CPU() extends Token
   final case class DEFAULT() extends Token
   final case class DIAGNOSTIC() extends Token
+  final case class DICTIONARY() extends Token
   final case class DO() extends Token
   final case class DOT() extends Token
   final case class DROP() extends Token
@@ -40,6 +41,7 @@ object Token {
   final case class EOL() extends Token
   final case class EQUALS() extends Token
   final case class EVENT() extends Token
+  final case class EVERY() extends Token
   final case class EXIT() extends Token
   final case class EXTERNAL() extends Token
   final case class F32() extends Token
@@ -179,6 +181,7 @@ enum TokenId {
   case CPU
   case DEFAULT
   case DIAGNOSTIC
+  case DICTIONARY
   case DO
   case DROP
   case ELSE
@@ -186,6 +189,7 @@ enum TokenId {
   case ENTRY
   case ENUM
   case EVENT
+  case EVERY
   case EXIT
   case EXTERNAL
   case F32

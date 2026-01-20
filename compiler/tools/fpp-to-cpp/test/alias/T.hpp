@@ -10,7 +10,8 @@ struct T : public Fw::Serializable { // Extend Fw::Serializable
 
   // Define some shorthand for F Prime types
   typedef Fw::SerializeStatus SS;
-  typedef Fw::SerializeBufferBase B;
+  typedef Fw::SerialBufferBase B;
+  typedef Fw::Endianness E;
 
   // Define the constant SERIALIZED_SIZE
   enum Constants { SERIALIZED_SIZE = sizeof(U32) };
@@ -22,10 +23,10 @@ struct T : public Fw::Serializable { // Extend Fw::Serializable
   bool operator==(const T& that) const { return this->x == that.x; }
 
   // Define the virtual serializeTo method
-  SS serializeTo(B& b) const { return b.serializeFrom(x); }
+  SS serializeTo(B& b, E e) const { return b.serializeFrom(x, e); }
 
   // Define the virtual deserializeFrom method
-  SS deserializeFrom(B& b) { return b.deserializeTo(x); }
+  SS deserializeFrom(B& b, E e) { return b.deserializeTo(x, e); }
 
   // Provide some data
   U32 x;

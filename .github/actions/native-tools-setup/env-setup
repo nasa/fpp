@@ -1,0 +1,46 @@
+#!/bin/bash
+
+# Resolve architecture. Note: this is dependent on the graal version
+graal_arch="$(uname -m)"
+
+# Override graal_arch when on amd64
+if [[ "$graal_arch" == "x86_64" ]] || [[ "$graal_arch" == "x64" ]]
+then
+  graal_arch="amd64"
+elif [[ "$graal_arch" == "arm64" ]] || [[ "$graal_arch" == "aarch64" ]]
+then
+  graal_arch="aarch64"
+fi
+
+graal_ver="22.3.0"
+graal_os="$( uname -s | tr "[:upper:]" "[:lower:]")"
+graal_ar="graalvm-ce-java11-${graal_os}-${graal_arch}-${graal_ver}.tar.gz"
+graal_dir="$(pwd)/graalvm-ce-java11-${graal_ver}"
+graal_url="https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-${graal_ver}/${graal_ar}"
+
+# Start fresh
+if [ -d "${graal_dir}" ]
+then
+   rm -r "${graal_dir}"
+fi
+
+
+# Download Graal
+echo "Downloading GraalVM from: ${graal_url}"
+curl -L "${graal_url}" > "${graal_ar}"
+tar -xzf "${graal_ar}"
+graal_bin="${graal_dir}/bin"
+if [ ! -d "${graal_bin}" ]
+then
+    graal_bin="${graal_dir}/Contents/Home/bin"
+fi
+export PATH="${graal_bin}:${PATH}"
+export FPP_GRAALVM_JAVA_HOME="$(dirname ${graal_bin})"
+# Install native image
+${graal_bin}/gu install native-image
+
+if [ -n "$GITHUB_ENV" ]
+then
+    echo PATH="${PATH}" >> $GITHUB_ENV
+    echo FPP_GRAALVM_JAVA_HOME="${FPP_GRAALVM_JAVA_HOME}" >> $GITHUB_ENV
+fi

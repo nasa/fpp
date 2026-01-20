@@ -1,11 +1,15 @@
 === Dot Expressions
 
-A *dot expression* is a
-<<Definitions-and-Uses_Uses,use>>
-that refers to a
+A *dot expression* is one of the following:
+
+. A <<Definitions-and-Uses_Uses,use>> that refers to a
 <<Definitions_Constant-Definitions,constant definition>>
 or
 <<Definitions_Enumerated-Constant-Definitions,enumerated constant definition>>.
+
+. An expression that selects a
+member of a <<Values_Struct-Values,struct value>> or
+<<Values_Anonymous-Struct-Values,anonymous struct value>>.
 
 ==== Syntax
 
@@ -17,13 +21,28 @@ or
 
 The following rules give the meaning of a dot expression stem:[e]`.x`:
 
-.  If stem:[e]`.x` is a
+. If stem:[e]`.x` is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified
-identifier>> that represents one of the uses listed above according to
-the
+identifier>> that refers to a constant definition or an enumerated
+constant definition according to the
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules
 for resolving qualified identifiers>>, then it evaluates to the value
-stored in the corresponding <<Definitions,definition>>.
+associated with the corresponding <<Definitions,definition>>.
+
+. Otherwise if stem:[e] is an <<Expressions,expression>> of type stem:[T],
+where
+stem:[T] is a <<Types_Struct-Types,struct type>>
+or <<Types_Internal-Types_Anonymous-Struct-Types,anonymous struct type>>
+and stem:[T] has `x` as a member, then the expression stem:[e]`.x`
+is evaluated as follows:
+
+.. Evaluate stem:[e] to a <<Values_Struct-Values,struct value>>
+or <<Values_Anonymous-Struct-Values,anonymous struct value>>
+stem:[v].
+If stem:[e] itself is a dot expression, then apply this rule recursively.
+
+.. Evaluate the entire expression to the value stored in the
+member `x` of the value stem:[v].
 
 .  Otherwise stem:[e]`.x` is invalid.
 
@@ -45,4 +64,17 @@ constant b = M.a # M.a evaluates to 1
 ----
 enum E { X = 0, Y = 1 }
 constant a = E.X # E.X evaluates to 0
+----
+
+===== Example 3
+
+[source,fpp]
+----
+module M {
+  constant a = {
+    b = 10.2,
+    c = "string",
+  }
+}
+constant a = M.a.b # M.a.b evaluates to 10.2
 ----

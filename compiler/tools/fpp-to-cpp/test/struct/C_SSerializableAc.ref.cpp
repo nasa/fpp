@@ -14,7 +14,7 @@
 C_S ::
   C_S() :
     Serializable(),
-    m_x(0)
+    m_x()
 {
 
 }
@@ -78,11 +78,14 @@ std::ostream& operator<<(std::ostream& os, const C_S& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus C_S ::
-  serializeTo(Fw::SerializeBufferBase& buffer) const
+  serializeTo(
+      Fw::SerialBufferBase& buffer,
+      Fw::Endianness mode
+  ) const
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serializeFrom(this->m_x);
+  status = buffer.serializeFrom(this->m_x, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -91,11 +94,14 @@ Fw::SerializeStatus C_S ::
 }
 
 Fw::SerializeStatus C_S ::
-  deserializeFrom(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(
+      Fw::SerialBufferBase& buffer,
+      Fw::Endianness mode
+  )
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserializeTo(this->m_x);
+  status = buffer.deserializeTo(this->m_x, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }

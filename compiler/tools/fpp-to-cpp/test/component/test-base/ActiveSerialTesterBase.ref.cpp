@@ -18,7 +18,7 @@ Fw::SerializeStatus ActiveSerialTesterBase::ActiveSerialComponentBaseParamExtern
       const FwPrmIdType baseId,
       const FwPrmIdType localId,
       const Fw::ParamValid prmStat,
-      Fw::SerializeBufferBase& buff
+      Fw::SerialBufferBase& buff
   )
 {
   Fw::SerializeStatus stat;
@@ -63,7 +63,7 @@ Fw::SerializeStatus ActiveSerialTesterBase::ActiveSerialComponentBaseParamExtern
   serializeParam(
       const FwPrmIdType baseId,
       const FwPrmIdType localId,
-      Fw::SerializeBufferBase& buff
+      Fw::SerialBufferBase& buff
   ) const
 {
   Fw::SerializeStatus stat;
@@ -1631,6 +1631,7 @@ ActiveSerialTesterBase ::
   this->tlmHistory_ChannelF64 = new History<TlmEntry_ChannelF64>(maxHistorySize);
   this->tlmHistory_ChannelU32OnChange = new History<TlmEntry_ChannelU32OnChange>(maxHistorySize);
   this->tlmHistory_ChannelEnumOnChange = new History<TlmEntry_ChannelEnumOnChange>(maxHistorySize);
+  this->tlmHistory_ChannelBoolOnChange = new History<TlmEntry_ChannelBoolOnChange>(maxHistorySize);
 
   // Clear history
   this->clearHistory();
@@ -1671,6 +1672,7 @@ ActiveSerialTesterBase ::
   delete this->tlmHistory_ChannelF64;
   delete this->tlmHistory_ChannelU32OnChange;
   delete this->tlmHistory_ChannelEnumOnChange;
+  delete this->tlmHistory_ChannelBoolOnChange;
 }
 
 // ----------------------------------------------------------------------
@@ -1784,7 +1786,7 @@ F32 ActiveSerialTesterBase ::
 void ActiveSerialTesterBase ::
   from_serialOut_handler(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Default behavior is to do nothing
@@ -1975,7 +1977,7 @@ F32 ActiveSerialTesterBase ::
 void ActiveSerialTesterBase ::
   from_serialOut_handlerBase(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -2409,7 +2411,7 @@ void ActiveSerialTesterBase ::
 void ActiveSerialTesterBase ::
   invoke_to_serialAsync(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -2425,7 +2427,7 @@ void ActiveSerialTesterBase ::
 void ActiveSerialTesterBase ::
   invoke_to_serialAsyncAssert(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -2441,7 +2443,7 @@ void ActiveSerialTesterBase ::
 void ActiveSerialTesterBase ::
   invoke_to_serialAsyncBlockPriority(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -2457,7 +2459,7 @@ void ActiveSerialTesterBase ::
 void ActiveSerialTesterBase ::
   invoke_to_serialAsyncDropPriority(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -2473,7 +2475,7 @@ void ActiveSerialTesterBase ::
 void ActiveSerialTesterBase ::
   invoke_to_serialGuarded(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -2489,7 +2491,7 @@ void ActiveSerialTesterBase ::
 void ActiveSerialTesterBase ::
   invoke_to_serialSync(
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   // Make sure port number is valid
@@ -2500,272 +2502,6 @@ void ActiveSerialTesterBase ::
   this->m_to_serialSync[portNum].invokeSerial(
     buffer
   );
-}
-
-// ----------------------------------------------------------------------
-// Getters for port counts
-// ----------------------------------------------------------------------
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_cmdIn() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_aliasTypedAsync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_aliasTypedAsync));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_noArgsAliasStringReturnSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsAliasStringReturnSync));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_noArgsAsync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsAsync));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_noArgsGuarded() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_noArgsReturnGuarded() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnGuarded));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_noArgsReturnSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnSync));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_noArgsStringReturnSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsStringReturnSync));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_noArgsSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsSync));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_typedAliasGuarded() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAliasGuarded));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_typedAliasReturnSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAliasReturnSync));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_typedAliasStringReturnSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAliasStringReturnSync));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_typedAsync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsync));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_typedAsyncAssert() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncAssert));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_typedAsyncBlockPriority() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncBlockPriority));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_typedAsyncDropPriority() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncDropPriority));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_typedGuarded() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedGuarded));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_typedReturnGuarded() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnGuarded));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_typedReturnSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnSync));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_typedSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedSync));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_serialAsync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_serialAsync));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_serialAsyncAssert() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_serialAsyncAssert));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_serialAsyncBlockPriority() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_serialAsyncBlockPriority));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_serialAsyncDropPriority() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_serialAsyncDropPriority));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_serialGuarded() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_serialGuarded));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_to_serialSync() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_serialSync));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_from_cmdRegOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdRegOut));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_from_cmdResponseOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdResponseOut));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_from_eventOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_eventOut));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_from_prmGetOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmGetOut));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_from_prmSetOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmSetOut));
-}
-
-#if FW_ENABLE_TEXT_LOGGING == 1
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_from_textEventOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_textEventOut));
-}
-
-#endif
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_from_timeGetOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_timeGetOut));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_from_tlmOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_from_noArgsOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsOut));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_from_noArgsReturnOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsReturnOut));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_from_noArgsStringReturnOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsStringReturnOut));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_from_typedAliasOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedAliasOut));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_from_typedAliasReturnOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedAliasReturnOut));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_from_typedAliasReturnStringOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedAliasReturnStringOut));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_from_typedOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_from_typedReturnOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
-}
-
-FwIndexType ActiveSerialTesterBase ::
-  getNum_from_serialOut() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_serialOut));
 }
 
 // ----------------------------------------------------------------------
@@ -4038,6 +3774,21 @@ void ActiveSerialTesterBase ::
       break;
     }
 
+    case ActiveSerialComponentBase::EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL: {
+#if FW_AMPCS_COMPATIBLE
+      // For AMPCS, decode zero arguments
+      Fw::SerializeStatus _zero_status = Fw::FW_SERIALIZE_OK;
+      U8 _noArgs;
+      _zero_status = args.deserializeTo(_noArgs);
+      FW_ASSERT(
+        _zero_status == Fw::FW_SERIALIZE_OK,
+        static_cast<FwAssertArgType>(_zero_status)
+      );
+#endif
+      this->logIn_WARNING_LO_EventWarningLowThrottledInterval();
+      break;
+    }
+
     default: {
       FW_ASSERT(0, static_cast<FwAssertArgType>(id));
       break;
@@ -4132,6 +3883,13 @@ void ActiveSerialTesterBase ::
   logIn_WARNING_LO_EventWarningLowThrottled()
 {
   this->eventsSize_EventWarningLowThrottled++;
+  this->eventsSize++;
+}
+
+void ActiveSerialTesterBase ::
+  logIn_WARNING_LO_EventWarningLowThrottledInterval()
+{
+  this->eventsSize_EventWarningLowThrottledInterval++;
   this->eventsSize++;
 }
 
@@ -4299,6 +4057,19 @@ void ActiveSerialTesterBase ::
       break;
     }
 
+    case ActiveSerialComponentBase::CHANNELID_CHANNELBOOLONCHANGE: {
+      bool arg;
+      const Fw::SerializeStatus _status = val.deserializeTo(arg);
+
+      if (_status != Fw::FW_SERIALIZE_OK) {
+        printf("Error deserializing ChannelBoolOnChange: %d\n", _status);
+        return;
+      }
+
+      this->tlmInput_ChannelBoolOnChange(timeTag, arg);
+      break;
+    }
+
     default: {
       FW_ASSERT(0, static_cast<FwAssertArgType>(id));
       break;
@@ -4424,6 +4195,17 @@ void ActiveSerialTesterBase ::
 {
   TlmEntry_ChannelEnumOnChange e = { timeTag, val };
   this->tlmHistory_ChannelEnumOnChange->push_back(e);
+  this->tlmSize++;
+}
+
+void ActiveSerialTesterBase ::
+  tlmInput_ChannelBoolOnChange(
+      const Fw::Time& timeTag,
+      const bool val
+  )
+{
+  TlmEntry_ChannelBoolOnChange e = { timeTag, val };
+  this->tlmHistory_ChannelBoolOnChange->push_back(e);
   this->tlmSize++;
 }
 
@@ -5326,6 +5108,7 @@ void ActiveSerialTesterBase ::
   this->eventHistory_EventFatalThrottled->clear();
   this->eventHistory_EventWarningHigh->clear();
   this->eventsSize_EventWarningLowThrottled = 0;
+  this->eventsSize_EventWarningLowThrottledInterval = 0;
 }
 
 #if FW_ENABLE_TEXT_LOGGING
@@ -5405,6 +5188,7 @@ void ActiveSerialTesterBase ::
   this->tlmHistory_ChannelF64->clear();
   this->tlmHistory_ChannelU32OnChange->clear();
   this->tlmHistory_ChannelEnumOnChange->clear();
+  this->tlmHistory_ChannelBoolOnChange->clear();
 }
 
 // ----------------------------------------------------------------------
@@ -6032,7 +5816,7 @@ void ActiveSerialTesterBase ::
   from_serialOut_static(
       Fw::PassiveComponentBase* const callComp,
       FwIndexType portNum,
-      Fw::SerializeBufferBase& buffer
+      Fw::LinearBufferBase& buffer
   )
 {
   FW_ASSERT(callComp != nullptr);

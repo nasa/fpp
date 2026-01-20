@@ -74,9 +74,10 @@ object Parser extends Parsers {
     }
   }
 
-  private def defAliasType: Parser[Ast.DefAliasType] = {
-    ((typeToken ~> ident) ~ (equals ~> node(typeName))) ^^ {
-      case ident ~ typeName => Ast.DefAliasType(ident, typeName)
+  def defAliasType: Parser[Ast.DefAliasType] = {
+    (opt(dictionary) ~ (typeToken ~> ident) ~ (equals ~> node(typeName))) ^^ {
+      case dictionary ~ ident ~ typeName =>
+        Ast.DefAliasType(ident, typeName, dictionary.isDefined)
     }
   }
 
@@ -91,12 +92,12 @@ object Parser extends Parsers {
   }
 
   def defArray: Parser[Ast.DefArray] = {
-    (array ~>! ident <~! equals) ~!
+    opt(dictionary) ~ (array ~>! ident <~! equals) ~!
       index ~! node(typeName) ~!
       opt(default ~>! exprNode) ~!
       opt(format ~>! node(literalString)) ^^ {
-      case name ~ size ~ eltType ~ default ~ format =>
-        Ast.DefArray(name, size, eltType, default, format)
+      case dictionary ~ name ~ size ~ eltType ~ default ~ format =>
+        Ast.DefArray(name, size, eltType, default, format, dictionary.isDefined)
     }
   }
 
@@ -172,8 +173,9 @@ object Parser extends Parsers {
   }
 
   def defConstant: Parser[Ast.DefConstant] = {
-    (constant ~>! ident) ~! (equals ~>! exprNode) ^^ { case id ~ e =>
-      Ast.DefConstant(id, e)
+    opt(dictionary) ~ (constant ~>! ident) ~! (equals ~>! exprNode) ^^ {
+      case dictionary ~ id ~ e =>
+        Ast.DefConstant(id, e, dictionary.isDefined)
     }
   }
 
@@ -182,12 +184,12 @@ object Parser extends Parsers {
 
     def constants = annotatedElementSequence(node(defEnumConstant), comma, id)
 
-    (enumeration ~>! ident) ~!
+    opt(dictionary) ~ (enumeration ~>! ident) ~!
       opt(colon ~>! node(typeName)) ~!
       (lbrace ~>! constants <~! rbrace) ~!
       opt(default ~>! exprNode) ^^ {
-      case name ~ typeName ~ constants ~ default =>
-        Ast.DefEnum(name, typeName, constants, default)
+      case dictionary ~ name ~ typeName ~ constants ~ default =>
+        Ast.DefEnum(name, typeName, constants, default, dictionary.isDefined)
     }
   }
 
@@ -241,10 +243,10 @@ object Parser extends Parsers {
 
     def members = annotatedElementSequence(node(structTypeMember), comma, id)
 
-    (struct ~>! ident) ~! (lbrace ~>! members <~! rbrace) ~! opt(
+    opt(dictionary) ~ (struct ~>! ident) ~! (lbrace ~>! members <~! rbrace) ~! opt(
       default ~>! exprNode
-    ) ^^ { case name ~ members ~ default =>
-      Ast.DefStruct(name, members, default)
+    ) ^^ { case dictionary ~ name ~ members ~ default =>
+      Ast.DefStruct(name, members, default, dictionary.isDefined)
     }
   }
 
@@ -303,7 +305,7 @@ object Parser extends Parsers {
       es.foldLeft(e)(f)
     }
 
-    def dotOperand = node {
+    def primaryExpr = node {
       def arrayExpr =
         lbracket ~>! elementSequence(exprNode, comma) <~! rbracket ^^ (es => Ast.ExprArray(es))
 
@@ -343,33 +345,39 @@ object Parser extends Parsers {
         failure("expression expected")
     }
 
-    def unaryMinus = node {
-      minus ~>! unaryMinusOperand ^^ (e =>
-        Ast.ExprUnop(Ast.Unop.Minus, e))
-    }
-
-    def unaryMinusOperand = {
-      def dotSelectors(
+    def postFixExpr =
+      def memberSelectors(
                         e: AstNode[Ast.Expr],
-                        ss: List[Token ~ AstNode[String]]
+                        ss: List[AstNode[String | Ast.Expr]]
                       ) = {
-        def f(e: AstNode[Ast.Expr], s: Token ~ AstNode[String]) = {
-          val _ ~ id = s
-          val dot = AstNode.create(Ast.ExprDot(e, id))
+        def f(e: AstNode[Ast.Expr], s: AstNode[String | Ast.Expr]) = {
+          val o = s.data match {
+            // Array subscript
+            case i: Ast.Expr => Ast.ExprArraySubscript(e, AstNode.create(i, s.id))
+
+            // Member/Dot
+            case id: String => Ast.ExprDot(e, AstNode.create(id, s.id))
+          }
+
+          val node = AstNode.create(o)
           val loc = Locations.get(e.id)
-          Locations.put(dot.id, loc)
-          dot
+          Locations.put(node.id, loc)
+          node
         }
 
         ss.foldLeft(e)(f)
       }
 
-      dotOperand ~ rep(dot ~! node(ident)) ^^ { case e ~ ss =>
-        dotSelectors(e, ss)
+      primaryExpr ~ rep(dot ~> node(ident) | (lbracket ~> exprNode <~! rbracket)) ^^ { case e ~ ss =>
+        memberSelectors(e, ss)
       }
+
+    def unaryMinus = node {
+      minus ~>! postFixExpr ^^ (e =>
+        Ast.ExprUnop(Ast.Unop.Minus, e))
     }
 
-    def mulDivOperand = unaryMinus | unaryMinusOperand
+    def mulDivOperand = unaryMinus | postFixExpr
 
     def addSubOperand =
       mulDivOperand ~ rep((star | slash) ~! mulDivOperand) ^^ { case e ~ es =>
@@ -614,10 +622,16 @@ object Parser extends Parsers {
         failure("severity level expected")
     }
 
+    def throttleClause = {
+      (throttle ~>! exprNode) ~! opt(every ~>! exprNode) ^^ {
+        case throttle ~ duration => Ast.EventThrottle(throttle, duration)
+      }
+    }
+
     (event ~> ident) ~! formalParamList ~! (severity ~>! severityLevel) ~!
       opt(id ~>! exprNode) ~!
       (format ~>! node(literalString)) ~!
-      opt(throttle ~>! exprNode) ^^ {
+      opt(node(throttleClause)) ^^ {
       case name ~ params ~ severity ~ id ~ format ~ throttle =>
         Ast.SpecEvent(name, params, severity, id, format, throttle)
     }
@@ -656,23 +670,32 @@ object Parser extends Parsers {
     }
   }
 
-  def specLoc: Parser[Ast.SpecLoc] = {
-    def kind = {
+  def specLoc: Parser[Ast.SpecLoc] =
+    def maybeDictKind =
+      constant ^^ (_ => Ast.SpecLoc.Constant) |
+      typeToken ^^ (_ => Ast.SpecLoc.Type)
+    def nonDictKind =
       component ^^ (_ => Ast.SpecLoc.Component) |
-        constant ^^ (_ => Ast.SpecLoc.Constant) |
-        instance ^^ (_ => Ast.SpecLoc.ComponentInstance) |
-        port ^^ (_ => Ast.SpecLoc.Port) |
-        state ~! machine ^^ (_ => Ast.SpecLoc.StateMachine) |
-        topology ^^ (_ => Ast.SpecLoc.Topology) |
-        typeToken ^^ (_ => Ast.SpecLoc.Type) |
-        interface ^^ (_ => Ast.SpecLoc.Interface) |
-        failure("location kind expected")
+      instance ^^ (_ => Ast.SpecLoc.ComponentInstance) |
+      port ^^ (_ => Ast.SpecLoc.Port) |
+      state ~! machine ^^ (_ => Ast.SpecLoc.StateMachine) |
+      topology ^^ (_ => Ast.SpecLoc.Topology) |
+      interface ^^ (_ => Ast.SpecLoc.Interface)
+    def maybeDictPair =
+      opt(dictionary) ~ maybeDictKind ^^ {
+        case dictOpt ~ kind => (dictOpt.isDefined, kind)
+      }
+    def nonDictPair =
+      nonDictKind ^^ { case kind => (false, kind) }
+    def isDictAndKind =
+      maybeDictPair |
+      nonDictPair |
+      failure("dictionary specifier or location kind expected")
+    (locate ~>! isDictAndKind) ~! node(qualIdent) ~! (at ~>! node(literalString)) ^^ {
+      case (isDict, kind) ~ symbol ~ file => {
+        Ast.SpecLoc(kind, symbol, file, isDict)
+      }
     }
-
-    (locate ~>! kind) ~! node(qualIdent) ~! (at ~>! node(literalString)) ^^ {
-      case kind ~ symbol ~ file => Ast.SpecLoc(kind, symbol, file)
-    }
-  }
 
   def specParam: Parser[Ast.SpecParam] = {
     opt(external) ~ (param ~>! ident) ~ (colon ~>! node(typeName)) ~!
@@ -1104,6 +1127,8 @@ object Parser extends Parsers {
   private def diagnostic =
     accept("diagnostic", { case t: Token.DIAGNOSTIC => t })
 
+  private def dictionary = accept("dictionary", { case t: Token.DICTIONARY => t })
+
   private def doToken = accept("do", { case t: Token.DO => t })
 
   private def dot = accept(".", { case t: Token.DOT => t })
@@ -1129,6 +1154,8 @@ object Parser extends Parsers {
   private def equals = accept("=", { case t: Token.EQUALS => t })
 
   private def event = accept("event", { case t: Token.EVENT => t })
+
+  private def every = accept("every", { case t: Token.EVERY => t })
 
   private def exit = accept("exit", { case t: Token.EXIT => t })
 

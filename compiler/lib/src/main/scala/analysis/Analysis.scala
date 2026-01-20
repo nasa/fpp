@@ -22,12 +22,16 @@ case class Analysis(
   /** The set of files included when parsing input */
   includedFileSet: Set[File] = Set(),
   /** A map from pairs (spec loc kind, qualified name) to spec locs. */
-  locationSpecifierMap: Map[(Ast.SpecLoc.Kind, Name.Qualified), Ast.SpecLoc] = Map(),
+  locationSpecifierMap: Map[(Ast.SpecLoc.Kind, Name.Qualified), AstNode[Ast.SpecLoc]] = Map(),
   /** A list of unqualified names representing the enclosing scope names,
    *  with the innermost name at the head of the list. For exapmle, inside
    *  module B where B is inside A and A is at the top level, the module name
    *  list is [ B, A ]. */
   scopeNameList: List[Name.Unqualified] = List(),
+  /** Whether dictionary generation is required */
+  dictionaryGeneration: Boolean = false,
+  /** Whether the dependency analysis includes dictionary dependencies */
+  includeDictionaryDeps: Boolean = false,
   /** The current nested scope for symbol lookup */
   nestedScope: NestedScope = NestedScope.empty,
   /** The current parent symbol */
@@ -77,10 +81,10 @@ case class Analysis(
   dictionary: Option[Dictionary] = None,
   /** The telemetry packet set under construction */
   tlmPacketSet: Option[TlmPacketSet] = None,
-  /** Whether dictionary generation is required */
-  dictionaryGeneration: Boolean = false,
   /** The mapping from nodes to implied uses */
-  impliedUseMap: Map[AstNode.Id, ImpliedUse.Uses] = Map()
+  impliedUseMap: Map[AstNode.Id, ImpliedUse.Uses] = Map(),
+  /** The set of symbols defined with a dictionary specifier */
+  dictionarySymbolSet: Set[Symbol] = Set()
 ) {
 
   /** Gets the qualified name of a symbol */
@@ -394,6 +398,9 @@ case class Analysis(
       s"\n\n${Locations.get(id)}\nbecause this type is not displayable$reason"
     }
     this.typeMap(id) match {
+      case a: Type.AliasType =>
+        val id = a.node._2.data.typeName.id
+        getElementReason(id)
       case a: Type.Array =>
         val id = a.node._2.data.eltType.id
         getElementReason(id)

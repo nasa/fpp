@@ -36,7 +36,7 @@ namespace {
   // Define a message buffer class large enough to handle all the
   // asynchronous inputs to the component
   class ComponentIpcSerializableBuffer :
-    public Fw::SerializeBufferBase
+    public Fw::LinearBufferBase
   {
 
     public:
@@ -50,7 +50,7 @@ namespace {
         SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
       };
 
-      Fw::Serializable::SizeType getBuffCapacity() const {
+      Fw::Serializable::SizeType getCapacity() const {
         return sizeof(m_buff);
       }
 
@@ -1592,7 +1592,7 @@ void QueuedExternalParamsComponentBase ::
     // Pass the local ID to the delegate
     _id = PARAMID_PARAMI32EXT;
 
-    FW_ASSERT(this->paramDelegatePtr != NULL);
+    FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamI32Ext
     _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -1618,7 +1618,7 @@ void QueuedExternalParamsComponentBase ::
     // Pass the local ID to the delegate
     _id = PARAMID_PARAMF64EXT;
 
-    FW_ASSERT(this->paramDelegatePtr != NULL);
+    FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamF64Ext
     _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -1644,7 +1644,7 @@ void QueuedExternalParamsComponentBase ::
     // Pass the local ID to the delegate
     _id = PARAMID_PARAMSTRINGEXT;
 
-    FW_ASSERT(this->paramDelegatePtr != NULL);
+    FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamStringExt
     _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -1670,7 +1670,7 @@ void QueuedExternalParamsComponentBase ::
     // Pass the local ID to the delegate
     _id = PARAMID_PARAMENUMEXT;
 
-    FW_ASSERT(this->paramDelegatePtr != NULL);
+    FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamEnumExt
     _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -1696,7 +1696,7 @@ void QueuedExternalParamsComponentBase ::
     // Pass the local ID to the delegate
     _id = PARAMID_PARAMARRAYEXT;
 
-    FW_ASSERT(this->paramDelegatePtr != NULL);
+    FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamArrayExt
     _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -1722,7 +1722,7 @@ void QueuedExternalParamsComponentBase ::
     // Pass the local ID to the delegate
     _id = PARAMID_PARAMSTRUCTEXT;
 
-    FW_ASSERT(this->paramDelegatePtr != NULL);
+    FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamStructExt
     _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -1744,7 +1744,7 @@ void QueuedExternalParamsComponentBase ::
 QueuedExternalParamsComponentBase ::
   QueuedExternalParamsComponentBase(const char* compName) :
     Fw::QueuedComponentBase(compName),
-    paramDelegatePtr(NULL)
+    paramDelegatePtr(nullptr)
 {
 
 }
@@ -1753,242 +1753,6 @@ QueuedExternalParamsComponentBase ::
   ~QueuedExternalParamsComponentBase()
 {
 
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of special input ports
-// ----------------------------------------------------------------------
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_cmdIn_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdIn_InputPort));
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of typed input ports
-// ----------------------------------------------------------------------
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_aliasTypedAsync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_aliasTypedAsync_InputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_noArgsAliasStringReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsAliasStringReturnSync_InputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_noArgsAsync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsAsync_InputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_noArgsGuarded_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsGuarded_InputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_noArgsReturnGuarded_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnGuarded_InputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_noArgsReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnSync_InputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_noArgsStringReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsStringReturnSync_InputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_noArgsSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsSync_InputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_typedAliasGuarded_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasGuarded_InputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_typedAliasReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasReturnSync_InputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_typedAliasStringReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasStringReturnSync_InputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_typedAsync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsync_InputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_typedAsyncAssert_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncAssert_InputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_typedAsyncBlockPriority_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncBlockPriority_InputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_typedAsyncDropPriority_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncDropPriority_InputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_typedGuarded_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedGuarded_InputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_typedReturnGuarded_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnGuarded_InputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_typedReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnSync_InputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_typedSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedSync_InputPort));
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of special output ports
-// ----------------------------------------------------------------------
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_cmdRegOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdRegOut_OutputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_cmdResponseOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdResponseOut_OutputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_eventOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_eventOut_OutputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_prmGetOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_prmGetOut_OutputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_prmSetOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_prmSetOut_OutputPort));
-}
-
-#if FW_ENABLE_TEXT_LOGGING == 1
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_textEventOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_textEventOut_OutputPort));
-}
-
-#endif
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_timeGetOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_timeGetOut_OutputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_tlmOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_tlmOut_OutputPort));
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of typed output ports
-// ----------------------------------------------------------------------
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_noArgsOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsOut_OutputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_noArgsReturnOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnOut_OutputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_noArgsStringReturnOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsStringReturnOut_OutputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_typedAliasOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasOut_OutputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_typedAliasReturnOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasReturnOut_OutputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_typedAliasReturnStringOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasReturnStringOut_OutputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_typedOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedOut_OutputPort));
-}
-
-FwIndexType QueuedExternalParamsComponentBase ::
-  getNum_typedReturnOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnOut_OutputPort));
 }
 
 // ----------------------------------------------------------------------
@@ -3465,7 +3229,7 @@ I32 QueuedExternalParamsComponentBase ::
   // Get the local ID to pass to the delegate
   const FwPrmIdType _localId = PARAMID_PARAMI32EXT;
 
-  FW_ASSERT(this->paramDelegatePtr != NULL);
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
   // Get the external parameter from the delegate
   Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
   if(_stat == Fw::FW_SERIALIZE_OK) {
@@ -3488,7 +3252,7 @@ F64 QueuedExternalParamsComponentBase ::
   // Get the local ID to pass to the delegate
   const FwPrmIdType _localId = PARAMID_PARAMF64EXT;
 
-  FW_ASSERT(this->paramDelegatePtr != NULL);
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
   // Get the external parameter from the delegate
   Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
   if(_stat == Fw::FW_SERIALIZE_OK) {
@@ -3511,7 +3275,7 @@ Fw::ParamString QueuedExternalParamsComponentBase ::
   // Get the local ID to pass to the delegate
   const FwPrmIdType _localId = PARAMID_PARAMSTRINGEXT;
 
-  FW_ASSERT(this->paramDelegatePtr != NULL);
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
   // Get the external parameter from the delegate
   Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
   if(_stat == Fw::FW_SERIALIZE_OK) {
@@ -3534,7 +3298,7 @@ E QueuedExternalParamsComponentBase ::
   // Get the local ID to pass to the delegate
   const FwPrmIdType _localId = PARAMID_PARAMENUMEXT;
 
-  FW_ASSERT(this->paramDelegatePtr != NULL);
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
   // Get the external parameter from the delegate
   Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
   if(_stat == Fw::FW_SERIALIZE_OK) {
@@ -3557,7 +3321,7 @@ A QueuedExternalParamsComponentBase ::
   // Get the local ID to pass to the delegate
   const FwPrmIdType _localId = PARAMID_PARAMARRAYEXT;
 
-  FW_ASSERT(this->paramDelegatePtr != NULL);
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
   // Get the external parameter from the delegate
   Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
   if(_stat == Fw::FW_SERIALIZE_OK) {
@@ -3580,7 +3344,7 @@ S QueuedExternalParamsComponentBase ::
   // Get the local ID to pass to the delegate
   const FwPrmIdType _localId = PARAMID_PARAMSTRUCTEXT;
 
-  FW_ASSERT(this->paramDelegatePtr != NULL);
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
   // Get the external parameter from the delegate
   Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
   if(_stat == Fw::FW_SERIALIZE_OK) {
@@ -3600,7 +3364,7 @@ S QueuedExternalParamsComponentBase ::
 void QueuedExternalParamsComponentBase ::
   registerExternalParameters(Fw::ParamExternalDelegate* paramExternalDelegatePtr)
 {
-  FW_ASSERT(paramExternalDelegatePtr != NULL);
+  FW_ASSERT(paramExternalDelegatePtr != nullptr);
   this->paramDelegatePtr = paramExternalDelegatePtr;
 }
 
@@ -4641,12 +4405,12 @@ void QueuedExternalParamsComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::CmdResponse QueuedExternalParamsComponentBase ::
-  paramSet_ParamI32Ext(Fw::SerializeBufferBase& val)
+  paramSet_ParamI32Ext(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMI32EXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
-  FW_ASSERT(this->paramDelegatePtr != NULL);
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
   // Call the delegate serialize function for m_ParamI32Ext
   const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
     _baseId,
@@ -4664,12 +4428,12 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
 }
 
 Fw::CmdResponse QueuedExternalParamsComponentBase ::
-  paramSet_ParamF64Ext(Fw::SerializeBufferBase& val)
+  paramSet_ParamF64Ext(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMF64EXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
-  FW_ASSERT(this->paramDelegatePtr != NULL);
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
   // Call the delegate serialize function for m_ParamF64Ext
   const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
     _baseId,
@@ -4687,12 +4451,12 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
 }
 
 Fw::CmdResponse QueuedExternalParamsComponentBase ::
-  paramSet_ParamStringExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamStringExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMSTRINGEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
-  FW_ASSERT(this->paramDelegatePtr != NULL);
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
   // Call the delegate serialize function for m_ParamStringExt
   const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
     _baseId,
@@ -4710,12 +4474,12 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
 }
 
 Fw::CmdResponse QueuedExternalParamsComponentBase ::
-  paramSet_ParamEnumExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamEnumExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMENUMEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
-  FW_ASSERT(this->paramDelegatePtr != NULL);
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
   // Call the delegate serialize function for m_ParamEnumExt
   const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
     _baseId,
@@ -4733,12 +4497,12 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
 }
 
 Fw::CmdResponse QueuedExternalParamsComponentBase ::
-  paramSet_ParamArrayExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamArrayExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMARRAYEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
-  FW_ASSERT(this->paramDelegatePtr != NULL);
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
   // Call the delegate serialize function for m_ParamArrayExt
   const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
     _baseId,
@@ -4756,12 +4520,12 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
 }
 
 Fw::CmdResponse QueuedExternalParamsComponentBase ::
-  paramSet_ParamStructExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamStructExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMSTRUCTEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
-  FW_ASSERT(this->paramDelegatePtr != NULL);
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
   // Call the delegate serialize function for m_ParamStructExt
   const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
     _baseId,
@@ -4793,7 +4557,7 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
     _id = PARAMID_PARAMI32EXT;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
-    FW_ASSERT(this->paramDelegatePtr != NULL);
+    FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
@@ -4824,7 +4588,7 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
     _id = PARAMID_PARAMF64EXT;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
-    FW_ASSERT(this->paramDelegatePtr != NULL);
+    FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
@@ -4855,7 +4619,7 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
     _id = PARAMID_PARAMSTRINGEXT;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
-    FW_ASSERT(this->paramDelegatePtr != NULL);
+    FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
@@ -4886,7 +4650,7 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
     _id = PARAMID_PARAMENUMEXT;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
-    FW_ASSERT(this->paramDelegatePtr != NULL);
+    FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
@@ -4917,7 +4681,7 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
     _id = PARAMID_PARAMARRAYEXT;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
-    FW_ASSERT(this->paramDelegatePtr != NULL);
+    FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
@@ -4948,7 +4712,7 @@ Fw::CmdResponse QueuedExternalParamsComponentBase ::
     _id = PARAMID_PARAMSTRUCTEXT;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
-    FW_ASSERT(this->paramDelegatePtr != NULL);
+    FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;

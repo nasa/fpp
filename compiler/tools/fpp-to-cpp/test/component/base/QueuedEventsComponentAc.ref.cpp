@@ -36,7 +36,7 @@ namespace {
   // Define a message buffer class large enough to handle all the
   // asynchronous inputs to the component
   class ComponentIpcSerializableBuffer :
-    public Fw::SerializeBufferBase
+    public Fw::LinearBufferBase
   {
 
     public:
@@ -50,7 +50,7 @@ namespace {
         SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
       };
 
-      Fw::Serializable::SizeType getBuffCapacity() const {
+      Fw::Serializable::SizeType getCapacity() const {
         return sizeof(m_buff);
       }
 
@@ -1514,248 +1514,15 @@ QueuedEventsComponentBase ::
   this->m_EventActivityLowThrottledThrottle = 0;
   this->m_EventFatalThrottledThrottle = 0;
   this->m_EventWarningLowThrottledThrottle = 0;
+  this->m_EventWarningLowThrottledIntervalThrottle = 0;
+
+  this->m_EventWarningLowThrottledIntervalThrottleTime = Fw::Time();
 }
 
 QueuedEventsComponentBase ::
   ~QueuedEventsComponentBase()
 {
 
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of special input ports
-// ----------------------------------------------------------------------
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_cmdIn_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdIn_InputPort));
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of typed input ports
-// ----------------------------------------------------------------------
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_aliasTypedAsync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_aliasTypedAsync_InputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_noArgsAliasStringReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsAliasStringReturnSync_InputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_noArgsAsync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsAsync_InputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_noArgsGuarded_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsGuarded_InputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_noArgsReturnGuarded_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnGuarded_InputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_noArgsReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnSync_InputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_noArgsStringReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsStringReturnSync_InputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_noArgsSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsSync_InputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_typedAliasGuarded_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasGuarded_InputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_typedAliasReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasReturnSync_InputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_typedAliasStringReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasStringReturnSync_InputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_typedAsync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsync_InputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_typedAsyncAssert_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncAssert_InputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_typedAsyncBlockPriority_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncBlockPriority_InputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_typedAsyncDropPriority_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncDropPriority_InputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_typedGuarded_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedGuarded_InputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_typedReturnGuarded_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnGuarded_InputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_typedReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnSync_InputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_typedSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedSync_InputPort));
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of special output ports
-// ----------------------------------------------------------------------
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_cmdRegOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdRegOut_OutputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_cmdResponseOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdResponseOut_OutputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_eventOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_eventOut_OutputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_prmGetOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_prmGetOut_OutputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_prmSetOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_prmSetOut_OutputPort));
-}
-
-#if FW_ENABLE_TEXT_LOGGING == 1
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_textEventOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_textEventOut_OutputPort));
-}
-
-#endif
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_timeGetOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_timeGetOut_OutputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_tlmOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_tlmOut_OutputPort));
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of typed output ports
-// ----------------------------------------------------------------------
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_noArgsOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsOut_OutputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_noArgsReturnOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnOut_OutputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_noArgsStringReturnOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsStringReturnOut_OutputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_typedAliasOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasOut_OutputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_typedAliasReturnOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasReturnOut_OutputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_typedAliasReturnStringOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasReturnStringOut_OutputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_typedOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedOut_OutputPort));
-}
-
-FwIndexType QueuedEventsComponentBase ::
-  getNum_typedReturnOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnOut_OutputPort));
 }
 
 // ----------------------------------------------------------------------
@@ -3268,7 +3035,7 @@ void QueuedEventsComponentBase ::
     return;
   }
   else {
-    (void) this->m_EventActivityLowThrottledThrottle.fetch_add(1);
+    this->m_EventActivityLowThrottledThrottle++;
   }
 
   // Get the time
@@ -3559,7 +3326,7 @@ void QueuedEventsComponentBase ::
     return;
   }
   else {
-    (void) this->m_EventFatalThrottledThrottle.fetch_add(1);
+    this->m_EventFatalThrottledThrottle++;
   }
 
   // Get the time
@@ -3750,7 +3517,7 @@ void QueuedEventsComponentBase ::
     return;
   }
   else {
-    (void) this->m_EventWarningLowThrottledThrottle.fetch_add(1);
+    this->m_EventWarningLowThrottledThrottle++;
   }
 
   // Get the time
@@ -3815,6 +3582,96 @@ void QueuedEventsComponentBase ::
 #endif
 }
 
+void QueuedEventsComponentBase ::
+  log_WARNING_LO_EventWarningLowThrottledInterval()
+{
+  // Get the time
+  Fw::Time _logTime;
+  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  }
+
+  FwEventIdType _id = static_cast<FwEventIdType>(0);
+
+  _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL;
+
+  // Check throttle value & throttle timeout
+  {
+    Os::ScopeLock scopedLock(this->m_eventLock);
+
+    if (this->m_EventWarningLowThrottledIntervalThrottle >= EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL_THROTTLE) {
+      // The counter has overflowed, check if time interval has passed
+      if (Fw::TimeInterval(this->m_EventWarningLowThrottledIntervalThrottleTime, _logTime) >= Fw::TimeInterval(10, 0)) {
+        // Reset the count
+        this->m_EventWarningLowThrottledIntervalThrottle = 0;
+      } else {
+        // Throttle the event
+        return;
+      }
+    }
+
+    // Reset the throttle time if needed
+    if (this->m_EventWarningLowThrottledIntervalThrottle == 0) {
+      // This is the first event, reset the throttle time
+      this->m_EventWarningLowThrottledIntervalThrottleTime = _logTime;
+    }
+
+    // Increment the count
+    this->m_EventWarningLowThrottledIntervalThrottle++;
+  }
+
+  // Emit the event on the log port
+  if (this->m_eventOut_OutputPort[0].isConnected()) {
+    Fw::LogBuffer _logBuff;
+
+#if FW_AMPCS_COMPATIBLE
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+    // Serialize the number of arguments
+    _status = _logBuff.serializeFrom(static_cast<U8>(0));
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+
+    this->m_eventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::WARNING_LO,
+      _logBuff
+    );
+  }
+
+  // Emit the event on the text log port
+#if FW_ENABLE_TEXT_LOGGING
+  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+#if FW_OBJECT_NAMES == 1
+    const char* _formatString =
+      "(%s) %s: Event Warning Low occurred";
+#else
+    const char* _formatString =
+      "%s: Event Warning Low occurred";
+#endif
+
+    Fw::TextLogString _logString;
+    _logString.format(
+      _formatString,
+#if FW_OBJECT_NAMES == 1
+      this->m_objName.toChar(),
+#endif
+      "EventWarningLowThrottledInterval "
+    );
+
+    this->m_textEventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::WARNING_LO,
+      _logString
+    );
+  }
+#endif
+}
+
 // ----------------------------------------------------------------------
 // Event throttle reset functions
 // ----------------------------------------------------------------------
@@ -3838,6 +3695,20 @@ void QueuedEventsComponentBase ::
 {
   // Reset throttle counter
   this->m_EventWarningLowThrottledThrottle = 0;
+}
+
+void QueuedEventsComponentBase ::
+  log_WARNING_LO_EventWarningLowThrottledInterval_ThrottleClear()
+{
+  {
+    Os::ScopeLock scopedLock(this->m_eventLock);
+
+    // Reset throttle counter
+    this->m_EventWarningLowThrottledIntervalThrottle = 0;
+
+    // Reset the throttle time
+    this->m_EventWarningLowThrottledIntervalThrottleTime = Fw::Time(0, 0);
+  }
 }
 
 // ----------------------------------------------------------------------

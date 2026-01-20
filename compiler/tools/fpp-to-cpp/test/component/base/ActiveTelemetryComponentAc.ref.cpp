@@ -36,7 +36,7 @@ namespace {
   // Define a message buffer class large enough to handle all the
   // asynchronous inputs to the component
   class ComponentIpcSerializableBuffer :
-    public Fw::SerializeBufferBase
+    public Fw::LinearBufferBase
   {
 
     public:
@@ -50,7 +50,7 @@ namespace {
         SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
       };
 
-      Fw::Serializable::SizeType getBuffCapacity() const {
+      Fw::Serializable::SizeType getCapacity() const {
         return sizeof(m_buff);
       }
 
@@ -1511,254 +1511,13 @@ ActiveTelemetryComponentBase ::
   ActiveTelemetryComponentBase(const char* compName) :
     Fw::ActiveComponentBase(compName)
 {
-  // Write telemetry channel ChannelU32OnChange
-  this->m_first_update_ChannelU32OnChange = true;
-  this->m_last_ChannelU32OnChange = 0;
 
-  // Write telemetry channel ChannelEnumOnChange
-  this->m_first_update_ChannelEnumOnChange = true;
 }
 
 ActiveTelemetryComponentBase ::
   ~ActiveTelemetryComponentBase()
 {
 
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of special input ports
-// ----------------------------------------------------------------------
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_cmdIn_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdIn_InputPort));
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of typed input ports
-// ----------------------------------------------------------------------
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_aliasTypedAsync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_aliasTypedAsync_InputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_noArgsAliasStringReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsAliasStringReturnSync_InputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_noArgsAsync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsAsync_InputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_noArgsGuarded_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsGuarded_InputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_noArgsReturnGuarded_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnGuarded_InputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_noArgsReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnSync_InputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_noArgsStringReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsStringReturnSync_InputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_noArgsSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsSync_InputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_typedAliasGuarded_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasGuarded_InputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_typedAliasReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasReturnSync_InputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_typedAliasStringReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasStringReturnSync_InputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_typedAsync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsync_InputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_typedAsyncAssert_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncAssert_InputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_typedAsyncBlockPriority_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncBlockPriority_InputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_typedAsyncDropPriority_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncDropPriority_InputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_typedGuarded_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedGuarded_InputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_typedReturnGuarded_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnGuarded_InputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_typedReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnSync_InputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_typedSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedSync_InputPort));
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of special output ports
-// ----------------------------------------------------------------------
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_cmdRegOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdRegOut_OutputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_cmdResponseOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdResponseOut_OutputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_eventOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_eventOut_OutputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_prmGetOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_prmGetOut_OutputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_prmSetOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_prmSetOut_OutputPort));
-}
-
-#if FW_ENABLE_TEXT_LOGGING == 1
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_textEventOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_textEventOut_OutputPort));
-}
-
-#endif
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_timeGetOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_timeGetOut_OutputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_tlmOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_tlmOut_OutputPort));
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of typed output ports
-// ----------------------------------------------------------------------
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_noArgsOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsOut_OutputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_noArgsReturnOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnOut_OutputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_noArgsStringReturnOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsStringReturnOut_OutputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_typedAliasOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasOut_OutputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_typedAliasReturnOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasReturnOut_OutputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_typedAliasReturnStringOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasReturnStringOut_OutputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_typedOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedOut_OutputPort));
-}
-
-FwIndexType ActiveTelemetryComponentBase ::
-  getNum_typedReturnOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnOut_OutputPort));
 }
 
 // ----------------------------------------------------------------------
@@ -3578,6 +3337,54 @@ void ActiveTelemetryComponentBase ::
     FwChanIdType _id;
 
     _id = this->getIdBase() + CHANNELID_CHANNELENUMONCHANGE;
+
+    this->m_tlmOut_OutputPort[0].invoke(
+      _id,
+      _tlmTime,
+      _tlmBuff
+    );
+  }
+}
+
+void ActiveTelemetryComponentBase ::
+  tlmWrite_ChannelBoolOnChange(
+      bool arg,
+      Fw::Time _tlmTime
+  )
+{
+  // Check to see if it is the first time
+  if (not this->m_first_update_ChannelBoolOnChange) {
+    // Check to see if value has changed. If not, don't write it.
+    if (arg == this->m_last_ChannelBoolOnChange) {
+      return;
+    }
+    else {
+      this->m_last_ChannelBoolOnChange = arg;
+    }
+  }
+  else {
+    this->m_first_update_ChannelBoolOnChange = false;
+    this->m_last_ChannelBoolOnChange = arg;
+  }
+
+  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+    if (
+      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      (_tlmTime ==  Fw::ZERO_TIME)
+    ) {
+      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+    }
+
+    Fw::TlmBuffer _tlmBuff;
+    Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
+    FW_ASSERT(
+      _stat == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_stat)
+    );
+
+    FwChanIdType _id;
+
+    _id = this->getIdBase() + CHANNELID_CHANNELBOOLONCHANGE;
 
     this->m_tlmOut_OutputPort[0].invoke(
       _id,

@@ -478,6 +478,9 @@
 #define ASSERT_EVENTS_EventWarningLowThrottled_SIZE(size) \
   this->assertEvents_EventWarningLowThrottled_size(__FILE__, __LINE__, size)
 
+#define ASSERT_EVENTS_EventWarningLowThrottledInterval_SIZE(size) \
+  this->assertEvents_EventWarningLowThrottledInterval_size(__FILE__, __LINE__, size)
+
 // ----------------------------------------------------------------------
 // Macros for telemetry history assertions
 // ----------------------------------------------------------------------
@@ -550,6 +553,12 @@
 
 #define ASSERT_TLM_ChannelEnumOnChange(index, value) \
   this->assertTlm_ChannelEnumOnChange(__FILE__, __LINE__, index, value)
+
+#define ASSERT_TLM_ChannelBoolOnChange_SIZE(size) \
+  this->assertTlm_ChannelBoolOnChange_size(__FILE__, __LINE__, size)
+
+#define ASSERT_TLM_ChannelBoolOnChange(index, value) \
+  this->assertTlm_ChannelBoolOnChange(__FILE__, __LINE__, index, value)
 
 // ----------------------------------------------------------------------
 // Macros for product request assertions
@@ -789,6 +798,13 @@ class PassiveTestGTestBase :
         const U32 size //!< The asserted size
     ) const;
 
+    //! Event: EventWarningLowThrottledInterval
+    void assertEvents_EventWarningLowThrottledInterval_size(
+        const char* const __callSiteFileName, //!< The name of the file containing the call site
+        const U32 __callSiteLineNumber, //!< The line number of the call site
+        const U32 size //!< The asserted size
+    ) const;
+
   protected:
 
     // ----------------------------------------------------------------------
@@ -965,6 +981,21 @@ class PassiveTestGTestBase :
         const U32 __callSiteLineNumber, //!< The line number of the call site
         const U32 __index, //!< The index
         const E& val //!< The channel value
+    ) const;
+
+    //! Channel: ChannelBoolOnChange
+    void assertTlm_ChannelBoolOnChange_size(
+        const char* const __callSiteFileName, //!< The name of the file containing the call site
+        const U32 __callSiteLineNumber, //!< The line number of the call site
+        const U32 size //!< The asserted size
+    ) const;
+
+    //! Channel: ChannelBoolOnChange
+    void assertTlm_ChannelBoolOnChange(
+        const char* const __callSiteFileName, //!< The name of the file containing the call site
+        const U32 __callSiteLineNumber, //!< The line number of the call site
+        const U32 __index, //!< The index
+        const bool val //!< The channel value
     ) const;
 
   protected:

@@ -36,7 +36,7 @@ case class ComponentTelemetry (
   }
 
   def getVariableMembers: List[CppDoc.Class.Member] = {
-    List(
+    List.concat(
       addAccessTagAndComment(
         "private",
         "First update flags for telemetry channels",
@@ -45,7 +45,7 @@ case class ComponentTelemetry (
             lines(
               s"""|
                   |//! Initialized to true; cleared when channel ${channel.getName} is first updated
-                  |bool ${channelUpdateFlagName(channel.getName)};
+                  |bool ${channelUpdateFlagName(channel.getName)} = true;
                   |"""
             )
           )
@@ -63,14 +63,14 @@ case class ComponentTelemetry (
             lines(
               s"""|
                   |//! Records the last emitted value for channel $channelName
-                  |$channelType $channelStoreName;
+                  |$channelType $channelStoreName = {};
                   |"""
             )
           )
         }),
         CppDoc.Lines.Hpp
       )
-    ).flatten
+    )
   }
 
   private def getWriteFunctions: List[CppDoc.Class.Member] = {

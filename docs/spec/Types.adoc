@@ -42,7 +42,7 @@ where _n_ is an integer value in the range [1,2^31-1].
 There is one string type `string` and one string type `string size` _n_
 for each legal value of _n_.
 
-The value _n_, if present, is called the *size* associated with the string 
+The value _n_, if present, is called the *size* associated with the string
 type.
 The size provides a maximum string length that the code generator can use
 for allocating memory and serializing data.
@@ -122,6 +122,9 @@ the *numeric types*.
 The type _[_ _n_ _]_ _T_, where _n_
 is an integer and _T_ is a type, represents an array of _n_ elements,
 each of type _T_.
+The type _T_ is called the *element type* of the
+anonymous array type.
+The integer _n_ is called the *size* of the anonymous array type.
 
 ==== Anonymous Struct Types
 
@@ -160,7 +163,7 @@ It is one of the following:
 * An <<Types_Enum-Types,enum type>>.
 * An <<Types_Array-Types,array type>> whose member type is a displayable type.
 * A <<Types_Struct-Types,struct type>> whose member types are all displayable types.
-* An <<Types_Alias-Types,alias type>> whose <<Types_Underlying-Types,underlying 
+* An <<Types_Alias-Types,alias type>> whose <<Types_Underlying-Types,underlying
 type>> is a displayable type.
 
 === Types with Numeric Members

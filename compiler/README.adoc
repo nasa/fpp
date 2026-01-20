@@ -2,8 +2,30 @@
 
 == Requirements
 
-* A Unix environment, such as Linux, Mac OS, or the Windows Subsystem for Linux.
-* The https://www.scala-sbt.org[Simple Build Tool (sbt)] for Scala.
+. A Unix environment, such as Linux, Mac OS, or the Windows Subsystem for Linux.
+
+. The https://www.scala-sbt.org[Simple Build Tool (sbt)] for Scala.
+
+. Version 11 of the Java Development Kit (JDK).
+If you have a different version of Java installed on your system, then
+you can do the following:
+
+.. Install version 11 of the JDK.
+For example, in MacPorts you can run
++
+[source,bash]
+----
+% sudo port install openjdk11-graalvm
+----
+
+.. Set the environment variable `FPP_JAVA_HOME` to the home directory associated
+with the installation.
+For example, on Mac OS:
++
+[source,bash]
+----
+% export FPP_JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk11-graalvm/Contents/Home
+----
 
 == Installing
 
@@ -36,7 +58,6 @@ That way you can run the tools from anywhere.
 * `fpp-to-cpp`
 * `fpp-to-dict`
 * `fpp-to-layout`
-* `fpp-to-xml`
 
 See https://github.com/fprime-community/fpp/wiki/Tools for more information.
 
@@ -55,12 +76,17 @@ For example:
 % ./install
 ----
 
+*Installing with custom java flags:*
+For some installations, you may need to pass special flags
+to the `java` command.
+To do this, set the environment variable `FPP_JAVA_FLAGS`.
+
 == Testing
 
 There are two kinds of tests: unit tests written in Scala and
 unit tests that exercise the command-line tools.
 
-. Run `sbt test` to run all Scala unit tests.
+. Run `./fpp-sbt test` to run all Scala unit tests.
 
 . Run `./test` to run all command-line unit tests.
 Do this after running `./install`.
@@ -76,7 +102,7 @@ installed and available on the command line.
 +
 [source,bash]
 ----
-% sbt
+% ./fpp-sbt
 sbt:fpp-compiler>
 ----
 
@@ -112,16 +138,16 @@ For example, using MacPorts on Mac OS:
 % sudo port install openjdk11-graalvm
 ----
 
-. Set the global environment variable `GRAALVM_JAVA_HOME` to the `Home` directory
+. Set the global environment variable `FPP_GRAALVM_JAVA_HOME` to the `Home` directory
 associated with the GraalVM installation in step 1.
 For example, on Mac OS:
 +
 [source,bash]
 ----
-% export GRAALVM_JAVA_HOME=Library/Java/JavaVirtualMachines/openjdk11-graalvm/Contents/Home
+% export FPP_GRAALVM_JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk11-graalvm/Contents/Home
 ----
 
-. Run `sudo $GRAALVM_JAVA_HOME/bin/gu install native-image`
+. Run `sudo $FPP_GRAALVM_JAVA_HOME/bin/gu install native-image`
 *You must rerun this step every time you update or reinstall GraalVM (step 1).*
 If you update or reinstall GraalVM, and you forget to re-install `native-image`,
 then your GraalVM installation and your `native-image` installation will be out
@@ -152,6 +178,9 @@ Occasionally when developing FPP, you may need to re-run the tracing
 agent to capture new runtime behavior.
 To do that, use the following procedure:
 
+. Ensure that `native-image` is installed and up-to-date,
+as described above.
+
 . Run `./install-trace` to install JVM versions of the FPP tools with
 tracing enabled in the `bin` directory.
 
@@ -168,7 +197,14 @@ is an errant `.lock` file left behind by the tracing agent.
 Run `find . -name .lock` in this directory to find the file;
 then delete it and retry.
 
-. Commit the updated trace files to the repository.
+. Set the environment variable `FPRIME` to point to the root of
+a local copy of the
+https://github.com/nasa/fprime[F Prime repository] or
+a fork of the repository.
+
+. Run `./trace-fprime` to trace F Prime projects that run in CI.
+
+. Commit the updated trace files to this repository.
 
 . Run `./install` to reinstall the standard version
 of the tools.

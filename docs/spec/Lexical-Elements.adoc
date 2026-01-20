@@ -62,6 +62,7 @@ container
 cpu
 default
 diagnostic
+dictionary
 do
 drop
 else
@@ -69,6 +70,7 @@ enter
 entry
 enum
 event
+every
 exit
 external
 false

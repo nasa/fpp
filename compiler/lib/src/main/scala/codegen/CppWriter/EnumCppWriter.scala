@@ -313,15 +313,22 @@ case class EnumCppWriter(
         "serializeTo",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type("Fw::SerializeBufferBase&"),
+            CppDoc.Type("Fw::SerialBufferBase&"),
             "buffer",
             Some("The serial buffer")
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("Fw::Endianness"),
+            "mode",
+            Some("Endianness of serialized buffer"),
+            Some("Fw::Endianness::BIG"),
           )
         ),
         CppDoc.Type("Fw::SerializeStatus"),
         lines(
           s"""|const Fw::SerializeStatus status = buffer.serializeFrom(
-              |    static_cast<SerialType>(this->e)
+              |    static_cast<SerialType>(this->e),
+              |    mode
               |);
               |return status;"""
         ),
@@ -333,15 +340,21 @@ case class EnumCppWriter(
         "deserializeFrom",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type("Fw::SerializeBufferBase&"),
+            CppDoc.Type("Fw::SerialBufferBase&"),
             "buffer",
             Some("The serial buffer")
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("Fw::Endianness"),
+            "mode",
+            Some("Endianness of serialized buffer"),
+            Some("Fw::Endianness::BIG"),
           )
         ),
         CppDoc.Type("Fw::SerializeStatus"),
         lines(
           s"""|SerialType es;
-              |Fw::SerializeStatus status = buffer.deserializeTo(es);
+              |Fw::SerializeStatus status = buffer.deserializeTo(es, mode);
               |if (status == Fw::FW_SERIALIZE_OK) {
               |  this->e = static_cast<T>(es);
               |  if (!this->isValid()) {

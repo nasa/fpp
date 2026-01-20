@@ -8,6 +8,8 @@ def_interface
 def_port
 def_state_machine
 def_struct
+dictionary
+dictionary_no_top
 direct
 enum_constant
 expr_array
@@ -16,6 +18,7 @@ expr_dot
 expr_ident
 expr_paren
 expr_struct
+expr_struct_dot
 expr_unop
 filenames
 filenames_auto

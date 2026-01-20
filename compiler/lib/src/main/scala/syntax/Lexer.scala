@@ -47,6 +47,7 @@ object Lexer {
     ("cpu", CPU),
     ("default", DEFAULT),
     ("diagnostic", DIAGNOSTIC),
+    ("dictionary", DICTIONARY),
     ("do", DO),
     ("drop", DROP),
     ("else", ELSE),
@@ -54,6 +55,7 @@ object Lexer {
     ("entry", ENTRY),
     ("enum", ENUM),
     ("event", EVENT),
+    ("every", EVERY),
     ("exit", EXIT),
     ("external", EXTERNAL),
     ("false", FALSE),
@@ -238,6 +240,7 @@ object Lexer {
         case CPU => Token.CPU()
         case DEFAULT => Token.DEFAULT()
         case DIAGNOSTIC => Token.DIAGNOSTIC()
+        case DICTIONARY => Token.DICTIONARY()
         case DO => Token.DO()
         case DOT => Token.DOT()
         case DROP => Token.DROP()
@@ -248,6 +251,7 @@ object Lexer {
         case EOL => Token.EOL()
         case EQUALS => Token.EQUALS()
         case EVENT => Token.EVENT()
+        case EVERY => Token.EVERY()
         case EXIT => Token.EXIT()
         case EXTERNAL => Token.EXTERNAL()
         case F32 => Token.F32()

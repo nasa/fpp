@@ -41,6 +41,7 @@ active component C3 {
   state machine instance M_S_use: M.SM
   state machine instance C1_S_use: C1.SM
   state machine instance M_C1_S_use: M.C1.SM
+  event E(x: M.E) severity activity low id a format "x={}" throttle M.a + 2 every t
 }
 
 active component C4 {

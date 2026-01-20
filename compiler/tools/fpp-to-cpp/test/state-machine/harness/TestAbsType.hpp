@@ -41,33 +41,31 @@ struct TestAbsType final : public Fw::Serializable {
 
 #ifdef BUILD_UT
     //! Ostream operator
-    friend std::ostream& operator<<(
-        std::ostream& os, //!< The ostream
-        const TestAbsType& obj //!< The object
+    friend std::ostream& operator<<(std::ostream& os,       //!< The ostream
+                                    const TestAbsType& obj  //!< The object
     );
 #endif
-    
+
     //! Serialize function
     //! \return Status
-    Fw::SerializeStatus serializeTo(Fw::SerializeBufferBase& sbb  //!< The serialize buffer base
-    ) const final {
-        return sbb.serializeFrom(this->m_data);
+    Fw::SerializeStatus serializeTo(Fw::SerialBufferBase& sbb,  //!< The serialize buffer base
+                                    Fw::Endianness mode = Fw::Endianness::BIG) const final {
+        return sbb.serializeFrom(this->m_data, mode);
     }
 
     //! Deserialize method
     //! \return status
-    Fw::SerializeStatus deserializeFrom(Fw::SerializeBufferBase& sbb  //!< The serialize buffer base
-                                    ) final {
-        return sbb.deserializeTo(this->m_data);
+    Fw::SerializeStatus deserializeFrom(Fw::SerialBufferBase& sbb,  //!< The serialize buffer base
+                                        Fw::Endianness mode = Fw::Endianness::BIG) final {
+        return sbb.deserializeTo(this->m_data, mode);
     }
 
 #if FW_SERIALIZABLE_TO_STRING
     //! Convert TestAbsType to string
-    void toString(
-        Fw::StringBase& sb //!< The StringBase object to hold the result
+    void toString(Fw::StringBase& sb  //!< The StringBase object to hold the result
     ) const;
 #endif
-        
+
     //! The data
     U32 m_data;
 };

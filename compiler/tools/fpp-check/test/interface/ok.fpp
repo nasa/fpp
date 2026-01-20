@@ -1,5 +1,12 @@
 port P()
 
+interface I1 {
+  import I2
+}
+
+interface I2 {
+}
+
 module Fw {
   port Cmd
   port CmdReg
@@ -27,4 +34,9 @@ interface I {
 active component C {
     import Cmd
     import I
+    import I3
+}
+
+interface I3 {
+    async input port pAsync2: P
 }

@@ -14,10 +14,10 @@
 Namespace ::
   Namespace() :
     Serializable(),
-    m_A(0),
-    m_B(0),
-    m_C(0),
-    m_D(0)
+    m_A(),
+    m_B(),
+    m_C(),
+    m_D()
 {
 
 }
@@ -98,23 +98,26 @@ std::ostream& operator<<(std::ostream& os, const Namespace& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus Namespace ::
-  serializeTo(Fw::SerializeBufferBase& buffer) const
+  serializeTo(
+      Fw::SerialBufferBase& buffer,
+      Fw::Endianness mode
+  ) const
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serializeFrom(this->m_A);
+  status = buffer.serializeFrom(this->m_A, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serializeFrom(this->m_B);
+  status = buffer.serializeFrom(this->m_B, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serializeFrom(this->m_C);
+  status = buffer.serializeFrom(this->m_C, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serializeFrom(this->m_D);
+  status = buffer.serializeFrom(this->m_D, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -123,23 +126,26 @@ Fw::SerializeStatus Namespace ::
 }
 
 Fw::SerializeStatus Namespace ::
-  deserializeFrom(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(
+      Fw::SerialBufferBase& buffer,
+      Fw::Endianness mode
+  )
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserializeTo(this->m_A);
+  status = buffer.deserializeTo(this->m_A, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserializeTo(this->m_B);
+  status = buffer.deserializeTo(this->m_B, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserializeTo(this->m_C);
+  status = buffer.deserializeTo(this->m_C, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserializeTo(this->m_D);
+  status = buffer.deserializeTo(this->m_D, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }

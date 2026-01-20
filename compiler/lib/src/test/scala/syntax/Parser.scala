@@ -57,6 +57,17 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
+  "def alias type OK" should {
+    parseAllOK(
+      Parser.defAliasType,
+      List(
+        "type a = U32",
+        "type a = F32",
+        "dictionary type a = string"
+      )
+    )
+  }
+
   "def array OK" should {
     parseAllOK(
       Parser.defArray,
@@ -64,6 +75,7 @@ class ParserSpec extends AnyWordSpec {
         "array a = [10] U32",
         "array a = [10] U32 default 0",
         "array a = [10] U32 default 0 format \"{} counts\"",
+        "dictionary array a = [10] U32"
       )
     )
   }
@@ -122,6 +134,7 @@ class ParserSpec extends AnyWordSpec {
       Parser.defConstant,
       List(
         "constant a = 0",
+        "dictionary constant a = 0"
       )
     )
   }
@@ -138,6 +151,7 @@ class ParserSpec extends AnyWordSpec {
           @ Pre
           Y = 1 @< Post
         }""",
+        "dictionary enum E { X = 0 }"
       )
     )
   }
@@ -221,6 +235,7 @@ class ParserSpec extends AnyWordSpec {
           @ Pre
           y: F32 @< Post
         }""",
+        "dictionary struct S { x: [3] U32 }"
       )
     )
   }
@@ -469,6 +484,7 @@ class ParserSpec extends AnyWordSpec {
         "event E severity activity high id 0x100 format \"event E\"",
         "event E (x: U32) severity activity high id 0x100 format \"x={}\"",
         "event E (x: U32) severity activity high id 0x100 format \"x={}\" throttle 10",
+        "event E (x: U32) severity activity high id 0x100 format \"x={}\" throttle 10 every {seconds=10,useconds=11}",
       )
     )
   }
@@ -505,6 +521,8 @@ class ParserSpec extends AnyWordSpec {
         "locate port a.b at \"c.fpp\"",
         "locate topology a.b at \"c.fpp\"",
         "locate type a.b at \"c.fpp\"",
+        "locate dictionary type a.b at \"c.fpp\"",
+        "locate dictionary constant a.b at \"c.fpp\"",
       )
     )
   }

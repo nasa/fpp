@@ -2,7 +2,6 @@ package fpp.compiler.util
 
 import fpp.compiler.util.Location
 import java.util.Locale
-import fpp.compiler.util.Location
 
 /** An exception for signaling internal compiler errors */
 final case class InternalError(val msg: String) extends Exception {
@@ -126,6 +125,9 @@ sealed trait Error {
       case SemanticError.DuplicateTopology(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate topology ${name}")
         printPrevLoc(prevLoc)
+      case SemanticError.DuplicateInterface(name, loc, prevLoc) =>
+        Error.print (Some(loc)) (s"duplicate interface ${name}")
+        printPrevLoc(prevLoc)
       case SemanticError.EmptyArray(loc) =>
         Error.print (Some(loc)) ("array expression may not be empty")
       case SemanticError.ImplicitDuplicateConnectionAtMatchedPort(
@@ -143,11 +145,20 @@ sealed trait Error {
         System.err.println(matchingLoc)
         System.err.println("conflicting connection is here:")
         System.err.println(prevLoc)
-      case SemanticError.InconsistentSpecLoc(loc, path, prevLoc, prevPath) =>
+      case SemanticError.InconsistentDictionarySpecifier(loc, prevLoc) =>
+        Error.print (Some(loc)) (s"inconsistent location specifier")
+        printPrevLoc(prevLoc)
+        printNote("one specifies dictionary and one does not")
+      case SemanticError.InconsistentLocationPath(loc, path, prevLoc, prevPath) =>
         Error.print (Some(loc)) (s"inconsistent location path ${path}")
-        System.err.println(prevLoc)
+        printPrevLoc(prevLoc)
         System.err.println(s"previous path is ${prevPath}")
-      case SemanticError.IncorrectSpecLoc(loc, specifiedPath, actualLoc) =>
+      case SemanticError.IncorrectDictionarySpecifier(loc, defLoc) =>
+        Error.print (Some(loc)) (s"incorrect location specifier")
+        System.err.println(s"actual definition is here:")
+        System.err.println(defLoc)
+        printNote("one specifies dictionary and one does not")
+      case SemanticError.IncorrectLocationPath(loc, specifiedPath, actualLoc) =>
         Error.print (Some(loc)) (s"incorrect location path ${specifiedPath}")
         System.err.println(s"actual location is ${actualLoc}")
       case SemanticError.InvalidArraySize(loc, size) =>
@@ -181,8 +192,6 @@ sealed trait Error {
         Error.print (Some(loc)) (s"invalid component instance definition $name: $msg")
       case SemanticError.InvalidEnumConstants(loc) =>
         Error.print (Some(loc)) ("enum constants must be all explicit or all implied")
-      case SemanticError.InvalidExpression(loc, msg) =>
-        Error.print (Some(loc)) (s"invalid expression: $msg")
       case SemanticError.InvalidEvent(loc, msg) =>
         Error.print (Some(loc)) (msg)
       case SemanticError.InvalidFormatString(loc, msg) =>
@@ -218,6 +227,16 @@ sealed trait Error {
         Error.print (Some(loc)) (msg)
       case SemanticError.InvalidStringSize(loc, size) =>
         Error.print (Some(loc)) (s"invalid string size $size")
+      case SemanticError.InvalidAnonStructMember(memberName, loc, defLoc) =>
+        Error.print (Some(loc)) (s"no member $memberName in anonymous struct value")
+        System.err.println("symbol is defined here:")
+        System.err.println(defLoc)
+      case SemanticError.InvalidStructMember(memberName, loc, structTypeName, defLoc) =>
+        Error.print (Some(loc)) (s"no member $memberName in struct type $structTypeName")
+        System.err.println("symbol is defined here:")
+        System.err.println(defLoc)
+      case SemanticError.InvalidTypeForMemberSelection(memberName, loc, typeName) =>
+        Error.print (Some(loc)) (s"no member $memberName in value of type $typeName")
       case SemanticError.InvalidSymbol(name, loc, msg, defLoc) =>
         Error.print (Some(loc)) (s"invalid symbol $name: $msg")
         System.err.println("symbol is defined here:")
@@ -317,8 +336,9 @@ sealed trait Error {
         System.err.println("for this component instance:")
         System.err.println(instanceLoc)
       case SemanticError.TypeMismatch(loc, msg) => Error.print (Some(loc)) (msg)
-      case SemanticError.UndefinedSymbol(name, loc) =>
-        Error.print (Some(loc)) (s"undefined symbol ${name}")
+      case SemanticError.UndefinedSymbol(name, symbolKind, loc) =>
+        Error.print (Some(loc)) (s"symbol ${name} is not defined")
+        printNote(s"looking for a $symbolKind here")
       case SemanticError.InterfaceImport(
         importLoc,
         err
@@ -488,6 +508,12 @@ object SemanticError {
     loc: Location,
     prevLoc: Location
   ) extends Error
+  /** Duplicate interface */
+  final case class DuplicateInterface(
+    name: String,
+    loc: Location,
+    prevLoc: Location
+  ) extends Error
   /** Implicit duplicate connection at matched port */
   final case class ImplicitDuplicateConnectionAtMatchedPort(
     loc: Location,
@@ -497,15 +523,25 @@ object SemanticError {
     matchingLoc: Location,
     prevLoc: Location
   ) extends Error
+  /** Inconsistent dictionary specifiers in location specifiers */
+  final case class InconsistentDictionarySpecifier(
+    loc: Location,
+    prevLoc: Location,
+  ) extends Error
   /** Inconsistent location specifiers */
-  final case class InconsistentSpecLoc(
+  final case class InconsistentLocationPath(
     loc: Location,
     path: String,
     prevLoc: Location,
     prevPath: String
   ) extends Error
+  /** Incorrect dictionary specifier in location specifier */
+  final case class IncorrectDictionarySpecifier(
+    loc: Location,
+    defLoc: Location
+  ) extends Error
   /** Incorrect location specifiers */
-  final case class IncorrectSpecLoc(
+  final case class IncorrectLocationPath(
     loc: Location,
     specifiedPath: String,
     actualLoc: Location
@@ -542,8 +578,6 @@ object SemanticError {
   ) extends Error
   /** Invalid enum constants */
   final case class InvalidEnumConstants(loc: Location) extends Error
-  /** Invalid expression */
-  final case class InvalidExpression(loc: Location, msg: String) extends Error
   /** Invalid event */
   final case class InvalidEvent(loc: Location, msg: String) extends Error
   /** Invalid format string  */
@@ -597,6 +631,25 @@ object SemanticError {
   final case class InvalidSpecialPort(loc: Location, msg: String) extends Error
   /** Invalid string size */
   final case class InvalidStringSize(loc: Location, size: BigInt) extends Error
+  /** No member in struct type */
+  final case class InvalidStructMember(
+    memberName: String,
+    loc: Location,
+    structTypeName: String,
+    defLoc: Location
+  ) extends Error
+  /** No member in anonymous struct type */
+  final case class InvalidAnonStructMember(
+    memberName: String,
+    loc: Location,
+    defLoc: Location
+  ) extends Error
+  /** No member in anonymous struct type */
+  final case class InvalidTypeForMemberSelection(
+    memberName: String,
+    loc: Location,
+    typeName: String,
+  ) extends Error
   /** Invalid symbol */
   final case class InvalidSymbol(
     name: String,
@@ -729,7 +782,7 @@ object SemanticError {
   /** Type mismatch */
   final case class TypeMismatch(loc: Location, msg: String) extends Error
   /** Undefined symbol */
-  final case class UndefinedSymbol(name: String, loc: Location) extends Error
+  final case class UndefinedSymbol(name: String, symbolKind: String, loc: Location) extends Error
   /** Use-def cycle */
   final case class UseDefCycle(loc: Location, msg: String) extends Error
 }

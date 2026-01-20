@@ -3,6 +3,7 @@ fpp-depend
 locate constant c at "b.fpp"
                      ^
 error: inconsistent location path [ local path prefix ]/compiler/tools/fpp-depend/test/b.fpp
+previous occurrence is here:
 [ local path prefix ]/compiler/tools/fpp-depend/test/locate_constant_inconsistent.fpp:1.22
 locate constant c at "a.fpp"
                      ^

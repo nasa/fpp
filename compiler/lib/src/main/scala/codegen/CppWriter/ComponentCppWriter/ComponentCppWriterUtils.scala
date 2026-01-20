@@ -202,6 +202,22 @@ abstract class ComponentCppWriterUtils(
     }
   )
 
+  /** List of throttled events no timeout */
+  val throttledEventsNoTimeout: List[(Event.Id, Event)] = sortedEvents.filter((_, event) =>
+    event.throttle match {
+      case Some(Event.Throttle(_, None)) => true
+      case _ => false
+    }
+  )
+
+  /** List of throttled events with finite timeout intervals */
+  val throttledEventsWithTimeout: List[(Event.Id, Event)] = sortedEvents.filter((_, event) =>
+    event.throttle match {
+      case Some(Event.Throttle(_, Some(_))) => true
+      case _ => false
+    }
+  )
+
   /** List of channels sorted by ID */
   val sortedChannels: List[(TlmChannel.Id, TlmChannel)] = component.tlmChannelMap.toList.sortBy(_._1)
 
@@ -318,6 +334,8 @@ abstract class ComponentCppWriterUtils(
   val hasDataProducts: Boolean = component.hasDataProducts
 
   val hasContainers: Boolean = containersByName != Nil
+
+  val hasEventsWithTimeout: Boolean = throttledEventsWithTimeout.nonEmpty
 
   val hasExternalStateMachineInstances: Boolean =
     component.hasStateMachineInstancesOfKind(StateMachine.Kind.External)
@@ -503,7 +521,7 @@ abstract class ComponentCppWriterUtils(
   def getPortParams(p: PortInstance): List[(String, String, Option[Type])] =
     p.getType match {
       case Some(PortInstance.Type.Serial) => List(
-        ("buffer", "Fw::SerializeBufferBase", None)
+        ("buffer", "Fw::LinearBufferBase", None)
       )
       case _ => portParamTypeMap(p.getUnqualifiedName).map((n, tn, t) => (n, tn, Some(t)))
     }
@@ -513,7 +531,7 @@ abstract class ComponentCppWriterUtils(
     p.getType match {
       case Some(PortInstance.Type.Serial) => List(
         CppDoc.Function.Param(
-          CppDoc.Type("Fw::SerializeBufferBase&"),
+          CppDoc.Type("Fw::LinearBufferBase&"),
           "buffer",
           Some("The serialization buffer")
         )
@@ -815,6 +833,10 @@ abstract class ComponentCppWriterUtils(
   def eventThrottleCounterName(name: String) =
     s"m_${name}Throttle"
 
+  /** Get the name for an event throttle timeout interval variable */
+  def eventThrottleTimeName(name: String) =
+    s"m_${name}ThrottleTime"
+
   /** Get the name for an event ID constant */
   def eventIdConstantName(name: String) =
     s"EVENTID_${name.toUpperCase}"
@@ -955,6 +977,12 @@ abstract class ComponentCppWriterUtils(
 }
 
 object ComponentCppWriterUtils {
+
+  /** Whether code generation is internal or external to the component */
+  enum InternalOrExternal {
+    case Internal
+    case External 
+  }
 
   /** (  parameter name, parameter type name, parameter type ) **/
   type ParamTypeMapInfo = (String, String, Type)

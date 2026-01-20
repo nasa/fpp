@@ -5,6 +5,9 @@ it.
 
 ==== Syntax
 
+_[_
+`dictionary`
+_]_
 `array` <<Lexical-Elements_Identifiers,_identifier_>> `=`
 `[` <<Expressions,_expression_>> `]` <<Type-Names,_type-name_>>
 _[_
@@ -23,6 +26,8 @@ _type-name_ names the type _T_ of each array element.
 
 The definition associates the name _N_ with a new type _T'_
 that represents an array of _n_ elements of type _T_.
+The value _n_ is called the *size* of the array type _T'_.
+The type _T_ is called the *element type* of the array type _T'_.
 
 The expression following the keyword `default` is optional.
 If present, it specifies the <<Types_Default-Values,default value>> associated
@@ -33,6 +38,10 @@ The type of the expression must be
 The optional format specifier specifies a <<Format-Strings,format string>>.
 When displaying the array, the format is applied to each element of the array.
 There is one argument to the format string, which is an array member.
+
+If the optional keyword `dictionary` is present, then the
+definition must conform to the rules stated in the
+<<Definitions_Dictionary-Definitions,dictionary definitions>> section.
 
 ==== Examples
 

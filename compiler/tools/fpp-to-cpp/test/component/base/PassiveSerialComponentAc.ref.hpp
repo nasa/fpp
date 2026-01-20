@@ -177,6 +177,7 @@ class PassiveSerialComponentBase :
       EVENTID_EVENTFATALTHROTTLED = 0x13, //!< A fatal, throttled event with array params
       EVENTID_EVENTWARNINGHIGH = 0x20, //!< A warning high event with struct params
       EVENTID_EVENTWARNINGLOWTHROTTLED = 0x21, //!< A warning low, throttled event with no params
+      EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL = 0x22, //!< A warning low, throttled event and timeout interval with no params
     };
 
     //! Event throttle values: sets initial value of countdown variables
@@ -184,6 +185,7 @@ class PassiveSerialComponentBase :
       EVENTID_EVENTACTIVITYLOWTHROTTLED_THROTTLE = 5, //!< Throttle reset count for EventActivityLowThrottled
       EVENTID_EVENTFATALTHROTTLED_THROTTLE = 10, //!< Throttle reset count for EventFatalThrottled
       EVENTID_EVENTWARNINGLOWTHROTTLED_THROTTLE = 10, //!< Throttle reset count for EventWarningLowThrottled
+      EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL_THROTTLE = 10, //!< Throttle reset count for EventWarningLowThrottledInterval
     };
 
     //! Channel IDs
@@ -199,6 +201,7 @@ class PassiveSerialComponentBase :
       CHANNELID_CHANNELF64 = 0x15, //!< Channel ID for ChannelF64
       CHANNELID_CHANNELU32ONCHANGE = 0x16, //!< Channel ID for ChannelU32OnChange
       CHANNELID_CHANNELENUMONCHANGE = 0x17, //!< Channel ID for ChannelEnumOnChange
+      CHANNELID_CHANNELBOOLONCHANGE = 0x18, //!< Channel ID for ChannelBoolOnChange
     };
 
     //! Parameter IDs
@@ -617,7 +620,9 @@ class PassiveSerialComponentBase :
     //! Get the number of cmdIn input ports
     //!
     //! \return The number of cmdIn input ports
-    FwIndexType getNum_cmdIn_InputPorts() const;
+    static constexpr FwIndexType getNum_cmdIn_InputPorts() {
+      return NUM_CMDIN_INPUT_PORTS;
+    }
 
   protected:
 
@@ -628,67 +633,93 @@ class PassiveSerialComponentBase :
     //! Get the number of noArgsAliasStringReturnSync input ports
     //!
     //! \return The number of noArgsAliasStringReturnSync input ports
-    FwIndexType getNum_noArgsAliasStringReturnSync_InputPorts() const;
+    static constexpr FwIndexType getNum_noArgsAliasStringReturnSync_InputPorts() {
+      return NUM_NOARGSALIASSTRINGRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of noArgsGuarded input ports
     //!
     //! \return The number of noArgsGuarded input ports
-    FwIndexType getNum_noArgsGuarded_InputPorts() const;
+    static constexpr FwIndexType getNum_noArgsGuarded_InputPorts() {
+      return NUM_NOARGSGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of noArgsReturnGuarded input ports
     //!
     //! \return The number of noArgsReturnGuarded input ports
-    FwIndexType getNum_noArgsReturnGuarded_InputPorts() const;
+    static constexpr FwIndexType getNum_noArgsReturnGuarded_InputPorts() {
+      return NUM_NOARGSRETURNGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of noArgsReturnSync input ports
     //!
     //! \return The number of noArgsReturnSync input ports
-    FwIndexType getNum_noArgsReturnSync_InputPorts() const;
+    static constexpr FwIndexType getNum_noArgsReturnSync_InputPorts() {
+      return NUM_NOARGSRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of noArgsStringReturnSync input ports
     //!
     //! \return The number of noArgsStringReturnSync input ports
-    FwIndexType getNum_noArgsStringReturnSync_InputPorts() const;
+    static constexpr FwIndexType getNum_noArgsStringReturnSync_InputPorts() {
+      return NUM_NOARGSSTRINGRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of noArgsSync input ports
     //!
     //! \return The number of noArgsSync input ports
-    FwIndexType getNum_noArgsSync_InputPorts() const;
+    static constexpr FwIndexType getNum_noArgsSync_InputPorts() {
+      return NUM_NOARGSSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of typedAliasGuarded input ports
     //!
     //! \return The number of typedAliasGuarded input ports
-    FwIndexType getNum_typedAliasGuarded_InputPorts() const;
+    static constexpr FwIndexType getNum_typedAliasGuarded_InputPorts() {
+      return NUM_TYPEDALIASGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of typedAliasReturnSync input ports
     //!
     //! \return The number of typedAliasReturnSync input ports
-    FwIndexType getNum_typedAliasReturnSync_InputPorts() const;
+    static constexpr FwIndexType getNum_typedAliasReturnSync_InputPorts() {
+      return NUM_TYPEDALIASRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of typedAliasStringReturnSync input ports
     //!
     //! \return The number of typedAliasStringReturnSync input ports
-    FwIndexType getNum_typedAliasStringReturnSync_InputPorts() const;
+    static constexpr FwIndexType getNum_typedAliasStringReturnSync_InputPorts() {
+      return NUM_TYPEDALIASSTRINGRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of typedGuarded input ports
     //!
     //! \return The number of typedGuarded input ports
-    FwIndexType getNum_typedGuarded_InputPorts() const;
+    static constexpr FwIndexType getNum_typedGuarded_InputPorts() {
+      return NUM_TYPEDGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of typedReturnGuarded input ports
     //!
     //! \return The number of typedReturnGuarded input ports
-    FwIndexType getNum_typedReturnGuarded_InputPorts() const;
+    static constexpr FwIndexType getNum_typedReturnGuarded_InputPorts() {
+      return NUM_TYPEDRETURNGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of typedReturnSync input ports
     //!
     //! \return The number of typedReturnSync input ports
-    FwIndexType getNum_typedReturnSync_InputPorts() const;
+    static constexpr FwIndexType getNum_typedReturnSync_InputPorts() {
+      return NUM_TYPEDRETURNSYNC_INPUT_PORTS;
+    }
 
     //! Get the number of typedSync input ports
     //!
     //! \return The number of typedSync input ports
-    FwIndexType getNum_typedSync_InputPorts() const;
+    static constexpr FwIndexType getNum_typedSync_InputPorts() {
+      return NUM_TYPEDSYNC_INPUT_PORTS;
+    }
 
   protected:
 
@@ -699,12 +730,16 @@ class PassiveSerialComponentBase :
     //! Get the number of serialGuarded input ports
     //!
     //! \return The number of serialGuarded input ports
-    FwIndexType getNum_serialGuarded_InputPorts() const;
+    static constexpr FwIndexType getNum_serialGuarded_InputPorts() {
+      return NUM_SERIALGUARDED_INPUT_PORTS;
+    }
 
     //! Get the number of serialSync input ports
     //!
     //! \return The number of serialSync input ports
-    FwIndexType getNum_serialSync_InputPorts() const;
+    static constexpr FwIndexType getNum_serialSync_InputPorts() {
+      return NUM_SERIALSYNC_INPUT_PORTS;
+    }
 
   protected:
 
@@ -715,46 +750,62 @@ class PassiveSerialComponentBase :
     //! Get the number of cmdRegOut output ports
     //!
     //! \return The number of cmdRegOut output ports
-    FwIndexType getNum_cmdRegOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_cmdRegOut_OutputPorts() {
+      return NUM_CMDREGOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of cmdResponseOut output ports
     //!
     //! \return The number of cmdResponseOut output ports
-    FwIndexType getNum_cmdResponseOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_cmdResponseOut_OutputPorts() {
+      return NUM_CMDRESPONSEOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of eventOut output ports
     //!
     //! \return The number of eventOut output ports
-    FwIndexType getNum_eventOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_eventOut_OutputPorts() {
+      return NUM_EVENTOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of prmGetOut output ports
     //!
     //! \return The number of prmGetOut output ports
-    FwIndexType getNum_prmGetOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_prmGetOut_OutputPorts() {
+      return NUM_PRMGETOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of prmSetOut output ports
     //!
     //! \return The number of prmSetOut output ports
-    FwIndexType getNum_prmSetOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_prmSetOut_OutputPorts() {
+      return NUM_PRMSETOUT_OUTPUT_PORTS;
+    }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Get the number of textEventOut output ports
     //!
     //! \return The number of textEventOut output ports
-    FwIndexType getNum_textEventOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_textEventOut_OutputPorts() {
+      return NUM_TEXTEVENTOUT_OUTPUT_PORTS;
+    }
 
 #endif
 
     //! Get the number of timeGetOut output ports
     //!
     //! \return The number of timeGetOut output ports
-    FwIndexType getNum_timeGetOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_timeGetOut_OutputPorts() {
+      return NUM_TIMEGETOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of tlmOut output ports
     //!
     //! \return The number of tlmOut output ports
-    FwIndexType getNum_tlmOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_tlmOut_OutputPorts() {
+      return NUM_TLMOUT_OUTPUT_PORTS;
+    }
 
   protected:
 
@@ -765,42 +816,58 @@ class PassiveSerialComponentBase :
     //! Get the number of noArgsOut output ports
     //!
     //! \return The number of noArgsOut output ports
-    FwIndexType getNum_noArgsOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_noArgsOut_OutputPorts() {
+      return NUM_NOARGSOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of noArgsReturnOut output ports
     //!
     //! \return The number of noArgsReturnOut output ports
-    FwIndexType getNum_noArgsReturnOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_noArgsReturnOut_OutputPorts() {
+      return NUM_NOARGSRETURNOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of noArgsStringReturnOut output ports
     //!
     //! \return The number of noArgsStringReturnOut output ports
-    FwIndexType getNum_noArgsStringReturnOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_noArgsStringReturnOut_OutputPorts() {
+      return NUM_NOARGSSTRINGRETURNOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of typedAliasOut output ports
     //!
     //! \return The number of typedAliasOut output ports
-    FwIndexType getNum_typedAliasOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_typedAliasOut_OutputPorts() {
+      return NUM_TYPEDALIASOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of typedAliasReturnOut output ports
     //!
     //! \return The number of typedAliasReturnOut output ports
-    FwIndexType getNum_typedAliasReturnOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_typedAliasReturnOut_OutputPorts() {
+      return NUM_TYPEDALIASRETURNOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of typedAliasReturnStringOut output ports
     //!
     //! \return The number of typedAliasReturnStringOut output ports
-    FwIndexType getNum_typedAliasReturnStringOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_typedAliasReturnStringOut_OutputPorts() {
+      return NUM_TYPEDALIASRETURNSTRINGOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of typedOut output ports
     //!
     //! \return The number of typedOut output ports
-    FwIndexType getNum_typedOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_typedOut_OutputPorts() {
+      return NUM_TYPEDOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of typedReturnOut output ports
     //!
     //! \return The number of typedReturnOut output ports
-    FwIndexType getNum_typedReturnOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_typedReturnOut_OutputPorts() {
+      return NUM_TYPEDRETURNOUT_OUTPUT_PORTS;
+    }
 
   protected:
 
@@ -811,7 +878,9 @@ class PassiveSerialComponentBase :
     //! Get the number of serialOut output ports
     //!
     //! \return The number of serialOut output ports
-    FwIndexType getNum_serialOut_OutputPorts() const;
+    static constexpr FwIndexType getNum_serialOut_OutputPorts() {
+      return NUM_SERIALOUT_OUTPUT_PORTS;
+    }
 
   protected:
 
@@ -1205,13 +1274,13 @@ class PassiveSerialComponentBase :
     //! Handler for input port serialGuarded
     virtual void serialGuarded_handler(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     ) = 0;
 
     //! Handler for input port serialSync
     virtual void serialSync_handler(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     ) = 0;
 
   protected:
@@ -1225,13 +1294,13 @@ class PassiveSerialComponentBase :
     //! Handler base-class function for input port serialGuarded
     void serialGuarded_handlerBase(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     );
 
     //! Handler base-class function for input port serialSync
     void serialSync_handlerBase(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     );
 
   protected:
@@ -1324,7 +1393,7 @@ class PassiveSerialComponentBase :
     //! Invoke output port serialOut
     Fw::SerializeStatus serialOut_out(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     );
 
   protected:
@@ -1628,6 +1697,11 @@ class PassiveSerialComponentBase :
     //! A warning low, throttled event with no params
     void log_WARNING_LO_EventWarningLowThrottled();
 
+    //! Log event EventWarningLowThrottledInterval
+    //!
+    //! A warning low, throttled event and timeout interval with no params
+    void log_WARNING_LO_EventWarningLowThrottledInterval();
+
   protected:
 
     // ----------------------------------------------------------------------
@@ -1642,6 +1716,9 @@ class PassiveSerialComponentBase :
 
     //! Reset throttle value for EventWarningLowThrottled
     void log_WARNING_LO_EventWarningLowThrottled_ThrottleClear();
+
+    //! Reset throttle value for EventWarningLowThrottledInterval
+    void log_WARNING_LO_EventWarningLowThrottledInterval_ThrottleClear();
 
   protected:
 
@@ -1734,6 +1811,14 @@ class PassiveSerialComponentBase :
     //! A telemetry channel with enum data and update on change frequency
     void tlmWrite_ChannelEnumOnChange(
         const E& arg, //!< The telemetry value
+        Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
+    );
+
+    //! Write telemetry channel ChannelBoolOnChange
+    //!
+    //! A telemetry channel with Boolean data and update on change frequency
+    void tlmWrite_ChannelBoolOnChange(
+        bool arg, //!< The telemetry value
         Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
     );
 
@@ -2072,14 +2157,14 @@ class PassiveSerialComponentBase :
     static void m_p_serialGuarded_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     );
 
     //! Callback for port serialSync
     static void m_p_serialSync_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     );
 
 #endif
@@ -2094,84 +2179,84 @@ class PassiveSerialComponentBase :
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamU32(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamF64
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamF64(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamString
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamString(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamEnum
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamEnum(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamArray
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamArray(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamStruct
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamStruct(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamI32Ext
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamI32Ext(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamF64Ext
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamF64Ext(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamStringExt
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamStringExt(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamEnumExt
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamEnumExt(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamArrayExt
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamArrayExt(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamStructExt
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamStructExt(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
   private:
@@ -2394,6 +2479,12 @@ class PassiveSerialComponentBase :
     //! Throttle for EventWarningLowThrottled
     std::atomic<FwIndexType> m_EventWarningLowThrottledThrottle;
 
+    //! Throttle for EventWarningLowThrottledInterval
+    FwIndexType m_EventWarningLowThrottledIntervalThrottle;
+
+    //! Throttle time for EventWarningLowThrottledInterval
+    Fw::Time m_EventWarningLowThrottledIntervalThrottleTime;
+
   private:
 
     // ----------------------------------------------------------------------
@@ -2401,10 +2492,13 @@ class PassiveSerialComponentBase :
     // ----------------------------------------------------------------------
 
     //! Initialized to true; cleared when channel ChannelU32OnChange is first updated
-    bool m_first_update_ChannelU32OnChange;
+    bool m_first_update_ChannelU32OnChange = true;
 
     //! Initialized to true; cleared when channel ChannelEnumOnChange is first updated
-    bool m_first_update_ChannelEnumOnChange;
+    bool m_first_update_ChannelEnumOnChange = true;
+
+    //! Initialized to true; cleared when channel ChannelBoolOnChange is first updated
+    bool m_first_update_ChannelBoolOnChange = true;
 
   private:
 
@@ -2413,10 +2507,13 @@ class PassiveSerialComponentBase :
     // ----------------------------------------------------------------------
 
     //! Records the last emitted value for channel ChannelU32OnChange
-    U32 m_last_ChannelU32OnChange;
+    U32 m_last_ChannelU32OnChange = {};
 
     //! Records the last emitted value for channel ChannelEnumOnChange
-    E m_last_ChannelEnumOnChange;
+    E m_last_ChannelEnumOnChange = {};
+
+    //! Records the last emitted value for channel ChannelBoolOnChange
+    bool m_last_ChannelBoolOnChange = {};
 
   private:
 
@@ -2499,6 +2596,9 @@ class PassiveSerialComponentBase :
 
     //! Mutex for locking parameters during sets and saves
     Os::Mutex m_paramLock;
+
+    //! Mutex for locking event throttle timeout and counter
+    Os::Mutex m_eventLock;
 
 };
 

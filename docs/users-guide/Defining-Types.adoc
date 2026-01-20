@@ -691,3 +691,23 @@ defining `T`; elsewhere, configuration code can define
 F Prime uses this method to provide basic type whose definitions
 configure the framework.
 These types are defined in the file `config/FpConfig.fpp`.
+
+=== Framework Types
+
+Certain types defined in FPP have a special meaning in the F Prime
+framework.
+These types are called *framework types*.
+For example, the type `FwOpcodeType` defines the type of
+a command opcode.
+(Commands are an F Prime feature that we describe
+<<Defining-Components_Commands,in a later section of this manual>>.)
+
+Framework types are like <<Defining-Constants_Framework-Constants,framework 
+constants>>:
+you typically define them by overriding configuration files
+provided by F Prime, and if they are defined, then they must
+conform to certain rules.
+https://nasa.github.io/fpp/fpp-spec.html#Definitions_Framework-Definitions_Type-Definitions[_The 
+FPP Language Specification_] has all the details.
+
+

@@ -12,23 +12,7 @@
   "typeDefinitions" : [
     {
       "kind" : "alias",
-      "qualifiedName" : "FwEventIdType",
-      "type" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
-      },
-      "underlyingType" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
-      }
-    },
-    {
-      "kind" : "alias",
-      "qualifiedName" : "FwSizeType",
+      "qualifiedName" : "BaseIdType",
       "type" : {
         "name" : "U32",
         "kind" : "integer",
@@ -77,110 +61,19 @@
       "annotation" : "Alias of type U32"
     },
     {
-      "kind" : "struct",
-      "qualifiedName" : "Module1.ScalarStruct",
-      "members" : {
-        "u32" : {
-          "type" : {
-            "name" : "U32",
-            "kind" : "integer",
-            "size" : 32,
-            "signed" : false
-          },
-          "index" : 6
-        },
-        "f64" : {
-          "type" : {
-            "name" : "F64",
-            "kind" : "float",
-            "size" : 64
-          },
-          "index" : 9
-        },
-        "f32" : {
-          "type" : {
-            "name" : "F32",
-            "kind" : "float",
-            "size" : 32
-          },
-          "index" : 8
-        },
-        "i8" : {
-          "type" : {
-            "name" : "I8",
-            "kind" : "integer",
-            "size" : 8,
-            "signed" : true
-          },
-          "index" : 0
-        },
-        "i16" : {
-          "type" : {
-            "name" : "I16",
-            "kind" : "integer",
-            "size" : 16,
-            "signed" : true
-          },
-          "index" : 1
-        },
-        "u8" : {
-          "type" : {
-            "name" : "U8",
-            "kind" : "integer",
-            "size" : 8,
-            "signed" : false
-          },
-          "index" : 4
-        },
-        "u64" : {
-          "type" : {
-            "name" : "U64",
-            "kind" : "integer",
-            "size" : 64,
-            "signed" : false
-          },
-          "index" : 7
-        },
-        "i64" : {
-          "type" : {
-            "name" : "I64",
-            "kind" : "integer",
-            "size" : 64,
-            "signed" : true
-          },
-          "index" : 3
-        },
-        "i32" : {
-          "type" : {
-            "name" : "I32",
-            "kind" : "integer",
-            "size" : 32,
-            "signed" : true
-          },
-          "index" : 2
-        },
-        "u16" : {
-          "type" : {
-            "name" : "U16",
-            "kind" : "integer",
-            "size" : 16,
-            "signed" : false
-          },
-          "index" : 5
-        }
+      "kind" : "alias",
+      "qualifiedName" : "Module1.AliasT2",
+      "type" : {
+        "name" : "Module1.AliasT1",
+        "kind" : "qualifiedIdentifier"
       },
-      "default" : {
-        "u32" : 0,
-        "f64" : 0.0,
-        "f32" : 0.0,
-        "i8" : 0,
-        "i16" : 0,
-        "u8" : 0,
-        "u64" : 0,
-        "i64" : 0,
-        "i32" : 0,
-        "u16" : 0
-      }
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "annotation" : "Alias of type AliasT1 (with underlying type U32)"
     },
     {
       "kind" : "enum",
@@ -228,12 +121,10 @@
     },
     {
       "kind" : "alias",
-      "qualifiedName" : "FwPacketDescriptorType",
+      "qualifiedName" : "FwDpIdType",
       "type" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
       },
       "underlyingType" : {
         "name" : "U32",
@@ -244,26 +135,24 @@
     },
     {
       "kind" : "alias",
-      "qualifiedName" : "Module1.AliasT3",
+      "qualifiedName" : "FwChanIdType",
       "type" : {
-        "name" : "string",
-        "kind" : "string",
-        "size" : 20
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
       },
       "underlyingType" : {
-        "name" : "string",
-        "kind" : "string",
-        "size" : 20
-      }
-    },
-    {
-      "kind" : "alias",
-      "qualifiedName" : "FwDpPriorityType",
-      "type" : {
         "name" : "U32",
         "kind" : "integer",
         "size" : 32,
         "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwOpcodeType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
       },
       "underlyingType" : {
         "name" : "U32",
@@ -442,12 +331,10 @@
     },
     {
       "kind" : "alias",
-      "qualifiedName" : "FwDpIdType",
+      "qualifiedName" : "FwEventIdType",
       "type" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
       },
       "underlyingType" : {
         "name" : "U32",
@@ -457,19 +344,110 @@
       }
     },
     {
-      "kind" : "alias",
-      "qualifiedName" : "Module1.AliasT2",
-      "type" : {
-        "name" : "Module1.AliasT1",
-        "kind" : "qualifiedIdentifier"
+      "kind" : "struct",
+      "qualifiedName" : "Module1.ScalarStruct",
+      "members" : {
+        "u32" : {
+          "type" : {
+            "name" : "U32",
+            "kind" : "integer",
+            "size" : 32,
+            "signed" : false
+          },
+          "index" : 6
+        },
+        "f64" : {
+          "type" : {
+            "name" : "F64",
+            "kind" : "float",
+            "size" : 64
+          },
+          "index" : 9
+        },
+        "f32" : {
+          "type" : {
+            "name" : "F32",
+            "kind" : "float",
+            "size" : 32
+          },
+          "index" : 8
+        },
+        "i8" : {
+          "type" : {
+            "name" : "I8",
+            "kind" : "integer",
+            "size" : 8,
+            "signed" : true
+          },
+          "index" : 0
+        },
+        "i16" : {
+          "type" : {
+            "name" : "I16",
+            "kind" : "integer",
+            "size" : 16,
+            "signed" : true
+          },
+          "index" : 1
+        },
+        "u8" : {
+          "type" : {
+            "name" : "U8",
+            "kind" : "integer",
+            "size" : 8,
+            "signed" : false
+          },
+          "index" : 4
+        },
+        "u64" : {
+          "type" : {
+            "name" : "U64",
+            "kind" : "integer",
+            "size" : 64,
+            "signed" : false
+          },
+          "index" : 7
+        },
+        "i64" : {
+          "type" : {
+            "name" : "I64",
+            "kind" : "integer",
+            "size" : 64,
+            "signed" : true
+          },
+          "index" : 3
+        },
+        "i32" : {
+          "type" : {
+            "name" : "I32",
+            "kind" : "integer",
+            "size" : 32,
+            "signed" : true
+          },
+          "index" : 2
+        },
+        "u16" : {
+          "type" : {
+            "name" : "U16",
+            "kind" : "integer",
+            "size" : 16,
+            "signed" : false
+          },
+          "index" : 5
+        }
       },
-      "underlyingType" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
-      },
-      "annotation" : "Alias of type AliasT1 (with underlying type U32)"
+      "default" : {
+        "u32" : 0,
+        "f64" : 0.0,
+        "f32" : 0.0,
+        "i8" : 0,
+        "i16" : 0,
+        "u8" : 0,
+        "u64" : 0,
+        "i64" : 0,
+        "i32" : 0,
+        "u16" : 0
+      }
     },
     {
       "kind" : "struct",
@@ -518,12 +496,24 @@
     },
     {
       "kind" : "alias",
-      "qualifiedName" : "FwOpcodeType",
+      "qualifiedName" : "Module1.AliasT3",
       "type" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
+        "name" : "string",
+        "kind" : "string",
+        "size" : 20
+      },
+      "underlyingType" : {
+        "name" : "string",
+        "kind" : "string",
+        "size" : 20
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwPacketDescriptorType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
       },
       "underlyingType" : {
         "name" : "U32",
@@ -534,12 +524,24 @@
     },
     {
       "kind" : "alias",
-      "qualifiedName" : "FwChanIdType",
+      "qualifiedName" : "FwDpPriorityType",
       "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
         "name" : "U32",
         "kind" : "integer",
         "size" : 32,
         "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwSizeType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
       },
       "underlyingType" : {
         "name" : "U32",
@@ -977,6 +979,55 @@
       "id" : 770,
       "format" : "Arg1 is {f}",
       "annotation" : "Event with format specifier\nMultiple lines of annotation\nAnd not used on purpose"
+    },
+    {
+      "name" : "Module1.myFirstC1.Event4",
+      "severity" : "ACTIVITY_HI",
+      "formalParams" : [
+        {
+          "name" : "arg1",
+          "type" : {
+            "name" : "F64",
+            "kind" : "float",
+            "size" : 64
+          },
+          "ref" : false,
+          "annotation" : "description of arg1 formal param"
+        }
+      ],
+      "id" : 771,
+      "format" : "Arg1 is {}",
+      "annotation" : "Event with throttle",
+      "throttle" : {
+        "count" : 10,
+        "every" : null
+      }
+    },
+    {
+      "name" : "Module1.myFirstC1.Event5",
+      "severity" : "ACTIVITY_HI",
+      "formalParams" : [
+        {
+          "name" : "arg1",
+          "type" : {
+            "name" : "F64",
+            "kind" : "float",
+            "size" : 64
+          },
+          "ref" : false,
+          "annotation" : "description of arg1 formal param"
+        }
+      ],
+      "id" : 772,
+      "format" : "Arg1 is {}",
+      "annotation" : "Event with throttle and timeout",
+      "throttle" : {
+        "count" : 10,
+        "every" : {
+          "seconds" : 10,
+          "useconds" : 0
+        }
+      }
     },
     {
       "name" : "Module1.myFirstC2.Event1",

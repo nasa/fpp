@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# Print and evaluate
+evalp()
+{
+    echo "$@"
+    "$@"
+}
+
+# Get tool names from a directory
+get_tool_names()
+{
+    dir=$1
+    for file in $dir/*.jar
+    do
+        basename $file .jar
+    done
+}
+
+# Check arguments
+if [ ! -d "$1" ]
+then
+    echo "[ERROR] Must supply binary directory"
+    exit 1
+fi
+# Calculate directories
+tool_dir="$1"
+native_dir="${tool_dir}-native"
+native_final="${tool_dir}-final"
+mkdir -p "${native_dir}"
+mkdir -p "${native_final}"
+# Remove $1
+shift;
+tool_names="$@"
+if [[ "${tool_names}" == "" ]]
+then
+    tool_names="$(get_tool_names ${tool_dir})"
+fi
+
+# Generate a native emage
+for tool_name in $tool_names
+do
+    jar_file="$tool_dir/$tool_name.jar"
+    out_file="$native_dir/$tool_name"
+    echo "Building $out_file"
+    class_path="${CLASSPATH}"
+    evalp "$FPP_GRAALVM_JAVA_HOME/bin/native-image" -H:PageSize=65536 -cp "${class_path}" $FPP_NATIVE_IMAGE_FLAGS \
+      --no-fallback --install-exit-handlers \
+      -jar "$jar_file" "$out_file"
+    if [ $? -ne 0 ]
+    then
+        echo "[ERROR] Failed to build $out_file"
+        exit 1
+    fi
+    sync; sync; sync; # Magic to fix filesystem woes
+    cp "${out_file}" "${native_final}"
+done
+mv "$tool_dir" "$tool_dir.old"
+mv "$native_final" "$tool_dir"

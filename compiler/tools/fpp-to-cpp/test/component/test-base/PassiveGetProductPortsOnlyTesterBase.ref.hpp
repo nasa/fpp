@@ -76,12 +76,16 @@ class PassiveGetProductPortsOnlyTesterBase :
     //! Get the number of from_productGetOut ports
     //!
     //! \return The number of from_productGetOut ports
-    FwIndexType getNum_from_productGetOut() const;
+    static constexpr FwIndexType getNum_from_productGetOut() {
+      return PassiveGetProductPortsOnlyComponentBase::NUM_PRODUCTGETOUT_OUTPUT_PORTS;
+    }
 
     //! Get the number of from_productSendOut ports
     //!
     //! \return The number of from_productSendOut ports
-    FwIndexType getNum_from_productSendOut() const;
+    static constexpr FwIndexType getNum_from_productSendOut() {
+      return PassiveGetProductPortsOnlyComponentBase::NUM_PRODUCTSENDOUT_OUTPUT_PORTS;
+    }
 
   private:
 

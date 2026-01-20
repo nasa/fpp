@@ -13,14 +13,11 @@
 
 Modules4 ::
   Modules4() :
-    Serializable()
+    Serializable(),
+    m_arr1(),
+    m_arr2()
 {
-  for (FwSizeType i = 0; i < 3; i++) {
-    this->m_arr1[i] = M::Modules2(M::Modules1(0, 0.0f));
-  }
-  for (FwSizeType i = 0; i < 6; i++) {
-    this->m_arr2[i] = M::Modules2(M::Modules1(0, 0.0f));
-  }
+
 }
 
 Modules4 ::
@@ -124,18 +121,21 @@ std::ostream& operator<<(std::ostream& os, const Modules4& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus Modules4 ::
-  serializeTo(Fw::SerializeBufferBase& buffer) const
+  serializeTo(
+      Fw::SerialBufferBase& buffer,
+      Fw::Endianness mode
+  ) const
 {
   Fw::SerializeStatus status;
 
   for (FwSizeType i = 0; i < 3; i++) {
-    status = buffer.serializeFrom(this->m_arr1[i]);
+    status = buffer.serializeFrom(this->m_arr1[i], mode);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
   }
   for (FwSizeType i = 0; i < 6; i++) {
-    status = buffer.serializeFrom(this->m_arr2[i]);
+    status = buffer.serializeFrom(this->m_arr2[i], mode);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -145,18 +145,21 @@ Fw::SerializeStatus Modules4 ::
 }
 
 Fw::SerializeStatus Modules4 ::
-  deserializeFrom(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(
+      Fw::SerialBufferBase& buffer,
+      Fw::Endianness mode
+  )
 {
   Fw::SerializeStatus status;
 
   for (FwSizeType i = 0; i < 3; i++) {
-    status = buffer.deserializeTo(this->m_arr1[i]);
+    status = buffer.deserializeTo(this->m_arr1[i], mode);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
   }
   for (FwSizeType i = 0; i < 6; i++) {
-    status = buffer.deserializeTo(this->m_arr2[i]);
+    status = buffer.deserializeTo(this->m_arr2[i], mode);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }

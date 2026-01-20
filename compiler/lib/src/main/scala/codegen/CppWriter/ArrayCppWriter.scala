@@ -162,17 +162,31 @@ case class ArrayCppWriter (
 
   private val initElementsCall = guardedList (hasStringEltType) (lines("this->initElements();"))
 
+  private val defaultElementInitialization: Boolean = {
+    val elements = arrayType.getDefaultValue.get.anonArray.elements
+    val elementType = arrayType.anonArray.eltType.getDefaultValue
+    elementType match {
+      case None => false
+      case Some(elementTypeDefault) =>
+        elements.head == elementTypeDefault &&
+        elements.tail.forall(_ == elements.head)
+    }
+  }
+
   private def getConstructorMembers: List[CppDoc.Class.Member] = {
     val defaultValueConstructor = constructorClassMember(
       Some("Constructor (default value)"),
       Nil,
-      List("Serializable()"),
+      List(
+        "Serializable()",
+        "elements()"
+      ),
       List.concat(
         initElementsCall,
-        {
+        guardedList (!defaultElementInitialization) ({
           val valueString = ValueCppWriter.write(s, arrayType.getDefaultValue.get)
           lines(s"*this = $valueString;")
-        }
+        })
       )
     )
     val singleElementConstructor = constructorClassMember(
@@ -347,8 +361,7 @@ case class ArrayCppWriter (
           ),
         ),
         CppDoc.Type(s"$name&"),
-        lines("""|// Since we are required to use C++11, this has to be a runtime check
-                 |// In C++14, it can be a static check
+        lines("""|// Check that the initializer has the expected size
                  |FW_ASSERT(il.size() == SIZE, static_cast<FwAssertArgType>(il.size()), static_cast<FwAssertArgType>(SIZE));
                  |FwSizeType i = 0;
                  |for (const auto& e : il) {
@@ -481,16 +494,22 @@ case class ArrayCppWriter (
         "serializeTo",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type("Fw::SerializeBufferBase&"),
+            CppDoc.Type("Fw::SerialBufferBase&"),
             "buffer",
             Some("The serial buffer"),
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("Fw::Endianness"),
+            "mode",
+            Some("Endianness of serialized buffer"),
+            Some("Fw::Endianness::BIG"),
           )
         ),
         CppDoc.Type("Fw::SerializeStatus"),
         List.concat(
           lines("Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;"),
           indexIterator(
-            line("status = buffer.serializeFrom((*this)[index]);") ::
+            line("status = buffer.serializeFrom((*this)[index], mode);") ::
               wrapInIf("status != Fw::FW_SERIALIZE_OK", lines("return status;")),
           ),
           lines("return status;"),
@@ -503,16 +522,22 @@ case class ArrayCppWriter (
         "deserializeFrom",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type("Fw::SerializeBufferBase&"),
+            CppDoc.Type("Fw::SerialBufferBase&"),
             "buffer",
             Some("The serial buffer"),
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("Fw::Endianness"),
+            "mode",
+            Some("Endianness of serialized buffer"),
+            Some("Fw::Endianness::BIG"),
           )
         ),
         CppDoc.Type("Fw::SerializeStatus"),
         List.concat(
           lines("Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;"),
           indexIterator(
-            line("status = buffer.deserializeTo((*this)[index]);") ::
+            line("status = buffer.deserializeTo((*this)[index], mode);") ::
               wrapInIf("status != Fw::FW_SERIALIZE_OK", lines("return status;")),
           ),
           lines("return status;"),

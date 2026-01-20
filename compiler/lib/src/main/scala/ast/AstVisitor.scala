@@ -11,17 +11,15 @@ trait AstVisitor {
 
   def defAbsTypeAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefAbsType]]): Out = default(in)
 
-  def defAliasTypeAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefAliasType]]): Out = default(in)
-
   def defActionAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefAction]]): Out = default(in)
+
+  def defAliasTypeAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefAliasType]]): Out = default(in)
 
   def defArrayAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefArray]]): Out = default(in)
 
   def defChoiceAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefChoice]]): Out = default(in)
 
   def defComponentAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefComponent]]): Out = default(in)
-
-  def defInterfaceAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefInterface]]): Out = default(in)
 
   def defComponentInstanceAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]): Out = default(in)
 
@@ -30,6 +28,8 @@ trait AstVisitor {
   def defEnumAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefEnum]]): Out = default(in)
 
   def defGuardAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefGuard]]): Out = default(in)
+
+  def defInterfaceAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefInterface]]): Out = default(in)
 
   def defModuleAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefModule]]): Out = default(in)
 
@@ -61,6 +61,8 @@ trait AstVisitor {
   def defTopologyAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefTopology]]): Out = default(in)
 
   def exprArrayNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprArray): Out = default(in)
+
+  def exprArraySubscriptNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprArraySubscript): Out = default(in)
 
   def exprBinopNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprBinop): Out = default(in)
 
@@ -176,6 +178,7 @@ trait AstVisitor {
   final def matchExprNode(in: In, node: AstNode[Ast.Expr]): Out =
     node.data match {
       case e : Ast.ExprArray => exprArrayNode(in, node, e)
+      case e : Ast.ExprArraySubscript => exprArraySubscriptNode(in, node, e)
       case e : Ast.ExprBinop => exprBinopNode(in, node, e)
       case e : Ast.ExprDot => exprDotNode(in, node, e)
       case e : Ast.ExprIdent => exprIdentNode(in, node, e)

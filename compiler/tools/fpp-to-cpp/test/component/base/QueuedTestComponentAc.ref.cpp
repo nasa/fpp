@@ -72,7 +72,7 @@ namespace {
   // Define a message buffer class large enough to handle all the
   // asynchronous inputs to the component
   class ComponentIpcSerializableBuffer :
-    public Fw::SerializeBufferBase
+    public Fw::LinearBufferBase
   {
 
     public:
@@ -86,7 +86,7 @@ namespace {
         SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
       };
 
-      Fw::Serializable::SizeType getBuffCapacity() const {
+      Fw::Serializable::SizeType getCapacity() const {
         return sizeof(m_buff);
       }
 
@@ -144,7 +144,7 @@ Fw::SerializeStatus QueuedTestComponentBase::DpContainer ::
   }
   // Serialize the elements if they will fit
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
+  if ((this->m_dataBuffer.getSize() + sizeDelta) <= this->m_dataBuffer.getCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::DataArrayRecord;
     status = this->m_dataBuffer.serializeFrom(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
@@ -169,7 +169,7 @@ Fw::SerializeStatus QueuedTestComponentBase::DpContainer ::
     sizeof(FwDpIdType) +
     elt.serializedSize();
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
+  if (this->m_dataBuffer.getSize() + sizeDelta <= this->m_dataBuffer.getCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::DataRecord;
     status = this->m_dataBuffer.serializeFrom(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
@@ -202,7 +202,7 @@ Fw::SerializeStatus QueuedTestComponentBase::DpContainer ::
   }
   // Serialize the elements if they will fit
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
+  if ((this->m_dataBuffer.getSize() + sizeDelta) <= this->m_dataBuffer.getCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::StringArrayRecord;
     status = this->m_dataBuffer.serializeFrom(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
@@ -230,7 +230,7 @@ Fw::SerializeStatus QueuedTestComponentBase::DpContainer ::
     sizeof(FwDpIdType) +
     elt.serializedTruncatedSize(stringSize);
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
+  if (this->m_dataBuffer.getSize() + sizeDelta <= this->m_dataBuffer.getCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::StringRecord;
     status = this->m_dataBuffer.serializeFrom(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
@@ -258,7 +258,7 @@ Fw::SerializeStatus QueuedTestComponentBase::DpContainer ::
     size * sizeof(U32);
   // Serialize the elements if they will fit
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
+  if ((this->m_dataBuffer.getSize() + sizeDelta) <= this->m_dataBuffer.getCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::U32ArrayRecord;
     status = this->m_dataBuffer.serializeFrom(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
@@ -283,7 +283,7 @@ Fw::SerializeStatus QueuedTestComponentBase::DpContainer ::
     sizeof(FwDpIdType) +
     sizeof(U32);
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
+  if (this->m_dataBuffer.getSize() + sizeDelta <= this->m_dataBuffer.getCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::U32Record;
     status = this->m_dataBuffer.serializeFrom(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
@@ -311,7 +311,7 @@ Fw::SerializeStatus QueuedTestComponentBase::DpContainer ::
     size * sizeof(U8);
   // Serialize the elements if they will fit
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
+  if ((this->m_dataBuffer.getSize() + sizeDelta) <= this->m_dataBuffer.getCapacity()) {
     const FwDpIdType id = this->m_baseId + RecordId::U8ArrayRecord;
     status = this->m_dataBuffer.serializeFrom(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
@@ -2253,7 +2253,7 @@ void QueuedTestComponentBase ::
     // Pass the local ID to the delegate
     _id = PARAMID_PARAMI32EXT;
 
-    FW_ASSERT(this->paramDelegatePtr != NULL);
+    FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamI32Ext
     _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -2279,7 +2279,7 @@ void QueuedTestComponentBase ::
     // Pass the local ID to the delegate
     _id = PARAMID_PARAMF64EXT;
 
-    FW_ASSERT(this->paramDelegatePtr != NULL);
+    FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamF64Ext
     _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -2305,7 +2305,7 @@ void QueuedTestComponentBase ::
     // Pass the local ID to the delegate
     _id = PARAMID_PARAMSTRINGEXT;
 
-    FW_ASSERT(this->paramDelegatePtr != NULL);
+    FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamStringExt
     _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -2331,7 +2331,7 @@ void QueuedTestComponentBase ::
     // Pass the local ID to the delegate
     _id = PARAMID_PARAMENUMEXT;
 
-    FW_ASSERT(this->paramDelegatePtr != NULL);
+    FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamEnumExt
     _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -2357,7 +2357,7 @@ void QueuedTestComponentBase ::
     // Pass the local ID to the delegate
     _id = PARAMID_PARAMARRAYEXT;
 
-    FW_ASSERT(this->paramDelegatePtr != NULL);
+    FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamArrayExt
     _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -2383,7 +2383,7 @@ void QueuedTestComponentBase ::
     // Pass the local ID to the delegate
     _id = PARAMID_PARAMSTRUCTEXT;
 
-    FW_ASSERT(this->paramDelegatePtr != NULL);
+    FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamStructExt
     _stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, param_valid, _buff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
@@ -2405,18 +2405,14 @@ void QueuedTestComponentBase ::
 QueuedTestComponentBase ::
   QueuedTestComponentBase(const char* compName) :
     Fw::QueuedComponentBase(compName),
-    paramDelegatePtr(NULL)
+    paramDelegatePtr(nullptr)
 {
-  // Write telemetry channel ChannelU32OnChange
-  this->m_first_update_ChannelU32OnChange = true;
-  this->m_last_ChannelU32OnChange = 0;
-
-  // Write telemetry channel ChannelEnumOnChange
-  this->m_first_update_ChannelEnumOnChange = true;
-
   this->m_EventActivityLowThrottledThrottle = 0;
   this->m_EventFatalThrottledThrottle = 0;
   this->m_EventWarningLowThrottledThrottle = 0;
+  this->m_EventWarningLowThrottledIntervalThrottle = 0;
+
+  this->m_EventWarningLowThrottledIntervalThrottleTime = Fw::Time();
 
   this->m_param_ParamU32_valid = Fw::ParamValid::UNINIT;
   this->m_param_ParamF64_valid = Fw::ParamValid::UNINIT;
@@ -2430,260 +2426,6 @@ QueuedTestComponentBase ::
   ~QueuedTestComponentBase()
 {
 
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of special input ports
-// ----------------------------------------------------------------------
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_cmdIn_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdIn_InputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_productRecvIn_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productRecvIn_InputPort));
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of typed input ports
-// ----------------------------------------------------------------------
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_aliasTypedAsync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_aliasTypedAsync_InputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_noArgsAliasStringReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsAliasStringReturnSync_InputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_noArgsAsync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsAsync_InputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_noArgsGuarded_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsGuarded_InputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_noArgsReturnGuarded_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnGuarded_InputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_noArgsReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnSync_InputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_noArgsStringReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsStringReturnSync_InputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_noArgsSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsSync_InputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_typedAliasGuarded_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasGuarded_InputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_typedAliasReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasReturnSync_InputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_typedAliasStringReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasStringReturnSync_InputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_typedAsync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsync_InputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_typedAsyncAssert_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncAssert_InputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_typedAsyncBlockPriority_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncBlockPriority_InputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_typedAsyncDropPriority_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncDropPriority_InputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_typedGuarded_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedGuarded_InputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_typedReturnGuarded_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnGuarded_InputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_typedReturnSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnSync_InputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_typedSync_InputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedSync_InputPort));
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of special output ports
-// ----------------------------------------------------------------------
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_cmdRegOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdRegOut_OutputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_cmdResponseOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdResponseOut_OutputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_eventOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_eventOut_OutputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_prmGetOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_prmGetOut_OutputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_prmSetOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_prmSetOut_OutputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_productRequestOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productRequestOut_OutputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_productSendOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productSendOut_OutputPort));
-}
-
-#if FW_ENABLE_TEXT_LOGGING == 1
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_textEventOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_textEventOut_OutputPort));
-}
-
-#endif
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_timeGetOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_timeGetOut_OutputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_tlmOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_tlmOut_OutputPort));
-}
-
-// ----------------------------------------------------------------------
-// Getters for numbers of typed output ports
-// ----------------------------------------------------------------------
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_noArgsOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsOut_OutputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_noArgsReturnOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnOut_OutputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_noArgsStringReturnOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsStringReturnOut_OutputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_typedAliasOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasOut_OutputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_typedAliasReturnOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasReturnOut_OutputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_typedAliasReturnStringOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAliasReturnStringOut_OutputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_typedOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedOut_OutputPort));
-}
-
-FwIndexType QueuedTestComponentBase ::
-  getNum_typedReturnOut_OutputPorts() const
-{
-  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnOut_OutputPort));
 }
 
 // ----------------------------------------------------------------------
@@ -4561,7 +4303,7 @@ void QueuedTestComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -4631,7 +4373,7 @@ void QueuedTestComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -4693,7 +4435,7 @@ void QueuedTestComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -4741,7 +4483,7 @@ void QueuedTestComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -4788,7 +4530,7 @@ void QueuedTestComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -4835,7 +4577,7 @@ void QueuedTestComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -4863,7 +4605,7 @@ void QueuedTestComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -4937,7 +4679,7 @@ void QueuedTestComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -5003,7 +4745,7 @@ void QueuedTestComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -5055,7 +4797,7 @@ void QueuedTestComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -5106,7 +4848,7 @@ void QueuedTestComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -5157,7 +4899,7 @@ void QueuedTestComponentBase ::
 #if FW_CMD_CHECK_RESIDUAL
   // Make sure there was no data left over.
   // That means the argument buffer size was incorrect.
-  if (args.getBuffLeft() != 0) {
+  if (args.getDeserializeSizeLeft() != 0) {
     if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
       this->m_cmdResponseOut_OutputPort[0].invoke(
         opCode,
@@ -5628,7 +5370,7 @@ void QueuedTestComponentBase ::
     return;
   }
   else {
-    (void) this->m_EventActivityLowThrottledThrottle.fetch_add(1);
+    this->m_EventActivityLowThrottledThrottle++;
   }
 
   // Get the time
@@ -5919,7 +5661,7 @@ void QueuedTestComponentBase ::
     return;
   }
   else {
-    (void) this->m_EventFatalThrottledThrottle.fetch_add(1);
+    this->m_EventFatalThrottledThrottle++;
   }
 
   // Get the time
@@ -6110,7 +5852,7 @@ void QueuedTestComponentBase ::
     return;
   }
   else {
-    (void) this->m_EventWarningLowThrottledThrottle.fetch_add(1);
+    this->m_EventWarningLowThrottledThrottle++;
   }
 
   // Get the time
@@ -6175,6 +5917,96 @@ void QueuedTestComponentBase ::
 #endif
 }
 
+void QueuedTestComponentBase ::
+  log_WARNING_LO_EventWarningLowThrottledInterval()
+{
+  // Get the time
+  Fw::Time _logTime;
+  if (this->m_timeGetOut_OutputPort[0].isConnected()) {
+    this->m_timeGetOut_OutputPort[0].invoke(_logTime);
+  }
+
+  FwEventIdType _id = static_cast<FwEventIdType>(0);
+
+  _id = this->getIdBase() + EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL;
+
+  // Check throttle value & throttle timeout
+  {
+    Os::ScopeLock scopedLock(this->m_eventLock);
+
+    if (this->m_EventWarningLowThrottledIntervalThrottle >= EVENTID_EVENTWARNINGLOWTHROTTLEDINTERVAL_THROTTLE) {
+      // The counter has overflowed, check if time interval has passed
+      if (Fw::TimeInterval(this->m_EventWarningLowThrottledIntervalThrottleTime, _logTime) >= Fw::TimeInterval(10, 0)) {
+        // Reset the count
+        this->m_EventWarningLowThrottledIntervalThrottle = 0;
+      } else {
+        // Throttle the event
+        return;
+      }
+    }
+
+    // Reset the throttle time if needed
+    if (this->m_EventWarningLowThrottledIntervalThrottle == 0) {
+      // This is the first event, reset the throttle time
+      this->m_EventWarningLowThrottledIntervalThrottleTime = _logTime;
+    }
+
+    // Increment the count
+    this->m_EventWarningLowThrottledIntervalThrottle++;
+  }
+
+  // Emit the event on the log port
+  if (this->m_eventOut_OutputPort[0].isConnected()) {
+    Fw::LogBuffer _logBuff;
+
+#if FW_AMPCS_COMPATIBLE
+    Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+    // Serialize the number of arguments
+    _status = _logBuff.serializeFrom(static_cast<U8>(0));
+    FW_ASSERT(
+      _status == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_status)
+    );
+#endif
+
+    this->m_eventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::WARNING_LO,
+      _logBuff
+    );
+  }
+
+  // Emit the event on the text log port
+#if FW_ENABLE_TEXT_LOGGING
+  if (this->m_textEventOut_OutputPort[0].isConnected()) {
+#if FW_OBJECT_NAMES == 1
+    const char* _formatString =
+      "(%s) %s: Event Warning Low occurred";
+#else
+    const char* _formatString =
+      "%s: Event Warning Low occurred";
+#endif
+
+    Fw::TextLogString _logString;
+    _logString.format(
+      _formatString,
+#if FW_OBJECT_NAMES == 1
+      this->m_objName.toChar(),
+#endif
+      "EventWarningLowThrottledInterval "
+    );
+
+    this->m_textEventOut_OutputPort[0].invoke(
+      _id,
+      _logTime,
+      Fw::LogSeverity::WARNING_LO,
+      _logString
+    );
+  }
+#endif
+}
+
 // ----------------------------------------------------------------------
 // Event throttle reset functions
 // ----------------------------------------------------------------------
@@ -6198,6 +6030,20 @@ void QueuedTestComponentBase ::
 {
   // Reset throttle counter
   this->m_EventWarningLowThrottledThrottle = 0;
+}
+
+void QueuedTestComponentBase ::
+  log_WARNING_LO_EventWarningLowThrottledInterval_ThrottleClear()
+{
+  {
+    Os::ScopeLock scopedLock(this->m_eventLock);
+
+    // Reset throttle counter
+    this->m_EventWarningLowThrottledIntervalThrottle = 0;
+
+    // Reset the throttle time
+    this->m_EventWarningLowThrottledIntervalThrottleTime = Fw::Time(0, 0);
+  }
 }
 
 // ----------------------------------------------------------------------
@@ -6597,6 +6443,54 @@ void QueuedTestComponentBase ::
   }
 }
 
+void QueuedTestComponentBase ::
+  tlmWrite_ChannelBoolOnChange(
+      bool arg,
+      Fw::Time _tlmTime
+  )
+{
+  // Check to see if it is the first time
+  if (not this->m_first_update_ChannelBoolOnChange) {
+    // Check to see if value has changed. If not, don't write it.
+    if (arg == this->m_last_ChannelBoolOnChange) {
+      return;
+    }
+    else {
+      this->m_last_ChannelBoolOnChange = arg;
+    }
+  }
+  else {
+    this->m_first_update_ChannelBoolOnChange = false;
+    this->m_last_ChannelBoolOnChange = arg;
+  }
+
+  if (this->m_tlmOut_OutputPort[0].isConnected()) {
+    if (
+      this->m_timeGetOut_OutputPort[0].isConnected() &&
+      (_tlmTime ==  Fw::ZERO_TIME)
+    ) {
+      this->m_timeGetOut_OutputPort[0].invoke(_tlmTime);
+    }
+
+    Fw::TlmBuffer _tlmBuff;
+    Fw::SerializeStatus _stat = _tlmBuff.serializeFrom(arg);
+    FW_ASSERT(
+      _stat == Fw::FW_SERIALIZE_OK,
+      static_cast<FwAssertArgType>(_stat)
+    );
+
+    FwChanIdType _id;
+
+    _id = this->getIdBase() + CHANNELID_CHANNELBOOLONCHANGE;
+
+    this->m_tlmOut_OutputPort[0].invoke(
+      _id,
+      _tlmTime,
+      _tlmBuff
+    );
+  }
+}
+
 // ----------------------------------------------------------------------
 // Parameter update hook
 // ----------------------------------------------------------------------
@@ -6693,7 +6587,7 @@ I32 QueuedTestComponentBase ::
   // Get the local ID to pass to the delegate
   const FwPrmIdType _localId = PARAMID_PARAMI32EXT;
 
-  FW_ASSERT(this->paramDelegatePtr != NULL);
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
   // Get the external parameter from the delegate
   Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
   if(_stat == Fw::FW_SERIALIZE_OK) {
@@ -6716,7 +6610,7 @@ F64 QueuedTestComponentBase ::
   // Get the local ID to pass to the delegate
   const FwPrmIdType _localId = PARAMID_PARAMF64EXT;
 
-  FW_ASSERT(this->paramDelegatePtr != NULL);
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
   // Get the external parameter from the delegate
   Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
   if(_stat == Fw::FW_SERIALIZE_OK) {
@@ -6739,7 +6633,7 @@ Fw::ParamString QueuedTestComponentBase ::
   // Get the local ID to pass to the delegate
   const FwPrmIdType _localId = PARAMID_PARAMSTRINGEXT;
 
-  FW_ASSERT(this->paramDelegatePtr != NULL);
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
   // Get the external parameter from the delegate
   Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
   if(_stat == Fw::FW_SERIALIZE_OK) {
@@ -6762,7 +6656,7 @@ E QueuedTestComponentBase ::
   // Get the local ID to pass to the delegate
   const FwPrmIdType _localId = PARAMID_PARAMENUMEXT;
 
-  FW_ASSERT(this->paramDelegatePtr != NULL);
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
   // Get the external parameter from the delegate
   Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
   if(_stat == Fw::FW_SERIALIZE_OK) {
@@ -6785,7 +6679,7 @@ A QueuedTestComponentBase ::
   // Get the local ID to pass to the delegate
   const FwPrmIdType _localId = PARAMID_PARAMARRAYEXT;
 
-  FW_ASSERT(this->paramDelegatePtr != NULL);
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
   // Get the external parameter from the delegate
   Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
   if(_stat == Fw::FW_SERIALIZE_OK) {
@@ -6808,7 +6702,7 @@ S QueuedTestComponentBase ::
   // Get the local ID to pass to the delegate
   const FwPrmIdType _localId = PARAMID_PARAMSTRUCTEXT;
 
-  FW_ASSERT(this->paramDelegatePtr != NULL);
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
   // Get the external parameter from the delegate
   Fw::SerializeStatus _stat = this->paramDelegatePtr->serializeParam(_baseId, _localId, _getBuff);
   if(_stat == Fw::FW_SERIALIZE_OK) {
@@ -6828,7 +6722,7 @@ S QueuedTestComponentBase ::
 void QueuedTestComponentBase ::
   registerExternalParameters(Fw::ParamExternalDelegate* paramExternalDelegatePtr)
 {
-  FW_ASSERT(paramExternalDelegatePtr != NULL);
+  FW_ASSERT(paramExternalDelegatePtr != nullptr);
   this->paramDelegatePtr = paramExternalDelegatePtr;
 }
 
@@ -7390,7 +7284,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
       // Make sure there was no data left over.
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
-      if (args.getBuffLeft() != 0) {
+      if (args.getDeserializeSizeLeft() != 0) {
         if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
@@ -7437,7 +7331,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
       // Make sure there was no data left over.
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
-      if (args.getBuffLeft() != 0) {
+      if (args.getDeserializeSizeLeft() != 0) {
         if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
@@ -7499,7 +7393,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
       // Make sure there was no data left over.
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
-      if (args.getBuffLeft() != 0) {
+      if (args.getDeserializeSizeLeft() != 0) {
         if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
@@ -7549,7 +7443,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
       // Make sure there was no data left over.
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
-      if (args.getBuffLeft() != 0) {
+      if (args.getDeserializeSizeLeft() != 0) {
         if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
@@ -7611,7 +7505,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
       // Make sure there was no data left over.
       // That means the argument buffer size was incorrect.
 #if FW_CMD_CHECK_RESIDUAL
-      if (args.getBuffLeft() != 0) {
+      if (args.getDeserializeSizeLeft() != 0) {
         if (this->m_cmdResponseOut_OutputPort[0].isConnected()) {
           this->cmdResponse_out(_opCode, _cmdSeq, Fw::CmdResponse::FORMAT_ERROR);
         }
@@ -7643,8 +7537,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
       // Make sure there was no data left over.
       // That means the buffer size was incorrect.
       FW_ASSERT(
-        _msg.getBuffLeft() == 0,
-        static_cast<FwAssertArgType>(_msg.getBuffLeft())
+        _msg.getDeserializeSizeLeft() == 0,
+        static_cast<FwAssertArgType>(_msg.getDeserializeSizeLeft())
       );
 
       // Call handler function
@@ -7669,8 +7563,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
       // Make sure there was no data left over.
       // That means the buffer size was incorrect.
       FW_ASSERT(
-        _msg.getBuffLeft() == 0,
-        static_cast<FwAssertArgType>(_msg.getBuffLeft())
+        _msg.getDeserializeSizeLeft() == 0,
+        static_cast<FwAssertArgType>(_msg.getDeserializeSizeLeft())
       );
 
       // Call handler function
@@ -7713,8 +7607,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
       // Make sure there was no data left over.
       // That means the buffer size was incorrect.
       FW_ASSERT(
-        _msg.getBuffLeft() == 0,
-        static_cast<FwAssertArgType>(_msg.getBuffLeft())
+        _msg.getDeserializeSizeLeft() == 0,
+        static_cast<FwAssertArgType>(_msg.getDeserializeSizeLeft())
       );
 
       // Call handler function
@@ -7732,8 +7626,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
       // Make sure there was no data left over.
       // That means the buffer size was incorrect.
       FW_ASSERT(
-        _msg.getBuffLeft() == 0,
-        static_cast<FwAssertArgType>(_msg.getBuffLeft())
+        _msg.getDeserializeSizeLeft() == 0,
+        static_cast<FwAssertArgType>(_msg.getDeserializeSizeLeft())
       );
 
       // Call handler function
@@ -7765,8 +7659,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
       // Make sure there was no data left over.
       // That means the buffer size was incorrect.
       FW_ASSERT(
-        _msg.getBuffLeft() == 0,
-        static_cast<FwAssertArgType>(_msg.getBuffLeft())
+        _msg.getDeserializeSizeLeft() == 0,
+        static_cast<FwAssertArgType>(_msg.getDeserializeSizeLeft())
       );
 
       // Call handler function
@@ -7792,8 +7686,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
       // Make sure there was no data left over.
       // That means the buffer size was incorrect.
       FW_ASSERT(
-        _msg.getBuffLeft() == 0,
-        static_cast<FwAssertArgType>(_msg.getBuffLeft())
+        _msg.getDeserializeSizeLeft() == 0,
+        static_cast<FwAssertArgType>(_msg.getDeserializeSizeLeft())
       );
 
       // Call handler function
@@ -8675,7 +8569,7 @@ void QueuedTestComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::CmdResponse QueuedTestComponentBase ::
-  paramSet_ParamU32(Fw::SerializeBufferBase& val)
+  paramSet_ParamU32(Fw::SerialBufferBase& val)
 {
   U32 _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -8695,7 +8589,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
-  paramSet_ParamF64(Fw::SerializeBufferBase& val)
+  paramSet_ParamF64(Fw::SerialBufferBase& val)
 {
   F64 _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -8715,7 +8609,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
-  paramSet_ParamString(Fw::SerializeBufferBase& val)
+  paramSet_ParamString(Fw::SerialBufferBase& val)
 {
   Fw::ParamString _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -8735,7 +8629,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
-  paramSet_ParamEnum(Fw::SerializeBufferBase& val)
+  paramSet_ParamEnum(Fw::SerialBufferBase& val)
 {
   E _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -8755,7 +8649,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
-  paramSet_ParamArray(Fw::SerializeBufferBase& val)
+  paramSet_ParamArray(Fw::SerialBufferBase& val)
 {
   A _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -8775,7 +8669,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
-  paramSet_ParamStruct(Fw::SerializeBufferBase& val)
+  paramSet_ParamStruct(Fw::SerialBufferBase& val)
 {
   S _localVal{};
   const Fw::SerializeStatus _stat = val.deserializeTo(_localVal);
@@ -8795,12 +8689,12 @@ Fw::CmdResponse QueuedTestComponentBase ::
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
-  paramSet_ParamI32Ext(Fw::SerializeBufferBase& val)
+  paramSet_ParamI32Ext(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMI32EXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
-  FW_ASSERT(this->paramDelegatePtr != NULL);
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
   // Call the delegate serialize function for m_ParamI32Ext
   const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
     _baseId,
@@ -8818,12 +8712,12 @@ Fw::CmdResponse QueuedTestComponentBase ::
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
-  paramSet_ParamF64Ext(Fw::SerializeBufferBase& val)
+  paramSet_ParamF64Ext(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMF64EXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
-  FW_ASSERT(this->paramDelegatePtr != NULL);
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
   // Call the delegate serialize function for m_ParamF64Ext
   const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
     _baseId,
@@ -8841,12 +8735,12 @@ Fw::CmdResponse QueuedTestComponentBase ::
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
-  paramSet_ParamStringExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamStringExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMSTRINGEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
-  FW_ASSERT(this->paramDelegatePtr != NULL);
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
   // Call the delegate serialize function for m_ParamStringExt
   const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
     _baseId,
@@ -8864,12 +8758,12 @@ Fw::CmdResponse QueuedTestComponentBase ::
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
-  paramSet_ParamEnumExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamEnumExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMENUMEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
-  FW_ASSERT(this->paramDelegatePtr != NULL);
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
   // Call the delegate serialize function for m_ParamEnumExt
   const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
     _baseId,
@@ -8887,12 +8781,12 @@ Fw::CmdResponse QueuedTestComponentBase ::
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
-  paramSet_ParamArrayExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamArrayExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMARRAYEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
-  FW_ASSERT(this->paramDelegatePtr != NULL);
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
   // Call the delegate serialize function for m_ParamArrayExt
   const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
     _baseId,
@@ -8910,12 +8804,12 @@ Fw::CmdResponse QueuedTestComponentBase ::
 }
 
 Fw::CmdResponse QueuedTestComponentBase ::
-  paramSet_ParamStructExt(Fw::SerializeBufferBase& val)
+  paramSet_ParamStructExt(Fw::SerialBufferBase& val)
 {
   const FwPrmIdType _localId = PARAMID_PARAMSTRUCTEXT;
   const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
-  FW_ASSERT(this->paramDelegatePtr != NULL);
+  FW_ASSERT(this->paramDelegatePtr != nullptr);
   // Call the delegate serialize function for m_ParamStructExt
   const Fw::SerializeStatus _stat = this->paramDelegatePtr->deserializeParam(
     _baseId,
@@ -9127,7 +9021,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
     _id = PARAMID_PARAMI32EXT;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
-    FW_ASSERT(this->paramDelegatePtr != NULL);
+    FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
@@ -9158,7 +9052,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
     _id = PARAMID_PARAMF64EXT;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
-    FW_ASSERT(this->paramDelegatePtr != NULL);
+    FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
@@ -9189,7 +9083,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
     _id = PARAMID_PARAMSTRINGEXT;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
-    FW_ASSERT(this->paramDelegatePtr != NULL);
+    FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
@@ -9220,7 +9114,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
     _id = PARAMID_PARAMENUMEXT;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
-    FW_ASSERT(this->paramDelegatePtr != NULL);
+    FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
@@ -9251,7 +9145,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
     _id = PARAMID_PARAMARRAYEXT;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
-    FW_ASSERT(this->paramDelegatePtr != NULL);
+    FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;
@@ -9282,7 +9176,7 @@ Fw::CmdResponse QueuedTestComponentBase ::
     _id = PARAMID_PARAMSTRUCTEXT;
     const FwPrmIdType _baseId = static_cast<FwPrmIdType>(this->getIdBase());
 
-    FW_ASSERT(this->paramDelegatePtr != NULL);
+    FW_ASSERT(this->paramDelegatePtr != nullptr);
     _stat = this->paramDelegatePtr->serializeParam(_baseId, _id, _saveBuff);
     if (_stat != Fw::FW_SERIALIZE_OK) {
       return Fw::CmdResponse::VALIDATION_ERROR;

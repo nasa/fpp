@@ -505,8 +505,9 @@ case class ComponentTesterBaseWriter(
         inputPorts ++ outputPorts,
         testerPortName,
         testerPortNumGetterName,
-        testerPortVariableName
-      )
+        ComponentCppWriterUtils.InternalOrExternal.External
+      ),
+      CppDoc.Lines.Hpp
     )
   }
 
@@ -1729,7 +1730,7 @@ case class ExternalParameterDelegate(
               Some("The parameter validity status")
             ),
             CppDoc.Function.Param(
-              CppDoc.Type("Fw::SerializeBufferBase&"),
+              CppDoc.Type("Fw::SerialBufferBase&"),
               "buff",
               Some("The buffer containing the parameter to deserialize")
             )
@@ -1785,7 +1786,7 @@ case class ExternalParameterDelegate(
               Some("The parameter local ID to serialize")
             ),
             CppDoc.Function.Param(
-              CppDoc.Type("Fw::SerializeBufferBase&"),
+              CppDoc.Type("Fw::SerialBufferBase&"),
               "buff",
               Some("The buffer to serialize the parameter into")
             )

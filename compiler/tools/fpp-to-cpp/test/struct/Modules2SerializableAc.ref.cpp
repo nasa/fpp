@@ -16,7 +16,7 @@ namespace M {
   Modules2 ::
     Modules2() :
       Serializable(),
-      m_x(0, 0.0f)
+      m_x()
   {
 
   }
@@ -80,11 +80,14 @@ namespace M {
   // ----------------------------------------------------------------------
 
   Fw::SerializeStatus Modules2 ::
-    serializeTo(Fw::SerializeBufferBase& buffer) const
+    serializeTo(
+        Fw::SerialBufferBase& buffer,
+        Fw::Endianness mode
+    ) const
   {
     Fw::SerializeStatus status;
 
-    status = buffer.serializeFrom(this->m_x);
+    status = buffer.serializeFrom(this->m_x, mode);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -93,11 +96,14 @@ namespace M {
   }
 
   Fw::SerializeStatus Modules2 ::
-    deserializeFrom(Fw::SerializeBufferBase& buffer)
+    deserializeFrom(
+        Fw::SerialBufferBase& buffer,
+        Fw::Endianness mode
+    )
   {
     Fw::SerializeStatus status;
 
-    status = buffer.deserializeTo(this->m_x);
+    status = buffer.deserializeTo(this->m_x, mode);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }

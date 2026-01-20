@@ -41,7 +41,7 @@ namespace FppTest {
     // Define a message buffer class large enough to handle all the
     // asynchronous inputs to the component
     class ComponentIpcSerializableBuffer :
-      public Fw::SerializeBufferBase
+      public Fw::LinearBufferBase
     {
 
       public:
@@ -55,7 +55,7 @@ namespace FppTest {
           SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
         };
 
-        Fw::Serializable::SizeType getBuffCapacity() const {
+        Fw::Serializable::SizeType getCapacity() const {
           return sizeof(m_buff);
         }
 
@@ -339,16 +339,6 @@ namespace FppTest {
   }
 
   // ----------------------------------------------------------------------
-  // Getters for numbers of typed input ports
-  // ----------------------------------------------------------------------
-
-  FwIndexType SmInitialQueuedComponentBase ::
-    getNum_schedIn_InputPorts() const
-  {
-    return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_schedIn_InputPort));
-  }
-
-  // ----------------------------------------------------------------------
   // Port handler base-class functions for typed input ports
   //
   // Call these functions directly to bypass the corresponding ports
@@ -530,7 +520,7 @@ namespace FppTest {
   // ----------------------------------------------------------------------
 
   void SmInitialQueuedComponentBase ::
-    smDispatch(Fw::SerializeBufferBase& buffer)
+    smDispatch(Fw::SerialBufferBase& buffer)
   {
     // Deserialize the state machine ID and signal
     FwEnumStoreType storedSmId;
@@ -588,7 +578,7 @@ namespace FppTest {
 
   void SmInitialQueuedComponentBase ::
     deserializeSmIdAndSignal(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FwEnumStoreType& smId,
         FwEnumStoreType& signal
     )
@@ -609,7 +599,7 @@ namespace FppTest {
 
   void SmInitialQueuedComponentBase ::
     FppTest_SmInitial_Basic_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmInitial_Basic& sm,
         FppTest_SmInitial_Basic::Signal signal
     )
@@ -623,7 +613,7 @@ namespace FppTest {
 
   void SmInitialQueuedComponentBase ::
     FppTest_SmInitial_Choice_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmInitial_Choice& sm,
         FppTest_SmInitial_Choice::Signal signal
     )
@@ -637,7 +627,7 @@ namespace FppTest {
 
   void SmInitialQueuedComponentBase ::
     FppTest_SmInitial_Nested_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmInitial_Nested& sm,
         FppTest_SmInitial_Nested::Signal signal
     )
@@ -651,7 +641,7 @@ namespace FppTest {
 
   void SmInitialQueuedComponentBase ::
     FppTest_SmInitialQueued_Basic_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmInitialQueued_Basic& sm,
         FppTest_SmInitialQueued_Basic::Signal signal
     )
@@ -665,7 +655,7 @@ namespace FppTest {
 
   void SmInitialQueuedComponentBase ::
     FppTest_SmInitialQueued_Choice_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmInitialQueued_Choice& sm,
         FppTest_SmInitialQueued_Choice::Signal signal
     )
@@ -679,7 +669,7 @@ namespace FppTest {
 
   void SmInitialQueuedComponentBase ::
     FppTest_SmInitialQueued_Nested_smDispatch(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         FppTest_SmInitialQueued_Nested& sm,
         FppTest_SmInitialQueued_Nested::Signal signal
     )

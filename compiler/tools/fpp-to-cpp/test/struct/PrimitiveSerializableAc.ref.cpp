@@ -14,21 +14,20 @@
 Primitive ::
   Primitive() :
     Serializable(),
-    m_mF64(0.0),
-    m_mI16(0),
-    m_mI32(0),
-    m_mI64(0),
-    m_mI8(0),
-    m_mU16(0),
-    m_mU32(0),
-    m_mU64(0),
-    m_mU8(0),
-    m_m_bool(false),
+    m_mF32(),
+    m_mF64(),
+    m_mI16(),
+    m_mI32(),
+    m_mI64(),
+    m_mI8(),
+    m_mU16(),
+    m_mU32(),
+    m_mU64(),
+    m_mU8(),
+    m_m_bool(),
     m_m_string(m___fprime_ac_m_string_buffer, sizeof m___fprime_ac_m_string_buffer, Fw::String(""))
 {
-  for (FwSizeType i = 0; i < 3; i++) {
-    this->m_mF32[i] = 0.0f;
-  }
+
 }
 
 Primitive ::
@@ -186,57 +185,60 @@ std::ostream& operator<<(std::ostream& os, const Primitive& obj) {
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus Primitive ::
-  serializeTo(Fw::SerializeBufferBase& buffer) const
+  serializeTo(
+      Fw::SerialBufferBase& buffer,
+      Fw::Endianness mode
+  ) const
 {
   Fw::SerializeStatus status;
 
   for (FwSizeType i = 0; i < 3; i++) {
-    status = buffer.serializeFrom(this->m_mF32[i]);
+    status = buffer.serializeFrom(this->m_mF32[i], mode);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
   }
-  status = buffer.serializeFrom(this->m_mF64);
+  status = buffer.serializeFrom(this->m_mF64, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serializeFrom(this->m_mI16);
+  status = buffer.serializeFrom(this->m_mI16, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serializeFrom(this->m_mI32);
+  status = buffer.serializeFrom(this->m_mI32, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serializeFrom(this->m_mI64);
+  status = buffer.serializeFrom(this->m_mI64, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serializeFrom(this->m_mI8);
+  status = buffer.serializeFrom(this->m_mI8, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serializeFrom(this->m_mU16);
+  status = buffer.serializeFrom(this->m_mU16, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serializeFrom(this->m_mU32);
+  status = buffer.serializeFrom(this->m_mU32, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serializeFrom(this->m_mU64);
+  status = buffer.serializeFrom(this->m_mU64, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serializeFrom(this->m_mU8);
+  status = buffer.serializeFrom(this->m_mU8, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serializeFrom(this->m_m_bool);
+  status = buffer.serializeFrom(this->m_m_bool, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serializeFrom(this->m_m_string);
+  status = buffer.serializeFrom(this->m_m_string, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -245,57 +247,60 @@ Fw::SerializeStatus Primitive ::
 }
 
 Fw::SerializeStatus Primitive ::
-  deserializeFrom(Fw::SerializeBufferBase& buffer)
+  deserializeFrom(
+      Fw::SerialBufferBase& buffer,
+      Fw::Endianness mode
+  )
 {
   Fw::SerializeStatus status;
 
   for (FwSizeType i = 0; i < 3; i++) {
-    status = buffer.deserializeTo(this->m_mF32[i]);
+    status = buffer.deserializeTo(this->m_mF32[i], mode);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
   }
-  status = buffer.deserializeTo(this->m_mF64);
+  status = buffer.deserializeTo(this->m_mF64, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserializeTo(this->m_mI16);
+  status = buffer.deserializeTo(this->m_mI16, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserializeTo(this->m_mI32);
+  status = buffer.deserializeTo(this->m_mI32, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserializeTo(this->m_mI64);
+  status = buffer.deserializeTo(this->m_mI64, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserializeTo(this->m_mI8);
+  status = buffer.deserializeTo(this->m_mI8, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserializeTo(this->m_mU16);
+  status = buffer.deserializeTo(this->m_mU16, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserializeTo(this->m_mU32);
+  status = buffer.deserializeTo(this->m_mU32, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserializeTo(this->m_mU64);
+  status = buffer.deserializeTo(this->m_mU64, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserializeTo(this->m_mU8);
+  status = buffer.deserializeTo(this->m_mU8, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserializeTo(this->m_m_bool);
+  status = buffer.deserializeTo(this->m_m_bool, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserializeTo(this->m_m_string);
+  status = buffer.deserializeTo(this->m_m_string, mode);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }

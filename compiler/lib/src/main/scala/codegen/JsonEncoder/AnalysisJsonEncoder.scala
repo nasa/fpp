@@ -149,6 +149,20 @@ object AnalysisJsonEncoder extends JsonEncoder{
     Encoder.instance (mapAsJsonMap (f1) (f2) _)
   }
 
+  private implicit val interfaceMapEncoder:
+    Encoder[Map[Symbol.Interface, Interface]] =
+  {
+    def f2(i: Interface): Json = i.asJson
+    Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
+  }
+
+  private implicit val importMapEncoder:
+    Encoder[Map[Symbol.Interface, (AstNode.Id, Location)]] =
+  {
+    def f2(i: (AstNode.Id, Location)): Json = i.asJson
+    Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
+  }
+
   private implicit val limitsEncoder: Encoder[TlmChannel.Limits] = {
     def f1(kind: Ast.SpecTlmChannel.LimitKind) = kind.toString
     def f2(tlmPoint: (AstNode.Id, Value)) = tlmPoint.asJson
@@ -196,7 +210,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
 
   private implicit val signalStateTransitionMapEncoder: Encoder[StateMachineAnalysis.SignalStateTransitionMap] = {
     def f1(s: StateMachineSymbol.Signal) = s.getNodeId.toString
-    def f2(s: StateMachineSymbol.State) = s.getUnqualifiedName
+    def f2(s: StateMachineSymbol.State) = s.getNodeId.toString
     def f3(t: Transition.Guarded) = t.asJson
     Encoder.instance (mapAsJsonMap (f1) (mapAsJsonMap (f2) (f3) _) _)
   }
@@ -274,7 +288,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
   }
 
   private implicit val transitionGraphArcMapEncoder: Encoder[TransitionGraph.ArcMap] = {
-    def f1(n: TransitionGraph.Node) = n.soc.getName
+    def f1(n: TransitionGraph.Node) = n.soc.getSymbol.getNodeId.toString
     def f2(as: Set[TransitionGraph.Arc]) = (as.map(elem => elem.asJson)).toList.asJson
     Encoder.instance (mapAsJsonMap (f1) (f2) _)
   }
@@ -314,7 +328,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
     Encoder.instance(_.toList.asJson)
 
   private implicit val locationSpecifierMapEncoder:
-    Encoder[Map[(Ast.SpecLoc.Kind, Name.Qualified), Ast.SpecLoc]] =
+    Encoder[Map[(Ast.SpecLoc.Kind, Name.Qualified), AstNode[Ast.SpecLoc]]] =
     Encoder.instance(_.toList.asJson)
 
   private implicit val portNumberMapEncoder: Encoder[Map[Connection, Int]] =
@@ -342,18 +356,23 @@ object AnalysisJsonEncoder extends JsonEncoder{
   /** Converts the Analysis data structure to JSON */
   def analysisToJson(a: Analysis): Json = {
     Json.obj(
-      "componentInstanceMap" -> a.componentInstanceMap.asJson,
-      "componentMap" -> a.componentMap.asJson,
-      "includedFileSet" -> a.includedFileSet.asJson,
-      "inputFileSet" -> a.inputFileSet.asJson,
-      "locationSpecifierMap" -> a.locationSpecifierMap.asJson,
-      "parentSymbolMap" -> a.parentSymbolMap.asJson,
-      "symbolScopeMap" -> a.symbolScopeMap.asJson,
-      "topologyMap" -> a.topologyMap.asJson,
-      "typeMap" -> a.typeMap.asJson,
-      "useDefMap" -> a.useDefMap.asJson,
-      "valueMap" -> a.valueMap.asJson,
-      "stateMachineMap" -> a.stateMachineMap.asJson
+      "fppVersion" -> Version.v.asJson,
+      "analysis" -> Json.obj(
+        "componentInstanceMap" -> a.componentInstanceMap.asJson,
+        "componentMap" -> a.componentMap.asJson,
+        "includedFileSet" -> a.includedFileSet.asJson,
+        "inputFileSet" -> a.inputFileSet.asJson,
+        "locationSpecifierMap" -> a.locationSpecifierMap.asJson,
+        "parentSymbolMap" -> a.parentSymbolMap.asJson,
+        "symbolScopeMap" -> a.symbolScopeMap.asJson,
+        "topologyMap" -> a.topologyMap.asJson,
+        "typeMap" -> a.typeMap.asJson,
+        "useDefMap" -> a.useDefMap.asJson,
+        "valueMap" -> a.valueMap.asJson,
+        "stateMachineMap" -> a.stateMachineMap.asJson,
+        "dictionarySymbolSet" -> a.dictionarySymbolSet.asJson,
+        "interfaceMap" -> a.interfaceMap.asJson
+      )
     )
   }
 

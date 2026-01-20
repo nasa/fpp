@@ -16,7 +16,7 @@ object AstWriter extends AstVisitor with LineUtils {
     in: Unit,
     aNode: Ast.Annotated[AstNode[Ast.DefAliasType]]): Out = {
       val (_, node, _) = aNode
-      lines("def alias type") ++ (
+      prefixWithDictionary("def alias type", node.data.isDictionaryDef) ++ (
         ident(node.data.name) ++
         typeNameNode(node.data.typeName)
       ).map(indentIn)
@@ -49,7 +49,7 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines("def array") ++
+    prefixWithDictionary("def array", data.isDictionaryDef) ++
     List.concat(
       ident(data.name),
       addPrefix("size", exprNode) (data.size),
@@ -128,8 +128,10 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines("def constant") ++
-    (ident(data.name) ++ exprNode(data.value)).map(indentIn)
+    prefixWithDictionary("def constant", data.isDictionaryDef) ++ (
+      ident(data.name) ++
+      exprNode(data.value)
+    ).map(indentIn)
   }
 
   override def defEnumAnnotatedNode(
@@ -138,7 +140,7 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines("def enum") ++
+    prefixWithDictionary("def enum", data.isDictionaryDef) ++
     List.concat(
       ident(data.name),
       linesOpt(typeNameNode, data.typeName),
@@ -229,7 +231,7 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines("def struct") ++
+    prefixWithDictionary("def struct", data.isDictionaryDef) ++
     (
       ident(data.name) ++
       data.members.flatMap(annotateNode(structTypeMember)) ++
@@ -257,6 +259,14 @@ object AstWriter extends AstVisitor with LineUtils {
   ) =
     lines("expr array") ++
     e.elts.flatMap(exprNode).map(indentIn)
+
+  override def exprArraySubscriptNode(
+    in: In,
+    node: AstNode[Ast.Expr],
+    e: Ast.ExprArraySubscript
+  ) =
+    lines("expr array subscript") ++
+    (exprNode(e.e1) ++ exprNode(e.e2)).map(indentIn)
 
   override def exprBinopNode(
     in: In,
@@ -420,6 +430,14 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
+
+    def throttleClause(throttle: AstNode[Ast.EventThrottle]) = {
+      List.concat(
+        addPrefix("throttle", exprNode) (throttle.data.count),
+        linesOpt(addPrefix("every", exprNode), throttle.data.every),
+      )
+    }
+
     lines("spec event") ++
     List.concat(
       ident(data.name),
@@ -427,7 +445,7 @@ object AstWriter extends AstVisitor with LineUtils {
       lines(s"severity ${data.severity.toString}"),
       linesOpt(addPrefix("id", exprNode), data.id),
       addPrefix("format", string) (data.format.data),
-      linesOpt(addPrefix("throttle", exprNode), data.throttle),
+      linesOpt(throttleClause, data.throttle)
     ).map(indentIn)
   }
 
@@ -933,4 +951,9 @@ object AstWriter extends AstVisitor with LineUtils {
 
   private def visibility(v: Ast.Visibility) = v.toString
 
+  private def prefixWithDictionary(s: String, isDictionaryDef: Boolean) =
+    if isDictionaryDef then
+      lines(s"dictionary $s")
+    else
+      lines(s)
 }

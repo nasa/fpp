@@ -100,6 +100,10 @@ module DefinitionsAndSpecifiers {
     event E(a: U32, b: F32) severity activity low id 0x00 format "{} counts" throttle 10
     @< Event specifier
 
+    @ Event specifier with throttle timeout
+    event ET(a: U32, b: F32) severity activity high id 0x00 format "{} counts" throttle 10 every {seconds=10}
+    @< Event specifier
+
     @ Internal port specifier
     internal port I(a: U32, b: F32) priority 10 assert
     @< Internal port specifier
@@ -246,6 +250,18 @@ module Expressions {
   @ Array
   constant arrayExp = [ 1, 2, 3 ]
   @< Array
+
+  @ Array Subscript
+  constant arraySubExp1 = [ 1, 2, 3 ][1]
+  @< Array Subscript
+
+  @ Array Subscript
+  constant arraySubExp2 = a.b.c[1]
+  @< Array Subscript
+
+  @ Array Subscript with member selection
+  constant arraySubExp2 = a.b.c[1][2].s[12]
+  @< Array Subscript 
 
   @ Boolean literal
   constant booleanLiteralExp = true
