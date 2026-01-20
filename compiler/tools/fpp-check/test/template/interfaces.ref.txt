@@ -1,5 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/template/interfaces.fpp:22.1
-instance a1: A base id 10
-^
-error: invalid component instance definition a1: active component must have queue size

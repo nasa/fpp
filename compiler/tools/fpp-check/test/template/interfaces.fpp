@@ -1,37 +1,37 @@
 port P
 
-interface Input {
-    async input port a: P
-    output port b: P
+interface A_I {
+    async input port aIn: [2] P
+    output port bOut: [2] P
 }
 
-interface Output {
-    output port a: [2] P
-    async input port b: [2] P
+interface B_I {
+    output port aOut: [2] P
+    async input port bIn: [2] P
 }
 
 active component A {
-    import Input
+    import A_I
 }
 
 active component B {
-    import Output
+    import B_I
 }
 
 # Two instances of the same component
-instance a1: A base id 10
-instance a2: A base id 20
+instance a1: A base id 10 queue size 10 stack size 1024
+instance a2: A base id 20 queue size 10 stack size 1024
 
-instance b: B base id 100
+instance b: B base id 100 queue size 10 stack size 1024
 
-template T(interface i: Input, constant idx: U32) {
+template T(interface i: A_I, constant idx: U32) {
     topology P {
         instance i
         instance b
 
         connections C {
-            i.a[idx] -> b.b[idx]
-            b.a[idx] -> i.b[idx]
+            i.bOut[idx] -> b.bIn[idx]
+            b.aOut[idx] -> i.aIn[idx]
         }
     }
 }
