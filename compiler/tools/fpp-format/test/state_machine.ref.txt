@@ -19,6 +19,8 @@ state machine M {
 
   type T
 
+  type X = U32
+
   @ Action a1
   action a1
 

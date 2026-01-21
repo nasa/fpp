@@ -204,6 +204,7 @@ class ParserSpec extends AnyWordSpec {
         """state machine M {
           constant c = 0
           type T
+          type X = T
           array A = [3] U32
           struct S { x: U32 }
           enum E { A, B }

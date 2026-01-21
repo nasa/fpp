@@ -6,6 +6,7 @@ state machine M {
   enum E { X, Y, Z } default X
   struct S { x: [3] U32, y: F32, z: string }
   type T
+  type X = U32
 
   @ Action a1
   action a1

@@ -31,6 +31,9 @@ def state machine
       type name string
   def abs type
     ident T
+  def alias type
+    ident X
+    type name U32
   @ Action a1
   def action
     ident a1
