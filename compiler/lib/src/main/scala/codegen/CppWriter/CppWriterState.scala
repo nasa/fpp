@@ -69,7 +69,7 @@ case class CppWriterState(
   /** Gets the list of identifiers representing the namespace
    *  associated with a symbol */
   def getNamespaceIdentList(symbol: Symbol): List[String] = {
-    getQualifiersAsIdentList(a.parentSymbolMap.get(symbol), Nil)
+    getQualifyingNameAsIdentList(a.parentSymbolMap.get(symbol), Nil)
   }
 
   /** Gets the unqualified name associated with a symbol.
@@ -107,15 +107,18 @@ case class CppWriterState(
   private def getNameAsIdentList(
     symOpt: Option[Symbol]
   ): List[String] = symOpt match {
+    // TODO: Refactor this into base name and qualified name
     case None => Nil
     case Some(sym: Symbol.Component) =>
       a.getQualifiedName(sym).toIdentList
     case Some(sym: Symbol.StateMachine) =>
       getStateMachineNameAsIdentList(Some(sym), Nil)
-    case _ => getQualifiersAsIdentList(symOpt, Nil)
+    case _ => getQualifyingNameAsIdentList(symOpt, Nil)
   }
 
-  private def getQualifiersAsIdentList(
+  // Get the C++ name of a qualifying symbol as a list of identifiers.
+  // Remove the names of components and state machines from the list.
+  private def getQualifyingNameAsIdentList(
     symOpt: Option[Symbol],
     out: List[String]
   ): List[String] = symOpt match {
@@ -125,9 +128,10 @@ case class CppWriterState(
       val out1 = sym match {
         case _: Symbol.Component => out
         case _: Symbol.StateMachine => out
+        // TODO: Replace this with the regular qualified name
         case _ => getName(sym) :: out
       }
-      getStateMachineNameAsIdentList(psOpt, out1)
+      getQualifyingNameAsIdentList(psOpt, out1)
   }
 
   private def getStateMachineNameAsIdentList(
