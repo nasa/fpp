@@ -69,7 +69,7 @@ case class CppWriterState(
   /** Gets the list of identifiers representing the namespace
    *  associated with a symbol */
   def getNamespaceIdentList(symbol: Symbol): List[String] = {
-    removeLexicalQualifiers(a.parentSymbolMap.get(symbol), Nil)
+    getQualifiersAsIdentList(a.parentSymbolMap.get(symbol), Nil)
   }
 
   /** Gets the unqualified name associated with a symbol.
@@ -87,14 +87,9 @@ case class CppWriterState(
 
   /** Write an FPP symbol as C++ */
   def writeSymbol(sym: Symbol): String = {
-    val qualifiedName = sym match {
-      // For component symbols, use the qualified name
-      case cs: Symbol.Component => a.getQualifiedName(cs)
-      // For other symbols, remove component qualifiers
-      case _ => {
-        val identList = removeLexicalQualifiers(Some(sym), Nil)
-        Name.Qualified.fromIdentList(identList)
-      }
+    val qualifiedName = {
+      val identList = getNameAsIdentList(Some(sym))
+      Name.Qualified.fromIdentList(identList)
     }
     CppWriterState.writeQualifiedName(qualifiedName)
   }
@@ -103,10 +98,24 @@ case class CppWriterState(
   def writeSymbolAsIdent(sym: Symbol): String =
     writeSymbol(sym).replaceAll("::", "_")
 
-  // Remove lexical qualifiers, i.e., qualifiers that
-  // already appear in the unqualified names of C++
-  // definitions. These are component and state machine names.
-  private def removeLexicalQualifiers(
+  // Get the C++ name of a symbol as a list of identifiers.
+  // For names declared inside components and state machines,
+  // (a) add the name of the component or state machine as
+  // a lexical prefix to the last name of the list and
+  // (b) remove the name from the list. For example, if B
+  // is a component name, then A::B::C becomes A, B_C.
+  private def getNameAsIdentList(
+    symOpt: Option[Symbol]
+  ): List[String] = symOpt match {
+    case None => Nil
+    case Some(sym: Symbol.Component) =>
+      a.getQualifiedName(sym).toIdentList
+    case Some(sym: Symbol.StateMachine) =>
+      getStateMachineNameAsIdentList(Some(sym), Nil)
+    case _ => getQualifiersAsIdentList(symOpt, Nil)
+  }
+
+  private def getQualifiersAsIdentList(
     symOpt: Option[Symbol],
     out: List[String]
   ): List[String] = symOpt match {
@@ -118,7 +127,21 @@ case class CppWriterState(
         case _: Symbol.StateMachine => out
         case _ => getName(sym) :: out
       }
-      removeLexicalQualifiers(psOpt, out1)
+      getStateMachineNameAsIdentList(psOpt, out1)
+  }
+
+  private def getStateMachineNameAsIdentList(
+    symOpt: Option[Symbol],
+    out: List[String]
+  ): List[String] = symOpt match {
+    case None => out
+    case Some(sym) =>
+      val psOpt = a.parentSymbolMap.get(sym)
+      val out1 = sym match {
+        case _: Symbol.Component => out
+        case _ => getName(sym) :: out
+      }
+      getStateMachineNameAsIdentList(psOpt, out1)
   }
 
   /** Get an include path for a symbol and a file name base */
