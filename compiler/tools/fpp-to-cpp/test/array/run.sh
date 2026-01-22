@@ -60,6 +60,12 @@ single_element()
     diff_cpp SingleElementArray
 }
 
+state_machine()
+{
+  run_test "-p $PWD" state_machine && \
+    diff_cpp SM_AArray
+}
+
 string()
 {
   run_test "-p $PWD" string && \
