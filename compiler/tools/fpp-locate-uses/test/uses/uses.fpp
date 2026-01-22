@@ -91,6 +91,13 @@ module M {
 
 state machine SM1 {
 
+  type SM_A_use = SM.A
+  constant SM_a_use = SM.a
+  type SM_E_use = SM.E
+  type SM_S_use = SM.S
+  type SM_T_use = SM.T
+  type SM_X_use = SM.X
+
   action a: ActionType
   guard g: GuardType
   signal s1: SignalType
