@@ -15,6 +15,13 @@ basic()
     diff_cpp BasicSerializable
 }
 
+component()
+{
+  run_test "-p $PWD" component && \
+    diff_hpp C_XAlias && \
+    diff_cpp C_AArray
+}
+
 namespace()
 {
   run_test "-p $PWD" namespace && \
@@ -23,4 +30,11 @@ namespace()
     diff_hpp NamespacedAliasTypeAlias && \
     diff_hpp NamespacedAliasType2Alias && \
     diff_cpp NamespaceSerializable
+}
+
+state_machine()
+{
+  run_test "-p $PWD" state_machine && \
+    diff_hpp SM_XAlias && \
+    diff_cpp SM_AArray
 }
