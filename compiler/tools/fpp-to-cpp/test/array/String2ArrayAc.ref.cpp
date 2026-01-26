@@ -13,7 +13,8 @@
 
 String2 ::
   String2() :
-    Serializable()
+    Serializable(),
+    elements()
 {
   this->initElements();
   *this = String2({Fw::String("\"\\"), Fw::String("abc\ndef\n")});
@@ -148,7 +149,7 @@ std::ostream& operator<<(std::ostream& os, const String2& obj) {
 
 Fw::SerializeStatus String2 ::
   serializeTo(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -164,7 +165,7 @@ Fw::SerializeStatus String2 ::
 
 Fw::SerializeStatus String2 ::
   deserializeFrom(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {

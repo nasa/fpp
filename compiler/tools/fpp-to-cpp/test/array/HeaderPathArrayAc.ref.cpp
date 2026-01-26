@@ -13,9 +13,10 @@
 
 HeaderPath ::
   HeaderPath() :
-    Serializable()
+    Serializable(),
+    elements()
 {
-  *this = HeaderPath(T());
+
 }
 
 HeaderPath ::
@@ -141,7 +142,7 @@ std::ostream& operator<<(std::ostream& os, const HeaderPath& obj) {
 
 Fw::SerializeStatus HeaderPath ::
   serializeTo(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -157,7 +158,7 @@ Fw::SerializeStatus HeaderPath ::
 
 Fw::SerializeStatus HeaderPath ::
   deserializeFrom(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {

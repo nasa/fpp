@@ -14,8 +14,8 @@
 Basic ::
   Basic() :
     Serializable(),
-    m_A(0),
-    m_B(0.0f),
+    m_A(),
+    m_B(),
     m_C(m___fprime_ac_C_buffer, sizeof m___fprime_ac_C_buffer, Fw::String("")),
     m_D(m___fprime_ac_D_buffer, sizeof m___fprime_ac_D_buffer, Fw::String(""))
 {
@@ -99,7 +99,7 @@ std::ostream& operator<<(std::ostream& os, const Basic& obj) {
 
 Fw::SerializeStatus Basic ::
   serializeTo(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -127,7 +127,7 @@ Fw::SerializeStatus Basic ::
 
 Fw::SerializeStatus Basic ::
   deserializeFrom(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {

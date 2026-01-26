@@ -13,9 +13,10 @@
 
 Struct2 ::
   Struct2() :
-    Serializable()
+    Serializable(),
+    elements()
 {
-  *this = Struct2(S2(M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String(""))));
+
 }
 
 Struct2 ::
@@ -141,7 +142,7 @@ std::ostream& operator<<(std::ostream& os, const Struct2& obj) {
 
 Fw::SerializeStatus Struct2 ::
   serializeTo(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -157,7 +158,7 @@ Fw::SerializeStatus Struct2 ::
 
 Fw::SerializeStatus Struct2 ::
   deserializeFrom(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {

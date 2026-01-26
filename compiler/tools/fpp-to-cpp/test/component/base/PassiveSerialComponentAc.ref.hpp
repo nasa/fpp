@@ -1274,13 +1274,13 @@ class PassiveSerialComponentBase :
     //! Handler for input port serialGuarded
     virtual void serialGuarded_handler(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     ) = 0;
 
     //! Handler for input port serialSync
     virtual void serialSync_handler(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     ) = 0;
 
   protected:
@@ -1294,13 +1294,13 @@ class PassiveSerialComponentBase :
     //! Handler base-class function for input port serialGuarded
     void serialGuarded_handlerBase(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     );
 
     //! Handler base-class function for input port serialSync
     void serialSync_handlerBase(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     );
 
   protected:
@@ -1393,7 +1393,7 @@ class PassiveSerialComponentBase :
     //! Invoke output port serialOut
     Fw::SerializeStatus serialOut_out(
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     );
 
   protected:
@@ -2157,14 +2157,14 @@ class PassiveSerialComponentBase :
     static void m_p_serialGuarded_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     );
 
     //! Callback for port serialSync
     static void m_p_serialSync_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
         FwIndexType portNum, //!< The port number
-        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+        Fw::LinearBufferBase& buffer //!< The serialization buffer
     );
 
 #endif
@@ -2179,84 +2179,84 @@ class PassiveSerialComponentBase :
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamU32(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamF64
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamF64(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamString
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamString(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamEnum
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamEnum(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamArray
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamArray(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamStruct
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamStruct(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamI32Ext
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamI32Ext(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamF64Ext
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamF64Ext(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamStringExt
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamStringExt(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamEnumExt
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamEnumExt(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamArrayExt
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamArrayExt(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
     //! Set parameter ParamStructExt
     //!
     //! \return The command response
     Fw::CmdResponse paramSet_ParamStructExt(
-        Fw::SerializeBufferBase& val //!< The serialization buffer
+        Fw::SerialBufferBase& val //!< The serialization buffer
     );
 
   private:

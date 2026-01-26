@@ -117,8 +117,6 @@ case class ComponentDataProducts (
               |container.setTimeTag(timeTag);
               |// Serialize the header into the packet
               |container.serializeHeader();
-              |// Update the data hash
-              |container.updateDataHash();
               |// Update the size of the buffer according to the data size
               |const FwSizeType packetSize = container.getPacketSize();
               |Fw::Buffer buffer = container.getBuffer();
@@ -446,7 +444,7 @@ case class ComponentDataProducts (
       val body = lines(
         s"""|$computeSizeDelta
             |Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-            |if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
+            |if (this->m_dataBuffer.getSize() + sizeDelta <= this->m_dataBuffer.getCapacity()) {
             |  const FwDpIdType id = this->m_baseId + RecordId::$name;
             |  status = this->m_dataBuffer.serializeFrom(id);
             |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
@@ -540,7 +538,7 @@ case class ComponentDataProducts (
             |$computeSizeDelta
             |// Serialize the elements if they will fit
             |Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-            |if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
+            |if ((this->m_dataBuffer.getSize() + sizeDelta) <= this->m_dataBuffer.getCapacity()) {
             |  const FwDpIdType id = this->m_baseId + RecordId::$name;
             |  status = this->m_dataBuffer.serializeFrom(id);
             |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));

@@ -15,7 +15,8 @@ namespace M {
 
   PrimitiveU16 ::
     PrimitiveU16() :
-      Serializable()
+      Serializable(),
+      elements()
   {
     *this = M::PrimitiveU16({1, 2, 3});
   }
@@ -143,7 +144,7 @@ namespace M {
 
   Fw::SerializeStatus PrimitiveU16 ::
     serializeTo(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         Fw::Endianness mode
     ) const
   {
@@ -159,7 +160,7 @@ namespace M {
 
   Fw::SerializeStatus PrimitiveU16 ::
     deserializeFrom(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         Fw::Endianness mode
     )
   {

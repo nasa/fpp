@@ -14,7 +14,7 @@
 S ::
   S() :
     Serializable(),
-    m_x(0),
+    m_x(),
     m_y(m___fprime_ac_y_buffer, sizeof m___fprime_ac_y_buffer, Fw::String(""))
 {
 
@@ -89,7 +89,7 @@ std::ostream& operator<<(std::ostream& os, const S& obj) {
 
 Fw::SerializeStatus S ::
   serializeTo(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -109,7 +109,7 @@ Fw::SerializeStatus S ::
 
 Fw::SerializeStatus S ::
   deserializeFrom(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {

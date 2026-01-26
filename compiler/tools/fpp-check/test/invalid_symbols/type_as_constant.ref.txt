@@ -2,4 +2,5 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/type_as_constant.fpp:2.14
 constant a = T
              ^
-error: undefined symbol T
+error: symbol T is not defined
+note: looking for a constant here

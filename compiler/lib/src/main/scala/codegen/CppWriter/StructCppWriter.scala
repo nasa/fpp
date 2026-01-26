@@ -33,6 +33,13 @@ case class StructCppWriter(
 
   private val formats = structType.formats
 
+  private val defaultValue = structType.getDefaultValue match {
+    case Some(s) => Some(s.anonStruct)
+    case None => structType.anonStruct.getDefaultValue
+  }
+
+  private def defaultValueMembers = defaultValue.get.members
+
   // List of tuples (<memberName>, <memberTypeName>)
   // Preserves ordering of struct members
   private val memberList = astMembers.map((_, node, _) => {
@@ -48,14 +55,26 @@ case class StructCppWriter(
 
   private val nonArrayMemberNames = memberNames.filterNot(sizes.contains)
 
-  // Returns map from member name to its default value
-  private def getDefaultValues = {
-    val defaultValue = structType.getDefaultValue match {
-      case Some(s) => Some(s.anonStruct)
-      case None => structType.anonStruct.getDefaultValue
-    }
-    defaultValue.get.members
-  }
+  private val defaultMemberNames =
+    structType.anonStruct.members.filter((name, ty) => {
+      ty.getUnderlyingType match {
+        case _: Type.String => false
+        case _ => {
+          val memberDefault = defaultValueMembers(name);
+          ty.getDefaultValue match {
+            case Some(typeDefault) =>
+              typeDefault == memberDefault
+            case None => false
+          }
+        }
+      }
+    }).map((n, _) => n).toList
+
+  private val nonInitializerListArrayMemberNames = memberNames.filter((name) =>
+      (sizes.contains(name) && !defaultMemberNames.contains(name)))
+
+  private val initializerListMemberNames = memberNames.filter((name) =>
+      defaultMemberNames.contains(name) || !sizes.contains(name))
 
   private def getFormatStr(n: String) =
     if formats.contains(n) then formats(n)
@@ -169,7 +188,6 @@ case class StructCppWriter(
   }
 
   private def getConstructorMembers: List[CppDoc.Class.Member] = {
-    val defaultValues = getDefaultValues
     // Write this constructor only if the struct has an array member
     // In this case, the constructor provides scalar initialization
     // of the array members.
@@ -195,14 +213,17 @@ case class StructCppWriter(
       constructorClassMember(
         Some("Constructor (default value)"),
         Nil,
-        "Serializable()" :: nonArrayMemberNames.map(n => {
-          defaultValues(n) match {
+        "Serializable()" :: initializerListMemberNames.map(n => {
+          if defaultMemberNames.contains(n) then s"m_$n()"
+          else defaultValueMembers(n) match {
             case v: Value.Struct => s"m_$n(${ValueCppWriter.writeStructMembers(s, v)})"
             case _: Value.AbsType => s"m_$n()"
             case v => writeInitializer(n, ValueCppWriter.write(s, v))
           }
         }),
-        writeArraySetters(n => ValueCppWriter.write(s, defaultValues(n)))
+        nonInitializerListArrayMemberNames.flatMap(n => writeArrayMemberSetter(
+          n, ValueCppWriter.write(s, defaultValueMembers(n)
+        )))
       ),
       constructorClassMember(
         Some("Member constructor"),
@@ -484,7 +505,7 @@ case class StructCppWriter(
           "serializeTo",
           List(
             CppDoc.Function.Param(
-              CppDoc.Type("Fw::SerializeBufferBase&"),
+              CppDoc.Type("Fw::SerialBufferBase&"),
               "buffer",
               Some("The serial buffer")
             ),
@@ -514,7 +535,7 @@ case class StructCppWriter(
           "deserializeFrom",
           List(
             CppDoc.Function.Param(
-              CppDoc.Type("Fw::SerializeBufferBase&"),
+              CppDoc.Type("Fw::SerialBufferBase&"),
               "buffer",
               Some("The serial buffer")
             ),
@@ -733,26 +754,28 @@ case class StructCppWriter(
     "Serializable()" ::
     nonArrayMemberNames.map(name => writeInitializer(name, getValue(name)))
 
-  // Writes a for loop to set the value of each array member
-  private def writeArraySetters(getValue: String => String) =
-    arrayMemberNames.flatMap(n =>
-      iterateN(
-        sizes(n),
+  private def writeArrayMemberSetter(memberName: String, memberValue: String) = {
+    iterateN(
+        sizes(memberName),
         List.concat(
           {
-            typeMembers(n).getUnderlyingType match {
+            typeMembers(memberName).getUnderlyingType match {
               case _: Type.String =>
-                val bufferName = getBufferName(n)
+                val bufferName = getBufferName(memberName)
                 lines(s"""|// Initialize the external string
-                          |this->m_$n[i].setBuffer(&m_$bufferName[i][0], sizeof m_$bufferName[i]);
+                          |this->m_$memberName[i].setBuffer(&m_$bufferName[i][0], sizeof m_$bufferName[i]);
                           |// Set the array value""".stripMargin)
               case _ => Nil
             }
           },
-          lines(s"this->m_$n[i] = ${getValue(n)};")
+          lines(s"this->m_$memberName[i] = $memberValue;")
         )
       )
-    )
+  }
+
+  // Writes a for loop to set the value of each array member
+  private def writeArraySetters(getValue: String => String) =
+    arrayMemberNames.flatMap(n => this.writeArrayMemberSetter(n, getValue(n)))
 
   // Writes a for loop that iterates n times
   private def iterateN(n: Int, ll: List[Line]) =

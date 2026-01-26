@@ -13,9 +13,10 @@
 
 LargeSize ::
   LargeSize() :
-    Serializable()
+    Serializable(),
+    elements()
 {
-  *this = LargeSize(0);
+
 }
 
 LargeSize ::
@@ -141,7 +142,7 @@ std::ostream& operator<<(std::ostream& os, const LargeSize& obj) {
 
 Fw::SerializeStatus LargeSize ::
   serializeTo(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -157,7 +158,7 @@ Fw::SerializeStatus LargeSize ::
 
 Fw::SerializeStatus LargeSize ::
   deserializeFrom(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {
