@@ -79,6 +79,10 @@ events(){
   run_test "" events
 }
 
+frameworkDefs(){
+  run_test "../../fpp-to-dict/test/top/config" frameworkDefs
+}
+
 importedTopologies(){
   run_test "" importedTopologies
 }
@@ -166,6 +170,7 @@ constants
 dataProducts
 enums
 events
+frameworkDefs
 importedTopologies
 interfaces
 internalPorts
