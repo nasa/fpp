@@ -246,6 +246,11 @@ object EnterSymbols
       yield updateMap(a, symbol).copy(nestedScope = nestedScope)
   }
 
+  override def specTemplateExpandAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTemplateExpand]]
+  ) = Right(a)
+
   override def defPortAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefPort]]

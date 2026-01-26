@@ -16,6 +16,14 @@ case class PortInterface(
   private def withSpecialPortMap(newSpecialPortMap: Map[Ast.SpecPortInstance.SpecialKind, PortInstance.Special]) =
     this.copy(specialPortMap = newSpecialPortMap)
 
+  /** Set union of 'this' and 'other' */
+  def union(other: PortInterface): PortInterface = {
+    PortInterface(
+      portMap ++ other.portMap,
+      specialPortMap ++ other.specialPortMap
+    )
+  }
+
   /* Check if 'this' port interface implements 'other' */
   def implements(other: PortInterface): Result.Result[Unit] =
     for {

@@ -12,6 +12,8 @@ case class TemplateExpansion(
   /** Concrete parameters given to this template during expansion */
   params: Map[String, Symbol.TemplateParam],
   /** Scope where parameter symbols are entered */
+  paramScope: Scope,
+  /** Scope where symbols defined in the expansion are entered */
   scope: Scope
 ) {
 

@@ -22,3 +22,5 @@ struct S {
 }
 
 expand T(type S)
+
+instance c: C base id 10

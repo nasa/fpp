@@ -30,4 +30,9 @@ case class GenericScope[NG, S <: SymbolInterface](
       case None => GenericNameSymbolMap[S]()
     }
 
+  override def toString(): String =
+    (this.map.map((ng, g) => {
+        (ng, g.map.keySet)
+      })).toString()
+
 }

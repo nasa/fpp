@@ -98,17 +98,31 @@ object EnterTemplateSymbols
         }
     }
 
-    (data.members, a.templateExpansionMap.contains(node.id)) match {
+    (data.members, a.templateExpansionMap.get(node.id)) match {
       case (None, _) => {
         // This template has not been expanded yet, can't do much
         Right(a)
       }
-      case (Some(members), true) => {
+      case (Some(members), Some(expansion)) => {
         // We already entered this expansion
         // Make sure we recursively enter all the symbols
-        this.visitList(a, members, this.matchModuleMember)
+        // We still need to update the scope on re-expand
+        for {
+          a <- Right(a.copy(nestedScope = a.nestedScope.push(expansion.scope)))
+          a <- this.visitList(a, members, this.matchModuleMember)
+        } yield {
+          val templateScope = a.nestedScope.innerScope
+          val nestedScope = a.nestedScope.pop
+
+          a.copy(
+            nestedScope = nestedScope,
+            templateExpansionMap = a.templateExpansionMap + (
+              node.id -> expansion.copy(scope = templateScope)
+            )
+          )
+        }
       }
-      case (Some(members), false) => {
+      case (Some(members), None) => {
         // We have not entered the symbols in this expansion
         val Right(tmpl) = a.getTemplateSymbol(data.template.id)
         val defParams = tmpl.node._2.data.params
@@ -177,19 +191,50 @@ object EnterTemplateSymbols
             })
           }
 
-          scope <- Right(nestedScope.innerScope)
-          a <- Right(a.copy(
-            nestedScope = nestedScope.pop,
-            templateExpansionMap = a.templateExpansionMap + (node.id -> TemplateExpansion(
-              tmpl.node,
-              aNode,
-              Map.from(params.map(p => (p.getUnqualifiedName, p))),
-              scope
-            )),
-          ))
+          paramScope <- Right(nestedScope.innerScope)
+          a <- Right(a.copy(nestedScope = nestedScope.pop))
+
+          // a <- {
+          //   val paramScope = nestedScope.innerScope
+          //   val nestedScope1 = nestedScope.pop
+
+          // }
+
+          // Create an empty scope for entering template expanded symbols
+          a <- {
+            val scope = Scope.empty
+            Right(a.copy(nestedScope = a.nestedScope.push(scope)))
+          }
 
           // Enter the child symbols in to the analysis
           a <- EnterSymbols.visitList(a, List(Ast.TransUnit(members)), EnterSymbols.transUnit)
+
+          // Duplicate the symbols entries into the outer scope
+          a <- {
+            val templateScope = a.nestedScope.innerScope
+            val nestedScope = a.nestedScope.pop
+
+            for {
+              nestedScope <- Result.foldLeft (templateScope.map.toList) (nestedScope) ((ns, ngs) => {
+                val (ng, symbols) = ngs
+                Result.foldLeft (symbols.map.toList) (ns) ((ns, symEntry) => {
+                  val (name, symbol) = symEntry
+                  ns.put (ng) (name, symbol)
+                })
+              })
+            } yield a.copy(
+                nestedScope = nestedScope,
+                templateExpansionMap = a.templateExpansionMap + (node.id -> TemplateExpansion(
+                  tmpl.node,
+                  aNode,
+                  Map.from(params.map(p => (p.getUnqualifiedName, p))),
+                  paramScope,
+                  templateScope,
+                ))
+              )
+          }
+
+          a <- this.visitList(a, members, this.matchModuleMember)
         } yield a
       }
     }

@@ -18,7 +18,7 @@ case class Topology(
   /** The transitively imported topologies */
   transitiveImportSet: Set[Symbol.Topology] = Set(),
   /** The instances of this topology */
-  instanceMap: Map[InterfaceInstance, Location] = Map(),
+  instanceMap: Map[InterfaceInstance, (PortInterface, String, Location)] = Map(),
   /** List of the ports in the topology to resolve later */
   ports: List[Ast.Annotated[AstNode[Ast.SpecTopPort]]] = List(),
   /** The ports in the topology resolved to their port instance identifiers */
@@ -169,12 +169,19 @@ case class Topology(
   /** Add an instance that may already be there */
   def addInstance(
     instance: InterfaceInstance,
+    pi: PortInterface,
+    ifaceName: String,
     loc: Location
   ): Topology = {
-    val pairOpt = instanceMap.get(instance)
     // Use the previous location, if it exists
-    val mergedLoc = pairOpt.getOrElse(loc)
-    val map = instanceMap + (instance -> mergedLoc)
+    // Take the union of the previous imported port interface
+    val p = instanceMap.get(instance) match {
+      case None => (pi, ifaceName, loc)
+      case Some((otherPi, names, otherLoc)) =>
+        (pi.union(otherPi), s"$names | $ifaceName", otherLoc)
+    }
+
+    val map = instanceMap + (instance -> p)
     this.copy(instanceMap = map)
   }
 
@@ -293,8 +300,8 @@ case class Topology(
   def getLoc: Location = Locations.get(aNode._2.id)
 
   /** Precompute the set of component instances in the topology */
-  val componentInstanceMap: Map[ComponentInstance, Location] = {
-    instanceMap collect { case (InterfaceInstance.InterfaceComponentInstance(ci), loc: Location) => (ci, loc) }
+  lazy val componentInstanceMap: Map[ComponentInstance, Location] = {
+    instanceMap collect { case (InterfaceInstance.InterfaceComponentInstance(ci), (_, _, loc: Location)) => (ci, loc) }
   }
 
   /** Gets the set of used port numbers */
@@ -310,7 +317,7 @@ case class Topology(
   def lookUpInstanceAt(
     instance: InterfaceInstance,
     loc: Location
-  ): Result.Result[Location] =
+  ): Result.Result[(PortInterface, String, Location)] =
     instanceMap.get(instance) match {
       case Some(result) => Right(result)
       case None => Left(

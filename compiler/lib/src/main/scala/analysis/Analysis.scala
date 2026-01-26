@@ -280,7 +280,14 @@ case class Analysis(
         iis match {
           case cis: Symbol.ComponentInstance => Right(InterfaceInstance.fromComponentInstance(this.componentInstanceMap(cis)))
           case top: Symbol.Topology => Right(InterfaceInstance.fromTopology(this.topologyMap(top)))
-          case ts: Symbol.TemplateInterfaceParam => getInterfaceInstance(ts.value.id).map(InterfaceInstance.fromInterfaceTemplateParam)
+          case ts: Symbol.TemplateInterfaceParam =>
+            for {
+              ii <- getInterfaceInstance(ts.value.id)
+              iface <- this.getInterface(ts.paramDef.interface.id)
+
+              // Validate the interface instance meets the port interface constraints
+              _ <- ii.getInterface.implements(iface.portInterface)
+            } yield ii
         }
       }
     } yield ii

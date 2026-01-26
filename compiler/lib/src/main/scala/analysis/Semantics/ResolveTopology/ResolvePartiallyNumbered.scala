@@ -26,6 +26,43 @@ object ResolvePartiallyNumbered {
     yield ()
   }
 
+  /** Check that connection port names are legal within the port
+   * interface constraints on instances */
+  private def checkConnectionPorts(t: Topology): Result.Result[Unit] = {
+    def checkPortInstanceIdentifier(pii: PortInstanceIdentifier, loc: Location) = {
+      val (pi, ifaceName, _) = t.instanceMap(pii.interfaceInstance)
+      val portName = pii.portInstance.getUnqualifiedName
+      pi.portMap.get(portName) match {
+        case Some(_) => Right(())
+        case None => Left(
+          SemanticError.InvalidPortInstanceId(
+            loc,
+            portName,
+            ifaceName
+          )
+        )
+      }
+    }
+
+    def checkConnection(c: Connection) = {
+      for {
+        // Check output port
+        _ <- checkPortInstanceIdentifier(c.from.port, c.from.loc)
+
+        // Check input port
+        _ <- checkPortInstanceIdentifier(c.to.port, c.to.loc)
+      } yield ()
+    }
+
+    for {
+      _ <- Result.map(
+        t.connectionMap.toList.map(_._2).flatten,
+        checkConnection
+      )
+    }
+    yield ()
+  }
+
   /** Check that connection instances are legal */
   private def checkPortInstances(t: Topology): Result.Result[Unit] = {
     def checkPort(i: (PortInstanceIdentifier, Location)) = {
@@ -148,10 +185,10 @@ object ResolvePartiallyNumbered {
   private def resolveInstances(a: Analysis, t: Topology): Result.Result[Topology] = {
     def importInstance(
       t: Topology,
-      mapEntry: (InterfaceInstance, Location)
+      mapEntry: (InterfaceInstance, (PortInterface, String, Location))
     ) = {
-      val (instance, loc) = mapEntry
-      t.addInstance(instance, loc)
+      val (instance, (pi, names, loc)) = mapEntry
+      t.addInstance(instance, pi, names, loc)
     }
     def importInstances(into: Topology, fromSymbol: Symbol.Topology) =
       a.topologyMap(fromSymbol).instanceMap.foldLeft (into) (importInstance)
@@ -165,6 +202,7 @@ object ResolvePartiallyNumbered {
       t <- resolveInstances(a, t)
       _ <- checkPortInstances(t)
       _ <- checkConnectionInstances(t)
+      _ <- checkConnectionPorts(t)
       t <- resolveInterfacesToComponentInstances(a, t)
       t <- resolveImportedConnections(a, t)
       t <- resolvePatterns(a, t)

@@ -363,13 +363,10 @@ object ExpandTemplates extends AstTransformer
     val data = aNode._2.data
     for (value <- matchExprNode(a, data.value))
     yield {
-      (
-        false,
-        cloneAnnotatedNode(
-          a, aNode,
-          data.copy(value = value._2)
-        )
-      )
+      (false,
+       cloneAnnotatedNode(
+        a, aNode,
+        data.copy(value = value._2)))
     }
 
   def defEnumConstantAnnotatedNode(
@@ -973,9 +970,9 @@ object ExpandTemplates extends AstTransformer
     val data = aNode._2.data
     for {
       underlyingPort <- portInstanceIdentifierNode(a, data.underlyingPort)
-    } yield ((false, cloneAnnotatedNode(a, aNode, data.copy(
+    } yield (false, cloneAnnotatedNode(a, aNode, data.copy(
       underlyingPort = underlyingPort._2,
-    ))))
+    )))
 
   override def specTlmPacketSetAnnotatedNode(
     a: In,
@@ -998,10 +995,10 @@ object ExpandTemplates extends AstTransformer
     for {
       members <- transformList(a, data.members, matchTlmPacketSetMember)
       omitted <- transformList(a, data.omitted, tlmChannelIdentifier)
-    } yield ((false, cloneAnnotatedNode(a, aNode, data.copy(
+    } yield (false, cloneAnnotatedNode(a, aNode, data.copy(
       members = members._2,
       omitted = omitted._2,
-    ))))
+    )))
 
   override def specInterfaceImportAnnotatedNode(
     a: In,
@@ -1010,9 +1007,9 @@ object ExpandTemplates extends AstTransformer
     val data = aNode._2.data
     for {
       sym <- qualIdentNode(a, data.sym)
-    } yield ((false, cloneAnnotatedNode(a, aNode, data.copy(
+    } yield (false, cloneAnnotatedNode(a, aNode, data.copy(
       sym = sym._2,
-    ))))
+    )))
 
   override def defModuleTemplateAnnotatedNode(
     a: In,

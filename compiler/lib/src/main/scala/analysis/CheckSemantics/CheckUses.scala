@@ -148,11 +148,14 @@ object CheckUses extends BasicUseAnalyzer {
       a.symbolScopeMap.get(symbol) match {
         case None => parentScope
         case Some(symbolScope) => parentScope.push(symbolScope)
-      } 
+      }
     }
 
-    val oldNestedScope = a.nestedScope;
-    val newNestedScope = getNestedScope(tmpl).push(expansion.scope)
+    val oldNestedScope = a.nestedScope
+    val newNestedScope = getNestedScope(tmpl)
+      .push(expansion.paramScope)
+      .push(expansion.scope)
+
     val Some(members) = node.data.members
 
     for {

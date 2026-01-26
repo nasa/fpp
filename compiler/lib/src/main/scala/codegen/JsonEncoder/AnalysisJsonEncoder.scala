@@ -342,7 +342,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
   // ----------------------------------------------------------------------
 
   private implicit val interfaceInstanceLocationMapEncoder:
-    Encoder[Map[InterfaceInstance, Location]] =
+    Encoder[Map[InterfaceInstance, (PortInterface, String, Location)]] =
     Encoder.instance(_.toList.asJson)
 
   private implicit val connectionMapEncoder:

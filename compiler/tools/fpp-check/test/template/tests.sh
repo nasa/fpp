@@ -5,6 +5,11 @@ duplicate_def
 types
 interfaces
 interfaces_basic
+interfaces_invalid_port_instance_union
+interfaces_invalid_port_instance
+interfaces_valid_port_instance_union
 undef_constant_param_type
 undef_interface_param_type
+self_reference
+self_reference_nested
 "
