@@ -554,6 +554,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-State-Machines_Hierarchy_Choices">10.6.5. Choices</a></li>
 </ul>
 </li>
+<li><a href="#Defining-State-Machines_Constants-Types-and-Enums">10.7. Constants, Types, and Enums</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Components">11. Defining Components</a>
@@ -6050,6 +6051,109 @@ entry actions of <em>B'</em>.</p>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="Defining-State-Machines_Constants-Types-and-Enums">10.7. Constants, Types, and Enums</h3>
+<div class="paragraph">
+<p>You can write a <a href="#Defining-Constants">constant definition</a>,
+<a href="#Defining-Types">type definition</a>, or
+<a href="#Defining-Enums">enum definition</a> as a state machine member.
+For example, here is a state machine <code>M</code> that defines a
+constant <code>c</code> as a member:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A state machine containing a type definition
+state machine M {
+
+  constant c = 42
+
+  state S
+
+  initial enter S
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When you do this, the state machine qualifies
+the name of the definition, similarly to the way that a
+<a href="#Defining-Modules">module</a> qualifies the names of the
+definitions it contains.
+For example, for the constant <code>c</code> shown in the code above:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Inside the definition of <code>M</code>, you can refer to the
+type as <code>c</code> or <code>M.c</code>.</p>
+</li>
+<li>
+<p>Outside the definition of <code>M</code>, you must refer to the
+type as <code>M.c</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In general, it is a good idea to put a definition inside a
+state machine when the definition logically belongs to the
+state machine.
+For example, here is a state machine that defines a type
+<code>Temperature</code> and then uses that type in a signal and a guard:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A state machine that defines a type and uses it in a guard
+state machine Device {
+
+  @ Define a type Temperature
+  type Temperature = F32
+
+  @ Use the Temperature type in a signal
+  signal onCmd: Temperature
+
+  @ Use the Temperature type in a guard
+  guard temperatureIsSafe: Temperature
+
+  @ Initial transition
+  initial enter OFF
+
+  @ OFF state
+  state OFF {
+
+    @ Enter ON if temperature is safe
+    on onCmd if temperatureIsSafe enter ON
+
+  }
+
+  @ ON state
+  state ON
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, the full name of the type <code>Temperature</code> is <code>Device.Temperature</code>.</p>
+</div>
+<div class="paragraph">
+<p>In most cases, a qualified name such as <code>Device.Temperature</code> in FPP becomes a
+qualified name such as <code>Device::Temperature</code> when translating to C&#43;&#43;.
+However, the current C&#43;&#43; code generation strategy does not support the
+definition of constants and types as members of C&#43;&#43; state machines.
+Therefore, in the C&#43;&#43; translation of the previous example, the following
+occurs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The state machine <code>SM</code> becomes an auto-generated C&#43;&#43;
+class <code>SMStateMachineBase</code>.</p>
+</li>
+<li>
+<p>The type <code>Temperature</code> becomes a C&#43;&#43; type <code>Device_Temperature</code>.</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -9065,7 +9169,7 @@ or
 <a href="#Defining-State-Machines">state machine definition</a>
 as a component member.
 When you do this, the component qualifies
-the name of the constant or type, similarly to the way that a
+the name of the definition, similarly to the way that a
 <a href="#Defining-Modules">module</a> qualifies the names of the
 definitions it contains.
 For example, if you define a type <code>T</code> inside a component
@@ -9172,7 +9276,8 @@ in FPP becomes a qualified name such as <code>Switch::State</code> when translat
 to C&#43;&#43;.
 However, the current C&#43;&#43; code generation strategy does not
 support the definition
-of constants and types as members of C&#43;&#43; components.
+of constants, types, and state machines as
+members of C&#43;&#43; components.
 Therefore, when translating the previous example to C&#43;&#43;,
 the following occurs:</p>
 </div>
@@ -16224,7 +16329,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-01-20 10:28:02 -0800
+Last updated 2026-01-26 08:52:34 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

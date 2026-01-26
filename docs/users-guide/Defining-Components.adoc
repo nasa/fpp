@@ -2653,7 +2653,7 @@ or
 <<Defining-State-Machines,state machine definition>>
 as a component member.
 When you do this, the component qualifies
-the name of the constant or type, similarly to the way that a
+the name of the definition, similarly to the way that a
 <<Defining-Modules,module>> qualifies the names of the
 definitions it contains.
 For example, if you define a type `T` inside a component
@@ -2752,7 +2752,8 @@ in FPP becomes a qualified name such as `Switch::State` when translating
 to {cpp}.
 However, the current {cpp} code generation strategy does not
 support the definition
-of constants and types as members of {cpp} components.
+of constants, types, and state machines as
+members of {cpp} components.
 Therefore, when translating the previous example to {cpp},
 the following occurs:
 
