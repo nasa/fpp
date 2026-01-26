@@ -12,6 +12,54 @@ to the following rules.
 
 |`Fw.DpCfg.CONTAINER_USER_DATA_SIZE`
 |Must be a constant with an underlying type of integer
+|`FW_OBJ_SIMPLE_REG_BUFF_SIZE`
+|Must be a constant with an underlying type of integer
+|`FW_QUEUE_NAME_BUFFER_SIZE`
+|Must be a constant with an underlying type of integer
+|`FW_TASK_NAME_BUFFER_SIZE`
+|Must be a constant with an underlying type of integer
+|`FW_COM_BUFFER_MAX_SIZE`
+|Must be a constant with an underlying type of integer
+|`FW_SM_SIGNAL_BUFFER_MAX_SIZE`
+|Must be a constant with an underlying type of integer
+|`FW_CMD_ARG_BUFFER_MAX_SIZE`
+|Must be a constant with an underlying type of integer
+|`FW_CMD_STRING_MAX_SIZE`
+|Must be a constant with an underlying type of integer
+|`FW_LOG_BUFFER_MAX_SIZE`
+|Must be a constant with an underlying type of integer
+|`FW_LOG_STRING_MAX_SIZE`
+|Must be a constant with an underlying type of integer
+|`FW_TLM_BUFFER_MAX_SIZE`
+|Must be a constant with an underlying type of integer
+|`FW_STATEMENT_ARG_BUFFER_MAX_SIZE`
+|Must be a constant with an underlying type of integer
+|`FW_TLM_STRING_MAX_SIZE`
+|Must be a constant with an underlying type of integer
+|`FW_PARAM_BUFFER_MAX_SIZE`
+|Must be a constant with an underlying type of integer
+|`FW_PARAM_STRING_MAX_SIZE`
+|Must be a constant with an underlying type of integer
+|`FW_FILE_BUFFER_MAX_SIZE`
+|Must be a constant with an underlying type of integer
+|`FW_INTERNAL_INTERFACE_STRING_MAX_SIZE`
+|Must be a constant with an underlying type of integer
+|`FW_LOG_TEXT_BUFFER_SIZE`
+|Must be a constant with an underlying type of integer
+|`FW_FIXED_LENGTH_STRING_SIZE`
+|Must be a constant with an underlying type of integer
+|`FW_OBJ_SIMPLE_REG_ENTRIES`
+|Must be a constant with an underlying type of integer
+|`FW_QUEUE_SIMPLE_QUEUE_ENTRIES`
+|Must be a constant with an underlying type of integer
+|`FW_ASSERT_COUNT_MAX`
+|Must be a constant with an underlying type of integer
+|`FW_CONTEXT_DONT_CARE`
+|Must be a constant with an underlying type of integer
+|`FW_SERIALIZE_TRUE_VALUE`
+|Must be a constant with an underlying type of integer
+|`FW_SERIALIZE_FALSE_VALUE`
+|Must be a constant with an underlying type of integer
 
 |===
 
