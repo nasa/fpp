@@ -1568,7 +1568,7 @@ The general behavior described above agrees with the special-case
 behavior that we described in the section on
 <<Defining-State-Machines_Actions_Entry-and-Exit-Actions,
 entry and exit actions for state machines without hierarchy>>.
-When a state machine _M_ has no hierarchy, a every state transition _T_
+When a state machine _M_ has no hierarchy, every state transition _T_
 is a flattened transition that goes from a leaf state _L_ to a leaf
 state _S_, both of which are children of _M_ in the hierarchy tree.
 So we always exit _L_, do the actions of _T_, and enter _S_.
@@ -1827,10 +1827,10 @@ definitions it contains.
 For example, for the constant `c` shown in the code above:
 
 * Inside the definition of `M`, you can refer to the
-type as `c` or `M.c`.
+constant as `c` or `M.c`.
 
 * Outside the definition of `M`, you must refer to the
-type as `M.c`.
+constant as `M.c`.
 
 In general, it is a good idea to put a definition inside a
 state machine when the definition logically belongs to the
@@ -1882,3 +1882,8 @@ occurs:
 class `SMStateMachineBase`.
 
 * The type `Temperature` becomes a {cpp} type `Device_Temperature`.
+
+Similarly, the FPP constant `M.c` becomes a {cpp} constant `M_c`.
+We will have more to say about this issue in the section on
+<<Analyzing-and-Translating-Models_Generating-C-Plus-Plus,
+generating {cpp}>>.
