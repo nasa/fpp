@@ -2201,6 +2201,58 @@
         "defaultRecordId" : 0
       }
     },
+    "frameworkDefinitions" : {
+      "constants" : {
+        "containerDataSize" : "None",
+        "fwObjSimpleRegBuffSize" : "None",
+        "fwQueueNameBufferSize" : "None",
+        "fwTaskNameBufferSize" : "None",
+        "fwComBufferMaxSize" : "None",
+        "fwSmSignalBufferMaxSize" : "None",
+        "fwCmdArgBufferMaxSize" : "None",
+        "fwCmdStringMaxSize" : "None",
+        "fwLogBufferMaxSize" : "None",
+        "fwLogStringMaxSize" : "None",
+        "fwTlmBufferMaxSize" : "None",
+        "fwStatementArgBufferMaxSize" : "None",
+        "fwTlmStringMaxSize" : "None",
+        "fwParamBufferMaxSize" : "None",
+        "fwParamStringMaxSize" : "None",
+        "fwFileBufferMaxSize" : "None",
+        "fwInternalInterfaceStringMaxSize" : "None",
+        "fwLogTextBufferSize" : "None",
+        "fwFixedLengthStringSize" : "None",
+        "fwObjSimpleRegEntries" : "None",
+        "fwQueueSimpleQueueEntries" : "None",
+        "fwAssertCountMax" : "None",
+        "fwContextDontCare" : "None",
+        "fwSerializeTrueValue" : "None",
+        "fwSerializeFalseValue" : "None"
+      },
+      "types" : {
+        "procType" : "None",
+        "dpState" : "None",
+        "fwAssertArgType" : "None",
+        "fwChanIdType" : "None",
+        "fwDpIdType" : "None",
+        "fwDpPriorityType" : "None",
+        "fwEnumStoreType" : "None",
+        "fwEventIdType" : "None",
+        "fwIndexType" : "None",
+        "fwOpcodeType" : "None",
+        "fwPacketDescriptorType" : "None",
+        "fwPrmIdType" : "None",
+        "fwQueuePriorityType" : "None",
+        "fwSignedSizeType" : "None",
+        "fwSizeStoreType" : "None",
+        "fwSizeType" : "None",
+        "fwTaskPriorityType" : "None",
+        "fwTimeBaseStoreType" : "None",
+        "fwTimeContextStoreType" : "None",
+        "fwTlmPacketizeIdType" : "None",
+        "fwTraceIdType" : "None"
+      }
+    },
     "includedFileSet" : [
     ],
     "inputFileSet" : [

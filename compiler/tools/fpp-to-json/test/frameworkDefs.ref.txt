@@ -725,6 +725,894 @@
           },
           [
           ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_OBJ_SIMPLE_REG_BUFF_SIZE",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "255"
+                          }
+                        },
+                        "id" : 164
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 165
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_QUEUE_NAME_BUFFER_SIZE",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "80"
+                          }
+                        },
+                        "id" : 166
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 167
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_TASK_NAME_BUFFER_SIZE",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "80"
+                          }
+                        },
+                        "id" : 168
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 169
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_COM_BUFFER_MAX_SIZE",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "512"
+                          }
+                        },
+                        "id" : 170
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 171
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_SM_SIGNAL_BUFFER_MAX_SIZE",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "128"
+                          }
+                        },
+                        "id" : 172
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 173
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_CMD_ARG_BUFFER_MAX_SIZE",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprBinop" : {
+                            "e1" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprBinop" : {
+                                    "e1" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "ExprIdent" : {
+                                            "value" : "FW_COM_BUFFER_MAX_SIZE"
+                                          }
+                                        },
+                                        "id" : 174
+                                      }
+                                    },
+                                    "op" : {
+                                      "Sub" : {
+                                        
+                                      }
+                                    },
+                                    "e2" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "ExprLiteralInt" : {
+                                            "value" : "4"
+                                          }
+                                        },
+                                        "id" : 175
+                                      }
+                                    }
+                                  }
+                                },
+                                "id" : 177
+                              }
+                            },
+                            "op" : {
+                              "Sub" : {
+                                
+                              }
+                            },
+                            "e2" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprLiteralInt" : {
+                                    "value" : "2"
+                                  }
+                                },
+                                "id" : 176
+                              }
+                            }
+                          }
+                        },
+                        "id" : 178
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 179
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_CMD_STRING_MAX_SIZE",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "40"
+                          }
+                        },
+                        "id" : 180
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 181
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_LOG_BUFFER_MAX_SIZE",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprBinop" : {
+                            "e1" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprBinop" : {
+                                    "e1" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "ExprIdent" : {
+                                            "value" : "FW_COM_BUFFER_MAX_SIZE"
+                                          }
+                                        },
+                                        "id" : 182
+                                      }
+                                    },
+                                    "op" : {
+                                      "Sub" : {
+                                        
+                                      }
+                                    },
+                                    "e2" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "ExprLiteralInt" : {
+                                            "value" : "4"
+                                          }
+                                        },
+                                        "id" : 183
+                                      }
+                                    }
+                                  }
+                                },
+                                "id" : 185
+                              }
+                            },
+                            "op" : {
+                              "Sub" : {
+                                
+                              }
+                            },
+                            "e2" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprLiteralInt" : {
+                                    "value" : "2"
+                                  }
+                                },
+                                "id" : 184
+                              }
+                            }
+                          }
+                        },
+                        "id" : 186
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 187
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_LOG_STRING_MAX_SIZE",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "200"
+                          }
+                        },
+                        "id" : 188
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 189
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_TLM_BUFFER_MAX_SIZE",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprBinop" : {
+                            "e1" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprBinop" : {
+                                    "e1" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "ExprIdent" : {
+                                            "value" : "FW_COM_BUFFER_MAX_SIZE"
+                                          }
+                                        },
+                                        "id" : 190
+                                      }
+                                    },
+                                    "op" : {
+                                      "Sub" : {
+                                        
+                                      }
+                                    },
+                                    "e2" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "ExprLiteralInt" : {
+                                            "value" : "4"
+                                          }
+                                        },
+                                        "id" : 191
+                                      }
+                                    }
+                                  }
+                                },
+                                "id" : 193
+                              }
+                            },
+                            "op" : {
+                              "Sub" : {
+                                
+                              }
+                            },
+                            "e2" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprLiteralInt" : {
+                                    "value" : "2"
+                                  }
+                                },
+                                "id" : 192
+                              }
+                            }
+                          }
+                        },
+                        "id" : 194
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 195
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_STATEMENT_ARG_BUFFER_MAX_SIZE",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprIdent" : {
+                            "value" : "FW_CMD_ARG_BUFFER_MAX_SIZE"
+                          }
+                        },
+                        "id" : 196
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 197
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_TLM_STRING_MAX_SIZE",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "40"
+                          }
+                        },
+                        "id" : 198
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 199
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_PARAM_BUFFER_MAX_SIZE",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprBinop" : {
+                            "e1" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprBinop" : {
+                                    "e1" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "ExprIdent" : {
+                                            "value" : "FW_COM_BUFFER_MAX_SIZE"
+                                          }
+                                        },
+                                        "id" : 200
+                                      }
+                                    },
+                                    "op" : {
+                                      "Sub" : {
+                                        
+                                      }
+                                    },
+                                    "e2" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "ExprLiteralInt" : {
+                                            "value" : "4"
+                                          }
+                                        },
+                                        "id" : 201
+                                      }
+                                    }
+                                  }
+                                },
+                                "id" : 203
+                              }
+                            },
+                            "op" : {
+                              "Sub" : {
+                                
+                              }
+                            },
+                            "e2" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprLiteralInt" : {
+                                    "value" : "2"
+                                  }
+                                },
+                                "id" : 202
+                              }
+                            }
+                          }
+                        },
+                        "id" : 204
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 205
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_PARAM_STRING_MAX_SIZE",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "40"
+                          }
+                        },
+                        "id" : 206
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 207
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_FILE_BUFFER_MAX_SIZE",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprIdent" : {
+                            "value" : "FW_COM_BUFFER_MAX_SIZE"
+                          }
+                        },
+                        "id" : 208
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 209
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_INTERNAL_INTERFACE_STRING_MAX_SIZE",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "256"
+                          }
+                        },
+                        "id" : 210
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 211
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_LOG_TEXT_BUFFER_SIZE",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "256"
+                          }
+                        },
+                        "id" : 212
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 213
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_FIXED_LENGTH_STRING_SIZE",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "256"
+                          }
+                        },
+                        "id" : 214
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 215
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_OBJ_SIMPLE_REG_ENTRIES",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "500"
+                          }
+                        },
+                        "id" : 216
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 217
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_QUEUE_SIMPLE_QUEUE_ENTRIES",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "100"
+                          }
+                        },
+                        "id" : 218
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 219
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_ASSERT_COUNT_MAX",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "10"
+                          }
+                        },
+                        "id" : 220
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 221
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_CONTEXT_DONT_CARE",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "0xFF"
+                          }
+                        },
+                        "id" : 222
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 223
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_SERIALIZE_TRUE_VALUE",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "0xFF"
+                          }
+                        },
+                        "id" : 224
+                      }
+                    },
+                    "isDictionaryDef" : true
+                  },
+                  "id" : 225
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_SERIALIZE_FALSE_VALUE",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "0x00"
+                          }
+                        },
+                        "id" : 226
+                      }
+                    },
+                    "isDictionaryDef" : true
+                  },
+                  "id" : 227
+                }
+              }
+            }
+          },
+          [
+          ]
         ]
       ]
     }
@@ -1552,6 +2440,326 @@
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
       "pos" : "18.1",
       "includingLoc" : "None"
+    },
+    "164" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "47.40",
+      "includingLoc" : "None"
+    },
+    "165" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "47.1",
+      "includingLoc" : "None"
+    },
+    "166" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "48.38",
+      "includingLoc" : "None"
+    },
+    "167" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "48.1",
+      "includingLoc" : "None"
+    },
+    "168" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "49.37",
+      "includingLoc" : "None"
+    },
+    "169" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "49.1",
+      "includingLoc" : "None"
+    },
+    "170" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "50.35",
+      "includingLoc" : "None"
+    },
+    "171" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "50.1",
+      "includingLoc" : "None"
+    },
+    "172" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "51.41",
+      "includingLoc" : "None"
+    },
+    "173" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "51.1",
+      "includingLoc" : "None"
+    },
+    "174" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "52.39",
+      "includingLoc" : "None"
+    },
+    "175" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "52.64",
+      "includingLoc" : "None"
+    },
+    "176" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "52.68",
+      "includingLoc" : "None"
+    },
+    "177" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "52.62",
+      "includingLoc" : "None"
+    },
+    "178" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "52.66",
+      "includingLoc" : "None"
+    },
+    "179" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "52.1",
+      "includingLoc" : "None"
+    },
+    "180" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "53.35",
+      "includingLoc" : "None"
+    },
+    "181" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "53.1",
+      "includingLoc" : "None"
+    },
+    "182" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "54.35",
+      "includingLoc" : "None"
+    },
+    "183" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "54.60",
+      "includingLoc" : "None"
+    },
+    "184" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "54.64",
+      "includingLoc" : "None"
+    },
+    "185" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "54.58",
+      "includingLoc" : "None"
+    },
+    "186" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "54.62",
+      "includingLoc" : "None"
+    },
+    "187" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "54.1",
+      "includingLoc" : "None"
+    },
+    "188" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "55.35",
+      "includingLoc" : "None"
+    },
+    "189" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "55.1",
+      "includingLoc" : "None"
+    },
+    "190" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "56.35",
+      "includingLoc" : "None"
+    },
+    "191" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "56.60",
+      "includingLoc" : "None"
+    },
+    "192" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "56.64",
+      "includingLoc" : "None"
+    },
+    "193" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "56.58",
+      "includingLoc" : "None"
+    },
+    "194" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "56.62",
+      "includingLoc" : "None"
+    },
+    "195" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "56.1",
+      "includingLoc" : "None"
+    },
+    "196" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "57.45",
+      "includingLoc" : "None"
+    },
+    "197" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "57.1",
+      "includingLoc" : "None"
+    },
+    "198" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "58.35",
+      "includingLoc" : "None"
+    },
+    "199" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "58.1",
+      "includingLoc" : "None"
+    },
+    "200" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "59.37",
+      "includingLoc" : "None"
+    },
+    "201" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "59.62",
+      "includingLoc" : "None"
+    },
+    "202" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "59.66",
+      "includingLoc" : "None"
+    },
+    "203" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "59.60",
+      "includingLoc" : "None"
+    },
+    "204" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "59.64",
+      "includingLoc" : "None"
+    },
+    "205" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "59.1",
+      "includingLoc" : "None"
+    },
+    "206" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "60.37",
+      "includingLoc" : "None"
+    },
+    "207" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "60.1",
+      "includingLoc" : "None"
+    },
+    "208" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "61.36",
+      "includingLoc" : "None"
+    },
+    "209" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "61.1",
+      "includingLoc" : "None"
+    },
+    "210" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "62.50",
+      "includingLoc" : "None"
+    },
+    "211" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "62.1",
+      "includingLoc" : "None"
+    },
+    "212" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "63.36",
+      "includingLoc" : "None"
+    },
+    "213" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "63.1",
+      "includingLoc" : "None"
+    },
+    "214" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "64.40",
+      "includingLoc" : "None"
+    },
+    "215" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "64.1",
+      "includingLoc" : "None"
+    },
+    "216" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "65.38",
+      "includingLoc" : "None"
+    },
+    "217" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "65.1",
+      "includingLoc" : "None"
+    },
+    "218" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "66.42",
+      "includingLoc" : "None"
+    },
+    "219" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "66.1",
+      "includingLoc" : "None"
+    },
+    "220" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "67.32",
+      "includingLoc" : "None"
+    },
+    "221" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "67.1",
+      "includingLoc" : "None"
+    },
+    "222" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "68.33",
+      "includingLoc" : "None"
+    },
+    "223" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "68.1",
+      "includingLoc" : "None"
+    },
+    "224" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "69.47",
+      "includingLoc" : "None"
+    },
+    "225" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "69.1",
+      "includingLoc" : "None"
+    },
+    "226" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "70.48",
+      "includingLoc" : "None"
+    },
+    "227" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-dict/test/top/config.fpp",
+      "pos" : "70.1",
+      "includingLoc" : "None"
     }
   }
 }
@@ -1571,30 +2779,126 @@
             "astNodeId" : 125
           }
         },
-        "fwObjSimpleRegBuffSize" : "None",
-        "fwQueueNameBufferSize" : "None",
-        "fwTaskNameBufferSize" : "None",
-        "fwComBufferMaxSize" : "None",
-        "fwSmSignalBufferMaxSize" : "None",
-        "fwCmdArgBufferMaxSize" : "None",
-        "fwCmdStringMaxSize" : "None",
-        "fwLogBufferMaxSize" : "None",
-        "fwLogStringMaxSize" : "None",
-        "fwTlmBufferMaxSize" : "None",
-        "fwStatementArgBufferMaxSize" : "None",
-        "fwTlmStringMaxSize" : "None",
-        "fwParamBufferMaxSize" : "None",
-        "fwParamStringMaxSize" : "None",
-        "fwFileBufferMaxSize" : "None",
-        "fwInternalInterfaceStringMaxSize" : "None",
-        "fwLogTextBufferSize" : "None",
-        "fwFixedLengthStringSize" : "None",
-        "fwObjSimpleRegEntries" : "None",
-        "fwQueueSimpleQueueEntries" : "None",
-        "fwAssertCountMax" : "None",
-        "fwContextDontCare" : "None",
-        "fwSerializeTrueValue" : "None",
-        "fwSerializeFalseValue" : "None"
+        "fwObjSimpleRegBuffSize" : {
+          "Some" : {
+            "astNodeId" : 165
+          }
+        },
+        "fwQueueNameBufferSize" : {
+          "Some" : {
+            "astNodeId" : 167
+          }
+        },
+        "fwTaskNameBufferSize" : {
+          "Some" : {
+            "astNodeId" : 169
+          }
+        },
+        "fwComBufferMaxSize" : {
+          "Some" : {
+            "astNodeId" : 171
+          }
+        },
+        "fwSmSignalBufferMaxSize" : {
+          "Some" : {
+            "astNodeId" : 173
+          }
+        },
+        "fwCmdArgBufferMaxSize" : {
+          "Some" : {
+            "astNodeId" : 179
+          }
+        },
+        "fwCmdStringMaxSize" : {
+          "Some" : {
+            "astNodeId" : 181
+          }
+        },
+        "fwLogBufferMaxSize" : {
+          "Some" : {
+            "astNodeId" : 187
+          }
+        },
+        "fwLogStringMaxSize" : {
+          "Some" : {
+            "astNodeId" : 189
+          }
+        },
+        "fwTlmBufferMaxSize" : {
+          "Some" : {
+            "astNodeId" : 195
+          }
+        },
+        "fwStatementArgBufferMaxSize" : {
+          "Some" : {
+            "astNodeId" : 197
+          }
+        },
+        "fwTlmStringMaxSize" : {
+          "Some" : {
+            "astNodeId" : 199
+          }
+        },
+        "fwParamBufferMaxSize" : {
+          "Some" : {
+            "astNodeId" : 205
+          }
+        },
+        "fwParamStringMaxSize" : {
+          "Some" : {
+            "astNodeId" : 207
+          }
+        },
+        "fwFileBufferMaxSize" : {
+          "Some" : {
+            "astNodeId" : 209
+          }
+        },
+        "fwInternalInterfaceStringMaxSize" : {
+          "Some" : {
+            "astNodeId" : 211
+          }
+        },
+        "fwLogTextBufferSize" : {
+          "Some" : {
+            "astNodeId" : 213
+          }
+        },
+        "fwFixedLengthStringSize" : {
+          "Some" : {
+            "astNodeId" : 215
+          }
+        },
+        "fwObjSimpleRegEntries" : {
+          "Some" : {
+            "astNodeId" : 217
+          }
+        },
+        "fwQueueSimpleQueueEntries" : {
+          "Some" : {
+            "astNodeId" : 219
+          }
+        },
+        "fwAssertCountMax" : {
+          "Some" : {
+            "astNodeId" : 221
+          }
+        },
+        "fwContextDontCare" : {
+          "Some" : {
+            "astNodeId" : 223
+          }
+        },
+        "fwSerializeTrueValue" : {
+          "Some" : {
+            "astNodeId" : 225
+          }
+        },
+        "fwSerializeFalseValue" : {
+          "Some" : {
+            "astNodeId" : 227
+          }
+        }
       },
       "types" : {
         "procType" : {
@@ -1925,122 +3229,28 @@
       
     },
     "typeMap" : {
-      "12" : {
-        "AliasType" : {
-          "node" : {
-            "astNodeId" : 1
-          },
-          "aliasType" : {
-            "Int" : {
-              "PrimitiveInt" : {
-                "kind" : {
-                  "U32" : {
-                    
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "9" : {
-        "AliasType" : {
-          "node" : {
-            "astNodeId" : 9
-          },
-          "aliasType" : {
-            "AliasType" : {
-              "node" : {
-                "astNodeId" : 1
-              },
-              "aliasType" : {
-                "Int" : {
-                  "PrimitiveInt" : {
-                    "kind" : {
-                      "U32" : {
-                        
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "13" : {
-        "AliasType" : {
-          "node" : {
-            "astNodeId" : 13
-          },
-          "aliasType" : {
-            "AliasType" : {
-              "node" : {
-                "astNodeId" : 1
-              },
-              "aliasType" : {
-                "Int" : {
-                  "PrimitiveInt" : {
-                    "kind" : {
-                      "U32" : {
-                        
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "159" : {
+      "175" : {
         "Int" : {
           "Integer" : {
             
           }
         }
       },
-      "21" : {
-        "AliasType" : {
-          "node" : {
-            "astNodeId" : 21
-          },
-          "aliasType" : {
-            "AliasType" : {
-              "node" : {
-                "astNodeId" : 1
-              },
-              "aliasType" : {
-                "Int" : {
-                  "PrimitiveInt" : {
-                    "kind" : {
-                      "U32" : {
-                        
-                      }
-                    }
-                  }
-                }
-              }
-            }
+      "219" : {
+        "Int" : {
+          "Integer" : {
+            
           }
         }
       },
-      "43" : {
-        "Enum" : {
-          "node" : {
-            "astNodeId" : 45
-          },
-          "repType" : {
-            "kind" : {
-              "U8" : {
-                
-              }
-            }
-          },
-          "default" : "None"
+      "200" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
         }
       },
-      "32" : {
+      "34" : {
         "Int" : {
           "PrimitiveInt" : {
             "kind" : {
@@ -2051,82 +3261,31 @@
           }
         }
       },
-      "38" : {
-        "Int" : {
-          "PrimitiveInt" : {
-            "kind" : {
-              "U8" : {
-                
-              }
-            }
-          }
-        }
-      },
-      "160" : {
-        "Enum" : {
-          "node" : {
-            "astNodeId" : 161
-          },
-          "repType" : {
-            "kind" : {
-              "U8" : {
-                
-              }
-            }
-          },
-          "default" : "None"
-        }
-      },
-      "125" : {
+      "169" : {
         "Int" : {
           "Integer" : {
             
           }
         }
       },
-      "150" : {
+      "193" : {
         "Int" : {
-          "PrimitiveInt" : {
-            "kind" : {
-              "U8" : {
-                
-              }
-            }
+          "Integer" : {
+            
           }
         }
       },
-      "161" : {
-        "Enum" : {
-          "node" : {
-            "astNodeId" : 161
-          },
-          "repType" : {
-            "kind" : {
-              "U8" : {
-                
-              }
-            }
-          },
-          "default" : {
-            "Some" : {
-              "value" : [
-                "PROC_TYPE_ZERO",
-                1
-              ],
-              "t" : {
-                "node" : {
-                  "astNodeId" : 161
-                },
-                "repType" : {
-                  "kind" : {
-                    "U8" : {
-                      
-                    }
-                  }
-                },
-                "default" : "None"
-              }
-            }
+      "153" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "205" : {
+        "Int" : {
+          "Integer" : {
+            
           }
         }
       },
@@ -2165,18 +3324,39 @@
           }
         }
       },
-      "34" : {
+      "182" : {
         "Int" : {
-          "PrimitiveInt" : {
-            "kind" : {
-              "U16" : {
-                
+          "Integer" : {
+            
+          }
+        }
+      },
+      "12" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 1
+          },
+          "aliasType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U32" : {
+                    
+                  }
+                }
               }
             }
           }
         }
       },
-      "153" : {
+      "223" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "216" : {
         "Int" : {
           "Integer" : {
             
@@ -2205,6 +3385,20 @@
                 }
               }
             }
+          }
+        }
+      },
+      "164" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "170" : {
+        "Int" : {
+          "Integer" : {
+            
           }
         }
       },
@@ -2241,6 +3435,45 @@
           "default" : "None"
         }
       },
+      "9" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 9
+          },
+          "aliasType" : {
+            "AliasType" : {
+              "node" : {
+                "astNodeId" : 1
+              },
+              "aliasType" : {
+                "Int" : {
+                  "PrimitiveInt" : {
+                    "kind" : {
+                      "U32" : {
+                        
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "181" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "201" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
       "44" : {
         "Enum" : {
           "node" : {
@@ -2274,14 +3507,38 @@
           }
         }
       },
-      "26" : {
+      "197" : {
         "Int" : {
-          "PrimitiveInt" : {
-            "kind" : {
-              "U16" : {
-                
-              }
-            }
+          "Integer" : {
+            
+          }
+        }
+      },
+      "186" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "227" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "212" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "174" : {
+        "Int" : {
+          "Integer" : {
+            
           }
         }
       },
@@ -2303,6 +3560,77 @@
           }
         }
       },
+      "26" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U16" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "224" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "166" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "217" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "13" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 13
+          },
+          "aliasType" : {
+            "AliasType" : {
+              "node" : {
+                "astNodeId" : 1
+              },
+              "aliasType" : {
+                "Int" : {
+                  "PrimitiveInt" : {
+                    "kind" : {
+                      "U32" : {
+                        
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "206" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "177" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
       "24" : {
         "AliasType" : {
           "node" : {
@@ -2318,6 +3646,13 @@
                 }
               }
             }
+          }
+        }
+      },
+      "209" : {
+        "Int" : {
+          "Integer" : {
+            
           }
         }
       },
@@ -2354,6 +3689,13 @@
                 }
               }
             }
+          }
+        }
+      },
+      "192" : {
+        "Int" : {
+          "Integer" : {
+            
           }
         }
       },
@@ -2394,6 +3736,106 @@
                 }
               }
             }
+          }
+        }
+      },
+      "199" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "159" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "196" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "21" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 21
+          },
+          "aliasType" : {
+            "AliasType" : {
+              "node" : {
+                "astNodeId" : 1
+              },
+              "aliasType" : {
+                "Int" : {
+                  "PrimitiveInt" : {
+                    "kind" : {
+                      "U32" : {
+                        
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "188" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "43" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 45
+          },
+          "repType" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      },
+      "213" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "202" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "32" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U16" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "185" : {
+        "Int" : {
+          "Integer" : {
+            
           }
         }
       },
@@ -2441,6 +3883,20 @@
           "default" : "None"
         }
       },
+      "173" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "208" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
       "17" : {
         "AliasType" : {
           "node" : {
@@ -2463,6 +3919,20 @@
                 }
               }
             }
+          }
+        }
+      },
+      "180" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "221" : {
+        "Int" : {
+          "Integer" : {
+            
           }
         }
       },
@@ -2516,7 +3986,63 @@
           }
         }
       },
+      "191" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
       "151" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "190" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "184" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "225" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "214" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "203" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "195" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "189" : {
         "Int" : {
           "Integer" : {
             
@@ -2552,6 +4078,13 @@
           }
         }
       },
+      "178" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
       "27" : {
         "AliasType" : {
           "node" : {
@@ -2570,6 +4103,88 @@
           }
         }
       },
+      "210" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "38" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "167" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "198" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "160" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 161
+          },
+          "repType" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      },
+      "187" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "171" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "165" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "125" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "194" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
       "154" : {
         "Enum" : {
           "node" : {
@@ -2583,6 +4198,27 @@
             }
           },
           "default" : "None"
+        }
+      },
+      "215" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "220" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "183" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
         }
       },
       "30" : {
@@ -2602,15 +4238,125 @@
             }
           }
         }
+      },
+      "179" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "218" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "222" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "207" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "168" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "211" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "150" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "204" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "226" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "172" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "161" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 161
+          },
+          "repType" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          },
+          "default" : {
+            "Some" : {
+              "value" : [
+                "PROC_TYPE_ZERO",
+                1
+              ],
+              "t" : {
+                "node" : {
+                  "astNodeId" : 161
+                },
+                "repType" : {
+                  "kind" : {
+                    "U8" : {
+                      
+                    }
+                  }
+                },
+                "default" : "None"
+              }
+            }
+          }
+        }
+      },
+      "176" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
       }
     },
     "useDefMap" : {
-      "12" : {
-        "AliasType" : {
-          "nodeId" : 1,
-          "unqualifiedName" : "BaseIdType"
-        }
-      },
       "8" : {
         "AliasType" : {
           "nodeId" : 1,
@@ -2629,6 +4375,30 @@
           "unqualifiedName" : "UNTRANSMITTED"
         }
       },
+      "174" : {
+        "Constant" : {
+          "nodeId" : 171,
+          "unqualifiedName" : "FW_COM_BUFFER_MAX_SIZE"
+        }
+      },
+      "196" : {
+        "Constant" : {
+          "nodeId" : 179,
+          "unqualifiedName" : "FW_CMD_ARG_BUFFER_MAX_SIZE"
+        }
+      },
+      "208" : {
+        "Constant" : {
+          "nodeId" : 171,
+          "unqualifiedName" : "FW_COM_BUFFER_MAX_SIZE"
+        }
+      },
+      "190" : {
+        "Constant" : {
+          "nodeId" : 171,
+          "unqualifiedName" : "FW_COM_BUFFER_MAX_SIZE"
+        }
+      },
       "20" : {
         "AliasType" : {
           "nodeId" : 1,
@@ -2642,6 +4412,24 @@
         }
       },
       "3" : {
+        "AliasType" : {
+          "nodeId" : 1,
+          "unqualifiedName" : "BaseIdType"
+        }
+      },
+      "200" : {
+        "Constant" : {
+          "nodeId" : 171,
+          "unqualifiedName" : "FW_COM_BUFFER_MAX_SIZE"
+        }
+      },
+      "182" : {
+        "Constant" : {
+          "nodeId" : 171,
+          "unqualifiedName" : "FW_COM_BUFFER_MAX_SIZE"
+        }
+      },
+      "12" : {
         "AliasType" : {
           "nodeId" : 1,
           "unqualifiedName" : "BaseIdType"
@@ -2697,14 +4485,9 @@
       }
     },
     "valueMap" : {
-      "153" : {
+      "175" : {
         "Integer" : {
-          "value" : 2
-        }
-      },
-      "124" : {
-        "Integer" : {
-          "value" : 32
+          "value" : 4
         }
       },
       "40" : {
@@ -2728,72 +4511,24 @@
           }
         }
       },
-      "44" : {
-        "EnumConstant" : {
-          "value" : [
-            "UNTRANSMITTED",
-            0
-          ],
-          "t" : {
-            "node" : {
-              "astNodeId" : 45
-            },
-            "repType" : {
-              "kind" : {
-                "U8" : {
-                  
-                }
-              }
-            },
-            "default" : "None"
-          }
-        }
-      },
-      "152" : {
-        "EnumConstant" : {
-          "value" : [
-            "PROC_TYPE_ZERO",
-            1
-          ],
-          "t" : {
-            "node" : {
-              "astNodeId" : 161
-            },
-            "repType" : {
-              "kind" : {
-                "U8" : {
-                  
-                }
-              }
-            },
-            "default" : "None"
-          }
-        }
-      },
-      "159" : {
+      "181" : {
         "Integer" : {
-          "value" : 4
+          "value" : 40
         }
       },
-      "43" : {
-        "EnumConstant" : {
-          "value" : [
-            "TRANSMITTED",
-            2
-          ],
-          "t" : {
-            "node" : {
-              "astNodeId" : 45
-            },
-            "repType" : {
-              "kind" : {
-                "U8" : {
-                  
-                }
-              }
-            },
-            "default" : "None"
-          }
+      "209" : {
+        "Integer" : {
+          "value" : 512
+        }
+      },
+      "196" : {
+        "Integer" : {
+          "value" : 506
+        }
+      },
+      "219" : {
+        "Integer" : {
+          "value" : 100
         }
       },
       "39" : {
@@ -2817,9 +4552,302 @@
           }
         }
       },
+      "167" : {
+        "Integer" : {
+          "value" : 80
+        }
+      },
+      "200" : {
+        "Integer" : {
+          "value" : 512
+        }
+      },
+      "176" : {
+        "Integer" : {
+          "value" : 2
+        }
+      },
+      "205" : {
+        "Integer" : {
+          "value" : 506
+        }
+      },
+      "169" : {
+        "Integer" : {
+          "value" : 80
+        }
+      },
+      "193" : {
+        "Integer" : {
+          "value" : 508
+        }
+      },
+      "153" : {
+        "Integer" : {
+          "value" : 2
+        }
+      },
+      "182" : {
+        "Integer" : {
+          "value" : 512
+        }
+      },
+      "223" : {
+        "Integer" : {
+          "value" : 255
+        }
+      },
+      "216" : {
+        "Integer" : {
+          "value" : 500
+        }
+      },
+      "124" : {
+        "Integer" : {
+          "value" : 32
+        }
+      },
+      "164" : {
+        "Integer" : {
+          "value" : 255
+        }
+      },
+      "170" : {
+        "Integer" : {
+          "value" : 512
+        }
+      },
+      "201" : {
+        "Integer" : {
+          "value" : 4
+        }
+      },
+      "44" : {
+        "EnumConstant" : {
+          "value" : [
+            "UNTRANSMITTED",
+            0
+          ],
+          "t" : {
+            "node" : {
+              "astNodeId" : 45
+            },
+            "repType" : {
+              "kind" : {
+                "U8" : {
+                  
+                }
+              }
+            },
+            "default" : "None"
+          }
+        }
+      },
+      "197" : {
+        "Integer" : {
+          "value" : 506
+        }
+      },
+      "186" : {
+        "Integer" : {
+          "value" : 506
+        }
+      },
+      "227" : {
+        "Integer" : {
+          "value" : 0
+        }
+      },
+      "212" : {
+        "Integer" : {
+          "value" : 256
+        }
+      },
+      "224" : {
+        "Integer" : {
+          "value" : 255
+        }
+      },
+      "174" : {
+        "Integer" : {
+          "value" : 512
+        }
+      },
+      "166" : {
+        "Integer" : {
+          "value" : 80
+        }
+      },
+      "217" : {
+        "Integer" : {
+          "value" : 500
+        }
+      },
+      "206" : {
+        "Integer" : {
+          "value" : 40
+        }
+      },
+      "177" : {
+        "Integer" : {
+          "value" : 508
+        }
+      },
+      "192" : {
+        "Integer" : {
+          "value" : 2
+        }
+      },
+      "152" : {
+        "EnumConstant" : {
+          "value" : [
+            "PROC_TYPE_ZERO",
+            1
+          ],
+          "t" : {
+            "node" : {
+              "astNodeId" : 161
+            },
+            "repType" : {
+              "kind" : {
+                "U8" : {
+                  
+                }
+              }
+            },
+            "default" : "None"
+          }
+        }
+      },
+      "199" : {
+        "Integer" : {
+          "value" : 40
+        }
+      },
+      "159" : {
+        "Integer" : {
+          "value" : 4
+        }
+      },
+      "188" : {
+        "Integer" : {
+          "value" : 200
+        }
+      },
+      "43" : {
+        "EnumConstant" : {
+          "value" : [
+            "TRANSMITTED",
+            2
+          ],
+          "t" : {
+            "node" : {
+              "astNodeId" : 45
+            },
+            "repType" : {
+              "kind" : {
+                "U8" : {
+                  
+                }
+              }
+            },
+            "default" : "None"
+          }
+        }
+      },
+      "213" : {
+        "Integer" : {
+          "value" : 256
+        }
+      },
+      "202" : {
+        "Integer" : {
+          "value" : 2
+        }
+      },
+      "185" : {
+        "Integer" : {
+          "value" : 508
+        }
+      },
+      "173" : {
+        "Integer" : {
+          "value" : 128
+        }
+      },
+      "180" : {
+        "Integer" : {
+          "value" : 40
+        }
+      },
+      "221" : {
+        "Integer" : {
+          "value" : 10
+        }
+      },
+      "208" : {
+        "Integer" : {
+          "value" : 512
+        }
+      },
+      "191" : {
+        "Integer" : {
+          "value" : 4
+        }
+      },
       "151" : {
         "Integer" : {
           "value" : 1
+        }
+      },
+      "190" : {
+        "Integer" : {
+          "value" : 512
+        }
+      },
+      "184" : {
+        "Integer" : {
+          "value" : 2
+        }
+      },
+      "225" : {
+        "Integer" : {
+          "value" : 255
+        }
+      },
+      "214" : {
+        "Integer" : {
+          "value" : 256
+        }
+      },
+      "203" : {
+        "Integer" : {
+          "value" : 508
+        }
+      },
+      "195" : {
+        "Integer" : {
+          "value" : 506
+        }
+      },
+      "189" : {
+        "Integer" : {
+          "value" : 200
+        }
+      },
+      "178" : {
+        "Integer" : {
+          "value" : 506
+        }
+      },
+      "210" : {
+        "Integer" : {
+          "value" : 256
+        }
+      },
+      "198" : {
+        "Integer" : {
+          "value" : 40
         }
       },
       "160" : {
@@ -2843,9 +4871,29 @@
           }
         }
       },
+      "187" : {
+        "Integer" : {
+          "value" : 506
+        }
+      },
+      "171" : {
+        "Integer" : {
+          "value" : 512
+        }
+      },
+      "165" : {
+        "Integer" : {
+          "value" : 255
+        }
+      },
       "125" : {
         "Integer" : {
           "value" : 32
+        }
+      },
+      "194" : {
+        "Integer" : {
+          "value" : 506
         }
       },
       "154" : {
@@ -2868,12 +4916,84 @@
             "default" : "None"
           }
         }
+      },
+      "215" : {
+        "Integer" : {
+          "value" : 256
+        }
+      },
+      "220" : {
+        "Integer" : {
+          "value" : 10
+        }
+      },
+      "183" : {
+        "Integer" : {
+          "value" : 4
+        }
+      },
+      "179" : {
+        "Integer" : {
+          "value" : 506
+        }
+      },
+      "218" : {
+        "Integer" : {
+          "value" : 100
+        }
+      },
+      "222" : {
+        "Integer" : {
+          "value" : 255
+        }
+      },
+      "207" : {
+        "Integer" : {
+          "value" : 40
+        }
+      },
+      "168" : {
+        "Integer" : {
+          "value" : 80
+        }
+      },
+      "211" : {
+        "Integer" : {
+          "value" : 256
+        }
+      },
+      "204" : {
+        "Integer" : {
+          "value" : 506
+        }
+      },
+      "226" : {
+        "Integer" : {
+          "value" : 0
+        }
+      },
+      "172" : {
+        "Integer" : {
+          "value" : 128
+        }
       }
     },
     "stateMachineMap" : {
       
     },
     "dictionarySymbolSet" : [
+      {
+        "Constant" : {
+          "nodeId" : 225,
+          "unqualifiedName" : "FW_SERIALIZE_TRUE_VALUE"
+        }
+      },
+      {
+        "Constant" : {
+          "nodeId" : 227,
+          "unqualifiedName" : "FW_SERIALIZE_FALSE_VALUE"
+        }
+      }
     ],
     "interfaceMap" : {
       
