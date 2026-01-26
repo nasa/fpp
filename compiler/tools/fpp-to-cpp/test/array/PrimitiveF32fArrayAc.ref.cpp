@@ -16,7 +16,7 @@ namespace M {
   PrimitiveF32f ::
     PrimitiveF32f() :
       Serializable(),
-      elements{}
+      elements()
   {
 
   }

@@ -179,7 +179,7 @@ case class ArrayCppWriter (
       Nil,
       List(
         "Serializable()",
-        "elements{}"
+        "elements()"
       ),
       List.concat(
         initElementsCall,

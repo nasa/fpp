@@ -14,7 +14,7 @@
 StringArray ::
   StringArray() :
     Serializable(),
-    elements{}
+    elements()
 {
 
 }

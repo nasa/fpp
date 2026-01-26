@@ -14,7 +14,7 @@
 C_S ::
   C_S() :
     Serializable(),
-    m_x{}
+    m_x()
 {
 
 }

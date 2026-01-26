@@ -14,7 +14,7 @@
 A ::
   A() :
     Serializable(),
-    elements{}
+    elements()
 {
 
 }

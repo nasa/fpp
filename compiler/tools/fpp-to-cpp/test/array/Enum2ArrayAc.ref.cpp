@@ -14,7 +14,7 @@
 Enum2 ::
   Enum2() :
     Serializable(),
-    elements{}
+    elements()
 {
 
 }

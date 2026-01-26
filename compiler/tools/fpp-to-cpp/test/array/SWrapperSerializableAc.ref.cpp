@@ -14,7 +14,7 @@
 SWrapper ::
   SWrapper() :
     Serializable(),
-    m_s{}
+    m_s()
 {
 
 }
