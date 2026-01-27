@@ -15,9 +15,10 @@ namespace M {
 
   PrimitiveU8 ::
     PrimitiveU8() :
-      Serializable()
+      Serializable(),
+      elements()
   {
-    *this = M::PrimitiveU8(0);
+
   }
 
   PrimitiveU8 ::
@@ -143,7 +144,7 @@ namespace M {
 
   Fw::SerializeStatus PrimitiveU8 ::
     serializeTo(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         Fw::Endianness mode
     ) const
   {
@@ -159,7 +160,7 @@ namespace M {
 
   Fw::SerializeStatus PrimitiveU8 ::
     deserializeFrom(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         Fw::Endianness mode
     )
   {

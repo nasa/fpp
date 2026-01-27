@@ -13,9 +13,10 @@
 
 A ::
   A() :
-    Serializable()
+    Serializable(),
+    elements()
 {
-  *this = A(0);
+
 }
 
 A ::
@@ -141,7 +142,7 @@ std::ostream& operator<<(std::ostream& os, const A& obj) {
 
 Fw::SerializeStatus A ::
   serializeTo(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -157,7 +158,7 @@ Fw::SerializeStatus A ::
 
 Fw::SerializeStatus A ::
   deserializeFrom(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {

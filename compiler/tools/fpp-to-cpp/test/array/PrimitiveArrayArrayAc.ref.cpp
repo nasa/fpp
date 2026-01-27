@@ -13,9 +13,10 @@
 
 PrimitiveArray ::
   PrimitiveArray() :
-    Serializable()
+    Serializable(),
+    elements()
 {
-  *this = PrimitiveArray(M::PrimitiveF64({1.0, 2.0, 3.0, 4.0, 5.0}));
+
 }
 
 PrimitiveArray ::
@@ -141,7 +142,7 @@ std::ostream& operator<<(std::ostream& os, const PrimitiveArray& obj) {
 
 Fw::SerializeStatus PrimitiveArray ::
   serializeTo(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -157,7 +158,7 @@ Fw::SerializeStatus PrimitiveArray ::
 
 Fw::SerializeStatus PrimitiveArray ::
   deserializeFrom(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {

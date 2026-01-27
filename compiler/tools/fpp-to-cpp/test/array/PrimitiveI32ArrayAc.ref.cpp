@@ -15,9 +15,10 @@ namespace M {
 
   PrimitiveI32 ::
     PrimitiveI32() :
-      Serializable()
+      Serializable(),
+      elements()
   {
-    *this = M::PrimitiveI32(0);
+
   }
 
   PrimitiveI32 ::
@@ -143,7 +144,7 @@ namespace M {
 
   Fw::SerializeStatus PrimitiveI32 ::
     serializeTo(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         Fw::Endianness mode
     ) const
   {
@@ -159,7 +160,7 @@ namespace M {
 
   Fw::SerializeStatus PrimitiveI32 ::
     deserializeFrom(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         Fw::Endianness mode
     )
   {

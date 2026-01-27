@@ -28,6 +28,10 @@ case class Analysis(
    *  module B where B is inside A and A is at the top level, the module name
    *  list is [ B, A ]. */
   scopeNameList: List[Name.Unqualified] = List(),
+  /** Whether dictionary generation is required */
+  dictionaryGeneration: Boolean = false,
+  /** Whether the dependency analysis includes dictionary dependencies */
+  includeDictionaryDeps: Boolean = false,
   /** The current nested scope for symbol lookup */
   nestedScope: NestedScope = NestedScope.empty,
   /** The current parent symbol */
@@ -80,8 +84,6 @@ case class Analysis(
   dictionary: Option[Dictionary] = None,
   /** The telemetry packet set under construction */
   tlmPacketSet: Option[TlmPacketSet] = None,
-  /** Whether dictionary generation is required */
-  dictionaryGeneration: Boolean = false,
   /** The mapping from nodes to implied uses */
   impliedUseMap: Map[AstNode.Id, ImpliedUse.Uses] = Map(),
   /** The set of symbols defined with a dictionary specifier */

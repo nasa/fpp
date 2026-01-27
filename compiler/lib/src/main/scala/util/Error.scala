@@ -2,7 +2,6 @@ package fpp.compiler.util
 
 import fpp.compiler.util.Location
 import java.util.Locale
-import fpp.compiler.util.Location
 
 /** An exception for signaling internal compiler errors */
 final case class InternalError(val msg: String) extends Exception {
@@ -334,8 +333,9 @@ sealed trait Error {
         System.err.println("for this component instance:")
         System.err.println(instanceLoc)
       case SemanticError.TypeMismatch(loc, msg) => Error.print (Some(loc)) (msg)
-      case SemanticError.UndefinedSymbol(name, loc) =>
-        Error.print (Some(loc)) (s"undefined symbol ${name}")
+      case SemanticError.UndefinedSymbol(name, symbolKind, loc) =>
+        Error.print (Some(loc)) (s"symbol ${name} is not defined")
+        printNote(s"looking for a $symbolKind here")
       case SemanticError.InterfaceImport(
         importLoc,
         err
@@ -803,7 +803,7 @@ object SemanticError {
   /** Type mismatch */
   final case class TypeMismatch(loc: Location, msg: String) extends Error
   /** Undefined symbol */
-  final case class UndefinedSymbol(name: String, loc: Location) extends Error
+  final case class UndefinedSymbol(name: String, symbolKind: String, loc: Location) extends Error
   /** Use-def cycle */
   final case class UseDefCycle(loc: Location, msg: String) extends Error
 }

@@ -13,7 +13,8 @@
 
 AliasType ::
   AliasType() :
-    Serializable()
+    Serializable(),
+    elements()
 {
   *this = AliasType({0, 2, 3});
 }
@@ -141,7 +142,7 @@ std::ostream& operator<<(std::ostream& os, const AliasType& obj) {
 
 Fw::SerializeStatus AliasType ::
   serializeTo(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -157,7 +158,7 @@ Fw::SerializeStatus AliasType ::
 
 Fw::SerializeStatus AliasType ::
   deserializeFrom(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {

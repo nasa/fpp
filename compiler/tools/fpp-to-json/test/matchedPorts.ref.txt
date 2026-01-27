@@ -1,414 +1,539 @@
-[
-  {
-    "members" : [
-      [
+{
+  "fppVersion" : "[ fpp version ]",
+  "ast" : [
+    {
+      "members" : [
         [
-          "Number of health ping ports"
-        ],
-        {
-          "DefConstant" : {
-            "node" : {
-              "AstNode" : {
-                "data" : {
-                  "name" : "numPingPorts",
-                  "value" : {
-                    "AstNode" : {
-                      "data" : {
-                        "ExprLiteralInt" : {
-                          "value" : "10"
-                        }
-                      },
-                      "id" : 0
-                    }
+          [
+            "Number of health ping ports"
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "numPingPorts",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "10"
+                          }
+                        },
+                        "id" : 0
+                      }
+                    },
+                    "isDictionaryDef" : false
                   },
-                  "isDictionaryDef" : false
-                },
-                "id" : 1
+                  "id" : 1
+                }
               }
             }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
+          },
+          [
+          ]
         ],
-        {
-          "DefComponent" : {
-            "node" : {
-              "AstNode" : {
-                "data" : {
-                  "kind" : {
-                    "Queued" : {
-                      
-                    }
-                  },
-                  "name" : "Health",
-                  "members" : [
-                    [
+        [
+          [
+          ],
+          {
+            "DefComponent" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "kind" : {
+                      "Queued" : {
+                        
+                      }
+                    },
+                    "name" : "Health",
+                    "members" : [
                       [
-                        "Ping output port"
-                      ],
-                      {
-                        "SpecPortInstance" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "General" : {
-                                  "kind" : {
-                                    "Output" : {
-                                      
-                                    }
-                                  },
-                                  "name" : "pingOut",
-                                  "size" : {
-                                    "Some" : {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "ExprIdent" : {
-                                            "value" : "numPingPorts"
-                                          }
-                                        },
-                                        "id" : 2
+                        [
+                          "Ping output port"
+                        ],
+                        {
+                          "SpecPortInstance" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "General" : {
+                                    "kind" : {
+                                      "Output" : {
+                                        
                                       }
-                                    }
-                                  },
-                                  "port" : {
-                                    "Some" : {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "Qualified" : {
-                                            "qualifier" : {
-                                              "AstNode" : {
-                                                "data" : {
-                                                  "Unqualified" : {
-                                                    "name" : "Svc"
-                                                  }
-                                                },
-                                                "id" : 3
-                                              }
-                                            },
-                                            "name" : {
-                                              "AstNode" : {
-                                                "data" : "Ping",
-                                                "id" : 4
+                                    },
+                                    "name" : "pingOut",
+                                    "size" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "ExprIdent" : {
+                                              "value" : "numPingPorts"
+                                            }
+                                          },
+                                          "id" : 2
+                                        }
+                                      }
+                                    },
+                                    "port" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "Qualified" : {
+                                              "qualifier" : {
+                                                "AstNode" : {
+                                                  "data" : {
+                                                    "Unqualified" : {
+                                                      "name" : "Svc"
+                                                    }
+                                                  },
+                                                  "id" : 3
+                                                }
+                                              },
+                                              "name" : {
+                                                "AstNode" : {
+                                                  "data" : "Ping",
+                                                  "id" : 4
+                                                }
                                               }
                                             }
-                                          }
-                                        },
-                                        "id" : 5
+                                          },
+                                          "id" : 5
+                                        }
                                       }
-                                    }
-                                  },
-                                  "priority" : "None",
-                                  "queueFull" : "None"
-                                }
-                              },
-                              "id" : 6
-                            }
-                          }
-                        }
-                      },
-                      [
-                      ]
-                    ],
-                    [
-                      [
-                        "Ping input port"
-                      ],
-                      {
-                        "SpecPortInstance" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "General" : {
-                                  "kind" : {
-                                    "AsyncInput" : {
-                                      
-                                    }
-                                  },
-                                  "name" : "pingIn",
-                                  "size" : {
-                                    "Some" : {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "ExprIdent" : {
-                                            "value" : "numPingPorts"
-                                          }
-                                        },
-                                        "id" : 7
-                                      }
-                                    }
-                                  },
-                                  "port" : {
-                                    "Some" : {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "Qualified" : {
-                                            "qualifier" : {
-                                              "AstNode" : {
-                                                "data" : {
-                                                  "Unqualified" : {
-                                                    "name" : "Svc"
-                                                  }
-                                                },
-                                                "id" : 8
-                                              }
-                                            },
-                                            "name" : {
-                                              "AstNode" : {
-                                                "data" : "Ping",
-                                                "id" : 9
-                                              }
-                                            }
-                                          }
-                                        },
-                                        "id" : 10
-                                      }
-                                    }
-                                  },
-                                  "priority" : "None",
-                                  "queueFull" : "None"
-                                }
-                              },
-                              "id" : 11
-                            }
-                          }
-                        }
-                      },
-                      [
-                      ]
-                    ],
-                    [
-                      [
-                        "Corresponding port numbers of pingOut and pingIn must match"
-                      ],
-                      {
-                        "SpecPortMatching" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "port1" : {
-                                  "AstNode" : {
-                                    "data" : "pingOut",
-                                    "id" : 18
+                                    },
+                                    "priority" : "None",
+                                    "queueFull" : "None"
                                   }
                                 },
-                                "port2" : {
-                                  "AstNode" : {
-                                    "data" : "pingIn",
-                                    "id" : 19
-                                  }
-                                }
-                              },
-                              "id" : 20
+                                "id" : 6
+                              }
                             }
                           }
-                        }
-                      },
-                      [
-                      ]
-                    ]
-                  ]
-                },
-                "id" : 21
-              }
-            }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
-        ],
-        {
-          "DefModule" : {
-            "node" : {
-              "AstNode" : {
-                "data" : {
-                  "name" : "Svc",
-                  "members" : [
-                    [
-                      [
+                        },
+                        [
+                        ]
                       ],
-                      {
-                        "DefPort" : {
-                          "node" : {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "Ping",
-                                "params" : [
-                                ],
-                                "returnType" : "None"
-                              },
-                              "id" : 24
+                      [
+                        [
+                          "Ping input port"
+                        ],
+                        {
+                          "SpecPortInstance" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "General" : {
+                                    "kind" : {
+                                      "AsyncInput" : {
+                                        
+                                      }
+                                    },
+                                    "name" : "pingIn",
+                                    "size" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "ExprIdent" : {
+                                              "value" : "numPingPorts"
+                                            }
+                                          },
+                                          "id" : 7
+                                        }
+                                      }
+                                    },
+                                    "port" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "Qualified" : {
+                                              "qualifier" : {
+                                                "AstNode" : {
+                                                  "data" : {
+                                                    "Unqualified" : {
+                                                      "name" : "Svc"
+                                                    }
+                                                  },
+                                                  "id" : 8
+                                                }
+                                              },
+                                              "name" : {
+                                                "AstNode" : {
+                                                  "data" : "Ping",
+                                                  "id" : 9
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "id" : 10
+                                        }
+                                      }
+                                    },
+                                    "priority" : "None",
+                                    "queueFull" : "None"
+                                  }
+                                },
+                                "id" : 11
+                              }
                             }
                           }
-                        }
-                      },
+                        },
+                        [
+                        ]
+                      ],
                       [
+                        [
+                          "Corresponding port numbers of pingOut and pingIn must match"
+                        ],
+                        {
+                          "SpecPortMatching" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "port1" : {
+                                    "AstNode" : {
+                                      "data" : "pingOut",
+                                      "id" : 18
+                                    }
+                                  },
+                                  "port2" : {
+                                    "AstNode" : {
+                                      "data" : "pingIn",
+                                      "id" : 19
+                                    }
+                                  }
+                                },
+                                "id" : 20
+                              }
+                            }
+                          }
+                        },
+                        [
+                        ]
                       ]
                     ]
-                  ]
-                },
-                "id" : 25
+                  },
+                  "id" : 21
+                }
               }
             }
-          }
-        },
+          },
+          [
+          ]
+        ],
         [
+          [
+          ],
+          {
+            "DefModule" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "Svc",
+                    "members" : [
+                      [
+                        [
+                        ],
+                        {
+                          "DefPort" : {
+                            "node" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "name" : "Ping",
+                                  "params" : [
+                                  ],
+                                  "returnType" : "None"
+                                },
+                                "id" : 24
+                              }
+                            }
+                          }
+                        },
+                        [
+                        ]
+                      ]
+                    ]
+                  },
+                  "id" : 25
+                }
+              }
+            }
+          },
+          [
+          ]
         ]
       ]
-    ]
-  }
-]
+    }
+  ]
+}
 {
-  "0" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "2.25",
-    "includingLoc" : "None"
-  },
-  "1" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "2.1",
-    "includingLoc" : "None"
-  },
-  "2" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "7.25",
-    "includingLoc" : "None"
-  },
-  "3" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "7.39",
-    "includingLoc" : "None"
-  },
-  "4" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "7.43",
-    "includingLoc" : "None"
-  },
-  "5" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "7.39",
-    "includingLoc" : "None"
-  },
-  "6" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "7.3",
-    "includingLoc" : "None"
-  },
-  "7" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "10.29",
-    "includingLoc" : "None"
-  },
-  "8" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "10.43",
-    "includingLoc" : "None"
-  },
-  "9" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "10.47",
-    "includingLoc" : "None"
-  },
-  "10" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "10.43",
-    "includingLoc" : "None"
-  },
-  "11" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "10.3",
-    "includingLoc" : "None"
-  },
-  "12" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "13.9",
-    "includingLoc" : "None"
-  },
-  "13" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "13.22",
-    "includingLoc" : "None"
-  },
-  "14" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "13.3",
-    "includingLoc" : "None"
-  },
-  "15" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "13.9",
-    "includingLoc" : "None"
-  },
-  "16" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "13.22",
-    "includingLoc" : "None"
-  },
-  "17" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "13.3",
-    "includingLoc" : "None"
-  },
-  "18" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "13.9",
-    "includingLoc" : "None"
-  },
-  "19" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "13.22",
-    "includingLoc" : "None"
-  },
-  "20" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "13.3",
-    "includingLoc" : "None"
-  },
-  "21" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "4.1",
-    "includingLoc" : "None"
-  },
-  "22" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "18.3",
-    "includingLoc" : "None"
-  },
-  "23" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "18.3",
-    "includingLoc" : "None"
-  },
-  "24" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "18.3",
-    "includingLoc" : "None"
-  },
-  "25" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
-    "pos" : "17.1",
-    "includingLoc" : "None"
+  "fppVersion" : "[ fpp version ]",
+  "locationMap" : {
+    "0" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "2.25",
+      "includingLoc" : "None"
+    },
+    "1" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "2.1",
+      "includingLoc" : "None"
+    },
+    "2" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "7.25",
+      "includingLoc" : "None"
+    },
+    "3" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "7.39",
+      "includingLoc" : "None"
+    },
+    "4" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "7.43",
+      "includingLoc" : "None"
+    },
+    "5" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "7.39",
+      "includingLoc" : "None"
+    },
+    "6" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "7.3",
+      "includingLoc" : "None"
+    },
+    "7" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "10.29",
+      "includingLoc" : "None"
+    },
+    "8" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "10.43",
+      "includingLoc" : "None"
+    },
+    "9" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "10.47",
+      "includingLoc" : "None"
+    },
+    "10" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "10.43",
+      "includingLoc" : "None"
+    },
+    "11" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "10.3",
+      "includingLoc" : "None"
+    },
+    "12" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "13.9",
+      "includingLoc" : "None"
+    },
+    "13" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "13.22",
+      "includingLoc" : "None"
+    },
+    "14" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "13.3",
+      "includingLoc" : "None"
+    },
+    "15" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "13.9",
+      "includingLoc" : "None"
+    },
+    "16" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "13.22",
+      "includingLoc" : "None"
+    },
+    "17" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "13.3",
+      "includingLoc" : "None"
+    },
+    "18" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "13.9",
+      "includingLoc" : "None"
+    },
+    "19" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "13.22",
+      "includingLoc" : "None"
+    },
+    "20" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "13.3",
+      "includingLoc" : "None"
+    },
+    "21" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "4.1",
+      "includingLoc" : "None"
+    },
+    "22" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "18.3",
+      "includingLoc" : "None"
+    },
+    "23" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "18.3",
+      "includingLoc" : "None"
+    },
+    "24" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "18.3",
+      "includingLoc" : "None"
+    },
+    "25" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp",
+      "pos" : "17.1",
+      "includingLoc" : "None"
+    }
   }
 }
 {
-  "componentInstanceMap" : {
-    
-  },
-  "componentMap" : {
-    "21" : {
-      "aNode" : {
-        "astNodeId" : 21
-      },
-      "portInterface" : {
-        "portMap" : {
-          "pingOut" : {
-            "General" : {
+  "fppVersion" : "[ fpp version ]",
+  "analysis" : {
+    "componentInstanceMap" : {
+      
+    },
+    "componentMap" : {
+      "21" : {
+        "aNode" : {
+          "astNodeId" : 21
+        },
+        "portInterface" : {
+          "portMap" : {
+            "pingOut" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 6
+                },
+                "specifier" : {
+                  "kind" : {
+                    "Output" : {
+                      
+                    }
+                  },
+                  "name" : "pingOut",
+                  "size" : {
+                    "Some" : {
+                      "astNodeId" : 2
+                    }
+                  },
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 5
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "Output",
+                "size" : 10,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 24,
+                        "unqualifiedName" : "Ping"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
+            },
+            "pingIn" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 11
+                },
+                "specifier" : {
+                  "kind" : {
+                    "AsyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "pingIn",
+                  "size" : {
+                    "Some" : {
+                      "astNodeId" : 7
+                    }
+                  },
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 10
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "AsyncInput",
+                "size" : 10,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 24,
+                        "unqualifiedName" : "Ping"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
+            }
+          },
+          "specialPortMap" : {
+            
+          }
+        },
+        "commandMap" : {
+          
+        },
+        "defaultOpcode" : 0,
+        "tlmChannelMap" : {
+          
+        },
+        "tlmChannelNameMap" : {
+          
+        },
+        "defaultTlmChannelId" : 0,
+        "eventMap" : {
+          
+        },
+        "defaultEventId" : 0,
+        "paramMap" : {
+          
+        },
+        "specPortMatchingList" : [
+          {
+            "astNodeId" : 20
+          }
+        ],
+        "stateMachineInstanceMap" : {
+          
+        },
+        "portMatchingList" : [
+          {
+            "aNode" : {
+              "astNodeId" : 20
+            },
+            "instance1" : {
               "aNode" : {
                 "astNodeId" : 6
               },
@@ -446,10 +571,8 @@
               },
               "importNodeIds" : [
               ]
-            }
-          },
-          "pingIn" : {
-            "General" : {
+            },
+            "instance2" : {
               "aNode" : {
                 "astNodeId" : 11
               },
@@ -489,265 +612,154 @@
               ]
             }
           }
+        ],
+        "defaultParamId" : 0,
+        "containerMap" : {
+          
         },
-        "specialPortMap" : {
+        "defaultContainerId" : 0,
+        "recordMap" : {
+          
+        },
+        "defaultRecordId" : 0
+      }
+    },
+    "includedFileSet" : [
+    ],
+    "inputFileSet" : [
+      "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp"
+    ],
+    "locationSpecifierMap" : [
+    ],
+    "parentSymbolMap" : {
+      "24" : {
+        "Module" : {
+          "nodeId" : 25,
+          "unqualifiedName" : "Svc"
+        }
+      }
+    },
+    "symbolScopeMap" : {
+      "21" : {
+        "map" : {
           
         }
       },
-      "commandMap" : {
-        
-      },
-      "defaultOpcode" : 0,
-      "tlmChannelMap" : {
-        
-      },
-      "tlmChannelNameMap" : {
-        
-      },
-      "defaultTlmChannelId" : 0,
-      "eventMap" : {
-        
-      },
-      "defaultEventId" : 0,
-      "paramMap" : {
-        
-      },
-      "specPortMatchingList" : [
-        {
-          "astNodeId" : 20
-        }
-      ],
-      "stateMachineInstanceMap" : {
-        
-      },
-      "portMatchingList" : [
-        {
-          "aNode" : {
-            "astNodeId" : 20
-          },
-          "instance1" : {
-            "aNode" : {
-              "astNodeId" : 6
-            },
-            "specifier" : {
-              "kind" : {
-                "Output" : {
-                  
+      "25" : {
+        "map" : {
+          "Port" : {
+            "map" : {
+              "Ping" : {
+                "Port" : {
+                  "nodeId" : 24,
+                  "unqualifiedName" : "Ping"
                 }
-              },
-              "name" : "pingOut",
-              "size" : {
-                "Some" : {
-                  "astNodeId" : 2
-                }
-              },
-              "port" : {
-                "Some" : {
-                  "astNodeId" : 5
-                }
-              },
-              "priority" : "None",
-              "queueFull" : "None"
-            },
-            "kind" : "Output",
-            "size" : 10,
-            "ty" : {
-              "DefPort" : {
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 24,
-                    "unqualifiedName" : "Ping"
-                  }
-                }
-              }
-            },
-            "importNodeIds" : [
-            ]
-          },
-          "instance2" : {
-            "aNode" : {
-              "astNodeId" : 11
-            },
-            "specifier" : {
-              "kind" : {
-                "AsyncInput" : {
-                  
-                }
-              },
-              "name" : "pingIn",
-              "size" : {
-                "Some" : {
-                  "astNodeId" : 7
-                }
-              },
-              "port" : {
-                "Some" : {
-                  "astNodeId" : 10
-                }
-              },
-              "priority" : "None",
-              "queueFull" : "None"
-            },
-            "kind" : "AsyncInput",
-            "size" : 10,
-            "ty" : {
-              "DefPort" : {
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 24,
-                    "unqualifiedName" : "Ping"
-                  }
-                }
-              }
-            },
-            "importNodeIds" : [
-            ]
-          }
-        }
-      ],
-      "defaultParamId" : 0,
-      "containerMap" : {
-        
-      },
-      "defaultContainerId" : 0,
-      "recordMap" : {
-        
-      },
-      "defaultRecordId" : 0
-    }
-  },
-  "includedFileSet" : [
-  ],
-  "inputFileSet" : [
-    "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp"
-  ],
-  "locationSpecifierMap" : [
-  ],
-  "parentSymbolMap" : {
-    "24" : {
-      "Module" : {
-        "nodeId" : 25,
-        "unqualifiedName" : "Svc"
-      }
-    }
-  },
-  "symbolScopeMap" : {
-    "21" : {
-      "map" : {
-        
-      }
-    },
-    "25" : {
-      "map" : {
-        "Port" : {
-          "map" : {
-            "Ping" : {
-              "Port" : {
-                "nodeId" : 24,
-                "unqualifiedName" : "Ping"
               }
             }
           }
         }
       }
-    }
-  },
-  "topologyMap" : {
-    
-  },
-  "typeMap" : {
-    "0" : {
-      "Int" : {
-        "Integer" : {
-          
+    },
+    "topologyMap" : {
+      
+    },
+    "typeMap" : {
+      "0" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "1" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "2" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "7" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
         }
       }
     },
-    "1" : {
-      "Int" : {
-        "Integer" : {
-          
+    "useDefMap" : {
+      "8" : {
+        "Module" : {
+          "nodeId" : 25,
+          "unqualifiedName" : "Svc"
+        }
+      },
+      "5" : {
+        "Port" : {
+          "nodeId" : 24,
+          "unqualifiedName" : "Ping"
+        }
+      },
+      "10" : {
+        "Port" : {
+          "nodeId" : 24,
+          "unqualifiedName" : "Ping"
+        }
+      },
+      "2" : {
+        "Constant" : {
+          "nodeId" : 1,
+          "unqualifiedName" : "numPingPorts"
+        }
+      },
+      "7" : {
+        "Constant" : {
+          "nodeId" : 1,
+          "unqualifiedName" : "numPingPorts"
+        }
+      },
+      "3" : {
+        "Module" : {
+          "nodeId" : 25,
+          "unqualifiedName" : "Svc"
         }
       }
     },
-    "2" : {
-      "Int" : {
+    "valueMap" : {
+      "0" : {
         "Integer" : {
-          
+          "value" : 10
+        }
+      },
+      "1" : {
+        "Integer" : {
+          "value" : 10
+        }
+      },
+      "2" : {
+        "Integer" : {
+          "value" : 10
+        }
+      },
+      "7" : {
+        "Integer" : {
+          "value" : 10
         }
       }
     },
-    "7" : {
-      "Int" : {
-        "Integer" : {
-          
-        }
-      }
+    "stateMachineMap" : {
+      
+    },
+    "dictionarySymbolSet" : [
+    ],
+    "interfaceMap" : {
+      
     }
-  },
-  "useDefMap" : {
-    "8" : {
-      "Module" : {
-        "nodeId" : 25,
-        "unqualifiedName" : "Svc"
-      }
-    },
-    "5" : {
-      "Port" : {
-        "nodeId" : 24,
-        "unqualifiedName" : "Ping"
-      }
-    },
-    "10" : {
-      "Port" : {
-        "nodeId" : 24,
-        "unqualifiedName" : "Ping"
-      }
-    },
-    "2" : {
-      "Constant" : {
-        "nodeId" : 1,
-        "unqualifiedName" : "numPingPorts"
-      }
-    },
-    "7" : {
-      "Constant" : {
-        "nodeId" : 1,
-        "unqualifiedName" : "numPingPorts"
-      }
-    },
-    "3" : {
-      "Module" : {
-        "nodeId" : 25,
-        "unqualifiedName" : "Svc"
-      }
-    }
-  },
-  "valueMap" : {
-    "0" : {
-      "Integer" : {
-        "value" : 10
-      }
-    },
-    "1" : {
-      "Integer" : {
-        "value" : 10
-      }
-    },
-    "2" : {
-      "Integer" : {
-        "value" : 10
-      }
-    },
-    "7" : {
-      "Integer" : {
-        "value" : 10
-      }
-    }
-  },
-  "stateMachineMap" : {
-    
-  },
-  "dictionarySymbolSet" : [
-  ]
+  }
 }

@@ -14,7 +14,7 @@
 PrimitiveStruct ::
   PrimitiveStruct() :
     Serializable(),
-    m_s1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String(""))
+    m_s1()
 {
 
 }
@@ -79,7 +79,7 @@ std::ostream& operator<<(std::ostream& os, const PrimitiveStruct& obj) {
 
 Fw::SerializeStatus PrimitiveStruct ::
   serializeTo(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -95,7 +95,7 @@ Fw::SerializeStatus PrimitiveStruct ::
 
 Fw::SerializeStatus PrimitiveStruct ::
   deserializeFrom(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {

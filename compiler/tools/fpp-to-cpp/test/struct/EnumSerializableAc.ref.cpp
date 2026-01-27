@@ -14,11 +14,10 @@
 Enum ::
   Enum() :
     Serializable(),
-    m_e(M::E::X)
+    m_e(),
+    m_eArr()
 {
-  for (FwSizeType i = 0; i < 3; i++) {
-    this->m_eArr[i] = M::E::X;
-  }
+
 }
 
 Enum ::
@@ -115,7 +114,7 @@ std::ostream& operator<<(std::ostream& os, const Enum& obj) {
 
 Fw::SerializeStatus Enum ::
   serializeTo(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   ) const
 {
@@ -137,7 +136,7 @@ Fw::SerializeStatus Enum ::
 
 Fw::SerializeStatus Enum ::
   deserializeFrom(
-      Fw::SerializeBufferBase& buffer,
+      Fw::SerialBufferBase& buffer,
       Fw::Endianness mode
   )
 {

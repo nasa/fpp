@@ -6,6 +6,7 @@ import fpp.compiler.util._
 /** Check F Prime framework definitions */
 object CheckFrameworkDefs
   extends Analyzer
+  with ComponentAnalyzer
   with ModuleAnalyzer
 {
 

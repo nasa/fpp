@@ -15,7 +15,8 @@ namespace M {
 
   PrimitiveF64 ::
     PrimitiveF64() :
-      Serializable()
+      Serializable(),
+      elements()
   {
     *this = M::PrimitiveF64({1.0, 2.0, 3.0, 4.0, 5.0});
   }
@@ -143,7 +144,7 @@ namespace M {
 
   Fw::SerializeStatus PrimitiveF64 ::
     serializeTo(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         Fw::Endianness mode
     ) const
   {
@@ -159,7 +160,7 @@ namespace M {
 
   Fw::SerializeStatus PrimitiveF64 ::
     deserializeFrom(
-        Fw::SerializeBufferBase& buffer,
+        Fw::SerialBufferBase& buffer,
         Fw::Endianness mode
     )
   {
