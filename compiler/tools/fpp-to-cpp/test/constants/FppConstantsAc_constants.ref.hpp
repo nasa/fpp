@@ -81,4 +81,9 @@ extern const F64 C_j;
 //! Constant k
 extern const F64 C_k;
 
+//! Constant a
+enum FppConstant_SM_a {
+  SM_a = 0
+};
+
 #endif

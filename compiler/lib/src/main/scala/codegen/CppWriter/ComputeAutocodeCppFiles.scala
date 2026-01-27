@@ -70,17 +70,21 @@ object ComputeAutocodeCppFiles extends ComputeCppFiles {
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
   ) = aNode._2.data.members match {
-    case Some(_) =>
+    case Some(members) =>
       val name = s.getName(Symbol.StateMachine(aNode))
       val loc = Locations.get(aNode._2.id)
-      addMappings(
-        s,
-        ComputeCppFiles.FileNames.getStateMachine(
-          name,
-          StateMachine.Kind.Internal
-        ),
-        Some(loc)
-      )
+      for {
+        s <- addMappings(
+          s,
+          ComputeCppFiles.FileNames.getStateMachine(
+            name,
+            StateMachine.Kind.Internal
+          ),
+          Some(loc)
+        )
+        s <- visitList (s, members, matchStateMachineMember)
+      }
+      yield s
     case None => Right(s)
   }
 

@@ -1,6 +1,7 @@
 tests="
 action
 choice
+constant
 guard
 nested_choice
 nested_state
@@ -9,4 +10,5 @@ signal
 state
 state_choice
 state_shadow_ok
+type
 "
