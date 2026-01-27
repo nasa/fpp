@@ -4,8 +4,8 @@
 // \brief  hpp file for C_X alias
 // ======================================================================
 
-#ifndef C_C_XAliasAc_HPP
-#define C_C_XAliasAc_HPP
+#ifndef C_XAliasAc_HPP
+#define C_XAliasAc_HPP
 
 #include "Fw/Types/BasicTypes.hpp"
 

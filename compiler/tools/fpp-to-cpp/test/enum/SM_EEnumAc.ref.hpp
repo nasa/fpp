@@ -4,8 +4,8 @@
 // \brief  hpp file for SM_E enum
 // ======================================================================
 
-#ifndef SM_SM_EEnumAc_HPP
-#define SM_SM_EEnumAc_HPP
+#ifndef SM_EEnumAc_HPP
+#define SM_EEnumAc_HPP
 
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/Serializable.hpp"

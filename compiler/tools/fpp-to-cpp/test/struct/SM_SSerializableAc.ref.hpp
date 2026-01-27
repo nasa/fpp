@@ -4,8 +4,8 @@
 // \brief  hpp file for SM_S struct
 // ======================================================================
 
-#ifndef SM_SM_SSerializableAc_HPP
-#define SM_SM_SSerializableAc_HPP
+#ifndef SM_SSerializableAc_HPP
+#define SM_SSerializableAc_HPP
 
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"

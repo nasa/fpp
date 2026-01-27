@@ -4,8 +4,8 @@
 // \brief  hpp file for SM_A array
 // ======================================================================
 
-#ifndef SM_SM_AArrayAc_HPP
-#define SM_SM_AArrayAc_HPP
+#ifndef SM_AArrayAc_HPP
+#define SM_AArrayAc_HPP
 
 #include <initializer_list>
 

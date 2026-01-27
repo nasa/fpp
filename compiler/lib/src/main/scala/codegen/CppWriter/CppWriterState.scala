@@ -48,7 +48,7 @@ case class CppWriterState(
 
   /** Constructs an include guard from a qualified name and a kind */
   def includeGuardFromQualifiedName(s: Symbol, name: String, headerExtension: String = "HPP"): String = {
-    val guard = a.getEnclosingNames(s) match {
+    val guard = getNamespaceIdentList(s) match {
       case Nil => name
       case names =>
         val prefix = CppWriterState.identFromQualifiedName(

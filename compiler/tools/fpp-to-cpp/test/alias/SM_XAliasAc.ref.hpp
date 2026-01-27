@@ -4,8 +4,8 @@
 // \brief  hpp file for SM_X alias
 // ======================================================================
 
-#ifndef SM_SM_XAliasAc_HPP
-#define SM_SM_XAliasAc_HPP
+#ifndef SM_XAliasAc_HPP
+#define SM_XAliasAc_HPP
 
 #include "Fw/Types/BasicTypes.hpp"
 
