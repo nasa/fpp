@@ -17,8 +17,6 @@ case class Analysis(
   /** The set of files on which the analysis directly depends.
    *  Does contain included files. */
   directDependencyFileSet: Set[File] = Set(),
-  /** The framework definitions present in the model */
-  frameworkDefinitions: FrameworkDefinitions = FrameworkDefinitions(),
   /** The set of dependency files that could not be opened */
   missingDependencyFileSet: Set[File] = Set(),
   /** The set of files included when parsing input */
@@ -59,6 +57,8 @@ case class Analysis(
   valueMap: Map[AstNode.Id, Value] = Map(),
   /** The set of symbols used. Used during code generation. */
   usedSymbolSet: Set[Symbol] = Set(),
+  /** The framework definitions present in the model */
+  frameworkDefinitions: FrameworkDefinitions = FrameworkDefinitions(),
   /** The map from component symbols to components */
   componentMap: Map[Symbol.Component, Component] = Map(),
   /** The component under construction */
