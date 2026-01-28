@@ -35,6 +35,7 @@ do
   rm $file
 done
 
+update "" ../../fpp-to-dict/test/top/config frameworkDefs
 update "" ../../fpp-syntax/test/state-machine stateMachine
 update "" activeComponents
 update "" commands
