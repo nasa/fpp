@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/framework_defs/fw_obj_simple_reg_buff_size_not_integer.fpp:1.1
+constant FW_OBJ_SIMPLE_REG_BUFF_SIZE = 1.1
+^
+error: the F Prime framework constant FW_OBJ_SIMPLE_REG_BUFF_SIZE must have an integer type
