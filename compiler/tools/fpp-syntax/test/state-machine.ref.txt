@@ -1,6 +1,39 @@
 @ State machine M
 def state machine
   ident M
+  def array
+    ident A
+    size literal int 3
+    type name U32
+  def constant
+    ident c
+    literal int 0
+  def enum
+    ident E
+    def enum constant
+      ident X
+    def enum constant
+      ident Y
+    def enum constant
+      ident Z
+    default ident X
+  def struct
+    ident S
+    struct type member
+      ident x
+      array size literal int 3
+      type name U32
+    struct type member
+      ident y
+      type name F32
+    struct type member
+      ident z
+      type name string
+  def abs type
+    ident T
+  def alias type
+    ident X
+    type name U32
   @ Action a1
   def action
     ident a1

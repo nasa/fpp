@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/types/struct_format_not_numeric.fpp:3.28
+  struct S2 { x: S1 format "{.3f}" }
+                           ^
+error: invalid format string: struct S1 is not a floating-point type

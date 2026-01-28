@@ -94,7 +94,8 @@ state machine name group.
 
 * Port interface definitions reside in the interface name group.
 
-* State machine definitions reside in the state machine name group.
+* State machine definitions reside in the state machine name group,
+the value name group, and the type name group.
 
 * Struct type definitions reside in the type name group.
 

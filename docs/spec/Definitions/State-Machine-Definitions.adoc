@@ -24,11 +24,17 @@ which each element is a *state machine member*,
 and the terminating punctuation is a semicolon.
 A state machine member is one of the following:
 
+* A <<Definitions_Constant-Definitions,constant definition>>
+* A <<Definitions_Struct-Definitions,struct definition>>
 * A <<State-Machine-Behavior-Elements_Choice-Definitions,choice definition>>
 * A <<State-Machine-Behavior-Elements_Guard-Definitions,guard definition>>
 * A <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition specifier>>
 * A <<State-Machine-Behavior-Elements_Signal-Definitions,signal definition>>
 * A <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
+* An <<Definitions_Abstract-Type-Definitions,abstract type definition>>
+* An <<Definitions_Alias-Type-Definitions,alias type definition>>
+* An <<Definitions_Array-Definitions,array definition>>
+* An <<Definitions_Enum-Definitions,enum definition>>
 * An <<State-Machine-Behavior-Elements_Action-Definitions,action definition>>
 
 The *transitive members* of a state machine definition _M_ are

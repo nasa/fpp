@@ -21,7 +21,16 @@ enum E { X, Y }
 enum Phases { setup, teardown }
 struct S { x: U32 }
 type T
-state machine S
+state machine SM {
+  array A = [3] U32
+  constant a = 0
+  enum E { X, Y }
+  dictionary struct S { x: U32 }
+  type T
+  type X = T
+  state S
+  initial enter S
+}
 constant t = {seconds=10,useconds=20}
 
 module M {
@@ -30,7 +39,7 @@ module M {
   enum E { X, Y }
   struct S { x: U32 }
   type T
-  state machine S
+  state machine SM
 } 
 
 port P
@@ -42,7 +51,7 @@ active component C1 {
   enum E { X, Y }
   dictionary struct S { x: U32 }
   type T
-  state machine S
+  state machine SM
 }
 
 instance c11: C1 \
@@ -63,7 +72,7 @@ module M {
     dictionary enum E { X, Y }
     struct S { x: U32 }
     type T
-    state machine S
+    state machine SM
   }
 
   instance c11: C1 base id 0x100

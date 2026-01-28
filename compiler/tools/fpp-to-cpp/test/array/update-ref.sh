@@ -60,6 +60,12 @@ single_element()
   move_cpp SingleElementArray
 }
 
+state_machine()
+{
+  update "-p $PWD" state_machine
+  move_cpp SM_AArray
+}
+
 string()
 {
   update "-p $PWD" string

@@ -196,15 +196,19 @@ translated to {cpp} files.
 |FPP Definition|{cpp} Files
 
 |Constants|`FppConstantsAc.{hpp,cpp}`
-|Array _A_ outside any component|_A_ `ArrayAc.{hpp,cpp}`
+|Array _A_ outside any state machine or component|_A_ `ArrayAc.{hpp,cpp}`
+|Array _A_ in state machine _M_|_M_ `_` _A_ `ArrayAc.{hpp,cpp}`
 |Array _A_ in component _C_|_C_ `_` _A_ `ArrayAc.{hpp,cpp}`
-|Enum _E_ outside any component|_E_ `EnumAc.{hpp,cpp}`
+|Enum _E_ outside any state machine or component|_E_ `EnumAc.{hpp,cpp}`
+|Enum _E_ in state machine _M_|_M_ `_` _E_ `EnumAc.{hpp,cpp}`
 |Enum _E_ in component _C_|_C_ `_` _E_ `EnumAc.{hpp,cpp}`
 |State machine _M_ outside any component|_M_ `StateMachineAc.{hpp,cpp}`
 |State machine _M_ in component _C_|_C_ `_` _M_ `StateMachineAc.{hpp,cpp}`
-|Struct _S_ outside any component|_S_ `SerializableAc.{hpp,cpp}`
+|Struct _S_ outside any state machine or component|_S_ `SerializableAc.{hpp,cpp}`
+|Struct _S_ in state machine _M_|_M_ `_` _S_ `SerializableAc.{hpp,cpp}`
 |Struct _S_ in component _C_|_C_ `_` _S_ `SerializableAc.{hpp,cpp}`
-|Alias type _A_ outside any component|_A_ `AliasAc.{hpp,h,cpp}`
+|Alias type _A_ outside any state machine or component|_A_ `AliasAc.{hpp,h,cpp}`
+|Alias type _A_ in state machine _M_|_M_ `_` _A_ `AliasAc.{hpp,h,cpp}`
 |Alias type _A_ in component _C_|_C_ `_` _A_ `AliasAc.{hpp,h,cpp}`
 |Port _P_|_P_ `PortAc.{hpp,cpp}`
 |Component _C_|_C_ `ComponentAc.{hpp,cpp}`
@@ -218,13 +222,17 @@ For example, consider the FPP array definition
 array A = [3] U32
 ----
 
-Outside of any component definition, this definition is translated to
+Outside of any state machine or component definition,
+this definition is translated to
 a {cpp} class with name `A` defined in a files `AArrayAc.hpp`
 and `AArray.cpp`.
-Inside the definition of component `C`, it is translated to
+Inside the definition of a component `C`, it is translated to
 a class with name `C_A` defined in the files `C_AArrayAc.hpp`
 and `C_AArray.cpp`.
-In either case the {cpp} namespace is given by the enclosing
+Inside the definition of a state machine `M`, it is translated to
+a class with name `M_A` defined in the files `M_AArrayAc.hpp`
+and `M_AArray.cpp`.
+In any case, the {cpp} namespace is given by the enclosing
 FPP modules, if any.
 For example, the following code
 
@@ -336,6 +344,29 @@ works.
 Notice how the FPP annotations are translated to comments.
 (We also remarked on this in the section on
 <<Writing-Comments-and-Annotations_Annotations,writing annotations>>.)
+
+*Constants defined inside state machines:*
+As noted in the section on
+<<Defining-State-Machines_Constants-Types-and-Enums,
+defining state machines>>,
+when you define a constant `c` inside a state machine `M`,
+the name of the corresponding constant in the generated {cpp}
+code is `M_c`.
+As an example, run the following code through `fpp-to-cpp`
+and examine the results:
+
+[source,fpp]
+----
+state machine M {
+
+  constant c = 0
+
+  state S
+
+  initial enter S
+
+}
+----
 
 *Constants defined inside components:*
 As noted in the section on
