@@ -68,6 +68,60 @@ trait AstTransformer {
     node: Ast.Annotated[AstNode[Ast.DefStateMachine]]
   ): ResultAnnotatedNode[Ast.DefStateMachine] = Right(default(in), node)
 
+  def defActionAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefAction]]
+  ): ResultAnnotatedNode[Ast.DefAction] =
+    Right(default(in), node)
+
+  def defChoiceAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefChoice]]
+  ): ResultAnnotatedNode[Ast.DefChoice] =
+    Right(default(in), node)
+
+  def defGuardAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefGuard]]
+  ): ResultAnnotatedNode[Ast.DefGuard] =
+    Right(default(in), node)
+
+  def defSignalAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefSignal]]
+  ): ResultAnnotatedNode[Ast.DefSignal] =
+    Right(default(in), node)
+
+  def defStateAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefState]]
+  ): ResultAnnotatedNode[Ast.DefState] =
+    Right(default(in), node)
+
+  def specInitialTransitionAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecInitialTransition]]
+  ): ResultAnnotatedNode[Ast.SpecInitialTransition] =
+    Right(default(in), node)
+
+  def specStateEntryAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecStateEntry]]
+  ): ResultAnnotatedNode[Ast.SpecStateEntry] =
+    Right(default(in), node)
+
+  def specStateExitAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecStateExit]]
+  ): ResultAnnotatedNode[Ast.SpecStateExit] =
+    Right(default(in), node)
+
+  def specStateTransitionAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecStateTransition]]
+  ): ResultAnnotatedNode[Ast.SpecStateTransition] =
+    Right(default(in), node)
+
   def defStructAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefStruct]]
@@ -314,6 +368,76 @@ trait AstTransformer {
       case e : Ast.ExprStruct => exprStructNode(in, node, e)
       case e : Ast.ExprUnop => exprUnopNode(in, node, e)
     }
+
+  final def matchStateMember(in: In, member: Ast.StateMember): Result[Ast.StateMember] = {
+    def transform[T](
+      result: ResultAnnotatedNode[T],
+      f: AstNode[T] => Ast.StateMember.Node
+    ) = {
+      for { pair <- result } yield {
+        val (out, (pre, node, post)) = pair
+        (out, Ast.StateMember(pre, f(node), post))
+      }
+    }
+    val (pre, node, post) =  member.node
+    node match {
+      case Ast.StateMember.DefChoice(node1) =>
+        transform(defChoiceAnnotatedNode(in, (pre, node1, post)), Ast.StateMember.DefChoice(_))
+      case Ast.StateMember.DefState(node1) =>
+        transform(defStateAnnotatedNode(in, (pre, node1, post)), Ast.StateMember.DefState(_))
+      case Ast.StateMember.SpecInitialTransition(node1) =>
+        transform(specInitialTransitionAnnotatedNode(in, (pre, node1, post)), Ast.StateMember.SpecInitialTransition(_))
+      case Ast.StateMember.SpecStateEntry(node1) =>
+        transform(specStateEntryAnnotatedNode(in, (pre, node1, post)), Ast.StateMember.SpecStateEntry(_))
+      case Ast.StateMember.SpecStateExit(node1) =>
+        transform(specStateExitAnnotatedNode(in, (pre, node1, post)), Ast.StateMember.SpecStateExit(_))
+      case Ast.StateMember.SpecStateTransition(node1) =>
+        transform(specStateTransitionAnnotatedNode(in, (pre, node1, post)), Ast.StateMember.SpecStateTransition(_))
+      case Ast.StateMember.SpecInclude(node1) =>
+        transform(specIncludeAnnotatedNode(in, (pre, node1, post)), Ast.StateMember.SpecInclude(_))
+    }
+  }
+
+  final def matchStateMachineMember(in: In, member: Ast.StateMachineMember): Result[Ast.StateMachineMember] = {
+    def transform[T](
+      result: ResultAnnotatedNode[T],
+      f: AstNode[T] => Ast.StateMachineMember.Node
+    ) = {
+      for { pair <- result } yield {
+        val (out, (pre, node, post)) = pair
+        (out, Ast.StateMachineMember(pre, f(node), post))
+      }
+    }
+    val (pre, node, post) =  member.node
+    node match {
+      case Ast.StateMachineMember.DefAbsType(node1) =>
+        transform(defAbsTypeAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefAbsType(_))
+      case Ast.StateMachineMember.DefAliasType(node1) =>
+        transform(defAliasTypeAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefAliasType(_))
+      case Ast.StateMachineMember.DefArray(node1) =>
+        transform(defArrayAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefArray(_))
+      case Ast.StateMachineMember.DefConstant(node1) =>
+        transform(defConstantAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefConstant(_))
+      case Ast.StateMachineMember.DefEnum(node1) =>
+        transform(defEnumAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefEnum(_))
+      case Ast.StateMachineMember.DefStruct(node1) =>
+        transform(defStructAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefStruct(_))
+      case Ast.StateMachineMember.DefAction(node1) =>
+        transform(defActionAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefAction(_))
+      case Ast.StateMachineMember.DefChoice(node1) =>
+        transform(defChoiceAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefChoice(_))
+      case Ast.StateMachineMember.DefGuard(node1) =>
+        transform(defGuardAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefGuard(_))
+      case Ast.StateMachineMember.DefSignal(node1) =>
+        transform(defSignalAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefSignal(_))
+      case Ast.StateMachineMember.DefState(node1) =>
+        transform(defStateAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefState(_))
+      case Ast.StateMachineMember.SpecInitialTransition(node1) =>
+        transform(specInitialTransitionAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.SpecInitialTransition(_))
+      case Ast.StateMachineMember.SpecInclude(node1) =>
+        transform(specIncludeAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.SpecInclude(_))
+    }
+  }
 
   final def matchModuleMember(in: In, member: Ast.ModuleMember): Result[Ast.ModuleMember] = {
     def transform[T](

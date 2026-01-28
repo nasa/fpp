@@ -227,6 +227,7 @@ trait AstVisitor {
       case Ast.StateMachineMember.DefState(node1) => defStateAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMachineMember.DefStruct(node1) => defStructAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMachineMember.SpecInitialTransition(node1) => specInitialTransitionAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMachineMember.SpecInclude(node1) => specIncludeAnnotatedNode(in, (pre, node1, post))
     }
   }
 
@@ -236,6 +237,7 @@ trait AstVisitor {
       case Ast.StateMember.DefChoice(node1) => defChoiceAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMember.DefState(node1) => defStateAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMember.SpecInitialTransition(node1) => specInitialTransitionAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMember.SpecInclude(node1) => specIncludeAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMember.SpecStateEntry(node1) => specStateEntryAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMember.SpecStateExit(node1) => specStateExitAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMember.SpecStateTransition(node1) => specStateTransitionAnnotatedNode(in, (pre, node1, post))
