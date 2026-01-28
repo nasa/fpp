@@ -16,7 +16,7 @@ namespace M {
   PrimitiveU16 ::
     PrimitiveU16() :
       Serializable(),
-      elements{}
+      elements()
   {
     *this = M::PrimitiveU16({1, 2, 3});
   }

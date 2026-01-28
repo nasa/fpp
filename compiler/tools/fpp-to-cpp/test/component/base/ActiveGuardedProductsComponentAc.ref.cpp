@@ -3499,8 +3499,6 @@ void ActiveGuardedProductsComponentBase ::
   container.setTimeTag(timeTag);
   // Serialize the header into the packet
   container.serializeHeader();
-  // Update the data hash
-  container.updateDataHash();
   // Update the size of the buffer according to the data size
   const FwSizeType packetSize = container.getPacketSize();
   Fw::Buffer buffer = container.getBuffer();

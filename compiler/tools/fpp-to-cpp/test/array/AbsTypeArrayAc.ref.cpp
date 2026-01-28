@@ -14,7 +14,7 @@
 AbsType ::
   AbsType() :
     Serializable(),
-    elements{}
+    elements()
 {
 
 }

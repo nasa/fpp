@@ -16,7 +16,7 @@ namespace M {
   PrimitiveF64 ::
     PrimitiveF64() :
       Serializable(),
-      elements{}
+      elements()
   {
     *this = M::PrimitiveF64({1.0, 2.0, 3.0, 4.0, 5.0});
   }

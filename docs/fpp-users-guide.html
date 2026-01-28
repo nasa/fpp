@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.23">
-<title>The F Prime Prime (FPP) User&#8217;s Guide, Unreleased, after v3.0.0</title>
+<title>The F Prime Prime (FPP) User&#8217;s Guide, v3.1.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>The F Prime Prime (FPP) User&#8217;s Guide, Unreleased, after v3.0.0</h1>
+<h1>The F Prime Prime (FPP) User&#8217;s Guide, v3.1.0</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -554,6 +554,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-State-Machines_Hierarchy_Choices">10.6.5. Choices</a></li>
 </ul>
 </li>
+<li><a href="#Defining-State-Machines_Constants-Types-and-Enums">10.7. Constants, Types, and Enums</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Components">11. Defining Components</a>
@@ -5792,7 +5793,7 @@ For more details, see the algorithm descriptions on the
 The general behavior described above agrees with the special-case
 behavior that we described in the section on
 <a href="#Defining-State-Machines_Actions_Entry-and-Exit-Actions">entry and exit actions for state machines without hierarchy</a>.
-When a state machine <em>M</em> has no hierarchy, a every state transition <em>T</em>
+When a state machine <em>M</em> has no hierarchy, every state transition <em>T</em>
 is a flattened transition that goes from a leaf state <em>L</em> to a leaf
 state <em>S</em>, both of which are children of <em>M</em> in the hierarchy tree.
 So we always exit <em>L</em>, do the actions of <em>T</em>, and enter <em>S</em>.</p>
@@ -6048,6 +6049,114 @@ would be done, in the following order:
 the exit actions of <em>A</em>, the actions of <em>T</em>, the entry actions of <em>B</em>, and the
 entry actions of <em>B'</em>.</p>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-State-Machines_Constants-Types-and-Enums">10.7. Constants, Types, and Enums</h3>
+<div class="paragraph">
+<p>You can write a <a href="#Defining-Constants">constant definition</a>,
+<a href="#Defining-Types">type definition</a>, or
+<a href="#Defining-Enums">enum definition</a> as a state machine member.
+For example, here is a state machine <code>M</code> that defines a
+constant <code>c</code> as a member:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A state machine containing a type definition
+state machine M {
+
+  constant c = 42
+
+  state S
+
+  initial enter S
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When you do this, the state machine qualifies
+the name of the definition, similarly to the way that a
+<a href="#Defining-Modules">module</a> qualifies the names of the
+definitions it contains.
+For example, for the constant <code>c</code> shown in the code above:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Inside the definition of <code>M</code>, you can refer to the
+constant as <code>c</code> or <code>M.c</code>.</p>
+</li>
+<li>
+<p>Outside the definition of <code>M</code>, you must refer to the
+constant as <code>M.c</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In general, it is a good idea to put a definition inside a
+state machine when the definition logically belongs to the
+state machine.
+For example, here is a state machine that defines a type
+<code>Temperature</code> and then uses that type in a signal and a guard:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A state machine that defines a type and uses it in a guard
+state machine Device {
+
+  @ Define a type Temperature
+  type Temperature = F32
+
+  @ Use the Temperature type in a signal
+  signal onCmd: Temperature
+
+  @ Use the Temperature type in a guard
+  guard temperatureIsSafe: Temperature
+
+  @ Initial transition
+  initial enter OFF
+
+  @ OFF state
+  state OFF {
+
+    @ Enter ON if temperature is safe
+    on onCmd if temperatureIsSafe enter ON
+
+  }
+
+  @ ON state
+  state ON
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, the full name of the type <code>Temperature</code> is <code>Device.Temperature</code>.</p>
+</div>
+<div class="paragraph">
+<p>In most cases, a qualified name such as <code>Device.Temperature</code> in FPP becomes a
+qualified name such as <code>Device::Temperature</code> when translating to C&#43;&#43;.
+However, the current C&#43;&#43; code generation strategy does not support the
+definition of constants and types as members of C&#43;&#43; state machines.
+Therefore, in the C&#43;&#43; translation of the previous example, the following
+occurs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The state machine <code>SM</code> becomes an auto-generated C&#43;&#43;
+class <code>SMStateMachineBase</code>.</p>
+</li>
+<li>
+<p>The type <code>Temperature</code> becomes a C&#43;&#43; type <code>Device_Temperature</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Similarly, the FPP constant <code>M.c</code> becomes a C&#43;&#43; constant <code>M_c</code>.
+We will have more to say about this issue in the section on
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">generating C&#43;&#43;</a>.</p>
 </div>
 </div>
 </div>
@@ -9065,8 +9174,9 @@ or
 <a href="#Defining-State-Machines">state machine definition</a>
 as a component member.
 When you do this, the component qualifies
-the name of the constant or type, similarly to the way that a
-<a href="#Defining-Modules">module</a> qualifies the names of the
+the name of the definition, similarly to the way that a
+<a href="#Defining-Modules">module</a> or
+<a href="#Defining-State-Machines_Constants-Types-and-Enums">state machine</a> qualifies the names of the
 definitions it contains.
 For example, if you define a type <code>T</code> inside a component
 <code>C</code>, then</p>
@@ -9075,7 +9185,7 @@ For example, if you define a type <code>T</code> inside a component
 <ul>
 <li>
 <p>Inside the definition of <code>C</code>, you can refer to the
-type as <code>T</code>.</p>
+type as <code>T</code> or <code>C.T</code>.</p>
 </li>
 <li>
 <p>Outside the definition of <code>C</code>, you must refer to the
@@ -9161,7 +9271,7 @@ active component Switch {
 </div>
 </div>
 <div class="paragraph">
-<p>In general, it is a good idea to state a definition inside a component
+<p>In general, it is a good idea to put a definition inside a component
 when the definition logically belongs to the component.
 The name scoping mechanism emphasizes the hierarchical relationship
 and prevents name clashes.</p>
@@ -9172,7 +9282,8 @@ in FPP becomes a qualified name such as <code>Switch::State</code> when translat
 to C&#43;&#43;.
 However, the current C&#43;&#43; code generation strategy does not
 support the definition
-of constants and types as members of C&#43;&#43; components.
+of constants, types, and state machines as
+members of C&#43;&#43; components.
 Therefore, when translating the previous example to C&#43;&#43;,
 the following occurs:</p>
 </div>
@@ -13772,16 +13883,24 @@ translated to C&#43;&#43; files.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FppConstantsAc.{hpp,cpp}</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Array <em>A</em> outside any component</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array <em>A</em> outside any state machine or component</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>A</em> <code>ArrayAc.{hpp,cpp}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array <em>A</em> in state machine <em>M</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>M</em> <code><em></code> _A</em> <code>ArrayAc.{hpp,cpp}</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Array <em>A</em> in component <em>C</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>C</em> <code><em></code> _A</em> <code>ArrayAc.{hpp,cpp}</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enum <em>E</em> outside any component</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enum <em>E</em> outside any state machine or component</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>E</em> <code>EnumAc.{hpp,cpp}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enum <em>E</em> in state machine <em>M</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>M</em> <code><em></code> _E</em> <code>EnumAc.{hpp,cpp}</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Enum <em>E</em> in component <em>C</em></p></td>
@@ -13796,16 +13915,24 @@ translated to C&#43;&#43; files.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>C</em> <code><em></code> _M</em> <code>StateMachineAc.{hpp,cpp}</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Struct <em>S</em> outside any component</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Struct <em>S</em> outside any state machine or component</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>S</em> <code>SerializableAc.{hpp,cpp}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Struct <em>S</em> in state machine <em>M</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>M</em> <code><em></code> _S</em> <code>SerializableAc.{hpp,cpp}</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Struct <em>S</em> in component <em>C</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>C</em> <code><em></code> _S</em> <code>SerializableAc.{hpp,cpp}</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Alias type <em>A</em> outside any component</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alias type <em>A</em> outside any state machine or component</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>A</em> <code>AliasAc.{hpp,h,cpp}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alias type <em>A</em> in state machine <em>M</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>M</em> <code><em></code> _A</em> <code>AliasAc.{hpp,h,cpp}</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Alias type <em>A</em> in component <em>C</em></p></td>
@@ -13834,13 +13961,17 @@ translated to C&#43;&#43; files.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Outside of any component definition, this definition is translated to
+<p>Outside of any state machine or component definition,
+this definition is translated to
 a C&#43;&#43; class with name <code>A</code> defined in a files <code>AArrayAc.hpp</code>
 and <code>AArray.cpp</code>.
-Inside the definition of component <code>C</code>, it is translated to
+Inside the definition of a component <code>C</code>, it is translated to
 a class with name <code>C_A</code> defined in the files <code>C_AArrayAc.hpp</code>
 and <code>C_AArray.cpp</code>.
-In either case the C&#43;&#43; namespace is given by the enclosing
+Inside the definition of a state machine <code>M</code>, it is translated to
+a class with name <code>M_A</code> defined in the files <code>M_AArrayAc.hpp</code>
+and <code>M_AArray.cpp</code>.
+In any case, the C&#43;&#43; namespace is given by the enclosing
 FPP modules, if any.
 For example, the following code</p>
 </div>
@@ -13974,6 +14105,29 @@ works.
 Notice how the FPP annotations are translated to comments.
 (We also remarked on this in the section on
 <a href="#Writing-Comments-and-Annotations_Annotations">writing annotations</a>.)</p>
+</div>
+<div class="paragraph">
+<p><strong>Constants defined inside state machines:</strong>
+As noted in the section on
+<a href="#Defining-State-Machines_Constants-Types-and-Enums">defining state machines</a>,
+when you define a constant <code>c</code> inside a state machine <code>M</code>,
+the name of the corresponding constant in the generated C&#43;&#43;
+code is <code>M_c</code>.
+As an example, run the following code through <code>fpp-to-cpp</code>
+and examine the results:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine M {
+
+  constant c = 0
+
+  state S
+
+  initial enter S
+
+}</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p><strong>Constants defined inside components:</strong>
@@ -16224,7 +16378,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-11-18 16:24:17 -0800
+Last updated 2026-01-26 09:28:07 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

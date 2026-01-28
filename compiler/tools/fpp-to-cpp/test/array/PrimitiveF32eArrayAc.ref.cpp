@@ -16,7 +16,7 @@ namespace M {
   PrimitiveF32e ::
     PrimitiveF32e() :
       Serializable(),
-      elements{}
+      elements()
   {
     *this = M::PrimitiveF32e(1.0f);
   }

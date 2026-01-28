@@ -16,7 +16,7 @@ namespace M {
   PrimitiveBool ::
     PrimitiveBool() :
       Serializable(),
-      elements{}
+      elements()
   {
 
   }
