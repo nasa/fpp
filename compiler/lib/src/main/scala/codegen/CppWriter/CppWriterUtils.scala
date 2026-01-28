@@ -294,12 +294,12 @@ trait CppWriterUtils extends LineUtils {
         val _ @ Value.Integer(value) = s.a.valueMap(node.id).convertToType(Type.Integer).get
         value
       }
-    ).getOrElse(BigInt(s.defaultStringSize))
+    ).getOrElse(s.getFwDefaultStringSize)
 
   /** Write the size of a string type */
   def writeStringSize(s: CppWriterState, t: Type.String): String =
     t.size.map(node => ValueCppWriter.write(s, s.a.valueMap(node.id))).
-      getOrElse(s.defaultStringSize.toString)
+      getOrElse(s.getFwDefaultStringSize.toString)
 
   /** Write a C++ expression for static serialized size */
   def writeStaticSerializedSizeExpr(s: CppWriterState, t: Type, typeName: String): String =

@@ -87,45 +87,6 @@
       }
     },
     {
-      "kind" : "struct",
-      "qualifiedName" : "S",
-      "members" : {
-        "X" : {
-          "type" : {
-            "name" : "string",
-            "kind" : "string",
-            "size" : 80
-          },
-          "index" : 0
-        },
-        "Y" : {
-          "type" : {
-            "name" : "A2",
-            "kind" : "qualifiedIdentifier"
-          },
-          "index" : 1
-        },
-        "Z" : {
-          "type" : {
-            "name" : "S2",
-            "kind" : "qualifiedIdentifier"
-          },
-          "index" : 2
-        }
-      },
-      "default" : {
-        "X" : "",
-        "Y" : [
-          0,
-          0,
-          0
-        ],
-        "Z" : {
-          "X" : 0
-        }
-      }
-    },
-    {
       "kind" : "alias",
       "qualifiedName" : "FwEventIdType",
       "type" : {
@@ -346,6 +307,45 @@
       }
     },
     {
+      "kind" : "struct",
+      "qualifiedName" : "S",
+      "members" : {
+        "X" : {
+          "type" : {
+            "name" : "string",
+            "kind" : "string",
+            "size" : 256
+          },
+          "index" : 0
+        },
+        "Y" : {
+          "type" : {
+            "name" : "A2",
+            "kind" : "qualifiedIdentifier"
+          },
+          "index" : 1
+        },
+        "Z" : {
+          "type" : {
+            "name" : "S2",
+            "kind" : "qualifiedIdentifier"
+          },
+          "index" : 2
+        }
+      },
+      "default" : {
+        "X" : "",
+        "Y" : [
+          0,
+          0,
+          0
+        ],
+        "Z" : {
+          "X" : 0
+        }
+      }
+    },
+    {
       "kind" : "alias",
       "qualifiedName" : "FwSizeType",
       "type" : {
@@ -410,6 +410,17 @@
   "constants" : [
     {
       "kind" : "constant",
+      "qualifiedName" : "FW_FIXED_LENGTH_STRING_SIZE",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "value" : 256
+    },
+    {
+      "kind" : "constant",
       "qualifiedName" : "Fw.DpCfg.CONTAINER_USER_DATA_SIZE",
       "type" : {
         "name" : "U64",
@@ -430,6 +441,17 @@
         "signed" : false
       },
       "value" : 255
+    },
+    {
+      "kind" : "constant",
+      "qualifiedName" : "STRING_SIZE",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "value" : 256
     },
     {
       "kind" : "constant",

@@ -25,7 +25,7 @@ class String :
     enum {
       //! The size of the serial representation
       SERIALIZED_SIZE =
-        Fw::StringBase::STATIC_SERIALIZED_SIZE(80) +
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(60) +
         Fw::StringBase::STATIC_SERIALIZED_SIZE(40)
     };
 
@@ -160,7 +160,7 @@ class String :
     // Member variables
     // ----------------------------------------------------------------------
 
-    char m___fprime_ac_s1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+    char m___fprime_ac_s1_buffer[Fw::StringBase::BUFFER_SIZE(60)];
     Fw::ExternalString m_s1;
     char m___fprime_ac_s2_buffer[Fw::StringBase::BUFFER_SIZE(40)];
     Fw::ExternalString m_s2;

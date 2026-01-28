@@ -14,8 +14,6 @@ case class CppWriterState(
   guardPrefix: Option[String] = None,
   /** The list of include path prefixes */
   pathPrefixes: List[String] = Nil,
-  /** The default string size */
-  defaultStringSize: Int = CppWriterState.defaultDefaultStringSize,
   /** The name of the tool using the CppWriter */
   toolName: Option[String] = None,
   /** The map from strings to locations */
@@ -216,6 +214,15 @@ case class CppWriterState(
     case _ => false
   }
 
+  def getFwDefaultStringSize: BigInt = {
+    a.frameworkDefinitions.constants.fwFixedLengthStringSize match {
+      case Some(s: Symbol.Constant) => a.valueMap(s.getNodeId) match {
+        case Value.Integer(value) => value
+        case _ => throw InternalError("expected integer value")
+      }
+      case None => CppWriterState.defaultDefaultStringSize
+    }
+  }
 }
 
 object CppWriterState {
