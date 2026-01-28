@@ -2774,174 +2774,256 @@
     },
     "frameworkDefinitions" : {
       "constants" : {
-        "containerDataSize" : {
+        "fwAssertCountMax" : {
           "Some" : {
-            "astNodeId" : 125
-          }
-        },
-        "fwObjSimpleRegBuffSize" : {
-          "Some" : {
-            "astNodeId" : 165
-          }
-        },
-        "fwQueueNameBufferSize" : {
-          "Some" : {
-            "astNodeId" : 167
-          }
-        },
-        "fwTaskNameBufferSize" : {
-          "Some" : {
-            "astNodeId" : 169
-          }
-        },
-        "fwComBufferMaxSize" : {
-          "Some" : {
-            "astNodeId" : 171
-          }
-        },
-        "fwSmSignalBufferMaxSize" : {
-          "Some" : {
-            "astNodeId" : 173
+            "node" : {
+              "astNodeId" : 221
+            }
           }
         },
         "fwCmdArgBufferMaxSize" : {
           "Some" : {
-            "astNodeId" : 179
+            "node" : {
+              "astNodeId" : 179
+            }
           }
         },
         "fwCmdStringMaxSize" : {
           "Some" : {
-            "astNodeId" : 181
+            "node" : {
+              "astNodeId" : 181
+            }
           }
         },
-        "fwLogBufferMaxSize" : {
+        "fwComBufferMaxSize" : {
           "Some" : {
-            "astNodeId" : 187
-          }
-        },
-        "fwLogStringMaxSize" : {
-          "Some" : {
-            "astNodeId" : 189
-          }
-        },
-        "fwTlmBufferMaxSize" : {
-          "Some" : {
-            "astNodeId" : 195
-          }
-        },
-        "fwStatementArgBufferMaxSize" : {
-          "Some" : {
-            "astNodeId" : 197
-          }
-        },
-        "fwTlmStringMaxSize" : {
-          "Some" : {
-            "astNodeId" : 199
-          }
-        },
-        "fwParamBufferMaxSize" : {
-          "Some" : {
-            "astNodeId" : 205
-          }
-        },
-        "fwParamStringMaxSize" : {
-          "Some" : {
-            "astNodeId" : 207
-          }
-        },
-        "fwFileBufferMaxSize" : {
-          "Some" : {
-            "astNodeId" : 209
-          }
-        },
-        "fwInternalInterfaceStringMaxSize" : {
-          "Some" : {
-            "astNodeId" : 211
-          }
-        },
-        "fwLogTextBufferSize" : {
-          "Some" : {
-            "astNodeId" : 213
-          }
-        },
-        "fwFixedLengthStringSize" : {
-          "Some" : {
-            "astNodeId" : 215
-          }
-        },
-        "fwObjSimpleRegEntries" : {
-          "Some" : {
-            "astNodeId" : 217
-          }
-        },
-        "fwQueueSimpleQueueEntries" : {
-          "Some" : {
-            "astNodeId" : 219
-          }
-        },
-        "fwAssertCountMax" : {
-          "Some" : {
-            "astNodeId" : 221
+            "node" : {
+              "astNodeId" : 171
+            }
           }
         },
         "fwContextDontCare" : {
           "Some" : {
-            "astNodeId" : 223
+            "node" : {
+              "astNodeId" : 223
+            }
           }
         },
-        "fwSerializeTrueValue" : {
+        "fwDpCfgContainerDataSize" : {
           "Some" : {
-            "astNodeId" : 225
+            "node" : {
+              "astNodeId" : 125
+            }
+          }
+        },
+        "fwFileBufferMaxSize" : {
+          "Some" : {
+            "node" : {
+              "astNodeId" : 209
+            }
+          }
+        },
+        "fwFixedLengthStringSize" : {
+          "Some" : {
+            "node" : {
+              "astNodeId" : 215
+            }
+          }
+        },
+        "fwInternalInterfaceStringMaxSize" : {
+          "Some" : {
+            "node" : {
+              "astNodeId" : 211
+            }
+          }
+        },
+        "fwLogBufferMaxSize" : {
+          "Some" : {
+            "node" : {
+              "astNodeId" : 187
+            }
+          }
+        },
+        "fwLogStringMaxSize" : {
+          "Some" : {
+            "node" : {
+              "astNodeId" : 189
+            }
+          }
+        },
+        "fwLogTextBufferSize" : {
+          "Some" : {
+            "node" : {
+              "astNodeId" : 213
+            }
+          }
+        },
+        "fwObjSimpleRegBuffSize" : {
+          "Some" : {
+            "node" : {
+              "astNodeId" : 165
+            }
+          }
+        },
+        "fwObjSimpleRegEntries" : {
+          "Some" : {
+            "node" : {
+              "astNodeId" : 217
+            }
+          }
+        },
+        "fwParamBufferMaxSize" : {
+          "Some" : {
+            "node" : {
+              "astNodeId" : 205
+            }
+          }
+        },
+        "fwParamStringMaxSize" : {
+          "Some" : {
+            "node" : {
+              "astNodeId" : 207
+            }
+          }
+        },
+        "fwQueueNameBufferSize" : {
+          "Some" : {
+            "node" : {
+              "astNodeId" : 167
+            }
+          }
+        },
+        "fwQueueSimpleQueueEntries" : {
+          "Some" : {
+            "node" : {
+              "astNodeId" : 219
+            }
           }
         },
         "fwSerializeFalseValue" : {
           "Some" : {
-            "astNodeId" : 227
+            "node" : {
+              "astNodeId" : 227
+            }
+          }
+        },
+        "fwSerializeTrueValue" : {
+          "Some" : {
+            "node" : {
+              "astNodeId" : 225
+            }
+          }
+        },
+        "fwSmSignalBufferMaxSize" : {
+          "Some" : {
+            "node" : {
+              "astNodeId" : 173
+            }
+          }
+        },
+        "fwStatementArgBufferMaxSize" : {
+          "Some" : {
+            "node" : {
+              "astNodeId" : 197
+            }
+          }
+        },
+        "fwTaskNameBufferSize" : {
+          "Some" : {
+            "node" : {
+              "astNodeId" : 169
+            }
+          }
+        },
+        "fwTlmBufferMaxSize" : {
+          "Some" : {
+            "node" : {
+              "astNodeId" : 195
+            }
+          }
+        },
+        "fwTlmStringMaxSize" : {
+          "Some" : {
+            "node" : {
+              "astNodeId" : 199
+            }
           }
         }
       },
       "types" : {
-        "procType" : {
-          "Some" : {
-            "astNodeId" : 161
-          }
-        },
-        "dpState" : {
-          "Some" : {
-            "astNodeId" : 45
-          }
-        },
         "fwAssertArgType" : "None",
         "fwChanIdType" : {
           "Some" : {
-            "astNodeId" : 5
+            "AliasType" : {
+              "node" : {
+                "astNodeId" : 5
+              }
+            }
+          }
+        },
+        "fwDpCfgProcType" : {
+          "Some" : {
+            "Enum" : {
+              "node" : {
+                "astNodeId" : 161
+              }
+            }
           }
         },
         "fwDpIdType" : {
           "Some" : {
-            "astNodeId" : 9
+            "AliasType" : {
+              "node" : {
+                "astNodeId" : 9
+              }
+            }
           }
         },
         "fwDpPriorityType" : {
           "Some" : {
-            "astNodeId" : 13
+            "AliasType" : {
+              "node" : {
+                "astNodeId" : 13
+              }
+            }
+          }
+        },
+        "fwDpState" : {
+          "Some" : {
+            "Enum" : {
+              "node" : {
+                "astNodeId" : 45
+              }
+            }
           }
         },
         "fwEnumStoreType" : "None",
         "fwEventIdType" : {
           "Some" : {
-            "astNodeId" : 17
+            "AliasType" : {
+              "node" : {
+                "astNodeId" : 17
+              }
+            }
           }
         },
         "fwIndexType" : "None",
         "fwOpcodeType" : {
           "Some" : {
-            "astNodeId" : 21
+            "AliasType" : {
+              "node" : {
+                "astNodeId" : 21
+              }
+            }
           }
         },
         "fwPacketDescriptorType" : {
           "Some" : {
-            "astNodeId" : 25
+            "AliasType" : {
+              "node" : {
+                "astNodeId" : 25
+              }
+            }
           }
         },
         "fwPrmIdType" : "None",
@@ -2949,28 +3031,48 @@
         "fwSignedSizeType" : "None",
         "fwSizeStoreType" : {
           "Some" : {
-            "astNodeId" : 33
+            "AliasType" : {
+              "node" : {
+                "astNodeId" : 33
+              }
+            }
           }
         },
         "fwSizeType" : {
           "Some" : {
-            "astNodeId" : 31
+            "AliasType" : {
+              "node" : {
+                "astNodeId" : 31
+              }
+            }
           }
         },
         "fwTaskPriorityType" : "None",
         "fwTimeBaseStoreType" : {
           "Some" : {
-            "astNodeId" : 35
+            "AliasType" : {
+              "node" : {
+                "astNodeId" : 35
+              }
+            }
           }
         },
         "fwTimeContextStoreType" : {
           "Some" : {
-            "astNodeId" : 37
+            "AliasType" : {
+              "node" : {
+                "astNodeId" : 37
+              }
+            }
           }
         },
         "fwTlmPacketizeIdType" : {
           "Some" : {
-            "astNodeId" : 27
+            "AliasType" : {
+              "node" : {
+                "astNodeId" : 27
+              }
+            }
           }
         },
         "fwTraceIdType" : "None"

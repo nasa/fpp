@@ -80,7 +80,7 @@ events(){
 }
 
 frameworkDefs(){
-  run_test "../../fpp-to-dict/test/top/config" frameworkDefs
+  run_test "" "../../fpp-to-dict/test/top/config" frameworkDefs
 }
 
 importedTopologies(){
