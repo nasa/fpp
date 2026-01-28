@@ -3,4 +3,4 @@ fpp-check
     u.T
     ^
 error: symbol u is not defined
-note: looking for a component instance here
+note: looking for a port interface instance here

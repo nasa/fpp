@@ -3,4 +3,4 @@ fpp-check
     c
     ^
 error: symbol c is not defined
-note: looking for a component instance here
+note: looking for a port interface instance here
