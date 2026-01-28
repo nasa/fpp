@@ -14299,23 +14299,16 @@ to the directory <code>cpp</code> (which must already exist).</p>
 to <em>file</em>.
 This is useful for collecting autocoder build dependencies.</p>
 </li>
-<li>
-<p><code>-s</code> <em>size</em> : Specify a default string size.
-For example,</p>
-<div class="listingblock">
-<div class="content">
-<pre>fpp-to-cpp -s 40 ...</pre>
-</div>
+</ul>
 </div>
 <div class="paragraph">
 <p>FPP allows string types with no specified size.
 When generating code we need to provide a default size
 to use when FPP doesn&#8217;t specify the size.
-If you don&#8217;t specify the <code>-s</code> option, then the tool uses
-an automatic default of 80.</p>
-</div>
-</li>
-</ul>
+If the <code>FW_FIXED_LENGTH_STRING_SIZE</code>
+<a href="#Defining-Constants_Framework-Constants">framework constant</a>
+is not defined in the model, then the tool uses an
+automatic default of 80.</p>
 </div>
 </div>
 <div class="sect3">
@@ -14830,34 +14823,16 @@ are generated for them.</p>
 </div>
 <div class="paragraph">
 <p><strong>F Prime configuration:</strong>
-When you run <code>fpp-to-dict</code> on an FPP model, the model must define the following
-types:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>FwChanIdType</code></p>
-</li>
-<li>
-<p><code>FwEventIdType</code></p>
-</li>
-<li>
-<p><code>FwOpcodeType</code></p>
-</li>
-<li>
-<p><code>FwPacketDescriptorType</code></p>
-</li>
-<li>
-<p><code>FwTlmPacketizeIdType</code></p>
-</li>
-</ul>
+When you run <code>fpp-to-dict</code> on an FPP model, the model must define the
+framework definitions specified in the
+<a href="https://fprime.jpl.nasa.gov/latest/docs/reference/fpp-json-dict/">F Prime
+dictionary specification</a>.</p>
 </div>
 <div class="paragraph">
-<p>These types are required by the F Prime GDS, so they are included in the
-dictionary.
-Each of these types must be an alias of an integer type.
-Typically you specify these types as part of F Prime configuration,
-in the file <code>config/FpConfig.fpp</code>.
+<p>These types and constants are required by the F Prime GDS, so they are
+included in the dictionary.
+Typically you specify these types and constants as part of F Prime configuration,
+in the file <code>default/config/FpConfig.fpp</code> or <code>default/config/FpConstants.fpp</code>.
 See the
 <a href="https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/">F
 Prime documentation</a> for details.</p>
@@ -14869,7 +14844,7 @@ Prime documentation</a> for details.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The <code>-d</code> and <code>-s</code> options work in the same way as for
+<p>The <code>-d</code> option works in the same way as for
 <a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions"><code>fpp-to-cpp</code></a>.</p>
 </li>
 <li>
@@ -16378,7 +16353,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-01-27 17:11:08 -0800
+Last updated 2026-01-28 12:37:21 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

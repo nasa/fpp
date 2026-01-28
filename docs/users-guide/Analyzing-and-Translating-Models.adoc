@@ -508,18 +508,13 @@ to the directory `cpp` (which must already exist).
 to _file_.
 This is useful for collecting autocoder build dependencies.
 
-* `-s` _size_ : Specify a default string size.
-For example,
-+
-----
-fpp-to-cpp -s 40 ...
-----
-+
 FPP allows string types with no specified size.
 When generating code we need to provide a default size
 to use when FPP doesn't specify the size.
-If you don't specify the `-s` option, then the tool uses
-an automatic default of 80.
+If the `FW_FIXED_LENGTH_STRING_SIZE` 
+<<Defining-Constants_Framework-Constants,framework constant>>
+is not defined in the model, then the tool uses an 
+automatic default of 80.
 
 ==== Types, Ports, State Machines, and Components
 
@@ -915,24 +910,15 @@ That way the subtopologies are part of the model, but no dictionaries
 are generated for them.
 
 *F Prime configuration:*
-When you run `fpp-to-dict` on an FPP model, the model must define the following 
-types:
+When you run `fpp-to-dict` on an FPP model, the model must define the
+framework definitions specified in the
+https://fprime.jpl.nasa.gov/latest/docs/reference/fpp-json-dict/[F Prime
+dictionary specification].
 
-* `FwChanIdType`
-
-* `FwEventIdType`
-
-* `FwOpcodeType`
-
-* `FwPacketDescriptorType`
-
-* `FwTlmPacketizeIdType`
-
-These types are required by the F Prime GDS, so they are included in the 
-dictionary.
-Each of these types must be an alias of an integer type.
-Typically you specify these types as part of F Prime configuration,
-in the file `config/FpConfig.fpp`.
+These types and constants are required by the F Prime GDS, so they are 
+included in the dictionary.
+Typically you specify these types and constants as part of F Prime configuration,
+in the file `default/config/FpConfig.fpp` or `default/config/FpConstants.fpp`.
 See the
 https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/[F 
 Prime documentation] for details.
@@ -940,7 +926,7 @@ Prime documentation] for details.
 *Options:*
 `fpp-to-dict` provides the following options:
 
-* The `-d` and `-s` options work in the same way as for
+* The `-d` option works in the same way as for
 <<Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions,
 `fpp-to-cpp`>>.
 
