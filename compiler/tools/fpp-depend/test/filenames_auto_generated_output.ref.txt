@@ -17,6 +17,13 @@ PPortAc.cpp
 PPortAc.hpp
 SM2StateMachineAc.cpp
 SM2StateMachineAc.hpp
+SM2_AArrayAc.cpp
+SM2_AArrayAc.hpp
+SM2_EEnumAc.cpp
+SM2_EEnumAc.hpp
+SM2_SSerializableAc.cpp
+SM2_SSerializableAc.hpp
+SM2_XAliasAc.hpp
 SSerializableAc.cpp
 SSerializableAc.hpp
 TTopologyAc.cpp

@@ -48,7 +48,7 @@ case class CppWriterState(
 
   /** Constructs an include guard from a qualified name and a kind */
   def includeGuardFromQualifiedName(s: Symbol, name: String, headerExtension: String = "HPP"): String = {
-    val guard = a.getEnclosingNames(s) match {
+    val guard = getNamespaceIdentList(s) match {
       case Nil => name
       case names =>
         val prefix = CppWriterState.identFromQualifiedName(
@@ -68,32 +68,27 @@ case class CppWriterState(
 
   /** Gets the list of identifiers representing the namespace
    *  associated with a symbol */
-  def getNamespaceIdentList(symbol: Symbol): List[String] = {
-    removeComponentQualifiers(a.parentSymbolMap.get(symbol), Nil)
-  }
+  def getNamespaceIdentList(symbol: Symbol): List[String] =
+    getQualifyingNameAsIdentList(a.parentSymbolMap.get(symbol))
 
-  /** Gets the unqualified name associated with a symbol.
-   *  If a symbol is defined in a component, then we prefix its name
-   *  with the component name. This is to work around the fact that
-   *  we cannot define classes inside components in the F Prime XML. */
+  /** Gets the C++ unqualified name associated with a symbol.
+   *  If a symbol is defined in a component or a state machine,
+   *  then we prefix its name with the name of the enclosing
+   *  component or state machine. */
   def getName(symbol: Symbol): String = {
     val name = symbol.getUnqualifiedName
     a.parentSymbolMap.get(symbol) match {
       case Some(cs: Symbol.Component) => s"${cs.getUnqualifiedName}_$name"
+      case Some(sm: Symbol.StateMachine) => s"${sm.getUnqualifiedName}_$name"
       case _ => name
     }
   }
 
   /** Write an FPP symbol as C++ */
   def writeSymbol(sym: Symbol): String = {
-    val qualifiedName = sym match {
-      // For component symbols, use the qualified name
-      case cs: Symbol.Component => a.getQualifiedName(cs)
-      // For other symbols, remove component qualifiers
-      case _ => {
-        val identList = removeComponentQualifiers(Some(sym), Nil)
-        Name.Qualified.fromIdentList(identList)
-      }
+    val qualifiedName = {
+      val identList = getQualifiedNameAsIdentList(Some(sym))
+      Name.Qualified.fromIdentList(identList)
     }
     CppWriterState.writeQualifiedName(qualifiedName)
   }
@@ -102,20 +97,36 @@ case class CppWriterState(
   def writeSymbolAsIdent(sym: Symbol): String =
     writeSymbol(sym).replaceAll("::", "_")
 
-  // Skip component names in qualifiers
-  // Those appear in the prefixes of definition names
-  private def removeComponentQualifiers(
-    symOpt: Option[Symbol],
-    out: List[String]
+  // Gets the C++ qualified name of a symbol as a list of identifiers.
+  // For names declared inside components and state machines,
+  // (a) add the name of the component or state machine as
+  // a lexical prefix to the last name of the list and
+  // (b) remove the name from the list. For example, if B
+  // is a component name, then A.B.C becomes A, B_C.
+  private def getQualifiedNameAsIdentList(
+    symOpt: Option[Symbol]
   ): List[String] = symOpt match {
-    case None => out
+    case None => Nil
     case Some(sym) =>
       val psOpt = a.parentSymbolMap.get(sym)
-      val out1 = sym match {
-        case _: Symbol.Component => out
-        case _ => getName(sym) :: out
+      getQualifyingNameAsIdentList(psOpt, List(getName(sym)))
+  }
+
+  // Get the C++ name of a qualifying symbol as a list of identifiers.
+  // Remove the names of components and state machines from the list.
+  private def getQualifyingNameAsIdentList(
+    symOpt: Option[Symbol],
+    suffix: List[String] = Nil
+  ): List[String] = symOpt match {
+    case None => suffix
+    case Some(sym) =>
+      val psOpt = a.parentSymbolMap.get(sym)
+      val suffix1 = sym match {
+        case _: Symbol.Component => suffix
+        case _: Symbol.StateMachine => suffix
+        case _ => sym.getUnqualifiedName :: suffix
       }
-      removeComponentQualifiers(psOpt, out1)
+      getQualifyingNameAsIdentList(psOpt, suffix1)
   }
 
   /** Get an include path for a symbol and a file name base */

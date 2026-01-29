@@ -10,6 +10,7 @@ object EnterSymbols
   with InterfaceAnalyzer
   with ComponentAnalyzer
   with ModuleAnalyzer
+  with StateMachineAnalyzer
   with TopologyAnalyzer
 {
 
@@ -252,10 +253,29 @@ object EnterSymbols
     val (_, node, _) = aNode
     val data = node.data
     val name = data.name
+    val parentSymbol = a.parentSymbol
     val symbol = Symbol.StateMachine(aNode)
-    val nestedScope = a.nestedScope
-    for (nestedScope <- nestedScope.put(NameGroup.StateMachine)(name, symbol))
-      yield updateMap(a, symbol).copy(nestedScope = nestedScope)
+    for {
+      nestedScope <- a.nestedScope.put(NameGroup.StateMachine)(name, symbol)
+      nestedScope <- nestedScope.put(NameGroup.Type)(name, symbol)
+      nestedScope <- nestedScope.put(NameGroup.Value)(name, symbol)
+      a <- {
+        val scope = Scope.empty
+        val nestedScope1 = nestedScope.push(scope)
+        val a1 = a.copy(nestedScope = nestedScope1, parentSymbol = Some(symbol))
+        super.defStateMachineAnnotatedNode(a1, aNode)
+      }
+    }
+    yield {
+      val scope = a.nestedScope.innerScope
+      val newSymbolScopeMap = a.symbolScopeMap + (symbol -> scope)
+      val a1 = a.copy(
+        nestedScope = a.nestedScope.pop,
+        parentSymbol = parentSymbol,
+        symbolScopeMap = newSymbolScopeMap
+      )
+      updateMap(a1, symbol)
+    }
   }
 
   override def defStructAnnotatedNode(

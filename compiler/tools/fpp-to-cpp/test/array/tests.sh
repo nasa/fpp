@@ -8,6 +8,7 @@ header_path
 large_size
 primitive
 single_element
+state_machine
 string
 struct
 "

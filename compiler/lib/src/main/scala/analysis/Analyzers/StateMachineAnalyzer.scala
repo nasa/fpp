@@ -12,8 +12,10 @@ trait StateMachineAnalyzer extends Analyzer {
   ) = {
     val (_, node, _) = aNode
     node.data match {
-      case Ast.DefStateMachine(_, Some(members)) =>
-        visitList(a, members, matchStateMachineMember)
+      case Ast.DefStateMachine(name, Some(members)) =>
+        val a1 = a.copy(scopeNameList = name :: a.scopeNameList)
+        for { a2 <- visitList(a1, members, matchStateMachineMember) }
+        yield a2.copy(scopeNameList = a.scopeNameList)
       case _ => Right(a)
     }
   }

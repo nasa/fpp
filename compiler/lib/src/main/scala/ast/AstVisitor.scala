@@ -217,11 +217,17 @@ trait AstVisitor {
   final def matchStateMachineMember(in: In, member: Ast.StateMachineMember): Out = {
     val (pre, node, post) =  member.node
     node match {
+      case Ast.StateMachineMember.DefAbsType(node1) => defAbsTypeAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMachineMember.DefAction(node1) => defActionAnnotatedNode(in, (pre, node1, post))
-      case Ast.StateMachineMember.DefGuard(node1) => defGuardAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMachineMember.DefAliasType(node1) => defAliasTypeAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMachineMember.DefArray(node1) => defArrayAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMachineMember.DefChoice(node1) => defChoiceAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMachineMember.DefConstant(node1) => defConstantAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMachineMember.DefEnum(node1) => defEnumAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMachineMember.DefGuard(node1) => defGuardAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMachineMember.DefSignal(node1) => defSignalAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMachineMember.DefState(node1) => defStateAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMachineMember.DefStruct(node1) => defStructAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMachineMember.SpecInitialTransition(node1) => specInitialTransitionAnnotatedNode(in, (pre, node1, post))
     }
   }

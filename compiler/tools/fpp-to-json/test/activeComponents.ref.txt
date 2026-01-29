@@ -2201,6 +2201,58 @@
         "defaultRecordId" : 0
       }
     },
+    "frameworkDefinitions" : {
+      "constants" : {
+        "fwAssertCountMax" : "None",
+        "fwCmdArgBufferMaxSize" : "None",
+        "fwCmdStringMaxSize" : "None",
+        "fwComBufferMaxSize" : "None",
+        "fwContextDontCare" : "None",
+        "fwDpCfgContainerDataSize" : "None",
+        "fwFileBufferMaxSize" : "None",
+        "fwFixedLengthStringSize" : "None",
+        "fwInternalInterfaceStringMaxSize" : "None",
+        "fwLogBufferMaxSize" : "None",
+        "fwLogStringMaxSize" : "None",
+        "fwLogTextBufferSize" : "None",
+        "fwObjSimpleRegBuffSize" : "None",
+        "fwObjSimpleRegEntries" : "None",
+        "fwParamBufferMaxSize" : "None",
+        "fwParamStringMaxSize" : "None",
+        "fwQueueNameBufferSize" : "None",
+        "fwQueueSimpleQueueEntries" : "None",
+        "fwSerializeFalseValue" : "None",
+        "fwSerializeTrueValue" : "None",
+        "fwSmSignalBufferMaxSize" : "None",
+        "fwStatementArgBufferMaxSize" : "None",
+        "fwTaskNameBufferSize" : "None",
+        "fwTlmBufferMaxSize" : "None",
+        "fwTlmStringMaxSize" : "None"
+      },
+      "types" : {
+        "fwAssertArgType" : "None",
+        "fwChanIdType" : "None",
+        "fwDpCfgProcType" : "None",
+        "fwDpIdType" : "None",
+        "fwDpPriorityType" : "None",
+        "fwDpState" : "None",
+        "fwEnumStoreType" : "None",
+        "fwEventIdType" : "None",
+        "fwIndexType" : "None",
+        "fwOpcodeType" : "None",
+        "fwPacketDescriptorType" : "None",
+        "fwPrmIdType" : "None",
+        "fwQueuePriorityType" : "None",
+        "fwSignedSizeType" : "None",
+        "fwSizeStoreType" : "None",
+        "fwSizeType" : "None",
+        "fwTaskPriorityType" : "None",
+        "fwTimeBaseStoreType" : "None",
+        "fwTimeContextStoreType" : "None",
+        "fwTlmPacketizeIdType" : "None",
+        "fwTraceIdType" : "None"
+      }
+    },
     "includedFileSet" : [
     ],
     "inputFileSet" : [
@@ -2297,6 +2349,11 @@
           }
         }
       },
+      "124" : {
+        "map" : {
+          
+        }
+      },
       "59" : {
         "map" : {
           "Component" : {
@@ -2339,6 +2396,11 @@
               }
             }
           }
+        }
+      },
+      "116" : {
+        "map" : {
+          
         }
       },
       "138" : {
@@ -2484,6 +2546,38 @@
       "137" : {
         "map" : {
           "StateMachine" : {
+            "map" : {
+              "S1" : {
+                "StateMachine" : {
+                  "nodeId" : 116,
+                  "unqualifiedName" : "S1"
+                }
+              },
+              "S2" : {
+                "StateMachine" : {
+                  "nodeId" : 124,
+                  "unqualifiedName" : "S2"
+                }
+              }
+            }
+          },
+          "Type" : {
+            "map" : {
+              "S1" : {
+                "StateMachine" : {
+                  "nodeId" : 116,
+                  "unqualifiedName" : "S1"
+                }
+              },
+              "S2" : {
+                "StateMachine" : {
+                  "nodeId" : 124,
+                  "unqualifiedName" : "S2"
+                }
+              }
+            }
+          },
+          "Value" : {
             "map" : {
               "S1" : {
                 "StateMachine" : {

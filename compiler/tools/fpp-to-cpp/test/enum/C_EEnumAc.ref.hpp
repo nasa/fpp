@@ -4,8 +4,8 @@
 // \brief  hpp file for C_E enum
 // ======================================================================
 
-#ifndef C_C_EEnumAc_HPP
-#define C_C_EEnumAc_HPP
+#ifndef C_EEnumAc_HPP
+#define C_EEnumAc_HPP
 
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/Serializable.hpp"
