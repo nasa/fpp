@@ -643,7 +643,7 @@ case class ComponentInternalStateMachines(
                   s.a.typeMap(tn.id).getUnderlyingType match {
                     case t: Type.String => (
                       ts + Type.String(None),
-                      max(maxStringSize, getStringSize(s, t))
+                      max(maxStringSize, writeStringSize(s, t))
                     )
                     case t => (ts + t, maxStringSize)
                   }
