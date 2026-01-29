@@ -555,6 +555,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#Defining-State-Machines_Constants-Types-and-Enums">10.7. Constants, Types, and Enums</a></li>
+<li><a href="#Defining-State-Machines_Include-Specifiers">10.8. Include Specifiers</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Components">11. Defining Components</a>
@@ -6157,6 +6158,42 @@ class <code>SMStateMachineBase</code>.</p>
 <p>Similarly, the FPP constant <code>M.c</code> becomes a C&#43;&#43; constant <code>M_c</code>.
 We will have more to say about this issue in the section on
 <a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">generating C&#43;&#43;</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-State-Machines_Include-Specifiers">10.8. Include Specifiers</h3>
+<div class="paragraph">
+<p>State machines definitions, like component definitions, can become long and
+repetitive. Portions of state machine definitions can be broken up into different
+files and included back into the main state machine definition.</p>
+</div>
+<div class="paragraph">
+<p>For example, suppose you are defining a state machine with a large substate
+and you wish to split it out into a separate file <code>LargeState.fppi</code>.
+The suffix <code>.fppi</code> is conventional for included FPP files.
+Inside the state machine definition, you can write the
+following state machine member:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">include "LargeState.fppi"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This construct is called an <strong>include specifier</strong>.
+During analysis and translation, the include specifier
+is replaced with the state specified
+in <code>LargeState.fppi</code>, just as if you had written them
+at the point where you wrote the include specifier.
+This replacement is called expanding or resolving the
+include specifier.
+This technique can be used in the top level of the state machine
+as well as within a sub-state as a state member rather than a member
+of the overall state machine.</p>
+</div>
+<div class="paragraph">
+<p>We discuss include specifiers further in the section on
+<a href="#Specifying-Models-as-Files_Include-Specifiers">specifying models as files</a>.</p>
 </div>
 </div>
 </div>
@@ -16378,7 +16415,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-01-28 17:12:54 -0800
+Last updated 2026-01-28 21:57:48 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
