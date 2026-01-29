@@ -57,6 +57,8 @@ case class Analysis(
   valueMap: Map[AstNode.Id, Value] = Map(),
   /** The set of symbols used. Used during code generation. */
   usedSymbolSet: Set[Symbol] = Set(),
+  /** The framework definitions present in the model */
+  frameworkDefinitions: FrameworkDefinitions = FrameworkDefinitions(),
   /** The map from component symbols to components */
   componentMap: Map[Symbol.Component, Component] = Map(),
   /** The component under construction */

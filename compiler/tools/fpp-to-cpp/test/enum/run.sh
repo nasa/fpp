@@ -4,6 +4,13 @@ alias_serial_type()
     diff_cpp AliasSerialTypeEnum
 }
 
+component()
+{
+  run_test "-p $PWD" component && \
+    diff_cpp C_EEnum && \
+    diff_cpp EEnum
+}
+
 default()
 {
   run_test "-p $PWD" default && \
@@ -28,9 +35,8 @@ serialize_type()
     diff_cpp SerializeTypeEnum
 }
 
-component()
+state_machine()
 {
-  run_test "-p $PWD" component && \
-    diff_cpp C_EEnum && \
-    diff_cpp EEnum
+  run_test "-p $PWD" state_machine && \
+    diff_cpp SM_EEnum
 }

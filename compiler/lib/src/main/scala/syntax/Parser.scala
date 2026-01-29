@@ -882,14 +882,19 @@ object Parser extends Parsers {
   }
 
   private def stateMachineMemberNode: Parser[Ast.StateMachineMember.Node] = {
-    node(specInitialTransition) ^^ (n =>
-      Ast.StateMachineMember.SpecInitialTransition(n)) |
-      node(defState) ^^ (n => Ast.StateMachineMember.DefState(n)) |
-      node(defSignal) ^^ (n => Ast.StateMachineMember.DefSignal(n)) |
-      node(defAction) ^^ (n => Ast.StateMachineMember.DefAction(n)) |
-      node(defGuard) ^^ (n => Ast.StateMachineMember.DefGuard(n)) |
-      node(defChoice) ^^ (n => Ast.StateMachineMember.DefChoice(n)) |
-      failure("state machine member expected")
+    node(defAliasType) ^^ (n => Ast.StateMachineMember.DefAliasType(n)) |
+    node(defAbsType) ^^ (n => Ast.StateMachineMember.DefAbsType(n)) |
+    node(defAction) ^^ (n => Ast.StateMachineMember.DefAction(n)) |
+    node(defArray) ^^ (n => Ast.StateMachineMember.DefArray(n)) |
+    node(defChoice) ^^ (n => Ast.StateMachineMember.DefChoice(n)) |
+    node(defConstant) ^^ (n => Ast.StateMachineMember.DefConstant(n)) |
+    node(defEnum) ^^ (n => Ast.StateMachineMember.DefEnum(n)) |
+    node(defGuard) ^^ (n => Ast.StateMachineMember.DefGuard(n)) |
+    node(defSignal) ^^ (n => Ast.StateMachineMember.DefSignal(n)) |
+    node(defState) ^^ (n => Ast.StateMachineMember.DefState(n)) |
+    node(defStruct) ^^ (n => Ast.StateMachineMember.DefStruct(n)) |
+    node(specInitialTransition) ^^ (n => Ast.StateMachineMember.SpecInitialTransition(n)) |
+    failure("state machine member expected")
   }
 
   private def stateMachineMembers: Parser[List[Ast.StateMachineMember]] =

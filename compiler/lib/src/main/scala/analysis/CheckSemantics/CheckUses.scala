@@ -129,6 +129,20 @@ object CheckUses extends BasicUseAnalyzer {
     yield a.copy(nestedScope = a.nestedScope.pop)
   }
 
+  override def defStateMachineAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    for {
+      a <- {
+        val symbol = Symbol.StateMachine(aNode)
+        val scope = a.symbolScopeMap(symbol)
+        val newNestedScope = a.nestedScope.push(scope)
+        val a1 = a.copy(nestedScope = newNestedScope)
+        super.defStateMachineAnnotatedNode(a1, aNode)
+      }
+    } yield a.copy(nestedScope = a.nestedScope.pop)
+  }
+
   override def defTopologyAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
     val impliedTypeUses = a.getImpliedUses(ImpliedUse.Kind.Type, node._2.id).toList
     val impliedConstantUses = a.getImpliedUses(ImpliedUse.Kind.Constant, node._2.id).toList

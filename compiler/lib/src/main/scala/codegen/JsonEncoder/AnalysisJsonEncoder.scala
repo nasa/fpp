@@ -395,6 +395,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
       "analysis" -> Json.obj(
         "componentInstanceMap" -> a.componentInstanceMap.asJson,
         "componentMap" -> a.componentMap.asJson,
+        "frameworkDefinitions" -> a.frameworkDefinitions.asJson,
         "includedFileSet" -> a.includedFileSet.asJson,
         "inputFileSet" -> a.inputFileSet.asJson,
         "locationSpecifierMap" -> a.locationSpecifierMap.asJson,

@@ -74,7 +74,9 @@ object LocateDefsFppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    writeSpecLoc(s, Ast.SpecLoc.StateMachine, data.name, node)
+    val s1 = s.copy(scopeNameList = data.name :: s.scopeNameList)
+    writeSpecLoc(s, Ast.SpecLoc.StateMachine, data.name, node) ++
+      data.members.getOrElse(Nil).flatMap(matchStateMachineMember(s1, _))
   }
 
   override def defComponentInstanceAnnotatedNode(

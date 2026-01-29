@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/types/array_format_not_numeric.fpp:3.26
+  array A = [3] S format "{.3f}"
+                         ^
+error: invalid format string: struct S is not a floating-point type

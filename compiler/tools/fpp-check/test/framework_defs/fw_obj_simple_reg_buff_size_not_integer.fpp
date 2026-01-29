@@ -1,0 +1,1 @@
+constant FW_OBJ_SIMPLE_REG_BUFF_SIZE = 1.1
