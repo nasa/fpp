@@ -804,6 +804,7 @@
           "astNodeId" : 5
         },
         "portInterface" : {
+          "instanceType" : "component",
           "portMap" : {
             "cmdIn" : {
               "Special" : {
@@ -1011,6 +1012,7 @@
           "astNodeId" : 10
         },
         "portInterface" : {
+          "instanceType" : "component",
           "portMap" : {
             "eventOut" : {
               "Special" : {
@@ -1164,6 +1166,7 @@
           "astNodeId" : 14
         },
         "portInterface" : {
+          "instanceType" : "component",
           "portMap" : {
             "tlmOut" : {
               "Special" : {
@@ -1263,6 +1266,7 @@
           "astNodeId" : 19
         },
         "portInterface" : {
+          "instanceType" : "component",
           "portMap" : {
             "prmGetOut" : {
               "Special" : {
@@ -1416,6 +1420,7 @@
           "astNodeId" : 23
         },
         "portInterface" : {
+          "instanceType" : "component",
           "portMap" : {
             "timeGetOut" : {
               "Special" : {

@@ -973,6 +973,7 @@
           "astNodeId" : 71
         },
         "portInterface" : {
+          "instanceType" : "component",
           "portMap" : {
             "cmdRegOut" : {
               "Special" : {
@@ -1522,6 +1523,7 @@
           
         },
         "portInterface" : {
+          "instanceType" : "interface",
           "portMap" : {
             "cmdRegOut" : {
               "Special" : {
@@ -1698,6 +1700,7 @@
           
         },
         "portInterface" : {
+          "instanceType" : "interface",
           "portMap" : {
             "general" : {
               "General" : {

@@ -1971,6 +1971,7 @@
           "astNodeId" : 19
         },
         "portInterface" : {
+          "instanceType" : "component",
           "portMap" : {
             "eventOut" : {
               "Special" : {
@@ -2218,6 +2219,7 @@
           "astNodeId" : 196
         },
         "portInterface" : {
+          "instanceType" : "component",
           "portMap" : {
             "eventOut" : {
               "Special" : {

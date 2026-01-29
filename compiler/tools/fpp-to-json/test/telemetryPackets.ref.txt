@@ -1205,6 +1205,7 @@
           "astNodeId" : 20
         },
         "portInterface" : {
+          "instanceType" : "component",
           "portMap" : {
             "pIn" : {
               "General" : {
@@ -1651,6 +1652,7 @@
           
         },
         "portInterface" : {
+          "instanceType" : "topology",
           "portMap" : {
             
           },
@@ -1682,35 +1684,44 @@
                 "qualifiedName" : {
                   "qualifier" : [
                   ],
-                  "base" : "c2"
+                  "base" : "c1"
                 },
-                "unqualifiedName" : "c2"
+                "unqualifiedName" : "c1"
               }
             },
             "portInstance" : {
-              "Special" : {
+              "General" : {
                 "aNode" : {
-                  "astNodeId" : 13
+                  "astNodeId" : 11
                 },
                 "specifier" : {
-                  "inputKind" : "None",
                   "kind" : {
-                    "TimeGet" : {
+                    "Output" : {
                       
                     }
                   },
-                  "name" : "timeGetOut",
+                  "name" : "pOut",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 10
+                    }
+                  },
                   "priority" : "None",
                   "queueFull" : "None"
                 },
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 3,
-                    "unqualifiedName" : "Time"
+                "kind" : "Output",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 5,
+                        "unqualifiedName" : "P"
+                      }
+                    }
                   }
                 },
-                "priority" : "None",
-                "queueFull" : "None",
                 "importNodeIds" : [
                 ]
               }
@@ -1722,9 +1733,9 @@
                 "qualifiedName" : {
                   "qualifier" : [
                   ],
-                  "base" : "c1"
+                  "base" : "c2"
                 },
-                "unqualifiedName" : "c1"
+                "unqualifiedName" : "c2"
               }
             },
             "portInstance" : {
@@ -1819,25 +1830,25 @@
             "portInstance" : {
               "General" : {
                 "aNode" : {
-                  "astNodeId" : 8
+                  "astNodeId" : 11
                 },
                 "specifier" : {
                   "kind" : {
-                    "SyncInput" : {
+                    "Output" : {
                       
                     }
                   },
-                  "name" : "pIn",
+                  "name" : "pOut",
                   "size" : "None",
                   "port" : {
                     "Some" : {
-                      "astNodeId" : 7
+                      "astNodeId" : 10
                     }
                   },
                   "priority" : "None",
                   "queueFull" : "None"
                 },
-                "kind" : "SyncInput",
+                "kind" : "Output",
                 "size" : 1,
                 "ty" : {
                   "DefPort" : {
@@ -1868,23 +1879,23 @@
             "portInstance" : {
               "Special" : {
                 "aNode" : {
-                  "astNodeId" : 12
+                  "astNodeId" : 13
                 },
                 "specifier" : {
                   "inputKind" : "None",
                   "kind" : {
-                    "Telemetry" : {
+                    "TimeGet" : {
                       
                     }
                   },
-                  "name" : "tlmOut",
+                  "name" : "timeGetOut",
                   "priority" : "None",
                   "queueFull" : "None"
                 },
                 "symbol" : {
                   "Port" : {
-                    "nodeId" : 0,
-                    "unqualifiedName" : "Tlm"
+                    "nodeId" : 3,
+                    "unqualifiedName" : "Time"
                   }
                 },
                 "priority" : "None",
@@ -1908,74 +1919,25 @@
             "portInstance" : {
               "General" : {
                 "aNode" : {
-                  "astNodeId" : 11
+                  "astNodeId" : 8
                 },
                 "specifier" : {
                   "kind" : {
-                    "Output" : {
+                    "SyncInput" : {
                       
                     }
                   },
-                  "name" : "pOut",
+                  "name" : "pIn",
                   "size" : "None",
                   "port" : {
                     "Some" : {
-                      "astNodeId" : 10
+                      "astNodeId" : 7
                     }
                   },
                   "priority" : "None",
                   "queueFull" : "None"
                 },
-                "kind" : "Output",
-                "size" : 1,
-                "ty" : {
-                  "DefPort" : {
-                    "symbol" : {
-                      "Port" : {
-                        "nodeId" : 5,
-                        "unqualifiedName" : "P"
-                      }
-                    }
-                  }
-                },
-                "importNodeIds" : [
-                ]
-              }
-            }
-          },
-          {
-            "interfaceInstance" : {
-              "InterfaceComponentInstance" : {
-                "qualifiedName" : {
-                  "qualifier" : [
-                  ],
-                  "base" : "c1"
-                },
-                "unqualifiedName" : "c1"
-              }
-            },
-            "portInstance" : {
-              "General" : {
-                "aNode" : {
-                  "astNodeId" : 11
-                },
-                "specifier" : {
-                  "kind" : {
-                    "Output" : {
-                      
-                    }
-                  },
-                  "name" : "pOut",
-                  "size" : "None",
-                  "port" : {
-                    "Some" : {
-                      "astNodeId" : 10
-                    }
-                  },
-                  "priority" : "None",
-                  "queueFull" : "None"
-                },
-                "kind" : "Output",
+                "kind" : "SyncInput",
                 "size" : 1,
                 "ty" : {
                   "DefPort" : {
@@ -2023,6 +1985,46 @@
                   "Port" : {
                     "nodeId" : 3,
                     "unqualifiedName" : "Time"
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None",
+                "importNodeIds" : [
+                ]
+              }
+            }
+          },
+          {
+            "interfaceInstance" : {
+              "InterfaceComponentInstance" : {
+                "qualifiedName" : {
+                  "qualifier" : [
+                  ],
+                  "base" : "c1"
+                },
+                "unqualifiedName" : "c1"
+              }
+            },
+            "portInstance" : {
+              "Special" : {
+                "aNode" : {
+                  "astNodeId" : 12
+                },
+                "specifier" : {
+                  "inputKind" : "None",
+                  "kind" : {
+                    "Telemetry" : {
+                      
+                    }
+                  },
+                  "name" : "tlmOut",
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 0,
+                    "unqualifiedName" : "Tlm"
                   }
                 },
                 "priority" : "None",

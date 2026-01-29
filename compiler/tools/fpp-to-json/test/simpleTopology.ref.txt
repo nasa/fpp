@@ -864,6 +864,7 @@
           "astNodeId" : 14
         },
         "portInterface" : {
+          "instanceType" : "component",
           "portMap" : {
             "pIn" : {
               "General" : {
@@ -1118,6 +1119,7 @@
           
         },
         "portInterface" : {
+          "instanceType" : "topology",
           "portMap" : {
             
           },
@@ -2908,6 +2910,7 @@
           
         },
         "portInterface" : {
+          "instanceType" : "interface",
           "portMap" : {
             
           },

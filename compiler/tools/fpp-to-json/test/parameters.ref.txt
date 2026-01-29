@@ -870,6 +870,7 @@
           "astNodeId" : 35
         },
         "portInterface" : {
+          "instanceType" : "component",
           "portMap" : {
             "cmdIn" : {
               "Special" : {

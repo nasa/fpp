@@ -414,6 +414,7 @@
           "astNodeId" : 21
         },
         "portInterface" : {
+          "instanceType" : "component",
           "portMap" : {
             "pingOut" : {
               "General" : {

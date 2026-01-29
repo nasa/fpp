@@ -1498,6 +1498,7 @@
           "astNodeId" : 81
         },
         "portInterface" : {
+          "instanceType" : "component",
           "portMap" : {
             "productRecvIn" : {
               "Special" : {
@@ -1899,6 +1900,7 @@
           
         },
         "portInterface" : {
+          "instanceType" : "topology",
           "portMap" : {
             
           },

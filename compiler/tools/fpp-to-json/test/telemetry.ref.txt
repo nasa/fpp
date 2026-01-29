@@ -1283,6 +1283,7 @@
           "astNodeId" : 58
         },
         "portInterface" : {
+          "instanceType" : "component",
           "portMap" : {
             "tlmOut" : {
               "Special" : {
@@ -2058,6 +2059,7 @@
           
         },
         "portInterface" : {
+          "instanceType" : "topology",
           "portMap" : {
             
           },

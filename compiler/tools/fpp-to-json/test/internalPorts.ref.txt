@@ -368,6 +368,7 @@
           "astNodeId" : 43
         },
         "portInterface" : {
+          "instanceType" : "component",
           "portMap" : {
             "pInternal" : {
               "Internal" : {

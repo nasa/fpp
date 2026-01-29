@@ -593,6 +593,7 @@
           "astNodeId" : 28
         },
         "portInterface" : {
+          "instanceType" : "component",
           "portMap" : {
             "productRequestOut" : {
               "Special" : {

@@ -1043,6 +1043,7 @@
           "astNodeId" : 22
         },
         "portInterface" : {
+          "instanceType" : "component",
           "portMap" : {
             "f32ValueIn1" : {
               "General" : {
@@ -1200,6 +1201,7 @@
           "astNodeId" : 38
         },
         "portInterface" : {
+          "instanceType" : "component",
           "portMap" : {
             "f32ValueIn1" : {
               "General" : {
@@ -1357,6 +1359,7 @@
           "astNodeId" : 58
         },
         "portInterface" : {
+          "instanceType" : "component",
           "portMap" : {
             "f32ValueIn1" : {
               "General" : {
@@ -1530,6 +1533,7 @@
           "astNodeId" : 68
         },
         "portInterface" : {
+          "instanceType" : "component",
           "portMap" : {
             "serialIn" : {
               "General" : {

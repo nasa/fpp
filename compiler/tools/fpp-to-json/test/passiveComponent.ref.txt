@@ -827,6 +827,7 @@
           "astNodeId" : 44
         },
         "portInterface" : {
+          "instanceType" : "component",
           "portMap" : {
             "schedIn" : {
               "General" : {
