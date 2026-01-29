@@ -1,5 +1,7 @@
 #!/bin/sh
 
-export COMPILER_ROOT=../../../..
+. ./defs.sh
 
+dir=$PWD
 sh ../scripts/run.sh
+cd $dir

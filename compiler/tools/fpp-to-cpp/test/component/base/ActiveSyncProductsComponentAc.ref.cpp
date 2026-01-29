@@ -2188,6 +2188,26 @@ bool ActiveSyncProductsComponentBase ::
 // ----------------------------------------------------------------------
 
 void ActiveSyncProductsComponentBase ::
+  cmdIn_handlerBase(
+      FwIndexType portNum,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      Fw::CmdArgBuffer& args
+  )
+{
+
+  const U32 idBase = this->getIdBase();
+  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+
+  // Select base class function based on opcode
+  switch (opCode - idBase) {
+    default:
+      // Unknown opcode: ignore it
+      break;
+  }
+}
+
+void ActiveSyncProductsComponentBase ::
   productRecvIn_handlerBase(
       FwIndexType portNum,
       FwDpIdType id,
@@ -3959,9 +3979,13 @@ void ActiveSyncProductsComponentBase ::
   )
 {
   FW_ASSERT(callComp);
-
-  const U32 idBase = callComp->getIdBase();
-  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
+  ActiveSyncProductsComponentBase* compPtr = static_cast<ActiveSyncProductsComponentBase*>(callComp);
+  compPtr->cmdIn_handlerBase(
+    portNum,
+    opCode,
+    cmdSeq,
+    args
+  );
 }
 
 void ActiveSyncProductsComponentBase ::
