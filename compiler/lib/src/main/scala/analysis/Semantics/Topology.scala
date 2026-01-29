@@ -178,7 +178,7 @@ case class Topology(
     val p = instanceMap.get(instance) match {
       case None => (pi, ifaceName, loc)
       case Some((otherPi, names, otherLoc)) =>
-        (pi.union(otherPi), s"$names | $ifaceName", otherLoc)
+        (pi.union(otherPi), s"$names or $ifaceName", otherLoc)
     }
 
     val map = instanceMap + (instance -> p)

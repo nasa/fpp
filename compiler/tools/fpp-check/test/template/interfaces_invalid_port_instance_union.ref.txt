@@ -3,4 +3,4 @@ fpp-check
             b.aOut[idx + 1] -> i.aIn3[idx]
                                ^
   expanded at [ local path prefix ]/compiler/tools/fpp-check/test/template/interfaces_invalid_port_instance_union.fpp:69.5
-error: aIn3 is not a port instance of interface A_I1 | A_I2
+error: aIn3 is not a port instance of interface A_I1 or A_I2
