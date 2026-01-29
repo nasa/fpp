@@ -88,6 +88,11 @@ include_subdir()
   run_test -ia include-subdir
 }
 
+include_state_machine()
+{
+  run_test -ia include-state-machine
+}
+
 include_topology()
 {
   run_test -ia include-topology
