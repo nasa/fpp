@@ -5,7 +5,7 @@ sealed trait NameGroup
 
 object NameGroup {
   case object PortInterfaceInstance extends NameGroup {
-    override def toString(): String = "port interface instance"
+    override def toString(): String = "component instance or topology"
   }
 
   case object Component extends NameGroup {

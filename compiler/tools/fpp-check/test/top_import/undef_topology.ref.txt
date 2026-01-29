@@ -3,4 +3,4 @@ fpp-check
   import A
          ^
 error: symbol A is not defined
-note: looking for a port interface instance here
+note: looking for a component instance or topology here
