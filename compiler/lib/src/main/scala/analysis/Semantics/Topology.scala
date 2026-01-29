@@ -22,7 +22,7 @@ case class Topology(
   /** The ports in the topology resolved to their port instance identifiers */
   portMap: Map[Name.Unqualified, (PortInstanceIdentifier, Location)] = Map(),
   /** Resolved port interface of the topology */
-  portInterface: PortInterface = PortInterface(),
+  portInterface: PortInterface = PortInterface("topology"),
   /** The connection patterns of this topology */
   patternMap: Map[Ast.SpecConnectionGraph.Pattern.Kind, ConnectionPattern] = Map(),
   /** The connections of this topology, indexed by graph name */
@@ -178,7 +178,7 @@ case class Topology(
 
   /** Add an instance that must be unique */
   def addInstanceSymbol(
-    symbol: Symbol.InterfaceInstance,
+    symbol: InterfaceInstanceSymbol,
     loc: Location
   ): Result.Result[Topology] =
     symbol match {

@@ -11,6 +11,9 @@ sealed trait Symbol extends SymbolInterface {
 /** A type symbol */
 sealed trait TypeSymbol extends Symbol
 
+/** A port interface instance symbol */
+sealed trait InterfaceInstanceSymbol extends Symbol
+
 object Symbol {
 
   final case class AbsType(node: Ast.Annotated[AstNode[Ast.DefAbsType]]) extends TypeSymbol {
@@ -31,7 +34,7 @@ object Symbol {
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name
   }
-  final case class ComponentInstance(node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]) extends Symbol {
+  final case class ComponentInstance(node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]) extends InterfaceInstanceSymbol {
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name
   }
@@ -70,11 +73,9 @@ object Symbol {
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name
   }
-  final case class Topology(node: Ast.Annotated[AstNode[Ast.DefTopology]]) extends Symbol {
+  final case class Topology(node: Ast.Annotated[AstNode[Ast.DefTopology]]) extends InterfaceInstanceSymbol {
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name
   }
-
-  type InterfaceInstance = Symbol.ComponentInstance | Symbol.Topology
 
 }

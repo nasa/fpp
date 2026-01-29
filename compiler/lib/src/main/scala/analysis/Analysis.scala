@@ -253,7 +253,7 @@ case class Analysis(
       yield this.componentInstanceMap(cis)
 
   /** Gets an interface instance symbol from the use-def map */
-  def getInterfaceInstanceSymbol(id: AstNode.Id): Result.Result[Symbol.InterfaceInstance] =
+  def getInterfaceInstanceSymbol(id: AstNode.Id): Result.Result[InterfaceInstanceSymbol] =
     this.useDefMap(id) match {
       case cis: Symbol.ComponentInstance => Right(cis)
       case ts: Symbol.Topology => Right(ts)

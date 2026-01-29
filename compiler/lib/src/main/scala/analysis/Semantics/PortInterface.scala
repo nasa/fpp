@@ -5,6 +5,8 @@ import fpp.compiler.util._
 
 /** An FPP Port Interface (set of port instances) */
 case class PortInterface(
+  /** The type of interface instance this port interface represents */
+  instanceType: String,
   /** The map from port names to port instances */
   portMap: Map[Name.Unqualified, PortInstance] = Map(),
   /** The map from special port kinds to special port instances */
@@ -68,6 +70,7 @@ case class PortInterface(
         SemanticError.InvalidPortInstanceId(
           Locations.get(name.id),
           name.data,
+          instanceType,
           interfaceName
         )
       )

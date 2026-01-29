@@ -204,8 +204,8 @@ sealed trait Error {
         Error.print (Some(loc)) (msg)
         System.err.println(s"port definition is here:")
         System.err.println(defLoc)
-      case SemanticError.InvalidPortInstanceId(loc, portName, interfaceName) =>
-        Error.print (Some(loc)) (s"$portName is not a port instance of interface $interfaceName")
+      case SemanticError.InvalidPortInstanceId(loc, portName, symbol, interfaceName) =>
+        Error.print (Some(loc)) (s"$portName is not a port instance of $symbol $interfaceName")
       case SemanticError.InvalidPortKind(loc, msg, specLoc) =>
         Error.print (Some(loc)) (msg)
         System.err.println(s"port instance is specified here:")
@@ -612,6 +612,7 @@ object SemanticError {
   final case class InvalidPortInstanceId(
     loc: Location,
     portName: String,
+    symbolKind: String,
     interfaceName: String
   ) extends Error
   /** Invalid port kind */
