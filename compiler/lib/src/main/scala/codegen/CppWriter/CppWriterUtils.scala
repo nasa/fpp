@@ -288,18 +288,18 @@ trait CppWriterUtils extends LineUtils {
   def getBufferName(name: String) = s"__fprime_ac_${name}_buffer"
 
   /** Gets the size of a string type */
-  def getStringSize(s: CppWriterState, t: Type.String): BigInt =
+  def getStringSize(s: CppWriterState, t: Type.String): String =
     t.size.map(
       node => {
         val _ @ Value.Integer(value) = s.a.valueMap(node.id).convertToType(Type.Integer).get
-        value
+        value.toString
       }
-    ).getOrElse(s.getFwDefaultStringSize)
+    ).getOrElse("FW_FIXED_LENGTH_STRING_SIZE")
 
   /** Write the size of a string type */
   def writeStringSize(s: CppWriterState, t: Type.String): String =
     t.size.map(node => ValueCppWriter.write(s, s.a.valueMap(node.id))).
-      getOrElse(s.getFwDefaultStringSize.toString)
+      getOrElse("FW_FIXED_LENGTH_STRING_SIZE")
 
   /** Write a C++ expression for static serialized size */
   def writeStaticSerializedSizeExpr(s: CppWriterState, t: Type, typeName: String): String =

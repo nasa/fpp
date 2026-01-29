@@ -125,7 +125,7 @@ namespace Ports {
       return _status;
     }
 
-    char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+    char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(FW_FIXED_LENGTH_STRING_SIZE)];
     Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
     _status = _buffer.deserializeTo(str1);
     if (_status != Fw::FW_SERIALIZE_OK) {

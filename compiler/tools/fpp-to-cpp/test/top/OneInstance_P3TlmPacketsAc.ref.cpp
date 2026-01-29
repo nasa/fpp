@@ -46,7 +46,7 @@ namespace M {
       struct ChannelSizes {
 
         //! The serialized size of channel M.c1.T1
-        static constexpr FwSizeType M_c1_T1 = Fw::StringBase::STATIC_SERIALIZED_SIZE(80);
+        static constexpr FwSizeType M_c1_T1 = Fw::StringBase::STATIC_SERIALIZED_SIZE(FW_FIXED_LENGTH_STRING_SIZE);
 
         //! The serialized size of channel M.c1.T2
         static constexpr FwSizeType M_c1_T2 = sizeof(U32);

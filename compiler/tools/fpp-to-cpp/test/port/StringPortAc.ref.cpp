@@ -102,14 +102,14 @@ Fw::SerializeStatus InputStringPort ::
   FW_ASSERT(this->m_comp != nullptr);
   FW_ASSERT(this->m_func != nullptr);
 
-  char __fprime_ac_str80_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+  char __fprime_ac_str80_buffer[Fw::StringBase::BUFFER_SIZE(FW_FIXED_LENGTH_STRING_SIZE)];
   Fw::ExternalString str80(__fprime_ac_str80_buffer, sizeof __fprime_ac_str80_buffer);
   _status = _buffer.deserializeTo(str80);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
-  char __fprime_ac_str80Ref_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+  char __fprime_ac_str80Ref_buffer[Fw::StringBase::BUFFER_SIZE(FW_FIXED_LENGTH_STRING_SIZE)];
   Fw::ExternalString str80Ref(__fprime_ac_str80Ref_buffer, sizeof __fprime_ac_str80Ref_buffer);
   _status = _buffer.deserializeTo(str80Ref);
   if (_status != Fw::FW_SERIALIZE_OK) {
