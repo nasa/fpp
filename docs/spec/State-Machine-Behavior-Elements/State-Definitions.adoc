@@ -20,6 +20,7 @@ and the terminating punctuation is a semicolon.
 A state definition member is one of the following:
 
 * An <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition specifier>>
+* An <<Specifiers_Include-Specifiers,include specifier>>
 * A <<State-Machine-Behavior-Elements_Choice-Definitions,choice definition>>
 * A <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
 * A <<State-Machine-Behavior-Elements_State-Transition-Specifiers,state transition specifier>>

@@ -1887,3 +1887,35 @@ Similarly, the FPP constant `M.c` becomes a {cpp} constant `M_c`.
 We will have more to say about this issue in the section on
 <<Analyzing-and-Translating-Models_Generating-C-Plus-Plus,
 generating {cpp}>>.
+
+=== Include Specifiers
+
+State machines definitions, like component definitions, can become long and
+repetitive. Portions of state machine definitions can be broken up into different
+files and included back into the main state machine definition.
+
+For example, suppose you are defining a state machine with a large substate
+and you wish to split it out into a separate file `LargeState.fppi`.
+The suffix `.fppi` is conventional for included FPP files.
+Inside the state machine definition, you can write the
+following state machine member:
+
+[source,fpp]
+--------
+include "LargeState.fppi"
+--------
+
+This construct is called an *include specifier*.
+During analysis and translation, the include specifier
+is replaced with the state specified
+in `LargeState.fppi`, just as if you had written them
+at the point where you wrote the include specifier.
+This replacement is called expanding or resolving the
+include specifier.
+This technique can be used in the top level of the state machine
+as well as within a sub-state as a state member rather than a member
+of the overall state machine.
+
+We discuss include specifiers further in the section on
+<<Specifying-Models-as-Files_Include-Specifiers,
+specifying models as files>>.

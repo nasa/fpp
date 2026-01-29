@@ -888,11 +888,12 @@ object Parser extends Parsers {
     node(defSignal) ^^ (n => Ast.StateMachineMember.DefSignal(n)) |
     node(defState) ^^ (n => Ast.StateMachineMember.DefState(n)) |
     node(defStruct) ^^ (n => Ast.StateMachineMember.DefStruct(n)) |
+    node(specInclude) ^^ (n => Ast.StateMachineMember.SpecInclude(n)) |
     node(specInitialTransition) ^^ (n => Ast.StateMachineMember.SpecInitialTransition(n)) |
     failure("state machine member expected")
   }
 
-  private def stateMachineMembers: Parser[List[Ast.StateMachineMember]] =
+  def stateMachineMembers: Parser[List[Ast.StateMachineMember]] =
     annotatedElementSequence(
       stateMachineMemberNode,
       semi,
@@ -900,18 +901,19 @@ object Parser extends Parsers {
     )
 
   private def stateMemberNode: Parser[Ast.StateMember.Node] = {
-    node(defChoice) ^^ (n => Ast.StateMember.DefChoice(n)) |
+      node(defChoice) ^^ (n => Ast.StateMember.DefChoice(n)) |
       node(defState) ^^ (n => Ast.StateMember.DefState(n)) |
       node(specInitialTransition) ^^ (n =>
         Ast.StateMember.SpecInitialTransition(n)) |
       node(specStateEntry) ^^ (n => Ast.StateMember.SpecStateEntry(n)) |
       node(specStateExit) ^^ (n => Ast.StateMember.SpecStateExit(n)) |
+      node(specInclude) ^^ (n => Ast.StateMember.SpecInclude(n)) |
       node(specStateTransition) ^^ (n =>
         Ast.StateMember.SpecStateTransition(n)) |
       failure("state member expected")
   }
 
-  private def stateMembers: Parser[List[Ast.StateMember]] =
+  def stateMembers: Parser[List[Ast.StateMember]] =
     annotatedElementSequence(stateMemberNode, semi, Ast.StateMember(_))
 
   def structTypeMember: Parser[Ast.StructTypeMember] = {

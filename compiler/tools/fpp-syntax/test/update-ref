@@ -42,6 +42,7 @@ update -ia include-component
 update -ia include-constant-1 include-constant-1
 update -ia include-module
 update -ia include-subdir
+update -ia include-state-machine
 update -ia include-topology
 update -ia subdir/include-parent-dir
 update -ia syntax syntax-include-ast
