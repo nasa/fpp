@@ -43,6 +43,9 @@ sealed trait PortInstance {
     loc: Location // The location whether the connection is requested
   ): Result.Result[Unit] = Right(())
 
+  /** Define an equivalence relation on port instance values.
+   *  Two values are equal if they represent the same port instance
+   *  in the context of a single port interface */
   override def equals(obj: Any): Boolean =
     obj match {
       case other: PortInstance =>
