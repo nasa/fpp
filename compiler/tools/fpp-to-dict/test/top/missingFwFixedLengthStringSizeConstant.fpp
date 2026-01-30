@@ -2,13 +2,13 @@ type FwChanIdType = U32
 type FwDpIdType = U32
 type FwDpPriorityType = U32
 type FwEventIdType = U32
+type FwOpcodeType = U32
 type FwPacketDescriptorType = U32
 type FwTlmPacketizeIdType = U16
 type FwSizeType = U32
 type FwSizeStoreType = U16
 type FwTimeBaseStoreType = U16
 type FwTimeContextStoreType = U8
-constant FW_FIXED_LENGTH_STRING_SIZE = 256
 
 module Fw {
     enum DpState { 
@@ -16,11 +16,11 @@ module Fw {
     }
 
     module DpCfg {
-        constant CONTAINER_USER_DATA_SIZE = 1
-
-        enum ProcType {
-            UNTRANSMITTED
+        enum ProcType { 
+            UNTRANSMITTED 
         }
+
+        constant CONTAINER_USER_DATA_SIZE = 1
     }
 }
 

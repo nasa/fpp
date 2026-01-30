@@ -38,7 +38,7 @@ class String1 :
       //! The size of the array
       SIZE = 3,
       //! The string size of each element
-      ELEMENT_STRING_SIZE = 80,
+      ELEMENT_STRING_SIZE = static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE),
       //! The buffer size of each element
       ELEMENT_BUFFER_SIZE = Fw::StringBase::BUFFER_SIZE(ELEMENT_STRING_SIZE),
       //! The serialized size of each element

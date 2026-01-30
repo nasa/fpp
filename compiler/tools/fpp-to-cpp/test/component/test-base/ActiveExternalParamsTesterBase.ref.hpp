@@ -185,7 +185,7 @@ class ActiveExternalParamsTesterBase :
       U32 u32;
       F32 f32;
       bool b;
-      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str1;
       E e;
       A a;
@@ -206,7 +206,7 @@ class ActiveExternalParamsTesterBase :
       U32 u32;
       F32 f32;
       bool b;
-      char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       Fw::ExternalString str2;
       E e;
       A a;

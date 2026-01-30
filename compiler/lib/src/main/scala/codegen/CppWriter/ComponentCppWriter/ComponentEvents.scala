@@ -150,7 +150,7 @@ case class ComponentEvents (
                       case t: Type.String =>
                         val serialSize = writeStringSize(s, t)
                         lines(
-                          s"_status = $name.serializeTo(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, $serialSize));"
+                          s"_status = $name.serializeTo(_logBuff, FW_MIN(static_cast<FwSizeType>(FW_LOG_STRING_MAX_SIZE), $serialSize));"
                         )
                       case t => lines(
                         s"""|#if FW_AMPCS_COMPATIBLE

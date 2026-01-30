@@ -454,18 +454,14 @@ case class ArrayCppWriter (
                  |tmp.format(\"%s\", tmp.toChar());"""
 
     val formatLoop = indexIterator(lines(
-      s"""|Fw::String tmp;
+      s"""|// Array data
+          |Fw::String tmp;
           |$fillTmpString
           |
-          |FwSizeType size = tmp.length() + (index > 0 ? 2 : 0);
-          |if ((size + sb.length()) <= sb.maxLength()) {
-          |  if (index > 0) {
-          |    sb += ", ";
-          |  }
-          |  sb += tmp;
-          |} else {
-          |  break;
+          |if (index > 0) {
+          |  sb += ", ";
           |}
+          |sb += tmp;
           |"""
     ))
     val serializedSize = eltType.getUnderlyingType match {
@@ -573,19 +569,13 @@ case class ArrayCppWriter (
                     |sb = "";
                     |
                     |// Array prefix
-                    |if (sb.length() + 2 <= sb.maxLength()) {
-                    |  sb += \"[ \";
-                    |} else {
-                    |  return;
-                    |}"""),
+                    |sb += \"[ \";"""),
               List(Line.blank),
               formatLoop,
               List(Line.blank),
               lines(
                 s"""|// Array suffix
-                    |if (sb.length() + 2 <= sb.maxLength()) {
-                    |  sb += \" ]\";
-                    |}"""),
+                    |sb += \" ]\";""")
             ),
             CppDoc.Function.NonSV,
             CppDoc.Function.Const,

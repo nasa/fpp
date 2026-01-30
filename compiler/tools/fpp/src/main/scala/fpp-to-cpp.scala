@@ -18,7 +18,6 @@ object FPPToCpp {
     guardPrefix: Option[String] = None,
     names: Option[String] = None,
     pathPrefixes: List[String] = Nil,
-    defaultStringSize: Int = CppWriterState.defaultDefaultStringSize,
     template: Boolean = false,
     unitTest: Boolean = false,
   )
@@ -97,7 +96,6 @@ object FPPToCpp {
           dir,
           options.guardPrefix,
           options.pathPrefixes,
-          options.defaultStringSize,
           Some(name)
         )
         mode match {
@@ -157,11 +155,6 @@ object FPPToCpp {
         .valueName("<prefix1>,<prefix2>...")
         .action((p, c) => c.copy(pathPrefixes = p.toList))
         .text("prefixes to delete from generated file paths"),
-      opt[Int]('s', "size")
-        .valueName("<size>")
-        .validate(s => if (s > 0) success else failure("size must be greater than zero"))
-        .action((s, c) => c.copy(defaultStringSize = s))
-        .text("default string size"),
       opt[Unit]('t', "template")
         .action((_, c) => c.copy(template = true))
         .text("emit template code"),
