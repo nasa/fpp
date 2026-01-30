@@ -203,7 +203,7 @@ object MatchedPortNumbering {
   /** Apply matched numbering */
   def apply(t: Topology): Result.Result[Topology] = {
     // Fold over instances and matchings
-    Result.foldLeft (t.instanceMap.keys.toList) (t) ((t, ci) =>
+    Result.foldLeft (t.componentInstanceMap.keys.toList) (t) ((t, ci) =>
       Result.foldLeft (ci.component.portMatchingList) (t) ((t, pm) =>
         handlePortMatching(t, ci, pm)
       )
@@ -242,14 +242,14 @@ object MatchedPortNumbering {
     // Map remote component instances to connections at pi
     def computeInstanceConnectionMap(pi: PortInstance): Result.Result[InstanceConnectionMap] = {
       val empty: InstanceConnectionMap = Map()
-      val pii = PortInstanceIdentifier(ci, pi)
+      val pii = PortInstanceIdentifier(InterfaceInstance.fromComponentInstance(ci), pi)
       val cs = t.getConnectionsAt(pii).toList.sorted
       Result.foldLeft (cs) (empty) ((m, c) => {
         if(c.isUnmatched)
           Right(m)
         else {
           val piiRemote = c.getOtherEndpoint(pi).port
-          val ciRemote = piiRemote.componentInstance
+          val _ @ InterfaceInstance.InterfaceComponentInstance(ciRemote) = piiRemote.interfaceInstance
           m.get(ciRemote) match {
             case Some(cPrev) => Left(
               SemanticError.DuplicateMatchedConnection(
@@ -267,7 +267,7 @@ object MatchedPortNumbering {
     // Map port numbers to connections at pi
     // While computing the map, enforce the rule against duplicate connections
     def computePortConnectionMap(pi: PortInstance): Result.Result[PortConnectionMap] = {
-      val pii = PortInstanceIdentifier(ci, pi)
+      val pii = PortInstanceIdentifier(InterfaceInstance.fromComponentInstance(ci), pi)
       val cs = t.getConnectionsAt(pii).toList.sorted
       val empty: PortConnectionMap = Map()
       Result.foldLeft (cs) (empty) ((m, c) => {

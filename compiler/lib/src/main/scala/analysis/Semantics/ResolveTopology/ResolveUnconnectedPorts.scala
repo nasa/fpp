@@ -9,9 +9,9 @@ object ResolveUnconnectedPorts {
   /** Compute the unconnected ports of t */
   def resolve(t: Topology): Topology = {
     // Fold over instances and ports
-    t.instanceMap.keys.foldLeft (t) ((t1, ci) =>
+    t.componentInstanceMap.keys.foldLeft (t) ((t1, ci) =>
       ci.component.portMap.values.foldLeft (t1) ((t2, pi) => {
-        val pii = PortInstanceIdentifier(ci, pi)
+        val pii = PortInstanceIdentifier(InterfaceInstance.fromComponentInstance(ci), pi)
         val direction = pi.getDirection
         val n = t2.getConnectionsAt(pii).size
         (direction, n) match {

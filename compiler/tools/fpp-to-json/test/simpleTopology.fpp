@@ -11,7 +11,7 @@ instance c1: C base id 0x100
 instance c2: C base id 0x200
 
 @ A simple topology
-topology Simple implements I {
+topology Simple {
 
   @ This specifier says that instance c1 is part of the topology
   instance c1
@@ -27,7 +27,5 @@ topology Simple implements I {
   connections C2 {
     c2.pOut -> c1.pIn
   }
-
-  port a = c1.a
 
 }

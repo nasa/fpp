@@ -7,12 +7,22 @@ import fpp.compiler.util._
 case class Topology(
   /** The AST node defining the topology */
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]],
+  /** Fully qualified name of the topology */
+  qualifiedName: Name.Qualified,
   /** The directly imported topologies */
-  directImportMap: Map[Symbol.Topology, Location] = Map(),
+  directTopologies: Map[Symbol.Topology, Location] = Map(),
+  /** The directly imported component instances */
+  directComponentInstances: Map[Symbol.ComponentInstance, Location] = Map(),
   /** The transitively imported topologies */
   transitiveImportSet: Set[Symbol.Topology] = Set(),
   /** The instances of this topology */
-  instanceMap: Map[ComponentInstance, Location] = Map(),
+  instanceMap: Map[InterfaceInstance, Location] = Map(),
+  /** List of the ports in the topology to resolve later */
+  ports: List[Ast.Annotated[AstNode[Ast.SpecTopPort]]] = List(),
+  /** The ports in the topology resolved to their port instance identifiers */
+  portMap: Map[Name.Unqualified, (PortInstanceIdentifier, Location)] = Map(),
+  /** Resolved port interface of the topology */
+  portInterface: PortInterface = PortInterface("topology"),
   /** The connection patterns of this topology */
   patternMap: Map[Ast.SpecConnectionGraph.Pattern.Kind, ConnectionPattern] = Map(),
   /** The connections of this topology, indexed by graph name */
@@ -33,6 +43,60 @@ case class Topology(
 
   /** Gets the name of the topology */
   def getName = aNode._2.data.name
+
+  /** Add a port to the topology */
+  def addPortNode(
+    node: Ast.Annotated[AstNode[Ast.SpecTopPort]]
+  ) = {
+    this.copy(ports = this.ports :+ node)
+  }
+
+  /** Add a port to the topology */
+  def addPort(
+    node: Ast.Annotated[AstNode[Ast.SpecTopPort]],
+    underlyingPort: PortInstanceIdentifier,
+    loc: Location,
+  ) = {
+    val name = node._2.data.name
+
+    for {
+      // Check that the topology port for a general port
+      pi <- underlyingPort.portInstance match {
+        case _: PortInstance.Internal => Left(SemanticError.InvalidPortInstance(
+          loc,
+          "topology port cannot point to an internal port",
+          Locations.get(underlyingPort.portInstance.getNodeId)
+        ))
+
+        case _ => {
+          for {
+            iface <- this.portInterface.addPortInstance(
+              PortInstance.Topology(
+                node,
+                underlyingPort.portInstance
+              )
+            )
+          } yield iface
+        }
+      }
+
+      t <- portMap.get(name) match {
+        case Some((_, prevPortLoc)) =>
+          Left(SemanticError.DuplicatePortInstance(
+            name,
+            loc,
+            List(),
+            prevPortLoc,
+            List()
+          ))
+        case None =>
+          Right(this.copy(
+            portMap = portMap + (name -> (underlyingPort, loc)),
+            portInterface = pi
+          ))
+      }
+    } yield t
+  }
 
   /** Add a connection */
   def addConnection(
@@ -100,30 +164,11 @@ case class Topology(
       Right(this.copy(patternMap = pm))
   }
 
-  /** Add an imported topology */
-  def addImportedTopology(
-    symbol: Symbol.Topology,
-    loc: Location
-  ): Result.Result[Topology] =
-    directImportMap.get(symbol) match {
-      case Some(prevLoc) => Left(
-        SemanticError.DuplicateTopology(
-          symbol.getUnqualifiedName,
-          loc,
-          prevLoc
-        )
-      )
-      case None =>
-        val map = directImportMap + (symbol -> loc)
-        Right(this.copy(directImportMap = map))
-    }
-
   /** Add an instance that may already be there */
-  def addMergedInstance(
-    instance: ComponentInstance,
+  def addInstance(
+    instance: InterfaceInstance,
     loc: Location
   ): Topology = {
-    // Private overrides public
     val pairOpt = instanceMap.get(instance)
     // Use the previous location, if it exists
     val mergedLoc = pairOpt.getOrElse(loc)
@@ -132,19 +177,38 @@ case class Topology(
   }
 
   /** Add an instance that must be unique */
-  def addUniqueInstance(
-    instance: ComponentInstance,
+  def addInstanceSymbol(
+    symbol: InterfaceInstanceSymbol,
     loc: Location
   ): Result.Result[Topology] =
-    instanceMap.get(instance) match {
-      case Some(prevLoc) => Left(
-        SemanticError.DuplicateInstance(
-          instance.getUnqualifiedName,
-          loc,
-          prevLoc
-        )
-      )
-      case None => Right(addMergedInstance(instance, loc))
+    symbol match {
+      case ci: Symbol.ComponentInstance =>
+        directComponentInstances.get(ci) match {
+          case Some(prevLoc) => Left(
+            SemanticError.DuplicateInstance(
+              symbol.getUnqualifiedName,
+              loc,
+              prevLoc
+            )
+          )
+          case None =>
+            val map = directComponentInstances + (ci -> loc)
+            Right(this.copy(directComponentInstances = map))
+        }
+
+      case top: Symbol.Topology =>
+        directTopologies.get(top) match {
+          case Some(prevLoc) => Left(
+            SemanticError.DuplicateInstance(
+              symbol.getUnqualifiedName,
+              loc,
+              prevLoc
+            )
+          )
+          case None =>
+            val map = directTopologies + (top -> loc)
+            Right(this.copy(directTopologies = map))
+        }
     }
 
   /** Assigns a port number to a connection at a port instance */
@@ -204,8 +268,18 @@ case class Topology(
     }
   }
 
+  def getQualifiedName = qualifiedName
+
   /** Gets the unqualified name of the topology */
   def getUnqualifiedName = aNode._2.data.name
+
+  /** Gets the location of the topology */
+  def getLoc: Location = Locations.get(aNode._2.id)
+
+  /** Precompute the set of component instances in the topology */
+  val componentInstanceMap: Map[ComponentInstance, Location] = {
+    instanceMap collect { case (InterfaceInstance.InterfaceComponentInstance(ci), loc: Location) => (ci, loc) }
+  }
 
   /** Gets the set of used port numbers */
   def getUsedPortNumbers(pi: PortInstance, cs: Iterable[Connection]): Set[Int] = 
@@ -216,15 +290,15 @@ case class Topology(
       }
     )
 
-  /** Look up a component instance used at a location */
+  /** Look up a interface instance used at a location */
   def lookUpInstanceAt(
-    instance: ComponentInstance,
+    instance: InterfaceInstance,
     loc: Location
   ): Result.Result[Location] =
     instanceMap.get(instance) match {
       case Some(result) => Right(result)
       case None => Left(
-        SemanticError.InvalidComponentInstance(
+        SemanticError.InvalidInterfaceInstance(
           loc,
           instance.getUnqualifiedName,
           this.getUnqualifiedName

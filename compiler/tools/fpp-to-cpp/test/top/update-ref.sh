@@ -35,6 +35,14 @@ params()
   move_cpp ParamsTopology
 }
 
+ports()
+{
+  update "-i ports.fpp -n ports.names.txt -p $PWD" ports
+  mv ports.names.txt ports.names.ref.txt
+  move_cpp Ports1Topology
+  move_cpp Ports2Topology
+}
+
 tlm_packets()
 {
   update "-i builtin.fpp -p $PWD" tlm_packets

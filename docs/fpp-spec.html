@@ -7009,7 +7009,7 @@ of a <a href="#Definitions">definition</a>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>A <strong>component instance location specifier</strong> <code>locate</code> <code>instance</code>
+<p>An <strong>interface instance location specifier</strong> <code>locate</code> <code>instance</code>
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
@@ -7040,11 +7040,6 @@ of a <a href="#Definitions">definition</a>.</p>
 </li>
 <li>
 <p>A <strong>state machine location specifier</strong> <code>locate</code> <code>state</code> <code>machine</code>
-<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
-<a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
-</li>
-<li>
-<p>A <strong>topology location specifier</strong> <code>locate</code> <code>topology</code>
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
@@ -8471,7 +8466,7 @@ Such a specifier can be the endpoint of a
 <p>The identifier specifies the name <em>N</em> of the port instance.</p>
 </li>
 <li>
-<p>The port instance identifier must be valid.</p>
+<p>The port instance identifier must be valid and <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a> a port instance <em>I</em>.</p>
 </li>
 <li>
 <p>The whole specifier makes <em>I</em> part of the

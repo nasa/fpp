@@ -35,11 +35,16 @@ final case class ComponentInstance(
     }
   }
 
+  /** Gets the qualified name of the component instance */
+  def getQualifiedName = qualifiedName
+
   /** Gets the unqualified name of the component instance */
   def getUnqualifiedName = aNode._2.data.name
 
   /** Gets the location of the component instance */
   def getLoc: Location = Locations.get(aNode._2.id)
+
+  def getInterface: PortInterface = component.portInterface
 
   override def compare(that: ComponentInstance) =
     this.qualifiedName.toString.compare(that.qualifiedName.toString)

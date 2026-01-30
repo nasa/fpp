@@ -224,8 +224,8 @@ module DefinitionsAndSpecifiers {
       i4
     } @< Graph pattern specifier
 
-    @ Topology import specifier
-    import T1 @< Topology import specifier
+    @ Topology instance specifier
+    instance T1 @< Topology instance specifier
 
     @ Telemetry packet group
     telemetry packets P {

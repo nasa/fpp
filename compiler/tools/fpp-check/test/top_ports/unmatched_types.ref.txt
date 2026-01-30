@@ -1,0 +1,13 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/top_ports/unmatched_types.fpp:32.5
+    A.a -> A.b
+    ^
+error: cannot connect port types P1 and P2
+from port is specified here:
+[ local path prefix ]/compiler/tools/fpp-check/test/top_ports/unmatched_types.fpp:23.3
+  port a = c1.pOut
+  ^
+to port is specified here:
+[ local path prefix ]/compiler/tools/fpp-check/test/top_ports/unmatched_types.fpp:24.3
+  port b = c2.pIn
+  ^

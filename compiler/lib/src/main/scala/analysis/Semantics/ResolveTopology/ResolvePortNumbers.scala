@@ -55,7 +55,7 @@ object ResolvePortNumbers {
       Right(())
     else {
       val loc = pi.getLoc
-      val instanceLoc = pii.componentInstance.getLoc
+      val instanceLoc = pii.interfaceInstance.getLoc
       Left(
         SemanticError.TooManyOutputPorts(
           loc,

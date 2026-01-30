@@ -1042,121 +1042,124 @@
         "aNode" : {
           "astNodeId" : 22
         },
-        "portMap" : {
-          "f32ValueIn1" : {
-            "General" : {
-              "aNode" : {
-                "astNodeId" : 9
-              },
-              "specifier" : {
-                "kind" : {
-                  "SyncInput" : {
-                    
-                  }
+        "portInterface" : {
+          "instanceType" : "component",
+          "portMap" : {
+            "f32ValueIn1" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 9
                 },
-                "name" : "f32ValueIn1",
-                "size" : "None",
-                "port" : {
-                  "Some" : {
-                    "astNodeId" : 8
-                  }
+                "specifier" : {
+                  "kind" : {
+                    "SyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "f32ValueIn1",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 8
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
                 },
-                "priority" : "None",
-                "queueFull" : "None"
-              },
-              "kind" : "SyncInput",
-              "size" : 1,
-              "ty" : {
-                "DefPort" : {
-                  "symbol" : {
-                    "Port" : {
-                      "nodeId" : 6,
-                      "unqualifiedName" : "F32Value"
+                "kind" : "SyncInput",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 6,
+                        "unqualifiedName" : "F32Value"
+                      }
                     }
                   }
-                }
-              },
-              "importNodeIds" : [
-              ]
+                },
+                "importNodeIds" : [
+                ]
+              }
+            },
+            "f32ValueIn2" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 12
+                },
+                "specifier" : {
+                  "kind" : {
+                    "SyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "f32ValueIn2",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 11
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "SyncInput",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 6,
+                        "unqualifiedName" : "F32Value"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
+            },
+            "f32ValueOut" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 21
+                },
+                "specifier" : {
+                  "kind" : {
+                    "Output" : {
+                      
+                    }
+                  },
+                  "name" : "f32ValueOut",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 20
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "Output",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 6,
+                        "unqualifiedName" : "F32Value"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
             }
           },
-          "f32ValueIn2" : {
-            "General" : {
-              "aNode" : {
-                "astNodeId" : 12
-              },
-              "specifier" : {
-                "kind" : {
-                  "SyncInput" : {
-                    
-                  }
-                },
-                "name" : "f32ValueIn2",
-                "size" : "None",
-                "port" : {
-                  "Some" : {
-                    "astNodeId" : 11
-                  }
-                },
-                "priority" : "None",
-                "queueFull" : "None"
-              },
-              "kind" : "SyncInput",
-              "size" : 1,
-              "ty" : {
-                "DefPort" : {
-                  "symbol" : {
-                    "Port" : {
-                      "nodeId" : 6,
-                      "unqualifiedName" : "F32Value"
-                    }
-                  }
-                }
-              },
-              "importNodeIds" : [
-              ]
-            }
-          },
-          "f32ValueOut" : {
-            "General" : {
-              "aNode" : {
-                "astNodeId" : 21
-              },
-              "specifier" : {
-                "kind" : {
-                  "Output" : {
-                    
-                  }
-                },
-                "name" : "f32ValueOut",
-                "size" : "None",
-                "port" : {
-                  "Some" : {
-                    "astNodeId" : 20
-                  }
-                },
-                "priority" : "None",
-                "queueFull" : "None"
-              },
-              "kind" : "Output",
-              "size" : 1,
-              "ty" : {
-                "DefPort" : {
-                  "symbol" : {
-                    "Port" : {
-                      "nodeId" : 6,
-                      "unqualifiedName" : "F32Value"
-                    }
-                  }
-                }
-              },
-              "importNodeIds" : [
-              ]
-            }
+          "specialPortMap" : {
+            
           }
-        },
-        "specialPortMap" : {
-          
         },
         "commandMap" : {
           
@@ -1197,121 +1200,124 @@
         "aNode" : {
           "astNodeId" : 38
         },
-        "portMap" : {
-          "f32ValueIn1" : {
-            "General" : {
-              "aNode" : {
-                "astNodeId" : 25
-              },
-              "specifier" : {
-                "kind" : {
-                  "AsyncInput" : {
-                    
-                  }
+        "portInterface" : {
+          "instanceType" : "component",
+          "portMap" : {
+            "f32ValueIn1" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 25
                 },
-                "name" : "f32ValueIn1",
-                "size" : "None",
-                "port" : {
-                  "Some" : {
-                    "astNodeId" : 24
-                  }
+                "specifier" : {
+                  "kind" : {
+                    "AsyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "f32ValueIn1",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 24
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
                 },
-                "priority" : "None",
-                "queueFull" : "None"
-              },
-              "kind" : "AsyncInput",
-              "size" : 1,
-              "ty" : {
-                "DefPort" : {
-                  "symbol" : {
-                    "Port" : {
-                      "nodeId" : 6,
-                      "unqualifiedName" : "F32Value"
+                "kind" : "AsyncInput",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 6,
+                        "unqualifiedName" : "F32Value"
+                      }
                     }
                   }
-                }
-              },
-              "importNodeIds" : [
-              ]
+                },
+                "importNodeIds" : [
+                ]
+              }
+            },
+            "f32ValueIn2" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 28
+                },
+                "specifier" : {
+                  "kind" : {
+                    "AsyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "f32ValueIn2",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 27
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "AsyncInput",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 6,
+                        "unqualifiedName" : "F32Value"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
+            },
+            "f32ValueOut" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 37
+                },
+                "specifier" : {
+                  "kind" : {
+                    "Output" : {
+                      
+                    }
+                  },
+                  "name" : "f32ValueOut",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 36
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "Output",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 6,
+                        "unqualifiedName" : "F32Value"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
             }
           },
-          "f32ValueIn2" : {
-            "General" : {
-              "aNode" : {
-                "astNodeId" : 28
-              },
-              "specifier" : {
-                "kind" : {
-                  "AsyncInput" : {
-                    
-                  }
-                },
-                "name" : "f32ValueIn2",
-                "size" : "None",
-                "port" : {
-                  "Some" : {
-                    "astNodeId" : 27
-                  }
-                },
-                "priority" : "None",
-                "queueFull" : "None"
-              },
-              "kind" : "AsyncInput",
-              "size" : 1,
-              "ty" : {
-                "DefPort" : {
-                  "symbol" : {
-                    "Port" : {
-                      "nodeId" : 6,
-                      "unqualifiedName" : "F32Value"
-                    }
-                  }
-                }
-              },
-              "importNodeIds" : [
-              ]
-            }
-          },
-          "f32ValueOut" : {
-            "General" : {
-              "aNode" : {
-                "astNodeId" : 37
-              },
-              "specifier" : {
-                "kind" : {
-                  "Output" : {
-                    
-                  }
-                },
-                "name" : "f32ValueOut",
-                "size" : "None",
-                "port" : {
-                  "Some" : {
-                    "astNodeId" : 36
-                  }
-                },
-                "priority" : "None",
-                "queueFull" : "None"
-              },
-              "kind" : "Output",
-              "size" : 1,
-              "ty" : {
-                "DefPort" : {
-                  "symbol" : {
-                    "Port" : {
-                      "nodeId" : 6,
-                      "unqualifiedName" : "F32Value"
-                    }
-                  }
-                }
-              },
-              "importNodeIds" : [
-              ]
-            }
+          "specialPortMap" : {
+            
           }
-        },
-        "specialPortMap" : {
-          
         },
         "commandMap" : {
           
@@ -1352,137 +1358,140 @@
         "aNode" : {
           "astNodeId" : 58
         },
-        "portMap" : {
-          "f32ValueIn1" : {
-            "General" : {
-              "aNode" : {
-                "astNodeId" : 43
-              },
-              "specifier" : {
-                "kind" : {
-                  "AsyncInput" : {
-                    
-                  }
+        "portInterface" : {
+          "instanceType" : "component",
+          "portMap" : {
+            "f32ValueIn1" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 43
                 },
-                "name" : "f32ValueIn1",
-                "size" : "None",
-                "port" : {
-                  "Some" : {
-                    "astNodeId" : 40
-                  }
-                },
-                "priority" : {
-                  "Some" : {
-                    "astNodeId" : 41
-                  }
-                },
-                "queueFull" : {
-                  "Some" : {
-                    "astNodeId" : 42
-                  }
-                }
-              },
-              "kind" : "AsyncInput",
-              "size" : 1,
-              "ty" : {
-                "DefPort" : {
-                  "symbol" : {
-                    "Port" : {
-                      "nodeId" : 6,
-                      "unqualifiedName" : "F32Value"
+                "specifier" : {
+                  "kind" : {
+                    "AsyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "f32ValueIn1",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 40
+                    }
+                  },
+                  "priority" : {
+                    "Some" : {
+                      "astNodeId" : 41
+                    }
+                  },
+                  "queueFull" : {
+                    "Some" : {
+                      "astNodeId" : 42
                     }
                   }
-                }
-              },
-              "importNodeIds" : [
-              ]
+                },
+                "kind" : "AsyncInput",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 6,
+                        "unqualifiedName" : "F32Value"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
+            },
+            "f32ValueIn2" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 48
+                },
+                "specifier" : {
+                  "kind" : {
+                    "AsyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "f32ValueIn2",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 45
+                    }
+                  },
+                  "priority" : {
+                    "Some" : {
+                      "astNodeId" : 46
+                    }
+                  },
+                  "queueFull" : {
+                    "Some" : {
+                      "astNodeId" : 47
+                    }
+                  }
+                },
+                "kind" : "AsyncInput",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 6,
+                        "unqualifiedName" : "F32Value"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
+            },
+            "f32ValueOut" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 57
+                },
+                "specifier" : {
+                  "kind" : {
+                    "Output" : {
+                      
+                    }
+                  },
+                  "name" : "f32ValueOut",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 56
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "Output",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 6,
+                        "unqualifiedName" : "F32Value"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
             }
           },
-          "f32ValueIn2" : {
-            "General" : {
-              "aNode" : {
-                "astNodeId" : 48
-              },
-              "specifier" : {
-                "kind" : {
-                  "AsyncInput" : {
-                    
-                  }
-                },
-                "name" : "f32ValueIn2",
-                "size" : "None",
-                "port" : {
-                  "Some" : {
-                    "astNodeId" : 45
-                  }
-                },
-                "priority" : {
-                  "Some" : {
-                    "astNodeId" : 46
-                  }
-                },
-                "queueFull" : {
-                  "Some" : {
-                    "astNodeId" : 47
-                  }
-                }
-              },
-              "kind" : "AsyncInput",
-              "size" : 1,
-              "ty" : {
-                "DefPort" : {
-                  "symbol" : {
-                    "Port" : {
-                      "nodeId" : 6,
-                      "unqualifiedName" : "F32Value"
-                    }
-                  }
-                }
-              },
-              "importNodeIds" : [
-              ]
-            }
-          },
-          "f32ValueOut" : {
-            "General" : {
-              "aNode" : {
-                "astNodeId" : 57
-              },
-              "specifier" : {
-                "kind" : {
-                  "Output" : {
-                    
-                  }
-                },
-                "name" : "f32ValueOut",
-                "size" : "None",
-                "port" : {
-                  "Some" : {
-                    "astNodeId" : 56
-                  }
-                },
-                "priority" : "None",
-                "queueFull" : "None"
-              },
-              "kind" : "Output",
-              "size" : 1,
-              "ty" : {
-                "DefPort" : {
-                  "symbol" : {
-                    "Port" : {
-                      "nodeId" : 6,
-                      "unqualifiedName" : "F32Value"
-                    }
-                  }
-                }
-              },
-              "importNodeIds" : [
-              ]
-            }
+          "specialPortMap" : {
+            
           }
-        },
-        "specialPortMap" : {
-          
         },
         "commandMap" : {
           
@@ -1523,70 +1532,73 @@
         "aNode" : {
           "astNodeId" : 68
         },
-        "portMap" : {
-          "serialIn" : {
-            "General" : {
-              "aNode" : {
-                "astNodeId" : 61
-              },
-              "specifier" : {
-                "kind" : {
-                  "SyncInput" : {
+        "portInterface" : {
+          "instanceType" : "component",
+          "portMap" : {
+            "serialIn" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 61
+                },
+                "specifier" : {
+                  "kind" : {
+                    "SyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "serialIn",
+                  "size" : "None",
+                  "port" : "None",
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "SyncInput",
+                "size" : 1,
+                "ty" : {
+                  "Serial" : {
                     
                   }
                 },
-                "name" : "serialIn",
-                "size" : "None",
-                "port" : "None",
-                "priority" : "None",
-                "queueFull" : "None"
-              },
-              "kind" : "SyncInput",
-              "size" : 1,
-              "ty" : {
-                "Serial" : {
-                  
-                }
-              },
-              "importNodeIds" : [
-              ]
+                "importNodeIds" : [
+                ]
+              }
+            },
+            "serialOut" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 67
+                },
+                "specifier" : {
+                  "kind" : {
+                    "Output" : {
+                      
+                    }
+                  },
+                  "name" : "serialOut",
+                  "size" : {
+                    "Some" : {
+                      "astNodeId" : 66
+                    }
+                  },
+                  "port" : "None",
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "Output",
+                "size" : 10,
+                "ty" : {
+                  "Serial" : {
+                    
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
             }
           },
-          "serialOut" : {
-            "General" : {
-              "aNode" : {
-                "astNodeId" : 67
-              },
-              "specifier" : {
-                "kind" : {
-                  "Output" : {
-                    
-                  }
-                },
-                "name" : "serialOut",
-                "size" : {
-                  "Some" : {
-                    "astNodeId" : 66
-                  }
-                },
-                "port" : "None",
-                "priority" : "None",
-                "queueFull" : "None"
-              },
-              "kind" : "Output",
-              "size" : 10,
-              "ty" : {
-                "Serial" : {
-                  
-                }
-              },
-              "importNodeIds" : [
-              ]
-            }
+          "specialPortMap" : {
+            
           }
-        },
-        "specialPortMap" : {
-          
         },
         "commandMap" : {
           

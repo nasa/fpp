@@ -1,0 +1,13 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/top_ports/implements_port_mismatch_1.fpp:22.23
+topology A implements I {
+                      ^
+error: port interface not implemented
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/top_ports/implements_port_mismatch_1.fpp:26.3
+  port pOut = c1.pOutDifferentName
+  ^
+error: port instance does not match definition in interface:
+[ local path prefix ]/compiler/tools/fpp-check/test/top_ports/implements_port_mismatch_1.fpp:4.5
+    output port pOut: [2] P
+    ^

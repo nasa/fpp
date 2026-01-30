@@ -1030,83 +1030,142 @@
         "aNode" : {
           "astNodeId" : 60
         },
-        "portMap" : {
-          "schedIn" : {
-            "General" : {
-              "aNode" : {
-                "astNodeId" : 46
-              },
-              "specifier" : {
-                "kind" : {
-                  "SyncInput" : {
-                    
+        "portInterface" : {
+          "instanceType" : "component",
+          "portMap" : {
+            "schedIn" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 46
+                },
+                "specifier" : {
+                  "kind" : {
+                    "SyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "schedIn",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 45
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "SyncInput",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 83,
+                        "unqualifiedName" : "Sched"
+                      }
+                    }
                   }
                 },
-                "name" : "schedIn",
-                "size" : "None",
-                "port" : {
-                  "Some" : {
-                    "astNodeId" : 45
+                "importNodeIds" : [
+                ]
+              }
+            },
+            "calibrationIn" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 49
+                },
+                "specifier" : {
+                  "kind" : {
+                    "AsyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "calibrationIn",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 48
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "AsyncInput",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 6,
+                        "unqualifiedName" : "Calibration"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
+            },
+            "tlmOut" : {
+              "Special" : {
+                "aNode" : {
+                  "astNodeId" : 50
+                },
+                "specifier" : {
+                  "inputKind" : "None",
+                  "kind" : {
+                    "Telemetry" : {
+                      
+                    }
+                  },
+                  "name" : "tlmOut",
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 85,
+                    "unqualifiedName" : "Tlm"
                   }
                 },
                 "priority" : "None",
-                "queueFull" : "None"
-              },
-              "kind" : "SyncInput",
-              "size" : 1,
-              "ty" : {
-                "DefPort" : {
-                  "symbol" : {
-                    "Port" : {
-                      "nodeId" : 83,
-                      "unqualifiedName" : "Sched"
-                    }
-                  }
-                }
-              },
-              "importNodeIds" : [
-              ]
-            }
-          },
-          "calibrationIn" : {
-            "General" : {
-              "aNode" : {
-                "astNodeId" : 49
-              },
-              "specifier" : {
-                "kind" : {
-                  "AsyncInput" : {
-                    
-                  }
+                "queueFull" : "None",
+                "importNodeIds" : [
+                ]
+              }
+            },
+            "timeGetOut" : {
+              "Special" : {
+                "aNode" : {
+                  "astNodeId" : 51
                 },
-                "name" : "calibrationIn",
-                "size" : "None",
-                "port" : {
-                  "Some" : {
-                    "astNodeId" : 48
+                "specifier" : {
+                  "inputKind" : "None",
+                  "kind" : {
+                    "TimeGet" : {
+                      
+                    }
+                  },
+                  "name" : "timeGetOut",
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 88,
+                    "unqualifiedName" : "Time"
                   }
                 },
                 "priority" : "None",
-                "queueFull" : "None"
-              },
-              "kind" : "AsyncInput",
-              "size" : 1,
-              "ty" : {
-                "DefPort" : {
-                  "symbol" : {
-                    "Port" : {
-                      "nodeId" : 6,
-                      "unqualifiedName" : "Calibration"
-                    }
-                  }
-                }
-              },
-              "importNodeIds" : [
-              ]
+                "queueFull" : "None",
+                "importNodeIds" : [
+                ]
+              }
             }
           },
-          "tlmOut" : {
-            "Special" : {
+          "specialPortMap" : {
+            "telemetry" : {
               "aNode" : {
                 "astNodeId" : 50
               },
@@ -1131,10 +1190,8 @@
               "queueFull" : "None",
               "importNodeIds" : [
               ]
-            }
-          },
-          "timeGetOut" : {
-            "Special" : {
+            },
+            "time get" : {
               "aNode" : {
                 "astNodeId" : 51
               },
@@ -1160,60 +1217,6 @@
               "importNodeIds" : [
               ]
             }
-          }
-        },
-        "specialPortMap" : {
-          "telemetry" : {
-            "aNode" : {
-              "astNodeId" : 50
-            },
-            "specifier" : {
-              "inputKind" : "None",
-              "kind" : {
-                "Telemetry" : {
-                  
-                }
-              },
-              "name" : "tlmOut",
-              "priority" : "None",
-              "queueFull" : "None"
-            },
-            "symbol" : {
-              "Port" : {
-                "nodeId" : 85,
-                "unqualifiedName" : "Tlm"
-              }
-            },
-            "priority" : "None",
-            "queueFull" : "None",
-            "importNodeIds" : [
-            ]
-          },
-          "time get" : {
-            "aNode" : {
-              "astNodeId" : 51
-            },
-            "specifier" : {
-              "inputKind" : "None",
-              "kind" : {
-                "TimeGet" : {
-                  
-                }
-              },
-              "name" : "timeGetOut",
-              "priority" : "None",
-              "queueFull" : "None"
-            },
-            "symbol" : {
-              "Port" : {
-                "nodeId" : 88,
-                "unqualifiedName" : "Time"
-              }
-            },
-            "priority" : "None",
-            "queueFull" : "None",
-            "importNodeIds" : [
-            ]
           }
         },
         "commandMap" : {
@@ -1550,7 +1553,7 @@
       },
       "80" : {
         "map" : {
-          "ComponentInstance" : {
+          "PortInterfaceInstance" : {
             "map" : {
               "engineTemp" : {
                 "ComponentInstance" : {

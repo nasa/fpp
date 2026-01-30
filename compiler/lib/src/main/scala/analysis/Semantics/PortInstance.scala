@@ -43,6 +43,19 @@ sealed trait PortInstance {
     loc: Location // The location whether the connection is requested
   ): Result.Result[Unit] = Right(())
 
+  /** Define an equivalence relation on port instance values.
+   *  Two values are equal if they represent the same port instance
+   *  in the context of a single port interface */
+  override def equals(obj: Any): Boolean =
+    obj match {
+      case other: PortInstance =>
+        this.getArraySize == other.getArraySize &&
+        this.getDirection == other.getDirection &&
+        this.getType == other.getType &&
+        this.getUnqualifiedName == other.getUnqualifiedName
+      case _ => false
+    }
+
 }
 
 object PortInstance {
@@ -138,6 +151,29 @@ object PortInstance {
       this.copy(importNodeIds = importNodeIds :+ importNode)
 
     def getImportNodeIds = importNodeIds
+  }
+
+  final case class Topology(
+    aNode: Ast.Annotated[AstNode[Ast.SpecTopPort]],
+    underlyingPort: PortInstance
+  ) extends PortInstance {
+    override def getDirection = underlyingPort.getDirection
+
+    override def getArraySize = underlyingPort.getArraySize
+
+    override def getNodeId = aNode._2.id
+
+    override def getType = underlyingPort.getType
+
+    override def getUnqualifiedName = aNode._2.data.name
+
+    // Topology ports cannot be imported
+    def withImportSpecifier(importNode: AstNode.Id): PortInstance =
+      this
+
+    def getImportNodeIds = List()
+
+    override def toString = s"${getUnqualifiedName.toString} -> ${underlyingPort.toString}"
   }
 
   /** A special port instance */

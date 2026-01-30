@@ -413,92 +413,95 @@
         "aNode" : {
           "astNodeId" : 21
         },
-        "portMap" : {
-          "pingOut" : {
-            "General" : {
-              "aNode" : {
-                "astNodeId" : 6
-              },
-              "specifier" : {
-                "kind" : {
-                  "Output" : {
-                    
-                  }
+        "portInterface" : {
+          "instanceType" : "component",
+          "portMap" : {
+            "pingOut" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 6
                 },
-                "name" : "pingOut",
-                "size" : {
-                  "Some" : {
-                    "astNodeId" : 2
-                  }
+                "specifier" : {
+                  "kind" : {
+                    "Output" : {
+                      
+                    }
+                  },
+                  "name" : "pingOut",
+                  "size" : {
+                    "Some" : {
+                      "astNodeId" : 2
+                    }
+                  },
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 5
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
                 },
-                "port" : {
-                  "Some" : {
-                    "astNodeId" : 5
-                  }
-                },
-                "priority" : "None",
-                "queueFull" : "None"
-              },
-              "kind" : "Output",
-              "size" : 10,
-              "ty" : {
-                "DefPort" : {
-                  "symbol" : {
-                    "Port" : {
-                      "nodeId" : 24,
-                      "unqualifiedName" : "Ping"
+                "kind" : "Output",
+                "size" : 10,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 24,
+                        "unqualifiedName" : "Ping"
+                      }
                     }
                   }
-                }
-              },
-              "importNodeIds" : [
-              ]
+                },
+                "importNodeIds" : [
+                ]
+              }
+            },
+            "pingIn" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 11
+                },
+                "specifier" : {
+                  "kind" : {
+                    "AsyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "pingIn",
+                  "size" : {
+                    "Some" : {
+                      "astNodeId" : 7
+                    }
+                  },
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 10
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "AsyncInput",
+                "size" : 10,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 24,
+                        "unqualifiedName" : "Ping"
+                      }
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
             }
           },
-          "pingIn" : {
-            "General" : {
-              "aNode" : {
-                "astNodeId" : 11
-              },
-              "specifier" : {
-                "kind" : {
-                  "AsyncInput" : {
-                    
-                  }
-                },
-                "name" : "pingIn",
-                "size" : {
-                  "Some" : {
-                    "astNodeId" : 7
-                  }
-                },
-                "port" : {
-                  "Some" : {
-                    "astNodeId" : 10
-                  }
-                },
-                "priority" : "None",
-                "queueFull" : "None"
-              },
-              "kind" : "AsyncInput",
-              "size" : 10,
-              "ty" : {
-                "DefPort" : {
-                  "symbol" : {
-                    "Port" : {
-                      "nodeId" : 24,
-                      "unqualifiedName" : "Ping"
-                    }
-                  }
-                }
-              },
-              "importNodeIds" : [
-              ]
-            }
+          "specialPortMap" : {
+            
           }
-        },
-        "specialPortMap" : {
-          
         },
         "commandMap" : {
           

@@ -1,0 +1,10 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/top_ports/implements_port_missing.fpp:23.23
+topology A implements I {
+                      ^
+error: port interface not implemented
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/top_ports/implements_port_missing.fpp:5.5
+    output port pOut2: [3] P
+    ^
+error: port instance missing

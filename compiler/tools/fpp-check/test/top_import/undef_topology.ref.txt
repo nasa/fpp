@@ -3,4 +3,4 @@ fpp-check
   import A
          ^
 error: symbol A is not defined
-note: looking for a topology here
+note: looking for a component instance or topology here

@@ -1,6 +1,6 @@
 def topology
   ident T
   @ Included instance
-  spec comp instance
+  spec interface instance
     qual ident x
   @< Included instance

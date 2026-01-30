@@ -93,7 +93,7 @@ object TlmPacketSet {
       then {
         val entry = d.tlmChannelEntryMap(id)
         val channelName = entry.getQualifiedName
-        val instanceLoc = t.instanceMap(entry.instance)
+        val instanceLoc = t.instanceMap(InterfaceInstance.fromComponentInstance(entry.instance))
         val channelLoc = entry.tlmChannel.getLoc
         val msg = s"""|telemetry channel $channelName is neither used nor marked as omitted
                       |

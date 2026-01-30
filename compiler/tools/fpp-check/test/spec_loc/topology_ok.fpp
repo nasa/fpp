@@ -1,4 +1,4 @@
-locate topology T at "topology_ok.fpp"
+locate instance T at "topology_ok.fpp"
 
 topology T {
 
