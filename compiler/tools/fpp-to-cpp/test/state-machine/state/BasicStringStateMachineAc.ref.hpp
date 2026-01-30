@@ -48,6 +48,8 @@ namespace FppTest {
           __FPRIME_AC_INITIAL_TRANSITION,
           //! Signal s
           s,
+          //! Signal s1
+          s1,
         };
 
       protected:
@@ -90,6 +92,11 @@ namespace FppTest {
 
         //! Signal s
         void sendSignal_s(
+            const Fw::StringBase& value //!< The value
+        );
+
+        //! Signal s1
+        void sendSignal_s1(
             const Fw::StringBase& value //!< The value
         );
 
