@@ -123,10 +123,10 @@ class ActiveAsyncProductsComponentBase :
     static constexpr FwSizeType SIZE_OF_DataRecord_RECORD =
       sizeof(FwDpIdType) + ActiveAsyncProducts_Data::SERIALIZED_SIZE;
     static constexpr FwSizeType SIZE_OF_StringArrayRecord_RECORD(FwSizeType arraySize) {
-      return sizeof(FwDpIdType) + sizeof(FwSizeStoreType) + arraySize * Fw::StringBase::STATIC_SERIALIZED_SIZE(FW_FIXED_LENGTH_STRING_SIZE);
+      return sizeof(FwDpIdType) + sizeof(FwSizeStoreType) + arraySize * Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
     }
     static constexpr FwSizeType SIZE_OF_StringRecord_RECORD =
-      sizeof(FwDpIdType) + Fw::StringBase::STATIC_SERIALIZED_SIZE(FW_FIXED_LENGTH_STRING_SIZE);
+      sizeof(FwDpIdType) + Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
     static constexpr FwSizeType SIZE_OF_U32ArrayRecord_RECORD(FwSizeType arraySize) {
       return sizeof(FwDpIdType) + sizeof(FwSizeStoreType) + arraySize * sizeof(U32);
     }

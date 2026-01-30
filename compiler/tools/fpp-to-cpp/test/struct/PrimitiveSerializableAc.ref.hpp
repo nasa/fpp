@@ -47,7 +47,7 @@ class Primitive :
         sizeof(U64) +
         sizeof(U8) +
         sizeof(U8) +
-        Fw::StringBase::STATIC_SERIALIZED_SIZE(FW_FIXED_LENGTH_STRING_SIZE)
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))
     };
 
   public:
@@ -318,7 +318,7 @@ class Primitive :
     U64 m_mU64;
     U8 m_mU8;
     bool m_m_bool;
-    char m___fprime_ac_m_string_buffer[Fw::StringBase::BUFFER_SIZE(FW_FIXED_LENGTH_STRING_SIZE)];
+    char m___fprime_ac_m_string_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
     Fw::ExternalString m_m_string;
 
 };

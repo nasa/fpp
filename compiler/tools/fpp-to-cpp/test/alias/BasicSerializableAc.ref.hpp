@@ -31,7 +31,7 @@ class Basic :
       SERIALIZED_SIZE =
         sizeof(TU32) +
         sizeof(TF32) +
-        Fw::StringBase::STATIC_SERIALIZED_SIZE(FW_FIXED_LENGTH_STRING_SIZE) +
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
         Fw::StringBase::STATIC_SERIALIZED_SIZE(2)
     };
 
@@ -190,7 +190,7 @@ class Basic :
 
     TU32 m_A;
     TF32 m_B;
-    char m___fprime_ac_C_buffer[Fw::StringBase::BUFFER_SIZE(FW_FIXED_LENGTH_STRING_SIZE)];
+    char m___fprime_ac_C_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
     Fw::ExternalString m_C;
     char m___fprime_ac_D_buffer[Fw::StringBase::BUFFER_SIZE(2)];
     Fw::ExternalString m_D;

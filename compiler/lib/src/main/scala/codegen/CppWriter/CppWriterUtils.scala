@@ -290,7 +290,7 @@ trait CppWriterUtils extends LineUtils {
   /** Write the size of a string type */
   def writeStringSize(s: CppWriterState, t: Type.String): String =
     t.size.map(node => ValueCppWriter.write(s, s.a.valueMap(node.id))).
-      getOrElse("FW_FIXED_LENGTH_STRING_SIZE")
+      getOrElse("static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)")
 
   /** Write a C++ expression for static serialized size */
   def writeStaticSerializedSizeExpr(s: CppWriterState, t: Type, typeName: String): String =

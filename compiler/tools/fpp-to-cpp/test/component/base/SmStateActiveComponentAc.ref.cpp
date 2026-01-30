@@ -25,7 +25,7 @@ namespace FppTest {
         BYTE size_of_FppTest_SmHarness_TestEnum[FppTest::SmHarness::TestEnum::SERIALIZED_SIZE];
         BYTE size_of_FppTest_SmHarness_TestStruct[FppTest::SmHarness::TestStruct::SERIALIZED_SIZE];
         BYTE size_of_U32[sizeof(U32)];
-        BYTE size_of_string[Fw::StringBase::STATIC_SERIALIZED_SIZE(FW_FIXED_LENGTH_STRING_SIZE)];
+        BYTE size_of_string[Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
       };
 
       // The serialized size
@@ -1247,7 +1247,7 @@ namespace FppTest {
     // Serialize the message type, port number, state ID, and signal
     this->sendSignalStart(SmId::smStateBasicGuardString, static_cast<FwEnumStoreType>(FppTest_SmState_BasicGuardString::Signal::s), buffer);
     // Serialize the signal data
-    const Fw::SerializeStatus status = value.serializeTo(buffer, FW_FIXED_LENGTH_STRING_SIZE);
+    const Fw::SerializeStatus status = value.serializeTo(buffer, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     // Send the message and handle overflow
     this->smStateBasicGuardString_sendSignalFinish(buffer);
@@ -1345,7 +1345,7 @@ namespace FppTest {
     // Serialize the message type, port number, state ID, and signal
     this->sendSignalStart(SmId::smStateBasicString, static_cast<FwEnumStoreType>(FppTest_SmState_BasicString::Signal::s), buffer);
     // Serialize the signal data
-    const Fw::SerializeStatus status = value.serializeTo(buffer, FW_FIXED_LENGTH_STRING_SIZE);
+    const Fw::SerializeStatus status = value.serializeTo(buffer, static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE));
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     // Send the message and handle overflow
     this->smStateBasicString_sendSignalFinish(buffer);
@@ -2212,7 +2212,7 @@ namespace FppTest {
     switch (signal) {
       case FppTest_SmState_BasicGuardString::Signal::s: {
         // Deserialize the data
-        char __fprime_ac_value_buffer[Fw::StringBase::BUFFER_SIZE(FW_FIXED_LENGTH_STRING_SIZE)];
+        char __fprime_ac_value_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
         Fw::ExternalString value(__fprime_ac_value_buffer, sizeof __fprime_ac_value_buffer);
         const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
@@ -2405,7 +2405,7 @@ namespace FppTest {
     switch (signal) {
       case FppTest_SmState_BasicString::Signal::s: {
         // Deserialize the data
-        char __fprime_ac_value_buffer[Fw::StringBase::BUFFER_SIZE(FW_FIXED_LENGTH_STRING_SIZE)];
+        char __fprime_ac_value_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
         Fw::ExternalString value(__fprime_ac_value_buffer, sizeof __fprime_ac_value_buffer);
         const Fw::SerializeStatus status = buffer.deserializeTo(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
