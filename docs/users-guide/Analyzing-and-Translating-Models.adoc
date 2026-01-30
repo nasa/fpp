@@ -902,15 +902,18 @@ That way the subtopologies are part of the model, but no dictionaries
 are generated for them.
 
 *F Prime configuration:*
-When you run `fpp-to-dict` on an FPP model, the model must define the
-framework definitions specified in the
+When you run `fpp-to-dict` on an FPP model, the model must provide the
+<<Defining-Constants_Framework-Constants,framework constants>>
+and
+<<Defining-Types_Framework-Types,framework types>>
+specified in the
 https://fprime.jpl.nasa.gov/latest/docs/reference/fpp-json-dict/[F Prime
 dictionary specification].
 
-These types and constants are required by the F Prime GDS, so they are 
-included in the dictionary.
-Typically you specify these types and constants as part of F Prime configuration,
-in the file `default/config/FpConfig.fpp` or `default/config/FpConstants.fpp`.
+These types and constants are required by the F Prime GDS, so they are included 
+in the dictionary.
+Typically you specify these types and constants as part of F Prime 
+configuration, in files named `FpConfig.fpp` and `FpConstants.fpp`.
 See the
 https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/[F 
 Prime documentation] for details.

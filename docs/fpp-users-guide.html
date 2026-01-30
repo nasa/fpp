@@ -14818,16 +14818,19 @@ are generated for them.</p>
 </div>
 <div class="paragraph">
 <p><strong>F Prime configuration:</strong>
-When you run <code>fpp-to-dict</code> on an FPP model, the model must define the
-framework definitions specified in the
+When you run <code>fpp-to-dict</code> on an FPP model, the model must provide the
+<a href="#Defining-Constants_Framework-Constants">framework constants</a>
+and
+<a href="#Defining-Types_Framework-Types">framework types</a>
+specified in the
 <a href="https://fprime.jpl.nasa.gov/latest/docs/reference/fpp-json-dict/">F Prime
 dictionary specification</a>.</p>
 </div>
 <div class="paragraph">
-<p>These types and constants are required by the F Prime GDS, so they are
-included in the dictionary.
-Typically you specify these types and constants as part of F Prime configuration,
-in the file <code>default/config/FpConfig.fpp</code> or <code>default/config/FpConstants.fpp</code>.
+<p>These types and constants are required by the F Prime GDS, so they are included
+in the dictionary.
+Typically you specify these types and constants as part of F Prime
+configuration, in files named <code>FpConfig.fpp</code> and <code>FpConstants.fpp</code>.
 See the
 <a href="https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/">F
 Prime documentation</a> for details.</p>
@@ -16348,7 +16351,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-01-30 08:41:13 -0800
+Last updated 2026-01-30 08:48:27 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
