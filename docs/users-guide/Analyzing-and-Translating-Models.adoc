@@ -508,14 +508,6 @@ to the directory `cpp` (which must already exist).
 to _file_.
 This is useful for collecting autocoder build dependencies.
 
-FPP allows string types with no specified size.
-When generating code we need to provide a default size
-to use when FPP doesn't specify the size.
-If the `FW_FIXED_LENGTH_STRING_SIZE` 
-<<Defining-Constants_Framework-Constants,framework constant>>
-is not defined in the model, then the tool uses an 
-automatic default of 80.
-
 ==== Types, Ports, State Machines, and Components
 
 *Generating code:*
