@@ -77,24 +77,25 @@ of width 32 and 64 bits.
 
 * The type name `string`, denoting the type of
 <<Defining-Constants_Expressions_String-Values,string values>>.
-In the F Prime framework, this type is represented as the {cpp} type `Fw::String`.
-The maximum size of this string is specified by the
+The
 <<Defining-Constants_Framework-Constants,framework constant>>
-`FW_FIXED_LENGTH_STRING_SIZE`.
+`FW_FIXED_LENGTH_STRING_SIZE` specifies the 
+maximum string length of any value of type `string` when it
+is represented in the F Prime framework.
 For example:
 +
 [source,fpp]
 ----
-# A is an array of 3 strings with maximum size FW_FIXED_LENGTH_STRING_SIZE
+# A is an array of 3 strings with size FW_FIXED_LENGTH_STRING_SIZE
 array A = [3] string
 ----
 
 * The type name `string size` _e_, where _e_ is a numeric expression
-specifying a maximum string size.
+specifying the maximum string length of any value of that type.
 +
 [source,fpp]
 ----
-# A is an array of 3 strings with maximum size 40
+# A is an array of 3 strings with size 40
 array A = [3] string size 40
 ----
 

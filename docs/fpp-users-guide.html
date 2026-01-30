@@ -2293,24 +2293,25 @@ of width 32 and 64 bits.</p>
 <li>
 <p>The type name <code>string</code>, denoting the type of
 <a href="#Defining-Constants_Expressions_String-Values">string values</a>.
-In the F Prime framework, this type is represented as the C&#43;&#43; type <code>Fw::String</code>.
-The maximum size of this string is specified by the
+The
 <a href="#Defining-Constants_Framework-Constants">framework constant</a>
-<code>FW_FIXED_LENGTH_STRING_SIZE</code>.
+<code>FW_FIXED_LENGTH_STRING_SIZE</code> specifies the
+maximum string length of any value of type <code>string</code> when it
+is represented in the F Prime framework.
 For example:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># A is an array of 3 strings with maximum size FW_FIXED_LENGTH_STRING_SIZE
+<pre class="prettyprint highlight"><code data-lang="fpp"># A is an array of 3 strings with size FW_FIXED_LENGTH_STRING_SIZE
 array A = [3] string</code></pre>
 </div>
 </div>
 </li>
 <li>
 <p>The type name <code>string size</code> <em>e</em>, where <em>e</em> is a numeric expression
-specifying a maximum string size.</p>
+specifying the maximum string length of any value of that type.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># A is an array of 3 strings with maximum size 40
+<pre class="prettyprint highlight"><code data-lang="fpp"># A is an array of 3 strings with size 40
 array A = [3] string size 40</code></pre>
 </div>
 </div>
@@ -16347,7 +16348,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-01-29 16:38:27 -0800
+Last updated 2026-01-30 08:41:13 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
