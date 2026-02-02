@@ -1890,31 +1890,58 @@ generating {cpp}>>.
 
 === Include Specifiers
 
-State machines definitions, like component definitions, can become long and
-repetitive. Portions of state machine definitions can be broken up into different
-files and included back into the main state machine definition.
+State machine definitions can become long, especially when there
+are many actions, signals, and guards.
+In this case may be useful to break up the component
+definition into several files.
 
-For example, suppose you are defining a state machine with a large substate
-and you wish to split it out into a separate file `LargeState.fppi`.
+For example, suppose you are defining a state machine with
+many signals, and you wish to place the commands in a
+separate file `Signals.fppi`.
 The suffix `.fppi` is conventional for included FPP files.
-Inside the state machine definition, you can write the
+Inside the component definition, you can write the
 following state machine member:
 
 [source,fpp]
 --------
-include "LargeState.fppi"
+include "Signals.fppi"
 --------
 
 This construct is called an *include specifier*.
 During analysis and translation, the include specifier
-is replaced with the state specified
-in `LargeState.fppi`, just as if you had written them
+is replaced with the commands specified
+in `Signals.fppi`, just as if you had written them
 at the point where you wrote the include specifier.
 This replacement is called expanding or resolving the
 include specifier.
-This technique can be used in the top level of the state machine
-as well as within a sub-state as a state member rather than a member
-of the overall state machine.
+You can use the same technique for actions, guards,
+or any other component members.
+
+The text enclosed in quotation marks after the keyword
+`include` is a path name relative to the directory of the
+file in which the include specifier appears.
+The file must exist and must contain component members
+that can validly appear at the point where the include
+specifier appears.
+For example, if `Signals.fppi` contains invalid syntax
+or syntax that may not appear inside a component,
+or if the file `Signals.fppi` does not exist, then
+the specifier `include "Signals.fppi"` is not valid.
+
+You can also write an include specifier as a member
+of a state definition.
+For example, here is how you could write the
+definition of a state `S` and specify its
+transitions in another file called `Transitions.fppi`:
+
+[source,fpp]
+--------
+state S {
+
+  include "Transitions.fppi"
+
+}
+--------
 
 We discuss include specifiers further in the section on
 <<Specifying-Models-as-Files_Include-Specifiers,

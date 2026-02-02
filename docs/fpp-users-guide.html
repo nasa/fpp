@@ -6163,33 +6163,62 @@ We will have more to say about this issue in the section on
 <div class="sect2">
 <h3 id="Defining-State-Machines_Include-Specifiers">10.8. Include Specifiers</h3>
 <div class="paragraph">
-<p>State machines definitions, like component definitions, can become long and
-repetitive. Portions of state machine definitions can be broken up into different
-files and included back into the main state machine definition.</p>
+<p>State machine definitions can become long, especially when there
+are many actions, signals, and guards.
+In this case may be useful to break up the component
+definition into several files.</p>
 </div>
 <div class="paragraph">
-<p>For example, suppose you are defining a state machine with a large substate
-and you wish to split it out into a separate file <code>LargeState.fppi</code>.
+<p>For example, suppose you are defining a state machine with
+many signals, and you wish to place the commands in a
+separate file <code>Signals.fppi</code>.
 The suffix <code>.fppi</code> is conventional for included FPP files.
-Inside the state machine definition, you can write the
+Inside the component definition, you can write the
 following state machine member:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">include "LargeState.fppi"</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">include "Signals.fppi"</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>This construct is called an <strong>include specifier</strong>.
 During analysis and translation, the include specifier
-is replaced with the state specified
-in <code>LargeState.fppi</code>, just as if you had written them
+is replaced with the commands specified
+in <code>Signals.fppi</code>, just as if you had written them
 at the point where you wrote the include specifier.
 This replacement is called expanding or resolving the
 include specifier.
-This technique can be used in the top level of the state machine
-as well as within a sub-state as a state member rather than a member
-of the overall state machine.</p>
+You can use the same technique for actions, guards,
+or any other component members.</p>
+</div>
+<div class="paragraph">
+<p>The text enclosed in quotation marks after the keyword
+<code>include</code> is a path name relative to the directory of the
+file in which the include specifier appears.
+The file must exist and must contain component members
+that can validly appear at the point where the include
+specifier appears.
+For example, if <code>Signals.fppi</code> contains invalid syntax
+or syntax that may not appear inside a component,
+or if the file <code>Signals.fppi</code> does not exist, then
+the specifier <code>include "Signals.fppi"</code> is not valid.</p>
+</div>
+<div class="paragraph">
+<p>You can also write an include specifier as a member
+of a state definition.
+For example, here is how you could write the
+definition of a state <code>S</code> and specify its
+transitions in another file called <code>Transitions.fppi</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state S {
+
+  include "Transitions.fppi"
+
+}</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>We discuss include specifiers further in the section on
@@ -9387,9 +9416,9 @@ or if the file <code>Commands.fppi</code> does not exist, then
 the specifier <code>include "Commands.fppi"</code> is not valid.</p>
 </div>
 <div class="paragraph">
-<p>Include specifiers are perhaps most useful when defining
-components, but they can also appear at the top level of a
-model, inside a module definition, or inside a
+<p>Include specifiers can also appear at the top level of a
+model, inside a module definition, inside a state machine
+definition, or inside a
 topology definition.
 We discuss include specifiers further in the section on
 <a href="#Specifying-Models-as-Files_Include-Specifiers">specifying models as files</a>.</p>
@@ -12415,6 +12444,7 @@ An include specifier is an instruction to include FPP source elements
 from one file into another file.
 Include specifiers may occur at the top level of a model,
 inside a <a href="#Defining-Modules">module definition</a>,
+inside a <a href="#Defining-State-Machines">state machine definition</a>,
 inside a <a href="#Defining-Components">component definition</a>,
 or inside a <a href="#Defining-Topologies">topology definition</a>.</p>
 </div>
@@ -16415,7 +16445,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-02 13:33:58 -0800
+Last updated 2026-02-02 14:16:53 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
