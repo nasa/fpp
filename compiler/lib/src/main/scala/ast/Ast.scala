@@ -186,12 +186,12 @@ object Ast {
     final case class DefChoice(node: AstNode[Ast.DefChoice]) extends Node
     final case class DefConstant(node: AstNode[Ast.DefConstant]) extends Node
     final case class DefEnum(node: AstNode[Ast.DefEnum]) extends Node
-    final case class DefStruct(node: AstNode[Ast.DefStruct]) extends Node
     final case class DefGuard(node: AstNode[Ast.DefGuard]) extends Node
     final case class DefSignal(node: AstNode[Ast.DefSignal]) extends Node
     final case class DefState(node: AstNode[Ast.DefState]) extends Node
-    final case class SpecInitialTransition(node: AstNode[Ast.SpecInitialTransition]) extends Node
+    final case class DefStruct(node: AstNode[Ast.DefStruct]) extends Node
     final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
+    final case class SpecInitialTransition(node: AstNode[Ast.SpecInitialTransition]) extends Node
   }
 
   /** Action definition */
@@ -238,11 +238,11 @@ object Ast {
     sealed trait Node
     final case class DefChoice(node: AstNode[Ast.DefChoice]) extends Node
     final case class DefState(node: AstNode[Ast.DefState]) extends Node
+    final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
     final case class SpecInitialTransition(node: AstNode[Ast.SpecInitialTransition]) extends Node
     final case class SpecStateEntry(node: AstNode[Ast.SpecStateEntry]) extends Node
     final case class SpecStateExit(node: AstNode[Ast.SpecStateExit]) extends Node
     final case class SpecStateTransition(node: AstNode[Ast.SpecStateTransition]) extends Node
-    final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
   }
 
   /** Initial state specifier */

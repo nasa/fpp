@@ -23,6 +23,12 @@ trait AstTransformer {
   ): ResultAnnotatedNode[Ast.DefAbsType] =
     Right(default(in), node)
 
+  def defActionAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefAction]]
+  ): ResultAnnotatedNode[Ast.DefAction] =
+    Right(default(in), node)
+
   def defAliasTypeAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefAliasType]]
@@ -32,6 +38,12 @@ trait AstTransformer {
   def defArrayAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefArray]]): ResultAnnotatedNode[Ast.DefArray] =
     Right(default(in), node)
 
+  def defChoiceAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefChoice]]
+  ): ResultAnnotatedNode[Ast.DefChoice] =
+    Right(default(in), node)
+
   def defComponentAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefComponent]]): ResultAnnotatedNode[Ast.DefComponent] =
     Right(default(in), node)
 
@@ -39,9 +51,6 @@ trait AstTransformer {
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]
   ): ResultAnnotatedNode[Ast.DefComponentInstance] = Right(default(in), node)
-
-  def defInterfaceAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefInterface]]): ResultAnnotatedNode[Ast.DefInterface] =
-    Right(default(in), node)
 
   def defConstantAnnotatedNode(
     in: In,
@@ -53,6 +62,15 @@ trait AstTransformer {
     node: Ast.Annotated[AstNode[Ast.DefEnum]]
   ): ResultAnnotatedNode[Ast.DefEnum] = Right(default(in), node)
 
+  def defGuardAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefGuard]]
+  ): ResultAnnotatedNode[Ast.DefGuard] =
+    Right(default(in), node)
+
+  def defInterfaceAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefInterface]]): ResultAnnotatedNode[Ast.DefInterface] =
+    Right(default(in), node)
+
   def defModuleAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefModule]]
@@ -62,29 +80,6 @@ trait AstTransformer {
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefPort]]
   ): ResultAnnotatedNode[Ast.DefPort] = Right(default(in), node)
-
-  def defStateMachineAnnotatedNode(
-    in: In,
-    node: Ast.Annotated[AstNode[Ast.DefStateMachine]]
-  ): ResultAnnotatedNode[Ast.DefStateMachine] = Right(default(in), node)
-
-  def defActionAnnotatedNode(
-    in: In,
-    node: Ast.Annotated[AstNode[Ast.DefAction]]
-  ): ResultAnnotatedNode[Ast.DefAction] =
-    Right(default(in), node)
-
-  def defChoiceAnnotatedNode(
-    in: In,
-    node: Ast.Annotated[AstNode[Ast.DefChoice]]
-  ): ResultAnnotatedNode[Ast.DefChoice] =
-    Right(default(in), node)
-
-  def defGuardAnnotatedNode(
-    in: In,
-    node: Ast.Annotated[AstNode[Ast.DefGuard]]
-  ): ResultAnnotatedNode[Ast.DefGuard] =
-    Right(default(in), node)
 
   def defSignalAnnotatedNode(
     in: In,
@@ -98,29 +93,10 @@ trait AstTransformer {
   ): ResultAnnotatedNode[Ast.DefState] =
     Right(default(in), node)
 
-  def specInitialTransitionAnnotatedNode(
+  def defStateMachineAnnotatedNode(
     in: In,
-    node: Ast.Annotated[AstNode[Ast.SpecInitialTransition]]
-  ): ResultAnnotatedNode[Ast.SpecInitialTransition] =
-    Right(default(in), node)
-
-  def specStateEntryAnnotatedNode(
-    in: In,
-    node: Ast.Annotated[AstNode[Ast.SpecStateEntry]]
-  ): ResultAnnotatedNode[Ast.SpecStateEntry] =
-    Right(default(in), node)
-
-  def specStateExitAnnotatedNode(
-    in: In,
-    node: Ast.Annotated[AstNode[Ast.SpecStateExit]]
-  ): ResultAnnotatedNode[Ast.SpecStateExit] =
-    Right(default(in), node)
-
-  def specStateTransitionAnnotatedNode(
-    in: In,
-    node: Ast.Annotated[AstNode[Ast.SpecStateTransition]]
-  ): ResultAnnotatedNode[Ast.SpecStateTransition] =
-    Right(default(in), node)
+    node: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+  ): ResultAnnotatedNode[Ast.DefStateMachine] = Right(default(in), node)
 
   def defStructAnnotatedNode(
     in: In,
@@ -203,6 +179,17 @@ trait AstTransformer {
     node: Ast.Annotated[AstNode[Ast.SpecInit]]
   ): ResultAnnotatedNode[Ast.SpecInit] = Right(default(in), node)
 
+  def specInitialTransitionAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecInitialTransition]]
+  ): ResultAnnotatedNode[Ast.SpecInitialTransition] =
+    Right(default(in), node)
+
+  def specInterfaceImportAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecImport]]
+  ): ResultAnnotatedNode[Ast.SpecImport] = Right(default(in), node)
+
   def specInternalPortAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecInternalPort]]
@@ -233,10 +220,28 @@ trait AstTransformer {
     node: Ast.Annotated[AstNode[Ast.SpecRecord]]
   ): ResultAnnotatedNode[Ast.SpecRecord] = Right(default(in), node)
 
+  def specStateEntryAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecStateEntry]]
+  ): ResultAnnotatedNode[Ast.SpecStateEntry] =
+    Right(default(in), node)
+
+  def specStateExitAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecStateExit]]
+  ): ResultAnnotatedNode[Ast.SpecStateExit] =
+    Right(default(in), node)
+
   def specStateMachineInstanceAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]
   ): ResultAnnotatedNode[Ast.SpecStateMachineInstance] = Right(default(in), node)
+
+  def specStateTransitionAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecStateTransition]]
+  ): ResultAnnotatedNode[Ast.SpecStateTransition] =
+    Right(default(in), node)
 
   def specTlmChannelAnnotatedNode(
     in: In,
@@ -254,11 +259,6 @@ trait AstTransformer {
   ): ResultAnnotatedNode[Ast.SpecTlmPacketSet] = Right(default(in), node)
 
   def specTopImportAnnotatedNode(
-    in: In,
-    node: Ast.Annotated[AstNode[Ast.SpecImport]]
-  ): ResultAnnotatedNode[Ast.SpecImport] = Right(default(in), node)
-
-  def specInterfaceImportAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecImport]]
   ): ResultAnnotatedNode[Ast.SpecImport] = Right(default(in), node)
@@ -385,6 +385,8 @@ trait AstTransformer {
         transform(defChoiceAnnotatedNode(in, (pre, node1, post)), Ast.StateMember.DefChoice(_))
       case Ast.StateMember.DefState(node1) =>
         transform(defStateAnnotatedNode(in, (pre, node1, post)), Ast.StateMember.DefState(_))
+      case Ast.StateMember.SpecInclude(node1) =>
+        transform(specIncludeAnnotatedNode(in, (pre, node1, post)), Ast.StateMember.SpecInclude(_))
       case Ast.StateMember.SpecInitialTransition(node1) =>
         transform(specInitialTransitionAnnotatedNode(in, (pre, node1, post)), Ast.StateMember.SpecInitialTransition(_))
       case Ast.StateMember.SpecStateEntry(node1) =>
@@ -393,8 +395,6 @@ trait AstTransformer {
         transform(specStateExitAnnotatedNode(in, (pre, node1, post)), Ast.StateMember.SpecStateExit(_))
       case Ast.StateMember.SpecStateTransition(node1) =>
         transform(specStateTransitionAnnotatedNode(in, (pre, node1, post)), Ast.StateMember.SpecStateTransition(_))
-      case Ast.StateMember.SpecInclude(node1) =>
-        transform(specIncludeAnnotatedNode(in, (pre, node1, post)), Ast.StateMember.SpecInclude(_))
     }
   }
 
@@ -412,30 +412,30 @@ trait AstTransformer {
     node match {
       case Ast.StateMachineMember.DefAbsType(node1) =>
         transform(defAbsTypeAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefAbsType(_))
+      case Ast.StateMachineMember.DefAction(node1) =>
+        transform(defActionAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefAction(_))
       case Ast.StateMachineMember.DefAliasType(node1) =>
         transform(defAliasTypeAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefAliasType(_))
       case Ast.StateMachineMember.DefArray(node1) =>
         transform(defArrayAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefArray(_))
+      case Ast.StateMachineMember.DefChoice(node1) =>
+        transform(defChoiceAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefChoice(_))
       case Ast.StateMachineMember.DefConstant(node1) =>
         transform(defConstantAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefConstant(_))
       case Ast.StateMachineMember.DefEnum(node1) =>
         transform(defEnumAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefEnum(_))
-      case Ast.StateMachineMember.DefStruct(node1) =>
-        transform(defStructAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefStruct(_))
-      case Ast.StateMachineMember.DefAction(node1) =>
-        transform(defActionAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefAction(_))
-      case Ast.StateMachineMember.DefChoice(node1) =>
-        transform(defChoiceAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefChoice(_))
       case Ast.StateMachineMember.DefGuard(node1) =>
         transform(defGuardAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefGuard(_))
       case Ast.StateMachineMember.DefSignal(node1) =>
         transform(defSignalAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefSignal(_))
       case Ast.StateMachineMember.DefState(node1) =>
         transform(defStateAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefState(_))
-      case Ast.StateMachineMember.SpecInitialTransition(node1) =>
-        transform(specInitialTransitionAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.SpecInitialTransition(_))
+      case Ast.StateMachineMember.DefStruct(node1) =>
+        transform(defStructAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.DefStruct(_))
       case Ast.StateMachineMember.SpecInclude(node1) =>
         transform(specIncludeAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.SpecInclude(_))
+      case Ast.StateMachineMember.SpecInitialTransition(node1) =>
+        transform(specInitialTransitionAnnotatedNode(in, (pre, node1, post)), Ast.StateMachineMember.SpecInitialTransition(_))
     }
   }
 
