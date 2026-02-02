@@ -6165,12 +6165,12 @@ We will have more to say about this issue in the section on
 <div class="paragraph">
 <p>State machine definitions can become long, especially when there
 are many actions, signals, and guards.
-In this case may be useful to break up the component
+In this case it can be useful to break up the
 definition into several files.</p>
 </div>
 <div class="paragraph">
 <p>For example, suppose you are defining a state machine with
-many signals, and you wish to place the commands in a
+many signals, and you wish to place the signals in a
 separate file <code>Signals.fppi</code>.
 The suffix <code>.fppi</code> is conventional for included FPP files.
 Inside the component definition, you can write the
@@ -6184,23 +6184,23 @@ following state machine member:</p>
 <div class="paragraph">
 <p>This construct is called an <strong>include specifier</strong>.
 During analysis and translation, the include specifier
-is replaced with the commands specified
+is replaced with the signals specified
 in <code>Signals.fppi</code>, just as if you had written them
 at the point where you wrote the include specifier.
 This replacement is called expanding or resolving the
 include specifier.
 You can use the same technique for actions, guards,
-or any other component members.</p>
+or any other state machine members.</p>
 </div>
 <div class="paragraph">
 <p>The text enclosed in quotation marks after the keyword
 <code>include</code> is a path name relative to the directory of the
 file in which the include specifier appears.
-The file must exist and must contain component members
+The file must exist and must contain state machine members
 that can validly appear at the point where the include
 specifier appears.
 For example, if <code>Signals.fppi</code> contains invalid syntax
-or syntax that may not appear inside a component,
+or syntax that may not appear inside a state machine,
 or if the file <code>Signals.fppi</code> does not exist, then
 the specifier <code>include "Signals.fppi"</code> is not valid.</p>
 </div>
@@ -9376,7 +9376,7 @@ We will have more to say about this issue in the section on
 <div class="paragraph">
 <p>Component definitions can become long, especially when there
 are many commands, events, telemetry channels, and parameters.
-In this case it is useful to break up the component
+In this case it can be useful to break up the
 definition into several files.</p>
 </div>
 <div class="paragraph">
@@ -16445,7 +16445,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-02 14:16:53 -0800
+Last updated 2026-02-02 15:58:18 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

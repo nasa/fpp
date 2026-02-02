@@ -2774,7 +2774,7 @@ generating {cpp}>>.
 
 Component definitions can become long, especially when there
 are many commands, events, telemetry channels, and parameters.
-In this case it is useful to break up the component
+In this case it can be useful to break up the
 definition into several files.
 
 For example, suppose you are defining a component with
