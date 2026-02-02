@@ -25,7 +25,6 @@ and the terminating punctuation is a semicolon.
 A state machine member is one of the following:
 
 * A <<Definitions_Constant-Definitions,constant definition>>
-* An <<Specifiers_Include-Specifiers,include specifier>>
 * A <<Definitions_Struct-Definitions,struct definition>>
 * A <<State-Machine-Behavior-Elements_Choice-Definitions,choice definition>>
 * A <<State-Machine-Behavior-Elements_Guard-Definitions,guard definition>>
@@ -36,6 +35,7 @@ A state machine member is one of the following:
 * An <<Definitions_Alias-Type-Definitions,alias type definition>>
 * An <<Definitions_Array-Definitions,array definition>>
 * An <<Definitions_Enum-Definitions,enum definition>>
+* An <<Specifiers_Include-Specifiers,include specifier>>
 * An <<State-Machine-Behavior-Elements_Action-Definitions,action definition>>
 
 The *transitive members* of a state machine definition _M_ are
