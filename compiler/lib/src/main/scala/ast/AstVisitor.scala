@@ -198,10 +198,10 @@ trait AstVisitor {
       case Ast.ModuleMember.DefAliasType(node1) => defAliasTypeAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefArray(node1) => defArrayAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefComponent(node1) => defComponentAnnotatedNode(in, (pre, node1, post))
-      case Ast.ModuleMember.DefInterface(node1) => defInterfaceAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefComponentInstance(node1) => defComponentInstanceAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefConstant(node1) => defConstantAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefEnum(node1) => defEnumAnnotatedNode(in, (pre, node1, post))
+      case Ast.ModuleMember.DefInterface(node1) => defInterfaceAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefModule(node1) => defModuleAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefPort(node1) => defPortAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefStateMachine(node1) => defStateMachineAnnotatedNode(in, (pre, node1, post))
@@ -226,6 +226,7 @@ trait AstVisitor {
       case Ast.StateMachineMember.DefSignal(node1) => defSignalAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMachineMember.DefState(node1) => defStateAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMachineMember.DefStruct(node1) => defStructAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMachineMember.SpecInclude(node1) => specIncludeAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMachineMember.SpecInitialTransition(node1) => specInitialTransitionAnnotatedNode(in, (pre, node1, post))
     }
   }
@@ -235,6 +236,7 @@ trait AstVisitor {
     node match {
       case Ast.StateMember.DefChoice(node1) => defChoiceAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMember.DefState(node1) => defStateAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMember.SpecInclude(node1) => specIncludeAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMember.SpecInitialTransition(node1) => specInitialTransitionAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMember.SpecStateEntry(node1) => specStateEntryAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMember.SpecStateExit(node1) => specStateExitAnnotatedNode(in, (pre, node1, post))

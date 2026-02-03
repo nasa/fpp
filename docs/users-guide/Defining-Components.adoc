@@ -2774,7 +2774,7 @@ generating {cpp}>>.
 
 Component definitions can become long, especially when there
 are many commands, events, telemetry channels, and parameters.
-In this case it is useful to break up the component
+In this case it can be useful to break up the
 definition into several files.
 
 For example, suppose you are defining a component with
@@ -2810,9 +2810,9 @@ or syntax that may not appear inside a component,
 or if the file `Commands.fppi` does not exist, then
 the specifier `include "Commands.fppi"` is not valid.
 
-Include specifiers are perhaps most useful when defining
-components, but they can also appear at the top level of a
-model, inside a module definition, or inside a
+Include specifiers can also appear at the top level of a
+model, inside a module definition, inside a state machine
+definition, or inside a
 topology definition.
 We discuss include specifiers further in the section on
 <<Specifying-Models-as-Files_Include-Specifiers,
