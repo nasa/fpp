@@ -236,6 +236,68 @@ with the following modifications:
 
 . The brace-delimited definitions are state definitions.
 
+===== The State Enum
+
+If the optional state machine member sequence _M_ is present, then
+_M_ implicitly contains an <<Definitions_Enum-Definitions,enum definition>>
+_E_ that enumerates the leaf states of the state machine _S_ defined by _M_.
+_E_ is called the *state enum* of _S_.
+The analyzer generates _E_ after parsing and before analysis.
+_E_ is defined as follows:
+
+. The unqualified name of _E_ is `State`.
+
+. The representation type of _E_ is the smallest unsigned integer type
+that can represent one plus the number of
+<<State-Machine-Behavior-Elements_State-Definitions_Static-Semantics,leaf states>> in _S_.
+
+. _E_ contains the following enumerated constants:
+
+.. The constant `__FPRIME_AC_UNINITIALIZED`.
+
+.. For each leaf state _L_ of _S_, a *leaf state constant* represening _L_.
+   Its name is the qualified name of _L_, after replacing `.` with `_`.
+
+. The order of the constants is `__FPRIME_AC_UNINITIALIZED` followed
+  by the leaf state constants in lexical order.
+
+. Numerical values are assigned to the constants of _E_ in default way
+  (0, 1, 2, etc.).
+
+. _E_ has no explicit default value, so the default value of _E_ is the
+  implicit default value `__FPRIME_AC_UNINITIALIZED`.
+
+For example, consider the following state machine:
+
+[source,fpp]
+----
+state machine S {
+
+  signal s
+
+  initial enter S1
+
+  state S1 { initial enter S2; state S2; on s enter S3 }
+
+  state S3
+
+}
+----
+
+After parsing and before analysis, the analyzer adds the following
+enum definition as a member of `S`:
+
+[source,fpp]
+----
+enum State : U8 {
+  __FPRIME_AC_UNINITIALIZED
+  S1_S2
+  S3
+}
+----
+
+Its qualified name is `S.State`.
+
 ==== Dynamic Semantics
 
 An internal state machine _M_ has the following runtime behavior:

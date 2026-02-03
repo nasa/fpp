@@ -3429,6 +3429,89 @@ with the following modifications:</p>
 </ol>
 </div>
 </div>
+<div class="sect4">
+<h5 id="Definitions_State-Machine-Definitions_Static-Semantics_The-State-Enum">The State Enum</h5>
+<div class="paragraph">
+<p>If the optional state machine member sequence <em>M</em> is present, then
+<em>M</em> implicitly contains an <a href="#Definitions_Enum-Definitions">enum definition</a>
+<em>E</em> that enumerates the leaf states of the state machine <em>S</em> defined by <em>M</em>.
+<em>E</em> is called the <strong>state enum</strong> of <em>S</em>.
+The analyzer generates <em>E</em> after parsing and before analysis.
+<em>E</em> is defined as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The unqualified name of <em>E</em> is <code>State</code>.</p>
+</li>
+<li>
+<p>The representation type of <em>E</em> is the smallest unsigned integer type
+that can represent one plus the number of
+<a href="#State-Machine-Behavior-Elements_State-Definitions_Static-Semantics">leaf states</a> in <em>S</em>.</p>
+</li>
+<li>
+<p><em>E</em> contains the following enumerated constants:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>The constant <code>__FPRIME_AC_UNINITIALIZED</code>.</p>
+</li>
+<li>
+<p>For each leaf state <em>L</em> of <em>S</em>, a <strong>leaf state constant</strong> represening <em>L</em>.
+Its name is the qualified name of <em>L</em>, after replacing <code>.</code> with <code>_</code>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>The order of the constants is <code>__FPRIME_AC_UNINITIALIZED</code> followed
+by the leaf state constants in lexical order.</p>
+</li>
+<li>
+<p>Numerical values are assigned to the constants of <em>E</em> in default way
+(0, 1, 2, etc.).</p>
+</li>
+<li>
+<p><em>E</em> has no explicit default value, so the default value of <em>E</em> is the
+implicit default value <code>__FPRIME_AC_UNINITIALIZED</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For example, consider the following state machine:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine S {
+
+  signal s
+
+  initial enter S1
+
+  state S1 { initial enter S2; state S2; on s enter S3 }
+
+  state S3
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After parsing and before analysis, the analyzer adds the following
+enum definition as a member of <code>S</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">enum State : U8 {
+  __FPRIME_AC_UNINITIALIZED
+  S1_S2
+  S3
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Its qualified name is <code>S.State</code>.</p>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="Definitions_State-Machine-Definitions_Dynamic-Semantics">5.12.3. Dynamic Semantics</h4>
@@ -12158,7 +12241,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-02 13:33:25 -0800
+Last updated 2026-02-02 18:08:09 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
