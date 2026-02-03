@@ -240,34 +240,38 @@ with the following modifications:
 
 If the optional state machine member sequence _M_ is present, then
 _M_ implicitly contains an <<Definitions_Enum-Definitions,enum definition>>
-_E_ that enumerates the leaf states of the state machine _S_ defined by _M_.
-_E_ is called the *state enum* of _S_.
+_E_ that enumerates the 
+<<State-Machine-Behavior-Elements_State-Definitions_Static-Semantics,leaf states>>
+of _M_.
+_E_ is called the *state enum* associated with the state machine definition.
 The analyzer generates _E_ after parsing and before analysis.
 _E_ is defined as follows:
 
 . The unqualified name of _E_ is `State`.
 
-. The representation type of _E_ is the smallest unsigned integer type
-that can represent one plus the number of
-<<State-Machine-Behavior-Elements_State-Definitions_Static-Semantics,leaf states>> in _S_.
+. The representation type of _E_ is the smallest unsigned <<Types_Primitive-Integer-Types,
+primitive integer type>>
+that can represent one plus the number of leaf states in _M_.
+If no such type exists, an error results.
 
 . _E_ contains the following enumerated constants:
 
-.. The constant `__FPRIME_AC_UNINITIALIZED`.
+.. The constant `__FPRIME_UNINITIALIZED`.
 
-.. For each leaf state _L_ of _S_, a *leaf state constant* represening _L_.
-   Its name is the qualified name of _L_, after replacing `.` with `_`.
+.. For each leaf state _L_ of _M_, a *leaf state constant* representing _L_.
+   Its name is the 
+   <<Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names,
+   qualified name>> of _L_, after replacing `.` with `_`.
 
-. The order of the constants is `__FPRIME_AC_UNINITIALIZED` followed
+. The order of the constants is `__FPRIME_UNINITIALIZED` followed
   by the leaf state constants in lexical order.
 
-. Numerical values are assigned to the constants of _E_ in default way
-  (0, 1, 2, etc.).
+. Numerical values are assigned to the constants of _E_ in the default way
+  for enums (0, 1, 2, etc.).
 
-. _E_ has no explicit default value, so the default value of _E_ is the
-  implicit default value `__FPRIME_AC_UNINITIALIZED`.
+. The the default value of _E_ is `__FPRIME_UNINITIALIZED`.
 
-For example, consider the following state machine:
+For example, consider the following state machine definition:
 
 [source,fpp]
 ----
@@ -290,7 +294,7 @@ enum definition as a member of `S`:
 [source,fpp]
 ----
 enum State : U8 {
-  __FPRIME_AC_UNINITIALIZED
+  __FPRIME_UNINITIALIZED
   S1_S2
   S3
 }

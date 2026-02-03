@@ -3434,8 +3434,10 @@ with the following modifications:</p>
 <div class="paragraph">
 <p>If the optional state machine member sequence <em>M</em> is present, then
 <em>M</em> implicitly contains an <a href="#Definitions_Enum-Definitions">enum definition</a>
-<em>E</em> that enumerates the leaf states of the state machine <em>S</em> defined by <em>M</em>.
-<em>E</em> is called the <strong>state enum</strong> of <em>S</em>.
+<em>E</em> that enumerates the
+<a href="#State-Machine-Behavior-Elements_State-Definitions_Static-Semantics">leaf states</a>
+of <em>M</em>.
+<em>E</em> is called the <strong>state enum</strong> associated with the state machine definition.
 The analyzer generates <em>E</em> after parsing and before analysis.
 <em>E</em> is defined as follows:</p>
 </div>
@@ -3445,40 +3447,40 @@ The analyzer generates <em>E</em> after parsing and before analysis.
 <p>The unqualified name of <em>E</em> is <code>State</code>.</p>
 </li>
 <li>
-<p>The representation type of <em>E</em> is the smallest unsigned integer type
-that can represent one plus the number of
-<a href="#State-Machine-Behavior-Elements_State-Definitions_Static-Semantics">leaf states</a> in <em>S</em>.</p>
+<p>The representation type of <em>E</em> is the smallest unsigned <a href="#Types_Primitive-Integer-Types">primitive integer type</a>
+that can represent one plus the number of leaf states in <em>M</em>.
+If no such type exists, an error results.</p>
 </li>
 <li>
 <p><em>E</em> contains the following enumerated constants:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>The constant <code>__FPRIME_AC_UNINITIALIZED</code>.</p>
+<p>The constant <code>__FPRIME_UNINITIALIZED</code>.</p>
 </li>
 <li>
-<p>For each leaf state <em>L</em> of <em>S</em>, a <strong>leaf state constant</strong> represening <em>L</em>.
-Its name is the qualified name of <em>L</em>, after replacing <code>.</code> with <code>_</code>.</p>
+<p>For each leaf state <em>L</em> of <em>M</em>, a <strong>leaf state constant</strong> representing <em>L</em>.
+Its name is the
+<a href="#Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names">qualified name</a> of <em>L</em>, after replacing <code>.</code> with <code>_</code>.</p>
 </li>
 </ol>
 </div>
 </li>
 <li>
-<p>The order of the constants is <code>__FPRIME_AC_UNINITIALIZED</code> followed
+<p>The order of the constants is <code>__FPRIME_UNINITIALIZED</code> followed
 by the leaf state constants in lexical order.</p>
 </li>
 <li>
-<p>Numerical values are assigned to the constants of <em>E</em> in default way
-(0, 1, 2, etc.).</p>
+<p>Numerical values are assigned to the constants of <em>E</em> in the default way
+for enums (0, 1, 2, etc.).</p>
 </li>
 <li>
-<p><em>E</em> has no explicit default value, so the default value of <em>E</em> is the
-implicit default value <code>__FPRIME_AC_UNINITIALIZED</code>.</p>
+<p>The the default value of <em>E</em> is <code>__FPRIME_UNINITIALIZED</code>.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>For example, consider the following state machine:</p>
+<p>For example, consider the following state machine definition:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3502,7 +3504,7 @@ enum definition as a member of <code>S</code>:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">enum State : U8 {
-  __FPRIME_AC_UNINITIALIZED
+  __FPRIME_UNINITIALIZED
   S1_S2
   S3
 }</code></pre>
@@ -12241,7 +12243,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-03 08:14:57 -0800
+Last updated 2026-02-03 09:19:45 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
