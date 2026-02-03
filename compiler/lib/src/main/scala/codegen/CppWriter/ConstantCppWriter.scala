@@ -129,7 +129,7 @@ object ConstantCppWriter extends CppWriterUtils {
       val hppLines = {
         val defLine = line(s"$name = $value")
         List(
-          line(s"enum FppConstant_$name {"),
+          line(s"enum {"),
           indentIn(defLine),
           line("};")
         )

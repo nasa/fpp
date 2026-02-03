@@ -14,8 +14,6 @@ case class CppWriterState(
   guardPrefix: Option[String] = None,
   /** The list of include path prefixes */
   pathPrefixes: List[String] = Nil,
-  /** The default string size */
-  defaultStringSize: Int = CppWriterState.defaultDefaultStringSize,
   /** The name of the tool using the CppWriter */
   toolName: Option[String] = None,
   /** The map from strings to locations */
@@ -220,8 +218,6 @@ case class CppWriterState(
 
 object CppWriterState {
 
-  /** The default default string size */
-  val defaultDefaultStringSize = 80
 
   /** Construct a header string */
   def headerString(s: String): String = {
