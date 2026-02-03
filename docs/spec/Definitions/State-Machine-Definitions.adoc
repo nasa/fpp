@@ -35,6 +35,7 @@ A state machine member is one of the following:
 * An <<Definitions_Alias-Type-Definitions,alias type definition>>
 * An <<Definitions_Array-Definitions,array definition>>
 * An <<Definitions_Enum-Definitions,enum definition>>
+* An <<Specifiers_Include-Specifiers,include specifier>>
 * An <<State-Machine-Behavior-Elements_Action-Definitions,action definition>>
 
 The *transitive members* of a state machine definition _M_ are
