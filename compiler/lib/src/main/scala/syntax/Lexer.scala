@@ -9,7 +9,7 @@ import scala.annotation.tailrec
 import scala.collection.immutable.HashMap
 import fpp.compiler.syntax.TokenId
 import fpp.compiler.syntax.TokenId.*
-import fpp.compiler.util.SemanticError.InvalidToken
+import fpp.compiler.util.LexerError.InvalidToken
 
 import scala.util.parsing.input.{Position, Reader}
 

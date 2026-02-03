@@ -3183,6 +3183,10 @@ satisfy the following rules:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
+<p><em>M</em> must contain at most 2<sup>31</sup> - 1
+<a href="#State-Machine-Behavior-Elements_State-Definitions_Static-Semantics">leaf states</a>.</p>
+</li>
+<li>
 <p><em>M</em> must contain exactly one
 <a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a>.
 The initial transition occurs when the state machine starts up.</p>
@@ -3448,8 +3452,7 @@ The analyzer generates <em>E</em> after parsing and before analysis.
 </li>
 <li>
 <p>The representation type of <em>E</em> is the smallest unsigned <a href="#Types_Primitive-Integer-Types">primitive integer type</a>
-that can represent one plus the number of leaf states in <em>M</em>.
-If no such type exists, an error results.</p>
+that can represent one plus the number of leaf states in <em>M</em>.</p>
 </li>
 <li>
 <p><em>E</em> contains the following enumerated constants:</p>
@@ -12243,7 +12246,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-03 09:19:45 -0800
+Last updated 2026-02-03 13:37:46 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

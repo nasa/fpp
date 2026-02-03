@@ -56,6 +56,9 @@ behavior is not specified in FPP.
 . If present, the optional state machine member sequence _M_ must
 satisfy the following rules:
 
+.. _M_ must contain at most 2^31^ - 1
+<<State-Machine-Behavior-Elements_State-Definitions_Static-Semantics,leaf states>>.
+
 .. _M_ must contain exactly one
 <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition specifier>>.
 The initial transition occurs when the state machine starts up.
@@ -252,7 +255,6 @@ _E_ is defined as follows:
 . The representation type of _E_ is the smallest unsigned <<Types_Primitive-Integer-Types,
 primitive integer type>>
 that can represent one plus the number of leaf states in _M_.
-If no such type exists, an error results.
 
 . _E_ contains the following enumerated constants:
 

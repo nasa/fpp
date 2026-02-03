@@ -82,10 +82,44 @@ object StateMachine {
       ) => (pre, node, post)
     }
 
-  def getLeafStates(sym: Symbol.StateMachine): Set[Ast.Annotated[AstNode[Ast.DefState]]] =
-    LeafStateVisitor.defStateMachineAnnotatedNode(Set(), sym.node)
+  def countLeafStates(sym: Symbol.StateMachine): Result.Result[Int] =
+    CountLeafStates.defStateMachineAnnotatedNode(0, sym.node)
 
-  private object LeafStateVisitor extends AstVisitor {
+  def getLeafStates(sym: Symbol.StateMachine): Set[Ast.Annotated[AstNode[Ast.DefState]]] =
+    GetLeafStates.defStateMachineAnnotatedNode(Set(), sym.node)
+
+  private object CountLeafStates extends AstStateVisitor {
+
+    type State = Int
+
+    override def default(n: Int) = Right(n)
+
+    override def defStateMachineAnnotatedNodeInternal(
+      n: Int,
+      aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]],
+      members: List[Ast.StateMachineMember]
+    ) = visitList(n, members, matchStateMachineMember)
+
+    override def defStateAnnotatedNode(
+      n: Int,
+      aNode: Ast.Annotated[AstNode[Ast.DefState]]
+    ) = {
+      val node = aNode._2
+      val data = node.data
+      (n, State.getSubstates(data)) match {
+        case (Int.MaxValue, Nil) => Left(
+          // This should never happen
+          // There should never be over 2 billion leaf states
+          SemanticError.StateMachine.TooManyLeafStates(Locations.get(node.id))
+        )
+        case (_, Nil) => Right(n + 1)
+        case _ => visitList(n + 1, data.members, matchStateMember)
+      }
+    }
+
+  }
+
+  private object GetLeafStates extends AstVisitor {
 
     type States = Set[Ast.Annotated[AstNode[Ast.DefState]]]
     type In = States

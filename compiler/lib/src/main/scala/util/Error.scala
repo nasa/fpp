@@ -49,6 +49,8 @@ sealed trait Error {
         Error.print (locOpt) (s"cannot open file $name")
       case FileError.CannotResolvePath(loc, name) =>
         Error.print (Some(loc)) (s"cannot resolve path $name")
+      case LexerError.InvalidToken(loc, msg) =>
+         Error.print (Some(loc)) (s"invalid token: $msg")
       case MultiError(errors) =>
         errors.foreach(_.print)
       case SemanticError.ChannelNotInDictionary(loc, channelName, topologyName) =>
@@ -248,8 +250,6 @@ sealed trait Error {
         System.err.println(msg)
       case SemanticError.InvalidType(loc, msg) =>
         Error.print (Some(loc)) (msg)
-      case SemanticError.InvalidToken(loc, msg) =>
-        Error.print (Some(loc)) (s"invalid token: $msg")
       case SemanticError.MismatchedPortNumbers(
         p1Loc: Location,
         p1Number: Int,
@@ -329,6 +329,8 @@ sealed trait Error {
         System.err.println(s"type of transition is $to1")
         System.err.println(toLoc2)
         System.err.println(s"type of transition is $to2")
+      case SemanticError.StateMachine.TooManyLeafStates(loc) =>
+        Error.print (Some(loc)) (s"state machine has too many leaf states")
       case SemanticError.StateMachine.UnreachableNode(name, loc) =>
         Error.print (Some(loc)) (s"$name is unreachable")
       case SemanticError.TooManyOutputPorts(loc, numPorts, arraySize, instanceLoc) =>
@@ -358,8 +360,18 @@ sealed trait Error {
 
 /** An error with a note */
 final case class AnnotatedError(error: Error, note: String) extends Error
+
 /** A syntax error */
 final case class SyntaxError(loc: Location, msg: String) extends Error
+
+/** A lexer error */
+object LexerError {
+  /** Invalid token */
+  final case class InvalidToken(
+    loc: Location,
+    msg: String,
+  ) extends Error
+}
 
 /** A code generation error */
 object CodeGenError {
@@ -725,11 +737,6 @@ object SemanticError {
     loc: Location,
     prevLoc: Location
   ) extends Error
-  /** Lexer Error */
-  final case class InvalidToken(
-    loc: Location,
-    msg: String,
-  ) extends Error
   /** State machine semantic errors */
   object StateMachine {
     /** Call site type mismatch */
@@ -765,6 +772,10 @@ object SemanticError {
       to1: String,
       tLoc2: Location,
       to2: String
+    ) extends Error
+    /** Too many leaf states */
+    final case class TooManyLeafStates(
+      loc: Location
     ) extends Error
     /** Unreachable node in the transition graph */
     final case class UnreachableNode(
