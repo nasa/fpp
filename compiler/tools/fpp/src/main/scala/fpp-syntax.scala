@@ -23,7 +23,7 @@ object FPPSyntax {
       case list => list
     }
     Result.seq(
-      Result.map(files, Parser.parseFile (Parser.transUnit) (None) _),
+      ToolUtils.parseFiles(files),
       List(resolveIncludes (options) _, printAst (options) _)
     )
   }

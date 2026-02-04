@@ -24,22 +24,7 @@ object FPPLocateDefs {
       case list => list
     }
     for {
-      tul <- Result.map(
-        files,
-        Parser.parseFile (Parser.transUnit) (None) _
-      )
-      a_tul <- ResolveSpecInclude.transformList(
-        Analysis(),
-        tul,
-        ResolveSpecInclude.transUnit
-      )
-      tul <- Right(a_tul._2)
-      sTul <- AddStateEnums.transformList(
-        (),
-        tul,
-        AddStateEnums.transUnit
-      )
-      tul <- Right(sTul._2)
+      tul <- ToolUtils.parseFilesAndResolveAsts(Analysis(), files).map(_._2)
     }
     yield {
       val config = LocateDefsFppWriter.State(options.dir)

@@ -26,20 +26,12 @@ object FPPLocateUses {
     }
     val a = Analysis(inputFileSet = options.files.toSet)
     for {
-      tulFiles <- Result.map(
-        files,
-        Parser.parseFile (Parser.transUnit) (None) _
-      )
-      aTulFiles <- ResolveSpecInclude.transformList(
-        a,
-        tulFiles, 
-        ResolveSpecInclude.transUnit
-      )
-      tulFiles <- Right(aTulFiles._2)
-      tulImports <- Result.map(
-        options.imports,
-        Parser.parseFile (Parser.transUnit) (None) _
-      )
+      aTul <- ToolUtils.parseFilesAndResolveAsts(Analysis(), files)
+      a <- Right(aTul._1)
+      tulFiles <- Right(aTul._2)
+      aTul <- ToolUtils.parseFilesAndResolveAsts(a, options.imports)
+      a <- Right(aTul._1)
+      tulImports <- Right(aTul._2)
       a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
       a <- UsedSymbols.visitList(a, tulFiles, UsedSymbols.transUnit)
     } yield {
