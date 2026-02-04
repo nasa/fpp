@@ -12,6 +12,10 @@ object AddStateEnums extends AstStateTransformer {
 
   def default(in: State) = in
 
+  def transUnitList(tul: List[Ast.TransUnit]) =
+    for (sTul <- transformList((), tul, transUnit))
+      yield sTul._2
+
   override def defModuleAnnotatedNode(
     in: State,
     node: Ast.Annotated[AstNode[Ast.DefModule]]

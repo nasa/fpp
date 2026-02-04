@@ -12,6 +12,9 @@ object ResolveSpecInclude extends AstStateTransformer {
 
   def default(a: Analysis) = a
 
+  def transUnitList(a: Analysis, tul: List[Ast.TransUnit]) =
+    transformList(a, tul, transUnit)
+
   override def defComponentAnnotatedNode(
     a: Analysis,
     node: Ast.Annotated[AstNode[Ast.DefComponent]]

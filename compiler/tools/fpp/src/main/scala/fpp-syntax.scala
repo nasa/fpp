@@ -36,7 +36,7 @@ object FPPSyntax {
   {
     options.ast match {
       case true => {
-        val lines = tul.map(AstWriter.transUnit).flatten
+        val lines = tul.flatMap(AstWriter.transUnit)
         lines.map(Line.write(Line.stdout) _)
       }
       case false => ()
@@ -48,13 +48,8 @@ object FPPSyntax {
     Result.Result[List[Ast.TransUnit]] =
   {
     options.include match {
-      case true => for { 
-        result <- ResolveSpecInclude.transformList(
-          Analysis(),
-          tul, 
-          ResolveSpecInclude.transUnit
-        )
-      } yield result._2
+      case true => 
+        ResolveSpecInclude.transUnitList(Analysis(), tul).map(_._2)
       case false => Right(tul)
     }
   }

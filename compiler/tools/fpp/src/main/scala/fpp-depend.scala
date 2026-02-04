@@ -46,19 +46,10 @@ object FPPDepend {
     val a = Analysis(inputFileSet = options.files.toSet, dictionaryGeneration = true)
     for {
       tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
-      aTul <- ResolveSpecInclude.transformList(
-        a,
-        tul,
-        ResolveSpecInclude.transUnit
-      )
+      aTul <- ResolveSpecInclude.transUnitList(a, tul)
       a <- Right(aTul._1)
       tul <- Right(aTul._2)
-      sTul <- AddStateEnums.transformList(
-        (),
-        tul,
-        AddStateEnums.transUnit
-      )
-      tul <- Right(sTul._2)
+      tul <- AddStateEnums.transUnitList(tul)
       a <- ComputeDependencies.tuList(a, tul)
       _ <- options.directFile match {
         case Some(file) => writeIterable(a.directDependencyFileSet, file)

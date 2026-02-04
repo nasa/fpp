@@ -24,18 +24,8 @@ object FPPFilenames {
     }
     for {
       tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
-      aTul <- ResolveSpecInclude.transformList(
-        Analysis(),
-        tul,
-        ResolveSpecInclude.transUnit
-      )
-      tul <- Right(aTul._2)
-      sTul <- AddStateEnums.transformList(
-        (),
-        tul,
-        AddStateEnums.transUnit
-      )
-      tul <- Right(sTul._2)
+      tul <- ResolveSpecInclude.transUnitList(Analysis(), tul).map(_._2)
+      tul <- AddStateEnums.transUnitList(tul)
       files <-
         CppWriter.getMode(options.template, options.unitTest) match {
           case CppWriter.Autocode => ComputeGeneratedFiles.getAutocodeFiles(tul)
