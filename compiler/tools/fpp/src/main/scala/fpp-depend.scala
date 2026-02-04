@@ -53,6 +53,12 @@ object FPPDepend {
       )
       a <- Right(aTul._1)
       tul <- Right(aTul._2)
+      sTul <- AddStateEnums.transformList(
+        (),
+        tul,
+        AddStateEnums.transUnit
+      )
+      tul <- Right(sTul._2)
       a <- ComputeDependencies.tuList(a, tul)
       _ <- options.directFile match {
         case Some(file) => writeIterable(a.directDependencyFileSet, file)

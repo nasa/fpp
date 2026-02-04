@@ -118,22 +118,22 @@ object CheckTypeUses extends UseAnalyzer {
 
   override def typeNameFloatNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameFloat) = {
     val t = tn.name match {
-      case Ast.F32() => Type.F32
-      case Ast.F64() => Type.F64
+      case Ast.F32 => Type.F32
+      case Ast.F64 => Type.F64
     }
     Right(a.assignType(node -> t))
   }
 
   override def typeNameIntNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameInt) = {
     val t = tn.name match {
-      case Ast.I8() => Type.I8
-      case Ast.I16() => Type.I16
-      case Ast.I32() => Type.I32
-      case Ast.I64() => Type.I64
-      case Ast.U8() => Type.U8
-      case Ast.U16() => Type.U16
-      case Ast.U32() => Type.U32
-      case Ast.U64() => Type.U64
+      case Ast.I8 => Type.I8
+      case Ast.I16 => Type.I16
+      case Ast.I32 => Type.I32
+      case Ast.I64 => Type.I64
+      case Ast.U8 => Type.U8
+      case Ast.U16 => Type.U16
+      case Ast.U32 => Type.U32
+      case Ast.U64 => Type.U64
     }
     Right(a.assignType(node -> t))
   }

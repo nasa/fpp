@@ -38,6 +38,12 @@ object FPPToCpp {
         ResolveSpecInclude.transUnit
       )
       tulFiles <- Right(aTulFiles._2)
+      sTulFiles <- AddStateEnums.transformList(
+        (),
+        tulFiles,
+        AddStateEnums.transUnit
+      )
+      tulFiles <- Right(sTulFiles._2)
       tulImports <- Result.map(
         options.imports,
         Parser.parseFile (Parser.transUnit) (None) _

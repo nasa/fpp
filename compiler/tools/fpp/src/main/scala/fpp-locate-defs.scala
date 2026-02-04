@@ -33,9 +33,15 @@ object FPPLocateDefs {
         tul,
         ResolveSpecInclude.transUnit
       )
+      tul <- Right(a_tul._2)
+      sTul <- AddStateEnums.transformList(
+        (),
+        tul,
+        AddStateEnums.transUnit
+      )
+      tul <- Right(sTul._2)
     }
     yield {
-      val (_, tul) = a_tul
       val config = LocateDefsFppWriter.State(options.dir)
       val lines = tul.map(LocateDefsFppWriter.transUnit(config, _)).flatten
       mapSeq(lines, System.out.println(_))

@@ -999,18 +999,18 @@ object Parser extends Parsers {
 
   def typeName: Parser[Ast.TypeName] = {
     def typeNameFloat =
-      accept("F32()", { case Token.F32() => Ast.TypeNameFloat(Ast.F32()) }) |
-        accept("F64()", { case Token.F64() => Ast.TypeNameFloat(Ast.F64()) })
+      accept("F32", { case Token.F32() => Ast.TypeNameFloat(Ast.F32) }) |
+        accept("F64", { case Token.F64() => Ast.TypeNameFloat(Ast.F64) })
 
     def typeNameInt =
-      accept("I8()", { case Token.I8() => Ast.TypeNameInt(Ast.I8()) }) |
-        accept("I16()", { case Token.I16() => Ast.TypeNameInt(Ast.I16()) }) |
-        accept("I32()", { case Token.I32() => Ast.TypeNameInt(Ast.I32()) }) |
-        accept("I64()", { case Token.I64() => Ast.TypeNameInt(Ast.I64()) }) |
-        accept("U8()", { case Token.U8() => Ast.TypeNameInt(Ast.U8()) }) |
-        accept("U16()", { case Token.U16() => Ast.TypeNameInt(Ast.U16()) }) |
-        accept("U32()", { case Token.U32() => Ast.TypeNameInt(Ast.U32()) }) |
-        accept("U64()", { case Token.U64() => Ast.TypeNameInt(Ast.U64()) })
+      accept("I8", { case Token.I8() => Ast.TypeNameInt(Ast.I8) }) |
+        accept("I16", { case Token.I16() => Ast.TypeNameInt(Ast.I16) }) |
+        accept("I32", { case Token.I32() => Ast.TypeNameInt(Ast.I32) }) |
+        accept("I64", { case Token.I64() => Ast.TypeNameInt(Ast.I64) }) |
+        accept("U8", { case Token.U8() => Ast.TypeNameInt(Ast.U8) }) |
+        accept("U16", { case Token.U16() => Ast.TypeNameInt(Ast.U16) }) |
+        accept("U32", { case Token.U32() => Ast.TypeNameInt(Ast.U32) }) |
+        accept("U64", { case Token.U64() => Ast.TypeNameInt(Ast.U64) })
 
     accept("bool", { case Token.BOOL() => Ast.TypeNameBool }) |
       string ~> opt(size ~>! exprNode) ^^ (e => Ast.TypeNameString(e)) |

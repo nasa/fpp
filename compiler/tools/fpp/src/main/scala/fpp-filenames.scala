@@ -29,16 +29,23 @@ object FPPFilenames {
         tul,
         ResolveSpecInclude.transUnit
       )
+      tul <- Right(aTul._2)
+      sTul <- AddStateEnums.transformList(
+        (),
+        tul,
+        AddStateEnums.transUnit
+      )
+      tul <- Right(sTul._2)
       files <-
         CppWriter.getMode(options.template, options.unitTest) match {
-          case CppWriter.Autocode => ComputeGeneratedFiles.getAutocodeFiles(aTul._2)
-          case CppWriter.ImplTemplate => ComputeGeneratedFiles.getImplFiles(aTul._2)
+          case CppWriter.Autocode => ComputeGeneratedFiles.getAutocodeFiles(tul)
+          case CppWriter.ImplTemplate => ComputeGeneratedFiles.getImplFiles(tul)
           case CppWriter.UnitTest => ComputeGeneratedFiles.getTestFiles(
-            aTul._2,
+            tul,
             CppWriter.getTestHelperMode(options.autoTestHelpers)
           )
           case CppWriter.UnitTestTemplate => ComputeGeneratedFiles.getTestImplFiles(
-            aTul._2,
+            tul,
             CppWriter.getTestHelperMode(options.autoTestHelpers)
           )
         }
