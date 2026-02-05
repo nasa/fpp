@@ -730,55 +730,11 @@
       
     },
     "frameworkDefinitions" : {
-      "constants" : {
-        "fwAssertCountMax" : "None",
-        "fwCmdArgBufferMaxSize" : "None",
-        "fwCmdStringMaxSize" : "None",
-        "fwComBufferMaxSize" : "None",
-        "fwContextDontCare" : "None",
-        "fwDpCfgContainerDataSize" : "None",
-        "fwFileBufferMaxSize" : "None",
-        "fwFixedLengthStringSize" : "None",
-        "fwInternalInterfaceStringMaxSize" : "None",
-        "fwLogBufferMaxSize" : "None",
-        "fwLogStringMaxSize" : "None",
-        "fwLogTextBufferSize" : "None",
-        "fwObjSimpleRegBuffSize" : "None",
-        "fwObjSimpleRegEntries" : "None",
-        "fwParamBufferMaxSize" : "None",
-        "fwParamStringMaxSize" : "None",
-        "fwQueueNameBufferSize" : "None",
-        "fwQueueSimpleQueueEntries" : "None",
-        "fwSerializeFalseValue" : "None",
-        "fwSerializeTrueValue" : "None",
-        "fwSmSignalBufferMaxSize" : "None",
-        "fwStatementArgBufferMaxSize" : "None",
-        "fwTaskNameBufferSize" : "None",
-        "fwTlmBufferMaxSize" : "None",
-        "fwTlmStringMaxSize" : "None"
+      "constantMap" : {
+        
       },
-      "types" : {
-        "fwAssertArgType" : "None",
-        "fwChanIdType" : "None",
-        "fwDpCfgProcType" : "None",
-        "fwDpIdType" : "None",
-        "fwDpPriorityType" : "None",
-        "fwDpState" : "None",
-        "fwEnumStoreType" : "None",
-        "fwEventIdType" : "None",
-        "fwIndexType" : "None",
-        "fwOpcodeType" : "None",
-        "fwPacketDescriptorType" : "None",
-        "fwPrmIdType" : "None",
-        "fwQueuePriorityType" : "None",
-        "fwSignedSizeType" : "None",
-        "fwSizeStoreType" : "None",
-        "fwSizeType" : "None",
-        "fwTaskPriorityType" : "None",
-        "fwTimeBaseStoreType" : "None",
-        "fwTimeContextStoreType" : "None",
-        "fwTlmPacketizeIdType" : "None",
-        "fwTraceIdType" : "None"
+      "typeMap" : {
+        
       }
     },
     "includedFileSet" : [
