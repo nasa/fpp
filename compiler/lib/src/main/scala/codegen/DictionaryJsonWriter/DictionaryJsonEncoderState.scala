@@ -28,12 +28,10 @@ case class DictionaryJsonEncoderState(
   }
 
   def getFwDefaultStringSize: BigInt = {
-    a.frameworkDefinitions.constants.fwFixedLengthStringSize match {
-      case Some(s: Symbol.Constant) => a.valueMap(s.getNodeId) match {
-        case Value.Integer(value) => value
-        case _ => throw InternalError("expected integer value")
-      }
-      case None => throw InternalError("FW_FIXED_LENGTH_STRING_SIZE constant not defined")
+    val s = a.frameworkDefinitions.constantMap("FW_FIXED_LENGTH_STRING_SIZE")
+    a.valueMap(s.getNodeId) match {
+      case Value.Integer(value) => value
+      case _ => throw InternalError("expected integer value")
     }
   }
 

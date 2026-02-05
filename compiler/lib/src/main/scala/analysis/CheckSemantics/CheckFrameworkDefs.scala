@@ -23,8 +23,12 @@ object CheckFrameworkDefs
     val s = Symbol.Constant(aNode)
     val name = a.getQualifiedName(s).toString
     val id = aNode._2.id
-    for a <- checkConstant(a, name, id)
-      yield updateConstants(a, name, s)
+    constants.get(name) match {
+      case Some(checker) =>
+        for a <- checker(a, name, id)
+        yield a.copy(frameworkDefinitions = a.frameworkDefinitions.addConstant(name, s))
+      case None => Right(a)
+    }
   }
 
   override def defEnumAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefEnum]]) =
@@ -33,67 +37,66 @@ object CheckFrameworkDefs
   override def defStructAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefStruct]]) =
     analyzeType(a, Symbol.Struct(aNode))
 
+  private val constants = Map(
+    "FW_ASSERT_COUNT_MAX" -> requireIntegerConstant,
+    "FW_CMD_ARG_BUFFER_MAX_SIZE" -> requireIntegerConstant,
+    "FW_CMD_STRING_MAX_SIZE" -> requireIntegerConstant,
+    "FW_COM_BUFFER_MAX_SIZE" -> requireIntegerConstant,
+    "FW_CONTEXT_DONT_CARE" -> requireIntegerConstant,
+    "FW_FILE_BUFFER_MAX_SIZE" -> requireIntegerConstant,
+    "FW_FIXED_LENGTH_STRING_SIZE" -> requireIntegerConstant,
+    "FW_INTERNAL_INTERFACE_STRING_MAX_SIZE" -> requireIntegerConstant,
+    "FW_LOG_BUFFER_MAX_SIZE" -> requireIntegerConstant,
+    "FW_LOG_STRING_MAX_SIZE" -> requireIntegerConstant,
+    "FW_LOG_TEXT_BUFFER_SIZE" -> requireIntegerConstant,
+    "FW_OBJ_SIMPLE_REG_BUFF_SIZE" -> requireIntegerConstant,
+    "FW_OBJ_SIMPLE_REG_ENTRIES" -> requireIntegerConstant,
+    "FW_PARAM_BUFFER_MAX_SIZE" -> requireIntegerConstant,
+    "FW_PARAM_STRING_MAX_SIZE" -> requireIntegerConstant,
+    "FW_QUEUE_NAME_BUFFER_SIZE" -> requireIntegerConstant,
+    "FW_QUEUE_SIMPLE_QUEUE_ENTRIES" -> requireIntegerConstant,
+    "FW_SERIALIZE_FALSE_VALUE" -> requireIntegerConstant,
+    "FW_SERIALIZE_TRUE_VALUE" -> requireIntegerConstant,
+    "FW_SM_SIGNAL_BUFFER_MAX_SIZE" -> requireIntegerConstant,
+    "FW_STATEMENT_ARG_BUFFER_MAX_SIZE" -> requireIntegerConstant,
+    "FW_TASK_NAME_BUFFER_SIZE" -> requireIntegerConstant,
+    "FW_TLM_BUFFER_MAX_SIZE" -> requireIntegerConstant,
+    "FW_TLM_STRING_MAX_SIZE" -> requireIntegerConstant,
+    "Fw.DpCfg.CONTAINER_USER_DATA_SIZE" -> requireIntegerConstant
+  )
+
+  private val types = Map(
+    "Fw.DpCfg.ProcType" -> requireEnum,
+    "Fw.DpState" -> requireEnum,
+    "FwAssertArgType" -> requireIntegerTypeAlias,
+    "FwChanIdType" -> requireIntegerTypeAlias,
+    "FwDpIdType" -> requireIntegerTypeAlias,
+    "FwDpPriorityType" -> requireIntegerTypeAlias,
+    "FwEnumStoreType" -> requireIntegerTypeAlias,
+    "FwEventIdType" -> requireIntegerTypeAlias,
+    "FwIndexType" -> requireSignedIntegerTypeAlias,
+    "FwOpcodeType" -> requireIntegerTypeAlias,
+    "FwPacketDescriptorType" -> requireIntegerTypeAlias,
+    "FwPriorityType" -> requireIntegerTypeAlias,
+    "FwPrmIdType" -> requireIntegerTypeAlias,
+    "FwQueuePriorityType" -> requireIntegerTypeAlias,
+    "FwSignedSizeType" -> requireSignedIntegerTypeAlias,
+    "FwSizeStoreType" -> requireIntegerTypeAlias,
+    "FwSizeType" -> requireUnsignedIntegerTypeAlias,
+    "FwTimeBaseStoreType" -> requireIntegerTypeAlias,
+    "FwTimeContextStoreType" -> requireIntegerTypeAlias,
+    "FwTlmPacketizeIdType" -> requireIntegerTypeAlias,
+    "FwTraceIdType" -> requireIntegerTypeAlias
+  )
+
   private def analyzeType(a: Analysis, s: TypeSymbol) = {
     val name = a.getQualifiedName(s).toString
     val id = s.getNodeId
-    for a <- checkType(a, name, id)
-      yield updateTypes(a, name, s)
-  }
-
-  private def checkConstant(a: Analysis, name: String, id: AstNode.Id) =
-    name match {
-      case "FW_ASSERT_COUNT_MAX" => requireIntegerConstant(a, name, id)
-      case "FW_CMD_ARG_BUFFER_MAX_SIZE" => requireIntegerConstant(a, name, id)
-      case "FW_CMD_STRING_MAX_SIZE" => requireIntegerConstant(a, name, id)
-      case "FW_COM_BUFFER_MAX_SIZE" => requireIntegerConstant(a, name, id)
-      case "FW_CONTEXT_DONT_CARE" => requireIntegerConstant(a, name, id)
-      case "FW_FILE_BUFFER_MAX_SIZE" => requireIntegerConstant(a, name, id)
-      case "FW_FIXED_LENGTH_STRING_SIZE" => requireIntegerConstant(a, name, id)
-      case "FW_INTERNAL_INTERFACE_STRING_MAX_SIZE" => requireIntegerConstant(a, name, id)
-      case "FW_LOG_BUFFER_MAX_SIZE" => requireIntegerConstant(a, name, id)
-      case "FW_LOG_STRING_MAX_SIZE" => requireIntegerConstant(a, name, id)
-      case "FW_LOG_TEXT_BUFFER_SIZE" => requireIntegerConstant(a, name, id)
-      case "FW_OBJ_SIMPLE_REG_BUFF_SIZE" => requireIntegerConstant(a, name, id)
-      case "FW_OBJ_SIMPLE_REG_ENTRIES" => requireIntegerConstant(a, name, id)
-      case "FW_PARAM_BUFFER_MAX_SIZE" => requireIntegerConstant(a, name, id)
-      case "FW_PARAM_STRING_MAX_SIZE" => requireIntegerConstant(a, name, id)
-      case "FW_QUEUE_NAME_BUFFER_SIZE" => requireIntegerConstant(a, name, id)
-      case "FW_QUEUE_SIMPLE_QUEUE_ENTRIES" => requireIntegerConstant(a, name, id)
-      case "FW_SERIALIZE_FALSE_VALUE" => requireIntegerConstant(a, name, id)
-      case "FW_SERIALIZE_TRUE_VALUE" => requireIntegerConstant(a, name, id)
-      case "FW_SM_SIGNAL_BUFFER_MAX_SIZE" => requireIntegerConstant(a, name, id)
-      case "FW_STATEMENT_ARG_BUFFER_MAX_SIZE" => requireIntegerConstant(a, name, id)
-      case "FW_TASK_NAME_BUFFER_SIZE" => requireIntegerConstant(a, name, id)
-      case "FW_TLM_BUFFER_MAX_SIZE" => requireIntegerConstant(a, name, id)
-      case "FW_TLM_STRING_MAX_SIZE" => requireIntegerConstant(a, name, id)
-      case "Fw.DpCfg.CONTAINER_USER_DATA_SIZE" => requireIntegerConstant(a, name, id)
-      case _ => Right(a)
-    }
-
-  private def checkType(a: Analysis, name: String, id: AstNode.Id) = {
-    name match {
-      case "Fw.DpCfg.ProcType" => requireEnum(a, name, id)
-      case "Fw.DpState" => requireEnum(a, name, id)
-      case "FwAssertArgType" => requireIntegerTypeAlias(a, name, id)
-      case "FwChanIdType" => requireIntegerTypeAlias(a, name, id)
-      case "FwDpIdType" => requireIntegerTypeAlias(a, name, id)
-      case "FwDpPriorityType" => requireIntegerTypeAlias(a, name, id)
-      case "FwEnumStoreType" => requireIntegerTypeAlias(a, name, id)
-      case "FwEventIdType" => requireIntegerTypeAlias(a, name, id)
-      case "FwIndexType" => requireSignedIntegerTypeAlias(a, name, id)
-      case "FwOpcodeType" => requireIntegerTypeAlias(a, name, id)
-      case "FwPacketDescriptorType" => requireIntegerTypeAlias(a, name, id)
-      case "FwPriorityType" => requireIntegerTypeAlias(a, name, id)
-      case "FwPrmIdType" => requireIntegerTypeAlias(a, name, id)
-      case "FwQueuePriorityType" => requireIntegerTypeAlias(a, name, id)
-      case "FwSignedSizeType" => requireSignedIntegerTypeAlias(a, name, id)
-      case "FwSizeStoreType" => requireIntegerTypeAlias(a, name, id)
-      case "FwSizeType" => requireUnsignedIntegerTypeAlias(a, name, id)
-      case "FwTimeBaseStoreType" => requireIntegerTypeAlias(a, name, id)
-      case "FwTimeContextStoreType" => requireIntegerTypeAlias(a, name, id)
-      case "FwTlmPacketizeIdType" => requireIntegerTypeAlias(a, name, id)
-      case "FwTraceIdType" => requireIntegerTypeAlias(a, name, id)
-      case _ => Right(a)
+    types.get(name) match {
+      case Some(checker) =>
+        for a <- checker(a, name, id)
+        yield a.copy(frameworkDefinitions = a.frameworkDefinitions.addType(name, s))
+      case None => Right(a)
     }
   }
 
@@ -167,78 +170,6 @@ object CheckFrameworkDefs
         s"the F Prime framework type ${name} must be an alias of an unsigned integer type"
       )
     )
-  }
-
-  private def updateConstants(a: Analysis, name: String, s: Symbol.Constant) = {
-    def update(f: FrameworkDefinitions.Constants => FrameworkDefinitions.Constants) = {
-      val defs = a.frameworkDefinitions
-      val constants = defs.constants
-      val constants1 = f(constants)
-      val defs1 = defs.copy(constants = constants1)
-      a.copy(frameworkDefinitions = defs1)
-    }
-    name match {
-      case "FW_ASSERT_COUNT_MAX" => update(_.copy(fwAssertCountMax = Some(s)))
-      case "FW_CMD_ARG_BUFFER_MAX_SIZE" => update(_.copy(fwCmdArgBufferMaxSize = Some(s)))
-      case "FW_CMD_STRING_MAX_SIZE" => update(_.copy(fwCmdStringMaxSize = Some(s)))
-      case "FW_COM_BUFFER_MAX_SIZE" => update(_.copy(fwComBufferMaxSize = Some(s)))
-      case "FW_CONTEXT_DONT_CARE" => update(_.copy(fwContextDontCare = Some(s)))
-      case "FW_FILE_BUFFER_MAX_SIZE" => update(_.copy(fwFileBufferMaxSize = Some(s)))
-      case "FW_FIXED_LENGTH_STRING_SIZE" => update(_.copy(fwFixedLengthStringSize = Some(s)))
-      case "FW_INTERNAL_INTERFACE_STRING_MAX_SIZE" => update(_.copy(fwInternalInterfaceStringMaxSize = Some(s)))
-      case "FW_LOG_BUFFER_MAX_SIZE" => update(_.copy(fwLogBufferMaxSize = Some(s)))
-      case "FW_LOG_STRING_MAX_SIZE" => update(_.copy(fwLogStringMaxSize = Some(s)))
-      case "FW_LOG_TEXT_BUFFER_SIZE" => update(_.copy(fwLogTextBufferSize = Some(s)))
-      case "FW_OBJ_SIMPLE_REG_BUFF_SIZE" => update(_.copy(fwObjSimpleRegBuffSize = Some(s)))
-      case "FW_OBJ_SIMPLE_REG_ENTRIES" => update(_.copy(fwObjSimpleRegEntries = Some(s)))
-      case "FW_PARAM_BUFFER_MAX_SIZE" => update(_.copy(fwParamBufferMaxSize = Some(s)))
-      case "FW_PARAM_STRING_MAX_SIZE" => update(_.copy(fwParamStringMaxSize = Some(s)))
-      case "FW_QUEUE_NAME_BUFFER_SIZE" => update(_.copy(fwQueueNameBufferSize = Some(s)))
-      case "FW_QUEUE_SIMPLE_QUEUE_ENTRIES" => update(_.copy(fwQueueSimpleQueueEntries = Some(s)))
-      case "FW_SERIALIZE_FALSE_VALUE" => update(_.copy(fwSerializeFalseValue = Some(s)))
-      case "FW_SERIALIZE_TRUE_VALUE" => update(_.copy(fwSerializeTrueValue = Some(s)))
-      case "FW_SM_SIGNAL_BUFFER_MAX_SIZE" => update(_.copy(fwSmSignalBufferMaxSize = Some(s)))
-      case "FW_STATEMENT_ARG_BUFFER_MAX_SIZE" => update(_.copy(fwStatementArgBufferMaxSize = Some(s)))
-      case "FW_TASK_NAME_BUFFER_SIZE" => update(_.copy(fwTaskNameBufferSize = Some(s)))
-      case "FW_TLM_BUFFER_MAX_SIZE" => update(_.copy(fwTlmBufferMaxSize = Some(s)))
-      case "FW_TLM_STRING_MAX_SIZE" => update(_.copy(fwTlmStringMaxSize = Some(s)))
-      case "Fw.DpCfg.CONTAINER_USER_DATA_SIZE" => update(_.copy(fwDpCfgContainerDataSize = Some(s)))
-      case _ => a
-    }
-  }
-
-  private def updateTypes(a: Analysis, name: String, s: TypeSymbol) = {
-    def update(f: FrameworkDefinitions.Types => FrameworkDefinitions.Types) = {
-      val defs = a.frameworkDefinitions
-      val types = defs.types
-      val types1 = f(types)
-      val defs1 = defs.copy(types = types1)
-      a.copy(frameworkDefinitions = defs1)
-    }
-    name match {
-      case "Fw.DpCfg.ProcType" => update(_.copy(fwDpCfgProcType = Some(s)))
-      case "Fw.DpState" => update(_.copy(fwDpState = Some(s)))
-      case "FwAssertArgType" => update(_.copy(fwAssertArgType = Some(s)))
-      case "FwChanIdType" => update(_.copy(fwChanIdType = Some(s)))
-      case "FwDpIdType" => update(_.copy(fwDpIdType = Some(s)))
-      case "FwDpPriorityType" => update(_.copy(fwDpPriorityType = Some(s)))
-      case "FwEnumStoreType" => update(_.copy(fwEnumStoreType = Some(s)))
-      case "FwEventIdType" => update(_.copy(fwEventIdType = Some(s)))
-      case "FwIndexType" => update(_.copy(fwIndexType = Some(s)))
-      case "FwOpcodeType" => update(_.copy(fwOpcodeType = Some(s)))
-      case "FwPacketDescriptorType" => update(_.copy(fwPacketDescriptorType = Some(s)))
-      case "FwPrmIdType" => update(_.copy(fwPrmIdType = Some(s)))
-      case "FwQueuePriorityType" => update(_.copy(fwQueuePriorityType = Some(s)))
-      case "FwSignedSizeType" => update(_.copy(fwSignedSizeType = Some(s)))
-      case "FwSizeStoreType" => update(_.copy(fwSizeStoreType = Some(s)))
-      case "FwSizeType" => update(_.copy(fwSizeType = Some(s)))
-      case "FwTaskPriorityType" => update(_.copy(fwTaskPriorityType = Some(s)))
-      case "FwTimeBaseStoreType" => update(_.copy(fwTimeBaseStoreType = Some(s)))
-      case "FwTimeContextStoreType" => update(_.copy(fwTimeContextStoreType = Some(s)))
-      case "FwTlmPacketizeIdType" => update(_.copy(fwTlmPacketizeIdType = Some(s)))
-      case "FwTraceIdType" => update(_.copy(fwTraceIdType = Some(s)))
-      case _ => a
-    }
   }
 
 }
