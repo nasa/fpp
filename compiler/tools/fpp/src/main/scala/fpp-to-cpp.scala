@@ -31,12 +31,10 @@ object FPPToCpp {
     val a = Analysis(inputFileSet = options.files.toSet)
     val mode = CppWriter.getMode(options.template, options.unitTest)
     for {
-      aTul <- ToolUtils.parseFilesAndResolveAsts(a, files)
-      a <- Right(aTul._1)
-      tulFiles <- Right(aTul._2)
-      aTul <- ToolUtils.parseFilesAndResolveAsts(a, options.imports)
-      a <- Right(aTul._1)
-      tulImports <- Right(aTul._2)
+      aTulTul <- ToolUtils.parseFilesAndResolveAsts(a, files, options.imports)
+      a <- Right(aTulTul._1)
+      tulFiles <- Right(aTulTul._2)
+      tulImports <- Right(aTulTul._3)
       a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
       // Compute the generated file names. This step also checks for
       // name collisions.

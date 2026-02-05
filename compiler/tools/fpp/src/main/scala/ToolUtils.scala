@@ -20,10 +20,23 @@ object ToolUtils {
       tul <- AddStateEnums.transUnitList(tul)
     } yield (a, tul)
 
-  def parseFilesAndResolveAsts(a: Analysis, files: List[File]) =
+  def parseFilesAndResolveAsts(a: Analysis, files: List[File]):
+    Result.Result[(Analysis, List[Ast.TransUnit])] =
     for {
       tul <- parseFiles(files)
       aTul <- resolveAsts(a, tul)
     } yield aTul
+
+  def parseFilesAndResolveAsts(a: Analysis, files1: List[File], files2: List[File]):
+    Result.Result[(Analysis, List[Ast.TransUnit], List[Ast.TransUnit])] =
+    for {
+      aTul <- ToolUtils.parseFilesAndResolveAsts(a, files1)
+      a <- Right(aTul._1)
+      files1 <- Right(aTul._2)
+      aTul <- ToolUtils.parseFilesAndResolveAsts(a, files2)
+      a <- Right(aTul._1)
+      files2 <- Right(aTul._2)
+    }
+    yield (a, files1, files2)
 
 }
