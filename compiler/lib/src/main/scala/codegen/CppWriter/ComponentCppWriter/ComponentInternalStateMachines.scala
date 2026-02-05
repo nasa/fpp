@@ -627,8 +627,13 @@ case class ComponentInternalStateMachines(
     )
 
     /** The signal types and the signal string size */
-    private val signalTypesAndStringSize: (Set[Type], BigInt) =
-      internalSmSymbols.foldLeft ((Set(), BigInt(0))) {
+    private val signalTypesAndStringSize: (Set[Type], String) = {
+      def max(s1: String, s2: String) = (s1, s2) match {
+        case ("0", _) => s2
+        case (_, "0") => s1
+        case _ => if s1 == s2 then s1 else s"FW_MAX($s1, $s2)"
+      }
+      internalSmSymbols.foldLeft ((Set(), "0")) {
         case ((ts, maxStringSize), sym) => {
           val signals = s.a.stateMachineMap(sym).signals
           signals.foldLeft ((ts, maxStringSize)) {
@@ -638,7 +643,7 @@ case class ComponentInternalStateMachines(
                   s.a.typeMap(tn.id).getUnderlyingType match {
                     case t: Type.String => (
                       ts + Type.String(None),
-                      maxStringSize.max(getStringSize(s, t))
+                      max(maxStringSize, writeStringSize(s, t))
                     )
                     case t => (ts + t, maxStringSize)
                   }
@@ -647,11 +652,12 @@ case class ComponentInternalStateMachines(
           }
         }
       }
+    }
 
     private val signalTypes: List[Type] =
       signalTypesAndStringSize._1.toList.sortBy(writeSignalTypeName)
 
-    private val signalStringSize: BigInt = signalTypesAndStringSize._2
+    private val signalStringSize: String = signalTypesAndStringSize._2
 
     private val hasSignalTypes: Boolean = !signalTypes.isEmpty
 
@@ -692,7 +698,7 @@ case class ComponentInternalStateMachines(
     private def writeSignalTypeSize(t: Type): String =
       t.getUnderlyingType match {
         case _: Type.String =>
-          s"Fw::StringBase::STATIC_SERIALIZED_SIZE(${signalStringSize.toString})"
+          s"Fw::StringBase::STATIC_SERIALIZED_SIZE($signalStringSize)"
         case _ => writeStaticSerializedSizeExpr(s, t, TypeCppWriter.getName(s, t))
       }
 

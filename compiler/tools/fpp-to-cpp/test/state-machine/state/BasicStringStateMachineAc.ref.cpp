@@ -73,6 +73,20 @@ namespace FppTest {
       }
     }
 
+    void BasicStringStateMachineBase ::
+      sendSignal_s1(const Fw::StringBase& value)
+    {
+      switch (this->m_state) {
+        case State::S:
+          break;
+        case State::T:
+          break;
+        default:
+          FW_ASSERT(0, static_cast<FwAssertArgType>(this->m_state));
+          break;
+      }
+    }
+
     // ----------------------------------------------------------------------
     // State and choice entry
     // ----------------------------------------------------------------------

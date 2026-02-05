@@ -10,7 +10,7 @@
 #include "Fw/Types/BasicTypes.hpp"
 
 //! Constant a
-enum FppConstant_a {
+enum {
   a = 0
 };
 
@@ -24,14 +24,14 @@ extern const bool c;
 extern const char *const d;
 
 //! Constant e
-enum FppConstant_e {
+enum {
   e = 3
 };
 
 namespace M {
 
   //! Constant a
-  enum FppConstant_a {
+  enum {
     a = 0
   };
 
@@ -45,14 +45,14 @@ namespace M {
   extern const char *const d;
 
   //! Constant e
-  enum FppConstant_e {
+  enum {
     e = 3
   };
 
 }
 
 //! Constant a
-enum FppConstant_C_a {
+enum {
   C_a = 0
 };
 
@@ -66,12 +66,12 @@ extern const bool C_c;
 extern const char *const C_d;
 
 //! Constant e
-enum FppConstant_C_e {
+enum {
   C_e = 3
 };
 
 //! Constant g
-enum FppConstant_C_g {
+enum {
   C_g = 1
 };
 
@@ -82,7 +82,7 @@ extern const F64 C_j;
 extern const F64 C_k;
 
 //! Constant a
-enum FppConstant_SM_a {
+enum {
   SM_a = 0
 };
 

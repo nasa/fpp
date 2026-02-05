@@ -1,3 +1,5 @@
+constant FW_FIXED_LENGTH_STRING_SIZE = 60
+
 struct String {
   s1: string
   s2: string size 40

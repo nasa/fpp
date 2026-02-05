@@ -77,7 +77,8 @@ object ImpliedUse {
    *  Each name is a list of identifiers */
   def getTopologyConstants(a: Analysis) =
     if (a.dictionaryGeneration) then List(
-      List("Fw", "DpCfg", "CONTAINER_USER_DATA_SIZE")
+      List("Fw", "DpCfg", "CONTAINER_USER_DATA_SIZE"),
+      List("FW_FIXED_LENGTH_STRING_SIZE")
     )
     else Nil
 
