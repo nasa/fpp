@@ -44,6 +44,25 @@ trait CppWriterUtils extends LineUtils {
     members
   )
 
+  /** Add a comment to a nonempty list of members */
+  def addMemberComment(
+    comment: String,
+    members: List[CppDoc.Member],
+    output: CppDoc.Lines.Output = CppDoc.Lines.Both,
+    cppFileNameBaseOpt: Option[String] = None
+  ): List[CppDoc.Member] = guardedList (!members.isEmpty) (
+    linesMember(CppDocWriter.writeBannerComment(comment), output, cppFileNameBaseOpt) ::
+    members
+  )
+
+  /** Add a banner comment to a nonempty list of lines */
+  def addBannerComment(comment: String, ll: List[Line]): List[Line] =
+    guardedList (!ll.isEmpty) (CppDocWriter.writeBannerComment(comment) ++ ll)
+
+  /** Add a comment to a nonempty list of lines */
+  def addComment(comment: String, ll: List[Line]): List[Line] =
+    guardedList (!ll.isEmpty) (CppDocWriter.writeComment(comment) ++ ll)
+
   /** Add a comment to a nonempty list of class members */
   def addComment(
     comment: String,
@@ -54,6 +73,10 @@ trait CppWriterUtils extends LineUtils {
     linesClassMember(CppDocWriter.writeBannerComment(comment), output, cppFileNameBaseOpt) ::
     members
   )
+
+  /** Adds a conditional prefix to a string */
+  def addConditionalPrefix (condition: Boolean) (prefix: String) (s: String): String =
+    if condition then s"$prefix $s" else s
 
   /** Add an access tag and comment to a nonempty list of class members */
   def addAccessTagAndComment(
@@ -85,10 +108,13 @@ trait CppWriterUtils extends LineUtils {
     s1: String,
     ll: List[Line],
     s2: String
-  ): List[Line] = ll match {
-    case Nil => Nil
-    case _ => List(lines(s1), ll.map(indentIn), lines(s2)).flatten
-  }
+  ): List[Line] = guardedList (!ll.isEmpty) (
+    List.concat(
+      lines(s1),
+      ll.map(indentIn),
+      lines(s2)
+    )
+  )
 
   def wrapInAnonymousNamespace(ll: List[Line]): List[Line] =
     wrapInScope("namespace {", ll, "}")
@@ -126,8 +152,8 @@ trait CppWriterUtils extends LineUtils {
     wrapInScope(prefix, ll, "};")
   }
 
-  def wrapInSwitch(condition: String, body: List[Line]) =
-    wrapInScope(s"switch ($condition) {", body, "}")
+  def wrapInSwitch(selector: String, body: List[Line]) =
+    wrapInScope(s"switch ($selector) {", body, "}")
 
   def wrapInForLoop(init: String, condition: String, step: String, body: List[Line]): List[Line] =
     wrapInScope(s"for ($init; $condition; $step) {", body, "}")

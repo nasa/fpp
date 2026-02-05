@@ -123,12 +123,22 @@ case class TopHelperFns(
       )
     }
     val name = "connectComponents"
-    val body = t.connectionMap.toList.sortWith(_._1 < _._1).flatMap {
+    val connections = t.connectionMap.toList.sortWith(_._1 < _._1).flatMap {
       case (name, cs) => addComment(
         name,
         t.sortConnections(cs).flatMap(writeConnection).toList
       )
     }
+    val body = guardedList (!connections.isEmpty) (
+      List.concat(
+        Line.blank ::
+        line("#if !FW_DIRECT_PORT_CALLS") ::
+        connections,
+        Line.blank ::
+        line("#endif") ::
+        List(Line.blank)
+      )
+    )
     val memberOpt = getFnMemberOpt(
       "Connect components",
       name,

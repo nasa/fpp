@@ -28,7 +28,8 @@ case class TopologyCppWriter(
     List.concat(
       getIncludeMembers,
       getComponentInstanceMembers,
-      getTopologyMembers
+      getTopologyMembers,
+      getComponentMembers
     )
 
   private def getComponentInstanceMembers =
@@ -75,5 +76,8 @@ case class TopologyCppWriter(
     val defs = hppLines :: cppLines :: (helperFns ++ setupTeardownFns)
     wrapInNamespaces(namespaceIdentList, defs)
   }
+
+  private def getComponentMembers: List[CppDoc.Member] =
+    TopComponents(s, aNode).getMembers
 
 }

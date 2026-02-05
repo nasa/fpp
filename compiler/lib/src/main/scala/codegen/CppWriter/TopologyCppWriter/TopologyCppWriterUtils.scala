@@ -34,18 +34,6 @@ abstract class TopologyCppWriterUtils(
   def hasParams(ci: ComponentInstance): Boolean =
     ci.component.paramMap.size > 0
 
-  def addBannerComment(comment: String, ll: List[Line]): List[Line] =
-    ll match {
-      case Nil => Nil
-      case _ => CppDocWriter.writeBannerComment(comment) ++ ll
-    }
-
-  def addComment(comment: String, ll: List[Line]): List[Line] =
-    ll match {
-      case Nil => Nil
-      case _ => CppDocWriter.writeComment(comment) ++ ll
-    }
-
   def getComponentName(ci: ComponentInstance): Name.Qualified =
     s.a.getQualifiedName(Symbol.Component(ci.component.aNode))
 

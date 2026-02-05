@@ -1,0 +1,5 @@
+#!/bin/sh -e
+
+. ../check_topology.sh
+
+check_topology

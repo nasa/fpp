@@ -17,7 +17,7 @@ case class ComponentOutputPorts(
     getIsConnectedName: String => String,
     getNumGetterName: PortInstance => String,
     getVariableName: PortInstance => String
-  ): List[CppDoc.Class.Member] = mapPorts(
+  ): List[CppDoc.Class.Member] = getPortMembersWithGuard(
     ports,
     p => List(
       generateConnectionStatusQuery(
@@ -40,7 +40,7 @@ case class ComponentOutputPorts(
   ): List[CppDoc.Class.Member] = addAccessTagAndComment(
     "public",
     comment,
-    mapPorts(
+    getPortMembersWithGuard(
       ports,
       p => generateConnector(
         p,
@@ -59,7 +59,7 @@ case class ComponentOutputPorts(
       addAccessTagAndComment(
         "public",
         s"Connect serial input ports to $typeString output ports",
-        mapPorts(ports, getSerialConnectorForPort)
+        getPortMembersWithGuard(ports, getSerialConnectorForPort)
       )
     )
   }
@@ -193,13 +193,6 @@ case class ComponentOutputPorts(
     )
   }
 
-  // Gets a port return type as a CppDoc Type
-  private def getReturnType(p: PortInstance): CppDoc.Type =
-    p.getType.get match {
-      case PortInstance.Type.DefPort(_) => getPortReturnTypeAsCppDocType(p)
-      case PortInstance.Type.Serial => CppDoc.Type("Fw::SerializeStatus")
-    }
-
   // Gets an invoker for a port instance
   private def getInvokerForPortInstance(p: PortInstance) = {
     val (invokeFunction, constQualifier) = p.getType.get match {
@@ -211,7 +204,7 @@ case class ComponentOutputPorts(
         Some(s"Invoke output port ${p.getUnqualifiedName}"),
         outputPortInvokerName(p),
         portNumParam :: getPortFunctionParams(p),
-        getReturnType(p),
+        getInvokerReturnType(p),
         List.concat(
           lines(
             s"""|FW_ASSERT(
@@ -226,9 +219,8 @@ case class ComponentOutputPorts(
                 |"""
           ),
           writeFunctionCall(
-            addReturnKeyword(
-              s"this->${portVariableName(p)}[portNum].$invokeFunction",
-              p
+            addReturnToInvocation (p) (
+              s"this->${portVariableName(p)}[portNum].$invokeFunction"
             ),
             Nil,
             getPortParams(p).map(_._1),
@@ -248,7 +240,7 @@ case class ComponentOutputPorts(
 
   // Gets the serial connector for a port
   private def getSerialConnectorForPort(p: PortInstance) =
-    getPortReturnType(p) match {
+    getPortReturnTypeAsStringOption(p) match {
       case None => List(
         functionClassMember(
           Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
@@ -280,6 +272,5 @@ case class ComponentOutputPorts(
       )
       case Some(_) => Nil
     }
-
 
 }

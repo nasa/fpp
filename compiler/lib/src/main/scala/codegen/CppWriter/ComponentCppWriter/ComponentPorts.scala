@@ -44,7 +44,7 @@ case class ComponentPorts(
     outputPortWriter.getConnectionStatusQueries(specialOutputPorts),
     outputPortWriter.getConnectionStatusQueries(typedOutputPorts),
     outputPortWriter.getConnectionStatusQueries(serialOutputPorts),
-    inputPortWriter.getHandlerBases(dataProductInputPorts),
+    inputPortWriter.getHandlerBases(specialInputPorts),
     inputPortWriter.getHandlers(typedInputPorts),
     inputPortWriter.getHandlerBases(typedInputPorts),
     inputPortWriter.getHandlers(serialInputPorts),
@@ -64,19 +64,8 @@ case class ComponentPorts(
     inputPortWriter.getCallbacks(typedInputPorts),
     inputPortWriter.getCallbacks(serialInputPorts),
     {
-      val ports = List.concat(
-        guardedList (hasDataProducts) (dataProductOutputPorts),
-        List(
-          guardedOption (hasCommands || hasParameters) (cmdRegPort),
-          guardedOption (hasCommands || hasParameters) (cmdRespPort),
-          guardedOption (hasEvents) (eventPort),
-          guardedOption (hasEvents) (textEventPort),
-          guardedOption (hasParameters) (prmGetPort),
-          guardedOption (hasParameters) (prmSetPort),
-          timeGetPort,
-          guardedOption (hasTelemetry) (tlmPort),
-        ).filter(_.isDefined).map(_.get)
-      ).sortBy(_.getUnqualifiedName)
+      val ports = specialOutputPorts.filter(invokerRequired).
+        sortBy(_.getUnqualifiedName)
       outputPortWriter.getInvokers(ports, "private", Some("special"))
     }
   )
@@ -95,7 +84,7 @@ case class ComponentPorts(
       val kind = getPortListTypeString(ports)
       val direction = ports.head.getDirection.get.toString
       def enumConstant(p: PortInstance) =
-        writeEnumConstant(portConstantName(p), p.getArraySize)
+        writeEnumConstant(numPortsConstantName(p), p.getArraySize)
       linesClassMember(
         Line.blank ::
         line(s"//! Enumerations for numbers of $kind $direction ports") ::
@@ -123,11 +112,11 @@ case class ComponentPorts(
           |//!
           |//! \\return The number of ${portName(p)} ports
           |static constexpr FwIndexType ${numGetterName(p)}() {
-          |  return ${constantPrefix}${portConstantName(p)};
+          |  return ${constantPrefix}${numPortsConstantName(p)};
           |}
           |"""
     )
-    mapPorts(
+    getPortMembersWithGuard(
       ports,
       p => List(linesClassMember(generateNumGetter(p))),
       CppDoc.Lines.Hpp
@@ -152,7 +141,7 @@ case class ComponentPorts(
     def variable(p: PortInstance) = {
       val typeName = getQualifiedPortTypeName(p, p.getDirection.get)
       val name = portVariableName(p)
-      val num = portConstantName(p)
+      val num = numPortsConstantName(p)
       lines(
         s"""|
             |//! ${p.getDirection.get.toString.capitalize} port ${p.getUnqualifiedName}
@@ -165,7 +154,7 @@ case class ComponentPorts(
       addAccessTagAndComment(
         "private",
         s"${getPortListTypeString(ports).capitalize} $direction ports",
-        mapPorts(
+        getPortMembersWithGuard(
           ports,
           p => List(linesClassMember(variable(p))),
           CppDoc.Lines.Hpp
@@ -175,9 +164,5 @@ case class ComponentPorts(
       CppDoc.Lines.Hpp
     )
   }
-
-  // Get the name for a port enumerated constant
-  private def portConstantName(p: PortInstance) =
-    s"NUM_${p.getUnqualifiedName.toUpperCase}_${p.getDirection.get.toString.toUpperCase}_PORTS"
 
 }
