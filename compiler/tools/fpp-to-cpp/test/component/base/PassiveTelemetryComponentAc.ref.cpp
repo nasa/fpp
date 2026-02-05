@@ -2084,7 +2084,7 @@ void PassiveTelemetryComponentBase ::
     }
 
     Fw::TlmBuffer _tlmBuff;
-    Fw::SerializeStatus _stat = arg.serializeTo(_tlmBuff, FW_MIN(FW_TLM_STRING_MAX_SIZE, 80));
+    Fw::SerializeStatus _stat = arg.serializeTo(_tlmBuff, FW_MIN(static_cast<FwSizeType>(FW_TLM_STRING_MAX_SIZE), static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)));
     FW_ASSERT(
       _stat == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_stat)

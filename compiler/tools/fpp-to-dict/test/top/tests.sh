@@ -4,6 +4,7 @@ basic
 dataProducts
 duplicate
 missingFwOpcodeType
+missingFwFixedLengthStringSizeConstant
 missingUserDataSizeConstant
 invalidUserDataSizeConstant
 unqualifiedComponentInstances

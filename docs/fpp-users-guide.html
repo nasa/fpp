@@ -2294,21 +2294,25 @@ of width 32 and 64 bits.</p>
 <li>
 <p>The type name <code>string</code>, denoting the type of
 <a href="#Defining-Constants_Expressions_String-Values">string values</a>.
-This type has a default maximum size.
+The
+<a href="#Defining-Constants_Framework-Constants">framework constant</a>
+<code>FW_FIXED_LENGTH_STRING_SIZE</code> specifies the
+maximum string length of any value of type <code>string</code> when it
+is represented in the F Prime framework.
 For example:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># A is an array of 3 strings with default maximum size
+<pre class="prettyprint highlight"><code data-lang="fpp"># A is an array of 3 strings with size FW_FIXED_LENGTH_STRING_SIZE
 array A = [3] string</code></pre>
 </div>
 </div>
 </li>
 <li>
 <p>The type name <code>string size</code> <em>e</em>, where <em>e</em> is a numeric expression
-specifying a maximum string size.</p>
+specifying the maximum string length of any value of that type.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># A is an array of 3 strings with maximum size 40
+<pre class="prettyprint highlight"><code data-lang="fpp"># A is an array of 3 strings with size 40
 array A = [3] string size 40</code></pre>
 </div>
 </div>
@@ -14366,22 +14370,6 @@ to the directory <code>cpp</code> (which must already exist).</p>
 to <em>file</em>.
 This is useful for collecting autocoder build dependencies.</p>
 </li>
-<li>
-<p><code>-s</code> <em>size</em> : Specify a default string size.
-For example,</p>
-<div class="listingblock">
-<div class="content">
-<pre>fpp-to-cpp -s 40 ...</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>FPP allows string types with no specified size.
-When generating code we need to provide a default size
-to use when FPP doesn&#8217;t specify the size.
-If you don&#8217;t specify the <code>-s</code> option, then the tool uses
-an automatic default of 80.</p>
-</div>
-</li>
 </ul>
 </div>
 </div>
@@ -14897,34 +14885,19 @@ are generated for them.</p>
 </div>
 <div class="paragraph">
 <p><strong>F Prime configuration:</strong>
-When you run <code>fpp-to-dict</code> on an FPP model, the model must define the following
-types:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>FwChanIdType</code></p>
-</li>
-<li>
-<p><code>FwEventIdType</code></p>
-</li>
-<li>
-<p><code>FwOpcodeType</code></p>
-</li>
-<li>
-<p><code>FwPacketDescriptorType</code></p>
-</li>
-<li>
-<p><code>FwTlmPacketizeIdType</code></p>
-</li>
-</ul>
+When you run <code>fpp-to-dict</code> on an FPP model, the model must provide the
+<a href="#Defining-Constants_Framework-Constants">framework constants</a>
+and
+<a href="#Defining-Types_Framework-Types">framework types</a>
+specified in the
+<a href="https://fprime.jpl.nasa.gov/latest/docs/reference/fpp-json-dict/">F Prime
+dictionary specification</a>.</p>
 </div>
 <div class="paragraph">
-<p>These types are required by the F Prime GDS, so they are included in the
-dictionary.
-Each of these types must be an alias of an integer type.
-Typically you specify these types as part of F Prime configuration,
-in the file <code>config/FpConfig.fpp</code>.
+<p>These types and constants are required by the F Prime GDS, so they are included
+in the dictionary.
+Typically you specify these types and constants as part of F Prime
+configuration, in files named <code>FpConfig.fpp</code> and <code>FpConstants.fpp</code>.
 See the
 <a href="https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/">F
 Prime documentation</a> for details.</p>
@@ -14936,7 +14909,7 @@ Prime documentation</a> for details.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The <code>-d</code> and <code>-s</code> options work in the same way as for
+<p>The <code>-d</code> option works in the same way as for
 <a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions"><code>fpp-to-cpp</code></a>.</p>
 </li>
 <li>
@@ -16445,7 +16418,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-02 15:58:18 -0800
+Last updated 2026-02-02 16:38:37 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

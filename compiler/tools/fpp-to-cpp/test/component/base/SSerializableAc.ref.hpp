@@ -27,7 +27,7 @@ class S :
       //! The size of the serial representation
       SERIALIZED_SIZE =
         sizeof(U32) +
-        Fw::StringBase::STATIC_SERIALIZED_SIZE(80)
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))
     };
 
   public:
@@ -156,7 +156,7 @@ class S :
     // ----------------------------------------------------------------------
 
     U32 m_x;
-    char m___fprime_ac_y_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+    char m___fprime_ac_y_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
     Fw::ExternalString m_y;
 
 };

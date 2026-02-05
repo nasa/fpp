@@ -8,7 +8,10 @@ state machine BasicString {
   action b: string
 
   @ Signal s
-  signal s: string
+  signal s: string size 200
+
+  @ Signal s1
+  signal s1: string size 100
 
   initial enter S
 

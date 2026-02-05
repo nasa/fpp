@@ -1,0 +1,7 @@
+fpp-to-dict
+[ local path prefix ]/tools/fpp-to-dict/test/top/missingFwFixedLengthStringSizeConstant.fpp:27.1
+topology T {
+^
+error: symbol FW_FIXED_LENGTH_STRING_SIZE is not defined
+note: looking for a constant here
+note: when constructing a dictionary, the constant FW_FIXED_LENGTH_STRING_SIZE must be defined
