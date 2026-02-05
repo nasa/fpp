@@ -9,13 +9,6 @@ object CheckSemantics {
 
   def tuList(a: Analysis, tul: List[Ast.TransUnit]): Result.Result[Analysis] = {
     for {
-      a_tul <- ResolveSpecInclude.transformList(
-        a,
-        tul, 
-        ResolveSpecInclude.transUnit
-      )
-      a <- Right(a_tul._1)
-      tul <- Right(a_tul._2)
       a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
       a <- ConstructImpliedUseMap.visitList(a, tul, ConstructImpliedUseMap.transUnit)
       a <- CheckUses.visitList(a, tul, CheckUses.transUnit)
