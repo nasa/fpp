@@ -1,0 +1,4 @@
+#!/bin/sh
+
+export LOCAL_PATH_PREFIX=`cd ../../../../../..; echo $PWD`
+../../run-script

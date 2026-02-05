@@ -13,6 +13,7 @@ enum_undef_constant
 enum_undef_type
 guard_undef_type
 signal_undef_type
+state_enum_ok
 struct_alias_format_not_numeric
 struct_default_error
 struct_format_not_numeric
