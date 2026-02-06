@@ -3,25 +3,29 @@
 basic()
 {
   run_test "$fpp_flags" Basic && \
-    diff_cpp BasicStateMachine
+    diff_cpp BasicStateMachine && \
+    diff_cpp Basic_StateEnum
 }
 
 basic_u32()
 {
   run_test "$fpp_flags" BasicU32 && \
-    diff_cpp BasicU32StateMachine
+    diff_cpp BasicU32StateMachine && \
+    diff_cpp BasicU32_StateEnum
 }
 
 choice_to_choice()
 {
   run_test "$fpp_flags" ChoiceToChoice && \
-    diff_cpp ChoiceToChoiceStateMachine
+    diff_cpp ChoiceToChoiceStateMachine && \
+    diff_cpp ChoiceToChoice_StateEnum
 }
 
 choice_to_state()
 {
   run_test "$fpp_flags" ChoiceToState && \
-    diff_cpp ChoiceToStateStateMachine
+    diff_cpp ChoiceToStateStateMachine && \
+    diff_cpp ChoiceToState_StateEnum
 }
 
 input_pair_u16_u32()
