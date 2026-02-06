@@ -39,7 +39,7 @@ namespace FppTest {
         };
 
         //! For backwards compatibility
-        typedef T t;
+        typedef enum T t;
 
       public:
 
@@ -68,7 +68,7 @@ namespace FppTest {
 
         //! Constructor (user-provided value)
         Choice_State(
-            const T e1 //!< The raw enum value
+            const enum T e1 //!< The raw enum value
         )
         {
           this->e = e1;
@@ -95,23 +95,23 @@ namespace FppTest {
 
         //! Copy assignment operator (raw enum)
         Choice_State& operator=(
-            T e1 //!< The enum value
+            enum T e1 //!< The enum value
         );
 
         //! Conversion operator
-        operator T() const
+        operator enum T() const
         {
           return this->e;
         }
 
         //! Equality operator
-        bool operator==(T e1) const
+        bool operator==(enum T e1) const
         {
           return this->e == e1;
         }
 
         //! Inequality operator
-        bool operator!=(T e1) const
+        bool operator!=(enum T e1) const
         {
           return !(*this == e1);
         }
@@ -163,7 +163,7 @@ namespace FppTest {
         // ----------------------------------------------------------------------
 
         //! The raw enum value
-        T e;
+        enum T e;
 
     };
 

@@ -166,7 +166,7 @@ case class EnumCppWriter(
           lines(
             s"""|
                 |//! For backwards compatibility
-                |typedef T t;"""
+                |typedef enum T t;"""
           ),
         ).flatten
       )
@@ -189,7 +189,7 @@ case class EnumCppWriter(
                 |
                 |//! Constructor (user-provided value)
                 |$name(
-                |    const T e1 //!< The raw enum value
+                |    const enum T e1 //!< The raw enum value
                 |)
                 |{
                 |  this->e = e1;
@@ -238,7 +238,7 @@ case class EnumCppWriter(
         "operator=",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type("T"),
+            CppDoc.Type("enum T"),
             "e1",
             Some("The enum value"),
           ),
@@ -253,19 +253,19 @@ case class EnumCppWriter(
         lines(
           """|
              |//! Conversion operator
-             |operator T() const
+             |operator enum T() const
              |{
              |  return this->e;
              |}
              |
              |//! Equality operator
-             |bool operator==(T e1) const
+             |bool operator==(enum T e1) const
              |{
              |  return this->e == e1;
              |}
              |
              |//! Inequality operator
-             |bool operator!=(T e1) const
+             |bool operator!=(enum T e1) const
              |{
              |  return !(*this == e1);
              |}"""
@@ -356,7 +356,7 @@ case class EnumCppWriter(
           s"""|SerialType es;
               |Fw::SerializeStatus status = buffer.deserializeTo(es, mode);
               |if (status == Fw::FW_SERIALIZE_OK) {
-              |  this->e = static_cast<T>(es);
+              |  this->e = static_cast<enum T>(es);
               |  if (!this->isValid()) {
               |    status = Fw::FW_DESERIALIZE_FORMAT_ERROR;
               |  }
@@ -447,7 +447,7 @@ case class EnumCppWriter(
         addBlankPrefix(
           List(
             "//! The raw enum value",
-            "T e;"
+            "enum T e;"
           ).map(line)
         )
       )

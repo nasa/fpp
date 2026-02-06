@@ -31,7 +31,7 @@ class C_E :
     };
 
     //! For backwards compatibility
-    typedef T t;
+    typedef enum T t;
 
   public:
 
@@ -60,7 +60,7 @@ class C_E :
 
     //! Constructor (user-provided value)
     C_E(
-        const T e1 //!< The raw enum value
+        const enum T e1 //!< The raw enum value
     )
     {
       this->e = e1;
@@ -87,23 +87,23 @@ class C_E :
 
     //! Copy assignment operator (raw enum)
     C_E& operator=(
-        T e1 //!< The enum value
+        enum T e1 //!< The enum value
     );
 
     //! Conversion operator
-    operator T() const
+    operator enum T() const
     {
       return this->e;
     }
 
     //! Equality operator
-    bool operator==(T e1) const
+    bool operator==(enum T e1) const
     {
       return this->e == e1;
     }
 
     //! Inequality operator
-    bool operator!=(T e1) const
+    bool operator!=(enum T e1) const
     {
       return !(*this == e1);
     }
@@ -155,7 +155,7 @@ class C_E :
     // ----------------------------------------------------------------------
 
     //! The raw enum value
-    T e;
+    enum T e;
 
 };
 
