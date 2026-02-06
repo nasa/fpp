@@ -31,17 +31,20 @@ choice_to_state()
 input_pair_u16_u32()
 {
   run_test "$fpp_flags" InputPairU16U32 && \
-    diff_cpp InputPairU16U32StateMachine
+    diff_cpp InputPairU16U32StateMachine && \
+    diff_cpp InputPairU16U32_StateEnum
 }
 
 sequence()
 {
   run_test "$fpp_flags" Sequence && \
-    diff_cpp SequenceStateMachine
+    diff_cpp SequenceStateMachine && \
+    diff_cpp Sequence_StateEnum
 }
 
 sequence_u32()
 {
   run_test "$fpp_flags" SequenceU32 && \
-    diff_cpp SequenceU32StateMachine
+    diff_cpp SequenceU32StateMachine && \
+    diff_cpp SequenceU32_StateEnum
 }

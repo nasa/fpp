@@ -30,18 +30,21 @@ choice_to_state()
 
 input_pair_u16_u32()
 {
-  update "$fpp_flags" InputPairU16U32
-  move_cpp InputPairU16U32StateMachine
+  update "$fpp_flags" InputPairU16U32 && \
+  move_cpp InputPairU16U32StateMachine && \
+  move_cpp InputPairU16U32_StateEnum
 }
 
 sequence()
 {
-  update "$fpp_flags" Sequence
-  move_cpp SequenceStateMachine
+  update "$fpp_flags" Sequence && \
+  move_cpp SequenceStateMachine && \
+  move_cpp Sequence_StateEnum
 }
 
 sequence_u32()
 {
-  update "$fpp_flags" SequenceU32
-  move_cpp SequenceU32StateMachine
+  update "$fpp_flags" SequenceU32 && \
+  move_cpp SequenceU32StateMachine && \
+  move_cpp SequenceU32_StateEnum
 }
