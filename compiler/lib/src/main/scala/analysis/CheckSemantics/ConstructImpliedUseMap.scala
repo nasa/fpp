@@ -9,6 +9,19 @@ object ConstructImpliedUseMap
   with ModuleAnalyzer
 {
 
+  override def defStateMachineAnnotatedNodeInternal(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]],
+    members: List[Ast.StateMachineMember]
+  ) = {
+    val id = aNode._2.id
+    val sym = Symbol.StateMachine(aNode)
+    val qualifier = a.getQualifiedName(sym)
+    val name = Name.Qualified(qualifier.toIdentList, "State")
+    // TODO
+    Right(a)
+  }
+
   override def defTopologyAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
