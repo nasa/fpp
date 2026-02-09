@@ -128,7 +128,6 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
         for {
           a <- opt(exprNode)(a, special.priority)
           a <- visitImpliedPortUses(a, id)
-          //a <- qualIdentNode(portUse)(a, impliedUse)
         } yield a
     }
   }
