@@ -150,7 +150,7 @@ object CheckUses extends BasicUseAnalyzer {
     val impliedTypeUses = a.getImpliedUses(ImpliedUse.Kind.Type, node._2.id).toList
     val impliedConstantUses = a.getImpliedUses(ImpliedUse.Kind.Constant, node._2.id).toList
     for {
-      _ <- Result.foldLeft (impliedConstantUses) (a) ((_, iu) => {
+      a <- Result.foldLeft (impliedConstantUses) (a) ((a, iu) => {
         val exprNode = iu.asExprNode
         for {
           a <- Result.annotateResult(
@@ -160,13 +160,13 @@ object CheckUses extends BasicUseAnalyzer {
           _ <- checkImpliedUseIsConstantDef(a, iu, exprNode)
         } yield a
       })
-      _ <- Result.foldLeft (impliedTypeUses) (a) ((_, iu) => {
+      a <- Result.foldLeft (impliedTypeUses) (a) ((a, iu) => {
         Result.annotateResult(
           typeUse(a, iu.asTypeNameNode, iu.name),
           s"when constructing a dictionary, the type ${iu.name} must be defined"
         )
       })
-      a <- super.defTopologyAnnotatedNode(a, node)
+      a <- TopologyAnalyzer.visit(this, a, node)
     } yield a
   }
 
