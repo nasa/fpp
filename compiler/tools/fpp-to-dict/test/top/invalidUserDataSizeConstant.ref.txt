@@ -2,8 +2,10 @@ fpp-to-dict
 [ local path prefix ]/tools/fpp-to-dict/test/top/invalidUserDataSizeConstant.fpp:23.1
 topology T {}
 ^
-error: invalid symbol DpCfg: Fw.DpCfg.CONTAINER_USER_DATA_SIZE must be a constant symbol
+error: invalid symbol DpCfg: it has Fw.DpCfg.CONTAINER_USER_DATA_SIZE as a member
 symbol is defined here:
 [ local path prefix ]/tools/fpp-to-dict/test/top/invalidUserDataSizeConstant.fpp:18.5
     constant DpCfg = {
     ^
+note: Fw.DpCfg.CONTAINER_USER_DATA_SIZE is an F Prime framework constant
+note: it must be a constant definition
