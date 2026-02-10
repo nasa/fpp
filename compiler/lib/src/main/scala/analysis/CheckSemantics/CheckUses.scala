@@ -151,37 +151,14 @@ object CheckUses extends BasicUseAnalyzer {
     val impliedConstantUses = a.getImpliedUses(ImpliedUse.Kind.Constant, node._2.id).toList
     for {
       _ <- Result.foldLeft (impliedConstantUses) (()) ((_, itu) => {
-        val impliedUse = itu.asUniqueExprNode
+        val exprNode = itu.asUniqueExprNode
 
         for {
           a <- Result.annotateResult(
-            constantUse(a, impliedUse, itu.name),
+            constantUse(a, exprNode, itu.name),
             s"when constructing a dictionary, the constant ${itu.name} must be defined"
           )
-
-          // Check to make sure this implied use is actually a constant
-          // ...rather than a member of a constant.
-          _ <- a.useDefMap.get(impliedUse.id) match {
-            case Some(Symbol.Constant(_) | Symbol.EnumConstant(_)) => Right(a)
-            case Some(_) => throw new InternalError("not a constant use or member")
-            case None =>
-              // Get the parent symbol to make the error reporting better
-              def getSymbolOfExpr(e: AstNode[Expr]): Symbol = {
-                (a.useDefMap.get(e.id), e.data) match {
-                  case (Some(sym), _) => sym
-                  case (None, Ast.ExprDot(ee, eid)) => getSymbolOfExpr(ee)
-                  case _ => throw new InternalError("expected a constant use")
-                }
-              }
-
-              val sym = getSymbolOfExpr(impliedUse)
-              Left(SemanticError.InvalidSymbol(
-                sym.getUnqualifiedName,
-                Locations.get(impliedUse.id),
-                s"${itu.name} must be a constant symbol",
-                sym.getLoc
-              ))
-          }
+          _ <- checkImpliedUseIsConstantDef(a, itu, exprNode)
         } yield ()
       })
 
@@ -219,5 +196,32 @@ object CheckUses extends BasicUseAnalyzer {
       case _ => throw InternalError("type use should be qualified identifier")
     }
   }
+
+  // Get the symbol associated with a dot expression for error reporting
+  private def getSymbolOfDotExpr(a: Analysis, e: AstNode[Expr]): Symbol = {
+    (a.useDefMap.get(e.id), e.data) match {
+      case (Some(sym), _) => sym
+      case (None, Ast.ExprDot(ee, eid)) => getSymbolOfDotExpr(a, ee)
+      case _ => throw new InternalError("expected a constant use")
+    }
+  }
+
+  // Check that an implied use is a constant def and not a member
+  // of a constant def
+  private def checkImpliedUseIsConstantDef(a: Analysis, iu: ImpliedUse, exprNode: AstNode[Ast.Expr]) =
+    for {
+      _ <- a.useDefMap.get(exprNode.id) match {
+        case Some(Symbol.Constant(_) | Symbol.EnumConstant(_)) => Right(a)
+        case Some(_) => throw new InternalError("not a constant use or member")
+        case None =>
+          val sym = getSymbolOfDotExpr(a, exprNode)
+          Left(SemanticError.InvalidSymbol(
+            sym.getUnqualifiedName,
+            Locations.get(exprNode.id),
+            s"${iu.name} must be a constant symbol",
+            sym.getLoc
+          ))
+      }
+    } yield ()
 
 }
