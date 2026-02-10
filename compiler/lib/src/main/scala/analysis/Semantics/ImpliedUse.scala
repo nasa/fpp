@@ -48,7 +48,7 @@ case class ImpliedUse(
 object ImpliedUse {
 
   enum Kind:
-    case Constant, Type
+    case Constant, Port, Type
 
   type Uses = Map[Kind, Set[ImpliedUse]]
 

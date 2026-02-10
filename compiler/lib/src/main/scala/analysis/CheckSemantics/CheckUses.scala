@@ -150,55 +150,23 @@ object CheckUses extends BasicUseAnalyzer {
     val impliedTypeUses = a.getImpliedUses(ImpliedUse.Kind.Type, node._2.id).toList
     val impliedConstantUses = a.getImpliedUses(ImpliedUse.Kind.Constant, node._2.id).toList
     for {
-      _ <- Result.foldLeft (impliedConstantUses) (()) ((_, itu) => {
-        val impliedUse = itu.asUniqueExprNode
-
+      a <- Result.foldLeft (impliedConstantUses) (a) ((a, iu) => {
+        val exprNode = iu.asExprNode
         for {
-          a <- {
-            Result.annotateResult(
-              constantUse(a, impliedUse, itu.name),
-              s"when constructing a dictionary, the constant ${itu.name} must be defined"
-            )
-          }
-
-          // Check to make sure this implied use is actually a constant
-          // ...rather than a member of a constant.
-          _ <- {
-            a.useDefMap.get(impliedUse.id) match {
-              case Some(Symbol.Constant(_) | Symbol.EnumConstant(_)) => Right(a)
-              case Some(_) => throw new InternalError("not a constant use or member")
-              case x =>
-                // Get the parent symbol to make the error reporting better
-                def getSymbolOfExpr(e: AstNode[Expr]): Symbol = {
-                  (a.useDefMap.get(e.id), e.data) match {
-                    case (Some(sym), _) => sym
-                    case (None, Ast.ExprDot(ee, eid)) => getSymbolOfExpr(ee)
-                    case _ => throw new InternalError("expected a constant use")
-                  }
-                }
-
-                val sym = getSymbolOfExpr(impliedUse)
-                Left(SemanticError.InvalidSymbol(
-                  sym.getUnqualifiedName,
-                  Locations.get(impliedUse.id),
-                  s"${itu.name} must be a constant symbol",
-                  sym.getLoc
-                ))
-            }
-          }
-        } yield ()
-      })
-
-      _ <- Result.foldLeft (impliedTypeUses) (()) ((_, itu) => {
-        for {
-          _ <- Result.annotateResult(
-            typeUse(a, itu.asTypeNameNode, itu.name),
-            s"when constructing a dictionary, the type ${itu.name} must be defined"
+          a <- Result.annotateResult(
+            constantUse(a, exprNode, iu.name),
+            s"when constructing a dictionary, the constant ${iu.name} must be defined"
           )
-        } yield ()
+          _ <- checkImpliedUseIsConstantDef(a, iu, exprNode)
+        } yield a
       })
-
-      a <- super.defTopologyAnnotatedNode(a, node)
+      a <- Result.foldLeft (impliedTypeUses) (a) ((a, iu) => {
+        Result.annotateResult(
+          typeUse(a, iu.asTypeNameNode, iu.name),
+          s"when constructing a dictionary, the type ${iu.name} must be defined"
+        )
+      })
+      a <- TopologyAnalyzer.visit(this, a, node)
     } yield a
   }
 
@@ -222,6 +190,33 @@ object CheckUses extends BasicUseAnalyzer {
       }
       case _ => throw InternalError("type use should be qualified identifier")
     }
+  }
+
+  // Check that an implied use is a constant def and not a member
+  // of a constant def
+  private def checkImpliedUseIsConstantDef(a: Analysis, iu: ImpliedUse, exprNode: AstNode[Ast.Expr]) = {
+    val sym = a.useDefMap(exprNode.id)
+    // Check that the name of the def matches the name of the use
+    if a.getQualifiedName(sym) == iu.name
+    // OK, they match
+    then Right(a)
+    // They don't match: the definition does not provide the required constant
+    else
+      val iuName = iu.name
+      val symName = sym.getUnqualifiedName
+      val error = Left(
+        SemanticError.InvalidSymbol(
+          symName,
+          Locations.get(exprNode.id),
+          s"it has $iuName as a member",
+          sym.getLoc
+        )
+      )
+      val notes = List(
+        s"$iuName is an F Prime framework constant",
+        "it must be a constant definition"
+      )
+      Result.annotateResult(error, notes)
   }
 
 }
