@@ -151,8 +151,7 @@ object CheckUses extends BasicUseAnalyzer {
     val impliedConstantUses = a.getImpliedUses(ImpliedUse.Kind.Constant, node._2.id).toList
     for {
       _ <- Result.foldLeft (impliedConstantUses) (a) ((_, iu) => {
-        val exprNode = iu.asUniqueExprNode
-
+        val exprNode = iu.asExprNode
         for {
           a <- Result.annotateResult(
             constantUse(a, exprNode, iu.name),
@@ -161,14 +160,12 @@ object CheckUses extends BasicUseAnalyzer {
           _ <- checkImpliedUseIsConstantDef(a, iu, exprNode)
         } yield a
       })
-
       _ <- Result.foldLeft (impliedTypeUses) (a) ((_, iu) => {
         Result.annotateResult(
           typeUse(a, iu.asTypeNameNode, iu.name),
           s"when constructing a dictionary, the type ${iu.name} must be defined"
         )
       })
-
       a <- super.defTopologyAnnotatedNode(a, node)
     } yield a
   }
@@ -195,31 +192,31 @@ object CheckUses extends BasicUseAnalyzer {
     }
   }
 
-  // Get the symbol associated with a dot expression for error reporting
-  private def getSymbolForDotExpr(a: Analysis, e: AstNode[Expr]): Symbol =
-    (a.useDefMap.get(e.id), e.data) match {
-      case (Some(sym), _) => sym
-      case (None, Ast.ExprDot(ee, eid)) => getSymbolForDotExpr(a, ee)
-      case _ => throw InternalError("expected a constant use")
-    }
-
   // Check that an implied use is a constant def and not a member
   // of a constant def
-  private def checkImpliedUseIsConstantDef(a: Analysis, iu: ImpliedUse, exprNode: AstNode[Ast.Expr]) =
-    a.useDefMap.get(exprNode.id) match {
-      // Definition is constant definition: OK
-      case Some(Symbol.Constant(_) | Symbol.EnumConstant(_)) => Right(a)
-      // No definition: must be a selection
-      case None =>
-        val sym = getSymbolForDotExpr(a, exprNode)
-        Left(SemanticError.InvalidSymbol(
-          sym.getUnqualifiedName,
+  private def checkImpliedUseIsConstantDef(a: Analysis, iu: ImpliedUse, exprNode: AstNode[Ast.Expr]) = {
+    val sym = a.useDefMap(exprNode.id)
+    // Check that the name of the def matches the name of the use
+    if a.getQualifiedName(sym) == iu.name
+    // OK, they match
+    then Right(a)
+    // They don't match: the definition does not provide the required constant
+    else
+      val iuName = iu.name
+      val symName = sym.getUnqualifiedName
+      val error = Left(
+        SemanticError.InvalidSymbol(
+          symName,
           Locations.get(exprNode.id),
-          s"${iu.name} must be a constant symbol",
+          s"it has $iuName as a member",
           sym.getLoc
-        ))
-      // This should not happen
-      case _ => throw InternalError("not a constant use or member")
-    }
+        )
+      )
+      val notes = List(
+        s"$iuName is an F Prime framework constant",
+        "it must be a constant definition"
+      )
+      Result.annotateResult(error, notes)
+  }
 
 }
