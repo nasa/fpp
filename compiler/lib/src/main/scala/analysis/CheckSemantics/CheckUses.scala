@@ -150,25 +150,23 @@ object CheckUses extends BasicUseAnalyzer {
     val impliedTypeUses = a.getImpliedUses(ImpliedUse.Kind.Type, node._2.id).toList
     val impliedConstantUses = a.getImpliedUses(ImpliedUse.Kind.Constant, node._2.id).toList
     for {
-      _ <- Result.foldLeft (impliedConstantUses) (()) ((_, itu) => {
-        val exprNode = itu.asUniqueExprNode
+      _ <- Result.foldLeft (impliedConstantUses) (a) ((_, iu) => {
+        val exprNode = iu.asUniqueExprNode
 
         for {
           a <- Result.annotateResult(
-            constantUse(a, exprNode, itu.name),
-            s"when constructing a dictionary, the constant ${itu.name} must be defined"
+            constantUse(a, exprNode, iu.name),
+            s"when constructing a dictionary, the constant ${iu.name} must be defined"
           )
-          _ <- checkImpliedUseIsConstantDef(a, itu, exprNode)
-        } yield ()
+          _ <- checkImpliedUseIsConstantDef(a, iu, exprNode)
+        } yield a
       })
 
-      _ <- Result.foldLeft (impliedTypeUses) (()) ((_, itu) => {
-        for {
-          _ <- Result.annotateResult(
-            typeUse(a, itu.asTypeNameNode, itu.name),
-            s"when constructing a dictionary, the type ${itu.name} must be defined"
-          )
-        } yield ()
+      _ <- Result.foldLeft (impliedTypeUses) (a) ((_, iu) => {
+        Result.annotateResult(
+          typeUse(a, iu.asTypeNameNode, iu.name),
+          s"when constructing a dictionary, the type ${iu.name} must be defined"
+        )
       })
 
       a <- super.defTopologyAnnotatedNode(a, node)
@@ -198,30 +196,30 @@ object CheckUses extends BasicUseAnalyzer {
   }
 
   // Get the symbol associated with a dot expression for error reporting
-  private def getSymbolOfDotExpr(a: Analysis, e: AstNode[Expr]): Symbol = {
+  private def getSymbolForDotExpr(a: Analysis, e: AstNode[Expr]): Symbol =
     (a.useDefMap.get(e.id), e.data) match {
       case (Some(sym), _) => sym
-      case (None, Ast.ExprDot(ee, eid)) => getSymbolOfDotExpr(a, ee)
-      case _ => throw new InternalError("expected a constant use")
+      case (None, Ast.ExprDot(ee, eid)) => getSymbolForDotExpr(a, ee)
+      case _ => throw InternalError("expected a constant use")
     }
-  }
 
   // Check that an implied use is a constant def and not a member
   // of a constant def
   private def checkImpliedUseIsConstantDef(a: Analysis, iu: ImpliedUse, exprNode: AstNode[Ast.Expr]) =
-    for {
-      _ <- a.useDefMap.get(exprNode.id) match {
-        case Some(Symbol.Constant(_) | Symbol.EnumConstant(_)) => Right(a)
-        case Some(_) => throw new InternalError("not a constant use or member")
-        case None =>
-          val sym = getSymbolOfDotExpr(a, exprNode)
-          Left(SemanticError.InvalidSymbol(
-            sym.getUnqualifiedName,
-            Locations.get(exprNode.id),
-            s"${iu.name} must be a constant symbol",
-            sym.getLoc
-          ))
-      }
-    } yield ()
+    a.useDefMap.get(exprNode.id) match {
+      // Definition is constant definition: OK
+      case Some(Symbol.Constant(_) | Symbol.EnumConstant(_)) => Right(a)
+      // No definition: must be a selection
+      case None =>
+        val sym = getSymbolForDotExpr(a, exprNode)
+        Left(SemanticError.InvalidSymbol(
+          sym.getUnqualifiedName,
+          Locations.get(exprNode.id),
+          s"${iu.name} must be a constant symbol",
+          sym.getLoc
+        ))
+      // This should not happen
+      case _ => throw InternalError("not a constant use or member")
+    }
 
 }
