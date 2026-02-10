@@ -24,8 +24,7 @@ sealed trait Error {
   }
   
   /** Print a note */
-  def printNote(note: String) =
-    System.err.println(s"note: $note")
+  def printNote(note: String) = System.err.println(s"note: $note")
 
   /*** Print the error */
   def print: Unit = {
