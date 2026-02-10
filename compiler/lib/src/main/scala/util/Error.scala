@@ -358,7 +358,7 @@ sealed trait Error {
 
 }
 
-/** An error with a note */
+/** An error with notes */
 final case class AnnotatedError(error: Error, notes: List[String]) extends Error
 
 /** A syntax error */
