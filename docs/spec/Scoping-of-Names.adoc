@@ -280,7 +280,7 @@ with a brace-delimited body, then do the following:
 ... Determine the <<Scoping-of-Names_Name-Groups,name group>> _S_ of _Q_ `.`
 _I_.
 
-... Look in _D_ for a definition with identifier _I_ in name group _S_.
+... Look in _Q_ for a definition with identifier _I_ in name group _S_.
     If there is none, issue an error.
 
 .. Otherwise the qualified identifier is invalid. Issue an error.
