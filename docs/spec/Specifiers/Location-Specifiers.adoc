@@ -24,7 +24,7 @@ _]_
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
 
-* A *port interface specifier* `locate`
+* A *port interface location specifier* `locate`
 `interface`
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
