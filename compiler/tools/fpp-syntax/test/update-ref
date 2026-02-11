@@ -30,9 +30,9 @@ update "" parse-error
 update "" syntax
 update "" syntax-kwd-names
 update -a dictionary-specifier
-update -a state-machine
 update -a empty
 update -a escaped-strings
+update -a state-machine
 update -a syntax syntax-ast
 update -i cycle-1 include-cycle-1
 update -i cycle-2 include-cycle-2
@@ -41,8 +41,9 @@ update -i include-parse-error
 update -ia include-component
 update -ia include-constant-1 include-constant-1
 update -ia include-module
-update -ia include-subdir
 update -ia include-state-machine
+update -ia include-state-machine
+update -ia include-subdir
 update -ia include-topology
 update -ia subdir/include-parent-dir
 update -ia syntax syntax-include-ast

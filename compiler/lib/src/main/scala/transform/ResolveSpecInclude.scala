@@ -60,23 +60,19 @@ object ResolveSpecInclude extends AstStateTransformer {
     }
   }
 
-  override def defStateMachineAnnotatedNode(
+  override def defStateMachineAnnotatedNodeInternal(
     a: Analysis,
-    node: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+    node: Ast.Annotated[AstNode[Ast.DefStateMachine]],
+    members: List[Ast.StateMachineMember]
   ) = {
     val (pre, node1, post) = node
-    val Ast.DefStateMachine(name, members) = node1.data
-    members match {
-      case None => Right((a, node))
-      case Some(members) => {
-        for { result <- transformList(a, members, stateMachineMember) }
-        yield {
-          val (a1, members1) = result
-          val defStateMachine = Ast.DefStateMachine(name, Some(members1.flatten))
-          val node2 = AstNode.create(defStateMachine, node1.id)
-          (a1, (pre, node2, post))
-        }
-      }
+    val name = node1.data.name
+    for { result <- transformList(a, members, stateMachineMember) }
+    yield {
+      val (a1, members1) = result
+      val defStateMachine = Ast.DefStateMachine(name, Some(members1.flatten))
+      val node2 = AstNode.create(defStateMachine, node1.id)
+      (a1, (pre, node2, post))
     }
   }
 

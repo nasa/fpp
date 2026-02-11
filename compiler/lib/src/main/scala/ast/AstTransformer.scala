@@ -96,6 +96,21 @@ trait AstTransformer {
   def defStateMachineAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+  ): ResultAnnotatedNode[Ast.DefStateMachine] =
+    node._2.data.members match {
+      case Some(members) => defStateMachineAnnotatedNodeInternal(in, node, members)
+      case None => defStateMachineAnnotatedNodeExternal(in, node)
+    }
+
+  def defStateMachineAnnotatedNodeExternal(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+  ): ResultAnnotatedNode[Ast.DefStateMachine] = Right(default(in), node)
+
+  def defStateMachineAnnotatedNodeInternal(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefStateMachine]],
+    members: List[Ast.StateMachineMember]
   ): ResultAnnotatedNode[Ast.DefStateMachine] = Right(default(in), node)
 
   def defStructAnnotatedNode(
