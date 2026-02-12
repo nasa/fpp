@@ -6,7 +6,7 @@ import fpp.compiler.syntax._
 import fpp.compiler.util._
 
 /** Resolve include specifiers */
-object ResolveSpecInclude extends AstStateTransformer {
+object ResolveSpecInclude extends AstStateTransformer with ModuleStateTransformer {
 
   type State = Analysis
 
@@ -30,6 +30,7 @@ object ResolveSpecInclude extends AstStateTransformer {
     }
   }
 
+  /*
   override def defModuleAnnotatedNode(
     a: Analysis,
     node: Ast.Annotated[AstNode[Ast.DefModule]]
@@ -44,6 +45,7 @@ object ResolveSpecInclude extends AstStateTransformer {
       (a1, (pre, node2, post))
     }
   }
+  */
 
   override def defStateAnnotatedNode(
     a: Analysis,
@@ -180,7 +182,7 @@ object ResolveSpecInclude extends AstStateTransformer {
     }
   }
 
-  private def moduleMember(a: Analysis, member: Ast.ModuleMember): Result[List[Ast.ModuleMember]] = {
+  override def moduleMember(a: Analysis, member: Ast.ModuleMember): Result[List[Ast.ModuleMember]] = {
     val (_, node, _) = member.node
     node match {
       case Ast.ModuleMember.SpecInclude(node1) => resolveSpecInclude(
