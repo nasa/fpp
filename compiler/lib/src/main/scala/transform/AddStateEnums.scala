@@ -31,25 +31,22 @@ object AddStateEnums extends AstStateTransformer {
     }
   }
 
-  override def defStateMachineAnnotatedNode(
+  override def defStateMachineAnnotatedNodeInternal(
     in: State,
-    aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+    aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]],
+    members: List[Ast.StateMachineMember]
   ) = {
     val (pre, node, post) = aNode
-    val Ast.DefStateMachine(name, members) = node.data
+    val name = node.data.name
     val id = node.id
-    members match {
-      case None => Right((in, aNode))
-      case Some(members) =>
-        for (stateEnum <- getStateEnum(Symbol.StateMachine(aNode)))
-        yield {
-          val enumNode = AstNode.create(stateEnum, id)
-          val enumMemberNode = Ast.StateMachineMember.DefEnum(enumNode)
-          val member = Ast.StateMachineMember(Nil, enumMemberNode, Nil)
-          val defStateMachine = Ast.DefStateMachine(name, Some(member :: members))
-          val node1 = AstNode.create(defStateMachine, node.id)
-          (in, (pre, node1, post))
-        }
+    for (stateEnum <- getStateEnum(Symbol.StateMachine(aNode)))
+    yield {
+      val enumNode = AstNode.create(stateEnum, id)
+      val enumMemberNode = Ast.StateMachineMember.DefEnum(enumNode)
+      val member = Ast.StateMachineMember(Nil, enumMemberNode, Nil)
+      val defStateMachine = Ast.DefStateMachine(name, Some(member :: members))
+      val node1 = AstNode.create(defStateMachine, node.id)
+      (in, (pre, node1, post))
     }
   }
 
@@ -74,12 +71,9 @@ object AddStateEnums extends AstStateTransformer {
         Ast.DefEnum("State", Some(typeNameNode), enumConstants, None, false)
       }
 
-  private def asList[T](result: Result[T]) =
-    result.map(r => (r._1, List(r._2)))
-
   private def moduleMember(in: State, member: Ast.ModuleMember):
     Result[List[Ast.ModuleMember]] =
-    asList(matchModuleMember(in, member))
+    matchModuleMember(in, member)
 
   private def tuMember(in: State, tum: Ast.TUMember) = moduleMember(in, tum)
 

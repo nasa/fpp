@@ -176,8 +176,7 @@ object ResolveSpecInclude extends AstStateTransformer {
         Parser.componentMembers,
         componentMember
       )
-      case _ => for { result <- matchComponentMember(a, member) }
-        yield (result._1, List(result._2))
+      case _ => matchComponentMember(a, member)
     }
   }
 
@@ -190,8 +189,7 @@ object ResolveSpecInclude extends AstStateTransformer {
         Parser.moduleMembers,
         moduleMember
       )
-      case _ => for { result <- matchModuleMember(a, member) }
-        yield (result._1, List(result._2))
+      case _ => matchModuleMember(a, member)
     }
   }
 
@@ -204,8 +202,7 @@ object ResolveSpecInclude extends AstStateTransformer {
         Parser.stateMachineMembers,
         stateMachineMember
       )
-      case _ => for { result <- matchStateMachineMember(a, member) }
-        yield (result._1, List(result._2))
+      case _ => matchStateMachineMember(a, member)
     }
   }
 
@@ -218,8 +215,7 @@ object ResolveSpecInclude extends AstStateTransformer {
         Parser.stateMembers,
         stateMember
       )
-      case _ => for { result <- matchStateMember(a, member) }
-        yield (result._1, List(result._2))
+      case _ => matchStateMember(a, member)
     }
   }
 
@@ -250,8 +246,7 @@ object ResolveSpecInclude extends AstStateTransformer {
         Parser.tlmPacketSetMembers,
         tlmPacketSetMember
       )
-      case _ => for { result <- matchTlmPacketSetMember(a, member) }
-        yield (result._1, List(result._2))
+      case _ => matchTlmPacketSetMember(a, member)
     }
   }
 
@@ -264,8 +259,7 @@ object ResolveSpecInclude extends AstStateTransformer {
         Parser.topologyMembers,
         topologyMember
       )
-      case _ => for { result <- matchTopologyMember(a, member) }
-        yield (result._1, List(result._2))
+      case _ => matchTopologyMember(a, member)
     }
   }
 
