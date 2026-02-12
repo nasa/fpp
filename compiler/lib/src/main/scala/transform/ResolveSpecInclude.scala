@@ -126,6 +126,8 @@ object ResolveSpecInclude extends AstStateTransformer
     }
   }
 
+  override def tuMember(a: Analysis, tum: Ast.TUMember) = moduleMember(a, tum)
+
   private def checkForCycle(includingLoc: Location, includedPath: String): Result.Result[Unit] = {
     def checkLoc(locOpt: Option[Location], visitedPaths: List[String]): Result.Result[Unit] =
       locOpt match {
@@ -249,7 +251,5 @@ object ResolveSpecInclude extends AstStateTransformer
       case _ => matchTopologyMember(a, member)
     }
   }
-
-  private def tuMember(a: Analysis, tum: Ast.TUMember) = moduleMember(a, tum)
 
 }

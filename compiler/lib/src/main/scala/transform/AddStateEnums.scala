@@ -37,10 +37,6 @@ object AddStateEnums extends AstStateTransformer
     }
   }
 
-  override def transUnit(in: State, tu: Ast.TransUnit) =
-    for (result <- transformList(in, tu.members, tuMember))
-      yield (in, Ast.TransUnit(result._2.flatten))
-
   private def getStateEnumType(n: Int): Ast.TypeName = {
     val typeInt =
       if n < 256 then Ast.U8
@@ -57,8 +53,6 @@ object AddStateEnums extends AstStateTransformer
         Locations.put(typeNameNode.id, Locations.get(sym.getNodeId))
         Ast.DefEnum("State", Some(typeNameNode), enumConstants, None, false)
       }
-
-  private def tuMember(in: State, tum: Ast.TUMember) = moduleMember(in, tum)
 
   private object GetEnumConstants extends AstStateVisitor {
 

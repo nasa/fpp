@@ -11,6 +11,11 @@ trait AstStateTransformer extends AstTransformer {
 
   type Out = State
 
+  override def transUnit(s: State, tu: Ast.TransUnit) = {
+    for { result <- transformList(s, tu.members, tuMember) }
+    yield (result._1, Ast.TransUnit(result._2.flatten))
+  }
+
   /** Transform a list in sequence, threading state */
   def transformList[A,B](
     s: State,
@@ -29,5 +34,8 @@ trait AstStateTransformer extends AstTransformer {
     for { pair <- helper(s, list, Nil) }
     yield (pair._1, pair._2.reverse)
   }
+
+  def tuMember(s: State, member: Ast.TUMember): Result[List[Ast.TUMember]] =
+    matchModuleMember(s, member)
 
 }
