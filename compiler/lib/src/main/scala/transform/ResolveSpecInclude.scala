@@ -6,7 +6,9 @@ import fpp.compiler.syntax._
 import fpp.compiler.util._
 
 /** Resolve include specifiers */
-object ResolveSpecInclude extends AstStateTransformer with ModuleStateTransformer {
+object ResolveSpecInclude extends AstStateTransformer
+  with ModuleStateTransformer
+{
 
   type State = Analysis
 
@@ -29,23 +31,6 @@ object ResolveSpecInclude extends AstStateTransformer with ModuleStateTransforme
       (a1, (pre, node2, post))
     }
   }
-
-  /*
-  override def defModuleAnnotatedNode(
-    a: Analysis,
-    node: Ast.Annotated[AstNode[Ast.DefModule]]
-  ) = {
-    val (pre, node1, post) = node
-    val Ast.DefModule(name, members) = node1.data
-    for { result <- transformList(a, members, moduleMember) }
-    yield {
-      val (a1, members1) = result
-      val defModule = Ast.DefModule(name, members1.flatten)
-      val node2 = AstNode.create(defModule, node1.id)
-      (a1, (pre, node2, post))
-    }
-  }
-  */
 
   override def defStateAnnotatedNode(
     a: Analysis,
@@ -128,6 +113,19 @@ object ResolveSpecInclude extends AstStateTransformer with ModuleStateTransforme
     yield (result._1, Ast.TransUnit(result._2.flatten))
   }
 
+  override def moduleMember(a: Analysis, member: Ast.ModuleMember): Result[List[Ast.ModuleMember]] = {
+    val (_, node, _) = member.node
+    node match {
+      case Ast.ModuleMember.SpecInclude(node1) => resolveSpecInclude(
+        a,
+        node1,
+        Parser.moduleMembers,
+        moduleMember
+      )
+      case _ => matchModuleMember(a, member)
+    }
+  }
+
   private def checkForCycle(includingLoc: Location, includedPath: String): Result.Result[Unit] = {
     def checkLoc(locOpt: Option[Location], visitedPaths: List[String]): Result.Result[Unit] =
       locOpt match {
@@ -179,19 +177,6 @@ object ResolveSpecInclude extends AstStateTransformer with ModuleStateTransforme
         componentMember
       )
       case _ => matchComponentMember(a, member)
-    }
-  }
-
-  override def moduleMember(a: Analysis, member: Ast.ModuleMember): Result[List[Ast.ModuleMember]] = {
-    val (_, node, _) = member.node
-    node match {
-      case Ast.ModuleMember.SpecInclude(node1) => resolveSpecInclude(
-        a,
-        node1,
-        Parser.moduleMembers,
-        moduleMember
-      )
-      case _ => matchModuleMember(a, member)
     }
   }
 

@@ -6,7 +6,9 @@ import fpp.compiler.syntax._
 import fpp.compiler.util._
 
 /** Add state enums to state machines */
-object AddStateEnums extends AstStateTransformer {
+object AddStateEnums extends AstStateTransformer
+  with ModuleStateTransformer
+{
 
   type State = Unit
 
@@ -15,21 +17,6 @@ object AddStateEnums extends AstStateTransformer {
   def transUnitList(tul: List[Ast.TransUnit]) =
     for (sTul <- transformList((), tul, transUnit))
       yield sTul._2
-
-  override def defModuleAnnotatedNode(
-    in: State,
-    node: Ast.Annotated[AstNode[Ast.DefModule]]
-  ) = {
-    val (pre, node1, post) = node
-    val Ast.DefModule(name, members) = node1.data
-    for (result <- transformList(in, members, moduleMember))
-    yield {
-      val (_, members1) = result
-      val defModule = Ast.DefModule(name, members1.flatten)
-      val node2 = AstNode.create(defModule, node1.id)
-      (in, (pre, node2, post))
-    }
-  }
 
   override def defStateMachineAnnotatedNodeInternal(
     in: State,
@@ -70,10 +57,6 @@ object AddStateEnums extends AstStateTransformer {
         Locations.put(typeNameNode.id, Locations.get(sym.getNodeId))
         Ast.DefEnum("State", Some(typeNameNode), enumConstants, None, false)
       }
-
-  private def moduleMember(in: State, member: Ast.ModuleMember):
-    Result[List[Ast.ModuleMember]] =
-    matchModuleMember(in, member)
 
   private def tuMember(in: State, tum: Ast.TUMember) = moduleMember(in, tum)
 

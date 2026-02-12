@@ -1,6 +1,5 @@
-package fpp.compiler.transform
+package fpp.compiler.ast
 
-import fpp.compiler.ast._
 import fpp.compiler.syntax._
 
 /** Visit module members */
