@@ -2770,6 +2770,13 @@ We will have more to say about this issue in the section on
 <<Analyzing-and-Translating-Models_Generating-C-Plus-Plus,
 generating {cpp}>>.
 
+If you define a state machine inside a component, and you
+define a constant, type, or enum
+<<Defining-State-Machines_Constants-Types-and-Enums,inside a state machine>>,
+then the name prefixes are joined in the obvious way.
+For example, a type `T` defined inside a state machine `SM` defined
+inside a component `C` has the name `C_SM_T`.
+
 === Include Specifiers
 
 Component definitions can become long, especially when there

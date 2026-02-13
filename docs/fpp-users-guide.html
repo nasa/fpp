@@ -9374,6 +9374,14 @@ becomes a C&#43;&#43; constant <code>SerialSplitter_SplitFactor</code>.
 We will have more to say about this issue in the section on
 <a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">generating C&#43;&#43;</a>.</p>
 </div>
+<div class="paragraph">
+<p>If you define a state machine inside a component, and you
+define a constant, type, or enum
+<a href="#Defining-State-Machines_Constants-Types-and-Enums">inside a state machine</a>,
+then the name prefixes are joined in the obvious way.
+For example, a type <code>T</code> defined inside a state machine <code>SM</code> defined
+inside a component <code>C</code> has the name <code>C_SM_T</code>.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="Defining-Components_Include-Specifiers">11.12. Include Specifiers</h3>
@@ -16418,7 +16426,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-03 08:15:09 -0800
+Last updated 2026-02-13 15:33:53 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

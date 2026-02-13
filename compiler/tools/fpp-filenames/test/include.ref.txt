@@ -6,6 +6,10 @@ C_AArrayAc.cpp
 C_AArrayAc.hpp
 C_EEnumAc.cpp
 C_EEnumAc.hpp
+C_SMStateMachineAc.cpp
+C_SMStateMachineAc.hpp
+C_SM_AArrayAc.cpp
+C_SM_AArrayAc.hpp
 C_SSerializableAc.cpp
 C_SSerializableAc.hpp
 EEnumAc.cpp
