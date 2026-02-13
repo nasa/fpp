@@ -89,6 +89,9 @@ object ImpliedUse {
     id1
   }
 
+  def fromNameAndId(name: Name.Qualified, id: AstNode.Id) =
+    ImpliedUse(name, id)
+
   def fromIdentListAndId(identList: List[Name.Unqualified], id: AstNode.Id) =
     ImpliedUse(Name.Qualified.fromIdentList(identList), id)
 

@@ -42,6 +42,14 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
     } yield a
   }
 
+  override def defStateMachineAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefStateMachine]]) = {
+    val id = node._2.id
+    for {
+      a <- visitImpliedUses(a, id)
+      a <- super.defStateMachineAnnotatedNode(a, node)
+    } yield a
+  }
+
   override def defTopologyAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
     val id = node._2.id
     for {

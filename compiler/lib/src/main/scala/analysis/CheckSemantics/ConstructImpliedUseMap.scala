@@ -50,6 +50,9 @@ object ConstructImpliedUseMap
     val sym = Symbol.StateMachine(aNode)
     val qualifier = a.getQualifiedName(sym)
     val name = Name.Qualified(qualifier.toIdentList, "State")
+    val impliedUse = ImpliedUse.fromNameAndId(name, id)
+    val map = Map(ImpliedUse.Kind.Type -> Set(impliedUse))
+    //Right(a.copy(impliedUseMap = a.impliedUseMap + (id -> map)))
     // TODO
     Right(a)
   }
