@@ -7,6 +7,7 @@ import fpp.compiler.util._
 
 /** Resolve include specifiers */
 object ResolveSpecInclude extends AstStateTransformer
+  with ComponentStateTransformer
   with ModuleStateTransformer
 {
 
@@ -16,21 +17,6 @@ object ResolveSpecInclude extends AstStateTransformer
 
   def transUnitList(a: Analysis, tul: List[Ast.TransUnit]) =
     transformList(a, tul, transUnit)
-
-  override def defComponentAnnotatedNode(
-    a: Analysis,
-    node: Ast.Annotated[AstNode[Ast.DefComponent]]
-  ) = {
-    val (pre, node1, post) = node
-    val Ast.DefComponent(kind, name, members) = node1.data
-    for { result <- transformList(a, members, componentMember) }
-    yield {
-      val (a1, members1) = result
-      val defComponent = Ast.DefComponent(kind, name, members1.flatten)
-      val node2 = AstNode.create(defComponent, node1.id)
-      (a1, (pre, node2, post))
-    }
-  }
 
   override def defStateAnnotatedNode(
     a: Analysis,
@@ -113,6 +99,19 @@ object ResolveSpecInclude extends AstStateTransformer
     yield (result._1, Ast.TransUnit(result._2.flatten))
   }
 
+  override def componentMember(a: Analysis, member: Ast.ComponentMember): Result[List[Ast.ComponentMember]] = {
+    val (_, node, _) = member.node
+    node match {
+      case Ast.ComponentMember.SpecInclude(node1) => resolveSpecInclude(
+        a,
+        node1,
+        Parser.componentMembers,
+        componentMember
+      )
+      case _ => matchComponentMember(a, member)
+    }
+  }
+
   override def moduleMember(a: Analysis, member: Ast.ModuleMember): Result[List[Ast.ModuleMember]] = {
     val (_, node, _) = member.node
     node match {
@@ -167,19 +166,6 @@ object ResolveSpecInclude extends AstStateTransformer
       }
     }
     yield (pair._1, pair._2.flatten)
-  }
-
-  private def componentMember(a: Analysis, member: Ast.ComponentMember): Result[List[Ast.ComponentMember]] = {
-    val (_, node, _) = member.node
-    node match {
-      case Ast.ComponentMember.SpecInclude(node1) => resolveSpecInclude(
-        a,
-        node1,
-        Parser.componentMembers,
-        componentMember
-      )
-      case _ => matchComponentMember(a, member)
-    }
   }
 
   private def stateMachineMember(a: Analysis, member: Ast.StateMachineMember): Result[List[Ast.StateMachineMember]] = {
