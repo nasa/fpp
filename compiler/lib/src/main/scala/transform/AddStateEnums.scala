@@ -7,6 +7,7 @@ import fpp.compiler.util._
 
 /** Add state enums to state machines */
 object AddStateEnums extends AstStateTransformer
+  with ComponentStateTransformer
   with ModuleStateTransformer
 {
 

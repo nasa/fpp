@@ -10,6 +10,8 @@ C_SMStateMachineAc.cpp
 C_SMStateMachineAc.hpp
 C_SM_AArrayAc.cpp
 C_SM_AArrayAc.hpp
+C_SM_StateEnumAc.cpp
+C_SM_StateEnumAc.hpp
 C_SSerializableAc.cpp
 C_SSerializableAc.hpp
 EEnumAc.cpp

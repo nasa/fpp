@@ -361,6 +361,75 @@
                                                       [
                                                       ],
                                                       {
+                                                        "DefEnum" : {
+                                                          "node" : {
+                                                            "AstNode" : {
+                                                              "data" : {
+                                                                "name" : "State",
+                                                                "typeName" : {
+                                                                  "Some" : {
+                                                                    "AstNode" : {
+                                                                      "data" : {
+                                                                        "TypeNameInt" : {
+                                                                          "name" : {
+                                                                            "U8" : {
+                                                                              
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      "id" : 205
+                                                                    }
+                                                                  }
+                                                                },
+                                                                "constants" : [
+                                                                  [
+                                                                    [
+                                                                      "The uninitialized state"
+                                                                    ],
+                                                                    {
+                                                                      "AstNode" : {
+                                                                        "data" : {
+                                                                          "name" : "__FPRIME_UNINITIALIZED",
+                                                                          "value" : "None"
+                                                                        },
+                                                                        "id" : 203
+                                                                      }
+                                                                    },
+                                                                    [
+                                                                    ]
+                                                                  ],
+                                                                  [
+                                                                    [
+                                                                    ],
+                                                                    {
+                                                                      "AstNode" : {
+                                                                        "data" : {
+                                                                          "name" : "IDLE",
+                                                                          "value" : "None"
+                                                                        },
+                                                                        "id" : 204
+                                                                      }
+                                                                    },
+                                                                    [
+                                                                    ]
+                                                                  ]
+                                                                ],
+                                                                "default" : "None",
+                                                                "isDictionaryDef" : false
+                                                              },
+                                                              "id" : 124
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      [
+                                                      ]
+                                                    ],
+                                                    [
+                                                      [
+                                                      ],
+                                                      {
                                                         "SpecInitialTransition" : {
                                                           "node" : {
                                                             "AstNode" : {
@@ -1901,6 +1970,21 @@
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
       "pos" : "51.1",
       "includingLoc" : "None"
+    },
+    "203" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+      "pos" : "36.5",
+      "includingLoc" : "None"
+    },
+    "204" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+      "pos" : "36.5",
+      "includingLoc" : "None"
+    },
+    "205" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+      "pos" : "36.5",
+      "includingLoc" : "None"
     }
   }
 }
@@ -2224,9 +2308,9 @@
         }
       },
       "124" : {
-        "Component" : {
-          "nodeId" : 137,
-          "unqualifiedName" : "StateMachines"
+        "StateMachine" : {
+          "nodeId" : 124,
+          "unqualifiedName" : "S2"
         }
       },
       "201" : {
@@ -2271,6 +2355,12 @@
           "unqualifiedName" : "Utils"
         }
       },
+      "203" : {
+        "Enum" : {
+          "nodeId" : 124,
+          "unqualifiedName" : "State"
+        }
+      },
       "2" : {
         "Module" : {
           "nodeId" : 3,
@@ -2281,6 +2371,12 @@
         "Module" : {
           "nodeId" : 202,
           "unqualifiedName" : "FSW"
+        }
+      },
+      "204" : {
+        "Enum" : {
+          "nodeId" : 124,
+          "unqualifiedName" : "State"
         }
       }
     },
@@ -2307,7 +2403,26 @@
       },
       "124" : {
         "map" : {
-          
+          "Type" : {
+            "map" : {
+              "State" : {
+                "Enum" : {
+                  "nodeId" : 124,
+                  "unqualifiedName" : "State"
+                }
+              }
+            }
+          },
+          "Value" : {
+            "map" : {
+              "State" : {
+                "Enum" : {
+                  "nodeId" : 124,
+                  "unqualifiedName" : "State"
+                }
+              }
+            }
+          }
         }
       },
       "59" : {
@@ -2589,20 +2704,6 @@
       
     },
     "typeMap" : {
-      "193" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "164" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
       "139" : {
         "Int" : {
           "Integer" : {
@@ -2652,6 +2753,21 @@
           }
         }
       },
+      "203" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 124
+          },
+          "repType" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      },
       "149" : {
         "Int" : {
           "Integer" : {
@@ -2660,13 +2776,6 @@
         }
       },
       "160" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
-      "150" : {
         "Int" : {
           "Integer" : {
             
@@ -2685,6 +2794,88 @@
           "Integer" : {
             
           }
+        }
+      },
+      "205" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "193" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "124" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 124
+          },
+          "repType" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          },
+          "default" : {
+            "Some" : {
+              "value" : [
+                "__FPRIME_UNINITIALIZED",
+                0
+              ],
+              "t" : {
+                "node" : {
+                  "astNodeId" : 124
+                },
+                "repType" : {
+                  "kind" : {
+                    "U8" : {
+                      
+                    }
+                  }
+                },
+                "default" : "None"
+              }
+            }
+          }
+        }
+      },
+      "164" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "150" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "204" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 124
+          },
+          "repType" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          },
+          "default" : "None"
         }
       }
     },
@@ -2856,6 +3047,27 @@
           "value" : 10240
         }
       },
+      "203" : {
+        "EnumConstant" : {
+          "value" : [
+            "__FPRIME_UNINITIALIZED",
+            0
+          ],
+          "t" : {
+            "node" : {
+              "astNodeId" : 124
+            },
+            "repType" : {
+              "kind" : {
+                "U8" : {
+                  
+                }
+              }
+            },
+            "default" : "None"
+          }
+        }
+      },
       "149" : {
         "Integer" : {
           "value" : 10
@@ -2866,11 +3078,6 @@
           "value" : 10
         }
       },
-      "150" : {
-        "Integer" : {
-          "value" : 1024
-        }
-      },
       "200" : {
         "Integer" : {
           "value" : 40
@@ -2879,6 +3086,32 @@
       "157" : {
         "Integer" : {
           "value" : 256
+        }
+      },
+      "150" : {
+        "Integer" : {
+          "value" : 1024
+        }
+      },
+      "204" : {
+        "EnumConstant" : {
+          "value" : [
+            "IDLE",
+            1
+          ],
+          "t" : {
+            "node" : {
+              "astNodeId" : 124
+            },
+            "repType" : {
+              "kind" : {
+                "U8" : {
+                  
+                }
+              }
+            },
+            "default" : "None"
+          }
         }
       }
     },
