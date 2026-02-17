@@ -9,6 +9,7 @@ import fpp.compiler.util._
 object ResolveSpecInclude extends AstStateTransformer
   with ComponentStateTransformer
   with ModuleStateTransformer
+  with TopologyStateTransformer
 {
 
   type State = Analysis
@@ -49,21 +50,6 @@ object ResolveSpecInclude extends AstStateTransformer
     }
   }
 
-  override def defTopologyAnnotatedNode(
-    a: Analysis,
-    node: Ast.Annotated[AstNode[Ast.DefTopology]]
-  ) = {
-    val (pre, node1, post) = node
-    val Ast.DefTopology(name, members) = node1.data
-    for { result <- transformList(a, members, topologyMember) }
-    yield {
-      val (a1, members1) = result
-      val defTopology = Ast.DefTopology(name, members1.flatten)
-      val node2 = AstNode.create(defTopology, node1.id)
-      (a1, (pre, node2, post))
-    }
-  }
-
   override def specTlmPacketAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacket]]
@@ -75,21 +61,6 @@ object ResolveSpecInclude extends AstStateTransformer
       val (a1, members1) = result
       val specTlmPacket = Ast.SpecTlmPacket(name, id, group, members1.flatten)
       val node1 = AstNode.create(specTlmPacket, node.id)
-      (a1, (pre, node1, post))
-    }
-  }
-
-  override def specTlmPacketSetAnnotatedNode(
-    a: Analysis,
-    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketSet]]
-  ) = {
-    val (pre, node, post) = aNode
-    val Ast.SpecTlmPacketSet(name, members, omitted) = node.data
-    for { result <- transformList(a, members, tlmPacketSetMember) }
-    yield {
-      val (a1, members1) = result
-      val defModule = Ast.SpecTlmPacketSet(name, members1.flatten, omitted)
-      val node1 = AstNode.create(defModule, node.id)
       (a1, (pre, node1, post))
     }
   }
@@ -122,6 +93,35 @@ object ResolveSpecInclude extends AstStateTransformer
         moduleMember
       )
       case _ => matchModuleMember(a, member)
+    }
+  }
+
+  override def tlmPacketSetMember(
+    a: Analysis,
+    member: Ast.TlmPacketSetMember
+  ): Result[List[Ast.TlmPacketSetMember]] = {
+    val (_, node, _) = member.node
+    node match {
+      case Ast.TlmPacketSetMember.SpecInclude(node1) => resolveSpecInclude(
+        a,
+        node1,
+        Parser.tlmPacketSetMembers,
+        tlmPacketSetMember
+      )
+      case _ => matchTlmPacketSetMember(a, member)
+    }
+  }
+
+  override def topologyMember(a: Analysis, member: Ast.TopologyMember): Result[List[Ast.TopologyMember]] = {
+    val (_, node, _) = member.node
+    node match {
+      case Ast.TopologyMember.SpecInclude(node1) => resolveSpecInclude(
+        a,
+        node1,
+        Parser.topologyMembers,
+        topologyMember
+      )
+      case _ => matchTopologyMember(a, member)
     }
   }
 
@@ -206,35 +206,6 @@ object ResolveSpecInclude extends AstStateTransformer
         tlmPacketMember
       )
       case _ => Right(a, List(member))
-    }
-  }
-
-  private def tlmPacketSetMember(
-    a: Analysis,
-    member: Ast.TlmPacketSetMember
-  ): Result[List[Ast.TlmPacketSetMember]] = {
-    val (_, node, _) = member.node
-    node match {
-      case Ast.TlmPacketSetMember.SpecInclude(node1) => resolveSpecInclude(
-        a,
-        node1,
-        Parser.tlmPacketSetMembers,
-        tlmPacketSetMember
-      )
-      case _ => matchTlmPacketSetMember(a, member)
-    }
-  }
-
-  private def topologyMember(a: Analysis, member: Ast.TopologyMember): Result[List[Ast.TopologyMember]] = {
-    val (_, node, _) = member.node
-    node match {
-      case Ast.TopologyMember.SpecInclude(node1) => resolveSpecInclude(
-        a,
-        node1,
-        Parser.topologyMembers,
-        topologyMember
-      )
-      case _ => matchTopologyMember(a, member)
     }
   }
 
