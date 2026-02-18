@@ -20,21 +20,6 @@ object ResolveSpecInclude extends AstStateTransformer
   def transUnitList(a: Analysis, tul: List[Ast.TransUnit]) =
     transformList(a, tul, transUnit)
 
-  override def specTlmPacketAnnotatedNode(
-    a: Analysis,
-    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacket]]
-  ) = {
-    val (pre, node, post) = aNode
-    val Ast.SpecTlmPacket(name, id, group, members) = node.data
-    for { result <- transformList(a, members, tlmPacketMember) }
-    yield {
-      val (a1, members1) = result
-      val specTlmPacket = Ast.SpecTlmPacket(name, id, group, members1.flatten)
-      val node1 = AstNode.create(specTlmPacket, node.id)
-      (a1, (pre, node1, post))
-    }
-  }
-
   override def transUnit(a: Analysis, tu: Ast.TransUnit) = {
     for { result <- transformList(a, tu.members, tuMember) }
     yield (result._1, Ast.TransUnit(result._2.flatten))
@@ -89,6 +74,21 @@ object ResolveSpecInclude extends AstStateTransformer
         stateMember
       )
       case _ => matchStateMember(a, member)
+    }
+  }
+
+  override def tlmPacketMember(
+    a: Analysis,
+    member: Ast.TlmPacketMember
+  ): Result[List[Ast.TlmPacketMember]] = {
+    member match {
+      case Ast.TlmPacketMember.SpecInclude(include) => resolveSpecInclude(
+        a,
+        include,
+        Parser.tlmPacketMembers,
+        tlmPacketMember
+      )
+      case _ => Right(a, List(member))
     }
   }
 
@@ -162,21 +162,6 @@ object ResolveSpecInclude extends AstStateTransformer
       }
     }
     yield (pair._1, pair._2.flatten)
-  }
-
-  private def tlmPacketMember(
-    a: Analysis,
-    member: Ast.TlmPacketMember
-  ): Result[List[Ast.TlmPacketMember]] = {
-    member match {
-      case Ast.TlmPacketMember.SpecInclude(include) => resolveSpecInclude(
-        a,
-        include,
-        Parser.tlmPacketMembers,
-        tlmPacketMember
-      )
-      case _ => Right(a, List(member))
-    }
   }
 
 }

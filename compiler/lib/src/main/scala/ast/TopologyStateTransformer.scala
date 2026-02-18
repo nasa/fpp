@@ -5,6 +5,21 @@ import fpp.compiler.syntax._
 /** Visit topology members */
 trait TopologyStateTransformer extends AstStateTransformer {
 
+  override def specTlmPacketAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacket]]
+  ) = {
+    val (pre, node, post) = aNode
+    val Ast.SpecTlmPacket(name, id, group, members) = node.data
+    for { result <- transformList(s, members, tlmPacketMember) }
+    yield {
+      val (s1, members1) = result
+      val specTlmPacket = Ast.SpecTlmPacket(name, id, group, members1.flatten)
+      val node1 = AstNode.create(specTlmPacket, node.id)
+      (s1, (pre, node1, post))
+    }
+  }
+
   override def specTlmPacketSetAnnotatedNode(
     s: State,
     aNode: Ast.Annotated[AstNode[Ast.SpecTlmPacketSet]]
@@ -34,6 +49,9 @@ trait TopologyStateTransformer extends AstStateTransformer {
       (s1, (pre, node2, post))
     }
   }
+
+  def tlmPacketMember(s: State, member: Ast.TlmPacketMember): Result[List[Ast.TlmPacketMember]] =
+    Right(s, List(member))
 
   def tlmPacketSetMember(s: State, member: Ast.TlmPacketSetMember): Result[List[Ast.TlmPacketSetMember]] =
     matchTlmPacketSetMember(s, member)
