@@ -4,8 +4,8 @@
 // \brief  cpp file for BasicTestEnum state machine
 // ======================================================================
 
+#include "BasicTestEnumStateMachineAc.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "state-machine/state/BasicTestEnumStateMachineAc.hpp"
 
 namespace FppTest {
 

@@ -7,6 +7,7 @@
 #ifndef FppTest_SmState_BasicU32StateMachineAc_HPP
 #define FppTest_SmState_BasicU32StateMachineAc_HPP
 
+#include "BasicU32_StateEnumAc.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"

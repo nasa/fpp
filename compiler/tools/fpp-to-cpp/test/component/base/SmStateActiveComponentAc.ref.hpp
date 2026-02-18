@@ -12,6 +12,7 @@
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
 #include "SmStateActive_BasicStateMachineAc.hpp"
+#include "SmStateActive_Basic_StateEnumAc.hpp"
 #include "state-machine/state/BasicGuardStateMachineAc.hpp"
 #include "state-machine/state/BasicGuardStringStateMachineAc.hpp"
 #include "state-machine/state/BasicGuardTestAbsTypeStateMachineAc.hpp"

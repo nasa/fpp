@@ -8,7 +8,7 @@
 #include <limits>
 
 #include "Fw/Types/Assert.hpp"
-#include "state-machine/state/Polymorphism_StateEnumAc.hpp"
+#include "Polymorphism_StateEnumAc.hpp"
 
 namespace FppTest {
 

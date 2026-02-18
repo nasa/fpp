@@ -3465,6 +3465,12 @@
       }
     },
     "useDefMap" : {
+      "260" : {
+        "Enum" : {
+          "nodeId" : 260,
+          "unqualifiedName" : "State"
+        }
+      },
       "10" : {
         "EnumConstant" : {
           "nodeId" : 5,

@@ -4,8 +4,8 @@
 // \brief  cpp file for BasicInternal state machine
 // ======================================================================
 
+#include "BasicInternalStateMachineAc.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "state-machine/state/BasicInternalStateMachineAc.hpp"
 
 namespace FppTest {
 

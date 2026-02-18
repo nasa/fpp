@@ -4,8 +4,8 @@
 // \brief  cpp file for BasicTestAbsType state machine
 // ======================================================================
 
+#include "BasicTestAbsTypeStateMachineAc.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "state-machine/state/BasicTestAbsTypeStateMachineAc.hpp"
 
 namespace FppTest {
 

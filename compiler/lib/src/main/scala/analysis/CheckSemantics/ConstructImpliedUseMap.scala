@@ -52,9 +52,7 @@ object ConstructImpliedUseMap
     val name = Name.Qualified(qualifier.toIdentList, "State")
     val impliedUse = ImpliedUse.fromNameAndId(name, id)
     val map = Map(ImpliedUse.Kind.Type -> Set(impliedUse))
-    //Right(a.copy(impliedUseMap = a.impliedUseMap + (id -> map)))
-    // TODO
-    Right(a)
+    Right(a.copy(impliedUseMap = a.impliedUseMap + (id -> map)))
   }
 
   override def defTopologyAnnotatedNode(

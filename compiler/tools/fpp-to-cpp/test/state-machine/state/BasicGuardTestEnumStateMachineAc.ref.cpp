@@ -4,8 +4,8 @@
 // \brief  cpp file for BasicGuardTestEnum state machine
 // ======================================================================
 
+#include "BasicGuardTestEnumStateMachineAc.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "state-machine/state/BasicGuardTestEnumStateMachineAc.hpp"
 
 namespace FppTest {
 

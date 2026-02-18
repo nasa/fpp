@@ -4,8 +4,8 @@
 // \brief  cpp file for ChoiceToState state machine
 // ======================================================================
 
+#include "ChoiceToStateStateMachineAc.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "state-machine/choice/ChoiceToStateStateMachineAc.hpp"
 
 namespace FppTest {
 

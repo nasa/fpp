@@ -7,6 +7,7 @@
 #ifndef FppTest_SmState_BasicTestAbsTypeStateMachineAc_HPP
 #define FppTest_SmState_BasicTestAbsTypeStateMachineAc_HPP
 
+#include "BasicTestAbsType_StateEnumAc.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"

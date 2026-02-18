@@ -8,7 +8,7 @@
 #include <limits>
 
 #include "Fw/Types/Assert.hpp"
-#include "state-machine/state/BasicTestEnum_StateEnumAc.hpp"
+#include "BasicTestEnum_StateEnumAc.hpp"
 
 namespace FppTest {
 

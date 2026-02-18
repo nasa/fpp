@@ -7,6 +7,7 @@
 #ifndef FppTest_SmState_BasicGuardTestStructStateMachineAc_HPP
 #define FppTest_SmState_BasicGuardTestStructStateMachineAc_HPP
 
+#include "BasicGuardTestStruct_StateEnumAc.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"

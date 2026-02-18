@@ -8,7 +8,7 @@
 #include <limits>
 
 #include "Fw/Types/Assert.hpp"
-#include "state-machine/choice/ChoiceToState_StateEnumAc.hpp"
+#include "ChoiceToState_StateEnumAc.hpp"
 
 namespace FppTest {
 

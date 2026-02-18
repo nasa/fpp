@@ -11,6 +11,7 @@
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
+#include "SequenceU32_StateEnumAc.hpp"
 
 namespace FppTest {
 

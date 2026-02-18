@@ -4,8 +4,8 @@
 // \brief  cpp file for BasicString state machine
 // ======================================================================
 
+#include "BasicStringStateMachineAc.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "state-machine/state/BasicStringStateMachineAc.hpp"
 
 namespace FppTest {
 

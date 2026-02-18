@@ -8,7 +8,7 @@
 #include <limits>
 
 #include "Fw/Types/Assert.hpp"
-#include "state-machine/choice/InputPairU16U32_StateEnumAc.hpp"
+#include "InputPairU16U32_StateEnumAc.hpp"
 
 namespace FppTest {
 

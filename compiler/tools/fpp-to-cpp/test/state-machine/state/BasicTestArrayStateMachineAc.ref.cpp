@@ -4,8 +4,8 @@
 // \brief  cpp file for BasicTestArray state machine
 // ======================================================================
 
+#include "BasicTestArrayStateMachineAc.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "state-machine/state/BasicTestArrayStateMachineAc.hpp"
 
 namespace FppTest {
 

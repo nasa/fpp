@@ -7,6 +7,7 @@
 #ifndef FppTest_SmChoice_ChoiceToStateStateMachineAc_HPP
 #define FppTest_SmChoice_ChoiceToStateStateMachineAc_HPP
 
+#include "ChoiceToState_StateEnumAc.hpp"
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"

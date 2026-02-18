@@ -4,8 +4,8 @@
 // \brief  cpp file for BasicGuardU32 state machine
 // ======================================================================
 
+#include "BasicGuardU32StateMachineAc.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "state-machine/state/BasicGuardU32StateMachineAc.hpp"
 
 namespace FppTest {
 

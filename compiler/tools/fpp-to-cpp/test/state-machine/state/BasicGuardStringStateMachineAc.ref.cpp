@@ -4,8 +4,8 @@
 // \brief  cpp file for BasicGuardString state machine
 // ======================================================================
 
+#include "BasicGuardStringStateMachineAc.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "state-machine/state/BasicGuardStringStateMachineAc.hpp"
 
 namespace FppTest {
 

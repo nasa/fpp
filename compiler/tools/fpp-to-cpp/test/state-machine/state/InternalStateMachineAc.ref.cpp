@@ -5,7 +5,7 @@
 // ======================================================================
 
 #include "Fw/Types/Assert.hpp"
-#include "state-machine/state/InternalStateMachineAc.hpp"
+#include "InternalStateMachineAc.hpp"
 
 namespace FppTest {
 

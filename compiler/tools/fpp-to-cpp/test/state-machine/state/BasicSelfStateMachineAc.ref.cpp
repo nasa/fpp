@@ -4,8 +4,8 @@
 // \brief  cpp file for BasicSelf state machine
 // ======================================================================
 
+#include "BasicSelfStateMachineAc.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "state-machine/state/BasicSelfStateMachineAc.hpp"
 
 namespace FppTest {
 
