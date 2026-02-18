@@ -9,6 +9,7 @@ import fpp.compiler.util._
 object ResolveSpecInclude extends AstStateTransformer
   with ComponentStateTransformer
   with ModuleStateTransformer
+  with StateMachineStateTransformer
   with TopologyStateTransformer
 {
 
@@ -18,37 +19,6 @@ object ResolveSpecInclude extends AstStateTransformer
 
   def transUnitList(a: Analysis, tul: List[Ast.TransUnit]) =
     transformList(a, tul, transUnit)
-
-  override def defStateAnnotatedNode(
-    a: Analysis,
-    node: Ast.Annotated[AstNode[Ast.DefState]]
-  ) = {
-    val (pre, node1, post) = node
-    val Ast.DefState(name, members) = node1.data
-    for { result <- transformList(a, members, stateMember) }
-    yield {
-      val (a1, members1) = result
-      val defStateMachine = Ast.DefState(name, members1.flatten)
-      val node2 = AstNode.create(defStateMachine, node1.id)
-      (a1, (pre, node2, post))
-    }
-  }
-
-  override def defStateMachineAnnotatedNodeInternal(
-    a: Analysis,
-    node: Ast.Annotated[AstNode[Ast.DefStateMachine]],
-    members: List[Ast.StateMachineMember]
-  ) = {
-    val (pre, node1, post) = node
-    val name = node1.data.name
-    for { result <- transformList(a, members, stateMachineMember) }
-    yield {
-      val (a1, members1) = result
-      val defStateMachine = Ast.DefStateMachine(name, Some(members1.flatten))
-      val node2 = AstNode.create(defStateMachine, node1.id)
-      (a1, (pre, node2, post))
-    }
-  }
 
   override def specTlmPacketAnnotatedNode(
     a: Analysis,
@@ -93,6 +63,32 @@ object ResolveSpecInclude extends AstStateTransformer
         moduleMember
       )
       case _ => matchModuleMember(a, member)
+    }
+  }
+
+  override def stateMachineMember(a: Analysis, member: Ast.StateMachineMember): Result[List[Ast.StateMachineMember]] = {
+    val (_, node, _) = member.node
+    node match {
+      case Ast.StateMachineMember.SpecInclude(node1) => resolveSpecInclude(
+        a,
+        node1,
+        Parser.stateMachineMembers,
+        stateMachineMember
+      )
+      case _ => matchStateMachineMember(a, member)
+    }
+  }
+
+  override def stateMember(a: Analysis, member: Ast.StateMember): Result[List[Ast.StateMember]] = {
+    val (_, node, _) = member.node
+    node match {
+      case Ast.StateMember.SpecInclude(node1) => resolveSpecInclude(
+        a,
+        node1,
+        Parser.stateMembers,
+        stateMember
+      )
+      case _ => matchStateMember(a, member)
     }
   }
 
@@ -166,32 +162,6 @@ object ResolveSpecInclude extends AstStateTransformer
       }
     }
     yield (pair._1, pair._2.flatten)
-  }
-
-  private def stateMachineMember(a: Analysis, member: Ast.StateMachineMember): Result[List[Ast.StateMachineMember]] = {
-    val (_, node, _) = member.node
-    node match {
-      case Ast.StateMachineMember.SpecInclude(node1) => resolveSpecInclude(
-        a,
-        node1,
-        Parser.stateMachineMembers,
-        stateMachineMember
-      )
-      case _ => matchStateMachineMember(a, member)
-    }
-  }
-
-  private def stateMember(a: Analysis, member: Ast.StateMember): Result[List[Ast.StateMember]] = {
-    val (_, node, _) = member.node
-    node match {
-      case Ast.StateMember.SpecInclude(node1) => resolveSpecInclude(
-        a,
-        node1,
-        Parser.stateMembers,
-        stateMember
-      )
-      case _ => matchStateMember(a, member)
-    }
   }
 
   private def tlmPacketMember(
