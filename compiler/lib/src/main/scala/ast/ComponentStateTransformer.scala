@@ -7,16 +7,16 @@ trait ComponentStateTransformer extends AstStateTransformer {
 
   override def defComponentAnnotatedNode(
     s: State,
-    node: Ast.Annotated[AstNode[Ast.DefComponent]]
+    aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
   ) = {
-    val (pre, node1, post) = node
-    val Ast.DefComponent(kind, name, members) = node1.data
+    val (pre, node, post) = aNode
+    val Ast.DefComponent(kind, name, members) = node.data
     for { result <- transformList(s, members, componentMember) }
     yield {
       val (s1, members1) = result
       val defComponent = Ast.DefComponent(kind, name, members1.flatten)
-      val node2 = AstNode.create(defComponent, node1.id)
-      (s1, (pre, node2, post))
+      val node1 = AstNode.create(defComponent, node.id)
+      (s1, (pre, node1, post))
     }
   }
 

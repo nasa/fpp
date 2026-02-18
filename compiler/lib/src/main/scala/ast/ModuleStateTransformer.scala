@@ -7,16 +7,16 @@ trait ModuleStateTransformer extends AstStateTransformer {
 
   override def defModuleAnnotatedNode(
     s: State,
-    node: Ast.Annotated[AstNode[Ast.DefModule]]
+    aNode: Ast.Annotated[AstNode[Ast.DefModule]]
   ) = {
-    val (pre, node1, post) = node
-    val Ast.DefModule(name, members) = node1.data
+    val (pre, node, post) = aNode
+    val Ast.DefModule(name, members) = node.data
     for { result <- transformList(s, members, moduleMember) }
     yield {
       val (s1, members1) = result
       val defModule = Ast.DefModule(name, members1.flatten)
-      val node2 = AstNode.create(defModule, node1.id)
-      (s1, (pre, node2, post))
+      val node1 = AstNode.create(defModule, node.id)
+      (s1, (pre, node1, post))
     }
   }
 

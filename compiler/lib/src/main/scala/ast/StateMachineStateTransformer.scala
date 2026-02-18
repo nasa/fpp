@@ -7,32 +7,32 @@ trait StateMachineStateTransformer extends AstStateTransformer {
 
   override def defStateAnnotatedNode(
     s: State,
-    node: Ast.Annotated[AstNode[Ast.DefState]]
+    aNode: Ast.Annotated[AstNode[Ast.DefState]]
   ) = {
-    val (pre, node1, post) = node
-    val Ast.DefState(name, members) = node1.data
+    val (pre, node, post) = aNode
+    val Ast.DefState(name, members) = node.data
     for { result <- transformList(s, members, stateMember) }
     yield {
       val (s1, members1) = result
       val defState = Ast.DefState(name, members1.flatten)
-      val node2 = AstNode.create(defState, node1.id)
-      (s1, (pre, node2, post))
+      val node1 = AstNode.create(defState, node.id)
+      (s1, (pre, node1, post))
     }
   }
 
   override def defStateMachineAnnotatedNodeInternal(
     s: State,
-    node: Ast.Annotated[AstNode[Ast.DefStateMachine]],
+    aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]],
     members: List[Ast.StateMachineMember]
   ) = {
-    val (pre, node1, post) = node
-    val name = node1.data.name
+    val (pre, node, post) = aNode
+    val name = node.data.name
     for { result <- transformList(s, members, stateMachineMember) }
     yield {
       val (s1, members1) = result
       val defStateMachine = Ast.DefStateMachine(name, Some(members1.flatten))
-      val node2 = AstNode.create(defStateMachine, node1.id)
-      (s1, (pre, node2, post))
+      val node1 = AstNode.create(defStateMachine, node.id)
+      (s1, (pre, node1, post))
     }
   }
 
