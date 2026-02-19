@@ -34,17 +34,12 @@ namespace FppTest {
         // ----------------------------------------------------------------------
 
         //! The state type
-        enum class State : FwEnumStoreType {
-          //! The uninitialized state
-          __FPRIME_AC_UNINITIALIZED,
-          //! State S.T
-          S_T,
-        };
+        using State = FppTest::SmInitial::Nested_State;
 
         //! The signal type
         enum class Signal : FwEnumStoreType {
           //! The initial transition
-          __FPRIME_AC_INITIAL_TRANSITION,
+          __FPRIME_INITIAL_TRANSITION,
         };
 
       protected:
@@ -116,7 +111,7 @@ namespace FppTest {
         FwEnumStoreType m_id = 0;
 
         //! The state
-        State m_state = State::__FPRIME_AC_UNINITIALIZED;
+        State m_state = State::__FPRIME_UNINITIALIZED;
 
     };
 
