@@ -28,7 +28,7 @@ case class PortInterface(
           this.portMap.get(name) match {
             case Some(found) =>
               // Port exists, make sure it matches theirs
-              if found == pi then Right(())
+              if PortInstanceSignature(found) == PortInstanceSignature(pi) then Right(())
               else Left(SemanticError.PortInterfaceInvalidPort(
                 found.getLoc,
                 pi.getLoc
@@ -48,7 +48,7 @@ case class PortInterface(
           this.specialPortMap.get(kind) match {
             case Some(found) =>
               // The port exists, make sure it's the same theirs
-              if found == pi then Right(())
+              if PortInstanceSignature(found) == PortInstanceSignature(pi) then Right(())
               else Left(SemanticError.PortInterfaceInvalidPort(
                 found.getLoc,
                 pi.getLoc

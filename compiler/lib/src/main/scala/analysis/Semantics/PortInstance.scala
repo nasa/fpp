@@ -3,6 +3,24 @@ package fpp.compiler.analysis
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
+
+/** An FPP port instance signature */
+case class PortInstanceSignature(
+  pi: PortInstance
+) {
+  override def equals(obj: Any): Boolean =
+    obj match {
+      case PortInstanceSignature(pi) =>
+        return (
+          this.pi.getDirection == pi.getDirection &&
+          this.pi.getArraySize == pi.getArraySize &&
+          this.pi.getType == pi.getType &&
+          this.pi.getUnqualifiedName == pi.getUnqualifiedName
+        )
+      case _ => false
+    }
+}
+
 /** An FPP port instance */
 sealed trait PortInstance {
 
