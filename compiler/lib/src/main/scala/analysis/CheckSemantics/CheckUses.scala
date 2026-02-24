@@ -151,14 +151,10 @@ object CheckUses extends BasicUseAnalyzer {
     val impliedConstantUses = a.getImpliedUses(ImpliedUse.Kind.Constant, node._2.id).toList
     for {
       a <- Result.foldLeft (impliedConstantUses) (a) ((a, iu) => {
-        val exprNode = iu.asExprNode
-        for {
-          a <- Result.annotateResult(
-            constantUse(a, exprNode, iu.name),
-            s"when constructing a dictionary, the constant ${iu.name} must be defined"
-          )
-          _ <- checkImpliedUseIsConstantDef(a, iu, exprNode)
-        } yield a
+        Result.annotateResult(
+          constantUse(a, iu.asExprNode, iu.name),
+          s"when constructing a dictionary, the constant ${iu.name} must be defined"
+        )
       })
       a <- Result.foldLeft (impliedTypeUses) (a) ((a, iu) => {
         Result.annotateResult(
@@ -166,6 +162,7 @@ object CheckUses extends BasicUseAnalyzer {
           s"when constructing a dictionary, the type ${iu.name} must be defined"
         )
       })
+      _ <- checkImpliedUses(a, node._2)
       a <- TopologyAnalyzer.visit(this, a, node)
     } yield a
   }
@@ -192,31 +189,76 @@ object CheckUses extends BasicUseAnalyzer {
     }
   }
 
-  // Check that an implied use is a constant def and not a member
-  // of a constant def
-  private def checkImpliedUseIsConstantDef(a: Analysis, iu: ImpliedUse, exprNode: AstNode[Ast.Expr]) = {
+  override def typeNameStringNode(
+    a: Analysis,
+    node: AstNode[Ast.TypeName],
+    tn: Ast.TypeNameString
+  ) = {
+    val impliedConstantUses = a.getImpliedUses(ImpliedUse.Kind.Constant, node.id).toList
+    val result = for {
+      a <- super.typeNameStringNode(a, node, tn)
+      _ <- checkImpliedUses(a, node)
+    } yield a
+    result match {
+      case Left(SemanticError.UndefinedSymbol("FW_FIXED_LENGTH_STRING_SIZE", _, _)) =>
+        Result.annotateResult(result, "use of a string type with default size requires this definition")
+      case _ =>
+        Result.annotateResult(result, "use of a string type requires this definition")
+    }
+  }
+
+  // Check that implied uses obey the rules
+  private def checkImpliedUses[T](
+    a: Analysis,
+    node: AstNode[T]
+  ) = {
+    val impliedTypeUses = a.getImpliedUses(ImpliedUse.Kind.Type, node.id).toList
+    val impliedConstantUses = a.getImpliedUses(ImpliedUse.Kind.Constant, node.id).toList
+    for {
+      _ <- Result.foldLeft (impliedConstantUses) (()) ((_, iu) =>
+        checkImpliedUse(a, iu, iu.asExprNode, "constant")
+      )
+      _ <- Result.foldLeft (impliedTypeUses) (()) ((_, iu) =>
+        checkImpliedUse(a, iu, iu.asExprNode, "type")
+      )
+    } yield ()
+  }
+
+  // Check that an implied use (a) is not a member
+  // of a def and (b) does not shadow the required def
+  private def checkImpliedUse(
+    a: Analysis,
+    iu: ImpliedUse,
+    exprNode: AstNode[Ast.Expr],
+    kind: String
+  ) = {
     val sym = a.useDefMap(exprNode.id)
+    val symQualifiedName = a.getQualifiedName(sym).toString
+    val iuName = iu.name.toString
     // Check that the name of the def matches the name of the use
-    if a.getQualifiedName(sym) == iu.name
-    // OK, they match
-    then Right(a)
-    // They don't match: the definition does not provide the required constant
-    else
-      val iuName = iu.name
-      val symName = sym.getUnqualifiedName
-      val error = Left(
-        SemanticError.InvalidSymbol(
-          symName,
-          Locations.get(exprNode.id),
-          s"it has $iuName as a member",
-          sym.getLoc
+    val result = if symQualifiedName == iuName
+      // OK, they match
+      then Right(())
+      else {
+        val msg = if symQualifiedName.length < iuName.length
+        // Definition has a shorter name: the use is a member of the definition
+        then s"it has $iuName as a member"
+        // Definition has a longer name: it shadows the required definition
+        else s"it shadows $iuName here"
+        Left(
+          SemanticError.InvalidSymbol(
+            symQualifiedName,
+            Locations.get(exprNode.id),
+            msg,
+            sym.getLoc
+          )
         )
-      )
-      val notes = List(
-        s"$iuName is an F Prime framework constant",
-        "it must be a constant definition"
-      )
-      Result.annotateResult(error, notes)
+      }
+    val notes = List(
+      s"$iuName is an F Prime framework $kind",
+      s"it must be a $kind definition"
+    )
+    Result.annotateResult(result, notes)
   }
 
 }

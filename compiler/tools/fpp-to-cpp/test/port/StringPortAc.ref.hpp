@@ -16,6 +16,7 @@
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
+#include "FwSizeStoreTypeAliasAc.hpp"
 
 //! Input String port
 //! A port with string parameters

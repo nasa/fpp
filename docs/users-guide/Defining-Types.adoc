@@ -77,27 +77,44 @@ of width 32 and 64 bits.
 
 * The type name `string`, denoting the type of
 <<Defining-Constants_Expressions_String-Values,string values>>.
-The
-<<Defining-Constants_Framework-Constants,framework constant>>
-`FW_FIXED_LENGTH_STRING_SIZE` specifies the 
-maximum string length of any value of type `string` when it
-is represented in the F Prime framework.
 For example:
 +
 [source,fpp]
 ----
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 # A is an array of 3 strings with size FW_FIXED_LENGTH_STRING_SIZE
 array A = [3] string
 ----
++
+Notice that we defined the 
+<<Defining-Types_Framework-Types,framework type>> 
+`FwSizeStoreType` and the 
+<<Defining-Constants_Framework-Constants,framework constant>>
+`FW_FIXED_LENGTH_STRING_SIZE`.
+These definitions are required when using the type `string`.
+Typically you provide them as part of the F Prime configuration.
+`FwSizeStoreType` specifies the type to use for storing the
+length of a string.
+`FW_FIXED_LENGTH_STRING_SIZE` specifies the size of the buffer
+used to store string data.
 
 * The type name `string size` _e_, where _e_ is a numeric expression
 specifying the maximum string length of any value of that type.
+For example:
 +
 [source,fpp]
 ----
+type FwSizeStoreType = U16
+
 # A is an array of 3 strings with size 40
 array A = [3] string size 40
 ----
++
+Here we just specified `FwSizeStoreType`.
+If a string type has an explicit size, then it does not
+use the definition `FW_FIXED_LENGTH_STRING_SIZE`.
 
 * A name associated with another type definition.
 In particular, an array definition may have another array definition as
@@ -301,6 +318,9 @@ a struct type containing two members: `x` of type `U32`, and `y` of type `string
 
 [source,fpp]
 ----
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 struct S { x: U32, y: string }
 ----
 
@@ -324,6 +344,9 @@ So, for example, we can write the definition shown above in this alternate way:
 
 [source,fpp]
 ----
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 struct S {
   x: U32
   y: string
@@ -341,6 +364,9 @@ Here is an example:
 
 [source,fpp]
 ----
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 @ This is a pre annotation for struct S
 struct S {
   @ This is a pre annotation for member x
@@ -361,6 +387,9 @@ For example, here is a struct type `S` with default value `{ x = 1, y = "abc"
 
 [source,fpp]
 ----
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 struct S { x: U32, y: string } default { x = 1, y = "abc" }
 ----
 
@@ -371,6 +400,9 @@ value and use it multiple times, like this:
 
 [source,fpp]
 ----
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 constant s = { x = 1, y = "abc" }
 struct S1 { x: U8, y: string } default s
 struct S2 { x: U32, y: string } default s
@@ -404,11 +436,17 @@ However, these default expressions are not allowed:
 
 [source,fpp]
 --------
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 struct S1 { x: U32, y: string } default { z = 1 } # Error: member z does not match
 --------
 
 [source,fpp]
 --------
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 struct S2 { x: U32, y: string } default { x = "abc" } # Error: type of member x does not match
 --------
 
@@ -482,6 +520,9 @@ that member `x` should be displayed as a hexadecimal value:
 
 [source,fpp]
 ----
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 struct Channel {
   name: string
   offset: U32 format "offset 0x{x}"
@@ -521,6 +562,9 @@ For example:
 
 [source,fpp]
 ----
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 array Speeds = [3] U32
 # Member speeds has type Speeds, which is an array of 3 U32 values
 struct Wheel { name: string, speeds: Speeds }
@@ -532,6 +576,9 @@ For example:
 
 [source,fpp]
 ----
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 array A = [2] U32
 struct S1 { x: U32, y: string }
 
@@ -573,6 +620,9 @@ For example, this code is legal:
 
 [source,fpp]
 ----
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 struct S { x: U32, y: string } default { y = "abc", x = 5 }
 ----
 

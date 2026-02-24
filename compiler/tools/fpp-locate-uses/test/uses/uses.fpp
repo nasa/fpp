@@ -102,6 +102,7 @@ state machine SM1 {
   guard g: GuardType
   signal s1: SignalType
   signal s2: string size SignalConstant
+  signal s3: string
 
   initial enter S
 

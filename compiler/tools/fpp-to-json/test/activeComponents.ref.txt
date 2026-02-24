@@ -2886,12 +2886,6 @@
           "unqualifiedName" : "Default"
         }
       },
-      "124" : {
-        "Enum" : {
-          "nodeId" : 124,
-          "unqualifiedName" : "State"
-        }
-      },
       "135" : {
         "StateMachine" : {
           "nodeId" : 124,

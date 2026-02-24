@@ -8,6 +8,7 @@
 #include "Fw/Time/Time.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringBase.hpp"
+#include "FwSizeStoreTypeAliasAc.hpp"
 #include "OneInstance_P1TlmPacketsAc.hpp"
 #include "SSerializableAc.hpp"
 

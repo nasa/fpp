@@ -38,6 +38,7 @@
 #include "SSerializableAc.hpp"
 #include "TypedPortAc.hpp"
 #include "TypedReturnPortAc.hpp"
+#include "config/FwSizeStoreTypeAliasAc.hpp"
 
 //! \class QueuedEventsComponentBase
 //! \brief Auto-generated base for QueuedEvents component

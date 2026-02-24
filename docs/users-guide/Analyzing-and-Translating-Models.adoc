@@ -531,6 +531,8 @@ all generate aliases to `Fw::String`, either directly or indirectly:
 
 [source,fpp]
 ----
+type FwSizeStoreType = U16
+
 type T1 = string size 40 # Generates an alias to Fw::String
 type T2 = string size 80 # Generates an alias to Fw::String
 type T3 = T2 # Generates an alias to T2, which is an alias to Fw::String

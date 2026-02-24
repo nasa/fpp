@@ -4,19 +4,17 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** Construct the implied use map */
-object ConstructImpliedUseMap
-  extends Analyzer
-  with ComponentAnalyzer
-  with InterfaceAnalyzer
-  with ModuleAnalyzer
-{
+object ConstructImpliedUseMap extends TypeExpressionAnalyzer {
 
-  override def specPortInstanceAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]) = {
+  override def specPortInstanceAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]
+  ) = {
     val (_, node, _) = aNode
     val data = node.data
     val id = node.id
-    data match {
-      case _ : Ast.SpecPortInstance.General => Right(a)
+    val a1 = data match {
+      case _ : Ast.SpecPortInstance.General => a
       case special : Ast.SpecPortInstance.Special =>
         // Construct the port use implied by the special port instance
         val name = special.kind match {
@@ -37,8 +35,9 @@ object ConstructImpliedUseMap
         val identList = List("Fw", name)
         val impliedUse = ImpliedUse.fromIdentListAndId(identList, node.id)
         val map = Map(ImpliedUse.Kind.Port -> Set(impliedUse))
-        Right(a.copy(impliedUseMap = a.impliedUseMap + (id -> map)))
+        a.copy(impliedUseMap = a.impliedUseMap + (id -> map))
     }
+    super.specPortInstanceAnnotatedNode(a1, aNode)
   }
 
   override def defStateMachineAnnotatedNodeInternal(
@@ -68,7 +67,6 @@ object ConstructImpliedUseMap
       val set = m.get(ImpliedUse.Kind.Type).getOrElse(Set())
       m + (ImpliedUse.Kind.Type -> (set + impliedUse))
     })
-
     val constants = ImpliedUse.getTopologyConstants(a)
     val map = constants.foldLeft (typeMap) ((m, c) => {
       val id1 = ImpliedUse.replicateId(id)
@@ -76,7 +74,30 @@ object ConstructImpliedUseMap
       val set = m.get(ImpliedUse.Kind.Constant).getOrElse(Set())
       m + (ImpliedUse.Kind.Constant -> (set + impliedUse))
     })
-    Right(a.copy(impliedUseMap = a.impliedUseMap + (id -> map)))
+    val a1 = a.copy(impliedUseMap = a.impliedUseMap + (id -> map))
+    super.defTopologyAnnotatedNode(a1, aNode)
+  }
+
+  override def typeNameStringNode(
+    a: Analysis, 
+    node: AstNode[Ast.TypeName],
+    tn: Ast.TypeNameString
+  ) = {
+    val id = node.id
+    def getImpliedUses(name: String) = {
+      val il = List(name)
+      val id1 = ImpliedUse.replicateId(id)
+      Set(ImpliedUse.fromIdentListAndId(il, id1))
+    }
+    val map =
+      Map(ImpliedUse.Kind.Type -> getImpliedUses("FwSizeStoreType"))
+    val map1 = if tn.size.isDefined
+      then map
+      else map + (
+        ImpliedUse.Kind.Constant -> getImpliedUses("FW_FIXED_LENGTH_STRING_SIZE")
+      )
+    val a1 = a.copy(impliedUseMap = a.impliedUseMap + (id -> map1))
+    super.typeNameStringNode(a1, node, tn)
   }
 
 }

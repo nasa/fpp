@@ -15,6 +15,7 @@
 #include "Fw/Port/InputPortBase.hpp"
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/String.hpp"
+#include "FwSizeStoreTypeAliasAc.hpp"
 
 namespace M {
 

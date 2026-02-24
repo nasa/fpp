@@ -38,6 +38,7 @@
 #include "SSerializableAc.hpp"
 #include "TypedPortAc.hpp"
 #include "TypedReturnPortAc.hpp"
+#include "config/FwSizeStoreTypeAliasAc.hpp"
 
 //! \class ActiveExternalParamsComponentBase
 //! \brief Auto-generated base for ActiveExternalParams component

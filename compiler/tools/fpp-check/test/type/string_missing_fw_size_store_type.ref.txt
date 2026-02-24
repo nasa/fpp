@@ -1,0 +1,7 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/type/string_missing_fw_size_store_type.fpp:1.10
+type s = string size 256
+         ^
+error: symbol FwSizeStoreType is not defined
+note: looking for a type here
+note: use of a string type requires this definition

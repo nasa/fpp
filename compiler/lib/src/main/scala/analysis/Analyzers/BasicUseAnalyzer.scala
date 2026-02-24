@@ -11,7 +11,7 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
 
   /** A use of a component definition */
   def componentUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
- 
+
   /** A use of a component instance definition */
   def componentInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
 
@@ -173,11 +173,23 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
     typeUse(a, node, use)
   }
 
+  override def typeNameStringNode(
+    a: Analysis,
+    node: AstNode[Ast.TypeName],
+    tn: Ast.TypeNameString
+  ) = {
+    val id = node.id
+    for {
+      a <- visitImpliedUses(a, id)
+      a <- super.typeNameStringNode(a, node, tn)
+    } yield a
+  }
+
   private def portInstanceIdentifierNode(a: Analysis, node: AstNode[Ast.PortInstanceIdentifier]): Result =
     qualIdentNode (componentInstanceUse) (a, node.data.componentInstance)
 
   private def qualIdentNode
-    (f: (Analysis, AstNode[Ast.QualIdent], Name.Qualified) => Result) 
+    (f: (Analysis, AstNode[Ast.QualIdent], Name.Qualified) => Result)
     (a: Analysis, qualIdent: AstNode[Ast.QualIdent]): Result = {
     val use = Name.Qualified.fromQualIdent(qualIdent.data)
     f(a, qualIdent, use)
