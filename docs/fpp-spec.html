@@ -7009,7 +7009,7 @@ of a <a href="#Definitions">definition</a>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>A <strong>component instance location specifier</strong> <code>locate</code> <code>instance</code>
+<p>An <strong>interface instance location specifier</strong> <code>locate</code> <code>instance</code>
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
@@ -7040,11 +7040,6 @@ of a <a href="#Definitions">definition</a>.</p>
 </li>
 <li>
 <p>A <strong>state machine location specifier</strong> <code>locate</code> <code>state</code> <code>machine</code>
-<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
-<a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
-</li>
-<li>
-<p>A <strong>topology location specifier</strong> <code>locate</code> <code>topology</code>
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
@@ -8471,7 +8466,7 @@ Such a specifier can be the endpoint of a
 <p>The identifier specifies the name <em>N</em> of the port instance.</p>
 </li>
 <li>
-<p>The port instance identifier must be valid.</p>
+<p>The port instance identifier must be valid and <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a> a port instance <em>I</em>.</p>
 </li>
 <li>
 <p>The whole specifier makes <em>I</em> part of the
@@ -12417,9 +12412,14 @@ definition</a> or
 <div class="sect2">
 <h3 id="Ports_Sub-Interfaces">22.4. Sub-Interfaces</h3>
 <div class="paragraph">
-<p>An interface <em>I</em> is a <strong>sub-interface</strong> of an interface <em>I'</em> if
+<p>A port interface <em>I</em> is a <strong>sub-interface</strong> of a port interface <em>I'</em> if
 the set of port instances represented by <em>I</em> is a subset of the set of
-port instances represented by <em>I'</em>.</p>
+port instances represented by <em>I'</em>.
+For purposes of this comparison, two port instances <em>i</em> and <em>i'</em>
+are considered
+to be identical if they are defined in different places in the model
+but are otherwise identical.
+In this case we say that <em>i</em> and <em>i'</em> have the same <strong>signature</strong>.</p>
 </div>
 </div>
 </div>
@@ -12533,7 +12533,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-01-28 22:03:08 -0800
+Last updated 2026-02-19 17:19:51 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

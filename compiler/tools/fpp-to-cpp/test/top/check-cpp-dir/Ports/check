@@ -1,0 +1,22 @@
+#!/bin/sh -e
+
+fpp_to_cpp=../../../../../../bin/fpp-to-cpp
+fprime_gcc=../../../../../../scripts/fprime-gcc
+
+echo '  removing old files'
+./clean
+
+dir=`cd ../..; echo $PWD`
+
+echo '  generating C++'
+$fpp_to_cpp -p $dir -i ../../builtin.fpp ../../basic.fpp
+
+for suffix in hpp cpp
+do
+  cp ../../Ports1TopologyAc.ref.$suffix Ports1TopologyAc.$suffix
+  cp ../../Ports2TopologyAc.ref.$suffix Ports2TopologyAc.$suffix
+done
+
+echo '  compiling C++'
+$fprime_gcc -I.. -I../../../fprime -I../../../fprime/config -Wno-unused-parameter -c Ports1TopologyAc.cpp
+$fprime_gcc -I.. -I../../../fprime -I../../../fprime/config -Wno-unused-parameter -c Ports2TopologyAc.cpp

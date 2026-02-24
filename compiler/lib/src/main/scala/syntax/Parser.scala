@@ -549,9 +549,9 @@ object Parser extends Parsers {
     }
   }
 
-  def specCompInstance: Parser[Ast.SpecCompInstance] = {
-    instance ~>! node(qualIdent) ^^ {
-      case instance => Ast.SpecCompInstance(instance)
+  def specInstance: Parser[Ast.SpecInstance] = {
+    (instance | importToken) ~>! node(qualIdent) ^^ {
+      case instance => Ast.SpecInstance(instance)
     }
   }
 
@@ -677,10 +677,9 @@ object Parser extends Parsers {
       typeToken ^^ (_ => Ast.SpecLoc.Type)
     def nonDictKind =
       component ^^ (_ => Ast.SpecLoc.Component) |
-      instance ^^ (_ => Ast.SpecLoc.ComponentInstance) |
+      instance ^^ (_ => Ast.SpecLoc.Instance) |
       port ^^ (_ => Ast.SpecLoc.Port) |
       state ~! machine ^^ (_ => Ast.SpecLoc.StateMachine) |
-      topology ^^ (_ => Ast.SpecLoc.Topology) |
       interface ^^ (_ => Ast.SpecLoc.Interface)
     def maybeDictPair =
       opt(dictionary) ~ maybeDictKind ^^ {
@@ -868,7 +867,7 @@ object Parser extends Parsers {
   }
 
   def specTopPort: Parser[Ast.SpecTopPort] =
-    port ~>! ident ~! (equals ~>! node(qualIdent)) ^^ {
+    port ~>! ident ~! (equals ~>! node(portInstanceIdentifier)) ^^ {
       case name ~ underlying => Ast.SpecTopPort(name, underlying)
     }
 
@@ -962,15 +961,14 @@ object Parser extends Parsers {
     elementSequence(tlmPacketMember, comma)
 
   private def topologyMemberNode: Parser[Ast.TopologyMember.Node] = {
-    node(specCompInstance) ^^ (n =>
-      Ast.TopologyMember.SpecCompInstance(n)) |
+    node(specInstance) ^^ (n =>
+      Ast.TopologyMember.SpecInstance(n)) |
       node(specConnectionGraph) ^^ (n =>
         Ast.TopologyMember.SpecConnectionGraph(n)) |
       node(specInclude) ^^ (n => Ast.TopologyMember.SpecInclude(n)) |
       node(specTopPort) ^^ (n => Ast.TopologyMember.SpecTopPort(n)) |
       node(specTlmPacketSet) ^^ (n =>
         Ast.TopologyMember.SpecTlmPacketSet(n)) |
-      node(specImport) ^^ (n => Ast.TopologyMember.SpecTopImport(n)) |
       failure("topology member expected")
   }
 

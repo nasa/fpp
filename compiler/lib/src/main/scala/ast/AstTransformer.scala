@@ -119,10 +119,10 @@ trait AstTransformer {
     node: Ast.Annotated[AstNode[Ast.SpecCommand]]
   ): ResultAnnotatedNode[Ast.SpecCommand] = Right(default(in), node)
 
-  def specCompInstanceAnnotatedNode(
+  def specInstanceAnnotatedNode(
     in: In,
-    node: Ast.Annotated[AstNode[Ast.SpecCompInstance]]
-  ): ResultAnnotatedNode[Ast.SpecCompInstance] = Right(default(in), node)
+    node: Ast.Annotated[AstNode[Ast.SpecInstance]]
+  ): ResultAnnotatedNode[Ast.SpecInstance] = Right(default(in), node)
 
   def specConnectionGraphAnnotatedNode(
     in: In,
@@ -203,11 +203,6 @@ trait AstTransformer {
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecTlmPacketSet]]
   ): ResultAnnotatedNode[Ast.SpecTlmPacketSet] = Right(default(in), node)
-
-  def specTopImportAnnotatedNode(
-    in: In,
-    node: Ast.Annotated[AstNode[Ast.SpecImport]]
-  ): ResultAnnotatedNode[Ast.SpecImport] = Right(default(in), node)
 
   def specInterfaceImportAnnotatedNode(
     in: In,
@@ -396,8 +391,8 @@ trait AstTransformer {
     }
     val (pre, node, post) =  member.node
     node match {
-      case Ast.TopologyMember.SpecCompInstance(node1) =>
-        transform(specCompInstanceAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecCompInstance(_))
+      case Ast.TopologyMember.SpecInstance(node1) =>
+        transform(specInstanceAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecInstance(_))
       case Ast.TopologyMember.SpecConnectionGraph(node1) =>
         transform(specConnectionGraphAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecConnectionGraph(_))
       case Ast.TopologyMember.SpecInclude(node1) =>
@@ -406,8 +401,6 @@ trait AstTransformer {
         transform(specTopPortAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecTopPort(_))
       case Ast.TopologyMember.SpecTlmPacketSet(node1) =>
         transform(specTlmPacketSetAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecTlmPacketSet(_))
-      case Ast.TopologyMember.SpecTopImport(node1) =>
-        transform(specTopImportAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecTopImport(_))
     }
   }
 

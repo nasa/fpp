@@ -426,9 +426,9 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
-  "spec component instance OK" should {
+  "spec instance OK" should {
     parseAllOK(
-      Parser.specCompInstance,
+      Parser.specInstance,
       List(
         "instance a",
         "instance a.b",
@@ -521,7 +521,6 @@ class ParserSpec extends AnyWordSpec {
         "locate instance a.b at \"c.fpp\"",
         "locate constant a.b at \"c.fpp\"",
         "locate port a.b at \"c.fpp\"",
-        "locate topology a.b at \"c.fpp\"",
         "locate type a.b at \"c.fpp\"",
         "locate dictionary type a.b at \"c.fpp\"",
         "locate dictionary constant a.b at \"c.fpp\"",
@@ -677,7 +676,7 @@ class ParserSpec extends AnyWordSpec {
     parseAllOK(
       Parser.specTopPort,
       List(
-        "port a = b",
+        "port a = a.b.c.d",
         "port b = c.b",
       )
     )

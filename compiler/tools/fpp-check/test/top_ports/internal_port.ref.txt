@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/top_ports/internal_port.fpp:26.3
+  port c = c1.P
+  ^
+error: topology port cannot point to an internal port
+port definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/top_ports/internal_port.fpp:7.3
+  internal port P(x: U32)
+  ^

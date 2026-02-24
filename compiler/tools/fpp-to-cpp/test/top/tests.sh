@@ -5,5 +5,6 @@ health
 nested_namespaces
 no_namespace
 params
+ports
 tlm_packets
 "
