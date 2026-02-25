@@ -9,9 +9,10 @@ object Result {
 
   /** Wraps error as an AnnotatedError with notes */
   def annotateResult[A](r: Result[A], notes: List[String]): Result[A] =
-    r match {
-      case Right(v) => Right(v)
-      case Left(e: Error) => Left(AnnotatedError(e, notes))
+    (r, notes) match {
+      case (Right(_), _) => r
+      case (_, Nil) => r
+      case (Left(e: Error), _) => Left(AnnotatedError(e, notes))
     }
 
   /** Wraps error as an AnnotatedError with a single note */

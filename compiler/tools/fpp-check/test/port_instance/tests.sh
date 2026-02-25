@@ -11,6 +11,7 @@ bad_priority_product_recv
 duplicate_command_recv
 duplicate_general
 ok
+shadowed_time_get
 special_input_kind_command
 special_input_kind_missing_product_recv
 sync_input_priority

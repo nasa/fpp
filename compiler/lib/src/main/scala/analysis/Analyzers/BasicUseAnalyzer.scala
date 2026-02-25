@@ -33,6 +33,18 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
   /** A use of a state machine definition*/
   def stateMachineUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
 
+  /** An implied constant use */
+  def impliedConstantUse(a: Analysis, iu: ImpliedUse) =
+    iu.annotateResult(exprNode(a, iu.asExprNode))
+
+  /** An implied port use */
+  def impliedPortUse(a: Analysis, iu: ImpliedUse) =
+    iu.annotateResult(portUse(a, iu.asQualIdentNode, iu.name))
+
+  /** An implied type use */
+  def impliedTypeUse(a: Analysis, iu: ImpliedUse) =
+    iu.annotateResult(typeUse(a, iu.asTypeNameNode, iu.name))
+
   override def defComponentInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]) = {
     val (_, node1, _) = node
     val data = node1.data
@@ -210,20 +222,17 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
 
   private def visitImpliedConstantUses(a: Analysis, id: AstNode.Id) = {
     val uses = a.getImpliedUses(ImpliedUse.Kind.Constant, id).toList
-    def visit(a: Analysis, iu: ImpliedUse) = exprNode(a, iu.asExprNode)
-    visitList(a, uses, visit)
+    visitList(a, uses, impliedConstantUse)
   }
 
   private def visitImpliedPortUses(a: Analysis, id: AstNode.Id) = {
     val uses = a.getImpliedUses(ImpliedUse.Kind.Port, id).toList
-    def visit(a: Analysis, iu: ImpliedUse) = portUse(a, iu.asQualIdentNode, iu.name)
-    visitList(a, uses, visit)
+    visitList(a, uses, impliedPortUse)
   }
 
   private def visitImpliedTypeUses(a: Analysis, id: AstNode.Id) = {
     val uses = a.getImpliedUses(ImpliedUse.Kind.Type, id).toList
-    def visit(a: Analysis, iu: ImpliedUse) = typeUse(a, iu.asTypeNameNode, iu.name)
-    visitList(a, uses, visit)
+    visitList(a, uses, impliedTypeUse)
   }
 
   private def visitImpliedUses(a: Analysis, id: AstNode.Id) = {

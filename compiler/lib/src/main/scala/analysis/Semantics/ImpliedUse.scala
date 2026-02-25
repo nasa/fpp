@@ -8,7 +8,9 @@ case class ImpliedUse(
   /** The fully-qualified name of the implied use */
   name: Name.Qualified,
   /** The AST node id associated with the implied use */
-  id: AstNode.Id
+  id: AstNode.Id,
+  /** Optional annotations for error reporting */
+  annotations: List[String] = Nil
 ) {
 
   def asExprNode: AstNode[Ast.Expr] = {
@@ -29,6 +31,11 @@ case class ImpliedUse(
   def asTypeNameNode: AstNode[Ast.TypeName] = {
     val typeName = Ast.TypeNameQualIdent(asQualIdentNode)
     AstNode.create(typeName, id)
+  }
+
+  def annotateResult[T](r: Result.Result[T]) = {
+    val as = s"the symbol $name has an implied use at the point of the error" :: annotations
+    Result.annotateResult(r, as)
   }
 
 }
@@ -78,10 +85,16 @@ object ImpliedUse {
     id1
   }
 
-  def fromNameAndId(name: Name.Qualified, id: AstNode.Id) =
-    ImpliedUse(name, id)
+  def fromNameAndId(
+    name: Name.Qualified,
+    id: AstNode.Id,
+    annotations: List[String] = Nil
+  ) = ImpliedUse(name, id, annotations)
 
-  def fromIdentListAndId(identList: List[Name.Unqualified], id: AstNode.Id) =
-    ImpliedUse(Name.Qualified.fromIdentList(identList), id)
+  def fromIdentListAndId(
+    identList: List[Name.Unqualified],
+    id: AstNode.Id,
+    annotations: List[String] = Nil
+  ) = fromNameAndId(Name.Qualified.fromIdentList(identList), id, annotations)
 
 }

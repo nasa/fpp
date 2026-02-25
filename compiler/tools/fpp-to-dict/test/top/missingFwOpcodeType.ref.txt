@@ -4,4 +4,5 @@ topology T {
 ^
 error: symbol FwOpcodeType is not defined
 note: looking for a type here
-note: when constructing a dictionary, the type FwOpcodeType must be defined
+note: the symbol FwOpcodeType has an implied use at the point of the error
+note: this implied use occurs when constructing a dictionary
