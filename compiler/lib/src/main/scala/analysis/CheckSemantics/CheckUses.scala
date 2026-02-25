@@ -81,23 +81,33 @@ object CheckUses extends BasicUseAnalyzer {
     visitExprNode(a, node)
   }
 
-  override def impliedConstantUse(a: Analysis, iu: ImpliedUse) =
-    for {
-      a <- super.impliedConstantUse(a, iu)
-      _ <- checkImpliedUse(a, iu, "constant")
-    } yield a
-
-  override def impliedPortUse(a: Analysis, iu: ImpliedUse) =
-    for {
-      a <- super.impliedPortUse(a, iu)
-      _ <- checkImpliedUse(a, iu, "port")
-    } yield a
-
-  override def impliedTypeUse(a: Analysis, iu: ImpliedUse) =
-    for {
-      a <- super.impliedTypeUse(a, iu)
-      _ <- checkImpliedUse(a, iu, "type")
-    } yield a
+  // Check that an implied use (a) is not a member
+  // of a def and (b) does not shadow the required def
+  override def impliedUse(a: Analysis, iu: ImpliedUse, kind: ImpliedUse.Kind) = {
+    val sym = a.useDefMap(iu.id)
+    val symQualifiedName = a.getQualifiedName(sym).toString
+    val iuName = iu.name.toString
+    // Check that the name of the def matches the name of the use
+    val result = if symQualifiedName == iuName
+      // OK, they match
+      then Right(a)
+      else {
+        val msg = if symQualifiedName.length < iuName.length
+        // Definition has a shorter name: the use is a member of the definition
+        then s"it has $iuName as a member"
+        // Definition has a longer name: it shadows the required definition
+        else s"it shadows $iuName here"
+        Left(
+          SemanticError.InvalidSymbol(
+            symQualifiedName,
+            Locations.get(iu.id),
+            msg,
+            sym.getLoc
+          )
+        )
+      }
+    iu.annotateResult(result)
+  }
 
   override def defComponentAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefComponent]]) = {
     val (_, node, _) = aNode
@@ -184,38 +194,6 @@ object CheckUses extends BasicUseAnalyzer {
       }
       case _ => throw InternalError("type use should be qualified identifier")
     }
-  }
-
-  // Check that an implied use (a) is not a member
-  // of a def and (b) does not shadow the required def
-  private def checkImpliedUse(
-    a: Analysis,
-    iu: ImpliedUse,
-    kind: String
-  ) = {
-    val sym = a.useDefMap(iu.id)
-    val symQualifiedName = a.getQualifiedName(sym).toString
-    val iuName = iu.name.toString
-    // Check that the name of the def matches the name of the use
-    val result = if symQualifiedName == iuName
-      // OK, they match
-      then Right(())
-      else {
-        val msg = if symQualifiedName.length < iuName.length
-        // Definition has a shorter name: the use is a member of the definition
-        then s"it has $iuName as a member"
-        // Definition has a longer name: it shadows the required definition
-        else s"it shadows $iuName here"
-        Left(
-          SemanticError.InvalidSymbol(
-            symQualifiedName,
-            Locations.get(iu.id),
-            msg,
-            sym.getLoc
-          )
-        )
-      }
-    iu.annotateResult(result)
   }
 
 }
