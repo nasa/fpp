@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.23">
+<meta name="generator" content="Asciidoctor 2.0.26">
 <title>The F Prime Prime (FPP) Language Specification, Unreleased, after v3.0.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -116,7 +116,6 @@ h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title str
 :not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
 pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
 pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
-pre>code{display:block}
 pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
 em em{font-style:normal}
 strong strong{font-weight:400}
@@ -219,6 +218,7 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
 .literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
 .listingblock>.content{position:relative}
+.listingblock pre>code{display:block}
 .listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
 .listingblock:hover code[data-lang]::before{display:block}
 .listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
@@ -2916,20 +2916,88 @@ is a comma:</p>
 <a href="#Element-Sequences">element sequence</a> in
 which each element is a <a href="#Definitions_Module-Definitions_Syntax">module member</a>, and the terminating punctuation is a semicolon.</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Note that <a href="#Definitions_Module-Template-Definitions">template definition</a> defined
-as members to template definitions will cause an error.</p>
-</li>
-</ol>
-</div>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Module-Template-Definitions_Semantics">5.10.2. Semantics</h4>
 <div class="paragraph">
 <p>Module template definitions define parameterized FPP syntax. A template can be expanded
 through a <a href="#Specifiers_Template-Expansion-Specifiers">template expansion specifier</a>.</p>
+</div>
+<div id="Definitions_Module-Template-Definitions_" class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+<div class="title">TODO</div>
+<div class="paragraph">
+<p>I&#8217;m not sure if this is the proper way to specify this</p>
+</div>
+<div class="paragraph">
+<p>What I want to say is:</p>
+</div>
+<div class="paragraph">
+<p>For each template expansion:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Resolve template uses to template definitions</p>
+</li>
+<li>
+<p>Clone syntax from template definition into expansion members</p>
+</li>
+<li>
+<p>Create two new scopes:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><em>S<sub>P</sub></em> Parameter Scope</p>
+</li>
+<li>
+<p><em>S<sub>D</sub></em> Member Definitions Scope</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Add template params to <em>S<sub>P</sub></em></p>
+</li>
+<li>
+<p>Add definitions in the template expansion to <em>S<sub>D</sub></em></p>
+</li>
+<li>
+<p>Add definitions in template expansion to the parent scope of the expansion</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>To resolve uses in the expansion:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Build up a nested scope with the following:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>All nested scopes up to the template definition</p>
+</li>
+<li>
+<p><em>S<sub>D</sub></em></p>
+</li>
+<li>
+<p><em>S<sub>P</sub></em></p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>Templates are expanded with the following algorithm:</p>
@@ -2941,23 +3009,14 @@ through a <a href="#Specifiers_Template-Expansion-Specifiers">template expansion
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Create a new empty scope <em>S</em> for <em>E</em>.</p>
-</li>
-<li>
 <p>Resolve the module template definition <em>T</em> which <em>E</em>
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refers to</a>.</p>
-</li>
-<li>
-<p>Enter template parameters of <em>T</em> into <em>S</em> with concrete values given in <em>E</em>.</p>
 </li>
 <li>
 <p>Duplicate the syntax contained in <em>T</em> into syntax <em>X</em> contained under <em>E</em>.</p>
 </li>
 <li>
-<p>Enter symbols discovered in <em>X</em> into <em>S</em>.</p>
-</li>
-<li>
-<p>For each template expansion specifier in <em>X</em>, apply these rules recursively.</p>
+<p>For each template expansion specifier in <em>X</em>, re-apply these rules until all template expansions are expanded.</p>
 </li>
 </ol>
 </div>
@@ -2965,7 +3024,109 @@ through a <a href="#Specifiers_Template-Expansion-Specifiers">template expansion
 </ol>
 </div>
 <div class="paragraph">
-<p>With templates expanded,</p>
+<p>Definitions inside expanded templates will follow different rules from standard definitions.</p>
+</div>
+<div class="paragraph">
+<p>Definitions inside expanded templates will be entered using the following algorithm:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>For each expanded template specifier <em>E</em> in scope <em>S</em> referring to template <em>T</em>:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Create a new scope <em>S<sub>P</sub></em>.</p>
+</li>
+<li>
+<p>For each template parameter <em>P<sub>D</sub></em> specified in <em>T</em> and template parameter value <em>P<sub>V</sub></em> in <em>E</em>:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>If <em>P<sub>D</sub></em> is a <code>constant</code> parameter:</p>
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p><em>P<sub>V</sub></em> must be an <a href="#Expressions">expression</a></p>
+</li>
+<li>
+<p>Add a template parameter constant with value <em>P<sub>V</sub></em> to <em>S<sub>P</sub></em>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>If <em>P<sub>D</sub></em> is an <code>interface</code> parameter:</p>
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p><em>P<sub>V</sub></em> must be an</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Create a new scope <em>S<sub>D</sub></em>.</p>
+</li>
+<li>
+<p>For each definition <em>D</em> in expanded members of <em>E</em>:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Add <em>D</em> to <em>S<sub>D</sub></em>.</p>
+</li>
+<li>
+<p>Add <em>D</em> to <em>S</em>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The following rules govern the resolution of identifiers, i.e.,
+associating identifiers with definitions <em>inside</em> a template expansion <em>E</em>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Use the context to determine which
+<a href="#Scoping-of-Names_Name-Groups">name group</a>
+<em>G</em> to use. For example, if we are expecting a type name, then use the
+type name group.</p>
+</li>
+<li>
+<p>Look up the scopes <em>S<sub>P</sub></em> and <em>S<sub>D</sub></em> for <em>E</em>.</p>
+</li>
+<li>
+<p>Inside the template expansion referring to a template definition <em>T</em>
+with qualified name <em>N</em>:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>The identifier <em>I</em> refers to a template parameter in <em>S<sub>P</sub></em></p>
+</li>
+<li>
+<p>Otherwise <em>I</em> refers to a definition inside <em>S<sub>D</sub></em> in the name group <em>G</em>.</p>
+</li>
+<li>
+<p>Otherwise <em>I</em> refers to the definition with qualified name
+<em>N</em> <code>.</code> <em>I</em> if it exists in name group <em>S</em>.</p>
+</li>
+<li>
+<p>Otherwise <em>I</em> refers to the definition with qualified name <em>I</em> if it
+exists in name group <em>S</em>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
@@ -7694,7 +7855,8 @@ of FPP.</p>
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
 a
 <a href="#Ports_Port-Interface-Instances">port interface instance</a>,
-i.e., a component instance definition or a topology definition.</p>
+i.e., a component instance definition, topology definition,
+or template interface parameter.</p>
 </div>
 </div>
 <div class="sect3">
@@ -12432,16 +12594,19 @@ with the port name in <em>n</em>.</p>
 <div class="sect2">
 <h3 id="Ports_Port-Interface-Instances">22.3. Port Interface Instances</h3>
 <div class="paragraph">
-<p>A <strong>port interface instance</strong> is either a
-<a href="#Definitions_Component-Instance-Definitions">component instance definition</a>
-or a <a href="#Definitions_Topology-Definitions">topology definition</a>.
+<p>A <strong>port interface instance</strong> is a
+<a href="#Definitions_Component-Instance-Definitions">component instance definition</a>,
+<a href="#Definitions_Topology-Definitions">topology definition</a> or a
+<a href="#Definitions_Module-Template-Definitions">template interface parameter</a>.
 Each of these elements provides concrete port instances
 that can serve as the endpoints of topology connections.
 A port interface instance has an associated port interface <em>I</em>;
 this is the port interface associated with the
 <a href="#Ports_Port-Interfaces_Component-Instance-Definitions">component instance
 definition</a> or
-<a href="#Ports_Port-Interfaces_Topology-Definitions">topology definition</a>.</p>
+<a href="#Ports_Port-Interfaces_Topology-Definitions">topology definition</a>.
+An template interface parameter&#8217;s port interface will be named in the template
+definition&#8217;s parameter list.</p>
 </div>
 </div>
 <div class="sect2">
@@ -12563,7 +12728,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2025-12-02 10:41:25 -0800
+Last updated 2026-02-25 14:34:04 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
@@ -12590,6 +12755,6 @@ MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
   })
 })
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>

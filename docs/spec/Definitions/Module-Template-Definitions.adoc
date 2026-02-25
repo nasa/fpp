@@ -30,33 +30,100 @@ _module-member-sequence_ is an
 which each element is a <<Definitions_Module-Definitions_Syntax,
 module member>>, and the terminating punctuation is a semicolon.
 
-. Note that <<Definitions_Module-Template-Definitions,template definition>> defined
-as members to template definitions will cause an error.
-
 ==== Semantics
 
 Module template definitions define parameterized FPP syntax. A template can be expanded
 through a <<Specifiers_Template-Expansion-Specifiers,
 template expansion specifier>>.
 
+
+[IMPORTANT] 
+.TODO
+==== 
+I'm not sure if this is the proper way to specify this
+
+What I want to say is:
+
+For each template expansion:
+
+. Resolve template uses to template definitions
+. Clone syntax from template definition into expansion members
+. Create two new scopes:
+.. _S~P~_ Parameter Scope
+.. _S~D~_ Member Definitions Scope
+. Add template params to _S~P~_
+. Add definitions in the template expansion to _S~D~_
+. Add definitions in template expansion to the parent scope of the expansion
+
+To resolve uses in the expansion:
+
+. Build up a nested scope with the following:
+.. All nested scopes up to the template definition
+.. _S~D~_
+.. _S~P~_
+====
+
 Templates are expanded with the following algorithm:
 
 . For each template expansion specifier _E_:
 
-.. Create a new empty scope _S_ for _E_.
-
 .. Resolve the module template definition _T_ which _E_
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refers to>>.
 
-.. Enter template parameters of _T_ into _S_ with concrete values given in _E_.
-
 .. Duplicate the syntax contained in _T_ into syntax _X_ contained under _E_.
 
-.. Enter symbols discovered in _X_ into _S_.
+.. For each template expansion specifier in _X_, re-apply these rules until all template expansions are expanded.
 
-.. For each template expansion specifier in _X_, apply these rules recursively.
+Definitions inside expanded templates will follow different rules from standard definitions.
 
-With templates expanded, 
+Definitions inside expanded templates will be entered using the following algorithm:
+
+. For each expanded template specifier _E_ in scope _S_ referring to template _T_:
+
+.. Create a new scope _S~P~_.
+
+.. For each template parameter _P~D~_ specified in _T_ and template parameter value _P~V~_ in _E_:
+
+... If _P~D~_ is a `constant` parameter:
+
+.... _P~V~_ must be an <<Expressions,expression>>
+
+.... Add a template parameter constant with value _P~V~_ to _S~P~_.
+
+... If _P~D~_ is an `interface` parameter:
+
+.... _P~V~_ must be an 
+
+.. Create a new scope _S~D~_.
+
+.. For each definition _D_ in expanded members of _E_:
+
+... Add _D_ to _S~D~_.
+
+... Add _D_ to _S_.
+
+The following rules govern the resolution of identifiers, i.e.,
+associating identifiers with definitions _inside_ a template expansion _E_:
+
+. Use the context to determine which
+<<Scoping-of-Names_Name-Groups,name group>>
+_G_ to use. For example, if we are expecting a type name, then use the
+type name group.
+
+. Look up the scopes _S~P~_ and _S~D~_ for _E_.
+
+. Inside the template expansion referring to a template definition _T_
+with qualified name _N_:
+
+.. The identifier _I_ refers to a template parameter in _S~P~_
+
+.. Otherwise _I_ refers to a definition inside _S~D~_ in the name group _G_.
+
+.. Otherwise _I_ refers to the definition with qualified name
+_N_ `.` _I_ if it exists in name group _S_.
+
+.. Otherwise _I_ refers to the definition with qualified name _I_ if it
+exists in name group _S_.
 
 ==== Example
 
