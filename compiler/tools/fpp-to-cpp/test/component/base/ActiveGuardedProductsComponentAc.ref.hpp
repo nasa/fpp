@@ -37,6 +37,7 @@
 #include "Os/Mutex.hpp"
 #include "TypedPortAc.hpp"
 #include "TypedReturnPortAc.hpp"
+#include "config/FwSizeStoreTypeAliasAc.hpp"
 
 //! \class ActiveGuardedProductsComponentBase
 //! \brief Auto-generated base for ActiveGuardedProducts component

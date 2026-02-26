@@ -4,4 +4,5 @@ topology T {
 ^
 error: symbol CONTAINER_USER_DATA_SIZE is not defined
 note: looking for a constant here
-note: when constructing a dictionary, the constant Fw.DpCfg.CONTAINER_USER_DATA_SIZE must be defined
+note: the symbol Fw.DpCfg.CONTAINER_USER_DATA_SIZE has an implied use at the point of the error
+note: this implied use occurs when constructing a dictionary

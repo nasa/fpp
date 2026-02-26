@@ -8,6 +8,7 @@
 #define SAliasAliasAc_HPP
 
 #include "Fw/Types/String.hpp"
+#include "FwSizeStoreTypeAliasAc.hpp"
 
 using SAlias = Fw::String;
 

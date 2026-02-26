@@ -4,4 +4,5 @@ topology T {
 ^
 error: symbol FW_FIXED_LENGTH_STRING_SIZE is not defined
 note: looking for a constant here
-note: when constructing a dictionary, the constant FW_FIXED_LENGTH_STRING_SIZE must be defined
+note: the symbol FW_FIXED_LENGTH_STRING_SIZE has an implied use at the point of the error
+note: this implied use occurs when constructing a dictionary

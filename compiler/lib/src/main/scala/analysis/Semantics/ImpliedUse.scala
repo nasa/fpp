@@ -8,7 +8,9 @@ case class ImpliedUse(
   /** The fully-qualified name of the implied use */
   name: Name.Qualified,
   /** The AST node id associated with the implied use */
-  id: AstNode.Id
+  id: AstNode.Id,
+  /** Optional annotations for error reporting */
+  annotations: List[String] = Nil
 ) {
 
   def asExprNode: AstNode[Ast.Expr] = {
@@ -20,18 +22,6 @@ case class ImpliedUse(
     AstNode.create(expr, id)
   }
 
-  def asUniqueExprNode: AstNode[Ast.Expr] = {
-    val Name.Qualified(qualifier, base) = name
-    val head :: tail = name.toIdentList
-    val expr = tail.foldLeft (Ast.ExprIdent(head): Ast.Expr) ((e1, s) =>
-      Ast.ExprDot(
-        AstNode.create(e1, ImpliedUse.replicateId(id)),
-        AstNode.create(s, ImpliedUse.replicateId(id))
-      )
-    )
-    AstNode.create(expr, ImpliedUse.replicateId(id))
-  }
-
   def asQualIdentNode: AstNode[Ast.QualIdent] = {
     val nodeList = name.toIdentList.map(AstNode.create(_, id))
     val qualIdent = Ast.QualIdent.fromNodeList(nodeList)
@@ -41,6 +31,11 @@ case class ImpliedUse(
   def asTypeNameNode: AstNode[Ast.TypeName] = {
     val typeName = Ast.TypeNameQualIdent(asQualIdentNode)
     AstNode.create(typeName, id)
+  }
+
+  def annotateResult[T](r: Result.Result[T]) = {
+    val as = s"the symbol $name has an implied use at the point of the error" :: annotations
+    Result.annotateResult(r, as)
   }
 
 }
@@ -82,6 +77,7 @@ object ImpliedUse {
     )
     else Nil
 
+  /** Create a new ID at the same location as id */
   def replicateId(id: AstNode.Id) = {
     val loc = Locations.get(id)
     val id1 = AstNode.getId
@@ -89,7 +85,10 @@ object ImpliedUse {
     id1
   }
 
-  def fromIdentListAndId(identList: List[Name.Unqualified], id: AstNode.Id) =
-    ImpliedUse(Name.Qualified.fromIdentList(identList), id)
+  def fromIdentListAndId(
+    identList: List[Name.Unqualified],
+    id: AstNode.Id,
+    annotations: List[String] = Nil
+  ) = ImpliedUse(Name.Qualified.fromIdentList(identList), id, annotations)
 
 }

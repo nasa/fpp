@@ -8,6 +8,7 @@
 #define TStringAliasAc_HPP
 
 #include "Fw/Types/String.hpp"
+#include "FwSizeStoreTypeAliasAc.hpp"
 
 using TString = Fw::String;
 

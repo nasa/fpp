@@ -37,6 +37,7 @@
 #include "QueuedSyncProducts_DataSerializableAc.hpp"
 #include "TypedPortAc.hpp"
 #include "TypedReturnPortAc.hpp"
+#include "config/FwSizeStoreTypeAliasAc.hpp"
 
 //! \class QueuedSyncProductsComponentBase
 //! \brief Auto-generated base for QueuedSyncProducts component

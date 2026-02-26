@@ -238,7 +238,7 @@ sealed trait Error {
       case SemanticError.InvalidTypeForMemberSelection(memberName, loc, typeName) =>
         Error.print (Some(loc)) (s"no member $memberName in value of type $typeName")
       case SemanticError.InvalidSymbol(name, loc, msg, defLoc) =>
-        Error.print (Some(loc)) (s"invalid symbol $name: $msg")
+        Error.print (Some(loc)) (s"invalid use of symbol $name: $msg")
         System.err.println("symbol is defined here:")
         System.err.println(defLoc)
       case SemanticError.InvalidTlmChannelName(loc, channelName, componentName) =>

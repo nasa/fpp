@@ -1,3 +1,7 @@
+# Core F Prime types and constants
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 # Placeholders for core F Prime ports
 # used in special port instances
 module Fw {

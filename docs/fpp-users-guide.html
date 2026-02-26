@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>The F Prime Prime (FPP) User&#8217;s Guide, v3.1.0</title>
+<title>The F Prime Prime (FPP) User&#8217;s Guide, Unreleased, after v3.1.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>The F Prime Prime (FPP) User&#8217;s Guide, v3.1.0</h1>
+<h1>The F Prime Prime (FPP) User&#8217;s Guide, Unreleased, after v3.1.0</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -1835,16 +1835,17 @@ is not legal:</p>
 <p>Certain constants defined in FPP have a special meaning in the
 F Prime framework.
 These constants are called <strong>framework constants</strong>.
-For example, the constant <code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code>
-defines the size of the user data field in a data product container.
-(Data products are an F Prime feature that we describe
-<a href="#Defining-Components_Data-Products">in a later section of this manual</a>.)
+For example, the constant <code>FW_FIXED_LENGTH_STRING_SIZE</code>
+defines the default maximum size of a string.
+(We will define string types
+<a href="#Defining-Types_Array-Type-Definitions_Type-Names">in a later section of this
+manual</a>.)
 You typically set these constants by overriding configuration
 files provided in the directory <code>default/config</code> in the F Prime repository.
-For example, the file <code>default/config/DpCfg.fpp</code> provides a default value for
-<code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code>.
-You can override this default value by providing your own version of
-the file <code>DpCfg.fpp</code>.
+For example, the file <code>default/config/FpConstants.fpp</code> provides a default
+definition for <code>FW_FIXED_LENGTH_STRING_SIZE</code>.
+You can override this default value by a different definition for this
+constant.
 The
 <a href="https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/">F
 Prime User Manual</a>
@@ -1854,7 +1855,7 @@ explains how to do this configuration.</p>
 <p>The FPP analyzer does not require that framework constants be defined
 unless they are used.
 For example, the following model is valid, because it neither defines nor users
-<code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code>:</p>
+<code>FW_FIXED_LENGTH_STRING_SIZE</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1862,30 +1863,22 @@ For example, the following model is valid, because it neither defines nor users
 </div>
 </div>
 <div class="paragraph">
-<p>The following model is valid because it defines and uses <code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code>:</p>
+<p>The following model is valid because it defines and uses <code>FW_FIXED_LENGTH_STRING_SIZE</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module Fw {
+<pre class="prettyprint highlight"><code data-lang="fpp">constant FW_FIXED_LENGTH_STRING_SIZE = 80
 
-  module DpCfg {
-
-    constant CONTAINER_USER_DATA_SIZE = 10
-
-  }
-
-}
-
-constant a = Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code></pre>
+constant a = FW_FIXED_LENGTH_STRING_SIZE</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The following model is invalid, because it uses <code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code>
+<p>The following model is invalid, because it uses <code>FW_FIXED_LENGTH_STRING_SIZE</code>
 without defining it:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant a = Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = FW_FIXED_LENGTH_STRING_SIZE</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1894,20 +1887,12 @@ then they must conform to certain rules.
 These rules are spelled out in detail in the
 <a href="https://nasa.github.io/fpp/fpp-spec.html#Definitions_Framework-Definitions_Constant-Definitions"><em>The
 FPP Language Specification</em></a>.
-For example, <code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code> must have an integer type.
+For example, <code>FW_FIXED_LENGTH_STRING_SIZE</code> must have an integer type.
 So this model is invalid:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module Fw {
-
-  module DpCfg {
-
-    constant CONTAINER_USER_DATA_SIZE = "abc"
-
-  }
-
-}</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">constant FW_FIXED_LENGTH_STRING_SIZE = "abc"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1916,21 +1901,13 @@ So this model is invalid:</p>
 <div class="listingblock">
 <div class="content">
 <pre>% fpp-check
-module Fw {
-
-  module DpCfg {
-
-    constant CONTAINER_USER_DATA_SIZE = "abc"
-
-  }
-
-}
+constant FW_FIXED_LENGTH_STRING_SIZE = "abc"
 ^D
 fpp-check
-stdin:5.5
-    constant CONTAINER_USER_DATA_SIZE = "abc"
-    ^
-error: the F Prime framework constant Fw.DpCfg.CONTAINER_USER_DATA_SIZE must have an integer type</pre>
+stdin:1.1
+constant FW_FIXED_LENGTH_STRING_SIZE = "abc"
+^
+error: the F Prime framework constant FW_FIXED_LENGTH_STRING_SIZE must have an integer type</pre>
 </div>
 </div>
 </div>
@@ -2294,27 +2271,46 @@ of width 32 and 64 bits.</p>
 <li>
 <p>The type name <code>string</code>, denoting the type of
 <a href="#Defining-Constants_Expressions_String-Values">string values</a>.
-The
-<a href="#Defining-Constants_Framework-Constants">framework constant</a>
-<code>FW_FIXED_LENGTH_STRING_SIZE</code> specifies the
-maximum string length of any value of type <code>string</code> when it
-is represented in the F Prime framework.
 For example:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># A is an array of 3 strings with size FW_FIXED_LENGTH_STRING_SIZE
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+# A is an array of 3 strings with size FW_FIXED_LENGTH_STRING_SIZE
 array A = [3] string</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Notice that we defined the
+<a href="#Defining-Types_Framework-Types">framework type</a>
+<code>FwSizeStoreType</code> and the
+<a href="#Defining-Constants_Framework-Constants">framework constant</a>
+<code>FW_FIXED_LENGTH_STRING_SIZE</code>.
+These definitions are required when using the type <code>string</code>.
+Typically you provide them as part of the F Prime configuration.
+<code>FwSizeStoreType</code> specifies the type to use for storing the
+length of a string.
+<code>FW_FIXED_LENGTH_STRING_SIZE</code> specifies the size of the buffer
+used to store string data.</p>
 </div>
 </li>
 <li>
 <p>The type name <code>string size</code> <em>e</em>, where <em>e</em> is a numeric expression
-specifying the maximum string length of any value of that type.</p>
+specifying the maximum string length of any value of that type.
+For example:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># A is an array of 3 strings with size 40
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+
+# A is an array of 3 strings with size 40
 array A = [3] string size 40</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Here we just specified <code>FwSizeStoreType</code>.
+If a string type has an explicit size, then it does not
+use the definition <code>FW_FIXED_LENGTH_STRING_SIZE</code>.</p>
 </div>
 </li>
 <li>
@@ -2560,7 +2556,10 @@ a struct type containing two members: <code>x</code> of type <code>U32</code>, a
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">struct S { x: U32, y: string }</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+struct S { x: U32, y: string }</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2595,7 +2594,10 @@ So, for example, we can write the definition shown above in this alternate way:<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">struct S {
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+struct S {
   x: U32
   y: string
 }</code></pre>
@@ -2614,7 +2616,10 @@ Here is an example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">@ This is a pre annotation for struct S
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+@ This is a pre annotation for struct S
 struct S {
   @ This is a pre annotation for member x
   x: U32 @&lt; This is a post annotation for member x
@@ -2636,7 +2641,10 @@ For example, here is a struct type <code>S</code> with default value <code>{ x =
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">struct S { x: U32, y: string } default { x = 1, y = "abc" }</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+struct S { x: U32, y: string } default { x = 1, y = "abc" }</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2647,7 +2655,10 @@ value and use it multiple times, like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant s = { x = 1, y = "abc" }
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+constant s = { x = 1, y = "abc" }
 struct S1 { x: U8, y: string } default s
 struct S2 { x: U32, y: string } default s</code></pre>
 </div>
@@ -2684,12 +2695,18 @@ then FPP will fill in the member and give it the default value:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">struct S1 { x: U32, y: string } default { z = 1 } # Error: member z does not match</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+struct S1 { x: U32, y: string } default { z = 1 } # Error: member z does not match</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">struct S2 { x: U32, y: string } default { x = "abc" } # Error: type of member x does not match</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+struct S2 { x: U32, y: string } default { x = "abc" } # Error: type of member x does not match</code></pre>
 </div>
 </div>
 </div>
@@ -2778,7 +2795,10 @@ that member <code>x</code> should be displayed as a hexadecimal value:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">struct Channel {
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+struct Channel {
   name: string
   offset: U32 format "offset 0x{x}"
 }</code></pre>
@@ -2824,7 +2844,10 @@ For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">array Speeds = [3] U32
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+array Speeds = [3] U32
 # Member speeds has type Speeds, which is an array of 3 U32 values
 struct Wheel { name: string, speeds: Speeds }</code></pre>
 </div>
@@ -2836,7 +2859,10 @@ For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">array A = [2] U32
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+array A = [2] U32
 struct S1 { x: U32, y: string }
 
 # default value is { s1 = { x = 0, y = "" }, a = [ 0, 0 ] }
@@ -2881,7 +2907,10 @@ For example, this code is legal:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">struct S { x: U32, y: string } default { y = "abc", x = 5 }</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+struct S { x: U32, y: string } default { y = "abc", x = 5 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3433,7 +3462,10 @@ For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">port P1() # Zero parameters; equivalent to port P1
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+port P1() # Zero parameters; equivalent to port P1
 port P2(a: U32) # One parameter
 port P3(a: I32, b: F32, c: string) # Three parameters</code></pre>
 </div>
@@ -7688,7 +7720,10 @@ Here is an example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">@ A component for illustrating priority and queue full behavior for async
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+@ A component for illustrating priority and queue full behavior for async
 @ commands
 active component PriorityQueueFull {
 
@@ -14397,7 +14432,9 @@ all generate aliases to <code>Fw::String</code>, either directly or indirectly:<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">type T1 = string size 40 # Generates an alias to Fw::String
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+
+type T1 = string size 40 # Generates an alias to Fw::String
 type T2 = string size 80 # Generates an alias to Fw::String
 type T3 = T2 # Generates an alias to T2, which is an alias to Fw::String</code></pre>
 </div>
@@ -16418,7 +16455,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-19 15:50:58 -0800
+Last updated 2026-02-24 14:06:37 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

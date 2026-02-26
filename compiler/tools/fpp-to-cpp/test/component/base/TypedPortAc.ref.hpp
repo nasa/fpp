@@ -19,6 +19,7 @@
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 #include "SSerializableAc.hpp"
+#include "config/FwSizeStoreTypeAliasAc.hpp"
 
 namespace Ports {
 

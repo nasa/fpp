@@ -6,6 +6,9 @@ module Fw {
 
 port General
 
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 @ An interface for illustrating importing special and general ports
 @ into a component.
 interface ICmd {

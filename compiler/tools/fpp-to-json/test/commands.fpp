@@ -1,3 +1,6 @@
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+  
 @ A component for illustrating priority and queue full behavior for async
 @ commands
 active component PriorityQueueFull {

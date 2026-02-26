@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>The F Prime Prime (FPP) Language Specification, v3.1.0</title>
+<title>The F Prime Prime (FPP) Language Specification, Unreleased, after v3.1.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>The F Prime Prime (FPP) Language Specification, v3.1.0</h1>
+<h1>The F Prime Prime (FPP) Language Specification, Unreleased, after v3.1.0</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -8541,11 +8541,32 @@ string size 256</code></pre>
 <p>The optional expression following the keyword <code>size</code> is called the <strong>size
 expression</strong> of the string type name.  If present, it must have a
 <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>, and it must
-evaluate to a value in the range [0,2<sup>31</sup>) after conversion to
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
-The size expression specifies the maximum
-length of a string value represented by the type.  If the size expression is
-not present, then the translator uses a default maximum string length.</p>
+evaluate to a value in the range [1,2<sup>31</sup>) after conversion to
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.</p>
+</div>
+<div class="paragraph">
+<p>At each point in the model where a string type name appears, the following
+implied uses of
+<a href="#Definitions_Framework-Definitions">framework definitions</a> occur:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Each string type name represents an implied use of the type
+<code>FwSizeStoreType</code>.</p>
+</li>
+<li>
+<p>Each string type name that omits the <code>size</code> expression
+represents an implied use of the constant
+<code>FW_FIXED_LENGTH_STRING_SIZE</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If the size expression is present, then it specifies the maximum
+length of a string value represented by the type.
+Otherwise, the maximum length is the value of
+<code>FW_FIXED_LENGTH_STRING_SIZE</code>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -12157,7 +12178,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-19 15:56:15 -0800
+Last updated 2026-02-24 13:32:09 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

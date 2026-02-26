@@ -1,10 +1,13 @@
 component_dir=`dirname $PWD`
 fprime_dir=`dirname $component_dir`/fprime
 test_dir=`dirname $component_dir`
+config_dir=$fprime_dir/config
+platform_dir=$fprime_dir/Platform
 
 types()
 {
-  run_test "-p $component_dir" "../types" types && \
+  imports="$config_dir/FpConfig.fpp,$config_dir/FpConstants.fpp,$config_dir/ComCfg.fpp,$platform_dir/PlatformTypes.fpp"
+  run_test "-i $imports -p $fprime_dir,$component_dir" "../types" types && \
   diff_cpp NoArgsPort && \
   diff_cpp NoArgsReturnPort && \
   diff_cpp TypedPort && \
