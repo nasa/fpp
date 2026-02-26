@@ -37,7 +37,7 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
   def impliedConstantUse(a: Analysis, iu: ImpliedUse) = {
     val result = for {
       a <- exprNode(a, iu.asExprNode)
-      _ <- impliedUse(a, iu, ImpliedUse.Kind.Constant)
+      a <- impliedUse(a, iu, ImpliedUse.Kind.Constant)
     } yield a
     iu.annotateResult(result)
   }
@@ -46,7 +46,7 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
   def impliedPortUse(a: Analysis, iu: ImpliedUse) = {
     val result = for {
       a <- portUse(a, iu.asQualIdentNode, iu.name)
-      _ <- impliedUse(a, iu, ImpliedUse.Kind.Port)
+      a <- impliedUse(a, iu, ImpliedUse.Kind.Port)
     } yield a
     iu.annotateResult(result)
   }
@@ -55,7 +55,7 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
   def impliedTypeUse(a: Analysis, iu: ImpliedUse) = {
     val result = for {
       a <- typeUse(a, iu.asTypeNameNode, iu.name)
-      _ <- impliedUse(a, iu, ImpliedUse.Kind.Type)
+      a <- impliedUse(a, iu, ImpliedUse.Kind.Type)
     } yield a
     iu.annotateResult(result)
   }
