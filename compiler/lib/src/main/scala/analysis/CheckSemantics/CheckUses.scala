@@ -88,25 +88,24 @@ object CheckUses extends BasicUseAnalyzer {
     val symQualifiedName = a.getQualifiedName(sym).toString
     val iuName = iu.name.toString
     // Check that the name of the def matches the name of the use
-    val result = if symQualifiedName == iuName
-      // OK, they match
-      then Right(a)
-      else {
-        val msg = if symQualifiedName.length < iuName.length
-        // Definition has a shorter name: the use is a member of the definition
-        then s"it has $iuName as a member"
-        // Definition has a longer name: it shadows the required definition
-        else s"it shadows $iuName here"
-        Left(
-          SemanticError.InvalidSymbol(
-            symQualifiedName,
-            Locations.get(iu.id),
-            msg,
-            sym.getLoc
-          )
+    if symQualifiedName == iuName
+    // OK, they match
+    then Right(a)
+    else {
+      val msg = if symQualifiedName.length < iuName.length
+      // Definition has a shorter name: the use is a member of the definition
+      then s"it has $iuName as a member"
+      // Definition has a longer name: it shadows the required definition
+      else s"it shadows $iuName here"
+      Left(
+        SemanticError.InvalidSymbol(
+          symQualifiedName,
+          Locations.get(iu.id),
+          msg,
+          sym.getLoc
         )
-      }
-    iu.annotateResult(result)
+      )
+    }
   }
 
   override def defComponentAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefComponent]]) = {

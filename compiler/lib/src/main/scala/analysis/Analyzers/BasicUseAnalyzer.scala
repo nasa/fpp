@@ -34,25 +34,31 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
   def stateMachineUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
 
   /** An implied constant use */
-  def impliedConstantUse(a: Analysis, iu: ImpliedUse) =
-    for {
-      a <- iu.annotateResult(exprNode(a, iu.asExprNode))
+  def impliedConstantUse(a: Analysis, iu: ImpliedUse) = {
+    val result = for {
+      a <- exprNode(a, iu.asExprNode)
       _ <- impliedUse(a, iu, ImpliedUse.Kind.Constant)
     } yield a
+    iu.annotateResult(result)
+  }
 
   /** An implied port use */
-  def impliedPortUse(a: Analysis, iu: ImpliedUse) =
-    for {
-      a <- iu.annotateResult(portUse(a, iu.asQualIdentNode, iu.name))
+  def impliedPortUse(a: Analysis, iu: ImpliedUse) = {
+    val result = for {
+      a <- portUse(a, iu.asQualIdentNode, iu.name)
       _ <- impliedUse(a, iu, ImpliedUse.Kind.Port)
     } yield a
+    iu.annotateResult(result)
+  }
 
   /** An implied type use */
-  def impliedTypeUse(a: Analysis, iu: ImpliedUse) =
-    for {
-      a <- iu.annotateResult(typeUse(a, iu.asTypeNameNode, iu.name))
+  def impliedTypeUse(a: Analysis, iu: ImpliedUse) = {
+    val result = for {
+      a <- typeUse(a, iu.asTypeNameNode, iu.name)
       _ <- impliedUse(a, iu, ImpliedUse.Kind.Type)
     } yield a
+    iu.annotateResult(result)
+  }
 
   /** An implied use */
   def impliedUse(a: Analysis, iu: ImpliedUse, kind: ImpliedUse.Kind): Result =
