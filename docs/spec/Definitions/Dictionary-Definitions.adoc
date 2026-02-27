@@ -1,7 +1,9 @@
 === Dictionary Definitions
 
-If the optional keyword `dictionary` appears in a type definition or
-a constant definition, then that definition is called a
+If the optional keyword `dictionary` appears in a 
+<<Definitions_Type-Definitions,type definition>> or
+a <<Definitions_Constant-Definitions,constant definition>>, then that 
+definition is called a
 *dictionary definition*.
 A dictionary definition instructs the code generator to include
 the definition in the ground dictionary.

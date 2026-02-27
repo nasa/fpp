@@ -1,9 +1,7 @@
 === Framework Definitions
 
-The following definitions are used specially by the
-F Prime framework.
-If they are present in the model, then they must conform
-to the following rules.
+Several definitions are used specially by the F Prime framework.
+These are called *framework definitions.*
 
 ==== Constant Definitions
 
@@ -12,7 +10,8 @@ Each row in the table has the following meaning:
 
 . The row provides a qualified name _N_ and a set of rules _R_.
 
-. If the model contains a definition _D_ with 
+. If the model contains a 
+<<Definitions_Constant-Definitions,constant definition>> _D_ with 
 <<Scoping-of-Names_Names-of-Definitions,qualified name>> _N_,
 then _D_ must have the following properties:
 
@@ -27,8 +26,8 @@ or state machine.
 
 The rules use the following terms:
 
-* An *integer constant* is a <<Definitions_Constant-Definitions,constant 
-  definition>> whose <<Types_Underlying-Types,underlying type>> is an
+* An *integer constant* is a <<Definitions_Constant-Definitions,constant definition>>
+whose <<Types_Underlying-Types,underlying type>> is an
   <<Types_Internal-Types_Integer-Types,integer type>>.
 
 * A *positive integer constant* is an integer constant
@@ -122,7 +121,8 @@ The rules use the following terms:
 The table below lists the framework type definitions.
 The rows have the same meaning as stated for 
 <<Definitions_Framework-Definitions_Constant-Definitions,constant 
-definitions>>.
+definitions>>, except that the qualified names are the names
+of <<Definitions_Type-Definitions,type definitions>>.
 The rules use the following terms:
 
 * An *integer alias type* is an <<Definitions_Alias-Type-Definitions,alias type 
@@ -202,3 +202,34 @@ The rules use the following terms:
 |Must be an integer alias type.
 
 |===
+
+==== Port Definitions
+
+The F Prime framework provides <<Definitions_Port-Definitions,port definitions>>
+with the following qualified names:
+
+* `Fw.CmdReg`
+
+* `Fw.CmdResponse`
+
+* `Fw.Cmd`
+
+* `Fw.DpGet`
+
+* `Fw.DpRequest`
+
+* `Fw.DpResponse`
+
+* `Fw.DpSend`
+
+* `Fw.LogText`
+
+* `Fw.Log`
+
+* `Fw.PrmGet`
+
+* `Fw.PrmSet`
+
+* `Fw.Time`
+
+* `Fw.Tlm`
