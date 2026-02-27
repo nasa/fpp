@@ -8,6 +8,7 @@ fw_opcode_type_not_alias_type
 fw_obj_simple_reg_buff_size_not_integer
 fw_size_type_not_unsigned
 invalid_nonnegative_integer_constant
+invalid_positive_integer_constant
 invalid_string_size
 proc_type_not_module_qualified
 user_data_size_not_integer
