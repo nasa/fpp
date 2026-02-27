@@ -118,3 +118,34 @@ constant a = 0
 
 is also legal, and the order in which the units are presented to the
 translator does not matter.
+
+=== Implied Uses
+
+At certain points in the analysis, the analyzer may treat an element
+of the model as if it contained uses of one or more 
+<<Definitions_Framework-Definitions,
+framework definitions>>.
+These uses are called *implied uses*.
+For example, a <<Definitions_Topology-Definitions_Implied-Uses,topology
+definition>> has implied uses when a dictionary is being generated.
+
+Whenever an implied use is called out in this specification, the
+definition being used must be available at the point of the implied
+use.
+If the definition is unavailable because it is hidden by another
+definition in an inner scope, then an error results.
+For example, this model is illegal, because the definition
+`M.FwSizeStoreType` hides the framework definition `FwSizeStoreType`
+at the point of the <<Type-Names_String-Type-Names,implied use>>
+in the type `string size 100`:
+
+[source,fpp]
+----
+module M {
+
+   type FwSizeStoreType = U16
+
+   type T = string size 100
+
+}
+----

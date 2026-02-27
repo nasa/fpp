@@ -931,6 +931,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions-and-Uses_Uses">16.1. Uses</a></li>
 <li><a href="#Definitions-and-Uses_Use-Def-Graph">16.2. Use-Def Graph</a></li>
 <li><a href="#Definitions-and-Uses_Order-of-Definitions-and-Uses">16.3. Order of Definitions and Uses</a></li>
+<li><a href="#Definitions-and-Uses_Implied-Uses">16.4. Implied Uses</a></li>
 </ul>
 </li>
 <li><a href="#Types">17. Types</a>
@@ -4145,16 +4146,10 @@ then \$c_1\$ is less than (respectively greater than) \$c_2\$.</p>
 <div class="sect3">
 <h4 id="Definitions_Topology-Definitions_Implied-Uses">5.14.3. Implied Uses</h4>
 <div class="paragraph">
-<p>When generating a dictionary from a topology <em>T</em>, the analyzer may
-treat the definition of <em>T</em> as if it contained uses of
-one or more <a href="#Definitions_Framework-Definitions">framework alias type definitions</a> that are required by the dictionary.
-These uses are called <strong>implied uses</strong>.</p>
-</div>
-<div class="paragraph">
-<p>The management of these implied uses is left up to the FPP implementation.
-The only requirement levied here is that, when generating a dictionary,
-the FPP implementation must guarantee that all the framework definitions
-required by the dictionary specification are available in the model.
+<p>When generating a dictionary from a topology <em>T</em>, the analyzer
+treats the definition of <em>T</em> as if it contained
+<a href="#Definitions-and-Uses_Implied-Uses">implied uses</a> of
+several <a href="#Definitions_Framework-Definitions">framework definitions</a> required by the dictionary.
 Those framework definitions are specified
 in the <a href="https://fprime.jpl.nasa.gov/latest/docs/reference/fpp-json-dict/">F Prime
 dictionary specification</a>.</p>
@@ -4377,15 +4372,15 @@ Each row in the table has the following meaning:</p>
 <p>The row provides a qualified name <em>N</em> and a set of rules <em>R</em>.</p>
 </li>
 <li>
-<p>If the model contains a definition <em>D</em> with that
-<a href="#Scoping-of-Names_Names-of-Definitions">qualified name</a>,
+<p>If the model contains a definition <em>D</em> with
+<a href="#Scoping-of-Names_Names-of-Definitions">qualified name</a> <em>N</em>,
 then <em>D</em> must have the following properties:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Each identifier or qualified identifier that is a prefix of the
+<p>Each qualified identifier that is a prefix of the
 name <em>N</em>, but not the name itself, must
-<a href="#Scoping-of-Names_Resolution-of-Identifiers">refer to</a> a
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a> a
 <a href="#Definitions_Module-Definitions">module definition</a>.
 For example, the definition <em>D</em>  may not appear inside a component
 or state machine.</p>
@@ -8709,7 +8704,7 @@ evaluate to a value in the range [1,2<sup>31</sup>) after conversion to
 </div>
 <div class="paragraph">
 <p>At each point in the model where a string type name appears, the following
-implied uses of
+<a href="#Definitions-and-Uses_Implied-Uses">implied uses</a> of
 <a href="#Definitions_Framework-Definitions">framework definitions</a> occur:</p>
 </div>
 <div class="olist arabic">
@@ -10473,6 +10468,39 @@ constant a = 0</code></pre>
 <div class="paragraph">
 <p>is also legal, and the order in which the units are presented to the
 translator does not matter.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Definitions-and-Uses_Implied-Uses">16.4. Implied Uses</h3>
+<div class="paragraph">
+<p>At certain points in the analysis, the analyzer may treat an element
+of the model as if it contained uses of one or more
+<a href="#Definitions_Framework-Definitions">framework definitions</a>.
+These uses are called <strong>implied uses</strong>.
+For example, a <a href="#Definitions_Topology-Definitions_Implied-Uses">topology
+definition</a> has implied uses when a dictionary is being generated.</p>
+</div>
+<div class="paragraph">
+<p>Whenever an implied use is called out in this specification, the
+definition being used must be available at the point of the implied
+use.
+If the definition is unavailable because it is hidden by another
+definition in an inner scope, then an error results.
+For example, this model is illegal, because the definition
+<code>M.FwSizeStoreType</code> hides the framework definition <code>FwSizeStoreType</code>
+at the point of the <a href="#Type-Names_String-Type-Names">implied use</a>
+in the type <code>string size 100</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+
+   type FwSizeStoreType = U16
+
+   type T = string size 100
+
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -12341,7 +12369,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-26 17:42:55 -0800
+Last updated 2026-02-26 17:59:14 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

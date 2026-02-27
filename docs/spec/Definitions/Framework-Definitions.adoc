@@ -12,13 +12,13 @@ Each row in the table has the following meaning:
 
 . The row provides a qualified name _N_ and a set of rules _R_.
 
-. If the model contains a definition _D_ with that
-<<Scoping-of-Names_Names-of-Definitions,qualified name>>,
+. If the model contains a definition _D_ with 
+<<Scoping-of-Names_Names-of-Definitions,qualified name>> _N_,
 then _D_ must have the following properties:
 
-.. Each identifier or qualified identifier that is a prefix of the
+.. Each qualified identifier that is a prefix of the
 name _N_, but not the name itself, must
-<<Scoping-of-Names_Resolution-of-Identifiers,refer to>> a
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>> a
 <<Definitions_Module-Definitions,module definition>>.
 For example, the definition _D_  may not appear inside a component
 or state machine.
