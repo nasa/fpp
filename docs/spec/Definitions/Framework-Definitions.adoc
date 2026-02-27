@@ -7,152 +7,198 @@ to the following rules.
 
 ==== Constant Definitions
 
+The table below lists the framework constant definitions.
+Each row in the table has the following meaning:
+
+. The row provides a qualified name _N_ and a set of rules _R_.
+
+. If the model contains a definition _D_ with that
+<<Scoping-of-Names_Names-of-Definitions,qualified name>>,
+then _D_ must have the following properties:
+
+.. Each identifier or qualified identifier that is a prefix of the
+name _N_, but not the name itself, must
+<<Scoping-of-Names_Resolution-of-Identifiers,refer to>> a
+<<Definitions_Module-Definitions,module definition>>.
+For example, the definition _D_  may not appear inside a component
+or state machine.
+
+.. The definition _D_ must conform to the rules _R_.
+
+The rules use the following terms:
+
+* An *integer constant* is a <<Definitions_Constant-Definitions,constant 
+  definition>> whose <<Types_Underlying-Types,underlying type>> is an
+  <<Types_Internal-Types_Integer-Types,integer type>>.
+
+* A *positive integer constant* is an integer constant
+  whose value is greater than zero.
+
+* A *string size constant* is an integer constant whose value is a
+  valid <<Types_String-Types,string size>>.
+
 |===
-|Name|Rules
+|Qualified Name|Rules
 
 |`FW_ASSERT_COUNT_MAX`
-|Must be a constant with an underlying type of integer
+|Must be a positive integer constant.
 
 |`FW_CMD_ARG_BUFFER_MAX_SIZE`
-|Must be a constant with an underlying type of integer
+|Must be a positive integer constant.
 
 |`FW_CMD_STRING_MAX_SIZE`
-|Must be a constant with an underlying type of integer
+|Must be a string size constant.
 
 |`FW_COM_BUFFER_MAX_SIZE`
-|Must be a constant with an underlying type of integer
+|Must be a positive integer constant.
 
 |`FW_CONTEXT_DONT_CARE`
-|Must be a constant with an underlying type of integer
+|Must be an integer constant.
 
 |`FW_FILE_BUFFER_MAX_SIZE`
-|Must be a constant with an underlying type of integer
+|Must be a positive integer constant.
 
 |`FW_FIXED_LENGTH_STRING_SIZE`
-|Must be a constant with an underlying type of integer
+|Must be a string size constant.
 
 |`FW_INTERNAL_INTERFACE_STRING_MAX_SIZE`
-|Must be a constant with an underlying type of integer
+|Must be a string size constant.
 
 |`FW_LOG_BUFFER_MAX_SIZE`
-|Must be a constant with an underlying type of integer
+|Must be a positive integer constant.
 
 |`FW_LOG_STRING_MAX_SIZE`
-|Must be a constant with an underlying type of integer
+|Must be a string size constant.
 
 |`FW_LOG_TEXT_BUFFER_SIZE`
-|Must be a constant with an underlying type of integer
+|Must be a positive integer constant.
 
 |`FW_OBJ_SIMPLE_REG_BUFF_SIZE`
-|Must be a constant with an underlying type of integer
+|Must be a positive integer constant.
 
 |`FW_OBJ_SIMPLE_REG_ENTRIES`
-|Must be a constant with an underlying type of integer
+|Must be a positive integer constant.
 
 |`FW_PARAM_BUFFER_MAX_SIZE`
-|Must be a constant with an underlying type of integer
+|Must be a positive integer constant.
 
 |`FW_PARAM_STRING_MAX_SIZE`
-|Must be a constant with an underlying type of integer
+|Must be a string size constant.
 
 |`FW_QUEUE_NAME_BUFFER_SIZE`
-|Must be a constant with an underlying type of integer
+|Must be a positive integer constant.
 
 |`FW_QUEUE_SIMPLE_QUEUE_ENTRIES`
-|Must be a constant with an underlying type of integer
+|Must be a positive integer constant.
 
 |`FW_SERIALIZE_FALSE_VALUE`
-|Must be a constant with an underlying type of integer
+|Must be an integer constant.
 
 |`FW_SERIALIZE_TRUE_VALUE`
-|Must be a constant with an underlying type of integer
+|Must be an integer constant.
 
 |`FW_SM_SIGNAL_BUFFER_MAX_SIZE`
-|Must be a constant with an underlying type of integer
+|Must be a positive integer constant.
 
 |`FW_STATEMENT_ARG_BUFFER_MAX_SIZE`
-|Must be a constant with an underlying type of integer
+|Must be a positive integer constant.
 
 |`FW_TASK_NAME_BUFFER_SIZE`
-|Must be a constant with an underlying type of integer
+|Must be a positive integer constant.
 
 |`FW_TLM_BUFFER_MAX_SIZE`
-|Must be a constant with an underlying type of integer
+|Must be a positive integer constant.
 
 |`FW_TLM_STRING_MAX_SIZE`
-|Must be a constant with an underlying type of integer
+|Must be a string size constant.
 
 |`Fw.DpCfg.CONTAINER_USER_DATA_SIZE`
-|Must be a constant with an underlying type of integer
+|Must be a positive integer constant.
 
 |===
 
 ==== Type Definitions
 
+The table below lists the framework type definitions.
+The rows have the same meaning as stated for 
+<<Definitions_Framework-Definitions_Constant-Definitions,constant 
+definitions>>.
+The rules use the following terms:
+
+* An *integer alias type* is an <<Definitions_Alias-Type-Definitions,alias type 
+  definition>> whose <<Types_Underlying-Types,underlying type>> is a
+  <<Types_Primitive-Integer-Types,primitive integer type>>.
+
+* A *signed integer alias type* is an integer alias type whose
+  underlying type is signed.
+
+* An *unsigned integer alias type* is an integer alias type whose
+  underlying type is unsigned.
+
 |===
-|Name|Rules
+|Qualified Name|Rules
 
 |`Fw.DpCfg.ProcType`
-|Must be an enum
+|Must be an <<Definitions_Enum-Definitions,enum definition>>.
 
 |`Fw.DpState`
-|Must be an enum
+|Must be an <<Definitions_Enum-Definitions,enum definition>>.
 
 |`FwAssertArgType`
-|Must be an alias type with an underlying type of integer
+|Must be an integer alias type.
 
 |`FwChanIdType`
-|Must be an alias type with an underlying type of integer
+|Must be an integer alias type.
 
 |`FwDpIdType`
-|Must be an alias type with an underlying type of integer
+|Must be an integer alias type.
 
 |`FwDpPriorityType`
-|Must be an alias type with an underlying type of integer
+|Must be an integer alias type.
 
 |`FwEnumStoreType`
-|Must be an alias type with an underlying type of integer
+|Must be an integer alias type.
 
 |`FwEventIdType`
-|Must be an alias type with an underlying type of integer
+|Must be an integer alias type.
 
 |`FwIndexType`
-|Must be an alias type with an underlying type of signed integer
+|Must be a signed integer alias type.
 
 |`FwOpcodeType`
-|Must be an alias type with an underlying type of integer
+|Must be an integer alias type.
 
 |`FwPacketDescriptorType`
-|Must be an alias type with an underlying type of integer
+|Must be an integer alias type.
 
 |`FwPrmIdType`
-|Must be an alias type with an underlying type of integer
+|Must be an integer alias type.
 
 |`FwQueuePriorityType`
-|Must be an alias type with an underlying type of integer
+|Must be an integer alias type.
 
 |`FwSignedSizeType`
-|Must be an alias type with an underlying type of signed integer
+|Must be a signed integer alias type.
 
 |`FwSizeStoreType`
-|Must be an alias type with an underlying type of integer
+|Must be an integer alias type.
 
 |`FwSizeType`
-|Must be an alias type with an underlying type of unsigned integer
+|Must be an unsigned integer alias type.
 
 |`FwTaskPriorityType`
-|Must be an alias type with an underlying type of integer
+|Must be an integer alias type.
 
 |`FwTimeBaseStoreType`
-|Must be an alias type with an underlying type of integer
+|Must be an integer alias type.
 
 |`FwTimeContextStoreType`
-|Must be an alias type with an underlying type of integer
+|Must be an integer alias type.
 
 |`FwTlmPacketizeIdType`
-|Must be an alias type with an underlying type of integer
+|Must be an integer alias type.
 
 |`FwTraceIdType`
-|Must be an alias type with an underlying type of integer
+|Must be an integer alias type.
 
 |===

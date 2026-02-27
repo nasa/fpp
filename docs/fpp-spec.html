@@ -4367,6 +4367,57 @@ to the following rules.</p>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Framework-Definitions_Constant-Definitions">5.15.1. Constant Definitions</h4>
+<div class="paragraph">
+<p>The table below lists the framework constant definitions.
+Each row in the table has the following meaning:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The row provides a qualified name <em>N</em> and a set of rules <em>R</em>.</p>
+</li>
+<li>
+<p>If the model contains a definition <em>D</em> with that
+<a href="#Scoping-of-Names_Names-of-Definitions">qualified name</a>,
+then <em>D</em> must have the following properties:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Each identifier or qualified identifier that is a prefix of the
+name <em>N</em>, but not the name itself, must
+<a href="#Scoping-of-Names_Resolution-of-Identifiers">refer to</a> a
+<a href="#Definitions_Module-Definitions">module definition</a>.
+For example, the definition <em>D</em>  may not appear inside a component
+or state machine.</p>
+</li>
+<li>
+<p>The definition <em>D</em> must conform to the rules <em>R</em>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The rules use the following terms:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>An <strong>integer constant</strong> is a <a href="#Definitions_Constant-Definitions">constant
+definition</a> whose <a href="#Types_Underlying-Types">underlying type</a> is an
+<a href="#Types_Internal-Types_Integer-Types">integer type</a>.</p>
+</li>
+<li>
+<p>A <strong>positive integer constant</strong> is an integer constant
+whose value is greater than zero.</p>
+</li>
+<li>
+<p>A <strong>string size constant</strong> is an integer constant whose value is a
+valid <a href="#Types_String-Types">string size</a>.</p>
+</li>
+</ul>
+</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -4374,116 +4425,140 @@ to the following rules.</p>
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Qualified Name</th>
 <th class="tableblock halign-left valign-top">Rules</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_ASSERT_COUNT_MAX</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_CMD_ARG_BUFFER_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_CMD_STRING_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a string size constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_COM_BUFFER_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_CONTEXT_DONT_CARE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_FILE_BUFFER_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_FIXED_LENGTH_STRING_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a string size constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_INTERNAL_INTERFACE_STRING_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a string size constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_LOG_BUFFER_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_LOG_STRING_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a string size constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_LOG_TEXT_BUFFER_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_OBJ_SIMPLE_REG_BUFF_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_OBJ_SIMPLE_REG_ENTRIES</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_PARAM_BUFFER_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_PARAM_STRING_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a string size constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_QUEUE_NAME_BUFFER_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_QUEUE_SIMPLE_QUEUE_ENTRIES</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_SERIALIZE_FALSE_VALUE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_SERIALIZE_TRUE_VALUE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_SM_SIGNAL_BUFFER_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_STATEMENT_ARG_BUFFER_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_TASK_NAME_BUFFER_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_TLM_BUFFER_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_TLM_STRING_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a string size constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect3">
 <h4 id="Definitions_Framework-Definitions_Type-Definitions">5.15.2. Type Definitions</h4>
+<div class="paragraph">
+<p>The table below lists the framework type definitions.
+The rows have the same meaning as stated for
+<a href="#Definitions_Framework-Definitions_Constant-Definitions">constant
+definitions</a>.
+The rules use the following terms:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>An <strong>integer alias type</strong> is an <a href="#Definitions_Alias-Type-Definitions">alias type
+definition</a> whose <a href="#Types_Underlying-Types">underlying type</a> is a
+<a href="#Types_Primitive-Integer-Types">primitive integer type</a>.</p>
+</li>
+<li>
+<p>A <strong>signed integer alias type</strong> is an integer alias type whose
+underlying type is signed.</p>
+</li>
+<li>
+<p>An <strong>unsigned integer alias type</strong> is an integer alias type whose
+underlying type is unsigned.</p>
+</li>
+</ul>
+</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -4491,94 +4566,94 @@ to the following rules.</p>
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Qualified Name</th>
 <th class="tableblock halign-left valign-top">Rules</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpCfg.ProcType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an enum</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an <a href="#Definitions_Enum-Definitions">enum definition</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpState</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an enum</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an <a href="#Definitions_Enum-Definitions">enum definition</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwAssertArgType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwChanIdType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwDpIdType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwDpPriorityType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwEnumStoreType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwEventIdType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwIndexType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of signed integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a signed integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwOpcodeType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwPacketDescriptorType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwPrmIdType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwQueuePriorityType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwSignedSizeType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of signed integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a signed integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwSizeStoreType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwSizeType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of unsigned integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an unsigned integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTaskPriorityType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTimeBaseStoreType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTimeContextStoreType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTlmPacketizeIdType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTraceIdType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 </tbody>
 </table>
@@ -12266,7 +12341,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-24 14:44:52 -0800
+Last updated 2026-02-26 17:42:55 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
