@@ -7,5 +7,7 @@ fw_log_string_max_size_not_integer
 fw_opcode_type_not_alias_type
 fw_obj_simple_reg_buff_size_not_integer
 fw_size_type_not_unsigned
+proc_type_not_module_qualified
 user_data_size_not_integer
+user_data_size_not_module_qualified
 "
