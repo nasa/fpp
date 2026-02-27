@@ -39,6 +39,8 @@ Each of the following FPP elements has an associated port interface:
 
 * A <<Definitions_Topology-Definitions,topology definition>>.
 
+* A <<Definitions_Module-Template-Definitions,template interface parameter>>.
+
 ==== Port Interface Definitions
 
 For every port interface definition _D_, there is an associated
@@ -87,6 +89,11 @@ specifier>> _s_ appearing in _D_
 with the port name in _n_.
 
 . Add _i'_ to _I_.
+
+==== Template Parameter Definitions
+
+For every template parameter definition _D_, this is an associated port interface _I_.
+This port interface is named in the definition.
 
 === Port Interface Instances
 

@@ -87,7 +87,8 @@ if _E_ has a port number  expression _e_ in the FPP source, then
 _Integer_, and assign the port number _n_ at endpoint _E_ of connection _C_.
 Check that _n_ is in bounds for the port instance being numbered.
 
-. Let _S_ be the set of all topologies that are named as
+. Let _S_ be the set of all topologies or template interface parameters that
+refer to topologies that are named as
 <<Specifiers_Port-Interface-Instance-Specifiers,instances>>
 in _D_.
 Recursively resolve all the topologies in _S_.
@@ -130,6 +131,26 @@ Note that _T'_ is resolved (step 2), so the set of instances of _T'_ contains
 all topologies transitively
 imported by the definition of _T'_.
 
+. For each instance _I_ in set _S_, compute the **included port interface** _P~I~_ of _I_ accessible in _T_:
+
+.. If _I_ refers to a <<Definitions_Component-Instance-Definitions,component instance>>, _P~I~_ is the port interface of the component instance
+
+.. If _I_ refers to a <<Definitions_Topology-Definitions,topology>>, _P~I~_ is the port interface of the topology
+
+.. If _I_ refers to a <<Definitions_Module-Template-Definitions,template interface parameter>> _T~P~_ inside template _T~D~_ where _T_ is found in expansion _T~E~_:
+
+... The corresponding template parameter value _T~V~_ in _T~E~_ must refer to a port interface instance
+
+... _P~I~_ is the port interface specified in _T~P~_
+
+... _P~I~_ must be a <<Ports_Sub-Interfaces,sub-interface>> of _T~V~_
+
+. If an instance _I_ is named twice in _S_ with differing port interfaces _P~I1~_ and _P~I2~_, the set union will be
+used to compute _P~I~_.
+
+. Replace all instances <<Definitions_Module-Template-Definitions,template interface parameter>> with the
+component instance or topology specified in the template expansion.
+
 . For each connection _C_ discovered in step 3, check that each
 <<Specifiers_Connection-Graph-Specifiers_Syntax,endpoint>> of _C_
 refers to one of the port interface instances computed in the previous step.
@@ -138,13 +159,16 @@ refers to one of the port interface instances computed in the previous step.
 <<Specifiers_Connection-Graph-Specifiers_Syntax,connection endpoint>>
 _E_ of a connection computed in step 3, do the following:
 
-.. If _E_ is a <<Specifiers_Connection-Graph-Specifiers_Semantics,component instance endpoint>>,
-then do nothing.
+.. If _E_ is a <<Specifiers_Connection-Graph-Specifiers_Semantics,component instance endpoint>> with the form _Q_ `.` _I_:
+
+... Check that the component instance's included port interface _P~I~_ has the port instance _I_
 
 .. Otherwise the <<Instance-Member-Identifiers_Port-Instance-Identifiers,port instance identifier>>
 _P_ appearing in _E_ has the form _Q_ 
 `.` _I_, where _Q_ refers to a topology _T'_, and
 _I_ names a port of _T'_.
+
+... Check that the topology's included port interface _P~I~_ has the port instance _I_
 
 ... Find the <<Specifiers_Topology-Port-Instance-Specifiers,
 topology port instance specifier>> `port` _I_ `=` _P'_ in _T'_.

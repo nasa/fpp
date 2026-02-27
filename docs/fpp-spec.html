@@ -1052,6 +1052,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Ports_Port-Interfaces_Component-Definitions">22.2.2. Component Definitions</a></li>
 <li><a href="#Ports_Port-Interfaces_Component-Instance-Definitions">22.2.3. Component Instance Definitions</a></li>
 <li><a href="#Ports_Port-Interfaces_Topology-Definitions">22.2.4. Topology Definitions</a></li>
+<li><a href="#Ports_Port-Interfaces_Template-Parameter-Definitions">22.2.5. Template Parameter Definitions</a></li>
 </ul>
 </li>
 <li><a href="#Ports_Port-Interface-Instances">22.3. Port Interface Instances</a></li>
@@ -4017,7 +4018,8 @@ if <em>E</em> has a port number  expression <em>e</em> in the FPP source, then
 Check that <em>n</em> is in bounds for the port instance being numbered.</p>
 </li>
 <li>
-<p>Let <em>S</em> be the set of all topologies that are named as
+<p>Let <em>S</em> be the set of all topologies or template interface parameters that
+refer to topologies that are named as
 <a href="#Specifiers_Port-Interface-Instance-Specifiers">instances</a>
 in <em>D</em>.
 Recursively resolve all the topologies in <em>S</em>.</p>
@@ -4064,6 +4066,43 @@ all topologies transitively
 imported by the definition of <em>T'</em>.</p>
 </li>
 <li>
+<p>For each instance <em>I</em> in set <em>S</em>, compute the <strong>included port interface</strong> <em>P<sub>I</sub></em> of <em>I</em> accessible in <em>T</em>:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If <em>I</em> refers to a <a href="#Definitions_Component-Instance-Definitions">component instance</a>, <em>P<sub>I</sub></em> is the port interface of the component instance</p>
+</li>
+<li>
+<p>If <em>I</em> refers to a <a href="#Definitions_Topology-Definitions">topology</a>, <em>P<sub>I</sub></em> is the port interface of the topology</p>
+</li>
+<li>
+<p>If <em>I</em> refers to a <a href="#Definitions_Module-Template-Definitions">template interface parameter</a> <em>T<sub>P</sub></em> inside template <em>T<sub>D</sub></em> where <em>T</em> is found in expansion <em>T<sub>E</sub></em>:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>The corresponding template parameter value <em>T<sub>V</sub></em> in <em>T<sub>E</sub></em> must refer to a port interface instance</p>
+</li>
+<li>
+<p><em>P<sub>I</sub></em> is the port interface specified in <em>T<sub>P</sub></em></p>
+</li>
+<li>
+<p><em>P<sub>I</sub></em> must be a <a href="#Ports_Sub-Interfaces">sub-interface</a> of <em>T<sub>V</sub></em></p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>If an instance <em>I</em> is named twice in <em>S</em> with differing port interfaces <em>P<sub>I1</sub></em> and <em>P<sub>I2</sub></em>, the set union will be
+used to compute <em>P<sub>I</sub></em>.</p>
+</li>
+<li>
+<p>Replace all instances <a href="#Definitions_Module-Template-Definitions">template interface parameter</a> with the
+component instance or topology specified in the template expansion.</p>
+</li>
+<li>
 <p>For each connection <em>C</em> discovered in step 3, check that each
 <a href="#Specifiers_Connection-Graph-Specifiers_Syntax">endpoint</a> of <em>C</em>
 refers to one of the port interface instances computed in the previous step.</p>
@@ -4075,8 +4114,14 @@ refers to one of the port interface instances computed in the previous step.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>If <em>E</em> is a <a href="#Specifiers_Connection-Graph-Specifiers_Semantics">component instance endpoint</a>,
-then do nothing.</p>
+<p>If <em>E</em> is a <a href="#Specifiers_Connection-Graph-Specifiers_Semantics">component instance endpoint</a> with the form <em>Q</em> <code>.</code> <em>I</em>:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Check that the component instance&#8217;s included port interface <em>P<sub>I</sub></em> has the port instance <em>I</em></p>
+</li>
+</ol>
+</div>
 </li>
 <li>
 <p>Otherwise the <a href="#Instance-Member-Identifiers_Port-Instance-Identifiers">port instance identifier</a>
@@ -4085,6 +4130,9 @@ then do nothing.</p>
 <em>I</em> names a port of <em>T'</em>.</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
+<li>
+<p>Check that the topology&#8217;s included port interface <em>P<sub>I</sub></em> has the port instance <em>I</em></p>
+</li>
 <li>
 <p>Find the <a href="#Specifiers_Topology-Port-Instance-Specifiers">topology port instance specifier</a> <code>port</code> <em>I</em> <code>=</code> <em>P'</em> in <em>T'</em>.</p>
 </li>
@@ -7829,10 +7877,10 @@ product send port productSendOut</code></pre>
 <p>A <strong>port interface instance specifier</strong>
 specifies that a
 <a href="#Definitions_Component-Instance-Definitions">component instance</a>
-<em>I</em> or a
-<a href="#Definitions_Topology-Definitions">topology</a> <em>T'</em>
+<em>I</em>, <a href="#Definitions_Topology-Definitions">topology</a> <em>T'</em>, or a
+<a href="#Definitions_Module-Template-Definitions">template interface parameter</a> <em>P</em>
 is part of a topology <em>T</em>.
-<em>I</em> or <em>T'</em> provides a <a href="#Ports_Port-Interfaces">port interface</a>
+<em>I</em>, <em>T'</em> or <em>P</em> provides a <a href="#Ports_Port-Interfaces">port interface</a>
 that can be used in connections in <em>T</em>.</p>
 </div>
 <div class="sect3">
@@ -12512,6 +12560,9 @@ Each of the following FPP elements has an associated port interface:</p>
 <li>
 <p>A <a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
 </li>
+<li>
+<p>A <a href="#Definitions_Module-Template-Definitions">template interface parameter</a>.</p>
+</li>
 </ul>
 </div>
 <div class="sect3">
@@ -12588,6 +12639,13 @@ with the port name in <em>n</em>.</p>
 <p>Add <em>i'</em> to <em>I</em>.</p>
 </li>
 </ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Ports_Port-Interfaces_Template-Parameter-Definitions">22.2.5. Template Parameter Definitions</h4>
+<div class="paragraph">
+<p>For every template parameter definition <em>D</em>, this is an associated port interface <em>I</em>.
+This port interface is named in the definition.</p>
 </div>
 </div>
 </div>
@@ -12728,7 +12786,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-02-25 14:34:04 -0800
+Last updated 2026-02-27 11:09:13 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

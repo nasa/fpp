@@ -3,10 +3,10 @@
 A *port interface instance specifier*
 specifies that a
 <<Definitions_Component-Instance-Definitions,component instance>>
-_I_ or a
-<<Definitions_Topology-Definitions,topology>> _T'_
+_I_, <<Definitions_Topology-Definitions,topology>> _T'_, or a
+<<Definitions_Module-Template-Definitions,template interface parameter>> _P_
 is part of a topology _T_.
-_I_ or _T'_ provides a <<Ports_Port-Interfaces,port interface>>
+_I_, _T'_ or _P_ provides a <<Ports_Port-Interfaces,port interface>>
 that can be used in connections in _T_.
 
 ==== Syntax
