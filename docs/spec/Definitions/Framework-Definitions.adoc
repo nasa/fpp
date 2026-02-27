@@ -30,6 +30,9 @@ The rules use the following terms:
 whose <<Types_Underlying-Types,underlying type>> is an
   <<Types_Internal-Types_Integer-Types,integer type>>.
 
+* A *nonnegative integer constant* is an integer constant
+  whose value is greater than or equal to zero.
+
 * A *positive integer constant* is an integer constant
   whose value is greater than zero.
 
@@ -40,7 +43,7 @@ whose <<Types_Underlying-Types,underlying type>> is an
 |Qualified Name|Rules
 
 |`FW_ASSERT_COUNT_MAX`
-|Must be a positive integer constant.
+|Must be a nonnegative integer constant.
 
 |`FW_CMD_ARG_BUFFER_MAX_SIZE`
 |Must be a positive integer constant.

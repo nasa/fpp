@@ -13,6 +13,18 @@ object CheckFrameworkConstantValues {
     val (name, s) = entry
     checkers.get(name).map(_(a, name, s)).getOrElse(Right(a))
 
+  private def requireNonnegativeIntegerConstant(a: Analysis, name: String, s: Symbol.Constant) =
+    val v = a.getBigIntValue(s.getNodeId)
+    if (v >= 0) then Right(a) else 
+      val valueId = s.node._2.data.value.id
+      Left(
+        SemanticError.InvalidIntValue(
+          Locations.get(valueId),
+          v,
+          s"framework definition $name must be a nonnegative integer constant"
+        )
+      )
+
   private def requirePositiveIntegerConstant(a: Analysis, name: String, s: Symbol.Constant) =
     val v = a.getBigIntValue(s.getNodeId)
     if (v > 0) then Right(a) else 
@@ -39,7 +51,7 @@ object CheckFrameworkConstantValues {
       Result.annotateResult(error, annotation)
 
   private val checkers = Map(
-    "FW_ASSERT_COUNT_MAX" -> requirePositiveIntegerConstant,
+    "FW_ASSERT_COUNT_MAX" -> requireNonnegativeIntegerConstant,
     "FW_CMD_ARG_BUFFER_MAX_SIZE" -> requirePositiveIntegerConstant,
     "FW_CMD_STRING_MAX_SIZE" -> requireStringSizeConstant,
     "FW_COM_BUFFER_MAX_SIZE" -> requirePositiveIntegerConstant,
