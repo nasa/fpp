@@ -274,7 +274,7 @@ following:
 
 .. Recursively resolve _Q_.
 
-.. If _Q_ refers to a <<Definitions,definition>>
+.. If _Q_ refers to a <<Definitions,definition>> _D_
 with a brace-delimited body, then do the following:
 
 ... Determine the <<Scoping-of-Names_Name-Groups,name group>> _S_ of _Q_ `.`

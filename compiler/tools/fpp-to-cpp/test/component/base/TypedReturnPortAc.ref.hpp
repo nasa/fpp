@@ -18,6 +18,7 @@
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/String.hpp"
 #include "SSerializableAc.hpp"
+#include "config/FwSizeStoreTypeAliasAc.hpp"
 
 namespace Ports {
 
@@ -39,7 +40,7 @@ namespace Ports {
           sizeof(U32) +
           sizeof(F32) +
           sizeof(U8) +
-          Fw::StringBase::STATIC_SERIALIZED_SIZE(80) +
+          Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
           E::SERIALIZED_SIZE +
           A::SERIALIZED_SIZE +
           S::SERIALIZED_SIZE

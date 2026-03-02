@@ -72,6 +72,7 @@ An include specifier is an instruction to include FPP source elements
 from one file into another file.
 Include specifiers may occur at the top level of a model, 
 inside a <<Defining-Modules,module definition>>,
+inside a <<Defining-State-Machines,state machine definition>>,
 inside a <<Defining-Components,component definition>>,
 or inside a <<Defining-Topologies,topology definition>>.
 

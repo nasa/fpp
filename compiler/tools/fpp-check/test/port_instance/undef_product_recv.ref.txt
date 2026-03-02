@@ -4,3 +4,4 @@ fpp-check
   ^
 error: symbol Fw is not defined
 note: looking for a port here
+note: the symbol Fw.DpResponse has an implied use at the point of the error

@@ -11,6 +11,7 @@
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
+#include "FwSizeStoreTypeAliasAc.hpp"
 
 //! Top-level annotation, line 1
 //! Top-level annotation, line 2
@@ -47,7 +48,7 @@ class Primitive :
         sizeof(U64) +
         sizeof(U8) +
         sizeof(U8) +
-        Fw::StringBase::STATIC_SERIALIZED_SIZE(80)
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))
     };
 
   public:
@@ -318,7 +319,7 @@ class Primitive :
     U64 m_mU64;
     U8 m_mU8;
     bool m_m_bool;
-    char m___fprime_ac_m_string_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+    char m___fprime_ac_m_string_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
     Fw::ExternalString m_m_string;
 
 };

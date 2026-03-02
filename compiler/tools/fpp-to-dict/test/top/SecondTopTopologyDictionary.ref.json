@@ -111,7 +111,7 @@
       "elementType" : {
         "name" : "string",
         "kind" : "string",
-        "size" : 80
+        "size" : 256
       },
       "default" : [
         "A",
@@ -596,6 +596,17 @@
   "constants" : [
     {
       "kind" : "constant",
+      "qualifiedName" : "FW_FIXED_LENGTH_STRING_SIZE",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "value" : 256
+    },
+    {
+      "kind" : "constant",
       "qualifiedName" : "Fw.DpCfg.CONTAINER_USER_DATA_SIZE",
       "type" : {
         "name" : "U64",
@@ -627,6 +638,17 @@
         "signed" : false
       },
       "value" : 0
+    },
+    {
+      "kind" : "constant",
+      "qualifiedName" : "STRING_SIZE",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "value" : 256
     }
   ],
   "commands" : [
@@ -851,7 +873,7 @@
           "type" : {
             "name" : "string",
             "kind" : "string",
-            "size" : 80
+            "size" : 256
           },
           "ref" : false
         },

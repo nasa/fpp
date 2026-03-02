@@ -1887,3 +1887,62 @@ Similarly, the FPP constant `M.c` becomes a {cpp} constant `M_c`.
 We will have more to say about this issue in the section on
 <<Analyzing-and-Translating-Models_Generating-C-Plus-Plus,
 generating {cpp}>>.
+
+=== Include Specifiers
+
+State machine definitions can become long, especially when there
+are many actions, signals, and guards.
+In this case it can be useful to break up the
+definition into several files.
+
+For example, suppose you are defining a state machine with
+many signals, and you wish to place the signals in a
+separate file `Signals.fppi`.
+The suffix `.fppi` is conventional for included FPP files.
+Inside the component definition, you can write the
+following state machine member:
+
+[source,fpp]
+--------
+include "Signals.fppi"
+--------
+
+This construct is called an *include specifier*.
+During analysis and translation, the include specifier
+is replaced with the signals specified
+in `Signals.fppi`, just as if you had written them
+at the point where you wrote the include specifier.
+This replacement is called expanding or resolving the
+include specifier.
+You can use the same technique for actions, guards,
+or any other state machine members.
+
+The text enclosed in quotation marks after the keyword
+`include` is a path name relative to the directory of the
+file in which the include specifier appears.
+The file must exist and must contain state machine members
+that can validly appear at the point where the include
+specifier appears.
+For example, if `Signals.fppi` contains invalid syntax
+or syntax that may not appear inside a state machine,
+or if the file `Signals.fppi` does not exist, then
+the specifier `include "Signals.fppi"` is not valid.
+
+You can also write an include specifier as a member
+of a state definition.
+For example, here is how you could write the
+definition of a state `S` and specify its
+transitions in another file called `Transitions.fppi`:
+
+[source,fpp]
+--------
+state S {
+
+  include "Transitions.fppi"
+
+}
+--------
+
+We discuss include specifiers further in the section on
+<<Specifying-Models-as-Files_Include-Specifiers,
+specifying models as files>>.

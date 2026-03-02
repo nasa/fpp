@@ -38,6 +38,9 @@ For example:
 
 [source,fpp]
 ----
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 port P1() # Zero parameters; equivalent to port P1
 port P2(a: U32) # One parameter
 port P3(a: I32, b: F32, c: string) # Three parameters

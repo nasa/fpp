@@ -152,6 +152,5 @@ event Event3(
   severity warning low \
   id 0x02 \
   format "Saw value {} for case {}" \
-  throttle 10
-  every {seconds=10}
+  throttle 10 every { seconds = 10 }
 ----

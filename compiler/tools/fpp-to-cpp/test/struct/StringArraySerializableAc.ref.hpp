@@ -11,6 +11,7 @@
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
+#include "FwSizeStoreTypeAliasAc.hpp"
 
 class StringArray :
   public Fw::Serializable
@@ -34,7 +35,7 @@ class StringArray :
     enum {
       //! The size of the serial representation
       SERIALIZED_SIZE =
-        Fw::StringBase::STATIC_SERIALIZED_SIZE(80) +
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
         Fw::StringBase::STATIC_SERIALIZED_SIZE(40) * 16
     };
 
@@ -175,7 +176,7 @@ class StringArray :
     // Member variables
     // ----------------------------------------------------------------------
 
-    char m___fprime_ac_s1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+    char m___fprime_ac_s1_buffer[Fw::StringBase::BUFFER_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))];
     Fw::ExternalString m_s1;
     char m___fprime_ac_s2_buffer[16][Fw::StringBase::BUFFER_SIZE(40)];
     Fw::ExternalString m_s2[16];

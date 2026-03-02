@@ -276,6 +276,17 @@
   "constants" : [
     {
       "kind" : "constant",
+      "qualifiedName" : "FW_FIXED_LENGTH_STRING_SIZE",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "value" : 256
+    },
+    {
+      "kind" : "constant",
       "qualifiedName" : "Fw.DpCfg.CONTAINER_USER_DATA_SIZE",
       "type" : {
         "name" : "U64",
@@ -285,6 +296,17 @@
       },
       "value" : 32,
       "annotation" : "The container user data size"
+    },
+    {
+      "kind" : "constant",
+      "qualifiedName" : "FW_SERIALIZE_TRUE_VALUE",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "value" : 255
     },
     {
       "kind" : "constant",
@@ -299,14 +321,14 @@
     },
     {
       "kind" : "constant",
-      "qualifiedName" : "FW_SERIALIZE_TRUE_VALUE",
+      "qualifiedName" : "STRING_SIZE",
       "type" : {
         "name" : "U64",
         "kind" : "integer",
         "size" : 64,
         "signed" : false
       },
-      "value" : 255
+      "value" : 256
     }
   ],
   "commands" : [

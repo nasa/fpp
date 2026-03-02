@@ -30,6 +30,37 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
   /** A use of a state machine definition*/
   def stateMachineUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
 
+  /** An implied constant use */
+  def impliedConstantUse(a: Analysis, iu: ImpliedUse) = {
+    val result = for {
+      a <- exprNode(a, iu.asExprNode)
+      a <- impliedUse(a, iu, ImpliedUse.Kind.Constant)
+    } yield a
+    iu.annotateResult(result)
+  }
+
+  /** An implied port use */
+  def impliedPortUse(a: Analysis, iu: ImpliedUse) = {
+    val result = for {
+      a <- portUse(a, iu.asQualIdentNode, iu.name)
+      a <- impliedUse(a, iu, ImpliedUse.Kind.Port)
+    } yield a
+    iu.annotateResult(result)
+  }
+
+  /** An implied type use */
+  def impliedTypeUse(a: Analysis, iu: ImpliedUse) = {
+    val result = for {
+      a <- typeUse(a, iu.asTypeNameNode, iu.name)
+      a <- impliedUse(a, iu, ImpliedUse.Kind.Type)
+    } yield a
+    iu.annotateResult(result)
+  }
+
+  /** An implied use */
+  def impliedUse(a: Analysis, iu: ImpliedUse, kind: ImpliedUse.Kind): Result =
+    Right(a)
+
   override def defComponentInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]) = {
     val (_, node1, _) = node
     val data = node1.data
@@ -120,6 +151,7 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
   override def specPortInstanceAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecPortInstance]]) = {
     val (_, node, _) = aNode
     val data = node.data
+    val id = node.id
     data match {
       case general : Ast.SpecPortInstance.General =>
         for {
@@ -128,27 +160,9 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
           a <- opt(exprNode)(a, general.priority)
         } yield a
       case special : Ast.SpecPortInstance.Special =>
-        // Construct the use implied by the special port
-        val name = special.kind match {
-          case Ast.SpecPortInstance.CommandRecv => "Cmd"
-          case Ast.SpecPortInstance.CommandReg => "CmdReg"
-          case Ast.SpecPortInstance.CommandResp => "CmdResponse"
-          case Ast.SpecPortInstance.Event => "Log"
-          case Ast.SpecPortInstance.ParamGet => "PrmGet"
-          case Ast.SpecPortInstance.ParamSet => "PrmSet"
-          case Ast.SpecPortInstance.ProductGet => "DpGet"
-          case Ast.SpecPortInstance.ProductRecv => "DpResponse"
-          case Ast.SpecPortInstance.ProductRequest => "DpRequest"
-          case Ast.SpecPortInstance.ProductSend => "DpSend"
-          case Ast.SpecPortInstance.Telemetry => "Tlm"
-          case Ast.SpecPortInstance.TextEvent => "LogText"
-          case Ast.SpecPortInstance.TimeGet => "Time"
-        }
-        val identList = List("Fw", name)
-        val impliedUse = ImpliedUse.fromIdentListAndId(identList, node.id).asQualIdentNode
         for {
           a <- opt(exprNode)(a, special.priority)
-          a <- qualIdentNode(portUse)(a, impliedUse)
+          a <- visitImpliedPortUses(a, id)
         } yield a
     }
   }
@@ -186,11 +200,23 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
     typeUse(a, node, use)
   }
 
+  override def typeNameStringNode(
+    a: Analysis,
+    node: AstNode[Ast.TypeName],
+    tn: Ast.TypeNameString
+  ) = {
+    val id = node.id
+    for {
+      a <- visitImpliedUses(a, id)
+      a <- super.typeNameStringNode(a, node, tn)
+    } yield a
+  }
+
   private def portInstanceIdentifierNode(a: Analysis, node: AstNode[Ast.PortInstanceIdentifier]): Result =
     qualIdentNode (interfaceInstanceUse) (a, node.data.interfaceInstance)
 
   private def qualIdentNode
-    (f: (Analysis, AstNode[Ast.QualIdent], Name.Qualified) => Result) 
+    (f: (Analysis, AstNode[Ast.QualIdent], Name.Qualified) => Result)
     (a: Analysis, qualIdent: AstNode[Ast.QualIdent]): Result = {
     val use = Name.Qualified.fromQualIdent(qualIdent.data)
     f(a, qualIdent, use)
@@ -211,19 +237,23 @@ trait BasicUseAnalyzer extends TypeExpressionAnalyzer {
 
   private def visitImpliedConstantUses(a: Analysis, id: AstNode.Id) = {
     val uses = a.getImpliedUses(ImpliedUse.Kind.Constant, id).toList
-    def visit(a: Analysis, iu: ImpliedUse) = exprNode(a, iu.asExprNode)
-    visitList(a, uses, visit)
+    visitList(a, uses, impliedConstantUse)
+  }
+
+  private def visitImpliedPortUses(a: Analysis, id: AstNode.Id) = {
+    val uses = a.getImpliedUses(ImpliedUse.Kind.Port, id).toList
+    visitList(a, uses, impliedPortUse)
   }
 
   private def visitImpliedTypeUses(a: Analysis, id: AstNode.Id) = {
     val uses = a.getImpliedUses(ImpliedUse.Kind.Type, id).toList
-    def visit(a: Analysis, iu: ImpliedUse) = typeUse(a, iu.asTypeNameNode, iu.name)
-    visitList(a, uses, visit)
+    visitList(a, uses, impliedTypeUse)
   }
 
   private def visitImpliedUses(a: Analysis, id: AstNode.Id) = {
     for {
       a <- visitImpliedConstantUses(a, id)
+      a <- visitImpliedPortUses(a, id)
       a <- visitImpliedTypeUses(a, id)
     } yield a
   }
