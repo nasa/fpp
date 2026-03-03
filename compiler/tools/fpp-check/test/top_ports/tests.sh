@@ -7,5 +7,6 @@ implements_port_missing
 internal_port
 nested
 out_to_out
+top_to_top
 unmatched_types
 "
