@@ -22,7 +22,7 @@ QueuedSyncProductsTester ::
 QueuedSyncProductsTester ::
   ~QueuedSyncProductsTester()
 {
-
+  this->deinit();
 }
 
 // ----------------------------------------------------------------------

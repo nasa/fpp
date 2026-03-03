@@ -25,7 +25,7 @@ namespace M {
   ActiveTestTester ::
     ~ActiveTestTester()
   {
-
+    this->deinit();
   }
 
   // ----------------------------------------------------------------------

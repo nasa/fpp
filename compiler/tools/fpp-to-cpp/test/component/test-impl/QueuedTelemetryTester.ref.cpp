@@ -22,7 +22,7 @@ QueuedTelemetryTester ::
 QueuedTelemetryTester ::
   ~QueuedTelemetryTester()
 {
-
+  this->deinit();
 }
 
 // ----------------------------------------------------------------------

@@ -22,7 +22,7 @@ ActiveGetProductsTester ::
 ActiveGetProductsTester ::
   ~ActiveGetProductsTester()
 {
-
+  this->deinit();
 }
 
 // ----------------------------------------------------------------------

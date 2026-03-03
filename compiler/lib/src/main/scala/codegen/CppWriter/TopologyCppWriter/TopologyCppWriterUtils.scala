@@ -28,6 +28,10 @@ abstract class TopologyCppWriterUtils(
   def isActive(ci: ComponentInstance): Boolean =
     ci.component.aNode._2.data.kind == Ast.ComponentKind.Active
 
+  def hasQueue(ci: ComponentInstance): Boolean =
+    ci.component.aNode._2.data.kind == Ast.ComponentKind.Active ||
+    ci.component.aNode._2.data.kind == Ast.ComponentKind.Queued
+
   def hasCommands(ci: ComponentInstance): Boolean =
     ci.component.commandMap.size > 0
 

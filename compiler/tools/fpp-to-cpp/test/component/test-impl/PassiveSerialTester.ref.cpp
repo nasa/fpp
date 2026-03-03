@@ -23,7 +23,7 @@ PassiveSerialTester ::
 PassiveSerialTester ::
   ~PassiveSerialTester()
 {
-
+  this->deinit();
 }
 
 // ----------------------------------------------------------------------

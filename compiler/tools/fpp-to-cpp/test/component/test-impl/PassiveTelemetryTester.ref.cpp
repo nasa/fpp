@@ -22,7 +22,7 @@ PassiveTelemetryTester ::
 PassiveTelemetryTester ::
   ~PassiveTelemetryTester()
 {
-
+  this->deinit();
 }
 
 // ----------------------------------------------------------------------
