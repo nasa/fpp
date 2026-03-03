@@ -595,6 +595,13 @@ active component; otherwise none.
 |In the file-private function `tearDownComponents`.
 |None.
 
+|`deinit`
+|_T_ `TopologyAc.cpp`
+|Code deinitializing _I_.
+|In the file-private function `deinit`.
+|The standard call to `deinit` if _I_ is an
+active or queued component; otherwise none.
+
 |===
 
 You will most often need to write code for `configConstants`,
@@ -620,6 +627,12 @@ manages the task, and this code is generated automatically.
 
 Code for `tearDownComponents` is required only if a component
 instance needs to deallocate memory or release resources on program exit.
+
+Code for `deinit` is required only if the user-written implementation of
+a component instance manages its own F Prime queue.
+If you use a standard F Prime active or queued component, then the framework
+manages the queue, and this code is generated automatically.
+
 
 ==== Writing Init Specifiers
 
