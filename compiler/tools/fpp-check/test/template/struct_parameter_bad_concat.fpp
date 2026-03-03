@@ -1,0 +1,10 @@
+array A = [1] U32
+array B = [2] U32
+
+struct S { a: A, b: B }
+
+template M(constant s: S) {
+  constant c = [ s.a, s.b ]
+}
+
+expand M(constant { a = [1], b = [2, 3] })
