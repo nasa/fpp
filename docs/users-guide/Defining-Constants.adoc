@@ -396,13 +396,41 @@ constant b = a[3]
 ==== Sizeof Expressions
 A *sizeof expression* computes the size of a type. It 
 evaluates to an integer value representing the maximum number of bytes
-required to represent any value of the specified type. For example:
+required to represent any value of the specified type. 
+For example:
 [source,fpp]
 ----
 constant i = sizeof(U32)
 ----
 
 In this example, constant `i` has a value 4.
+
+*Sizeof string type expressions:* When writing a `sizeof(string)` expression,
+you must define the `FwSizeStoreType` framework type. Additionally, if 
+you do not include a size when writing the string type, you must also
+define the `FW_FIXED_LENGTH_STRING_SIZE` framework constant. These 
+framework definitions are used when computing the sizeof a string type.
+
+Here is an example of a string without a string size specified:
+
+[source,fpp]
+----
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+constant s = sizeof(string)
+----
+
+In this example, the constant `s` has a value of 258.
+
+Here is an example with a user specified string size:
+
+[source,fpp]
+----
+type FwSizeStoreType = U16
+constant s = sizeof(string size 20)
+----
+
+In this example, the constant `s` has a value of 22.
 
 ==== Struct Values
 
