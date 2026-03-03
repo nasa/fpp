@@ -26,10 +26,11 @@ object AddStateEnums extends AstStateTransformer
   ) = {
     val (pre, node, post) = aNode
     val name = node.data.name
-    val id = node.id
+    val loc = Locations.get(node.id)
     for (stateEnum <- getStateEnum(Symbol.StateMachine(aNode)))
     yield {
-      val enumNode = AstNode.create(stateEnum, id)
+      val enumNode = AstNode.create(stateEnum)
+      Locations.put(enumNode.id, loc)
       val enumMemberNode = Ast.StateMachineMember.DefEnum(enumNode)
       val member = Ast.StateMachineMember(Nil, enumMemberNode, Nil)
       val defStateMachine = Ast.DefStateMachine(name, Some(member :: members))

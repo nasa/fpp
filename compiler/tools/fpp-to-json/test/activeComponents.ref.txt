@@ -418,7 +418,7 @@
                                                                 "default" : "None",
                                                                 "isDictionaryDef" : false
                                                               },
-                                                              "id" : 124
+                                                              "id" : 206
                                                             }
                                                           }
                                                         }
@@ -1985,6 +1985,11 @@
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
       "pos" : "36.5",
       "includingLoc" : "None"
+    },
+    "206" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
+      "pos" : "36.5",
+      "includingLoc" : "None"
     }
   }
 }
@@ -2308,15 +2313,21 @@
         }
       },
       "124" : {
-        "StateMachine" : {
-          "nodeId" : 124,
-          "unqualifiedName" : "S2"
+        "Component" : {
+          "nodeId" : 137,
+          "unqualifiedName" : "StateMachines"
         }
       },
       "201" : {
         "Module" : {
           "nodeId" : 202,
           "unqualifiedName" : "FSW"
+        }
+      },
+      "206" : {
+        "StateMachine" : {
+          "nodeId" : 124,
+          "unqualifiedName" : "S2"
         }
       },
       "152" : {
@@ -2357,7 +2368,7 @@
       },
       "203" : {
         "Enum" : {
-          "nodeId" : 124,
+          "nodeId" : 206,
           "unqualifiedName" : "State"
         }
       },
@@ -2375,7 +2386,7 @@
       },
       "204" : {
         "Enum" : {
-          "nodeId" : 124,
+          "nodeId" : 206,
           "unqualifiedName" : "State"
         }
       }
@@ -2407,7 +2418,7 @@
             "map" : {
               "State" : {
                 "Enum" : {
-                  "nodeId" : 124,
+                  "nodeId" : 206,
                   "unqualifiedName" : "State"
                 }
               }
@@ -2417,8 +2428,28 @@
             "map" : {
               "State" : {
                 "Enum" : {
-                  "nodeId" : 124,
+                  "nodeId" : 206,
                   "unqualifiedName" : "State"
+                }
+              }
+            }
+          }
+        }
+      },
+      "206" : {
+        "map" : {
+          "Value" : {
+            "map" : {
+              "__FPRIME_UNINITIALIZED" : {
+                "EnumConstant" : {
+                  "nodeId" : 203,
+                  "unqualifiedName" : "__FPRIME_UNINITIALIZED"
+                }
+              },
+              "IDLE" : {
+                "EnumConstant" : {
+                  "nodeId" : 204,
+                  "unqualifiedName" : "IDLE"
                 }
               }
             }
@@ -2718,6 +2749,41 @@
           }
         }
       },
+      "206" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 206
+          },
+          "repType" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          },
+          "default" : {
+            "Some" : {
+              "value" : [
+                "__FPRIME_UNINITIALIZED",
+                0
+              ],
+              "t" : {
+                "node" : {
+                  "astNodeId" : 206
+                },
+                "repType" : {
+                  "kind" : {
+                    "U8" : {
+                      
+                    }
+                  }
+                },
+                "default" : "None"
+              }
+            }
+          }
+        }
+      },
       "152" : {
         "Int" : {
           "Integer" : {
@@ -2756,7 +2822,7 @@
       "203" : {
         "Enum" : {
           "node" : {
-            "astNodeId" : 124
+            "astNodeId" : 206
           },
           "repType" : {
             "kind" : {
@@ -2817,7 +2883,7 @@
       "124" : {
         "Enum" : {
           "node" : {
-            "astNodeId" : 124
+            "astNodeId" : 206
           },
           "repType" : {
             "kind" : {
@@ -2826,27 +2892,7 @@
               }
             }
           },
-          "default" : {
-            "Some" : {
-              "value" : [
-                "__FPRIME_UNINITIALIZED",
-                0
-              ],
-              "t" : {
-                "node" : {
-                  "astNodeId" : 124
-                },
-                "repType" : {
-                  "kind" : {
-                    "U8" : {
-                      
-                    }
-                  }
-                },
-                "default" : "None"
-              }
-            }
-          }
+          "default" : "None"
         }
       },
       "164" : {
@@ -2866,7 +2912,7 @@
       "204" : {
         "Enum" : {
           "node" : {
-            "astNodeId" : 124
+            "astNodeId" : 206
           },
           "repType" : {
             "kind" : {
@@ -2888,7 +2934,7 @@
       },
       "124" : {
         "Enum" : {
-          "nodeId" : 124,
+          "nodeId" : 206,
           "unqualifiedName" : "State"
         }
       },
@@ -3061,7 +3107,7 @@
           ],
           "t" : {
             "node" : {
-              "astNodeId" : 124
+              "astNodeId" : 206
             },
             "repType" : {
               "kind" : {
@@ -3107,7 +3153,7 @@
           ],
           "t" : {
             "node" : {
-              "astNodeId" : 124
+              "astNodeId" : 206
             },
             "repType" : {
               "kind" : {
