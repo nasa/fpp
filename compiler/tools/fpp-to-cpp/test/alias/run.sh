@@ -1,13 +1,15 @@
+. ./fpp-options.sh
+
 abs_type()
 {
-  run_test "-p $PWD" abs_type && \
+  run_test "$fpp_options" abs_type && \
     diff_hpp AbsTypeAlias && \
     diff_cpp AbsSerializable
 }
 
 basic()
 {
-  run_test "-p $PWD" basic && \
+  run_test "$fpp_options" basic && \
     diff_h_hpp TU32Alias && \
     diff_h_hpp TF32Alias && \
     diff_hpp TStringAlias && \
@@ -17,14 +19,14 @@ basic()
 
 component()
 {
-  run_test "-p $PWD" component && \
+  run_test "$fpp_options" component && \
     diff_hpp C_XAlias && \
     diff_cpp C_AArray
 }
 
 namespace()
 {
-  run_test "-p $PWD" namespace && \
+  run_test "$fpp_options" namespace && \
     diff_h_hpp SimpleCTypeAlias && \
     diff_h_hpp SimpleCType2Alias && \
     diff_hpp NamespacedAliasTypeAlias && \
@@ -34,7 +36,7 @@ namespace()
 
 state_machine()
 {
-  run_test "-p $PWD" state_machine && \
+  run_test "$fpp_options" state_machine && \
     diff_hpp SM_XAlias && \
     diff_cpp SM_AArray
 }

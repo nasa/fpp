@@ -1,6 +1,3 @@
-type FwSizeStoreType = U16
-constant FW_FIXED_LENGTH_STRING_SIZE = 256
-
 @ An array of strings
 array String1 = [3] string
 
