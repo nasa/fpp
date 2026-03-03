@@ -185,6 +185,11 @@ jobs:
         with:
           name: build-${{ matrix.tag }}
           path: ${{ inputs.output-directory }}
+      - name: "Download JARs"
+        uses: actions/download-artifact@v4
+        with:
+          name: build-jar
+          path:  ${{ inputs.output-directory }}
       - name: "Run Builder"
         run: |
           pip install build
