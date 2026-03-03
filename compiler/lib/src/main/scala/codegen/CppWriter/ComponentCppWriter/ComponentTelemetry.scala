@@ -125,7 +125,7 @@ case class ComponentTelemetry (
                     val serialSize = writeStringSize(s, t)
                     s"""|Fw::SerializeStatus _stat = arg.serializeTo(
                         |  _tlmBuff,
-                        |  FW_MIN(FW_TLM_STRING_MAX_SIZE, $serialSize)
+                        |  FW_MIN(static_cast<FwSizeType>(FW_TLM_STRING_MAX_SIZE), $serialSize)
                         |);
                         |"""
                   case _ =>

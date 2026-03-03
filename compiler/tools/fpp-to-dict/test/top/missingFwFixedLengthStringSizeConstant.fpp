@@ -15,9 +15,15 @@ module Fw {
         UNTRANSMITTED 
     }
 
-    constant DpCfg = {
-        CONTAINER_USER_DATA_SIZE = 1
+    module DpCfg {
+        enum ProcType { 
+            UNTRANSMITTED 
+        }
+
+        constant CONTAINER_USER_DATA_SIZE = 1
     }
 }
 
-topology T {}
+topology T {
+  
+}

@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 2.0.23">
-<title>The F Prime Prime (FPP) User&#8217;s Guide, v3.1.0</title>
+<meta name="generator" content="Asciidoctor 2.0.26">
+<title>The F Prime Prime (FPP) User&#8217;s Guide, Unreleased, after v3.1.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -116,7 +116,6 @@ h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title str
 :not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
 pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
 pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
-pre>code{display:block}
 pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
 em em{font-style:normal}
 strong strong{font-weight:400}
@@ -219,6 +218,7 @@ table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
 .literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
 .listingblock>.content{position:relative}
+.listingblock pre>code{display:block}
 .listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
 .listingblock:hover code[data-lang]::before{display:block}
 .listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>The F Prime Prime (FPP) User&#8217;s Guide, v3.1.0</h1>
+<h1>The F Prime Prime (FPP) User&#8217;s Guide, Unreleased, after v3.1.0</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -555,6 +555,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#Defining-State-Machines_Constants-Types-and-Enums">10.7. Constants, Types, and Enums</a></li>
+<li><a href="#Defining-State-Machines_Include-Specifiers">10.8. Include Specifiers</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Components">11. Defining Components</a>
@@ -1834,16 +1835,17 @@ is not legal:</p>
 <p>Certain constants defined in FPP have a special meaning in the
 F Prime framework.
 These constants are called <strong>framework constants</strong>.
-For example, the constant <code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code>
-defines the size of the user data field in a data product container.
-(Data products are an F Prime feature that we describe
-<a href="#Defining-Components_Data-Products">in a later section of this manual</a>.)
+For example, the constant <code>FW_FIXED_LENGTH_STRING_SIZE</code>
+defines the default maximum size of a string.
+(We will define string types
+<a href="#Defining-Types_Array-Type-Definitions_Type-Names">in a later section of this
+manual</a>.)
 You typically set these constants by overriding configuration
 files provided in the directory <code>default/config</code> in the F Prime repository.
-For example, the file <code>default/config/DpCfg.fpp</code> provides a default value for
-<code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code>.
-You can override this default value by providing your own version of
-the file <code>DpCfg.fpp</code>.
+For example, the file <code>default/config/FpConstants.fpp</code> provides a default
+definition for <code>FW_FIXED_LENGTH_STRING_SIZE</code>.
+You can override this default value by a different definition for this
+constant.
 The
 <a href="https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/">F
 Prime User Manual</a>
@@ -1853,7 +1855,7 @@ explains how to do this configuration.</p>
 <p>The FPP analyzer does not require that framework constants be defined
 unless they are used.
 For example, the following model is valid, because it neither defines nor users
-<code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code>:</p>
+<code>FW_FIXED_LENGTH_STRING_SIZE</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1861,30 +1863,22 @@ For example, the following model is valid, because it neither defines nor users
 </div>
 </div>
 <div class="paragraph">
-<p>The following model is valid because it defines and uses <code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code>:</p>
+<p>The following model is valid because it defines and uses <code>FW_FIXED_LENGTH_STRING_SIZE</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module Fw {
+<pre class="prettyprint highlight"><code data-lang="fpp">constant FW_FIXED_LENGTH_STRING_SIZE = 80
 
-  module DpCfg {
-
-    constant CONTAINER_USER_DATA_SIZE = 10
-
-  }
-
-}
-
-constant a = Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code></pre>
+constant a = FW_FIXED_LENGTH_STRING_SIZE</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The following model is invalid, because it uses <code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code>
+<p>The following model is invalid, because it uses <code>FW_FIXED_LENGTH_STRING_SIZE</code>
 without defining it:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant a = Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = FW_FIXED_LENGTH_STRING_SIZE</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1893,20 +1887,12 @@ then they must conform to certain rules.
 These rules are spelled out in detail in the
 <a href="https://nasa.github.io/fpp/fpp-spec.html#Definitions_Framework-Definitions_Constant-Definitions"><em>The
 FPP Language Specification</em></a>.
-For example, <code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code> must have an integer type.
+For example, <code>FW_FIXED_LENGTH_STRING_SIZE</code> must have an integer type.
 So this model is invalid:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module Fw {
-
-  module DpCfg {
-
-    constant CONTAINER_USER_DATA_SIZE = "abc"
-
-  }
-
-}</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">constant FW_FIXED_LENGTH_STRING_SIZE = "abc"</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1915,21 +1901,13 @@ So this model is invalid:</p>
 <div class="listingblock">
 <div class="content">
 <pre>% fpp-check
-module Fw {
-
-  module DpCfg {
-
-    constant CONTAINER_USER_DATA_SIZE = "abc"
-
-  }
-
-}
+constant FW_FIXED_LENGTH_STRING_SIZE = "abc"
 ^D
 fpp-check
-stdin:5.5
-    constant CONTAINER_USER_DATA_SIZE = "abc"
-    ^
-error: the F Prime framework constant Fw.DpCfg.CONTAINER_USER_DATA_SIZE must have an integer type</pre>
+stdin:1.1
+constant FW_FIXED_LENGTH_STRING_SIZE = "abc"
+^
+error: the F Prime framework constant FW_FIXED_LENGTH_STRING_SIZE must have an integer type</pre>
 </div>
 </div>
 </div>
@@ -2293,23 +2271,46 @@ of width 32 and 64 bits.</p>
 <li>
 <p>The type name <code>string</code>, denoting the type of
 <a href="#Defining-Constants_Expressions_String-Values">string values</a>.
-This type has a default maximum size.
 For example:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># A is an array of 3 strings with default maximum size
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+# A is an array of 3 strings with size FW_FIXED_LENGTH_STRING_SIZE
 array A = [3] string</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Notice that we defined the
+<a href="#Defining-Types_Framework-Types">framework type</a>
+<code>FwSizeStoreType</code> and the
+<a href="#Defining-Constants_Framework-Constants">framework constant</a>
+<code>FW_FIXED_LENGTH_STRING_SIZE</code>.
+These definitions are required when using the type <code>string</code>.
+Typically you provide them as part of the F Prime configuration.
+<code>FwSizeStoreType</code> specifies the type to use for storing the
+length of a string.
+<code>FW_FIXED_LENGTH_STRING_SIZE</code> specifies the size of the buffer
+used to store string data.</p>
 </div>
 </li>
 <li>
 <p>The type name <code>string size</code> <em>e</em>, where <em>e</em> is a numeric expression
-specifying a maximum string size.</p>
+specifying the maximum string length of any value of that type.
+For example:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp"># A is an array of 3 strings with maximum size 40
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+
+# A is an array of 3 strings with size 40
 array A = [3] string size 40</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Here we just specified <code>FwSizeStoreType</code>.
+If a string type has an explicit size, then it does not
+use the definition <code>FW_FIXED_LENGTH_STRING_SIZE</code>.</p>
 </div>
 </li>
 <li>
@@ -2555,7 +2556,10 @@ a struct type containing two members: <code>x</code> of type <code>U32</code>, a
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">struct S { x: U32, y: string }</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+struct S { x: U32, y: string }</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2590,7 +2594,10 @@ So, for example, we can write the definition shown above in this alternate way:<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">struct S {
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+struct S {
   x: U32
   y: string
 }</code></pre>
@@ -2609,7 +2616,10 @@ Here is an example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">@ This is a pre annotation for struct S
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+@ This is a pre annotation for struct S
 struct S {
   @ This is a pre annotation for member x
   x: U32 @&lt; This is a post annotation for member x
@@ -2631,7 +2641,10 @@ For example, here is a struct type <code>S</code> with default value <code>{ x =
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">struct S { x: U32, y: string } default { x = 1, y = "abc" }</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+struct S { x: U32, y: string } default { x = 1, y = "abc" }</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2642,7 +2655,10 @@ value and use it multiple times, like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant s = { x = 1, y = "abc" }
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+constant s = { x = 1, y = "abc" }
 struct S1 { x: U8, y: string } default s
 struct S2 { x: U32, y: string } default s</code></pre>
 </div>
@@ -2679,12 +2695,18 @@ then FPP will fill in the member and give it the default value:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">struct S1 { x: U32, y: string } default { z = 1 } # Error: member z does not match</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+struct S1 { x: U32, y: string } default { z = 1 } # Error: member z does not match</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">struct S2 { x: U32, y: string } default { x = "abc" } # Error: type of member x does not match</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+struct S2 { x: U32, y: string } default { x = "abc" } # Error: type of member x does not match</code></pre>
 </div>
 </div>
 </div>
@@ -2773,7 +2795,10 @@ that member <code>x</code> should be displayed as a hexadecimal value:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">struct Channel {
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+struct Channel {
   name: string
   offset: U32 format "offset 0x{x}"
 }</code></pre>
@@ -2819,7 +2844,10 @@ For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">array Speeds = [3] U32
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+array Speeds = [3] U32
 # Member speeds has type Speeds, which is an array of 3 U32 values
 struct Wheel { name: string, speeds: Speeds }</code></pre>
 </div>
@@ -2831,7 +2859,10 @@ For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">array A = [2] U32
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+array A = [2] U32
 struct S1 { x: U32, y: string }
 
 # default value is { s1 = { x = 0, y = "" }, a = [ 0, 0 ] }
@@ -2876,7 +2907,10 @@ For example, this code is legal:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">struct S { x: U32, y: string } default { y = "abc", x = 5 }</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+struct S { x: U32, y: string } default { y = "abc", x = 5 }</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3428,7 +3462,10 @@ For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">port P1() # Zero parameters; equivalent to port P1
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+port P1() # Zero parameters; equivalent to port P1
 port P2(a: U32) # One parameter
 port P3(a: I32, b: F32, c: string) # Three parameters</code></pre>
 </div>
@@ -6159,6 +6196,71 @@ We will have more to say about this issue in the section on
 <a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">generating C&#43;&#43;</a>.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="Defining-State-Machines_Include-Specifiers">10.8. Include Specifiers</h3>
+<div class="paragraph">
+<p>State machine definitions can become long, especially when there
+are many actions, signals, and guards.
+In this case it can be useful to break up the
+definition into several files.</p>
+</div>
+<div class="paragraph">
+<p>For example, suppose you are defining a state machine with
+many signals, and you wish to place the signals in a
+separate file <code>Signals.fppi</code>.
+The suffix <code>.fppi</code> is conventional for included FPP files.
+Inside the component definition, you can write the
+following state machine member:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">include "Signals.fppi"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This construct is called an <strong>include specifier</strong>.
+During analysis and translation, the include specifier
+is replaced with the signals specified
+in <code>Signals.fppi</code>, just as if you had written them
+at the point where you wrote the include specifier.
+This replacement is called expanding or resolving the
+include specifier.
+You can use the same technique for actions, guards,
+or any other state machine members.</p>
+</div>
+<div class="paragraph">
+<p>The text enclosed in quotation marks after the keyword
+<code>include</code> is a path name relative to the directory of the
+file in which the include specifier appears.
+The file must exist and must contain state machine members
+that can validly appear at the point where the include
+specifier appears.
+For example, if <code>Signals.fppi</code> contains invalid syntax
+or syntax that may not appear inside a state machine,
+or if the file <code>Signals.fppi</code> does not exist, then
+the specifier <code>include "Signals.fppi"</code> is not valid.</p>
+</div>
+<div class="paragraph">
+<p>You can also write an include specifier as a member
+of a state definition.
+For example, here is how you could write the
+definition of a state <code>S</code> and specify its
+transitions in another file called <code>Transitions.fppi</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state S {
+
+  include "Transitions.fppi"
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>We discuss include specifiers further in the section on
+<a href="#Specifying-Models-as-Files_Include-Specifiers">specifying models as files</a>.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -7618,7 +7720,10 @@ Here is an example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">@ A component for illustrating priority and queue full behavior for async
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
+@ A component for illustrating priority and queue full behavior for async
 @ commands
 active component PriorityQueueFull {
 
@@ -9310,7 +9415,7 @@ We will have more to say about this issue in the section on
 <div class="paragraph">
 <p>Component definitions can become long, especially when there
 are many commands, events, telemetry channels, and parameters.
-In this case it is useful to break up the component
+In this case it can be useful to break up the
 definition into several files.</p>
 </div>
 <div class="paragraph">
@@ -9350,9 +9455,9 @@ or if the file <code>Commands.fppi</code> does not exist, then
 the specifier <code>include "Commands.fppi"</code> is not valid.</p>
 </div>
 <div class="paragraph">
-<p>Include specifiers are perhaps most useful when defining
-components, but they can also appear at the top level of a
-model, inside a module definition, or inside a
+<p>Include specifiers can also appear at the top level of a
+model, inside a module definition, inside a state machine
+definition, or inside a
 topology definition.
 We discuss include specifiers further in the section on
 <a href="#Specifying-Models-as-Files_Include-Specifiers">specifying models as files</a>.</p>
@@ -12378,6 +12483,7 @@ An include specifier is an instruction to include FPP source elements
 from one file into another file.
 Include specifiers may occur at the top level of a model,
 inside a <a href="#Defining-Modules">module definition</a>,
+inside a <a href="#Defining-State-Machines">state machine definition</a>,
 inside a <a href="#Defining-Components">component definition</a>,
 or inside a <a href="#Defining-Topologies">topology definition</a>.</p>
 </div>
@@ -14299,22 +14405,6 @@ to the directory <code>cpp</code> (which must already exist).</p>
 to <em>file</em>.
 This is useful for collecting autocoder build dependencies.</p>
 </li>
-<li>
-<p><code>-s</code> <em>size</em> : Specify a default string size.
-For example,</p>
-<div class="listingblock">
-<div class="content">
-<pre>fpp-to-cpp -s 40 ...</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>FPP allows string types with no specified size.
-When generating code we need to provide a default size
-to use when FPP doesn&#8217;t specify the size.
-If you don&#8217;t specify the <code>-s</code> option, then the tool uses
-an automatic default of 80.</p>
-</div>
-</li>
 </ul>
 </div>
 </div>
@@ -14342,7 +14432,9 @@ all generate aliases to <code>Fw::String</code>, either directly or indirectly:<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">type T1 = string size 40 # Generates an alias to Fw::String
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+
+type T1 = string size 40 # Generates an alias to Fw::String
 type T2 = string size 80 # Generates an alias to Fw::String
 type T3 = T2 # Generates an alias to T2, which is an alias to Fw::String</code></pre>
 </div>
@@ -14830,34 +14922,19 @@ are generated for them.</p>
 </div>
 <div class="paragraph">
 <p><strong>F Prime configuration:</strong>
-When you run <code>fpp-to-dict</code> on an FPP model, the model must define the following
-types:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>FwChanIdType</code></p>
-</li>
-<li>
-<p><code>FwEventIdType</code></p>
-</li>
-<li>
-<p><code>FwOpcodeType</code></p>
-</li>
-<li>
-<p><code>FwPacketDescriptorType</code></p>
-</li>
-<li>
-<p><code>FwTlmPacketizeIdType</code></p>
-</li>
-</ul>
+When you run <code>fpp-to-dict</code> on an FPP model, the model must provide the
+<a href="#Defining-Constants_Framework-Constants">framework constants</a>
+and
+<a href="#Defining-Types_Framework-Types">framework types</a>
+specified in the
+<a href="https://fprime.jpl.nasa.gov/latest/docs/reference/fpp-json-dict/">F Prime
+dictionary specification</a>.</p>
 </div>
 <div class="paragraph">
-<p>These types are required by the F Prime GDS, so they are included in the
-dictionary.
-Each of these types must be an alias of an integer type.
-Typically you specify these types as part of F Prime configuration,
-in the file <code>config/FpConfig.fpp</code>.
+<p>These types and constants are required by the F Prime GDS, so they are included
+in the dictionary.
+Typically you specify these types and constants as part of F Prime
+configuration, in files named <code>FpConfig.fpp</code> and <code>FpConstants.fpp</code>.
 See the
 <a href="https://fprime.jpl.nasa.gov/devel/docs/user-manual/framework/configuring-fprime/">F
 Prime documentation</a> for details.</p>
@@ -14869,7 +14946,7 @@ Prime documentation</a> for details.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The <code>-d</code> and <code>-s</code> options work in the same way as for
+<p>The <code>-d</code> option works in the same way as for
 <a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions"><code>fpp-to-cpp</code></a>.</p>
 </li>
 <li>
@@ -16378,7 +16455,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-01-27 17:11:08 -0800
+Last updated 2026-02-24 14:06:37 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
@@ -16405,6 +16482,6 @@ MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
   })
 })
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 </body>
 </html>

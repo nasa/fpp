@@ -303,7 +303,7 @@ case class Analysis(
 
   /** Gets the implied uses for an AST node */
   def getImpliedUses(kind: ImpliedUse.Kind, id: AstNode.Id): Set[ImpliedUse] =
-    impliedUseMap(id).get(kind).getOrElse(Set())
+    impliedUseMap.get(id).getOrElse(Map()).get(kind).getOrElse(Set())
 
   /** Gets an int value from an AST node */
   def getIntValue(id: AstNode.Id): Result.Result[Int] = {

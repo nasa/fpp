@@ -1,3 +1,5 @@
+type FwSizeStoreType = U16
+
 struct Default {
   mU32: U32
   mS1: string size 40

@@ -42,6 +42,41 @@ object ResolveSpecInclude extends AstStateTransformer {
     }
   }
 
+  override def defStateAnnotatedNode(
+    a: Analysis,
+    node: Ast.Annotated[AstNode[Ast.DefState]]
+  ) = {
+    val (pre, node1, post) = node
+    val Ast.DefState(name, members) = node1.data
+    for { result <- transformList(a, members, stateMember) }
+    yield {
+      val (a1, members1) = result
+      val defStateMachine = Ast.DefState(name, members1.flatten)
+      val node2 = AstNode.create(defStateMachine, node1.id)
+      (a1, (pre, node2, post))
+    }
+  }
+
+  override def defStateMachineAnnotatedNode(
+    a: Analysis,
+    node: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+  ) = {
+    val (pre, node1, post) = node
+    val Ast.DefStateMachine(name, members) = node1.data
+    members match {
+      case None => Right((a, node))
+      case Some(members) => {
+        for { result <- transformList(a, members, stateMachineMember) }
+        yield {
+          val (a1, members1) = result
+          val defStateMachine = Ast.DefStateMachine(name, Some(members1.flatten))
+          val node2 = AstNode.create(defStateMachine, node1.id)
+          (a1, (pre, node2, post))
+        }
+      }
+    }
+  }
+
   override def defTopologyAnnotatedNode(
     a: Analysis,
     node: Ast.Annotated[AstNode[Ast.DefTopology]]
@@ -157,6 +192,34 @@ object ResolveSpecInclude extends AstStateTransformer {
         moduleMember
       )
       case _ => for { result <- matchModuleMember(a, member) }
+        yield (result._1, List(result._2))
+    }
+  }
+
+  private def stateMachineMember(a: Analysis, member: Ast.StateMachineMember): Result[List[Ast.StateMachineMember]] = {
+    val (_, node, _) = member.node
+    node match {
+      case Ast.StateMachineMember.SpecInclude(node1) => resolveSpecInclude(
+        a,
+        node1,
+        Parser.stateMachineMembers,
+        stateMachineMember
+      )
+      case _ => for { result <- matchStateMachineMember(a, member) }
+        yield (result._1, List(result._2))
+    }
+  }
+
+  private def stateMember(a: Analysis, member: Ast.StateMember): Result[List[Ast.StateMember]] = {
+    val (_, node, _) = member.node
+    node match {
+      case Ast.StateMember.SpecInclude(node1) => resolveSpecInclude(
+        a,
+        node1,
+        Parser.stateMembers,
+        stateMember
+      )
+      case _ => for { result <- matchStateMember(a, member) }
         yield (result._1, List(result._2))
     }
   }

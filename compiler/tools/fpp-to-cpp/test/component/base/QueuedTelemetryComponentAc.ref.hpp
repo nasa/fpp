@@ -40,6 +40,7 @@
 #include "SSerializableAc.hpp"
 #include "TypedPortAc.hpp"
 #include "TypedReturnPortAc.hpp"
+#include "config/FwSizeStoreTypeAliasAc.hpp"
 
 //! \class QueuedTelemetryComponentBase
 //! \brief Auto-generated base for QueuedTelemetry component

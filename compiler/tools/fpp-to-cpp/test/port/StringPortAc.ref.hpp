@@ -9,6 +9,7 @@
 
 #include "Fw/FPrimeBasicTypes.hpp"
 #include "Fw/Types/String.hpp"
+#include "FwSizeStoreTypeAliasAc.hpp"
 #if !FW_DIRECT_PORT_CALLS
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputPortBase.hpp"
@@ -20,8 +21,8 @@
 struct StringPortConstants {
   //! The size of the serial representations of the port arguments
   static constexpr FwSizeType INPUT_SERIALIZED_SIZE =
-    Fw::StringBase::STATIC_SERIALIZED_SIZE(80) +
-    Fw::StringBase::STATIC_SERIALIZED_SIZE(80) +
+    Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
+    Fw::StringBase::STATIC_SERIALIZED_SIZE(static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE)) +
     Fw::StringBase::STATIC_SERIALIZED_SIZE(100) +
     Fw::StringBase::STATIC_SERIALIZED_SIZE(100);
 };
