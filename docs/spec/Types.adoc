@@ -50,11 +50,12 @@ after evaluating the expression _e_ to the value _n_.
 
 The value _n_, if present, is called the *size* associated with the string
 type.
-The size provides a maximum string length that the code generator can use
+The size provides a maximum string length that the code generator uses
 for allocating memory and serializing data.
-If no explicit size is present, then the code generator uses
+If no size is present, then the code generator uses
 the <<Definitions_Framework-Definitions_Constant-Definitions,
-framework definition>> `FW_FIXED_LENGTH_STRING_SIZE` as the size.
+framework definition>> `FW_FIXED_LENGTH_STRING_SIZE` as the
+maximum string length.
 
 === Array Types
 
