@@ -640,10 +640,8 @@ object Type {
         case Some(v) => v
         case _ => {
           val defaultStringSizeSymbol = a.frameworkDefinitions.constantMap("FW_FIXED_LENGTH_STRING_SIZE")
-          a.valueMap(defaultStringSizeSymbol.getNodeId) match {
-            case Value.Integer(value) => value
-            case _ => throw InternalError("expected integer value")
-          }
+          val Value.Integer(value) = a.valueMap(defaultStringSizeSymbol.getNodeId)
+          value
         }
       }
       val storeSize = Type.ComputeTypeSize.ty(a, storeSizeType)

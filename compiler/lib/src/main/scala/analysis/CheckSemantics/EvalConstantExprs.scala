@@ -226,30 +226,31 @@ object EvalConstantExprs extends UseAnalyzer {
         case _ => Right(a)
       }
     }
-    // Get the type name from the type map
-    val t = a.typeMap(e.typeName.id)
-    e.typeName.data match {
-      // If the type name is a string, evaluate any expressions that appear
-      // in the string size before computing the size of the type
-      case Ast.TypeNameString(Some(sizeNode)) => {
-        for {
-          a <- matchExprNode(a, sizeNode)
-        } yield a.assignValue(node -> Value.Integer(Type.ComputeTypeSize.ty(a, t)))
-      }
-      // If the type name is a qualified identifier, visit the type and finalize
-      // the type definition before computing the size of the type
-      case Ast.TypeNameQualIdent(_) => {
-        for {
-          a <- visitType(a, t)
-          typeDefId <- t.getDefNodeId match {
-            case Some(id) => Right(id)
-            case _ => throw InternalError("expected type def node id")
+
+    for {
+      // First run the TypeExpressionAnalyzer on the type name
+      a <- super.typeNameNode(a, e.typeName)
+      // Then compute the type size
+      a <- {
+        // Get the type name from the type map
+        val t = a.typeMap(e.typeName.id)
+        e.typeName.data match {
+          // If the type name is a qualified identifier, finalize the type before 
+          // computing the size of the type 
+          case Ast.TypeNameQualIdent(_) => {
+            for {
+              a <- visitType(a, t)
+              typeDefId <- t.getDefNodeId match {
+                case Some(id) => Right(id)
+                case _ => throw InternalError("expected type def node id")
+              }
+            } yield a.assignValue(node -> Value.Integer(Type.ComputeTypeSize.ty(a, a.typeMap(typeDefId))))
           }
-        } yield a.assignValue(node -> Value.Integer(Type.ComputeTypeSize.ty(a, a.typeMap(typeDefId))))
+          // Otherwise, compute the size of the type
+          case _ => Right(a.assignValue(node -> Value.Integer(Type.ComputeTypeSize.ty(a, t))))
+        }
       }
-      // Otherwise, compute the size of the type
-      case _ => Right(a.assignValue(node -> Value.Integer(Type.ComputeTypeSize.ty(a, t))))
-    }
+    } yield a
   }
 
   override def exprStructNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprStruct) =

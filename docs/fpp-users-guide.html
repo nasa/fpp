@@ -503,6 +503,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Types_Abstract-Type-Definitions">6.3. Abstract Type Definitions</a></li>
 <li><a href="#Defining-Types_Alias-Type-Definitions">6.4. Alias Type Definitions</a></li>
 <li><a href="#Defining-Types_Framework-Types">6.5. Framework Types</a></li>
+<li><a href="#Defining-Types_Sizeof-Types">6.6. Sizeof Types</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Enums">7. Defining Enums</a>
@@ -1414,50 +1415,9 @@ constant b = a[3]</code></pre>
 <div class="sect3">
 <h4 id="Defining-Constants_Expressions_Sizeof-Expressions">3.3.5. Sizeof Expressions</h4>
 <div class="paragraph">
-<p>A <strong>sizeof expression</strong> computes the size of a type. It
-evaluates to an integer value representing the maximum number of bytes
-required to represent any value of the specified type.
-For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">constant i = sizeof(U32)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In this example, constant <code>i</code> has a value 4.</p>
-</div>
-<div class="paragraph">
-<p><strong>Sizeof string type expressions:</strong> When writing a <code>sizeof(string)</code> expression,
-you must define the <code>FwSizeStoreType</code> framework type. Additionally, if
-you do not include a size when writing the string type, you must also
-define the <code>FW_FIXED_LENGTH_STRING_SIZE</code> framework constant. These
-framework definitions are used when computing the sizeof a string type.</p>
-</div>
-<div class="paragraph">
-<p>Here is an example of a string without a string size specified:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
-constant FW_FIXED_LENGTH_STRING_SIZE = 256
-constant s = sizeof(string)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In this example, the constant <code>s</code> has a value of 258.</p>
-</div>
-<div class="paragraph">
-<p>Here is an example with a user specified string size:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
-constant s = sizeof(string size 20)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In this example, the constant <code>s</code> has a value of 22.</p>
+<p>A <strong>sizeof expression</strong> computes the size of a type. This
+will be covered in more details in the
+<a href="#Defining-Types_Sizeof-Types">Sizeof Types</a> section.</p>
 </div>
 </div>
 <div class="sect3">
@@ -3134,6 +3094,37 @@ provided by F Prime, and if they are defined, then they must
 conform to certain rules.
 <a href="https://nasa.github.io/fpp/fpp-spec.html#Definitions_Framework-Definitions_Type-Definitions"><em>The
 FPP Language Specification</em></a> has all the details.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Types_Sizeof-Types">6.6. Sizeof Types</h3>
+<div class="paragraph">
+<p>You can compute the size of a type by using the
+<a href="#Defining-Constants_Expressions_Sizeof-Expressions"><code>sizeof</code> expression</a>.
+The <code>sizeof</code> expression evaluates to an integer value representing the
+maximum number of bytes required to represent any value of the specified type.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant i = sizeof(U32)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, constant <code>i</code> has a value 4.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example that computes the size of a string:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+constant s = sizeof(string)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, the constant <code>s</code> has a value of 258.</p>
 </div>
 </div>
 </div>
@@ -16505,7 +16496,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-03 10:50:24 -0800
+Last updated 2026-03-03 15:25:59 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
