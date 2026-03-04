@@ -22,7 +22,7 @@ PassiveCommandsTester ::
 PassiveCommandsTester ::
   ~PassiveCommandsTester()
 {
-
+  this->deinit();
 }
 
 // ----------------------------------------------------------------------

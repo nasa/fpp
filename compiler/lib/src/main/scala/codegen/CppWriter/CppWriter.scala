@@ -185,6 +185,9 @@ object CppWriter extends LineUtils{
     /** Tear down components */
     val tearDownComponents = 11
 
+    /** Deinitialize components */
+    val deinit = 12
+
   }
 
   sealed trait Mode

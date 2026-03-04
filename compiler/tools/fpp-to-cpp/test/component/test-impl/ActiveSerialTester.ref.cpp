@@ -23,7 +23,7 @@ ActiveSerialTester ::
 ActiveSerialTester ::
   ~ActiveSerialTester()
 {
-
+  this->deinit();
 }
 
 // ----------------------------------------------------------------------

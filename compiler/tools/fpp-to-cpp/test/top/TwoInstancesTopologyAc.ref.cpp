@@ -74,6 +74,10 @@ namespace N {
     // Nothing to do
   }
 
+  void deinit(const TopologyState& state) {
+    // Nothing to do
+  }
+
   // ----------------------------------------------------------------------
   // Setup and teardown functions
   // ----------------------------------------------------------------------
@@ -93,6 +97,7 @@ namespace N {
     stopTasks(state);
     freeThreads(state);
     tearDownComponents(state);
+    deinit(state);
   }
 
 }
