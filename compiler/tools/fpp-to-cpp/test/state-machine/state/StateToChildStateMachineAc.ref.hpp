@@ -11,6 +11,7 @@
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
+#include "StateToChild_StateEnumAc.hpp"
 
 namespace FppTest {
 
@@ -33,19 +34,12 @@ namespace FppTest {
         // ----------------------------------------------------------------------
 
         //! The state type
-        enum class State : FwEnumStoreType {
-          //! The uninitialized state
-          __FPRIME_AC_UNINITIALIZED,
-          //! State S2
-          S1_S2,
-          //! State S3
-          S1_S3,
-        };
+        using State = FppTest::SmState::StateToChild_State;
 
         //! The signal type
         enum class Signal : FwEnumStoreType {
           //! The initial transition
-          __FPRIME_AC_INITIAL_TRANSITION,
+          __FPRIME_INITIAL_TRANSITION,
           //! Signal for going from S1 to S2
           S1_to_S2,
           //! Signal for going from S2 to S3
@@ -158,7 +152,7 @@ namespace FppTest {
         FwEnumStoreType m_id = 0;
 
         //! The state
-        State m_state = State::__FPRIME_AC_UNINITIALIZED;
+        State m_state = State::__FPRIME_UNINITIALIZED;
 
     };
 

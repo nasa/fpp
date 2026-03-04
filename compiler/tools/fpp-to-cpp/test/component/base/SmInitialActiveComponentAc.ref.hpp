@@ -16,8 +16,11 @@
 #include "Fw/Port/OutputSerializePort.hpp"
 #endif
 #include "SmInitialActive_BasicStateMachineAc.hpp"
+#include "SmInitialActive_Basic_StateEnumAc.hpp"
 #include "SmInitialActive_ChoiceStateMachineAc.hpp"
+#include "SmInitialActive_Choice_StateEnumAc.hpp"
 #include "SmInitialActive_NestedStateMachineAc.hpp"
+#include "SmInitialActive_Nested_StateEnumAc.hpp"
 #include "state-machine/initial/BasicStateMachineAc.hpp"
 #include "state-machine/initial/ChoiceStateMachineAc.hpp"
 #include "state-machine/initial/NestedStateMachineAc.hpp"
