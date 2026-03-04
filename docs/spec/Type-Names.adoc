@@ -54,7 +54,7 @@ evaluate to a value in the range [1,2^31^) after conversion to
 <<Types_Internal-Types_Integer,_Integer_>>.
 
 At each point in the model where a string type name appears, the following
-implied uses of 
+<<Definitions-and-Uses_Implied-Uses,implied uses>> of 
 <<Definitions_Framework-Definitions,framework definitions>> occur:
 
 . Each string type name represents an implied use of the type
