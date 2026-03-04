@@ -854,37 +854,37 @@ object Ast {
 
   /** Float type */
   sealed trait TypeFloat
-  final case class F32() extends TypeFloat {
+  case object F32 extends TypeFloat {
     override def toString = "F32"
   }
-  final case class F64() extends TypeFloat {
+  case object F64 extends TypeFloat {
     override def toString = "F64"
   }
 
   /** Int type */
   sealed trait TypeInt
-  final case class I8() extends TypeInt {
+  case object I8 extends TypeInt {
     override def toString = "I8"
   }
-  final case class I16() extends TypeInt {
+  case object I16 extends TypeInt {
     override def toString = "I16"
   }
-  final case class I32() extends TypeInt {
+  case object I32 extends TypeInt {
     override def toString = "I32"
   }
-  final case class I64() extends TypeInt {
+  case object I64 extends TypeInt {
     override def toString = "I64"
   }
-  final case class U8() extends TypeInt {
+  case object U8 extends TypeInt {
     override def toString = "U8"
   }
-  final case class U16() extends TypeInt {
+  case object U16 extends TypeInt {
     override def toString = "U16"
   }
-  final case class U32() extends TypeInt {
+  case object U32 extends TypeInt {
     override def toString = "U32"
   }
-  final case class U64() extends TypeInt {
+  case object U64 extends TypeInt {
     override def toString = "U64"
   }
 

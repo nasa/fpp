@@ -83,6 +83,11 @@ include_parent_dir()
   run_test -ia subdir/include-parent-dir
 }
 
+include_state_machine()
+{
+  run_test -ia include-state-machine
+}
+
 include_subdir()
 {
   run_test -ia include-subdir
@@ -159,6 +164,7 @@ include_missing_file
 include_module
 include_parent_dir
 include_parse_error
+include_state_machine
 include_subdir
 include_topology
 parse_error

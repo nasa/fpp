@@ -3,6 +3,7 @@ package fpp.compiler.tools
 import fpp.compiler.analysis._
 import fpp.compiler.ast._
 import fpp.compiler.syntax._
+import fpp.compiler.transform._
 import fpp.compiler.util._
 import scopt.OParser
 
@@ -20,8 +21,8 @@ object FPPCheck {
     }
     val a = Analysis(inputFileSet = options.files.toSet)
     for {
-      tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
-      a <- CheckSemantics.tuList(a, tul)
+      aTul <- ToolUtils.parseFilesAndResolveAsts(a, files)
+      a <- CheckSemantics.tuList(aTul._1, aTul._2)
       _ <- options.unconnectedFile match {
         case Some(file) => writeUnconnectedPorts(a, file)
         case None => Right(())
