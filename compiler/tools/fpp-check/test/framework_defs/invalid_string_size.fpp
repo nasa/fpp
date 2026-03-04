@@ -1,0 +1,1 @@
+constant FW_FIXED_LENGTH_STRING_SIZE = -1

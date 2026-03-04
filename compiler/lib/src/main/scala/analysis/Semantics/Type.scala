@@ -169,6 +169,12 @@ object Type {
     override def isDisplayable = true
   }
 
+  object String {
+
+    def isValidSize(size: BigInt) = size > 0 && size <= Int.MaxValue
+
+  }
+
   /** The type of arbitrary-width integers */
   case object Integer extends Type with Int {
     override def getDefaultValue = Some(Value.Integer(0))

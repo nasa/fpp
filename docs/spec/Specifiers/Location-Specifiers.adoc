@@ -82,11 +82,8 @@ as follows:
 .. A topology location specifier refers to a
 <<Definitions_Topology-Definitions,topology definition>>.
 
-.. A type location specifier refers to an
-<<Definitions_Array-Definitions,array definition>>,
-<<Definitions_Enum-Definitions,enum definition>>,
-<<Definitions_Struct-Definitions,struct definition>>, or
-<<Definitions_Abstract-Type-Definitions,abstract type definition>>.
+.. A type location specifier refers to a <<Definitions_Type-Definitions,type 
+   definition>>.
 
 . When a location specifier appears inside a
 <<Definitions_Module-Definitions,module definition _M_>>,
