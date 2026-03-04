@@ -80,20 +80,20 @@ tlm_packets()
 typed_ports_active()
 {
   cd $TOP_DIR/typed_ports_active
-  update "-p $PWD components.fpp" topology
+  update "-p $PWD components.fpp -i $FPRIME_DEPS" topology
   move_cpp TypedPortsActiveTopology
 }
 
 typed_ports_passive()
 {
   cd $TOP_DIR/typed_ports_passive
-  update "-p $PWD components.fpp" topology
+  update "-p $PWD components.fpp -i $FPRIME_DEPS" topology
   move_cpp TypedPortsPassiveTopology
 }
 
 typed_ports_queued()
 {
   cd $TOP_DIR/typed_ports_queued
-  update "-p $PWD components.fpp" topology
+  update "-p $PWD components.fpp -i $FPRIME_DEPS" topology
   move_cpp TypedPortsQueuedTopology
 }

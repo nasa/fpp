@@ -1,9 +1,0 @@
-fpp-to-cpp
-[ local path prefix ]/fpp-to-cpp/test/fprime/config/FpConfig.fpp:76.1
-dictionary type FwSizeStoreType = U16
-^
-error: redefinition of symbol FwSizeStoreType
-previous definition is here:
-[ local path prefix ]/fpp-to-cpp/test/top/tlm_packets/topology.fpp:1.1
-type FwSizeStoreType = U16
-^

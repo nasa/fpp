@@ -80,20 +80,20 @@ tlm_packets()
 typed_ports_active()
 {
   cd $TOP_DIR/typed_ports_active
-  run_test "-p $PWD components.fpp" topology && \
+  run_test "-p $PWD -i $FPRIME_DEPS components.fpp" topology && \
     diff_cpp TypedPortsActiveTopology
 }
 
 typed_ports_passive()
 {
   cd $TOP_DIR/typed_ports_passive
-  run_test "-p $PWD components.fpp" topology && \
+  run_test "-p $PWD components.fpp -i $FPRIME_DEPS" topology && \
     diff_cpp TypedPortsPassiveTopology
 }
 
 typed_ports_queued()
 {
   cd $TOP_DIR/typed_ports_queued
-  run_test "-p $PWD components.fpp" topology && \
+  run_test "-p $PWD components.fpp -i $FPRIME_DEPS" topology && \
     diff_cpp TypedPortsQueuedTopology
 }

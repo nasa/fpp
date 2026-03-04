@@ -1,28 +1,3 @@
-type FwSizeStoreType = U16
-constant FW_FIXED_LENGTH_STRING_SIZE = 256
-
-array A = [3] U32
-
-struct S {
-  x: U32
-  y: F32
-}
-
-passive component C { 
-
-  telemetry T1: string
-  telemetry T2: U32
-  telemetry T3: F32
-  telemetry T4: bool
-  telemetry T5: A
-  telemetry T6: S
-
-  time get port timeGetOut
-
-  telemetry port tlmOut
-
-}
-
 module M {
 
   instance c1: C base id 0x100

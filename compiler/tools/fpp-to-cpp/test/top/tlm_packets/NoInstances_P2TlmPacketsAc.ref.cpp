@@ -4,6 +4,19 @@
 // \brief  cpp file for P2 telemetry packets
 // ======================================================================
 
+#include "/Users/bocchino/JPL/Tools/fpp/compiler/tools/fpp-to-cpp/test/fprime/Fw/Time/TimeComparisonEnumAc.hpp"
+#include "/Users/bocchino/JPL/Tools/fpp/compiler/tools/fpp-to-cpp/test/fprime/Fw/Time/TimeIntervalValueSerializableAc.hpp"
+#include "/Users/bocchino/JPL/Tools/fpp/compiler/tools/fpp-to-cpp/test/fprime/Fw/Time/TimeValueSerializableAc.hpp"
+#include "/Users/bocchino/JPL/Tools/fpp/compiler/tools/fpp-to-cpp/test/fprime/config/ApidEnumAc.hpp"
+#include "/Users/bocchino/JPL/Tools/fpp/compiler/tools/fpp-to-cpp/test/fprime/config/FwChanIdTypeAliasAc.hpp"
+#include "/Users/bocchino/JPL/Tools/fpp/compiler/tools/fpp-to-cpp/test/fprime/config/FwEventIdTypeAliasAc.hpp"
+#include "/Users/bocchino/JPL/Tools/fpp/compiler/tools/fpp-to-cpp/test/fprime/config/FwIdTypeAliasAc.hpp"
+#include "/Users/bocchino/JPL/Tools/fpp/compiler/tools/fpp-to-cpp/test/fprime/config/FwOpcodeTypeAliasAc.hpp"
+#include "/Users/bocchino/JPL/Tools/fpp/compiler/tools/fpp-to-cpp/test/fprime/config/FwPacketDescriptorTypeAliasAc.hpp"
+#include "/Users/bocchino/JPL/Tools/fpp/compiler/tools/fpp-to-cpp/test/fprime/config/FwSizeStoreTypeAliasAc.hpp"
+#include "/Users/bocchino/JPL/Tools/fpp/compiler/tools/fpp-to-cpp/test/fprime/config/FwTimeBaseStoreTypeAliasAc.hpp"
+#include "/Users/bocchino/JPL/Tools/fpp/compiler/tools/fpp-to-cpp/test/fprime/config/FwTimeContextStoreTypeAliasAc.hpp"
+#include "/Users/bocchino/JPL/Tools/fpp/compiler/tools/fpp-to-cpp/test/fprime/config/TimeBaseEnumAc.hpp"
 #include "Fw/Time/Time.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringBase.hpp"
