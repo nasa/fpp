@@ -5,7 +5,7 @@ wd=`dirname $0`
 cd $wd
 
 # Make is used because it is single-string and thus doesn't trip tracing's lock-file contention
-fprime_generate_flags="-f -DFPRIME_SKIP_TOOLS_VERSION_CHECK=ON --ut --make"
+fprime_generate_flags="-f -DFPRIME_SKIP_TOOLS_VERSION_CHECK=ON -DFPRIME_ENABLE_JSON_MODEL_GENERATION=ON --ut --make"
 fprime_project_paths=". ./FppTestProject/FppTest ./Ref"
 
 
@@ -32,9 +32,8 @@ do
     echo "Generating and Building UTs for: ${project_path}"
     cd "${FPRIME}/${project_path}"
 
-    # Conduct tracing through FPP build 
+    # Conduct tracing through F Prime generate
     fprime-util generate ${fprime_generate_flags}
-    fprime-util build --ut
 
 done
 # Add in tracing for the specific CI test for fpp-to-json as this seems to be particularly unhappy.

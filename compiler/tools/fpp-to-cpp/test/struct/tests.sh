@@ -11,5 +11,6 @@ format
 include
 modules
 primitive
+state_machine
 string
 "

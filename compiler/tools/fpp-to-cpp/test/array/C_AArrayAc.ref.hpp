@@ -4,8 +4,8 @@
 // \brief  hpp file for C_A array
 // ======================================================================
 
-#ifndef C_C_AArrayAc_HPP
-#define C_C_AArrayAc_HPP
+#ifndef C_AArrayAc_HPP
+#define C_AArrayAc_HPP
 
 #include <initializer_list>
 

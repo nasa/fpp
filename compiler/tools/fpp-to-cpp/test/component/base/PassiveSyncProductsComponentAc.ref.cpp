@@ -97,7 +97,7 @@ Fw::SerializeStatus PassiveSyncProductsComponentBase::DpContainer ::
 {
   FW_ASSERT(array != nullptr);
   // Compute the size delta
-  const FwSizeType stringSize = 80;
+  const FwSizeType stringSize = static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE);
   FwSizeType sizeDelta =
     sizeof(FwDpIdType) +
     sizeof(FwSizeStoreType);
@@ -131,7 +131,7 @@ Fw::SerializeStatus PassiveSyncProductsComponentBase::DpContainer ::
 Fw::SerializeStatus PassiveSyncProductsComponentBase::DpContainer ::
   serializeRecord_StringRecord(const Fw::StringBase& elt)
 {
-  const FwSizeType stringSize = 80;
+  const FwSizeType stringSize = static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE);
   const FwSizeType sizeDelta =
     sizeof(FwDpIdType) +
     elt.serializedTruncatedSize(stringSize);
@@ -2531,8 +2531,6 @@ void PassiveSyncProductsComponentBase ::
   container.setTimeTag(timeTag);
   // Serialize the header into the packet
   container.serializeHeader();
-  // Update the data hash
-  container.updateDataHash();
   // Update the size of the buffer according to the data size
   const FwSizeType packetSize = container.getPacketSize();
   Fw::Buffer buffer = container.getBuffer();

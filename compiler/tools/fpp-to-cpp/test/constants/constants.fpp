@@ -74,3 +74,10 @@ passive component C {
   @ Constant k
   constant k = { x = 1.2 + M.f.b.a }.x
 }
+
+state machine SM {
+  state S
+  initial enter S
+  @ Constant a
+  constant a = 0
+}

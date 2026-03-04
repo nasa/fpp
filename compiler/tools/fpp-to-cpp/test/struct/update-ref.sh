@@ -1,30 +1,3 @@
-primitive()
-{
-  update "-p $PWD" primitive
-  move_cpp PrimitiveSerializable
-  move_cpp PrimitiveStructSerializable
-}
-
-array()
-{
-  update "-p $PWD" array
-  move_cpp AArray
-}
-
-string()
-{
-  update "-p $PWD" string
-  move_cpp StringSerializable
-  move_cpp StringArraySerializable
-}
-
-enum()
-{
-  update "-p $PWD" enum
-  move_cpp EEnum
-  move_cpp EnumSerializable 
-}
-
 abs_type()
 {
   update "-p $PWD" abs_type
@@ -40,16 +13,36 @@ alias_type()
   move_hpp SAliasAlias
 }
 
-empty()
+array()
 {
-  update "-p $PWD" empty
-  move_cpp EmptySerializable
+  update "-p $PWD" array
+  move_cpp AArray
+}
+
+component()
+{
+  update "-p $PWD" component
+  move_cpp C_SSerializable
+  move_cpp SSerializable
 }
 
 default()
 {
   update "-p $PWD" default
   move_cpp DefaultSerializable
+}
+
+empty()
+{
+  update "-p $PWD" empty
+  move_cpp EmptySerializable
+}
+
+enum()
+{
+  update "-p $PWD" enum
+  move_cpp EEnum
+  move_cpp EnumSerializable 
 }
 
 format()
@@ -74,9 +67,23 @@ modules()
   move_cpp Modules4Serializable
 }
 
-component()
+primitive()
 {
-  update "-p $PWD" component
-  move_cpp C_SSerializable
-  move_cpp SSerializable
+  update "-p $PWD" primitive
+  move_cpp PrimitiveSerializable
+  move_cpp PrimitiveStructSerializable
 }
+
+state_machine()
+{
+  update "-p $PWD" state_machine
+  move_cpp SM_SSerializable
+}
+
+string()
+{
+  update "-p $PWD" string
+  move_cpp StringSerializable
+  move_cpp StringArraySerializable
+}
+

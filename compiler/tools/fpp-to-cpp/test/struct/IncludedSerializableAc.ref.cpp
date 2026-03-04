@@ -14,7 +14,7 @@
 Included ::
   Included() :
     Serializable(),
-    m_x{}
+    m_x()
 {
 
 }

@@ -97,7 +97,7 @@ Fw::SerializeStatus PassiveTestComponentBase::DpContainer ::
 {
   FW_ASSERT(array != nullptr);
   // Compute the size delta
-  const FwSizeType stringSize = 80;
+  const FwSizeType stringSize = static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE);
   FwSizeType sizeDelta =
     sizeof(FwDpIdType) +
     sizeof(FwSizeStoreType);
@@ -131,7 +131,7 @@ Fw::SerializeStatus PassiveTestComponentBase::DpContainer ::
 Fw::SerializeStatus PassiveTestComponentBase::DpContainer ::
   serializeRecord_StringRecord(const Fw::StringBase& elt)
 {
-  const FwSizeType stringSize = 80;
+  const FwSizeType stringSize = static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE);
   const FwSizeType sizeDelta =
     sizeof(FwDpIdType) +
     elt.serializedTruncatedSize(stringSize);
@@ -4305,13 +4305,19 @@ void PassiveTestComponentBase ::
     );
 #endif
 
-    _status = str1.serializeTo(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, 80));
+    _status = str1.serializeTo(
+      _logBuff,
+      FW_MIN(static_cast<FwSizeType>(FW_LOG_STRING_MAX_SIZE), static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))
+    );
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = str2.serializeTo(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, 100));
+    _status = str2.serializeTo(
+      _logBuff,
+      FW_MIN(static_cast<FwSizeType>(FW_LOG_STRING_MAX_SIZE), 100)
+    );
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -4926,7 +4932,7 @@ void PassiveTestComponentBase ::
     Fw::TlmBuffer _tlmBuff;
     Fw::SerializeStatus _stat = arg.serializeTo(
       _tlmBuff,
-      FW_MIN(FW_TLM_STRING_MAX_SIZE, 80)
+      FW_MIN(static_cast<FwSizeType>(FW_TLM_STRING_MAX_SIZE), static_cast<FwSizeType>(FW_FIXED_LENGTH_STRING_SIZE))
     );
     FW_ASSERT(
       _stat == Fw::FW_SERIALIZE_OK,
@@ -5550,8 +5556,6 @@ void PassiveTestComponentBase ::
   container.setTimeTag(timeTag);
   // Serialize the header into the packet
   container.serializeHeader();
-  // Update the data hash
-  container.updateDataHash();
   // Update the size of the buffer according to the data size
   const FwSizeType packetSize = container.getPacketSize();
   Fw::Buffer buffer = container.getBuffer();

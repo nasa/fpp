@@ -14,7 +14,7 @@
 Abs ::
   Abs() :
     Serializable(),
-    m_A{}
+    m_A()
 {
 
 }

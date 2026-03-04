@@ -15,7 +15,9 @@ $FPRIME_DIR/Fw/Time/Time.fpp
 $FPRIME_DIR/Fw/Tlm/Tlm.fpp
 $FPRIME_DIR/Fw/Types/Types.fpp
 $FPRIME_DIR/Platform/PlatformTypes.fpp
+$FPRIME_DIR/config/ComCfg.fpp
 $FPRIME_DIR/config/FpConfig.fpp
+$FPRIME_DIR/config/FpConstants.fpp
 "
 # Add commas
 export FPRIME_DEPS=`echo $fprime_deps | sed 's/ /,/g'`

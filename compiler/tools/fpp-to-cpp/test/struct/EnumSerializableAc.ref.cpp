@@ -14,8 +14,8 @@
 Enum ::
   Enum() :
     Serializable(),
-    m_e{},
-    m_eArr{}
+    m_e(),
+    m_eArr()
 {
 
 }

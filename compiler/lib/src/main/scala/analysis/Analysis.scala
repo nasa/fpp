@@ -57,6 +57,8 @@ case class Analysis(
   valueMap: Map[AstNode.Id, Value] = Map(),
   /** The set of symbols used. Used during code generation. */
   usedSymbolSet: Set[Symbol] = Set(),
+  /** The framework definitions present in the model */
+  frameworkDefinitions: FrameworkDefinitions = FrameworkDefinitions(),
   /** The map from component symbols to components */
   componentMap: Map[Symbol.Component, Component] = Map(),
   /** The component under construction */
@@ -301,7 +303,7 @@ case class Analysis(
 
   /** Gets the implied uses for an AST node */
   def getImpliedUses(kind: ImpliedUse.Kind, id: AstNode.Id): Set[ImpliedUse] =
-    impliedUseMap(id).get(kind).getOrElse(Set())
+    impliedUseMap.get(id).getOrElse(Map()).get(kind).getOrElse(Set())
 
   /** Gets an int value from an AST node */
   def getIntValue(id: AstNode.Id): Result.Result[Int] = {

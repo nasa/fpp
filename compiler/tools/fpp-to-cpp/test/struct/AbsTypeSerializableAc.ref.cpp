@@ -14,7 +14,7 @@
 AbsType ::
   AbsType() :
     Serializable(),
-    m_t{}
+    m_t()
 {
 
 }

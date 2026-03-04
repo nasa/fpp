@@ -1,30 +1,3 @@
-primitive()
-{
-  run_test "-p $PWD" primitive && \
-    diff_cpp PrimitiveSerializable && \
-    diff_cpp PrimitiveStructSerializable
-}
-
-array()
-{
-  run_test "-p $PWD" array && \
-    diff_cpp AArray
-}
-
-string()
-{
-  run_test "-p $PWD" string && \
-    diff_cpp StringSerializable && \
-    diff_cpp StringArraySerializable
-}
-
-enum()
-{
-  run_test "-p $PWD" enum && \
-    diff_cpp EEnum && \
-    diff_cpp EnumSerializable 
-}
-
 abs_type()
 {
   run_test "-p $PWD" abs_type && \
@@ -40,16 +13,36 @@ alias_type()
     diff_hpp SAliasAlias
 }
 
-empty()
+array()
 {
-  run_test "-p $PWD" empty && \
-    diff_cpp EmptySerializable
+  run_test "-p $PWD" array && \
+    diff_cpp AArray
+}
+
+component()
+{
+  run_test "-p $PWD" component && \
+    diff_cpp C_SSerializable && \
+    diff_cpp SSerializable
 }
 
 default()
 {
   run_test "-p $PWD" default && \
     diff_cpp DefaultSerializable
+}
+
+empty()
+{
+  run_test "-p $PWD" empty && \
+    diff_cpp EmptySerializable
+}
+
+enum()
+{
+  run_test "-p $PWD" enum && \
+    diff_cpp EEnum && \
+    diff_cpp EnumSerializable 
 }
 
 format()
@@ -74,9 +67,23 @@ modules()
     diff_cpp Modules4Serializable
 }
 
-component()
+primitive()
 {
-  run_test "-p $PWD" component && \
-    diff_cpp C_SSerializable && \
-    diff_cpp SSerializable
+  run_test "-p $PWD" primitive && \
+    diff_cpp PrimitiveSerializable && \
+    diff_cpp PrimitiveStructSerializable
 }
+
+state_machine()
+{
+  run_test "-p $PWD" state_machine && \
+    diff_cpp SM_SSerializable
+}
+
+string()
+{
+  run_test "-p $PWD" string && \
+    diff_cpp StringSerializable && \
+    diff_cpp StringArraySerializable
+}
+

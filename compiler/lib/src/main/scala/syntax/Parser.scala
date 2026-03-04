@@ -877,17 +877,23 @@ object Parser extends Parsers {
   }
 
   private def stateMachineMemberNode: Parser[Ast.StateMachineMember.Node] = {
-    node(specInitialTransition) ^^ (n =>
-      Ast.StateMachineMember.SpecInitialTransition(n)) |
-      node(defState) ^^ (n => Ast.StateMachineMember.DefState(n)) |
-      node(defSignal) ^^ (n => Ast.StateMachineMember.DefSignal(n)) |
-      node(defAction) ^^ (n => Ast.StateMachineMember.DefAction(n)) |
-      node(defGuard) ^^ (n => Ast.StateMachineMember.DefGuard(n)) |
-      node(defChoice) ^^ (n => Ast.StateMachineMember.DefChoice(n)) |
-      failure("state machine member expected")
+    node(defAliasType) ^^ (n => Ast.StateMachineMember.DefAliasType(n)) |
+    node(defAbsType) ^^ (n => Ast.StateMachineMember.DefAbsType(n)) |
+    node(defAction) ^^ (n => Ast.StateMachineMember.DefAction(n)) |
+    node(defArray) ^^ (n => Ast.StateMachineMember.DefArray(n)) |
+    node(defChoice) ^^ (n => Ast.StateMachineMember.DefChoice(n)) |
+    node(defConstant) ^^ (n => Ast.StateMachineMember.DefConstant(n)) |
+    node(defEnum) ^^ (n => Ast.StateMachineMember.DefEnum(n)) |
+    node(defGuard) ^^ (n => Ast.StateMachineMember.DefGuard(n)) |
+    node(defSignal) ^^ (n => Ast.StateMachineMember.DefSignal(n)) |
+    node(defState) ^^ (n => Ast.StateMachineMember.DefState(n)) |
+    node(defStruct) ^^ (n => Ast.StateMachineMember.DefStruct(n)) |
+    node(specInclude) ^^ (n => Ast.StateMachineMember.SpecInclude(n)) |
+    node(specInitialTransition) ^^ (n => Ast.StateMachineMember.SpecInitialTransition(n)) |
+    failure("state machine member expected")
   }
 
-  private def stateMachineMembers: Parser[List[Ast.StateMachineMember]] =
+  def stateMachineMembers: Parser[List[Ast.StateMachineMember]] =
     annotatedElementSequence(
       stateMachineMemberNode,
       semi,
@@ -895,18 +901,19 @@ object Parser extends Parsers {
     )
 
   private def stateMemberNode: Parser[Ast.StateMember.Node] = {
-    node(defChoice) ^^ (n => Ast.StateMember.DefChoice(n)) |
+      node(defChoice) ^^ (n => Ast.StateMember.DefChoice(n)) |
       node(defState) ^^ (n => Ast.StateMember.DefState(n)) |
       node(specInitialTransition) ^^ (n =>
         Ast.StateMember.SpecInitialTransition(n)) |
       node(specStateEntry) ^^ (n => Ast.StateMember.SpecStateEntry(n)) |
       node(specStateExit) ^^ (n => Ast.StateMember.SpecStateExit(n)) |
+      node(specInclude) ^^ (n => Ast.StateMember.SpecInclude(n)) |
       node(specStateTransition) ^^ (n =>
         Ast.StateMember.SpecStateTransition(n)) |
       failure("state member expected")
   }
 
-  private def stateMembers: Parser[List[Ast.StateMember]] =
+  def stateMembers: Parser[List[Ast.StateMember]] =
     annotatedElementSequence(stateMemberNode, semi, Ast.StateMember(_))
 
   def structTypeMember: Parser[Ast.StructTypeMember] = {
@@ -992,18 +999,18 @@ object Parser extends Parsers {
 
   def typeName: Parser[Ast.TypeName] = {
     def typeNameFloat =
-      accept("F32()", { case Token.F32() => Ast.TypeNameFloat(Ast.F32()) }) |
-        accept("F64()", { case Token.F64() => Ast.TypeNameFloat(Ast.F64()) })
+      accept("F32", { case Token.F32() => Ast.TypeNameFloat(Ast.F32) }) |
+        accept("F64", { case Token.F64() => Ast.TypeNameFloat(Ast.F64) })
 
     def typeNameInt =
-      accept("I8()", { case Token.I8() => Ast.TypeNameInt(Ast.I8()) }) |
-        accept("I16()", { case Token.I16() => Ast.TypeNameInt(Ast.I16()) }) |
-        accept("I32()", { case Token.I32() => Ast.TypeNameInt(Ast.I32()) }) |
-        accept("I64()", { case Token.I64() => Ast.TypeNameInt(Ast.I64()) }) |
-        accept("U8()", { case Token.U8() => Ast.TypeNameInt(Ast.U8()) }) |
-        accept("U16()", { case Token.U16() => Ast.TypeNameInt(Ast.U16()) }) |
-        accept("U32()", { case Token.U32() => Ast.TypeNameInt(Ast.U32()) }) |
-        accept("U64()", { case Token.U64() => Ast.TypeNameInt(Ast.U64()) })
+      accept("I8", { case Token.I8() => Ast.TypeNameInt(Ast.I8) }) |
+        accept("I16", { case Token.I16() => Ast.TypeNameInt(Ast.I16) }) |
+        accept("I32", { case Token.I32() => Ast.TypeNameInt(Ast.I32) }) |
+        accept("I64", { case Token.I64() => Ast.TypeNameInt(Ast.I64) }) |
+        accept("U8", { case Token.U8() => Ast.TypeNameInt(Ast.U8) }) |
+        accept("U16", { case Token.U16() => Ast.TypeNameInt(Ast.U16) }) |
+        accept("U32", { case Token.U32() => Ast.TypeNameInt(Ast.U32) }) |
+        accept("U64", { case Token.U64() => Ast.TypeNameInt(Ast.U64) })
 
     accept("bool", { case Token.BOOL() => Ast.TypeNameBool }) |
       string ~> opt(size ~>! exprNode) ^^ (e => Ast.TypeNameString(e)) |

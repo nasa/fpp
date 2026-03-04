@@ -924,6 +924,14 @@
         "defaultRecordId" : 257
       }
     },
+    "frameworkDefinitions" : {
+      "constantMap" : {
+        
+      },
+      "typeMap" : {
+        
+      }
+    },
     "includedFileSet" : [
     ],
     "inputFileSet" : [

@@ -14,7 +14,7 @@
 S ::
   S() :
     Serializable(),
-    m_x{},
+    m_x(),
     m_y(m___fprime_ac_y_buffer, sizeof m___fprime_ac_y_buffer, Fw::String(""))
 {
 

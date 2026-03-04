@@ -16,6 +16,7 @@
 #include "Fw/Port/OutputSerializePort.hpp"
 #endif
 #include "SmChoiceActive_BasicStateMachineAc.hpp"
+#include "SmChoiceActive_Basic_StateEnumAc.hpp"
 #include "state-machine/choice/BasicStateMachineAc.hpp"
 #include "state-machine/choice/BasicU32StateMachineAc.hpp"
 #include "state-machine/choice/ChoiceToChoiceStateMachineAc.hpp"

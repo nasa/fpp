@@ -16,6 +16,7 @@
 #include "Fw/Port/OutputSerializePort.hpp"
 #endif
 #include "SmStateActive_BasicStateMachineAc.hpp"
+#include "SmStateActive_Basic_StateEnumAc.hpp"
 #include "state-machine/state/BasicGuardStateMachineAc.hpp"
 #include "state-machine/state/BasicGuardStringStateMachineAc.hpp"
 #include "state-machine/state/BasicGuardTestAbsTypeStateMachineAc.hpp"
@@ -1554,6 +1555,11 @@ namespace FppTest {
 
       //! Send signal s to state machine smStateBasicString
       void smStateBasicString_sendSignal_s(
+          const Fw::StringBase& value //!< The value
+      );
+
+      //! Send signal s1 to state machine smStateBasicString
+      void smStateBasicString_sendSignal_s1(
           const Fw::StringBase& value //!< The value
       );
 

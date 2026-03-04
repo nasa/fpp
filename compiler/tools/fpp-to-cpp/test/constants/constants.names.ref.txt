@@ -8,3 +8,7 @@ E2EnumAc.cpp
 E2EnumAc.hpp
 FppConstantsAc.cpp
 FppConstantsAc.hpp
+SMStateMachineAc.cpp
+SMStateMachineAc.hpp
+SM_StateEnumAc.cpp
+SM_StateEnumAc.hpp

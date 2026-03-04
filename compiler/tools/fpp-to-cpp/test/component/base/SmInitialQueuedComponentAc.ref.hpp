@@ -16,8 +16,11 @@
 #include "Fw/Port/OutputSerializePort.hpp"
 #endif
 #include "SmInitialQueued_BasicStateMachineAc.hpp"
+#include "SmInitialQueued_Basic_StateEnumAc.hpp"
 #include "SmInitialQueued_ChoiceStateMachineAc.hpp"
+#include "SmInitialQueued_Choice_StateEnumAc.hpp"
 #include "SmInitialQueued_NestedStateMachineAc.hpp"
+#include "SmInitialQueued_Nested_StateEnumAc.hpp"
 #include "Svc/Sched/SchedPortAc.hpp"
 #include "state-machine/initial/BasicStateMachineAc.hpp"
 #include "state-machine/initial/ChoiceStateMachineAc.hpp"

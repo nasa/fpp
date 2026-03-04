@@ -1,0 +1,1 @@
+constant FW_LOG_STRING_MAX_SIZE = 1.5

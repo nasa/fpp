@@ -4,8 +4,8 @@
 // \brief  cpp file for BasicString state machine
 // ======================================================================
 
+#include "BasicStringStateMachineAc.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "state-machine/state/BasicStringStateMachineAc.hpp"
 
 namespace FppTest {
 
@@ -36,7 +36,7 @@ namespace FppTest {
     {
       this->m_id = id;
       // Enter the initial target of the state machine
-      this->enter_S(Signal::__FPRIME_AC_INITIAL_TRANSITION);
+      this->enter_S(Signal::__FPRIME_INITIAL_TRANSITION);
     }
 
     // ----------------------------------------------------------------------
@@ -64,6 +64,20 @@ namespace FppTest {
           this->action_b(Signal::s, value);
           // Enter the target
           this->enter_T(Signal::s);
+          break;
+        case State::T:
+          break;
+        default:
+          FW_ASSERT(0, static_cast<FwAssertArgType>(this->m_state));
+          break;
+      }
+    }
+
+    void BasicStringStateMachineBase ::
+      sendSignal_s1(const Fw::StringBase& value)
+    {
+      switch (this->m_state) {
+        case State::S:
           break;
         case State::T:
           break;

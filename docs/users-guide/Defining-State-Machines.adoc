@@ -1568,7 +1568,7 @@ The general behavior described above agrees with the special-case
 behavior that we described in the section on
 <<Defining-State-Machines_Actions_Entry-and-Exit-Actions,
 entry and exit actions for state machines without hierarchy>>.
-When a state machine _M_ has no hierarchy, a every state transition _T_
+When a state machine _M_ has no hierarchy, every state transition _T_
 is a flattened transition that goes from a leaf state _L_ to a leaf
 state _S_, both of which are children of _M_ in the hierarchy tree.
 So we always exit _L_, do the actions of _T_, and enter _S_.
@@ -1797,3 +1797,218 @@ Then least common ancestor is _S_, and the following actions
 would be done, in the following order:
 the exit actions of _A_, the actions of _T_, the entry actions of _B_, and the
 entry actions of _B'_.
+
+=== Constants, Types, and Enums
+
+You can write a <<Defining-Constants,constant definition>>,
+<<Defining-Types,type definition>>, or
+<<Defining-Enums,enum definition>> as a state machine member.
+For example, here is a state machine `M` that defines a
+constant `c` as a member:
+
+[source,fpp]
+----
+@ A state machine containing a type definition
+state machine M {
+
+  constant c = 42
+
+  state S
+
+  initial enter S
+
+}
+----
+
+When you do this, the state machine qualifies
+the name of the definition, similarly to the way that a
+<<Defining-Modules,module>> qualifies the names of the
+definitions it contains.
+For example, for the constant `c` shown in the code above:
+
+* Inside the definition of `M`, you can refer to the
+constant as `c` or `M.c`.
+
+* Outside the definition of `M`, you must refer to the
+constant as `M.c`.
+
+In general, it is a good idea to put a definition inside a
+state machine when the definition logically belongs to the
+state machine.
+For example, here is a state machine that defines a type
+`Temperature` and then uses that type in a signal and a guard:
+
+[source,fpp]
+----
+@ A state machine that defines a type and uses it in a guard
+state machine Device {
+
+  @ Define a type Temperature
+  type Temperature = F32
+
+  @ Use the Temperature type in a signal
+  signal onCmd: Temperature
+
+  @ Use the Temperature type in a guard
+  guard temperatureIsSafe: Temperature
+
+  @ Initial transition
+  initial enter OFF
+
+  @ OFF state
+  state OFF {
+
+    @ Enter ON if temperature is safe
+    on onCmd if temperatureIsSafe enter ON
+
+  }
+
+  @ ON state
+  state ON
+
+}
+----
+
+In this example, the full name of the type `Temperature` is `Device.Temperature`.
+
+In most cases, a qualified name such as `Device.Temperature` in FPP becomes a
+qualified name such as `Device::Temperature` when translating to {cpp}.
+However, the current {cpp} code generation strategy does not support the
+definition of constants and types as members of {cpp} state machines.
+Therefore, in the {cpp} translation of the previous example, the following
+occurs:
+
+* The state machine `SM` becomes an auto-generated {cpp}
+class `SMStateMachineBase`.
+
+* The type `Temperature` becomes a {cpp} type `Device_Temperature`.
+
+Similarly, the FPP constant `M.c` becomes a {cpp} constant `M_c`.
+We will have more to say about this issue in the section on
+<<Analyzing-and-Translating-Models_Generating-C-Plus-Plus,
+generating {cpp}>>.
+
+=== The State Enum
+
+Every state machine definition implicitly contains an enum definition
+that defines the leaf states of the state machine.
+This enum is called the *state enum* of the state machine.
+For example, consider the following state machine definition:
+
+[source,fpp]
+----
+state machine S {
+
+  signal s
+
+  initial enter S1
+
+  state S1 { initial enter S2; state S2; on s enter S3 }
+
+  state S3
+
+}
+----
+
+This state machine implicitly contains the following enum
+definition:
+
+[source,fpp]
+----
+enum State : U8 {
+  __FPRIME_UNINITIALIZED
+  S1_S2
+  S3
+}
+----
+
+Note the following:
+
+* The name of the enum is `State`. The enum is defined
+  inside the state machine `S`, so its qualified name is `S.State`.
+
+* The associated numeric type of the enum is `U8`.
+  This is the smallest unsigned type that can hold
+  all the enumerated constants.
+  In most cases, a state enum will not have more than
+  255 enumerated constants, and so the numeric type will be `U8`.
+  If necessary, the analyzer will use the type `U16` or `U32`.
+
+* The first enumerated constant is `__FPRIME_UNINITIALIZED`.
+  Every state enum has this constant as its first element.
+  It represents the state of the state machine implementation
+  when FSW comes up, before the initial transition of the
+  state machine is run.
+  This state should never occur during normal FSW operations.
+
+* The other constants are the qualified names of the leaf
+  states of the state machine, in alphabetical order,
+  after replacing `.` with `_`.
+
+In the generated code, the implementation
+uses the state enum `S.State` to represent the current state
+of the state machine `S`.
+Only the leaf states are represented, because every
+transition at runtime goes from a leaf state to a leaf
+state.
+Because the enumeration is modeled in FPP, you can
+use it in telemetry and event reporting.
+
+=== Include Specifiers
+
+State machine definitions can become long, especially when there
+are many actions, signals, and guards.
+In this case it can be useful to break up the
+definition into several files.
+
+For example, suppose you are defining a state machine with
+many signals, and you wish to place the signals in a
+separate file `Signals.fppi`.
+The suffix `.fppi` is conventional for included FPP files.
+Inside the component definition, you can write the
+following state machine member:
+
+[source,fpp]
+--------
+include "Signals.fppi"
+--------
+
+This construct is called an *include specifier*.
+During analysis and translation, the include specifier
+is replaced with the signals specified
+in `Signals.fppi`, just as if you had written them
+at the point where you wrote the include specifier.
+This replacement is called expanding or resolving the
+include specifier.
+You can use the same technique for actions, guards,
+or any other state machine members.
+
+The text enclosed in quotation marks after the keyword
+`include` is a path name relative to the directory of the
+file in which the include specifier appears.
+The file must exist and must contain state machine members
+that can validly appear at the point where the include
+specifier appears.
+For example, if `Signals.fppi` contains invalid syntax
+or syntax that may not appear inside a state machine,
+or if the file `Signals.fppi` does not exist, then
+the specifier `include "Signals.fppi"` is not valid.
+
+You can also write an include specifier as a member
+of a state definition.
+For example, here is how you could write the
+definition of a state `S` and specify its
+transitions in another file called `Transitions.fppi`:
+
+[source,fpp]
+--------
+state S {
+
+  include "Transitions.fppi"
+
+}
+--------
+
+We discuss include specifiers further in the section on
+<<Specifying-Models-as-Files_Include-Specifiers,
+specifying models as files>>.

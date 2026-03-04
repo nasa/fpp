@@ -14,7 +14,7 @@
 PrimitiveStruct ::
   PrimitiveStruct() :
     Serializable(),
-    m_s1{}
+    m_s1()
 {
 
 }

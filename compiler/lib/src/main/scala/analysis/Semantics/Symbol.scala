@@ -8,18 +8,21 @@ sealed trait Symbol extends SymbolInterface {
   def isDictionaryDef = false
 }
 
+/** A type symbol */
+sealed trait TypeSymbol extends Symbol
+
 object Symbol {
 
-  final case class AbsType(node: Ast.Annotated[AstNode[Ast.DefAbsType]]) extends Symbol {
+  final case class AbsType(node: Ast.Annotated[AstNode[Ast.DefAbsType]]) extends TypeSymbol {
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name
   }
-  final case class AliasType(node: Ast.Annotated[AstNode[Ast.DefAliasType]]) extends Symbol {
+  final case class AliasType(node: Ast.Annotated[AstNode[Ast.DefAliasType]]) extends TypeSymbol {
     override def isDictionaryDef = node._2.data.isDictionaryDef
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name
   }
-  final case class Array(node: Ast.Annotated[AstNode[Ast.DefArray]]) extends Symbol {
+  final case class Array(node: Ast.Annotated[AstNode[Ast.DefArray]]) extends TypeSymbol {
     override def isDictionaryDef = node._2.data.isDictionaryDef
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name
@@ -37,7 +40,7 @@ object Symbol {
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name
   }
-  final case class Enum(node: Ast.Annotated[AstNode[Ast.DefEnum]]) extends Symbol {
+  final case class Enum(node: Ast.Annotated[AstNode[Ast.DefEnum]]) extends TypeSymbol {
     override def isDictionaryDef = node._2.data.isDictionaryDef
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name
@@ -62,7 +65,7 @@ object Symbol {
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name
   }
-  final case class Struct(node: Ast.Annotated[AstNode[Ast.DefStruct]]) extends Symbol {
+  final case class Struct(node: Ast.Annotated[AstNode[Ast.DefStruct]]) extends TypeSymbol {
     override def isDictionaryDef = node._2.data.isDictionaryDef
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name

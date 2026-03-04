@@ -54,6 +54,11 @@ object CheckSpecLocs
     aNode: Ast.Annotated[AstNode[Ast.DefPort]]
   ) = checkSpecLoc(a, Ast.SpecLoc.Port, Symbol.Port(aNode))
 
+  override def defStateMachineAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+  ) = checkSpecLoc(a, Ast.SpecLoc.StateMachine, Symbol.StateMachine(aNode))
+
   override def defStructAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefStruct]]

@@ -16,8 +16,8 @@ namespace M {
   Modules1 ::
     Modules1() :
       Serializable(),
-      m_x{},
-      m_y{}
+      m_x(),
+      m_y()
   {
 
   }

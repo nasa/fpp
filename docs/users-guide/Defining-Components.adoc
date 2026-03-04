@@ -1227,6 +1227,9 @@ Here is an example:
 
 [source,fpp]
 ----
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 @ A component for illustrating priority and queue full behavior for async
 @ commands
 active component PriorityQueueFull {
@@ -2653,14 +2656,16 @@ or
 <<Defining-State-Machines,state machine definition>>
 as a component member.
 When you do this, the component qualifies
-the name of the constant or type, similarly to the way that a
-<<Defining-Modules,module>> qualifies the names of the
+the name of the definition, similarly to the way that a
+<<Defining-Modules,module>> or 
+<<Defining-State-Machines_Constants-Types-and-Enums,
+state machine>> qualifies the names of the
 definitions it contains.
 For example, if you define a type `T` inside a component
 `C`, then
 
 * Inside the definition of `C`, you can refer to the
-type as `T`.
+type as `T` or `C.T`.
 
 * Outside the definition of `C`, you must refer to the
 type as `C.T`.
@@ -2742,7 +2747,7 @@ active component Switch {
 }
 ----
 
-In general, it is a good idea to state a definition inside a component
+In general, it is a good idea to put a definition inside a component
 when the definition logically belongs to the component.
 The name scoping mechanism emphasizes the hierarchical relationship
 and prevents name clashes.
@@ -2752,7 +2757,8 @@ in FPP becomes a qualified name such as `Switch::State` when translating
 to {cpp}.
 However, the current {cpp} code generation strategy does not
 support the definition
-of constants and types as members of {cpp} components.
+of constants, types, and state machines as
+members of {cpp} components.
 Therefore, when translating the previous example to {cpp},
 the following occurs:
 
@@ -2767,11 +2773,18 @@ We will have more to say about this issue in the section on
 <<Analyzing-and-Translating-Models_Generating-C-Plus-Plus,
 generating {cpp}>>.
 
+If you define a state machine inside a component, and you
+define a constant, type, or enum
+<<Defining-State-Machines_Constants-Types-and-Enums,inside a state machine>>,
+then the name prefixes are joined in the obvious way.
+For example, a type `T` defined inside a state machine `SM` defined
+inside a component `C` has the name `C_SM_T`.
+
 === Include Specifiers
 
 Component definitions can become long, especially when there
 are many commands, events, telemetry channels, and parameters.
-In this case it is useful to break up the component
+In this case it can be useful to break up the
 definition into several files.
 
 For example, suppose you are defining a component with
@@ -2807,9 +2820,9 @@ or syntax that may not appear inside a component,
 or if the file `Commands.fppi` does not exist, then
 the specifier `include "Commands.fppi"` is not valid.
 
-Include specifiers are perhaps most useful when defining
-components, but they can also appear at the top level of a
-model, inside a module definition, or inside a
+Include specifiers can also appear at the top level of a
+model, inside a module definition, inside a state machine
+definition, or inside a
 topology definition.
 We discuss include specifiers further in the section on
 <<Specifying-Models-as-Files_Include-Specifiers,

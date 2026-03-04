@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/types/enum_undef_constant.fpp:2.16
+  enum E { X = a }
+               ^
+error: symbol a is not defined
+note: looking for a constant here

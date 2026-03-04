@@ -132,9 +132,10 @@ case class DictionaryJsonEncoder(
                     "name" -> "string".asJson,
                     "kind" -> "string".asJson
                 )
+                val fwDefaultStringSize = dictionaryState.getFwDefaultStringSize
                 size match {
                     case Some(s) => Json.obj("size" -> valueAsJson(dictionaryState.a.valueMap(s.id))).deepMerge(jsonObj)
-                    case None => Json.obj("size" -> dictionaryState.defaultStringSize.asJson).deepMerge(jsonObj)
+                    case None => Json.obj("size" -> fwDefaultStringSize.asJson).deepMerge(jsonObj)
                 }
             }
             case Type.Array(node, _, _, _) => {

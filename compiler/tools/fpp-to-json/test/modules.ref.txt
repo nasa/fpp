@@ -729,6 +729,14 @@
     "componentMap" : {
       
     },
+    "frameworkDefinitions" : {
+      "constantMap" : {
+        
+      },
+      "typeMap" : {
+        
+      }
+    },
     "includedFileSet" : [
     ],
     "inputFileSet" : [

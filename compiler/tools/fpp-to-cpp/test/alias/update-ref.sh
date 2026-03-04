@@ -15,6 +15,12 @@ basic()
   move_cpp BasicSerializable
 }
 
+component()
+{
+  update "-p $PWD" component
+  move_hpp C_XAlias && \
+  move_cpp C_AArray
+}
 namespace()
 {
   update "-p $PWD" namespace
@@ -23,4 +29,11 @@ namespace()
   move_hpp NamespacedAliasTypeAlias
   move_hpp NamespacedAliasType2Alias
   move_cpp NamespaceSerializable
+}
+
+state_machine()
+{
+  update "-p $PWD" state_machine
+  move_hpp SM_XAlias && \
+  move_cpp SM_AArray
 }
