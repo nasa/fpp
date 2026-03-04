@@ -6,6 +6,10 @@ fprime_gcc=../../../../../scripts/fprime-gcc
 
 ../harness/generate-cpp
 
+# Generate header files
+echo "running the tests to generate the header files"
+./run
+# Compile cpp files
 for file in `find . -name '*.ref.cpp'`
 do
   base=`basename $file .ref.cpp`

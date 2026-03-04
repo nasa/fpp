@@ -77,7 +77,7 @@ case class CppWriterState(
     val name = symbol.getUnqualifiedName
     a.parentSymbolMap.get(symbol) match {
       case Some(cs: Symbol.Component) => s"${cs.getUnqualifiedName}_$name"
-      case Some(sm: Symbol.StateMachine) => s"${sm.getUnqualifiedName}_$name"
+      case Some(sm: Symbol.StateMachine) => s"${getName(sm)}_$name"
       case _ => name
     }
   }

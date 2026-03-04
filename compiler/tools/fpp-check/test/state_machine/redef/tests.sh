@@ -9,6 +9,7 @@ ok
 signal
 state
 state_choice
+state_enum
 state_shadow_ok
 type
 "
