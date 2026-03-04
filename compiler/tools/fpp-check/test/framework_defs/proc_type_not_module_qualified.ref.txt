@@ -1,0 +1,10 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/framework_defs/proc_type_not_module_qualified.fpp:5.5
+    enum ProcType { X, Y }
+    ^
+error: invalid qualifier Fw.DpCfg: not a module symbol
+symbol is defined here:
+[ local path prefix ]/compiler/tools/fpp-check/test/framework_defs/proc_type_not_module_qualified.fpp:3.3
+  passive component DpCfg {
+  ^
+note: framework definition Fw.DpCfg.ProcType must have module qualifiers

@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/framework_defs/invalid_positive_integer_constant.fpp:1.39
+constant FW_CMD_ARG_BUFFER_MAX_SIZE = 0
+                                      ^
+error: invalid integer value 0
+framework definition FW_CMD_ARG_BUFFER_MAX_SIZE must be a positive integer constant

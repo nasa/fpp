@@ -176,9 +176,10 @@ and may not be present for other ports.
 the same meaning as described above for general ports.
 These elements are valid only for `async` `product` `recv` ports.
 
-Each special port instance represents an implied use of a port
+Each special port instance represents an
+<<Definitions-and-Uses_Implied-Uses,implied use>> of a
+<<Definitions_Framework-Definitions_Port-Definitions,framework port>>
 as shown in the table below.
-These ports are defined by the F Prime framework.
 
 |===
 |Special port kind|Implied port use

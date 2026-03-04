@@ -19,6 +19,7 @@ object CheckSemantics {
       a <- EvalImpliedEnumConsts.visitList(a, tul, EvalImpliedEnumConsts.transUnit)
       a <- EvalConstantExprs.visitList(a, tul, EvalConstantExprs.transUnit)
       a <- FinalizeTypeDefs.visitList(a, tul, FinalizeTypeDefs.transUnit)
+      _ <- CheckFrameworkConstantValues.check(a)
       a <- CheckPortDefs.visitList(a, tul, CheckPortDefs.transUnit)
       a <- CheckInterfaceDefs.visitList(a, tul, CheckInterfaceDefs.transUnit)
       a <- CheckComponentDefs.visitList(a, tul, CheckComponentDefs.transUnit)
