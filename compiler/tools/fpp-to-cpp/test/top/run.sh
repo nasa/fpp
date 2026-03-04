@@ -4,6 +4,7 @@ basic()
   run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp -n basic.names.txt" topology && \
     diff -u basic.names.txt basic.names.ref.txt && \
     diff_cpp BasicTopology
+  cd $TOP_DIR
 }
 
 commands()
@@ -11,6 +12,7 @@ commands()
   cd $TOP_DIR/commands
   run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology && \
     diff_cpp CommandsTopology
+  cd $TOP_DIR
 }
 
 dp()
@@ -18,6 +20,7 @@ dp()
   cd $TOP_DIR/dp
   run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology && \
     diff_cpp DpTopology
+  cd $TOP_DIR
 }
 
 events()
@@ -25,6 +28,7 @@ events()
   cd $TOP_DIR/events
   run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology && \
     diff_cpp EventsTopology
+  cd $TOP_DIR
 }
 
 health()
@@ -32,6 +36,7 @@ health()
   cd $TOP_DIR/health
   run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology && \
     diff_cpp HealthTopology
+  cd $TOP_DIR
 }
 
 nested_namespaces()
@@ -39,6 +44,7 @@ nested_namespaces()
   cd $TOP_DIR/nested_namespaces
   run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology && \
     diff_cpp NestedNamespacesTopology
+  cd $TOP_DIR
 }
 
 no_namespace()
@@ -46,6 +52,7 @@ no_namespace()
   cd $TOP_DIR/no_namespace
   run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp" topology && \
     diff_cpp NoNamespaceTopology
+  cd $TOP_DIR
 }
 
 params()
@@ -53,6 +60,7 @@ params()
   cd $TOP_DIR/params
   run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology && \
     diff_cpp ParamsTopology
+  cd $TOP_DIR
 }
 
 tlm()
@@ -60,6 +68,7 @@ tlm()
   cd $TOP_DIR/tlm
   run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp" topology && \
     diff_cpp TlmTopology
+  cd $TOP_DIR
 }
 
 tlm_packets()
@@ -75,6 +84,7 @@ tlm_packets()
     diff_cpp OneInstance_P3TlmPackets && \
     diff_cpp TwoInstancesTopology && \
     diff_cpp TwoInstances_P1TlmPackets
+  cd $TOP_DIR
 }
 
 typed_ports_active()
@@ -82,6 +92,7 @@ typed_ports_active()
   cd $TOP_DIR/typed_ports_active
   run_test "-p $PWD -i $FPRIME_DEPS components.fpp" topology && \
     diff_cpp TypedPortsActiveTopology
+  cd $TOP_DIR
 }
 
 typed_ports_passive()
@@ -89,6 +100,7 @@ typed_ports_passive()
   cd $TOP_DIR/typed_ports_passive
   run_test "-p $PWD components.fpp -i $FPRIME_DEPS" topology && \
     diff_cpp TypedPortsPassiveTopology
+  cd $TOP_DIR
 }
 
 typed_ports_queued()
@@ -96,4 +108,5 @@ typed_ports_queued()
   cd $TOP_DIR/typed_ports_queued
   run_test "-p $PWD components.fpp -i $FPRIME_DEPS" topology && \
     diff_cpp TypedPortsQueuedTopology
+  cd $TOP_DIR
 }
