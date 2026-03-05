@@ -1,5 +1,3 @@
-type FwSizeStoreType = U16
-
 type U16Alias = U16
 type T
 type TAlias = T

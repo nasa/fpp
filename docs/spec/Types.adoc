@@ -41,12 +41,21 @@ A string type is written `string` or `string size` _n_,
 where _n_ is an integer value in the range [1,2^31-1].
 There is one string type `string` and one string type `string size` _n_
 for each legal value of _n_.
+The string type names map to the string types in the following way:
+
+* The type name `string` maps to the type `string`.
+
+* The type name `string` `size` _e_ maps to the type `string` `size` _n_,
+after evaluating the expression _e_ to the value _n_.
 
 The value _n_, if present, is called the *size* associated with the string
 type.
-The size provides a maximum string length that the code generator can use
+The size provides a maximum string length that the code generator uses
 for allocating memory and serializing data.
-If no explicit size is present, then the code generator uses a default size.
+If no size is present, then the code generator uses
+the <<Definitions_Framework-Definitions_Constant-Definitions,
+framework definition>> `FW_FIXED_LENGTH_STRING_SIZE` as the
+maximum string length.
 
 === Array Types
 
