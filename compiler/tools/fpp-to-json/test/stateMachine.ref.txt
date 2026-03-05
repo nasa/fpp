@@ -155,7 +155,7 @@
                                     "default" : "None",
                                     "isDictionaryDef" : false
                                   },
-                                  "id" : 264
+                                  "id" : 269
                                 }
                               }
                             }
@@ -2814,6 +2814,11 @@
       "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
       "pos" : "5.1",
       "includingLoc" : "None"
+    },
+    "269" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
+      "pos" : "5.1",
+      "includingLoc" : "None"
     }
   }
 }
@@ -2860,7 +2865,7 @@
       },
       "265" : {
         "Enum" : {
-          "nodeId" : 264,
+          "nodeId" : 269,
           "unqualifiedName" : "State"
         }
       },
@@ -2884,14 +2889,8 @@
       },
       "267" : {
         "Enum" : {
-          "nodeId" : 264,
+          "nodeId" : 269,
           "unqualifiedName" : "State"
-        }
-      },
-      "264" : {
-        "StateMachine" : {
-          "nodeId" : 264,
-          "unqualifiedName" : "M"
         }
       },
       "30" : {
@@ -2912,6 +2911,12 @@
           "unqualifiedName" : "M"
         }
       },
+      "269" : {
+        "StateMachine" : {
+          "nodeId" : 264,
+          "unqualifiedName" : "M"
+        }
+      },
       "9" : {
         "Enum" : {
           "nodeId" : 15,
@@ -2926,12 +2931,64 @@
       },
       "266" : {
         "Enum" : {
-          "nodeId" : 264,
+          "nodeId" : 269,
           "unqualifiedName" : "State"
         }
       }
     },
     "symbolScopeMap" : {
+      "269" : {
+        "map" : {
+          "Value" : {
+            "map" : {
+              "__FPRIME_UNINITIALIZED" : {
+                "EnumConstant" : {
+                  "nodeId" : 265,
+                  "unqualifiedName" : "__FPRIME_UNINITIALIZED"
+                }
+              },
+              "S1" : {
+                "EnumConstant" : {
+                  "nodeId" : 266,
+                  "unqualifiedName" : "S1"
+                }
+              },
+              "S2_S3" : {
+                "EnumConstant" : {
+                  "nodeId" : 267,
+                  "unqualifiedName" : "S2_S3"
+                }
+              }
+            }
+          }
+        }
+      },
+      "15" : {
+        "map" : {
+          "Value" : {
+            "map" : {
+              "X" : {
+                "EnumConstant" : {
+                  "nodeId" : 9,
+                  "unqualifiedName" : "X"
+                }
+              },
+              "Y" : {
+                "EnumConstant" : {
+                  "nodeId" : 10,
+                  "unqualifiedName" : "Y"
+                }
+              },
+              "Z" : {
+                "EnumConstant" : {
+                  "nodeId" : 13,
+                  "unqualifiedName" : "Z"
+                }
+              }
+            }
+          }
+        }
+      },
       "264" : {
         "map" : {
           "Type" : {
@@ -2950,7 +3007,7 @@
               },
               "State" : {
                 "Enum" : {
-                  "nodeId" : 264,
+                  "nodeId" : 269,
                   "unqualifiedName" : "State"
                 }
               },
@@ -2978,7 +3035,7 @@
             "map" : {
               "State" : {
                 "Enum" : {
-                  "nodeId" : 264,
+                  "nodeId" : 269,
                   "unqualifiedName" : "State"
                 }
               },
@@ -2992,32 +3049,6 @@
                 "Enum" : {
                   "nodeId" : 15,
                   "unqualifiedName" : "E"
-                }
-              }
-            }
-          }
-        }
-      },
-      "15" : {
-        "map" : {
-          "Value" : {
-            "map" : {
-              "X" : {
-                "EnumConstant" : {
-                  "nodeId" : 9,
-                  "unqualifiedName" : "X"
-                }
-              },
-              "Y" : {
-                "EnumConstant" : {
-                  "nodeId" : 10,
-                  "unqualifiedName" : "Y"
-                }
-              },
-              "Z" : {
-                "EnumConstant" : {
-                  "nodeId" : 13,
-                  "unqualifiedName" : "Z"
                 }
               }
             }
@@ -3102,17 +3133,10 @@
           "default" : "None"
         }
       },
-      "270" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
-      },
       "264" : {
         "Enum" : {
           "node" : {
-            "astNodeId" : 264
+            "astNodeId" : 269
           },
           "repType" : {
             "kind" : {
@@ -3121,34 +3145,7 @@
               }
             }
           },
-          "default" : {
-            "Some" : {
-              "value" : [
-                "__FPRIME_UNINITIALIZED",
-                0
-              ],
-              "t" : {
-                "node" : {
-                  "astNodeId" : 264
-                },
-                "repType" : {
-                  "kind" : {
-                    "U8" : {
-                      
-                    }
-                  }
-                },
-                "default" : "None"
-              }
-            }
-          }
-        }
-      },
-      "2" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
+          "default" : "None"
         }
       },
       "29" : {
@@ -3190,7 +3187,7 @@
       "265" : {
         "Enum" : {
           "node" : {
-            "astNodeId" : 264
+            "astNodeId" : 269
           },
           "repType" : {
             "kind" : {
@@ -3227,6 +3224,41 @@
                 "repType" : {
                   "kind" : {
                     "I32" : {
+                      
+                    }
+                  }
+                },
+                "default" : "None"
+              }
+            }
+          }
+        }
+      },
+      "269" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 269
+          },
+          "repType" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          },
+          "default" : {
+            "Some" : {
+              "value" : [
+                "__FPRIME_UNINITIALIZED",
+                0
+              ],
+              "t" : {
+                "node" : {
+                  "astNodeId" : 269
+                },
+                "repType" : {
+                  "kind" : {
+                    "U8" : {
                       
                     }
                   }
@@ -3402,7 +3434,7 @@
       "267" : {
         "Enum" : {
           "node" : {
-            "astNodeId" : 264
+            "astNodeId" : 269
           },
           "repType" : {
             "kind" : {
@@ -3568,7 +3600,7 @@
       "266" : {
         "Enum" : {
           "node" : {
-            "astNodeId" : 264
+            "astNodeId" : 269
           },
           "repType" : {
             "kind" : {
@@ -3578,6 +3610,20 @@
             }
           },
           "default" : "None"
+        }
+      },
+      "2" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "271" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
         }
       },
       "30" : {
@@ -3609,7 +3655,7 @@
     "useDefMap" : {
       "264" : {
         "Enum" : {
-          "nodeId" : 264,
+          "nodeId" : 269,
           "unqualifiedName" : "State"
         }
       },
@@ -3619,13 +3665,13 @@
           "unqualifiedName" : "X"
         }
       },
-      "270" : {
+      "271" : {
         "Constant" : {
           "nodeId" : 3,
           "unqualifiedName" : "FW_FIXED_LENGTH_STRING_SIZE"
         }
       },
-      "269" : {
+      "270" : {
         "AliasType" : {
           "nodeId" : 1,
           "unqualifiedName" : "FwSizeStoreType"
@@ -3646,7 +3692,7 @@
           ],
           "t" : {
             "node" : {
-              "astNodeId" : 264
+              "astNodeId" : 269
             },
             "repType" : {
               "kind" : {
@@ -3732,11 +3778,6 @@
           }
         }
       },
-      "270" : {
-        "Integer" : {
-          "value" : 256
-        }
-      },
       "266" : {
         "EnumConstant" : {
           "value" : [
@@ -3745,7 +3786,7 @@
           ],
           "t" : {
             "node" : {
-              "astNodeId" : 264
+              "astNodeId" : 269
             },
             "repType" : {
               "kind" : {
@@ -3756,11 +3797,6 @@
             },
             "default" : "None"
           }
-        }
-      },
-      "2" : {
-        "Integer" : {
-          "value" : 256
         }
       },
       "7" : {
@@ -3781,7 +3817,7 @@
           ],
           "t" : {
             "node" : {
-              "astNodeId" : 264
+              "astNodeId" : 269
             },
             "repType" : {
               "kind" : {
@@ -3813,6 +3849,16 @@
             },
             "default" : "None"
           }
+        }
+      },
+      "2" : {
+        "Integer" : {
+          "value" : 256
+        }
+      },
+      "271" : {
+        "Integer" : {
+          "value" : 256
         }
       }
     },
