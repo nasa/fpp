@@ -25,7 +25,7 @@ A telemetry packet member is one of the following:
 
 * _non-annotatable-include-specifier_.
 
-* _<<Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers,
+* _<<Instance-Member-Identifiers_Telemetry-Channel-Identifiers,
 telemetry-channel-identifier>>_.
 
 A _non-annotatable-include-specifier_ is identical to an
@@ -61,10 +61,9 @@ This action converts _telemetry-packet-member-sequence_ to a list _L_ of
 telemetry channel identifiers.
 For each telemetry channel identifier _I_ in _L_,
 the component instance referred to in _I_ must be
-available in the enclosing topology, either through
-<<Specifiers_Component-Instance-Specifiers,direct specification>>
-or through
-<<Specifiers_Topology-Import-Specifiers,import>>.
+available in the enclosing topology, after resolving
+to a <<Definitions_Topology-Definitions_Semantics,partially numbered 
+topology>>.
 
 ==== Examples
 

@@ -1,4 +1,4 @@
-locate topology T at "incorrect.fpp"
+locate instance T at "incorrect.fpp"
 
 topology T {
 

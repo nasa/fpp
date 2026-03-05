@@ -4,8 +4,8 @@ package fpp.compiler.analysis
 sealed trait NameGroup 
 
 object NameGroup {
-  case object ComponentInstance extends NameGroup {
-    override def toString(): String = "component instance"
+  case object PortInterfaceInstance extends NameGroup {
+    override def toString(): String = "component instance or topology"
   }
 
   case object Component extends NameGroup {
@@ -24,7 +24,7 @@ object NameGroup {
     override def toString(): String = "topology"
   }
 
-  case object Interface extends NameGroup {
+  case object PortInterface extends NameGroup {
     override def toString(): String = "interface"
   }
 
@@ -37,12 +37,11 @@ object NameGroup {
   }
 
   val groups: List[NameGroup] = List(
-    ComponentInstance,
     Component,
     Port,
     StateMachine,
-    Topology,
-    Interface,
+    PortInterfaceInstance,
+    PortInterface,
     Type,
     Value
   )

@@ -1523,6 +1523,7 @@ case class ComponentTesterBaseWriter(
             )
           }
         case _: PortInstance.Internal => Nil
+        case _: PortInstance.Topology => throw InternalError("topology port not flattened")
       }
       lazy val member = functionClassMember(
         Some(s"Static function for port ${testerPortName(p)}"),

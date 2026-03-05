@@ -2954,37 +2954,17 @@
       },
       "163" : {
         "map" : {
-          "ComponentInstance" : {
-            "map" : {
-              "DpCfg" : {
-                "Module" : {
-                  "nodeId" : 162,
-                  "unqualifiedName" : "DpCfg"
-                }
-              }
-            }
-          },
-          "Topology" : {
-            "map" : {
-              "DpCfg" : {
-                "Module" : {
-                  "nodeId" : 162,
-                  "unqualifiedName" : "DpCfg"
-                }
-              }
-            }
-          },
-          "Interface" : {
-            "map" : {
-              "DpCfg" : {
-                "Module" : {
-                  "nodeId" : 162,
-                  "unqualifiedName" : "DpCfg"
-                }
-              }
-            }
-          },
           "StateMachine" : {
+            "map" : {
+              "DpCfg" : {
+                "Module" : {
+                  "nodeId" : 162,
+                  "unqualifiedName" : "DpCfg"
+                }
+              }
+            }
+          },
+          "PortInterfaceInstance" : {
             "map" : {
               "DpCfg" : {
                 "Module" : {
@@ -3011,6 +2991,16 @@
             }
           },
           "Port" : {
+            "map" : {
+              "DpCfg" : {
+                "Module" : {
+                  "nodeId" : 162,
+                  "unqualifiedName" : "DpCfg"
+                }
+              }
+            }
+          },
+          "PortInterface" : {
             "map" : {
               "DpCfg" : {
                 "Module" : {
