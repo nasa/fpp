@@ -968,6 +968,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Types_Types-with-Numeric-Members">17.16. Types with Numeric Members</a></li>
 <li><a href="#Types_Alias-Lists">17.17. Alias Lists</a></li>
 <li><a href="#Types_Default-Values">17.18. Default Values</a></li>
+<li><a href="#Types_Serialized-Sizes">17.19. Serialized Sizes</a></li>
 </ul>
 </li>
 <li><a href="#Type-Checking">18. Type Checking</a>
@@ -9052,49 +9053,9 @@ a type that is <a href="#Types_Displayable-Types">displayable</a>.</p>
 </div>
 <div class="paragraph">
 <p>The expression is evaluated by evaluating the maximum number of
-bytes required to represent any value of that type. Evaluation
-of type sizes is as follows:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>If the type name refers to a <a href="#Types_Primitive-Integer-Types">primitive integer type</a>
-or <a href="#Types_Floating-Point-Types">floating-point type</a>, the size of the type is
-the width of the representation in bytes.</p>
-</li>
-<li>
-<p>If the type name refers to a <a href="#Types_The-Boolean-Type">Boolean type</a>,
-the size is 1 byte.</p>
-</li>
-<li>
-<p>If the type name refers to a <a href="#Types_String-Types">string type</a>, the
-size of the string is the maximum length of the string in bytes.</p>
-</li>
-<li>
-<p>If the type name refers to a <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a>:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>If the qualified identifier refers to an <a href="#Types_Alias-Types">alias type</a>,
-the size of the alias type is the size of the underlying type.</p>
-</li>
-<li>
-<p>If the qualified identifier refers to an <a href="#Types_Array-Types">array type</a>,
-the size of the array type is the size of the array element type multiplied
-by the number of element in the array.</p>
-</li>
-<li>
-<p>If the qualified identifier refers to an <a href="#Types_Enum-Types">enum type</a>,
-the size of the enum type is the size of the representation type.</p>
-</li>
-<li>
-<p>If the qualified identifier refers to a <a href="#Types_Struct-Types">struct type</a>,
-the size of the struct type is the sum of all member type sizes.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
+bytes required to represent any value of that type. See the
+<a href="#Types_Serialized-Sizes">serialized size of types</a> section for
+more detail.</p>
 </div>
 </div>
 <div class="sect3">
@@ -10751,6 +10712,14 @@ of <em>T</em> must provide a concrete value.</p>
 </ul>
 </div>
 </div>
+<div class="sect2">
+<h3 id="Types_Serialized-Sizes">17.19. Serialized Sizes</h3>
+<div class="paragraph">
+<p>The serialized size of a type is the maximum number of bytes in the
+value of a type. See the <a href="#Values_Serialized-Sizes">serialized size of values</a>
+section for more detail.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -12274,7 +12243,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-03 10:35:39 -0800
+Last updated 2026-03-05 09:21:19 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

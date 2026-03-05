@@ -12,33 +12,9 @@ The type name must <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer 
 a type that is <<Types_Displayable-Types, displayable>>.
 
 The expression is evaluated by evaluating the maximum number of
-bytes required to represent any value of that type. Evaluation
-of type sizes is as follows:
-
-* If the type name refers to a <<Types_Primitive-Integer-Types,primitive integer type>>
-or <<Types_Floating-Point-Types,floating-point type>>, the size of the type is
-the width of the representation in bytes.
-
-* If the type name refers to a <<Types_The-Boolean-Type,Boolean type>>,
-the size is 1 byte.
-
-* If the type name refers to a <<Types_String-Types,string type>>, the 
-size of the string is the maximum length of the string in bytes.
-
-* If the type name refers to a <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>>:
-
-** If the qualified identifier refers to an <<Types_Alias-Types,alias type>>, 
-the size of the alias type is the size of the underlying type.
-
-** If the qualified identifier refers to an <<Types_Array-Types,array type>>,
-the size of the array type is the size of the array element type multiplied 
-by the number of element in the array.
-
-** If the qualified identifier refers to an <<Types_Enum-Types,enum type>>,
-the size of the enum type is the size of the representation type.
-
-** If the qualified identifier refers to a <<Types_Struct-Types,struct type>>, 
-the size of the struct type is the sum of all member type sizes.
+bytes required to represent any value of that type. See the 
+<<Types_Serialized-Sizes, serialized size of types>> section for
+more detail.
 
 ==== Example
 
