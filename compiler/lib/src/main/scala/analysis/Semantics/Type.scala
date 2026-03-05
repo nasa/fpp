@@ -384,18 +384,12 @@ object Type {
       case (Boolean -> Boolean) => true
       case _ => false
     }
-    def string = pair match {
-      case (String(None) -> String(None)) => true
-      case (String(Some(e1)) -> String(Some(e2))) => e1 == e2
-      case _ => false
-    }
     def sameDef = (t1.getDefNodeId, t2.getDefNodeId) match {
       case (Some(id1), Some(id2)) => id1 == id2
       case _ => false
     }
     numeric ||
     boolean ||
-    string ||
     sameDef
   }
   

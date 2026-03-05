@@ -13,7 +13,7 @@
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
-#include "FwSizeStoreTypeAliasAc.hpp"
+#include "config/FwSizeStoreTypeAliasAc.hpp"
 
 //! An array of strings with specified default value and format string
 class String2 :
