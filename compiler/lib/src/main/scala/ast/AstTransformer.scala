@@ -96,6 +96,21 @@ trait AstTransformer {
   def defStateMachineAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+  ): ResultAnnotatedNode[Ast.DefStateMachine] =
+    node._2.data.members match {
+      case Some(members) => defStateMachineAnnotatedNodeInternal(in, node, members)
+      case None => defStateMachineAnnotatedNodeExternal(in, node)
+    }
+
+  def defStateMachineAnnotatedNodeExternal(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+  ): ResultAnnotatedNode[Ast.DefStateMachine] = Right(default(in), node)
+
+  def defStateMachineAnnotatedNodeInternal(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefStateMachine]],
+    members: List[Ast.StateMachineMember]
   ): ResultAnnotatedNode[Ast.DefStateMachine] = Right(default(in), node)
 
   def defStructAnnotatedNode(
@@ -284,14 +299,14 @@ trait AstTransformer {
   def typeNameStringNode(in: In, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString): ResultNode[Ast.TypeName] =
     Right(default(in), node)
 
-  final def matchComponentMember(in: In, member: Ast.ComponentMember): Result[Ast.ComponentMember] = {
+  final def matchComponentMember(in: In, member: Ast.ComponentMember): Result[List[Ast.ComponentMember]] = {
     def transform[T](
       result: ResultAnnotatedNode[T],
       f: AstNode[T] => Ast.ComponentMember.Node
     ) = {
       for { pair <- result } yield {
         val (out, (pre, node, post)) = pair
-        (out, Ast.ComponentMember(pre, f(node), post))
+        (out, List(Ast.ComponentMember(pre, f(node), post)))
       }
     }
     val (pre, node, post) =  member.node
@@ -373,14 +388,14 @@ trait AstTransformer {
       case e : Ast.ExprSizeOf => exprSizeOfNode(in, node, e)
     }
 
-  final def matchStateMember(in: In, member: Ast.StateMember): Result[Ast.StateMember] = {
+  final def matchStateMember(in: In, member: Ast.StateMember): Result[List[Ast.StateMember]] = {
     def transform[T](
       result: ResultAnnotatedNode[T],
       f: AstNode[T] => Ast.StateMember.Node
     ) = {
       for { pair <- result } yield {
         val (out, (pre, node, post)) = pair
-        (out, Ast.StateMember(pre, f(node), post))
+        (out, List(Ast.StateMember(pre, f(node), post)))
       }
     }
     val (pre, node, post) =  member.node
@@ -402,14 +417,14 @@ trait AstTransformer {
     }
   }
 
-  final def matchStateMachineMember(in: In, member: Ast.StateMachineMember): Result[Ast.StateMachineMember] = {
+  final def matchStateMachineMember(in: In, member: Ast.StateMachineMember): Result[List[Ast.StateMachineMember]] = {
     def transform[T](
       result: ResultAnnotatedNode[T],
       f: AstNode[T] => Ast.StateMachineMember.Node
     ) = {
       for { pair <- result } yield {
         val (out, (pre, node, post)) = pair
-        (out, Ast.StateMachineMember(pre, f(node), post))
+        (out, List(Ast.StateMachineMember(pre, f(node), post)))
       }
     }
     val (pre, node, post) =  member.node
@@ -443,14 +458,14 @@ trait AstTransformer {
     }
   }
 
-  final def matchModuleMember(in: In, member: Ast.ModuleMember): Result[Ast.ModuleMember] = {
+  final def matchModuleMember(in: In, member: Ast.ModuleMember): Result[List[Ast.ModuleMember]] = {
     def transform[T](
       result: ResultAnnotatedNode[T],
       f: AstNode[T] => Ast.ModuleMember.Node
     ) = {
       for { pair <- result } yield {
         val (out, (pre, node, post)) = pair
-        (out, Ast.ModuleMember(pre, f(node), post))
+        (out, List(Ast.ModuleMember(pre, f(node), post)))
       }
     }
     val (pre, node, post) =  member.node
@@ -488,14 +503,14 @@ trait AstTransformer {
     }
   }
 
-  final def matchTlmPacketSetMember(in: In, member: Ast.TlmPacketSetMember): Result[Ast.TlmPacketSetMember] = {
+  final def matchTlmPacketSetMember(in: In, member: Ast.TlmPacketSetMember): Result[List[Ast.TlmPacketSetMember]] = {
     def transform[T](
       result: ResultAnnotatedNode[T],
       f: AstNode[T] => Ast.TlmPacketSetMember.Node
     ) = {
       for (pair <- result) yield {
         val (out, (pre, node, post)) = pair
-        (out, Ast.TlmPacketSetMember(pre, f(node), post))
+        (out, List(Ast.TlmPacketSetMember(pre, f(node), post)))
       }
     }
     val (pre, node, post) =  member.node
@@ -507,14 +522,14 @@ trait AstTransformer {
     }
   }
 
-  final def matchTopologyMember(in: In, member: Ast.TopologyMember): Result[Ast.TopologyMember] = {
+  final def matchTopologyMember(in: In, member: Ast.TopologyMember): Result[List[Ast.TopologyMember]] = {
     def transform[T](
       result: ResultAnnotatedNode[T],
       f: AstNode[T] => Ast.TopologyMember.Node
     ) = {
       for (pair <- result) yield {
         val (out, (pre, node, post)) = pair
-        (out, Ast.TopologyMember(pre, f(node), post))
+        (out, List(Ast.TopologyMember(pre, f(node), post)))
       }
     }
     val (pre, node, post) =  member.node
@@ -532,7 +547,7 @@ trait AstTransformer {
     }
   }
 
-  final def matchTuMember(in: In, member: Ast.TUMember): Result[Ast.TUMember] =
+  final def matchTuMember(in: In, member: Ast.TUMember): Result[List[Ast.TUMember]] =
     matchModuleMember(in, member)
 
   final def matchTypeName(in: In, node: AstNode[Ast.TypeName]): ResultNode[Ast.TypeName] =

@@ -81,6 +81,92 @@
                           [
                           ],
                           {
+                            "DefEnum" : {
+                              "node" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "name" : "State",
+                                    "typeName" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "TypeNameInt" : {
+                                              "name" : {
+                                                "U8" : {
+                                                  
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "id" : 268
+                                        }
+                                      }
+                                    },
+                                    "constants" : [
+                                      [
+                                        [
+                                          "The uninitialized state"
+                                        ],
+                                        {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "name" : "__FPRIME_UNINITIALIZED",
+                                              "value" : "None"
+                                            },
+                                            "id" : 265
+                                          }
+                                        },
+                                        [
+                                        ]
+                                      ],
+                                      [
+                                        [
+                                          "State S1"
+                                        ],
+                                        {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "name" : "S1",
+                                              "value" : "None"
+                                            },
+                                            "id" : 266
+                                          }
+                                        },
+                                        [
+                                        ]
+                                      ],
+                                      [
+                                        [
+                                          "State S3"
+                                        ],
+                                        {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "name" : "S2_S3",
+                                              "value" : "None"
+                                            },
+                                            "id" : 267
+                                          }
+                                        },
+                                        [
+                                        ]
+                                      ]
+                                    ],
+                                    "default" : "None",
+                                    "isDictionaryDef" : false
+                                  },
+                                  "id" : 269
+                                }
+                              }
+                            }
+                          },
+                          [
+                          ]
+                        ],
+                        [
+                          [
+                          ],
+                          {
                             "DefArray" : {
                               "node" : {
                                 "AstNode" : {
@@ -2708,6 +2794,31 @@
       "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
       "pos" : "5.1",
       "includingLoc" : "None"
+    },
+    "265" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
+      "pos" : "5.1",
+      "includingLoc" : "None"
+    },
+    "266" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
+      "pos" : "5.1",
+      "includingLoc" : "None"
+    },
+    "267" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
+      "pos" : "5.1",
+      "includingLoc" : "None"
+    },
+    "268" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
+      "pos" : "5.1",
+      "includingLoc" : "None"
+    },
+    "269" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
+      "pos" : "5.1",
+      "includingLoc" : "None"
     }
   }
 }
@@ -2752,6 +2863,12 @@
           "unqualifiedName" : "M"
         }
       },
+      "265" : {
+        "Enum" : {
+          "nodeId" : 269,
+          "unqualifiedName" : "State"
+        }
+      },
       "13" : {
         "Enum" : {
           "nodeId" : 15,
@@ -2770,10 +2887,10 @@
           "unqualifiedName" : "M"
         }
       },
-      "27" : {
-        "StateMachine" : {
-          "nodeId" : 264,
-          "unqualifiedName" : "M"
+      "267" : {
+        "Enum" : {
+          "nodeId" : 269,
+          "unqualifiedName" : "State"
         }
       },
       "30" : {
@@ -2794,14 +2911,58 @@
           "unqualifiedName" : "M"
         }
       },
+      "269" : {
+        "StateMachine" : {
+          "nodeId" : 264,
+          "unqualifiedName" : "M"
+        }
+      },
       "9" : {
         "Enum" : {
           "nodeId" : 15,
           "unqualifiedName" : "E"
         }
+      },
+      "27" : {
+        "StateMachine" : {
+          "nodeId" : 264,
+          "unqualifiedName" : "M"
+        }
+      },
+      "266" : {
+        "Enum" : {
+          "nodeId" : 269,
+          "unqualifiedName" : "State"
+        }
       }
     },
     "symbolScopeMap" : {
+      "269" : {
+        "map" : {
+          "Value" : {
+            "map" : {
+              "__FPRIME_UNINITIALIZED" : {
+                "EnumConstant" : {
+                  "nodeId" : 265,
+                  "unqualifiedName" : "__FPRIME_UNINITIALIZED"
+                }
+              },
+              "S1" : {
+                "EnumConstant" : {
+                  "nodeId" : 266,
+                  "unqualifiedName" : "S1"
+                }
+              },
+              "S2_S3" : {
+                "EnumConstant" : {
+                  "nodeId" : 267,
+                  "unqualifiedName" : "S2_S3"
+                }
+              }
+            }
+          }
+        }
+      },
       "15" : {
         "map" : {
           "Value" : {
@@ -2844,6 +3005,12 @@
                   "unqualifiedName" : "A"
                 }
               },
+              "State" : {
+                "Enum" : {
+                  "nodeId" : 269,
+                  "unqualifiedName" : "State"
+                }
+              },
               "S" : {
                 "Struct" : {
                   "nodeId" : 27,
@@ -2866,6 +3033,12 @@
           },
           "Value" : {
             "map" : {
+              "State" : {
+                "Enum" : {
+                  "nodeId" : 269,
+                  "unqualifiedName" : "State"
+                }
+              },
               "c" : {
                 "Constant" : {
                   "nodeId" : 8,
@@ -2945,17 +3118,6 @@
           }
         }
       },
-      "5" : {
-        "Int" : {
-          "PrimitiveInt" : {
-            "kind" : {
-              "U32" : {
-                
-              }
-            }
-          }
-        }
-      },
       "10" : {
         "Enum" : {
           "node" : {
@@ -2971,11 +3133,37 @@
           "default" : "None"
         }
       },
-      "2" : {
-        "Int" : {
-          "Integer" : {
-            
+      "270" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 1
+          },
+          "aliasType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U16" : {
+                    
+                  }
+                }
+              }
+            }
           }
+        }
+      },
+      "264" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 269
+          },
+          "repType" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          },
+          "default" : "None"
         }
       },
       "29" : {
@@ -3015,21 +3203,18 @@
         }
       },
       "265" : {
-        "AliasType" : {
+        "Enum" : {
           "node" : {
-            "astNodeId" : 1
+            "astNodeId" : 269
           },
-          "aliasType" : {
-            "Int" : {
-              "PrimitiveInt" : {
-                "kind" : {
-                  "U16" : {
-                    
-                  }
-                }
+          "repType" : {
+            "kind" : {
+              "U8" : {
+                
               }
             }
-          }
+          },
+          "default" : "None"
         }
       },
       "15" : {
@@ -3067,6 +3252,41 @@
           }
         }
       },
+      "269" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 269
+          },
+          "repType" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          },
+          "default" : {
+            "Some" : {
+              "value" : [
+                "__FPRIME_UNINITIALIZED",
+                0
+              ],
+              "t" : {
+                "node" : {
+                  "astNodeId" : 269
+                },
+                "repType" : {
+                  "kind" : {
+                    "U8" : {
+                      
+                    }
+                  }
+                },
+                "default" : "None"
+              }
+            }
+          }
+        }
+      },
       "9" : {
         "Enum" : {
           "node" : {
@@ -3080,6 +3300,28 @@
             }
           },
           "default" : "None"
+        }
+      },
+      "5" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U32" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "268" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          }
         }
       },
       "6" : {
@@ -3205,6 +3447,21 @@
               }
             }
           }
+        }
+      },
+      "267" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 269
+          },
+          "repType" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          },
+          "default" : "None"
         }
       },
       "25" : {
@@ -3359,6 +3616,28 @@
         }
       },
       "266" : {
+        "Enum" : {
+          "node" : {
+            "astNodeId" : 269
+          },
+          "repType" : {
+            "kind" : {
+              "U8" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      },
+      "2" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "271" : {
         "Int" : {
           "Integer" : {
             
@@ -3392,19 +3671,25 @@
       }
     },
     "useDefMap" : {
+      "264" : {
+        "Enum" : {
+          "nodeId" : 269,
+          "unqualifiedName" : "State"
+        }
+      },
       "14" : {
         "EnumConstant" : {
           "nodeId" : 9,
           "unqualifiedName" : "X"
         }
       },
-      "266" : {
+      "271" : {
         "Constant" : {
           "nodeId" : 3,
           "unqualifiedName" : "FW_FIXED_LENGTH_STRING_SIZE"
         }
       },
-      "265" : {
+      "270" : {
         "AliasType" : {
           "nodeId" : 1,
           "unqualifiedName" : "FwSizeStoreType"
@@ -3415,6 +3700,27 @@
       "8" : {
         "Integer" : {
           "value" : 0
+        }
+      },
+      "265" : {
+        "EnumConstant" : {
+          "value" : [
+            "__FPRIME_UNINITIALIZED",
+            0
+          ],
+          "t" : {
+            "node" : {
+              "astNodeId" : 269
+            },
+            "repType" : {
+              "kind" : {
+                "U8" : {
+                  
+                }
+              }
+            },
+            "default" : "None"
+          }
         }
       },
       "4" : {
@@ -3490,6 +3796,58 @@
           }
         }
       },
+      "266" : {
+        "EnumConstant" : {
+          "value" : [
+            "S1",
+            1
+          ],
+          "t" : {
+            "node" : {
+              "astNodeId" : 269
+            },
+            "repType" : {
+              "kind" : {
+                "U8" : {
+                  
+                }
+              }
+            },
+            "default" : "None"
+          }
+        }
+      },
+      "7" : {
+        "Integer" : {
+          "value" : 0
+        }
+      },
+      "3" : {
+        "Integer" : {
+          "value" : 256
+        }
+      },
+      "267" : {
+        "EnumConstant" : {
+          "value" : [
+            "S2_S3",
+            2
+          ],
+          "t" : {
+            "node" : {
+              "astNodeId" : 269
+            },
+            "repType" : {
+              "kind" : {
+                "U8" : {
+                  
+                }
+              }
+            },
+            "default" : "None"
+          }
+        }
+      },
       "14" : {
         "EnumConstant" : {
           "value" : [
@@ -3511,22 +3869,12 @@
           }
         }
       },
-      "266" : {
-        "Integer" : {
-          "value" : 256
-        }
-      },
       "2" : {
         "Integer" : {
           "value" : 256
         }
       },
-      "7" : {
-        "Integer" : {
-          "value" : 0
-        }
-      },
-      "3" : {
+      "271" : {
         "Integer" : {
           "value" : 256
         }

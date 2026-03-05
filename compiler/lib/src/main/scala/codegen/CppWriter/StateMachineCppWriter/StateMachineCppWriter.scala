@@ -253,7 +253,6 @@ case class StateMachineCppWriter(
       "Send signal functions",
       signalSymbols.map(getSendSignalMember)
     )
-
   private def getSignalEnumClassMember: CppDoc.Class.Member = {
     val initialPair = (lines("//! The initial transition"), initialTransitionName)
     val pairs = initialPair :: commentedSignalNames
@@ -261,9 +260,12 @@ case class StateMachineCppWriter(
   }
 
   private def getStateEnumClassMember: CppDoc.Class.Member = {
-    val initialPair = (lines("//! The uninitialized state"), uninitStateName)
-    val pairs = initialPair :: commentedLeafStateNames
-    getEnumClassMember("The state type", "State", pairs)
+    val enumName = s.writeSymbol(stateEnumSymbol)
+    val memberLines = List.concat(
+      CppDocWriter.writeDoxygenComment("The state type"),
+      lines(s"using State = $enumName;")
+    )
+    linesClassMember(memberLines)
   }
 
   private def getTypeMembers: List[CppDoc.Class.Member] =
@@ -289,7 +291,7 @@ case class StateMachineCppWriter(
                 |FwEnumStoreType m_id = 0;
                 |
                 |//! The state
-                |State m_state = State::$uninitStateName;"""
+                |State m_state = State::__FPRIME_UNINITIALIZED;"""
           )
         )
       ),

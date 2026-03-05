@@ -85,10 +85,16 @@ object ImpliedUse {
     id1
   }
 
+  def fromNameAndId(
+    name: Name.Qualified,
+    id: AstNode.Id,
+    annotations: List[String] = Nil
+  ) = ImpliedUse(name, id, annotations)
+
   def fromIdentListAndId(
     identList: List[Name.Unqualified],
     id: AstNode.Id,
     annotations: List[String] = Nil
-  ) = ImpliedUse(Name.Qualified.fromIdentList(identList), id, annotations)
+  ) = fromNameAndId(Name.Qualified.fromIdentList(identList), id, annotations)
 
 }

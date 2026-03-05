@@ -40,6 +40,21 @@ object ConstructImpliedUseMap extends TypeExpressionAnalyzer {
     super.specPortInstanceAnnotatedNode(a1, aNode)
   }
 
+  override def defStateMachineAnnotatedNodeInternal(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]],
+    members: List[Ast.StateMachineMember]
+  ) = {
+    val id = aNode._2.id
+    val sym = Symbol.StateMachine(aNode)
+    val qualifier = a.getQualifiedName(sym)
+    val name = Name.Qualified(qualifier.toIdentList, "State")
+    val impliedUse = ImpliedUse.fromNameAndId(name, id)
+    val map = Map(ImpliedUse.Kind.Type -> Set(impliedUse))
+    val a1 = a.copy(impliedUseMap = a.impliedUseMap + (id -> map))
+    super.defStateMachineAnnotatedNodeInternal(a1, aNode, members)
+  }
+
   override def defTopologyAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
