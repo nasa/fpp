@@ -1,12 +1,14 @@
+. ./fpp-options.sh
+
 abs_type()
 {
-  update "-p $PWD" abs_type
+  update "$fpp_options" abs_type
   move_cpp AbsTypeArray
 }
 
 alias_type()
 {
-  update "-p $PWD" alias_type
+  update "$fpp_options" alias_type
   move_cpp AliasTypeArray
   mv ATAliasAc.hpp ATAliasAc.ref.hpp
   mv ATAliasAc.h ATAliasAc.ref.h
@@ -14,14 +16,14 @@ alias_type()
 
 component()
 {
-  update "-p $PWD" component
+  update "$fpp_options" component
   move_cpp C_AArray
   move_cpp AArray
 }
 
 enum()
 {
-  update "-p $PWD" enum
+  update "$fpp_options" enum
   move_cpp E1Enum
   move_cpp E2Enum
   move_cpp Enum1Array
@@ -30,19 +32,19 @@ enum()
 
 header_path()
 {
-  update "-p $PWD" "include/T.fpp header_path" header_path
+  update "$fpp_options" "include/T.fpp header_path" header_path
   move_cpp HeaderPathArray
 }
 
 large_size()
 {
-  update "-p $PWD" large_size
+  update "$fpp_options" large_size
   move_cpp LargeSizeArray
 }
 
 primitive()
 {
-  update "-p $PWD" primitive
+  update "$fpp_options" primitive
   move_cpp PrimitiveBoolArray
   move_cpp PrimitiveU8Array
   move_cpp PrimitiveU16Array
@@ -56,19 +58,19 @@ primitive()
 
 single_element()
 {
-  update "-p $PWD" single_element
+  update "$fpp_options" single_element
   move_cpp SingleElementArray
 }
 
 state_machine()
 {
-  update "-p $PWD" state_machine
+  update "$fpp_options" state_machine
   move_cpp SM_AArray
 }
 
 string()
 {
-  update "-p $PWD" string
+  update "$fpp_options" string
   move_cpp String1Array
   move_cpp String2Array
   move_cpp StringArrayArray
@@ -76,7 +78,7 @@ string()
 
 struct()
 {
-  update "-p $PWD" struct
+  update "$fpp_options" struct
   move_cpp Struct1Array
   move_cpp Struct2Array
   move_cpp Struct3Array
