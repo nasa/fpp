@@ -2905,17 +2905,6 @@
           }
         }
       },
-      "19" : {
-        "Primitive" : {
-          "Float" : {
-            "kind" : {
-              "F32" : {
-                
-              }
-            }
-          }
-        }
-      },
       "4" : {
         "Int" : {
           "Integer" : {
@@ -3011,6 +3000,35 @@
         "AbsType" : {
           "node" : {
             "astNodeId" : 28
+          }
+        }
+      },
+      "19" : {
+        "Primitive" : {
+          "Float" : {
+            "kind" : {
+              "F32" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "265" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 1
+          },
+          "aliasType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U16" : {
+                    
+                  }
+                }
+              }
+            }
           }
         }
       },

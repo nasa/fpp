@@ -1146,6 +1146,24 @@
           }
         }
       },
+      "56" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 1
+          },
+          "aliasType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U16" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "46" : {
         "Int" : {
           "Integer" : {
