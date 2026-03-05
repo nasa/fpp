@@ -111,8 +111,6 @@ object CheckTypeUses extends UseAnalyzer {
     visitIfNeeded(visitor)(a, aNode)
   }
 
-  override def exprNode(a: Analysis, node: AstNode[Ast.Expr]) = matchExprNode(a, node)
-
   override def typeNameBoolNode(a: Analysis, node: AstNode[Ast.TypeName]) =
     Right(a.assignType(node -> Type.Boolean))
 
@@ -139,12 +137,8 @@ object CheckTypeUses extends UseAnalyzer {
   }
 
   override def typeNameStringNode(a: Analysis, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString) =
-    for {
-      a <- tn.size match
-        case Some(size) => exprNode(a, size)
-        case None => Right(a)
-    } 
-    yield a.assignType(node -> Type.String(tn.size))
+    for (a <- super.typeNameStringNode(a, node, tn))
+      yield a.assignType(node -> Type.String(tn.size))
 
   override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) =
     visitUse(a, node)

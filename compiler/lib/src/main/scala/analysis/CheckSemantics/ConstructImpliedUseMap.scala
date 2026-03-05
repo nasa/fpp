@@ -95,4 +95,5 @@ object ConstructImpliedUseMap extends TypeExpressionAnalyzer {
     val a1 = a.copy(impliedUseMap = a.impliedUseMap + (id -> map1))
     super.typeNameStringNode(a1, node, tn)
   }
+
 }

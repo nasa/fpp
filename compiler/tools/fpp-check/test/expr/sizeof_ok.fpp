@@ -55,7 +55,7 @@ array A3 = [3] string
 type T = U32
 type T2 = A3
 type T3 = S
-type T4 = string size sizeof(string size (sizeof(A) + sizeof(E) + sizeof(S) + sizeof(string size 10)))
+type T4 = string size sizeof(string size (sizeof(A) + sizeof(E) + sizeof(S) + sizeof(string size 10.6)))
 
 type FwSizeStoreType = U16
 constant FW_FIXED_LENGTH_STRING_SIZE = 256
