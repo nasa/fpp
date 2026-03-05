@@ -589,4 +589,69 @@ object Type {
     selectFirstMatchIn(rules)
   }
 
+  // Compute the size of a type
+  // Expects that the type is displayable and that CheckFrameworkDefinitions has run
+  object ComputeTypeSize extends TypeVisitor {
+
+    type In = Analysis
+
+    type Out = BigInt
+
+    override def default(a: Analysis, t: Type) =
+      throw InternalError("expected displayable type")
+
+    override def aliasType(a: Analysis, t: Type.AliasType) =
+      Type.ComputeTypeSize.ty(a, t.getUnderlyingType)
+
+    override def array(a: Analysis, t: Type.Array) = {
+      val arraySize = t.getArraySize match {
+        case Some(as) => BigInt(as)
+        case _ => throw InternalError("expected array size")
+      }
+      val arrayTypeSize = Type.ComputeTypeSize.ty(a, t.anonArray.eltType)
+      arrayTypeSize * arraySize
+    }
+
+    override def boolean(a: Analysis) = 1
+
+    override def enumeration(a: Analysis, t: Type.Enum) =
+      Type.ComputeTypeSize.ty(a, t._2)
+
+    override def float(a: Analysis, t: Type.Float) =
+      t._1 match {
+        case Type.Float.F32 => 4
+        case Type.Float.F64 => 8
+      }
+
+    override def integer(a: Analysis) = 8
+
+    override def primitiveInt(a: Analysis, t: Type.PrimitiveInt) =
+      t._1 match {
+        case Type.PrimitiveInt.I8  | Type.PrimitiveInt.U8  => 1
+        case Type.PrimitiveInt.I16 | Type.PrimitiveInt.U16 => 2
+        case Type.PrimitiveInt.I32 | Type.PrimitiveInt.U32 => 4
+        case Type.PrimitiveInt.I64 | Type.PrimitiveInt.U64 => 8
+      }
+
+    override def string(a: Analysis, t: Type.String) = {
+      val fwStoreSizeSymbol = a.frameworkDefinitions.typeMap("FwSizeStoreType")
+      val storeSizeType = a.typeMap(fwStoreSizeSymbol.getNodeId)
+      val stringDataSize = a.getBigIntValueOpt(t._1) match {
+        case Some(v) => v
+        case _ => {
+          val defaultStringSizeSymbol = a.frameworkDefinitions.constantMap("FW_FIXED_LENGTH_STRING_SIZE")
+          val Value.Integer(value) = a.valueMap(defaultStringSizeSymbol.getNodeId)
+          value
+        }
+      }
+      val storeSize = Type.ComputeTypeSize.ty(a, storeSizeType)
+      storeSize + stringDataSize
+    }
+
+    override def struct(a: Analysis, t: Type.Struct) = {
+      t._2.members.values.foldLeft(BigInt(0): BigInt) { 
+        (acc, t2) => acc + Type.ComputeTypeSize.ty(a, t2)
+      }
+    }
+  }
 }

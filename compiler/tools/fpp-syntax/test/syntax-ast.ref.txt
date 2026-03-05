@@ -1,6 +1,12 @@
 @ Definitions and specifiers
 def module
   ident DefinitionsAndSpecifiers
+  def alias type
+    ident FwSizeStoreType
+    type name U16
+  def constant
+    ident FW_FIXED_LENGTH_STRING_SIZE
+    literal int 256
   @ Abstract type definition
   def abs type
     ident T
@@ -565,4 +571,18 @@ def module
         ident c
         literal int 3
   @< Struct
+  @ Sizeof
+  def constant
+    ident sizeofExp
+    expr sizeof
+    type name F64
+  def constant
+    ident sizeofExp2
+    expr sizeof
+    type name qual ident TypeNames.typeNameU32
+  def constant
+    ident sizeofExp3
+    expr sizeof
+    type name string
+                size literal int 20
 @< Expressions

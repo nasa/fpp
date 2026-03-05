@@ -284,6 +284,13 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("expr dot") ++
     (exprNode(e.e) ++ ident(e.id.data)).map(indentIn)
 
+  override def exprSizeOfNode(
+    in: In,
+    node: AstNode[Ast.Expr],
+    e: Ast.ExprSizeOf
+  ) =
+    lines("expr sizeof") ++ typeNameNode(e.typeName)
+
   override def exprIdentNode(
     in: In,
     node: AstNode[Ast.Expr],

@@ -84,6 +84,8 @@ trait AstVisitor {
 
   def exprUnopNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprUnop): Out = default(in)
 
+  def exprSizeOfNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprSizeOf): Out = default(in)
+
   def specCommandAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecCommand]]): Out = default(in)
 
   def specCompInstanceAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecCompInstance]]): Out = default(in)
@@ -189,6 +191,7 @@ trait AstVisitor {
       case e : Ast.ExprParen => exprParenNode(in, node, e)
       case e : Ast.ExprStruct => exprStructNode(in, node, e)
       case e : Ast.ExprUnop => exprUnopNode(in, node, e)
+      case e : Ast.ExprSizeOf => exprSizeOfNode(in, node, e)
     }
 
   final def matchModuleMember(in: In, member: Ast.ModuleMember): Out = {

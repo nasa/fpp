@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/expr/sizeof_not_displayable.fpp:9.21
+constant c = sizeof(S)
+                    ^
+error: sizeof type name must refer to a type that is displayable

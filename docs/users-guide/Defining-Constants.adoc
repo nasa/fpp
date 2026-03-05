@@ -393,6 +393,13 @@ constant a = [ 1, 2, 3 ]
 constant b = a[3]
 --------
 
+==== Sizeof Expressions
+
+A *sizeof expression* computes the size of a type. This
+will be covered in more detail in the 
+<<Defining-Types_Sizeof-Types, Sizeof Types>> section.
+
+
 ==== Struct Values
 
 A *struct value expression* represents a C- or {cpp}-style structure, i.e., a 

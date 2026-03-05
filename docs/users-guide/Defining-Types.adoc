@@ -765,3 +765,26 @@ https://nasa.github.io/fpp/fpp-spec.html#Definitions_Framework-Definitions_Type-
 FPP Language Specification_] has all the details.
 
 
+=== Sizeof Types
+
+You can compute the size of a type by using the 
+<<Defining-Constants_Expressions_Sizeof-Expressions,`sizeof` expression>>.
+The `sizeof` expression evaluates to an integer value representing the 
+maximum number of bytes required to represent any value of the specified type. 
+For example:
+[source,fpp]
+----
+constant i = sizeof(U32)
+----
+
+In this example, constant `i` has a value 4.
+
+Here is an example that computes the size of a string:
+[source,fpp]
+----
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+constant s = sizeof(string)
+----
+
+In this example, the constant `s` has a value of 258.

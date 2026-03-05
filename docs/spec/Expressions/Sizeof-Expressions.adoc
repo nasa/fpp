@@ -1,0 +1,33 @@
+=== Sizeof Expressions
+
+A *sizeof expression* is an expression that represents the size of a type.
+
+==== Syntax
+
+`sizeof(<<Type-Names,_type-name_>>)`
+
+==== Semantics
+
+The type name must <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
+a type that is <<Types_Displayable-Types, displayable>>.
+
+The expression is evaluated by calculating the maximum number of
+bytes required to represent any value of that type. The
+evaluation is based on the <<Types_Serialized-Sizes, serialized size>>
+of the type.
+
+==== Example
+
+[source,fpp]
+----
+type T = U32
+# sizeof(T) evaluates to 4
+constant c = sizeof(T)
+
+# sizeof(F64) evaluates to 8
+constant c2 = sizeof(F64)
+
+array A = [3] U16
+# sizeof(A) evaluates to 6
+constant c3 = sizeof(A)
+----

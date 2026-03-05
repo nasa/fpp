@@ -134,7 +134,8 @@ class ParserSpec extends AnyWordSpec {
       Parser.defConstant,
       List(
         "constant a = 0",
-        "dictionary constant a = 0"
+        "dictionary constant a = 0",
+        "constant a = sizeof(bool)"
       )
     )
   }
@@ -344,7 +345,10 @@ class ParserSpec extends AnyWordSpec {
              x = 1,
              y = 2,
              z = 3,
-           }"""
+           }""",
+        "sizeof(U32)",
+        "sizeof(string size 10)",
+        "sizeof(a.b.c)"
       )
     )
   }

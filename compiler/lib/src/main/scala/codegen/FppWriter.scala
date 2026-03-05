@@ -404,6 +404,13 @@ object FppWriter extends AstVisitor with LineUtils {
     e: Ast.ExprParen
   ) = Line.addPrefixAndSuffix("(", exprNode(e.e), ")")
 
+  override def exprSizeOfNode(
+    in: In,
+    node: AstNode[Ast.Expr],
+    e: Ast.ExprSizeOf
+  ) =
+    Line.addPrefixAndSuffix("sizeof(", typeNameNode(e.typeName), ")")
+
   override def exprStructNode(
     in: In,
     node: AstNode[Ast.Expr],

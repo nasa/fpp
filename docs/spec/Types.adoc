@@ -246,3 +246,8 @@ of _T_ must provide a concrete value.
 <<Types_Alias-Types,alias type>> _T_ is the
 <<Types_Default-Values,default value>> of its
 <<Types_Underlying-Types,underlying type>>.
+
+=== Serialized Sizes
+The serialized size of a type is the maximum number of bytes in the
+value of a type. See the <<Values_Serialized-Sizes, serialized size of values>> 
+section for more detail.

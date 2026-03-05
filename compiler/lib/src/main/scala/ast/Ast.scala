@@ -312,6 +312,7 @@ object Ast {
   final case class ExprParen(e: AstNode[Expr]) extends Expr
   final case class ExprStruct(members: List[AstNode[StructMember]]) extends Expr
   final case class ExprUnop(op: Unop, e: AstNode[Expr]) extends Expr
+  final case class ExprSizeOf(typeName: AstNode[TypeName]) extends Expr
 
   /** Topology defintion */
   final case class DefTopology(

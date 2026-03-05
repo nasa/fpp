@@ -112,6 +112,7 @@ object Lexer {
     ("severity", SEVERITY),
     ("signal", SIGNAL),
     ("size", SIZE),
+    ("sizeof", SIZEOF),
     ("stack", STACK),
     ("state", STATE),
     ("string", STRING),
@@ -331,6 +332,7 @@ object Lexer {
         case SEVERITY => Token.SEVERITY()
         case SIGNAL => Token.SIGNAL()
         case SIZE => Token.SIZE()
+        case SIZEOF => Token.SIZEOF()
         case SLASH => Token.SLASH()
         case STACK => Token.STACK()
         case STAR => Token.STAR()

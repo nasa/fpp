@@ -489,6 +489,7 @@ var IN_GLOBAL_SCOPE = false;
           "severity," +
           "signal," +
           "size," +
+          "sizeof," +
           "stack," +
           "state," +
           "string," +
