@@ -8,7 +8,7 @@ dictionary enum E {
 } default C2
 
 dictionary struct S {
-    X: string,
+    X: [1] string,
     Y: [2] A2,
     Z: S2
 }

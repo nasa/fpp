@@ -41,7 +41,7 @@ If present, _e_ must have a
 evaluate to a value greater than zero after conversion to
 <<Types_Internal-Types_Integer,_Integer_>>.
 If _e_ is not present, then default size is one.
-If a member _m_ has size greater than one, then _m_
+If a member _m_ has a size specified, then _m_
 is translated to an array in the implementation language.
 
 The optional format specifier for a struct member specifies a

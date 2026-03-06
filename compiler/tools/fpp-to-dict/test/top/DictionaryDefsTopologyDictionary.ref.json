@@ -72,22 +72,6 @@
     },
     {
       "kind" : "alias",
-      "qualifiedName" : "BaseIdType",
-      "type" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
-      },
-      "underlyingType" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
-      }
-    },
-    {
-      "kind" : "alias",
       "qualifiedName" : "FwEventIdType",
       "type" : {
         "name" : "BaseIdType",
@@ -216,6 +200,36 @@
       }
     },
     {
+      "kind" : "alias",
+      "qualifiedName" : "FwOpcodeType",
+      "type" : {
+        "name" : "BaseIdType",
+        "kind" : "qualifiedIdentifier"
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "BaseIdType",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      }
+    },
+    {
       "kind" : "struct",
       "qualifiedName" : "S",
       "members" : {
@@ -225,7 +239,8 @@
             "kind" : "string",
             "size" : 256
           },
-          "index" : 0
+          "index" : 0,
+          "size" : 1
         },
         "Y" : {
           "type" : {
@@ -244,7 +259,9 @@
         }
       },
       "default" : {
-        "X" : "",
+        "X" : [
+          ""
+        ],
         "Y" : [
           [
             0,
@@ -260,20 +277,6 @@
         "Z" : {
           "X" : 0
         }
-      }
-    },
-    {
-      "kind" : "alias",
-      "qualifiedName" : "FwOpcodeType",
-      "type" : {
-        "name" : "BaseIdType",
-        "kind" : "qualifiedIdentifier"
-      },
-      "underlyingType" : {
-        "name" : "U32",
-        "kind" : "integer",
-        "size" : 32,
-        "signed" : false
       }
     },
     {

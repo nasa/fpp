@@ -179,10 +179,10 @@ case class DictionaryJsonEncoder(
         val Type.Struct(_, _, _, sizes, _) = dictionaryState.a.typeMap(t.node._2.id)
         members.map((key, v) =>
             val valueJson = valueAsJson(v)
-            sizes.getOrElse(key, 1) match
-                case size if size > 1 =>
+            sizes.get(key) match
+                case Some(size) =>
                     (key.toString -> Json.fromValues(List.fill(size)(valueJson)))
-                case _ => (key.toString -> valueJson)
+                case None => (key.toString -> valueJson)
         ).asJson
     }
     
