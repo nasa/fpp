@@ -61,7 +61,7 @@ array C = [3] F32 default [ 1, 2, 3 ]
 # [ 1, 1, 1 ] after promoting 1 to [ 1, 1, 1 ]
 array D = [3] U32 default 1
 
-# Defines an array type E of 3 U32 values with default value
+# Defines an array type E of 3 F32 values with default value
 # [ 1, 1, 1, ] and element format {.03f}
-array E = [3] U32 default 1 format "{.03f}"
+array E = [3] F32 default 1 format "{.03f}"
 ----
