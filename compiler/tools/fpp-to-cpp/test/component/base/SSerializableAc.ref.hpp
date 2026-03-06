@@ -11,6 +11,7 @@
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
+#include "config/FwSizeStoreTypeAliasAc.hpp"
 
 //! A struct
 class S :

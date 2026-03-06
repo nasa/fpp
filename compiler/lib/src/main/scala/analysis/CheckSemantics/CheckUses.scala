@@ -81,6 +81,33 @@ object CheckUses extends BasicUseAnalyzer {
     visitExprNode(a, node)
   }
 
+  // Check that an implied use (a) is not a member
+  // of a def and (b) does not shadow the required def
+  override def impliedUse(a: Analysis, iu: ImpliedUse, kind: ImpliedUse.Kind) = {
+    val sym = a.useDefMap(iu.id)
+    val symQualifiedName = a.getQualifiedName(sym).toString
+    val iuName = iu.name.toString
+    // Check that the name of the def matches the name of the use
+    if symQualifiedName == iuName
+    // OK, they match
+    then Right(a)
+    else {
+      val msg = if symQualifiedName.length < iuName.length
+      // Definition has a shorter name: the use is a member of the definition
+      then s"it has $iuName as a member"
+      // Definition has a longer name: it shadows the required definition
+      else s"it shadows $iuName here"
+      Left(
+        SemanticError.InvalidSymbol(
+          symQualifiedName,
+          Locations.get(iu.id),
+          msg,
+          sym.getLoc
+        )
+      )
+    }
+  }
+
   override def defComponentAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.DefComponent]]) = {
     val (_, node, _) = aNode
     val data = node.data
@@ -146,30 +173,6 @@ object CheckUses extends BasicUseAnalyzer {
     } yield a.copy(nestedScope = a.nestedScope.pop)
   }
 
-  override def defTopologyAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
-    val impliedTypeUses = a.getImpliedUses(ImpliedUse.Kind.Type, node._2.id).toList
-    val impliedConstantUses = a.getImpliedUses(ImpliedUse.Kind.Constant, node._2.id).toList
-    for {
-      a <- Result.foldLeft (impliedConstantUses) (a) ((a, iu) => {
-        val exprNode = iu.asExprNode
-        for {
-          a <- Result.annotateResult(
-            constantUse(a, exprNode, iu.name),
-            s"when constructing a dictionary, the constant ${iu.name} must be defined"
-          )
-          _ <- checkImpliedUseIsConstantDef(a, iu, exprNode)
-        } yield a
-      })
-      a <- Result.foldLeft (impliedTypeUses) (a) ((a, iu) => {
-        Result.annotateResult(
-          typeUse(a, iu.asTypeNameNode, iu.name),
-          s"when constructing a dictionary, the type ${iu.name} must be defined"
-        )
-      })
-      a <- TopologyAnalyzer.visit(this, a, node)
-    } yield a
-  }
-
   override def portUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     helpers.visitQualIdentNode (NameGroup.Port) (a, node)
 
@@ -190,33 +193,6 @@ object CheckUses extends BasicUseAnalyzer {
       }
       case _ => throw InternalError("type use should be qualified identifier")
     }
-  }
-
-  // Check that an implied use is a constant def and not a member
-  // of a constant def
-  private def checkImpliedUseIsConstantDef(a: Analysis, iu: ImpliedUse, exprNode: AstNode[Ast.Expr]) = {
-    val sym = a.useDefMap(exprNode.id)
-    // Check that the name of the def matches the name of the use
-    if a.getQualifiedName(sym) == iu.name
-    // OK, they match
-    then Right(a)
-    // They don't match: the definition does not provide the required constant
-    else
-      val iuName = iu.name
-      val symName = sym.getUnqualifiedName
-      val error = Left(
-        SemanticError.InvalidSymbol(
-          symName,
-          Locations.get(exprNode.id),
-          s"it has $iuName as a member",
-          sym.getLoc
-        )
-      )
-      val notes = List(
-        s"$iuName is an F Prime framework constant",
-        "it must be a constant definition"
-      )
-      Result.annotateResult(error, notes)
   }
 
 }

@@ -109,6 +109,68 @@
         ],
         [
           [
+          ],
+          {
+            "DefAliasType" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FwSizeStoreType",
+                    "typeName" : {
+                      "AstNode" : {
+                        "data" : {
+                          "TypeNameInt" : {
+                            "name" : {
+                              "U16" : {
+                                
+                              }
+                            }
+                          }
+                        },
+                        "id" : 7
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 8
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
+          ],
+          {
+            "DefConstant" : {
+              "node" : {
+                "AstNode" : {
+                  "data" : {
+                    "name" : "FW_FIXED_LENGTH_STRING_SIZE",
+                    "value" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprLiteralInt" : {
+                            "value" : "256"
+                          }
+                        },
+                        "id" : 9
+                      }
+                    },
+                    "isDictionaryDef" : false
+                  },
+                  "id" : 10
+                }
+              }
+            }
+          },
+          [
+          ]
+        ],
+        [
+          [
             "An interface for illustrating importing special and general ports",
             "into a component."
           ],
@@ -140,7 +202,7 @@
                                     "queueFull" : "None"
                                   }
                                 },
-                                "id" : 7
+                                "id" : 11
                               }
                             }
                           }
@@ -169,7 +231,7 @@
                                     "queueFull" : "None"
                                   }
                                 },
-                                "id" : 8
+                                "id" : 12
                               }
                             }
                           }
@@ -198,7 +260,7 @@
                                     "queueFull" : "None"
                                   }
                                 },
-                                "id" : 11
+                                "id" : 15
                               }
                             }
                           }
@@ -208,7 +270,7 @@
                       ]
                     ]
                   },
-                  "id" : 12
+                  "id" : 16
                 }
               }
             }
@@ -250,7 +312,7 @@
                                               "name" : "General"
                                             }
                                           },
-                                          "id" : 20
+                                          "id" : 24
                                         }
                                       }
                                     },
@@ -258,7 +320,7 @@
                                     "queueFull" : "None"
                                   }
                                 },
-                                "id" : 21
+                                "id" : 25
                               }
                             }
                           }
@@ -268,7 +330,7 @@
                       ]
                     ]
                   },
-                  "id" : 22
+                  "id" : 26
                 }
               }
             }
@@ -306,11 +368,11 @@
                                           "name" : "ICmd"
                                         }
                                       },
-                                      "id" : 24
+                                      "id" : 28
                                     }
                                   }
                                 },
-                                "id" : 25
+                                "id" : 29
                               }
                             }
                           }
@@ -333,11 +395,11 @@
                                           "name" : "IPort"
                                         }
                                       },
-                                      "id" : 27
+                                      "id" : 31
                                     }
                                   }
                                 },
-                                "id" : 28
+                                "id" : 32
                               }
                             }
                           }
@@ -371,13 +433,13 @@
                                             "value" : "10"
                                           }
                                         },
-                                        "id" : 29
+                                        "id" : 33
                                       }
                                     }
                                   },
                                   "queueFull" : "None"
                                 },
-                                "id" : 30
+                                "id" : 34
                               }
                             }
                           }
@@ -424,11 +486,11 @@
                                                     }
                                                   }
                                                 },
-                                                "id" : 31
+                                                "id" : 35
                                               }
                                             }
                                           },
-                                          "id" : 32
+                                          "id" : 36
                                         }
                                       },
                                       [
@@ -457,11 +519,11 @@
                                                     }
                                                   }
                                                 },
-                                                "id" : 37
+                                                "id" : 41
                                               }
                                             }
                                           },
-                                          "id" : 38
+                                          "id" : 42
                                         }
                                       },
                                       [
@@ -477,13 +539,13 @@
                                             "value" : "20"
                                           }
                                         },
-                                        "id" : 39
+                                        "id" : 43
                                       }
                                     }
                                   },
                                   "queueFull" : "None"
                                 },
-                                "id" : 40
+                                "id" : 44
                               }
                             }
                           }
@@ -526,11 +588,11 @@
                                                     "size" : "None"
                                                   }
                                                 },
-                                                "id" : 65
+                                                "id" : 69
                                               }
                                             }
                                           },
-                                          "id" : 66
+                                          "id" : 70
                                         }
                                       },
                                       [
@@ -545,7 +607,7 @@
                                             "value" : "0x10"
                                           }
                                         },
-                                        "id" : 67
+                                        "id" : 71
                                       }
                                     }
                                   },
@@ -557,7 +619,7 @@
                                             "value" : "30"
                                           }
                                         },
-                                        "id" : 68
+                                        "id" : 72
                                       }
                                     }
                                   },
@@ -569,12 +631,12 @@
                                             
                                           }
                                         },
-                                        "id" : 69
+                                        "id" : 73
                                       }
                                     }
                                   }
                                 },
-                                "id" : 70
+                                "id" : 74
                               }
                             }
                           }
@@ -584,7 +646,7 @@
                       ]
                     ]
                   },
-                  "id" : 71
+                  "id" : 75
                 }
               }
             }
@@ -636,327 +698,347 @@
     },
     "7" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "17.3",
+      "pos" : "9.24",
       "includingLoc" : "None"
     },
     "8" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "20.3",
+      "pos" : "9.1",
       "includingLoc" : "None"
     },
     "9" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "23.3",
+      "pos" : "10.40",
       "includingLoc" : "None"
     },
     "10" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "23.3",
+      "pos" : "10.1",
       "includingLoc" : "None"
     },
     "11" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "23.3",
+      "pos" : "20.3",
       "includingLoc" : "None"
     },
     "12" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "11.1",
+      "pos" : "23.3",
       "includingLoc" : "None"
     },
     "13" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "27.29",
+      "pos" : "26.3",
       "includingLoc" : "None"
     },
     "14" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "27.29",
+      "pos" : "26.3",
       "includingLoc" : "None"
     },
     "15" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "27.3",
+      "pos" : "26.3",
       "includingLoc" : "None"
     },
     "16" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "27.29",
+      "pos" : "14.1",
       "includingLoc" : "None"
     },
     "17" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "27.29",
+      "pos" : "30.29",
       "includingLoc" : "None"
     },
     "18" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "27.3",
+      "pos" : "30.29",
       "includingLoc" : "None"
     },
     "19" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "27.29",
+      "pos" : "30.3",
       "includingLoc" : "None"
     },
     "20" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "27.29",
+      "pos" : "30.29",
       "includingLoc" : "None"
     },
     "21" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "27.3",
+      "pos" : "30.29",
       "includingLoc" : "None"
     },
     "22" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "26.1",
+      "pos" : "30.3",
       "includingLoc" : "None"
     },
     "23" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "31.10",
+      "pos" : "30.29",
       "includingLoc" : "None"
     },
     "24" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "31.10",
+      "pos" : "30.29",
       "includingLoc" : "None"
     },
     "25" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "31.3",
+      "pos" : "30.3",
       "includingLoc" : "None"
     },
     "26" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "32.10",
+      "pos" : "29.1",
       "includingLoc" : "None"
     },
     "27" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "32.10",
+      "pos" : "34.10",
       "includingLoc" : "None"
     },
     "28" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "32.3",
+      "pos" : "34.10",
       "includingLoc" : "None"
     },
     "29" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "39.36",
+      "pos" : "34.3",
       "includingLoc" : "None"
     },
     "30" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "39.3",
+      "pos" : "35.10",
       "includingLoc" : "None"
     },
     "31" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "42.30",
+      "pos" : "35.10",
       "includingLoc" : "None"
     },
     "32" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "42.27",
+      "pos" : "35.3",
       "includingLoc" : "None"
     },
     "33" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "42.38",
+      "pos" : "42.36",
       "includingLoc" : "None"
     },
     "34" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "42.35",
+      "pos" : "42.3",
       "includingLoc" : "None"
     },
     "35" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "42.38",
+      "pos" : "45.30",
       "includingLoc" : "None"
     },
     "36" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "42.35",
+      "pos" : "45.27",
       "includingLoc" : "None"
     },
     "37" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "42.38",
+      "pos" : "45.38",
       "includingLoc" : "None"
     },
     "38" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "42.35",
+      "pos" : "45.35",
       "includingLoc" : "None"
     },
     "39" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "42.52",
+      "pos" : "45.38",
       "includingLoc" : "None"
     },
     "40" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "42.3",
+      "pos" : "45.35",
       "includingLoc" : "None"
     },
     "41" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.30",
+      "pos" : "45.38",
       "includingLoc" : "None"
     },
     "42" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.27",
+      "pos" : "45.35",
       "includingLoc" : "None"
     },
     "43" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.30",
+      "pos" : "45.52",
       "includingLoc" : "None"
     },
     "44" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.27",
+      "pos" : "45.3",
       "includingLoc" : "None"
     },
     "45" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.30",
+      "pos" : "48.30",
       "includingLoc" : "None"
     },
     "46" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.27",
+      "pos" : "48.27",
       "includingLoc" : "None"
     },
     "47" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.45",
+      "pos" : "48.30",
       "includingLoc" : "None"
     },
     "48" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.59",
+      "pos" : "48.27",
       "includingLoc" : "None"
     },
     "49" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.62",
+      "pos" : "48.30",
       "includingLoc" : "None"
     },
     "50" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.3",
+      "pos" : "48.27",
       "includingLoc" : "None"
     },
     "51" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.30",
+      "pos" : "48.45",
       "includingLoc" : "None"
     },
     "52" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.27",
+      "pos" : "48.59",
       "includingLoc" : "None"
     },
     "53" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.30",
+      "pos" : "48.62",
       "includingLoc" : "None"
     },
     "54" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.27",
+      "pos" : "48.3",
       "includingLoc" : "None"
     },
     "55" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.30",
+      "pos" : "48.30",
       "includingLoc" : "None"
     },
     "56" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.27",
+      "pos" : "48.27",
       "includingLoc" : "None"
     },
     "57" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.45",
+      "pos" : "48.30",
       "includingLoc" : "None"
     },
     "58" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.59",
+      "pos" : "48.27",
       "includingLoc" : "None"
     },
     "59" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.62",
+      "pos" : "48.30",
       "includingLoc" : "None"
     },
     "60" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.3",
+      "pos" : "48.27",
       "includingLoc" : "None"
     },
     "61" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.30",
+      "pos" : "48.45",
       "includingLoc" : "None"
     },
     "62" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.27",
+      "pos" : "48.59",
       "includingLoc" : "None"
     },
     "63" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.30",
+      "pos" : "48.62",
       "includingLoc" : "None"
     },
     "64" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.27",
+      "pos" : "48.3",
       "includingLoc" : "None"
     },
     "65" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.30",
+      "pos" : "48.30",
       "includingLoc" : "None"
     },
     "66" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.27",
+      "pos" : "48.27",
       "includingLoc" : "None"
     },
     "67" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.45",
+      "pos" : "48.30",
       "includingLoc" : "None"
     },
     "68" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.59",
+      "pos" : "48.27",
       "includingLoc" : "None"
     },
     "69" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.62",
+      "pos" : "48.30",
       "includingLoc" : "None"
     },
     "70" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "45.3",
+      "pos" : "48.27",
       "includingLoc" : "None"
     },
     "71" : {
       "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
-      "pos" : "30.1",
+      "pos" : "48.45",
+      "includingLoc" : "None"
+    },
+    "72" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
+      "pos" : "48.59",
+      "includingLoc" : "None"
+    },
+    "73" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
+      "pos" : "48.62",
+      "includingLoc" : "None"
+    },
+    "74" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
+      "pos" : "48.3",
+      "includingLoc" : "None"
+    },
+    "75" : {
+      "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/interfaces.fpp",
+      "pos" : "33.1",
       "includingLoc" : "None"
     }
   }
@@ -968,15 +1050,15 @@
       
     },
     "componentMap" : {
-      "71" : {
+      "75" : {
         "aNode" : {
-          "astNodeId" : 71
+          "astNodeId" : 75
         },
         "portMap" : {
           "cmdRegOut" : {
             "Special" : {
               "aNode" : {
-                "astNodeId" : 7
+                "astNodeId" : 11
               },
               "specifier" : {
                 "inputKind" : "None",
@@ -998,14 +1080,14 @@
               "priority" : "None",
               "queueFull" : "None",
               "importNodeIds" : [
-                25
+                29
               ]
             }
           },
           "cmdIn" : {
             "Special" : {
               "aNode" : {
-                "astNodeId" : 8
+                "astNodeId" : 12
               },
               "specifier" : {
                 "inputKind" : "None",
@@ -1027,14 +1109,14 @@
               "priority" : "None",
               "queueFull" : "None",
               "importNodeIds" : [
-                25
+                29
               ]
             }
           },
           "cmdResponseOut" : {
             "Special" : {
               "aNode" : {
-                "astNodeId" : 11
+                "astNodeId" : 15
               },
               "specifier" : {
                 "inputKind" : "None",
@@ -1056,14 +1138,14 @@
               "priority" : "None",
               "queueFull" : "None",
               "importNodeIds" : [
-                25
+                29
               ]
             }
           },
           "general" : {
             "General" : {
               "aNode" : {
-                "astNodeId" : 21
+                "astNodeId" : 25
               },
               "specifier" : {
                 "kind" : {
@@ -1075,7 +1157,7 @@
                 "size" : "None",
                 "port" : {
                   "Some" : {
-                    "astNodeId" : 20
+                    "astNodeId" : 24
                   }
                 },
                 "priority" : "None",
@@ -1094,7 +1176,7 @@
                 }
               },
               "importNodeIds" : [
-                28
+                32
               ]
             }
           }
@@ -1102,7 +1184,7 @@
         "specialPortMap" : {
           "command reg" : {
             "aNode" : {
-              "astNodeId" : 7
+              "astNodeId" : 11
             },
             "specifier" : {
               "inputKind" : "None",
@@ -1124,12 +1206,12 @@
             "priority" : "None",
             "queueFull" : "None",
             "importNodeIds" : [
-              25
+              29
             ]
           },
           "command recv" : {
             "aNode" : {
-              "astNodeId" : 8
+              "astNodeId" : 12
             },
             "specifier" : {
               "inputKind" : "None",
@@ -1151,12 +1233,12 @@
             "priority" : "None",
             "queueFull" : "None",
             "importNodeIds" : [
-              25
+              29
             ]
           },
           "command resp" : {
             "aNode" : {
-              "astNodeId" : 11
+              "astNodeId" : 15
             },
             "specifier" : {
               "inputKind" : "None",
@@ -1178,7 +1260,7 @@
             "priority" : "None",
             "queueFull" : "None",
             "importNodeIds" : [
-              25
+              29
             ]
           }
         },
@@ -1186,7 +1268,7 @@
           "0" : {
             "NonParam" : {
               "aNode" : {
-                "astNodeId" : 30
+                "astNodeId" : 34
               },
               "kind" : {
                 "Async" : {
@@ -1205,7 +1287,7 @@
           "1" : {
             "NonParam" : {
               "aNode" : {
-                "astNodeId" : 40
+                "astNodeId" : 44
               },
               "kind" : {
                 "Async" : {
@@ -1224,7 +1306,7 @@
           "16" : {
             "NonParam" : {
               "aNode" : {
-                "astNodeId" : 70
+                "astNodeId" : 74
               },
               "kind" : {
                 "Async" : {
@@ -1276,10 +1358,20 @@
     },
     "frameworkDefinitions" : {
       "constantMap" : {
-        
+        "FW_FIXED_LENGTH_STRING_SIZE" : {
+          "node" : {
+            "astNodeId" : 10
+          }
+        }
       },
       "typeMap" : {
-        
+        "FwSizeStoreType" : {
+          "AliasType" : {
+            "node" : {
+              "astNodeId" : 8
+            }
+          }
+        }
       }
     },
     "includedFileSet" : [
@@ -1336,7 +1428,7 @@
           }
         }
       },
-      "71" : {
+      "75" : {
         "map" : {
           
         }
@@ -1346,26 +1438,46 @@
       
     },
     "typeMap" : {
-      "67" : {
+      "8" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 8
+          },
+          "aliasType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U16" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "77" : {
         "Int" : {
           "Integer" : {
             
           }
         }
       },
-      "65" : {
-        "String" : {
-          "size" : "None"
-        }
-      },
-      "39" : {
+      "9" : {
         "Int" : {
           "Integer" : {
             
           }
         }
       },
-      "31" : {
+      "33" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "35" : {
         "Int" : {
           "PrimitiveInt" : {
             "kind" : {
@@ -1376,14 +1488,51 @@
           }
         }
       },
-      "29" : {
+      "72" : {
         "Int" : {
           "Integer" : {
             
           }
         }
       },
-      "37" : {
+      "10" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "43" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "71" : {
+        "Int" : {
+          "Integer" : {
+            
+          }
+        }
+      },
+      "69" : {
+        "String" : {
+          "size" : "None"
+        }
+      },
+      "7" : {
+        "Int" : {
+          "PrimitiveInt" : {
+            "kind" : {
+              "U16" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "41" : {
         "Primitive" : {
           "Float" : {
             "kind" : {
@@ -1393,72 +1542,92 @@
             }
           }
         }
-      },
-      "68" : {
-        "Int" : {
-          "Integer" : {
-            
-          }
-        }
       }
     },
     "useDefMap" : {
-      "8" : {
+      "12" : {
         "Port" : {
           "nodeId" : 0,
           "unqualifiedName" : "Cmd"
         }
       },
-      "11" : {
-        "Port" : {
-          "nodeId" : 4,
-          "unqualifiedName" : "CmdResponse"
+      "77" : {
+        "Constant" : {
+          "nodeId" : 10,
+          "unqualifiedName" : "FW_FIXED_LENGTH_STRING_SIZE"
         }
       },
       "24" : {
-        "Interface" : {
-          "nodeId" : 12,
-          "unqualifiedName" : "ICmd"
-        }
-      },
-      "7" : {
-        "Port" : {
-          "nodeId" : 1,
-          "unqualifiedName" : "CmdReg"
-        }
-      },
-      "20" : {
         "Port" : {
           "nodeId" : 6,
           "unqualifiedName" : "General"
         }
       },
-      "27" : {
+      "76" : {
+        "AliasType" : {
+          "nodeId" : 8,
+          "unqualifiedName" : "FwSizeStoreType"
+        }
+      },
+      "31" : {
         "Interface" : {
-          "nodeId" : 22,
+          "nodeId" : 26,
           "unqualifiedName" : "IPort"
+        }
+      },
+      "28" : {
+        "Interface" : {
+          "nodeId" : 16,
+          "unqualifiedName" : "ICmd"
+        }
+      },
+      "15" : {
+        "Port" : {
+          "nodeId" : 4,
+          "unqualifiedName" : "CmdResponse"
+        }
+      },
+      "11" : {
+        "Port" : {
+          "nodeId" : 1,
+          "unqualifiedName" : "CmdReg"
         }
       }
     },
     "valueMap" : {
-      "29" : {
+      "77" : {
+        "Integer" : {
+          "value" : 256
+        }
+      },
+      "9" : {
+        "Integer" : {
+          "value" : 256
+        }
+      },
+      "33" : {
         "Integer" : {
           "value" : 10
         }
       },
-      "39" : {
+      "72" : {
+        "Integer" : {
+          "value" : 30
+        }
+      },
+      "10" : {
+        "Integer" : {
+          "value" : 256
+        }
+      },
+      "43" : {
         "Integer" : {
           "value" : 20
         }
       },
-      "67" : {
+      "71" : {
         "Integer" : {
           "value" : 16
-        }
-      },
-      "68" : {
-        "Integer" : {
-          "value" : 30
         }
       }
     },
@@ -1468,9 +1637,9 @@
     "dictionarySymbolSet" : [
     ],
     "interfaceMap" : {
-      "12" : {
+      "16" : {
         "aNode" : {
-          "astNodeId" : 12
+          "astNodeId" : 16
         },
         "importMap" : {
           
@@ -1479,7 +1648,7 @@
           "cmdRegOut" : {
             "Special" : {
               "aNode" : {
-                "astNodeId" : 7
+                "astNodeId" : 11
               },
               "specifier" : {
                 "inputKind" : "None",
@@ -1507,7 +1676,7 @@
           "cmdIn" : {
             "Special" : {
               "aNode" : {
-                "astNodeId" : 8
+                "astNodeId" : 12
               },
               "specifier" : {
                 "inputKind" : "None",
@@ -1535,7 +1704,7 @@
           "cmdResponseOut" : {
             "Special" : {
               "aNode" : {
-                "astNodeId" : 11
+                "astNodeId" : 15
               },
               "specifier" : {
                 "inputKind" : "None",
@@ -1564,7 +1733,7 @@
         "specialPortMap" : {
           "command reg" : {
             "aNode" : {
-              "astNodeId" : 7
+              "astNodeId" : 11
             },
             "specifier" : {
               "inputKind" : "None",
@@ -1590,7 +1759,7 @@
           },
           "command recv" : {
             "aNode" : {
-              "astNodeId" : 8
+              "astNodeId" : 12
             },
             "specifier" : {
               "inputKind" : "None",
@@ -1616,7 +1785,7 @@
           },
           "command resp" : {
             "aNode" : {
-              "astNodeId" : 11
+              "astNodeId" : 15
             },
             "specifier" : {
               "inputKind" : "None",
@@ -1642,9 +1811,9 @@
           }
         }
       },
-      "22" : {
+      "26" : {
         "aNode" : {
-          "astNodeId" : 22
+          "astNodeId" : 26
         },
         "importMap" : {
           
@@ -1653,7 +1822,7 @@
           "general" : {
             "General" : {
               "aNode" : {
-                "astNodeId" : 21
+                "astNodeId" : 25
               },
               "specifier" : {
                 "kind" : {
@@ -1665,7 +1834,7 @@
                 "size" : "None",
                 "port" : {
                   "Some" : {
-                    "astNodeId" : 20
+                    "astNodeId" : 24
                   }
                 },
                 "priority" : "None",

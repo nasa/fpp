@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.26">
-<title>The F Prime Prime (FPP) Language Specification, v3.1.0</title>
+<title>The F Prime Prime (FPP) Language Specification, Unreleased, after v3.1.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -437,7 +437,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>The F Prime Prime (FPP) Language Specification, v3.1.0</h1>
+<h1>The F Prime Prime (FPP) Language Specification, Unreleased, after v3.1.0</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -3183,6 +3183,10 @@ satisfy the following rules:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
+<p><em>M</em> must contain at most 2<sup>31</sup> - 2
+<a href="#State-Machine-Behavior-Elements_State-Definitions_Static-Semantics">leaf states</a>.</p>
+</li>
+<li>
 <p><em>M</em> must contain exactly one
 <a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a>.
 The initial transition occurs when the state machine starts up.</p>
@@ -3427,6 +3431,90 @@ with the following modifications:</p>
 <p>The brace-delimited definitions are state definitions.</p>
 </li>
 </ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="Definitions_State-Machine-Definitions_Static-Semantics_The-State-Enum">The State Enum</h5>
+<div class="paragraph">
+<p>If the optional state machine member sequence <em>M</em> is present, then
+<em>M</em> implicitly contains an <a href="#Definitions_Enum-Definitions">enum definition</a>
+<em>E</em> that enumerates the
+<a href="#State-Machine-Behavior-Elements_State-Definitions_Static-Semantics">leaf states</a>
+of <em>M</em>.
+<em>E</em> is called the <strong>state enum</strong> associated with the state machine definition.
+The analyzer generates <em>E</em> after parsing and before analysis.
+<em>E</em> is defined as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The unqualified name of <em>E</em> is <code>State</code>.</p>
+</li>
+<li>
+<p>The representation type of <em>E</em> is the smallest unsigned <a href="#Types_Primitive-Integer-Types">primitive integer type</a>
+that can represent one plus the number of leaf states in <em>M</em>.</p>
+</li>
+<li>
+<p><em>E</em> contains the following enumerated constants:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>The constant <code>__FPRIME_UNINITIALIZED</code>.</p>
+</li>
+<li>
+<p>For each leaf state <em>L</em> of <em>M</em>, a <strong>leaf state constant</strong> representing <em>L</em>.
+Its name is the
+<a href="#Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names">qualified name</a> of <em>L</em>, after replacing <code>.</code> with <code>_</code>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>The order of the constants is <code>__FPRIME_UNINITIALIZED</code> followed
+by the leaf state constants in lexical order.</p>
+</li>
+<li>
+<p>Numerical values are assigned to the constants of <em>E</em> in the default way
+for enums (0, 1, 2, etc.).</p>
+</li>
+<li>
+<p>The the default value of <em>E</em> is <code>__FPRIME_UNINITIALIZED</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For example, consider the following state machine definition:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine S {
+
+  signal s
+
+  initial enter S1
+
+  state S1 { initial enter S2; state S2; on s enter S3 }
+
+  state S3
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After parsing and before analysis, the analyzer adds the following
+enum definition as a member of <code>S</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">enum State : U8 {
+  __FPRIME_UNINITIALIZED
+  S1_S2
+  S3
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Its qualified name is <code>S.State</code>.</p>
 </div>
 </div>
 </div>
@@ -8541,11 +8629,32 @@ string size 256</code></pre>
 <p>The optional expression following the keyword <code>size</code> is called the <strong>size
 expression</strong> of the string type name.  If present, it must have a
 <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>, and it must
-evaluate to a value in the range [0,2<sup>31</sup>) after conversion to
-<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
-The size expression specifies the maximum
-length of a string value represented by the type.  If the size expression is
-not present, then the translator uses a default maximum string length.</p>
+evaluate to a value in the range [1,2<sup>31</sup>) after conversion to
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.</p>
+</div>
+<div class="paragraph">
+<p>At each point in the model where a string type name appears, the following
+implied uses of
+<a href="#Definitions_Framework-Definitions">framework definitions</a> occur:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Each string type name represents an implied use of the type
+<code>FwSizeStoreType</code>.</p>
+</li>
+<li>
+<p>Each string type name that omits the <code>size</code> expression
+represents an implied use of the constant
+<code>FW_FIXED_LENGTH_STRING_SIZE</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If the size expression is present, then it specifies the maximum
+length of a string value represented by the type.
+Otherwise, the maximum length is the value of
+<code>FW_FIXED_LENGTH_STRING_SIZE</code>.</p>
 </div>
 </div>
 <div class="sect2">

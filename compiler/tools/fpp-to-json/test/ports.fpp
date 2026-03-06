@@ -1,3 +1,6 @@
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 port P
 
 port P1() # Zero parameters; equivalent to port P1

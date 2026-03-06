@@ -1,3 +1,9 @@
+def alias type
+  ident FwSizeStoreType
+  type name U16
+def constant
+  ident FW_FIXED_LENGTH_STRING_SIZE
+  literal int 256
 @ State machine M
 def state machine
   ident M

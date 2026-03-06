@@ -17,7 +17,7 @@ object Types {
   }
 
   def aliasType(name: Ast.Ident, ty: Type, id: AstNode.Id = 0): AliasType = {
-    val typeNameNode = AstNode.create(Ast.TypeNameInt(Ast.U32()), id)
+    val typeNameNode = AstNode.create(Ast.TypeNameInt(Ast.U32), id)
 
     val d = Ast.DefAliasType(name, typeNameNode, false)
     val anode = annotatedNode(d, id)
@@ -26,7 +26,7 @@ object Types {
 
   def array(name: Ast.Ident, anonArray: AnonArray = AnonArray(None, U32), id: AstNode.Id = 0): Array = {
     val size = AstNode.create(Ast.ExprLiteralInt("1"))
-    val eltType = AstNode.create(Ast.TypeNameInt(Ast.U32()))
+    val eltType = AstNode.create(Ast.TypeNameInt(Ast.U32))
     val d = Ast.DefArray(name, size, eltType, None, None, false)
     val anode = annotatedNode(d, id)
     Array(anode, anonArray)
