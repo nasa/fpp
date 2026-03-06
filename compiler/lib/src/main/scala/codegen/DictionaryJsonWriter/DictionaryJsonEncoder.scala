@@ -169,16 +169,21 @@ case class DictionaryJsonEncoder(
 
     /** JSON Encoding for arrays */
     def arrayElementsAsJson(elements: List[Value]): Json = {
-        val arrayRes = for(e <- elements) yield {
-            val res = e match {
-                // Case where array is N-dimensional
-                case Value.Array(a, t) => arrayElementsAsJson(a.elements)
-                case _ => valueAsJson(e)
-            }
-
-            res.asJson
-        }
+        val arrayRes = for(e <- elements) yield valueAsJson(e)
         arrayRes.asJson
+    }
+
+    /** JSON Encoding for struct values */
+    def structValueAsJson(value: Value.Struct): Json = {
+        val Value.Struct(Value.AnonStruct(members), t) = value
+        val Type.Struct(_, _, _, sizes, _) = dictionaryState.a.typeMap(t.node._2.id)
+        members.map((key, v) =>
+            val valueJson = valueAsJson(v)
+            sizes.getOrElse(key, 1) match
+                case size if size > 1 =>
+                    (key.toString -> Json.fromValues(List.fill(size)(valueJson)))
+                case _ => (key.toString -> valueJson)
+        ).asJson
     }
     
     /** JSON Encoding for FPP Values 
@@ -197,7 +202,7 @@ case class DictionaryJsonEncoder(
                 val qualifiedName = dictionaryState.a.getQualifiedName(Symbol.Enum(t.node)).toString
                 s"${qualifiedName}.${v._1}".asJson // FQN of the enum constant
             }
-            case Value.Struct(Value.AnonStruct(members), t) => members.map((key, value) => (key.toString -> valueAsJson(value))).asJson
+            case v: Value.Struct => structValueAsJson(v)
             case _ => value.toString.asJson
         }
     }
@@ -280,7 +285,7 @@ case class DictionaryJsonEncoder(
                         "members" -> membersFormatted.toMap.asJson,
                     )
                     val optionalValues = Map(
-                        "default" -> default, 
+                        "default" ->  default.map(structValueAsJson),
                         "annotation" -> concatAnnotations(preA, postA)
                     )
                     jsonWithOptionalValues(json, optionalValues)

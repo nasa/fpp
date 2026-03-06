@@ -9,7 +9,7 @@ dictionary enum E {
 
 dictionary struct S {
     X: string,
-    Y: A2,
+    Y: [2] A2,
     Z: S2
 }
 
@@ -41,7 +41,7 @@ enum E3 {
 }
 
 struct S3 { 
-    X: string 
+    X: [5] string 
 }
 
 constant C3 = 1

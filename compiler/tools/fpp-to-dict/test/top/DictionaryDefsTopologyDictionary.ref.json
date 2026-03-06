@@ -216,6 +216,53 @@
       }
     },
     {
+      "kind" : "struct",
+      "qualifiedName" : "S",
+      "members" : {
+        "X" : {
+          "type" : {
+            "name" : "string",
+            "kind" : "string",
+            "size" : 256
+          },
+          "index" : 0
+        },
+        "Y" : {
+          "type" : {
+            "name" : "A2",
+            "kind" : "qualifiedIdentifier"
+          },
+          "index" : 1,
+          "size" : 2
+        },
+        "Z" : {
+          "type" : {
+            "name" : "S2",
+            "kind" : "qualifiedIdentifier"
+          },
+          "index" : 2
+        }
+      },
+      "default" : {
+        "X" : "",
+        "Y" : [
+          [
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "Z" : {
+          "X" : 0
+        }
+      }
+    },
+    {
       "kind" : "alias",
       "qualifiedName" : "FwOpcodeType",
       "type" : {
@@ -304,45 +351,6 @@
         "kind" : "integer",
         "size" : 32,
         "signed" : false
-      }
-    },
-    {
-      "kind" : "struct",
-      "qualifiedName" : "S",
-      "members" : {
-        "X" : {
-          "type" : {
-            "name" : "string",
-            "kind" : "string",
-            "size" : 256
-          },
-          "index" : 0
-        },
-        "Y" : {
-          "type" : {
-            "name" : "A2",
-            "kind" : "qualifiedIdentifier"
-          },
-          "index" : 1
-        },
-        "Z" : {
-          "type" : {
-            "name" : "S2",
-            "kind" : "qualifiedIdentifier"
-          },
-          "index" : 2
-        }
-      },
-      "default" : {
-        "X" : "",
-        "Y" : [
-          0,
-          0,
-          0
-        ],
-        "Z" : {
-          "X" : 0
-        }
       }
     },
     {
