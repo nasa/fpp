@@ -32,7 +32,7 @@ object CheckSpecLocs
   override def defComponentInstanceAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefComponentInstance]]
-  ) = checkSpecLoc(a, Ast.SpecLoc.ComponentInstance, Symbol.ComponentInstance(aNode))
+  ) = checkSpecLoc(a, Ast.SpecLoc.Instance, Symbol.ComponentInstance(aNode))
 
   override def defConstantAnnotatedNode(
     a: Analysis,
@@ -67,7 +67,7 @@ object CheckSpecLocs
   override def defTopologyAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
-  ) = checkSpecLoc(a, Ast.SpecLoc.Topology, Symbol.Topology(aNode))
+  ) = checkSpecLoc(a, Ast.SpecLoc.Instance, Symbol.Topology(aNode))
 
   private def checkSpecLoc(
     a: Analysis,

@@ -18,7 +18,7 @@ abstract class TopologyCppWriterUtils(
 
   val t: Topology = s.a.topologyMap(symbol)
 
-  val instances = t.instanceMap.keys.toList.sorted
+  val instances = t.componentInstanceMap.keys.toList.sorted
 
   val instancesByBaseId: List[ComponentInstance] = instances.sortWith {
     case (a, b) => if (a.baseId != b.baseId) a.baseId < b.baseId

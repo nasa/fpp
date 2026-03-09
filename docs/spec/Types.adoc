@@ -1,5 +1,7 @@
 == Types
 
+A *type* is a set of <<Values,values>>.
+
 === Primitive Integer Types
 
 The *primitive integer types* correspond to the

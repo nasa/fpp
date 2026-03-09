@@ -21,7 +21,7 @@ object TopologyAnalyzer {
     node: Ast.Annotated[AstNode[Ast.DefTopology]]
   ) = {
     val (_, node1, _) = node
-    val Ast.DefTopology(name, members) = node1.data
+    val Ast.DefTopology(name, members, _) = node1.data
     val a1 = a.copy(scopeNameList = name :: a.scopeNameList)
     for { a2 <- analyzer.visitList(a1, members, analyzer.matchTopologyMember) }
     yield a2.copy(scopeNameList = a.scopeNameList)

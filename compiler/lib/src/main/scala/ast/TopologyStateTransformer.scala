@@ -40,11 +40,11 @@ trait TopologyStateTransformer extends AstStateTransformer {
     aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
   ) = {
     val (pre, node, post) = aNode
-    val Ast.DefTopology(name, members) = node.data
+    val Ast.DefTopology(name, members, implements) = node.data
     for { result <- transformList(s, members, topologyMember) }
     yield {
       val (s1, members1) = result
-      val defTopology = Ast.DefTopology(name, members1.flatten)
+      val defTopology = Ast.DefTopology(name, members1.flatten, implements)
       val node1 = AstNode.create(defTopology, node.id)
       (s1, (pre, node1, post))
     }

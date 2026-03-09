@@ -334,9 +334,13 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    List(line(s"topology ${ident(data.name)} {"), Line.blank) ++
-    (Line.blankSeparated (topologyMember) (data.members)).map(indentIn) ++
-    List(Line.blank, line("}"))
+    val implementsClause = if data.implements.nonEmpty
+    then Some(data.implements.map(_.data)) else None
+    lines(s"topology ${ident(data.name)} ${if (implementsClause.isDefined) "implements" else "{"}").
+      joinOptWithBreak (implementsClause) ("") (q => q.flatMap(qualIdent)) ++
+      (if (implementsClause.isDefined) List(line("{"), Line.blank) else List(Line.blank)) ++
+      Line.blankSeparated (topologyMember) (data.members).map(indentIn) ++
+      List(Line.blank, line("}"))
   }
 
   override def default(in: In) =
@@ -430,18 +434,14 @@ object FppWriter extends AstVisitor with LineUtils {
       joinOptWithBreak (data.queueFull) ("") (applyToData(queueFull))
   }
 
-  override def specCompInstanceAnnotatedNode(
+  override def specInstanceAnnotatedNode(
     in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecCompInstance]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecInstance]]
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    val visibility = data.visibility match {
-      case Ast.Visibility.Public => ""
-      case Ast.Visibility.Private => "private "
-    }
-    lines(visibility).
-    join ("instance ") (qualIdent(data.instance.data))
+    lines("instance ").
+    join ("") (qualIdent(data.instance.data))
   }
 
   override def specConnectionGraphAnnotatedNode(
@@ -722,13 +722,14 @@ object FppWriter extends AstVisitor with LineUtils {
       )
   }
 
-  override def specTopImportAnnotatedNode(
+  override def specTopPortAnnotatedNode(
     in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecImport]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecTopPort]]
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    Line.addPrefix("import ", qualIdent(data.sym.data))
+    lines(s"port ${ident(data.name)} = ").
+      join("") (portInstanceId(data.underlyingPort.data))
   }
 
   override def specInterfaceImportAnnotatedNode(
@@ -845,7 +846,7 @@ object FppWriter extends AstVisitor with LineUtils {
   private def identAsLines = lines compose ident
 
   private def portInstanceId(pii: Ast.PortInstanceIdentifier) =
-    qualIdent(pii.componentInstance.data).
+    qualIdent(pii.interfaceInstance.data).
     addSuffix(s".${ident(pii.portName.data)}")
 
   private def qualIdent(qid: Ast.QualIdent): Out =
