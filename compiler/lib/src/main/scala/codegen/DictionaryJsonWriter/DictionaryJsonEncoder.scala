@@ -285,7 +285,7 @@ case class DictionaryJsonEncoder(
                         "members" -> membersFormatted.toMap.asJson,
                     )
                     val optionalValues = Map(
-                        "default" ->  default,
+                        "default" ->  default.map(valueAsJson),
                         "annotation" -> concatAnnotations(preA, postA)
                     )
                     jsonWithOptionalValues(json, optionalValues)
