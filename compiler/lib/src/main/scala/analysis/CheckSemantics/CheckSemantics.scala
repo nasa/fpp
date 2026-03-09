@@ -9,13 +9,6 @@ object CheckSemantics {
 
   def tuList(a: Analysis, tul: List[Ast.TransUnit]): Result.Result[Analysis] = {
     for {
-      a_tul <- ResolveSpecInclude.transformList(
-        a,
-        tul, 
-        ResolveSpecInclude.transUnit
-      )
-      a <- Right(a_tul._1)
-      tul <- Right(a_tul._2)
       a <- EnterSymbols.visitList(a, tul, EnterSymbols.transUnit)
       a <- ConstructImpliedUseMap.visitList(a, tul, ConstructImpliedUseMap.transUnit)
       a <- CheckUses.visitList(a, tul, CheckUses.transUnit)
@@ -32,6 +25,7 @@ object CheckSemantics {
       a <- CheckComponentInstanceDefs.visitList(a, tul, CheckComponentInstanceDefs.transUnit)
       _ <- CheckComponentInstanceDefs.checkIdRanges(a)
       a <- CheckStateMachineDefs.visitList(a, tul, CheckStateMachineDefs.transUnit)
+      a <- CheckTopologyInstances.visitList(a, tul, CheckTopologyInstances.transUnit)
       a <- CheckTopologyDefs.visitList(a, tul, CheckTopologyDefs.transUnit)
       a <- BuildSpecLocMap.visitList(a, tul, BuildSpecLocMap.transUnit)
       a <- CheckSpecLocs.visitList(a, tul, CheckSpecLocs.transUnit)

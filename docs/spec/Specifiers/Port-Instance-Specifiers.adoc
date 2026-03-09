@@ -32,6 +32,9 @@ _[_
 _queue-full-behavior_
 _]_
 
+The first kind of port instance specifier is called a *general port instance specifier*.
+The second kind is called a *special port instance specifier*.
+
 _general-port-kind_ is one of the following:
 
 . `async` `input`
@@ -94,17 +97,19 @@ _special-port-kind_ is one of the following:
 
 . `time` `get`
 
-The following port instances are *input port instances*:
+==== Input and Output Port Instance Specifiers
+
+The following port instance specifiers are *input port instance specifiers*:
 
 * Any general port with `input` in its name.
 
 * Special ports `command recv` and `product recv`.
 
-The others are *output port instances*.
+The others are *output port instance specifiers*.
 
 ==== Semantics
 
-*General port instances:*
+===== General Port Instances
 
 . The kind specifies the kind of the port instance.
 
@@ -160,7 +165,8 @@ space on the queue for the message.
 This specifier is valid only for `async input` ports.
 If no specifier appears, then the default behavior is `assert`.
 
-*Special port instances:*
+===== Special Port Instances
+
 The special port instance have special functions in the code generated
 from an FPP model.
 The types and other attributes of the special ports are specified by F Prime.

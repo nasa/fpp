@@ -14,7 +14,7 @@ final case class DictionaryUsedSymbols(a: Analysis, t: Topology) {
       k => a.getImpliedUses(k, t.aNode._2.id).map(iu => a.useDefMap(iu.id))
     )
     val ss = Set.concat(
-      t.instanceMap.keys.toSet.flatMap(getUsedSymbolsForInstance),
+      t.componentInstanceMap.keys.toSet.flatMap(getUsedSymbolsForInstance),
       impliedUses,
       a.dictionarySymbolSet
     )

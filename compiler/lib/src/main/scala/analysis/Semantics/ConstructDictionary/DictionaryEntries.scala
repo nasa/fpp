@@ -45,7 +45,7 @@ final case class DictionaryEntries(a: Analysis, t: Topology) {
       val m = getSpecMap(ci.component)
       m.foldLeft(entryMap) (addEntry(constructEntry, ci))
     }
-    t.instanceMap.keys.foldLeft (Map[BigInt, Entry]()) (addEntriesForInstance)
+    t.componentInstanceMap.keys.foldLeft (Map[BigInt, Entry]()) (addEntriesForInstance)
   }
 
   private def addEntry[Specifier, Entry](

@@ -316,18 +316,19 @@ object Ast {
   /** Topology defintion */
   final case class DefTopology(
     name: Ident,
-    members: List[TopologyMember]
+    members: List[TopologyMember],
+    implements: List[AstNode[QualIdent]],
   )
 
   /** Topology member */
   final case class TopologyMember(node: Annotated[TopologyMember.Node])
   object TopologyMember {
     sealed trait Node
-    final case class SpecCompInstance(node: AstNode[Ast.SpecCompInstance]) extends Node
+    final case class SpecInstance(node: AstNode[Ast.SpecInstance]) extends Node
     final case class SpecConnectionGraph(node: AstNode[Ast.SpecConnectionGraph]) extends Node
     final case class SpecInclude(node: AstNode[Ast.SpecInclude]) extends Node
+    final case class SpecTopPort(node: AstNode[Ast.SpecTopPort]) extends Node
     final case class SpecTlmPacketSet(node: AstNode[Ast.SpecTlmPacketSet]) extends Node
-    final case class SpecTopImport(node: AstNode[Ast.SpecImport]) extends Node
   }
 
   /** Formal parameter */
@@ -356,7 +357,7 @@ object Ast {
 
   /** Port instance identifier */
   final case class PortInstanceIdentifier(
-    componentInstance: AstNode[QualIdent],
+    interfaceInstance: AstNode[QualIdent],
     portName: AstNode[Ident]
   )
 
@@ -471,8 +472,7 @@ object Ast {
   }
 
   /** Component instance specifier */
-  final case class SpecCompInstance(
-    visibility: Visibility,
+  final case class SpecInstance(
     instance: AstNode[QualIdent]
   )
 
@@ -603,7 +603,7 @@ object Ast {
     case object Component extends Kind {
       override def toString = "component"
     }
-    case object ComponentInstance extends Kind {
+    case object Instance extends Kind {
       override def toString = "instance"
     }
     case object Constant extends Kind {
@@ -614,9 +614,6 @@ object Ast {
     }
     case object StateMachine extends Kind {
       override def toString = "state machine"
-    }
-    case object Topology extends Kind {
-      override def toString = "topology"
     }
     case object Type extends Kind {
       override def toString = "type"
@@ -806,6 +803,12 @@ object Ast {
     omitted: List[AstNode[TlmChannelIdentifier]]
   )
 
+  /** Topology port specifier */
+  final case class SpecTopPort(
+    name: Ident,
+    underlyingPort: AstNode[PortInstanceIdentifier],
+  )
+
   /** Import specifier */
   final case class SpecImport(sym: AstNode[QualIdent])
 
@@ -854,37 +857,37 @@ object Ast {
 
   /** Float type */
   sealed trait TypeFloat
-  final case class F32() extends TypeFloat {
+  case object F32 extends TypeFloat {
     override def toString = "F32"
   }
-  final case class F64() extends TypeFloat {
+  case object F64 extends TypeFloat {
     override def toString = "F64"
   }
 
   /** Int type */
   sealed trait TypeInt
-  final case class I8() extends TypeInt {
+  case object I8 extends TypeInt {
     override def toString = "I8"
   }
-  final case class I16() extends TypeInt {
+  case object I16 extends TypeInt {
     override def toString = "I16"
   }
-  final case class I32() extends TypeInt {
+  case object I32 extends TypeInt {
     override def toString = "I32"
   }
-  final case class I64() extends TypeInt {
+  case object I64 extends TypeInt {
     override def toString = "I64"
   }
-  final case class U8() extends TypeInt {
+  case object U8 extends TypeInt {
     override def toString = "U8"
   }
-  final case class U16() extends TypeInt {
+  case object U16 extends TypeInt {
     override def toString = "U16"
   }
-  final case class U32() extends TypeInt {
+  case object U32 extends TypeInt {
     override def toString = "U32"
   }
-  final case class U64() extends TypeInt {
+  case object U64 extends TypeInt {
     override def toString = "U64"
   }
 
@@ -901,17 +904,6 @@ object Ast {
   object Unop {
     case object Minus extends Unop {
       override def toString = "-"
-    }
-  }
-
-  /** Visibility */
-  sealed trait Visibility
-  object Visibility {
-    case object Private extends Visibility {
-      override def toString = "private"
-    }
-    case object Public extends Visibility {
-      override def toString = "public"
     }
   }
 }

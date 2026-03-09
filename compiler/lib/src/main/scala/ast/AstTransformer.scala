@@ -96,6 +96,21 @@ trait AstTransformer {
   def defStateMachineAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+  ): ResultAnnotatedNode[Ast.DefStateMachine] =
+    node._2.data.members match {
+      case Some(members) => defStateMachineAnnotatedNodeInternal(in, node, members)
+      case None => defStateMachineAnnotatedNodeExternal(in, node)
+    }
+
+  def defStateMachineAnnotatedNodeExternal(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+  ): ResultAnnotatedNode[Ast.DefStateMachine] = Right(default(in), node)
+
+  def defStateMachineAnnotatedNodeInternal(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefStateMachine]],
+    members: List[Ast.StateMachineMember]
   ): ResultAnnotatedNode[Ast.DefStateMachine] = Right(default(in), node)
 
   def defStructAnnotatedNode(
@@ -149,10 +164,10 @@ trait AstTransformer {
     node: Ast.Annotated[AstNode[Ast.SpecCommand]]
   ): ResultAnnotatedNode[Ast.SpecCommand] = Right(default(in), node)
 
-  def specCompInstanceAnnotatedNode(
+  def specInstanceAnnotatedNode(
     in: In,
-    node: Ast.Annotated[AstNode[Ast.SpecCompInstance]]
-  ): ResultAnnotatedNode[Ast.SpecCompInstance] = Right(default(in), node)
+    node: Ast.Annotated[AstNode[Ast.SpecInstance]]
+  ): ResultAnnotatedNode[Ast.SpecInstance] = Right(default(in), node)
 
   def specConnectionGraphAnnotatedNode(
     in: In,
@@ -253,15 +268,15 @@ trait AstTransformer {
     node: Ast.Annotated[AstNode[Ast.SpecTlmPacket]]
   ): ResultAnnotatedNode[Ast.SpecTlmPacket] = Right(default(in), node)
 
+  def specTopPortAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecTopPort]]
+  ): ResultAnnotatedNode[Ast.SpecTopPort] = Right(default(in), node)
+
   def specTlmPacketSetAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecTlmPacketSet]]
   ): ResultAnnotatedNode[Ast.SpecTlmPacketSet] = Right(default(in), node)
-
-  def specTopImportAnnotatedNode(
-    in: In,
-    node: Ast.Annotated[AstNode[Ast.SpecImport]]
-  ): ResultAnnotatedNode[Ast.SpecImport] = Right(default(in), node)
 
   def transUnit(in: In, tu: Ast.TransUnit): Result[Ast.TransUnit] =
     Right(default(in), tu)
@@ -281,14 +296,14 @@ trait AstTransformer {
   def typeNameStringNode(in: In, node: AstNode[Ast.TypeName], tn: Ast.TypeNameString): ResultNode[Ast.TypeName] =
     Right(default(in), node)
 
-  final def matchComponentMember(in: In, member: Ast.ComponentMember): Result[Ast.ComponentMember] = {
+  final def matchComponentMember(in: In, member: Ast.ComponentMember): Result[List[Ast.ComponentMember]] = {
     def transform[T](
       result: ResultAnnotatedNode[T],
       f: AstNode[T] => Ast.ComponentMember.Node
     ) = {
       for { pair <- result } yield {
         val (out, (pre, node, post)) = pair
-        (out, Ast.ComponentMember(pre, f(node), post))
+        (out, List(Ast.ComponentMember(pre, f(node), post)))
       }
     }
     val (pre, node, post) =  member.node
@@ -369,14 +384,14 @@ trait AstTransformer {
       case e : Ast.ExprUnop => exprUnopNode(in, node, e)
     }
 
-  final def matchStateMember(in: In, member: Ast.StateMember): Result[Ast.StateMember] = {
+  final def matchStateMember(in: In, member: Ast.StateMember): Result[List[Ast.StateMember]] = {
     def transform[T](
       result: ResultAnnotatedNode[T],
       f: AstNode[T] => Ast.StateMember.Node
     ) = {
       for { pair <- result } yield {
         val (out, (pre, node, post)) = pair
-        (out, Ast.StateMember(pre, f(node), post))
+        (out, List(Ast.StateMember(pre, f(node), post)))
       }
     }
     val (pre, node, post) =  member.node
@@ -398,14 +413,14 @@ trait AstTransformer {
     }
   }
 
-  final def matchStateMachineMember(in: In, member: Ast.StateMachineMember): Result[Ast.StateMachineMember] = {
+  final def matchStateMachineMember(in: In, member: Ast.StateMachineMember): Result[List[Ast.StateMachineMember]] = {
     def transform[T](
       result: ResultAnnotatedNode[T],
       f: AstNode[T] => Ast.StateMachineMember.Node
     ) = {
       for { pair <- result } yield {
         val (out, (pre, node, post)) = pair
-        (out, Ast.StateMachineMember(pre, f(node), post))
+        (out, List(Ast.StateMachineMember(pre, f(node), post)))
       }
     }
     val (pre, node, post) =  member.node
@@ -439,14 +454,14 @@ trait AstTransformer {
     }
   }
 
-  final def matchModuleMember(in: In, member: Ast.ModuleMember): Result[Ast.ModuleMember] = {
+  final def matchModuleMember(in: In, member: Ast.ModuleMember): Result[List[Ast.ModuleMember]] = {
     def transform[T](
       result: ResultAnnotatedNode[T],
       f: AstNode[T] => Ast.ModuleMember.Node
     ) = {
       for { pair <- result } yield {
         val (out, (pre, node, post)) = pair
-        (out, Ast.ModuleMember(pre, f(node), post))
+        (out, List(Ast.ModuleMember(pre, f(node), post)))
       }
     }
     val (pre, node, post) =  member.node
@@ -484,14 +499,14 @@ trait AstTransformer {
     }
   }
 
-  final def matchTlmPacketSetMember(in: In, member: Ast.TlmPacketSetMember): Result[Ast.TlmPacketSetMember] = {
+  final def matchTlmPacketSetMember(in: In, member: Ast.TlmPacketSetMember): Result[List[Ast.TlmPacketSetMember]] = {
     def transform[T](
       result: ResultAnnotatedNode[T],
       f: AstNode[T] => Ast.TlmPacketSetMember.Node
     ) = {
       for (pair <- result) yield {
         val (out, (pre, node, post)) = pair
-        (out, Ast.TlmPacketSetMember(pre, f(node), post))
+        (out, List(Ast.TlmPacketSetMember(pre, f(node), post)))
       }
     }
     val (pre, node, post) =  member.node
@@ -503,32 +518,32 @@ trait AstTransformer {
     }
   }
 
-  final def matchTopologyMember(in: In, member: Ast.TopologyMember): Result[Ast.TopologyMember] = {
+  final def matchTopologyMember(in: In, member: Ast.TopologyMember): Result[List[Ast.TopologyMember]] = {
     def transform[T](
       result: ResultAnnotatedNode[T],
       f: AstNode[T] => Ast.TopologyMember.Node
     ) = {
       for (pair <- result) yield {
         val (out, (pre, node, post)) = pair
-        (out, Ast.TopologyMember(pre, f(node), post))
+        (out, List(Ast.TopologyMember(pre, f(node), post)))
       }
     }
     val (pre, node, post) =  member.node
     node match {
-      case Ast.TopologyMember.SpecCompInstance(node1) =>
-        transform(specCompInstanceAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecCompInstance(_))
+      case Ast.TopologyMember.SpecInstance(node1) =>
+        transform(specInstanceAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecInstance(_))
       case Ast.TopologyMember.SpecConnectionGraph(node1) =>
         transform(specConnectionGraphAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecConnectionGraph(_))
       case Ast.TopologyMember.SpecInclude(node1) =>
         transform(specIncludeAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecInclude(_))
+      case Ast.TopologyMember.SpecTopPort(node1) =>
+        transform(specTopPortAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecTopPort(_))
       case Ast.TopologyMember.SpecTlmPacketSet(node1) =>
         transform(specTlmPacketSetAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecTlmPacketSet(_))
-      case Ast.TopologyMember.SpecTopImport(node1) =>
-        transform(specTopImportAnnotatedNode(in, (pre, node1, post)), Ast.TopologyMember.SpecTopImport(_))
     }
   }
 
-  final def matchTuMember(in: In, member: Ast.TUMember): Result[Ast.TUMember] =
+  final def matchTuMember(in: In, member: Ast.TUMember): Result[List[Ast.TUMember]] =
     matchModuleMember(in, member)
 
   final def matchTypeName(in: In, node: AstNode[Ast.TypeName]): ResultNode[Ast.TypeName] =

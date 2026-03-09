@@ -12,6 +12,7 @@
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
 #include "SmStateQueued_BasicStateMachineAc.hpp"
+#include "SmStateQueued_Basic_StateEnumAc.hpp"
 #include "Svc/Sched/SchedPortAc.hpp"
 #include "state-machine/state/BasicGuardStateMachineAc.hpp"
 #include "state-machine/state/BasicGuardStringStateMachineAc.hpp"
