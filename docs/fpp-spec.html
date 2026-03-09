@@ -3665,23 +3665,32 @@ of the specified type.  Each
 identifier appearing in the struct type member sequence must be distinct.</p>
 </div>
 <div class="paragraph">
-<p>The optional expression <code>[</code> <em>e</em> <code>]</code> for a struct member specifies the
-<strong>size</strong> of the member, i.e., the number of elements stored in the member.
+<p>For each member <em>m</em>,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The type name specifies the type \$T_m\$ of the member.</p>
+</li>
+<li>
+<p>The optional expression <code>[</code> <em>e</em> <code>]</code> specifies the
+<strong>size</strong> of <em>m</em>, i.e., the number of elements stored in <em>m</em>.
 If present, <em>e</em> must have a
 <a href="#Types_Internal-Types_Numeric-Types">numeric type</a>, and it must
-evaluate to a value greater than zero after conversion to
+evaluate to a value \$n &gt; 0\$ after conversion to
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
-If <em>e</em> is not present, then default size is one.
-If a member <em>m</em> has a size specified, then <em>m</em>
-is translated to an array in the implementation language.</p>
-</div>
-<div class="paragraph">
-<p>The optional format specifier for a struct member specifies a
+If <em>e</em> is not present, then <em>m</em> represents a single value of type \$T_m\$.
+Otherwise <em>m</em> represents an array of <em>n</em> values of type \$T_m\$.</p>
+</li>
+<li>
+<p>The optional format specifier specifies a
 <a href="#Format-Strings">format string</a>.
 The format is applied when displaying the struct member.
 There is one argument to the format string, which is the member value.
 If the size of the member is greater than one, then the
 translator applies the format to each element.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>The expression following the keyword <code>default</code> is optional.
@@ -12647,7 +12656,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-09 11:27:02 -0700
+Last updated 2026-03-09 13:30:08 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
