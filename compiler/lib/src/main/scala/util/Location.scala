@@ -48,4 +48,11 @@ final case class Location(
   def getRelativePath(path: String): java.nio.file.Path =
     getDirPath.resolve(path).normalize
 
+  def compare(that: Location) = {
+    val fileCompare = this.file.toString().compare(that.file.toString())
+    if (fileCompare != 0) fileCompare
+    else if (this.pos.line != that.pos.line) this.pos.line - that.pos.line
+    else this.pos.column - that.pos.column
+  }
+
 }

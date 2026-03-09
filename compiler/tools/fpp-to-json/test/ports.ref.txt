@@ -870,15 +870,10 @@
                                       [
                                       ],
                                       {
-                                        "SpecCompInstance" : {
+                                        "SpecInstance" : {
                                           "node" : {
                                             "AstNode" : {
                                               "data" : {
-                                                "visibility" : {
-                                                  "Public" : {
-                                                    
-                                                  }
-                                                },
                                                 "instance" : {
                                                   "AstNode" : {
                                                     "data" : {
@@ -898,6 +893,8 @@
                                       [
                                       ]
                                     ]
+                                  ],
+                                  "implements" : [
                                   ]
                                 },
                                 "id" : 122
@@ -1582,9 +1579,52 @@
         "aNode" : {
           "astNodeId" : 85
         },
-        "portMap" : {
-          "productRecvIn" : {
-            "Special" : {
+        "portInterface" : {
+          "instanceType" : "component",
+          "portMap" : {
+            "productRecvIn" : {
+              "Special" : {
+                "aNode" : {
+                  "astNodeId" : 84
+                },
+                "specifier" : {
+                  "inputKind" : {
+                    "Some" : {
+                      "Async" : {
+                        
+                      }
+                    }
+                  },
+                  "kind" : {
+                    "ProductRecv" : {
+                      
+                    }
+                  },
+                  "name" : "productRecvIn",
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 71,
+                    "unqualifiedName" : "DpResponse"
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : {
+                  "Some" : {
+                    "Assert" : {
+                      
+                    }
+                  }
+                },
+                "importNodeIds" : [
+                ]
+              }
+            }
+          },
+          "specialPortMap" : {
+            "product recv" : {
               "aNode" : {
                 "astNodeId" : 84
               },
@@ -1622,46 +1662,6 @@
               "importNodeIds" : [
               ]
             }
-          }
-        },
-        "specialPortMap" : {
-          "product recv" : {
-            "aNode" : {
-              "astNodeId" : 84
-            },
-            "specifier" : {
-              "inputKind" : {
-                "Some" : {
-                  "Async" : {
-                    
-                  }
-                }
-              },
-              "kind" : {
-                "ProductRecv" : {
-                  
-                }
-              },
-              "name" : "productRecvIn",
-              "priority" : "None",
-              "queueFull" : "None"
-            },
-            "symbol" : {
-              "Port" : {
-                "nodeId" : 71,
-                "unqualifiedName" : "DpResponse"
-              }
-            },
-            "priority" : "None",
-            "queueFull" : {
-              "Some" : {
-                "Assert" : {
-                  
-                }
-              }
-            },
-            "importNodeIds" : [
-            ]
           }
         },
         "commandMap" : {
@@ -1812,22 +1812,22 @@
       },
       "86" : {
         "map" : {
-          "Topology" : {
-            "map" : {
-              "T" : {
-                "Topology" : {
-                  "nodeId" : 122,
-                  "unqualifiedName" : "T"
-                }
-              }
-            }
-          },
           "StateMachine" : {
             "map" : {
               "Q" : {
                 "Component" : {
                   "nodeId" : 85,
                   "unqualifiedName" : "Q"
+                }
+              }
+            }
+          },
+          "PortInterfaceInstance" : {
+            "map" : {
+              "T" : {
+                "Topology" : {
+                  "nodeId" : 122,
+                  "unqualifiedName" : "T"
                 }
               }
             }
@@ -1905,52 +1905,57 @@
         "aNode" : {
           "astNodeId" : 122
         },
-        "directImportMap" : {
+        "qualifiedName" : {
+          "qualifier" : [
+            "M"
+          ],
+          "base" : "T"
+        },
+        "directTopologies" : {
           
+        },
+        "directComponentInstances" : {
+          "92" : {
+            "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
+            "pos" : "42.9",
+            "includingLoc" : "None"
+          }
         },
         "transitiveImportSet" : [
         ],
         "instanceMap" : [
           [
             {
-              "aNode" : {
-                "astNodeId" : 92
-              },
-              "qualifiedName" : {
-                "qualifier" : [
-                ],
-                "base" : "i"
-              },
-              "component" : {
-                "astNodeId" : 85
-              },
-              "baseId" : 8448,
-              "maxId" : 8447,
-              "file" : "None",
-              "queueSize" : {
-                "Some" : 10
-              },
-              "stackSize" : "None",
-              "priority" : "None",
-              "cpu" : "None",
-              "initSpecifierMap" : {
-                
+              "InterfaceComponentInstance" : {
+                "qualifiedName" : {
+                  "qualifier" : [
+                  ],
+                  "base" : "i"
+                },
+                "unqualifiedName" : "i"
               }
             },
-            [
-              {
-                "Public" : {
-                  
-                }
-              },
-              {
-                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
-                "pos" : "42.9",
-                "includingLoc" : "None"
-              }
-            ]
+            {
+              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
+              "pos" : "42.9",
+              "includingLoc" : "None"
+            }
           ]
         ],
+        "ports" : [
+        ],
+        "portMap" : {
+          
+        },
+        "portInterface" : {
+          "instanceType" : "topology",
+          "portMap" : {
+            
+          },
+          "specialPortMap" : {
+            
+          }
+        },
         "patternMap" : {
           
         },
@@ -1970,29 +1975,14 @@
         ],
         "unconnectedPortSet" : [
           {
-            "componentInstance" : {
-              "aNode" : {
-                "astNodeId" : 92
-              },
-              "qualifiedName" : {
-                "qualifier" : [
-                ],
-                "base" : "i"
-              },
-              "component" : {
-                "astNodeId" : 85
-              },
-              "baseId" : 8448,
-              "maxId" : 8447,
-              "file" : "None",
-              "queueSize" : {
-                "Some" : 10
-              },
-              "stackSize" : "None",
-              "priority" : "None",
-              "cpu" : "None",
-              "initSpecifierMap" : {
-                
+            "interfaceInstance" : {
+              "InterfaceComponentInstance" : {
+                "qualifiedName" : {
+                  "qualifier" : [
+                  ],
+                  "base" : "i"
+                },
+                "unqualifiedName" : "i"
               }
             },
             "portInstance" : {

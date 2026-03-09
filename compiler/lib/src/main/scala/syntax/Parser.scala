@@ -270,8 +270,9 @@ object Parser extends Parsers {
   }
 
   def defTopology: Parser[Ast.DefTopology] = {
-    (topology ~>! ident) ~! (lbrace ~>! topologyMembers <~! rbrace) ^^ {
-      case name ~ members => Ast.DefTopology(name, members)
+    (topology ~>! ident) ~! opt(implements ~>! elementSequence(node(qualIdent), comma)) ~! (lbrace ~>! topologyMembers <~! rbrace) ^^ {
+      case name ~ Some(implements) ~ members => Ast.DefTopology(name, members, implements)
+      case name ~ None ~ members => Ast.DefTopology(name, members, Nil)
     }
   }
 
@@ -552,9 +553,9 @@ object Parser extends Parsers {
     }
   }
 
-  def specCompInstance: Parser[Ast.SpecCompInstance] = {
-    visibility ~ (instance ~>! node(qualIdent)) ^^ {
-      case visibility ~ instance => Ast.SpecCompInstance(visibility, instance)
+  def specInstance: Parser[Ast.SpecInstance] = {
+    (instance | importToken) ~>! node(qualIdent) ^^ {
+      case instance => Ast.SpecInstance(instance)
     }
   }
 
@@ -680,10 +681,9 @@ object Parser extends Parsers {
       typeToken ^^ (_ => Ast.SpecLoc.Type)
     def nonDictKind =
       component ^^ (_ => Ast.SpecLoc.Component) |
-      instance ^^ (_ => Ast.SpecLoc.ComponentInstance) |
+      instance ^^ (_ => Ast.SpecLoc.Instance) |
       port ^^ (_ => Ast.SpecLoc.Port) |
       state ~! machine ^^ (_ => Ast.SpecLoc.StateMachine) |
-      topology ^^ (_ => Ast.SpecLoc.Topology) |
       interface ^^ (_ => Ast.SpecLoc.Interface)
     def maybeDictPair =
       opt(dictionary) ~ maybeDictKind ^^ {
@@ -870,6 +870,11 @@ object Parser extends Parsers {
     }
   }
 
+  def specTopPort: Parser[Ast.SpecTopPort] =
+    port ~>! ident ~! (equals ~>! node(portInstanceIdentifier)) ^^ {
+      case name ~ underlying => Ast.SpecTopPort(name, underlying)
+    }
+
   def specImport: Parser[Ast.SpecImport] =
     importToken ~>! node(qualIdent) ^^ (top => Ast.SpecImport(top))
 
@@ -962,14 +967,14 @@ object Parser extends Parsers {
     elementSequence(tlmPacketMember, comma)
 
   private def topologyMemberNode: Parser[Ast.TopologyMember.Node] = {
-    node(specCompInstance) ^^ (n =>
-      Ast.TopologyMember.SpecCompInstance(n)) |
+    node(specInstance) ^^ (n =>
+      Ast.TopologyMember.SpecInstance(n)) |
       node(specConnectionGraph) ^^ (n =>
         Ast.TopologyMember.SpecConnectionGraph(n)) |
       node(specInclude) ^^ (n => Ast.TopologyMember.SpecInclude(n)) |
+      node(specTopPort) ^^ (n => Ast.TopologyMember.SpecTopPort(n)) |
       node(specTlmPacketSet) ^^ (n =>
         Ast.TopologyMember.SpecTlmPacketSet(n)) |
-      node(specImport) ^^ (n => Ast.TopologyMember.SpecTopImport(n)) |
       failure("topology member expected")
   }
 
@@ -1022,13 +1027,6 @@ object Parser extends Parsers {
       typeNameInt |
       node(qualIdent) ^^ (qid => Ast.TypeNameQualIdent(qid)) |
       failure("type name expected")
-  }
-
-  def visibility: Parser[Ast.Visibility] = {
-    opt(accept("private", { case Token.PRIVATE() => () })) ^^ {
-      case Some(_) => Ast.Visibility.Private
-      case None => Ast.Visibility.Public
-    }
   }
 
   override def commit[T](p: => Parser[T]) = Parser { in =>
@@ -1197,6 +1195,8 @@ object Parser extends Parsers {
     accept("identifier", { case Token.IDENTIFIER(s) => s })
 
   private def ifToken = accept("if", { case t: Token.IF => t })
+
+  private def implements = accept("implements", { case t: Token.IMPLEMENTS => t })
 
   private def importToken = accept("import", { case t: Token.IMPORT => t })
 

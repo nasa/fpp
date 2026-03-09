@@ -62,6 +62,7 @@ object Token {
   final case class I8() extends Token
   final case class ID() extends Token
   final case class IDENTIFIER(str: String) extends Token
+  final case class IMPLEMENTS() extends Token
   final case class IF() extends Token
   final case class IMPORT() extends Token
   final case class INCLUDE() extends Token
@@ -97,7 +98,6 @@ object Token {
   final case class POST_ANNOTATION(str: String) extends Token
   final case class PRE_ANNOTATION(str: String) extends Token
   final case class PRIORITY() extends Token
-  final case class PRIVATE() extends Token
   final case class PRODUCT() extends Token
   final case class QUEUE() extends Token
   final case class QUEUED() extends Token
@@ -212,6 +212,7 @@ enum TokenId {
   case ID
   case IF
   case IMPORT
+  case IMPLEMENTS
   case INCLUDE
   case INITIAL
   case INPUT
@@ -236,7 +237,6 @@ enum TokenId {
   case PHASE
   case PORT
   case PRIORITY
-  case PRIVATE
   case PRODUCT
   case QUEUE
   case QUEUED
