@@ -9,37 +9,6 @@
   },
   "typeDefinitions" : [
     {
-      "kind" : "struct",
-      "qualifiedName" : "FppTest.DpTestComponent.Complex",
-      "members" : {
-        "f1" : {
-          "type" : {
-            "name" : "FppTest.DpTestComponent.Data",
-            "kind" : "qualifiedIdentifier"
-          },
-          "index" : 0,
-          "annotation" : "A struct in the struct"
-        },
-        "f2" : {
-          "type" : {
-            "name" : "U32",
-            "kind" : "integer",
-            "size" : 32,
-            "signed" : false
-          },
-          "index" : 1,
-          "annotation" : "A simple U32 field"
-        }
-      },
-      "default" : {
-        "f1" : {
-          "u16Field" : 0
-        },
-        "f2" : 0
-      },
-      "annotation" : "Data for a ComplexRecord"
-    },
-    {
       "kind" : "alias",
       "qualifiedName" : "FwTlmPacketizeIdType",
       "type" : {
@@ -82,6 +51,55 @@
         }
       ],
       "default" : "Fw.DpState.UNTRANSMITTED"
+    },
+    {
+      "kind" : "struct",
+      "qualifiedName" : "FppTest.DpTestComponent.Complex",
+      "members" : {
+        "f1" : {
+          "type" : {
+            "name" : "FppTest.DpTestComponent.Data",
+            "kind" : "qualifiedIdentifier"
+          },
+          "index" : 0,
+          "size" : 2,
+          "annotation" : "A struct in the struct"
+        },
+        "f2" : {
+          "type" : {
+            "name" : "U32",
+            "kind" : "integer",
+            "size" : 32,
+            "signed" : false
+          },
+          "index" : 1,
+          "annotation" : "A simple U32 field"
+        }
+      },
+      "default" : {
+        "f1" : [
+          {
+            "u16Field" : [
+              10,
+              10,
+              10,
+              10,
+              10
+            ]
+          },
+          {
+            "u16Field" : [
+              10,
+              10,
+              10,
+              10,
+              10
+            ]
+          }
+        ],
+        "f2" : 0
+      },
+      "annotation" : "Data for a ComplexRecord"
     },
     {
       "kind" : "alias",
@@ -207,6 +225,31 @@
       }
     },
     {
+      "kind" : "struct",
+      "qualifiedName" : "FppTest.DpTestComponent.Data",
+      "members" : {
+        "u16Field" : {
+          "type" : {
+            "name" : "FppTest.DpTestComponent.AliasU16",
+            "kind" : "qualifiedIdentifier"
+          },
+          "index" : 0,
+          "size" : 5,
+          "annotation" : "A U16 field"
+        }
+      },
+      "default" : {
+        "u16Field" : [
+          10,
+          10,
+          10,
+          10,
+          10
+        ]
+      },
+      "annotation" : "Data for a DataRecord"
+    },
+    {
       "kind" : "alias",
       "qualifiedName" : "FwDpIdType",
       "type" : {
@@ -219,6 +262,23 @@
         "size" : 32,
         "signed" : false
       }
+    },
+    {
+      "kind" : "alias",
+      "qualifiedName" : "FwTimeBaseStoreType",
+      "type" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "underlyingType" : {
+        "name" : "U16",
+        "kind" : "integer",
+        "size" : 16,
+        "signed" : false
+      },
+      "annotation" : "The type used to serialize a time base value"
     },
     {
       "kind" : "alias",
@@ -275,41 +335,6 @@
         "size" : 32,
         "signed" : false
       }
-    },
-    {
-      "kind" : "alias",
-      "qualifiedName" : "FwTimeBaseStoreType",
-      "type" : {
-        "name" : "U16",
-        "kind" : "integer",
-        "size" : 16,
-        "signed" : false
-      },
-      "underlyingType" : {
-        "name" : "U16",
-        "kind" : "integer",
-        "size" : 16,
-        "signed" : false
-      },
-      "annotation" : "The type used to serialize a time base value"
-    },
-    {
-      "kind" : "struct",
-      "qualifiedName" : "FppTest.DpTestComponent.Data",
-      "members" : {
-        "u16Field" : {
-          "type" : {
-            "name" : "FppTest.DpTestComponent.AliasU16",
-            "kind" : "qualifiedIdentifier"
-          },
-          "index" : 0,
-          "annotation" : "A U16 field"
-        }
-      },
-      "default" : {
-        "u16Field" : 0
-      },
-      "annotation" : "Data for a DataRecord"
     }
   ],
   "constants" : [
