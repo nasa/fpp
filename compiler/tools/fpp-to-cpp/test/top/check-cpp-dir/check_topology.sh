@@ -21,7 +21,7 @@ check_topology()
   echo '  generating C++'
   (
     cd $dir/../../$src_dir;
-    $FPP_TO_CPP -p $PWD -i $FPRIME_DEPS,../phases.fpp -d $dir components.fpp topology.fpp
+    $FPP_TO_CPP -p $PWD,$FPRIME_DIR -i $FPRIME_DEPS,../phases.fpp -d $dir components.fpp topology.fpp
   )
 
   options="
@@ -34,13 +34,15 @@ check_topology()
   -c
   "
 
-  #flags="-I$FPRIME_DIR -I$FPRIME_DIR/config -Wno-unused-parameter -c"
-  variable_flag_array='
-  -DFW_DIRECT_PORT_CALLS=0:-DFW_ENABLE_TEXT_LOGGING=0
-  -DFW_DIRECT_PORT_CALLS=0:-DFW_ENABLE_TEXT_LOGGING=1
-  -DFW_DIRECT_PORT_CALLS=1:-DFW_ENABLE_TEXT_LOGGING=0
-  -DFW_DIRECT_PORT_CALLS=1:-DFW_ENABLE_TEXT_LOGGING=1
-  '
+  if test -z "$variable_flag_array"
+  then
+    variable_flag_array='
+    -DFW_DIRECT_PORT_CALLS=0:-DFW_ENABLE_TEXT_LOGGING=0
+    -DFW_DIRECT_PORT_CALLS=0:-DFW_ENABLE_TEXT_LOGGING=1
+    -DFW_DIRECT_PORT_CALLS=1:-DFW_ENABLE_TEXT_LOGGING=0
+    -DFW_DIRECT_PORT_CALLS=1:-DFW_ENABLE_TEXT_LOGGING=1
+    '
+  fi
   top_files=`find . -maxdepth 1 -name '*TopologyAc.cpp'`
   for top_file in $top_files
   do
