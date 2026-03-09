@@ -563,16 +563,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions_Topology-Definitions_Examples">5.14.6. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Framework-Definitions">5.15. Framework Definitions</a>
+<li><a href="#Definitions_Type-Definitions">5.15. Type Definitions</a></li>
+<li><a href="#Definitions_Framework-Definitions">5.16. Framework Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_Framework-Definitions_Constant-Definitions">5.15.1. Constant Definitions</a></li>
-<li><a href="#Definitions_Framework-Definitions_Type-Definitions">5.15.2. Type Definitions</a></li>
+<li><a href="#Definitions_Framework-Definitions_Constant-Definitions">5.16.1. Constant Definitions</a></li>
+<li><a href="#Definitions_Framework-Definitions_Type-Definitions">5.16.2. Type Definitions</a></li>
+<li><a href="#Definitions_Framework-Definitions_Port-Definitions">5.16.3. Port Definitions</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Dictionary-Definitions">5.16. Dictionary Definitions</a>
+<li><a href="#Definitions_Dictionary-Definitions">5.17. Dictionary Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_Dictionary-Definitions_Semantics">5.16.1. Semantics</a></li>
-<li><a href="#Definitions_Dictionary-Definitions_Examples">5.16.2. Examples</a></li>
+<li><a href="#Definitions_Dictionary-Definitions_Semantics">5.17.1. Semantics</a></li>
+<li><a href="#Definitions_Dictionary-Definitions_Examples">5.17.2. Examples</a></li>
 </ul>
 </li>
 </ul>
@@ -934,6 +936,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions-and-Uses_Uses">16.1. Uses</a></li>
 <li><a href="#Definitions-and-Uses_Use-Def-Graph">16.2. Use-Def Graph</a></li>
 <li><a href="#Definitions-and-Uses_Order-of-Definitions-and-Uses">16.3. Order of Definitions and Uses</a></li>
+<li><a href="#Definitions-and-Uses_Implied-Uses">16.4. Implied Uses</a></li>
 </ul>
 </li>
 <li><a href="#Types">17. Types</a>
@@ -4372,16 +4375,10 @@ then \$c_1\$ is less than (respectively greater than) \$c_2\$.</p>
 <div class="sect3">
 <h4 id="Definitions_Topology-Definitions_Implied-Uses">5.14.5. Implied Uses</h4>
 <div class="paragraph">
-<p>When generating a dictionary from a topology <em>T</em>, the analyzer may
-treat the definition of <em>T</em> as if it contained uses of
-one or more <a href="#Definitions_Framework-Definitions">framework alias type definitions</a> that are required by the dictionary.
-These uses are called <strong>implied uses</strong>.</p>
-</div>
-<div class="paragraph">
-<p>The management of these implied uses is left up to the FPP implementation.
-The only requirement levied here is that, when generating a dictionary,
-the FPP implementation must guarantee that all the framework definitions
-required by the dictionary specification are available in the model.
+<p>When generating a dictionary from a topology <em>T</em>, the analyzer
+treats the definition of <em>T</em> as if it contained
+<a href="#Definitions-and-Uses_Implied-Uses">implied uses</a> of
+several <a href="#Definitions_Framework-Definitions">framework definitions</a> required by the dictionary.
 Those framework definitions are specified
 in the <a href="https://fprime.jpl.nasa.gov/latest/docs/reference/fpp-json-dict/">F Prime
 dictionary specification</a>.</p>
@@ -4661,15 +4658,94 @@ applied to topology <code>B</code> in Example 3.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Definitions_Framework-Definitions">5.15. Framework Definitions</h3>
+<h3 id="Definitions_Type-Definitions">5.15. Type Definitions</h3>
 <div class="paragraph">
-<p>The following definitions are used specially by the
-F Prime framework.
-If they are present in the model, then they must conform
-to the following rules.</p>
+<p>A <strong>type definition</strong> is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <a href="#Definitions_Struct-Definitions">struct definition</a>.</p>
+</li>
+<li>
+<p>An <a href="#Definitions_Abstract-Type-Definitions">abstract type definition</a>.</p>
+</li>
+<li>
+<p>An <a href="#Definitions_Alias-Type-Definitions">alias type definition</a>.</p>
+</li>
+<li>
+<p>An <a href="#Definitions_Array-Definitions">array definition</a>.</p>
+</li>
+<li>
+<p>An <a href="#Definitions_Enum-Definitions">enum definition</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Definitions_Framework-Definitions">5.16. Framework Definitions</h3>
+<div class="paragraph">
+<p>Several definitions are used specially by the F Prime framework.
+These are called <strong>framework definitions.</strong></p>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Framework-Definitions_Constant-Definitions">5.15.1. Constant Definitions</h4>
+<h4 id="Definitions_Framework-Definitions_Constant-Definitions">5.16.1. Constant Definitions</h4>
+<div class="paragraph">
+<p>The table below lists the framework constant definitions.
+Each row in the table has the following meaning:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The row provides a qualified name <em>N</em> and a set of rules <em>R</em>.</p>
+</li>
+<li>
+<p>If the model contains a
+<a href="#Definitions_Constant-Definitions">constant definition</a> <em>D</em> with
+<a href="#Scoping-of-Names_Names-of-Definitions">qualified name</a> <em>N</em>,
+then <em>D</em> must have the following properties:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Each qualified identifier that is a prefix of the
+name <em>N</em>, but not the name itself, must
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a> a
+<a href="#Definitions_Module-Definitions">module definition</a>.
+For example, the definition <em>D</em>  may not appear inside a component
+or state machine.</p>
+</li>
+<li>
+<p>The definition <em>D</em> must conform to the rules <em>R</em>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The rules use the following terms:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>An <strong>integer constant</strong> is a <a href="#Definitions_Constant-Definitions">constant definition</a>
+whose <a href="#Types_Underlying-Types">underlying type</a> is an
+  <a href="#Types_Internal-Types_Integer-Types">integer type</a>.</p>
+</li>
+<li>
+<p>A <strong>nonnegative integer constant</strong> is an integer constant
+whose value is greater than or equal to zero.</p>
+</li>
+<li>
+<p>A <strong>positive integer constant</strong> is an integer constant
+whose value is greater than zero.</p>
+</li>
+<li>
+<p>A <strong>string size constant</strong> is an integer constant whose value is a
+valid <a href="#Types_String-Types">string size</a>.</p>
+</li>
+</ul>
+</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -4677,116 +4753,141 @@ to the following rules.</p>
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Qualified Name</th>
 <th class="tableblock halign-left valign-top">Rules</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_ASSERT_COUNT_MAX</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a nonnegative integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_CMD_ARG_BUFFER_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_CMD_STRING_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a string size constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_COM_BUFFER_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_CONTEXT_DONT_CARE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_FILE_BUFFER_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_FIXED_LENGTH_STRING_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a string size constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_INTERNAL_INTERFACE_STRING_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a string size constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_LOG_BUFFER_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_LOG_STRING_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a string size constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_LOG_TEXT_BUFFER_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_OBJ_SIMPLE_REG_BUFF_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_OBJ_SIMPLE_REG_ENTRIES</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_PARAM_BUFFER_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_PARAM_STRING_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a string size constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_QUEUE_NAME_BUFFER_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_QUEUE_SIMPLE_QUEUE_ENTRIES</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_SERIALIZE_FALSE_VALUE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_SERIALIZE_TRUE_VALUE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_SM_SIGNAL_BUFFER_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_STATEMENT_ARG_BUFFER_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_TASK_NAME_BUFFER_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_TLM_BUFFER_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FW_TLM_STRING_MAX_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a string size constant.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpCfg.CONTAINER_USER_DATA_SIZE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a constant with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a positive integer constant.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Framework-Definitions_Type-Definitions">5.15.2. Type Definitions</h4>
+<h4 id="Definitions_Framework-Definitions_Type-Definitions">5.16.2. Type Definitions</h4>
+<div class="paragraph">
+<p>The table below lists the framework type definitions.
+The rows have the same meaning as stated for
+<a href="#Definitions_Framework-Definitions_Constant-Definitions">constant
+definitions</a>, except that the qualified names are the names
+of <a href="#Definitions_Type-Definitions">type definitions</a>.
+The rules use the following terms:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>An <strong>integer alias type</strong> is an <a href="#Definitions_Alias-Type-Definitions">alias type
+definition</a> whose <a href="#Types_Underlying-Types">underlying type</a> is a
+<a href="#Types_Primitive-Integer-Types">primitive integer type</a>.</p>
+</li>
+<li>
+<p>A <strong>signed integer alias type</strong> is an integer alias type whose
+underlying type is signed.</p>
+</li>
+<li>
+<p>An <strong>unsigned integer alias type</strong> is an integer alias type whose
+underlying type is unsigned.</p>
+</li>
+</ul>
+</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -4794,110 +4895,162 @@ to the following rules.</p>
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Qualified Name</th>
 <th class="tableblock halign-left valign-top">Rules</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpCfg.ProcType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an enum</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an <a href="#Definitions_Enum-Definitions">enum definition</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpState</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an enum</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an <a href="#Definitions_Enum-Definitions">enum definition</a>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwAssertArgType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwChanIdType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwDpIdType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwDpPriorityType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwEnumStoreType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwEventIdType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwIndexType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of signed integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a signed integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwOpcodeType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwPacketDescriptorType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwPrmIdType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwQueuePriorityType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwSignedSizeType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of signed integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be a signed integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwSizeStoreType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwSizeType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of unsigned integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an unsigned integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTaskPriorityType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTimeBaseStoreType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTimeContextStoreType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTlmPacketizeIdType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>FwTraceIdType</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an alias type with an underlying type of integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must be an integer alias type.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
+<div class="sect3">
+<h4 id="Definitions_Framework-Definitions_Port-Definitions">5.16.3. Port Definitions</h4>
+<div class="paragraph">
+<p>The F Prime framework provides <a href="#Definitions_Port-Definitions">port definitions</a>
+with the following qualified names:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Fw.CmdReg</code></p>
+</li>
+<li>
+<p><code>Fw.CmdResponse</code></p>
+</li>
+<li>
+<p><code>Fw.Cmd</code></p>
+</li>
+<li>
+<p><code>Fw.DpGet</code></p>
+</li>
+<li>
+<p><code>Fw.DpRequest</code></p>
+</li>
+<li>
+<p><code>Fw.DpResponse</code></p>
+</li>
+<li>
+<p><code>Fw.DpSend</code></p>
+</li>
+<li>
+<p><code>Fw.LogText</code></p>
+</li>
+<li>
+<p><code>Fw.Log</code></p>
+</li>
+<li>
+<p><code>Fw.PrmGet</code></p>
+</li>
+<li>
+<p><code>Fw.PrmSet</code></p>
+</li>
+<li>
+<p><code>Fw.Time</code></p>
+</li>
+<li>
+<p><code>Fw.Tlm</code></p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="Definitions_Dictionary-Definitions">5.16. Dictionary Definitions</h3>
+<h3 id="Definitions_Dictionary-Definitions">5.17. Dictionary Definitions</h3>
 <div class="paragraph">
-<p>If the optional keyword <code>dictionary</code> appears in a type definition or
-a constant definition, then that definition is called a
+<p>If the optional keyword <code>dictionary</code> appears in a
+<a href="#Definitions_Type-Definitions">type definition</a> or
+a <a href="#Definitions_Constant-Definitions">constant definition</a>, then that
+definition is called a
 <strong>dictionary definition</strong>.
 A dictionary definition instructs the code generator to include
 the definition in the ground dictionary.</p>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Dictionary-Definitions_Semantics">5.16.1. Semantics</h4>
+<h4 id="Definitions_Dictionary-Definitions_Semantics">5.17.1. Semantics</h4>
 <div class="paragraph">
 <p>If a constant definition <em>D</em> is a dictionary definition, then the
 expression appearing in <em>D</em> must have one of the following types:</p>
@@ -4924,7 +5077,7 @@ defined by <em>D</em> must be a <a href="#Types_Displayable-Types">displayable t
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Dictionary-Definitions_Examples">5.16.2. Examples</h4>
+<h4 id="Definitions_Dictionary-Definitions_Examples">5.17.2. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">dictionary type T = U32
@@ -7204,11 +7357,8 @@ as follows:</p>
 <a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
 </li>
 <li>
-<p>A type location specifier refers to an
-<a href="#Definitions_Array-Definitions">array definition</a>,
-<a href="#Definitions_Enum-Definitions">enum definition</a>,
-<a href="#Definitions_Struct-Definitions">struct definition</a>, or
-<a href="#Definitions_Abstract-Type-Definitions">abstract type definition</a>.</p>
+<p>A type location specifier refers to a <a href="#Definitions_Type-Definitions">type
+definition</a>.</p>
 </li>
 </ol>
 </div>
@@ -7713,9 +7863,10 @@ These elements are valid only for <code>async</code> <code>product</code> <code>
 </ol>
 </div>
 <div class="paragraph">
-<p>Each special port instance represents an implied use of a port
-as shown in the table below.
-These ports are defined by the F Prime framework.</p>
+<p>Each special port instance represents an
+<a href="#Definitions-and-Uses_Implied-Uses">implied use</a> of a
+<a href="#Definitions_Framework-Definitions_Port-Definitions">framework port</a>
+as shown in the table below.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -8854,7 +9005,7 @@ evaluate to a value in the range [1,2<sup>31</sup>) after conversion to
 </div>
 <div class="paragraph">
 <p>At each point in the model where a string type name appears, the following
-implied uses of
+<a href="#Definitions-and-Uses_Implied-Uses">implied uses</a> of
 <a href="#Definitions_Framework-Definitions">framework definitions</a> occur:</p>
 </div>
 <div class="olist arabic">
@@ -10620,6 +10771,60 @@ constant a = 0</code></pre>
 translator does not matter.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="Definitions-and-Uses_Implied-Uses">16.4. Implied Uses</h3>
+<div class="paragraph">
+<p>At certain points in the analysis, the analyzer may treat an element
+of the model as if it contained uses of one or more
+<a href="#Definitions_Framework-Definitions">framework definitions</a>.
+These uses are called <strong>implied uses</strong>.
+For example, a <a href="#Definitions_Topology-Definitions_Implied-Uses">topology
+definition</a> has implied uses when a dictionary is being generated.</p>
+</div>
+<div class="paragraph">
+<p>Whenever an implied use is called out in this specification, the
+definition being used must be available at the point of the implied
+use.
+If the definition is unavailable because it is hidden by another
+definition in an inner scope, then an error occurs.
+For example, this model is illegal, because the definition
+<code>M.FwSizeStoreType</code> hides the framework definition <code>FwSizeStoreType</code>
+at the point of the <a href="#Type-Names_String-Type-Names">implied use</a>
+in the type <code>string size 100</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+
+   type FwSizeStoreType = U16
+
+   type T = string size 100
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>An error also occurs if the rules
+for resolving <a href="#Expressions_Dot-Expressions_Semantics">dot expressions</a>
+causes an implied constant use to be resolved to a member
+of a struct value instead of a constant definition. For example, suppose this
+definition exists in the model:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant A = { B = 0 }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then there is an error at any point where there is an implied use of the
+constant <code>A.B</code>.
+Here <code>A.B</code> does represent a constant value, but it does not represent
+a constant definition, and so it is not a legal candidate
+for an implied constant use.
+This situation can occur because the dot syntax in FPP is overloaded
+to mean both qualification and member selection.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -11619,10 +11824,10 @@ whose member types are the corresponding common types.</p>
 </li>
 <li>
 <p>For each \$i in [2,n\$], compute the
-<a href="#Type-Options_Computing-a-Common-Type-Option">common type option</a> \$T'_i\$ of \$T'_(i-1)\$ and \$T_i\$.</p>
+<a href="#Type-Checking_Computing-a-Common-Type">common type</a> \$T'_i\$ of \$T'_(i-1)\$ and \$T_i\$.</p>
 </li>
 <li>
-<p>Use \$T'_n\$ as the common type option of the list.</p>
+<p>Use \$T'_n\$ as the common type of the list.</p>
 </li>
 </ol>
 </div>
@@ -11777,11 +11982,11 @@ Throw an error.</p>
 </li>
 <li>
 <p>For each \$i in [2,n\$], compute the
-<a href="#Type-Checking_Computing-a-Common-Type">common type</a> \$O'_i\$ of
-\$O'_(i-1)\$ and \$O_i\$.</p>
+<a href="#Type-Options_Computing-a-Common-Type-Option">common type option</a> \$O'_i\$
+of \$O'_(i-1)\$ and \$O_i\$.</p>
 </li>
 <li>
-<p>Use \$O'_n\$ as the common type of the list.</p>
+<p>Use \$O'_n\$ as the common type option of the list.</p>
 </li>
 </ol>
 </div>
@@ -12656,7 +12861,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-09 13:30:08 -0700
+Last updated 2026-03-09 15:31:20 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -230,6 +230,10 @@ sealed trait Error {
         Error.print (Some(loc)) (s"no member $memberName in anonymous struct value")
         System.err.println("symbol is defined here:")
         System.err.println(defLoc)
+      case SemanticError.InvalidQualifier(name, loc, msg, defLoc) =>
+        Error.print (Some(loc)) (s"invalid qualifier $name: $msg")
+        System.err.println("symbol is defined here:")
+        System.err.println(defLoc)
       case SemanticError.InvalidStructMember(memberName, loc, structTypeName, defLoc) =>
         Error.print (Some(loc)) (s"no member $memberName in struct type $structTypeName")
         System.err.println("symbol is defined here:")
@@ -565,6 +569,12 @@ object SemanticError {
     specifiedPath: String,
     actualLoc: Location
   ) extends Error
+  /** No member in anonymous struct type */
+  final case class InvalidAnonStructMember(
+    memberName: String,
+    loc: Location,
+    defLoc: Location
+  ) extends Error
   /** Invalid array size */
   final case class InvalidArraySize(loc: Location, size: BigInt) extends Error
   /** Invalid command */
@@ -651,17 +661,18 @@ object SemanticError {
   final case class InvalidSpecialPort(loc: Location, msg: String) extends Error
   /** Invalid string size */
   final case class InvalidStringSize(loc: Location, size: BigInt) extends Error
+  /** Invalid qualifier */
+  final case class InvalidQualifier(
+    name: String,
+    loc: Location,
+    msg: String,
+    defLoc: Location
+  ) extends Error
   /** No member in struct type */
   final case class InvalidStructMember(
     memberName: String,
     loc: Location,
     structTypeName: String,
-    defLoc: Location
-  ) extends Error
-  /** No member in anonymous struct type */
-  final case class InvalidAnonStructMember(
-    memberName: String,
-    loc: Location,
     defLoc: Location
   ) extends Error
   /** No member in anonymous struct type */
