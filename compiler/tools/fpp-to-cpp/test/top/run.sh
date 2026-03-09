@@ -71,6 +71,16 @@ tlm()
   cd $TOP_DIR
 }
 
+ports()
+{
+  cd $TOP_DIR/ports
+  run_test "-p $PWD -i $FPRIME_DEPS,../phases.fpp,components.fpp -n names.txt" topology && \
+    diff -u names.txt names.ref.txt && \
+    diff_cpp Ports1Topology && \
+    diff_cpp Ports2Topology
+  cd $TOP_DIR
+}
+
 tlm_packets()
 {
   cd $TOP_DIR/tlm_packets
