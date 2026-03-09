@@ -1,21 +1,3 @@
-module M {
-
-  port P
-
-  active component Active {
-
-    async input port p: P
-
-  }
-
-  passive component Passive {
-
-    output port p: P
-
-  }
-
-}
-
 instance active1: M.Active base id 0x100 \
   at "Active.hpp" \
   queue size 10 stack size 1024 priority 1 cpu 0
