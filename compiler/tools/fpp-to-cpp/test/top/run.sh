@@ -35,6 +35,14 @@ params()
     diff_cpp ParamsTopology
 }
 
+ports()
+{
+  run_test "-i builtin.fpp -n ports.names.txt -p $PWD" ports && \
+    diff -u ports.names.txt ports.names.ref.txt && \
+    diff_cpp Ports1Topology && \
+    diff_cpp Ports2Topology
+}
+
 tlm_packets()
 {
   run_test "-i builtin.fpp -p $PWD" tlm_packets && \

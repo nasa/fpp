@@ -2,6 +2,7 @@ package fpp.compiler.codegen
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
+import fpp.compiler.ast.Ast.QualIdent
 
 /** Write out an FPP AST */
 object AstWriter extends AstVisitor with LineUtils {
@@ -245,8 +246,13 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
+    val implementsClause = data.implements.length match {
+      case 0 => Nil
+      case _ => lines("implements") ++ data.implements.flatMap(q => qualIdent(q.data)).map(indentIn)
+    }
+
     lines("def topology") ++
-    (ident(data.name) ++ data.members.flatMap(topologyMember)).map(indentIn)
+    (ident(data.name) ++ implementsClause ++ data.members.flatMap(topologyMember)).map(indentIn)
   }
 
   override def default(in: In) =
@@ -365,14 +371,13 @@ object AstWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
-  override def specCompInstanceAnnotatedNode(
+  override def specInstanceAnnotatedNode(
     in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecCompInstance]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecInstance]]
   ) =  {
     val (_, node, _) = aNode
     val data = node.data
-    lines("spec comp instance") ++ (
-      lines(visibility(data.visibility)) ++
+    lines("spec interface instance") ++ (
       qualIdent(data.instance.data)
     ).map(indentIn)
   }
@@ -697,14 +702,19 @@ object AstWriter extends AstVisitor with LineUtils {
     )
   }
 
-  override def specTopImportAnnotatedNode(
+  override def specTopPortAnnotatedNode(
     in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecImport]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecTopPort]]
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines("spec top import") ++
-    qualIdent(data.sym.data).map(indentIn)
+    List.concat(
+      lines("spec top port"),
+      List.concat(
+        ident(data.name),
+        portInstanceIdentifier(data.underlyingPort.data)
+      ).map(indentIn)
+    )
   }
 
   override def specInterfaceImportAnnotatedNode(
@@ -846,7 +856,7 @@ object AstWriter extends AstVisitor with LineUtils {
   }
 
   private def portInstanceIdentifier(pii: Ast.PortInstanceIdentifier): Out = {
-    val qid = Ast.QualIdent.Qualified(pii.componentInstance, pii.portName)
+    val qid = Ast.QualIdent.Qualified(pii.interfaceInstance, pii.portName)
     qualIdent(qid)
   }
 
@@ -948,8 +958,6 @@ object AstWriter extends AstVisitor with LineUtils {
     addPrefix("type name", matchTypeNameNode((), _)) (node)
 
   private def unop(op: Ast.Unop) = lines(s"unop ${op.toString}")
-
-  private def visibility(v: Ast.Visibility) = v.toString
 
   private def prefixWithDictionary(s: String, isDictionaryDef: Boolean) =
     if isDictionaryDef then

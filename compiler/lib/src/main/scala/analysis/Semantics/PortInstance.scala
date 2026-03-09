@@ -3,6 +3,24 @@ package fpp.compiler.analysis
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
+
+/** An FPP port instance signature */
+case class PortInstanceSignature(
+  pi: PortInstance
+) {
+  override def equals(obj: Any): Boolean =
+    obj match {
+      case PortInstanceSignature(pi) =>
+        return (
+          this.pi.getDirection == pi.getDirection &&
+          this.pi.getArraySize == pi.getArraySize &&
+          this.pi.getType == pi.getType &&
+          this.pi.getUnqualifiedName == pi.getUnqualifiedName
+        )
+      case _ => false
+    }
+}
+
 /** An FPP port instance */
 sealed trait PortInstance {
 
@@ -138,6 +156,29 @@ object PortInstance {
       this.copy(importNodeIds = importNodeIds :+ importNode)
 
     def getImportNodeIds = importNodeIds
+  }
+
+  final case class Topology(
+    aNode: Ast.Annotated[AstNode[Ast.SpecTopPort]],
+    underlyingPort: PortInstance
+  ) extends PortInstance {
+    override def getDirection = underlyingPort.getDirection
+
+    override def getArraySize = underlyingPort.getArraySize
+
+    override def getNodeId = aNode._2.id
+
+    override def getType = underlyingPort.getType
+
+    override def getUnqualifiedName = aNode._2.data.name
+
+    // Topology ports cannot be imported
+    def withImportSpecifier(importNode: AstNode.Id): PortInstance =
+      this
+
+    def getImportNodeIds = List()
+
+    override def toString = s"${getUnqualifiedName.toString} -> ${underlyingPort.toString}"
   }
 
   /** A special port instance */

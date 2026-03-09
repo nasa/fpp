@@ -124,9 +124,6 @@ sealed trait Error {
         Error.print (Some(loc)) (s"duplicate telemetry packet set ${name}")
         System.err.println("previous set is here:")
         System.err.println(prevLoc)
-      case SemanticError.DuplicateTopology(name, loc, prevLoc) =>
-        Error.print (Some(loc)) (s"duplicate topology ${name}")
-        printPrevLoc(prevLoc)
       case SemanticError.DuplicateInterface(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate interface ${name}")
         printPrevLoc(prevLoc)
@@ -168,7 +165,7 @@ sealed trait Error {
         printNote("size must be greater than zero")
       case SemanticError.InvalidCommand(loc, msg) =>
         Error.print (Some(loc)) (msg)
-      case SemanticError.InvalidComponentInstance(loc, instanceName, topName) =>
+      case SemanticError.InvalidInterfaceInstance(loc, instanceName, topName) =>
         Error.print (Some(loc)) (s"instance $instanceName is not a member of topology $topName")
       case SemanticError.InvalidConnection(loc, msg, fromLoc, toLoc, fromPortDefLoc, toPortDefLoc) =>
         Error.print (Some(loc)) (msg)
@@ -209,8 +206,8 @@ sealed trait Error {
         Error.print (Some(loc)) (msg)
         System.err.println(s"port definition is here:")
         System.err.println(defLoc)
-      case SemanticError.InvalidPortInstanceId(loc, portName, componentName) =>
-        Error.print (Some(loc)) (s"$portName is not a port instance of component $componentName")
+      case SemanticError.InvalidPortInstanceId(loc, portName, symbol, interfaceName) =>
+        Error.print (Some(loc)) (s"$portName is not a port instance of $symbol $interfaceName")
       case SemanticError.InvalidPortKind(loc, msg, specLoc) =>
         Error.print (Some(loc)) (msg)
         System.err.println(s"port instance is specified here:")
@@ -346,6 +343,22 @@ sealed trait Error {
         err
       ) =>
         Error.print (Some(importLoc)) (s"failed to import interface")
+        err.print
+      case SemanticError.PortInterfaceMissingPort(
+        loc
+      ) =>
+        Error.print (Some(loc)) ("port instance missing")
+      case SemanticError.PortInterfaceInvalidPort(
+        loc,
+        defLoc
+      ) =>
+        Error.print (Some(loc)) ("port instance does not match definition in interface:")
+        System.err.println(defLoc)
+      case SemanticError.InterfaceImplements(
+        loc,
+        err
+      ) =>
+        Error.print (Some(loc)) ("port interface not implemented")
         err.print
       case SemanticError.UseDefCycle(loc, msg) => Error.print (Some(loc)) (msg)
       case XmlError.ParseError(file, msg) => Error.printXml (file) (msg)
@@ -514,12 +527,6 @@ object SemanticError {
     loc: Location,
     prevLoc: Location
   ) extends Error
-  /** Duplicate topology */
-  final case class DuplicateTopology(
-    name: String,
-    loc: Location,
-    prevLoc: Location
-  ) extends Error
   /** Duplicate interface */
   final case class DuplicateInterface(
     name: String,
@@ -562,8 +569,8 @@ object SemanticError {
   final case class InvalidArraySize(loc: Location, size: BigInt) extends Error
   /** Invalid command */
   final case class InvalidCommand(loc: Location, msg: String) extends Error
-  /** Invalid component instance */
-  final case class InvalidComponentInstance(
+  /** Invalid interface instance */
+  final case class InvalidInterfaceInstance(
     loc: Location,
     instanceName: String,
     topName: String
@@ -617,7 +624,8 @@ object SemanticError {
   final case class InvalidPortInstanceId(
     loc: Location,
     portName: String,
-    componentName: String
+    symbolKind: String,
+    interfaceName: String
   ) extends Error
   /** Invalid port kind */
   final case class InvalidPortKind(
@@ -726,6 +734,20 @@ object SemanticError {
   /** Error while importing an interface */
   final case class InterfaceImport(
     importLoc: Location,
+    err: Error
+  ) extends Error
+  /** A port is missing from a port interface */
+  final case class PortInterfaceMissingPort(
+    loc: Location
+  ) extends Error
+  /** A port does not match an expected signature */
+  final case class PortInterfaceInvalidPort(
+    loc: Location,
+    defLoc: Location
+  ) extends Error
+  /** Error while checking if instance implements interface */
+  final case class InterfaceImplements(
+    loc: Location,
     err: Error
   ) extends Error
   /** Passive async input */
