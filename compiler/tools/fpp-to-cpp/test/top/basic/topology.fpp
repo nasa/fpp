@@ -47,6 +47,11 @@ module M {
     M::active2.tearDown();
     """
 
+
+    phase Phases.deinit """
+    M::active2.deinitSpecial();
+    """
+
   }
   instance active3: Active base id 0x300 \
     at "Active.hpp" \

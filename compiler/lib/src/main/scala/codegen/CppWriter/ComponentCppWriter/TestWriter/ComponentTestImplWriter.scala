@@ -130,7 +130,7 @@ case class ComponentTestImplWriter(
         ),
         destructorClassMember(
           Some(s"Destroy object $testImplClassName"),
-          lines("|this->deinit();")
+          lines("|this->component.deinit();")
         )
       )
     )

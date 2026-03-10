@@ -22,7 +22,7 @@ ActiveParamsTester ::
 ActiveParamsTester ::
   ~ActiveParamsTester()
 {
-  this->deinit();
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------

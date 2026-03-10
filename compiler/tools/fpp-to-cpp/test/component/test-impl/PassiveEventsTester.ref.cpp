@@ -22,7 +22,7 @@ PassiveEventsTester ::
 PassiveEventsTester ::
   ~PassiveEventsTester()
 {
-  this->deinit();
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------

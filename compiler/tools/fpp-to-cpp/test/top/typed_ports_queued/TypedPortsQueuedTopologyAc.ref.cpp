@@ -141,6 +141,7 @@ namespace TypedPortsQueued {
 
   void deinit(const TopologyState& state) {
     TypedPortsQueued::receiver.deinit();
+    TypedPortsQueued::sender.deinit();
   }
 
   // ----------------------------------------------------------------------

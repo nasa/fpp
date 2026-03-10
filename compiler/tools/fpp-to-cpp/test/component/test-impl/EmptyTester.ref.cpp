@@ -22,7 +22,7 @@ EmptyTester ::
 EmptyTester ::
   ~EmptyTester()
 {
-  this->deinit();
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------

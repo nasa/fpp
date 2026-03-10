@@ -22,7 +22,7 @@ QueuedParamsTester ::
 QueuedParamsTester ::
   ~QueuedParamsTester()
 {
-  this->deinit();
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------

@@ -276,11 +276,8 @@ case class TopHelperFns(
   private def getDeinitFn = {
     def getCode(ci: ComponentInstance): List[Line] =
       getCodeLinesForPhase (CppWriter.Phases.deinit) (ci).getOrElse {
-        if (hasQueue(ci)) {
-            val cppQualifiedName = CppWriter.writeQualifiedName(ci.qualifiedName)
-            lines(s"$cppQualifiedName.deinit();")
-        }
-        else Nil
+        val cppQualifiedName = CppWriter.writeQualifiedName(ci.qualifiedName)
+        lines(s"$cppQualifiedName.deinit();")
       }
     val name = "deinit"
     val memberOpt = getFnMemberOpt(

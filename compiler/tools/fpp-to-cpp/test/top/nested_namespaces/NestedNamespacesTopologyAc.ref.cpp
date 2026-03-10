@@ -63,7 +63,7 @@ namespace M {
   }
 
   void deinit(const TopologyState& state) {
-    // Nothing to do
+    c.deinit();
   }
 
   // ----------------------------------------------------------------------

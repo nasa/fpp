@@ -22,7 +22,7 @@ ActiveSyncProductsTester ::
 ActiveSyncProductsTester ::
   ~ActiveSyncProductsTester()
 {
-  this->deinit();
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------

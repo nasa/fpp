@@ -133,8 +133,10 @@ namespace M {
   }
 
   void deinit(const TopologyState& state) {
-    M::active2.deinit();
+    M::active2.deinitSpecial();
     M::active3.deinit();
+    M::passive1.deinit();
+    M::passive2.deinit();
     active1.deinit();
   }
 

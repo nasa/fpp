@@ -111,6 +111,7 @@ namespace M {
     M::c1.deinit();
     M::c2.deinit();
     M::dpManager.deinit();
+    M::noDp.deinit();
   }
 
   // ----------------------------------------------------------------------

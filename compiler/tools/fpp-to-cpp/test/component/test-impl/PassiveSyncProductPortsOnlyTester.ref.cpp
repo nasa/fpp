@@ -22,7 +22,7 @@ PassiveSyncProductPortsOnlyTester ::
 PassiveSyncProductPortsOnlyTester ::
   ~PassiveSyncProductPortsOnlyTester()
 {
-  this->deinit();
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------

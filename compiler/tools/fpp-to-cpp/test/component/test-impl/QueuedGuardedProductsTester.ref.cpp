@@ -22,7 +22,7 @@ QueuedGuardedProductsTester ::
 QueuedGuardedProductsTester ::
   ~QueuedGuardedProductsTester()
 {
-  this->deinit();
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------

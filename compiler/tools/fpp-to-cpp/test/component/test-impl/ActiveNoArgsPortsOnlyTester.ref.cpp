@@ -22,7 +22,7 @@ ActiveNoArgsPortsOnlyTester ::
 ActiveNoArgsPortsOnlyTester ::
   ~ActiveNoArgsPortsOnlyTester()
 {
-  this->deinit();
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------

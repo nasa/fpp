@@ -19,10 +19,6 @@ namespace M {
 
       }
 
-      void init(U32 queueSize, U32 instanceId) {
-
-      }
-
       void initSpecial() {
 
       }
@@ -51,6 +47,9 @@ namespace M {
 
       }
 
+      void deinitSpecial() {
+
+      }
   };
 
 }

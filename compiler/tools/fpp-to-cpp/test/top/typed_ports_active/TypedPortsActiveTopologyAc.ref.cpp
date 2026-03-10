@@ -146,6 +146,7 @@ namespace TypedPortsActive {
 
   void deinit(const TopologyState& state) {
     TypedPortsActive::receiver.deinit();
+    TypedPortsActive::sender.deinit();
   }
 
   // ----------------------------------------------------------------------

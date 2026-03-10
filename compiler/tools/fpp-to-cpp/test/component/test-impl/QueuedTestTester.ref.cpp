@@ -23,7 +23,7 @@ QueuedTestTester ::
 QueuedTestTester ::
   ~QueuedTestTester()
 {
-  this->deinit();
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------

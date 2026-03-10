@@ -22,7 +22,7 @@ ActiveAsyncProductPortsOnlyTester ::
 ActiveAsyncProductPortsOnlyTester ::
   ~ActiveAsyncProductPortsOnlyTester()
 {
-  this->deinit();
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------
