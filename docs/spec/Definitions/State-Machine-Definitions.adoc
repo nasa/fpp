@@ -56,6 +56,9 @@ behavior is not specified in FPP.
 . If present, the optional state machine member sequence _M_ must
 satisfy the following rules:
 
+.. _M_ must contain at most 2^31^ - 2
+<<State-Machine-Behavior-Elements_State-Definitions_Static-Semantics,leaf states>>.
+
 .. _M_ must contain exactly one
 <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition specifier>>.
 The initial transition occurs when the state machine starts up.
@@ -235,6 +238,71 @@ with the following modifications:
 . Each kind of definition resides in its own name group.
 
 . The brace-delimited definitions are state definitions.
+
+===== The State Enum
+
+If the optional state machine member sequence _M_ is present, then
+_M_ implicitly contains an <<Definitions_Enum-Definitions,enum definition>>
+_E_ that enumerates the 
+<<State-Machine-Behavior-Elements_State-Definitions_Static-Semantics,leaf states>>
+of _M_.
+_E_ is called the *state enum* associated with the state machine definition.
+The analyzer generates _E_ after parsing and before analysis.
+_E_ is defined as follows:
+
+. The unqualified name of _E_ is `State`.
+
+. The representation type of _E_ is the smallest unsigned <<Types_Primitive-Integer-Types,
+primitive integer type>>
+that can represent one plus the number of leaf states in _M_.
+
+. _E_ contains the following enumerated constants:
+
+.. The constant `__FPRIME_UNINITIALIZED`.
+
+.. For each leaf state _L_ of _M_, a *leaf state constant* representing _L_.
+   Its name is the 
+   <<Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names,
+   qualified name>> of _L_, after replacing `.` with `_`.
+
+. The order of the constants is `__FPRIME_UNINITIALIZED` followed
+  by the leaf state constants in lexical order.
+
+. Numerical values are assigned to the constants of _E_ in the default way
+  for enums (0, 1, 2, etc.).
+
+. The the default value of _E_ is `__FPRIME_UNINITIALIZED`.
+
+For example, consider the following state machine definition:
+
+[source,fpp]
+----
+state machine S {
+
+  signal s
+
+  initial enter S1
+
+  state S1 { initial enter S2; state S2; on s enter S3 }
+
+  state S3
+
+}
+----
+
+After parsing and before analysis, the analyzer adds the following
+enum definition as a member of `S`:
+
+[source,fpp]
+----
+enum State : U8 {
+  __FPRIME_UNINITIALIZED
+  S1_S2
+  S3
+}
+----
+
+Its qualified name is `S.State`.
 
 ==== Dynamic Semantics
 

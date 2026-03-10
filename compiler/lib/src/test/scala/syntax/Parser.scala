@@ -279,10 +279,14 @@ class ParserSpec extends AnyWordSpec {
       Parser.defTopology,
       List(
         "topology T {}",
+        "topology T implements I {}",
+        "topology T implements I1.I2 {}",
+        "topology T implements I1.I2, I3.I4 {}",
         """topology T {
           instance i
           connections C {}
           import T
+          port p = a.b
           include "a.fpp"
         }""",
         """topology T {
@@ -422,16 +426,13 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
-  "spec component instance OK" should {
+  "spec instance OK" should {
     parseAllOK(
-      Parser.specCompInstance,
+      Parser.specInstance,
       List(
         "instance a",
         "instance a.b",
         "instance a.b.c",
-        "private instance a",
-        "private instance a.b",
-        "private instance a.b.c",
       )
     )
   }
@@ -520,7 +521,6 @@ class ParserSpec extends AnyWordSpec {
         "locate instance a.b at \"c.fpp\"",
         "locate constant a.b at \"c.fpp\"",
         "locate port a.b at \"c.fpp\"",
-        "locate topology a.b at \"c.fpp\"",
         "locate type a.b at \"c.fpp\"",
         "locate dictionary type a.b at \"c.fpp\"",
         "locate dictionary constant a.b at \"c.fpp\"",
@@ -668,6 +668,16 @@ class ParserSpec extends AnyWordSpec {
       List(
         "import a",
         "import a.b",
+      )
+    )
+  }
+
+  "spec topology port OK" should {
+    parseAllOK(
+      Parser.specTopPort,
+      List(
+        "port a = a.b.c.d",
+        "port b = c.b",
       )
     )
   }

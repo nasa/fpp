@@ -35,7 +35,7 @@ namespace M {
       };
 
       //! For backwards compatibility
-      typedef T t;
+      typedef enum T t;
 
     public:
 
@@ -64,7 +64,7 @@ namespace M {
 
       //! Constructor (user-provided value)
       SerializeType(
-          const T e1 //!< The raw enum value
+          const enum T e1 //!< The raw enum value
       )
       {
         this->e = e1;
@@ -91,23 +91,23 @@ namespace M {
 
       //! Copy assignment operator (raw enum)
       SerializeType& operator=(
-          T e1 //!< The enum value
+          enum T e1 //!< The enum value
       );
 
       //! Conversion operator
-      operator T() const
+      operator enum T() const
       {
         return this->e;
       }
 
       //! Equality operator
-      bool operator==(T e1) const
+      bool operator==(enum T e1) const
       {
         return this->e == e1;
       }
 
       //! Inequality operator
-      bool operator!=(T e1) const
+      bool operator!=(enum T e1) const
       {
         return !(*this == e1);
       }
@@ -159,7 +159,7 @@ namespace M {
       // ----------------------------------------------------------------------
 
       //! The raw enum value
-      T e;
+      enum T e;
 
   };
 

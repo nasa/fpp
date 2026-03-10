@@ -12,7 +12,7 @@ case class TopComponentIncludes(
 
   def getHeaderStrings: List[String] = {
     val t = s.a.topologyMap(Symbol.Topology(aNode))
-    t.instanceMap.keys.toList.map(getHeaderString).distinct
+    t.componentInstanceMap.keys.toList.map(getHeaderString).distinct
   }
 
   private def getHeaderString(ci: ComponentInstance): String =

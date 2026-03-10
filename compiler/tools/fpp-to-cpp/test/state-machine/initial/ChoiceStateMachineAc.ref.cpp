@@ -36,9 +36,9 @@ namespace FppTest {
     {
       this->m_id = id;
       // Do the actions for the state machine initial transition
-      this->action_a(Signal::__FPRIME_AC_INITIAL_TRANSITION);
+      this->action_a(Signal::__FPRIME_INITIAL_TRANSITION);
       // Enter the initial target of the state machine
-      this->enter_C(Signal::__FPRIME_AC_INITIAL_TRANSITION);
+      this->enter_C(Signal::__FPRIME_INITIAL_TRANSITION);
     }
 
     // ----------------------------------------------------------------------

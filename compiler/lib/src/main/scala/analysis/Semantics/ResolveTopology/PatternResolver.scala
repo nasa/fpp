@@ -56,7 +56,7 @@ private sealed trait PatternResolver {
         loc,
         ci.getUnqualifiedName
       )
-    } yield PortInstanceIdentifier(ci, pii)
+    } yield PortInstanceIdentifier(InterfaceInstance.fromComponentInstance(ci), pii)
   }
 
   private def resolveTargets: Result.Result[Iterable[Target]] =
@@ -129,7 +129,7 @@ object PatternResolver {
   ): Result.Result[PortInstanceIdentifier] = {
     val (ci, loc) = ciUse
     ci.component.specialPortMap.get(kind) match { 
-      case Some(pi) => Right(PortInstanceIdentifier(ci, pi))
+      case Some(pi) => Right(PortInstanceIdentifier(InterfaceInstance.fromComponentInstance(ci), pi))
       case None => missingPort(loc, kind.toString, ci.getUnqualifiedName)
     }
   }
@@ -341,7 +341,7 @@ object PatternResolver {
       target: Target
     ) =
       // Health component does not ping itself
-      if (source.pingOut.componentInstance != target.pingIn.componentInstance) {
+      if (source.pingOut.interfaceInstance != target.pingIn.interfaceInstance) {
         val loc = pattern.getLoc
         List(
           connect(loc, source.pingOut, target.pingIn),

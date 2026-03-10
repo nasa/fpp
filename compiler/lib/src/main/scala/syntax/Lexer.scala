@@ -9,7 +9,7 @@ import scala.annotation.tailrec
 import scala.collection.immutable.HashMap
 import fpp.compiler.syntax.TokenId
 import fpp.compiler.syntax.TokenId.*
-import fpp.compiler.util.SemanticError.InvalidToken
+import fpp.compiler.util.LexerError.InvalidToken
 
 import scala.util.parsing.input.{Position, Reader}
 
@@ -70,6 +70,7 @@ object Lexer {
     ("hook", HOOK),
     ("id", ID),
     ("if", IF),
+    ("implements", IMPLEMENTS),
     ("import", IMPORT),
     ("include", INCLUDE),
     ("initial", INITIAL),
@@ -94,7 +95,6 @@ object Lexer {
     ("phase", PHASE),
     ("port", PORT),
     ("priority", PRIORITY),
-    ("private", PRIVATE),
     ("product", PRODUCT),
     ("queue", QUEUE),
     ("queued", QUEUED),
@@ -273,6 +273,7 @@ object Lexer {
         case ID => Token.ID()
         case IDENTIFIER => Token.IDENTIFIER(strVal)
         case IF => Token.IF()
+        case IMPLEMENTS => Token.IMPLEMENTS()
         case IMPORT => Token.IMPORT()
         case INCLUDE => Token.INCLUDE()
         case INITIAL => Token.INITIAL()
@@ -308,7 +309,6 @@ object Lexer {
         case POST_ANNOTATION => Token.POST_ANNOTATION(strVal)
         case PRE_ANNOTATION => Token.PRE_ANNOTATION(strVal)
         case PRIORITY => Token.PRIORITY()
-        case PRIVATE => Token.PRIVATE()
         case PRODUCT => Token.PRODUCT()
         case QUEUE => Token.QUEUE()
         case QUEUED => Token.QUEUED()

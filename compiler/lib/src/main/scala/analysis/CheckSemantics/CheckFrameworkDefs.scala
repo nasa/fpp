@@ -25,7 +25,10 @@ object CheckFrameworkDefs
     val id = aNode._2.id
     constants.get(name) match {
       case Some(checker) =>
-        for a <- checker(a, name, id)
+        for {
+          _ <- checker(a, name, id)
+          _ <- checkModuleQualifiers(a, s)
+        }
         yield a.copy(frameworkDefinitions = a.frameworkDefinitions.addConstant(name, s))
       case None => Right(a)
     }
@@ -94,10 +97,37 @@ object CheckFrameworkDefs
     val id = s.getNodeId
     types.get(name) match {
       case Some(checker) =>
-        for a <- checker(a, name, id)
+        for {
+          _ <- checker(a, name, id)
+          _ <- checkModuleQualifiers(a, s)
+        }
         yield a.copy(frameworkDefinitions = a.frameworkDefinitions.addType(name, s))
       case None => Right(a)
     }
+  }
+
+  private def checkModuleQualifiers(a: Analysis, symbol: Symbol) = {
+    def helper(symbolOpt: Option[Symbol]): Result.Result[Analysis] =
+      symbolOpt match {
+        case None => Right(a)
+        case Some(s: Symbol.Module) =>
+          helper(a.parentSymbolMap.get(s))
+        case Some(s) =>
+          val error = Left(
+            SemanticError.InvalidQualifier(
+              a.getQualifiedName(s).toString,
+              Locations.get(symbol.getNodeId),
+              "not a module symbol",
+              Locations.get(s.getNodeId)
+            )
+          )
+          val symbolName = a.getQualifiedName(symbol)
+          Result.annotateResult(
+            error,
+            s"framework definition $symbolName must have module qualifiers"
+          )
+      }
+    helper(a.parentSymbolMap.get(symbol))
   }
 
   private def requireAliasType(a: Analysis, name: String, id: AstNode.Id) = {

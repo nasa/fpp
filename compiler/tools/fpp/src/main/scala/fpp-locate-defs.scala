@@ -24,18 +24,9 @@ object FPPLocateDefs {
       case list => list
     }
     for {
-      tul <- Result.map(
-        files,
-        Parser.parseFile (Parser.transUnit) (None) _
-      )
-      a_tul <- ResolveSpecInclude.transformList(
-        Analysis(),
-        tul,
-        ResolveSpecInclude.transUnit
-      )
+      tul <- ToolUtils.parseFilesAndResolveAsts(Analysis(), files).map(_._2)
     }
     yield {
-      val (_, tul) = a_tul
       val config = LocateDefsFppWriter.State(options.dir)
       val lines = tul.map(LocateDefsFppWriter.transUnit(config, _)).flatten
       mapSeq(lines, System.out.println(_))

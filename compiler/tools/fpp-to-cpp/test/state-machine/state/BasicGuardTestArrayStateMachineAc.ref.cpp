@@ -4,8 +4,8 @@
 // \brief  cpp file for BasicGuardTestArray state machine
 // ======================================================================
 
+#include "BasicGuardTestArrayStateMachineAc.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "state-machine/state/BasicGuardTestArrayStateMachineAc.hpp"
 
 namespace FppTest {
 
@@ -36,7 +36,7 @@ namespace FppTest {
     {
       this->m_id = id;
       // Enter the initial target of the state machine
-      this->enter_S(Signal::__FPRIME_AC_INITIAL_TRANSITION);
+      this->enter_S(Signal::__FPRIME_INITIAL_TRANSITION);
     }
 
     // ----------------------------------------------------------------------

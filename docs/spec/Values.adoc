@@ -26,8 +26,7 @@ A *value* is one of the following:
 
 Every value _v_ belongs to exactly one <<Types_Canonical-Types,canonical type>>
 _T_, except that
-every string value belongs to the type `string` and to
-all types `string size` _n_, for any _n_.
+every string value belongs to every string type.
 
 Every value that belongs to type _T_ also belongs to every
 <<Types_Alias-Types,alias type>> whose
@@ -96,12 +95,7 @@ e.g., `"abc"`.
 Every string value _v_ has a *length*, which is the number of
 characters in the sequence.
 
-A string value _v_ belongs to the following canonical types:
-
-* `string`
-
-* `string size` _n_ for any _n_.
-
+A string value _v_ belongs to every string type.
 Note that _v_ may have length _m_ and type `string size` _n_,
 with stem:[m > n].
 In this case, the behavior is defined by the code generation strategy.
