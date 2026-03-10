@@ -139,6 +139,10 @@ namespace TypedPortsQueued {
     // Nothing to do
   }
 
+  void deinit(const TopologyState& state) {
+    TypedPortsQueued::receiver.deinit();
+  }
+
   // ----------------------------------------------------------------------
   // Setup and teardown functions
   // ----------------------------------------------------------------------
@@ -158,6 +162,7 @@ namespace TypedPortsQueued {
     stopTasks(state);
     freeThreads(state);
     tearDownComponents(state);
+    deinit(state);
   }
 
 }

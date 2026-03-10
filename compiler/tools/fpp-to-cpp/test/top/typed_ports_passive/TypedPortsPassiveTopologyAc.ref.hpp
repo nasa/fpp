@@ -98,6 +98,11 @@ namespace TypedPortsPassive {
       const TopologyState& state //!< The topology state
   );
 
+  //! Deinitialize components
+  void deinit(
+      const TopologyState& state //!< The topology state
+  );
+
   // ----------------------------------------------------------------------
   // Setup and teardown functions
   // ----------------------------------------------------------------------

@@ -144,6 +144,10 @@ namespace TypedPortsActive {
     // Nothing to do
   }
 
+  void deinit(const TopologyState& state) {
+    TypedPortsActive::receiver.deinit();
+  }
+
   // ----------------------------------------------------------------------
   // Setup and teardown functions
   // ----------------------------------------------------------------------
@@ -163,6 +167,7 @@ namespace TypedPortsActive {
     stopTasks(state);
     freeThreads(state);
     tearDownComponents(state);
+    deinit(state);
   }
 
 }
