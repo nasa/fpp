@@ -269,10 +269,6 @@ the type.
 are both
 <<Types_The-Boolean-Type,the Boolean type>>.
 
-. stem:[T_1] and stem:[T_2]
-are both  the same
-<<Types_String-Types,string type>>.
-
 . Each of stem:[T_1] and stem:[T_2]
 is an
 <<Types_Abstract-Types,abstract type>>,
@@ -281,6 +277,8 @@ is an
 <<Types_Enum-Types,enum type>>, or
 <<Types_Struct-Types,struct type>>,
 and both types refer to the same definition.
+
+Note that string types are never identical.
 
 === Type Conversion
 

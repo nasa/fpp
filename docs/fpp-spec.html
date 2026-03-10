@@ -10884,14 +10884,28 @@ are called the <strong>primitive types</strong>.</p>
 A string type is written <code>string</code> or <code>string size</code> <em>n</em>,
 where <em>n</em> is an integer value in the range [1,2^31-1].
 There is one string type <code>string</code> and one string type <code>string size</code> <em>n</em>
-for each legal value of <em>n</em>.</p>
+for each legal value of <em>n</em>.
+The string type names map to the string types in the following way:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The type name <code>string</code> maps to the type <code>string</code>.</p>
+</li>
+<li>
+<p>The type name <code>string</code> <code>size</code> <em>e</em> maps to the type <code>string</code> <code>size</code> <em>n</em>,
+after evaluating the expression <em>e</em> to the value <em>n</em>.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>The value <em>n</em>, if present, is called the <strong>size</strong> associated with the string
 type.
-The size provides a maximum string length that the code generator can use
+The size provides a maximum string length that the code generator uses
 for allocating memory and serializing data.
-If no explicit size is present, then the code generator uses a default size.</p>
+If no size is present, then the code generator uses
+the <a href="#Definitions_Framework-Definitions_Constant-Definitions">framework definition</a> <code>FW_FIXED_LENGTH_STRING_SIZE</code> as the
+maximum string length.</p>
 </div>
 </div>
 <div class="sect2">
@@ -11560,11 +11574,6 @@ are both
 <a href="#Types_The-Boolean-Type">the Boolean type</a>.</p>
 </li>
 <li>
-<p>\$T_1\$ and \$T_2\$
-are both  the same
-<a href="#Types_String-Types">string type</a>.</p>
-</li>
-<li>
 <p>Each of \$T_1\$ and \$T_2\$
 is an
 <a href="#Types_Abstract-Types">abstract type</a>,
@@ -11575,6 +11584,9 @@ is an
 and both types refer to the same definition.</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>Note that string types are never identical.</p>
 </div>
 </div>
 <div class="sect2">
@@ -12040,8 +12052,7 @@ of \$O'_(i-1)\$ and \$O_i\$.</p>
 <div class="paragraph">
 <p>Every value <em>v</em> belongs to exactly one <a href="#Types_Canonical-Types">canonical type</a>
 <em>T</em>, except that
-every string value belongs to the type <code>string</code> and to
-all types <code>string size</code> <em>n</em>, for any <em>n</em>.</p>
+every string value belongs to every string type.</p>
 </div>
 <div class="paragraph">
 <p>Every value that belongs to type <em>T</em> also belongs to every
@@ -12137,20 +12148,8 @@ Every string value <em>v</em> has a <strong>length</strong>, which is the number
 characters in the sequence.</p>
 </div>
 <div class="paragraph">
-<p>A string value <em>v</em> belongs to the following canonical types:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>string</code></p>
-</li>
-<li>
-<p><code>string size</code> <em>n</em> for any <em>n</em>.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Note that <em>v</em> may have length <em>m</em> and type <code>string size</code> <em>n</em>,
+<p>A string value <em>v</em> belongs to every string type.
+Note that <em>v</em> may have length <em>m</em> and type <code>string size</code> <em>n</em>,
 with \$m &gt; n\$.
 In this case, the behavior is defined by the code generation strategy.
 In particular, when code is generated for the F Prime framework,
@@ -12861,7 +12860,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-09 15:31:20 -0700
+Last updated 2026-03-09 16:24:44 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
