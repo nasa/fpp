@@ -29,7 +29,7 @@ A telemetry packet group member is one of the following:
 _telemetry-channel-identifier-sequence_ is an
 <<Element-Sequences,element sequence>> in
 which each element is a
-<<Component-Instance-Member-Identifiers_Telemetry-Channel-Identifiers,
+<<Instance-Member-Identifiers_Telemetry-Channel-Identifiers,
 telemetry channel identifier>>,
 and the terminating punctuation is a comma.
 
@@ -48,10 +48,10 @@ FPP then checks the following:
 . Each telemetry packet specifier in _L_ has
 a distinct name and a distinct identifier.
 
-. For every component instance _I_ available in the enclosing topology, either through
-<<Specifiers_Component-Instance-Specifiers,direct specification>>
-or through
-<<Specifiers_Topology-Import-Specifiers,import>>,
+. For every component instance _I_ in the enclosing topology after 
+<<Definitions_Topology-Definitions,resolving it to a partially numbered 
+topology>>,
+<<Specifiers_Port-Interface-Instance-Specifiers,import>>,
 for every telemetry channel _T_ that is a member of _I_,
 exactly one of the following is true:
 

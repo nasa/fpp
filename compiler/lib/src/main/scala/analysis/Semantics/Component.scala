@@ -9,10 +9,8 @@ import fpp.compiler.util.*
 case class Component(
   /** The AST node defining the component */
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]],
-  /** The map from port names to port instances */
-  portMap: Map[Name.Unqualified, PortInstance] = Map(),
-  /** The map from special port kinds to special port instances */
-  specialPortMap: Map[Ast.SpecPortInstance.SpecialKind, PortInstance.Special] = Map(),
+  /* The port interface of the component */
+  portInterface: PortInterface = PortInterface("component"),
   /** The map from command opcodes to commands */
   commandMap: Map[Command.Opcode, Command] = Map(),
   /** The next default opcode */
@@ -45,13 +43,9 @@ case class Component(
   recordMap: Map[Record.Id, Record] = Map(),
   /** The next default record ID */
   defaultRecordId: BigInt = 0
-) extends GenericPortInterface[Component](aNode._2.data.name, portMap, specialPortMap) {
-  def withPortMap(newPortMap: Map[Unqualified, PortInstance]): Component =
-    this.copy(portMap = newPortMap)
-
-  def withSpecialPortMap(
-    newSpecialPortMap: Map[SpecPortInstance.SpecialKind, PortInstance.Special]
-  ): Component = this.copy(specialPortMap = newSpecialPortMap)
+) {
+  val portMap = portInterface.portMap
+  val specialPortMap = portInterface.specialPortMap
 
   /** Query whether the component has parameters */
   def hasParameters = this.paramMap.nonEmpty
@@ -205,6 +199,21 @@ case class Component(
       component <- component.addCommand(Some(param.saveOpcode), saveCommand)
     }
     yield component
+  }
+
+  /** Add a port instance */
+  def addPortInstance(instance: PortInstance): Result.Result[Component] =
+    for {
+      pi <- portInterface.addPortInstance(instance)
+    } yield this.copy(portInterface = pi)
+
+  def addImportedInterface(
+    interface: Interface,
+    importNodeId: AstNode.Id,
+  ): Result.Result[Component] = {
+    for {
+      pi <- portInterface.addImportedInterface(interface, importNodeId)
+    } yield this.copy(portInterface = pi)
   }
 
   /** Add a data product record */
@@ -373,6 +382,7 @@ case class Component(
                 case _ => Right(())
               }
             case internal: PortInstance.Internal => Left(error)
+            case _: PortInstance.Topology => throw InternalError("topology port cannot exist in component")
           }
         }
       )
@@ -489,7 +499,7 @@ case class Component(
       val name = node.data
       val loc = Locations.get(node.id)
       for {
-        instance <- this.getPortInstance(node)
+        instance <- this.portInterface.getPortInstance(node, this.aNode._2.data.name)
         general <- instance match {
           case general: PortInstance.General => Right(general)
           case _ => Left(

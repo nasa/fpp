@@ -49,9 +49,6 @@ object AddDependencies extends BasicUseAnalyzer {
     } yield a
   }
 
-  override def componentInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
-    analyzeUse(a, Ast.SpecLoc.ComponentInstance, use)
-
   override def stateMachineUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     analyzeUse(a, Ast.SpecLoc.StateMachine, use)
 
@@ -75,8 +72,8 @@ object AddDependencies extends BasicUseAnalyzer {
   override def portUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     analyzeUse(a, Ast.SpecLoc.Port, use)
 
-  override def topologyUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
-    analyzeUse(a, Ast.SpecLoc.Topology, use)
+  override def interfaceInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
+    analyzeUse(a, Ast.SpecLoc.Instance, use)
 
   override def interfaceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     analyzeUse(a, Ast.SpecLoc.Interface, use)

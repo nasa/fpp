@@ -7,6 +7,7 @@ health
 nested_namespaces
 no_namespace
 params
+ports
 serial_ports_passive
 tlm
 tlm_packets
