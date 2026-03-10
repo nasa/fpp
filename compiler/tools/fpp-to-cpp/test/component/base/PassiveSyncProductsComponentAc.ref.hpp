@@ -37,6 +37,7 @@
 #include "PassiveSyncProducts_DataSerializableAc.hpp"
 #include "TypedPortAc.hpp"
 #include "TypedReturnPortAc.hpp"
+#include "config/FwSizeStoreTypeAliasAc.hpp"
 
 //! \class PassiveSyncProductsComponentBase
 //! \brief Auto-generated base for PassiveSyncProducts component

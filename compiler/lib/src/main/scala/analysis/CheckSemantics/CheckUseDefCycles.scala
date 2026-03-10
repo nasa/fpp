@@ -52,7 +52,7 @@ object CheckUseDefCycles extends UseAnalyzer {
   override def interfaceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     visitUse(a, node, use)
 
-  override def topologyUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
+  override def interfaceInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     visitUse(a, node, use)
 
   override def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified) =
@@ -100,7 +100,7 @@ object CheckUseDefCycles extends UseAnalyzer {
     val symbol = a.useDefMap(node.id)
     val m = UseDefMatching(node.id, use, symbol)
     val a1 = a.copy(useDefMatchingList = m :: a.useDefMatchingList)
-    visitDefPre(a1, symbol)
+    for (_ <- visitDefPre(a1, symbol)) yield a
   }
 
 }

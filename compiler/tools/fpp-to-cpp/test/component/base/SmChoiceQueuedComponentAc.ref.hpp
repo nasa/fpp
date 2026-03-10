@@ -12,6 +12,7 @@
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
 #include "SmChoiceQueued_BasicStateMachineAc.hpp"
+#include "SmChoiceQueued_Basic_StateEnumAc.hpp"
 #include "Svc/Sched/SchedPortAc.hpp"
 #include "state-machine/choice/BasicStateMachineAc.hpp"
 #include "state-machine/choice/BasicU32StateMachineAc.hpp"

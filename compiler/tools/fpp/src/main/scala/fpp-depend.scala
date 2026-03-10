@@ -45,12 +45,7 @@ object FPPDepend {
     }
     val a = Analysis(inputFileSet = options.files.toSet, dictionaryGeneration = true)
     for {
-      tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
-      aTul <- ResolveSpecInclude.transformList(
-        a,
-        tul,
-        ResolveSpecInclude.transUnit
-      )
+      aTul <- ToolUtils.parseFilesAndResolveAsts(a, files)
       a <- Right(aTul._1)
       tul <- Right(aTul._2)
       a <- ComputeDependencies.tuList(a, tul)

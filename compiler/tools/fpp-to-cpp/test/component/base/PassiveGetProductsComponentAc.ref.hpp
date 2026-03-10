@@ -36,6 +36,7 @@
 #include "PassiveGetProducts_DataSerializableAc.hpp"
 #include "TypedPortAc.hpp"
 #include "TypedReturnPortAc.hpp"
+#include "config/FwSizeStoreTypeAliasAc.hpp"
 
 //! \class PassiveGetProductsComponentBase
 //! \brief Auto-generated base for PassiveGetProducts component

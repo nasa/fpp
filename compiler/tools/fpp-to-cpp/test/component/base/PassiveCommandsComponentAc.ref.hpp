@@ -36,6 +36,7 @@
 #include "SSerializableAc.hpp"
 #include "TypedPortAc.hpp"
 #include "TypedReturnPortAc.hpp"
+#include "config/FwSizeStoreTypeAliasAc.hpp"
 
 //! \class PassiveCommandsComponentBase
 //! \brief Auto-generated base for PassiveCommands component

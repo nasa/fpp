@@ -7,17 +7,22 @@ object Result {
 
   type Result[T] = Either[Error, T]
 
-  /** Wraps error as an AnnotatedError with note */
-  def annotateResult[A](r: Result[A], note: String): Result[A] =
-    r match {
-      case Right(v) => Right(v)
-      case Left(e: Error) => Left(AnnotatedError(e, note))
+  /** Wraps error as an AnnotatedError with notes */
+  def annotateResult[A](r: Result[A], notes: List[String]): Result[A] =
+    (r, notes) match {
+      case (Right(_), _) => r
+      case (_, Nil) => r
+      case (Left(e: Error), _) => Left(AnnotatedError(e, notes))
     }
+
+  /** Wraps error as an AnnotatedError with a single note */
+  def annotateResult[A](r: Result[A], note: String): Result[A] =
+    annotateResult(r, List(note))
   
   /** Left fold with a function that returns a result */
   @tailrec
   def foldLeft[A, B]
-    (as: List[A])
+    (as: Iterable[A])
     (b: B)
     (f: (B, A) => Result.Result[B]): Result.Result[B] =
     as match {

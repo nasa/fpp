@@ -37,6 +37,7 @@
 #include "QueuedGuardedProducts_DataSerializableAc.hpp"
 #include "TypedPortAc.hpp"
 #include "TypedReturnPortAc.hpp"
+#include "config/FwSizeStoreTypeAliasAc.hpp"
 
 //! \class QueuedGuardedProductsComponentBase
 //! \brief Auto-generated base for QueuedGuardedProducts component

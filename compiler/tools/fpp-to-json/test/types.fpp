@@ -1,3 +1,6 @@
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 256
+
 dictionary constant numElements = 3
 array A = [numElements] string size 40 default [ "1", "2", "3" ] format "{} RPM"
 array B = [3] A

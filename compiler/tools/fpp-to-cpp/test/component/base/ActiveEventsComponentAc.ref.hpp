@@ -38,6 +38,7 @@
 #include "SSerializableAc.hpp"
 #include "TypedPortAc.hpp"
 #include "TypedReturnPortAc.hpp"
+#include "config/FwSizeStoreTypeAliasAc.hpp"
 
 //! \class ActiveEventsComponentBase
 //! \brief Auto-generated base for ActiveEvents component

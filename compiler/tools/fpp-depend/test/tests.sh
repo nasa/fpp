@@ -54,7 +54,11 @@ spec_state_machine_instance
 spec_tlm_channel
 spec_tlm_packet
 spec_top_import
+spec_top_port
 special_ports
+top_implements
+string_no_size_implied_framework_defs
+string_with_size_implied_framework_defs
 topology_implied_type
 transitive_instance
 "

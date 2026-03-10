@@ -49,6 +49,8 @@ sealed trait Error {
         Error.print (locOpt) (s"cannot open file $name")
       case FileError.CannotResolvePath(loc, name) =>
         Error.print (Some(loc)) (s"cannot resolve path $name")
+      case LexerError.InvalidToken(loc, msg) =>
+         Error.print (Some(loc)) (s"invalid token: $msg")
       case MultiError(errors) =>
         errors.foreach(_.print)
       case SemanticError.ChannelNotInDictionary(loc, channelName, topologyName) =>
@@ -122,9 +124,6 @@ sealed trait Error {
         Error.print (Some(loc)) (s"duplicate telemetry packet set ${name}")
         System.err.println("previous set is here:")
         System.err.println(prevLoc)
-      case SemanticError.DuplicateTopology(name, loc, prevLoc) =>
-        Error.print (Some(loc)) (s"duplicate topology ${name}")
-        printPrevLoc(prevLoc)
       case SemanticError.DuplicateInterface(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate interface ${name}")
         printPrevLoc(prevLoc)
@@ -166,7 +165,7 @@ sealed trait Error {
         printNote("size must be greater than zero")
       case SemanticError.InvalidCommand(loc, msg) =>
         Error.print (Some(loc)) (msg)
-      case SemanticError.InvalidComponentInstance(loc, instanceName, topName) =>
+      case SemanticError.InvalidInterfaceInstance(loc, instanceName, topName) =>
         Error.print (Some(loc)) (s"instance $instanceName is not a member of topology $topName")
       case SemanticError.InvalidConnection(loc, msg, fromLoc, toLoc, fromPortDefLoc, toPortDefLoc) =>
         Error.print (Some(loc)) (msg)
@@ -207,8 +206,8 @@ sealed trait Error {
         Error.print (Some(loc)) (msg)
         System.err.println(s"port definition is here:")
         System.err.println(defLoc)
-      case SemanticError.InvalidPortInstanceId(loc, portName, componentName) =>
-        Error.print (Some(loc)) (s"$portName is not a port instance of component $componentName")
+      case SemanticError.InvalidPortInstanceId(loc, portName, symbol, interfaceName) =>
+        Error.print (Some(loc)) (s"$portName is not a port instance of $symbol $interfaceName")
       case SemanticError.InvalidPortKind(loc, msg, specLoc) =>
         Error.print (Some(loc)) (msg)
         System.err.println(s"port instance is specified here:")
@@ -231,6 +230,10 @@ sealed trait Error {
         Error.print (Some(loc)) (s"no member $memberName in anonymous struct value")
         System.err.println("symbol is defined here:")
         System.err.println(defLoc)
+      case SemanticError.InvalidQualifier(name, loc, msg, defLoc) =>
+        Error.print (Some(loc)) (s"invalid qualifier $name: $msg")
+        System.err.println("symbol is defined here:")
+        System.err.println(defLoc)
       case SemanticError.InvalidStructMember(memberName, loc, structTypeName, defLoc) =>
         Error.print (Some(loc)) (s"no member $memberName in struct type $structTypeName")
         System.err.println("symbol is defined here:")
@@ -238,7 +241,7 @@ sealed trait Error {
       case SemanticError.InvalidTypeForMemberSelection(memberName, loc, typeName) =>
         Error.print (Some(loc)) (s"no member $memberName in value of type $typeName")
       case SemanticError.InvalidSymbol(name, loc, msg, defLoc) =>
-        Error.print (Some(loc)) (s"invalid symbol $name: $msg")
+        Error.print (Some(loc)) (s"invalid use of symbol $name: $msg")
         System.err.println("symbol is defined here:")
         System.err.println(defLoc)
       case SemanticError.InvalidTlmChannelName(loc, channelName, componentName) =>
@@ -248,8 +251,6 @@ sealed trait Error {
         System.err.println(msg)
       case SemanticError.InvalidType(loc, msg) =>
         Error.print (Some(loc)) (msg)
-      case SemanticError.InvalidToken(loc, msg) =>
-        Error.print (Some(loc)) (s"invalid token: $msg")
       case SemanticError.MismatchedPortNumbers(
         p1Loc: Location,
         p1Number: Int,
@@ -329,6 +330,8 @@ sealed trait Error {
         System.err.println(s"type of transition is $to1")
         System.err.println(toLoc2)
         System.err.println(s"type of transition is $to2")
+      case SemanticError.StateMachine.TooManyLeafStates(loc) =>
+        Error.print (Some(loc)) (s"state machine has too many leaf states")
       case SemanticError.StateMachine.UnreachableNode(name, loc) =>
         Error.print (Some(loc)) (s"$name is unreachable")
       case SemanticError.TooManyOutputPorts(loc, numPorts, arraySize, instanceLoc) =>
@@ -345,21 +348,47 @@ sealed trait Error {
       ) =>
         Error.print (Some(importLoc)) (s"failed to import interface")
         err.print
+      case SemanticError.PortInterfaceMissingPort(
+        loc
+      ) =>
+        Error.print (Some(loc)) ("port instance missing")
+      case SemanticError.PortInterfaceInvalidPort(
+        loc,
+        defLoc
+      ) =>
+        Error.print (Some(loc)) ("port instance does not match definition in interface:")
+        System.err.println(defLoc)
+      case SemanticError.InterfaceImplements(
+        loc,
+        err
+      ) =>
+        Error.print (Some(loc)) ("port interface not implemented")
+        err.print
       case SemanticError.UseDefCycle(loc, msg) => Error.print (Some(loc)) (msg)
       case XmlError.ParseError(file, msg) => Error.printXml (file) (msg)
       case XmlError.SemanticError(file, msg) => Error.printXml (file) (msg)
-      case AnnotatedError(error, note) => 
+      case AnnotatedError(error, notes) =>
         error.print
-        printNote(note)
+        notes.map(printNote)
     }
   }
 
 }
 
-/** An error with a note */
-final case class AnnotatedError(error: Error, note: String) extends Error
+/** An error with notes */
+final case class AnnotatedError(error: Error, notes: List[String]) extends Error
+
 /** A syntax error */
 final case class SyntaxError(loc: Location, msg: String) extends Error
+
+/** A lexer error */
+object LexerError {
+  /** Invalid token */
+  final case class InvalidToken(
+    loc: Location,
+    msg: String,
+  ) extends Error
+}
 
 /** A code generation error */
 object CodeGenError {
@@ -502,12 +531,6 @@ object SemanticError {
     loc: Location,
     prevLoc: Location
   ) extends Error
-  /** Duplicate topology */
-  final case class DuplicateTopology(
-    name: String,
-    loc: Location,
-    prevLoc: Location
-  ) extends Error
   /** Duplicate interface */
   final case class DuplicateInterface(
     name: String,
@@ -546,12 +569,18 @@ object SemanticError {
     specifiedPath: String,
     actualLoc: Location
   ) extends Error
+  /** No member in anonymous struct type */
+  final case class InvalidAnonStructMember(
+    memberName: String,
+    loc: Location,
+    defLoc: Location
+  ) extends Error
   /** Invalid array size */
   final case class InvalidArraySize(loc: Location, size: BigInt) extends Error
   /** Invalid command */
   final case class InvalidCommand(loc: Location, msg: String) extends Error
-  /** Invalid component instance */
-  final case class InvalidComponentInstance(
+  /** Invalid interface instance */
+  final case class InvalidInterfaceInstance(
     loc: Location,
     instanceName: String,
     topName: String
@@ -605,7 +634,8 @@ object SemanticError {
   final case class InvalidPortInstanceId(
     loc: Location,
     portName: String,
-    componentName: String
+    symbolKind: String,
+    interfaceName: String
   ) extends Error
   /** Invalid port kind */
   final case class InvalidPortKind(
@@ -631,17 +661,18 @@ object SemanticError {
   final case class InvalidSpecialPort(loc: Location, msg: String) extends Error
   /** Invalid string size */
   final case class InvalidStringSize(loc: Location, size: BigInt) extends Error
+  /** Invalid qualifier */
+  final case class InvalidQualifier(
+    name: String,
+    loc: Location,
+    msg: String,
+    defLoc: Location
+  ) extends Error
   /** No member in struct type */
   final case class InvalidStructMember(
     memberName: String,
     loc: Location,
     structTypeName: String,
-    defLoc: Location
-  ) extends Error
-  /** No member in anonymous struct type */
-  final case class InvalidAnonStructMember(
-    memberName: String,
-    loc: Location,
     defLoc: Location
   ) extends Error
   /** No member in anonymous struct type */
@@ -716,6 +747,20 @@ object SemanticError {
     importLoc: Location,
     err: Error
   ) extends Error
+  /** A port is missing from a port interface */
+  final case class PortInterfaceMissingPort(
+    loc: Location
+  ) extends Error
+  /** A port does not match an expected signature */
+  final case class PortInterfaceInvalidPort(
+    loc: Location,
+    defLoc: Location
+  ) extends Error
+  /** Error while checking if instance implements interface */
+  final case class InterfaceImplements(
+    loc: Location,
+    err: Error
+  ) extends Error
   /** Passive async input */
   final case class PassiveAsync(loc: Location, importLocs: List[Location]) extends Error
   final case class PassiveStateMachine(loc: Location) extends Error
@@ -724,11 +769,6 @@ object SemanticError {
     name: String,
     loc: Location,
     prevLoc: Location
-  ) extends Error
-  /** Lexer Error */
-  final case class InvalidToken(
-    loc: Location,
-    msg: String,
   ) extends Error
   /** State machine semantic errors */
   object StateMachine {
@@ -765,6 +805,10 @@ object SemanticError {
       to1: String,
       tLoc2: Location,
       to2: String
+    ) extends Error
+    /** Too many leaf states */
+    final case class TooManyLeafStates(
+      loc: Location
     ) extends Error
     /** Unreachable node in the transition graph */
     final case class UnreachableNode(

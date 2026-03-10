@@ -1888,6 +1888,72 @@ We will have more to say about this issue in the section on
 <<Analyzing-and-Translating-Models_Generating-C-Plus-Plus,
 generating {cpp}>>.
 
+=== The State Enum
+
+Every state machine definition implicitly contains an enum definition
+that defines the leaf states of the state machine.
+This enum is called the *state enum* of the state machine.
+For example, consider the following state machine definition:
+
+[source,fpp]
+----
+state machine S {
+
+  signal s
+
+  initial enter S1
+
+  state S1 { initial enter S2; state S2; on s enter S3 }
+
+  state S3
+
+}
+----
+
+This state machine implicitly contains the following enum
+definition:
+
+[source,fpp]
+----
+enum State : U8 {
+  __FPRIME_UNINITIALIZED
+  S1_S2
+  S3
+}
+----
+
+Note the following:
+
+* The name of the enum is `State`. The enum is defined
+  inside the state machine `S`, so its qualified name is `S.State`.
+
+* The associated numeric type of the enum is `U8`.
+  This is the smallest unsigned type that can hold
+  all the enumerated constants.
+  In most cases, a state enum will not have more than
+  255 enumerated constants, and so the numeric type will be `U8`.
+  If necessary, the analyzer will use the type `U16` or `U32`.
+
+* The first enumerated constant is `__FPRIME_UNINITIALIZED`.
+  Every state enum has this constant as its first element.
+  It represents the state of the state machine implementation
+  when FSW comes up, before the initial transition of the
+  state machine is run.
+  This state should never occur during normal FSW operations.
+
+* The other constants are the qualified names of the leaf
+  states of the state machine, in alphabetical order,
+  after replacing `.` with `_`.
+
+In the generated code, the implementation
+uses the state enum `S.State` to represent the current state
+of the state machine `S`.
+Only the leaf states are represented, because every
+transition at runtime goes from a leaf state to a leaf
+state.
+Because the enumeration is modeled in FPP, you can
+use it in telemetry and event reporting.
+
 === Include Specifiers
 
 State machine definitions can become long, especially when there

@@ -1,0 +1,14 @@
+=== Type Definitions
+
+A *type definition* is one of the following:
+
+* A <<Definitions_Struct-Definitions,struct definition>>.
+
+* An <<Definitions_Abstract-Type-Definitions,abstract type definition>>.
+
+* An <<Definitions_Alias-Type-Definitions,alias type definition>>.
+
+* An <<Definitions_Array-Definitions,array definition>>.
+
+* An <<Definitions_Enum-Definitions,enum definition>>.
+
