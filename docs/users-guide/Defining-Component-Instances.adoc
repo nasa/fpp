@@ -451,9 +451,9 @@ The FPP translator pastes the snippet into the setup
 or teardown code according to the phase named in
 the specifier.
 (Strictly speaking, the init specifier should be called
-a "setup or teardown specifier."
+a "`setup or teardown specifier.`"
 However, most of the code is in fact initialization code,
-and so FPP uses "init" as a shorthand name.)
+and so FPP uses "`init`" as a shorthand name.)
 
 ==== Execution Phases
 
@@ -597,11 +597,11 @@ active component; otherwise none.
 
 |`deinitComponents`
 |_T_ `TopologyAc.cpp`
-|Non-standard code for performing
+|Code for performing non-standard
 *deinitialization* on an instance _I_.
 Deinitialization releases resources
 acquired by _I_ during the `initComponents` phase.
-|In the file-private function `deinit`.
+|In the file-private function `deinitComponents`.
 |The standard call to `deinit` for _I_.
 
 |===

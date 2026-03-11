@@ -139,7 +139,7 @@ namespace TypedPortsPassive {
     // Nothing to do
   }
 
-  void deinit(const TopologyState& state) {
+  void deinitComponents(const TopologyState& state) {
     TypedPortsPassive::receiver.deinit();
     TypedPortsPassive::sender.deinit();
   }
@@ -163,7 +163,7 @@ namespace TypedPortsPassive {
     stopTasks(state);
     freeThreads(state);
     tearDownComponents(state);
-    deinit(state);
+    deinitComponents(state);
   }
 
 }

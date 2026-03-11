@@ -59,7 +59,7 @@ void tearDownComponents(
 );
 
 //! Deinitialize components
-void deinit(
+void deinitComponents(
     const TopologyState& state //!< The topology state
 );
 

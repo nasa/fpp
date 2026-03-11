@@ -63,7 +63,7 @@ case class TopSetupTeardownFns(
       ("stopTasks", "state"),
       ("freeThreads", "state"),
       ("tearDownComponents" ,"state"),
-      ("deinit" ,"state"),
+      ("deinitComponents" ,"state"),
     ).flatMap(writeFnCall)
   )
 

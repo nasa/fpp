@@ -48,7 +48,7 @@ module M {
     """
 
 
-    phase Phases.deinit """
+    phase Phases.deinitComponents """
     M::active2.deinitSpecial();
     """
 

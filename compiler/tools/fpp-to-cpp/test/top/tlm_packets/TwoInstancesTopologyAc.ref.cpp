@@ -74,7 +74,7 @@ namespace N {
     // Nothing to do
   }
 
-  void deinit(const TopologyState& state) {
+  void deinitComponents(const TopologyState& state) {
     M::c1.deinit();
     M::c2.deinit();
   }
@@ -98,7 +98,7 @@ namespace N {
     stopTasks(state);
     freeThreads(state);
     tearDownComponents(state);
-    deinit(state);
+    deinitComponents(state);
   }
 
 }

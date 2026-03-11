@@ -186,7 +186,7 @@ object CppWriter extends LineUtils{
     val tearDownComponents = 11
 
     /** Deinitialize components */
-    val deinit = 12
+    val deinitComponents = 12
 
   }
 

@@ -139,7 +139,7 @@ namespace TypedPortsQueued {
     // Nothing to do
   }
 
-  void deinit(const TopologyState& state) {
+  void deinitComponents(const TopologyState& state) {
     TypedPortsQueued::receiver.deinit();
     TypedPortsQueued::sender.deinit();
   }
@@ -163,7 +163,7 @@ namespace TypedPortsQueued {
     stopTasks(state);
     freeThreads(state);
     tearDownComponents(state);
-    deinit(state);
+    deinitComponents(state);
   }
 
 }

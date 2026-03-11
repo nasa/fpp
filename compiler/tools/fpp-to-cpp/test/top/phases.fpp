@@ -11,5 +11,5 @@ enum Phases {
   stopTasks
   freeThreads
   tearDownComponents
-  deinit
+  deinitComponents
 }
