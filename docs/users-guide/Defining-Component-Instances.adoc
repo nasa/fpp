@@ -531,7 +531,8 @@ constructor format.
 |`initComponents`
 |_T_ `TopologyAc.cpp`
 |Initialization code for an instance _I_ that has a non-standard
-initialization format.
+initialization format. In most cases, you should not provide code
+for this phase. Instead, you should use the standard initialization format.
 |In the file-private function `initComponents`.
 |The standard call to `init` for _I_.
 
@@ -597,10 +598,11 @@ active component; otherwise none.
 
 |`deinit`
 |_T_ `TopologyAc.cpp`
-|Code deinitializing _I_.
+| Deinitializtion code for an instance _I_ that has a non-standard
+deinitialization format. In most cases, you should not provide code for
+this phase. Instead, you should use the standard deinitialization format.
 |In the file-private function `deinit`.
-|The standard call to `deinit` if _I_ is an
-active or queued component; otherwise none.
+|The standard call to `deinit`.
 
 |===
 
@@ -609,8 +611,8 @@ You will most often need to write code for `configConstants`,
 These phases often require implementation-specific input that
 cannot be provided in any other way, except to write an init specifier.
 
-In theory you should never have to write code for `instances`
-or `initComponents` -- this code can be be standardized --
+In theory you should never have to write code for `instances`, `initComponents`,
+or `deinit` -- this code can be be standardized --
 but in practice not all F Prime components conform to the standard,
 so you may have to override the default.
 
@@ -627,12 +629,6 @@ manages the task, and this code is generated automatically.
 
 Code for `tearDownComponents` is required only if a component
 instance needs to deallocate memory or release resources on program exit.
-
-Code for `deinit` is required only if the user-written implementation of
-a component instance manages its own F Prime queue.
-If you use a standard F Prime active or queued component, then the framework
-manages the queue, and this code is generated automatically.
-
 
 ==== Writing Init Specifiers
 
