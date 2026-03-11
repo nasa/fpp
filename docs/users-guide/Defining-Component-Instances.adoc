@@ -531,8 +531,7 @@ constructor format.
 |`initComponents`
 |_T_ `TopologyAc.cpp`
 |Initialization code for an instance _I_ that has a non-standard
-initialization format. In most cases, you should not provide code
-for this phase. Instead, you should use the standard initialization format.
+initialization format.
 |In the file-private function `initComponents`.
 |The standard call to `init` for _I_.
 
@@ -596,13 +595,14 @@ active component; otherwise none.
 |In the file-private function `tearDownComponents`.
 |None.
 
-|`deinit`
+|`deinitComponents`
 |_T_ `TopologyAc.cpp`
-| Deinitializtion code for an instance _I_ that has a non-standard
-deinitialization format. In most cases, you should not provide code for
-this phase. Instead, you should use the standard deinitialization format.
+|Non-standard code for performing
+*deinitialization* on an instance _I_.
+Deinitialization releases resources
+acquired by _I_ during the `initComponents` phase.
 |In the file-private function `deinit`.
-|The standard call to `deinit`.
+|The standard call to `deinit` for _I_.
 
 |===
 
@@ -611,10 +611,9 @@ You will most often need to write code for `configConstants`,
 These phases often require implementation-specific input that
 cannot be provided in any other way, except to write an init specifier.
 
-In theory you should never have to write code for `instances`, `initComponents`,
-or `deinit` -- this code can be be standardized --
-but in practice not all F Prime components conform to the standard,
-so you may have to override the default.
+You should rarely, if ever, have to write code for `instances`, 
+`initComponents`, or `deinitComponents`. These phases follow a standard 
+pattern, so the auto-generated code should suffice.
 
 You will typically not have to write code for `regCommands`,
 `readParameters`, and `loadParameters` -- the framework can generate
