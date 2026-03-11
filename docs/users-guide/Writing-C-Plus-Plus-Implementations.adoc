@@ -464,6 +464,7 @@ auto-generated helper functions:
 void stopTasks(const TopologyState& state);
 void freeThreads(const TopologyState& state);
 void tearDownComponents(const TopologyState& state);
+void deinit(const TopologyState& state);
 ----
 
 The helper functions are declared as public symbols in _T_
