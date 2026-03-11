@@ -165,7 +165,7 @@ case class ComponentParameters (
                         s"param_valid == Fw::ParamValid::VALID",
                         lines(
                           s"""|// Pass the local ID to the delegate
-                              |FwPrmIdType _localId = ${paramIdConstantName(param.getName)};
+                              |constexpr FwPrmIdType _localId = ${paramIdConstantName(param.getName)};
                               |
                               |FW_ASSERT(this->paramDelegatePtr != nullptr);
                               |// Call the delegate deserialize function for ${paramVariableName(param.getName)}

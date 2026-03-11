@@ -2249,7 +2249,7 @@ void QueuedTestComponentBase ::
   // If there was a deserialization issue, mark it invalid
   if (param_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
-    FwPrmIdType _localId = PARAMID_PARAMI32EXT;
+    constexpr FwPrmIdType _localId = PARAMID_PARAMI32EXT;
 
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamI32Ext
@@ -2273,7 +2273,7 @@ void QueuedTestComponentBase ::
   // If there was a deserialization issue, mark it invalid
   if (param_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
-    FwPrmIdType _localId = PARAMID_PARAMF64EXT;
+    constexpr FwPrmIdType _localId = PARAMID_PARAMF64EXT;
 
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamF64Ext
@@ -2297,7 +2297,7 @@ void QueuedTestComponentBase ::
   // If there was a deserialization issue, mark it invalid
   if (param_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
-    FwPrmIdType _localId = PARAMID_PARAMSTRINGEXT;
+    constexpr FwPrmIdType _localId = PARAMID_PARAMSTRINGEXT;
 
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamStringExt
@@ -2321,7 +2321,7 @@ void QueuedTestComponentBase ::
   // If there was a deserialization issue, mark it invalid
   if (param_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
-    FwPrmIdType _localId = PARAMID_PARAMENUMEXT;
+    constexpr FwPrmIdType _localId = PARAMID_PARAMENUMEXT;
 
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamEnumExt
@@ -2345,7 +2345,7 @@ void QueuedTestComponentBase ::
   // If there was a deserialization issue, mark it invalid
   if (param_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
-    FwPrmIdType _localId = PARAMID_PARAMARRAYEXT;
+    constexpr FwPrmIdType _localId = PARAMID_PARAMARRAYEXT;
 
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamArrayExt
@@ -2369,7 +2369,7 @@ void QueuedTestComponentBase ::
   // If there was a deserialization issue, mark it invalid
   if (param_valid == Fw::ParamValid::VALID) {
     // Pass the local ID to the delegate
-    FwPrmIdType _localId = PARAMID_PARAMSTRUCTEXT;
+    constexpr FwPrmIdType _localId = PARAMID_PARAMSTRUCTEXT;
 
     FW_ASSERT(this->paramDelegatePtr != nullptr);
     // Call the delegate deserialize function for m_ParamStructExt
