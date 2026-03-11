@@ -84,6 +84,11 @@ namespace M {
       const TopologyState& state //!< The topology state
   );
 
+  //! Deinitialize components
+  void deinitComponents(
+      const TopologyState& state //!< The topology state
+  );
+
   // ----------------------------------------------------------------------
   // Setup and teardown functions
   // ----------------------------------------------------------------------
