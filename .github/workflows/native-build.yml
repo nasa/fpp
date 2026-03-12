@@ -185,16 +185,20 @@ jobs:
         with:
           name: build-${{ matrix.tag }}
           path: ${{ inputs.output-directory }}
+      - name: "Download JARs"
+        uses: actions/download-artifact@v4
+        with:
+          name: build-jar
+          path:  ${{ inputs.output-directory }}
       - name: "Run Builder"
         run: |
           pip install build
+          cp -vr ${{ inputs.output-directory }}/*.jar python/fprime_fpp/
           # Place the native files in the python package and determine platform options
           PLATFORM_OPTIONS=""
           if [[ "${{ matrix.tag }}" != "jar" ]]; then
             PLATFORM_OPTIONS="--config-setting=--build-option=--plat-name=${{ matrix.tag }}"
             cp -vr ${{ inputs.output-directory }}/fpp python/fprime_fpp/
-          else
-            cp -vr ${{ inputs.output-directory }}/*.jar python/fprime_fpp/
           fi
           # Github archiving clears executable flag, so put it back
           chmod +x python/fprime_fpp/fpp*

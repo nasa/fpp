@@ -1,0 +1,1 @@
+constant FW_CMD_ARG_BUFFER_MAX_SIZE = 0

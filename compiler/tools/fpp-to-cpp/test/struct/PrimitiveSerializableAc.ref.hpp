@@ -11,7 +11,7 @@
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
-#include "FwSizeStoreTypeAliasAc.hpp"
+#include "config/FwSizeStoreTypeAliasAc.hpp"
 
 //! Top-level annotation, line 1
 //! Top-level annotation, line 2

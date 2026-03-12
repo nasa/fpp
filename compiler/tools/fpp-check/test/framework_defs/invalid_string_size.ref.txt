@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/framework_defs/invalid_string_size.fpp:1.40
+constant FW_FIXED_LENGTH_STRING_SIZE = -1
+                                       ^
+error: invalid string size -1
+note: framework definition FW_FIXED_LENGTH_STRING_SIZE must be a string size constant
