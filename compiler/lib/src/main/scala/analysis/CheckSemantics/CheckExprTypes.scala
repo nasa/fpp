@@ -159,7 +159,13 @@ object CheckExprTypes extends UseAnalyzer {
     for {
       a <- super.exprBinopNode(a, node, e)
       t <- a.commonType(e.e1.id, e.e2.id, loc)
-      _ <- convertToNumeric(loc, t)
+      _ <- e.op match {
+        case Ast.Binop.Add => t match {
+          case _: Type.String => Right(t)
+          case _ => convertToNumeric(loc, t)
+        }
+        case _ => convertToNumeric(loc, t)
+      }
     } yield a.assignType(node -> t)
   }
 
