@@ -182,18 +182,14 @@ object CheckExprTypes extends UseAnalyzer {
 
   override def exprSizeOfNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprSizeOf) = {
     for {
-      a <- super.exprSizeOfNode(a, node, e)
-      a <- {
-        if (a.typeMap.get(e.typeName.id).exists(_.isDisplayable))
-          Right(a.assignType(node -> Type.Integer))
-        else
-          val loc = Locations.get(e.typeName.id)
-          Left(SemanticError.InvalidType(
-            loc,
-            "sizeof type name must refer to a type that is displayable"
-          ))
+      _ <- {
+        val id = e.typeName.id
+        val t = a.typeMap(id)
+        a.checkDisplayableType(id, s"size of type $t is not known in the model")
       }
-    } yield a
+      a <- super.exprSizeOfNode(a, node, e)
+    }
+    yield a.assignType(node -> Type.Integer)
   }
 
   override def exprStructNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprStruct) = {
