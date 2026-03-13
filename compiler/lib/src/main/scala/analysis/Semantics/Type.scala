@@ -67,7 +67,7 @@ object Type {
   }
 
   /** Primitive integer types */
-  case class PrimitiveInt(kind: PrimitiveInt.Kind) 
+  case class PrimitiveInt(kind: PrimitiveInt.Kind)
     extends Type with Primitive with Int
   {
     override def getDefaultValue = Some(Value.PrimitiveInt(0, kind))
@@ -180,7 +180,7 @@ object Type {
     override def getDefaultValue = Some(Value.Integer(0))
     override def toString = "Integer"
   }
-  
+
   /** An abstract type */
   case class AbsType(
     /** The AST node giving the definition */
@@ -190,7 +190,7 @@ object Type {
     override def getDefNodeId = Some(node._2.id)
     override def toString = node._2.data.name
   }
-  
+
   /** An alias type */
   case class AliasType(
     /** The AST node giving the definition */
@@ -232,7 +232,7 @@ object Type {
     type Size = scala.Int
 
     /** Check whether two array sizes match */
-    def sizesMatch(size1: Option[Size], size2: Option[Size]): Boolean = 
+    def sizesMatch(size1: Option[Size], size2: Option[Size]): Boolean =
       (size1, size2) match {
         case (None, _) => true
         case (_, None) => true
@@ -296,10 +296,10 @@ object Type {
     type Sizes = Map[Name.Unqualified, scala.Int]
 
     /** Resolve a member map, generating a new member map */
-    def resolveMembers (resolver: Member => Option[Member]) (members: Members): 
+    def resolveMembers (resolver: Member => Option[Member]) (members: Members):
     Option[Members] = {
       def helper(
-        in: List[Member], 
+        in: List[Member],
         out: Members
       ): Option[Members] =
         in match {
@@ -337,7 +337,7 @@ object Type {
       case None => "array of " ++ eltType.toString
     }
   }
-  
+
   /** An anonymous struct type */
   case class AnonStruct(
     /** The members */
@@ -392,7 +392,7 @@ object Type {
     boolean ||
     sameDef
   }
-  
+
   /** Check for type convertibility */
   def mayBeConverted(aliasPair: (Type, Type)): Boolean = {
     val pair = (aliasPair._1.getUnderlyingType, aliasPair._2.getUnderlyingType)
@@ -409,7 +409,7 @@ object Type {
     def array = pair match {
       case Array(_, anonArray1, _, _) -> _ => anonArray1.isConvertibleTo(t2)
       case _ -> Array(_, anonArray2, _, _) => t1.isConvertibleTo(anonArray2)
-      case AnonArray(size1, eltType1) -> AnonArray(size2, eltType2) => 
+      case AnonArray(size1, eltType1) -> AnonArray(size2, eltType2) =>
         Array.sizesMatch(size1, size2) &&
         eltType1.isConvertibleTo(eltType2)
       case _ -> AnonArray(_, eltType2) =>
@@ -423,11 +423,11 @@ object Type {
           case None => false
         }
       pair match {
-        case Struct(_, anonStruct1, _, _, _) -> _ => 
+        case Struct(_, anonStruct1, _, _, _) -> _ =>
           anonStruct1.isConvertibleTo(t2)
-        case _ -> Struct(_, anonStruct2, _, _, _) => 
+        case _ -> Struct(_, anonStruct2, _, _, _) =>
           t1.isConvertibleTo(anonStruct2)
-        case AnonStruct(members1) -> AnonStruct(members2) => 
+        case AnonStruct(members1) -> AnonStruct(members2) =>
           members1.forall(memberExistsIn(members2) _)
         case _ -> AnonStruct(members2) =>
           t1.isPromotableToStruct &&
@@ -486,7 +486,7 @@ object Type {
         }
       else None
     }
-    def numeric() = 
+    def numeric() =
       if (t1.isFloat && t2.isNumeric) Some(Float(Float.F64))
       else if (t1.isNumeric && t2.isFloat) Some(Float(Float.F64))
       else if (t1.isNumeric && t2.isNumeric) Some(Integer)
@@ -504,7 +504,7 @@ object Type {
       /** Handle the case of a single anonymous array in either position */
       def singleAnonArray(anonArray: AnonArray, other: Type) = {
         if (other.isPromotableToArray)
-          for (eltType <- commonType(other, anonArray.eltType)) 
+          for (eltType <- commonType(other, anonArray.eltType))
             yield AnonArray(anonArray.size, eltType)
         else None
       }
@@ -516,7 +516,7 @@ object Type {
         case (AnonArray(size1, eltType1), AnonArray(size2, eltType2)) =>
           if (Array.sizesMatch(size1, size2)) {
             val size = Array.commonSize(size1, size2)
-            for (eltType <- commonType(eltType1, eltType2)) 
+            for (eltType <- commonType(eltType1, eltType2))
               yield AnonArray(size, eltType)
           }
           else None
@@ -534,7 +534,7 @@ object Type {
         def resolveT1Member(member: Struct.Member): Option[Struct.Member] = {
           val name1 -> ty1 = member
           members2.get(name1) match {
-            case Some(ty2) => 
+            case Some(ty2) =>
               for (ty <- commonType(ty1, ty2))
                 yield (name1 -> ty)
             case None => Some(member)
@@ -542,7 +542,7 @@ object Type {
         }
         /** Resolve each member of t1 against the corresponding member of t2, if it exists */
         def resolveT1Members = Struct.resolveMembers (resolveT1Member) _
-        for (t1ResolvedMembers <- resolveT1Members(members1)) 
+        for (t1ResolvedMembers <- resolveT1Members(members1))
           yield {
             def pred(member: Struct.Member) = !members1.contains(member._1)
             val t2ResolvedMembers = members2.filter(pred)
@@ -589,69 +589,77 @@ object Type {
     selectFirstMatchIn(rules)
   }
 
-  // Compute the size of a type
-  // Expects that the type is displayable and that CheckFrameworkDefinitions has run
-  object ComputeTypeSize extends TypeVisitor {
+  /** Computes the serialized size of a type as an optional BigInt
+   *  The result is an option because only displayable types have a serialized size
+   *  Assumes that FinalizeTypeDefs has been run on analysis */
+  object SerializedSize extends TypeVisitor {
 
     type In = Analysis
 
-    type Out = BigInt
+    type Out = Option[BigInt]
 
-    override def default(a: Analysis, t: Type) =
-      throw InternalError("expected displayable type")
+    override def default(a: Analysis, t: Type) = None
 
     override def aliasType(a: Analysis, t: Type.AliasType) =
-      Type.ComputeTypeSize.ty(a, t.getUnderlyingType)
+      ty(a, t.getUnderlyingType)
 
     override def array(a: Analysis, t: Type.Array) = {
-      val arraySize = t.getArraySize match {
-        case Some(as) => BigInt(as)
-        case _ => throw InternalError("expected array size")
-      }
-      val arrayTypeSize = Type.ComputeTypeSize.ty(a, t.anonArray.eltType)
-      arrayTypeSize * arraySize
+      val n = BigInt(t.getArraySize.get)
+      for (eltSize <- ty(a, t.anonArray.eltType))
+        yield n * eltSize
     }
 
-    override def boolean(a: Analysis) = 1
+    override def boolean(a: Analysis) = Some(1)
 
     override def enumeration(a: Analysis, t: Type.Enum) =
-      Type.ComputeTypeSize.ty(a, t._2)
+      ty(a, t.repType)
 
     override def float(a: Analysis, t: Type.Float) =
-      t._1 match {
-        case Type.Float.F32 => 4
-        case Type.Float.F64 => 8
+      t.kind match {
+        case Type.Float.F32 => Some(4)
+        case Type.Float.F64 => Some(8)
       }
 
-    override def integer(a: Analysis) = 8
-
     override def primitiveInt(a: Analysis, t: Type.PrimitiveInt) =
-      t._1 match {
-        case Type.PrimitiveInt.I8  | Type.PrimitiveInt.U8  => 1
-        case Type.PrimitiveInt.I16 | Type.PrimitiveInt.U16 => 2
-        case Type.PrimitiveInt.I32 | Type.PrimitiveInt.U32 => 4
-        case Type.PrimitiveInt.I64 | Type.PrimitiveInt.U64 => 8
+      t.kind match {
+        case Type.PrimitiveInt.I8  | Type.PrimitiveInt.U8  => Some(1)
+        case Type.PrimitiveInt.I16 | Type.PrimitiveInt.U16 => Some(2)
+        case Type.PrimitiveInt.I32 | Type.PrimitiveInt.U32 => Some(4)
+        case Type.PrimitiveInt.I64 | Type.PrimitiveInt.U64 => Some(8)
       }
 
     override def string(a: Analysis, t: Type.String) = {
-      val fwStoreSizeSymbol = a.frameworkDefinitions.typeMap("FwSizeStoreType")
-      val storeSizeType = a.typeMap(fwStoreSizeSymbol.getNodeId)
-      val stringDataSize = a.getBigIntValueOpt(t._1) match {
-        case Some(v) => v
-        case _ => {
-          val defaultStringSizeSymbol = a.frameworkDefinitions.constantMap("FW_FIXED_LENGTH_STRING_SIZE")
-          val Value.Integer(value) = a.valueMap(defaultStringSizeSymbol.getNodeId)
-          value
+      for {
+        lengthSize <- {
+          val fwStoreSizeSymbol = a.frameworkDefinitions.typeMap("FwSizeStoreType")
+          val storeSizeType = a.typeMap(fwStoreSizeSymbol.getNodeId)
+          ty(a, storeSizeType)
         }
+      } yield {
+        val dataSize = a.getBigIntValueOpt(t.size) match {
+          case Some(v) => v
+          case _ =>
+            val defaultStringSizeSymbol =
+              a.frameworkDefinitions.constantMap("FW_FIXED_LENGTH_STRING_SIZE")
+            val Value.Integer(value) =
+              a.valueMap(defaultStringSizeSymbol.getNodeId)
+            value
+        }
+        lengthSize + dataSize
       }
-      val storeSize = Type.ComputeTypeSize.ty(a, storeSizeType)
-      storeSize + stringDataSize
     }
 
     override def struct(a: Analysis, t: Type.Struct) = {
-      t._2.members.values.foldLeft(BigInt(0): BigInt) { 
-        (acc, t2) => acc + Type.ComputeTypeSize.ty(a, t2)
+      val values = t.anonStruct.members.values
+      val initialValue: Option[BigInt] = Some(BigInt(0))
+      values.foldLeft (initialValue) {
+        (sizeOpt, t1) => (sizeOpt, ty(a, t1)) match {
+          case (Some(s1), Some(s2)) => Some(s1 + s2)
+          case _ => None
+        }
       }
     }
+
   }
+
 }

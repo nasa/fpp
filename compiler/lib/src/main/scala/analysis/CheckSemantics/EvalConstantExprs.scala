@@ -244,10 +244,10 @@ object EvalConstantExprs extends UseAnalyzer {
                 case Some(id) => Right(id)
                 case _ => throw InternalError("expected type def node id")
               }
-            } yield a.assignValue(node -> Value.Integer(Type.ComputeTypeSize.ty(a, a.typeMap(typeDefId))))
+            } yield a.assignValue(node -> Value.Integer(Type.SerializedSize.ty(a, a.typeMap(typeDefId)).get))
           }
           // Otherwise, compute the size of the type
-          case _ => Right(a.assignValue(node -> Value.Integer(Type.ComputeTypeSize.ty(a, t))))
+          case _ => Right(a.assignValue(node -> Value.Integer(Type.SerializedSize.ty(a, t).get)))
         }
       }
     } yield a
