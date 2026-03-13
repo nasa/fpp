@@ -214,11 +214,8 @@ object EvalConstantExprs extends UseAnalyzer {
         case ty: Type.Struct =>
           // Visit each struct member type, then finalize the type def
           for {
-            a <- ty.anonStruct.members.values.foldLeft(Right(a): Result.Result[Analysis]) {
-              (res, structMemberType) => for {
-                a1 <- res
-                a1 <- visitType(a1, structMemberType)
-              } yield a1
+            a <- Result.foldLeft (ty.anonStruct.members.toList) (a) {
+              case (a1, (_ -> t1)) => visitType(a1, t1)
             }
             a <- FinalizeTypeDefs.defStructAnnotatedNode(a, ty.node)
           } yield a
@@ -240,8 +237,8 @@ object EvalConstantExprs extends UseAnalyzer {
         val t = a.typeMap(e.typeName.id)
         t.getDefNodeId match {
           case Some(id) =>
-            // If the type has a definition, then visit it and
-            // use the updated type
+            // If the type has a definition, then visit it
+            // and use the updated type
             for (a <- visitType(a, t))
               yield assignSize(a, a.typeMap(id))
           case _ =>
@@ -250,6 +247,7 @@ object EvalConstantExprs extends UseAnalyzer {
         }
       }
     } yield a
+
   }
 
   override def exprStructNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprStruct) =
