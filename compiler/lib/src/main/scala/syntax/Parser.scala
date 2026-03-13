@@ -343,8 +343,8 @@ object Parser extends Parsers {
         identExpr |
         intExpr |
         parenExpr |
-        stringExpr |
         sizeofExpr |
+        stringExpr |
         structExpr |
         trueExpr |
         failure("expression expected")
