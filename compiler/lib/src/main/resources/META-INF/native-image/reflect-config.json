@@ -3504,15 +3504,24 @@
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$77",
-  "fields":[{"name":"0bitmap$20"}]
+  "fields":[
+    {"name":"0bitmap$19"}, 
+    {"name":"0bitmap$20"}
+  ]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$78",
-  "fields":[{"name":"0bitmap$19"}]
+  "fields":[
+    {"name":"0bitmap$19"}, 
+    {"name":"0bitmap$21"}
+  ]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$79",
-  "fields":[{"name":"0bitmap$23"}]
+  "fields":[
+    {"name":"0bitmap$20"}, 
+    {"name":"0bitmap$23"}
+  ]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$8",
@@ -3520,15 +3529,24 @@
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$80",
-  "fields":[{"name":"0bitmap$22"}]
+  "fields":[
+    {"name":"0bitmap$22"}, 
+    {"name":"0bitmap$24"}
+  ]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$81",
-  "fields":[{"name":"0bitmap$21"}]
+  "fields":[
+    {"name":"0bitmap$21"}, 
+    {"name":"0bitmap$23"}
+  ]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$82",
-  "fields":[{"name":"0bitmap$24"}]
+  "fields":[
+    {"name":"0bitmap$22"}, 
+    {"name":"0bitmap$24"}
+  ]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$84",
