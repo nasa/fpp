@@ -186,43 +186,42 @@ object EvalConstantExprs extends UseAnalyzer {
 
   override def exprSizeOfNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprSizeOf) = {
 
-    def visitType(a: Analysis, t: Type): Result.Result[Analysis] = {
-      for {
-        a <- t match {
-          case ty: Type.AliasType => visitType(a, ty.aliasType)
-          case ty: Type.Array => defArrayAnnotatedNode(a, ty.node)
-          case ty: Type.Enum  => defEnumAnnotatedNode(a, ty.node)
-          case ty: Type.Struct => defStructAnnotatedNode(a, ty.node)
-          case _ => Right(a)
-        }
-        a <- finalizeTypeDefs(a, t)
-      } yield a
+    def visitType(a: Analysis, t: Type) = for {
+      a <- evalConstantExprsForType(a, t)
+      a <- finalizeTypeDefsForType(a, t)
+    } yield a
+
+    def evalConstantExprsForType(a: Analysis, t: Type): Result.Result[Analysis] = {
+      t match {
+        case ty: Type.AliasType => defAliasTypeAnnotatedNode(a, ty.node)
+        case ty: Type.Array => defArrayAnnotatedNode(a, ty.node)
+        case ty: Type.Enum  => defEnumAnnotatedNode(a, ty.node)
+        case ty: Type.Struct => defStructAnnotatedNode(a, ty.node)
+        case _ => Right(a)
+      }
     }
 
-    def finalizeTypeDefs(a: Analysis, t: Type): Result.Result[Analysis] = {
+    def finalizeTypeDefsForType(a: Analysis, t: Type): Result.Result[Analysis] = {
       t match {
         case ty: Type.AliasType => FinalizeTypeDefs.defAliasTypeAnnotatedNode(a, ty.node)
         case ty: Type.Array =>
-          // Visit the element type, then finalize the type
+          // Visit the element type, then finalize the type def
           for {
             a <- visitType(a, ty.anonArray.eltType)
-            a <- finalizeTypeDefs(a, ty.anonArray.eltType)
             a <- FinalizeTypeDefs.defArrayAnnotatedNode(a, ty.node)
           } yield a
         case ty: Type.Enum => FinalizeTypeDefs.defEnumAnnotatedNode(a, ty.node)
-        case ty: Type.Struct => {
-          // Visit each struct member type, then finalize each type
+        case ty: Type.Struct =>
+          // Visit each struct member type, then finalize the type def
           for {
             a <- ty.anonStruct.members.values.foldLeft(Right(a): Result.Result[Analysis]) {
               (res, structMemberType) => for {
                 a1 <- res
                 a1 <- visitType(a1, structMemberType)
-                a1 <- finalizeTypeDefs(a1, structMemberType)
               } yield a1
             }
             a <- FinalizeTypeDefs.defStructAnnotatedNode(a, ty.node)
           } yield a
-        }
         case _ => Right(a)
       }
     }
@@ -232,22 +231,22 @@ object EvalConstantExprs extends UseAnalyzer {
       a <- super.typeNameNode(a, e.typeName)
       // Then compute the type size
       a <- {
-        // Get the type name from the type map
+        def assignSize(a: Analysis, t: Type) = {
+          val size = Type.SerializedSize.ty(a, t).get
+          val v = Value.Integer(size)
+          a.assignValue(node -> v)
+        }
+        // Get the type from the type map
         val t = a.typeMap(e.typeName.id)
-        e.typeName.data match {
-          // If the type name is a qualified identifier, finalize the type before 
-          // computing the size of the type 
-          case Ast.TypeNameQualIdent(_) => {
-            for {
-              a <- visitType(a, t)
-              typeDefId <- t.getDefNodeId match {
-                case Some(id) => Right(id)
-                case _ => throw InternalError("expected type def node id")
-              }
-            } yield a.assignValue(node -> Value.Integer(Type.SerializedSize.ty(a, a.typeMap(typeDefId)).get))
-          }
-          // Otherwise, compute the size of the type
-          case _ => Right(a.assignValue(node -> Value.Integer(Type.SerializedSize.ty(a, t).get)))
+        t.getDefNodeId match {
+          case Some(id) =>
+            // If the type has a definition, then visit it and
+            // use the updated type
+            for (a <- visitType(a, t))
+              yield assignSize(a, a.typeMap(id))
+          case _ =>
+            // Otherwise use the type
+            Right(assignSize(a, t))
         }
       }
     } yield a
