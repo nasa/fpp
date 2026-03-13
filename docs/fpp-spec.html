@@ -9502,18 +9502,18 @@ force evaluation order.</p>
 <div class="sect3">
 <h4 id="Expressions_Sizeof-Expressions_Syntax">10.10.1. Syntax</h4>
 <div class="paragraph">
-<p><code>sizeof(<a href="#Type-Names"><em>type-name</em></a>)</code></p>
+<p><code>sizeof</code> <code>(</code> <a href="#Type-Names"><em>type-name</em></a> <code>)</code></p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Expressions_Sizeof-Expressions_Semantics">10.10.2. Semantics</h4>
 <div class="paragraph">
 <p>The type name must <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
-a type that is <a href="#Types_Displayable-Types">displayable</a>.</p>
+a type \$T\$ that is <a href="#Types_Displayable-Types">displayable</a>.</p>
 </div>
 <div class="paragraph">
 <p>The expression is evaluated by calculating the maximum number of
-bytes required to represent any value of that type. The
+bytes required to represent any value type \$T\$. The
 evaluation is based on the <a href="#Types_Serialized-Sizes">serialized size</a>
 of the type.</p>
 </div>
@@ -11246,9 +11246,65 @@ of <em>T</em> must provide a concrete value.</p>
 <div class="sect2">
 <h3 id="Types_Serialized-Sizes">17.19. Serialized Sizes</h3>
 <div class="paragraph">
-<p>The serialized size of a type is the maximum number of bytes in the
-value of a type. See the <a href="#Values_Serialized-Sizes">serialized size of values</a>
-section for more detail.</p>
+<p>Every <a href="#Types_Displayable-Types">displayable type</a>
+has a <strong>serialized size</strong>.  This is the maximum number of bytes required to
+represent a value <em>v</em> of type <em>T</em> in
+the standard F Prime serialized format.
+The serialized size <em>s</em> of a type <em>T</em> is defined as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If <em>T</em> is a
+<a href="#Types_Primitive-Numeric-Types">primitive numeric type</a>, then <em>s</em> is the byte
+width of the type.  For example, the serialized size of a value of type <code>F64</code>
+is 8.</p>
+</li>
+<li>
+<p>If <em>T</em> is
+<a href="#Types_The-Boolean-Type"><code>bool</code></a>, then <em>s</em> is 1.</p>
+</li>
+<li>
+<p>If <em>T</em> is a
+<a href="#Types_String-Types">string type</a>, then <em>s</em> is the sum of the following two numbers:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The size of the
+<a href="#Types_Underlying-Types">underlying type</a>
+of the
+<a href="#Definitions_Framework-Definitions_Type-Definitions">framework type</a>
+<code>FwSizeStoreType</code>.
+This is the space used to store the length of the string.</p>
+</li>
+<li>
+<p>The size of the string.
+This is the space used to store the characters of the string.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If <em>T</em> is an
+<a href="#Types_Array-Types">array type</a>, then <em>s</em> is sum of the serialized sizes of
+the elements of <em>v</em>.</p>
+</li>
+<li>
+<p>If <em>T</em> is an
+<a href="#Types_Enum-Types">enum type</a>, then <em>s</em> is the byte width of the
+representation type of <em>T</em>.</p>
+</li>
+<li>
+<p>If <em>T</em> is a
+<a href="#Types_Struct-Types">struct type</a>, then <em>s</em>
+the sum of the serialized sizes of the members of <em>v</em></p>
+</li>
+<li>
+<p>If <em>T</em> is an
+<a href="#Types_Alias-Types">alias type</a>, then <em>s</em> is the serialized size of the
+<a href="#Types_Underlying-Types">underlying type</a> of <em>T</em>.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -12381,8 +12437,9 @@ The canonical type of the struct value is \$Q\$.</p>
 <div class="sect2">
 <h3 id="Values_Serialized-Sizes">20.12. Serialized Sizes</h3>
 <div class="paragraph">
-<p>Every value <em>v</em> whose type has a syntactic representation in FPP has a
-<strong>serialized size</strong>.  This is the number of bytes required to represent <em>v</em> in
+<p>Every value <em>v</em> of a <a href="#Types_Displayable-Types">displayable type</a>
+has a <strong>serialized size</strong>.  This is the number of bytes required to represent <em>v</em>
+in
 the standard F Prime serialized format.  The serialized size <em>s</em> of a value <em>v</em>
 depends on the type <em>T</em> of <em>v</em>:</p>
 </div>
@@ -12390,45 +12447,25 @@ depends on the type <em>T</em> of <em>v</em>:</p>
 <ul>
 <li>
 <p>If <em>T</em> is a
-<a href="#Types_Primitive-Numeric-Types">primitive numeric type</a>, then <em>s</em> is the byte
-width of the type.  For example, the serialized size of a value of type <code>F64</code>
-is 8.</p>
+<a href="#Types_String-Types">string type</a>, then <em>s</em> is the sum of the following two numbers:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The size of the
+<a href="#Types_Underlying-Types">underlying type</a>
+of the
+<a href="#Definitions_Framework-Definitions_Type-Definitions">framework type</a>
+<code>FwSizeStoreType</code>.
+This is the space used to store the length of the string.</p>
 </li>
 <li>
-<p>If <em>T</em> is
-<a href="#Types_The-Boolean-Type"><code>bool</code></a>, then <em>s</em> is 1.</p>
+<p>The length of the string in characters.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p>If <em>T</em> is a
-<a href="#Types_String-Types">string type</a>, then <em>s</em> is the number of bytes used to
-represent the length of a string plus the length of the string in characters.
-The number of bytes used to represent the length of a string is
-implementation-specific.</p>
-</li>
-<li>
-<p>If <em>T</em> is an
-<a href="#Types_Array-Types">array type</a>, then <em>s</em> is sum of the serialized sizes of
-the elements of <em>v</em>.</p>
-</li>
-<li>
-<p>If <em>T</em> is an
-<a href="#Types_Enum-Types">enum type</a>, then <em>s</em> is the byte width of the
-representation type of <em>T</em>.</p>
-</li>
-<li>
-<p>If <em>T</em> is a
-<a href="#Types_Struct-Types">struct type</a>, then <em>s</em>
-the sum of the serialized sizes of the members of <em>v</em></p>
-</li>
-<li>
-<p>If <em>T</em> is an
-<a href="#Types_Abstract-Types">abstract type</a>, then <em>s</em> is not specified in FPP.  It
-is up to the implementer of <em>T</em> to provide the serialized size.</p>
-</li>
-<li>
-<p>If <em>T</em> is a
-<a href="#Types_Alias-Types">alias type</a>, then apply these rules to its
-<a href="#Types_Underlying-Types">underlying type</a>.</p>
+<p>Otherwise <em>s</em> is the <a href="#Types_Serialized-Sizes">serialized size of the type <em>T</em></a>.</p>
 </li>
 </ul>
 </div>
@@ -12926,7 +12963,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-12 12:43:40 -0700
+Last updated 2026-03-12 16:57:47 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

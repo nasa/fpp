@@ -4,15 +4,15 @@ A *sizeof expression* is an expression that represents the size of a type.
 
 ==== Syntax
 
-`sizeof(<<Type-Names,_type-name_>>)`
+`sizeof` `(` <<Type-Names,_type-name_>> `)`
 
 ==== Semantics
 
 The type name must <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
-a type that is <<Types_Displayable-Types, displayable>>.
+a type stem:[T] that is <<Types_Displayable-Types, displayable>>.
 
 The expression is evaluated by calculating the maximum number of
-bytes required to represent any value of that type. The
+bytes required to represent any value type stem:[T]. The
 evaluation is based on the <<Types_Serialized-Sizes, serialized size>>
 of the type.
 
