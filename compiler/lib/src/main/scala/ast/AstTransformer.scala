@@ -153,13 +153,13 @@ trait AstTransformer {
   def exprParenNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprParen): ResultNode[Ast.Expr] =
     Right(default(in), node)
 
+  def exprSizeOfNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprSizeOf): ResultNode[Ast.Expr] =
+    Right(default(in), node)
+
   def exprStructNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprStruct): ResultNode[Ast.Expr] =
     Right(default(in), node)
 
   def exprUnopNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprUnop): ResultNode[Ast.Expr] =
-    Right(default(in), node)
-
-  def exprSizeOfNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprSizeOf): ResultNode[Ast.Expr] =
     Right(default(in), node)
 
   def specCommandAnnotatedNode(
@@ -378,14 +378,14 @@ trait AstTransformer {
       case e : Ast.ExprBinop => exprBinopNode(in, node, e)
       case e : Ast.ExprDot => exprDotNode(in, node, e)
       case e : Ast.ExprIdent => exprIdentNode(in, node, e)
-      case e : Ast.ExprLiteralInt => exprLiteralIntNode(in, node, e)
-      case e : Ast.ExprLiteralFloat => exprLiteralFloatNode(in, node, e)
-      case e : Ast.ExprLiteralString => exprLiteralStringNode(in, node, e)
       case e : Ast.ExprLiteralBool => exprLiteralBoolNode(in, node, e)
+      case e : Ast.ExprLiteralFloat => exprLiteralFloatNode(in, node, e)
+      case e : Ast.ExprLiteralInt => exprLiteralIntNode(in, node, e)
+      case e : Ast.ExprLiteralString => exprLiteralStringNode(in, node, e)
       case e : Ast.ExprParen => exprParenNode(in, node, e)
+      case e : Ast.ExprSizeOf => exprSizeOfNode(in, node, e)
       case e : Ast.ExprStruct => exprStructNode(in, node, e)
       case e : Ast.ExprUnop => exprUnopNode(in, node, e)
-      case e : Ast.ExprSizeOf => exprSizeOfNode(in, node, e)
     }
 
   final def matchStateMember(in: In, member: Ast.StateMember): Result[List[Ast.StateMember]] = {
