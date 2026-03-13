@@ -594,14 +594,14 @@ def module
   def constant
     ident sizeofExp
     expr sizeof
-    type name F64
+      type name F64
   def constant
     ident sizeofExp2
     expr sizeof
-    type name qual ident TypeNames.typeNameU32
+      type name qual ident TypeNames.typeNameU32
   def constant
     ident sizeofExp3
     expr sizeof
-    type name string
-                size literal int 20
+      type name string
+                  size literal int 20
 @< Expressions
