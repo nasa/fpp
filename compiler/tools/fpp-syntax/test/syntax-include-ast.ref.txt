@@ -446,7 +446,7 @@ def module
     ident typeNameString
     size literal int 10
     type name string
-                size literal int 256
+      size literal int 256
   def array
     ident typeNameQID
     size literal int 10
@@ -603,5 +603,5 @@ def module
     ident sizeofExp3
     expr sizeof
       type name string
-                  size literal int 20
+        size literal int 20
 @< Expressions
