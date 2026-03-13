@@ -9527,15 +9527,12 @@ a type \$T\$.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">type T = U32
-# sizeof(T) evaluates to 4
-constant c = sizeof(T)
+constant a = sizeof(T) # sizeof(T) evaluates to 4
 
-# sizeof(F64) evaluates to 8
-constant c2 = sizeof(F64)
+constant b = sizeof(F64) # sizeof(F64) evaluates to 8
 
 array A = [3] U16
-# sizeof(A) evaluates to 6
-constant c3 = sizeof(A)</code></pre>
+constant c = sizeof(A) # sizeof(A) evaluates to 6</code></pre>
 </div>
 </div>
 </div>
@@ -11277,26 +11274,28 @@ is 8.</p>
 This is the space used to store the length of the string.</p>
 </li>
 <li>
-<p>The size of the string.
-This is the space used to store the characters of the string.</p>
+<p>The size <em>n</em> specified in <em>T</em>, if it exists; otherwise the
+<a href="#Definitions_Framework-Definitions_Constant-Definitions">framework constant</a>
+<code>FW_FIXED_LENGTH_STRING_SIZE</code>.
+This is the maximum space required to store the characters of the string.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
 <p>If <em>T</em> is an
-<a href="#Types_Array-Types">array type</a>, then <em>s</em> is sum of the serialized sizes of
-the elements of <em>v</em>.</p>
+<a href="#Types_Array-Types">array type</a> with element type <em>T'</em> and size <em>n</em>, then <em>s</em>
+is <em>n</em> times the serialized size of <em>T'</em>.</p>
 </li>
 <li>
 <p>If <em>T</em> is an
-<a href="#Types_Enum-Types">enum type</a>, then <em>s</em> is the byte width of the
+<a href="#Types_Enum-Types">enum type</a>, then <em>s</em> is the serialized size of the
 representation type of <em>T</em>.</p>
 </li>
 <li>
 <p>If <em>T</em> is a
 <a href="#Types_Struct-Types">struct type</a>, then <em>s</em>
-the sum of the serialized sizes of the members of <em>v</em></p>
+the sum of the serialized sizes of the types in the members of <em>T</em></p>
 </li>
 <li>
 <p>If <em>T</em> is an
@@ -12451,15 +12450,22 @@ depends on the type <em>T</em> of <em>v</em>:</p>
 <ul>
 <li>
 <p>The serialized size of the
-<a href="#Definitions_Framework-Definitions_Type-Definitions">framework type</a>
-<code>FwSizeStoreType</code>.
-This is the space used to store the length of the string.</p>
+   <a href="#Definitions_Framework-Definitions_Type-Definitions">framework type</a>
+<code>FwSizeStoreType</code>.  This is the space used to store the length of the string.</p>
 </li>
 <li>
 <p>The length of the string in characters.</p>
 </li>
 </ul>
 </div>
+</li>
+<li>
+<p>Otherwise if <em>v</em> is an <a href="#Types_Array-Types">array type</a>, then <em>s</em> is the sum
+of the serialized sizes of the elements of <em>v</em>.</p>
+</li>
+<li>
+<p>Otherwise if <em>v</em> is a <a href="#Types_Struct-Types">struct type</a>, then <em>s</em> is the sum
+of the serialized sizes of the members of <em>v</em></p>
 </li>
 <li>
 <p>Otherwise <em>s</em> is the <a href="#Types_Serialized-Sizes">serialized size of the type <em>T</em></a>.</p>
@@ -12960,7 +12966,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-12 17:11:27 -0700
+Last updated 2026-03-12 17:24:15 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

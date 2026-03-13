@@ -281,20 +281,22 @@ is 8.
 `FwSizeStoreType`.
 This is the space used to store the length of the string.
 
-** The size of the string.
-This is the space used to store the characters of the string.
+** The size _n_ specified in _T_, if it exists; otherwise the
+<<Definitions_Framework-Definitions_Constant-Definitions,framework constant>>
+`FW_FIXED_LENGTH_STRING_SIZE`.
+This is the maximum space required to store the characters of the string.
 
 * If _T_ is an
-<<Types_Array-Types,array type>>, then _s_ is sum of the serialized sizes of
-the elements of _v_.
+<<Types_Array-Types,array type>> with element type _T'_ and size _n_, then _s_
+is _n_ times the serialized size of _T'_.
 
 * If _T_ is an
-<<Types_Enum-Types,enum type>>, then _s_ is the byte width of the
+<<Types_Enum-Types,enum type>>, then _s_ is the serialized size of the
 representation type of _T_.
 
 * If _T_ is a
 <<Types_Struct-Types,struct type>>, then _s_
-the sum of the serialized sizes of the members of _v_
+the sum of the serialized sizes of the types in the members of _T_
 
 * If _T_ is an
 <<Types_Alias-Types,alias type>>, then _s_ is the serialized size of the
