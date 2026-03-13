@@ -9497,7 +9497,7 @@ force evaluation order.</p>
 <div class="sect2">
 <h3 id="Expressions_Sizeof-Expressions">10.10. Sizeof Expressions</h3>
 <div class="paragraph">
-<p>A <strong>sizeof expression</strong> is an expression that represents the size of a type.</p>
+<p>A <strong>sizeof expression</strong> represents the size of the storage associated with a type.</p>
 </div>
 <div class="sect3">
 <h4 id="Expressions_Sizeof-Expressions_Syntax">10.10.1. Syntax</h4>
@@ -9507,15 +9507,19 @@ force evaluation order.</p>
 </div>
 <div class="sect3">
 <h4 id="Expressions_Sizeof-Expressions_Semantics">10.10.2. Semantics</h4>
-<div class="paragraph">
+<div class="ulist">
+<ul>
+<li>
 <p>The type name must <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
-a type \$T\$ that is <a href="#Types_Displayable-Types">displayable</a>.</p>
-</div>
-<div class="paragraph">
-<p>The expression is evaluated by calculating the maximum number of
-bytes required to represent any value type \$T\$. The
-evaluation is based on the <a href="#Types_Serialized-Sizes">serialized size</a>
-of the type.</p>
+a type \$T\$.</p>
+</li>
+<li>
+<p>The type \$T\$ must be <a href="#Types_Displayable-Types">displayable</a>.</p>
+</li>
+<li>
+<p>The expression evaluates to the <a href="#Types_Serialized-Sizes">serialized size</a> of <em>T</em>.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect3">
@@ -11105,10 +11109,7 @@ It is one of the following:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>A <a href="#Types_Primitive-Integer-Types">primitive integer type</a>.</p>
-</li>
-<li>
-<p>A <a href="#Types_Floating-Point-Types">floating-point type</a>.</p>
+<p>A <a href="#Types_Primitive-Numeric-Types">primitive numeric type</a>.</p>
 </li>
 <li>
 <p>A <a href="#Types_The-Boolean-Type">boolean type</a>.</p>
@@ -11248,7 +11249,7 @@ of <em>T</em> must provide a concrete value.</p>
 <div class="paragraph">
 <p>Every <a href="#Types_Displayable-Types">displayable type</a>
 has a <strong>serialized size</strong>.  This is the maximum number of bytes required to
-represent a value <em>v</em> of type <em>T</em> in
+represent a <a href="#Values">value</a> <em>v</em> of type <em>T</em> in
 the standard F Prime serialized format.
 The serialized size <em>s</em> of a type <em>T</em> is defined as follows:</p>
 </div>
@@ -11270,9 +11271,7 @@ is 8.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The size of the
-<a href="#Types_Underlying-Types">underlying type</a>
-of the
+<p>The serialized size of the
 <a href="#Definitions_Framework-Definitions_Type-Definitions">framework type</a>
 <code>FwSizeStoreType</code>.
 This is the space used to store the length of the string.</p>
@@ -12451,9 +12450,7 @@ depends on the type <em>T</em> of <em>v</em>:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The size of the
-<a href="#Types_Underlying-Types">underlying type</a>
-of the
+<p>The serialized size of the
 <a href="#Definitions_Framework-Definitions_Type-Definitions">framework type</a>
 <code>FwSizeStoreType</code>.
 This is the space used to store the length of the string.</p>
@@ -12963,7 +12960,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-12 16:57:47 -0700
+Last updated 2026-03-12 17:11:27 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

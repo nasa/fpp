@@ -167,8 +167,7 @@ associated with _T_ in the definition of _T_.
 A *displayable type* is a type that the F Prime ground data system can display.
 It is one of the following:
 
-* A <<Types_Primitive-Integer-Types,primitive integer type>>.
-* A <<Types_Floating-Point-Types,floating-point type>>.
+* A <<Types_Primitive-Numeric-Types,primitive numeric type>>.
 * A <<Types_The-Boolean-Type,boolean type>>.
 * A <<Types_String-Types,string type>>.
 * An <<Types_Enum-Types,enum type>>.
@@ -262,7 +261,7 @@ of _T_ must provide a concrete value.
 
 Every <<Types_Displayable-Types,displayable type>>
 has a *serialized size*.  This is the maximum number of bytes required to 
-represent a value _v_ of type _T_ in
+represent a <<Values,value>> _v_ of type _T_ in
 the standard F Prime serialized format.
 The serialized size _s_ of a type _T_ is defined as follows:
 
@@ -277,9 +276,7 @@ is 8.
 * If _T_ is a
 <<Types_String-Types,string type>>, then _s_ is the sum of the following two numbers:
 
-** The size of the 
-<<Types_Underlying-Types,underlying type>>
-of the 
+** The serialized size of the 
 <<Definitions_Framework-Definitions_Type-Definitions,framework type>>
 `FwSizeStoreType`.
 This is the space used to store the length of the string.

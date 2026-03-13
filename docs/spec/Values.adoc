@@ -232,9 +232,7 @@ depends on the type _T_ of _v_:
 * If _T_ is a
 <<Types_String-Types,string type>>, then _s_ is the sum of the following two numbers:
 
-** The size of the 
-<<Types_Underlying-Types,underlying type>>
-of the 
+** The serialized size of the 
 <<Definitions_Framework-Definitions_Type-Definitions,framework type>>
 `FwSizeStoreType`.
 This is the space used to store the length of the string.

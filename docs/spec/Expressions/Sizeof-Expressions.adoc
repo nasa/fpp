@@ -1,6 +1,6 @@
 === Sizeof Expressions
 
-A *sizeof expression* is an expression that represents the size of a type.
+A *sizeof expression* represents the size of the storage associated with a type.
 
 ==== Syntax
 
@@ -8,13 +8,12 @@ A *sizeof expression* is an expression that represents the size of a type.
 
 ==== Semantics
 
-The type name must <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
-a type stem:[T] that is <<Types_Displayable-Types, displayable>>.
+* The type name must <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
+a type stem:[T].
 
-The expression is evaluated by calculating the maximum number of
-bytes required to represent any value type stem:[T]. The
-evaluation is based on the <<Types_Serialized-Sizes, serialized size>>
-of the type.
+* The type stem:[T] must be <<Types_Displayable-Types,displayable>>.
+
+* The expression evaluates to the <<Types_Serialized-Sizes, serialized size>> of _T_.
 
 ==== Example
 
