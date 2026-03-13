@@ -1,6 +1,6 @@
 @ Definitions and specifiers
 module DefinitionsAndSpecifiers {
-  
+
   type FwSizeStoreType = U16
   constant FW_FIXED_LENGTH_STRING_SIZE = 256
 
@@ -271,7 +271,7 @@ module Expressions {
 
   @ Array Subscript with member selection
   constant arraySubExp2 = a.b.c[1][2].s[12]
-  @< Array Subscript 
+  @< Array Subscript
 
   @ Boolean literal
   constant booleanLiteralExp = true
@@ -313,9 +313,13 @@ module Expressions {
   constant structExp = { a = 1, b = 2, c = 3 }
   @< Struct
 
-  @ Sizeof
-  constant sizeofExp = sizeof(F64)
-  constant sizeofExp2 = sizeof(TypeNames.typeNameU32)
-  constant sizeofExp3 = sizeof(string size 20)
+  @ SizeOf
+  module SizeOf {
+    constant typeFloat = sizeof(F64)
+    constant typeQualId = sizeof(TypeNames.typeNameU32)
+    constant typeString = sizeof(string size 20)
+  }
+  @< SizeOf
+
 }
 @< Expressions

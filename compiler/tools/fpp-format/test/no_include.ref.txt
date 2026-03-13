@@ -350,11 +350,15 @@ module Expressions {
                          c = 3
                        } @< Struct
 
-  @ Sizeof
-  constant sizeofExp = sizeof(F64)
+  @ SizeOf
+  module SizeOf {
 
-  constant sizeofExp2 = sizeof(TypeNames.typeNameU32)
+    constant typeFloat = sizeof(F64)
 
-  constant sizeofExp3 = sizeof(string size 20)
+    constant typeQualId = sizeof(TypeNames.typeNameU32)
+
+    constant typeString = sizeof(string size 20)
+
+  } @< SizeOf
 
 } @< Expressions

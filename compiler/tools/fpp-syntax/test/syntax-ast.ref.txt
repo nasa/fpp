@@ -583,18 +583,21 @@ def module
         ident c
         literal int 3
   @< Struct
-  @ Sizeof
-  def constant
-    ident sizeofExp
-    expr sizeof
-      type name F64
-  def constant
-    ident sizeofExp2
-    expr sizeof
-      type name qual ident TypeNames.typeNameU32
-  def constant
-    ident sizeofExp3
-    expr sizeof
-      type name string
-        size literal int 20
+  @ SizeOf
+  def module
+    ident SizeOf
+    def constant
+      ident typeFloat
+      expr sizeof
+        type name F64
+    def constant
+      ident typeQualId
+      expr sizeof
+        type name qual ident TypeNames.typeNameU32
+    def constant
+      ident typeString
+      expr sizeof
+        type name string
+          size literal int 20
+  @< SizeOf
 @< Expressions
