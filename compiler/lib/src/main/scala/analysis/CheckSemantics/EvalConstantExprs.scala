@@ -184,45 +184,58 @@ object EvalConstantExprs extends UseAnalyzer {
       yield a.assignValue(node -> a.valueMap(e.e.id))
   }
 
+  // Get the definition symbol for a type, if any
+  private def getDefSymbolForType(t: Type): Option[TypeSymbol] = t match {
+    case t1: Type.AliasType => Some(Symbol.AliasType(t1.node))
+    case t1: Type.Array => Some(Symbol.Array(t1.node))
+    case t1: Type.Enum => Some(Symbol.Enum(t1.node))
+    case t1: Type.Struct => Some(Symbol.Struct(t1.node))
+    case _ => None
+  }
+
+  // Query whether a type is visited
+  private def typeIsVisited(a: Analysis, t: Type) =
+    getDefSymbolForType(t) match {
+      case Some(sym) => a.visitedSymbolSet.contains(sym)
+      case _ => false
+    }
+
+  // Visit a type if not already visited
+  private def visitTypeIfNeeded(a: Analysis, t: Type) =
+    if !typeIsVisited(a, t) then visitType(a, t) else Right(a)
+
+  // Visit nodes and member types, and finalize type defs
+  // The FinalizeTypeDefs methods update the visited symbol set
+  private def visitType(a: Analysis, t: Type): Result.Result[Analysis] =
+    t match {
+      case t1: Type.AliasType =>
+        for {
+          a <- defAliasTypeAnnotatedNode(a, t1.node)
+          a <- FinalizeTypeDefs.defAliasTypeAnnotatedNode(a, t1.node)
+        } yield a
+      case t1: Type.Array =>
+        for {
+          a <- defArrayAnnotatedNode(a, t1.node)
+          a <- visitTypeIfNeeded(a, t1.anonArray.eltType)
+          a <- FinalizeTypeDefs.defArrayAnnotatedNode(a, t1.node)
+        } yield a
+      case t1: Type.Enum  =>
+        for {
+          a <- defEnumAnnotatedNode(a, t1.node)
+          a <- FinalizeTypeDefs.defEnumAnnotatedNode(a, t1.node)
+        } yield a
+      case t1: Type.Struct =>
+        for {
+          a <- defStructAnnotatedNode(a, t1.node)
+          a <- Result.foldLeft (t1.anonStruct.members.toList) (a) {
+            case (a1, (_ -> t2)) => visitTypeIfNeeded(a1, t2)
+          }
+          a <- FinalizeTypeDefs.defStructAnnotatedNode(a, t1.node)
+        } yield a
+      case _ => Right(a)
+    }
+
   override def exprSizeOfNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprSizeOf) = {
-
-    def visitType(a: Analysis, t: Type) = for {
-      a <- evalConstantExprsForType(a, t)
-      a <- finalizeTypeDefsForType(a, t)
-    } yield a
-
-    def evalConstantExprsForType(a: Analysis, t: Type): Result.Result[Analysis] = {
-      t match {
-        case ty: Type.AliasType => defAliasTypeAnnotatedNode(a, ty.node)
-        case ty: Type.Array => defArrayAnnotatedNode(a, ty.node)
-        case ty: Type.Enum  => defEnumAnnotatedNode(a, ty.node)
-        case ty: Type.Struct => defStructAnnotatedNode(a, ty.node)
-        case _ => Right(a)
-      }
-    }
-
-    def finalizeTypeDefsForType(a: Analysis, t: Type): Result.Result[Analysis] = {
-      t match {
-        case ty: Type.AliasType => FinalizeTypeDefs.defAliasTypeAnnotatedNode(a, ty.node)
-        case ty: Type.Array =>
-          // Visit the element type, then finalize the type def
-          for {
-            a <- visitType(a, ty.anonArray.eltType)
-            a <- FinalizeTypeDefs.defArrayAnnotatedNode(a, ty.node)
-          } yield a
-        case ty: Type.Enum => FinalizeTypeDefs.defEnumAnnotatedNode(a, ty.node)
-        case ty: Type.Struct =>
-          // Visit each struct member type, then finalize the type def
-          for {
-            a <- Result.foldLeft (ty.anonStruct.members.toList) (a) {
-              case (a1, (_ -> t1)) => visitType(a1, t1)
-            }
-            a <- FinalizeTypeDefs.defStructAnnotatedNode(a, ty.node)
-          } yield a
-        case _ => Right(a)
-      }
-    }
-
     for {
       // First run the TypeExpressionAnalyzer on the type name
       a <- super.typeNameNode(a, e.typeName)
@@ -239,7 +252,7 @@ object EvalConstantExprs extends UseAnalyzer {
           case Some(id) =>
             // If the type has a definition, then visit it
             // and use the updated type
-            for (a <- visitType(a, t))
+            for (a <- visitTypeIfNeeded(a, t))
               yield assignSize(a, a.typeMap(id))
           case _ =>
             // Otherwise use the type
@@ -247,7 +260,6 @@ object EvalConstantExprs extends UseAnalyzer {
         }
       }
     } yield a
-
   }
 
   override def exprStructNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprStruct) =
