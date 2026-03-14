@@ -184,58 +184,7 @@ object EvalConstantExprs extends UseAnalyzer {
       yield a.assignValue(node -> a.valueMap(e.e.id))
   }
 
-  // Get the definition symbol for a type, if any
-  private def getDefSymbolForType(t: Type): Option[TypeSymbol] = t match {
-    case t1: Type.AliasType => Some(Symbol.AliasType(t1.node))
-    case t1: Type.Array => Some(Symbol.Array(t1.node))
-    case t1: Type.Enum => Some(Symbol.Enum(t1.node))
-    case t1: Type.Struct => Some(Symbol.Struct(t1.node))
-    case _ => None
-  }
-
-  // Query whether a type is visited
-  private def typeIsVisited(a: Analysis, t: Type) =
-    getDefSymbolForType(t) match {
-      case Some(sym) => a.visitedSymbolSet.contains(sym)
-      case _ => false
-    }
-
-  // Visit a type if not already visited
-  private def visitTypeIfNeeded(a: Analysis, t: Type) =
-    if !typeIsVisited(a, t) then visitType(a, t) else Right(a)
-
-  // Visit nodes and member types, and finalize type defs
-  // The FinalizeTypeDefs methods update the visited symbol set
-  private def visitType(a: Analysis, t: Type): Result.Result[Analysis] =
-    t match {
-      case t1: Type.AliasType =>
-        for {
-          a <- defAliasTypeAnnotatedNode(a, t1.node)
-          a <- FinalizeTypeDefs.defAliasTypeAnnotatedNode(a, t1.node)
-        } yield a
-      case t1: Type.Array =>
-        for {
-          a <- defArrayAnnotatedNode(a, t1.node)
-          a <- visitTypeIfNeeded(a, t1.anonArray.eltType)
-          a <- FinalizeTypeDefs.defArrayAnnotatedNode(a, t1.node)
-        } yield a
-      case t1: Type.Enum  =>
-        for {
-          a <- defEnumAnnotatedNode(a, t1.node)
-          a <- FinalizeTypeDefs.defEnumAnnotatedNode(a, t1.node)
-        } yield a
-      case t1: Type.Struct =>
-        for {
-          a <- defStructAnnotatedNode(a, t1.node)
-          a <- Result.foldLeft (t1.anonStruct.members.toList) (a) {
-            case (a1, (_ -> t2)) => visitTypeIfNeeded(a1, t2)
-          }
-          a <- FinalizeTypeDefs.defStructAnnotatedNode(a, t1.node)
-        } yield a
-      case _ => Right(a)
-    }
-
-  override def exprSizeOfNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprSizeOf) = {
+  override def exprSizeOfNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprSizeOf) =
     for {
       // First run the TypeExpressionAnalyzer on the type name
       a <- super.typeNameNode(a, e.typeName)
@@ -250,17 +199,16 @@ object EvalConstantExprs extends UseAnalyzer {
         val t = a.typeMap(e.typeName.id)
         t.getDefNodeId match {
           case Some(id) =>
-            // If the type has a definition, then visit it
-            // and use the updated type
-            for (a <- visitTypeIfNeeded(a, t))
+            // If the type has a definition, then finalize it
+            // and use the size of the finalized type
+            for (a <- finalizeTypeIfNeeded(a, t))
               yield assignSize(a, a.typeMap(id))
           case _ =>
-            // Otherwise use the type
+            // Otherwise use size of the original type
             Right(assignSize(a, t))
         }
       }
     } yield a
-  }
 
   override def exprStructNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprStruct) =
     for (a <- super.exprStructNode(a, node, e))
@@ -315,4 +263,59 @@ object EvalConstantExprs extends UseAnalyzer {
       a.assignValue(node -> v)
     }
   }
+
+  // Get the definition symbol for a type, if any
+  private def getDefSymbolForType(t: Type): Option[TypeSymbol] = t match {
+    case t1: Type.AliasType => Some(Symbol.AliasType(t1.node))
+    case t1: Type.Array => Some(Symbol.Array(t1.node))
+    case t1: Type.Enum => Some(Symbol.Enum(t1.node))
+    case t1: Type.Struct => Some(Symbol.Struct(t1.node))
+    case _ => None
+  }
+
+  // Query whether a type is finalized
+  // A type is finalized if (1) it has a definition symbol S
+  // and S is in the visited symbol set; or (2)
+  // it has no definition symbol
+  private def typeIsFinalized(a: Analysis, t: Type) =
+    getDefSymbolForType(t) match {
+      case Some(sym) => a.visitedSymbolSet.contains(sym)
+      case _ => true
+    }
+
+  // Finalize a type if not already finalized
+  private def finalizeTypeIfNeeded(a: Analysis, t: Type) =
+    if !typeIsFinalized(a, t) then finalizeType(a, t) else Right(a)
+
+  // Visit nodes and member types, and finalize type defs
+  // The FinalizeTypeDefs methods update the visited symbol set
+  private def finalizeType(a: Analysis, t: Type): Result.Result[Analysis] =
+    t match {
+      case t1: Type.AliasType =>
+        for {
+          a <- defAliasTypeAnnotatedNode(a, t1.node)
+          a <- FinalizeTypeDefs.defAliasTypeAnnotatedNode(a, t1.node)
+        } yield a
+      case t1: Type.Array =>
+        for {
+          a <- defArrayAnnotatedNode(a, t1.node)
+          a <- finalizeTypeIfNeeded(a, t1.anonArray.eltType)
+          a <- FinalizeTypeDefs.defArrayAnnotatedNode(a, t1.node)
+        } yield a
+      case t1: Type.Enum  =>
+        for {
+          a <- defEnumAnnotatedNode(a, t1.node)
+          a <- FinalizeTypeDefs.defEnumAnnotatedNode(a, t1.node)
+        } yield a
+      case t1: Type.Struct =>
+        for {
+          a <- defStructAnnotatedNode(a, t1.node)
+          a <- Result.foldLeft (t1.anonStruct.members.toList) (a) {
+            case (a1, (_ -> t2)) => finalizeTypeIfNeeded(a1, t2)
+          }
+          a <- FinalizeTypeDefs.defStructAnnotatedNode(a, t1.node)
+        } yield a
+      case _ => Right(a)
+    }
+
 }
