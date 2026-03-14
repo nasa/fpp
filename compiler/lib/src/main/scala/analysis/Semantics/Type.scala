@@ -16,6 +16,10 @@ sealed trait Type {
   /** Get the definition node identifier, if any */
   def getDefNodeId: Option[AstNode.Id] = None
 
+  /** Get the definition symbol, if any */
+  def getDefSymbol: Option[TypeSymbol] = None
+
+  /** Get the underlying type */
   def getUnderlyingType: Type = this
 
   /** Does this type have numeric members? */
@@ -199,6 +203,7 @@ object Type {
     aliasType: Type
   ) extends Type {
     override def getDefaultValue = aliasType.getDefaultValue
+    override def getDefSymbol = Some(Symbol.AliasType(node))
     override def getDefNodeId = Some(node._2.id)
     override def toString = node._2.data.name
     override def isCanonical = false
@@ -221,6 +226,7 @@ object Type {
     /** Set the size */
     def setSize(size: Array.Size): Array = this.copy(anonArray = anonArray.setSize(size))
     override def getArraySize = anonArray.getArraySize
+    override def getDefSymbol = Some(Symbol.Array(node))
     override def getDefNodeId = Some(node._2.id)
     override def hasNumericMembers = anonArray.hasNumericMembers
     override def isDisplayable = anonArray.eltType.isDisplayable
@@ -258,6 +264,7 @@ object Type {
     default: Option[Value.EnumConstant] = None
   ) extends Type {
     override def getDefaultValue: Option[Value.EnumConstant] = default
+    override def getDefSymbol = Some(Symbol.Enum(node))
     override def getDefNodeId = Some(node._2.id)
     override def isConvertibleToNumeric = true
     override def isPromotableToArray = true
@@ -279,6 +286,7 @@ object Type {
     formats: Struct.Formats = Map(),
   ) extends Type {
     override def getDefaultValue: Option[Value.Struct] = default
+    override def getDefSymbol = Some(Symbol.Struct(node))
     override def getDefNodeId = Some(node._2.id)
     override def hasNumericMembers = anonStruct.hasNumericMembers
     override def isDisplayable = anonStruct.members.values.forall(_.isDisplayable)

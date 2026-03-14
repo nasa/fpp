@@ -205,7 +205,7 @@ object EvalConstantExprs extends UseAnalyzer {
           case Some(id) =>
             // If the type has a definition, then finalize it
             // and use the size of the finalized type
-            for (a <- finalizeTypeIfNeeded(a, t))
+            for (a <- FinalizeType.finalizeIfNeeded(a, t))
               yield assignSize(a, a.typeMap(id))
           case _ =>
             // Otherwise use size of the original type
@@ -268,29 +268,6 @@ object EvalConstantExprs extends UseAnalyzer {
     }
   }
 
-  // Get the definition symbol for a type, if any
-  private def getDefSymbolForType(t: Type): Option[TypeSymbol] = t match {
-    case t1: Type.AliasType => Some(Symbol.AliasType(t1.node))
-    case t1: Type.Array => Some(Symbol.Array(t1.node))
-    case t1: Type.Enum => Some(Symbol.Enum(t1.node))
-    case t1: Type.Struct => Some(Symbol.Struct(t1.node))
-    case _ => None
-  }
-
-  // Query whether a type is finalized
-  // A type is finalized if (1) it has a definition symbol S
-  // and S is in the visited symbol set; or (2)
-  // it has no definition symbol
-  private def typeIsFinalized(a: Analysis, t: Type) =
-    getDefSymbolForType(t) match {
-      case Some(sym) => a.visitedSymbolSet.contains(sym)
-      case _ => true
-    }
-
-  // Finalize a type if not already finalized
-  private def finalizeTypeIfNeeded(a: Analysis, t: Type) =
-    if !typeIsFinalized(a, t) then FinalizeType.ty(a, t) else Right(a)
-
   // Visit nodes and member types, and finalize type defs
   // The FinalizeTypeDefs methods update the visited symbol set
   private object FinalizeType extends TypeVisitor {
@@ -310,7 +287,7 @@ object EvalConstantExprs extends UseAnalyzer {
     override def array(a: Analysis, t: Type.Array) =
       for {
         a <- defArrayAnnotatedNode(a, t.node)
-        a <- finalizeTypeIfNeeded(a, t.anonArray.eltType)
+        a <- finalizeIfNeeded(a, t.anonArray.eltType)
         a <- FinalizeTypeDefs.defArrayAnnotatedNode(a, t.node)
       } yield a
 
@@ -324,10 +301,24 @@ object EvalConstantExprs extends UseAnalyzer {
       for {
         a <- defStructAnnotatedNode(a, t.node)
         a <- Result.foldLeft (t.anonStruct.members.toList) (a) {
-          case (a1, (_ -> t1)) => finalizeTypeIfNeeded(a1, t1)
+          case (a1, (_ -> t1)) => finalizeIfNeeded(a1, t1)
         }
         a <- FinalizeTypeDefs.defStructAnnotatedNode(a, t.node)
       } yield a
+
+    // Query whether a type is finalized
+    // A type is finalized if (1) it has a definition symbol S
+    // and S is in the visited symbol set; or (2)
+    // it has no definition symbol
+    private def typeIsFinalized(a: Analysis, t: Type) =
+      t.getDefSymbol match {
+        case Some(sym) => a.visitedSymbolSet.contains(sym)
+        case _ => true
+      }
+
+    // Finalize a type if not already finalized
+    def finalizeIfNeeded(a: Analysis, t: Type) =
+      if !typeIsFinalized(a, t) then ty(a, t) else Right(a)
 
   }
 
