@@ -289,37 +289,46 @@ object EvalConstantExprs extends UseAnalyzer {
 
   // Finalize a type if not already finalized
   private def finalizeTypeIfNeeded(a: Analysis, t: Type) =
-    if !typeIsFinalized(a, t) then finalizeType(a, t) else Right(a)
+    if !typeIsFinalized(a, t) then FinalizeType.ty(a, t) else Right(a)
 
   // Visit nodes and member types, and finalize type defs
   // The FinalizeTypeDefs methods update the visited symbol set
-  private def finalizeType(a: Analysis, t: Type): Result.Result[Analysis] =
-    t match {
-      case t1: Type.AliasType =>
-        for {
-          a <- defAliasTypeAnnotatedNode(a, t1.node)
-          a <- FinalizeTypeDefs.defAliasTypeAnnotatedNode(a, t1.node)
-        } yield a
-      case t1: Type.Array =>
-        for {
-          a <- defArrayAnnotatedNode(a, t1.node)
-          a <- finalizeTypeIfNeeded(a, t1.anonArray.eltType)
-          a <- FinalizeTypeDefs.defArrayAnnotatedNode(a, t1.node)
-        } yield a
-      case t1: Type.Enum  =>
-        for {
-          a <- defEnumAnnotatedNode(a, t1.node)
-          a <- FinalizeTypeDefs.defEnumAnnotatedNode(a, t1.node)
-        } yield a
-      case t1: Type.Struct =>
-        for {
-          a <- defStructAnnotatedNode(a, t1.node)
-          a <- Result.foldLeft (t1.anonStruct.members.toList) (a) {
-            case (a1, (_ -> t2)) => finalizeTypeIfNeeded(a1, t2)
-          }
-          a <- FinalizeTypeDefs.defStructAnnotatedNode(a, t1.node)
-        } yield a
-      case _ => Right(a)
-    }
+  private object FinalizeType extends TypeVisitor {
+
+    type In = Analysis
+
+    type Out = Result.Result[Analysis]
+
+    override def default(a: Analysis, t: Type) = Right(a)
+
+    override def aliasType(a: Analysis, t: Type.AliasType) =
+      for {
+        a <- defAliasTypeAnnotatedNode(a, t.node)
+        a <- FinalizeTypeDefs.defAliasTypeAnnotatedNode(a, t.node)
+      } yield a
+
+    override def array(a: Analysis, t: Type.Array) =
+      for {
+        a <- defArrayAnnotatedNode(a, t.node)
+        a <- finalizeTypeIfNeeded(a, t.anonArray.eltType)
+        a <- FinalizeTypeDefs.defArrayAnnotatedNode(a, t.node)
+      } yield a
+
+    override def enumeration(a: Analysis, t: Type.Enum) =
+      for {
+        a <- defEnumAnnotatedNode(a, t.node)
+        a <- FinalizeTypeDefs.defEnumAnnotatedNode(a, t.node)
+      } yield a
+
+    override def struct(a: Analysis, t: Type.Struct) =
+      for {
+        a <- defStructAnnotatedNode(a, t.node)
+        a <- Result.foldLeft (t.anonStruct.members.toList) (a) {
+          case (a1, (_ -> t1)) => finalizeTypeIfNeeded(a1, t1)
+        }
+        a <- FinalizeTypeDefs.defStructAnnotatedNode(a, t.node)
+      } yield a
+
+  }
 
 }
