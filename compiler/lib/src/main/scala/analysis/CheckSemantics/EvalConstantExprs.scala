@@ -188,31 +188,21 @@ object EvalConstantExprs extends UseAnalyzer {
       yield a.assignValue(node -> a.valueMap(e.e.id))
   }
 
-  override def exprSizeOfNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprSizeOf) =
+  override def exprSizeOfNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprSizeOf) = {
+    val t = a.typeMap(e.typeName.id)
     for {
-      // First run the TypeExpressionAnalyzer on the type name
       a <- super.typeNameNode(a, e.typeName)
-      // Then compute the type size
-      a <- {
-        def assignSize(a: Analysis, t: Type) = {
-          val size = Type.SerializedSize.ty(a, t).get
-          val v = Value.Integer(size)
-          a.assignValue(node -> v)
-        }
-        // Get the type from the type map
-        val t = a.typeMap(e.typeName.id)
-        t.getDefNodeId match {
-          case Some(id) =>
-            // If the type has a definition, then finalize it
-            // and use the size of the finalized type
-            for (a <- FinalizeType.finalizeIfNeeded(a, t))
-              yield assignSize(a, a.typeMap(id))
-          case _ =>
-            // Otherwise use size of the original type
-            Right(assignSize(a, t))
-        }
-      }
-    } yield a
+      // Finalize the type so we can compute the size
+      a <- FinalizeType.finalizeIfNeeded(a, t)
+    } yield {
+      // Get the finalized type
+      val tFin = FinalizeType.getFinalizedType(a, t)
+      // Use the finalized type to compute the size
+      val size = Type.SerializedSize.ty(a, tFin).get
+      val v = Value.Integer(size)
+      a.assignValue(node -> v)
+    }
+  }
 
   override def exprStructNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprStruct) =
     for (a <- super.exprStructNode(a, node, e))
@@ -319,6 +309,13 @@ object EvalConstantExprs extends UseAnalyzer {
     // Finalize a type if not already finalized
     def finalizeIfNeeded(a: Analysis, t: Type) =
       if !typeIsFinalized(a, t) then ty(a, t) else Right(a)
+
+    // Get the finalized type for a type
+    // For a type with a definition, the finalized type
+    // is mapped to the definition in the type map
+    // Otherwise the type is the finalized type
+    def getFinalizedType(a: Analysis, t: Type) =
+      t.getDefNodeId.map(a.typeMap(_)).getOrElse(t)
 
   }
 
