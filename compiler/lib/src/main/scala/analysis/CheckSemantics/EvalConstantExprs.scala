@@ -179,6 +179,10 @@ object EvalConstantExprs extends UseAnalyzer {
     Right(a.assignValue(node -> v))
   }
 
+  override def exprNode(a: Analysis, node: AstNode[Ast.Expr]) =
+    // If we've already visited the expression, don't analyze it again
+    if !a.valueMap.contains(node.id) then super.exprNode(a, node) else Right(a)
+
   override def exprParenNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprParen) = {
     for (a <- super.exprParenNode(a, node, e))
       yield a.assignValue(node -> a.valueMap(e.e.id))
