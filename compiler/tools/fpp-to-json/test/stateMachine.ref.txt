@@ -3133,6 +3133,24 @@
           "default" : "None"
         }
       },
+      "270" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 1
+          },
+          "aliasType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U16" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "264" : {
         "Enum" : {
           "node" : {

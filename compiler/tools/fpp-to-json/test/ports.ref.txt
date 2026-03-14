@@ -2065,6 +2065,24 @@
           }
         }
       },
+      "124" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 1
+          },
+          "aliasType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U16" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "13" : {
         "Int" : {
           "PrimitiveInt" : {

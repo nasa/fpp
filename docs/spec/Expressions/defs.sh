@@ -17,6 +17,7 @@ Floating-Point-Literals.adoc
 Identifier-Expressions.adoc
 Integer-Literals.adoc
 Parenthesis-Expressions.adoc
+Sizeof-Expressions.adoc
 String-Literals.adoc
 Struct-Expressions.adoc
 Precedence-and-Associativity.adoc

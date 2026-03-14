@@ -338,6 +338,14 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("expr paren") ++
     exprNode(e.e).map(indentIn)
 
+  override def exprSizeOfNode(
+    in: In,
+    node: AstNode[Ast.Expr],
+    e: Ast.ExprSizeOf
+  ) =
+    lines("expr sizeof") ++
+    typeNameNode(e.typeName).map(indentIn)
+
   override def exprStructNode(
     in: In,
     node: AstNode[Ast.Expr],
@@ -733,31 +741,31 @@ object AstWriter extends AstVisitor with LineUtils {
   override def typeNameBoolNode(
     in: In,
     node: AstNode[Ast.TypeName]
-  ) = lines("bool")
+  ) = lines("type name bool")
 
   override def typeNameFloatNode(
     in: In,
     node: AstNode[Ast.TypeName], tn: Ast.TypeNameFloat
-  ) = lines(tn.name.toString)
+  ) = lines(s"type name ${tn.name.toString}")
 
   override def typeNameIntNode(
     in: In,
     node: AstNode[Ast.TypeName],
     tn: Ast.TypeNameInt
-  ) = lines(tn.name.toString)
+  ) = lines(s"type name ${tn.name.toString}")
 
   override def typeNameQualIdentNode(
     in: In,
     node: AstNode[Ast.TypeName],
     tn: Ast.TypeNameQualIdent
-  ) = qualIdent(tn.name.data)
+  ) = addPrefix("type name", qualIdent) (tn.name.data)
 
   override def typeNameStringNode(
     in: In,
     node: AstNode[Ast.TypeName],
     tn: Ast.TypeNameString
   ) =
-    lines("string") ++ linesOpt(addPrefix("size", exprNode), tn.size).map(indentIn)
+    lines("type name string") ++ linesOpt(addPrefix("size", exprNode), tn.size).map(indentIn)
 
   private def addPrefixNoIndent[T](
     s: String,
@@ -955,7 +963,7 @@ object AstWriter extends AstVisitor with LineUtils {
   private def tuMember(tum: Ast.TUMember) = moduleMember(tum)
 
   private def typeNameNode(node: AstNode[Ast.TypeName]) =
-    addPrefix("type name", matchTypeNameNode((), _)) (node)
+    matchTypeNameNode((), node)
 
   private def unop(op: Ast.Unop) = lines(s"unop ${op.toString}")
 
