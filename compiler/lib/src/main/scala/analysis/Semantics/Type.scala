@@ -14,7 +14,7 @@ sealed trait Type {
   def getArraySize: Option[Type.Array.Size] = None
 
   /** Get the definition node identifier, if any */
-  def getDefNodeId: Option[AstNode.Id] = None
+  def getDefNodeId: Option[AstNode.Id] = getDefSymbol.map(_.getNodeId)
 
   /** Get the definition symbol, if any */
   def getDefSymbol: Option[TypeSymbol] = None
@@ -191,7 +191,7 @@ object Type {
     node: Ast.Annotated[AstNode[Ast.DefAbsType]]
   ) extends Type {
     override def getDefaultValue = Some(Value.AbsType(this))
-    override def getDefNodeId = Some(node._2.id)
+    override def getDefSymbol = Some(Symbol.AbsType(node))
     override def toString = node._2.data.name
   }
 
@@ -204,7 +204,6 @@ object Type {
   ) extends Type {
     override def getDefaultValue = aliasType.getDefaultValue
     override def getDefSymbol = Some(Symbol.AliasType(node))
-    override def getDefNodeId = Some(node._2.id)
     override def toString = node._2.data.name
     override def isCanonical = false
     override def isDisplayable = getUnderlyingType.isDisplayable
@@ -227,7 +226,6 @@ object Type {
     def setSize(size: Array.Size): Array = this.copy(anonArray = anonArray.setSize(size))
     override def getArraySize = anonArray.getArraySize
     override def getDefSymbol = Some(Symbol.Array(node))
-    override def getDefNodeId = Some(node._2.id)
     override def hasNumericMembers = anonArray.hasNumericMembers
     override def isDisplayable = anonArray.eltType.isDisplayable
     override def toString = "array " ++ node._2.data.name
@@ -265,7 +263,6 @@ object Type {
   ) extends Type {
     override def getDefaultValue: Option[Value.EnumConstant] = default
     override def getDefSymbol = Some(Symbol.Enum(node))
-    override def getDefNodeId = Some(node._2.id)
     override def isConvertibleToNumeric = true
     override def isPromotableToArray = true
     override def isDisplayable = true
@@ -287,7 +284,6 @@ object Type {
   ) extends Type {
     override def getDefaultValue: Option[Value.Struct] = default
     override def getDefSymbol = Some(Symbol.Struct(node))
-    override def getDefNodeId = Some(node._2.id)
     override def hasNumericMembers = anonStruct.hasNumericMembers
     override def isDisplayable = anonStruct.members.values.forall(_.isDisplayable)
     override def toString = "struct " ++ node._2.data.name
