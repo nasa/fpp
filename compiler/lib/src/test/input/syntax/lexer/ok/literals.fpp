@@ -28,3 +28,10 @@ This is the second line.
 """\q"""
 """abc \q abc"""
 """abc \q"""
+
+"hello $name"
+"$a$b"
+"$x end"
+"prefix $middle suffix"
+"$single"
+"\$abc"
