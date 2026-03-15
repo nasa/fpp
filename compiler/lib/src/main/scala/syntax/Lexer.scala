@@ -358,6 +358,7 @@ object Lexer {
         case WARNING => Token.WARNING()
         case WITH => Token.WITH()
         case YELLOW => Token.YELLOW()
+        case LITERAL_INTERPOLATED_STRING => Token.LITERAL_INTERPOLATED_STRING(interpolatedParts.toList)
       }
 
       out.setPos(pos())
@@ -736,9 +737,37 @@ object Lexer {
         putStringEscapeChar()
         fetchStringLitSingle()
       case '\"' =>
-        nextChar()
-        setStrVal()
-        token = LITERAL_STRING
+        nextChar ()
+        if interpolatedParts.nonEmpty then
+          if !litBuf.isEmpty then
+            interpolatedParts.append(Token.StringPart(litBuf.toString))
+          litBuf.clear()
+          token = LITERAL_INTERPOLATED_STRING
+        else
+          setStrVal ()
+          token = LITERAL_STRING
+      case '$' =>
+        val lch = lookaheadChar()
+        (lch : @switch) match {
+          // next char is valid identifier
+          case 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' |
+               'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' |
+               'W' | 'X' | 'Y' | 'Z' | '_' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' |
+               'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' |
+               'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | '0' | '1' |
+               '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' =>
+            interpolatedParts.append(Token.StringPart(litBuf.toString))
+            litBuf.clear()
+            nextChar()
+            fetchInterpolatedVariableRest()
+            interpolatedParts.append(Token.VariablePart(litBuf.toString))
+            litBuf.clear()
+            fetchStringLitSingle()
+          case _ =>
+            error("invalid usage of '$', expected identifier. If you intended to use $ as a symbol use character escape '\\$...'")
+            nextChar()
+            fetchToken()
+        }
       case _ =>
         putChar(ch)
         nextChar()
@@ -803,5 +832,19 @@ object Lexer {
       if (isIdentifierPart(ch) && ch >= ' ')
         error("Invalid literal number")
     }
+
+    @tailrec
+    private def fetchInterpolatedVariableRest() : Unit = (ch : @switch) match {
+        case 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H' | 'I' | 'J' | 'K' |
+             'L' | 'M' | 'N' | 'O' | 'P' | 'Q' | 'R' | 'S' | 'T' | 'U' | 'V' |
+             'W' | 'X' | 'Y' | 'Z' | '_' | 'a' | 'b' | 'c' | 'd' | 'e' | 'f' |
+             'g' | 'h' | 'i' | 'j' | 'k' | 'l' | 'm' | 'n' | 'o' | 'p' | 'q' |
+             'r' | 's' | 't' | 'u' | 'v' | 'w' | 'x' | 'y' | 'z' | '0' | '1' |
+             '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' =>
+          putChar(ch)
+          nextChar()
+          fetchInterpolatedVariableRest()
+        case _ =>
+      }
   }
 }
