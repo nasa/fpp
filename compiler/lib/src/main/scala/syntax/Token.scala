@@ -143,6 +143,18 @@ object Token {
   final case class WARNING() extends Token
   final case class WITH() extends Token
   final case class YELLOW() extends Token
+
+  /** Parts of an interpolated string.
+   *
+   * StringPart represents a literal segment of the string.
+   * VariablePart represents a variable/ident reference whose value
+   * will be inserted during evaluation (via BinOp.Add).
+   */
+  sealed trait InterpolatedPart
+  case class StringPart(value: String) extends InterpolatedPart
+  case class VariablePart(name: String) extends InterpolatedPart
+
+  final case class LITERAL_INTERPOLATED_STRING(parts: List[InterpolatedPart]) extends Token
 }
 
 enum TokenId {
@@ -159,6 +171,7 @@ enum TokenId {
   case LITERAL_FLOAT
   case LITERAL_INT
   case LITERAL_STRING
+  case LITERAL_INTERPOLATED_STRING
 
   // Keywords
   case ACTION

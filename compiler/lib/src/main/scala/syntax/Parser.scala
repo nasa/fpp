@@ -334,6 +334,28 @@ object Parser extends Parsers {
       def trueExpr = trueToken ^^ (_ =>
         Ast.ExprLiteralBool(Ast.LiteralBool.True))
 
+      def interpolatedStringExpr = accept("interpolated string", {
+        case t@Token.LITERAL_INTERPOLATED_STRING(parts) => (t, parts)
+      }) ^^ { case (tok, parts) =>
+        val loc = Location(ParserState.file, tok.pos, ParserState.includingLoc)
+        def createNode(expr: Ast.Expr): AstNode[Ast.Expr] = {
+          val n = AstNode.create(expr)
+          Locations.put(n.id, loc)
+          n
+        }
+        val exprNodes: List[AstNode[Ast.Expr]] = parts.map {
+          case Token.StringPart(s) => createNode(Ast.ExprLiteralString(s))
+          case Token.VariablePart(ident) => createNode(Ast.ExprIdent(ident))
+        }
+
+        if (exprNodes.length == 1) exprNodes.head.data
+        else exprNodes.reduceLeft { (accNode, partNode) =>
+          val binop = AstNode.create(Ast.ExprBinop(accNode, Ast.Binop.Add, partNode))
+          Locations.put(binop.id, loc)
+          binop
+        }.data
+      }
+
       arrayExpr |
         falseExpr |
         floatExpr |
@@ -343,6 +365,7 @@ object Parser extends Parsers {
         stringExpr |
         structExpr |
         trueExpr |
+        interpolatedStringExpr |
         failure("expression expected")
     }
 
