@@ -1,9 +1,9 @@
 type FwSizeStoreType = U16
 
-type abs
+type T
 
 struct S {
-    X: abs
+  x: T
 }
 
 constant c = sizeof(S)
