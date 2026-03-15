@@ -161,6 +161,9 @@ object Lexer {
     /** the base of a number */
     var base: Int = 0
 
+    /** The sequence of parts that make up an interpolated string literal */
+    var interpolatedParts: mutable.ArrayBuffer[Token.InterpolatedPart] = mutable.ArrayBuffer()
+
     def copyFrom(td: TokenData): Unit = {
       this.token = td.token
       this.offset = td.offset
@@ -168,6 +171,7 @@ object Lexer {
       this.lineOffset = td.lineOffset
       this.strVal = td.strVal
       this.base = td.base
+      this.interpolatedParts = td.interpolatedParts
     }
   }
 
