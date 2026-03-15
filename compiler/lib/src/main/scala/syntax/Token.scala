@@ -144,9 +144,11 @@ object Token {
   final case class WITH() extends Token
   final case class YELLOW() extends Token
 
-  /** String interpolation by parts:
-   * Value parts -> simple string values
-   * Variable parts -> Will be resolved and added using BinOp.Add
+  /** Parts of an interpolated string.
+   *
+   * StringPart represents a literal segment of the string.
+   * VariablePart represents a variable/ident reference whose value
+   * will be inserted during evaluation (via BinOp.Add).
    */
   sealed trait InterpolatedPart
   case class StringPart(value: String) extends InterpolatedPart
