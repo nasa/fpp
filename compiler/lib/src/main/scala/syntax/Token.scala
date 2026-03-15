@@ -143,6 +143,16 @@ object Token {
   final case class WARNING() extends Token
   final case class WITH() extends Token
   final case class YELLOW() extends Token
+
+  /** String interpolation by parts:
+   * Value parts -> simple string values
+   * Variable parts -> Will be resolved and added using BinOp.Add
+   */
+  sealed trait InterpolatedPart
+  case class StringPart(value: String) extends InterpolatedPart
+  case class VariablePart(name: String) extends InterpolatedPart
+
+  final case class LITERAL_INTERPOLATED_STRING(parts: List[InterpolatedPart]) extends Token
 }
 
 enum TokenId {
@@ -159,6 +169,7 @@ enum TokenId {
   case LITERAL_FLOAT
   case LITERAL_INT
   case LITERAL_STRING
+  case LITERAL_INTERPOLATED_STRING
 
   // Keywords
   case ACTION
