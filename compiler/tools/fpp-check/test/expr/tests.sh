@@ -9,8 +9,8 @@ literal_ok
 neg_error
 neg_ok
 paren_ok
-struct_duplicate
 sizeof_not_displayable
-sizeof_string_fw_store_type_not_defined
 sizeof_ok
+sizeof_string_fw_store_type_not_defined
+struct_duplicate
 "
