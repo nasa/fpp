@@ -1,2 +1,2 @@
-[ local path prefix ]/compiler/tools/fpp-depend/test/a.fpp
-[ local path prefix ]/compiler/tools/fpp-depend/test/b.fpp
+[ local path prefix ]/compiler/tools/fpp-depend/test/T1.fpp
+[ local path prefix ]/compiler/tools/fpp-depend/test/T2.fpp
