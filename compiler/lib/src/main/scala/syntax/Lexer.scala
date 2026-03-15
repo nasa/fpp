@@ -765,8 +765,9 @@ object Lexer {
             fetchStringLitSingle()
           case _ =>
             error("invalid usage of '$', expected identifier. If you intended to use $ as a symbol use character escape '\\$...'")
+            putChar('$')
             nextChar()
-            fetchToken()
+            fetchStringLitSingle()
         }
       case _ =>
         putChar(ch)
