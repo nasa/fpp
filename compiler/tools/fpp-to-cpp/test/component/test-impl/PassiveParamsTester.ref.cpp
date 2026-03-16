@@ -22,7 +22,7 @@ PassiveParamsTester ::
 PassiveParamsTester ::
   ~PassiveParamsTester()
 {
-
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------

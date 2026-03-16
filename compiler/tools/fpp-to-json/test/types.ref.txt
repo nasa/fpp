@@ -1854,15 +1854,6 @@
           }
         }
       },
-      "8" : {
-        "String" : {
-          "size" : {
-            "Some" : {
-              "astNodeId" : 7
-            }
-          }
-        }
-      },
       "44" : {
         "Int" : {
           "PrimitiveInt" : {
@@ -1962,25 +1953,22 @@
           "default" : "None"
         }
       },
-      "18" : {
-        "Array" : {
+      "129" : {
+        "AliasType" : {
           "node" : {
-            "astNodeId" : 14
+            "astNodeId" : 1
           },
-          "anonArray" : {
-            "size" : "None",
-            "eltType" : {
-              "String" : {
-                "size" : {
-                  "Some" : {
-                    "astNodeId" : 7
+          "aliasType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U16" : {
+                    
                   }
                 }
               }
             }
-          },
-          "default" : "None",
-          "format" : "None"
+          }
         }
       },
       "119" : {
@@ -2040,6 +2028,33 @@
               "U32" : {
                 
               }
+            }
+          }
+        }
+      },
+      "124" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 1
+          },
+          "aliasType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U16" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "8" : {
+        "String" : {
+          "size" : {
+            "Some" : {
+              "astNodeId" : 7
             }
           }
         }
@@ -4954,6 +4969,24 @@
           }
         }
       },
+      "127" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 1
+          },
+          "aliasType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U16" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "65" : {
         "Int" : {
           "Integer" : {
@@ -5909,6 +5942,45 @@
           "Integer" : {
             
           }
+        }
+      },
+      "125" : {
+        "AliasType" : {
+          "node" : {
+            "astNodeId" : 1
+          },
+          "aliasType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U16" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "18" : {
+        "Array" : {
+          "node" : {
+            "astNodeId" : 14
+          },
+          "anonArray" : {
+            "size" : "None",
+            "eltType" : {
+              "String" : {
+                "size" : {
+                  "Some" : {
+                    "astNodeId" : 7
+                  }
+                }
+              }
+            }
+          },
+          "default" : "None",
+          "format" : "None"
         }
       },
       "7" : {

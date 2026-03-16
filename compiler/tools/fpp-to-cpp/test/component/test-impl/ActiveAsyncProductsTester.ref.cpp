@@ -22,7 +22,7 @@ ActiveAsyncProductsTester ::
 ActiveAsyncProductsTester ::
   ~ActiveAsyncProductsTester()
 {
-
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------

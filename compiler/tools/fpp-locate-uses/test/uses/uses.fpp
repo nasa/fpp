@@ -3,6 +3,7 @@ constant a_use = a
 array T_use = [3] T
 array S_use = [3] S
 constant E_use = E.X
+constant SizeOfType_use = sizeof(SizeOfType)
 
 interface I {
   sync input port I_P_use: [3] P

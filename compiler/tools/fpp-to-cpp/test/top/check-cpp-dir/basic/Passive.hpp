@@ -14,11 +14,6 @@ namespace M {
       Passive(const char* name) {
 
       }
-
-      void init(U32 instanceId) {
-
-      }
-
   };
 
   // Simulate a concrete implementation

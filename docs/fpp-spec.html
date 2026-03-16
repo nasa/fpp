@@ -867,20 +867,27 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Expressions_Parenthesis-Expressions_Example">10.9.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_String-Literals">10.10. String Literals</a>
+<li><a href="#Expressions_Sizeof-Expressions">10.10. Sizeof Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_String-Literals_Single-Line-String-Literals">10.10.1. Single-Line String Literals</a></li>
-<li><a href="#Expressions_String-Literals_Multiline-String-Literals">10.10.2. Multiline String Literals</a></li>
+<li><a href="#Expressions_Sizeof-Expressions_Syntax">10.10.1. Syntax</a></li>
+<li><a href="#Expressions_Sizeof-Expressions_Semantics">10.10.2. Semantics</a></li>
+<li><a href="#Expressions_Sizeof-Expressions_Example">10.10.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Struct-Expressions">10.11. Struct Expressions</a>
+<li><a href="#Expressions_String-Literals">10.11. String Literals</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Struct-Expressions_Syntax">10.11.1. Syntax</a></li>
-<li><a href="#Expressions_Struct-Expressions_Semantics">10.11.2. Semantics</a></li>
-<li><a href="#Expressions_Struct-Expressions_Example">10.11.3. Example</a></li>
+<li><a href="#Expressions_String-Literals_Single-Line-String-Literals">10.11.1. Single-Line String Literals</a></li>
+<li><a href="#Expressions_String-Literals_Multiline-String-Literals">10.11.2. Multiline String Literals</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Precedence-and-Associativity">10.12. Precedence and Associativity</a></li>
+<li><a href="#Expressions_Struct-Expressions">10.12. Struct Expressions</a>
+<ul class="sectlevel3">
+<li><a href="#Expressions_Struct-Expressions_Syntax">10.12.1. Syntax</a></li>
+<li><a href="#Expressions_Struct-Expressions_Semantics">10.12.2. Semantics</a></li>
+<li><a href="#Expressions_Struct-Expressions_Example">10.12.3. Example</a></li>
+</ul>
+</li>
+<li><a href="#Expressions_Precedence-and-Associativity">10.13. Precedence and Associativity</a></li>
 </ul>
 </li>
 <li><a href="#Formal-Parameter-Lists">11. Formal Parameter Lists</a>
@@ -967,6 +974,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Types_Types-with-Numeric-Members">17.16. Types with Numeric Members</a></li>
 <li><a href="#Types_Alias-Lists">17.17. Alias Lists</a></li>
 <li><a href="#Types_Default-Values">17.18. Default Values</a></li>
+<li><a href="#Types_Serialized-Sizes">17.19. Serialized Sizes</a></li>
 </ul>
 </li>
 <li><a href="#Type-Checking">18. Type Checking</a>
@@ -979,16 +987,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Type-Checking_Dot-Expressions">18.6. Dot Expressions</a></li>
 <li><a href="#Type-Checking_Array-Expressions">18.7. Array Expressions</a></li>
 <li><a href="#Type-Checking_Array-Subscript-Expressions">18.8. Array Subscript Expressions</a></li>
-<li><a href="#Type-Checking_Struct-Expressions">18.9. Struct Expressions</a></li>
-<li><a href="#Type-Checking_Unary-Negation-Expressions">18.10. Unary Negation Expressions</a></li>
-<li><a href="#Type-Checking_Binary-Arithmetic-Expressions">18.11. Binary Arithmetic Expressions</a></li>
-<li><a href="#Type-Checking_Parenthesis-Expressions">18.12. Parenthesis Expressions</a></li>
-<li><a href="#Type-Checking_Identical-Types">18.13. Identical Types</a></li>
-<li><a href="#Type-Checking_Type-Conversion">18.14. Type Conversion</a></li>
-<li><a href="#Type-Checking_Computing-a-Common-Type">18.15. Computing a Common Type</a>
+<li><a href="#Type-Checking_Sizeof-Expressions">18.9. Sizeof Expressions</a></li>
+<li><a href="#Type-Checking_Struct-Expressions">18.10. Struct Expressions</a></li>
+<li><a href="#Type-Checking_Unary-Negation-Expressions">18.11. Unary Negation Expressions</a></li>
+<li><a href="#Type-Checking_Binary-Arithmetic-Expressions">18.12. Binary Arithmetic Expressions</a></li>
+<li><a href="#Type-Checking_Parenthesis-Expressions">18.13. Parenthesis Expressions</a></li>
+<li><a href="#Type-Checking_Identical-Types">18.14. Identical Types</a></li>
+<li><a href="#Type-Checking_Type-Conversion">18.15. Type Conversion</a></li>
+<li><a href="#Type-Checking_Computing-a-Common-Type">18.16. Computing a Common Type</a>
 <ul class="sectlevel3">
-<li><a href="#Type-Checking_Computing-a-Common-Type_Pairs-of-Types">18.15.1. Pairs of Types</a></li>
-<li><a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">18.15.2. Lists of Types</a></li>
+<li><a href="#Type-Checking_Computing-a-Common-Type_Pairs-of-Types">18.16.1. Pairs of Types</a></li>
+<li><a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">18.16.2. Lists of Types</a></li>
 </ul>
 </li>
 </ul>
@@ -1268,6 +1277,7 @@ set
 severity
 signal
 size
+sizeof
 stack
 state
 string
@@ -9485,7 +9495,50 @@ force evaluation order.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_String-Literals">10.10. String Literals</h3>
+<h3 id="Expressions_Sizeof-Expressions">10.10. Sizeof Expressions</h3>
+<div class="paragraph">
+<p>A <strong>sizeof expression</strong> represents the size of the storage associated with a type.</p>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Sizeof-Expressions_Syntax">10.10.1. Syntax</h4>
+<div class="paragraph">
+<p><code>sizeof</code> <code>(</code> <a href="#Type-Names"><em>type-name</em></a> <code>)</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Sizeof-Expressions_Semantics">10.10.2. Semantics</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>The type name must <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
+a type \$T\$.</p>
+</li>
+<li>
+<p>The type \$T\$ must be <a href="#Types_Displayable-Types">displayable</a>.</p>
+</li>
+<li>
+<p>The expression evaluates to the <a href="#Types_Serialized-Sizes">serialized size</a> of <em>T</em>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Expressions_Sizeof-Expressions_Example">10.10.3. Example</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">type T = U32
+constant a = sizeof(T) # sizeof(T) evaluates to 4
+
+constant b = sizeof(F64) # sizeof(F64) evaluates to 8
+
+array A = [3] U16
+constant c = sizeof(A) # sizeof(A) evaluates to 6</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Expressions_String-Literals">10.11. String Literals</h3>
 <div class="paragraph">
 <p>A <strong>string literal expression</strong> is a single-line string literal
 or a multiline string literal.
@@ -9515,7 +9568,7 @@ optionally preceded by a CR character (ASCII code 0x0D).</p>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="Expressions_String-Literals_Single-Line-String-Literals">10.10.1. Single-Line String Literals</h4>
+<h4 id="Expressions_String-Literals_Single-Line-String-Literals">10.11.1. Single-Line String Literals</h4>
 <div class="paragraph">
 <p>A <strong>single-line string literal</strong> is a sequence of <strong>single-line literal characters</strong>
 enclosed in double
@@ -9571,7 +9624,7 @@ unmatched double quote character.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_String-Literals_Multiline-String-Literals">10.10.2. Multiline String Literals</h4>
+<h4 id="Expressions_String-Literals_Multiline-String-Literals">10.11.2. Multiline String Literals</h4>
 <div class="paragraph">
 <p>A <strong>multiline string literal</strong> is a sequence of <strong>multiline literal characters</strong> enclosed
 in sequences <code>"""</code> of three double quote characters.
@@ -9658,12 +9711,12 @@ The value of the string constant <code>s</code> is <code>"""</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Struct-Expressions">10.11. Struct Expressions</h3>
+<h3 id="Expressions_Struct-Expressions">10.12. Struct Expressions</h3>
 <div class="paragraph">
 <p>An <strong>struct expression</strong> is an expression that represents a struct value.</p>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Syntax">10.11.1. Syntax</h4>
+<h4 id="Expressions_Struct-Expressions_Syntax">10.12.1. Syntax</h4>
 <div class="paragraph">
 <p><code>{</code> <em>struct-element-sequence</em> <code>}</code></p>
 </div>
@@ -9678,7 +9731,7 @@ A <strong>struct element</strong> has the following syntax:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Semantics">10.11.2. Semantics</h4>
+<h4 id="Expressions_Struct-Expressions_Semantics">10.12.2. Semantics</h4>
 <div class="paragraph">
 <p>The following must be true of the struct element sequence <em>S</em>:</p>
 </div>
@@ -9699,7 +9752,7 @@ corresponding member names and values.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Example">10.11.3. Example</h4>
+<h4 id="Expressions_Struct-Expressions_Example">10.12.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp"># s is a struct value with members x = 0, y = 1
@@ -9712,7 +9765,7 @@ constant s = {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Precedence-and-Associativity">10.12. Precedence and Associativity</h3>
+<h3 id="Expressions_Precedence-and-Associativity">10.13. Precedence and Associativity</h3>
 <div class="paragraph">
 <p>Ambiguity in parsing expressions is resolved with the following
 precedence table. Expressions appearing earlier in the table
@@ -11053,10 +11106,7 @@ It is one of the following:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>A <a href="#Types_Primitive-Integer-Types">primitive integer type</a>.</p>
-</li>
-<li>
-<p>A <a href="#Types_Floating-Point-Types">floating-point type</a>.</p>
+<p>A <a href="#Types_Primitive-Numeric-Types">primitive numeric type</a>.</p>
 </li>
 <li>
 <p>A <a href="#Types_The-Boolean-Type">boolean type</a>.</p>
@@ -11187,6 +11237,70 @@ of <em>T</em> must provide a concrete value.</p>
 <a href="#Types_Alias-Types">alias type</a> <em>T</em> is the
 <a href="#Types_Default-Values">default value</a> of its
 <a href="#Types_Underlying-Types">underlying type</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Types_Serialized-Sizes">17.19. Serialized Sizes</h3>
+<div class="paragraph">
+<p>Every <a href="#Types_Displayable-Types">displayable type</a>
+has a <strong>serialized size</strong>.  This is the maximum number of bytes required to
+represent a <a href="#Values">value</a> <em>v</em> of type <em>T</em> in
+the standard F Prime serialized format.
+The serialized size <em>s</em> of a type <em>T</em> is defined as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If <em>T</em> is a
+<a href="#Types_Primitive-Numeric-Types">primitive numeric type</a>, then <em>s</em> is the byte
+width of the type.  For example, the serialized size of a value of type <code>F64</code>
+is 8.</p>
+</li>
+<li>
+<p>If <em>T</em> is
+<a href="#Types_The-Boolean-Type"><code>bool</code></a>, then <em>s</em> is 1.</p>
+</li>
+<li>
+<p>If <em>T</em> is a
+<a href="#Types_String-Types">string type</a>, then <em>s</em> is the sum of the following two numbers:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The serialized size of the
+<a href="#Definitions_Framework-Definitions_Type-Definitions">framework type</a>
+<code>FwSizeStoreType</code>.
+This is the space used to store the length of the string.</p>
+</li>
+<li>
+<p>The size <em>n</em> specified in <em>T</em>, if it exists; otherwise the
+<a href="#Definitions_Framework-Definitions_Constant-Definitions">framework constant</a>
+<code>FW_FIXED_LENGTH_STRING_SIZE</code>.
+This is the maximum space required to store the characters of the string.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If <em>T</em> is an
+<a href="#Types_Array-Types">array type</a> with element type <em>T'</em> and size <em>n</em>, then <em>s</em>
+is <em>n</em> times the serialized size of <em>T'</em>.</p>
+</li>
+<li>
+<p>If <em>T</em> is an
+<a href="#Types_Enum-Types">enum type</a>, then <em>s</em> is the serialized size of the
+representation type of <em>T</em>.</p>
+</li>
+<li>
+<p>If <em>T</em> is a
+<a href="#Types_Struct-Types">struct type</a>, then <em>s</em>
+the sum of the serialized sizes of the types in the members of <em>T</em></p>
+</li>
+<li>
+<p>If <em>T</em> is an
+<a href="#Types_Alias-Types">alias type</a>, then <em>s</em> is the serialized size of the
+<a href="#Types_Underlying-Types">underlying type</a> of <em>T</em>.</p>
 </li>
 </ul>
 </div>
@@ -11414,7 +11528,13 @@ with element type \$T\$ and size \$n\$.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Struct-Expressions">18.9. Struct Expressions</h3>
+<h3 id="Type-Checking_Sizeof-Expressions">18.9. Sizeof Expressions</h3>
+<div class="paragraph">
+<p>The type of a <a href="#Expressions_Sizeof-Expressions">sizeof expression</a> is <em>Integer</em>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Type-Checking_Struct-Expressions">18.10. Struct Expressions</h3>
 <div class="paragraph">
 <p>To type a
 <a href="#Expressions_Struct-Expressions">struct expression</a>
@@ -11446,7 +11566,7 @@ constant b = { x = 1, x = 2 } # Error</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Unary-Negation-Expressions">18.10. Unary Negation Expressions</h3>
+<h3 id="Type-Checking_Unary-Negation-Expressions">18.11. Unary Negation Expressions</h3>
 <div class="paragraph">
 <p>To type a
 <a href="#Expressions_Arithmetic-Expressions">unary
@@ -11485,7 +11605,7 @@ constant f = -true # Error</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Binary-Arithmetic-Expressions">18.11. Binary Arithmetic Expressions</h3>
+<h3 id="Type-Checking_Binary-Arithmetic-Expressions">18.12. Binary Arithmetic Expressions</h3>
 <div class="paragraph">
 <p>To type a
 <a href="#Expressions_Arithmetic-Expressions">binary
@@ -11524,7 +11644,7 @@ constant e = true + "abcd" # Error</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Parenthesis-Expressions">18.12. Parenthesis Expressions</h3>
+<h3 id="Type-Checking_Parenthesis-Expressions">18.13. Parenthesis Expressions</h3>
 <div class="paragraph">
 <p>To type a
 <a href="#Expressions_Parenthesis-Expressions">parenthesis
@@ -11554,7 +11674,7 @@ constant e = ([ 1, 2, 3]) # Type is [3] Integer</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Identical-Types">18.13. Identical Types</h3>
+<h3 id="Type-Checking_Identical-Types">18.14. Identical Types</h3>
 <div class="paragraph">
 <p>We say that types \$T_1\$ and \$T_2\$ are <strong>identical</strong> if one
 of the following holds:</p>
@@ -11590,7 +11710,7 @@ and both types refer to the same definition.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Type-Conversion">18.14. Type Conversion</h3>
+<h3 id="Type-Checking_Type-Conversion">18.15. Type Conversion</h3>
 <div class="paragraph">
 <p>We say that a type \$T_1\$ <strong>may be converted to</strong> another type \$T_2\$ if
 every <a href="#Values">value</a> represented by type \$T_1\$ can be
@@ -11693,9 +11813,9 @@ may be converted to \$T_3\$.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Computing-a-Common-Type">18.15. Computing a Common Type</h3>
+<h3 id="Type-Checking_Computing-a-Common-Type">18.16. Computing a Common Type</h3>
 <div class="sect3">
-<h4 id="Type-Checking_Computing-a-Common-Type_Pairs-of-Types">18.15.1. Pairs of Types</h4>
+<h4 id="Type-Checking_Computing-a-Common-Type_Pairs-of-Types">18.16.1. Pairs of Types</h4>
 <div class="paragraph">
 <p>Here are the rules for resolving two types \$T_1\$ and \$T_2\$
 (e.g., the
@@ -11821,7 +11941,7 @@ whose member types are the corresponding common types.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Type-Checking_Computing-a-Common-Type_Lists-of-Types">18.15.2. Lists of Types</h4>
+<h4 id="Type-Checking_Computing-a-Common-Type_Lists-of-Types">18.16.2. Lists of Types</h4>
 <div class="paragraph">
 <p>To compute a common type for a list of types
 \$T_1, ... , T_n\$, do the following:</p>
@@ -12315,8 +12435,9 @@ The canonical type of the struct value is \$Q\$.</p>
 <div class="sect2">
 <h3 id="Values_Serialized-Sizes">20.12. Serialized Sizes</h3>
 <div class="paragraph">
-<p>Every value <em>v</em> whose type has a syntactic representation in FPP has a
-<strong>serialized size</strong>.  This is the number of bytes required to represent <em>v</em> in
+<p>Every value <em>v</em> of a <a href="#Types_Displayable-Types">displayable type</a>
+has a <strong>serialized size</strong>.  This is the number of bytes required to represent <em>v</em>
+in
 the standard F Prime serialized format.  The serialized size <em>s</em> of a value <em>v</em>
 depends on the type <em>T</em> of <em>v</em>:</p>
 </div>
@@ -12324,45 +12445,30 @@ depends on the type <em>T</em> of <em>v</em>:</p>
 <ul>
 <li>
 <p>If <em>T</em> is a
-<a href="#Types_Primitive-Numeric-Types">primitive numeric type</a>, then <em>s</em> is the byte
-width of the type.  For example, the serialized size of a value of type <code>F64</code>
-is 8.</p>
+<a href="#Types_String-Types">string type</a>, then <em>s</em> is the sum of the following two numbers:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The serialized size of the
+   <a href="#Definitions_Framework-Definitions_Type-Definitions">framework type</a>
+<code>FwSizeStoreType</code>.  This is the space used to store the length of the string.</p>
 </li>
 <li>
-<p>If <em>T</em> is
-<a href="#Types_The-Boolean-Type"><code>bool</code></a>, then <em>s</em> is 1.</p>
+<p>The length of the string in characters.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
-<p>If <em>T</em> is a
-<a href="#Types_String-Types">string type</a>, then <em>s</em> is the number of bytes used to
-represent the length of a string plus the length of the string in characters.
-The number of bytes used to represent the length of a string is
-implementation-specific.</p>
+<p>Otherwise if <em>v</em> is an <a href="#Types_Array-Types">array type</a>, then <em>s</em> is the sum
+of the serialized sizes of the elements of <em>v</em>.</p>
 </li>
 <li>
-<p>If <em>T</em> is an
-<a href="#Types_Array-Types">array type</a>, then <em>s</em> is sum of the serialized sizes of
-the elements of <em>v</em>.</p>
+<p>Otherwise if <em>v</em> is a <a href="#Types_Struct-Types">struct type</a>, then <em>s</em> is the sum
+of the serialized sizes of the members of <em>v</em></p>
 </li>
 <li>
-<p>If <em>T</em> is an
-<a href="#Types_Enum-Types">enum type</a>, then <em>s</em> is the byte width of the
-representation type of <em>T</em>.</p>
-</li>
-<li>
-<p>If <em>T</em> is a
-<a href="#Types_Struct-Types">struct type</a>, then <em>s</em>
-the sum of the serialized sizes of the members of <em>v</em></p>
-</li>
-<li>
-<p>If <em>T</em> is an
-<a href="#Types_Abstract-Types">abstract type</a>, then <em>s</em> is not specified in FPP.  It
-is up to the implementer of <em>T</em> to provide the serialized size.</p>
-</li>
-<li>
-<p>If <em>T</em> is a
-<a href="#Types_Alias-Types">alias type</a>, then apply these rules to its
-<a href="#Types_Underlying-Types">underlying type</a>.</p>
+<p>Otherwise <em>s</em> is the <a href="#Types_Serialized-Sizes">serialized size of the type <em>T</em></a>.</p>
 </li>
 </ul>
 </div>
@@ -12860,7 +12966,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-16 13:57:03 -0700
+Last updated 2026-03-16 14:14:01 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

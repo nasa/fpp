@@ -23,7 +23,7 @@ QueuedSerialTester ::
 QueuedSerialTester ::
   ~QueuedSerialTester()
 {
-
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------

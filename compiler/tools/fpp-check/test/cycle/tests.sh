@@ -5,5 +5,7 @@ constant_1
 constant_2
 enum
 enum_constant
+sizeof_string_1
+sizeof_string_2
 struct
 "

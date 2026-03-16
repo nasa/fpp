@@ -93,6 +93,7 @@ syn keyword fppKeyword set
 syn keyword fppKeyword severity
 syn keyword fppKeyword signal
 syn keyword fppKeyword size
+syn keyword fppKeyword sizeof
 syn keyword fppKeyword stack
 syn keyword fppKeyword state
 syn keyword fppKeyword struct
