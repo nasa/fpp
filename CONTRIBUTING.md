@@ -121,8 +121,7 @@ and semantic checks match specification.
    - Resolving of includes
    - Syntactical transformations
 
-3. **analysis** - Semantic analysis and type checking
-   - `Analyzers/` - Individual analyzers for different constructs
+3. **analysis** - Semantic analysis
    - Symbol resolution and semantic validation
    - Type inference and checking
    - See [wiki](https://github.com/nasa/fpp/wiki/Checking-Semantics) for more detail
@@ -131,6 +130,7 @@ and semantic checks match specification.
    - C++ code generation (`fpp-to-cpp`)
    - Dictionary generation (`fpp-to-dict`)
    - JSON/XML generation
+   - Dependecy checking
 
 ### Tool Structure
 
@@ -155,8 +155,3 @@ The main `fpp` tool (`tools/fpp/`) dispatches to other tools based on subcommand
 - `fpp-to-dict` - Generate dictionaries
 - `fpp-to-json` - Generate JSON
 - `fpp-to-layout` - Generate layouts
-
-## Helpful Tips
-
-This section will describe some helpful tips for contributing to FPP.
-
