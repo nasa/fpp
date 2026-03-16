@@ -22,7 +22,7 @@ ActiveGuardedProductsTester ::
 ActiveGuardedProductsTester ::
   ~ActiveGuardedProductsTester()
 {
-
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------

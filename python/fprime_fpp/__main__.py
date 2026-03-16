@@ -23,7 +23,7 @@ def main():
     jar_file = Path(__file__).parent / "fpp.jar"
 
     # Prefer the binary file if it exists
-    if binary_file.exists():
+    if binary_file.exists() and name != "fpp-to-json":
         process = subprocess.run([str(binary_file)] + base_arguments)
     # Then check for the JAR file
     elif jar_file.exists():

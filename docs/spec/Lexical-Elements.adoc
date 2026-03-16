@@ -126,6 +126,7 @@ set
 severity
 signal
 size
+sizeof
 stack
 state
 string

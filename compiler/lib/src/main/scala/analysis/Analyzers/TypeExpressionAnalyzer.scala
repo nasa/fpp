@@ -153,6 +153,9 @@ trait TypeExpressionAnalyzer
 
   override def exprUnopNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprUnop) = exprNode(a, e.e)
 
+  override def exprSizeOfNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprSizeOf) = 
+    typeNameNode(a, e.typeName)
+
   override def specCommandAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecCommand]]) = {
     val (_, node1, _) = node
     val data = node1.data

@@ -100,6 +100,13 @@ namespace M {
     // Nothing to do
   }
 
+  void deinitComponents(const TopologyState& state) {
+    M::c1.deinit();
+    M::c2.deinit();
+    M::noTlm.deinit();
+    M::tlmManager.deinit();
+  }
+
   // ----------------------------------------------------------------------
   // Setup and teardown functions
   // ----------------------------------------------------------------------
@@ -119,6 +126,7 @@ namespace M {
     stopTasks(state);
     freeThreads(state);
     tearDownComponents(state);
+    deinitComponents(state);
   }
 
 }

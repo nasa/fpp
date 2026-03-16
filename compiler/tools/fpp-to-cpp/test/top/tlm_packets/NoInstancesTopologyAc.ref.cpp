@@ -54,6 +54,10 @@ void tearDownComponents(const TopologyState& state) {
   // Nothing to do
 }
 
+void deinitComponents(const TopologyState& state) {
+  // Nothing to do
+}
+
 // ----------------------------------------------------------------------
 // Setup and teardown functions
 // ----------------------------------------------------------------------
@@ -73,4 +77,5 @@ void teardown(const TopologyState& state) {
   stopTasks(state);
   freeThreads(state);
   tearDownComponents(state);
+  deinitComponents(state);
 }

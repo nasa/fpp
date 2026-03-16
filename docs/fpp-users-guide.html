@@ -502,6 +502,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Types_Abstract-Type-Definitions">6.3. Abstract Type Definitions</a></li>
 <li><a href="#Defining-Types_Alias-Type-Definitions">6.4. Alias Type Definitions</a></li>
 <li><a href="#Defining-Types_Framework-Types">6.5. Framework Types</a></li>
+<li><a href="#Defining-Types_Displayable-Types-and-Serialized-Sizes">6.6. Displayable Types and Serialized Sizes</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Enums">7. Defining Enums</a>
@@ -3086,6 +3087,129 @@ conform to certain rules.
 FPP Language Specification</em></a> has all the details.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="Defining-Types_Displayable-Types-and-Serialized-Sizes">6.6. Displayable Types and Serialized Sizes</h3>
+<div class="paragraph">
+<p>Some types have complete definitions that are known in the FPP
+model.
+For example, the type <code>U32</code> is like this.
+So is the type <code>A</code>, if <code>A</code> is an array of 3 <code>U32</code> values.
+For other types, the complete definition is not known.
+For example, if <code>T</code> is an abstract type, then the definition
+of <code>T</code> depends on its C&#43;&#43; implementation; it is not known
+in the FPP model.</p>
+</div>
+<div class="paragraph">
+<p>If an FPP type has a complete definition in the model where
+it appears, then we say the type is a <strong>displayable type</strong>,
+because it is a type that the F Prime ground system can display.
+In general, an FPP type is a displayable type <em>unless</em>
+(1) it is an <a href="#Defining-Types_Abstract-Type-Definitions">abstract type</a>;
+or (2) it is an <a href="#Defining-Types_Array-Type-Definitions">array type</a>
+whose element type is not a displayable type; or
+(3) it is a <a href="#Defining-Types_Struct-Type-Definitions">struct type</a> with at
+least one member type that is not a displayable type.
+For example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The type <code>U32</code> is a displayable type.</p>
+</li>
+<li>
+<p>The type <code>string</code> is a displayable type.</p>
+</li>
+<li>
+<p>If <code>T</code> is an abstract type, then <code>T</code> is not a displayable type.</p>
+</li>
+<li>
+<p>If <code>A</code> is an array of 3 <code>U32</code> values, then <code>A</code> is a displayable
+type.</p>
+</li>
+<li>
+<p>If <code>A</code> is an array of 3 values of type <code>T</code>, where <code>T</code> is an abstract type,
+then <code>A</code> is not a displayable type.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Every displayable type has a <strong>serialized size</strong>.
+This is the maximum number of bytes needed to represent
+a value of the type in the F Prime serialization format.
+For example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The serialized size of the type <code>U32</code> is 4.</p>
+</li>
+<li>
+<p>The serialized size <em>s</em> of the type <code>string</code> is the serialized size of the
+<a href="#Defining-Types_Framework-Types">framework type</a>
+<code>FwSizeStoreType</code> plus the value of the
+<a href="#Defining-Constants_Framework-Constants">framework constant</a>
+<code>FW_FIXED_LENGTH_STRING_SIZE</code>.
+In F Prime, a string value is stored as a length of type <code>FwSizeStoreType</code>
+followed by the characters of the string.
+A value of type <code>string</code> may have any number of characters from zero
+up to and including <code>FW_FIXED_LENGTH_STRING_SIZE</code>.
+Thus, <em>s</em> is the maximum number of bytes required to store a value of this
+type.</p>
+</li>
+<li>
+<p>If <code>T</code> is an abstract type, then <code>T</code> has no serialized size in the
+FPP model, because the implementation of <code>T</code> is not known.</p>
+</li>
+<li>
+<p>If <code>A</code> is an array of 3 <code>U32</code> values, then the serialized
+size <em>s</em> of <code>A</code> is 3 times the serialized size of <code>U32</code>.
+Thus <em>s</em> = 3 * 4 = 12.</p>
+</li>
+<li>
+<p>If <code>A</code> is an array of 3 values of type <code>T</code>, where <code>T</code> is an abstract type,
+then <code>A</code> has no serialized size in the FPP model.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When a type has a serialized size, you can use a <strong>sizeof expression</strong>
+to calculate the size.
+A sizeof expression consists of the keyword <code>sizeof</code> followed
+by the name of a type enclosed in parentheses.
+You can use a sizeof expression anywhere you can use an
+<a href="#Defining-Constants_Expressions">expression</a> that evaluates to
+an integer.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">constant a = sizeof(U32) # a = 4
+
+array A = [3] U32
+constant b = sizeof(A) + 10 # b = 3 * sizeof(U32) + 10
+                            #   = 3 * 4 + 10
+                            #   = 22
+
+type FwSizeStoreType = U16
+constant FW_FIXED_LENGTH_STRING_SIZE = 80
+constant c = sizeof(string) # c = sizeof(FwSizeStoreType) + FW_FIXED_LENGTH_STRING_SIZE
+                            #   = sizeof(U16) + 80
+                            #   = 2 + 80
+                            #   = 82</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It is an error to use a non-displayable type in a
+<code>sizeof</code> expression.
+For example, the following code is invalid:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">type T
+constant c = sizeof(T) # Error: The abstract type T has no serialized size</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -3396,12 +3520,9 @@ a Boolean value (true or false), a string value such as <code>"abc"</code>, or a
 enumerated constant value such as <code>E.A</code>.</p>
 </li>
 <li>
-<p>A dictionary type definition must define a <strong>displayable type</strong>, i.e., a
-type that the F Prime ground data system knows how to display.
-For example, the type may not be an
-<a href="#Defining-Types_Abstract-Type-Definitions">abstract type</a>.
-Nor may it be an array or struct type that has an abstract type
-as a member type.</p>
+<p>A dictionary type definition must define a
+<a href="#Defining-Types_Displayable-Types-and-Serialized-Sizes">displayable type</a>:
+that is, a type whose complete definition is known in the model.</p>
 </li>
 </ol>
 </div>
@@ -3410,8 +3531,8 @@ as a member type.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">dictionary constant a = { x = 1, y = 2.0 } # Error: a has struct type
-dictionary type T # Error: T is an abstract type</code></pre>
+<pre class="prettyprint highlight"><code data-lang="fpp">dictionary constant a = { x = 1, y = 2.0 } # Error: the constant a has a struct type
+dictionary type T # Error: the type T is an abstract type</code></pre>
 </div>
 </div>
 </div>
@@ -10363,9 +10484,9 @@ The FPP translator pastes the snippet into the setup
 or teardown code according to the phase named in
 the specifier.
 (Strictly speaking, the init specifier should be called
-a "setup or teardown specifier."
+a &#8220;setup or teardown specifier.&#8221;
 However, most of the code is in fact initialization code,
-and so FPP uses "init" as a shorthand name.)</p>
+and so FPP uses &#8220;init&#8221; as a shorthand name.)</p>
 </div>
 <div class="sect3">
 <h4 id="Defining-Component-Instances_Init-Specifiers_Execution-Phases">13.3.1. Execution Phases</h4>
@@ -10551,6 +10672,16 @@ active component; otherwise none.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">In the file-private function <code>tearDownComponents</code>.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">None.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>deinitComponents</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>T</em> <code>TopologyAc.cpp</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Code for performing non-standard
+<strong>deinitialization</strong> on an instance <em>I</em>.
+Deinitialization releases resources
+acquired by <em>I</em> during the <code>initComponents</code> phase.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">In the file-private function <code>deinitComponents</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The standard call to <code>deinit</code> for <em>I</em>.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -10560,9 +10691,9 @@ These phases often require implementation-specific input that
 cannot be provided in any other way, except to write an init specifier.</p>
 </div>
 <div class="paragraph">
-<p>In theory you should never have to write code for <code>instances</code>
-or <code>initComponents</code>&#8201;&#8212;&#8201;this code can be be standardized&#8201;&#8212;&#8201;but in practice not all F Prime components conform to the standard,
-so you may have to override the default.</p>
+<p>You should rarely, if ever, have to write code for <code>instances</code>,
+<code>initComponents</code>, or <code>deinitComponents</code>. These phases follow a standard
+pattern, so the auto-generated code should suffice.</p>
 </div>
 <div class="paragraph">
 <p>You will typically not have to write code for <code>regCommands</code>,
@@ -16318,7 +16449,8 @@ auto-generated helper functions:</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="cpp">void stopTasks(const TopologyState&amp; state);
 void freeThreads(const TopologyState&amp; state);
-void tearDownComponents(const TopologyState&amp; state);</code></pre>
+void tearDownComponents(const TopologyState&amp; state);
+void deinit(const TopologyState&amp; state);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -16470,7 +16602,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-10 15:21:09 -0700
+Last updated 2026-03-15 21:38:09 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
