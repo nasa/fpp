@@ -17,6 +17,8 @@ expr_binop
 expr_dot
 expr_ident
 expr_paren
+expr_sizeof
+expr_sizeof_implied_type
 expr_struct
 expr_struct_dot
 expr_unop
