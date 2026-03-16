@@ -353,8 +353,6 @@ case class ComponentParameters (
       getParam(param, "_paramValid"),
       lines(
         s"""|
-            |// Get the local ID to pass to the delegate
-            |_id = $idConstantName;
             |// If there was a deserialization issue, mark it invalid
             |"""
       ),
@@ -363,11 +361,11 @@ case class ComponentParameters (
         List.concat(
           lines(
             s"""|// Pass the local ID to the delegate
-                |_id = $idConstantName;
+                |constexpr FwPrmIdType _localId = $idConstantName;
                 |
                 |FW_ASSERT(this->paramDelegatePtr != nullptr);
                 |// Call the delegate deserialize function for $varName
-                |_stat = this->paramDelegatePtr->deserializeParam(_baseId, _id, _paramValid, _buff);
+                |_stat = this->paramDelegatePtr->deserializeParam(_baseId, _localId, _paramValid, _buff);
                 |"""
           ),
           wrapInIf(
