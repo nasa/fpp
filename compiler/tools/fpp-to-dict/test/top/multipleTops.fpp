@@ -1,5 +1,9 @@
 module Module1 {
 
+  constant c = [1, 2, 3, 4]
+
+  constant c2 = { x = 1, y = 1.5 }
+
   @ Alias of type U32
   type AliasT1 = U32
   @ Alias of type AliasT1 (with underlying type U32)
@@ -32,7 +36,7 @@ module Module1 {
   array I32x3 = [3] I32
 
   @ An array of 4 U32 values
-  array U32x4 = [4] U32 default [1, 2, 3, 4]
+  array U32x4 = [4] U32 default c
 
   @ An array of 2 String values
   array StringArray = [2] string default ["A", "B"]
@@ -44,7 +48,7 @@ module Module1 {
   struct S1 {
     x: U64 format "The value of x is {}"
     y: F32 format "The value of y is {.2f}"
-  } default { x = 1, y = 1.5 }
+  } default c2
 
   struct S2 {
     x: E2,
