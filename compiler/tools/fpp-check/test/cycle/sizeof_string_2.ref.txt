@@ -1,0 +1,8 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/cycle/sizeof_string_2.fpp:2.1
+constant FW_FIXED_LENGTH_STRING_SIZE = sizeof(string)
+^
+error: encountered a use-def cycle:
+  use FW_FIXED_LENGTH_STRING_SIZE at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/sizeof_string_2.fpp:2.47 refers to definition FW_FIXED_LENGTH_STRING_SIZE at [ local path prefix ]/compiler/tools/fpp-check/test/cycle/sizeof_string_2.fpp:2.1
+note: the symbol FW_FIXED_LENGTH_STRING_SIZE has an implied use at the point of the error
+note: use of a string type with default size requires this definition

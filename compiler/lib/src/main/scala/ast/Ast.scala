@@ -306,10 +306,11 @@ object Ast {
   final case class ExprDot(e: AstNode[Expr], id: AstNode[Ident]) extends Expr
   final case class ExprIdent(value: Ident) extends Expr
   final case class ExprLiteralBool(value: LiteralBool) extends Expr
-  final case class ExprLiteralInt(value: String) extends Expr
   final case class ExprLiteralFloat(value: String) extends Expr
+  final case class ExprLiteralInt(value: String) extends Expr
   final case class ExprLiteralString(value: String) extends Expr
   final case class ExprParen(e: AstNode[Expr]) extends Expr
+  final case class ExprSizeOf(typeName: AstNode[TypeName]) extends Expr
   final case class ExprStruct(members: List[AstNode[StructMember]]) extends Expr
   final case class ExprUnop(op: Unop, e: AstNode[Expr]) extends Expr
 

@@ -154,6 +154,10 @@ _Integer_.
 
 . Use stem:[T] as the type of the expression.
 
+=== Sizeof Expressions
+
+The type of a <<Expressions_Sizeof-Expressions,sizeof expression>> is _Integer_.
+
 === Struct Expressions
 
 To type a
