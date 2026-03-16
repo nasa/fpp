@@ -66,6 +66,11 @@ according to [git flow](https://docs.github.com/en/get-started/quickstart/github
 For each contribution, developers should first fetch the latest changes from upstream. Then create a new branch off
 `main` and submit back to FPP using a pull request as described above.
 
+If you are developing a new feature in multiple PRs, create PRs off of `feature/...`
+instead of `main`. Once the feature is complete, a final staging PR may be made
+against `main` and an [alpha release](https://github.com/nasa/fpp/releases) may be
+tagged to test against the F Prime repository.
+
 **Preparing A New Branch**
 ```
 git fetch upstream
