@@ -648,12 +648,9 @@ case class DictionaryJsonEncoder(
 
     /** Given a set of symbols, returns subset consisting of array, enum, struct, and alias symbols */
     private def getTypeDefSymbols(symbolSet: Set[Symbol], outSet: Set[Symbol]): Set[Symbol] =
-        symbolSet.filter(s =>
-            s match {
-                case _: (Symbol.Array | Symbol.Enum | Symbol.Struct | Symbol.AliasType) => true
-                case _ => false
-            }
-        )
+        symbolSet.collect {
+            case s: (Symbol.Array | Symbol.Enum | Symbol.Struct | Symbol.AliasType) => s
+        }
 
     /** Query whether a constant is representable in the dictionary */
     private def constantIsRepresentable(c: Symbol.Constant) = {
