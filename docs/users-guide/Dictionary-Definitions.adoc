@@ -50,17 +50,14 @@ floating point),
 a Boolean value (true or false), a string value such as `"abc"`, or an 
 enumerated constant value such as `E.A`.
 
-. A dictionary type definition must define a *displayable type*, i.e., a
-type that the F Prime ground data system knows how to display.
-For example, the type may not be an
-<<Defining-Types_Abstract-Type-Definitions,abstract type>>.
-Nor may it be an array or struct type that has an abstract type
-as a member type.
+. A dictionary type definition must define a
+<<Defining-Types_Displayable-Types-and-Serialized-Sizes,displayable type>>:
+that is, a type whose complete definition is known in the model.
 
 For example, the following dictionary definitions are invalid:
 
 [source,fpp]
 --------
-dictionary constant a = { x = 1, y = 2.0 } # Error: a has struct type
-dictionary type T # Error: T is an abstract type
+dictionary constant a = { x = 1, y = 2.0 } # Error: the constant a has a struct type
+dictionary type T # Error: the type T is an abstract type
 --------

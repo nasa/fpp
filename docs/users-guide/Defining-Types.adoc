@@ -765,26 +765,101 @@ https://nasa.github.io/fpp/fpp-spec.html#Definitions_Framework-Definitions_Type-
 FPP Language Specification_] has all the details.
 
 
-=== Sizeof Types
+=== Displayable Types and Serialized Sizes
 
-You can compute the size of a type by using the 
-<<Defining-Constants_Expressions_Sizeof-Expressions,`sizeof` expression>>.
-The `sizeof` expression evaluates to an integer value representing the 
-maximum number of bytes required to represent any value of the specified type. 
+Some types have complete definitions that are known in the FPP
+model.
+For example, the type `U32` is like this.
+So is the type `A`, if `A` is an array of 3 `U32` values.
+For other types, the complete definition is not known.
+For example, if `T` is an abstract type, then the definition
+of `T` depends on its {cpp} implementation; it is not known
+in the FPP model.
+
+If an FPP type has a complete definition in the model where
+it appears, then we say the type is a *displayable type*,
+because it is a type that the F Prime ground system can display.
+In general, an FPP type is a displayable type _unless_
+(1) it is an <<Defining-Types_Abstract-Type-Definitions,abstract type>>;
+or (2) it is an <<Defining-Types_Array-Type-Definitions,array type>>
+whose element type is not a displayable type; or
+(3) it is a <<Defining-Types_Struct-Type-Definitions,struct type>> with at
+least one member type that is not a displayable type.
 For example:
+
+* The type `U32` is a displayable type.
+
+* The type `string` is a displayable type.
+
+* If `T` is an abstract type, then `T` is not a displayable type.
+
+* If `A` is an array of 3 `U32` values, then `A` is a displayable
+  type.
+
+* If `A` is an array of 3 values of type `T`, where `T` is an abstract type,
+  then `A` is not a displayable type.
+
+Every displayable type has a *serialized size*.
+This is the maximum number of bytes needed to represent
+a value of the type in the F Prime serialization format.
+For example:
+
+* The serialized size of the type `U32` is 4.
+
+* The serialized size _s_ of the type `string` is the serialized size of the
+  <<Defining-Types_Framework-Types,framework type>>
+  `FwSizeStoreType` plus the value of the
+  <<Defining-Constants_Framework-Constants,framework constant>>
+  `FW_FIXED_LENGTH_STRING_SIZE`.
+  In F Prime, a string value is stored as a length of type `FwSizeStoreType`
+  followed by the characters of the string.
+  A value of type `string` may have any number of characters from zero
+  up to and including `FW_FIXED_LENGTH_STRING_SIZE`.
+  Thus, _s_ is the maximum number of bytes required to store a value of this
+  type.
+
+* If `T` is an abstract type, then `T` has no serialized size in the
+  FPP model, because the implementation of `T` is not known.
+
+* If `A` is an array of 3 `U32` values, then the serialized
+  size _s_ of `A` is 3 times the serialized size of `U32`.
+  Thus _s_ = 3 * 4 = 12.
+
+* If `A` is an array of 3 values of type `T`, where `T` is an abstract type,
+  then `A` has no serialized size in the FPP model.
+
+When a type has a serialized size, you can use a *sizeof expression*
+to calculate the size.
+A sizeof expression consists of the keyword `sizeof` followed
+by the name of a type enclosed in parentheses.
+You can use a sizeof expression anywhere you can use an
+<<Defining-Constants_Expressions,expression>> that evaluates to
+an integer.
+For example:
+
 [source,fpp]
 ----
-constant i = sizeof(U32)
-----
+constant a = sizeof(U32) # a = 4
 
-In this example, constant `i` has a value 4.
+array A = [3] U32
+constant b = sizeof(A) + 10 # b = 3 * sizeof(U32) + 10
+                            #   = 3 * 4 + 10
+                            #   = 22
 
-Here is an example that computes the size of a string:
-[source,fpp]
-----
 type FwSizeStoreType = U16
-constant FW_FIXED_LENGTH_STRING_SIZE = 256
-constant s = sizeof(string)
+constant FW_FIXED_LENGTH_STRING_SIZE = 80
+constant c = sizeof(string) # c = sizeof(FwSizeStoreType) + FW_FIXED_LENGTH_STRING_SIZE
+                            #   = sizeof(U16) + 80
+                            #   = 2 + 80
+                            #   = 82
 ----
 
-In this example, the constant `s` has a value of 258.
+It is an error to use a non-displayable type in a
+`sizeof` expression.
+For example, the following code is invalid:
+
+[source,fpp]
+--------
+type T
+constant c = sizeof(T) # Error: The abstract type T has no serialized size
+--------
