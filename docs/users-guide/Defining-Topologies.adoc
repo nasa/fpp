@@ -865,8 +865,7 @@ a.p[0] -> b.p[0]
 a.p[1] -> c.p[0]
 --------
 
-
-=== Importing Topologies
+=== Composing Topologies
 
 It is often useful to decompose a flight software project
 into several topologies.
@@ -889,24 +888,29 @@ Further, to enable modular testing, it is useful for
 each topology to be able to run on its own.
 
 In FPP, the way we accomplish these goals is to *import*
-one topology into another one.
+one topology into another one and to encapulate topologies
+into blackboxes using topology *ports*.
 In this section of the User Guide, we explain how to do that.
 
 ==== Importing Instances and Connections
 
 To import a topology `A` into a topology `B`, you write
-`import A` inside topology `B`, like this:
+`instance A` inside topology `B`, like this:
 
 [source,fpp]
 --------
 topology B {
   
-  import A
+  instance A
 
   ...
 
 }
 --------
+
+Notice that the the topology `A` is not distinguished from a compnent instance
+`A`. This is because both are considered "interface instances". Typically
+topologies are named in `PascalCase` while component are named in `camelCase`.
 
 You may add instances and connections as usual to `B`, as shown
 by the dots.
@@ -949,7 +953,7 @@ topology A {
 
 topology B {
 
-  import A
+  instance A
 
   instance c
 
@@ -998,8 +1002,8 @@ For example:
 --------
 topology A {
 
-  import B
-  import C
+  instance B
+  instance C
 
   ...
 
@@ -1017,8 +1021,8 @@ For example, this is incorrect:
 --------
 topology A {
 
-  import B
-  import B # Error: B imported twice
+  instance B
+  instance B # Error: B imported twice
 
 }
 --------
@@ -1035,6 +1039,73 @@ and then we resolve `A`.
 Cycles in the import graph are not allowed.
 For example, if `A` imports `B` and `B` imports `C`
 and `C` imports `A`, you will get an error.
+
+
+==== Topology Ports
+
+Earlier in this section we elluded that topology definitions can
+be imported into other topologies using the same mechanism that
+a component instance would be imported. This is because to the
+perspective of the topology, they can largely be treated the same
+way.
+
+A topology port is a port name assigned to the topology that maps
+to another port instance. It is best to think of a topology port
+like a port alias for a connection endpoint _inside_ the topology.
+
+For example:
+
+[source,fpp]
+--------
+topology A {
+
+  instance b
+
+  port bOut = b.somePortOut
+
+}
+
+topology B {
+
+  instance A # import the topoology
+  instance c # import another instance
+
+  connections C {
+
+    A.bOut -> c.bIn
+
+  }
+
+}
+--------
+
+Because the topology port `A.bOut` is really just an alias to
+`b.somePortOut`, this topology will eventually resolve to:
+
+[source,fpp]
+--------
+topology B {
+
+  instance A # import the topoology
+  instance c # import another instance
+
+  connections C {
+
+    b.somePortOut -> c.bIn
+
+  }
+
+}
+--------
+
+It can be useful to use topology ports in most cases when a sub-topology
+is imported into a super topology. Defining topology ports allows
+encapsulation of port connections and signals to a developer importing
+a topology which port instances need to interface with the outer topology.
+
+
+===== Implementing interfaces
+
 
 
 === Include Specifiers
