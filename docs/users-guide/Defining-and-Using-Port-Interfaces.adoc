@@ -175,3 +175,81 @@ interface I2 {
   sync input port p2: P
 }
 ----
+
+=== Using Port Interfaces in Topology Definitions
+
+Unlike when used in component definitions and interface definitions,
+topologies cannot _import_ port interfaces. Rather port interfaces in
+the context of topologies are just for verifying the existence and
+signature of the port instances in the topology.
+
+We say that a topology _implements_ a port interfaces if and only if
+the topology includes a topology port for every port instance defined
+in the interface with a matching port definition. To mark a topology
+with a port interface, an `implements` clause may be used.
+
+For example:
+
+[source,fpp]
+----
+port P
+
+interface I1 {
+  sync input port p1: P
+  sync input port p2: P
+}
+
+passive component C {
+  import I1
+
+  sync input port p3: P
+}
+
+instance i1: C base id 0
+instance i2: C base id 1
+
+topology T0 {
+  instance i1
+  instance i2
+
+  port p1 = i1.p1
+  port p2 = i2.p2
+  port p2Extra = i2.p3
+}
+
+topology T1 implements I1 {
+  instance i1
+  instance i2
+
+  # Topology ports for every port in I1
+  port p1 = i1.p1
+  port p2 = i2.p2
+
+  # Additional ports may be defined outside of I1
+  port p2Extra = i2.p3
+}
+----
+
+In the above example, `T0` and `T1` are functionally equivalent.
+`T1` includes an `implements` clause which is useful for development
+and maintainence to signal that the topology is directly related to
+the interface.
+
+If a topology includes an `implements` clause that does not define
+a port instance `I1`, this is considered invalid FPP and will produce
+an error.
+
+For example:
+
+[source,fpp]
+--------
+port P
+
+interface I1 {
+  sync input port p1: P
+  sync input port p2: P
+}
+
+# Error: topology definition missing port `p1` and p2
+topology T implements I1 {}
+--------

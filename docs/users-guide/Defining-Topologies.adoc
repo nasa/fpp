@@ -888,8 +888,8 @@ Further, to enable modular testing, it is useful for
 each topology to be able to run on its own.
 
 In FPP, the way we accomplish these goals is to *import*
-one topology into another one and to encapulate topologies
-into blackboxes using topology *ports*.
+one topology into another one and to encapsulate topologies
+into black boxes using topology *ports*.
 In this section of the User Guide, we explain how to do that.
 
 ==== Importing Instances and Connections
@@ -908,7 +908,7 @@ topology B {
 }
 --------
 
-Notice that the the topology `A` is not distinguished from a compnent instance
+Notice that the the topology `A` is not distinguished from a component instance
 `A`. This is because both are considered "interface instances". Typically
 topologies are named in `PascalCase` while component are named in `camelCase`.
 
@@ -1043,7 +1043,7 @@ and `C` imports `A`, you will get an error.
 
 ==== Topology Ports
 
-Earlier in this section we elluded that topology definitions can
+Earlier in this section we alluded that topology definitions can
 be imported into other topologies using the same mechanism that
 a component instance would be imported. This is because to the
 perspective of the topology, they can largely be treated the same
@@ -1052,6 +1052,11 @@ way.
 A topology port is a port name assigned to the topology that maps
 to another port instance. It is best to think of a topology port
 like a port alias for a connection endpoint _inside_ the topology.
+
+The concrete behavior of a port will be defined by the port instance
+it maps to. If that port instance is another topology port, this behavior
+will be recursively resolved to a port instance of a component instance
+definition.
 
 For example:
 
@@ -1067,7 +1072,7 @@ topology A {
 
 topology B {
 
-  instance A # import the topoology
+  instance A # import the topology
   instance c # import another instance
 
   connections C {
@@ -1086,7 +1091,7 @@ Because the topology port `A.bOut` is really just an alias to
 --------
 topology B {
 
-  instance A # import the topoology
+  instance A # import the topology
   instance c # import another instance
 
   connections C {
@@ -1103,10 +1108,19 @@ is imported into a super topology. Defining topology ports allows
 encapsulation of port connections and signals to a developer importing
 a topology which port instances need to interface with the outer topology.
 
-
 ===== Implementing interfaces
 
+A topology definition may refer to a port interface through an
+`implements` clause which will verify that the set of port instances
+defined in the port interface exist in the topology definition.
 
+The usage of the `implements`` clause is defined in <<Defining-and-Using-Port-Interfaces_Using-Port-Interfaces-in-Topology-Definitions,
+a separate section>>.
+
+We recommend using the implements clause whenever a topology definition
+needs to conform to a port interface. This ensures compatibility
+expectations with the topology when imported into another larger
+topologies.
 
 === Include Specifiers
 
