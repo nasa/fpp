@@ -593,7 +593,7 @@ case class DictionaryJsonEncoder(
     def dictionaryAsJson: Json = {
         /** Split set into individual sets consisting of each symbol type (arrays, enums, structs, aliases, and constants) */
         val typeDefSymbols = getTypeDefSymbols(dictionary.usedSymbolSet, Set())
-        val constantSymbols = getConstantSymbols(dictionary.usedSymbolSet, Set())
+        val constantSymbols = getConstantSymbols(dictionary.usedSymbolSet)
         /** Convert each dictionary element to JSON and return the complete dictionary JSON */
         Json.obj(
             "metadata" -> dictionaryState.metadata.asJson,
@@ -647,25 +647,27 @@ case class DictionaryJsonEncoder(
     }
 
     /** Given a set of symbols, returns subset consisting of array, enum, struct, and alias symbols */
-    private def getTypeDefSymbols(symbolSet: Set[Symbol], outSet: Set[Symbol]): (Set[Symbol]) = {
-        if (symbolSet.isEmpty) (outSet) else {
-            val (tail, out) = symbolSet.head match {
-                case h: (Symbol.Array | Symbol.Enum | Symbol.Struct | Symbol.AliasType) => (symbolSet.tail, outSet + h)
-                case _ => (symbolSet.tail, outSet)
+    private def getTypeDefSymbols(symbolSet: Set[Symbol], outSet: Set[Symbol]): Set[Symbol] =
+        symbolSet.filter(s =>
+            s match {
+                case _: (Symbol.Array | Symbol.Enum | Symbol.Struct | Symbol.AliasType) => true
+                case _ => false
             }
-            getTypeDefSymbols(tail, out)
-        }
+        )
+
+    /** Query whether a constant is representable in the dictionary */
+    private def constantIsRepresentable(c: Symbol.Constant) = {
+        val t = dictionaryState.a.typeMap(c.getNodeId)
+        t == Type.Integer || t.isDisplayable
     }
 
     /** Given a set of symbols, returns subset consisting of constant symbols only */
-    private def getConstantSymbols(symbolSet: Set[Symbol], outSet: Set[Symbol]): (Set[Symbol]) = {
-        if (symbolSet.isEmpty) (outSet) else {
-            val (tail, out) = symbolSet.head match {
-                case h: (Symbol.Constant) => (symbolSet.tail, outSet + h)
-                case _ => (symbolSet.tail, outSet)
+    private def getConstantSymbols(symbolSet: Set[Symbol]): Set[Symbol] =
+        symbolSet.filter(s =>
+            s match {
+                case c: Symbol.Constant => constantIsRepresentable(c)
+                case _ => false
             }
-            getConstantSymbols(tail, out)
-        }
-    }
+        )
 
 }

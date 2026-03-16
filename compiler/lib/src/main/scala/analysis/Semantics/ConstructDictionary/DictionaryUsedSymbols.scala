@@ -18,16 +18,7 @@ final case class DictionaryUsedSymbols(a: Analysis, t: Topology) {
       impliedUses,
       a.dictionarySymbolSet
     )
-    // Filter out constant uses that are not displayable
-    UsedSymbols.resolveUses(a, ss).filter {
-      case c: Symbol.Constant => {
-        val t = a.typeMap(c.getNodeId)
-        t match 
-          case Type.Integer => true
-          case _ => t.isDisplayable
-      }
-      case _ => true
-    }
+    UsedSymbols.resolveUses(a, ss)
 
   private def getUsedSymbolsForInstance(ci: ComponentInstance) = {
     val component = ci.component
