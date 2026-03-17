@@ -654,11 +654,13 @@ object Type {
     }
 
     override def struct(a: Analysis, t: Type.Struct) = {
-      val values = t.anonStruct.members.values
+      val sizes = t.sizes
+      val members = t.anonStruct.members
       val initialValue: Option[BigInt] = Some(BigInt(0))
-      values.foldLeft (initialValue) {
-        (sizeOpt, t1) => (sizeOpt, ty(a, t1)) match {
-          case (Some(s1), Some(s2)) => Some(s1 + s2)
+      members.foldLeft(initialValue) { (sizeOpt, entry) =>
+        val (unqual_name, t1) = entry
+        (sizeOpt, ty(a, t1)) match {
+          case (Some(s1), Some(s2)) => Some(s1 + (s2 * sizes.getOrElse(unqual_name, 1)))
           case _ => None
         }
       }
