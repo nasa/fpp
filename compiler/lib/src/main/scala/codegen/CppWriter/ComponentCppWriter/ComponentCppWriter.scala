@@ -145,7 +145,7 @@ case class ComponentCppWriter (
       "Fw/Types/Assert.hpp",
       "Fw/Types/ExternalString.hpp",
       "Fw/Types/String.hpp",
-      s"${s.getRelativePath(fileName).toString}.hpp"
+      s.getIncludePath(componentSymbol, fileName)
     ).sorted.map(CppWriter.headerString).flatMap({
       case s: "#include \"Fw/Types/String.hpp\"" =>
         lines(

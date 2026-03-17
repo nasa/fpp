@@ -9,7 +9,7 @@
 #if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
 #endif
-#include "base/QueuedTestComponentAc.hpp"
+#include "QueuedTestComponentAc.hpp"
 
 namespace {
   enum MsgTypeEnum {
