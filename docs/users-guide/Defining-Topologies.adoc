@@ -1043,7 +1043,7 @@ and `C` imports `A`, you will get an error.
 
 ==== Topology Ports
 
-Earlier in this section we alluded that topology definitions can
+Earlier in this section we explained that topology definitions can
 be imported into other topologies using the same mechanism that
 a component instance would be imported. This is because to the
 perspective of the topology, they can largely be treated the same
