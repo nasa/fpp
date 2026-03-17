@@ -4,8 +4,8 @@
 // \brief  cpp file for ArrayAliasArray array
 // ======================================================================
 
+#include "ArrayAliasArrayArrayAc.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "base/ArrayAliasArrayArrayAc.hpp"
 
 // ----------------------------------------------------------------------
 // Constructors
