@@ -322,6 +322,9 @@ object Parser extends Parsers {
       def parenExpr = lparen ~> exprNode <~ rparen ^^ (e =>
         Ast.ExprParen(e))
 
+      def sizeofExpr =
+        sizeOf ~> lparen ~> node(typeName) <~ rparen ^^ (tn => Ast.ExprSizeOf(tn))
+
       def stringExpr = literalString ^^ (s => Ast.ExprLiteralString(s))
 
       def structMember = ident ~! (equals ~>! exprNode) ^^ { case id ~ e =>
@@ -340,6 +343,7 @@ object Parser extends Parsers {
         identExpr |
         intExpr |
         parenExpr |
+        sizeofExpr |
         stringExpr |
         structExpr |
         trueExpr |
@@ -1306,6 +1310,8 @@ object Parser extends Parsers {
   private def signal = accept("signal", { case t: Token.SIGNAL => t })
 
   private def size = accept("size", { case t: Token.SIZE => t })
+
+  private def sizeOf = accept("sizeof", { case t: Token.SIZEOF => t })
 
   private def slash = accept("/", { case t: Token.SLASH => t })
 

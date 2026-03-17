@@ -137,6 +137,14 @@ namespace M {
     M::active2.tearDown();
   }
 
+  void deinitComponents(const TopologyState& state) {
+    M::active2.deinitSpecial();
+    M::active3.deinit();
+    M::passive1.deinit();
+    M::passive2.deinit();
+    active1.deinit();
+  }
+
   // ----------------------------------------------------------------------
   // Setup and teardown functions
   // ----------------------------------------------------------------------
@@ -156,6 +164,7 @@ namespace M {
     stopTasks(state);
     freeThreads(state);
     tearDownComponents(state);
+    deinitComponents(state);
   }
 
 }

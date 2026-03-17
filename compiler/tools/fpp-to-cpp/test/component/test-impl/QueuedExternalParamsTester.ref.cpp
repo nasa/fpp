@@ -23,7 +23,7 @@ QueuedExternalParamsTester ::
 QueuedExternalParamsTester ::
   ~QueuedExternalParamsTester()
 {
-
+  this->component.deinit();
 }
 
 // ----------------------------------------------------------------------
