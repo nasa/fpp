@@ -1104,7 +1104,7 @@ topology B {
 --------
 
 It can be useful to use topology ports in most cases when a sub-topology
-is imported into a super topology. Defining topology ports allows
+is imported into a parent topology. Defining topology ports allows
 encapsulation of port connections and signals to a developer importing
 a topology which port instances need to interface with the outer topology.
 
