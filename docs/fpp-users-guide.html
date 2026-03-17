@@ -12068,8 +12068,27 @@ In this section of the User Guide, we explain how to do that.</p>
 </div>
 <div class="paragraph">
 <p>Notice that the the topology <code>A</code> is not distinguished from a component instance
-<code>A</code>. This is because both are considered "interface instances". Typically
-topologies are named in <code>PascalCase</code> while component are named in <code>camelCase</code>.</p>
+<code>A</code>. This is because both are considered interface instances. Typically
+topologies are named in <code>PascalCase</code> while component are named in <code>camelCase</code>.
+Interface instances refer to either component instances or topologies. They are FPP
+constructs that include port <em>instances</em> and therefore can be thought of as the
+instantiation of a port <em>interface</em>.</p>
+</div>
+<div id="Defining-Topologies_Composing-Topologies_" class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="title">Backwards compatibility</div>
+<div class="paragraph">
+<p><code>import A</code> may be used in place of <code>instance A</code>. The <code>import</code> keyword was
+kept for backwards compatibility and is 1:1 compatible with <code>instance</code>.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>You may add instances and connections as usual to <code>B</code>, as shown
@@ -12223,7 +12242,7 @@ and <code>C</code> imports <code>A</code>, you will get an error.</p>
 <div class="sect3">
 <h4 id="Defining-Topologies_Composing-Topologies_Topology-Ports">14.4.4. Topology Ports</h4>
 <div class="paragraph">
-<p>Earlier in this section we alluded that topology definitions can
+<p>Earlier in this section we explained that topology definitions can
 be imported into other topologies using the same mechanism that
 a component instance would be imported. This is because to the
 perspective of the topology, they can largely be treated the same
@@ -12288,8 +12307,8 @@ topology B {
 </div>
 </div>
 <div class="paragraph">
-<p>It can be useful to use topology ports in most cases when a sub-topology
-is imported into a super topology. Defining topology ports allows
+<p>It can be useful to use topology ports in most cases when a subtopology
+is imported into a parent topology. Defining topology ports allows
 encapsulation of port connections and signals to a developer importing
 a topology which port instances need to interface with the outer topology.</p>
 </div>
@@ -16786,7 +16805,7 @@ serialized according to its
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2026-03-16 14:16:45 -0700
+Last updated 2026-03-17 12:53:10 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

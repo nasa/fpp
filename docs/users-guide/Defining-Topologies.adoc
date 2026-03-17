@@ -909,8 +909,18 @@ topology B {
 --------
 
 Notice that the the topology `A` is not distinguished from a component instance
-`A`. This is because both are considered "interface instances". Typically
+`A`. This is because both are considered interface instances. Typically
 topologies are named in `PascalCase` while component are named in `camelCase`.
+Interface instances refer to either component instances or topologies. They are FPP
+constructs that include port _instances_ and therefore can be thought of as the
+instantiation of a port _interface_.
+
+[NOTE] 
+.Backwards compatibility
+==== 
+`import A` may be used in place of `instance A`. The `import` keyword was
+kept for backwards compatibility and is 1:1 compatible with `instance`.
+====
 
 You may add instances and connections as usual to `B`, as shown
 by the dots.
@@ -1042,12 +1052,6 @@ and `C` imports `A`, you will get an error.
 
 
 ==== Topology Ports
-
-Earlier in this section we explained that topology definitions can
-be imported into other topologies using the same mechanism that
-a component instance would be imported. This is because to the
-perspective of the topology, they can largely be treated the same
-way.
 
 A topology port is a port name assigned to the topology that maps
 to another port instance. It is best to think of a topology port
