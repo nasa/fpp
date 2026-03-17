@@ -13,4 +13,5 @@ sizeof_not_displayable
 sizeof_ok
 sizeof_string_fw_store_type_not_defined
 struct_duplicate
+string_concat_ok
 "
