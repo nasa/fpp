@@ -2835,7 +2835,10 @@ void PassiveSyncProductsComponentBase ::
       const Fw::Success& status
   )
 {
-  DpContainer container(id, buffer, this->getIdBase());
+  DpContainer container;
+  if (status == Fw::Success::SUCCESS) {
+    container = DpContainer(id, buffer, this->getIdBase());
+  }
   // Convert global id to local id
   const FwDpIdType idBase = this->getIdBase();
   FW_ASSERT(
