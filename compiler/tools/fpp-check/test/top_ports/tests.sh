@@ -4,10 +4,10 @@ implements
 implements_port_mismatch_1
 implements_port_mismatch_2
 implements_port_missing
+interface_instance_not_member
 internal_port
 nested
 out_to_out
 top_to_top
-unincluded_port
 unmatched_types
 "
