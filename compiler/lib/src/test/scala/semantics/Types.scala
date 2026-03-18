@@ -38,10 +38,14 @@ object Types {
     Enum(anode, repType)
   }
 
-  def struct(name: Ast.Ident, anonStruct: AnonStruct = AnonStruct(Map()), id: AstNode.Id = 0): Struct = {
+  def stringWithSize(size: java.lang.String, sizeNodeId: AstNode.Id) = {
+    String(Some(AstNode.create(Ast.ExprLiteralInt(size), sizeNodeId)))
+  }
+
+  def struct(name: Ast.Ident, anonStruct: AnonStruct = AnonStruct(Map()), id: AstNode.Id = 0, sizes: Struct.Sizes = Map()): Struct = {
     val d = Ast.DefStruct(name, List(), None, false)
     val anode = annotatedNode(d, id)
-    Struct(anode, anonStruct)
+    Struct(anode, anonStruct, None, sizes)
   }
 
   val defaultAbsType: AbsType = absType("T", 0)
